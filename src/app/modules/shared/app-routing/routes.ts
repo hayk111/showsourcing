@@ -12,6 +12,7 @@ import { AccountCreatedComponent } from '../auth/components/account-created/acco
 import { AuthCardComponent } from '../auth/components/auth-card/auth-card.component';
 import { SupplierPageComponent } from '../../features/supplier-page/components/supplier-page/supplier-page.component';
 import { ProductsPageComponent } from '../../features/products-page/components/products-page/products-page.component';
+import { BaseComponent } from '../../features/test/base/base.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -22,7 +23,7 @@ export const routes: Array<Route> = [
 			]},
 			{ path: 'login', component: AuthCardComponent },
 			{ path: 'account-created', component: AccountCreatedComponent },
-			{ path: 'test', component: TestComponent },
+
 
 		]
 	},
@@ -30,7 +31,10 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
-			{ path: 'products', component: ProductsPageComponent }
+			{ path: 'products', component: ProductsPageComponent },
+			// TODO: Remove two under this
+			{ path: 'test', component: TestComponent },
+			{ path: 'base', component: BaseComponent }
 		]
 	},
 	{ path: '**', redirectTo: '' }

@@ -4,13 +4,16 @@ import { TestComponent } from './test/test.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
+import { BaseComponent } from './base/base.component';
+import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormBuilderModule,
-    ReactiveFormsModule
+		ReactiveFormsModule,
+		FilteredListPageModule
   ],
-  declarations: [TestComponent],
+  declarations: [TestComponent, BaseComponent],
 })
 export class TestModule { }

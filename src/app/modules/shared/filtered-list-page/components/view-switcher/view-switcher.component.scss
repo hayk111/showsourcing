@@ -1,0 +1,25 @@
+.list, .module{
+	height: 30px!important;
+	width: 30px!important;
+	font-size: 30px!important;
+}
+
+.module{
+	// because it's not the same size as the other icon and adjusting
+	// font-size moves the other because of flex
+	transform: scale(1.09);
+}
+
+// .selected{
+// 	color: var(--color-primary);
+// }
+
+// this was done like this because there was a bug at the time of doing this 
+// icons didn't show up when using interpolation
+.c-list .list{
+	color: var(--color-primary);
+}
+
+.c-card .module{
+	color: var(--color-primary);
+}

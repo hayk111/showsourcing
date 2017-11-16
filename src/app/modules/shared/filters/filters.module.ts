@@ -13,8 +13,10 @@ import { FilterSearchBarComponent } from './components/filter-search-bar/filter-
 		MatCheckboxModule,
 		MatIconModule
 	],
-	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, FilterTagComponent, FilterSearchBarComponent ],
-	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, FilterTagCloudComponent ]
+	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
+		FilterTagComponent, FilterSearchBarComponent ],
+	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, 
+		FilterTagCloudComponent ]
 })
 export class FiltersModule { }
 

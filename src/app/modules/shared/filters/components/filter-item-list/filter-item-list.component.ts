@@ -21,7 +21,7 @@ import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
-	@Input() filterName: FilterGroupName;
+	@Input() filterGroupName: FilterGroupName;
 	private _target: string;
 	private target$ = new Subject<string>();
 	@Output() change = new EventEmitter<FilterById>();
@@ -34,7 +34,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			distinctUntilChanged()
 		).subscribe(t => {
-			this.items$ = this.store.select(selectFiltersWithChecked(this.filterName, t));
+			this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		});
 	}
 
@@ -51,9 +51,9 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 
 	onChange(event, itemName, itemId) {
 		if (event.checked)
-			this.store.dispatch(FilterActions.addFilter(this.filterName, this._target, itemName, itemId));
+			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this._target, itemName, itemId));
 		else
-			this.store.dispatch(FilterActions.removeFilter(this.filterName, this._target, itemId));
+			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this._target, itemId));
 	}
 
 }

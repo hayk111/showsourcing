@@ -4,7 +4,6 @@ import { routes } from './routes';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from '../../features/home/home.module';
 import { InfoRequestModule } from '../../features/info-request/info-request.module';
-import { TestModule } from '../../features/test/test.module';
 
 @NgModule({
 	imports: [
@@ -12,7 +11,6 @@ import { TestModule } from '../../features/test/test.module';
 		RouterModule.forRoot(routes),
 		HomeModule,
 		InfoRequestModule,
-		TestModule,
 	],
 	exports: [ RouterModule ],
 	declarations: []

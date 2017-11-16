@@ -12,7 +12,7 @@ import { selectFilterCategory, selectFilterGroup } from '../../../../store/selec
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductFiltersComponent extends AutoUnsub implements OnInit {
-	@Input() filterName: string;
+	@Input() filterGroupName: FilterGroupName;
 	filters$: Observable<Array<Filter>>;
 	listToOpen: string;
 	isListOpen = false;
@@ -22,7 +22,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.filters$ = this.store.select(selectFilterGroup(FilterGroupName.PRODUCT_PAGE));
+		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 
 	openList(item: string) {

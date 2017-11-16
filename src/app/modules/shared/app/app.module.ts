@@ -32,6 +32,7 @@ import { projectReducer } from '../../store/reducer/project.reducer';
 import { companyReducer } from '../../store/reducer/company.reducer';
 import { filtersReducer } from '../../store/reducer/filter.reducer';
 import { supplierReducer } from '../../store/reducer/supplier.reducer';
+import { viewSwitcherReducer } from '../../store/reducer/view-switcher.reducer';
 
 
 const inputMap: InputMap = {
@@ -67,7 +68,8 @@ const inputMap: InputMap = {
 			tags: tagReducer,
 			projects: projectReducer,
 			filters: filtersReducer,
-			suppliers: supplierReducer
+			suppliers: supplierReducer,
+			viewSwitcher: viewSwitcherReducer
 		}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25

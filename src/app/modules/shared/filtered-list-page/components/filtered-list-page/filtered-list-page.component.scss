@@ -1,0 +1,16 @@
+.left{
+	flex-grow: 1;
+	filter-search-bar-app {
+		flex-grow: 1;
+	}
+}
+
+.topBar > *{
+	margin: var(--spacing-small);
+}
+
+button{
+	margin-top: 0;
+	padding-top: 7px;	
+	padding-bottom: 7px;		
+}

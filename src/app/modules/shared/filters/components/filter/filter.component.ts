@@ -14,7 +14,7 @@ import { FilterActions } from '../../../../store/action/filter.action';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent implements OnInit {
-	@Input() filterName: FilterGroupName;
+	@Input() filterGroupName: FilterGroupName;
 	@Input() target: string;
 	@Output() itemClicked = new EventEmitter();
 	items$: Observable<Array<Entity>>;
@@ -23,11 +23,11 @@ export class FilterComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.items$ = this.store.select(selectActiveFiltersForCategory(this.filterName, this.target));
+		this.items$ = this.store.select(selectActiveFiltersForCategory(this.filterGroupName, this.target));
 	}
 
 	removeFilter(id: string) {
-		this.store.dispatch(FilterActions.removeFilter(this.filterName, this.target, id));
+		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.target, id));
 	}
 
 
