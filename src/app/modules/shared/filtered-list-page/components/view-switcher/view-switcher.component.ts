@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
   selector: 'view-switcher-app',
   templateUrl: './view-switcher.component.html',
   styleUrls: ['./view-switcher.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class ViewSwitcherComponent implements OnInit {
 	view$: Observable<string>;

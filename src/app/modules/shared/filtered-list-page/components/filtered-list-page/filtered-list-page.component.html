@@ -1,9 +1,9 @@
-<div class="flex">
+<div class="flex ctnr">
 	<div class="left">
 		<div class="flex topBar">
 			<view-switcher-app></view-switcher-app>				
 			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
-			<button class="secondary z-2">filters</button>
+			<button class="secondary z-2 small">filters</button>
 		</div>
 	
 		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
@@ -12,8 +12,6 @@
 	
 		<list-app></list-app>	 -->
 	</div>
-	<div class="right">
-	
-	</div>
+	<filter-panel-app class="z-2"></filter-panel-app>
 </div>
 

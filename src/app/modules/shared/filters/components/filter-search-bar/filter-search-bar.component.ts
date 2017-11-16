@@ -11,7 +11,7 @@ import { FilterGroupName } from '../../../../store/model/filter.model';
 })
 export class FilterSearchBarComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-
+	search = '';
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {

@@ -2,7 +2,7 @@
   {{ label }}
 </label>
 
-<div class="inp-box">
+<div class="inp-box {{ margin ? '' : 'nomargin' }}">
 	<input id="{{inputId}}-inp"
 		#inp
 		class="fullWidth {{ (!control.valid && !control.pristine) ? 'inp-error' : ''}}"

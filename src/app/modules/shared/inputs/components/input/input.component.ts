@@ -25,6 +25,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	// regex is so we can disable some keys from the input
 	// for example the number input shouldn't let us type letters
 	private regex;
+	@Input() margin = true;
 
 	constructor(protected inj: Injector) { super(inj); }
 

@@ -12,7 +12,8 @@ button, input[type="submit"]{
 }
 
 button.small{
-		padding: var(--spacing-default) var(--spacing-big);
+		padding: var(--spacing-smaller) var(--spacing-default);
+		margin: 0;
 }
 
 button.secondary{
