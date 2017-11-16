@@ -1,0 +1,7 @@
+<label for="{{inputId}}-inp" *ngIf="descriptor?.label">
+    {{ descriptor?.label }}
+</label>
+
+<select id="{{inputId}}-inp" [formControl]="control">
+    <option *ngFor="let opt of descriptor.options" [value]="opt.key">{{opt.value}}</option>
+</select>

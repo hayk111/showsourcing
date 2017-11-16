@@ -1,0 +1,5 @@
+<div *ngFor="let target of (filters$ | async).targets">
+	<filter-app [target]="target" filterName="productsPage" 
+		(itemClicked)="openList(target)"></filter-app>
+</div>
+<filter-item-list-app *ngIf="isListOpen" [target]="listToOpen" filterName="productsPage"></filter-item-list-app>

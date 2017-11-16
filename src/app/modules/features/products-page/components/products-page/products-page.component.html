@@ -1,0 +1,8 @@
+
+<filter-search-bar-app filterGroupName="productsPage"></filter-search-bar-app>
+<product-filters-app></product-filters-app>
+
+<hr>
+num products{{ (products$ | async)?.length }}
+<br>
+{{ products$ | async | json }}

@@ -1,0 +1,64 @@
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
+body{
+    margin: 0;
+    padding: 0;
+		min-height: 100vh;
+		background: var(--color-bg-secondary);
+		font-family: Lato;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+i{
+	font-style: normal;
+}
+
+i, button, menu, .button{
+	cursor: pointer;
+}
+
+::selection{
+	background: var(--color-accent);
+	color: var(--color-accent-txt);
+}
+
+ul{
+	margin:0;
+	padding: 0;
+}
+
+strong{
+	font-weight: 400;
+	color: var(--color-warn);
+}
+
+section{
+	margin-top: var(--spacing-big);
+}
+
+h2{
+	margin-bottom: 32px;
+}
+
+
+::-webkit-input-placeholder {
+	font-style: italic;
+}
+
+:-moz-placeholder {
+	font-style: italic;
+}
+
+::-moz-placeholder {
+	font-style: italic;
+}
+
+:-ms-input-placeholder {
+	font-style: italic;
+}

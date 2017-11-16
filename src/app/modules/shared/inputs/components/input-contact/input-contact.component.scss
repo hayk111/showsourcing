@@ -1,0 +1,8 @@
+.contacts > *{
+  width: 50%;
+}
+
+.contacts :nth-child(2n+1){
+  width: 44%;
+  padding-right: 2rem;
+}

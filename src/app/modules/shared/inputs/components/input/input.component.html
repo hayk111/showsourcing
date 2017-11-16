@@ -1,0 +1,21 @@
+<label for="{{inputId}}-inp" *ngIf="label">
+  {{ label }}
+</label>
+
+<div class="inp-box">
+	<input id="{{inputId}}-inp"
+		#inp
+		class="fullWidth {{ (!control.valid && !control.pristine) ? 'inp-error' : ''}}"
+    [type]="type"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+		(keydown)="onKeyDown($event)"
+		(keyup)="onChange(inp.value)"
+		(change)="onChange(inp.value)"/>
+
+  <div class="error" *ngIf="control?.hasError('required') && !control.pristine">This field is required</div>
+  <div class="error" *ngIf="control?.hasError('email') && !control.pristine" >This field should be a valid email</div>
+  <div class="error" *ngIf="control?.hasError('number') && !control.pristine">This field should be a valid number</div>
+  <div class="error" *ngIf="control?.hasError('url') && !control.pristine">This field isn't a correct url</div>
+  <div class="error" *ngIf="control?.hasError('tel') && !control.pristine">This field isn't a correct phone numer</div>
+</div>

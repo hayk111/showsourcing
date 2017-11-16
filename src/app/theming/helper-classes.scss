@@ -1,0 +1,54 @@
+
+// flex
+
+.flex{
+  display: flex;
+}
+
+.flexCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
+}
+
+.flexWrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// width and form
+
+.fullWidth{
+  width: 100%;
+}
+
+// pointer
+
+.pointer{
+  cursor: pointer;
+}
+
+// colors
+
+.color-primary{
+	color: var(--color-primary);
+}
+
+.color-primary-light{
+	color: var(--color-primary-light)
+}
+
+.primary{
+	background: var(--color-primary);
+	color: var(--color-primary-contrast);
+}
+
+.secondary{
+	background: var(--color-secondary);
+	color: var(--color-secondary-contrast);
+}

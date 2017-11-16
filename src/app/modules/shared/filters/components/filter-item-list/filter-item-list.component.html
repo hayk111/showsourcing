@@ -1,0 +1,9 @@
+<ng-container *ngIf="items$ | async as items">
+	<mat-checkbox
+		(change)="onChange($event, items.byId[id].name, id)"
+		*ngFor="let id of items.ids"
+		class="example-margin"
+		[checked]="items.byId[id].checked">
+		{{ items.byId[id].name }}
+	</mat-checkbox>
+</ng-container>

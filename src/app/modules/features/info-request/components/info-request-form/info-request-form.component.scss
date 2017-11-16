@@ -1,0 +1,44 @@
+.card{
+	width: 788.83px;
+}
+
+.submCtnr{
+  margin-top: 4rem;
+}
+
+
+// address columns separation
+.addressFields{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addressFields > *{
+  width: 50%;
+}
+
+.addressFields :first-child{
+  width: 100%;
+}
+
+.addressFields :nth-child(2n){
+  width: 44%;
+  padding-right: 2rem;
+}
+
+// contact column separation
+.contact{
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+}
+
+.contact > *{
+  width: 50%;
+}
+
+.contact :nth-child(2n+1){
+  width: 44%;
+  padding-right: 2rem;
+}
+

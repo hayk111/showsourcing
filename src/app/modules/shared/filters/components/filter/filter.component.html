@@ -1,0 +1,5 @@
+<div (click)="itemClicked.emit()">{{target}}</div>
+<div *ngFor="let item of (items$ | async)" class="flex deletableItem">
+	<mat-icon (click)="removeFilter(item.id)">close</mat-icon>
+	<div>{{ item.name }}</div>
+</div>

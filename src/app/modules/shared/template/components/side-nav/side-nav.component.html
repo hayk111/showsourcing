@@ -1,0 +1,18 @@
+<nav role="navigation" class="{{ open ? 'open' : '' }} flexColumn z-3">
+	<div class="items">
+
+		<a [routerLink]="['']" class="sideNavItem flex">
+			<mat-icon>home</mat-icon>
+			<span class="itemTxt">home</span>
+		</a>
+
+		<a [routerLink]="['/products']" class="sideNavItem flex">
+			<!-- parking icon is used for products... -->
+			<mat-icon>local_parking</mat-icon>
+			<span class="itemTxt">products</span>
+		</a>
+	</div>
+
+
+	<button class="sideNavItem" (click)="toggle()"><mat-icon>{{ menuIcon }}</mat-icon></button>
+</nav>

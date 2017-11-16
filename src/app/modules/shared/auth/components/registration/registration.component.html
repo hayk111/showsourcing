@@ -1,0 +1,16 @@
+
+<form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
+	<input-app formControlName="email" type="email" placeholder="example@showsourcing.com"
+		label="Email"></input-app>
+
+	<input-app formControlName="password" type="password"
+		label="Password" placeholder="your password"></input-app>
+
+  <input type="submit" value="Create Account" (click)="createAccount()" class="fullWidth"/>
+</form>
+
+<ng-template #spinner>
+	<mat-spinner></mat-spinner>
+</ng-template>
+
+<div>{{ error$ | async }}</div>

@@ -1,0 +1,20 @@
+
+.card{
+	@extend .z-2;
+	padding: var(--spacing-bigger);
+	border-radius: var(--border-radius);
+	background: var(--color-bg);
+}
+
+/* card with a border at the top*/
+.card2{
+	padding: 0;
+	.border{
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+		height: var(--spacing-default);
+		border-radius: var(--border-radius)  var(--border-radius) 0 0;
+	}
+	.content{
+		padding: var(--spacing-bigger);
+	}
+}

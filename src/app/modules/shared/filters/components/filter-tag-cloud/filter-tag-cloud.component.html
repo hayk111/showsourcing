@@ -1,0 +1,3 @@
+<ng-container *ngFor="let f of (filters$ | async)">
+	<filter-tag-app [filter]="f" [filterGroupName]="filterGroupName"></filter-tag-app>
+</ng-container>

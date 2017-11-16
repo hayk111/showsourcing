@@ -1,0 +1,6 @@
+
+<app-input-contact *ngFor="let c of contacts"
+  (controlCreated)="onControlCreated($event)"></app-input-contact>
+
+
+<button (click)="addContact()" class="pointer">ADD CONTACT</button>
