@@ -1,15 +1,22 @@
-.supplier{
+article{
+	background: #ccc;
+	border-radius: var(--border-radius);
+	margin: var(--spacing-default);
+	padding: var(--spacing-smaller);
+}
+
+.suppliers{
 	background: orange;
 }
 
-.event{
+.events{
 	background: teal;
 }
 
-.category{
+.categories{
 	background: turquoise;
 }
 
-.tag{
+.tags{
 	background: pink;
 }
