@@ -1,6 +1,7 @@
 <ng-container *ngIf="!(panelVisible$ | async)">
-	<div class="flex">
+	<div class="flex top">
 		<button class="secondary small">Clear</button>
+		<mat-icon (click)="close()">close</mat-icon>
 	</div>
 	<ng-content></ng-content>	
 </ng-container>

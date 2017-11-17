@@ -1,10 +1,13 @@
 <div class="flexColumn">
-	<div class="flex">
+
+	<div class="flex top">
 		<h3>Filter {{ target$ | async }}</h3>
-		<button class="small secondary">done</button>			
+		<button class="small secondary" (click)="closePanel()">done</button>			
 	</div>
-	<input-app type="search" placeholder="Search" [(ngModel)]="search" 
-		[margin]="false"></input-app> 	<ng-container *ngIf="items$ | async as items">
+
+	<input-app type="search" placeholder="Search" [(ngModel)]="search"></input-app> 	
+	
+	<ng-container *ngIf="items$ | async as items">
 		<mat-checkbox
 			(change)="onChange($event, items.byId[id].name, id)"
 			*ngFor="let id of items.ids"
@@ -13,5 +16,6 @@
 			{{ items.byId[id].name }}
 		</mat-checkbox>
 	</ng-container>	
+
 </div>
 

@@ -3,6 +3,7 @@ import { FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { Observable } from 'rxjs/Observable';
+import { MiscActions } from '../../../../store/action/misc.action';
 
 @Component({
   selector: 'filter-panel-app',
@@ -19,6 +20,10 @@ export class FilterPanelComponent implements OnInit {
 
   ngOnInit() {
 		this.panelVisible$ = this.store.select(dotSelector('misc.filterItemListPanel.open'));
-  }
+	}
+	
+	close() {
+		this.store.dispatch(MiscActions.setProperty('filterPanel', 'open', false));
+	}
 
 }

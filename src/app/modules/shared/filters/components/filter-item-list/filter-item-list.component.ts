@@ -13,6 +13,7 @@ import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
+import { MiscActions } from '../../../../store/action/misc.action';
 
 @Component({
 	selector: 'filter-item-list-app',
@@ -44,6 +45,9 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
+	closePanel() {
+		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'open', false));
+	}
 
 	onChange(event, itemName, itemId) {
 		if (event.checked)

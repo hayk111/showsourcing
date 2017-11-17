@@ -3,7 +3,7 @@
 		<div class="flex topBar">
 			<view-switcher-app></view-switcher-app>				
 			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
-			<button class="secondary z-2 small">filters</button>
+			<button class="secondary z-2 small" (click)="openFilters()">filters</button>
 		</div>
 	
 		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
@@ -12,8 +12,11 @@
 	
 		<list-app></list-app>	 -->
 	</div>
-	<filter-panel-app class="z-2" [filterGroupName]="filterGroupName">
-		<ng-content select=".filters"></ng-content>
-	</filter-panel-app>
+	<ng-container *ngIf="filterPanelOpen$ | async as open">
+		<filter-panel-app class="z-2 {{ open ? 'open' : '' }}" [filterGroupName]="filterGroupName">
+			<ng-content select=".filters"></ng-content>
+		</filter-panel-app>
+	</ng-container>
+
 </div>
 
