@@ -35,23 +35,3 @@ export class TestComponent implements OnInit {
 
 }
 
-const DESCRIPTOR = {
-  groups:[
-    {
-      name: 'general',
-      fields:[
-        { name: 'name',
-          value: 'cedric', 
-          required: true
-        }
-      ]
-    },
-    {
-      name: 'second',
-      fields:[
-        { name: 'emailt', type: 'email' }
-        
-      ]
-    }
-  ]
-};

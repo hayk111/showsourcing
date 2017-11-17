@@ -4,8 +4,6 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { FiltersModule } from '../filters/filters.module';
 import { FilteredListPageComponent } from './components/filtered-list-page/filtered-list-page.component';
 import { MatIconModule, MatTableModule } from '@angular/material';
-import { ListViewComponent } from './components/list-view/list-view.component';
-import { CardViewComponent } from './components/card-view/card-view.component';
 
 @NgModule({
   imports: [
@@ -14,7 +12,7 @@ import { CardViewComponent } from './components/card-view/card-view.component';
 		MatIconModule,
 		MatTableModule
   ],
-	declarations: [ViewSwitcherComponent, FilteredListPageComponent, ListViewComponent, CardViewComponent],
+	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],
 	exports: [ FilteredListPageComponent ]
 })
 export class FilteredListPageModule { }
