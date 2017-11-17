@@ -1,5 +1,6 @@
 <div class="flex ctnr">
 	<div class="left">
+
 		<div class="flex topBar">
 			<view-switcher-app></view-switcher-app>				
 			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
@@ -7,10 +8,13 @@
 		</div>
 	
 		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
-	
-		<!-- <product-filters-app></product-filters-app>
-	
-		<list-app></list-app>	 -->
+
+		<ng-container *ngIf="view$ | async as view">
+			<ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>
+			<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content>			
+		</ng-container>
+
+
 	</div>
 	<ng-container *ngIf="filterPanelOpen$ | async as open">
 		<filter-panel-app class="z-2 {{ open ? 'open' : '' }}" [filterGroupName]="filterGroupName">
