@@ -2,9 +2,14 @@ article{
 	background: #ccc;
 	border-radius: var(--border-radius);
 	margin: var(--spacing-default);
-	padding: var(--spacing-smaller);
+	padding: 3px 9px;
 }
-
+mat-icon{
+	font-size: 18px;
+	height: 18px; 
+	width: 18px;
+	margin-left: var(--spacing-default);
+}
 .suppliers{
 	background: orange;
 }
