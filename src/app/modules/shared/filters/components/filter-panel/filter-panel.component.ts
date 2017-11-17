@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 	changeDetection: ChangeDetectionStrategy.OnPush	
 })
 export class FilterPanelComponent implements OnInit {
-	@Input() FilterGroupName: FilterGroupName;
+	@Input() filterGroupName: FilterGroupName;
 	panelVisible$: Observable<boolean>;
 	search = '';
 

@@ -3,7 +3,7 @@ import { ActionType } from '../action/misc.action';
 
 export const initialState = {
 	filterPanel: { open: false },
-	filterItemListPanel: { open: false }
+	filterItemListPanel: { open: false, target: undefined }
 };
 
 

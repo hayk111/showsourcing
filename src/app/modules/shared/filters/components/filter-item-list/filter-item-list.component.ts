@@ -11,6 +11,8 @@ import { FilterActions } from '../../../../store/action/filter.action';
 import { selectFiltersWithChecked } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { dotSelector } from '../../../../store/selectors/dot-selector';
+import { filter } from 'rxjs/operators/filter';
 
 @Component({
 	selector: 'filter-item-list-app',
@@ -21,30 +23,27 @@ import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	private _target: string;
-	private target$ = new Subject<string>();
+	target$ = new Observable<string>();
 	items$: Observable<EntityState<any>>;
+	search = '';
 
 
 	constructor(private store: Store<any>) {
 		super();
+	}
+
+	ngOnInit() {
+		this.target$ = this.store.select(dotSelector('misc.filterItemListPanel.target'));
 		this.target$.pipe(
 			takeUntil(this._destroy$),
+			filter(t => t !== undefined),
 			distinctUntilChanged()
 		).subscribe(t => {
+			this._target = t;
 			this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		});
 	}
 
-	ngOnInit() {
-	}
-
-	@Input()
-	set target(targetName: string) {
-		if (!targetName)
-			return;
-		this._target = targetName;
-		this.target$.next(targetName);
-	}
 
 	onChange(event, itemName, itemId) {
 		if (event.checked)

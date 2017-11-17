@@ -28,7 +28,8 @@ export class FilterComponent implements OnInit {
 	}
 
 	openFilterListPanel() {
-		this.store.dispatch(MiscActions.setProperty('filterListPanel', 'open', true));
+		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'target', this.target));		
+		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'open', true));
 	}
 
 	removeFilter(id: string) {

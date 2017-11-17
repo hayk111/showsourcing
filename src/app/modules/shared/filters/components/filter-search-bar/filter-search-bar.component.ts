@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PanelActions } from '../../../../store/action/panel.action';
 import { FilterGroupName } from '../../../../store/model/filter.model';
 
 @Component({
@@ -15,10 +14,6 @@ export class FilterSearchBarComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-	}
-
-	openFilters() {
-		this.store.dispatch(PanelActions.setProperty('filtersPanel', 'open', true));
 	}
 
 }

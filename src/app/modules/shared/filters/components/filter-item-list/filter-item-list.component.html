@@ -1,9 +1,17 @@
-<ng-container *ngIf="items$ | async as items">
-	<mat-checkbox
-		(change)="onChange($event, items.byId[id].name, id)"
-		*ngFor="let id of items.ids"
-		class="example-margin"
-		[checked]="items.byId[id].checked">
-		{{ items.byId[id].name }}
-	</mat-checkbox>
-</ng-container>
+<div class="flexColumn">
+	<div class="flex">
+		<h3>Filter {{ target$ | async }}</h3>
+		<button class="small secondary">done</button>			
+	</div>
+	<input-app type="search" placeholder="Search" [(ngModel)]="search" 
+		[margin]="false"></input-app> 	<ng-container *ngIf="items$ | async as items">
+		<mat-checkbox
+			(change)="onChange($event, items.byId[id].name, id)"
+			*ngFor="let id of items.ids"
+			class="example-margin"
+			[checked]="items.byId[id].checked">
+			{{ items.byId[id].name }}
+		</mat-checkbox>
+	</ng-container>	
+</div>
+
