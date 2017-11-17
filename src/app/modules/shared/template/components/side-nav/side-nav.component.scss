@@ -1,4 +1,6 @@
 nav, .nav{
+	// position relative for good display of shadows.
+	position: relative;
 	z-index: 2;
 	width: 0;
 	transition: min-width 0.4s;

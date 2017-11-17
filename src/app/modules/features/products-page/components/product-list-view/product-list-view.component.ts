@@ -12,9 +12,8 @@ import { MatTableDataSource } from '@angular/material';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListViewComponent implements OnInit {
-	displayedColumns: ['name', 'supplier', 'category', 'status'];
 	suppliers$: Observable<Supplier>;
-	@Input('products') products$;
+	@Input() products = [];
 
   constructor(private store: Store<any>) { }
 

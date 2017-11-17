@@ -6,7 +6,7 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 import { FilterById } from '../../utils/filter-by-id';
 import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { distinct, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { selectFiltersWithChecked } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName } from '../../../../store/model/filter.model';

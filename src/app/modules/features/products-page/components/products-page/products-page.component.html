@@ -1,27 +1,26 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName">
 		<div class="filters">
+
 			<ng-container *ngFor="let target of (filters$ | async)?.targets">
+
 				<ng-container *ngIf="target !== 'rating' && target !== 'pricing'; else other">
-					<filter-app [target]="target" [filterGroupName]="filterGroupName"
-						(itemClicked)="openList(target)">
+					<filter-app [target]="target" [filterGroupName]="filterGroupName">
 					</filter-app>		
 				</ng-container>
+
 				<ng-template #other>
-			
-					<filter-app *ngIf="target === 'rating'" [target]="target" [filterGroupName]="filterGroupName"
-						(itemClicked)="openRatingPanel"></filter-app>
-					<filter-app *ngIf="target === 'pricing'" [target]="target" [filterGroupName]="filterGroupName" 
-						(itemClicked)="openPricingPanel"></filter-app>		
+					<filter-app *ngIf="target === 'rating'" [target]="target" 
+						[filterGroupName]="filterGroupName"></filter-app>
+					<filter-app *ngIf="target === 'pricing'" [target]="target" 
+						[filterGroupName]="filterGroupName" ></filter-app>		
 				</ng-template>
+				
 			</ng-container>
 		</div>
 
-		<product-list-view-app class="list-view" [products]="products$"></product-list-view-app>
-
-		<div class="card-view">
-				{{ products$ | async | json }}
-		</div>
+		<product-list-view-app class="list-view" [products]="products"></product-list-view-app>
+		<product-card-view-app class ="card-view" [products]="products"></product-card-view-app>
 </filtered-list-page-app>
 
 

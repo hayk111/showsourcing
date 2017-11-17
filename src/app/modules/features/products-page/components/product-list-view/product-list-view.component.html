@@ -1,32 +1,16 @@
+<div *ngFor="let p of products" display="flex">
 
-<mat-table [dataSource]="products$">
+</div>
+<table>
+	<tr>
+			<th>Name</th>
+			<th>Category</th>
+			<th>Supplier</th>
+	</tr>
+	<tr *ngFor="let p of products">
+		<td> {{ p.name }}</td>
+		<td> {{ p.category.name }}</td>
+		<td> {{ (suppliers$ | async)?.byId[p.supplierId]?.name }}</td>
+	</tr>
 
-	<!-- Name Column -->
-	<ng-container matColumnDef="name">
-		<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-	</ng-container>
-
-	<!-- Supplier Column -->
-	<ng-container matColumnDef="supplier">
-		<mat-header-cell *matHeaderCellDef> Supplier </mat-header-cell>
-		<mat-cell *matCellDef="let element"> 
-			{{(suppliers$ | async).byId[element.supplierId]}} 
-		</mat-cell>
-	</ng-container>
-
-	<!-- Category Column -->
-	<ng-container matColumnDef="category">
-		<mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{element.category.name}} </mat-cell>
-	</ng-container>
-
-	<!-- Status Column -->
-	<ng-container matColumnDef="status">
-		<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
-	</ng-container>
-
-	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+</table>

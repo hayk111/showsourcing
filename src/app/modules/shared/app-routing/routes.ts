@@ -13,6 +13,7 @@ import { AuthCardComponent } from '../auth/components/auth-card/auth-card.compon
 import { SupplierPageComponent } from '../../features/supplier-page/components/supplier-page/supplier-page.component';
 import { ProductsPageComponent } from '../../features/products-page/components/products-page/products-page.component';
 import { BaseComponent } from '../../features/test/base/base.component';
+import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -32,6 +33,7 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'products', component: ProductsPageComponent },
+			{ path: 'tasks', component: TasksPageComponent },
 			// TODO: Remove two under this
 			{ path: 'test', component: TestComponent },
 			{ path: 'base', component: BaseComponent }

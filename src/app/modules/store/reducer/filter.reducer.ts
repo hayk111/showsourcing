@@ -14,6 +14,10 @@ export const initialState: AppFilters = {
 		],
 		filters: []
 	},
+	tasksPage: {
+		targets: [],
+		filters: []
+	}
 };
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {

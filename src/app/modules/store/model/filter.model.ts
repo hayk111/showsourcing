@@ -7,6 +7,7 @@ export interface Filter {
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
+	TASKS_PAGE = 'tasksPage',
 }
 
 // for intellisens and compilation errors
