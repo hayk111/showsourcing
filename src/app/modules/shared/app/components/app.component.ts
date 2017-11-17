@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { PreloaderService } from '../../preloader/services/preloader.service';
 import { AuthService } from '../../auth/services/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from '../../auth/services/auth.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+	@Output() k = new EventEmitter();
 	constructor(private authSrv: AuthService, private preloader: PreloaderService) {}
 
 }

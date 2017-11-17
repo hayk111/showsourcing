@@ -26,6 +26,10 @@ export class FilterComponent implements OnInit {
 		this.items$ = this.store.select(selectActiveFiltersForCategory(this.filterGroupName, this.target));
 	}
 
+	openFilterListPanel() {
+		
+	}
+
 	removeFilter(id: string) {
 		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.target, id));
 	}

@@ -1,19 +1,19 @@
 import { TypedAction } from '../utils/typed-action.interface';
-import { ActionType } from '../action/panel.action';
+import { ActionType } from '../action/misc.action';
 
 export const initialState = {
 	filtersPanel: { open: false }
 };
 
 
-export function panelReducer(state = initialState, action: TypedAction<any> ): any {
+export function miscReducer(state = initialState, action: TypedAction<any> ): any {
 	switch (action.type) {
 		case ActionType.SET_PROPERTY:
 			const newState = { ...state };
-			const panel = action.payload.panel;
+			const target = action.payload.target;
 			const prop = action.payload.property;
 			const value = action.payload.value;
-			newState[panel][prop] = value;
+			newState[target][prop] = value;
 			return newState;
 		default: return state;
 	}

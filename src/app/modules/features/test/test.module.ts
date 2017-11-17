@@ -6,10 +6,13 @@ import { FormBuilderModule } from '../../shared/form-builder/form-builder.module
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { BaseComponent } from './base/base.component';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
+import { FiltersModule } from '../../shared/filters/filters.module';
+
 
 @NgModule({
   imports: [
-    CommonModule,
+		CommonModule,
+		FiltersModule,
     FormBuilderModule,
 		ReactiveFormsModule,
 		FilteredListPageModule

@@ -12,8 +12,6 @@ import { selectFiltersWithChecked } from '../../../../store/selectors/filter.sel
 import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 
-
-
 @Component({
 	selector: 'filter-item-list-app',
 	templateUrl: './filter-item-list.component.html',
@@ -24,7 +22,6 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	private _target: string;
 	private target$ = new Subject<string>();
-	@Output() change = new EventEmitter<FilterById>();
 	items$: Observable<EntityState<any>>;
 
 

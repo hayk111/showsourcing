@@ -12,6 +12,9 @@
 	
 		<list-app></list-app>	 -->
 	</div>
-	<filter-panel-app class="z-2"></filter-panel-app>
+	<filter-panel-app class="z-2">
+		<ng-content select=".filters"></ng-content>
+		<filter-item-list-app></filter-item-list-app>
+	</filter-panel-app>
 </div>
 
