@@ -71,7 +71,7 @@ const inputMap: InputMap = {
 			filters: filtersReducer,
 			suppliers: supplierReducer,
 			viewSwitcher: viewSwitcherReducer,
-			misc: miscReducer
+			misc: miscReducer,
 		}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25

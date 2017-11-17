@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { ProductListViewComponent } from './components/product-list-view/product-list-view.component';
 import { ProductCardViewComponent } from './components/product-card-view/product-card-view.component';
+import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/team-item-loader.service';
 
 @NgModule({
 	imports: [

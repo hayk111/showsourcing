@@ -3,6 +3,17 @@
 		<div class="filters">
 		</div>
 
+		<div class="list-view">
+			<div *ngFor="let t of tasks$ | async">
+				{{ t | json }}
+			</div>
+		</div>
+
+		<div class="card-view">
+				<div class="card" *ngFor="let t of tasks$ | async">
+					{{ t | json }}
+				</div>
+		</div>
 </filtered-list-page-app>
 
 

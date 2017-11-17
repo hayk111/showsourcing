@@ -4,6 +4,7 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { FiltersModule } from '../filters/filters.module';
 import { FilteredListPageComponent } from './components/filtered-list-page/filtered-list-page.component';
 import { MatIconModule, MatTableModule } from '@angular/material';
+import { TeamItemLoaderService } from './services/team-item-loader.service';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { MatIconModule, MatTableModule } from '@angular/material';
 		FiltersModule,
 		MatIconModule,
 		MatTableModule
-  ],
+	],
+	providers: [ TeamItemLoaderService ],
 	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],
 	exports: [ FilteredListPageComponent ]
 })
