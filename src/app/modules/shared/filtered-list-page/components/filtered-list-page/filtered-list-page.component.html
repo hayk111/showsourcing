@@ -12,7 +12,7 @@
 	
 		<list-app></list-app>	 -->
 	</div>
-	<filter-panel-app class="z-2">
+	<filter-panel-app class="z-2" [filterGroupName]="filterGroupName">
 		<ng-content select=".filters"></ng-content>
 		<filter-item-list-app></filter-item-list-app>
 	</filter-panel-app>

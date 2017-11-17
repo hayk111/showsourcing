@@ -1,5 +1,11 @@
-<div class="flex">
-	<input-app type="search" placeholder="Search" [(ngModel)]="search" [margin]="false"></input-app> 
-	<button class="secondary small">Clear</button>
-</div>
-<ng-content></ng-content>
+<ng-container *ngIf="!(panelVisible$ | async); else list">
+	<div class="flex">
+		<input-app type="search" placeholder="Search" [(ngModel)]="search" [margin]="false"></input-app> 
+		<button class="secondary small">Clear</button>
+	</div>
+	<ng-content></ng-content>	
+</ng-container>
+
+<ng-template #list>
+		<filter-item-list-app [filterGroupName]="filterGroupName"></filter-item-list-app>		
+</ng-template>

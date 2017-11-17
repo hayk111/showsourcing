@@ -6,6 +6,7 @@ import { EntityState, Entity } from '../../../../store/utils/entities.utils';
 import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
 import { selectActiveFiltersForCategory } from '../../../../store/selectors/filter.selectors';
 import { FilterActions } from '../../../../store/action/filter.action';
+import { MiscActions } from '../../../../store/action/misc.action';
 
 @Component({
 	selector: 'filter-app',
@@ -27,7 +28,7 @@ export class FilterComponent implements OnInit {
 	}
 
 	openFilterListPanel() {
-		
+		this.store.dispatch(MiscActions.setProperty('filterListPanel', 'open', true));
 	}
 
 	removeFilter(id: string) {

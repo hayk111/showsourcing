@@ -2,7 +2,8 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType } from '../action/misc.action';
 
 export const initialState = {
-	filtersPanel: { open: false }
+	filterPanel: { open: false },
+	filterItemListPanel: { open: false }
 };
 
 
