@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { Observable } from 'rxjs/Observable';
 import { MiscActions } from '../../../../store/action/misc.action';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'filter-panel-app',

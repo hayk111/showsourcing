@@ -36,5 +36,4 @@ export class FilterComponent implements OnInit {
 		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.target, id));
 	}
 
-
 }

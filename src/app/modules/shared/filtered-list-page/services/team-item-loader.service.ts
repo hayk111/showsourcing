@@ -35,9 +35,9 @@ export class TeamItemLoaderService {
 
 	subToItem(tid: string) {
 		this.urlBuilder.id = tid;
-		this.store.dispatch(this.actions.setPending());
 		this.store.select(selectFiltersAsUrlParams(FilterGroupName.PRODUCT_PAGE))
 		.subscribe((params: string) => {
+			this.store.dispatch(this.actions.setPending());			
 			let endpoint = this.urlBuilder.getUrlWithParams(params);
 			this.http.get(endpoint).subscribe((p: any) => {
 				this.store.dispatch(this.actions.setData(p.elements));

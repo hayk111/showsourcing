@@ -36,7 +36,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	onItemsReceived(items) {
 		this.tasks = items.data;
 		this.pending = items.pending;
-		debugger
 	}
 
 }

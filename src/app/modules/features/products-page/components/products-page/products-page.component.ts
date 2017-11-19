@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectProp } from '../../../../store/selectors/panel.selector';
 import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
-import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
+import { Filter, FilterGroupName, FilterTarget, FilterGroup } from '../../../../store/model/filter.model';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
@@ -18,9 +18,8 @@ import { ProductActions } from '../../../../store/action/product.action';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filters$: Observable<Array<Filter>>;
+	filterTargets: Array<FilterTarget> = [];
 	pending = true;
-	products$;
 	products = [];
 
 	constructor(private itemLoader: TeamItemLoaderService, private store: Store<any>) {
@@ -29,10 +28,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.itemLoader.init('product', ProductActions);
-		this.products$ = this.store.select('products');
-		this.products$.takeUntil(this._destroy$)
+		this.store.select('products')
+			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));
-		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
+		this.store.select(selectFilterGroup(this.filterGroupName))
+			.takeUntil(this._destroy$)
+			.subscribe((f: FilterGroup) => this.filterTargets = f.targets);
 	}
 
 	onItemsReceived(items) {

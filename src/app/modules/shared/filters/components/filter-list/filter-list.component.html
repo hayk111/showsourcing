@@ -1,0 +1,15 @@
+
+<ng-container *ngFor="let target of targets">
+	<ng-container *ngIf="target !== 'rating' && target !== 'pricing'; else other">
+		<filter-app [target]="target" [filterGroupName]="filterGroupName">
+		</filter-app>		
+	</ng-container>
+	
+	<ng-template #other>
+		<filter-app *ngIf="target === 'rating'" [target]="target" 
+			[filterGroupName]="filterGroupName"></filter-app>
+		<filter-app *ngIf="target === 'pricing'" [target]="target" 
+			[filterGroupName]="filterGroupName"></filter-app>		
+	</ng-template>
+
+</ng-container>	

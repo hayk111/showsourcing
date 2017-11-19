@@ -9,6 +9,7 @@ import { FilterSearchBarComponent } from './components/filter-search-bar/filter-
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { FormsModule } from '@angular/forms';
+import { FilterListComponent } from './components/filter-list/filter-list.component';
 
 @NgModule({
 	imports: [
@@ -19,9 +20,9 @@ import { FormsModule } from '@angular/forms';
 		MatIconModule
 	],
 	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
-		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent ],
+		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent ],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, 
-		FilterTagCloudComponent, FilterPanelComponent ]
+		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent ]
 })
 export class FiltersModule { }
 

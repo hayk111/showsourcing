@@ -14,6 +14,7 @@ import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
 import { MiscActions } from '../../../../store/action/misc.action';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
 	selector: 'filter-item-list-app',
@@ -29,7 +30,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	search = '';
 
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>, private router: Router) {
 		super();
 	}
 
@@ -42,6 +43,10 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		).subscribe(t => {
 			this._target = t;
 			this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
+		});
+		this.router.events.subscribe(evt => {
+			if (evt instanceof NavigationEnd)
+				this.closePanel();
 		});
 	}
 

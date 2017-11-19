@@ -1,28 +1,10 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
-		<div class="filters">
-			<ng-container *ngFor="let target of (filters$ | async)?.targets">
-				<!-- TODO: SHOULD BE A COMPONENT WITH INPUTS TAGS ARRAY -->
-				<ng-container *ngIf="target !== 'rating' && target !== 'pricing'; else other">
-					<filter-app [target]="target" [filterGroupName]="filterGroupName">
-					</filter-app>		
-				</ng-container>
-				
-				<ng-template #other>
-					<filter-app *ngIf="target === 'rating'" [target]="target" 
-						[filterGroupName]="filterGroupName"></filter-app>
-					<filter-app *ngIf="target === 'pricing'" [target]="target" 
-						[filterGroupName]="filterGroupName"></filter-app>		
-				</ng-template>
-
-			</ng-container>				
-
-		</div>
-
+		<filter-list-app class="filters" 
+			[filterGroupName]="filterGroupName"
+			[targets]="filterTargets"></filter-list-app>			
 		<product-list-view-app class="list-view" [products]="products"></product-list-view-app>
 		<product-card-view-app class ="card-view" [products]="products"></product-card-view-app>
-
-
 </filtered-list-page-app>
 
 
