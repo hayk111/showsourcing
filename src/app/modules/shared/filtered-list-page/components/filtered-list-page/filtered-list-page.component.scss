@@ -15,7 +15,8 @@ button{
 	padding-bottom: 7px;		
 }
 
-.ctnr{
+:host {
+	display: flex;
 	height: 100%;
 }
 

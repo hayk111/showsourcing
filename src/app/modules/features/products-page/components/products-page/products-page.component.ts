@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ProductLoadersService } from '../../services/product-loaders.service';
 import { Store } from '@ngrx/store';
 import { selectProp } from '../../../../store/selectors/panel.selector';
 import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
@@ -10,7 +9,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 
 @Component({
-	selector: 'app-products-page',
+	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
