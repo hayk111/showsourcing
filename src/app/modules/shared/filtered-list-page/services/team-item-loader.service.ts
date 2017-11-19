@@ -12,13 +12,16 @@ import Log from '../../../../utils/logger/log.class';
 export class TeamItemLoaderService {
 	urlBuilder = new UrlBuilder('team');
 	private _items$ = new Subject<any>();
-	items$ = this.items$.asObservable();
+	items$ = this._items$.asObservable();
+	private initiated = false;
 
 	constructor(private store: Store<any>, private http: HttpClient) {
 		Log.debug('TeamItemLoaderService');
 	}
 
 	init(targetEntity: string) {
+		if (this.initiated)
+			return;
 		this.urlBuilder.entity = targetEntity;
 		this.store.select('user')
 		.pipe(
