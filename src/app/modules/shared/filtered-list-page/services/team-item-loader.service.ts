@@ -7,21 +7,23 @@ import { Subject } from 'rxjs/Subject';
 import { selectFilterCategory, selectFilterGroup, selectFiltersAsUrlParams } from '../../../store/selectors/filter.selectors';
 import { UrlBuilder } from '../../../../utils/url-builder.class';
 import Log from '../../../../utils/logger/log.class';
+import { ActionType, ProductActions } from '../../../store/action/product.action';
 
 @Injectable()
 export class TeamItemLoaderService {
 	urlBuilder = new UrlBuilder('team');
-	private _items$ = new Subject<any>();
-	items$ = this._items$.asObservable();
 	private initiated = false;
+	private actions: any;
 
 	constructor(private store: Store<any>, private http: HttpClient) {
 		Log.debug('TeamItemLoaderService');
 	}
 
-	init(targetEntity: string) {
+	init(targetEntity: string, actions: any) {
 		if (this.initiated)
 			return;
+		this.initiated = true;
+		this.actions = actions;
 		this.urlBuilder.entity = targetEntity;
 		this.store.select('user')
 		.pipe(
@@ -33,11 +35,12 @@ export class TeamItemLoaderService {
 
 	subToItem(tid: string) {
 		this.urlBuilder.id = tid;
+		this.store.dispatch(this.actions.setPending());
 		this.store.select(selectFiltersAsUrlParams(FilterGroupName.PRODUCT_PAGE))
 		.subscribe((params: string) => {
 			let endpoint = this.urlBuilder.getUrlWithParams(params);
 			this.http.get(endpoint).subscribe((p: any) => {
-				this._items$.next(p.elements);
+				this.store.dispatch(this.actions.setData(p.elements));
 			});
 		});
 	}

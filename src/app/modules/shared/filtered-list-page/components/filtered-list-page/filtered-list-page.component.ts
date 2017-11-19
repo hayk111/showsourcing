@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class FilteredListPageComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
+	@Input() pending = true;
 	filterPanelOpen$: Observable<boolean>;
 	view$: Observable<string>;
 	

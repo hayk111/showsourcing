@@ -15,7 +15,7 @@ export interface TasksState {
 
 export function taskReducer(state = initialState, action: TypedAction<Array<Task>> ): TasksState {
 	switch (action.type) {
-		case ActionType.SET_TASKS:
+		case ActionType.SET_DATA:
 			return { ...state, data: action.payload, pending: false };
 		case ActionType.SET_PENDING:
 			return { ...state, pending: true };

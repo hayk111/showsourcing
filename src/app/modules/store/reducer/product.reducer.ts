@@ -15,7 +15,7 @@ export interface ProductsState {
 
 export function productReducer(state = initialState, action: TypedAction<Array<Product>> ): ProductsState {
 	switch (action.type) {
-		case ActionType.SET_PRODUCTS:
+		case ActionType.SET_DATA:
 			return { ...state, data: action.payload, pending: false };
 		case ActionType.SET_PENDING:
 			return { ...state, pending: true };

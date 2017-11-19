@@ -7,6 +7,7 @@ import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
+import { ProductActions } from '../../../../store/action/product.action';
 
 @Component({
 	selector: 'products-page-app',
@@ -18,7 +19,7 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
 	filters$: Observable<Array<Filter>>;
-	
+	pending = true;
 	products$;
 	products = [];
 
@@ -27,10 +28,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.itemLoader.init('product');
-		this.products$ = this.itemLoader.items$;
+		this.itemLoader.init('product', ProductActions);
+		this.products$ = this.store.select('products');
 		this.products$.takeUntil(this._destroy$)
-			.subscribe(p => this.products = p);
+			.subscribe(p => this.onItemsReceived(p));
 		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
+	}
+
+	onItemsReceived(items) {
+		this.products = items.data;
+		this.pending = items.pending;
 	}
 }

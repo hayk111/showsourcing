@@ -1,18 +1,19 @@
 
-<filtered-list-page-app [filterGroupName]="filterGroupName">
+<filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
 		<div class="filters">
 		</div>
-
+		
 		<div class="list-view">
-			<div *ngFor="let t of tasks$ | async">
+			hhh
+			<div *ngFor="let t of tasks$.data | async">
 				{{ t | json }}
 			</div>
 		</div>
 
 		<div class="card-view">
-				<div class="card" *ngFor="let t of tasks$ | async">
-					{{ t | json }}
-				</div>
+			<div class="card" *ngFor="let t of tasks$.data | async">
+				{{ t | json }}
+			</div>
 		</div>
 </filtered-list-page-app>
 

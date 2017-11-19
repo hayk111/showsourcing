@@ -34,6 +34,8 @@ import { filtersReducer } from '../../store/reducer/filter.reducer';
 import { supplierReducer } from '../../store/reducer/supplier.reducer';
 import { viewSwitcherReducer } from '../../store/reducer/view-switcher.reducer';
 import { miscReducer } from '../../store/reducer/misc.reducer';
+import { productReducer } from '../../store/reducer/product.reducer';
+import { taskReducer } from '../../store/reducer/task.reducer';
 
 
 const inputMap: InputMap = {
@@ -70,6 +72,8 @@ const inputMap: InputMap = {
 			projects: projectReducer,
 			filters: filtersReducer,
 			suppliers: supplierReducer,
+			tasks: taskReducer,
+			products: productReducer,
 			viewSwitcher: viewSwitcherReducer,
 			misc: miscReducer,
 		}),
