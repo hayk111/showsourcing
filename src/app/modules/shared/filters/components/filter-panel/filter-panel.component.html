@@ -3,8 +3,15 @@
 		<button class="secondary small" (click)="clear()">Clear</button>
 		<mat-icon (click)="close()">close</mat-icon>
 	</div>
+	<!-- filters button come here -->
 	<ng-content></ng-content>	
 </div>
 
-<filter-item-list-app  *ngIf="panelVisible$ | async" [filterGroupName]="filterGroupName">
+<!-- this is the panels that can be opened when a filter button is clicked from the ng-content-->
+<!-- There is multiple panels because some are different than others -->
+<filter-item-list-app  
+	*ngIf="panelVisible$ | async" 
+	[filterGroupName]="filterGroupName">
 </filter-item-list-app>
+<filter-price-panel-app></filter-price-panel-app>
+<filter-rating-panel-app></filter-rating-panel-app>

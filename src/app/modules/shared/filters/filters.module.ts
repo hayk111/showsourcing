@@ -10,6 +10,9 @@ import { FilterPanelComponent } from './components/filter-panel/filter-panel.com
 import { InputsModule } from '../inputs/inputs.module';
 import { FormsModule } from '@angular/forms';
 import { FilterListComponent } from './components/filter-list/filter-list.component';
+import { FilterPricePanelComponent } from './components/filter-price-panel/filter-price-panel.component';
+import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
+import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/filter-sort-by-panel.component';
 
 @NgModule({
 	imports: [
@@ -20,7 +23,7 @@ import { FilterListComponent } from './components/filter-list/filter-list.compon
 		MatIconModule
 	],
 	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
-		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent ],
+		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent, FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent ],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, 
 		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent ]
 })
