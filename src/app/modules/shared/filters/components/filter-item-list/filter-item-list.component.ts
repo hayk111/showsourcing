@@ -9,7 +9,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { selectFiltersWithChecked } from '../../../../store/selectors/filter.selectors';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterTarget } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
@@ -24,7 +24,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	private _target: string;
+	private _target: FilterTarget;
 	target$ = new Observable<string>();
 	items$: Observable<EntityState<any>>;
 	search = '';
@@ -40,7 +40,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			filter(t => t !== undefined),
 			distinctUntilChanged()
-		).subscribe(t => {
+		).subscribe((t: FilterTarget) => {
 			this._target = t;
 			this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		});

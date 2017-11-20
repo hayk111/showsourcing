@@ -8,6 +8,8 @@ import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 import { ProductActions } from '../../../../store/action/product.action';
+import { Product } from '../../../../store/model/product.model';
+import { AsyncEntity } from '../../../../store/utils/async-entity.utils';
 
 @Component({
 	selector: 'products-page-app',
@@ -36,7 +38,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			.subscribe((f: FilterGroup) => this.filterTargets = f.targets);
 	}
 
-	onItemsReceived(items) {
+	onItemsReceived(items: AsyncEntity<Product>) {
 		this.products = items.data;
 		this.pending = items.pending;
 	}

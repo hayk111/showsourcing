@@ -5,6 +5,7 @@ import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { Observable } from 'rxjs/Observable';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { Router, NavigationEnd } from '@angular/router';
+import { FilterActions } from '../../../../store/action/filter.action';
 
 @Component({
   selector: 'filter-panel-app',
@@ -27,4 +28,7 @@ export class FilterPanelComponent implements OnInit {
 		this.store.dispatch(MiscActions.setProperty('filterPanel', 'open', false));
 	}
 
+	clear() {
+		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
+	}
 }

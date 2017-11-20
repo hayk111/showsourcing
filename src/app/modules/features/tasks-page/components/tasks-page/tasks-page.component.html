@@ -4,14 +4,15 @@
 		</div>
 		
 		<div class="list-view">
-			hhh
-			<div *ngFor="let t of tasks$.data | async">
+			list
+			<div *ngFor="let t of (tasks)">
 				{{ t | json }}
 			</div>
 		</div>
 
 		<div class="card-view">
-			<div class="card" *ngFor="let t of tasks$.data | async">
+			cards
+			<div class="card" *ngFor="let t of tasks">
 				{{ t | json }}
 			</div>
 		</div>

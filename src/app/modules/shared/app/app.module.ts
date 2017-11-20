@@ -78,7 +78,7 @@ const inputMap: InputMap = {
 			misc: miscReducer,
 		}),
 		StoreDevtoolsModule.instrument({
-			maxAge: 25
+			maxAge: 2
 		}),
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule

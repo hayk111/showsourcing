@@ -10,7 +10,8 @@ export const initialState: AppFilters = {
 			FilterTarget.suppliers, 
 			FilterTarget.categories, 
 			FilterTarget.events, 
-			FilterTarget.tags
+			FilterTarget.tags,
+			FilterTarget.projects
 		],
 		filters: []
 	},
@@ -37,6 +38,11 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 		case ActionType.REMOVE_FILTER:
 			group.filters = group.filters.filter(e => e.value !== id);
 			return { ...state };
+		case ActionType.CLEAR:
+			const gName = action.payload;
+			const returned = { ...state };
+			returned[gName].filters = [];
+			return returned;
 		default: return state;
 	}
 }

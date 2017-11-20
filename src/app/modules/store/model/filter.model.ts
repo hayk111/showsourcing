@@ -1,6 +1,6 @@
 
 export interface Filter {
-	target: string;
+	target: FilterTarget;
 	name: string;
 	value: any;
 }
@@ -15,7 +15,10 @@ export enum FilterTarget {
 	suppliers = 'suppliers',
 	events = 'events',
 	categories = 'categories',
-	tags = 'tags'
+	tags = 'tags',
+	projects = 'projects',
+	price = 'price',
+	rating = 'rating',
 }
 
 // formatted for api calls     

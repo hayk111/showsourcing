@@ -1,9 +1,10 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType } from '../action/misc.action';
+import { FilterTarget } from '../model/filter.model';
 
 export const initialState = {
 	filterPanel: { open: false },
-	filterItemListPanel: { open: false, target: undefined }
+	filterItemListPanel: { open: false, target: undefined as FilterTarget }
 };
 
 
