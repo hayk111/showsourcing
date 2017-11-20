@@ -4,7 +4,7 @@ import { FilterTarget } from '../model/filter.model';
 
 export const initialState = {
 	filterPanel: { open: false },
-	filterItemListPanel: { open: false, target: undefined as FilterTarget }
+	filterSelectionPanel: { open: false, target: undefined as FilterTarget }
 };
 
 

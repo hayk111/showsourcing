@@ -1,4 +1,4 @@
-<div *ngIf="!(panelVisible$ | async)" class="paddingRight">
+<div *ngIf="!(subPanelVisible$ | async)" class="paddingRight">
 	<div class="flex top">
 		<button class="secondary small" (click)="clear()">Clear</button>
 		<mat-icon (click)="close()">close</mat-icon>
@@ -7,11 +7,7 @@
 	<ng-content></ng-content>	
 </div>
 
-<!-- this is the panels that can be opened when a filter button is clicked from the ng-content-->
-<!-- There is multiple panels because some are different than others -->
-<filter-item-list-app  
-	*ngIf="panelVisible$ | async" 
-	[filterGroupName]="filterGroupName">
-</filter-item-list-app>
-<filter-price-panel-app></filter-price-panel-app>
-<filter-rating-panel-app></filter-rating-panel-app>
+<!-- this is the panel that is visible when a filter is clicked -->
+<filter-selection-panel-app
+	*ngIf="subPanelVisible$ | async" 
+	[filterGroupName]="filterGroupName"></filter-selection-panel-app>

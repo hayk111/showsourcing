@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-price-panel.component.scss']
 })
 export class FilterPricePanelComponent implements OnInit {
-
+	min;
+	max;
   constructor() { }
 
   ngOnInit() {

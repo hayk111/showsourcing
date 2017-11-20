@@ -16,6 +16,8 @@ import { filter } from 'rxjs/operators/filter';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { Router, NavigationEnd } from '@angular/router';
 
+// when we filter an entity in the store this is the reused panel
+
 @Component({
 	selector: 'filter-item-list-app',
 	templateUrl: './filter-item-list.component.html',
@@ -35,7 +37,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.target$ = this.store.select(dotSelector('misc.filterItemListPanel.target'));
+		this.target$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
 		this.target$.pipe(
 			takeUntil(this._destroy$),
 			filter(t => t !== undefined),
@@ -51,7 +53,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	}
 
 	closePanel() {
-		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'open', false));
+		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', false));
 	}
 
 	onChange(event, itemName, itemId) {

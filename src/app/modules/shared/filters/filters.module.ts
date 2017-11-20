@@ -13,6 +13,7 @@ import { FilterListComponent } from './components/filter-list/filter-list.compon
 import { FilterPricePanelComponent } from './components/filter-price-panel/filter-price-panel.component';
 import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
 import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/filter-sort-by-panel.component';
+import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,7 @@ import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/fi
 		MatIconModule
 	],
 	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
-		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent, FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent ],
+		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent, FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent, FilterSelectionPanelComponent ],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, 
 		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent ]
 })

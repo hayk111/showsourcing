@@ -1,0 +1,11 @@
+<!-- this is the panels that can be opened when a filter button is clicked from the ng-content
+ of the filter panel component-->
+<filter-item-list-app 
+	*ngIf="isEntityTarget; else others" 
+	[filterGroupName]="filterGroupName"></filter-item-list-app>
+
+<ng-container #others>
+	<filter-price-panel-app *ngIf="target === 'price'"></filter-price-panel-app>
+	<filter-rating-panel-app *ngIf="target === 'rating'"></filter-rating-panel-app>		
+</ng-container>
+

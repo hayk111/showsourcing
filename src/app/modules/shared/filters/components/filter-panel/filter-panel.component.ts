@@ -15,13 +15,13 @@ import { FilterActions } from '../../../../store/action/filter.action';
 })
 export class FilterPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	panelVisible$: Observable<boolean>;
+	subPanelVisible$: Observable<boolean>;
 	search = '';
 
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-		this.panelVisible$ = this.store.select(dotSelector('misc.filterItemListPanel.open'));
+		this.subPanelVisible$ = this.store.select(dotSelector('misc.filterSelectionPanel.open'));
 	}
 	
 	close() {

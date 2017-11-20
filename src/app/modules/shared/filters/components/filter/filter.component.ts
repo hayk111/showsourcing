@@ -24,12 +24,13 @@ export class FilterComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+		// select all items selected for target category
 		this.items$ = this.store.select(selectActiveFiltersForCategory(this.filterGroupName, this.target));
 	}
 
 	openFilterListPanel() {
-		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'target', this.target));		
-		this.store.dispatch(MiscActions.setProperty('filterItemListPanel', 'open', true));
+		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'target', this.target));		
+		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', true));
 	}
 
 	removeFilter(id: string) {
