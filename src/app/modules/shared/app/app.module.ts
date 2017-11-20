@@ -36,6 +36,7 @@ import { viewSwitcherReducer } from '../../store/reducer/view-switcher.reducer';
 import { miscReducer } from '../../store/reducer/misc.reducer';
 import { productReducer } from '../../store/reducer/product.reducer';
 import { taskReducer } from '../../store/reducer/task.reducer';
+import { productStatusReducer } from '../../store/reducer/product-status.reducer';
 
 
 const inputMap: InputMap = {
@@ -76,6 +77,7 @@ const inputMap: InputMap = {
 			products: productReducer,
 			viewSwitcher: viewSwitcherReducer,
 			misc: miscReducer,
+			productStatus: productStatusReducer
 		}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2

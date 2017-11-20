@@ -11,7 +11,8 @@ export const initialState: AppFilters = {
 			FilterTarget.categories, 
 			FilterTarget.events, 
 			FilterTarget.tags,
-			FilterTarget.projects
+			FilterTarget.projects,
+			FilterTarget.productStatus
 		],
 		filters: []
 	},

@@ -19,6 +19,7 @@ export enum FilterTarget {
 	projects = 'projects',
 	price = 'price',
 	rating = 'rating',
+	productStatus = 'productStatus'
 }
 
 // formatted for api calls     
