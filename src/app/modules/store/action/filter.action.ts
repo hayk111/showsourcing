@@ -5,6 +5,7 @@ import { AppFilters, Filter, FilterGroupName, FilterTarget } from '../model/filt
 export enum ActionType {
 	ADD_FILTER = '[Filters] adding',
 	REMOVE_FILTER = '[Filters] removing',
+	SET_FILTER_PRICE = '[Filters] setting price',
 	CLEAR = '[Filter] clear'
 }
 
@@ -28,6 +29,13 @@ export class FilterActions {
 				type: ActionType.REMOVE_FILTER,
 				payload: {filterGroupName, target, id}
 			};
+		}
+
+		static setFilterPrice(filterGroupName: FilterGroupName, target: FilterTarget, val: any){
+			return {
+				type: ActionType.SET_FILTER_PRICE,
+				payload: val
+			}
 		}
 
 		static clearGroup(filterGroupName: FilterGroupName) {

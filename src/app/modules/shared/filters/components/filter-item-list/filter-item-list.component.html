@@ -1,9 +1,4 @@
 
-	<div class="flex top">
-		<h3>Filter {{ target$ | async }}</h3>
-		<button class="small secondary" (click)="closePanel()">done</button>			
-	</div>
-
 	<input-app type="search" placeholder="Search" [(ngModel)]="search"></input-app> 	
 	
 	<div class="flexColumn" *ngIf="items$ | async as items">

@@ -14,7 +14,6 @@ import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
 import { MiscActions } from '../../../../store/action/misc.action';
-import { Router, NavigationEnd } from '@angular/router';
 
 // when we filter an entity in the store this is the reused panel
 
@@ -32,7 +31,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	search = '';
 
 
-	constructor(private store: Store<any>, private router: Router) {
+	constructor(private store: Store<any>) {
 		super();
 	}
 
@@ -46,14 +45,6 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 			this._target = t;
 			this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		});
-		this.router.events.subscribe(evt => {
-			if (evt instanceof NavigationEnd)
-				this.closePanel();
-		});
-	}
-
-	closePanel() {
-		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', false));
 	}
 
 	onChange(event, itemName, itemId) {

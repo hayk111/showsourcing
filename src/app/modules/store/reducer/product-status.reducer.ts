@@ -4,13 +4,13 @@ import { EntityState, Entity } from "../utils/entities.utils";
 const initialState: EntityState<Entity> = {
 	maxEntityCounter: 0,
 	byId: {
-		'1': { id: '1', name: ProductStatus.IDEA },
-		'2': { id: '2', name: ProductStatus.NEED_REVIEW },
-		'3': { id: '3', name: ProductStatus.UNDER_ASSESSMENT },
-		'4': { id: '4', name: ProductStatus.COMPLETE },
-		'5': { id: '5', name: ProductStatus.REFUSED },
+		'Idea': { id: 'Idea', name: ProductStatus.IDEA },
+		'NeedReview': { id: 'NeedReview', name: ProductStatus.NEED_REVIEW },
+		'UnderAssessment': { id: 'UnderAssessment', name: ProductStatus.UNDER_ASSESSMENT },
+		'Complete': { id: 'Complete', name: ProductStatus.COMPLETE },
+		'Refused': { id: 'Refused', name: ProductStatus.REFUSED },
 	},
-	ids: ['1', '2', '3', '4', '5']
+	ids: ['Idea', 'NeedReview', 'UnderAssessment', 'Complete', 'Refused']
 }
 
 // we are doing a filter for product status for convenience for the filter panel

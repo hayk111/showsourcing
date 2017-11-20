@@ -36,13 +36,21 @@ export const selectFilterValuesForCategory = (filterGroupName: FilterGroupName, 
 export const selectSlice = (slice: string) => state => state[slice];
 
 // selects only the selected filters
+// some filters store the value of the filter while some
+// store the id of the actual value. This is why things under this are a bit complicated / wonky
 export const selectActiveFiltersForCategory = (filterGroupName: FilterGroupName, target: string) => {
-	const idsFilteredSelector = selectFilterValuesForCategory(filterGroupName, target);
+	const valsFilteredSelector = selectFilterValuesForCategory(filterGroupName, target);
 	const sliceSelector = selectSlice(target);
-	return createSelector(idsFilteredSelector, sliceSelector, (idsFiltered, items) => {
+	return createSelector(valsFilteredSelector, sliceSelector, (valsFiltered, items) => {
 		const selectedItems = [];
-		if (items.ids.length > 0)
-			idsFiltered.forEach(id => selectedItems.push(items.byId[id]));
+		// this means it is an entity
+		if (items){
+			if (items.ids.length > 0)
+			valsFiltered.forEach(id => selectedItems.push(items.byId[id]));
+		} else {
+			// this means it's not an entity (could be price or w.e)
+			selectedItems.forEach(val => selectedItems.push(val));
+		}
 		return selectedItems;
 	});
 };
@@ -63,7 +71,12 @@ export const selectFiltersWithChecked = (filterGroup: FilterGroupName, target: s
 export const selectFiltersAsUrlParams = (filterGroup: FilterGroupName) => state => {
 	const group = selectFilterGroup(filterGroup)(state);
 	let params = '';
-	group.filters.forEach(f => params += `${filterUrlMap[f.target]}=${f.value}&`);
+
+	group.filters.forEach(f => {
+		// we either get the correct name in the map or chop the last char (because it's a plural with s).
+		let val = filterUrlMap[f.target] || f.target.slice(0, -1);
+		params += `${val}=${f.value}&`;
+	});
 	// remove last &
 	if (group.filters.length > 0)
 		params = params.slice(0, -1);

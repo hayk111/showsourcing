@@ -24,10 +24,10 @@ export enum FilterTarget {
 
 // formatted for api calls     
 export const filterUrlMap  = {};
-filterUrlMap[FilterTarget.suppliers] = 'supplier';
-filterUrlMap[FilterTarget.events] = 'event';
 filterUrlMap[FilterTarget.categories] = 'category';
-filterUrlMap[FilterTarget.tags] = 'tag';
+filterUrlMap[FilterTarget.productStatus] = 'status';
+filterUrlMap[FilterTarget.price] = 'price';
+filterUrlMap[FilterTarget.rating] = 'rating';
 
 export interface FilterGroup {
 	targets: Array<FilterTarget>;
