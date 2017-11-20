@@ -1,16 +1,14 @@
 :host{
 	height: 100vh;
 	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+	display: block;
 }
 
 .ctnr{
-	flex-grow: 1;
+	height: calc(100% - 48px);
 }
 
 main{
 	flex-grow: 1;
-	overflow-y: auto;
-	overflow-x: hidden;
+	height: 100%;
 }

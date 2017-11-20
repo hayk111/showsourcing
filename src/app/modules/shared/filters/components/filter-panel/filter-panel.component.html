@@ -1,10 +1,10 @@
-<ng-container *ngIf="!(panelVisible$ | async)">
+<div *ngIf="!(panelVisible$ | async)" class="paddingRight">
 	<div class="flex top">
 		<button class="secondary small" (click)="clear()">Clear</button>
 		<mat-icon (click)="close()">close</mat-icon>
 	</div>
 	<ng-content></ng-content>	
-</ng-container>
+</div>
 
 <filter-item-list-app  *ngIf="panelVisible$ | async" [filterGroupName]="filterGroupName">
 </filter-item-list-app>

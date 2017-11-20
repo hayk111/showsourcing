@@ -1,5 +1,7 @@
 .left{
 	flex-grow: 1;
+	height: 100%;
+	overflow-y: auto;
 	filter-search-bar-app {
 		flex-grow: 1;
 	}
