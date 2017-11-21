@@ -3,7 +3,7 @@
 <div class="card searchTerms" *ngIf="(searchTerms$ | async)?.length > 0">
 	<div *ngFor="let entity of (searchTerms$ | async)" class="flexColumn">
 		<div class="title">{{ entity.entityName }}</div>
-		<mat-checkbox *ngFor="let value of entity.values">
+		<mat-checkbox *ngFor="let value of entity.values" [checked]="value.checked">
 			{{ value.name }}
 		</mat-checkbox>
 	</div>	

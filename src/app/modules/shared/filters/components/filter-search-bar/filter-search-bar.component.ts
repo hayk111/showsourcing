@@ -14,7 +14,7 @@ import { Entity } from '../../../../store/utils/entities.utils';
 export class FilterSearchBarComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	search = '';
-	searchTerms$: Observable<any[]>;
+	searchTerms$: Observable<any>;
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
@@ -23,7 +23,7 @@ export class FilterSearchBarComponent implements OnInit {
 
 	onChange(){
 		if (this.search.length > 2){
-			this.searchTerms$ = this.store.select(searchEntities(this.search))
+			this.searchTerms$ = this.store.select(searchEntities(this.filterGroupName, this.search))
 			.pipe(
 				take(1)				
 			);
