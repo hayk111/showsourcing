@@ -1,14 +1,20 @@
 
-	<input-app type="search" placeholder="Search" [(ngModel)]="search"></input-app> 	
-	
-	<div class="flexColumn" *ngIf="items$ | async as items">
+<input-app type="search" 
+	placeholder="Search" 
+	[(ngModel)]="search">
+</input-app> 	
+
+<div class="flexColumn" *ngIf="items$ | async as items">
+	<ng-container *ngFor="let id of items.ids">
 		<mat-checkbox
+			*ngIf="!search || items.byId[id].name.includes(search)"
 			(change)="onChange($event, items.byId[id].name, id)"
-			*ngFor="let id of items.ids"
 			class="example-margin"
 			[checked]="items.byId[id].checked">
 			{{ items.byId[id].name }}
 		</mat-checkbox>
-	</div>	
+	</ng-container>
+
+</div>	
 
 
