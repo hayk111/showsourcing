@@ -31,17 +31,17 @@ export class FilterActions {
 			};
 		}
 
-		static setFilterPrice(filterGroupName: FilterGroupName, target: FilterTarget, val: any){
+		static setFilterPrice(filterGroupName: FilterGroupName, target: FilterTarget, val: any) {
 			return {
 				type: ActionType.SET_FILTER_PRICE,
-				payload:{ val, filterGroupName }
-			}
+				payload: { val, target, filterGroupName }
+			};
 		}
 
 		static clearGroup(filterGroupName: FilterGroupName) {
 			return {
 				type: ActionType.CLEAR,
 				payload: filterGroupName
-			}
+			};
 		}
 }

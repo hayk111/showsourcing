@@ -24,7 +24,6 @@
 		<mat-checkbox
 			*ngIf="!search || items.byId[id].name.includes(search)"
 			(change)="onChange($event, items.byId[id].name, id)"
-			class="example-margin"
 			[checked]="items.byId[id].checked">
 			{{ items.byId[id].name }}
 		</mat-checkbox>

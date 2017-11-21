@@ -29,7 +29,7 @@ export class FilterComponent implements OnInit {
 	}
 
 	openFilterListPanel() {
-		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'target', this.target));		
+		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'target', this.target));
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', true));
 	}
 

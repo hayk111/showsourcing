@@ -9,20 +9,20 @@ import { NavigationEnd } from '@angular/router';
 import { MiscActions } from '../../../../store/action/misc.action';
 
 @Component({
-  selector: 'filter-selection-panel-app',
-  templateUrl: './filter-selection-panel.component.html',
-  styleUrls: ['./filter-selection-panel.component.scss']
+	selector: 'filter-selection-panel-app',
+	templateUrl: './filter-selection-panel.component.html',
+	styleUrls: ['./filter-selection-panel.component.scss']
 })
 export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	target$: Observable<FilterTarget>;
 	target: FilterTarget;
 
-  constructor(private store: Store<any>, private router: Router) {
+	constructor(private store: Store<any>, private router: Router) {
 		super();
 	}
 
-  ngOnInit() {
+	ngOnInit() {
 		this.target$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
 		this.target$.takeUntil(this._destroy$).subscribe(t => this.target = t);
 		this.router.events.subscribe(evt => {
@@ -34,10 +34,10 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	closePanel() {
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', false));
 	}
-	
+
 	isEntityTarget() {
-		if ( this.target !== FilterTarget.rating && 
-				this.target !== FilterTarget.price )
+		if ( this.target !== FilterTarget.ratings &&
+				this.target !== FilterTarget.prices )
 			return true;
 		return false;
 	}

@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { Filter, FilterGroup, filterUrlMap, FilterGroupName, getUrlForTarget } from '../model/filter.model';
+import { Filter, FilterGroup, filterUrlMap, FilterGroupName, getUrlForTarget, FilterTarget } from '../model/filter.model';
 import { selectSlice } from './slice.selector';
 import { deepCopy } from '../utils/deep-copy.utils';
 
@@ -82,3 +82,5 @@ export const selectFiltersAsUrlParams = (filterGroup: FilterGroupName) => state 
 		params = params.slice(0, -1);
 	return params;
 };
+
+

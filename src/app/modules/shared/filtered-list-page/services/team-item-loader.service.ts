@@ -37,8 +37,8 @@ export class TeamItemLoaderService {
 		this.urlBuilder.id = tid;
 		this.store.select(selectFiltersAsUrlParams(FilterGroupName.PRODUCT_PAGE))
 		.subscribe((params: string) => {
-			this.store.dispatch(this.actions.setPending());			
-			let endpoint = this.urlBuilder.getUrlWithParams(params);
+			this.store.dispatch(this.actions.setPending());
+			const endpoint = this.urlBuilder.getUrlWithParams(params);
 			this.http.get(endpoint).subscribe((p: any) => {
 				this.store.dispatch(this.actions.setData(p.elements));
 			});

@@ -6,14 +6,15 @@ import { selectFilterCategory, selectFilterGroup } from '../selectors/filter.sel
 
 export const initialState: AppFilters = {
 	productsPage: {
+		// TODO : Are those targets even used anymore ?
 		targets: [
-			FilterTarget.suppliers, 
-			FilterTarget.categories, 
-			FilterTarget.events, 
+			FilterTarget.suppliers,
+			FilterTarget.categories,
+			FilterTarget.events,
 			FilterTarget.tags,
 			FilterTarget.projects,
 			FilterTarget.productStatus,
-			FilterTarget.price
+			FilterTarget.prices
 		],
 		filters: []
 	},
@@ -42,15 +43,13 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 			group.filters = group.filters.filter(e => (e.value !== id || e.target !== target));
 			return { ...state };
 		case ActionType.SET_FILTER_PRICE:
-			// first we get all filter for this category (ultimately there should be at most 1 though)
-			const priceFilter = group.filters.filter(e =>  e.target === target);
-			// if there is none we create one, if there is one (or more) we change its value
-			if (priceFilter.length > 0)
-				priceFilter.forEach(c => c.value = action.payload.val);
-			else{
-				const v = { target: 'price', name: `min ${action.payload.val[0]}, max ${action.payload.val[1]}`, value: action.payload.val};
-				group.filters = group.filters.concat(v);
-			}
+			// first we remove current price filter
+			group.filters = group.filters.filter(f => f.target !== target);
+			// if there is none we create one, if there is one we change its value
+			const val = action.payload.val;
+			const nameValue = `${target === FilterTarget.minPrices ? 'min' : 'max'} : ${val}`;
+			const v = { target, name: nameValue, value: action.payload.val};
+			group.filters = group.filters.concat(v);
 			return { ...state };
 		case ActionType.CLEAR:
 			const gName = action.payload;

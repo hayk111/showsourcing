@@ -1,4 +1,4 @@
-import { Entity } from "../utils/entities.utils";
+import { Entity } from '../utils/entities.utils';
 
 
 export interface Filter {
@@ -19,17 +19,18 @@ export enum FilterTarget {
 	categories = 'categories',
 	tags = 'tags',
 	projects = 'projects',
-	price = 'price',
-	rating = 'rating',
+	prices = 'prices',
+	minPrices = 'minPrices',
+	maxPrices = 'maxPrices',
+	ratings = 'ratings',
 	productStatus = 'productStatus'
 }
 
-// formatted for api calls
+// formatted for api calls only need to put those wich don't transform by just removing the last char
+// suppliers for example is not there because supplier (without the s) is the right format.
 export const filterUrlMap  = {};
 filterUrlMap[FilterTarget.categories] = 'category';
 filterUrlMap[FilterTarget.productStatus] = 'status';
-filterUrlMap[FilterTarget.price] = 'price';
-filterUrlMap[FilterTarget.rating] = 'rating';
 
 export const getUrlForTarget = (target: FilterTarget) => {
 	return filterUrlMap[target] || target.slice(0, -1);
