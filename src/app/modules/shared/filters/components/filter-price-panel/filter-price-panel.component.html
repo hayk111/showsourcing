@@ -1,13 +1,6 @@
-<ng-container *ngIf="vals$ | async">
-	<label>Min</label>
-	<div class="inp-box">
-			<input type="number" label="min" placeholder="0" [(ngModel)]="min" (blur)="onBlur()"/>
-	</div>
-	<label>max</label>
-	<div class="inp-box">
-		<input type="number" label="max" placeholder="0" [(ngModel)]="max" (blur)="onBlur()"/>
-	</div>
+	<input-app type="number" label="min" placeholder="0" 
+		[(ngModel)]="min" (blur)="onBlur('min')"></input-app>
+	<input-app type="number" label="max" placeholder="0" 
+		[(ngModel)]="max" (blur)="onBlur('max')"></input-app>
 
 	<span class="error">{{ errorMsg }}</span>
-
-</ng-container>

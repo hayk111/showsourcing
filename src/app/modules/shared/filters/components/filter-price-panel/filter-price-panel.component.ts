@@ -14,9 +14,10 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	private target = FilterTarget.prices;
-	vals$: Observable<Array<number>>;
 	_min: number;
 	_max: number;
+	min$;
+	max$;
 	errorMsg = '';
 
 	constructor(private store: Store<any>) {
@@ -24,15 +25,14 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.vals$ = this.store
-			.select(selectFilterValuesForCategory(this.filterGroupName, this.target));
-		this.vals$.takeUntil(this._destroy$)
-			.subscribe(vals => {
-				if (vals[0]) {
-					this._min = vals[0][0];
-					this._max = vals[0][1];
-				}
-			});
+		this.min$ = this.store
+			.select(selectFilterValuesForCategory(this.filterGroupName, FilterTarget.minPrices));
+		this.max$ = this.store
+			.select(selectFilterValuesForCategory(this.filterGroupName, FilterTarget.maxPrices));
+		this.min$.takeUntil(this._destroy$)
+			.subscribe(val => this._min = val);
+		this.max$.takeUntil(this._destroy$)
+			.subscribe(val => this._max = val);
 	}
 
 	get min() {
