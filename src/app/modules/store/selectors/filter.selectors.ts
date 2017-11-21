@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { Filter, FilterGroup, filterUrlMap, FilterGroupName } from '../model/filter.model';
+import { Filter, FilterGroup, filterUrlMap, FilterGroupName, getUrlForTarget } from '../model/filter.model';
 import { selectSlice } from './slice.selector';
+import { deepCopy } from '../utils/deep-copy.utils';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 // Throwing errors here, so it easier to debug than to silently give back something empty.
@@ -42,7 +43,7 @@ export const selectActiveFiltersForCategory = (filterGroupName: FilterGroupName,
 	return createSelector(valsFilteredSelector, sliceSelector, (valsFiltered, items) => {
 		const selectedItems = [];
 		// this means it is an entity
-		if (items){
+		if (items) {
 			if (items.ids.length > 0)
 			valsFiltered.forEach(id => selectedItems.push(items.byId[id]));
 		} else {
@@ -59,7 +60,8 @@ export const selectFiltersWithChecked = (filterGroup: FilterGroupName, target: s
 	const sliceSelector = selectSlice(target);
 	return createSelector(idsFilteredSelector, sliceSelector, (idsFiltered, items) => {
 		// making copy as to not modifiate the state directly
-		items = JSON.parse(JSON.stringify(items));
+		items = deepCopy(items);
+		// adding count for each item to it.
 		if (items.ids.length > 0)
 			idsFiltered.forEach(id => items.byId[id].checked = true);
 		return items;
@@ -72,11 +74,11 @@ export const selectFiltersAsUrlParams = (filterGroup: FilterGroupName) => state 
 
 	group.filters.forEach(f => {
 		// we either get the correct name in the map or chop the last char (because it's a plural with s).
-		let val = filterUrlMap[f.target] || f.target.slice(0, -1);
+		const val = getUrlForTarget(f.target);
 		params += `${val}=${f.value}&`;
 	});
 	// remove last &
 	if (group.filters.length > 0)
 		params = params.slice(0, -1);
 	return params;
-}
+};

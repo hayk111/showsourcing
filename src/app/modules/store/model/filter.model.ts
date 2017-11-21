@@ -1,3 +1,5 @@
+import { Entity } from "../utils/entities.utils";
+
 
 export interface Filter {
 	target: FilterTarget;
@@ -22,16 +24,20 @@ export enum FilterTarget {
 	productStatus = 'productStatus'
 }
 
-// formatted for api calls     
+// formatted for api calls
 export const filterUrlMap  = {};
 filterUrlMap[FilterTarget.categories] = 'category';
 filterUrlMap[FilterTarget.productStatus] = 'status';
 filterUrlMap[FilterTarget.price] = 'price';
 filterUrlMap[FilterTarget.rating] = 'rating';
 
+export const getUrlForTarget = (target: FilterTarget) => {
+	return filterUrlMap[target] || target.slice(0, -1);
+};
+
 export interface FilterGroup {
 	targets: Array<FilterTarget>;
-	filters: Array<Filter>
+	filters: Array<Filter>;
 }
 
 export interface AppFilters {

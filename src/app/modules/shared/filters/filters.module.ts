@@ -15,6 +15,7 @@ import { FilterRatingPanelComponent } from './components/filter-rating-panel/fil
 import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/filter-sort-by-panel.component';
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 import { UtilsModule } from '../utils/utils.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	imports: [
@@ -23,11 +24,13 @@ import { UtilsModule } from '../utils/utils.module';
 		FormsModule,
 		MatCheckboxModule,
 		MatIconModule,
-		UtilsModule
+		UtilsModule,
 	],
-	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
-		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent, FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent, FilterSelectionPanelComponent ],
-	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent, 
+	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent,
+		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent,
+		FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent,
+		FilterSelectionPanelComponent ],
+	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent,
 		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent ]
 })
 export class FiltersModule { }

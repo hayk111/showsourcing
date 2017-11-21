@@ -4,8 +4,23 @@
 	[(ngModel)]="search">
 </input-app> 	
 
-<div class="flexColumn" *ngIf="items$ | async as items">
-	<ng-container *ngFor="let id of items.ids">
+<h4>Relevant {{ target }}</h4>
+<div class="flexColumn" *ngIf="(itemsWithCount$ | async) as items">
+	<div class="item" *ngFor="let item of items">
+		<mat-checkbox
+			*ngIf="!search || item.name.includes(search)"
+			(change)="onChange($event, item.name, item.id)"
+			[checked]="item.checked">
+			{{ item.name }}
+			
+		</mat-checkbox>
+		{{ item.count }}
+	</div>
+</div>	
+
+<h4>All {{ target }}</h4>
+<div class="flexColumn" *ngIf="(items$ | async) as items">
+	<div *ngFor="let id of items.ids">
 		<mat-checkbox
 			*ngIf="!search || items.byId[id].name.includes(search)"
 			(change)="onChange($event, items.byId[id].name, id)"
@@ -13,8 +28,6 @@
 			[checked]="items.byId[id].checked">
 			{{ items.byId[id].name }}
 		</mat-checkbox>
-	</ng-container>
-
-</div>	
-
+	</div>
+</div>
 

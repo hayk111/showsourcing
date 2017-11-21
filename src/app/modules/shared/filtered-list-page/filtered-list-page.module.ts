@@ -7,11 +7,11 @@ import { MatIconModule, MatTableModule, MatProgressBarModule } from '@angular/ma
 import { TeamItemLoaderService } from './services/team-item-loader.service';
 
 @NgModule({
-  imports: [
+	imports: [
 		CommonModule,
 		FiltersModule,
 		MatIconModule,
-		MatProgressBarModule,		
+		MatProgressBarModule,
 		MatTableModule
 	],
 	providers: [ TeamItemLoaderService ],
