@@ -25,7 +25,8 @@ export const initialState: AppFilters = {
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {
 	let groupName, target, group, id, name;
-	if (action.type === ActionType.ADD_FILTER || action.type === ActionType.REMOVE_FILTER) {
+	if (action.type === ActionType.ADD_FILTER || action.type === ActionType.REMOVE_FILTER
+			|| action.type === ActionType.SET_FILTER_PRICE) {
 		groupName = action.payload.filterGroupName;
 		target = action.payload.target;
 		group = state[groupName];
@@ -38,17 +39,17 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 			group.filters = group.filters.concat({target, name, value: id});
 			return { ...state };
 		case ActionType.REMOVE_FILTER:
-			group.filters = group.filters.filter(e => (e.value !== id && e.target === target));
+			group.filters = group.filters.filter(e => (e.value !== id || e.target !== target));
 			return { ...state };
 		case ActionType.SET_FILTER_PRICE:
 			// first we get all filter for this category (ultimately there should be at most 1 though)
-			const priceFilter =  group.filters.filter(e =>  e.target === target);
+			const priceFilter = group.filters.filter(e =>  e.target === target);
 			// if there is none we create one, if there is one (or more) we change its value
 			if (priceFilter.length > 0)
-				priceFilter.forEach(c => c.value = action.payload);
+				priceFilter.forEach(c => c.value = action.payload.val);
 			else{
-				const v = {target, name: `min ${action.payload[0]}, max ${action.payload[1]}`, value: action.payload};
-				group.filters.concat(v);
+				const v = { target: 'price', name: `min ${action.payload.val[0]}, max ${action.payload.val[1]}`, value: action.payload.val};
+				group.filters = group.filters.concat(v);
 			}
 			return { ...state };
 		case ActionType.CLEAR:

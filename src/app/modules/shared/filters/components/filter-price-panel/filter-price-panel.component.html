@@ -1,4 +1,4 @@
 <ng-container *ngIf="vals$ | async">
-	<input-app label="min" placeholder="0" [(ngModel)]="min" (blur)="onBlur()"></input-app>
-	<input-app label="max" placeholder="0" [(ngModel)]="max" (blur)="onBlur()"></input-app>
+	<input-app type="number" label="min" placeholder="0" [(ngModel)]="min" (blur)="onBlur()"></input-app>
+	<input-app type="number" label="max" placeholder="0" [(ngModel)]="max" (blur)="onBlur()"></input-app>
 </ng-container>

@@ -25,7 +25,7 @@ export class PreloaderService {
 
 	private user: User;
 	private maxCounter = 0;
-	private reloadTime = 1500000;
+	private reloadTime = 15000;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
 		this.store.select('user')

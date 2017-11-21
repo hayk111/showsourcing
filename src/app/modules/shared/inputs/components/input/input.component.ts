@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, HostBinding, ChangeDetectorRef, ViewChild, Renderer2, Injector } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, HostBinding, ChangeDetectorRef, ViewChild, Renderer2, Injector, EventEmitter, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from '@angular/forms';
 import Log from '../../../../../utils/logger/log.class';
 import { FormBuilderService } from '../../../form-builder/services/form-builder.service';
@@ -26,6 +26,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	// for example the number input shouldn't let us type letters
 	private regex;
 	@Input() margin = true;
+	@Output() blur = new EventEmitter();
 
 	constructor(protected inj: Injector) { super(inj); }
 
@@ -78,6 +79,10 @@ export class InputComponent extends AbstractInput implements OnInit {
 		if (e.keyCode >= 35 && e.keyCode <= 40)
 			return true;
 
+	}
+
+	onBlur() {
+		this.blur.emit();
 	}
 
 }

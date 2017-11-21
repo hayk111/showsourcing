@@ -11,7 +11,8 @@
     [(ngModel)]="value"
 		(keydown)="onKeyDown($event)"
 		(keyup)="onChange(inp.value)"
-		(change)="onChange(inp.value)"/>
+		(change)="onChange(inp.value)"
+		(blur)="onBlur()"/>
 
   <div class="error" *ngIf="control?.hasError('required') && !control.pristine">This field is required</div>
   <div class="error" *ngIf="control?.hasError('email') && !control.pristine" >This field should be a valid email</div>

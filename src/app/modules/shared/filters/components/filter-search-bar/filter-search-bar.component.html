@@ -1,2 +1,11 @@
-<input-app type="search" class="fullWidth" placeholder="Search" [(ngModel)]="search" 
-	[margin]="false"></input-app>
+<input type="search" class="fullWidth" placeholder="Search" [(ngModel)]="search"
+	(keyup)="onChange()"/>
+<div class="card searchTerms" *ngIf="(searchTerms$ | async)?.length > 0">
+	<div *ngFor="let entity of (searchTerms$ | async)" class="flexColumn">
+		<div class="title">{{ entity.entityName }}</div>
+		<mat-checkbox *ngFor="let value of entity.values">
+			{{ value.name }}
+		</mat-checkbox>
+	</div>	
+</div>
+

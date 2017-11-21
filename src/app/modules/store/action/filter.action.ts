@@ -34,7 +34,7 @@ export class FilterActions {
 		static setFilterPrice(filterGroupName: FilterGroupName, target: FilterTarget, val: any){
 			return {
 				type: ActionType.SET_FILTER_PRICE,
-				payload: val
+				payload:{ val, filterGroupName }
 			}
 		}
 

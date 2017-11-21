@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { Filter, FilterGroup, filterUrlMap, FilterGroupName } from '../model/filter.model';
+import { selectSlice } from './slice.selector';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 // Throwing errors here, so it easier to debug than to silently give back something empty.
@@ -31,9 +32,6 @@ export const selectFilterValuesForCategory = (filterGroupName: FilterGroupName, 
 	const filtersForCategory = selectFilterCategory(filterGroupName, target)(state);
 	return filtersForCategory.map(f => f.value);
 };
-
-
-export const selectSlice = (slice: string) => state => state[slice];
 
 // selects only the selected filters
 // some filters store the value of the filter while some
