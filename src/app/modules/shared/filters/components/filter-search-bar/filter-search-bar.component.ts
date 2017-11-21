@@ -5,6 +5,7 @@ import { searchEntities } from '../../../../store/selectors/search-entities.sele
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Entity } from '../../../../store/utils/entities.utils';
+import { FilterActions } from '../../../../store/action/filter.action';
 @Component({
 	selector: 'filter-search-bar-app',
 	templateUrl: './filter-search-bar.component.html',
@@ -28,6 +29,17 @@ export class FilterSearchBarComponent implements OnInit {
 				take(1)				
 			);
 		}
+	}
+
+	closeSmartSearch() {
+		this.searchTerms$ = undefined;
+	}
+
+	onFilterChange(event, target, itemName, itemId) {
+		if (event.checked)
+			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, target, itemName, itemId));
+		else
+			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, target, itemId));
 	}
 
 }

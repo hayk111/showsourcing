@@ -14,6 +14,7 @@ import { FilterPricePanelComponent } from './components/filter-price-panel/filte
 import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
 import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/filter-sort-by-panel.component';
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { FilterSelectionPanelComponent } from './components/filter-selection-pan
 		InputsModule,
 		FormsModule,
 		MatCheckboxModule,
-		MatIconModule
+		MatIconModule,
+		UtilsModule
 	],
 	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent, 
 		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent, FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent, FilterSelectionPanelComponent ],

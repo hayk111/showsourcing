@@ -48,7 +48,6 @@ const addSelection = (filterGroupName: FilterGroupName,
 	foundValues.forEach(ent => {
 		const vals = selectFilterValuesForCategory(filterGroupName, ent.entityName)(state);
 		ent.values.forEach(v => {
-			debugger;
 			// tilde checks if it's found
 			if (~vals.indexOf(v.id))
 				v.checked = true;
