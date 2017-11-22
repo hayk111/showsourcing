@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterGroupName } from '../../../../store/model/filter.model';
-import { searchEntities } from '../../../../store/selectors/search-entities.selector';
+import { searchEntities, SearchedEntity } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Entity } from '../../../../store/utils/entities.utils';
@@ -15,18 +15,17 @@ import { FilterActions } from '../../../../store/action/filter.action';
 export class FilterSearchBarComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	search = '';
-	searchTerms$: Observable<any>;
+	searchTerms$: Observable<Array<SearchedEntity>>;
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		
 	}
 
-	onChange(){
-		if (this.search.length > 2){
+	onChange() {
+		if (this.search.length > 2) {
 			this.searchTerms$ = this.store.select(searchEntities(this.filterGroupName, this.search))
 			.pipe(
-				take(1)				
+				take(1)
 			);
 		}
 	}

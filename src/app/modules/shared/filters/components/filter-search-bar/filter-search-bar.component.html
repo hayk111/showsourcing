@@ -4,10 +4,10 @@
 	class="card searchTerms" 
 	*ngIf="(searchTerms$ | async)?.length > 0">
 	<div *ngFor="let entity of (searchTerms$ | async)" class="flexColumn">
-		<div class="title">{{ entity.entityName }}</div>
+		<div class="title">{{ entity.entityRepr.entityName }}</div>
 		<mat-checkbox *ngFor="let value of entity.values" 
 			[checked]="value.checked" 
-			(change)="onFilterChange($event, entity.entityName, value.name, value.id)">
+			(change)="onFilterChange($event, entity.entityRepr.entityName, value.name, value.id)">
 			{{ value.name }}
 		</mat-checkbox>
 	</div>	

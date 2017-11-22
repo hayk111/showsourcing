@@ -37,17 +37,17 @@ export class PreloaderService {
 	}
 
 	private loadEverything() {
-		// this.loadCountries();
-		// this.loadCurrencies();
-		// this.loadCategories();
-		// this.loadSuppliers();
-		// this.loadTeams();
-		// this.loadEvents();
-		// this.loadProjects();
-		// this.loadTags();
+		this.loadCountries();
+		this.loadCurrencies();
+		this.loadCategories();
+		this.loadSuppliers();
+		this.loadTeams();
+		this.loadEvents();
+		this.loadProjects();
+		this.loadTags();
 
-		// // this should be the last one
-		// this.loadMaxCounter();
+		// this should be the last one
+		this.loadMaxCounter();
 
 	}
 

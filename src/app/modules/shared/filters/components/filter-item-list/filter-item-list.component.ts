@@ -58,11 +58,15 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		// adding count to items
 		let itemUrlName = t.urlName;
+		// capitalizing because that url needs to
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
 		const count$ = this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
 			.map((r: any) => r.items);
 		return this.items$.pipe(
 			combineLatest(count$, (items, counts) => {
+				// if items are not loaded yet
+				if (items.ids.length === 0)
+					return [];
 				const returned = [];
 				Object.entries(counts).forEach( ([k, v]) => {
 					items.byId[k].count = v;
