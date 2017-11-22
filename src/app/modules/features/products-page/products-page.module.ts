@@ -7,12 +7,14 @@ import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered
 import { ProductListViewComponent } from './components/product-list-view/product-list-view.component';
 import { ProductCardViewComponent } from './components/product-card-view/product-card-view.component';
 import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/team-item-loader.service';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FiltersModule,
 		MatTableModule,
+		MatCheckboxModule,
 		FilteredListPageModule
 	],
 	declarations: [ ProductsPageComponent,

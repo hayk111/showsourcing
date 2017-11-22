@@ -49,6 +49,9 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		else {
 			this.clearError();
 			this._min = v;
+			const action = FilterActions
+			.setFilterPrice(this.filterGroupName, FilterTarget.minPrices, this.min);
+			this.store.dispatch(action);
 		}
 	}
 
@@ -58,6 +61,9 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		else {
 			this.clearError();
 			this._max = v;
+			const action = FilterActions
+			.setFilterPrice(this.filterGroupName, FilterTarget.maxPrices, this._max);
+			this.store.dispatch(action);
 		}
 	}
 
@@ -65,21 +71,4 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		this.errorMsg = '';
 	}
 
-	// we change value on blur to not change too often
-	onBlur(minOrMax) {
-		let action;
-		switch (minOrMax) {
-			case 'min':
-				action = FilterActions
-				.setFilterPrice(this.filterGroupName, FilterTarget.minPrices, this.min);
-				break;
-			case 'max':
-				action = FilterActions
-				.setFilterPrice(this.filterGroupName, FilterTarget.maxPrices, this._max);
-				break;
-			default:
-				throw Error('Hey this should be min or max, please fix me in filter-price-panel.component');
-		}
-		this.store.dispatch(action);
-	}
 }

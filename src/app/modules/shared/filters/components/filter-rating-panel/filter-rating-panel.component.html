@@ -1,0 +1,5 @@
+<div class="flexColumn" *ngFor="let r of ratings">
+	<mat-checkbox  (change)="onChange($event, r)">
+		<mat-icon *ngFor="let s of getStarArray(r)">star</mat-icon>
+	</mat-checkbox>
+</div>

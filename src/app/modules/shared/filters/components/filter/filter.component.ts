@@ -4,9 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { EntityState, Entity } from '../../../../store/utils/entities.utils';
 import { Filter, FilterGroupName, FilterTarget } from '../../../../store/model/filter.model';
-import { selectActiveFiltersForCategory } from '../../../../store/selectors/filter.selectors';
+import { selectActiveFiltersForCategory, selectFilterCategory } from '../../../../store/selectors/filter.selectors';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
+import { merge } from 'rxjs/operators/merge';
 
 @Component({
 	selector: 'filter-app',
@@ -18,14 +19,22 @@ export class FilterComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() target: FilterTarget;
 	@Output() itemClicked = new EventEmitter();
-	items$: Observable<Array<Entity>>;
+	items$: Observable<Array<Filter>>;
 
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		// select all items selected for target category
-		this.items$ = this.store.select(selectActiveFiltersForCategory(this.filterGroupName, this.target));
+		if (this.target !== FilterTarget.prices)
+			this.items$ = this.store.select(selectFilterCategory(this.filterGroupName, this.target));
+		else {
+			const min$ = this.store.select(
+					selectFilterCategory(this.filterGroupName, FilterTarget.minPrices));
+			const max$ = this.store.select(
+				selectFilterCategory(this.filterGroupName, FilterTarget.maxPrices));
+			this.items$ = min$.pipe(merge(max$));
+		}
 	}
 
 	openFilterListPanel() {
@@ -33,8 +42,8 @@ export class FilterComponent implements OnInit {
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', true));
 	}
 
-	removeFilter(id: string) {
-		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.target, id));
+	removeFilter(id: string, target: FilterTarget) {
+		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, target, id));
 	}
 
 }

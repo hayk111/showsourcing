@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Filter, FilterGroup, FilterGroupName } from '../../../store/model/filter.model';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { ActionType, ProductActions } from '../../../store/action/product.action
 
 @Injectable()
 export class TeamItemLoaderService {
+	@Input() filterGroupName: FilterGroupName;
 	urlBuilder = new UrlBuilder('team');
 	private initiated = false;
 	private actions: any;
@@ -19,9 +20,10 @@ export class TeamItemLoaderService {
 		Log.debug('TeamItemLoaderService');
 	}
 
-	init(targetEntity: string, actions: any) {
+	init(targetEntity: string, actions: any, filterGroupName) {
 		if (this.initiated)
 			return;
+		this.filterGroupName = filterGroupName;
 		this.initiated = true;
 		this.actions = actions;
 		this.urlBuilder.entity = targetEntity;
@@ -35,7 +37,7 @@ export class TeamItemLoaderService {
 
 	subToItem(tid: string) {
 		this.urlBuilder.id = tid;
-		this.store.select(selectFiltersAsUrlParams(FilterGroupName.PRODUCT_PAGE))
+		this.store.select(selectFiltersAsUrlParams(this.filterGroupName))
 		.subscribe((params: string) => {
 			this.store.dispatch(this.actions.setPending());
 			const endpoint = this.urlBuilder.getUrlWithParams(params);

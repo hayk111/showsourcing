@@ -12,7 +12,7 @@ import { selectFilterGroup, selectFilterGroupFilters } from '../../../../store/s
 export class FilterTagCloudComponent implements OnInit {
 	@Input() filterGroupName;
 	filters$: Observable<any>;
-	
+
 
 	constructor(private store: Store<any>) {
 
@@ -20,9 +20,9 @@ export class FilterTagCloudComponent implements OnInit {
 
 	ngOnInit() {
 		if (!this.filterGroupName)
-			throw Error (`filterGroupName is undefined but should be a FilterGroupName. 
+			throw Error (`filterGroupName is undefined but should be a FilterGroupName.
 				\n Please make sure it's defined `);
 		this.filters$ = this.store.select(selectFilterGroupFilters(this.filterGroupName));
 	}
-  
+
 }

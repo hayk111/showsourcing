@@ -1,6 +1,16 @@
-	<input-app type="number" label="min" placeholder="0" 
-		[(ngModel)]="min" (blur)="onBlur('min')"></input-app>
-	<input-app type="number" label="max" placeholder="0" 
-		[(ngModel)]="max" (blur)="onBlur('max')"></input-app>
+	<label>Min</label>
+	<div class="inpBox">
+		<input type="number" label="min" placeholder="0" 
+			value="min" #inpMin
+			(blur)="min = inpMin.value"/>		
+	</div>
+
+	<label>Max</label>
+	<div class="inpBox">
+		<input type="number" label="max" placeholder="0"
+			value="max" #inpMax
+			(blur)="max = inpMax.value"/>		
+	</div>
+
 
 	<span class="error">{{ errorMsg }}</span>

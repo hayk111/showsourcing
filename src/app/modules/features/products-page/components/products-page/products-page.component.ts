@@ -29,7 +29,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.itemLoader.init('product', ProductActions);
+		this.itemLoader.init('product', ProductActions, this.filterGroupName);
 		this.store.select('products')
 			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));

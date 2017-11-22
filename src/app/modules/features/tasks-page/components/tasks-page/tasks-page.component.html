@@ -1,6 +1,10 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
+	
 		<div class="filters">
+			<filter-list-app class="filters" 
+				[filterGroupName]="filterGroupName"
+				[targets]="targets"></filter-list-app>
 		</div>
 		
 		<div class="list-view">

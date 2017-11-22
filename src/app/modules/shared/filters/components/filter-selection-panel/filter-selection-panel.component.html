@@ -11,7 +11,9 @@
 
 <ng-template #others>
 	<filter-price-panel-app [filterGroupName]="filterGroupName"
-	 	*ngIf="target === 'prices'"></filter-price-panel-app>
-	<filter-rating-panel-app *ngIf="target === 'rating'"></filter-rating-panel-app>		
+		 *ngIf="target === 'prices'"></filter-price-panel-app>
+		 
+	<filter-rating-panel-app [filterGroupName]="filterGroupName"
+	 *ngIf="target === 'ratings'"></filter-rating-panel-app>		
 </ng-template>
 

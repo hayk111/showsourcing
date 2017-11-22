@@ -14,7 +14,8 @@ export const initialState: AppFilters = {
 			FilterTarget.tags,
 			FilterTarget.projects,
 			FilterTarget.productStatus,
-			FilterTarget.prices
+			FilterTarget.prices,
+			FilterTarget.ratings
 		],
 		filters: []
 	},

@@ -2,7 +2,10 @@
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
 		<filter-list-app class="filters" 
 			[filterGroupName]="filterGroupName"
-			[targets]="filterTargets"></filter-list-app>			
+			[targets]="filterTargets"></filter-list-app>
+
+		<mat-checkbox>With Archived</mat-checkbox>
+		
 		<product-list-view-app class="list-view" [products]="products"></product-list-view-app>
 		<product-card-view-app class ="card-view" [products]="products"></product-card-view-app>
 </filtered-list-page-app>
