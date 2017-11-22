@@ -7,14 +7,16 @@
 <h4>Relevant {{ entityRep.displayName }}</h4>
 <div class="flexColumn" *ngIf="(itemsWithCount$ | async) as items">
 	<div class="item" *ngFor="let item of items">
-		<mat-checkbox
-			*ngIf="!search || item.name.includes(search)"
-			(change)="onChange($event, item.name, item.id)"
-			[checked]="item.checked">
-			{{ item.name }}
-			
-		</mat-checkbox>
-		{{ item.count }}
+		<ng-container *ngIf="!search || item.name.includes(search)">
+			<mat-checkbox
+				(change)="onChange($event, item.name, item.id)"
+				[checked]="item.checked">
+				{{ item.name }}
+				
+			</mat-checkbox>
+			{{ item.count }}
+		</ng-container>
+
 	</div>
 </div>	
 
