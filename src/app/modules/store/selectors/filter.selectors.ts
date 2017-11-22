@@ -20,7 +20,7 @@ export const selectFilterForEntity = (filterGroupName: FilterGroupName, entityRe
 	const groupFilters = fromRoot ? state.filters[filterGroupName] : state[filterGroupName];
 	if (groupFilters === undefined)
 		throw Error(`filterGroupName for ${filterGroupName} is undefined. ${r}`);
-	const filtersForTarget = groupFilters.filter(f  => f.target.entityName === entityRep.entityName);
+	const filtersForTarget = groupFilters.filter(f  => f.entityRepr.entityName === entityRep.entityName);
 	return filtersForTarget;
 };
 
@@ -68,8 +68,7 @@ export const selectFiltersWithChecked = (filterGroup: FilterGroupName, entityRep
 export const selectFiltersAsUrlParams = (filterGroup: FilterGroupName) => state => {
 	const filters = selectFilterGroup(filterGroup)(state);
 	let params = '';
-
-	filters.forEach((f: Filter) => params += `${f.target.urlName}=${f.value}&`);
+	filters.forEach((f: Filter) => params += `${f.entityRepr.urlName}=${f.value}&`);
 	// remove last &
 	if (filters.length > 0)
 		params = params.slice(0, -1);

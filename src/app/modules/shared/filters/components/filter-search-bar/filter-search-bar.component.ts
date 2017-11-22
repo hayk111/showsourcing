@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
 import { searchEntities, SearchedEntity } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -34,7 +34,7 @@ export class FilterSearchBarComponent implements OnInit {
 		this.searchTerms$ = undefined;
 	}
 
-	onFilterChange(event, target, itemName, itemId) {
+	onFilterChange(event, target: EntityRepresentation, itemName: string, itemId: string) {
 		if (event.checked)
 			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, target, itemName, itemId));
 		else

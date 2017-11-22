@@ -7,7 +7,7 @@
 		<div class="title">{{ entity.entityRepr.entityName }}</div>
 		<mat-checkbox *ngFor="let value of entity.values" 
 			[checked]="value.checked" 
-			(change)="onFilterChange($event, entity.entityRepr.entityName, value.name, value.id)">
+			(change)="onFilterChange($event, entity.entityRepr, value.name, value.id)">
 			{{ value.name }}
 		</mat-checkbox>
 	</div>	

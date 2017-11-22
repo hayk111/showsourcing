@@ -13,6 +13,7 @@ export const initialState: AppFilters = {
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {
 	let groupName, entityRepr, group, id, name;
+	// getting some vars ready that are used in many places
 	if (action.type === ActionType.ADD_FILTER || action.type === ActionType.REMOVE_FILTER
 			|| action.type === ActionType.SET_FILTER_PRICE) {
 		groupName = action.payload.filterGroupName;
@@ -24,10 +25,11 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 
 	switch (action.type) {
 		case ActionType.ADD_FILTER:
-			group = group.concat({entityRepr, name, value: id});
+			state[groupName] = group.concat({entityRepr, name, value: id});
 			return { ...state };
 		case ActionType.REMOVE_FILTER:
-			group.filters = group.filters.filter(e => (e.value !== id || e.target !== entityRepr));
+		debugger;
+			state[groupName] = group.filter(e => (e.value !== id || e.entityRepr !== entityRepr));
 			return { ...state };
 		case ActionType.SET_FILTER_PRICE:
 			// first we remove current price filter

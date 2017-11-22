@@ -3,7 +3,7 @@ import { disableDebugTools } from '@angular/platform-browser/src/browser/tools/t
 
 
 export interface Filter {
-	target: EntityRepresentation;
+	entityRepr: EntityRepresentation;
 	name: string;
 	value: any;
 }
