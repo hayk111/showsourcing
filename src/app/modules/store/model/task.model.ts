@@ -14,6 +14,7 @@ export enum TaskType {
 
 export interface Task {
 	id: string;
+	name: string;
 	entityCounter: number;
 	teamId: string;
 	taskType: TaskType;

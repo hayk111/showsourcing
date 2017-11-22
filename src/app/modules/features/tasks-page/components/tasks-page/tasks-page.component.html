@@ -9,15 +9,15 @@
 		
 		<div class="list-view">
 			list
-			<div *ngFor="let t of (tasks)">
-				{{ t | json }}
+			<div *ngFor="let id of (tasksEntities.ids)">
+				{{ tasksEntities.byId[id] | json }}
 			</div>
 		</div>
 
 		<div class="card-view">
 			cards
-			<div class="card" *ngFor="let t of tasks">
-				{{ t | json }}
+			<div class="card" *ngFor="let id of tasksEntities.ids">
+				{{ tasksEntities.byId[id] | json }}
 			</div>
 		</div>
 </filtered-list-page-app>

@@ -7,7 +7,7 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/task.model';
-import { AsyncEntity } from '../../../../store/utils/async-entity.utils';
+import { EntityState } from '../../../../store/utils/entities.utils';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	];
 	filters$: Observable<Filter> = new Observable();
 	tasks$;
-	tasks: Array<Task> = [];
+	tasksEntities: EntityState<Task>;
 	pending = true;
 
 	constructor(private itemLoader: TeamItemLoaderService, private store: Store<any>) {
@@ -42,9 +42,11 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 			.subscribe(t => this.onItemsReceived(t));
 	}
 
-	onItemsReceived(items: AsyncEntity<Task>) {
-		this.tasks = items.data;
+	onItemsReceived(items: EntityState<Task>) {
+		this.tasksEntities = items;
 		this.pending = items.pending;
+		// TODO: REMOVE THIS
+		setTimeout(() => {}, 40);
 	}
 
 }
