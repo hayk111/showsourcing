@@ -44,7 +44,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 
 	onItemsReceived(items: AsyncEntity<Task>) {
 		this.tasks = items.data;
-		this.pending = false;
+		this.pending = items.pending;
 	}
 
 }

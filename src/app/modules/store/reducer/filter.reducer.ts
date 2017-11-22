@@ -26,6 +26,10 @@ export const initialState: AppFilters = {
 	supplierPage: {
 		targets: [],
 		filters: []
+	},
+	eventsPage: {
+		targets: [],
+		filters: []
 	}
 };
 

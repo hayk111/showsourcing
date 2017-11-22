@@ -14,11 +14,17 @@ export class SupplierPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 	targets = [ FilterTarget.name ];
 	supplier$: Observable<EntityState<Supplier>>;
+	pending = true;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.supplier$ = this.store.select('suppliers');
+		this.supplier$.subscribe(s => this.onItemsReceived(s));
+	}
+
+	onItemsReceived(items: EntityState<Supplier>) {
+		this.pending = items.pending;
 	}
 
 }

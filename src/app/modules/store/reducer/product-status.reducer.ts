@@ -1,7 +1,8 @@
-import { ProductStatus } from "../model/product.model";
-import { EntityState, Entity } from "../utils/entities.utils";
+import { ProductStatus } from '../model/product.model';
+import { EntityState, Entity } from '../utils/entities.utils';
 
 const initialState: EntityState<Entity> = {
+	pending: false,
 	maxEntityCounter: 0,
 	byId: {
 		'Idea': { id: 'Idea', name: ProductStatus.IDEA },
@@ -11,9 +12,9 @@ const initialState: EntityState<Entity> = {
 		'Refused': { id: 'Refused', name: ProductStatus.REFUSED },
 	},
 	ids: ['Idea', 'NeedReview', 'UnderAssessment', 'Complete', 'Refused']
-}
+};
 
 // we are doing a filter for product status for convenience for the filter panel
-export function productStatusReducer( state = initialState, action){
+export function productStatusReducer( state = initialState, action) {
 	return state;
 }

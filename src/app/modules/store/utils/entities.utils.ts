@@ -1,5 +1,6 @@
 
 export interface EntityState<G extends Entity> {
+	pending: boolean;
 	maxEntityCounter: number;
 	byId: { [key: string]: G };
 	ids: Array<string>;
@@ -27,6 +28,7 @@ export function addEntities(state: any, entities: Array<any>) {
 		}
 	});
 	return {
+		pending: false,
 		maxEntityCounter,
 		byId,
 		ids,
@@ -34,6 +36,7 @@ export function addEntities(state: any, entities: Array<any>) {
 }
 
 export const entityInitialState: EntityState<any> = {
+	pending: true,
 	maxEntityCounter: 0,
 	byId : {},
 	ids: []
