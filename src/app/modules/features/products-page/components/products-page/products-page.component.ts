@@ -9,7 +9,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
-import { AsyncEntity } from '../../../../store/utils/async-entity.utils';
+import { EntityState } from '../../../../store/utils/entities.utils';
 // import { ProductsService } from '../../services/products.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
 	filterTargets: Array<FilterTarget> = [];
 	pending = true;
-	products = [];
+	productEntities: EntityState<Product>;
 
 	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
 		super();
@@ -39,8 +39,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			.subscribe((f: FilterGroup) => this.filterTargets = f.targets);
 	}
 
-	onItemsReceived(items: AsyncEntity<Product>) {
-		this.products = items.data;
+	onItemsReceived(items: EntityState<Product>) {
+		this.productEntities = items;
 		this.pending = items.pending;
 	}
 }
