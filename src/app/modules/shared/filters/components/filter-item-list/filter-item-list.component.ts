@@ -9,7 +9,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { selectFiltersWithChecked } from '../../../../store/selectors/filter.selectors';
-import { FilterGroupName, FilterTarget, getUrlForTarget } from '../../../../store/model/filter.model';
+import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
@@ -28,8 +28,8 @@ import { combineLatest } from 'rxjs/operators';
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	target: FilterTarget;
-	target$ = new Observable<string>();
+	entityRep: EntityRepresentation;
+	target$ = new Observable<EntityRepresentation>();
 	itemsWithCount$: Observable<any>;
 	items$: Observable<any>;
 	search = '';
@@ -49,15 +49,15 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		this.itemsWithCount$ = this.target$.pipe(
 			filter(t => t !== undefined),
 			distinctUntilChanged(),
-			switchMap((t: FilterTarget) => this.onTargetReceived(t))
+			switchMap((t: EntityRepresentation) => this.onTargetReceived(t))
 		);
 	}
 
-	private onTargetReceived(t: FilterTarget) {
-		this.target = t;
+	private onTargetReceived(t: EntityRepresentation) {
+		this.entityRep = t;
 		this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
 		// adding count to items
-		let itemUrlName = getUrlForTarget(t);
+		let itemUrlName = t.urlName;
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
 		const count$ = this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
 			.map((r: any) => r.items);
@@ -75,9 +75,9 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 
 	onChange(event, itemName, itemId) {
 		if (event.checked)
-			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.target, itemName, itemId));
+			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.entityRep, itemName, itemId));
 		else
-			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.target, itemId));
+			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, itemId));
 	}
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectFilterGroup, selectFilterGroupFilters } from '../../../../store/selectors/filter.selectors';
+import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 
 @Component({
 	selector: 'filter-tag-cloud-app',
@@ -22,7 +22,7 @@ export class FilterTagCloudComponent implements OnInit {
 		if (!this.filterGroupName)
 			throw Error (`filterGroupName is undefined but should be a FilterGroupName.
 				\n Please make sure it's defined `);
-		this.filters$ = this.store.select(selectFilterGroupFilters(this.filterGroupName));
+		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 
 }

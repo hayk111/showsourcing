@@ -1,5 +1,5 @@
 <div class="filterButton pointer" (click)="openFilterListPanel()">
-	<span>{{ target }}</span>
+	<span>{{ target.displayName }}</span>
 	<mat-icon>keyboard_arrow_down</mat-icon>
 </div>
 <div *ngFor="let item of (items$ | async)" class="flex deletableItem">

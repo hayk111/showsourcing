@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter, FilterTarget } from '../../../../store/model/filter.model';
+import { FilterGroupName, Filter, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
@@ -19,12 +19,12 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.TASKS_PAGE;
 	targets = [
-		FilterTarget.categories,
-		FilterTarget.productStatus,
-		FilterTarget.events,
-		FilterTarget.suppliers,
-		FilterTarget.projects,
-		FilterTarget.ratings
+		entityRepresentationMap.categories,
+		entityRepresentationMap.productStatus,
+		entityRepresentationMap.events,
+		entityRepresentationMap.suppliers,
+		entityRepresentationMap.projects,
+		entityRepresentationMap.ratings
 	];
 	filters$: Observable<Filter> = new Observable();
 	tasks$;

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectProp } from '../../../../store/selectors/panel.selector';
 import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
-import { Filter, FilterGroupName, FilterTarget, FilterGroup } from '../../../../store/model/filter.model';
+import { Filter, FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
@@ -21,15 +21,15 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filterTargets: Array<FilterTarget> = [
-		FilterTarget.suppliers,
-		FilterTarget.categories,
-		FilterTarget.events,
-		FilterTarget.tags,
-		FilterTarget.projects,
-		FilterTarget.productStatus,
-		FilterTarget.prices,
-		FilterTarget.ratings
+	filterTargets: Array<EntityRepresentation> = [
+		entityRepresentationMap.suppliers,
+		entityRepresentationMap.categories,
+		entityRepresentationMap.events,
+		entityRepresentationMap.tags,
+		entityRepresentationMap.projects,
+		entityRepresentationMap.productStatus,
+		entityRepresentationMap.prices,
+		entityRepresentationMap.ratings
 	];
 	pending = true;
 	productEntities: EntityState<Product>;

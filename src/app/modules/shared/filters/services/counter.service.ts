@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FilterTarget } from '../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { User } from '../../../store/model/user.model';
+import { EntityRepresentation } from '../../../store/model/filter.model';
 
 @Injectable()
 export class CounterService {
@@ -14,7 +14,7 @@ export class CounterService {
 		});
 	}
 
-	getCount(entityName: FilterTarget) {
+	getCount(entityName: EntityRepresentation) {
 		return this.http.get(`/api/team/${this.teamId}/countProdsBy${entityName}`);
 	}
 

@@ -4,7 +4,7 @@
 	[(ngModel)]="search">
 </input-app> 	
 
-<h4>Relevant {{ target }}</h4>
+<h4>Relevant {{ entityRep.displayName }}</h4>
 <div class="flexColumn" *ngIf="(itemsWithCount$ | async) as items">
 	<div class="item" *ngFor="let item of items">
 		<mat-checkbox
@@ -18,7 +18,7 @@
 	</div>
 </div>	
 
-<h4>All {{ target }}</h4>
+<h4>All {{ entityRep.displayName }}</h4>
 <div class="flexColumn" *ngIf="(items$ | async) as items">
 	<div *ngFor="let id of items.ids">
 		<mat-checkbox

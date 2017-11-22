@@ -1,5 +1,5 @@
 <div class="flex top">
-	<h3>Filter {{ target$ | async }}</h3>
+	<h3>Filter {{ (target$ | async).displayName }}</h3>
 	<button class="small secondary" (click)="closePanel()">done</button>			
 </div>
 
@@ -11,9 +11,9 @@
 
 <ng-template #others>
 	<filter-price-panel-app [filterGroupName]="filterGroupName"
-		*ngIf="target === 'prices'"></filter-price-panel-app>
+		*ngIf="target.displayName === 'prices'"></filter-price-panel-app>
 		 
 	<filter-rating-panel-app [filterGroupName]="filterGroupName"
-	 	*ngIf="target === 'ratings'"></filter-rating-panel-app>		
+	 	*ngIf="target.displayName === 'ratings'"></filter-rating-panel-app>		
 </ng-template>
 

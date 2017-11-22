@@ -1,10 +1,10 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType } from '../action/misc.action';
-import { FilterTarget } from '../model/filter.model';
+import { EntityRepresentation } from '../model/filter.model';
 
 export const initialState = {
 	filterPanel: { open: false },
-	filterSelectionPanel: { open: false, target: undefined as FilterTarget }
+	filterSelectionPanel: { open: false, target: undefined as EntityRepresentation }
 };
 
 

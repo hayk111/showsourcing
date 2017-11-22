@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName, FilterTarget } from '../../../../store/model/filter.model';
+import { FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -15,8 +15,8 @@ import { MiscActions } from '../../../../store/action/misc.action';
 })
 export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	target$: Observable<FilterTarget>;
-	target: FilterTarget;
+	target$: Observable<EntityRepresentation>;
+	target: EntityRepresentation;
 
 	constructor(private store: Store<any>, private router: Router) {
 		super();
@@ -36,8 +36,8 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	isEntityTarget() {
-		if ( this.target !== FilterTarget.ratings &&
-				this.target !== FilterTarget.prices )
+		if ( this.target !== entityRepresentationMap.ratings &&
+				this.target !== entityRepresentationMap.prices )
 			return true;
 		return false;
 	}

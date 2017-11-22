@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../utils/typed-action.interface';
-import { AppFilters, Filter, FilterGroupName, FilterTarget } from '../model/filter.model';
+import { AppFilters, Filter, FilterGroupName, EntityRepresentation } from '../model/filter.model';
 
 export enum ActionType {
 	ADD_FILTER = '[Filters] adding',
@@ -15,26 +15,26 @@ export interface FilterArg {
 }
 
 export class FilterActions {
-		static addFilter(filterGroupName: FilterGroupName, target: FilterTarget, name: string, id: string)
-		: TypedAction<{filterGroupName: FilterGroupName, target: FilterTarget, name: string, id: string}> {
+		static addFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, id: string)
+		: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, id: string}> {
 				return {
 						type: ActionType.ADD_FILTER,
-						payload: { filterGroupName, target, name, id }
+						payload: { filterGroupName, entityRepr, name, id }
 				};
 		}
 
-		static removeFilter(filterGroupName: FilterGroupName, target: FilterTarget, id: string)
-			: TypedAction<{filterGroupName: FilterGroupName, target: FilterTarget, id: string}> {
+		static removeFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, id: string)
+			: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, id: string}> {
 			return {
 				type: ActionType.REMOVE_FILTER,
-				payload: {filterGroupName, target, id}
+				payload: {filterGroupName, entityRepr, id}
 			};
 		}
 
-		static setFilterPrice(filterGroupName: FilterGroupName, target: FilterTarget, val: any) {
+		static setFilterPrice(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, val: any) {
 			return {
 				type: ActionType.SET_FILTER_PRICE,
-				payload: { val, target, filterGroupName }
+				payload: { val, entityRepr, filterGroupName }
 			};
 		}
 
