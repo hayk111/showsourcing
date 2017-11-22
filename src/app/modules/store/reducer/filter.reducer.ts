@@ -6,29 +6,15 @@ import { selectFilterCategory, selectFilterGroup } from '../selectors/filter.sel
 
 export const initialState: AppFilters = {
 	productsPage: {
-		// TODO : Are those targets even used anymore ?
-		targets: [
-			FilterTarget.suppliers,
-			FilterTarget.categories,
-			FilterTarget.events,
-			FilterTarget.tags,
-			FilterTarget.projects,
-			FilterTarget.productStatus,
-			FilterTarget.prices,
-			FilterTarget.ratings
-		],
 		filters: []
 	},
 	tasksPage: {
-		targets: [],
 		filters: []
 	},
 	supplierPage: {
-		targets: [],
 		filters: []
 	},
 	eventsPage: {
-		targets: [],
 		filters: []
 	}
 };

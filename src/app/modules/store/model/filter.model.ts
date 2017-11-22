@@ -40,7 +40,6 @@ export const getUrlForTarget = (target: FilterTarget) => {
 };
 
 export interface FilterGroup {
-	targets: Array<FilterTarget>;
 	filters: Array<Filter>;
 }
 

@@ -21,7 +21,16 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filterTargets: Array<FilterTarget> = [];
+	filterTargets: Array<FilterTarget> = [
+		FilterTarget.suppliers,
+		FilterTarget.categories,
+		FilterTarget.events,
+		FilterTarget.tags,
+		FilterTarget.projects,
+		FilterTarget.productStatus,
+		FilterTarget.prices,
+		FilterTarget.ratings
+	];
 	pending = true;
 	productEntities: EntityState<Product>;
 
@@ -34,9 +43,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.select('products')
 			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));
-		this.store.select(selectFilterGroup(this.filterGroupName))
-			.takeUntil(this._destroy$)
-			.subscribe((f: FilterGroup) => this.filterTargets = f.targets);
 	}
 
 	onItemsReceived(items: EntityState<Product>) {
