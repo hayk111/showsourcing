@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
-import { selectFilterCategory } from '../../../../store/selectors/filter.selectors';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { FilterActions } from '../../../../store/action/filter.action';
 

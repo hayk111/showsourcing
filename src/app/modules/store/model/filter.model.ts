@@ -1,8 +1,9 @@
 import { Entity } from '../utils/entities.utils';
+import { disableDebugTools } from '@angular/platform-browser/src/browser/tools/tools';
 
 
 export interface Filter {
-	target: FilterTarget;
+	target: EntityRepresentation;
 	name: string;
 	value: any;
 }
@@ -14,36 +15,37 @@ export enum FilterGroupName {
 	EVENTS_PAGE = 'eventsPage'
 }
 
-// for intellisens and compilation errors
-export enum FilterTarget {
-	suppliers = 'suppliers',
-	events = 'events',
-	categories = 'categories',
-	tags = 'tags',
-	projects = 'projects',
-	prices = 'prices',
-	minPrices = 'minPrices',
-	maxPrices = 'maxPrices',
-	ratings = 'ratings',
-	productStatus = 'productStatus',
-	name = 'name'
+
+// PARAMS: urlName: formatted for api calls only need to put those wich don't transform by just removing the last char
+// suppliers for example is not there because supplier (without the s) is the right format.
+export class EntityRepresentation  {
+	constructor(public entityName: string,
+							public isEntity: boolean = false,
+							public urlName?: string,
+							public displayName?: string) {
+		// for plurals
+		this.urlName = urlName || entityName.slice(0, -1);
+		this.displayName = displayName || entityName;
+	}
 }
 
-// formatted for api calls only need to put those wich don't transform by just removing the last char
-// suppliers for example is not there because supplier (without the s) is the right format.
-export const filterUrlMap  = {};
-filterUrlMap[FilterTarget.categories] = 'category';
-filterUrlMap[FilterTarget.productStatus] = 'status';
-
-export const getUrlForTarget = (target: FilterTarget) => {
-	return filterUrlMap[target] || target.slice(0, -1);
+export const entityRepresentationMap = {
+	suppliers: new EntityRepresentation('suppliers', true),
+	events: new EntityRepresentation('events', true),
+	categories: new EntityRepresentation('categories', true, 'category'),
+	tags: new EntityRepresentation('tags', true),
+	projects: new EntityRepresentation('projects', true),
+	productStatus: new EntityRepresentation('productStatus', true, 'status', 'status'),
+	// non real entities, used as is for convenience
+	prices: new EntityRepresentation('prices'),
+	minPrices: new EntityRepresentation('minPrices'),
+	maxPrices: new EntityRepresentation('maxPrices'),
+	ratings: new EntityRepresentation('ratings'),
+	name: new EntityRepresentation('name')
 };
 
-export interface FilterGroup {
-	filters: Array<Filter>;
-}
 
 export interface AppFilters {
-	[key: string]: FilterGroup;
+	[key: string]: Array<Filter>;
 }
 

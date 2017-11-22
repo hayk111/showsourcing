@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName, FilterTarget } from '../../../../store/model/filter.model';
-import { selectFilterValuesForCategory } from '../../../../store/selectors/filter.selectors';
+import { FilterGroupName, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 
 @Component({
 	selector: 'filter-price-panel-app',
@@ -13,7 +13,9 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 })
 export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	private target = FilterTarget.prices;
+	private target = entityRepresentationMap.prices;
+	private minRepr = entityRepresentationMap.minPrices;
+	private maxRepr = entityRepresentationMap.maxPrices;
 	_min: number;
 	_max: number;
 	min$;
@@ -26,9 +28,9 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.min$ = this.store
-			.select(selectFilterValuesForCategory(this.filterGroupName, FilterTarget.minPrices));
+			.select(selectFilterValuesForEntity(this.filterGroupName, this.minRepr));
 		this.max$ = this.store
-			.select(selectFilterValuesForCategory(this.filterGroupName, FilterTarget.maxPrices));
+			.select(selectFilterValuesForEntity(this.filterGroupName, this.maxRepr));
 		this.min$.takeUntil(this._destroy$)
 			.subscribe(val => this._min = val);
 		this.max$.takeUntil(this._destroy$)
@@ -50,7 +52,7 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 			this.clearError();
 			this._min = v;
 			const action = FilterActions
-			.setFilterPrice(this.filterGroupName, FilterTarget.minPrices, this.min);
+			.setFilterPrice(this.filterGroupName, this.minRepr, this.min);
 			this.store.dispatch(action);
 		}
 	}
@@ -62,7 +64,7 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 			this.clearError();
 			this._max = v;
 			const action = FilterActions
-			.setFilterPrice(this.filterGroupName, FilterTarget.maxPrices, this._max);
+			.setFilterPrice(this.filterGroupName, this.maxRepr, this._max);
 			this.store.dispatch(action);
 		}
 	}

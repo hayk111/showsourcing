@@ -20,10 +20,10 @@ import { timer } from 'rxjs/observable/timer';
 import { switchMap } from 'rxjs/operators';
 import { SupplierActions } from '../../../store/action/supplier.action';
 
+
 @Injectable()
 export class PreloaderService {
 
-	public static entities = [];
 	private user: User;
 	private maxCounter = 0;
 	private reloadTime = 1500000;
@@ -37,17 +37,17 @@ export class PreloaderService {
 	}
 
 	private loadEverything() {
-		this.loadCountries();
-		this.loadCurrencies();
-		this.loadCategories();
-		this.loadSuppliers();
-		this.loadTeams();
-		this.loadEvents();
-		this.loadProjects();
-		this.loadTags();
+		// this.loadCountries();
+		// this.loadCurrencies();
+		// this.loadCategories();
+		// this.loadSuppliers();
+		// this.loadTeams();
+		// this.loadEvents();
+		// this.loadProjects();
+		// this.loadTags();
 
-		// this should be the last one
-		this.loadMaxCounter();
+		// // this should be the last one
+		// this.loadMaxCounter();
 
 	}
 
