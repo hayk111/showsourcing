@@ -28,7 +28,6 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 			state[groupName] = group.concat({entityRepr, name, value: id});
 			return { ...state };
 		case ActionType.REMOVE_FILTER:
-		debugger;
 			state[groupName] = group.filter(e => (e.value !== id || e.entityRepr !== entityRepr));
 			return { ...state };
 		case ActionType.SET_FILTER_PRICE:
