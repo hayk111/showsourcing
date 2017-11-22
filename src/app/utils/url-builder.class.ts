@@ -5,7 +5,7 @@ export class UrlBuilder {
 	private _entity: string;
 	private _id: string;
 
-	constructor(base: string = 'team', entity?: string){
+	constructor(base: string = 'team', entity?: string) {
 		this._base = base;
 		this._entity = entity;
 	}
@@ -22,11 +22,11 @@ export class UrlBuilder {
 		this._id = id;
 	}
 
-	getUrl(){
-		return `api/${this._base}/${this._id}/${this._entity}`;		
+	getUrl() {
+		return `api/${this._base}/${this._id}/${this._entity}`;
 	}
 
-	getUrlWithParams(params: string){
+	getUrlWithParams(params: string) {
 		return this.getUrl() + '?' + params;
 	}
 }

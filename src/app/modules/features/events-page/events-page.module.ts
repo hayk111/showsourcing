@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupplierPageComponent } from './components/supplier-page/supplier-page.component';
+import { EventPageComponent } from './components/event-page/event-page.component';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { FiltersModule } from '../../shared/filters/filters.module';
 
@@ -10,6 +10,6 @@ import { FiltersModule } from '../../shared/filters/filters.module';
 		FilteredListPageModule,
 		FiltersModule
 	],
-	declarations: [SupplierPageComponent]
+	declarations: [EventPageComponent]
 })
-export class SupplierPageModule { }
+export class EventsPageModule { }

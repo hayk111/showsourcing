@@ -29,6 +29,7 @@ export class FilterComponent implements OnInit {
 		if (this.target !== FilterTarget.prices)
 			this.items$ = this.store.select(selectFilterCategory(this.filterGroupName, this.target));
 		else {
+		// if the target is prices, the filterTarget put in the filter store is either min or maxPrices
 			const min$ = this.store.select(
 					selectFilterCategory(this.filterGroupName, FilterTarget.minPrices));
 			const max$ = this.store.select(

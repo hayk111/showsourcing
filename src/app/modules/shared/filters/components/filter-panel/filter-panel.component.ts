@@ -8,22 +8,22 @@ import { Router, NavigationEnd } from '@angular/router';
 import { FilterActions } from '../../../../store/action/filter.action';
 
 @Component({
-  selector: 'filter-panel-app',
-  templateUrl: './filter-panel.component.html',
+	selector: 'filter-panel-app',
+	templateUrl: './filter-panel.component.html',
 	styleUrls: ['./filter-panel.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush	
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	subPanelVisible$: Observable<boolean>;
 	search = '';
 
-  constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) { }
 
-  ngOnInit() {
+	ngOnInit() {
 		this.subPanelVisible$ = this.store.select(dotSelector('misc.filterSelectionPanel.open'));
 	}
-	
+
 	close() {
 		this.store.dispatch(MiscActions.setProperty('filterPanel', 'open', false));
 	}

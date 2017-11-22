@@ -7,23 +7,22 @@
 	</div>
 
 	<div class="list-view">
-		<ng-container *ngIf="(supplier$ | async) as suppliers">
+		<ng-container *ngIf="(events$ | async) as events">
 					
 			list
-			<div *ngFor="let id of suppliers.ids">
-				{{ suppliers.byId[id] | json }}
+			<div *ngFor="let id of events.ids">
+				{{ events.byId[id] | json }}
 			</div>
 		</ng-container>
 	</div>
 
 	<div class="card-view">
-		<ng-container *ngIf="(supplier$ | async) as suppliers">								
+		<ng-container *ngIf="(events$ | async) as events">								
 			cards
-			<div class="card" *ngFor="let id of suppliers.ids">
-					{{ suppliers.byId[id] | json }}
+			<div class="card" *ngFor="let id of events.ids">
+					{{ events.byId[id] | json }}
 			</div>
 		</ng-container>
 	</div>
-
-</filtered-list-page-app>
 	
+</filtered-list-page-app>

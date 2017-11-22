@@ -22,6 +22,10 @@ export const initialState: AppFilters = {
 	tasksPage: {
 		targets: [],
 		filters: []
+	},
+	supplierPage: {
+		targets: [],
+		filters: []
 	}
 };
 

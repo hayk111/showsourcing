@@ -29,9 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
 	declarations: [ FilterItemListComponent, FilterComponent, FilterTagCloudComponent,
 		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent,
 		FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent,
-		FilterSelectionPanelComponent ],
+		FilterSelectionPanelComponent,
+		 ],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent,
-		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent ]
+		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent,  ]
 })
 export class FiltersModule { }
 

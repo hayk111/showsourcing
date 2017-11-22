@@ -10,6 +10,8 @@ export interface Filter {
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
 	TASKS_PAGE = 'tasksPage',
+	SUPPLIER_PAGE = 'supplierPage',
+	EVENTS_PAGE = 'eventsPage'
 }
 
 // for intellisens and compilation errors
@@ -23,7 +25,8 @@ export enum FilterTarget {
 	minPrices = 'minPrices',
 	maxPrices = 'maxPrices',
 	ratings = 'ratings',
-	productStatus = 'productStatus'
+	productStatus = 'productStatus',
+	name = 'name'
 }
 
 // formatted for api calls only need to put those wich don't transform by just removing the last char

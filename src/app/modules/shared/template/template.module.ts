@@ -17,6 +17,7 @@ import { SideNavService } from './services/side-nav.service';
 		MatIconModule
 	],
 	providers: [ SideNavService ],
-	declarations: [ TemplateComponent, GuestTemplateComponent, HeaderComponent, SideNavDirective, SideNavComponent ],
+	declarations: [ TemplateComponent, GuestTemplateComponent,
+			HeaderComponent, SideNavDirective, SideNavComponent ],
 })
 export class TemplateModule { }

@@ -15,9 +15,9 @@ export class ProductActions {
 				};
 		}
 
-		static setPending(){
+		static setPending() {
 			return {
 				type: ActionType.SET_PENDING
-			}
+			};
 		}
 }

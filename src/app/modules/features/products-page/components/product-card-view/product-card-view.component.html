@@ -1,3 +1,9 @@
 <article class="card" *ngFor="let p of products">
-	{{ p.name }} 
+	<div class="imgCtnr">
+		<img src="{{ p.mainImage.urls.url_220x165 }}"/>
+	</div>
+	<h4>{{ p.name }} </h4>
+	
+	<small>{{ (suppliers$ | async)?.byId[p.supplierId]?.name }}</small>
+
 </article>

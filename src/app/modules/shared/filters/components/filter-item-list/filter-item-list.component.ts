@@ -25,7 +25,6 @@ import { combineLatest } from 'rxjs/operators';
 	templateUrl: './filter-item-list.component.html',
 	styleUrls: ['./filter-item-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ CounterService ]
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
@@ -37,7 +36,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	private teamId: string;
 
 
-	constructor(private store: Store<any>, public counter: CounterService,
+	constructor(private store: Store<any>,
 							private http: HttpClient) {
 		super();
 	}

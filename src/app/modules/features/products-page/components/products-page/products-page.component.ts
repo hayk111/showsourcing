@@ -10,6 +10,7 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
 import { AsyncEntity } from '../../../../store/utils/async-entity.utils';
+// import { ProductsService } from '../../services/products.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -24,12 +25,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	pending = true;
 	products = [];
 
-	constructor(private itemLoader: TeamItemLoaderService, private store: Store<any>) {
+	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.itemLoader.init('product', ProductActions, this.filterGroupName);
+		this.teamItemLoader.init('product', ProductActions, this.filterGroupName);
 		this.store.select('products')
 			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));

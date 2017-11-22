@@ -23,6 +23,7 @@ import { SupplierActions } from '../../../store/action/supplier.action';
 @Injectable()
 export class PreloaderService {
 
+	public static entities = [];
 	private user: User;
 	private maxCounter = 0;
 	private reloadTime = 1500000;

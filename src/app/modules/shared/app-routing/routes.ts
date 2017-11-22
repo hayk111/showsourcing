@@ -14,6 +14,7 @@ import { SupplierPageComponent } from '../../features/supplier-page/components/s
 import { ProductsPageComponent } from '../../features/products-page/components/products-page/products-page.component';
 import { BaseComponent } from '../../features/test/base/base.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
+import { EventPageComponent } from '../../features/events-page/components/event-page/event-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -34,6 +35,8 @@ export const routes: Array<Route> = [
 			{ path: 'home', component: HomeComponent },
 			{ path: 'products', component: ProductsPageComponent },
 			{ path: 'tasks', component: TasksPageComponent },
+			{ path: 'suppliers', component: SupplierPageComponent },
+			{ path: 'events', component: EventPageComponent },
 			// TODO: Remove two under this
 			{ path: 'test', component: TestComponent },
 			{ path: 'base', component: BaseComponent }

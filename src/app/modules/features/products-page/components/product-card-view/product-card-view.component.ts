@@ -1,15 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'product-card-view-app',
-  templateUrl: './product-card-view.component.html',
-  styleUrls: ['./product-card-view.component.scss']
+	selector: 'product-card-view-app',
+	templateUrl: './product-card-view.component.html',
+	styleUrls: ['./product-card-view.component.scss']
 })
 export class ProductCardViewComponent implements OnInit {
 	@Input() products = [];
-  constructor() { }
+	suppliers$;
 
-  ngOnInit() {
-  }
+	constructor(private store: Store<any>) { }
+
+	ngOnInit() {
+		this.suppliers$ = this.store.select('suppliers');
+	}
 
 }

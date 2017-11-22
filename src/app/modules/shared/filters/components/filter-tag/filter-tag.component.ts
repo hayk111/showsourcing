@@ -20,6 +20,6 @@ export class FilterTagComponent implements OnInit {
 	ngOnInit() {}
 
 	removeFilter(filter: Filter) {
-		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, filter.target, filter.value))
+		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, filter.target, filter.value));
 	}
 }
