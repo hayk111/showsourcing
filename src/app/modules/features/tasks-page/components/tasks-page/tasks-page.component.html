@@ -1,25 +1,36 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
-	
-		<div class="filters">
-			<filter-list-app class="filters" 
-				[filterGroupName]="filterGroupName"
-				[targets]="targets"></filter-list-app>
-		</div>
-		
-		<div class="list-view">
-			list
-			<div *ngFor="let id of (tasksEntities.ids)">
-				{{ tasksEntities.byId[id] | json }}
-			</div>
-		</div>
 
-		<div class="card-view">
-			cards
-			<div class="card" *ngFor="let id of tasksEntities.ids">
-				{{ tasksEntities.byId[id] | json }}
-			</div>
+	<div class="filters">
+		<h3>Tasks Filters</h3>
+		<filter-list-app
+			[filterGroupName]="filterGroupName"
+			[targets]="targetsTask"></filter-list-app>		
+	</div>
+
+
+	<div class="filters">
+		<h3>Products Filters</h3>
+		<filter-list-app 
+			[filterGroupName]="filterGroupName"
+			[targets]="targets"></filter-list-app>		
+	</div>
+
+
+	
+	<div class="list-view">
+		list
+		<div *ngFor="let id of (tasksEntities.ids)">
+			{{ tasksEntities.byId[id] | json }}
 		</div>
+	</div>
+
+	<div class="card-view">
+		cards
+		<div class="card" *ngFor="let id of tasksEntities.ids">
+			{{ tasksEntities.byId[id] | json }}
+		</div>
+	</div>
 </filtered-list-page-app>
 
 

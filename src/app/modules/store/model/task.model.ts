@@ -1,7 +1,7 @@
 
 export enum TaskStatus {
 	TODO = 'Todo',
-	IN_PROGRESS = 'InProgress',
+	IN_PROGRESS = 'In Progress',
 	DONE = 'Done'
 }
 
@@ -9,7 +9,7 @@ export enum TaskType {
 	CUSTOM = 'Custom',
 	QUOTATION = 'Quotation',
 	SAMPLE = 'Sample',
-	CATAMPGIE = 'Catalogue'
+	CATALOGUE = 'Catalogue'
 }
 
 export interface Task {

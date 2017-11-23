@@ -44,7 +44,7 @@
     "no-arg": true,
     "no-bitwise": false,
     "no-console": [
-      true,
+      false,
       "debug",
       "info",
       "time",
@@ -116,7 +116,7 @@
       "check-type"
     ],
     "directive-selector": [
-      true,
+      false,
       "attribute",
       "app",
       "camelCase"

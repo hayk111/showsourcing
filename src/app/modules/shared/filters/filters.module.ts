@@ -16,6 +16,7 @@ import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/fi
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 import { UtilsModule } from '../utils/utils.module';
 import { HttpClientModule } from '@angular/common/http';
+import { WithArchivedButtonComponent } from './components/with-archived-button/with-archived-button.component';
 
 @NgModule({
 	imports: [
@@ -30,9 +31,10 @@ import { HttpClientModule } from '@angular/common/http';
 		FilterTagComponent, FilterSearchBarComponent, FilterPanelComponent, FilterListComponent,
 		FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent,
 		FilterSelectionPanelComponent,
+		WithArchivedButtonComponent,
 		 ],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent,
-		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent,  ]
+		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent, WithArchivedButtonComponent ]
 })
 export class FiltersModule { }
 

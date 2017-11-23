@@ -1,11 +1,12 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
+		<!-- filters -->
 		<filter-list-app class="filters" 
 			[filterGroupName]="filterGroupName"
 			[targets]="filterTargets"></filter-list-app>
+		<with-archived-button-app class="filters" [filterGroupName]="filterGroupName"></with-archived-button-app>
 
-		<mat-checkbox class="filters">With Archived</mat-checkbox>
-		
+		<!-- views -->
 		<product-list-view-app class="list-view" [productEntities]="productEntities"></product-list-view-app>
 		<product-card-view-app class="card-view" [productEntities]="productEntities"></product-card-view-app>
 </filtered-list-page-app>

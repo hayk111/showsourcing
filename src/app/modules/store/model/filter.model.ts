@@ -41,6 +41,9 @@ export const entityRepresentationMap = {
 	minPrices: new EntityRepresentation('minPrices'),
 	maxPrices: new EntityRepresentation('maxPrices'),
 	ratings: new EntityRepresentation('ratings'),
+	withArchived: new EntityRepresentation('withArchived', false, 'withArchived', 'with archived'),
+	tasksStatus: new EntityRepresentation('tasksStatus', true, 'taskStatus', 'status'),
+	tasksTypes: new EntityRepresentation('tasksType', true, 'taskType', 'type'),
 	name: new EntityRepresentation('name')
 };
 

@@ -1,5 +1,5 @@
-import { Counters } from "./counters.interface";
-import { Category } from "./category.model";
+import { Counters } from './counters.interface';
+import { Category } from './category.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
@@ -24,16 +24,16 @@ export interface Product {
 	additionalInfoCounters: any;
 	status: ProductStatus;
 	flags: { archived: boolean, feedbackRequested: boolean, locked: boolean };
-	computedValues: { taskCount: number },
+	computedValues: { taskCount: number };
 	description: string;
 	eventId: string;
 	rating: number;
 	category: Category;
-	mainImage: { 
-		id: string, 
-		filename: string, 
-		imageType: string, 
-		creationDate: number, 
+	mainImage: {
+		id: string,
+		filename: string,
+		imageType: string,
+		creationDate: number,
 		createdByUserId: string,
 		orientation: number,
 		urls: {
@@ -44,5 +44,5 @@ export interface Product {
 			url_600x450: string,
 			url_1000x1000: string,
 		};
-	}
+	};
 }

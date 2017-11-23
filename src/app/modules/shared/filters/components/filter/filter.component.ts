@@ -24,7 +24,7 @@ export class FilterComponent implements OnInit {
 
 	constructor(private store: Store<any>) { }
 
-	// TODO: this could be refactored
+	// TODO: this should be refactored
 	ngOnInit() {
 		// select all items selected for target category
 		if (this.target !== entityRepresentationMap.prices)

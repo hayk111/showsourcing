@@ -26,6 +26,10 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		entityRepresentationMap.projects,
 		entityRepresentationMap.ratings
 	];
+	targetsTask = [
+		entityRepresentationMap.tasksStatus,
+		entityRepresentationMap.tasksTypes
+	];
 	filters$: Observable<Filter> = new Observable();
 	tasks$;
 	tasksEntities: EntityState<Task>;

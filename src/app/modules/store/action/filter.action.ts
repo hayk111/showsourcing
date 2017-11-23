@@ -5,7 +5,7 @@ import { AppFilters, Filter, FilterGroupName, EntityRepresentation } from '../mo
 export enum ActionType {
 	ADD_FILTER = '[Filters] adding',
 	REMOVE_FILTER = '[Filters] removing',
-	SET_FILTER_PRICE = '[Filters] setting price',
+	REMOVE_FILTER_ARRAY = '[Filters] removing all filters for entityRepr Array',
 	CLEAR = '[Filter] clear'
 }
 
@@ -15,29 +15,28 @@ export interface FilterArg {
 }
 
 export class FilterActions {
-		static addFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, id: string)
-		: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, id: string}> {
+		static addFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, value: any)
+		: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, name: string, value: any}> {
 				return {
 						type: ActionType.ADD_FILTER,
-						payload: { filterGroupName, entityRepr, name, id }
+						payload: { filterGroupName, entityRepr, name, value }
 				};
 		}
 
-		static removeFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, id: string)
-			: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, id: string}> {
+		static removeFilter(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, value: any)
+			: TypedAction<{filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, value: any}> {
 			return {
 				type: ActionType.REMOVE_FILTER,
-				payload: {filterGroupName, entityRepr, id}
+				payload: {filterGroupName, entityRepr, value}
 			};
 		}
 
-		static setFilterPrice(filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, val: any) {
+		static removeFiltersForEntityReprs(filterGroupName: FilterGroupName, entityReprArr: Array<EntityRepresentation>) {
 			return {
-				type: ActionType.SET_FILTER_PRICE,
-				payload: { val, entityRepr, filterGroupName }
+				type: ActionType.REMOVE_FILTER_ARRAY,
+				payload: { filterGroupName, entityReprArr }
 			};
 		}
-
 		static clearGroup(filterGroupName: FilterGroupName) {
 			return {
 				type: ActionType.CLEAR,

@@ -27,13 +27,14 @@ import { combineLatest } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
-	@Input() filterGroupName: FilterGroupName;
+	_filterGroupName: FilterGroupName;
 	entityRep: EntityRepresentation;
 	target$ = new Observable<EntityRepresentation>();
 	itemsWithCount$: Observable<any>;
 	items$: Observable<any>;
 	search = '';
 	private teamId: string;
+	private countStr = 'countProdsBy';
 
 
 	constructor(private store: Store<any>,
@@ -60,7 +61,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		let itemUrlName = t.urlName;
 		// capitalizing because that url needs to
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
-		const count$ = this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
+		const count$ = this.http.get(`/api/team/${this.teamId}/${this.countStr}${itemUrlName}`)
 			.map((r: any) => r.items);
 		return this.items$.pipe(
 			combineLatest(count$, (items, counts) => {
@@ -82,6 +83,24 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.entityRep, itemName, itemId));
 		else
 			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, itemId));
+	}
+
+	@Input()
+	set filterGroupName(filterGroupName: FilterGroupName) {
+		this._filterGroupName = filterGroupName;
+		switch (filterGroupName) {
+			case FilterGroupName.PRODUCT_PAGE:
+				this.countStr = 'countProdsBy';
+				return;
+			case FilterGroupName.TASKS_PAGE:
+				this.countStr = 'countTasksBy';
+				return;
+			default: this.countStr = 'countProdsBy';
+		}
+	}
+
+	get filterGroupName() {
+		return this._filterGroupName;
 	}
 
 }

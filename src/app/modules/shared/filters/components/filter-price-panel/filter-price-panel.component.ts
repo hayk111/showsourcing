@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
+import Log from '../../../../../utils/logger/log.class';
 
 @Component({
 	selector: 'filter-price-panel-app',
@@ -14,6 +15,7 @@ import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.
 export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	private target = entityRepresentationMap.prices;
+	// filters are saved as this when sent
 	private minRepr = entityRepresentationMap.minPrices;
 	private maxRepr = entityRepresentationMap.maxPrices;
 	_min: number;
@@ -32,9 +34,17 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		this.max$ = this.store
 			.select(selectFilterValuesForEntity(this.filterGroupName, this.maxRepr));
 		this.min$.takeUntil(this._destroy$)
-			.subscribe(val => this._min = val);
+			.subscribe(val => {
+				Log.debug(`price filter, receiving min val: ${val[0]}`);
+				if (val[0] !== undefined)
+					this._min = val[0];
+			});
 		this.max$.takeUntil(this._destroy$)
-			.subscribe(val => this._max = val);
+			.subscribe(val => {
+				Log.debug(`price filter, receiving max val: ${val[0]}`);
+				if (val[0] !== undefined)
+					this._max = val[0];
+			});
 	}
 
 	get min() {
@@ -46,27 +56,41 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	set min(v) {
-		if (v > this._max)
+		if (v > this._max && this._max !== undefined)
 			this.errorMsg = 'Min must be smaller or equal to max';
 		else {
 			this.clearError();
 			this._min = v;
-			const action = FilterActions
-			.setFilterPrice(this.filterGroupName, this.minRepr, this.min);
-			this.store.dispatch(action);
+			this.sendActions();
 		}
 	}
 
 	set max(v) {
-		if (v < this._min)
+		Log.debug('filter price panel component: setting max ', v);
+		if (v < this._min )
 			this.errorMsg = 'Max must be greater or equal to min';
 		else {
 			this.clearError();
 			this._max = v;
-			const action = FilterActions
-			.setFilterPrice(this.filterGroupName, this.maxRepr, this._max);
-			this.store.dispatch(action);
+			this.sendActions();
 		}
+	}
+
+	sendActions() {
+		const arr = [entityRepresentationMap.maxPrices, entityRepresentationMap.minPrices ];
+		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, arr));
+
+		if (this._min !== undefined) {
+			const minaction = FilterActions
+			.addFilter(this.filterGroupName, this.minRepr, `min: ${this._min}`, this._min);
+			this.store.dispatch(minaction);
+		}
+		if (this._max !== undefined) {
+			const maxaction = FilterActions
+			.addFilter(this.filterGroupName, this.maxRepr, `max: ${this._max}`, this._max);
+			this.store.dispatch(maxaction);
+		}
+
 	}
 
 	clearError() {
