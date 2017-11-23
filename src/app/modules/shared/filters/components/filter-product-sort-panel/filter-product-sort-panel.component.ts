@@ -17,7 +17,7 @@ export class FilterProductSortPanelComponent implements OnInit {
 		{ title: 'Category', value: 'category' },
 		{ title: 'Supplier', value: 'supplier' }
 	];
-	_selectedSorting;
+	selectedSorting: string;
 	private repr = entityRepresentationMap.sortByProduct;
 
 	constructor(private store: Store<any>) { }
@@ -25,16 +25,11 @@ export class FilterProductSortPanelComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	get selectedSorting() {
-		return this._selectedSorting;
-	}
-
-	set selectedSorting(v: string) {
+	onChange(v: string) {
 		const removeAction = FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.repr]);
-		const addAction = FilterActions.addFilter(this.filterGroupName, this.repr, v, v);
+		const addAction = FilterActions.addFilter(this.filterGroupName, this.repr, `sort: ${v}`, v);
 		this.store.dispatch(removeAction);
 		this.store.dispatch(addAction);
 		this.selectedSorting = v;
 	}
-
 }
