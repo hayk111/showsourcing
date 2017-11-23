@@ -20,7 +20,7 @@
 		<ng-container *ngIf="(events$ | async) as events">								
 			cards
 			<div class="card" *ngFor="let id of events.ids">
-					{{ events.byId[id] | json }}
+					{{ events.byId[id]?.name  | json }}
 			</div>
 		</ng-container>
 	</div>

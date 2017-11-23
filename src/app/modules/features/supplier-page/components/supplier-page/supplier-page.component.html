@@ -20,7 +20,7 @@
 		<ng-container *ngIf="(supplier$ | async) as suppliers">								
 			cards
 			<div class="card" *ngFor="let id of suppliers.ids">
-					{{ suppliers.byId[id] | json }}
+					{{ suppliers.byId[id]?.name | json }}
 			</div>
 		</ng-container>
 	</div>
