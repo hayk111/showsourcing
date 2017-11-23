@@ -18,4 +18,8 @@ export class ProductCardViewComponent implements OnInit {
 		this.suppliers$ = this.store.select('suppliers');
 	}
 
+	doAlert(name: string) {
+		alert(name);
+	}
+
 }

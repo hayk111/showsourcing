@@ -25,57 +25,42 @@ import { combineLatest } from 'rxjs/operators';
 	templateUrl: './filter-item-list.component.html',
 	styleUrls: ['./filter-item-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ CounterService ]
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
-	_filterGroupName: FilterGroupName;
+	@Input() filterGroupName: FilterGroupName;
 	entityRep: EntityRepresentation;
-	target$ = new Observable<EntityRepresentation>();
+	entityRep$ = new Observable<EntityRepresentation>();
+	items$: Observable<EntityState<any>>;
 	itemsWithCount$: Observable<any>;
-	items$: Observable<any>;
 	search = '';
 	private teamId: string;
 	private countStr = 'countProdsBy';
 
 
 	constructor(private store: Store<any>,
-							private http: HttpClient) {
+							private counterSrv: CounterService) {
 		super();
 	}
 
 	ngOnInit() {
+		// we first select the user to get the teamId
 		this.store.select('user').subscribe((user: User) => {
 			this.teamId = user.currentTeamId;
 		});
-		this.target$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
-		this.itemsWithCount$ = this.target$.pipe(
+		// then we select the entityRep for the filter selection panel to know what entity
+		// we want to display
+		this.entityRep$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
+		this.counterSrv.init(this.filterGroupName);
+		// when entityRep is received we launch onTargetReceived
+		this.itemsWithCount$ = this.entityRep$
+		.do(t => this.entityRep = t)
+		.do(t => this.items$ = this.store.select(t.entityName))
+		.pipe(
 			filter(t => t !== undefined),
 			distinctUntilChanged(),
-			switchMap((t: EntityRepresentation) => this.onTargetReceived(t))
+			switchMap((t: EntityRepresentation) => this.counterSrv.getItemsWithCount(t))
 		);
-	}
-
-	private onTargetReceived(t: EntityRepresentation) {
-		this.entityRep = t;
-		this.items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
-		// adding count to items
-		let itemUrlName = t.urlName;
-		// capitalizing because that url needs to
-		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
-		const count$ = this.http.get(`/api/team/${this.teamId}/${this.countStr}${itemUrlName}`)
-			.map((r: any) => r.items);
-		return this.items$.pipe(
-			combineLatest(count$, (items, counts) => {
-				// if items are not loaded yet
-				if (items.ids.length === 0)
-					return [];
-				const returned = [];
-				Object.entries(counts).forEach( ([k, v]) => {
-					items.byId[k].count = v;
-					returned.push(items.byId[k]);
-				});
-				returned.sort((a, b) => b.count - a.count);
-				return returned;
-			}));
 	}
 
 	onChange(event, itemName, itemId) {
@@ -85,22 +70,5 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, itemId));
 	}
 
-	@Input()
-	set filterGroupName(filterGroupName: FilterGroupName) {
-		this._filterGroupName = filterGroupName;
-		switch (filterGroupName) {
-			case FilterGroupName.PRODUCT_PAGE:
-				this.countStr = 'countProdsBy';
-				return;
-			case FilterGroupName.TASKS_PAGE:
-				this.countStr = 'countTasksBy';
-				return;
-			default: this.countStr = 'countProdsBy';
-		}
-	}
-
-	get filterGroupName() {
-		return this._filterGroupName;
-	}
 
 }

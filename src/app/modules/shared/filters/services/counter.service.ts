@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { User } from '../../../store/model/user.model';
-import { EntityRepresentation } from '../../../store/model/filter.model';
+import { EntityRepresentation, FilterGroupName } from '../../../store/model/filter.model';
+import { selectFiltersWithChecked } from '../../../store/selectors/filter.selectors';
+import { combineLatest } from 'rxjs/operators';
 
 @Injectable()
 export class CounterService {
-	teamId: string;
+	private teamId: string;
+	private countStr = '';
+	private filterGroupName: FilterGroupName;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
 		this.store.select('user').subscribe((user: User) => {
@@ -14,8 +18,51 @@ export class CounterService {
 		});
 	}
 
-	getCount(entityName: EntityRepresentation) {
-		return this.http.get(`/api/team/${this.teamId}/countProdsBy${entityName}`);
+	init(filterGroupName: FilterGroupName) {
+		this.filterGroupName = filterGroupName;
+		switch (filterGroupName) {
+			case FilterGroupName.PRODUCT_PAGE:
+				this.countStr = 'countProdsBy';
+				return;
+			case FilterGroupName.TASKS_PAGE:
+				this.countStr = 'countTasksBy';
+				return;
+			default: this.countStr = 'countProdsBy';
+		}
 	}
+
+	getItemsWithCount(t: EntityRepresentation) {
+		// get items observable
+		const items$ = this.store.select(selectFiltersWithChecked(this.filterGroupName, t));
+		// get count observable
+		const count$ = this.getCount(t);
+		// returning the items with their count
+		return items$.pipe(
+			combineLatest(count$, (items, counts) => this.combineItemAndCount(items, counts) ));
+	}
+
+	private getCount(entityRepr: EntityRepresentation) {
+		// get urlName for said target
+		let itemUrlName = entityRepr.urlName;
+		// capitalizing because that url needs to be
+		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
+		return this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
+			.map((r: any) => r.items);
+	}
+
+	private combineItemAndCount(items, counts) {
+		// if items are not loaded yet
+		if (items.ids.length === 0)
+			return [];
+		const returned = [];
+		// for each count we add the count value to item and push item into returned
+		Object.entries(counts).forEach( ([k, v]) => {
+			items.byId[k].count = v;
+			returned.push(items.byId[k]);
+		});
+		returned.sort((a, b) => b.count - a.count);
+		return returned;
+	}
+
 
 }
