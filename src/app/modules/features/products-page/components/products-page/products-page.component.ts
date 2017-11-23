@@ -29,7 +29,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		entityRepresentationMap.projects,
 		entityRepresentationMap.productStatus,
 		entityRepresentationMap.prices,
-		entityRepresentationMap.ratings
+		entityRepresentationMap.ratings,
+		entityRepresentationMap.sortByProduct
 	];
 	pending = true;
 	productEntities: EntityState<Product>;

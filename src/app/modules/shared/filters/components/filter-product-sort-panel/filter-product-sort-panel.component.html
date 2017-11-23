@@ -1,0 +1,4 @@
+<div *ngFor="let s of sortings" class="flex">
+	<input type="radio"
+		name="contact" [value]="s.value" [(ngModel)]="selectedSorting"/>{{ s.title }}
+</div>

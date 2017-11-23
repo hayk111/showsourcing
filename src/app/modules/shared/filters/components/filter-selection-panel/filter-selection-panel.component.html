@@ -1,19 +1,23 @@
-<div class="flex top">
-	<h3>Filter {{ (target$ | async).displayName }}</h3>
-	<button class="small secondary" (click)="closePanel()">done</button>			
-</div>
+<ng-container *ngIf="(target$ | async) as target">
+	<div class="flex top">
+		<h3>Filter {{ target.displayName }}</h3>
+		<button class="small secondary" (click)="closePanel()">done</button>			
+	</div>
 
-<!-- this is the panels that can be opened when a filter button is clicked from the ng-content
- of the filter panel component-->
-<filter-item-list-app 
-	*ngIf="isEntityTarget(); else others" 
-	[filterGroupName]="filterGroupName"></filter-item-list-app>
+	<!-- this is the panels that can be opened when a filter button is clicked from the ng-content
+	of the filter panel component-->
+	<filter-item-list-app 
+		*ngIf="target.isEntity; else others" 
+		[filterGroupName]="filterGroupName"></filter-item-list-app>
 
-<ng-template #others>
-	<filter-price-panel-app [filterGroupName]="filterGroupName"
-		*ngIf="target.displayName === 'prices'"></filter-price-panel-app>
-		 
-	<filter-rating-panel-app [filterGroupName]="filterGroupName"
-	 	*ngIf="target.displayName === 'ratings'"></filter-rating-panel-app>		
-</ng-template>
+	<ng-template #others>
+		<filter-price-panel-app [filterGroupName]="filterGroupName"
+			*ngIf="target.entityName === 'prices'"></filter-price-panel-app>
+		<filter-rating-panel-app [filterGroupName]="filterGroupName"
+			*ngIf="target.entityName === 'ratings'"></filter-rating-panel-app>
+		<filter-product-sort-panel-app [filterGroupName]="filterGroupName"
+			*ngIf="target.entityName === 'sortByProduct'"></filter-product-sort-panel-app>	
+	</ng-template>	
+</ng-container>
+
 

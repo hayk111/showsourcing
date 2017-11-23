@@ -17,6 +17,8 @@ import { FilterSelectionPanelComponent } from './components/filter-selection-pan
 import { UtilsModule } from '../utils/utils.module';
 import { HttpClientModule } from '@angular/common/http';
 import { WithArchivedButtonComponent } from './components/with-archived-button/with-archived-button.component';
+import { FilterProductSortPanelComponent } from './components/filter-product-sort-panel/filter-product-sort-panel.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
 	imports: [
@@ -24,6 +26,7 @@ import { WithArchivedButtonComponent } from './components/with-archived-button/w
 		InputsModule,
 		FormsModule,
 		MatCheckboxModule,
+		MatRadioModule,
 		MatIconModule,
 		UtilsModule,
 	],
@@ -32,7 +35,7 @@ import { WithArchivedButtonComponent } from './components/with-archived-button/w
 		FilterPricePanelComponent, FilterRatingPanelComponent, FilterSortByPanelComponent,
 		FilterSelectionPanelComponent,
 		WithArchivedButtonComponent,
-		 ],
+		FilterProductSortPanelComponent],
 	exports: [ FilterItemListComponent, FilterComponent, FilterSearchBarComponent,
 		FilterTagCloudComponent, FilterPanelComponent, FilterListComponent, WithArchivedButtonComponent ]
 })

@@ -5,7 +5,7 @@ import { AppComponent } from './components/app.component';
 import { AppRoutingModule } from '../app-routing/app-routing.module';
 import { TemplateModule } from '../template/template.module';
 import { AuthModule } from '../auth/auth.module';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducer, State } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
@@ -39,7 +39,15 @@ import { taskReducer } from '../../store/reducer/task.reducer';
 import { productStatusReducer } from '../../store/reducer/product-status.reducer';
 import { tasksStatusReducer } from '../../store/reducer/task-status.reducer';
 import { tasksTypeReducer } from '../../store/reducer/task-type.reducer';
+import { storeLogger } from 'ngrx-store-logger';
+import { environment } from '../../../../environments/environment';
 
+export function logger(reducer: ActionReducer<State<any>>): any {
+	// default, no options
+	return storeLogger()(reducer);
+}
+
+export const metaReducers = environment.production ? [] : [logger];
 
 const inputMap: InputMap = {
 	address: InputAddressComponent,
@@ -81,8 +89,8 @@ const inputMap: InputMap = {
 			misc: miscReducer,
 			productStatus: productStatusReducer,
 			tasksStatus: tasksStatusReducer,
-			tasksType: tasksTypeReducer
-		}),
+			tasksType: tasksTypeReducer,
+		} as any, { metaReducers }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2
 		}),

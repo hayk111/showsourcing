@@ -44,7 +44,8 @@ export const entityRepresentationMap = {
 	withArchived: new EntityRepresentation('withArchived', false, 'withArchived', 'with archived'),
 	tasksStatus: new EntityRepresentation('tasksStatus', true, 'taskStatus', 'status'),
 	tasksTypes: new EntityRepresentation('tasksType', true, 'taskType', 'type'),
-	name: new EntityRepresentation('name')
+	name: new EntityRepresentation('name'),
+	sortByProduct: new EntityRepresentation('sortByProduct', false, 'sortBy', 'sort by')
 };
 
 

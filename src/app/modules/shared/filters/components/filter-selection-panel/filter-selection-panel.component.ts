@@ -34,12 +34,4 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	closePanel() {
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', false));
 	}
-
-	isEntityTarget() {
-		if ( this.target !== entityRepresentationMap.ratings &&
-				this.target !== entityRepresentationMap.prices )
-			return true;
-		return false;
-	}
-
 }
