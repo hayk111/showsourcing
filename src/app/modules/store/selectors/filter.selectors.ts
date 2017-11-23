@@ -52,7 +52,7 @@ export const selectActiveFiltersForTargetEntity = (filterGroupName: FilterGroupN
 };
 
 // makes a copy of all items, and add checked true if it's present in filter's value.
-export const selectFiltersWithChecked = (filterGroup: FilterGroupName, entityRep: EntityRepresentation) => {
+export const selectEntitiesWithChecked = (filterGroup: FilterGroupName, entityRep: EntityRepresentation) => {
 	const idsFilteredSelector = selectFilterValuesForEntity(filterGroup, entityRep);
 	const sliceSelector = selectSlice(entityRep.entityName);
 	return createSelector(idsFilteredSelector, sliceSelector, (idsFiltered, items) => {

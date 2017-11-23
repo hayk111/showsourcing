@@ -40,10 +40,12 @@ export class FilterComponent implements OnInit {
 	}
 
 	openFilterListPanel() {
+		// setting the target entityRepr of filterSelectionPanel so it knows which filter panel to display
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'target', this.target));
 		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', true));
 	}
 
+	// we remove filter when the close icon is clicked
 	removeFilter(id: string, repr: EntityRepresentation) {
 		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, repr, id));
 	}

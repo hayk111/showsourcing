@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName, entityRepresentationMap, Filter } from '../../../../store/model/filter.model';
+import { selectActiveFiltersForTargetEntity, selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'with-archived-button-app',
@@ -11,9 +13,14 @@ import { FilterGroupName, entityRepresentationMap } from '../../../../store/mode
 export class WithArchivedButtonComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	entityRepr = entityRepresentationMap.withArchived;
+	withArch$: Observable<Array<Filter>>;
+	isArchived: boolean;
+
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+		this.withArch$ = this.store.select(selectFilterValuesForEntity(this.filterGroupName, this.entityRepr));
+		this.withArch$.subscribe( (fs: Array<Filter>) => this.isArchived = !!(fs[0]));
 	}
 
 	onChange(event) {

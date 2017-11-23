@@ -3,8 +3,8 @@ import { Category } from './category.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
-	UNDER_ASSESSMENT = 'UnderAssessment',
-	NEED_REVIEW = 'NeedReview',
+	UNDER_ASSESSMENT = 'Under Assessment',
+	NEED_REVIEW = 'Need Review',
 	COMPLETE = 'Complete',
 	REFUSED = 'Refused'
 }

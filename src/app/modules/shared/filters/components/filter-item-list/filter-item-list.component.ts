@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { selectFiltersWithChecked } from '../../../../store/selectors/filter.selectors';
+import { selectEntitiesWithChecked } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -55,7 +55,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		// when entityRep is received we launch onTargetReceived
 		this.itemsWithCount$ = this.entityRep$
 		.do(t => this.entityRep = t)
-		.do(t => this.items$ = this.store.select(t.entityName))
+		.do(t => this.items$ = this.store.select(selectEntitiesWithChecked(this.filterGroupName, t)))
 		.pipe(
 			filter(t => t !== undefined),
 			distinctUntilChanged(),
