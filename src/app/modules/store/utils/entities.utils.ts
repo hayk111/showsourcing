@@ -53,6 +53,14 @@ export function setEntities(entities: Array<any>) {
 	};
 }
 
+export const entityStateToArray = (entityState: EntityState<any>): Array<any> => {
+	const returned = [];
+	entityState.ids.forEach(id => {
+		returned.push(entityState.byId[id]);
+	});
+	return returned;
+};
+
 export const entityInitialState: EntityState<any> = {
 	pending: true,
 	maxEntityCounter: 0,

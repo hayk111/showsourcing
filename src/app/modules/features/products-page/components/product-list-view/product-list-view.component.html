@@ -1,13 +1,37 @@
-	<table>
-		<tr>
-				<th>Name</th>
-				<th>Category</th>
-				<th>Supplier</th>
-		</tr>
-		<tr *ngFor="let id of productEntities.ids">
-			<td> {{ productEntities.byId[id].name }}</td>
-			<td> {{ productEntities.byId[id].category.name }}</td>
-			<td> {{ (suppliers$ | async)?.byId[productEntities.byId[id].supplierId]?.name }}</td>
-		</tr>
 
-	</table>
+<mat-table #table [dataSource]="dataSource"
+	matSort matSortActive="name" matSortDirection="asc">
+
+	<!-- Name Column -->
+	<ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+	</ng-container>
+
+	<!-- Category Column -->
+	<ng-container matColumnDef="category">
+		<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{element.category.name}} </mat-cell>
+	</ng-container>
+
+	<!-- Supplier Column -->
+	<ng-container matColumnDef="supplier">
+		<mat-header-cell *matHeaderCellDef> Supplier </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ (suppliers$ | async).byId[element.supplierId]?.name }} </mat-cell>
+	</ng-container>
+
+	<!-- Price Column -->
+	<ng-container matColumnDef="price">
+		<mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.priceAmount }} </mat-cell>
+	</ng-container>
+
+	<!-- Rating Column -->
+	<ng-container matColumnDef="rating">
+		<mat-header-cell *matHeaderCellDef> Rating </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.rating }} </mat-cell>
+	</ng-container>
+
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
