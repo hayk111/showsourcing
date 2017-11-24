@@ -6,6 +6,7 @@ import { FilterActions } from '../../../../store/action/filter.action';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import Log from '../../../../../utils/logger/log.class';
+import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 
 @Component({
 	selector: 'filter-price-panel-app',
@@ -30,18 +31,24 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.min$ = this.store
-			.select(selectFilterValuesForEntity(this.filterGroupName, this.minRepr));
+			.select(selectFilterValuesForEntity(this.filterGroupName, this.minRepr))
+			.pipe(distinctUntilChanged());
+		let prevMin;
 		this.max$ = this.store
-			.select(selectFilterValuesForEntity(this.filterGroupName, this.maxRepr));
+			.select(selectFilterValuesForEntity(this.filterGroupName, this.maxRepr))
+			.pipe(distinctUntilChanged());
 		this.min$.takeUntil(this._destroy$)
 			.subscribe(val => {
-				Log.debug(`price filter, receiving min val: ${val[0]}`);
+				Log.debug(prevMin === val);
+				Log.debug(val, prevMin);
+				prevMin = val;
+				Log.debug(`price filter panel, receiving min val: ${val[0]}`);
 				if (val[0] !== undefined)
 					this._min = val[0];
 			});
 		this.max$.takeUntil(this._destroy$)
 			.subscribe(val => {
-				Log.debug(`price filter, receiving max val: ${val[0]}`);
+				Log.debug(`price filter panel, receiving max val: ${val[0]}`);
 				if (val[0] !== undefined)
 					this._max = val[0];
 			});
@@ -61,7 +68,6 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		else {
 			this.clearError();
 			this._min = v;
-			this.sendActions();
 		}
 	}
 
@@ -72,7 +78,6 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 		else {
 			this.clearError();
 			this._max = v;
-			this.sendActions();
 		}
 	}
 

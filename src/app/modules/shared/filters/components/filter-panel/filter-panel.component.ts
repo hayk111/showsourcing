@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { Router, NavigationEnd } from '@angular/router';
 import { FilterActions } from '../../../../store/action/filter.action';
+import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
+import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
 
 @Component({
 	selector: 'filter-panel-app',
@@ -21,11 +23,11 @@ export class FilterPanelComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.subPanelVisible$ = this.store.select(dotSelector('misc.filterSelectionPanel.open'));
+		this.subPanelVisible$ = this.store.select('filterSelectionPanel').map(p => p.open);
 	}
 
 	close() {
-		this.store.dispatch(MiscActions.setProperty('filterPanel', 'open', false));
+		this.store.dispatch(FilterPanelAction.close());
 	}
 
 	clear() {

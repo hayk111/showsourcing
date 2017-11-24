@@ -7,6 +7,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { MiscActions } from '../../../../store/action/misc.action';
+import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 
 @Component({
 	selector: 'filter-selection-panel-app',
@@ -23,7 +24,7 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.target$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
+		this.target$ = this.store.select('filterSelectionPanel').map(p => p.target);
 		this.target$.takeUntil(this._destroy$).subscribe(t => this.target = t);
 		this.router.events.subscribe(evt => {
 			if (evt instanceof NavigationEnd)
@@ -32,6 +33,6 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	closePanel() {
-		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', false));
+		this.store.dispatch(FilterSelectionPanelAction.close());
 	}
 }

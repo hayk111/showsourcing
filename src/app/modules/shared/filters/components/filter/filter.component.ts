@@ -8,6 +8,7 @@ import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';
 import { selectFilterForEntity } from '../../../../store/selectors/filter.selectors';
+import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 
 @Component({
 	selector: 'filter-app',
@@ -41,8 +42,7 @@ export class FilterComponent implements OnInit {
 
 	openFilterListPanel() {
 		// setting the target entityRepr of filterSelectionPanel so it knows which filter panel to display
-		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'target', this.target));
-		this.store.dispatch(MiscActions.setProperty('filterSelectionPanel', 'open', true));
+		this.store.dispatch(FilterSelectionPanelAction.open(this.target));
 	}
 
 	// we remove filter when the close icon is clicked

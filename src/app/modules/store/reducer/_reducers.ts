@@ -1,0 +1,68 @@
+import { userReducer } from './user.reducer';
+import { authenticationReducer } from './authentication.reducer';
+import { companyReducer } from './company.reducer';
+import { countryReducer } from './country.reducer';
+import { currencyReducer } from './currency.reducer';
+import { categoryReducer } from './category.reducer';
+import { teamsReducer } from './team.reducer';
+import { eventsReducer } from './event.reducer';
+import { tagReducer } from './tag.reducer';
+import { projectReducer } from './project.reducer';
+import { filtersReducer } from './filter.reducer';
+import { filterPanelReducer } from './filter-panel.reducer';
+import { filterSelectionPanelReducer } from './filter-selection-panel.reducer';
+import { supplierReducer } from './supplier.reducer';
+import { taskReducer } from './task.reducer';
+import { productReducer } from './product.reducer';
+import { viewSwitcherReducer } from './view-switcher.reducer';
+import { miscReducer } from './misc.reducer';
+import { productStatusReducer } from './product-status.reducer';
+import { tasksStatusReducer } from './task-status.reducer';
+import { tasksTypeReducer } from './task-type.reducer';
+import { ActionReducer, State } from '@ngrx/store';
+import { environment } from '../../../../environments/environment';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { storeLogger } from 'ngrx-store-logger';
+
+
+
+export const reducers = {
+	user: userReducer,
+	authentication: authenticationReducer,
+	company: companyReducer,
+	countries: countryReducer,
+	currencies: currencyReducer,
+	categories: categoryReducer,
+	teams: teamsReducer,
+	events: eventsReducer,
+	tags: tagReducer,
+	projects: projectReducer,
+	filters: filtersReducer,
+	filterPanel: filterPanelReducer,
+	filterSelectionPanel: filterSelectionPanelReducer,
+	suppliers: supplierReducer,
+	tasks: taskReducer,
+	products: productReducer,
+	viewSwitcher: viewSwitcherReducer,
+	misc: miscReducer,
+	productStatus: productStatusReducer,
+	tasksStatus: tasksStatusReducer,
+	tasksType: tasksTypeReducer,
+};
+
+
+export function logger(reducer: ActionReducer<State<any>>): any {
+	// default, no options
+	return storeLogger({
+		collapsed: true,
+		colors: {
+			title: (action: Object) => '#0a83a7',
+			prevState: (prevState: Object) => '#1ea306',
+			action: (action: Object) => '#0a83a7',
+			nextState: (nextState: Object) => '#5e2bd9',
+			error: (error: any, prevState: Object) => 'red'
+		}
+	})(reducer);
+}
+
+export const metaReducers = environment.production ? [] : [logger, storeFreeze];

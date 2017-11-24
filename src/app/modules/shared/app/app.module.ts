@@ -20,34 +20,9 @@ import { InputContactListComponent } from '../inputs/components/input-contact-li
 import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyModule } from '../company/company.module';
 import { PreloaderModule } from '../preloader/preloader.module';
-import { userReducer } from '../../store/reducer/user.reducer';
-import { authenticationReducer } from '../../store/reducer/authentication.reducer';
-import { countryReducer } from '../../store/reducer/country.reducer';
-import { currencyReducer } from '../../store/reducer/currency.reducer';
-import { categoryReducer } from '../../store/reducer/category.reducer';
-import { teamsReducer } from '../../store/reducer/team.reducer';
-import { eventsReducer } from '../../store/reducer/event.reducer';
-import { tagReducer } from '../../store/reducer/tag.reducer';
-import { projectReducer } from '../../store/reducer/project.reducer';
-import { companyReducer } from '../../store/reducer/company.reducer';
-import { filtersReducer } from '../../store/reducer/filter.reducer';
-import { supplierReducer } from '../../store/reducer/supplier.reducer';
-import { viewSwitcherReducer } from '../../store/reducer/view-switcher.reducer';
-import { miscReducer } from '../../store/reducer/misc.reducer';
-import { productReducer } from '../../store/reducer/product.reducer';
-import { taskReducer } from '../../store/reducer/task.reducer';
-import { productStatusReducer } from '../../store/reducer/product-status.reducer';
-import { tasksStatusReducer } from '../../store/reducer/task-status.reducer';
-import { tasksTypeReducer } from '../../store/reducer/task-type.reducer';
-import { storeLogger } from 'ngrx-store-logger';
-import { environment } from '../../../../environments/environment';
+import { metaReducers, reducers } from '../../store/reducer/_reducers';
 
-export function logger(reducer: ActionReducer<State<any>>): any {
-	// default, no options
-	return storeLogger()(reducer);
-}
 
-export const metaReducers = environment.production ? [] : [logger];
 
 const inputMap: InputMap = {
 	address: InputAddressComponent,
@@ -70,27 +45,7 @@ const inputMap: InputMap = {
 		LocalStorageModule,
 		PreloaderModule,
 		CompanyModule,
-		StoreModule.forRoot({
-			user: userReducer,
-			authentication: authenticationReducer,
-			company: companyReducer,
-			countries: countryReducer,
-			currencies: currencyReducer,
-			categories: categoryReducer,
-			teams: teamsReducer,
-			events: eventsReducer,
-			tags: tagReducer,
-			projects: projectReducer,
-			filters: filtersReducer,
-			suppliers: supplierReducer,
-			tasks: taskReducer,
-			products: productReducer,
-			viewSwitcher: viewSwitcherReducer,
-			misc: miscReducer,
-			productStatus: productStatusReducer,
-			tasksStatus: tasksStatusReducer,
-			tasksType: tasksTypeReducer,
-		} as any, { metaReducers }),
+		StoreModule.forRoot( reducers as any, { metaReducers }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2
 		}),

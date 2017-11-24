@@ -10,6 +10,6 @@ export class ViewSwitcherAction {
 		return {
 			type: ActionType.SWITCH_VIEW_TYPE,
 			payload: view
-		}
+		};
 	}
 }

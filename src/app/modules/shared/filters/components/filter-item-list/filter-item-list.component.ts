@@ -50,7 +50,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		});
 		// then we select the entityRep for the filter selection panel to know what entity
 		// we want to display
-		this.entityRep$ = this.store.select(dotSelector('misc.filterSelectionPanel.target'));
+		this.entityRep$ = this.store.select('filterSelectionPanel').map(fsp => fsp.target);
 		this.counterSrv.init(this.filterGroupName);
 		// when entityRep is received we launch onTargetReceived
 		this.itemsWithCount$ = this.entityRep$
