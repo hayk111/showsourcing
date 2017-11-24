@@ -1,4 +1,5 @@
 <div *ngFor="let s of sortings" class="flex">
 	<input type="radio" id='s.title'
-		name="sortings" [value]="s.value" (change)="onChange(s.value)"/>{{ s.title }}
+		name="sortings" [value]="s.value" [checked]="selectedSorting == s.value"
+		(change)="onChange(s.value)"/>{{ s.title }}
 </div>
