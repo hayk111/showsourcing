@@ -6,15 +6,7 @@
 			[targets]="targets"></filter-list-app>
 	</div>
 
-	<div class="list-view">
-		<ng-container *ngIf="(supplier$ | async) as suppliers">
-					
-			list
-			<div *ngFor="let id of suppliers.ids">
-				{{ suppliers.byId[id] | json }}
-			</div>
-		</ng-container>
-	</div>
+	<supplier-list-view-app class="list-view"></supplier-list-view-app>
 
 	<div class="card-view">
 		<ng-container *ngIf="(supplier$ | async) as suppliers">								

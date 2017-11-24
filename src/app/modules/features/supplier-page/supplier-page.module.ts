@@ -4,12 +4,14 @@ import { SupplierPageComponent } from './components/supplier-page/supplier-page.
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { FiltersModule } from '../../shared/filters/filters.module';
 import { SupplierListViewComponent } from './components/supplier-list-view/supplier-list-view.component';
+import { MatTableModule } from '@angular/material';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FilteredListPageModule,
-		FiltersModule
+		FiltersModule,
+		MatTableModule
 	],
 	declarations: [SupplierPageComponent, SupplierListViewComponent]
 })
