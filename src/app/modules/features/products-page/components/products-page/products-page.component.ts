@@ -9,13 +9,11 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
-// import { ProductsService } from '../../services/products.service';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ TeamItemLoaderService ]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
