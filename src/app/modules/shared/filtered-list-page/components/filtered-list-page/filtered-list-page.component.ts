@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -16,6 +16,13 @@ import { FilterPanelAction } from '../../../../store/action/filter-panel.action'
 export class FilteredListPageComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() pending = true;
+	searchableEntitiesRepr = [
+		entityRepresentationMap.suppliers,
+		entityRepresentationMap.events,
+		entityRepresentationMap.categories,
+		entityRepresentationMap.projects,
+		entityRepresentationMap.tags
+	];
 	filterPanelOpen$: Observable<boolean>;
 	view$: Observable<string>;
 

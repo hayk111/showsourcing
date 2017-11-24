@@ -5,6 +5,7 @@ import { deepCopy } from '../utils/deep-copy.utils';
 import { FilterGroupName, entityRepresentationMap, EntityRepresentation } from '../model/filter.model';
 import { selectFilterValuesForEntity } from './filter.selectors';
 import Log from '../../../utils/logger/log.class';
+import { createSelector } from 'reselect';
 
 
 export interface SearchedEntity {
@@ -12,49 +13,50 @@ export interface SearchedEntity {
 	values: Array<any>;
 	checked?: boolean;
 }
-export const searchEntities = (filterGroupName, str: string) => (state): Array<SearchedEntity> => {
-	Log.debug(`search entities for string ${str}`);
-	const toBeChecked = [
-		entityRepresentationMap.suppliers,
-		entityRepresentationMap.categories,
-		entityRepresentationMap.events,
-		entityRepresentationMap.tags,
-		entityRepresentationMap.projects
-	];
-	let foundValues = findVals(toBeChecked, str, state);
-	// making copy of returned since we are about to add selection to those
-	foundValues = deepCopy(foundValues);
-	addSelection(filterGroupName, foundValues, state);
-	return foundValues;
+
+export const searchEntities = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
+	const searches: Array<any> = entityReprs.map(x => searchEntity(filterGroupName, x, str));
+	// puts every search into an array
+	return createSelector(searches as any, (...args) => {
+		// just flatten the array of array
+		return args.reduce((acc, curr) => {
+			return acc.concat(curr);
+		}, []);
+	});
 };
 
-const findVals = (toBeChecked, str, state) => {
+export const searchEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
+	return createSelector(
+		[
+			selectSlice(entityRepr.entityName),
+			selectFilterValuesForEntity(filterGroupName, entityRepr)
+		],
+		(items, vals) => {
+			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
+			let foundValues = findVal(entityRepr, str, items);
+			// making copy so we don't mutate the state
+			foundValues = deepCopy(foundValues);
+			addSelection(filterGroupName, vals, foundValues);
+			return foundValues;
+	});
+};
+
+const findVal = (target: EntityRepresentation, str: string, items) => {
 	const foundValues = [];
-
-	toBeChecked.forEach((target: EntityRepresentation) => findVal(target, str, foundValues, state));
-	return foundValues;
-};
-
-const findVal = (target: EntityRepresentation, str: string, foundValues: Array<SearchedEntity>, state) => {
-
 	const toBeAddedEntity = { entityRepr: target, values: [] };
-	// get values for specific entity
-	const itemEntityState = selectSlice(target.entityName)(state);
 	// for each values if term is present just push it
-	Object.values(itemEntityState.byId).forEach(item => {
+	Object.values(items.byId).forEach(item => {
 		if (item.name.includes(str))
 			toBeAddedEntity.values.push(item);
 	});
 	// if values are found add it to foundValues
 	if (toBeAddedEntity.values.length > 0)
 		foundValues.push(toBeAddedEntity);
+	return foundValues;
 };
 
-const addSelection = (filterGroupName: FilterGroupName,
-									foundValues: Array<SearchedEntity>, state) => {
-
+const addSelection = (filterGroupName: FilterGroupName, vals: Array<any>, foundValues: Array<SearchedEntity>) => {
 	foundValues.forEach((ent: SearchedEntity) => {
-		const vals = selectFilterValuesForEntity(filterGroupName, ent.entityRepr)(state);
 		ent.values.forEach(v => {
 			// tilde checks if it's found
 			if (~vals.indexOf(v.id))

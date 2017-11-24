@@ -1,11 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
-import { searchEntities, SearchedEntity } from '../../../../store/selectors/search-entities.selector';
+import { FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { SearchedEntity, searchEntity, searchEntities } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { zip } from 'rxjs/observable/zip';
+import { distinctUntilChanged } from 'rxjs/operators';
+
 import { Entity } from '../../../../store/utils/entities.utils';
 import { FilterActions } from '../../../../store/action/filter.action';
+import { Observable } from 'rxjs/Observable';
+import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operator/debounceTime';
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -13,22 +20,41 @@ import { FilterActions } from '../../../../store/action/filter.action';
 	styleUrls: ['./filter-search-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterSearchBarComponent implements OnInit {
+export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
+	@Input() searchableEntitiesRepr: Array<EntityRepresentation>;
 	search = '';
-	searchTerms$: Observable<Array<SearchedEntity>>;
-	constructor(private store: Store<any>) { }
+	searchTerms$: Observable<any>;
+	private searchEntRep = entityRepresentationMap.search;
+	private keyDown = new Subject<string>();
+
+	constructor(private store: Store<any>) {
+		super();
+	}
 
 	ngOnInit() {
+		this.keyDown.debounceTime(400)
+		.pipe(
+			distinctUntilChanged()
+		).subscribe(x => this.doSearch());
 	}
 
 	onChange() {
+		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.searchEntRep]));
+		this.keyDown.next(this.search);
 		if (this.search.length > 2) {
-			this.searchTerms$ = this.store.select(searchEntities(this.filterGroupName, this.search))
-			.pipe(
-				take(1)
-			);
+			this.searchViaPanel();
 		}
+	}
+
+	searchViaPanel() {
+		this.searchTerms$ = this.store.select(searchEntities(this.filterGroupName, this.searchableEntitiesRepr, this.search));
+	}
+
+	doSearch() {
+		const name = `search: ${this.search}`;
+		const ac = FilterActions.addFilter(this.filterGroupName, this.searchEntRep, name, this.search);
+		this.store.dispatch(ac);
 	}
 
 	closeSmartSearch() {

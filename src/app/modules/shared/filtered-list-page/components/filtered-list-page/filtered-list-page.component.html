@@ -2,7 +2,8 @@
 
 		<div class="flex topBar">
 			<view-switcher-app></view-switcher-app>				
-			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
+			<filter-search-bar-app [filterGroupName]="filterGroupName"
+				[searchableEntitiesRepr]="searchableEntitiesRepr"></filter-search-bar-app>
 			<button class="secondary z-2 small" (click)="openFilters()">filters</button>
 		</div>
 	

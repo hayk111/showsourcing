@@ -29,46 +29,26 @@ export class TeamItemLoaderService {
 		this.actions = actions;
 
 		urlBuilder.entity = targetEntity;
+		// TODO refactor this more linearly
 		this.store.select('user')
 		.pipe(
 			map(u => u.currentTeamId),
 			filter(tid => tid),
-			distinctUntilChanged()
-		).subscribe(tid => this.subToItem(tid, urlBuilder));
+			distinctUntilChanged(),
+			switchMap(tid => this.subToItem(tid, urlBuilder)),
+		).subscribe((p: any) => this.store.dispatch(this.actions.setData(p.elements)));
 	}
-
-	// loadEntity(targetEntity: string, filterGroupName) {
-	// 	this.urlBuilder.entity = targetEntity;
-	// 	this.filterGroupName = filterGroupName;
-	// 	return this.store.select('user')
-	// 	.pipe(
-	// 		map(u => u.currentTeamId),
-	// 		filter(tid => tid),
-	// 		distinctUntilChanged(),
-	// 		switchMap(tid => this.subToItem2(tid))
-	// 	);
-	// }
 
 	subToItem(tid: string, urlBuilder) {
 		urlBuilder.id = tid;
-		this.store.select(selectFiltersAsUrlParams(this.filterGroupName))
-		.subscribe((params: string) => {
-			this.store.dispatch(this.actions.setPending());
-			const endpoint = urlBuilder.getUrlWithParams(params);
-			this.http.get(endpoint).subscribe((p: any) => {
-				this.store.dispatch(this.actions.setData(p.elements));
-			});
-		});
+		return this.store.select(selectFiltersAsUrlParams(this.filterGroupName))
+		.pipe(
+			switchMap((params: string) => {
+				this.store.dispatch(this.actions.setPending());
+				const endpoint = urlBuilder.getUrlWithParams(params);
+				return this.http.get(endpoint);
+			})
+		);
 	}
-
-	// private subToItem2(tid: string) {
-	// 	this.urlBuilder.id = tid;
-	// 	return this.store.select(selectFiltersAsUrlParams(this.filterGroupName)).pipe(
-	// 		switchMap((params: string) => {
-	// 			const endpoint = this.urlBuilder.getUrlWithParams(params);
-	// 			return this.http.get(endpoint);
-	// 		})
-	// 	);
-	// }
 
 }
