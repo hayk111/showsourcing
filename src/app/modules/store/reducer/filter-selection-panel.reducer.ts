@@ -18,7 +18,7 @@ export function filterSelectionPanelReducer(state = initialState,
 				target: action.payload
 			};
 		case ActionType.CLOSE:
-			return initialState;
+			return {...state, open: false};
 		default:
 			return state;
 	}

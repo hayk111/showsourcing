@@ -2,7 +2,7 @@ import { EntityRepresentation } from '../model/filter.model';
 
 export enum ActionType {
 	OPEN = '[FilterPanel] open',
-	CLOSE = '[FilterSelectionPanel] close'
+	CLOSE = '[FilterPanel] close'
 }
 
 export class FilterPanelAction {

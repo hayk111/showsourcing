@@ -4,4 +4,4 @@ export const dotSelector = (path: string) => (state): any => {
 	let target = state;
 	pathArr.forEach(p => target = target[p]);
 	return target;
-}
+};

@@ -1,4 +1,4 @@
-import { LogLevels } from "../app/utils/logger/log-levels";
+import { LogLevels } from '../app/utils/logger/log-levels';
 
 
 // The file contents for the current environment will overwrite these during build.
@@ -9,7 +9,7 @@ import { LogLevels } from "../app/utils/logger/log-levels";
 
 
 export const environment = {
-  production: false,
-  apiUrl: 'https://stoemelings.showsourcing.com/api/',
-  LOG_LEVEL: LogLevels.DEBUG
+	production: false,
+	apiUrl: 'https://stoemelings.showsourcing.com/api/',
+	LOG_LEVEL: LogLevels.DEBUG
 };

@@ -35,4 +35,5 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	closePanel() {
 		this.store.dispatch(FilterSelectionPanelAction.close());
 	}
+
 }
