@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBuilderService } from '../../../shared/form-builder/services/form-builder.service';
-import { selectProp } from '../../../store/selectors/panel.selector';
 import { Store } from '@ngrx/store';
 import { Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -9,9 +8,9 @@ import { Filter, FilterGroupName } from '../../../store/model/filter.model';
 import { selectFilterGroup } from '../../../store/selectors/filter.selectors';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+	selector: 'app-test',
+	templateUrl: './test.component.html',
+	styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
 

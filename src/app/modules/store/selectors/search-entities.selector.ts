@@ -4,6 +4,7 @@ import { Product } from '../model/product.model';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { FilterGroupName, entityRepresentationMap, EntityRepresentation } from '../model/filter.model';
 import { selectFilterValuesForEntity } from './filter.selectors';
+import Log from '../../../utils/logger/log.class';
 
 
 export interface SearchedEntity {
@@ -12,6 +13,7 @@ export interface SearchedEntity {
 	checked?: boolean;
 }
 export const searchEntities = (filterGroupName, str: string) => (state): Array<SearchedEntity> => {
+	Log.debug(`search entities for string ${str}`);
 	const toBeChecked = [
 		entityRepresentationMap.suppliers,
 		entityRepresentationMap.categories,

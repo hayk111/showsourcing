@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Entity } from '../../../../store/utils/entities.utils';
 import { FilterActions } from '../../../../store/action/filter.action';
+
 @Component({
 	selector: 'filter-search-bar-app',
 	templateUrl: './filter-search-bar.component.html',

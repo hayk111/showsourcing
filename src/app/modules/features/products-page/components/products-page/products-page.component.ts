@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectProp } from '../../../../store/selectors/panel.selector';
 import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { Filter, FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
