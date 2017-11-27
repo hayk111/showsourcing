@@ -23,6 +23,7 @@ import { ActionReducer, State } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
+import { customFieldsReducer } from './custom-fields.reducer';
 
 
 
@@ -48,6 +49,7 @@ export const reducers = {
 	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
+	customFields: customFieldsReducer
 };
 
 

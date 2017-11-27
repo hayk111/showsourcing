@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
 import { switchMap } from 'rxjs/operators';
 import { SupplierActions } from '../../../store/action/supplier.action';
+import { CustomFieldsActions } from '../../../store/action/custom-fields.action';
 
 
 @Injectable()
@@ -45,6 +46,7 @@ export class PreloaderService {
 		this.loadEvents();
 		this.loadProjects();
 		this.loadTags();
+		this.loadCustomFields();
 
 		// this should be the last one
 		this.loadMaxCounter();
@@ -101,5 +103,10 @@ export class PreloaderService {
 		timer(0, 30000).pipe(
 			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/maxCounter`))
 		).subscribe((c: any) => this.maxCounter = c.counter);
+	}
+
+	private loadCustomFields() {
+		this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
+			.subscribe(r => this.store.dispatch(CustomFieldsActions.set(r)));
 	}
 }
