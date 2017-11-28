@@ -10,6 +10,7 @@ import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/
 import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
 import { DialogModule } from '../../shared/dialog/dialog.module';
+import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 
 @NgModule({
 	imports: [
@@ -18,7 +19,8 @@ import { DialogModule } from '../../shared/dialog/dialog.module';
 		MatTableModule,
 		MatCheckboxModule,
 		FilteredListPageModule,
-		DialogModule.forChild()
+		DialogModule.forChild(),
+		FormBuilderModule.forChild()
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

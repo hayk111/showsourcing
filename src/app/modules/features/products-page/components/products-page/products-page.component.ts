@@ -33,7 +33,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	];
 	pending = true;
 	productEntities: EntityState<Product>;
-	selectedProductId;
+	selectedProduct;
 
 	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>,
 							private dlgSrv: DialogService) {
@@ -53,7 +53,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemClicked(id: string) {
-		this.selectedProductId = id;
+		this.selectedProduct = this.productEntities.byId[id];
 		this.dlgSrv.open(DialogNames.PRODUCT);
 	}
 }

@@ -1,4 +1,5 @@
 <dialog-app [name]="dlgName">
-	
-	Hello
+	<ng-container *ngIf="formDescriptor$ | async as formDescriptor">
+		<dynamic-form-app [descriptor]="formDescriptor"></dynamic-form-app>
+	</ng-container>
 </dialog-app>

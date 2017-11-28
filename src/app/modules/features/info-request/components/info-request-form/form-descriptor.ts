@@ -25,20 +25,20 @@ export const FORM_DESCRIPTOR: FormDescriptor = {
 		},
 		{
 			name: 'Company Address',
-			fields: [{name: 'address', type: 'address', required: true}]
+			fields: [{name: 'address', fieldType: 'address', required: true}]
 		},
 		{
 			name: 'Contact Information',
 			fields: [
-				{ name: 'website', label: 'Website', type: 'url', placeholder: 'www.mycompany.com'},
-				{ name: 'tel', label: 'Phone', type: 'tel', placeholder: '+32 0472 55 45 88', required: true },
-				{ name: 'email', label: 'Email', type: 'email', placeholder: 'info@mycompany.com', required: true }
+				{ name: 'website', label: 'Website', fieldType: 'url', placeholder: 'www.mycompany.com'},
+				{ name: 'tel', label: 'Phone', fieldType: 'tel', placeholder: '+32 0472 55 45 88', required: true },
+				{ name: 'email', label: 'Email', fieldType: 'email', placeholder: 'info@mycompany.com', required: true }
 			]
 		},
 		{
 			name: 'Additional Contacts',
 			fields: [
-				{ name: 'Contact', type: 'contactList' }
+				{ name: 'Contact', fieldType: 'contactList' }
 			]
 		}
 	]

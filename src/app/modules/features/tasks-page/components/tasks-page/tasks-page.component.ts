@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, Filter, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';

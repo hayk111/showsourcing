@@ -3,7 +3,7 @@
 export interface FormControlDescriptor {
 	name?: string;
 	value?: any;
-	type?: string;
+	fieldType?: string;
 	label?: string;
 	placeholder?: string;
 	options?: Array<any>;

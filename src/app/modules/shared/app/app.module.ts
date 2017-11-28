@@ -22,14 +22,12 @@ import { CompanyModule } from '../company/company.module';
 import { PreloaderModule } from '../preloader/preloader.module';
 import { metaReducers, reducers } from '../../store/reducer/_reducers';
 import { DialogModule } from '../dialog/dialog.module';
+import { DynamicInputComponent } from '../form-builder/components/dynamic-input/dynamic-input.component';
 
 
 
 const inputMap: InputMap = {
-	address: InputAddressComponent,
-	contact: InputContactComponent,
-	contactList: InputContactListComponent,
-	default: InputComponent
+	default: DynamicInputComponent
 };
 
 

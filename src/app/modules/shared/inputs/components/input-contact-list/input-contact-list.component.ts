@@ -1,7 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormArray, AbstractControl } from '@angular/forms';
 import { FormBuilderService } from '../../../form-builder/services/form-builder.service';
-import { DynamicFormArray } from '../../../form-builder/utils/dynamic-form-array.class';
 import { AbstractInput } from '../../abstract-input.class';
 
 @Component({

@@ -23,6 +23,10 @@ i, button, menu, .button{
 	cursor: pointer;
 }
 
+dialog{
+	border: none;
+}
+
 ::selection{
 	background: var(--color-accent);
 	color: var(--color-accent-txt);

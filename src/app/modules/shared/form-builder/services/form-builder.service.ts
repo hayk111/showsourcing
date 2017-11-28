@@ -4,7 +4,6 @@ import { FormControlDescriptor } from '../interfaces/form-control-descriptor.int
 import { FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { FormDescriptor } from '../interfaces/form-descriptor.interface';
 import { InputMap } from '../interfaces/input-map.interface';
-import { DynamicFormControl } from '../utils/dynamic-form-control.class';
 
 @Injectable()
 export class FormBuilderService {
@@ -26,15 +25,14 @@ export class FormBuilderService {
 		descriptor.fields
 			.forEach((ctrlDesc) => group[ctrlDesc.name] = this.toFormControl(ctrlDesc));
 		const formGroup = new FormGroup(group);
-		descriptor.group = formGroup;
 		return formGroup;
 	}
 
-	toFormControl(ctrlDesc: FormControlDescriptor, validators: Array<ValidatorFn> = []): DynamicFormControl {
+	toFormControl(ctrlDesc: FormControlDescriptor, validators: Array<ValidatorFn> = []): FormControl {
 		const value = ctrlDesc.value || '';
 		if (ctrlDesc.required)
 			validators.push(Validators.required);
-		const ctrl = new DynamicFormControl(value, validators);
+		const ctrl = new FormControl(value, validators);
 		return ctrl;
 	}
 

@@ -32,7 +32,7 @@ export class AbstractInput {
 	@Input()
 	set descriptor(desc){
 		this.required = desc.required;
-		this.type = desc.type || 'text';
+		this.type = desc.fieldType || 'text';
 		this.placeholder = desc.placeholder || '';
 		this._descriptor = desc;
 	}

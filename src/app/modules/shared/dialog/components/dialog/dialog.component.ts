@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { DialogService } from '../../services/dialog.service';
 import { DialogNames } from '../../dialogs.enum';

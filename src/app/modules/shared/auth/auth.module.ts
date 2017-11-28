@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthMockService } from './services/auth-mock.service';
 import { AuthService } from './services/auth.service';
@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { AuthCardComponent } from './components/auth-card/auth-card.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AccountCreatedComponent } from './components/account-created/account-created.component';

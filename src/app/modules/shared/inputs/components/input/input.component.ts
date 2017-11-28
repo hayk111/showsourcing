@@ -4,6 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from
 import Log from '../../../../../utils/logger/log.class';
 import { FormBuilderService } from '../../../form-builder/services/form-builder.service';
 import { AbstractInput } from '../../abstract-input.class';
+import { RegexpApp } from '../../../../../utils/regexes';
 
 @Component({
 	selector: 'input-app',
@@ -18,10 +19,6 @@ import { AbstractInput } from '../../abstract-input.class';
 	]
 })
 export class InputComponent extends AbstractInput implements OnInit {
-	private static DIGITS_REGEX = /^\d+$/;
-	private static URL_REGEX = `/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]
-+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/`;
-	private static PHONE_REGEX = /^[0-9\.\-\/\+\s()]+$/;
 	@HostBinding('class.flexColumn') flex = true;
 	// regex is so we can disable some keys from the input
 	// for example the number input shouldn't let us type letters
@@ -32,23 +29,23 @@ export class InputComponent extends AbstractInput implements OnInit {
 	constructor(protected inj: Injector) { super(inj); }
 
 	ngOnInit() {
-		this.addValidatorForType();
 		super.ngOnInit();
+		this.addValidatorForType();
 	}
 
 	private addValidatorForType() {
 		switch (this.type) {
 			case 'number':
-				this.regex = new RegExp(InputComponent.DIGITS_REGEX);
+				this.regex = new RegExp(RegexpApp.DIGITS);
 				break;
 			case 'url':
-				// this.regex = new RegExp(InputComponent.URL_REGEX);
 				break;
 			case 'tel':
-				this.regex = new RegExp(InputComponent.PHONE_REGEX);
+				this.regex = new RegExp(RegexpApp.PHONE);
 				break;
 		}
 	}
+
 
 
 	onKeyDown(event: KeyboardEvent) {

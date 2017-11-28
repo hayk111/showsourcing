@@ -4,7 +4,6 @@ import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import Log from '../../../../../utils/logger/log.class';
 import { InputMap } from '../../interfaces/input-map.interface';
 import { FormControlDescriptor } from '../../interfaces/form-control-descriptor.interface';
-import { AbstractInput } from '../../interfaces/abstract-input.class';
 import { FormBuilderService } from '../../services/form-builder.service';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import 'rxjs/add/operator/takeUntil';
@@ -16,10 +15,11 @@ import 'rxjs/add/operator/take';
 	styleUrls: ['./dynamic-form-control.component.scss']
 })
 export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
-	static inputMap: InputMap;
+	// we receive a descriptor, so we know what input in the input map should be taken
+	// the input map is in the FormBuilderService
 	@Input() descriptor: FormControlDescriptor;
-	@Input() group: FormGroup;
 	@Output() controlCreated = new EventEmitter<AbstractControl>();
+	// we get a hold of the ctnr since we are gonna put inputs in it
 	@ViewChild('ctnr', { read: ViewContainerRef }) ctnr: ViewContainerRef;
 	private componentRef: ComponentRef<any>;
 
@@ -28,14 +28,18 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.createComponent(this.descriptor.type);
+		this.createComponent(this.descriptor.fieldType);
 	}
 
-	private createComponent(type: string = 'default') {
+	private createComponent(fieldType: string = 'default') {
+		// redundant step of clearing the container as it should be clear but let's stay on the safe side
 		this.ctnr.clear();
-		let comp = this.fbSrv.inputMap[type];
+		// we get the correct component from the input map
+		let comp = this.fbSrv.inputMap[fieldType];
+		// if none for this type we get the default one
 		comp = comp || this.fbSrv.inputMap.default;
-		const factory: ComponentFactory<AbstractInput> = this.resolver.resolveComponentFactory(comp as any);
+		// create an instance of said component
+		const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(comp as any);
 		this.componentRef = this.ctnr.createComponent(factory);
 		const inst = this.componentRef.instance;
 		inst.descriptor = this.descriptor;

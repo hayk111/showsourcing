@@ -11,5 +11,5 @@
 		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)" 
 			[productEntities]="productEntities"></product-card-view-app>
 </filtered-list-page-app>
-<product-dialog-app productId="selectedProductId"></product-dialog-app>
+<product-dialog-app [product]="selectedProduct"></product-dialog-app>
 
