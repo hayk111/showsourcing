@@ -21,6 +21,7 @@ import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyModule } from '../company/company.module';
 import { PreloaderModule } from '../preloader/preloader.module';
 import { metaReducers, reducers } from '../../store/reducer/_reducers';
+import { DialogModule } from '../dialog/dialog.module';
 
 
 
@@ -45,6 +46,7 @@ const inputMap: InputMap = {
 		LocalStorageModule,
 		PreloaderModule,
 		CompanyModule,
+		DialogModule.forRoot(),
 		StoreModule.forRoot( reducers as any, { metaReducers }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2

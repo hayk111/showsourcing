@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/product.model';
@@ -10,6 +10,7 @@ import { Product } from '../../../../store/model/product.model';
 })
 export class ProductCardViewComponent implements OnInit {
 	@Input() productEntities: EntityState<Product>;
+	@Output() itemClicked = new EventEmitter<string>();
 	suppliers$;
 
 	constructor(private store: Store<any>) { }
@@ -18,8 +19,5 @@ export class ProductCardViewComponent implements OnInit {
 		this.suppliers$ = this.store.select('suppliers');
 	}
 
-	doAlert(name: string) {
-		alert(name);
-	}
 
 }

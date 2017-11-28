@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subject } from 'rxjs/Subject';
 import { DialogService } from '../../services/dialog.service';
+import { DialogNames } from '../../dialogs.enum';
 
 @Component({
 	selector: 'dialog-app',
@@ -10,7 +11,7 @@ import { DialogService } from '../../services/dialog.service';
 })
 export class DialogComponent implements OnInit, OnDestroy {
 	@Input() closeIcon = true;
-	@Input() name: string;
+	@Input() name: DialogNames;
 	isOpen: Subject<boolean>;
 
 	constructor(private dlgSer: DialogService) { }

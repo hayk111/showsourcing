@@ -9,6 +9,8 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
+import { DialogService } from '../../../../shared/dialog/services/dialog.service';
+import { DialogNames } from '../../../../shared/dialog/dialogs.enum';
 
 @Component({
 	selector: 'products-page-app',
@@ -31,8 +33,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	];
 	pending = true;
 	productEntities: EntityState<Product>;
+	selectedProductId;
 
-	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
+	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>,
+							private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -46,5 +50,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	onItemsReceived(items: EntityState<Product>) {
 		this.productEntities = items;
 		this.pending = items.pending;
+	}
+
+	onItemClicked(id: string) {
+		this.selectedProductId = id;
+		this.dlgSrv.open(DialogNames.PRODUCT);
 	}
 }

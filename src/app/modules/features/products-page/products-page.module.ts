@@ -8,6 +8,8 @@ import { ProductListViewComponent } from './components/product-list-view/product
 import { ProductCardViewComponent } from './components/product-card-view/product-card-view.component';
 import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/team-item-loader.service';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material';
+import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
+import { DialogModule } from '../../shared/dialog/dialog.module';
 
 @NgModule({
 	imports: [
@@ -15,9 +17,10 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 		FiltersModule,
 		MatTableModule,
 		MatCheckboxModule,
-		FilteredListPageModule
+		FilteredListPageModule,
+		DialogModule.forChild()
 	],
 	declarations: [ ProductsPageComponent,
-		ProductListViewComponent, ProductCardViewComponent]
+		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]
 })
 export class ProductsPageModule { }

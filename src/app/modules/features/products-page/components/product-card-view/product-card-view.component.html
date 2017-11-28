@@ -1,5 +1,5 @@
 <article class="card z-h pointer" *ngFor="let id of productEntities.ids" 
-	(click)="doAlert(productEntities.byId[id].name)">
+	(click)="itemClicked.next(id)">
 	<div class="imgCtnr">
 		<img src="{{ productEntities.byId[id].mainImage.urls.url_220x165 }}"/>
 	</div>
