@@ -44,7 +44,6 @@ const inputMap: InputMap = {
 		LocalStorageModule,
 		PreloaderModule,
 		CompanyModule,
-		DialogModule.forRoot(),
 		StoreModule.forRoot( reducers as any, { metaReducers }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2

@@ -9,6 +9,7 @@ import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';
 import { selectFilterForEntity } from '../../../../store/selectors/filter.selectors';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
 	selector: 'filter-app',
@@ -33,10 +34,13 @@ export class FilterComponent implements OnInit {
 		else {
 		// if the target is prices, the filterTarget put in the filter store is either min or maxPrices
 			const min$ = this.store.select(
-				selectFilterForEntity(this.filterGroupName, entityRepresentationMap.minPrices));
+					selectFilterForEntity(this.filterGroupName, entityRepresentationMap.minPrices)
+				).map(t => t[0]);
 			const max$ = this.store.select(
-				selectFilterForEntity(this.filterGroupName, entityRepresentationMap.maxPrices));
-			this.items$ = min$.pipe(merge(max$));
+					selectFilterForEntity(this.filterGroupName, entityRepresentationMap.maxPrices)
+				).map(t => t[0]);
+				// could be we have to use merge or combine latest here instead..
+			this.items$ = combineLatest(min$, max$);
 		}
 	}
 

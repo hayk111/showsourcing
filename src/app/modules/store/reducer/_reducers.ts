@@ -24,13 +24,14 @@ import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { customFieldsReducer } from './custom-fields.reducer';
+import { dialogReducer } from './dialog.reducer';
 
 
 
 export const reducers = {
+	// entities
 	user: userReducer,
-	authentication: authenticationReducer,
-	company: companyReducer,
+	// company: companyReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
 	categories: categoryReducer,
@@ -38,18 +39,20 @@ export const reducers = {
 	events: eventsReducer,
 	tags: tagReducer,
 	projects: projectReducer,
-	filters: filtersReducer,
-	filterPanel: filterPanelReducer,
-	filterSelectionPanel: filterSelectionPanelReducer,
 	suppliers: supplierReducer,
 	tasks: taskReducer,
 	products: productReducer,
-	viewSwitcher: viewSwitcherReducer,
-	misc: miscReducer,
 	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
-	customFields: customFieldsReducer
+	customFields: customFieldsReducer,
+	// state
+	authentication: authenticationReducer,
+	filters: filtersReducer,
+	filterPanel: filterPanelReducer,
+	filterSelectionPanel: filterSelectionPanelReducer,
+	dialogs: dialogReducer,
+	viewSwitcher: viewSwitcherReducer,
 };
 
 

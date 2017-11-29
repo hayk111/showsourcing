@@ -9,8 +9,9 @@ import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/ser
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
-import { DialogService } from '../../../../shared/dialog/services/dialog.service';
-import { DialogNames } from '../../../../shared/dialog/dialogs.enum';
+import { DialogName } from '../../../../store/model/dialog.model';
+import { selectProducts } from '../../../../store/selectors/products.selector';
+import { DialogActions } from '../../../../store/action/dialog.action';
 
 @Component({
 	selector: 'products-page-app',
@@ -35,14 +36,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	productEntities: EntityState<Product>;
 	selectedProduct;
 
-	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>,
-							private dlgSrv: DialogService) {
+	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
 		this.teamItemLoader.init('product', ProductActions, this.filterGroupName);
-		this.store.select('products')
+		this.store.select(selectProducts)
 			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));
 	}
@@ -54,6 +54,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	onItemClicked(id: string) {
 		this.selectedProduct = this.productEntities.byId[id];
-		this.dlgSrv.open(DialogNames.PRODUCT);
+		this.store.dispatch(DialogActions.open(DialogName.PRODUCT));
+		this.store.dispatch(DialogActions.setMetadata(DialogName.PRODUCT, { id }));
 	}
 }

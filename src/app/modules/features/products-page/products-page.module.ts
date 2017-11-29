@@ -9,8 +9,9 @@ import { ProductCardViewComponent } from './components/product-card-view/product
 import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/team-item-loader.service';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
-import { DialogModule } from '../../shared/dialog/dialog.module';
 import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
+import { FileUploadModule } from 'ng2-file-upload';
+import { DialogModule } from '../../shared/dialog/dialog.module';
 
 @NgModule({
 	imports: [
@@ -19,8 +20,9 @@ import { FormBuilderModule } from '../../shared/form-builder/form-builder.module
 		MatTableModule,
 		MatCheckboxModule,
 		FilteredListPageModule,
-		DialogModule.forChild(),
-		FormBuilderModule.forChild()
+		DialogModule,
+		FormBuilderModule.forChild(),
+		FileUploadModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

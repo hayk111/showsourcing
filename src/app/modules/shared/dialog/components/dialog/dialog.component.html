@@ -1,4 +1,4 @@
-<div (click)="close()" *ngIf="isOpen | async" class="modal">
+<div (click)="close()" *ngIf="isOpen$ | async as isOpen" class="modal">
 	<dialog class="z-3" [open]="isOpen" (click)="$event.stopPropagation()"
 		attr.role="dialog">
 		<mat-icon (click)="close()" *ngIf="closeIcon" class="z-1">close</mat-icon>
