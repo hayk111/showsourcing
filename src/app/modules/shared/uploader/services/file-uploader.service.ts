@@ -11,6 +11,10 @@ const BASE_OPTS: FileUploaderOptions = {
 	formatDataFunction: (item: FileItem) => item.formData
 };
 
+interface FileItemWithToken extends FileItem {
+	token: string;
+}
+
 // service that takes everything that's common to all uploads
 @Injectable()
 export class FileUploaderService extends FileUploader {
@@ -33,7 +37,7 @@ export class FileUploaderService extends FileUploader {
 		this.type = type;
 	}
 
-	protected _onAfterAddingFile(fileItem: FileItem) {
+	protected _onAfterAddingFile(fileItem: FileItemWithToken) {
 		// 1. ask info to 'api/xx', add those info to fileItem
 		// 2. Upload said file.
 		super._onAfterAddingFile(fileItem);
@@ -41,13 +45,14 @@ export class FileUploaderService extends FileUploader {
 		.subscribe((r: any) => {
 			fileItem.url = r.url;
 			fileItem.withCredentials = false;
+			fileItem.token = r.token;
 			fileItem.formData = this.converFormData(fileItem, r.formData);
 			this.uploadItem(fileItem);
 		});
 	}
 
 	// we receive an array but formData wants an object
-	private converFormData(fileItem: FileItem, formDataArr: Array<{[key: string]: string}>) {
+	private converFormData(fileItem: FileItemWithToken, formDataArr: Array<{[key: string]: string}>) {
 		const formData = new FormData();
 		// we receive an array but formData wants an object
 		formDataArr.forEach(ent => {
@@ -59,13 +64,14 @@ export class FileUploaderService extends FileUploader {
 		return formData;
 	}
 
-	protected _onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) {
+	protected _onCompleteItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
 		// delete token
 		// remove from uploading list
 		super._onSuccessItem(item, response, status, headers);
+		this.http.delete(`api/token/${item.token}`).subscribe();
 	}
 
-	public _onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) {
+	public _onErrorItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
 		super._onErrorItem(item, response, status, headers);
 	}
 
