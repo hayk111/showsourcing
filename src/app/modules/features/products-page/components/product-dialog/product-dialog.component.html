@@ -1,5 +1,16 @@
-<dialog-app [name]="dlgName">
+<dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
 	<ng-container *ngIf="formDescriptor$ | async as formDescriptor">
-		<dynamic-form-app [descriptor]="formDescriptor"></dynamic-form-app>
+		<dynamic-form-app [descriptor]="formDescriptor" (controlCreated)="onFormCreated($event)"></dynamic-form-app>
 	</ng-container>
+
+	<div ng2FileDrop
+		[ngClass]="{'file-over': isOver}"
+		(fileOver)="fileOverBase($event)"
+		(onFileDrop)="onFileDrop($event)"
+		[uploader]="uploader"
+		class="my-drop-zone">
+		Drag & drop zone
+	</div>
+	
+
 </dialog-app>
