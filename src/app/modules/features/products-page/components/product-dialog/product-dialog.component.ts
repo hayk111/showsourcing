@@ -21,6 +21,8 @@ import { zip } from 'rxjs/observable/zip';
 import { filter } from 'rxjs/operators/filter';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { HttpClient } from '@angular/common/http';
+import { selectCustomField } from '../../../../store/selectors/custom-fields.selector';
+import { CustomFieldsName } from '../../../../store/reducer/custom-fields.reducer';
 
 
 @Component({
@@ -43,7 +45,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.formDescriptor$ = this.store.select(dotSelector('customFields.productsCFDef'))
+		this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
 		.filter( r => r);
 	}
 

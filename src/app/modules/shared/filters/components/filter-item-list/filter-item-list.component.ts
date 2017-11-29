@@ -18,6 +18,9 @@ import { CounterService } from '../../services/counter.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../../store/model/user.model';
 import { combineLatest } from 'rxjs/operators';
+import { selectUser } from '../../../../store/selectors/user.selector';
+import { selectFilterPanel } from '../../../../store/selectors/filter-panel.selector';
+import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
 // when we filter an entity in the store this is the reused panel
 
 @Component({
@@ -45,12 +48,12 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		// we first select the user to get the teamId
-		this.store.select('user').subscribe((user: User) => {
+		this.store.select(selectUser).subscribe((user: User) => {
 			this.teamId = user.currentTeamId;
 		});
 		// then we select the entityRep for the filter selection panel to know what entity
 		// we want to display
-		this.entityRep$ = this.store.select('filterSelectionPanel').map(fsp => fsp.target);
+		this.entityRep$ = this.store.select(selectFilterSelectionPanelTarget);
 		this.counterSrv.init(this.filterGroupName);
 		// when entityRep is received we launch onTargetReceived
 		this.itemsWithCount$ = this.entityRep$

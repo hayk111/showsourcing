@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
+import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
 
 @Component({
 	selector: 'filter-selection-panel-app',
@@ -24,7 +25,7 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.target$ = this.store.select('filterSelectionPanel').map(p => p.target);
+		this.target$ = this.store.select(selectFilterSelectionPanelTarget);
 		this.target$.takeUntil(this._destroy$).subscribe(t => this.target = t);
 		this.router.events.subscribe(evt => {
 			if (evt instanceof NavigationEnd)

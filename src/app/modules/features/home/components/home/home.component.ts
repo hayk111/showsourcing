@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../../../../shared/auth/services/auth.service';
 import { Observable } from 'rxjs/Observable';
+import { selectUser } from '../../../../store/selectors/user.selector';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
 	};
 
 	constructor(private store: Store<any>, private authSrv: AuthService) {
-		this.user$ = this.store.select('user');
+		this.user$ = this.store.select(selectUser);
 	}
 
 	ngOnInit() {

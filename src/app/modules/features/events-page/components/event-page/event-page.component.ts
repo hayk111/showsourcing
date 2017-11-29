@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Event } from '../../../../store/model/event.model';
 import { Observable } from 'rxjs/Observable';
+import { selectEvents } from '../../../../store/selectors/events.selector';
 
 @Component({
 	selector: 'app-event-page',
@@ -19,7 +20,7 @@ export class EventPageComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.events$ = this.store.select('events');
+		this.events$ = this.store.select(selectEvents);
 		this.events$.subscribe(e => this.onItemsReceived(e));
 	}
 

@@ -9,6 +9,7 @@ import { UrlBuilder } from '../../../../utils/url-builder.class';
 import Log from '../../../../utils/logger/log.class';
 import { ActionType, ProductActions } from '../../../store/action/product.action';
 import { switchMap } from 'rxjs/operators';
+import { selectUser } from '../../../store/selectors/user.selector';
 
 @Injectable()
 export class TeamItemLoaderService {
@@ -30,7 +31,7 @@ export class TeamItemLoaderService {
 
 		urlBuilder.entity = targetEntity;
 		// TODO refactor this more linearly
-		this.store.select('user')
+		this.store.select(selectUser)
 		.pipe(
 			map(u => u.currentTeamId),
 			filter(tid => tid),

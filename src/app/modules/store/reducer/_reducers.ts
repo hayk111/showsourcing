@@ -19,17 +19,17 @@ import { miscReducer } from './misc.reducer';
 import { productStatusReducer } from './product-status.reducer';
 import { tasksStatusReducer } from './task-status.reducer';
 import { tasksTypeReducer } from './task-type.reducer';
-import { ActionReducer, State } from '@ngrx/store';
+import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
+import { combineReducers } from '@ngrx/store/src/utils';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { customFieldsReducer } from './custom-fields.reducer';
 import { dialogReducer } from './dialog.reducer';
+import { InjectionToken } from '@angular/core';
 
 
-
-export const reducers = {
-	// entities
+const entities = combineReducers({
 	user: userReducer,
 	// company: companyReducer,
 	countries: countryReducer,
@@ -46,15 +46,26 @@ export const reducers = {
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
 	customFields: customFieldsReducer,
-	// state
+});
+
+const ui = combineReducers( {
 	authentication: authenticationReducer,
 	filters: filtersReducer,
 	filterPanel: filterPanelReducer,
 	filterSelectionPanel: filterSelectionPanelReducer,
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
-};
+});
 
+export const reducers = { entities, ui };
+// This is because an error is thrown that the value cannot be resolved because combineReducer is used.
+
+export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');
+
+export const reducerProvider = [
+	{ provide: reducerToken, useValue: reducers }
+];
+// end of fix
 
 export function logger(reducer: ActionReducer<State<any>>): any {
 	// default, no options

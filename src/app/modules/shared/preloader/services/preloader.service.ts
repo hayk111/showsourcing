@@ -20,6 +20,8 @@ import { timer } from 'rxjs/observable/timer';
 import { switchMap } from 'rxjs/operators';
 import { SupplierActions } from '../../../store/action/supplier.action';
 import { CustomFieldsActions } from '../../../store/action/custom-fields.action';
+import { selectUser } from '../../../store/selectors/user.selector';
+import { selectAuthentication } from '../../../store/selectors/authentication.selector';
 
 
 @Injectable()
@@ -30,9 +32,9 @@ export class PreloaderService {
 	private reloadTime = 1500000;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select('user')
+		this.store.select(selectUser)
 			.subscribe((user: User) => this.user = user);
-		this.store.select('authentication')
+		this.store.select(selectAuthentication)
 			.filter(auth => auth.authenticated)
 			.subscribe(a => this.loadEverything());
 	}

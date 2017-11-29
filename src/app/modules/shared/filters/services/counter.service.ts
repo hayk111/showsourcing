@@ -5,6 +5,7 @@ import { User } from '../../../store/model/user.model';
 import { EntityRepresentation, FilterGroupName } from '../../../store/model/filter.model';
 import { selectEntitiesWithChecked } from '../../../store/selectors/filter.selectors';
 import { combineLatest } from 'rxjs/operators';
+import { selectUser } from '../../../store/selectors/user.selector';
 
 @Injectable()
 export class CounterService {
@@ -13,7 +14,7 @@ export class CounterService {
 	private filterGroupName: FilterGroupName;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select('user').subscribe((user: User) => {
+		this.store.select(selectUser).subscribe((user: User) => {
 			this.teamId = user.currentTeamId;
 		});
 	}

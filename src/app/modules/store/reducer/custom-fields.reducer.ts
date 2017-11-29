@@ -14,3 +14,7 @@ export function customFieldsReducer(state: CustomFields = {}, action: TypedActio
 			return state;
 	}
 }
+
+export enum CustomFieldsName {
+	PRODUCTS = 'productsCFDef',
+}

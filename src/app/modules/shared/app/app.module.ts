@@ -20,7 +20,7 @@ import { InputContactListComponent } from '../inputs/components/input-contact-li
 import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyModule } from '../company/company.module';
 import { PreloaderModule } from '../preloader/preloader.module';
-import { metaReducers, reducers } from '../../store/reducer/_reducers';
+import { metaReducers, reducers, reducerToken, reducerProvider } from '../../store/reducer/_reducers';
 import { DialogModule } from '../dialog/dialog.module';
 import { DynamicInputComponent } from '../form-builder/components/dynamic-input/dynamic-input.component';
 
@@ -44,7 +44,7 @@ const inputMap: InputMap = {
 		LocalStorageModule,
 		PreloaderModule,
 		CompanyModule,
-		StoreModule.forRoot( reducers as any, { metaReducers }),
+		StoreModule.forRoot( reducerToken , { metaReducers }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2
 		}),
@@ -52,6 +52,7 @@ const inputMap: InputMap = {
 		// StoreRouterConnectingModule
 		BrowserAnimationsModule
 	],
+	providers: [ reducerProvider ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

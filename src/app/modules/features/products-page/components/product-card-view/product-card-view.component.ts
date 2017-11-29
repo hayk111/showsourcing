@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/product.model';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'product-card-view-app',
@@ -16,7 +17,7 @@ export class ProductCardViewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.suppliers$ = this.store.select('suppliers');
+		this.suppliers$ = this.store.select(selectSuppliers);
 	}
 
 

@@ -7,6 +7,8 @@ import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/task.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
+import { selectTags } from '../../../../store/selectors/tags.selector';
+import { selectTasks } from '../../../../store/selectors/tasks.selector';
 
 
 @Component({
@@ -40,7 +42,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.itemLoader.init('task', TaskActions, this.filterGroupName);
-		this.tasks$ = this.store.select('tasks');
+		this.tasks$ = this.store.select(selectTasks);
 		this.tasks$.takeUntil(this._destroy$)
 			.subscribe(t => this.onItemsReceived(t));
 	}

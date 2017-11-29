@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/product.model';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -22,7 +23,7 @@ export class ProductListViewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.suppliers$ = this.store.select('suppliers');
+		this.suppliers$ = this.store.select(selectSuppliers);
 	}
 
 	@Input() set productEntities(pe: EntityState<Product>) {

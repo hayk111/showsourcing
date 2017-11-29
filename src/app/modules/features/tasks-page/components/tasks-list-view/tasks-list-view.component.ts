@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/product.model';
 import { MatTableDataSource } from '@angular/material';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'tasks-list-view',
@@ -19,7 +20,7 @@ export class TasksListViewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.suppliers$ = this.store.select('suppliers');
+		this.suppliers$ = this.store.select(selectSuppliers);
 	}
 
 	@Input() set tasksEntities(pe: EntityState<Product>) {

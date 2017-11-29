@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Authentication } from '../../../../store/model/authentication.model';
+import { selectAuthentication } from '../../../../store/selectors/authentication.selector';
 
 @Component({
 	selector: 'registration-app',
@@ -20,7 +21,7 @@ export class RegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		this.makeForm();
-		const auth$ = this.store.select('authentication');
+		const auth$ = this.store.select(selectAuthentication);
 		this.pending$ = auth$.map((auth: Authentication) => auth.pending);
 		this.error$ = auth$.map((auth: Authentication) => auth.errorMsg);
 	}

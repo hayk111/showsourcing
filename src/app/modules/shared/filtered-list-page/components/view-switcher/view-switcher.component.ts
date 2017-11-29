@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } 
 import { Store } from '@ngrx/store';
 import { ViewSwitcherAction } from '../../../../store/action/view-switcher.action';
 import { Observable } from 'rxjs/Observable';
+import { selectViewSwitcher } from '../../../../store/selectors/view-switcher.selector';
 
 @Component({
 	selector: 'view-switcher-app',
@@ -14,7 +15,7 @@ export class ViewSwitcherComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.view$ = this.store.select('viewSwitcher');
+		this.view$ = this.store.select(selectViewSwitcher);
 	}
 
 	switchView(view: string) {

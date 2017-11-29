@@ -6,6 +6,8 @@ import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { MatTableDataSource } from '@angular/material';
 import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
+import { selectFilterPanel, selectFilterPanelOpen } from '../../../../store/selectors/filter-panel.selector';
+import { selectViewSwitcher } from '../../../../store/selectors/view-switcher.selector';
 
 @Component({
 	selector: 'filtered-list-page-app',
@@ -29,8 +31,8 @@ export class FilteredListPageComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.filterPanelOpen$ = this.store.select('filterPanel').map(fp => fp.open);
-		this.view$ = this.store.select('viewSwitcher');
+		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
+		this.view$ = this.store.select(selectViewSwitcher);
 	}
 
 	openFilters() {

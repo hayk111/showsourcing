@@ -1,4 +1,3 @@
-import { selectSlice } from './slice.selector';
 import { EntityState, Entity } from '../utils/entities.utils';
 import { Product } from '../model/product.model';
 import { deepCopy } from '../utils/deep-copy.utils';
@@ -6,6 +5,7 @@ import { FilterGroupName, entityRepresentationMap, EntityRepresentation } from '
 import { selectFilterValuesForEntity } from './filter.selectors';
 import Log from '../../../utils/logger/log.class';
 import { createSelector } from 'reselect';
+import { selectEntity } from './utils.selector';
 
 
 export interface SearchedEntity {
@@ -28,7 +28,7 @@ export const searchEntities = (filterGroupName: FilterGroupName, entityReprs: Ar
 export const searchEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
 	return createSelector(
 		[
-			selectSlice(entityRepr.entityName),
+			selectEntity(entityRepr.entityName),
 			selectFilterValuesForEntity(filterGroupName, entityRepr)
 		],
 		(items, vals) => {

@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import { Filter, FilterGroupName, EntityRepresentation } from '../model/filter.model';
-import { selectSlice } from './slice.selector';
 import { deepCopy } from '../utils/deep-copy.utils';
 import Log from '../../../utils/logger/log.class';
+import { selectEntity } from './utils.selector';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
-const getFilters = (state) => state.filters;
+const getFilters = (state) => state.ui.filters;
 
 export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 	return createSelector([ getFilters ], ( filters ) => {
@@ -44,9 +44,7 @@ export const selectActiveFiltersForTargetEntity = (filterGroupName: FilterGroupN
 	return createSelector(
 		[
 			selectFilterValuesForEntity(filterGroupName, entityRep),
-			// because of selectSlice here the selector is going to be called everytime the state changes
-
-			selectSlice(entityRep.entityName)
+			selectEntity(entityRep.entityName)
 		],
 		(valsFiltered, items) => {
 			Log.debug(`selectEntitiesWithChecked ${filterGroupName}, entityRepr: ${entityRep.entityName}`);
@@ -69,8 +67,7 @@ export const selectEntitiesWithChecked = (filterGroup: FilterGroupName, entityRe
 	return createSelector(
 		[
 			selectFilterValuesForEntity(filterGroup, entityRep),
-			// because of selectSlice here the selector is going to be called everytime the state changes
-			selectSlice(entityRep.entityName)
+			selectEntity(entityRep.entityName)
 		],
 		(idsFiltered, items) => {
 			Log.debug(`selectEntitiesWithChecked ${filterGroup}, entityRepr: ${entityRep.entityName}`);

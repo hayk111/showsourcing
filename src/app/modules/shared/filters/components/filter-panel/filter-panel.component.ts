@@ -8,6 +8,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
+import { selectFilterPanelOpen } from '../../../../store/selectors/filter-panel.selector';
+import { selectFilterSelectionPanelOpen } from '../../../../store/selectors/filter-selection-panel.selector';
 
 @Component({
 	selector: 'filter-panel-app',
@@ -23,7 +25,7 @@ export class FilterPanelComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.subPanelVisible$ = this.store.select('filterSelectionPanel').map(p => p.open);
+		this.subPanelVisible$ = this.store.select(selectFilterSelectionPanelOpen);
 	}
 
 	close() {

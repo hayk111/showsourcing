@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, Entity } from '../../../../store/utils/entities.utils';
 import { Supplier } from '../../../../store/model/supplier.model';
 import { Observable } from 'rxjs/Observable';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'app-supplier-page',
@@ -19,7 +20,7 @@ export class SupplierPageComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.supplier$ = this.store.select('suppliers');
+		this.supplier$ = this.store.select(selectSuppliers);
 		this.supplier$.subscribe(s => this.onItemsReceived(s));
 	}
 

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
 import { MatTableDataSource } from '@angular/material';
 import { Supplier } from '../../../../store/model/supplier.model';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -15,7 +16,7 @@ export class SupplierListViewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.store.select('suppliers')
+		this.store.select(selectSuppliers)
 		.subscribe((sups: EntityState<Supplier>) => {
 			const arr = entityStateToArray(sups);
 			this.dataSource = new MatTableDataSource(arr);
