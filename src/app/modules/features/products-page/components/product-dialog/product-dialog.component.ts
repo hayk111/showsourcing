@@ -5,7 +5,7 @@ import { FormBuilderService } from '../../../../shared/form-builder/services/for
 import { FormGroupDescriptor } from '../../../../shared/form-builder/interfaces/form-group-descriptor.interface';
 import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-descriptor.interface';
 import { Observable } from 'rxjs/Observable';
-import { FileUploader, FileItem } from 'ng2-file-upload';
+import { FileUploader, FileItem, ParsedResponseHeaders, FileUploaderOptions } from 'ng2-file-upload';
 import { FormGroup } from '@angular/forms/src/model';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { EntityState } from '../../../../store/utils/entities.utils';
@@ -23,25 +23,28 @@ import { takeUntil } from 'rxjs/operator/takeUntil';
 import { HttpClient } from '@angular/common/http';
 import { selectCustomField } from '../../../../store/selectors/custom-fields.selector';
 import { CustomFieldsName } from '../../../../store/reducer/custom-fields.reducer';
+import { FileUploaderService } from '../../../../shared/uploader/services/file-uploader.service';
 
 
 @Component({
 	selector: 'product-dialog-app',
 	templateUrl: './product-dialog.component.html',
-	styleUrls: ['./product-dialog.component.scss']
+	styleUrls: ['./product-dialog.component.scss'],
+	providers: [ FileUploaderService ]
 })
 export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	dlgName = DialogName.PRODUCT;
 	@Input() product;
 	formDescriptor$;
-	uploader: FileUploader = new FileUploader({autoUpload: false});
 	isOver = false;
 	product$: Observable<EntityState<Product>>;
 	private form$ = new Subject<FormGroup>();
 
-	constructor(private store: Store<any>, private formBuilderSrv: FormBuilderService, private http: HttpClient) {
+	constructor(private store: Store<any>,
+							private formBuilderSrv: FormBuilderService,
+							private http: HttpClient,
+							public uploader: FileUploaderService) {
 		super();
-
 	}
 
 	ngOnInit() {
@@ -72,20 +75,20 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFileDrop(fileArr) {
-		const file = fileArr[0];
-		this.http.post('api/image', {imageType: 'Photo'}).subscribe((r: any) => {
-			const xhr: XMLHttpRequest = new XMLHttpRequest();
-			const formData = new FormData();
-			const url = r.url;
-			r.formData.forEach(ent => {
-				Object.entries(ent).forEach(([k, v]) => {
-					formData.append(k, v);
-				});
-			});
-			formData.append('file', file);
-			xhr.open('POST', url, true);
-			xhr.send(formData);
-		});
+		// const file = fileArr[0];
+		// this.http.post('api/image', {imageType: 'Photo'}).subscribe((r: any) => {
+		// 	const xhr: XMLHttpRequest = new XMLHttpRequest();
+		// 	const formData = new FormData();
+		// 	const url = r.url;
+		// 	r.formData.forEach(ent => {
+		// 		Object.entries(ent).forEach(([k, v]) => {
+		// 			formData.append(k, v);
+		// 		});
+		// 	});
+		// 	formData.append('file', file);
+		// 	xhr.open('POST', url, true);
+		// 	xhr.send(formData);
+		// });
 	}
 
 	onFormCreated(form: FormGroup) {

@@ -3,10 +3,11 @@ import { User } from '../model/user.model';
 import { TypedAction } from '../utils/typed-action.interface';
 
 export enum ActionType {
-		SET_PENDING = '[Authentication] setting pending',
-		SET_AUTHENTICATED = '[Authentication] setting authenticated',
-		SET_ERROR = '[Authentication] setting error',
-		SET_TOKEN = '[Authentication] setting token',
+	LOGIN = '[Authentication] login',
+	SET_PENDING = '[Authentication] setting pending',
+	SET_AUTHENTICATED = '[Authentication] setting authenticated',
+	SET_ERROR = '[Authentication] setting error',
+	SET_TOKEN = '[Authentication] setting token',
 }
 
 export class AuthActions {
