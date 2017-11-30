@@ -1,0 +1,12 @@
+<fieldset>
+		<legend>{{ group.name }}</legend>
+
+		<div class="flexColumn fields">
+	
+			<dynamic-form-control
+				*ngFor="let ctrl of group.controlsArr">
+			</dynamic-form-control>        
+		
+		</div>
+
+</fieldset>

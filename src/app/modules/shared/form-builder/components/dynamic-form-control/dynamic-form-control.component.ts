@@ -19,6 +19,9 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	// the input map is in the FormBuilderService
 	@Input() descriptor: FormControlDescriptor;
 	@Output() controlCreated = new EventEmitter<AbstractControl>();
+	@Output() enter = new EventEmitter<any>();
+	@Output() fileUpload = new EventEmitter<any>();
+
 	// we get a hold of the ctnr since we are gonna put inputs in it
 	@ViewChild('ctnr', { read: ViewContainerRef }) ctnr: ViewContainerRef;
 	private componentRef: ComponentRef<any>;
@@ -43,9 +46,29 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 		this.componentRef = this.ctnr.createComponent(factory);
 		const inst = this.componentRef.instance;
 		inst.descriptor = this.descriptor;
+		this.subscribeToControlCreated(inst);
+		this.subscribeToEnter(inst);
+		this.subscribeToFileUpload(inst);
+	}
+
+	private subscribeToControlCreated(inst) {
 		inst.controlCreated
 		.take(1)
 		.takeUntil(this._destroy$)
 		.subscribe(ctrl => this.controlCreated.emit(ctrl));
+	}
+
+	private subscribeToEnter(inst) {
+		if (inst.enter) {
+			inst.enter.takeUntil(this._destroy$)
+				.subscribe(evt => this.enter.emit());
+		}
+	}
+
+	private subscribeToFileUpload(inst) {
+		if (inst.fileUpload) {
+			inst.fileUpload.takeUntil(this._destroy$)
+				.subscribe(evt => this.fileUpload.emit());
+		}
 	}
 }

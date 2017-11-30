@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { FormBuilderService } from '../../../../shared/form-builder/services/form-builder.service';
@@ -24,7 +24,7 @@ import { HttpClient } from '@angular/common/http';
 import { selectCustomField } from '../../../../store/selectors/custom-fields.selector';
 import { CustomFieldsName } from '../../../../store/reducer/custom-fields.reducer';
 import { FileUploaderService } from '../../../../shared/uploader/services/file-uploader.service';
-
+import { of } from 'rxjs/observable/of';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -43,13 +43,15 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	constructor(private store: Store<any>,
 							private formBuilderSrv: FormBuilderService,
 							private http: HttpClient,
-							public uploader: FileUploaderService) {
+							public uploader: FileUploaderService,
+							private cd: ChangeDetectorRef ) {
 		super();
 	}
 
 	ngOnInit() {
-		this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
-		.filter( r => r);
+		// this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
+		// .filter( r => r);
+		this.formDescriptor$ = of(customFieldsMock);
 	}
 
 	onDlgRegistered() {
@@ -65,8 +67,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 		.takeUntil(this._destroy$)
 		.subscribe(([form, product]) => {
 			form.patchValue({'Basic info': product});
-			// trigger change detection
-			setTimeout(() => {}, 0);
+			this.cd.detectChanges();
 		});
 	}
 
@@ -96,3 +97,22 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 }
+
+const customFieldsMock = {
+	groups: [
+	{ name: 'Basic info',
+	'fields': [
+		{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'standard'},
+		{'name': 'categoryId', 'label': 'category', 'fieldType': 'standard'},
+		{'name': 'status', 'label': 'status', 'fieldType': 'standard'},
+		{'name': 'eventId', 'label': 'event', 'fieldType': 'standard'},
+		{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
+		{'name': 'rating', 'label': 'rating', 'fieldType': 'standard'},
+		{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
+		{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
+		{'name': 'minimumOrderQuantity', 'label': 'minimumOrderQuantity', 'fieldType': 'standard'},
+		{'name': 'description', 'label': 'description', 'fieldType': 'standard'},
+		{'name': 'tags', 'label': 'tags', 'fieldType': 'standard'},
+		{'name': 'projects', 'label': 'projects', 'fieldType': 'standard'}
+	]
+}]};

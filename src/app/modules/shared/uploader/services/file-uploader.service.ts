@@ -2,6 +2,7 @@ import { Injectable, Optional, Inject } from '@angular/core';
 import { FileUploader, FileUploaderOptions, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 import Log from '../../../../utils/logger/log.class';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 
 
 const BASE_OPTS: FileUploaderOptions = {
@@ -64,7 +65,7 @@ export class FileUploaderService extends FileUploader {
 		return formData;
 	}
 
-	protected _onCompleteItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
+	protected _onSuccessItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
 		// delete token
 		// remove from uploading list
 		super._onSuccessItem(item, response, status, headers);
