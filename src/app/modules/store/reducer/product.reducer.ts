@@ -5,13 +5,27 @@ import { EntityState, entityInitialState, setEntities } from '../utils/entities.
 
 
 
-export function productReducer(state: EntityState<Product> = entityInitialState, action: TypedAction<Array<Product>> )
+export function productReducer(state: EntityState<Product> = entityInitialState, action: TypedAction<any> )
 : EntityState<Product> {
 	switch (action.type) {
 		case ActionType.SET_DATA:
 			return setEntities(action.payload);
 		case ActionType.SET_PENDING:
 			return { ...state, pending: true };
+		case ActionType.PATCH_PROPERTY:
+			const id = action.payload.id;
+			const propName = action.payload.propName;
+			const value = action.payload.value;
+			debugger;
+			return  { ...state,
+								byId: {
+									...state.byId,
+									[id] : {
+										...state.byId[id],
+										[propName]: value
+									}
+								}
+							};
 		default: return state;
 	}
 }

@@ -35,7 +35,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	}
 
 	onEnter() {
-		this.enter.emit();
+		this.enter.emit(this.value);
 	}
 
 	private addValidatorForType() {

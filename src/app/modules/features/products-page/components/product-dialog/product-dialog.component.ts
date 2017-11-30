@@ -27,6 +27,7 @@ import { FileUploaderService } from '../../../../shared/uploader/services/file-u
 import { of } from 'rxjs/observable/of';
 import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
+import { ProductActions } from '../../../../store/action/product.action';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -36,7 +37,7 @@ import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic
 })
 export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	dlgName = DialogName.PRODUCT;
-	@Input() product;
+	product;
 	formDescriptor$;
 	isOver = false;
 	product$: Observable<EntityState<Product>>;
@@ -60,8 +61,8 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				]);
 	}
 
-	onEnter() {
-		
+	onEnter( { name, value} ) {
+		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
 	}
 
 	onDlgRegistered() {

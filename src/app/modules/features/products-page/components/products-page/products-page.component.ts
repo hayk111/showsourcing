@@ -34,7 +34,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	];
 	pending = true;
 	productEntities: EntityState<Product>;
-	selectedProduct;
 
 	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
 		super();
@@ -53,7 +52,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemClicked(id: string) {
-		this.selectedProduct = this.productEntities.byId[id];
 		this.store.dispatch(DialogActions.open(DialogName.PRODUCT));
 		this.store.dispatch(DialogActions.setMetadata(DialogName.PRODUCT, { id }));
 	}
