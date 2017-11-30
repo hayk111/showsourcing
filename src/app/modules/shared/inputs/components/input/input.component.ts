@@ -46,8 +46,6 @@ export class InputComponent extends AbstractInput implements OnInit {
 		}
 	}
 
-
-
 	onKeyDown(event: KeyboardEvent) {
 		if (!this.regex)
 			return;

@@ -1,7 +1,11 @@
 <dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
-	<ng-container *ngIf="formDescriptor$ | async as formDescriptor">
-		<dynamic-form-app [descriptor]="formDescriptor" (controlCreated)="onFormCreated($event)"></dynamic-form-app>
+	<ng-container *ngIf="group">
+		<dynamic-form-group-app 
+			[group]="group">
+		</dynamic-form-group-app>		
 	</ng-container>
+
+
 
 	<div ng2FileDrop
 		[ngClass]="{'file-over': isOver}"

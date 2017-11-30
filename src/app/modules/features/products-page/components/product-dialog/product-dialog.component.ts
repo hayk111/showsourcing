@@ -25,6 +25,8 @@ import { selectCustomField } from '../../../../store/selectors/custom-fields.sel
 import { CustomFieldsName } from '../../../../store/reducer/custom-fields.reducer';
 import { FileUploaderService } from '../../../../shared/uploader/services/file-uploader.service';
 import { of } from 'rxjs/observable/of';
+import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/dynamic-forms.service';
+import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -38,20 +40,21 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	formDescriptor$;
 	isOver = false;
 	product$: Observable<EntityState<Product>>;
-	private form$ = new Subject<FormGroup>();
+	group$: Observable<DynamicFormGroup>;
+	group;
 
 	constructor(private store: Store<any>,
-							private formBuilderSrv: FormBuilderService,
+							private dynamicFormsSrv: DynamicFormsService,
 							private http: HttpClient,
-							public uploader: FileUploaderService,
-							private cd: ChangeDetectorRef ) {
+							public uploader: FileUploaderService) {
 		super();
 	}
 
 	ngOnInit() {
 		// this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
 		// .filter( r => r);
-		this.formDescriptor$ = of(customFieldsMock);
+		this.group$ = of(customFieldsMock)
+			.map(desc => this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]));
 	}
 
 	onDlgRegistered() {
@@ -62,38 +65,17 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				map((dlgInfo: any) => dlgInfo.metadata.id),
 				switchMap(id => this.store.select<any>(selectProductById(id)))
 			);
-		// when form and product are both received we path the value of the form with the product
-		this.form$.pipe(combineLatest(this.product$))
+		// when form and product are both received we patch the value of the form with the product
+		this.group$.pipe(combineLatest(this.product$))
 		.takeUntil(this._destroy$)
-		.subscribe(([form, product]) => {
-			form.patchValue({'Basic info': product});
-			this.cd.detectChanges();
+		.subscribe(([group, product]) => {
+			this.group = group;
+			this.group.patchValue(product);
 		});
 	}
 
 	fileOverBase(e: any): void {
 		this.isOver = e;
-	}
-
-	onFileDrop(fileArr) {
-		// const file = fileArr[0];
-		// this.http.post('api/image', {imageType: 'Photo'}).subscribe((r: any) => {
-		// 	const xhr: XMLHttpRequest = new XMLHttpRequest();
-		// 	const formData = new FormData();
-		// 	const url = r.url;
-		// 	r.formData.forEach(ent => {
-		// 		Object.entries(ent).forEach(([k, v]) => {
-		// 			formData.append(k, v);
-		// 		});
-		// 	});
-		// 	formData.append('file', file);
-		// 	xhr.open('POST', url, true);
-		// 	xhr.send(formData);
-		// });
-	}
-
-	onFormCreated(form: FormGroup) {
-		this.form$.next(form);
 	}
 
 }

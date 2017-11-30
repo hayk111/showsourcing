@@ -8,7 +8,7 @@
 		class="fullWidth {{ (!control?.valid && !control?.pristine) ? 'inp-error' : ''}}"
     [type]="type"
     [placeholder]="placeholder"
-    [(ngModel)]="value"
+    [value]="value"
 		(keydown)="onKeyDown($event)"
 		(keyup)="onChange(inp.value)"
 		(change)="onChange(inp.value)"

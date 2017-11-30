@@ -1,1 +1,10 @@
-<ng-template #ctnr></ng-template>
+<div [formGroup]="group">
+	<!-- <ng-template #ctnr></ng-template> -->
+	<input-app
+	 [type]="ctrl.descriptor.fieldType"
+	 [placeholder]="ctrl.descriptor.placeholder"
+	 [formControl]="ctrl"
+	 [label]="ctrl.descriptor.label"></input-app>
+
+</div>
+

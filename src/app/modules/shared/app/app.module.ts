@@ -23,11 +23,12 @@ import { PreloaderModule } from '../preloader/preloader.module';
 import { metaReducers, reducers, reducerToken, reducerProvider } from '../../store/reducer/_reducers';
 import { DialogModule } from '../dialog/dialog.module';
 import { DynamicInputComponent } from '../form-builder/components/dynamic-input/dynamic-input.component';
+import { DynamicFormsModule } from '../dynamic-forms/dynamic-forms.module';
 
 
 
 const inputMap: InputMap = {
-	default: DynamicInputComponent
+	default: InputComponent
 };
 
 
@@ -40,6 +41,7 @@ const inputMap: InputMap = {
 		AppRoutingModule,
 		TemplateModule,
 		FormBuilderModule.forRoot(inputMap),
+		DynamicFormsModule,
 		AuthModule.forRoot(),
 		LocalStorageModule,
 		PreloaderModule,
@@ -53,6 +55,6 @@ const inputMap: InputMap = {
 		BrowserAnimationsModule
 	],
 	providers: [ reducerProvider ],
-	bootstrap: [AppComponent]
+	bootstrap: [ AppComponent ]
 })
 export class AppModule { }

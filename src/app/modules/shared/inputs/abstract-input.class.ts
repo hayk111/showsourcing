@@ -31,9 +31,10 @@ export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewIni
 			Log.warn('You probably forgot to call super.ngOnInit() in an abstract Input');
 	}
 
-	onChange(event: any) {
+	onChange(value: any) {
+		this.value = value;
 		if (this.onChangeFn)
-			this.onChangeFn(event);
+			this.onChangeFn(value);
 	}
 
 	onBlur() {

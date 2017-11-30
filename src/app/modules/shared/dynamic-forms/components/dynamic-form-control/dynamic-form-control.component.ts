@@ -10,6 +10,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 	styleUrls: ['./dynamic-form-control.component.scss']
 })
 export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
+	@Input() group: DynamicFormGroup;
 	@Input() ctrl: DynamicFormControl;
 	@Output() enter = new EventEmitter<any>();
 	@Output() fileUpload = new EventEmitter<any>();
@@ -23,7 +24,11 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.createComponent();
+		// TODO:
+		// it would be nice to create component dynamically so we can just input our component
+		// in a map and pick appropriately. However the below code throws the error:
+		// No provider for formCtrl.
+		// this.createComponent();
 	}
 
 

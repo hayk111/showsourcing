@@ -1,27 +1,2 @@
-<filtered-list-page-app [filterGroupName]="filterGroupName">
-		<div class="filters">
-			<ng-container *ngFor="let target of (filters$ | async)?.targets">
-				<ng-container *ngIf="target !== 'rating' && target !== 'pricing'; else other">
-					<filter-app [target]="target" [filterGroupName]="filterGroupName"
-						(itemClicked)="openList(target)">
-					</filter-app>		
-				</ng-container>
-				<ng-template #other>
-			
-					<filter-app *ngIf="target === 'rating'" [target]="target" [filterGroupName]="filterGroupName"
-						(itemClicked)="openRatingPanel"></filter-app>
-					<filter-app *ngIf="target === 'pricing'" [target]="target" [filterGroupName]="filterGroupName" 
-						(itemClicked)="openPricingPanel"></filter-app>		
-				</ng-template>
-			</ng-container>
-		</div>
-
-		<div class="list-view">
-			this is da list
-		</div>
-
-		<div class="card-view">
-			this is da card view
-		</div>
-</filtered-list-page-app>
-
+<dynamic-form-group-app [group]="group"></dynamic-form-group-app>
+<!-- <input-app type="text" [formControl]="ctrl" ></input-app> -->

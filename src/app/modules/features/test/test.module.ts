@@ -7,16 +7,16 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 import { BaseComponent } from './base/base.component';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { FiltersModule } from '../../shared/filters/filters.module';
+import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 
 
 @NgModule({
-  imports: [
+	imports: [
 		CommonModule,
-		FiltersModule,
-    FormBuilderModule,
-		ReactiveFormsModule,
-		FilteredListPageModule
-  ],
-  declarations: [TestComponent, BaseComponent],
+		InputsModule,
+		DynamicFormsModule,
+		ReactiveFormsModule
+	],
+	declarations: [TestComponent, BaseComponent],
 })
 export class TestModule { }

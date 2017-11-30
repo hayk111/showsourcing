@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FormBuilderService } from '../../../shared/form-builder/services/form-builder.service';
 import { Store } from '@ngrx/store';
 import { Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Filter, FilterGroupName } from '../../../store/model/filter.model';
 import { selectFilterGroup } from '../../../store/selectors/filter.selectors';
+import { DynamicFormsService } from '../../../shared/dynamic-forms/services/dynamic-forms.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: 'app-test',
@@ -13,23 +14,35 @@ import { selectFilterGroup } from '../../../store/selectors/filter.selectors';
 	styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-
-	@Input() filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filters$: Observable<Array<Filter>>;
-	listToOpen: string;
-	isListOpen = false;
-
-	constructor(private store: Store<any>) {
-	}
+	group;
+	ctrl = new FormControl('sfdfsd');
+	ctrl2;
+	constructor(private dynamicFormsSrv: DynamicFormsService, private fb: FormBuilder) { }
 
 	ngOnInit() {
-		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
+		this.group = this.dynamicFormsSrv.toDynamicFormGroup(customFieldsMock.groups[0]);
+		// this.ctrl2 = this.dynamicFormsSrv.toDynamicFormControl(customFieldsMock.groups[0].fields[0]);
+		// this.group = this.fb.group({
+		// 	test: ['sdfsdf']
+		// });
 	}
-
-	openList(item: string) {
-		this.listToOpen = item;
-		this.isListOpen = true;
-	}
-
 }
 
+const customFieldsMock = {
+	groups: [
+	{ name: 'Basic info',
+	'fields': [
+		{'name': 'supplierId', 'label': 'supplier', placeholder: 'test', 'fieldType': 'standard'},
+		{'name': 'categoryId', 'label': 'category', 'fieldType': 'standard'},
+		{'name': 'status', 'label': 'status', 'fieldType': 'standard'},
+		{'name': 'eventId', 'label': 'event', 'fieldType': 'standard'},
+		{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
+		{'name': 'rating', 'label': 'rating', 'fieldType': 'standard'},
+		{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
+		{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
+		{'name': 'minimumOrderQuantity', 'label': 'minimumOrderQuantity', 'fieldType': 'standard'},
+		{'name': 'description', 'label': 'description', 'fieldType': 'standard'},
+		{'name': 'tags', 'label': 'tags', 'fieldType': 'standard'},
+		{'name': 'projects', 'label': 'projects', 'fieldType': 'standard'}
+	]
+}]};

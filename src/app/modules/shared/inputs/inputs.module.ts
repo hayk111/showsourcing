@@ -20,6 +20,7 @@ const components = [ InputComponent, InputAddressComponent, InputContactComponen
 		MatIconModule
 	],
 	declarations: components,
+	entryComponents: components,
 	exports: components,
 })
 export class InputsModule { }

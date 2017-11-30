@@ -12,6 +12,7 @@ import { ProductDialogComponent } from './components/product-dialog/product-dial
 import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { DialogModule } from '../../shared/dialog/dialog.module';
+import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,7 @@ import { DialogModule } from '../../shared/dialog/dialog.module';
 		MatCheckboxModule,
 		FilteredListPageModule,
 		DialogModule,
-		FormBuilderModule.forChild(),
+		DynamicFormsModule.forChild(),
 		FileUploadModule
 	],
 	declarations: [ ProductsPageComponent,
