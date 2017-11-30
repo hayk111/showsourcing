@@ -1,4 +1,5 @@
-<fieldset [formGroup]="group">
+
+<fieldset *ngIf="group" [formGroup]="group">
 		<legend> {{ group.descriptor.name }} </legend>
 
 		<div class="flexColumn fields">

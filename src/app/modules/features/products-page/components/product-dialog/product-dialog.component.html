@@ -1,16 +1,24 @@
+
 <dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
-	<ng-container *ngIf="group">
-		<dynamic-form-group-app 
-			[group]="group">
-		</dynamic-form-group-app>		
-	</ng-container>
+	<div class="flex">
+		<ng-container *ngIf="groups$ | async as groups">
+			<dynamic-form-group-app 
+				[group]="groups[0]" [item]="product">
+			</dynamic-form-group-app>
+			<dynamic-form-group-app 
+				[group]="groups[1]" [item]="product">
+			</dynamic-form-group-app>
+			<dynamic-form-group-app 
+				[group]="groups[2]" [item]="product">
+			</dynamic-form-group-app>			
+		</ng-container>		
+	</div>
 
 
 
 	<div ng2FileDrop
 		[ngClass]="{'file-over': isOver}"
 		(fileOver)="fileOverBase($event)"
-		(onFileDrop)="onFileDrop($event)"
 		[uploader]="uploader"
 		class="my-drop-zone">
 		Drag & drop zone

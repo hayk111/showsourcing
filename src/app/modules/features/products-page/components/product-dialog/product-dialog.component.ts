@@ -40,8 +40,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	formDescriptor$;
 	isOver = false;
 	product$: Observable<EntityState<Product>>;
-	group$: Observable<DynamicFormGroup>;
-	group;
+	groups$: Observable<Array<DynamicFormGroup>>;
 
 	constructor(private store: Store<any>,
 							private dynamicFormsSrv: DynamicFormsService,
@@ -53,8 +52,12 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
 		// .filter( r => r);
-		this.group$ = of(customFieldsMock)
-			.map(desc => this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]));
+		this.groups$ = of(customFieldsMock)
+			.map(desc => [
+					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]),
+					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
+					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2])
+				]);
 	}
 
 	onDlgRegistered() {
@@ -65,13 +68,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				map((dlgInfo: any) => dlgInfo.metadata.id),
 				switchMap(id => this.store.select<any>(selectProductById(id)))
 			);
-		// when form and product are both received we patch the value of the form with the product
-		this.group$.pipe(combineLatest(this.product$))
-		.takeUntil(this._destroy$)
-		.subscribe(([group, product]) => {
-			this.group = group;
-			this.group.patchValue(product);
-		});
+		this.product$.subscribe(product => this.product = product) ;
 	}
 
 	fileOverBase(e: any): void {
@@ -82,19 +79,32 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 
 const customFieldsMock = {
 	groups: [
-	{ name: 'Basic info',
-	'fields': [
-		{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'standard'},
-		{'name': 'categoryId', 'label': 'category', 'fieldType': 'standard'},
-		{'name': 'status', 'label': 'status', 'fieldType': 'standard'},
-		{'name': 'eventId', 'label': 'event', 'fieldType': 'standard'},
-		{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
-		{'name': 'rating', 'label': 'rating', 'fieldType': 'standard'},
-		{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
-		{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
-		{'name': 'minimumOrderQuantity', 'label': 'minimumOrderQuantity', 'fieldType': 'standard'},
-		{'name': 'description', 'label': 'description', 'fieldType': 'standard'},
-		{'name': 'tags', 'label': 'tags', 'fieldType': 'standard'},
-		{'name': 'projects', 'label': 'projects', 'fieldType': 'standard'}
+		{
+			name: 'Group 1',
+			'fields': [
+				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'standard'},
+				{'name': 'categoryId', 'label': 'category', 'fieldType': 'standard'},
+				{'name': 'status', 'label': 'status', 'fieldType': 'standard'},
+				{'name': 'eventId', 'label': 'event', 'fieldType': 'standard'},
+			]
+		},
+		{
+			name: 'Group 2',
+			fields: [
+				{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
+				{'name': 'rating', 'label': 'rating', 'fieldType': 'standard'},
+				{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
+				{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
+			]
+		},
+		{
+			name: 'Group 3',
+			fields: [
+				{'name': 'minimumOrderQuantity', 'label': 'minimumOrderQuantity', 'fieldType': 'standard'},
+				{'name': 'description', 'label': 'description', 'fieldType': 'standard'},
+				{'name': 'tags', 'label': 'tags', 'fieldType': 'standard'},
+				{'name': 'projects', 'label': 'projects', 'fieldType': 'standard'}
+			]
+		}
 	]
-}]};
+};

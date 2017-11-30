@@ -10,6 +10,7 @@
     [placeholder]="placeholder"
     [value]="value"
 		(keydown)="onKeyDown($event)"
+		(keydown.enter)="onEnter()"
 		(keyup)="onChange(inp.value)"
 		(change)="onChange(inp.value)"
 		(blur)="onBlur()"/>

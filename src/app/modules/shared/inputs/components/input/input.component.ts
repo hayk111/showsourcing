@@ -25,12 +25,17 @@ export class InputComponent extends AbstractInput implements OnInit {
 	private regex;
 	@Input() margin = true;
 	@Output() blur = new EventEmitter();
+	@Output() enter = new EventEmitter();
 
 	constructor(protected inj: Injector) { super(inj); }
 
 	ngOnInit() {
 		super.ngOnInit();
 		this.addValidatorForType();
+	}
+
+	onEnter() {
+		this.enter.emit();
 	}
 
 	private addValidatorForType() {
