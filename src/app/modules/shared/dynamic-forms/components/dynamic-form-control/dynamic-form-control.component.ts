@@ -31,6 +31,10 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 		// this.createComponent();
 	}
 
+	onEnter(name, value) {
+		this.enter.emit({ name, value });
+	}
+
 
 	private createComponent() {
 		// redundant step of clearing the container as it should be clear but let's stay on the safe side

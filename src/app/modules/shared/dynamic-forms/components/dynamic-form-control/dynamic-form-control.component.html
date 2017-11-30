@@ -4,7 +4,8 @@
 	 [type]="ctrl.descriptor.fieldType"
 	 [placeholder]="ctrl.descriptor.placeholder"
 	 [formControl]="ctrl"
-	 [label]="ctrl.descriptor.label"></input-app>
+	 [label]="ctrl.descriptor.label"
+	 (enter)="onEnter(ctrl.descriptor.name, $event)"></input-app>
 
 </div>
 

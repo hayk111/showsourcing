@@ -60,6 +60,10 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				]);
 	}
 
+	onEnter() {
+		
+	}
+
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
 		this.product$ = this.store.select(selectDialog(DialogName.PRODUCT))

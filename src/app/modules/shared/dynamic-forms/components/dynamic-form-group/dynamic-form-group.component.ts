@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroupDescriptor } from '../../utils/descriptors.interface';
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../utils/dynamic-controls.class';
@@ -15,6 +15,7 @@ import { zip } from 'rxjs/observable/zip';
 	styleUrls: ['./dynamic-form-group.component.scss']
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
+	@Output() enter = new EventEmitter<any>();
 	_group: DynamicFormGroup;
 	private group$ = new Subject<any>();
 	// we want the form even when no item is specified so BehaviorSubject is used.
@@ -26,7 +27,6 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 		combineLatest(this.group$, this.item$)
 		.takeUntil(this._destroy$)
 		.subscribe(([group, item]) => {
-			debugger;
 			this._group = group;
 			this._group.patchValue(item);
 		});
