@@ -35,10 +35,12 @@ export class FilterComponent implements OnInit {
 		// if the target is prices, the filterTarget put in the filter store is either min or maxPrices
 			const min$ = this.store.select(
 					selectFilterForEntity(this.filterGroupName, entityRepresentationMap.minPrices)
-				).map(t => t[0]);
+				).map(t => t[0])
+				.filter(t => t !== undefined);
 			const max$ = this.store.select(
 					selectFilterForEntity(this.filterGroupName, entityRepresentationMap.maxPrices)
-				).map(t => t[0]);
+				).map(t => t[0])
+				.filter(t => t !== undefined);
 				// could be we have to use merge or combine latest here instead..
 			this.items$ = combineLatest(min$, max$);
 		}
