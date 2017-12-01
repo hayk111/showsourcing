@@ -32,8 +32,7 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(name, value) {
-		debugger;
-		// this.update.emit({ name, value });
+		this.update.emit({ name, value });
 	}
 
 

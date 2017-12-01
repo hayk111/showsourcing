@@ -28,6 +28,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 		.takeUntil(this._destroy$)
 		.subscribe(([group, item]) => {
 			this._group = group;
+			this._group.reset();
 			this._group.patchValue(item);
 		});
 	}
@@ -35,7 +36,6 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 
 	}
-
 
 	@Input()
 	set group(g: DynamicFormGroup) {

@@ -16,6 +16,7 @@ export class DialogComponent implements OnInit {
 	@Input() closeIcon = true;
 	@Input() name: DialogName;
 	@Output() registered = new EventEmitter<string>();
+	@Output() closed = new EventEmitter();
 	isOpen$: Observable<boolean>;
 
 	constructor(private store: Store<any>) { }
@@ -23,7 +24,8 @@ export class DialogComponent implements OnInit {
 	ngOnInit() {
 		if (!this.name)
 			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
-		this.isOpen$ = this.store.select(selectDialog(this.name)).map(dlgInfo => dlgInfo.open);
+		this.isOpen$ = this.store.select(selectDialog(this.name))
+		.map(dlgInfo => dlgInfo.open);
 		this.store.dispatch(DialogActions.register(this.name));
 		this.registered.emit(this.name);
 	}
@@ -31,5 +33,6 @@ export class DialogComponent implements OnInit {
 	close() {
 		this.store.dispatch(DialogActions.close(this.name));
 	}
+
 
 }

@@ -42,6 +42,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	isOver = false;
 	product$: Observable<EntityState<Product>>;
 	groups$: Observable<Array<DynamicFormGroup>>;
+	groups: Array<DynamicFormGroup>;
 
 	constructor(private store: Store<any>,
 							private dynamicFormsSrv: DynamicFormsService,
@@ -59,11 +60,11 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2])
 				]);
+		this.groups$.subscribe(gs => this.groups = gs);
 
 	}
 
 	onUpdate( { name, value} ) {
-		debugger;
 		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
 	}
 
@@ -75,12 +76,13 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				map((dlgInfo: any) => dlgInfo.metadata.id),
 				switchMap(id => this.store.select<any>(selectProductById(id)))
 			);
-		this.product$.subscribe(product => this.product = product) ;
+		this.product$.subscribe(product => this.product = product);
 	}
 
 	fileOverBase(e: any): void {
 		this.isOver = e;
 	}
+
 
 }
 
@@ -99,7 +101,7 @@ const customFieldsMock = {
 			name: 'Group 2',
 			fields: [
 				{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
-				{'name': 'rating', 'label': 'rating', 'fieldType': 'standard'},
+				{'name': 'rating', 'label': 'rating', 'fieldType': 'rating'},
 				{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
 				{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
 			]

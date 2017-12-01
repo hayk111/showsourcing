@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, OnDestroy, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { AbstractInput } from '../../abstract-input.class';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -23,6 +23,9 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 	entities$: Observable<EntityState<any>>;
 	private subscriptions = [];
 	@Input() metadata: any;
+	@Output() change = new EventEmitter();
+	selected: EntityState<any>;
+	entities;
 
 	constructor(protected inj: Injector, private store: Store<any>) {
 		super(inj);
@@ -31,6 +34,17 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 	ngOnInit() {
 		super.ngOnInit();
 		this.entities$ = this.store.select(selectEntity(this.metadata.entity));
+		this.entities$.subscribe(ent => this.entities = ent);
+	}
+
+	onChange(value) {
+		// TODO: Why the heck doesn't it work without an output ?
+		this.change.emit(value);
+		super.onChange(value);
+	}
+
+	displayFn(entity) {
+		return entity ? entity.name : entity;
 	}
 
 }

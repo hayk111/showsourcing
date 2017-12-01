@@ -12,10 +12,7 @@ export class DialogEffects {
 	@Effect({dispatch: false})
 	open$: Observable<any> = this.actions$.ofType(ActionType.OPEN)
 	.map((action: TypedAction<any>) => action.payload)
-	.do(p => {
-		debugger;
-		this.dialog.open(p.component);
-	});
+	.do(p => this.dialog.open(p.component));
 
 	constructor(private actions$: Actions, private dialog: MatDialog) {}
 }

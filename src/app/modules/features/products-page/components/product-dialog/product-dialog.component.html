@@ -1,8 +1,6 @@
 
-<dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
-	<div class="flex">
-		<ng-container *ngIf="groups$ | async as groups">
-
+<dialog-app [name]="dlgName" (registered)="onDlgRegistered()" (closed)="onDlgClose()">
+	<div class="flex">star
 			<dynamic-form-group-app 
 				[group]="groups[0]" [item]="product"
 				(update)="onUpdate($event)">
@@ -18,7 +16,6 @@
 				(update)="onUpdate($event)">
 			</dynamic-form-group-app>	
 
-		</ng-container>		
 	</div>
 
 

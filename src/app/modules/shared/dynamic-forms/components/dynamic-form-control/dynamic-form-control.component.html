@@ -13,5 +13,11 @@
 		[formControl]="ctrl"
 		[metadata]="ctrl.descriptor.metadata"
 		(change)="onUpdate(ctrl.descriptor.name, $event)"></entity-select-input-app>
+
+	<rating-input-app 
+		*ngIf="ctrl.descriptor.fieldType === 'rating'"
+		[placeholder]="ctrl.descriptor.label"
+		[formControl]="ctrl"
+		(change)="onUpdate(ctrl.descriptor.name, $event)"></rating-input-app>
 </div>
 
