@@ -54,7 +54,7 @@ const ui = combineReducers( {
 	filterPanel: filterPanelReducer,
 	filterSelectionPanel: filterSelectionPanelReducer,
 	dialogs: dialogReducer,
-	viewSwitcher: viewSwitcherReducer,
+	viewSwitcher: viewSwitcherReducer
 });
 
 export const reducers = { entities, ui };

@@ -22,12 +22,14 @@
 	
 	<div class="card-view">
 		cards
-		<div class="card" *ngFor="let id of tasksEntities.ids">
+		<div class="card" *ngFor="let id of tasksEntities.ids" (click)="onItemClicked(id)">
 			<div>{{ tasksEntities.byId[id]?.taskType  | json }}</div>
 			<div>{{ tasksEntities.byId[id]?.description  | json }}</div>
 			<div>{{ tasksEntities.byId[id]?.status  | json }}</div>
 		</div>
 	</div>
 </filtered-list-page-app>
+
+<tasks-dialog-app></tasks-dialog-app>
 
 

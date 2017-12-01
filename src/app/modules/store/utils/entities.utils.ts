@@ -7,7 +7,7 @@ export interface EntityState<G extends Entity> {
 }
 
 export interface Entity {
-	id: string;
+	id: string | number;
 	name: string;
 }
 

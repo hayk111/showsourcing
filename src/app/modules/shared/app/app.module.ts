@@ -24,6 +24,9 @@ import { metaReducers, reducers, reducerToken, reducerProvider } from '../../sto
 import { DialogModule } from '../dialog/dialog.module';
 import { DynamicInputComponent } from '../form-builder/components/dynamic-input/dynamic-input.component';
 import { DynamicFormsModule } from '../dynamic-forms/dynamic-forms.module';
+import { EffectsModule } from '@ngrx/effects';
+import { effects } from '../../store/effects/_effects';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -47,12 +50,14 @@ const inputMap: InputMap = {
 		PreloaderModule,
 		CompanyModule,
 		StoreModule.forRoot( reducerToken , { metaReducers }),
+		EffectsModule.forRoot(effects),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2
 		}),
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		MatSnackBarModule
 	],
 	providers: [ reducerProvider ],
 	bootstrap: [ AppComponent ]

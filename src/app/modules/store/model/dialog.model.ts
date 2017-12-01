@@ -5,5 +5,6 @@ export interface Dialog {
 }
 
 export enum DialogName {
-	PRODUCT = 'productDialog'
+	PRODUCT = 'productDialog',
+	TASK = 'task',
 }

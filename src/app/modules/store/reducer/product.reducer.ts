@@ -16,7 +16,6 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			const id = action.payload.id;
 			const propName = action.payload.propName;
 			const value = action.payload.value;
-			debugger;
 			return  { ...state,
 								byId: {
 									...state.byId,

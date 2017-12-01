@@ -7,6 +7,7 @@ import { Filter, FilterGroupName } from '../../../store/model/filter.model';
 import { selectFilterGroup } from '../../../store/selectors/filter.selectors';
 import { DynamicFormsService } from '../../../shared/dynamic-forms/services/dynamic-forms.service';
 import { FormBuilder } from '@angular/forms';
+import { AppErrorActions } from '../../../store/action/app-errors.action';
 
 @Component({
 	selector: 'app-test',
@@ -17,7 +18,7 @@ export class TestComponent implements OnInit {
 	group;
 	ctrl = new FormControl('sfdfsd');
 	ctrl2;
-	constructor(private dynamicFormsSrv: DynamicFormsService, private fb: FormBuilder) { }
+	constructor(private dynamicFormsSrv: DynamicFormsService, private fb: FormBuilder, private store: Store<any>) { }
 
 	ngOnInit() {
 		this.group = this.dynamicFormsSrv.toDynamicFormGroup(customFieldsMock.groups[0]);
@@ -25,6 +26,10 @@ export class TestComponent implements OnInit {
 		// this.group = this.fb.group({
 		// 	test: ['sdfsdf']
 		// });
+	}
+
+	throw() {
+		this.store.dispatch(AppErrorActions.add('this is una error'));
 	}
 }
 
