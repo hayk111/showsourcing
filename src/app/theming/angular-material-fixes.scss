@@ -2,7 +2,6 @@
 
 /////// theming ////////
 // straight out of the doc
-
 @import '~@angular/material/theming';
 @include mat-core();
 $candy-app-primary: mat-palette($mat-orange);

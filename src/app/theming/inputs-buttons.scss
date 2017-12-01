@@ -21,14 +21,14 @@ button.secondary{
 	color: var(--color-secondary-contrast);
 }
 
-input{
-	box-sizing: border-box;
-	border-radius: var(--border-radius);
-	font-size: 14px;
-	border: var(--border-width) solid #cccccc;
-	padding: 7px;
-	outline: 0;
-}
+// input{
+// 	box-sizing: border-box;
+// 	border-radius: var(--border-radius);
+// 	font-size: 14px;
+// 	border: var(--border-width) solid #cccccc;
+// 	padding: 7px;
+// 	outline: 0;
+// }
 
 .inp-box{
 	margin-bottom: 16px;
@@ -37,10 +37,10 @@ input{
 	}
 }
 
-input:focus{
-	border-color: var(--color-primary);
-	box-shadow: 0 0 4px 1px var(--color-primary-dark);
-}
+// input:focus{
+// 	border-color: var(--color-primary);
+// 	box-shadow: 0 0 4px 1px var(--color-primary-dark);
+// }
 
 label{
 	color: #2B303B;

@@ -8,16 +8,19 @@ import { InputContactComponent } from './components/input-contact/input-contact.
 import { InputContactListComponent } from './components/input-contact-list/input-contact-list.component';
 import { InputCountryComponent } from './components/input-country/input-country.component';
 import { MatIconModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { EntitySelectInputComponent } from './components/entity-select-input/entity-select-input.component';
 
 const components = [ InputComponent, InputAddressComponent, InputContactComponent,
-											InputContactListComponent, InputCountryComponent ];
+											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent ];
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		MatIconModule
+		MatIconModule,
+		MatInputModule
 	],
 	declarations: components,
 	entryComponents: components,
