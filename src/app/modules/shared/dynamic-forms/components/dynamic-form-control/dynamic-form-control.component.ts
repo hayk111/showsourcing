@@ -12,7 +12,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	@Input() group: DynamicFormGroup;
 	@Input() ctrl: DynamicFormControl;
-	@Output() enter = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 	@Output() fileUpload = new EventEmitter<any>();
 	// we get a hold of the ctnr since we are gonna put inputs in it
 	@ViewChild('ctnr', { read: ViewContainerRef }) ctnr: ViewContainerRef;
@@ -31,8 +31,9 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 		// this.createComponent();
 	}
 
-	onEnter(name, value) {
-		this.enter.emit({ name, value });
+	onUpdate(name, value) {
+		debugger;
+		// this.update.emit({ name, value });
 	}
 
 
@@ -55,7 +56,7 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	private subscribeToEnter(inst) {
 		if (inst.enter) {
 			inst.enter.takeUntil(this._destroy$)
-				.subscribe(evt => this.enter.emit());
+				.subscribe(evt => this.update.emit());
 		}
 	}
 

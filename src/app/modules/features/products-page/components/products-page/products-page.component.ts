@@ -12,6 +12,7 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectProducts } from '../../../../store/selectors/products.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';
+import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 
 @Component({
 	selector: 'products-page-app',

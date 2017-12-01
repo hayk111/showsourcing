@@ -26,7 +26,7 @@ export class DynamicFormsModule {
 	static forRoot(inputMap: InputMap): ModuleWithProviders {
 		return {
 			ngModule: DynamicFormsModule,
-			providers: [ DynamicFormsService, , { provide: 'inputMap', useValue: inputMap } ]
+			providers: [ DynamicFormsService, { provide: 'inputMap', useValue: inputMap } ]
 		};
 	}
 

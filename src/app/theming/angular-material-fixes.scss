@@ -63,3 +63,8 @@ mat-spinner{
 mat-icon{
 	cursor: pointer;
 }
+
+// in dialogs controls are sometimes placed under the dialog. This resolve that issue.
+.mat-select-panel{
+	z-index: 9999;
+}

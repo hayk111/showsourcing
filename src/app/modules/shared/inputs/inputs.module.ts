@@ -10,6 +10,7 @@ import { InputCountryComponent } from './components/input-country/input-country.
 import { MatIconModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { EntitySelectInputComponent } from './components/entity-select-input/entity-select-input.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const components = [ InputComponent, InputAddressComponent, InputContactComponent,
 											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent ];
@@ -20,7 +21,8 @@ const components = [ InputComponent, InputAddressComponent, InputContactComponen
 		FormsModule,
 		ReactiveFormsModule,
 		MatIconModule,
-		MatInputModule
+		MatInputModule,
+		MatSelectModule
 	],
 	declarations: components,
 	entryComponents: components,

@@ -35,10 +35,6 @@ export class InputComponent extends AbstractInput implements OnInit {
 		this.addValidatorForType();
 	}
 
-	onEnter() {
-		this.enter.emit(this.value);
-	}
-
 	private addValidatorForType() {
 		switch (this.type) {
 			case 'number':
@@ -84,7 +80,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	}
 
 	onBlur() {
-		this.blur.emit();
+		this.blur.emit(this.value);
 	}
 
 }

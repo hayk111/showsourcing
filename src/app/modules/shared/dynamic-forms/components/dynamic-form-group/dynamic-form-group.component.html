@@ -8,7 +8,7 @@
 				*ngFor="let ctrl of group.controlsArr"
 				[ctrl]="ctrl"
 				[group]="group"
-				(enter)="enter.emit($event)">
+				(update)="update.emit($event)">
 			</dynamic-form-control-app>        
 		
 		</div>

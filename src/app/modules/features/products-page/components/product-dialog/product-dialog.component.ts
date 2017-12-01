@@ -59,9 +59,11 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2])
 				]);
+
 	}
 
-	onEnter( { name, value} ) {
+	onUpdate( { name, value} ) {
+		debugger;
 		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
 	}
 
@@ -87,10 +89,10 @@ const customFieldsMock = {
 		{
 			name: 'Group 1',
 			'fields': [
-				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'standard'},
-				{'name': 'categoryId', 'label': 'category', 'fieldType': 'standard'},
-				{'name': 'status', 'label': 'status', 'fieldType': 'standard'},
-				{'name': 'eventId', 'label': 'event', 'fieldType': 'standard'},
+				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers'}},
+				{'name': 'categoryId', 'label': 'category', 'fieldType': 'entitySelect', metadata: { entity: 'categories'}},
+				{'name': 'status', 'label': 'status', 'fieldType': 'entitySelect', metadata: { entity: 'productStatus'}},
+				{'name': 'eventId', 'label': 'event', 'fieldType': 'entitySelect', metadata: { entity: 'events'}},
 			]
 		},
 		{

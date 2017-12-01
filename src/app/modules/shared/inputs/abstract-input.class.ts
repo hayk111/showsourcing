@@ -14,6 +14,7 @@ export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewIni
 	@Input() placeholder = '';
 	@Input() label: string;
 	@Input() required = false;
+	@Input() metadata: any;
 	value: any;
 
 	constructor(protected inj: Injector) {  }

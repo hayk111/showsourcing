@@ -1,6 +1,6 @@
 /* modal */
 div{
-	z-index: 9998;
+	z-index: 999;
 	background: rgba(0,0,0,0.3);
 	position: absolute;
 	top: 0;
@@ -12,7 +12,7 @@ div{
 
 dialog{
 	margin: auto;
-	z-index: 9999;
+	z-index: 1000;
 	display:inline-block;
 	border-radius: var(--border-radius);
 	position: relative;

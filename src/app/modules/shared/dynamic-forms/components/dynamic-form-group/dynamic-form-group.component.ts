@@ -15,7 +15,7 @@ import { zip } from 'rxjs/observable/zip';
 	styleUrls: ['./dynamic-form-group.component.scss']
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
-	@Output() enter = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 	_group: DynamicFormGroup;
 	private group$ = new Subject<any>();
 	// we want the form even when no item is specified so BehaviorSubject is used.

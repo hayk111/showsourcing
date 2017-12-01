@@ -27,6 +27,7 @@ import { DynamicFormsModule } from '../dynamic-forms/dynamic-forms.module';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from '../../store/effects/_effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -57,7 +58,8 @@ const inputMap: InputMap = {
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule
 		BrowserAnimationsModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatDialogModule
 	],
 	providers: [ reducerProvider ],
 	bootstrap: [ AppComponent ]

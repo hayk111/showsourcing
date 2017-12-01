@@ -11,7 +11,8 @@ export class DynamicFormControl extends FormControl {
 }
 
 export class DynamicFormGroup extends FormGroup {
-	constructor(public descriptor: FormGroupDescriptor,
+	constructor(
+		public descriptor: FormGroupDescriptor,
 		public controlsArr: Array<DynamicFormControl>,
 		controls: { [key: string]: AbstractControl},
 		validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,

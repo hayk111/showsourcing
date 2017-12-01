@@ -1,5 +1,10 @@
-<!-- <mat-select placeholder="Favorite food">
-	<mat-option *ngFor="let food of foods" [value]="food.value">
-		{{ food.viewValue }}
-	</mat-option>
-</mat-select> -->
+<ng-container *ngIf="entities$ | async as entities">
+	<mat-form-field>
+		<mat-select [placeholder]="placeholder" (change)="onChange($event.value)" [value]="value">
+			<mat-option *ngFor="let id of entities.ids" 
+			[value]="entities.byId[id].id" >
+				{{ entities.byId[id].name }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</ng-container>

@@ -1,10 +1,17 @@
 <div [formGroup]="group">
 	<!-- <ng-template #ctnr></ng-template> -->
 	<input-app
-	 [type]="ctrl.descriptor.fieldType"
-	 [placeholder]="ctrl.descriptor.label"
-	 [formControl]="ctrl"
-	 (enter)="onEnter(ctrl.descriptor.name, $event)"></input-app>
+		*ngIf="ctrl.descriptor.fieldType === 'standard'"
+		[type]="ctrl.descriptor.fieldType"
+		[placeholder]="ctrl.descriptor.label"
+		[formControl]="ctrl"
+		(blur)="onUpdate(ctrl.descriptor.name, $event)"></input-app>
 
+	<entity-select-input-app
+		*ngIf="ctrl.descriptor.fieldType === 'entitySelect'"
+		[placeholder]="ctrl.descriptor.label"
+		[formControl]="ctrl"
+		[metadata]="ctrl.descriptor.metadata"
+		(change)="onUpdate(ctrl.descriptor.name, $event)"></entity-select-input-app>
 </div>
 
