@@ -1,5 +1,5 @@
-<input type="search" class="fullWidth" placeholder="Search" [(ngModel)]="search"
-	(keydown)="onChange()" />
+<input-app type="search" class="fullWidth" placeholder="Search" [(ngModel)]="search"
+	(keydown)="onChange()"></input-app>
 
 <ng-container *ngIf="(searchTerms$ | async) as searchTerms">
 	<div (clickOutside)="closeSmartSearch()" 

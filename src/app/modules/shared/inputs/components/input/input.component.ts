@@ -24,6 +24,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	// for example the number input shouldn't let us type letters
 	private regex;
 	@Input() margin = true;
+	@Input() floatPlaceholder = 'auto';
 	@Output() blur = new EventEmitter();
 	@Output() enter = new EventEmitter();
 
