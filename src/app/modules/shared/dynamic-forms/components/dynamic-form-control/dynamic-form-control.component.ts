@@ -10,10 +10,13 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 	styleUrls: ['./dynamic-form-control.component.scss']
 })
 export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
+	@Input() entityID: string;
 	@Input() group: DynamicFormGroup;
 	@Input() ctrl: DynamicFormControl;
 	@Output() update = new EventEmitter<any>();
 	@Output() fileUpload = new EventEmitter<any>();
+	@Output() imgAdded = new EventEmitter<any>();
+	@Output() imgUploaded = new EventEmitter<any>();
 	// we get a hold of the ctnr since we are gonna put inputs in it
 	@ViewChild('ctnr', { read: ViewContainerRef }) ctnr: ViewContainerRef;
 	private componentRef: ComponentRef<any>;
@@ -35,6 +38,13 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 		this.update.emit({ name, value });
 	}
 
+	onImgAdded(fieldName: string, img: any) {
+		this.imgAdded.emit({ fieldName, img });
+	}
+
+	onImgUploaded(fieldName: string, img: any) {
+		this.imgUploaded.emit({ fieldName, img});
+	}
 
 	private createComponent() {
 		// redundant step of clearing the container as it should be clear but let's stay on the safe side

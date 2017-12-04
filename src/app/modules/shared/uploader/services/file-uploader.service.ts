@@ -3,6 +3,7 @@ import { FileUploader, FileUploaderOptions, FileItem, ParsedResponseHeaders } fr
 import Log from '../../../../utils/logger/log.class';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
 
 
 const BASE_OPTS: FileUploaderOptions = {
@@ -14,14 +15,20 @@ const BASE_OPTS: FileUploaderOptions = {
 
 interface FileItemWithToken extends FileItem {
 	token: string;
+	id: number;
+	info: any;
 }
 
 // service that takes everything that's common to all uploads
 @Injectable()
 export class FileUploaderService extends FileUploader {
+	private static fileID = 0;
 	uploader: FileUploader;
+	// entityID so we can link the img to a specific item
+	entityID: string;
 	private _type = 'image';
 	private _imageType = 'Photo';
+	private reader = new FileReader();
 
 	constructor(@Inject('uploaderOptions') @Optional()
 							options: FileUploaderOptions,
@@ -41,6 +48,7 @@ export class FileUploaderService extends FileUploader {
 	protected _onAfterAddingFile(fileItem: FileItemWithToken) {
 		// 1. ask info to 'api/xx', add those info to fileItem
 		// 2. Upload said file.
+		fileItem.id = FileUploaderService.fileID++;
 		super._onAfterAddingFile(fileItem);
 		this.http.post(`api/${this._type}`, {imageType: this._imageType})
 		.subscribe((r: any) => {
@@ -55,7 +63,6 @@ export class FileUploaderService extends FileUploader {
 	// we receive an array but formData wants an object
 	private converFormData(fileItem: FileItemWithToken, formDataArr: Array<{[key: string]: string}>) {
 		const formData = new FormData();
-		// we receive an array but formData wants an object
 		formDataArr.forEach(ent => {
 			Object.entries(ent).forEach(([k, v]) => {
 				formData.append(k, v);
@@ -67,9 +74,10 @@ export class FileUploaderService extends FileUploader {
 
 	protected _onSuccessItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
 		// delete token
-		// remove from uploading list
-		super._onSuccessItem(item, response, status, headers);
-		this.http.delete(`api/token/${item.token}`).subscribe();
+		this.http.delete(`api/token/${item.token}`).subscribe( x => {
+			item.info = x;
+			super._onSuccessItem(item, response, status, headers);
+		});
 	}
 
 	public _onErrorItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {

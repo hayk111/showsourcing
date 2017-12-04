@@ -16,6 +16,9 @@ import { zip } from 'rxjs/observable/zip';
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
+	@Output() imgAdded = new EventEmitter();
+	@Output() imgUploaded = new EventEmitter();
+	entityID: string;
 	_group: DynamicFormGroup;
 	private group$ = new Subject<any>();
 	// we want the form even when no item is specified so BehaviorSubject is used.
@@ -27,6 +30,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 		combineLatest(this.group$, this.item$)
 		.takeUntil(this._destroy$)
 		.subscribe(([group, item]) => {
+			this.entityID = item.id;
 			this._group = group;
 			this._group.reset();
 			this._group.patchValue(item);

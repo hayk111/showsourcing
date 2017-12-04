@@ -10,7 +10,6 @@ import { TeamItemLoaderService } from '../../shared/filtered-list-page/services/
 import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
 import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
-import { FileUploadModule } from 'ng2-file-upload';
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 
@@ -23,7 +22,6 @@ import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.mod
 		FilteredListPageModule,
 		DialogModule,
 		DynamicFormsModule.forChild(),
-		FileUploadModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

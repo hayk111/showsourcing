@@ -3,7 +3,9 @@
 	<div class="flex">star
 			<dynamic-form-group-app 
 				[group]="groups[0]" [item]="product"
-				(update)="onUpdate($event)">
+				(update)="onUpdate($event)"
+				(imgAdded)="onImgAdded($event)"
+				(imgUploaded)="onImgUploaded($event)">
 			</dynamic-form-group-app>
 
 			<dynamic-form-group-app 
@@ -17,16 +19,5 @@
 			</dynamic-form-group-app>	
 
 	</div>
-
-
-
-	<div ng2FileDrop
-		[ngClass]="{'file-over': isOver}"
-		(fileOver)="fileOverBase($event)"
-		[uploader]="uploader"
-		class="my-drop-zone">
-		Drag & drop zone
-	</div>
-	
 
 </dialog-app>

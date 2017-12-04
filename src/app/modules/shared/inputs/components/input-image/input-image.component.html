@@ -1,0 +1,9 @@
+
+<div ng2FileDrop
+	[uploader]="uploader"
+	class="my-drop-zone">
+	Drag & drop zone
+</div>
+<div class="flex imgPreview">
+	<img *ngFor="let img of value" [src]="img?.urls?.url_120x90 || img.data" class="{{ img.pending ? 'pending' : '' }}" />	
+</div>

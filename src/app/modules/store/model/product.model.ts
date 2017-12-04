@@ -12,6 +12,7 @@ export enum ProductStatus {
 export interface Product {
 	id: string;
 	name: string;
+	deeplyLoaded: boolean;
 	supplierId: string;
 	categoryId: string;
 	teamId: string;
@@ -29,6 +30,7 @@ export interface Product {
 	eventId: string;
 	rating: number;
 	category: Category;
+	images: Array<any>;
 	mainImage: {
 		id: string,
 		filename: string,

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+	imports: [
+		CommonModule
+	],
 	declarations: [ClickOutsideDirective],
 	exports: [ ClickOutsideDirective ]
 })

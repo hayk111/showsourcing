@@ -28,26 +28,25 @@ import { of } from 'rxjs/observable/of';
 import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
 import { ProductActions } from '../../../../store/action/product.action';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-dialog-app',
 	templateUrl: './product-dialog.component.html',
 	styleUrls: ['./product-dialog.component.scss'],
-	providers: [ FileUploaderService ]
 })
 export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	dlgName = DialogName.PRODUCT;
 	product;
 	formDescriptor$;
-	isOver = false;
-	product$: Observable<EntityState<Product>>;
+	product$: Observable<Product>;
 	groups$: Observable<Array<DynamicFormGroup>>;
 	groups: Array<DynamicFormGroup>;
+	itemId$: Observable<string>;
 
 	constructor(private store: Store<any>,
 							private dynamicFormsSrv: DynamicFormsService,
-							private http: HttpClient,
-							public uploader: FileUploaderService) {
+							private http: HttpClient) {
 		super();
 	}
 
@@ -60,7 +59,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2])
 				]);
-		this.groups$.subscribe(gs => this.groups = gs);
+		this.groups$.takeUntil(this._destroy$).subscribe(gs => this.groups = gs);
 
 	}
 
@@ -68,22 +67,36 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
 	}
 
+	onImgAdded(event) {
+		this.store.dispatch(ProductActions.addImages(this.product.id, event.img));
+	}
+
+	onImgUploaded(event) {
+		this.http.post(`api/product/${this.product.id}/image`,
+				{ imageId: event.img.info.id, itemId: this.product.id, mainImage: false })
+			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.product.id, event.img.id)));
+
+	}
+
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
-		this.product$ = this.store.select(selectDialog(DialogName.PRODUCT))
+		this.itemId$ = this.store.select(selectDialog(DialogName.PRODUCT))
 			.pipe(
+				distinctUntilChanged(),
 				filter((dlgInfo: any) =>  dlgInfo.metadata),
-				map((dlgInfo: any) => dlgInfo.metadata.id),
-				switchMap(id => this.store.select<any>(selectProductById(id)))
+				map((dlgInfo: any) => dlgInfo.metadata.id)
 			);
-		this.product$.subscribe(product => this.product = product);
+		this.itemId$.takeUntil(this._destroy$);
+		this.product$ = this.itemId$.pipe(
+			switchMap((id) => this.store.select<any>(selectProductById(id)))
+			);
+		this.product$
+			.takeUntil(this._destroy$).subscribe((product) => {
+				if (!product.deeplyLoaded)
+					this.store.dispatch(ProductActions.deepLoad(product.id));
+				this.product = product;
+			});
 	}
-
-	fileOverBase(e: any): void {
-		this.isOver = e;
-	}
-
-
 }
 
 const customFieldsMock = {
@@ -91,6 +104,7 @@ const customFieldsMock = {
 		{
 			name: 'Group 1',
 			'fields': [
+				{ name: 'images', label: 'images', fieldType: 'image'},
 				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers'}},
 				{'name': 'categoryId', 'label': 'category', 'fieldType': 'entitySelect', metadata: { entity: 'categories'}},
 				{'name': 'status', 'label': 'status', 'fieldType': 'entitySelect', metadata: { entity: 'productStatus'}},

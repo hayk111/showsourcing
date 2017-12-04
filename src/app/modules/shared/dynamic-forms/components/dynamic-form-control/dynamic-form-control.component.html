@@ -19,5 +19,11 @@
 		[placeholder]="ctrl.descriptor.label"
 		[formControl]="ctrl"
 		(change)="onUpdate(ctrl.descriptor.name, $event)"></rating-input-app>
-</div>
 
+	<input-image-app
+		*ngIf="ctrl.descriptor.fieldType === 'image'"
+		[formControl]="ctrl"
+		[entityID]="entityID"
+		(imgAdded)="onImgAdded(ctrl.descriptor.name, $event)"
+		(imgUploaded)="onImgUploaded(ctrl.descriptor.name, $event)"></input-image-app>
+</div>

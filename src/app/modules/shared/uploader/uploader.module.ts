@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 		CommonModule,
 		HttpClientModule
 	],
-	declarations: []
+	declarations: [
+	],
+	exports: [
+	]
 })
 export class UploaderModule { }
