@@ -9,6 +9,9 @@ import { SideNavDirective } from './directives/side-nav.directive';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { MatIconModule } from '@angular/material';
 import { SideNavService } from './services/side-nav.service';
+import { SearchComponent } from './components/header/search/search.component';
+import { NotifComponent } from './components/header/notif/notif.component';
+import { UserInfoComponent } from './components/header/user-info/user-info.component';
 
 @NgModule({
 	imports: [
@@ -18,6 +21,6 @@ import { SideNavService } from './services/side-nav.service';
 	],
 	providers: [ SideNavService ],
 	declarations: [ TemplateComponent, GuestTemplateComponent,
-			HeaderComponent, SideNavDirective, SideNavComponent ],
+			HeaderComponent, SideNavDirective, SideNavComponent, SearchComponent, NotifComponent, UserInfoComponent ],
 })
 export class TemplateModule { }

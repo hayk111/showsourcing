@@ -1,5 +1,10 @@
-<div>ShowSourcing</div>
-<div class="flex">
-	<mat-icon (click)="logout()" *ngIf="(authenticated$ | async)">power_settings_new</mat-icon>
-	<div class="chinese pointer">中文</div>
+<div class="titleLogo">
+	<b>Show</b>Sourcing
+</div>
+
+<div class="flexCenter">
+	<search-app></search-app>
+	<notif-app></notif-app>
+	<div class="vertDivider"></div>
+	<user-info-app></user-info-app>
 </div>

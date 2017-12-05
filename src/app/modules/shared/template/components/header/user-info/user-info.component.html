@@ -1,0 +1,8 @@
+<ng-container *ngIf="user$ | async as user">
+	<div class="cercle"></div>
+	<div class="info">
+		<div>{{ user?.firstName }} {{ user?.lastName}}</div>
+		<div class="team">{{ (team$ | async)?.name }}</div>		
+	</div>
+	<mat-icon>keyboard_arrow_down</mat-icon>
+</ng-container>

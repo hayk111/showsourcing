@@ -1,0 +1,26 @@
+:host {
+	display: flex;
+	align-items: center;
+}
+
+:host > * {
+	margin: 8px;
+}
+
+.cercle {
+	height: 36px;
+	width: 36px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.1);
+	margin-left: 16px;
+}
+
+.info {
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 15px;
+	font-weight: bold;
+	.team {
+		font-weight: 400;
+	}
+}

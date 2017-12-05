@@ -4,7 +4,8 @@
   justify-content: space-between;
 	align-items: center;
 	box-sizing: border-box;
-	height: 48px;
+	height: 62px;
+	padding: var(--spacing-smaller);
 	flex: 0 0 48px;
 	width: 100%;
 	background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary-dark) 100%);
@@ -13,15 +14,14 @@
 	padding: 0 var(--spacing-default);
 	position: relative;
 }
-
-.chinese{
-  height: 22px;
-  width: 32px;
-  font-family: "PingFang SC";
-  font-size: 16px;
-  line-height: 22px;
+.titleLogo {
+	font-size: 1.35rem;
 }
-
-mat-icon{
-	margin-right: var(--spacing-default);
+notif-app{
+	margin: 0 28px;
+}
+.vertDivider {
+	width: 1px;
+	height: 46px;
+	background-color: rgba(255,255,255,0.3);
 }
