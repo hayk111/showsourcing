@@ -1,0 +1,9 @@
+<p *ngFor="let comment of comments">
+	{{ comment.text }}
+</p>
+<mat-form-field>
+  <textarea matInput placeholder="Your comment" matTextareaAutosize matAutosizeMinRows="1"
+						matAutosizeMaxRows="5" [formControl]="ctrl" maxlength="140"
+						(keyup.enter)="onEnter()"></textarea>
+	<mat-hint align="end">{{ ctrl.value.length }} / 140 </mat-hint>
+</mat-form-field>
