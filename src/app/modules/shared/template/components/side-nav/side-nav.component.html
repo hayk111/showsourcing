@@ -1,30 +1,31 @@
 <nav role="navigation" class="{{ open ? 'open' : '' }} flexColumn z-3">
 	<div class="items">
 
-		<a [routerLink]="['']" class="sideNavItem flex">
+		<a [routerLink]="['/home']" routerLinkActive="selected"
+			 class="sideNavItem flex">
 			<mat-icon>home</mat-icon>
 			<span class="itemTxt">home</span>
 		</a>
 
-		<a [routerLink]="['/products']" class="sideNavItem flex">
+		<a [routerLink]="['/products']" routerLinkActive="selected" class="sideNavItem flex">
 			<!-- parking icon is used for products... -->
 			<mat-icon>local_parking</mat-icon>
 			<span class="itemTxt">products</span>
 		</a>
 
 		
-		<a [routerLink]="['/tasks']" class="sideNavItem flex">
+		<a [routerLink]="['/tasks']" routerLinkActive="selected" class="sideNavItem flex">
 			<mat-icon>watch</mat-icon>
 			<span class="itemTxt">tasks</span>
 		</a>
 		
-		<a [routerLink]="['/suppliers']" class="sideNavItem flex">
+		<a [routerLink]="['/suppliers']" routerLinkActive="selected" class="sideNavItem flex">
 			<mat-icon>perm_contact_calendar</mat-icon>
 			<span class="itemTxt">suppliers</span>
 		</a>
 
 		
-		<a [routerLink]="['/events']" class="sideNavItem flex">
+		<a [routerLink]="['/events']" routerLinkActive="selected" class="sideNavItem flex">
 			<mat-icon>event</mat-icon>
 			<span class="itemTxt">events</span>
 		</a>

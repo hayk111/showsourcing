@@ -21,7 +21,16 @@ nav, .nav{
 		padding-left: 8px;
     line-height: 24px;
 	}
+	a{
+		border-left: solid 3px transparent;
+	}
+	.selected {
+		color: var(--color-primary);
+		border-left: solid 3px var(--color-primary);
+		box-sizing: border-box;
+	}
 }
+
 
 nav.open, .nav.open{
 	min-width: 17rem;

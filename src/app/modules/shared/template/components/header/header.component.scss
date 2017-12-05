@@ -7,7 +7,8 @@
 	height: 48px;
 	flex: 0 0 48px;
 	width: 100%;
-	background-color: #FFFFFF;
+	background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+	color: var(--color-primary-contrast);
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
 	padding: 0 var(--spacing-default);
 	position: relative;
@@ -16,7 +17,6 @@
 .chinese{
   height: 22px;
   width: 32px;
-  color: #4A4A4A;
   font-family: "PingFang SC";
   font-size: 16px;
   line-height: 22px;

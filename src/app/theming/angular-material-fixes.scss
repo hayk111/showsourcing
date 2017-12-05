@@ -1,14 +1,60 @@
 
 
 /////// theming ////////
-// straight out of the doc
+
 @import '~@angular/material/theming';
 @include mat-core();
-$candy-app-primary: mat-palette($mat-orange);
+
+// define a custom palette
+// $app-accent:  mat-palette($mat-grey, A200, A100, A400);
+
+$app-primary-palette: (
+	50: #ffffff,
+	100: rgb(93, 241, 187),
+	200: rgb(93, 241, 187),
+	300: rgb(93, 241, 187),
+	400: #08DC90,
+	500: #08DC90,
+	600: #08DC90,
+	700: #0E979E,
+	800: #0E979E,
+	900: #0E979E,
+	A100: #ffffff,
+	A200: rgb(93, 241, 187),
+	A400: #08DC90,
+	A700: #0E979E,
+	contrast: (
+			50: $black-87-opacity,
+			100: $black-87-opacity,
+			200: $black-87-opacity,
+			300: $black-87-opacity,
+			400: white,
+			500: white,
+			600: white,
+			700: white,
+			800: white,
+			900: white,
+			A100: $black-87-opacity,
+			A200: $black-87-opacity,
+			A400: $black-87-opacity,
+			A700: white
+	)
+);
+
+
+// mandatory stuff for theming
+$app-primary: mat-palette($app-primary-palette);
+$app-accent:  mat-palette($mat-grey);
+
+// include the custom theme components into a theme object
 $candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-$candy-app-warn:    mat-palette($mat-red);
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
-@include angular-material-theme($candy-app-theme);
+$candy-app-primary: mat-palette($mat-indigo);
+
+$app-theme: mat-light-theme($app-primary, $app-accent);
+
+// include the custom theme object into the angular material theme
+@include angular-material-theme($app-theme);
+
 
 ////////// fixes /////////
 
