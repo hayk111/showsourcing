@@ -1,0 +1,7 @@
+:host {
+	display: flex;
+}
+
+:host > * {
+	margin: var(--spacing-smaller);
+}

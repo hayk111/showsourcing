@@ -1,0 +1,5 @@
+<mat-icon (click)="vote.emit(1)">thumb_up</mat-icon>
+<mat-icon (click)="vote.emit(-1)">thumb_down</mat-icon>
+<div> {{ percentage }}%</div>
+
+<button class="small" (click)="request.emit()">request</button>
