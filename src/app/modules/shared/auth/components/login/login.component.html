@@ -1,9 +1,9 @@
-<form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner">
+<form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="creds">
 
 	<input-app label="Email" type="text" placeholder="example@showsourcing.com"
-		name="identifier" [(ngModel)]="creds.identifier"></input-app>
+		formControlName="identifier"></input-app>
 	<input-app label="Password" type="password" placeholder="your password"
-		name="password" [(ngModel)]="creds.password"></input-app>
+		formControlName="password"></input-app>
 
 	<small class="pointer" (click)="forgotPw()">Forgot Password ?</small>
 

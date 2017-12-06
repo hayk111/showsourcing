@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Credentials } from '../../utils/credentials.interface';
 import { Authentication } from '../../../../store/model/authentication.model';
 import { selectAuthentication } from '../../../../store/selectors/authentication.selector';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'login-app',
@@ -14,12 +15,17 @@ import { selectAuthentication } from '../../../../store/selectors/authentication
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
-	creds: Credentials = { identifier: '', password: '' };
+	creds: FormGroup;
 	pending$: Observable<boolean>;
 	error$: Observable<string>;
 	@Output() forgotPassword = new EventEmitter<any>();
 
-	constructor(private authSrv: AuthService, private store: Store<any>) { }
+	constructor(private authSrv: AuthService, private store: Store<any>, private fb: FormBuilder) {
+		this.creds = this.fb.group({
+			identifier: ['', Validators.required],
+			password: ['', Validators.required]
+		});
+	}
 
 	ngOnInit() {
 		const auth$ = this.store.select(selectAuthentication);
@@ -28,7 +34,8 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.authSrv.login(this.creds);
+		if (this.creds.valid)
+			this.authSrv.login(this.creds.value);
 	}
 
 	forgotPw() {

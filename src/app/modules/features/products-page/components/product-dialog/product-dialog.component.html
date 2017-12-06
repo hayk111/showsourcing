@@ -1,23 +1,47 @@
 
 <dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
-	<div class="flex">star
-			<dynamic-form-group-app 
-				[group]="groups[0]" [item]="product"
-				(update)="onUpdate($event)"
-				(imgAdded)="onImgAdded($event)"
-				(imgUploaded)="onImgUploaded($event)">
-			</dynamic-form-group-app>
+	<ng-container *ngIf="product">
+		<div class="flex">
+			<div>
+				<!-- <input-image-app 
+					(imgAdded)="onImgAdded($event)"
+					(imgUploaded)="onImgUploaded($event)"
+					[autoLinkImage]="false"
+					[images]="product.images"></input-image-app> -->
+			</div>
+			<div>
+				<feedback-input-app
+					(vote)="onVote($event)"
+					(request)="onRequest()"
+					[votes]="product.votes"></feedback-input-app>
+				<!-- <comments-input-app
+					(newComment)="onNewComment($event)"
+					[comments]="product.comments"></comments-input-app>			 -->
+			</div>
 
-			<dynamic-form-group-app 
-				[group]="groups[1]" [item]="product"
+				<!-- <dynamic-form-group-app 
+					[group]="groups[0]" [item]="product"
+					(update)="onUpdate($event)"
+					(imgAdded)="onImgAdded($event)"
+					(imgUploaded)="onImgUploaded($event)">
+				</dynamic-form-group-app>
+
+				<dynamic-form-group-app 
+					[group]="groups[1]" [item]="product"
+					(update)="onUpdate($event)">
+				</dynamic-form-group-app>
+
+				<dynamic-form-group-app 
+					[group]="groups[2]" [item]="product"
+					(update)="onUpdate($event)">
+				</dynamic-form-group-app>	
+
+				<dynamic-form-group-app 
+				[group]="groups[3]" [item]="product"
 				(update)="onUpdate($event)">
-			</dynamic-form-group-app>
-
-			<dynamic-form-group-app 
-				[group]="groups[2]" [item]="product"
-				(update)="onUpdate($event)">
-			</dynamic-form-group-app>	
-
-	</div>
-
+			</dynamic-form-group-app>	 -->
+		</div>		
+		
+	</ng-container>
+	
 </dialog-app>

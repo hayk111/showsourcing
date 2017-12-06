@@ -20,10 +20,4 @@
 		[formControl]="ctrl"
 		(change)="onUpdate(ctrl.descriptor.name, $event)"></rating-input-app>
 
-	<input-image-app
-		*ngIf="ctrl.descriptor.fieldType === 'image'"
-		[formControl]="ctrl"
-		[entityID]="entityID"
-		(imgAdded)="onImgAdded(ctrl.descriptor.name, $event)"
-		(imgUploaded)="onImgUploaded(ctrl.descriptor.name, $event)"></input-image-app>
 </div>

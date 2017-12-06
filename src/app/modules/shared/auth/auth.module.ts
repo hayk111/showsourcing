@@ -23,7 +23,6 @@ import { TokenService } from './services/token.service';
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
-		FormsModule,
 		HttpClientModule,
 		CardsModule,
 		InputsModule,

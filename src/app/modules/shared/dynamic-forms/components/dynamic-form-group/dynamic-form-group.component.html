@@ -6,8 +6,6 @@
 	
 			<dynamic-form-control-app
 				*ngFor="let ctrl of group.controlsArr"
-				(imgAdded)="imgAdded.emit($event)"
-				(imgUploaded)="imgUploaded.emit($event)"
 				[entityID]="entityID"
 				[ctrl]="ctrl"
 				[group]="group"

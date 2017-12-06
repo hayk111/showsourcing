@@ -21,6 +21,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 	providers: [ TeamItemLoaderService ]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
+	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
 	filterTargets: Array<EntityRepresentation> = [
 		entityRepresentationMap.suppliers,
@@ -33,6 +34,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		entityRepresentationMap.ratings,
 		entityRepresentationMap.sortByProduct
 	];
+	// whether products are pending
 	pending = true;
 	productEntities: EntityState<Product>;
 
@@ -53,6 +55,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemClicked(id: string) {
+		// we use the store to open the dialog with the correct product
+		// so we can open the dialog from somewhere else
 		this.store.dispatch(DialogActions.open(DialogName.PRODUCT));
 		this.store.dispatch(DialogActions.setMetadata(DialogName.PRODUCT, { id }));
 	}

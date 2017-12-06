@@ -4,6 +4,9 @@ import Log from '../../../../utils/logger/log.class';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
+import { EntityRepresentation } from '../../../store/model/filter.model';
+import { ProductActions } from '../../../store/action/product.action';
+import { Store } from '@ngrx/store';
 
 
 const BASE_OPTS: FileUploaderOptions = {
@@ -24,15 +27,19 @@ interface FileItemWithToken extends FileItem {
 export class FileUploaderService extends FileUploader {
 	private static fileID = 0;
 	uploader: FileUploader;
-	// entityID so we can link the img to a specific item
-	entityID: string;
+	// so we can link the image to its entity when it's been uploaded
+	entityRepr: EntityRepresentation;
+	entityId: string;
+	autoLinkImage = true;
+	// the upload data changes when the type changes
 	private _type = 'image';
 	private _imageType = 'Photo';
 	private reader = new FileReader();
 
 	constructor(@Inject('uploaderOptions') @Optional()
 							options: FileUploaderOptions,
-							private http: HttpClient) {
+							private http: HttpClient,
+							private store: Store<any>) {
 		super(options || BASE_OPTS);
 		Log.debug('FileUploaderService created');
 	}
@@ -72,11 +79,18 @@ export class FileUploaderService extends FileUploader {
 		return formData;
 	}
 
-	protected _onSuccessItem(item: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
+	protected _onSuccessItem(fileItem: FileItemWithToken, response: string, status: number, headers: ParsedResponseHeaders) {
 		// delete token
-		this.http.delete(`api/token/${item.token}`).subscribe( x => {
-			item.info = x;
-			super._onSuccessItem(item, response, status, headers);
+		this.http.delete(`api/token/${fileItem.token}`).subscribe( x => {
+			if (this.autoLinkImage)
+				// TODO: we actually need the correct action here so.. This might not be the right place.
+				this.http.post(`api/${this.entityRepr.urlName}/${this.entityId}/${this.type}`,
+					{ imageId: fileItem.id, itemId: this.entityId, mainImage: false })
+				.subscribe((r: any) => this.store.dispatch(ProductActions.setImageReady(this.entityId, fileItem.id)));
+			else
+			// we add info so we can link the image whenever we want to
+				fileItem.info = x;
+			super._onSuccessItem(fileItem, response, status, headers);
 		});
 	}
 

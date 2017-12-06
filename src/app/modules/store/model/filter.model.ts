@@ -34,6 +34,7 @@ export const entityRepresentationMap = {
 	categories: new EntityRepresentation('categories', true, 'category'),
 	tags: new EntityRepresentation('tags', true),
 	projects: new EntityRepresentation('projects', true),
+	product: new EntityRepresentation('products', true),
 	productStatus: new EntityRepresentation('productStatus', true, 'status', 'status'),
 	// non real entities, used as is for convenience
 	prices: new EntityRepresentation('prices'),

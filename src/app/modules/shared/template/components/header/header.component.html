@@ -2,7 +2,7 @@
 	<b>Show</b>Sourcing
 </div>
 
-<div class="flexCenter">
+<div class="flexCenter" *ngIf="(authenticated$ | async)">
 	<search-app></search-app>
 	<notif-app></notif-app>
 	<div class="vertDivider"></div>

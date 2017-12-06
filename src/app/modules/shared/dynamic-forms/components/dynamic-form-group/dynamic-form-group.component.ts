@@ -16,8 +16,6 @@ import { zip } from 'rxjs/observable/zip';
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
-	@Output() imgAdded = new EventEmitter();
-	@Output() imgUploaded = new EventEmitter();
 	entityID: string;
 	_group: DynamicFormGroup;
 	private group$ = new Subject<any>();

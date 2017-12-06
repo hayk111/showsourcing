@@ -29,6 +29,8 @@ import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/d
 import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
 import { ProductActions } from '../../../../store/action/product.action';
 import { distinctUntilChanged } from 'rxjs/operators';
+import Log from '../../../../../utils/logger/log.class';
+import { entityRepresentationMap } from '../../../../store/model/filter.model';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -37,6 +39,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 })
 export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	dlgName = DialogName.PRODUCT;
+	entityRepr = entityRepresentationMap.product;
 	product;
 	formDescriptor$;
 	product$: Observable<Product>;
@@ -51,15 +54,26 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// this.formDescriptor$ = this.store.select(selectCustomField(CustomFieldsName.PRODUCTS))
-		// .filter( r => r);
 		this.groups$ = of(customFieldsMock)
 			.map(desc => [
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]),
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
-					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2])
+					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2]),
+					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[3])
 				]);
 		this.groups$.takeUntil(this._destroy$).subscribe(gs => this.groups = gs);
+
+	}
+
+	onVote(value) {
+		this.store.dispatch(ProductActions.voteProduct(this.product.id, value));
+	}
+
+	onRequest() {
+		Log.debug('request requested');
+	}
+
+	onNewComment(txt: string) {
 
 	}
 
@@ -67,22 +81,20 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
 	}
 
-	onImgAdded(event) {
-		this.store.dispatch(ProductActions.addImages(this.product.id, event.img));
+	onImgAdded(img) {
+		this.store.dispatch(ProductActions.addPendingImage(this.product.id, img));
 	}
 
-	onImgUploaded(event) {
+	onImgUploaded(img) {
 		this.http.post(`api/product/${this.product.id}/image`,
-				{ imageId: event.img.info.id, itemId: this.product.id, mainImage: false })
-			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.product.id, event.img.id)));
-
+				{ imageId: img.info.id, itemId: this.product.id, mainImage: false })
+			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.product.id, img)));
 	}
 
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
 		this.itemId$ = this.store.select(selectDialog(DialogName.PRODUCT))
 			.pipe(
-				distinctUntilChanged(),
 				filter((dlgInfo: any) =>  dlgInfo.metadata),
 				map((dlgInfo: any) => dlgInfo.metadata.id)
 			);
@@ -102,13 +114,18 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 const customFieldsMock = {
 	groups: [
 		{
+			name: 'Group 0',
+			fields: [
+				{ name: 'images', label: 'images', fieldType: 'image'}
+			]
+		},
+		{
 			name: 'Group 1',
 			'fields': [
-				{ name: 'images', label: 'images', fieldType: 'image'},
-				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers'}},
-				{'name': 'categoryId', 'label': 'category', 'fieldType': 'entitySelect', metadata: { entity: 'categories'}},
-				{'name': 'status', 'label': 'status', 'fieldType': 'entitySelect', metadata: { entity: 'productStatus'}},
-				{'name': 'eventId', 'label': 'event', 'fieldType': 'entitySelect', metadata: { entity: 'events'}},
+				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers' }},
+				{'name': 'categoryId', 'label': 'category', 'fieldType': 'entitySelect', metadata: { entity: 'categories' }},
+				{'name': 'status', 'label': 'status', 'fieldType': 'entitySelect', metadata: { entity: 'productStatus' }},
+				{'name': 'eventId', 'label': 'event', 'fieldType': 'entitySelect', metadata: { entity: 'events' }},
 			]
 		},
 		{

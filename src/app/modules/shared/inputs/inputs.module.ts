@@ -16,10 +16,13 @@ import { RatingInputComponent } from './components/rating-input/rating-input.com
 import { FileUploadModule } from 'ng2-file-upload';
 import { InputImageComponent } from './components/input-image/input-image.component';
 import { ImagePreviewDirective } from './components/input-image/preview/image-preview.directive';
+import { FeedbackInputComponent } from './components/feedback-input/feedback-input.component';
+import { CommentsInputComponent } from './components/comments-input/comments-input.component';
 
 const components = [ InputComponent, InputAddressComponent, InputContactComponent,
 											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent,
-											RatingInputComponent, InputImageComponent, ImagePreviewDirective ];
+											RatingInputComponent, InputImageComponent, ImagePreviewDirective,
+											FeedbackInputComponent, CommentsInputComponent ];
 
 @NgModule({
 	imports: [

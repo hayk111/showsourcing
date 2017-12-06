@@ -19,13 +19,13 @@ import { deepCopy } from '../../../../store/utils/deep-copy.utils';
 		}
 	]
 })
-export class InputImageComponent extends AbstractInput implements OnInit {
+export class InputImageComponent implements OnInit {
 	private static imageID = 0;
+	@Input() images: Array<any>;
 	@Output() imgAdded = new EventEmitter();
 	@Output() imgUploaded = new EventEmitter();
 
-	constructor(public uploader: FileUploaderService, protected inj: Injector) {
-		super(inj);
+	constructor(public uploader: FileUploaderService) {
 	}
 
 	ngOnInit() {
@@ -34,12 +34,18 @@ export class InputImageComponent extends AbstractInput implements OnInit {
 	}
 
 	@Input()
-	set entityID(v: string) {
-		this.uploader.entityID = v;
+	set entityId(v: string) {
+		this.uploader.entityId = v;
 	}
 
-	get images() {
-		return this.uploader.queue;
+	@Input()
+	set entityRepr(repr: EntityRepresentation){
+		this.uploader.entityRepr = repr;
+	}
+
+	@Input()
+	set autoLinkImage(b: boolean) {
+		this.uploader.autoLinkImage = b;
 	}
 
 	onImageUploadStart(self) {
@@ -48,7 +54,7 @@ export class InputImageComponent extends AbstractInput implements OnInit {
 
 			reader.onloadend = function (e) {
 				// placeholder until image is ready
-				self.imgAdded.emit( { data: reader.result, pending: true });
+				self.imgAdded.emit( { id: fileItem.id, data: reader.result, pending: true });
 			};
 			reader.readAsDataURL(fileItem._file);
 		};

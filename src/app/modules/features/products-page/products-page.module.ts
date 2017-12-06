@@ -12,6 +12,7 @@ import { ProductDialogComponent } from './components/product-dialog/product-dial
 import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
+import { InputsModule } from '../../shared/inputs/inputs.module';
 
 @NgModule({
 	imports: [
@@ -22,6 +23,7 @@ import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.mod
 		FilteredListPageModule,
 		DialogModule,
 		DynamicFormsModule.forChild(),
+		InputsModule,
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

@@ -56,7 +56,7 @@ const customFieldsMock = {
 				{'name': 'description', 'label': 'Description', 'fieldType': 'standard'},
 				{'name': 'taskType', 'label': 'Type', 'fieldType': 'standard'},
 				{'name': 'product.name', 'label': 'product', 'fieldType': 'standard'},
-				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'standard'},
+				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers'}},
 			]
 		}
 	]
