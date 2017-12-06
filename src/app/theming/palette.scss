@@ -1,11 +1,21 @@
+// variable are declared with sass so we can reuse those with 
+// so we don't have to change those twice with angular material
+
+$color-primary: #08DC90;
+$color-primary-contrast: #fff;
+$color-primary-light: rgb(93, 241, 187);
+$color-primary-light-contrast: #4A4A4A;
+$color-primary-dark: #0E979E ;
+$color-primary-dark-contrast: #fff;
+$color-txt-primary: #4A4A4A;
 :root{
-	--color-primary: #08DC90;
+	--color-primary: $color-primary;
 	--color-primary-contrast: #fff;
-	--color-primary-light: rgb(93, 241, 187);
-	--color-primary-light-contrast: #4A4A4A;
-	--color-primary-dark: #0E979E ;
-	--color-primary-dark-contrast: #fff;
-	--color-txt-primary: #4A4A4A;
+	--color-primary-light: $color-primary-light;
+	--color-primary-light-contrast: $color-primary-light-contrast;
+	--color-primary-dark: $color-primary-dark;
+	--color-primary-dark-contrast: $color-primary-dark-contrast;
+	--color-txt-primary: $color-txt-primary;
 	--color-txt-secondary: #555;
 	--color-bg: #fff;
 	--color-bg-secondary: #FAFAFA;
@@ -19,5 +29,4 @@
 	--color-warn: #D0021B;
 
 	--color-success: #08DC90;
-
 }
