@@ -20,7 +20,6 @@ import { deepCopy } from '../../../../store/utils/deep-copy.utils';
 	]
 })
 export class InputImageComponent implements OnInit {
-	private static imageID = 0;
 	@Input() images: Array<any>;
 	@Output() imgAdded = new EventEmitter();
 	@Output() imgUploaded = new EventEmitter();

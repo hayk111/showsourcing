@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from '../auth/services/auth.service';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../../store/model/user.model';
-import { CountryActions } from '../../../store/action/country.action';
-import { CurrencyActions } from '../../../store/action/currency.action';
-import { CategoryActions } from '../../../store/action/category.action';
-import { Team } from '../../../store/model/team.model';
-import { Category } from '../../../store/model/category.model';
-import { Currency } from '../../../store/model/currency.model';
-import { TeamActions } from '../../../store/action/team.action';
-import { Country } from '../../../store/model/country.model';
-import { EventActions } from '../../../store/action/event.action';
-import { ProjectActions } from '../../../store/action/project.action';
-import { TagActions } from '../../../store/action/tag.action';
-import { Tag } from '../../../store/model/tag.model';
+import { User } from '../../store/model/user.model';
+import { CountryActions } from '../../store/action/country.action';
+import { CurrencyActions } from '../../store/action/currency.action';
+import { CategoryActions } from '../../store/action/category.action';
+import { Team } from '../../store/model/team.model';
+import { Category } from '../../store/model/category.model';
+import { Currency } from '../../store/model/currency.model';
+import { TeamActions } from '../../store/action/team.action';
+import { Country } from '../../store/model/country.model';
+import { EventActions } from '../../store/action/event.action';
+import { ProjectActions } from '../../store/action/project.action';
+import { TagActions } from '../../store/action/tag.action';
+import { Tag } from '../../store/model/tag.model';
 import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
 import { switchMap } from 'rxjs/operators';
-import { SupplierActions } from '../../../store/action/supplier.action';
-import { CustomFieldsActions } from '../../../store/action/custom-fields.action';
-import { selectUser } from '../../../store/selectors/user.selector';
-import { selectAuthentication } from '../../../store/selectors/authentication.selector';
+import { SupplierActions } from '../../store/action/supplier.action';
+import { CustomFieldsActions } from '../../store/action/custom-fields.action';
+import { selectUser } from '../../store/selectors/user.selector';
+import { selectAuthentication } from '../../store/selectors/authentication.selector';
 
 
 @Injectable()

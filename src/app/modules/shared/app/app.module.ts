@@ -19,7 +19,6 @@ import { InputMap } from '../form-builder/interfaces/input-map.interface';
 import { InputContactListComponent } from '../inputs/components/input-contact-list/input-contact-list.component';
 import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyModule } from '../company/company.module';
-import { PreloaderModule } from '../preloader/preloader.module';
 import { metaReducers, reducers, reducerToken, reducerProvider } from '../../store/reducer/_reducers';
 import { DialogModule } from '../dialog/dialog.module';
 import { DynamicInputComponent } from '../form-builder/components/dynamic-input/dynamic-input.component';
@@ -28,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { effects } from '../../store/effects/_effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EntitiesServicesModule } from '../entities-services/entities-services.module';
 
 
 
@@ -48,7 +48,7 @@ const inputMap: InputMap = {
 		DynamicFormsModule,
 		AuthModule.forRoot(),
 		LocalStorageModule,
-		PreloaderModule,
+		EntitiesServicesModule,
 		CompanyModule,
 		StoreModule.forRoot( reducerToken , { metaReducers }),
 		EffectsModule.forRoot(effects),

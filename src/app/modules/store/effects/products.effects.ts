@@ -12,6 +12,8 @@ import { of } from 'rxjs/observable/of';
 import { ProductVote } from '../model/product-vote.model';
 import { User } from '../model/user.model';
 import { selectUser } from '../selectors/user.selector';
+import { AppComment } from '../model/comment.model';
+import { ProductService } from '../../shared/entities-services/product.service';
 
 
 @Injectable()
@@ -19,17 +21,17 @@ export class ProductEffects {
 	userID: string;
 	// Listen for the patch action
 	@Effect({ dispatch: false })
-	patch$ = this.actions$.ofType(ActionType.PATCH_PROPERTY)
-		.map((action: TypedAction<any>) => action.payload)
-		.pipe(
-			switchMap(p => this.sendPatchRequest(p))
-		);
+	patch$ = this.actions$.ofType(ActionType.PATCH_PROPERTY).pipe(
+		map((action: TypedAction<any>) => action.payload),
+		switchMap(p => this.srv.sendPatchRequest(p))
+	);
+
 
 	@Effect()
 	deepLoad$ = this.actions$.ofType<any>(ActionType.DEEP_LOAD_REQ).pipe(
 		map(action => action.payload),
 		switchMap(
-			id => this.deepLoad(id),
+			id => this.srv.deepLoad(id),
 			(id, result) => {
 				// transform {key: value} array into object.
 				const resObj = result.reduce((acc, cur) => ({...acc, ...cur }), {});
@@ -41,60 +43,39 @@ export class ProductEffects {
 	@Effect()
 	vote$ = this.actions$.ofType<any>(ActionType.VOTE).pipe(
 		map(action => action.payload),
-		// 1 we add an uuid to the vote
+		// 1 we add the user id so we can find the vote easily (there is only 1 vote per user)
 		map(({productId, value}) => ({ productId, value, userId: this.userID })),
 		// we then switch to an http request
-		switchMap( v => this.postVote(v)
+		switchMap( v => this.srv.postVote(v)
 			.pipe(
 				// add vote when request is done
 				map( (r: ProductVote) => ProductActions.addVote(v.productId, r, this.userID)),
 				// but before sending that http request we send a pendingVote to the store
 				startWith( ProductActions.addPendingVote(v) as any)
-				// .catchError( e => ProductActions.voteFailed(v) )
+				// catchError( e => ProductActions.voteFailed(v) )
 			)
 		)
 	);
 
-	constructor(private http: HttpClient, private actions$: Actions, private store: Store<any>) {
+	@Effect()
+	comment$ = this.actions$.ofType<any>(ActionType.COMMENT).pipe(
+		map(action => action.payload),
+		// we add an uuid to the payload to retrieve it easily, a timestamp will do
+		map(p => ({...p, pendingUuid: Date.now()})),
+		map(comment => ProductActions.addPendingComment(comment))
+	);
+
+	@Effect()
+	pendingComment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_COMMENT)
+	.pipe(
+		map(action => action.payload),
+		switchMap(
+			(comment: AppComment) => this.srv.postComment(comment),
+			(comment, r) => ProductActions.setCommentReady(comment.productId, comment.pendingUuid) )
+	);
+
+	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)
 			.subscribe(id => this.userID = id);
-	}
-
-	sendPatchRequest(payload) {
-		return this.http.patch(`api/product/${payload.id}`, { [payload.propName]: payload.value});
-	}
-
-	deepLoad(id: string) {
-		return forkJoin([
-			this.sendImgReq(id),
-			this.sendAttachmentReq(id),
-			this.sendCommentReq(id),
-			this.sendVoteReq(id),
-			this.sendTagReq(id)
-		]);
-	}
-
-	sendImgReq(id: string) {
-		return this.http.get(`api/product/${id}/image`).map(images => ({images}) );
-	}
-
-	sendAttachmentReq(id: string) {
-		return this.http.get(`api/product/${id}/attachment`).map(attachments => ({attachments}) );
-	}
-
-	sendCommentReq(id: string) {
-		return this.http.get(`api/product/${id}/comment`).map(comments => ({ comments }) );
-	}
-
-	sendVoteReq(id: string) {
-		return this.http.get(`api/product/${id}/vote`).map(votes => ({ votes }));
-	}
-
-	sendTagReq(id: string) {
-		return this.http.get(`api/product/${id}/tag`).map(tags => ({ tags }) );
-	}
-
-	postVote(v: any) {
-		return this.http.post(`api/product/${v.productId}/vote`, { value : v.value});
 	}
 }

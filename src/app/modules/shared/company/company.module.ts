@@ -4,11 +4,11 @@ import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyService } from './services/company.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LocalStorageModule
-  ],
-  providers: [ CompanyService ],
-  declarations: []
+	imports: [
+		CommonModule,
+		LocalStorageModule
+	],
+	providers: [ CompanyService ],
+	declarations: []
 })
 export class CompanyModule { }

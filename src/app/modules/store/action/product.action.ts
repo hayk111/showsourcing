@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Product } from '../model/product.model';
 import { TypedAction } from '../utils/typed-action.interface';
 import { ProductVote } from '../model/product-vote.model';
+import { AppComment } from '../model/comment.model';
 
 export enum ActionType {
 		SET_DATA = '[Product] setting',
@@ -13,7 +14,10 @@ export enum ActionType {
 		ADD_PENDING_IMAGE = '[Product] add pending image',
 		VOTE = '[Product] Vote',
 		ADD_VOTE_PENDING = '[Product] Add pending vote',
-		ADD_VOTE = '[Product] Add vote'
+		ADD_VOTE = '[Product] Add vote',
+		COMMENT = '[Product] Commenting',
+		ADD_PENDING_COMMENT = '[Product] Add pending comment',
+		SET_COMMENT_READY = '[Product] Set comment ready'
 }
 
 export class ProductActions {
@@ -84,6 +88,28 @@ export class ProductActions {
 			return {
 				type: ActionType.ADD_VOTE,
 				payload: { productId, vote, userId }
+			};
+		}
+
+		static comment(productId: string, text: string) {
+			return {
+				type: ActionType.COMMENT,
+				payload: { text, productId }
+			};
+		}
+
+		static addPendingComment(comment: AppComment) {
+			comment.pending = true;
+			return {
+				type: ActionType.ADD_PENDING_COMMENT,
+				payload: comment
+			};
+		}
+
+		static setCommentReady(productId, pendingUuid) {
+			return {
+				type: ActionType.SET_COMMENT_READY,
+				payload: { productId, pendingUuid }
 			};
 		}
 }

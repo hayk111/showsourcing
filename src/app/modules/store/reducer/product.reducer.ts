@@ -3,6 +3,7 @@ import { ActionType } from '../action/product.action';
 import { Product } from '../model/product.model';
 import { EntityState, entityInitialState, setEntities } from '../utils/entities.utils';
 import { deepCopy } from '../utils/deep-copy.utils';
+import { AppComment } from '../model/comment.model';
 
 
 
@@ -11,6 +12,7 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 	let id;
 	let newState;
 	let votes;
+	let target;
 	let targetIndex;
 
 	switch (action.type) {
@@ -68,6 +70,22 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			votes = newState.byId[id].votes;
 			targetIndex = votes.findIndex(v => v.userId === action.payload.userId);
 			votes[targetIndex] = action.payload.vote;
+			return newState;
+
+		case ActionType.ADD_PENDING_COMMENT:
+			const comment: AppComment = action.payload;
+			id = comment.productId;
+			newState = copyById(state, id);
+			newState.byId[id].comments.push(comment);
+			return newState;
+
+		case ActionType.SET_COMMENT_READY:
+			id = action.payload.productId;
+			const pendingUuid = action.payload.pendingUuid;
+			newState = copyById(state, id);
+			const comments = newState.byId[id].comments;
+			target = comments.find(c => c.pendingUuid === pendingUuid);
+			target.pending = false;
 			return newState;
 
 		default: return state;

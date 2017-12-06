@@ -6,11 +6,6 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-
-
-
-
-
 @Injectable()
 export class TaskEffects {
 	// // Listen for the patch action

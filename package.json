@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --proxy-config proxy.config.json",
-    "build": "ng build --aot --build-optimizer --base-href http://web.showsourcing.com/",
+    "build": "ng build --aot --prod --build-optimizer --base-href http://web.showsourcing.com/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -35,7 +35,7 @@
     "ng2-file-upload": "^1.3.0",
     "ngrx-store-freeze": "^0.2.0",
     "ngrx-store-logger": "^0.2.0",
-    "ngx-uploader": "^4.2.1",
+    "ngx-file-drop": "^2.0.1",
     "reselect": "^3.0.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

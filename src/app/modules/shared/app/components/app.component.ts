@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { PreloaderService } from '../../preloader/services/preloader.service';
+import { PreloaderService } from '../../entities-services/preloader.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 

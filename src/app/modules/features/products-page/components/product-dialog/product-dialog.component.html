@@ -8,15 +8,19 @@
 					(imgUploaded)="onImgUploaded($event)"
 					[autoLinkImage]="false"
 					[images]="product.images"></input-image-app> -->
+				<!-- <img-input-app 
+					(imgsAdded)="onImgsAdded($event)"
+					[images]="product.images">
+				</img-input-app> -->
 			</div>
 			<div>
-				<feedback-input-app
+				<!-- <feedback-input-app
 					(vote)="onVote($event)"
 					(request)="onRequest()"
-					[votes]="product.votes"></feedback-input-app>
-				<!-- <comments-input-app
+					[votes]="product.votes"></feedback-input-app> -->
+				<comments-input-app
 					(newComment)="onNewComment($event)"
-					[comments]="product.comments"></comments-input-app>			 -->
+					[comments]="product.comments"></comments-input-app>
 			</div>
 
 				<!-- <dynamic-form-group-app 

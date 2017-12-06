@@ -1,3 +1,10 @@
-<p>
-  img-input works!
-</p>
+<file-drop 
+	(onFileDrop)="onFileDrop($event)" 
+	(onFileOver)="onFileOver()" 
+	(onFileLeave)="onFileLeave()">
+		<span>Drag & Drop here</span>
+</file-drop>
+
+<div class="imgPreview" *ngFor="let img of images">
+	<img [src]="img?.urls?.url_120x90 || img?.data" class="{{ img?.pending ? 'pending' : '' }}" />	
+</div>

@@ -13,6 +13,7 @@ import { FormBuilderModule } from '../../shared/form-builder/form-builder.module
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
+import { UploaderModule } from '../../shared/uploader/uploader.module';
 
 @NgModule({
 	imports: [
@@ -24,6 +25,7 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 		DialogModule,
 		DynamicFormsModule.forChild(),
 		InputsModule,
+		UploaderModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

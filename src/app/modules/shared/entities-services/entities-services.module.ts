@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { PreloaderService } from './services/preloader.service';
+import { PreloaderService } from './preloader.service';
+import { ProductService } from './product.service';
 
 @NgModule({
 	imports: [
@@ -9,6 +10,6 @@ import { PreloaderService } from './services/preloader.service';
 		HttpClientModule
 	],
 	declarations: [],
-	providers: [ PreloaderService ]
+	providers: [ PreloaderService, ProductService ]
 })
-export class PreloaderModule { }
+export class EntitiesServicesModule { }

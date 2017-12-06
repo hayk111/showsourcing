@@ -73,12 +73,16 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 		Log.debug('request requested');
 	}
 
-	onNewComment(txt: string) {
-
+	onNewComment(text: string) {
+		this.store.dispatch(ProductActions.comment(this.product.id, text));
 	}
 
 	onUpdate( { name, value} ) {
 		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
+	}
+	// 2
+	onImgsAdded(imgs) {
+
 	}
 
 	onImgAdded(img) {
