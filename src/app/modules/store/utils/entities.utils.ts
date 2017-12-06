@@ -1,3 +1,5 @@
+import { deepCopy } from './deep-copy.utils';
+
 
 export interface EntityState<G extends Entity> {
 	pending: boolean;
@@ -8,7 +10,7 @@ export interface EntityState<G extends Entity> {
 
 export interface Entity {
 	id: string | number;
-	name: string;
+	name?: string;
 }
 
 // since the response we receive is an array we have to loop
@@ -68,3 +70,17 @@ export const entityInitialState: EntityState<any> = {
 	ids: []
 };
 
+export function copyById(state, id, additionalProps?: any) {
+	return {
+		...state,
+		byId: {
+			...state.byId,
+			[id]: {
+				// returning deep copy of the product since it should
+				// be inexpensive and it simplifies everything
+				...deepCopy(state.byId[id]),
+				...additionalProps
+			}
+		}
+	};
+}

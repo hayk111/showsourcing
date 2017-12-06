@@ -1,7 +1,7 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { Team } from '../model/team.model';
 import { ActionType } from '../action/team.action';
-import { entityInitialState, EntityState, addEntities } from '../utils/entities.utils';
+import { entityInitialState, EntityState, addEntities, copyById } from '../utils/entities.utils';
 
 
 export function teamsReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Team> {

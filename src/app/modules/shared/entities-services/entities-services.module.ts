@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloaderService } from './preloader.service';
 import { ProductService } from './product.service';
+import { TeamService } from './team.service';
 
 @NgModule({
 	imports: [
@@ -10,6 +11,6 @@ import { ProductService } from './product.service';
 		HttpClientModule
 	],
 	declarations: [],
-	providers: [ PreloaderService, ProductService ]
+	providers: [ PreloaderService, ProductService, TeamService ]
 })
 export class EntitiesServicesModule { }

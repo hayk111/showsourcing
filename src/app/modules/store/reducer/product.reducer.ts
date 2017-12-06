@@ -1,7 +1,7 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType } from '../action/product.action';
 import { Product } from '../model/product.model';
-import { EntityState, entityInitialState, setEntities } from '../utils/entities.utils';
+import { EntityState, entityInitialState, setEntities, copyById } from '../utils/entities.utils';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { AppComment } from '../model/comment.model';
 
@@ -92,17 +92,3 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 	}
 }
 
-export function copyById(state, id, additionalProps?: any) {
-	return {
-		...state,
-		byId: {
-			...state.byId,
-			[id]: {
-				// returning deep copy of the product since it should
-				// be inexpensive and it simplifies everything
-				...deepCopy(state.byId[id]),
-				...additionalProps
-			}
-		}
-	};
-}

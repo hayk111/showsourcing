@@ -27,6 +27,7 @@ import { storeLogger } from 'ngrx-store-logger';
 import { customFieldsReducer } from './custom-fields.reducer';
 import { dialogReducer } from './dialog.reducer';
 import { InjectionToken } from '@angular/core';
+import { teamMembersReducer } from './team-members.reducer';
 
 
 const entities = combineReducers({
@@ -40,8 +41,10 @@ const entities = combineReducers({
 	tags: tagReducer,
 	projects: projectReducer,
 	suppliers: supplierReducer,
+	teamMembers: teamMembersReducer,
 	tasks: taskReducer,
 	products: productReducer,
+	// status might change from user to user in the future ?
 	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,

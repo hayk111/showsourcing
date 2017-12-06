@@ -17,11 +17,13 @@ import { TagActions } from '../../store/action/tag.action';
 import { Tag } from '../../store/model/tag.model';
 import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, filter } from 'rxjs/operators';
 import { SupplierActions } from '../../store/action/supplier.action';
 import { CustomFieldsActions } from '../../store/action/custom-fields.action';
-import { selectUser } from '../../store/selectors/user.selector';
+import { selectUser, selectUserTeamId } from '../../store/selectors/user.selector';
 import { selectAuthentication } from '../../store/selectors/authentication.selector';
+import { distinct } from 'rxjs/operators';
+import { TeamMembersActions } from '../../store/action/team-members.action';
 
 
 @Injectable()
@@ -32,27 +34,42 @@ export class PreloaderService {
 	private reloadTime = 1500000;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser)
-			.subscribe((user: User) => this.user = user);
-		this.store.select(selectAuthentication)
-			.filter(auth => auth.authenticated)
-			.subscribe(a => this.loadEverything());
+		this.loadGeneralEntities();
+		// when user changed, load user entities
+		// When team Changed, load team entities.
+		this.store.select(selectUser).pipe(
+				filter((user: User) => !!user.id)
+			)
+			.subscribe((user: User) => {
+				this.user = user;
+				this.loadUserEntities();
+			});
+		this.store.select(selectUserTeamId)
+			.pipe(
+				filter(id => id),
+				distinct()
+			).subscribe(a => this.loadTeamEntities());
+			// when user loaded
 	}
 
-	private loadEverything() {
+	private loadGeneralEntities() {
 		this.loadCountries();
 		this.loadCurrencies();
+	}
+
+	private loadUserEntities() {
+		this.loadTeams();
+	}
+
+	private loadTeamEntities() {
+		this.loadTeamMembers();
 		this.loadCategories();
 		this.loadSuppliers();
-		this.loadTeams();
 		this.loadEvents();
 		this.loadProjects();
 		this.loadTags();
 		this.loadCustomFields();
-
-		// this should be the last one
 		this.loadMaxCounter();
-
 	}
 
 	private loadCountries() {
@@ -79,7 +96,7 @@ export class PreloaderService {
 
 	private loadTeams() {
 		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/user/${this.user.id}/team?counter=${this.maxCounter}`))
+			switchMap(i => this.http.get(`api/user/${this.user.id}/team?counter=${this.maxCounter}`)),
 		).subscribe((t: Array<Team>) => this.store.dispatch(TeamActions.setTeams(t)));
 	}
 
@@ -99,6 +116,12 @@ export class PreloaderService {
 		timer(0, this.reloadTime).pipe(
 			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/tag?counter=${this.maxCounter}`))
 		).subscribe((t: Array<Tag>) => this.store.dispatch(TagActions.setTags(t)));
+	}
+
+	private loadTeamMembers() {
+		timer(0, this.reloadTime).pipe(
+			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/user?counter=${this.maxCounter}`))
+		).subscribe((t: Array<User>) => this.store.dispatch(TeamMembersActions.setMembers(t)));
 	}
 
 	private loadMaxCounter() {

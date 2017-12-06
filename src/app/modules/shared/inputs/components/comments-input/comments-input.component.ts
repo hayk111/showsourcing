@@ -20,6 +20,7 @@ export class CommentsInputComponent implements OnInit {
 	onEnter() {
 		if (this.ctrl.valid)
 			this.newComment.emit(this.ctrl.value);
+		this.ctrl.reset();
 	}
 
 }
