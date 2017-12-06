@@ -1,5 +1,6 @@
 <p *ngFor="let comment of comments">
-	{{ comment.text }}
+	<span class="author">{{ getTeamMemberName(comment.createdByUserId) | async }}</span>
+	<span class="msg">{{ comment.text }}</span>
 </p>
 <mat-form-field>
   <textarea matInput placeholder="Your comment" matTextareaAutosize matAutosizeMinRows="1"
