@@ -128,6 +128,17 @@ export class PreloaderService {
 
 	private loadCustomFields() {
 		this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
+			.map(r => this.mapCustomFields(r))
 			.subscribe(r => this.store.dispatch(CustomFieldsActions.set(r)));
+	}
+
+	private mapCustomFields(r) {
+		r.productsCFDef.groups.forEach(g => {
+			if (g.name !== 'Basic info')
+				g.fields.forEach(f => {
+					f.name = 'x-' + f.name;
+				});
+		});
+		return r;
 	}
 }

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { DynamicFormGroup, DynamicFormControl } from '../utils/dynamic-controls.class';
 import { FormDescriptor, FormGroupDescriptor, FormControlDescriptor } from '../utils/descriptors.interface';
-import { Validators, FormGroup } from '@angular/forms';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { RegexpApp } from '../../../../utils/regexes';
 import { InputMap } from '../utils/input-map.interface';
 import { Store } from '@ngrx/store';
@@ -22,10 +22,7 @@ export class DynamicFormsService {
 		formDesc.groups.forEach(gDesc => {
 			gDesc.fields.forEach((ctrlDesc) => {
 				const ctrl = this.toDynamicFormControl(ctrlDesc);
-				// if the name of the group is basic info the props are as is, while if it's something else
-				// props begin with x-
-				const name = gDesc.name === 'Basic info' ? ctrlDesc.name : 'x-' + ctrlDesc.name;
-				formGroup.addControl(name, ctrl);
+				formGroup.addControl(ctrlDesc.name, ctrl);
 			});
 		});
 		return formGroup;
@@ -39,10 +36,9 @@ export class DynamicFormsService {
 		});
 	}
 
-	toDynamicFormControl(ctrlDesc: FormControlDescriptor): DynamicFormControl {
+	toDynamicFormControl(ctrlDesc: FormControlDescriptor): FormControl {
 		const value = ctrlDesc.value || '';
-		const ctrl = new DynamicFormControl(value);
-		ctrl.descriptor = ctrlDesc;
+		const ctrl = new FormControl(value);
 		return ctrl;
 	}
 

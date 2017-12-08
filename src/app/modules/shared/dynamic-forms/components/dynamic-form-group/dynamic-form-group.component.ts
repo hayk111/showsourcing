@@ -77,7 +77,8 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	}
 
 	getControl(name: string) {
-		return this.formGroup.controls[name] || this.formGroup.controls['x-' + name];
+		debugger;
+		return this.formGroup.controls[name];
 	}
 
 	onUpdate(event) {

@@ -17,6 +17,8 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	@Input() ctrl: FormControl;
 	@Input() descriptor: FormControlDescriptor;
 	@Output() update = new EventEmitter<any>();
+	// CUSTOM FIELDS : we have to input the property name because of customFields
+	@Input() propertyName: string;
 
 	constructor(private resolver: ComponentFactoryResolver,
 							private dynamicFormsSrv: DynamicFormsService) {

@@ -41,12 +41,6 @@ export function addEntities(state: any, entities: Array<any>) {
 	};
 }
 
-function addCustomFields(entity) {
-	if (entity.additionalInfo && entity.additionalInfo.customFields) {
-		const cf = entity.additionalInfo.customFields;
-		Object.entries(cf).forEach(([k, v]) => entity['x-' + k] = v.value);
-	}
-}
 // same but we don't care about the previous state
 export function setEntities(entities: Array<any>) {
 	const ids = [];
@@ -57,7 +51,6 @@ export function setEntities(entities: Array<any>) {
 	entities = deepCopy(entities);
 	entities.forEach(entity => {
 		ids.push(entity.id);
-		addCustomFields(entity);
 		byId[entity.id] = entity;
 		// the counter is usually placed in either of those places
 		maxEntityCounter = entity.entityCounter || entity.counters.entityCounter;
