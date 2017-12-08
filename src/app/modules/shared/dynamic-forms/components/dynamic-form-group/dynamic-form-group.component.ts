@@ -26,6 +26,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	@Input() formGroup: FormGroup = new FormGroup({});
 	formGroupInit$: Observable<boolean>;
 	descriptor: FormDescriptor;
+	private _entityId: string;
 
 	@Input() entityRepr: EntityRepresentation = entityRepresentationMap.product;
 	// we need a behavior subject because the id is set before we subscribe.
@@ -33,6 +34,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 
 	@Input()
 	set entityId(id: string) {
+		this._entityId = id;
 		this._entityId$.next(id);
 	}
 
@@ -77,7 +79,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	}
 
 	onChange(event) {
-		debugger;
+		this.store.dispatch(this.entityRepr.actionType.patch(this._entityId, event.name, event.value));
 	}
 
 }
