@@ -1,0 +1,8 @@
+<mat-form-field>
+	<textarea #inp matInput 
+						[placeholder]="placeholder" matTextareaAutosize matAutosizeMinRows="1"
+						matAutosizeMaxRows="5" 
+						[value]="value"
+						(change)="onChange(inp.value)"
+						(blur)="onBlur()"></textarea>
+</mat-form-field>

@@ -36,9 +36,9 @@ export class InputComponent extends AbstractInput implements OnInit {
 
 	private addValidatorForType() {
 		switch (this.type) {
-			case 'number':
-				this.regex = new RegExp(RegexpApp.DIGITS);
-				break;
+			// case 'number':
+			// 	this.regex = new RegExp(RegexpApp.DIGITS);
+			// 	break;
 			case 'url':
 				break;
 			case 'tel':

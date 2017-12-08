@@ -1,7 +1,7 @@
 <article class="card z-h pointer" *ngFor="let id of productEntities.ids" 
 	(click)="itemClicked.next(id)">
 	<div class="imgCtnr">
-		<img src="{{ productEntities.byId[id].mainImage.urls.url_220x165 }}"/>
+		<img src="{{ productEntities?.byId[id]?.mainImage?.urls?.url_220x165 }}"/>
 	</div>
 	<h4>{{ productEntities.byId[id].name }} </h4>
 	

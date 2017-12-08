@@ -41,7 +41,7 @@ export class DynamicFormsService {
 
 	toDynamicFormControl(ctrlDesc: FormControlDescriptor): DynamicFormControl {
 		const value = ctrlDesc.value || '';
-		const ctrl = new DynamicFormControl(value, this.createValidators(ctrlDesc));
+		const ctrl = new DynamicFormControl(value);
 		ctrl.descriptor = ctrlDesc;
 		return ctrl;
 	}

@@ -33,18 +33,28 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	isEntitySelect() {
 		const f = this.descriptor.name;
 		const isStandard = this.descriptor.fieldType === 'standard';
-		return isStandard && (f === 'supplier' || f === 'category' || f === 'event' || f === 'status');
+		return f === 'supplier' || (isStandard && (f === 'supplier' || f === 'category' || f === 'event' || f === 'status'));
 	}
 
 	getEntityRep(name: string) {
 		return Object.values(entityRepresentationMap).find(repr => repr.urlName === name);
 	}
 
-
 	isStandard() {
 		const type = this.descriptor.fieldType;
 		const name = this.descriptor.name;
-		return type === 'free-text' || type === 'standard' && name === 'name';
+		return type === 'free-text' || type === 'number' || (type === 'standard' && name === 'name');
 	}
 
+	isRating() {
+		const type = this.descriptor.fieldType;
+		const name = this.descriptor.name;
+		return name === 'rating' && type === 'standard';
+	}
+
+	isTextArea() {
+		const type = this.descriptor.fieldType;
+		const name = this.descriptor.name;
+		return type === 'text-zone' || (type === 'standard' && name === 'description');
+	}
 }

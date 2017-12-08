@@ -23,24 +23,11 @@
 					[comments]="product.comments"></comments-input-app>
 			</div>
 
-				<!-- <dynamic-form-group-app 
-					[group]="groups[0]" [item]="product"
-					(update)="onUpdate($event)"
-					(imgAdded)="onImgAdded($event)"
-					(imgUploaded)="onImgUploaded($event)">
-				</dynamic-form-group-app> -->
-					<dynamic-form-group-app [entityRepr]="entityRepr" [entityId]="product.id"></dynamic-form-group-app>
+			<dynamic-form-group-app 
+				class="customForm"
+				[entityRepr]="entityRepr" 
+				[entityId]="product.id"></dynamic-form-group-app>
 
-
-				<!-- <dynamic-form-group-app 
-					[group]="groups[2]" [item]="product"
-					(update)="onUpdate($event)">
-				</dynamic-form-group-app>	
-
-				<dynamic-form-group-app 
-					[group]="groups[3]" [item]="product"
-					(update)="onUpdate($event)">
-			</dynamic-form-group-app> -->
 		</div>		
 		
 	</ng-container>

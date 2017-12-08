@@ -28,8 +28,8 @@ export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewIni
 	// This will only work if we don't also shadow the ngAfterViewInit(), but since that is unlikely
 	// this should do the trick.
 	ngAfterViewInit() {
-		if (! this.control)
-			Log.warn('You probably forgot to call super.ngOnInit() in an abstract Input');
+		if (this.control)
+			Log.debug('You might have forgotten to call super.ngOnInit() in an abstract Input');
 	}
 
 	onChange(value: any) {

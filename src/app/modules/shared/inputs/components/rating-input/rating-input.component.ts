@@ -22,6 +22,7 @@ export class RatingInputComponent extends AbstractInput implements OnInit {
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
 	}
 
 	onClick(i) {

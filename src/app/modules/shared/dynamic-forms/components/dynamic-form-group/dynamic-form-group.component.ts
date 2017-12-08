@@ -15,11 +15,14 @@ import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { selectEntity, selectEntityById } from '../../../../store/selectors/utils.selector';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs/observable/of';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
 	selector: 'dynamic-form-group-app',
 	templateUrl: './dynamic-form-group.component.html',
-	styleUrls: ['./dynamic-form-group.component.scss']
+	styleUrls: ['./dynamic-form-group.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
@@ -45,7 +48,6 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const descriptor$ = this.dynamicFormsSrv.getDescriptor(this.entityRepr)
 			.pipe( filter(r => r), take(1) );
-
 		descriptor$
 			.takeUntil(this._destroy$)
 			.subscribe(desc => this.descriptor = desc);
@@ -75,11 +77,143 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	}
 
 	getControl(name: string) {
-		return this.formGroup.controls[name];
+		return this.formGroup.controls[name] || this.formGroup.controls['x-' + name];
 	}
 
 	onUpdate(event) {
 		this.store.dispatch(this.entityRepr.actionType.patch(this._entityId, event.name, event.value));
 	}
 
+}
+
+
+const TEST = {
+	groups: [
+		{
+			name: 'Basic info',
+			fields: [
+				{
+					name: 'supplier',
+					label: 'supplier',
+					fieldType: 'standard'
+				},
+				{
+					name: 'category',
+					label: 'category',
+					fieldType: 'standard'
+				},
+				{
+					name: 'event',
+					label: 'event',
+					fieldType: 'standard'
+				},
+				{
+					name: 'name',
+					label: 'name',
+					fieldType: 'standard'
+				},
+				{
+					name: 'rating',
+					label: 'rating',
+					fieldType: 'standard'
+				},
+				{
+					name: 'priceAmount',
+					label: 'priceAmount',
+					fieldType: 'standard'
+				},
+				{
+					name: 'priceCurrency',
+					label: 'priceCurrency',
+					fieldType: 'standard'
+				},
+				{
+					name: 'minimumOrderQuantity',
+					label: 'minimumOrderQuantity',
+					fieldType: 'standard'
+				},
+				{
+					name: 'description',
+					label: 'description',
+					fieldType: 'standard'
+				},
+				{
+					name: 'tags',
+					label: 'tags',
+					fieldType: 'standard'
+				},
+				{
+					name: 'projects',
+					label: 'projects',
+					fieldType: 'standard'
+				}
+			]
+		},
+		{
+			name: 'Custom fields',
+			fields: [
+				{
+					name: 'freeText',
+					label: 'Free text',
+					fieldType: 'free-text'
+				},
+				{
+					name: 'textZone',
+					label: 'Text zone',
+					fieldType: 'text-zone'
+				},
+				{
+					name: 'multipleChoice',
+					label: 'Multiple choice',
+					fieldType: 'multiple-choice',
+					enumerationName: 'choices'
+				},
+				{
+					name: 'user',
+					label: 'User',
+					fieldType: 'user'
+				},
+				{
+					name: 'supplier',
+					label: 'Supplier',
+					fieldType: 'supplier'
+				},
+				{
+					name: 'checkBox',
+					label: 'Check-box',
+					fieldType: 'check-box'
+				},
+				{
+					name: 'number',
+					label: 'Number',
+					fieldType: 'number'
+				},
+				{
+					name: 'customPrice',
+					label: 'Custom price',
+					fieldType: 'price'
+				},
+				{
+					name: 'date',
+					label: 'Date',
+					fieldType: 'date'
+				},
+				{
+					name: 'decimalNumber',
+					label: 'Decimal number',
+					fieldType: 'decimal-number'
+				}
+			]
+		},
+		{
+			name: 'Pouet',
+			fields: [
+				{
+					name: 'fournisseur',
+					label: 'Fournisseur',
+					fieldType: 'supplier'
+				}
+			]
+		}
+	]
 }

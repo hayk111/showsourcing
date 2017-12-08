@@ -11,7 +11,11 @@ export class ProductService {
 	constructor(private http: HttpClient, private uploader: FileUploader2) { }
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
-		return this.http.patch(`api/product/${p.id}`, { [p.propName]: p.value});
+		let patch = { [p.propName]: p.value };
+		if (p.propName.startsWith('x-'))
+			patch = { customFields : patch };
+
+		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
 	deepLoad(id: string) {
