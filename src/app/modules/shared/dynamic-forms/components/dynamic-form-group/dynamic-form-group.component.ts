@@ -22,7 +22,7 @@ import { Store } from '@ngrx/store';
 	styleUrls: ['./dynamic-form-group.component.scss']
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
-	@Output() change = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 	@Input() formGroup: FormGroup = new FormGroup({});
 	formGroupInit$: Observable<boolean>;
 	descriptor: FormDescriptor;
@@ -78,7 +78,7 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 		return this.formGroup.controls[name];
 	}
 
-	onChange(event) {
+	onUpdate(event) {
 		this.store.dispatch(this.entityRepr.actionType.patch(this._entityId, event.name, event.value));
 	}
 

@@ -25,8 +25,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	private regex;
 	@Input() margin = true;
 	@Input() floatPlaceholder = 'auto';
-	@Output() blur = new EventEmitter();
-	@Output() enter = new EventEmitter();
+	@Output() blurred = new EventEmitter();
 
 	constructor(protected inj: Injector) { super(inj); }
 
@@ -80,7 +79,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	}
 
 	onBlur() {
-		this.blur.emit(this.value);
+		this.blurred.emit(this.value);
 	}
 
 }

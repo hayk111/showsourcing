@@ -16,7 +16,7 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	@Input() group: FormGroup;
 	@Input() ctrl: FormControl;
 	@Input() descriptor: FormControlDescriptor;
-	@Output() change = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 
 	constructor(private resolver: ComponentFactoryResolver,
 							private dynamicFormsSrv: DynamicFormsService) {
@@ -26,8 +26,8 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 	}
 
-	onChange(name, value) {
-		this.change.emit({ name, value });
+	onUpdate(name, value) {
+		this.update.emit({ name, value });
 	}
 
 	isEntitySelect() {
