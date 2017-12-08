@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroupDescriptor } from '../../utils/descriptors.interface';
+import { FormGroupDescriptor, FormDescriptor } from '../../utils/descriptors.interface';
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../utils/dynamic-controls.class';
 import { Subject } from 'rxjs/Subject';
@@ -8,6 +8,13 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { take, switchMap, mergeMap } from 'rxjs/operators';
 import { zip } from 'rxjs/observable/zip';
+import { FormGroup } from '@angular/forms';
+import { EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { selectEntity, selectEntityById } from '../../../../store/selectors/utils.selector';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'dynamic-form-group-app',
@@ -15,45 +22,62 @@ import { zip } from 'rxjs/observable/zip';
 	styleUrls: ['./dynamic-form-group.component.scss']
 })
 export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
-	@Output() update = new EventEmitter<any>();
-	entityID: string;
-	_group: DynamicFormGroup;
-	private group$ = new Subject<any>();
-	// we want the form even when no item is specified so BehaviorSubject is used.
-	private item$ = new BehaviorSubject<any>({});
+	@Output() change = new EventEmitter<any>();
+	@Input() formGroup: FormGroup = new FormGroup({});
+	formGroupInit$: Observable<boolean>;
+	descriptor: FormDescriptor;
 
-	constructor(private dynamicFormsSrv: DynamicFormsService) {
+	@Input() entityRepr: EntityRepresentation = entityRepresentationMap.product;
+	// we need a behavior subject because the id is set before we subscribe.
+	private _entityId$ = new BehaviorSubject<string>(null);
+
+	@Input()
+	set entityId(id: string) {
+		this._entityId$.next(id);
+	}
+
+	constructor(private dynamicFormsSrv: DynamicFormsService, private store: Store<any>) {
 		super();
-		this.group$.subscribe(g => this._group = g );
-		combineLatest(this.group$, this.item$)
-		.takeUntil(this._destroy$)
-		.subscribe(([group, item]) => {
-			this.entityID = item.id;
-			this._group = group;
-			this._group.reset();
-			this._group.patchValue(item);
-		});
 	}
 
 	ngOnInit() {
+		const descriptor$ = this.dynamicFormsSrv.getDescriptor(this.entityRepr)
+			.pipe( filter(r => r), take(1) );
 
+		descriptor$
+			.takeUntil(this._destroy$)
+			.subscribe(desc => this.descriptor = desc);
+		// initializes the form with the descriptor
+		this.formGroupInit$ = descriptor$
+			.takeUntil(this._destroy$)
+			.pipe(
+				map( desc => this.dynamicFormsSrv.toFormGroup(desc, this.formGroup)),
+				map(x => true)
+			);
+		// when we get a new id we need to patch the form.
+		// But the form must be ready.
+		this.formGroupInit$.pipe(
+			switchMap(_ => this._entityId$),
+			filter((id: any) => id),
+			switchMap(id => this.selectEntity(this.entityRepr, id))
+		).subscribe(entity => this.patch(entity));
 	}
 
-	@Input()
-	set group(g: DynamicFormGroup) {
-		if (!g)
-			throw Error(`Group is undefined in DynamicFormGroupComponent. Please specify a group attribute.`);
-		this.group$.next(g);
+	private selectEntity(entityRepr: EntityRepresentation, entityId: string) {
+		return this.store.select(selectEntityById(entityRepr.entityName, entityId));
 	}
 
-	get group(){
-		return this._group;
+	private patch(entity) {
+		this.formGroup.reset();
+		this.formGroup.patchValue(entity);
 	}
 
-	@Input()
-	set item(item: any) {
-		if (item)
-			this.item$.next(item);
+	getControl(name: string) {
+		return this.formGroup.controls[name];
+	}
+
+	onChange(event) {
+		debugger;
 	}
 
 }

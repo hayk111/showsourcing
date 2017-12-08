@@ -25,10 +25,10 @@ export class TasksDialogComponent implements OnInit {
 	constructor(private store: Store<any>, private dynamicFormsSrv: DynamicFormsService) { }
 
 	ngOnInit() {
-		this.groups$ = of(customFieldsMock)
-		.map(desc => [
-				this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]),
-			]);
+		// this.groups$ = of(customFieldsMock)
+		// .map(desc => [
+		// 		this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]),
+		// 	]);
 	}
 
 	onDlgRegistered() {

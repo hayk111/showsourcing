@@ -6,6 +6,7 @@ import { EntityState } from '../../../../store/utils/entities.utils';
 import { selectEntity } from '../../../../store/selectors/utils.selector';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
+import { EntityRepresentation } from '../../../../store/model/filter.model';
 
 @Component({
 	selector: 'entity-select-input-app',
@@ -22,7 +23,7 @@ import { MatSelectChange } from '@angular/material';
 export class EntitySelectInputComponent extends AbstractInput implements OnInit {
 	entities$: Observable<EntityState<any>>;
 	private subscriptions = [];
-	@Input() metadata: any;
+	@Input() entityRep: EntityRepresentation;
 	@Output() change = new EventEmitter();
 	selected: EntityState<any>;
 	entities;
@@ -33,7 +34,7 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.entities$ = this.store.select(selectEntity(this.metadata.entity));
+		this.entities$ = this.store.select(selectEntity(this.entityRep.entityName));
 		this.entities$.subscribe(ent => this.entities = ent);
 	}
 

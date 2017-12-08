@@ -4,6 +4,8 @@ import { DynamicFormControl, DynamicFormGroup } from '../../utils/dynamic-contro
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { FormControlDescriptor } from '../../utils/descriptors.interface';
 
 @Component({
 	selector: 'dynamic-form-control-app',
@@ -11,14 +13,10 @@ import { entityRepresentationMap } from '../../../../store/model/filter.model';
 	styleUrls: ['./dynamic-form-control.component.scss']
 })
 export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
-	@Input() entityID: string;
-	@Input() group: DynamicFormGroup;
-	@Input() ctrl: DynamicFormControl;
-	@Output() update = new EventEmitter<any>();
-	@Output() fileUpload = new EventEmitter<any>();
-	// we get a hold of the ctnr since we are gonna put inputs in it
-	@ViewChild('ctnr', { read: ViewContainerRef }) ctnr: ViewContainerRef;
-	private componentRef: ComponentRef<any>;
+	@Input() group: FormGroup;
+	@Input() ctrl: FormControl;
+	@Input() descriptor: FormControlDescriptor;
+	@Output() change = new EventEmitter<any>();
 
 	constructor(private resolver: ComponentFactoryResolver,
 							private dynamicFormsSrv: DynamicFormsService) {
@@ -26,58 +24,27 @@ export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// TODO:
-		// it would be nice to create component dynamically so we can just input our component
-		// in a map and pick appropriately. However the below code throws the error:
-		// No provider for formCtrl.
-		// this.createComponent();
 	}
 
-	onUpdate(name, value) {
-		this.update.emit({ name, value });
+	onChange(name, value) {
+		this.change.emit({ name, value });
+	}
+
+	isEntitySelect() {
+		const f = this.descriptor.name;
+		const isStandard = this.descriptor.fieldType === 'standard';
+		return isStandard && (f === 'supplier' || f === 'category' || f === 'event' || f === 'status');
+	}
+
+	getEntityRep(name: string) {
+		return Object.values(entityRepresentationMap).find(repr => repr.urlName === name);
 	}
 
 
-	// get isEntitySelect() {
-	// 	// this is done for retrocompatibility with the old descriptor.
-	// 	const f = this.ctrl.descriptor.fieldType;
-	// 	return f === 'supplier' || f === 'category' || f === 'event' || f === 'productStatus';
-	// }
-
-	// findEntitySelected(name) {
-	// 	const r = {};
-	// 	r.entity = Object.values(entityRepresentationMap).find( repr => repr.urlName === name);
-	// }
-
-	private createComponent() {
-		// redundant step of clearing the container as it should be clear but let's stay on the safe side
-		this.ctnr.clear();
-		// we get the correct component from the input map
-		let comp = this.dynamicFormsSrv.inputMap[this.ctrl.descriptor.fieldType];
-		// if none for this type we get the default one
-		comp = comp || this.dynamicFormsSrv.inputMap.default;
-		// create an instance of said component
-		const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(comp as any);
-		this.componentRef = this.ctnr.createComponent(factory);
-		const inst = this.componentRef.instance;
-		inst.formControl = this.ctrl;
-		this.subscribeToEnter(inst);
-		this.subscribeToFileUpload(inst);
+	isStandard() {
+		const type = this.descriptor.fieldType;
+		const name = this.descriptor.name;
+		return type === 'free-text' || type === 'standard' && name === 'name';
 	}
-
-	private subscribeToEnter(inst) {
-		if (inst.enter) {
-			inst.enter.takeUntil(this._destroy$)
-				.subscribe(evt => this.update.emit());
-		}
-	}
-
-	private subscribeToFileUpload(inst) {
-		if (inst.fileUpload) {
-			inst.fileUpload.takeUntil(this._destroy$)
-				.subscribe(evt => this.fileUpload.emit());
-		}
-	}
-
 
 }

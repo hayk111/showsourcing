@@ -1,23 +1,22 @@
 <div [formGroup]="group">
-	<!-- <ng-template #ctnr></ng-template> -->
 	<input-app
-		*ngIf="ctrl.descriptor.fieldType === 'standard'"
-		[type]="ctrl.descriptor.fieldType"
-		[placeholder]="ctrl.descriptor.label"
+		*ngIf="isStandard()"
+		[type]="descriptor.fieldType"
+		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		(blur)="onUpdate(ctrl.descriptor.name, $event)"></input-app>
+		(blur)="onChange(descriptor.name, $event)"></input-app>
 
 	<entity-select-input-app
-		*ngIf="ctrl.descriptor.fieldType === 'entitySelect'"
-		[placeholder]="ctrl.descriptor.label"
+		*ngIf="isEntitySelect()"
+		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		[metadata]="ctrl.descriptor.metadata"
-		(change)="onUpdate(ctrl.descriptor.name, $event)"></entity-select-input-app>
+		[entityRep]="getEntityRep(descriptor.name)"
+		(change)="onChange(descriptor.name, $event)"></entity-select-input-app>
 
 	<rating-input-app 
-		*ngIf="ctrl.descriptor.fieldType === 'rating'"
-		[placeholder]="ctrl.descriptor.label"
+		*ngIf="descriptor.fieldType === 'rating'"
+		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		(change)="onUpdate(ctrl.descriptor.name, $event)"></rating-input-app>
+		(change)="onChange(descriptor.name, $event)"></rating-input-app>
 
 </div>

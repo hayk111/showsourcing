@@ -21,7 +21,7 @@ export class TestComponent implements OnInit {
 	constructor(private dynamicFormsSrv: DynamicFormsService, private fb: FormBuilder, private store: Store<any>) { }
 
 	ngOnInit() {
-		this.group = this.dynamicFormsSrv.toDynamicFormGroup(customFieldsMock.groups[0]);
+	// this.group = this.dynamicFormsSrv.toDynamicFormGroup(customFieldsMock.groups[0]);
 		// this.ctrl2 = this.dynamicFormsSrv.toDynamicFormControl(customFieldsMock.groups[0].fields[0]);
 		// this.group = this.fb.group({
 		// 	test: ['sdfsdf']

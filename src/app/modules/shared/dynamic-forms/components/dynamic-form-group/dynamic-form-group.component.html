@@ -1,17 +1,21 @@
+<ng-container *ngIf="formGroupInit$ | async">
 
-<fieldset *ngIf="group" [formGroup]="group">
-		<legend> {{ group.descriptor.name }} </legend>
+		<fieldset *ngFor="let gDesc of descriptor.groups">
+				<legend> {{ gDesc.name }} </legend>
 
-		<div class="flexColumn fields">
-	
-			<dynamic-form-control-app
-				*ngFor="let ctrl of group.controlsArr"
-				[entityID]="entityID"
-				[ctrl]="ctrl"
-				[group]="group"
-				(update)="update.emit($event)">
-			</dynamic-form-control-app>        
-		
-		</div>
+				<div class="flexColumn fields">
+			
+					<dynamic-form-control-app
+						*ngFor="let f of gDesc.fields"
+						[ctrl]="getControl(f.name)"
+						[descriptor]="f"
+						[group]="formGroup"
+						(change)="onChange($event)">
+					</dynamic-form-control-app>        
+				
+				</div>
 
-</fieldset>
+		</fieldset>	
+
+</ng-container>
+

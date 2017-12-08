@@ -29,13 +29,10 @@
 					(imgAdded)="onImgAdded($event)"
 					(imgUploaded)="onImgUploaded($event)">
 				</dynamic-form-group-app> -->
+					<dynamic-form-group-app [entityRepr]="entityRepr" [entityId]="product.id"></dynamic-form-group-app>
 
-				<dynamic-form-group-app 
-					[group]="groups[1]" [item]="product"
-					(update)="onUpdate($event)">
-				</dynamic-form-group-app>
 
-				<dynamic-form-group-app 
+				<!-- <dynamic-form-group-app 
 					[group]="groups[2]" [item]="product"
 					(update)="onUpdate($event)">
 				</dynamic-form-group-app>	
@@ -43,7 +40,7 @@
 				<dynamic-form-group-app 
 					[group]="groups[3]" [item]="product"
 					(update)="onUpdate($event)">
-			</dynamic-form-group-app>
+			</dynamic-form-group-app> -->
 		</div>		
 		
 	</ng-container>

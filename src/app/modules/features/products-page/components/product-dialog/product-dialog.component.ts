@@ -6,7 +6,7 @@ import { FormGroupDescriptor } from '../../../../shared/form-builder/interfaces/
 import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-descriptor.interface';
 import { Observable } from 'rxjs/Observable';
 import { FileUploader, FileItem, ParsedResponseHeaders, FileUploaderOptions } from 'ng2-file-upload';
-import { FormGroup } from '@angular/forms/src/model';
+import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Supplier } from '../../../../store/model/supplier.model';
@@ -31,20 +31,20 @@ import { ProductActions } from '../../../../store/action/product.action';
 import { distinctUntilChanged } from 'rxjs/operators';
 import Log from '../../../../../utils/logger/log.class';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
 	selector: 'product-dialog-app',
 	templateUrl: './product-dialog.component.html',
 	styleUrls: ['./product-dialog.component.scss'],
 })
-export class ProductDialogComponent extends AutoUnsub implements OnInit {
+export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	dlgName = DialogName.PRODUCT;
 	entityRepr = entityRepresentationMap.product;
 	product;
-	formDescriptor$;
+	groups = [new FormGroup({}), new FormGroup({})] as Array<DynamicFormGroup>;
 	product$: Observable<Product>;
-	groups$: Observable<Array<DynamicFormGroup>>;
-	groups: Array<DynamicFormGroup>;
+	descriptors$: Observable<Array<FormGroupDescriptor>>;
 	itemId$: Observable<string>;
 
 	constructor(private store: Store<any>,
@@ -54,14 +54,13 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.groups$ = of(customFieldsMock)
+		this.descriptors$ = of(customFieldsMock)
 			.map(desc => [
-					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[0]),
-					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[1]),
-					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[2]),
-					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[3])
+					desc.groups[0],
+					desc.groups[1],
+					desc.groups[2],
+					desc.groups[3]
 				]);
-		this.groups$.takeUntil(this._destroy$).subscribe(gs => this.groups = gs);
 	}
 
 	onVote(value) {
@@ -102,16 +101,24 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 				map((dlgInfo: any) => dlgInfo.metadata.id)
 			);
 		this.itemId$.takeUntil(this._destroy$);
+		// select correct product
 		this.product$ = this.itemId$.pipe(
 			switchMap((id) => this.store.select<any>(selectProductById(id)))
 			);
+		// deeps loads product
 		this.product$
 			.takeUntil(this._destroy$).subscribe((product) => {
 				if (!product.deeplyLoaded)
 					this.store.dispatch(ProductActions.deepLoad(product.id));
 				this.product = product;
+				this.groups[0].patchValue(product);
 			});
 	}
+
+	ngAfterViewInit() {
+
+	}
+
 }
 
 const customFieldsMock = {

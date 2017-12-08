@@ -1,4 +1,5 @@
 import { Entity } from '../utils/entities.utils';
+import { CustomFieldsName } from '../reducer/custom-fields.reducer';
 
 
 export interface Filter {
@@ -21,10 +22,12 @@ export class EntityRepresentation  {
 	constructor(public entityName: string,
 							public isEntity: boolean = false,
 							public urlName?: string,
-							public displayName?: string) {
+							public displayName?: string,
+							public descriptorName?: CustomFieldsName | string) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
 		this.displayName = displayName || entityName;
+		this.descriptorName = descriptorName || entityName + 'CFDef';
 	}
 }
 

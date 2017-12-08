@@ -1,28 +1,42 @@
 import { Injectable, Inject } from '@angular/core';
 import { DynamicFormGroup, DynamicFormControl } from '../utils/dynamic-controls.class';
 import { FormDescriptor, FormGroupDescriptor, FormControlDescriptor } from '../utils/descriptors.interface';
-import { Validators } from '@angular/forms';
+import { Validators, FormGroup } from '@angular/forms';
 import { RegexpApp } from '../../../../utils/regexes';
 import { InputMap } from '../utils/input-map.interface';
+import { Store } from '@ngrx/store';
+import { EntityRepresentation } from '../../../store/model/filter.model';
+import { selectCustomField } from '../../../store/selectors/custom-fields.selector';
 
 @Injectable()
 export class DynamicFormsService {
 
-	constructor(@Inject('inputMap') public inputMap: InputMap) {}
+	constructor(private store: Store<any>) {}
+
+	getDescriptor(entityRepr: EntityRepresentation) {
+		return this.store.select(selectCustomField(entityRepr.descriptorName));
+	}
 
 	// transform formGroupDescriptor to DynamicFormGroup
-	toDynamicFormGroup(groupDesc: FormGroupDescriptor ): DynamicFormGroup {
-		const group: any = {};
-		const controlsArray = [];
-		// we add a formControl for each field.
-		groupDesc.fields
-			.forEach((ctrlDesc) => {
+	toFormGroup(formDesc: FormDescriptor, formGroup: FormGroup ): FormGroup {
+		formDesc.groups.forEach(gDesc => {
+			gDesc.fields.forEach((ctrlDesc) => {
 				const ctrl = this.toDynamicFormControl(ctrlDesc);
-				group[ctrlDesc.name] = ctrl;
-				controlsArray.push(ctrl);
+				// if the name of the group is basic info the props are as is, while if it's something else
+				// props begin with x-
+				const name = gDesc.name === 'Basic info' ? ctrlDesc.name : 'x-' + ctrlDesc.name;
+				formGroup.addControl(name, ctrl);
 			});
-		const formGroup = new DynamicFormGroup(groupDesc, controlsArray, group);
+		});
 		return formGroup;
+	}
+
+	private addCtrlToFormGroup(gDesc: FormGroupDescriptor, formGroup) {
+		gDesc.fields.forEach((ctrlDesc) => {
+			const name = ctrlDesc.name.replace(/\/s/g, '');
+			const ctrl = this.toDynamicFormControl(ctrlDesc);
+			formGroup.addControl(ctrlDesc.name, ctrl);
+		});
 	}
 
 	toDynamicFormControl(ctrlDesc: FormControlDescriptor): DynamicFormControl {
