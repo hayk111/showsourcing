@@ -1,8 +1,8 @@
-import { LogLevels } from "../app/utils/logger/log-levels";
+import { LogLevels } from '../app/utils/logger/log-levels';
 
 
 export const environment = {
-  production: true,
-  apiUrl: `https://app.showsourcing.com/api/`,
-  LOG_LEVEL: LogLevels.ERROR
+	production: true,
+	apiUrl: 'https://stoemelings.showsourcing.com/api/',
+	LOG_LEVEL: LogLevels.ERROR
 };

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppComment } from '../../store/model/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { FileUploader2 } from '../uploader/services/file-uploader2.service';
+import { entityRepresentationMap } from '../../store/model/filter.model';
 
 @Injectable()
 export class ProductService {
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private uploader: FileUploader2) { }
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
 		return this.http.patch(`api/product/${p.id}`, { [p.propName]: p.value});
@@ -48,5 +50,9 @@ export class ProductService {
 
 	postComment(comment: AppComment) {
 		return this.http.post(`api/product/${comment.productId}/comment`, { text: comment.text });
+	}
+
+	postImage(productId, img: any) {
+		return this.uploader.uploadImage(img, productId, entityRepresentationMap.product);
 	}
 }

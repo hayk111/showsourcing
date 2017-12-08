@@ -15,7 +15,6 @@ import { FilterRatingPanelComponent } from './components/filter-rating-panel/fil
 import { FilterSortByPanelComponent } from './components/filter-sort-by-panel/filter-sort-by-panel.component';
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 import { UtilsModule } from '../utils/utils.module';
-import { HttpClientModule } from '@angular/common/http';
 import { WithArchivedButtonComponent } from './components/with-archived-button/with-archived-button.component';
 import { FilterProductSortPanelComponent } from './components/filter-product-sort-panel/filter-product-sort-panel.component';
 import { MatRadioModule } from '@angular/material/radio';

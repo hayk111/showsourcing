@@ -28,6 +28,8 @@ import { effects } from '../../store/effects/_effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EntitiesServicesModule } from '../entities-services/entities-services.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 
 
 
@@ -50,6 +52,7 @@ const inputMap: InputMap = {
 		LocalStorageModule,
 		EntitiesServicesModule,
 		CompanyModule,
+		HttpClientModule,
 		StoreModule.forRoot( reducerToken , { metaReducers }),
 		EffectsModule.forRoot(effects),
 		StoreDevtoolsModule.instrument({
@@ -61,7 +64,14 @@ const inputMap: InputMap = {
 		MatSnackBarModule,
 		MatDialogModule
 	],
-	providers: [ reducerProvider ],
+	providers: [
+		reducerProvider,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpApiRedirectorService,
+			multi: true
+		}
+	],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule { }

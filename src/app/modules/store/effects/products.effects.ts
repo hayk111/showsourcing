@@ -14,6 +14,8 @@ import { User } from '../model/user.model';
 import { selectUser } from '../selectors/user.selector';
 import { AppComment } from '../model/comment.model';
 import { ProductService } from '../../shared/entities-services/product.service';
+import { uuid } from '../utils/uuid.utils';
+import { FileUploader2 } from '../../shared/uploader/services/file-uploader2.service';
 
 
 @Injectable()
@@ -73,6 +75,30 @@ export class ProductEffects {
 			(comment: AppComment) => this.srv.postComment(comment),
 			(comment, r) => ProductActions.setCommentReady(comment.productId, comment.pendingUuid) )
 	);
+
+	// 1. Add pending image for each image sent
+	@Effect({dispatch: false})
+	addImages$ = this.actions$.ofType<any>(ActionType.ADD_IMAGES)
+		.map(action => action.payload)
+		.do(p => {
+			p.imgFiles.forEach(imgFile => {
+				const img = { pending: true, data: FileUploader2.imgToBase64(imgFile) };
+				this.store.dispatch(ProductActions.addPendingImage(p.productId, imgFile, img));
+			});
+		});
+
+	// 2. upload image
+	// 3. when uploaded set pending image to ready
+	@Effect()
+	pendingImage$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_IMAGE).pipe(
+		map(action => action.payload),
+		map(p => ({...p, pendingUuid: uuid()})),
+		switchMap(
+			p => this.srv.postImage(p.productId, p.img),
+			p => ProductActions.setImageReady(p.productId, p.img.pendingUuid)
+		)
+	);
+
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)

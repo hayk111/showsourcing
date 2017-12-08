@@ -14,6 +14,9 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 	let votes;
 	let target;
 	let targetIndex;
+	let pendingUuid;
+	let comments;
+	let images;
 
 	switch (action.type) {
 
@@ -64,7 +67,7 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 				votes.push(action.payload);
 			return newState;
 
-		case ActionType.ADD_VOTE:
+		case ActionType.SET_VOTE_READY:
 			id = action.payload.productId;
 			newState = copyById(state, id);
 			votes = newState.byId[id].votes;
@@ -81,12 +84,35 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 
 		case ActionType.SET_COMMENT_READY:
 			id = action.payload.productId;
-			const pendingUuid = action.payload.pendingUuid;
+			pendingUuid = action.payload.pendingUuid;
 			newState = copyById(state, id);
-			const comments = newState.byId[id].comments;
+			comments = newState.byId[id].comments;
 			target = comments.find(c => c.pendingUuid === pendingUuid);
 			target.pending = false;
 			return newState;
+
+		case ActionType.ADD_PENDING_IMAGE:
+			id = action.payload.productId;
+			newState = copyById(state, id);
+			if (!newState.byId[id].images)
+				newState.byId[id].images = [];
+			images = newState.byId[id].images;
+			images.push(action.payload.img);
+			return newState;
+
+		case ActionType.SET_IMG_READY:
+			id = action.payload.productId;
+			pendingUuid = action.payload.pendingUuid;
+			newState = copyById(state, id);
+			images = newState.byId[id].images;
+			target = images.find(c => c.pendingUuid === pendingUuid);
+			target.pending = false;
+			return newState;
+
+		case ActionType.ADD_PENDING_ATTACHMENT:
+
+		case ActionType.SET_ATTACHMENT_READY:
+
 
 		default: return state;
 	}

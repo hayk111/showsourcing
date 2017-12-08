@@ -62,7 +62,6 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 					this.dynamicFormsSrv.toDynamicFormGroup(desc.groups[3])
 				]);
 		this.groups$.takeUntil(this._destroy$).subscribe(gs => this.groups = gs);
-
 	}
 
 	onVote(value) {
@@ -82,11 +81,11 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 	// 2
 	onImgsAdded(imgs) {
-
+		this.store.dispatch(ProductActions.addImages(this.product.id, imgs));
 	}
 
 	onImgAdded(img) {
-		this.store.dispatch(ProductActions.addPendingImage(this.product.id, img));
+		// this.store.dispatch(ProductActions.addPendingImage(this.product.id, img));
 	}
 
 	onImgUploaded(img) {

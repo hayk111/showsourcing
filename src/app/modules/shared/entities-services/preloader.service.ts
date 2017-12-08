@@ -34,7 +34,6 @@ export class PreloaderService {
 	private reloadTime = 1500000;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.loadGeneralEntities();
 		// when user changed, load user entities
 		// When team Changed, load team entities.
 		this.store.select(selectUser).pipe(
@@ -52,12 +51,9 @@ export class PreloaderService {
 			// when user loaded
 	}
 
-	private loadGeneralEntities() {
+	private loadUserEntities() {
 		this.loadCountries();
 		this.loadCurrencies();
-	}
-
-	private loadUserEntities() {
 		this.loadTeams();
 	}
 
