@@ -41,7 +41,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// this.itemLoader.init('task', TaskActions, this.filterGroupName);
+		this.store.dispatch(TaskActions.load(this.filterGroupName));
 		this.tasks$ = this.store.select(selectTasks);
 		this.tasks$.takeUntil(this._destroy$)
 			.subscribe(t => this.onItemsReceived(t));

@@ -6,6 +6,7 @@ import { CategoryActions } from '../action/category.action';
 import { TagActions } from '../action/tag.action';
 import { ProjectActions } from '../action/project.action';
 import { ProductActions } from '../action/product.action';
+import { TaskActions } from '../action/task.action';
 
 
 export interface Filter {
@@ -45,6 +46,7 @@ export const entityRepresentationMap = {
 	tags: new EntityRepresentation(TagActions, 'tags', true),
 	projects: new EntityRepresentation(ProjectActions, 'projects', true),
 	product: new EntityRepresentation(ProductActions, 'products', true),
+	tasks: new EntityRepresentation(TaskActions, 'tasks', true),
 	productStatus: new EntityRepresentation(null, 'productStatus', true, 'status', 'status'),
 	// non real entities, used as is for convenience
 	prices: new EntityRepresentation(null, 'prices'),

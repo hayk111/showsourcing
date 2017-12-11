@@ -1,24 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { ActionType } from '../action/task.action';
+import { ActionType, TaskActions } from '../action/task.action';
 import { TypedAction } from '../utils/typed-action.interface';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, startWith } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { TaskService } from '../../shared/entities-services/task.service';
 
 @Injectable()
 export class TaskEffects {
+
+	@Effect()
+	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+		map(action => action.payload),
+		switchMap(filterGroupName => {
+			// get products
+			return this.srv.load(filterGroupName).pipe(
+				// set products
+				map(r => TaskActions.setData(r)),
+				// before everything set products as pending
+				startWith(TaskActions.setPending() as any)
+			);
+		})
+	);
+
 	// // Listen for the patch action
 	@Effect({ dispatch: false })
 	patch$: Observable<any> = this.actions$.ofType(ActionType.PATCH_PROPERTY)
 		.map((action: TypedAction<any>) => action.payload)
 		.pipe(
-			switchMap(p => this.sendPatchRequest(p))
+			switchMap(p => this.srv.sendPatchRequest(p))
 		);
 
-	constructor(private http: HttpClient, private actions$: Actions) {}
+	constructor(private srv: TaskService, private actions$: Actions) {}
 
-	sendPatchRequest(payload) {
-		return this.http.patch(`api/task/${payload.id}`, { [payload.propName]: payload.value});
-	}
+
 }
