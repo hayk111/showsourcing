@@ -3,10 +3,12 @@ import { Product } from '../model/product.model';
 import { TypedAction } from '../utils/typed-action.interface';
 import { ProductVote } from '../model/product-vote.model';
 import { AppComment } from '../model/comment.model';
+import { FilterGroupName } from '../model/filter.model';
 
 export enum ActionType {
-		SET_DATA = '[Product] setting',
+		LOAD = '[Product load]',
 		SET_PENDING = '[Product] pending',
+		SET_DATA = '[Product] setting',
 		PATCH_PROPERTY = '[Product] patching',
 		DEEP_LOAD_REQ = '[Product] Deep load request ',
 		DEEPLY_LOADED = '[Product] Deeply loaded',
@@ -25,6 +27,14 @@ export enum ActionType {
 }
 
 export class ProductActions {
+
+	static load(filterGroupName: FilterGroupName) {
+		return {
+			type: ActionType.LOAD,
+			payload: filterGroupName
+		};
+	}
+
 	static setData(payload: Array<Product>): TypedAction<Array<Product>> {
 			return {
 					type: ActionType.SET_DATA,

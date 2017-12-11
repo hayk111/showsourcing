@@ -3,12 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { AppComment } from '../../store/model/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { FileUploader2 } from '../uploader/services/file-uploader2.service';
-import { entityRepresentationMap } from '../../store/model/filter.model';
+import { entityRepresentationMap, FilterGroupName } from '../../store/model/filter.model';
+import { TeamItemLoaderService } from './team-item-loader.service';
 
 @Injectable()
 export class ProductService {
+	repr = entityRepresentationMap.product;
 
-	constructor(private http: HttpClient, private uploader: FileUploader2) { }
+	constructor(private http: HttpClient,
+							private uploader: FileUploader2,
+							private teamItemLoader: TeamItemLoaderService) { }
+
+	load(filterGroupName: FilterGroupName) {
+		return this.teamItemLoader.load(this.repr, filterGroupName).map(r => r.elements);
+	}
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
 		let patch = { [p.propName]: p.value };

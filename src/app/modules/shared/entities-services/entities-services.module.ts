@@ -5,6 +5,7 @@ import { PreloaderService } from './preloader.service';
 import { ProductService } from './product.service';
 import { TeamService } from './team.service';
 import { UploaderModule } from '../uploader/uploader.module';
+import { TeamItemLoaderService } from './team-item-loader.service';
 
 @NgModule({
 	imports: [
@@ -13,6 +14,6 @@ import { UploaderModule } from '../uploader/uploader.module';
 		UploaderModule
 	],
 	declarations: [],
-	providers: [ PreloaderService, ProductService, TeamService ]
+	providers: [ PreloaderService, TeamItemLoaderService, ProductService, TeamService,  ]
 })
 export class EntitiesServicesModule { }

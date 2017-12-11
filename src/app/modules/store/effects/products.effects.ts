@@ -21,14 +21,30 @@ import { FileUploader2 } from '../../shared/uploader/services/file-uploader2.ser
 @Injectable()
 export class ProductEffects {
 	userID: string;
-	// Listen for the patch action
+
+
+	@Effect()
+	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+		map(action => action.payload),
+		switchMap(filterGroupName => {
+			// get products
+			return this.srv.load(filterGroupName).pipe(
+				// set products
+				map(r => ProductActions.setData(r)),
+				// before everything set products as pending
+				startWith(ProductActions.setPending() as any)
+			);
+		})
+	);
+
+	// Listen for the patch action and sends a patch request to backend
 	@Effect({ dispatch: false })
 	patch$ = this.actions$.ofType(ActionType.PATCH_PROPERTY).pipe(
 		map((action: TypedAction<any>) => action.payload),
 		switchMap(p => this.srv.sendPatchRequest(p))
 	);
 
-
+	// deeps load a product with all its sub items (like images, attachments etc).
 	@Effect()
 	deepLoad$ = this.actions$.ofType<any>(ActionType.DEEP_LOAD_REQ).pipe(
 		map(action => action.payload),

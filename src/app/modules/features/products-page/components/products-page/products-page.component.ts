@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { Filter, FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
@@ -18,7 +17,6 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	providers: [ TeamItemLoaderService ]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// we have to pass a filterGroupName to the filteredListPage
@@ -38,12 +36,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	pending = true;
 	productEntities: EntityState<Product>;
 
-	constructor(private teamItemLoader: TeamItemLoaderService, private store: Store<any>) {
+	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.teamItemLoader.init('product', ProductActions, this.filterGroupName);
+		this.store.dispatch(ProductActions.load(this.filterGroupName));
 		this.store.select(selectProducts)
 			.takeUntil(this._destroy$)
 			.subscribe(p => this.onItemsReceived(p));

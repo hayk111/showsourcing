@@ -4,7 +4,6 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { FiltersModule } from '../filters/filters.module';
 import { FilteredListPageComponent } from './components/filtered-list-page/filtered-list-page.component';
 import { MatIconModule, MatTableModule, MatProgressBarModule } from '@angular/material';
-import { TeamItemLoaderService } from './services/team-item-loader.service';
 
 @NgModule({
 	imports: [
@@ -14,7 +13,6 @@ import { TeamItemLoaderService } from './services/team-item-loader.service';
 		MatProgressBarModule,
 		MatTableModule
 	],
-	providers: [ TeamItemLoaderService ],
 	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],
 	exports: [ FilteredListPageComponent ]
 })

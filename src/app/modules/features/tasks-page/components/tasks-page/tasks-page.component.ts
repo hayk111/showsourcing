@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, Filter, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { TeamItemLoaderService } from '../../../../shared/filtered-list-page/services/team-item-loader.service';
 import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/task.model';
@@ -17,7 +16,6 @@ import { DialogName } from '../../../../store/model/dialog.model';
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
-	providers: [ TeamItemLoaderService ]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.TASKS_PAGE;
@@ -38,12 +36,12 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasksEntities: EntityState<Task>;
 	pending = true;
 
-	constructor(private itemLoader: TeamItemLoaderService, private store: Store<any>) {
+	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.itemLoader.init('task', TaskActions, this.filterGroupName);
+		// this.itemLoader.init('task', TaskActions, this.filterGroupName);
 		this.tasks$ = this.store.select(selectTasks);
 		this.tasks$.takeUntil(this._destroy$)
 			.subscribe(t => this.onItemsReceived(t));
