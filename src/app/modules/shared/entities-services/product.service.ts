@@ -12,9 +12,10 @@ export class ProductService {
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
 		let patch = { [p.propName]: p.value };
-		if (p.propName.startsWith('x-'))
-			patch = { customFields : patch };
-
+		if (p.propName.startsWith('x-')) {
+			const propName = p.propName.substr(2);
+			patch = { customFields : { [propName]: { value : p.value} }};
+		}
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
