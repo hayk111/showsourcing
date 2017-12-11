@@ -15,11 +15,26 @@ export class ProductService {
 							private teamItemLoader: TeamItemLoaderService) { }
 
 	load(filterGroupName: FilterGroupName) {
-		return this.teamItemLoader.load(this.repr, filterGroupName).map(r => r.elements);
+		return this.teamItemLoader.load(this.repr, filterGroupName)
+			.map(r => r.elements)
+			.map(elems => this.addCustomFields(elems));
+	}
+
+	// properties in the customFields nested object are added to the product with
+	// the property name started with x-. Ask Antoine for more info.
+	addCustomFields(elems: Array<any>) {
+		elems.forEach(elem => {
+			if (elem.additionalInfo && elem.additionalInfo.customFields) {
+				const cf = elem.additionalInfo.customFields;
+				Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = v.value);
+			}
+		});
+		return elems;
 	}
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
 		let patch = { [p.propName]: p.value };
+		// check for customFields
 		if (p.propName.startsWith('x-')) {
 			const propName = p.propName.substr(2);
 			patch = { customFields : { [propName]: { value : p.value} }};
