@@ -3,8 +3,9 @@
 		*ngIf="isStandard()"
 		[type]="descriptor.fieldType"
 		[placeholder]="descriptor.label"
-		[formControl]="ctrl"></input-app>
-		
+		[formControl]="ctrl"
+		(blurred)="onUpdate(descriptor.name, $event)"></input-app>
+
 
 	<entity-select-input-app
 		*ngIf="isEntitySelect()"

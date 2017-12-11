@@ -8,11 +8,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
 
 @Component({
-	selector: 'dynamic-form-control-app',
-	templateUrl: './dynamic-form-control.component.html',
-	styleUrls: ['./dynamic-form-control.component.scss']
+	selector: 'dynamic-input-app',
+	templateUrl: './dynamic-input.component.html',
+	styleUrls: ['./dynamic-input.component.scss']
 })
-export class DynamicFormControlComponent extends AutoUnsub implements OnInit {
+export class DynamicInputComponent extends AutoUnsub implements OnInit {
 	@Input() group: FormGroup;
 	@Input() ctrl: FormControl;
 	@Input() descriptor: FormControlDescriptor;

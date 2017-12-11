@@ -19,12 +19,12 @@ import { of } from 'rxjs/observable/of';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
-	selector: 'dynamic-form-group-app',
-	templateUrl: './dynamic-form-group.component.html',
-	styleUrls: ['./dynamic-form-group.component.scss'],
+	selector: 'dynamic-form-app',
+	templateUrl: './dynamic-form.component.html',
+	styleUrls: ['./dynamic-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
+export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
 	@Input() formGroup: FormGroup = new FormGroup({});
 	formGroupInit$: Observable<boolean>;
@@ -77,7 +77,6 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 	}
 
 	getControl(name: string) {
-		debugger;
 		return this.formGroup.controls[name];
 	}
 
@@ -87,134 +86,3 @@ export class DynamicFormGroupComponent extends AutoUnsub implements OnInit {
 
 }
 
-
-const TEST = {
-	groups: [
-		{
-			name: 'Basic info',
-			fields: [
-				{
-					name: 'supplier',
-					label: 'supplier',
-					fieldType: 'standard'
-				},
-				{
-					name: 'category',
-					label: 'category',
-					fieldType: 'standard'
-				},
-				{
-					name: 'event',
-					label: 'event',
-					fieldType: 'standard'
-				},
-				{
-					name: 'name',
-					label: 'name',
-					fieldType: 'standard'
-				},
-				{
-					name: 'rating',
-					label: 'rating',
-					fieldType: 'standard'
-				},
-				{
-					name: 'priceAmount',
-					label: 'priceAmount',
-					fieldType: 'standard'
-				},
-				{
-					name: 'priceCurrency',
-					label: 'priceCurrency',
-					fieldType: 'standard'
-				},
-				{
-					name: 'minimumOrderQuantity',
-					label: 'minimumOrderQuantity',
-					fieldType: 'standard'
-				},
-				{
-					name: 'description',
-					label: 'description',
-					fieldType: 'standard'
-				},
-				{
-					name: 'tags',
-					label: 'tags',
-					fieldType: 'standard'
-				},
-				{
-					name: 'projects',
-					label: 'projects',
-					fieldType: 'standard'
-				}
-			]
-		},
-		{
-			name: 'Custom fields',
-			fields: [
-				{
-					name: 'freeText',
-					label: 'Free text',
-					fieldType: 'free-text'
-				},
-				{
-					name: 'textZone',
-					label: 'Text zone',
-					fieldType: 'text-zone'
-				},
-				{
-					name: 'multipleChoice',
-					label: 'Multiple choice',
-					fieldType: 'multiple-choice',
-					enumerationName: 'choices'
-				},
-				{
-					name: 'user',
-					label: 'User',
-					fieldType: 'user'
-				},
-				{
-					name: 'supplier',
-					label: 'Supplier',
-					fieldType: 'supplier'
-				},
-				{
-					name: 'checkBox',
-					label: 'Check-box',
-					fieldType: 'check-box'
-				},
-				{
-					name: 'number',
-					label: 'Number',
-					fieldType: 'number'
-				},
-				{
-					name: 'customPrice',
-					label: 'Custom price',
-					fieldType: 'price'
-				},
-				{
-					name: 'date',
-					label: 'Date',
-					fieldType: 'date'
-				},
-				{
-					name: 'decimalNumber',
-					label: 'Decimal number',
-					fieldType: 'decimal-number'
-				}
-			]
-		},
-		{
-			name: 'Pouet',
-			fields: [
-				{
-					name: 'fournisseur',
-					label: 'Fournisseur',
-					fieldType: 'supplier'
-				}
-			]
-		}
-	]
-}
