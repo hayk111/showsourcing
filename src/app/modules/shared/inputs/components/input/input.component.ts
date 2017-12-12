@@ -26,6 +26,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	@Input() margin = true;
 	@Input() floatPlaceholder = 'auto';
 	@Output() blurred = new EventEmitter();
+	private _type: string;
 
 	constructor(protected inj: Injector) { super(inj); }
 
@@ -35,10 +36,13 @@ export class InputComponent extends AbstractInput implements OnInit {
 	}
 
 	private addValidatorForType() {
-		switch (this.type) {
-			// case 'number':
-			// 	this.regex = new RegExp(RegexpApp.DIGITS);
-			// 	break;
+		switch (this._type) {
+			case 'number':
+				this.regex = new RegExp(RegexpApp.DIGITS);
+				break;
+			case 'decimal':
+				this.regex = new RegExp(RegexpApp.DECIMAL);
+				break;
 			case 'url':
 				break;
 			case 'tel':
@@ -79,7 +83,23 @@ export class InputComponent extends AbstractInput implements OnInit {
 	}
 
 	onBlur() {
-		this.blurred.emit(this.value);
+		let value = this.value;
+		if (this.type === 'number')
+			value = +value;
+		this.blurred.emit(value);
+	}
+
+	get type() {
+		switch (this._type) {
+			case 'decimal':
+				return 'number';
+			default:
+				return this._type;
+		}
+	}
+
+	set type(type: string) {
+		this._type = type;
 	}
 
 }

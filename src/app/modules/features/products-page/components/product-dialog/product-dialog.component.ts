@@ -32,20 +32,20 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import Log from '../../../../../utils/logger/log.class';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
 	selector: 'product-dialog-app',
 	templateUrl: './product-dialog.component.html',
 	styleUrls: ['./product-dialog.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	dlgName = DialogName.PRODUCT;
 	entityRepr = entityRepresentationMap.product;
-	product;
-	groups = [new FormGroup({}), new FormGroup({})] as Array<DynamicFormGroup>;
 	product$: Observable<Product>;
-	descriptors$: Observable<Array<FormGroupDescriptor>>;
 	itemId$: Observable<string>;
+	productId: string;
 
 	constructor(private store: Store<any>,
 							private dynamicFormsSrv: DynamicFormsService,
@@ -54,17 +54,10 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 	}
 
 	ngOnInit() {
-		this.descriptors$ = of(customFieldsMock)
-			.map(desc => [
-					desc.groups[0],
-					desc.groups[1],
-					desc.groups[2],
-					desc.groups[3]
-				]);
 	}
 
 	onVote(value) {
-		this.store.dispatch(ProductActions.voteProduct(this.product.id, value));
+		this.store.dispatch(ProductActions.voteProduct(this.productId, value));
 	}
 
 	onRequest() {
@@ -72,25 +65,25 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 	}
 
 	onNewComment(text: string) {
-		this.store.dispatch(ProductActions.comment(this.product.id, text));
+		this.store.dispatch(ProductActions.comment(this.productId, text));
 	}
 
 	onUpdate( { name, value} ) {
-		this.store.dispatch(ProductActions.patch(this.product.id, name, value));
+		this.store.dispatch(ProductActions.patch(this.productId, name, value));
 	}
 	// 2
 	onImgsAdded(imgs) {
-		this.store.dispatch(ProductActions.addImages(this.product.id, imgs));
+		this.store.dispatch(ProductActions.addImages(this.productId, imgs));
 	}
 
 	onImgAdded(img) {
-		// this.store.dispatch(ProductActions.addPendingImage(this.product.id, img));
+		// this.store.dispatch(ProductActions.addPendingImage(this.productId, img));
 	}
 
 	onImgUploaded(img) {
-		this.http.post(`api/product/${this.product.id}/image`,
-				{ imageId: img.info.id, itemId: this.product.id, mainImage: false })
-			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.product.id, img)));
+		this.http.post(`api/product/${this.productId}/image`,
+				{ imageId: img.info.id, itemId: this.productId, mainImage: false })
+			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.productId, img)));
 	}
 
 	onDlgRegistered() {
@@ -110,8 +103,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 			.takeUntil(this._destroy$).subscribe((product) => {
 				if (!product.deeplyLoaded)
 					this.store.dispatch(ProductActions.deepLoad(product.id));
-				this.product = product;
-				this.groups[0].patchValue(product);
+				this.productId = product.id;
 			});
 	}
 

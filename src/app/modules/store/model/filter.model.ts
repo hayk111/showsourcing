@@ -48,6 +48,7 @@ export const entityRepresentationMap = {
 	product: new EntityRepresentation(ProductActions, 'products', true),
 	tasks: new EntityRepresentation(TaskActions, 'tasks', true),
 	productStatus: new EntityRepresentation(null, 'productStatus', true, 'status', 'status'),
+	currencies: new EntityRepresentation(null, 'currencies', true),
 	// non real entities, used as is for convenience
 	prices: new EntityRepresentation(null, 'prices'),
 	minPrices: new EntityRepresentation(null, 'minPrices'),

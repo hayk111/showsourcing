@@ -6,11 +6,12 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'dynamic-input-app',
 	templateUrl: './dynamic-input.component.html',
-	styleUrls: ['./dynamic-input.component.scss']
+	styleUrls: ['./dynamic-input.component.scss'],
 })
 export class DynamicInputComponent extends AutoUnsub implements OnInit {
 	@Input() group: FormGroup;
@@ -32,31 +33,10 @@ export class DynamicInputComponent extends AutoUnsub implements OnInit {
 		this.update.emit({ name, value });
 	}
 
-	isEntitySelect() {
-		const f = this.descriptor.name;
-		const isStandard = this.descriptor.fieldType === 'standard';
-		return f === 'supplier' || (isStandard && (f === 'supplier' || f === 'category' || f === 'event' || f === 'status'));
-	}
-
-	getEntityRep(name: string) {
-		return Object.values(entityRepresentationMap).find(repr => repr.urlName === name);
-	}
-
 	isStandard() {
 		const type = this.descriptor.fieldType;
-		const name = this.descriptor.name;
-		return type === 'free-text' || type === 'number' || (type === 'standard' && name === 'name');
+		return type === 'text' || type === 'number' || type === 'url' || type === 'email' || type === 'decimal'
+			|| type === 'date';
 	}
 
-	isRating() {
-		const type = this.descriptor.fieldType;
-		const name = this.descriptor.name;
-		return name === 'rating' && type === 'standard';
-	}
-
-	isTextArea() {
-		const type = this.descriptor.fieldType;
-		const name = this.descriptor.name;
-		return type === 'text-zone' || (type === 'standard' && name === 'description');
-	}
 }

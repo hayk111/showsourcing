@@ -1,6 +1,6 @@
 
 <dialog-app [name]="dlgName" (registered)="onDlgRegistered()">
-	<ng-container *ngIf="product">
+	<ng-container *ngIf="product$ | async as product">
 		<div class="flex">
 			<div>
 				<!-- <input-image-app 
@@ -25,7 +25,7 @@
 
 			<dynamic-form-app 
 				class="customForm"
-				[entityRepr]="entityRepr" 
+				[entityRepr]="entityRepr"
 				[entityId]="product.id"></dynamic-form-app>
 
 		</div>		

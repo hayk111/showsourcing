@@ -24,6 +24,8 @@ import { selectUser, selectUserTeamId } from '../../store/selectors/user.selecto
 import { selectAuthentication } from '../../store/selectors/authentication.selector';
 import { distinct } from 'rxjs/operators';
 import { TeamMembersActions } from '../../store/action/team-members.action';
+import { entityRepresentationMap } from '../../store/model/filter.model';
+import { CustomFieldsService } from './custom-fields.service';
 
 
 @Injectable()
@@ -33,7 +35,7 @@ export class PreloaderService {
 	private maxCounter = 0;
 	private reloadTime = 1500000;
 
-	constructor(private http: HttpClient, private store: Store<any>) {
+	constructor(private http: HttpClient, private store: Store<any>, private cfSrv: CustomFieldsService) {
 		// when user changed, load user entities
 		// When team Changed, load team entities.
 		this.store.select(selectUser).pipe(
@@ -128,17 +130,8 @@ export class PreloaderService {
 
 	private loadCustomFields() {
 		this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
-			.map(r => this.mapCustomFields(r))
+			.map(r => this.cfSrv.mapCustomFields(r))
 			.subscribe(r => this.store.dispatch(CustomFieldsActions.set(r)));
 	}
 
-	private mapCustomFields(r) {
-		r.productsCFDef.groups.forEach(g => {
-			if (g.name !== 'Basic info')
-				g.fields.forEach(f => {
-					f.name = 'x-' + f.name;
-				});
-		});
-		return r;
-	}
 }

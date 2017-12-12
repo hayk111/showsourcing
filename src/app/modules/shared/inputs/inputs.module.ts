@@ -19,11 +19,14 @@ import { ImagePreviewDirective } from './components/input-image/preview/image-pr
 import { FeedbackInputComponent } from './components/feedback-input/feedback-input.component';
 import { CommentsInputComponent } from './components/comments-input/comments-input.component';
 import { TextareaInputComponent } from './components/textarea-input/textarea-input.component';
+import { InputCurrencyComponent } from './components/input-currency/input-currency.component';
+import { InputPriceComponent } from './components/input-price/input-price.component';
 
 const components = [ InputComponent, InputAddressComponent, InputContactComponent,
 											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent,
 											RatingInputComponent, InputImageComponent, ImagePreviewDirective,
-											FeedbackInputComponent, CommentsInputComponent, TextareaInputComponent ];
+											FeedbackInputComponent, CommentsInputComponent, TextareaInputComponent,
+											InputCurrencyComponent, InputPriceComponent ];
 
 @NgModule({
 	imports: [

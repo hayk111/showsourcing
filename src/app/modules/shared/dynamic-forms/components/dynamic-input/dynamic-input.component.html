@@ -8,20 +8,27 @@
 
 
 	<entity-select-input-app
-		*ngIf="isEntitySelect()"
+		*ngIf="descriptor.fieldType === 'entitySelect'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		[entityRep]="getEntityRep(descriptor.name)"
+		[entityRep]="descriptor.metadata"
 		(change)="onUpdate(descriptor.name, $event)"></entity-select-input-app> 
-	
+
+	<input-price-app
+		*ngIf="descriptor.fieldType === 'price'"
+		[placeholder]="descriptor.label"
+		[formControl]="ctrl"
+		(change)="onUpdate(descriptor.name, $event)"></input-price-app>
+
+
 	<rating-input-app 
-		*ngIf="isRating()"
+		*ngIf="descriptor.fieldType === 'rating'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
 		(change)="onUpdate(descriptor.name, $event)"></rating-input-app>
 
 	<textarea-input-app
-		*ngIf="isTextArea()"
+		*ngIf="descriptor.fieldType === 'textarea'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
 		(blurred)="onUpdate(descriptor.name, $event)"></textarea-input-app>

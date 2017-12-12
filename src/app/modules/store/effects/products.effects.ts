@@ -50,7 +50,7 @@ export class ProductEffects {
 		map(action => action.payload),
 		switchMap(
 			id => this.srv.deepLoad(id),
-			(id, result) => {
+			(id, result: Array<any>) => {
 				// transform {key: value} array into object.
 				const resObj = result.reduce((acc, cur) => ({...acc, ...cur }), {});
 				return ProductActions.deeplyLoaded(id, resObj);

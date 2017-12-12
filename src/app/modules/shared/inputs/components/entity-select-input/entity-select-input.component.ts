@@ -7,6 +7,7 @@ import { selectEntity } from '../../../../store/selectors/utils.selector';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 import { EntityRepresentation } from '../../../../store/model/filter.model';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
 	selector: 'entity-select-input-app',
@@ -35,7 +36,6 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 	ngOnInit() {
 		super.ngOnInit();
 		this.entities$ = this.store.select(selectEntity(this.entityRep.entityName));
-		this.entities$.subscribe(ent => this.entities = ent);
 	}
 
 	onChange(value) {

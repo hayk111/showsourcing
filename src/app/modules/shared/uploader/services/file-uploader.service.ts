@@ -26,7 +26,6 @@ interface FileItemWithToken extends FileItem {
 @Injectable()
 export class FileUploaderService extends FileUploader {
 	private static fileID = 0;
-	uploader: FileUploader;
 	// so we can link the image to its entity when it's been uploaded
 	entityRepr: EntityRepresentation;
 	entityId: string;
@@ -34,7 +33,6 @@ export class FileUploaderService extends FileUploader {
 	// the upload data changes when the type changes
 	private _type = 'image';
 	private _imageType = 'Photo';
-	private reader = new FileReader();
 
 	constructor(@Inject('uploaderOptions') @Optional()
 							options: FileUploaderOptions,

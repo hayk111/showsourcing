@@ -16,13 +16,12 @@ import { filter } from 'rxjs/operators';
 import { selectEntity, selectEntityById } from '../../../../store/selectors/utils.selector';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
 	selector: 'dynamic-form-app',
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['./dynamic-form.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
@@ -41,7 +40,9 @@ export class DynamicFormComponent extends AutoUnsub implements OnInit {
 		this._entityId$.next(id);
 	}
 
-	constructor(private dynamicFormsSrv: DynamicFormsService, private store: Store<any>) {
+	constructor(private dynamicFormsSrv: DynamicFormsService,
+							private store: Store<any>,
+							private cd: ChangeDetectorRef) {
 		super();
 	}
 
@@ -74,6 +75,7 @@ export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	private patch(entity) {
 		this.formGroup.reset();
 		this.formGroup.patchValue(entity);
+		setTimeout( () => { this.cd.detectChanges(); }, 100);
 	}
 
 	getControl(name: string) {
