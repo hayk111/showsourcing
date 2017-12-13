@@ -2,8 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EntityRepresentation } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { AppFile } from '../../../../store/model/app-file.model';
-import { FileActions } from '../../../../store/action/app-file.action';
+import { FileActions } from '../../../../store/action/file.action';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { Observable } from 'rxjs/Observable';
+import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
 
 @Component({
 	selector: 'file-input-app',
@@ -11,22 +13,36 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 	styleUrls: ['./file-input.component.scss']
 })
 export class FileInputComponent implements OnInit {
-	@Input() target: EntityTarget;
+	files$: Observable<Array<AppFile>>;
+	private _target: EntityTarget;
+	// @Input target at the bottom
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+		this.files$ = this.store.select<any>(selectFilesForTarget(this.target));
 	}
 
-	onFileDrop(files: Array<File>) {
+	onFileChange(files: Array<File>) {
 		files.forEach(file => {
 			const appFile: AppFile = { file, target: this.target };
 			this.store.dispatch(FileActions.addNew(appFile));
 		});
 	}
 
-	onChange(event) {
-		debugger;
+	getExtension(name: string) {
+		const parts = name.split('.');
+		return parts[parts.length - 1];
+	}
+
+	@Input()
+	set target(target: EntityTarget) {
+		this.store.dispatch(FileActions.load(target));
+		this._target = target;
+	}
+
+	get target() {
+		return this._target;
 	}
 
 }

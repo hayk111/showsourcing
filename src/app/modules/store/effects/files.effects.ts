@@ -1,6 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { FileActions, ActionType } from '../action/app-file.action';
+import { FileActions, ActionType } from '../action/file.action';
 import { FileService } from '../../shared/entities-services/file.service';
 import { map, switchMap } from 'rxjs/operators';
 import { EntityTarget } from '../utils/entities.utils';

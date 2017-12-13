@@ -41,8 +41,7 @@ export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	}
 
 	constructor(private dynamicFormsSrv: DynamicFormsService,
-							private store: Store<any>,
-							private cd: ChangeDetectorRef) {
+							private store: Store<any>) {
 		super();
 	}
 
@@ -75,7 +74,6 @@ export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	private patch(entity) {
 		this.formGroup.reset();
 		this.formGroup.patchValue(entity);
-		setTimeout( () => { this.cd.detectChanges(); }, 100);
 	}
 
 	getControl(name: string) {

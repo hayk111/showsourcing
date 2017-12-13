@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/services/auth.service';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../store/model/user.model';

@@ -1,4 +1,4 @@
-import { ActionType } from '../action/app-file.action';
+import { ActionType } from '../action/file.action';
 import { AppFile } from '../model/app-file.model';
 import { uuid } from '../utils/uuid.utils';
 
@@ -7,6 +7,9 @@ const initialState = [];
 
 export function filesReducer(state = initialState, action) {
 	let newState;
+	let id;
+	let index;
+
 	switch (action.type) {
 		case ActionType.SET:
 			// when we set we have to keep the pending files,
@@ -18,11 +21,18 @@ export function filesReducer(state = initialState, action) {
 		case ActionType.ADD_PENDING:
 			return state.concat(action.payload);
 		case ActionType.SET_READY:
-			const id = action.payload.id;
+			id = action.payload.id;
 			const replacing = action.payload.replacing;
-			const index = state.findIndex(f => f.id === id);
+			index = state.findIndex(f => f.id === id);
 			newState = [...state];
 			newState[index] = replacing;
+			return newState;
+		case ActionType.REPORT_PROGRESS:
+			id = action.payload.id;
+			const progress = action.payload.progress;
+			index = state.findIndex(f => f.id === id);
+			newState = [...state];
+			newState[index] = { ...newState[index], progress  };
 			return newState;
 		default: return state;
 	}

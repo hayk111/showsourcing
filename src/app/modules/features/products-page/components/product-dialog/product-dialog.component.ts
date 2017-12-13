@@ -32,7 +32,7 @@ import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { CommentActions } from '../../../../store/action/comment.action';
-import { FileActions } from '../../../../store/action/app-file.action';
+import { FileActions } from '../../../../store/action/file.action';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -40,10 +40,10 @@ import { FileActions } from '../../../../store/action/app-file.action';
 	styleUrls: ['./product-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	dlgName = DialogName.PRODUCT;
 	entityRepr = entityRepresentationMap.product;
-	target: EntityTarget;
+	target$: Observable<EntityTarget>;
 	product$: Observable<Product>;
 	itemId$: Observable<string>;
 	productId: string;
@@ -90,18 +90,11 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
 		this.itemId$ = this.selectProductId();
+		this.target$ = this.itemId$.map(id => ({ entityId: id, entityRepr: this.entityRepr }));
 		// select correct product
 		this.product$ = this.itemId$.pipe(
 			switchMap((id) => this.store.select<any>(selectProductById(id)))
-			);
-		// deeps loads product
-		this.product$
-			.takeUntil(this._destroy$).subscribe((product) => {
-				this.target = { entityId: product.id, entityRepr: this.entityRepr };
-				this.store.dispatch(CommentActions.load(this.target));
-				this.store.dispatch(FileActions.load(this.target));
-				this.productId = product.id;
-			});
+		);
 	}
 
 	private selectProductId() {
@@ -113,8 +106,5 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 		);
 	}
 
-	ngAfterViewInit() {
-
-	}
 
 }

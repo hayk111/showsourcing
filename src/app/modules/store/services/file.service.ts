@@ -7,19 +7,29 @@ import { AppFile } from '../../store/model/app-file.model';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { uuid } from '../../store/utils/uuid.utils';
 import { EntityRepresentation } from '../../store/model/filter.model';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../store/selectors/user.selector';
+import { FileActions } from '../../store/action/file.action';
 
 
 
 @Injectable()
 export class FileService {
+	userId: string;
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, private store: Store<any>) {
+		// if we come so far the user is for sure defined.
+		this.store.select(selectUser).subscribe(user => this.userId = user.id);
+	}
 
 	getPendingFile(file: AppFile) {
 		const copy = { ...file };
 		copy.pending = true;
 		copy.id = uuid();
-		copy.name = file.file.name;
+		copy.fileName = file.file.name;
+		copy.creationDate = Date.now();
+		copy.createdByUserId = this.userId;
+		copy.progress = 0;
 		return copy;
 	}
 
@@ -27,13 +37,18 @@ export class FileService {
 		const obs = [];
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/attachment`);
+		return this.http.get(`api/${name}/${id}/attachment`)
+		.pipe(
+			tap((r: Array<AppFile>) => r.forEach(f => f.target = target))
+		);
 	}
 
 	uploadFile(file: AppFile): Observable<any> {
 		const fileName = file.file.name;
 		return this.getAWSInfo('attachment', { fileName }).pipe(
 			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file)),
+			// adding target to the file so we know what it's linked to
+			tap((returnedFile: AppFile) => returnedFile.target = file.target)
 		);
 	}
 
@@ -70,9 +85,9 @@ export class FileService {
 
 	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
 		switch (event.type) {
-			case HttpEventType.DownloadProgress:
+			case HttpEventType.UploadProgress:
 				const progress = Math.round(100 * event.loaded / appFile.file.size);
-				// this.store.dispatch(FileAction.reportProgress());
+				this.store.dispatch(FileActions.reportProgress(appFile, progress));
 				return false;
 			case HttpEventType.Response:
 				return true;

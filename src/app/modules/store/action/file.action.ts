@@ -9,6 +9,7 @@ export enum ActionType {
 	ADD_NEW = '[File] Adding new file',
 	ADD_PENDING = '[File] Add pending',
 	SET_READY = '[File] Set ready',
+	REPORT_PROGRESS = '[File] Reporting progress'
 }
 
 export class FileActions {
@@ -44,6 +45,13 @@ export class FileActions {
 		return {
 			type: ActionType.SET_READY,
 			payload: { id, replacing }
+		};
+	}
+
+	static reportProgress(file: AppFile, progress: number) {
+		return {
+			type: ActionType.REPORT_PROGRESS,
+			payload: { id: file.id, progress }
 		};
 	}
 }

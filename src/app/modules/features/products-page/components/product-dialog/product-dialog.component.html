@@ -3,17 +3,11 @@
 	<ng-container *ngIf="product$ | async as product">
 		<div class="flex">
 			<div>
-				<!-- <input-image-app 
-					(imgAdded)="onImgAdded($event)"
-					(imgUploaded)="onImgUploaded($event)"
-					[autoLinkImage]="false"
-					[images]="product.images"></input-image-app> -->
-				<!-- <img-input-app 
-					(imgsAdded)="onImgsAdded($event)"
-					[images]="product.images">
-				</img-input-app> -->
-				<file-input-app 
-					[target]="target"></file-input-app>
+				
+				<ng-container *ngIf="target$ | async as target">
+					<file-input-app 
+						[target]="target"></file-input-app>					
+				</ng-container>
 
 			</div>
 			<div>
