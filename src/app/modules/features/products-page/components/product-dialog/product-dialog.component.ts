@@ -5,7 +5,6 @@ import { FormBuilderService } from '../../../../shared/form-builder/services/for
 import { FormGroupDescriptor } from '../../../../shared/form-builder/interfaces/form-group-descriptor.interface';
 import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-descriptor.interface';
 import { Observable } from 'rxjs/Observable';
-import { FileUploader, FileItem, ParsedResponseHeaders, FileUploaderOptions } from 'ng2-file-upload';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { EntityState } from '../../../../store/utils/entities.utils';
@@ -23,7 +22,6 @@ import { takeUntil } from 'rxjs/operator/takeUntil';
 import { HttpClient } from '@angular/common/http';
 import { selectCustomField } from '../../../../store/selectors/custom-fields.selector';
 import { CustomFieldsName } from '../../../../store/reducer/custom-fields.reducer';
-import { FileUploaderService } from '../../../../shared/uploader/services/file-uploader.service';
 import { of } from 'rxjs/observable/of';
 import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
@@ -33,6 +31,7 @@ import Log from '../../../../../utils/logger/log.class';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { CommentActions } from '../../../../store/action/comment.action';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -101,8 +100,10 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 		// deeps loads product
 		this.product$
 			.takeUntil(this._destroy$).subscribe((product) => {
+				const target = { entityId: product.id, entityRepr: this.entityRepr };
 				if (!product.deeplyLoaded)
 					this.store.dispatch(ProductActions.deepLoad(product.id));
+				this.store.dispatch(CommentActions.load(target));
 				this.productId = product.id;
 			});
 	}
