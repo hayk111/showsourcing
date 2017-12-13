@@ -25,7 +25,7 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 	entities$: Observable<EntityState<any>>;
 	private subscriptions = [];
 	@Input() entityRep: EntityRepresentation;
-	@Output() change = new EventEmitter();
+	@Output() update = new EventEmitter();
 	selected: EntityState<any>;
 	entities;
 
@@ -40,7 +40,7 @@ export class EntitySelectInputComponent extends AbstractInput implements OnInit 
 
 	onChange(value) {
 		// TODO: Why the heck doesn't it work without an output ?
-		this.change.emit(value);
+		this.update.emit(value);
 		super.onChange(value);
 	}
 

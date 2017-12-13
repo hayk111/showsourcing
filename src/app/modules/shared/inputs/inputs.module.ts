@@ -13,8 +13,6 @@ import { EntitySelectInputComponent } from './components/entity-select-input/ent
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RatingInputComponent } from './components/rating-input/rating-input.component';
-import { FileUploadModule } from 'ng2-file-upload';
-import { InputImageComponent } from './components/input-image/input-image.component';
 import { ImagePreviewDirective } from './components/input-image/preview/image-preview.directive';
 import { FeedbackInputComponent } from './components/feedback-input/feedback-input.component';
 import { CommentsInputComponent } from './components/comments-input/comments-input.component';
@@ -24,7 +22,7 @@ import { InputPriceComponent } from './components/input-price/input-price.compon
 
 const components = [ InputComponent, InputAddressComponent, InputContactComponent,
 											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent,
-											RatingInputComponent, InputImageComponent, ImagePreviewDirective,
+											RatingInputComponent, ImagePreviewDirective,
 											FeedbackInputComponent, CommentsInputComponent, TextareaInputComponent,
 											InputCurrencyComponent, InputPriceComponent ];
 
@@ -37,7 +35,6 @@ const components = [ InputComponent, InputAddressComponent, InputContactComponen
 		MatInputModule,
 		MatSelectModule,
 		MatAutocompleteModule,
-		FileUploadModule,
 	],
 	declarations: components,
 	// entryComponents: components,

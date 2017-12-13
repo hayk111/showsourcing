@@ -12,21 +12,19 @@
 					(imgsAdded)="onImgsAdded($event)"
 					[images]="product.images">
 				</img-input-app> -->
+				<file-input-app 
+					[entityRepr]="entityRepr" 
+					[entityId]="product.id"></file-input-app>
+
 			</div>
 			<div>
-				<feedback-input-app
-					(vote)="onVote($event)"
-					(request)="onRequest()"
-					[votes]="product.votes"></feedback-input-app>
-				<comments-input-app
-					(newComment)="onNewComment($event)"
-					[comments]="product.comments"></comments-input-app>
+   -->
 			</div>
-
+<!-- 
 			<dynamic-form-app 
 				class="customForm"
 				[entityRepr]="entityRepr"
-				[entityId]="product.id"></dynamic-form-app>
+				[entityId]="product.id"></dynamic-form-app> -->
 
 		</div>		
 		

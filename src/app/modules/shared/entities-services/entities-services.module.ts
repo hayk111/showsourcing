@@ -8,6 +8,7 @@ import { UploaderModule } from '../uploader/uploader.module';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { TaskService } from './task.service';
 import { CustomFieldsService } from './custom-fields.service';
+import { CommentService } from './comment.service';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,14 @@ import { CustomFieldsService } from './custom-fields.service';
 		UploaderModule
 	],
 	declarations: [],
-	providers: [ PreloaderService, TeamItemLoaderService, ProductService, TeamService, TaskService,
-							CustomFieldsService ]
+	providers: [
+		PreloaderService,
+		TeamItemLoaderService,
+		ProductService,
+		TeamService,
+		TaskService,
+		CustomFieldsService,
+		CommentService
+	]
 })
 export class EntitiesServicesModule { }

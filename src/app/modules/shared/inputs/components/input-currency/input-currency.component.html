@@ -1,12 +1,10 @@
 <ng-container *ngIf="currencies$ | async as currencies">
 	
-		<mat-form-field>
-			<mat-select [placeholder]="placeholder" (change)="onChange($event.value)" [value]="value">
-				<mat-option *ngFor="let id of currencies.ids" [value]="currencies.byId[id]" >
+			<select #inp (change)="onChange(inp.value)" [value]="value">
+				<option *ngFor="let id of currencies.ids" [value]="currencies.byId[id]" >
 					{{ currencies.byId[id].name }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+				</option>
+			</select>
 	
 	</ng-container>
 	

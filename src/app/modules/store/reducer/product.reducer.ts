@@ -4,6 +4,7 @@ import { Product } from '../model/product.model';
 import { EntityState, entityInitialState, setEntities, copyById } from '../utils/entities.utils';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { AppComment } from '../model/comment.model';
+import { AppFile } from '../model/app-file.model';
 
 
 
@@ -41,17 +42,29 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			const img = { ...action.payload.img, pending: true };
 			newState = copyById(state, id);
 			// we can use push because copyById makes a deep copy of the product
+			newState.byId[id].images = newState.byId[id].images || [];
 			newState.byId[id].images.push(img);
 			return newState;
 
+		case ActionType.ADD_PENDING_ATTACHMENT:
+			const file: AppFile = action.payload;
+			newState = copyById(state, id);
+			newState.byId[id].attachments = newState.byId[id].attachments || [];
+			newState.byId[id].attachments.push(file);
+			return newState;
+
 		case ActionType.SET_IMG_READY:
-			id = action.payload.id;
+			debugger;
+			id = action.payload.entityId;
 			const imgID = action.payload.imgID;
 			newState = copyById(state, id);
 			const targetImgs = newState.byId[id].images;
 			// find img
 			targetIndex = targetImgs.findIndex(daimg => daimg.id === imgID);
 			targetImgs[targetIndex].pending = false;
+			return newState;
+
+		case ActionType.SET_ATTACHMENT_READY:
 			return newState;
 
 		case ActionType.ADD_VOTE_PENDING:

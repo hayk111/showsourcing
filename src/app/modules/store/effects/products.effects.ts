@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { ActionType, ProductActions } from '../action/product.action';
 import { TypedAction } from '../utils/typed-action.interface';
-import { switchMap, map, merge, mergeMap, startWith } from 'rxjs/operators';
+import { switchMap, map, merge, mergeMap, startWith, tap } from 'rxjs/operators';
 import { zip } from 'rxjs/observable/zip';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
@@ -16,6 +16,7 @@ import { AppComment } from '../model/comment.model';
 import { ProductService } from '../../shared/entities-services/product.service';
 import { uuid } from '../utils/uuid.utils';
 import { FileUploader2 } from '../../shared/uploader/services/file-uploader2.service';
+import { AppFile } from '../model/app-file.model';
 
 
 @Injectable()
@@ -92,31 +93,71 @@ export class ProductEffects {
 			(comment, r) => ProductActions.setCommentReady(comment.productId, comment.pendingUuid) )
 	);
 
+	// // 1. Add pending image for each image sent
+	// @Effect({dispatch: false})
+	// addImages$ = this.actions$.ofType<any>(ActionType.ADD_IMAGES)
+	// 	.map(action => action.payload)
+	// 	.do(p => {
+	// 		p.imgFiles.forEach(imgFile => {
+	// 			const img = { pending: true, data: FileUploader2.imgToBase64(imgFile) };
+	// 			this.store.dispatch(ProductActions.addPendingImage(p.productId, imgFile, img));
+	// 		});
+	// 	});
+
+	// // 2. upload image
+	// // 3. when uploaded set pending image to ready
+	// @Effect()
+	// pendingImage$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_IMAGE).pipe(
+	// 	map(action => action.payload),
+	// 	map(p => ({...p, pendingUuid: uuid()})),
+	// 	switchMap(
+	// 		p => this.srv.postImage(p.productId, p.img),
+	// 		p => ProductActions.setImageReady(p.productId, p.img.pendingUuid)
+	// 	)
+	// );
+
+
+
 	// 1. Add pending image for each image sent
-	@Effect({dispatch: false})
-	addImages$ = this.actions$.ofType<any>(ActionType.ADD_IMAGES)
-		.map(action => action.payload)
-		.do(p => {
-			p.imgFiles.forEach(imgFile => {
-				const img = { pending: true, data: FileUploader2.imgToBase64(imgFile) };
-				this.store.dispatch(ProductActions.addPendingImage(p.productId, imgFile, img));
-			});
-		});
+	@Effect()
+	addAttachments$ = this.actions$.ofType<any>(ActionType.ADD_ATTACHMENT)
+		.pipe(
+			map(action => action.payload),
+			switchMap(
+				(p) => of(this.uploader.getPendingFile(p)),
+				(p, attachment: AppFile) => ProductActions.addPendingAttachment(attachment, p.file)
+			)
+		);
 
 	// 2. upload image
 	// 3. when uploaded set pending image to ready
 	@Effect()
-	pendingImage$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_IMAGE).pipe(
+	pendingAttachment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_ATTACHMENT).pipe(
 		map(action => action.payload),
-		map(p => ({...p, pendingUuid: uuid()})),
 		switchMap(
-			p => this.srv.postImage(p.productId, p.img),
-			p => ProductActions.setImageReady(p.productId, p.img.pendingUuid)
+			(p: { attachment: AppFile, file: File }) =>
+				this.uploader.uploadFile(p.file).pipe(
+					map(event => this.mapFileProgress(event, p.file, p.attachment))
+			)
 		)
 	);
 
+	// TODO: MOVE this inside upload service.
+	private mapFileProgress(event: HttpEvent<any>, file: File, attachment: AppFile) {
+		switch (event.type) {
+			case HttpEventType.DownloadProgress:
+				const progress = Math.round(100 * event.loaded / file.size);
+				// FileActions.reportFileProgress(file.pendingUuid, progress);
+				break;
+			case HttpEventType.Response:
+				ProductActions.setAttachmentReady(attachment);
+				break;
+		}
+	}
 
-	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
+
+	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>,
+							private uploader: FileUploader2) {
 		this.store.select(selectUser).map(user => user.id)
 			.subscribe(id => this.userID = id);
 	}

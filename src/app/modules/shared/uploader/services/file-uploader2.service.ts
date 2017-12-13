@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { EntityRepresentation } from '../../../store/model/filter.model';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable } from 'rxjs/Observable';
+import { uuid } from '../../../store/utils/uuid.utils';
+import { Subject } from 'rxjs/Subject';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { AppFile } from '../../../store/model/app-file.model';
 
 // service that takes everything that's common to all uploads
 @Injectable()
@@ -9,14 +15,23 @@ export class FileUploader2 {
 
 	constructor(private http: HttpClient) {	}
 
-	static imgToBase64(file: any) {
-		return new Promise((res: any, rej: any) => {
-			const reader = new FileReader();
-			reader.onloadend = function (e) {
-				res(reader.result);
-			};
-			reader.readAsDataURL(file.file  );
-		});
+	static imgToBase64(file: File): Observable<any> {
+		const returnedObs = new Subject();
+		const reader = new FileReader();
+		reader.onloadend = function (e) {
+			returnedObs.next(reader.result);
+		};
+		reader.readAsDataURL(file);
+		return returnedObs;
+	}
+
+	getPendingFile(fileAndId: { file: File, entityId: string}): AppFile {
+		const pendingUuid = uuid();
+		const pending = true;
+		const name = fileAndId.file.name;
+		const entityId = fileAndId.entityId;
+		const appFile: AppFile = { pendingUuid, pending, name, entityId };
+		return appFile;
 	}
 
 	upload(file: any) {
@@ -25,13 +40,22 @@ export class FileUploader2 {
 		// );
 	}
 
-	uploadImage(file: any, productId: string, entityRepr: EntityRepresentation) {
+
+	uploadFile(file: File): Observable<HttpEvent<any>> {
+		const fileName = file.name;
+		debugger;
+		return this.getAWSInfo('attachment', { fileName }).pipe(
+			switchMap(
+				info => this.uploadFileToAws(info, file)
+			)
+		);
+	}
+
+	uploadImage(file: any, itemId: string, entityRepr: EntityRepresentation) {
 		return this.getAWSInfo('image', { imageType: 'Photo' }).pipe(
 			switchMap(
-				info => this.uploadImgToAws(info, file),
-				(info: any, r) => this.deleteToken(info)
-			),
-			switchMap((r: any) => this.linkToItem(entityRepr, r.id, productId))
+				info => this.uploadFileToAws(info, file),
+			)
 		);
 	}
 
@@ -39,9 +63,10 @@ export class FileUploader2 {
 		return this.http.post(`api/${type}`, data);
 	}
 
-	private uploadImgToAws(awsInfo: any, file) {
+	private uploadFileToAws(awsInfo: any, file): Observable<HttpEvent<any>> {
 		const formData = this.converFormData(file, awsInfo.formData);
-		return this.http.post(awsInfo.url, formData);
+		const req = new HttpRequest('POST', awsInfo.url, formData, { reportProgress: true });
+		return this.http.request(req);
 	}
 
 	// we receive an array but formData wants an object

@@ -12,13 +12,13 @@
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
 		[entityRep]="descriptor.metadata"
-		(change)="onUpdate(descriptor.name, $event)"></entity-select-input-app> 
+		(update)="onUpdate(descriptor.name, $event)"></entity-select-input-app> 
 
 	<input-price-app
 		*ngIf="descriptor.fieldType === 'price'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		(change)="onUpdate(descriptor.name, $event)"></input-price-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-price-app>
 
 
 	<rating-input-app 

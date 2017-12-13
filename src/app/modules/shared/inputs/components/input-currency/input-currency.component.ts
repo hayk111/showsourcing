@@ -23,14 +23,14 @@ import { Observable } from 'rxjs/Observable';
 export class InputCurrencyComponent extends AbstractInput implements OnInit {
 	private repr = entityRepresentationMap.currencies;
 	currencies$: Observable<Currency>;
-	@Output() change = new EventEmitter<Currency>();
+	@Output() update = new EventEmitter<Currency>();
 
 	constructor(private store: Store<any>, protected inj: Injector) {
 		super(inj);
 	}
 
 	onChange(value) {
-		this.change.emit(value);
+		this.update.emit(value);
 		super.onChange(value);
 	}
 

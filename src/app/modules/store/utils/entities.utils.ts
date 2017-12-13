@@ -1,4 +1,5 @@
 import { deepCopy } from './deep-copy.utils';
+import { EntityRepresentation } from '../model/filter.model';
 
 
 export interface EntityState<G extends Entity> {
@@ -11,6 +12,11 @@ export interface EntityState<G extends Entity> {
 export interface Entity {
 	id: string | number;
 	name?: string;
+}
+
+export interface EntityTarget {
+	entityId: string;
+	entityRepr: EntityRepresentation;
 }
 
 // since the response we receive is an array we have to loop

@@ -1,9 +1,6 @@
-<file-drop 
-	(onFileDrop)="onFileDrop($event)" 
-	(onFileOver)="onFileOver()" 
-	(onFileLeave)="onFileLeave()">
+<div class="dnd">
 		<span>Drag & Drop here</span>
-</file-drop>
+</div>
 
 <div class="imgPreview" *ngFor="let img of images">
 	<img [src]="img?.urls?.url_120x90 || img?.data" class="{{ img?.pending ? 'pending' : '' }}" />	

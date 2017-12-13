@@ -4,6 +4,7 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { ProductVote } from '../model/product-vote.model';
 import { AppComment } from '../model/comment.model';
 import { FilterGroupName } from '../model/filter.model';
+import { AppFile } from '../model/app-file.model';
 
 export enum ActionType {
 		LOAD = '[Product load]',
@@ -21,9 +22,10 @@ export enum ActionType {
 		ADD_IMAGES = '[Product] Add images begin',
 		ADD_PENDING_IMAGE = '[Product] Add pending image',
 		SET_IMG_READY = '[Product] Set img ready',
-		ADD_ATTACHMENTS = '[Product] Add attachments begin',
+		ADD_ATTACHMENT = '[Product] Add attachment begin',
 		ADD_PENDING_ATTACHMENT = '[Product] Add pending attachment',
-		SET_ATTACHMENT_READY = '[Product] Set attachment ready'
+		SET_ATTACHMENT_READY = '[Product] Set attachment ready',
+		REPORT_FILE_PROGRESS = '[Product] Reporting file progress'
 }
 
 export class ProductActions {
@@ -134,24 +136,27 @@ export class ProductActions {
 		};
 	}
 
-	static addAttachments(productId: string, attachments: Array<any>) {
+	static addAttachment(entityId: string, file: File) {
 		return {
-			type: ActionType.ADD_ATTACHMENTS,
-			payload: { productId, attachments }
+			type: ActionType.ADD_ATTACHMENT,
+			payload: { entityId, file }
 		};
 	}
 
-	static addPendingAttachment(productId: string, attachment: any) {
+	// files cannot be in the store, so attachment is just a representation of the file
+	static addPendingAttachment(attachment: AppFile, file: File) {
 		return {
 			type: ActionType.ADD_PENDING_ATTACHMENT,
-			payload: { productId, attachment }
+			payload: { attachment, file }
 		};
 	}
 
-	static setAttachmentReady(productId: string, attachmentId: number) {
+	static setAttachmentReady(attachment: AppFile) {
 		return {
 			type: ActionType.SET_ATTACHMENT_READY,
-			payload: { productId, attachmentId }
+			payload: attachment
 		};
 	}
+
+
 }

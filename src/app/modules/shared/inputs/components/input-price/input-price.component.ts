@@ -16,7 +16,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 	]
 })
 export class InputPriceComponent extends AbstractInput {
-	@Output() change = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 
 	constructor(protected inj: Injector) {
 		super(inj);
@@ -25,11 +25,11 @@ export class InputPriceComponent extends AbstractInput {
 
 	onPriceChange(value) {
 		const s = { priceAmount: value, priceCurrency: this.value.priceCurrency };
-		this.change.emit(this.value);
+		this.update.emit(this.value);
 	}
 
 	onCurrencyChange(value) {
 		const s = { priceAmount: this.value.priceAmount, priceCurrency: value };
-		this.change.emit(this.value);
+		this.update.emit(this.value);
 	}
 }
