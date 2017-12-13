@@ -29,6 +29,7 @@ import { dialogReducer } from './dialog.reducer';
 import { InjectionToken } from '@angular/core';
 import { teamMembersReducer } from './team-members.reducer';
 import { commentReducer } from './comment.reducer';
+import { filesReducer } from './files.reducer';
 
 
 const entities = combineReducers({
@@ -51,7 +52,7 @@ const entities = combineReducers({
 	tasksType: tasksTypeReducer,
 	customFields: customFieldsReducer,
 	comments: commentReducer,
-	files: 
+	files: filesReducer
 });
 
 const ui = combineReducers( {

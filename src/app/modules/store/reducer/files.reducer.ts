@@ -4,7 +4,7 @@ import { AppFile } from '../model/app-file.model';
 
 const initialState = [];
 
-export function filesReducer(state, action) {
+export function filesReducer(state = initialState, action) {
 	switch (action.type) {
 		case ActionType.ADD:
 			// when we set we have to keep the pending files,

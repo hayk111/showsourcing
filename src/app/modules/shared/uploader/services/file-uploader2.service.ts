@@ -25,12 +25,12 @@ export class FileUploader2 {
 		return returnedObs;
 	}
 
-	getPendingFile(fileAndId: { file: File, entityId: string}): AppFile {
-		const pendingUuid = uuid();
+	getPendingFile(fileAndId: { file: File, entityId: string}): any {
+		const id = uuid();
 		const pending = true;
 		const name = fileAndId.file.name;
 		const entityId = fileAndId.entityId;
-		const appFile: AppFile = { pendingUuid, pending, name, entityId };
+		const appFile: any = { id, pending, name };
 		return appFile;
 	}
 

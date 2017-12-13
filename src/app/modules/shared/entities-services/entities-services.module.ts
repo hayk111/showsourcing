@@ -9,6 +9,7 @@ import { TeamItemLoaderService } from './team-item-loader.service';
 import { TaskService } from './task.service';
 import { CustomFieldsService } from './custom-fields.service';
 import { CommentService } from './comment.service';
+import { FileService } from './file.service';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,8 @@ import { CommentService } from './comment.service';
 		TeamService,
 		TaskService,
 		CustomFieldsService,
-		CommentService
+		CommentService,
+		FileService
 	]
 })
 export class EntitiesServicesModule { }

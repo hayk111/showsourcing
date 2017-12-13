@@ -1,8 +1,9 @@
 import { EntityTarget } from '../utils/entities.utils';
 
 
-export interface AppFile extends File {
-	id: string;
-	pending: boolean;
+export interface AppFile {
+	id?: string;
+	pending?: boolean;
 	target: EntityTarget;
+	file?: File;
 }

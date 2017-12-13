@@ -7,7 +7,7 @@ import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { EntityState } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityTarget } from '../../../../store/utils/entities.utils';
 import { Supplier } from '../../../../store/model/supplier.model';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectDialog } from '../../../../store/selectors/dialog.selector';
@@ -32,6 +32,7 @@ import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { CommentActions } from '../../../../store/action/comment.action';
+import { FileActions } from '../../../../store/action/app-file.action';
 
 @Component({
 	selector: 'product-dialog-app',
@@ -42,6 +43,7 @@ import { CommentActions } from '../../../../store/action/comment.action';
 export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	dlgName = DialogName.PRODUCT;
 	entityRepr = entityRepresentationMap.product;
+	target: EntityTarget;
 	product$: Observable<Product>;
 	itemId$: Observable<string>;
 	productId: string;
@@ -87,12 +89,7 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
-		this.itemId$ = this.store.select(selectDialog(DialogName.PRODUCT))
-			.pipe(
-				filter((dlgInfo: any) =>  dlgInfo.metadata),
-				map((dlgInfo: any) => dlgInfo.metadata.id)
-			);
-		this.itemId$.takeUntil(this._destroy$);
+		this.itemId$ = this.selectProductId();
 		// select correct product
 		this.product$ = this.itemId$.pipe(
 			switchMap((id) => this.store.select<any>(selectProductById(id)))
@@ -100,12 +97,20 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 		// deeps loads product
 		this.product$
 			.takeUntil(this._destroy$).subscribe((product) => {
-				const target = { entityId: product.id, entityRepr: this.entityRepr };
-				if (!product.deeplyLoaded)
-					this.store.dispatch(ProductActions.deepLoad(product.id));
-				this.store.dispatch(CommentActions.load(target));
+				this.target = { entityId: product.id, entityRepr: this.entityRepr };
+				this.store.dispatch(CommentActions.load(this.target));
+				this.store.dispatch(FileActions.load(this.target));
 				this.productId = product.id;
 			});
+	}
+
+	private selectProductId() {
+		return this.store.select(selectDialog(DialogName.PRODUCT))
+		.takeUntil(this._destroy$)
+		.pipe(
+			filter((dlgInfo: any) =>  dlgInfo.metadata),
+			map((dlgInfo: any) => dlgInfo.metadata.id)
+		);
 	}
 
 	ngAfterViewInit() {
@@ -113,41 +118,3 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit, AfterVi
 	}
 
 }
-
-const customFieldsMock = {
-	groups: [
-		{
-			name: 'Group 0',
-			fields: [
-				{ name: 'images', label: 'images', fieldType: 'image'}
-			]
-		},
-		{
-			name: 'Group 1',
-			'fields': [
-				{'name': 'supplierId', 'label': 'supplier', 'fieldType': 'entitySelect', metadata: { entity: 'suppliers' }},
-				{'name': 'categoryId', 'label': 'category', 'fieldType': 'entitySelect', metadata: { entity: 'categories' }},
-				{'name': 'status', 'label': 'status', 'fieldType': 'entitySelect', metadata: { entity: 'productStatus' }},
-				{'name': 'eventId', 'label': 'event', 'fieldType': 'entitySelect', metadata: { entity: 'events' }},
-			]
-		},
-		{
-			name: 'Group 2',
-			fields: [
-				{'name': 'name', 'label': 'name', 'fieldType': 'standard'},
-				{'name': 'rating', 'label': 'rating', 'fieldType': 'rating'},
-				{'name': 'priceAmount', 'label': 'priceAmount', 'fieldType': 'standard'},
-				{'name': 'priceCurrency', 'label': 'priceCurrency', 'fieldType': 'standard'},
-			]
-		},
-		{
-			name: 'Group 3',
-			fields: [
-				{'name': 'minimumOrderQuantity', 'label': 'minimumOrderQuantity', 'fieldType': 'standard'},
-				{'name': 'description', 'label': 'description', 'fieldType': 'standard'},
-				{'name': 'tags', 'label': 'tags', 'fieldType': 'standard'},
-				{'name': 'projects', 'label': 'projects', 'fieldType': 'standard'}
-			]
-		}
-	]
-};
