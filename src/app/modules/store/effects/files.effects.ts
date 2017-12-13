@@ -22,6 +22,7 @@ export class FilesEffects {
 	addAttachments$ = this.actions$.ofType<any>(ActionType.ADD_NEW)
 		.pipe(
 			map(action => action.payload),
+			map((file: AppFile) => this.srv.getPendingFile(file)),
 			map((file: AppFile) => FileActions.addPending(file))
 		);
 
@@ -30,8 +31,10 @@ export class FilesEffects {
 	@Effect()
 	pendingFile$ = this.actions$.ofType<any>(ActionType.ADD_PENDING).pipe(
 		map(action => action.payload),
-		switchMap((pendingFile: AppFile) => this.srv.uploadFile(pendingFile)),
-		map((pendingFile: AppFile) => FileActions.setReady(pendingFile.id))
+		switchMap(
+			(pendingFile: AppFile) => this.srv.uploadFile(pendingFile),
+			(pendingFile: AppFile, returnedFile: AppFile) => FileActions.setReady(pendingFile.id, returnedFile)
+		)
 	);
 
 

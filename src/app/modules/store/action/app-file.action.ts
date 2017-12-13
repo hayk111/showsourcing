@@ -5,7 +5,7 @@ import { AppFile } from '../model/app-file.model';
 
 export enum ActionType {
 	LOAD = '[File] Loading files for entity',
-	ADD = '[File] Adding files for entity',
+	SET = '[File] Setting files for entity (keeping pendings)',
 	ADD_NEW = '[File] Adding new file',
 	ADD_PENDING = '[File] Add pending',
 	SET_READY = '[File] Set ready',
@@ -21,7 +21,7 @@ export class FileActions {
 
 	static add(files: Array<AppFile>) {
 		return {
-			type: ActionType.ADD,
+			type: ActionType.SET,
 			payload: files
 		};
 	}
@@ -40,10 +40,10 @@ export class FileActions {
 		};
 	}
 
-	static setReady(id: string) {
+	static setReady(id: string, replacing: AppFile) {
 		return {
 			type: ActionType.SET_READY,
-			payload: id
+			payload: { id, replacing }
 		};
 	}
 }

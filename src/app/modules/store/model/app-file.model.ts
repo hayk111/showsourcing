@@ -6,4 +6,5 @@ export interface AppFile {
 	pending?: boolean;
 	target: EntityTarget;
 	file?: File;
+	name?: string;
 }

@@ -19,6 +19,7 @@ export class FileService {
 		const copy = { ...file };
 		copy.pending = true;
 		copy.id = uuid();
+		copy.name = file.file.name;
 		return copy;
 	}
 
@@ -33,7 +34,6 @@ export class FileService {
 		const fileName = file.file.name;
 		return this.getAWSInfo('attachment', { fileName }).pipe(
 			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file)),
-			switchMap(r => {debugger}),
 		);
 	}
 
@@ -41,8 +41,12 @@ export class FileService {
 		return this.http.post(`api/attachment`, data);
 	}
 
+	// this function is kinda funky
+	// first we upload the file to aws,
+	// then we delete the token,
+	// then we link the img with its entity on the backend
 	private uploadFileToAws(awsInfo: any, file): Observable<any> {
-		const formData = this.converFormData(file, awsInfo.formData);
+		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, { reportProgress: true });
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
