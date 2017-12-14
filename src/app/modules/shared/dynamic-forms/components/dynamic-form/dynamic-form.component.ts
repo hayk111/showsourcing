@@ -22,6 +22,7 @@ import { ChangeDetectorRef } from '@angular/core';
 	selector: 'dynamic-form-app',
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['./dynamic-form.component.scss'],
+	providers: [ DynamicFormComponent ]
 })
 export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();

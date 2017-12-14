@@ -6,7 +6,7 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { switchMap, startWith } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { TaskService } from '../../shared/entities-services/task.service';
+import { TaskService } from '../services/task.service';
 
 @Injectable()
 export class TaskEffects {

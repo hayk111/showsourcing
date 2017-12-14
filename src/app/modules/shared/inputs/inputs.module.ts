@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { InputComponent } from './components/input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputAddressComponent } from './components/input-address/input-address.component';
-import { FormBuilderModule } from '../form-builder/form-builder.module';
-import { InputContactComponent } from './components/input-contact/input-contact.component';
-import { InputContactListComponent } from './components/input-contact-list/input-contact-list.component';
 import { InputCountryComponent } from './components/input-country/input-country.component';
 import { MatIconModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
@@ -19,12 +16,12 @@ import { CommentsInputComponent } from './components/comments-input/comments-inp
 import { TextareaInputComponent } from './components/textarea-input/textarea-input.component';
 import { InputCurrencyComponent } from './components/input-currency/input-currency.component';
 import { InputPriceComponent } from './components/input-price/input-price.component';
+import { FileInputComponent } from './components/file-input/file-input.component';
 
-const components = [ InputComponent, InputAddressComponent, InputContactComponent,
-											InputContactListComponent, InputCountryComponent, EntitySelectInputComponent,
+const components = [ InputComponent, InputAddressComponent, EntitySelectInputComponent,
 											RatingInputComponent, ImagePreviewDirective,
 											FeedbackInputComponent, CommentsInputComponent, TextareaInputComponent,
-											InputCurrencyComponent, InputPriceComponent ];
+											InputCurrencyComponent, InputPriceComponent, FileInputComponent,  ];
 
 @NgModule({
 	imports: [

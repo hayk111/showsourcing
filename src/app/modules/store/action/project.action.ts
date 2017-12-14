@@ -3,15 +3,24 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { Project } from '../model/project.model';
 
 export enum ActionType {
-		SET_PROJECTS = '[Project] setting',
+	LOAD = '[Project] Loading',
+	SET_PROJECTS = '[Project] Setting',
 }
 
 export class ProjectActions {
-		static setProjects(payload: Array<Project>): TypedAction<Array<Project>> {
-				return {
-						type: ActionType.SET_PROJECTS,
-						payload
-				};
-		}
+
+	static load(maxCounter) {
+		return {
+			type: ActionType.LOAD,
+			payload: maxCounter
+		};
+	}
+
+	static setProjects(payload: Array<Project>): TypedAction<Array<Project>> {
+		return {
+			type: ActionType.SET_PROJECTS,
+			payload
+		};
+	}
 
 }

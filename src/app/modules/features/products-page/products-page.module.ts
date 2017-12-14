@@ -8,11 +8,9 @@ import { ProductListViewComponent } from './components/product-list-view/product
 import { ProductCardViewComponent } from './components/product-card-view/product-card-view.component';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
-import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
-import { UploaderModule } from '../../shared/uploader/uploader.module';
 
 @NgModule({
 	imports: [
@@ -22,9 +20,8 @@ import { UploaderModule } from '../../shared/uploader/uploader.module';
 		MatCheckboxModule,
 		FilteredListPageModule,
 		DialogModule,
-		DynamicFormsModule.forChild(),
+		DynamicFormsModule,
 		InputsModule,
-		UploaderModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

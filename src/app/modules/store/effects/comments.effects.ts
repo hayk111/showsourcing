@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { EntityRepresentation } from '../model/filter.model';
 import { EntityTarget } from '../utils/entities.utils';
 import { AppComment } from '../model/comment.model';
-import { CommentService } from '../../shared/entities-services/comment.service';
+import { CommentService } from '../services/comment.service';
 
 
 

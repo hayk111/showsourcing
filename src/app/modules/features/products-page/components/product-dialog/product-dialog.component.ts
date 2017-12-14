@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
-import { FormBuilderService } from '../../../../shared/form-builder/services/form-builder.service';
-import { FormGroupDescriptor } from '../../../../shared/form-builder/interfaces/form-group-descriptor.interface';
-import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-descriptor.interface';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
@@ -29,8 +26,8 @@ import { ProductActions } from '../../../../store/action/product.action';
 import { distinctUntilChanged } from 'rxjs/operators';
 import Log from '../../../../../utils/logger/log.class';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { CommentActions } from '../../../../store/action/comment.action';
 import { FileActions } from '../../../../store/action/file.action';
 

@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { CompanyService } from '../../../../shared/company/services/company.service';
-import { FormDescriptor } from '../../../../shared/form-builder/interfaces/form-descriptor.interface';
-import { FORM_DESCRIPTOR } from './form-descriptor';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import 'rxjs/add/operator/takeUntil';
@@ -15,7 +13,6 @@ import { InfoRequestFormBuilderService } from '../../service/info-request-form-b
 	changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class InfoRequestFormComponent extends AutoUnsub {
-	descriptor = FORM_DESCRIPTOR;
 	companyForm: FormGroup;
 
 	constructor(private irfb: InfoRequestFormBuilderService, private companySrv: CompanyService, private store: Store<any>) {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppComment } from '../../store/model/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { FileUploader2 } from '../uploader/services/file-uploader2.service';
 import { entityRepresentationMap, FilterGroupName } from '../../store/model/filter.model';
 import { TeamItemLoaderService } from './team-item-loader.service';
 
@@ -11,7 +10,6 @@ export class ProductService {
 	repr = entityRepresentationMap.product;
 
 	constructor(private http: HttpClient,
-							private uploader: FileUploader2,
 							private teamItemLoader: TeamItemLoaderService) { }
 
 	load(filterGroupName: FilterGroupName) {
@@ -79,6 +77,7 @@ export class ProductService {
 		return this.http.get(`api/product/${id}/tag`).map(tags => ({ tags }) );
 	}
 
+	// TODO remove those
 	postVote(v: { productId: string, value: number }) {
 		return this.http.post(`api/product/${v.productId}/vote`, { value : v.value});
 	}
@@ -87,7 +86,4 @@ export class ProductService {
 		return this.http.post(`api/product/${comment.productId}/comment`, { text: comment.text });
 	}
 
-	postImage(productId, img: any) {
-		return this.uploader.uploadImage(img, productId, entityRepresentationMap.product);
-	}
 }

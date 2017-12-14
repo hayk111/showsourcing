@@ -61,13 +61,12 @@ export class AuthService {
 
 	register(credentials: {email: string, password: string}) {
 		this.store.dispatch(AuthActions.setPending(true));
-		Observable
-			.interval(4000)
-			.take(1)
-			.subscribe(i => {
-				this.store.dispatch(AuthActions.setAuthenticated(true));
-				this.router.navigate(['account-created']);
-			});
+		// interval(4000)
+		// 	.take(1)
+		// 	.subscribe(i => {
+		// 		this.store.dispatch(AuthActions.setAuthenticated(true));
+		// 		this.router.navigate(['account-created']);
+		// 	});
 	}
 
 	private onLoginSuccess(r: HttpResponse<Object>) {

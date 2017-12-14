@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FORM_DESCRIPTOR } from '../info-request-form/form-descriptor';
 import { FormGroup } from '@angular/forms';
 import { CompanyService } from '../../../../shared/company/services/company.service';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
@@ -14,7 +13,6 @@ import { Company } from '../../../../store/model/company.model';
 	styleUrls: ['./info-request-validation.component.scss']
 })
 export class InfoRequestValidationComponent extends AutoUnsub implements OnInit {
-	descriptor = FORM_DESCRIPTOR;
 	company$: Observable<Company>;
 
 	constructor(private companySrv: CompanyService, private store: Store<any>, private router: Router) {

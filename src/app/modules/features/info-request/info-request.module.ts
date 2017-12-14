@@ -11,7 +11,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
 import { CompanyModule } from '../../shared/company/company.module';
-import { FormBuilderModule } from '../../shared/form-builder/form-builder.module';
 import { InfoRequestThanksComponent } from './components/info-request-thanks/info-request-thanks.component';
 import { InfoRequestStepperComponent } from './components/info-request-stepper/info-request-stepper.component';
 import { RouterModule } from '@angular/router';
@@ -27,7 +26,6 @@ import { AuthModule } from '../../shared/auth/auth.module';
 		FormsModule,
 		ReactiveFormsModule,
 		InputsModule,
-		FormBuilderModule.forChild(),
 		AuthModule.forChild(),
 		RouterModule,
 		MatIconModule,

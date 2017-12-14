@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --aot --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build --aot --build-optimizer --base-href http://web.showsourcing.com/",
     "test": "ng test",
     "lint": "ng lint",

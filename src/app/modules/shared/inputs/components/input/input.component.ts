@@ -2,7 +2,6 @@ import { Component, OnInit, Input, forwardRef, HostBinding,
 	ChangeDetectorRef, ViewChild, Renderer2, Injector, EventEmitter, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from '@angular/forms';
 import Log from '../../../../../utils/logger/log.class';
-import { FormBuilderService } from '../../../form-builder/services/form-builder.service';
 import { AbstractInput } from '../../abstract-input.class';
 import { RegexpApp } from '../../../../../utils/regexes';
 

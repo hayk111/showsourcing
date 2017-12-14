@@ -1,11 +1,24 @@
 import { Injectable } from '@angular/core';
 import { entityRepresentationMap } from '../../store/model/filter.model';
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../selectors/user.selector';
+import { User } from '../model/user.model';
 
 
 
 @Injectable()
 export class CustomFieldsService {
-	constructor() {}
+	user: User;
+
+	constructor(private http: HttpClient, private store: Store<any>) {
+		this.store.select(selectUser).subscribe(user => this.user = user);
+	}
+
+	private loadCustomFields() {
+		return this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
+			.map(r => this.mapCustomFields(r));
+	}
 
 	mapCustomFields(r) {
 		r.productsCFDef.groups.forEach(g => {

@@ -6,7 +6,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'dynamic-input-app',
