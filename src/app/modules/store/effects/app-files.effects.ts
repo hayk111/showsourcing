@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { FileActions, ActionType } from '../action/file.action';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap, exhaustMap, mergeMap } from 'rxjs/operators';
 import { EntityTarget } from '../utils/entities.utils';
 import { AppFile } from '../model/app-file.model';
 import { FileService } from '../services/file.service';
@@ -31,7 +31,7 @@ export class FilesEffects {
 	@Effect()
 	pendingFile$ = this.actions$.ofType<any>(ActionType.ADD_PENDING).pipe(
 		map(action => action.payload),
-		switchMap(
+		mergeMap(
 			(pendingFile: AppFile) => this.srv.uploadFile(pendingFile),
 			(pendingFile: AppFile, returnedFile: AppFile) => FileActions.setReady(pendingFile.id, returnedFile)
 		)

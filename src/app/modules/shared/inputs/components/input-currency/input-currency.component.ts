@@ -6,6 +6,8 @@ import { AbstractInput } from '../../abstract-input.class';
 import { Store } from '@ngrx/store';
 import { selectEntity } from '../../../../store/selectors/utils.selector';
 import { Observable } from 'rxjs/Observable';
+import { take } from 'rxjs/operators';
+import { EntityState } from '../../../../store/utils/entities.utils';
 
 
 @Component({
@@ -22,21 +24,24 @@ import { Observable } from 'rxjs/Observable';
 })
 export class InputCurrencyComponent extends AbstractInput implements OnInit {
 	private repr = entityRepresentationMap.currencies;
-	currencies$: Observable<Currency>;
+	currencies$: Observable<EntityState<Currency>>;
+	private currencies: EntityState<Currency>;
 	@Output() update = new EventEmitter<Currency>();
 
 	constructor(private store: Store<any>, protected inj: Injector) {
 		super(inj);
 	}
 
-	onChange(value) {
-		this.update.emit(value);
-		super.onChange(value);
+	onChange(id: string) {
+		const currency = this.currencies.byId[id];
+		this.update.emit(currency);
+		super.onChange(currency);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 		this.currencies$ = this.store.select(selectEntity(this.repr.entityName));
+		this.currencies$.pipe(take(1)).subscribe( c => this.currencies = c);
 	}
 
 }

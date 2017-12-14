@@ -75,23 +75,6 @@ export class ProductEffects {
 		)
 	);
 
-	@Effect()
-	comment$ = this.actions$.ofType<any>(ActionType.COMMENT).pipe(
-		map(action => action.payload),
-		// we add an uuid to the payload to retrieve it easily, a timestamp will do
-		map(p => ({...p, pendingUuid: Date.now(), createdByUserId: this.userID })),
-		map(comment => ProductActions.addPendingComment(comment))
-	);
-
-	@Effect()
-	pendingComment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_COMMENT)
-	.pipe(
-		map(action => action.payload),
-		switchMap(
-			(comment: AppComment) => this.srv.postComment(comment),
-			(comment, r) => ProductActions.setCommentReady(comment.productId, comment.pendingUuid) )
-	);
-
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)
 			.subscribe(id => this.userID = id);

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
@@ -6,27 +6,33 @@ import { DialogName } from '../../../../store/model/dialog.model';
 import { DialogActions } from '../../../../store/action/dialog.action';
 import { selectDialog } from '../../../../store/selectors/dialog.selector';
 import { Observable } from 'rxjs/Observable';
+import { ElementRef } from '@angular/core/src/linker/element_ref';
+import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 
 @Component({
 	selector: 'dialog-app',
 	templateUrl: './dialog.component.html',
 	styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent extends AutoUnsub implements OnInit {
 	@Input() closeIcon = true;
 	@Input() name: DialogName;
 	@Output() registered = new EventEmitter<string>();
 	@Output() closed = new EventEmitter();
 	isOpen$: Observable<boolean>;
+	isOpen: boolean;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {
+		super();
+	}
 
 	ngOnInit() {
 		if (!this.name)
 			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
+		this.store.dispatch(DialogActions.register(this.name));
 		this.isOpen$ = this.store.select(selectDialog(this.name))
 		.map(dlgInfo => dlgInfo.open);
-		this.store.dispatch(DialogActions.register(this.name));
+		this.isOpen$.takeUntil(this._destroy$).subscribe(open => this.isOpen = open);
 		this.registered.emit(this.name);
 	}
 

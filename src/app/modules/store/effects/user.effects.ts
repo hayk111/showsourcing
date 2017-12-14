@@ -42,6 +42,7 @@ export class UserEffects {
 		map(action => action.payload),
 		filter((user: User) => !!user.id),
 		tap(user => this.loadUserEntities()),
+		tap(user => this.user = user),
 		map(user => user.currentTeamId),
 		distinct(),
 		tap(id => this.loadTeamEntities())
@@ -62,14 +63,14 @@ export class UserEffects {
 	}
 
 	private loadTeamEntities() {
-		// this.loadTeamMembers();
-		// this.loadCategories();
-		// this.loadSuppliers();
-		// this.loadEvents();
-		// this.loadProjects();
-		// this.loadTags();
-		// this.loadCustomFields();
-		// this.loadMaxCounter();
+		this.loadTeamMembers();
+		this.loadCategories();
+		this.loadSuppliers();
+		this.loadEvents();
+		this.loadProjects();
+		this.loadTags();
+		this.loadCustomFields();
+		this.loadMaxCounter();
 	}
 
 	private loadCategories() {

@@ -1,7 +1,7 @@
 <ng-container *ngIf="currencies$ | async as currencies">
 	
 			<select #inp (change)="onChange(inp.value)" [value]="value">
-				<option *ngFor="let id of currencies.ids" [value]="currencies.byId[id]" >
+				<option *ngFor="let id of currencies.ids" [value]="id" >
 					{{ currencies.byId[id].name }}
 				</option>
 			</select>

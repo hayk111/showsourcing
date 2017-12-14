@@ -11,7 +11,6 @@ export class CountryEffects {
 
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
-		tap(d => { debugger}),
 		switchMap(_ => this.srv.load()),
 		map((result: any) => CountryActions.setCountries(result))
 	);

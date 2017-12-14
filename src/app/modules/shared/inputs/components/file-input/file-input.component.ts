@@ -6,6 +6,7 @@ import { FileActions } from '../../../../store/action/file.action';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Observable } from 'rxjs/Observable';
 import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'file-input-app',

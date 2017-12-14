@@ -25,11 +25,11 @@ export class InputPriceComponent extends AbstractInput {
 
 	onPriceChange(value) {
 		const s = { priceAmount: value, priceCurrency: this.value.priceCurrency };
-		this.update.emit(this.value);
+		this.update.emit(s);
 	}
 
 	onCurrencyChange(value) {
 		const s = { priceAmount: this.value.priceAmount, priceCurrency: value };
-		this.update.emit(this.value);
+		this.update.emit(s);
 	}
 }

@@ -17,6 +17,7 @@ import { TextareaInputComponent } from './components/textarea-input/textarea-inp
 import { InputCurrencyComponent } from './components/input-currency/input-currency.component';
 import { InputPriceComponent } from './components/input-price/input-price.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
+import { UtilsModule } from '../utils/utils.module';
 
 const components = [ InputComponent, InputAddressComponent, EntitySelectInputComponent,
 											RatingInputComponent, ImagePreviewDirective,
@@ -28,6 +29,7 @@ const components = [ InputComponent, InputAddressComponent, EntitySelectInputCom
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
+		UtilsModule,
 		MatIconModule,
 		MatInputModule,
 		MatSelectModule,

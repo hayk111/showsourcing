@@ -9,7 +9,6 @@
 	appFileSelect
 	(fileSelect)="onFileChange($event)"/>
 
-
 <ng-container *ngIf="files$ | async as files">
 	<div *ngFor="let f of files" class="preview flex">
 		<span *ngIf="f.progress"> {{ f.progress }} % </span> - 

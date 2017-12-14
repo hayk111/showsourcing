@@ -86,7 +86,8 @@ export class FileService {
 	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
 		switch (event.type) {
 			case HttpEventType.UploadProgress:
-				const progress = Math.round(100 * event.loaded / appFile.file.size);
+				let progress = Math.round(100 * event.loaded / appFile.file.size);
+				if (progress > 100) progress = 100;
 				this.store.dispatch(FileActions.reportProgress(appFile, progress));
 				return false;
 			case HttpEventType.Response:

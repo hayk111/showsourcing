@@ -17,6 +17,7 @@ import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.
 	],
 	providers: [ DynamicFormsService ],
 	declarations: [ DynamicFormComponent, DynamicInputComponent ],
+	exports: [ DynamicFormComponent ]
 })
 export class DynamicFormsModule {
 

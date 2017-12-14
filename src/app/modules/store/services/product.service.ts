@@ -44,6 +44,9 @@ export class ProductService {
 			const propName = p.propName.substr(2);
 			patch = { customFields : { [propName]: { value : p.value} }};
 		}
+		// need to check if it's price because it's handled this way @ backend
+		if (p.propName === 'priceAmount')
+			patch = p.value;
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
