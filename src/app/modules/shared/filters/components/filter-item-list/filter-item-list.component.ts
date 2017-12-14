@@ -2,14 +2,14 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Store } from '@ngrx/store';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { EntityState } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { FilterById } from '../../utils/filter-by-id';
 import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { selectEntitiesWithChecked } from '../../../../store/selectors/filter.selectors';
-import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';

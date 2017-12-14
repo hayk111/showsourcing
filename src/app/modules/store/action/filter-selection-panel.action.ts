@@ -1,5 +1,4 @@
-import { EntityRepresentation } from '../model/filter.model';
-
+import { EntityRepresentation } from '../utils/entities.utils';
 
 
 export enum ActionType {

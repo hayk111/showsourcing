@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EntityRepresentation } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { AppFile } from '../../../../store/model/app-file.model';
 import { FileActions } from '../../../../store/action/file.action';

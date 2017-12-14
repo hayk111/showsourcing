@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { entityRepresentationMap, FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
+import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filter-product-sort-panel-app',

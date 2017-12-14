@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ActionType, CommentActions } from '../action/comment.action';
 import { map, switchMap } from 'rxjs/operators';
-import { EntityRepresentation } from '../model/filter.model';
 import { EntityTarget } from '../utils/entities.utils';
 import { AppComment } from '../model/comment.model';
 import { CommentService } from '../services/comment.service';

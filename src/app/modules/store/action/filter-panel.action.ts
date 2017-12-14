@@ -1,4 +1,3 @@
-import { EntityRepresentation } from '../model/filter.model';
 
 export enum ActionType {
 	OPEN = '[FilterPanel] open',

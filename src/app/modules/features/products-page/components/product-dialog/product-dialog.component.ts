@@ -4,7 +4,7 @@ import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { EntityState, EntityTarget } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Supplier } from '../../../../store/model/supplier.model';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectDialog } from '../../../../store/selectors/dialog.selector';
@@ -25,7 +25,6 @@ import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic
 import { ProductActions } from '../../../../store/action/product.action';
 import { distinctUntilChanged } from 'rxjs/operators';
 import Log from '../../../../../utils/logger/log.class';
-import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CommentActions } from '../../../../store/action/comment.action';

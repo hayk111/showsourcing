@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppComment } from '../../store/model/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { entityRepresentationMap, FilterGroupName } from '../../store/model/filter.model';
+import { FilterGroupName } from '../../store/model/filter.model';
 import { TeamItemLoaderService } from './team-item-loader.service';
+import { entityRepresentationMap } from '../utils/entities.utils';
 
 @Injectable()
 export class ProductService {

@@ -2,8 +2,8 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { EntityState, Entity } from '../../../../store/utils/entities.utils';
-import { Filter, FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { EntityState, Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
+import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';

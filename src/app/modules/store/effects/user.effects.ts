@@ -23,7 +23,6 @@ import { selectUser, selectUserTeamId } from '../../store/selectors/user.selecto
 import { selectAuthentication } from '../../store/selectors/authentication.selector';
 import { distinct } from 'rxjs/operators';
 import { TeamMembersActions } from '../../store/action/team-members.action';
-import { entityRepresentationMap } from '../../store/model/filter.model';
 import { Actions, Effect } from '@ngrx/effects';
 import { ActionType } from '../action/user.action';
 import { CustomFieldsService } from '../services/custom-fields.service';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName} from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -9,6 +9,7 @@ import { NavigationEnd } from '@angular/router';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
+import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filter-selection-panel-app',

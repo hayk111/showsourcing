@@ -8,8 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import { UrlBuilder } from '../../../utils/url-builder.class';
 import Log from '../../../utils/logger/log.class';
 import { selectUser } from '../../store/selectors/user.selector';
-import { EntityRepresentation, FilterGroupName } from '../../store/model/filter.model';
+import { FilterGroupName } from '../../store/model/filter.model';
 import { selectFiltersAsUrlParams } from '../../store/selectors/filter.selectors';
+import { EntityRepresentation } from '../utils/entities.utils';
 
 @Injectable()
 export class TeamItemLoaderService {

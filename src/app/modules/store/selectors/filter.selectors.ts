@@ -1,8 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { Filter, FilterGroupName, EntityRepresentation } from '../model/filter.model';
+import { Filter, FilterGroupName } from '../model/filter.model';
 import { deepCopy } from '../utils/deep-copy.utils';
 import Log from '../../../utils/logger/log.class';
 import { selectEntity } from './utils.selector';
+import { EntityRepresentation } from '../utils/entities.utils';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 const getFilters = (state) => state.ui.filters;

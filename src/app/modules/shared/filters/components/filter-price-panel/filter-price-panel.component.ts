@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FilterActions } from '../../../../store/action/filter.action';
@@ -7,6 +7,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import Log from '../../../../../utils/logger/log.class';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filter-price-panel-app',

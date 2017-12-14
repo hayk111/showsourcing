@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName, entityRepresentationMap, Filter } from '../../../../store/model/filter.model';
+import { FilterGroupName, Filter } from '../../../../store/model/filter.model';
 import { selectActiveFiltersForTargetEntity, selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
+import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'with-archived-button-app',

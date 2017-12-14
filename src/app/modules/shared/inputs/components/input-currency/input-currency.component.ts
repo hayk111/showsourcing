@@ -1,13 +1,12 @@
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { forwardRef, Component, Output, EventEmitter, OnInit, Injector } from '@angular/core';
-import { EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Currency } from '../../../../store/model/currency.model';
 import { AbstractInput } from '../../abstract-input.class';
 import { Store } from '@ngrx/store';
 import { selectEntity } from '../../../../store/selectors/utils.selector';
 import { Observable } from 'rxjs/Observable';
 import { take } from 'rxjs/operators';
-import { EntityState } from '../../../../store/utils/entities.utils';
+import { EntityState, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 
 @Component({

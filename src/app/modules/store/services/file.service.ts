@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { AppFile } from '../../store/model/app-file.model';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { uuid } from '../../store/utils/uuid.utils';
-import { EntityRepresentation } from '../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../store/selectors/user.selector';
 import { FileActions } from '../../store/action/file.action';

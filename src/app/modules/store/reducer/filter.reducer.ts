@@ -1,6 +1,6 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType, FilterArg } from '../action/filter.action';
-import { AppFilters, FilterGroupName, entityRepresentationMap, EntityRepresentation } from '../model/filter.model';
+import { AppFilters, FilterGroupName} from '../model/filter.model';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { selectFilterGroup } from '../selectors/filter.selectors';
 

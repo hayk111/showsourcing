@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterGroupName, EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { SearchedEntity, searchEntity, searchEntities } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { zip } from 'rxjs/observable/zip';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-import { Entity } from '../../../../store/utils/entities.utils';
+import { Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';

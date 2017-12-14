@@ -9,7 +9,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { take, switchMap, mergeMap } from 'rxjs/operators';
 import { zip } from 'rxjs/observable/zip';
 import { FormGroup } from '@angular/forms';
-import { EntityRepresentation, entityRepresentationMap } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
@@ -17,6 +16,7 @@ import { selectEntity, selectEntityById } from '../../../../store/selectors/util
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 import { ChangeDetectorRef } from '@angular/core';
+import { EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'dynamic-form-app',

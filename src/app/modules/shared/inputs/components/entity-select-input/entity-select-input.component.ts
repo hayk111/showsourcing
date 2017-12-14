@@ -2,11 +2,10 @@ import { Component, OnInit, Injector, OnDestroy, Input, forwardRef, Output, Even
 import { AbstractInput } from '../../abstract-input.class';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityState } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { selectEntity } from '../../../../store/selectors/utils.selector';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
-import { EntityRepresentation } from '../../../../store/model/filter.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

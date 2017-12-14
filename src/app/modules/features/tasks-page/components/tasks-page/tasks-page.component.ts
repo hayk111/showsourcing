@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName, Filter } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/task.model';
-import { EntityState } from '../../../../store/utils/entities.utils';
+import { EntityState, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { selectTags } from '../../../../store/selectors/tags.selector';
 import { selectTasks } from '../../../../store/selectors/tasks.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';

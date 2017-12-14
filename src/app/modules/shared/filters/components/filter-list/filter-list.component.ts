@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName, EntityRepresentation } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
+import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filter-list-app',

@@ -3,7 +3,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef,
 import { DynamicFormControl, DynamicFormGroup } from '../../utils/dynamic-controls.class';
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { entityRepresentationMap } from '../../../../store/model/filter.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
 import { ChangeDetectionStrategy } from '@angular/core';

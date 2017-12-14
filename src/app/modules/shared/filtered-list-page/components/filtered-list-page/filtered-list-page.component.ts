@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName, entityRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material';
 import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
 import { selectFilterPanel, selectFilterPanelOpen } from '../../../../store/selectors/filter-panel.selector';
 import { selectViewSwitcher } from '../../../../store/selectors/view-switcher.selector';
+import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filtered-list-page-app',

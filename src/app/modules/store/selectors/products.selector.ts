@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { selectFilesForTarget } from './file.selector';
-import { entityRepresentationMap } from '../model/filter.model';
+import { entityRepresentationMap } from '../utils/entities.utils';
 
 
 export const selectProducts = state => state.entities.products;

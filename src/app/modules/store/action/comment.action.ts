@@ -1,5 +1,4 @@
 import { AppComment } from '../model/comment.model';
-import { EntityRepresentation } from '../model/filter.model';
 import { EntityTarget } from '../utils/entities.utils';
 
 
