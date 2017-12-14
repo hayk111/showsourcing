@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --proxy-config proxy.config.json",
-    "build": "ng build --aot --build-optimizer --base-href http://web.showsourcing.com/",
+    "build": "ng build --aot --prod --build-optimizer --base-href http://web.showsourcing.com/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

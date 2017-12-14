@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
-import { EntityState, entityRepresentationMap } from '../../../../store/utils/entities.utils';
+import { EntityState, entityRepresentationMap, EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectProducts } from '../../../../store/selectors/products.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';

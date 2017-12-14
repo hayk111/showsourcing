@@ -10,4 +10,5 @@ export interface AppFile {
 	fileName?: string;
 	creationDate?: number;
 	createdByUserId?: string;
+	data?: any;
 }

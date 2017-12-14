@@ -13,7 +13,7 @@ export class FilesEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
-		switchMap((target: EntityTarget) => this.srv.load(target)),
+		switchMap((target: EntityTarget) => this.srv.load(target, 'attachment')),
 		map((files: Array<AppFile>) => FileActions.add(files))
 	);
 
@@ -32,9 +32,9 @@ export class FilesEffects {
 	pendingFile$ = this.actions$.ofType<any>(ActionType.ADD_PENDING).pipe(
 		map(action => action.payload),
 		mergeMap(
-			(pendingFile: AppFile) => this.srv.uploadFile(pendingFile),
+			(pendingFile: AppFile) => this.srv.uploadFile(pendingFile, 'attachment'),
 			(pendingFile: AppFile, returnedFile: AppFile) => FileActions.setReady(pendingFile.id, returnedFile)
-		)
+		),
 	);
 
 

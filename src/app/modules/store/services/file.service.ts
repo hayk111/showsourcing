@@ -32,41 +32,62 @@ export class FileService {
 		return copy;
 	}
 
-	load(target: EntityTarget) {
+	async getPendingImage(file: AppFile): Promise<AppFile> {
+		const copy = { ...file };
+		copy.pending = true;
+		copy.id = uuid();
+		copy.fileName = file.file.name;
+		copy.creationDate = Date.now();
+		copy.createdByUserId = this.userId;
+		copy.progress = 0;
+		copy.data = await this.convertFileToBase64(file.file);
+		return copy;
+	}
+
+	load(target: EntityTarget, type: 'image' | 'attachment') {
 		const obs = [];
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/attachment`)
+		return this.http.get(`api/${name}/${id}/${type}`)
 		.pipe(
 			tap((r: Array<AppFile>) => r.forEach(f => f.target = target))
 		);
 	}
 
-	uploadFile(file: AppFile): Observable<any> {
-		const fileName = file.file.name;
-		return this.getAWSInfo('attachment', { fileName }).pipe(
-			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file)),
+	uploadFile(file: AppFile, type: 'image' | 'attachment'): Observable<any> {
+		let data;
+		const fileName = file.fileName;
+		if (type === 'attachment')
+			data = { fileName };
+		else
+			data = { imageType: 'Photo' };
+		return this.upload(data, type, file);
+	}
+
+	private upload(data, type, file: AppFile) {
+		return this.getAWSInfo(data, type).pipe(
+			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type)),
 			// adding target to the file so we know what it's linked to
 			tap((returnedFile: AppFile) => returnedFile.target = file.target)
 		);
 	}
 
-	private getAWSInfo(type, data) {
-		return this.http.post(`api/attachment`, data);
+	private getAWSInfo(data, type) {
+		return this.http.post(`api/${type}`, data);
 	}
 
 	// this function is kinda funky
 	// first we upload the file to aws,
 	// then we delete the token,
 	// then we link the img with its entity on the backend
-	private uploadFileToAws(awsInfo: any, file): Observable<any> {
+	private uploadFileToAws(awsInfo: any, file, type: string): Observable<any> {
 		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, { reportProgress: true });
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
 			filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
 			switchMap(_ => this.deleteToken(awsInfo)),
-			switchMap((imgInfo: any) => this.linkToItem(file.target, imgInfo.id).map(x => imgInfo))
+			switchMap((imgInfo: any) => this.linkToItem(file.target, imgInfo.id, type).map(x => imgInfo))
 		);
 	}
 
@@ -98,9 +119,26 @@ export class FileService {
 		return this.http.delete(`api/token/${info.token}`);
 	}
 
-	private linkToItem(target: EntityTarget, attachmentId: string, mainImage = false) {
+	private linkToItem(target: EntityTarget, attachmentId: string, type: string) {
 		const name = target.entityRepr.urlName;
 		const itemId = target.entityId;
-		return this.http.post(`api/${name}/${itemId}/attachment`, { attachmentId, itemId, mainImage });
+		let data;
+
+		if (type === 'attachment')
+			data = { attachmentId, itemId };
+		else
+			data = { imageId: attachmentId, itemId, mainImage: false };
+
+		return this.http.post(`api/${name}/${itemId}/${type}`, data);
+	}
+
+	private convertFileToBase64(file: File): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				resolve((e.target as any).result);
+			};
+			reader.readAsDataURL(file);
+		});
 	}
 }

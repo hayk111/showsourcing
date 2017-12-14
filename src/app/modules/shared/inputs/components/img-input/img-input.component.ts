@@ -1,4 +1,11 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { ImageActions } from '../../../../store/action/images.action';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { AppFile } from '../../../../store/model/app-file.model';
+import { selectImagesForTarget } from '../../../../store/selectors/image.selector';
+import { AppErrorActions } from '../../../../store/action/app-errors.action';
 
 @Component({
 	selector: 'img-input-app',
@@ -6,24 +13,36 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 	styleUrls: ['./img-input.component.scss']
 })
 export class ImgInputComponent implements OnInit {
-	@Input() images: Array<any>;
-	@Output() imgsAdded = new EventEmitter();
-	style = 'img-file-drop';
-	fileHover: boolean;
+	images$: Observable<Array<AppFile>>;
+	private _target: EntityTarget;
+	// @Input at the bottom
 
+	constructor(private store: Store<any>) { }
 
-	constructor() { }
 
 	ngOnInit() {
+		this.images$ = this.store.select<any>(selectImagesForTarget(this.target));
 	}
 
-	onDragOver(event) {
-		this.fileHover = true;
-		event.preventDefault();
+	onFileChange(files: Array<File>) {
+		files.forEach(file => {
+			if (file.type.split('/')[0] === 'image') {
+				const appFile: AppFile = { file, target: this.target };
+				this.store.dispatch(ImageActions.addNew(appFile));
+			} else {
+				this.store.dispatch(AppErrorActions.add('An image is needed here'));
+			}
+		});
 	}
 
-	onFileLeave() {
-		this.fileHover = false;
+	@Input()
+	set target(target: EntityTarget) {
+		this.store.dispatch(ImageActions.load(target));
+		this._target = target;
+	}
+
+	get target() {
+		return this._target;
 	}
 
 }

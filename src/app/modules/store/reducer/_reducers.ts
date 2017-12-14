@@ -30,6 +30,7 @@ import { InjectionToken } from '@angular/core';
 import { teamMembersReducer } from './team-members.reducer';
 import { commentReducer } from './comment.reducer';
 import { filesReducer } from './files.reducer';
+import { imagesReducer } from './image.reducer';
 
 
 const entities = combineReducers({
@@ -52,7 +53,8 @@ const entities = combineReducers({
 	tasksType: tasksTypeReducer,
 	customFields: customFieldsReducer,
 	comments: commentReducer,
-	files: filesReducer
+	files: filesReducer,
+	images: imagesReducer
 });
 
 const ui = combineReducers( {
