@@ -139,7 +139,7 @@ export interface EntityTarget {
 ### Components
 
 One design choice we took with components is to make those self contained and reliant on an EntityTarget.
-That means that for example a `FileInputComponent` will have as @Input only an `EntityTarget`. This component will do its thing and when the user picks a file, everything will be done in the background: the back end will be updated as well as the front end store. No need to do anything except putting the component in the template and giving it an `EntityTarget`. This has drawbacks but it's the design choice we took.
+That means that for example a `FileInputComponent` will have as `@Input` only an `EntityTarget`. This component will do its thing and when the user picks a file, everything will be done in the background: the back end will be updated as well as the front end store. No need to do anything except putting the component in the template and giving it an `EntityTarget`. This has drawbacks but it's the design choice we took.
 
 There isn't much services at all as most of the logic is handled in the store. There are things that don't fit in the store that go into services, but those are generally pretty obvious. Like the `DynamicFormBuilder`.
 

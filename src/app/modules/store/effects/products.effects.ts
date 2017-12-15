@@ -44,36 +44,6 @@ export class ProductEffects {
 		switchMap(p => this.srv.sendPatchRequest(p))
 	);
 
-	// deeps load a product with all its sub items (like images, attachments etc).
-	@Effect()
-	deepLoad$ = this.actions$.ofType<any>(ActionType.DEEP_LOAD_REQ).pipe(
-		map(action => action.payload),
-		switchMap(
-			id => this.srv.deepLoad(id),
-			(id, result: Array<any>) => {
-				// transform {key: value} array into object.
-				const resObj = result.reduce((acc, cur) => ({...acc, ...cur }), {});
-				return ProductActions.deeplyLoaded(id, resObj);
-			}
-		)
-	);
-
-	@Effect()
-	vote$ = this.actions$.ofType<any>(ActionType.VOTE).pipe(
-		map(action => action.payload),
-		// 1 we add the user id so we can find the vote easily (there is only 1 vote per user)
-		map(({productId, value}) => ({ productId, value, userId: this.userID })),
-		// we then switch to an http request
-		switchMap( v => this.srv.postVote(v)
-			.pipe(
-				// add vote when request is done
-				map( (r: ProductVote) => ProductActions.addVote(v.productId, r, this.userID)),
-				// but before sending that http request we send a pendingVote to the store
-				startWith( ProductActions.addPendingVote(v) as any)
-				// catchError( e => ProductActions.voteFailed(v) )
-			)
-		)
-	);
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)

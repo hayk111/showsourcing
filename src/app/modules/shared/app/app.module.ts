@@ -24,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { EntitiesServicesModule } from '../../store/services/entities-services.module';
+import { AppStoreModule } from '../../store/store.module';
 
 
 
@@ -35,18 +36,12 @@ import { EntitiesServicesModule } from '../../store/services/entities-services.m
 		BrowserModule,
 		AppRoutingModule,
 		TemplateModule,
-		DynamicFormsModule,
+		DynamicFormsModule.forRoot(),
 		AuthModule.forRoot(),
+		AppStoreModule.forRoot(),
 		LocalStorageModule,
 		CompanyModule,
 		HttpClientModule,
-		StoreModule.forRoot( reducerToken , { metaReducers }),
-		EffectsModule.forRoot(effects),
-		StoreDevtoolsModule.instrument({
-			maxAge: 2
-		}),
-		// doesn't yet work with storeDevTools
-		// StoreRouterConnectingModule
 		BrowserAnimationsModule,
 		MatSnackBarModule,
 		MatDialogModule,

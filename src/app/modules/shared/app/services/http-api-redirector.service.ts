@@ -11,6 +11,8 @@ export class HttpApiRedirectorService implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
 		const newReq = req.clone({ url: `${this.baseUrl}/${req.url}`});
+		if (environment.production)
+			return next.handle(newReq);
 		return next.handle(req);
 	}
 

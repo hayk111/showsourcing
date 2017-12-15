@@ -18,6 +18,8 @@ import { InputPriceComponent } from './components/input-price/input-price.compon
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { UtilsModule } from '../utils/utils.module';
 import { ImgInputComponent } from './components/img-input/img-input.component';
+import { StoreModule } from '@ngrx/store/src/store_module';
+import { AppStoreModule } from '../../store/store.module';
 
 const components = [ InputComponent, InputAddressComponent, EntitySelectInputComponent,
 											RatingInputComponent, ImagePreviewDirective,
@@ -30,6 +32,7 @@ const components = [ InputComponent, InputAddressComponent, EntitySelectInputCom
 		FormsModule,
 		ReactiveFormsModule,
 		UtilsModule,
+		AppStoreModule.forChild(),
 		MatIconModule,
 		MatInputModule,
 		MatSelectModule,

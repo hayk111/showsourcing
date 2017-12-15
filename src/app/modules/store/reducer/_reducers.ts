@@ -31,6 +31,7 @@ import { teamMembersReducer } from './team-members.reducer';
 import { commentReducer } from './comment.reducer';
 import { filesReducer } from './files.reducer';
 import { imagesReducer } from './image.reducer';
+import { voteReducer } from './vote.reducer';
 
 
 const entities = combineReducers({
@@ -54,7 +55,8 @@ const entities = combineReducers({
 	customFields: customFieldsReducer,
 	comments: commentReducer,
 	files: filesReducer,
-	images: imagesReducer
+	images: imagesReducer,
+	votes: voteReducer
 });
 
 const ui = combineReducers( {

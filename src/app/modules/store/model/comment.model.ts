@@ -1,3 +1,5 @@
+import { EntityTarget } from '../utils/entities.utils';
+
 
 export interface AppComment {
 	createdByUserId?: string;
@@ -12,5 +14,5 @@ export interface AppComment {
 	text: string;
 	pending?: boolean;
 	pendingUuid?: number;
-	productId?: string;
+	target: EntityTarget;
 }

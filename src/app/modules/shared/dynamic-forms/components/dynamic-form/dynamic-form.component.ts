@@ -69,7 +69,7 @@ export class DynamicFormComponent extends AutoUnsub implements OnInit {
 	}
 
 	private selectEntity(entityRepr: EntityRepresentation, entityId: string) {
-		return this.store.select(selectEntityById(entityRepr.entityName, entityId));
+		return this.store.select(selectEntityById({entityRepr, entityId}));
 	}
 
 	private patch(entity) {

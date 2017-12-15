@@ -9,6 +9,7 @@ import { UserEffects } from './user.effects';
 import { CurrencyEffects } from './currency.effects';
 import { CountryEffects } from './country.effects';
 import { ImageEffects } from './image.effects';
+import { VoteEffects } from './vote.effects';
 
 
 export const effects = [
@@ -21,5 +22,6 @@ export const effects = [
 	ImageEffects,
 	UserEffects,
 	CountryEffects,
-	CurrencyEffects
+	CurrencyEffects,
+	VoteEffects
 ];

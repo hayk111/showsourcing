@@ -21,4 +21,16 @@ import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.
 })
 export class DynamicFormsModule {
 
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: DynamicFormsModule,
+			providers: [ DynamicFormComponent ]
+		};
+	}
+
+	static forChild(): ModuleWithProviders {
+		return {
+			ngModule: DynamicFormsModule
+		};
+	}
 }

@@ -6,6 +6,10 @@ import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil, take, map } from 'rxjs/operators';
 import { User } from '../../../../store/model/user.model';
+import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { selectComments, selectCommentsForTarget } from '../../../../store/selectors/comments.selector';
+import { Observable } from 'rxjs/Observable';
+import { CommentActions } from '../../../../store/action/comment.action';
 
 
 @Component({
@@ -14,19 +18,24 @@ import { User } from '../../../../store/model/user.model';
 	styleUrls: ['./comments-input.component.scss']
 })
 export class CommentsInputComponent extends AutoUnsub implements OnInit {
-	@Input() comments: Array<AppComment>;
-	@Output() newComment = new EventEmitter<string>();
+	private _target: EntityTarget;
+	// @Input at the bottom
+	comments$: Observable<Array<AppComment>>;
 	ctrl = new FormControl('', Validators.required);
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.comments$ = this.store.select(selectCommentsForTarget(this._target));
+	}
 
 	onEnter() {
-		if (this.ctrl.valid)
-			this.newComment.emit(this.ctrl.value);
+		if (this.ctrl.valid) {
+			const text = this.ctrl.value;
+			this.store.dispatch(CommentActions.addNew( { text, target: this.target }));
+		}
 		this.ctrl.setValue('');
 	}
 
@@ -36,6 +45,17 @@ export class CommentsInputComponent extends AutoUnsub implements OnInit {
 			take(1),
 			map((user: User) => `${user.firstName} ${user.lastName}`)
 		);
+	}
+
+
+	@Input()
+	set target( target: EntityTarget ) {
+		this._target = target;
+		this.store.dispatch(CommentActions.load(target));
+	}
+
+	get target() {
+		return this._target;
 	}
 
 }

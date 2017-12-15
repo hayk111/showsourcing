@@ -109,7 +109,8 @@ export class UserEffects {
 
 	private loadTeamMembers() {
 		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/user?counter=${this.maxCounter}`))
+			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/user?counter=${this.maxCounter}`)),
+			tap((users: Array<User>) => users.forEach(user => user.name = user.firstName + ' ' + user.lastName))
 		).subscribe((t: Array<User>) => this.store.dispatch(TeamMembersActions.setMembers(t)));
 	}
 

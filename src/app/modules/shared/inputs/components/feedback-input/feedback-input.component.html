@@ -1,5 +1,8 @@
-<mat-icon (click)="vote.emit(100)">thumb_up</mat-icon>
-<mat-icon (click)="vote.emit(0)">thumb_down</mat-icon>
-<div> {{ percentage }}%</div>
+<ng-container *ngIf="votes$ | async as votes">
+	<mat-icon (click)="vote(100)" [ngClass]="{ 'selected' : isUp}">thumb_up</mat-icon>
+	<mat-icon (click)="vote(0)" [ngClass]="{ 'selected' : isDown}">thumb_down</mat-icon>
+	<div> {{ percentage }}%</div>
 
-<button class="small" (click)="request.emit()">request</button>
+	<button class="small" (click)="request.emit()">request</button>	
+</ng-container>
+

@@ -53,34 +53,12 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 	}
 
-	onVote(value) {
-		this.store.dispatch(ProductActions.voteProduct(this.productId, value));
-	}
-
 	onRequest() {
 		Log.debug('request requested');
 	}
 
-	onNewComment(text: string) {
-		this.store.dispatch(ProductActions.comment(this.productId, text));
-	}
-
 	onUpdate( { name, value} ) {
 		this.store.dispatch(ProductActions.patch(this.productId, name, value));
-	}
-	// 2
-	onImgsAdded(imgs) {
-		this.store.dispatch(ProductActions.addImages(this.productId, imgs));
-	}
-
-	onImgAdded(img) {
-		// this.store.dispatch(ProductActions.addPendingImage(this.productId, img));
-	}
-
-	onImgUploaded(img) {
-		this.http.post(`api/product/${this.productId}/image`,
-				{ imageId: img.info.id, itemId: this.productId, mainImage: false })
-			.subscribe(x => this.store.dispatch(ProductActions.setImageReady(this.productId, img)));
 	}
 
 	onDlgRegistered() {

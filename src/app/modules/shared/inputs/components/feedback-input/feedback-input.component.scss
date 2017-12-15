@@ -5,3 +5,7 @@
 :host > * {
 	margin: var(--spacing-smaller);
 }
+
+.selected {
+	color: orange;
+}

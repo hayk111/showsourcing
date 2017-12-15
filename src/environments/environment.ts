@@ -10,6 +10,6 @@ import { LogLevels } from '../app/utils/logger/log-levels';
 
 export const environment = {
 	production: false,
-	apiUrl: '',
+	apiUrl: 'https://stoemelings.showsourcing.com',
 	LOG_LEVEL: LogLevels.DEBUG
 };

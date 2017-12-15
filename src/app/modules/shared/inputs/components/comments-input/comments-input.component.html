@@ -1,7 +1,10 @@
-<p *ngFor="let comment of comments">
-	<span class="author">{{ getTeamMemberName(comment.createdByUserId) | async }}</span>
-	<span class="msg">{{ comment.text }}</span>
-</p>
+<ng-container *ngIf="comments$ | async as comments">
+	<p *ngFor="let comment of comments">
+		<span class="author">{{ comment.createdByUserId | entityName: 'teamMembers' | async }}</span>
+		<span class="msg">{{ comment.text }}</span>
+	</p>	
+</ng-container>
+
 <mat-form-field>
   <textarea matInput placeholder="Your comment" matTextareaAutosize matAutosizeMinRows="1"
 						matAutosizeMaxRows="5" [formControl]="ctrl" maxlength="140"

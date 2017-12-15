@@ -45,6 +45,7 @@ export const entityRepresentationMap = {
 	tasks: new EntityRepresentation(TaskActions, 'tasks', true),
 	productStatus: new EntityRepresentation(null, 'productStatus', true, 'status', 'status'),
 	currencies: new EntityRepresentation(null, 'currencies', true),
+	teamMembers: new EntityRepresentation(null, 'teamMembers', true),
 	// non real entities, used as is for convenience
 	prices: new EntityRepresentation(null, 'prices'),
 	minPrices: new EntityRepresentation(null, 'minPrices'),
@@ -133,9 +134,7 @@ export function copyById(state, id, additionalProps?: any) {
 		byId: {
 			...state.byId,
 			[id]: {
-				// returning deep copy of the product since it should
-				// be inexpensive and it simplifies everything
-				...deepCopy(state.byId[id]),
+				...state.byId[id],
 				...additionalProps
 			}
 		}

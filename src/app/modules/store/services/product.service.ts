@@ -86,8 +86,5 @@ export class ProductService {
 		return this.http.post(`api/product/${v.productId}/vote`, { value : v.value});
 	}
 
-	postComment(comment: AppComment) {
-		return this.http.post(`api/product/${comment.productId}/comment`, { text: comment.text });
-	}
 
 }

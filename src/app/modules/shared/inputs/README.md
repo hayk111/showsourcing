@@ -2,7 +2,7 @@
 
 ## Summary
 
-The point of this module is to furnish the different inputs needed for the show sourcing app. Some inputs here are just wrappers around HTML inputs. This is useful for working with the Form Builder API. 
+The point of this module is to furnish the different inputs needed for the show sourcing app. Some inputs here are just wrappers around HTML inputs. This is useful for working with the Dynamic Form Builder. 
 
 Another advantage is that those wrapper furnish unique ID for inputs and their label `for` attribute. Therefor, there is no need to worry about non unique IDs.
 

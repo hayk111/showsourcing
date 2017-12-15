@@ -19,24 +19,21 @@ export class CommentEffects {
 	);
 
 
-	// @Effect()
-	// comment$ = this.actions$.ofType<any>(ActionType.ADD_NEW).pipe(
-	// 	map(action => action.payload),
-	// 	// we add an uuid to the payload to retrieve it easily, a timestamp will do
-	// 	map(p => ({...p, pendingUuid: Date.now(), createdByUserId: this.userID })),
-	// 	map(comment => ProductActions.addPendingComment(comment))
-	// );
+	@Effect()
+	comment$ = this.actions$.ofType<any>(ActionType.ADD_NEW).pipe(
+		map(action => action.payload),
+		map(comment => this.srv.getPendingComment(comment)),
+		map(comment => CommentActions.addPending(comment))
+	);
 
-	// @Effect()
-	// pendingComment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING_COMMENT)
-	// .pipe(
-	// 	map(action => action.payload),
-	// 	switchMap(
-	// 		(comment: AppComment) => this.srv.postComment(comment),
-	// 		(comment, r) => ProductActions.setCommentReady(comment.productId, comment.pendingUuid) )
-	// );
-
-
+	@Effect()
+	pendingComment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING)
+	.pipe(
+		map(action => action.payload),
+		switchMap(
+			(comment: AppComment) => this.srv.postComment(comment),
+			(comment: AppComment, replacing: AppComment) => CommentActions.setReady(comment.target.entityId, replacing) )
+	);
 
 	constructor(private actions$: Actions, private srv: CommentService) {}
 }
