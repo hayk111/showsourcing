@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicFormGroupComponent } from './dynamic-form-group.component';
+import { DynamicFormComponent } from './dynamic-form.component';
 
 describe('DynamicFormGroupComponent', () => {
-	let component: DynamicFormGroupComponent;
-	let fixture: ComponentFixture<DynamicFormGroupComponent>;
+	let component: DynamicFormComponent;
+	let fixture: ComponentFixture<DynamicFormComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [ DynamicFormGroupComponent ]
+			declarations: [ DynamicFormComponent ]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(DynamicFormGroupComponent);
+		fixture = TestBed.createComponent(DynamicFormComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

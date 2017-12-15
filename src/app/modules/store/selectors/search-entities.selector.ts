@@ -14,33 +14,6 @@ export interface SearchedEntity {
 	checked?: boolean;
 }
 
-export const searchEntities = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
-	const searches: Array<any> = entityReprs.map(x => searchEntity(filterGroupName, x, str));
-	// puts every search into an array
-	return createSelector(searches as any, (...args) => {
-		// just flatten the array of array
-		return args.reduce((acc, curr) => {
-			return acc.concat(curr);
-		}, []);
-	});
-};
-
-export const searchEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
-	return createSelector(
-		[
-			selectEntity(entityRepr.entityName),
-			selectFilterValuesForEntity(filterGroupName, entityRepr)
-		],
-		(items, vals) => {
-			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
-			let foundValues = findVal(entityRepr, str, items);
-			// making copy so we don't mutate the state
-			foundValues = deepCopy(foundValues);
-			addSelection(filterGroupName, vals, foundValues);
-			return foundValues;
-	});
-};
-
 const findVal = (target: EntityRepresentation, str: string, items) => {
 	const foundValues = [];
 	const toBeAddedEntity = { entityRepr: target, values: [] };
@@ -64,3 +37,31 @@ const addSelection = (filterGroupName: FilterGroupName, vals: Array<any>, foundV
 		});
 	});
 };
+
+export const searchEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
+	return createSelector(
+		[
+			selectEntity(entityRepr.entityName),
+			selectFilterValuesForEntity(filterGroupName, entityRepr)
+		],
+		(items, vals) => {
+			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
+			let foundValues = findVal(entityRepr, str, items);
+			// making copy so we don't mutate the state
+			foundValues = deepCopy(foundValues);
+			addSelection(filterGroupName, vals, foundValues);
+			return foundValues;
+	});
+};
+
+export const searchEntities = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
+	const searches: Array<any> = entityReprs.map(x => searchEntity(filterGroupName, x, str));
+	// puts every search into an array
+	return createSelector(searches as any, (...args) => {
+		// just flatten the array of array
+		return args.reduce((acc, curr) => {
+			return acc.concat(curr);
+		}, []);
+	});
+};
+

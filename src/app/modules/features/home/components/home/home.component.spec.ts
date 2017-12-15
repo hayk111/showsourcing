@@ -7,28 +7,28 @@ import { Store } from '@ngrx/store';
 
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+	let component: HomeComponent;
+	let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      providers: [
-        { provide: AuthService, useValue: { login: () => {}, logout: () => {}}},
-        { provide: Store, useValue: {select: () => {}}}
-      ],
-      imports: []
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [ HomeComponent ],
+			providers: [
+				{ provide: AuthService, useValue: { login: () => {}, logout: () => {}}},
+				{ provide: Store, useValue: {select: () => {}}}
+			],
+			imports: []
+		})
+		.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(HomeComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });
