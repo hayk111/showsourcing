@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../../../../shared/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Authentication } from '../../../../store/model/authentication.model';
 import { selectAuthentication } from '../../../../store/selectors/authentication.selector';
+import { AuthActions } from '../../../../store/action/authentication.action';
 
 @Component({
 	selector: 'registration-app',
@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
 	pending$: Observable<boolean>;
 	error$: Observable<string>;
 
-	constructor(private authSrv: AuthService, private store: Store<any>, private fb: FormBuilder) { }
+	constructor(private store: Store<any>, private fb: FormBuilder) { }
 
 	ngOnInit() {
 		this.makeForm();
@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	createAccount() {
-		this.authSrv.register(this.form.value);
+		this.store.dispatch(AuthActions.register(this.form.value));
 	}
 
 }

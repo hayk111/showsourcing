@@ -17,10 +17,12 @@ export function authenticationReducer(state: Authentication = initialState, acti
 	switch (action.type) {
 		case ActionType.SET_PENDING:
 			return { ...state, pending: action.payload as boolean};
-		case ActionType.SET_AUTHENTICATED:
-			return { ...state, authenticated: action.payload as boolean, pending: false, errorMsg: '' };
+		case ActionType.AUTHENTICATE:
+			return { ...state, authenticated: true, pending: false, errorMsg: '' };
 		case ActionType.SET_ERROR:
 			return { ...state, pending: false, errorMsg: action.payload as string };
+		case ActionType.LOGOUT:
+			return { ...state, authenticated: false, pending: false, errorMsg: '' };
 		default:
 			return state;
 	}

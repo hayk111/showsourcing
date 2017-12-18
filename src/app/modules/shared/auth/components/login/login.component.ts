@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +6,7 @@ import { Credentials } from '../../utils/credentials.interface';
 import { Authentication } from '../../../../store/model/authentication.model';
 import { selectAuthentication } from '../../../../store/selectors/authentication.selector';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AuthActions } from '../../../../store/action/authentication.action';
 
 @Component({
 	selector: 'login-app',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 	error$: Observable<string>;
 	@Output() forgotPassword = new EventEmitter<any>();
 
-	constructor(private authSrv: AuthService, private store: Store<any>, private fb: FormBuilder) {
+	constructor(private store: Store<any>, private fb: FormBuilder) {
 		this.creds = this.fb.group({
 			identifier: ['', Validators.required],
 			password: ['', Validators.required]
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
 	onSubmit() {
 		if (this.creds.valid)
-			this.authSrv.login(this.creds.value);
+			this.store.dispatch(AuthActions.login(this.creds.value));
 	}
 
 	forgotPw() {

@@ -11,6 +11,9 @@ import { FileService } from './file.service';
 import { CurrencyService } from './currency.service';
 import { CountryService } from './country.service';
 import { VoteService } from './vote.service';
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
+import { TokenService } from './token.service';
 
 @NgModule({
 	imports: [
@@ -28,7 +31,10 @@ import { VoteService } from './vote.service';
 		FileService,
 		CurrencyService,
 		CountryService,
-		VoteService
+		VoteService,
+		AuthService,
+		UserService,
+		TokenService
 	]
 })
 export class EntitiesServicesModule { }

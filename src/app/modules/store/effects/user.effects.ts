@@ -24,8 +24,9 @@ import { selectAuthentication } from '../../store/selectors/authentication.selec
 import { distinct } from 'rxjs/operators';
 import { TeamMembersActions } from '../../store/action/team-members.action';
 import { Actions, Effect } from '@ngrx/effects';
-import { ActionType } from '../action/user.action';
+import { ActionType, UserActions } from '../action/user.action';
 import { CustomFieldsService } from '../services/custom-fields.service';
+import { UserService } from '../services/user.service';
 
 
 @Injectable()
@@ -35,7 +36,13 @@ export class UserEffects {
 	private maxCounter = 0;
 	private reloadTime = 1500000;
 
-	@Effect({ dispatch: false })
+	@Effect()
+	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+		switchMap(_ => this.srv.load()),
+		map(UserActions.setUser)
+	);
+
+	@Effect({ dispatch: false})
 	user$ = this.actions$.ofType<any>(ActionType.SET_USER).pipe(
 		// when there isn't an user id no need to continue
 		map(action => action.payload),
@@ -47,7 +54,10 @@ export class UserEffects {
 		tap(id => this.loadTeamEntities())
 	);
 
-	constructor(private actions$: Actions, private store: Store<any>, private http: HttpClient,
+	constructor(private actions$: Actions,
+							private srv: UserService,
+							private store: Store<any>,
+							private http: HttpClient,
 							private cfSrv: CustomFieldsService) {
 	}
 
@@ -91,8 +101,9 @@ export class UserEffects {
 	}
 
 	private loadEvents() {
-		timer(0, this.reloadTime)
-		.subscribe((t: any) => this.dispatch(TeamActions.load(this.maxCounter)));
+		timer(0, this.reloadTime).pipe(
+			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/event?counter=${this.maxCounter}`)),
+		).subscribe((t: any) => this.dispatch(EventActions.setEvents(t.elements)));
 	}
 
 	private loadProjects() {

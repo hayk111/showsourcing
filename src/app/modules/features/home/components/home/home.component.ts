@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../../../shared/auth/services/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { selectUser } from '../../../../store/selectors/user.selector';
+import { AuthActions } from '../../../../store/action/authentication.action';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 		domain: ['#F46B45', '#6188fb', '#f7f228']
 	};
 
-	constructor(private store: Store<any>, private authSrv: AuthService) {
+	constructor(private store: Store<any>) {
 		this.user$ = this.store.select(selectUser);
 	}
 
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	logout() {
-		this.authSrv.logout();
+		this.store.dispatch(AuthActions.logout());
 	}
 
 }

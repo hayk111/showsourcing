@@ -20,11 +20,13 @@ import { UtilsModule } from '../utils/utils.module';
 import { ImgInputComponent } from './components/img-input/img-input.component';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { AppStoreModule } from '../../store/store.module';
+import { InputRadioComponent } from './components/input-radio/input-radio.component';
 
 const components = [ InputComponent, InputAddressComponent, EntitySelectInputComponent,
 											RatingInputComponent, ImagePreviewDirective,
 											FeedbackInputComponent, CommentsInputComponent, TextareaInputComponent,
-											InputCurrencyComponent, InputPriceComponent, FileInputComponent, ImgInputComponent ];
+											InputCurrencyComponent, InputPriceComponent, FileInputComponent, ImgInputComponent,
+											InputRadioComponent ];
 
 @NgModule({
 	imports: [

@@ -6,6 +6,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'dynamic-input-app',
@@ -19,6 +20,7 @@ export class DynamicInputComponent extends AutoUnsub implements OnInit {
 	@Output() update = new EventEmitter<any>();
 	// CUSTOM FIELDS : we have to input the property name because of customFields
 	@Input() propertyName: string;
+
 
 	constructor(private resolver: ComponentFactoryResolver,
 							private dynamicFormsSrv: DynamicFormsService) {
@@ -37,5 +39,6 @@ export class DynamicInputComponent extends AutoUnsub implements OnInit {
 		return type === 'text' || type === 'number' || type === 'url' || type === 'email' || type === 'decimal'
 			|| type === 'date';
 	}
+
 
 }

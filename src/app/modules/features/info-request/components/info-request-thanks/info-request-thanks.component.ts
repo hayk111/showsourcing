@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../shared/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../../store/action/authentication.action';
 
 @Component({
 	selector: 'app-info-request-thanks',
@@ -11,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class InfoRequestThanksComponent implements OnInit {
 	form: FormGroup;
 
-	constructor(private auth: AuthService, private fb: FormBuilder) { }
+	constructor(private fb: FormBuilder, private store: Store<any>) { }
 
 	ngOnInit() {
 		this.form = this.fb.group({
@@ -21,7 +22,7 @@ export class InfoRequestThanksComponent implements OnInit {
 	}
 
 	createAccount() {
-		this.auth.register(this.form.value);
+		this.store.dispatch(AuthActions.register(this.form.value));
 	}
 
 }

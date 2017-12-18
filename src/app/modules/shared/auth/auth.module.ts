@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthMockService } from './services/auth-mock.service';
-import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,7 +16,6 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { TokenService } from './services/token.service';
 
 @NgModule({
 	imports: [
@@ -30,14 +28,12 @@ import { TokenService } from './services/token.service';
 		MatTabsModule
 	],
 	providers: [
-		{ provide: AuthService, useClass: AuthService },
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptorService,
 			multi: true
 		},
 		AuthGuardService,
-		TokenService
 	],
 	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent, ForgotPasswordComponent ],
 	exports: [  LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent ]
@@ -47,7 +43,7 @@ export class AuthModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: AuthModule,
-			providers: [ AuthService, AuthGuardService ]
+			providers: [ AuthGuardService ]
 		};
 	}
 

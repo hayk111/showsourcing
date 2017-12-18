@@ -27,7 +27,7 @@ export class CustomFieldsService {
 			else
 				g.fields.forEach(f => {
 					f.name = 'x-' + f.name;
-					this.patchCustom(f);
+					this.patchCustom(f, r);
 				});
 		});
 		return r;
@@ -82,7 +82,7 @@ export class CustomFieldsService {
 		}
 	}
 
-	patchCustom(f) {
+	patchCustom(f, r) {
 		switch (f.fieldType) {
 			case 'supplier':
 				f.fieldType = 'entitySelect';
@@ -98,6 +98,9 @@ export class CustomFieldsService {
 			case 'decimal-number':
 				f.fieldType = 'decimal';
 				break;
+			case 'multiple-choice':
+				const enumName = f.enumerationName;
+				f.choices = r.enumerationsDef[enumName];
 		}
 	}
 }

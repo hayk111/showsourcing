@@ -1,6 +1,6 @@
 import { AbstractInput } from '../../abstract-input.class';
 import { Injector, Component, forwardRef, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -17,19 +17,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputPriceComponent extends AbstractInput {
 	@Output() update = new EventEmitter<any>();
-
-	constructor(protected inj: Injector) {
+	constructor(protected inj: Injector, private fb: FormBuilder) {
 		super(inj);
-		this.value = { priceAmount: 0, priceCurrency: {}};
+
 	}
 
-	onPriceChange(value) {
-		const s = { priceAmount: value, priceCurrency: this.value.priceCurrency };
-		this.update.emit(s);
-	}
-
-	onCurrencyChange(value) {
-		const s = { priceAmount: this.value.priceAmount, priceCurrency: value };
-		this.update.emit(s);
+	onUpdate(value) {
 	}
 }

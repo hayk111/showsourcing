@@ -1,10 +1,8 @@
+	<input-app 
+		type="decimal"
+		[placeholder]="placeholder"
+		(blurred)="onUpdate($event)"></input-app>
+	<input-currency-app
+		[placeholder]="'currency'"
+		(update)="onUpdate($event)"></input-currency-app>
 
-<input-app 
-	type="decimal"
-	[placeholder]="placeholder"
-	(blurred)="onPriceChange($event)">
-</input-app>
-<input-currency-app
-	[placeholder]="'currency'"
-	(update)="onCurrencyChange($event)">
-</input-currency-app>

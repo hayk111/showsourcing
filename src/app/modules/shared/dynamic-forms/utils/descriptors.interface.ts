@@ -9,8 +9,8 @@ export interface FormControlDescriptor {
 	placeholder?: string;
 	required?: boolean;
 	metadata?: any;
-	isArray?: boolean;
-	isGroup?: boolean;
+	// for when multiple choices
+	choices?: Array<any>;
 }
 
 
