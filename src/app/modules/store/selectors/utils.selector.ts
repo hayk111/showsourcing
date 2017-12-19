@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { EntityTarget } from '../utils/entities.utils';
+import { EntityTarget, EntityRepresentation } from '../utils/entities.utils';
 
 export const selectEntities = state => state.entities;
 
@@ -13,3 +13,10 @@ export const selectEntityById = (target: EntityTarget) => {
 		entityState => entityState.byId[target.entityId]
 	);
 };
+
+export const selectEntityArray = (entityRepr: EntityRepresentation) => {
+	return createSelector([selectEntity(entityRepr.entityName)], entityState => {
+		return entityState.ids.map( id => entityState.byId[id]);
+	});
+};
+

@@ -1,0 +1,11 @@
+
+<div  *ngFor="let c of choices; let i = index" class="flex">
+	<input
+		#inp
+		id='r-{{ inputId }}-{{i}}'
+		type="checkbox"
+		[value]="c.id"
+		[checked]="check(c)"
+		(change)="onChange($event)">
+		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }} </label>		
+</div>

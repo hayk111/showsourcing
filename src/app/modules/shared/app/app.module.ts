@@ -10,8 +10,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputComponent } from '../inputs/components/input/input.component';
-import { InputAddressComponent } from '../inputs/components/input-address/input-address.component';
 import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { CompanyModule } from '../company/company.module';
 import { metaReducers, reducers, reducerToken, reducerProvider } from '../../store/reducer/_reducers';

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterGroupName } from '../../../../store/model/filter.model';
-import { SearchedEntity, searchEntity, searchEntities } from '../../../../store/selectors/search-entities.selector';
+import { searchEntityWithFilters, searchEntitiesWithFilters } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { zip } from 'rxjs/observable/zip';
@@ -12,7 +12,7 @@ import { FilterActions } from '../../../../store/action/filter.action';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Subject } from 'rxjs/Subject';
-import { debounceTime } from 'rxjs/operator/debounceTime';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -33,8 +33,9 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.keyDown.debounceTime(400)
+		this.keyDown
 		.pipe(
+			debounceTime(400),
 			distinctUntilChanged()
 		).subscribe(x => this.doSearch());
 	}
@@ -48,7 +49,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	searchViaPanel() {
-		this.searchTerms$ = this.store.select(searchEntities(this.filterGroupName, this.searchableEntitiesRepr, this.search));
+		this.searchTerms$ = this.store.select(searchEntitiesWithFilters(this.filterGroupName, this.searchableEntitiesRepr, this.search));
 	}
 
 	doSearch() {

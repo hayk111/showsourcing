@@ -1,0 +1,17 @@
+<input-app [value]="selected.name" [readonly]="true" (click)="showPanel()"></input-app>
+
+<div class="list z-2" (clickOutside)="closePanel()" *ngIf="panelVisible">		
+	<input #inp placeholder="Search" (keyup)="onKeyUp(inp.value)" [formControl]="search">
+
+	<input-radio-app 
+	*ngIf="!multi"
+		(update)="onUpdate($event)" 
+		[choices]="filteredChoices"
+		[selected]="selected.id"></input-radio-app>
+	<input-checkbox-app 
+		*ngIf="multi"
+			(update)="onUpdate($event)" 
+			[choices]="filteredChoices"
+			[selected]="selected.id"
+			></input-checkbox-app>
+</div>

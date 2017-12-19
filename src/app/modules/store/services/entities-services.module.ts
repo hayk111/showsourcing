@@ -14,11 +14,15 @@ import { VoteService } from './vote.service';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { TokenService } from './token.service';
+import { MatSnackBarModule } from '@angular/material';
+import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		HttpClientModule,
+		MatSnackBarModule,
+		LocalStorageModule
 	],
 	declarations: [],
 	providers: [

@@ -1,6 +1,10 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { SideNavService } from '../../services/side-nav.service';
+import { Store } from '@ngrx/store';
+import { selectEntity } from '../../../../store/selectors/utils.selector';
+import { selectIsSidenavOpen } from '../../../../store/selectors/sidenav.selector';
+import { SidenavActions } from '../../../../store/action/sidenav.reducer';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'side-nav-app',
@@ -9,32 +13,29 @@ import { SideNavService } from '../../services/side-nav.service';
 })
 export class SideNavComponent extends AutoUnsub implements OnInit {
 
-	open;
+	open$: Observable<boolean>;
+	open: boolean;
 
-	constructor(public sidenav: SideNavService) { super(); }
+	constructor(private store: Store<any>) { super(); }
 
 	ngOnInit() {
-		this.sidenav.isOpen
-			.takeUntil(this._destroy$)
-			.subscribe((b: boolean) => this.checkSidenav(b));
+		this.open$ = this.store.select(selectIsSidenavOpen);
+		this.open$.takeUntil(this._destroy$).subscribe(b => this.open = b);
 		this.onResize();
 	}
 
 	@HostListener('window:resize', ['$event'])
 	onResize() {
 		if (window.innerWidth < 900)
-			this.sidenav.close();
+			this.store.dispatch(SidenavActions.close());
 		else
-			this.sidenav.open();
+		this.store.dispatch(SidenavActions.open());
 	}
 
 	toggle() {
-		this.sidenav.toggle();
+		this.store.dispatch(SidenavActions.toggle());
 	}
 
-	checkSidenav(b: boolean)  {
-		this.open = b;
-	}
 
 	get menuIcon() {
 		// returns the correct material icon

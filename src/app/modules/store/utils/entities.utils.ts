@@ -19,6 +19,8 @@ export interface EntityState<G extends Entity> {
 export interface Entity {
 	id: string | number;
 	name?: string;
+	// when selected in a filter
+	checked?: boolean;
 }
 
 export class EntityRepresentation  {

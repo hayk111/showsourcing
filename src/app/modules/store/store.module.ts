@@ -7,6 +7,8 @@ import { reducerProvider, reducerToken, metaReducers } from './reducer/_reducers
 import { StoreModule } from '@ngrx/store';
 import { ModuleWithProviders } from '@angular/core';
 import { EntityNamePipe } from './pipes/entity-name.pipe';
+import { EntitiesServicesModule } from './services/entities-services.module';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
 	imports: [
@@ -16,11 +18,12 @@ import { EntityNamePipe } from './pipes/entity-name.pipe';
 		StoreDevtoolsModule.instrument({
 			maxAge: 2
 		}),
+		EntitiesServicesModule,
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule
 	],
 	providers: [
-		reducerProvider
+		reducerProvider,
 	],
 	declarations: [ EntityNamePipe ],
 	exports: [ EntityNamePipe ]

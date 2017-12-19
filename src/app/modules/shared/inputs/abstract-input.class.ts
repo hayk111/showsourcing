@@ -1,9 +1,10 @@
 import { ControlValueAccessor, AbstractControl, NgControl } from '@angular/forms';
 import { Input, Injector, OnInit, AfterViewInit } from '@angular/core';
 import Log from '../../../utils/logger/log.class';
+import { AutoUnsub } from '../../../utils/auto-unsub.component';
 
 // The goal of this class is to abstract the value accessor implementation
-export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewInit {
+export class AbstractInput extends AutoUnsub implements ControlValueAccessor, OnInit, AfterViewInit {
 	private static inputSeedId = 0;
 	inputId = AbstractInput.inputSeedId++;
 	disabled: boolean;
@@ -15,9 +16,11 @@ export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewIni
 	@Input() label: string;
 	@Input() required = false;
 	@Input() metadata: any;
-	value: any;
+	@Input() public value: any;
 
-	constructor(protected inj: Injector) {  }
+	constructor(protected inj: Injector) {
+		super();
+	}
 
 	ngOnInit() {
 		this.control = this.inj.get(NgControl);
@@ -28,7 +31,7 @@ export class AbstractInput implements ControlValueAccessor, OnInit, AfterViewIni
 	// This will only work if we don't also shadow the ngAfterViewInit(), but since that is unlikely
 	// this should do the trick.
 	ngAfterViewInit() {
-		if (this.control)
+		if (!this.control)
 			Log.debug('You might have forgotten to call super.ngOnInit() in an abstract Input');
 	}
 

@@ -8,54 +8,43 @@ import { createSelector } from 'reselect';
 import { selectEntity } from './utils.selector';
 
 
-export interface SearchedEntity {
-	entityRepr: EntityRepresentation;
-	values: Array<any>;
-	checked?: boolean;
-}
 
-const findVal = (target: EntityRepresentation, str: string, items) => {
-	const foundValues = [];
-	const toBeAddedEntity = { entityRepr: target, values: [] };
-	// for each values if term is present just push it
-	Object.values(items.byId).forEach(item => {
-		if (item.name.includes(str))
-			toBeAddedEntity.values.push(item);
-	});
-	// if values are found add it to foundValues
-	if (toBeAddedEntity.values.length > 0)
-		foundValues.push(toBeAddedEntity);
-	return foundValues;
-};
-
-const addSelection = (filterGroupName: FilterGroupName, vals: Array<any>, foundValues: Array<SearchedEntity>) => {
-	foundValues.forEach((ent: SearchedEntity) => {
-		ent.values.forEach(v => {
+const addSelection = (vals: Array<any>, entities: Array<Entity>) => {
+	entities.forEach((ent: Entity) => {
 			// tilde checks if it's found
-			if (~vals.indexOf(v.id))
-				v.checked = true;
-		});
+			if (~vals.indexOf(ent.id))
+				ent.checked = true;
 	});
 };
 
-export const searchEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
+export const searchEntity = ( repr: EntityRepresentation, str: string) => {
+	return createSelector(
+		[selectEntity(repr.entityName)], (entityState) => {
+			const entities = Object.values(entityState.byId);
+			// with no search terms we return all entities
+			if (str === '')
+				return entities;
+			else
+				return entities.filter(entity => entity.name.startsWith(str)) as Array<Entity>;
+		}
+	);
+};
+
+export const searchEntityWithFilters = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
 	return createSelector(
 		[
-			selectEntity(entityRepr.entityName),
+			searchEntity(entityRepr, str),
 			selectFilterValuesForEntity(filterGroupName, entityRepr)
 		],
 		(items, vals) => {
 			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
-			let foundValues = findVal(entityRepr, str, items);
-			// making copy so we don't mutate the state
-			foundValues = deepCopy(foundValues);
-			addSelection(filterGroupName, vals, foundValues);
-			return foundValues;
+			addSelection(vals, items);
+			return items;
 	});
 };
 
-export const searchEntities = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
-	const searches: Array<any> = entityReprs.map(x => searchEntity(filterGroupName, x, str));
+export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
+	const searches: Array<any> = entityReprs.map(x => searchEntityWithFilters(filterGroupName, x, str));
 	// puts every search into an array
 	return createSelector(searches as any, (...args) => {
 		// just flatten the array of array

@@ -32,6 +32,7 @@ import { commentReducer } from './comment.reducer';
 import { filesReducer } from './files.reducer';
 import { imagesReducer } from './image.reducer';
 import { voteReducer } from './vote.reducer';
+import { sidenavReducer } from './sidenav.reducer';
 
 
 const entities = combineReducers({
@@ -65,7 +66,8 @@ const ui = combineReducers( {
 	filterPanel: filterPanelReducer,
 	filterSelectionPanel: filterSelectionPanelReducer,
 	dialogs: dialogReducer,
-	viewSwitcher: viewSwitcherReducer
+	viewSwitcher: viewSwitcherReducer,
+	sideNav: sidenavReducer
 });
 
 export const reducers = { entities, ui };
