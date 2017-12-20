@@ -6,12 +6,12 @@
 	[placeholder]="placeholder"
 	[value]="value"
 	(keydown)="onKeyDown($event)"
-	(keyup)="onChange(inp.value)"
 	(change)="onChange(inp.value)"
 	(blur)="onBlur()"
 	[readonly]="readonly"/>
-  <div class="error" *ngIf="control?.hasError('required') && !control?.pristine">This field is required</div>
-  <div class="error" *ngIf="control?.hasError('email') && !control?.pristine" >This field should be a valid email</div>
-  <div class="error" *ngIf="control?.hasError('number') && !control?.pristine">This field should be a valid number</div>
-  <div class="error" *ngIf="control?.hasError('url') && !control?.pristine">This field isn't a correct url</div>
-  <div class="error" *ngIf="control?.hasError('tel') && !control?.pristine">This field isn't a correct phone numer</div>
+	<!-- we have to pass a formControl as input for this to work -->
+  <div class="error" *ngIf="formControl?.hasError('required') && !formControl?.pristine">This field is required</div>
+  <div class="error" *ngIf="formControl?.hasError('email') && !formControl?.pristine" >This field should be a valid email</div>
+  <div class="error" *ngIf="formControl?.hasError('number') && !formControl?.pristine">This field should be a valid number</div>
+  <div class="error" *ngIf="formControl?.hasError('url') && !formControl?.pristine">This field isn't a correct url</div>
+  <div class="error" *ngIf="formControl?.hasError('tel') && !formControl?.pristine">This field isn't a correct phone numer</div>

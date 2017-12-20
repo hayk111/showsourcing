@@ -1,8 +1,95 @@
 
-<h3>Vanilla input to ngModel</h3>
-<div>
-	text: <input-app type="text" placeholder="hey"></input-app>
+<h3>Vanilla input</h3>
+<div class="g" [formGroup]="group">
+		<input-app type="text" 
+		 label="text"
+		 (update)="onUpdate($event)"
+		 [formControl]="getControl('text')" placeholder="placeholder"></input-app>
+		 <br/>
+		 Value: {{ getControl('text').value }}
+		 <br/>
+		 Event: {{ event }}
+
+		 <hr/>
+ 
+		 <input-app type="number" 
+			label="number"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('number')"
+			placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{ getControl('number').value }}
+			<br/>
+			Event: {{ event }}
+
+		 <hr/>
+		 
+		 <input-app type="date" 
+			label="date"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('date')" placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{ getControl('date').value }}
+			<br/>
+			Event: {{ event }}
+
+			<hr/>
+			
+			<input-app type="email" 
+			label="email"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('email')"
+			placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{ getControl('email').value }}
+			<br/>
+			Event: {{ event }}
+
+			<hr/>
+		
+			<input-app type="url" 
+			label="url"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('url')" placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{ getControl('url').value }}
+			<br/>
+			Event: {{ event }}
+
+			<hr/>
+				
+			<input-app type="tel" 
+			label="tel"
+			(update)="onUpdate($event)"
+			[formControl]=" getControl('tel')"
+			placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{  getControl('tel').value }}
+			<br/>
+			Event: {{ event }}
+
+			<hr/>
+			
+			<input-app type="decimal" 
+			label="decimal"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('decimal')" placeholder="placeholder"></input-app>
+			<br/>
+			Value: {{  getControl('decimal').value }}
+			<br/>
+			Event: {{ event }}
+
+
+			<hr/>
+			
+			<input-textarea-app
+			label="textarea"
+			(update)="onUpdate($event)"
+			[formControl]="getControl('textarea')" placeholder="placeholder"></input-textarea-app>
+			<br/>
+			Value: {{  getControl('textarea').value }}
+			<br/>
+			Event: {{ event }}
 </div>
-<h3>Vanilla input to formControl</h3>
 
 <h3>Custom input to form control</h3>

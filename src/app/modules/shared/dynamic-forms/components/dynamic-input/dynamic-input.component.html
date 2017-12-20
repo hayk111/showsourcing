@@ -31,10 +31,10 @@
 		[formControl]="ctrl"
 		(change)="onUpdate(descriptor.name, $event)"></rating-input-app>
 
-	<textarea-input-app
+	<input-textarea-app
 		*ngIf="descriptor.fieldType === 'textarea'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		(blurred)="onUpdate(descriptor.name, $event)"></textarea-input-app>
+		(blurred)="onUpdate(descriptor.name, $event)"></input-textarea-app>
 
 </div>

@@ -1,35 +1,30 @@
 import { Component, OnInit, Input, forwardRef, HostBinding,
 	ChangeDetectorRef, ViewChild, Renderer2, Injector, EventEmitter, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from '@angular/forms';
-import { AbstractInput } from '../../../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { RegexpApp } from '../../../../../../utils/regexes';
 
 @Component({
 	selector: 'input-app',
 	templateUrl: './input.component.html',
 	styleUrls: ['./input.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => InputComponent),
-			multi: true
-		}
-	]
+	providers: [ makeAccessorProvider(InputComponent) ]
 })
 export class InputComponent extends AbstractInput implements OnInit {
+	// give class flexColumn to host so label and input are not on the same line
 	@HostBinding('class.flexColumn') flex = true;
 	// regex is so we can disable some keys from the input
 	// for example the number input shouldn't let us type letters
 	private regex;
 	@Input() margin = true;
 	@Input() readonly: boolean;
-	@Output() blurred = new EventEmitter();
+	@Input() formControl: FormControl;
+
 	private _type: string;
 
 	constructor(protected inj: Injector) { super(inj); }
 
 	ngOnInit() {
-		super.ngOnInit();
 		this.addValidatorForType();
 	}
 
@@ -84,7 +79,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 		let value = this.value;
 		if (this.type === 'number')
 			value = +value;
-		this.blurred.emit(value);
+		super.onBlur();
 	}
 
 	get type() {
@@ -99,5 +94,6 @@ export class InputComponent extends AbstractInput implements OnInit {
 	set type(type: string) {
 		this._type = type;
 	}
+
 
 }

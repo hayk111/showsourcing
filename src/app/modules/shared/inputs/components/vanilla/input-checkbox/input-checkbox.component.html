@@ -5,7 +5,7 @@
 		id='r-{{ inputId }}-{{i}}'
 		type="checkbox"
 		[value]="c.id"
-		[checked]="check(c)"
+		[checked]="c.checked"
 		(change)="onChange($event)">
 		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }} </label>		
 </div>

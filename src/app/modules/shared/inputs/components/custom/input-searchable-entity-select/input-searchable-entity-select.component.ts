@@ -42,7 +42,6 @@ export class InputSearchableEntitySelectComponent extends AbstractInput implemen
 	}
 
 	onUpdate(v: any) {
-		debugger
 		this.update.emit(v);
 	}
 

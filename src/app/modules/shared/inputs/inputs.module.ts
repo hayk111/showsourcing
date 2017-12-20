@@ -12,7 +12,6 @@ import { RatingInputComponent } from './components/custom/rating-input/rating-in
 import { ImagePreviewDirective } from './components/custom/input-image/preview/image-preview.directive';
 import { FeedbackInputComponent } from './components/custom/feedback-input/feedback-input.component';
 import { CommentsInputComponent } from './components/custom/comments-input/comments-input.component';
-import { TextareaInputComponent } from './components/vanilla/textarea-input/textarea-input.component';
 import { InputCurrencyComponent } from './components/custom/input-currency/input-currency.component';
 import { InputPriceComponent } from './components/custom/input-price/input-price.component';
 import { FileInputComponent } from './components/custom/file-input/file-input.component';
@@ -23,11 +22,12 @@ import {
 } from './components/custom/input-searchable-entity-select/input-searchable-entity-select.component';
 import { InputRadioComponent } from './components/vanilla/input-radio/input-radio.component';
 import { InputCheckboxComponent } from './components/vanilla/input-checkbox/input-checkbox.component';
+import { InputTextareaComponent } from './components/vanilla/input-textarea/input-textarea.component';
 
 export const components = [
 											// vanilla inputs
 											InputComponent,
-											TextareaInputComponent,
+											InputTextareaComponent,
 											InputRadioComponent,
 											InputCheckboxComponent,
 											// used in dynamic forms

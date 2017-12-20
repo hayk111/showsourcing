@@ -18,14 +18,14 @@ export class TokenEffects {
 	);
 
 	@Effect()
-	checkValid = this.actions$.ofType<any>(ActionType.CHECK).pipe(
+	checkValid$ = this.actions$.ofType<any>(ActionType.CHECK).pipe(
 		filter(_ => this.srv.checkAuthToken()),
-		map( _ => AuthActions.authenticate(this.srv.token) )
+		map( _ => AuthActions.authenticate(this.srv.token, false) )
 	);
 
 
 	@Effect()
-	checkInvalid = this.actions$.ofType<any>(ActionType.CHECK).pipe(
+	checkInvalid$ = this.actions$.ofType<any>(ActionType.CHECK).pipe(
 		filter(_ => !this.srv.checkAuthToken()),
 		map( _ => AuthActions.logout() )
 	);

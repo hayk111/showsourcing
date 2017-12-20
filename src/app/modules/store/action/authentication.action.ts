@@ -35,10 +35,10 @@ export class AuthActions {
 			};
 	}
 
-	static authenticate(token: string): TypedAction<any> {
+	static authenticate(token: string, redirect): TypedAction<any> {
 			return {
 					type: ActionType.AUTHENTICATE,
-					payload: token
+					payload: { token, redirect }
 			};
 	}
 

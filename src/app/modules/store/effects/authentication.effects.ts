@@ -32,8 +32,8 @@ export class AuthenticationEffects {
 	@Effect()
 	auth$ = this.actions$.ofType<any>(ActionType.AUTHENTICATE).pipe(
 		map(action => action.payload),
-		tap(token => this.store.dispatch(TokenActions.setToken(token))),
-		tap(_ => this.goHome()),
+		tap(p => this.store.dispatch(TokenActions.setToken(p.token))),
+		tap(p => this.checkRedirect(p.redirect)),
 		map(payload => UserActions.load())
 	);
 
@@ -45,7 +45,7 @@ export class AuthenticationEffects {
 
 	private onLoginSuccess(r: HttpResponse<Object>) {
 		const token = r.headers.get('X-Auth-Token');
-		return AuthActions.authenticate(token);
+		return AuthActions.authenticate(token, true);
 	}
 
 	private onLoginError(error: { error, status }) {
@@ -55,8 +55,9 @@ export class AuthenticationEffects {
 			return of(AuthActions.setError('The service seems to be momentarily down. Please try again later.'));
 	}
 
-	private goHome() {
-		this.router.navigate(['home']);
+	private checkRedirect(redirect) {
+		if (redirect)
+			this.router.navigate(['home']);
 	}
 
 	constructor(private actions$: Actions,

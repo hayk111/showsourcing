@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, Injector, Output, EventEmitter } from '@angular/core';
-import { AbstractInput } from '../../../abstract-input.class';
-import { Entity } from '../../../../../store/utils/entities.utils';
+import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
+import { SelectableItem } from '../input-checkbox/input-checkbox.component';
 
 @Component({
 	selector: 'input-radio-app',
 	templateUrl: './input-radio.component.html',
-	styleUrls: ['./input-radio.component.scss']
+	styleUrls: ['./input-radio.component.scss'],
+	providers: [ makeAccessorProvider(InputRadioComponent) ]
 })
 export class InputRadioComponent extends AbstractInput implements OnInit {
-	@Input() choices: Array<Entity>;
+	@Input() choices: Array<SelectableItem>;
 	@Input() selected: string;
 	@Output() update = new EventEmitter<any>();
 
