@@ -35,6 +35,6 @@
 		*ngIf="descriptor.fieldType === 'textarea'"
 		[placeholder]="descriptor.label"
 		[formControl]="ctrl"
-		(blurred)="onUpdate(descriptor.name, $event)"></input-textarea-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-textarea-app>
 
 </div>

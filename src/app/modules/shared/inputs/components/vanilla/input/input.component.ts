@@ -8,7 +8,7 @@ import { RegexpApp } from '../../../../../../utils/regexes';
 	selector: 'input-app',
 	templateUrl: './input.component.html',
 	styleUrls: ['./input.component.scss'],
-	providers: [ makeAccessorProvider(InputComponent) ]
+	providers: [ makeAccessorProvider(InputComponent) ],
 })
 export class InputComponent extends AbstractInput implements OnInit {
 	// give class flexColumn to host so label and input are not on the same line

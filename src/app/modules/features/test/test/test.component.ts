@@ -46,6 +46,10 @@ export class TestComponent implements OnInit {
 		});
 	}
 
+	patch(name, val) {
+		this.group.controls[name].patchValue(val);
+	}
+
 	ngOnInit() {
 
 	}

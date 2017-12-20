@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
+import Log from '../../../../../../utils/logger/log.class';
 
 
 export interface SelectableItem {
@@ -13,7 +14,8 @@ export interface SelectableItem {
 	selector: 'input-checkbox-app',
 	templateUrl: './input-checkbox.component.html',
 	styleUrls: ['./input-checkbox.component.scss'],
-	providers: [ makeAccessorProvider(InputCheckboxComponent) ]
+	providers: [ makeAccessorProvider(InputCheckboxComponent) ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputCheckboxComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
@@ -38,6 +40,11 @@ export class InputCheckboxComponent extends AbstractInput implements OnInit {
 	}
 
 	check(c) {
+		// ok check is done multiple times here if changeDetection is not set to onpush it's
+		// gonna run on every changeDetection cycle
+		// however since a common scenario in the app is to pass a
+		// formControl and patch it from above the input won't get its initial value
+		Log.debug('if this appear a lot read comment above it');
 		return c.id === this.selected;
 	}
 

@@ -1,7 +1,6 @@
 <ng-container *ngIf="entities$ | async as entities">
 
 	<input-searchable-select-app 
-		[selected]="selected"
 		[choices]="entities"
 		(update)="onUpdate($event)">
 	</input-searchable-select-app>

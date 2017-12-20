@@ -90,6 +90,41 @@
 			Value: {{  getControl('textarea').value }}
 			<br/>
 			Event: {{ event }}
+
+			<hr/>
+			
+			<input-radio-app
+			label="radio"
+			(update)="onUpdate($event)"
+			[choices]="choices"
+			[selected]="getControl('radio').value"
+			[formControl]="getControl('radio')" 
+			placeholder="placeholder"></input-radio-app>
+			<br/>
+			Value: {{  getControl('radio').value }}
+			<br/>
+			Event: {{ event }}
+			<br/>
+			For good perfs: <br/>
+			 - Should change to 3.<br/>
+			 - In console only 4 to 8 'check'<br/>
+			<button class="small" (click)="patch('radio', '3')"> Patch</button>
+
+			<hr/>
+			
+			<input-checkbox-app
+			label="checkbox"
+			(update)="onUpdate($event)"
+			[choices]="choices"
+			[selected]="getControl('checkbox').value"
+			[formControl]="getControl('checkbox')" 
+			placeholder="placeholder"></input-checkbox-app>
+			<br/>
+			Value: {{  getControl('checkbox').value }}
+			<br/>
+			Event: {{ event }}
+
+			<button class="small" (click)="patch('checkbox', ['1', '4'])"> Patch</button>			
 </div>
 
 <h3>Custom input to form control</h3>
