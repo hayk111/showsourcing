@@ -8,20 +8,14 @@ import { NG_VALUE_ACCESSOR, NgControl, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tap } from 'rxjs/operators';
 import { EntityRepresentation, Entity } from '../../../../../store/utils/entities.utils';
-import { AbstractInput } from '../../../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { selectEntity, selectEntityArray } from '../../../../../store/selectors/utils.selector';
 
 @Component({
 	selector: 'input-searchable-entity-select-app',
 	templateUrl: './input-searchable-entity-select.component.html',
 	styleUrls: ['./input-searchable-entity-select.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => InputSearchableEntitySelectComponent),
-			multi: true
-		}
-	]
+	providers: [ makeAccessorProvider(InputSearchableEntitySelectComponent) ]
 })
 export class InputSearchableEntitySelectComponent extends AbstractInput implements OnInit {
 	@Input() entityRep: EntityRepresentation;
@@ -42,6 +36,7 @@ export class InputSearchableEntitySelectComponent extends AbstractInput implemen
 	}
 
 	onUpdate(v: any) {
+		super.onChange(v);
 		this.update.emit(v);
 	}
 

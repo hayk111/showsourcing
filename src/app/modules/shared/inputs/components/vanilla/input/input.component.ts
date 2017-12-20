@@ -3,12 +3,14 @@ import { Component, OnInit, Input, forwardRef, HostBinding,
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { RegexpApp } from '../../../../../../utils/regexes';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'input-app',
 	templateUrl: './input.component.html',
 	styleUrls: ['./input.component.scss'],
 	providers: [ makeAccessorProvider(InputComponent) ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputComponent extends AbstractInput implements OnInit {
 	// give class flexColumn to host so label and input are not on the same line

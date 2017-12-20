@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Injector, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Injector, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { SelectableItem } from '../input-checkbox/input-checkbox.component';
 import Log from '../../../../../../utils/logger/log.class';
@@ -14,11 +14,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class InputRadioComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
-	@Input() selected: string;
 	@Input() formControl: string | any;
 
-	constructor(protected inj: Injector) {
-		super(inj);
+	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
+		super(inj, cd);
 	}
 
 	ngOnInit() {
@@ -27,7 +26,7 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 
 	check(c) {
 		Log.debug('check');
-		return c.id === this.selected;
+		return c.id === this.value;
 	}
 
 }

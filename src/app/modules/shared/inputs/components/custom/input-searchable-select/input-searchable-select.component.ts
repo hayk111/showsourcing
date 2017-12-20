@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Injector, forwardRef, Input, HostListener } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl, FormControl } from '@angular/forms';
-import { AbstractInput } from '../../../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 
 export interface SelectableItem {
 	selected?: boolean;
@@ -13,13 +13,7 @@ export interface SelectableItem {
 	selector: 'input-searchable-select-app',
 	templateUrl: './input-searchable-select.component.html',
 	styleUrls: ['./input-searchable-select.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => InputSearchableSelectComponent),
-			multi: true
-		}
-	]
+	providers: [ makeAccessorProvider(InputSearchableSelectComponent) ]
 })
 export class InputSearchableSelectComponent extends AbstractInput {
 	private _choices: Array<SelectableItem>;
@@ -52,6 +46,7 @@ export class InputSearchableSelectComponent extends AbstractInput {
 	}
 
 	onUpdate(event) {
+		super.onChange(event);
 		this.update.emit(event);
 	}
 
@@ -63,5 +58,10 @@ export class InputSearchableSelectComponent extends AbstractInput {
 
 	get choices() {
 		return this._choices;
+	}
+
+	getNameFromValue(id: string) {
+		const r = this._choices.find(c => c.id === id);
+		return r ? r.name : '';
 	}
 }

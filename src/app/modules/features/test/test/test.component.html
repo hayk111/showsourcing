@@ -1,6 +1,7 @@
 
-<h3>Vanilla input</h3>
 <div class="g" [formGroup]="group">
+		
+<h3>Vanilla input</h3>
 		<input-app type="text" 
 		 label="text"
 		 (update)="onUpdate($event)"
@@ -97,7 +98,6 @@
 			label="radio"
 			(update)="onUpdate($event)"
 			[choices]="choices"
-			[selected]="getControl('radio').value"
 			[formControl]="getControl('radio')" 
 			placeholder="placeholder"></input-radio-app>
 			<br/>
@@ -111,7 +111,7 @@
 			<button class="small" (click)="patch('radio', '3')"> Patch</button>
 
 			<hr/>
-			
+			<div class="error">Not yet functional</div>
 			<input-checkbox-app
 			label="checkbox"
 			(update)="onUpdate($event)"
@@ -125,6 +125,21 @@
 			Event: {{ event }}
 
 			<button class="small" (click)="patch('checkbox', ['1', '4'])"> Patch</button>			
+
+<h3>Custom inputs</h3>
+
+	<hr/>
+
+	<input-searchable-entity-select-app
+		label="Entity Select (suppliers)"
+		(update)="onUpdate($event)"
+		[entityRep]="suppliersRepr"
+		[formControl]="getControl('suppliers')"></input-searchable-entity-select-app>
+	<br/>
+	Value: {{  getControl('suppliers').value }}
+	<br/>
+	Event: {{ event }}
+
+
 </div>
 
-<h3>Custom input to form control</h3>

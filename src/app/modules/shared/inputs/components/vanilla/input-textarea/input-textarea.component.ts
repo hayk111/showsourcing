@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 	templateUrl: './input-textarea.component.html',
 	styleUrls: ['./input-textarea.component.scss'],
 	providers: [ makeAccessorProvider(InputTextareaComponent)],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputTextareaComponent extends AbstractInput implements OnInit {
 	@Input() formControl: FormControl;

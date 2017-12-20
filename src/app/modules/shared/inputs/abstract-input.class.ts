@@ -2,6 +2,7 @@ import { ControlValueAccessor, AbstractControl, NgControl, NG_VALUE_ACCESSOR } f
 import { Input, Injector, OnInit, AfterViewInit, Output, EventEmitter, forwardRef } from '@angular/core';
 import Log from '../../../utils/logger/log.class';
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
+import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
 
 export function makeAccessorProvider(type: any) {
 	return 		{
@@ -26,7 +27,7 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	@Input() value: any;
 	@Output() update = new EventEmitter<any>();
 
-	constructor(protected inj: Injector) {
+	constructor(protected inj: Injector, protected cd?: ChangeDetectorRef) {
 		super();
 	}
 
@@ -46,9 +47,17 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 			this.onTouchedFn();
 	}
 
-	// to write give value its value with the formControl associated to it
+	// to give accessor its the formControl value associated to it
 	writeValue(value: any): void {
 		this.value = value;
+		// since we sometimes patch the value after the form is created
+		// with values from the store
+		// we need to notify components to update their view
+		if (this.cd)
+			this.cd.detectChanges();
+		// another solution would be to not use this but instead
+		// use an observable FormGroup at the top. (which is most likely the case)
+		// but this might make things easier in some scenario where it isn't.
 	}
 
 	// this is to notify a formControl that the value has changed

@@ -13,6 +13,7 @@ import { RegexpApp } from '../../../../utils/regexes';
 import { urlValidator } from '../../../shared/inputs/validators/url.validator';
 import { telValidator } from '../../../shared/inputs/validators/tel.validator';
 import { intValidator } from '../../../shared/inputs/validators/int.validator';
+import { entityRepresentationMap } from '../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'app-test',
@@ -31,6 +32,8 @@ export class TestComponent implements OnInit {
 		{ id: '4', name: 'fourth item'}
 	];
 
+	suppliersRepr = entityRepresentationMap.suppliers;
+
 	constructor(private fb: FormBuilder) {
 		this.group = this.fb.group({
 			text: ['', Validators.required ],
@@ -43,6 +46,7 @@ export class TestComponent implements OnInit {
 			textarea: ['', Validators.required ],
 			radio: ['2', Validators.required ],
 			checkbox: [['1', '2'], Validators.required ],
+			suppliers: [ undefined, Validators.required ]
 		});
 	}
 
