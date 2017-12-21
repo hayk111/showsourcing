@@ -2,7 +2,7 @@ import { ControlValueAccessor, AbstractControl, NgControl, NG_VALUE_ACCESSOR } f
 import { Input, Injector, OnInit, AfterViewInit, Output, EventEmitter, forwardRef } from '@angular/core';
 import Log from '../../../utils/logger/log.class';
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
-import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
+import { ChangeDetectorRef } from '@angular/core';
 
 export function makeAccessorProvider(type: any) {
 	return 		{

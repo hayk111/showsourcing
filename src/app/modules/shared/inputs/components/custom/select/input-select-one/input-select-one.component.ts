@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
-import { AbstractInput } from '../../../../abstract-input.class';
-import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
+import { AbstractInput, makeAccessorProvider } from '../../../../abstract-input.class';
+import { ChangeDetectorRef } from '@angular/core';
+import Log from '../../../../../../../utils/logger/log.class';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 export interface SelectableItem {
 	selected?: boolean;
@@ -12,12 +14,16 @@ export interface SelectableItem {
 @Component({
 	selector: 'input-select-one-app',
 	templateUrl: './input-select-one.component.html',
-	styleUrls: ['./input-select-one.component.scss']
+	styleUrls: ['./input-select-one.component.scss'],
+	providers: [ makeAccessorProvider(InputSelectOneComponent) ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSelectOneComponent extends AbstractInput implements OnInit {
-	@Input() choices: Array<SelectableItem>;
+	filteredChoices: Array<SelectableItem>;
 	panelVisible = false;
-	searchString;
+	private lastValue;
+	private lastName;
+	private _choices: Array<SelectableItem>;
 
 	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
 		super(inj, cd);
@@ -26,27 +32,48 @@ export class InputSelectOneComponent extends AbstractInput implements OnInit {
 	ngOnInit() {
 	}
 
+	onSearch(str) {
+		Log.debug('[InputSelectOneComponent] searching in choices');
+		if (!str)
+			this.filteredChoices = this._choices;
+		this.filteredChoices = this._choices.filter(c => c.name.startsWith(str));
+	}
+
 	onUpdate(value) {
+		Log.debug('[InputSelectOneComponent] onUpdate', value);
 		this.onChange(value);
 	}
 
 	showPanel() {
+		Log.debug('[InputSelectOneComponent] showing panel');
 		this.panelVisible = true;
 	}
 
 	closePanel(event: MouseEvent) {
+		Log.debug('[InputSelectOneComponent] closing panel');
 		this.panelVisible = false;
 		event.stopPropagation();
 	}
 
-	get filteredChoices(): Array<SelectableItem> {
-		if (!this.searchString)
-			return this.choices;
-		return this.choices.filter(c => c.name.startsWith(this.searchString));
+	get name() {
+		Log.debug('[InputSelectOneComponent] getting name', this.value, this.lastValue);
+		if (! this.value)
+			return '';
+
+		if (this.value && this.lastValue === this.value)
+			return this.lastName;
+		else
+			this.lastValue = this.value;
+
+		const r = this._choices.find(c => c.id === this.value);
+		const name = r ? r.name : '';
+		this.lastName = name;
+		return name;
 	}
 
-	getNameFromValue(id: string) {
-		const r = this.choices.find(c => c.id === id);
-		return r ? r.name : '';
+	@Input()
+	set choices(v: Array<SelectableItem>) {
+		this.filteredChoices = v;
+		this._choices = v;
 	}
 }

@@ -1,8 +1,11 @@
 <label>{{label}}</label>
-<input-app [value]="getNameFromValue(value)" [readonly]="true" 
+<input-app [value]="name" [readonly]="true" 
 	(click)="showPanel()"></input-app>
 
-<searchable-list-app (search)="searchString = $event" (clickOutside)="closePanel($event)">
+<searchable-list-app 
+	(search)="onSearch($event)" 
+	*ngIf="panelVisible" 
+	(clickOutside)="closePanel($event)">
 	
 	<input-radio-app
 		(update)="onUpdate($event)" 

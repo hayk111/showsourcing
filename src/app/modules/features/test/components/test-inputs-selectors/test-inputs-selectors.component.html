@@ -1,3 +1,10 @@
-<p>
-  test-inputs-selectors works!
-</p>
+<input-select-one-app
+(update)="onUpdate($event)"
+[formControl]="getControl('one')"
+[choices]="choices">
+<input-select-one-app>
+
+<br/>
+Value: {{ getControl('one').value }}
+<br/>
+Event: {{ event }}

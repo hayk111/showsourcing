@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, forwardRef, HostBinding,
-	ChangeDetectorRef, ViewChild, Renderer2, Injector, EventEmitter, Output } from '@angular/core';
+	ChangeDetectorRef, ViewChild, Renderer2, Injector, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { RegexpApp } from '../../../../../../utils/regexes';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'input-app',

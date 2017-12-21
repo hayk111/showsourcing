@@ -1,5 +1,5 @@
 <div class="list z-2">		
-	<input placeholder="Search" [formControl]="search">
+	<input placeholder="Search" [formControl]="searchString" (keyup)="onKeyUp()">
 
 	<ng-content></ng-content>
 </div>
