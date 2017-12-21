@@ -15,6 +15,10 @@ import { ProductsPageComponent } from '../../features/products-page/components/p
 import { BaseComponent } from '../../features/test/base/base.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 import { EventPageComponent } from '../../features/events-page/components/event-page/event-page.component';
+import { TestInputsVanillaComponent } from '../../features/test/components/test-inputs-vanilla/test-inputs-vanilla.component';
+import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';
+import { TestInputsFileComponent } from '../../features/test/components/test-inputs-file/test-inputs-file.component';
+import { TestInputsCustomComponent } from '../../features/test/components/test-inputs-custom/test-inputs-custom.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -38,7 +42,12 @@ export const routes: Array<Route> = [
 			{ path: 'suppliers', component: SupplierPageComponent },
 			{ path: 'events', component: EventPageComponent },
 			// TODO: Remove two under this
-			{ path: 'test', component: TestComponent },
+			{ path: 'test', component: TestComponent, children: [
+				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
+				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
+				{ path: 'inputs-file-image', component: TestInputsFileComponent },
+				{ path: 'inputs-custom', component: TestInputsCustomComponent }
+			] },
 			{ path: 'base', component: BaseComponent }
 		]
 	},

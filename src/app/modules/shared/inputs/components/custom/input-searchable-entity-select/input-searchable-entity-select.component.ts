@@ -20,6 +20,7 @@ import { selectEntity, selectEntityArray } from '../../../../../store/selectors/
 export class InputSearchableEntitySelectComponent extends AbstractInput implements OnInit {
 	@Input() entityRep: EntityRepresentation;
 	@Input() ctrl: FormControl;
+	@Input() multi = false;
 	@Output() update = new EventEmitter<any>();
 	entities$: Observable<Array<Entity>>;
 	private entityState;

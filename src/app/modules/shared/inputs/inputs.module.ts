@@ -23,6 +23,10 @@ import {
 import { InputRadioComponent } from './components/vanilla/input-radio/input-radio.component';
 import { InputCheckboxComponent } from './components/vanilla/input-checkbox/input-checkbox.component';
 import { InputTextareaComponent } from './components/vanilla/input-textarea/input-textarea.component';
+import { InputSelectOneComponent } from './components/custom/select/input-select-one/input-select-one.component';
+import { InputSelectMultiComponent } from './components/custom/select/input-select-multi/input-select-multi.component';
+import { InputSelectEntityComponent } from './components/custom/select/input-select-entity/input-select-entity.component';
+import { SearchableListComponent } from './components/custom/select/searchable-list/searchable-list.component';
 
 export const components = [
 											// vanilla inputs
@@ -45,6 +49,11 @@ export const components = [
 											RatingInputComponent,
 											FileInputComponent,
 											ImgInputComponent,
+											// selects
+											InputSelectOneComponent,
+											InputSelectMultiComponent,
+											InputSelectEntityComponent,
+											SearchableListComponent
 											];
 
 @NgModule({
