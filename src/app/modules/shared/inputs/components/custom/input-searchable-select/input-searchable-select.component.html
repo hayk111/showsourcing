@@ -10,12 +10,12 @@
 		*ngIf="!multi"
 			(update)="onUpdate($event)" 
 			[choices]="filteredChoices"
+			(itemSelected)="name = $event.name"
 			[value]="value"></input-radio-app>
 		<input-checkbox-app 
 			*ngIf="multi"
 				(update)="onUpdate($event)" 
 				[choices]="filteredChoices"
-				[value]="value"
-				></input-checkbox-app>
+				[value]="value"></input-checkbox-app>
 	</div>	
 </div>

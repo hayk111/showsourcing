@@ -46,7 +46,7 @@ export class TestComponent implements OnInit {
 			textarea: ['', Validators.required ],
 			radio: ['2', Validators.required ],
 			checkbox: [['1', '2'], Validators.required ],
-			suppliers: [ undefined, Validators.required ]
+			suppliers: [ '910e521d-7827-475b-898f-86b320c4fc07', Validators.required ]
 		});
 	}
 

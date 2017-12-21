@@ -113,12 +113,11 @@
 			<hr/>
 			<div class="error">Not yet functional</div>
 			<input-checkbox-app
-			label="checkbox"
-			(update)="onUpdate($event)"
-			[choices]="choices"
-			[selected]="getControl('checkbox').value"
-			[formControl]="getControl('checkbox')" 
-			placeholder="placeholder"></input-checkbox-app>
+				label="checkbox"
+				(update)="onUpdate($event)"
+				[choices]="choices"
+				[formControl]="getControl('checkbox')" 
+				placeholder="placeholder"></input-checkbox-app>
 			<br/>
 			Value: {{  getControl('checkbox').value }}
 			<br/>

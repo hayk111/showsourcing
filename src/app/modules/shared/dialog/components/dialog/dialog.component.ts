@@ -37,11 +37,8 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	close() {
-		// this.store.dispatch(DialogActions.close(this.name));
+		this.store.dispatch(DialogActions.close(this.name));
 	}
 
-	onDlgClick() {
-		debugger;
-	}
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import Log from '../../../../../../utils/logger/log.class';
+import { FormControl } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 export interface SelectableItem {
@@ -19,33 +21,35 @@ export interface SelectableItem {
 })
 export class InputCheckboxComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
-	// array of ids
-	@Input() set selected(arr: Array<string>) {
-		arr.forEach(id => {
-			const c = this.choices.find(item => item.id === id);
-			c.checked = true;
-		});
-	}
+	@Input() formControl: FormControl;
 	@Output() update = new EventEmitter<any>();
+	@Output() itemAdded = new EventEmitter<any>();
+	@Output() itemRemoved = new EventEmitter<any>();
 
-	constructor(protected inj: Injector) {
-		super(inj);
+	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
+		super(inj, cd);
 	}
 
 	ngOnInit() {
+
 	}
 
-	onChange(value) {
-		this.update.emit(value);
+	preChange(event: Event, item: SelectableItem) {
+		const checked = (event.target as any).checked;
+		if (checked) {
+			this.value = this.value.concat(item.id);
+			this.itemAdded.emit(item);
+		} else {
+			const index = (this.value as any[]).findIndex(val => val === item.id);
+			this.value.splice(index, 1);
+			// chging ref for formcontrol update
+			this.value = [...this.value];
+			this.itemRemoved.emit(item);
+		}
+		this.onChange(this.value, false);
 	}
 
-	check(c) {
-		// ok check is done multiple times here if changeDetection is not set to onpush it's
-		// gonna run on every changeDetection cycle
-		// however since a common scenario in the app is to pass a
-		// formControl and patch it from above the input won't get its initial value
-		Log.debug('if this appear a lot read comment above it');
-		return c.id === this.selected;
+	checked(v) {
+		return this.value.includes(v);
 	}
-
 }
