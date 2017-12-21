@@ -1,5 +1,7 @@
+<label for="i-{{inputId}}">{{ label }}</label>
 <textarea 
 	#inp
+	id="{{inputId}}"
 	[placeholder]="placeholder"
 	[value]="value"
 	(change)="onChange(inp.value)"></textarea>

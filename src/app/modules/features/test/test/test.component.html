@@ -140,6 +140,17 @@
 	<br/>
 	Event: {{ event }}
 
+	<hr/>
+	
+	<input-searchable-entity-select-app
+		label="Entity Select (suppliers)"
+		(update)="onUpdate($event)"
+		[entityRep]="suppliersRepr"
+		[formControl]="getControl('suppliers')"></input-searchable-entity-select-app>
+	<br/>
+	Value: {{  getControl('suppliers').value }}
+	<br/>
+	Event: {{ event }}
 
 </div>
 

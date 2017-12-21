@@ -10,7 +10,9 @@ export class ClickOutsideDirective {
 		@Output()
 		public clickOutside = new EventEmitter<MouseEvent>();
 
-		@HostListener('window:click', ['$event', '$event.target'])
+		// using mousedown instead so we the event doesn't fire 
+		// if the element the directive is attached to wasn't visible before the click
+		@HostListener('window:mousedown', ['$event', '$event.target'])
 		public onClick(event: MouseEvent, targetElement: HTMLElement): void {
 			if (!targetElement) {
 					return;

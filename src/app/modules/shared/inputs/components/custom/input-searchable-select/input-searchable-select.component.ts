@@ -41,8 +41,9 @@ export class InputSearchableSelectComponent extends AbstractInput {
 		this.panelVisible = true;
 	}
 
-	closePanel() {
+	closePanel(event: MouseEvent) {
 		this.panelVisible = false;
+		event.stopPropagation();
 	}
 
 	onUpdate(event) {

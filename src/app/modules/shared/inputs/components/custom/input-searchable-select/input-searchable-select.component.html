@@ -1,10 +1,9 @@
-<div (clickOutside)="closePanel()">
-	<!-- clickoutside should be above the click to open it for this to work -->
-
+<div>
+	<label>{{label}}</label>
 	<input-app [value]="getNameFromValue(value)" [readonly]="true" 
 		(click)="showPanel()"></input-app>
 
-	<div class="list z-2" *ngIf="panelVisible">		
+	<div class="list z-2" *ngIf="panelVisible"  (clickOutside)="closePanel($event)">		
 		<input #inp placeholder="Search" (keyup)="onKeyUp(inp.value)" [formControl]="search">
 
 		<input-radio-app 

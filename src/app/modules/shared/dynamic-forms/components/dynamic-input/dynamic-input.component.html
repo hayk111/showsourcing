@@ -2,18 +2,18 @@
 	<input-app
 		*ngIf="isStandard()"
 		[type]="descriptor.fieldType"
-		[placeholder]="descriptor.label"
+		[label]="descriptor.label"
 		[formControl]="ctrl"
-		(blurred)="onUpdate(descriptor.name, $event)"></input-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-app>
 
-	<!-- <input-radio-app 
+	<input-radio-app 
 		*ngIf="descriptor.fieldType === 'multiple-choice'"
 		[choices]="descriptor.choices">
-	</input-radio-app> -->
+	</input-radio-app>
 
 	<input-searchable-entity-select-app
 		*ngIf="descriptor.fieldType === 'entitySelect'"
-		[placeholder]="descriptor.label"
+		[label]="descriptor.label"
 		[formControl]="ctrl"
 		[entityRep]="descriptor.metadata"
 		(update)="onUpdate(descriptor.name, $event)"></input-searchable-entity-select-app> 
@@ -27,13 +27,13 @@
 
 	<rating-input-app 
 		*ngIf="descriptor.fieldType === 'rating'"
-		[placeholder]="descriptor.label"
+		[label]="descriptor.label"
 		[formControl]="ctrl"
 		(change)="onUpdate(descriptor.name, $event)"></rating-input-app>
 
 	<input-textarea-app
 		*ngIf="descriptor.fieldType === 'textarea'"
-		[placeholder]="descriptor.label"
+		[label]="descriptor.label"
 		[formControl]="ctrl"
 		(update)="onUpdate(descriptor.name, $event)"></input-textarea-app>
 

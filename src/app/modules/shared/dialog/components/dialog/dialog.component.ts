@@ -6,7 +6,7 @@ import { DialogName } from '../../../../store/model/dialog.model';
 import { DialogActions } from '../../../../store/action/dialog.action';
 import { selectDialog } from '../../../../store/selectors/dialog.selector';
 import { Observable } from 'rxjs/Observable';
-import { ElementRef } from '@angular/core/src/linker/element_ref';
+import { ElementRef } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 
 @Component({
@@ -37,8 +37,11 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	close() {
-		this.store.dispatch(DialogActions.close(this.name));
+		// this.store.dispatch(DialogActions.close(this.name));
 	}
 
+	onDlgClick() {
+		debugger;
+	}
 
 }

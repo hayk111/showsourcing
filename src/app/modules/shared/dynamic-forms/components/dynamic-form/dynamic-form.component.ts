@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { take, switchMap, mergeMap } from 'rxjs/operators';
+import { take, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { zip } from 'rxjs/observable/zip';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';

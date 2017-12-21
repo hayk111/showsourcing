@@ -1,7 +1,9 @@
 
 <input-app type="search" 
 	placeholder="Search" 
-	[(ngModel)]="search">
+	#inp
+	[value]="search"
+	(keyup)="search = inp.value">
 </input-app> 	
 
 <h4>Relevant {{ entityRep.displayName }}</h4>

@@ -59,8 +59,11 @@ export class CounterService {
 		const returned = [];
 		// for each count we add the count value to item and push item into returned
 		Object.entries(counts).forEach( ([k, v]) => {
-			items.byId[k].count = v;
-			returned.push(items.byId[k]);
+			const item = items.byId[k];
+			if (item) {
+				item.count = v;
+				returned.push(items.byId[k]);
+			}
 		});
 		returned.sort((a, b) => b.count - a.count);
 		return returned;

@@ -100,7 +100,12 @@ export class CustomFieldsService {
 				break;
 			case 'multiple-choice':
 				const enumName = f.enumerationName;
-				f.choices = r.enumerationsDef[enumName];
+				let choices = r.enumerationsDef[enumName];
+				// id of multiple choice is the same as name
+				// because radio values gives back an id and the api
+				// is waiting for a name
+				choices = choices.map((c, i) => ({ id: c, name: c}));
+				f.choices = choices;
 		}
 	}
 }
