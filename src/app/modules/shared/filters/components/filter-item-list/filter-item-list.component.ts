@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { EntityState, EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityRepresentation, Entity } from '../../../../store/utils/entities.utils';
 import { FilterById } from '../../utils/filter-by-id';
 import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { selectEntitiesWithChecked } from '../../../../store/selectors/filter.selectors';
+import { selectEntitiesWithChecked, selectFilterForEntity, selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -21,6 +21,9 @@ import { combineLatest } from 'rxjs/operators';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { selectFilterPanel } from '../../../../store/selectors/filter-panel.selector';
 import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
+import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
+import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
+import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 // when we filter an entity in the store this is the reused panel
 
 @Component({
@@ -34,10 +37,10 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	entityRep: EntityRepresentation;
 	entityRep$ = new Observable<EntityRepresentation>();
-	items$: Observable<EntityState<any>>;
-	itemsWithCount$: Observable<any>;
 	search = '';
-	private teamId: string;
+	values: Array<any>;
+	choices$: Observable<Array<SelectableItem>>;
+	relevantChoices$: Observable<Array<SelectableItem>>;
 	private countStr = 'countProdsBy';
 
 
@@ -47,31 +50,36 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// we first select the user to get the teamId
-		this.store.select(selectUser).subscribe((user: User) => {
-			this.teamId = user.currentTeamId;
-		});
-		// then we select the entityRep for the filter selection panel to know what entity
+		// we select the entityRep for the filter selection panel to know what entity
 		// we want to display
 		this.entityRep$ = this.store.select(selectFilterSelectionPanelTarget);
+		this.entityRep$.takeUntil(this._destroy$).subscribe(rep => this.entityRep = rep);
+		// can be removed
 		this.counterSrv.init(this.filterGroupName);
-		// when entityRep is received we launch onTargetReceived
-		this.itemsWithCount$ = this.entityRep$
-		.do(t => this.entityRep = t)
-		.do(t => this.items$ = this.store.select(selectEntitiesWithChecked(this.filterGroupName, t)))
-		.pipe(
-			filter(t => t !== undefined),
-			distinctUntilChanged(),
-			switchMap((t: EntityRepresentation) => this.counterSrv.getItemsWithCount(t))
+
+		// select values
+		this.entityRep$.pipe(
+			switchMap(repr => this.store.select(selectFilterValuesForEntity(this.filterGroupName, repr))),
+			takeUntil(this._destroy$),
+		).subscribe(v => this.values = v);
+
+		// select entities
+		this.choices$ = this.entityRep$.pipe(
+			switchMap(rep => this.store.select(selectEntityArray(rep)))
 		);
+		// filter only relevant entities
+		this.relevantChoices$ = this.entityRep$.pipe(
+			switchMap(repr => this.counterSrv.getItemsWithCount(repr)),
+		);
+
 	}
 
-	onChange(event, itemName, itemId) {
-		if (event.checked)
-			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.entityRep, itemName, itemId));
-		else
-			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, itemId));
+	onItemAdded(item) {
+		this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.entityRep, item.name, item.id));
 	}
 
+	onItemRemoved(item) {
+		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, item.id));
+	}
 
 }

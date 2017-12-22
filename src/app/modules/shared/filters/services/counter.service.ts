@@ -48,6 +48,8 @@ export class CounterService {
 		let itemUrlName = entityRepr.urlName;
 		// capitalizing because that url needs to be
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
+		// TODO: ask renaud for a more standard api url
+		// api/team/teamId/:entityName/countBy/:entityName
 		return this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
 			.map((r: any) => r.items);
 	}

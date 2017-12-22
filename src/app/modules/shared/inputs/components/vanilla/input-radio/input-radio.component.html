@@ -7,5 +7,5 @@
 		[value]="c.id"
 		[checked]="check(c)"
 		(change)="onChange(c)">
-		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}</label>		
+		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}  {{ c.suffix ? ' - ' + c.suffix : '' }}</label>		
 </div>

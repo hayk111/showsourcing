@@ -9,6 +9,7 @@ export interface SelectableItem {
 	id: string;
 	name: string;
 	checked?: boolean;
+	count?: number;
 }
 
 

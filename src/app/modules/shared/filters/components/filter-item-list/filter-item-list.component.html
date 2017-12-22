@@ -7,30 +7,21 @@
 </input-app> 	
 
 <h4>Relevant {{ entityRep.displayName }}</h4>
-<div class="flexColumn" *ngIf="(itemsWithCount$ | async) as items">
-	<div class="item" *ngFor="let item of items">
-		<ng-container *ngIf="!search || item.name.includes(search)">
-			<mat-checkbox
-				(change)="onChange($event, item.name, item.id)"
-				[checked]="item.checked">
-				{{ item.name }}
-				
-			</mat-checkbox>
-			{{ item.count }}
-		</ng-container>
-
-	</div>
-</div>	
+<ng-container *ngIf="relevantChoices$ | async as relChoices">
+	<input-checkbox-app
+		[choices]="relChoices"
+		[value]="values"
+		(itemAdded)="onItemAdded($event)"
+		(itemRemoved)="onItemRemoved($event)">
+	</input-checkbox-app>
+</ng-container>
 
 <h4>All {{ entityRep.displayName }}</h4>
-<div class="flexColumn" *ngIf="(items$  | async) as items">
-	<div *ngFor="let id of items.ids">
-		<mat-checkbox
-			*ngIf="!search || items.byId[id].name.includes(search)"
-			(change)="onChange($event, items.byId[id].name, id)"
-			[checked]="items.byId[id].checked">
-			{{ items.byId[id].name }}
-		</mat-checkbox>
-	</div>
-</div>
-
+<ng-container *ngIf="choices$ | async as choices">
+	<input-checkbox-app
+		[choices]="choices"
+		[value]="values"
+		(itemAdded)="onItemAdded($event)"
+		(itemRemoved)="onItemRemoved($event)">
+	</input-checkbox-app>
+</ng-container>

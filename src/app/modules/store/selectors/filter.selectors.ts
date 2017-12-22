@@ -19,8 +19,6 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 };
 
 
-// Throwing errors here, so it easier to debug than to silently give back something empty.
-// fromRoot is just a flag telling if we start from the root state. If false then the state used is state.filters
 export const selectFilterForEntity = (filterGroupName: FilterGroupName, entityRep: EntityRepresentation, fromRoot = true) => {
 	return createSelector([ selectFilterGroup(filterGroupName) ], ( groupFilters: Array<Filter> ) => {
 		Log.debug(`selectFilterForEntity ${filterGroupName}, entityRepr: ${entityRep.entityName}`);
