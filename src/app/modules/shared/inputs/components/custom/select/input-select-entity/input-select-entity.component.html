@@ -1,3 +1,16 @@
-<p>
-  input-select-entity works!
-</p>
+<ng-container *ngIf="entities$ | async as entities">
+
+	<input-select-one-app
+		*ngIf="!multi"
+		(update)="onUpdate($event)"
+		[choices]="entities"
+	></input-select-one-app>
+
+	<input-select-multi-app
+		[choices]="entities"
+		(itemAdded)="itemAdded.emit($event)"
+		(itemRemoved)="itemRemoved.emit($event)"
+		*ngIf="multi">
+	</input-select-multi-app>
+	
+</ng-container>
