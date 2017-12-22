@@ -15,7 +15,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export class InputRadioComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
 	@Input() formControl: string | any;
-	@Output() itemSelected = new EventEmitter<any>();
 
 	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
 		super(inj, cd);
@@ -25,12 +24,12 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 	}
 
 	onChange(c) {
-		this.itemSelected.emit(c);
+		Log.debug('[InputRadioComponent] on change');
 		super.onChange(c.id);
 	}
 
 	check(c) {
-		Log.debug('check');
+		Log.debug('[InputRadioComponent] check');
 		return c.id === this.value;
 	}
 

@@ -46,7 +46,7 @@ export class InputCheckboxComponent extends AbstractInput implements OnInit {
 			this.value = [...this.value];
 			this.itemRemoved.emit(item);
 		}
-		this.onChange(this.value, false);
+		this.onChange(this.value);
 	}
 
 	checked(v) {

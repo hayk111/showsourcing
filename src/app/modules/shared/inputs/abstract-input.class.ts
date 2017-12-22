@@ -1,4 +1,4 @@
-import { ControlValueAccessor, AbstractControl, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, AbstractControl, NgControl, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 import { Input, Injector, OnInit, AfterViewInit, Output, EventEmitter, forwardRef } from '@angular/core';
 import Log from '../../../utils/logger/log.class';
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
@@ -34,12 +34,11 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	ngOnInit() {}
 
 	// changes the formControl value and emits an update event with same value
-	onChange(value: any, emitUpdate = true) {
+	onChange(value: any) {
 		this.value = value;
 		if (this.onChangeFn)
 			this.onChangeFn(value);
-		if (emitUpdate)
-			this.update.emit(value);
+		this.update.emit(value);
 	}
 
 	onBlur() {
@@ -73,5 +72,7 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
 	}
+
+
 
 }

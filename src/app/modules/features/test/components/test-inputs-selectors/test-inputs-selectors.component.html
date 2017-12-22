@@ -1,10 +1,43 @@
+
 <input-select-one-app
-(update)="onUpdate($event)"
-[formControl]="getControl('one')"
-[choices]="choices">
-<input-select-one-app>
+	label="select one"
+	(update)="onUpdate($event)"
+	[formControl]="getControl('one')"
+	[choices]="choices">
+</input-select-one-app>
+
+<br>
+Value: {{ getControl('one').value }}
+<br/>
+Event: {{ event }}
+
+
+
+<hr/>
+
+<input-select-multi-app
+	label="select multiple"
+	(update)="onUpdate($event)"
+	[formControl]="getControl('multi')"
+	[choices]="choices">
+</input-select-multi-app>
 
 <br/>
-Value: {{ getControl('one').value }}
+Value: {{ getControl('multi').value }}
+<br/>
+Event: {{ event }}
+
+
+<hr/>
+
+<input-select-multi-app
+	label="select multiple"
+	(update)="onUpdate($event)"
+	[formControl]="getControl('multi')"
+	[choices]="choices">
+</input-select-multi-app>
+
+<br/>
+Value: {{ getControl('multi').value }}
 <br/>
 Event: {{ event }}

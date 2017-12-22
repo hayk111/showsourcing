@@ -19,6 +19,7 @@ export interface SelectableItem {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSelectOneComponent extends AbstractInput implements OnInit {
+	// TODO for perf gains we could use EntityState instead of a SelectableItem here.
 	filteredChoices: Array<SelectableItem>;
 	panelVisible = false;
 	private lastValue;
@@ -55,16 +56,17 @@ export class InputSelectOneComponent extends AbstractInput implements OnInit {
 		event.stopPropagation();
 	}
 
+	// this fn is a bit more complicated than it should because it could potentially
+	// run more than once
 	get name() {
 		Log.debug('[InputSelectOneComponent] getting name', this.value, this.lastValue);
 		if (! this.value)
 			return '';
 
-		if (this.value && this.lastValue === this.value)
+		if (this.lastValue === this.value)
 			return this.lastName;
-		else
-			this.lastValue = this.value;
 
+		this.lastValue = this.value;
 		const r = this._choices.find(c => c.id === this.value);
 		const name = r ? r.name : '';
 		this.lastName = name;

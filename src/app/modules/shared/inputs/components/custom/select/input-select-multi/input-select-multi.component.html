@@ -1,3 +1,24 @@
-<p>
-  input-select-multi works!
-</p>
+<label>{{label}}</label>
+<div (click)="showPanel()" class="pointer"> + </div>
+<div class="flex">
+	<ng-container *ngFor="let choice of choices">
+		<article *ngIf="check(choice)">
+			{{ choice.name }} - 
+		</article>		
+	</ng-container>
+
+</div>
+
+<searchable-list-app 
+	(search)="onSearch($event)"
+	*ngIf="panelVisible" 
+	(clickOutside)="closePanel($event)">
+	
+	<input-checkbox-app
+		(itemAdded)="itemAdded.emit($event)"
+		(itemRemoved)="itemRemoved.emit($event)"
+		(update)="onUpdate($event)"
+		[choices]="filteredChoices"
+		[value]="value"></input-checkbox-app>
+
+</searchable-list-app>

@@ -3,7 +3,7 @@
 	(click)="showPanel()"></input-app>
 
 <searchable-list-app 
-	(search)="onSearch($event)" 
+	(search)="onSearch($event)"
 	*ngIf="panelVisible" 
 	(clickOutside)="closePanel($event)">
 	

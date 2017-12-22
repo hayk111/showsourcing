@@ -22,6 +22,7 @@ export class TestInputsSelectorsComponent implements OnInit {
 	constructor(private fb: FormBuilder) {
 		this.group = this.fb.group({
 			one: ['2'],
+			multi: [['2', '3']]
 		});
 	}
 
