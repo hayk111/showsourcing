@@ -23,8 +23,8 @@ export class TestInputsSelectorsComponent implements OnInit {
 		this.group = this.fb.group({
 			one: ['2'],
 			multi: [['2', '3']],
-			oneSupplier: '',
-			manySuppliers: ''
+			oneSupplier: '6c1fc48c-db9d-499e-9068-d7cea3005b04',
+			manySuppliers: '6c1fc48c-db9d-499e-9068-d7cea3005b04'
 		});
 	}
 

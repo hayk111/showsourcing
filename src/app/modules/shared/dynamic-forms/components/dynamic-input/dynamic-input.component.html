@@ -1,4 +1,5 @@
 <div [formGroup]="group">
+
 	<input-app
 		*ngIf="isStandard()"
 		[type]="descriptor.fieldType"
@@ -7,16 +8,17 @@
 		(update)="onUpdate(descriptor.name, $event)"></input-app>
 
 	<input-radio-app 
+		[label]="descriptor.label"
 		*ngIf="descriptor.fieldType === 'multiple-choice'"
 		[choices]="descriptor.choices">
 	</input-radio-app>
 
-	<input-searchable-entity-select-app
+	<input-select-entity-app
 		*ngIf="descriptor.fieldType === 'entitySelect'"
 		[label]="descriptor.label"
 		[formControl]="ctrl"
 		[entityRep]="descriptor.metadata"
-		(update)="onUpdate(descriptor.name, $event)"></input-searchable-entity-select-app> 
+		(update)="onUpdate(descriptor.name, $event)"></input-select-entity-app> 
 
 	<!-- <input-price-app
 		*ngIf="descriptor.fieldType === 'price'"

@@ -1,12 +1,15 @@
 <ng-container *ngIf="entities$ | async as entities">
-
 	<input-select-one-app
+		[value]="value"
+		[label]="label"
 		*ngIf="!multi"
 		(update)="onUpdate($event)"
 		[choices]="entities"
 	></input-select-one-app>
 
 	<input-select-multi-app
+		[label]="label"
+		[value]="value"
 		[choices]="entities"
 		(itemAdded)="itemAdded.emit($event)"
 		(itemRemoved)="itemRemoved.emit($event)"
