@@ -1,9 +1,0 @@
-<ng-container *ngIf="entities$ | async as entities">
-
-		<select #inp (change)="onChange(inp.value)" [value]="value">
-			<option *ngFor="let id of entities.ids" [value]="id" >
-				{{ entities.byId[id].name }}
-			</option>
-		</select>
-
-</ng-container>

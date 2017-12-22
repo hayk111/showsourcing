@@ -1,8 +1,8 @@
 import { Component, OnInit, Injector, Input, EventEmitter, Output } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../../../../abstract-input.class';
 import { ChangeDetectorRef } from '@angular/core';
-import { SelectableItem } from '../../input-searchable-select/input-searchable-select.component';
 import Log from '../../../../../../../utils/logger/log.class';
+import { SelectableItem } from '../selectable-item.interface';
 
 @Component({
 	selector: 'input-select-multi-app',
