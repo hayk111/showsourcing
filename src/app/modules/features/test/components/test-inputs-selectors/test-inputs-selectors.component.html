@@ -31,16 +31,29 @@ Event: {{ event | json }}
 
 <hr/>
 
-<input-select-multi-app
-	label="select multiple"
+<input-select-entity-app
+	label="select one entities"
 	(update)="onUpdate($event)"
-	(itemAdded)="onItemAdded($event)"
-	(itemRemoved)="onItemRemoved($event)"
-	[formControl]="getControl('multi')"
-	[choices]="choices">
-</input-select-multi-app>
+	[formControl]="getControl('oneSupplier')"
+	[entityRep]="suppliersRepr">
+</input-select-entity-app>
 
 <br/>
-Value: {{ getControl('multi').value }}
+Value: {{ getControl('oneSupplier').value }}
+<br/>
+Event: {{ event | json }}
+
+<hr/>
+
+<input-select-entity-app
+	[multi]="true"
+	label="select one entities"
+	(update)="onUpdate($event)"
+	[formControl]="getControl('manySuppliers')"
+	[entityRep]="suppliersRepr">
+</input-select-entity-app>
+
+<br/>
+Value: {{ getControl('manySuppliers').value }}
 <br/>
 Event: {{ event | json }}
