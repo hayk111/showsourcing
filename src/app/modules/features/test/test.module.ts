@@ -12,16 +12,19 @@ import { TestInputsFileComponent } from './components/test-inputs-file/test-inpu
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { RouterModule } from '@angular/router';
+import { TestCarouselComponent } from './components/test-carousel/test-carousel.component';
+import { CarouselModule } from '../../shared/carousel/carousel.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		InputsModule,
+		CarouselModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([])
 	],
 	declarations: [TestComponent, BaseComponent, TestInputsCustomComponent,
-		 TestInputsFileComponent, TestInputsSelectorsComponent, TestInputsVanillaComponent],
+		 TestInputsFileComponent, TestInputsSelectorsComponent, TestInputsVanillaComponent, TestCarouselComponent],
 })
 export class TestModule { }

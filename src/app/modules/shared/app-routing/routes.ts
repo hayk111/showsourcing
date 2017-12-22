@@ -19,6 +19,7 @@ import { TestInputsVanillaComponent } from '../../features/test/components/test-
 import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsFileComponent } from '../../features/test/components/test-inputs-file/test-inputs-file.component';
 import { TestInputsCustomComponent } from '../../features/test/components/test-inputs-custom/test-inputs-custom.component';
+import { TestCarouselComponent } from '../../features/test/components/test-carousel/test-carousel.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -46,7 +47,8 @@ export const routes: Array<Route> = [
 				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
 				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
 				{ path: 'inputs-file-image', component: TestInputsFileComponent },
-				{ path: 'inputs-custom', component: TestInputsCustomComponent }
+				{ path: 'inputs-custom', component: TestInputsCustomComponent },
+				{ path: 'carousel', component: TestCarouselComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]
