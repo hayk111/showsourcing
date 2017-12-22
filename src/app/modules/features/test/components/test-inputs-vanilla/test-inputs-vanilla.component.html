@@ -5,7 +5,7 @@ label="text"
 <br/>
 Value: {{ getControl('text').value }}
 <br/>
-Event: {{ event }}
+Event: {{ event | json }}
 
 <hr/>
 
@@ -17,7 +17,7 @@ Event: {{ event }}
  <br/>
  Value: {{ getControl('number').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
 <hr/>
 
@@ -28,7 +28,7 @@ Event: {{ event }}
  <br/>
  Value: {{ getControl('date').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <hr/>
  
@@ -40,7 +40,7 @@ Event: {{ event }}
  <br/>
  Value: {{ getControl('email').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <hr/>
 
@@ -51,7 +51,7 @@ Event: {{ event }}
  <br/>
  Value: {{ getControl('url').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <hr/>
 	 
@@ -63,7 +63,7 @@ Event: {{ event }}
  <br/>
  Value: {{  getControl('tel').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <hr/>
  
@@ -74,7 +74,7 @@ Event: {{ event }}
  <br/>
  Value: {{  getControl('decimal').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
 
  <hr/>
@@ -86,7 +86,7 @@ Event: {{ event }}
  <br/>
  Value: {{  getControl('textarea').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <hr/>
  
@@ -99,7 +99,7 @@ Event: {{ event }}
  <br/>
  Value: {{  getControl('radio').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
  <br/>
  For good perfs: <br/>
 	- Should change to 3.<br/>
@@ -110,14 +110,15 @@ Event: {{ event }}
 
  <input-checkbox-app
 	 label="checkbox"
-	 (update)="onUpdate($event)"
+	 (itemAdded)="onItemAdded($event)"
+	 (itemRemoved)="onItemRemoved($event)"
 	 [choices]="choices"
 	 [formControl]="getControl('checkbox')" 
 	 placeholder="placeholder"></input-checkbox-app>
  <br/>
  Value: {{  getControl('checkbox').value }}
  <br/>
- Event: {{ event }}
+ Event: {{ event | json }}
 
  <button class="small" (click)="patch('checkbox', ['1', '4'])"> Patch</button>	
  

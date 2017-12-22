@@ -9,7 +9,7 @@
 <br>
 Value: {{ getControl('one').value }}
 <br/>
-Event: {{ event }}
+Event: {{ event | json }}
 
 
 
@@ -17,7 +17,8 @@ Event: {{ event }}
 
 <input-select-multi-app
 	label="select multiple"
-	(update)="onUpdate($event)"
+	(itemAdded)="onItemAdded($event)"
+	(itemRemoved)="onItemRemoved($event)"
 	[formControl]="getControl('multi')"
 	[choices]="choices">
 </input-select-multi-app>
@@ -25,7 +26,7 @@ Event: {{ event }}
 <br/>
 Value: {{ getControl('multi').value }}
 <br/>
-Event: {{ event }}
+Event: {{ event | json }}
 
 
 <hr/>
@@ -33,6 +34,8 @@ Event: {{ event }}
 <input-select-multi-app
 	label="select multiple"
 	(update)="onUpdate($event)"
+	(itemAdded)="onItemAdded($event)"
+	(itemRemoved)="onItemRemoved($event)"
 	[formControl]="getControl('multi')"
 	[choices]="choices">
 </input-select-multi-app>
@@ -40,4 +43,4 @@ Event: {{ event }}
 <br/>
 Value: {{ getControl('multi').value }}
 <br/>
-Event: {{ event }}
+Event: {{ event | json }}

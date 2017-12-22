@@ -50,8 +50,17 @@ export class TestInputsVanillaComponent implements OnInit {
 		console.log(event);
 	}
 
+
 	onUpdate(event) {
-		this.event = event;
+		this.event = { name: 'update', value: event };
+	}
+
+	onItemAdded(event) {
+		this.event = { name: 'itemAdded', value: event };
+	}
+
+	onItemRemoved(event) {
+		this.event = { name: 'itemRemoved', value: event };
 	}
 
 	getControl(name: string) {
