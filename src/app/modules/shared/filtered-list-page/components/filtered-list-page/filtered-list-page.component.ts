@@ -19,13 +19,6 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 export class FilteredListPageComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() pending = true;
-	searchableEntitiesRepr = [
-		entityRepresentationMap.suppliers,
-		entityRepresentationMap.events,
-		entityRepresentationMap.categories,
-		entityRepresentationMap.projects,
-		entityRepresentationMap.tags
-	];
 	filterPanelOpen$: Observable<boolean>;
 	view$: Observable<string>;
 

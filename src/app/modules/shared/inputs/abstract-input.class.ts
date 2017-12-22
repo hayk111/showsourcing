@@ -24,7 +24,7 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	@Input() label: string;
 	@Input() required = false;
 	@Input() metadata: any;
-	@Input() value: any;
+	@Input() value: any = '';
 	@Output() update = new EventEmitter<any>();
 
 	constructor(protected inj: Injector, protected cd?: ChangeDetectorRef) {

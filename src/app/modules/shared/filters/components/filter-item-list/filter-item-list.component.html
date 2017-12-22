@@ -1,10 +1,8 @@
 
-<input-app type="search" 
+<input-app type="text" 
 	placeholder="Search" 
-	#inp
-	[value]="search"
-	(keyup)="search = inp.value">
-</input-app> 	
+	(keyup)="search($event.target.value)">
+</input-app>
 
 <h4>Relevant {{ entityRep.displayName }}</h4>
 <ng-container *ngIf="relevantChoices$ | async as relChoices">

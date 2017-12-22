@@ -25,7 +25,7 @@ export const searchEntity = ( repr: EntityRepresentation, str: string) => {
 			if (str === '')
 				return entities;
 			else
-				return entities.filter(entity => entity.name.startsWith(str)) as Array<Entity>;
+				return entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
 		}
 	);
 };

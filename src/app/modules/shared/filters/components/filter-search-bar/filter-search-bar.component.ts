@@ -22,8 +22,6 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() searchableEntitiesRepr: Array<EntityRepresentation>;
-	search = '';
 	searchTerms$: Observable<any>;
 	private searchEntRep = entityRepresentationMap.search;
 	private keyDown = new Subject<string>();
@@ -37,24 +35,19 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		.pipe(
 			debounceTime(400),
 			distinctUntilChanged()
-		).subscribe(x => this.doSearch());
+		).subscribe(val => this.doSearch(val));
 	}
 
-	onChange() {
+	search(value) {
 		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.searchEntRep]));
-		this.keyDown.next(this.search);
-		if (this.search.length > 2) {
-			this.searchViaPanel();
+		if (value > 2) {
+			this.keyDown.next(value);
 		}
 	}
 
-	searchViaPanel() {
-		this.searchTerms$ = this.store.select(searchEntitiesWithFilters(this.filterGroupName, this.searchableEntitiesRepr, this.search));
-	}
-
-	doSearch() {
-		const name = `search: ${this.search}`;
-		const ac = FilterActions.addFilter(this.filterGroupName, this.searchEntRep, name, this.search);
+	doSearch(val) {
+		const name = `search: ${val}`;
+		const ac = FilterActions.addFilter(this.filterGroupName, this.searchEntRep, name, val);
 		this.store.dispatch(ac);
 	}
 

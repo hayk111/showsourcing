@@ -8,7 +8,7 @@ import { FilterTagComponent } from './components/filter-tag/filter-tag.component
 import { FilterSearchBarComponent } from './components/filter-search-bar/filter-search-bar.component';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { InputsModule } from '../inputs/inputs.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterListComponent } from './components/filter-list/filter-list.component';
 import { FilterPricePanelComponent } from './components/filter-price-panel/filter-price-panel.component';
 import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 		CommonModule,
 		InputsModule,
 		FormsModule,
+		ReactiveFormsModule,
 		MatCheckboxModule,
 		MatRadioModule,
 		MatIconModule,

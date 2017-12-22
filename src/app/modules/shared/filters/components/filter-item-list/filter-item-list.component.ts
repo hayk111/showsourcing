@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { selectEntitiesWithChecked, selectFilterForEntity, selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
+import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -17,13 +17,16 @@ import { MiscActions } from '../../../../store/action/misc.action';
 import { CounterService } from '../../services/counter.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../../store/model/user.model';
-import { combineLatest } from 'rxjs/operators';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { selectFilterPanel } from '../../../../store/selectors/filter-panel.selector';
 import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
 import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
 import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
 import { selectEntityArray } from '../../../../store/selectors/utils.selector';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { searchEntity } from '../../../../store/selectors/search-entities.selector';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { FormControl } from '@angular/forms';
 // when we filter an entity in the store this is the reused panel
 
 @Component({
@@ -37,7 +40,7 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	entityRep: EntityRepresentation;
 	entityRep$ = new Observable<EntityRepresentation>();
-	search = '';
+	search$ = new BehaviorSubject<string>('');
 	values: Array<any>;
 	choices$: Observable<Array<SelectableItem>>;
 	relevantChoices$: Observable<Array<SelectableItem>>;
@@ -64,14 +67,22 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 		).subscribe(v => this.values = v);
 
 		// select entities
-		this.choices$ = this.entityRep$.pipe(
-			switchMap(rep => this.store.select(selectEntityArray(rep)))
+		const entities$ =  this.entityRep$.pipe(
+			switchMap(rep => this.store.select(selectEntityArray(rep))),
 		);
+		this.choices$ = combineLatest(this.entityRep$, this.search$, (rep, search) => ({rep, search}))
+		.pipe(
+			switchMap(sr => this.store.select(searchEntity(sr.rep, sr.search)))
+		);
+
 		// filter only relevant entities
-		this.relevantChoices$ = this.entityRep$.pipe(
+		const relevant$ = this.entityRep$.pipe(
 			switchMap(repr => this.counterSrv.getItemsWithCount(repr)),
 		);
 
+		this.relevantChoices$ = combineLatest(relevant$, this.search$, (relevant, search) => {
+			return search ? relevant.filter(r => r.name.includes(search)) : relevant;
+		});
 	}
 
 	onItemAdded(item) {
@@ -80,6 +91,10 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 
 	onItemRemoved(item) {
 		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, item.id));
+	}
+
+	search(value) {
+		this.search$.next(value);
 	}
 
 }
