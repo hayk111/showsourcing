@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppFile } from '../../../../store/model/app-file.model';
 import Log from '../../../../../utils/logger/log.class';
+import { AppImage } from '../../../../store/model/app-image.model';
 
 @Component({
 	selector: 'modal-carousel-app',
@@ -8,7 +9,7 @@ import Log from '../../../../../utils/logger/log.class';
 	styleUrls: ['./modal-carousel.component.scss']
 })
 export class ModalCarouselComponent implements OnInit {
-	@Input() images: Array<AppFile>;
+	@Input() images: Array<AppImage>;
 	@Input() selectedIndex = 0;
 	@Output() close = new EventEmitter<Event>();
 
@@ -29,6 +30,11 @@ export class ModalCarouselComponent implements OnInit {
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		event.stopPropagation();
+	}
+
+	getUrl(index) {
+		Log.debug('[CarouselComponent] getUrl');
+		return this.images[index].urls.url_1000x1000;
 	}
 
 }

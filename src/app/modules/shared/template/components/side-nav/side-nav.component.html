@@ -1,43 +1,41 @@
-<ng-container *ngIf="open$ | async as open">
-	<nav role="navigation" class="{{ open ? 'open' : '' }} flexColumn z-3">
-		<div class="items">
+<nav role="navigation" class="{{ open ? 'open' : '' }} flexColumn z-3">
+	<div class="items">
 
-			<a [routerLink]="['/home']" routerLinkActive="selected"
-				class="sideNavItem flex">
-				<mat-icon>home</mat-icon>
-				<span class="itemTxt">home</span>
-			</a>
+		<a [routerLink]="['/home']" routerLinkActive="selected"
+			class="sideNavItem flex">
+			<mat-icon>home</mat-icon>
+			<span class="itemTxt">home</span>
+		</a>
 
-			<a [routerLink]="['/products']" routerLinkActive="selected" class="sideNavItem flex">
-				<!-- parking icon is used for products... -->
-				<mat-icon>local_parking</mat-icon>
-				<span class="itemTxt">products</span>
-			</a>
+		<a [routerLink]="['/products']" routerLinkActive="selected" class="sideNavItem flex">
+			<!-- parking icon is used for products... -->
+			<mat-icon>local_parking</mat-icon>
+			<span class="itemTxt">products</span>
+		</a>
 
-			
-			<a [routerLink]="['/tasks']" routerLinkActive="selected" class="sideNavItem flex">
-				<mat-icon>watch</mat-icon>
-				<span class="itemTxt">tasks</span>
-			</a>
-			
-			<a [routerLink]="['/suppliers']" routerLinkActive="selected" class="sideNavItem flex">
-				<mat-icon>perm_contact_calendar</mat-icon>
-				<span class="itemTxt">suppliers</span>
-			</a>
+		
+		<a [routerLink]="['/tasks']" routerLinkActive="selected" class="sideNavItem flex">
+			<mat-icon>watch</mat-icon>
+			<span class="itemTxt">tasks</span>
+		</a>
+		
+		<a [routerLink]="['/suppliers']" routerLinkActive="selected" class="sideNavItem flex">
+			<mat-icon>perm_contact_calendar</mat-icon>
+			<span class="itemTxt">suppliers</span>
+		</a>
 
-			
-			<a [routerLink]="['/events']" routerLinkActive="selected" class="sideNavItem flex">
-				<mat-icon>event</mat-icon>
-				<span class="itemTxt">events</span>
-			</a>
+		
+		<a [routerLink]="['/events']" routerLinkActive="selected" class="sideNavItem flex">
+			<mat-icon>event</mat-icon>
+			<span class="itemTxt">events</span>
+		</a>
 
-			<a [routerLink]="['/test']" routerLinkActive="selected" class="sideNavItem flex">
-				<mat-icon>event</mat-icon>
-				<span class="itemTxt">test</span>
-			</a>
-		</div>
+		<a [routerLink]="['/test']" routerLinkActive="selected" class="sideNavItem flex">
+			<mat-icon>event</mat-icon>
+			<span class="itemTxt">test</span>
+		</a>
+	</div>
 
 
-		<button class="sideNavItem" (mousedown)="toggle()"><mat-icon>{{ menuIcon }}</mat-icon></button>
-	</nav>
-</ng-container>
+	<button class="sideNavItem" (mousedown)="toggle()"><mat-icon>{{ menuIcon }}</mat-icon></button>
+</nav>

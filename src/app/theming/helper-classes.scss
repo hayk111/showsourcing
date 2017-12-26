@@ -30,7 +30,12 @@
 // pointer
 
 .pointer{
+	user-select: none;
   cursor: pointer;
+}
+
+.noselect {
+	user-select: none;
 }
 
 // colors

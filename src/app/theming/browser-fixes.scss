@@ -50,6 +50,21 @@ h2{
 	margin-bottom: 32px;
 }
 
+menu {
+	position: absolute;
+	top: var(--spacing-bigger);
+	right: var(--spacing-default);
+	padding: 0;
+	menuitem {
+		cursor: pointer;
+		background: var(--color-bg);
+		padding: var(--spacing-default);
+	}
+	menuitem:hover {
+		background: var(--color-bg-secondary);
+	}
+}
+
 
 ::-webkit-input-placeholder {
 	font-style: italic;
