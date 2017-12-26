@@ -9,23 +9,23 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthCardComponent } from './components/auth-card/auth-card.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AccountCreatedComponent } from './components/account-created/account-created.component';
-import { CardsModule } from '../cards/cards.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { MatIconModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { CardsModule } from '../cards/cards.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
-		CardsModule,
 		InputsModule,
 		MatIconModule,
 		MatProgressSpinnerModule,
-		MatTabsModule
+		MatTabsModule,
+		CardsModule
 	],
 	providers: [
 		{

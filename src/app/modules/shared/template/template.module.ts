@@ -10,11 +10,13 @@ import { MatIconModule } from '@angular/material';
 import { SearchComponent } from './components/header/search/search.component';
 import { NotifComponent } from './components/header/notif/notif.component';
 import { UserInfoComponent } from './components/header/user-info/user-info.component';
+import { CardsModule } from '../cards/cards.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild([]),
+		CardsModule,
 		MatIconModule
 	],
 	providers: [  ],

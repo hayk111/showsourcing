@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityTarget } from '../../../../../store/utils/entities.utils';
-import { Vote } from '../../../../../store/model/vote.model';
-import { AutoUnsub } from '../../../../../../utils/auto-unsub.component';
-import { User } from '../../../../../store/model/user.model';
-import { selectUser } from '../../../../../store/selectors/user.selector';
-import { selectVotesForTarget } from '../../../../../store/selectors/votes.selector';
-import { VoteActions } from '../../../../../store/action/vote.action';
+import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { Vote } from '../../../../store/model/vote.model';
+import { User } from '../../../../store/model/user.model';
+import { selectUser } from '../../../../store/selectors/user.selector';
+import { selectVotesForTarget } from '../../../../store/selectors/votes.selector';
+import { VoteActions } from '../../../../store/action/vote.action';
 
 @Component({
 	selector: 'feedback-input-app',

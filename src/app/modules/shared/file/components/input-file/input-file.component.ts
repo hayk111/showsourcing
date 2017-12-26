@@ -2,17 +2,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
-import { AppFile } from '../../../../../store/model/app-file.model';
-import { EntityTarget } from '../../../../../store/utils/entities.utils';
-import { selectFilesForTarget } from '../../../../../store/selectors/file.selector';
-import { FileActions } from '../../../../../store/action/file.action';
+import { AppFile } from '../../../../store/model/app-file.model';
+import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
+import { FileActions } from '../../../../store/action/file.action';
 
 @Component({
-	selector: 'file-input-app',
-	templateUrl: './file-input.component.html',
-	styleUrls: ['./file-input.component.scss']
+	selector: 'input-file-app',
+	templateUrl: './input-file.component.html',
+	styleUrls: ['./input-file.component.scss']
 })
-export class FileInputComponent implements OnInit {
+export class InputFileComponent implements OnInit {
 	files$: Observable<Array<AppFile>>;
 	private _target: EntityTarget;
 	// @Input target at the bottom

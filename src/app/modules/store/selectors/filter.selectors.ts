@@ -12,7 +12,7 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 	return createSelector([ getFilters ], ( filters ) => {
 		Log.debug(`selectFilterGroup ${filterGroupName}`);
 		let filterGroup = filters[filterGroupName];
-		if (filterGroup === undefined){
+		if (filterGroup === undefined) {
 			Log.warn(`FilterGroupName for ${filterGroupName} is undefined. ${r}`);
 			filterGroup = [];
 		}

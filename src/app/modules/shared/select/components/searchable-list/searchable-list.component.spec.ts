@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TestInputsCustomComponent } from './test-inputs-custom.component';
+import { SearchableListComponent } from './searchable-list.component';
 
-describe('TestInputsCustomComponent', () => {
-	let component: TestInputsCustomComponent;
-	let fixture: ComponentFixture<TestInputsCustomComponent>;
+describe('SearchableListComponent', () => {
+	let component: SearchableListComponent;
+	let fixture: ComponentFixture<SearchableListComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [ TestInputsCustomComponent ]
+			declarations: [ SearchableListComponent ]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(TestInputsCustomComponent);
+		fixture = TestBed.createComponent(SearchableListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

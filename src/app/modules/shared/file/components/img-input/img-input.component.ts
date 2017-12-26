@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppFile } from '../../../../../store/model/app-file.model';
-import { EntityTarget } from '../../../../../store/utils/entities.utils';
-import { selectImagesForTarget } from '../../../../../store/selectors/image.selector';
-import { ImageActions } from '../../../../../store/action/images.action';
-import { AppErrorActions } from '../../../../../store/action/app-errors.action';
+import { AppFile } from '../../../../store/model/app-file.model';
+import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { selectImagesForTarget } from '../../../../store/selectors/image.selector';
+import { ImageActions } from '../../../../store/action/images.action';
+import { AppErrorActions } from '../../../../store/action/app-errors.action';
 
 @Component({
 	selector: 'img-input-app',

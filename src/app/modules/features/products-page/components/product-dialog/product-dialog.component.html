@@ -4,25 +4,25 @@
 		<ng-container *ngIf="product$ | async as product">
 			<div class="flex">
 				<div>
-					
+
 					<ng-container *ngIf="target$ | async as target">
-						<file-input-app [target]="target"></file-input-app>
-						<img-input-app [target]="target"></img-input-app>	
+						<input-file-app [target]="target"></input-file-app>
+						<img-input-app [target]="target"></img-input-app>
 						<comments-input-app [target]="target"></comments-input-app>
 						<feedback-input-app [target]="target"></feedback-input-app>
 					</ng-container>
 
 				</div>
 
-				<dynamic-form-app 
+				<dynamic-form-app
 					class="customForm"
 					[entityRepr]="entityRepr"
 					[entityId]="product.id"></dynamic-form-app>
 
-			</div>		
-			
-		</ng-container>		
+			</div>
+
+		</ng-container>
 	</ng-container>
 
-	
+
 </dialog-app>

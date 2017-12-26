@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Injector, Output, EventEmitter } from '@angular/core';
-import { EntityRepresentation, Entity } from '../../../../../../store/utils/entities.utils';
 import { ChangeDetectorRef } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../../../../abstract-input.class';
 import { Store } from '@ngrx/store';
-import { selectEntity, selectEntityArray } from '../../../../../../store/selectors/utils.selector';
 import { Observable } from 'rxjs/Observable';
+import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
+import { EntityRepresentation, Entity } from '../../../../store/utils/entities.utils';
+import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 
 @Component({
 	selector: 'input-select-entity-app',

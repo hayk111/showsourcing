@@ -1,8 +1,8 @@
 import { Component, OnInit, Injector, Input, EventEmitter, Output } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../../../../abstract-input.class';
 import { ChangeDetectorRef } from '@angular/core';
-import Log from '../../../../../../../utils/logger/log.class';
 import { SelectableItem } from '../selectable-item.interface';
+import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
+import Log from '../../../../../utils/logger/log.class';
 
 @Component({
 	selector: 'input-select-multi-app',
@@ -10,7 +10,8 @@ import { SelectableItem } from '../selectable-item.interface';
 	styleUrls: ['./input-select-multi.component.scss'],
 	providers: [ makeAccessorProvider(InputSelectMultiComponent) ]
 })
-export class InputSelectMultiComponent extends AbstractInput implements OnInit {
+export class InputSelectMultiComponent extends AbstractInput {
+
 	filteredChoices: Array<SelectableItem>;
 	panelVisible = false;
 	@Output() itemAdded = new EventEmitter<SelectableItem>();

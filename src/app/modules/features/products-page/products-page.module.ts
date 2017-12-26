@@ -11,6 +11,9 @@ import { ProductDialogComponent } from './components/product-dialog/product-dial
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
+import { SelectModule } from '../../shared/select/select.module';
+import { CommentModule } from '../../shared/comment/comment.module';
+import { FeedbackModule } from '../../shared/feedback/feedback.module';
 
 @NgModule({
 	imports: [
@@ -22,6 +25,9 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 		DialogModule,
 		DynamicFormsModule,
 		InputsModule,
+		SelectModule,
+		CommentModule,
+		FeedbackModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

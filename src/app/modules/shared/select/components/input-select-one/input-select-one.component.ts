@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../../../../abstract-input.class';
 import { ChangeDetectorRef } from '@angular/core';
-import Log from '../../../../../../../utils/logger/log.class';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
+import Log from '../../../../../utils/logger/log.class';
 
 export interface SelectableItem {
 	selected?: boolean;

@@ -15,8 +15,8 @@ import { InfoRequestThanksComponent } from './components/info-request-thanks/inf
 import { InfoRequestStepperComponent } from './components/info-request-stepper/info-request-stepper.component';
 import { RouterModule } from '@angular/router';
 import { InfoRequestFormBuilderService } from './service/info-request-form-builder.service';
-import { CardsModule } from '../../shared/cards/cards.module';
 import { AuthModule } from '../../shared/auth/auth.module';
+import { CardsModule } from '../../shared/cards/cards.module';
 
 
 @NgModule({
