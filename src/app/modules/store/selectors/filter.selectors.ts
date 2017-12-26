@@ -11,9 +11,11 @@ const getFilters = (state) => state.ui.filters;
 export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 	return createSelector([ getFilters ], ( filters ) => {
 		Log.debug(`selectFilterGroup ${filterGroupName}`);
-		const filterGroup = filters[filterGroupName];
-		if (filterGroup === undefined)
-			throw Error(`FilterGroupName for ${filterGroupName} is undefined. ${r}`);
+		let filterGroup = filters[filterGroupName];
+		if (filterGroup === undefined){
+			Log.warn(`FilterGroupName for ${filterGroupName} is undefined. ${r}`);
+			filterGroup = [];
+		}
 		return filterGroup;
 	});
 };
@@ -80,7 +82,7 @@ export const selectEntitiesWithChecked = (filterGroup: FilterGroupName, entityRe
 	);
 };
 
-export const selectFiltersAsUrlParams = (filterGroup: FilterGroupName) => {
+export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
 	return createSelector(
 		[
 			selectFilterGroup(filterGroup),

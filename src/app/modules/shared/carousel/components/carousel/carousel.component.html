@@ -1,18 +1,21 @@
-<div class="img-ctnr">
-	<img [src]="getUrl(selectedIndex)" (click)="openModal()" class="loading" [style.transform]="'rotate(' + rotation + 'deg)'"/>
-</div>
-<div class="move-btn back flexCenter pointer btn" (mousedown)="back($event)" *ngIf="selectedIndex > 0"> 
-	&lt; </div>	
-<div class="move-btn next flexCenter pointer btn" (mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)"> 
-	&gt; </div>
-<div class="rotate pointer" (click)="rotate()">rotate</div>
+<ng-container *ngIf="images.length > 0">
+	<div class="img-ctnr flexCenter">
+		<img [src]="getUrl(selectedIndex)" (click)="openModal()" class="loading" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
+	</div>
+	<div class="move-btn back flexCenter pointer btn" (mousedown)="back($event)" *ngIf="selectedIndex > 0">
+		&lt; </div>
+	<div class="move-btn next flexCenter pointer btn" (mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)">
+		&gt; </div>
+	<div class="rotate pointer" (click)="rotate()">rotate</div>
 
-<mat-icon class="menuIc btn">more_vert</mat-icon>
-<!-- menu -->
-<menu class="z-2 flexColumn">
-	<menuitem> download </menuitem>
-	<menuitem> delete </menuitem>
-</menu>
+	<mat-icon class="menuIc btn" (click)="openMenu()">more_vert</mat-icon>
+	<!-- menu -->
+	<menu class="z-2 flexColumn" (clickOutside)="closeMenu()" *ngIf="menuOpen">
+		<menuitem (click)="download()"> download </menuitem>
+		<menuitem (click)="delete()"> delete </menuitem>
+	</menu>
 
-<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
+	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
 
+
+</ng-container>

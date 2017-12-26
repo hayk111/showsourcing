@@ -1,8 +1,6 @@
-<button (click)="openFirstCarousel()">open first carousel</button>
-<modal-carousel-app [images]="images" *ngIf="firstCarouselOpen" (close)="closeFirstCarousel()">
 
-</modal-carousel-app>
+<ng-container *ngIf="target$ | async as target">
+	<carousel-entity-app [target]="target"></carousel-entity-app>
+</ng-container>
 
-<carousel-app [images]="images"></carousel-app>
-
-<br/> <br/> <br/>
+<br/> <br/>

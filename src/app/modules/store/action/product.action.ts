@@ -15,7 +15,7 @@ export enum ActionType {
 
 export class ProductActions {
 
-	static load(filterGroupName: FilterGroupName) {
+	static load(filterGroupName?: FilterGroupName) {
 		return {
 			type: ActionType.LOAD,
 			payload: filterGroupName

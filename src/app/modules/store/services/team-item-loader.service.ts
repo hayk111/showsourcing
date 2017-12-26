@@ -19,7 +19,7 @@ export class TeamItemLoaderService {
 		Log.debug('TeamItemLoaderService');
 	}
 
-	load(targetEntity: EntityRepresentation, filterGroupName: FilterGroupName): Observable<any> {
+	load(targetEntity: EntityRepresentation, filterGroupName?: FilterGroupName): Observable<any> {
 
 		const urlBuilder = new UrlBuilder('team');
 		urlBuilder.entity = targetEntity.urlName;

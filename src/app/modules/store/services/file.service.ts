@@ -16,7 +16,7 @@ import { FileActions } from '../../store/action/file.action';
 export class FileService {
 	userId: string;
 
-	constructor(private http: HttpClient, private store: Store<any>) {
+	constructor(protected http: HttpClient, protected store: Store<any>) {
 		// if we come so far the user is for sure defined.
 		this.store.select(selectUser).subscribe(user => this.userId = user.id);
 	}

@@ -1,6 +1,7 @@
 import { uuid } from '../utils/uuid.utils';
 import { ActionType } from '../action/images.action';
 import { AppFile } from '../model/app-file.model';
+import { AppImage } from '../model/app-image.model';
 
 
 const initialState = [];
@@ -9,6 +10,7 @@ export function imagesReducer(state = initialState, action) {
 	let newState;
 	let id;
 	let index;
+	let img: AppImage;
 
 	switch (action.type) {
 		case ActionType.SET:
@@ -18,8 +20,10 @@ export function imagesReducer(state = initialState, action) {
 			newState = state.filter((f: AppFile) => f.pending);
 			newState.push(...action.payload);
 			return newState;
+
 		case ActionType.ADD_PENDING:
 			return state.concat(action.payload);
+
 		case ActionType.SET_READY:
 			id = action.payload.id;
 			const replacing = action.payload.replacing;
@@ -27,6 +31,7 @@ export function imagesReducer(state = initialState, action) {
 			newState = [...state];
 			newState[index] = replacing;
 			return newState;
+
 		case ActionType.REPORT_PROGRESS:
 			id = action.payload.id;
 			const progress = action.payload.progress;
@@ -34,6 +39,30 @@ export function imagesReducer(state = initialState, action) {
 			newState = [...state];
 			newState[index] = { ...newState[index], progress  };
 			return newState;
+
+		case ActionType.ROTATE:
+			img = action.payload;
+			const rotation = (img.rotation || 0) + 1;
+			img = { ...img, rotation, pending: true };
+			index = state.findIndex(f => f.id === img.id);
+			newState = [...state];
+			newState[index] = img;
+			return newState;
+
+		case ActionType.SET_IMG:
+			img = action.payload;
+			id = img.id;
+			index = state.findIndex(f => f.id === id);
+			newState = [...state];
+			newState[index] = img;
+			return newState;
+
+		case ActionType.DELETE:
+			id = action.payload.id;
+			newState = [...state];
+			index = state.findIndex(f => f.id === id);
+			return newState.splice(index, 1);
+
 		default: return state;
 	}
 }

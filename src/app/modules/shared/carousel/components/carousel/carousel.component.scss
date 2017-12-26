@@ -45,15 +45,20 @@ menu {
 	right: var(--spacing-big);
 }
 
+.img-ctnr {
+	height: 100%;
+}
+
 img {
-	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .rotate {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.7);
 	padding: 0 var(--spacing-default);
-	height: 40px;	
+	height: 40px;
 	color: white;
 	display: flex;
 	align-items: center;

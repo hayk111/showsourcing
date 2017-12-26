@@ -6,6 +6,8 @@ import { AppFile } from '../model/app-file.model';
 import { FileService } from '../services/file.service';
 import { ActionType, ImageActions } from '../action/images.action';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { ImageService } from '../services/images.service';
+import { AppImage } from '../model/app-image.model';
 
 @Injectable()
 export class ImageEffects {
@@ -37,7 +39,27 @@ export class ImageEffects {
 		)
 	);
 
+	@Effect()
+	rotate$ = this.actions$.ofType<any>(ActionType.ROTATE).pipe(
+		map(action => action.payload),
+		switchMap((img) => this.srv.rotate(img) ),
+		switchMap((img) => this.srv.preload(img)),
+		map((r: AppImage) => ImageActions.setImage(r))
+	);
 
-	constructor(private actions$: Actions, private srv: FileService) {}
+	@Effect({ dispatch: false })
+	download$ = this.actions$.ofType<any>(ActionType.DOWNLOAD).pipe(
+		map(action => action.payload),
+		tap( img => this.srv.download(img))
+	);
+
+	@Effect({ dispatch: false })
+	delete$ = this.actions$.ofType<any>(ActionType.DELETE).pipe(
+		map(action => action.payload),
+		switchMap(img => this.srv.delete(img))
+	);
+
+
+	constructor(private actions$: Actions, private srv: ImageService) {}
 
 }

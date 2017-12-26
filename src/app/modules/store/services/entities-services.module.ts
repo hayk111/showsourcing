@@ -16,6 +16,7 @@ import { UserService } from './user.service';
 import { TokenService } from './token.service';
 import { MatSnackBarModule } from '@angular/material';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
+import { ImageService } from './images.service';
 
 @NgModule({
 	imports: [
@@ -38,7 +39,8 @@ import { LocalStorageModule } from '../../shared/local-storage/local-storage.mod
 		VoteService,
 		AuthService,
 		UserService,
-		TokenService
+		TokenService,
+		ImageService
 	]
 })
 export class EntitiesServicesModule { }

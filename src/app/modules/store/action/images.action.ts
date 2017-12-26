@@ -1,5 +1,6 @@
 import { EntityTarget } from '../utils/entities.utils';
 import { AppFile } from '../model/app-file.model';
+import { AppImage } from '../model/app-image.model';
 
 
 export enum ActionType {
@@ -8,7 +9,11 @@ export enum ActionType {
 	ADD_NEW = '[Image] Adding new file',
 	ADD_PENDING = '[Image] Add pending',
 	SET_READY = '[Image] Set ready',
-	REPORT_PROGRESS = '[Image] Reporting progress'
+	REPORT_PROGRESS = '[Image] Reporting progress',
+	ROTATE = '[Image] rotate',
+	SET_IMG = '[Image] setting',
+	DOWNLOAD = '[Image] download',
+	DELETE = '[Image] delete'
 }
 
 export class ImageActions {
@@ -51,6 +56,34 @@ export class ImageActions {
 		return {
 			type: ActionType.REPORT_PROGRESS,
 			payload: { id: file.id, progress }
+		};
+	}
+
+	static rotate(img: AppImage) {
+		return {
+			type: ActionType.ROTATE,
+			payload: img
+		};
+	}
+
+	static download(img: AppImage) {
+		return {
+			type: ActionType.DOWNLOAD,
+			payload: img
+		};
+	}
+
+	static delete(img: AppImage) {
+		return {
+			type: ActionType.DELETE,
+			payload: img,
+		};
+	}
+
+	static setImage(img: AppImage) {
+		return {
+			type: ActionType.SET_IMG,
+			payload: img
 		};
 	}
 }

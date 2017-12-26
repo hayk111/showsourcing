@@ -13,7 +13,7 @@ export class ProductService {
 	constructor(private http: HttpClient,
 							private teamItemLoader: TeamItemLoaderService) { }
 
-	load(filterGroupName: FilterGroupName) {
+	load(filterGroupName?: FilterGroupName) {
 		return this.teamItemLoader.load(this.repr, filterGroupName)
 			.map(r => r.elements)
 			.map(elems => this.addCustomFields(elems));

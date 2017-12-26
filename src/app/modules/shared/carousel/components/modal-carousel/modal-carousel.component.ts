@@ -9,7 +9,7 @@ import { AppImage } from '../../../../store/model/app-image.model';
 	styleUrls: ['./modal-carousel.component.scss']
 })
 export class ModalCarouselComponent implements OnInit {
-	@Input() images: Array<AppImage>;
+	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
 	@Output() close = new EventEmitter<Event>();
 
