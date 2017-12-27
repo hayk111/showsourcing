@@ -8,47 +8,39 @@ import { User } from '../../../../store/model/user.model';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { selectVotesForTarget } from '../../../../store/selectors/votes.selector';
 import { VoteActions } from '../../../../store/action/vote.action';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
 	selector: 'feedback-input-app',
 	templateUrl: './feedback-input.component.html',
-	styleUrls: ['./feedback-input.component.scss']
+	styleUrls: ['./feedback-input.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedbackInputComponent extends AutoUnsub implements OnInit {
-	private _target: EntityTarget;
 	@Output() request = new EventEmitter<null>();
-	votes$: Observable<Vote>;
-	percentage = 0;
+	@Output() vote = new EventEmitter<number>();
+	@Input() votes: Array<Vote> = [];
 	userVote: Vote;
-	private user: User;
+	user$: Observable<User>;
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.store.select(selectUser)
-			.takeUntil(this._destroy$)
-			.subscribe((user: User) => this.user = user);
-		this.votes$ = this.store.select(selectVotesForTarget(this.target));
-		this.votes$
-		.takeUntil(this._destroy$)
-		.subscribe(votes => {
-			this.percentage = this.calcPercentage(votes);
-			this.userVote = this.calcUserVoteValue(votes);
-		});
+		this.user$ = this.store.select(selectUser);
 	}
 
-	vote(value: number) {
-		this.store.dispatch(VoteActions.addNew({ value, target: this.target }));
+	onVote(value: number) {
+		this.vote.emit(value);
 	}
 
-	calcPercentage(votes) {
-		if (!votes || votes.length === 0)
+	getPercentage(user) {
+		const totalVotes = this.votes.length;
+		if (!this.votes || totalVotes === 0)
 			return 0;
-		const totalVotes = votes.length;
 		let totalScore = 0;
-		votes.forEach(v => {
+		this.votes.forEach(v => {
 			if (v.value > 0)
 				totalScore++;
 			else
@@ -57,28 +49,18 @@ export class FeedbackInputComponent extends AutoUnsub implements OnInit {
 		return totalScore / totalVotes * 100;
 	}
 
-	calcUserVoteValue(votes) {
-		return votes.find(v => v.userId === this.user.id);
+	calcUserVoteValue(user) {
+		const vote = this.votes.find(v => v.userId === user.id);
+		return vote ? vote.value : undefined;
 	}
 
-	@Input()
-	set target( target: EntityTarget ) {
-		this._target = target;
-		this.store.dispatch(VoteActions.load(target));
+
+	isUp(user) {
+		return this.calcUserVoteValue(user) === 100;
 	}
 
-	get target() {
-		return this._target;
-	}
-
-	get isUp() {
-		if (!this.userVote) return false;
-		return this.userVote.value === 100;
-	}
-
-	get isDown() {
-		if (!this.userVote) return false;
-		return this.userVote.value === 0;
+	isDown(user) {
+		return this.calcUserVoteValue(user) === 0;
 	}
 
 }

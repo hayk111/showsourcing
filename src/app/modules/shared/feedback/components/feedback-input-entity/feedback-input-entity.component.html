@@ -1,0 +1,3 @@
+<ng-container *ngIf="votes$ | async as votes">
+	<feedback-input-app [votes]="votes" (vote)="onVote($event)"></feedback-input-app>
+</ng-container>

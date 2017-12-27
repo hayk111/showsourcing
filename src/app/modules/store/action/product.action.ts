@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../model/product.model';
 import { TypedAction } from '../utils/typed-action.interface';
-import { ProductVote } from '../model/product-vote.model';
 import { AppComment } from '../model/comment.model';
 import { FilterGroupName } from '../model/filter.model';
 import { AppFile } from '../model/app-file.model';

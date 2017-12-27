@@ -2,11 +2,13 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppFile } from '../../../../store/model/app-file.model';
 import Log from '../../../../../utils/logger/log.class';
 import { AppImage } from '../../../../store/model/app-image.model';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'modal-carousel-app',
 	templateUrl: './modal-carousel.component.html',
-	styleUrls: ['./modal-carousel.component.scss']
+	styleUrls: ['./modal-carousel.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalCarouselComponent implements OnInit {
 	@Input() images: Array<AppImage> = [];

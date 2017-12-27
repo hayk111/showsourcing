@@ -10,12 +10,14 @@ import { selectCommentsForTarget } from '../../../../store/selectors/comments.se
 import { CommentActions } from '../../../../store/action/comment.action';
 import { selectTeamMember } from '../../../../store/selectors/team-members.selector';
 import { User } from '../../../../store/model/user.model';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 
 @Component({
 	selector: 'comments-app',
 	templateUrl: './comments-input.component.html',
-	styleUrls: ['./comments-input.component.scss']
+	styleUrls: ['./comments-input.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentsInputComponent extends AutoUnsub {
 	@Input() comments: Array<AppComment> = [];
@@ -34,6 +36,5 @@ export class CommentsInputComponent extends AutoUnsub {
 			event.preventDefault();
 		}
 	}
-
 
 }

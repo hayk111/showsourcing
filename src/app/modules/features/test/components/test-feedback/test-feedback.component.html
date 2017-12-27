@@ -1,3 +1,11 @@
-<p>
-  test-feedback works!
-</p>
+<feedback-input-app [votes]="votes" (vote)="onVote($event)"></feedback-input-app>
+
+<br/>
+{{ event | json }}
+
+<br/><hr><br>
+
+Vote entity
+<ng-container *ngIf="target$ | async as target">
+	<feedback-input-entity-app [target]="target"></feedback-input-entity-app>
+</ng-container>

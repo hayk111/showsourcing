@@ -9,7 +9,6 @@ import { switchMap, map, merge, mergeMap, startWith, tap } from 'rxjs/operators'
 import { zip } from 'rxjs/observable/zip';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
-import { ProductVote } from '../model/product-vote.model';
 import { User } from '../model/user.model';
 import { selectUser } from '../selectors/user.selector';
 import { AppComment } from '../model/comment.model';

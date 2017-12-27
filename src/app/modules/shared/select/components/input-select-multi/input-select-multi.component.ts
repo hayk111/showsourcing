@@ -3,12 +3,14 @@ import { ChangeDetectorRef } from '@angular/core';
 import { SelectableItem } from '../selectable-item.interface';
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
 import Log from '../../../../../utils/logger/log.class';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'input-select-multi-app',
 	templateUrl: './input-select-multi.component.html',
 	styleUrls: ['./input-select-multi.component.scss'],
-	providers: [ makeAccessorProvider(InputSelectMultiComponent) ]
+	providers: [ makeAccessorProvider(InputSelectMultiComponent) ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSelectMultiComponent extends AbstractInput {
 
