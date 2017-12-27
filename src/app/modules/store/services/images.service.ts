@@ -19,7 +19,9 @@ export class ImageService extends FileService {
 	}
 
 	delete(img: AppImage) {
-		return this.http.delete(`api/image/${img.id}`);
+		const targetName = img.target.entityRepr.urlName;
+		const targetId = img.target.entityId;
+		return this.http.delete(`api/${targetName}/${targetId}/image/${img.id}`);
 	}
 
 	rotate(img: AppImage) {

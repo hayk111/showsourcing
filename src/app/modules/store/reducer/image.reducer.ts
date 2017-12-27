@@ -61,7 +61,8 @@ export function imagesReducer(state = initialState, action) {
 			id = action.payload.id;
 			newState = [...state];
 			index = state.findIndex(f => f.id === id);
-			return newState.splice(index, 1);
+			newState.splice(index, 1);
+			return newState;
 
 		default: return state;
 	}
