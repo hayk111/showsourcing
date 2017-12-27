@@ -13,10 +13,10 @@ export class AppComment extends AsyncEntityWithTarget {
 	modificationCounterText?: number;
 	teamId?: string;
 
-	constructor(public text: string, target: EntityTarget, protected store: Store<any>) {
+	constructor(public text: string, target: EntityTarget, store: Store<any>) {
 		super(target, store);
 		this.creationDate = Date.now();
-		this.store.select(selectUserTeamId).pipe(take(1))
+		store.select(selectUserTeamId).pipe(take(1))
 			.subscribe(id => this.teamId = id);
 	}
 }

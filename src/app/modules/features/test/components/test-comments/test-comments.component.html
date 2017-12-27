@@ -1,5 +1,13 @@
-<comments-app [comments] (newComment)="onNewComment($event)"></comments-app>
+<comments-app [comments]="comments" (newComment)="onNewComment($event)"></comments-app>
 
 {{ event | json }}
+
+<br> <hr> <br>
+
+Comment Entity ( first product some same as above)
+<ng-container *ngIf="target$ | async as target">
+	<comments-entity-app [target]="target"></comments-entity-app>
+</ng-container>
+
 
 <br> <hr> <br>

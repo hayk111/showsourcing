@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFirstProductEntityTarget } from '../../utils.utils';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { selectCommentsForTarget } from '../../../../store/selectors/comments.selector';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { CommentActions } from '../../../../store/action/comment.action';
 
 @Component({
 	selector: 'app-test-comments',
@@ -23,7 +24,8 @@ export class TestCommentsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$);
 		this.target$.pipe(
-			switchMap((target: EntityTarget) => this.store.select(selectCommentsForTarget(target)))
+			tap((target: EntityTarget) => this.store.dispatch(CommentActions.load(target))),
+			switchMap((target: EntityTarget) => this.store.select(selectCommentsForTarget(target))),
 		).subscribe( comments => this.comments = comments);
 	}
 
