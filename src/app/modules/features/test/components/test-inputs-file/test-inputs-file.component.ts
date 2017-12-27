@@ -6,6 +6,7 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { getFirstProductEntityTarget } from '../../utils.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { AppFile } from '../../../../store/model/app-file.model';
+import { AppImage } from '../../../../store/model/app-image.model';
 
 @Component({
 	selector: 'app-test-inputs-file',
@@ -14,10 +15,13 @@ import { AppFile } from '../../../../store/model/app-file.model';
 })
 export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 
-	event: any;
+	dropEvent: any;
+	selectEvent: any;
 	files1 = [];
+	files2 = [];
 	userId: string;
 	target: EntityTarget;
+
 	constructor(private store: Store<any>) {
 		super();
 	}
@@ -31,17 +35,20 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFileDrop(files) {
-		this.event = `There has been ${files.length} file dropped`;
+		this.dropEvent = `There has been ${files.length} file dropped`;
 	}
 
 	onFileSelect(files) {
-		this.event = `There has been ${files.length} file selected`;
+		this.selectEvent = `There has been ${files.length} file selected`;
 	}
 
-	onFilesAdded(files) {
-		files.forEach(file => {
-			this.files1.push(new AppFile(file, this.target, this.userId));
-		});
+	onFileAdded(file, where) {
+		this[where].push(new AppFile(file, this.target, this.userId));
+	}
+
+	async onImgAdded(file, where) {
+		const img = await AppImage.newInstance(file, this.target, this.userId);
+		this[where].push(img);
 	}
 
 }

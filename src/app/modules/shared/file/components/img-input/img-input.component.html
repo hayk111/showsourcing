@@ -1,18 +1,16 @@
 <div class="dnd"
 	appFileDrop
-	(fileDrop)="onFileChange($event)">
+	(fileDrop)="onFilesAdded($event)">
 	<span>Drap & drop here </span>
 </div>
 
-<input 
+<input
 	accept=".jpg, .jpeg, .png"
-	type="file" multiple="true" 
+	type="file" multiple="true"
 	appFileSelect
-	(fileSelect)="onFileChange($event)"/>
+	(fileSelect)="onFilesAdded($event)"/>
 
-<ng-container *ngIf="images$ | async as images">
-	<div class="imgPreview" *ngFor="let img of images">
-		<img [src]="img?.urls?.url_120x90 || img?.data" class="{{ img?.pending ? 'pending' : '' }}" />	
-	</div>	
-</ng-container>
+<div class="imgPreview" *ngFor="let img of images">
+	<img [src]="img?.urls?.url_120x90 || img?.data" class="{{ img?.pending ? 'pending' : '' }}" />
+</div>
 

@@ -24,7 +24,6 @@ export class ImageEffects {
 	addImage$ = this.actions$.ofType<any>(ActionType.ADD_NEW)
 		.pipe(
 			map(action => action.payload),
-			mergeMap((file: AppFile) => fromPromise(this.srv.getPendingImage(file))),
 			map((file: AppFile) => ImageActions.addPending(file))
 		);
 

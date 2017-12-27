@@ -21,17 +21,6 @@ export class FileService {
 		this.store.select(selectUser).subscribe(user => this.userId = user.id);
 	}
 
-	async getPendingImage(file: AppFile): Promise<AppFile> {
-		const copy = { ...file };
-		copy.pending = true;
-		copy.id = uuid();
-		copy.fileName = file.file.name;
-		copy.creationDate = Date.now();
-		copy.createdByUserId = this.userId;
-		copy.progress = 0;
-		copy.data = await this.convertFileToBase64(file.file);
-		return copy;
-	}
 
 	load(target: EntityTarget, type: 'image' | 'attachment') {
 		const obs = [];
@@ -121,13 +110,5 @@ export class FileService {
 		return this.http.post(`api/${name}/${itemId}/${type}`, data);
 	}
 
-	private convertFileToBase64(file: File): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				resolve((e.target as any).result);
-			};
-			reader.readAsDataURL(file);
-		});
-	}
+
 }

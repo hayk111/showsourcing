@@ -1,0 +1,5 @@
+<div *ngFor="let f of files; let i = index" class="preview flex" (click)="onClick(i)">
+	<span> {{ getExtension(f)}} </span>
+	 -
+	<span> {{ f.fileName }} </span>
+</div>

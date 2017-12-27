@@ -7,7 +7,7 @@
 </div>
 <br/>
 
- {{ event | json }}
+ {{ dropEvent | json }}
 
  <hr/>
 
@@ -18,14 +18,29 @@
 
  <br/>
 
- {{ event | json }}
+ {{ selectEvent | json }}
 
  <hr/>
 
-
+ notes:
+ <ul>
+	 <li>all the images added will be pending since we are not saving those on the backend</li>
+	 <li>When a preview is clicked we receive the event with the File / image clicked we can use that event to display
+		 a carousel or whatever
+	 </li>
+	 <li> file and image input are the same but with different transclusion</li>
+	 <li> to create a new AppImage, instead of using new AppImage, AppImage.newInstance() should be used</li>
+ </ul>
 <!-- File Input  -->
-<input-file-app [files]="files1" (filesAdded)="onFilesAdded($event)"></input-file-app>
+<input-file-app (fileAdded)="onFileAdded($event, 'files1')" label="Files">
+	<file-preview-app [files]="files1"></file-preview-app>
+</input-file-app>
+
 <!-- Image input  -->
+
+<input-file-app (fileAdded)="onImgAdded($event, 'files2')" type="image" label="Images">
+	<img-preview-app [images]="files2"></img-preview-app>
+</input-file-app>
 
 <!-- FileInputEntity  -->
 Same as file entity, but we just need to pass a target to it and

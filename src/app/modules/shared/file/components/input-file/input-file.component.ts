@@ -15,12 +15,52 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputFileComponent implements OnInit {
-	@Input() files: Array<AppFile>;
-	@Output() filesAdded = new EventEmitter<Array<File>>();
+	@Input() multi = true;
+	@Input() label = '';
+	private _type: 'file' | 'image' = 'file';
+	accept: string;
+	@Output() fileAdded = new EventEmitter<File>();
+	@Output() error = new EventEmitter<string>();
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	onFilesAdded(files: Array<File>) {
+		if (! this._type || this._type === 'file')
+			this.simpleEmit(files);
+		else
+			this.conditionalEmit(files);
+	}
+
+	simpleEmit(files: Array<File>) {
+		files.forEach(f => this.fileAdded.emit(f));
+	}
+
+	conditionalEmit(files: Array<File>) {
+		files.forEach(file => {
+			if (file.type.split('/')[0] === this._type) {
+				this.fileAdded.emit(file);
+			} else {
+				this.error.emit('wrong format');
+			}
+		});
+	}
+
+	@Input()
+	set type(type: 'file' | 'image') {
+		this._type = type;
+
+		switch (type) {
+			case 'image':
+				this.accept = '.jpg, .jpeg, .png';
+		}
+
+	}
+
+	get type() {
+		return this._type;
 	}
 
 }

@@ -9,7 +9,6 @@ export class AppFile {
 	fileName: string;
 	creationDate: number;
 	data: any;
-	extension: string;
 
 	constructor(public file: File, public target: EntityTarget, public createdByUserId: string) {
 		// when constructor is used then it's a pending file
@@ -18,10 +17,9 @@ export class AppFile {
 		this.creationDate = Date.now();
 		this.progress = 0;
 		this.fileName = file.name;
-		this.extension = AppFile.getExtension(this.fileName);
 	}
 
-	private static getExtension(name: string) {
+	static getExtension(name: string) {
 		const parts = name.split('.');
 		return parts[parts.length - 1];
 	}

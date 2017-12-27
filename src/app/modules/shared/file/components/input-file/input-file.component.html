@@ -1,17 +1,14 @@
 <div
-	appFileDrop
-	(fileDrop)="filesAdded.emit($event)">
+	(fileDrop)="onFilesAdded($event)">
 
-	<h3>Files</h3>
-
-	<div *ngFor="let f of files" class="preview flex">
-		<span> {{ f.extension }} </span> -
-		<span> {{ f.fileName }} </span>
-	</div>
+	<h3> {{ label }}</h3>
+	<!-- ng content is so we can put whatever as preview -->
+	<ng-content></ng-content>
 
 	<input
-			type="file" multiple="true"
-			appFileSelect
-			(fileSelect)="filesAdded.emit($event)"/>
+			type="file"
+			[multiple]="multi"
+			[accept]="accept"
+			(fileSelect)="onFilesAdded($event)"/>
 
 </div>

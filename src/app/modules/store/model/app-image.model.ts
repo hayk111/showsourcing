@@ -1,11 +1,10 @@
 import { AppFile } from './app-file.model';
+import { EntityTarget } from '../utils/entities.utils';
 
-export interface AppImage extends AppFile {
-	id: string;
-	fileName: string;
+export class AppImage extends AppFile {
 	imageType: string;
-	creationDate: number;
-	createdByUserId: string;
+	// base64 representation of the image when the img isn't uploaded yet
+	data: string;
 	orientation: number;
 	// client side rotation
 	rotation: number;
@@ -19,4 +18,25 @@ export interface AppImage extends AppFile {
 	};
 	linkedToParent: boolean;
 	mainImage: boolean;
+
+	constructor(file: File, target: EntityTarget, userId: string) {
+		super(file, target, userId);
+	}
+
+	// since reading the data is async we can use a promise here to return a new instance
+	static async newInstance(file: File, target: EntityTarget, userId: string): Promise<AppImage> {
+		const img = new AppImage(file, target, userId);
+		img.data = await AppImage.convertFileToBase64(file);
+		return img;
+	}
+
+	static convertFileToBase64(file: File): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				resolve((e.target as any).result);
+			};
+			reader.readAsDataURL(file);
+		});
+	}
 }
