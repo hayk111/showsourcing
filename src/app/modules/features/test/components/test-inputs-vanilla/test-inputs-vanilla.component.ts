@@ -46,11 +46,6 @@ export class TestInputsVanillaComponent implements OnInit {
 
 	}
 
-	onBlur(event) {
-		console.log(event);
-	}
-
-
 	onUpdate(event) {
 		this.event = { name: 'update', value: event };
 	}

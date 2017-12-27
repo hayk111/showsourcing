@@ -26,8 +26,8 @@ export class InputSelectOneComponent extends AbstractInput implements OnInit {
 	private lastName;
 	private _choices: Array<SelectableItem>;
 
-	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
-		super(inj, cd);
+	constructor() {
+		super();
 	}
 
 	ngOnInit() {

@@ -27,7 +27,7 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	@Input() value: any = '';
 	@Output() update = new EventEmitter<any>();
 
-	constructor(protected inj: Injector, protected cd?: ChangeDetectorRef) {
+	constructor() {
 		super();
 	}
 
@@ -49,14 +49,6 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	// to give accessor its the formControl value associated to it
 	writeValue(value: any): void {
 		this.value = value;
-		// since we sometimes patch the value after the form is created
-		// with values from the store
-		// we need to notify components to update their view
-		if (this.cd)
-			this.cd.detectChanges();
-		// another solution would be to not use this but instead
-		// use an observable FormGroup at the top. (which is most likely the case)
-		// but this might make things easier in some scenario where it isn't.
 	}
 
 	// this is to notify a formControl that the value has changed

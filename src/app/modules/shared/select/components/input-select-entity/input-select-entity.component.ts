@@ -19,8 +19,8 @@ export class InputSelectEntityComponent extends AbstractInput implements OnInit 
 	@Output() itemRemoved = new EventEmitter<any>();
 	entities$: Observable<Array<Entity>>;
 
-	constructor(protected inj: Injector, protected cd: ChangeDetectorRef, private store: Store<any>) {
-		super(inj, cd);
+	constructor(private store: Store<any>) {
+		super();
 	}
 
 	ngOnInit() {

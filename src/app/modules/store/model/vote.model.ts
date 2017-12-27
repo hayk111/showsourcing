@@ -13,5 +13,4 @@ export class Vote extends AsyncEntityWithTarget {
 		this.value = value;
 		this.userId = this.createdByUserId;
 	}
-
 }

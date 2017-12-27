@@ -10,6 +10,7 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
 import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.component';
 import { SelectModule } from '../select/select.module';
 import { FeedbackModule } from '../feedback/feedback.module';
+import { DynamicFormEntityComponent } from './components/dynamic-form-entity/dynamic-form-entity.component';
 
 @NgModule({
 	imports: [
@@ -20,8 +21,8 @@ import { FeedbackModule } from '../feedback/feedback.module';
 		FeedbackModule,
 	],
 	providers: [ DynamicFormsService ],
-	declarations: [ DynamicFormComponent, DynamicInputComponent ],
-	exports: [ DynamicFormComponent ]
+	declarations: [ DynamicFormComponent, DynamicInputComponent, DynamicFormEntityComponent ],
+	exports: [ DynamicFormComponent, DynamicFormEntityComponent ]
 })
 export class DynamicFormsModule {
 

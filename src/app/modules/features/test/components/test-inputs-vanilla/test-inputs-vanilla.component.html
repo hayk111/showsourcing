@@ -1,4 +1,4 @@
-<input-app type="text" 
+<input-app type="text"
 label="text"
 (update)="onUpdate($event)"
 [formControl]="getControl('text')" placeholder="placeholder"></input-app>
@@ -9,7 +9,7 @@ Event: {{ event | json }}
 
 <hr/>
 
-<input-app type="number" 
+<input-app type="number"
  label="number"
  (update)="onUpdate($event)"
  [formControl]="getControl('number')"
@@ -21,7 +21,7 @@ Event: {{ event | json }}
 
 <hr/>
 
-<input-app type="date" 
+<input-app type="date"
  label="date"
  (update)="onUpdate($event)"
  [formControl]="getControl('date')" placeholder="placeholder"></input-app>
@@ -31,8 +31,8 @@ Event: {{ event | json }}
  Event: {{ event | json }}
 
  <hr/>
- 
- <input-app type="email" 
+
+ <input-app type="email"
  label="email"
  (update)="onUpdate($event)"
  [formControl]="getControl('email')"
@@ -44,7 +44,7 @@ Event: {{ event | json }}
 
  <hr/>
 
- <input-app type="url" 
+ <input-app type="url"
  label="url"
  (update)="onUpdate($event)"
  [formControl]="getControl('url')" placeholder="placeholder"></input-app>
@@ -54,8 +54,8 @@ Event: {{ event | json }}
  Event: {{ event | json }}
 
  <hr/>
-	 
- <input-app type="tel" 
+
+ <input-app type="tel"
  label="tel"
  (update)="onUpdate($event)"
  [formControl]=" getControl('tel')"
@@ -66,8 +66,8 @@ Event: {{ event | json }}
  Event: {{ event | json }}
 
  <hr/>
- 
- <input-app type="decimal" 
+
+ <input-app type="decimal"
  label="decimal"
  (update)="onUpdate($event)"
  [formControl]="getControl('decimal')" placeholder="placeholder"></input-app>
@@ -78,7 +78,7 @@ Event: {{ event | json }}
 
 
  <hr/>
- 
+
  <input-textarea-app
  label="textarea"
  (update)="onUpdate($event)"
@@ -89,22 +89,22 @@ Event: {{ event | json }}
  Event: {{ event | json }}
 
  <hr/>
- 
+
  <input-radio-app
  label="radio"
  (update)="onUpdate($event)"
  [choices]="choices"
- [formControl]="getControl('radio')" 
+ [formControl]="getControl('radio')"
  placeholder="placeholder"></input-radio-app>
  <br/>
  Value: {{  getControl('radio').value }}
  <br/>
  Event: {{ event | json }}
  <br/>
- For good perfs: <br/>
+ <!-- For good perfs: <br/>
 	- Should change to 3.<br/>
-	- In console only 4 to 8 'check'<br/>
- <button class="small" (click)="patch('radio', '3')"> Patch</button>
+	- In console only 4 to 8 'check'<br/> -->
+ <!-- <button class="small" (click)="patch('radio', '3')"> Patch</button> -->
 
  <hr/>
 
@@ -113,12 +113,11 @@ Event: {{ event | json }}
 	 (itemAdded)="onItemAdded($event)"
 	 (itemRemoved)="onItemRemoved($event)"
 	 [choices]="choices"
-	 [formControl]="getControl('checkbox')" 
+	 [formControl]="getControl('checkbox')"
 	 placeholder="placeholder"></input-checkbox-app>
  <br/>
  Value: {{  getControl('checkbox').value }}
  <br/>
  Event: {{ event | json }}
 
- <button class="small" (click)="patch('checkbox', ['1', '4'])"> Patch</button>	
- 
+ <!-- <button class="small" (click)="patch('checkbox', ['1', '4'])"> Patch</button>	 -->

@@ -16,8 +16,8 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
 	@Input() formControl: string | any;
 
-	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
-		super(inj, cd);
+	constructor() {
+		super();
 	}
 
 	ngOnInit() {

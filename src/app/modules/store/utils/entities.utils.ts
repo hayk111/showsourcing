@@ -24,8 +24,7 @@ export interface Entity {
 }
 
 export class EntityRepresentation  {
-	constructor(public actionType: any,
-							public entityName: string,
+	constructor(public entityName: string,
 							public isEntity: boolean = false,
 							public urlName?: string,
 							public displayName?: string,
@@ -38,27 +37,27 @@ export class EntityRepresentation  {
 }
 
 export const entityRepresentationMap = {
-	suppliers: new EntityRepresentation(SupplierActions, 'suppliers', true),
-	events: new EntityRepresentation(EventActions, 'events', true),
-	categories: new EntityRepresentation(CategoryActions, 'categories', true, 'category'),
-	tags: new EntityRepresentation(TagActions, 'tags', true),
-	projects: new EntityRepresentation(ProjectActions, 'projects', true),
-	product: new EntityRepresentation(ProductActions, 'products', true),
-	tasks: new EntityRepresentation(TaskActions, 'tasks', true),
-	productStatus: new EntityRepresentation(null, 'productStatus', true, 'status', 'status'),
-	currencies: new EntityRepresentation(null, 'currencies', true),
-	teamMembers: new EntityRepresentation(null, 'teamMembers', true),
+	suppliers: new EntityRepresentation('suppliers', true),
+	events: new EntityRepresentation('events', true),
+	categories: new EntityRepresentation('categories', true, 'category'),
+	tags: new EntityRepresentation('tags', true),
+	projects: new EntityRepresentation('projects', true),
+	product: new EntityRepresentation('products', true),
+	tasks: new EntityRepresentation('tasks', true),
+	productStatus: new EntityRepresentation('productStatus', true, 'status', 'status'),
+	currencies: new EntityRepresentation('currencies', true),
+	teamMembers: new EntityRepresentation('teamMembers', true),
 	// non real entities, used as is for convenience
-	prices: new EntityRepresentation(null, 'prices'),
-	minPrices: new EntityRepresentation(null, 'minPrices'),
-	maxPrices: new EntityRepresentation(null, 'maxPrices'),
-	ratings: new EntityRepresentation(null, 'ratings'),
-	withArchived: new EntityRepresentation(null, 'withArchived', false, 'withArchived', 'with archived'),
-	tasksStatus: new EntityRepresentation(null, 'tasksStatus', true, 'taskStatus', 'status'),
-	tasksTypes: new EntityRepresentation(null, 'tasksType', true, 'taskType', 'type'),
-	name: new EntityRepresentation(null, 'name'),
-	sortByProduct: new EntityRepresentation(null, 'sortByProduct', false, 'sort', 'sort by'),
-	search: new EntityRepresentation(null, 'search', false, 'search')
+	prices: new EntityRepresentation('prices'),
+	minPrices: new EntityRepresentation('minPrices'),
+	maxPrices: new EntityRepresentation('maxPrices'),
+	ratings: new EntityRepresentation('ratings'),
+	withArchived: new EntityRepresentation('withArchived', false, 'withArchived', 'with archived'),
+	tasksStatus: new EntityRepresentation('tasksStatus', true, 'taskStatus', 'status'),
+	tasksTypes: new EntityRepresentation('tasksType', true, 'taskType', 'type'),
+	name: new EntityRepresentation( 'name'),
+	sortByProduct: new EntityRepresentation('sortByProduct', false, 'sort', 'sort by'),
+	search: new EntityRepresentation('search', false, 'search')
 };
 
 

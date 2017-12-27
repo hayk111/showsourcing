@@ -12,6 +12,7 @@ import { ImageEffects } from './image.effects';
 import { VoteEffects } from './vote.effects';
 import { AuthenticationEffects } from './authentication.effects';
 import { TokenEffects } from './token.effects';
+import { CustomFieldsEffects } from './custom-fields.effects';
 
 
 export const effects = [
@@ -27,5 +28,6 @@ export const effects = [
 	CurrencyEffects,
 	VoteEffects,
 	AuthenticationEffects,
-	TokenEffects
+	TokenEffects,
+	CustomFieldsEffects
 ];

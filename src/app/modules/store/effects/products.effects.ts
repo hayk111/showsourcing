@@ -36,14 +36,6 @@ export class ProductEffects {
 		})
 	);
 
-	// Listen for the patch action and sends a patch request to backend
-	@Effect({ dispatch: false })
-	patch$ = this.actions$.ofType(ActionType.PATCH_PROPERTY).pipe(
-		map((action: TypedAction<any>) => action.payload),
-		switchMap(p => this.srv.sendPatchRequest(p))
-	);
-
-
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)
 			.subscribe(id => this.userID = id);

@@ -23,7 +23,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 
 	private _type: string;
 
-	constructor(protected inj: Injector) { super(inj); }
+	constructor() { super(); }
 
 	ngOnInit() {
 		this.addValidatorForType();

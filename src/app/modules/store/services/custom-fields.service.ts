@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/user.selector';
 import { User } from '../model/user.model';
-import { entityRepresentationMap } from '../utils/entities.utils';
+import { entityRepresentationMap, EntityTarget } from '../utils/entities.utils';
 
 
 
@@ -20,6 +20,26 @@ export class CustomFieldsService {
 			.map(r => this.mapCustomFields(r));
 	}
 
+	// this could be moved in each of the entity service in the future if this adds problems.
+	sendPatchRequest({target, propName, value}: {target: EntityTarget, propName: string, value: any }) {
+		let patch = { [propName]: value };
+		const id = target.entityId;
+		const urlName = target.entityRepr.urlName;
+		// check for customFields
+		// TODO: custom fields should already have a x- when coming from backend.
+		if (propName.startsWith('x-')) {
+			const realPropName = propName.substr(2);
+			patch = { customFields : { [realPropName]: { value : value} }};
+		}
+		// TODO: this should be handled differently
+		// need to check if it's price because it's handled this way @ backend
+		// and in the front end when the field is price amount the value
+		// is automatically { priceAmount: x, currency: y }
+		if (propName === 'priceAmount')
+			patch = value;
+		return this.http.patch(`api/${urlName}/${id}`, patch);
+	}
+
 	mapCustomFields(r) {
 		r.productsCFDef.groups.forEach(g => {
 			if (g.name === 'Basic info')
@@ -33,6 +53,7 @@ export class CustomFieldsService {
 		return r;
 	}
 
+	// TODO : no patch needed
 	private patchDescriptor(desc) {
 		desc.productsCFDef.groups.forEach(g => {
 			if (g.name === 'Basic info')

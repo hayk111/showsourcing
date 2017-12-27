@@ -13,8 +13,8 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 export class InputTextareaComponent extends AbstractInput implements OnInit {
 	@Input() formControl: FormControl;
 
-	constructor(protected inj: Injector) {
-		super(inj);
+	constructor() {
+		super();
 	}
 
 	ngOnInit() {

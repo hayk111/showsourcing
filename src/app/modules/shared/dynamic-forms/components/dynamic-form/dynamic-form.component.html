@@ -1,21 +1,16 @@
-<ng-container *ngIf="formGroupInit$ | async">
+<fieldset *ngFor="let gDesc of descriptor.groups">
+	<legend> {{ gDesc.name }} </legend>
 
-		<fieldset *ngFor="let gDesc of descriptor.groups">
-				<legend> {{ gDesc.name }} </legend>
+	<div class="flexColumn fields">
 
-				<div class="flexColumn fields">
-			
-					<dynamic-input-app
-						*ngFor="let f of gDesc.fields"
-						[ctrl]="getControl(f.name)"
-						[descriptor]="f"
-						[group]="formGroup"
-						(update)="onUpdate($event)">
-					</dynamic-input-app>        
-				
-				</div>
+		<dynamic-input-app
+			*ngFor="let f of gDesc.fields"
+			[ctrl]="getControl(f.name)"
+			[descriptor]="f"
+			[group]="formGroup"
+			(update)="onUpdate($event)">
+		</dynamic-input-app>
 
-		</fieldset>	
+	</div>
 
-</ng-container>
-
+</fieldset>

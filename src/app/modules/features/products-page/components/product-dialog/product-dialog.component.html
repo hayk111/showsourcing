@@ -2,25 +2,23 @@
 <dialog-app #dlg [name]="dlgName" (registered)="onDlgRegistered()">
 	<ng-container *ngIf="dlg.isOpen">
 		<ng-container *ngIf="product$ | async as product">
-			<div class="flex">
-				<div>
+			<ng-container *ngIf="target$ | async as target">
 
-					<ng-container *ngIf="target$ | async as target">
-						<!-- <input-file-app [target]="target"></input-file-app>
-						<img-input-app [target]="target"></img-input-app>
-						<comments-input-app [target]="target"></comments-input-app>
-						<feedback-input-app [target]="target"></feedback-input-app> -->
-					</ng-container>
+				<div class="flex">
+					<div>
+
+							<!-- <input-file-app [target]="target"></input-file-app>
+							<img-input-app [target]="target"></img-input-app>
+							<comments-input-app [target]="target"></comments-input-app>
+							<feedback-input-app [target]="target"></feedback-input-app> -->
+					</div>
+
+					<dynamic-form-entity-app
+						class="customForm"
+						[target]="target"></dynamic-form-entity-app>
 
 				</div>
-
-				<dynamic-form-app
-					class="customForm"
-					[entityRepr]="entityRepr"
-					[entityId]="product.id"></dynamic-form-app>
-
-			</div>
-
+			</ng-container>
 		</ng-container>
 	</ng-container>
 

@@ -3,7 +3,7 @@ import { forwardRef, Component, Output, EventEmitter, OnInit, Injector } from '@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { take } from 'rxjs/operators';
-import { AbstractInput } from '../../../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { entityRepresentationMap, EntityState } from '../../../../../store/utils/entities.utils';
 import { Currency } from '../../../../../store/model/currency.model';
 import { selectEntity } from '../../../../../store/selectors/utils.selector';
@@ -13,13 +13,7 @@ import { selectEntity } from '../../../../../store/selectors/utils.selector';
 	selector: 'input-currency-app',
 	templateUrl: './input-currency.component.html',
 	styleUrls: ['./input-currency.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => InputCurrencyComponent),
-			multi: true
-		}
-	]
+	providers: [ makeAccessorProvider(InputCurrencyComponent)]
 })
 export class InputCurrencyComponent extends AbstractInput implements OnInit {
 	private repr = entityRepresentationMap.currencies;
@@ -27,8 +21,8 @@ export class InputCurrencyComponent extends AbstractInput implements OnInit {
 	private currencies: EntityState<Currency>;
 	@Output() update = new EventEmitter<Currency>();
 
-	constructor(private store: Store<any>, protected inj: Injector) {
-		super(inj);
+	constructor(private store: Store<any>) {
+		super();
 	}
 
 	onChange(id: string) {

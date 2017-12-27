@@ -1,20 +1,22 @@
 import { Component, OnInit, Injector, forwardRef, EventEmitter, Output, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { makeParamDecorator } from '@angular/core/src/util/decorators';
+import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
 
 
 @Component({
 	selector: 'rating-input-app',
 	templateUrl: './rating-input.component.html',
 	styleUrls: ['./rating-input.component.scss'],
+	providers: [ makeAccessorProvider(RatingInputComponent) ],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RatingInputComponent {
+export class RatingInputComponent extends AbstractInput {
 	@Output() change = new EventEmitter<number>();
-	@Input() value = 0;
-	@Input() label = '';
 
 	constructor() {
+		super();
 	}
 
 

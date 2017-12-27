@@ -20,8 +20,8 @@ export class InputSelectMultiComponent extends AbstractInput {
 	@Output() itemRemoved = new EventEmitter<SelectableItem>();
 	private _choices: Array<SelectableItem>;
 
-	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
-		super(inj, cd);
+	constructor() {
+		super();
 		this.value = [];
 	}
 

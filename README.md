@@ -1,9 +1,9 @@
 # Supplier Show Sourcing Web App
 
 
-## Overview of the documentation 
+## Overview of the documentation
 
-The goal of this readme is to present the guidelines followed throughout the application and furnish a clear path to follow to understand the app. 
+The goal of this readme is to present the guidelines followed throughout the application and furnish a clear path to follow to understand the app.
 
 ## Table of Content
 
@@ -28,7 +28,7 @@ as this app makes use of [ngrx](https://gist.github.com/btroncone/a6e4347326749f
 
 ## Running the app
 
-No surprise here 
+No surprise here
 
 ```
 git clone this_repo
@@ -58,7 +58,7 @@ You can download the redux addon for chrome [here](https://chrome.google.com/web
 
 ## File Structure & guidelines
 
-The application is divided in modules. In the module directory there is 3 sub directories: features, shared and store. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one page / popup / small feature of the app. 
+The application is divided in modules. In the module directory there is 3 sub directories: features, shared and store. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one page / popup / small feature of the app.
 
 In each module the division of the file structure is with those folders (each one being optional).
 
@@ -79,11 +79,11 @@ the store is for files related to `ngrx`.
 
 ## Extensions
 
-Each file extension describe what the file does. EG: `my-builder.service.ts` or `my-cat.interface.ts`. This is useful in IDEs when many files with similar names are open. 
+Each file extension describe what the file does. EG: `my-builder.service.ts` or `my-cat.interface.ts`. This is useful in IDEs when many files with similar names are open.
 
 ## Style Structure
 
-The theming is done in ./src/app/theming and should be straight forward. `Style.scss` is the entry point and imports everything it needs. 
+The theming is done in ./src/app/theming and should be straight forward. `Style.scss` is the entry point and imports everything it needs.
 
 Spacing and palette use CSS4 variables and should be used throughout the application. CSS4 variables are used with a fallback (meaning that even if the browser doesn't support CSS4 vars it's gonna work).
 
@@ -138,13 +138,18 @@ export interface EntityTarget {
 
 ### Components
 
-One design choice we took with components is to make those self contained and reliant on an EntityTarget.
-That means that for example a `FileInputComponent` will have as `@Input` only an `EntityTarget`. This component will do its thing and when the user picks a file, everything will be done in the background: the back end will be updated as well as the front end store. No need to do anything except putting the component in the template and giving it an `EntityTarget`. This has drawbacks but it's the design choice we took.
+Components which have their name ending with `Entity` are wrapper components that use an `EntityTarget`.
+That means that for example a `FileInputEntityComponent` will have as `@Input` only an `EntityTarget`. This component will do its thing and when the user picks a file, everything will be done in the background: the back end will be updated as well as the front end store. No need to do anything except putting the component in the template and giving it an `EntityTarget`. The wrapper component contains other component that are dumb components. In the case of `FileInputEntityComponent` it must contain a `FileInputComponent` which tells the parent `FileInputEntityComponent` what action has been taken (file has been dropped, etc) and which also has the job to display everything.
 
-There isn't much services at all as most of the logic is handled in the store. There are things that don't fit in the store that go into services, but those are generally pretty obvious. Like the `DynamicFormBuilder`.
+The architecture is simple:
+
+ - Parent wrapper: does the messaging with the store
+ - Child component: tells the parent what are the user interactions.
+
+There isn't much services at all as most of the logic is handled with store messages. There are things that don't fit in the store that go into services, but those are generally pretty obvious. Like the `DynamicFormBuilder`.
 
 ### The store
-The main business logic of the app is handled in the store. 
+The main business logic of the app is handled in the store.
 The store is subdivided in : ui, entities. UI is for things that are displayed on screen ( dialog open etc), entities is for the different entities that are loaded via http usually.
 
 The golden rule in the store is to normalize the data. For example if you have a product which contains comments,
@@ -152,3 +157,10 @@ votes, images, and files you'll have 5 entities in the store, namely products, c
 It might seem annoying to do so at first but you should bite the bullet as it makes things easier afterward.
 
 Effects are used in parallel with entities services. Effects deal with grabbing messages to the store and calling the appropriate service function which is usually just an http call.
+
+
+### AutoUnsub
+
+To prevent memory leaks, components which are using observables / the store (also obs) should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables.
+The AutoUnsub class should be used as a standard app wise.
+Look at the code of any smart component and you'll find how to do that. If it's missing anywhere fitting the above, then that is an oversight on my part and should be corrected (I tend to be a bit absent minded sometimes).

@@ -27,8 +27,8 @@ export class InputCheckboxComponent extends AbstractInput implements OnInit {
 	@Output() itemAdded = new EventEmitter<any>();
 	@Output() itemRemoved = new EventEmitter<any>();
 
-	constructor(protected inj: Injector, protected cd: ChangeDetectorRef) {
-		super(inj, cd);
+	constructor() {
+		super();
 	}
 
 	ngOnInit() {

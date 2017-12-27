@@ -1,0 +1,12 @@
+<ng-container *ngIf="descriptor$ | async as descriptor">
+	<ng-container *ngIf="entity$ | async as entity">
+
+		<dynamic-form-app
+			[descriptor]="descriptor"
+			[entity]="entity"
+			(update)="onUpdate($event)">
+		</dynamic-form-app>
+
+	</ng-container>
+</ng-container>
+

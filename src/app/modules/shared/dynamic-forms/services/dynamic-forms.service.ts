@@ -18,7 +18,8 @@ export class DynamicFormsService {
 	}
 
 	// transform formGroupDescriptor to DynamicFormGroup
-	toFormGroup(formDesc: FormDescriptor, formGroup: FormGroup ): FormGroup {
+	toFormGroup(formDesc: FormDescriptor): FormGroup {
+		const formGroup = new FormGroup({});
 		formDesc.groups.forEach(gDesc => {
 			gDesc.fields.forEach((ctrlDesc) => {
 				const ctrl = this.toDynamicFormControl(ctrlDesc);
