@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../store/selectors/user.selector';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { getFirstProductEntityTarget } from '../../utils.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { AppFile } from '../../../../store/model/app-file.model';
 import { AppImage } from '../../../../store/model/app-image.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'app-test-inputs-file',
@@ -20,6 +21,7 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	files1 = [];
 	files2 = [];
 	userId: string;
+	target$: Observable<EntityTarget>;
 	target: EntityTarget;
 
 	constructor(private store: Store<any>) {
@@ -31,7 +33,8 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 			map(u => u.id)
 		).subscribe(id => this.userId = id);
 
-		getFirstProductEntityTarget(this.store, this._destroy$).subscribe(target => this.target = target);
+		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$);
+		this.target$.subscribe(t => this.target = t);
 	}
 
 	onFileDrop(files) {

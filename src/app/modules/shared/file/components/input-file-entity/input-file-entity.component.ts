@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./input-file-entity.component.scss']
 })
 export class InputFileEntityComponent implements OnInit {
+	@Input() label: string;
 	private _target: EntityTarget;
 	private userId: string;
 	files$: Observable<Array<AppFile>>;
@@ -27,15 +28,15 @@ export class InputFileEntityComponent implements OnInit {
 		).subscribe(id => this.userId = id);
 	}
 
-	onFilesAdded(files: Array<File>) {
-		files.forEach(file => {
-			const appFile = new AppFile(file, this.target, this.userId);
-			this.store.dispatch(FileActions.addNew(appFile));
-		});
+	onFileAdded(file: File) {
+		const appFile = new AppFile(file, this.target, this.userId);
+		this.store.dispatch(FileActions.addNew(appFile));
 	}
 
 	@Input()
 	set target(target: EntityTarget) {
+		if (!target)
+			throw Error('Target must be defined as input when using an entity component');
 		this.store.dispatch(FileActions.load(target));
 		this._target = target;
 	}

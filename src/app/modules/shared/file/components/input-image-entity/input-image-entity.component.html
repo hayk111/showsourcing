@@ -1,3 +1,10 @@
-<p>
-  input-image-entity works!
-</p>
+<ng-container *ngIf="images$ | async as images">
+
+	<input-file-app
+		type="image"
+		(fileAdded)="onFileAdded($event)"
+		[label]="label">
+		<img-preview-app [images]="images"></img-preview-app>
+	</input-file-app>
+
+</ng-container>

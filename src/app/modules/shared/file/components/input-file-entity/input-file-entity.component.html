@@ -1,3 +1,7 @@
-<input-file-app
- (fileAdded)="onFilesAdded($event)">
-</input-file-app>
+<ng-container *ngIf="files$ | async as files">
+	<input-file-app
+		[label]="label"
+ 		(fileAdded)="onFileAdded($event)">
+		<file-preview-app [files]="files"></file-preview-app>
+	</input-file-app>
+</ng-container>

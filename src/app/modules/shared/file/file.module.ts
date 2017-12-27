@@ -14,6 +14,7 @@ import { ImgPreviewComponent } from './components/img-preview/img-preview.compon
 	],
 	declarations: [ FileDropDirective, FileSelectDirective, InputFileComponent,
 		 InputFileEntityComponent, InputImageEntityComponent, FilePreviewComponent, ImgPreviewComponent ],
-	exports: [ FileDropDirective, FileSelectDirective, InputFileComponent, FilePreviewComponent, ImgPreviewComponent ],
+	exports: [ FileDropDirective, FileSelectDirective, InputFileComponent, FilePreviewComponent, ImgPreviewComponent,
+		InputFileEntityComponent, InputImageEntityComponent ],
 })
 export class FileModule { }

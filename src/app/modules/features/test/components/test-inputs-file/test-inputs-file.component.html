@@ -36,14 +36,27 @@
 	<file-preview-app [files]="files1"></file-preview-app>
 </input-file-app>
 
+<br> <hr>
 <!-- Image input  -->
 
 <input-file-app (fileAdded)="onImgAdded($event, 'files2')" type="image" label="Images">
 	<img-preview-app [images]="files2"></img-preview-app>
 </input-file-app>
+<br><hr>
 
 <!-- FileInputEntity  -->
-Same as file entity, but we just need to pass a target to it and
-everything is done in the background.
+File Input Entity:
 
-<!-- Image Input entity  -->
+<ng-container *ngIf="target$ | async as target">
+	<input-file-entity-app [target]="target" label="file input entity"></input-file-entity-app>
+
+	Same as file entity, but we just need to pass a target to it and
+	everything is done in the background.
+
+<br><hr>
+	<!-- Image Input entity  -->
+
+	<input-image-entity-app [target]="target" label="img input entity"></input-image-entity-app>
+</ng-container>
+
+<br><br><br><br><br><br><br>
