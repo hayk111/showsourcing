@@ -1,5 +1,6 @@
 import { AppFile } from './app-file.model';
 import { EntityTarget } from '../utils/entities.utils';
+import { Store } from '@ngrx/store';
 
 export class AppImage extends AppFile {
 	imageType: string;
@@ -19,13 +20,13 @@ export class AppImage extends AppFile {
 	linkedToParent: boolean;
 	mainImage: boolean;
 
-	constructor(file: File, target: EntityTarget, userId: string) {
-		super(file, target, userId);
+	constructor(file: File, target: EntityTarget, store: Store<any>) {
+		super(file, target, store);
 	}
 
 	// since reading the data is async we can use a promise here to return a new instance
-	static async newInstance(file: File, target: EntityTarget, userId: string): Promise<AppImage> {
-		const img = new AppImage(file, target, userId);
+	static async newInstance(file: File, target: EntityTarget, store: Store<any>): Promise<AppImage> {
+		const img = new AppImage(file, target, store);
 		img.data = await AppImage.convertFileToBase64(file);
 		return img;
 	}

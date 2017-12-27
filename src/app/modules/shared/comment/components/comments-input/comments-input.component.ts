@@ -13,49 +13,27 @@ import { User } from '../../../../store/model/user.model';
 
 
 @Component({
-	selector: 'comments-input-app',
+	selector: 'comments-app',
 	templateUrl: './comments-input.component.html',
 	styleUrls: ['./comments-input.component.scss']
 })
-export class CommentsInputComponent extends AutoUnsub implements OnInit {
-	private _target: EntityTarget;
-	// @Input at the bottom
-	comments$: Observable<Array<AppComment>>;
+export class CommentsInputComponent extends AutoUnsub {
+	@Input() comments: Array<AppComment> = [];
+	@Output() newComment = new EventEmitter<string>();
 	ctrl = new FormControl('', Validators.required);
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
-	ngOnInit() {
-		this.comments$ = this.store.select(selectCommentsForTarget(this._target));
-	}
-
-	onEnter() {
+	onEnter(event) {
 		if (this.ctrl.valid) {
 			const text = this.ctrl.value;
-			this.store.dispatch(CommentActions.addNew( { text, target: this.target }));
+			this.newComment.emit(text);
+			this.ctrl.setValue('');
+			event.preventDefault();
 		}
-		this.ctrl.setValue('');
 	}
 
-	getTeamMemberName(id: string) {
-		return this.store.select(selectTeamMember(id)).pipe(
-			takeUntil(this._destroy$),
-			take(1),
-			map((user: User) => `${user.firstName} ${user.lastName}`)
-		);
-	}
-
-
-	@Input()
-	set target( target: EntityTarget ) {
-		this._target = target;
-		this.store.dispatch(CommentActions.load(target));
-	}
-
-	get target() {
-		return this._target;
-	}
 
 }

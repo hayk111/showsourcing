@@ -7,7 +7,6 @@ import { BaseComponent } from './base/base.component';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { FiltersModule } from '../../shared/filters/filters.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
-import { TestInputsCustomComponent } from './components/test-inputs-custom/test-inputs-custom.component';
 import { TestInputsFileComponent } from './components/test-inputs-file/test-inputs-file.component';
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/test-inputs-vanilla.component';
@@ -17,6 +16,9 @@ import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { FileModule } from '../../shared/file/file.module';
 import { FeedbackModule } from '../../shared/feedback/feedback.module';
+import { TestCommentsComponent } from './components/test-comments/test-comments.component';
+import { TestFeedbackComponent } from './components/test-feedback/test-feedback.component';
+import { CommentModule } from '../../shared/comment/comment.module';
 
 @NgModule({
 	imports: [
@@ -26,11 +28,18 @@ import { FeedbackModule } from '../../shared/feedback/feedback.module';
 		FileModule,
 		FeedbackModule,
 		CarouselModule,
+		CommentModule,
+
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([])
 	],
-	declarations: [TestComponent, BaseComponent, TestInputsCustomComponent,
-		 TestInputsFileComponent, TestInputsSelectorsComponent, TestInputsVanillaComponent, TestCarouselComponent],
+	declarations: [TestComponent, BaseComponent,
+		 TestInputsFileComponent,
+		 TestInputsSelectorsComponent,
+		 TestInputsVanillaComponent,
+		 TestCarouselComponent,
+		 TestCommentsComponent,
+		 TestFeedbackComponent],
 })
 export class TestModule { }

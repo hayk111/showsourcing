@@ -4,6 +4,7 @@ import { CommentsInputComponent } from './components/comments-input/comments-inp
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { AppStoreModule } from '../../store/store.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentsInputEntityComponent } from './components/comments-input-entity/comments-input-entity.component';
 
 @NgModule({
 	imports: [
@@ -11,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		AppStoreModule.forChild(),
 		ReactiveFormsModule
 	],
-	declarations: [ CommentsInputComponent ],
-	exports: [ CommentsInputComponent ]
+	declarations: [ CommentsInputComponent, CommentsInputEntityComponent ],
+	exports: [ CommentsInputComponent, CommentsInputEntityComponent ]
 })
 export class CommentModule { }

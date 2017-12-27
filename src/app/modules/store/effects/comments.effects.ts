@@ -22,7 +22,6 @@ export class CommentEffects {
 	@Effect()
 	comment$ = this.actions$.ofType<any>(ActionType.ADD_NEW).pipe(
 		map(action => action.payload),
-		map(comment => this.srv.getPendingComment(comment)),
 		map(comment => CommentActions.addPending(comment))
 	);
 

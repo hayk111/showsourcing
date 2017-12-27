@@ -29,10 +29,6 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.store.select(selectUser).pipe(
-			map(u => u.id)
-		).subscribe(id => this.userId = id);
-
 		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$);
 		this.target$.subscribe(t => this.target = t);
 	}
@@ -46,11 +42,11 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFileAdded(file, where) {
-		this[where].push(new AppFile(file, this.target, this.userId));
+		this[where].push(new AppFile(file, this.target, this.store));
 	}
 
 	async onImgAdded(file, where) {
-		const img = await AppImage.newInstance(file, this.target, this.userId);
+		const img = await AppImage.newInstance(file, this.target, this.store);
 		this[where].push(img);
 	}
 

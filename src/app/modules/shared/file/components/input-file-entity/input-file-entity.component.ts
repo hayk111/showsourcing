@@ -16,20 +16,17 @@ import { map } from 'rxjs/operators';
 export class InputFileEntityComponent implements OnInit {
 	@Input() label: string;
 	private _target: EntityTarget;
-	private userId: string;
 	files$: Observable<Array<AppFile>>;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.files$ = this.store.select(selectFilesForTarget(this.target));
-		this.store.select(selectUser).pipe(
-			map(user => user.id)
-		).subscribe(id => this.userId = id);
+
 	}
 
 	onFileAdded(file: File) {
-		const appFile = new AppFile(file, this.target, this.userId);
+		const appFile = new AppFile(file, this.target, this.store);
 		this.store.dispatch(FileActions.addNew(appFile));
 	}
 

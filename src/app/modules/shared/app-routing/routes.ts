@@ -18,8 +18,9 @@ import { EventPageComponent } from '../../features/events-page/components/event-
 import { TestInputsVanillaComponent } from '../../features/test/components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsFileComponent } from '../../features/test/components/test-inputs-file/test-inputs-file.component';
-import { TestInputsCustomComponent } from '../../features/test/components/test-inputs-custom/test-inputs-custom.component';
 import { TestCarouselComponent } from '../../features/test/components/test-carousel/test-carousel.component';
+import { TestCommentsComponent } from '../../features/test/components/test-comments/test-comments.component';
+import { TestFeedbackComponent } from '../../features/test/components/test-feedback/test-feedback.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -47,8 +48,9 @@ export const routes: Array<Route> = [
 				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
 				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
 				{ path: 'inputs-file-image', component: TestInputsFileComponent },
-				{ path: 'inputs-custom', component: TestInputsCustomComponent },
-				{ path: 'carousel', component: TestCarouselComponent }
+				{ path: 'carousel', component: TestCarouselComponent },
+				{ path: 'comments', component: TestCommentsComponent },
+				{ path: 'feedback', component: TestFeedbackComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]

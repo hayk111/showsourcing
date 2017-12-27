@@ -16,20 +16,16 @@ import { ImageActions } from '../../../../store/action/images.action';
 export class InputImageEntityComponent implements OnInit {
 	@Input() label: string;
 	private _target: EntityTarget;
-	private userId: string;
 	images$: Observable<Array<AppImage>>;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.images$ = this.store.select(selectImagesForTarget(this.target));
-		this.store.select(selectUser).pipe(
-			map(user => user.id)
-		).subscribe(id => this.userId = id);
 	}
 
 	async onFileAdded(file: File) {
-		const img = await AppImage.newInstance(file, this.target, this.userId);
+		const img = await AppImage.newInstance(file, this.target, this.store);
 		this.store.dispatch(ImageActions.addNew(img));
 	}
 
