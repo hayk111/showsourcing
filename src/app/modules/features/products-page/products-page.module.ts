@@ -14,6 +14,7 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { FeedbackModule } from '../../shared/feedback/feedback.module';
+import { FileModule } from '../../shared/file/file.module';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { FeedbackModule } from '../../shared/feedback/feedback.module';
 		InputsModule,
 		SelectModule,
 		CommentModule,
-		FeedbackModule
+		FeedbackModule,
+		FileModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

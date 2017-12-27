@@ -8,12 +8,16 @@ import { InputsModule } from '../inputs/inputs.module';
 import { DynamicFormControl } from './utils/dynamic-controls.class';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.component';
+import { SelectModule } from '../select/select.module';
+import { FeedbackModule } from '../feedback/feedback.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
-		InputsModule
+		InputsModule,
+		SelectModule,
+		FeedbackModule,
 	],
 	providers: [ DynamicFormsService ],
 	declarations: [ DynamicFormComponent, DynamicInputComponent ],

@@ -14,11 +14,17 @@ import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/tes
 import { RouterModule } from '@angular/router';
 import { TestCarouselComponent } from './components/test-carousel/test-carousel.component';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
+import { SelectModule } from '../../shared/select/select.module';
+import { FileModule } from '../../shared/file/file.module';
+import { FeedbackModule } from '../../shared/feedback/feedback.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		InputsModule,
+		SelectModule,
+		FileModule,
+		FeedbackModule,
 		CarouselModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,

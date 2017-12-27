@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 export class RatingInputComponent {
 	@Output() change = new EventEmitter<number>();
 	@Input() value = 0;
+	@Input() label = '';
 
 	constructor() {
 	}
