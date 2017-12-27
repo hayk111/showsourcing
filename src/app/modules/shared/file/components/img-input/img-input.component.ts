@@ -25,14 +25,14 @@ export class ImgInputComponent implements OnInit {
 	}
 
 	onFileChange(files: Array<File>) {
-		files.forEach(file => {
-			if (file.type.split('/')[0] === 'image') {
-				const appFile: AppFile = { file, target: this.target };
-				this.store.dispatch(ImageActions.addNew(appFile));
-			} else {
-				this.store.dispatch(AppErrorActions.add('An image is needed here'));
-			}
-		});
+		// files.forEach(file => {
+		// 	if (file.type.split('/')[0] === 'image') {
+		// 		const appFile: AppFile = { file, target: this.target };
+		// 		this.store.dispatch(ImageActions.addNew(appFile));
+		// 	} else {
+		// 		this.store.dispatch(AppErrorActions.add('An image is needed here'));
+		// 	}
+		// });
 	}
 
 	@Input()

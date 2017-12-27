@@ -3,10 +3,10 @@ import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@ang
 
 
 @Directive({
-	selector: `[appFileDrop]`
+	selector: `[fileDrop]`
 })
 export class FileDropDirective {
-	@Output() fileDrop = new EventEmitter();
+	@Output() fileDrop = new EventEmitter<Array<File>>();
 
 	// this is needed so the page doesn't switch to a file tab when we drop
 	@HostListener('dragover', ['$event'])

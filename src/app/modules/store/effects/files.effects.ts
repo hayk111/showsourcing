@@ -22,7 +22,6 @@ export class FilesEffects {
 	addAttachments$ = this.actions$.ofType<any>(ActionType.ADD_NEW)
 		.pipe(
 			map(action => action.payload),
-			map((file: AppFile) => this.srv.getPendingFile(file)),
 			map((file: AppFile) => FileActions.addPending(file))
 		);
 

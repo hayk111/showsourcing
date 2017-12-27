@@ -21,17 +21,6 @@ export class FileService {
 		this.store.select(selectUser).subscribe(user => this.userId = user.id);
 	}
 
-	getPendingFile(file: AppFile) {
-		const copy = { ...file };
-		copy.pending = true;
-		copy.id = uuid();
-		copy.fileName = file.file.name;
-		copy.creationDate = Date.now();
-		copy.createdByUserId = this.userId;
-		copy.progress = 0;
-		return copy;
-	}
-
 	async getPendingImage(file: AppFile): Promise<AppFile> {
 		const copy = { ...file };
 		copy.pending = true;

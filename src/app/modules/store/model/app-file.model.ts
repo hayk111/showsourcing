@@ -1,14 +1,29 @@
 import { EntityTarget } from '../utils/entities.utils';
+import { uuid } from '../utils/uuid.utils';
 
 
-export interface AppFile {
-	id?: string;
-	pending?: boolean;
-	progress?: number;
-	target: EntityTarget;
-	file?: File;
-	fileName?: string;
-	creationDate?: number;
-	createdByUserId?: string;
-	data?: any;
+export class AppFile {
+	id: string;
+	pending: boolean;
+	progress: number;
+	fileName: string;
+	creationDate: number;
+	data: any;
+	extension: string;
+
+	constructor(public file: File, public target: EntityTarget, public createdByUserId: string) {
+		// when constructor is used then it's a pending file
+		this.id = uuid();
+		this.pending = true;
+		this.creationDate = Date.now();
+		this.progress = 0;
+		this.fileName = file.name;
+		this.extension = AppFile.getExtension(this.fileName);
+	}
+
+	private static getExtension(name: string) {
+		const parts = name.split('.');
+		return parts[parts.length - 1];
+	}
+
 }

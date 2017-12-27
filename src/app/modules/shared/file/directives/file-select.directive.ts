@@ -3,10 +3,10 @@ import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@ang
 
 
 @Directive({
-	selector: `[appFileSelect]`
+	selector: `[fileSelect]`
 })
 export class FileSelectDirective {
-	@Output() fileSelect = new EventEmitter();
+	@Output() fileSelect = new EventEmitter<Array<File>>();
 
 
 	@HostListener('change', ['$event'])

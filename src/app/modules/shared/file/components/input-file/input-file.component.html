@@ -1,21 +1,17 @@
-<div class="dnd"
+<div
 	appFileDrop
-	(fileDrop)="onFileChange($event)">
-	<span>Drap & drop here </span>
-</div>
+	(fileDrop)="filesAdded.emit($event)">
 
-<input 
-	type="file" multiple="true" 
-	appFileSelect
-	(fileSelect)="onFileChange($event)"/>
+	<h3>Files</h3>
 
-<ng-container *ngIf="files$ | async as files">
 	<div *ngFor="let f of files" class="preview flex">
-		<span *ngIf="f.progress"> {{ f.progress }} % </span> - 
-		<span > {{ f.pending }} </span> - 
-		<span> {{ f.fileName }} </span> -
-		<span> {{ getExtension(f.fileName) }} </span> -
-		<span> {{ f.creationDate | date }} </span> - 
-		<span> {{ f.createdByUserId }} </span>
-	</div>	
-</ng-container>
+		<span> {{ f.extension }} </span> -
+		<span> {{ f.fileName }} </span>
+	</div>
+
+	<input
+			type="file" multiple="true"
+			appFileSelect
+			(fileSelect)="filesAdded.emit($event)"/>
+
+</div>

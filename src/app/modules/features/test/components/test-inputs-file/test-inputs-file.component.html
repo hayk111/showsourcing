@@ -1,0 +1,34 @@
+
+<!-- Drop  -->
+<div (fileDrop)="onFileDrop($event)">
+	<h3>File Drop:</h3>
+	<br>
+	Drop on me
+</div>
+<br/>
+
+ {{ event | json }}
+
+ <hr/>
+
+<!-- Selection -->
+ <h3>File Selection</h3>
+
+ <input type="file" (fileSelect)="onFileSelect($event)"/>
+
+ <br/>
+
+ {{ event | json }}
+
+ <hr/>
+
+
+<!-- File Input  -->
+<input-file-app [files]="files1" (filesAdded)="onFilesAdded($event)"></input-file-app>
+<!-- Image input  -->
+
+<!-- FileInputEntity  -->
+Same as file entity, but we just need to pass a target to it and
+everything is done in the background.
+
+<!-- Image Input entity  -->

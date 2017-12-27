@@ -9,6 +9,7 @@ import { selectImagesForTarget } from '../../../../store/selectors/image.selecto
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { getFirstProductEntityTarget } from '../../utils.utils';
 
 @Component({
 	selector: 'app-test-carousel',
@@ -26,15 +27,8 @@ export class TestCarouselComponent extends AutoUnsub implements OnInit {
 		// loading product in case they aren't loaded
 		this.store.dispatch(ProductActions.load());
 		// we select a product then we load images for it
-		this.target$ = this.store.select(selectProducts)
-		.takeUntil(this._destroy$)
+		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$)
 		.pipe(
-			filter(prods => !prods.pending),
-			map(prods => {
-				const firstId = prods.ids[0];
-				return prods.byId[firstId];
-			}),
-			map(prod => ({entityId: prod.id, entityRepr: entityRepresentationMap.product})),
 			tap(target => this.store.dispatch(ImageActions.load(target)))
 		);
 	}
