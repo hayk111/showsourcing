@@ -6,8 +6,10 @@ import { EntityState, entityInitialState, addEntities } from '../utils/entities.
 
 export function tagReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Tag> {
 	switch (action.type) {
-		case ActionType.SET_TAGS:
+
+		case ActionType.ADD_TAGS:
 			return addEntities(state, action.payload);
+
 		default: return state;
 	}
 }

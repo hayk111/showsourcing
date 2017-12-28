@@ -29,7 +29,7 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(filterGroupName).pipe(
 				// set products
-				map(r => ProductActions.setData(r)),
+				map(r => ProductActions.set(r)),
 				// before everything set products as pending
 				startWith(ProductActions.setPending() as any)
 			);

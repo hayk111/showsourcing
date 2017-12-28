@@ -4,21 +4,21 @@ import { Tag } from '../model/tag.model';
 
 export enum ActionType {
 	LOAD = '[Tag] Loading',
-	SET_TAGS = '[Tag] setting',
+	ADD_TAGS = '[Tag] adding',
 }
 
 export class TagActions {
 
-	static load(maxCounter) {
+	static load(id: string, maxCounter: number) {
 		return {
 			type: ActionType.LOAD,
-			payload: maxCounter
+			payload: { id, maxCounter }
 		};
 	}
 
-	static setTags(payload: Array<Tag>): TypedAction<Array<Tag>> {
+	static addTags(payload: Array<Tag>): TypedAction<Array<Tag>> {
 		return {
-			type: ActionType.SET_TAGS,
+			type: ActionType.ADD_TAGS,
 			payload
 		};
 	}

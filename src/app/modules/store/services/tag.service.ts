@@ -7,12 +7,11 @@ import { User } from '../model/user.model';
 
 @Injectable()
 export class TagService {
-	teamId: string;
-	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser).subscribe((user: User) => this.teamId = user.currentTeamId);
+
+	constructor(private http: HttpClient) {
 	}
 
-	load(maxCounter) {
-		return this.http.get(`api/team/${this.teamId}/tag?counter=${maxCounter}`);
+	load(id, maxCounter) {
+		return this.http.get(`api/team/${id}/tag?counter=${maxCounter}`);
 	}
 }

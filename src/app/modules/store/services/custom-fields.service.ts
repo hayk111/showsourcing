@@ -9,14 +9,12 @@ import { entityRepresentationMap, EntityTarget } from '../utils/entities.utils';
 
 @Injectable()
 export class CustomFieldsService {
-	user: User;
 
-	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser).subscribe(user => this.user = user);
+	constructor(private http: HttpClient) {
 	}
 
-	private loadCustomFields() {
-		return this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
+	load(id, counter) {
+		return this.http.get(`api/team/${id}/customFields?counter=${counter}`)
 			.map(r => this.mapCustomFields(r));
 	}
 

@@ -6,8 +6,10 @@ import { EntityState, addEntities, entityInitialState } from '../utils/entities.
 
 export function projectReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Project> {
 	switch (action.type) {
-		case ActionType.SET_PROJECTS:
+
+		case ActionType.ADD_PROJECTS:
 			return addEntities(state, action.payload);
+
 		default: return state;
 	}
 }

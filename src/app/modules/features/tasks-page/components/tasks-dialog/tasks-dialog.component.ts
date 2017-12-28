@@ -43,7 +43,7 @@ export class TasksDialogComponent implements OnInit {
 	}
 
 	onEnter( { name, value} ) {
-		this.store.dispatch(TaskActions.patch(this.task.id, name, value));
+		// this.store.dispatch(TaskActions.patch(this.task.id, name, value));
 	}
 
 }

@@ -46,7 +46,7 @@ export class CarouselComponent implements OnInit {
 	}
 
 	openModal() {
-		Log.debug('[CarouselComponent] close modal');
+		Log.debug('[CarouselComponent] open modal');
 		this.modalOpen = true;
 	}
 
@@ -56,7 +56,7 @@ export class CarouselComponent implements OnInit {
 	}
 
 	openMenu() {
-		Log.debug('[CarouselComponent] close menu');
+		Log.debug('[CarouselComponent] open menu');
 		this.menuOpen = true;
 	}
 

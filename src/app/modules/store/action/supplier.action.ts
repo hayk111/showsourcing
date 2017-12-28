@@ -4,21 +4,21 @@ import { Supplier } from '../model/supplier.model';
 
 export enum ActionType {
 	LOAD = '[Supplier] Loading',
-	SET_SUPPLIERS = '[Supplier] setting',
+	ADD_SUPPLIERS = '[Supplier] adding',
 }
 
 export class SupplierActions {
 
-	static load(maxCounter) {
+	static load(id, maxCounter) {
 		return {
 			type: ActionType.LOAD,
-			payload: maxCounter
+			payload: { id, maxCounter }
 		};
 	}
 
-	static setSuppliers(payload: Array<Supplier>): TypedAction<Array<Supplier>> {
+	static addSuppliers(payload: Array<Supplier>): TypedAction<Array<Supplier>> {
 		return {
-			type: ActionType.SET_SUPPLIERS,
+			type: ActionType.ADD_SUPPLIERS,
 			payload
 		};
 	}

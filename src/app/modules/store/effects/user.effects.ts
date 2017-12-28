@@ -27,6 +27,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { ActionType, UserActions } from '../action/user.action';
 import { CustomFieldsService } from '../services/custom-fields.service';
 import { UserService } from '../services/user.service';
+import { merge } from 'rxjs/observable/merge';
+import { PreloaderActions } from '../action/preloader.action';
 
 
 @Injectable()
@@ -35,6 +37,7 @@ export class UserEffects {
 	private user: User;
 	private maxCounter = 0;
 	private reloadTime = 1500000;
+	private teamId: string;
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
@@ -42,7 +45,7 @@ export class UserEffects {
 		map(UserActions.setUser)
 	);
 
-	@Effect({ dispatch: false})
+	@Effect()
 	user$ = this.actions$.ofType<any>(ActionType.SET_USER).pipe(
 		// when there isn't an user id no need to continue
 		map(action => action.payload),
@@ -51,7 +54,9 @@ export class UserEffects {
 		tap(user => this.user = user),
 		map(user => user.currentTeamId),
 		distinct(),
-		tap(id => this.loadTeamEntities())
+		// tap(id => this.teamId = id),
+		map(id => PreloaderActions.load(id))
+		// tap(id => this.loadTeamEntities()),
 	);
 
 	constructor(private actions$: Actions,
@@ -71,71 +76,30 @@ export class UserEffects {
 		this.dispatch(TeamActions.load(this.maxCounter));
 	}
 
-	private loadTeamEntities() {
-		this.loadTeamMembers();
-		this.loadCategories();
-		this.loadSuppliers();
-		this.loadEvents();
-		this.loadProjects();
-		this.loadTags();
-		this.loadCustomFields();
-		this.loadMaxCounter();
-	}
+	// private loadMaxCounter() {
+	// 	// this load maxCounter
+	// 	// in MaxCounterEffect
+	// 	timer(0, 30000).pipe(
+	// 		switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/maxCounter`))
+	// 	).subscribe((c: any) => this.maxCounter = c.counter);
+	// }
 
-	private loadCategories() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/category?counter=${this.maxCounter}`))
-		).subscribe((c: Array<Category>) => this.store.dispatch(CategoryActions.addCategories(c)));
-	}
-
-	private loadSuppliers() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/supplier?counter=${this.maxCounter}`))
-		).subscribe((t: any) => this.store.dispatch(SupplierActions.setSuppliers(t.elements)));
-	}
-
-	private loadTeams() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/user/${this.user.id}/team?counter=${this.maxCounter}`)),
-		).subscribe((t: Array<Team>) => this.store.dispatch(TeamActions.setTeams(t)));
-	}
-
-	private loadEvents() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/event?counter=${this.maxCounter}`)),
-		).subscribe((t: any) => this.dispatch(EventActions.setEvents(t.elements)));
-	}
-
-	private loadProjects() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/project?counter=${this.maxCounter}`))
-		).subscribe((t: any) => this.store.dispatch(ProjectActions.setProjects(t.elements)));
-	}
-
-	private loadTags() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/tag?counter=${this.maxCounter}`))
-		).subscribe((t: Array<Tag>) => this.store.dispatch(TagActions.setTags(t)));
-	}
-
-	private loadTeamMembers() {
-		timer(0, this.reloadTime).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/user?counter=${this.maxCounter}`)),
-			tap((users: Array<User>) => users.forEach(user => user.name = user.firstName + ' ' + user.lastName))
-		).subscribe((t: Array<User>) => this.store.dispatch(TeamMembersActions.setMembers(t)));
-	}
-
-	private loadMaxCounter() {
-		timer(0, 30000).pipe(
-			switchMap(i => this.http.get(`api/team/${this.user.currentTeamId}/maxCounter`))
-		).subscribe((c: any) => this.maxCounter = c.counter);
-	}
+	// private loadTeamEntities() {
+	// 	this.dispatch(CategoryActions.load(this.teamId, this.maxCounter));
+	// 	this.dispatch(SupplierActions.load(this.teamId, this.maxCounter));
+	// 	this.dispatch(EventActions.load(this.teamId, this.maxCounter));
+	// 	this.dispatch(ProjectActions.load(this.teamId, this.maxCounter));
+	// 	this.dispatch(TagActions.load(this.teamId, this.maxCounter));
+	// 	this.dispatch(TeamMembersActions.load(this.teamId, this.maxCounter));
+	// 	this.loadCustomFields();
+	// 	this.loadMaxCounter();
+	// }
 
 
-	private loadCustomFields() {
-		this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
-			.map(r => this.cfSrv.mapCustomFields(r))
-			.subscribe(r => this.store.dispatch(CustomFieldsActions.set(r)));
-	}
+	// private loadCustomFields() {
+	// 	this.http.get(`api/team/${this.user.currentTeamId}/customFields`)
+	// 		.map(r => this.cfSrv.mapCustomFields(r))
+	// 		.subscribe(r => this.store.dispatch(CustomFieldsActions.set(r)));
+	// }
 
 }

@@ -8,8 +8,8 @@ import { AppFile } from '../model/app-file.model';
 export enum ActionType {
 		LOAD = '[Product load]',
 		SET_PENDING = '[Product] pending',
-		SET_DATA = '[Product] setting',
-		PATCH_PROPERTY = '[Product] patching',
+		SET = '[Product] setting',
+		PATCH = '[Product] patching',
 }
 
 export class ProductActions {
@@ -21,9 +21,9 @@ export class ProductActions {
 		};
 	}
 
-	static setData(payload: Array<Product>): TypedAction<Array<Product>> {
+	static set(payload: Array<Product>): TypedAction<Array<Product>> {
 			return {
-					type: ActionType.SET_DATA,
+					type: ActionType.SET,
 					payload
 			};
 	}
@@ -36,7 +36,7 @@ export class ProductActions {
 
 	static patch(id: string, propName: string, value: any) {
 		return {
-			type: ActionType.PATCH_PROPERTY,
+			type: ActionType.PATCH,
 			payload: { id, propName, value }
 		};
 	}

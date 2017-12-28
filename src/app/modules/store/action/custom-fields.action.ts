@@ -3,11 +3,19 @@ import { EntityTarget } from '../utils/entities.utils';
 
 
 export enum ActionType {
+	LOAD = '[CustomFields] loading',
 	SET = '[CustomFields] setting',
 	PATCH = '[CustomFields] patch'
 }
 
 export class CustomFieldsActions {
+
+	static load(id: string, maxCounter: number) {
+		return {
+			type: ActionType.LOAD,
+			payload: { id, maxCounter }
+		};
+	}
 
 	static set(payload) {
 		return {

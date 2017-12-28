@@ -4,21 +4,21 @@ import { Project } from '../model/project.model';
 
 export enum ActionType {
 	LOAD = '[Project] Loading',
-	SET_PROJECTS = '[Project] Setting',
+	ADD_PROJECTS = '[Project] Adding',
 }
 
 export class ProjectActions {
 
-	static load(maxCounter) {
+	static load(id: string, maxCounter: number) {
 		return {
 			type: ActionType.LOAD,
-			payload: maxCounter
+			payload: { id, maxCounter }
 		};
 	}
 
-	static setProjects(payload: Array<Project>): TypedAction<Array<Project>> {
+	static addProjects(payload: Array<Project>): TypedAction<Array<Project>> {
 		return {
-			type: ActionType.SET_PROJECTS,
+		type: ActionType.ADD_PROJECTS,
 			payload
 		};
 	}

@@ -7,7 +7,7 @@ import { Event } from '../model/event.model';
 
 export function eventsReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Event> {
 	switch (action.type) {
-		case ActionType.SET_EVENTS:
+		case ActionType.ADD_EVENTS:
 			return addEntities(state, action.payload);
 		default: return state;
 	}

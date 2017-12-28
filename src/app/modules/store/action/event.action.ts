@@ -3,20 +3,20 @@ import { TypedAction } from '../utils/typed-action.interface';
 
 export enum ActionType {
 	LOAD = '[Event] Loading',
-	SET_EVENTS = '[Event] setting',
+	ADD_EVENTS = '[Event] adding',
 }
 
 export class EventActions {
-	static load(maxCounter) {
+	static load(id: string, maxCounter: number) {
 		return {
 			type: ActionType.LOAD,
-			payload: maxCounter
+			payload: { id, maxCounter }
 		};
 	}
 
-	static setEvents(payload: Array<Event>): TypedAction<Array<Event>> {
+	static addEvents(payload: Array<Event>): TypedAction<Array<Event>> {
 		return {
-			type: ActionType.SET_EVENTS,
+			type: ActionType.ADD_EVENTS,
 			payload
 		};
 	}

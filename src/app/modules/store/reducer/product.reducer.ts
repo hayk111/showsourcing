@@ -14,13 +14,13 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 
 	switch (action.type) {
 
-		case ActionType.SET_DATA:
+		case ActionType.SET:
 			return setEntities(action.payload);
 
 		case ActionType.SET_PENDING:
 			return { ...state, pending: true };
 
-		case ActionType.PATCH_PROPERTY:
+		case ActionType.PATCH:
 			id = action.payload.id;
 			const propName = action.payload.propName;
 			const value = action.payload.value;

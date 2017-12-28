@@ -17,6 +17,13 @@ import { TokenService } from './token.service';
 import { MatSnackBarModule } from '@angular/material';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
 import { ImageService } from './images.service';
+import { TeamMembersService } from './team-members.service';
+import { CategoryService } from './category.service';
+import { SupplierService } from './supplier.service';
+import { ProjectService } from './project.service';
+import { EventService } from './event.service';
+import { TagService } from './tag.service';
+import { PreloaderService } from './preloader.service';
 
 @NgModule({
 	imports: [
@@ -40,7 +47,14 @@ import { ImageService } from './images.service';
 		AuthService,
 		UserService,
 		TokenService,
-		ImageService
+		ImageService,
+		TeamMembersService,
+		CategoryService,
+		SupplierService,
+		ProjectService,
+		EventService,
+		TagService,
+		PreloaderService
 	]
 })
 export class EntitiesServicesModule { }

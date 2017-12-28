@@ -3,13 +3,22 @@ import { User } from '../model/user.model';
 
 
 export enum ActionType {
-	SET_TEAM_MEMBERS = '[TeamMembers] setting'
+	LOAD = '[TeamMembers] loading',
+	ADD_TEAM_MEMBERS = '[TeamMembers] adding'
 }
 
 export class TeamMembersActions {
-	static setMembers(members: Array<User>) {
+
+	static load(id: string, maxCounter: number) {
 		return {
-			type: ActionType.SET_TEAM_MEMBERS,
+			type: ActionType.LOAD,
+			payload: { id, maxCounter }
+		};
+	}
+
+	static addMembers(members: Array<User>) {
+		return {
+			type: ActionType.ADD_TEAM_MEMBERS,
 			payload: members
 		};
 	}

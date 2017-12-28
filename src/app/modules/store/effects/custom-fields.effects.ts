@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { ActionType } from '../action/custom-fields.action';
+import { ActionType, CustomFieldsActions } from '../action/custom-fields.action';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TypedAction } from '../utils/typed-action.interface';
 import { CustomFieldsService } from '../services/custom-fields.service';
@@ -11,6 +11,12 @@ import { ProductActions } from '../action/product.action';
 @Injectable()
 export class CustomFieldsEffects {
 
+	@Effect()
+	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+		map(action => action.payload),
+		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
+		map((result: any) => CustomFieldsActions.set(result))
+	);
 
 	// Listen for the patch action and sends a patch request to backend
 	@Effect()

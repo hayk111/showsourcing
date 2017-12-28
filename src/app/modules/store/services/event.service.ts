@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/user.selector';
 import { User } from '../model/user.model';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
 export class EventService {
-	teamId: string;
-	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser).subscribe((user: User) => this.teamId = user.currentTeamId);
+
+	constructor(private http: HttpClient) {
 	}
 
-	load(maxCounter) {
-		return this.http.get(`api/team/${this.teamId}/event?counter=${maxCounter}`);
+	load(id, maxCounter) {
+		return this.http.get(`api/team/${id}/event?counter=${maxCounter}`).pipe(
+			map((r: any) => r.elements)
+		);
 	}
 }

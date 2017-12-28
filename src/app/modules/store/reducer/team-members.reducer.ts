@@ -5,7 +5,7 @@ import { EntityState, entityInitialState, addEntities } from '../utils/entities.
 export function teamMembersReducer( state: EntityState<User> = entityInitialState, action) {
 	switch (action.type) {
 
-		case ActionType.SET_TEAM_MEMBERS:
+		case ActionType.ADD_TEAM_MEMBERS:
 			return addEntities(entityInitialState, action.payload);
 
 		default:

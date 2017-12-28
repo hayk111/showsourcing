@@ -13,6 +13,13 @@ import { VoteEffects } from './vote.effects';
 import { AuthenticationEffects } from './authentication.effects';
 import { TokenEffects } from './token.effects';
 import { CustomFieldsEffects } from './custom-fields.effects';
+import { TeamMembersEffects } from './team-members.effects';
+import { CategoryEffects } from './category.effects';
+import { SuppliersEffects } from './suppliers.effects';
+import { EventEffects } from './event.effects';
+import { TagEffects } from './tag.effects';
+import { ProjectEffects } from './project.effects';
+import { PreloaderEffects } from './preloader.effects';
 
 
 export const effects = [
@@ -29,5 +36,12 @@ export const effects = [
 	VoteEffects,
 	AuthenticationEffects,
 	TokenEffects,
-	CustomFieldsEffects
+	CustomFieldsEffects,
+	TeamMembersEffects,
+	CategoryEffects,
+	SuppliersEffects,
+	EventEffects,
+	TagEffects,
+	ProjectEffects,
+	PreloaderEffects
 ];

@@ -8,10 +8,10 @@ export enum ActionType {
 }
 
 export class CategoryActions {
-	static load(maxCounter: number) {
+	static load(id: string, maxCounter: number) {
 		return {
 			type: ActionType.LOAD,
-			payload: maxCounter
+			payload: { id, maxCounter }
 		};
 	}
 
