@@ -21,6 +21,8 @@ import { TestInputsFileComponent } from '../../features/test/components/test-inp
 import { TestCarouselComponent } from '../../features/test/components/test-carousel/test-carousel.component';
 import { TestCommentsComponent } from '../../features/test/components/test-comments/test-comments.component';
 import { TestFeedbackComponent } from '../../features/test/components/test-feedback/test-feedback.component';
+import { ProductPageComponent } from '../../features/product-page/components/product-page/product-page.component';
+import { ProductActivityPageComponent } from '../../features/product-page/components/product-activity-page/product-activity-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -40,6 +42,9 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'products', component: ProductsPageComponent },
+			{ path: 'product', component: ProductPageComponent, children: [
+				{ path: 'activity', component: ProductActivityPageComponent }
+			] },
 			{ path: 'tasks', component: TasksPageComponent },
 			{ path: 'suppliers', component: SupplierPageComponent },
 			{ path: 'events', component: EventPageComponent },
