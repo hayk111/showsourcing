@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, filterRepresentationMap } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FilterActions } from '../../../../store/action/filter.action';
@@ -16,10 +16,10 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 })
 export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	private target = entityRepresentationMap.prices;
+	private target = filterRepresentationMap.prices;
 	// filters are saved as this when sent
-	private minRepr = entityRepresentationMap.minPrices;
-	private maxRepr = entityRepresentationMap.maxPrices;
+	private minRepr = filterRepresentationMap.minPrices;
+	private maxRepr = filterRepresentationMap.maxPrices;
 	_min: number;
 	_max: number;
 	min$;
@@ -83,7 +83,7 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	sendActions() {
-		const arr = [entityRepresentationMap.maxPrices, entityRepresentationMap.minPrices ];
+		const arr = [filterRepresentationMap.maxPrices, filterRepresentationMap.minPrices ];
 		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, arr));
 
 		if (this._min !== undefined) {

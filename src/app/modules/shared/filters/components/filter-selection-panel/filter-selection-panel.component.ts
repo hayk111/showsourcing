@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName} from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterRepresentation} from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
@@ -9,7 +9,7 @@ import { NavigationEnd } from '@angular/router';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
-import { EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'filter-selection-panel-app',
@@ -18,16 +18,15 @@ import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 })
 export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	target$: Observable<EntityRepresentation>;
-	target: EntityRepresentation;
+	filterRep$: Observable<FilterRepresentation>;
 
 	constructor(private store: Store<any>, private router: Router) {
 		super();
 	}
 
 	ngOnInit() {
-		this.target$ = this.store.select(selectFilterSelectionPanelTarget);
-		this.target$.takeUntil(this._destroy$).subscribe(t => this.target = t);
+		this.filterRep$ = this.store.select(selectFilterSelectionPanelTarget);
+		// we close the panel when changing pages
 		this.router.events.subscribe(evt => {
 			if (evt instanceof NavigationEnd)
 				this.closePanel();
@@ -37,5 +36,6 @@ export class FilterSelectionPanelComponent extends AutoUnsub implements OnInit {
 	closePanel() {
 		this.store.dispatch(FilterSelectionPanelAction.close());
 	}
+
 
 }

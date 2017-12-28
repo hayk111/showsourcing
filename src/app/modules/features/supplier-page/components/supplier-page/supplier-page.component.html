@@ -1,15 +1,15 @@
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
 
 	<div class="filters">
-		<filter-list-app class="filters" 
+		<filter-list-app class="filters"
 			[filterGroupName]="filterGroupName"
-			[targets]="targets"></filter-list-app>
+			[filterReps]="filterReprs"></filter-list-app>
 	</div>
 
 	<supplier-list-view-app class="list-view"></supplier-list-view-app>
 
 	<div class="card-view">
-		<ng-container *ngIf="(supplier$ | async) as suppliers">								
+		<ng-container *ngIf="(supplier$ | async) as suppliers">
 			cards
 			<div class="card" *ngFor="let id of suppliers.ids">
 					{{ suppliers.byId[id]?.name | json }}
@@ -18,4 +18,3 @@
 	</div>
 
 </filtered-list-page-app>
-	

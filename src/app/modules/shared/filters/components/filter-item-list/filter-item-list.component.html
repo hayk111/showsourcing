@@ -1,10 +1,10 @@
 
-<input-app type="text" 
-	placeholder="Search" 
+<input-app type="text"
+	placeholder="Search"
 	(keyup)="search($event.target.value)">
 </input-app>
 
-<h4>Relevant {{ entityRep.displayName }}</h4>
+<h4>Relevant {{ filterRep.displayName }}</h4>
 <ng-container *ngIf="relevantChoices$ | async as relChoices">
 	<input-checkbox-app
 		[choices]="relChoices"
@@ -14,7 +14,7 @@
 	</input-checkbox-app>
 </ng-container>
 
-<h4>All {{ entityRep.displayName }}</h4>
+<h4>All {{ filterRep.displayName }}</h4>
 <ng-container *ngIf="choices$ | async as choices">
 	<input-checkbox-app
 		[choices]="choices"

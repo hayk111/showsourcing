@@ -25,7 +25,6 @@ export interface Entity {
 
 export class EntityRepresentation  {
 	constructor(public entityName: string,
-							public isEntity: boolean = false,
 							public urlName?: string,
 							public displayName?: string,
 							public descriptorName?: CustomFieldsName | string) {
@@ -37,27 +36,16 @@ export class EntityRepresentation  {
 }
 
 export const entityRepresentationMap = {
-	suppliers: new EntityRepresentation('suppliers', true),
-	events: new EntityRepresentation('events', true),
-	categories: new EntityRepresentation('categories', true, 'category'),
-	tags: new EntityRepresentation('tags', true),
-	projects: new EntityRepresentation('projects', true),
-	product: new EntityRepresentation('products', true),
-	tasks: new EntityRepresentation('tasks', true),
-	productStatus: new EntityRepresentation('productStatus', true, 'status', 'status'),
-	currencies: new EntityRepresentation('currencies', true),
-	teamMembers: new EntityRepresentation('teamMembers', true),
-	// non real entities, used as is for convenience
-	prices: new EntityRepresentation('prices'),
-	minPrices: new EntityRepresentation('minPrices'),
-	maxPrices: new EntityRepresentation('maxPrices'),
-	ratings: new EntityRepresentation('ratings'),
-	withArchived: new EntityRepresentation('withArchived', false, 'withArchived', 'with archived'),
-	tasksStatus: new EntityRepresentation('tasksStatus', true, 'taskStatus', 'status'),
-	tasksTypes: new EntityRepresentation('tasksType', true, 'taskType', 'type'),
-	name: new EntityRepresentation( 'name'),
-	sortByProduct: new EntityRepresentation('sortByProduct', false, 'sort', 'sort by'),
-	search: new EntityRepresentation('search', false, 'search')
+	suppliers: new EntityRepresentation('suppliers'),
+	events: new EntityRepresentation('events'),
+	categories: new EntityRepresentation('categories', 'category'),
+	tags: new EntityRepresentation('tags'),
+	projects: new EntityRepresentation('projects'),
+	product: new EntityRepresentation('products'),
+	tasks: new EntityRepresentation('tasks'),
+	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
+	currencies: new EntityRepresentation('currencies'),
+	teamMembers: new EntityRepresentation('teamMembers'),
 };
 
 

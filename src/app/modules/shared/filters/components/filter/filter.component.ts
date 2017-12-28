@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { EntityState, Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
+import { Filter, FilterGroupName, FilterRepresentation } from '../../../../store/model/filter.model';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';
@@ -19,7 +19,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 })
 export class FilterComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() target: EntityRepresentation;
+	@Input() filterRepr: FilterRepresentation;
 	@Output() itemClicked = new EventEmitter();
 	items$: Observable<Array<Filter>>;
 
@@ -30,7 +30,7 @@ export class FilterComponent implements OnInit {
 	ngOnInit() {
 		// select all items selected for target category
 		// if (this.target !== entityRepresentationMap.prices)
-			this.items$ = this.store.select(selectFilterForEntity(this.filterGroupName, this.target));
+			this.items$ = this.store.select(selectFilterForEntity(this.filterGroupName, this.filterRepr));
 		// else {
 		// // if the target is prices, the filterTarget put in the filter store is either min or maxPrices
 		// 	const min$ = this.store.select(
@@ -48,11 +48,11 @@ export class FilterComponent implements OnInit {
 
 	openFilterListPanel() {
 		// setting the target entityRepr of filterSelectionPanel so it knows which filter panel to display
-		this.store.dispatch(FilterSelectionPanelAction.open(this.target));
+		this.store.dispatch(FilterSelectionPanelAction.open(this.filterRepr));
 	}
 
 	// we remove filter when the close icon is clicked
-	removeFilter(id: string, repr: EntityRepresentation) {
+	removeFilter(id: string, repr: FilterRepresentation) {
 		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, repr, id));
 	}
 

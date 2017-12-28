@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, filterRepresentationMap, FilterRepresentation } from '../../../../store/model/filter.model';
 import { searchEntityWithFilters, searchEntitiesWithFilters } from '../../../../store/selectors/search-entities.selector';
 import { take } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -23,7 +23,7 @@ import { debounceTime } from 'rxjs/operators';
 export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	searchTerms$: Observable<any>;
-	private searchEntRep = entityRepresentationMap.search;
+	private searchRep = filterRepresentationMap.search;
 	private keyDown = new Subject<string>();
 
 	constructor(private store: Store<any>) {
@@ -39,7 +39,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	search(value) {
-		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.searchEntRep]));
+		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.searchRep]));
 		if (value > 2) {
 			this.keyDown.next(value);
 		}
@@ -47,7 +47,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 
 	doSearch(val) {
 		const name = `search: ${val}`;
-		const ac = FilterActions.addFilter(this.filterGroupName, this.searchEntRep, name, val);
+		const ac = FilterActions.addFilter(this.filterGroupName, this.searchRep, name, val);
 		this.store.dispatch(ac);
 	}
 
@@ -55,11 +55,11 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		this.searchTerms$ = undefined;
 	}
 
-	onFilterChange(event, target: EntityRepresentation, itemName: string, itemId: string) {
+	onFilterChange(event, repr: FilterRepresentation, itemName: string, itemId: string) {
 		if (event.checked)
-			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, target, itemName, itemId));
+			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, repr, itemName, itemId));
 		else
-			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, target, itemId));
+			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, repr, itemId));
 	}
 
 }

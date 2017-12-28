@@ -1,14 +1,14 @@
 
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
 		<!-- filters -->
-		<filter-list-app class="filters" 
+		<filter-list-app class="filters"
 			[filterGroupName]="filterGroupName"
-			[targets]="filterTargets"></filter-list-app>
+			[filterReps]="filterTargets"></filter-list-app>
 		<with-archived-button-app class="filters" [filterGroupName]="filterGroupName"></with-archived-button-app>
 
 		<!-- views -->
 		<product-list-view-app class="list-view" [productEntities]="productEntities"></product-list-view-app>
-		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)" 
+		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)"
 			[productEntities]="productEntities"></product-card-view-app>
 </filtered-list-page-app>
 <product-dialog-app></product-dialog-app>

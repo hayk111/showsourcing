@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, filterRepresentationMap } from '../../../../store/model/filter.model';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
@@ -16,7 +16,7 @@ export class FilterRatingPanelComponent extends AutoUnsub implements OnInit {
 	ratings = [1, 2, 3, 4, 5];
 	private ratingsSelected: Array<number>;
 	@Input() filterGroupName: FilterGroupName;
-	private repr = entityRepresentationMap.ratings;
+	private repr = filterRepresentationMap.ratings;
 
 	constructor(private store: Store<any>) {
 		super();

@@ -12,12 +12,12 @@ export const initialState: AppFilters = {
 };
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {
-	let groupName, entityRepr, group, value, name, newState;
+	let groupName, filterRepr, group, value, name, newState;
 	// getting some vars ready that are used in many places
 	if (action.type === ActionType.ADD_FILTER || action.type === ActionType.REMOVE_FILTER
 			|| action.type === ActionType.REMOVE_FILTER_ARRAY) {
 		groupName = action.payload.filterGroupName;
-		entityRepr = action.payload.entityRepr;
+		filterRepr = action.payload.filterRepr;
 		group = state[groupName];
 		value = action.payload.value;
 		name = action.payload.name;
@@ -26,16 +26,16 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 	switch (action.type) {
 		case ActionType.ADD_FILTER:
 			newState = { ...state };
-			newState[groupName] = group.concat({entityRepr, name, value});
+			newState[groupName] = group.concat({filterRepr, name, value});
 			return newState;
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
-			newState[groupName] = group.filter(e => (e.value !== value || e.entityRepr !== entityRepr));
+			newState[groupName] = group.filter(e => (e.value !== value || e.filterRepr !== filterRepr));
 			return newState;
 		case ActionType.REMOVE_FILTER_ARRAY:
 			newState = { ...state };
-			const arr = action.payload.entityReprArr;
-			newState[groupName] = group.filter(e => !arr.includes(e.entityRepr));
+			const arr = action.payload.filterReprArr;
+			newState[groupName] = group.filter(e => !arr.includes(e.filterRepr));
 			return newState;
 		case ActionType.CLEAR:
 			const gName = action.payload;

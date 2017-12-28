@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, filterRepresentationMap } from '../../../../store/model/filter.model';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
@@ -21,7 +21,7 @@ export class FilterProductSortPanelComponent extends AutoUnsub implements OnInit
 		{ title: 'Supplier', value: 'supplier' }
 	];
 	selectedSorting;
-	private repr = entityRepresentationMap.sortByProduct;
+	private repr = filterRepresentationMap.sortByProduct;
 
 	constructor(private store: Store<any>) {
 		super();

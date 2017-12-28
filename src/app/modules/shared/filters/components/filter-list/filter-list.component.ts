@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterRepresentation } from '../../../../store/model/filter.model';
 import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
@@ -8,7 +8,7 @@ import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 	styleUrls: ['./filter-list.component.scss']
 })
 export class FilterListComponent implements OnInit {
-	@Input() targets: Array<EntityRepresentation>;
+	@Input() filterReps: Array<FilterRepresentation>;
 	@Input() filterGroupName: FilterGroupName;
 
 	constructor() { }

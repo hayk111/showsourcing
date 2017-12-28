@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
-import { Filter, FilterGroupName } from '../../../../store/model/filter.model';
+import { Filter, FilterGroupName, filterRepresentationMap, FilterRepresentation } from '../../../../store/model/filter.model';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
-import { EntityState, entityRepresentationMap, EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectProducts } from '../../../../store/selectors/products.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';
@@ -21,16 +21,16 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filterTargets: Array<EntityRepresentation> = [
-		entityRepresentationMap.suppliers,
-		entityRepresentationMap.categories,
-		entityRepresentationMap.events,
-		entityRepresentationMap.tags,
-		entityRepresentationMap.projects,
-		entityRepresentationMap.productStatus,
-		entityRepresentationMap.prices,
-		entityRepresentationMap.ratings,
-		entityRepresentationMap.sortByProduct
+	filterTargets: Array<FilterRepresentation> = [
+		filterRepresentationMap.suppliers,
+		filterRepresentationMap.categories,
+		filterRepresentationMap.events,
+		filterRepresentationMap.tags,
+		filterRepresentationMap.projects,
+		filterRepresentationMap.productStatus,
+		filterRepresentationMap.prices,
+		filterRepresentationMap.ratings,
+		filterRepresentationMap.sortByProduct
 	];
 	// whether products are pending
 	pending = true;

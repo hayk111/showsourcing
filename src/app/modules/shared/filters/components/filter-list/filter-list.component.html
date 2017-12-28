@@ -1,7 +1,6 @@
 
-
 <filter-app
-	*ngFor="let target of targets" 
-	[target]="target" 
+	*ngFor="let repr of filterReps"
+	[filterRepr]="repr"
 	[filterGroupName]="filterGroupName">
 </filter-app>

@@ -13,7 +13,7 @@ import { selectEvents } from '../../../../store/selectors/events.selector';
 })
 export class EventPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.EVENTS_PAGE;
-	targets = [];
+	filterRepr = [];
 	events$: Observable<EntityState<Event>>;
 	pending = true;
 

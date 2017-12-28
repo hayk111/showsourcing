@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { User } from '../../../store/model/user.model';
-import { FilterGroupName } from '../../../store/model/filter.model';
+import { FilterGroupName, FilterRepresentation } from '../../../store/model/filter.model';
 import { selectEntitiesWithChecked } from '../../../store/selectors/filter.selectors';
 import { combineLatest } from 'rxjs/operators';
 import { selectUser } from '../../../store/selectors/user.selector';
@@ -33,7 +33,7 @@ export class CounterService {
 		}
 	}
 
-	getItemsWithCount(t: EntityRepresentation) {
+	getItemsWithCount(t: FilterRepresentation) {
 		// get items observable
 		const items$ = this.store.select(selectEntitiesWithChecked(this.filterGroupName, t));
 		// get count observable

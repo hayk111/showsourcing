@@ -1,20 +1,20 @@
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending">
 
 	<div class="filters">
-		<filter-list-app class="filters" 
+		<filter-list-app class="filters"
 			[filterGroupName]="filterGroupName"
-			[targets]="targets"></filter-list-app>
+			[filterReps]="filterRepr"></filter-list-app>
 	</div>
 
 	<events-list-view-app class="list-view"></events-list-view-app>
 
 	<div class="card-view">
-		<ng-container *ngIf="(events$ | async) as events">								
+		<ng-container *ngIf="(events$ | async) as events">
 			cards
 			<div class="card" *ngFor="let id of events.ids">
 					{{ events.byId[id]?.name  | json }}
 			</div>
 		</ng-container>
 	</div>
-	
+
 </filtered-list-page-app>

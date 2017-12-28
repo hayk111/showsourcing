@@ -20,7 +20,7 @@ export class CustomFieldsEffects {
 		map(p => this.mapPatch(p))
 	);
 
-	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }){
+	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }) {
 		const m = entityRepresentationMap;
 		switch (target.entityRepr.entityName) {
 			case m.product.entityName :

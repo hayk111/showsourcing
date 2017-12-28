@@ -1,7 +1,7 @@
 import { EntityState, Entity, EntityRepresentation } from '../utils/entities.utils';
 import { Product } from '../model/product.model';
 import { deepCopy } from '../utils/deep-copy.utils';
-import { FilterGroupName } from '../model/filter.model';
+import { FilterGroupName, FilterRepresentation } from '../model/filter.model';
 import { selectFilterValuesForEntity } from './filter.selectors';
 import Log from '../../../utils/logger/log.class';
 import { createSelector } from 'reselect';
@@ -30,21 +30,21 @@ export const searchEntity = ( repr: EntityRepresentation, str: string) => {
 	);
 };
 
-export const searchEntityWithFilters = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
+export const searchEntityWithFilters = (filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, str: string) => {
 	return createSelector(
 		[
-			searchEntity(entityRepr, str),
-			selectFilterValuesForEntity(filterGroupName, entityRepr)
+			searchEntity(filterRepr, str),
+			selectFilterValuesForEntity(filterGroupName, filterRepr)
 		],
 		(items, vals) => {
-			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
+			Log.debug(`searching ${filterRepr.entityName} for name with string ${str}`);
 			addSelection(vals, items);
 			return items;
 	});
 };
 
-export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, entityReprs: Array<EntityRepresentation>, str: string) => {
-	const searches: Array<any> = entityReprs.map(x => searchEntityWithFilters(filterGroupName, x, str));
+export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, filterRepr: Array<FilterRepresentation>, str: string) => {
+	const searches: Array<any> = filterRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
 	// puts every search into an array
 	return createSelector(searches as any, (...args) => {
 		// just flatten the array of array

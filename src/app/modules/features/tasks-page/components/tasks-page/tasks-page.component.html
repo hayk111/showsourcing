@@ -5,21 +5,21 @@
 		<h3>Tasks Filters</h3>
 		<filter-list-app
 			[filterGroupName]="filterGroupName"
-			[targets]="targetsTask"></filter-list-app>		
+			[filterReps]="filterReps"></filter-list-app>
 	</div>
 
 
 	<div class="filters">
 		<h3>Products Filters</h3>
-		<filter-list-app 
+		<filter-list-app
 			[filterGroupName]="filterGroupName"
-			[targets]="targets"></filter-list-app>		
+			[filterReps]="filterRepsTask"></filter-list-app>
 	</div>
 
 
 	<tasks-list-view [tasksEntities]="tasksEntities" class="list-view"></tasks-list-view>
 
-	
+
 	<div class="card-view">
 		cards
 		<div class="card" *ngFor="let id of tasksEntities.ids" (click)="onItemClicked(id)">

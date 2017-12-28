@@ -9,7 +9,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { selectFilterValuesForEntity } from '../../../../store/selectors/filter.selectors';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterRepresentation } from '../../../../store/model/filter.model';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { filter } from 'rxjs/operators/filter';
@@ -38,8 +38,8 @@ import { FormControl } from '@angular/forms';
 })
 export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	entityRep: EntityRepresentation;
-	entityRep$ = new Observable<EntityRepresentation>();
+	filterRep: FilterRepresentation;
+	filterRep$ = new Observable<FilterRepresentation>();
 	search$ = new BehaviorSubject<string>('');
 	values: Array<any>;
 	choices$: Observable<Array<SelectableItem>>;
@@ -55,28 +55,28 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// we select the entityRep for the filter selection panel to know what entity
 		// we want to display
-		this.entityRep$ = this.store.select(selectFilterSelectionPanelTarget);
-		this.entityRep$.takeUntil(this._destroy$).subscribe(rep => this.entityRep = rep);
+		this.filterRep$ = this.store.select(selectFilterSelectionPanelTarget);
+		this.filterRep$.takeUntil(this._destroy$).subscribe(rep => this.filterRep = rep);
 		// can be removed
 		this.counterSrv.init(this.filterGroupName);
 
 		// select values
-		this.entityRep$.pipe(
+		this.filterRep$.pipe(
 			switchMap(repr => this.store.select(selectFilterValuesForEntity(this.filterGroupName, repr))),
 			takeUntil(this._destroy$),
 		).subscribe(v => this.values = v);
 
 		// select entities
-		const entities$ =  this.entityRep$.pipe(
+		const entities$ =  this.filterRep$.pipe(
 			switchMap(rep => this.store.select(selectEntityArray(rep))),
 		);
-		this.choices$ = combineLatest(this.entityRep$, this.search$, (rep, search) => ({rep, search}))
+		this.choices$ = combineLatest(this.filterRep$, this.search$, (rep, search) => ({rep, search}))
 		.pipe(
 			switchMap(sr => this.store.select(searchEntity(sr.rep, sr.search)))
 		);
 
 		// filter only relevant entities
-		const relevant$ = this.entityRep$.pipe(
+		const relevant$ = this.filterRep$.pipe(
 			switchMap(repr => this.counterSrv.getItemsWithCount(repr)),
 		);
 
@@ -86,11 +86,11 @@ export class FilterItemListComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemAdded(item) {
-		this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.entityRep, item.name, item.id));
+		this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.filterRep, item.name, item.id));
 	}
 
 	onItemRemoved(item) {
-		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.entityRep, item.id));
+		this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.filterRep, item.id));
 	}
 
 	search(value) {
