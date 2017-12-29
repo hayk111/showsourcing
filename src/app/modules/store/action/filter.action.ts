@@ -31,10 +31,10 @@ export class FilterActions {
 			};
 		}
 
-		static removeFiltersForEntityReprs(filterGroupName: FilterGroupName, entityReprArr: Array<FilterRepresentation>) {
+		static removeFiltersForFilterReprs(filterGroupName: FilterGroupName, filterReprArr: Array<FilterRepresentation>) {
 			return {
 				type: ActionType.REMOVE_FILTER_ARRAY,
-				payload: { filterGroupName, entityReprArr }
+				payload: { filterGroupName, filterReprArr }
 			};
 		}
 		static clearGroup(filterGroupName: FilterGroupName) {

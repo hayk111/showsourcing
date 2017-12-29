@@ -84,7 +84,7 @@ export class FilterPricePanelComponent extends AutoUnsub implements OnInit {
 
 	sendActions() {
 		const arr = [filterRepresentationMap.maxPrices, filterRepresentationMap.minPrices ];
-		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, arr));
+		this.store.dispatch(FilterActions.removeFiltersForFilterReprs(this.filterGroupName, arr));
 
 		if (this._min !== undefined) {
 			const minaction = FilterActions

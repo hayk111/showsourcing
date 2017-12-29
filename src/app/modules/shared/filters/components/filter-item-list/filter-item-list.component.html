@@ -4,15 +4,19 @@
 	(keyup)="search($event.target.value)">
 </input-app>
 
-<h4>Relevant {{ filterRep.displayName }}</h4>
 <ng-container *ngIf="relevantChoices$ | async as relChoices">
-	<input-checkbox-app
-		[choices]="relChoices"
-		[value]="values"
-		(itemAdded)="onItemAdded($event)"
-		(itemRemoved)="onItemRemoved($event)">
-	</input-checkbox-app>
+	<ng-container *ngIf="relChoices.length > 0">
+		<h4>Relevant {{ filterRep.displayName }}</h4>
+		<input-checkbox-app
+			[choices]="relChoices"
+			[value]="values"
+			(itemAdded)="onItemAdded($event)"
+			(itemRemoved)="onItemRemoved($event)">
+		</input-checkbox-app>
+	</ng-container>
+
 </ng-container>
+
 
 <h4>All {{ filterRep.displayName }}</h4>
 <ng-container *ngIf="choices$ | async as choices">

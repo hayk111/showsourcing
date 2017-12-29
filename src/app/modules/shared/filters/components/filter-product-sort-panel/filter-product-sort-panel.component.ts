@@ -37,7 +37,7 @@ export class FilterProductSortPanelComponent extends AutoUnsub implements OnInit
 	}
 
 	onChange(v: string) {
-		const removeAction = FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.repr]);
+		const removeAction = FilterActions.removeFiltersForFilterReprs(this.filterGroupName, [this.repr]);
 		const addAction = FilterActions.addFilter(this.filterGroupName, this.repr, `sort: ${v}`, v);
 		this.store.dispatch(removeAction);
 		this.store.dispatch(addAction);

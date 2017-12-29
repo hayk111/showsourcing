@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Store } from '@ngrx/store';
 import { FilterGroupName, filterRepresentationMap, FilterRepresentation } from '../../../../store/model/filter.model';
 import { searchEntityWithFilters, searchEntitiesWithFilters } from '../../../../store/selectors/search-entities.selector';
-import { take } from 'rxjs/operators';
+import { take, map, switchMap, concatAll } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { zip } from 'rxjs/observable/zip';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -13,6 +13,8 @@ import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -22,7 +24,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	searchTerms$: Observable<any>;
+	searchTerms: any;
 	private searchRep = filterRepresentationMap.search;
 	private keyDown = new Subject<string>();
 
@@ -39,7 +41,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	search(value) {
-		this.store.dispatch(FilterActions.removeFiltersForEntityReprs(this.filterGroupName, [this.searchRep]));
+		this.store.dispatch(FilterActions.removeFiltersForFilterReprs(this.filterGroupName, [this.searchRep]));
 		if (value > 2) {
 			this.keyDown.next(value);
 		}
@@ -49,10 +51,18 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		const name = `search: ${val}`;
 		const ac = FilterActions.addFilter(this.filterGroupName, this.searchRep, name, val);
 		this.store.dispatch(ac);
+		// this.searchTerms = ENTITY_SEARCHED
+		// 	.map(
+		// 		(ent: EntityRepresentation) => ({ entityRepr: ent, values: this.selectSearch(val, ent) })
+		// 	);
+	}
+
+	selectSearch(val: any, ent: EntityRepresentation) {
+		return this.store.select<any>(searchEntityWithFilters(this.filterGroupName, ent, val));
 	}
 
 	closeSmartSearch() {
-		this.searchTerms$ = undefined;
+		this.searchTerms = undefined;
 	}
 
 	onFilterChange(event, repr: FilterRepresentation, itemName: string, itemId: string) {
@@ -63,3 +73,12 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 }
+
+const ENTITY_SEARCHED = [
+	entityRepresentationMap.categories,
+	entityRepresentationMap.events,
+	entityRepresentationMap.suppliers,
+	entityRepresentationMap.tags,
+	entityRepresentationMap.tasks,
+	entityRepresentationMap.projects
+];

@@ -30,27 +30,36 @@ export const searchEntity = ( repr: EntityRepresentation, str: string) => {
 	);
 };
 
-export const searchEntityWithFilters = (filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, str: string) => {
+export const searchEntityWithFilters = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation, str: string) => {
 	return createSelector(
 		[
-			searchEntity(filterRepr, str),
-			selectFilterValuesForEntity(filterGroupName, filterRepr)
+			searchEntity(entityRepr, str),
+			selectFilterValuesForEntity(filterGroupName, entityRepr as FilterRepresentation)
 		],
 		(items, vals) => {
-			Log.debug(`searching ${filterRepr.entityName} for name with string ${str}`);
+			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
 			addSelection(vals, items);
 			return items;
 	});
 };
 
-export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, filterRepr: Array<FilterRepresentation>, str: string) => {
-	const searches: Array<any> = filterRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
+export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, entityRepr: Array<EntityRepresentation>, str: string) => {
+	const searches: Array<any> = entityRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
 	// puts every search into an array
 	return createSelector(searches as any, (...args) => {
 		// just flatten the array of array
 		return args.reduce((acc, curr) => {
 			return acc.concat(curr);
 		}, []);
+	});
+};
+
+
+export const tabularSearchWithFilters = (filterGroupName: FilterGroupName, entityRepr: Array<EntityRepresentation>, str: string) => {
+	const searches: Array<any> = entityRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
+	// puts every search into an array
+	return createSelector(searches as any, (...args) => {
+		// just flatten the array of array
 	});
 };
 

@@ -3,7 +3,7 @@
 	<ng-container *ngIf="dlg.isOpen">
 		<ng-container *ngIf="product$ | async as product">
 			<ng-container *ngIf="target$ | async as target">
-
+				<a [routerLink]="['/product-details', product.id]">GO TO PRODUCT</a>
 				<div class="flex">
 					<div>
 
