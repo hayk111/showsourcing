@@ -6,9 +6,11 @@ import { FilterGroupName } from '../model/filter.model';
 import { AppFile } from '../model/app-file.model';
 
 export enum ActionType {
-		LOAD = '[Product load]',
+		LOAD = '[Product] loading',
+		LOAD_BY_ID = '[Product] loading by id',
 		SET_PENDING = '[Product] pending',
 		SET = '[Product] setting',
+		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
 }
 
@@ -20,6 +22,21 @@ export class ProductActions {
 			payload: filterGroupName
 		};
 	}
+
+	static loadOne(id: string) {
+		return {
+			type: ActionType.LOAD_BY_ID,
+			payload: id
+		};
+	}
+
+	static add(product: Array<Product>) {
+		return {
+			type: ActionType.ADD,
+			payload: product
+		};
+	}
+
 
 	static set(payload: Array<Product>): TypedAction<Array<Product>> {
 			return {

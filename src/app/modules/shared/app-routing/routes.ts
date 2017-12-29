@@ -42,7 +42,7 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'products', component: ProductsPageComponent },
-			{ path: 'product', component: ProductPageComponent, children: [
+			{ path: 'product-details/:id', component: ProductPageComponent, children: [
 				{ path: 'activity', component: ProductActivityPageComponent }
 			] },
 			{ path: 'tasks', component: TasksPageComponent },

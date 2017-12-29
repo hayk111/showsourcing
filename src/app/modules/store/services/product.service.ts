@@ -19,6 +19,10 @@ export class ProductService {
 			.map(elems => this.addCustomFields(elems));
 	}
 
+	loadById(id: string) {
+		return this.http.get(`api/product/${id}`);
+	}
+
 	// properties in the customFields nested object are added to the product with
 	// the property name started with x-. Ask Antoine for more info.
 	addCustomFields(elems: Array<any>) {
