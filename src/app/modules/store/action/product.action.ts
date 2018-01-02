@@ -6,6 +6,7 @@ import { FilterGroupName } from '../model/filter.model';
 import { AppFile } from '../model/app-file.model';
 import { Tag } from '../model/tag.model';
 import { Project } from '../model/project.model';
+import { Task } from '../model/task.model';
 
 export enum ActionType {
 		LOAD = '[Product] loading',
@@ -15,9 +16,17 @@ export enum ActionType {
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
 		LOAD_TAGS = '[Product] loading tags',
-		ADD_TAGS = '[Product] adding tags',
+		SET_TAGS = '[Product] setting tags',
+		ADD_TAG = '[Product] adding tag',
+		REMOVE_TAG = '[Product] removing tag',
 		LOAD_PROJECTS = '[Product] loading projects',
-		ADD_PROJECTS = '[Product] adding projects'
+		SET_PROJECTS = '[Product] setting projects',
+		ADD_PROJECT = '[Product] adding project',
+		REMOVE_PROJECT = '[Product] removing project',
+		LOAD_TASKS = '[Product] loading tasks',
+		SET_TASKS = '[Product] setting tasks',
+		ADD_TASK = '[Product] adding tasks',
+		REMOVE_TASK = '[Product] removing tasks',
 }
 
 export class ProductActions {
@@ -71,10 +80,24 @@ export class ProductActions {
 		};
 	}
 
-	static addTags(tags: Array<Tag>, id: string) {
+	static setTags(tags: Array<Tag>, id: string) {
 		return {
-			type: ActionType.ADD_TAGS,
+			type: ActionType.SET_TAGS,
 			payload: { tags, id }
+		};
+	}
+
+	static addTag(tag: Tag, id: string) {
+		return {
+			type: ActionType.ADD_TAG,
+			payload: { tag, id }
+		};
+	}
+
+	static removeTag(tag: Tag, id: string) {
+		return {
+			type: ActionType.REMOVE_TAG,
+			payload: { tag, id }
 		};
 	}
 
@@ -86,10 +109,32 @@ export class ProductActions {
 		};
 	}
 
-	static addProjects(projects: Array<Project>, id: string) {
+	static setProjects(projects: Array<Project>, id: string) {
 		return {
-			type: ActionType.ADD_PROJECTS,
-			payload: { id, projects }
+			type: ActionType.SET_PROJECTS,
+			payload: { projects, id }
 		};
 	}
+
+	static addProject(project: Project, id: string) {
+		return {
+			type: ActionType.ADD_PROJECT,
+			payload: { id, project }
+		};
+	}
+
+	static removeProject(project: Project, id: string) {
+		return {
+			type: ActionType.REMOVE_PROJECT,
+			payload: { project, id }
+		};
+	}
+
+	static loadTasks(id: string) {
+		return {
+			type: ActionType.LOAD_TASKS,
+			payload: id
+		};
+	}
+
 }

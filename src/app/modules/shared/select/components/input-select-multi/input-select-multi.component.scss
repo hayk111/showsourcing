@@ -7,7 +7,7 @@
 	flex-wrap: wrap;
 }
 
-article {
+article, .plus {
 	margin: var(--spacing-smaller);
 	padding: var(--spacing-small) var(--spacing-default);
 	border: 1px solid grey;

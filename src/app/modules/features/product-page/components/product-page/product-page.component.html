@@ -4,9 +4,13 @@
 			(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)">
 		</basic-info-box-app>
 		<div class="card">
-			<input-select-entity-app
-				(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
-				[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
+			<ng-container *ngIf="product$ | async as product">
+				<input-select-entity-app
+					[label]="'Projects'"
+					(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
+					[value]="product.projects"
+					[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
+			</ng-container>
 		</div>
 		<div class="card">
 			<input-file-entity-app  [target]="target"></input-file-entity-app>
@@ -19,7 +23,7 @@
 				<a [routerLink]="['technical-details']">Technical details</a>
 				<a [routerLink]="['tasks']">Tasks</a>
 				<a [routerLink]="['shipping']">Shipping</a>
-				<a [routerLink]="['Files']">Files</a>
+				<a [routerLink]="['files']">Files</a>
 			</div>
 			<router-outlet></router-outlet>
 	</div>

@@ -1,0 +1,26 @@
+<div class="card">
+	<button class="small">Add task</button>
+	<hr/>
+	<ng-container *ngIf="tasks$ | async as tasks">
+		<table class="fullWidth">
+			<tr *ngFor="let id of tasks.ids">
+				<td>
+						{{ tasks.byId[id].status }}
+				</td>
+				<td>
+						{{ tasks.byId[id].taskType }}
+				</td>
+				<td>
+						{{ tasks.byId[id].description }}
+				</td>
+				<td>
+						{{ tasks.byId[id].creationDate | date }}
+				</td>
+				<td>
+						{{ tasks.byId[id].createdByUserId | entityName: 'teamMembers' | async }}
+				</td>
+			</tr>
+		</table>
+	</ng-container>
+
+</div>

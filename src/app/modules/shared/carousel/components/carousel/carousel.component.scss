@@ -3,10 +3,17 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 2px solid green;
-	height: 250px;
-	width: 250px;
+	border: 2px solid grey;
+	height: 200px;
+	width: 200px;
 	overflow: hidden;
+}
+.action {
+	visibility: hidden;
+}
+
+:host:hover > .action {
+	visibility: visible;
 }
 
 .menuIc {
@@ -64,4 +71,13 @@ img {
 	align-items: center;
 	right: 62px;
 	top: var(--spacing-default);
+}
+
+.counter {
+	position: absolute;
+	bottom: var(--spacing-default);
+	right: var(--spacing-default);
+	background: rgba(0, 0, 0, 0.7);
+	padding: 0 var(--spacing-default);
+	color: white;
 }

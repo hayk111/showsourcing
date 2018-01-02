@@ -19,6 +19,8 @@ import { selectProductById } from '../selectors/products.selector';
 import { Product } from '../model/product.model';
 import { Tag } from '../model/tag.model';
 import { Project } from '../model/project.model';
+import { Task } from '../model/task.model';
+import { TaskActions } from '../action/task.action';
 
 
 @Injectable()
@@ -44,11 +46,12 @@ export class ProductEffects {
 	@Effect()
 	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
 		map(action => action.payload),
-		tap(id => this.store.dispatch(ProductActions.loadTags(id))),
-		tap(id => this.store.dispatch(ProductActions.loadProjects(id))),
 		switchMap(id => this.store.select(selectProductById(id)).pipe(
 			filter(product => product === undefined),
-			switchMap(_ => this.srv.loadById(id)),
+			switchMap(_ => this.srv.loadById(id).pipe(
+				tap( __ => this.store.dispatch(ProductActions.loadTags(id))),
+				tap( __ => this.store.dispatch(ProductActions.loadProjects(id))),
+			)),
 		)),
 		map((product: Product) => ProductActions.add([product]))
 	);
@@ -58,8 +61,32 @@ export class ProductEffects {
 		map(action => action.payload),
 		switchMap(
 			id => this.srv.sendTagReq(id)
-			.map((tags: Array<Tag>) => ProductActions.addTags(tags, id))
+			.map((tags: Array<Tag>) => ProductActions.setTags(tags, id))
 		)
+	);
+
+	@Effect({ dispatch: false })
+	addTag$ = this.actions$.ofType<any>(ActionType.ADD_TAG).pipe(
+		map(action => action.payload),
+		switchMap(({tag, id}) => this.srv.addTag(tag, id))
+	);
+
+	@Effect({ dispatch: false })
+	addProject$ = this.actions$.ofType<any>(ActionType.ADD_PROJECT).pipe(
+		map(action => action.payload),
+		switchMap(({project, id}) => this.srv.addProject(project, id))
+	);
+
+	@Effect({ dispatch: false })
+	removeTag$ = this.actions$.ofType<any>(ActionType.REMOVE_TAG).pipe(
+		map( action => action.payload),
+		switchMap(({ id, tag}) => this.srv.removeTag(tag, id))
+	);
+
+	@Effect({ dispatch: false })
+	removeProject$ = this.actions$.ofType<any>(ActionType.REMOVE_PROJECT).pipe(
+		map( action => action.payload),
+		switchMap(({ id, tag}) => this.srv.removeProject(tag, id))
 	);
 
 	@Effect()
@@ -67,8 +94,15 @@ export class ProductEffects {
 		map(action => action.payload),
 		switchMap(
 			id => this.srv.sendProjectReq(id)
-			.map((projs: Array<Project>) => ProductActions.addProjects(projs, id))
+			.map((projs: Array<Project>) => ProductActions.setProjects(projs, id))
 		)
+	);
+
+	@Effect()
+	loadTasks$ = this.actions$.ofType<any>(ActionType.LOAD_TASKS).pipe(
+		map(action => action.payload),
+		switchMap(id => this.srv.sendTaskReq(id)),
+		map((t: Array<Task>) => TaskActions.set(t))
 	);
 
 

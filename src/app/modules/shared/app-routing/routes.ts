@@ -23,6 +23,11 @@ import { TestCommentsComponent } from '../../features/test/components/test-comme
 import { TestFeedbackComponent } from '../../features/test/components/test-feedback/test-feedback.component';
 import { ProductPageComponent } from '../../features/product-page/components/product-page/product-page.component';
 import { ProductActivityPageComponent } from '../../features/product-page/components/product-activity-page/product-activity-page.component';
+import { ProductSampleComponent } from '../../features/product-page/components/product-sample/product-sample.component';
+import { ProductTechDetailsComponent } from '../../features/product-page/components/product-tech-details/product-tech-details.component';
+import { ProductTasksComponent } from '../../features/product-page/components/product-tasks/product-tasks.component';
+import { ProductFilesComponent } from '../../features/product-page/components/product-files/product-files.component';
+import { ProductShippingComponent } from '../../features/product-page/components/product-shipping/product-shipping.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -43,7 +48,12 @@ export const routes: Array<Route> = [
 			{ path: 'home', component: HomeComponent },
 			{ path: 'products', component: ProductsPageComponent },
 			{ path: 'product-details/:id', component: ProductPageComponent, children: [
-				{ path: 'activity', component: ProductActivityPageComponent }
+				{ path: 'activity', component: ProductActivityPageComponent },
+				{ path: 'sample', component: ProductSampleComponent },
+				{ path: 'technical-details', component: ProductTechDetailsComponent },
+				{ path: 'tasks', component: ProductTasksComponent },
+				{ path: 'shipping', component: ProductShippingComponent },
+				{ path: 'files', component: ProductFilesComponent }
 			] },
 			{ path: 'tasks', component: TasksPageComponent },
 			{ path: 'suppliers', component: SupplierPageComponent },

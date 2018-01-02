@@ -5,6 +5,8 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { FilterGroupName } from '../../store/model/filter.model';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { entityRepresentationMap } from '../utils/entities.utils';
+import { Tag } from '../model/tag.model';
+import { Project } from '../model/project.model';
 
 @Injectable()
 export class ProductService {
@@ -89,9 +91,29 @@ export class ProductService {
 		return this.http.get(`api/product/${id}/tag`);
 	}
 
+	sendTaskReq(id: string) {
+		return this.http.get(`api/product/${id}/task`);
+	}
+
+	addTag(tag, id) {
+		return this.http.put(`api/product/${id}/tag/${tag.id}`, {});
+	}
+
+	addProject(project, id) {
+		return this.http.put(`api/product/${id}/project/${project.id}`, {});
+	}
+
 	// TODO remove those
 	postVote(v: { productId: string, value: number }) {
 		return this.http.post(`api/product/${v.productId}/vote`, { value : v.value});
+	}
+
+	removeTag(tag: Tag, id: string) {
+		return this.http.delete(`api/product/${id}/tag/${tag.id}`);
+	}
+
+	removeProject(p: Project, id: string) {
+		return this.http.delete(`api/product/${id}/project/${p.id}`);
 	}
 
 

@@ -49,7 +49,7 @@ export class InputSelectMultiComponent extends AbstractInput {
 	}
 
 	check(choice: SelectableItem) {
-		return this.value.includes(choice.id);
+		return this.value ? this.value.includes(choice.id) : false;
 	}
 
 	@Input()

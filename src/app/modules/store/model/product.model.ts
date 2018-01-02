@@ -1,6 +1,10 @@
 import { Counters } from './counters.interface';
 import { Category } from './category.model';
 import { Currency } from './currency.model';
+import { AppImage } from './app-image.model';
+import { Tag } from './tag.model';
+import { AppFile } from './app-file.model';
+import { Project } from './project.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
@@ -33,7 +37,10 @@ export interface Product {
 	eventId: string;
 	rating: number;
 	category: Category;
-	images: Array<any>;
+	tags: Array<Tag>;
+	projects: Array<Project>;
+	images: Array<AppImage>;
+	files: Array<AppFile>;
 	mainImage: {
 		id: string,
 		filename: string,

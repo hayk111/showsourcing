@@ -1,5 +1,5 @@
 .left {
-	width: 350px;
+	width: 368px;
 }
 
 .right {
@@ -9,4 +9,8 @@
 
 .links {
 	justify-content: space-between;
+}
+
+.card {
+	margin: var(--spacing-big);
 }
