@@ -1,5 +1,6 @@
 import { Counters } from './counters.interface';
 import { Category } from './category.model';
+import { Currency } from './currency.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
@@ -12,7 +13,9 @@ export enum ProductStatus {
 export interface Product {
 	id: string;
 	name: string;
-	deeplyLoaded: boolean;
+	priceAmount: number;
+	priceCurrency: Currency;
+	minimumOrderQuantity: number;
 	supplierId: string;
 	categoryId: string;
 	teamId: string;

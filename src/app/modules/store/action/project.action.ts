@@ -5,6 +5,8 @@ import { Project } from '../model/project.model';
 export enum ActionType {
 	LOAD = '[Project] Loading',
 	ADD_PROJECTS = '[Project] Adding',
+	ADD_NEW = '[Projects] Adding new',
+	SET_READY = '[Projects] setting ready'
 }
 
 export class ProjectActions {
@@ -20,6 +22,20 @@ export class ProjectActions {
 		return {
 		type: ActionType.ADD_PROJECTS,
 			payload
+		};
+	}
+
+	static addNewProject(project: Project) {
+		return {
+			type: ActionType.ADD_NEW,
+			payload: project
+		};
+	}
+
+	static setReady(project: Project) {
+		return {
+			type: ActionType.SET_READY,
+			payload: project
 		};
 	}
 

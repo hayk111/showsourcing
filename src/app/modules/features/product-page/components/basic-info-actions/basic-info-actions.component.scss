@@ -1,0 +1,12 @@
+div {
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 1px solid grey;
+}
+
+:host {
+	padding: var(--spacing-default) 0;
+	display: flex;
+	justify-content: space-between;
+}

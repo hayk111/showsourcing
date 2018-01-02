@@ -3,7 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
-import { EntityRepresentation, Entity } from '../../../../store/utils/entities.utils';
+import { EntityRepresentation, Entity, EntityTarget } from '../../../../store/utils/entities.utils';
 import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 
 @Component({

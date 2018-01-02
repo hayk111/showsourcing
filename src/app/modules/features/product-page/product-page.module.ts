@@ -8,11 +8,22 @@ import { BasicInfoIconsInfoComponent } from './components/basic-info-icons-info/
 import { BasicInfoTextInfoComponent } from './components/basic-info-text-info/basic-info-text-info.component';
 import { ProductActivityPageComponent } from './components/product-activity-page/product-activity-page.component';
 import { RouterModule } from '@angular/router';
+import { CarouselModule } from '../../shared/carousel/carousel.module';
+import { FileModule } from '../../shared/file/file.module';
+import { SelectModule } from '../../shared/select/select.module';
+import { CommentModule } from '../../shared/comment/comment.module';
+import { UtilsModule } from '../../shared/utils/utils.module';
+import { AppStoreModule } from '../../store/store.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild([])
+		RouterModule.forChild([]),
+		CarouselModule,
+		FileModule,
+		SelectModule,
+		CommentModule,
+		AppStoreModule.forChild()
 	],
 	declarations: [
 		ProductPageComponent,

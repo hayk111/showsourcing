@@ -21,6 +21,7 @@ export class CarouselEntityComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.store.dispatch(ImageActions.load(this.target));
 		this.store.select(selectImagesForTarget(this.target))
 			.takeUntil(this._destroy$)
 			.subscribe(imgs => this.images = imgs);

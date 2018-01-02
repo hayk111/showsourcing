@@ -16,6 +16,7 @@ import { CommentModule } from '../../shared/comment/comment.module';
 import { FeedbackModule } from '../../shared/feedback/feedback.module';
 import { FileModule } from '../../shared/file/file.module';
 import { RouterModule } from '@angular/router';
+import { AppStoreModule } from '../../store/store.module';
 
 @NgModule({
 	imports: [
@@ -32,6 +33,7 @@ import { RouterModule } from '@angular/router';
 		FeedbackModule,
 		FileModule,
 		RouterModule.forChild([]),
+		AppStoreModule.forChild()
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

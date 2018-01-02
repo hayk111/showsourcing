@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./basic-info-actions.component.scss']
 })
 export class BasicInfoActionsComponent implements OnInit {
+	actions = [ 'A', 'B', 'C', 'D', 'E', 'F'];
 
 	constructor() { }
 

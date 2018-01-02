@@ -1,3 +1,38 @@
-<p>
-  basic-info-text-info works!
-</p>
+<h2>Basic Information</h2>
+
+<table>
+	<tr>
+		<td> <b> Name </b> </td>
+		<td> {{ product.name }} </td>
+	</tr>
+
+	<tr>
+			<td> <b> Supplier </b> </td>
+			<td> {{ product.supplierId | entityName: 'suppliers' | async }}  </td>
+	</tr>
+
+	<tr>
+			<td> <b> Category </b> </td>
+			<td> {{ product.category.name }} </td>
+	</tr>
+
+	<tr>
+			<td> <b> Price </b> </td>
+			<td> {{ product.priceAmount }}  {{ this.product.priceCurrency.id }}</td>
+	</tr>
+
+	<tr>
+			<td> <b> MOQ </b> </td>
+			<td> {{ product.minimumOrderQuantity}}  </td>
+	</tr>
+
+	<tr>
+			<td> <b> Source </b> </td>
+			<td>  </td>
+	</tr>
+
+	<tr>
+			<td> <b> Owner </b> </td>
+			<td> </td>
+	</tr>
+</table>

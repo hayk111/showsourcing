@@ -1,9 +1,10 @@
+import { AsyncEntityWithTarget } from './async-entity.model';
+import { EntityTarget } from '../utils/entities.utils';
+import { Store } from '@ngrx/store';
 
-export interface Tag {
-	createdByUserId: string;
-	creationDate: number;
+
+export class Tag extends AsyncEntityWithTarget {
 	entityCounter: number;
-	id: string;
 	itemType: string;
 	lastModifiedDate: number;
 	lastUpdatedByUserId: string;
@@ -12,4 +13,9 @@ export interface Tag {
 	modificationCounterName: number;
 	name: string;
 	teamId: string;
+
+	constructor(name: string, target: EntityTarget, store: Store<any>) {
+		super(target, store);
+		this.name = name;
+	}
 }

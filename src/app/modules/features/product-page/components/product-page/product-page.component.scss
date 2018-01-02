@@ -1,0 +1,12 @@
+.left {
+	width: 350px;
+}
+
+.right {
+	flex-grow: 1;
+	padding: var(--spacing-big);
+}
+
+.links {
+	justify-content: space-between;
+}

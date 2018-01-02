@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./basic-info-icons-info.component.scss']
 })
 export class BasicInfoIconsInfoComponent implements OnInit {
+	infos = ['ic1', 'ic2', 'ic3', 'ic4'];
 
 	constructor() { }
 

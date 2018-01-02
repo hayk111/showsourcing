@@ -1,3 +1,4 @@
-<p>
-  product-activity-page works!
-</p>
+<div *ngFor="let c of comments$ | async" class="activity card">
+	<div> {{ c.createdByUserId | entityName: 'teamMembers' | async }} - {{ c.creationDate | date }} </div>
+	<div> {{ c.text }} </div>
+</div>
