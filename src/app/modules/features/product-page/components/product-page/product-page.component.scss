@@ -1,5 +1,5 @@
 .left {
-	width: 368px;
+	width: 334px;
 }
 
 .right {
@@ -13,4 +13,15 @@
 
 .card {
 	margin: var(--spacing-big);
+}
+
+.selected {
+	color: var(--color-primary);
+}
+
+.hr {
+	margin-top: var(--spacing-default);
+	height: 2px;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
 }

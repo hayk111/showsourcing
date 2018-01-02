@@ -1,4 +1,22 @@
 <div *ngFor="let c of comments$ | async" class="activity card">
-	<div> {{ c.createdByUserId | entityName: 'teamMembers' | async }} - {{ c.creationDate | date }} </div>
-	<div> {{ c.text }} </div>
+	<div class="flex">
+		<div class="left">
+			<div class="cercle">
+					{{ (c.createdByUserId | entityName: 'teamMembers' | async)?.substr(0, 1) }}
+			</div>
+		</div>
+		<div class="right">
+			<div class="top">
+				<div>
+					<span class="author">{{ c.createdByUserId | entityName: 'teamMembers' | async }}</span>
+					<small class="action"> commented </small>
+				</div>
+
+				<small class="date">{{ c.creationDate | date }} </small>
+			</div>
+			<div class="msg"> {{ c.text }} </div>
+		</div>
+	</div>
+
+
 </div>

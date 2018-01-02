@@ -18,13 +18,14 @@
 	</div>
 	<div class="right">
 			<div class="flex links">
-				<a [routerLink]="['activity']">Activity</a>
-				<a [routerLink]="['sample']">Sample</a>
-				<a [routerLink]="['technical-details']">Technical details</a>
-				<a [routerLink]="['tasks']">Tasks</a>
-				<a [routerLink]="['shipping']">Shipping</a>
-				<a [routerLink]="['files']">Files</a>
+				<a [routerLink]="['activity']" routerLinkActive="selected">Activity</a>
+				<a [routerLink]="['sample']" routerLinkActive="selected">Sample</a>
+				<a [routerLink]="['technical-details']" routerLinkActive="selected">Technical details</a>
+				<a [routerLink]="['tasks']" routerLinkActive="selected">Tasks</a>
+				<a [routerLink]="['shipping']" routerLinkActive="selected">Shipping</a>
+				<a [routerLink]="['files']" routerLinkActive="selected">Files</a>
 			</div>
+			<div class="hr"></div>
 			<router-outlet></router-outlet>
 	</div>
 </div>

@@ -1,5 +1,4 @@
 <label>{{label}}</label>
-<button (click)="showPanel()" class="pointer plus small"> + </button>
 <searchable-list-app
 	(search)="onSearch($event)"
 	*ngIf="panelVisible"
@@ -14,6 +13,7 @@
 
 </searchable-list-app>
 <div class="flex articles">
+	<button (click)="showPanel()" class="pointer plus small"> + </button>
 	<ng-container *ngFor="let choice of choices">
 		<article *ngIf="check(choice)">
 			{{ choice.name }}

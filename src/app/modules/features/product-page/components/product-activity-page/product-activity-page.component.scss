@@ -1,3 +1,47 @@
 .activity {
 	margin-top: var(--spacing-big);
 }
+
+.top {
+	display: flex;
+	justify-content: space-between;
+}
+
+.author{
+	color: var(--color-primary);
+}
+
+.action{
+	margin-left: var(--spacing-smaller);
+}
+
+.card{
+	padding: var(--spacing-default);
+}
+
+.cercle {
+	border-radius: 50%;
+	color: white;
+	background: var(--color-primary-light);
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	height: 25px;
+	width: 25px;
+}
+
+.right {
+	flex-grow: 1;
+}
+
+.left {
+	margin-right: var(--spacing-default);
+}
+
+.msg {
+	margin-top: var(--spacing-small);
+}
+
+small{
+	color: rgba(0, 0, 0, 0.54);
+}
