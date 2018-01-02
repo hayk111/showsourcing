@@ -4,6 +4,8 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { AppComment } from '../model/comment.model';
 import { FilterGroupName } from '../model/filter.model';
 import { AppFile } from '../model/app-file.model';
+import { Tag } from '../model/tag.model';
+import { Project } from '../model/project.model';
 
 export enum ActionType {
 		LOAD = '[Product] loading',
@@ -12,6 +14,10 @@ export enum ActionType {
 		SET = '[Product] setting',
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
+		LOAD_TAGS = '[Product] loading tags',
+		ADD_TAGS = '[Product] adding tags',
+		LOAD_PROJECTS = '[Product] loading projects',
+		ADD_PROJECTS = '[Product] adding projects'
 }
 
 export class ProductActions {
@@ -58,4 +64,32 @@ export class ProductActions {
 		};
 	}
 
+	static loadTags(id: string) {
+		return {
+			type: ActionType.LOAD_TAGS,
+			payload: id
+		};
+	}
+
+	static addTags(tags: Array<Tag>, id: string) {
+		return {
+			type: ActionType.ADD_TAGS,
+			payload: { tags, id }
+		};
+	}
+
+
+	static loadProjects(id: string) {
+		return {
+			type: ActionType.LOAD_PROJECTS,
+			payload: id
+		};
+	}
+
+	static addProjects(projects: Array<Project>, id: string) {
+		return {
+			type: ActionType.ADD_PROJECTS,
+			payload: { id, projects }
+		};
+	}
 }

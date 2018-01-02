@@ -14,10 +14,12 @@ import { SelectModule } from '../../shared/select/select.module';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
 		CommonModule,
+		FormsModule,
 		RouterModule.forChild([]),
 		CarouselModule,
 		FileModule,

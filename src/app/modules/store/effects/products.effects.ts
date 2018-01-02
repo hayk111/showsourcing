@@ -17,6 +17,8 @@ import { AppFile } from '../model/app-file.model';
 import { ProductService } from '../services/product.service';
 import { selectProductById } from '../selectors/products.selector';
 import { Product } from '../model/product.model';
+import { Tag } from '../model/tag.model';
+import { Project } from '../model/project.model';
 
 
 @Injectable()
@@ -42,12 +44,33 @@ export class ProductEffects {
 	@Effect()
 	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
 		map(action => action.payload),
+		tap(id => this.store.dispatch(ProductActions.loadTags(id))),
+		tap(id => this.store.dispatch(ProductActions.loadProjects(id))),
 		switchMap(id => this.store.select(selectProductById(id)).pipe(
 			filter(product => product === undefined),
 			switchMap(_ => this.srv.loadById(id)),
 		)),
 		map((product: Product) => ProductActions.add([product]))
 	);
+
+	@Effect()
+	loadTags$ = this.actions$.ofType<any>(ActionType.LOAD_TAGS).pipe(
+		map(action => action.payload),
+		switchMap(
+			id => this.srv.sendTagReq(id)
+			.map((tags: Array<Tag>) => ProductActions.addTags(tags, id))
+		)
+	);
+
+	@Effect()
+	loadProjects$ = this.actions$.ofType<any>(ActionType.LOAD_PROJECTS).pipe(
+		map(action => action.payload),
+		switchMap(
+			id => this.srv.sendProjectReq(id)
+			.map((projs: Array<Project>) => ProductActions.addProjects(projs, id))
+		)
+	);
+
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)

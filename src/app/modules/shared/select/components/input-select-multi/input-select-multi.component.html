@@ -1,19 +1,19 @@
 <label>{{label}}</label>
 <div (click)="showPanel()" class="pointer"> + </div>
-<div class="flex">
+<div class="flex articles">
 	<ng-container *ngFor="let choice of choices">
 		<article *ngIf="check(choice)">
-			{{ choice.name }} - 
-		</article>		
+			{{ choice.name }}
+		</article>
 	</ng-container>
 
 </div>
 
-<searchable-list-app 
+<searchable-list-app
 	(search)="onSearch($event)"
-	*ngIf="panelVisible" 
+	*ngIf="panelVisible"
 	(clickOutside)="closePanel($event)">
-	
+
 	<input-checkbox-app
 		(itemAdded)="itemAdded.emit($event)"
 		(itemRemoved)="itemRemoved.emit($event)"

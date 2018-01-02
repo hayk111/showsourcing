@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../utils/typed-action.interface';
 import { Tag } from '../model/tag.model';
+import { EntityTarget } from '../utils/entities.utils';
 
 export enum ActionType {
 	LOAD = '[Tag] Loading',
 	ADD_TAGS = '[Tag] adding',
-	ADD_NEW = '[Tag] adding new'
 }
 
 export class TagActions {
@@ -21,13 +21,6 @@ export class TagActions {
 		return {
 			type: ActionType.ADD_TAGS,
 			payload
-		};
-	}
-
-	static addNewTag(tag: Tag) {
-		return {
-			type: ActionType.ADD_NEW,
-			payload: tag
 		};
 	}
 

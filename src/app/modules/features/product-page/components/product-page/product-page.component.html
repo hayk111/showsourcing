@@ -1,7 +1,8 @@
 <div class="flex">
 	<div class="left">
 		<basic-info-box-app class="card" [target]="target"
-			(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)"></basic-info-box-app>
+			(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)">
+		</basic-info-box-app>
 		<div class="card">
 			<input-select-entity-app
 				(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"

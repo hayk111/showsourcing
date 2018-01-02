@@ -2,3 +2,14 @@
 	position: relative;
 	display: block;
 }
+
+.articles {
+	flex-wrap: wrap;
+}
+
+article {
+	margin: var(--spacing-smaller);
+	padding: var(--spacing-small) var(--spacing-default);
+	border: 1px solid grey;
+	border-radius: var(--border-radius);
+}

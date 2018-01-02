@@ -4,5 +4,6 @@
 	<basic-info-icons-info-app></basic-info-icons-info-app>
 	<basic-info-text-info-app [product]="product"></basic-info-text-info-app>
 	<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
-		(itemAdded)="tagAdded.emit($event)" (itemRemoved)="tagRemoved.emit($event)"></input-select-entity-app>
+		(itemAdded)="tagAdded.emit($event)" (itemRemoved)="tagRemoved.emit($event)"
+		[value]="product.tags"></input-select-entity-app>
 </ng-container>

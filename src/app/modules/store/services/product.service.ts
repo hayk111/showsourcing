@@ -65,24 +65,28 @@ export class ProductService {
 		]);
 	}
 
+	sendProjectReq(id: string) {
+		return this.http.get(`api/product/${id}/project`);
+	}
+
 	sendImgReq(id: string) {
-		return this.http.get(`api/product/${id}/image`).map(images => ({images}) );
+		return this.http.get(`api/product/${id}/image`);
 	}
 
 	sendAttachmentReq(id: string) {
-		return this.http.get(`api/product/${id}/attachment`).map(attachments => ({attachments}) );
+		return this.http.get(`api/product/${id}/attachment`);
 	}
 
 	sendCommentReq(id: string) {
-		return this.http.get(`api/product/${id}/comment`).map(comments => ({ comments }) );
+		return this.http.get(`api/product/${id}/comment`);
 	}
 
 	sendVoteReq(id: string) {
-		return this.http.get(`api/product/${id}/vote`).map(votes => ({ votes }));
+		return this.http.get(`api/product/${id}/vote`);
 	}
 
 	sendTagReq(id: string) {
-		return this.http.get(`api/product/${id}/tag`).map(tags => ({ tags }) );
+		return this.http.get(`api/product/${id}/tag`);
 	}
 
 	// TODO remove those
