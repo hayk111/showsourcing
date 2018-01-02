@@ -43,6 +43,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onTagRemoved(event) {
+		debugger
 		this.store.dispatch(ProductActions.removeTag(event, this.target.entityId));
 	}
 

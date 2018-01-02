@@ -42,9 +42,9 @@ export class InputCheckboxComponent extends AbstractInput implements OnInit {
 			this.itemAdded.emit(item);
 		} else {
 			const index = (this.value as any[]).findIndex(val => val === item.id);
-			this.value.splice(index, 1);
 			// chging ref for formcontrol update
 			this.value = [...this.value];
+			this.value.splice(index, 1);
 			this.itemRemoved.emit(item);
 		}
 		this.onChange(this.value);

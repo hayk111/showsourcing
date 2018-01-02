@@ -15,6 +15,7 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 	let id;
 	let tags;
 	let projects;
+	let index;
 
 	switch (action.type) {
 
@@ -45,6 +46,14 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			tags = [...currentTags, tagId ];
 			return copyById(state, id, {tags});
 
+		case ActionType.REMOVE_TAG:
+			const tag2del = action.payload.tag.id;
+			id = action.payload.id;
+			tags = [...state.byId[id].tags];
+			index = tags.findIndex(t => t.id === tag2del);
+			tags.splice(index, 1);
+			return copyById(state, id, {tags});
+
 		case ActionType.SET_PROJECTS:
 			projects = action.payload.projects.map(p => p.id);
 			id = action.payload.id;
@@ -55,6 +64,14 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			id = action.payload.id;
 			const currentProjects =  state.byId[id].projects || [];
 			projects = [...currentProjects, projectsId];
+			return copyById(state, id, {projects});
+
+		case ActionType.REMOVE_PROJECT:
+			const p2del = action.payload.project.id;
+			id = action.payload.id;
+			projects = [...state.byId[id].projects];
+			index = projects.findIndex(t => t.id === p2del);
+			projects.splice(index, 1);
 			return copyById(state, id, {projects});
 
 		default: return state;

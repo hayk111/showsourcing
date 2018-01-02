@@ -86,7 +86,7 @@ export class ProductEffects {
 	@Effect({ dispatch: false })
 	removeProject$ = this.actions$.ofType<any>(ActionType.REMOVE_PROJECT).pipe(
 		map( action => action.payload),
-		switchMap(({ id, tag}) => this.srv.removeProject(tag, id))
+		switchMap(({ id, project}) => this.srv.removeProject(project, id))
 	);
 
 	@Effect()
