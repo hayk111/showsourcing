@@ -1,9 +1,9 @@
 <div class="card">
 	<button class="small">Add task</button>
-	<hr/>
+	<div class="hr2"></div>
 	<ng-container *ngIf="tasks$ | async as tasks">
 		<table class="fullWidth">
-			<tr *ngFor="let id of tasks.ids">
+			<tr *ngFor="let id of tasks.ids" class="pointer">
 				<td>
 						{{ tasks.byId[id].status }}
 				</td>

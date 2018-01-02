@@ -57,3 +57,19 @@
 	background: var(--color-secondary);
 	color: var(--color-secondary-contrast);
 }
+
+// hr
+
+.hr {
+	margin-top: var(--spacing-default);
+	height: 1px;
+	background: rgba(0, 0, 0, 0.1);
+	width: 100%;
+}
+
+.hr2 {
+	margin-top: var(--spacing-default);
+	height: 2px;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+}
