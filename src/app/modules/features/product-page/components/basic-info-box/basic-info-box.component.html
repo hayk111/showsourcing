@@ -1,6 +1,6 @@
 <carousel-entity-app [target]="target"></carousel-entity-app>
 <ng-container *ngIf="product$ | async as product">
-	<basic-info-actions-app></basic-info-actions-app>
+	<basic-info-actions-app [productId]="product.id"></basic-info-actions-app>
 	<basic-info-icons-info-app></basic-info-icons-info-app>
 	<basic-info-text-info-app [product]="product"></basic-info-text-info-app>
 	<input-select-entity-app [multi]="true" [entityRep]="tagsRep"

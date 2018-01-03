@@ -11,6 +11,8 @@ import { selectProductById } from '../../../../store/selectors/products.selector
 import { EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { TagActions } from '../../../../store/action/tag.action';
 import { Tag } from '../../../../store/model/tag.model';
+import { tap, take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-page-app',
@@ -32,9 +34,10 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.takeUntil(this._destroy$)
 		.subscribe(params => {
-			this.store.dispatch(ProductActions.loadOne(params['id']));
-			this.product$ = this.store.select(selectProductById(params['id']));
-			this.target = { entityId: params['id'], entityRepr: entityRepresentationMap.product };
+			const id = params['id'];
+			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };
+			this.store.dispatch(ProductActions.loadOne(id));
+			this.product$ = this.store.select(selectProductById(id));
 		});
 	}
 
@@ -43,7 +46,6 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onTagRemoved(event) {
-		debugger
 		this.store.dispatch(ProductActions.removeTag(event, this.target.entityId));
 	}
 

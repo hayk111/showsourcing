@@ -1,3 +1,55 @@
-<p>
-  product-files works!
-</p>
+<product-main-card-app (fileDrop)="onFileAdded($event)">
+	<span class="title">
+		Files &amp; Documents
+	</span>
+
+	<div class="action">
+		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+		<button class="small" (click)="inp.click()">Add File</button>
+	</div>
+
+	<ng-container *ngIf="files$ | async as files">
+		<table class="fullWidth withBorder">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Upload date</th>
+					<th>Uploaded by</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let file of files" class="pointer">
+					<td>
+						<ng-container *ngIf="!file.pending; else spinner">
+							<i class="fa fa-download pointer" (click)="download(file)" aria-hidden="true"></i>
+						</ng-container>
+						<ng-template #spinner>
+							...
+						</ng-template>
+					</td>
+					<td>
+							{{ file.fileName }}
+					</td>
+
+					<td>
+							{{ file.creationDate | date }}
+					</td>
+
+					<td>
+							{{ file.createdByUserId | entityName: 'teamMembers' | async }}
+					</td>
+
+					<td (click)="deleteFile(file)">
+							delete
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</ng-container>
+</product-main-card-app>
+

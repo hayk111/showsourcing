@@ -21,6 +21,8 @@ import { Tag } from '../model/tag.model';
 import { Project } from '../model/project.model';
 import { Task } from '../model/task.model';
 import { TaskActions } from '../action/task.action';
+import { retryWhen } from 'rxjs/operators/retryWhen';
+import { FileActions } from '../action/file.action';
 
 
 @Injectable()
@@ -43,18 +45,19 @@ export class ProductEffects {
 	);
 
 	// loads a product if it's not already present in the store
-	@Effect()
+	@Effect({ dispatch: false })
 	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
 		map(action => action.payload),
+		tap(id => this.store.dispatch(ProductActions.loadTags(id))),
+		tap(id => this.store.dispatch(ProductActions.loadProjects(id))),
 		switchMap(id => this.store.select(selectProductById(id)).pipe(
 			filter(product => product === undefined),
-			switchMap(_ => this.srv.loadById(id).pipe(
-				tap( __ => this.store.dispatch(ProductActions.loadTags(id))),
-				tap( __ => this.store.dispatch(ProductActions.loadProjects(id))),
-			)),
+			switchMap( _ => this.srv.loadById(id)),
 		)),
-		map((product: Product) => ProductActions.add([product]))
+		tap((product: Product) => this.store.dispatch(ProductActions.add([product]))),
 	);
+
+
 
 	@Effect()
 	loadTags$ = this.actions$.ofType<any>(ActionType.LOAD_TAGS).pipe(
@@ -105,6 +108,13 @@ export class ProductEffects {
 		map((t: Array<Task>) => TaskActions.set(t))
 	);
 
+
+	@Effect()
+	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(
+		map(action => action.payload),
+		switchMap(id => this.srv.sendPdfReq(id)),
+		map(path => FileActions.download({ url: path } as AppFile))
+	);
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store.select(selectUser).map(user => user.id)

@@ -116,5 +116,8 @@ export class ProductService {
 		return this.http.delete(`api/product/${id}/project/${p.id}`);
 	}
 
+	sendPdfReq(id) {
+		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
+	}
 
 }

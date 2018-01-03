@@ -1,4 +1,3 @@
-
 @import './spacing';
 @import './palette';
 @import './elevation';
@@ -10,3 +9,8 @@
 @import './inputs-buttons';
 @import './angular-material-fixes';
 
+// libraries
+
+// icons
+$fa-font-path: "~font-awesome/fonts";
+ @import '~font-awesome/scss/font-awesome';

@@ -11,6 +11,7 @@ export function filesReducer(state = initialState, action) {
 	let index;
 
 	switch (action.type) {
+
 		case ActionType.SET:
 			// when we set we have to keep the pending files,
 			// so when we open another product, then switch back to the original one
@@ -18,8 +19,10 @@ export function filesReducer(state = initialState, action) {
 			newState = state.filter((f: AppFile) => f.pending);
 			newState.push(...action.payload);
 			return newState;
+
 		case ActionType.ADD_PENDING:
 			return state.concat(action.payload);
+
 		case ActionType.SET_READY:
 			id = action.payload.id;
 			const replacing = action.payload.replacing;
@@ -27,6 +30,7 @@ export function filesReducer(state = initialState, action) {
 			newState = [...state];
 			newState[index] = replacing;
 			return newState;
+
 		case ActionType.REPORT_PROGRESS:
 			id = action.payload.id;
 			const progress = action.payload.progress;
@@ -34,6 +38,11 @@ export function filesReducer(state = initialState, action) {
 			newState = [...state];
 			newState[index] = { ...newState[index], progress  };
 			return newState;
+
+		case ActionType.REMOVE:
+			id = action.payload.id;
+			return state.filter(item => item.id !== id);
+
 		default: return state;
 	}
 }

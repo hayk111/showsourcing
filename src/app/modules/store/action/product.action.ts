@@ -27,6 +27,7 @@ export enum ActionType {
 		SET_TASKS = '[Product] setting tasks',
 		ADD_TASK = '[Product] adding tasks',
 		REMOVE_TASK = '[Product] removing tasks',
+		REQUEST_PDF = '[Product] requesting pdf'
 }
 
 export class ProductActions {
@@ -133,6 +134,13 @@ export class ProductActions {
 	static loadTasks(id: string) {
 		return {
 			type: ActionType.LOAD_TASKS,
+			payload: id
+		};
+	}
+
+	static requestPdf(id: string) {
+		return {
+			type: ActionType.REQUEST_PDF,
 			payload: id
 		};
 	}

@@ -9,7 +9,9 @@ export enum ActionType {
 	ADD_NEW = '[File] Adding new file',
 	ADD_PENDING = '[File] Add pending',
 	SET_READY = '[File] Set ready',
-	REPORT_PROGRESS = '[File] Reporting progress'
+	REPORT_PROGRESS = '[File] Reporting progress',
+	REMOVE = '[File] remove',
+	DOWNLOAD = '[File] download'
 }
 
 export class FileActions {
@@ -52,6 +54,20 @@ export class FileActions {
 		return {
 			type: ActionType.REPORT_PROGRESS,
 			payload: { id: file.id, progress }
+		};
+	}
+
+	static remove(file: AppFile) {
+		return {
+			type: ActionType.REMOVE,
+			payload: file
+		};
+	}
+
+	static download(file: AppFile) {
+		return {
+			type: ActionType.DOWNLOAD,
+			payload: file
 		};
 	}
 }

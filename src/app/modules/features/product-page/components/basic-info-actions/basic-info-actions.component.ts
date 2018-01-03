@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ProductActions } from '../../../../store/action/product.action';
 
 @Component({
 	selector: 'basic-info-actions-app',
@@ -6,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./basic-info-actions.component.scss']
 })
 export class BasicInfoActionsComponent implements OnInit {
-	actions = [ 'A', 'B', 'C', 'D', 'E', 'F'];
-
-	constructor() { }
+	@Input() productId;
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+	}
+
+	reqPdf() {
+		this.store.dispatch(ProductActions.requestPdf(this.productId));
 	}
 
 }

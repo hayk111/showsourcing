@@ -10,6 +10,7 @@ export class AppFile extends AsyncEntityWithTarget {
 	fileName: string;
 	creationDate: number;
 	data: any;
+	url: string;
 
 	constructor(public file: File, target: EntityTarget, store: Store<any>) {
 		super(target, store);

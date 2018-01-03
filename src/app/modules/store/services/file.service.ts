@@ -110,5 +110,14 @@ export class FileService {
 		return this.http.post(`api/${name}/${itemId}/${type}`, data);
 	}
 
+	delete(file: AppFile) {
+		const targetName = file.target.entityRepr.urlName;
+		const targetId = file.target.entityId;
+		return this.http.delete(`api/${targetName}/${targetId}/attachment/${file.id}`);
+	}
+
+	download(img: AppFile) {
+		window.open(img.url);
+	}
 
 }

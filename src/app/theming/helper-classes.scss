@@ -16,6 +16,12 @@
   flex-direction: column;
 }
 
+.flexBetween {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .flexWrap{
   display: flex;
   flex-wrap: wrap;

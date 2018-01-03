@@ -21,6 +21,7 @@ import { ProductTasksComponent } from './components/product-tasks/product-tasks.
 import { ProducShippingComponent } from './components/produc-shipping/produc-shipping.component';
 import { ProductFilesComponent } from './components/product-files/product-files.component';
 import { ProductShippingComponent } from './components/product-shipping/product-shipping.component';
+import { ProductMainCardComponent } from './components/product-main-card/product-main-card.component';
 
 @NgModule({
 	imports: [
@@ -47,6 +48,7 @@ import { ProductShippingComponent } from './components/product-shipping/product-
 		ProducShippingComponent,
 		ProductFilesComponent,
 		ProductShippingComponent,
+		ProductMainCardComponent,
 	], exports: [ ProductPageComponent ]
 })
 export class ProductPageModule { }

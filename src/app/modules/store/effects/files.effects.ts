@@ -36,6 +36,19 @@ export class FilesEffects {
 		),
 	);
 
+	@Effect({ dispatch: false })
+	removeFile$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
+		map(action => action.payload),
+		switchMap(file => this.srv.delete(file))
+	);
+
+
+	@Effect({ dispatch: false })
+	download$ = this.actions$.ofType<any>(ActionType.DOWNLOAD).pipe(
+		map(action => action.payload),
+		tap( img => this.srv.download(img))
+	);
+
 
 	constructor(private actions$: Actions, private srv: FileService) {}
 

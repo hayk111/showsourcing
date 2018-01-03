@@ -1,0 +1,32 @@
+
+.hidden{
+	visibility: hidden;
+}
+
+tr :nth-child(2) {
+	flex-grow: 1;
+}
+
+tr :nth-child(3) {
+	width: 100px;
+}
+
+tr :nth-child(4) {
+	width: 100px;
+}
+
+tr :nth-child(5) {
+	width: 100px;
+}
+
+tr {
+	width: 100%;
+	display: flex;
+}
+
+td {
+	display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
