@@ -6,6 +6,7 @@ import { TypedAction } from '../utils/typed-action.interface';
 import { CustomFieldsService } from '../services/custom-fields.service';
 import { EntityTarget, entityRepresentationMap } from '../utils/entities.utils';
 import { ProductActions } from '../action/product.action';
+import { Store } from '@ngrx/store';
 
 
 @Injectable()
@@ -19,11 +20,11 @@ export class CustomFieldsEffects {
 	);
 
 	// Listen for the patch action and sends a patch request to backend
-	@Effect({ dispatch: false })
+	@Effect({ dispatch: false;})
 	patch$ = this.actions$.ofType(ActionType.PATCH).pipe(
 		map((action: TypedAction<any>) => action.payload),
-		switchMap(p => this.srv.sendPatchRequest(p)),
-		// map(p => this.mapPatch(p))
+		tap((p: any) => this.store.dispatch(this.mapPatch(p))),
+		switchMap(p => this.srv.sendPatchRequest(p))
 	);
 
 	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }) {
@@ -34,5 +35,5 @@ export class CustomFieldsEffects {
 		}
 	}
 
-	constructor(private actions$: Actions, private srv: CustomFieldsService) {}
+	constructor(private actions$: Actions, private srv: CustomFieldsService, private store: Store<any>) {}
 }

@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { ProductSampleComponent } from './components/product-sample/product-sample.component';
 import { ProductTechDetailsComponent } from './components/product-tech-details/product-tech-details.component';
 import { ProductTasksComponent } from './components/product-tasks/product-tasks.component';
-import { ProducShippingComponent } from './components/produc-shipping/produc-shipping.component';
 import { ProductFilesComponent } from './components/product-files/product-files.component';
 import { ProductShippingComponent } from './components/product-shipping/product-shipping.component';
 import { ProductMainCardComponent } from './components/product-main-card/product-main-card.component';
@@ -45,7 +44,6 @@ import { ProductMainCardComponent } from './components/product-main-card/product
 		ProductSampleComponent,
 		ProductTechDetailsComponent,
 		ProductTasksComponent,
-		ProducShippingComponent,
 		ProductFilesComponent,
 		ProductShippingComponent,
 		ProductMainCardComponent,

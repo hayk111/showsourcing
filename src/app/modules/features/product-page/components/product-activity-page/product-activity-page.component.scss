@@ -17,9 +17,10 @@
 
 .card{
 	padding: var(--spacing-default);
+	flex-grow: 1;
 }
 
-.cercle {
+.cercleAuthor {
 	border-radius: 50%;
 	color: white;
 	background: var(--color-primary-light);
@@ -28,6 +29,38 @@
 	text-align: center;
 	height: 25px;
 	width: 25px;
+}
+
+.cercleAction {
+	position: absolute;
+	z-index: 2;
+	border-radius: 50%;
+	color: white;
+	background: var(--color-txt-secondary);
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	height: 30px;
+	width: 30px;
+}
+
+.iconCtnr{
+	position: relative;
+	margin-right: var(--spacing-big);
+	width: 30px;
+}
+
+.fa {
+	line-height: 25px;
+}
+
+.vbar{
+	width: 2px;
+	background: var(--color-txt-secondary);
+	height: 122px;
+	position: absolute;
+	top: 0;
+	left: 14px;
 }
 
 .right {
