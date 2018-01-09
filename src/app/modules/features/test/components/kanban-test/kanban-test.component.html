@@ -1,0 +1,39 @@
+<h1>KanBan</h1>
+
+<div class="flex">
+	<kanban-col-app
+		(itemDropped)="onEvent($event)"
+		[bag]="i"
+		*ngFor="let itemArr of itemMatrix; let i = index">
+			<kanban-item-app
+				[data]="item"
+				class="item"
+				*ngFor="let item of itemArr; let j = index">
+				{{ item }}
+			</kanban-item-app>
+	</kanban-col-app>
+</div>
+
+{{ itemMatrix | json }}
+<br>
+
+{{ event | json }}
+
+<h1>KanBan Product</h1>
+
+<ng-container *ngIf="productsByStatus$ | async as statuses">
+	<div class="flex">
+		<kanban-col-app
+			(itemDropped)="changeStatus($event)"
+			[bag]="status.id"
+			[label]="status.name"
+			*ngFor="let status of statuses; let i = index">
+				<kanban-item-app
+					[data]="product.id"
+					class="item"
+					*ngFor="let product of status.products; let j = index">
+					{{ product.name }}
+				</kanban-item-app>
+		</kanban-col-app>
+	</div>
+</ng-container>

@@ -3,7 +3,10 @@
 	<basic-info-actions-app [productId]="product.id"></basic-info-actions-app>
 	<basic-info-icons-info-app></basic-info-icons-info-app>
 	<basic-info-text-info-app [product]="product"></basic-info-text-info-app>
-	<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
-		(itemAdded)="tagAdded.emit($event)" (itemRemoved)="tagRemoved.emit($event)"
-		[value]="product.tags"></input-select-entity-app>
+	<ng-container *ngIf="tags$ | async as tags">
+		<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
+			(itemAdded)="tagAdded.emit($event)" (itemRemoved)="tagRemoved.emit($event)"
+			[value]="tags"></input-select-entity-app>
+	</ng-container>
+
 </ng-container>

@@ -3,8 +3,8 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { VoteActions } from '../../../../store/action/vote.action';
 import { Vote } from '../../../../store/model/vote.model';
-import { selectVotesForTarget } from '../../../../store/selectors/votes.selector';
 import { Observable } from 'rxjs/Observable';
+import { selectVotesForTarget } from '../../../../store/selectors/target/votes.selector';
 
 @Component({
 	selector: 'feedback-input-entity-app',

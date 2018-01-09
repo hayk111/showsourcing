@@ -1,6 +1,7 @@
-import { ActionType } from '../action/file.action';
-import { AppFile } from '../model/app-file.model';
-import { uuid } from '../utils/uuid.utils';
+import { ActionType } from '../../action/file.action';
+import { AppFile } from '../../model/app-file.model';
+
+
 
 
 const initialState = [];

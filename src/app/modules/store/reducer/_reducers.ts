@@ -28,11 +28,13 @@ import { customFieldsReducer } from './custom-fields.reducer';
 import { dialogReducer } from './dialog.reducer';
 import { InjectionToken } from '@angular/core';
 import { teamMembersReducer } from './team-members.reducer';
-import { commentReducer } from './comment.reducer';
-import { filesReducer } from './files.reducer';
-import { imagesReducer } from './image.reducer';
-import { voteReducer } from './vote.reducer';
 import { sidenavReducer } from './sidenav.reducer';
+import { commentReducer } from './target/comment.reducer';
+import { filesReducer } from './target/files.reducer';
+import { imagesReducer } from './target/image.reducer';
+import { voteReducer } from './target/vote.reducer';
+import { targetTagReducer } from './target/tag.reducer';
+import { targetProjectReducer } from './target/project.reducer';
 
 
 const entities = combineReducers({
@@ -54,10 +56,6 @@ const entities = combineReducers({
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
 	customFields: customFieldsReducer,
-	comments: commentReducer,
-	files: filesReducer,
-	images: imagesReducer,
-	votes: voteReducer
 });
 
 const ui = combineReducers( {
@@ -70,7 +68,17 @@ const ui = combineReducers( {
 	sideNav: sidenavReducer
 });
 
-export const reducers = { entities, ui };
+// reducers for when we select a specific entity. Like when we are viewing a certain product
+const target = combineReducers({
+	projects: targetProjectReducer,
+	tags: targetTagReducer,
+	comments: commentReducer,
+	files: filesReducer,
+	images: imagesReducer,
+	votes: voteReducer
+});
+
+export const reducers = { entities, target, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

@@ -28,6 +28,7 @@ import { ProductTechDetailsComponent } from '../../features/product-page/compone
 import { ProductTasksComponent } from '../../features/product-page/components/product-tasks/product-tasks.component';
 import { ProductFilesComponent } from '../../features/product-page/components/product-files/product-files.component';
 import { ProductShippingComponent } from '../../features/product-page/components/product-shipping/product-shipping.component';
+import { KanbanTestComponent } from '../../features/test/components/kanban-test/kanban-test.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -53,7 +54,7 @@ export const routes: Array<Route> = [
 				{ path: 'technical-details', component: ProductTechDetailsComponent },
 				{ path: 'tasks', component: ProductTasksComponent },
 				{ path: 'shipping', component: ProductShippingComponent },
-				{ path: 'files', component: ProductFilesComponent }
+				{ path: 'files', component: ProductFilesComponent },
 			] },
 			{ path: 'tasks', component: TasksPageComponent },
 			{ path: 'suppliers', component: SupplierPageComponent },
@@ -65,7 +66,8 @@ export const routes: Array<Route> = [
 				{ path: 'inputs-file-image', component: TestInputsFileComponent },
 				{ path: 'carousel', component: TestCarouselComponent },
 				{ path: 'comments', component: TestCommentsComponent },
-				{ path: 'feedback', component: TestFeedbackComponent }
+				{ path: 'feedback', component: TestFeedbackComponent },
+				{ path: 'kanban', component: KanbanTestComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]

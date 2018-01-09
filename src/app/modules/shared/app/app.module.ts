@@ -23,6 +23,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { EntitiesServicesModule } from '../../store/services/entities-services.module';
 import { AppStoreModule } from '../../store/store.module';
+import { DndModule } from 'ng2-dnd';
 
 
 
@@ -37,6 +38,7 @@ import { AppStoreModule } from '../../store/store.module';
 		DynamicFormsModule.forRoot(),
 		AuthModule.forRoot(),
 		AppStoreModule.forRoot(),
+		DndModule.forRoot(),
 		LocalStorageModule,
 		CompanyModule,
 		HttpClientModule,

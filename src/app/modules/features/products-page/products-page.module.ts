@@ -17,6 +17,7 @@ import { FeedbackModule } from '../../shared/feedback/feedback.module';
 import { FileModule } from '../../shared/file/file.module';
 import { RouterModule } from '@angular/router';
 import { AppStoreModule } from '../../store/store.module';
+import { KanbanModule } from '../../shared/kanban/kanban.module';
 
 @NgModule({
 	imports: [
@@ -33,7 +34,8 @@ import { AppStoreModule } from '../../store/store.module';
 		FeedbackModule,
 		FileModule,
 		RouterModule.forChild([]),
-		AppStoreModule.forChild()
+		AppStoreModule.forChild(),
+		KanbanModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]

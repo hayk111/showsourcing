@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { AppComment } from '../../../../store/model/comment.model';
 import { Observable } from 'rxjs/Observable';
-import { selectComments } from '../../../../store/selectors/comments.selector';
 import { CommentActions } from '../../../../store/action/comment.action';
+import { selectComments } from '../../../../store/selectors/target/comments.selector';
 
 @Component({
 	selector: 'app-product-activity-page',

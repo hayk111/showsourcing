@@ -1,0 +1,12 @@
+<div
+	class="ctnr"
+	#ctnr
+	(dragover)="onDragOver($event)"
+	(dragstart)="onDragStart($event)"
+	(drop)="onDrop($event)"
+	attr.data-bag="{{ bag }}">
+	<div>{{ label }}</div>
+	<div class="overlay" *ngIf="isOver()"
+		(dragleave)="onDragLeave($event)"> DROP IT HERE </div>
+	<ng-content></ng-content>
+</div>

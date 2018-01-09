@@ -5,11 +5,14 @@
 		</basic-info-box-app>
 		<div class="card">
 			<ng-container *ngIf="product$ | async as product">
-				<input-select-entity-app
-					[label]="'Projects'"
-					(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
-					[value]="product.projects"
-					[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
+				<ng-container *ngIf="projects$ | async as projects">
+					<input-select-entity-app
+						[label]="'Projects'"
+						(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
+						[value]="projects"
+						[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
+				</ng-container>
+
 			</ng-container>
 		</div>
 		<div class="card">

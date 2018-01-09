@@ -1,12 +1,11 @@
-import { EntityTarget } from '../utils/entities.utils';
-import { selectTeamMembers } from './team-members.selector';
-import { AppComment } from '../model/comment.model';
-import { User } from '../model/user.model';
+
 import { createSelector } from 'reselect';
+import { EntityTarget } from '../../utils/entities.utils';
+import { AppComment } from '../../model/comment.model';
 
 
 
-export const selectComments = state => state.entities.comments;
+export const selectComments = state => state.target.comments;
 
 export const selectCommentsForTarget = (target: EntityTarget) => {
 	return createSelector(

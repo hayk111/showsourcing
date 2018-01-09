@@ -25,6 +25,9 @@ export class TaskEffects {
 		})
 	);
 
+	// @Effect()
+	// loadForTarget$ = this.actions$.ofType<any>(Act)
+
 
 	constructor(private srv: TaskService, private actions$: Actions) {}
 

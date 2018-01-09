@@ -19,6 +19,9 @@ import { FeedbackModule } from '../../shared/feedback/feedback.module';
 import { TestCommentsComponent } from './components/test-comments/test-comments.component';
 import { TestFeedbackComponent } from './components/test-feedback/test-feedback.component';
 import { CommentModule } from '../../shared/comment/comment.module';
+import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
+import { DndModule } from 'ng2-dnd';
+import { KanbanModule } from '../../shared/kanban/kanban.module';
 
 @NgModule({
 	imports: [
@@ -29,7 +32,8 @@ import { CommentModule } from '../../shared/comment/comment.module';
 		FeedbackModule,
 		CarouselModule,
 		CommentModule,
-
+		DndModule,
+		KanbanModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([])
@@ -40,6 +44,7 @@ import { CommentModule } from '../../shared/comment/comment.module';
 		 TestInputsVanillaComponent,
 		 TestCarouselComponent,
 		 TestCommentsComponent,
-		 TestFeedbackComponent],
+		 TestFeedbackComponent,
+		 KanbanTestComponent],
 })
 export class TestModule { }

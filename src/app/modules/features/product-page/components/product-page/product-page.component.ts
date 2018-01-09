@@ -13,6 +13,9 @@ import { TagActions } from '../../../../store/action/tag.action';
 import { Tag } from '../../../../store/model/tag.model';
 import { tap, take } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators';
+import { TargetTagActions } from '../../../../store/action/target/tag.action';
+import { selectProjectsForTarget } from '../../../../store/selectors/target/project.selector';
+import { TargetProjectActions } from '../../../../store/action/target/project.action';
 
 @Component({
 	selector: 'product-page-app',
@@ -25,6 +28,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	files: Array<AppFile>;
 	comments: Array<AppComment>;
 	projectRep = entityRepresentationMap.projects;
+	projects$: Observable<Array<string>>;
 
 
 	constructor(private route: ActivatedRoute, private store: Store<any>) {
@@ -37,7 +41,10 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 			const id = params['id'];
 			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };
 			this.store.dispatch(ProductActions.loadOne(id));
+			this.store.dispatch(TargetTagActions.load(this.target));
+			this.store.dispatch(TargetProjectActions.load(this.target));
 			this.product$ = this.store.select(selectProductById(id));
+			this.projects$ = this.store.select(selectProjectsForTarget);
 		});
 	}
 

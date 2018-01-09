@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { AppComment } from '../../../../store/model/comment.model';
-import { selectCommentsForTarget } from '../../../../store/selectors/comments.selector';
 import { CommentActions } from '../../../../store/action/comment.action';
 import { selectTeamMember } from '../../../../store/selectors/team-members.selector';
 import { User } from '../../../../store/model/user.model';

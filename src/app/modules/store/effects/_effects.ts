@@ -20,6 +20,8 @@ import { EventEffects } from './event.effects';
 import { TagEffects } from './tag.effects';
 import { ProjectEffects } from './project.effects';
 import { PreloaderEffects } from './preloader.effects';
+import { TargetTagEffects } from './target/target-tag.effects';
+import { TargetProjectEffects } from './target/target-project.effects';
 
 
 export const effects = [
@@ -43,5 +45,7 @@ export const effects = [
 	EventEffects,
 	TagEffects,
 	ProjectEffects,
-	PreloaderEffects
+	PreloaderEffects,
+	TargetTagEffects,
+	TargetProjectEffects
 ];

@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { FileActions } from '../../../../store/action/file.action';
 import { AppFile } from '../../../../store/model/app-file.model';
 import { Observable } from 'rxjs/Observable';
-import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { map } from 'rxjs/operators';
+import { selectFilesForTarget } from '../../../../store/selectors/target/file.selector';
 
 @Component({
 	selector: 'input-file-entity-app',
@@ -22,7 +22,6 @@ export class InputFileEntityComponent implements OnInit {
 
 	ngOnInit() {
 		this.files$ = this.store.select(selectFilesForTarget(this.target));
-
 	}
 
 	onFileAdded(file: File) {

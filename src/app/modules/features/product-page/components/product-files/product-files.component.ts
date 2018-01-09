@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AppFile } from '../../../../store/model/app-file.model';
 import { Store } from '@ngrx/store';
-import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap, EntityTarget } from '../../../../store/utils/entities.utils';
 import { FileActions } from '../../../../store/action/file.action';
 import { ActivatedRoute } from '@angular/router';
+import { selectFilesForTarget } from '../../../../store/selectors/target/file.selector';
 
 @Component({
 	selector: 'app-product-files',

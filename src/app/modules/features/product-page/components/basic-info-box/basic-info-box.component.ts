@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../../../../store/model/product.model';
 import { selectProductById } from '../../../../store/selectors/products.selector';
+import { selectTagsForTarget } from '../../../../store/selectors/target/tag.selector';
 
 @Component({
 	selector: 'basic-info-box-app',
@@ -16,11 +17,14 @@ export class BasicInfoBoxComponent implements OnInit {
 	@Output() tagRemoved = new EventEmitter();
 	tagsRep = entityRepresentationMap.tags;
 	product$: Observable<Product>;
+	// those are target tags, so only ids
+	tags$: Observable<Array<string>>;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.product$ = this.store.select(selectProductById(this.target.entityId));
+		this.tags$ = this.store.select(selectTagsForTarget);
 	}
 
 

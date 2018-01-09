@@ -1,7 +1,7 @@
-import { uuid } from '../utils/uuid.utils';
-import { ActionType } from '../action/images.action';
-import { AppFile } from '../model/app-file.model';
-import { AppImage } from '../model/app-image.model';
+import { uuid } from '../../utils/uuid.utils';
+import { ActionType } from '../../action/images.action';
+import { AppFile } from '../../model/app-file.model';
+import { AppImage } from '../../model/app-image.model';
 
 
 const initialState = [];

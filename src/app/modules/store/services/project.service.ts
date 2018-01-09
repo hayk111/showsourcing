@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/user.selector';
 import { User } from '../model/user.model';
 import { map } from 'rxjs/operators';
+import { EntityTarget } from '../utils/entities.utils';
 
 
 @Injectable()
@@ -16,5 +17,9 @@ export class ProjectService {
 		return this.http.get(`api/team/${id}/project?counter=${maxCounter}`).pipe(
 			map((t: any) => t.elements)
 		);
+	}
+
+	loadForTarget(target: EntityTarget) {
+		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/project`);
 	}
 }

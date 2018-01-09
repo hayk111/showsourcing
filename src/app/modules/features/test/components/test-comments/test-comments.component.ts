@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFirstProductEntityTarget } from '../../utils.utils';
 import { switchMap, tap } from 'rxjs/operators';
-import { selectCommentsForTarget } from '../../../../store/selectors/comments.selector';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { CommentActions } from '../../../../store/action/comment.action';
+import { selectCommentsForTarget } from '../../../../store/selectors/target/comments.selector';
 
 @Component({
 	selector: 'app-test-comments',

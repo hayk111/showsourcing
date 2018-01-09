@@ -5,7 +5,6 @@ import { selectProducts } from '../../../../store/selectors/products.selector';
 import { ProductActions } from '../../../../store/action/product.action';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { ImageActions } from '../../../../store/action/images.action';
-import { selectImagesForTarget } from '../../../../store/selectors/image.selector';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';

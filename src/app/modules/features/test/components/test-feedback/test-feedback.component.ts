@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 import { getFirstProductEntityTarget } from '../../utils.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { switchMap } from 'rxjs/operators/switchMap';
-import { selectVotesForTarget } from '../../../../store/selectors/votes.selector';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { tap } from 'rxjs/operators';
 import { VoteActions } from '../../../../store/action/vote.action';
+import { selectVotesForTarget } from '../../../../store/selectors/target/votes.selector';
 
 @Component({
 	selector: 'app-test-feedback',

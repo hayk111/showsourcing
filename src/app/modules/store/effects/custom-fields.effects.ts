@@ -20,11 +20,10 @@ export class CustomFieldsEffects {
 	);
 
 	// Listen for the patch action and sends a patch request to backend
-	@Effect({ dispatch: false;})
+	@Effect()
 	patch$ = this.actions$.ofType(ActionType.PATCH).pipe(
 		map((action: TypedAction<any>) => action.payload),
-		tap((p: any) => this.store.dispatch(this.mapPatch(p))),
-		switchMap(p => this.srv.sendPatchRequest(p))
+		map((p: any) => this.store.dispatch(this.mapPatch(p))),
 	);
 
 	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }) {

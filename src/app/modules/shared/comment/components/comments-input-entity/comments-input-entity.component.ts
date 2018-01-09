@@ -4,8 +4,8 @@ import { CommentActions } from '../../../../store/action/comment.action';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../../app/components/app.component';
-import { selectCommentsForTarget } from '../../../../store/selectors/comments.selector';
 import { AppComment } from '../../../../store/model/comment.model';
+import { selectCommentsForTarget } from '../../../../store/selectors/target/comments.selector';
 
 @Component({
 	selector: 'comments-entity-app',

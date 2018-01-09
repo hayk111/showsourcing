@@ -1,10 +1,29 @@
-<article class="card z-h pointer" *ngFor="let id of productEntities.ids" 
-	(mousedown)="itemClicked.next(id)">
-	<div class="imgCtnr">
-		<img src="{{ productEntities?.byId[id]?.mainImage?.urls?.url_220x165 }}"/>
-	</div>
-	<h4>{{ productEntities.byId[id].name }} </h4>
-	
-	<small>{{ (suppliers$ | async)?.byId[productEntities.byId[id].supplierId]?.name }}</small>
 
-</article>
+<ng-container *ngIf="productsByStatus$ | async as statuses">
+		<div class="flex">
+			<kanban-col-app
+				(itemDropped)="changeStatus($event)"
+				[bag]="status.id"
+				[label]="status.name"
+				*ngFor="let status of statuses; let i = index">
+					<kanban-item-app
+						[data]="product.id"
+						class="item"
+						*ngFor="let product of status.products; let j = index">
+						<article class="card z-h pointer flex"
+							(click)="itemClicked.emit(id)">
+							<div class="imgCtnr">
+								<img src="{{ product?.mainImage?.urls?.url_220x165 }}"/>
+							</div>
+							<div>
+								<h4>{{ product.name }} </h4>
+
+								<small>{{ product.supplierId | entityName:'suppliers' | async }}</small>
+							</div>
+
+
+						</article>
+					</kanban-item-app>
+			</kanban-col-app>
+		</div>
+	</ng-container>

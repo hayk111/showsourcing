@@ -20,7 +20,6 @@ import { User } from '../../../../store/model/user.model';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { selectFilterPanel } from '../../../../store/selectors/filter-panel.selector';
 import { selectFilterSelectionPanelTarget } from '../../../../store/selectors/filter-selection-panel.selector';
-import { selectFilesForTarget } from '../../../../store/selectors/file.selector';
 import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
 import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 import { combineLatest } from 'rxjs/observable/combineLatest';

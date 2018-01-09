@@ -45,34 +45,33 @@ export class ProductEffects {
 	);
 
 	// loads a product if it's not already present in the store
-	@Effect({ dispatch: false })
+	@Effect()
 	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
 		map(action => action.payload),
-		tap(id => this.store.dispatch(ProductActions.loadTags(id))),
-		tap(id => this.store.dispatch(ProductActions.loadProjects(id))),
-		switchMap(id => this.store.select(selectProductById(id)).pipe(
-			filter(product => product === undefined),
-			switchMap( _ => this.srv.loadById(id)),
-		)),
-		tap((product: Product) => this.store.dispatch(ProductActions.add([product]))),
+		// switchMap(id => this.store.select(selectProductById(id)).pipe(
+			// filter(product => product === undefined),
+			switchMap(id => this.srv.loadById(id)),
+			// tap((product: Product) => this.store.dispatch(ProductActions.loadTags(product.id))),
+			// tap((product: Product) => this.store.dispatch(ProductActions.loadProjects(product.id))),
+			map((product: Product) => ProductActions.add([product])),
+		// )),
 	);
 
 
+	// @Effect()
+	// loadTags$ = this.actions$.ofType<any>(ActionType.LOAD_TAGS).pipe(
+	// 	map(action => action.payload),
+	// 	switchMap(
+	// 		id => this.srv.sendTagReq(id)
+	// 		.map((tags: Array<Tag>) => ProductActions.setTags(tags, id))
+	// 	)
+	// );
 
-	@Effect()
-	loadTags$ = this.actions$.ofType<any>(ActionType.LOAD_TAGS).pipe(
-		map(action => action.payload),
-		switchMap(
-			id => this.srv.sendTagReq(id)
-			.map((tags: Array<Tag>) => ProductActions.setTags(tags, id))
-		)
-	);
-
-	@Effect({ dispatch: false })
-	addTag$ = this.actions$.ofType<any>(ActionType.ADD_TAG).pipe(
-		map(action => action.payload),
-		switchMap(({tag, id}) => this.srv.addTag(tag, id))
-	);
+	// @Effect({ dispatch: false })
+	// addTag$ = this.actions$.ofType<any>(ActionType.ADD_TAG).pipe(
+	// 	map(action => action.payload),
+	// 	switchMap(({tag, id}) => this.srv.addTag(tag, id))
+	// );
 
 	@Effect({ dispatch: false })
 	addProject$ = this.actions$.ofType<any>(ActionType.ADD_PROJECT).pipe(
@@ -114,6 +113,12 @@ export class ProductEffects {
 		map(action => action.payload),
 		switchMap(id => this.srv.sendPdfReq(id)),
 		map(path => FileActions.download({ url: path } as AppFile))
+	);
+
+	@Effect({ dispatch: false })
+	patch$ = this.actions$.ofType<any>(ActionType.PATCH).pipe(
+		map(action => action.payload),
+		switchMap((p: any) => this.srv.sendPatchRequest(p))
 	);
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
