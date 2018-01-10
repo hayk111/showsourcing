@@ -1,18 +1,18 @@
 	<div class="left">
 
 		<div class="flex topBar">
-			<view-switcher-app></view-switcher-app>				
+			<view-switcher-app></view-switcher-app>
 			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
-			<button class="secondary z-2 small" (click)="openFilters()">filters</button>
+			<button class="secondary z-2 small" (click)="openFilters()" i18n="button | opens filter panel">filters</button>
 		</div>
-	
+
 		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
 
-		
-		<mat-progress-bar *ngIf="pending" [mode]="'indeterminate'"></mat-progress-bar>		
+
+		<mat-progress-bar *ngIf="pending" [mode]="'indeterminate'"></mat-progress-bar>
 		<ng-container *ngIf="view$ | async as view">
 			<ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>
-			<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content>			
+			<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content>
 		</ng-container>
 
 

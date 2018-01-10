@@ -38,8 +38,9 @@ export const searchEntityWithFilters = (filterGroupName: FilterGroupName, entity
 		],
 		(items, vals) => {
 			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
-			addSelection(vals, items);
-			return items;
+			const copy = deepCopy(items);
+			addSelection(vals, copy);
+			return { entityRepr, items: copy};
 	});
 };
 
@@ -47,19 +48,9 @@ export const searchEntitiesWithFilters = (filterGroupName: FilterGroupName, enti
 	const searches: Array<any> = entityRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
 	// puts every search into an array
 	return createSelector(searches as any, (...args) => {
-		// just flatten the array of array
-		return args.reduce((acc, curr) => {
-			return acc.concat(curr);
-		}, []);
-	});
-};
-
-
-export const tabularSearchWithFilters = (filterGroupName: FilterGroupName, entityRepr: Array<EntityRepresentation>, str: string) => {
-	const searches: Array<any> = entityRepr.map(x => searchEntityWithFilters(filterGroupName, x, str));
-	// puts every search into an array
-	return createSelector(searches as any, (...args) => {
-		// just flatten the array of array
+		let total = 0;
+		args.forEach(r => total += r.items.length);
+		return { total, result: args };
 	});
 };
 

@@ -9,7 +9,7 @@ import { AppComment } from '../../../../store/model/comment.model';
 import { CommentActions } from '../../../../store/action/comment.action';
 import { selectTeamMember } from '../../../../store/selectors/team-members.selector';
 import { User } from '../../../../store/model/user.model';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({

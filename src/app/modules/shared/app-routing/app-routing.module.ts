@@ -9,6 +9,7 @@ import { TasksPageModule } from '../../features/tasks-page/tasks-page.module';
 import { EventsPageModule } from '../../features/events-page/events-page.module';
 import { SupplierPageModule } from '../../features/supplier-page/supplier-page.module';
 import { TestModule } from '../../features/test/test.module';
+import { ProductPageModule } from '../../features/product-page/product-page.module';
 
 @NgModule({
 	imports: [
@@ -20,6 +21,7 @@ import { TestModule } from '../../features/test/test.module';
 		TasksPageModule,
 		EventsPageModule,
 		SupplierPageModule,
+		ProductPageModule,
 		TestModule
 	],
 	exports: [ RouterModule ],

@@ -20,7 +20,6 @@ import { selectFilterSelectionPanelOpen } from '../../../../store/selectors/filt
 export class FilterPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	subPanelVisible$: Observable<boolean>;
-	search = '';
 
 	constructor(private store: Store<any>) { }
 

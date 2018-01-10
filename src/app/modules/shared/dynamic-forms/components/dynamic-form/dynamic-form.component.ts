@@ -18,7 +18,7 @@ import { of } from 'rxjs/observable/of';
 import { ChangeDetectorRef } from '@angular/core';
 import { EntityRepresentation, entityRepresentationMap, Entity } from '../../../../store/utils/entities.utils';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'dynamic-form-app',

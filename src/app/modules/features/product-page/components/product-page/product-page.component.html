@@ -7,6 +7,7 @@
 			<ng-container *ngIf="product$ | async as product">
 				<ng-container *ngIf="projects$ | async as projects">
 					<input-select-entity-app
+						i18n-label="label|Projects a product is associated with"
 						[label]="'Projects'"
 						(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
 						[value]="projects"
@@ -21,12 +22,12 @@
 	</div>
 	<div class="right">
 			<div class="flex links">
-				<a [routerLink]="['activity']" routerLinkActive="selected">Activity</a>
-				<a [routerLink]="['sample']" routerLinkActive="selected">Sample</a>
-				<a [routerLink]="['technical-details']" routerLinkActive="selected">Technical details</a>
-				<a [routerLink]="['tasks']" routerLinkActive="selected">Tasks</a>
-				<a [routerLink]="['shipping']" routerLinkActive="selected">Shipping</a>
-				<a [routerLink]="['files']" routerLinkActive="selected">Files</a>
+				<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
+				<a [routerLink]="['sample']" routerLinkActive="selected" i18n="header-link|product samples@@Sample">Sample</a>
+				<a [routerLink]="['technical-details']" routerLinkActive="selected" i18n="header-link|product samples@@TechnicalDetails">Technical details</a>
+				<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product samples@@Tasks">Tasks</a>
+				<a [routerLink]="['shipping']" routerLinkActive="selected" i18n="header-link|product samples@@Shipping">Shipping</a>
+				<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product samples@@Files">Files</a>
 			</div>
 			<div class="hr2"></div>
 			<router-outlet></router-outlet>

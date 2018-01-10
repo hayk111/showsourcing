@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { KanbanService } from '../../services/kanban.service';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'kanban-col-app',

@@ -4,10 +4,12 @@
 		<mat-icon (click)="close()">close</mat-icon>
 	</div>
 	<!-- filters button come here -->
-	<ng-content></ng-content>	
+	<ng-content></ng-content>
 </div>
 
 <!-- this is the panel that is visible when a filter is clicked -->
+<!-- the store is used because the button are inserted via ng content -->
+<!-- the buttons are inserted via ng content because there could be filters on tasks etc. -->
 <filter-selection-panel-app
-	*ngIf="subPanelVisible$ | async" 
+	*ngIf="subPanelVisible$ | async"
 	[filterGroupName]="filterGroupName"></filter-selection-panel-app>

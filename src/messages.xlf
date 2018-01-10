@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="Activity" datatype="html">
+        <source>Activity</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">recent product activity</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Sample" datatype="html">
+        <source>Sample</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="TechnicalDetails" datatype="html">
+        <source>Technical details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Tasks" datatype="html">
+        <source>Tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Shipping" datatype="html">
+        <source>Shipping</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Files" datatype="html">
+        <source>Files</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="11099774484e7a82a8e1e79af2614aedf78a45d5" datatype="html">
+        <source> Name </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">product name</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="2208654726ba58be3d679474f135f083570adfa2" datatype="html">
+        <source> Supplier </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">product supplier</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="3363a809c437fe18ce7aca697b6e97bbb114ed21" datatype="html">
+        <source> Category </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">product category</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="0bd8c646283818a2ec031c88c6c88eec4843df6b" datatype="html">
+        <source> Price </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">product price</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="61da51625c225038fc3621dac84b34eec64e171f" datatype="html">
+        <source> MOQ </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">product minimum order quantity / MOQ</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="aacc0db07ac841412141de5018d0d8f61891760d" datatype="html">
+        <source> Source </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">product source</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="5e989c9dd6d4d6a77b4e20b603bd803849c4be46" datatype="html">
+        <source> Owner </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <note priority="1" from="description">product owner</note>
+        <note priority="1" from="meaning">label</note>
+      </trans-unit>
+      <trans-unit id="3d195180e1b3429f6b860125721667b123c8c057" datatype="html">
+        <source>commented</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-activity-page/product-activity-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">describes author action, example John commented</note>
+      </trans-unit>
+      <trans-unit id="7010415c980fcd0344934d900986e6ee75e1a478" datatype="html">
+        <source>
+		Samples
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-sample/product-sample.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> Samples (product samples)</note>
+        <note priority="1" from="meaning">header </note>
+      </trans-unit>
+      <trans-unit id="6fda6ccae8c2b442abd1e8092634b4b685afe866" datatype="html">
+        <source>Add Sample</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-sample/product-sample.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description"> add Sample</note>
+        <note priority="1" from="meaning">button </note>
+      </trans-unit>
+      <trans-unit id="da77d63c2f6ff691c362c273ffd6d901472885cb" datatype="html">
+        <source>Tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-tasks/product-tasks.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Tasks</note>
+        <note priority="1" from="meaning">header</note>
+      </trans-unit>
+      <trans-unit id="368b9d36afb168827a22f6266da398884f573c20" datatype="html">
+        <source>Add task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-tasks/product-tasks.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description"> add task</note>
+        <note priority="1" from="meaning">button </note>
+      </trans-unit>
+      <trans-unit id="cada3d1f74369ab11028e94d6561d55763d7ce9d" datatype="html">
+        <source>
+		Files &amp; Documents
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> Files &amp; documents</note>
+        <note priority="1" from="meaning">header</note>
+      </trans-unit>
+      <trans-unit id="de5895ee7bcf453d719b4120cd7a3c2deb40a4d0" datatype="html">
+        <source>Add File</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">add file</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="b36a122ce3749a546b525733da455232305e3e7a" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <note priority="1" from="description"> Files Name</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="0c060577ccf026310b1ef6cf340ee654bf265345" datatype="html">
+        <source>Upload date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description"> Files Upload date</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="66667bc63f97f65a25a7444211637b6d378d6a35" datatype="html">
+        <source>Uploaded by</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description"> Files Uploaded by</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="ae84c425f6ba4562459676feb7aa4f8c0d59c666" datatype="html">
+        <source>Action</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description"> File Action</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="dfd14f56e0e206498418e379686b71b6d3945d18" datatype="html">
+        <source>
+					delete
+					</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-files/product-files.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description"> action delete file</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="e232c8e3c2f7971905dde78d227f91894074bdf2" datatype="html">
+        <source>
+		Shipping
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-shipping/product-shipping.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Shipping</note>
+        <note priority="1" from="meaning">header</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

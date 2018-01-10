@@ -20,7 +20,6 @@ import { TestCommentsComponent } from './components/test-comments/test-comments.
 import { TestFeedbackComponent } from './components/test-feedback/test-feedback.component';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
-import { DndModule } from 'ng2-dnd';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { KanbanModule } from '../../shared/kanban/kanban.module';
 		FeedbackModule,
 		CarouselModule,
 		CommentModule,
-		DndModule,
 		KanbanModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,

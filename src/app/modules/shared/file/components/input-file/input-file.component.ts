@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { AppFile } from '../../../../store/model/app-file.model';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { FileActions } from '../../../../store/action/file.action';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'input-file-app',

@@ -10,6 +10,7 @@ const initialState: EntityState<Entity> = {
 		'UnderAssessment': { id: 'UnderAssessment', name: ProductStatus.UNDER_ASSESSMENT },
 		'Complete': { id: 'Complete', name: ProductStatus.COMPLETE },
 		'Refused': { id: 'Refused', name: ProductStatus.REFUSED },
+		'CustomStatus': {id: 'CustomStatus', name: 'Custom'}
 	},
 	ids: ['Idea', 'NeedReview', 'UnderAssessment', 'Complete', 'Refused']
 };

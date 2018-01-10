@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppFile } from '../../../../store/model/app-file.model';
 import Log from '../../../../../utils/logger/log.class';
 import { AppImage } from '../../../../store/model/app-image.model';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'modal-carousel-app',

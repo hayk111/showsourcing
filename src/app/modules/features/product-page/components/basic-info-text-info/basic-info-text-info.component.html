@@ -2,37 +2,37 @@
 
 <table>
 	<tr>
-		<td> <label> Name </label> </td>
+		<td> <label i18n="label|product name"> Name </label> </td>
 		<td> {{ product?.name }} </td>
 	</tr>
 
 	<tr>
-			<td> <label> Supplier </label> </td>
+			<td> <label i18n="label|product supplier"> Supplier </label> </td>
 			<td> {{ product?.supplierId | entityName: 'suppliers' | async }}  </td>
 	</tr>
 
 	<tr>
-			<td> <label> Category </label> </td>
+			<td> <label i18n="label|product category"> Category </label> </td>
 			<td> {{ product?.category?.name }} </td>
 	</tr>
 
 	<tr>
-			<td> <label> Price </label> </td>
+			<td> <label i18n="label|product price"> Price </label> </td>
 			<td> {{ product?.priceAmount }}  {{ product?.priceCurrency?.id }}</td>
 	</tr>
 
 	<tr>
-			<td> <label> MOQ </label> </td>
+			<td> <label i18n="label|product minimum order quantity / MOQ"> MOQ </label> </td>
 			<td> {{ product?.minimumOrderQuantity}}  </td>
 	</tr>
 
 	<tr>
-			<td> <label> Source </label> </td>
+			<td> <label i18n="label|product source"> Source </label> </td>
 			<td>  </td>
 	</tr>
 
 	<tr>
-			<td> <label> Owner </label> </td>
+			<td> <label i18n="label|product owner"> Owner </label> </td>
 			<td> </td>
 	</tr>
 </table>

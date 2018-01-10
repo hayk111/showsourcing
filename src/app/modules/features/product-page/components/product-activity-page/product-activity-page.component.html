@@ -17,7 +17,7 @@
 			<div class="top">
 				<div>
 					<span class="author">{{ c.createdByUserId | entityName: 'teamMembers' | async }}</span>
-					<small class="action"> commented </small>
+					<small class="action" i18n="describes author action, example John commented">commented</small>
 				</div>
 
 				<small class="date">{{ c.creationDate | date }} </small>

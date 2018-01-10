@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file target-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="Activity" datatype="html">
+				<source>Activity</source>
+        <target>Activité</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">recent product activity</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Sample" datatype="html">
+				<source>Sample</source>
+        <target>Samples</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="TechnicalDetails" datatype="html">
+				<source>Technical Details</source>
+        <target>Details Techniques</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Tasks" datatype="html">
+				<source>Tasks</source>
+        <target>Taches</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Shipping" datatype="html">
+				<source>Shipping</source>
+        <target>Livraison</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="Files" datatype="html">
+				<source>Files</source>
+        <target>Fichiers</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/product-page/product-page.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">product samples</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="20371277706eedf7fd8a3f51633ca5d801cd4fc2" datatype="html">
+				<source> Name </source>
+        <target> Nom </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd8fb847154199982476028eec31be40d0e17e3c" datatype="html">
+				<source> Supplier </source>
+        <target> Fournisseur </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a5af6340df79c70f88c0c08d5c23568a9eed0bfa" datatype="html">
+				<source> Category </source>
+        <target> Categorie </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f13c3a7687e1adb51286113e4061b31a2d2507a0" datatype="html">
+				<source> Price </source>
+        <target> Prix </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9d56ba3bc8ed982380a9fa0e938e03834bc28850" datatype="html">
+				<source> MOQ </source>
+        <target> quantitée minimum </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f5d3c1f4ca9aead7400d2a289633144cd68b43be" datatype="html">
+				<source> Source </source>
+        <target> Source </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a20edc2307655c2e66705bfd9b6cb5c229dc1ffc" datatype="html">
+				<source> Owner </source>
+        <target> Propriétaire </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/features/product-page/components/basic-info-text-info/basic-info-text-info.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

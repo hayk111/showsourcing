@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { EntityState, Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Filter, FilterGroupName, FilterRepresentation } from '../../../../store/model/filter.model';
+import { Filter, FilterGroupName, FilterRepresentation, filterRepresentationMap } from '../../../../store/model/filter.model';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';
@@ -23,22 +23,19 @@ export class FilterComponent implements OnInit {
 	@Output() itemClicked = new EventEmitter();
 	items$: Observable<Array<Filter>>;
 
-
 	constructor(private store: Store<any>) { }
 
-	// TODO: this should be refactored
 	ngOnInit() {
 		// select all items selected for target category
-		// if (this.target !== entityRepresentationMap.prices)
+		// if (this.filterRepr !== filterRepresentationMap.prices)
 			this.items$ = this.store.select(selectFilterForEntity(this.filterGroupName, this.filterRepr));
 		// else {
-		// // if the target is prices, the filterTarget put in the filter store is either min or maxPrices
 		// 	const min$ = this.store.select(
-		// 			selectFilterForEntity(this.filterGroupName, entityRepresentationMap.minPrices)
+		// 			selectFilterForEntity(this.filterGroupName, filterRepresentationMap.minPrices)
 		// 		).map(t => t[0])
 		// 		.filter(t => t !== undefined);
 		// 	const max$ = this.store.select(
-		// 			selectFilterForEntity(this.filterGroupName, entityRepresentationMap.maxPrices)
+		// 			selectFilterForEntity(this.filterGroupName, filterRepresentationMap.maxPrices)
 		// 		).map(t => t[0])
 		// 		.filter(t => t !== undefined);
 		// 		// could be we have to use merge or combine latest here instead..

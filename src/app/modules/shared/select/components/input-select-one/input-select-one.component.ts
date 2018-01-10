@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
 import Log from '../../../../../utils/logger/log.class';
 

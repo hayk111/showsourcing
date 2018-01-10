@@ -40,6 +40,7 @@ import { ProductMainCardComponent } from './components/product-main-card/product
 		BasicInfoActionsComponent,
 		BasicInfoIconsInfoComponent,
 		BasicInfoTextInfoComponent,
+		ProductPageComponent,
 		ProductActivityPageComponent,
 		ProductSampleComponent,
 		ProductTechDetailsComponent,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DragulaService } from 'ng2-dragula';
 import { ProductStatus } from '../../../../store/model/product.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';

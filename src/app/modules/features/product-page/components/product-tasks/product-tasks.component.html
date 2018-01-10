@@ -1,6 +1,6 @@
 <product-main-card-app>
-	<div class="title">Tasks</div>
-	<button class="small action">Add task</button>
+	<div class="title" i18n="header|Tasks">Tasks</div>
+	<button class="small action" i18n="button | add task">Add task</button>
 
 	<ng-container *ngIf="tasks$ | async as tasks">
 		<table class="fullWidth withBorder">

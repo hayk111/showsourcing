@@ -7,7 +7,7 @@ import { Vote } from '../../../../store/model/vote.model';
 import { User } from '../../../../store/model/user.model';
 import { selectUser } from '../../../../store/selectors/user.selector';
 import { VoteActions } from '../../../../store/action/vote.action';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'feedback-input-app',

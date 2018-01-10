@@ -1,7 +1,6 @@
 import { Component, OnInit, Injector, forwardRef, EventEmitter, Output, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
-import { makeParamDecorator } from '@angular/core/src/util/decorators';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
 
 
