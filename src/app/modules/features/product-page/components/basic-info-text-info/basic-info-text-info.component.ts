@@ -3,11 +3,13 @@ import { Product } from '../../../../store/model/product.model';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../../../../store/action/product.action';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'basic-info-text-info-app',
 	templateUrl: './basic-info-text-info.component.html',
-	styleUrls: ['./basic-info-text-info.component.scss']
+	styleUrls: ['./basic-info-text-info.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicInfoTextInfoComponent implements OnInit {
 	@Input() product: Product;
@@ -25,8 +27,14 @@ export class BasicInfoTextInfoComponent implements OnInit {
 	}
 
 	getPriceObject(product: Product) {
-		const priceAmount = product.priceAmount;
-		const priceCurrency = product.priceCurrency;
+		if (!product.price)
+			return {};
+		else {
+			const priceAmount = product.price.priceAmount;
+			const priceCurrency = product.price.priceCurrency;
+			return { priceAmount, priceCurrency, toString: () => priceAmount + ' ' + priceCurrency };
+		}
+
 	}
 
 }

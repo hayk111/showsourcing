@@ -32,10 +32,10 @@
 
 	<tr>
 			<td> <label i18n="label|product price"> Price </label> </td>
-			<td> {{ product?.priceAmount }}  {{ product?.priceCurrency?.id }}
+			<td>
 				<editable-field-app
-					[value]="getPriceObject(product)"
-					type="number"
+					[value]="product.price"
+					type="price"
 					(update)="onUpdate('price', $event)">
 				</editable-field-app>
 			</td>

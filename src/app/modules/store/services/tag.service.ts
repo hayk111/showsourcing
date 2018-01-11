@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/user.selector';
 import { User } from '../model/user.model';
 import { EntityTarget } from '../utils/entities.utils';
+import { Tag } from '../model/tag.model';
 
 
 @Injectable()
@@ -18,5 +19,13 @@ export class TagService {
 
 	loadForTarget(target: EntityTarget) {
 		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/tag`);
+	}
+
+	addForTarget(tag: Tag, target: EntityTarget) {
+		return this.http.put(`api/${target.entityRepr.urlName}/${target.entityId}/tag/${tag.id}`, {});
+	}
+
+	removeForTarget(tag: Tag, target: EntityTarget) {
+		return this.http.delete(`api/${target.entityRepr.urlName}/${target.entityId}/tag/${tag.id}`);
 	}
 }

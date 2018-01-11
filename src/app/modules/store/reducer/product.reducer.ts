@@ -13,10 +13,6 @@ import { Project } from '../model/project.model';
 export function productReducer(state: EntityState<Product> = entityInitialState, action: TypedAction<any> )
 : EntityState<Product> {
 	let id;
-	let tags;
-	let projects;
-	let index;
-
 	switch (action.type) {
 
 		case ActionType.SET:
@@ -33,46 +29,6 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			const propName = action.payload.propName;
 			const value = action.payload.value;
 			return copyById(state, id, { [propName]: value } );
-
-		case ActionType.SET_TAGS:
-			tags = action.payload.tags.map(t => t.id);
-			id = action.payload.id;
-			return copyById(state, id, {tags});
-
-		case ActionType.ADD_TAG:
-			const tagId = action.payload.tag.id;
-			id = action.payload.id;
-			const currentTags = state.byId[id].tags || [];
-			tags = [...currentTags, tagId ];
-			return copyById(state, id, {tags});
-
-		case ActionType.REMOVE_TAG:
-			const tag2del = action.payload.tag.id;
-			id = action.payload.id;
-			tags = [...state.byId[id].tags];
-			index = tags.findIndex(t => t.id === tag2del);
-			tags.splice(index, 1);
-			return copyById(state, id, {tags});
-
-		case ActionType.SET_PROJECTS:
-			projects = action.payload.projects.map(p => p.id);
-			id = action.payload.id;
-			return copyById(state, id, {projects});
-
-		case ActionType.ADD_PROJECT:
-			const projectsId = action.payload.project.id;
-			id = action.payload.id;
-			const currentProjects =  state.byId[id].projects || [];
-			projects = [...currentProjects, projectsId];
-			return copyById(state, id, {projects});
-
-		case ActionType.REMOVE_PROJECT:
-			const p2del = action.payload.project.id;
-			id = action.payload.id;
-			projects = [...state.byId[id].projects];
-			index = projects.findIndex(t => t.id === p2del);
-			projects.splice(index, 1);
-			return copyById(state, id, {projects});
 
 		default: return state;
 	}

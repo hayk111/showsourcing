@@ -49,19 +49,19 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onTagAdded(event) {
-		this.store.dispatch(ProductActions.addTag(event, this.target.entityId));
+		this.store.dispatch(TargetTagActions.add(event, this.target));
 	}
 
 	onTagRemoved(event) {
-		this.store.dispatch(ProductActions.removeTag(event, this.target.entityId));
+		this.store.dispatch(TargetTagActions.remove(event, this.target));
 	}
 
 	onProjectAdded(event) {
-		this.store.dispatch(ProductActions.addProject(event, this.target.entityId));
+		this.store.dispatch(TargetProjectActions.add(event, this.target));
 	}
 
 	onProjectRemoved(event) {
-		this.store.dispatch(ProductActions.removeProject(event, this.target.entityId));
+		this.store.dispatch(TargetProjectActions.remove(event, this.target));
 	}
 
 }

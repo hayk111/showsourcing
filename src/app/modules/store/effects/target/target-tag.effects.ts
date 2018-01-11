@@ -24,6 +24,21 @@ export class TargetTagEffects {
 		map(ids => TargetTagActions.set(ids))
 	);
 
+	@Effect({ dispatch: false })
+	add$ = this.actions$.ofType<any>(ActionType.ADD)
+	.pipe(
+		map(action => action.payload),
+		switchMap(p => this.srv.addForTarget(p.tag, p.target))
+	);
+
+	@Effect({ dispatch: false })
+	remove$ = this.actions$.ofType<any>(ActionType.REMOVE)
+	.pipe(
+		map(action => action.payload),
+		switchMap(p => this.srv.removeForTarget(p.tag, p.target))
+	);
+
+
 	constructor(private actions$: Actions, private srv: TagService) {}
 
 }

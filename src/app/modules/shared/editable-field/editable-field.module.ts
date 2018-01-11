@@ -5,12 +5,14 @@ import { InputsModule } from '../inputs/inputs.module';
 import { SelectModule } from '../select/select.module';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
+import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		InputsModule,
 		SelectModule,
+		CustomInputsModule,
 		UtilsModule,
 		AppStoreModule.forChild()
 	],

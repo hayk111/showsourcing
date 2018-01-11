@@ -21,6 +21,7 @@ export class CustomFieldsService {
 	// this could be moved in each of the entity service in the future if this adds problems.
 	sendPatchRequest({target, propName, value}: {target: EntityTarget, propName: string, value: any }) {
 		let patch = { [propName]: value };
+		debugger;
 		const id = target.entityId;
 		const urlName = target.entityRepr.urlName;
 		// check for customFields
@@ -35,6 +36,9 @@ export class CustomFieldsService {
 		// is automatically { priceAmount: x, currency: y }
 		if (propName === 'priceAmount')
 			patch = value;
+
+		if (propName === 'price')
+			patch = value.price;
 		return this.http.patch(`api/${urlName}/${id}`, patch);
 	}
 

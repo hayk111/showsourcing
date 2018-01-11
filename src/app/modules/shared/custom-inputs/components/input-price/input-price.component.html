@@ -1,0 +1,12 @@
+<div class="flex">
+	<input-app
+			type="decimal"
+			[placeholder]="placeholder"
+			(update)="onUpdate($event, 'priceAmount')"
+			[value]="value?.priceAmount"></input-app>
+	<input-select-entity-app
+		[entityRep]="currencyRep" [value]="value?.priceCurrency" (update)="onUpdate($event, 'priceCurrency')">
+	</input-select-entity-app>
+</div>
+
+

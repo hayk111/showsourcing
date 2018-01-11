@@ -40,7 +40,10 @@ export class AuthenticationEffects {
 	@Effect({ dispatch: false })
 	logout$ = this.actions$.ofType<any>(ActionType.LOGOUT).pipe(
 		tap(_ => this.store.dispatch(TokenActions.remove())),
-		tap(_ => this.store.dispatch(UserActions.resetUser()))
+		tap(_ => this.store.dispatch(UserActions.resetUser())),
+		tap(_ => {
+			this.router.navigate(['guest', 'login']);
+		})
 	);
 
 	private onLoginSuccess(r: HttpResponse<Object>) {

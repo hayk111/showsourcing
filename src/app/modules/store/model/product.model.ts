@@ -19,6 +19,7 @@ export interface Product {
 	name: string;
 	priceAmount: number;
 	priceCurrency: Currency;
+	price: any;
 	minimumOrderQuantity: number;
 	supplierId: string;
 	categoryId: string;

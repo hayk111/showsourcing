@@ -1,9 +1,12 @@
 import { EntityTarget } from '../../utils/entities.utils';
+import { Tag } from '../../model/tag.model';
 
 
 export enum ActionType {
 	LOAD = '[Target-Tag] loading',
-	SET = '[Target-Tag] setting'
+	SET = '[Target-Tag] setting',
+	ADD = '[Target-Tag] adding',
+	REMOVE = '[Target-Tag] removing'
 }
 
 export class TargetTagActions {
@@ -19,6 +22,20 @@ export class TargetTagActions {
 		return {
 			type: ActionType.SET,
 			payload: tags
+		};
+	}
+
+	static add(tag: Tag, target: EntityTarget) {
+		return {
+			type: ActionType.ADD,
+			payload: { tag, target }
+		};
+	}
+
+	static remove(tag: Tag, target: EntityTarget) {
+		return {
+			type: ActionType.REMOVE,
+			payload: { tag, target }
 		};
 	}
 }

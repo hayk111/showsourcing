@@ -7,11 +7,10 @@ import { UtilsModule } from '../utils/utils.module';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { AppStoreModule } from '../../store/store.module';
 import { InputComponent } from './components/vanilla/input/input.component';
-import { InputCurrencyComponent } from './components/custom/input-currency/input-currency.component';
-import { InputPriceComponent } from './components/custom/input-price/input-price.component';
 import { InputRadioComponent } from './components/vanilla/input-radio/input-radio.component';
 import { InputCheckboxComponent } from './components/vanilla/input-checkbox/input-checkbox.component';
 import { InputTextareaComponent } from './components/vanilla/input-textarea/input-textarea.component';
+import { SelectModule } from '../select/select.module';
 
 export const components = [
 											// vanilla inputs
@@ -19,9 +18,6 @@ export const components = [
 											InputTextareaComponent,
 											InputRadioComponent,
 											InputCheckboxComponent,
-											// used in dynamic forms
-											InputCurrencyComponent,
-											InputPriceComponent,
 											];
 
 @NgModule({
