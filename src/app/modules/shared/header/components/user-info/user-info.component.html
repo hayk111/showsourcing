@@ -1,0 +1,12 @@
+<ng-container *ngIf="user$ | async as user">
+	<div class="cercle"></div>
+	<div class="info">
+		<div>{{ user?.firstName }} {{ user?.lastName}}</div>
+		<div class="team">{{ (team$ | async)?.name }}</div>
+	</div>
+	<div class="panelCtnr">
+		<mat-icon (click)="openPanel()">keyboard_arrow_down</mat-icon>
+		<user-panel-app *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>
+	</div>
+
+</ng-container>

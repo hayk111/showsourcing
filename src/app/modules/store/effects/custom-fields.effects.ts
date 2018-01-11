@@ -23,7 +23,7 @@ export class CustomFieldsEffects {
 	@Effect()
 	patch$ = this.actions$.ofType(ActionType.PATCH).pipe(
 		map((action: TypedAction<any>) => action.payload),
-		map((p: any) => this.store.dispatch(this.mapPatch(p))),
+		map((p: any) => this.mapPatch(p))
 	);
 
 	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }) {

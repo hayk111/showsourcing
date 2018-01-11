@@ -11,7 +11,7 @@
 						class="item"
 						*ngFor="let product of status.products; let j = index">
 						<article class="card z-h pointer flex"
-							(click)="itemClicked.emit(id)">
+							(click)="itemClicked.emit(product.id)">
 							<div class="imgCtnr">
 								<img src="{{ product?.mainImage?.urls?.url_220x165 }}"/>
 							</div>

@@ -1,4 +1,4 @@
-<label>{{label}}</label>
+<label *ngIf="label">{{label}}</label>
 <searchable-list-app
 	(search)="onSearch($event)"
 	*ngIf="panelVisible"

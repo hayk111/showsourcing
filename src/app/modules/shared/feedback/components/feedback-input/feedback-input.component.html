@@ -3,7 +3,7 @@
 
 	<mat-icon (click)="onVote(100)" [ngClass]="{ 'selected' : isUp(user)}">thumb_up</mat-icon>
 	<mat-icon (click)="onVote(0)" [ngClass]="{ 'selected' : isDown(user)}">thumb_down</mat-icon>
-	<div> {{ getPercentage(user) }}%</div>
+	<div> {{ getPercentage(user) }}</div>
 
 	<button class="small" (click)="request.emit()">request</button>
 </ng-container>

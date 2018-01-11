@@ -1,0 +1,11 @@
+.editable i {
+	visibility: hidden;
+	margin-left: 10px;
+}
+
+.editable:hover {
+	background: var(--color-bg-secondary);
+	i {
+		visibility: visible;
+	}
+}

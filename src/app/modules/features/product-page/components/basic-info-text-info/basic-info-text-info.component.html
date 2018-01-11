@@ -3,36 +3,51 @@
 <table>
 	<tr>
 		<td> <label i18n="label|product name"> Name </label> </td>
-		<td> {{ product?.name }} </td>
+		<td> <editable-field-app [value]="product?.name" (update)="onUpdate('name', $event)"> </editable-field-app> </td>
 	</tr>
 
 	<tr>
 			<td> <label i18n="label|product supplier"> Supplier </label> </td>
-			<td> {{ product?.supplierId | entityName: 'suppliers' | async }}  </td>
+			<td>
+				<editable-field-app [value]="product?.supplierId" type="select-entity" [entityRep]="supplierRep" (update)="onUpdate('supplierId', $event)">
+				</editable-field-app>
+			</td>
 	</tr>
 
 	<tr>
 			<td> <label i18n="label|product category"> Category </label> </td>
-			<td> {{ product?.category?.name }} </td>
+			<td>
+				<editable-field-app [value]="product?.categoryId" type="select-entity" [entityRep]="categoryRep" (update)="onUpdate('categoryId', $event)">
+				</editable-field-app>
+			</td>
+	</tr>
+
+	<tr>
+			<td> <label i18n="label|product event"> Event </label> </td>
+			<td>
+				<editable-field-app [value]="product?.eventId" type="select-entity" [entityRep]="eventRep" (update)="onUpdate('eventId', $event)">
+				</editable-field-app>
+			</td>
 	</tr>
 
 	<tr>
 			<td> <label i18n="label|product price"> Price </label> </td>
-			<td> {{ product?.priceAmount }}  {{ product?.priceCurrency?.id }}</td>
+			<td> {{ product?.priceAmount }}  {{ product?.priceCurrency?.id }}
+				<editable-field-app
+					[value]="getPriceObject(product)"
+					type="number"
+					(update)="onUpdate('price', $event)">
+				</editable-field-app>
+			</td>
 	</tr>
 
 	<tr>
 			<td> <label i18n="label|product minimum order quantity / MOQ"> MOQ </label> </td>
-			<td> {{ product?.minimumOrderQuantity}}  </td>
+			<td>
+				<editable-field-app [value]="product?.minimumOrderQuantity" type="number" (update)="onUpdate('minimumOrderQuantity', $event)">
+				</editable-field-app>
+			</td>
 	</tr>
 
-	<tr>
-			<td> <label i18n="label|product source"> Source </label> </td>
-			<td>  </td>
-	</tr>
 
-	<tr>
-			<td> <label i18n="label|product owner"> Owner </label> </td>
-			<td> </td>
-	</tr>
 </table>

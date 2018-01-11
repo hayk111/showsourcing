@@ -1,5 +1,5 @@
-<label for="inp-{{inputId}}">{{ label }} </label>
-<input 
+<label for="inp-{{inputId}}" *ngIf="label">{{ label }} </label>
+<input
 	#inp
 	id="inp-{{inputId}}"
 	[type]="type"

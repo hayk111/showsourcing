@@ -1,14 +1,14 @@
-<label>{{ label }}</label>
-<input-app [value]="name" [readonly]="true" 
+<label *ngIf="label">{{ label }}</label>
+<input-app [value]="name" [readonly]="true"
 	(click)="showPanel()"></input-app>
 
-<searchable-list-app 
+<searchable-list-app
 	(search)="onSearch($event)"
-	*ngIf="panelVisible" 
+	*ngIf="panelVisible"
 	(clickOutside)="closePanel($event)">
-	
+
 	<input-radio-app
-		(update)="onUpdate($event)" 
+		(update)="onUpdate($event)"
 		[choices]="filteredChoices"
 		[value]="value"></input-radio-app>
 

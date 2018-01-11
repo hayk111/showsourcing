@@ -7,6 +7,7 @@ import { TeamItemLoaderService } from './team-item-loader.service';
 import { entityRepresentationMap } from '../utils/entities.utils';
 import { Tag } from '../model/tag.model';
 import { Project } from '../model/project.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
@@ -18,30 +19,28 @@ export class ProductService {
 	load(filterGroupName?: FilterGroupName) {
 		return this.teamItemLoader.load(this.repr, filterGroupName)
 			.map(r => r.elements)
-			.map(elems => this.addCustomFields(elems));
+			.map(elems => elems.map(elem => this.addCustomFields(elem)));
 	}
 
 	loadById(id: string) {
-		return this.http.get(`api/product/${id}`);
+		return this.http.get(`api/product/${id}`).map(elem => this.addCustomFields(elem));
 	}
 
 	// properties in the customFields nested object are added to the product with
 	// the property name started with x-. Ask Antoine for more info.
-	addCustomFields(elems: Array<any>) {
-		elems.forEach(elem => {
-			if (elem.additionalInfo && elem.additionalInfo.customFields) {
-				const cf = elem.additionalInfo.customFields;
-				Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = v.value);
-			}
-			// this is done to have minimum order quantity on the same level
-			if (elem.additionalInfo)
-				elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
-			// here we do the opposite though. That's because the backend is waiting for an object when we modify the price
-			// amount or priceCurrency.
-			if (elem.priceAmount || elem.priceCurrency)
-				elem.price = { priceAmount: elem.priceAmount, priceCurrency: elem.priceCurrency };
-		});
-		return elems;
+	addCustomFields(elem: any) {
+		if (elem.additionalInfo && elem.additionalInfo.customFields) {
+			const cf = elem.additionalInfo.customFields;
+			Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = v.value);
+		}
+		// this is done to have minimum order quantity on the same level
+		if (elem.additionalInfo)
+			elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
+		// here we do the opposite though. That's because the backend is waiting for an object when we modify the price
+		// amount or priceCurrency.
+		if (elem.priceAmount || elem.priceCurrency)
+			elem.price = { priceAmount: elem.priceAmount, priceCurrency: elem.priceCurrency };
+		return elem;
 	}
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {

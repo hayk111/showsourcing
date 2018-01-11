@@ -21,6 +21,7 @@ import { ProductTasksComponent } from './components/product-tasks/product-tasks.
 import { ProductFilesComponent } from './components/product-files/product-files.component';
 import { ProductShippingComponent } from './components/product-shipping/product-shipping.component';
 import { ProductMainCardComponent } from './components/product-main-card/product-main-card.component';
+import { EditableFieldModule } from '../../shared/editable-field/editable-field.module';
 
 @NgModule({
 	imports: [
@@ -31,7 +32,8 @@ import { ProductMainCardComponent } from './components/product-main-card/product
 		FileModule,
 		SelectModule,
 		CommentModule,
-		AppStoreModule.forChild()
+		AppStoreModule.forChild(),
+		EditableFieldModule
 	],
 	declarations: [
 		ProductPageComponent,

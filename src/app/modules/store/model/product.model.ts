@@ -28,7 +28,7 @@ export interface Product {
 	createdByUserId: string;
 	lastUpdatedByUserId: string;
 	counters: Counters;
-	additionalInfo: {customFields: any};
+	additionalInfo: any;
 	additionalInfoCounters: any;
 	status: ProductStatus;
 	flags: { archived: boolean, feedbackRequested: boolean, locked: boolean };

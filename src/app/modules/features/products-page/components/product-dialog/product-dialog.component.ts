@@ -57,10 +57,6 @@ export class ProductDialogComponent extends AutoUnsub implements OnInit {
 		Log.debug('request requested');
 	}
 
-	onUpdate( { name, value} ) {
-		this.store.dispatch(ProductActions.patch(this.productId, name, value));
-	}
-
 	onDlgRegistered() {
 		// when we receive dlg metadata, we get the correct product
 		this.itemId$ = this.selectProductId();

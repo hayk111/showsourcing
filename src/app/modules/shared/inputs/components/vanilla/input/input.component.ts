@@ -73,7 +73,6 @@ export class InputComponent extends AbstractInput implements OnInit {
 		// Allow: home, end, left, right, down, up
 		if (e.keyCode >= 35 && e.keyCode <= 40)
 			return true;
-
 	}
 
 	onBlur() {

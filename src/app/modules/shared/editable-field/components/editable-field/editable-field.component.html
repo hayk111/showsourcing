@@ -1,0 +1,19 @@
+<div class="flex editable" *ngIf="!editMode">
+	<!-- if we get an id as value, we should display the name of the entity -->
+	<ng-container *ngIf="type === 'select-entity'; else default">
+		{{ value | entityName: entityRep.entityName | async }}
+	</ng-container>
+	<!-- else we just display said value -->
+	<ng-template #default>
+		{{ value }}
+	</ng-template>
+
+	<i (click)="openEditMode()" class="fa fa-pencil" aria-hidden="true"></i>
+</div>
+
+<div *ngIf="editMode" (clickOutside)="closeEditMode()">
+	<input-app [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
+	<input-app [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
+	<input-select-entity-app  *ngIf="type === 'select-entity'" [entityRep]="entityRep" [value]="value" (update)="update.emit($event)"></input-select-entity-app>
+	<input-price-app *ngIf="type === 'price'" [value]="value"></input-price-app>
+</div>

@@ -5,13 +5,13 @@
 	<!-- Name Column -->
 	<ng-container matColumnDef="name">
 		<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+		<mat-cell *matCellDef="let element"> {{element?.name}} </mat-cell>
 	</ng-container>
 
 	<!-- Category Column -->
 	<ng-container matColumnDef="category">
 		<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{element.category.name}} </mat-cell>
+		<mat-cell *matCellDef="let element"> {{element?.category?.name}} </mat-cell>
 	</ng-container>
 
 	<!-- Supplier Column -->
@@ -23,13 +23,13 @@
 	<!-- Price Column -->
 	<ng-container matColumnDef="price">
 		<mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{ element.priceAmount }} </mat-cell>
+		<mat-cell *matCellDef="let element"> {{ element?.priceAmount }} </mat-cell>
 	</ng-container>
 
 	<!-- Rating Column -->
 	<ng-container matColumnDef="rating">
 		<mat-header-cell *matHeaderCellDef> Rating </mat-header-cell>
-		<mat-cell *matCellDef="let element"> {{ element.rating }} </mat-cell>
+		<mat-cell *matCellDef="let element"> {{ element?.rating }} </mat-cell>
 	</ng-container>
 
 	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

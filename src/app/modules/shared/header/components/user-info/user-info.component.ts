@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../../../../../store/model/user.model';
-import { selectUser } from '../../../../../store/selectors/user.selector';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { selectTeams } from '../../../../../store/selectors/teams.selector';
-import { Team } from '../../../../../store/model/team.model';
+import { User } from '../../../../store/model/user.model';
+import { selectUser } from '../../../../store/selectors/user.selector';
+import { Team } from '../../../../store/model/team.model';
+import { selectTeams } from '../../../../store/selectors/teams.selector';
 
 @Component({
 	selector: 'user-info-app',
@@ -15,6 +15,7 @@ import { Team } from '../../../../../store/model/team.model';
 export class UserInfoComponent implements OnInit {
 	user$: Observable<User>;
 	team$: Observable<Team>;
+	panelVisible = false;
 
 	constructor(private store: Store<any>) { }
 
@@ -26,4 +27,11 @@ export class UserInfoComponent implements OnInit {
 		});
 	}
 
+	openPanel() {
+		this.panelVisible = true;
+	}
+
+	closePanel() {
+		this.panelVisible = false;
+	}
 }

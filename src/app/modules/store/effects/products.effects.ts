@@ -48,13 +48,11 @@ export class ProductEffects {
 	@Effect()
 	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
 		map(action => action.payload),
-		// switchMap(id => this.store.select(selectProductById(id)).pipe(
-			// filter(product => product === undefined),
-			switchMap(id => this.srv.loadById(id)),
-			// tap((product: Product) => this.store.dispatch(ProductActions.loadTags(product.id))),
-			// tap((product: Product) => this.store.dispatch(ProductActions.loadProjects(product.id))),
-			map((product: Product) => ProductActions.add([product])),
-		// )),
+		switchMap(id => this.store.select(selectProductById(id)).pipe(
+			filter(product => product === undefined),
+			switchMap(_ => this.srv.loadById(id)),
+			map((product: Product) => ProductActions.add([product]))
+		)),
 	);
 
 

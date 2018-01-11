@@ -36,16 +36,14 @@ export class FeedbackInputComponent extends AutoUnsub implements OnInit {
 
 	getPercentage(user) {
 		const totalVotes = this.votes.length;
+		let totalPositives = 0;
 		if (!this.votes || totalVotes === 0)
-			return 0;
-		let totalScore = 0;
+			return 'no vote';
 		this.votes.forEach(v => {
 			if (v.value > 0)
-				totalScore++;
-			else
-				totalScore--;
+				totalPositives++;
 		});
-		return totalScore / totalVotes * 100;
+		return totalPositives / totalVotes * 100 + '%';
 	}
 
 	calcUserVoteValue(user) {

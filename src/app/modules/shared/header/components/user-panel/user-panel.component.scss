@@ -1,0 +1,18 @@
+menuitem {
+	padding: var(--spacing-default);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+	white-space: nowrap;
+}
+
+menu {
+	background: white;
+	color: var(--color-txt-primary);
+	display: block;
+}
+
+.hr {
+	margin: 0;
+}
