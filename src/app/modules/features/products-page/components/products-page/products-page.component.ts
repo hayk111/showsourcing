@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ProductActions } from '../../../../store/action/product.action';
 import { Product } from '../../../../store/model/product.model';
-import { EntityState, EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { EntityState, EntityRepresentation, EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { DialogName } from '../../../../store/model/dialog.model';
 import { selectProducts } from '../../../../store/selectors/products.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';
@@ -35,6 +35,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// whether products are pending
 	pending = true;
 	productEntities: EntityState<Product>;
+	repr = entityRepresentationMap.product;
+	// when an item is clicked
+	currentTarget: EntityTarget;
+	previewDialogOpen = false;
 
 	constructor(private store: Store<any>) {
 		super();
@@ -52,10 +56,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.pending = items.pending;
 	}
 
-	onItemClicked(id: string) {
-		// we use the store to open the dialog with the correct product
-		// so we can open the dialog from somewhere else
-		this.store.dispatch(DialogActions.open(DialogName.PRODUCT));
-		this.store.dispatch(DialogActions.setMetadata(DialogName.PRODUCT, { id }));
+	onItemClicked(entityId: string) {
+		this.currentTarget = { entityId, entityRepr: this.repr };
+		this.previewDialogOpen = true;
+	}
+
+	closeDialog() {
+		this.previewDialogOpen = false;
 	}
 }

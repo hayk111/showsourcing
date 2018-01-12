@@ -50,7 +50,7 @@ export const entityRepresentationMap = {
 
 
 export interface EntityTarget {
-	entityId: string;
+	entityId?: string;
 	entityRepr: EntityRepresentation;
 }
 

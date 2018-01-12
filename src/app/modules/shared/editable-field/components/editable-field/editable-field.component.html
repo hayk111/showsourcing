@@ -6,7 +6,10 @@
 			{{ value | entityName: entityRep.entityName | async }}
 		</ng-container>
 		<ng-container *ngSwitchCase="'price'">
-			{{ value?.priceAmount }} {{ value?.priceCurrency }}
+			{{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
+		</ng-container>
+		<ng-container *ngSwitchCase="'currency'">
+				{{ value?.priceCurrency?.id }}
 		</ng-container>
 		<ng-container *ngSwitchDefault>
 			{{ value }}
@@ -21,6 +24,8 @@
 	<input-app [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
 	<input-app [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
 	<input-select-entity-app  *ngIf="type === 'select-entity'"
+		[panelVisible]="true"
 		[entityRep]="entityRep" [value]="value" (update)="update.emit($event)"></input-select-entity-app>
 	<input-price-app *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
+	<input-currency-app *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
 </div>

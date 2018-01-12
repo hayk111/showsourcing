@@ -18,6 +18,9 @@ import { FileModule } from '../../shared/file/file.module';
 import { RouterModule } from '@angular/router';
 import { AppStoreModule } from '../../store/store.module';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
+import { ProductSidePreviewComponent } from './components/product-side-preview/product-side-preview.component';
+import { ProductPageModule } from '../product-page/product-page.module';
+import { UtilsModule } from '../../shared/utils/utils.module';
 
 @NgModule({
 	imports: [
@@ -35,9 +38,11 @@ import { KanbanModule } from '../../shared/kanban/kanban.module';
 		FileModule,
 		RouterModule.forChild([]),
 		AppStoreModule.forChild(),
-		KanbanModule
+		KanbanModule,
+		ProductPageModule,
+		UtilsModule
 	],
 	declarations: [ ProductsPageComponent,
-		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent]
+		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]
 })
 export class ProductsPageModule { }

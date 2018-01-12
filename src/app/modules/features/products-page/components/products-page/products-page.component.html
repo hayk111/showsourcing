@@ -10,5 +10,6 @@
 		<product-list-view-app class="list-view" [productEntities]="productEntities"></product-list-view-app>
 		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)"></product-card-view-app>
 </filtered-list-page-app>
-<product-dialog-app></product-dialog-app>
+<!-- <product-dialog-app></product-dialog-app> -->
+<product-side-preview-app (clickOutside)="closeDialog()" *ngIf="previewDialogOpen" [target]="currentTarget"></product-side-preview-app>
 

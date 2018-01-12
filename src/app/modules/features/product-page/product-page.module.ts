@@ -50,6 +50,9 @@ import { EditableFieldModule } from '../../shared/editable-field/editable-field.
 		ProductFilesComponent,
 		ProductShippingComponent,
 		ProductMainCardComponent,
-	], exports: [ ProductPageComponent ]
+	], exports: [
+		ProductPageComponent,
+		BasicInfoBoxComponent
+	]
 })
 export class ProductPageModule { }

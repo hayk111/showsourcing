@@ -21,7 +21,7 @@ export interface SelectableItem {
 export class InputSelectOneComponent extends AbstractInput implements OnInit {
 	// TODO for perf gains we could use EntityState instead of a SelectableItem here.
 	filteredChoices: Array<SelectableItem>;
-	panelVisible = false;
+	@Input() panelVisible = false;
 	private lastValue;
 	private lastName;
 	private _choices: Array<SelectableItem>;

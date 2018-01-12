@@ -1,5 +1,9 @@
 
-<dialog-app #dlg [name]="dlgName" (registered)="onDlgRegistered()">
+<ng-container *ngIf="target$ | async as target">
+	<product-side-preview-app [target]="target"></product-side-preview-app>
+</ng-container>
+
+<!-- <dialog-app #dlg [name]="dlgName" (registered)="onDlgRegistered()">
 	<ng-container *ngIf="dlg.isOpen">
 		<ng-container *ngIf="product$ | async as product">
 			<ng-container *ngIf="target$ | async as target">
@@ -24,4 +28,4 @@
 	</ng-container>
 
 
-</dialog-app>
+</dialog-app> -->

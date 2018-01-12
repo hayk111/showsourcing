@@ -5,7 +5,8 @@
 		*ngIf="!multi"
 		(update)="onUpdate($event)"
 		[choices]="entities"
-	></input-select-one-app>
+		[panelVisible]="panelVisible">
+	</input-select-one-app>
 
 	<input-select-multi-app
 		[label]="label"

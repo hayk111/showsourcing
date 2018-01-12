@@ -45,14 +45,11 @@ export class ProductService {
 
 	sendPatchRequest(p: { id: string, propName: string, value: any }) {
 		let patch = { [p.propName]: p.value };
-		// check for customFields
-		if (p.propName.startsWith('x-')) {
-			const propName = p.propName.substr(2);
-			patch = { customFields : { [propName]: { value : p.value} }};
-		}
-		// need to check if it's price because it's handled this way @ backend
-		if (p.propName === 'priceAmount')
+		// need to check if it's price because then we need to take the value
+		// that's from product details page
+		if (p.propName === 'price')
 			patch = p.value;
+
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 

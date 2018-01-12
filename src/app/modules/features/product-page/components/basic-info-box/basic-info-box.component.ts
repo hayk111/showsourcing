@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Product } from '../../../../store/model/product.model';
 import { selectProductById } from '../../../../store/selectors/products.selector';
 import { selectTagsForTarget } from '../../../../store/selectors/target/tag.selector';
+import { TargetTagActions } from '../../../../store/action/target/tag.action';
 
 @Component({
 	selector: 'basic-info-box-app',
@@ -13,8 +14,6 @@ import { selectTagsForTarget } from '../../../../store/selectors/target/tag.sele
 })
 export class BasicInfoBoxComponent implements OnInit {
 	@Input() target: EntityTarget;
-	@Output() tagAdded = new EventEmitter();
-	@Output() tagRemoved = new EventEmitter();
 	tagsRep = entityRepresentationMap.tags;
 	product$: Observable<Product>;
 	// those are target tags, so only ids
@@ -27,5 +26,12 @@ export class BasicInfoBoxComponent implements OnInit {
 		this.tags$ = this.store.select(selectTagsForTarget);
 	}
 
+	onTagAdded(event) {
+		this.store.dispatch(TargetTagActions.add(event, this.target));
+	}
+
+	onTagRemoved(event) {
+		this.store.dispatch(TargetTagActions.remove(event, this.target));
+	}
 
 }

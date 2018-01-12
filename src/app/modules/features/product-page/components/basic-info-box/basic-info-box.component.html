@@ -5,7 +5,7 @@
 	<basic-info-text-info-app [product]="product"></basic-info-text-info-app>
 	<ng-container *ngIf="tags$ | async as tags">
 		<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
-			(itemAdded)="tagAdded.emit($event)" (itemRemoved)="tagRemoved.emit($event)"
+			(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)"
 			[value]="tags"></input-select-entity-app>
 	</ng-container>
 

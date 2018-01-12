@@ -15,6 +15,7 @@ import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 export class InputSelectEntityComponent extends AbstractInput implements OnInit {
 	@Input() entityRep: EntityRepresentation;
 	@Input() multi = false;
+	@Input() panelVisible;
 	@Output() itemAdded = new EventEmitter<any>();
 	@Output() itemRemoved = new EventEmitter<any>();
 	entities$: Observable<Array<Entity>>;
