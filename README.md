@@ -48,6 +48,7 @@ You can run every script with `npm run`, for example `npm run start`.
 
 
  - `npm run build` will build a production ready of the app in the dist directory
+ - `npm run analyze` will run the dependency reports, so we can analyze the sizes of the different modules
  - `npm run lint` will start the linter
  - `npm run test` will run the unit tests
 
