@@ -51,6 +51,6 @@ export class SideNavComponent extends AutoUnsub implements OnInit {
 
 	get menuIcon() {
 		// returns the correct material icon
-		return this.open ? 'keyboard_arrow_left' : 'keyboard_arrow_right';
+		return this.open ? 'angle-left' : 'angle-right';
 	}
 }

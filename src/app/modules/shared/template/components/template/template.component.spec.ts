@@ -4,7 +4,6 @@ import { TemplateComponent } from './template.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SideNavComponent } from '../side-nav/side-nav.component';
 import { HeaderComponent } from '../header/header.component';
-import { MatIconModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { NotifComponent } from '../header/notif/notif.component';
 import { SearchComponent } from '../header/search/search.component';
@@ -25,7 +24,7 @@ describe('TemplateComponent', () => {
 				SearchComponent,
 				UserInfoComponent
 			],
-			imports: [ RouterTestingModule, MatIconModule, AppStoreModule ]
+			imports: [ RouterTestingModule, AppStoreModule ]
 		})
 		.compileComponents();
 	}));

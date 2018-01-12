@@ -1,12 +1,13 @@
 <div (click)="close()" *ngIf="isOpen$ | async as isOpen" class="modal">
 	<dialog class="z-3" [open]="isOpen" (click)="$event.stopPropagation()"
 		attr.role="dialog">
-		<mat-icon (click)="close()" *ngIf="closeIcon" class="z-1">close</mat-icon>
+		<i class="fa fa-times closeIc" aria-hidden="true" (click)="close()" *ngIf="closeIcon" class="z-1"></i>
+
 			<!-- don't add white-spaces between header and content !! -->
 			<h5><ng-content select=".header"></ng-content></h5>
 
 			<footer><ng-content select=".footer"></ng-content></footer>
-			
+
 			<main>
 					<ng-content #ctnr></ng-content>
 			</main>

@@ -6,7 +6,6 @@ import { InputSelectMultiComponent } from './components/input-select-multi/input
 import { SearchableListComponent } from './components/searchable-list/searchable-list.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIcon, MatIconModule } from '@angular/material';
 import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { UtilsModule } from '../utils/utils.module';
 		CommonModule,
 		InputsModule,
 		ReactiveFormsModule,
-		MatIconModule,
 		UtilsModule
 	],
 	declarations: [ InputSelectOneComponent, InputSelectEntityComponent, InputSelectMultiComponent, SearchableListComponent ],

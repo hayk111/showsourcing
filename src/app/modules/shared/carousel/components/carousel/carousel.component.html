@@ -8,7 +8,8 @@
 		&gt; </div>
 	<div class="rotate pointer action" (click)="rotate()">rotate</div>
 
-	<mat-icon class="menuIc btn action" (click)="openMenu()">more_vert</mat-icon>
+	<i class="fa fa-ellipsis-v menuIc btn action" aria-hidden="true" (click)="openMenu()"></i>
+
 	<!-- menu -->
 	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
 		<menuitem (click)="download()"> download </menuitem>

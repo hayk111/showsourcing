@@ -10,7 +10,6 @@ import { AuthCardComponent } from './components/auth-card/auth-card.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AccountCreatedComponent } from './components/account-created/account-created.component';
 import { InputsModule } from '../inputs/inputs.module';
-import { MatIconModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -23,7 +22,6 @@ import { LoadersModule } from '../loaders/loaders.module';
 		CommonModule,
 		ReactiveFormsModule,
 		InputsModule,
-		MatIconModule,
 		LoadersModule,
 		MatTabsModule,
 		CardsModule

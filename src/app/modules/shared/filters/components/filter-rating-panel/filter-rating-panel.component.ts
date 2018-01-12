@@ -37,7 +37,7 @@ export class FilterRatingPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	onChange(event, value) {
-		if (event.checked)
+		if (event.target.checked)
 			this.store.dispatch(FilterActions.addFilter(this.filterGroupName, this.repr, `rating: ${value}`, value));
 		else
 			this.store.dispatch(FilterActions.removeFilter(this.filterGroupName, this.repr, value));

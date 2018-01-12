@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideNavComponent } from './side-nav.component';
 import { RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { reducers } from '../../../../store/reducer/_reducers';
@@ -17,7 +16,6 @@ describe('SideNavComponent', () => {
 			imports: [
 				RouterTestingModule,
 				AppStoreModule,
-				MatIconModule
 			],
 			declarations: [ SideNavComponent ]
 		})

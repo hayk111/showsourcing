@@ -4,7 +4,6 @@ import { TemplateComponent } from './components/template/template.component';
 import { AppRoutingModule } from '../app-routing/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { GuestTemplateComponent } from './components/guest-template/guest-template.component';
-import { MatIconModule } from '@angular/material';
 import { CardsModule } from '../cards/cards.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { HeaderModule } from '../header/header.module';
@@ -16,7 +15,6 @@ import { HeaderModule } from '../header/header.module';
 		SidenavModule,
 		HeaderModule,
 		CardsModule,
-		MatIconModule
 	],
 	providers: [  ],
 	declarations: [ TemplateComponent, GuestTemplateComponent ],

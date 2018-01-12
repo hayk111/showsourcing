@@ -1,8 +1,8 @@
 <div class="filterButton pointer" (click)="openFilterListPanel()">
 	<span>{{ filterRepr?.displayName }}</span>
-	<mat-icon>keyboard_arrow_down</mat-icon>
+	<i class="fa fa-angle-down" aria-hidden="true"></i>
 </div>
 <div *ngFor="let item of (items$ | async)" class="flex deletableItem">
-	<mat-icon (click)="removeFilter(item.value, item.filterRepr)">close</mat-icon>
+	<i class="fa fa-times" aria-hidden="true" (click)="removeFilter(item.value, item.filterRepr)"></i>
 	<div>{{ item?.name }}</div>
 </div>

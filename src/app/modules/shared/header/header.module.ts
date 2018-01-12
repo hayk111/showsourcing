@@ -5,7 +5,6 @@ import { NotifComponent } from './components/notif/notif.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
-import { MatIconModule } from '@angular/material';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 
@@ -13,7 +12,6 @@ import { AppStoreModule } from '../../store/store.module';
 	imports: [
 		CommonModule,
 		UtilsModule,
-		MatIconModule,
 		AppStoreModule
 	],
 	declarations: [ HeaderComponent, NotifComponent, SearchComponent, UserInfoComponent, UserPanelComponent],

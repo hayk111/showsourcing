@@ -1,7 +1,7 @@
 <div *ngIf="!(subPanelVisible$ | async)" class="paddingRight">
 	<div class="flex top">
 		<button class="secondary small" (click)="clear()">Clear</button>
-		<mat-icon (click)="close()">close</mat-icon>
+		<i class="fa fa-times" aria-hidden="true" (click)="close()"></i>
 	</div>
 	<!-- filters button come here -->
 	<ng-content></ng-content>

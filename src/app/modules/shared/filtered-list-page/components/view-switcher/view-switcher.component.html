@@ -1,6 +1,4 @@
 <div class="c-{{view$ | async}}">
-	<mat-icon class="list" 
-		(click)="switchView('list')">menu</mat-icon>
-	<mat-icon class="module" 
-		(click)="switchView('card')">view_module</mat-icon>	
+	<i class="fa fa-list" aria-hidden="true" (click)="switchView('list')"></i>
+	<i class="fa fa-columns" aria-hidden="true" (click)="switchView('card')"></i>
 </div>

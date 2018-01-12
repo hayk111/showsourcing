@@ -5,7 +5,7 @@
 		<div class="team">{{ (team$ | async)?.name }}</div>
 	</div>
 	<div class="panelCtnr">
-		<mat-icon (click)="openPanel()">keyboard_arrow_down</mat-icon>
+		<i class="fa fa-angle-down" aria-hidden="true" (click)="openPanel()"></i>
 		<user-panel-app *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>
 	</div>
 

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { UtilsModule } from '../utils/utils.module';
 import { StoreModule } from '@ngrx/store/src/store_module';
@@ -28,7 +27,6 @@ export const components = [
 		UtilsModule,
 		AppStoreModule.forChild(),
 		UtilsModule,
-		MatIconModule,
 	],
 	declarations: components,
 	// entryComponents: components,

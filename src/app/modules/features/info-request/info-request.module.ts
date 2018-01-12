@@ -6,7 +6,7 @@ import { InfoRequestValidationComponent } from './components/info-request-valida
 import { InfoRequestComponent } from './components/info-request/info-request.component';
 
 // TODO: build our own stepper to not rely on material
-import { MatStepperModule, MatIconModule } from '@angular/material';
+import { MatStepperModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
@@ -28,7 +28,6 @@ import { CardsModule } from '../../shared/cards/cards.module';
 		InputsModule,
 		AuthModule.forChild(),
 		RouterModule,
-		MatIconModule,
 		CardsModule
 	],
 	providers: [ InfoRequestFormBuilderService ],

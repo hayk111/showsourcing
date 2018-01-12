@@ -1,5 +1,14 @@
-<div class="flexColumn" *ngFor="let r of ratings">
-	<mat-checkbox  (change)="onChange($event, r)" [checked]="isSelected(r)">
-		<mat-icon *ngFor="let s of getStarArray(r)">star</mat-icon>
-	</mat-checkbox>
+<div class="flexColumn" *ngFor="let r of ratings; let i = index">
+	<div class="flex">
+		<input
+			type="checkbox"
+			id="rating-{{i}}"
+			[value]="r"
+			[checked]="isSelected(r)"
+			(change)="onChange($event, r)">
+		<label for="rating-{{i}}">
+			<i class="fa fa-star" aria-hidden="true" *ngFor="let s of getStarArray(r)"></i>
+		</label>
+	</div>
+
 </div>

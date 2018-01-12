@@ -1,8 +1,8 @@
 <ng-container *ngIf="user$ | async as user">
 
 
-	<mat-icon (click)="onVote(100)" [ngClass]="{ 'selected' : isUp(user)}">thumb_up</mat-icon>
-	<mat-icon (click)="onVote(0)" [ngClass]="{ 'selected' : isDown(user)}">thumb_down</mat-icon>
+	<i class="fa fa-thumbs-up" aria-hidden="true" (click)="onVote(100)" [ngClass]="{ 'selected' : isUp(user)}"></i>
+	<i class="fa fa-thumbs-down" aria-hidden="true" (click)="onVote(0)" [ngClass]="{ 'selected' : isDown(user)}"></i>
 	<div> {{ getPercentage(user) }}</div>
 
 	<button class="small" (click)="request.emit()">request</button>
