@@ -9,7 +9,7 @@
 		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
 
 
-		<mat-progress-bar *ngIf="pending" [mode]="'indeterminate'"></mat-progress-bar>
+		<progress-bar-app *ngIf="pending"></progress-bar-app>
 		<ng-container *ngIf="view$ | async as view">
 			<ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>
 			<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content>

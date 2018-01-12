@@ -1,7 +1,6 @@
 <div class="flex">
 	<div class="left">
-		<basic-info-box-app class="card" [target]="target"
-			(tagAdded)="onTagAdded($event)" (tagRemoved)="onTagRemoved($event)">
+		<basic-info-box-app class="card" [target]="target">
 		</basic-info-box-app>
 		<div class="card">
 			<ng-container *ngIf="product$ | async as product">

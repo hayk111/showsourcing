@@ -29,6 +29,7 @@ import { ProductTasksComponent } from '../../features/product-page/components/pr
 import { ProductFilesComponent } from '../../features/product-page/components/product-files/product-files.component';
 import { ProductShippingComponent } from '../../features/product-page/components/product-shipping/product-shipping.component';
 import { KanbanTestComponent } from '../../features/test/components/kanban-test/kanban-test.component';
+import { TestLoadesComponent } from '../../features/test/components/test-loades/test-loades.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -67,7 +68,8 @@ export const routes: Array<Route> = [
 				{ path: 'carousel', component: TestCarouselComponent },
 				{ path: 'comments', component: TestCommentsComponent },
 				{ path: 'feedback', component: TestFeedbackComponent },
-				{ path: 'kanban', component: KanbanTestComponent }
+				{ path: 'kanban', component: KanbanTestComponent },
+				{ path: 'loaders', component: TestLoadesComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]

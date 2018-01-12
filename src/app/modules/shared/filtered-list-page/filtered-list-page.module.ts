@@ -4,13 +4,14 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { FiltersModule } from '../filters/filters.module';
 import { FilteredListPageComponent } from './components/filtered-list-page/filtered-list-page.component';
 import { MatIconModule, MatTableModule, MatProgressBarModule } from '@angular/material';
+import { LoadersModule } from '../loaders/loaders.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FiltersModule,
 		MatIconModule,
-		MatProgressBarModule,
+		LoadersModule,
 		MatTableModule
 	],
 	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],

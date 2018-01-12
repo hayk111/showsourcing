@@ -21,6 +21,8 @@ import { TestFeedbackComponent } from './components/test-feedback/test-feedback.
 import { CommentModule } from '../../shared/comment/comment.module';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
+import { TestLoadesComponent } from './components/test-loades/test-loades.component';
+import { LoadersModule } from '../../shared/loaders/loaders.module';
 
 @NgModule({
 	imports: [
@@ -34,15 +36,20 @@ import { KanbanModule } from '../../shared/kanban/kanban.module';
 		KanbanModule,
 		DynamicFormsModule,
 		ReactiveFormsModule,
-		RouterModule.forChild([])
+		RouterModule.forChild([]),
+		LoadersModule
 	],
-	declarations: [TestComponent, BaseComponent,
-		 TestInputsFileComponent,
-		 TestInputsSelectorsComponent,
-		 TestInputsVanillaComponent,
-		 TestCarouselComponent,
-		 TestCommentsComponent,
-		 TestFeedbackComponent,
-		 KanbanTestComponent],
+	declarations: [
+		TestComponent,
+		BaseComponent,
+		TestInputsFileComponent,
+		TestInputsSelectorsComponent,
+		TestInputsVanillaComponent,
+		TestCarouselComponent,
+		TestCommentsComponent,
+		TestFeedbackComponent,
+		KanbanTestComponent,
+		TestLoadesComponent
+	],
 })
 export class TestModule { }

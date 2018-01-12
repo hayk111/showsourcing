@@ -16,6 +16,7 @@ import { MatTabsModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CardsModule } from '../cards/cards.module';
+import { LoadersModule } from '../loaders/loaders.module';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,7 @@ import { CardsModule } from '../cards/cards.module';
 		ReactiveFormsModule,
 		InputsModule,
 		MatIconModule,
-		MatProgressSpinnerModule,
+		LoadersModule,
 		MatTabsModule,
 		CardsModule
 	],

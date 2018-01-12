@@ -23,6 +23,7 @@ export class BasicInfoBoxComponent implements OnInit {
 
 	ngOnInit() {
 		this.product$ = this.store.select(selectProductById(this.target.entityId));
+		this.store.dispatch(TargetTagActions.load(this.target));
 		this.tags$ = this.store.select(selectTagsForTarget);
 	}
 
