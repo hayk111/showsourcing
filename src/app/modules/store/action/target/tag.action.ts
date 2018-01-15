@@ -6,7 +6,8 @@ export enum ActionType {
 	LOAD = '[Target-Tag] loading',
 	SET = '[Target-Tag] setting',
 	ADD = '[Target-Tag] adding',
-	REMOVE = '[Target-Tag] removing'
+	REMOVE = '[Target-Tag] removing',
+	SET_PENDING = '[Target-Tag] set pending',
 }
 
 export class TargetTagActions {
@@ -36,6 +37,12 @@ export class TargetTagActions {
 		return {
 			type: ActionType.REMOVE,
 			payload: { tag, target }
+		};
+	}
+
+	static setPending() {
+		return {
+			type: ActionType.SET_PENDING
 		};
 	}
 }

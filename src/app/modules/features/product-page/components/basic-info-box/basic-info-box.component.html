@@ -3,10 +3,17 @@
 	<basic-info-actions-app [productId]="product.id"></basic-info-actions-app>
 	<basic-info-icons-info-app></basic-info-icons-info-app>
 	<basic-info-text-info-app [product]="product"></basic-info-text-info-app>
+
 	<ng-container *ngIf="tags$ | async as tags">
-		<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
-			(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)"
-			[value]="tags"></input-select-entity-app>
+		<ng-container *ngIf="!tags.pending; else spinner">
+			<input-select-entity-app [multi]="true" [entityRep]="tagsRep"
+				(itemAdded)="onTagAdded($event)" (itemRemoved)="onTagRemoved($event)"
+				[value]="tags.tags"></input-select-entity-app>
+		</ng-container>
 	</ng-container>
+
+	<ng-template #spinner>
+		<spinner-app size="small"></spinner-app>
+	</ng-template>
 
 </ng-container>

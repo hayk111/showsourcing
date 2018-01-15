@@ -7,7 +7,7 @@
 		<with-archived-button-app class="filters" [filterGroupName]="filterGroupName"></with-archived-button-app>
 
 		<!-- views -->
-		<product-list-view-app class="list-view" (itemClicked)="onItemClicked($event)"></product-list-view-app>
+		<product-list-view-app class="list-view" (itemSelected)="onItemClicked($event)"></product-list-view-app>
 		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)"></product-card-view-app>
 </filtered-list-page-app>
 <!-- <product-dialog-app></product-dialog-app> -->

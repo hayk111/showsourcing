@@ -16,7 +16,7 @@ import { selectProductsWithNames } from '../../../../store/selectors/products.se
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListViewComponent implements OnInit {
-	@Output() itemClicked = new EventEmitter<string>();
+	@Output() itemSelected = new EventEmitter<string>();
 	suppliers$: Observable<EntityState<Supplier>>;
 	products$: Observable<any>;
 	columns = [
@@ -36,8 +36,9 @@ export class ProductListViewComponent implements OnInit {
 	}
 
 	onSelect(event) {
-		if (event.type === 'click')
-			this.itemClicked.emit(event.row.id);
+		if (event.type === 'click' || event.type === 'keydown') {
+			this.itemSelected.emit(event.row.id);
+		}
 	}
 
 }
