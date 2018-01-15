@@ -21,7 +21,7 @@ export class PreloaderEffects {
 	// current max counter start at a negative value so it's lower than whatever comes back from the server
 	// (which should be positive)
 	static CURRENT = -1;
-	static RELOAD_TIME = 15000000;
+	static RELOAD_TIME = 150000;
 
 	// here we first request the entities with a negative maxCounter
 	// then we load the maxCounter every x seconds and if it's bigger that the
@@ -35,9 +35,9 @@ export class PreloaderEffects {
 		switchMap(
 			id => this.srv.loadMaxCounter(id).map((r: any) => r.counter).filter( (c) => c > PreloaderEffects.CURRENT),
 			(id, counter: number) => {
-
+				if (counter > PreloaderEffects.CURRENT && PreloaderEffects.CURRENT !== -1)
+					this.getEntities(id, PreloaderEffects.CURRENT);
 				PreloaderEffects.CURRENT = counter;
-				this.getEntities(id, counter);
 			}
 		),
 	);
