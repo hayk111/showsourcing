@@ -19,7 +19,8 @@ const addSelection = (vals: Array<any>, entities: Array<Entity>) => {
 
 export const searchEntity = ( repr: EntityRepresentation, str: string) => {
 	return createSelector(
-		[selectEntity(repr.entityName)], (entityState) => {
+		[
+		selectEntity(repr.entityName)], (entityState) => {
 			const entities = Object.values(entityState.byId);
 			// with no search terms we return all entities
 			if (str === '')
@@ -40,7 +41,7 @@ export const searchEntityWithFilters = (filterGroupName: FilterGroupName, entity
 			Log.debug(`searching ${entityRepr.entityName} for name with string ${str}`);
 			const copy = deepCopy(items);
 			addSelection(vals, copy);
-			return { entityRepr, items: copy};
+			return { entityRepr, items: copy };
 	});
 };
 

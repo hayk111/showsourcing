@@ -8,6 +8,10 @@
 	padding: var(--spacing-default);
 }
 
-.datatable-body-row:hover {
-	background: rgba(0, 0, 0, 0.1);
+datatable-body-row.active {
+	background: rgba(0, 0, 0, 0.15);
+}
+
+datatable-body-row:focus, datatable-body-row:hover {
+	background: rgba(0, 0, 0, 0.05);
 }

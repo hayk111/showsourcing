@@ -19,7 +19,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 })
 export class FilterComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() filterReprs: Array<FilterRepresentation>;
+	@Input() filterRepr: FilterRepresentation;
 	@Output() itemClicked = new EventEmitter();
 	items$: Observable<Array<Filter>>;
 
@@ -27,20 +27,7 @@ export class FilterComponent implements OnInit {
 
 	ngOnInit() {
 		// select all items selected for target category
-		// if (this.filterRepr !== filterRepresentationMap.prices)
-			this.items$ = this.store.select(selectFilterForEntities(this.filterGroupName, this.filterRepr));
-		// else {
-		// 	const min$ = this.store.select(
-		// 			selectFilterForEntity(this.filterGroupName, filterRepresentationMap.minPrices)
-		// 		).map(t => t[0])
-		// 		.filter(t => t !== undefined);
-		// 	const max$ = this.store.select(
-		// 			selectFilterForEntity(this.filterGroupName, filterRepresentationMap.maxPrices)
-		// 		).map(t => t[0])
-		// 		.filter(t => t !== undefined);
-		// 		// could be we have to use merge or combine latest here instead..
-		// 	this.items$ = combineLatest(min$, max$);
-		// }
+		this.items$ = this.store.select(selectFilterForEntities(this.filterGroupName, this.filterRepr.displayedFilters));
 	}
 
 	openFilterListPanel() {
