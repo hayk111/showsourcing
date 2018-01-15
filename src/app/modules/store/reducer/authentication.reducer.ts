@@ -9,7 +9,7 @@ import { ActionType } from '../action/authentication.action';
 export const initialState: Authentication = {
 	pending: false,
 	// It's important that the authenticated state here is null at the start. NULL, Not undefined.
-	authenticated: null,
+	authenticated: true,
 	errorMsg: ''
 };
 

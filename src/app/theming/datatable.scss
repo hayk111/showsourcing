@@ -1,0 +1,13 @@
+
+.datatable-header-cell {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding: var(--spacing-default);
+	font-weight: bold;
+}
+.datatable-body-cell {
+	padding: var(--spacing-default);
+}
+
+.datatable-body-row:hover {
+	background: rgba(0, 0, 0, 0.1);
+}

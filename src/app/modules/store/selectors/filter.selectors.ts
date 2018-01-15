@@ -28,6 +28,12 @@ export const selectFilterForEntity = (filterGroupName: FilterGroupName, rep: Fil
 	});
 };
 
+export const selectFilterForEntities = (filterGroupName: FilterGroupName, reps: Array<FilterRepresentation>) => {
+	return createSelector([ selectFilterGroup(filterGroupName) ], ( groupFilters: Array<Filter> ) => {
+		const filtersForTarget = groupFilters.filter(f  => reps.find((rep: any) => rep.entityName === f.filterRepr.entityName));
+		return filtersForTarget;
+	});
+};
 
 
 export const selectFilterValuesForEntity = (filterGroupName: FilterGroupName, rep: FilterRepresentation) => {

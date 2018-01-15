@@ -1,7 +1,11 @@
 {
     "/api/*": {
-        "target": "http://stoemelings.showsourcing.com/",
-        "secure": "true",
+        "target": {
+					"protocol": "https",
+					"host": "app.showsourcing.com",
+					"port": "443"
+				},
+        "secure": "false",
         "logLevel": "debug"
     }
 }

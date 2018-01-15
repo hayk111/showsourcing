@@ -29,6 +29,12 @@ export class AuthenticationEffects {
 		))
 	);
 
+
+	// @Effect()
+	// register$ = this.actions$.ofType<any>(ActionType.REGISTER).pipe(
+	// 	map(action => action.payload)
+	// )
+
 	@Effect()
 	auth$ = this.actions$.ofType<any>(ActionType.AUTHENTICATE).pipe(
 		map(action => action.payload),

@@ -8,11 +8,11 @@
 @import './cards';
 @import './inputs-buttons';
 @import './angular-material-fixes';
+@import './datatable';
 
 // libraries
-
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 // icons
 $fa-font-path: "../../../node_modules/font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome';
-//dracula
-@import '~dragula/dist/dragula'
+

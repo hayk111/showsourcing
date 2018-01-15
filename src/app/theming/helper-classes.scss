@@ -40,6 +40,11 @@
   cursor: pointer;
 }
 
+.draggable {
+	user-select: none;
+	cursor: move;
+}
+
 .noselect {
 	user-select: none;
 }

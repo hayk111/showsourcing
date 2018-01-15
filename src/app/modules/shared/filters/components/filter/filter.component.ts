@@ -7,7 +7,7 @@ import { Filter, FilterGroupName, FilterRepresentation, filterRepresentationMap 
 import { FilterActions } from '../../../../store/action/filter.action';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { merge } from 'rxjs/operators/merge';
-import { selectFilterForEntity } from '../../../../store/selectors/filter.selectors';
+import { selectFilterForEntity, selectFilterForEntities } from '../../../../store/selectors/filter.selectors';
 import { FilterSelectionPanelAction } from '../../../../store/action/filter-selection-panel.action';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
@@ -19,7 +19,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 })
 export class FilterComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() filterRepr: FilterRepresentation;
+	@Input() filterReprs: Array<FilterRepresentation>;
 	@Output() itemClicked = new EventEmitter();
 	items$: Observable<Array<Filter>>;
 
@@ -28,7 +28,7 @@ export class FilterComponent implements OnInit {
 	ngOnInit() {
 		// select all items selected for target category
 		// if (this.filterRepr !== filterRepresentationMap.prices)
-			this.items$ = this.store.select(selectFilterForEntity(this.filterGroupName, this.filterRepr));
+			this.items$ = this.store.select(selectFilterForEntities(this.filterGroupName, this.filterRepr));
 		// else {
 		// 	const min$ = this.store.select(
 		// 			selectFilterForEntity(this.filterGroupName, filterRepresentationMap.minPrices)

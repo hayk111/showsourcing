@@ -55,44 +55,6 @@ export class ProductEffects {
 		)),
 	);
 
-	// From here
-
-	// @Effect({ dispatch: false })
-	// addProject$ = this.actions$.ofType<any>(ActionType.ADD_PROJECT).pipe(
-	// 	map(action => action.payload),
-	// 	switchMap(({project, id}) => this.srv.addProject(project, id))
-	// );
-
-	// @Effect({ dispatch: false })
-	// removeTag$ = this.actions$.ofType<any>(ActionType.REMOVE_TAG).pipe(
-	// 	map( action => action.payload),
-	// 	switchMap(({ id, tag}) => this.srv.removeTag(tag, id))
-	// );
-
-	// @Effect({ dispatch: false })
-	// removeProject$ = this.actions$.ofType<any>(ActionType.REMOVE_PROJECT).pipe(
-	// 	map( action => action.payload),
-	// 	switchMap(({ id, project}) => this.srv.removeProject(project, id))
-	// );
-
-	// @Effect()
-	// loadProjects$ = this.actions$.ofType<any>(ActionType.LOAD_PROJECTS).pipe(
-	// 	map(action => action.payload),
-	// 	switchMap(
-	// 		id => this.srv.sendProjectReq(id)
-	// 		.map((projs: Array<Project>) => ProductActions.setProjects(projs, id))
-	// 	)
-	// );
-
-	// @Effect()
-	// loadTasks$ = this.actions$.ofType<any>(ActionType.LOAD_TASKS).pipe(
-	// 	map(action => action.payload),
-	// 	switchMap(id => this.srv.sendTaskReq(id)),
-	// 	map((t: Array<Task>) => TaskActions.set(t))
-	// );
-
-	// TO HERE should be removed
-
 	@Effect()
 	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(
 		map(action => action.payload),

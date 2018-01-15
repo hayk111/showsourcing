@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { UtilsModule } from '../utils/utils.module';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { AppStoreModule } from '../../store/store.module';

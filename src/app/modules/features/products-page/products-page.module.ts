@@ -21,6 +21,7 @@ import { KanbanModule } from '../../shared/kanban/kanban.module';
 import { ProductSidePreviewComponent } from './components/product-side-preview/product-side-preview.component';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
 	imports: [
@@ -40,7 +41,8 @@ import { UtilsModule } from '../../shared/utils/utils.module';
 		AppStoreModule.forChild(),
 		KanbanModule,
 		ProductPageModule,
-		UtilsModule
+		UtilsModule,
+		NgxDatatableModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]

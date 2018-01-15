@@ -12,6 +12,7 @@ import { DialogName } from '../../../../store/model/dialog.model';
 import { selectProducts } from '../../../../store/selectors/products.selector';
 import { DialogActions } from '../../../../store/action/dialog.action';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'products-page-app',
@@ -21,6 +22,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	// those are the filters we want in the page
 	filterTargets: Array<FilterRepresentation> = [
 		filterRepresentationMap.suppliers,
 		filterRepresentationMap.categories,
@@ -46,14 +48,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.store.dispatch(ProductActions.load(this.filterGroupName));
-		this.store.select(selectProducts)
-			.takeUntil(this._destroy$)
-			.subscribe(p => this.onItemsReceived(p));
-	}
-
-	onItemsReceived(items: EntityState<Product>) {
-		this.productEntities = items;
-		this.pending = items.pending;
+		this.store.select(selectProducts).pipe(
+			map(p => p.pending)
+		).subscribe((pending: boolean) => this.pending = pending);
 	}
 
 	onItemClicked(entityId: string) {

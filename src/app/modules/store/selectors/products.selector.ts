@@ -5,6 +5,9 @@ import { selectProductStatuses } from './product-status.selector';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { selectFilesForTarget } from './target/file.selector';
 import { selectImagesForTarget } from './target/image.selector';
+import { selectCategories } from './categories.selector';
+import { selectEvents } from './events.selector';
+import { selectSuppliers } from './suppliers.selector';
 
 
 export const selectProducts = state => state.entities.products;
@@ -49,3 +52,30 @@ export const selectProductByStatus = createSelector(
 		return Object.values(statusAndProds);
 	}
 );
+
+
+export const selectProductsWithNames = createSelector(
+	[
+		selectProducts,
+		selectCategories,
+		selectEvents,
+		selectSuppliers
+	],
+	(products, categories, events, suppliers) => {
+		const returned = [];
+		products = deepCopy(products);
+		products.ids.forEach(id => {
+			const product = products.byId[id];
+			const supplier = suppliers.byId[product.supplierId];
+			const event = events.byId[product.eventId];
+			const category = categories.byId[product.category.id];
+			product.supplierName = supplier ? supplier.name : '';
+			product.eventName = event ? event.name : '';
+			product.categoryName = category ? category.name : '';
+			returned.push(product);
+		});
+		return returned;
+	}
+);
+
+

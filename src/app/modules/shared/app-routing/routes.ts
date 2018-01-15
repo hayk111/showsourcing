@@ -30,6 +30,8 @@ import { ProductFilesComponent } from '../../features/product-page/components/pr
 import { ProductShippingComponent } from '../../features/product-page/components/product-shipping/product-shipping.component';
 import { KanbanTestComponent } from '../../features/test/components/kanban-test/kanban-test.component';
 import { TestLoadesComponent } from '../../features/test/components/test-loades/test-loades.component';
+import { DataManagementPageComponent } from '../../features/data-management/components/data-management-page/data-management-page.component';
+import { TeamManagementPageComponent } from '../../features/team-management/components/team-management-page/team-management-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -60,6 +62,8 @@ export const routes: Array<Route> = [
 			{ path: 'tasks', component: TasksPageComponent },
 			{ path: 'suppliers', component: SupplierPageComponent },
 			{ path: 'events', component: EventPageComponent },
+			{ path: 'data-management', component: DataManagementPageComponent },
+			{ path: 'team-management', component: TeamManagementPageComponent },
 			// TODO: Remove two under this
 			{ path: 'test', component: TestComponent, children: [
 				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
