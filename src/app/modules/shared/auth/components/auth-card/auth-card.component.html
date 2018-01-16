@@ -1,20 +1,13 @@
 <card-app border="true">
 
-	<mat-tab-group dynamicHeight="true" *ngIf="view === 'login' || view === 'registration'">
-
-		<mat-tab label="Login">
-			<section>
-					<login-app (forgotPassword)="forgotPassword()"></login-app>
-			</section>
-		</mat-tab>
-
-		<mat-tab label="Register">
-			<section>
-					<registration-app></registration-app>
-			</section>
-		</mat-tab>
-
-	</mat-tab-group>
+	<tabs-app>
+		<tab-app title="LOGIN">
+			<login-app (forgotPassword)="forgotPassword()"></login-app>
+		</tab-app>
+		<tab-app title="REGISTER">
+			<registration-app></registration-app>
+		</tab-app>
+	</tabs-app>
 
 	<forgot-password-app *ngIf="view === 'forgotPassword'"></forgot-password-app>
 

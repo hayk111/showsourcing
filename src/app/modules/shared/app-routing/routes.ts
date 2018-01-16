@@ -32,6 +32,7 @@ import { KanbanTestComponent } from '../../features/test/components/kanban-test/
 import { TestLoadesComponent } from '../../features/test/components/test-loades/test-loades.component';
 import { DataManagementPageComponent } from '../../features/data-management/components/data-management-page/data-management-page.component';
 import { TeamManagementPageComponent } from '../../features/team-management/components/team-management-page/team-management-page.component';
+import { TestTabsComponent } from '../../features/test/components/test-tabs/test-tabs.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -73,7 +74,8 @@ export const routes: Array<Route> = [
 				{ path: 'comments', component: TestCommentsComponent },
 				{ path: 'feedback', component: TestFeedbackComponent },
 				{ path: 'kanban', component: KanbanTestComponent },
-				{ path: 'loaders', component: TestLoadesComponent }
+				{ path: 'loaders', component: TestLoadesComponent },
+				{ path: 'tabs', component: TestTabsComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]

@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CardsModule } from '../cards/cards.module';
 import { LoadersModule } from '../loaders/loaders.module';
+import { TabsModule } from '../tabs/tabs.module';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,7 @@ import { LoadersModule } from '../loaders/loaders.module';
 		ReactiveFormsModule,
 		InputsModule,
 		LoadersModule,
-		MatTabsModule,
+		TabsModule,
 		CardsModule
 	],
 	providers: [

@@ -17,6 +17,7 @@ export class AuthCardComponent implements OnInit {
 	onAction() {
 
 	}
+
 	forgotPassword() {
 		this.view = 'forgotPassword';
 	}
