@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { BaseComponent } from './base/base.component';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
-import { FiltersModule } from '../../shared/filters/filters.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 import { TestInputsFileComponent } from './components/test-inputs-file/test-inputs-file.component';
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';

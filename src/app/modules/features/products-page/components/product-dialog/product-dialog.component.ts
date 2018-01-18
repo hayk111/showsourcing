@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';

@@ -2,11 +2,11 @@
 
 		<div class="flex topBar">
 			<view-switcher-app></view-switcher-app>
-			<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
+			<!-- <filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app> -->
 			<button class="secondary z-2 small" (click)="openFilters()" i18n="button | opens filter panel">filters</button>
 		</div>
 
-		<filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app>
+		<!-- <filter-tag-cloud-app [filterGroupName]="filterGroupName"></filter-tag-cloud-app> -->
 
 
 		<progress-bar-app *ngIf="pending"></progress-bar-app>
@@ -15,11 +15,10 @@
 			<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content>
 		</ng-container>
 
-
 	</div>
 	<ng-container *ngIf="filterPanelOpen$ | async as open">
-		<filter-panel-app class="z-2 {{ open ? 'open' : '' }}" [filterGroupName]="filterGroupName">
-			<ng-content select=".filters"></ng-content>
+		<filter-panel-app class="z-2 {{ open ? 'open' : '' }}"
+			[filterGroupName]="filterGroupName" [filterClasses]="filterClasses">
 		</filter-panel-app>
 	</ng-container>
 

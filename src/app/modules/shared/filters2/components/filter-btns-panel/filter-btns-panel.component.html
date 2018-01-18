@@ -1,0 +1,7 @@
+
+<filter-btn-app
+	*ngFor="let entry of filterClasses"
+	[filterClass]="entry"
+	[filters]="filterMap.get(entry)"
+	(btnClicked)="filterBtnClicked.emit($event)"
+	(filterRemove)="filterRemove.emit($event)"></filter-btn-app>

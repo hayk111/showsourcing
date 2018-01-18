@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsPageComponent } from './components/products-page/products-page.component';
-import { FiltersModule } from '../../shared/filters/filters.module';
 import { MatTableModule } from '@angular/material/table';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { ProductListViewComponent } from './components/product-list-view/product-list-view.component';
@@ -22,11 +21,11 @@ import { ProductSidePreviewComponent } from './components/product-side-preview/p
 import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		FiltersModule,
 		MatTableModule,
 		MatCheckboxModule,
 		FilteredListPageModule,
@@ -45,6 +44,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 		NgxDatatableModule
 	],
 	declarations: [ ProductsPageComponent,
-		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]
+		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent, ProductFiltersComponent]
 })
 export class ProductsPageModule { }

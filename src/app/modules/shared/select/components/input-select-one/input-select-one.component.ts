@@ -57,7 +57,7 @@ export class InputSelectOneComponent extends AbstractInput implements OnInit {
 	}
 
 	// this fn is a bit more complicated than it should because it could potentially
-	// run more than once
+	// run more than once and with big arrays that could kill perfs
 	get name() {
 		Log.debug('[InputSelectOneComponent] getting name', this.value, this.lastValue);
 		if (! this.value)

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter, filterRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName, Filter } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { TaskActions } from '../../../../store/action/task.action';
@@ -19,18 +19,6 @@ import { DialogName } from '../../../../store/model/dialog.model';
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.TASKS_PAGE;
-	filterReps = [
-		filterRepresentationMap.categories,
-		filterRepresentationMap.productStatus,
-		filterRepresentationMap.events,
-		filterRepresentationMap.suppliers,
-		filterRepresentationMap.projects,
-		filterRepresentationMap.ratings
-	];
-	filterRepsTask = [
-		filterRepresentationMap.tasksStatus,
-		filterRepresentationMap.tasksTypes
-	];
 	filters$: Observable<Filter> = new Observable();
 	tasks$;
 	tasksEntities: EntityState<Task>;

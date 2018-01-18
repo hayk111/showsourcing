@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, filterRepresentationMap } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Supplier } from '../../../../store/model/supplier.model';
@@ -13,7 +13,6 @@ import { selectSuppliers } from '../../../../store/selectors/suppliers.selector'
 })
 export class SupplierPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
-	filterReprs = [ filterRepresentationMap.name ];
 	supplier$: Observable<EntityState<Supplier>>;
 	pending = true;
 

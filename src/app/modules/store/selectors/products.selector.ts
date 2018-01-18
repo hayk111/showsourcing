@@ -8,6 +8,9 @@ import { selectImagesForTarget } from './target/image.selector';
 import { selectCategories } from './categories.selector';
 import { selectEvents } from './events.selector';
 import { selectSuppliers } from './suppliers.selector';
+import { selectFilterGroup } from './filter.selectors';
+import { selectEntityArray } from './utils.selector';
+import { FilterGroupName, Filter } from '../model/filter.model';
 
 
 export const selectProducts = state => state.entities.products;

@@ -8,6 +8,8 @@ import { EntityState, entityStateToArray } from '../../../../store/utils/entitie
 import { Product } from '../../../../store/model/product.model';
 import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 import { selectProductsWithNames } from '../../../../store/selectors/products.selector';
+import { FilterActions } from '../../../../store/action/filter.action';
+import { FilterGroupName } from '../../../../store/model/filter.model';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -17,6 +19,7 @@ import { selectProductsWithNames } from '../../../../store/selectors/products.se
 })
 export class ProductListViewComponent implements OnInit {
 	@Output() itemSelected = new EventEmitter<string>();
+	@Input() filterGroupName: FilterGroupName;
 	suppliers$: Observable<EntityState<Supplier>>;
 	products$: Observable<any>;
 	columns = [
@@ -39,6 +42,15 @@ export class ProductListViewComponent implements OnInit {
 		if (event.type === 'click' || event.type === 'keydown') {
 			this.itemSelected.emit(event.row.id);
 		}
+	}
+
+	onSort(event) {
+		// const sortOrder = event.newValue;
+		// const value = event.column.prop;
+		// const repr = filterRepresentationMap.sortByProduct;
+		// const name = `sort by ${event.column.prop}`;
+		// this.store.dispatch(FilterActions.removeFiltersForFilterReprs(this.filterGroupName, [repr]));
+		// this.store.dispatch(FilterActions.addFilter(this.filterGroupName, repr, name, value));
 	}
 
 }

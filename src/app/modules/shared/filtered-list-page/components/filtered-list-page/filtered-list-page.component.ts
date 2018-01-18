@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterClass } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { dotSelector } from '../../../../store/selectors/dot-selector';
 import { MiscActions } from '../../../../store/action/misc.action';
 import { MatTableDataSource } from '@angular/material';
 import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
@@ -18,6 +17,7 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 })
 export class FilteredListPageComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
+	@Input() filterClasses: Array<FilterClass>;
 	@Input() pending = true;
 	filterPanelOpen$: Observable<boolean>;
 	view$: Observable<string>;

@@ -1,0 +1,22 @@
+<ng-container *ngIf="filterMap$ | async as filterMap">
+	<!-- panel with button -->
+	<filter-btns-panel-app *ngIf="selectedPanel === 'btns-panel'"
+		(filterBtnClicked)="onFilterBtnClick($event)"
+		[filterMap]="filterMap" [filterClasses]="filterClasses">
+	</filter-btns-panel-app>
+	<!-- panel displayed when a filter-btn with that is linked to the store is clicked -->
+	<ng-container *ngIf="selectedValues$ | async as selectedValues">
+
+		<ng-container
+			*ngIf="selectedPanel === 'entity-panel'">
+			<ng-container *ngIf="choices$ | async as choices">
+				<filter-entity-panel-app
+					[choices]="choices"
+					[filterClass]="selectedFilterClass"
+					(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
+			</ng-container>
+
+
+		</ng-container>
+	</ng-container>
+</ng-container>

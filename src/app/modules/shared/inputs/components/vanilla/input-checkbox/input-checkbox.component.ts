@@ -35,6 +35,7 @@ export class InputCheckboxComponent extends AbstractInput implements OnInit {
 
 	}
 
+	// we either remove or add the item to value and pass the change
 	preChange(event: Event, item: SelectableItem) {
 		const checked = (event.target as any).checked;
 		if (checked) {

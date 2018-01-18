@@ -22,6 +22,7 @@ import { ProjectEffects } from './project.effects';
 import { PreloaderEffects } from './preloader.effects';
 import { TargetTagEffects } from './target/target-tag.effects';
 import { TargetProjectEffects } from './target/target-project.effects';
+import { FilterEntityPanelEffects } from './filter-entity-panel.effects';
 
 
 export const effects = [
@@ -47,5 +48,6 @@ export const effects = [
 	ProjectEffects,
 	PreloaderEffects,
 	TargetTagEffects,
-	TargetProjectEffects
+	TargetProjectEffects,
+	FilterEntityPanelEffects
 ];

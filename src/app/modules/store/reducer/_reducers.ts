@@ -10,7 +10,6 @@ import { tagReducer } from './tag.reducer';
 import { projectReducer } from './project.reducer';
 import { filtersReducer } from './filter.reducer';
 import { filterPanelReducer } from './filter-panel.reducer';
-import { filterSelectionPanelReducer } from './filter-selection-panel.reducer';
 import { supplierReducer } from './supplier.reducer';
 import { taskReducer } from './task.reducer';
 import { productReducer } from './product.reducer';
@@ -35,6 +34,7 @@ import { imagesReducer } from './target/image.reducer';
 import { voteReducer } from './target/vote.reducer';
 import { targetTagReducer } from './target/tag.reducer';
 import { targetProjectReducer } from './target/project.reducer';
+import { filterEntityPanelReducer } from './filter-entity-panel.reducer';
 
 
 const entities = combineReducers({
@@ -62,10 +62,10 @@ const ui = combineReducers( {
 	authentication: authenticationReducer,
 	filters: filtersReducer,
 	filterPanel: filterPanelReducer,
-	filterSelectionPanel: filterSelectionPanelReducer,
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
-	sideNav: sidenavReducer
+	sideNav: sidenavReducer,
+	filterEntityPanel: filterEntityPanelReducer,
 });
 
 // reducers for when we select a specific entity. Like when we are viewing a certain product

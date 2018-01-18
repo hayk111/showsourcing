@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../utils/typed-action.interface';
-import { AppFilters, Filter, FilterGroupName, FilterRepresentation } from '../model/filter.model';
+import { AppFilters, Filter, FilterGroupName, FilterClass } from '../model/filter.model';
 
 export enum ActionType {
 	ADD_FILTER = '[Filters] adding',
@@ -15,28 +15,29 @@ export interface FilterArg {
 }
 
 export class FilterActions {
-		static addFilter(filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, name: string, value: any)
-		: TypedAction<{filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, name: string, value: any}> {
+		static addFilter(filter: Filter)
+		: TypedAction<Filter> {
 				return {
 						type: ActionType.ADD_FILTER,
-						payload: { filterGroupName, filterRepr, name, value }
+						payload: filter
 				};
 		}
 
-		static removeFilter(filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, value: any)
-			: TypedAction<{filterGroupName: FilterGroupName, filterRepr: FilterRepresentation, value: any}> {
+		static removeFilter(filter: Filter)
+			: TypedAction<Filter> {
 			return {
 				type: ActionType.REMOVE_FILTER,
-				payload: {filterGroupName, filterRepr, value}
+				payload: filter
 			};
 		}
 
-		static removeFiltersForFilterReprs(filterGroupName: FilterGroupName, filterReprArr: Array<FilterRepresentation>) {
+		static removeFiltersForFilterClass(filterGroupName: FilterGroupName, filterClass: FilterClass) {
 			return {
 				type: ActionType.REMOVE_FILTER_ARRAY,
-				payload: { filterGroupName, filterReprArr }
+				payload: { filterGroupName, filterClass }
 			};
 		}
+
 		static clearGroup(filterGroupName: FilterGroupName) {
 			return {
 				type: ActionType.CLEAR,

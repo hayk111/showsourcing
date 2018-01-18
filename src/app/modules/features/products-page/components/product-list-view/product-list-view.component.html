@@ -7,6 +7,8 @@
 		[reorderable]="true"
 		[headerHeight]="60"
 		[rowHeight]="55"
-		(activate)="onSelect($event)">
+		(activate)="onSelect($event)"
+		[externalSorting]="true"
+		(sort)="onSort($event)">
 	</ngx-datatable>
 </ng-container>

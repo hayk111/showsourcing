@@ -1,0 +1,8 @@
+<div class="filterButton pointer" (click)="onBtnClick()">
+	<span>{{ filterClass.filterName }}</span>
+	<i class="fa fa-angle-down" aria-hidden="true"></i>
+</div>
+<div *ngFor="let filter of filters; let i = index;" class="flex deletableItem">
+	<i class="fa fa-times" aria-hidden="true" (click)="onFilterClick(i)"></i>
+	<div>{{ filter.displayName }}</div>
+</div>

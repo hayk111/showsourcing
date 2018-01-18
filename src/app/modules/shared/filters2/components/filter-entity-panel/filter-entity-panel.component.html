@@ -1,0 +1,15 @@
+
+<h4>{{ filterClass.filterName }}</h4>
+
+<input-app type="text"
+	placeholder="Search"
+	(keyup)="search($event.target.value)">
+</input-app>
+
+<input-checkbox-app
+	[choices]="choices"
+	[value]="selected"
+	(itemAdded)="onItemAdded($event)"
+	(itemRemoved)="onItemRemoved($event)">
+</input-checkbox-app>
+

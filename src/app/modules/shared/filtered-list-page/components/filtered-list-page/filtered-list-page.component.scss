@@ -16,21 +16,11 @@
 
 button{
 	margin-top: 0;
-	padding-top: 7px;	
-	padding-bottom: 7px;		
+	padding-top: 7px;
+	padding-bottom: 7px;
 }
 
 :host {
 	display: flex;
 	height: 100%;
-}
-
-filter-panel-app{
-	max-width: 0px;
-	overflow: hidden;
-	transition: 0.4s min-width;
-}
-
-filter-panel-app.open{
-	max-width: 280px; 
 }

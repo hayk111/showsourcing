@@ -6,5 +6,7 @@
 		[value]="c.id"
 		[checked]="checked(c.id)"
 		(change)="preChange($event, c)">
-		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }} {{ c.count}} </label>		
+		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}
+			<span class="count" *ngIf="c.count !== undefined">{{ c.count}}</span>
+		</label>
 </div>

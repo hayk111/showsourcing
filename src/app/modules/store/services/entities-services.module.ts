@@ -24,6 +24,7 @@ import { ProjectService } from './project.service';
 import { EventService } from './event.service';
 import { TagService } from './tag.service';
 import { PreloaderService } from './preloader.service';
+import { FilterEntityPanelService } from './filter-entity-panel.service';
 
 @NgModule({
 	imports: [
@@ -54,7 +55,8 @@ import { PreloaderService } from './preloader.service';
 		ProjectService,
 		EventService,
 		TagService,
-		PreloaderService
+		PreloaderService,
+		FilterEntityPanelService
 	]
 })
 export class EntitiesServicesModule { }
