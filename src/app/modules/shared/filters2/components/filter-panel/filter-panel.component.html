@@ -12,8 +12,10 @@
 			<ng-container *ngIf="choices$ | async as choices">
 				<filter-entity-panel-app
 					[choices]="choices"
+					[selected]="selectedValues"
 					[filterClass]="selectedFilterClass"
 					(filterAdded)="onFilterAdded($event)"
+					(filterRemoved)="onFilterRemoved($event)"
 					(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
 			</ng-container>
 

@@ -31,6 +31,7 @@ export interface Filter {
 	isInstance: (filterClass: FilterClass) => boolean;
 	toUrlParam: () => string;
 	filter: (entity: any) => boolean;
+	equals: (filter: Filter) => boolean;
 }
 
 // represent the Filter class
@@ -84,6 +85,10 @@ export abstract class FilterEntity extends BaseFilter {
 
 	filter(entity: Entity): boolean {
 		return this.value === entity.id;
+	}
+
+	equals(filter: Filter) {
+		return filter instanceof this.constructor && filter.value === this.value;
 	}
 
 }

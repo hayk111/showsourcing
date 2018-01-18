@@ -30,7 +30,7 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
 			// check readme in the shared/filter module for more info on the instanceof if needed.
-			newState[groupName] = group.filter(f => (f.value !== filter.value && f instanceof filter));
+			newState[groupName] = group.filter(f => (!f.equals(filter)));
 			return newState;
 
 		case ActionType.REMOVE_FILTER_FOR_CLASS:

@@ -50,6 +50,7 @@ export class FilterPanelComponent implements OnInit {
 
 		}
 		this.selectedValues$ = this.store.select(selectFiltersValues(this.filterGroupName, filterClass));
+		this.selectedValues$.subscribe(r => {debugger;})
 	}
 
 	onFilterAdded(filter: Filter) {
