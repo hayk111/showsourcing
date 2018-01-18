@@ -12,36 +12,39 @@ export const initialState: AppFilters = {
 };
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {
-	let groupName, filterRepr, group, value, name, newState;
-	// getting some vars ready that are used in many places
-	if (action.type === ActionType.ADD_FILTER || action.type === ActionType.REMOVE_FILTER
-			|| action.type === ActionType.REMOVE_FILTER_ARRAY) {
+	let groupName, filter, group, newState;
+
+	if (action.payload) {
 		groupName = action.payload.filterGroupName;
-		filterRepr = action.payload.filterRepr;
+		filter = action.payload.filter;
 		group = state[groupName];
-		value = action.payload.value;
-		name = action.payload.name;
 	}
 
 	switch (action.type) {
+
 		case ActionType.ADD_FILTER:
 			newState = { ...state };
-			newState[groupName] = group.concat({filterRepr, name, value});
+			newState[groupName] = group.concat(filter);
 			return newState;
+
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
-			newState[groupName] = group.filter(e => (e.value !== value || e.filterRepr !== filterRepr));
+			// check readme in the shared/filter module for more info on the instanceof if needed.
+			newState[groupName] = group.filter(f => (f.value !== filter.value && f instanceof filter));
 			return newState;
-		case ActionType.REMOVE_FILTER_ARRAY:
+
+		case ActionType.REMOVE_FILTER_FOR_CLASS:
 			newState = { ...state };
-			const arr = action.payload.filterReprArr;
-			newState[groupName] = group.filter(e => !arr.includes(e.filterRepr));
+			const filterClass = action.payload.filterClass;
+			newState[groupName] = group.filter(f => f instanceof filterClass);
 			return newState;
+
 		case ActionType.CLEAR:
 			const gName = action.payload;
 			const returned = { ...state };
 			returned[gName] = [];
 			return returned;
+
 		default: return state;
 	}
 }

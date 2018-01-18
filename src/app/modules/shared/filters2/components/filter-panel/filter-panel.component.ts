@@ -2,13 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { selectFiltersByName, selectFiltersValues } from '../../../../store/selectors/filter.selectors';
-import { FilterGroupName, FilterClass, Filter, FilterEntity } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '../../../../store/model/filter.model';
 import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
 import { take } from 'rxjs/operators';
 import { selectEntityArray, selectEntity } from '../../../../store/selectors/utils.selector';
 import { FilterEntityPanelActions } from '../../../../store/action/filter-entity-panel.action';
 import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { selectFEPRelevant, selectFEPChoices } from '../../../../store/selectors/filter-entity-panel.selector';
+import { FilterActions } from '../../../../store/action/filter.action';
 
 @Component({
 	selector: 'filter-panel-app',
@@ -36,11 +37,12 @@ export class FilterPanelComponent implements OnInit {
 		this.filterMap$ = this.store.select(selectFiltersByName(this.filterGroupName));
 	}
 
-	onFilterBtnClick(filterClass: FilterClass) {
+	// using any for typing here since we are casting the wrong way.
+	onFilterBtnClick(filterClass: any) {
 		this.selectedFilterClass = filterClass;
-		if (filterClass.prototype instanceof FilterEntity) {
+		if (filterClass.isForEntity) {
 			// filterClass extends FilterEntity so it has the method getEntityRepr
-			const repr: EntityRepresentation = (filterClass as any).getEntityRepr();
+			const repr: EntityRepresentation = filterClass.getEntityRepr();
 			this.store.dispatch(FilterEntityPanelActions.setEntity(repr));
 			this.choices$ = this.store.select(selectFEPChoices);
 			this.selectedPanel = 'entity-panel';
@@ -48,6 +50,14 @@ export class FilterPanelComponent implements OnInit {
 
 		}
 		this.selectedValues$ = this.store.select(selectFiltersValues(this.filterGroupName, filterClass));
+	}
+
+	onFilterAdded(filter: Filter) {
+		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+	}
+
+	onFilterRemoved(filter: Filter) {
+		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
 	}
 
 	onEntitySearch(value: string) {

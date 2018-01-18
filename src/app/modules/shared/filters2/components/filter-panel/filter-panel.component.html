@@ -13,6 +13,7 @@
 				<filter-entity-panel-app
 					[choices]="choices"
 					[filterClass]="selectedFilterClass"
+					(filterAdded)="onFilterAdded($event)"
 					(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
 			</ng-container>
 

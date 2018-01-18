@@ -1,0 +1,26 @@
+article{
+	background: var(--color-secondary);
+	color: white;
+	border-radius: var(--border-radius);
+	margin: var(--spacing-default);
+	padding: 3px 9px;
+}
+i{
+	font-size: 18px;
+	margin-left: var(--spacing-default);
+}
+.supplier{
+	background: var(--color-primary);
+}
+
+.event{
+	background: teal;
+}
+
+.category{
+	background: turquoise;
+}
+
+.tag{
+	background: pink;
+}

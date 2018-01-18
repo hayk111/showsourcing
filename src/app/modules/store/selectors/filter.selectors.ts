@@ -11,6 +11,8 @@ const getFilters = (state) => state.ui.filters;
 
 // return filters for a specific group like for example product-page
 export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
+	if (!filterGroupName)
+		throw Error('FilterGroupName undefined in selectFilterGroup. Make sure you pass a value');
 	return createSelector([ getFilters ], ( filters ) => {
 		return filters[filterGroupName] || [];
 	});

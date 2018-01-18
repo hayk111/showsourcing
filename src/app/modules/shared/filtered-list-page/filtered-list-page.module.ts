@@ -5,11 +5,13 @@ import { FilteredListPageComponent } from './components/filtered-list-page/filte
 import { MatTableModule, MatProgressBarModule } from '@angular/material';
 import { LoadersModule } from '../loaders/loaders.module';
 import { Filters2Module } from '../filters2/filters2.module';
+import { FilterCloudModule } from '../filter-cloud/filter-cloud.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		Filters2Module,
+		FilterCloudModule,
 		LoadersModule,
 		MatTableModule
 	],
