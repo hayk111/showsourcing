@@ -6,18 +6,24 @@ import { FilterBtnComponent } from './components/filter-btn/filter-btn.component
 import { FilterEntityPanelComponent } from './components/filter-entity-panel/filter-entity-panel.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
+import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
+import { FilterPricePanelComponent } from './components/filter-price-panel/filter-price-panel.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		InputsModule
+		InputsModule,
+		CustomInputsModule,
+		FormsModule
 	],
 	declarations: [
 		FilterPanelComponent,
 		FilterBtnsPanelComponent,
 		FilterBtnComponent,
 		FilterEntityPanelComponent,
-		FilterRatingPanelComponent
+		FilterRatingPanelComponent,
+		FilterPricePanelComponent
 	],
 	exports: [ FilterPanelComponent ]
 })

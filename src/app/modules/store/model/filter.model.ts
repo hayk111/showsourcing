@@ -7,6 +7,7 @@ import { TagActions } from '../action/tag.action';
 import { ProjectActions } from '../action/project.action';
 import { ProductActions } from '../action/product.action';
 import { TaskActions } from '../action/task.action';
+import { Currency } from './currency.model';
 
 
 export enum FilterGroupName {
@@ -30,7 +31,6 @@ export interface Filter {
 	// using a function here because we need to compute the value
 	// and for some reasons getters don't always work with ngrx-store-freeze
 	displayName: () => string;
-	isInstance: (filterClass: FilterClass) => boolean;
 	toUrlParam: () => string;
 	filter: (entity: any) => boolean;
 	equals: (filter: Filter) => boolean;
@@ -45,17 +45,12 @@ export interface FilterClass {
 export abstract class BaseFilter {
 	static readonly filterName: string = 'Unnamed';
 	displayValue: string;
+	value: any;
 
-	constructor(public value: any) {
-		this.displayValue = value;
-	}
+	constructor() {}
 
 	displayName() {
 		return `${(this.constructor as any).filterName}: ${this.displayValue}`;
-	}
-
-	isInstance(filterClass: FilterClass): boolean {
-		return this instanceof filterClass;
 	}
 
 	toUrlParam() {
@@ -82,7 +77,7 @@ export abstract class FilterEntity extends BaseFilter {
 	public static readonly isForEntity = true;
 
 	constructor(public value: string, public displayValue: string, public entityRepr: EntityRepresentation) {
-		super(value);
+		super();
 	}
 
 	static getEntityRepr() { throw Error('you should call getEntityRepr on a subclass of FilterEntity'); }
@@ -137,7 +132,7 @@ export class FilterSearch extends BaseFilter implements Filter {
 	static readonly filterName = 'search';
 
 	constructor(value: string) {
-		super(value);
+		super();
 	}
 
 	filter(entity: Entity) {
@@ -146,16 +141,50 @@ export class FilterSearch extends BaseFilter implements Filter {
 }
 
 
-// export class FilterPrice implements Filter {
-// 	filterName = 'price';
-// 	value: any;
-// 	displayName: string;
-// 	toUrlParam: () => string;
-// 	filter: (entity: any) => boolean;
-// }
+export class FilterPrice extends BaseFilter implements Filter {
+	static readonly filterName = 'price';
+	value: any;
+	displayValue = this.value;
+
+	constructor(public currency: Currency, public min: number, public max: number) {
+		super();
+		// not really important...
+		this.value = [ min, max ];
+		this.displayValue = this.value;
+	}
+
+	toUrlParam() {
+		let params = '';
+		if (this.min)
+			params += `minPrice=${this.min}&`;
+		if (this.max)
+			params += `maxPrice=${this.max}&`;
+		params += `priceCurrency=${this.currency.id}`;
+		return params;
+	}
+
+	// let's return something like 40 < price < 80
+	displayName() {
+		let name = '';
+
+		if (this.min)
+			name += `${this.min} <`;
+
+		name += 'price';
+
+		if (this.max)
+			name += ` < ${this.max}`;
+		return name;
+	}
+
+	filter(entity: any) {
+		return entity.priceAmount > this.min && entity.priceAmount < this.max;
+	}
+}
 
 export class FilterRating extends BaseFilter implements Filter {
 	static readonly filterName = 'rating';
+	constructor(public value: number) { super(); }
 	filter(entity: any) {
 		return entity.rating === this.value;
 	}
@@ -167,7 +196,7 @@ export class FilterSort extends BaseFilter implements Filter {
 	static readonly filterName = 'sort';
 
 	constructor(public value: any, public order: 'ASC' | 'DESC') {
-		super(value);
+		super();
 	}
 
 	toUrlParam() {

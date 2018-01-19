@@ -12,16 +12,16 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 	styleUrls: ['./filter-rating-panel.component.scss']
 })
 export class FilterRatingPanelComponent {
-	@Input() selected: Array<number> = [];
 	@Output() addFilter = new EventEmitter<Filter>();
 	@Output() removeFilter = new EventEmitter<Filter>();
 	ratings = [1, 2, 3, 4, 5];
+	values: Array<number> = [];
 
 	constructor() {
 	}
 
 	isSelected(num: number) {
-		return ~this.selected.indexOf(num);
+		return ~this.values.indexOf(num);
 	}
 
 	getStarArray(num: number) {
@@ -34,7 +34,11 @@ export class FilterRatingPanelComponent {
 			this.addFilter.emit(filter);
 		else
 			this.removeFilter.emit(filter);
+	}
 
+	@Input()
+	set selected(filters: Array<Filter>) {
+		this.values = filters.map(f => f.value);
 	}
 
 }

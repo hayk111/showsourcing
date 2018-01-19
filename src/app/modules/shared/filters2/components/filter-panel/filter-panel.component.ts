@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { selectFiltersByName, selectFiltersValues } from '../../../../store/selectors/filter.selectors';
+import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '../../../../store/selectors/filter.selectors';
 import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '../../../../store/model/filter.model';
 import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
 import { take } from 'rxjs/operators';
@@ -47,7 +47,7 @@ export class FilterPanelComponent implements OnInit {
 		} else {
 			this.selectedPanel = filterClass.filterName;
 		}
-		this.selectedValues$ = this.store.select(selectFiltersValues(this.filterGroupName, filterClass));
+		this.selectedValues$ = this.store.select(selectFiltersForClass(this.filterGroupName, filterClass));
 	}
 
 	onEntityBtnClick(filterClass: FilterEntityClass) {
@@ -64,6 +64,10 @@ export class FilterPanelComponent implements OnInit {
 
 	onFilterRemoved(filter: Filter) {
 		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
+	}
+
+	onFilterClassRemove(filterClass: FilterClass) {
+		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, filterClass));
 	}
 
 	onEntitySearch(value: string) {

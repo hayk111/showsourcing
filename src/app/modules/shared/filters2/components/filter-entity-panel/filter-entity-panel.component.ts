@@ -12,11 +12,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class FilterEntityPanelComponent {
 	@Input() choices: Array<any> = [];
-	@Input() selected: Array<string> = [];
 	@Input() filterClass: FilterEntityClass;
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
 	@Output() entitySearch = new EventEmitter<string>();
+	values: Array<Filter> = [];
 
 	search(value: string) {
 		this.entitySearch.emit(value);
@@ -30,6 +30,11 @@ export class FilterEntityPanelComponent {
 	onItemRemoved({id, name}) {
 		const filter = this.filterClass.newInstance(id, name);
 		this.filterRemoved.emit(filter);
+	}
+
+	@Input()
+	set selected(filters: Array<Filter>) {
+		this.values = filters.map(f => f.value);
 	}
 
 }

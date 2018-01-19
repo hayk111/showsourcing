@@ -1,0 +1,14 @@
+	<label>Min</label>
+	<div class="inpBox">
+		<input type="number" label="min"
+			value="min" [(ngModel)]="min" (blur)="onChange()"/>
+	</div>
+
+	<label>Max</label>
+	<div class="inpBox">
+		<input type="number" label="max"
+			value="max" [(ngModel)]="max" (blur)="onChange()"/>
+	</div>
+
+	<input-currency-app [value]="currency" (update)="onCurrencyChange($event)"></input-currency-app>
+

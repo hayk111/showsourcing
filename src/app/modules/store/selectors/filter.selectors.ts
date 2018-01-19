@@ -35,14 +35,14 @@ export const selectFiltersByName = (filterGroupName: FilterGroupName) => {
 // select filters for a specific filterClass
 export const selectFiltersForClass = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
 	return createSelector([ selectFilterGroup(filterGroupName) ], ( groupFilters: Array<Filter> ) => {
-		return groupFilters.filter(f  => f.isInstance(filterClass));
+		return groupFilters.filter(f  => f instanceof filterClass);
 	});
 };
 
 // select filters's values for a specific filterClass
 export const selectFiltersValues = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
 	return createSelector([ selectFiltersForClass(filterGroupName, filterClass) ], ( groupFilters: Array<Filter> ) => {
-		return groupFilters.filter(f  => f.isInstance(filterClass)).map(f => f.value);
+		return groupFilters.filter(f  => f instanceof filterClass).map(f => f.value);
 	});
 };
 

@@ -19,6 +19,8 @@
 			(addFilter)="onFilterAdded($event)"
 			(removeFilter)="onFilterRemoved($event)"></filter-rating-panel-app>
 
+		<filter-price-panel-app *ngIf="selectedPanel === 'price'" (addFilter)="onFilterAdded($event)" (removeFilterClass)="onFilterClassRemove($event)">
+		</filter-price-panel-app>
 		<ng-container
 			*ngIf="selectedPanel === 'entity'">
 			<filter-entity-panel-app
