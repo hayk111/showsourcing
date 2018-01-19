@@ -4,5 +4,5 @@
 </div>
 <div *ngFor="let filter of filters; let i = index;" class="flex deletableItem">
 	<i class="fa fa-times" aria-hidden="true" (click)="onFilterClick(i)"></i>
-	<div>{{ filter.displayName }}</div>
+	<div>{{ filter.displayName() }}</div>
 </div>

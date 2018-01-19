@@ -10,6 +10,7 @@ import { FilterEntityPanelActions } from '../../../../store/action/filter-entity
 import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 import { selectFEPRelevant, selectFEPChoices } from '../../../../store/selectors/filter-entity-panel.selector';
 import { FilterActions } from '../../../../store/action/filter.action';
+import { FilterPanelAction } from '../../../../store/action/filter-panel.action';
 
 @Component({
 	selector: 'filter-panel-app',
@@ -21,7 +22,7 @@ export class FilterPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	filterMap$: Observable<Map<FilterClass, Array<Filter>>>;
 	// to select a specific panel
-	selectedPanel = 'btns-panel';
+	selectedPanel = 'btns';
 	// panels often expect a filterClass as input. When a filter btn is clicked the
 	// FilterClass associated with said button is sent here.
 	selectedFilterClass: FilterClass;
@@ -42,16 +43,20 @@ export class FilterPanelComponent implements OnInit {
 		this.selectedFilterClass = filterClass;
 		if (filterClass.isForEntity) {
 			// filterClass extends FilterEntity so it has the method getEntityRepr
-			const repr: EntityRepresentation = filterClass.getEntityRepr();
-			this.store.dispatch(FilterEntityPanelActions.setEntity(repr));
-			this.choices$ = this.store.select(selectFEPChoices);
-			this.selectedPanel = 'entity-panel';
+			this.onEntityBtnClick(filterClass as any);
 		} else {
-
+			this.selectedPanel = filterClass.filterName;
 		}
 		this.selectedValues$ = this.store.select(selectFiltersValues(this.filterGroupName, filterClass));
-		this.selectedValues$.subscribe(r => {debugger;})
 	}
+
+	onEntityBtnClick(filterClass: FilterEntityClass) {
+		const repr: EntityRepresentation = filterClass.getEntityRepr();
+		this.store.dispatch(FilterEntityPanelActions.setEntity(repr));
+		this.choices$ = this.store.select(selectFEPChoices);
+		this.selectedPanel = 'entity';
+	}
+
 
 	onFilterAdded(filter: Filter) {
 		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
@@ -65,4 +70,14 @@ export class FilterPanelComponent implements OnInit {
 		this.store.dispatch(FilterEntityPanelActions.search(value));
 	}
 
+	reset() {
+		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
+	}
+
+	close() {
+		if (this.selectedPanel === 'btns')
+			this.store.dispatch(FilterPanelAction.close());
+		else
+			this.selectedPanel = 'btns';
+	}
 }

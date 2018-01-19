@@ -6,6 +6,7 @@ import { EntityRepresentation } from '../utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '../selectors/utils.selector';
 import { FilterEntityPanelService } from '../services/filter-entity-panel.service';
+import { startWith } from 'rxjs/operators/startWith';
 
 
 @Injectable()

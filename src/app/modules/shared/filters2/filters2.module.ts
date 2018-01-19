@@ -5,6 +5,7 @@ import { FilterBtnsPanelComponent } from './components/filter-btns-panel/filter-
 import { FilterBtnComponent } from './components/filter-btn/filter-btn.component';
 import { FilterEntityPanelComponent } from './components/filter-entity-panel/filter-entity-panel.component';
 import { InputsModule } from '../inputs/inputs.module';
+import { FilterRatingPanelComponent } from './components/filter-rating-panel/filter-rating-panel.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,9 @@ import { InputsModule } from '../inputs/inputs.module';
 		FilterPanelComponent,
 		FilterBtnsPanelComponent,
 		FilterBtnComponent,
-		FilterEntityPanelComponent ],
+		FilterEntityPanelComponent,
+		FilterRatingPanelComponent
+	],
 	exports: [ FilterPanelComponent ]
 })
 export class Filters2Module { }

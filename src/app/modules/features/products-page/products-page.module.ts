@@ -21,7 +21,6 @@ import { ProductSidePreviewComponent } from './components/product-side-preview/p
 import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 
 @NgModule({
 	imports: [
@@ -44,6 +43,6 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
 		NgxDatatableModule
 	],
 	declarations: [ ProductsPageComponent,
-		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent, ProductFiltersComponent]
+		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]
 })
 export class ProductsPageModule { }

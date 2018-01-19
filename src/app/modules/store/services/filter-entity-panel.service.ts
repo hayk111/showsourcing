@@ -23,7 +23,7 @@ export class FilterEntityPanelService {
 		});
 	}
 
-	private getItems(entityRepr: EntityRepresentation) {
+	getItems(entityRepr: EntityRepresentation) {
 		return this.store.select(selectEntityArray(entityRepr));
 	}
 

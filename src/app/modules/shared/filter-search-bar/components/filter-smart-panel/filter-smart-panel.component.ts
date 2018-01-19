@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { SmartSearch } from '../../../../store/selectors/search-entities.selector';
 
 @Component({
-  selector: 'app-filter-smart-panel',
-  templateUrl: './filter-smart-panel.component.html',
-  styleUrls: ['./filter-smart-panel.component.scss']
+	selector: 'filter-smart-panel-app',
+	templateUrl: './filter-smart-panel.component.html',
+	styleUrls: ['./filter-smart-panel.component.scss']
 })
 export class FilterSmartPanelComponent implements OnInit {
+	@Input() smartSearch: Array<SmartSearch> = [];
+	@Output() itemAdded = new EventEmitter<any>();
+	@Output() itemRemoved = new EventEmitter<any>();
+	constructor() { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
 }

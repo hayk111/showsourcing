@@ -1,25 +1,34 @@
+
+<div class="top flexBetween">
+	<button class="secondary small" (click)="reset()">Reset</button>
+	<i class="fa fa-times" aria-hidden="true" (click)="close()"></i>
+</div>
+
 <ng-container *ngIf="filterMap$ | async as filterMap">
 	<!-- panel with button -->
-	<filter-btns-panel-app *ngIf="selectedPanel === 'btns-panel'"
+	<filter-btns-panel-app *ngIf="selectedPanel === 'btns'"
 		(filterBtnClicked)="onFilterBtnClick($event)"
+		(filterRemove)="onFilterRemoved($event)"
 		[filterMap]="filterMap" [filterClasses]="filterClasses">
 	</filter-btns-panel-app>
 	<!-- panel displayed when a filter-btn with that is linked to the store is clicked -->
 	<ng-container *ngIf="selectedValues$ | async as selectedValues">
 
+
+		<filter-rating-panel-app *ngIf="selectedPanel === 'rating'"
+			(addFilter)="onFilterAdded($event)"
+			(removeFilter)="onFilterRemoved($event)"></filter-rating-panel-app>
+
 		<ng-container
-			*ngIf="selectedPanel === 'entity-panel'">
-			<ng-container *ngIf="choices$ | async as choices">
-				<filter-entity-panel-app
-					[choices]="choices"
-					[selected]="selectedValues"
-					[filterClass]="selectedFilterClass"
-					(filterAdded)="onFilterAdded($event)"
-					(filterRemoved)="onFilterRemoved($event)"
-					(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
-			</ng-container>
-
-
+			*ngIf="selectedPanel === 'entity'">
+			<filter-entity-panel-app
+				*ngIf="choices$ | async as choices"
+				[choices]="choices"
+				[selected]="selectedValues"
+				[filterClass]="selectedFilterClass"
+				(filterAdded)="onFilterAdded($event)"
+				(filterRemoved)="onFilterRemoved($event)"
+				(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
 		</ng-container>
 	</ng-container>
 </ng-container>

@@ -1,4 +1,4 @@
-<article class="flexCenter {{ filter.filterName }}">
-	<span>{{ filter.displayName }}</span>
+<article class="flexCenter {{ filter.constructor.filterName }}">
+	<span>{{ filter.displayName() }}</span>
 	<i class="fa fa-times" aria-hidden="true" (click)="removeFilter(filter)"></i>
 </article>

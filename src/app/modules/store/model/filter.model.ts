@@ -26,8 +26,10 @@ export interface AppFilters {
 export interface Filter {
 	value: any;
 	displayValue: string;
-	displayName: string;
 	filterName: string;
+	// using a function here because we need to compute the value
+	// and for some reasons getters don't always work with ngrx-store-freeze
+	displayName: () => string;
 	isInstance: (filterClass: FilterClass) => boolean;
 	toUrlParam: () => string;
 	filter: (entity: any) => boolean;
@@ -42,10 +44,14 @@ export interface FilterClass {
 
 export abstract class BaseFilter {
 	static readonly filterName: string = 'Unnamed';
-	value: any;
+	displayValue: string;
 
-	get displayName() {
-		return `${(this.constructor as FilterClass).filterName}: ${this.value}`;
+	constructor(public value: any) {
+		this.displayValue = value;
+	}
+
+	displayName() {
+		return `${(this.constructor as any).filterName}: ${this.displayValue}`;
 	}
 
 	isInstance(filterClass: FilterClass): boolean {
@@ -60,6 +66,9 @@ export abstract class BaseFilter {
 		return (this.constructor as FilterClass).filterName;
 	}
 
+	equals(filter: Filter) {
+		return filter instanceof this.constructor && filter.value === this.value;
+	}
 }
 
 // represent the Filter class
@@ -71,24 +80,19 @@ export interface FilterEntityClass extends FilterClass {
 
 export abstract class FilterEntity extends BaseFilter {
 	public static readonly isForEntity = true;
+
 	constructor(public value: string, public displayValue: string, public entityRepr: EntityRepresentation) {
-		super();
+		super(value);
 	}
+
+	static getEntityRepr() { throw Error('you should call getEntityRepr on a subclass of FilterEntity'); }
 
 	toUrlParam() {
 		return `${this.entityRepr.urlName}=${this.value}`;
 	}
 
-	get displayName() {
-		return `${this.entityRepr.displayName}: ${this.displayValue}`;
-	}
-
 	filter(entity: Entity): boolean {
 		return this.value === entity.id;
-	}
-
-	equals(filter: Filter) {
-		return filter instanceof this.constructor && filter.value === this.value;
 	}
 
 }
@@ -102,32 +106,45 @@ export class FilterSupplier extends FilterEntity implements Filter {
 export class FilterCategory extends FilterEntity implements Filter {
 	static readonly filterName = 'category';
 	static getEntityRepr() { return entityRepresentationMap.categories; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static newInstance(value, displayValue) { return new FilterCategory(value, displayValue, FilterCategory.getEntityRepr()); }
 }
 
 export class FilterEvent extends FilterEntity implements Filter {
 	static readonly filterName = 'event';
 	static getEntityRepr() { return entityRepresentationMap.events; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static newInstance(value, displayValue) { return new FilterEvent(value, displayValue, FilterEvent.getEntityRepr()); }
 }
 
 export class FilterTags extends FilterEntity implements Filter {
 	static readonly filterName = 'tag';
 	static getEntityRepr() { return entityRepresentationMap.tags; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static newInstance(value, displayValue) { return new FilterTags(value, displayValue, FilterTags.getEntityRepr()); }
 }
 
 export class FilterProjects extends FilterEntity implements Filter {
 	static readonly filterName = 'project';
 	static getEntityRepr() { return entityRepresentationMap.projects; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static newInstance(value, displayValue) { return new FilterProjects(value, displayValue, FilterProjects.getEntityRepr()); }
 }
 
 export class FilterStatus extends FilterEntity implements Filter {
 	static readonly filterName = 'status';
 	static getEntityRepr() { return entityRepresentationMap.productStatus; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static newInstance(value, displayValue) { return new FilterStatus(value, displayValue, FilterStatus.getEntityRepr()); }
 }
+
+export class FilterSearch extends BaseFilter implements Filter {
+	static readonly filterName = 'search';
+
+	constructor(value: string) {
+		super(value);
+	}
+
+	filter(entity: Entity) {
+		return entity.name.startsWith(this.value);
+	}
+}
+
 
 // export class FilterPrice implements Filter {
 // 	filterName = 'price';
@@ -137,37 +154,40 @@ export class FilterStatus extends FilterEntity implements Filter {
 // 	filter: (entity: any) => boolean;
 // }
 
-// export class FilterRating implements Filter {
-// 	filterName = 'rating';
-// 	value: any;
-// 	displayName: string;
-// 	toUrlParam: () => string;
-// 	filter: (entity: any) => boolean;
-// 	isInstance(filter: Filter) {
-// 		return filter instanceof FilterRating;
-// 	}
-// }
+export class FilterRating extends BaseFilter implements Filter {
+	static readonly filterName = 'rating';
+	filter(entity: any) {
+		return entity.rating === this.value;
+	}
+}
 
-// export class FilterSort implements Filter {
-// 	// urlName is used when we convert the filter to a
-// 	// back end call
-// 	public filterName = 'sort';
-// 	constructor(public value: any, public order: 'asc' | 'desc') { }
+export class FilterSort extends BaseFilter implements Filter {
+	// urlName is used when we convert the filter to a
+	// back end call
+	static readonly filterName = 'sort';
 
-// 	toUrlParam() {
-// 		return `sort=${this.value}&sortOrder=${this.order}`;
-// 	}
+	constructor(public value: any, public order: 'ASC' | 'DESC') {
+		super(value);
+	}
 
-// 	get displayName() {
-// 		return `Sort by: ${this.value}`;
-// 	}
+	toUrlParam() {
+		return `sort=${this.value}&sortOrder=${this.order}`;
+	}
 
-// 	filter(entity: any) {
-// 		// in the case of the sort filter we never
-// 		// actually filter items.
-// 		return true;
-// 	}
-// }
+	displayName() {
+		return `Sort by: ${this.value} ${this.order.toLowerCase()}`;
+	}
+
+	filter(entity: any) {
+		// in the case of the sort filter we never
+		// actually filter items.
+		return true;
+	}
+
+	toString() {
+		return '';
+	}
+}
 
 
 

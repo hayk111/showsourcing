@@ -1,3 +1,10 @@
-<p>
-  filter-smart-panel works!
-</p>
+<div class="card searchTerms">
+	<ng-container *ngFor="let search of smartSearch">
+		<div *ngIf="search.result.length > 0" class="flexColumn">
+			<div class="title">{{ search?.repr.displayName }}</div>
+
+			<input-checkbox-app [choices]="search.result" [value]="search.selected" (itemAdded)="itemAdded.emit($event)" (itemRemoved)="itemRemoved.emit($event)">
+			</input-checkbox-app>
+		</div>
+	</ng-container>
+</div>

@@ -9,7 +9,7 @@ import { Product } from '../../../../store/model/product.model';
 import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 import { selectProductsWithNames } from '../../../../store/selectors/products.selector';
 import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterSort } from '../../../../store/model/filter.model';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -45,12 +45,11 @@ export class ProductListViewComponent implements OnInit {
 	}
 
 	onSort(event) {
-		// const sortOrder = event.newValue;
-		// const value = event.column.prop;
-		// const repr = filterRepresentationMap.sortByProduct;
-		// const name = `sort by ${event.column.prop}`;
-		// this.store.dispatch(FilterActions.removeFiltersForFilterReprs(this.filterGroupName, [repr]));
-		// this.store.dispatch(FilterActions.addFilter(this.filterGroupName, repr, name, value));
+		const sortOrder = event.newValue.toUpperCase();
+		const value = event.column.prop;
+		const filter = new FilterSort(value, sortOrder);
+		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
+		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
 
 }

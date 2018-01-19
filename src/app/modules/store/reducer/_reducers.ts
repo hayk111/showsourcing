@@ -78,6 +78,7 @@ const target = combineReducers({
 	votes: voteReducer
 });
 
+
 export const reducers = { entities, target, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 

@@ -36,7 +36,7 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 		case ActionType.REMOVE_FILTER_FOR_CLASS:
 			newState = { ...state };
 			const filterClass = action.payload.filterClass;
-			newState[groupName] = group.filter(f => f instanceof filterClass);
+			newState[groupName] = group.filter(f => !(f instanceof filterClass));
 			return newState;
 
 		case ActionType.CLEAR:

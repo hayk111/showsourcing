@@ -6,14 +6,15 @@ import { MatTableModule, MatProgressBarModule } from '@angular/material';
 import { LoadersModule } from '../loaders/loaders.module';
 import { Filters2Module } from '../filters2/filters2.module';
 import { FilterCloudModule } from '../filter-cloud/filter-cloud.module';
+import { FilterSearchBarModule } from '../filter-search-bar/filter-search-bar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		Filters2Module,
 		FilterCloudModule,
+		FilterSearchBarModule,
 		LoadersModule,
-		MatTableModule
 	],
 	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],
 	exports: [ FilteredListPageComponent ]

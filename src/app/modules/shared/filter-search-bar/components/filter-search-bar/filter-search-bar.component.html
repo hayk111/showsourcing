@@ -1,3 +1,4 @@
-<p>
-  filter-search-bar works!
-</p>
+<input-app type="search" class="fullWidth" placeholder="Search"
+	(keyup)="search($event.target.value)"></input-app>
+
+<filter-smart-panel-app *ngIf="smartSearchResult.length > 0" (clickOutside)="closeSmartPanel()" [smartSearch]="smartSearchResult"></filter-smart-panel-app>

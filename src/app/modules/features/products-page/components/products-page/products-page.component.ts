@@ -13,7 +13,7 @@ import { DialogActions } from '../../../../store/action/dialog.action';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { map } from 'rxjs/operators';
 import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
-	FilterEvent, FilterTags, FilterProjects, FilterStatus } from '../../../../store/model/filter.model';
+	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating } from '../../../../store/model/filter.model';
 
 @Component({
 	selector: 'products-page-app',
@@ -30,7 +30,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterEvent,
 		FilterTags,
 		FilterProjects,
-		FilterStatus
+		FilterStatus,
+		FilterRating
 	];
 	// whether the products are currently loading.
 	pending = true;

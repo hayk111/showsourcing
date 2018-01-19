@@ -98,7 +98,7 @@ export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
 		],
 		(filters) => {
 			Log.debug(`selectFiltersAsUrlParams ${filterGroup}`);
-			return filters.reduce((prev: string, curr: Filter) => prev += `&${curr.toUrlParam()}`, '');
+			return filters.reduce((prev: string, curr: Filter) => prev += `${curr.toUrlParam()}&`, '');
 		}
 	);
 };
