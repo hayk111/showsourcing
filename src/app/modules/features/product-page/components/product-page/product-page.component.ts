@@ -36,7 +36,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.route.params.takeUntil(this._destroy$)
+		this.route.params.pipe(takeUntil(this._destroy$))
 		.subscribe(params => {
 			const id = params['id'];
 			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };

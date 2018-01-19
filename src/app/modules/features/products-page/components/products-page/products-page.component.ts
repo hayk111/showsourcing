@@ -55,7 +55,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		debugger;
 		this.currentTarget = { entityId, entityRepr: this.repr };
 		this.previewDialogOpen = true;
 	}
