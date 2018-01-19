@@ -54,7 +54,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(pending => this.pending = pending);
 	}
 
-	onItemClicked(entityId: string) {
+	onItemSelected(entityId: string) {
+		debugger;
 		this.currentTarget = { entityId, entityRepr: this.repr };
 		this.previewDialogOpen = true;
 	}

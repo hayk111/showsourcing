@@ -6,6 +6,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ImageActions } from '../../../../store/action/images.action';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { selectImagesForTarget } from '../../../../store/selectors/target/image.selector';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'carousel-entity-app',
@@ -23,8 +24,8 @@ export class CarouselEntityComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.store.dispatch(ImageActions.load(this.target));
 		this.store.select(selectImagesForTarget(this.target))
-			.takeUntil(this._destroy$)
-			.subscribe(imgs => this.images = imgs);
+		.pipe(takeUntil(this._destroy$))
+		.subscribe(imgs => this.images = imgs);
 	}
 
 	rotate(img: AppImage) {

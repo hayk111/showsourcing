@@ -40,6 +40,7 @@ export class ProductListViewComponent implements OnInit {
 
 	onSelect(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
+			debugger;
 			this.itemSelected.emit(event.row.id);
 		}
 	}

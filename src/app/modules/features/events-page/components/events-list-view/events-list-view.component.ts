@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
-import { MatTableDataSource } from '@angular/material';
 import { Event } from '../../../../store/model/event.model';
 import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
@@ -12,14 +11,8 @@ import { selectSuppliers } from '../../../../store/selectors/suppliers.selector'
 })
 export class EventsListViewComponent implements OnInit {
 	displayedColumns = ['name', 'creationDate'];
-	dataSource;
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.store.select(selectSuppliers)
-		.subscribe((sups: EntityState<Event>) => {
-			const arr = entityStateToArray(sups);
-			this.dataSource = new MatTableDataSource(arr);
-		});
 	}
 }

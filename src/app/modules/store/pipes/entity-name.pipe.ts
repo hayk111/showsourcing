@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectEntityById } from '../selectors/utils.selector';
 import { entityRepresentationMap, EntityRepresentation } from '../utils/entities.utils';
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
-import { tap, filter } from 'rxjs/operators';
+import { tap, filter, takeUntil } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 
 @Pipe({name: 'entityName'})
@@ -19,7 +19,8 @@ export class EntityNamePipe extends AutoUnsub implements PipeTransform {
 		const entityId = value;
 		const entityRepr = this.getRepr(entityName);
 		return this.store.select(selectEntityById({ entityId, entityRepr }))
-			.takeUntil(this._destroy$).pipe(
+			.pipe(
+				takeUntil(this._destroy$),
 				filter(o => o),
 				map(entity => entity.name),
 			);

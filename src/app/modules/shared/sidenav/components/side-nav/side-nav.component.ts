@@ -9,6 +9,7 @@ import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { throttleTime } from 'rxjs/operators/throttleTime';
 import { sampleTime } from 'rxjs/operators/sampleTime';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'side-nav-app',
@@ -25,9 +26,10 @@ export class SideNavComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.open$ = this.store.select(selectIsSidenavOpen);
-		this.open$.takeUntil(this._destroy$).subscribe(b => this.open = b);
+		this.open$.pipe(takeUntil(this._destroy$)).subscribe(b => this.open = b);
 		this.onResize();
-		this.debouncer.takeUntil(this._destroy$).pipe(
+		this.debouncer.pipe(
+			takeUntil(this._destroy$),
 			sampleTime(300)
 		).subscribe(r => this.resize(r));
 	}

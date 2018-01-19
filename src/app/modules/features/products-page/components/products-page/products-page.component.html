@@ -2,8 +2,8 @@
 <filtered-list-page-app [filterGroupName]="filterGroupName" [pending]="pending" [filterClasses]="filterClasses">
 		<!-- views -->
 		<product-list-view-app class="list-view" [filterGroupName]="filterGroupName"
-			 (itemSelected)="onItemClicked($event)"></product-list-view-app>
-		<product-card-view-app class="card-view" (itemClicked)="onItemClicked($event)"></product-card-view-app>
+			 (itemSelected)="onItemSelected($event)"></product-list-view-app>
+		<product-card-view-app class="card-view" (itemClicked)="onItemSelected($event)"></product-card-view-app>
 </filtered-list-page-app>
 <!-- <product-dialog-app></product-dialog-app> -->
 <product-side-preview-app
