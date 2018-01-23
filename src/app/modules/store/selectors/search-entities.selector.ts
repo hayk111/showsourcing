@@ -21,6 +21,7 @@ export const searchEntity = (filterGroupName: FilterGroupName, fe: FilterEntityC
 			selectEntityArray(repr),
 			selectFiltersValues(filterGroupName, fe)
 		], (entities, selected) => {
+			Log.debug('search entity');
 			// with no search terms we return all entities
 			if (str === '')
 				return { repr, selected, result: entities };

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthCardService } from '../../services/auth-card.service';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../../store/action/authentication.action';
+import { AuthView, AuthDlgActions } from '../../../../store/action/auth-dlg.action';
+import { selectAuthDlg } from '../../../../store/selectors/auth-dlg.selector';
 
 @Component({
 	selector: 'auth-card-app',
@@ -7,19 +11,29 @@ import { AuthCardService } from '../../services/auth-card.service';
 	styleUrls: ['./auth-card.component.scss']
 })
 export class AuthCardComponent implements OnInit {
-	view = 'login';
+	authDlg$;
+	views = AuthView;
 
-	constructor() { }
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+		this.authDlg$ = this.store.select(selectAuthDlg);
 	}
 
-	onAction() {
-
+	onLogin(creds: any) {
+		this.store.dispatch(AuthActions.login(creds));
 	}
 
-	forgotPassword() {
-		this.view = 'forgotPassword';
+	onRegister(creds: any) {
+		this.store.dispatch(AuthActions.register(creds));
+	}
+
+	goTo(authView: AuthView) {
+		this.store.dispatch(AuthDlgActions.setView(authView));
+	}
+
+	onPwReset(email: string) {
+		this.store.dispatch(AuthActions.resetPassword(email));
 	}
 
 }

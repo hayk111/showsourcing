@@ -17,6 +17,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CardsModule } from '../cards/cards.module';
 import { LoadersModule } from '../loaders/loaders.module';
 import { TabsModule } from '../tabs/tabs.module';
+import { PwResettedComponent } from './components/pw-resetted/pw-resetted.component';
 
 @NgModule({
 	imports: [
@@ -35,7 +36,7 @@ import { TabsModule } from '../tabs/tabs.module';
 		},
 		AuthGuardService,
 	],
-	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent, ForgotPasswordComponent ],
+	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent, ForgotPasswordComponent, PwResettedComponent ],
 	exports: [  LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent ]
 })
 export class AuthModule {

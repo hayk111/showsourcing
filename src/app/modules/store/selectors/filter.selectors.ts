@@ -14,6 +14,7 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 	if (!filterGroupName)
 		throw Error('FilterGroupName undefined in selectFilterGroup. Make sure you pass a value');
 	return createSelector([ getFilters ], ( filters ) => {
+		Log.debug('selectFilterGroup');
 		return filters[filterGroupName] || [];
 	});
 };

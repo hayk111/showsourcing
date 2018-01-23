@@ -14,15 +14,15 @@ export const initialState: Authentication = {
 };
 
 export function authenticationReducer(state: Authentication = initialState, action: TypedAction<any> ): Authentication {
+
 	switch (action.type) {
-		case ActionType.SET_PENDING:
-			return { ...state, pending: action.payload as boolean};
+
 		case ActionType.AUTHENTICATE:
-			return { ...state, authenticated: true, pending: false, errorMsg: '' };
-		case ActionType.SET_ERROR:
-			return { ...state, pending: false, errorMsg: action.payload as string };
+			return { ...state, authenticated: true };
+
 		case ActionType.LOGOUT:
-			return { ...state, authenticated: false, pending: false, errorMsg: '' };
+			return { ...state, authenticated: false };
+
 		default:
 			return state;
 	}

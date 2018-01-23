@@ -1,14 +1,35 @@
 <card-app border="true">
+	<ng-container *ngIf="authDlg$ | async as authDlg">
 
-	<tabs-app>
-		<tab-app title="LOGIN">
-			<login-app (forgotPassword)="forgotPassword()"></login-app>
-		</tab-app>
-		<tab-app title="REGISTER">
-			<registration-app></registration-app>
-		</tab-app>
-	</tabs-app>
+		<tabs-app *ngIf="authDlg.view === views.LOGIN">
+			<tab-app title="LOGIN">
+				<login-app
+					[pending]="authDlg.loginPending"
+					[error]="authDlg.loginError"
+					(login)="onLogin($event)"
+					(forgotPassword)="goTo(views.FORGOT_PASSWORD)"></login-app>
+			</tab-app>
+			<tab-app title="REGISTER">
+				<registration-app
+					(register)="onRegister($event)"
+					[pending]="authDlg.registerPending"
+					[error]="authDlg.registerError"></registration-app>
+			</tab-app>
+		</tabs-app>
 
-	<forgot-password-app *ngIf="view === 'forgotPassword'"></forgot-password-app>
+
+		<forgot-password-app
+			[pending]="authDlg.forgotPwPending"
+			[error]="authDlg.forgotPwError"
+			(resetPw)="onPwReset($event)"
+			(back)="goTo(views.LOGIN)"
+			*ngIf="authDlg.view === views.FORGOT_PASSWORD"></forgot-password-app>
+
+		<pw-resetted-app
+			*ngIf="authDlg.view === views.PASSWORD_RESET"
+			(back)="goTo(views.LOGIN)"></pw-resetted-app>
+
+		<account-created-app *ngIf="authDlg.view === views.ACCOUNT_CREATED"></account-created-app>
+	</ng-container>
 
 </card-app>

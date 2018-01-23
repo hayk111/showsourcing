@@ -26,7 +26,7 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 		this.route.parent.params.takeUntil(this._destroy$)
 		.subscribe(params => {
 			const target = { entityId: params['id'], entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(ProductActions.loadTasks(params['id']));
+			// this.store.dispatch(ProductActions.loadTasks(params['id']));
 			this.tasks$ = this.store.select(selectTasks);
 		});
 	}

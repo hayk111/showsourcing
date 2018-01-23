@@ -14,6 +14,7 @@ import { CustomFieldsActions } from '../action/custom-fields.action';
 import { interval } from 'rxjs/observable/interval';
 import { ActionType } from '../action/preloader.action';
 import { PreloaderService } from '../services/preloader.service';
+import { ProductActions } from '../action/product.action';
 
 
 @Injectable()
@@ -44,6 +45,7 @@ export class PreloaderEffects {
 
 
 	private getEntities(id, maxCounter = -1) {
+		this.dispatch(ProductActions.load(id, maxCounter));
 		this.dispatch(CategoryActions.load(id, maxCounter));
 		this.dispatch(SupplierActions.load(id, maxCounter));
 		this.dispatch(EventActions.load(id, maxCounter));

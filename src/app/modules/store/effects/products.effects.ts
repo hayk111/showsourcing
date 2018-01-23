@@ -33,27 +33,17 @@ export class ProductEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
-		switchMap(filterGroupName => {
+		switchMap((params: {teamId, counter}) => {
 			// get products
-			return this.srv.load(filterGroupName).pipe(
+			return this.srv.load(params).pipe(
 				// set products
-				map(r => ProductActions.set(r)),
+				map((r: any) => ProductActions.add(r)),
 				// before everything set products as pending
 				startWith(ProductActions.setPending() as any)
 			);
 		})
 	);
 
-	// loads a product if it's not already present in the store
-	@Effect()
-	loadOne$ = this.actions$.ofType<any>(ActionType.LOAD_BY_ID).pipe(
-		map(action => action.payload),
-		switchMap(id => this.store.select(selectProductById(id)).pipe(
-			filter(product => product === undefined),
-			switchMap(_ => this.srv.loadById(id)),
-			map((product: Product) => ProductActions.add([product]))
-		)),
-	);
 
 	@Effect()
 	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(

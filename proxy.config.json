@@ -3,5 +3,6 @@
         "target": "http://stoemelings.showsourcing.com/",
         "secure": "false",
         "logLevel": "debug"
-    }
+		},
+		"compress": true
 }

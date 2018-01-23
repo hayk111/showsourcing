@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { CompanyContact } from '../../../../store/model/company.model';
 
 @Component({
-	selector: 'app-account-created',
+	selector: 'account-created-app',
 	templateUrl: './account-created.component.html',
 	styleUrls: ['./account-created.component.scss']
 })

@@ -48,7 +48,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.store.dispatch(ProductActions.load(this.filterGroupName));
+		//  this.store.dispatch(ProductActions.load(this.filterGroupName));
 		this.store.select(selectProducts).pipe(
 			map(products => products.pending)
 		).subscribe(pending => this.pending = pending);

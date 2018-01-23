@@ -15,9 +15,9 @@ import { MatSnackBarModule } from '@angular/material';
 		CommonModule,
 		StoreModule.forRoot( reducerToken , { metaReducers }),
 		EffectsModule.forRoot(effects),
-		StoreDevtoolsModule.instrument({
-			maxAge: 2
-		}),
+		// StoreDevtoolsModule.instrument({
+		// 	maxAge: 2
+		// }),
 		EntitiesServicesModule,
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule

@@ -35,6 +35,7 @@ import { voteReducer } from './target/vote.reducer';
 import { targetTagReducer } from './target/tag.reducer';
 import { targetProjectReducer } from './target/project.reducer';
 import { filterEntityPanelReducer } from './filter-entity-panel.reducer';
+import { authDlgReducer } from './auth-dlg.reducer';
 
 
 const entities = combineReducers({
@@ -60,6 +61,7 @@ const entities = combineReducers({
 
 const ui = combineReducers( {
 	authentication: authenticationReducer,
+	authDlg: authDlgReducer,
 	filters: filtersReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
@@ -103,4 +105,6 @@ export function logger(reducer: ActionReducer<State<any>>): any {
 	})(reducer);
 }
 
-export const metaReducers = environment.production ? [] : [logger, storeFreeze];
+export const metaReducers = environment.production ? [] : [
+ logger, storeFreeze
+];

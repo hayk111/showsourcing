@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'forgot-password-app',
@@ -8,7 +9,10 @@ import { Validators } from '@angular/forms';
 	styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-
+	@Output() back = new EventEmitter<any>();
+	@Output() resetPw = new EventEmitter<string>();
+	@Input() pending: boolean;
+	@Input() error: any;
 	group: FormGroup;
 
 	constructor(private fb: FormBuilder) {
@@ -20,5 +24,12 @@ export class ForgotPasswordComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	goBack() {
+		this.back.emit();
+	}
 
+	onSubmit() {
+		if (this.group.valid)
+			this.resetPw.emit(this.group.controls.email.value);
+	}
 }

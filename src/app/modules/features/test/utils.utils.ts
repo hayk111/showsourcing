@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 export function getFirstProductEntityTarget(store, takeUntil): Observable<EntityTarget> {
 	// loading product in case they aren't loaded
-	store.dispatch(ProductActions.load());
+	// store.dispatch(ProductActions.load());
 	// we select a product then we load images for it
 	return store.select(selectProducts)
 		.takeUntil(takeUntil)

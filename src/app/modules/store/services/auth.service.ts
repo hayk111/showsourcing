@@ -35,7 +35,11 @@ export class AuthService {
 	}
 
 	register(credentials: {email: string, password: string}) {
-		this.store.dispatch(AuthActions.setPending(true));
+		return this.http.post(`api/user`, credentials);
+	}
+
+	resetPw(email: string) {
+		return this.http.post(`/api/password/${email}/reset`, {});
 	}
 
 }

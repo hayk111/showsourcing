@@ -9,6 +9,18 @@ import { ProductActions } from '../action/product.action';
 import { TaskActions } from '../action/task.action';
 
 
+export const entityInitialState: EntityState<any> = {
+	pending: true,
+	maxEntityCounter: 0,
+	byId : {},
+	ids: []
+};
+
+export const targetInitialState = {
+	// id is for already preloaded entity
+	ids:  [],
+};
+
 export interface EntityState<G extends Entity> {
 	pending: boolean;
 	maxEntityCounter: number;
@@ -110,12 +122,6 @@ export const entityStateToArray = (entityState: EntityState<any>): Array<any> =>
 	return returned;
 };
 
-export const entityInitialState: EntityState<any> = {
-	pending: true,
-	maxEntityCounter: 0,
-	byId : {},
-	ids: []
-};
 
 export function copyById(state, id, additionalProps?: any) {
 	return {

@@ -30,7 +30,7 @@ export class SideNavComponent extends AutoUnsub implements OnInit {
 		this.onResize();
 		this.debouncer.pipe(
 			takeUntil(this._destroy$),
-			sampleTime(300)
+			debounceTime(100)
 		).subscribe(r => this.resize(r));
 	}
 

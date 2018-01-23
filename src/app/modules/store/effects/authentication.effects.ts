@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ActionType, AuthActions } from '../action/authentication.action';
-import { map, switchMap, filter, tap, debounceTime } from 'rxjs/operators';
+import { map, switchMap, filter, tap, debounceTime, flatMap, concat, mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { User } from '../model/user.model';
 import { UserActions } from '../action/user.action';
@@ -12,7 +12,7 @@ import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
 import { TokenActions } from '../action/token.action';
 import { startWith } from 'rxjs/operators';
-
+import { AuthView, AuthDlgActions } from '../action/auth-dlg.action';
 
 
 @Injectable()
@@ -23,17 +23,32 @@ export class AuthenticationEffects {
 		map(action => action.payload),
 		debounceTime(500),
 		switchMap(p => this.srv.login(p).pipe(
-			map(r => this.onLoginSuccess(r)),
-			catchError((e: HttpErrorResponse) => this.onLoginError(e)),
-			startWith(AuthActions.setPending(true))
+			mergeMap(r => this.onLoginSuccess(r) as any),
+			catchError((e: HttpErrorResponse) => this.onError(e, AuthView.LOGIN) as any),
+			startWith(AuthDlgActions.setPending(AuthView.LOGIN) as any),
+		)),
+	);
+
+	@Effect()
+	resetPw$ = this.actions$.ofType<any>(ActionType.RESET_PASSWORD).pipe(
+		map( action => action.payload),
+		switchMap(email => this.srv.resetPw(email).pipe(
+			mergeMap((r: any) => this.onResetPwSuccess()),
+			catchError((e: HttpErrorResponse) => this.onError(e, AuthView.FORGOT_PASSWORD) as any),
+			startWith(AuthDlgActions.setPending(AuthView.FORGOT_PASSWORD) as any),
 		))
 	);
 
 
-	// @Effect()
-	// register$ = this.actions$.ofType<any>(ActionType.REGISTER).pipe(
-	// 	map(action => action.payload)
-	// )
+	@Effect()
+	register$ = this.actions$.ofType<any>(ActionType.REGISTER).pipe(
+		map(action => action.payload),
+		switchMap(params => this.srv.register(params).pipe(
+			mergeMap(_ => this.onRegisterSuccess()),
+			catchError((e: HttpErrorResponse) => this.onError(e, AuthView.REGISTER) as any),
+			startWith(AuthDlgActions.setPending(AuthView.REGISTER) as any)
+		)
+	));
 
 	@Effect()
 	auth$ = this.actions$.ofType<any>(ActionType.AUTHENTICATE).pipe(
@@ -54,14 +69,36 @@ export class AuthenticationEffects {
 
 	private onLoginSuccess(r: HttpResponse<Object>) {
 		const token = r.headers.get('X-Auth-Token');
-		return AuthActions.authenticate(token, true);
+		return [ AuthActions.authenticate(token, true), AuthDlgActions.setReady(AuthView.LOGIN) ];
 	}
 
-	private onLoginError(error: { error, status }) {
-		if (error.status !== 404)
-			return of(AuthActions.setError(error.error));
+	private onRegisterSuccess() {
+		return [ AuthDlgActions.setReady(AuthView.REGISTER), AuthDlgActions.setView(AuthView.ACCOUNT_CREATED)];
+	}
+
+	private onResetPwSuccess() {
+		return [ AuthDlgActions.setReady(AuthView.FORGOT_PASSWORD), AuthDlgActions.setView(AuthView.PASSWORD_RESET) ];
+	}
+
+	private onError(error: { error, status }, view: AuthView) {
+		if (error.status === 400)
+			return [ AuthDlgActions.setError( this.makeViewError(view), view), AuthDlgActions.setReady(view) ];
 		else
-			return of(AuthActions.setError('The service seems to be momentarily down. Please try again later.'));
+			return  [
+				AuthDlgActions.setError('Failed. Please try again.', view),
+				AuthDlgActions.setReady(view)
+			];
+	}
+
+	private makeViewError(view: AuthView) {
+		switch (view) {
+			case AuthView.LOGIN:
+				return 'Incorrect credentials';
+			case AuthView.REGISTER:
+				return 'Email already taken';
+			case AuthView.FORGOT_PASSWORD:
+				return 'Email not found';
+		}
 	}
 
 	private checkRedirect(redirect) {

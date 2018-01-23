@@ -7,19 +7,37 @@ import { TeamItemLoaderService } from './team-item-loader.service';
 import { entityRepresentationMap } from '../utils/entities.utils';
 import { Tag } from '../model/tag.model';
 import { Project } from '../model/project.model';
-import { tap } from 'rxjs/operators';
+import { tap, expand } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { takeWhile } from 'rxjs/operators/takeWhile';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
 	repr = entityRepresentationMap.product;
+	take = 1000;
 
 	constructor(private http: HttpClient,
 							private teamItemLoader: TeamItemLoaderService) { }
 
-	load(filterGroupName?: FilterGroupName) {
-		return this.teamItemLoader.load(this.repr, filterGroupName)
-			.map(r => r.elements)
-			.map(elems => elems.map(elem => this.addCustomFields(elem)));
+	load({ teamId, counter }) {
+		// loading products by chunks
+		// let drop = 0;
+		// return this.getProducts(drop, teamId).pipe(
+		// 	// recursion
+		// 	expand(r => {
+		// 		drop += this.take;
+		// 		return this.getProducts((drop), teamId);
+		// 	}),
+		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
+		// 	map((r: any) => r.elements)
+		// );
+		return this.http.get(`api/team/${teamId}/product?dumpAll=true&withArchived=false`);
+	}
+
+	private getProducts(drop, teamId) {
+		return this.http.get(`api/team/${teamId}/product?take=${this.take}&drop=${drop}&withArchived=false`);
 	}
 
 	loadById(id: string) {
@@ -53,64 +71,6 @@ export class ProductService {
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
-	deepLoad(id: string) {
-		return forkJoin([
-			this.sendImgReq(id),
-			this.sendAttachmentReq(id),
-			this.sendCommentReq(id),
-			this.sendVoteReq(id),
-			this.sendTagReq(id)
-		]);
-	}
-
-	sendProjectReq(id: string) {
-		return this.http.get(`api/product/${id}/project`);
-	}
-
-	sendImgReq(id: string) {
-		return this.http.get(`api/product/${id}/image`);
-	}
-
-	sendAttachmentReq(id: string) {
-		return this.http.get(`api/product/${id}/attachment`);
-	}
-
-	sendCommentReq(id: string) {
-		return this.http.get(`api/product/${id}/comment`);
-	}
-
-	sendVoteReq(id: string) {
-		return this.http.get(`api/product/${id}/vote`);
-	}
-
-	sendTagReq(id: string) {
-		return this.http.get(`api/product/${id}/tag`);
-	}
-
-	sendTaskReq(id: string) {
-		return this.http.get(`api/product/${id}/task`);
-	}
-
-	addTag(tag, id) {
-		return this.http.put(`api/product/${id}/tag/${tag.id}`, {});
-	}
-
-	addProject(project, id) {
-		return this.http.put(`api/product/${id}/project/${project.id}`, {});
-	}
-
-	// TODO remove those
-	postVote(v: { productId: string, value: number }) {
-		return this.http.post(`api/product/${v.productId}/vote`, { value : v.value});
-	}
-
-	removeTag(tag: Tag, id: string) {
-		return this.http.delete(`api/product/${id}/tag/${tag.id}`);
-	}
-
-	removeProject(p: Project, id: string) {
-		return this.http.delete(`api/product/${id}/project/${p.id}`);
-	}
 
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);

@@ -40,7 +40,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 		.subscribe(params => {
 			const id = params['id'];
 			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(ProductActions.loadOne(id));
+			// this.store.dispatch(ProductActions.loadOne(id));
 			this.store.dispatch(TargetProjectActions.load(this.target));
 			this.product$ = this.store.select(selectProductById(id));
 			this.projects$ = this.store.select(selectProjectsForTarget);

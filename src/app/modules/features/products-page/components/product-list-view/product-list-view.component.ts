@@ -4,12 +4,13 @@ import { Supplier } from '../../../../store/model/supplier.model';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
+import { EntityState, entityStateToArray, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/product.model';
 import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 import { selectProductsWithNames } from '../../../../store/selectors/products.selector';
 import { FilterActions } from '../../../../store/action/filter.action';
 import { FilterGroupName, FilterSort } from '../../../../store/model/filter.model';
+import { selectEntityArray } from '../../../../store/selectors/utils.selector';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -32,7 +33,7 @@ export class ProductListViewComponent implements OnInit {
 	];
 
 	constructor(private store: Store<any>) {
-		this.products$ = this.store.select(selectProductsWithNames);
+		this.products$ = this.store.select(selectEntityArray(entityRepresentationMap.product));
 	}
 
 	ngOnInit() {

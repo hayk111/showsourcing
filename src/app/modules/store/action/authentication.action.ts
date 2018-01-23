@@ -5,10 +5,9 @@ import { TypedAction } from '../utils/typed-action.interface';
 export enum ActionType {
 	LOGIN = '[Authentication] login',
 	REGISTER = '[Authentication] register',
-	SET_PENDING = '[Authentication] setting pending',
 	AUTHENTICATE = '[Authentication] authenticating',
 	LOGOUT = '[Authentication] logging out',
-	SET_ERROR = '[Authentication] setting error',
+	RESET_PASSWORD = '[Authentication] reset password'
 }
 
 export class AuthActions {
@@ -28,13 +27,6 @@ export class AuthActions {
 		};
 	}
 
-	static setPending(payload: boolean): TypedAction<boolean> {
-			return {
-					type: ActionType.SET_PENDING,
-					payload
-			};
-	}
-
 	static authenticate(token: string, redirect): TypedAction<any> {
 			return {
 					type: ActionType.AUTHENTICATE,
@@ -42,16 +34,16 @@ export class AuthActions {
 			};
 	}
 
-	static setError(payload: string): TypedAction<string> {
-			return {
-					type: ActionType.SET_ERROR,
-					payload
-			};
-	}
-
 	static logout() {
 		return {
 			type: ActionType.LOGOUT
+		};
+	}
+
+	static resetPassword(email: string) {
+		return {
+			type: ActionType.RESET_PASSWORD,
+			payload: email
 		};
 	}
 }

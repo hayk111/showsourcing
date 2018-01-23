@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -16,9 +16,10 @@ import { AuthActions } from '../../../../store/action/authentication.action';
 })
 export class LoginComponent implements OnInit {
 	creds: FormGroup;
-	pending$: Observable<boolean>;
-	error$: Observable<string>;
 	@Output() forgotPassword = new EventEmitter<any>();
+	@Output() login = new EventEmitter<any>();
+	@Input() pending: boolean;
+	@Input() error: any;
 
 	constructor(private store: Store<any>, private fb: FormBuilder) {
 		this.creds = this.fb.group({
@@ -28,17 +29,14 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const auth$ = this.store.select(selectAuthentication);
-		this.pending$ = auth$.map((auth: Authentication) => auth.pending);
-		this.error$ = auth$.map((auth: Authentication) => auth.errorMsg);
 	}
 
 	onSubmit() {
 		if (this.creds.valid)
-			this.store.dispatch(AuthActions.login(this.creds.value));
+			this.login.emit(this.creds.value);
 	}
 
 	forgotPw() {
-		this.forgotPassword.emit(null);
+		this.forgotPassword.emit();
 	}
 }
