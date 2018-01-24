@@ -1,8 +1,8 @@
 <form (ngSubmit)="onSubmit()" *ngIf="!pending; else spinner" [formGroup]="creds">
 
-	<input-app label="Email" type="text" placeholder="example@showsourcing.com"
+	<input-app autocomplete="on" label="Email" type="text" placeholder="example@showsourcing.com"
 		formControlName="identifier"></input-app>
-	<input-app label="Password" type="password" placeholder="your password"
+	<input-app autocomplete="on" label="Password" type="password" placeholder="your password"
 		formControlName="password"></input-app>
 
 	<div class="forgotCtnr">

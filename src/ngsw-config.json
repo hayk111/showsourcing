@@ -1,0 +1,39 @@
+{
+  "index": "/index.html",
+  "assetGroups": [{
+    "name": "app",
+    "installMode": "prefetch",
+    "resources": {
+      "files": [
+        "/favicon.ico",
+				"/index.html"
+      ],
+      "versionedFiles": [
+        "/*.bundle.css",
+        "/*.bundle.js",
+        "/*.chunk.js"
+      ]
+    }
+  }, {
+			"name": "assets",
+			"installMode": "lazy",
+			"updateMode": "lazy",
+			"resources": {
+				"files": [
+					"/assets/**"
+				]
+			}
+		}
+	], "dataGroups" : [
+		{
+			"name": "api",
+			"urls": ["https://stoemelings.showsourcing.com/**"],
+			"cacheConfig": {
+				"strategy": "performance",
+				"maxSize": 40,
+				"maxAge": "365d",
+				"timeout": "5s"
+			}
+		}
+	]
+}
