@@ -72,6 +72,7 @@ const ui = combineReducers( {
 
 // reducers for when we select a specific entity. Like when we are viewing a certain product
 const target = combineReducers({
+	target: targetReducer,
 	projects: targetProjectReducer,
 	tags: targetTagReducer,
 	comments: commentReducer,

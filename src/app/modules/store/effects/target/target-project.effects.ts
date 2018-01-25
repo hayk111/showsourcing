@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 import { ProjectService } from '../../services/project.service';
-import { Project } from '../../model/project.model';
 
 
 @Injectable()
