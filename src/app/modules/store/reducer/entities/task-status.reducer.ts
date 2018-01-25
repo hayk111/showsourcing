@@ -1,9 +1,10 @@
-import { EntityState, Entity } from '../utils/entities.utils';
-import { TaskStatus } from '../model/task.model';
+import { EntityState, Entity } from '../../utils/entities.utils';
+import { TaskStatus } from '../../model/entities/task.model';
+
+
 
 const initialState: EntityState<Entity> = {
 	pending: false,
-	maxEntityCounter: 0,
 	byId: {
 		'Todo': { id: 'Todo', name: TaskStatus.TODO },
 		'InProgress': { id: 'InProgress', name: TaskStatus.IN_PROGRESS },

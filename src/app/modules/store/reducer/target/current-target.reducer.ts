@@ -1,8 +1,7 @@
-import { ActionType } from '../action/selection/selection.action';
+import { ActionType } from '../../action/target/current-target.action';
 
 
-
-export function selectionReducer(state, action) {
+export function currentTargetReducer(state, action) {
 	switch (action.type) {
 		case ActionType.SET:
 			return action.payload;

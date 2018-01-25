@@ -1,15 +1,14 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Store } from '@ngrx/store';
-import { selectEntity } from '../../../../store/selectors/utils.selector';
-import { selectIsSidenavOpen } from '../../../../store/selectors/sidenav.selector';
-import { SidenavActions } from '../../../../store/action/sidenav.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { throttleTime } from 'rxjs/operators/throttleTime';
 import { sampleTime } from 'rxjs/operators/sampleTime';
 import { takeUntil } from 'rxjs/operators';
+import { selectIsSidenavOpen } from '../../../../store/selectors/ui/sidenav.selector';
+import { SidenavActions } from '../../../../store/action/ui/sidenav.reducer';
 
 @Component({
 	selector: 'side-nav-app',

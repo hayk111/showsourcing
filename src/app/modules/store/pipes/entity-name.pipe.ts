@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { Store } from '@ngrx/store';
-import { selectEntityById } from '../selectors/utils.selector';
 import { entityRepresentationMap, EntityRepresentation } from '../utils/entities.utils';
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
 import { tap, filter, takeUntil } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { selectEntityById } from '../selectors/misc/utils.selector';
 
 @Pipe({name: 'entityName'})
 export class EntityNamePipe extends AutoUnsub implements PipeTransform {

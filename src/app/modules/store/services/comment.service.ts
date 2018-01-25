@@ -16,22 +16,13 @@ export class CommentService {
 			.subscribe((user: User) => this.user = user);
 	}
 
-	getPendingComment(comment: AppComment) {
-		const id = uuid();
-		const createdByUserId = this.user.id;
-		const creationDate = Date.now();
-		return { ...comment, id, createdByUserId, creationDate };
-	}
-
 	load(target: EntityTarget) {
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/comment`).pipe(
-			tap((comments: Array<AppComment>) => comments.forEach(c => c.target = target))
-		);
+		return this.http.get(`api/${name}/${id}/comment`);
 	}
 
-	postComment(comment: AppComment) {
-		return this.http.post(`api/product/${comment.target.entityId}/comment`, { text: comment.text });
+	postComment(comment: AppComment, target: EntityTarget) {
+		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/comment`, { text: comment.text });
 	}
 }

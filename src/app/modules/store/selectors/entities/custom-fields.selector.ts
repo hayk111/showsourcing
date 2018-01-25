@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { CustomFieldsName } from '../reducer/custom-fields.reducer';
+import { CustomFieldsName } from '../../reducer/entities/custom-fields.reducer';
 
 
 export const selectCustomFields = state => state.entities.customFields;

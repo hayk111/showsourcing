@@ -1,41 +1,40 @@
-import { userReducer } from './user.reducer';
-import { authenticationReducer } from './authentication.reducer';
-import { companyReducer } from './company.reducer';
-import { countryReducer } from './country.reducer';
-import { currencyReducer } from './currency.reducer';
-import { categoryReducer } from './category.reducer';
-import { teamsReducer } from './team.reducer';
-import { eventsReducer } from './event.reducer';
-import { tagReducer } from './tag.reducer';
-import { projectReducer } from './project.reducer';
-import { filtersReducer } from './filter.reducer';
-import { filterPanelReducer } from './filter-panel.reducer';
-import { supplierReducer } from './supplier.reducer';
-import { taskReducer } from './task.reducer';
-import { productReducer } from './product.reducer';
-import { viewSwitcherReducer } from './view-switcher.reducer';
-import { miscReducer } from './misc.reducer';
-import { productStatusReducer } from './product-status.reducer';
-import { tasksStatusReducer } from './task-status.reducer';
-import { tasksTypeReducer } from './task-type.reducer';
+
 import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
 import { combineReducers } from '@ngrx/store/src/utils';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { customFieldsReducer } from './custom-fields.reducer';
-import { dialogReducer } from './dialog.reducer';
+import { CurrentTargetAction } from '../action/target/current-target.action';
+import { userReducer } from './entities/user.reducer';
+import { countryReducer } from './entities/country.reducer';
+import { currencyReducer } from './entities/currency.reducer';
+import { categoryReducer } from './entities/category.reducer';
+import { teamsReducer } from './entities/team.reducer';
+import { eventsReducer } from './entities/event.reducer';
+import { tagReducer } from './entities/tag.reducer';
+import { projectReducer } from './entities/project.reducer';
+import { supplierReducer } from './entities/supplier.reducer';
+import { teamMembersReducer } from './entities/team-members.reducer';
+import { productReducer } from './entities/product.reducer';
+import { taskReducer } from './entities/task.reducer';
+import { productStatusReducer } from './entities/product-status.reducer';
+import { tasksTypeReducer } from './entities/task-type.reducer';
+import { customFieldsReducer } from './entities/custom-fields.reducer';
+import { commentReducer } from './entities/comment.reducer';
+import { filesReducer } from './entities/files.reducer';
+import { voteReducer } from './entities/vote.reducer';
+import { imagesReducer } from './entities/image.reducer';
+import { tasksStatusReducer } from './entities/task-status.reducer';
+import { dialogReducer } from './ui/dialog.reducer';
+import { filtersReducer } from './misc/filter.reducer';
+import { authDlgReducer } from './ui/auth-dlg.reducer';
+import { authenticationReducer } from './misc/authentication.reducer';
+import { viewSwitcherReducer } from './ui/view-switcher.reducer';
+import { filterPanelReducer } from './ui/filter-panel.reducer';
+import { sidenavReducer } from './ui/sidenav.reducer';
+import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { InjectionToken } from '@angular/core';
-import { teamMembersReducer } from './team-members.reducer';
-import { sidenavReducer } from './sidenav.reducer';
-import { commentReducer } from './target/comment.reducer';
-import { filesReducer } from './target/files.reducer';
-import { imagesReducer } from './target/image.reducer';
-import { voteReducer } from './target/vote.reducer';
-import { targetTagReducer } from './target/tag.reducer';
-import { targetProjectReducer } from './target/project.reducer';
-import { filterEntityPanelReducer } from './filter-entity-panel.reducer';
-import { authDlgReducer } from './auth-dlg.reducer';
+import { currentTargetReducer } from './target/current-target.reducer';
 
 
 const entities = combineReducers({
@@ -57,12 +56,24 @@ const entities = combineReducers({
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
 	customFields: customFieldsReducer,
+	comments: commentReducer,
+	files: filesReducer,
+	images: imagesReducer,
+	votes: voteReducer
+});
+
+const misc = combineReducers({
+	authentication: authenticationReducer,
+	filters: filtersReducer,
+
+});
+
+const target = combineReducers({
+	currentTarget: currentTargetReducer
 });
 
 const ui = combineReducers( {
-	authentication: authenticationReducer,
 	authDlg: authDlgReducer,
-	filters: filtersReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
@@ -70,19 +81,8 @@ const ui = combineReducers( {
 	filterEntityPanel: filterEntityPanelReducer,
 });
 
-// reducers for when we select a specific entity. Like when we are viewing a certain product
-const target = combineReducers({
-	target: targetReducer,
-	projects: targetProjectReducer,
-	tags: targetTagReducer,
-	comments: commentReducer,
-	files: filesReducer,
-	images: imagesReducer,
-	votes: voteReducer
-});
 
-
-export const reducers = { entities, target, ui };
+export const reducers = { entities, target, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

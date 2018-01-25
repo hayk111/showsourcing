@@ -1,5 +1,5 @@
-import { DialogName } from '../model/dialog.model';
 import { createSelector } from 'reselect';
+import { DialogName } from '../../model/ui/dialog.model';
 
 export const selectDialogs = state => state.ui.dialogs;
 

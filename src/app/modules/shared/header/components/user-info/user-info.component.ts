@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { User } from '../../../../store/model/user.model';
-import { selectUser } from '../../../../store/selectors/user.selector';
-import { Team } from '../../../../store/model/team.model';
-import { selectTeams } from '../../../../store/selectors/teams.selector';
+import { selectUser } from '../../../../store/selectors/entities/user.selector';
+import { selectTeams } from '../../../../store/selectors/entities/teams.selector';
+import { User } from '../../../../store/model/entities/user.model';
+import { Team } from '../../../../store/model/entities/team.model';
 
 @Component({
 	selector: 'user-info-app',

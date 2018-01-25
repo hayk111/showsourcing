@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Supplier } from '../../../../store/model/supplier.model';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
+import { Supplier } from '../../../../store/model/entities/supplier.model';
+import { FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 
 @Component({
 	selector: 'app-supplier-page',

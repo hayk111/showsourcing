@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { EntityTarget } from '../../utils/entities.utils';
 
 
-export const selectFiles = state => state.target.files;
+export const selectFiles = state => state.entities.files;
 
 export const selectFilesForTarget = (target: EntityTarget) => {
 	return createSelector([selectFiles], files => {

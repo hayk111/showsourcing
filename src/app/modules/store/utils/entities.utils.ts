@@ -1,12 +1,5 @@
 import { deepCopy } from './deep-copy.utils';
-import { CustomFieldsName } from '../reducer/custom-fields.reducer';
-import { SupplierActions } from '../action/supplier.action';
-import { EventActions } from '../action/event.action';
-import { CategoryActions } from '../action/category.action';
-import { TagActions } from '../action/target/tag.action';
-import { ProjectActions } from '../action/target/project.action';
-import { ProductActions } from '../action/product.action';
-import { TaskActions } from '../action/task.action';
+import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
 
 
 export const entityInitialState: EntityState<any> = {
@@ -101,12 +94,13 @@ export function removeEntities(state, idsToRemove: Array<string>) {
 
 // used when there is a pending entity ( new entity added with a fake id. Then we get the real id
 // from the backend )
-export function replaceEntity(state, id: string, replacing: Entity) {
+export function replaceEntity(state, old: Entity, replacing: Entity) {
 	// a bit more performant than filter since we don't have to go through the whole array
-	const index = state.ids.findIndex(idx => idx === id);
+	const idOld = old.id;
+	const index = state.ids.findIndex(idx => idx === idOld);
 	const ids = state.ids.splice(index, 1);
 	const byId = { ...state.byId };
-	delete byId[id];
+	delete byId[idOld];
 	return addEntities(state, [replacing]);
 }
 
@@ -135,10 +129,10 @@ export function entityAddProp(state, id, additionalProps?: any) {
 // used when an entity property has an array of ids
 export function entityAddItemToArray(state, entityId: string, propName: string, idsToAdd: Array<string>) {
 	let arr = [];
+	const entity = {...state.byId[entityId]};
 	if (state.byId[entityId] && state.byId[entityId][propName]) {
 		arr = state.byId[entityId][propName];
 	}
-
 	arr = arr.concat(idsToAdd);
 	entity.propName = entity.propName.concat(idsToAdd);
 	return {
@@ -151,9 +145,9 @@ export function entityAddItemToArray(state, entityId: string, propName: string, 
 }
 
 // used when an entity property has an array of ids
-export function removeIdFromEntityProp(state, entityId, propName, removedId) {
+export function removeIdFromEntityProp(state, entityId, propName, removed) {
 	const entity = { ...state.byId[entityId] };
-	entity.propName = entity.propName.filter(idx => idx !== removedId);
+	entity.propName = entity.propName.filter(idx => idx !== removed);
 	return {
 		...state,
 		byId: {
@@ -172,6 +166,20 @@ export function replaceIdFromEntityProp(state, entityId: string, replacingId: st
 		byId: {
 			...state.byId,
 			[entityId]: entity
+		}
+	};
+}
+
+
+export function copyById(state, id, additionalProps?: any) {
+	return {
+		...state,
+		byId: {
+			...state.byId,
+			[id]: {
+				...state.byId[id],
+				...additionalProps
+			}
 		}
 	};
 }

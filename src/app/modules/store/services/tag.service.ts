@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/user.selector';
-import { User } from '../model/user.model';
 import { EntityTarget } from '../utils/entities.utils';
-import { Tag } from '../model/tag.model';
+import { Tag } from '../model/entities/tag.model';
 
 
 @Injectable()

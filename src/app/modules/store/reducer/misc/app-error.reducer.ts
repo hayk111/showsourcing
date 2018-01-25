@@ -1,6 +1,7 @@
-import { entityInitialState, EntityState } from '../utils/entities.utils';
-import { AppError } from '../model/app-error.model';
-import { ActionType } from '../action/app-errors.action';
+import { EntityState, entityInitialState } from '../../utils/entities.utils';
+import { AppError } from '../../model/misc/app-error.model';
+
+
 
 export function appErrorReducer(state: EntityState<AppError> = entityInitialState, action) {
 	// well we do nothing here..

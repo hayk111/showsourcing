@@ -1,4 +1,6 @@
 import { EntityTarget } from '../../utils/entities.utils';
+import { AppImage } from '../../model/entities/app-image.model';
+import { AppFile } from '../../model/entities/app-file.model';
 
 export enum ActionType {
 	LOAD = '[Image] Loading files for entity',

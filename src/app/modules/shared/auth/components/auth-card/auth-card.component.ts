@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthCardService } from '../../services/auth-card.service';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../../store/action/authentication.action';
-import { AuthView, AuthDlgActions } from '../../../../store/action/auth-dlg.action';
-import { selectAuthDlg } from '../../../../store/selectors/auth-dlg.selector';
+import { AuthView, AuthDlgActions } from '../../../../store/action/ui/auth-dlg.action';
+import { selectAuthDlg } from '../../../../store/selectors/ui/auth-dlg.selector';
+import { AuthActions } from '../../../../store/action/misc/authentication.action';
 
 @Component({
 	selector: 'auth-card-app',

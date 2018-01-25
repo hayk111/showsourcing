@@ -1,5 +1,7 @@
-import { ActionType } from '../../action/file.action';
-import { AppFile } from '../../model/app-file.model';
+import { ActionType } from '../../action/entities/file.action';
+import { AppFile } from '../../model/entities/app-file.model';
+
+
 
 
 

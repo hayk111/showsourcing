@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AppImage } from '../../../../store/model/app-image.model';
-import { selectUser } from '../../../../store/selectors/user.selector';
 import { map } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { ImageActions } from '../../../../store/action/images.action';
-import { selectImagesForTarget } from '../../../../store/selectors/target/image.selector';
+import { AppImage } from '../../../../store/model/entities/app-image.model';
+import { selectImagesForTarget } from '../../../../store/selectors/entities/image.selector';
+import { ImageActions } from '../../../../store/action/entities/images.action';
 
 @Component({
 	selector: 'input-image-entity-app',

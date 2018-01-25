@@ -1,22 +1,35 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../../model/entities/product.model';
+import { AppComment } from '../../model/entities/comment.model';
+import { Project } from '../../model/entities/project.model';
+import { Tag } from '../../model/entities/tag.model';
+import { EntityTarget } from '../../utils/entities.utils';
+import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {
 		LOAD = '[Product] loading',
-		SET = '[Product] setting',
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
 		REQUEST_PDF = '[Product] requesting pdf',
-		SET_PENDING = '[Product] setting pending',
 
-		ADD_COMMENTS = '[Product] adding comments',
-		REMOVE_COMMENT = '[Product] removing comment',
-		ADD_PROJECTS = '[Product] adding projects',
-		REMOVE_PROJECT = '[Product] removing project',
-		ADD_TAGS = '[Product] adding tags',
-		REMOVE_TAG = '[Product] removing tag',
-		ADD_TASKS = '[Product] adding tasks',
+		// comments
+		LOAD_COMMENTS = '[Product] Loading comments',
+		ADD_COMMENTS = '[Product] adding comments ids',
+		CREATE_COMMENT = '[Product] creating comment',
+		REMOVE_COMMENT = '[Product] remove comment',
+		// project
+		LOAD_PROJECT = '[Product] loading projects',
+		ADD_PROJECTS = '[Product] adding projects ids',
+		REMOVE_PROJECT = '[Product] removing project id',
+		// tags
+		LOAD_TAGS = '[Product] loading tags',
+		ADD_TAGS = '[Product] adding tags ids',
+		REMOVE_TAG = '[Product] removing tag id',
+		// task
+		LOAD_TASKS = '[Product] loading tasks',
+		ADD_TASKS = '[Product] adding tasks ids',
 		REMOVE_TASK = '[Product] remove task'
+
 }
 
 export class ProductActions {
@@ -35,13 +48,6 @@ export class ProductActions {
 		};
 	}
 
-	static set(payload: Array<Product>) {
-			return {
-					type: ActionType.SET,
-					payload
-			};
-	}
-
 	static patch(id: string, propName: string, value: any) {
 		return {
 			type: ActionType.PATCH,
@@ -52,63 +58,73 @@ export class ProductActions {
 	static requestPdf(id: string) {
 		return {
 			type: ActionType.REQUEST_PDF,
-			payload: id
 		};
 	}
 
-	static addTags(ids: Array<string>) {
+	static loadComments() {
 		return {
-			type: ActionType.ADD_TAGS,
-			payload: ids
+			type: ActionType.LOAD_COMMENTS
 		};
 	}
 
-	static addProjects(ids: Array<string>) {
-		return {
-			type: ActionType.ADD_PROJECTS,
-			payload: ids
-		};
-	}
-
-	static addTasks(ids: Array<string>) {
-		return {
-			type: ActionType.ADD_TASKS,
-			payload: ids
-		};
-	}
-
-	static addComments(ids: Array<string>) {
+	static addComments(added: Array<AppComment>, target: EntityTarget) {
 		return {
 			type: ActionType.ADD_COMMENTS,
-			payload: ids
+			payload: { added, target, propName: 'commentIds' }
 		};
 	}
 
-	static removeTag(id) {
+	static createComment(comment: AppComment) {
 		return {
-			type: ActionType.REMOVE_TAG,
-			payload: id
+			type: ActionType.CREATE_COMMENT,
+			payload: comment
 		};
 	}
 
-	static removeComment(id) {
+	static removeComment(comment: Comment, target: EntityTarget) {
 		return {
 			type: ActionType.REMOVE_COMMENT,
-			payload: id
+			payload: { comment, target, propName: 'commentIds' }
 		};
 	}
 
-	static removeTask(id) {
+	static loadProjects() {
 		return {
-			type: ActionType.REMOVE_TASK,
-			payload: id
+			type: ActionType.LOAD_PROJECT
 		};
 	}
 
-	static removeProject(id) {
+	static addProjects(added: Array<Project>, target: EntityTarget) {
+		return {
+			type: ActionType.ADD_PROJECTS,
+			payload: { added, target, propName: 'projectIds' }
+		};
+	}
+
+	static removeProject(removed: Project, target: EntityTarget) {
 		return {
 			type: ActionType.REMOVE_PROJECT,
-			payload: id
+			payload: { removed, target, propName: 'projectIds' }
+		};
+	}
+
+	static loadTags() {
+		return {
+			type: ActionType.LOAD_TAGS
+		};
+	}
+
+	static addTags(added: Array<Tag>, target: EntityTarget) {
+		return {
+			type: ActionType.ADD_TAGS,
+			payload: { added, target, propName: 'tagIds' }
+		};
+	}
+
+	static removeTag(removed: Tag, target: EntityTarget) {
+		return {
+			type: ActionType.REMOVE_TAG,
+			payload: { removed, target, propName: 'tagIds'}
 		};
 	}
 }

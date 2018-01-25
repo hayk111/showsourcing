@@ -1,19 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFilterGroup } from '../../../../store/selectors/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { ProductActions } from '../../../../store/action/product.action';
-import { Product } from '../../../../store/model/product.model';
 import { EntityState, EntityRepresentation, EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { DialogName } from '../../../../store/model/dialog.model';
-import { selectProducts } from '../../../../store/selectors/products.selector';
-import { DialogActions } from '../../../../store/action/dialog.action';
+
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { map } from 'rxjs/operators';
-import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
-	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/filter.model';
+import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory, FilterEvent, FilterTags,
+	FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';
+import { Product } from '../../../../store/model/entities/product.model';
+import { selectProducts } from '../../../../store/selectors/entities/products.selector';
 
 @Component({
 	selector: 'products-page-app',
@@ -48,7 +45,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		//  this.store.dispatch(ProductActions.load(this.filterGroupName));
 		this.store.select(selectProducts).pipe(
 			map(products => products.pending)
 		).subscribe(pending => this.pending = pending);

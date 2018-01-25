@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/user.selector';
-import { User } from '../model/user.model';
 import { entityRepresentationMap, EntityTarget } from '../utils/entities.utils';
 
 

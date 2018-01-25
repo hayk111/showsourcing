@@ -1,4 +1,4 @@
-import { ActionType } from '../../action/target/tag.action';
+import { ActionType } from '../../action/entities/tag.action';
 import { addEntities, entityInitialState, replaceEntity } from '../../utils/entities.utils';
 
 

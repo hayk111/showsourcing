@@ -1,5 +1,5 @@
 import { Counters } from './counters.interface';
-import { uuid } from '../utils/uuid.utils';
+import { uuid } from '../../utils/uuid.utils';
 
 
 export class Project {

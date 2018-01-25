@@ -1,12 +1,10 @@
-import { EntityState, Entity, EntityRepresentation } from '../utils/entities.utils';
-import { Product } from '../model/product.model';
-import { deepCopy } from '../utils/deep-copy.utils';
-import { FilterGroupName, FilterEntity, FilterEntityClass } from '../model/filter.model';
-import Log from '../../../utils/logger/log.class';
-import { selectEntity, selectEntityArray } from './utils.selector';
 import { Store } from '@ngrx/store';
 import { createSelector } from 'reselect';
-import { selectFiltersValues } from './filter.selectors';
+import { EntityRepresentation, Entity } from '../../utils/entities.utils';
+import { FilterGroupName, FilterEntityClass } from '../../model/misc/filter.model';
+import { selectEntityArray } from '../misc/utils.selector';
+import { selectFiltersValues } from '../misc/filter.selectors';
+import Log from '../../../../utils/logger/log.class';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;

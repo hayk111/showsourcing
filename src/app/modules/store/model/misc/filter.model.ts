@@ -1,13 +1,6 @@
-import { Entity, entityRepresentationMap, EntityRepresentation } from '../utils/entities.utils';
-import { CustomFieldsName } from '../reducer/custom-fields.reducer';
-import { SupplierActions } from '../action/supplier.action';
-import { EventActions } from '../action/event.action';
-import { CategoryActions } from '../action/category.action';
-import { TagActions } from '../action/tag.action';
-import { ProjectActions } from '../action/project.action';
-import { ProductActions } from '../action/product.action';
-import { TaskActions } from '../action/task.action';
-import { Currency } from './currency.model';
+import { EntityRepresentation, Entity, entityRepresentationMap } from '../../utils/entities.utils';
+import { Currency } from '../entities/currency.model';
+
 
 
 export enum FilterGroupName {

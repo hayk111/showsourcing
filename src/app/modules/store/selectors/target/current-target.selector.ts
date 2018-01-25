@@ -1,2 +1,2 @@
 
-export const selectTarget = state => state.target.currentTarget;
+export const selectCurrentTarget = state => state.target.currentTarget;

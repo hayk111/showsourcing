@@ -1,6 +1,8 @@
-import { User } from '../model/user.model';
-import { ActionType } from '../action/team-members.action';
-import { EntityState, entityInitialState, addEntities } from '../utils/entities.utils';
+import { EntityState, addEntities, entityInitialState } from '../../utils/entities.utils';
+import { User } from '../../model/entities/user.model';
+import { ActionType } from '../../action/entities/team-members.action';
+
+
 
 export function teamMembersReducer( state: EntityState<User> = entityInitialState, action) {
 	switch (action.type) {

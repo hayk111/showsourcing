@@ -1,16 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Supplier } from '../../../../store/model/supplier.model';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { EntityState, entityStateToArray, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Product } from '../../../../store/model/product.model';
-import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
-import { selectProductsWithNames } from '../../../../store/selectors/products.selector';
-import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterGroupName, FilterSort } from '../../../../store/model/filter.model';
-import { selectEntityArray } from '../../../../store/selectors/utils.selector';
+import { FilterGroupName, FilterSort } from '../../../../store/model/misc/filter.model';
+import { Supplier } from '../../../../store/model/entities/supplier.model';
+import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
+import { FilterActions } from '../../../../store/action/misc/filter.action';
 
 @Component({
 	selector: 'product-list-view-app',

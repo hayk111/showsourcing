@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterSearch, FilterGroupName, FilterSupplier, FilterCategory, FilterEvent } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
-import { searchEntity, searchEntities, SmartSearch } from '../../../../store/selectors/search-entities.selector';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { take, tap } from 'rxjs/operators';
+import { FilterGroupName, FilterEvent, FilterSupplier, FilterCategory, FilterSearch } from '../../../../store/model/misc/filter.model';
+import { SmartSearch, searchEntities } from '../../../../store/selectors/entities/search-entities.selector';
+import { FilterActions } from '../../../../store/action/misc/filter.action';
 
 @Component({
 	selector: 'filter-search-bar-app',

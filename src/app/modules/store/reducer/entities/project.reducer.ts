@@ -1,5 +1,5 @@
-import { ActionType } from '../../action/target/project.action';
 import { addEntities, replaceEntity, entityInitialState } from '../../utils/entities.utils';
+import { ActionType } from '../../action/entities/project.action';
 
 
 export function projectReducer(state = entityInitialState, action) {
@@ -7,7 +7,7 @@ export function projectReducer(state = entityInitialState, action) {
 	switch (action.type) {
 
 		case ActionType.ADD:
-			return addEntities(state, action.payload);
+			return addEntities(state, action.payload.added);
 
 		case ActionType.CREATE:
 			return addEntities(state, [action.payload]);

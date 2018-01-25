@@ -1,9 +1,10 @@
-import { ProductStatus } from '../model/product.model';
-import { EntityState, Entity } from '../utils/entities.utils';
+import { ProductStatus } from '../../model/entities/product.model';
+import { EntityState, Entity } from '../../utils/entities.utils';
+
+
 
 const initialState: EntityState<Entity> = {
 	pending: false,
-	maxEntityCounter: 0,
 	byId: {
 		'Idea': { id: 'Idea', name: ProductStatus.IDEA },
 		'NeedReview': { id: 'NeedReview', name: ProductStatus.NEED_REVIEW },

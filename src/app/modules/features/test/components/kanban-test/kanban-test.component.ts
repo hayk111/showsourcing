@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductStatus } from '../../../../store/model/product.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectProductByStatus } from '../../../../store/selectors/products.selector';
-import { ProductActions } from '../../../../store/action/product.action';
+import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
+import { ProductActions } from '../../../../store/action/entities/product.action';
 
 @Component({
 	selector: 'kanban-test-app',

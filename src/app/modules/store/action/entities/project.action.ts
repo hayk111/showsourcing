@@ -1,40 +1,42 @@
-import { Action } from '@ngrx/store';
+import { EntityTarget } from '../../utils/entities.utils';
 import { Project } from '../../model/entities/project.model';
+
+
 
 export enum ActionType {
 	LOAD = '[Project] Loading...',
-	ADD = '[Project] Adding',
 	CREATE = '[Project] Creating new',
+	ADD = '[Project] Adding',
 	REPLACE = '[Project] Replacing pending',
 }
 
 export class ProjectActions {
 
-	static load(id: string, maxCounter: number) {
+	static load(id, maxCounter) {
 		return {
 			type: ActionType.LOAD,
 			payload: { id, maxCounter }
 		};
 	}
 
-	static add(payload: Array<Project>){
+	static add(added: Array<Project>) {
 		return {
-		type: ActionType.ADD,
-			payload
+			type: ActionType.ADD,
+			payload: added
 		};
 	}
 
-	static create(projects: Array<Project>) {
+	static create(project: Project) {
 		return {
 			type: ActionType.CREATE,
-			payload: projects
+			payload: project
 		};
 	}
 
-	static replace(id: string, replacing: Project) {
+	static replace(old: Project, replacing: Project) {
 		return {
 			type: ActionType.REPLACE,
-			payload: { id, replacing }
+			payload: { old, replacing }
 		};
 	}
 

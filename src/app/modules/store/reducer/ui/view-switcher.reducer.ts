@@ -1,6 +1,5 @@
-import { TypedAction } from '../utils/typed-action.interface';
-import { ActionType } from '../action/view-switcher.action';
-
+import { TypedAction } from '../../utils/typed-action.interface';
+import { ActionType } from '../../action/ui/view-switcher.action';
 
 
 

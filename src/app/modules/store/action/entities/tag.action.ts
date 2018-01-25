@@ -6,7 +6,6 @@ import { Tag } from '../../model/entities/tag.model';
 export enum ActionType {
 	LOAD = '[Tag] Loading...',
 	ADD = '[Tag] Adding',
-	CREATE = '[Tag] Creating new',
 	REPLACE = '[Tag] Replacing pending',
 }
 
@@ -23,13 +22,6 @@ export class TagActions {
 		return {
 		type: ActionType.ADD,
 			payload
-		};
-	}
-
-	static create(projects: Array<Tag>) {
-		return {
-			type: ActionType.CREATE,
-			payload: projects
 		};
 	}
 

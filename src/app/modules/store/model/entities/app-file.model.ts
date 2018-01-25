@@ -1,7 +1,7 @@
-import { EntityTarget } from '../utils/entities.utils';
-import { uuid } from '../utils/uuid.utils';
+
 import { AsyncEntityWithTarget } from './async-entity.model';
 import { Store } from '@ngrx/store';
+import { EntityTarget } from '../../utils/entities.utils';
 
 
 export class AppFile extends AsyncEntityWithTarget {

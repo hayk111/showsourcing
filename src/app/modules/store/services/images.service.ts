@@ -2,8 +2,8 @@ import { FileService } from './file.service';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppImage } from '../model/app-image.model';
 import { tap } from 'rxjs/operators';
+import { AppImage } from '../model/entities/app-image.model';
 
 
 

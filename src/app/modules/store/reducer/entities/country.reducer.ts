@@ -1,6 +1,8 @@
-import { Country } from '../model/country.model';
-import { ActionType } from '../action/country.action';
-import { TypedAction } from '../utils/typed-action.interface';
+import { Country } from '../../model/entities/country.model';
+import { TypedAction } from '../../utils/typed-action.interface';
+import { ActionType } from '../../action/entities/country.action';
+
+
 
 
 

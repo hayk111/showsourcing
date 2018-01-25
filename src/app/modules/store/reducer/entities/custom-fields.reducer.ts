@@ -1,6 +1,8 @@
-import { TypedAction } from '../utils/typed-action.interface';
-import { ActionType } from '../action/custom-fields.action';
-import { FormDescriptor } from '../../shared/dynamic-forms/utils/descriptors.interface';
+import { FormDescriptor } from '../../../shared/dynamic-forms/utils/descriptors.interface';
+import { TypedAction } from '../../utils/typed-action.interface';
+import { ActionType } from '../../action/entities/custom-fields.action';
+
+
 
 export interface CustomFields {
 	[key: string]: FormDescriptor;

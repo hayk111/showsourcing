@@ -1,6 +1,4 @@
-import { ActionType, AuthView } from '../action/auth-dlg.action';
-
-
+import { ActionType, AuthView } from '../../action/ui/auth-dlg.action';
 
 
 const initialState = {

@@ -1,6 +1,6 @@
-import { User } from '../model/user.model';
-import { ActionType } from '../action/user.action';
-import { TypedAction } from '../utils/typed-action.interface';
+import { User } from '../../model/entities/user.model';
+import { ActionType } from '../../action/entities/user.action';
+import { TypedAction } from '../../utils/typed-action.interface';
 
 
 

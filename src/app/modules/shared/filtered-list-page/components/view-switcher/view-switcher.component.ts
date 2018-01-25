@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ViewSwitcherAction } from '../../../../store/action/view-switcher.action';
 import { Observable } from 'rxjs/Observable';
-import { selectViewSwitcher } from '../../../../store/selectors/view-switcher.selector';
+import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
+import { ViewSwitcherAction } from '../../../../store/action/ui/view-switcher.action';
 
 @Component({
 	selector: 'view-switcher-app',

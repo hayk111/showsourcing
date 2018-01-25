@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppComment } from '../../store/model/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { FilterGroupName } from '../../store/model/filter.model';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { entityRepresentationMap } from '../utils/entities.utils';
-import { Tag } from '../model/tag.model';
-import { Project } from '../model/project.model';
 import { tap, expand } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -22,17 +18,6 @@ export class ProductService {
 							private teamItemLoader: TeamItemLoaderService) { }
 
 	load({ teamId, counter }) {
-		// loading products by chunks
-		// let drop = 0;
-		// return this.getProducts(drop, teamId).pipe(
-		// 	// recursion
-		// 	expand(r => {
-		// 		drop += this.take;
-		// 		return this.getProducts((drop), teamId);
-		// 	}),
-		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
-		// 	map((r: any) => r.elements)
-		// );
 		return this.http.get(`api/team/${teamId}/product?dumpAll=true&withArchived=false`).map((r: any) => r.elements);
 	}
 

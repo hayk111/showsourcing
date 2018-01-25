@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/user.selector';
-import { User } from '../model/user.model';
 
 
 @Injectable()

@@ -1,9 +1,8 @@
-import { EntityTarget } from '../utils/entities.utils';
+
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/user.selector';
 import { take, map } from 'rxjs/operators';
-import { uuid } from '../utils/uuid.utils';
 import { User } from './user.model';
+import { uuid } from '../../utils/uuid.utils';
 
 
 

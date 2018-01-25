@@ -1,4 +1,4 @@
-import { ActionType } from '../action/sidenav.reducer';
+import { ActionType } from '../../action/ui/sidenav.reducer';
 
 
 export function sidenavReducer(state = true, action) {

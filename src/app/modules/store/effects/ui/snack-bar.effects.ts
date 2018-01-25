@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TypedAction } from '../../utils/typed-action.interface';
+import { ActionType } from '../../action/ui/snackbar.action';
 
 
 @Injectable()

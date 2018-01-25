@@ -1,9 +1,10 @@
-import { EntityState, Entity } from '../utils/entities.utils';
-import { TaskType } from '../model/task.model';
+import { EntityState, Entity } from '../../utils/entities.utils';
+import { TaskType } from '../../model/entities/task.model';
+
+
 
 const initialState: EntityState<Entity> = {
 	pending: false,
-	maxEntityCounter: 0,
 	byId: {
 		'Catalogue': { id: 'Catalogue', name: TaskType.CATALOGUE },
 		'Quotation': { id: 'Quotation', name: TaskType.QUOTATION },

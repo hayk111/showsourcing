@@ -1,20 +1,18 @@
 import { createSelector } from 'reselect';
-import { entityRepresentationMap, EntityState } from '../utils/entities.utils';
-import { Product } from '../model/product.model';
 import { selectProductStatuses } from './product-status.selector';
-import { deepCopy } from '../utils/deep-copy.utils';
-import { selectFilesForTarget, selectFiles } from './target/file.selector';
-import { selectImagesForTarget, selectImages } from './target/image.selector';
 import { selectCategories } from './categories.selector';
 import { selectEvents } from './events.selector';
 import { selectSuppliers } from './suppliers.selector';
-import { selectFilterGroup } from './filter.selectors';
-import { selectEntityArray, selectEntityById } from './utils.selector';
-import { FilterGroupName, Filter } from '../model/filter.model';
-import { selectComments } from './target/comments.selector';
 import { selectTeams } from './teams.selector';
 import { selectTags } from './tags.selector';
 import { selectProjects } from './projects.selector';
+import { selectEntityById } from '../misc/utils.selector';
+import { selectComments } from './comments.selector';
+import { selectImages } from './image.selector';
+import { selectFiles } from './file.selector';
+import { deepCopy } from '../../utils/deep-copy.utils';
+import { EntityState, entityRepresentationMap } from '../../utils/entities.utils';
+import { Product } from '../../model/entities/product.model';
 
 
 export const selectProducts = state => state.entities.products;

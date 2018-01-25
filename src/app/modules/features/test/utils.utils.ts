@@ -1,9 +1,7 @@
-import { ProductActions } from '../../store/action/product.action';
-import { selectProducts } from '../../store/selectors/products.selector';
 import { filter, map, tap } from 'rxjs/operators';
-import { Product } from '../../store/model/product.model';
 import { EntityState, Entity, entityRepresentationMap, EntityTarget } from '../../store/utils/entities.utils';
 import { Observable } from 'rxjs/Observable';
+import { selectProducts } from '../../store/selectors/entities/products.selector';
 
 
 

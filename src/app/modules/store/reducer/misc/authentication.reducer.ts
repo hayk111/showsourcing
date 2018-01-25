@@ -1,6 +1,6 @@
-import { Authentication } from '../model/authentication.model';
-import { TypedAction } from '../utils/typed-action.interface';
-import { ActionType } from '../action/authentication.action';
+import { Authentication } from '../../model/misc/authentication.model';
+import { TypedAction } from '../../utils/typed-action.interface';
+import { ActionType } from '../../action/misc/authentication.action';
 
 
 // authentication has 3 states: null, false, true

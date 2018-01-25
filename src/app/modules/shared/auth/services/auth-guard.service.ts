@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
-import { selectAuthentication } from '../../../store/selectors/authentication.selector';
+import { selectAuthentication } from '../../../store/selectors/misc/authentication.selector';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {

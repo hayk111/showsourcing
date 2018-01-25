@@ -4,7 +4,7 @@ import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {
 		LOAD = '[Task] loading',
-		SET = '[Task] setting',
+		ADD = '[Task] adding',
 		SET_PENDING = '[Task] pending',
 }
 
@@ -17,9 +17,9 @@ export class TaskActions {
 		};
 	}
 
-	static set(payload: Array<Task>) {
+	static add(payload: Array<Task>) {
 		return {
-			type: ActionType.SET,
+			type: ActionType.ADD,
 			payload
 		};
 	}
