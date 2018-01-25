@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Filter, FilterGroupName, FilterClass } from '../../../../store/model/filter.model';
 import { Store } from '@ngrx/store';
-import { Filter } from '../../../../store/model/misc/filter.model';
+import { FilterActions } from '../../../../store/action/filter.action';
 
 @Component({
 	selector: 'filter-tag-app',

@@ -3,11 +3,10 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
+import { AppComment } from '../../../../store/model/comment.model';
 import { Observable } from 'rxjs/Observable';
-import { AppComment } from '../../../../store/model/entities/comment.model';
-import { CommentActions } from '../../../../store/action/entities/comment.action';
-import { selectComments } from '../../../../store/selectors/entities/comments.selector';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { CommentActions } from '../../../../store/action/comment.action';
+import { selectComments } from '../../../../store/selectors/target/comments.selector';
 
 @Component({
 	selector: 'app-product-activity-page',
@@ -25,7 +24,7 @@ export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
 		this.route.parent.params.takeUntil(this._destroy$)
 		.subscribe(params => {
 			const target = { entityId: params['id'], entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(ProductActions.loadComments());
+			this.store.dispatch(CommentActions.load(target));
 			this.comments$ = this.store.select(selectComments);
 		});
 	}

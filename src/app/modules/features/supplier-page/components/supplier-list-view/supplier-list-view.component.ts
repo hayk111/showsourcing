@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
 import { MatTableDataSource } from '@angular/material';
-import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
-import { Supplier } from '../../../../store/model/entities/supplier.model';
+import { Supplier } from '../../../../store/model/supplier.model';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'supplier-list-view-app',

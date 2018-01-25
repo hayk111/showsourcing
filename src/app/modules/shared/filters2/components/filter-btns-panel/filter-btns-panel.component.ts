@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterClass, Filter } from '../../../../store/model/misc/filter.model';
+import { Filter, FilterClass } from '../../../../store/model/filter.model';
 
 
 // display buttons used for filtering.

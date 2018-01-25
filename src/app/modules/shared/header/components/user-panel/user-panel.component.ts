@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../../store/action/misc/authentication.action';
+import { UserActions } from '../../../../store/action/user.action';
+import { AuthActions } from '../../../../store/action/authentication.action';
 
 @Component({
 	selector: 'user-panel-app',

@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
+import { FileActions } from '../../../../store/action/file.action';
+import { AppFile } from '../../../../store/model/app-file.model';
 import { Observable } from 'rxjs/Observable';
+import { selectUser } from '../../../../store/selectors/user.selector';
 import { map } from 'rxjs/operators';
-import { AppFile } from '../../../../store/model/entities/app-file.model';
-import { selectFilesForTarget } from '../../../../store/selectors/entities/file.selector';
-import { FileActions } from '../../../../store/action/entities/file.action';
+import { selectFilesForTarget } from '../../../../store/selectors/target/file.selector';
 
 @Component({
 	selector: 'input-file-entity-app',

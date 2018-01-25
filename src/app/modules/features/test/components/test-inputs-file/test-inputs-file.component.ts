@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { selectUser } from '../../../../store/selectors/user.selector';
 import { map, tap } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { getFirstProductEntityTarget } from '../../utils.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AppFile } from '../../../../store/model/app-file.model';
+import { AppImage } from '../../../../store/model/app-image.model';
 import { Observable } from 'rxjs/Observable';
-import { AppFile } from '../../../../store/model/entities/app-file.model';
-import { AppImage } from '../../../../store/model/entities/app-image.model';
 
 @Component({
 	selector: 'app-test-inputs-file',

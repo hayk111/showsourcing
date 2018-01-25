@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FilterGroupName, Filter } from '../../../../store/model/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { TaskActions } from '../../../../store/action/task.action';
 import { Store } from '@ngrx/store';
+import { Task } from '../../../../store/model/task.model';
 import { EntityState } from '../../../../store/utils/entities.utils';
-import { FilterGroupName, Filter } from '../../../../store/model/misc/filter.model';
-import { Task } from '../../../../store/model/entities/task.model';
-import { TaskActions } from '../../../../store/action/entities/task.action';
-import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
-import { DialogActions } from '../../../../store/action/ui/dialog.action';
-import { DialogName } from '../../../../store/model/ui/dialog.model';
+import { selectTags } from '../../../../store/selectors/tags.selector';
+import { selectTasks } from '../../../../store/selectors/tasks.selector';
+import { DialogActions } from '../../../../store/action/dialog.action';
+import { DialogName } from '../../../../store/model/dialog.model';
 
 
 @Component({

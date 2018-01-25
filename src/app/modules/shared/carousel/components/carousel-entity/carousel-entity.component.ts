@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
+import { AppImage } from '../../../../store/model/app-image.model';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { ImageActions } from '../../../../store/action/images.action';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { selectImagesForTarget } from '../../../../store/selectors/target/image.selector';
 import { takeUntil } from 'rxjs/operators';
-import { ImageActions } from '../../../../store/action/entities/images.action';
-import { AppImage } from '../../../../store/model/entities/app-image.model';
-import { selectImagesForTarget } from '../../../../store/selectors/entities/image.selector';
 
 @Component({
 	selector: 'carousel-entity-app',

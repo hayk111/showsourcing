@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogName } from '../../../../store/model/dialog.model';
 import { Observable } from 'rxjs/Observable';
+import { Task } from '../../../../store/model/task.model';
 import { Store } from '@ngrx/store';
+import { selectDialog } from '../../../../store/selectors/dialog.selector';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { selectTaskById } from '../../../../store/selectors/tasks.selector';
 import { DynamicFormGroup } from '../../../../shared/dynamic-forms/utils/dynamic-controls.class';
 import { of } from 'rxjs/observable/of';
 import { DynamicFormsService } from '../../../../shared/dynamic-forms/services/dynamic-forms.service';
-import { DialogName } from '../../../../store/model/ui/dialog.model';
-import { Task } from '../../../../store/model/entities/task.model';
-import { selectDialog } from '../../../../store/selectors/ui/dialog.selector';
-import { selectTaskById } from '../../../../store/selectors/entities/tasks.selector';
+import { TaskActions } from '../../../../store/action/task.action';
 
 @Component({
 	selector: 'tasks-dialog-app',

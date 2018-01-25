@@ -5,8 +5,8 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { tap } from 'rxjs/operators';
-import { VoteActions } from '../../../../store/action/entities/vote.action';
-import { selectVotesForTarget } from '../../../../store/selectors/entities/votes.selector';
+import { VoteActions } from '../../../../store/action/vote.action';
+import { selectVotesForTarget } from '../../../../store/selectors/target/votes.selector';
 
 @Component({
 	selector: 'app-test-feedback',

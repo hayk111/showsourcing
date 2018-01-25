@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
+import { Product } from '../../../../store/model/product.model';
 import { MatTableDataSource } from '@angular/material';
-import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
-import { Product } from '../../../../store/model/entities/product.model';
+import { selectSuppliers } from '../../../../store/selectors/suppliers.selector';
 
 @Component({
 	selector: 'tasks-list-view',

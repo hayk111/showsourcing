@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/product.action';
 
 @Component({
 	selector: 'basic-info-actions-app',

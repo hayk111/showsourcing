@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { AppImage } from '../../../../store/model/entities/app-image.model';
-import { AppFile } from '../../../../store/model/entities/app-file.model';
+import { AppFile } from '../../../../store/model/app-file.model';
+import { AppImage } from '../../../../store/model/app-image.model';
 
 @Component({
 	selector: 'img-preview-app',
