@@ -5,7 +5,8 @@ import { Project } from '../model/project.model';
 export enum ActionType {
 	LOAD = '[Project] Loading',
 	ADD_PROJECTS = '[Project] Adding',
-	PATCH = '[Project] patching'
+	PATCH = '[Project] patching',
+	DELETE = '[Project] deleting'
 }
 
 export class ProjectActions {
@@ -28,6 +29,13 @@ export class ProjectActions {
 		return {
 			type: ActionType.PATCH,
 			payload: { id, propName, value }
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
+			payload: id
 		};
 	}
 

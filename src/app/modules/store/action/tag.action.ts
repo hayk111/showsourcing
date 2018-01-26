@@ -6,7 +6,8 @@ import { EntityTarget } from '../utils/entities.utils';
 export enum ActionType {
 	LOAD = '[Tag] Loading',
 	ADD_TAGS = '[Tag] adding',
-	PATCH = '[Tag] patching'
+	PATCH = '[Tag] patching',
+	DELETE = '[Tag] deleting'
 }
 
 export class TagActions {
@@ -29,6 +30,13 @@ export class TagActions {
 		return {
 			type: ActionType.PATCH,
 			payload: { id, propName, value }
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
+			payload: id
 		};
 	}
 

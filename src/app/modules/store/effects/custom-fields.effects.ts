@@ -34,21 +34,61 @@ export class CustomFieldsEffects {
 		)
 	);
 
+	@Effect()
+	delete$ = this.actions$.ofType(ActionType.DELETE).pipe(
+		map((action: any) => action.payload),
+		switchMap(
+			(target: EntityTarget) => this.srv.deleteItem(target),
+			(target: EntityTarget) => this.mapDelete(target)
+		)
+	);
+
 	mapPatch({target, propName, value}: { target: EntityTarget, propName: string, value: any }) {
 		const m = entityRepresentationMap;
 		switch (target.entityRepr.entityName) {
+
 			case m.product.entityName :
 				return ProductActions.patch(target.entityId, propName, value);
+
 			case m.events.entityName:
 				return EventActions.patch(target.entityId, propName, value);
+
 			case m.suppliers.entityName:
 				return SupplierActions.patch(target.entityId, propName, value);
+
 			case m.projects.entityName:
 				return ProjectActions.patch(target.entityId, propName, value);
+
 			case m.categories.entityName:
 				return CategoryActions.patch(target.entityId, propName, value);
+
 			case m.tags.entityName:
 				return TagActions.patch(target.entityId, propName, value);
+		}
+	}
+
+	mapDelete(target: EntityTarget) {
+		const m = entityRepresentationMap;
+		switch (target.entityRepr.entityName) {
+
+			case m.product.entityName :
+				return ProductActions.delete(target.entityId);
+
+			case m.events.entityName:
+				return EventActions.delete(target.entityId);
+
+			case m.suppliers.entityName:
+				return SupplierActions.delete(target.entityId);
+
+			case m.projects.entityName:
+				return ProjectActions.delete(target.entityId);
+
+			case m.categories.entityName:
+				return CategoryActions.delete(target.entityId);
+
+			case m.tags.entityName:
+				return TagActions.delete(target.entityId);
+
 		}
 	}
 

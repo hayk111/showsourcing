@@ -14,7 +14,8 @@ export enum ActionType {
 		SET = '[Product] setting',
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
-		REQUEST_PDF = '[Product] requesting pdf'
+		REQUEST_PDF = '[Product] requesting pdf',
+		DELETE = '[Product] deleting'
 }
 
 export class ProductActions {
@@ -57,6 +58,13 @@ export class ProductActions {
 	static requestPdf(id: string) {
 		return {
 			type: ActionType.REQUEST_PDF,
+			payload: id
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
 			payload: id
 		};
 	}

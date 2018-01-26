@@ -1,7 +1,7 @@
 import { TypedAction } from '../utils/typed-action.interface';
 import { ActionType } from '../action/product.action';
 import { Product } from '../model/product.model';
-import { EntityState, entityInitialState, setEntities, copyById, addEntities } from '../utils/entities.utils';
+import { EntityState, entityInitialState, setEntities, copyById, addEntities, removeId } from '../utils/entities.utils';
 import { deepCopy } from '../utils/deep-copy.utils';
 import { AppComment } from '../model/comment.model';
 import { AppFile } from '../model/app-file.model';
@@ -29,6 +29,10 @@ export function productReducer(state: EntityState<Product> = entityInitialState,
 			const propName = action.payload.propName;
 			const value = action.payload.value;
 			return copyById(state, id, { [propName]: value } );
+
+		case ActionType.DELETE:
+			id = action.payload;
+			return removeId(state, id);
 
 		default: return state;
 	}

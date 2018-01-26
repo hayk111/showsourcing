@@ -38,6 +38,10 @@ export class CustomFieldsService {
 		return this.http.patch(`api/${urlName}/${id}`, patch);
 	}
 
+	deleteItem(target) {
+		return this.http.delete(`api/${target.entityRepr.urlName}/${target.entityId}`);
+	}
+
 	mapCustomFields(r) {
 		r.productsCFDef.groups.forEach(g => {
 			if (g.name === 'Basic info')

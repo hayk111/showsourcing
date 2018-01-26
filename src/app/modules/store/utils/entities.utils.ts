@@ -135,3 +135,17 @@ export function copyById(state, id, additionalProps?: any) {
 		}
 	};
 }
+
+export function removeId(state, id) {
+	const ids = [...state.ids];
+	const index = ids.indexOf(id);
+	ids.splice(index, 1);
+
+	const byId = { ...state.byId };
+	delete byId[id];
+	return {
+		...state,
+		byId,
+		ids
+	};
+}

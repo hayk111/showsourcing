@@ -30,7 +30,7 @@ export class DataMananagementTableComponent implements OnInit {
 	}
 
 	delete(item) {
-		this.itemRemoved.emit(item);
+		this.itemRemoved.emit(item.id);
 	}
 
 	get availableItems() {

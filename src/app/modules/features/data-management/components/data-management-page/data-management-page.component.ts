@@ -36,6 +36,18 @@ export class DataManagementPageComponent implements OnInit {
 		this.selectedEntity$.next(entity);
 	}
 
+	onItemRemoved(id: string) {
+		this.selectedEntity$.pipe(
+			take(1)
+		).subscribe(entityRepr => {
+			const target = {
+				entityId: id,
+				entityRepr
+			};
+			this.store.dispatch(CustomFieldsActions.delete(target));
+		});
+	}
+
 	onUpdate(patch) {
 		this.selectedEntity$.pipe(
 			take(1)

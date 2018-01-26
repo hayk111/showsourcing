@@ -4,5 +4,8 @@
 
 <hr>
 <ng-container *ngIf="items$ | async as items">
-	<data-management-table-app [items]="items" (update)="onUpdate($event)"></data-management-table-app>
+	<data-management-table-app
+		[items]="items"
+		(update)="onUpdate($event)"
+		(itemRemoved)="onItemRemoved($event)"></data-management-table-app>
 </ng-container>

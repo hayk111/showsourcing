@@ -5,7 +5,8 @@ import { Supplier } from '../model/supplier.model';
 export enum ActionType {
 	LOAD = '[Supplier] Loading',
 	ADD_SUPPLIERS = '[Supplier] adding',
-	PATCH = '[Supplier] patching'
+	PATCH = '[Supplier] patching',
+	DELETE = 'Supplier deleting'
 }
 
 export class SupplierActions {
@@ -28,6 +29,13 @@ export class SupplierActions {
 		return {
 			type: ActionType.PATCH,
 			payload: { id, propName, value }
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
+			payload: id
 		};
 	}
 

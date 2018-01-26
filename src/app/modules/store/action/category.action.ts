@@ -5,7 +5,8 @@ import { TypedAction } from '../utils/typed-action.interface';
 export enum ActionType {
 	LOAD = '[Categories] Loading',
 	ADD_CATEGORIES = '[Categories] adding',
-	PATCH = '[Categories] patching'
+	PATCH = '[Categories] patching',
+	DELETE = '[Categories] deleting',
 }
 
 export class CategoryActions {
@@ -27,6 +28,13 @@ export class CategoryActions {
 		return {
 			type: ActionType.PATCH,
 			payload: { id, propName, value }
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
+			payload: id
 		};
 	}
 }

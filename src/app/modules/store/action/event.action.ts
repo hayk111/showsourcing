@@ -5,6 +5,7 @@ export enum ActionType {
 	LOAD = '[Event] Loading',
 	PATCH = '[Event] Patching',
 	ADD_EVENTS = '[Event] adding',
+	DELETE = '[Event] deleting'
 }
 
 export class EventActions {
@@ -26,6 +27,13 @@ export class EventActions {
 		return {
 			type: ActionType.ADD_EVENTS,
 			payload
+		};
+	}
+
+	static delete(id: string) {
+		return {
+			type: ActionType.DELETE,
+			payload: id
 		};
 	}
 

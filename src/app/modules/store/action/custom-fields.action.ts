@@ -5,7 +5,9 @@ import { EntityTarget } from '../utils/entities.utils';
 export enum ActionType {
 	LOAD = '[CustomFields] loading',
 	SET = '[CustomFields] setting',
-	PATCH = '[CustomFields] patch'
+	PATCH = '[CustomFields] patch',
+	// putting delete here as well for convenience
+	DELETE = '[CustomFields] delete'
 }
 
 export class CustomFieldsActions {
@@ -28,6 +30,13 @@ export class CustomFieldsActions {
 		return {
 			type: ActionType.PATCH,
 			payload: { target, propName, value }
+		};
+	}
+
+	static delete(target: EntityTarget) {
+		return {
+			type: ActionType.DELETE,
+			payload: target
 		};
 	}
 }
