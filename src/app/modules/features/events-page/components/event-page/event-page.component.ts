@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/filter.model';
+import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
-import { Event } from '../../../../store/model/event.model';
+import { Event } from '../../../../store/model/entities/event.model';
 import { Observable } from 'rxjs/Observable';
-import { selectEvents } from '../../../../store/selectors/events.selector';
+import { selectEvents } from '../../../../store/selectors/entities/events.selector';
 
 @Component({
 	selector: 'app-event-page',

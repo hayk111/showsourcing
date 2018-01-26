@@ -3,12 +3,12 @@ import { HttpClient, HttpEvent, HttpRequest, HttpEventType, HttpResponse } from 
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Observable } from 'rxjs/Observable';
-import { AppFile } from '../../store/model/app-file.model';
+import { AppFile } from '../model/entities/app-file.model';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { uuid } from '../../store/utils/uuid.utils';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../../store/selectors/user.selector';
-import { FileActions } from '../../store/action/file.action';
+import { selectUser } from '../selectors/entities/user.selector';
+import { FileActions } from '../action/entities/file.action';
 
 
 

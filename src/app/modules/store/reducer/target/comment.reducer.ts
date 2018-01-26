@@ -1,5 +1,5 @@
-import { AppComment } from '../../model/comment.model';
-import { ActionType } from '../../action/comment.action';
+import { AppComment } from '../../model/entities/comment.model';
+import { ActionType } from '../../action/entities/comment.action';
 
 
 const initialState = [];

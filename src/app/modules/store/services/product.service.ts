@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppComment } from '../../store/model/comment.model';
+import { AppComment } from '../model/entities/comment.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { FilterGroupName } from '../../store/model/filter.model';
+import { FilterGroupName } from '../model/misc/filter.model';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { entityRepresentationMap } from '../utils/entities.utils';
-import { Tag } from '../model/tag.model';
-import { Project } from '../model/project.model';
+import { Tag } from '../model/entities/tag.model';
+import { Project } from '../model/entities/project.model';
 import { tap, expand } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { takeUntil } from 'rxjs/operators/takeUntil';

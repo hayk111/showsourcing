@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TeamItemLoaderService } from './team-item-loader.service';
-import { FilterGroupName } from '../../store/model/filter.model';
+import { FilterGroupName } from '../model/misc/filter.model';
 import { entityRepresentationMap } from '../utils/entities.utils';
 
 @Injectable()

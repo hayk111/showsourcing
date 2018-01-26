@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { FilterActions } from '../../../../store/action/filter.action';
+import { FilterActions } from '../../../../store/action/misc/filter.action';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import Log from '../../../../../utils/logger/log.class';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { FilterPrice, Filter, FilterClass } from '../../../../store/model/filter.model';
-import { Currency, defaultCurrency } from '../../../../store/model/currency.model';
+import { FilterPrice, Filter, FilterClass } from '../../../../store/model/misc/filter.model';
+import { Currency, defaultCurrency } from '../../../../store/model/entities/currency.model';
 
 // panel used for prices filtering
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../../store/action/authentication.action';
+import { AuthActions } from '../../../../store/action/misc/authentication.action';
 
 @Component({
 	selector: 'app-info-request-thanks',

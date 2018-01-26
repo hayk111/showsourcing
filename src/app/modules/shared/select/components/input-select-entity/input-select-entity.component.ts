@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
 import { EntityRepresentation, Entity, EntityTarget } from '../../../../store/utils/entities.utils';
-import { selectEntityArray } from '../../../../store/selectors/utils.selector';
+import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
 
 @Component({
 	selector: 'input-select-entity-app',

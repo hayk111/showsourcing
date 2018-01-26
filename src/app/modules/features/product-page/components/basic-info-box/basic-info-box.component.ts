@@ -2,8 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Product } from '../../../../store/model/product.model';
-import { selectProductById } from '../../../../store/selectors/products.selector';
+import { Product } from '../../../../store/model/entities/product.model';
+import { selectProductById } from '../../../../store/selectors/entities/products.selector';
 import { selectTagsForTarget } from '../../../../store/selectors/target/tag.selector';
 import { TargetTagActions } from '../../../../store/action/target/tag.action';
 

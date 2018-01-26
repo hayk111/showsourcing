@@ -1,46 +1,43 @@
-import { userReducer } from './user.reducer';
-import { authenticationReducer } from './authentication.reducer';
-import { companyReducer } from './company.reducer';
-import { countryReducer } from './country.reducer';
-import { currencyReducer } from './currency.reducer';
-import { categoryReducer } from './category.reducer';
-import { teamsReducer } from './team.reducer';
-import { eventsReducer } from './event.reducer';
-import { tagReducer } from './tag.reducer';
-import { projectReducer } from './project.reducer';
-import { filtersReducer } from './filter.reducer';
-import { filterPanelReducer } from './filter-panel.reducer';
-import { supplierReducer } from './supplier.reducer';
-import { taskReducer } from './task.reducer';
-import { productReducer } from './product.reducer';
-import { viewSwitcherReducer } from './view-switcher.reducer';
-import { miscReducer } from './misc.reducer';
-import { productStatusReducer } from './product-status.reducer';
-import { tasksStatusReducer } from './task-status.reducer';
-import { tasksTypeReducer } from './task-type.reducer';
+import { userReducer } from './entities/user.reducer';
+import { authenticationReducer } from './misc/authentication.reducer';
+import { countryReducer } from './entities/country.reducer';
+import { currencyReducer } from './entities/currency.reducer';
+import { categoryReducer } from './entities/category.reducer';
+import { teamsReducer } from './entities/team.reducer';
+import { eventsReducer } from './entities/event.reducer';
+import { tagReducer } from './entities/tag.reducer';
+import { projectReducer } from './entities/project.reducer';
+import { filtersReducer } from './entities/filter.reducer';
+import { filterPanelReducer } from './ui/filter-panel.reducer';
+import { supplierReducer } from './entities/supplier.reducer';
+import { taskReducer } from './entities/task.reducer';
+import { productReducer } from './entities/product.reducer';
+import { viewSwitcherReducer } from './ui/view-switcher.reducer';
+import { productStatusReducer } from './entities/product-status.reducer';
+import { tasksStatusReducer } from './entities/task-status.reducer';
+import { tasksTypeReducer } from './entities/task-type.reducer';
 import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
 import { combineReducers } from '@ngrx/store/src/utils';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { customFieldsReducer } from './custom-fields.reducer';
-import { dialogReducer } from './dialog.reducer';
+import { customFieldsReducer } from './entities/custom-fields.reducer';
+import { dialogReducer } from './ui/dialog.reducer';
 import { InjectionToken } from '@angular/core';
-import { teamMembersReducer } from './team-members.reducer';
-import { sidenavReducer } from './sidenav.reducer';
+import { teamMembersReducer } from './entities/team-members.reducer';
+import { sidenavReducer } from './ui/sidenav.reducer';
 import { commentReducer } from './target/comment.reducer';
 import { filesReducer } from './target/files.reducer';
 import { imagesReducer } from './target/image.reducer';
 import { voteReducer } from './target/vote.reducer';
 import { targetTagReducer } from './target/tag.reducer';
 import { targetProjectReducer } from './target/project.reducer';
-import { filterEntityPanelReducer } from './filter-entity-panel.reducer';
-import { authDlgReducer } from './auth-dlg.reducer';
+import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
+import { authDlgReducer } from './ui/auth-dlg.reducer';
 
 
 const entities = combineReducers({
 	user: userReducer,
-	// company: companyReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
 	categories: categoryReducer,
@@ -59,10 +56,13 @@ const entities = combineReducers({
 	customFields: customFieldsReducer,
 });
 
-const ui = combineReducers( {
+const misc = combineReducers({
 	authentication: authenticationReducer,
-	authDlg: authDlgReducer,
 	filters: filtersReducer,
+});
+
+const ui = combineReducers( {
+	authDlg: authDlgReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
@@ -81,7 +81,7 @@ const target = combineReducers({
 });
 
 
-export const reducers = { entities, target, ui };
+export const reducers = { entities, target, ui, misc };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

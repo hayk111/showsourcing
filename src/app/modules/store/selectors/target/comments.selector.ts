@@ -1,7 +1,7 @@
 
 import { createSelector } from 'reselect';
 import { EntityTarget } from '../../utils/entities.utils';
-import { AppComment } from '../../model/comment.model';
+import { AppComment } from '../../model/entities/comment.model';
 
 
 

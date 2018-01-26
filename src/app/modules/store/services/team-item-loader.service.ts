@@ -7,10 +7,10 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { UrlBuilder } from '../../../utils/url-builder.class';
 import Log from '../../../utils/logger/log.class';
-import { selectUser } from '../../store/selectors/user.selector';
-import { FilterGroupName } from '../../store/model/filter.model';
+import { selectUser } from '../selectors/entities/user.selector';
+import { FilterGroupName } from '../model/misc/filter.model';
 import { EntityRepresentation } from '../utils/entities.utils';
-import { selectFiltersAsUrlParams } from '../selectors/filter.selectors';
+import { selectFiltersAsUrlParams } from '../selectors/entities/filter.selectors';
 
 @Injectable()
 export class TeamItemLoaderService {

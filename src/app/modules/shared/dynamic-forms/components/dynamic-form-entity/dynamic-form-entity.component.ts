@@ -2,11 +2,11 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EntityTarget, Entity } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { selectCustomField } from '../../../../store/selectors/custom-fields.selector';
+import { selectCustomField } from '../../../../store/selectors/entities/custom-fields.selector';
 import { Observable } from 'rxjs/Observable';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/descriptors.interface';
-import { selectEntity, selectEntityById } from '../../../../store/selectors/utils.selector';
-import { CustomFieldsActions } from '../../../../store/action/custom-fields.action';
+import { selectEntity, selectEntityById } from '../../../../store/selectors/misc/utils.selector';
+import { CustomFieldsActions } from '../../../../store/action/entities/custom-fields.action';
 import { FormGroup } from '@angular/forms';
 
 @Component({

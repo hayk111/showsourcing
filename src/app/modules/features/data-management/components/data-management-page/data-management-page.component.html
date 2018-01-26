@@ -3,9 +3,16 @@
 </li>
 
 <hr>
+<div class="actios flex" *ngIf="selection.length > 0">
+  <div> {{ selection.length }} items selected </div> --
+  <div (click)="mergeSelection()">Merge</div> - -
+  <div (click)="deleteSelection()">Delete</div>
+</div>
+<hr>
 <ng-container *ngIf="items$ | async as items">
 	<data-management-table-app
 		[items]="items"
-		(update)="onUpdate($event)"
-		(itemRemoved)="onItemRemoved($event)"></data-management-table-app>
+    (selection)="onSelection($event)"
+		(update)="updateItem($event)"
+		(itemRemoved)="removeItem($event)"></data-management-table-app>
 </ng-container>

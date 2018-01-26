@@ -1,5 +1,5 @@
-import { ActionType } from '../../action/vote.action';
-import { Vote } from '../../model/vote.model';
+import { ActionType } from '../../action/entities/vote.action';
+import { Vote } from '../../model/entities/vote.model';
 
 
 const initialState = [];

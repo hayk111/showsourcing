@@ -1,5 +1,5 @@
 import { EntityTarget } from '../../utils/entities.utils';
-import { Project } from '../../model/project.model';
+import { Project } from '../../model/entities/project.model';
 
 
 export enum ActionType {

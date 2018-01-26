@@ -1,0 +1,38 @@
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+import { ActionType, CommentActions } from '../../action/entities/comment.action';
+import { map, switchMap } from 'rxjs/operators';
+import { EntityTarget } from '../../utils/entities.utils';
+import { AppComment } from '../../model/entities/comment.model';
+import { CommentService } from '../../services/comment.service';
+
+
+
+@Injectable()
+export class CommentEffects {
+
+	@Effect()
+	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+		map( action => action.payload),
+		switchMap( (p: EntityTarget) => this.srv.load(p)),
+		map((comments: Array<AppComment>) => CommentActions.setComments(comments))
+	);
+
+
+	@Effect()
+	comment$ = this.actions$.ofType<any>(ActionType.ADD_NEW).pipe(
+		map(action => action.payload),
+		map(comment => CommentActions.addPending(comment))
+	);
+
+	@Effect()
+	pendingComment$ = this.actions$.ofType<any>(ActionType.ADD_PENDING)
+	.pipe(
+		map(action => action.payload),
+		switchMap(
+			(comment: AppComment) => this.srv.postComment(comment),
+			(comment: AppComment, replacing: AppComment) => CommentActions.setReady(comment.target.entityId, replacing) )
+	);
+
+	constructor(private actions$: Actions, private srv: CommentService) {}
+}

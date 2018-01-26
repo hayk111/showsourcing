@@ -12,9 +12,10 @@ export class DataMananagementTableComponent implements OnInit {
 	@Input() items = [];
 	@Output() itemRemoved = new EventEmitter<Entity>();
 	@Output() update = new EventEmitter<any>();
+	@Output() selection = new EventEmitter<any>();
 
+	selected = [];
 	searchStr = '';
-
 	constructor() { }
 
 	ngOnInit() {
@@ -31,6 +32,14 @@ export class DataMananagementTableComponent implements OnInit {
 
 	delete(item) {
 		this.itemRemoved.emit(item.id);
+	}
+
+	onCheckChange(event, item) {
+		if (event.target.checked) {
+			this.selected.push(item.id);
+		} else {
+			this.selected = this.selected.filter(f => f === item.id);
+		}
 	}
 
 	get availableItems() {

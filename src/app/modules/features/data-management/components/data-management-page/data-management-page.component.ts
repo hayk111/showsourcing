@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { entityRepresentationMap, EntityRepresentation, Entity } from '../../../../store/utils/entities.utils';
+import { Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { selectEntityArray } from '../../../../store/selectors/utils.selector';
-import { switchMap, tap, take } from 'rxjs/operators';
+import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
+import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { CustomFieldsActions } from '../../../../store/action/custom-fields.action';
+import { CustomFieldsActions } from '../../../../store/action/entities/custom-fields.action';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -21,6 +21,7 @@ export class DataManagementPageComponent implements OnInit {
 		entityRepresentationMap.projects
 	];
 	selectedEntity$ = new BehaviorSubject(this.entities[0]);
+	selection = [];
 	items$: Observable<Array<Entity>>;
 
 	constructor(private store: Store<any>) { }
@@ -31,12 +32,23 @@ export class DataManagementPageComponent implements OnInit {
 		);
 	}
 
+	deleteSelection() {
+		this.selection.forEach(s => this.removeItem(s));
+	}
+
+	mergeSeleciton() {
+		this.store.dispatch();
+	}
+
+	onSelection(itemIds) {
+		this.selection = itemIds;
+	}
 
 	select(entity: EntityRepresentation) {
 		this.selectedEntity$.next(entity);
 	}
 
-	onItemRemoved(id: string) {
+	removeItem(id: string) {
 		this.selectedEntity$.pipe(
 			take(1)
 		).subscribe(entityRepr => {
@@ -48,7 +60,7 @@ export class DataManagementPageComponent implements OnInit {
 		});
 	}
 
-	onUpdate(patch) {
+	updateItem(patch) {
 		this.selectedEntity$.pipe(
 			take(1)
 		).subscribe(entityRepr => {

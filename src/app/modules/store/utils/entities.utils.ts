@@ -1,12 +1,12 @@
 import { deepCopy } from './deep-copy.utils';
-import { CustomFieldsName } from '../reducer/custom-fields.reducer';
-import { SupplierActions } from '../action/supplier.action';
-import { EventActions } from '../action/event.action';
-import { CategoryActions } from '../action/category.action';
-import { TagActions } from '../action/tag.action';
-import { ProjectActions } from '../action/project.action';
-import { ProductActions } from '../action/product.action';
-import { TaskActions } from '../action/task.action';
+import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
+import { SupplierActions } from '../action/entities/supplier.action';
+import { EventActions } from '../action/entities/event.action';
+import { CategoryActions } from '../action/entities/category.action';
+import { TagActions } from '../action/entities/tag.action';
+import { ProjectActions } from '../action/entities/project.action';
+import { ProductActions } from '../action/entities/product.action';
+import { TaskActions } from '../action/entities/task.action';
 
 
 export const entityInitialState: EntityState<any> = {
@@ -58,6 +58,9 @@ export const entityRepresentationMap = {
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	teamMembers: new EntityRepresentation('teamMembers'),
+	comments: new EntityRepresentation('comments'),
+	files: new EntityRepresentation('files'),
+	images: new EntityRepresentation('images')
 };
 
 

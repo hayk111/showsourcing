@@ -1,5 +1,5 @@
 import { EntityTarget } from '../../utils/entities.utils';
-import { Tag } from '../../model/tag.model';
+import { Tag } from '../../model/entities/tag.model';
 
 
 export enum ActionType {
