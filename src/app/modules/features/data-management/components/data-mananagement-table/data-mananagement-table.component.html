@@ -1,0 +1,7 @@
+
+<input-app type="search" (update)="search($event)"></input-app>
+
+<article *ngFor="let item of availableItems">
+	<editable-field-app [value]="item.name" (update)="onUpdate(item, $event)"></editable-field-app> -
+	<i class="fa fa-trash" aria-hidden="true" (click)="delete(item)"></i>
+</article>

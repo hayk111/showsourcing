@@ -1,3 +1,8 @@
-<p>
-  data-management-page works!
-</p>
+<li class="flexBetween">
+	<ul *ngFor="let entity of entities" (click)="select(entity)"> {{ entity.displayName }}</ul>
+</li>
+
+<hr>
+<ng-container *ngIf="items$ | async as items">
+	<data-management-table-app [items]="items" (update)="onUpdate($event)"></data-management-table-app>
+</ng-container>

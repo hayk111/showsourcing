@@ -5,6 +5,7 @@ import { Supplier } from '../model/supplier.model';
 export enum ActionType {
 	LOAD = '[Supplier] Loading',
 	ADD_SUPPLIERS = '[Supplier] adding',
+	PATCH = '[Supplier] patching'
 }
 
 export class SupplierActions {
@@ -20,6 +21,13 @@ export class SupplierActions {
 		return {
 			type: ActionType.ADD_SUPPLIERS,
 			payload
+		};
+	}
+
+	static patch(id: string, propName: string, value: any) {
+		return {
+			type: ActionType.PATCH,
+			payload: { id, propName, value }
 		};
 	}
 

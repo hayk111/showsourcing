@@ -6,6 +6,7 @@ import { EntityTarget } from '../utils/entities.utils';
 export enum ActionType {
 	LOAD = '[Tag] Loading',
 	ADD_TAGS = '[Tag] adding',
+	PATCH = '[Tag] patching'
 }
 
 export class TagActions {
@@ -21,6 +22,13 @@ export class TagActions {
 		return {
 			type: ActionType.ADD_TAGS,
 			payload
+		};
+	}
+
+	static patch(id: string, propName: string, value: any) {
+		return {
+			type: ActionType.PATCH,
+			payload: { id, propName, value }
 		};
 	}
 

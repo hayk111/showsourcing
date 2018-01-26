@@ -5,6 +5,7 @@ import { Project } from '../model/project.model';
 export enum ActionType {
 	LOAD = '[Project] Loading',
 	ADD_PROJECTS = '[Project] Adding',
+	PATCH = '[Project] patching'
 }
 
 export class ProjectActions {
@@ -23,5 +24,11 @@ export class ProjectActions {
 		};
 	}
 
+	static patch(id: string, propName: string, value: any) {
+		return {
+			type: ActionType.PATCH,
+			payload: { id, propName, value }
+		};
+	}
 
 }

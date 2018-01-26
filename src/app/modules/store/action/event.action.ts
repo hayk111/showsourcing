@@ -3,6 +3,7 @@ import { TypedAction } from '../utils/typed-action.interface';
 
 export enum ActionType {
 	LOAD = '[Event] Loading',
+	PATCH = '[Event] Patching',
 	ADD_EVENTS = '[Event] adding',
 }
 
@@ -11,6 +12,13 @@ export class EventActions {
 		return {
 			type: ActionType.LOAD,
 			payload: { id, maxCounter }
+		};
+	}
+
+	static patch(id: string, propName: string, value: any) {
+		return {
+			type: ActionType.PATCH,
+			payload: { id, propName, value }
 		};
 	}
 
