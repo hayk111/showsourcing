@@ -1,7 +1,7 @@
 <div class="flex">
 	<div class="left">
-		<basic-info-box-app class="card" [target]="target">
-		</basic-info-box-app>
+		<basic-info-box-app class="card"></basic-info-box-app>
+
 		<div class="card">
 			<ng-container *ngIf="product$ | async as product">
 				<ng-container *ngIf="projects$ | async as projects">
@@ -12,13 +12,14 @@
 						[value]="projects"
 						[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
 				</ng-container>
-
 			</ng-container>
 		</div>
+
 		<div class="card">
 			<input-file-entity-app></input-file-entity-app>
 		</div>
 	</div>
+
 	<div class="right">
 			<div class="flex links">
 				<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>

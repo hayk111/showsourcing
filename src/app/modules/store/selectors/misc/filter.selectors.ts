@@ -2,12 +2,12 @@ import { createSelector } from '@ngrx/store';
 import { FilterGroupName, Filter, FilterClass } from '../../model/misc/filter.model';
 import { deepCopy } from '../../utils/deep-copy.utils';
 import Log from '../../../../utils/logger/log.class';
-import { selectEntity, selectEntityArray } from '../misc/utils.selector';
+import { selectEntity, selectEntityArray } from './utils.selector';
 import { entityRepresentationMap, EntityRepresentation } from '../../utils/entities.utils';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 
-const getFilters = (state) => state.ui.filters;
+const getFilters = (state) => state.misc.filters;
 
 // return filters for a specific group like for example product-page
 export const selectFilterGroup = (filterGroupName: FilterGroupName) => {

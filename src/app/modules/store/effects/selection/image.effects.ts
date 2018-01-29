@@ -14,7 +14,7 @@ export class ImageSelectionEffects {
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
-		withLatestFrom( this.selectionSrv.getSelection(), (_, target ) => target),
+		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap((target: EntityTarget) => this.srv.load(target, 'image')),
 		map((files: Array<AppImage>) => ImageSlctnActions.add(files))
 	);

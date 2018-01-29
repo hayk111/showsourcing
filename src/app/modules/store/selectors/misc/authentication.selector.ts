@@ -1,2 +1,2 @@
 
-export const selectAuthentication = state => state.ui.authentication;
+export const selectAuthentication = state => state.misc.authentication;

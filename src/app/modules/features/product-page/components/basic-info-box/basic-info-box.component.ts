@@ -14,7 +14,6 @@ import { TagSlctnActions } from '../../../../store/action/selection/tag-selectio
 	styleUrls: ['./basic-info-box.component.scss']
 })
 export class BasicInfoBoxComponent implements OnInit {
-	@Input() target: EntityTarget;
 	tagsRep = entityRepresentationMap.tags;
 	product$: Observable<Product>;
 	// those are target tags, so only ids

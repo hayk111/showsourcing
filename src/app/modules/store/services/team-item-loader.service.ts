@@ -10,7 +10,7 @@ import Log from '../../../utils/logger/log.class';
 import { EntityRepresentation } from '../utils/entities.utils';
 import { FilterGroupName } from '../model/misc/filter.model';
 import { selectUser } from '../selectors/entities/user.selector';
-import { selectFiltersAsUrlParams } from '../selectors/entities/filter.selectors';
+import { selectFiltersAsUrlParams } from '../selectors/misc/filter.selectors';
 
 @Injectable()
 export class TeamItemLoaderService {

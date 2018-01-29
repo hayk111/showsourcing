@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFilterGroup } from '../../../../store/selectors/entities/filter.selectors';
+import { selectFilterGroup } from '../../../../store/selectors/misc/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
@@ -14,6 +14,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 import { map } from 'rxjs/operators';
 import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';
+import { SelectionAction } from '../../../../store/action/selection/selection.action';
 
 @Component({
 	selector: 'products-page-app',
@@ -40,7 +41,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	productEntities: EntityState<Product>;
 	repr = entityRepresentationMap.product;
 	// when an item is clicked current target is a representation of that item
-	currentTarget: EntityTarget;
 	previewDialogOpen = false;
 
 	constructor(private store: Store<any>) {
@@ -55,8 +55,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		this.currentTarget = { entityId, entityRepr: this.repr };
 		this.previewDialogOpen = true;
+		const target = { entityId, entityRepr: this.repr };
+		this.store.dispatch(SelectionAction.select(target));
 	}
 
 	closeDialog() {

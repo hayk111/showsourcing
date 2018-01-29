@@ -2,7 +2,7 @@ import { TypedAction } from '../../utils/typed-action.interface';
 import { ActionType, FilterArg } from '../../action/misc/filter.action';
 import { AppFilters, FilterGroupName} from '../../model/misc/filter.model';
 import { deepCopy } from '../../utils/deep-copy.utils';
-import { selectFilterGroup } from '../../selectors/entities/filter.selectors';
+import { selectFilterGroup } from '../../selectors/misc/filter.selectors';
 
 export const initialState: AppFilters = {
 	productsPage: [],

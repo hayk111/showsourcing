@@ -4,6 +4,7 @@ import Log from '../../../utils/logger/log.class';
 import { Observable } from 'rxjs/Observable';
 import { EntityTarget } from '../utils/entities.utils';
 import { selectCurrentSelection } from '../selectors/selection/selection.selector';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SelectionService {
@@ -14,6 +15,8 @@ export class SelectionService {
 	}
 
 	getSelection(): Observable<EntityTarget> {
-		return this.store.select(selectCurrentSelection);
+		return this.store.select(selectCurrentSelection).pipe(
+			map((r: any) => r.target)
+		);
 	}
 }

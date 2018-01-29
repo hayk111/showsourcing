@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Filter, FilterGroupName } from '../../../store/model/misc/filter.model';
-import { selectFilterGroup } from '../../../store/selectors/entities/filter.selectors';
+import { selectFilterGroup } from '../../../store/selectors/misc/filter.selectors';
 import { DynamicFormsService } from '../../../shared/dynamic-forms/services/dynamic-forms.service';
 import { FormBuilder } from '@angular/forms';
 import { AppErrorActions } from '../../../store/action/misc/app-errors.action';

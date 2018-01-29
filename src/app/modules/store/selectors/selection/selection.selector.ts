@@ -26,7 +26,9 @@ export const selectProductSelected = createSelector(
 		selectProducts,
 		selectCurrentSelection
 	],
-	(productState: EntityState<Product>, selection: EntityTarget) => {
-		return productState.byId[selection.entityId];
+	(productState: EntityState<Product>, selection: {target: EntityTarget}) => {
+		if (!selection)
+			return undefined;
+		return productState.byId[selection.target.entityId];
 	}
 );

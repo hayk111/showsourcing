@@ -18,6 +18,7 @@ import { EntitiesServicesModule } from '../../store/services/entities-services.m
 import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../../features/auth/auth.module';
+import { environment } from '../../../../environments/environment';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { AuthModule } from '../../features/auth/auth.module';
 	],
 	imports: [
 		BrowserModule,
-		ServiceWorkerModule.register('/ngsw-worker.js'),
+		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		AppRoutingModule,
 		TemplateModule,
 		DynamicFormsModule.forRoot(),

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '../../../../store/selectors/entities/filter.selectors';
+import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '../../../../store/selectors/misc/filter.selectors';
 import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '../../../../store/model/misc/filter.model';
 import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
 import { take } from 'rxjs/operators';

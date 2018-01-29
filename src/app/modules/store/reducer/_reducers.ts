@@ -66,7 +66,7 @@ const misc = combineReducers({
 });
 
 const selection = combineReducers({
-	selection: currentSelectionReducer,
+	currentSelection: currentSelectionReducer,
 	projects: selectionReducerFactory(ProjectActions),
 	tags: selectionReducerFactory(TagsActions),
 	tasks: selectionReducerFactory(TaskActions),

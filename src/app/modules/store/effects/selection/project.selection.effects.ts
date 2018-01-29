@@ -12,7 +12,7 @@ export class ProjectSelectionEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
-		withLatestFrom( this.selectionSrv.getSelection(), (_, target ) => target),
+		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.loadForTarget(target)),
 		map((r: any) => ProjectSlctnActions.add(r))
 	);

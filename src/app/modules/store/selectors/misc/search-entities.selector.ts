@@ -6,7 +6,7 @@ import Log from '../../../../utils/logger/log.class';
 import { selectEntity, selectEntityArray } from './utils.selector';
 import { Store } from '@ngrx/store';
 import { createSelector } from 'reselect';
-import { selectFiltersValues } from '../entities/filter.selectors';
+import { selectFiltersValues } from './filter.selectors';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;

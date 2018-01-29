@@ -14,8 +14,7 @@ export class CommentSelectionEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
-		tap(d => { debugger }),
-		withLatestFrom( this.selectionSrv.getSelection(), (_, target ) => target),
+		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
 		map((r: any) => CommentSlctnActions.add(r))
 	);
