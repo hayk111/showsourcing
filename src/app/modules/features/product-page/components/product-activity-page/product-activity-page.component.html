@@ -1,28 +1,36 @@
-<div *ngFor="let c of comments$ | async; let last = last" class="flexCenter">
-	<div class="iconCtnr">
-		<div class="cercleAction">
-			<i class="fa fa-comment-o" aria-hidden="true"></i>
-		</div>
-		<div class="vbar" *ngIf="!last"></div>
-	</div>
-
-
-	<div class="flex activity card">
-		<div class="left">
-			<div class="cercleAuthor">
-					{{ (c.createdByUserId | entityName: 'teamMembers' | async)?.substr(0, 1) }}
-			</div>
-		</div>
-		<div class="right">
-			<div class="top">
-				<div>
-					<span class="author">{{ c.createdByUserId | entityName: 'teamMembers' | async }}</span>
-					<small class="action" i18n="describes author action, example John commented">commented</small>
+<ng-container *ngIf="comments$ | async as comments">
+	<ng-container *ngIf="!comments.pending; else spinner">
+		<div *ngFor="let id of comments.ids; let last = last" class="flexCenter">
+			<div class="iconCtnr">
+				<div class="cercleAction">
+					<i class="fa fa-comment-o" aria-hidden="true"></i>
 				</div>
-
-				<small class="date">{{ c.creationDate | date }} </small>
+				<div class="vbar" *ngIf="!last"></div>
 			</div>
-			<div class="msg"> {{ c.text }} </div>
+
+
+			<div class="flex activity card">
+				<div class="left">
+					<div class="cercleAuthor">
+							{{ (comments.byId[id].createdByUserId | entityName: 'teamMembers' | async)?.substr(0, 1) }}
+					</div>
+				</div>
+				<div class="right">
+					<div class="top">
+						<div>
+							<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
+							<small class="action" i18n="describes author action, example John commented">commented</small>
+						</div>
+
+						<small class="date">{{ comments.byId[id].creationDate | date }} </small>
+					</div>
+					<div class="msg"> {{ comments.byId[id].text }} </div>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+	</ng-container>
+</ng-container>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

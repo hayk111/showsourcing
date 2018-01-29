@@ -7,10 +7,12 @@ import { InputFileEntityComponent } from './components/input-file-entity/input-f
 import { InputImageEntityComponent } from './components/input-image-entity/input-image-entity.component';
 import { FilePreviewComponent } from './components/file-preview/file-preview.component';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
+import { LoadersModule } from '../loaders/loaders.module';
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		LoadersModule
 	],
 	declarations: [ FileDropDirective, FileSelectDirective, InputFileComponent,
 		 InputFileEntityComponent, InputImageEntityComponent, FilePreviewComponent, ImgPreviewComponent ],

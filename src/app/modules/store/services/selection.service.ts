@@ -15,8 +15,6 @@ export class SelectionService {
 	}
 
 	getSelection(): Observable<EntityTarget> {
-		return this.store.select(selectCurrentSelection).pipe(
-			map((r: any) => r.target)
-		);
+		return this.store.select(selectCurrentSelection);
 	}
 }

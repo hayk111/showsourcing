@@ -9,7 +9,7 @@
 						i18n-label="label|Projects a product is associated with"
 						[label]="'Projects'"
 						(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
-						[value]="projects"
+						[value]="projects.ids"
 						[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
 				</ng-container>
 			</ng-container>

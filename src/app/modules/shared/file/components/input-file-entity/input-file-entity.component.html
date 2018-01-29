@@ -1,7 +1,13 @@
 <ng-container *ngIf="files$ | async as files">
-	<input-file-app
-		[label]="label"
- 		(fileAdded)="onFileAdded($event)">
-		<file-preview-app [files]="files"></file-preview-app>
-	</input-file-app>
+	<ng-container *ngIf="!files.pending; else spinner">
+		<input-file-app
+			[label]="label"
+			(fileAdded)="onFileAdded($event)">
+			<file-preview-app [files]="filesArray"></file-preview-app>
+		</input-file-app>
+	</ng-container>
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+
 </ng-container>
