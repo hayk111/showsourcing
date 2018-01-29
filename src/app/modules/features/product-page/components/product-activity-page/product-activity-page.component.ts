@@ -5,8 +5,9 @@ import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { AppComment } from '../../../../store/model/entities/comment.model';
 import { Observable } from 'rxjs/Observable';
-import { CommentActions } from '../../../../store/action/entities/comment.action';
-import { selectComments } from '../../../../store/selectors/target/comments.selector';
+import { takeUntil } from 'rxjs/operators';
+import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { selectCommentsForSelection } from '../../../../store/selectors/selection/selection.selector';
 
 @Component({
 	selector: 'app-product-activity-page',
@@ -16,16 +17,11 @@ import { selectComments } from '../../../../store/selectors/target/comments.sele
 export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
 	comments$: Observable<Array<AppComment>>;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>) {
+	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.route.parent.params.takeUntil(this._destroy$)
-		.subscribe(params => {
-			const target = { entityId: params['id'], entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(CommentActions.load(target));
-			this.comments$ = this.store.select(selectComments);
-		});
+		this.comments$ = this.store.select(selectCommentsForSelection);
 	}
 }

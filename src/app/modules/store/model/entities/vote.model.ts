@@ -1,16 +1,14 @@
-import { EntityTarget } from '../../utils/entities.utils';
-import { AsyncEntityWithTarget } from './async-entity.model';
+import { EntityTarget, Entity } from '../../utils/entities.utils';
 import { Store } from '@ngrx/store';
 
-export class Vote extends AsyncEntityWithTarget {
+export class Vote extends Entity {
 	value: number;
 	userId: string;
 	// at the moment it seems like votes are only for product in the backend
 	productId?: string;
 
-	constructor(value: number, target: EntityTarget, store: Store<any>) {
-		super(target, store);
+	constructor(value: number, userId: string) {
+		super(userId);
 		this.value = value;
-		this.userId = this.createdByUserId;
 	}
 }

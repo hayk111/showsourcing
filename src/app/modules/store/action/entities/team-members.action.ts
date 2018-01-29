@@ -4,7 +4,7 @@ import { User } from '../../model/entities/user.model';
 
 export enum ActionType {
 	LOAD = '[TeamMembers] loading',
-	ADD_TEAM_MEMBERS = '[TeamMembers] adding'
+	ADD = '[TeamMembers] adding'
 }
 
 export class TeamMembersActions {
@@ -16,9 +16,9 @@ export class TeamMembersActions {
 		};
 	}
 
-	static addMembers(members: Array<User>) {
+	static add(members: Array<User>) {
 		return {
-			type: ActionType.ADD_TEAM_MEMBERS,
+			type: ActionType.ADD,
 			payload: members
 		};
 	}

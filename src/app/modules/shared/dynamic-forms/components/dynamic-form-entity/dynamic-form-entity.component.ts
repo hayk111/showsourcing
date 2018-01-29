@@ -29,6 +29,6 @@ export class DynamicFormEntityComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(event) {
-		this.store.dispatch(CustomFieldsActions.patch(this.target, event.name, event.value));
+		// this.store.dispatch(CustomFieldsActions.patch(this.target, event.name, event.value));
 	}
 }

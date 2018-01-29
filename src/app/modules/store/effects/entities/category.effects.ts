@@ -12,7 +12,7 @@ export class CategoryEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) =>  CategoryActions.addCategories(result))
+		map((result: any) =>  CategoryActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: CategoryService) {}

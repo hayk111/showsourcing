@@ -1,15 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Validators, FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { takeUntil, take, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { AppComment } from '../../../../store/model/entities/comment.model';
-import { CommentActions } from '../../../../store/action/entities/comment.action';
-import { selectTeamMember } from '../../../../store/selectors/entities/team-members.selector';
-import { User } from '../../../../store/model/entities/user.model';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({

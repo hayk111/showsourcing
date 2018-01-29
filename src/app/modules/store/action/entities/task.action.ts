@@ -1,27 +1,27 @@
-import { Action } from '@ngrx/store';
-import { Task } from '../../model/entities/task.model';
-import { TypedAction } from '../../utils/typed-action.interface';
 import { FilterGroupName } from '../../model/misc/filter.model';
+import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {
-		LOAD = '[Task] loading',
-		SET = '[Task] setting',
-		SET_PENDING = '[Task] pending',
+	LOAD = '[Task] loading',
+	ADD = '[Task] adding',
+	SET_PENDING = '[Task] setting pending',
+ 	CREATE = '[Task] creating',
+	DELETE = '[Task] deleting'
 }
 
 export class TaskActions {
 
-	static load(filterGroupName: FilterGroupName) {
+	static load(filterGroupName?: FilterGroupName) {
 		return {
 			type: ActionType.LOAD,
 			payload: filterGroupName
 		};
 	}
 
-	static set(payload: Array<Task>): TypedAction<Array<Task>> {
+	static add(tasks: Array<Task>) {
 		return {
-			type: ActionType.SET,
-			payload
+			type: ActionType.ADD,
+			payload: tasks
 		};
 	}
 
@@ -30,4 +30,5 @@ export class TaskActions {
 			type: ActionType.SET_PENDING
 		};
 	}
+
 }

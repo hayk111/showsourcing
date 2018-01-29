@@ -4,7 +4,7 @@ import { Currency } from '../../model/entities/currency.model';
 
 export enum ActionType {
 	LOAD = '[Currency] Loading',
-	SET_CURRENCY = '[Currency] setting',
+	ADD = '[Currency] setting',
 }
 
 export class CurrencyActions {
@@ -15,9 +15,9 @@ export class CurrencyActions {
 		};
 	}
 
-	static setCurrencies(payload: Array<Currency>): TypedAction<Array<Currency>> {
+	static add(payload: Array<Currency>): TypedAction<Array<Currency>> {
 		return {
-			type: ActionType.SET_CURRENCY,
+			type: ActionType.ADD,
 			payload
 		};
 	}

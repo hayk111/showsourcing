@@ -6,6 +6,7 @@ export enum ActionType {
 	LOAD = '[Supplier] Loading',
 	ADD_SUPPLIERS = '[Supplier] adding',
 	PATCH = '[Supplier] patching',
+	CREATE = '[Supplier] creating',
 	DELETE = 'Supplier deleting'
 }
 

@@ -4,7 +4,6 @@ import { combineReducers } from '@ngrx/store/src/utils';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { CurrentTargetAction } from '../action/target/current-target.action';
 import { userReducer } from './entities/user.reducer';
 import { countryReducer } from './entities/country.reducer';
 import { currencyReducer } from './entities/currency.reducer';
@@ -20,10 +19,6 @@ import { taskReducer } from './entities/task.reducer';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { customFieldsReducer } from './entities/custom-fields.reducer';
-import { commentReducer } from './entities/comment.reducer';
-import { filesReducer } from './entities/files.reducer';
-import { voteReducer } from './entities/vote.reducer';
-import { imagesReducer } from './entities/image.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { dialogReducer } from './ui/dialog.reducer';
 import { filtersReducer } from './misc/filter.reducer';
@@ -34,8 +29,15 @@ import { filterPanelReducer } from './ui/filter-panel.reducer';
 import { sidenavReducer } from './ui/sidenav.reducer';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { InjectionToken } from '@angular/core';
-import { currentTargetReducer } from './target/current-target.reducer';
-
+import { currentSelectionReducer, selectionReducerFactory } from './selection/selection.reducer';
+import { ActionType as VoteActions } from '../action/selection/vote-selection.action';
+import { ActionType as TaskActions } from '../action/selection/task-selection.action';
+import { ActionType as ProjectActions } from '../action/selection/project-selection.action';
+import { ActionType as TagsActions } from '../action/selection/tag-selection.action';
+import { ActionType as FileActions } from '../action/selection/file-selection.action';
+import { ActionType as ImageActions } from '../action/selection/images-selection.action';
+import { ActionType as CommentActions } from '../action/selection/comment-selection.action';
+import { imageSelectionReducer } from './selection/image-selection.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -55,21 +57,23 @@ const entities = combineReducers({
 	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
 	tasksType: tasksTypeReducer,
-	customFields: customFieldsReducer,
-	comments: commentReducer,
-	files: filesReducer,
-	images: imagesReducer,
-	votes: voteReducer
+	customFields: customFieldsReducer
 });
 
 const misc = combineReducers({
 	authentication: authenticationReducer,
 	filters: filtersReducer,
-
 });
 
-const target = combineReducers({
-	currentTarget: currentTargetReducer
+const selection = combineReducers({
+	selection: currentSelectionReducer,
+	projects: selectionReducerFactory(ProjectActions),
+	tags: selectionReducerFactory(TagsActions),
+	tasks: selectionReducerFactory(TaskActions),
+	comments: selectionReducerFactory(CommentActions),
+	files: selectionReducerFactory(FileActions),
+	images: imageSelectionReducer,
+	votes: selectionReducerFactory(VoteActions)
 });
 
 const ui = combineReducers( {
@@ -82,7 +86,7 @@ const ui = combineReducers( {
 });
 
 
-export const reducers = { entities, target, misc, ui };
+export const reducers = { entities, selection, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

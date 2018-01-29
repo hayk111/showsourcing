@@ -4,8 +4,9 @@ import { TypedAction } from '../../utils/typed-action.interface';
 export enum ActionType {
 	LOAD = '[Event] Loading',
 	PATCH = '[Event] Patching',
-	ADD_EVENTS = '[Event] adding',
-	DELETE = '[Event] deleting'
+	CREATE = '[Event] Creating',
+	ADD = '[Event] Adding',
+	DELETE = '[Event] Deleting'
 }
 
 export class EventActions {
@@ -23,17 +24,10 @@ export class EventActions {
 		};
 	}
 
-	static addEvents(payload: Array<Event>): TypedAction<Array<Event>> {
+	static add(payload: Array<Event>): TypedAction<Array<Event>> {
 		return {
-			type: ActionType.ADD_EVENTS,
+			type: ActionType.ADD,
 			payload
-		};
-	}
-
-	static delete(id: string) {
-		return {
-			type: ActionType.DELETE,
-			payload: id
 		};
 	}
 

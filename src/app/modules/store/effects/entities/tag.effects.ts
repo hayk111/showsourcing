@@ -12,7 +12,7 @@ export class TagEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => TagActions.addTags(result))
+		map((result: any) => TagActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: TagService) {}

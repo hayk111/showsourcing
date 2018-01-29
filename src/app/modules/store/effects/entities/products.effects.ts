@@ -1,34 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import { ActionType, ProductActions } from '../../action/entities/product.action';
-import { TypedAction } from '../../utils/typed-action.interface';
-import { switchMap, map, merge, mergeMap, startWith, tap, filter } from 'rxjs/operators';
-import { zip } from 'rxjs/observable/zip';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { of } from 'rxjs/observable/of';
-import { User } from '../../model/entities/user.model';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { selectUser } from '../../selectors/entities/user.selector';
-import { AppComment } from '../../model/entities/comment.model';
-import { uuid } from '../../utils/uuid.utils';
 import { AppFile } from '../../model/entities/app-file.model';
 import { ProductService } from '../../services/product.service';
-import { selectProductById } from '../../selectors/entities/products.selector';
-import { Product } from '../../model/entities/product.model';
-import { Tag } from '../../model/entities/tag.model';
-import { Project } from '../../model/entities/project.model';
-import { Task } from '../../model/entities/task.model';
-import { TaskActions } from '../../action/entities/task.action';
-import { retryWhen } from 'rxjs/operators/retryWhen';
-import { FileActions } from '../../action/entities/file.action';
+import { FileSlctnActions } from '../../action/selection/file-selection.action';
+
 
 
 @Injectable()
 export class ProductEffects {
 	userID: string;
-
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
@@ -49,7 +33,7 @@ export class ProductEffects {
 	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(
 		map(action => action.payload),
 		switchMap(id => this.srv.sendPdfReq(id)),
-		map(path => FileActions.download({ url: path } as AppFile))
+		map(path => FileSlctnActions.download({ url: path } as AppFile))
 	);
 
 	@Effect({ dispatch: false })

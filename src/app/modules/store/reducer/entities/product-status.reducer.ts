@@ -3,7 +3,6 @@ import { EntityState, Entity } from '../../utils/entities.utils';
 
 const initialState: EntityState<Entity> = {
 	pending: false,
-	maxEntityCounter: 0,
 	byId: {
 		'Idea': { id: 'Idea', name: ProductStatus.IDEA },
 		'NeedReview': { id: 'NeedReview', name: ProductStatus.NEED_REVIEW },

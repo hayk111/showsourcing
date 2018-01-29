@@ -25,7 +25,7 @@ import { EventService } from './event.service';
 import { TagService } from './tag.service';
 import { PreloaderService } from './preloader.service';
 import { FilterEntityPanelService } from './filter-entity-panel.service';
-import { TargetService } from './target.service';
+import { SelectionService } from './selection.service';
 
 @NgModule({
 	imports: [
@@ -58,7 +58,7 @@ import { TargetService } from './target.service';
 		TagService,
 		PreloaderService,
 		FilterEntityPanelService,
-		TargetService
+		SelectionService
 	]
 })
 export class EntitiesServicesModule { }

@@ -4,7 +4,7 @@ import { TypedAction } from '../../utils/typed-action.interface';
 
 export enum ActionType {
 	LOAD = '[Country] Loading',
-	SET_COUNTRIES = '[Country] Setting',
+	ADD = '[Country] Adding',
 }
 
 export class CountryActions {
@@ -16,9 +16,9 @@ export class CountryActions {
 	}
 
 
-	static setCountries(payload: Array<Country>): TypedAction<Array<Country>> {
+	static add(payload: Array<Country>): TypedAction<Array<Country>> {
 		return {
-			type: ActionType.SET_COUNTRIES,
+			type: ActionType.ADD,
 			payload
 		};
 	}

@@ -1,9 +1,7 @@
-import { AsyncEntityWithTarget } from './async-entity.model';
-import { EntityTarget } from '../../utils/entities.utils';
-import { Store } from '@ngrx/store';
+import { EntityTarget, Entity } from '../../utils/entities.utils';
 
 
-export class Tag extends AsyncEntityWithTarget {
+export class Tag extends Entity {
 	entityCounter: number;
 	itemType: string;
 	lastModifiedDate: number;
@@ -14,8 +12,8 @@ export class Tag extends AsyncEntityWithTarget {
 	name: string;
 	teamId: string;
 
-	constructor(name: string, target: EntityTarget, store: Store<any>) {
-		super(target, store);
+	constructor(name: string, userId: string) {
+		super(userId);
 		this.name = name;
 	}
 }

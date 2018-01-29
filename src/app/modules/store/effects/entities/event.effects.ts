@@ -12,7 +12,7 @@ export class EventEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => EventActions.addEvents(result))
+		map((result: any) => EventActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: EventService) {}

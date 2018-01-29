@@ -4,9 +4,10 @@ import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap, EntityTarget } from '../../../../store/utils/entities.utils';
-import { FileActions } from '../../../../store/action/entities/file.action';
 import { ActivatedRoute } from '@angular/router';
-import { selectFilesForTarget } from '../../../../store/selectors/target/file.selector';
+import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
+import { selectFilesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
 	selector: 'app-product-files',
@@ -15,35 +16,28 @@ import { selectFilesForTarget } from '../../../../store/selectors/target/file.se
 })
 export class ProductFilesComponent extends AutoUnsub implements OnInit {
 	files$: Observable<AppFile>;
-	target: EntityTarget;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>) {
+	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.route.parent.params.takeUntil(this._destroy$)
-		.subscribe(params => {
-			this.target = { entityId: params['id'], entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(FileActions.load(this.target));
-			this.files$ = this.store.select(selectFilesForTarget(this.target));
-		});
+		this.files$ = this.store.select(selectFilesForSelection);
 	}
 
 	deleteFile(file: AppFile) {
-		this.store.dispatch(FileActions.remove(file));
+		this.store.dispatch(FileSlctnActions.remove(file));
 	}
 
 	onFileAdded(files: Array<File>) {
 		files.forEach(file => {
-			const appFile = new AppFile(file, this.target, this.store);
-			this.store.dispatch(FileActions.addNew(appFile));
+			const appFile = new AppFile(file, this.userSrv.getUserId());
+			this.store.dispatch(FileSlctnActions.create(appFile));
 		});
-
 	}
 
 	download(file: AppFile) {
-		this.store.dispatch(FileActions.download(file));
+		this.store.dispatch(FileSlctnActions.download(file));
 	}
 
 }

@@ -11,11 +11,9 @@ import { Task } from '../../model/entities/task.model';
 export enum ActionType {
 		LOAD = '[Product] loading',
 		SET_PENDING = '[Product] pending',
-		SET = '[Product] setting',
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
 		REQUEST_PDF = '[Product] requesting pdf',
-		DELETE = '[Product] deleting'
 }
 
 export class ProductActions {
@@ -34,14 +32,6 @@ export class ProductActions {
 		};
 	}
 
-
-	static set(payload: Array<Product>): TypedAction<Array<Product>> {
-			return {
-					type: ActionType.SET,
-					payload
-			};
-	}
-
 	static setPending() {
 		return {
 			type: ActionType.SET_PENDING
@@ -58,13 +48,6 @@ export class ProductActions {
 	static requestPdf(id: string) {
 		return {
 			type: ActionType.REQUEST_PDF,
-			payload: id
-		};
-	}
-
-	static delete(id: string) {
-		return {
-			type: ActionType.DELETE,
 			payload: id
 		};
 	}

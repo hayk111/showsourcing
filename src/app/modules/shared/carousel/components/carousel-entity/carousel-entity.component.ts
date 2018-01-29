@@ -3,10 +3,10 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { ImageActions } from '../../../../store/action/entities/images.action';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { selectImagesForTarget } from '../../../../store/selectors/target/image.selector';
 import { takeUntil } from 'rxjs/operators';
+import { selectImagesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
 
 @Component({
 	selector: 'carousel-entity-app',
@@ -15,28 +15,25 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class CarouselEntityComponent extends AutoUnsub implements OnInit {
 	@Input() target: EntityTarget;
-	images: Array<AppImage> = [];
+	images$;
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.store.dispatch(ImageActions.load(this.target));
-		this.store.select(selectImagesForTarget(this.target))
-		.pipe(takeUntil(this._destroy$))
-		.subscribe(imgs => this.images = imgs);
+		this.images$ = this.store.select(selectImagesForSelection);
 	}
 
 	rotate(img: AppImage) {
-		this.store.dispatch(ImageActions.rotate(img));
+		this.store.dispatch(ImageSlctnActions.rotate(img));
 	}
 
 	delete(img: AppImage) {
-		this.store.dispatch(ImageActions.delete(img));
+		this.store.dispatch(ImageSlctnActions.remove(img));
 	}
 
 	download(img: AppImage) {
-		this.store.dispatch(ImageActions.download(img));
+		this.store.dispatch(ImageSlctnActions.download(img));
 	}
 }

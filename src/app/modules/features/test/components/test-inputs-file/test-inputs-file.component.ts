@@ -8,6 +8,8 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { Observable } from 'rxjs/Observable';
+import { UserService } from '../../../../shared/user/services/user.service';
+import { SelectionAction } from '../../../../store/action/selection/selection.action';
 
 @Component({
 	selector: 'app-test-inputs-file',
@@ -24,13 +26,14 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	target$: Observable<EntityTarget>;
 	target: EntityTarget;
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$);
-		this.target$.subscribe(t => this.target = t);
+		getFirstProductEntityTarget(this.store, this._destroy$).pipe(
+			tap(target => this.store.dispatch(SelectionAction.select(target)))
+		);
 	}
 
 	onFileDrop(files) {
@@ -42,11 +45,11 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFileAdded(file, where) {
-		this[where].push(new AppFile(file, this.target, this.store));
+		this[where].push(new AppFile(file, this.userSrv.getUserId()));
 	}
 
 	async onImgAdded(file, where) {
-		const img = await AppImage.newInstance(file, this.target, this.store);
+		const img = await AppImage.newInstance(file, this.userSrv.getUserId());
 		this[where].push(img);
 	}
 

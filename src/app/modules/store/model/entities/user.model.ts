@@ -15,7 +15,7 @@ export interface User {
 		readonly referralCode: string;
 		readonly customerId: string;
 		readonly referralUrl: string;
-		name?: string;
+		name: string;
 }
 
 

@@ -6,7 +6,7 @@ import { addEntities, EntityState, entityInitialState } from '../../utils/entiti
 
 export function currencyReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Currency> {
 		switch (action.type) {
-			case ActionType.SET_CURRENCY:
+			case ActionType.ADD:
 				return addEntities(state, action.payload);
 			default:
 				return state;

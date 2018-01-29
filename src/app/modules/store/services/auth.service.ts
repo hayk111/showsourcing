@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { take } from 'rxjs/operators';
 import 'rxjs/add/observable/interval';
 import { TokenService } from './token.service';
 import Log from '../../../utils/logger/log.class';
-import { AuthActions } from '../action/misc/authentication.action';
-import { Credentials } from '../../shared/auth/utils/credentials.interface';
+import { Credentials } from '../../features/auth/utils/credentials.interface';
 
 // This is the authentication service. It posts to api/auth to authenticate the user when the user uses the login form.
 // if the credentials are correct we receive the user. In the header of the response is a
@@ -22,9 +19,7 @@ import { Credentials } from '../../shared/auth/utils/credentials.interface';
 export class AuthService {
 
 	constructor(private router: Router,
-							private http: HttpClient,
-							private store: Store<any>,
-							private tokenSrv: TokenService) {
+							private http: HttpClient) {
 		Log.debug('Auth Service Created');
 	}
 

@@ -5,9 +5,7 @@ import { User } from '../../model/entities/user.model';
 
 export enum ActionType {
 	LOAD = '[Team] Loading',
-	SET_TEAMS = '[Team] setting',
-	LOAD_MEMBERS = '[Team] loading team members',
-	SET_MEMBERS = '[Team] setting team members'
+	ADD = '[Team] setting',
 }
 
 export class TeamActions {
@@ -18,17 +16,10 @@ export class TeamActions {
 		};
 	}
 
-	static setTeams(payload: Array<Team>): TypedAction<Array<Team>> {
+	static add(payload: Array<Team>): TypedAction<Array<Team>> {
 		return {
-			type: ActionType.SET_TEAMS,
+			type: ActionType.ADD,
 			payload
-		};
-	}
-
-	static loadMembers(teamId: string) {
-		return {
-			type: ActionType.LOAD_MEMBERS,
-			payload: teamId
 		};
 	}
 

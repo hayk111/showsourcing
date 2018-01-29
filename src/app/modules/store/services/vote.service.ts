@@ -18,22 +18,13 @@ export class VoteService {
 			.subscribe((user: User) => this.user = user);
 	}
 
-	getPendingVote(vote: Vote): Vote {
-		const id = uuid();
-		const userId = this.user.id;
-		return { ...vote, id, userId };
-	}
-
 	load(target: EntityTarget) {
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/vote`).pipe(
-			// adding the target so we find votes easily for a target
-			tap((votes: Array<Vote>) => votes.forEach(v => v.target = target))
-		);
+		return this.http.get(`api/${name}/${id}/vote`);
 	}
 
-	postVote(vote: Vote) {
-		return this.http.post(`api/product/${vote.target.entityId}/vote`, vote);
+	create({vote, target }: {vote: Vote, target: EntityTarget}) {
+		return this.http.post(`api/product/${target.entityId}/vote`, vote);
 	}
 }

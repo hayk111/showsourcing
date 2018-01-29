@@ -1,49 +1,44 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap, exhaustMap, mergeMap } from 'rxjs/operators';
+import { map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { EntityTarget } from '../../utils/entities.utils';
-import { AppFile } from '../../model/entities/app-file.model';
-import { FileService } from '../../services/file.service';
-import { ActionType, ImageActions } from '../../action/entities/images.action';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import { ImageService } from '../../services/images.service';
 import { AppImage } from '../../model/entities/app-image.model';
+import { SelectionService } from '../../services/selection.service';
+import { ActionType, ImageSlctnActions } from '../../action/selection/images-selection.action';
 
 @Injectable()
-export class ImageEffects {
+export class ImageSelectionEffects {
+
+	constructor(private actions$: Actions, private srv: ImageService, private selectionSrv: SelectionService) {}
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
-		map(action => action.payload),
+		withLatestFrom( this.selectionSrv.getSelection(), (_, target ) => target),
 		switchMap((target: EntityTarget) => this.srv.load(target, 'image')),
-		map((files: Array<AppFile>) => ImageActions.add(files))
+		map((files: Array<AppImage>) => ImageSlctnActions.add(files))
 	);
 
-	// 1. Add new image
 	@Effect()
-	addImage$ = this.actions$.ofType<any>(ActionType.ADD_NEW)
+	createForSelection$ = this.actions$.ofType<any>(ActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
-			map((file: AppFile) => ImageActions.addPending(file))
+			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
+			switchMap((p: any) => this.srv.uploadFile(p, 'image').pipe(
+				// replace currently pending files, we need to replace so it's not pending anymore
+				map(r => ImageSlctnActions.replace(p.file, r)),
+				// First add files
+				startWith(ImageSlctnActions.add([p.file]) as any)
+			))
 		);
 
-	// 2. upload image
-	// 3. when uploaded set pending image to ready
-	@Effect()
-	pendingImage$ = this.actions$.ofType<any>(ActionType.ADD_PENDING).pipe(
-		map(action => action.payload),
-		mergeMap(
-			(pendingFile: AppFile) => this.srv.uploadFile(pendingFile, 'image'),
-			(pendingFile: AppFile, returnedFile: AppFile) => ImageActions.setReady(pendingFile.id, returnedFile)
-		)
-	);
-
-	@Effect()
+	@Effect({ dispatch: false })
 	rotate$ = this.actions$.ofType<any>(ActionType.ROTATE).pipe(
 		map(action => action.payload),
-		switchMap((img) => this.srv.rotate(img) ),
-		switchMap((img) => this.srv.preload(img)),
-		map((r: AppImage) => ImageActions.setImage(r))
+		switchMap(
+			(img) => this.srv.rotate(img),
+			(old: AppImage, replacing: AppImage) => ImageSlctnActions.replace(old, replacing)
+		),
 	);
 
 	@Effect({ dispatch: false })
@@ -53,12 +48,10 @@ export class ImageEffects {
 	);
 
 	@Effect({ dispatch: false })
-	delete$ = this.actions$.ofType<any>(ActionType.DELETE).pipe(
+	delete$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
 		map(action => action.payload),
-		switchMap(img => this.srv.delete(img))
+		withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
+		switchMap(p => this.srv.delete(p, 'image'))
 	);
-
-
-	constructor(private actions$: Actions, private srv: ImageService) {}
 
 }

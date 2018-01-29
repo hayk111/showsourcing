@@ -10,6 +10,7 @@ export interface State {
 
 export const initialState: User = {
 	id: '',
+	name: '',
 	firstName: '',
 	lastName: '',
 	email: '',
@@ -22,7 +23,7 @@ export const initialState: User = {
 	hasPaymentSource: false,
 	referralCode: '',
 	customerId: '',
-	referralUrl: ''
+	referralUrl: '',
 };
 
 export function userReducer(state: User = initialState, action: TypedAction<any> ): User {

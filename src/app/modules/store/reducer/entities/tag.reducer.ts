@@ -8,7 +8,7 @@ export function tagReducer(state = entityInitialState, action: TypedAction<any> 
 	let id;
 	switch (action.type) {
 
-		case ActionType.ADD_TAGS:
+		case ActionType.ADD:
 			return addEntities(state, action.payload);
 
 		case ActionType.PATCH:

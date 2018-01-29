@@ -5,8 +5,8 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { tap } from 'rxjs/operators';
-import { VoteActions } from '../../../../store/action/entities/vote.action';
-import { selectVotesForTarget } from '../../../../store/selectors/target/votes.selector';
+import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { selectVotesForSelection } from '../../../../store/selectors/selection/selection.selector';
 
 @Component({
 	selector: 'app-test-feedback',
@@ -15,19 +15,16 @@ import { selectVotesForTarget } from '../../../../store/selectors/target/votes.s
 })
 export class TestFeedbackComponent extends AutoUnsub implements OnInit {
 	event: string;
-	votes = [];
-	target$;
-
+	votes$;
 	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$);
-		this.target$.pipe(
-			tap((target: EntityTarget) => this.store.dispatch(VoteActions.load(target))),
-			switchMap((target: EntityTarget) => this.store.select(selectVotesForTarget(target))),
-		).subscribe(votes => this.votes = votes);
+		getFirstProductEntityTarget(this.store, this._destroy$).pipe(
+			tap((target: EntityTarget) => this.store.dispatch(SelectionAction.select(target))),
+		);
+		this.votes$ = this.store.select(selectVotesForSelection);
 	}
 
 	onVote(value) {

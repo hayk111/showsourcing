@@ -8,6 +8,7 @@ import { selectDialog } from '../../../../store/selectors/ui/dialog.selector';
 import { Observable } from 'rxjs/Observable';
 import { ElementRef } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'dialog-app',
@@ -32,7 +33,8 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.register(this.name));
 		this.isOpen$ = this.store.select(selectDialog(this.name))
 		.map(dlgInfo => dlgInfo.open);
-		this.isOpen$.takeUntil(this._destroy$).subscribe(open => this.isOpen = open);
+		this.isOpen$.pipe(takeUntil(this._destroy$))
+			.subscribe(open => this.isOpen = open);
 		this.registered.emit(this.name);
 	}
 

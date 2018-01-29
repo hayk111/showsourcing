@@ -1,4 +1,6 @@
-<feedback-input-app [votes]="votes" (vote)="onVote($event)"></feedback-input-app>
+<ng-container *ngIf="votes$| async as votes">
+	<feedback-input-app [votes]="votes" (vote)="onVote($event)"></feedback-input-app>
+</ng-container>
 
 <br/>
 {{ event | json }}
@@ -6,6 +8,5 @@
 <br/><hr><br>
 
 Vote entity
-<ng-container *ngIf="target$ | async as target">
-	<feedback-input-entity-app [target]="target"></feedback-input-entity-app>
-</ng-container>
+
+<feedback-input-entity-app></feedback-input-entity-app>

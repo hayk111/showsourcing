@@ -37,7 +37,7 @@ export class DataManagementPageComponent implements OnInit {
 	}
 
 	mergeSeleciton() {
-		this.store.dispatch();
+		// this.store.dispatch();
 	}
 
 	onSelection(itemIds) {
@@ -56,7 +56,7 @@ export class DataManagementPageComponent implements OnInit {
 				entityId: id,
 				entityRepr
 			};
-			this.store.dispatch(CustomFieldsActions.delete(target));
+			// this.store.dispatch(CustomFieldsActions.delete(target));
 		});
 	}
 
@@ -68,7 +68,7 @@ export class DataManagementPageComponent implements OnInit {
 				entityId: patch.itemId,
 				entityRepr
 			};
-			this.store.dispatch(CustomFieldsActions.patch(target, patch.propName, patch.value));
+			// this.store.dispatch(CustomFieldsActions.patch(target, patch.propName, patch.value));
 		});
 
 	}

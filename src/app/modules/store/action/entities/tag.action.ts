@@ -1,11 +1,10 @@
-import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Tag } from '../../model/entities/tag.model';
-import { EntityTarget } from '../../utils/entities.utils';
 
 export enum ActionType {
 	LOAD = '[Tag] Loading',
-	ADD_TAGS = '[Tag] adding',
+	CREATE = '[Tag] creating',
+	ADD = '[Tag] adding',
 	PATCH = '[Tag] patching',
 	DELETE = '[Tag] deleting'
 }
@@ -19,9 +18,16 @@ export class TagActions {
 		};
 	}
 
-	static addTags(payload: Array<Tag>): TypedAction<Array<Tag>> {
+	static create(tag: Tag) {
 		return {
-			type: ActionType.ADD_TAGS,
+			type: ActionType.CREATE,
+			payload: tag
+		};
+	}
+
+	static add(payload: Array<Tag>): TypedAction<Array<Tag>> {
+		return {
+			type: ActionType.ADD,
 			payload
 		};
 	}

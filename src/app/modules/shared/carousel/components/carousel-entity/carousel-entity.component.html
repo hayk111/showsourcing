@@ -1,4 +1,6 @@
-<carousel-app [images]="images"
-	(rotateRequest)="rotate($event)"
-	(downloadRequest)="download($event)"
-	(deleteRequest)="delete($event)"></carousel-app>
+<ng-container *ngIf="images$ | async as images">
+	<carousel-app [images]="images"
+		(rotateRequest)="rotate($event)"
+		(downloadRequest)="download($event)"
+		(deleteRequest)="delete($event)"></carousel-app>
+</ng-container>

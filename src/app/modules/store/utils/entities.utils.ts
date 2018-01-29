@@ -1,38 +1,29 @@
-import { deepCopy } from './deep-copy.utils';
 import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
-import { SupplierActions } from '../action/entities/supplier.action';
-import { EventActions } from '../action/entities/event.action';
-import { CategoryActions } from '../action/entities/category.action';
-import { TagActions } from '../action/entities/tag.action';
-import { ProjectActions } from '../action/entities/project.action';
-import { ProductActions } from '../action/entities/product.action';
-import { TaskActions } from '../action/entities/task.action';
-
+import { uuid } from './uuid.utils';
 
 export const entityInitialState: EntityState<any> = {
 	pending: true,
-	maxEntityCounter: 0,
 	byId : {},
 	ids: []
 };
 
-export const targetInitialState = {
-	// id is for already preloaded entity
-	ids:  [],
-};
-
 export interface EntityState<G extends Entity> {
 	pending: boolean;
-	maxEntityCounter: number;
 	byId: { [key: string]: G };
 	ids: Array<string>;
 }
 
-export interface Entity {
-	id: string | number;
-	name?: string;
-	// when selected in a filter
-	checked?: boolean;
+export class Entity {
+	id: string;
+	name: string;
+	createdByUserId?: string;
+	creationDate?: number;
+
+	constructor(userId: string) {
+		this.id = uuid();
+		this.creationDate = Date.now();
+		this.createdByUserId = userId;
+	}
 }
 
 export class EntityRepresentation  {
@@ -55,14 +46,13 @@ export const entityRepresentationMap = {
 	projects: new EntityRepresentation('projects'),
 	product: new EntityRepresentation('products'),
 	tasks: new EntityRepresentation('tasks'),
-	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
+	productStatus: new EntityRepresentation('productStatus', undefined, 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	teamMembers: new EntityRepresentation('teamMembers'),
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
 	images: new EntityRepresentation('images')
 };
-
 
 export interface EntityTarget {
 	entityId?: string;
@@ -74,48 +64,37 @@ export interface EntityTarget {
 // https://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html
 export function addEntities(state: any, entities: Array<any>) {
 	const ids = [...state.ids];
-	let maxEntityCounter = state.maxEntityCounter;
 	const byId = { ...state.byId };
 	entities.forEach(entity => {
 		ids.push(entity.id);
 		byId[entity.id] = entity;
-		// the counter is usually placed in either of those places
-		let counter = entity.entityCounter;
-		if (counter === undefined && entity.counter) {
-			counter = entity.counters.entityCounter;
-		}
-		counter = 0;
-		if (counter > maxEntityCounter) {
-			maxEntityCounter = counter;
-		}
 	});
 	return {
 		pending: false,
-		maxEntityCounter,
 		byId,
 		ids,
 	};
 }
 
-// same but we don't care about the previous state
-export function setEntities(entities: Array<any>) {
-	const ids = [];
-	const byId = {};
-	let maxEntityCounter;
-	entities.forEach(entity => {
-		ids.push(entity.id);
-		byId[entity.id] = entity;
-		// the counter is usually placed in either of those places
-		maxEntityCounter = entity.entityCounter || entity.counters.entityCounter;
-	});
-	return {
-		pending: false,
-		maxEntityCounter,
-		byId,
-		ids,
-	};
+export function replaceEntity(state: any, old: Entity, replacing: Entity) {
+	const oldId = old.id;
+	const replacingId = replacing.id;
+	const oldIdIndex = state.ids.indexOf(old.id);
+	// if index found replace id in ids and Enitity in byId
+	if (~oldIdIndex) {
+		const ids = [...state.ids];
+		const byId = { ...state.byId };
+		ids[oldIdIndex] = replacing.id;
+		delete byId[replacing.id];
+		return {
+			...state,
+			ids,
+			byId
+		};
+	}
+	// if not found do nothing
+	return state;
 }
-
 
 export const entityStateToArray = (entityState: EntityState<any>): Array<any> => {
 	const returned = [];
@@ -124,7 +103,6 @@ export const entityStateToArray = (entityState: EntityState<any>): Array<any> =>
 	});
 	return returned;
 };
-
 
 export function copyById(state, id, additionalProps?: any) {
 	return {

@@ -8,7 +8,7 @@ export interface CustomFields {
 
 export function customFieldsReducer(state: CustomFields = {}, action: TypedAction<any> ): CustomFields {
 	switch (action.type) {
-		case ActionType.SET:
+		case ActionType.ADD:
 			return action.payload;
 		default:
 			return state;

@@ -20,13 +20,13 @@ export class AppImage extends AppFile {
 	linkedToParent: boolean;
 	mainImage: boolean;
 
-	constructor(file: File, target: EntityTarget, store: Store<any>) {
-		super(file, target, store);
+	constructor(file: File, userId: string) {
+		super(file, userId);
 	}
 
 	// since reading the data is async we can use a promise here to return a new instance
-	static async newInstance(file: File, target: EntityTarget, store: Store<any>): Promise<AppImage> {
-		const img = new AppImage(file, target, store);
+	static async newInstance(file: File, userId: string): Promise<AppImage> {
+		const img = new AppImage(file, userId);
 		img.data = await AppImage.convertFileToBase64(file);
 		return img;
 	}

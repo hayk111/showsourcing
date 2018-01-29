@@ -4,8 +4,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../../../../store/model/entities/product.model';
 import { selectProductById } from '../../../../store/selectors/entities/products.selector';
-import { selectTagsForTarget } from '../../../../store/selectors/target/tag.selector';
-import { TargetTagActions } from '../../../../store/action/target/tag.action';
+import { selectCurrentSelection, selectTagsForSelection,
+	selectProductSelected } from '../../../../store/selectors/selection/selection.selector';
+import { TagSlctnActions } from '../../../../store/action/selection/tag-selection.action';
 
 @Component({
 	selector: 'basic-info-box-app',
@@ -22,17 +23,16 @@ export class BasicInfoBoxComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.product$ = this.store.select(selectProductById(this.target.entityId));
-		this.store.dispatch(TargetTagActions.load(this.target));
-		this.tags$ = this.store.select(selectTagsForTarget);
+		this.product$ = this.store.select(selectProductSelected);
+		this.tags$ = this.store.select(selectTagsForSelection);
 	}
 
 	onTagAdded(event) {
-		this.store.dispatch(TargetTagActions.add(event, this.target));
+		this.store.dispatch(TagSlctnActions.add(event));
 	}
 
 	onTagRemoved(event) {
-		this.store.dispatch(TargetTagActions.remove(event, this.target));
+		this.store.dispatch(TagSlctnActions.remove(event));
 	}
 
 }

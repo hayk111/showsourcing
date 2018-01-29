@@ -1,37 +1,22 @@
 import { createSelector } from 'reselect';
-import { entityRepresentationMap, EntityState } from '../utils/entities.utils';
-import { Product } from '../model/entities/product.model';
 import { selectProductStatuses } from './product-status.selector';
-import { deepCopy } from '../utils/deep-copy.utils';
-import { selectFilesForTarget } from './target/file.selector';
-import { selectImagesForTarget } from './target/image.selector';
 import { selectCategories } from './categories.selector';
 import { selectEvents } from './events.selector';
 import { selectSuppliers } from './suppliers.selector';
-import { selectFilterGroup } from './filter.selectors';
-import { selectEntityArray } from './utils.selector';
-import { FilterGroupName, Filter } from '../model/misc/filter.model';
+import { entityRepresentationMap, EntityState } from '../../utils/entities.utils';
+import { Product } from '../../model/entities/product.model';
+import { deepCopy } from '../../utils/deep-copy.utils';
 
 
 export const selectProducts = state => state.entities.products;
 
 export const selectProductById = (id: string) => {
-	const target = { entityId: id, entityRepr: entityRepresentationMap.product };
 	return createSelector(
 		[
-			selectProducts,
-			selectFilesForTarget(target),
-			selectImagesForTarget(target)
+			selectProducts
 		],
-		(products, files, images) => {
-			if (products.byId[id])
-				return {
-						...products.byId[id],
-						files,
-						images
-					};
-			else
-				return undefined;
+		(products) => {
+			return products.byId[id];
 		});
 };
 

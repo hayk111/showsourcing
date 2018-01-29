@@ -8,7 +8,7 @@ import { Event } from '../../model/entities/event.model';
 export function eventsReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Event> {
 	let id;
 	switch (action.type) {
-		case ActionType.ADD_EVENTS:
+		case ActionType.ADD:
 			return addEntities(state, action.payload);
 
 		case ActionType.PATCH:

@@ -5,8 +5,9 @@ import { selectUser } from '../../../../store/selectors/entities/user.selector';
 import { map } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { ImageActions } from '../../../../store/action/entities/images.action';
-import { selectImagesForTarget } from '../../../../store/selectors/target/image.selector';
+import { selectImagesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { UserService } from '../../../user/services/user.service';
+import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
 
 @Component({
 	selector: 'input-image-entity-app',
@@ -15,33 +16,18 @@ import { selectImagesForTarget } from '../../../../store/selectors/target/image.
 })
 export class InputImageEntityComponent implements OnInit {
 	@Input() label: string;
-	private _target: EntityTarget;
 	images$: Observable<Array<AppImage>>;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.images$ = this.store.select(selectImagesForTarget(this.target));
+		this.images$ = this.store.select(selectImagesForSelection);
 	}
 
 	async onFileAdded(file: File) {
-		const img = await AppImage.newInstance(file, this.target, this.store);
-		this.store.dispatch(ImageActions.addNew(img));
+		const img = await AppImage.newInstance(file, this.userSrv.getUserId());
+		this.store.dispatch(ImageSlctnActions.create(img));
 	}
 
-	@Input()
-	set target(target: EntityTarget) {
-		if (!target)
-			throw Error('Target must be defined as input when using an entity component');
-		// loading should potentially be moved away from here since if we put this component
-		// twice it might load twice. Nevertheless, the switchMap in effects should cancel the
-		// first request but it could potentially happen that the request is made twice if the second
-		// component appears when the request is done (via an ngIf or smtg)
-		this.store.dispatch(ImageActions.load(target));
-		this._target = target;
-	}
 
-	get target() {
-		return this._target;
-	}
 }

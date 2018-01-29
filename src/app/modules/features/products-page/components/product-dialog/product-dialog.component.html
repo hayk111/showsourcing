@@ -6,24 +6,21 @@
 <!-- <dialog-app #dlg [name]="dlgName" (registered)="onDlgRegistered()">
 	<ng-container *ngIf="dlg.isOpen">
 		<ng-container *ngIf="product$ | async as product">
-			<ng-container *ngIf="target$ | async as target">
 				<a [routerLink]="['/product-details', product.id, 'activity']">GO TO PRODUCT</a>
 				<div class="flex">
 					<div>
 
-						<input-file-entity-app [target]="target" label="File"></input-file-entity-app>
-						<input-image-entity-app [target]="target" label="Image"></input-image-entity-app>
-						<comments-entity-app [target]="target"></comments-entity-app>
-						<feedback-input-entity-app [target]="target"></feedback-input-entity-app>
+						<input-file-entity-app label="File"></input-file-entity-app>
+						<input-image-entity-app label="Image"></input-image-entity-app>
+						<comments-entity-app></comments-entity-app>
+						<feedback-input-entity-app></feedback-input-entity-app>
 
 					</div>
 
 					<dynamic-form-entity-app
-						class="customForm"
-						[target]="target"></dynamic-form-entity-app>
+						class="customForm"></dynamic-form-entity-app>
 
 				</div>
-			</ng-container>
 		</ng-container>
 	</ng-container>
 

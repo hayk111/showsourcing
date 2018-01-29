@@ -8,7 +8,7 @@ import { VoteSlctnActions } from '../../action/selection/vote-selection.action';
 import { CommentSlctnActions } from '../../action/selection/comment-selection.action';
 
 @Injectable()
-export class VoteEffects {
+export class VoteSelectionEffects {
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
@@ -22,11 +22,8 @@ export class VoteEffects {
 	createForSelection$ = this.actions$.ofType<any>(ActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
-			withLatestFrom( this.selectionSrv.getSelection(), (comment, target ) => ({ comment, target })),
+			withLatestFrom( this.selectionSrv.getSelection(), (vote, target ) => ({ vote, target })),
 			switchMap((p: any) => this.srv.create(p).pipe(
-				// replace currently pending files, we need to replace so it's not pending anymore
-				map((r: any) => CommentSlctnActions.replace(p.comment, r)),
-				// First add files
 				startWith(CommentSlctnActions.add([p.comment]) as any)
 			))
 		);

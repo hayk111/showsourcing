@@ -12,7 +12,7 @@ export class ProjectEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => ProjectActions.addProjects(result))
+		map((result: any) => ProjectActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: ProjectService) {}

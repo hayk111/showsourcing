@@ -12,7 +12,7 @@ export class CurrencyEffects {
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		switchMap(_ => this.srv.load()),
-		map((result: any) => CurrencyActions.setCurrencies(result))
+		map((result: any) => CurrencyActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: CurrencyService) {}

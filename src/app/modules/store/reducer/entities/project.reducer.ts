@@ -8,7 +8,7 @@ export function projectReducer(state = entityInitialState, action: TypedAction<a
 	let id;
 	switch (action.type) {
 
-		case ActionType.ADD_PROJECTS:
+		case ActionType.ADD:
 			return addEntities(state, action.payload);
 
 		case ActionType.PATCH:

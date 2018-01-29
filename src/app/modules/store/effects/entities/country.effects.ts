@@ -12,7 +12,7 @@ export class CountryEffects {
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		switchMap(_ => this.srv.load()),
-		map((result: any) => CountryActions.setCountries(result))
+		map((result: any) => CountryActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: CountryService) {}

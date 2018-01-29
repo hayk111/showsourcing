@@ -12,7 +12,8 @@ import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
 import { TokenActions } from '../../action/misc/token.action';
 import { startWith } from 'rxjs/operators';
-import { AuthView, AuthDlgActions } from '../../action/ui/auth-dlg.action';
+import { AuthDlgActions } from '../../action/ui/auth-dlg.action';
+import { AuthView } from '../../model/ui/auth-dlg.model';
 
 
 @Injectable()

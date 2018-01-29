@@ -1,4 +1,4 @@
-import { EntityTarget } from '../../store/utils/entities.utils';
+import { Entity, EntityTarget } from '../../store/utils/entities.utils';
 import { HttpClient, HttpEvent, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -8,7 +8,7 @@ import { switchMap, filter, tap } from 'rxjs/operators';
 import { uuid } from '../../store/utils/uuid.utils';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/entities/user.selector';
-import { FileActions } from '../action/entities/file.action';
+import { AppImage } from '../model/entities/app-image.model';
 
 
 
@@ -22,31 +22,27 @@ export class FileService {
 	}
 
 
-	load(target: EntityTarget, type: 'image' | 'attachment') {
+	load(target: EntityTarget, type: 'image' | 'attachment' = 'attachment') {
 		const obs = [];
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/${type}`)
-		.pipe(
-			tap((r: Array<AppFile>) => r.forEach(f => f.target = target))
-		);
+		return this.http.get(`api/${name}/${id}/${type}`);
 	}
 
-	uploadFile(file: AppFile, type: 'image' | 'attachment'): Observable<any> {
+	uploadFile({file, target}: { file: AppFile, target: EntityTarget }, type: 'image' | 'attachment' = 'attachment')
+		: Observable<any> {
 		let data;
 		const fileName = file.fileName;
 		if (type === 'attachment')
 			data = { fileName };
 		else
 			data = { imageType: 'Photo' };
-		return this.upload(data, type, file);
+		return this.upload(data, type, file, target);
 	}
 
-	private upload(data, type, file: AppFile) {
+	private upload(data, type, file: AppFile, target: EntityTarget) {
 		return this.getAWSInfo(data, type).pipe(
 			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type)),
-			// adding target to the file so we know what it's linked to
-			tap((returnedFile: AppFile) => returnedFile.target = file.target)
 		);
 	}
 
@@ -84,9 +80,9 @@ export class FileService {
 	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
 		switch (event.type) {
 			case HttpEventType.UploadProgress:
-				let progress = Math.round(100 * event.loaded / appFile.file.size);
-				if (progress > 100) progress = 100;
-				this.store.dispatch(FileActions.reportProgress(appFile, progress));
+				// let progress = Math.round(100 * event.loaded / appFile.file.size);
+				// if (progress > 100) progress = 100;
+				// this.store.dispatch(FileActions.reportProgress(appFile, progress));
 				return false;
 			case HttpEventType.Response:
 				return true;
@@ -110,10 +106,10 @@ export class FileService {
 		return this.http.post(`api/${name}/${itemId}/${type}`, data);
 	}
 
-	delete(file: AppFile) {
-		const targetName = file.target.entityRepr.urlName;
-		const targetId = file.target.entityId;
-		return this.http.delete(`api/${targetName}/${targetId}/attachment/${file.id}`);
+	delete({file, target}: { file: AppFile | AppImage, target: EntityTarget }, type: 'attachment' | 'image' = 'attachment') {
+		const targetName = target.entityRepr.urlName;
+		const targetId = target.entityId;
+		return this.http.delete(`api/${targetName}/${targetId}/${type}/${file.id}`);
 	}
 
 	download(img: AppFile) {

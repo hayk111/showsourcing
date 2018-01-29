@@ -3,7 +3,6 @@ import Log from '../../../../../utils/logger/log.class';
 import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { Store } from '@ngrx/store';
-import { ImageActions } from '../../../../store/action/entities/images.action';
 
 @Component({
 	selector: 'carousel-app',

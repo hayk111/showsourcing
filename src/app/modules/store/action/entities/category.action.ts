@@ -4,7 +4,8 @@ import { TypedAction } from '../../utils/typed-action.interface';
 
 export enum ActionType {
 	LOAD = '[Categories] Loading',
-	ADD_CATEGORIES = '[Categories] adding',
+	ADD = '[Categories] adding',
+	CREATE = '[Categories] creating',
 	PATCH = '[Categories] patching',
 	DELETE = '[Categories] deleting',
 }
@@ -17,9 +18,9 @@ export class CategoryActions {
 		};
 	}
 
-	static addCategories(payload: Array<Category>): TypedAction<Array<Category>> {
+	static add(payload: Array<Category>): TypedAction<Array<Category>> {
 		return {
-			type: ActionType.ADD_CATEGORIES,
+			type: ActionType.ADD,
 			payload
 		};
 	}

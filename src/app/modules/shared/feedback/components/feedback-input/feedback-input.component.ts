@@ -6,7 +6,6 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Vote } from '../../../../store/model/entities/vote.model';
 import { User } from '../../../../store/model/entities/user.model';
 import { selectUser } from '../../../../store/selectors/entities/user.selector';
-import { VoteActions } from '../../../../store/action/entities/vote.action';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

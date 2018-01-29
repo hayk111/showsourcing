@@ -12,7 +12,7 @@ export class CustomFieldsEffects {
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => CustomFieldsActions.set(result))
+		map((result: any) => CustomFieldsActions.add(result))
 	);
 
 

@@ -13,7 +13,7 @@ export class TeamMembersEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => TeamMembersActions.addMembers(result))
+		map((result: any) => TeamMembersActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: TeamMembersService) {}

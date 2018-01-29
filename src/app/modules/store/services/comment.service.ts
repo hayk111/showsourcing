@@ -22,7 +22,7 @@ export class CommentService {
 		return this.http.get(`api/${name}/${id}/comment`);
 	}
 
-	postComment(comment: AppComment, target: EntityTarget) {
+	create({ comment, target }: { comment: AppComment, target: EntityTarget }) {
 		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/comment`, { text: comment.text });
 	}
 }

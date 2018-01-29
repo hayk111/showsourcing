@@ -1,8 +1,4 @@
-import { entityInitialState, EntityState } from '../../utils/entities.utils';
-import { AppError } from '../../model/misc/app-error.model';
-import { ActionType } from '../../action/misc/app-errors.action';
-
-export function appErrorReducer(state: EntityState<AppError> = entityInitialState, action) {
+export function appErrorReducer(state: undefined, action) {
 	// well we do nothing here..
 	// effects deal with side effects of adding errors,
 	// we could save errors here but there is no real points in keeping those in memory.

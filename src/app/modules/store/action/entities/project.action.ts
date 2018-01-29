@@ -1,12 +1,12 @@
-import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Project } from '../../model/entities/project.model';
 
 export enum ActionType {
 	LOAD = '[Project] Loading',
-	ADD_PROJECTS = '[Project] Adding',
+	ADD = '[Project] Adding',
+	CREATE = '[Project] Create',
 	PATCH = '[Project] patching',
-	DELETE = '[Project] deleting'
+	DELETE = '[Project] deleting',
 }
 
 export class ProjectActions {
@@ -18,9 +18,16 @@ export class ProjectActions {
 		};
 	}
 
-	static addProjects(payload: Array<Project>): TypedAction<Array<Project>> {
+	static  create(project: Project) {
 		return {
-		type: ActionType.ADD_PROJECTS,
+			type: ActionType.CREATE,
+			payload: project
+		};
+	}
+
+	static add(payload: Array<Project>): TypedAction<Array<Project>> {
+		return {
+		type: ActionType.ADD,
 			payload
 		};
 	}

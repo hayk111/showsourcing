@@ -7,7 +7,7 @@ import { EntityState, addEntities, entityInitialState, copyById, removeId } from
 export function categoryReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Category> {
 	let id;
 		switch (action.type) {
-			case ActionType.ADD_CATEGORIES:
+			case ActionType.ADD:
 				return addEntities(state, action.payload);
 
 			case ActionType.PATCH:
