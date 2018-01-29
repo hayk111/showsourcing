@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions } from '../../../../store/action/filter.action';
-import { FilterSearch, FilterGroupName, FilterSupplier, FilterCategory, FilterEvent } from '../../../../store/model/filter.model';
+import { FilterActions } from '../../../../store/action/misc/filter.action';
+import { FilterSearch, FilterGroupName, FilterSupplier, FilterCategory, FilterEvent } from '../../../../store/model/misc/filter.model';
 import { Observable } from 'rxjs/Observable';
-import { searchEntity, searchEntities, SmartSearch } from '../../../../store/selectors/search-entities.selector';
+import { searchEntity, searchEntities, SmartSearch } from '../../../../store/selectors/misc/search-entities.selector';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { take, tap } from 'rxjs/operators';
 

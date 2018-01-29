@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { TeamService } from '../../../store/services/team.service';
 import { Store } from '@ngrx/store';
-import { TokenActions } from '../../../store/action/token.action';
+import { TokenActions } from '../../../store/action/misc/token.action';
 
 
 @Component({

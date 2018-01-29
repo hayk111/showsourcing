@@ -8,6 +8,7 @@ import { take } from 'rxjs/operators';
 import 'rxjs/add/observable/interval';
 import { TokenService } from './token.service';
 import Log from '../../../utils/logger/log.class';
+import { AuthActions } from '../action/misc/authentication.action';
 import { Credentials } from '../../shared/auth/utils/credentials.interface';
 
 // This is the authentication service. It posts to api/auth to authenticate the user when the user uses the login form.

@@ -5,10 +5,10 @@ import { takeUntil, take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
-import { AppComment } from '../../../../store/model/comment.model';
-import { CommentActions } from '../../../../store/action/comment.action';
-import { selectTeamMember } from '../../../../store/selectors/team-members.selector';
-import { User } from '../../../../store/model/user.model';
+import { AppComment } from '../../../../store/model/entities/comment.model';
+import { CommentActions } from '../../../../store/action/entities/comment.action';
+import { selectTeamMember } from '../../../../store/selectors/entities/team-members.selector';
+import { User } from '../../../../store/model/entities/user.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 

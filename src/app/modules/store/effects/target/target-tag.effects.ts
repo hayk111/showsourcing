@@ -7,7 +7,7 @@ import { ActionType, TargetTagActions } from '../../action/target/tag.action';
 import { map, switchMap, startWith } from 'rxjs/operators';
 import { TaskService } from '../../services/task.service';
 import { TagService } from '../../services/tag.service';
-import { Tag } from '../../model/tag.model';
+import { Tag } from '../../model/entities/tag.model';
 
 
 

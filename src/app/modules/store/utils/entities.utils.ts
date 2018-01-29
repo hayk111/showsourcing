@@ -1,15 +1,29 @@
 import { deepCopy } from './deep-copy.utils';
 import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
+import { SupplierActions } from '../action/entities/supplier.action';
+import { EventActions } from '../action/entities/event.action';
+import { CategoryActions } from '../action/entities/category.action';
+import { TagActions } from '../action/entities/tag.action';
+import { ProjectActions } from '../action/entities/project.action';
+import { ProductActions } from '../action/entities/product.action';
+import { TaskActions } from '../action/entities/task.action';
 
 
 export const entityInitialState: EntityState<any> = {
 	pending: true,
+	maxEntityCounter: 0,
 	byId : {},
 	ids: []
 };
 
+export const targetInitialState = {
+	// id is for already preloaded entity
+	ids:  [],
+};
+
 export interface EntityState<G extends Entity> {
 	pending: boolean;
+	maxEntityCounter: number;
 	byId: { [key: string]: G };
 	ids: Array<string>;
 }
@@ -44,6 +58,9 @@ export const entityRepresentationMap = {
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	teamMembers: new EntityRepresentation('teamMembers'),
+	comments: new EntityRepresentation('comments'),
+	files: new EntityRepresentation('files'),
+	images: new EntityRepresentation('images')
 };
 
 
@@ -55,54 +72,50 @@ export interface EntityTarget {
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
 // https://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html
-export function addEntities(state: EntityState<any>, entities: Array<any>) {
+export function addEntities(state: any, entities: Array<any>) {
 	const ids = [...state.ids];
+	let maxEntityCounter = state.maxEntityCounter;
 	const byId = { ...state.byId };
 	entities.forEach(entity => {
 		ids.push(entity.id);
 		byId[entity.id] = entity;
+		// the counter is usually placed in either of those places
+		let counter = entity.entityCounter;
+		if (counter === undefined && entity.counter) {
+			counter = entity.counters.entityCounter;
+		}
+		counter = 0;
+		if (counter > maxEntityCounter) {
+			maxEntityCounter = counter;
+		}
 	});
 	return {
 		pending: false,
+		maxEntityCounter,
 		byId,
 		ids,
 	};
 }
 
-export function removeEntities(state, idsToRemove: Array<string>) {
-	let ids = [...state.ids];
-	const byId = { ...state.byId };
-	const length = ids.length;
-	let index;
-	for (let i = 0; i < length; i++) {
-		// remove an id if it's found
-		if (~ (index = idsToRemove.indexOf(ids[i]))) {
-			delete byId[ids[i]];
-			ids = ids.splice(i, 1);
-			idsToRemove = idsToRemove.splice(index, 1);
-			if (idsToRemove.length < 1)
-				break;
-		}
-	}
-
+// same but we don't care about the previous state
+export function setEntities(entities: Array<any>) {
+	const ids = [];
+	const byId = {};
+	let maxEntityCounter;
+	entities.forEach(entity => {
+		ids.push(entity.id);
+		byId[entity.id] = entity;
+		// the counter is usually placed in either of those places
+		maxEntityCounter = entity.entityCounter || entity.counters.entityCounter;
+	});
 	return {
 		pending: false,
+		maxEntityCounter,
 		byId,
 		ids,
 	};
 }
 
-// used when there is a pending entity ( new entity added with a fake id. Then we get the real id
-// from the backend )
-export function replaceEntity(state, old: Entity, replacing: Entity) {
-	// a bit more performant than filter since we don't have to go through the whole array
-	const idOld = old.id;
-	const index = state.ids.findIndex(idx => idx === idOld);
-	const ids = state.ids.splice(index, 1);
-	const byId = { ...state.byId };
-	delete byId[idOld];
-	return addEntities(state, [replacing]);
-}
 
 export const entityStateToArray = (entityState: EntityState<any>): Array<any> => {
 	const returned = [];
@@ -111,64 +124,6 @@ export const entityStateToArray = (entityState: EntityState<any>): Array<any> =>
 	});
 	return returned;
 };
-
-// add property to entity in an immutable way
-export function entityAddProp(state, id, additionalProps?: any) {
-	return {
-		...state,
-		byId: {
-			...state.byId,
-			[id]: {
-				...state.byId[id],
-				...additionalProps
-			}
-		}
-	};
-}
-
-// used when an entity property has an array of ids
-export function entityAddItemToArray(state, entityId: string, propName: string, idsToAdd: Array<string>) {
-	let arr = [];
-	const entity = {...state.byId[entityId]};
-	if (state.byId[entityId] && state.byId[entityId][propName]) {
-		arr = state.byId[entityId][propName];
-	}
-	arr = arr.concat(idsToAdd);
-	entity.propName = entity.propName.concat(idsToAdd);
-	return {
-		...state,
-		byId: {
-			...state.byId,
-			[entityId]: entity
-		}
-	};
-}
-
-// used when an entity property has an array of ids
-export function removeIdFromEntityProp(state, entityId, propName, removed) {
-	const entity = { ...state.byId[entityId] };
-	entity.propName = entity.propName.filter(idx => idx !== removed);
-	return {
-		...state,
-		byId: {
-			...state.byId,
-			[entityId]: entity
-		}
-	};
-}
-
-// used when an entity property has an array of ids
-export function replaceIdFromEntityProp(state, entityId: string, replacingId: string, oldId: string) {
-	const entity = { ...state.byId[entityId] };
-	entity.propName = entity.propName.filter(idx => idx !== replacingId);
-	return {
-		...state,
-		byId: {
-			...state.byId,
-			[entityId]: entity
-		}
-	};
-}
 
 
 export function copyById(state, id, additionalProps?: any) {
@@ -181,5 +136,19 @@ export function copyById(state, id, additionalProps?: any) {
 				...additionalProps
 			}
 		}
+	};
+}
+
+export function removeId(state, id) {
+	const ids = [...state.ids];
+	const index = ids.indexOf(id);
+	ids.splice(index, 1);
+
+	const byId = { ...state.byId };
+	delete byId[id];
+	return {
+		...state,
+		byId,
+		ids
 	};
 }

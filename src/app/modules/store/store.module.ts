@@ -8,16 +8,15 @@ import { StoreModule } from '@ngrx/store';
 import { ModuleWithProviders } from '@angular/core';
 import { EntityNamePipe } from './pipes/entity-name.pipe';
 import { EntitiesServicesModule } from './services/entities-services.module';
-import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		StoreModule.forRoot( reducerToken , { metaReducers }),
 		EffectsModule.forRoot(effects),
-		// StoreDevtoolsModule.instrument({
-		// 	maxAge: 2
-		// }),
+		StoreDevtoolsModule.instrument({
+			maxAge: 2
+		}),
 		EntitiesServicesModule,
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule

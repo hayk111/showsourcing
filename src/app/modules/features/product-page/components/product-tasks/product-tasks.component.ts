@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { Task } from '../../../../store/model/task.model';
+import { Task } from '../../../../store/model/entities/task.model';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { ProductActions } from '../../../../store/action/product.action';
-import { TaskActions } from '../../../../store/action/task.action';
-import { selectTasks } from '../../../../store/selectors/tasks.selector';
+import { ProductActions } from '../../../../store/action/entities/product.action';
+import { TaskActions } from '../../../../store/action/entities/task.action';
+import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
 
 @Component({
 	selector: 'app-product-tasks',

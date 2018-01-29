@@ -4,7 +4,7 @@ import { Company } from '../interfaces/company.interface';
 import { Store } from '@ngrx/store';
 import Log from '../../../../utils/logger/log.class';
 import { CompanyContact } from '../interfaces/company-contact.interface';
-import { CompanyActions } from '../../../store/action/company.action';
+import { CompanyActions } from '../../../store/action/entities/company.action';
 
 @Injectable()
 export class CompanyService {

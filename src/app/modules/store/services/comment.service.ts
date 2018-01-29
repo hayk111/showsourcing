@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EntityTarget } from '../../store/utils/entities.utils';
-import { AppComment } from '../model/comment.model';
+import { AppComment } from '../model/entities/comment.model';
 import { uuid } from '../utils/uuid.utils';
-import { selectUser } from '../selectors/user.selector';
+import { selectUser } from '../selectors/entities/user.selector';
 import { Store } from '@ngrx/store';
-import { User } from '../model/user.model';
+import { User } from '../model/entities/user.model';
 import { tap } from 'rxjs/operators';
 
 @Injectable()

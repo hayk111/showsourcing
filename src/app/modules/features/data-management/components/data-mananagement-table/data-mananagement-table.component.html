@@ -1,0 +1,8 @@
+
+<input-app type="search" (update)="search($event)"></input-app>
+
+<article class="flex" *ngFor="let item of availableItems">
+  <input type="checkbox" (change)="onCheckChange($event, item)"/>
+	<editable-field-app [value]="item.name" (update)="onUpdate(item, $event)"></editable-field-app> -
+	<i class="fa fa-trash" aria-hidden="true" (click)="delete(item)"></i>
+</article>

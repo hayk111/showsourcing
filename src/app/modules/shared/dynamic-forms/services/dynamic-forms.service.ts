@@ -5,7 +5,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { RegexpApp } from '../../../../utils/regexes';
 import { InputMap } from '../utils/input-map.interface';
 import { Store } from '@ngrx/store';
-import { selectCustomField } from '../../../store/selectors/custom-fields.selector';
+import { selectCustomField } from '../../../store/selectors/entities/custom-fields.selector';
 import { EntityRepresentation } from '../../../store/utils/entities.utils';
 
 @Injectable()

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../../../store/action/user.action';
-import { AuthActions } from '../../../../store/action/authentication.action';
+import { UserActions } from '../../../../store/action/entities/user.action';
+import { AuthActions } from '../../../../store/action/misc/authentication.action';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'user-panel-app',
@@ -10,7 +11,7 @@ import { AuthActions } from '../../../../store/action/authentication.action';
 })
 export class UserPanelComponent implements OnInit {
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
 	}
@@ -20,7 +21,7 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	goToDataManagement() {
-
+		this.router.navigate(['data-management']);
 	}
 
 	pickTeam() {

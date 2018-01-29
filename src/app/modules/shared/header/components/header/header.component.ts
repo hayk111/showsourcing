@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Observable } from 'rxjs/Observable';
-import { selectAuthentication } from '../../../../store/selectors/authentication.selector';
-import { AuthActions } from '../../../../store/action/authentication.action';
+import { selectAuthentication } from '../../../../store/selectors/misc/authentication.selector';
+import { AuthActions } from '../../../../store/action/misc/authentication.action';
 
 @Component({
 	selector: 'header-app',

@@ -4,7 +4,7 @@ import { getFirstProductEntityTarget } from '../../utils.utils';
 import { switchMap, tap } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { CommentActions } from '../../../../store/action/comment.action';
+import { CommentActions } from '../../../../store/action/entities/comment.action';
 import { selectCommentsForTarget } from '../../../../store/selectors/target/comments.selector';
 
 @Component({

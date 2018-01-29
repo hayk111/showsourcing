@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { selectProducts } from '../../../../store/selectors/products.selector';
-import { ProductActions } from '../../../../store/action/product.action';
+import { selectProducts } from '../../../../store/selectors/entities/products.selector';
+import { ProductActions } from '../../../../store/action/entities/product.action';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { ImageActions } from '../../../../store/action/images.action';
+import { ImageActions } from '../../../../store/action/entities/images.action';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';

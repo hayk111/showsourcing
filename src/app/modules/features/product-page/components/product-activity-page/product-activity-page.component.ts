@@ -3,9 +3,9 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { AppComment } from '../../../../store/model/comment.model';
+import { AppComment } from '../../../../store/model/entities/comment.model';
 import { Observable } from 'rxjs/Observable';
-import { CommentActions } from '../../../../store/action/comment.action';
+import { CommentActions } from '../../../../store/action/entities/comment.action';
 import { selectComments } from '../../../../store/selectors/target/comments.selector';
 
 @Component({
