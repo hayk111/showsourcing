@@ -33,7 +33,10 @@ export class ProductService {
 		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
 		// 	map((r: any) => r.elements)
 		// );
-		return this.http.get(`api/team/${teamId}/product?withArchived=false`).map((r: any) => r.elements);
+		return this.http.get(`api/team/${teamId}/product?withArchived=false`).pipe(
+			map((r: any) => r.elements),
+			tap(r => r.forEach(elem => this.addCustomFields(elem)))
+		);
 	}
 
 	private getProducts(drop, teamId) {

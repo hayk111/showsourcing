@@ -1,6 +1,8 @@
 <div class="flex">
 	<div class="left">
-		<basic-info-box-app class="card"></basic-info-box-app>
+
+		<product-big-card-app class="card"></product-big-card-app>
+
 
 		<div class="card">
 			<ng-container *ngIf="product$ | async as product">
@@ -15,9 +17,8 @@
 			</ng-container>
 		</div>
 
-		<div class="card">
-			<input-file-entity-app></input-file-entity-app>
-		</div>
+	<div class="card">
+		<input-file-entity-app></input-file-entity-app>
 	</div>
 
 	<div class="right">

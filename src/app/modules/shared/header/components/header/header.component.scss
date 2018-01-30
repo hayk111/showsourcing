@@ -8,14 +8,20 @@
 	padding: var(--spacing-smaller);
 	flex: 0 0 48px;
 	width: 100%;
-	background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-	color: var(--color-primary-contrast);
+	background: var(--color-bg);
+	color: var(--color-txt-primary);
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
 	padding: 0 var(--spacing-default);
 	position: relative;
 }
 .titleLogo {
 	font-size: 1.35rem;
+}
+.links {
+	font-size: 14px;
+	display: flex;
+	justify-content: space-around;
+	flex-grow: 1;
 }
 notif-app{
 	margin: 0 28px;

@@ -34,7 +34,7 @@ export class InputFileEntityComponent extends AutoUnsub implements OnInit {
 
 	onFileAdded(file: File) {
 		const appFile = new AppFile(file, this.userSrv.getUserId());
-		this.store.dispatch(FileSlctnActions.create(appFile));
+		this.store.dispatch(FileSlctnActions.add(appFile));
 	}
 
 }

@@ -1,0 +1,28 @@
+:host {
+	display: block;
+	max-width: 351px;
+}
+
+main{
+	padding: var(--spacing-default);
+	.col1 {
+		flex-grow: 1;
+	}
+	.col2 > * {
+		text-align: right;
+	}
+}
+
+footer {
+	padding: var(--spacing-default);
+}
+
+.info > * {
+	font-size: 13px;
+	margin-top: var(--spacing-small);
+}
+
+carousel-entity-app {
+	height: 192px;
+	width: 351px;
+}

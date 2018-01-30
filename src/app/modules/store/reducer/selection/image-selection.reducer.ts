@@ -12,6 +12,7 @@ export function imageSelectionReducer(state = entityInitialState, action: TypedA
 			return addEntities(state, [action.payload]);
 
 		case ActionType.LOAD:
+			return entityInitialState;
 
 		case ActionType.REPLACE:
 			return replaceEntity(state, action.payload.old, action.payload.replacing);

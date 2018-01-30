@@ -1,3 +1,35 @@
-<p>
-  product-big-card works!
-</p>
+<carousel-entity-app></carousel-entity-app>
+<main class="flex">
+
+	<div class="col1 flexColumn">
+		<strong class="name">{{ product?.name }}</strong>
+		<table class="info">
+			<tr>
+				<td>
+					<icon-app name="cercle-green"></icon-app>
+				</td>
+				<td>
+					<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<icon-app name="label"></icon-app>
+				</td>
+				<td>
+					<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col2">
+		<price-app amount="15.00" currency="USD"></price-app>
+		<small class="moq">min {{ product?.minimumOrderQuantity }} pcs</small>
+	</div>
+
+</main>
+<footer>
+	<product-icons-app [numComments]="numComments" [numTasks]="numTasks"></product-icons-app>
+</footer>

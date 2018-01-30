@@ -1,0 +1,18 @@
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
+
+@Component({
+	selector: 'price-app',
+	templateUrl: './price.component.html',
+	styleUrls: ['./price.component.scss']
+})
+export class PriceComponent implements OnInit {
+	@HostBinding('class.flex') flex = true;
+	@Input() currency: string;
+	@Input() amount: number;
+
+	constructor() { }
+
+	ngOnInit() {
+	}
+
+}

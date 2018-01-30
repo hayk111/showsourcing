@@ -21,7 +21,7 @@ export class FeedbackInputEntityComponent implements OnInit {
 	}
 
 	onVote(value: number) {
-		this.store.dispatch(VoteSlctnActions.create(new Vote(value, this.userSrv.getUserId())));
+		this.store.dispatch(VoteSlctnActions.add(new Vote(value, this.userSrv.getUserId())));
 	}
 
 }

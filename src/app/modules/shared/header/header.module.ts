@@ -7,12 +7,14 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		UtilsModule,
-		AppStoreModule
+		AppStoreModule,
+		RouterModule.forChild([])
 	],
 	declarations: [ HeaderComponent, NotifComponent, SearchComponent, UserInfoComponent, UserPanelComponent],
 	exports: [ HeaderComponent ]

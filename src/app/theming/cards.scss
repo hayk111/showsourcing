@@ -1,7 +1,8 @@
 
 .card{
 	@extend .z-2;
-	padding: var(--spacing-big);
+	margin: var(--spacing-big);
+	padding: var(--spacing-default);
 	border-radius: var(--border-radius);
 	background: var(--color-bg);
 }

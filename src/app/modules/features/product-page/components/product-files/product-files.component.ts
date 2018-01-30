@@ -32,7 +32,7 @@ export class ProductFilesComponent extends AutoUnsub implements OnInit {
 	onFileAdded(files: Array<File>) {
 		files.forEach(file => {
 			const appFile = new AppFile(file, this.userSrv.getUserId());
-			this.store.dispatch(FileSlctnActions.create(appFile));
+			this.store.dispatch(FileSlctnActions.add(appFile));
 		});
 	}
 

@@ -7,9 +7,9 @@ $color-primary-light: rgb(93, 241, 187);
 $color-primary-light-contrast: #4A4A4A;
 $color-primary-dark: #0E979E ;
 $color-primary-dark-contrast: #fff;
-$color-txt-primary: #111;
-$color-txt-secondary: #4A4A4A;
-$color-txt-third: #9B9B9B;
+$color-txt-strong: #111;
+$color-txt-primary: #4A4A4A;
+$color-txt-secondary: #9B9B9B;
 
 :root{
 	--color-primary: $color-primary;
@@ -19,7 +19,8 @@ $color-txt-third: #9B9B9B;
 	--color-primary-dark: $color-primary-dark;
 	--color-primary-dark-contrast: $color-primary-dark-contrast;
 	--color-txt-primary: $color-txt-primary;
-	--color-txt-secondary: #808080;
+	--color-txt-secondary: $color-txt-secondary;
+	--color-txt-strong: $color-txt-strong;
 	--color-bg: #fff;
 	--color-bg-secondary: #F5F7F8;
 

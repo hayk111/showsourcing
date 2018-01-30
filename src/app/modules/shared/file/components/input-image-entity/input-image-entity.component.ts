@@ -26,7 +26,7 @@ export class InputImageEntityComponent implements OnInit {
 
 	async onFileAdded(file: File) {
 		const img = await AppImage.newInstance(file, this.userSrv.getUserId());
-		this.store.dispatch(ImageSlctnActions.create(img));
+		this.store.dispatch(ImageSlctnActions.add(img));
 	}
 
 

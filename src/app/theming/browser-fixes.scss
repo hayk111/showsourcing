@@ -1,13 +1,9 @@
 
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-
 body{
     margin: 0;
     padding: 0;
 		min-height: 100vh;
 		background: var(--color-bg-secondary);
-		font-family: Lato;
 }
 
 a{
@@ -35,11 +31,6 @@ dialog{
 ul{
 	margin:0;
 	padding: 0;
-}
-
-strong{
-	font-weight: 400;
-	color: var(--color-warn);
 }
 
 section{

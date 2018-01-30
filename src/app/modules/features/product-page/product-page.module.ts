@@ -23,6 +23,7 @@ import { ProductShippingComponent } from './components/product-shipping/product-
 import { ProductMainCardComponent } from './components/product-main-card/product-main-card.component';
 import { EditableFieldModule } from '../../shared/editable-field/editable-field.module';
 import { LoadersModule } from '../../shared/loaders/loaders.module';
+import { ProductModule } from '../../shared/product/product.module';
 
 @NgModule({
 	imports: [
@@ -35,7 +36,8 @@ import { LoadersModule } from '../../shared/loaders/loaders.module';
 		CommentModule,
 		AppStoreModule.forChild(),
 		EditableFieldModule,
-		LoadersModule
+		LoadersModule,
+		ProductModule
 	],
 	declarations: [
 		ProductPageComponent,

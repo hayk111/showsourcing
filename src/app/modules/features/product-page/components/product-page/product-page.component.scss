@@ -1,7 +1,9 @@
 .left {
 	width: 420px;
 }
-
+product-big-card-app {
+	padding: 0;
+}
 .right {
 	flex-grow: 1;
 	padding: var(--spacing-big);

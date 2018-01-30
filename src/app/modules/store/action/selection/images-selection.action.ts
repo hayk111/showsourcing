@@ -32,7 +32,6 @@ export class ImageSlctnActions {
 		};
 	}
 
-
 	static set(imgs: Array<AppImage>) {
 		return {
 			type: ActionType.SET,
