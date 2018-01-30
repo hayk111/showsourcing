@@ -1,0 +1,11 @@
+article {
+}
+
+header, footer{
+	display: flex;
+	justify-content: space-between;
+}
+.name {
+	font-weight: bold;
+	color: var(--color-txt-strong);
+}

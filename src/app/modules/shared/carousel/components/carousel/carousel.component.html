@@ -15,6 +15,7 @@
 		<menuitem (click)="download()"> download </menuitem>
 		<menuitem (click)="delete()"> delete </menuitem>
 	</menu>
+
 	<div class="counter">{{ selectedIndex + 1 }} / {{ images.length }}</div>
 
 	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>

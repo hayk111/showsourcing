@@ -2,9 +2,9 @@ import { Tag } from '../../model/entities/tag.model';
 
 export enum ActionType {
 	LOAD = '[TagSelection] loading',
+	SET = '[TagSelection]	setting',
 	ADD = '[TagSelection] adding',
 	REMOVE = '[TagSelection] removing for selection',
-	RESET = '[TagSelection] resetting',
 }
 
 export class TagSlctnActions {
@@ -14,16 +14,17 @@ export class TagSlctnActions {
 		};
 	}
 
+	static set(tag: Tag) {
+		return {
+			type: ActionType.SET,
+			payload: tag
+		};
+	}
+
 	static add(tags: Array<Tag>) {
 		return {
 			type: ActionType.ADD,
 			payload: tags
-		};
-	}
-
-	static reset() {
-		return {
-			type: ActionType.RESET
 		};
 	}
 

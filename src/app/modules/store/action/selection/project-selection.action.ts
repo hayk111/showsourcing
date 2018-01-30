@@ -2,9 +2,9 @@ import { Project } from '../../model/entities/project.model';
 
 export enum ActionType {
 	LOAD = '[ProjectsSelection] loading',
+	SET = '[ProjectsSelection] setting',
 	ADD = '[ProjectsSelection] adding',
-	REMOVE_FOR_SELECTION = '[ProjectsSelection] removing for selection',
-	RESET = '[ProjectsSelection] resetting',
+	REMOVE = '[ProjectsSelection] removing for selection',
 }
 
 export class ProjectSlctnActions {
@@ -14,23 +14,23 @@ export class ProjectSlctnActions {
 		};
 	}
 
-	static add(projects: Array<Project>) {
+	static set(projects: Array<Project>) {
 		return {
-			type: ActionType.ADD,
+			type: ActionType.SET,
 			payload: projects
 		};
 	}
 
-
-	static reset() {
+	static add(project: Project) {
 		return {
-			type: ActionType.RESET
+			type: ActionType.ADD,
+			payload: project
 		};
 	}
 
-	static removeForSelection(project: Project) {
+	static remove(project: Project) {
 		return {
-			type: ActionType.REMOVE_FOR_SELECTION,
+			type: ActionType.REMOVE,
 			payload: project
 		};
 	}

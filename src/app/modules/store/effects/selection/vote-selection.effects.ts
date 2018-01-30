@@ -15,17 +15,15 @@ export class VoteSelectionEffects {
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
-		map((r: any) => VoteSlctnActions.add(r))
+		map((r: any) => VoteSlctnActions.set(r))
 	);
 
-	@Effect()
-	createForSelection$ = this.actions$.ofType<any>(ActionType.CREATE)
+	@Effect({ dispatch: false })
+	createForSelection$ = this.actions$.ofType<any>(ActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (vote, target ) => ({ vote, target })),
-			switchMap((p: any) => this.srv.create(p).pipe(
-				startWith(CommentSlctnActions.add([p.comment]) as any)
-			))
+			switchMap((p: any) => this.srv.create(p))
 		);
 
 	constructor(private actions$: Actions, private srv: VoteService, private selectionSrv: SelectionService) {}

@@ -5,11 +5,13 @@ import { ActionType } from '../../action/selection/images-selection.action';
 export function imageSelectionReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
 
-		case ActionType.ADD:
+		case ActionType.SET:
 			return addEntities(state, action.payload);
 
-		case ActionType.RESET:
-			return entityInitialState;
+		case ActionType.ADD:
+			return addEntities(state, [action.payload]);
+
+		case ActionType.LOAD:
 
 		case ActionType.REPLACE:
 			return replaceEntity(state, action.payload.old, action.payload.replacing);

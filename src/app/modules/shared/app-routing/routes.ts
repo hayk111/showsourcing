@@ -29,6 +29,7 @@ import { TestTabsComponent } from '../../features/test/components/test-tabs/test
 import { AuthCardComponent } from '../../features/auth/components/auth-card/auth-card.component';
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
 import { AuthGuardService } from '../../features/auth/services/auth-guard.service';
+import { TestProductComponent } from '../../features/test/components/test-product/test-product.component';
 
 export const routes: Array<Route> = [
 	{ path: 'guest', component: GuestTemplateComponent,
@@ -67,7 +68,8 @@ export const routes: Array<Route> = [
 				{ path: 'feedback', component: TestFeedbackComponent },
 				{ path: 'kanban', component: KanbanTestComponent },
 				{ path: 'loaders', component: TestLoadesComponent },
-				{ path: 'tabs', component: TestTabsComponent }
+				{ path: 'tabs', component: TestTabsComponent },
+				{ path: 'product', component: TestProductComponent }
 			] },
 			{ path: 'base', component: BaseComponent }
 		]

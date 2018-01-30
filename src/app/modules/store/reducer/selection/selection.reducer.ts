@@ -25,12 +25,14 @@ export function selectionReducerFactory(actionType) {
 	return function (state = entityInitialState, action: TypedAction<any>) {
 		switch (action.type) {
 
-			case actionType['ADD']:
+			case actionType['SET']:
 				return addEntities(state, action.payload);
+
+			case actionType['ADD']:
+				return addEntities(state, [action.payload]);
 
 			// we also reset on load because it means we switched the target entity
 			case actionType['LOAD']:
-			case actionType['RESET']:
 				return entityInitialState;
 
 			case actionType['REPLACE']:

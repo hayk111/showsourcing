@@ -51,7 +51,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onProjectRemoved(event) {
-		this.store.dispatch(ProjectSlctnActions.removeForSelection(event));
+		this.store.dispatch(ProjectSlctnActions.remove(event));
 	}
 
 }

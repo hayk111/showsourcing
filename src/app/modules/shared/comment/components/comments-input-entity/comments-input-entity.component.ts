@@ -24,7 +24,7 @@ export class CommentsInputEntityComponent implements OnInit {
 	}
 
 	onNewComment(text: string) {
-		this.store.dispatch(CommentSlctnActions.create( new AppComment(text, this.userSrv.getUserId())));
+		this.store.dispatch(CommentSlctnActions.add( new AppComment(text, this.userSrv.getUserId())));
 	}
 
 

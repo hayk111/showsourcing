@@ -2,8 +2,8 @@ import { Vote } from '../../model/entities/vote.model';
 
 export enum ActionType {
 	LOAD = '[VoteSelection] loading',
+	SET = '[VoteSelection] setting',
 	ADD = '[VoteSelection] adding',
-	CREATE = '[VoteSelection] creating',
 	RESET = '[VoteSelection] resetting'
 }
 
@@ -14,17 +14,17 @@ export class VoteSlctnActions {
 		};
 	}
 
-	static create(vote: Vote) {
+	static set(vote: Vote) {
 		return {
-			type: ActionType.CREATE,
+			type: ActionType.SET,
 			payload: vote
 		};
 	}
 
-	static add(votes: Array<Vote>) {
+	static add(vote: Vote) {
 		return {
 			type: ActionType.ADD,
-			payload: votes
+			payload: vote
 		};
 	}
 

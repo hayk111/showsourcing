@@ -24,6 +24,8 @@ import { TestLoadesComponent } from './components/test-loades/test-loades.compon
 import { LoadersModule } from '../../shared/loaders/loaders.module';
 import { TestTabsComponent } from './components/test-tabs/test-tabs.component';
 import { TabsModule } from '../../shared/tabs/tabs.module';
+import { TestProductComponent } from './components/test-product/test-product.component';
+import { ProductModule } from '../../shared/product/product.module';
 
 @NgModule({
 	imports: [
@@ -39,7 +41,8 @@ import { TabsModule } from '../../shared/tabs/tabs.module';
 		ReactiveFormsModule,
 		RouterModule.forChild([]),
 		LoadersModule,
-		TabsModule
+		TabsModule,
+		ProductModule
 	],
 	declarations: [
 		TestComponent,
@@ -52,7 +55,8 @@ import { TabsModule } from '../../shared/tabs/tabs.module';
 		TestFeedbackComponent,
 		KanbanTestComponent,
 		TestLoadesComponent,
-		TestTabsComponent
+		TestTabsComponent,
+		TestProductComponent
 	],
 })
 export class TestModule { }

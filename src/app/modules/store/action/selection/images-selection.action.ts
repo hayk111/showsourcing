@@ -2,10 +2,9 @@ import { AppImage } from '../../model/entities/app-image.model';
 
 export enum ActionType {
 	LOAD = '[ImageSelection] loading',
+	SET = '[ImageSelection] setting',
 	ADD = '[ImageSelection] adding',
 	REMOVE = '[ImageSelection] removing',
-	RESET = '[ImageSelection] resetting',
-	CREATE = '[ImageSelection] creating',
 	REPLACE = '[ImageSelection] replacing',
 	DOWNLOAD = '[ImageSelection] downloading',
 	ROTATE = '[ImageSelection] rotate',
@@ -18,12 +17,6 @@ export class ImageSlctnActions {
 		};
 	}
 
-	static create(img: AppImage) {
-		return {
-			type: ActionType.CREATE,
-			payload: img
-		};
-	}
 
 	static replace(old: AppImage, replacing: AppImage) {
 		return {
@@ -32,18 +25,21 @@ export class ImageSlctnActions {
 		};
 	}
 
-	static add(imgs: Array<AppImage>) {
+	static add(img: AppImage) {
 		return {
 			type: ActionType.ADD,
+			payload: img
+		};
+	}
+
+
+	static set(imgs: Array<AppImage>) {
+		return {
+			type: ActionType.SET,
 			payload: imgs
 		};
 	}
 
-	static reset() {
-		return {
-			type: ActionType.RESET
-		};
-	}
 
 	static remove(img: AppImage) {
 		return {

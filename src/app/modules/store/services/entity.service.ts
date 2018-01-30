@@ -39,4 +39,8 @@ export class EntityService {
 	deleteItem(target) {
 		return this.http.delete(`api/${target.entityRepr.urlName}/${target.entityId}`);
 	}
+
+	merge({ items, target }) {
+
+	}
 }

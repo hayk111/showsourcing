@@ -16,19 +16,17 @@ export class CommentSelectionEffects {
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
-		map((r: any) => CommentSlctnActions.add(r))
+		map((r: any) => CommentSlctnActions.set(r))
 	);
 
 	@Effect()
-	createForSelection$ = this.actions$.ofType<any>(ActionType.CREATE)
+	addForSelection$ = this.actions$.ofType<any>(ActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (comment, target ) => ({ comment, target })),
 			switchMap((p: any) => this.srv.create(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
-				map((r: any) => CommentSlctnActions.replace(p.comment, r)),
-				// First add files
-				startWith(CommentSlctnActions.add([p.comment]) as any)
+				map((r: any) => CommentSlctnActions.replace(p.comment, r))
 			))
 		);
 

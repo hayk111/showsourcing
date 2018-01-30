@@ -13,7 +13,7 @@ export class TaskSelectionEffects {
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.loadForTarget(target)),
-		map((r: any) => TaskSlctnActions.add(r))
+		map((r: any) => TaskSlctnActions.set(r))
 	);
 
 	constructor(private actions$: Actions, private srv: TaskService, private selectionSrv: SelectionService) {}

@@ -3,8 +3,9 @@ import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {
 	LOAD = '[TaskSelection] loading',
+	SET = '[TaskSelection] setting',
 	ADD = '[TaskSelection] adding',
-	REMOVE_FOR_SELECTION = '[TaskSelection] removing for selection',
+	REMOVE = '[TaskSelection] removing for selection',
 	RESET = '[TaskSelection] resetting',
 }
 
@@ -15,22 +16,23 @@ export class TaskSlctnActions {
 		};
 	}
 
-	static add(tasks: Array<Task>) {
+	static set(tasks: Array<Task>) {
 		return {
-			type: ActionType.ADD,
+			type: ActionType.SET,
 			payload: tasks
 		};
 	}
 
-	static reset() {
+	static add(task: Task) {
 		return {
-			type: ActionType.RESET
+			type: ActionType.ADD,
+			payload: task
 		};
 	}
 
-	static removeForSelection(task: Task) {
+	static remove(task: Task) {
 		return {
-			type: ActionType.REMOVE_FOR_SELECTION,
+			type: ActionType.REMOVE,
 			payload: task
 		};
 	}

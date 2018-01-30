@@ -13,22 +13,20 @@ export class FilesSelectionEffects {
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
-		map((r: any) => FileSlctnActions.add(r))
+		map((r: any) => FileSlctnActions.set(r))
 	);
 
 	// 1. Add file with ref
 	// 2. post the file
 	// 3. When the posted file is done, replace here will be called
 	@Effect()
-	createForSelection$ = this.actions$.ofType<any>(ActionType.CREATE)
+	add$ = this.actions$.ofType<any>(ActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
 			switchMap((p: any) => this.srv.uploadFile(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
-				map(r => FileSlctnActions.replace(p.file, r)),
-				// First add files
-				startWith(FileSlctnActions.add([p.file]) as any)
+				map(r => FileSlctnActions.replace(p.file, r))
 			))
 		);
 

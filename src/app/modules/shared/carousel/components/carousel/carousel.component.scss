@@ -78,7 +78,8 @@ img {
 	position: absolute;
 	bottom: var(--spacing-default);
 	right: var(--spacing-default);
-	background: rgba(0, 0, 0, 0.7);
-	padding: 0 var(--spacing-default);
+	border-radius: var(--border-radius);
+	background-color: rgba(0,0,0,0.5);
+	padding: 0 var(--spacing-small);
 	color: white;
 }

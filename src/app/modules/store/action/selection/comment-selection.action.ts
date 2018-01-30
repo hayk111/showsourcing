@@ -2,10 +2,9 @@ import { AppComment } from '../../model/entities/comment.model';
 
 export enum ActionType {
 	LOAD = '[CommentSelection] loading',
+	SET = '[CommentSelection] setting',
 	ADD = '[CommentSelection] adding',
 	REPLACE = '[CommentSelection] replacing',
-	CREATE = '[CommentSelection] creating',
-	RESET = '[CommentSelection] resetting'
 }
 
 export class CommentSlctnActions {
@@ -15,17 +14,17 @@ export class CommentSlctnActions {
 		};
 	}
 
-	static create(comment: AppComment) {
+	static set(comments: Array<AppComment>) {
 		return {
-			type: ActionType.CREATE,
-			payload: comment
+			type: ActionType.SET,
+			payload: comments
 		};
 	}
 
-	static add(comments: Array<AppComment>) {
+	static add(comment: AppComment) {
 		return {
 			type: ActionType.ADD,
-			payload: comments
+			payload: comment
 		};
 	}
 
@@ -36,9 +35,4 @@ export class CommentSlctnActions {
 		};
 	}
 
-	static reset() {
-		return {
-			type: ActionType.RESET
-		};
-	}
 }

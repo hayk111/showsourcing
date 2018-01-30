@@ -2,10 +2,9 @@ import { AppFile } from '../../model/entities/app-file.model';
 
 export enum ActionType {
 	LOAD = '[FileSelection] loading',
+	SET = '[FileSelection] setting',
 	ADD = '[FileSelection] adding',
 	REMOVE = '[FileSelection] removing',
-	RESET = '[FileSelection] resetting',
-	CREATE = '[FileSelection] creating',
 	REPLACE = '[FileSelection] replacing',
 	DOWNLOAD = '[FileSelection] downloading'
 }
@@ -17,10 +16,10 @@ export class FileSlctnActions {
 		};
 	}
 
-	static create(file: AppFile) {
+	static set(files: Array<AppFile>) {
 		return {
-			type: ActionType.CREATE,
-			payload: file
+			type: ActionType.SET,
+			payload: files
 		};
 	}
 
@@ -31,16 +30,10 @@ export class FileSlctnActions {
 		};
 	}
 
-	static add(files: Array<AppFile>) {
+	static add(file: AppFile) {
 		return {
 			type: ActionType.ADD,
-			payload: files
-		};
-	}
-
-	static reset() {
-		return {
-			type: ActionType.RESET
+			payload: file
 		};
 	}
 
