@@ -9,7 +9,7 @@ import { uuid } from '../../store/utils/uuid.utils';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/entities/user.selector';
 import { AppImage } from '../model/entities/app-image.model';
-
+import Log from '../../../utils/logger/log.class';
 
 
 @Injectable()
@@ -42,11 +42,12 @@ export class FileService {
 
 	private upload(data, type, file: AppFile, target: EntityTarget) {
 		return this.getAWSInfo(data, type).pipe(
-			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type)),
+			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type, target)),
 		);
 	}
 
 	private getAWSInfo(data, type) {
+		Log.debug('getting AWS infos');
 		return this.http.post(`api/${type}`, data);
 	}
 
@@ -54,14 +55,15 @@ export class FileService {
 	// first we upload the file to aws,
 	// then we delete the token,
 	// then we link the img with its entity on the backend
-	private uploadFileToAws(awsInfo: any, file, type: string): Observable<any> {
+	private uploadFileToAws(awsInfo: any, file, type: string, target): Observable<any> {
+		Log.debug('upload to aws');
 		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, { reportProgress: true });
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
 			filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
 			switchMap(_ => this.deleteToken(awsInfo)),
-			switchMap((imgInfo: any) => this.linkToItem(file.target, imgInfo.id, type).map(x => imgInfo))
+			switchMap((imgInfo: any) => this.linkToItem(target, imgInfo.id, type).map(x => imgInfo))
 		);
 	}
 
@@ -79,11 +81,11 @@ export class FileService {
 
 	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
 		switch (event.type) {
-			case HttpEventType.UploadProgress:
-				// let progress = Math.round(100 * event.loaded / appFile.file.size);
-				// if (progress > 100) progress = 100;
-				// this.store.dispatch(FileActions.reportProgress(appFile, progress));
-				return false;
+			// case HttpEventType.UploadProgress:
+			// 	// let progress = Math.round(100 * event.loaded / appFile.file.size);
+			// 	// if (progress > 100) progress = 100;
+			// 	// this.store.dispatch(FileActions.reportProgress(appFile, progress));
+			// 	return false;
 			case HttpEventType.Response:
 				return true;
 		}

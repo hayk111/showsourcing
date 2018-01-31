@@ -24,8 +24,8 @@ export class FileSlctnActions {
 	}
 
 	static replace(old: AppFile, replacing: AppFile) {
-	  return {
-	    type: ActionType.REPLACE,
+		return {
+			type: ActionType.REPLACE,
 			payload: { old, replacing }
 		};
 	}

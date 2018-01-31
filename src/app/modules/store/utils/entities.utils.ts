@@ -85,7 +85,8 @@ export function replaceEntity(state: any, old: Entity, replacing: Entity) {
 		const ids = [...state.ids];
 		const byId = { ...state.byId };
 		ids[oldIdIndex] = replacing.id;
-		delete byId[replacing.id];
+		delete byId[oldId];
+		byId[replacing.id] = replacing;
 		return {
 			...state,
 			ids,

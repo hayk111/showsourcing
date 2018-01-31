@@ -30,8 +30,6 @@ export class FilesSelectionEffects {
 			))
 		);
 
-
-
 	@Effect({ dispatch: false })
 	removeFile$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
 		map(action => action.payload),
