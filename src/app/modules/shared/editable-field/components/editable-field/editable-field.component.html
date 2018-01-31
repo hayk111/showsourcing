@@ -4,7 +4,7 @@
 	<!-- else we just display said value -->
 	<ng-container [ngSwitch]="type">
 		<ng-container *ngSwitchCase="'select-entity'">
-			{{ value | entityName: entityRep.entityName | async }}
+			<a class="pointer">{{ value | entityName: entityRep.entityName | async }}</a>
 		</ng-container>
 		<ng-container *ngSwitchCase="'price'">
 			{{ value?.priceAmount }} {{ value?.priceCurrency?.id }}

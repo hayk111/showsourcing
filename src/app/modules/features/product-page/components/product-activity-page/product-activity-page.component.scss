@@ -3,8 +3,13 @@
 	padding: var(--spacing-default);
 }
 
+.ctnr {
+	align-items: flex-end;
+}
+
 .activity {
 	margin-top: var(--spacing-big);
+	align-items: baseline;
 }
 
 .top {
@@ -21,19 +26,7 @@
 }
 
 .activity {
-	padding: var(--spacing-default);
 	flex-grow: 1;
-}
-
-.cercleAuthor {
-	border-radius: 50%;
-	color: white;
-	background: var(--color-primary-light);
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	height: 25px;
-	width: 25px;
 }
 
 .cercleAction {
@@ -53,9 +46,8 @@
 	margin-right: var(--spacing-big);
 	width: 30px;
 }
-
-.fa {
-	line-height: 25px;
+time {
+	font-size: 13px;
 }
 
 .vbar{
@@ -76,7 +68,7 @@
 }
 
 .msg {
-	margin-top: var(--spacing-small);
+	margin-left: var(--spacing-small);
 }
 
 small{

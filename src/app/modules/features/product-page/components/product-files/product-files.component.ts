@@ -6,7 +6,7 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap, EntityTarget } from '../../../../store/utils/entities.utils';
 import { ActivatedRoute } from '@angular/router';
 import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
-import { selectFilesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectFilesForSelection, selectFilesArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
 import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
@@ -15,14 +15,14 @@ import { UserService } from '../../../../shared/user/services/user.service';
 	styleUrls: ['./product-files.component.scss']
 })
 export class ProductFilesComponent extends AutoUnsub implements OnInit {
-	files$: Observable<AppFile>;
+	files$: Observable<Array<AppFile>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.files$ = this.store.select(selectFilesForSelection);
+		this.files$ = this.store.select(selectFilesArrayForSelection);
 	}
 
 	deleteFile(file: AppFile) {

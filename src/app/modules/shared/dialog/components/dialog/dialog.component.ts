@@ -10,6 +10,14 @@ import { ElementRef } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil } from 'rxjs/operators';
 
+
+
+// Doctor: "I'm sorry but you suffer from a terminal illness and have only 10 to live."
+
+// Patient: "What do you mean, 10? 10 what? Months? Weeks?!"
+
+// Doctor: "Nine."
+
 @Component({
 	selector: 'dialog-app',
 	templateUrl: './dialog.component.html',

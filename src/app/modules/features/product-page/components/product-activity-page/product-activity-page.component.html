@@ -1,26 +1,24 @@
 <ng-container *ngIf="comments$ | async as comments">
 	<ng-container *ngIf="!comments.pending; else spinner">
 
-		<div *ngFor="let id of comments.ids; let last = last" class="flexCenter">
+		<div *ngFor="let id of comments.ids; let last = last" class="flex ctnr">
+
 			<div class="iconCtnr">
 				<div class="cercleAction">
-					<span>4</span>
+					<icon-app name="comment"></icon-app>
 				</div>
 				<div class="vbar" *ngIf="!last"></div>
 			</div>
 
 
 			<div class="flex activity">
-				<div class="top">
-					<div>
-						<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
-						<small class="action" i18n="describes author action, example John commented">commented</small>
-					</div>
-
-					<small class="date">{{ comments.byId[id].creationDate | date }} </small>
+				<div class="flexColumn">
+					<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
+					<time>{{ comments.byId[id].creationDate | timeAgo }}</time>
 				</div>
 				<div class="msg"> {{ comments.byId[id].text }} </div>
 			</div>
+
 		</div>
 	</ng-container>
 </ng-container>

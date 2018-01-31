@@ -24,6 +24,7 @@ import { ProductMainCardComponent } from './components/product-main-card/product
 import { EditableFieldModule } from '../../shared/editable-field/editable-field.module';
 import { LoadersModule } from '../../shared/loaders/loaders.module';
 import { ProductModule } from '../../shared/product/product.module';
+import { IconsModule } from '../../shared/icons/icons.module';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,9 @@ import { ProductModule } from '../../shared/product/product.module';
 		AppStoreModule.forChild(),
 		EditableFieldModule,
 		LoadersModule,
-		ProductModule
+		ProductModule,
+		UtilsModule,
+		IconsModule
 	],
 	declarations: [
 		ProductPageComponent,
