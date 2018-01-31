@@ -1,5 +1,5 @@
 <ng-container *ngIf="user$ | async as user">
-	<div class="cercle"></div>
+	<user-picture-app></user-picture-app>
 	<div class="info">
 		<div>{{ user?.firstName }} {{ user?.lastName}}</div>
 		<div class="team">{{ (team$ | async)?.name }}</div>

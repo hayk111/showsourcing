@@ -1,4 +1,11 @@
 :host{
 	display: block;
 	overflow: hidden;
+	margin: var(--spacing-big);
+	border-radius: var(--border-radius);
+	background: var(--color-bg);
+}
+
+main {
+	padding: var(--spacing-default);
 }

@@ -1,20 +1,35 @@
 .left {
 	width: 420px;
 }
+
 product-big-card-app {
 	padding: 0;
 }
+
 .right {
 	flex-grow: 1;
 	padding: var(--spacing-big);
 }
 
 .links {
-	justify-content: space-between;
+	font-size: 14px;
+	font-weight: 500;
+	display: flex;
+	justify-content: flex-start;
+	& > * {
+		padding: var(--spacing-default);
+	}
+	.selected {
+		border-bottom: 2px solid var(--color-primary);
+	}
 }
 
-.card {
-	margin: var(--spacing-big);
+.hr2 {
+	margin-top: -1px;
+}
+
+.prodCard {
+	padding: 0;
 }
 
 .selected {

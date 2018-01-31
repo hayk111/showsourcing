@@ -1,5 +1,6 @@
 <ng-container *ngIf="comments$ | async as comments">
 	<ng-container *ngIf="!comments.pending; else spinner">
+
 		<div *ngFor="let id of comments.ids; let last = last" class="flexCenter">
 			<div class="iconCtnr">
 				<div class="cercleAction">
@@ -9,7 +10,7 @@
 			</div>
 
 
-			<div class="flex activity card">
+			<div class="flex activity">
 				<div class="left">
 					<div class="cercleAuthor">
 							{{ (comments.byId[id].createdByUserId | entityName: 'teamMembers' | async)?.substr(0, 1) }}

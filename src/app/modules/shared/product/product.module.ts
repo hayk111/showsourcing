@@ -8,13 +8,18 @@ import { IconsModule } from '../icons/icons.module';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { ProductIconsComponent } from './components/product-icons/product-icons.component';
+import { UserModule } from '../user/user.module';
+import { CardsModule } from '../cards/cards.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		CarouselModule,
 		IconsModule,
-		AppStoreModule.forChild()
+		UtilsModule,
+		AppStoreModule.forChild(),
+		UserModule.forChild(),
+		CardsModule
 	],
 	declarations: [ ProductSmallCardComponent, ProductBigCardComponent, PriceComponent, ProductIconsComponent ],
 	exports: [ ProductSmallCardComponent, ProductBigCardComponent ]

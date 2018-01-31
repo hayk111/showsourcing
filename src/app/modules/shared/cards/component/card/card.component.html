@@ -1,5 +1,13 @@
 
-	<div *ngIf="border" class="border"></div>
-	<div class="content">
-		<ng-content></ng-content>
-	</div>
+<div *ngIf="border" class="border"></div>
+<div class="header">
+	<ng-content select="[header], [.header]"></ng-content>
+</div>
+
+<div class="main">
+	<ng-content select="[main], [.main]"></ng-content>
+</div>
+
+<div class="footer">
+		<ng-content select="[footer], [.footer]"></ng-content>
+</div>

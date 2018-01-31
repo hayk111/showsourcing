@@ -1,28 +1,12 @@
 <div class="flex">
 	<div class="left">
 
-		<product-big-card-app class="card"></product-big-card-app>
-
-
-		<div class="card">
-			<ng-container *ngIf="product$ | async as product">
-				<ng-container *ngIf="projects$ | async as projects">
-					<input-select-entity-app
-						i18n-label="label|Projects a product is associated with"
-						[label]="'Projects'"
-						(itemAdded)="onProjectAdded($event)" (itemRemoved)="onProjectRemoved($event)"
-						[value]="projects.ids"
-						[entityRep]="projectRep" [multi]="true"></input-select-entity-app>
-				</ng-container>
-			</ng-container>
-		</div>
-
-	<div class="card">
-		<input-file-entity-app></input-file-entity-app>
+		<product-big-card-app class="prodCard card"></product-big-card-app>
+		<basic-info-text-info-app class="card" [product]="product$ | async"></basic-info-text-info-app>
 	</div>
 
-	<div class="right">
-			<div class="flex links">
+	<div class="right card">
+			<div class="links">
 				<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
 				<a [routerLink]="['sample']" routerLinkActive="selected" i18n="header-link|product samples@@Sample">Sample</a>
 				<a [routerLink]="['technical-details']" routerLinkActive="selected" i18n="header-link|product samples@@TechnicalDetails">Technical details</a>
