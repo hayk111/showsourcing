@@ -1,0 +1,39 @@
+:host {
+	padding: 28px 100px;
+	display: flex;
+	justify-content: space-between;
+	background: var(--color-bg);
+	box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.05);
+}
+
+h4 {
+	font-size: 19px;
+	font-weight: bold;
+	margin: 0;
+}
+.supplier {
+	font-size: 13px;
+}
+
+.status {
+	align-items: center;
+	margin-top: 50px;
+	.cercle {
+		margin: 8px;
+	}
+
+	.spacer {
+		background: var(--color-success);
+		width: 73px;
+		height: 2px;
+		border-radius: var(--border-radius);
+	}
+}
+
+.action {
+	.cercle {
+		width: 36px;
+		height: 36px;
+		margin: var(--spacing-small);
+	}
+}

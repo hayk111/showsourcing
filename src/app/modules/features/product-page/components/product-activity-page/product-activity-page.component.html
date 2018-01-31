@@ -4,29 +4,22 @@
 		<div *ngFor="let id of comments.ids; let last = last" class="flexCenter">
 			<div class="iconCtnr">
 				<div class="cercleAction">
-					<i class="fa fa-comment-o" aria-hidden="true"></i>
+					<span>4</span>
 				</div>
 				<div class="vbar" *ngIf="!last"></div>
 			</div>
 
 
 			<div class="flex activity">
-				<div class="left">
-					<div class="cercleAuthor">
-							{{ (comments.byId[id].createdByUserId | entityName: 'teamMembers' | async)?.substr(0, 1) }}
+				<div class="top">
+					<div>
+						<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
+						<small class="action" i18n="describes author action, example John commented">commented</small>
 					</div>
-				</div>
-				<div class="right">
-					<div class="top">
-						<div>
-							<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
-							<small class="action" i18n="describes author action, example John commented">commented</small>
-						</div>
 
-						<small class="date">{{ comments.byId[id].creationDate | date }} </small>
-					</div>
-					<div class="msg"> {{ comments.byId[id].text }} </div>
+					<small class="date">{{ comments.byId[id].creationDate | date }} </small>
 				</div>
+				<div class="msg"> {{ comments.byId[id].text }} </div>
 			</div>
 		</div>
 	</ng-container>

@@ -1,11 +1,14 @@
+<product-top-card-app></product-top-card-app>
+
 <div class="flex">
 	<div class="left">
 
 		<product-big-card-app class="prodCard card"></product-big-card-app>
+		<likes-chart-app class="card"></likes-chart-app>
 		<basic-info-text-info-app class="card" [product]="product$ | async"></basic-info-text-info-app>
 	</div>
 
-	<div class="right card">
+	<div class="right card mainCard">
 			<div class="links">
 				<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
 				<a [routerLink]="['sample']" routerLinkActive="selected" i18n="header-link|product samples@@Sample">Sample</a>

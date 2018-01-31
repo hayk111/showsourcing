@@ -9,6 +9,7 @@ import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { RouterModule } from '@angular/router';
 import { UserModule } from '../user/user.module';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import { UserModule } from '../user/user.module';
 		UtilsModule,
 		AppStoreModule,
 		RouterModule.forChild([]),
-		UserModule.forChild()
+		UserModule.forChild(),
+		IconsModule
 	],
 	declarations: [ HeaderComponent, NotifComponent, SearchComponent, UserInfoComponent, UserPanelComponent],
 	exports: [ HeaderComponent ]

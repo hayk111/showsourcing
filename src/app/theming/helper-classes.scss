@@ -86,3 +86,10 @@
 	background: rgba(155, 155, 155, 0.1);
 	width: 100%;
 }
+
+.cercle {
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

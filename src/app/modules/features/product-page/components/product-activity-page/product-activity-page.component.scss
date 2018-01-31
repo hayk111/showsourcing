@@ -1,3 +1,8 @@
+:host {
+	display: block;
+	padding: var(--spacing-default);
+}
+
 .activity {
 	margin-top: var(--spacing-big);
 }
@@ -32,16 +37,15 @@
 }
 
 .cercleAction {
-	position: absolute;
 	z-index: 2;
 	border-radius: 50%;
-	color: white;
-	background: var(--color-txt-secondary);
+	color: var(--color-txt-secondary);
+	background-color: #EBEBEB;
 	display: flex;
 	justify-content: center;
-	text-align: center;
-	height: 30px;
-	width: 30px;
+	align-items: center;
+	height: 42px;
+	width: 42px;
 }
 
 .iconCtnr{
@@ -56,11 +60,11 @@
 
 .vbar{
 	width: 2px;
-	background: var(--color-txt-secondary);
-	height: 122px;
+	background: #EBEBEB;
+	height: 73px;
 	position: absolute;
-	top: 0;
-	left: 14px;
+	top: 42px;
+	left: 19px;
 }
 
 .right {

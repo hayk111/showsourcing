@@ -10,6 +10,9 @@ import { AppStoreModule } from '../../store/store.module';
 import { ProductIconsComponent } from './components/product-icons/product-icons.component';
 import { UserModule } from '../user/user.module';
 import { CardsModule } from '../cards/cards.module';
+import { LikesChartComponent } from './components/likes-chart/likes-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
 
 @NgModule({
 	imports: [
@@ -19,9 +22,11 @@ import { CardsModule } from '../cards/cards.module';
 		UtilsModule,
 		AppStoreModule.forChild(),
 		UserModule.forChild(),
-		CardsModule
+		CardsModule,
+		NgxChartsModule,
 	],
-	declarations: [ ProductSmallCardComponent, ProductBigCardComponent, PriceComponent, ProductIconsComponent ],
-	exports: [ ProductSmallCardComponent, ProductBigCardComponent ]
+	declarations: [ ProductSmallCardComponent, ProductBigCardComponent, PriceComponent,
+		ProductIconsComponent, LikesChartComponent, ProductTopCardComponent ],
+	exports: [ ProductSmallCardComponent, ProductBigCardComponent, LikesChartComponent, ProductTopCardComponent ]
 })
 export class ProductModule { }
