@@ -7,21 +7,48 @@ https://material.io/guidelines/style/typography.html#typography-styles
 summary there:
 https://getmdl.io/styles/index.html */
 
-
+:root {
+	--font-size-smaller: 9px;
+	--font-size-small: 11px;
+	--font-size-default: 13px;
+	--font-size-big: 15px;
+	--font-size-bigger: 17px;
+	--font-size-xbig: 19px;
+}
 /* body 1 */
 body, .body, .body1 {
-	/* perf optimisation : Default font is the one from OS,
-	huge drawback is that it's not displaying font-weight: 500
-	correctly on ubuntu. Not sure about other OS's.
-	If it's only ubuntu it's no big deal but if other OS's
-	don't display it either we might want to revert to Roboto font only */
+	/* perf optimisation : Default font is the one from OS */
 	font-family: -apple-system,system-ui,"Segoe UI",Roboto,
 	Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	color: var(--color-txt-primary);
+	font-size: var(--font-size-default);
 	// seems like the commented line below might do some weird stuff
 	// text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+h3 {
+	font-size: var(--font-size-xbig);
+	font-weight: 500;
+	color: var(--color-txt-strong);
+	margin: 0;
+}
+
+h4 {
+	font-size: var(--font-size-big);
+	font-weight: 500;
+	color: var(--color-txt-strong);
+	margin: 0;
+	margin-bottom: var(--spacing-small);
+}
+
+h5 {
+	font-size: var(--font-size-big);
+	color: var(--color-primary);
+	font-weight: normal;
+	margin: 0;
+	margin-bottom: var(--spacing-small);
 }
 
 strong {
@@ -30,6 +57,11 @@ strong {
 }
 
 small {
-	font-size: 11;
+	font-size: var(--font-size-small);
 	color: var(--color-txt-secondary);
+}
+
+label {
+	font-size: var(--font-size-small);
+	font-weight: 500;
 }

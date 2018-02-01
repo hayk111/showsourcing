@@ -93,7 +93,7 @@ export class CarouselComponent implements OnInit {
 		Log.debug('[CarouselComponent] getRotation');
 		const img = this.getImg();
 		if (img.pending)
-			return this.images[this.selectedIndex].rotation * -90;
+			return img.rotation * -90;
 		else
 			return 0;
 	}

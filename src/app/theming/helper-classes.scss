@@ -75,15 +75,14 @@
 
 // hr
 .hr {
-	margin-top: var(--spacing-default);
 	height: 1px;
-	background: rgba(0, 0, 0, 0.1);
+	background: var(--color-delimiter);
 	width: 100%;
 }
 
 .hr2 {
 	height: 2px;
-	background: rgba(155, 155, 155, 0.1);
+	background: var(--color-delimiter);
 	width: 100%;
 }
 

@@ -30,7 +30,7 @@ export class ImageSelectionEffects {
 			))
 		);
 
-	@Effect({ dispatch: false })
+	@Effect()
 	rotate$ = this.actions$.ofType<any>(ActionType.ROTATE).pipe(
 		map(action => action.payload),
 		switchMap(

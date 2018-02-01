@@ -1,5 +1,5 @@
 <div class="flex editable" *ngIf="!editMode">
-	<i (click)="openEditMode()" class="fa fa-pencil" aria-hidden="true"></i>
+	<input-app (click)="openEditMode()" name="checkmark"></input-app>
 	<!-- if we get an id as value, we should display the name of the entity -->
 	<!-- else we just display said value -->
 	<ng-container [ngSwitch]="type">

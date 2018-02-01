@@ -1,13 +1,12 @@
 .editable {
-	font-size: 14px;
-	a {
+	a: hover {
 		color: var(--color-primary);
 	}
 }
 
 .editable i {
 	visibility: hidden;
-	margin-left: 10px;
+	margin-left: var(--spacing-small);
 }
 
 .editable:hover {

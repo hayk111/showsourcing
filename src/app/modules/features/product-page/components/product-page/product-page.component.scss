@@ -4,17 +4,16 @@ product-big-card-app {
 
 .right {
 	flex-grow: 1;
-	padding: var(--spacing-big);
+	padding: var(--spacing-bigger);
 }
 
 .links {
-	font-size: 14px;
+	font-size: var(--font-size-default);
 	font-weight: 500;
 	display: flex;
 	justify-content: flex-start;
 	& > * {
-		padding-bottom: 16px;
-		margin: 16px 20px 0 20px;
+		padding: var(--spacing-default);
 	}
 	.selected {
 		border-bottom: 2px solid var(--color-primary);

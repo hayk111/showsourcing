@@ -1,7 +1,31 @@
 :host {
 	display: block;
 	max-width: 351px;
+	position: relative;
 }
+.heart {
+	position: absolute;
+	z-index: 104;
+	top: var(--spacing-default);
+	left: var(--spacing-default);
+}
+.status {
+	padding: var(--spacing-smaller) var(--spacing-small);
+	background: var(--color-primary);
+
+	border-radius: 1000px;
+	position: absolute;
+	top: 172px;
+	color: white;
+	font-size: var(--font-size-small);
+	z-index: 104;
+	left: var(--spacing-default);
+	font-weight: 500;
+	line-height: 1.25;
+	letter-spacing: -0.1px;
+	color: #ffffff;
+}
+
 
 main{
 	padding: var(--spacing-default);
@@ -18,7 +42,7 @@ footer {
 }
 
 .info > * {
-	font-size: 13px;
+	font-size: var(--font-size-default);
 	margin-top: var(--spacing-small);
 }
 

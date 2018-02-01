@@ -6,6 +6,7 @@ import { SelectModule } from '../select/select.module';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
 	imports: [
@@ -13,6 +14,7 @@ import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
 		InputsModule,
 		SelectModule,
 		CustomInputsModule,
+		IconsModule,
 		UtilsModule,
 		AppStoreModule.forChild()
 	],

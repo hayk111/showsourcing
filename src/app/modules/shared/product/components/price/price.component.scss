@@ -1,13 +1,13 @@
 .currency {
 	color: var(--color-txt-secondary);
-	font-size: 13px;
+	font-size: var(--font-size-default);
 	font-weight: bold;
-	margin-right: 4px;
+	margin-right: var(--spacing-smaller);
 }
 
 .amount {
 	color: var(--color-txt-strong);
-	font-size: 17px;
+	font-size: var(--font-size-big);
 }
 
 :host {

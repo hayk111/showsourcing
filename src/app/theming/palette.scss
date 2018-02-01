@@ -10,6 +10,7 @@ $color-primary-dark-contrast: #fff;
 $color-txt-strong: #111;
 $color-txt-primary: #4A4A4A;
 $color-txt-secondary: #9B9B9B;
+$color-delimiter: rgba(155, 155, 155, 0.1);;
 
 :root{
 	--color-primary: $color-primary;
@@ -21,6 +22,7 @@ $color-txt-secondary: #9B9B9B;
 	--color-txt-primary: $color-txt-primary;
 	--color-txt-secondary: $color-txt-secondary;
 	--color-txt-strong: $color-txt-strong;
+	--color-delimiter: $color-delimiter;
 	--color-bg: #fff;
 	--color-bg-secondary: #F5F7F8;
 

@@ -2,7 +2,7 @@
 button, input[type="submit"]{
 	cursor: pointer;
 	box-sizing: border-box;
-	margin-top: var(--spacing-big);
+	margin-top: var(--spacing-bigger);
 	border-radius: 4px;
 	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
 	border: none;
@@ -21,15 +21,6 @@ button.secondary{
 	color: var(--color-secondary-contrast);
 }
 
-// input{
-// 	box-sizing: border-box;
-// 	border-radius: var(--border-radius);
-// 	font-size: 14px;
-// 	border: var(--border-width) solid #cccccc;
-// 	padding: 7px;
-// 	outline: 0;
-// }
-
 .inp-box{
 	margin-bottom: 16px;
 	.error{
@@ -37,23 +28,9 @@ button.secondary{
 	}
 }
 
-// input:focus{
-// 	border-color: var(--color-primary);
-// 	box-shadow: 0 0 4px 1px var(--color-primary-dark);
-// }
-
-label{
-	color: #2B303B;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 17px;
-	margin-bottom: 10px;
-	display: block;
-}
-
 fieldset{
 	border: none;
-	margin-top: var(--spacing-big);
+	margin-top: var(--spacing-bigger);
 }
 
 fieldset legend{

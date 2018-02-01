@@ -28,7 +28,8 @@ export function imageSelectionReducer(state = entityInitialState, action: TypedA
 					...state.byId,
 					[id]: {
 						...state.byId[id],
-						rotation
+						rotation,
+						pending: true
 					}
 				}
 			};
