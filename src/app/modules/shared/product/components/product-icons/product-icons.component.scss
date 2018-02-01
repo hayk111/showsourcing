@@ -1,7 +1,15 @@
+:host {
+	display: flex;
+}
 .spacer {
 	margin-right: var(--spacing-default);
 }
 
 icon-app {
 	margin-right: var(--spacing-small);
+}
+
+strong {
+	// fix for wrong alignement, not sure what's happening here.
+	margin-top: -2px;
 }
