@@ -41,7 +41,6 @@ h2{
 	margin-bottom: 32px;
 }
 
-
 menu {
 	position: absolute;
 	top: var(--spacing-bigger);
@@ -50,7 +49,7 @@ menu {
 	menuitem {
 		cursor: pointer;
 		background: var(--color-bg);
-		padding: var(--spacing-default);
+		padding: var(--spacing-smaller) var(--spacing-default);
 	}
 	menuitem:hover {
 		background: var(--color-bg-secondary);

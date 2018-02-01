@@ -29,14 +29,14 @@ menu {
 }
 
 .btn {
-	width: 30px;
-	height: 30px;
-	color: white;
-	background: rgba(0,0,0,0.5);
-	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: var(--border-radius);
+	width: var(--spacing-big);
+	height: var(--spacing-big);
+	color: white;
+	background: var(--color-bg-dark);
 }
 
 .move-btn {
@@ -45,11 +45,11 @@ menu {
 }
 
 .back {
-	left: var(--spacing-bigger);
+	left: var(--spacing-default);
 }
 
 .next {
-	right: var(--spacing-bigger);
+	right: var(--spacing-default);
 }
 
 .img-ctnr {
@@ -63,13 +63,12 @@ img {
 
 .rotate {
 	position: absolute;
-	background: rgba(0,0,0,0.5);
+	background: var(--color-bg-dark);
 	padding: 0 var(--spacing-default);
-	height: 40px;
 	color: white;
 	display: flex;
 	align-items: center;
-	right: 62px;
+	right: var(--spacing-xl);
 	top: var(--spacing-default);
 }
 
@@ -78,7 +77,7 @@ img {
 	bottom: var(--spacing-default);
 	right: var(--spacing-default);
 	border-radius: var(--border-radius);
-	background-color: rgba(0,0,0,0.5);
-	padding: 0 var(--spacing-small);
+	background-color: var(--color-bg-dark);
+	padding: 0 var(--spacing-smaller);
 	color: white;
 }

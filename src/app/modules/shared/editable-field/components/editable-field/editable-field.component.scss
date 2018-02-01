@@ -4,14 +4,13 @@
 	}
 }
 
-.editable i {
+.editable icon-app {
 	visibility: hidden;
-	margin-left: var(--spacing-small);
+	margin-right: var(--spacing-small);
 }
 
 .editable:hover {
-	background: var(--color-bg-secondary);
-	i {
+	icon-app {
 		visibility: visible;
 	}
 }

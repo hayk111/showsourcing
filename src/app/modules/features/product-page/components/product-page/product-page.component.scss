@@ -1,7 +1,9 @@
 product-big-card-app {
 	padding: 0;
 }
-
+.content {
+	padding: 0 var(--spacing-xl);
+}
 .right {
 	flex-grow: 1;
 	padding: var(--spacing-bigger);

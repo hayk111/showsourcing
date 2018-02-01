@@ -1,5 +1,5 @@
 :host {
-	padding: 28px 100px;
+	padding: var(--spacing-big) calc(var(--spacing-bigger) * 3 );
 	display: flex;
 	justify-content: space-between;
 	background: var(--color-bg);

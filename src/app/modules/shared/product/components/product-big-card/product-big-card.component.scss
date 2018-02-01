@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	max-width: 351px;
+	max-width: 360px;
 	position: relative;
 }
 .heart {
@@ -15,7 +15,7 @@
 
 	border-radius: 1000px;
 	position: absolute;
-	top: 172px;
+	top: 256px;
 	color: white;
 	font-size: var(--font-size-small);
 	z-index: 104;
@@ -47,6 +47,6 @@ footer {
 }
 
 carousel-entity-app {
-	height: 192px;
-	width: 351px;
+	height: 270px;
+	width: 360px;
 }
