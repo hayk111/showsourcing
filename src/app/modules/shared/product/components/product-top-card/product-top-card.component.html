@@ -1,8 +1,8 @@
 <div>
-	<h3>Delux running shoes</h3>
+	<h3>{{ product?.name}}</h3>
 	<div>
 		<icon-app name="cercle-green"></icon-app>
-		<span class="supplier">Manufacturer A</span>
+		<span class="supplier"> {{ product.supplierId | entityName: 'suppliers' | async }}</span>
 	</div>
 </div>
 <div class="status flex">

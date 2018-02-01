@@ -1,33 +1,13 @@
 product-big-card-app {
 	padding: 0;
 }
+
 .content {
 	padding: 0 var(--spacing-xl);
 }
+
 .right {
 	flex-grow: 1;
-	padding: var(--spacing-bigger);
-}
-
-.links {
-	font-size: var(--font-size-default);
-	font-weight: 500;
-	display: flex;
-	justify-content: flex-start;
-	& > * {
-		padding: var(--spacing-default);
-	}
-	.selected {
-		border-bottom: 2px solid var(--color-primary);
-	}
-}
-
-.hr2 {
-	margin-top: -2px;
-}
-
-.prodCard, .mainCard {
-	padding: 0;
 }
 
 .selected {

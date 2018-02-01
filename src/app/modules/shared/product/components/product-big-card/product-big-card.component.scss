@@ -1,21 +1,31 @@
 :host {
 	display: block;
 	max-width: 360px;
+}
+
+header {
 	position: relative;
 }
+
+carousel-entity-app {
+	height: 270px;
+	width: 360px;
+}
+
 .heart {
 	position: absolute;
 	z-index: 104;
 	top: var(--spacing-default);
 	left: var(--spacing-default);
 }
+
 .status {
 	padding: var(--spacing-smaller) var(--spacing-small);
 	background: var(--color-primary);
 
 	border-radius: 1000px;
 	position: absolute;
-	top: 256px;
+	bottom: 10px;
 	color: white;
 	font-size: var(--font-size-small);
 	z-index: 104;
@@ -28,7 +38,6 @@
 
 
 main{
-	padding: var(--spacing-default);
 	.col1 {
 		flex-grow: 1;
 	}
@@ -46,7 +55,3 @@ footer {
 	margin-top: var(--spacing-small);
 }
 
-carousel-entity-app {
-	height: 270px;
-	width: 360px;
-}

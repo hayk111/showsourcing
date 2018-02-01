@@ -19,6 +19,8 @@ import { EditableFieldModule } from '../../shared/editable-field/editable-field.
 import { LoadersModule } from '../../shared/loaders/loaders.module';
 import { ProductModule } from '../../shared/product/product.module';
 import { IconsModule } from '../../shared/icons/icons.module';
+import { ProductPageMainCardComponent } from './components/product-page-main-card/product-page-main-card.component';
+import { CardsModule } from '../../shared/cards/cards.module';
 
 @NgModule({
 	imports: [
@@ -35,7 +37,8 @@ import { IconsModule } from '../../shared/icons/icons.module';
 		ProductModule,
 		UtilsModule,
 		ProductModule,
-		IconsModule
+		IconsModule,
+		CardsModule
 	],
 	declarations: [
 		ProductPageComponent,
@@ -46,6 +49,7 @@ import { IconsModule } from '../../shared/icons/icons.module';
 		ProductTasksComponent,
 		ProductFilesComponent,
 		ProductShippingComponent,
+		ProductPageMainCardComponent,
 	], exports: [
 		ProductPageComponent
 	]

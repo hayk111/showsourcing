@@ -1,7 +1,7 @@
 
 <div *ngIf="border" class="border"></div>
 <div class="header">
-	<ng-content select="[header], [.header]"></ng-content>
+	<ng-content select="header"></ng-content>
 </div>
 
 <div class="main">
@@ -9,5 +9,5 @@
 </div>
 
 <div class="footer">
-		<ng-content select="[footer], [.footer]"></ng-content>
+		<ng-content select="footer"></ng-content>
 </div>

@@ -1,0 +1,18 @@
+<card-app>
+	<header>
+		<div class="links">
+			<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
+			<a [routerLink]="['sample']" routerLinkActive="selected" i18n="header-link|product samples@@Sample">Sample</a>
+			<a [routerLink]="['technical-details']" routerLinkActive="selected" i18n="header-link|product samples@@TechnicalDetails">Technical details</a>
+			<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product samples@@Tasks">Tasks</a>
+			<a [routerLink]="['shipping']" routerLinkActive="selected" i18n="header-link|product samples@@Shipping">Shipping</a>
+			<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product samples@@Files">Files</a>
+		</div>
+		<div class="hr2"></div>
+	</header>
+
+	<main>
+		<router-outlet></router-outlet>
+	</main>
+</card-app>
+

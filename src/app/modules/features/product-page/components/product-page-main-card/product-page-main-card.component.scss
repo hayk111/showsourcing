@@ -1,0 +1,16 @@
+.links {
+	font-size: var(--font-size-default);
+	font-weight: 500;
+	display: flex;
+	justify-content: flex-start;
+	& > * {
+		padding: var(--spacing-default);
+	}
+	.selected {
+		border-bottom: 2px solid var(--color-primary);
+	}
+}
+
+.hr2 {
+	margin-top: -2px;
+}

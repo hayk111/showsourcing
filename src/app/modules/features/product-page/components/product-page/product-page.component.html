@@ -1,23 +1,13 @@
-<product-top-card-app></product-top-card-app>
+<product-top-card-app [product]="product$ | async"></product-top-card-app>
 
 <div class="flex content">
 	<div class="left">
-
-		<product-big-card-app class="prodCard card"></product-big-card-app>
+		<product-big-card-app class="card"></product-big-card-app>
 		<likes-chart-app class="card"></likes-chart-app>
 		<product-info-card-app class="card" [product]="product$ | async"></product-info-card-app>
 	</div>
 
-	<div class="right card mainCard">
-			<div class="links">
-				<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
-				<a [routerLink]="['sample']" routerLinkActive="selected" i18n="header-link|product samples@@Sample">Sample</a>
-				<a [routerLink]="['technical-details']" routerLinkActive="selected" i18n="header-link|product samples@@TechnicalDetails">Technical details</a>
-				<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product samples@@Tasks">Tasks</a>
-				<a [routerLink]="['shipping']" routerLinkActive="selected" i18n="header-link|product samples@@Shipping">Shipping</a>
-				<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product samples@@Files">Files</a>
-			</div>
-			<div class="hr2"></div>
-			<router-outlet></router-outlet>
+	<div class="right">
+		<product-page-main-card-app class="card"></product-page-main-card-app>
 	</div>
 </div>

@@ -1,12 +1,13 @@
-<div
+<card-app
 	class="ctnr"
 	#ctnr
 	(dragover)="onDragOver($event)"
 	(dragstart)="onDragStart($event)"
 	(drop)="onDrop($event)"
-	attr.data-bag="{{ bag }}">
-	<div>{{ label }}</div>
+	attr.data-bag="{{ bag }}"
+	border="true">
+	<header>{{ label }}</header>
 	<div class="overlay" *ngIf="isOver()"
 		(dragleave)="onDragLeave($event)"> DROP IT HERE </div>
 	<ng-content></ng-content>
-</div>
+</card-app>
