@@ -40,7 +40,8 @@ import { environment } from '../../../../environments/environment';
 		MatSnackBarModule,
 		MatDialogModule,
 		EntitiesServicesModule,
-		UserModule
+		UserModule,
+		TemplateModule
 	],
 	providers: [
 		reducerProvider,

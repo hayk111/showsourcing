@@ -23,7 +23,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
 	redirectOnAuth(authenticated: boolean) {
 		if (!authenticated)
-			this.router.navigate(['guest', 'login']);
+			this.router.navigate(['login']);
 	}
 
 	canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {

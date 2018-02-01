@@ -1,11 +1,9 @@
 import { Route } from '@angular/router';
 import { TemplateComponent } from '../template/components/template/template.component';
-import { GuestTemplateComponent } from '../template/components/guest-template/guest-template.component';
 import { HomeComponent } from '../../features/home/components/home/home.component';
 import { TestComponent } from '../../features/test/test/test.component';
 import { SupplierPageComponent } from '../../features/supplier-page/components/supplier-page/supplier-page.component';
 import { ProductsPageComponent } from '../../features/products-page/components/products-page/products-page.component';
-import { BaseComponent } from '../../features/test/base/base.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 import { EventPageComponent } from '../../features/events-page/components/event-page/event-page.component';
 import { TestInputsVanillaComponent } from '../../features/test/components/test-inputs-vanilla/test-inputs-vanilla.component';
@@ -32,13 +30,9 @@ import { AuthGuardService } from '../../features/auth/services/auth-guard.servic
 import { TestProductComponent } from '../../features/test/components/test-product/test-product.component';
 
 export const routes: Array<Route> = [
-	{ path: 'guest', component: GuestTemplateComponent,
-		children: [
-			{ path: 'login', component: AuthCardComponent },
-			{ path: 'account-created', component: AccountCreatedComponent },
-		]
-	},
-	{ path: '', component: TemplateComponent, canActivate: [ AuthGuardService ], canActivateChild: [ AuthGuardService ],
+	{ path: 'login', component: AuthCardComponent },
+	{ path: 'account-created', component: AccountCreatedComponent },
+	{ path: '', canActivate: [ AuthGuardService ], canActivateChild: [ AuthGuardService ],
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
@@ -59,20 +53,18 @@ export const routes: Array<Route> = [
 			{ path: 'events', component: EventPageComponent },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'team-management', component: TeamManagementPageComponent },
-			// TODO: Remove two under this
-			{ path: 'test', component: TestComponent, children: [
-				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
-				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
-				{ path: 'inputs-file-image', component: TestInputsFileComponent },
-				{ path: 'carousel', component: TestCarouselComponent },
-				{ path: 'comments', component: TestCommentsComponent },
-				{ path: 'feedback', component: TestFeedbackComponent },
-				{ path: 'kanban', component: KanbanTestComponent },
-				{ path: 'loaders', component: TestLoadesComponent },
-				{ path: 'tabs', component: TestTabsComponent },
-				{ path: 'product', component: TestProductComponent }
-			] },
-			{ path: 'base', component: BaseComponent }
+			// { path: 'test', loadChildren: TestComponent, children: [
+			// 	{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
+			// 	{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
+			// 	{ path: 'inputs-file-image', component: TestInputsFileComponent },
+			// 	{ path: 'carousel', component: TestCarouselComponent },
+			// 	{ path: 'comments', component: TestCommentsComponent },
+			// 	{ path: 'feedback', component: TestFeedbackComponent },
+			// 	{ path: 'kanban', component: KanbanTestComponent },
+			// 	{ path: 'loaders', component: TestLoadesComponent },
+			// 	{ path: 'tabs', component: TestTabsComponent },
+			// 	{ path: 'product', component: TestProductComponent }
+			// ] }
 		]
 	},
 	{ path: '**', redirectTo: '' }

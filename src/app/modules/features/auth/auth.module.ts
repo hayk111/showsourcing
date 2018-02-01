@@ -32,7 +32,8 @@ import { CardsModule } from '../../shared/cards/cards.module';
 		},
 		AuthGuardService,
 	],
-	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent, ForgotPasswordComponent, PwResettedComponent ],
+	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent,
+			ForgotPasswordComponent, PwResettedComponent ],
 	exports: [  LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent ]
 })
 export class AuthModule {
