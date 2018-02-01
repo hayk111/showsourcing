@@ -6,16 +6,21 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./user-picture.component.scss']
 })
 export class UserPictureComponent implements OnInit {
-	static DEFAULT_IMG = 'https://visit.nemedic.com/storage/default.jpg';
-	@Input() url;
+	static DEFAULT_IMG = 'http://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg';
+	private _url;
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	get src() {
-		return this.url || UserPictureComponent.DEFAULT_IMG;
+	@Input()
+	set url(v: string) {
+		this._url = v;
+	}
+
+	get url() {
+		return this._url || UserPictureComponent.DEFAULT_IMG;
 	}
 
 }
