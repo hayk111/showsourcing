@@ -1,13 +1,13 @@
 :host {
 	display: flex;
 	align-items: center;
-	background: #FAFAFA;;
 	border-radius: 99px;
 	height: 32px;
 	width: 240px;
 }
 i {
 	margin-left: 5px;
+	margin-right: var(--spacing-small);
 }
 input {
 	margin-right: 5px;
