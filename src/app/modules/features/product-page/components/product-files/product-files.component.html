@@ -1,12 +1,8 @@
 <div (fileDrop)="onFileAdded($event)">
-	<span class="title" i18n="header| Files &amp; documents">
 		Files &amp; Documents
-	</span>
 
-	<div class="action">
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
 		<button class="small" (click)="inp.click()" i18n="button|add file">Add File</button>
-	</div>
 
 	<ng-container *ngIf="files$ | async as files">
 		<table class="fullWidth withBorder">

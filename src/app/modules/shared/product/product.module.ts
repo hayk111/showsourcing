@@ -13,6 +13,8 @@ import { CardsModule } from '../cards/cards.module';
 import { LikesChartComponent } from './components/likes-chart/likes-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
+import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
+import { EditableFieldModule } from '../editable-field/editable-field.module';
 
 @NgModule({
 	imports: [
@@ -24,9 +26,24 @@ import { ProductTopCardComponent } from './components/product-top-card/product-t
 		UserModule.forChild(),
 		CardsModule,
 		NgxChartsModule,
+		EditableFieldModule,
+		IconsModule
 	],
-	declarations: [ ProductSmallCardComponent, ProductBigCardComponent, PriceComponent,
-		ProductIconsComponent, LikesChartComponent, ProductTopCardComponent ],
-	exports: [ ProductSmallCardComponent, ProductBigCardComponent, LikesChartComponent, ProductTopCardComponent ]
+	declarations: [
+		ProductSmallCardComponent,
+		ProductBigCardComponent,
+		PriceComponent,
+		ProductIconsComponent,
+		LikesChartComponent,
+		ProductTopCardComponent,
+		ProductInfoCardComponent,
+	],
+	exports: [
+		ProductSmallCardComponent,
+		ProductBigCardComponent,
+		LikesChartComponent,
+		ProductTopCardComponent,
+		ProductInfoCardComponent
+	]
 })
 export class ProductModule { }

@@ -6,12 +6,12 @@ import { ProductActions } from '../../../../store/action/entities/product.action
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
-	selector: 'basic-info-text-info-app',
-	templateUrl: './basic-info-text-info.component.html',
-	styleUrls: ['./basic-info-text-info.component.scss'],
+	selector: 'product-info-card-app',
+	templateUrl: './product-info-card.component.html',
+	styleUrls: ['./product-info-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BasicInfoTextInfoComponent implements OnInit {
+export class ProductInfoCardComponent implements OnInit {
 	@Input() product: Product;
 	supplierRep = entityRepresentationMap.suppliers;
 	categoryRep = entityRepresentationMap.categories;
