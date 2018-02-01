@@ -36,22 +36,23 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: 'login', component: AuthCardComponent },
 			{ path: 'account-created', component: AccountCreatedComponent },
-
-
 		]
 	},
 	{ path: '', component: TemplateComponent, canActivate: [ AuthGuardService ], canActivateChild: [ AuthGuardService ],
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'home', component: HomeComponent },
-			{ path: 'products', component: ProductsPageComponent },
-			{ path: 'product-details/:id', component: ProductPageComponent, children: [
-				{ path: 'activity', component: ProductActivityPageComponent },
-				{ path: 'sample', component: ProductSampleComponent },
-				{ path: 'technical-details', component: ProductTechDetailsComponent },
-				{ path: 'tasks', component: ProductTasksComponent },
-				{ path: 'shipping', component: ProductShippingComponent },
-				{ path: 'files', component: ProductFilesComponent },
+			{ path: 'products', children: [
+				{ path: '', redirectTo: 'all', pathMatch: 'full'},
+				{ path: 'all', component: ProductsPageComponent },
+				{ path: 'product-details/:id', component: ProductPageComponent, children: [
+					{ path: 'activity', component: ProductActivityPageComponent },
+					{ path: 'sample', component: ProductSampleComponent },
+					{ path: 'technical-details', component: ProductTechDetailsComponent },
+					{ path: 'tasks', component: ProductTasksComponent },
+					{ path: 'shipping', component: ProductShippingComponent },
+					{ path: 'files', component: ProductFilesComponent },
+				] },
 			] },
 			{ path: 'tasks', component: TasksPageComponent },
 			{ path: 'suppliers', component: SupplierPageComponent },
