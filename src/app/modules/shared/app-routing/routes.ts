@@ -53,18 +53,18 @@ export const routes: Array<Route> = [
 			{ path: 'events', component: EventPageComponent },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'team-management', component: TeamManagementPageComponent },
-			// { path: 'test', loadChildren: TestComponent, children: [
-			// 	{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
-			// 	{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
-			// 	{ path: 'inputs-file-image', component: TestInputsFileComponent },
-			// 	{ path: 'carousel', component: TestCarouselComponent },
-			// 	{ path: 'comments', component: TestCommentsComponent },
-			// 	{ path: 'feedback', component: TestFeedbackComponent },
-			// 	{ path: 'kanban', component: KanbanTestComponent },
-			// 	{ path: 'loaders', component: TestLoadesComponent },
-			// 	{ path: 'tabs', component: TestTabsComponent },
-			// 	{ path: 'product', component: TestProductComponent }
-			// ] }
+			{ path: 'test', component: TestComponent, children: [
+				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
+				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
+				{ path: 'inputs-file-image', component: TestInputsFileComponent },
+				{ path: 'carousel', component: TestCarouselComponent },
+				{ path: 'comments', component: TestCommentsComponent },
+				{ path: 'feedback', component: TestFeedbackComponent },
+				{ path: 'kanban', component: KanbanTestComponent },
+				{ path: 'loaders', component: TestLoadesComponent },
+				{ path: 'tabs', component: TestTabsComponent },
+				{ path: 'product', component: TestProductComponent }
+			] }
 		]
 	},
 	{ path: '**', redirectTo: '' }

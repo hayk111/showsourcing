@@ -1,0 +1,19 @@
+<table>
+	<tr>
+		<td>
+			<icon-app name="cercle-green"></icon-app>
+		</td>
+		<td>
+			<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<icon-app name="label"></icon-app>
+		</td>
+		<td>
+			<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>
+		</td>
+	</tr>
+</table>

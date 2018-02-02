@@ -1,25 +1,19 @@
-<article class="card">
-
-	<header>
-		<div class="name">My product</div>
-		<div class="price">
-			<span class="currency">USD</span>
-			<span class="priceAmount">15</span>
-		</div>
-	</header>
 
 	<main>
-
+		<div class="flex">
+			<h4 class="name">My product</h4>
+			<price-app currency="USD" amount="15"></price-app>
+		</div>
+		<div class="flex">
+			<div class="imgCtnr">
+				<img [src]="product?.mainImage?.urls?.url_60x45"/>
+			</div>
+			<product-sub-info-app></product-sub-info-app>
+		</div>
 	</main>
-	<footer>
+	<footer class="flex">
 		<div class="author">
 			James McMillan
 		</div>
-		<div class="actions">
-			<i class="fa fa-thumbs-up" aria-hidden="true"></i>
-			<i class="fa fa-check-square" aria-hidden="true"></i>
-			<i class="fa fa-comment" aria-hidden="true"></i>
-			<i class="fa fa-archive" aria-hidden="true"></i>
-		</div>
+		<product-icons-app [numTasks]="5" [numComments]="6"></product-icons-app>
 	</footer>
-</article>

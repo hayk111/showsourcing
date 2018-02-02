@@ -1,10 +1,20 @@
-article {
+:host {
+	width: 304px;
+	background: var(--color-bg);
 }
 
-header, footer{
-	display: flex;
+main {
+}
+
+main, footer{
+	padding: var(--spacing-small);
 	justify-content: space-between;
 }
+
+footer {
+	background: var(--color-bg-secondary);
+}
+
 .name {
 	font-weight: bold;
 	color: var(--color-txt-strong);

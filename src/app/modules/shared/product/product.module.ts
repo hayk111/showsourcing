@@ -15,6 +15,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
 import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
 import { EditableFieldModule } from '../editable-field/editable-field.module';
+import { ProductSubInfoComponent } from './components/product-sub-info/product-sub-info.component';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { EditableFieldModule } from '../editable-field/editable-field.module';
 		LikesChartComponent,
 		ProductTopCardComponent,
 		ProductInfoCardComponent,
+		ProductSubInfoComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,
