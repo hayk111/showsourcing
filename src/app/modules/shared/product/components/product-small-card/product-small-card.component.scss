@@ -3,7 +3,14 @@
 	background: var(--color-bg);
 }
 
-main {
+.imgCtnr {
+	width: 64px;
+	height: 64px;
+	overflow: hidden;
+	border-radius: var(--border-radius);
+	img {
+		width: 100%;
+	}
 }
 
 main, footer{

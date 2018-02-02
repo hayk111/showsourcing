@@ -33,7 +33,7 @@
 	z-index: 2;
 	border-radius: 50%;
 	color: var(--color-txt-secondary);
-	background-color: #EBEBEB;
+	background-color: var(--color-bg-secondary);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -52,7 +52,7 @@ time {
 
 .vbar{
 	width: 2px;
-	background: #EBEBEB;
+	background: var(--color-bg-secondary);
 	height: 73px;
 	position: absolute;
 	top: 42px;

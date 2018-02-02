@@ -10,19 +10,7 @@
 						[data]="product.id"
 						class="item"
 						*ngFor="let product of status.products; let j = index">
-						<article class="card z-h flex"
-							(click)="itemClicked.emit(product.id)">
-							<div class="imgCtnr">
-								<img src="{{ product?.mainImage?.urls?.url_220x165 }}"/>
-							</div>
-							<div>
-								<h4>{{ product.name }} </h4>
-
-								<small>{{ product.supplierId | entityName:'suppliers' | async }}</small>
-							</div>
-
-
-						</article>
+						<product-small-card-app [product]="product"></product-small-card-app>
 					</kanban-item-app>
 			</kanban-col-app>
 		</div>

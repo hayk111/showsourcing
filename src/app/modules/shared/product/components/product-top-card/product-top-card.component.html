@@ -1,8 +1,11 @@
 <div>
 	<h3>{{ product?.name}}</h3>
 	<div>
-		<icon-app name="cercle-green"></icon-app>
-		<span class="supplier"> {{ product.supplierId | entityName: 'suppliers' | async }}</span>
+		<div class="flex">
+			<icon-app class="manufacturerIcon" name="cercle-green"></icon-app>
+			<span class="supplier"> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
+		</div>
+
 	</div>
 </div>
 <div class="status flex">

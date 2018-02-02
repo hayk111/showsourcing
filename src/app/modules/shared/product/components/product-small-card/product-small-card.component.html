@@ -1,19 +1,19 @@
 
 	<main>
-		<div class="flex">
-			<h4 class="name">My product</h4>
-			<price-app currency="USD" amount="15"></price-app>
+		<div class="flexBetween">
+			<h4 class="name">{{ product?.name }}</h4>
+			<price-app [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
 		</div>
 		<div class="flex">
 			<div class="imgCtnr">
-				<img [src]="product?.mainImage?.urls?.url_60x45"/>
+				<img [src]="product?.mainImage?.urls?.url_120x90"/>
 			</div>
-			<product-sub-info-app></product-sub-info-app>
+			<product-sub-info-app [product]="product"></product-sub-info-app>
 		</div>
 	</main>
 	<footer class="flex">
 		<div class="author">
-			James McMillan
+			{{ product?.createdByUserId | entityName: 'teamMembers' | async}}
 		</div>
-		<product-icons-app [numTasks]="5" [numComments]="6"></product-icons-app>
+		<product-icons-app [numTasks]="0" [numComments]="0"></product-icons-app>
 	</footer>

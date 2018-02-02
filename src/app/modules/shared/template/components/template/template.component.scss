@@ -1,15 +1,11 @@
 :host{
 	height: 100vh;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	display: block;
-}
-
-.ctnr{
-	height: calc(100% - 48px);
 }
 
 main{
 	flex-grow: 1;
 	height: 100%;
-	overflow-y: auto;
 }

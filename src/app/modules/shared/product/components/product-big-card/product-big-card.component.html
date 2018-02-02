@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="col2">
-			<price-app amount="15.00" currency="USD"></price-app>
+			<price-app [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
 			<small class="moq">min {{ product?.minimumOrderQuantity }} pcs</small>
 		</div>
 
