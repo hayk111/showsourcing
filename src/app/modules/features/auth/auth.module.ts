@@ -13,7 +13,7 @@ import { PwResettedComponent } from './components/pw-resetted/pw-resetted.compon
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { LoadersModule } from '../../shared/loaders/loaders.module';
 import { TabsModule } from '../../shared/tabs/tabs.module';
-import { CardsModule } from '../../shared/cards/cards.module';
+import { CardModule } from '../../shared/card/card.module';
 
 @NgModule({
 	imports: [
@@ -22,7 +22,7 @@ import { CardsModule } from '../../shared/cards/cards.module';
 		InputsModule,
 		LoadersModule,
 		TabsModule,
-		CardsModule
+		CardModule
 	],
 	providers: [
 		{

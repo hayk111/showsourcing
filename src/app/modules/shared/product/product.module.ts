@@ -9,7 +9,6 @@ import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { ProductIconsComponent } from './components/product-icons/product-icons.component';
 import { UserModule } from '../user/user.module';
-import { CardsModule } from '../cards/cards.module';
 import { LikesChartComponent } from './components/likes-chart/likes-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
@@ -25,7 +24,6 @@ import { ProductSubInfoComponent } from './components/product-sub-info/product-s
 		UtilsModule,
 		AppStoreModule.forChild(),
 		UserModule.forChild(),
-		CardsModule,
 		NgxChartsModule,
 		EditableFieldModule,
 		IconsModule

@@ -22,7 +22,6 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ProductModule } from '../../shared/product/product.module';
-import { CardsModule } from '../../shared/cards/cards.module';
 
 @NgModule({
 	imports: [
@@ -44,7 +43,6 @@ import { CardsModule } from '../../shared/cards/cards.module';
 		UtilsModule,
 		NgxDatatableModule,
 		ProductModule,
-		CardsModule
 	],
 	declarations: [ ProductsPageComponent,
 		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]
