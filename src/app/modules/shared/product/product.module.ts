@@ -15,6 +15,7 @@ import { ProductTopCardComponent } from './components/product-top-card/product-t
 import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
 import { EditableFieldModule } from '../editable-field/editable-field.module';
 import { ProductSubInfoComponent } from './components/product-sub-info/product-sub-info.component';
+import { CardModule } from '../card/card.module';
 
 @NgModule({
 	imports: [
@@ -26,7 +27,8 @@ import { ProductSubInfoComponent } from './components/product-sub-info/product-s
 		UserModule.forChild(),
 		NgxChartsModule,
 		EditableFieldModule,
-		IconsModule
+		IconsModule,
+		CardModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

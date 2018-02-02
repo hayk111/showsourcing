@@ -5,7 +5,7 @@
 }
 
 .noMargin {
-	margin: 0;
+	margin: 0!important;
 }
 
 .paddingDefault {
@@ -17,7 +17,11 @@
 }
 
 .paddingSmall {
-	padding: var(--spacing-small);
+	padding: var(--spacing-small)!important;
+}
+
+.marginSmall {
+	margin: var(--spacing-small)!important;
 }
 // flex
 

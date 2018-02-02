@@ -1,5 +1,5 @@
-<div class="card paddingSmall">
-	<main>
+<card-app padding="none" margin="none">
+	<main class="paddingSmall">
 		<div class="flexBetween">
 			<h4 class="name">{{ product?.name }}</h4>
 			<price-app [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
@@ -11,10 +11,10 @@
 			<product-sub-info-app [product]="product"></product-sub-info-app>
 		</div>
 	</main>
-	<footer class="flex">
+	<footer class="flex paddingSmall">
 		<div class="author">
 			{{ product?.createdByUserId | entityName: 'teamMembers' | async}}
 		</div>
 		<product-icons-app [numTasks]="0" [numComments]="0"></product-icons-app>
 	</footer>
-</div>
+</card-app>

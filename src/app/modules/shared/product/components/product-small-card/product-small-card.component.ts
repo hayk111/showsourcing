@@ -7,7 +7,6 @@ import { Product } from '../../../../store/model/entities/product.model';
 	styleUrls: ['./product-small-card.component.scss']
 })
 export class ProductSmallCardComponent implements OnInit {
-	@HostBinding('class.card') card = true;
 	@Input() product: Product;
 
 	constructor() { }

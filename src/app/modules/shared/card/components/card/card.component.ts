@@ -13,6 +13,7 @@ export class CardComponent implements OnInit {
 	@HostBinding('class.card') card = true;
 	@Input() border = false;
 	private _padding = 'default';
+	private _margin = 'bigger';
 
 	constructor() {}
 
@@ -24,7 +25,12 @@ export class CardComponent implements OnInit {
 		return this.border || this._padding === 'none';
 	}
 
-	@HostBinding('class.smallPadding')
+	@HostBinding('class.noMargin')
+	get noMargin() {
+		return this._margin === 'none';
+	}
+
+	@HostBinding('class.paddingSmall')
 	get smallPadding() {
 		return this._padding === 'small';
 	}
@@ -33,5 +39,12 @@ export class CardComponent implements OnInit {
 	set padding(v: string) {
 		this._padding = v;
 	}
+
+	@Input()
+	set margin(v: string) {
+		this._margin = v;
+	}
+
+
 
 }
