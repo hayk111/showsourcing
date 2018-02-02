@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ViewSwitcherAction } from '../../../../store/action/ui/view-switcher.action';
 import { Observable } from 'rxjs/Observable';

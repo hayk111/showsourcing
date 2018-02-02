@@ -6,10 +6,14 @@
 	(dragstart)="onDragStart($event)"
 	(drop)="onDrop($event)"
 	attr.data-bag="{{ bag }}">
+	<!-- TODO: check if the attr.data-bag is still needed -->
 
-	<header>{{ label }}</header>
+	<header class="paddingDefault">{{ label }}</header>
 	<div class="overlay" *ngIf="isOver()"
 		(dragleave)="onDragLeave($event)"> DROP IT HERE </div>
-	<ng-content></ng-content>
+	<main>
+	 <ng-content></ng-content>
+	</main>
+
 
 </card-app>

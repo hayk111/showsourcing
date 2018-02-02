@@ -22,6 +22,9 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ProductModule } from '../../shared/product/product.module';
+import { TopPanelComponent } from './components/top-panel/top-panel.component';
+import { ViewSwitcherAction } from '../../store/action/ui/view-switcher.action';
+import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
 
 @NgModule({
 	imports: [
@@ -44,7 +47,14 @@ import { ProductModule } from '../../shared/product/product.module';
 		NgxDatatableModule,
 		ProductModule,
 	],
-	declarations: [ ProductsPageComponent,
-		ProductListViewComponent, ProductCardViewComponent, ProductDialogComponent, ProductSidePreviewComponent]
+	declarations: [
+		ProductsPageComponent,
+		ProductListViewComponent,
+		ProductCardViewComponent,
+		ProductDialogComponent,
+		ProductSidePreviewComponent,
+		TopPanelComponent,
+		ViewSwitcherComponent
+	]
 })
 export class ProductsPageModule { }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
 import { FilteredListPageComponent } from './components/filtered-list-page/filtered-list-page.component';
 import { MatTableModule, MatProgressBarModule } from '@angular/material';
 import { LoadersModule } from '../loaders/loaders.module';
@@ -16,7 +15,7 @@ import { FilterSearchBarModule } from '../filter-search-bar/filter-search-bar.mo
 		FilterSearchBarModule,
 		LoadersModule,
 	],
-	declarations: [ ViewSwitcherComponent, FilteredListPageComponent ],
+	declarations: [ FilteredListPageComponent ],
 	exports: [ FilteredListPageComponent ]
 })
 export class FilteredListPageModule { }

@@ -1,8 +1,20 @@
+
 .ctnr  {
 	position: relative;
-	border: 1px solid grey;
 	margin: var(--spacing-small);
 	padding: var(--spacing-small);
+}
+
+header {
+	background: var(--color-bg);
+	text-align: center;
+	font-weight: bold;
+	padding: var(--spacing-default);
+	text-transform: uppercase;
+}
+
+main {
+	background: var(--color-bg-secondary);
 }
 
 .overlay {

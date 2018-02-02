@@ -13,7 +13,7 @@
 .card{
 	.border{
 		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-		height: var(--spacing-default);
+		height: 3px;
 		border-radius: var(--border-radius)  var(--border-radius) 0 0;
 	}
 	.content{

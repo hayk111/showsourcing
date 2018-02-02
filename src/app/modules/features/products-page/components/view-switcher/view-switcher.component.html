@@ -1,0 +1,7 @@
+<ng-container *ngIf="view$ | async as view">
+	<div class="c-{{ view }} z-2 borderRadius">
+		<button class="small {{ view === 'list' ? 'selected z-2' : ''}}" (mousedown)="switchView('list')">List</button>
+		<button class="small {{ view === 'card' ? 'selected z-2' : ''}}" (mousedown)="switchView('card')">Board</button>
+	</div>
+
+</ng-container>

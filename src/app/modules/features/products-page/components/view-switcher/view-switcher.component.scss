@@ -1,0 +1,12 @@
+.selected{
+	background: var(--color-bg);
+}
+
+:host {
+	border-radius: var(--border-radius);
+}
+
+button {
+	background: var(--color-bg-secondary);
+	color: var(--color-txt-secondary);
+}
