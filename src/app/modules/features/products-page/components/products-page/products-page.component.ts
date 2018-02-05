@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';
 import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
 
 @Component({
 	selector: 'products-page-app',
@@ -35,9 +36,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterRating,
 		FilterPrice
 	];
+	view$: Observable<any>;
+	products$: Observable<EntityState<Product>>;
 	// whether the products are currently loading.
-	pending = true;
-
 	productEntities: EntityState<Product>;
 	repr = entityRepresentationMap.product;
 	// when an item is clicked current target is a representation of that item
@@ -49,9 +50,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		//  this.store.dispatch(ProductActions.load(this.filterGroupName));
-		this.store.select(selectProducts).pipe(
-			map(products => products.pending)
-		).subscribe(pending => this.pending = pending);
+		this.view$ = this.store.select(selectViewSwitcher);
+		this.products$ = this.store.select(selectProducts);
 	}
 
 	onItemSelected(entityId: string) {

@@ -1,4 +1,6 @@
-
+:host {
+	display: block;
+}
 .ctnr  {
 	position: relative;
 	margin: var(--spacing-small);
@@ -15,6 +17,7 @@ header {
 
 main {
 	background: var(--color-bg-secondary);
+	padding-top: var(--spacing-small);
 }
 
 .overlay {

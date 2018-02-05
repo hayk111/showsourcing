@@ -1,5 +1,11 @@
-:host {
+.ctnr {
 	padding: var(--spacing-big);
-	display: block;
 }
 
+.right > * {
+	margin-left: var(--spacing-big);
+}
+
+.hr {
+	margin: 0 var(--spacing-big);
+}

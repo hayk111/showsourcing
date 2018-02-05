@@ -3,6 +3,15 @@ article{
 	padding: 0;
 }
 
+.ctnr {
+	padding-left: var(--spacing-default);
+}
+
+kanban-col-app {
+	min-width: 336px;
+	margin-top: var(--spacing-default);
+}
+
 .imgCtnr{
 	width: 40%;
 	text-align: center;

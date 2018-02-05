@@ -2,7 +2,7 @@
 	<b>Show</b>Sourcing
 </div>
 
-<div class="links">
+<nav>
 	<a [routerLink]="['/home']" routerLinkActive="selected">Home</a>
 
 	<a [routerLink]="['/products']" routerLinkActive="selected">Products</a>
@@ -14,7 +14,7 @@
 	<a [routerLink]="['/events']" routerLinkActive="selected">Events</a>
 
 	<a [routerLink]="['/test']" routerLinkActive="selected">Test</a>
-</div>
+</nav>
 
 <div class="flexCenter" *ngIf="(authenticated$ | async)">
 	<search-app></search-app>

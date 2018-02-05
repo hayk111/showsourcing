@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="productsByStatus$ | async as statuses">
-		<div class="flex">
+		<div class="flex ctnr">
 			<kanban-col-app
 				(itemDropped)="changeStatus($event)"
 				[bag]="status.id"
