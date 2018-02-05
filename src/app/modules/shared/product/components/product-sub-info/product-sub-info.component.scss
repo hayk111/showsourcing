@@ -1,4 +1,11 @@
 table > * {
-	font-size: var(--font-size-default);
 	margin-top: var(--spacing-small);
+}
+
+table {
+	font-size: var(--font-size-small);
+}
+
+.big {
+	font-size: var(--font-size-default);
 }

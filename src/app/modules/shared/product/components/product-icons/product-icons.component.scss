@@ -1,6 +1,4 @@
-:host {
-	display: flex;
-}
+
 .spacer {
 	margin-right: var(--spacing-default);
 }
@@ -9,7 +7,21 @@ icon-app {
 	margin-right: var(--spacing-small);
 }
 
-strong {
+icon-app[name="checkmark"] {
+	margin-top: -1px;
+}
+
+.num {
 	// fix for wrong alignement, not sure what's happening here.
 	margin-top: -2px;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-default);
+}
+
+.big {
+	.num {
+		margin-top: -3px;
+		font-size: var(--font-size-big);
+		color: var(--color-txt-strong);
+	}
 }

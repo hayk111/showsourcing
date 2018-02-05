@@ -8,6 +8,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 })
 export class ProductSubInfoComponent implements OnInit {
 	@Input() product: Product;
+	@Input() big = false;
 	constructor() { }
 
 	ngOnInit() {

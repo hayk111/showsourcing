@@ -1,13 +1,25 @@
+.flex {
+	align-items: baseline;
+}
 .currency {
 	color: var(--color-txt-secondary);
-	font-size: var(--font-size-default);
 	font-weight: bold;
+	font-size: var(--font-size-small);
 	margin-right: var(--spacing-smaller);
 }
 
 .amount {
 	color: var(--color-txt-strong);
-	font-size: var(--font-size-big);
+	font-size: var(--font-size-default);
+}
+
+.big {
+	.currency {
+		font-size: var(--font-size-default);
+	}
+	.amount {
+		font-size: var(--font-size-big);
+	}
 }
 
 :host {

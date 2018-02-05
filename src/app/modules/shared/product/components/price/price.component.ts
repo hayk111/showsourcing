@@ -6,7 +6,7 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 	styleUrls: ['./price.component.scss']
 })
 export class PriceComponent implements OnInit {
-	@HostBinding('class.flex') flex = true;
+	@Input() big = false;
 	@Input() currency: string;
 	@Input() amount: number;
 

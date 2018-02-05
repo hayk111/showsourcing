@@ -9,11 +9,11 @@
 <main class="flex paddingDefault">
 	<div class="col1 flexColumn">
 		<h4 class="name">{{ product?.name }}</h4>
-		<product-sub-info-app [product]="product"></product-sub-info-app>
+		<product-sub-info-app [big]="true" [product]="product"></product-sub-info-app>
 	</div>
 
 	<div class="col2">
-		<price-app [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
+		<price-app [big]="true" [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
 		<small class="moq">min {{ product?.minimumOrderQuantity }} pcs</small>
 	</div>
 
@@ -23,5 +23,5 @@
 	<user-picture-with-name-app [user]="user">
 		<small>{{ product?.creationDate | timeAgo}}</small>
 	</user-picture-with-name-app>
-	<product-icons-app [numComments]="numComments" [numTasks]="numTasks"></product-icons-app>
+	<product-icons-app [big]="true" [numComments]="numComments" [numTasks]="numTasks"></product-icons-app>
 </footer>

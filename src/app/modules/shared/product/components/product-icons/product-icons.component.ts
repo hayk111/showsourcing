@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./product-icons.component.scss']
 })
 export class ProductIconsComponent implements OnInit {
+	@Input() big = false;
 	@Input() numComments: number;
 	@Input() numTasks: number;
 	@Input() sample: boolean;
