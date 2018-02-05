@@ -8,6 +8,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 })
 export class ProductSmallCardComponent implements OnInit {
 	@Input() product: Product;
+	DEFAULT_IMAGE = 'https://www.tematicaresearch.com/wp-content/themes/linstar/assets/images/default.jpg';
 
 	constructor() { }
 

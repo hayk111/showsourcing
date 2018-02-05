@@ -22,6 +22,17 @@
 main, footer{
 	padding: var(--spacing-small);
 	justify-content: space-between;
+	position: relative;
+}
+
+.cercleGreen {
+	position: absolute;
+	width: 75px;
+	height: 75px;
+	background: var(--color-success);
+	bottom: -15px;
+	right: -15px;
+	opacity: 0.4;
 }
 
 footer {
