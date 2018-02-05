@@ -1,17 +1,22 @@
 
 
-<top-panel-app></top-panel-app>
+<top-panel-app [filterGroupName]="filterGroupName"></top-panel-app>
 <ng-container *ngIf="view$ | async as view">
-	<!-- views -->
-	<product-list-view-app
-		*ngIf="view === 'list'"
-		class="list-view"
-		[filterGroupName]="filterGroupName"
-		(itemSelected)="onItemSelected($event)"></product-list-view-app>
-	<product-card-view-app
-		*ngIf="view === 'card'"
-		class="card-view"
-		(itemClicked)="onItemSelected($event)"></product-card-view-app>
+	<ng-container *ngIf="products$ | async as products">
+		<!-- views -->
+		<product-list-view-app
+			*ngIf="view === 'list'"
+			class="list-view"
+			[filterGroupName]="filterGroupName"
+			[products]="products"
+			(itemSelected)="onItemSelected($event)"></product-list-view-app>
+		<product-card-view-app
+			*ngIf="view === 'card'"
+			[filterGroupName]="filterGroupName"
+			class="card-view"
+			(itemClicked)="onItemSelected($event)"></product-card-view-app>
+	</ng-container>
+
 </ng-container>
 
 <!-- <product-dialog-app></product-dialog-app> -->

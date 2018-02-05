@@ -6,6 +6,8 @@ import { selectSuppliers } from './suppliers.selector';
 import { entityRepresentationMap, EntityState } from '../../utils/entities.utils';
 import { Product } from '../../model/entities/product.model';
 import { deepCopy } from '../../utils/deep-copy.utils';
+import { FilterGroupName } from '../../model/misc/filter.model';
+import { selectFilteredEntity } from '../misc/filter.selectors';
 
 
 export const selectProducts = state => state.entities.products;
@@ -21,16 +23,17 @@ export const selectProductById = (id: string) => {
 };
 
 
-export const selectProductByStatus = createSelector(
+export const selectProductByStatus = (filterGroupName: FilterGroupName) => createSelector(
 	[
-		selectProducts,
+		selectFilteredEntity(filterGroupName, entityRepresentationMap.product),
 		selectProductStatuses
 	],
-	(products: EntityState<Product>, statuses: EntityState<any>) => {
+	(products: Array<Product>, statuses: EntityState<any>) => {
+		// get a copy of status so we can add products for each status
 		const statusAndProds = deepCopy(statuses.byId);
 		Object.values(statusAndProds).forEach(s => s.products = []);
-		products.ids.forEach(id => {
-			const product = products.byId[id];
+
+		products.forEach(product => {
 			// add empty array of products
 			// find the correct status
 			const status4Prod = statusAndProds[product.status];

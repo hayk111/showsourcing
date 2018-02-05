@@ -30,25 +30,9 @@ export class FilterSearchBarComponent implements OnInit {
 	search(value) {
 		const filter = new FilterSearch(value);
 		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSearch));
-		if (value) {
+		if (value)
 			this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
-			this.smartSearch(value);
-		} else {
-			this.closeSmartPanel();
-		}
 	}
 
-	smartSearch(value) {
-		this.sub = this.store.select(searchEntities(this.filterGroupName, this.searched, value)).pipe(
-		).subscribe(result => this.smartSearchResult = result);
-	}
-
-	// we need to unsubscribe from the smartSearch when the panel is not visible
-	closeSmartPanel() {
-		this.sub.unsubscribe();
-		this.smartSearchResult = [];
-	}
-
-	onSmartResult(r: Array<any>) {}
 
 }

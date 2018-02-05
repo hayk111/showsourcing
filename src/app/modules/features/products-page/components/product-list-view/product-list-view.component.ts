@@ -21,8 +21,7 @@ import { selectEntityArray } from '../../../../store/selectors/misc/utils.select
 export class ProductListViewComponent implements OnInit {
 	@Output() itemSelected = new EventEmitter<string>();
 	@Input() filterGroupName: FilterGroupName;
-	suppliers$: Observable<EntityState<Supplier>>;
-	products$: Observable<any>;
+	@Input() products: Array<Product>;
 	columns = [
 		{ name: 'Name', prop: 'name' },
 		{ name: 'Category', prop: 'categoryName' },
@@ -33,7 +32,6 @@ export class ProductListViewComponent implements OnInit {
 	];
 
 	constructor(private store: Store<any>) {
-		this.products$ = this.store.select(selectEntityArray(entityRepresentationMap.product));
 	}
 
 	ngOnInit() {

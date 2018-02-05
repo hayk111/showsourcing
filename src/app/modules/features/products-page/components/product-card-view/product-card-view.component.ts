@@ -6,6 +6,7 @@ import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.
 import { Observable } from 'rxjs/Observable';
 import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
 import { ProductActions } from '../../../../store/action/entities/product.action';
+import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 
 @Component({
 	selector: 'product-card-view-app',
@@ -13,12 +14,13 @@ import { ProductActions } from '../../../../store/action/entities/product.action
 	styleUrls: ['./product-card-view.component.scss']
 })
 export class ProductCardViewComponent implements OnInit {
+	@Input() filterGroupName: FilterGroupName;
 	@Output() itemClicked = new EventEmitter<string>();
 	productsByStatus$: Observable<Array<any>>;
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.productsByStatus$ = this.store.select(selectProductByStatus);
+		this.productsByStatus$ = this.store.select(selectProductByStatus(this.filterGroupName));
 	}
 
 	changeStatus(event) {

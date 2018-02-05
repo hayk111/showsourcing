@@ -131,7 +131,7 @@ export class FilterStatus extends FilterEntity implements Filter {
 export class FilterSearch extends BaseFilter implements Filter {
 	static readonly filterName = 'search';
 
-	constructor(value: string) {
+	constructor(public value: string) {
 		super();
 	}
 

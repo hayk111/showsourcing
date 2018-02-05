@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFilterGroup } from '../../../../store/selectors/misc/filter.selectors';
+import { selectFilterGroup, selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
@@ -37,7 +37,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterPrice
 	];
 	view$: Observable<any>;
-	products$: Observable<EntityState<Product>>;
+	products$: Observable<Array<Product>>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
 	repr = entityRepresentationMap.product;
@@ -51,7 +51,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		//  this.store.dispatch(ProductActions.load(this.filterGroupName));
 		this.view$ = this.store.select(selectViewSwitcher);
-		this.products$ = this.store.select(selectProducts);
+		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 	}
 
 	onItemSelected(entityId: string) {
