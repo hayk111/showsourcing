@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 export class CardComponent implements OnInit {
 	@HostBinding('class.card') card = true;
 	@Input() border = false;
+	@Input() borderColor: undefined;
 	private _padding = 'default';
 	private _margin = 'bigger';
 

@@ -25,4 +25,14 @@ export class ProductCardViewComponent implements OnInit {
 		this.store.dispatch(ProductActions.patch(event.data, 'status', event.enteringBag));
 	}
 
+	getBorderColor(i: number) {
+		switch (i) {
+			case 0: return '#f5a623';
+			case 1: return '#bd10e0';
+			case 2: return '#04c4c9';
+			case 3: return '#71e591';
+			case 4: return '#f94259';
+			default: return '#04c4c9';
+		}
+	}
 }
