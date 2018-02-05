@@ -9,6 +9,11 @@ import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { selectEntityById } from '../../../../store/selectors/misc/utils.selector';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
+import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
+import { AppFile } from '../../../../store/model/entities/app-file.model';
+import { UserService } from '../../../user/services/user.service';
+import { AppImage } from '../../../../store/model/entities/app-image.model';
+import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
 
 @Component({
 	selector: 'product-big-card-app',
@@ -21,7 +26,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	numTasks: number;
 	user;
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
@@ -37,6 +42,14 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 			map(product => ({entityId: product.createdByUserId, entityRepr: entityRepresentationMap.teamMembers })),
 			switchMap(target => this.store.select(selectEntityById(target)))
 		).subscribe(u => this.user = u);
+	}
+
+	onFileDrop(files: Array<any>) {
+		files.forEach( async (file) => {
+			// this async stuff could probably be abstracted in the store.
+			const img = await AppImage.newInstance(file, this.userSrv.getUserId());
+			this.store.dispatch(ImageSlctnActions.add(img));
+		});
 	}
 
 }

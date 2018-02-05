@@ -15,7 +15,7 @@ export class ImageSelectionEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		switchMap(_ => this.selectionSrv.getSelection()),
-		switchMap((target: EntityTarget) => this.srv.load(target, 'image')),
+		switchMap((target: EntityTarget) => this.srv.load(target)),
 		map((files: Array<AppImage>) => ImageSlctnActions.set(files))
 	);
 
@@ -24,7 +24,7 @@ export class ImageSelectionEffects {
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
-			switchMap((p: any) => this.srv.uploadFile(p, 'image').pipe(
+			switchMap((p: any) => this.srv.uploadFile(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
 				map(r => ImageSlctnActions.replace(p.file, r))
 			))
@@ -49,7 +49,7 @@ export class ImageSelectionEffects {
 	delete$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
 		map(action => action.payload),
 		withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
-		switchMap(p => this.srv.delete(p, 'image'))
+		switchMap(p => this.srv.delete(p))
 	);
 
 }

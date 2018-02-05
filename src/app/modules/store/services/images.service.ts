@@ -16,6 +16,18 @@ export class ImageService extends FileService {
 		super(http, store);
 	}
 
+	load(target: EntityTarget) {
+		return super.load(target, 'image');
+	}
+
+	uploadFile(p: { file, target }) {
+		return super.uploadFile(p, 'image');
+	}
+
+	delete(p: { file, target }) {
+		return super.delete(p, 'image');
+	}
+
 	download(img: AppImage) {
 		window.open(img.urls.url_1000x1000);
 	}
