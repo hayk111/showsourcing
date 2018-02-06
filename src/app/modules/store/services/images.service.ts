@@ -32,6 +32,10 @@ export class ImageService extends FileService {
 		window.open(img.urls.url_1000x1000);
 	}
 
+	queryFile(r: AppImage) {
+		return this.http.get(r.urls.url_1000x1000);
+	}
+
 	rotate(img: AppImage) {
 		// we also need to add the client side rotation because if the client clicks twice on rotation that needs to be added up
 		const orientation = ( img.orientation + 1 ) % 4 + (img.rotation || 0 );

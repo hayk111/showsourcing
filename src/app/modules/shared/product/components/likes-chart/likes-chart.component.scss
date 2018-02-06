@@ -3,3 +3,24 @@
 	height: 300px;
 	text-align: center;
 }
+
+.ctnr {
+	position: relative;
+	transform: translateX(32px);
+	.legend {
+		position: absolute;
+		top: 90px;
+		left: 100px;
+	}
+}
+
+.smallSquare {
+	height: 6px;
+	width: 6px;
+	margin-bottom: -2px;
+	margin-right: var(--spacing-small);
+}
+
+.flex {
+	align-items: center;
+}

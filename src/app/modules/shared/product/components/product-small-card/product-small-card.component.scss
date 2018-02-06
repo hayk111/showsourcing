@@ -13,6 +13,13 @@
 	height: 48px;
 	overflow: hidden;
 	border-radius: var(--border-radius);
+	position: relative;
+	.heart {
+		position: absolute;
+    top: -9px;
+    transform: scale(0.5);
+    left: -9px;
+	}
 	img {
 		max-height:100%;
 		max-width:100%;
@@ -33,6 +40,10 @@ main, footer{
 	bottom: -15px;
 	right: -15px;
 	opacity: 0.4;
+}
+
+product-sub-info-app {
+	margin-left: var(--spacing-smaller);
 }
 
 footer {

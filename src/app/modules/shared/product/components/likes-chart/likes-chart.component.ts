@@ -24,7 +24,7 @@ export class LikesChartComponent implements OnInit {
 	];
 
 	colorScheme = {
-		domain: ['#0E979E', '#EBEBEB', '#D0021B']
+		domain: ['#71e591', '#EBEBEB', '#D0021B']
 	};
 
 	constructor() { }

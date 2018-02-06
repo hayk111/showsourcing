@@ -20,6 +20,7 @@ import { LoadersModule } from '../../shared/loaders/loaders.module';
 import { ProductModule } from '../../shared/product/product.module';
 import { IconsModule } from '../../shared/icons/icons.module';
 import { ProductPageMainCardComponent } from './components/product-page-main-card/product-page-main-card.component';
+import { CardModule } from '../../shared/card/card.module';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { ProductPageMainCardComponent } from './components/product-page-main-car
 		UtilsModule,
 		ProductModule,
 		IconsModule,
+		CardModule
 	],
 	declarations: [
 		ProductPageComponent,

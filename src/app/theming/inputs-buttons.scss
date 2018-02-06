@@ -7,7 +7,7 @@ button, input[type="submit"]{
 	box-sizing: border-box;
 	margin-top: var(--spacing-bigger);
 	border-radius: 4px;
-	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+	background: var(--color-primary);
 	border: none;
 	outline: none;
 	color: var(--color-primary-contrast);
