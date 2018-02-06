@@ -39,7 +39,6 @@ export class KanbanTestComponent implements OnInit {
 	}
 
 	changeStatus(event) {
-		this.store.dispatch(ProductActions.patch(event.data, 'status', event.enteringBag));
 	}
 
 

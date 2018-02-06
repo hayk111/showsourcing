@@ -1,4 +1,11 @@
 <div class="flex {{ big ? 'big' : '' }}">
+
+	<ng-container *ngIf="score !== undefined">
+		<!-- <icon-app name="thumb"></icon-app> -->
+		<span class="num">{{ score }}%</span>
+		<span class="spacer"></span>
+	</ng-container>
+
 	<icon-app name="comment"></icon-app>
 	<span class="num">{{ numComments }}</span>
 	<span class="spacer"></span>

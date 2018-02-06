@@ -19,7 +19,7 @@ export class TaskService {
 	loadForTarget(target: EntityTarget) {
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/vote`);
+		return this.http.get(`api/${name}/${id}/task`);
 	}
 
 

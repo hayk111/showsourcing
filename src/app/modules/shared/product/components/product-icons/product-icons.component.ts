@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProductIconsComponent implements OnInit {
 	@Input() big = false;
+	@Input() score;
 	@Input() numComments: number;
 	@Input() numTasks: number;
 	@Input() sample: boolean;

@@ -4,8 +4,11 @@
 	background: var(--color-bg);
 }
 
-.name {
-	font-size: var(--font-size-default);
+.top {
+	align-items: end;
+	.name {
+		font-size: var(--font-size-default);
+	}
 }
 
 .imgCtnr {

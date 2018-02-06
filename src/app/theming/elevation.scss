@@ -15,7 +15,7 @@ hover elevation while z-a is for active elevation.
 
 */
 
-$picked: (1, 2, 3, 5, 9, 14);
+$picked: (1, 2, 3, 4, 5, 6, 7);
 
 
 // Colors for umbra, penumbra, and ambient shadows. As described in the design doc, each elevation
@@ -25,13 +25,14 @@ $picked: (1, 2, 3, 5, 9, 14);
 // itself). For a further explanation of these terms and their meanings, see
 // https://en.wikipedia.org/wiki/Umbra,_penumbra_and_antumbra.
 
-$_umbra-color: rgba(black, 0.2);
-$_penumbra-color: rgba(black, 0.14);
-$_ambient-color: rgba(black, 0.12);
+$_umbra-color: rgba(black, 0.15);
+$_penumbra-color: rgba(black, 0.09);
+$_ambient-color: rgba(black, 0.07);
 
 // Maps for the different shadow sets and their values within each z-space. These values were
 // created by taking a few reference shadow sets created by Google's Designers and interpolating
 // all of the values between them.
+
 
 $_umbra-elevation-map: (
   0: '0px 0px 0px 0px #{$_umbra-color}',
@@ -135,19 +136,44 @@ $_ambient-elevation-map: (
 
 /* back to my picks */
 
-@for $i from 1 through length($picked){
-  $current: nth($picked, $i);
+// @for $i from 1 through length($picked){
+//   $current: nth($picked, $i);
 
-  .#{z}-#{$i}{
-    @include mat-elevation($current);
-  }
+//   .#{z}-#{$i}{
+//     @include mat-elevation($current);
+//   }
+// }
+
+// antoine wants **his** fucking shadows
+
+
+.z-7 {
+  box-shadow: 0 -2.5px 21px 0 rgba(0, 0, 0, 0.12);
+}
+.z-6 {
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.05);
+}
+.z-5 {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.z-4 {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+}
+.z-3 {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07);
+}
+.z-2 {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.z-1 {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.06);
 }
 
 .z-h, .z-a{
 	@extend .z-2;
-	transition: all 0.28s cubic-bezier(.25,.8,.25,1);
+	transition: all 0.28s cubic-bezier(.25, .8, .25, 1);
 }
 
 .z-h:hover, .z-a:active {
-  @extend .z-4;
+  @extend .z-5;
 }

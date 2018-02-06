@@ -33,7 +33,7 @@ export interface Product {
 	additionalInfoCounters: any;
 	status: ProductStatus;
 	flags: { archived: boolean, feedbackRequested: boolean, locked: boolean };
-	computedValues: { taskCount: number };
+	computedValues: { taskCount: number, score: number, commentCount: number };
 	description: string;
 	eventId: string;
 	rating: number;

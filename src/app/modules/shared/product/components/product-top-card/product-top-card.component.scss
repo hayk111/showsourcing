@@ -3,7 +3,10 @@
 	display: flex;
 	justify-content: space-between;
 	background: var(--color-bg);
-	box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.05);
+	// to go 1px below the shadow of the header
+	z-index: 5;
+	position: relative;
+	margin-top: 1px;
 }
 
 .manufacturerIcon {
