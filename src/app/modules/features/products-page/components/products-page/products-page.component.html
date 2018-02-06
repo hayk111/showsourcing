@@ -9,12 +9,12 @@
 			class="list-view"
 			[filterGroupName]="filterGroupName"
 			[products]="products"
-			(itemSelected)="onItemSelected($event)"></product-list-view-app>
+			(productSelect)="onItemSelected($event)"></product-list-view-app>
 		<product-card-view-app
 			*ngIf="view === 'card'"
 			[filterGroupName]="filterGroupName"
 			class="card-view"
-			(itemClicked)="onItemSelected($event)"></product-card-view-app>
+			(productSelect)="onItemSelected($event)"></product-card-view-app>
 	</ng-container>
 
 </ng-container>

@@ -20,23 +20,21 @@ export class DataManagementPageComponent implements OnInit {
 		entityRepresentationMap.tags,
 		entityRepresentationMap.projects
 	];
-	selectedEntity$ = new BehaviorSubject(this.entities[0]);
+	selectedEntity;
 	selection = [];
 	items$: Observable<Array<Entity>>;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.items$ = this.selectedEntity$.pipe(
-			switchMap(entity => this.store.select(selectEntityArray(entity))),
-		);
+		this.select(this.entities[0]);
 	}
 
 	deleteSelection() {
 		this.selection.forEach(s => this.removeItem(s));
 	}
 
-	mergeSeleciton() {
+	mergeSelection() {
 		// this.store.dispatch();
 	}
 
@@ -45,32 +43,16 @@ export class DataManagementPageComponent implements OnInit {
 	}
 
 	select(entity: EntityRepresentation) {
-		this.selectedEntity$.next(entity);
+		this.selectedEntity = entity;
+		this.items$ = this.store.select(selectEntityArray(entity));
 	}
 
 	removeItem(id: string) {
-		this.selectedEntity$.pipe(
-			take(1)
-		).subscribe(entityRepr => {
-			const target = {
-				entityId: id,
-				entityRepr
-			};
-			// this.store.dispatch(CustomFieldsActions.delete(target));
-		});
+		this.store.dispatch(this.selectedEntity.actions.delete(id));
 	}
 
 	updateItem(patch) {
-		this.selectedEntity$.pipe(
-			take(1)
-		).subscribe(entityRepr => {
-			const target = {
-				entityId: patch.itemId,
-				entityRepr
-			};
-			// this.store.dispatch(CustomFieldsActions.patch(target, patch.propName, patch.value));
-		});
-
+		this.store.dispatch(this.selectedEntity.actions.patch(patch));
 	}
 
 }

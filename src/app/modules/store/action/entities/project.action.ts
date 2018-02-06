@@ -1,5 +1,6 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Project } from '../../model/entities/project.model';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 	LOAD = '[Project] Loading',
@@ -7,6 +8,7 @@ export enum ActionType {
 	CREATE = '[Project] Create',
 	PATCH = '[Project] patching',
 	DELETE = '[Project] deleting',
+	MERGE = '[Project] merging'
 }
 
 export class ProjectActions {
@@ -32,10 +34,12 @@ export class ProjectActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static merge() {}
+
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
 	}
 

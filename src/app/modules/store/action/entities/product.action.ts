@@ -7,6 +7,7 @@ import { AppFile } from '../../model/entities/app-file.model';
 import { Tag } from '../../model/entities/tag.model';
 import { Project } from '../../model/entities/project.model';
 import { Task } from '../../model/entities/task.model';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 		LOAD = '[Product] loading',
@@ -14,7 +15,9 @@ export enum ActionType {
 		ADD = '[Product] adding',
 		PATCH = '[Product] patching',
 		REQUEST_PDF = '[Product] requesting pdf',
+		MERGE = '[Product] Merging'
 }
+
 
 export class ProductActions {
 
@@ -38,10 +41,10 @@ export class ProductActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
 	}
 

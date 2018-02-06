@@ -19,7 +19,7 @@ import { selectEntityArray } from '../../../../store/selectors/misc/utils.select
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListViewComponent implements OnInit {
-	@Output() itemSelected = new EventEmitter<string>();
+	@Output() productSelect = new EventEmitter<string>();
 	@Input() filterGroupName: FilterGroupName;
 	@Input() products: Array<Product>;
 	columns = [
@@ -39,7 +39,7 @@ export class ProductListViewComponent implements OnInit {
 
 	onSelect(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
-			this.itemSelected.emit(event.row.id);
+			this.productSelect.emit(event.row.id);
 		}
 	}
 

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
 import { ProductActions } from '../../../../store/action/entities/product.action';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { Patch } from '../../../../store/utils/patch.interface';
 
 @Component({
 	selector: 'product-card-view-app',
@@ -15,7 +16,7 @@ import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 })
 export class ProductCardViewComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Output() itemClicked = new EventEmitter<string>();
+	@Output() productSelect = new EventEmitter<string>();
 	productsByStatus$: Observable<Array<any>>;
 	constructor(private store: Store<any>) { }
 
@@ -24,7 +25,8 @@ export class ProductCardViewComponent implements OnInit {
 	}
 
 	changeStatus(event) {
-		this.store.dispatch(ProductActions.patch(event.data, 'status', event.enteringBag));
+		const patch = { propName: 'status', value: event.enteringBag, id: event.data };
+		this.store.dispatch(ProductActions.patch(patch));
 	}
 
 	getBorderColor(i: number) {
@@ -36,6 +38,10 @@ export class ProductCardViewComponent implements OnInit {
 			case 4: return '#f94259';
 			default: return '#04c4c9';
 		}
+	}
+
+	selectProduct(id: string) {
+		this.productSelect.emit(id);
 	}
 
 	trackByFn(index, product) {

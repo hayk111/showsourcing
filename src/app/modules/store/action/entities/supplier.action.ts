@@ -1,13 +1,15 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Supplier } from '../../model/entities/supplier.model';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 	LOAD = '[Supplier] Loading',
 	ADD_SUPPLIERS = '[Supplier] adding',
 	PATCH = '[Supplier] patching',
 	CREATE = '[Supplier] creating',
-	DELETE = 'Supplier deleting'
+	MERGE = '[Supplier] merging',
+	DELETE = '[Supplier] deleting'
 }
 
 export class SupplierActions {
@@ -26,11 +28,15 @@ export class SupplierActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
+	}
+
+	static merge() {
+
 	}
 
 	static delete(id: string) {

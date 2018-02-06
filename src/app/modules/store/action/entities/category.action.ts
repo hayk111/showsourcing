@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Category } from '../../model/entities/category.model';
 import { TypedAction } from '../../utils/typed-action.interface';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 	LOAD = '[Categories] Loading',
@@ -8,6 +9,7 @@ export enum ActionType {
 	CREATE = '[Categories] creating',
 	PATCH = '[Categories] patching',
 	DELETE = '[Categories] deleting',
+	MERGE = '[Categories] merging'
 }
 
 export class CategoryActions {
@@ -25,10 +27,10 @@ export class CategoryActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
 	}
 

@@ -1,12 +1,14 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 	LOAD = '[Event] Loading',
 	PATCH = '[Event] Patching',
 	CREATE = '[Event] Creating',
 	ADD = '[Event] Adding',
-	DELETE = '[Event] Deleting'
+	DELETE = '[Event] Deleting',
+	MERGE = '[Event] Merging'
 }
 
 export class EventActions {
@@ -17,10 +19,10 @@ export class EventActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
 	}
 
@@ -30,5 +32,7 @@ export class EventActions {
 			payload
 		};
 	}
+
+	static merge() {}
 
 }

@@ -1,12 +1,14 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Tag } from '../../model/entities/tag.model';
+import { Patch } from '../../utils/patch.interface';
 
 export enum ActionType {
 	LOAD = '[Tag] Loading',
 	CREATE = '[Tag] creating',
 	ADD = '[Tag] adding',
 	PATCH = '[Tag] patching',
-	DELETE = '[Tag] deleting'
+	DELETE = '[Tag] deleting',
+	MERGE = '[Tag] merging'
 }
 
 export class TagActions {
@@ -32,10 +34,10 @@ export class TagActions {
 		};
 	}
 
-	static patch(id: string, propName: string, value: any) {
+	static patch(patch: Patch) {
 		return {
 			type: ActionType.PATCH,
-			payload: { id, propName, value }
+			payload: patch
 		};
 	}
 
@@ -45,5 +47,7 @@ export class TagActions {
 			payload: id
 		};
 	}
+
+	static merge() {}
 
 }

@@ -4,7 +4,7 @@ import { ActionType } from '../../action/ui/view-switcher.action';
 
 
 
-export const initialState = 'list';
+export const initialState = 'card';
 
 export function viewSwitcherReducer(state: 'list' | 'card' = initialState,
 																		action: TypedAction<'list' | 'card'>): 'list' | 'card' {

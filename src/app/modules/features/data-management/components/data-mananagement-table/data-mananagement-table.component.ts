@@ -40,6 +40,7 @@ export class DataMananagementTableComponent implements OnInit {
 		} else {
 			this.selected = this.selected.filter(f => f === item.id);
 		}
+		this.selection.emit(this.selected);
 	}
 
 	get availableItems() {

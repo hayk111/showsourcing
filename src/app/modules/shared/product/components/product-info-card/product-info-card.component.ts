@@ -23,7 +23,8 @@ export class ProductInfoCardComponent implements OnInit {
 	}
 
 	onUpdate(field, value) {
-		this.store.dispatch(ProductActions.patch(this.product.id, field, value));
+		const patch = { id: this.product.id, propName: field, value };
+		this.store.dispatch(ProductActions.patch(patch));
 	}
 
 	getPriceObject(product: Product) {
