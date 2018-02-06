@@ -10,7 +10,7 @@
 					<kanban-item-app
 						[data]="product.id"
 						class="item"
-						*ngFor="let product of status.products; let j = index">
+						*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 						<product-small-card-app class="marginSmall" [product]="product"></product-small-card-app>
 					</kanban-item-app>
 			</kanban-col-app>

@@ -1,11 +1,11 @@
 <label>{{ label }}</label>
-<div  *ngFor="let c of choices; let i = index" class="flex">
+<div *ngFor="let c of choices; let i = index; trackBy:trackByFn" class="flex">
 	<input
 		#inp
 		id='r-{{ inputId }}-{{i}}'
-		type="radio" 
+		type="radio"
 		[value]="c.id"
 		[checked]="check(c)"
 		(change)="onChange(c)">
-		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}  {{ c.suffix ? ' - ' + c.suffix : '' }}</label>		
+		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}  {{ c.suffix ? ' - ' + c.suffix : '' }} </label>
 </div>

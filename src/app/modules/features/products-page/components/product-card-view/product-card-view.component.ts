@@ -37,4 +37,8 @@ export class ProductCardViewComponent implements OnInit {
 			default: return '#04c4c9';
 		}
 	}
+
+	trackByFn(index, product) {
+		return product.id;
+	}
 }

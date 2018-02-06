@@ -1,10 +1,11 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../../../../store/model/entities/product.model';
 
 @Component({
 	selector: 'product-small-card-app',
 	templateUrl: './product-small-card.component.html',
-	styleUrls: ['./product-small-card.component.scss']
+	styleUrls: ['./product-small-card.component.scss'],
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductSmallCardComponent implements OnInit {
 	@Input() product: Product;

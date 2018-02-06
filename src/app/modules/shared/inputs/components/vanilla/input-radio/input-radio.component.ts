@@ -33,4 +33,8 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 		return c.id === this.value;
 	}
 
+	trackByFn(index, c: SelectableItem) {
+		return c.id;
+	}
+
 }

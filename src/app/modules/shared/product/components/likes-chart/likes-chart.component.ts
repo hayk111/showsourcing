@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'likes-chart-app',
 	templateUrl: './likes-chart.component.html',
-	styleUrls: ['./likes-chart.component.scss']
+	styleUrls: ['./likes-chart.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LikesChartComponent implements OnInit {
 	view: any[] = [250, 250];

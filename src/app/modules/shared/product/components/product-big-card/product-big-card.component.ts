@@ -14,11 +14,12 @@ import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { UserService } from '../../../user/services/user.service';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'product-big-card-app',
 	templateUrl: './product-big-card.component.html',
-	styleUrls: ['./product-big-card.component.scss']
+	styleUrls: ['./product-big-card.component.scss'],
 })
 export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	product: Product;
