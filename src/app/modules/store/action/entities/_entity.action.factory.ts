@@ -27,7 +27,7 @@ export function makeBasicActions(actionType: any) {
 		add: (toAdd: Entity) => ({ type: actionType.ADD, payload: toAdd }),
 		delete: (toDelete: Entity) => ({ type: actionType.DELETE, payload: toDelete }),
 		setPending: () => ({ type: actionType.SET_PENDING }),
-		patch: (patch: Patch) => ({ type: actionType.PATCH }),
+		patch: (patch: Patch) => ({ type: actionType.PATCH, payload: patch }),
 		merge: () => ({ type: actionType.MERGE }),
 	};
 }

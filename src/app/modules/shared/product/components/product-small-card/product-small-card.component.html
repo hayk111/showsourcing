@@ -15,7 +15,7 @@
 	</main>
 	<footer class="flex paddingSmall">
 		<div class="author">
-			{{ product?.createdByUserId | entityName: 'teamMembers' | async}}
+			{{ product?.createdByUserId | entityName: 'teamMembers' | async }}
 		</div>
 		<product-icons-app [score]="product?.computedValues?.score" [numTasks]="product?.computedValues?.taskCount" [numComments]="product?.computedValues?.commentCount"></product-icons-app>
 	</footer>

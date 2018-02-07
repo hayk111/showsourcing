@@ -24,13 +24,13 @@ import { sidenavReducer } from './ui/sidenav.reducer';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { InjectionToken } from '@angular/core';
 import { currentSelectionReducer, selectionReducerFactory } from './selection/selection.reducer';
-import { ActionType as VoteActions } from '../action/selection/vote-selection.action';
-import { ActionType as TaskActions } from '../action/selection/task-selection.action';
-import { ActionType as ProjectActions } from '../action/selection/project-selection.action';
-import { ActionType as TagsActions } from '../action/selection/tag-selection.action';
-import { ActionType as FileActions } from '../action/selection/file-selection.action';
-import { ActionType as ImageActions } from '../action/selection/images-selection.action';
-import { ActionType as CommentActions } from '../action/selection/comment-selection.action';
+import { ActionType as VoteSlctnActionTypes } from '../action/selection/vote-selection.action';
+import { ActionType as TaskSlctnActionTypes } from '../action/selection/task-selection.action';
+import { ActionType as ProjectSlctnActionTypes } from '../action/selection/project-selection.action';
+import { ActionType as TagSlctnActionTypes } from '../action/selection/tag-selection.action';
+import { ActionType as FileSlctnActionTypes } from '../action/selection/file-selection.action';
+import { ActionType as ImageSltcnActionTypes } from '../action/selection/images-selection.action';
+import { ActionType as CommentSltcnActionTypes } from '../action/selection/comment-selection.action';
 import { imageSelectionReducer } from './selection/image-selection.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import { entityRepresentationMap } from '../utils/entities.utils';
@@ -40,28 +40,28 @@ import { tagReducer } from './entities/tag.reducer';
 import { projectReducer } from './entities/project.reducer';
 import { supplierReducer } from './entities/supplier.reducer';
 import { taskReducer } from './entities/task.reducer';
+import { ActionType as CategoryActionTypes } from '../action/entities/category.action';
+import { ActionType as EventActionTypes } from '../action/entities/event.action';
+import { ActionType as TagActionTypes } from '../action/entities/tag.action';
+import { ActionType as SupplierActionTypes } from '../action/entities/supplier.action';
+import { ActionType as ProductActionTypes } from '../action/entities/product.action';
+import { ActionType as ProjectActionTypes } from '../action/entities/project.action';
+import { ActionType as TaskActionTypes } from '../action/entities/task.action';
 
 const entities = combineReducers({
 	user: userReducer,
-	// company: companyReducer,
+	teams: teamsReducer,
+	teamMembers: teamMembersReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
-	// categories: basicReducerFactory(entityRepresentationMap.categories.actions),
-	categories: categoryReducer,
-	teams: teamsReducer,
-	// events: basicReducerFactory(entityRepresentationMap.events.actions),
-	// tags: basicReducerFactory(entityRepresentationMap.tags.actions),
-	// projects: basicReducerFactory(entityRepresentationMap.projects.actions),
-	// suppliers: basicReducerFactory(entityRepresentationMap.suppliers.actions),
-	events: eventsReducer,
-	tags: tagReducer,
-	projects: projectReducer,
-	suppliers: supplierReducer,
+	categories: basicReducerFactory(CategoryActionTypes),
+	events: basicReducerFactory(EventActionTypes),
+	tags: basicReducerFactory(TagActionTypes),
+	projects: basicReducerFactory(ProjectActionTypes),
+	suppliers: basicReducerFactory(SupplierActionTypes),
 
-	teamMembers: teamMembersReducer,
-	// tasks: basicReducerFactory(entityRepresentationMap.tasks.actions),
-	task: taskReducer,
-	products: productReducer,
+	tasks: basicReducerFactory(TaskActionTypes),
+	products: basicReducerFactory(ProductActionTypes),
 	// status might change from user to user in the future ?
 	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
@@ -76,13 +76,13 @@ const misc = combineReducers({
 
 const selection = combineReducers({
 	currentSelection: currentSelectionReducer,
-	projects: selectionReducerFactory(ProjectActions),
-	tags: selectionReducerFactory(TagsActions),
-	tasks: selectionReducerFactory(TaskActions),
-	comments: selectionReducerFactory(CommentActions),
-	files: selectionReducerFactory(FileActions),
+	projects: selectionReducerFactory(ProjectSlctnActionTypes),
+	tags: selectionReducerFactory(TagSlctnActionTypes),
+	tasks: selectionReducerFactory(TaskSlctnActionTypes),
+	comments: selectionReducerFactory(CommentSltcnActionTypes),
+	files: selectionReducerFactory(FileSlctnActionTypes),
 	images: imageSelectionReducer,
-	votes: selectionReducerFactory(VoteActions)
+	votes: selectionReducerFactory(VoteSlctnActionTypes)
 });
 
 const ui = combineReducers( {
