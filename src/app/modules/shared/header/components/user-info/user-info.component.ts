@@ -14,17 +14,12 @@ import { selectTeams } from '../../../../store/selectors/entities/teams.selector
 })
 export class UserInfoComponent implements OnInit {
 	user$: Observable<User>;
-	team$: Observable<Team>;
 	panelVisible = false;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.user$ = this.store.select(selectUser);
-		const teams$ = this.store.select(selectTeams);
-		this.team$ = combineLatest(this.user$, teams$, (user, teams) => {
-			return teams.byId[user.currentTeamId];
-		});
 	}
 
 	openPanel() {

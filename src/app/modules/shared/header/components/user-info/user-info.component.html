@@ -1,9 +1,9 @@
 <ng-container *ngIf="user$ | async as user">
-	<user-picture-app></user-picture-app>
-	<div class="info">
-		<div>{{ user?.firstName }} {{ user?.lastName}}</div>
-		<div class="team">{{ (team$ | async)?.name }}</div>
-	</div>
+
+	<user-picture-with-name-app [user]="user">
+		<div class="team">{{ user?.currentTeamId | entityName: 'teams' | async }}</div>
+	</user-picture-with-name-app>
+
 	<div class="panelCtnr">
 		<i class="fa fa-angle-down" aria-hidden="true" (click)="openPanel()"></i>
 		<user-panel-app *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>

@@ -1,7 +1,7 @@
 <div class="flex">
 	<user-picture-app></user-picture-app>
 	<div class="flexColumn">
-		<strong>{{ user?.name }}</strong>
+		<strong class="name">{{ user?.firstName }} {{ user?.lastName }}</strong>
 		<ng-content></ng-content>
 	</div>
 </div>

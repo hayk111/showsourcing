@@ -13,7 +13,7 @@ https://getmdl.io/styles/index.html */
 	--font-size-default: 13px;
 	--font-size-big: 15px;
 	--font-size-bigger: 17px;
-	--font-size-xbig: 19px;
+	--font-size-xl: 19px;
 }
 /* body 1 */
 body, .body, .body1 {
@@ -29,7 +29,7 @@ body, .body, .body1 {
 }
 
 h3 {
-	font-size: var(--font-size-xbig);
+	font-size: var(--font-size-xl);
 	font-weight: 500;
 	color: var(--color-txt-strong);
 	margin: 0;

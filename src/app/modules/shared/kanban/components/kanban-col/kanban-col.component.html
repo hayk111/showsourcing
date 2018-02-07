@@ -11,11 +11,14 @@
 	<!-- TODO: check if the attr.data-bag is still needed -->
 
 	<header class="paddingDefault">{{ label }}</header>
-	<div class="overlay" *ngIf="isOver()"
-		(dragleave)="onDragLeave($event)"> DROP IT HERE </div>
+
 	<main>
+		<div class="overlay flexColumn" *ngIf="isOver()"
+			(dragleave)="onDragLeave($event)">
+			<span class="overlayTitle" i18n> Move to {{ label }} </span>
+			<span class="overlaySub" i18n> Caution, action will apply </span>
+		</div>
 	 <ng-content></ng-content>
 	</main>
-
 
 </card-app>

@@ -47,13 +47,14 @@ export const entityRepresentationMap = {
 	projects: new EntityRepresentation('projects'),
 	product: new EntityRepresentation('products'),
 	tasks: new EntityRepresentation('tasks'),
+	teams: new EntityRepresentation('teams'),
 	// no need to specify actions for those
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	teamMembers: new EntityRepresentation('teamMembers'),
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
-	images: new EntityRepresentation('images')
+	images: new EntityRepresentation('images'),
 };
 
 export interface EntityTarget {

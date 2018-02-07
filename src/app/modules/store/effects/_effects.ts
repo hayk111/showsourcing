@@ -24,6 +24,7 @@ import { SelectionEffects } from './selection/selection.effects';
 import { TagSelectionEffects } from './selection/tag-selection.effects';
 import { TaskSelectionEffects } from './selection/task-selection.effects';
 import { VoteSelectionEffects } from './selection/vote-selection.effects';
+import { TeamEffects } from './entities/team.effects';
 
 
 export const effects = [
@@ -31,6 +32,7 @@ export const effects = [
 	// entities
 	ProductEffects,
 	TaskEffects,
+	TeamEffects,
 	UserEffects,
 	CountryEffects,
 	CurrencyEffects,

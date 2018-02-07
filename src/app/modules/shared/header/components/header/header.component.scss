@@ -1,4 +1,4 @@
-:host{
+:host {
 	display: flex;
 	z-index: 4;
   justify-content: space-between;
@@ -13,9 +13,11 @@
 	padding: 0 var(--spacing-default);
 	position: relative;
 }
+
 .titleLogo {
 	font-size: 1.35rem;
 }
+
 nav {
 	font-size: 14px;
 	display: flex;
@@ -26,11 +28,14 @@ nav {
 		padding-left: 36px;
 	}
 }
+
 notif-app{
 	margin: 0 28px;
 }
+
 .vertDivider {
 	width: 1px;
-	height: 46px;
-	background-color: rgba(255,255,255,0.3);
+	height: 45px;
+	margin: 0 var(--spacing-default);
+	background-color: var(--color-delimiter);
 }

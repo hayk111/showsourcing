@@ -10,7 +10,7 @@ import { AppStoreModule } from '../../store/store.module';
 import { ProductIconsComponent } from './components/product-icons/product-icons.component';
 import { UserModule } from '../user/user.module';
 import { LikesChartComponent } from './components/likes-chart/likes-chart.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, TooltipModule } from '@swimlane/ngx-charts';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
 import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
 import { EditableFieldModule } from '../editable-field/editable-field.module';
@@ -30,7 +30,8 @@ import { FileModule } from '../file/file.module';
 		EditableFieldModule,
 		IconsModule,
 		FileModule,
-		CardModule
+		CardModule,
+		TooltipModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

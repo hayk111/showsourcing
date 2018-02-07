@@ -2,25 +2,10 @@ import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Team } from '../../model/entities/team.model';
 import { User } from '../../model/entities/user.model';
+import { entityRepresentationMap } from '../../utils/entities.utils';
+import { makeBasicActions, makeBasicActionTypes } from './_entity.action.factory';
 
-export enum ActionType {
-	LOAD = '[Team] Loading',
-	ADD = '[Team] setting',
-}
-
-export class TeamActions {
-	static load(maxCounter: number) {
-		return {
-			type: ActionType.LOAD,
-			payload: maxCounter
-		};
-	}
-
-	static add(payload: Array<Team>): TypedAction<Array<Team>> {
-		return {
-			type: ActionType.ADD,
-			payload
-		};
-	}
-
-}
+// keeping capitalization for backward compatibility
+export const ActionType = makeBasicActionTypes(entityRepresentationMap.teams);
+export const TeamActions = makeBasicActions(ActionType);
+entityRepresentationMap.teams.actions = TeamActions;

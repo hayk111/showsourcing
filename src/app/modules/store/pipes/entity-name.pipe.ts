@@ -32,7 +32,7 @@ export class EntityNamePipe extends AutoUnsub implements PipeTransform {
 		}
 		const repr = entityRepresentationMap[name];
 		if (!repr) {
-			throw new Error(`Hey, this entity representation was not found.
+			throw new Error(`Hey, the entity representation with name ${name} was not found.
 			Be sure the name you used is the same as in the store buddy.`);
 		}
 		return repr;

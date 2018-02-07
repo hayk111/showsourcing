@@ -1,6 +1,7 @@
 :host {
 	display: block;
 }
+
 .ctnr  {
 	position: relative;
 	margin: var(--spacing-small);
@@ -20,11 +21,15 @@ main {
 }
 
 .overlay {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: var(--color-primary);
-	z-index: 2;
+	border:  2px solid var(--color-primary);
+	margin: var(--spacing-small);
+	padding: var(--spacing-big);
+	text-align: center;
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+	background-color: var(--color-bg);
+	.overlayTitle {
+		font-size: var(--font-size-xl);
+		font-weight: bold;
+	}
 }

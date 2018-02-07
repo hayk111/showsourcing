@@ -12,7 +12,11 @@
 					[data]="product.id"
 					class="item"
 					*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
-					<product-small-card-app (click)="selectProduct(product.id)" class="marginSmall" [product]="product"></product-small-card-app>
+					<product-small-card-app
+						(click)="selectProduct(product.id)"
+						class="marginSmall"
+						[product]="product">
+					</product-small-card-app>
 				</kanban-item-app>
 		</kanban-col-app>
 

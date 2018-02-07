@@ -2,7 +2,8 @@ input {
 	background: transparent;
 }
 
-button, input[type="submit"]{
+button, input[type="submit"] {
+	text-transform: capitalize;
 	cursor: pointer;
 	box-sizing: border-box;
 	margin-top: var(--spacing-bigger);
@@ -14,50 +15,50 @@ button, input[type="submit"]{
 	padding: var(--spacing-default) var(--spacing-xl);
 }
 
-button.small{
-		padding: var(--spacing-smaller) var(--spacing-default);
-		margin: 0;
+button.small {
+	padding: var(--spacing-smaller) var(--spacing-default);
+	margin: 0;
 }
 
-button.secondary{
+button.secondary {
 	background: var(--color-secondary);
 	color: var(--color-secondary-contrast);
 }
 
-.inp-box{
+.inp-box {
 	margin-bottom: 16px;
 	.error{
 		margin-top: 8px;
 	}
 }
 
-fieldset{
+fieldset {
 	border: none;
 	margin-top: var(--spacing-bigger);
 }
 
-fieldset legend{
+fieldset legend {
 	color: var(--color-primary);
 	border-bottom: none;
 	margin-bottom: 16px;
 	padding: 0;
 }
 
-
-.inp-error{
+.inp-error {
 	border-color: #D0021B;
 }
 
-.error{
+.error {
 	margin-top: 10px;
 	color: var(--color-warn);
 	font-size: 0.875rem;
 	font-style: italic;
 }
 
-.twoColsForm .fields{
+.twoColsForm .fields {
 	display: flex;
 }
+
 .twoColsForm .fields > *{
 	width: 50%;
 }

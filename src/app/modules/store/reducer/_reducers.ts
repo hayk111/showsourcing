@@ -47,10 +47,11 @@ import { ActionType as SupplierActionTypes } from '../action/entities/supplier.a
 import { ActionType as ProductActionTypes } from '../action/entities/product.action';
 import { ActionType as ProjectActionTypes } from '../action/entities/project.action';
 import { ActionType as TaskActionTypes } from '../action/entities/task.action';
+import { ActionType as TeamActionTypes } from '../action/entities/team.action';
 
 const entities = combineReducers({
 	user: userReducer,
-	teams: teamsReducer,
+	teams:  basicReducerFactory(TeamActionTypes),
 	teamMembers: teamMembersReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
