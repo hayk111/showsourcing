@@ -45,12 +45,12 @@ export class PreloaderEffects {
 
 
 	private getEntities(id, maxCounter = -1) {
-		this.dispatch(ProductActions.load(id, maxCounter));
-		this.dispatch(CategoryActions.load(id, maxCounter));
-		this.dispatch(SupplierActions.load(id, maxCounter));
-		this.dispatch(EventActions.load(id, maxCounter));
-		this.dispatch(ProjectActions.load(id, maxCounter));
-		this.dispatch(TagActions.load(id, maxCounter));
+		this.dispatch(ProductActions.load({id, maxCounter}));
+		this.dispatch(CategoryActions.load({id, maxCounter}));
+		this.dispatch(SupplierActions.load({id, maxCounter}));
+		this.dispatch(EventActions.load({id, maxCounter}));
+		this.dispatch(ProjectActions.load({id, maxCounter}));
+		this.dispatch(TagActions.load({id, maxCounter}));
 		this.dispatch(TeamMembersActions.load(id, maxCounter));
 	}
 

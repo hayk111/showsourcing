@@ -6,7 +6,6 @@ import { CategoryActions } from '../../action/entities/category.action';
 import { TagActions } from '../../action/entities/tag.action';
 import { ProjectActions } from '../../action/entities/project.action';
 import { ProductActions } from '../../action/entities/product.action';
-import { TaskActions } from '../../action/entities/task.action';
 import { Currency } from '../entities/currency.model';
 
 

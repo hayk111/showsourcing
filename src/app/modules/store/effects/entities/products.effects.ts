@@ -17,7 +17,7 @@ export class ProductEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
-		switchMap((params: {teamId, counter}) => {
+		switchMap((params: {id, maxCounter}) => {
 			// get products
 			return this.srv.load(params).pipe(
 				// set products

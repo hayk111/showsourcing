@@ -1,34 +1,9 @@
 import { FilterGroupName } from '../../model/misc/filter.model';
 import { Task } from '../../model/entities/task.model';
+import { makeBasicActionTypes, makeBasicActions } from './_entity.action.factory';
+import { entityRepresentationMap } from '../../utils/entities.utils';
 
-export enum ActionType {
-	LOAD = '[Task] loading',
-	ADD = '[Task] adding',
-	SET_PENDING = '[Task] setting pending',
- 	CREATE = '[Task] creating',
-	DELETE = '[Task] deleting'
-}
-
-export class TaskActions {
-
-	static load(filterGroupName?: FilterGroupName) {
-		return {
-			type: ActionType.LOAD,
-			payload: filterGroupName
-		};
-	}
-
-	static add(tasks: Array<Task>) {
-		return {
-			type: ActionType.ADD,
-			payload: tasks
-		};
-	}
-
-	static setPending() {
-		return {
-			type: ActionType.SET_PENDING
-		};
-	}
-
-}
+// keeping capitalization for backward compatibility
+export const ActionType = makeBasicActionTypes(entityRepresentationMap.tasks);
+export const TaskActions = makeBasicActions(ActionType);
+entityRepresentationMap.tasks.actions = TaskActions;

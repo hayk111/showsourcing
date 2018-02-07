@@ -21,7 +21,7 @@ export class ProductService {
 	constructor(private http: HttpClient,
 							private teamItemLoader: TeamItemLoaderService) { }
 
-	load({ teamId, counter }) {
+	load({ id, maxCounter }) {
 		// loading products by chunks
 		// let drop = 0;
 		// return this.getProducts(drop, teamId).pipe(
@@ -33,7 +33,7 @@ export class ProductService {
 		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
 		// 	map((r: any) => r.elements)
 		// );
-		return this.http.get(`api/team/${teamId}/product?withArchived=false`).pipe(
+		return this.http.get(`api/team/${id}/product?withArchived=false`).pipe(
 			map((r: any) => r.elements),
 			tap(r => r.forEach(elem => this.addCustomFields(elem)))
 		);

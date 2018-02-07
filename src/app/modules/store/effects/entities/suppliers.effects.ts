@@ -12,7 +12,7 @@ export class SuppliersEffects {
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
 		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
-		map((result: any) => SupplierActions.addSuppliers(result))
+		map((result: any) => SupplierActions.add(result))
 	);
 
 	constructor( private action$: Actions, private srv: SupplierService) {}

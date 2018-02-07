@@ -1,23 +1,29 @@
 import { Entity, EntityRepresentation } from '../../utils/entities.utils';
 import { Patch } from '../../utils/patch.interface';
 
-// LOAD, ADD, PATCH, MERGE
-
-export function makeActionType(repr: EntityRepresentation) {
+// makes bastic action types
+export function makeBasicActionTypes(repr: EntityRepresentation): any {
 // using uppercase for backward compatibility with enums
 	return {
-		LOAD: `[${repr.entityName}] Loading...`,
-		ADD: `[${repr.entityName}] Adding...`,
-		DELETE: `[${repr.entityName}] Deleting...`,
-		SET_PENDING: `[${repr.entityName}] Setting pending...`,
-		PATCH: `[${repr.entityName}] Patching...`,
-		MERGE: `[${repr.entityName}] Merging...`,
+		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
+		ADD: `[${repr.entityName.capitalize()}] Adding...`,
+		DELETE: `[${repr.entityName.capitalize()}] Deleting...`,
+		SET_PENDING: `[${repr.entityName.capitalize()}] Setting pending...`,
+		PATCH: `[${repr.entityName.capitalize()}] Patching...`,
+		MERGE: `[${repr.entityName.capitalize()}] Merging...`,
 	};
 }
 
-export function makeActions(actionType: any) {
+// adds actionType to the basic types
+export function addActionType(actionTypes: any, repr: EntityRepresentation, actionName: string) {
+	return actionTypes[actionName.toUpperCase()] = `[${repr.entityName.capitalize()}] ${actionName}...`;
+}
+
+
+// makes basic actions functions
+export function makeBasicActions(actionType: any) {
 	return {
-		load: () => ({ type: actionType.LOAD }),
+		load: (params?: any) => ({ type: actionType.LOAD, payload: params }),
 		add: (toAdd: Entity) => ({ type: actionType.ADD, payload: toAdd }),
 		delete: (toDelete: Entity) => ({ type: actionType.DELETE, payload: toDelete }),
 		setPending: () => ({ type: actionType.SET_PENDING }),
@@ -25,3 +31,4 @@ export function makeActions(actionType: any) {
 		merge: () => ({ type: actionType.MERGE }),
 	};
 }
+

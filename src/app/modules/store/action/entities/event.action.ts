@@ -1,38 +1,10 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Patch } from '../../utils/patch.interface';
+import { entityRepresentationMap } from '../../utils/entities.utils';
+import { makeBasicActions, makeBasicActionTypes } from './_entity.action.factory';
 
-export enum ActionType {
-	LOAD = '[Event] Loading',
-	PATCH = '[Event] Patching',
-	CREATE = '[Event] Creating',
-	ADD = '[Event] Adding',
-	DELETE = '[Event] Deleting',
-	MERGE = '[Event] Merging'
-}
-
-export class EventActions {
-	static load(id: string, maxCounter: number) {
-		return {
-			type: ActionType.LOAD,
-			payload: { id, maxCounter }
-		};
-	}
-
-	static patch(patch: Patch) {
-		return {
-			type: ActionType.PATCH,
-			payload: patch
-		};
-	}
-
-	static add(payload: Array<Event>): TypedAction<Array<Event>> {
-		return {
-			type: ActionType.ADD,
-			payload
-		};
-	}
-
-	static merge() {}
-
-}
+// keeping capitalization for backward compatibility
+export const ActionType = makeBasicActionTypes(entityRepresentationMap.events);
+export const EventActions = makeBasicActions(ActionType);
+entityRepresentationMap.events.actions = EventActions;

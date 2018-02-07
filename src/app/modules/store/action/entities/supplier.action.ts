@@ -2,48 +2,10 @@ import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Supplier } from '../../model/entities/supplier.model';
 import { Patch } from '../../utils/patch.interface';
+import { makeBasicActionTypes, makeBasicActions } from './_entity.action.factory';
+import { entityRepresentationMap } from '../../utils/entities.utils';
 
-export enum ActionType {
-	LOAD = '[Supplier] Loading',
-	ADD_SUPPLIERS = '[Supplier] adding',
-	PATCH = '[Supplier] patching',
-	CREATE = '[Supplier] creating',
-	MERGE = '[Supplier] merging',
-	DELETE = '[Supplier] deleting'
-}
-
-export class SupplierActions {
-
-	static load(id, maxCounter) {
-		return {
-			type: ActionType.LOAD,
-			payload: { id, maxCounter }
-		};
-	}
-
-	static addSuppliers(payload: Array<Supplier>): TypedAction<Array<Supplier>> {
-		return {
-			type: ActionType.ADD_SUPPLIERS,
-			payload
-		};
-	}
-
-	static patch(patch: Patch) {
-		return {
-			type: ActionType.PATCH,
-			payload: patch
-		};
-	}
-
-	static merge() {
-
-	}
-
-	static delete(id: string) {
-		return {
-			type: ActionType.DELETE,
-			payload: id
-		};
-	}
-
-}
+// keeping capitalization for backward compatibility
+export const ActionType = makeBasicActionTypes(entityRepresentationMap.suppliers);
+export const SupplierActions = makeBasicActions(ActionType);
+entityRepresentationMap.suppliers.actions = SupplierActions;
