@@ -19,7 +19,6 @@ export function addActionType(actionTypes: any, repr: EntityRepresentation, acti
 	return actionTypes[actionName.toUpperCase()] = `[${repr.entityName.capitalize()}] ${actionName}...`;
 }
 
-
 // makes basic actions functions
 export function makeBasicActions(actionType: any) {
 	return {

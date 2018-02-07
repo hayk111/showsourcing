@@ -136,38 +136,38 @@ $_ambient-elevation-map: (
 
 /* back to my picks */
 
-// @for $i from 1 through length($picked){
-//   $current: nth($picked, $i);
+@for $i from 1 through length($picked){
+  $current: nth($picked, $i);
 
-//   .#{z}-#{$i}{
-//     @include mat-elevation($current);
-//   }
-// }
+  .#{z}-#{$i}{
+    @include mat-elevation($current);
+  }
+}
 
 // antoine wants **his** fucking shadows
 
 
-.z-7 {
-  box-shadow: 0 -2.5px 21px 0 rgba(0, 0, 0, 0.12);
-}
-.z-6 {
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.05);
-}
-.z-5 {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-}
-.z-4 {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-}
-.z-3 {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07);
-}
-.z-2 {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-}
-.z-1 {
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.06);
-}
+// .z-7 {
+//   box-shadow: 0 -2.5px 21px 0 rgba(0, 0, 0, 0.12);
+// }
+// .z-6 {
+//   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.05);
+// }
+// .z-5 {
+//   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+// }
+// .z-4 {
+//   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+// }
+// .z-3 {
+//   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07);
+// }
+// .z-2 {
+//   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+// }
+// .z-1 {
+//   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.06);
+// }
 
 .z-h, .z-a{
 	@extend .z-2;
