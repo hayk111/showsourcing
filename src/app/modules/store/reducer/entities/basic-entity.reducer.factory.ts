@@ -2,20 +2,23 @@ import { entityInitialState, addEntities, removeId, copyById } from '../../utils
 import { TypedAction } from '../../utils/typed-action.interface';
 
 
-function basicReducerFactory(actionType: any) {
+export function basicReducerFactory(actionType: any) {
 	return function (state = entityInitialState, action: TypedAction<any>) {
-		const id = action.payload.id;
+		let id;
+		if (action.payload)
+			id = action.payload.id;
 
 		switch (action.type) {
-			case actionType['ADD']:
+
+			case actionType.ADD:
 				return addEntities(state, action.payload);
 
-			case actionType['PATCH']:
+			case actionType.PATCH:
 				const propName = action.payload.propName;
 				const value = action.payload.value;
 				return copyById(state, id, { [propName]: value } );
 
-			case actionType['DELETE']:
+			case actionType.DELETE:
 				return removeId(state, id);
 
 			case actionType.SET_PENDING:
@@ -23,7 +26,6 @@ function basicReducerFactory(actionType: any) {
 
 			default:
 				return state;
-
 		}
 	};
 }

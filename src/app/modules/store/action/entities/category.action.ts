@@ -3,6 +3,7 @@ import { Category } from '../../model/entities/category.model';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Patch } from '../../utils/patch.interface';
 
+
 export enum ActionType {
 	LOAD = '[Categories] Loading',
 	ADD = '[Categories] adding',

@@ -5,7 +5,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 	selector: 'product-small-card-app',
 	templateUrl: './product-small-card.component.html',
 	styleUrls: ['./product-small-card.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.Default
 })
 export class ProductSmallCardComponent implements OnInit {
 	@Input() product: Product;

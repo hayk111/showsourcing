@@ -2,15 +2,18 @@
 
 <div class="flex content">
 	<div class="left">
-		<product-big-card-app class="noPadding card z-2"></product-big-card-app>
 
-		<card-app>
-			<likes-chart-app></likes-chart-app>
-		</card-app>
-		<product-info-card-app class="card z-2" [product]="product$ | async"></product-info-card-app>
+		<product-big-card-app class="card noPadding"></product-big-card-app>
+
+		<likes-chart-app class="card"></likes-chart-app>
+
+		<product-info-card-app class="card" [product]="product$ | async"></product-info-card-app>
+
 	</div>
 
 	<div class="right">
-		<product-page-main-card-app class="card noPadding z-3"></product-page-main-card-app>
+
+		<product-page-main-card-app class="card noPadding"></product-page-main-card-app>
+
 	</div>
 </div>

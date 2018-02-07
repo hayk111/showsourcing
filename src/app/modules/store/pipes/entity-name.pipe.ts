@@ -22,7 +22,7 @@ export class EntityNamePipe extends AutoUnsub implements PipeTransform {
 			.pipe(
 				takeUntil(this._destroy$),
 				filter(o => o),
-				map(entity => entity.name),
+				map(entity => entity.name)
 			);
 	}
 

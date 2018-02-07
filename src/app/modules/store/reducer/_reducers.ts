@@ -7,15 +7,9 @@ import { storeLogger } from 'ngrx-store-logger';
 import { userReducer } from './entities/user.reducer';
 import { countryReducer } from './entities/country.reducer';
 import { currencyReducer } from './entities/currency.reducer';
-import { categoryReducer } from './entities/category.reducer';
 import { teamsReducer } from './entities/team.reducer';
-import { eventsReducer } from './entities/event.reducer';
-import { tagReducer } from './entities/tag.reducer';
-import { projectReducer } from './entities/project.reducer';
-import { supplierReducer } from './entities/supplier.reducer';
 import { teamMembersReducer } from './entities/team-members.reducer';
 import { productReducer } from './entities/product.reducer';
-import { taskReducer } from './entities/task.reducer';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { customFieldsReducer } from './entities/custom-fields.reducer';
@@ -38,20 +32,35 @@ import { ActionType as FileActions } from '../action/selection/file-selection.ac
 import { ActionType as ImageActions } from '../action/selection/images-selection.action';
 import { ActionType as CommentActions } from '../action/selection/comment-selection.action';
 import { imageSelectionReducer } from './selection/image-selection.reducer';
+import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
+import { entityRepresentationMap } from '../utils/entities.utils';
+import { categoryReducer } from './entities/category.reducer';
+import { eventsReducer } from './entities/event.reducer';
+import { tagReducer } from './entities/tag.reducer';
+import { projectReducer } from './entities/project.reducer';
+import { supplierReducer } from './entities/supplier.reducer';
+import { taskReducer } from './entities/task.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
 	// company: companyReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
+	// categories: basicReducerFactory(entityRepresentationMap.categories.actions),
 	categories: categoryReducer,
 	teams: teamsReducer,
+	// events: basicReducerFactory(entityRepresentationMap.events.actions),
+	// tags: basicReducerFactory(entityRepresentationMap.tags.actions),
+	// projects: basicReducerFactory(entityRepresentationMap.projects.actions),
+	// suppliers: basicReducerFactory(entityRepresentationMap.suppliers.actions),
 	events: eventsReducer,
 	tags: tagReducer,
 	projects: projectReducer,
 	suppliers: supplierReducer,
+
 	teamMembers: teamMembersReducer,
-	tasks: taskReducer,
+	// tasks: basicReducerFactory(entityRepresentationMap.tasks.actions),
+	task: taskReducer,
 	products: productReducer,
 	// status might change from user to user in the future ?
 	productStatus: productStatusReducer,

@@ -7,45 +7,30 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 	selector: 'card-app',
 	templateUrl: './card.component.html',
 	styleUrls: ['./card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent implements OnInit {
-	@HostBinding('class.card') card = true;
-	@Input() border = false;
+
+	@HostBinding('class.z-2') @Input() elevation = true;
+	@HostBinding('class.paddingDefault') @Input() padding = true;
+	@HostBinding('class.marginDefault') @Input() margin = true;
+
+	private _border = false;
 	@Input() borderColor: undefined;
-	private _padding = 'default';
-	private _margin = 'bigger';
 
 	constructor() {}
 
 	ngOnInit() {
 	}
 
-	@HostBinding('class.noPadding')
-	get noPadding() {
-		return this.border || this._padding === 'none';
-	}
-
-	@HostBinding('class.noMargin')
-	get noMargin() {
-		return this._margin === 'none';
-	}
-
-	@HostBinding('class.paddingSmall')
-	get smallPadding() {
-		return this._padding === 'small';
-	}
-
 	@Input()
-	set padding(v: string) {
-		this._padding = v;
+	set border(b: boolean) {
+		this._border = b;
+		if (b)
+			this.padding = false;
 	}
 
-	@Input()
-	set margin(v: string) {
-		this._margin = v;
+	get border() {
+		return this._border;
 	}
-
-
 
 }

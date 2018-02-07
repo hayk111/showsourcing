@@ -20,6 +20,7 @@ import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/cons
 	selector: 'product-big-card-app',
 	templateUrl: './product-big-card.component.html',
 	styleUrls: ['./product-big-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Default
 })
 export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	product: Product;
