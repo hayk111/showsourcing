@@ -11,7 +11,6 @@ export class TeamEffects {
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
 		map(action => action.payload),
-		tap(d => { debugger; }),
 		switchMap(counter => this.srv.load(counter)),
 		map((result: any) => TeamActions.add(result))
 	);

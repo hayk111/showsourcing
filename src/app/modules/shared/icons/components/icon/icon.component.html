@@ -1,2 +1,3 @@
 <!-- <img class="{{ name }}" src="assets/icons/{{name}}.svg"> -->
-<i class="pointer fas fa-{{name}} {{ size }}"></i>
+
+<i class="pointer fas fa-{{name}} {{ size }} {{ color }}" [ngStyle]="{ 'font-size' : sizePx + 'px' }"></i>

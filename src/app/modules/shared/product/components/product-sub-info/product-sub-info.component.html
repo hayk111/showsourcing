@@ -1,14 +1,14 @@
 <table class="{{ big ? 'big' : '' }}">
 	<tr>
 		<td>
-			<icon-app name="circle" size="xs"></icon-app>
+			<icon-app name="check-circle" size="xs" color="success"></icon-app>
 		</td>
 		<td>
 			<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
 		</td>
 	</tr>
 
-	<tr *ngIf="product.categoryId">
+	<tr *ngIf="product?.categoryId">
 		<td>
 			<icon-app name="tag" size="xs"></icon-app>
 		</td>

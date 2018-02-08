@@ -2,6 +2,23 @@
 	// using display block so we can use transform
 	display: block;
 	color: var(--color-txt-secondary);
+	font-weight: normal;
+}
+
+.success {
+	color: var(--color-success);
+}
+
+.warn {
+	color: var(--color-warn);
+}
+
+.delimiter {
+	color: var(--color-delimiter);
+}
+
+.white {
+	color: #fff;
 }
 
 i {

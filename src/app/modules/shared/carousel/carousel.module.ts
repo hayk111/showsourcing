@@ -4,11 +4,13 @@ import { ModalCarouselComponent } from './components/modal-carousel/modal-carous
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { UtilsModule } from '../utils/utils.module';
 import { CarouselEntityComponent } from './components/carousel-entity/carousel-entity.component';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		UtilsModule
+		UtilsModule,
+		IconsModule
 	],
 	declarations: [ ModalCarouselComponent, CarouselComponent, CarouselEntityComponent ],
 	exports: [ ModalCarouselComponent, CarouselComponent, CarouselEntityComponent ]

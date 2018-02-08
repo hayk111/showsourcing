@@ -9,8 +9,12 @@
 	margin-top: 1px;
 }
 
-.manufacturerIcon {
+.supplierIcon {
 	margin-right: var(--spacing-s);
+}
+
+.supplier {
+	line-height: 1.5;
 }
 
 .status {
@@ -21,7 +25,11 @@
 	}
 
 	.spacer {
-		background: var(--color-success);
+		&.success {
+			background: var(--color-success);
+		}
+		background: var(--color-delimiter);
+		margin: var(--spacing-xs);
 		width: 73px;
 		height: 2px;
 		border-radius: var(--border-radius);

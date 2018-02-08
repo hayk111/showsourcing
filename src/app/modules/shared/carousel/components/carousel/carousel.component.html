@@ -4,13 +4,15 @@
 	</div>
 	<div class="move-btn back flexCenter cercle pointer btn action"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0">
-		&lt; </div>
+		<icon-app name="angle-left" color="white"></icon-app>
+	</div>
 	<div class="move-btn next flexCenter cercle pointer btn action"
 		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)">
-		&gt; </div>
+		<icon-app name="angle-right" color="white"></icon-app>
+	</div>
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
-	<i class="fa fa-ellipsis-v menuIc btn action" aria-hidden="true" (click)="openMenu()"></i>
+	<icon-app name="ellipsis-v" class="menuIc btn action" aria-label="more" (click)="openMenu()"></icon-app>
 
 	<!-- menu -->
 	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
