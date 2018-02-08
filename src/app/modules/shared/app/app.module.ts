@@ -43,7 +43,6 @@ import { NgxUIModule } from '@swimlane/ngx-ui';
 		EntitiesServicesModule,
 		UserModule,
 		TemplateModule,
-		NgxUIModule
 	],
 	providers: [
 		reducerProvider,

@@ -13,6 +13,9 @@ import { entityStateToArray } from '../../../../store/utils/entities.utils';
 export class LikesChartComponent implements OnInit {
 	view: any[] = [250, 250];
 	votes = [];
+	positiveVotes = [];
+	negativeVotes = [];
+	neutralVotes = [];
 	detailsShown = false;
 	pending = true;
 
@@ -56,12 +59,15 @@ export class LikesChartComponent implements OnInit {
 				switch (v.value) {
 					case 100 :
 						this.result[0].value++;
+						this.positiveVotes.push(v);
 						break;
 					case 0:
 						this.result[2].value++;
+						this.negativeVotes.push(v);
 						break;
 					default:
 						this.result[1].value++;
+						this.neutralVotes.push(v);
 						break;
 				}
 			});
@@ -70,6 +76,9 @@ export class LikesChartComponent implements OnInit {
 
 	reset() {
 		this.result.forEach(r => r.value = 0);
+		this.positiveVotes = [];
+		this.negativeVotes = [];
+		this.neutralVotes = [];
 	}
 
 	get positivePercentage() {

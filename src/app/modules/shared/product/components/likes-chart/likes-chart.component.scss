@@ -1,12 +1,20 @@
 .ctnr {
 	display: block;
-	height: 390px;
 	text-align: center;
 }
 
 .legend {
 	margin: auto;
 	display: inline-block;
+	.flex {
+		align-items: baseline;
+	}
+	.smallSquare {
+		height: 10px;
+		width: 10px;
+		border-radius: 2px;
+		margin-right: var(--spacing-s);
+	}
 }
 
 .chartCtnr {
@@ -24,21 +32,17 @@
 	}
 }
 
-.smallSquare {
-	height: 10px;
-	width: 10px;
-	border-radius: 2px;
-	margin-bottom: -2px;
-	margin-right: var(--spacing-s);
-}
-
-.flex {
-	align-items: center;
-}
-
-.detailsBtn, .details {
+.detailsBtn {
 	margin-top: var(--spacing-l);
 	color: var(--color-primary);
+}
+.details {
+	text-align: left;
+	margin-top: var(--spacing-l);
+	color: var(--color-primary);
+	h5 {
+		margin: var(--spacing-l) 0 var(--spacing-default) 0;
+	}
 }
 
 .detailsBtn:hover {

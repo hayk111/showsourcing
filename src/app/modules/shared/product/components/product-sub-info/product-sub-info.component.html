@@ -1,5 +1,5 @@
 <table class="{{ big ? 'big' : '' }}">
-	<tr>
+	<tr *ngIf="product?.supplierId">
 		<td>
 			<icon-app name="check-circle" size="xs" color="success"></icon-app>
 		</td>

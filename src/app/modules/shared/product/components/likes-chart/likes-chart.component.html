@@ -1,49 +1,72 @@
 <h3 i18n>Team feedback</h3>
 
-<div class="ctnr">
-		<div class="chartCtnr" *ngIf="!pending; else spinner">
-		<ngx-charts-pie-chart
-			[view]="view"
-			[scheme]="colorScheme"
-			[results]="result"
-			[legend]="false"
-			[labels]="false"
-			[explodeSlices]="true"
-			[doughnut]="true">
-		</ngx-charts-pie-chart>
+<div class="ctnr" *ngIf="!pending; else spinner">
+	<ng-container *ngIf="votes?.length > 0; else noVote">
+			<div class="chartCtnr">
+				<ngx-charts-pie-chart
+					[view]="view"
+					[scheme]="colorScheme"
+					[results]="result"
+					[legend]="false"
+					[labels]="false"
+					[explodeSlices]="true"
+					[doughnut]="true">
+				</ngx-charts-pie-chart>
 
-		<div class="recap">
-			<div class="percent">{{ positivePercentage }} %</div>
-			<div>positives</div>
-		</div>
-	</div>
+				<div class="recap">
+					<div class="percent">{{ positivePercentage}} %</div>
+					<div>positives</div>
+				</div>
+			</div>
 
-	<div class="legend">
-		<div class="flex">
-			<div [ngStyle]="{'background': colorScheme.domain[0]}" class="smallSquare"></div>
-			<div>Like</div>
-		</div>
-		<div class="flex">
-			<div [ngStyle]="{'background': colorScheme.domain[1]}" class="smallSquare"></div>
-			<div>Neutral</div>
-		</div>
-		<div class="flex">
-			<div [ngStyle]="{'background': colorScheme.domain[2]}" class="smallSquare"></div>
-			<div>Despise</div>
-		</div>
-	</div>
+			<div class="legend">
+				<div class="flex">
+					<div [ngStyle]="{'background': colorScheme.domain[0]}" class="smallSquare"></div>
+					<div>Like</div>
+				</div>
+				<div class="flex">
+					<div [ngStyle]="{'background': colorScheme.domain[1]}" class="smallSquare"></div>
+					<div>Neutral</div>
+				</div>
+				<div class="flex">
+					<div [ngStyle]="{'background': colorScheme.domain[2]}" class="smallSquare"></div>
+					<div>Despise</div>
+				</div>
+			</div>
 
-	<div class="detailsBtn pointer" *ngIf="!detailsShown" (click)="showDetails()">
-		view details
-	</div>
+			<div class="detailsBtn pointer" *ngIf="!detailsShown" (click)="showDetails()">
+				view details
+			</div>
 
-	<div class="details" *ngIf="detailsShown">
-		Likes
-		<div>
-				<user-picture-with-name-app *ngFor="let vote of votes"></user-picture-with-name-app>
-		</div>
-	</div>
+			<div class="details" *ngIf="detailsShown">
+				<ng-container *ngIf="positiveVotes.length > 0">
+					<h5>Likes</h5>
+					<div>
+						<user-picture-with-name-app *ngFor="let vote of positiveVotes"></user-picture-with-name-app>
+					</div>
+				</ng-container>
+
+				<ng-container *ngIf="neutralVotes.length > 0">
+					<h5>Neutral</h5>
+					<div>
+						<user-picture-with-name-app *ngFor="let vote of positiveVotes"></user-picture-with-name-app>
+					</div>
+				</ng-container>
+
+				<ng-container *ngIf="negativeVotes.length > 0">
+					<h5>Dislikes</h5>
+					<div>
+						<user-picture-with-name-app *ngFor="let vote of positiveVotes"></user-picture-with-name-app>
+					</div>
+				</ng-container>
+
+			</div>
+	</ng-container>
+	<ng-template #noVote>
+		<span i18n> There are no votes yet</span>
+	</ng-template>
 </div>
+
 
 
 <ng-template #spinner>
