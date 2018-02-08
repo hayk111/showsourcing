@@ -21,6 +21,7 @@
 			"prefix": "app",
 			"serviceWorker": true,
       "styles": [
+				"app/theming/loaders.scss",
         "app/theming/styles.scss"
       ],
       "scripts": [],
