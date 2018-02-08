@@ -17,6 +17,10 @@ carousel-entity-app {
 	z-index: 104;
 	top: var(--spacing-default);
 	left: var(--spacing-default);
+	height: 46px;
+	width: 46px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
 }
 
 .status {

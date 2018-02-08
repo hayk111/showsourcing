@@ -15,7 +15,13 @@
 }
 
 .titleLogo {
-	font-size: 1.35rem;
+	height: 26px;
+	width: 26px;
+	margin-right: var(--spacing-default);
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
 }
 
 nav {
@@ -25,7 +31,7 @@ nav {
 	flex-grow: 1;
 	a {
 		display: block;
-		padding-left: 36px;
+		margin-right: var(--spacing-xl);
 	}
 }
 
