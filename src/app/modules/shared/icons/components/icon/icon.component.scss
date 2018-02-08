@@ -1,6 +1,31 @@
 :host {
 	// using display block so we can use transform
 	display: block;
+	color: var(--color-txt-secondary);
+}
+
+i {
+	font-size: var(--font-size-default);
+}
+
+.xs {
+	font-size: var(--font-size-xs);
+}
+
+.s {
+	font-size: var(--font-size-s);
+}
+
+.l {
+	font-size: var(--font-size-l);
+}
+
+.xl {
+	font-size: var(--font-size-xl);
+}
+
+.xxl {
+	font-size: var(--font-size-xxl);
 }
 
 .comment {

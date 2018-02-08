@@ -4,8 +4,8 @@
 .currency {
 	color: var(--color-txt-secondary);
 	font-weight: bold;
-	font-size: var(--font-size-small);
-	margin-right: var(--spacing-smaller);
+	font-size: var(--font-size-s);
+	margin-right: var(--spacing-xs);
 }
 
 .amount {
@@ -18,7 +18,7 @@
 		font-size: var(--font-size-default);
 	}
 	.amount {
-		font-size: var(--font-size-big);
+		font-size: var(--font-size-l);
 	}
 }
 

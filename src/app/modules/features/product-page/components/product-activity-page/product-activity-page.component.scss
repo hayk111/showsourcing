@@ -8,7 +8,7 @@
 }
 
 .activity {
-	margin-top: var(--spacing-bigger);
+	margin-top: var(--spacing-xl);
 	align-items: baseline;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .action{
-	margin-left: var(--spacing-smaller);
+	margin-left: var(--spacing-xs);
 }
 
 .activity {
@@ -32,8 +32,7 @@
 .cercleAction {
 	z-index: 2;
 	border-radius: 50%;
-	color: var(--color-txt-secondary);
-	background-color: var(--color-bg-secondary);
+	background-color: var(--color-bg-third);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -43,7 +42,7 @@
 
 .iconCtnr{
 	position: relative;
-	margin-right: var(--spacing-bigger);
+	margin-right: var(--spacing-xl);
 	width: 30px;
 }
 time {
@@ -68,7 +67,7 @@ time {
 }
 
 .msg {
-	margin-left: var(--spacing-small);
+	margin-left: var(--spacing-s);
 }
 
 small{

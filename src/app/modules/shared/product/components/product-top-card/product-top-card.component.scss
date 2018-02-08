@@ -1,5 +1,5 @@
 :host {
-	padding: var(--spacing-big) calc(var(--spacing-bigger) * 3 );
+	padding: var(--spacing-l) calc(var(--spacing-xl) * 3 );
 	display: flex;
 	justify-content: space-between;
 	background: var(--color-bg);
@@ -10,7 +10,7 @@
 }
 
 .manufacturerIcon {
-	margin-right: var(--spacing-small);
+	margin-right: var(--spacing-s);
 }
 
 .status {
@@ -32,6 +32,6 @@
 	.cercle {
 		width: 36px;
 		height: 36px;
-		margin: var(--spacing-small);
+		margin: var(--spacing-s);
 	}
 }

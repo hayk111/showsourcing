@@ -1,16 +1,16 @@
 <table class="{{ big ? 'big' : '' }}">
 	<tr>
 		<td>
-			<icon-app name="cercle-green"></icon-app>
+			<icon-app name="circle" size="xs"></icon-app>
 		</td>
 		<td>
 			<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
 		</td>
 	</tr>
 
-	<tr>
+	<tr *ngIf="product.categoryId">
 		<td>
-			<icon-app name="label"></icon-app>
+			<icon-app name="tag" size="xs"></icon-app>
 		</td>
 		<td>
 			<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>

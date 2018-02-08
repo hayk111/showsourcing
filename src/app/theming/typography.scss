@@ -8,12 +8,12 @@ summary there:
 https://getmdl.io/styles/index.html */
 
 :root {
-	--font-size-smaller: 9px;
-	--font-size-small: 11px;
+	--font-size-xs: 9px;
+	--font-size-s: 11px;
 	--font-size-default: 13px;
-	--font-size-big: 15px;
-	--font-size-bigger: 17px;
-	--font-size-xl: 19px;
+	--font-size-l: 15px;
+	--font-size-xl: 17px;
+	--font-size-xxl: 19px;
 }
 /* body 1 */
 body, .body, .body1 {
@@ -29,26 +29,26 @@ body, .body, .body1 {
 }
 
 h3 {
-	font-size: var(--font-size-xl);
+	font-size: var(--font-size-xxl);
 	font-weight: 500;
 	color: var(--color-txt-strong);
 	margin: 0;
 }
 
 h4 {
-	font-size: var(--font-size-big);
+	font-size: var(--font-size-l);
 	font-weight: 500;
 	color: var(--color-txt-strong);
 	margin: 0;
-	margin-bottom: var(--spacing-small);
+	margin-bottom: var(--spacing-s);
 }
 
 h5 {
-	font-size: var(--font-size-big);
+	font-size: var(--font-size-l);
 	color: var(--color-primary);
 	font-weight: normal;
 	margin: 0;
-	margin-bottom: var(--spacing-small);
+	margin-bottom: var(--spacing-s);
 }
 
 strong {
@@ -57,11 +57,11 @@ strong {
 }
 
 small {
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-s);
 	color: var(--color-txt-secondary);
 }
 
 label {
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-s);
 	font-weight: 500;
 }

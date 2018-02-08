@@ -20,14 +20,14 @@ carousel-entity-app {
 }
 
 .status {
-	padding: var(--spacing-smaller) var(--spacing-small);
+	padding: var(--spacing-xs) var(--spacing-s);
 	background: var(--color-success);
 
 	border-radius: 1000px;
 	position: absolute;
 	bottom: -9px;
 	color: white;
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-s);
 	z-index: 104;
 	left: var(--spacing-default);
 	font-weight: 500;

@@ -34,7 +34,7 @@ ul{
 }
 
 section{
-	margin-top: var(--spacing-bigger);
+	margin-top: var(--spacing-xl);
 }
 
 h2{
@@ -43,13 +43,13 @@ h2{
 
 menu {
 	position: absolute;
-	top: var(--spacing-bigger);
+	top: var(--spacing-xl);
 	right: var(--spacing-default);
 	padding: 0;
 	menuitem {
 		cursor: pointer;
 		background: var(--color-bg);
-		padding: var(--spacing-smaller) var(--spacing-default);
+		padding: var(--spacing-xs) var(--spacing-default);
 	}
 	menuitem:hover {
 		background: var(--color-bg-secondary);
@@ -65,7 +65,7 @@ table.withBorder {
 
 	td, th {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		padding: var(--spacing-small);
+		padding: var(--spacing-s);
 	}
 }
 

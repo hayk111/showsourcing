@@ -4,7 +4,7 @@
 
 .ctnr  {
 	position: relative;
-	margin: var(--spacing-small);
+	margin: var(--spacing-s);
 }
 
 header {
@@ -17,19 +17,19 @@ header {
 
 main {
 	background: var(--color-bg-secondary);
-	padding-top: var(--spacing-small);
+	padding-top: var(--spacing-s);
 }
 
 .overlay {
 	border:  2px solid var(--color-primary);
-	margin: var(--spacing-small);
-	padding: var(--spacing-big);
+	margin: var(--spacing-s);
+	padding: var(--spacing-l);
 	text-align: center;
 	box-sizing: border-box;
 	border-radius: var(--border-radius);
 	background-color: var(--color-bg);
 	.overlayTitle {
-		font-size: var(--font-size-xl);
+		font-size: var(--font-size-xxl);
 		font-weight: bold;
 	}
 }

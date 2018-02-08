@@ -7,8 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class IconComponent implements OnInit {
 	@Input() name: string;
-	@Input() width;
-	@Input() height;
+	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl';
 	constructor() { }
 
 	ngOnInit() {

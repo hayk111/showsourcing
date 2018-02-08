@@ -6,17 +6,17 @@ button, input[type="submit"] {
 	text-transform: capitalize;
 	cursor: pointer;
 	box-sizing: border-box;
-	margin-top: var(--spacing-bigger);
+	margin-top: var(--spacing-xl);
 	border-radius: 4px;
 	background: var(--color-primary);
 	border: none;
 	outline: none;
 	color: var(--color-primary-contrast);
-	padding: var(--spacing-default) var(--spacing-xl);
+	padding: var(--spacing-default) var(--spacing-xxl);
 }
 
 button.small {
-	padding: var(--spacing-smaller) var(--spacing-default);
+	padding: var(--spacing-xs) var(--spacing-default);
 	margin: 0;
 }
 
@@ -34,7 +34,7 @@ button.secondary {
 
 fieldset {
 	border: none;
-	margin-top: var(--spacing-bigger);
+	margin-top: var(--spacing-xl);
 }
 
 fieldset legend {

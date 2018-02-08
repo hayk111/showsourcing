@@ -4,7 +4,7 @@
 }
 
 icon-app {
-	margin-right: var(--spacing-small);
+	margin-right: var(--spacing-s);
 }
 
 icon-app[name="checkmark"] {
@@ -21,7 +21,7 @@ icon-app[name="checkmark"] {
 .big {
 	.num {
 		margin-top: -3px;
-		font-size: var(--font-size-big);
+		font-size: var(--font-size-l);
 		color: var(--color-txt-strong);
 	}
 }
