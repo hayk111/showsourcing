@@ -17,6 +17,7 @@ import { EditableFieldModule } from '../editable-field/editable-field.module';
 import { ProductSubInfoComponent } from './components/product-sub-info/product-sub-info.component';
 import { CardModule } from '../card/card.module';
 import { FileModule } from '../file/file.module';
+import { LoadersModule } from '../loaders/loaders.module';
 
 @NgModule({
 	imports: [
@@ -31,7 +32,8 @@ import { FileModule } from '../file/file.module';
 		IconsModule,
 		FileModule,
 		CardModule,
-		TooltipModule
+		TooltipModule,
+		LoadersModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

@@ -5,7 +5,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
 	],
 	declarations: [ SpinnerComponent, ProgressBarComponent ],
 	exports: [ SpinnerComponent, ProgressBarComponent ]

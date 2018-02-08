@@ -19,6 +19,7 @@ import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../../features/auth/auth.module';
 import { environment } from '../../../../environments/environment';
+import { NgxUIModule } from '@swimlane/ngx-ui';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -41,7 +42,8 @@ import { environment } from '../../../../environments/environment';
 		MatDialogModule,
 		EntitiesServicesModule,
 		UserModule,
-		TemplateModule
+		TemplateModule,
+		NgxUIModule
 	],
 	providers: [
 		reducerProvider,

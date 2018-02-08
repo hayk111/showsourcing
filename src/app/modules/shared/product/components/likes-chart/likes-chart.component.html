@@ -1,13 +1,22 @@
+<h3 i18n>Team feedback</h3>
+
 <div class="ctnr">
-	<ngx-charts-pie-chart
-		[view]="view"
-		[scheme]="colorScheme"
-		[results]="result"
-		[legend]="false"
-		[labels]="false"
-		[explodeSlices]="true"
-		[doughnut]="true">
-	</ngx-charts-pie-chart>
+		<div class="chartCtnr" *ngIf="!pending; else spinner">
+		<ngx-charts-pie-chart
+			[view]="view"
+			[scheme]="colorScheme"
+			[results]="result"
+			[legend]="false"
+			[labels]="false"
+			[explodeSlices]="true"
+			[doughnut]="true">
+		</ngx-charts-pie-chart>
+
+		<div class="recap">
+			<div class="percent">{{ positivePercentage }} %</div>
+			<div>positives</div>
+		</div>
+	</div>
 
 	<div class="legend">
 		<div class="flex">
@@ -23,4 +32,20 @@
 			<div>Despise</div>
 		</div>
 	</div>
+
+	<div class="detailsBtn pointer" *ngIf="!detailsShown" (click)="showDetails()">
+		view details
+	</div>
+
+	<div class="details" *ngIf="detailsShown">
+		Likes
+		<div>
+				<user-picture-with-name-app *ngFor="let vote of votes"></user-picture-with-name-app>
+		</div>
+	</div>
 </div>
+
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

@@ -28,18 +28,18 @@ export const selectProjectsArrayForSelection = createSelector([ selectProjectsFo
 });
 
 export const selectImagesForSelection = state => state.selection.images;
-export const selectImagesArrayForSelection = createSelector([ selectImagesForSelection ], (filesState) => {
-	return entityStateToArray(filesState);
+export const selectImagesArrayForSelection = createSelector([ selectImagesForSelection ], (imageState) => {
+	return entityStateToArray(imageState);
 });
 
 export const selectTagsForSelection = state => state.selection.tags;
-export const selectTagsArrayForSelection = createSelector([ selectTagsForSelection ], (filesState) => {
-	return entityStateToArray(filesState);
+export const selectTagsArrayForSelection = createSelector([ selectTagsForSelection ], (tagState) => {
+	return entityStateToArray(tagState);
 });
 
 export const selectCommentsForSelection = state => state.selection.comments;
-export const selectCommentsArrayForSelection = createSelector([ selectCommentsForSelection ], (filesState) => {
-	return entityStateToArray(filesState);
+export const selectCommentsArrayForSelection = createSelector([ selectCommentsForSelection ], (commentState) => {
+	return entityStateToArray(commentState);
 });
 
 export const selectNumCommentsForSelection = createSelector([ selectCommentsArrayForSelection ], (comments: Array<any>) => {
@@ -47,8 +47,8 @@ export const selectNumCommentsForSelection = createSelector([ selectCommentsArra
 });
 
 export const selectVotesForSelection = state => state.selection.votes;
-export const selectVotesArrayForSelection = createSelector([ selectVotesForSelection ], (filesState) => {
-	entityStateToArray(filesState);
+export const selectVotesArrayForSelection = createSelector([ selectVotesForSelection ], (voteState) => {
+	return entityStateToArray(voteState);
 });
 
 export const selectProductSelected = createSelector(

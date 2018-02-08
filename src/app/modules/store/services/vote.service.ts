@@ -21,7 +21,10 @@ export class VoteService {
 	load(target: EntityTarget) {
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
-		return this.http.get(`api/${name}/${id}/vote`);
+		// TODO API: votes should have an id...
+		return this.http.get(`api/${name}/${id}/vote`).pipe(
+			tap((votes: Array<any>) => votes.forEach( (v, i) => v.id = i))
+		);
 	}
 
 	create({vote, target }: {vote: Vote, target: EntityTarget}) {

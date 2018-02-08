@@ -1,13 +1,23 @@
-:host {
+.ctnr {
 	display: block;
-	height: 260px;
+	height: 390px;
 	text-align: center;
 }
 
-.ctnr {
+.legend {
+	margin: auto;
+	display: inline-block;
+}
+
+.chartCtnr {
 	position: relative;
 	margin-left: 32px;
-	.legend {
+	.recap {
+		.percent {
+			font-size: var(--font-size-xl);
+			font-weight: bold;
+		}
+		font-size: var(--font-size-l);
 		position: absolute;
 		top: 90px;
 		left: 100px;
@@ -15,12 +25,22 @@
 }
 
 .smallSquare {
-	height: 6px;
-	width: 6px;
+	height: 10px;
+	width: 10px;
+	border-radius: 2px;
 	margin-bottom: -2px;
 	margin-right: var(--spacing-s);
 }
 
 .flex {
 	align-items: center;
+}
+
+.detailsBtn, .details {
+	margin-top: var(--spacing-l);
+	color: var(--color-primary);
+}
+
+.detailsBtn:hover {
+	text-decoration: underline;
 }
