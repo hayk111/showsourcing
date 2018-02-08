@@ -1,9 +1,10 @@
 .ctnr {
-	position: absolute;
+	position: fixed;
+	z-index: 5;
 	right: 0;
 	top: 0;
 	background: var(--color-bg);
 	// header size
-	margin-top: 48px;
+	margin-top: 49px;
 	height: 100%;
 }

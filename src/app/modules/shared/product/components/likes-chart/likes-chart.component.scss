@@ -36,11 +36,12 @@
 	margin-top: var(--spacing-l);
 	color: var(--color-primary);
 }
+
 .details {
 	text-align: left;
 	margin-top: var(--spacing-l);
-	color: var(--color-primary);
 	h5 {
+		color: var(--color-primary);
 		margin: var(--spacing-l) 0 var(--spacing-default) 0;
 	}
 }

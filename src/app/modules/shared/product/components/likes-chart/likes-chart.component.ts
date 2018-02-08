@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/cons
 import { Store } from '@ngrx/store';
 import { selectVotesArrayForSelection, selectVotesForSelection } from '../../../../store/selectors/selection/selection.selector';
 import { Vote } from '../../../../store/model/entities/vote.model';
-import { entityStateToArray } from '../../../../store/utils/entities.utils';
+import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
+import { User } from '../../../../store/model/entities/user.model';
+import { selectTeamMembers } from '../../../../store/selectors/entities/team-members.selector';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'likes-chart-app',
@@ -18,6 +21,7 @@ export class LikesChartComponent implements OnInit {
 	neutralVotes = [];
 	detailsShown = false;
 	pending = true;
+	teamMembers: EntityState<User>;
 
 	result = [
 		{
@@ -48,6 +52,7 @@ export class LikesChartComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.store.select(selectTeamMembers).subscribe(users => this.teamMembers = users);
 		// votes are value 100 for positive 0 for negative and no value for neutral
 		this.store.select(selectVotesForSelection).subscribe( (voteState: any) => {
 			this.pending = voteState.pending;
