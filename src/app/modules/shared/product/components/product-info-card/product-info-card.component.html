@@ -2,10 +2,6 @@
 
 <h5 i18n>General Information</h5>
 <ul>
-	<li>
-		<label i18n="label|product name"> Name </label>
-		<editable-field-app [value]="product?.name" (update)="onUpdate('name', $event)"> </editable-field-app>
-	</li>
 
 	<li>
 		<label i18n="label|product supplier"> Supplier </label>
@@ -22,11 +18,10 @@
 	</li>
 
 	<li>
-		<label i18n="label|product event"> Event </label>
-		<editable-field-app [value]="product?.eventId" type="select-entity"
-			[entityRep]="eventRep" (update)="onUpdate('eventId', $event)">
-		</editable-field-app>
+		<label i18n="label|product name"> Name </label>
+		<editable-field-app [value]="product?.name" (update)="onUpdate('name', $event)"> </editable-field-app>
 	</li>
+
 
 	<li>
 		<label i18n="label|product price"> Price </label>
@@ -40,6 +35,13 @@
 		<label i18n="label|product minimum order quantity / MOQ"> MOQ </label>
 		<editable-field-app [value]="product?.minimumOrderQuantity" type="number"
 			(update)="onUpdate('minimumOrderQuantity', $event)">
+		</editable-field-app>
+	</li>
+
+	<li>
+		<label i18n="label|product was found at (event)"> Found at </label>
+		<editable-field-app [value]="product?.eventId" type="select-entity"
+			[entityRep]="eventRep" (update)="onUpdate('eventId', $event)">
 		</editable-field-app>
 	</li>
 </ul>

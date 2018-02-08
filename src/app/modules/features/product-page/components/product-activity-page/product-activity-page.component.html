@@ -14,7 +14,7 @@
 				<div class="flex activity">
 					<div class="flexColumn">
 						<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
-						<time>{{ comments.byId[id].creationDate | timeAgo }}</time>
+						<small>{{ comments.byId[id].creationDate | timeAgo }}</small>
 					</div>
 					<div class="msg"> {{ comments.byId[id].text }} </div>
 				</div>

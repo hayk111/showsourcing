@@ -3,7 +3,11 @@ table > * {
 }
 
 table {
+	line-height: 1;
 	font-size: var(--font-size-s);
+	td {
+		padding-bottom: var(--spacing-s);
+	}
 }
 
 .big {

@@ -15,4 +15,10 @@ input {
 	border: none;
 	background: transparent;
 	outline: none;
+	color: var(--color-txt-secondary);
 }
+
+input::placeholder {
+	color: var(--color-txt-secondary);
+}
+
