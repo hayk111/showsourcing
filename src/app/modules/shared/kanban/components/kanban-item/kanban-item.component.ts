@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { KanbanService } from '../../services/kanban.service';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'kanban-item-app',
 	templateUrl: './kanban-item.component.html',
-	styleUrls: ['./kanban-item.component.scss']
+	styleUrls: ['./kanban-item.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KanbanItemComponent implements OnInit {
 	@Input() data;

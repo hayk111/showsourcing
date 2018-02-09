@@ -1,13 +1,19 @@
 :host {
 	display: block;
 	width: 304px;
+	height: 112px;
 	background: var(--color-bg);
 }
 
 .top {
 	align-items: end;
 	.name {
+		height: 20px;
 		font-size: var(--font-size-default);
+		max-width: 50%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 

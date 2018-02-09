@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 	selector: 'kanban-col-app',
 	templateUrl: './kanban-col.component.html',
 	styleUrls: ['./kanban-col.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KanbanColComponent implements OnInit {
 	over = false;
