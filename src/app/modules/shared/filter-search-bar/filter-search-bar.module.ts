@@ -4,12 +4,14 @@ import { FilterSearchBarComponent } from './components/filter-search-bar/filter-
 import { FilterSmartPanelComponent } from './components/filter-smart-panel/filter-smart-panel.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { UtilsModule } from '../utils/utils.module';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
+		IconsModule
 	],
 	declarations: [FilterSearchBarComponent, FilterSmartPanelComponent],
 	exports: [ FilterSearchBarComponent ]

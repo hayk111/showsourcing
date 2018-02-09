@@ -1,3 +1,9 @@
+:host{
+	position: relative;
+	background: white;
+	border-radius: var(--border-radius);
+}
+
 input {
 	border-radius: var(--border-radius);
 	border: none;
@@ -6,4 +12,15 @@ input {
 	background: #fff;
 	color: var(--color-primary);
 	padding: var(--spacing-s) var(--spacing-default);
+	margin-right: var(--spacing-s);
+}
+
+input::placeholder {
+	color: #dddddd;
+}
+
+icon-app {
+	position: absolute;
+	right: var(--spacing-s);
+	top: var(--spacing-s);
 }

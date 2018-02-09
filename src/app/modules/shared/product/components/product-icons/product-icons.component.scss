@@ -1,4 +1,7 @@
-
+:host{
+	align-items: baseline;
+	font-size: var(--font-size-s);
+}
 .spacer {
 	margin-right: var(--spacing-default);
 }

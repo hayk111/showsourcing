@@ -51,6 +51,11 @@ product-sub-info-app {
 
 footer {
 	background: var(--color-bg-secondary);
+	color: var(--color-txt-secondary);
+	height: 20px;
+	padding: 0 var(--spacing-s);
+	display: flex;
+	align-items: center;
 }
 
 .name {
@@ -60,4 +65,5 @@ footer {
 
 .author {
 	font-size: var(--font-size-s);
+	line-height: 1;
 }
