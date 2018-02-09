@@ -33,3 +33,13 @@ main {
 		font-weight: bold;
 	}
 }
+
+.bolt {
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	display: block;
+	background: var(--color-bg-third);
+	transform: rotate(26deg);
+	line-height: 1;
+}

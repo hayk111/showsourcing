@@ -10,7 +10,11 @@
 	attr.data-bag="{{ bag }}">
 	<!-- TODO: check if the attr.data-bag is still needed -->
 
-	<header class="paddingDefault">{{ label }}</header>
+	<header class="paddingDefault flexBetween">
+		<div class="prefix"></div>
+		<div class="title">{{ label }}</div>
+		<div class="suffix"><icon-app name="bolt" color="white" class="bolt flexCenter pointer" size="s"></icon-app></div>
+	</header>
 
 	<main>
 		<div class="overlay flexColumn" *ngIf="isOver()"

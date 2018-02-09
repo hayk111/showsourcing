@@ -13,10 +13,13 @@
 		</div>
 		<div class="cercleGreen cercle" *ngIf="product?.status === 'Complete'"></div>
 	</main>
-	<footer class="flex paddingSmall">
+	<footer class="flex noPadding">
 		<div class="author">
 			{{ product?.createdByUserId | entityName: 'teamMembers' | async }}
 		</div>
-		<product-icons-app [score]="product?.computedValues?.score" [numTasks]="product?.computedValues?.taskCount" [numComments]="product?.computedValues?.commentCount"></product-icons-app>
+		<product-icons-app
+			[score]="product?.computedValues?.score"
+			[numTasks]="product?.computedValues?.taskCount"
+			[numComments]="product?.computedValues?.commentCount"></product-icons-app>
 	</footer>
 </card-app>

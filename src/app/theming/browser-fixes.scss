@@ -6,11 +6,16 @@ body{
 		background: var(--color-bg-secondary);
 }
 
+*:focus {
+	outline: none;
+}
+
 a{
 	text-decoration: none;
 	color: inherit;
 }
 
+// used for icons
 i{
 	font-style: normal;
 }

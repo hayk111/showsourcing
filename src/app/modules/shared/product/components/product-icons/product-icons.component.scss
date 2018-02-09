@@ -15,13 +15,4 @@ icon-app[name="checkmark"] {
 	// fix for wrong alignement, not sure what's happening here.
 	margin-top: -2px;
 	color: var(--color-txt-secondary);
-	font-size: var(--font-size-default);
-}
-
-.big {
-	.num {
-		margin-top: -1px;
-		font-size: var(--font-size-l);
-		color: var(--color-txt-strong);
-	}
 }
