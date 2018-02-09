@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 @Pipe({name: 'entityName'})
 export class EntityNamePipe extends AutoUnsub implements PipeTransform {
 
-	constructor(private store: Store<any>) {
+	constructor(protected store: Store<any>) {
 		super();
 	}
 
@@ -26,7 +26,7 @@ export class EntityNamePipe extends AutoUnsub implements PipeTransform {
 			);
 	}
 
-	private getRepr(name: string) {
+	protected getRepr(name: string) {
 		if (!name) {
 			throw new Error(`Hey, You forgot to give the entityName an entityName as argument`);
 		}

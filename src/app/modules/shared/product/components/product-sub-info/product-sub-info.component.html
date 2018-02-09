@@ -1,5 +1,5 @@
 <table class="{{ big ? 'big' : '' }}">
-	<tr *ngIf="product?.supplierId">
+	<tr *ngIf="product?.supplierId | entityExist: 'suppliers' | async">
 		<td>
 			<icon-app name="check-circle" size="xs" color="success"></icon-app>
 		</td>
@@ -8,7 +8,7 @@
 		</td>
 	</tr>
 
-	<tr *ngIf="product?.categoryId">
+	<tr  *ngIf="product?.categoryId | entityExist: 'categories' | async">
 		<td>
 			<icon-app name="tag" size="xs"></icon-app>
 		</td>

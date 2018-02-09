@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { ModuleWithProviders } from '@angular/core';
 import { EntityNamePipe } from './pipes/entity-name.pipe';
 import { EntitiesServicesModule } from './services/entities-services.module';
+import { EntityExistPipe } from './pipes/entity-exist.pipe';
 
 @NgModule({
 	imports: [
@@ -24,8 +25,8 @@ import { EntitiesServicesModule } from './services/entities-services.module';
 	providers: [
 		reducerProvider,
 	],
-	declarations: [ EntityNamePipe ],
-	exports: [ EntityNamePipe ]
+	declarations: [ EntityNamePipe, EntityExistPipe ],
+	exports: [ EntityNamePipe, EntityExistPipe ]
 })
 export class AppStoreModule {
 
