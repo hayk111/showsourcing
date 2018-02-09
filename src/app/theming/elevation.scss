@@ -27,9 +27,9 @@ $picked: (1, 2, 3, 4, 5, 6, 7);
 
 
 :root {
-	--umbra-color: rgba(black, 0.06);
-	--penumbra-color: rgba(black, 0.04);
-	--ambient-color: rgba(black, 0.03);
+	--umbra-color: rgba(black, 0.08);
+	--penumbra-color: rgba(black, 0.040);
+	--ambient-color: rgba(black, 0.030);
 }
 
 // Maps for the different shadow sets and their values within each z-space. These values were
@@ -173,7 +173,6 @@ $_ambient-elevation-map: (
 // }
 
 .z-h, .z-a{
-	@extend .z-2;
 	transition: all 0.28s cubic-bezier(.25, .8, .25, 1);
 }
 
