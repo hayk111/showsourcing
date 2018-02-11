@@ -1,9 +1,24 @@
+<h3 i18n>Team feedback</h3>
+
+
+
 <ng-container *ngIf="!(pending$ | async); else spinner">
-	<div class="flex">
-		<chart-app [colorScheme]="colorScheme" [votes]="votes$ | async"></chart-app>
-		<legend-app [colorScheme]="colorScheme" [votes]="votes$ | async"></legend-app>
-	</div>
-	<details-app [votes]="votes$ | async" [teamMembers]="teamMembers$ | async"></details-app>
+	<ng-container *ngIf="votes$ | async as votes">
+		<ng-container *ngIf="votes.total > 0; else noVote">
+			<div i18n class="center voteCount">{{ votes.total }} vote{{ votes.total > 1 ? 's' : ''}}</div>
+			<div class="flex">
+				<chart-app [colorScheme]="colorScheme" [votes]="votes"></chart-app>
+				<legend-app [colorScheme]="colorScheme" [votes]="votes"></legend-app>
+			</div>
+			<details-app [votes]="votes$ | async" [teamMembers]="teamMembers$ | async"></details-app>
+		</ng-container>
+
+		<ng-template #noVote>
+			<span class="center" i18n>There are no votes yet</span>
+		</ng-template>
+
+	</ng-container>
+
 </ng-container>
 
 <ng-template #spinner>

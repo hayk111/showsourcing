@@ -1,4 +1,3 @@
-<ng-container *ngIf="votes?.total > 0; else noVote">
 	<div class="chartCtnr">
 		<ngx-charts-pie-chart
 			[view]="view"
@@ -15,8 +14,3 @@
 			<div>Positives</div>
 		</div>
 	</div>
-
-</ng-container>
-<ng-template #noVote>
-	<span i18n>There are no votes yet</span>
-</ng-template>

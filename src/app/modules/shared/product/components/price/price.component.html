@@ -1,5 +1,5 @@
 <div class="flex {{ big ? 'big' : ''}}">
 	<div class="currency">{{ currency }}</div>
-	<strong class="amount">{{ amount }}</strong>
+	<strong class="amount">{{ amount | number : '1.2-2' }}</strong>
 </div>
 

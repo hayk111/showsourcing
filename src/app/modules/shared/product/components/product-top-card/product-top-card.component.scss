@@ -1,12 +1,11 @@
 :host {
 	padding: var(--spacing-l) calc(var(--spacing-xl) * 3 );
-	display: flex;
-	justify-content: space-between;
 	background: var(--color-bg);
 	// to go 1px below the shadow of the header
 	z-index: 5;
 	position: relative;
 	margin-top: 1px;
+	display: block;
 }
 
 .supplierIcon {
@@ -29,7 +28,7 @@
 		&.success {
 			background: var(--color-success);
 		}
-		background: var(--color-icon);
+		background: var(--color-delimiter);
 		margin: var(--spacing-xs);
 		width: 73px;
 		height: 2px;
