@@ -1,5 +1,5 @@
 <header>
-	<icon-app sizePx="24" class="heart flexCenter" name="heart" color="warn"></icon-app>
+	<icon-app sizePx="24" *ngIf="product?.rating === 5" class="heart flexCenter" name="heart" color="warn"></icon-app>
 	<span class="status">VALIDATED</span>
 	<carousel-entity-app (fileDrop)="onFileDrop($event)" class=".header"></carousel-entity-app>
 </header>

@@ -1,0 +1,14 @@
+.chartCtnr {
+	position: relative;
+	.recap {
+		.percent {
+			font-size: var(--font-size-xl);
+			font-weight: bold;
+		}
+		text-align: center;
+		font-size: var(--font-size-l);
+		position: absolute;
+    top: 52px;
+    left: 48px;
+	}
+}

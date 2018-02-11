@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { selectProducts } from '../entities/products.selector';
 import { EntityTarget, EntityState, entityStateToArray } from '../../utils/entities.utils';
 import { Product } from '../../model/entities/product.model';
+import { Vote } from '../../model/entities/vote.model';
 
 
 
@@ -60,5 +61,33 @@ export const selectProductSelected = createSelector(
 		if (!selection)
 			return undefined;
 		return productState.byId[selection.entityId];
+	}
+);
+
+export interface VoteByType {
+	positive: Array<Vote>;
+	negative: Array<Vote>;
+	neutral: Array<Vote>;
+	total: number;
+}
+
+export const selectVotesByType = createSelector(
+	[selectVotesArrayForSelection],
+	( votesArray ) => {
+		const votes = { positive: [], neutral: [], negative: [], total: votesArray.length };
+		votesArray.forEach((v: Vote) => {
+			switch (v.value) {
+				case 100 :
+					votes.positive.push(v);
+					break;
+				case 0:
+					votes.negative.push(v);
+					break;
+				default:
+					votes.neutral.push(v);
+					break;
+			}
+		});
+		return votes;
 	}
 );

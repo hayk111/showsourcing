@@ -3,49 +3,4 @@
 	text-align: center;
 }
 
-.legend {
-	margin: auto;
-	display: inline-block;
-	.flex {
-		align-items: baseline;
-	}
-	.smallSquare {
-		height: 10px;
-		width: 10px;
-		border-radius: 2px;
-		margin-right: var(--spacing-s);
-	}
-}
 
-.chartCtnr {
-	position: relative;
-	margin-left: 32px;
-	.recap {
-		.percent {
-			font-size: var(--font-size-xl);
-			font-weight: bold;
-		}
-		font-size: var(--font-size-l);
-		position: absolute;
-		top: 90px;
-		left: 100px;
-	}
-}
-
-.detailsBtn {
-	margin-top: var(--spacing-l);
-	color: var(--color-primary);
-}
-
-.details {
-	text-align: left;
-	margin-top: var(--spacing-l);
-	h5 {
-		color: var(--color-primary);
-		margin: var(--spacing-l) 0 var(--spacing-default) 0;
-	}
-}
-
-.detailsBtn:hover {
-	text-decoration: underline;
-}

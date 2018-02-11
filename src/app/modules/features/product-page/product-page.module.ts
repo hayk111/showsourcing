@@ -21,6 +21,7 @@ import { ProductModule } from '../../shared/product/product.module';
 import { IconsModule } from '../../shared/icons/icons.module';
 import { ProductPageMainCardComponent } from './components/product-page-main-card/product-page-main-card.component';
 import { CardModule } from '../../shared/card/card.module';
+import { LikesChartModule } from '../../shared/likes-chart/likes-chart.module';
 
 @NgModule({
 	imports: [
@@ -38,7 +39,8 @@ import { CardModule } from '../../shared/card/card.module';
 		UtilsModule,
 		ProductModule,
 		IconsModule,
-		CardModule
+		CardModule,
+		LikesChartModule
 	],
 	declarations: [
 		ProductPageComponent,
