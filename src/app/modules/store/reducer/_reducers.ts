@@ -1,6 +1,6 @@
 
 import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
-import { combineReducers } from '@ngrx/store/src/utils';
+import { combineReducers } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
