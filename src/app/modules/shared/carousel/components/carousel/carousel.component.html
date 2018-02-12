@@ -1,6 +1,11 @@
-<ng-container *ngIf="images.length > 0">
 	<div class="img-ctnr flexCenter">
-		<img [src]="getUrl(selectedIndex)" (click)="openModal()" class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
+		<ng-container *ngIf="!pending; else spinner">
+			<img *ngIf="images.length === 0" [src]="defaultImg"/>
+			<img *ngIf="images.length !== 0" [src]="getUrl(selectedIndex)" (click)="openModal()" class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
+		</ng-container>
+		<ng-template #spinner>
+			<spinner-app></spinner-app>
+		</ng-template>
 	</div>
 	<div class="move-btn back flexCenter cercle pointer btn action"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0">
@@ -24,5 +29,3 @@
 
 	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
 
-
-</ng-container>

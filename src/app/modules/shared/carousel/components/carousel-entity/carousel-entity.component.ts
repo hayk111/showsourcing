@@ -16,14 +16,16 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CarouselEntityComponent extends AutoUnsub implements OnInit {
 	images$: Observable<Array<AppImage>>;
+	pending$: Observable<Array<boolean>>;
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.images$ = this.store.select(selectImagesForSelection)
-			.map(r => entityStateToArray(r));
+		const imagesState$ = this.store.select(selectImagesForSelection);
+		this.images$ = imagesState$.map(r => entityStateToArray(r));
+		this.pending$ = imagesState$.map(r => r.pending);
 	}
 
 	rotate(img: AppImage) {

@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../../../../store/model/entities/product.model';
+import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 
 @Component({
 	selector: 'product-small-card-app',
@@ -9,7 +10,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 })
 export class ProductSmallCardComponent implements OnInit {
 	@Input() product: Product;
-	DEFAULT_IMAGE = 'https://www.tematicaresearch.com/wp-content/themes/linstar/assets/images/default.jpg';
+	DEFAULT_IMAGE = DEFAULT_NO_IMG;
 
 	constructor() { }
 

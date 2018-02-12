@@ -2,5 +2,6 @@
 	<carousel-app [images]="images"
 		(rotateRequest)="rotate($event)"
 		(downloadRequest)="download($event)"
-		(deleteRequest)="delete($event)"></carousel-app>
+		(deleteRequest)="delete($event)"
+		[pending]="pending$ | async"></carousel-app>
 </ng-container>

@@ -3,6 +3,7 @@ import Log from '../../../../../utils/logger/log.class';
 import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { Store } from '@ngrx/store';
+import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 
 @Component({
 	selector: 'carousel-app',
@@ -11,8 +12,10 @@ import { Store } from '@ngrx/store';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements OnInit {
+	defaultImg = DEFAULT_NO_IMG;
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
+	@Input() pending: boolean = true;
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
