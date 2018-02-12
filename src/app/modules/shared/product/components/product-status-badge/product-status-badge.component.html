@@ -1,0 +1,3 @@
+<div class="ctnr bg-{{ status }}" *ngIf="status">
+	{{ status | entityName: 'productStatus' | async }}
+</div>

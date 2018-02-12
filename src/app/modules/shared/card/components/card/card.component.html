@@ -1,2 +1,2 @@
-<div class="border" *ngIf="border" [ngStyle]="{'background': borderColor}"></div>
+<div class="border {{ borderClass ? borderClass : 'default' }}" *ngIf="border"></div>
 <ng-content></ng-content>

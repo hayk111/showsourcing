@@ -10,7 +10,9 @@ $color-primary-dark-contrast: #fff;
 $color-txt-strong: #111;
 $color-txt-primary: #4A4A4A;
 $color-txt-secondary: #9B9B9B;
-$color-delimiter: rgba(155, 155, 155, 0.1);;
+$color-delimiter: rgba(155, 155, 155, 0.1);
+$color-success: #71e591;
+$color-warn: #f94259;
 
 :root{
 	--color-primary: $color-primary;
@@ -19,6 +21,8 @@ $color-delimiter: rgba(155, 155, 155, 0.1);;
 	--color-primary-light-contrast: $color-primary-light-contrast;
 	--color-primary-dark: $color-primary-dark;
 	--color-primary-dark-contrast: $color-primary-dark-contrast;
+
+
 	--color-txt-primary: $color-txt-primary;
 	--color-txt-secondary: $color-txt-secondary;
 	--color-txt-third: #e0e0e0;
@@ -39,7 +43,12 @@ $color-delimiter: rgba(155, 155, 155, 0.1);;
 	// --color-secondary-light: ;
 	// --color-secondary-dark: ;
 
-	--color-warn: #f94259;
+	--color-warn: $color-warn;
+	--color-success: $color-success;
 
-	--color-success: #71e591;
+	--color-idea:#f5a623;
+	--color-need-review: #bd10e0;
+	--color-under-assessment: $color-primary;
+	--color-complete: $color-success;
+	--color-refused: $color-warn;
 }

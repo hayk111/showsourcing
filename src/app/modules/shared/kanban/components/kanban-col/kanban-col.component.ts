@@ -12,8 +12,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export class KanbanColComponent implements OnInit {
 	over = false;
 	@Input() bag;
-	@Input() label;
-	@Input() borderColor;
+	@Input() label: string;
+	@Input() borderClass: string;
 	@Output() itemDropped = new EventEmitter<any>();
 
 	constructor(private kanbanSrv: KanbanService) { }

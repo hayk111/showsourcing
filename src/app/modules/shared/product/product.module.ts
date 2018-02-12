@@ -17,6 +17,7 @@ import { ProductSubInfoComponent } from './components/product-sub-info/product-s
 import { CardModule } from '../card/card.module';
 import { FileModule } from '../file/file.module';
 import { LoadersModule } from '../loaders/loaders.module';
+import { ProductStatusBadgeComponent } from './components/product-status-badge/product-status-badge.component';
 
 @NgModule({
 	imports: [
@@ -41,6 +42,7 @@ import { LoadersModule } from '../loaders/loaders.module';
 		ProductTopCardComponent,
 		ProductInfoCardComponent,
 		ProductSubInfoComponent,
+		ProductStatusBadgeComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,

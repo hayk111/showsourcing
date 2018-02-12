@@ -9,11 +9,3 @@
 	background: var(--color-bg);
 }
 
-/* card with a border at the top*/
-.card, card-app{
-	.border{
-		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-		height: 3px;
-		border-radius: var(--border-radius)  var(--border-radius) 0 0;
-	}
-}
