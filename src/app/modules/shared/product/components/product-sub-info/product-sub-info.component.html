@@ -16,4 +16,14 @@
 			<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>
 		</td>
 	</tr>
+
+	<!-- we don't display this one on the big card -->
+	<!-- <tr *ngIf="!big && product?.minimumOrderQuantity !== undefined">
+		<td>
+			<icon-app name="info-circle" size="xs"></icon-app>
+		</td>
+		<td>
+			<span>{{ product?.minimumOrderQuantity }}</span>
+		</td>
+	</tr> -->
 </table>

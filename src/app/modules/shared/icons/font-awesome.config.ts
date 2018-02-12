@@ -18,6 +18,8 @@ import * as faFire from '@fortawesome/fontawesome-free-solid/faFire';
 import * as faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 import * as faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import * as faAngleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
+import * as faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
@@ -40,5 +42,6 @@ fontawesome.library.add(
 	faBolt,
 	faThumbsUp,
 	faBell,
-	faSortDown
+	faSortDown,
+	faInfoCircle
 );
