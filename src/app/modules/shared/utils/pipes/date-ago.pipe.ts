@@ -6,6 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DateToTimeAgoPipe implements PipeTransform {
 
 	transform(dateData: Date | number, args?: any): any {
+		if (dateData === undefined || dateData === null)
+			return '';
 		const timestamp = +dateData;
 		const seconds = Math.floor((+new Date() - timestamp) * 0.001);
 
