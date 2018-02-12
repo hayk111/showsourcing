@@ -4,7 +4,7 @@
 			<img *ngIf="images.length !== 0" [src]="getUrl(selectedIndex)" (click)="openModal()" class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
 		</ng-container>
 		<ng-template #spinner>
-			<spinner-app></spinner-app>
+			<spinner-app size="small"></spinner-app>
 		</ng-template>
 	</div>
 	<div class="move-btn back flexCenter cercle pointer btn action"

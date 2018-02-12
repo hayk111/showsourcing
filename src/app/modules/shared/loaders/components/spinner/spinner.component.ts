@@ -6,20 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit {
-	radius = 65;
+	@Input() size;
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	@Input()
-	set size(size: string) {
-		switch (size) {
-			case 'small':
-				this.radius = 30;
-				break;
-			default:
-				this.radius = 65;
-		}
-	}
 }
