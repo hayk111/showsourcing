@@ -19,6 +19,8 @@ import * as faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 import * as faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import * as faAngleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
 import * as faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle';
+import * as faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
+import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
 
 import * as fontawesome from '@fortawesome/fontawesome';
 
@@ -43,5 +45,8 @@ fontawesome.library.add(
 	faThumbsUp,
 	faBell,
 	faSortDown,
-	faInfoCircle
+	faInfoCircle,
+	faQuestionCircle,
+	faTimesCircle,
+
 );

@@ -3,7 +3,7 @@
 		<h2>{{ product?.name}}</h2>
 		<div>
 			<div class="flex supplierCtnr">
-				<icon-app class="supplierIcon" name="check-circle" size="xs" color="success"></icon-app>
+				<supplier-status-icon-app class="supplierIcon" [status]="product?.supplierId | entityStatus: 'suppliers' | async" size="xs"></supplier-status-icon-app>
 				<span class="supplier"> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
 			</div>
 

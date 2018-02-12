@@ -18,6 +18,7 @@ import { CardModule } from '../card/card.module';
 import { FileModule } from '../file/file.module';
 import { LoadersModule } from '../loaders/loaders.module';
 import { ProductStatusBadgeComponent } from './components/product-status-badge/product-status-badge.component';
+import { SuppliersModule } from '../suppliers/suppliers.module';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { ProductStatusBadgeComponent } from './components/product-status-badge/p
 		FileModule,
 		CardModule,
 		TooltipModule,
-		LoadersModule
+		LoadersModule,
+		SuppliersModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

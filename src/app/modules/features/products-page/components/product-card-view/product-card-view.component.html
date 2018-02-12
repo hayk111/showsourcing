@@ -6,7 +6,7 @@
 			(itemDropped)="changeStatus($event)"
 			[bag]="status.id"
 			[label]="status.name"
-			borderClass="bg-{{status.id}}"
+			borderClass="bg-{{ status.id }}"
 			*ngFor="let status of statuses; let i = index">
 				<kanban-item-app
 					[data]="product.id"
