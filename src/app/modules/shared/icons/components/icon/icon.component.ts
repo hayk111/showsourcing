@@ -14,11 +14,9 @@ export class IconComponent implements OnInit {
 	@Input() sizePx: number;
 	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl';
 	@Input() color: 'primary' | 'secondary' | 'success' | 'warn';
-	@ViewChild('icon') icon: ElementRef;
 	constructor() { }
 
 	ngOnInit() {
-		fontawesome.dom.i2svg(this.icon.nativeElement);
 	}
 
 }

@@ -6,11 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import { searchEntity, searchEntities, SmartSearch } from '../../../../store/selectors/misc/search-entities.selector';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { take, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
 	selector: 'filter-search-bar-app',
 	templateUrl: './filter-search-bar.component.html',
-	styleUrls: ['./filter-search-bar.component.scss']
+	styleUrls: ['./filter-search-bar.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterSearchBarComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;

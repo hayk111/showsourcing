@@ -20,6 +20,7 @@ import { UserModule } from '../user/user.module';
 import { AuthModule } from '../../features/auth/auth.module';
 import { environment } from '../../../../environments/environment';
 import { NgxUIModule } from '@swimlane/ngx-ui';
+import { IconsModule } from '../icons/icons.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -43,6 +44,7 @@ import { NgxUIModule } from '@swimlane/ngx-ui';
 		EntitiesServicesModule,
 		UserModule,
 		TemplateModule,
+		IconsModule
 	],
 	providers: [
 		reducerProvider,
