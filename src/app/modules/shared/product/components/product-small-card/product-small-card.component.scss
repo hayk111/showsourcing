@@ -25,9 +25,15 @@
 	position: relative;
 	.heart {
 		position: absolute;
-    top: -9px;
-    transform: scale(0.5);
-    left: -9px;
+    background: #ffffffa3;
+    height: 18px;
+    width: 18px;
+		top: 2px;
+		left: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 	}
 	img {
 		max-height:100%;
@@ -43,11 +49,8 @@ main, footer{
 
 .cercleGreen {
 	position: absolute;
-	width: 75px;
-	height: 75px;
-	background: var(--color-success);
-	bottom: -15px;
-	right: -15px;
+	bottom: -14px;
+	right: -14px;
 	opacity: 0.4;
 }
 

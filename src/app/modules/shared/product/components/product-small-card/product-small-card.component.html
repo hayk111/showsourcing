@@ -7,11 +7,17 @@
 		<div class="flex">
 			<div class="imgCtnr">
 				<img [src]="product?.mainImage?.urls?.url_120x90 || DEFAULT_IMAGE "/>
-				<icon-app class="heart" name="heart"></icon-app>
+				<icon-app class="heart" name="heart" color="warn" size="xs" *ngIf="product.rating === 5"></icon-app>
 			</div>
 			<product-sub-info-app [product]="product"></product-sub-info-app>
 		</div>
-		<div class="cercleGreen cercle" *ngIf="product?.status === 'Complete'"></div>
+		<icon-app
+			class="cercleGreen"
+			name="check-circle"
+			sizePx="82"
+			color="success"
+			*ngIf="product?.status === 'Complete'">
+		</icon-app>
 	</main>
 	<footer class="flex">
 		<div class="author">
