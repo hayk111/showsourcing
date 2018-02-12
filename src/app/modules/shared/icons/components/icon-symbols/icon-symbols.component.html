@@ -1,22 +1,4 @@
 <!-- this component should be put once in the dom -->
-<i class="fas fa-angle-right" data-fa-symbol="angle-right"></i>
-<i class="fas fa-angle-left" data-fa-symbol="angle-left"></i>
-<i class="fas fa-pencil-alt" data-fa-symbol="pencil-alt"></i>
-<i class="fas fa-share" data-fa-symbol="share"></i>
-<i class="fas fa-ellipsis-h" data-fa-symbol="ellipsis-h"></i>
-<i class="fas fa-ellipsis-v" data-fa-symbol="ellipsis-v"></i>
-<i class="fas fa-fire" data-fa-symbol="fire"></i>
-<i class="fas fa-heart" data-fa-symbol="heart"></i>
-<i class="fas fa-check-square" data-fa-symbol="check-square"></i>
-<i class="fas fa-comment" data-fa-symbol="comment"></i>
-<i class="fas fa-search" data-fa-symbol="search"></i>
-<i class="fas fa-check-circle" data-fa-symbol="check-circle"></i>
-<i class="fas fa-circle" data-fa-symbol="circle"></i>
-<i class="fas fa-tag" data-fa-symbol="tag"></i>
-<i class="fas fa-bolt" data-fa-symbol="bolt"></i>
-<i class="fas fa-thumbs-up" data-fa-symbol="thumbs-up"></i>
-<i class="fas fa-bell" data-fa-symbol="bell"></i>
-<i class="fas fa-sort-down" data-fa-symbol="sort-down"></i>
-<i class="fas fa-info-circle" data-fa-symbol="info-circle"></i>
-<i class="fas fa-question-circle" data-fa-symbol="question-circle"></i>
-<i class="fas fa-times-circle" data-fa-symbol="times-circle"></i>
+<i *ngFor="let icon of icons" class="fas fa-{{ icon.iconName }}" [attr.data-fa-symbol]="icon.iconName"></i>
+
+

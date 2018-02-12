@@ -26,8 +26,7 @@ import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
 fontawesome.config.observeMutations = false;
-fontawesome.library.add(
-	faAngleRight,
+export const faIcons = [	faAngleRight,
 	faAngleLeft,
 	faPencilAlt,
 	faShare,
@@ -47,6 +46,7 @@ fontawesome.library.add(
 	faSortDown,
 	faInfoCircle,
 	faQuestionCircle,
-	faTimesCircle,
+	faTimesCircle
+];
 
-);
+faIcons.forEach(ic => fontawesome.library.add(ic));
