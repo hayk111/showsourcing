@@ -3,9 +3,8 @@
 	justify-content: flex-end
 }
 .currency {
-	color: var(--color-txt-secondary);
-	font-weight: bold;
-	font-size: var(--font-size-s);
+	color: var(--color-txt-third);
+	font-size: var(--font-size-xs);
 	margin-right: var(--spacing-xs);
 }
 
@@ -16,7 +15,9 @@
 
 .big {
 	.currency {
+		color: var(--color-txt-secondary);
 		font-size: var(--font-size-default);
+		font-weight: bold;
 	}
 	.amount {
 		font-size: var(--font-size-l);
