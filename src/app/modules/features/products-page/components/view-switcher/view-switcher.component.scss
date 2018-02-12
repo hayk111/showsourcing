@@ -9,6 +9,10 @@
 .ctnr {
 	// to suppress the shadow from the btn
 	overflow: hidden;
+	height: 33px;
+	& > * {
+		height: 100%;
+	}
 }
 
 button {

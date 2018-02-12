@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import * as fontawesome from '@fortawesome/fontawesome';
+import { ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'icon-app',
@@ -12,9 +14,11 @@ export class IconComponent implements OnInit {
 	@Input() sizePx: number;
 	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl';
 	@Input() color: 'primary' | 'secondary' | 'success' | 'warn';
+	@ViewChild('icon') icon: ElementRef;
 	constructor() { }
 
 	ngOnInit() {
+		fontawesome.dom.i2svg(this.icon.nativeElement);
 	}
 
 }
