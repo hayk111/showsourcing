@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { EntityNamePipe } from './entity-name.pipe';
 import { selectEntityById } from '../selectors/misc/utils.selector';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil, filter, map } from 'rxjs/operators';
 
 @Pipe({
 	name: 'entityExist'
@@ -15,7 +15,7 @@ export class EntityExistPipe extends EntityNamePipe implements PipeTransform {
 		return this.store.select(selectEntityById({ entityId, entityRepr }))
 			.pipe(
 				takeUntil(this._destroy$),
-				filter(o => !!o)
+				map(o => !!o)
 			);
 	}
 
