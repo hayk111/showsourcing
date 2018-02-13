@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class InputTextareaComponent extends AbstractInput implements OnInit {
 	@Input() formControl: FormControl = new FormControl('');
-
+	@Output() enter = new EventEmitter<string>();
 	constructor() {
 		super();
 	}
@@ -22,7 +22,7 @@ export class InputTextareaComponent extends AbstractInput implements OnInit {
 	}
 
 	onEnter(value: string, event) {
-		this.update.emit(value);
+		this.enter.emit(value);
 		this.formControl.reset();
 		event.preventDefault();
 	}

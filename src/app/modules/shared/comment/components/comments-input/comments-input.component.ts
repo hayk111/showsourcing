@@ -26,7 +26,8 @@ export class CommentsInputComponent extends AutoUnsub {
 
 	@Input()
 	set comments(v: Array<AppComment>) {
-		this._comments = v;
+		// Antoine wants the reverse order.
+		this._comments = v.reverse();
 	}
 
 	get comments() {
