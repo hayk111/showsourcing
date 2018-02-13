@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwitchComponent } from './switch.component';
+import { NewTaskDlgComponent } from './new-task-dlg.component';
 
-describe('SwitchComponent', () => {
-  let component: SwitchComponent;
-  let fixture: ComponentFixture<SwitchComponent>;
+describe('NewTaskDlgComponent', () => {
+  let component: NewTaskDlgComponent;
+  let fixture: ComponentFixture<NewTaskDlgComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwitchComponent ]
+      declarations: [ NewTaskDlgComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SwitchComponent);
+    fixture = TestBed.createComponent(NewTaskDlgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

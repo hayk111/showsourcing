@@ -10,7 +10,6 @@ import { EntityState, EntityRepresentation, EntityTarget, entityRepresentationMa
 import { DialogName } from '../../../../store/model/ui/dialog.model';
 import { selectProducts } from '../../../../store/selectors/entities/products.selector';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
-import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { map } from 'rxjs/operators';
 import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';

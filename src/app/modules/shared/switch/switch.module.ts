@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwitchComponent } from './components/switch/switch.component';
+import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [SwitchComponent]
+	declarations: [ ViewSwitcherComponent ],
+	exports: [
+		ViewSwitcherComponent
+	]
 })
 export class SwitchModule { }
