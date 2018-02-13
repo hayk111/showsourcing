@@ -54,9 +54,19 @@
   }
 }
 
-.preloader.preloader-small {
+.preloader.small {
   width: 50px;
   height: 50px;
+  .arc {
+    height: 1px;
+    border-right-width: 3px;
+  }
+}
+
+.preloader.xsmall {
+  width: 16px;
+	height: 16px;
+	margin: 0;
   .arc {
     height: 1px;
     border-right-width: 3px;
