@@ -1,11 +1,13 @@
 <div (fileDrop)="onFileAdded($event)">
-		Files &amp; Documents
+	<div class="flexBetween">
+		<h2>Files &amp; Documents</h2>
 
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
 		<button class="small" (click)="inp.click()" i18n="button|add file">Add File</button>
+	</div>
 
 	<ng-container *ngIf="files$ | async as files">
-		<table class="fullWidth withBorder">
+		<table class="fullWidth">
 			<thead>
 				<tr>
 					<th></th>
@@ -23,7 +25,7 @@
 							<i class="fa fa-download pointer" (click)="download(file)" aria-hidden="true"></i>
 						</ng-container>
 						<ng-template #spinner>
-							...
+							<spinner-app size="xsmall"></spinner-app>
 						</ng-template>
 					</td>
 					<td>
