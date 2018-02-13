@@ -1,6 +1,6 @@
 import { ActionType } from '../../action/selection/selection.action';
 import { entityRepresentationMap, EntityTarget, EntityRepresentation,
-	 entityInitialState, addEntities, replaceEntity } from '../../utils/entities.utils';
+	 entityInitialState, addEntities, replaceEntity, removeEntity } from '../../utils/entities.utils';
 import { TypedAction } from '../../utils/typed-action.interface';
 
 const initialState = {
@@ -37,6 +37,9 @@ export function selectionReducerFactory(actionType) {
 
 			case actionType['REPLACE']:
 				return replaceEntity(state, action.payload.old, action.payload.replacing);
+
+			case actionType['REMOVE']:
+				return removeEntity(state, action.payload.id);
 
 			default: return state;
 		}

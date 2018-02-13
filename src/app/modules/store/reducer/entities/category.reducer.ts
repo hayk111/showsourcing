@@ -1,7 +1,7 @@
 import { Category } from '../../model/entities/category.model';
 import { ActionType } from '../../action/entities/category.action';
 import { TypedAction } from '../../utils/typed-action.interface';
-import { EntityState, addEntities, entityInitialState, copyById, removeId } from '../../utils/entities.utils';
+import { EntityState, addEntities, entityInitialState, copyById, removeEntity } from '../../utils/entities.utils';
 
 
 export function categoryReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Category> {
@@ -18,7 +18,7 @@ export function categoryReducer(state = entityInitialState, action: TypedAction<
 
 			case ActionType.DELETE:
 				id = action.payload;
-				return removeId(state, id);
+				return removeEntity(state, id);
 
 
 			default:

@@ -1,4 +1,4 @@
-import { entityInitialState, addEntities, removeId, copyById } from '../../utils/entities.utils';
+import { entityInitialState, addEntities, copyById, removeEntity } from '../../utils/entities.utils';
 import { TypedAction } from '../../utils/typed-action.interface';
 
 
@@ -19,7 +19,7 @@ export function basicReducerFactory(actionType: any) {
 				return copyById(state, id, { [propName]: value } );
 
 			case actionType.DELETE:
-				return removeId(state, id);
+				return removeEntity(state, id);
 
 			case actionType.SET_PENDING:
 				return { ...state, pending: true };

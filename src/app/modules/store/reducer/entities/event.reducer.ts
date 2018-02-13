@@ -1,6 +1,6 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { ActionType } from '../../action/entities/event.action';
-import { EntityState, addEntities, entityInitialState, copyById, removeId } from '../../utils/entities.utils';
+import { EntityState, addEntities, entityInitialState, copyById, removeEntity } from '../../utils/entities.utils';
 import { Event } from '../../model/entities/event.model';
 
 
@@ -19,7 +19,7 @@ export function eventsReducer(state = entityInitialState, action: TypedAction<an
 
 		case ActionType.DELETE:
 			id = action.payload;
-			return removeId(state, id);
+			return removeEntity(state, id);
 
 		default: return state;
 	}

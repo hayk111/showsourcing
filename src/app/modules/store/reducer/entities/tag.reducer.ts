@@ -1,7 +1,7 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { ActionType } from '../../action/entities/tag.action';
 import { Tag } from '../../model/entities/tag.model';
-import { EntityState, entityInitialState, addEntities, copyById, removeId } from '../../utils/entities.utils';
+import { EntityState, entityInitialState, addEntities, copyById, removeEntity } from '../../utils/entities.utils';
 
 
 export function tagReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Tag> {
@@ -19,7 +19,7 @@ export function tagReducer(state = entityInitialState, action: TypedAction<any> 
 
 		case ActionType.DELETE:
 			id = action.payload;
-			return removeId(state, id);
+			return removeEntity(state, id);
 
 		default: return state;
 	}

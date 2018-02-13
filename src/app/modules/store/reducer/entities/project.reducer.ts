@@ -1,7 +1,7 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { Project } from '../../model/entities/project.model';
 import { ActionType } from '../../action/entities/project.action';
-import { EntityState, addEntities, entityInitialState, copyById, removeId } from '../../utils/entities.utils';
+import { EntityState, addEntities, entityInitialState, copyById, removeEntity } from '../../utils/entities.utils';
 
 
 export function projectReducer(state = entityInitialState, action: TypedAction<any> ): EntityState<Project> {
@@ -19,7 +19,7 @@ export function projectReducer(state = entityInitialState, action: TypedAction<a
 
 		case ActionType.DELETE:
 			id = action.payload;
-			return removeId(state, id);
+			return removeEntity(state, id);
 
 		default: return state;
 	}

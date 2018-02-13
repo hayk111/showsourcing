@@ -122,7 +122,7 @@ export function copyById(state, id, additionalProps?: any) {
 	};
 }
 
-export function removeId(state, id) {
+export function removeEntity(state, id) {
 	const ids = [...state.ids];
 	const index = ids.indexOf(id);
 	ids.splice(index, 1);

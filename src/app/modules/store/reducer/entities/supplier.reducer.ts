@@ -1,5 +1,5 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { EntityState, addEntities, entityInitialState, copyById, removeId } from '../../utils/entities.utils';
+import { EntityState, addEntities, entityInitialState, copyById, removeEntity } from '../../utils/entities.utils';
 import { Supplier } from '../../model/entities/supplier.model';
 import { ActionType } from '../../action/entities/supplier.action';
 
@@ -19,7 +19,7 @@ export function supplierReducer(state = entityInitialState, action: TypedAction<
 
 			case ActionType.DELETE:
 				id = action.payload;
-				return removeId(state, id);
+				return removeEntity(state, id);
 
 			default:
 				return state;

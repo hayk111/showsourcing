@@ -1,7 +1,7 @@
 import { TypedAction } from '../../utils/typed-action.interface';
 import { ActionType } from '../../action/entities/product.action';
 import { Product } from '../../model/entities/product.model';
-import { EntityState, entityInitialState, copyById, addEntities, removeId } from '../../utils/entities.utils';
+import { EntityState, entityInitialState, copyById, addEntities } from '../../utils/entities.utils';
 import { deepCopy } from '../../utils/deep-copy.utils';
 import { AppComment } from '../../model/entities/comment.model';
 import { AppFile } from '../../model/entities/app-file.model';
