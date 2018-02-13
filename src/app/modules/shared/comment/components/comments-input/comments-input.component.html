@@ -1,9 +1,34 @@
-	<p *ngFor="let comment of comments">
-		<span class="author">{{ comment.createdByUserId | entityName: 'teamMembers' | async }}</span>
-		<span class="msg">{{ comment.text }}</span>
-	</p>
+<div class="inpCtnr">
+	<input-textarea-app
+		placeholder="Your comment"
+		[formControl]="ctrl"
+		(update)="onEnter($event)">
+	</input-textarea-app>
+</div>
 
-	<textarea placeholder="Your comment"
-						[formControl]="ctrl" maxlength="140"
-						(keydown.enter)="onEnter($event)"></textarea>
-	{{ ctrl.value.length }} / 140
+
+<ng-container *ngIf="comments.length > 0; else noActivity">
+	<div *ngFor="let comment of comments; let last = last" class="flex ctnr">
+
+		<div class="iconCtnr">
+			<div class="cercleAction">
+				<icon-app name="comment"></icon-app>
+				<spinner-app class="spinner" *ngIf="comment.pending" size="small"> </spinner-app>
+			</div>
+			<div class="vbar" *ngIf="!last"></div>
+		</div>
+
+
+		<div class="flex activity">
+			<div class="flexColumn">
+				<span class="author">{{ comment.createdByUserId | entityName: 'teamMembers' | async }}</span>
+				<small>{{ comment.creationDate | timeAgo }}</small>
+			</div>
+			<div class="msg"> {{ comment.text }} </div>
+		</div>
+
+	</div>
+</ng-container>
+<ng-template #noActivity i18n>
+	There doesn't seem to be any comment yet, leave one !
+</ng-template>

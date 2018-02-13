@@ -8,6 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { SelectionAction } from '../../../../store/action/selection/selection.action';
 import { selectCommentsForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { FormControl } from '@angular/forms';
+import { CommentSlctnActions } from '../../../../store/action/selection/comment-selection.action';
+import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
 	selector: 'app-product-activity-page',
@@ -16,12 +19,17 @@ import { selectCommentsForSelection } from '../../../../store/selectors/selectio
 })
 export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
 	comments$: Observable<Array<AppComment>>;
+	comment = new FormControl('');
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
 		this.comments$ = this.store.select(selectCommentsForSelection);
+	}
+
+	onComment(txt: string) {
+		this.store.dispatch(CommentSlctnActions.add(new AppComment(txt, this.userSrv.getUserId())));
 	}
 }

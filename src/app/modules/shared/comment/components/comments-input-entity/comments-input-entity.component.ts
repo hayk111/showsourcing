@@ -6,7 +6,7 @@ import { AppComponent } from '../../../app/components/app.component';
 import { AppComment } from '../../../../store/model/entities/comment.model';
 import { CommentSlctnActions } from '../../../../store/action/selection/comment-selection.action';
 import { UserService } from '../../../user/services/user.service';
-import { selectCommentsForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectCommentsForSelection, selectCommentsArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
 
 @Component({
 	selector: 'comments-entity-app',
@@ -14,18 +14,16 @@ import { selectCommentsForSelection } from '../../../../store/selectors/selectio
 	styleUrls: ['./comments-input-entity.component.scss']
 })
 export class CommentsInputEntityComponent implements OnInit {
-	private _target: EntityTarget;
 	comments$: Observable<Array<AppComponent>>;
 
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.comments$ = this.store.select<any>(selectCommentsForSelection);
+		this.comments$ = this.store.select<any>(selectCommentsArrayForSelection);
 	}
 
 	onNewComment(text: string) {
 		this.store.dispatch(CommentSlctnActions.add( new AppComment(text, this.userSrv.getUserId())));
 	}
-
 
 }

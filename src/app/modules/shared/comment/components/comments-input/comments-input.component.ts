@@ -12,7 +12,7 @@ import { AppComment } from '../../../../store/model/entities/comment.model';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentsInputComponent extends AutoUnsub {
-	@Input() comments: Array<AppComment> = [];
+	private _comments: Array<AppComment>;
 	@Output() newComment = new EventEmitter<string>();
 	ctrl = new FormControl('', Validators.required);
 
@@ -20,13 +20,17 @@ export class CommentsInputComponent extends AutoUnsub {
 		super();
 	}
 
-	onEnter(event) {
-		if (this.ctrl.valid) {
-			const text = this.ctrl.value;
-			this.newComment.emit(text);
-			this.ctrl.setValue('');
-			event.preventDefault();
-		}
+	onEnter(txt: string) {
+		this.newComment.emit(txt);
+	}
+
+	@Input()
+	set comments(v: Array<AppComment>) {
+		this._comments = v;
+	}
+
+	get comments() {
+		return this._comments;
 	}
 
 }

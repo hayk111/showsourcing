@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputTextareaComponent extends AbstractInput implements OnInit {
-	@Input() formControl: FormControl;
+	@Input() formControl: FormControl = new FormControl('');
 
 	constructor() {
 		super();
@@ -21,5 +21,9 @@ export class InputTextareaComponent extends AbstractInput implements OnInit {
 		super.ngOnInit();
 	}
 
-
+	onEnter(value: string, event) {
+		this.update.emit(value);
+		this.formControl.reset();
+		event.preventDefault();
+	}
 }

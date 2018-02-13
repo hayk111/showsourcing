@@ -1,3 +1,79 @@
+
+.ctnr {
+	align-items: flex-end;
+}
+
+.activity {
+	margin-top: var(--spacing-xl);
+	align-items: baseline;
+}
+
+.top {
+	display: flex;
+	justify-content: space-between;
+}
+
 .author{
 	color: var(--color-primary);
+}
+
+.action{
+	margin-left: var(--spacing-xs);
+}
+
+.activity {
+	flex-grow: 1;
+}
+
+.commentCtnr {
+	width: 300px;
+}
+
+.cercleAction {
+	z-index: 2;
+	border-radius: 50%;
+	background-color: var(--color-bg-third);
+	color: var(--color-txt);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 42px;
+	width: 42px;
+	position: relative;
+	.spinner {
+		position: absolute;
+	}
+}
+
+.iconCtnr{
+	position: relative;
+	margin-right: var(--spacing-xl);
+	width: 30px;
+}
+time {
+	font-size: 13px;
+}
+
+.vbar{
+	width: 2px;
+	background: var(--color-bg-secondary);
+	height: 100%;
+	position: absolute;
+	left: 20px;
+}
+
+.right {
+	flex-grow: 1;
+}
+
+.left {
+	margin-right: var(--spacing-default);
+}
+
+.msg {
+	margin-left: var(--spacing-s);
+}
+
+small{
+	color: rgba(0, 0, 0, 0.54);
 }

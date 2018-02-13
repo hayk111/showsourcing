@@ -26,6 +26,7 @@ import { TopPanelComponent } from './components/top-panel/top-panel.component';
 import { ViewSwitcherAction } from '../../store/action/ui/view-switcher.action';
 import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
 import { FilterSearchBarModule } from '../../shared/filter-search-bar/filter-search-bar.module';
+import { IconsModule } from '../../shared/icons/icons.module';
 
 @NgModule({
 	imports: [
@@ -47,7 +48,8 @@ import { FilterSearchBarModule } from '../../shared/filter-search-bar/filter-sea
 		UtilsModule,
 		NgxDatatableModule,
 		ProductModule,
-		FilterSearchBarModule
+		FilterSearchBarModule,
+		IconsModule
 	],
 	declarations: [
 		ProductsPageComponent,

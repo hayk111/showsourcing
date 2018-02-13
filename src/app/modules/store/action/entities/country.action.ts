@@ -1,25 +1,12 @@
 import { Action } from '@ngrx/store';
 import { Country } from '../../model/entities/country.model';
 import { TypedAction } from '../../utils/typed-action.interface';
-
-export enum ActionType {
-	LOAD = '[Country] Loading',
-	ADD = '[Country] Adding',
-}
-
-export class CountryActions {
-
-	static load() {
-		return {
-			type: ActionType.LOAD
-		};
-	}
+import { makeBasicActionTypes, makeBasicActions } from './_entity.action.factory';
+import { entityRepresentationMap } from '../../utils/entities.utils';
 
 
-	static add(payload: Array<Country>): TypedAction<Array<Country>> {
-		return {
-			type: ActionType.ADD,
-			payload
-		};
-	}
-}
+// keeping capitalization for backward compatibility
+export const ActionType = makeBasicActionTypes(entityRepresentationMap.countries);
+export const CountryActions = makeBasicActions(ActionType);
+entityRepresentationMap.countries.actions = CountryActions;
+

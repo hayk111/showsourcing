@@ -9,7 +9,7 @@ import { SelectModule } from '../../shared/select/select.module';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductSampleComponent } from './components/product-sample/product-sample.component';
 import { ProductTechDetailsComponent } from './components/product-tech-details/product-tech-details.component';
 import { ProductTasksComponent } from './components/product-tasks/product-tasks.component';
@@ -22,11 +22,13 @@ import { IconsModule } from '../../shared/icons/icons.module';
 import { ProductPageMainCardComponent } from './components/product-page-main-card/product-page-main-card.component';
 import { CardModule } from '../../shared/card/card.module';
 import { LikesChartModule } from '../../shared/likes-chart/likes-chart.module';
+import { InputsModule } from '../../shared/inputs/inputs.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
+		ReactiveFormsModule,
 		RouterModule.forChild([]),
 		CarouselModule,
 		FileModule,
@@ -40,7 +42,8 @@ import { LikesChartModule } from '../../shared/likes-chart/likes-chart.module';
 		ProductModule,
 		IconsModule,
 		CardModule,
-		LikesChartModule
+		LikesChartModule,
+		InputsModule
 	],
 	declarations: [
 		ProductPageComponent,

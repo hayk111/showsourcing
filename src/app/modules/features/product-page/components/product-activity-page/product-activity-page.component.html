@@ -1,29 +1,6 @@
 <ng-container *ngIf="comments$ | async as comments">
 	<ng-container *ngIf="!comments.pending; else spinner">
-		<ng-container *ngIf="comments.ids.length > 0; else noActivity">
-			<div *ngFor="let id of comments.ids; let last = last" class="flex ctnr">
-
-				<div class="iconCtnr">
-					<div class="cercleAction">
-						<icon-app name="comment"></icon-app>
-					</div>
-					<div class="vbar" *ngIf="!last"></div>
-				</div>
-
-
-				<div class="flex activity">
-					<div class="flexColumn">
-						<span class="author">{{ comments.byId[id].createdByUserId | entityName: 'teamMembers' | async }}</span>
-						<small>{{ comments.byId[id].creationDate | timeAgo }}</small>
-					</div>
-					<div class="msg"> {{ comments.byId[id].text }} </div>
-				</div>
-
-			</div>
-		</ng-container>
-		<ng-template #noActivity i18n>
-			There doesn't seem to be any activity yet
-		</ng-template>
+		<comments-entity-app></comments-entity-app>
 	</ng-container>
 </ng-container>
 

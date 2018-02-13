@@ -1,0 +1,20 @@
+textarea {
+	padding: var(--spacing-s);
+	width: 100%;
+	font-family: inherit;
+	border: none;
+	border-bottom: 1px solid var(--color-txt-secondary);
+}
+
+
+.lengthTip {
+	text-align: right;
+	display: none;
+}
+
+textarea:focus {
+	border-color: var(--color-primary);
+	& ~ .lengthTip {
+		display: block;
+	}
+}
