@@ -1,6 +1,6 @@
 
 .ctnr {
-	align-items: flex-end;
+	align-items: center;
 }
 
 .activity {
@@ -49,6 +49,7 @@
 	position: relative;
 	margin-right: var(--spacing-xl);
 	width: 30px;
+	padding-top: 28px;
 }
 time {
 	font-size: 13px;
