@@ -5,7 +5,7 @@
 	</user-picture-with-name-app>
 
 	<div class="panelCtnr">
-		<icon-app name="sort-down" (click)="openPanel()"></icon-app>
+		<icon-app name="sort-down" class="pointer" (click)="openPanel()"></icon-app>
 		<user-panel-app *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>
 	</div>
 

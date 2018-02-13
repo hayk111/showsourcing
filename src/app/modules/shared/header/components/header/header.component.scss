@@ -1,12 +1,12 @@
 :host {
 	display: flex;
-	z-index: 4;
+	z-index: auto;
+	position: relative;
   justify-content: space-between;
 	align-items: center;
 	box-sizing: border-box;
 	height: 48px;
 	padding: var(--spacing-xs);
-	flex: 0 0 48px;
 	width: 100%;
 	background: var(--color-bg);
 	color: var(--color-txt-primary);
