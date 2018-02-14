@@ -1,21 +1,14 @@
 
 export enum ActionType {
-	ADD_ERROR = '[Error] Add',
-	REMOVE_ERROR = '[Error] Remove'
+	ADD = '[Error] Add',
 }
 
 export class AppErrorActions {
-	static add(message: string) {
+	static add(e: Error) {
 		return {
-			type: ActionType.ADD_ERROR,
-			payload: { message }
+			type: ActionType.ADD,
+			payload: e
 		};
 	}
 
-	static remove(id: number) {
-		return {
-			type: ActionType.REMOVE_ERROR,
-			payload: id
-		};
-	}
 }

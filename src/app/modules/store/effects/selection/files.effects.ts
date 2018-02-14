@@ -7,6 +7,8 @@ import { ActionType, FileSlctnActions } from '../../action/selection/file-select
 import { mergeMap } from 'rxjs/operators';
 import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
 import { catchError } from 'rxjs/operators/catchError';
+import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class FilesSelectionEffects {
@@ -33,7 +35,7 @@ export class FilesSelectionEffects {
 					FeedbackDlgActions.add({ styleType: FeedbackStyle.SUCCESS, title: 'File Uploaded', body: 'Your file was uploaded with success'}),
 					FileSlctnActions.replace(p.file, r)
 				]),
-				catchError(e => { console.log(e); return null })
+				catchError(e => of(AppErrorActions.add(e)))
 			))
 		);
 

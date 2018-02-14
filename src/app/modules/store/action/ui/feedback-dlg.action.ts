@@ -6,7 +6,7 @@ export enum ActionType {
 
 export interface FeedbackParams {
 	title: string,
-	body: string,
+	body?: string,
 	styleType: FeedbackStyle,
 	timeout?: number | boolean,
 	rateLimit?: number

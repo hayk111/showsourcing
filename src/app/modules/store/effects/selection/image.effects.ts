@@ -1,11 +1,13 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { map, startWith, switchMap, tap, withLatestFrom, retry } from 'rxjs/operators';
+import { map, startWith, switchMap, tap, withLatestFrom, retry, catchError } from 'rxjs/operators';
 import { EntityTarget } from '../../utils/entities.utils';
 import { ImageService } from '../../services/images.service';
 import { AppImage } from '../../model/entities/app-image.model';
 import { SelectionService } from '../../services/selection.service';
 import { ActionType, ImageSlctnActions } from '../../action/selection/images-selection.action';
+import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class ImageSelectionEffects {
@@ -27,10 +29,11 @@ export class ImageSelectionEffects {
 			switchMap((p: any) => this.srv.uploadFile(p).pipe(
 				// the file might not be ready yet so we have to query it until it's ready.
 				switchMap(
-				(r: any) => this.srv.queryFile(r).pipe(retry(10)),
-				// replace currently pending files
-				map((r: any) => ImageSlctnActions.replace(p.file, r))
-			))
+					(r: any) => this.srv.queryFile(r).pipe(retry(10)),
+					// replace currently pending files
+					map((r: any) => ImageSlctnActions.replace(p.file, r)),
+				), catchError(e => of(AppErrorActions.add(e)))
+			)
 		));
 
 	@Effect()
