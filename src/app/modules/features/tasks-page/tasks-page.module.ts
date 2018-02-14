@@ -7,13 +7,20 @@ import { MatTableModule } from '@angular/material';
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AppStoreModule } from '../../store/store.module';
+import { UserModule } from '../../shared/user/user.module';
+import { UtilsModule } from '../../shared/utils/utils.module';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
-		EntityPageModule
-
+		EntityPageModule,
+		NgxDatatableModule,
+		AppStoreModule.forRoot(),
+		UserModule,
+		UtilsModule
 	],
 	declarations: [
 		TasksPageComponent,
