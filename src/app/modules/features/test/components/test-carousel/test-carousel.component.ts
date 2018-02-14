@@ -24,8 +24,6 @@ export class TestCarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// loading product in case they aren't loaded
-		// this.store.dispatch(ProductActions.load());
 		// we select a product then we load images for it
 		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$)
 			.pipe( tap(target => this.store.dispatch(SelectionAction.select(target)))

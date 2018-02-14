@@ -26,7 +26,6 @@ export class KanbanTestComponent implements OnInit {
 
 	ngOnInit() {
 		this.productsByStatus$ = this.store.select(selectProductByStatus);
-		// this.store.dispatch(ProductActions.load());
 	}
 
 	onEvent(event) {

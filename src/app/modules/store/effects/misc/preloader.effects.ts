@@ -15,6 +15,7 @@ import { interval } from 'rxjs/observable/interval';
 import { ActionType } from '../../action/misc/preloader.action';
 import { PreloaderService } from '../../services/preloader.service';
 import { ProductActions } from '../../action/entities/product.action';
+import { TaskActions } from '../../action/entities/task.action';
 
 
 @Injectable()
@@ -46,6 +47,7 @@ export class PreloaderEffects {
 
 	private getEntities(id, maxCounter = -1) {
 		this.dispatch(ProductActions.load({id, maxCounter}));
+		this.dispatch(TaskActions.load({ id, maxCounter }));
 		this.dispatch(CategoryActions.load({id, maxCounter}));
 		this.dispatch(SupplierActions.load({id, maxCounter}));
 		this.dispatch(EventActions.load({id, maxCounter}));
