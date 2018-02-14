@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { ViewSwitcherAction } from '../../../../store/action/ui/view-switcher.action';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
 	selector: 'top-panel-app',
@@ -12,7 +13,7 @@ import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 })
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() title: string;
+	@Input() repr: EntityRepresentation;
 	@Input() switchable = true;
 	constructor() { }
 

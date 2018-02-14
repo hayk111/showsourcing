@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./supplier-status-icon.component.scss']
 })
 export class SupplierStatusIconComponent implements OnInit {
-	@Input() status;
+	@Input() supplierId: string;
 	@Input() size: string;
   constructor() { }
 

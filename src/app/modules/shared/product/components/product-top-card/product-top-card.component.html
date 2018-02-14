@@ -3,7 +3,9 @@
 		<h2>{{ product?.name}}</h2>
 		<div>
 			<div class="flex supplierCtnr">
-				<supplier-status-icon-app class="supplierIcon" [status]="product?.supplierId | entityStatus: 'suppliers' | async" size="xs"></supplier-status-icon-app>
+				<supplier-status-icon-app
+					class="supplierIcon" [supplierId]="product?.supplierId" size="xs"></supplier-status-icon-app>
+
 				<span class="supplier"> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
 			</div>
 

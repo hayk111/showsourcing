@@ -3,6 +3,7 @@ import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
+import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
   selector: 'entity-page-app',
@@ -10,7 +11,7 @@ import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher
   styleUrls: ['./entity-page.component.scss']
 })
 export class EntityPageComponent implements OnInit {
-	@Input() title: string;
+	@Input() repr: EntityRepresentation;
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;

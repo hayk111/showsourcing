@@ -1,7 +1,7 @@
 <table class="{{ big ? 'big' : '' }}">
 	<tr *ngIf="product?.supplierId | entityExist: 'suppliers' | async">
 		<td>
-			<supplier-status-icon-app [status]="product?.supplierId | entityStatus: 'suppliers' | async" size="xs"></supplier-status-icon-app>
+			<supplier-status-icon-app [supplierId]="product?.supplierId" size="xs"></supplier-status-icon-app>
 		</td>
 		<td>
 			<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>

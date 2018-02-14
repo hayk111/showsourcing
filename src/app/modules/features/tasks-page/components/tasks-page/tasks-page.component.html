@@ -1,4 +1,4 @@
-<entity-page-app [switchable]="false" title="My Tasks" [pending]="pending$ | async">
+<entity-page-app [switchable]="false" [pending]="pending$ | async" [repr]="repr">
 	<tasks-list-view-app [tasks]="tasks$ | async"></tasks-list-view-app>
 </entity-page-app>
 
