@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
-import { MatTableDataSource } from '@angular/material';
 import { Supplier } from '../../../../store/model/entities/supplier.model';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 

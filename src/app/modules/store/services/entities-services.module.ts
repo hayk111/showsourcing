@@ -14,7 +14,6 @@ import { VoteService } from './vote.service';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { TokenService } from './token.service';
-import { MatSnackBarModule } from '@angular/material';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
 import { ImageService } from './images.service';
 import { TeamMembersService } from './team-members.service';
@@ -31,7 +30,6 @@ import { SelectionService } from './selection.service';
 	imports: [
 		CommonModule,
 		HttpClientModule,
-		MatSnackBarModule,
 		LocalStorageModule
 	],
 	declarations: [],

@@ -4,12 +4,18 @@ import { ProjectsPageComponent } from './components/projects-page/projects-page.
 import { ProjectsListViewComponent } from './components/projects-list-view/projects-list-view.component';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UtilsModule } from '../../shared/utils/utils.module';
+import { AppStoreModule } from '../../store/store.module';
+import { UserModule } from '../../shared/user/user.module';
 
 @NgModule({
   imports: [
 		CommonModule,
 		EntityPageModule,
-		NgxDatatableModule
+		NgxDatatableModule,
+		UtilsModule,
+		AppStoreModule.forChild(),
+		UserModule
   ],
   declarations: [ ProjectsPageComponent, ProjectsListViewComponent ]
 })

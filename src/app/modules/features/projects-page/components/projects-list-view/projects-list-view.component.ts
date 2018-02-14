@@ -7,7 +7,7 @@ import { Project } from '../../../../store/model/entities/project.model';
   styleUrls: ['./projects-list-view.component.scss']
 })
 export class ProjectsListViewComponent implements OnInit {
-	@Input() projects: Array<Project>;
+	@Input() projects: Array<Project> = [];
 
   constructor() { }
 

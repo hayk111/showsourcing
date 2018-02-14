@@ -4,6 +4,9 @@ import { map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FileService } from '../../services/file.service';
 import { SelectionService } from '../../services/selection.service';
 import { ActionType, FileSlctnActions } from '../../action/selection/file-selection.action';
+import { mergeMap } from 'rxjs/operators';
+import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
+import { catchError } from 'rxjs/operators/catchError';
 
 @Injectable()
 export class FilesSelectionEffects {
@@ -26,7 +29,11 @@ export class FilesSelectionEffects {
 			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
 			switchMap((p: any) => this.srv.uploadFile(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
-				map(r => FileSlctnActions.replace(p.file, r))
+				mergeMap((r: any) => [
+					FeedbackDlgActions.add({ styleType: FeedbackStyle.SUCCESS, title: 'File Uploaded', body: 'Your file was uploaded with success'}),
+					FileSlctnActions.replace(p.file, r)
+				]),
+				catchError(e => { console.log(e); return null })
 			))
 		);
 

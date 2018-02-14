@@ -1,6 +1,5 @@
 import { ProductEffects } from './entities/products.effects';
 import { AppErrorsEffects } from './misc/app-error.effects';
-import { SnackBarEffects } from './ui/snack-bar.effects';
 import { TaskEffects } from './entities/task.effects';
 import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
@@ -25,6 +24,8 @@ import { TagSelectionEffects } from './selection/tag-selection.effects';
 import { TaskSelectionEffects } from './selection/task-selection.effects';
 import { VoteSelectionEffects } from './selection/vote-selection.effects';
 import { TeamEffects } from './entities/team.effects';
+import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
+import { SnackBarEffects } from './ui/snack-bar.effects';
 
 
 export const effects = [
@@ -44,6 +45,7 @@ export const effects = [
 	TagEffects,
 	ProjectEffects,
 
+
 	// misc
 	SnackBarEffects,
 	AppErrorsEffects,
@@ -60,5 +62,8 @@ export const effects = [
 	ProjectSelectionEffects,
 	TagSelectionEffects,
 	TaskSelectionEffects,
-	VoteSelectionEffects
+	VoteSelectionEffects,
+
+	// UI
+	FeedbackDlgEffects
 ];

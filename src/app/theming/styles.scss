@@ -7,12 +7,12 @@
 @import './helper-classes';
 @import './cards';
 @import './inputs-buttons';
-@import './angular-material-fixes';
 @import './datatable';
 @import './animations';
 @import './entities/product';
 
 // libraries
+@import './libraries';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 // // icons
 // $fa-font-path: "../../../node_modules/font-awesome/fonts";

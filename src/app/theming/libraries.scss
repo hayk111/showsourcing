@@ -1,0 +1,12 @@
+.ngx-notification .notification-content.has-icon {
+	margin-left: 0!important;
+	border-left: 0!important;
+}
+
+.ngx-notification.ngx-notification-success {
+	border-left: 5px solid var(--color-primary);
+}
+
+.ngx-notification.ngx-notification-error {
+	border-left: 5px solid var(--color-error);
+}

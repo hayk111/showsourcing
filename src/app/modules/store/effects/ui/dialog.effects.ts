@@ -2,7 +2,6 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActionType } from '../../action/ui/dialog.action';
-import { MatDialog } from '@angular/material';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { ProductActions } from '../../action/entities/product.action';
 
@@ -21,5 +20,5 @@ export class DialogEffects {
 	.filter(p => p.metadata.id)
 	.map( p => ProductActions);
 
-	constructor(private actions$: Actions, private dialog: MatDialog) {}
+	constructor(private actions$: Actions) {}
 }

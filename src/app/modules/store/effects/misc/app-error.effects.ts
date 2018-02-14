@@ -7,7 +7,6 @@ import { TypedAction } from '../../utils/typed-action.interface';
 import { switchMap } from 'rxjs/operators';
 import { ActionType, AppErrorActions } from '../../action/misc/app-errors.action';
 import { AppError } from '../../model/misc/app-error.model';
-import { SnackBarAction } from '../../action/ui/snackbar.action';
 
 
 @Injectable()
@@ -18,7 +17,7 @@ export class AppErrorsEffects {
 	add: Observable<any> = this.actions$.ofType(ActionType.ADD_ERROR)
 		.do(x => console.log(x))
 		.map((action: TypedAction<AppError>) => action.payload)
-		.map((error: AppError) => SnackBarAction.add(error.message));
+		//.map((error: AppError) => SnackBarAction.add(error.message));
 
 	constructor(private actions$: Actions) {}
 

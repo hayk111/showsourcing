@@ -10,8 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalStorageModule } from '../local-storage/local-storage.module';
 import { reducerProvider } from '../../store/reducer/_reducers';
 import { DynamicFormsModule } from '../dynamic-forms/dynamic-forms.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { EntitiesServicesModule } from '../../store/services/entities-services.module';
@@ -19,7 +17,7 @@ import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../../features/auth/auth.module';
 import { environment } from '../../../../environments/environment';
-import { NgxUIModule } from '@swimlane/ngx-ui';
+import { NotificationModule } from '@swimlane/ngx-ui';
 import { IconsModule } from '../icons/icons.module';
 
 // Can a kangaroo jump higher than a house ?
@@ -39,12 +37,11 @@ import { IconsModule } from '../icons/icons.module';
 		LocalStorageModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
-		MatSnackBarModule,
-		MatDialogModule,
 		EntitiesServicesModule,
 		UserModule,
 		TemplateModule,
-		IconsModule
+		IconsModule,
+		NotificationModule
 	],
 	providers: [
 		reducerProvider,

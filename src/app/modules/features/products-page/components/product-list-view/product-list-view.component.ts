@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { Supplier } from '../../../../store/model/entities/supplier.model';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
 import { EntityState, entityStateToArray, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/entities/product.model';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';

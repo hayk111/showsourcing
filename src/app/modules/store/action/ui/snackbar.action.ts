@@ -1,4 +1,3 @@
-import { MatSnackBarConfig } from '@angular/material';
 
 
 
@@ -9,10 +8,10 @@ export enum ActionType {
 
 
 export class SnackBarAction {
-	static add(message: string, action = 'Ok', config: MatSnackBarConfig = { duration: 4000 }) {
+	static add(config = { duration: 4000 }) {
 		return {
 			type: ActionType.ADD,
-			payload: { message, action, config }
+			payload: config
 		};
 	}
 }
