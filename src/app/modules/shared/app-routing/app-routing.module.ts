@@ -6,9 +6,9 @@ import { HomeModule } from '../../features/home/home.module';
 import { ProductsPageModule } from '../../features/products-page/products-page.module';
 import { TasksPageModule } from '../../features/tasks-page/tasks-page.module';
 import { EventsPageModule } from '../../features/events-page/events-page.module';
-import { SupplierPageModule } from '../../features/supplier-page/supplier-page.module';
+import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-page.module';
 import { TestModule } from '../../features/test/test.module';
-import { ProductPageModule } from '../../features/product-page/product-page.module';
+import { ProductDetailsPageModule } from '../../features/product-page/product-details-page.module';
 
 @NgModule({
 	imports: [
@@ -18,8 +18,8 @@ import { ProductPageModule } from '../../features/product-page/product-page.modu
 		ProductsPageModule,
 		TasksPageModule,
 		EventsPageModule,
-		SupplierPageModule,
-		ProductPageModule,
+		SuppliersPageModule,
+		ProductDetailsPageModule,
 		TestModule
 	],
 	exports: [ RouterModule ],

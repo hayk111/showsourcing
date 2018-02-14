@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { AppStoreModule } from '../../store/store.module';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
 import { ProductSidePreviewComponent } from './components/product-side-preview/product-side-preview.component';
-import { ProductPageModule } from '../product-page/product-page.module';
+import { ProductDetailsPageModule } from '../product-page/product-details-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ProductModule } from '../../shared/product/product.module';
@@ -32,7 +32,7 @@ import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 		RouterModule.forChild([]),
 		AppStoreModule.forChild(),
 		KanbanModule,
-		ProductPageModule,
+		ProductDetailsPageModule,
 		UtilsModule,
 		NgxDatatableModule,
 		ProductModule,

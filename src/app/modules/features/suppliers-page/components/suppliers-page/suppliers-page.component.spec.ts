@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SupplierPageComponent } from './supplier-page.component';
+import { SupplierPageComponent } from './suppliers-page.component';
 
 describe('SupplierPageComponent', () => {
 	let component: SupplierPageComponent;

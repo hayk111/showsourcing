@@ -23,12 +23,16 @@ export class EntityPipe extends AutoUnsub implements PipeTransform {
 		return this.store.select(selectEntityById({ entityId, entityRepr }))
 			.pipe(
 				takeUntil(this._destroy$),
-				map(o => {
+				map(entity => {
 					// if a prop is defined we return said prop
-					if (prop)
-						return o[prop];
+					if (prop) {
+						if (entity)
+							return entity[prop];
+						else
+							return '';
+					}
 					else
-						return o;
+						return entity;
 				})
 			);
 	}

@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { TemplateComponent } from '../template/components/template/template.component';
 import { HomeComponent } from '../../features/home/components/home/home.component';
 import { TestComponent } from '../../features/test/test/test.component';
-import { SupplierPageComponent } from '../../features/supplier-page/components/supplier-page/supplier-page.component';
+import { SuppliersPageComponent } from '../../features/suppliers-page/components/suppliers-page/suppliers-page.component';
 import { ProductsPageComponent } from '../../features/products-page/components/products-page/products-page.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 import { EventPageComponent } from '../../features/events-page/components/event-page/event-page.component';
@@ -28,6 +28,8 @@ import { AuthCardComponent } from '../../features/auth/components/auth-card/auth
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
 import { AuthGuardService } from '../../features/auth/services/auth-guard.service';
 import { TestProductComponent } from '../../features/test/components/test-product/test-product.component';
+import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-page.module';
+import { ProjectsPageComponent } from '../../features/projects-page/components/projects-page/projects-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
@@ -48,9 +50,19 @@ export const routes: Array<Route> = [
 					{ path: 'files', component: ProductFilesComponent },
 				] },
 			] },
-			{ path: 'tasks', component: TasksPageComponent },
-			{ path: 'suppliers', component: SupplierPageComponent },
-			{ path: 'events', component: EventPageComponent },
+			{ path: 'tasks', children: [
+					{ path: '', redirectTo: 'all', pathMatch: 'full'},
+					{ path: 'all', component: TasksPageComponent },
+				]
+			},
+			{ path: 'suppliers', children: [
+				{ path: '', redirectTo: 'all', pathMatch: 'full'},
+				{ path: 'all', component: SuppliersPageComponent },
+			] },
+			{ path: 'projects', children: [
+				{ path: '', redirectTo: 'all', pathMatch: 'full'},
+				{ path: 'all', component: ProjectsPageComponent },
+			] },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'team-management', component: TeamManagementPageComponent },
 			{ path: 'test', component: TestComponent, children: [

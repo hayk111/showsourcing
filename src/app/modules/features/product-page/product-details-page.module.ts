@@ -59,4 +59,4 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 		ProductPageComponent
 	]
 })
-export class ProductPageModule { }
+export class ProductDetailsPageModule { }

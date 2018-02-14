@@ -10,10 +10,10 @@ import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-supplier-page',
-	templateUrl: './supplier-page.component.html',
-	styleUrls: ['./supplier-page.component.scss'],
+	templateUrl: './suppliers-page.component.html',
+	styleUrls: ['./suppliers-page.component.scss'],
 })
-export class SupplierPageComponent implements OnInit {
+export class SuppliersPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;

@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupplierPageComponent } from './components/supplier-page/supplier-page.component';
-import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
+import { SuppliersPageComponent } from './components/suppliers-page/suppliers-page.component';
 import { SupplierListViewComponent } from './components/supplier-list-view/supplier-list-view.component';
-import { MatTableModule } from '@angular/material';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -13,6 +11,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 		EntityPageModule,
 		NgxDatatableModule
 	],
-	declarations: [ SupplierPageComponent, SupplierListViewComponent ]
+	declarations: [ SuppliersPageComponent, SupplierListViewComponent ]
 })
-export class SupplierPageModule { }
+export class SuppliersPageModule { }

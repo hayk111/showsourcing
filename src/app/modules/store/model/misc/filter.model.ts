@@ -13,6 +13,7 @@ export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
 	TASKS_PAGE = 'tasksPage',
 	SUPPLIER_PAGE = 'supplierPage',
+	PROJECTS_PAGE = 'projectPage',
 	EVENTS_PAGE = 'eventsPage'
 }
 
