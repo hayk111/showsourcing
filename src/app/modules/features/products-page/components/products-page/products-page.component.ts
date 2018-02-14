@@ -35,8 +35,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterRating,
 		FilterPrice
 	];
-	view$: Observable<any>;
 	products$: Observable<Array<Product>>;
+	pending$: Observable<boolean>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
 	repr = entityRepresentationMap.product;
@@ -48,9 +48,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		//  this.store.dispatch(ProductActions.load(this.filterGroupName));
-		this.view$ = this.store.select(selectViewSwitcher);
 		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
+		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
 	}
 
 	onItemSelected(entityId: string) {

@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { EntityPageComponent } from './components/entity-page/entity-page.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component';
 import { SwitchModule } from '../switch/switch.module';
 import { FilterSearchBarModule } from '../filter-search-bar/filter-search-bar.module';
+import { LoadersModule } from '../loaders/loaders.module';
 
 @NgModule({
   imports: [
 		CommonModule,
 		SwitchModule,
 		FilterSearchBarModule,
-
+		LoadersModule
   ],
-  declarations: [
-		TopPanelComponent
-	], exports: [
-		TopPanelComponent
-	]
+	declarations: [ EntityPageComponent, TopPanelComponent ],
+	exports: [ EntityPageComponent ]
 })
-export class TopPanelModule { }
+export class EntityPageModule { }

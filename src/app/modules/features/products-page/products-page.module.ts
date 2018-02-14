@@ -20,12 +20,11 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ProductModule } from '../../shared/product/product.module';
-import { TopPanelComponent } from '../../shared/top-panel/components/top-panel/top-panel.component';
 import { ViewSwitcherAction } from '../../store/action/ui/view-switcher.action';
 import { ViewSwitcherComponent } from '../../shared/switch/components/view-switcher/view-switcher.component';
 import { FilterSearchBarModule } from '../../shared/filter-search-bar/filter-search-bar.module';
 import { IconsModule } from '../../shared/icons/icons.module';
-import { TopPanelModule } from '../../shared/top-panel/top-panel.module';
+import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 
 @NgModule({
 	imports: [
@@ -38,7 +37,7 @@ import { TopPanelModule } from '../../shared/top-panel/top-panel.module';
 		NgxDatatableModule,
 		ProductModule,
 		IconsModule,
-		TopPanelModule
+		EntityPageModule
 	],
 	declarations: [
 		ProductsPageComponent,

@@ -6,13 +6,13 @@ import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-
 import { MatTableModule } from '@angular/material';
 import { DialogModule } from '../../shared/dialog/dialog.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
-import { TopPanelModule } from '../../shared/top-panel/top-panel.module';
+import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
-		TopPanelModule
+		EntityPageModule
 
 	],
 	declarations: [

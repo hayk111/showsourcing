@@ -1,25 +1,18 @@
 
-
-<top-panel-app [filterGroupName]="filterGroupName"></top-panel-app>
-<ng-container *ngIf="view$ | async as view">
-	<ng-container *ngIf="products$ | async as products">
+<entity-page-app [filterGroupName]="filterGroupName" [pending]="pending$ | async">
 		<!-- views -->
 		<product-list-view-app
-			*ngIf="view === 'list'"
 			class="list-view"
 			[filterGroupName]="filterGroupName"
-			[products]="products"
+			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"></product-list-view-app>
 		<product-card-view-app
-			*ngIf="view === 'card'"
 			[filterGroupName]="filterGroupName"
 			class="card-view"
 			(productSelect)="onItemSelected($event)"></product-card-view-app>
-	</ng-container>
 
-</ng-container>
+</entity-page-app>
 
-<!-- <product-dialog-app></product-dialog-app> -->
 <product-side-preview-app
 	(clickOutside)="closeDialog()"
 	*ngIf="previewDialogOpen">
