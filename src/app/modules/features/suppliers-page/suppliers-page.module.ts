@@ -4,13 +4,15 @@ import { SupplierPageComponent } from './components/supplier-page/supplier-page.
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { SupplierListViewComponent } from './components/supplier-list-view/supplier-list-view.component';
 import { MatTableModule } from '@angular/material';
+import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		FilteredListPageModule,
-		MatTableModule
+		EntityPageModule,
+		NgxDatatableModule
 	],
-	declarations: [SupplierPageComponent, SupplierListViewComponent]
+	declarations: [ SupplierPageComponent, SupplierListViewComponent ]
 })
 export class SupplierPageModule { }

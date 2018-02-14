@@ -5,6 +5,8 @@ import { EntityState, Entity, entityRepresentationMap } from '../../../../store/
 import { Supplier } from '../../../../store/model/entities/supplier.model';
 import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
+import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-supplier-page',
@@ -13,18 +15,15 @@ import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.
 })
 export class SupplierPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
-	supplier$: Observable<EntityState<Supplier>>;
-	pending = true;
+	suppliers$: Observable<Array<Supplier>>;
+	pending$: Observable<boolean>;
+	repr = entityRepresentationMap.suppliers;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.supplier$ = this.store.select(selectSuppliers);
-		this.supplier$.subscribe(s => this.onItemsReceived(s));
-	}
-
-	onItemsReceived(items: EntityState<Supplier>) {
-		this.pending = items.pending;
+		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
+		this.pending$ = this.store.select(selectSuppliers).pipe(map(s => s.pending));
 	}
 
 }
