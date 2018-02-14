@@ -10,7 +10,9 @@ import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher
   styleUrls: ['./entity-page.component.scss']
 })
 export class EntityPageComponent implements OnInit {
+	@Input() title: string;
 	@Input() pending = true;
+	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
 	view$: Observable<any>;
 

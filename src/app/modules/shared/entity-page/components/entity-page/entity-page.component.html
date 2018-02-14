@@ -1,4 +1,4 @@
-<top-panel-app [filterGroupName]="filterGroupName"></top-panel-app>
+<top-panel-app [filterGroupName]="filterGroupName" [switchable]="switchable" [title]="title"></top-panel-app>
 <progress-bar-app *ngIf="pending"></progress-bar-app>
 <ng-container *ngIf="view$ | async as view">
 	<ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>

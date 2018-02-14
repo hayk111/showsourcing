@@ -1,8 +1,8 @@
 <div class="ctnr flexBetween">
-	<h3>My Products</h3>
+	<h3>{{ title }}</h3>
 	<div class="flex right">
 		<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
-		<view-switcher-app></view-switcher-app>
+		<view-switcher-app *ngIf="switchable"></view-switcher-app>
 		<button class="small">create product</button>
 	</div>
 </div>

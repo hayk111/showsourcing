@@ -12,6 +12,8 @@ import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 })
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
+	@Input() title: string;
+	@Input() switchable = true;
 	constructor() { }
 
 	ngOnInit() {
