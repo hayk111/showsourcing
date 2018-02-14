@@ -2,11 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { EntityNamePipe } from './entity-name.pipe';
 import { selectEntityById } from '../selectors/misc/utils.selector';
 import { takeUntil, filter, map } from 'rxjs/operators';
+import { EntityPipe } from './entity.pipe';
 
 @Pipe({
 	name: 'entityExist'
 })
-export class EntityExistPipe extends EntityNamePipe implements PipeTransform {
+export class EntityExistPipe extends EntityPipe implements PipeTransform {
 
 	transform(value: string, entityName: string): any {
 		if (!value) return false;

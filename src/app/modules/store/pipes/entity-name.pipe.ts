@@ -6,35 +6,13 @@ import { entityRepresentationMap, EntityRepresentation } from '../utils/entities
 import { AutoUnsub } from '../../../utils/auto-unsub.component';
 import { tap, filter, takeUntil } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { EntityPipe } from './entity.pipe';
 
 @Pipe({name: 'entityName'})
-export class EntityNamePipe extends AutoUnsub implements PipeTransform {
-
-	constructor(protected store: Store<any>) {
-		super();
-	}
+export class EntityNamePipe extends EntityPipe implements PipeTransform {
 
 	transform(value: string, entityName: string): any {
-		if (!value) return of(value);
-		const entityId = value;
-		const entityRepr = this.getRepr(entityName);
-		return this.store.select(selectEntityById({ entityId, entityRepr }))
-			.pipe(
-				takeUntil(this._destroy$),
-				filter(o => o),
-				map(entity => entity.name)
-			);
+		return super.transform(value, entityName, 'name');
 	}
 
-	protected getRepr(name: string) {
-		if (!name) {
-			throw new Error(`Hey, You forgot to give the entityName an entityName as argument`);
-		}
-		const repr = entityRepresentationMap[name];
-		if (!repr) {
-			throw new Error(`Hey, the entity representation with name ${name} was not found.
-			Be sure the name you used is the same as in the store buddy.`);
-		}
-		return repr;
-	}
 }
