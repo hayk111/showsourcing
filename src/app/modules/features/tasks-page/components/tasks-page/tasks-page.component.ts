@@ -10,6 +10,7 @@ import { selectTags } from '../../../../store/selectors/entities/tags.selector';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -22,23 +23,18 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	filters$: Observable<Filter> = new Observable();
 	tasks$;
 	tasksEntities: EntityState<Task>;
-	pending = true;
+	pending$: Observable<boolean>;
 
 	constructor(private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		this.store.dispatch(TaskActions.load());
 		this.tasks$ = this.store.select(selectTasks);
-		this.tasks$.takeUntil(this._destroy$)
-			.subscribe(t => this.onItemsReceived(t));
+		this.pending$ = this.tasks$.pipe(map((t: any) => t.pending));
 	}
 
-	onItemsReceived(items: EntityState<Task>) {
-		this.tasksEntities = items;
-		this.pending = items.pending;
-	}
+
 
 	onItemClicked(id: string) {
 		this.store.dispatch(DialogActions.open(DialogName.TASK));
