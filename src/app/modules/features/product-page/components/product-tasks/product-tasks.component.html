@@ -1,24 +1,7 @@
+<div class="flexBetween">
 	<div class="title" i18n="header|Tasks">Tasks</div>
 	<button class="small action" i18n="button | add task">Add task</button>
+</div>
 
-	<ng-container *ngIf="tasks$ | async as tasks">
-		<table class="fullWidth withBorder">
-			<tr *ngFor="let id of tasks.ids" class="pointer">
-				<td>
-						{{ tasks.byId[id].status }}
-				</td>
-				<td>
-						{{ tasks.byId[id].taskType }}
-				</td>
-				<td>
-						{{ tasks.byId[id].description }}
-				</td>
-				<td>
-						{{ tasks.byId[id].creationDate | date }}
-				</td>
-				<td>
-						{{ tasks.byId[id].createdByUserId | entityName: 'teamMembers' | async }}
-				</td>
-			</tr>
-		</table>
-	</ng-container>
+
+<tasks-list-view-app [tasks]="tasks$ | async"> </tasks-list-view-app>

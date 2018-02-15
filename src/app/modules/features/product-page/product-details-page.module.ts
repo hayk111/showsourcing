@@ -23,6 +23,8 @@ import { ProductPageMainCardComponent } from './components/product-page-main-car
 import { CardModule } from '../../shared/card/card.module';
 import { LikesChartModule } from '../../shared/likes-chart/likes-chart.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
+import { TaskModule } from '../../shared/task/task.module';
+import { TasksPageModule } from '../tasks-page/tasks-page.module';
 
 @NgModule({
 	imports: [
@@ -43,7 +45,9 @@ import { InputsModule } from '../../shared/inputs/inputs.module';
 		IconsModule,
 		CardModule,
 		LikesChartModule,
-		InputsModule
+		InputsModule,
+		TasksPageModule,
+		TaskModule
 	],
 	declarations: [
 		ProductPageComponent,

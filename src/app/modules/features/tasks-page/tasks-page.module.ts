@@ -26,6 +26,9 @@ import { TaskModule } from '../../shared/task/task.module';
 	declarations: [
 		TasksPageComponent,
 		TasksListViewComponent,
+	],
+	exports: [
+		TasksListViewComponent
 	]
 })
 export class TasksPageModule { }

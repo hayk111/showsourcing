@@ -8,7 +8,7 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 import { ProductActions } from '../../../../store/action/entities/product.action';
 import { TaskActions } from '../../../../store/action/entities/task.action';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
-import { selectTasksForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectTasksForSelection, selectTaskArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
 
 @Component({
 	selector: 'app-product-tasks',
@@ -24,6 +24,6 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.tasks$ = this.store.select(selectTasksForSelection);
+		this.tasks$ = this.store.select(selectTaskArrayForSelection);
 	}
 }

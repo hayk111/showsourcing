@@ -11,15 +11,17 @@ import { Task } from '../../../../store/model/entities/task.model';
 	styleUrls: ['./tasks-list-view.component.scss']
 })
 export class TasksListViewComponent implements OnInit {
-	private _tasks: Array<Task>;
+	private _tasks: Array<Task> = [];
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	@Input() set tasks(tasks: Array<any>) {
-		this._tasks = tasks.reverse();
+	@Input()
+	set tasks(tasks: Array<any>) {
+		if (tasks)
+			this._tasks = tasks.reverse();
 	}
 
 	get tasks() {
