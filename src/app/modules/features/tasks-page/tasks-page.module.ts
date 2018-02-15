@@ -10,6 +10,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
+import { TaskModule } from '../../shared/task/task.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UtilsModule } from '../../shared/utils/utils.module';
 		NgxDatatableModule,
 		AppStoreModule.forRoot(),
 		UserModule,
-		UtilsModule
+		UtilsModule,
+		TaskModule
 	],
 	declarations: [
 		TasksPageComponent,

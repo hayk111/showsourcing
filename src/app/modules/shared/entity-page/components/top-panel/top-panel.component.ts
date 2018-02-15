@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ViewSwitcherAction } from '../../../../store/action/ui/view-switcher.action';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
@@ -15,9 +15,15 @@ export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() repr: EntityRepresentation;
 	@Input() switchable = true;
+	@Output() createClick = new EventEmitter<any>();
+
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	onClick() {
+		this.createClick.emit();
 	}
 
 }

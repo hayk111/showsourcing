@@ -12,8 +12,6 @@ import { RegexpApp } from '../../../../../../utils/regexes';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputComponent extends AbstractInput implements OnInit {
-	// give class flexColumn to host so label and input are not on the same line
-	@HostBinding('class.flexColumn') flex = true;
 	// regex is so we can disable some keys from the input
 	// for example the number input shouldn't let us type letters
 	private regex;

@@ -49,6 +49,10 @@ export const entityRepresentationMap = {
 	tasks: new EntityRepresentation('tasks'),
 	teams: new EntityRepresentation('teams'),
 
+	taskTypes: new EntityRepresentation('taskTypes'),
+	taskStatuses: new EntityRepresentation('tasksStatus'),
+
+
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	countries: new EntityRepresentation('countries'),
@@ -66,9 +70,13 @@ export interface EntityTarget {
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
 // https://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html
-export function addEntities(state: any, entities: Array<any>) {
+export function addEntities(state: any, entities: Array<any> | any) {
 	const ids = [...state.ids];
 	const byId = { ...state.byId };
+	// if we didn't receive an array let's just create one. We could create an error too.
+	if (!Array.isArray(entities)){
+		entities = [ entities ];
+	}
 	entities.forEach(entity => {
 		ids.push(entity.id);
 		byId[entity.id] = entity;

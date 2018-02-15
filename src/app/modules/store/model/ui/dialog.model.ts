@@ -6,5 +6,5 @@ export interface Dialog {
 
 export enum DialogName {
 	PRODUCT = 'productDialog',
-	TASK = 'task',
+	NEW_TASK = 'new task',
 }

@@ -3,7 +3,7 @@
 	<div class="flex right">
 		<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
 		<view-switcher-app *ngIf="switchable"></view-switcher-app>
-		<button class="small">create {{ repr.displayName }}</button>
+		<button (click)="onClick()" class="small">create {{ repr.displayName }}</button>
 	</div>
 </div>
 <div class="hr"></div>

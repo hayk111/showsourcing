@@ -1,3 +1,18 @@
-.nomargin{
-	margin: 0;
+:host {
+	display: flex;
+	align-items: baseline;
+	border-bottom: 1px solid var(--color-txt-third);
+}
+
+:host:focus {
+	border-color: var(--color-primary);
+}
+
+input, label {
+	border: none;
+	font-size: var(--font-size-default);
+}
+
+input {
+	text-align: right;
 }

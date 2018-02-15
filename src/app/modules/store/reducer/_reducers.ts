@@ -62,11 +62,10 @@ const entities = combineReducers({
 	suppliers: basicReducerFactory(SupplierActionTypes),
 
 	tasks: basicReducerFactory(TaskActionTypes),
-	products: basicReducerFactory(ProductActionTypes),
-	// status might change from user to user in the future ?
-	productStatus: productStatusReducer,
 	tasksStatus: tasksStatusReducer,
-	tasksType: tasksTypeReducer,
+	taskTypes: tasksTypeReducer,
+	products: basicReducerFactory(ProductActionTypes),
+	productStatus: productStatusReducer,
 	customFields: customFieldsReducer
 });
 

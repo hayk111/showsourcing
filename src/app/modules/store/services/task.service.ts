@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { FilterGroupName } from '../model/misc/filter.model';
 import { entityRepresentationMap, EntityTarget } from '../utils/entities.utils';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class TaskService {
@@ -13,7 +14,13 @@ export class TaskService {
 	constructor(private http: HttpClient, private teamItemLoader: TeamItemLoaderService) { }
 
 	load(filterGroupName: FilterGroupName) {
-		return this.teamItemLoader.load(this.repr, filterGroupName).map(r => r.elements);
+		return this.teamItemLoader.load(this.repr, filterGroupName).pipe(
+			map(r => r.elements),
+			// we need to add the id to adhere to the standard fixed on the client
+			// where relations are given with Ids. The response gives back the whole product,
+			// we only care about the id.
+			tap(tasks => { tasks.forEach(t => t.productId = t.product.id )})
+		);
 	}
 
 	loadForTarget(target: EntityTarget) {

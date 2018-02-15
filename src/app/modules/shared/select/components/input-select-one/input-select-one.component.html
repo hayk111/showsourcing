@@ -1,5 +1,4 @@
-<label *ngIf="label">{{ label }}</label>
-<input-app [value]="name" [readonly]="true"
+<input-app [value]="name" [label]="label" [readonly]="true"
 	(click)="showPanel()"></input-app>
 
 <searchable-list-app

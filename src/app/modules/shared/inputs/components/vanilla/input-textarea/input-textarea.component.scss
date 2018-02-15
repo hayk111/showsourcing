@@ -1,17 +1,8 @@
-
+// rest of the style in global theming/inputs
 textarea {
-	padding: var(--spacing-s);
-	width: 100%;
-	font-family: inherit;
-	border: none;
-	border-bottom: 1px solid var(--color-txt-third);
 	// for before the length Tip arrive the margin needs to be set so
 	// we don't displace the content under when the length tip finally arrives
 	margin-bottom: 17px;
-}
-
-textarea::placeholder {
-	color: var(--color-txt-secondary);
 }
 
 .lengthTip {
@@ -22,7 +13,6 @@ textarea::placeholder {
 
 textarea:focus {
 	margin-bottom: 0;
-	border-color: var(--color-primary);
 	& ~ .lengthTip {
 		display: block;
 	}

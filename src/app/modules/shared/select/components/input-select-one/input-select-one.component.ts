@@ -19,7 +19,7 @@ export interface SelectableItem {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSelectOneComponent extends AbstractInput implements OnInit {
-	// TODO for perf gains we could use EntityState instead of a SelectableItem here.
+	// For perf gains we could use EntityState instead of a SelectableItem here.
 	filteredChoices: Array<SelectableItem>;
 	@Input() panelVisible = false;
 	private lastValue;

@@ -34,9 +34,8 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.pending$ = this.store.select(selectTasks).pipe(map((t: any) => t.pending));
 	}
 
-	onItemClicked(id: string) {
-		this.store.dispatch(DialogActions.open(DialogName.TASK));
-		this.store.dispatch(DialogActions.setMetadata(DialogName.TASK, { id }));
+	openNewTaskDlg() {
+		this.store.dispatch(DialogActions.open(DialogName.NEW_TASK));
 	}
 
 }
