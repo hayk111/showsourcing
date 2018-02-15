@@ -12,6 +12,13 @@ import { Task } from '../../../../store/model/entities/task.model';
 })
 export class TasksListViewComponent implements OnInit {
 	private _tasks: Array<Task> = [];
+	cols = {
+		status: true,
+		type: true,
+		description: true,
+		product: true,
+		owner: true
+	}
 
 	constructor() { }
 
@@ -26,6 +33,13 @@ export class TasksListViewComponent implements OnInit {
 
 	get tasks() {
 		return this._tasks;
+	}
+
+	@Input()
+	set removedCols(arr: Array<string>) {
+		arr.forEach(c => {
+			this.cols[c] = false;
+		})
 	}
 
 }

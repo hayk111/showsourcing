@@ -4,5 +4,5 @@
 </div>
 
 
-<tasks-list-view-app [tasks]="tasks$ | async"> </tasks-list-view-app>
+<tasks-list-view-app [tasks]="tasks$ | async" [removedCols]="['product']"> </tasks-list-view-app>
 <new-task-dlg-app (newTask)="onNewTask($event)" [productId]="(product$ | async)?.id"></new-task-dlg-app>
