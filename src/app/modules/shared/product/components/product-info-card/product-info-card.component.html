@@ -4,44 +4,65 @@
 <ul>
 
 	<li>
-		<label i18n="label|product supplier"> Supplier </label>
-		<editable-field-app [value]="product?.supplierId" type="select-entity"
+		<editable-field-app label="Supplier" [value]="product?.supplierId" type="select-entity"
 			[entityRep]="supplierRep" (update)="onUpdate('supplierId', $event)">
 		</editable-field-app>
 	</li>
 
 	<li>
-		<label i18n="label|product category"> Category </label>
-		<editable-field-app [value]="product?.categoryId" type="select-entity"
+		<editable-field-app label="Category" [value]="product?.categoryId" type="select-entity"
 			[entityRep]="categoryRep" (update)="onUpdate('categoryId', $event)">
 		</editable-field-app>
 	</li>
 
 	<li>
-		<label i18n="label|product name"> Name </label>
-		<editable-field-app [value]="product?.name" (update)="onUpdate('name', $event)"> </editable-field-app>
+		<editable-field-app label="Name" [value]="product?.name" (update)="onUpdate('name', $event)"> </editable-field-app>
 	</li>
 
 
 	<li>
-		<label i18n="label|product price"> Price </label>
 		<editable-field-app
 			[value]="product?.price"
 			type="price"
-			(update)="onUpdate('price', $event)">
+			(update)="onUpdate('price', $event)"
+			label="Price">
 		</editable-field-app>
 	</li>
 	<li>
-		<label i18n="label|product minimum order quantity / MOQ"> MOQ </label>
-		<editable-field-app [value]="product?.minimumOrderQuantity" type="number"
+		<editable-field-app label="MOQ" [value]="product?.minimumOrderQuantity" type="number"
 			(update)="onUpdate('minimumOrderQuantity', $event)">
 		</editable-field-app>
 	</li>
 
 	<li>
-		<label i18n="label|product was found at (event)"> Found at </label>
-		<editable-field-app [value]="product?.eventId" type="select-entity"
-			[entityRep]="eventRep" (update)="onUpdate('eventId', $event)">
+		<editable-field-app
+			label="Found at"
+			[value]="product?.eventId"
+			type="select-entity"
+			[entityRep]="eventRep"
+			(update)="onUpdate('eventId', $event)">
+		</editable-field-app>
+	</li>
+
+	<li>
+		<editable-field-app
+			label="Description"
+			[value]="product?.description"
+			type="textarea"
+			(update)="onUpdate('description', $event)">
+		</editable-field-app>
+	</li>
+</ul>
+
+<h5 i18n>Shipping & Trading</h5>
+
+<ul>
+	<li>
+		<editable-field-app
+			label="Inco Terms"
+			[value]="(product?.supplierId | entity: 'suppliers' | async).incoTerm"
+			type="text"
+			(update)="onUpdate('description', $event)">
 		</editable-field-app>
 	</li>
 </ul>

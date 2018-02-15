@@ -25,10 +25,12 @@ import { LikesChartModule } from '../../shared/likes-chart/likes-chart.module';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { TaskModule } from '../../shared/task/task.module';
 import { TasksPageModule } from '../tasks-page/tasks-page.module';
+import { TemplateModule } from '../../shared/template/template.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
+		TemplateModule,
 		FormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([]),

@@ -16,7 +16,6 @@ export class EntityService {
 	}
 
 	addForTarget(toAdd: Entity, repr: EntityRepresentation, target: EntityTarget) {
-		debugger;
 		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/${repr.urlName}`, toAdd);
 	}
 

@@ -12,6 +12,7 @@ import { ProjectSlctnActions } from '../../action/selection/project-selection.ac
 import { TagSlctnActions } from '../../action/selection/tag-selection.action';
 import { TaskSlctnActions } from '../../action/selection/task-selection.action';
 import { VoteSlctnActions } from '../../action/selection/vote-selection.action';
+import { SupplierActions } from '../../action/entities/supplier.action';
 
 @Injectable()
 export class SelectionEffects {
@@ -37,8 +38,16 @@ export class SelectionEffects {
 					ProjectSlctnActions.load(),
 					TagSlctnActions.load(),
 					TaskSlctnActions.load(),
-					VoteSlctnActions.load()
+					VoteSlctnActions.load(),
 				];
+			case m.suppliers.entityName:
+				return [
+					CommentSlctnActions.load(),
+					FileSlctnActions.load(),
+					ImageSlctnActions.load(),
+				]
+			default:
+				throw Error('entity selection not defined in SelectionEffects');
 		}
 	}
 

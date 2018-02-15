@@ -30,6 +30,7 @@ import { AuthGuardService } from '../../features/auth/services/auth-guard.servic
 import { TestProductComponent } from '../../features/test/components/test-product/test-product.component';
 import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-page.module';
 import { ProjectsPageComponent } from '../../features/projects-page/components/projects-page/projects-page.component';
+import { SupplierDetailsComponent } from '../../features/supplier-details-page/components/supplier-details/supplier-details.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
@@ -41,7 +42,7 @@ export const routes: Array<Route> = [
 			{ path: 'products', children: [
 				{ path: '', redirectTo: 'all', pathMatch: 'full'},
 				{ path: 'all', component: ProductsPageComponent },
-				{ path: 'product-details/:id', component: ProductPageComponent, children: [
+				{ path: 'details/:id', component: ProductPageComponent, children: [
 					{ path: 'activity', component: ProductActivityPageComponent },
 					{ path: 'sample', component: ProductSampleComponent },
 					{ path: 'technical-details', component: ProductTechDetailsComponent },
@@ -53,11 +54,19 @@ export const routes: Array<Route> = [
 			{ path: 'tasks', children: [
 					{ path: '', redirectTo: 'all', pathMatch: 'full'},
 					{ path: 'all', component: TasksPageComponent },
+
 				]
 			},
 			{ path: 'suppliers', children: [
 				{ path: '', redirectTo: 'all', pathMatch: 'full'},
 				{ path: 'all', component: SuppliersPageComponent },
+				{ path: 'details/:id', component: SupplierDetailsComponent, children: [
+					{ path: 'activity', component: ProductActivityPageComponent },
+					{ path: 'sample', component: ProductSampleComponent },
+					{ path: 'technical-details', component: ProductTechDetailsComponent },
+					{ path: 'tasks', component: ProductTasksComponent },
+					{ path: 'files', component: ProductFilesComponent },
+				] },
 			] },
 			{ path: 'projects', children: [
 				{ path: '', redirectTo: 'all', pathMatch: 'full'},

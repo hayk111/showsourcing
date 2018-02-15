@@ -63,7 +63,7 @@ fieldset legend {
 	width: 50%;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="search"], input[type="password"] {
 	padding: var(--spacing-s);
 	width: 100%;
 	box-sizing: border-box;
@@ -72,10 +72,10 @@ textarea, input[type="text"] {
 	border-bottom: 1px solid var(--color-txt-third);
 }
 
-textarea::placeholder, input[type="text"]::placeholder {
+textarea::placeholder, input[type="text"]::placeholder, input[type="search"]::placeholder, input[type="password"]::placeholder {
 	color: var(--color-txt-secondary);
 }
 
-textarea:focus, input[type="text"]:focus {
+textarea:focus, input[type="text"]:focus, input[type="search"]:focus, input[type="password"]:focus {
 	border-bottom-color: var(--color-primary);
 }

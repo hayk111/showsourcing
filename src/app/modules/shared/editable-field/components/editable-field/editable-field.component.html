@@ -1,31 +1,34 @@
-<div class="flex editable pointer" *ngIf="!editMode">
-	<icon-app (click)="openEditMode()" name="pencil-alt" size="s"></icon-app>
-	<!-- if we get an id as value, we should display the name of the entity -->
-	<!-- else we just display said value -->
-	<ng-container [ngSwitch]="type">
-		<ng-container *ngSwitchCase="'select-entity'">
-			<a class="pointer">{{ value | entityName: entityRep.entityName | async }}</a>
-		</ng-container>
-		<ng-container *ngSwitchCase="'price'">
-			{{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
-		</ng-container>
-		<ng-container *ngSwitchCase="'currency'">
+<div class="flexBetween" *ngIf="!editMode">
+	<label>{{ label }}</label>
+	<div class="flex editable pointer">
+		<icon-app (click)="openEditMode()" name="pencil-alt" size="s"></icon-app>
+		<!-- if we get an id as value, we should display the name of the entity -->
+		<!-- else we just display said value -->
+		<ng-container [ngSwitch]="type">
+			<ng-container *ngSwitchCase="'select-entity'">
+				<a class="pointer">{{ value | entityName: entityRep.entityName | async }}</a>
+			</ng-container>
+			<ng-container *ngSwitchCase="'price'">
+				{{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
+			</ng-container>
+			<ng-container *ngSwitchCase="'currency'">
 				{{ value?.priceCurrency?.id }}
-		</ng-container>
-		<ng-container *ngSwitchDefault>
-			{{ value }}
-		</ng-container>
+			</ng-container>
+			<ng-container *ngSwitchDefault>
+				{{ value }}
+			</ng-container>
 
-	</ng-container>
-
+		</ng-container>
+	</div>
 </div>
 
+
 <div *ngIf="editMode" (clickOutside)="closeEditMode()">
-	<input-app [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
-	<input-app [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
-	<input-select-entity-app  *ngIf="type === 'select-entity'"
+	<input-app [label]="label" [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
+	<input-app [label]="label" [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
+	<input-select-entity-app [label]="label" *ngIf="type === 'select-entity'"
 		[panelVisible]="true"
 		[entityRep]="entityRep" [value]="value" (update)="update.emit($event)"></input-select-entity-app>
-	<input-price-app *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
-	<input-currency-app *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
+	<input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
+	<input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
 </div>

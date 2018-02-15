@@ -5,6 +5,7 @@ import { AppRoutingModule } from '../app-routing/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { HeaderModule } from '../header/header.module';
+import { EntityMainCardComponent } from './components/entity-main-card/entity-main-card.component';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,7 @@ import { HeaderModule } from '../header/header.module';
 		HeaderModule,
 	],
 	providers: [  ],
-	declarations: [ TemplateComponent ],
-	exports: [ TemplateComponent ]
+	declarations: [ TemplateComponent, EntityMainCardComponent ],
+	exports: [ TemplateComponent, EntityMainCardComponent ]
 })
 export class TemplateModule { }

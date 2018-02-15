@@ -9,9 +9,13 @@ import { User } from '../model/entities/user.model';
 export class SupplierService {
 
 	load(id: string, maxCounter: number) {
-			return this.http.get(`api/team/${id}/supplier?counter=${maxCounter}`).pipe(
-				map((r: any) => r.elements)
-			);
+		return this.http.get(`api/team/${id}/supplier?counter=${maxCounter}`).pipe(
+			map((r: any) => r.elements)
+		);
+	}
+
+	loadById(id: string) {
+		return this.http.get(`api/supplier/${id}`);
 	}
 
 	constructor(private http: HttpClient) {

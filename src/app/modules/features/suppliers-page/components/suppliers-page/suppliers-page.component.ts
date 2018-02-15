@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';
 import { map } from 'rxjs/operators';
+import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-supplier-page',
@@ -19,11 +21,16 @@ export class SuppliersPageComponent implements OnInit {
 	pending$: Observable<boolean>;
 	repr = entityRepresentationMap.suppliers;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
 		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 		this.pending$ = this.store.select(selectSuppliers).pipe(map(s => s.pending));
 	}
 
+	onItemSelected(entityId: string) {
+		const target = { entityId, entityRepr: this.repr };
+		this.store.dispatch(SelectionAction.select(target));
+		this.router.navigate(['/suppliers', 'supplier-details', entityId]);
+	}
 }

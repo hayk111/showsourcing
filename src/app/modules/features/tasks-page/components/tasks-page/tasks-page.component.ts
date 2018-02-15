@@ -39,7 +39,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewTask(task: Task) {
-		this.store.dispatch(TaskActions.add(task));
+		// this.store.dispatch(TaskActions.add(task));
 	}
 
 }

@@ -6,39 +6,39 @@
 	[headerHeight]="60"
 	[rowHeight]="55"
 	[externalSorting]="true"
+	(activate)="onSelect($event)"
 	[limit]="100">
 
-	<!-- <ngx-datatable-column name="Status" [width]="300">
+	<ngx-datatable-column name="Name" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
-			{{ row.status }}
+			{{ row?.name }}
 		</ng-template>
 	</ngx-datatable-column>
 
-	<ngx-datatable-column name="Type" [width]="300">
+	<ngx-datatable-column name="Status" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
-			{{ row.taskType }}
+			{{ row?.advancedInfos?.status }}
 		</ng-template>
 	</ngx-datatable-column>
 
-	<ngx-datatable-column name="Description" [width]="300">
+	<ngx-datatable-column name="Tags" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
-			{{ row.description }}
+			<tag-app [tagId]="tag.id" *ngFor="let tag of row.tags"></tag-app>
 		</ng-template>
 	</ngx-datatable-column>
 
-	<ngx-datatable-column name="Product" [width]="300">
+	<ngx-datatable-column name="Categories" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
-			{{ row.product.name }}
+			<span *ngFor="let cat of row.categories">{{ cat.name }}, </span>
 		</ng-template>
 	</ngx-datatable-column>
 
-	<ngx-datatable-column name="Type" [width]="300">
+	<ngx-datatable-column name="Owner" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
 			<user-picture-with-name-app [user]="row.createdByUserId | entity: 'teamMembers' | async">
-				<time> {{ row.creationDate | timeAgo }} </time>
+				<time>{{ row?.creationDate | timeAgo }}</time>
 			</user-picture-with-name-app>
-
 		</ng-template>
-	</ngx-datatable-column> -->
+	</ngx-datatable-column>
 
 </ngx-datatable>

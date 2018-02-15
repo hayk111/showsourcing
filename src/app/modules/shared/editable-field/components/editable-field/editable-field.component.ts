@@ -10,6 +10,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() value;
 	@Input() type = 'text';
 	@Input() entityRep: EntityRepresentation;
+	@Input() label: string;
 	@Output() update = new EventEmitter<any>();
 
 	editMode = false;

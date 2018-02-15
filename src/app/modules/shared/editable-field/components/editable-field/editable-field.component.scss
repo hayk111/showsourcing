@@ -1,3 +1,11 @@
+:host {
+	width: 100%;
+}
+
+label {
+	flex-grow: 1;
+}
+
 .editable {
 	align-items: baseline;
 	a:hover {

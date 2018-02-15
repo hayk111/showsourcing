@@ -28,7 +28,6 @@ export class ProductEffects {
 		})
 	);
 
-
 	@Effect()
 	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(
 		map(action => action.payload),
