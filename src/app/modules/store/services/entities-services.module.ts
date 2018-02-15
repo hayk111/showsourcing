@@ -25,6 +25,7 @@ import { TagService } from './tag.service';
 import { PreloaderService } from './preloader.service';
 import { FilterEntityPanelService } from './filter-entity-panel.service';
 import { SelectionService } from './selection.service';
+import { EntityService } from './entity.service';
 
 @NgModule({
 	imports: [
@@ -34,6 +35,7 @@ import { SelectionService } from './selection.service';
 	],
 	declarations: [],
 	providers: [
+		EntityService,
 		TeamItemLoaderService,
 		ProductService,
 		TeamService,

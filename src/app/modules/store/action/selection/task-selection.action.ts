@@ -7,6 +7,7 @@ export enum ActionType {
 	ADD = '[TaskSelection] adding',
 	REMOVE = '[TaskSelection] removing for selection',
 	RESET = '[TaskSelection] resetting',
+	REPLACE = '[TaskSelection] replacing'
 }
 
 export class TaskSlctnActions {
@@ -34,6 +35,13 @@ export class TaskSlctnActions {
 		return {
 			type: ActionType.REMOVE,
 			payload: task
+		};
+	}
+
+	static replace(old: Task, replacing: Task) {
+		return {
+			type: ActionType.REPLACE,
+			payload: { old, replacing }
 		};
 	}
 }

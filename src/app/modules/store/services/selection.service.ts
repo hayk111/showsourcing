@@ -12,7 +12,9 @@ export class SelectionService {
 
 	constructor(private store: Store<any>) {
 		Log.debug('[SelectionService] constructor');
+		this.store.select(selectCurrentSelection).subscribe(s => this.currentTarget = s);
 	}
+
 
 	getSelection(): Observable<EntityTarget> {
 		return this.store.select(selectCurrentSelection);

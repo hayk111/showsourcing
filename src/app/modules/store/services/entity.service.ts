@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EntityRepresentation, EntityTarget } from '../utils/entities.utils';
+import { EntityRepresentation, EntityTarget, Entity } from '../utils/entities.utils';
 import { HttpClient } from '@angular/common/http';
 import Log from '../../../utils/logger/log.class';
 
@@ -13,6 +13,11 @@ export class EntityService {
 
 	loadForTarget(toLoad: EntityRepresentation, target: EntityTarget) {
 		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/${toLoad.urlName}`);
+	}
+
+	addForTarget(toAdd: Entity, repr: EntityRepresentation, target: EntityTarget) {
+		debugger;
+		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/${repr.urlName}`, toAdd);
 	}
 
 	// this could be moved in each of the entity service in the future if this adds problems.

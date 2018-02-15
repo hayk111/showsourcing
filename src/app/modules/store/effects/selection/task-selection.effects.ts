@@ -1,25 +1,44 @@
 import { Actions, Effect } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom, mergeMap } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom, mergeMap, tap, catchError } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
 import { ActionType, TaskSlctnActions } from '../../action/selection/task-selection.action';
 import { TaskService } from '../../services/task.service';
 import { TaskActions } from '../../action/entities/task.action';
+import { EntityService } from '../../services/entity.service';
+import { entityRepresentationMap } from '../../utils/entities.utils';
+import { of } from 'rxjs/observable/of';
+import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
 
 
 @Injectable()
 export class TaskSelectionEffects {
+
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
-		switchMap(target => this.srv.loadForTarget(target)),
+		switchMap(target => this.srv.loadForTarget(entityRepresentationMap.tasks, target)),
 		mergeMap((r: any) => [
 			TaskSlctnActions.set(r),
 			TaskActions.add(r)
 		])
 	);
 
+	@Effect()
+	add$ = this.actions$.ofType<any>(ActionType.ADD).pipe(
+		map(action => action.payload),
+		switchMap(task => this.srv.addForTarget(task, entityRepresentationMap.tasks, this.selectionSrv.currentTarget).pipe(
+			// replace currently pending files, we need to replace so it's not pending anymore
+			mergeMap((r: any) => ([
+				TaskSlctnActions.replace(task, r),
+				FeedbackDlgActions.add({ styleType: FeedbackStyle.SUCCESS, title: 'Task added', body: 'Your task was added'}),
+			])),
 
-	constructor(private actions$: Actions, private srv: TaskService, private selectionSrv: SelectionService) {}
+			catchError(e => of(AppErrorActions.add(e)))
+		))
+	);
+
+	constructor(private actions$: Actions, private srv: EntityService, private selectionSrv: SelectionService) {}
 }

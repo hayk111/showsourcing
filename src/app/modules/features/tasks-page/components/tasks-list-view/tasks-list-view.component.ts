@@ -39,7 +39,7 @@ export class TasksListViewComponent implements OnInit {
 	set removedCols(arr: Array<string>) {
 		arr.forEach(c => {
 			this.cols[c] = false;
-		})
+		});
 	}
 
 }
