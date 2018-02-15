@@ -38,4 +38,8 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(DialogName.NEW_TASK));
 	}
 
+	onNewTask(task: Task) {
+		this.store.dispatch(TaskActions.add(task));
+	}
+
 }

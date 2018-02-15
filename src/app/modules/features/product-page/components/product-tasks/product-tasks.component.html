@@ -1,7 +1,7 @@
 <div class="flexBetween">
 	<div class="title" i18n="header|Tasks">Tasks</div>
-	<button class="small action" i18n="button | add task">Add task</button>
+	<button (click)="openDialog()" class="small action" i18n="button | add task">Add task</button>
 </div>
 
 
-<tasks-list-view-app [tasks]="tasks$ | async"> </tasks-list-view-app>
+<tasks-list-view-app (newTask)="onNewTask($event)" [tasks]="tasks$ | async"> </tasks-list-view-app>

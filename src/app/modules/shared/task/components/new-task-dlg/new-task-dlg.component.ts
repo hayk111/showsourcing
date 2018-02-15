@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { DialogActions } from '../../../../store/action/ui/dialog.action';
 })
 export class NewTaskDlgComponent implements OnInit {
 	@Input() productId: string;
+	@Output() newTask = new EventEmitter<Task>();
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
 	g: Task;
@@ -42,8 +43,8 @@ export class NewTaskDlgComponent implements OnInit {
 		if (this.group.valid){
 			const value: TaskParams = this.group.value;
 			value.userId = this.userSrv.getUserId();
-			this.store.dispatch(TaskActions.add(new Task(value)));
 			this.store.dispatch(DialogActions.close(DialogName.NEW_TASK));
+			this.newTask.emit(new Task(value));
 		}
 	}
 

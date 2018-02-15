@@ -1,5 +1,5 @@
 <entity-page-app (createClick)="openNewTaskDlg()" [switchable]="false" [pending]="pending$ | async" [repr]="repr">
 	<tasks-list-view-app [tasks]="tasks$ | async"></tasks-list-view-app>
-	<new-task-dlg-app></new-task-dlg-app>
+	<new-task-dlg-app (newTask)="onNewTask($event)"></new-task-dlg-app>
 </entity-page-app>
 

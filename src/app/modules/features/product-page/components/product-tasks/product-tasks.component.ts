@@ -9,6 +9,9 @@ import { ProductActions } from '../../../../store/action/entities/product.action
 import { TaskActions } from '../../../../store/action/entities/task.action';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
 import { selectTasksForSelection, selectTaskArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { DialogActions } from '../../../../store/action/ui/dialog.action';
+import { DialogName } from '../../../../store/model/ui/dialog.model';
+import { TaskSlctnActions } from '../../../../store/action/selection/task-selection.action';
 
 @Component({
 	selector: 'app-product-tasks',
@@ -25,5 +28,13 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.tasks$ = this.store.select(selectTaskArrayForSelection);
+	}
+
+	openDialog() {
+		this.store.dispatch(DialogActions.open(DialogName.NEW_TASK));
+	}
+
+	onNewTask(task: Task) {
+		this.store.dispatch(TaskSlctnActions.add(task));
 	}
 }

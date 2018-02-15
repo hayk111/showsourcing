@@ -1,3 +1,4 @@
+
 <product-top-card-app [product]="product$ | async" class="z-4"></product-top-card-app>
 
 <div class="flex content">
@@ -17,3 +18,5 @@
 
 	</div>
 </div>
+<new-task-dlg-app [productId]="(product$ | async)?.id"></new-task-dlg-app>
+
