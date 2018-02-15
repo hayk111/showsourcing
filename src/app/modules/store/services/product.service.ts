@@ -52,7 +52,7 @@ export class ProductService {
 	addCustomFields(elem: any) {
 		if (elem.additionalInfo && elem.additionalInfo.customFields) {
 			const cf = elem.additionalInfo.customFields;
-			Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = v.value);
+			Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = (v as any).value);
 		}
 		// this is done to have minimum order quantity on the same level
 		if (elem.additionalInfo)

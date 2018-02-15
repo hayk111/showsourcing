@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { Task } from '../../../../store/model/entities/task.model';
 import { Observable } from 'rxjs/Observable';
@@ -8,10 +8,11 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 import { ProductActions } from '../../../../store/action/entities/product.action';
 import { TaskActions } from '../../../../store/action/entities/task.action';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
-import { selectTasksForSelection, selectTaskArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectTasksForSelection, selectTaskArrayForSelection, selectProductSelected } from '../../../../store/selectors/selection/selection.selector';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
 import { TaskSlctnActions } from '../../../../store/action/selection/task-selection.action';
+import { Product } from '../../../../store/model/entities/product.model';
 
 @Component({
 	selector: 'app-product-tasks',
@@ -19,7 +20,7 @@ import { TaskSlctnActions } from '../../../../store/action/selection/task-select
 	styleUrls: ['./product-tasks.component.scss']
 })
 export class ProductTasksComponent extends AutoUnsub implements OnInit {
-
+	product$: Observable<Product>;
 	tasks$: Observable<Array<Task>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>) {
@@ -28,6 +29,7 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.tasks$ = this.store.select(selectTaskArrayForSelection);
+		this.product$ = this.store.select(selectProductSelected);
 	}
 
 	openDialog() {

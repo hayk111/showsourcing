@@ -37,6 +37,7 @@ export class NewTaskDlgComponent implements OnInit {
 			type: [ '', Validators.required ],
 			productId: [ this.productId, Validators.required ]
 		});
+		this.group.reset();
 	}
 
 	onSubmit() {
