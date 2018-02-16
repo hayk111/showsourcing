@@ -30,12 +30,10 @@ import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 		CommonModule,
 		RouterModule.forChild([]),
 		AppStoreModule.forChild(),
-		KanbanModule,
 		ProductDetailsPageModule,
 		UtilsModule,
 		NgxDatatableModule,
 		ProductModule,
-		IconsModule,
 		EntityPageModule
 	],
 	declarations: [

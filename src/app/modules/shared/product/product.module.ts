@@ -19,6 +19,8 @@ import { FileModule } from '../file/file.module';
 import { LoadersModule } from '../loaders/loaders.module';
 import { ProductStatusBadgeComponent } from './components/product-status-badge/product-status-badge.component';
 import { SuppliersModule } from '../suppliers/suppliers.module';
+import { ProductSelectableCardComponent } from './components/product-selectable-card/product-selectable-card.component';
+import { FeedbackModule } from '../feedback/feedback.module';
 
 @NgModule({
 	imports: [
@@ -34,7 +36,8 @@ import { SuppliersModule } from '../suppliers/suppliers.module';
 		CardModule,
 		TooltipModule,
 		LoadersModule,
-		SuppliersModule
+		SuppliersModule,
+		FeedbackModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -45,12 +48,14 @@ import { SuppliersModule } from '../suppliers/suppliers.module';
 		ProductInfoCardComponent,
 		ProductSubInfoComponent,
 		ProductStatusBadgeComponent,
+		ProductSelectableCardComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,
 		ProductBigCardComponent,
 		ProductTopCardComponent,
-		ProductInfoCardComponent
+		ProductInfoCardComponent,
+		ProductSelectableCardComponent
 	]
 })
 export class ProductModule { }

@@ -7,8 +7,8 @@
 			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"></product-list-view-app>
 		<product-card-view-app
-			[filterGroupName]="filterGroupName"
 			class="card-view"
+			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"></product-card-view-app>
 
 </entity-page-app>
