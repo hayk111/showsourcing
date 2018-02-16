@@ -1,4 +1,5 @@
 
-<entity-page-app [switchable]="false" [pending]="pending$ | async" [repr]="repr">
+<entity-page-app [switchable]="false" [pending]="pending$ | async" [repr]="repr" (createClick)="openNewDialog()">
 	<supplier-list-view-app (supplierSelect)="onItemSelected($event)" [suppliers]="suppliers$ | async"></supplier-list-view-app>
+	<new-supplier-dlg-app></new-supplier-dlg-app>
 </entity-page-app>

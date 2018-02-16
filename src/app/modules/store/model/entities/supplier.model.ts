@@ -1,9 +1,10 @@
 import { Tag } from './tag.model';
 import { Counters } from './counters.interface';
 import { Category } from './category.model';
+import { uuid } from '../../utils/uuid.utils';
 
 
-export interface Supplier {
+export class Supplier {
 	advancedInfos: {favorite: boolean, status: string, supplierType: string };
 	categories: Array<Category>;
 	counters: Counters;
@@ -17,5 +18,13 @@ export interface Supplier {
 	rating: number;
 	tags: Array<Tag>;
 	teamId: string;
+	pending = true;
+
+	constructor(name: string, userId: string) {
+		this.name = name;
+		this.createdByUserId = userId;
+		this.creationDate = Date.now();
+		this.id = uuid();
+	}
 }
 

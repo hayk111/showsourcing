@@ -9,6 +9,8 @@ import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.se
 import { map } from 'rxjs/operators';
 import { SelectionAction } from '../../../../store/action/selection/selection.action';
 import { Router } from '@angular/router';
+import { DialogActions } from '../../../../store/action/ui/dialog.action';
+import { DialogName } from '../../../../store/model/ui/dialog.model';
 
 @Component({
 	selector: 'app-supplier-page',
@@ -26,6 +28,10 @@ export class SuppliersPageComponent implements OnInit {
 	ngOnInit() {
 		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 		this.pending$ = this.store.select(selectSuppliers).pipe(map(s => s.pending));
+	}
+
+	openNewDialog() {
+		this.store.dispatch(DialogActions.open(DialogName.NEW_SUPPLIER));
 	}
 
 	onItemSelected(entityId: string) {

@@ -60,7 +60,7 @@
 	<li>
 		<editable-field-app
 			label="Inco Terms"
-			[value]="(product?.supplierId | entity: 'suppliers' | async).incoTerm"
+			[value]="(product?.supplierId | entity: 'suppliers' | async)?.incoTerm"
 			type="text"
 			(update)="onUpdate('description', $event)">
 		</editable-field-app>

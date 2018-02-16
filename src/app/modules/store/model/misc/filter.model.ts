@@ -11,6 +11,7 @@ import { Currency } from '../entities/currency.model';
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
+	WORKFLOW_PAGE = 'workflowPage',
 	TASKS_PAGE = 'tasksPage',
 	SUPPLIER_PAGE = 'supplierPage',
 	PROJECTS_PAGE = 'projectPage',

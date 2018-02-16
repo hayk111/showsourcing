@@ -1,9 +1,11 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, tap, catchError } from 'rxjs/operators';
 import { ActionType, SupplierActions } from '../../action/entities/supplier.action';
 import { SupplierService } from '../../services/supplier.service';
 import { Supplier } from '../../model/entities/supplier.model';
+import { of } from 'rxjs/observable/of';
+import { AppErrorActions } from '../../action/misc/app-errors.action';
 
 
 @Injectable()
@@ -22,6 +24,17 @@ export class SuppliersEffects {
 		switchMap((id: any) => this.srv.loadById(id)),
 		map((result: Supplier) => SupplierActions.add([result]))
 	);
+
+	@Effect()
+	create$ = this.action$.ofType<any>(ActionType.CREATE).pipe(
+		map(action => action.payload),
+		switchMap(
+			supplier => this.srv.create(supplier).pipe(
+				map((r: any) => SupplierActions.replace(supplier, r)),
+				catchError(e => of(AppErrorActions.add(e)))
+			)
+		)
+	)
 
 
 	constructor( private action$: Actions, private srv: SupplierService) {}

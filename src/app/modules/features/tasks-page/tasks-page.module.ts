@@ -11,6 +11,7 @@ import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { TaskModule } from '../../shared/task/task.module';
+import { LoadersModule } from '../../shared/loaders/loaders.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TaskModule } from '../../shared/task/task.module';
 		AppStoreModule.forRoot(),
 		UserModule,
 		UtilsModule,
-		TaskModule
+		TaskModule,
+		LoadersModule
 	],
 	declarations: [
 		TasksPageComponent,

@@ -11,7 +11,7 @@
 
 	<ngx-datatable-column name="Status" [width]="300" *ngIf="cols.status">
 		<ng-template let-row="row" ngx-datatable-cell-template>
-			{{ row?.status }}
+			<span>{{ row?.status }}</span>
 		</ng-template>
 	</ngx-datatable-column>
 

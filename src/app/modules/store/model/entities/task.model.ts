@@ -31,6 +31,7 @@ export class Task {
 	lastUpdatedByUserId?: string;
 	archived?: boolean;
 	modificationCounterArchived?: number;
+	pending = true;
 
 	constructor({ name, description, type, status, productId, userId }: TaskParams) {
 		this.name = name;

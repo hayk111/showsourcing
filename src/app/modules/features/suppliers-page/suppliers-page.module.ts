@@ -8,6 +8,7 @@ import { TagModule } from '../../shared/tag/tag.module';
 import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
+import { SuppliersModule } from '../../shared/suppliers/suppliers.module';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,8 @@ import { AppStoreModule } from '../../store/store.module';
 		TagModule,
 		UserModule,
 		UtilsModule,
-		AppStoreModule.forChild()
+		AppStoreModule.forChild(),
+		SuppliersModule
 	],
 	declarations: [ SuppliersPageComponent, SupplierListViewComponent ]
 })

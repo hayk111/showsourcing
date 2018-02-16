@@ -1,0 +1,8 @@
+
+<dialog-app [name]="name">
+	<form [formGroup]="group" (ngSubmit)="onSubmit()">
+		<input-app label="Name" formControlName="name"></input-app>
+		<input type="submit" value="Ok"/>
+	</form>
+</dialog-app>
+

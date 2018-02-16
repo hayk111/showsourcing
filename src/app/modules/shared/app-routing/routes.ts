@@ -31,6 +31,7 @@ import { TestProductComponent } from '../../features/test/components/test-produc
 import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-page.module';
 import { ProjectsPageComponent } from '../../features/projects-page/components/projects-page/projects-page.component';
 import { SupplierDetailsComponent } from '../../features/supplier-details-page/components/supplier-details/supplier-details.component';
+import { WorkflowPageComponent } from '../../features/workflow/components/workflow-page/workflow-page.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
@@ -54,7 +55,6 @@ export const routes: Array<Route> = [
 			{ path: 'tasks', children: [
 					{ path: '', redirectTo: 'all', pathMatch: 'full'},
 					{ path: 'all', component: TasksPageComponent },
-
 				]
 			},
 			{ path: 'suppliers', children: [
@@ -72,6 +72,7 @@ export const routes: Array<Route> = [
 				{ path: '', redirectTo: 'all', pathMatch: 'full'},
 				{ path: 'all', component: ProjectsPageComponent },
 			] },
+			{ path: 'workflow', component: WorkflowPageComponent },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'team-management', component: TeamManagementPageComponent },
 			{ path: 'test', component: TestComponent, children: [

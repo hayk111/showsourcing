@@ -13,21 +13,22 @@ import { AppErrorActions } from '../../action/misc/app-errors.action';
 @Injectable()
 export class CommentSelectionEffects {
 
+	// loads comments for current selection
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
-		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
 		map((r: any) => CommentSlctnActions.set(r))
 	);
 
+	// effect that add a comment to the selection (will also add to backend)
 	@Effect()
 	addForSelection$ = this.actions$.ofType<any>(ActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (comment, target ) => ({ comment, target })),
 			switchMap((p: any) => this.srv.create(p).pipe(
-				// replace currently pending files, we need to replace so it's not pending anymore
+				// replace currently pending comment, we need to replace so it's not pending anymore
 				map((r: any) => CommentSlctnActions.replace(p.comment, r)),
 				catchError(e => of(AppErrorActions.add(e)))
 			))
