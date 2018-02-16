@@ -15,48 +15,18 @@ import { ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedbackInputComponent extends AutoUnsub implements OnInit {
-	@Output() request = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<number>();
-	@Input() votes: Array<Vote> = [];
-	userVote: Vote;
-	user$: Observable<User>;
+	@Input() color = 'white';
 
-	constructor(private store: Store<any>) {
+	constructor() {
 		super();
 	}
 
 	ngOnInit() {
-		this.user$ = this.store.select(selectUser);
 	}
 
-	onVote(value: number) {
+	onClick(value: number) {
 		this.vote.emit(value);
-	}
-
-	getPercentage(user) {
-		const totalVotes = this.votes.length;
-		let totalPositives = 0;
-		if (!this.votes || totalVotes === 0)
-			return 'no vote';
-		this.votes.forEach(v => {
-			if (v.value > 0)
-				totalPositives++;
-		});
-		return totalPositives / totalVotes * 100 + '%';
-	}
-
-	calcUserVoteValue(user) {
-		const vote = this.votes.find(v => v.userId === user.id);
-		return vote ? vote.value : undefined;
-	}
-
-
-	isUp(user) {
-		return this.calcUserVoteValue(user) === 100;
-	}
-
-	isDown(user) {
-		return this.calcUserVoteValue(user) === 0;
 	}
 
 }

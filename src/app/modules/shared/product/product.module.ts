@@ -21,6 +21,7 @@ import { ProductStatusBadgeComponent } from './components/product-status-badge/p
 import { SuppliersModule } from '../suppliers/suppliers.module';
 import { ProductSelectableCardComponent } from './components/product-selectable-card/product-selectable-card.component';
 import { FeedbackModule } from '../feedback/feedback.module';
+import { SelectableImageModule } from '../selectable-image/selectable-image.module';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,8 @@ import { FeedbackModule } from '../feedback/feedback.module';
 		TooltipModule,
 		LoadersModule,
 		SuppliersModule,
-		FeedbackModule
+		FeedbackModule,
+		SelectableImageModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

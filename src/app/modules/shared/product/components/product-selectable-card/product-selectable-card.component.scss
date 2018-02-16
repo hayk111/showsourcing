@@ -1,0 +1,56 @@
+:host {
+	margin: var(--spacing-l);
+	display: block;
+}
+
+.ctnr {
+	height: 327px;
+	width: 260px;
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+	background-color: var(--color-bg);
+	padding: var(--spacing-default);
+	position: relative;
+}
+
+.top {
+	margin-bottom: var(--spacing-s);
+	height: 34px;
+	.name {
+		font-weight: 500;
+	}
+	.category {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-secondary);
+	}
+}
+
+
+.img {
+	height: 171px;
+	width: 228px;
+}
+
+.badge {
+	margin-top: -10px;
+	// so it's above the img on hover
+	position: relative;
+	z-index: 2;
+}
+
+.bottom {
+	margin-top: var(--spacing-default);
+	.supplier {
+		font-size: var(--font-size-s);
+	}
+	.footer {
+		position: absolute;
+		bottom: var(--spacing-default);
+		color: var(--color-txt-secondary);
+		width: 228px;
+		.date {
+			text-transform: uppercase;
+		}
+	}
+}
+

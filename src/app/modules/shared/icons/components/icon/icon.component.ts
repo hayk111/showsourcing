@@ -19,6 +19,7 @@ export class IconComponent implements OnInit {
 	// symbols give perf gains but are less configurable
 	@Input() useSymbol = true;
 	@ViewChild('icon') icon: TemplateRef<any>;
+
 	constructor() { }
 
 	ngOnInit() {

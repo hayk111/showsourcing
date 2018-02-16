@@ -1,11 +1,11 @@
-:host {
-	display: flex;
-}
-
-:host > * {
+.btn {
+	background: rgba(0, 0, 0, 0.4);
 	margin: var(--spacing-xs);
+	padding: var(--spacing-xs) var(--spacing-s);
+	border-radius: var(--border-radius);
+	width: 45%;
 }
 
-.selected {
-	color: orange;
+icon-app {
+	margin-right: var(--spacing-s);
 }

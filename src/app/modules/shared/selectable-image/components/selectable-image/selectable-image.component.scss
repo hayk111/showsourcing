@@ -1,0 +1,53 @@
+
+.imgCtnr {
+	border-radius: var(--border-radius);
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+}
+.imgCtnr:hover {
+	& > img {
+		filter: blur(3px);
+	}
+
+	& > .overlay {
+		display: flex;
+	}
+}
+
+.overlay {
+	padding: var(--spacing-s);
+	display: none;
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom:0;
+	left: 0;
+	right: 0;
+}
+
+.openCtnr {
+	margin:auto;
+	padding: var(--spacing-xs);
+	flex-grow: 1;
+}
+
+.open {
+	border-radius: var(--border-radius);
+	border: 1px solid white;
+	color: white;
+	margin: auto;
+	font-size: var(--font-size-xl);
+	padding: var(--spacing-xs);
+	text-align: center;
+}
+
+.feedback {
+	display: block;
+	margin-top: var(--spacing-default);
+}

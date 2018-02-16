@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../store/model/entities/product.model';
+import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 
 @Component({
   selector: 'product-selectable-card-app',
@@ -8,7 +9,6 @@ import { Product } from '../../../../store/model/entities/product.model';
 })
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
-
   constructor() { }
 
   ngOnInit() {

@@ -1,1 +1,34 @@
-<rating-heart-app [rating]="product?.rating"></rating-heart-app>
+<div class="ctnr z-2">
+	<!-- top of card -->
+	<div class="flexBetween top">
+		<div>
+			<div class="name">{{ product?.name }}</div>
+			<div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
+		</div>
+		<rating-heart-app [rating]="product?.rating"></rating-heart-app>
+	</div>
+
+
+	<!-- middle card: picture + badge  -->
+	<div class="imgCtnr flexCenter">
+		<selectable-image-app class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+	</div>
+
+	<div class="flexCenter">
+		<product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
+	</div>
+
+	<!-- bottom card -->
+
+	<div class="bottom">
+		<div>
+			<div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+		</div>
+		<div class="footer fullWidth flexBetween">
+			<product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
+			<div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
+		</div>
+	</div>
+
+</div>
+
