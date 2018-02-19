@@ -28,7 +28,7 @@ import { ActionType as CommentSltcnActionTypes } from '../action/target/comment.
 import { imageSelectionReducer } from './target/image-target.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import { entityRepresentationMap } from '../utils/entities.utils';
-import { CategoryActionTypes, CountryActionTypes, CurrencyActionTypes, CustomFieldsActionTypes } from '../action/entities/index';
+import { CategoryActionTypes, CountryActionTypes, CurrencyActionTypes, CustomFieldsActionTypes, TeamMembersActionTypes } from '../action/entities/index';
 import { EventActionTypes as EventActionTypes } from '../action/entities/index';
 import { TagActionTypes } from '../action/entities/index';
 import { SupplierActionTypes } from '../action/entities/index';
@@ -41,7 +41,7 @@ import { productSelectionReducer } from './ui/product-selection.reducer';
 const entities = combineReducers({
 	user: userReducer,
 	teams:  basicReducerFactory(TeamActionTypes),
-	teamMembers: basicReducerFactory(TeamActionTypes),
+	teamMembers: basicReducerFactory(TeamMembersActionTypes),
 	countries: basicReducerFactory(CountryActionTypes),
 	currencies: basicReducerFactory(CurrencyActionTypes),
 	categories: basicReducerFactory(CategoryActionTypes),

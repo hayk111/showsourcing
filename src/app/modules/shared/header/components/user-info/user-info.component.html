@@ -1,6 +1,7 @@
 <ng-container *ngIf="user$ | async as user">
 
-	<user-picture-with-name-app [user]="user">
+	<!-- gotta get the info in team members because not every info is in user.. -->
+	<user-picture-with-name-app [user]="user.id | entity: 'teamMembers' | async">
 		<div class="team">{{ user?.currentTeamId | entityName: 'teams' | async }}</div>
 	</user-picture-with-name-app>
 
