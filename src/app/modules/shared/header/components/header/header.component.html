@@ -20,7 +20,7 @@
 	<a [routerLink]="['/test']" routerLinkActive="selected">Test</a>
 </nav>
 
-<div class="flexCenter" *ngIf="(authenticated$ | async)">
+<div class="flexCenter right" *ngIf="(authenticated$ | async)">
 	<search-app></search-app>
 	<notif-app></notif-app>
 	<div class="vertDivider"></div>

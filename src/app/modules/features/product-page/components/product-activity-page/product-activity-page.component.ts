@@ -17,13 +17,11 @@ import { UserService } from '../../../../shared/user/services/user.service';
 	templateUrl: './product-activity-page.component.html',
 	styleUrls: ['./product-activity-page.component.scss']
 })
-export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
+export class ProductActivityPageComponent implements OnInit {
 	comments$: Observable<Array<AppComment>>;
 	comment = new FormControl('');
 
-	constructor(private store: Store<any>, private userSrv: UserService) {
-		super();
-	}
+	constructor(private store: Store<any>, private userSrv: UserService) {}
 
 	ngOnInit() {
 		this.comments$ = this.store.select(selectCommentsForSelection);

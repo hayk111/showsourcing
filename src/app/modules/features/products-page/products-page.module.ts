@@ -24,6 +24,7 @@ import { ViewSwitcherComponent } from '../../shared/switch/components/view-switc
 import { FilterSearchBarModule } from '../../shared/filter-search-bar/filter-search-bar.module';
 import { IconsModule } from '../../shared/icons/icons.module';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
+import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 
 @NgModule({
 	imports: [
@@ -34,13 +35,15 @@ import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 		UtilsModule,
 		NgxDatatableModule,
 		ProductModule,
-		EntityPageModule
+		EntityPageModule,
+		IconsModule
 	],
 	declarations: [
 		ProductsPageComponent,
 		ProductListViewComponent,
 		ProductCardViewComponent,
-		ProductSidePreviewComponent
+		ProductSidePreviewComponent,
+		BottomBarComponent
 	]
 })
 export class ProductsPageModule { }

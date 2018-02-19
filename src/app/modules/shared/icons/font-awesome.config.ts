@@ -23,7 +23,10 @@ import * as faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestio
 import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
 import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faThumbsDown from '@fortawesome/fontawesome-free-solid/faThumbsDown';
-
+import * as faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import * as faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
+import * as faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+import * as faChartBar from '@fortawesome/fontawesome-free-solid/faChartBar';
 import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
@@ -51,6 +54,10 @@ export const faIcons = [	faAngleRight,
 	faQuestionCircle,
 	faTimesCircle,
 	faTrashAlt,
+	faTimes,
+	faFolder,
+	faExternalLinkAlt,
+	faChartBar
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

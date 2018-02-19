@@ -1,7 +1,11 @@
 :host {
-	color: var(--color-icon);
+	color: inherit;
 	font-weight: normal;
 	line-height: 1;
+}
+
+.default {
+	color: var(--color-icon);
 }
 
 .success {
