@@ -1,4 +1,3 @@
-import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
 import { uuid } from './uuid.utils';
 
 export const entityInitialState: EntityState<any> = {
@@ -31,7 +30,7 @@ export class EntityRepresentation  {
 	constructor(public entityName: string,
 							public urlName?: string,
 							public displayName?: string,
-							public descriptorName?: CustomFieldsName | string) {
+							public descriptorName?: string) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
 		this.displayName = displayName || entityName;

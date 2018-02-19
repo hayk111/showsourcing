@@ -19,7 +19,7 @@ import { CommentTargetEffects } from './target/comments.effects';
 import { FilesTargetEffects } from './target/files.effects';
 import { ImageTargetEffects } from './target/image.effects';
 import { ProjectTargetEffects } from './target/project.effects';
-import { SelectionEffects } from './target/target.effects';
+import { TargetEffects } from './target/target.effects';
 import { TagTargetEffects } from './target/tag.effects';
 import { TaskTargetEffects } from './target/task.effects';
 import { VoteTargetEffects } from './target/vote.effects';
@@ -55,7 +55,7 @@ export const effects = [
 	FilterEntityPanelEffects,
 
 	// target
-	SelectionEffects,
+	TargetEffects,
 	CommentTargetEffects,
 	FilesTargetEffects,
 	ImageTargetEffects,

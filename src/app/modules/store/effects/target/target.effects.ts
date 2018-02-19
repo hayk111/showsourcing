@@ -15,7 +15,7 @@ import { VoteSlctnActions } from '../../action/target/vote.action';
 import { SupplierActions } from '../../action/entities/index';
 
 @Injectable()
-export class SelectionEffects {
+export class TargetEffects {
 
 	@Effect()
 	select$ = this.actions$.ofType<any>(ActionType.SELECT).pipe(
@@ -47,7 +47,7 @@ export class SelectionEffects {
 					ImageTargetActions.load(),
 				]
 			default:
-				throw Error('entity target not defined in SelectionEffects');
+				throw Error('entity target not defined in TargetEffects');
 		}
 	}
 

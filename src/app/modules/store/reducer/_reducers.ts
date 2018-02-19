@@ -5,12 +5,8 @@ import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { userReducer } from './entities/user.reducer';
-import { countryReducer } from './entities/country.reducer';
-import { currencyReducer } from './entities/currency.reducer';
-import { teamMembersReducer } from './entities/team-members.reducer';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
-import { customFieldsReducer } from './entities/custom-fields.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { dialogReducer } from './ui/dialog.reducer';
 import { filtersReducer } from './misc/filter.reducer';
@@ -32,7 +28,7 @@ import { ActionType as CommentSltcnActionTypes } from '../action/target/comment.
 import { imageSelectionReducer } from './target/image-target.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import { entityRepresentationMap } from '../utils/entities.utils';
-import { CategoryActionTypes } from '../action/entities/index';
+import { CategoryActionTypes, CountryActionTypes, CurrencyActionTypes, CustomFieldsActionTypes } from '../action/entities/index';
 import { EventActionTypes as EventActionTypes } from '../action/entities/index';
 import { TagActionTypes } from '../action/entities/index';
 import { SupplierActionTypes } from '../action/entities/index';
@@ -45,9 +41,9 @@ import { productSelectionReducer } from './ui/product-selection.reducer';
 const entities = combineReducers({
 	user: userReducer,
 	teams:  basicReducerFactory(TeamActionTypes),
-	teamMembers: teamMembersReducer,
-	countries: countryReducer,
-	currencies: currencyReducer,
+	teamMembers: basicReducerFactory(TeamActionTypes),
+	countries: basicReducerFactory(CountryActionTypes),
+	currencies: basicReducerFactory(CurrencyActionTypes),
 	categories: basicReducerFactory(CategoryActionTypes),
 	events: basicReducerFactory(EventActionTypes),
 	tags: basicReducerFactory(TagActionTypes),
@@ -59,7 +55,7 @@ const entities = combineReducers({
 	taskTypes: tasksTypeReducer,
 	products: basicReducerFactory(ProductActionTypes),
 	productStatus: productStatusReducer,
-	customFields: customFieldsReducer
+	customFields: basicReducerFactory(CustomFieldsActionTypes)
 });
 
 const misc = combineReducers({
