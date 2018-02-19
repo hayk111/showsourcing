@@ -1,4 +1,6 @@
 
+
+// regex for inputs
 export enum RegexpApp {
 	DIGITS = '^\\d+$',
 	// tslint:disable-next-line:max-line-length

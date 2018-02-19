@@ -11,7 +11,7 @@
 }
 .imgCtnr:hover {
 	& > img {
-		filter: blur(3px);
+		filter: blur(4px);
 	}
 
 	& > .overlay {
@@ -22,7 +22,7 @@
 .overlay {
 	padding: var(--spacing-s);
 	display: none;
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.55);
 	position: absolute;
 	z-index: 1;
 	top: 0;

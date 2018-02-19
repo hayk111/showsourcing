@@ -1,5 +1,6 @@
 
 // to easily build api endpoints
+// @Deprecated, should be deprecated
 export class UrlBuilder {
 	private _base: string;
 	private _entity: string;
