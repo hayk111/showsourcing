@@ -4,7 +4,7 @@ import { selectTeamMembers } from '../../../../store/selectors/entities/team-mem
 import { Observable } from 'rxjs/Observable';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
 import { User } from '../../../../store/model/entities/user.model';
-import { selectVotesForSelection, selectVotesByType, VoteByType } from '../../../../store/selectors/selection/selection.selector';
+import { selectVotesForCurrentTarget, selectVotesByType, VoteByType } from '../../../../store/selectors/target/target.selector';
 import { map, tap } from 'rxjs/operators';
 import { Vote } from '../../../../store/model/entities/vote.model';
 
@@ -27,7 +27,7 @@ export class LikesCardComponent implements OnInit {
 
 	ngOnInit() {
 		this.teamMembers$ = this.store.select(selectTeamMembers);
-		this.pending$ = this.store.select(selectVotesForSelection)
+		this.pending$ = this.store.select(selectVotesForCurrentTarget)
 			.pipe(map(state => state.pending));
 		this.votes$ = this.store.select(selectVotesByType);
 	}

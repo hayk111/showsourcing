@@ -8,10 +8,10 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 import { ProductActions } from '../../../../store/action/entities/product.action';
 import { TaskActions } from '../../../../store/action/entities/task.action';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
-import { selectTasksForSelection, selectTaskArrayForSelection, selectProductSelected } from '../../../../store/selectors/selection/selection.selector';
+import { selectTasksForCurrentTarget, selectTaskArrayForCurrentTarget, selectProductSelected } from '../../../../store/selectors/target/target.selector';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
-import { TaskSlctnActions } from '../../../../store/action/selection/task-selection.action';
+import { TaskTargetActions } from '../../../../store/action/target/task.action';
 import { Product } from '../../../../store/model/entities/product.model';
 
 @Component({
@@ -28,7 +28,7 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.tasks$ = this.store.select(selectTaskArrayForSelection);
+		this.tasks$ = this.store.select(selectTaskArrayForCurrentTarget);
 		this.product$ = this.store.select(selectProductSelected);
 	}
 
@@ -37,6 +37,6 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewTask(task: Task) {
-		this.store.dispatch(TaskSlctnActions.add(task));
+		this.store.dispatch(TaskTargetActions.add(task));
 	}
 }

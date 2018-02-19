@@ -6,7 +6,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { selectUser } from '../../selectors/entities/user.selector';
 import { AppFile } from '../../model/entities/app-file.model';
 import { ProductService } from '../../services/product.service';
-import { FileSlctnActions } from '../../action/selection/file-selection.action';
+import { FileTargetActions } from '../../action/target/file.action';
 
 
 
@@ -32,7 +32,7 @@ export class ProductEffects {
 	downloadPdf$ = this.actions$.ofType<any>(ActionType.REQUEST_PDF).pipe(
 		map(action => action.payload),
 		switchMap(id => this.srv.sendPdfReq(id)),
-		map(path => FileSlctnActions.download({ url: path } as AppFile))
+		map(path => FileTargetActions.download({ url: path } as AppFile))
 	);
 
 	@Effect({ dispatch: false })

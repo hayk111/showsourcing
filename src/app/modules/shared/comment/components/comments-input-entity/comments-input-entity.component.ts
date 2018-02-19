@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../../app/components/app.component';
 import { AppComment } from '../../../../store/model/entities/comment.model';
-import { CommentSlctnActions } from '../../../../store/action/selection/comment-selection.action';
+import { CommentTargetActions } from '../../../../store/action/target/comment.action';
 import { UserService } from '../../../user/services/user.service';
-import { selectCommentsForSelection, selectCommentsArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectCommentsForCurrentTarget, selectCommentsArrayForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 
 @Component({
 	selector: 'comments-entity-app',
@@ -19,11 +19,11 @@ export class CommentsInputEntityComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.comments$ = this.store.select<any>(selectCommentsArrayForSelection);
+		this.comments$ = this.store.select<any>(selectCommentsArrayForCurrentTarget);
 	}
 
 	onNewComment(text: string) {
-		this.store.dispatch(CommentSlctnActions.add( new AppComment(text, this.userSrv.getUserId())));
+		this.store.dispatch(CommentTargetActions.add( new AppComment(text, this.userSrv.getUserId())));
 	}
 
 }

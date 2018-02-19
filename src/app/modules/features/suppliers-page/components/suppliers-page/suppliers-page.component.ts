@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';
 import { map } from 'rxjs/operators';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { TargetAction } from '../../../../store/action/target/target.action';
 import { Router } from '@angular/router';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
@@ -36,7 +36,7 @@ export class SuppliersPageComponent implements OnInit {
 
 	onItemSelected(entityId: string) {
 		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(SelectionAction.select(target));
+		this.store.dispatch(TargetAction.select(target));
 		this.router.navigate(['/suppliers', 'supplier-details', entityId]);
 	}
 }

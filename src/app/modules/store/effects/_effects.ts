@@ -15,14 +15,14 @@ import { EventEffects } from './entities/event.effects';
 import { FilterEntityPanelEffects } from './ui/filter-entity-panel.effects';
 import { ProjectEffects } from './entities/project.effects';
 import { PreloaderEffects } from './misc/preloader.effects';
-import { CommentSelectionEffects } from './selection/comments-selection.effects';
-import { FilesSelectionEffects } from './selection/files.effects';
-import { ImageSelectionEffects } from './selection/image.effects';
-import { ProjectSelectionEffects } from './selection/project.selection.effects';
-import { SelectionEffects } from './selection/selection.effects';
-import { TagSelectionEffects } from './selection/tag-selection.effects';
-import { TaskSelectionEffects } from './selection/task-selection.effects';
-import { VoteSelectionEffects } from './selection/vote-selection.effects';
+import { CommentTargetEffects } from './target/comments.effects';
+import { FilesTargetEffects } from './target/files.effects';
+import { ImageTargetEffects } from './target/image.effects';
+import { ProjectTargetEffects } from './target/project.effects';
+import { SelectionEffects } from './target/target.effects';
+import { TagTargetEffects } from './target/tag.effects';
+import { TaskTargetEffects } from './target/task.effects';
+import { VoteTargetEffects } from './target/vote.effects';
 import { TeamEffects } from './entities/team.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { SnackBarEffects } from './ui/snack-bar.effects';
@@ -54,15 +54,15 @@ export const effects = [
 	PreloaderEffects,
 	FilterEntityPanelEffects,
 
-	// selection
+	// target
 	SelectionEffects,
-	CommentSelectionEffects,
-	FilesSelectionEffects,
-	ImageSelectionEffects,
-	ProjectSelectionEffects,
-	TagSelectionEffects,
-	TaskSelectionEffects,
-	VoteSelectionEffects,
+	CommentTargetEffects,
+	FilesTargetEffects,
+	ImageTargetEffects,
+	ProjectTargetEffects,
+	TagTargetEffects,
+	TaskTargetEffects,
+	VoteTargetEffects,
 
 	// UI
 	FeedbackDlgEffects

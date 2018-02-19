@@ -4,7 +4,7 @@ export enum ActionType {
 	LOAD = '[TagSelection] loading',
 	SET = '[TagSelection]	setting',
 	ADD = '[TagSelection] adding',
-	REMOVE = '[TagSelection] removing for selection',
+	REMOVE = '[TagSelection] removing for target',
 }
 
 export class TagSlctnActions {

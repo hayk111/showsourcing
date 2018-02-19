@@ -1,15 +1,15 @@
 import { AppFile } from '../../model/entities/app-file.model';
 
 export enum ActionType {
-	LOAD = '[FileSelection] loading',
-	SET = '[FileSelection] setting',
-	ADD = '[FileSelection] adding',
-	REMOVE = '[FileSelection] removing',
-	REPLACE = '[FileSelection] replacing',
-	DOWNLOAD = '[FileSelection] downloading'
+	LOAD = '[FileTarget] loading',
+	SET = '[FileTarget] setting',
+	ADD = '[FileTarget] adding',
+	REMOVE = '[FileTarget] removing',
+	REPLACE = '[FileTarget] replacing',
+	DOWNLOAD = '[FileTarget] downloading'
 }
 
-export class FileSlctnActions {
+export class FileTargetActions {
 	static load() {
 		return {
 			type: ActionType.LOAD

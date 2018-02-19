@@ -1,13 +1,14 @@
+
 import { AppComment } from '../../model/entities/comment.model';
 
 export enum ActionType {
-	LOAD = '[CommentSelection] loading',
-	SET = '[CommentSelection] setting',
-	ADD = '[CommentSelection] adding',
-	REPLACE = '[CommentSelection] replacing',
+	LOAD = '[CommentTarget] loading',
+	SET = '[CommentTarget] setting',
+	ADD = '[CommentTarget] adding',
+	REPLACE = '[CommentTarget] replacing',
 }
 
-export class CommentSlctnActions {
+export class CommentTargetActions {
 	static load() {
 		return {
 			type: ActionType.LOAD

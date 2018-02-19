@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
-import { VoteByType } from '../../../../store/selectors/selection/selection.selector';
+import { VoteByType } from '../../../../store/selectors/target/target.selector';
 
 @Component({
 	selector: 'legend-app',

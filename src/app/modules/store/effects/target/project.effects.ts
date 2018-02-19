@@ -1,21 +1,21 @@
-import { ActionType } from '../../action/selection/project-selection.action';
+import { ActionType } from '../../action/target/project.action';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
 import { ProjectService } from '../../services/project.service';
 import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
-import { ProjectSlctnActions } from '../../action/selection/project-selection.action';
+import { ProjectTargetActions } from '../../action/target/project.action';
 import { Project } from '../../model/entities/project.model';
 
 
 @Injectable()
-export class ProjectSelectionEffects {
+export class ProjectTargetEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.loadForTarget(target)),
-		map((r: any) => ProjectSlctnActions.set(r))
+		map((r: any) => ProjectTargetActions.set(r))
 	);
 
 	@Effect({ dispatch: false })

@@ -23,15 +23,15 @@ import { filterPanelReducer } from './ui/filter-panel.reducer';
 import { sidenavReducer } from './ui/sidenav.reducer';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { InjectionToken } from '@angular/core';
-import { currentSelectionReducer, selectionReducerFactory } from './selection/selection.reducer';
-import { ActionType as VoteSlctnActionTypes } from '../action/selection/vote-selection.action';
-import { ActionType as TaskSlctnActionTypes } from '../action/selection/task-selection.action';
-import { ActionType as ProjectSlctnActionTypes } from '../action/selection/project-selection.action';
-import { ActionType as TagSlctnActionTypes } from '../action/selection/tag-selection.action';
-import { ActionType as FileSlctnActionTypes } from '../action/selection/file-selection.action';
-import { ActionType as ImageSltcnActionTypes } from '../action/selection/images-selection.action';
-import { ActionType as CommentSltcnActionTypes } from '../action/selection/comment-selection.action';
-import { imageSelectionReducer } from './selection/image-selection.reducer';
+import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
+import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
+import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
+import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
+import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
+import { ActionType as FileSlctnActionTypes } from '../action/target/file.action';
+import { ActionType as ImageSltcnActionTypes } from '../action/target/images.action';
+import { ActionType as CommentSltcnActionTypes } from '../action/target/comment.action';
+import { imageSelectionReducer } from './target/image-target.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import { entityRepresentationMap } from '../utils/entities.utils';
 import { categoryReducer } from './entities/category.reducer';
@@ -48,6 +48,7 @@ import { ActionType as ProductActionTypes } from '../action/entities/product.act
 import { ActionType as ProjectActionTypes } from '../action/entities/project.action';
 import { ActionType as TaskActionTypes } from '../action/entities/task.action';
 import { ActionType as TeamActionTypes } from '../action/entities/team.action';
+import { productSelectionReducer } from './ui/product-selection.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -75,14 +76,14 @@ const misc = combineReducers({
 });
 
 const selection = combineReducers({
-	currentSelection: currentSelectionReducer,
-	projects: selectionReducerFactory(ProjectSlctnActionTypes),
-	tags: selectionReducerFactory(TagSlctnActionTypes),
-	tasks: selectionReducerFactory(TaskSlctnActionTypes),
-	comments: selectionReducerFactory(CommentSltcnActionTypes),
-	files: selectionReducerFactory(FileSlctnActionTypes),
+	currentSelection: currentTargetReducer,
+	projects: targetReducerFactory(ProjectSlctnActionTypes),
+	tags: targetReducerFactory(TagSlctnActionTypes),
+	tasks: targetReducerFactory(TaskSlctnActionTypes),
+	comments: targetReducerFactory(CommentSltcnActionTypes),
+	files: targetReducerFactory(FileSlctnActionTypes),
 	images: imageSelectionReducer,
-	votes: selectionReducerFactory(VoteSlctnActionTypes)
+	votes: targetReducerFactory(VoteSlctnActionTypes)
 });
 
 const ui = combineReducers( {
@@ -92,6 +93,7 @@ const ui = combineReducers( {
 	viewSwitcher: viewSwitcherReducer,
 	sideNav: sidenavReducer,
 	filterEntityPanel: filterEntityPanelReducer,
+	productSelection: productSelectionReducer
 });
 
 

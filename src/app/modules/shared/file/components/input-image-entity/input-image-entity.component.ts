@@ -5,9 +5,9 @@ import { selectUser } from '../../../../store/selectors/entities/user.selector';
 import { map } from 'rxjs/operators';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { selectImagesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectImagesForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { UserService } from '../../../user/services/user.service';
-import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
+import { ImageTargetActions } from '../../../../store/action/target/images.action';
 
 @Component({
 	selector: 'input-image-entity-app',
@@ -21,12 +21,12 @@ export class InputImageEntityComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.images$ = this.store.select(selectImagesForSelection);
+		this.images$ = this.store.select(selectImagesForCurrentTarget);
 	}
 
 	async onFileAdded(file: File) {
 		const img = await AppImage.newInstance(file, this.userSrv.getUserId());
-		this.store.dispatch(ImageSlctnActions.add(img));
+		this.store.dispatch(ImageTargetActions.add(img));
 	}
 
 

@@ -8,8 +8,8 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { getFirstProductEntityTarget } from '../../utils.utils';
-import { ImageSlctnActions } from '../../../../store/action/selection/images-selection.action';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { ImageTargetActions } from '../../../../store/action/target/images.action';
+import { TargetAction } from '../../../../store/action/target/target.action';
 
 @Component({
 	selector: 'app-test-carousel',
@@ -26,7 +26,7 @@ export class TestCarouselComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// we select a product then we load images for it
 		this.target$ = getFirstProductEntityTarget(this.store, this._destroy$)
-			.pipe( tap(target => this.store.dispatch(SelectionAction.select(target)))
+			.pipe( tap(target => this.store.dispatch(TargetAction.select(target)))
 			);
 	}
 

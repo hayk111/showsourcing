@@ -3,8 +3,8 @@ import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { Vote } from '../../../../store/model/entities/vote.model';
 import { Observable } from 'rxjs/Observable';
-import { selectVotesForSelection } from '../../../../store/selectors/selection/selection.selector';
-import { VoteSlctnActions } from '../../../../store/action/selection/vote-selection.action';
+import { selectVotesForCurrentTarget } from '../../../../store/selectors/target/target.selector';
+import { VoteSlctnActions } from '../../../../store/action/target/vote.action';
 import { UserService } from '../../../user/services/user.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class FeedbackInputEntityComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.votes$ = this.store.select(selectVotesForSelection);
+		this.votes$ = this.store.select(selectVotesForCurrentTarget);
 	}
 
 	onVote(value: number) {

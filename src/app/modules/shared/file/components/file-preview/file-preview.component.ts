@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
+import { FileTargetActions } from '../../../../store/action/target/file.action';
 
 @Component({
 	selector: 'file-preview-app',
@@ -29,7 +29,7 @@ export class FilePreviewComponent implements OnInit {
 	}
 
 	download(f: AppFile) {
-		this.store.dispatch(FileSlctnActions.download(f));
+		this.store.dispatch(FileTargetActions.download(f));
 	}
 
 }

@@ -13,9 +13,9 @@ import { TagActions } from '../../../../store/action/entities/tag.action';
 import { Tag } from '../../../../store/model/entities/tag.model';
 import { tap, take } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators';
-import { ProjectSlctnActions } from '../../../../store/action/selection/project-selection.action';
-import { selectProjectsForSelection, selectProductSelected } from '../../../../store/selectors/selection/selection.selector';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { ProjectTargetActions } from '../../../../store/action/target/project.action';
+import { selectProjectsForCurrentTarget, selectProductSelected } from '../../../../store/selectors/target/target.selector';
+import { TargetAction } from '../../../../store/action/target/target.action';
 
 @Component({
 	selector: 'product-page-app',
@@ -40,18 +40,18 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 		.subscribe(params => {
 			const id = params['id'];
 			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };
-			this.store.dispatch(SelectionAction.select(this.target));
+			this.store.dispatch(TargetAction.select(this.target));
 		});
 		this.product$ = this.store.select(selectProductSelected);
-		this.projects$ = this.store.select(selectProjectsForSelection);
+		this.projects$ = this.store.select(selectProjectsForCurrentTarget);
 	}
 
 	onProjectAdded(event) {
-		this.store.dispatch(ProjectSlctnActions.add(event));
+		this.store.dispatch(ProjectTargetActions.add(event));
 	}
 
 	onProjectRemoved(event) {
-		this.store.dispatch(ProjectSlctnActions.remove(event));
+		this.store.dispatch(ProjectTargetActions.remove(event));
 	}
 
 }

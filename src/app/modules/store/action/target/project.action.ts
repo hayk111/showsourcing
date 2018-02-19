@@ -1,13 +1,13 @@
 import { Project } from '../../model/entities/project.model';
 
 export enum ActionType {
-	LOAD = '[ProjectsSelection] loading',
-	SET = '[ProjectsSelection] setting',
-	ADD = '[ProjectsSelection] adding',
-	REMOVE = '[ProjectsSelection] removing for selection',
+	LOAD = '[ProjectsTarget] loading',
+	SET = '[ProjectsTarget] setting',
+	ADD = '[ProjectsTarget] adding',
+	REMOVE = '[ProjectsTarget] removing for target',
 }
 
-export class ProjectSlctnActions {
+export class ProjectTargetActions {
 	static load() {
 		return {
 			type: ActionType.LOAD

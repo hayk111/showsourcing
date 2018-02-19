@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EntityTarget } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
-import { selectCurrentSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectCurrentTarget } from '../../../../store/selectors/target/target.selector';
 
 @Component({
 	selector: 'product-side-preview-app',
@@ -14,7 +14,7 @@ export class ProductSidePreviewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.target$ = this.store.select(selectCurrentSelection);
+		this.target$ = this.store.select(selectCurrentTarget);
 	}
 
 }

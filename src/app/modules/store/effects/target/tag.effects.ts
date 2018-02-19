@@ -2,12 +2,12 @@ import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
-import { ActionType, TagSlctnActions } from '../../action/selection/tag-selection.action';
+import { ActionType, TagSlctnActions } from '../../action/target/tag-selection.action';
 import { TagService } from '../../services/tag.service';
 
 
 @Injectable()
-export class TagSelectionEffects {
+export class TagTargetEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target

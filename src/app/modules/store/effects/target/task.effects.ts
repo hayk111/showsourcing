@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom, mergeMap, tap, catchError } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
-import { ActionType, TaskSlctnActions } from '../../action/selection/task-selection.action';
+import { ActionType, TaskTargetActions } from '../../action/target/task.action';
 import { TaskService } from '../../services/task.service';
 import { TaskActions } from '../../action/entities/task.action';
 import { EntityService } from '../../services/entity.service';
@@ -13,7 +13,7 @@ import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.
 
 
 @Injectable()
-export class TaskSelectionEffects {
+export class TaskTargetEffects {
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
@@ -21,7 +21,7 @@ export class TaskSelectionEffects {
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.loadForTarget(entityRepresentationMap.tasks, target)),
 		mergeMap((r: any) => [
-			TaskSlctnActions.set(r),
+			TaskTargetActions.set(r),
 			TaskActions.add(r)
 		])
 	);
@@ -32,7 +32,7 @@ export class TaskSelectionEffects {
 		switchMap(task => this.srv.addForTarget(task, entityRepresentationMap.tasks, this.selectionSrv.currentTarget).pipe(
 			// replace currently pending files, we need to replace so it's not pending anymore
 			mergeMap((r: any) => ([
-				TaskSlctnActions.replace(task, r),
+				TaskTargetActions.replace(task, r),
 				FeedbackDlgActions.add({ styleType: FeedbackStyle.SUCCESS, title: 'Task added', body: 'Your task was added'}),
 			])),
 

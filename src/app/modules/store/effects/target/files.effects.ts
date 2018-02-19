@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FileService } from '../../services/file.service';
 import { SelectionService } from '../../services/selection.service';
-import { ActionType, FileSlctnActions } from '../../action/selection/file-selection.action';
+import { ActionType, FileTargetActions } from '../../action/target/file.action';
 import { mergeMap } from 'rxjs/operators';
 import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
 import { catchError } from 'rxjs/operators/catchError';
@@ -11,14 +11,14 @@ import { AppErrorActions } from '../../action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class FilesSelectionEffects {
+export class FilesTargetEffects {
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
-		map((r: any) => FileSlctnActions.set(r))
+		map((r: any) => FileTargetActions.set(r))
 	);
 
 	// 1. Add file with ref
@@ -33,7 +33,7 @@ export class FilesSelectionEffects {
 				// replace currently pending files, we need to replace so it's not pending anymore
 				mergeMap((r: any) => [
 					FeedbackDlgActions.add({ styleType: FeedbackStyle.SUCCESS, title: 'File Uploaded', body: 'Your file was uploaded with success'}),
-					FileSlctnActions.replace(p.file, r)
+					FileTargetActions.replace(p.file, r)
 				]),
 				catchError(e => of(AppErrorActions.add(e)))
 			))

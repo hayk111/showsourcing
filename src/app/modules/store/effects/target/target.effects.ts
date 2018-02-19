@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { ActionType } from '../../action/selection/selection.action';
+import { ActionType } from '../../action/target/target.action';
 import { mergeMap, tap } from 'rxjs/operators';
 import {  entityRepresentationMap, EntityTarget } from '../../utils/entities.utils';
 import { map } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { CommentSlctnActions } from '../../action/selection/comment-selection.action';
-import { FileSlctnActions } from '../../action/selection/file-selection.action';
-import { ImageSlctnActions } from '../../action/selection/images-selection.action';
-import { ProjectSlctnActions } from '../../action/selection/project-selection.action';
-import { TagSlctnActions } from '../../action/selection/tag-selection.action';
-import { TaskSlctnActions } from '../../action/selection/task-selection.action';
-import { VoteSlctnActions } from '../../action/selection/vote-selection.action';
+import { CommentTargetActions } from '../../action/target/comment.action';
+import { FileTargetActions } from '../../action/target/file.action';
+import { ImageTargetActions } from '../../action/target/images.action';
+import { ProjectTargetActions } from '../../action/target/project.action';
+import { TagSlctnActions } from '../../action/target/tag-selection.action';
+import { TaskTargetActions } from '../../action/target/task.action';
+import { VoteSlctnActions } from '../../action/target/vote.action';
 import { SupplierActions } from '../../action/entities/supplier.action';
 
 @Injectable()
@@ -32,22 +32,22 @@ export class SelectionEffects {
 
 			case m.product.entityName:
 				return [
-					CommentSlctnActions.load(),
-					FileSlctnActions.load(),
-					ImageSlctnActions.load(),
-					ProjectSlctnActions.load(),
+					CommentTargetActions.load(),
+					FileTargetActions.load(),
+					ImageTargetActions.load(),
+					ProjectTargetActions.load(),
 					TagSlctnActions.load(),
-					TaskSlctnActions.load(),
+					TaskTargetActions.load(),
 					VoteSlctnActions.load(),
 				];
 			case m.suppliers.entityName:
 				return [
-					CommentSlctnActions.load(),
-					FileSlctnActions.load(),
-					ImageSlctnActions.load(),
+					CommentTargetActions.load(),
+					FileTargetActions.load(),
+					ImageTargetActions.load(),
 				]
 			default:
-				throw Error('entity selection not defined in SelectionEffects');
+				throw Error('entity target not defined in SelectionEffects');
 		}
 	}
 

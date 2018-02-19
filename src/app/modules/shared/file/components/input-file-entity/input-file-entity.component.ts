@@ -5,9 +5,9 @@ import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { Observable } from 'rxjs/Observable';
 import { selectUser } from '../../../../store/selectors/entities/user.selector';
 import { map } from 'rxjs/operators';
-import { selectFilesForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { selectFilesForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { UserService } from '../../../user/services/user.service';
-import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
+import { FileTargetActions } from '../../../../store/action/target/file.action';
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 
@@ -26,7 +26,7 @@ export class InputFileEntityComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.files$ = this.store.select(selectFilesForSelection);
+		this.files$ = this.store.select(selectFilesForCurrentTarget);
 		this.files$
 		.pipe(takeUntil(this._destroy$))
 		.subscribe((r: EntityState<any>) => this.filesArray = entityStateToArray(r));
@@ -34,7 +34,7 @@ export class InputFileEntityComponent extends AutoUnsub implements OnInit {
 
 	onFileAdded(file: File) {
 		const appFile = new AppFile(file, this.userSrv.getUserId());
-		this.store.dispatch(FileSlctnActions.add(appFile));
+		this.store.dispatch(FileTargetActions.add(appFile));
 	}
 
 }

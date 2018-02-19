@@ -1,7 +1,7 @@
 // import { Component, OnInit } from '@angular/core';
 // import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 // import { Store } from '@ngrx/store';
-// import { selectVotesArrayForSelection, selectVotesForSelection } from '../../../../store/selectors/selection/selection.selector';
+// import { selectVotesArrayForSelection, selectVotesForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 // import { Vote } from '../../../../store/model/entities/vote.model';
 // import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
 // import { User } from '../../../../store/model/entities/user.model';
@@ -46,7 +46,7 @@
 // 	ngOnInit() {
 // 		this.store.select(selectTeamMembers).subscribe(users => this.teamMembers = users);
 // 		// votes are value 100 for positive 0 for negative and no value for neutral
-// 		this.store.select(selectVotesForSelection).subscribe( (voteState: any) => {
+// 		this.store.select(selectVotesForCurrentTarget).subscribe( (voteState: any) => {
 // 			this.pending = voteState.pending;
 // 			const votes = entityStateToArray(voteState);
 // 			this.votes = [];

@@ -1,16 +1,16 @@
 import { AppImage } from '../../model/entities/app-image.model';
 
 export enum ActionType {
-	LOAD = '[ImageSelection] loading',
-	SET = '[ImageSelection] setting',
-	ADD = '[ImageSelection] adding',
-	REMOVE = '[ImageSelection] removing',
-	REPLACE = '[ImageSelection] replacing',
-	DOWNLOAD = '[ImageSelection] downloading',
-	ROTATE = '[ImageSelection] rotate',
+	LOAD = '[ImageTarget] loading',
+	SET = '[ImageTarget] setting',
+	ADD = '[ImageTarget] adding',
+	REMOVE = '[ImageTarget] removing',
+	REPLACE = '[ImageTarget] replacing',
+	DOWNLOAD = '[ImageTarget] downloading',
+	ROTATE = '[ImageTarget] rotate',
 }
 
-export class ImageSlctnActions {
+export class ImageTargetActions {
 	static load() {
 		return {
 			type: ActionType.LOAD

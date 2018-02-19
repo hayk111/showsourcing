@@ -1,4 +1,4 @@
-import { ActionType } from '../../action/selection/selection.action';
+import { ActionType } from '../../action/target/target.action';
 import { entityRepresentationMap, EntityTarget, EntityRepresentation,
 	 entityInitialState, addEntities, replaceEntity, removeEntity } from '../../utils/entities.utils';
 import { TypedAction } from '../../utils/typed-action.interface';
@@ -10,7 +10,7 @@ const initialState = {
 };
 
 // when an entity is selected
-export function currentSelectionReducer(state = { target: undefined }, action) {
+export function currentTargetReducer( state = { target: undefined }, action) {
 
 	switch (action.type) {
 		case ActionType.SELECT:
@@ -20,8 +20,8 @@ export function currentSelectionReducer(state = { target: undefined }, action) {
 	}
 }
 
-// reducer that applies to every entity in selection
-export function selectionReducerFactory(actionType) {
+// reducer that applies to every entity in target
+export function targetReducerFactory( actionType) {
 	return function (state = entityInitialState, action: TypedAction<any>) {
 		switch (action.type) {
 

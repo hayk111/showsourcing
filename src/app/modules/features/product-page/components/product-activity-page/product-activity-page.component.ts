@@ -6,10 +6,10 @@ import { entityRepresentationMap } from '../../../../store/utils/entities.utils'
 import { AppComment } from '../../../../store/model/entities/comment.model';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
-import { selectCommentsForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { TargetAction } from '../../../../store/action/target/target.action';
+import { selectCommentsForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { FormControl } from '@angular/forms';
-import { CommentSlctnActions } from '../../../../store/action/selection/comment-selection.action';
+import { CommentTargetActions } from '../../../../store/action/target/comment.action';
 import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
@@ -24,10 +24,10 @@ export class ProductActivityPageComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) {}
 
 	ngOnInit() {
-		this.comments$ = this.store.select(selectCommentsForSelection);
+		this.comments$ = this.store.select(selectCommentsForCurrentTarget);
 	}
 
 	onComment(txt: string) {
-		this.store.dispatch(CommentSlctnActions.add(new AppComment(txt, this.userSrv.getUserId())));
+		this.store.dispatch(CommentTargetActions.add(new AppComment(txt, this.userSrv.getUserId())));
 	}
 }

@@ -1,14 +1,14 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { VoteService } from '../../services/vote.service';
-import { ActionType } from '../../action/selection/vote-selection.action';
+import { ActionType } from '../../action/target/vote.action';
 import { map, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
-import { VoteSlctnActions } from '../../action/selection/vote-selection.action';
-import { CommentSlctnActions } from '../../action/selection/comment-selection.action';
+import { VoteSlctnActions } from '../../action/target/vote.action';
+import { CommentTargetActions } from '../../action/target/comment.action';
 
 @Injectable()
-export class VoteSelectionEffects {
+export class VoteTargetEffects {
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(

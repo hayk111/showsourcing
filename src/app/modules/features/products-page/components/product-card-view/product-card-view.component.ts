@@ -30,4 +30,6 @@ export class ProductCardViewComponent implements OnInit {
 	trackByFn(index, product) {
 		return product.id;
 	}
+
+
 }

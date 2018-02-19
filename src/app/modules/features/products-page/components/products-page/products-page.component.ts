@@ -13,8 +13,9 @@ import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { map } from 'rxjs/operators';
 import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { TargetAction } from '../../../../store/action/target/target.action';
 import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
+import { ProductSelectionAction } from '../../../../store/action/ui/product-selection.action';
 
 @Component({
 	selector: 'products-page-app',
@@ -55,7 +56,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	onItemSelected(entityId: string) {
 		this.previewDialogOpen = true;
 		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(SelectionAction.select(target));
+		this.store.dispatch(ProductSelectionAction.add(entityId));
 	}
 
 	closeDialog() {

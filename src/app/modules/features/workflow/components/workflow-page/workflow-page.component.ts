@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { selectProducts } from '../../../../store/selectors/entities/products.selector';
 import { map } from 'rxjs/operators';
 import { Product } from '../../../../store/model/entities/product.model';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { TargetAction } from '../../../../store/action/target/target.action';
 
 @Component({
   selector: 'workflow-page-app',
@@ -29,7 +29,7 @@ export class WorkflowPageComponent implements OnInit{
 	onItemSelected(entityId: string) {
 		this.previewDialogOpen = true;
 		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(SelectionAction.select(target));
+		this.store.dispatch(TargetAction.select(target));
 	}
 
 	closeDialog() {

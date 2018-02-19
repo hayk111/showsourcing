@@ -9,7 +9,7 @@ import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../../../shared/user/services/user.service';
-import { SelectionAction } from '../../../../store/action/selection/selection.action';
+import { TargetAction } from '../../../../store/action/target/target.action';
 
 @Component({
 	selector: 'app-test-inputs-file',
@@ -32,7 +32,7 @@ export class TestInputsFileComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		getFirstProductEntityTarget(this.store, this._destroy$).pipe(
-			tap(target => this.store.dispatch(SelectionAction.select(target)))
+			tap(target => this.store.dispatch(TargetAction.select(target)))
 		);
 	}
 

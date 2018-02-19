@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { entityRepresentationMap, EntityTarget } from '../../../../store/utils/entities.utils';
 import { ActivatedRoute } from '@angular/router';
-import { FileSlctnActions } from '../../../../store/action/selection/file-selection.action';
-import { selectFilesForSelection, selectFilesArrayForSelection } from '../../../../store/selectors/selection/selection.selector';
+import { FileTargetActions } from '../../../../store/action/target/file.action';
+import { selectFilesForCurrentTarget, selectFilesArrayForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
@@ -22,22 +22,22 @@ export class ProductFilesComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.files$ = this.store.select(selectFilesArrayForSelection);
+		this.files$ = this.store.select(selectFilesArrayForCurrentTarget);
 	}
 
 	deleteFile(file: AppFile) {
-		this.store.dispatch(FileSlctnActions.remove(file));
+		this.store.dispatch(FileTargetActions.remove(file));
 	}
 
 	onFileAdded(files: Array<File>) {
 		files.forEach(file => {
 			const appFile = new AppFile(file, this.userSrv.getUserId());
-			this.store.dispatch(FileSlctnActions.add(appFile));
+			this.store.dispatch(FileTargetActions.add(appFile));
 		});
 	}
 
 	download(file: AppFile) {
-		this.store.dispatch(FileSlctnActions.download(file));
+		this.store.dispatch(FileTargetActions.download(file));
 	}
 
 }

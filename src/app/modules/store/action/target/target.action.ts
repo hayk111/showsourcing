@@ -1,10 +1,10 @@
 import { EntityTarget } from '../../utils/entities.utils';
 
 export enum ActionType {
-	SELECT = '[Selection] selecting',
+	SELECT = '[Target] selecting',
 }
 
-export class SelectionAction {
+export class TargetAction {
 	static select(target: EntityTarget) {
 		return {
 			type: ActionType.SELECT,

@@ -2,15 +2,15 @@ import { Tag } from '../../model/entities/tag.model';
 import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {
-	LOAD = '[TaskSelection] loading',
-	SET = '[TaskSelection] setting',
-	ADD = '[TaskSelection] adding',
-	REMOVE = '[TaskSelection] removing for selection',
-	RESET = '[TaskSelection] resetting',
-	REPLACE = '[TaskSelection] replacing'
+	LOAD = '[TaskTarget] loading',
+	SET = '[TaskTarget] setting',
+	ADD = '[TaskTarget] adding',
+	REMOVE = '[TaskTarget] removing for target',
+	RESET = '[TaskTarget] resetting',
+	REPLACE = '[TaskTarget] replacing'
 }
 
-export class TaskSlctnActions {
+export class TaskTargetActions {
 	static load() {
 		return {
 			type: ActionType.LOAD

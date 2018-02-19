@@ -5,12 +5,12 @@ import { EntityTarget } from '../../utils/entities.utils';
 import { ImageService } from '../../services/images.service';
 import { AppImage } from '../../model/entities/app-image.model';
 import { SelectionService } from '../../services/selection.service';
-import { ActionType, ImageSlctnActions } from '../../action/selection/images-selection.action';
+import { ActionType, ImageTargetActions } from '../../action/target/images.action';
 import { AppErrorActions } from '../../action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class ImageSelectionEffects {
+export class ImageTargetEffects {
 
 	constructor(private actions$: Actions, private srv: ImageService, private selectionSrv: SelectionService) {}
 
@@ -18,7 +18,7 @@ export class ImageSelectionEffects {
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap((target: EntityTarget) => this.srv.load(target)),
-		map((files: Array<AppImage>) => ImageSlctnActions.set(files))
+		map((files: Array<AppImage>) => ImageTargetActions.set(files))
 	);
 
 	@Effect()
@@ -31,7 +31,7 @@ export class ImageSelectionEffects {
 				switchMap(
 					(r: any) => this.srv.queryFile(r).pipe(retry(10)),
 					// replace currently pending files
-					map((r: any) => ImageSlctnActions.replace(p.file, r)),
+					map((r: any) => ImageTargetActions.replace(p.file, r)),
 				), catchError(e => of(AppErrorActions.add(e)))
 			)
 		));
@@ -41,7 +41,7 @@ export class ImageSelectionEffects {
 		map(action => action.payload),
 		switchMap(
 			(img) => this.srv.rotate(img),
-			(old: AppImage, replacing: AppImage) => ImageSlctnActions.replace(old, replacing)
+			(old: AppImage, replacing: AppImage) => ImageTargetActions.replace(old, replacing)
 		),
 	);
 
