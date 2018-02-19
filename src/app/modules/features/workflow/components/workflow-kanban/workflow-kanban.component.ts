@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/entities/index';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';

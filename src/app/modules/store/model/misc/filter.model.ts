@@ -1,11 +1,11 @@
 import { Entity, entityRepresentationMap, EntityRepresentation } from '../../utils/entities.utils';
 import { CustomFieldsName } from '../../reducer/entities/custom-fields.reducer';
-import { SupplierActions } from '../../action/entities/supplier.action';
-import { EventActions } from '../../action/entities/event.action';
-import { CategoryActions } from '../../action/entities/category.action';
-import { TagActions } from '../../action/entities/tag.action';
-import { ProjectActions } from '../../action/entities/project.action';
-import { ProductActions } from '../../action/entities/product.action';
+import { SupplierActions } from '../../action/entities/index';
+import { EventActions } from '../../action/entities/index';
+import { CategoryActions } from '../../action/entities/index';
+import { TagActions } from '../../action/entities/index';
+import { ProjectActions } from '../../action/entities/index';
+import { ProductActions } from '../../action/entities/index';
 import { Currency } from '../entities/currency.model';
 
 

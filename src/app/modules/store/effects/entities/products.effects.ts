@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { ActionType, ProductActions } from '../../action/entities/product.action';
+import { ProductActionTypes as ActionType, ProductActions } from '../../action/entities/index';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { selectUser } from '../../selectors/entities/user.selector';
 import { AppFile } from '../../model/entities/app-file.model';

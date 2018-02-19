@@ -1,4 +1,4 @@
-import { ProductActions } from '../../store/action/entities/product.action';
+import { ProductActions } from '../../store/action/entities/index';
 import { selectProducts } from '../../store/selectors/entities/products.selector';
 import { filter, map, tap } from 'rxjs/operators';
 import { Product } from '../../store/model/entities/product.model';

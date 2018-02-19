@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../store/model/entities/product.model';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/entities/index';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({

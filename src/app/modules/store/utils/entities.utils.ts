@@ -60,6 +60,7 @@ export const entityRepresentationMap = {
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
 	images: new EntityRepresentation('images'),
+	customFields: new EntityRepresentation('customFields')
 };
 
 export interface EntityTarget {

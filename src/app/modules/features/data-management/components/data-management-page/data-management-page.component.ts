@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
 import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { CustomFieldsActions } from '../../../../store/action/entities/custom-fields.action';
+import { CustomFieldsActions } from '../../../../store/action/entities/index';
 
 @Component({
 	selector: 'data-management-page-app',

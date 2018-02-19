@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { TaskActions } from '../../../../store/action/entities/task.action';
+import { TaskActions } from '../../../../store/action/entities/index';
 import { Task, TaskStatus, TaskType, TaskParams } from '../../../../store/model/entities/task.model';
 import { UserService } from '../../../user/services/user.service';
 import { Observable } from 'rxjs/Observable';

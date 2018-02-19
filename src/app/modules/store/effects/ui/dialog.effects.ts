@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActionType } from '../../action/ui/dialog.action';
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ProductActions } from '../../action/entities/product.action';
+import { ProductActions } from '../../action/entities/index';
 
 
 

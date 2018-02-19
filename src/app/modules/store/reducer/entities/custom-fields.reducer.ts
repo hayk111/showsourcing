@@ -1,5 +1,5 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/entities/custom-fields.action';
+import { CustomFieldsActionTypes as ActionType } from '../../action/entities/index';
 import { FormDescriptor } from '../../../shared/dynamic-forms/utils/descriptors.interface';
 
 export interface CustomFields {

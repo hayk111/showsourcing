@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { ActionType, CurrencyActions } from '../../action/entities/currency.action';
+import { CurrencyActionTypes as ActionType, CurrencyActions } from '../../action/entities/index';
 import { switchMap, map } from 'rxjs/operators';
 import { CurrencyService } from '../../services/currency.service';
 

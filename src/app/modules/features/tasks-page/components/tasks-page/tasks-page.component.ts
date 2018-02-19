@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, Filter } from '../../../../store/model/misc/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { TaskActions } from '../../../../store/action/entities/task.action';
+import { TaskActions } from '../../../../store/action/entities/index';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/entities/task.model';
 import { EntityState, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';

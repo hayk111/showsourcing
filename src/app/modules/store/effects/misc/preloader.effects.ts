@@ -4,18 +4,18 @@ import { Injectable } from '@angular/core';
 import { switchMap, map, tap, filter, skip, take, first } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 import { Store } from '@ngrx/store';
-import { CategoryActions } from '../../action/entities/category.action';
-import { SupplierActions } from '../../action/entities/supplier.action';
-import { EventActions } from '../../action/entities/event.action';
-import { ProjectActions } from '../../action/entities/project.action';
-import { TagActions } from '../../action/entities/tag.action';
-import { TeamMembersActions } from '../../action/entities/team-members.action';
-import { CustomFieldsActions } from '../../action/entities/custom-fields.action';
+import { CategoryActions } from '../../action/entities/index';
+import { SupplierActions } from '../../action/entities/index';
+import { EventActions } from '../../action/entities/index';
+import { ProjectActions } from '../../action/entities/index';
+import { TagActions } from '../../action/entities/index';
+import { TeamMembersActions } from '../../action/entities/index';
+import { CustomFieldsActions } from '../../action/entities/index';
 import { interval } from 'rxjs/observable/interval';
 import { ActionType } from '../../action/misc/preloader.action';
 import { PreloaderService } from '../../services/preloader.service';
-import { ProductActions } from '../../action/entities/product.action';
-import { TaskActions } from '../../action/entities/task.action';
+import { ProductActions } from '../../action/entities/index';
+import { TaskActions } from '../../action/entities/index';
 
 
 @Injectable()
@@ -53,11 +53,11 @@ export class PreloaderEffects {
 		this.dispatch(EventActions.load({id, maxCounter}));
 		this.dispatch(ProjectActions.load({id, maxCounter}));
 		this.dispatch(TagActions.load({id, maxCounter}));
-		this.dispatch(TeamMembersActions.load(id, maxCounter));
+		this.dispatch(TeamMembersActions.load({id, maxCounter}));
 	}
 
 	private getOnceEntities(id, maxCounter = -1) {
-		this.dispatch(CustomFieldsActions.load(id, maxCounter));
+		this.dispatch(CustomFieldsActions.load({id, maxCounter}));
 	}
 
 	private dispatch(any: any) {

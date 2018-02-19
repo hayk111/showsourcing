@@ -4,7 +4,7 @@ import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
 import { ActionType, TaskTargetActions } from '../../action/target/task.action';
 import { TaskService } from '../../services/task.service';
-import { TaskActions } from '../../action/entities/task.action';
+import { TaskActions } from '../../action/entities/index';
 import { EntityService } from '../../services/entity.service';
 import { entityRepresentationMap } from '../../utils/entities.utils';
 import { of } from 'rxjs/observable/of';

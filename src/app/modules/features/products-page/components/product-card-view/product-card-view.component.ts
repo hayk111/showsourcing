@@ -5,7 +5,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { Observable } from 'rxjs/Observable';
 import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/entities/index';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Patch } from '../../../../store/utils/patch.interface';
 

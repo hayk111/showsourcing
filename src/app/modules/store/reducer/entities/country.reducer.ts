@@ -1,5 +1,5 @@
 import { Country } from '../../model/entities/country.model';
-import { ActionType } from '../../action/entities/country.action';
+import { CategoryActionTypes as ActionType } from '../../action/entities/index';
 import { TypedAction } from '../../utils/typed-action.interface';
 import { addEntities, entityInitialState } from '../../utils/entities.utils';
 

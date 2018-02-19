@@ -4,7 +4,7 @@ import { selectFilterGroup, selectFilteredEntity } from '../../../../store/selec
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/entities/index';
 import { Product } from '../../../../store/model/entities/product.model';
 import { EntityState, EntityRepresentation, EntityTarget, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { DialogName } from '../../../../store/model/ui/dialog.model';

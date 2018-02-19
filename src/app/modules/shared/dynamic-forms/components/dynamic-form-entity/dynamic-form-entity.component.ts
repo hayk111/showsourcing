@@ -6,7 +6,7 @@ import { selectCustomField } from '../../../../store/selectors/entities/custom-f
 import { Observable } from 'rxjs/Observable';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/descriptors.interface';
 import { selectEntity, selectEntityById } from '../../../../store/selectors/misc/utils.selector';
-import { CustomFieldsActions } from '../../../../store/action/entities/custom-fields.action';
+import { CustomFieldsActions } from '../../../../store/action/entities/index';
 import { FormGroup } from '@angular/forms';
 
 @Component({

@@ -3,7 +3,7 @@ import { ProductStatus } from '../../../../store/model/entities/product.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
-import { ProductActions } from '../../../../store/action/entities/product.action';
+import { ProductActions } from '../../../../store/action/entities/index';
 
 @Component({
 	selector: 'kanban-test-app',

@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { TeamService } from '../../services/team.service';
 import { switchMap, map, tap } from 'rxjs/operators';
-import { TeamMembersActions, ActionType } from '../../action/entities/team-members.action';
+import { TeamMembersActions, TeamMembersActionTypes as ActionType } from '../../action/entities/index';
 import { TeamMembersService } from '../../services/team-members.service';
 
 

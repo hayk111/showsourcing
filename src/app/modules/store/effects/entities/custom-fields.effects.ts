@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { ActionType, CustomFieldsActions } from '../../action/entities/custom-fields.action';
+import { CustomFieldsActionTypes as ActionType, CustomFieldsActions } from '../../action/entities/index';
 import { map, switchMap } from 'rxjs/operators';
 import { CustomFieldsService } from '../../services/custom-fields.service';
 import { Store } from '@ngrx/store';
