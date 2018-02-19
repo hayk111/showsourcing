@@ -6,6 +6,8 @@ import { SwitchModule } from '../switch/switch.module';
 import { FilterSearchBarModule } from '../filter-search-bar/filter-search-bar.module';
 import { LoadersModule } from '../loaders/loaders.module';
 
+
+// template for the main pages (suppliers, product, tasks, etc.)
 @NgModule({
   imports: [
 		CommonModule,

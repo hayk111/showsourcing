@@ -4,6 +4,8 @@ import { SelectableImageComponent } from './components/selectable-image/selectab
 import { IconsModule } from '../icons/icons.module';
 import { FeedbackModule } from '../feedback/feedback.module';
 
+
+// image displayed, when hovering the image some actions can be taken
 @NgModule({
   imports: [
 		CommonModule,

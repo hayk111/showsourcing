@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
+
+// spinners, progress bar..
 @NgModule({
 	imports: [
 		CommonModule,

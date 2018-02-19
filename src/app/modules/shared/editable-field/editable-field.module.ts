@@ -8,6 +8,7 @@ import { AppStoreModule } from '../../store/store.module';
 import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
 import { IconsModule } from '../icons/icons.module';
 
+// text where when it is clicked an input appears
 @NgModule({
 	imports: [
 		CommonModule,

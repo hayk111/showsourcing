@@ -9,6 +9,8 @@ import { UtilsModule } from '../utils/utils.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LoadersModule } from '../loaders/loaders.module';
 
+
+// Module to display likes of an entity with a chart
 @NgModule({
 	imports: [
 		CommonModule,
