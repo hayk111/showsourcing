@@ -1,4 +1,4 @@
-<div class="ctnr {{ selected ? 'z-4' : 'z-2'}}">
+<div class="ctnr z-a {{ selected ? 'z-7' : 'z-2'}}">
 	<!-- top of card -->
 	<div class="flexBetween top">
 		<div>
@@ -13,7 +13,7 @@
 	<div class="imgCtnr flexCenter">
 		<selectable-image-app
 			[selected]="selected"
-			(unselect)="productSelect.emit(product.id)"
+			(unselect)="productUnselect.emit(product.id)"
 			(select)="productSelect.emit(product.id)"
 			class="img"
 			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
@@ -34,6 +34,9 @@
 			<div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
 		</div>
 	</div>
+
+	<!-- border -->
+	<div class="border {{ selected ? 'selected' : '' }}" ></div>
 
 </div>
 

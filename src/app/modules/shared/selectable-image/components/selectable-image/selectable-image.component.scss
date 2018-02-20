@@ -10,6 +10,10 @@
 	}
 }
 
+img {
+	transition: filter 0.4s;
+}
+
 .blurred {
 	filter: blur(4px);
 }
@@ -19,7 +23,7 @@
 }
 
 .overlay:hover {
-	background: rgba(0, 0, 0, 0.55);
+	background-color: rgba(0, 0, 0, 0.55);
 
 	& > .hide {
 		display: block;
@@ -28,8 +32,9 @@
 
 .overlay {
 	display: flex;
+	transition: background-color 0.4s;
 	padding: var(--spacing-s);
-	background: transparent;
+	background-color: transparent;
 	position: absolute;
 	z-index: 1;
 	top: 0;
