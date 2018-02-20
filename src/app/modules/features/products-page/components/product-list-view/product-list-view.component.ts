@@ -19,17 +19,11 @@ import { selectEntityArray } from '../../../../store/selectors/misc/utils.select
 })
 export class ProductListViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
+	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productOpen = new EventEmitter<string>();
 	@Input() filterGroupName: FilterGroupName;
 	@Input() products: Array<Product>;
-	@Input() selections: any;
-	columns = [
-		{ name: 'Name', prop: 'name' },
-		{ name: 'Category', prop: 'categoryName' },
-		{ name: 'Supplier', prop: 'supplierName' },
-		{ name: 'Event', prop: 'eventName' },
-		{ name: 'Price', prop: 'priceAmount' },
-		{ name: 'Rating', prop: 'rating' },
-	];
+	@Input() selections: Map<string, boolean>;
 
 	constructor(private store: Store<any>) {
 	}
@@ -39,7 +33,7 @@ export class ProductListViewComponent implements OnInit {
 
 	onSelect(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
-			this.productSelect.emit(event.row.id);
+			this.productOpen.emit(event.row.id);
 		}
 	}
 
@@ -49,6 +43,15 @@ export class ProductListViewComponent implements OnInit {
 		const filter = new FilterSort(value, sortOrder);
 		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
 		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+	}
+
+	onCheck(event, productId) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.target.checked)
+			this.productSelect.emit(productId);
+		else
+			this.productUnselect.emit(productId);
 	}
 
 }

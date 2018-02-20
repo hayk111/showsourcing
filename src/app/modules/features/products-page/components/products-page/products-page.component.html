@@ -5,12 +5,14 @@
 			[filterGroupName]="filterGroupName"
 			[selections]="selections"
 			[products]="products$ | async"
-			(productSelect)="onItemSelected($event)"></product-list-view-app>
+			(productSelect)="onItemSelected($event)"
+			(productUnselect)="onItemUnselected($event)"></product-list-view-app>
 		<product-card-view-app
 			class="card-view"
 			[products]="products$ | async"
 			[selections]="selections"
-			(productSelect)="onItemSelected($event)"></product-card-view-app>
+			(productSelect)="onItemSelected($event)"
+			(productUnselect)="onItemUnselected($event)"></product-card-view-app>
 
 </entity-page-app>
 
