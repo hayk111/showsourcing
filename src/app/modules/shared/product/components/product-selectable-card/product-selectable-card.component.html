@@ -1,4 +1,4 @@
-<div class="ctnr z-2">
+<div class="ctnr {{ selected ? 'z-4' : 'z-2'}}">
 	<!-- top of card -->
 	<div class="flexBetween top">
 		<div>
@@ -11,7 +11,12 @@
 
 	<!-- middle card: picture + badge  -->
 	<div class="imgCtnr flexCenter">
-		<selectable-image-app (selection)="selection.emit(product.id)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+		<selectable-image-app
+			[selected]="selected"
+			(unselect)="productSelect.emit(product.id)"
+			(select)="productSelect.emit(product.id)"
+			class="img"
+			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
 	</div>
 
 	<div class="flexCenter">

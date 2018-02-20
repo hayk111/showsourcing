@@ -9,10 +9,14 @@ import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 })
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
-	@Output() selection = new EventEmitter<string>();
+	@Input() selected: boolean;
+	@Output() productSelect = new EventEmitter<string>();
+	@Output() productUnselect = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
-  }
+	}
+
 
 }
