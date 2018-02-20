@@ -1,17 +1,16 @@
 <div class="imgCtnr flexCenter">
+
 	<div class="overlay">
 		<icon-app
 			*ngIf="!selected; else selIc"
-			class="pointer"
-			size="xl"
-			name="circle"
-			color="white"
-			(click)="select.emit()"
-			color="inherit">
+			class="selectionIc pointer hide"
+			circleSize="17"
+			circleColor="white"
+			(click)="select.emit()">
 		</icon-app>
 		<ng-template #selIc>
 			<icon-app
-				class="pointer"
+				class="selectionIc pointer"
 				size="s"
 				name="check"
 				circleSize="17"
@@ -20,11 +19,11 @@
 				(click)="unselect.emit()"></icon-app>
 		</ng-template>
 
-		<div class="openCtnr">
+		<div class="openCtnr hide">
 			<div class="open pointer" (click)="open.emit()">OPEN</div>
 			<feedback-input-app class="feedback" color="white" (vote)="vote.emit()"></feedback-input-app>
 		</div>
-		<icon-app class="pointer" name="trash-alt" color="white" (click)="trash.emit()" color="inherit"></icon-app>
+		<icon-app class="pointer hide" name="trash-alt" color="white" (click)="trash.emit()" color="inherit"></icon-app>
 	</div>
-	<img [src]="url || defaultImg"/>
+	<img class="{{selected ? 'blurred': ''}}" [src]="url || defaultImg"/>
 </div>
