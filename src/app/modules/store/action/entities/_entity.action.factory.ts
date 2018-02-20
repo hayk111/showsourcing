@@ -31,7 +31,7 @@ export function makeBasicActions(actionType: any) {
 		loadById: (id: string) => ({ type: actionType.LOAD_BY_ID, payload: id }),
 		add: (toAdd: Array<Entity>) => ({ type: actionType.ADD, payload: toAdd }),
 		create: (toCreate: Entity) => ({ type: actionType.CREATE, payload: toCreate }),
-		replace: (old: Entity, replacing: Entity) => ({ type: actionType.REPLACE, payload: { old, replacing } }),
+		replace: (old: Entity, replacing: Entity) => ({ type: actionType.REPLACING, payload: { old, replacing } }),
 		delete: (toDelete: Entity) => ({ type: actionType.DELETE, payload: toDelete }),
 		setPending: () => ({ type: actionType.SET_PENDING }),
 		patch: (patch: Patch) => ({ type: actionType.PATCH, payload: patch }),

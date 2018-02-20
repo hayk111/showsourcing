@@ -2,7 +2,8 @@
 
 <!-- <i #icon class="pointer fas fa-{{name}} {{ size }} {{ color }}" [ngStyle]="{ 'font-size' : sizePx + 'px' }"></i> -->
 
-<div class="ctnr {{ size }} {{ color }}" [ngStyle]="{ 'font-size' : sizePx + 'px' }">
+<div class="ctnr {{ size }} {{ color }} flexCenter"
+	[ngStyle]="style">
 	<svg *ngIf="useSymbol; else icon" class="svg-inline--fa fa-w-20"><use [attr.xlink:href]="'#' + name"></use></svg>
 	<ng-template #icon>
 		<i class="pointer fa{{ type }} fa-{{name}}"></i>

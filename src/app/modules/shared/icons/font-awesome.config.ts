@@ -4,6 +4,7 @@ import * as faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 import * as faCheckSquare from '@fortawesome/fontawesome-free-solid/faCheckSquare';
 import * as faComment from '@fortawesome/fontawesome-free-solid/faComment';
 import * as faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
+import * as faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
 import * as faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
 import * as faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import * as faTag from '@fortawesome/fontawesome-free-solid/faTag';
@@ -57,7 +58,8 @@ export const faIcons = [	faAngleRight,
 	faTimes,
 	faFolder,
 	faExternalLinkAlt,
-	faChartBar
+	faChartBar,
+	faCheck
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));
