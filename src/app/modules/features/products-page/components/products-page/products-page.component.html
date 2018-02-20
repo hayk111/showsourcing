@@ -16,7 +16,11 @@
 
 </entity-page-app>
 
-<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections">
+<selection-bar-app
+	[repr]="repr"
+	*ngIf="selections.size > 0"
+	[selections]="selections"
+	(close)="unselectAll()">
 	<selection-actions></selection-actions>
 </selection-bar-app>
 

@@ -1,7 +1,12 @@
 <div class="ctnr z-6 flexBetween">
 
 	<div class="flex left">
-		<icon-app name="times" sizePx="22" class="pointer" color="inherit"></icon-app>
+		<icon-app
+			(click)="close.emit()"
+			name="times"
+			sizePx="22"
+			class="pointer"
+		 	color="inherit"></icon-app>
 		<span i18n>
 			{{ selections.size }} items selected
 		</span>

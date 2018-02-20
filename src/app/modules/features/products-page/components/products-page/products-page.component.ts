@@ -66,6 +66,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.selections.delete(entityId);
 	}
 
+	unselectAll() {
+		this.selections = new Map();
+	}
+
 	closeDialog() {
 		this.previewDialogOpen = false;
 	}

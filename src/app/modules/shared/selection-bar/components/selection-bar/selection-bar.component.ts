@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 
 @Component({
@@ -9,6 +9,7 @@ import { EntityRepresentation } from '../../../../store/utils/entities.utils';
 export class SelectionBarComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
 	@Input() selections;
+	@Output() close = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
