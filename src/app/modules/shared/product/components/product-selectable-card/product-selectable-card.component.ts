@@ -12,11 +12,19 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Input() selected: boolean;
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productOpen = new EventEmitter<string>();
+	@Output() productFavorited = new EventEmitter<string>();
+	@Output() productUnfavorited = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
 	}
 
-
+	onRateClick() {
+		if (this.product.rating === 5)
+			this.productUnfavorited.emit(this.product.id);
+		else
+			this.productFavorited.emit(this.product.id);
+	}
 }

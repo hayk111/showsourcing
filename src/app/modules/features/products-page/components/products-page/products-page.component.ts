@@ -15,7 +15,7 @@ import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 	FilterEvent, FilterTags, FilterProjects, FilterStatus, FilterRating, FilterPrice } from '../../../../store/model/misc/filter.model';
 import { TargetAction } from '../../../../store/action/target/target.action';
 import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
-import { ProductSelectionAction } from '../../../../store/action/ui/product-selection.action';
+import { Patch } from '../../../../store/utils/patch.interface';
 
 @Component({
 	selector: 'products-page-app',
@@ -56,9 +56,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		// this.previewDialogOpen = true;
-		// const target = { entityId, entityRepr: this.repr };
-		// this.store.dispatch(ProductSelectionAction.add(entityId));
 		this.selections.set(entityId, true);
 	}
 
@@ -68,6 +65,22 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	unselectAll() {
 		this.selections = new Map();
+	}
+
+	onItemOpened(entityId: string) {
+		this.previewDialogOpen = true;
+		const target = { entityId, entityRepr: this.repr };
+		this.store.dispatch(TargetAction.select(target));
+	}
+
+	onItemFavorited(entityId: string) {
+		let patch: Patch = { id: entityId, propName: 'rating', value: 5 };
+		this.store.dispatch(ProductActions.patch(patch))
+	}
+
+	onItemUnfavorited(entityId: string) {
+		let patch: Patch = { id: entityId, propName: 'rating', value: 1 };
+		this.store.dispatch(ProductActions.patch(patch))
 	}
 
 	closeDialog() {

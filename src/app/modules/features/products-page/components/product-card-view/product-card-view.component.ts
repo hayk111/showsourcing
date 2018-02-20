@@ -18,6 +18,9 @@ import { Patch } from '../../../../store/utils/patch.interface';
 export class ProductCardViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productOpen = new EventEmitter<string>();
+	@Output() productFavorited = new EventEmitter<string>();
+	@Output() productUnfavorited = new EventEmitter<string>();
 	@Input() products: Array<Product> = [];
 	@Input() selections: any;
 	constructor() { }

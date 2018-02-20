@@ -2,7 +2,10 @@
 
 <product-selectable-card-app
 	[selected]="selections.get(product.id)"
-	(productSelect)="productSelect.emit(product.id)"
-	(productUnselect)="productUnselect.emit(product.id)"
+	(productSelect)="productSelect.emit($event)"
+	(productUnselect)="productUnselect.emit($event)"
+	(productFavorited)="productFavorited.emit($event)"
+	(productUnfavorited)="productUnfavorited.emit($event)"
+	(productOpen)="productOpen.emit($event)"
 	*ngFor="let product of products"
 	[product]="product"></product-selectable-card-app>

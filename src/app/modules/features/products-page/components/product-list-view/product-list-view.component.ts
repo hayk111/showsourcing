@@ -31,7 +31,7 @@ export class ProductListViewComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onSelect(event) {
+	onActivate(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
 			this.productOpen.emit(event.row.id);
 		}

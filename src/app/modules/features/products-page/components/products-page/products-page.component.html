@@ -6,13 +6,17 @@
 			[selections]="selections"
 			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"
-			(productUnselect)="onItemUnselected($event)"></product-list-view-app>
+			(productUnselect)="onItemUnselected($event)"
+			(productOpen)="onItemOpened($event)"></product-list-view-app>
 		<product-card-view-app
 			class="card-view"
 			[products]="products$ | async"
 			[selections]="selections"
 			(productSelect)="onItemSelected($event)"
-			(productUnselect)="onItemUnselected($event)"></product-card-view-app>
+			(productUnselect)="onItemUnselected($event)"
+			(productFavorited)="onItemFavorited($event)"
+			(productUnfavorited)="onItemUnfavorited($event)"
+			(productOpen)="onItemOpened($event)"></product-card-view-app>
 
 </entity-page-app>
 

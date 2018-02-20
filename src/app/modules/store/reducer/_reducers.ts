@@ -36,7 +36,6 @@ import { ProductActionTypes } from '../action/entities/index';
 import { ProjectActionTypes } from '../action/entities/index';
 import { TaskActionTypes } from '../action/entities/index';
 import { TeamActionTypes } from '../action/entities/index';
-import { productSelectionReducer } from './ui/product-selection.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -63,8 +62,8 @@ const misc = combineReducers({
 	filters: filtersReducer,
 });
 
-const selection = combineReducers({
-	currentSelection: currentTargetReducer,
+const foccussedEntity = combineReducers({
+	currentTarget: currentTargetReducer,
 	projects: targetReducerFactory(ProjectSlctnActionTypes),
 	tags: targetReducerFactory(TagSlctnActionTypes),
 	tasks: targetReducerFactory(TaskSlctnActionTypes),
@@ -81,11 +80,10 @@ const ui = combineReducers( {
 	viewSwitcher: viewSwitcherReducer,
 	sideNav: sidenavReducer,
 	filterEntityPanel: filterEntityPanelReducer,
-	productSelection: productSelectionReducer
 });
 
 
-export const reducers = { entities, selection, misc, ui };
+export const reducers = { entities, foccussedEntity, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

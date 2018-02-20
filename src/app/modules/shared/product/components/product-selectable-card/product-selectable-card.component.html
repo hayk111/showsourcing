@@ -5,7 +5,7 @@
 			<div class="name">{{ product?.name }}</div>
 			<div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
 		</div>
-		<rating-heart-app [rating]="product?.rating"></rating-heart-app>
+		<rating-heart-app [rating]="product?.rating" (click)="onRateClick()"></rating-heart-app>
 	</div>
 
 
@@ -15,6 +15,7 @@
 			[selected]="selected"
 			(unselect)="productUnselect.emit(product.id)"
 			(select)="productSelect.emit(product.id)"
+			(open)="productOpen.emit(product.id)"
 			class="img"
 			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
 	</div>
