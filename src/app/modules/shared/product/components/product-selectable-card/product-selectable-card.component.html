@@ -11,7 +11,7 @@
 
 	<!-- middle card: picture + badge  -->
 	<div class="imgCtnr flexCenter">
-		<selectable-image-app class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+		<selectable-image-app (selection)="selection.emit(product.id)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
 	</div>
 
 	<div class="flexCenter">

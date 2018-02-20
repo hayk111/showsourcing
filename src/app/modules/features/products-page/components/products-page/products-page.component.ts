@@ -43,6 +43,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	repr = entityRepresentationMap.product;
 	// when an item is clicked current target is a representation of that item
 	previewDialogOpen = false;
+	// keeps tracks of the current selection
+	selections = new Map();
 
 	constructor(private store: Store<any>) {
 		super();
@@ -54,9 +56,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		this.previewDialogOpen = true;
-		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(ProductSelectionAction.add(entityId));
+		// this.previewDialogOpen = true;
+		// const target = { entityId, entityRepr: this.repr };
+		// this.store.dispatch(ProductSelectionAction.add(entityId));
+		this.selections.set(entityId, true);
+	}
+
+	onItemUnselected(entityId: string) {
+		this.selections.delete(entityId);
 	}
 
 	closeDialog() {

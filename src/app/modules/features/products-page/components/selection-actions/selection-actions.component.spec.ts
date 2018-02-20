@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BottomBarComponent } from './bottom-bar.component';
+import { SelectionActionsComponent } from './selection-actions.component';
 
-describe('BottomBarComponent', () => {
-  let component: BottomBarComponent;
-  let fixture: ComponentFixture<BottomBarComponent>;
+describe('SelectionActionsComponent', () => {
+  let component: SelectionActionsComponent;
+  let fixture: ComponentFixture<SelectionActionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BottomBarComponent ]
+      declarations: [ SelectionActionsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BottomBarComponent);
+    fixture = TestBed.createComponent(SelectionActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

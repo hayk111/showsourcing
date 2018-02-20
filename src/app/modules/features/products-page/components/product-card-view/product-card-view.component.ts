@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/entities/product.model';
@@ -12,12 +12,13 @@ import { Patch } from '../../../../store/utils/patch.interface';
 @Component({
 	selector: 'product-card-view-app',
 	templateUrl: './product-card-view.component.html',
-	styleUrls: ['./product-card-view.component.scss']
+	styleUrls: ['./product-card-view.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductCardViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
 	@Input() products: Array<Product> = [];
-
+	@Input() selections: any;
 	constructor() { }
 
 	ngOnInit() {

@@ -21,6 +21,7 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
 	@Input() filterGroupName: FilterGroupName;
 	@Input() products: Array<Product>;
+	@Input() selections: any;
 	columns = [
 		{ name: 'Name', prop: 'name' },
 		{ name: 'Category', prop: 'categoryName' },

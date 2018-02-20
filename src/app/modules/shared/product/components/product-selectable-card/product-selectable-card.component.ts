@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../../../store/model/entities/product.model';
 import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 
@@ -9,6 +9,7 @@ import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 })
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
+	@Output() selection = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {

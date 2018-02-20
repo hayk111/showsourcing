@@ -22,6 +22,8 @@ export class SuppliersPageComponent implements OnInit {
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
 	repr = entityRepresentationMap.suppliers;
+	// maps current selection
+	selections = {};
 
 	constructor(private store: Store<any>, private router: Router) { }
 
@@ -35,8 +37,13 @@ export class SuppliersPageComponent implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(TargetAction.select(target));
-		this.router.navigate(['/suppliers', 'supplier-details', entityId]);
+		//const target = { entityId, entityRepr: this.repr };
+		// this.store.dispatch(TargetAction.select(target));
+		// this.router.navigate(['/suppliers', 'supplier-details', entityId]);
+		this.selections[entityId] = true;
+	}
+
+	onItemUnselected(entityId: string) {
+		this.selections[entityId] = false;
 	}
 }
