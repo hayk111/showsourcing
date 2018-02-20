@@ -22,4 +22,5 @@ export class SelectableImageComponent implements OnInit {
   ngOnInit() {
 	}
 
+
 }

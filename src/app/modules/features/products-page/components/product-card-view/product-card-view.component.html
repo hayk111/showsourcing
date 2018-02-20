@@ -7,5 +7,6 @@
 	(productFavorited)="productFavorited.emit($event)"
 	(productUnfavorited)="productUnfavorited.emit($event)"
 	(productOpen)="productOpen.emit($event)"
+	(productVote)="productVote.emit($event)"
 	*ngFor="let product of products"
 	[product]="product"></product-selectable-card-app>

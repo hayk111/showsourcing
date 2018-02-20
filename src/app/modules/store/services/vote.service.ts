@@ -28,6 +28,9 @@ export class VoteService {
 	}
 
 	create({vote, target }: {vote: Vote, target: EntityTarget}) {
-		return this.http.post(`api/product/${target.entityId}/vote`, vote);
+		if (vote.productId)
+			return this.http.post(`api/product/${vote.productId}/vote`, vote);
+		else
+			return this.http.post(`api/product/${target.entityId}/vote`, vote);
 	}
 }

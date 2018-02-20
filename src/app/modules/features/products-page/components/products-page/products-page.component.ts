@@ -16,6 +16,9 @@ import { FilterGroupName, FilterClass, FilterSupplier, FilterCategory,
 import { TargetAction } from '../../../../store/action/target/target.action';
 import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
 import { Patch } from '../../../../store/utils/patch.interface';
+import { VoteSlctnActions } from '../../../../store/action/target/vote.action';
+import { Vote } from '../../../../store/model/entities/vote.model';
+import { UserService } from '../../../../shared/user/services/user.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -46,7 +49,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// keeps tracks of the current selection
 	selections = new Map<string, boolean>();
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
@@ -81,6 +84,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	onItemUnfavorited(entityId: string) {
 		let patch: Patch = { id: entityId, propName: 'rating', value: 1 };
 		this.store.dispatch(ProductActions.patch(patch))
+	}
+
+	onItemVoted({id, value} : { id: string, value: number }) {
+		const vote = new Vote(value, this.userSrv.getUserId());
+		vote.productId = id;
+		this.store.dispatch(VoteSlctnActions.add(vote));
 	}
 
 	closeDialog() {

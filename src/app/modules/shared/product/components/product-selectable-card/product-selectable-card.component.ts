@@ -15,6 +15,7 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
+	@Output() productVote = new EventEmitter<{ id: string, value: number }>();
 
   constructor() { }
 
@@ -26,5 +27,9 @@ export class ProductSelectableCardComponent implements OnInit {
 			this.productUnfavorited.emit(this.product.id);
 		else
 			this.productFavorited.emit(this.product.id);
+	}
+
+	onVote(value) {
+		this.productVote.emit({ id: this.product.id, value });
 	}
 }

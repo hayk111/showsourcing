@@ -16,6 +16,7 @@
 			(unselect)="productUnselect.emit(product.id)"
 			(select)="productSelect.emit(product.id)"
 			(open)="productOpen.emit(product.id)"
+			(vote)="onVote($event)"
 			class="img"
 			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
 	</div>
