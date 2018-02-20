@@ -44,7 +44,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// when an item is clicked current target is a representation of that item
 	previewDialogOpen = false;
 	// keeps tracks of the current selection
-	selections = new Map();
+	selections = new Map<string, boolean>();
 
 	constructor(private store: Store<any>) {
 		super();
