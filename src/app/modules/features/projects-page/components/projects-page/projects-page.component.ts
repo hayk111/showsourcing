@@ -18,12 +18,21 @@ export class ProjectsPageComponent implements OnInit {
 	pending$: Observable<boolean>;
 	projects$: Observable<Array<Project>>;
 	repr = entityRepresentationMap.projects;
+	selections = new Map<string, boolean>();
 
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
 		this.projects$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 		this.pending$ = this.store.select(selectProjects).pipe(map(p => p.pending));
-  }
+	}
+
+	onItemSelected(entityId: string) {
+		this.selections.set(entityId, true);
+	}
+
+	onItemUnselected(entityId: string) {
+		this.selections.delete(entityId);
+	}
 
 }

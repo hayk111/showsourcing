@@ -12,6 +12,7 @@ import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { TaskModule } from '../../shared/task/task.module';
 import { LoadersModule } from '../../shared/loaders/loaders.module';
+import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoadersModule } from '../../shared/loaders/loaders.module';
 		UserModule,
 		UtilsModule,
 		TaskModule,
-		LoadersModule
+		LoadersModule,
+		SelectionBarModule
 	],
 	declarations: [
 		TasksPageComponent,

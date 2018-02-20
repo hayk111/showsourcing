@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../store/model/entities/product.model';
@@ -11,7 +11,11 @@ import { Task } from '../../../../store/model/entities/task.model';
 	styleUrls: ['./tasks-list-view.component.scss']
 })
 export class TasksListViewComponent implements OnInit {
+	@Input() selections: Map<string, boolean>;
+	@Output() taskSelect = new EventEmitter<string>();
+	@Output() taskUnselect = new EventEmitter<string>();
 	private _tasks: Array<Task> = [];
+
 	cols = {
 		status: true,
 		type: true,
@@ -23,6 +27,14 @@ export class TasksListViewComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	onSelect(event, id: string) {
+		if (event.target.checked)
+			this.taskSelect.emit(id);
+		else
+			this.taskUnselect.emit(id);
+		event.stopPropagation();
 	}
 
 	@Input()
