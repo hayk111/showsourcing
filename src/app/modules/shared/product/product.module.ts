@@ -19,7 +19,7 @@ import { LoadersModule } from '../loaders/loaders.module';
 import { ProductStatusBadgeComponent } from './components/product-status-badge/product-status-badge.component';
 import { SuppliersModule } from '../suppliers/suppliers.module';
 import { ProductSelectableCardComponent } from './components/product-selectable-card/product-selectable-card.component';
-import { FeedbackModule } from '../feedback/feedback.module';
+import { RatingModule } from '../rating/rating.module';
 import { SelectableImageModule } from '../selectable-image/selectable-image.module';
 import { TooltipModule } from '../tooltip/tooltip.module';
 
@@ -38,7 +38,7 @@ import { TooltipModule } from '../tooltip/tooltip.module';
 		TooltipModule,
 		LoadersModule,
 		SuppliersModule,
-		FeedbackModule,
+		RatingModule,
 		SelectableImageModule
 	],
 	declarations: [

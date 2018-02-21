@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FeedbackInputComponent } from './feedback-input.component';
+import { FeedbackInputComponent } from './thumb-buttons.component';
 
 describe('FeedbackInputComponent', () => {
 	let component: FeedbackInputComponent;

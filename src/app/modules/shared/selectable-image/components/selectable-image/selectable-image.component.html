@@ -21,7 +21,7 @@
 
 		<div class="openCtnr hide">
 			<div class="open pointer" (click)="open.emit()">OPEN</div>
-			<feedback-input-app class="feedback" color="white" (vote)="vote.emit($event)"></feedback-input-app>
+			<thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)"></thumb-buttons-app>
 		</div>
 		<icon-app class="pointer hide" name="trash-alt" color="white" (click)="trash.emit()" color="inherit"></icon-app>
 	</div>

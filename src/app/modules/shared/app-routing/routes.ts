@@ -10,7 +10,6 @@ import { TestInputsVanillaComponent } from '../../features/test/components/test-
 import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsFileComponent } from '../../features/test/components/test-inputs-file/test-inputs-file.component';
 import { TestCarouselComponent } from '../../features/test/components/test-carousel/test-carousel.component';
-import { TestFeedbackComponent } from '../../features/test/components/test-feedback/test-feedback.component';
 import { ProductPageComponent } from '../../features/product-page/components/product-page/product-page.component';
 import { ProductActivityPageComponent } from '../../features/product-page/components/product-activity-page/product-activity-page.component';
 import { ProductSampleComponent } from '../../features/product-page/components/product-sample/product-sample.component';
@@ -77,7 +76,6 @@ export const routes: Array<Route> = [
 				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
 				{ path: 'inputs-file-image', component: TestInputsFileComponent },
 				{ path: 'carousel', component: TestCarouselComponent },
-				{ path: 'feedback', component: TestFeedbackComponent },
 				{ path: 'kanban', component: KanbanTestComponent },
 				{ path: 'loaders', component: TestLoadesComponent },
 				{ path: 'tabs', component: TestTabsComponent },

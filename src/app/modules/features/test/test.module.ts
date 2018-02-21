@@ -13,8 +13,7 @@ import { TestCarouselComponent } from './components/test-carousel/test-carousel.
 import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { FileModule } from '../../shared/file/file.module';
-import { FeedbackModule } from '../../shared/feedback/feedback.module';
-import { TestFeedbackComponent } from './components/test-feedback/test-feedback.component';
+import { RatingModule } from '../../shared/rating/rating.module';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
@@ -31,7 +30,7 @@ import { ProductModule } from '../../shared/product/product.module';
 		InputsModule,
 		SelectModule,
 		FileModule,
-		FeedbackModule,
+		RatingModule,
 		CarouselModule,
 		CommentModule,
 		KanbanModule,
@@ -48,7 +47,6 @@ import { ProductModule } from '../../shared/product/product.module';
 		TestInputsSelectorsComponent,
 		TestInputsVanillaComponent,
 		TestCarouselComponent,
-		TestFeedbackComponent,
 		KanbanTestComponent,
 		TestLoadesComponent,
 		TestTabsComponent,

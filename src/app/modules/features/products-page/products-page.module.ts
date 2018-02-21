@@ -9,7 +9,7 @@ import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.mod
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { CommentModule } from '../../shared/comment/comment.module';
-import { FeedbackModule } from '../../shared/feedback/feedback.module';
+import { RatingModule } from '../../shared/rating/rating.module';
 import { FileModule } from '../../shared/file/file.module';
 import { RouterModule } from '@angular/router';
 import { AppStoreModule } from '../../store/store.module';

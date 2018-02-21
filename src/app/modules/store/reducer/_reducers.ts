@@ -23,11 +23,9 @@ import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action
 import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as FileSlctnActionTypes } from '../action/target/file.action';
-import { ActionType as ImageSltcnActionTypes } from '../action/target/images.action';
 import { ActionType as CommentSltcnActionTypes } from '../action/target/comment.action';
 import { imageSelectionReducer } from './target/image-target.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
-import { entityRepresentationMap } from '../utils/entities.utils';
 import { CategoryActionTypes, CountryActionTypes, CurrencyActionTypes, CustomFieldsActionTypes, TeamMembersActionTypes } from '../action/entities/index';
 import { EventActionTypes as EventActionTypes } from '../action/entities/index';
 import { TagActionTypes } from '../action/entities/index';

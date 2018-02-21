@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedbackInputComponent } from './components/feedback-input/feedback-input.component';
+import { ThumbButtonsComponent } from './components/thumb-buttons/thumb-buttons.component';
 import { RatingHeartComponent } from './components/rating-heart/rating-heart.component';
 import { IconsModule } from '../icons/icons.module';
 
@@ -10,12 +10,12 @@ import { IconsModule } from '../icons/icons.module';
 		IconsModule
 	],
 	declarations: [
-		FeedbackInputComponent,
+    ThumbButtonsComponent,
 		RatingHeartComponent
 	],
 	exports: [
-		FeedbackInputComponent,
+    ThumbButtonsComponent,
 		RatingHeartComponent
 	]
 })
-export class FeedbackModule { }
+export class RatingModule { }

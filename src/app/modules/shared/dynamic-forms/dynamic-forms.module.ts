@@ -9,7 +9,7 @@ import { DynamicFormControl } from './utils/dynamic-controls.class';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicInputComponent } from './components/dynamic-input/dynamic-input.component';
 import { SelectModule } from '../select/select.module';
-import { FeedbackModule } from '../feedback/feedback.module';
+import { RatingModule } from '../rating/rating.module';
 import { DynamicFormEntityComponent } from './components/dynamic-form-entity/dynamic-form-entity.component';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { DynamicFormEntityComponent } from './components/dynamic-form-entity/dyn
 		ReactiveFormsModule,
 		InputsModule,
 		SelectModule,
-		FeedbackModule,
+		RatingModule,
 	],
 	providers: [ DynamicFormsService ],
 	declarations: [ DynamicFormComponent, DynamicInputComponent, DynamicFormEntityComponent ],

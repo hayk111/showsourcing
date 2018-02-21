@@ -27,12 +27,6 @@
 		(update)="onUpdate(descriptor.name, $event)"></input-price-app> -->
 
 
-	<rating-input-app
-		*ngIf="descriptor.fieldType === 'rating'"
-		[label]="descriptor.label"
-		[formControl]="ctrl"
-		(change)="onUpdate(descriptor.name, $event)"></rating-input-app>
-
 	<input-textarea-app
 		*ngIf="descriptor.fieldType === 'textarea'"
 		[label]="descriptor.label"
