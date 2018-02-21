@@ -23,7 +23,7 @@
       "styles": [
 				"app/theming/loaders.scss",
         "app/theming/styles.scss"
-      ],
+			],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
