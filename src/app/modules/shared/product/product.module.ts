@@ -26,7 +26,7 @@ import { TooltipModule } from '../tooltip/tooltip.module';
 @NgModule({
 	imports: [
 		CommonModule,
-		CarouselModule,
+		FileModule,
 		IconsModule,
 		UtilsModule,
 		AppStoreModule.forChild(),

@@ -5,11 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
-import { TestInputsFileComponent } from './components/test-inputs-file/test-inputs-file.component';
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { RouterModule } from '@angular/router';
-import { TestCarouselComponent } from './components/test-carousel/test-carousel.component';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { FileModule } from '../../shared/file/file.module';
@@ -43,10 +41,8 @@ import { ProductModule } from '../../shared/product/product.module';
 	],
 	declarations: [
 		TestComponent,
-		TestInputsFileComponent,
 		TestInputsSelectorsComponent,
 		TestInputsVanillaComponent,
-		TestCarouselComponent,
 		KanbanTestComponent,
 		TestLoadesComponent,
 		TestTabsComponent,

@@ -9,6 +9,7 @@ import { InputRadioComponent } from './components/vanilla/input-radio/input-radi
 import { InputCheckboxComponent } from './components/vanilla/input-checkbox/input-checkbox.component';
 import { InputTextareaComponent } from './components/vanilla/input-textarea/input-textarea.component';
 import { SelectModule } from '../select/select.module';
+import { InputFileComponent } from './components/vanilla/input-file/input-file.component';
 
 export const components = [
 											// vanilla inputs
@@ -16,6 +17,7 @@ export const components = [
 											InputTextareaComponent,
 											InputRadioComponent,
 											InputCheckboxComponent,
+											InputFileComponent
 											];
 
 @NgModule({

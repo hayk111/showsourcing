@@ -10,7 +10,7 @@ import { LoadersModule } from '../loaders/loaders.module';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { CommentBadgeComponent } from './components/comment-badge/comment-badge.component';
-import { CommentCtnrComponent } from './components/comment-ctnr/comment-ctnr.component';
+import { CommentCtnrComponent } from './containers/comment-ctnr/comment-ctnr.component';
 
 @NgModule({
 	imports: [

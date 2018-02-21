@@ -8,8 +8,6 @@ import { TasksPageComponent } from '../../features/tasks-page/components/tasks-p
 import { EventPageComponent } from '../../features/events-page/components/event-page/event-page.component';
 import { TestInputsVanillaComponent } from '../../features/test/components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';
-import { TestInputsFileComponent } from '../../features/test/components/test-inputs-file/test-inputs-file.component';
-import { TestCarouselComponent } from '../../features/test/components/test-carousel/test-carousel.component';
 import { ProductPageComponent } from '../../features/product-page/components/product-page/product-page.component';
 import { ProductActivityPageComponent } from '../../features/product-page/components/product-activity-page/product-activity-page.component';
 import { ProductSampleComponent } from '../../features/product-page/components/product-sample/product-sample.component';
@@ -30,7 +28,7 @@ import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-pag
 import { ProjectsPageComponent } from '../../features/projects-page/components/projects-page/projects-page.component';
 import { SupplierDetailsComponent } from '../../features/supplier-details-page/components/supplier-details/supplier-details.component';
 import { WorkflowPageComponent } from '../../features/workflow/components/workflow-page/workflow-page.component';
-import { CommentCtnrComponent } from '../comment/components/comment-ctnr/comment-ctnr.component';
+import { CommentCtnrComponent } from '../comment/containers/comment-ctnr/comment-ctnr.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
@@ -74,8 +72,6 @@ export const routes: Array<Route> = [
 			{ path: 'test', component: TestComponent, children: [
 				{ path: 'inputs-vanilla', component: TestInputsVanillaComponent },
 				{ path: 'inputs-selector', component: TestInputsSelectorsComponent },
-				{ path: 'inputs-file-image', component: TestInputsFileComponent },
-				{ path: 'carousel', component: TestCarouselComponent },
 				{ path: 'kanban', component: KanbanTestComponent },
 				{ path: 'loaders', component: TestLoadesComponent },
 				{ path: 'tabs', component: TestTabsComponent },
