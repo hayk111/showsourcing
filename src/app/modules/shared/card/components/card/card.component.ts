@@ -10,27 +10,41 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 })
 export class CardComponent implements OnInit {
 
-	@HostBinding('class.z-2') @Input() elevation = true;
-	@HostBinding('class.paddingDefault') @Input() padding = true;
-	@HostBinding('class.marginDefault') @Input() margin = true;
+	@Input() elevation: string = 'z-2';
+	@Input() padding: string = 'default';
+	@Input() margin: string = 'default';
 
-	private _border = false;
-	@Input() borderColor: string;
+	@Input() border: boolean = false;
+	@Input() borderBottom: boolean = false;
+	@Input() borderColor: string = 'primary';
+	@Input() footerColor: string;
 
 	constructor() {}
 
 	ngOnInit() {
 	}
 
-	@Input()
-	set border(b: boolean) {
-		this._border = b;
-		if (b)
-			this.padding = false;
+	get borderStyle() {
+		return {
+			'background-color': 'var(--color-' + this.borderColor + ')'
+		};
 	}
 
-	get border() {
-		return this._border;
+	get mainStyle() {
+		return {
+			padding: 'var(--spacing-' + this.padding + ')'
+		};
 	}
 
+	get footerStyle() {
+		return {
+
+		};
+	}
+
+	get ctnrStyle() {
+		return {
+			margin: 'var(--spacing-' + this.margin + ')'
+		};
+	}
 }

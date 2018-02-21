@@ -4,17 +4,26 @@
 <div class="flex content">
 	<div class="left">
 
-		<product-big-card-app class="card noPadding"></product-big-card-app>
+		<card-app padding="0">
+			<product-big-card-app></product-big-card-app>
+		</card-app>
 
-		<likes-card-app class="card"></likes-card-app>
 
-		<product-info-card-app class="card" [product]="product$ | async"></product-info-card-app>
+		<card-app>
+			<likes-card-app></likes-card-app>
+		</card-app>
+
+
+		<card-app>
+			<product-info-card-app [product]="product$ | async"></product-info-card-app>
+		</card-app>
+
 
 	</div>
 
 	<div class="right">
 
-		<entity-main-card-app class="card noPadding z-3"></entity-main-card-app>
+		<entity-main-card-app></entity-main-card-app>
 
 	</div>
 </div>

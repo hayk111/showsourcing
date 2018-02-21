@@ -1,13 +1,17 @@
-<header>
-	<nav>
-		<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
-		<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product tasks@@Tasks">Tasks</a>
-		<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product files@@Files">Files</a>
-	</nav>
-	<div class="hr2"></div>
-</header>
+<card-app>
 
-<main class="paddingDefault">
-	<router-outlet></router-outlet>
-</main>
+	<header class="header">
+		<nav>
+			<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
+			<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product tasks@@Tasks">Tasks</a>
+			<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product files@@Files">Files</a>
+		</nav>
+		<div class="hr2"></div>
+	</header>
+
+	<main class="main">
+		<router-outlet></router-outlet>
+	</main>
+</card-app>
+
 
