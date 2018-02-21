@@ -1,11 +1,11 @@
 // spacing
 
 .noPadding {
-	padding: 0!important;
+	padding: 0;
 }
 
 .noMargin {
-	margin: 0!important;
+	margin: 0;
 }
 
 .paddingDefault {
@@ -17,11 +17,11 @@
 }
 
 .paddingSmall {
-	padding: var(--spacing-s)!important;
+	padding: var(--spacing-s);
 }
 
 .marginSmall {
-	margin: var(--spacing-s)!important;
+	margin: var(--spacing-s);
 }
 
 .borderRadius {
