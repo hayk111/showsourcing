@@ -13,6 +13,7 @@ export class CardComponent implements OnInit {
 	@Input() elevation: string = 'z-2';
 	@Input() padding: string = 'default';
 	@Input() margin: string = 'default';
+	@Input() className: string;
 
 	@Input() border: boolean = false;
 	@Input() borderBottom: boolean = false;

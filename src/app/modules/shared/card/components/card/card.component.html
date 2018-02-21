@@ -1,4 +1,4 @@
-<div [ngStyle]="ctnrStyle" class="ctnr {{ elevation }}">
+<div [ngStyle]="ctnrStyle" class="ctnr {{ elevation }} {{ className }}">
 	<div class="border" [ngStyle]="borderStyle" *ngIf="border"></div>
 	<header>
 		<ng-content select=".header"></ng-content>

@@ -6,7 +6,7 @@
 			(itemDropped)="changeStatus($event)"
 			[bag]="status.id"
 			[label]="status.name"
-			borderColor="{{ status.id }}"
+			borderColor="{{ status.id.pascalToKebabCase() }}"
 			*ngFor="let status of statuses; let i = index">
 				<kanban-item-app
 					[data]="product.id"
@@ -16,6 +16,7 @@
 						(click)="selectProduct(product.id)"
 						class="marginSmall"
 						[product]="product">
+
 					</product-small-card-app>
 				</kanban-item-app>
 		</kanban-col-app>
