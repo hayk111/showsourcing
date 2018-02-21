@@ -1,0 +1,25 @@
+
+.activity {
+	margin-top: var(--spacing-xl);
+	align-items: baseline;
+}
+
+.author{
+	color: var(--color-primary);
+}
+
+.action{
+	margin-left: var(--spacing-xs);
+}
+
+.activity {
+	flex-grow: 1;
+}
+
+time {
+	font-size: 13px;
+}
+
+.msg {
+	margin-left: var(--spacing-s);
+}

@@ -1,0 +1,7 @@
+<div class="flex activity">
+	<div class="flexColumn">
+		<span class="author">{{ comment.createdByUserId | entityName: 'teamMembers' | async }}</span>
+		<small>{{ comment.creationDate | timeAgo }}</small>
+	</div>
+	<div class="msg"> {{ comment.text }} </div>
+</div>
