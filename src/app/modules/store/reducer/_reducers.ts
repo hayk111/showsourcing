@@ -51,6 +51,7 @@ const entities = combineReducers({
 	projects: basicReducerFactory(ProjectActionTypes),
 	suppliers: basicReducerFactory(SupplierActionTypes),
 
+	productStatus: productStatusReducer,
 	tasks: basicReducerFactory(TaskActionTypes),
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
