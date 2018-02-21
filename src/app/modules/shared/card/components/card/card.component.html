@@ -1,2 +1,2 @@
-<div class="border {{ borderClass ? borderClass : 'default' }}" *ngIf="border"></div>
+<div class="border" [ngStyle]="{ 'background-color': 'var(--color-' + borderColor.pascalToKebabCase() + ')'}" *ngIf="border"></div>
 <ng-content></ng-content>

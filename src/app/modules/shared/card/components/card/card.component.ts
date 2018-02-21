@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
 	@HostBinding('class.marginDefault') @Input() margin = true;
 
 	private _border = false;
-	@Input() borderClass;
+	@Input() borderColor: string;
 
 	constructor() {}
 
