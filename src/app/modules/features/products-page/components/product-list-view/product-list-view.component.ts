@@ -54,4 +54,10 @@ export class ProductListViewComponent implements OnInit {
 			this.productUnselect.emit(productId);
 	}
 
+	// we need to stop the propagation on the checkbox click so we don't open the product
+	onCheckboxClick(event) {
+		event.stopPropagation();
+	}
+
+
 }

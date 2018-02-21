@@ -14,6 +14,12 @@
 		</ng-template>
 	</ngx-datatable-column>
 
+	<ngx-datatable-column name="Open" [width]="300">
+		<ng-template let-row="row" ngx-datatable-cell-template>
+			<div class="pointer" (click)="supplierOpen.emit(row.id)"> open </div>
+		</ng-template>
+	</ngx-datatable-column>
+
 	<ngx-datatable-column name="Name" [width]="300">
 		<ng-template let-row="row" ngx-datatable-cell-template>
 			{{ row?.name }}

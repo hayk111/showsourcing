@@ -43,4 +43,8 @@ export class SuppliersPageComponent implements OnInit {
 	onItemUnselected(entityId: string) {
 		this.selections.delete(entityId);
 	}
+
+	onItemOpened(entityId: string) {
+		this.router.navigate(['/suppliers', 'details', entityId]);
+	}
 }

@@ -3,6 +3,7 @@
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"
 	(supplierUnselect)="onItemUnselected($event)"
+	(supplierOpen)="onItemOpened($event)"
 	[selections]="selections"
 	[suppliers]="suppliers$ | async"></supplier-list-view-app>
 	<new-supplier-dlg-app></new-supplier-dlg-app>
