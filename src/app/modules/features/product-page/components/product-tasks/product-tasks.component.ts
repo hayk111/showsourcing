@@ -5,14 +5,17 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { ProductActions } from '../../../../store/action/entities/product.action';
 import { TaskActions } from '../../../../store/action/entities/task.action';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
-import { selectTasksForCurrentTarget, selectTaskArrayForCurrentTarget, selectProductSelected } from '../../../../store/selectors/target/target.selector';
+import {
+	selectTasksForCurrentTarget,
+	selectTaskArrayForCurrentTarget,
+	selectProductSelected
+} from '../../../../store/selectors/target/target.selector';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { DialogName } from '../../../../store/model/ui/dialog.model';
 import { TaskTargetActions } from '../../../../store/action/target/task.action';
-import { Product } from '../../../../store/model/entities/product.model';
+import { selectProductById, Product } from '../../../../products';
 
 @Component({
 	selector: 'app-product-tasks',

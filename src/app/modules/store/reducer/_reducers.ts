@@ -1,4 +1,3 @@
-
 import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
 import { combineReducers } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
@@ -9,7 +8,6 @@ import { countryReducer } from './entities/country.reducer';
 import { currencyReducer } from './entities/currency.reducer';
 import { teamsReducer } from './entities/team.reducer';
 import { teamMembersReducer } from './entities/team-members.reducer';
-import { productReducer } from './entities/product.reducer';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { customFieldsReducer } from './entities/custom-fields.reducer';
@@ -44,7 +42,6 @@ import { ActionType as CategoryActionTypes } from '../action/entities/category.a
 import { ActionType as EventActionTypes } from '../action/entities/event.action';
 import { ActionType as TagActionTypes } from '../action/entities/tag.action';
 import { ActionType as SupplierActionTypes } from '../action/entities/supplier.action';
-import { ActionType as ProductActionTypes } from '../action/entities/product.action';
 import { ActionType as ProjectActionTypes } from '../action/entities/project.action';
 import { ActionType as TaskActionTypes } from '../action/entities/task.action';
 import { ActionType as TeamActionTypes } from '../action/entities/team.action';
@@ -52,7 +49,7 @@ import { productSelectionReducer } from './ui/product-selection.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
-	teams:  basicReducerFactory(TeamActionTypes),
+	teams: basicReducerFactory(TeamActionTypes),
 	teamMembers: teamMembersReducer,
 	countries: countryReducer,
 	currencies: currencyReducer,
@@ -61,18 +58,16 @@ const entities = combineReducers({
 	tags: basicReducerFactory(TagActionTypes),
 	projects: basicReducerFactory(ProjectActionTypes),
 	suppliers: basicReducerFactory(SupplierActionTypes),
-
 	tasks: basicReducerFactory(TaskActionTypes),
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
-	products: basicReducerFactory(ProductActionTypes),
 	productStatus: productStatusReducer,
 	customFields: customFieldsReducer
 });
 
 const misc = combineReducers({
 	authentication: authenticationReducer,
-	filters: filtersReducer,
+	filters: filtersReducer
 });
 
 const selection = combineReducers({
@@ -86,7 +81,7 @@ const selection = combineReducers({
 	votes: targetReducerFactory(VoteSlctnActionTypes)
 });
 
-const ui = combineReducers( {
+const ui = combineReducers({
 	authDlg: authDlgReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
@@ -96,15 +91,12 @@ const ui = combineReducers( {
 	productSelection: productSelectionReducer
 });
 
-
 export const reducers = { entities, selection, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');
 
-export const reducerProvider = [
-	{ provide: reducerToken, useValue: reducers }
-];
+export const reducerProvider = [{ provide: reducerToken, useValue: reducers }];
 // end of fix
 
 export function logger(reducer: ActionReducer<State<any>>): any {
@@ -121,6 +113,4 @@ export function logger(reducer: ActionReducer<State<any>>): any {
 	})(reducer);
 }
 
-export const metaReducers = environment.production ? [] : [
- logger, storeFreeze
-];
+export const metaReducers = environment.production ? [] : [logger, storeFreeze];

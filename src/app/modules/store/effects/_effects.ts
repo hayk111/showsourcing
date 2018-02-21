@@ -1,4 +1,3 @@
-import { ProductEffects } from './entities/products.effects';
 import { AppErrorsEffects } from './misc/app-error.effects';
 import { TaskEffects } from './entities/task.effects';
 import { CountryEffects } from './entities/country.effects';
@@ -27,11 +26,8 @@ import { TeamEffects } from './entities/team.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { SnackBarEffects } from './ui/snack-bar.effects';
 
-
 export const effects = [
-
 	// entities
-	ProductEffects,
 	TaskEffects,
 	TeamEffects,
 	UserEffects,
@@ -44,7 +40,6 @@ export const effects = [
 	EventEffects,
 	TagEffects,
 	ProjectEffects,
-
 
 	// misc
 	SnackBarEffects,

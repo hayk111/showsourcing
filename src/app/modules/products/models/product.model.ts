@@ -1,10 +1,10 @@
-import { Counters } from './counters.interface';
-import { Category } from './category.model';
-import { Currency } from './currency.model';
-import { AppImage } from './app-image.model';
-import { Tag } from './tag.model';
-import { AppFile } from './app-file.model';
-import { Project } from './project.model';
+import { Counters } from '../../store/model/entities/counters.interface';
+import { Category } from '../../store/model/entities/category.model';
+import { Currency } from '../../store/model/entities/currency.model';
+import { AppImage } from '../../store/model/entities/app-image.model';
+import { Tag } from '../../store/model/entities/tag.model';
+import { AppFile } from '../../store/model/entities/app-file.model';
+import { Project } from '../../store/model/entities/project.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',

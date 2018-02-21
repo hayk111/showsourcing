@@ -3,7 +3,7 @@ import { uuid } from './uuid.utils';
 
 export const entityInitialState: EntityState<any> = {
 	pending: true,
-	byId : {},
+	byId: {},
 	ids: []
 };
 
@@ -26,12 +26,12 @@ export class Entity {
 	}
 }
 
-export class EntityRepresentation  {
+export class EntityRepresentation {
 	actions: any;
 	constructor(public entityName: string,
-							public urlName?: string,
-							public displayName?: string,
-							public descriptorName?: CustomFieldsName | string) {
+		public urlName?: string,
+		public displayName?: string,
+		public descriptorName?: CustomFieldsName | string) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
 		this.displayName = displayName || entityName;
@@ -74,8 +74,8 @@ export function addEntities(state: any, entities: Array<any> | any) {
 	const ids = [...state.ids];
 	const byId = { ...state.byId };
 	// if we didn't receive an array let's just create one. We could create an error too.
-	if (!Array.isArray(entities)){
-		entities = [ entities ];
+	if (!Array.isArray(entities)) {
+		entities = [entities];
 	}
 	entities.forEach(entity => {
 		ids.push(entity.id);

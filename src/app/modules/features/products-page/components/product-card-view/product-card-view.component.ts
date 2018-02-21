@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
-import { Product } from '../../../../store/model/entities/product.model';
+import { Product } from '../../../../products';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { Observable } from 'rxjs/Observable';
-import { selectProductByStatus } from '../../../../store/selectors/entities/products.selector';
-import { ProductActions } from '../../../../store/action/entities/product.action';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Patch } from '../../../../store/utils/patch.interface';
 
@@ -18,10 +16,9 @@ export class ProductCardViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
 	@Input() products: Array<Product> = [];
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	selectProduct(id: string) {
 		this.productSelect.emit(id);
@@ -30,6 +27,4 @@ export class ProductCardViewComponent implements OnInit {
 	trackByFn(index, product) {
 		return product.id;
 	}
-
-
 }

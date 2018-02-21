@@ -1,4 +1,3 @@
-
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap, filter, skip, take, first } from 'rxjs/operators';
@@ -14,9 +13,8 @@ import { CustomFieldsActions } from '../../action/entities/custom-fields.action'
 import { interval } from 'rxjs/observable/interval';
 import { ActionType } from '../../action/misc/preloader.action';
 import { PreloaderService } from '../../services/preloader.service';
-import { ProductActions } from '../../action/entities/product.action';
+import { ProductActionsFactory } from '../../../products';
 import { TaskActions } from '../../action/entities/task.action';
-
 
 @Injectable()
 export class PreloaderEffects {
@@ -35,24 +33,27 @@ export class PreloaderEffects {
 		tap(id => this.getOnceEntities(id)),
 		switchMap(id => interval(PreloaderEffects.RELOAD_TIME).map(x => id)),
 		switchMap(
-			id => this.srv.loadMaxCounter(id).map((r: any) => r.counter).filter( (c) => c > PreloaderEffects.CURRENT),
+			id =>
+				this.srv
+					.loadMaxCounter(id)
+					.map((r: any) => r.counter)
+					.filter(c => c > PreloaderEffects.CURRENT),
 			(id, counter: number) => {
 				if (counter > PreloaderEffects.CURRENT && PreloaderEffects.CURRENT !== -1)
 					this.getEntities(id, PreloaderEffects.CURRENT);
 				PreloaderEffects.CURRENT = counter;
 			}
-		),
+		)
 	);
 
-
 	private getEntities(id, maxCounter = -1) {
-		this.dispatch(ProductActions.load({id, maxCounter}));
+		this.dispatch(ProductActionsFactory.load({ id, maxCounter }));
 		this.dispatch(TaskActions.load({ id, maxCounter }));
-		this.dispatch(CategoryActions.load({id, maxCounter}));
-		this.dispatch(SupplierActions.load({id, maxCounter}));
-		this.dispatch(EventActions.load({id, maxCounter}));
-		this.dispatch(ProjectActions.load({id, maxCounter}));
-		this.dispatch(TagActions.load({id, maxCounter}));
+		this.dispatch(CategoryActions.load({ id, maxCounter }));
+		this.dispatch(SupplierActions.load({ id, maxCounter }));
+		this.dispatch(EventActions.load({ id, maxCounter }));
+		this.dispatch(ProjectActions.load({ id, maxCounter }));
+		this.dispatch(TagActions.load({ id, maxCounter }));
 		this.dispatch(TeamMembersActions.load(id, maxCounter));
 	}
 
@@ -64,8 +65,5 @@ export class PreloaderEffects {
 		this.store.dispatch(any);
 	}
 
-
-	constructor( private action$: Actions, private srv: PreloaderService, private store: Store<any>) {
-	}
+	constructor(private action$: Actions, private srv: PreloaderService, private store: Store<any>) {}
 }
-

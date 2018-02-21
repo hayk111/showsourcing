@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
-import { Product } from '../../../../store/model/entities/product.model';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { Task } from '../../../../store/model/entities/task.model';
 
@@ -18,17 +17,15 @@ export class TasksListViewComponent implements OnInit {
 		description: true,
 		product: true,
 		owner: true
-	}
+	};
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	@Input()
 	set tasks(tasks: Array<any>) {
-		if (tasks)
-			this._tasks = tasks.reverse();
+		if (tasks) this._tasks = tasks.reverse();
 	}
 
 	get tasks() {
@@ -41,5 +38,4 @@ export class TasksListViewComponent implements OnInit {
 			this.cols[c] = false;
 		});
 	}
-
 }

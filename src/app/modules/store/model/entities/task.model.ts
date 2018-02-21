@@ -1,5 +1,5 @@
-import { uuid } from "../../utils/uuid.utils";
-import { Product } from "./product.model";
+import { uuid } from '../../utils/uuid.utils';
+import { Product } from '../../../products';
 
 export enum TaskStatus {
 	TODO = 'Todo',

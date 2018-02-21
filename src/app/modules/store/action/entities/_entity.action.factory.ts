@@ -1,9 +1,35 @@
+import { TypedAction } from './../../utils/typed-action.interface';
 import { Entity, EntityRepresentation } from '../../utils/entities.utils';
 import { Patch } from '../../utils/patch.interface';
+import { Action } from '@ngrx/store';
 
-// makes bastic action types
-export function makeBasicActionTypes(repr: EntityRepresentation): any {
-// using uppercase for backward compatibility with enums
+export interface BasicActionTypes {
+	LOAD: string;
+	LOAD_BY_ID: string;
+	ADD: string;
+	CREATE: string;
+	REPLACING: string;
+	DELETE: string;
+	SET_PENDING: string;
+	PATCH: string;
+	MERGE: string;
+}
+
+export interface BasicActions {
+	load(params?: any);
+	loadById(id: string);
+	add(toAdd: Array<Entity>);
+	create(toCreate: Entity);
+	replace(old: Entity, replacing: Entity);
+	delete(toDelete: Entity);
+	setPending();
+	patch(patch: Patch);
+	merge();
+}
+
+// makes basic action types
+export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTypes {
+	// using uppercase for backward compatibility with enums
 	return {
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
 		// even though items are preloaded, not every info in them are preloaded
@@ -25,17 +51,17 @@ export function addActionType(actionTypes: any, repr: EntityRepresentation, acti
 }
 
 // makes basic actions functions
-export function makeBasicActions(actionType: any) {
+export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 	return {
-		load: (params?: any) => ({ type: actionType.LOAD, payload: params }),
-		loadById: (id: string) => ({ type: actionType.LOAD_BY_ID, payload: id }),
-		add: (toAdd: Array<Entity>) => ({ type: actionType.ADD, payload: toAdd }),
-		create: (toCreate: Entity) => ({ type: actionType.CREATE, payload: toCreate }),
-		replace: (old: Entity, replacing: Entity) => ({ type: actionType.REPLACE, payload: { old, replacing } }),
-		delete: (toDelete: Entity) => ({ type: actionType.DELETE, payload: toDelete }),
-		setPending: () => ({ type: actionType.SET_PENDING }),
-		patch: (patch: Patch) => ({ type: actionType.PATCH, payload: patch }),
-		merge: () => ({ type: actionType.MERGE }),
+		load: (params?: any): TypedAction<any> => ({ type: actionType.LOAD, payload: params }),
+		loadById: (id: string): TypedAction<any> => ({ type: actionType.LOAD_BY_ID, payload: id }),
+		add: (toAdd: Array<Entity>): TypedAction<any> => ({ type: actionType.ADD, payload: toAdd }),
+		create: (toCreate: Entity): TypedAction<any> => ({ type: actionType.CREATE, payload: toCreate }),
+		replace: (old: Entity, replacing: Entity): TypedAction<any> => ({ type: actionType.REPLACING, payload: { old, replacing } }),
+		delete: (toDelete: Entity): TypedAction<any> => ({ type: actionType.DELETE, payload: toDelete }),
+		setPending: (): Action => ({ type: actionType.SET_PENDING }),
+		patch: (patch: Patch): TypedAction<any> => ({ type: actionType.PATCH, payload: patch }),
+		merge: (): Action => ({ type: actionType.MERGE }),
 	};
 }
 

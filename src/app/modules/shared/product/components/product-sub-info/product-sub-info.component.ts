@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../../store/model/entities/product.model';
+import { Product } from '../../../../products';
 
 @Component({
 	selector: 'product-sub-info-app',
@@ -9,9 +9,7 @@ import { Product } from '../../../../store/model/entities/product.model';
 export class ProductSubInfoComponent implements OnInit {
 	@Input() product: Product;
 	@Input() big = false;
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
-
+	ngOnInit() {}
 }

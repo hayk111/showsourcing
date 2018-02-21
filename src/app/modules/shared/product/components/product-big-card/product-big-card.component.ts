@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../../store/model/entities/product.model';
+import { Product } from '../../../../products';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectProductSelected, selectCommentsArrayForCurrentTarget, selectNumCommentsForCurrentTarget,
-	selectNumTasksForSelection } from '../../../../store/selectors/target/target.selector';
+import {
+	selectProductSelected,
+	selectCommentsArrayForCurrentTarget,
+	selectNumCommentsForCurrentTarget,
+	selectNumTasksForSelection
+} from '../../../../store/selectors/target/target.selector';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -34,24 +38,29 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const product$ = this.store.select(selectProductSelected).pipe(filter((o: any) => o));
-		product$.pipe(takeUntil(this._destroy$)).subscribe(p => this.product = p);
-		this.store.select(selectNumCommentsForCurrentTarget)
-			.pipe(takeUntil(this._destroy$)).subscribe(n => this.numComments = n);
-		this.store.select(selectNumTasksForSelection)
-			.pipe(takeUntil(this._destroy$)).subscribe(n => this.numTasks = n);
+		product$.pipe(takeUntil(this._destroy$)).subscribe(p => (this.product = p));
+		this.store
+			.select(selectNumCommentsForCurrentTarget)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(n => (this.numComments = n));
+		this.store
+			.select(selectNumTasksForSelection)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(n => (this.numTasks = n));
 
-		product$.pipe(
-			map(product => ({entityId: product.createdByUserId, entityRepr: entityRepresentationMap.teamMembers })),
-			switchMap(target => this.store.select(selectEntityById(target)))
-		).subscribe(u => this.user = u);
+		product$
+			.pipe(
+				map(product => ({ entityId: product.createdByUserId, entityRepr: entityRepresentationMap.teamMembers })),
+				switchMap(target => this.store.select(selectEntityById(target)))
+			)
+			.subscribe(u => (this.user = u));
 	}
 
 	onFileDrop(files: Array<any>) {
-		files.forEach( async (file) => {
+		files.forEach(async file => {
 			// this async stuff could probably be abstracted in the store.
 			const img = await AppImage.newInstance(file, this.userSrv.getUserId());
 			this.store.dispatch(ImageTargetActions.add(img));
 		});
 	}
-
 }

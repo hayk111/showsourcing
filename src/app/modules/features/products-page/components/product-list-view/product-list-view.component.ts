@@ -3,14 +3,17 @@ import { Observable } from 'rxjs/Observable';
 import { Supplier } from '../../../../store/model/entities/supplier.model';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { EntityState, entityStateToArray, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Product } from '../../../../store/model/entities/product.model';
+import {
+	EntityState,
+	entityStateToArray,
+	entityRepresentationMap
+} from '../../../../store/utils/entities.utils';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
-import { selectProductsWithNames } from '../../../../store/selectors/entities/products.selector';
 import { FilterActions } from '../../../../store/action/misc/filter.action';
 import { FilterGroupName, FilterSort } from '../../../../store/model/misc/filter.model';
 import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
 
+import { Product } from '../../../../products';
 @Component({
 	selector: 'product-list-view-app',
 	templateUrl: './product-list-view.component.html',
@@ -27,14 +30,12 @@ export class ProductListViewComponent implements OnInit {
 		{ name: 'Supplier', prop: 'supplierName' },
 		{ name: 'Event', prop: 'eventName' },
 		{ name: 'Price', prop: 'priceAmount' },
-		{ name: 'Rating', prop: 'rating' },
+		{ name: 'Rating', prop: 'rating' }
 	];
 
-	constructor(private store: Store<any>) {
-	}
+	constructor(private store: Store<any>) {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	onSelect(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
@@ -49,5 +50,4 @@ export class ProductListViewComponent implements OnInit {
 		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
 		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
-
 }

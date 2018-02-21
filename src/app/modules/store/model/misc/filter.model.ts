@@ -5,9 +5,8 @@ import { EventActions } from '../../action/entities/event.action';
 import { CategoryActions } from '../../action/entities/category.action';
 import { TagActions } from '../../action/entities/tag.action';
 import { ProjectActions } from '../../action/entities/project.action';
-import { ProductActions } from '../../action/entities/product.action';
+import { ProductActions } from '../../../products/store/actions/product.action';
 import { Currency } from '../entities/currency.model';
-
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
@@ -22,7 +21,6 @@ export enum FilterGroupName {
 export interface AppFilters {
 	[key: string]: Array<Filter>;
 }
-
 
 // represent a specific filter
 export interface Filter {
@@ -81,7 +79,9 @@ export abstract class FilterEntity extends BaseFilter {
 		super();
 	}
 
-	static getEntityRepr() { throw Error('you should call getEntityRepr on a subclass of FilterEntity'); }
+	static getEntityRepr() {
+		throw Error('you should call getEntityRepr on a subclass of FilterEntity');
+	}
 
 	toUrlParam() {
 		return `${this.entityRepr.urlName}=${this.value}`;
@@ -90,43 +90,66 @@ export abstract class FilterEntity extends BaseFilter {
 	filter(entity: Entity): boolean {
 		return this.value === entity.id;
 	}
-
 }
 
 export class FilterSupplier extends FilterEntity implements Filter {
 	static readonly filterName = 'supplier';
-	static getEntityRepr() { return entityRepresentationMap.suppliers; }
-	static newInstance(value, displayValue) { return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.suppliers;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr());
+	}
 }
 
 export class FilterCategory extends FilterEntity implements Filter {
 	static readonly filterName = 'category';
-	static getEntityRepr() { return entityRepresentationMap.categories; }
-	static newInstance(value, displayValue) { return new FilterCategory(value, displayValue, FilterCategory.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.categories;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterCategory(value, displayValue, FilterCategory.getEntityRepr());
+	}
 }
 
 export class FilterEvent extends FilterEntity implements Filter {
 	static readonly filterName = 'event';
-	static getEntityRepr() { return entityRepresentationMap.events; }
-	static newInstance(value, displayValue) { return new FilterEvent(value, displayValue, FilterEvent.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.events;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterEvent(value, displayValue, FilterEvent.getEntityRepr());
+	}
 }
 
 export class FilterTags extends FilterEntity implements Filter {
 	static readonly filterName = 'tag';
-	static getEntityRepr() { return entityRepresentationMap.tags; }
-	static newInstance(value, displayValue) { return new FilterTags(value, displayValue, FilterTags.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.tags;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterTags(value, displayValue, FilterTags.getEntityRepr());
+	}
 }
 
 export class FilterProjects extends FilterEntity implements Filter {
 	static readonly filterName = 'project';
-	static getEntityRepr() { return entityRepresentationMap.projects; }
-	static newInstance(value, displayValue) { return new FilterProjects(value, displayValue, FilterProjects.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.projects;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterProjects(value, displayValue, FilterProjects.getEntityRepr());
+	}
 }
 
 export class FilterStatus extends FilterEntity implements Filter {
 	static readonly filterName = 'status';
-	static getEntityRepr() { return entityRepresentationMap.productStatus; }
-	static newInstance(value, displayValue) { return new FilterStatus(value, displayValue, FilterStatus.getEntityRepr()); }
+	static getEntityRepr() {
+		return entityRepresentationMap.productStatus;
+	}
+	static newInstance(value, displayValue) {
+		return new FilterStatus(value, displayValue, FilterStatus.getEntityRepr());
+	}
 }
 
 export class FilterSearch extends BaseFilter implements Filter {
@@ -141,7 +164,6 @@ export class FilterSearch extends BaseFilter implements Filter {
 	}
 }
 
-
 export class FilterPrice extends BaseFilter implements Filter {
 	static readonly filterName = 'price';
 	value: any;
@@ -150,16 +172,14 @@ export class FilterPrice extends BaseFilter implements Filter {
 	constructor(public currency: Currency, public min: number, public max: number) {
 		super();
 		// not really important...
-		this.value = [ min, max ];
+		this.value = [min, max];
 		this.displayValue = this.value;
 	}
 
 	toUrlParam() {
 		let params = '';
-		if (this.min)
-			params += `minPrice=${this.min}&`;
-		if (this.max)
-			params += `maxPrice=${this.max}&`;
+		if (this.min) params += `minPrice=${this.min}&`;
+		if (this.max) params += `maxPrice=${this.max}&`;
 		params += `priceCurrency=${this.currency.id}`;
 		return params;
 	}
@@ -168,13 +188,11 @@ export class FilterPrice extends BaseFilter implements Filter {
 	displayName() {
 		let name = '';
 
-		if (this.min)
-			name += `${this.min} <`;
+		if (this.min) name += `${this.min} <`;
 
 		name += 'price';
 
-		if (this.max)
-			name += ` < ${this.max}`;
+		if (this.max) name += ` < ${this.max}`;
 		return name;
 	}
 
@@ -185,7 +203,9 @@ export class FilterPrice extends BaseFilter implements Filter {
 
 export class FilterRating extends BaseFilter implements Filter {
 	static readonly filterName = 'rating';
-	constructor(public value: number) { super(); }
+	constructor(public value: number) {
+		super();
+	}
 	filter(entity: any) {
 		return entity.rating === this.value;
 	}
@@ -218,6 +238,3 @@ export class FilterSort extends BaseFilter implements Filter {
 		return '';
 	}
 }
-
-
-

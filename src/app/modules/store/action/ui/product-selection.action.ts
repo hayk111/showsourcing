@@ -1,6 +1,4 @@
-import { Product } from "../../model/entities/product.model";
-import { Action } from "rxjs/scheduler/Action";
-
+import { Product } from '../../../products';
 
 export enum ActionType {
 	ADD = '[ProductSelection] Adding',

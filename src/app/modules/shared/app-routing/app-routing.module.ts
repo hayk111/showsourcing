@@ -1,3 +1,4 @@
+import { ProductModule } from './../../products/product.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routes } from './routes';
@@ -16,13 +17,14 @@ import { ProductDetailsPageModule } from '../../features/product-page/product-de
 		RouterModule.forRoot(routes),
 		HomeModule,
 		ProductsPageModule,
+		ProductModule,
 		TasksPageModule,
 		EventsPageModule,
 		SuppliersPageModule,
 		ProductDetailsPageModule,
 		TestModule
 	],
-	exports: [ RouterModule ],
+	exports: [RouterModule],
 	declarations: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
