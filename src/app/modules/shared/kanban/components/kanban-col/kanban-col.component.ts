@@ -13,7 +13,7 @@ export class KanbanColComponent implements OnInit {
 	over = false;
 	@Input() bag;
 	@Input() label: string;
-	@Input() borderClass: string;
+	@Input() borderColor: string;
 	@Output() itemDropped = new EventEmitter<any>();
 
 	constructor(private kanbanSrv: KanbanService) { }

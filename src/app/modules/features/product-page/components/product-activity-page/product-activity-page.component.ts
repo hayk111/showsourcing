@@ -21,7 +21,9 @@ export class ProductActivityPageComponent implements OnInit {
 	comments$: Observable<Array<AppComment>>;
 	comment = new FormControl('');
 
-	constructor(private store: Store<any>, private userSrv: UserService) {}
+	constructor(private store: Store<any>, private userSrv: UserService) {
+
+	}
 
 	ngOnInit() {
 		this.comments$ = this.store.select(selectCommentsForCurrentTarget);

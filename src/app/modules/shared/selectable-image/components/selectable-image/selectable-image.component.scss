@@ -1,6 +1,6 @@
-
 .imgCtnr {
 	border-radius: var(--border-radius);
+	color: white;
 	margin: auto;
 	overflow: hidden;
 	position: relative;
@@ -9,20 +9,32 @@
 		max-height: 100%;
 	}
 }
-.imgCtnr:hover {
-	& > img {
-		filter: blur(4px);
-	}
 
-	& > .overlay {
-		display: flex;
+img {
+	transition: filter 0.4s;
+}
+
+.blurred {
+	filter: blur(4px);
+}
+
+.hide {
+	display: none;
+}
+
+.overlay:hover {
+	background-color: rgba(0, 0, 0, 0.55);
+
+	& > .hide {
+		display: block;
 	}
 }
 
 .overlay {
+	display: flex;
+	transition: background-color 0.4s;
 	padding: var(--spacing-s);
-	display: none;
-	background: rgba(0, 0, 0, 0.55);
+	background-color: transparent;
 	position: absolute;
 	z-index: 1;
 	top: 0;

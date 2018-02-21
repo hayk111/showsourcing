@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap } from 'rxjs/operators';
-import { ActionType, CategoryActions } from '../../action/entities/category.action';
+import { CategoryActionTypes as ActionType, CategoryActions } from '../../action/entities/index';
 import { CategoryService } from '../../services/category.service';
 
 

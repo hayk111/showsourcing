@@ -3,6 +3,13 @@
 	[pending]="pending$ | async"
 	[repr]="repr"
 	[switchable]="false">
-	<projects-list-view-app [projects]="projects$ | async">
+	<projects-list-view-app
+		(projectSelect)="onItemSelected($event)"
+		(projectUnselect)="onItemUnselected($event)"
+		[selections]="selections"
+		[projects]="projects$ | async">
 	</projects-list-view-app>
 </entity-page-app>
+
+<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections">
+</selection-bar-app>

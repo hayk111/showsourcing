@@ -9,6 +9,7 @@ import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { SuppliersModule } from '../../shared/suppliers/suppliers.module';
+import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,8 @@ import { SuppliersModule } from '../../shared/suppliers/suppliers.module';
 		UserModule,
 		UtilsModule,
 		AppStoreModule.forChild(),
-		SuppliersModule
+		SuppliersModule,
+		SelectionBarModule
 	],
 	declarations: [ SuppliersPageComponent, SupplierListViewComponent ]
 })

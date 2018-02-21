@@ -8,10 +8,12 @@ import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 })
 export class SelectableImageComponent implements OnInit {
 	@Input() url: string;
+	@Input() selected: string;
 	@Output() vote = new EventEmitter<number>();
 	@Output() open = new EventEmitter();
 	@Output() trash = new EventEmitter();
-	@Output() selection = new EventEmitter();
+	@Output() select = new EventEmitter();
+	@Output() unselect = new EventEmitter();
 
 	defaultImg = DEFAULT_NO_IMG;
 
@@ -19,5 +21,6 @@ export class SelectableImageComponent implements OnInit {
 
   ngOnInit() {
 	}
+
 
 }

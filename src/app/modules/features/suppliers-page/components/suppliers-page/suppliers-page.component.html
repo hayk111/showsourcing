@@ -1,5 +1,12 @@
 
 <entity-page-app [switchable]="false" [pending]="pending$ | async" [repr]="repr" (createClick)="openNewDialog()">
-	<supplier-list-view-app (supplierSelect)="onItemSelected($event)" [suppliers]="suppliers$ | async"></supplier-list-view-app>
+	<supplier-list-view-app
+	(supplierSelect)="onItemSelected($event)"
+	(supplierUnselect)="onItemUnselected($event)"
+	(supplierOpen)="onItemOpened($event)"
+	[selections]="selections"
+	[suppliers]="suppliers$ | async"></supplier-list-view-app>
 	<new-supplier-dlg-app></new-supplier-dlg-app>
 </entity-page-app>
+
+<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections"></selection-bar-app>

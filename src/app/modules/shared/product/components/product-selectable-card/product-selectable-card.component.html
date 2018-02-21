@@ -1,17 +1,24 @@
-<div class="ctnr z-2">
+<div class="ctnr z-a {{ selected ? 'z-7' : 'z-2'}}">
 	<!-- top of card -->
 	<div class="flexBetween top">
 		<div>
 			<div class="name">{{ product?.name }}</div>
 			<div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
 		</div>
-		<rating-heart-app [rating]="product?.rating"></rating-heart-app>
+		<rating-heart-app [rating]="product?.rating" (click)="onRateClick()"></rating-heart-app>
 	</div>
 
 
 	<!-- middle card: picture + badge  -->
 	<div class="imgCtnr flexCenter">
-		<selectable-image-app class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+		<selectable-image-app
+			[selected]="selected"
+			(unselect)="productUnselect.emit(product.id)"
+			(select)="productSelect.emit(product.id)"
+			(open)="productOpen.emit(product.id)"
+			(vote)="onVote($event)"
+			class="img"
+			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
 	</div>
 
 	<div class="flexCenter">
@@ -29,6 +36,9 @@
 			<div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
 		</div>
 	</div>
+
+	<!-- border -->
+	<div class="border {{ selected ? 'selected' : '' }}" ></div>
 
 </div>
 

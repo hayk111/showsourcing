@@ -1,17 +1,33 @@
-
 <entity-page-app [filterGroupName]="filterGroupName" [pending]="pending$ | async" [repr]="repr">
 		<!-- views -->
 		<product-list-view-app
 			class="list-view"
 			[filterGroupName]="filterGroupName"
+			[selections]="selections"
 			[products]="products$ | async"
-			(productSelect)="onItemSelected($event)"></product-list-view-app>
+			(productSelect)="onItemSelected($event)"
+			(productUnselect)="onItemUnselected($event)"
+			(productOpen)="onItemOpened($event)"
+			(productVote)="onItemVoted($event)"></product-list-view-app>
 		<product-card-view-app
 			class="card-view"
 			[products]="products$ | async"
-			(productSelect)="onItemSelected($event)"></product-card-view-app>
+			[selections]="selections"
+			(productSelect)="onItemSelected($event)"
+			(productUnselect)="onItemUnselected($event)"
+			(productFavorited)="onItemFavorited($event)"
+			(productUnfavorited)="onItemUnfavorited($event)"
+			(productOpen)="onItemOpened($event)"></product-card-view-app>
 
 </entity-page-app>
+
+<selection-bar-app
+	[repr]="repr"
+	*ngIf="selections.size > 0"
+	[selections]="selections"
+	(close)="unselectAll()">
+	<selection-actions></selection-actions>
+</selection-bar-app>
 
 <product-side-preview-app
 	(clickOutside)="closeDialog()"

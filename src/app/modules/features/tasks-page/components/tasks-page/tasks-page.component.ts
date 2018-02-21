@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, Filter } from '../../../../store/model/misc/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
-import { TaskActions } from '../../../../store/action/entities/task.action';
+import { TaskActions } from '../../../../store/action/entities/index';
 import { Store } from '@ngrx/store';
 import { Task } from '../../../../store/model/entities/task.model';
 import { EntityState, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
@@ -24,6 +24,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasks$;
 	pending$: Observable<boolean>;
 	repr = entityRepresentationMap.tasks;
+	selections = new Map<string, boolean>();
 
 	constructor(private store: Store<any>) {
 		super();
@@ -38,8 +39,12 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(DialogName.NEW_TASK));
 	}
 
-	onNewTask(task: Task) {
-		// this.store.dispatch(TaskActions.add(task));
+	onItemSelected(entityId: string) {
+		this.selections.set(entityId, true);
+	}
+
+	onItemUnselected(entityId: string) {
+		this.selections.delete(entityId);
 	}
 
 }

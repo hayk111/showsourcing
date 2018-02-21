@@ -1,5 +1,5 @@
 <div class="flex">
-	<user-picture-app></user-picture-app>
+	<user-picture-app [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 	<div class="flexColumn">
 		<strong class="name">{{ user?.firstName }} {{ user?.lastName }}</strong>
 		<ng-content></ng-content>

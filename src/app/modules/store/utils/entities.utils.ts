@@ -1,4 +1,3 @@
-import { CustomFieldsName } from '../reducer/entities/custom-fields.reducer';
 import { uuid } from './uuid.utils';
 
 export const entityInitialState: EntityState<any> = {
@@ -28,10 +27,12 @@ export class Entity {
 
 export class EntityRepresentation {
 	actions: any;
-	constructor(public entityName: string,
+	constructor(
+		public entityName: string,
 		public urlName?: string,
 		public displayName?: string,
-		public descriptorName?: CustomFieldsName | string) {
+		public descriptorName?: string
+	) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
 		this.displayName = displayName || entityName;
@@ -52,7 +53,6 @@ export const entityRepresentationMap = {
 	taskTypes: new EntityRepresentation('taskTypes'),
 	taskStatuses: new EntityRepresentation('tasksStatus'),
 
-
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
 	currencies: new EntityRepresentation('currencies'),
 	countries: new EntityRepresentation('countries'),
@@ -60,6 +60,7 @@ export const entityRepresentationMap = {
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
 	images: new EntityRepresentation('images'),
+	customFields: new EntityRepresentation('customFields')
 };
 
 export interface EntityTarget {
@@ -84,7 +85,7 @@ export function addEntities(state: any, entities: Array<any> | any) {
 	return {
 		pending: false,
 		byId,
-		ids,
+		ids
 	};
 }
 

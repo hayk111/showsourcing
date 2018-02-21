@@ -1,2 +1,11 @@
-<div class="border {{ borderClass ? borderClass : 'default' }}" *ngIf="border"></div>
-<ng-content></ng-content>
+<div [ngStyle]="ctnrStyle" class="ctnr {{ elevation }} {{ className }}">
+	<div class="border" [ngStyle]="borderStyle" *ngIf="border"></div>
+	<header>
+		<ng-content select=".header"></ng-content>
+	</header>
+	<main [ngStyle]="mainStyle">
+		<ng-content></ng-content>
+	</main>
+	<footer [ngStyle]="footerStyle"></footer>
+	<div class="border border-bottom" [ngStyle]="borderStyle" *ngIf="borderBottom"></div>
+</div>

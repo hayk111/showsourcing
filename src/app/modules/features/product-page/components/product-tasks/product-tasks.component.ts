@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { TaskActions } from '../../../../store/action/entities/task.action';
+import { TaskActions } from '../../../../store/action/entities/index';
 import { selectTasks } from '../../../../store/selectors/entities/tasks.selector';
 import {
 	selectTasksForCurrentTarget,

@@ -12,10 +12,10 @@ import { ProjectTargetActions } from '../../action/target/project.action';
 import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { TaskTargetActions } from '../../action/target/task.action';
 import { VoteSlctnActions } from '../../action/target/vote.action';
-import { SupplierActions } from '../../action/entities/supplier.action';
+import { SupplierActions } from '../../action/entities/index';
 
 @Injectable()
-export class SelectionEffects {
+export class TargetEffects {
 
 	@Effect()
 	select$ = this.actions$.ofType<any>(ActionType.SELECT).pipe(
@@ -47,7 +47,7 @@ export class SelectionEffects {
 					ImageTargetActions.load(),
 				]
 			default:
-				throw Error('entity target not defined in SelectionEffects');
+				throw Error('entity target not defined in TargetEffects');
 		}
 	}
 

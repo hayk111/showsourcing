@@ -9,7 +9,6 @@ import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { ProductIconsComponent } from './components/product-icons/product-icons.component';
 import { UserModule } from '../user/user.module';
-import { TooltipModule } from '@swimlane/ngx-charts';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
 import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
 import { EditableFieldModule } from '../editable-field/editable-field.module';
@@ -20,13 +19,14 @@ import { LoadersModule } from '../loaders/loaders.module';
 import { ProductStatusBadgeComponent } from './components/product-status-badge/product-status-badge.component';
 import { SuppliersModule } from '../suppliers/suppliers.module';
 import { ProductSelectableCardComponent } from './components/product-selectable-card/product-selectable-card.component';
-import { FeedbackModule } from '../feedback/feedback.module';
+import { RatingModule } from '../rating/rating.module';
 import { SelectableImageModule } from '../selectable-image/selectable-image.module';
+import { TooltipModule } from '../tooltip/tooltip.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		CarouselModule,
+		FileModule,
 		IconsModule,
 		UtilsModule,
 		AppStoreModule.forChild(),
@@ -38,7 +38,7 @@ import { SelectableImageModule } from '../selectable-image/selectable-image.modu
 		TooltipModule,
 		LoadersModule,
 		SuppliersModule,
-		FeedbackModule,
+		RatingModule,
 		SelectableImageModule
 	],
 	declarations: [

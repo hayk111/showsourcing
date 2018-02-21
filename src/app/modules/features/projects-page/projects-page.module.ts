@@ -7,6 +7,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { UserModule } from '../../shared/user/user.module';
+import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { UserModule } from '../../shared/user/user.module';
 		NgxDatatableModule,
 		UtilsModule,
 		AppStoreModule.forChild(),
-		UserModule
+		UserModule,
+		SelectionBarModule,
   ],
   declarations: [ ProjectsPageComponent, ProjectsListViewComponent ]
 })

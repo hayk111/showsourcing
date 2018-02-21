@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { TagService } from '../../services/tag.service';
-import { ActionType, TagActions } from '../../action/entities/tag.action';
+import { TagActionTypes as ActionType, TagActions } from '../../action/entities/index';
 
 
 @Injectable()

@@ -1,21 +1,20 @@
 <div class="flex {{ big ? 'big' : '' }}">
 
 	<ng-container *ngIf="score !== undefined">
-		<icon-app name="thumbs-up"></icon-app>
+		<icon-app name="thumbs-up" color="inherit"></icon-app>
 		<span class="num">{{ score }}%</span>
 		<span class="spacer"></span>
 	</ng-container>
 
 	<ng-container *ngIf="numComments !== undefined">
-		<icon-app name="comment" size="{{ big ? 'l' : 's'}}"></icon-app>
+		<icon-app name="comment" size="{{ big ? 'l' : 's'}}" color="inherit"></icon-app>
 		<span class="num">{{ numComments }}</span>
 		<span class="spacer"></span>
 	</ng-container>
 
 	<ng-container *ngIf="numTasks !== undefined">
-		<icon-app name="check-square" size="{{ big ? 'l' : 's'}}"></icon-app>
+		<icon-app name="check-square" size="{{ big ? 'l' : 's'}}" color="inherit"></icon-app>
 		<span class="num">{{ numTasks }}</span>
-		<icon-app name="sample" *ngIf="sample"></icon-app>
 	</ng-container>
 
 </div>

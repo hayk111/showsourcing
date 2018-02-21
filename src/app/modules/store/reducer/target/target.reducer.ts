@@ -10,11 +10,11 @@ const initialState = {
 };
 
 // when an entity is selected
-export function currentTargetReducer( state = { target: undefined }, action) {
+export function currentTargetReducer( state = {}, action) {
 
 	switch (action.type) {
 		case ActionType.SELECT:
-			return { target: action.payload };
+			return action.payload;
 		default:
 			return state;
 	}

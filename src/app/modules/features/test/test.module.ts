@@ -5,17 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
 import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
-import { TestInputsFileComponent } from './components/test-inputs-file/test-inputs-file.component';
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { RouterModule } from '@angular/router';
-import { TestCarouselComponent } from './components/test-carousel/test-carousel.component';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { SelectModule } from '../../shared/select/select.module';
 import { FileModule } from '../../shared/file/file.module';
-import { FeedbackModule } from '../../shared/feedback/feedback.module';
-import { TestCommentsComponent } from './components/test-comments/test-comments.component';
-import { TestFeedbackComponent } from './components/test-feedback/test-feedback.component';
+import { RatingModule } from '../../shared/rating/rating.module';
 import { CommentModule } from '../../shared/comment/comment.module';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
@@ -32,7 +28,7 @@ import { ProductModule } from '../../shared/product/product.module';
 		InputsModule,
 		SelectModule,
 		FileModule,
-		FeedbackModule,
+		RatingModule,
 		CarouselModule,
 		CommentModule,
 		KanbanModule,
@@ -45,16 +41,12 @@ import { ProductModule } from '../../shared/product/product.module';
 	],
 	declarations: [
 		TestComponent,
-		TestInputsFileComponent,
 		TestInputsSelectorsComponent,
 		TestInputsVanillaComponent,
-		TestCarouselComponent,
-		TestCommentsComponent,
-		TestFeedbackComponent,
 		KanbanTestComponent,
 		TestLoadesComponent,
 		TestTabsComponent,
 		TestProductComponent
-	],
+	]
 })
-export class TestModule { }
+export class TestModule {}

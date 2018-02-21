@@ -1,0 +1,10 @@
+<div
+	(fileDrop)="onFilesAdded($event)">
+
+	<input
+			type="file"
+			[multiple]="multi"
+			[accept]="accept"
+			(fileSelect)="onFilesAdded($event)"/>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from '../../../../store/model/entities/project.model';
 
 @Component({
@@ -7,11 +7,22 @@ import { Project } from '../../../../store/model/entities/project.model';
   styleUrls: ['./projects-list-view.component.scss']
 })
 export class ProjectsListViewComponent implements OnInit {
+	@Output() projectSelect = new EventEmitter<string>();
+	@Output() projectUnselect = new EventEmitter<string>();
 	@Input() projects: Array<Project> = [];
+	@Input() selections: Map<string, boolean>;
 
   constructor() { }
 
   ngOnInit() {
-  }
+	}
+
+	onSelect(event, id) {
+		if (event.target.checked)
+			this.projectSelect.emit(id);
+		else
+			this.projectUnselect.emit(id);
+		event.stopPropagation();
+	}
 
 }

@@ -1,0 +1,11 @@
+<div class="inpCtnr">
+	<input-textarea-app
+		placeholder="Your comment"
+		[formControl]="ctrl"
+		(enter)="onComment($event)">
+	</input-textarea-app>
+</div>
+
+<ng-container *ngIf="comments$ | async as comments">
+	<comment-list-app [comments]="comments" [pending]="pending$ | async"></comment-list-app>
+</ng-container>

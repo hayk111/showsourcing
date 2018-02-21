@@ -2,21 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
-import { InputFileComponent } from './components/input-file/input-file.component';
-import { InputFileEntityComponent } from './components/input-file-entity/input-file-entity.component';
-import { InputImageEntityComponent } from './components/input-image-entity/input-image-entity.component';
-import { FilePreviewComponent } from './components/file-preview/file-preview.component';
-import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
 import { LoadersModule } from '../loaders/loaders.module';
+import { CarouselContainerComponent } from './containers/carousel-container/carousel-container.component';
+import { CarouselModule } from '../carousel/carousel.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		LoadersModule
+		LoadersModule,
+		CarouselModule
 	],
-	declarations: [ FileDropDirective, FileSelectDirective, InputFileComponent,
-		 InputFileEntityComponent, InputImageEntityComponent, FilePreviewComponent, ImgPreviewComponent ],
-	exports: [ FileDropDirective, FileSelectDirective, InputFileComponent, FilePreviewComponent, ImgPreviewComponent,
-		InputFileEntityComponent, InputImageEntityComponent ],
+	declarations: [
+	  FileDropDirective,
+    FileSelectDirective,
+    CarouselContainerComponent
+  ],
+	exports: [
+	  FileDropDirective,
+    FileSelectDirective,
+    CarouselContainerComponent
+  ],
 })
 export class FileModule { }

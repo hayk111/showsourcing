@@ -30,12 +30,10 @@
 // 		this.store.dispatch(ProductActions.setPending());
 // 		this.subscription = this.suppliers$.pipe(
 // 			switchMap(s => {
-// 				debugger;
 // 				this.suppliers = s;
 // 				return this.itemLoader.loadEntity('product', filterGroupName);
 // 			})
 // 		).subscribe((r: {elements: Array<any>}) => {
-// 			debugger;
 // 				this.attachSupplierNames(r.elements);
 // 				this.store.dispatch(ProductActions.setData(r.elements));
 // 		});
@@ -45,7 +43,7 @@
 // 		arr.forEach(product => {
 // 			const supId = product.supplierId;
 // 			const supplier = this.suppliers[supId];
-// 			debugger;
+// 			dbugger;
 // 		});
 // 	}
 

@@ -1,4 +1,4 @@
-:host {
+.ctnr {
 	background: var(--color-bg);
 	display: block;
 	overflow: hidden;
@@ -8,8 +8,9 @@
 .border{
 	height: 3px;
 	border-radius: var(--border-radius)  var(--border-radius) 0 0;
-	&.default {
-		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-	}
+}
+
+.border-bottom {
+	border-radius: 0 0 var(--border-radius)  var(--border-radius);
 }
 // border colors class are defined in theming/entities/:entity

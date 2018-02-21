@@ -8,12 +8,12 @@ import {
 	entityStateToArray,
 	entityRepresentationMap
 } from '../../../../store/utils/entities.utils';
+import { Product } from '../../../../products';
 import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
 import { FilterActions } from '../../../../store/action/misc/filter.action';
 import { FilterGroupName, FilterSort } from '../../../../store/model/misc/filter.model';
 import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
 
-import { Product } from '../../../../products';
 @Component({
 	selector: 'product-list-view-app',
 	templateUrl: './product-list-view.component.html',
@@ -22,24 +22,19 @@ import { Product } from '../../../../products';
 })
 export class ProductListViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
+	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productOpen = new EventEmitter<string>();
 	@Input() filterGroupName: FilterGroupName;
 	@Input() products: Array<Product>;
-	columns = [
-		{ name: 'Name', prop: 'name' },
-		{ name: 'Category', prop: 'categoryName' },
-		{ name: 'Supplier', prop: 'supplierName' },
-		{ name: 'Event', prop: 'eventName' },
-		{ name: 'Price', prop: 'priceAmount' },
-		{ name: 'Rating', prop: 'rating' }
-	];
+	@Input() selections: Map<string, boolean>;
 
 	constructor(private store: Store<any>) {}
 
 	ngOnInit() {}
 
-	onSelect(event) {
+	onActivate(event) {
 		if (event.type === 'click' || event.type === 'keydown') {
-			this.productSelect.emit(event.row.id);
+			this.productOpen.emit(event.row.id);
 		}
 	}
 
@@ -49,5 +44,17 @@ export class ProductListViewComponent implements OnInit {
 		const filter = new FilterSort(value, sortOrder);
 		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
 		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+	}
+
+	onCheck(event, productId) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.target.checked) this.productSelect.emit(productId);
+		else this.productUnselect.emit(productId);
+	}
+
+	// we need to stop the propagation on the checkbox click so we don't open the product
+	onCheckboxClick(event) {
+		event.stopPropagation();
 	}
 }

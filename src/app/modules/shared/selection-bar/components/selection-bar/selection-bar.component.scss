@@ -1,0 +1,33 @@
+:host {
+	display: block;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	z-index: 3;
+}
+
+.ctnr {
+	background: var(--color-bg);
+	padding: var(--spacing-default);
+}
+
+icon-app {
+	margin-right: var(--spacing-s);
+}
+
+.btn{
+	margin-right: var(--spacing-xl);
+}
+
+.del {
+	color: var(--color-warn);
+	font-weight: bold;
+}
+
+.left {
+	color: var(--color-txt-secondary);
+}
+
+.flex {
+	align-items: center;
+}

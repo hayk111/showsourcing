@@ -13,7 +13,13 @@ export class IconComponent implements OnInit {
 	@Input() name: string;
 	@Input() sizePx: number;
 	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl';
-	@Input() color: 'primary' | 'secondary' | 'success' | 'warn';
+	@Input() color = 'icon';
+	// some icons are displayed with a circular background
+	@Input() circleSize: number;
+	// color is done via css4 var
+	@Input() circleColor: string;
+	@Input() circleBorderSize: number;
+	@Input() circleBorderColor: string;
 	// type solid by default https://fontawesome.com/icons/heart?style=regular
 	private _type: string = 's';
 	// symbols give perf gains but are less configurable
@@ -38,5 +44,15 @@ export class IconComponent implements OnInit {
 		return this._type;
 	}
 
+	get style() {
+		return {
+			color: this.color === 'inherit' ? this.color : 'var(--color-' + this.color + ')',
+			background: 'var(--color-' + this.circleColor + ')',
+			'font-size': this.sizePx ? this.sizePx + 'px' : 'var(--font-size-' + this.size + ')',
+			height: this.circleSize + 'px',
+			width: this.circleSize + 'px',
+			border: this.circleBorderSize + 'px solid var(--color-' + this.circleBorderColor + ')'
+		};
+	}
 
 }

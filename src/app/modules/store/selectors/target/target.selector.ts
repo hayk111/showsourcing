@@ -1,18 +1,17 @@
 import { createSelector } from 'reselect';
 import { EntityTarget, EntityState, entityStateToArray } from '../../utils/entities.utils';
+import { Product, selectProducts } from '../../../products';
 import { Vote } from '../../model/entities/vote.model';
 
-import { Product, selectProducts } from '../../../products';
-
-export const selectCurrentTarget = state => state.selection.currentSelection.target;
+export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;
 
 // we only need arrays here
-export const selectFilesForCurrentTarget = state => state.selection.files;
+export const selectFilesForCurrentTarget = state => state.foccussedEntity.files;
 export const selectFilesArrayForCurrentTarget = createSelector([selectFilesForCurrentTarget], filesState => {
 	return entityStateToArray(filesState);
 });
 
-export const selectTasksForCurrentTarget = state => state.selection.tasks;
+export const selectTasksForCurrentTarget = state => state.foccussedEntity.tasks;
 export const selectTaskArrayForCurrentTarget = createSelector([selectTasksForCurrentTarget], filesState => {
 	return entityStateToArray(filesState);
 });
@@ -23,7 +22,7 @@ export const selectNumTasksForSelection = createSelector(
 	}
 );
 
-export const selectProjectsForCurrentTarget = state => state.selection.projects;
+export const selectProjectsForCurrentTarget = state => state.foccussedEntity.projects;
 export const selectProjectsArrayForCurrentTarget = createSelector(
 	[selectProjectsForCurrentTarget],
 	filesState => {
@@ -31,7 +30,7 @@ export const selectProjectsArrayForCurrentTarget = createSelector(
 	}
 );
 
-export const selectImagesForCurrentTarget = state => state.selection.images;
+export const selectImagesForCurrentTarget = state => state.foccussedEntity.images;
 export const selectImagesArrayForCurrentTarget = createSelector(
 	[selectImagesForCurrentTarget],
 	imageState => {
@@ -39,12 +38,12 @@ export const selectImagesArrayForCurrentTarget = createSelector(
 	}
 );
 
-export const selectTagsForCurrentTarget = state => state.selection.tags;
+export const selectTagsForCurrentTarget = state => state.foccussedEntity.tags;
 export const selectTagsArrayForCurrentTarget = createSelector([selectTagsForCurrentTarget], tagState => {
 	return entityStateToArray(tagState);
 });
 
-export const selectCommentsForCurrentTarget = state => state.selection.comments;
+export const selectCommentsForCurrentTarget = state => state.foccussedEntity.comments;
 export const selectCommentsArrayForCurrentTarget = createSelector(
 	[selectCommentsForCurrentTarget],
 	commentState => {
@@ -59,16 +58,16 @@ export const selectNumCommentsForCurrentTarget = createSelector(
 	}
 );
 
-export const selectVotesForCurrentTarget = state => state.selection.votes;
+export const selectVotesForCurrentTarget = state => state.foccussedEntity.votes;
 export const selectVotesArrayForCurrentTarget = createSelector([selectVotesForCurrentTarget], voteState => {
 	return entityStateToArray(voteState);
 });
 
 export const selectProductSelected = createSelector(
 	[selectProducts, selectCurrentTarget],
-	(productState: EntityState<Product>, selection: EntityTarget) => {
-		if (!selection) return undefined;
-		return productState.byId[selection.entityId];
+	(productState: EntityState<Product>, foccussedEntity: EntityTarget) => {
+		if (!foccussedEntity) return undefined;
+		return productState.byId[foccussedEntity.entityId];
 	}
 );
 

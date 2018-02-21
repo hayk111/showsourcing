@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
 
 @Component({
 	selector: 'user-picture-app',
@@ -6,7 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./user-picture.component.scss']
 })
 export class UserPictureComponent implements OnInit {
-	static DEFAULT_IMG = 'http://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg';
 	private _url;
 
 	constructor() { }
@@ -20,7 +20,7 @@ export class UserPictureComponent implements OnInit {
 	}
 
 	get url() {
-		return this._url || UserPictureComponent.DEFAULT_IMG;
+		return this._url || DEFAULT_NO_IMG;
 	}
 
 }
