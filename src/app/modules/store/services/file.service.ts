@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppFile } from '../model/entities/app-file.model';
 import { switchMap, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/entities/user.selector';
+import { selectUser } from '../../user/store/selectors/user.selector';
 import { AppImage } from '../model/entities/app-image.model';
 import { Log } from '@utils/index';
 

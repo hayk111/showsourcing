@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { selectUser } from '../selectors/entities/user.selector';
-import { User } from '../model/entities/user.model';
+import { selectUser } from '../../user/store/selectors/user.selector';
+import { User } from '../../user/models/user.model';
 import { Vote } from '../model/entities/vote.model';
 import { EntityTarget } from '../utils/entities.utils';
 import { tap } from 'rxjs/operators';

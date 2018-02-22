@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
+import { DEFAULT_NO_IMG } from '../../../../utils/constants.const';
 
 @Component({
 	selector: 'user-picture-app',

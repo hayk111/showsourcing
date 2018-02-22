@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { TypedAction } from '../../utils/typed-action.interface';
-import { User } from '../../model/entities/user.model';
+import { TypedAction } from '../../../store/utils/typed-action.interface';
+import { User } from '../../models/user.model';
 
 export enum ActionType {
 	LOAD = '[User] loading',

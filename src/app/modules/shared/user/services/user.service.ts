@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../../../store/selectors/entities/user.selector';
-import { User } from '../../../store/model/entities/user.model';
+import { selectUser } from '../../../user/store/selectors/user.selector';
+import { User } from '../../../user/models/user.model';
 
 @Injectable()
 export class UserService {

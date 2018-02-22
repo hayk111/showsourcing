@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from './services/user.service';
-import { AppStoreModule } from '../../store/store.module';
+import { UserService } from '../shared/user/services/user.service';
+import { AppStoreModule } from '../store/store.module';
 import { UserPictureComponent } from './components/user-picture/user-picture.component';
 import { UserPictureWithNameComponent } from './components/user-picture-with-name/user-picture-with-name.component';
 
@@ -20,4 +20,10 @@ export class UserModule {
 			ngModule: UserModule
 		};
 	}
+
+	static forRoot(): ModuleWithProviders {
+	  return {
+
+    };
+  }
 }

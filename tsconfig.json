@@ -20,10 +20,11 @@
 			"@app/*": ["app/*"],
 			"@modules/*": ["app/modules/*"],
       "@products/*": ["app/modules/products/*"],
-      "@suppliers/*": ["app/modules/suppliers/*"],
+			"@suppliers/*": ["app/modules/suppliers/*"],
+			"@users/*": ["app/modules/users/*"],
 			"@store/*": ["app/modules/store/*"],
 			"@shared/*": ["app/modules/shared/*"],
-			"@utils/*": ["app/utils/*"]
+			"@utils/*": ["app/utils/*"],
     }
   }
 }

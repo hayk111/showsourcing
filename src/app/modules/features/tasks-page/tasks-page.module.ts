@@ -8,7 +8,7 @@ import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.mod
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AppStoreModule } from '../../store/store.module';
-import { UserModule } from '../../shared/user/user.module';
+import { UserModule } from '../../user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { TaskModule } from '../../shared/task/task.module';
 import { LoadersModule } from '../../shared/loaders/loaders.module';

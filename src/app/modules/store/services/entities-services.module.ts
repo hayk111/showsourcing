@@ -12,7 +12,7 @@ import { CurrencyService } from './currency.service';
 import { CountryService } from './country.service';
 import { VoteService } from './vote.service';
 import { AuthService } from './auth.service';
-import { UserService } from './user.service';
+import { UserService } from '../../user/services/user.service';
 import { TokenService } from './token.service';
 import { LocalStorageModule } from '../../shared/local-storage/local-storage.module';
 import { ImageService } from './images.service';

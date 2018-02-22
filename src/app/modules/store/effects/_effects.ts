@@ -3,7 +3,7 @@ import { TaskEffects } from './entities/task.effects';
 import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
 import { AuthenticationEffects } from './misc/authentication.effects';
-import { UserEffects } from './entities/user.effects';
+import { UserEffects } from '../../user/store/effects/user.effects';
 import { SuppliersEffects } from '../../suppliers/store/effects/supplier.effects';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { CategoryEffects } from './entities/category.effects';

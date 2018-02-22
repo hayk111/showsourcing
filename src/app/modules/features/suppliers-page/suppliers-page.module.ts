@@ -5,7 +5,7 @@ import { SupplierListViewComponent } from './components/supplier-list-view/suppl
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TagModule } from '../../shared/tag/tag.module';
-import { UserModule } from '../../shared/user/user.module';
+import { UserModule } from '../../user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { SuppliersModule } from '../../suppliers/suppliers.module';

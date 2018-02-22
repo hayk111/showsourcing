@@ -5,7 +5,7 @@ import { CarouselModule } from '../carousel/carousel.module';
 import { IconsModule } from '../icons/icons.module';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../../user/user.module';
 import { EditableFieldModule } from '../editable-field/editable-field.module';
 import { CardModule } from '../card/card.module';
 import { FileModule } from '../file/file.module';

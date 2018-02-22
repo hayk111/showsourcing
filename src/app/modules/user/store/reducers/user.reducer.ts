@@ -1,12 +1,5 @@
-import { User } from '../../model/entities/user.model';
-import { ActionType } from '../../action/entities/user.action';
-import { TypedAction } from '../../utils/typed-action.interface';
-
-
-
-export interface State {
-		user: User;
-}
+import { User, ActionType } from '@modules/user';
+import { TypedAction } from '@modules/store';
 
 export const initialState: User = {
 	id: '',

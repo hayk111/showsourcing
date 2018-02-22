@@ -3,7 +3,7 @@ import { combineReducers } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { userReducer } from './entities/user.reducer';
+import { userReducer } from '../../user/store/reducers/user.reducer';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';

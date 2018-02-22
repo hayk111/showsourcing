@@ -4,7 +4,7 @@ import { SupplierStatusIconComponent, NewSupplierDlgComponent } from './componen
 import { IconsModule } from '../shared/icons/icons.module';
 import { AppStoreModule } from '../store/store.module';
 import { DialogModule } from '../shared/dialog/dialog.module';
-import { UserModule } from '../shared/user/user.module';
+import { UserModule } from '../user/user.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '../shared/inputs/inputs.module';
 import { StoreModule } from '@ngrx/store';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectUser } from '../../../../store/selectors/entities/user.selector';
+import { selectUser } from '../../../../user/store/selectors/user.selector';
 import { AuthActions } from '../../../../store/action/misc/authentication.action';
 
 

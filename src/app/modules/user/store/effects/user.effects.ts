@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Store, Action } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../model/entities/user.model';
-import { CountryActions } from '../../action/entities/index';
-import { CurrencyActions } from '../../action/entities/index';
-import { TeamActions } from '../../action/entities/index';
+import { User } from '@modules/user';
+import { CountryActions } from '../../../store/action/entities/index';
+import { CurrencyActions } from '../../../store/action/entities/index';
+import { TeamActions } from '../../../store/action/entities/index';
 import { switchMap, filter, tap, map } from 'rxjs/operators';
 import { distinct } from 'rxjs/operators';
 import { Actions, Effect } from '@ngrx/effects';
-import { ActionType, UserActions } from '../../action/entities/user.action';
-import { CustomFieldsService } from '../../services/custom-fields.service';
-import { UserService } from '../../services/user.service';
-import { PreloaderActions } from '../../action/misc/preloader.action';
+import { ActionType, UserActions } from '@modules/user';
+import { CustomFieldsService } from '../../../store/services/custom-fields.service';
+import { UserService } from '@modules/user';
+import { PreloaderActions } from '../../../store/action/misc/preloader.action';
 
 
 @Injectable()

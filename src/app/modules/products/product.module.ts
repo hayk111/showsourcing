@@ -4,7 +4,7 @@ import { EditableFieldModule } from '@shared/editable-field/editable-field.modul
 import { SuppliersModule } from '@shared/../suppliers/suppliers.module';
 import { FileModule } from '@shared/file/file.module';
 import { UtilsModule } from '@shared/utils/utils.module';
-import { UserModule } from '@shared/user/user.module';
+import { UserModule } from '@shared/../user/user.module';
 import { AppStoreModule } from '@store/store.module';
 import { PriceModule } from '@shared/price/price.module';
 import { IconsModule } from '@shared/icons/icons.module';

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectTeamMembers } from '../../../../store/selectors/entities/team-members.selector';
 import { Observable } from 'rxjs/Observable';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
-import { User } from '../../../../store/model/entities/user.model';
+import { User } from '../../../../user/models/user.model';
 import { selectVotesForCurrentTarget, selectVotesByType, VoteByType } from '../../../../store/selectors/target/target.selector';
 import { map, tap } from 'rxjs/operators';
 import { Vote } from '../../../../store/model/entities/vote.model';

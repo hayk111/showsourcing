@@ -8,7 +8,7 @@ import { UserPanelComponent } from './components/user-panel/user-panel.component
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
 import { RouterModule } from '@angular/router';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../../user/user.module';
 import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
