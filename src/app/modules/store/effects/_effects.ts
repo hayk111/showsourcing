@@ -36,7 +36,6 @@ export const effects = [
 	CustomFieldsEffects,
 	TeamMembersEffects,
 	CategoryEffects,
-	SuppliersEffects,
 	EventEffects,
 	TagEffects,
 	ProjectEffects,

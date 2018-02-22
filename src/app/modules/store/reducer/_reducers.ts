@@ -49,7 +49,6 @@ const entities = combineReducers({
 	events: basicReducerFactory(EventActionTypes),
 	tags: basicReducerFactory(TagActionTypes),
 	projects: basicReducerFactory(ProjectActionTypes),
-	suppliers: basicReducerFactory(SupplierActionTypes),
 
 	productStatus: productStatusReducer,
 	tasks: basicReducerFactory(TaskActionTypes),
