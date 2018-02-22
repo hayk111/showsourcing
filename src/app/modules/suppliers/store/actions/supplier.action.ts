@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '../../../store/utils/typed-action.interface';
-import { Supplier } from '../../model/supplier.model';
+import { Supplier } from '@modules/suppliers';
 import { Patch } from '../../../store/utils/patch.interface';
 import { addActionType, makeBasicActionTypes, makeBasicActions, BasicActionTypes } from '../../../store/action/entities/_entity.action.factory';
 import { entityRepresentationMap } from '../../../store/utils/entities.utils';

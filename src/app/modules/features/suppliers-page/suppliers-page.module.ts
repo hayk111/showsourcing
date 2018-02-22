@@ -8,7 +8,7 @@ import { TagModule } from '../../shared/tag/tag.module';
 import { UserModule } from '../../shared/user/user.module';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
-import { SuppliersModule } from '../../shared/suppliers/suppliers.module';
+import { SuppliersModule } from '../../suppliers/suppliers.module';
 import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 @NgModule({

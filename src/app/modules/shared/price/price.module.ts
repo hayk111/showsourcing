@@ -10,7 +10,7 @@ import { EditableFieldModule } from '../editable-field/editable-field.module';
 import { CardModule } from '../card/card.module';
 import { FileModule } from '../file/file.module';
 import { LoadersModule } from '../loaders/loaders.module';
-import { SuppliersModule } from '../suppliers/suppliers.module';
+import { SuppliersModule } from '../../suppliers/suppliers.module';
 import { RatingModule } from '../rating/rating.module';
 import { SelectableImageModule } from '../selectable-image/selectable-image.module';
 import { TooltipModule } from '../tooltip/tooltip.module';

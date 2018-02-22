@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { switchMap, map, tap, catchError } from 'rxjs/operators';
 import { SupplierActionTypes as ActionType, SupplierActions } from '../../../store/action/entities/index';
 import { SupplierService } from '../services/supplier.service';
-import { Supplier } from '../../model/supplier.model';
+import { Supplier } from '@modules/suppliers';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '../../../store/action/misc/app-errors.action';
 

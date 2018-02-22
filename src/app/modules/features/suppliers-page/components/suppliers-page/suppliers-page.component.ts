@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { Supplier } from '../../../../suppliers/model/supplier.model';
+import { Supplier } from '@modules/suppliers';
 import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '../../../../suppliers/store/selectors/suppliers.selector';
 import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';

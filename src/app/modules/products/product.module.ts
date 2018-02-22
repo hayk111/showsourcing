@@ -1,7 +1,7 @@
 import { RatingModule } from '@shared/rating/rating.module';
 import { SelectableImageModule } from '@shared/selectable-image/selectable-image.module';
 import { EditableFieldModule } from '@shared/editable-field/editable-field.module';
-import { SuppliersModule } from '@shared/suppliers/suppliers.module';
+import { SuppliersModule } from '@shared/../suppliers/suppliers.module';
 import { FileModule } from '@shared/file/file.module';
 import { UtilsModule } from '@shared/utils/utils.module';
 import { UserModule } from '@shared/user/user.module';

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
-import { Supplier } from '../../../../suppliers/model/supplier.model';
-import { selectSuppliers } from '../../../../suppliers/store/selectors/suppliers.selector';
+import { Supplier } from '@modules/suppliers';
+import { selectSuppliers } from '@modules/suppliers';
 
 @Component({
 	selector: 'supplier-list-view-app',
