@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import Log from '../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 import { Credentials } from '../../features/auth/utils/credentials.interface';
 
 // This is the authentication service. It posts to api/auth to authenticate the user when the user uses the login form.

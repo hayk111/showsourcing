@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { Store } from '@ngrx/store';
 import { selectEntity } from '../../../../store/selectors/misc/utils.selector';
 import { selectIsSidenavOpen } from '../../../../store/selectors/ui/sidenav.selector';

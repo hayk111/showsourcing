@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { FilterGroupName, Filter, FilterClass } from '../../model/misc/filter.model';
-import Log from '../../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 import { selectEntityArray } from './utils.selector';
 import { EntityRepresentation } from '../../utils/entities.utils';
 

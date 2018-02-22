@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { Store } from '@ngrx/store';
 import { Product, selectProductById } from '../../../../products';
 import { AppFile } from '../../../../store/model/entities/app-file.model';

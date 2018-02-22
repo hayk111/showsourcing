@@ -7,7 +7,7 @@ import { switchMap, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../selectors/entities/user.selector';
 import { AppImage } from '../model/entities/app-image.model';
-import Log from '../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 
 
 @Injectable()

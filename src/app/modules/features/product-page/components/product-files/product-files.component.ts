@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AppFile } from '../../../../store/model/entities/app-file.model';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { entityRepresentationMap, EntityTarget } from '../../../../store/utils/entities.utils';
 import { ActivatedRoute } from '@angular/router';
 import { FileTargetActions } from '../../../../store/action/target/file.action';

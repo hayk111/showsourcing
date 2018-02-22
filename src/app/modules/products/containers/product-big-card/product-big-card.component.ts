@@ -8,7 +8,7 @@ import {
 	selectNumCommentsForCurrentTarget,
 	selectNumTasksForSelection
 } from '@store/selectors/target/target.selector';
-import { AutoUnsub } from '@app/utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { selectEntityById } from '@store/selectors/misc/utils.selector';

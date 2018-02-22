@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { entityStateToArray } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
 import { AppImage } from '../../../../store/model/entities/app-image.model';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { selectImagesForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { ImageTargetActions } from '../../../../store/action/target/images.action';
 import { Observable } from 'rxjs/Observable';

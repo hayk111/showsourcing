@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { environment } from './environments/environment';
 import { AppModule } from './app/modules/shared/app/app.module';
-import Log from './app/utils/logger/log.class';
+import { Log } from '@utils/index';
 // add some utility to String
 import './app/utils/string-monkey-patch';
 

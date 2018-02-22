@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { Task } from '../../../../store/model/entities/task.model';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';

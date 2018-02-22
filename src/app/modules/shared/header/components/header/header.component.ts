@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { Observable } from 'rxjs/Observable';
 import { selectAuthentication } from '../../../../store/selectors/misc/authentication.selector';
 import { AuthActions } from '../../../../store/action/misc/authentication.action';

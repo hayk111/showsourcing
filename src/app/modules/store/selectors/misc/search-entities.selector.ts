@@ -1,6 +1,6 @@
 import { Entity, EntityRepresentation } from '../../utils/entities.utils';
 import { FilterGroupName, FilterEntityClass } from '../../model/misc/filter.model';
-import Log from '../../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 import { selectEntityArray } from './utils.selector';
 import { createSelector } from 'reselect';
 import { selectFiltersValues } from './filter.selectors';

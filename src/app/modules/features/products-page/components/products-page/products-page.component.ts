@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectFilterGroup } from '../../../../store/selectors/misc/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operator/takeUntil';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { ProductActionsFactory } from '../../../../products';
 import { Product } from '../../../../products';
 import {

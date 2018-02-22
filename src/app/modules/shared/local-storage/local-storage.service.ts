@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import Log from '../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 
 @Injectable()
 export class LocalStorageService {

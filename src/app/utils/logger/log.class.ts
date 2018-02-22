@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 
 const LOG_LEVEL: LogLevels = environment.LOG_LEVEL;
 
-export default class Log {
+export class Log {
 
 	static info(...args) {
 		if (LOG_LEVEL >= LogLevels.INFO)

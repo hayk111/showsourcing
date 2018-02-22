@@ -4,7 +4,7 @@ import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { DynamicFormGroup } from '../../utils/dynamic-controls.class';
 import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { take, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { zip } from 'rxjs/observable/zip';

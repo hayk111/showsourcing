@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Injector, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
 import { SelectableItem } from '../input-checkbox/input-checkbox.component';
-import Log from '../../../../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

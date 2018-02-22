@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { AutoUnsub } from '@utils/index';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { entityRepresentationMap } from '../../../../store/utils/entities.utils';

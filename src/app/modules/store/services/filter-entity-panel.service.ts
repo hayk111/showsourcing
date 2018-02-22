@@ -6,7 +6,7 @@ import { selectUserTeamId } from '../selectors/entities/user.selector';
 import { selectEntity, selectEntityArray } from '../selectors/misc/utils.selector';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { deepCopy } from '../utils/deep-copy.utils';
-import Log from '../../../utils/logger/log.class';
+import { Log } from '@utils/index';
 
 
 @Injectable()
