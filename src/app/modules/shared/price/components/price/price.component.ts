@@ -12,9 +12,7 @@ export class PriceComponent implements OnInit {
 	@Input() currency: string;
 	@Input() amount: number;
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
-
+	ngOnInit() {}
 }

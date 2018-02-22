@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../../products';
+import { Product } from '@modules/products';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -7,17 +7,17 @@ import {
 	selectCommentsArrayForCurrentTarget,
 	selectNumCommentsForCurrentTarget,
 	selectNumTasksForSelection
-} from '../../../../store/selectors/target/target.selector';
-import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+} from '@store/selectors/target/target.selector';
+import { AutoUnsub } from '@app/utils/auto-unsub.component';
 import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { selectEntityById } from '../../../../store/selectors/misc/utils.selector';
-import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { FileTargetActions } from '../../../../store/action/target/file.action';
-import { AppFile } from '../../../../store/model/entities/app-file.model';
-import { UserService } from '../../../user/services/user.service';
-import { AppImage } from '../../../../store/model/entities/app-image.model';
-import { ImageTargetActions } from '../../../../store/action/target/images.action';
+import { selectEntityById } from '@store/selectors/misc/utils.selector';
+import { entityRepresentationMap } from '@store/utils/entities.utils';
+import { FileTargetActions } from '@store/action/target/file.action';
+import { AppFile } from '@store/model/entities/app-file.model';
+import { UserService } from '@shared/user/services/user.service';
+import { AppImage } from '@store/model/entities/app-image.model';
+import { ImageTargetActions } from '@store/action/target/images.action';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({

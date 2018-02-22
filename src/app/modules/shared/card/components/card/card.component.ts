@@ -6,10 +6,9 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 @Component({
 	selector: 'card-app',
 	templateUrl: './card.component.html',
-	styleUrls: ['./card.component.scss'],
+	styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-
 	@Input() elevation: string = 'z-2';
 	@Input() padding: string = 'default';
 	@Input() margin: string = 'default';
@@ -22,8 +21,7 @@ export class CardComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	get borderStyle() {
 		return {
@@ -38,9 +36,7 @@ export class CardComponent implements OnInit {
 	}
 
 	get footerStyle() {
-		return {
-
-		};
+		return {};
 	}
 
 	get ctnrStyle() {

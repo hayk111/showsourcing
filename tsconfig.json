@@ -17,8 +17,10 @@
       "dom"
 		],
 		"paths": {
+			"@app/*": ["app/*"],
 			"@modules/*": ["app/modules/*"],
 			"@products/*": ["app/modules/products/*"],
+			"@store/*": ["app/modules/store/*"],
 			"@shared/*": ["app/modules/shared/*"]
     }
   }

@@ -10,15 +10,15 @@ import { UserModule } from '../../shared/user/user.module';
 import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 @NgModule({
-  imports: [
+	imports: [
 		CommonModule,
 		EntityPageModule,
 		NgxDatatableModule,
 		UtilsModule,
 		AppStoreModule.forChild(),
 		UserModule,
-		SelectionBarModule,
-  ],
-  declarations: [ ProjectsPageComponent, ProjectsListViewComponent ]
+		SelectionBarModule
+	],
+	declarations: [ProjectsPageComponent, ProjectsListViewComponent]
 })
-export class ProjectsPageModule { }
+export class ProjectsPageModule {}

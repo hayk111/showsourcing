@@ -7,20 +7,8 @@ import { CarouselContainerComponent } from './containers/carousel-container/caro
 import { CarouselModule } from '../carousel/carousel.module';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		LoadersModule,
-		CarouselModule
-	],
-	declarations: [
-	  FileDropDirective,
-    FileSelectDirective,
-    CarouselContainerComponent
-  ],
-	exports: [
-	  FileDropDirective,
-    FileSelectDirective,
-    CarouselContainerComponent
-  ],
+	imports: [CommonModule, LoadersModule, CarouselModule],
+	declarations: [FileDropDirective, FileSelectDirective, CarouselContainerComponent],
+	exports: [FileDropDirective, FileSelectDirective, CarouselContainerComponent]
 })
-export class FileModule { }
+export class FileModule {}
