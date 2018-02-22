@@ -1,5 +1,5 @@
 import { ActionType } from '../../action/target/target.action';
-import { entityRepresentationMap, EntityTarget, EntityRepresentation,
+import { entityRepresentationMap,
 	 entityInitialState, addEntities, replaceEntity, removeEntity } from '../../utils/entities.utils';
 import { TypedAction } from '../../utils/typed-action.interface';
 

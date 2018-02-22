@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/entities/user.selector';
-import { User } from '../model/entities/user.model';
 import { map } from 'rxjs/operators';
 
 

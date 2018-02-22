@@ -4,7 +4,6 @@ import Log from '../../../utils/logger/log.class';
 import { Observable } from 'rxjs/Observable';
 import { EntityTarget } from '../utils/entities.utils';
 import { selectCurrentTarget } from '../selectors/target/target.selector';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SelectionService {

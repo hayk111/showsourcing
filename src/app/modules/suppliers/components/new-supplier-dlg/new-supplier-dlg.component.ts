@@ -3,7 +3,7 @@ import { DialogName } from '../../../store/model/ui/dialog.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogActions } from '../../../store/action/ui/dialog.action';
 import { Store } from '@ngrx/store';
-import { SupplierActions } from '../../../store/action/entities/index';
+import { SupplierActions } from '@modules/suppliers';
 import { Supplier } from '@modules/suppliers';
 import { UserService } from '../../../shared/user/services/user.service';
 

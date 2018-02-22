@@ -1,7 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, tap, filter, skip, take, first } from 'rxjs/operators';
-import { timer } from 'rxjs/observable/timer';
+import { switchMap, map, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { CategoryActions } from '../../action/entities/index';
 import { SupplierActions } from '../../action/entities/index';

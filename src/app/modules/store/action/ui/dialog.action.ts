@@ -1,7 +1,5 @@
 import { DialogName } from '../../model/ui/dialog.model';
 
-
-
 export enum ActionType {
 	REGISTER = '[Dialog] register',
 	UNREGISTER = '[Dialog] unregister',

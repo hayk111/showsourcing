@@ -6,13 +6,9 @@ export class Project {
 	id: string;
 	pending: boolean;
 	name: string;
-	counters: Counters;
 	createdByUserId: string;
 	creationDate: number;
 	description: string;
-	lastModifiedDate: number;
-	lastUpdatedByUserId: string;
-	locked: boolean;
 	teamId: string;
 
 	constructor(id: string, name: string, pending: boolean = true) {

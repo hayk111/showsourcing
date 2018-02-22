@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import { TokenService } from './token.service';
 import Log from '../../../utils/logger/log.class';
 import { Credentials } from '../../features/auth/utils/credentials.interface';
 

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { CommentService } from '../../services/comment.service';
-import { map, startWith, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
 import { ActionType, CommentTargetActions } from '../../action/target/comment.action';
-import { FileTargetActions } from '../../action/target/file.action';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '../../action/misc/app-errors.action';
 

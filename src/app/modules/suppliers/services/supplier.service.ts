@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { UserService } from '../../../shared/user/services/user.service';
+import { UserService } from '@app/modules/shared/user/services/user.service';
+
 
 @Injectable()
 export class SupplierService {

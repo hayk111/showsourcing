@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { CountryActionTypes as ActionType, CountryActions } from '../../action/entities/index';
 import { CountryService } from '../../services/country.service';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 
 
 

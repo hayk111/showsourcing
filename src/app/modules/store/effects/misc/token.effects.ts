@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { ActionType, TokenActions } from '../../action/misc/token.action';
-import { map, tap, filter, mapTo } from 'rxjs/operators';
+import { ActionType } from '../../action/misc/token.action';
+import { map, tap, filter } from 'rxjs/operators';
 import { TokenService } from '../../services/token.service';
-import { UserActions } from '../../action/entities/user.action';
 import { AuthActions } from '../../action/misc/authentication.action';
 
 

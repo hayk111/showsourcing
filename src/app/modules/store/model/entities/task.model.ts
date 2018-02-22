@@ -1,5 +1,4 @@
 import { uuid } from '../../utils/uuid.utils';
-import { Product } from '../../../products';
 
 export enum TaskStatus {
 	TODO = 'Todo',
@@ -23,14 +22,11 @@ export class Task {
 	description: string;
 	status?: TaskStatus;
 	code?: string;
-	modificationCounterStatus?: number;
-	entityCounter?: number;
 	creationDate: number;
 	lastModifiedDate?: number;
 	createdByUserId?: string;
 	lastUpdatedByUserId?: string;
 	archived?: boolean;
-	modificationCounterArchived?: number;
 	pending = true;
 
 	constructor({ name, description, type, status, productId, userId }: TaskParams) {

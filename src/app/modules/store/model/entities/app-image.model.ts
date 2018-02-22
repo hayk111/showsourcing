@@ -1,6 +1,4 @@
 import { AppFile } from './app-file.model';
-import { EntityTarget } from '../../utils/entities.utils';
-import { Store } from '@ngrx/store';
 
 export class AppImage extends AppFile {
 	imageType: string;

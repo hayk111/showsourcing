@@ -1,8 +1,6 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType, FilterArg } from '../../action/misc/filter.action';
-import { AppFilters, FilterGroupName} from '../../model/misc/filter.model';
-import { deepCopy } from '../../utils/deep-copy.utils';
-import { selectFilterGroup } from '../../selectors/misc/filter.selectors';
+import { ActionType } from '../../action/misc/filter.action';
+import { AppFilters } from '../../model/misc/filter.model';
 
 export const initialState: AppFilters = {
 	productsPage: [],

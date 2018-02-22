@@ -1,4 +1,4 @@
-import { Entity, EntityTarget } from '../../utils/entities.utils';
+import { Entity } from '../../utils/entities.utils';
 
 
 export class AppFile extends Entity {

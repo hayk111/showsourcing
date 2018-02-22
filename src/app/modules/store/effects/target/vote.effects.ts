@@ -2,10 +2,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { VoteService } from '../../services/vote.service';
 import { ActionType } from '../../action/target/vote.action';
-import { map, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { SelectionService } from '../../services/selection.service';
 import { VoteSlctnActions } from '../../action/target/vote.action';
-import { CommentTargetActions } from '../../action/target/comment.action';
 
 @Injectable()
 export class VoteTargetEffects {

@@ -1,9 +1,5 @@
-import { Action } from '@ngrx/store';
-import { TypedAction } from '../../../store/utils/typed-action.interface';
-import { Supplier } from '@modules/suppliers';
-import { Patch } from '../../../store/utils/patch.interface';
-import { addActionType, makeBasicActionTypes, makeBasicActions, BasicActionTypes } from '../../../store/action/entities/_entity.action.factory';
-import { entityRepresentationMap } from '../../../store/utils/entities.utils';
+import { makeBasicActionTypes, makeBasicActions, BasicActionTypes } from '@modules/store';
+import { entityRepresentationMap } from '@modules/store';
 
 // Extending action constants with specific ones
 export interface SupplierActionTypes extends BasicActionTypes {

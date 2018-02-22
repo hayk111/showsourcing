@@ -1,6 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FileService } from '../../services/file.service';
 import { SelectionService } from '../../services/selection.service';
 import { ActionType, FileTargetActions } from '../../action/target/file.action';

@@ -1,6 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { EventActionTypes as ActionType, EventActions } from '../../action/entities/index';
 import { EventService } from '../../services/event.service';
 

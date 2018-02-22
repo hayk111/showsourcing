@@ -1,4 +1,3 @@
-import { Tag } from '../../model/entities/tag.model';
 import { Task } from '../../model/entities/task.model';
 
 export enum ActionType {

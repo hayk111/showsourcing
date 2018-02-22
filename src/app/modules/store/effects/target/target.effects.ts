@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ActionType } from '../../action/target/target.action';
-import { mergeMap, tap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import {  entityRepresentationMap, EntityTarget } from '../../utils/entities.utils';
 import { map } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import { ProjectTargetActions } from '../../action/target/project.action';
 import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { TaskTargetActions } from '../../action/target/task.action';
 import { VoteSlctnActions } from '../../action/target/vote.action';
-import { SupplierActions } from '../../action/entities/index';
 
 @Injectable()
 export class TargetEffects {

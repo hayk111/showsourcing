@@ -18,7 +18,7 @@ import { LocalStorageModule } from '../../shared/local-storage/local-storage.mod
 import { ImageService } from './images.service';
 import { TeamMembersService } from './team-members.service';
 import { CategoryService } from './category.service';
-import { SupplierService } from '../../suppliers/store/services/supplier.service';
+import { SupplierService } from '@modules/suppliers';
 import { ProjectService } from './project.service';
 import { EventService } from './event.service';
 import { TagService } from './tag.service';

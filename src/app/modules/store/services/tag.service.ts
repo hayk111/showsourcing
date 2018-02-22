@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { EntityTarget } from '../utils/entities.utils';
 import { Tag } from '../model/entities/tag.model';
 

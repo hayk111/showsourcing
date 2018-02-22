@@ -1,8 +1,7 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { map, filter, distinctUntilChanged } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { UrlBuilder } from '../../../utils/url-builder.class';

@@ -1,12 +1,10 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { ActionType, FilterEntityPanelActions } from '../../action/ui/filter-entity-panel.action';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { EntityRepresentation } from '../../utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { selectEntityArray } from '../../selectors/misc/utils.selector';
 import { FilterEntityPanelService } from '../../services/filter-entity-panel.service';
-import { startWith } from 'rxjs/operators/startWith';
 
 
 @Injectable()

@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EntityNamePipe } from './entity-name.pipe';
 import { selectEntityById } from '../selectors/misc/utils.selector';
 import { entityRepresentationMap } from '../utils/entities.utils';
 import { Store } from '@ngrx/store';

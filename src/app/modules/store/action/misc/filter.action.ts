@@ -1,6 +1,5 @@
-import { Action } from '@ngrx/store';
 import { TypedAction } from '../../utils/typed-action.interface';
-import { AppFilters, Filter, FilterGroupName, FilterClass } from '../../model/misc/filter.model';
+import { Filter, FilterGroupName, FilterClass } from '../../model/misc/filter.model';
 
 export enum ActionType {
 	ADD_FILTER = '[Filters] adding',

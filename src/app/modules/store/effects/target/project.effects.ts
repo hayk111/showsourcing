@@ -1,11 +1,10 @@
 import { ActionType } from '../../action/target/project.action';
 import { Actions, Effect } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ProjectService } from '../../services/project.service';
 import { SelectionService } from '../../services/selection.service';
 import { Injectable } from '@angular/core';
 import { ProjectTargetActions } from '../../action/target/project.action';
-import { Project } from '../../model/entities/project.model';
 
 
 @Injectable()

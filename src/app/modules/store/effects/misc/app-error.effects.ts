@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
 import { TypedAction } from '../../utils/typed-action.interface';
-import { switchMap } from 'rxjs/operators';
-import { ActionType, AppErrorActions } from '../../action/misc/app-errors.action';
+import { ActionType } from '../../action/misc/app-errors.action';
 import { AppError } from '../../model/misc/app-error.model';
 import { FeedbackParams, FeedbackStyle, FeedbackDlgActions } from '../../action/ui/feedback-dlg.action';
 

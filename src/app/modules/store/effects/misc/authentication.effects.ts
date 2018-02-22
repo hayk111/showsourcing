@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ActionType, AuthActions } from '../../action/misc/authentication.action';
-import { map, switchMap, filter, tap, debounceTime, flatMap, concat, mergeMap } from 'rxjs/operators';
+import { map, switchMap,  tap, debounceTime,  mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { User } from '../../model/entities/user.model';
 import { UserActions } from '../../action/entities/user.action';
 import { AuthService } from '../../services/auth.service';
 import { catchError } from 'rxjs/operators/catchError';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
 import { TokenActions } from '../../action/misc/token.action';
 import { startWith } from 'rxjs/operators';

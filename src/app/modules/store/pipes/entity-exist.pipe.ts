@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EntityNamePipe } from './entity-name.pipe';
 import { selectEntityById } from '../selectors/misc/utils.selector';
-import { takeUntil, filter, map } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 import { EntityPipe } from './entity.pipe';
 
 @Pipe({

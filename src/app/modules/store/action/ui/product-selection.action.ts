@@ -1,4 +1,3 @@
-import { Product } from '../../../products';
 
 export enum ActionType {
 	ADD = '[ProductSelection] Adding',

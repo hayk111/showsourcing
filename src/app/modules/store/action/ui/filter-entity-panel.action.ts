@@ -1,6 +1,4 @@
-import { Action } from '@ngrx/store';
-import { TypedAction } from '../../utils/typed-action.interface';
-import { Entity, EntityRepresentation } from '../../utils/entities.utils';
+import { EntityRepresentation } from '../../utils/entities.utils';
 
 export enum ActionType {
 	SET_ENTITY = '[FilterEntityPanel] setting entity',

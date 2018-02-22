@@ -1,9 +1,7 @@
-import { EntityState, Entity, EntityRepresentation } from '../../utils/entities.utils';
-import { deepCopy } from '../../utils/deep-copy.utils';
-import { FilterGroupName, FilterEntity, FilterEntityClass } from '../../model/misc/filter.model';
+import { Entity, EntityRepresentation } from '../../utils/entities.utils';
+import { FilterGroupName, FilterEntityClass } from '../../model/misc/filter.model';
 import Log from '../../../../utils/logger/log.class';
-import { selectEntity, selectEntityArray } from './utils.selector';
-import { Store } from '@ngrx/store';
+import { selectEntityArray } from './utils.selector';
 import { createSelector } from 'reselect';
 import { selectFiltersValues } from './filter.selectors';
 

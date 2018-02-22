@@ -1,6 +1,5 @@
 import { EntityState, entityInitialState, TypedAction, addEntities, copyById } from '@modules/store';
 import { Supplier } from '@modules/suppliers';
-import { basicReducerFactory } from '@modules/store';
 import { ActionType } from '@modules/suppliers';
 
 // tslint:disable-next-line:no-empty-interface

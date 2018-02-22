@@ -1,5 +1,4 @@
-import { EntityTarget, Entity } from '../../utils/entities.utils';
-import { Store } from '@ngrx/store';
+import { Entity } from '../../utils/entities.utils';
 
 export class Vote extends Entity {
 	value: number;
