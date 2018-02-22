@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
-import { Log } from '@utils/index';
+import { AbstractInput, makeAccessorProvider } from '../../abstract-input.class';
+import { Log } from 'app/utils/index';
 import { FormControl } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 

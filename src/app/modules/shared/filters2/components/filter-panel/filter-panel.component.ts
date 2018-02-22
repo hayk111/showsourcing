@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '../../../../store/selectors/misc/filter.selectors';
 import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '../../../../store/model/misc/filter.model';
-import { SelectableItem } from '../../../inputs/components/vanilla/input-checkbox/input-checkbox.component';
+import { SelectableItem } from '../../../inputs/components/input-checkbox/input-checkbox.component';
 import { take } from 'rxjs/operators';
 import { selectEntityArray, selectEntity } from '../../../../store/selectors/misc/utils.selector';
 import { FilterEntityPanelActions } from '../../../../store/action/ui/filter-entity-panel.action';

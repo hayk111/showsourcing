@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Injector, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
-import { AbstractInput, makeAccessorProvider } from '../../../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '../../abstract-input.class';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

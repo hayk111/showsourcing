@@ -4,12 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UtilsModule } from '../utils/utils.module';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { AppStoreModule } from '../../store/store.module';
-import { InputComponent } from './components/vanilla/input/input.component';
-import { InputRadioComponent } from './components/vanilla/input-radio/input-radio.component';
-import { InputCheckboxComponent } from './components/vanilla/input-checkbox/input-checkbox.component';
-import { InputTextareaComponent } from './components/vanilla/input-textarea/input-textarea.component';
+import { InputComponent } from './components/input/input.component';
+import { InputRadioComponent } from './components/input-radio/input-radio.component';
+import { InputCheckboxComponent } from './components/input-checkbox/input-checkbox.component';
+import { InputTextareaComponent } from './components/input-textarea/input-textarea.component';
 import { SelectModule } from '../select/select.module';
-import { InputFileComponent } from './components/vanilla/input-file/input-file.component';
+import { InputFileComponent } from './components/input-file/input-file.component';
 
 export const components = [
 											// vanilla inputs
