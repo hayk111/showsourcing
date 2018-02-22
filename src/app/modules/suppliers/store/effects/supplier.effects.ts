@@ -1,11 +1,11 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap, catchError } from 'rxjs/operators';
-import { SupplierActionTypes as ActionType, SupplierActions } from '../../action/entities/index';
-import { SupplierService } from '../../services/supplier.service';
-import { Supplier } from '../../model/entities/supplier.model';
+import { SupplierActionTypes as ActionType, SupplierActions } from '../../../store/action/entities/index';
+import { SupplierService } from '../services/supplier.service';
+import { Supplier } from '../../model/supplier.model';
 import { of } from 'rxjs/observable/of';
-import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { AppErrorActions } from '../../../store/action/misc/app-errors.action';
 
 
 @Injectable()

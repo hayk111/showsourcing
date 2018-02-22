@@ -19,9 +19,11 @@
 		"paths": {
 			"@app/*": ["app/*"],
 			"@modules/*": ["app/modules/*"],
-			"@products/*": ["app/modules/products/*"],
+      "@products/*": ["app/modules/products/*"],
+      "@suppliers/*": ["app/modules/suppliers/*"],
 			"@store/*": ["app/modules/store/*"],
-			"@shared/*": ["app/modules/shared/*"]
+			"@shared/*": ["app/modules/shared/*"],
+			"@utils/*": ["app/utils/*"]
     }
   }
 }

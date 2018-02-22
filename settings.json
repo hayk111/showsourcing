@@ -2,7 +2,8 @@
   "path-intellisense.mappings": {
     "@app/*": ["${workspaceRoot}/src/app/*"],
     "@modules/*": ["${workspaceRoot}/src/app/modules/*"],
-    "@products/*": ["${workspaceRoot}/src/app/modules/products/*"],
+		"@products/*": ["${workspaceRoot}/src/app/modules/products/*"],
+		"@utils/*": ["${workspaceRoot}/src/app/utils/*"],
     "@store/*": ["${workspaceRoot}/src/app/modules/store/*"],
     "@shared/*": ["${workspaceRoot}/src/app/modules/shared/*"]
   },

@@ -4,7 +4,7 @@ import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
 import { AuthenticationEffects } from './misc/authentication.effects';
 import { UserEffects } from './entities/user.effects';
-import { SuppliersEffects } from './entities/suppliers.effects';
+import { SuppliersEffects } from '../../suppliers/store/effects/supplier.effects';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { CategoryEffects } from './entities/category.effects';
 import { TokenEffects } from './misc/token.effects';

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Supplier } from '../../../../store/model/entities/supplier.model';
+import { Supplier } from '../../../../suppliers/model/supplier.model';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import {
@@ -9,7 +9,7 @@ import {
 	entityRepresentationMap
 } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../products';
-import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
+import { selectSuppliers } from '../../../../suppliers/store/selectors/suppliers.selector';
 import { FilterActions } from '../../../../store/action/misc/filter.action';
 import { FilterGroupName, FilterSort } from '../../../../store/model/misc/filter.model';
 import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';

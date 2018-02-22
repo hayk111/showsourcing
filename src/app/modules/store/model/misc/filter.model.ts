@@ -1,5 +1,5 @@
 import { Entity, entityRepresentationMap, EntityRepresentation } from '../../utils/entities.utils';
-import { SupplierActions } from '../../action/entities/supplier.action';
+import { SupplierActions } from '../../../suppliers/store/actions/supplier.action';
 import { EventActions } from '../../action/entities/index';
 import { CategoryActions } from '../../action/entities/index';
 import { TagActions } from '../../action/entities/index';

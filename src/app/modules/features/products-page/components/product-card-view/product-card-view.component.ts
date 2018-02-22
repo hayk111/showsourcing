@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { Store } from '@ngrx/store';
 import { EntityState } from '../../../../store/utils/entities.utils';
 import { Product } from '../../../../products';
-import { selectSuppliers } from '../../../../store/selectors/entities/suppliers.selector';
+import { selectSuppliers } from '../../../../suppliers/store/selectors/suppliers.selector';
 import { Observable } from 'rxjs/Observable';
 import { FilterGroupName } from '../../../../store/model/misc/filter.model';
 import { Patch } from '../../../../store/utils/patch.interface';

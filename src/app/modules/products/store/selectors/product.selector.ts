@@ -6,7 +6,7 @@ import { EntitiesState } from './../reducers';
 import { selectProductStatuses } from './../../../store/selectors/entities/product-status.selector';
 import { selectCategories } from './../../../store/selectors/entities/categories.selector';
 import { selectEvents } from './../../../store/selectors/entities/events.selector';
-import { selectSuppliers } from './../../../store/selectors/entities/suppliers.selector';
+import { selectSuppliers } from '../../../suppliers/store/selectors/suppliers.selector';
 import { entityRepresentationMap, EntityState } from './../../../store/utils/entities.utils';
 import { Product } from '../../models/product.model';
 import { deepCopy } from './../../../store/utils/deep-copy.utils';

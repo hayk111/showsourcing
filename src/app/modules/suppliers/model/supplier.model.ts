@@ -1,7 +1,7 @@
-import { Tag } from './tag.model';
-import { Counters } from './counters.interface';
-import { Category } from './category.model';
-import { uuid } from '../../utils/uuid.utils';
+import { Tag } from '../../store/model/entities/tag.model';
+import { Counters } from '../../store/model/entities/counters.interface';
+import { Category } from '../../store/model/entities/category.model';
+import { uuid } from '../../store/utils/uuid.utils';
 
 
 export class Supplier {

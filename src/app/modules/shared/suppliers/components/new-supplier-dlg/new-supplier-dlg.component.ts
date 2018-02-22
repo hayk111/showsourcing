@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { Store } from '@ngrx/store';
 import { SupplierActions } from '../../../../store/action/entities/index';
-import { Supplier } from '../../../../store/model/entities/supplier.model';
+import { Supplier } from '../../../../suppliers/model/supplier.model';
 import { UserService } from '../../../user/services/user.service';
 
 @Component({

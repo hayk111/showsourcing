@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../selectors/entities/user.selector';
-import { User } from '../model/entities/user.model';
-import { UserService } from '../../shared/user/services/user.service';
+import { UserService } from '../../../shared/user/services/user.service';
 
 @Injectable()
 export class SupplierService {
