@@ -1,0 +1,7 @@
+{
+  "path-intellisense.mappings": {
+    "@modules/*": ["${workspaceRoot}/src/app/modules/*"],
+    "@products/*": ["${workspaceRoot}/src/app/modules/products/*"],
+    "@shared/*": ["${workspaceRoot}/src/app/modules/shared/*"]
+  },
+}

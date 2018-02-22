@@ -7,7 +7,7 @@ import { CarouselModule } from '../carousel/carousel.module';
 import { IconsModule } from '../icons/icons.module';
 import { UtilsModule } from '../utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
-import { ProductIconsComponent } from './components/product-icons/product-icons.component';
+import { ProductIconsComponent } from '@modules/products';
 import { UserModule } from '../user/user.module';
 import { ProductTopCardComponent } from './components/product-top-card/product-top-card.component';
 import { ProductInfoCardComponent } from './components/product-info-card/product-info-card.component';
@@ -50,7 +50,7 @@ import { TooltipModule } from '../tooltip/tooltip.module';
 		ProductInfoCardComponent,
 		ProductSubInfoComponent,
 		ProductStatusBadgeComponent,
-		ProductSelectableCardComponent,
+		ProductSelectableCardComponent
 	],
 	exports: [
 		ProductSmallCardComponent,
@@ -60,4 +60,4 @@ import { TooltipModule } from '../tooltip/tooltip.module';
 		ProductSelectableCardComponent
 	]
 })
-export class ProductModule { }
+export class ProductModule {}
