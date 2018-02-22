@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FilterClass, Filter, FilterEntityClass } from '../../../../store/model/misc/filter.model';
-import { SelectableItem } from '../../../select/components/input-select-one/input-select-one.component';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
 import { Observable } from 'rxjs/Observable';
