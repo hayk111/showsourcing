@@ -14,10 +14,11 @@
     "lib": [
       "es2017",
       "dom"
-		],
+    ],
 		"paths": {
-			"@product/*": ["app/modules/products/*"],
-			"@shared/*": ["app/modules/shared/*"]
+			"@product/*": ["./src/app/modules/products/*"],
+      "@shared/*": ["./src/app/modules/shared/*"],
+      "@store/*": ["./app/modules/store/*"],
 		},
   }
 }
