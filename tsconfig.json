@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "baseUrl": "./src/",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -16,9 +17,11 @@
       "dom"
     ],
 		"paths": {
-			"@product/*": ["./src/app/modules/products/*"],
-      "@shared/*": ["./src/app/modules/shared/*"],
-      "@store/*": ["./app/modules/store/*"],
-		},
+			"@app/*": ["app/*"],
+			"@modules/*": ["app/modules/*"],
+			"@products/*": ["app/modules/products/*"],
+			"@store/*": ["app/modules/store/*"],
+			"@shared/*": ["app/modules/shared/*"]
+    }
   }
 }

@@ -2,25 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TestComponent } from './test/test.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputsModule } from '../../shared/inputs/inputs.module';
-import { FilteredListPageModule } from '../../shared/filtered-list-page/filtered-list-page.module';
-import { DynamicFormsModule } from '../../shared/dynamic-forms/dynamic-forms.module';
+import { InputsModule } from '@shared/inputs/inputs.module';
+import { FilteredListPageModule } from '@shared/filtered-list-page/filtered-list-page.module';
+import { DynamicFormsModule } from '@shared/dynamic-forms/dynamic-forms.module';
 import { TestInputsSelectorsComponent } from './components/test-inputs-selectors/test-inputs-selectors.component';
 import { TestInputsVanillaComponent } from './components/test-inputs-vanilla/test-inputs-vanilla.component';
 import { RouterModule } from '@angular/router';
-import { CarouselModule } from '../../shared/carousel/carousel.module';
-import { SelectModule } from '../../shared/select/select.module';
-import { FileModule } from '../../shared/file/file.module';
-import { RatingModule } from '../../shared/rating/rating.module';
-import { CommentModule } from '../../shared/comment/comment.module';
+import { CarouselModule } from '@shared/carousel/carousel.module';
+import { SelectModule } from '@shared/select/select.module';
+import { FileModule } from '@shared/file/file.module';
+import { RatingModule } from '@shared/rating/rating.module';
+import { CommentModule } from '@shared/comment/comment.module';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
-import { KanbanModule } from '../../shared/kanban/kanban.module';
+import { KanbanModule } from '@shared/kanban/kanban.module';
 import { TestLoadesComponent } from './components/test-loades/test-loades.component';
-import { LoadersModule } from '../../shared/loaders/loaders.module';
+import { LoadersModule } from '@shared/loaders/loaders.module';
 import { TestTabsComponent } from './components/test-tabs/test-tabs.component';
-import { TabsModule } from '../../shared/tabs/tabs.module';
+import { TabsModule } from '@shared/tabs/tabs.module';
 import { TestProductComponent } from './components/test-product/test-product.component';
-import { ProductModule } from '../../shared/product/product.module';
+import { PriceModule } from '@shared/price/price.module';
+import { ProductModule } from '@modules/products';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { ProductModule } from '../../shared/product/product.module';
 		RouterModule.forChild([]),
 		LoadersModule,
 		TabsModule,
+		PriceModule,
 		ProductModule
 	],
 	declarations: [

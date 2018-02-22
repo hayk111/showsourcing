@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../../../products';
-import { DEFAULT_NO_IMG } from '../../../../../utils/constants.const';
+import { Product } from '@modules/products';
+import { DEFAULT_NO_IMG } from '@app/utils/constants.const';
 
 @Component({
 	selector: 'product-selectable-card-app',
