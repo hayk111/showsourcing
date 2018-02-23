@@ -1,4 +1,5 @@
-import { User, ActionType } from '~user';
+import { User } from '~user/models';
+import { ActionType } from '~user/store/actions';
 import { TypedAction } from '~store';
 
 export const initialState: User = {

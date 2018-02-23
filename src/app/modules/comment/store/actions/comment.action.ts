@@ -1,5 +1,5 @@
 
-import { AppComment } from '../../models/comment.model';
+import { AppComment } from '~comment/models';
 
 export enum ActionType {
 	LOAD = '[CommentTarget] loading',
