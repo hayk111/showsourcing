@@ -1,3 +1,4 @@
+import { ProductService } from './services/product.service';
 import { RatingModule } from '~shared/rating/rating.module';
 import { SelectableImageModule } from '~shared/selectable-image/selectable-image.module';
 import { EditableFieldModule } from '~shared/editable-field/editable-field.module';
@@ -45,7 +46,7 @@ import {
 		PriceModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // TODO to be removed and placed inside the component module using it
 	],
-	providers: [],
+	providers: [ProductService],
 	declarations: [
 		ProductSmallCardComponent,
 		ProductBigCardComponent,

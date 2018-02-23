@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductService } from './product.service';
 import { TeamService } from './team.service';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { TaskService } from './task.service';
@@ -28,16 +27,11 @@ import { SelectionService } from './selection.service';
 import { EntityService } from './entity.service';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		HttpClientModule,
-		LocalStorageModule
-	],
+	imports: [CommonModule, HttpClientModule, LocalStorageModule],
 	declarations: [],
 	providers: [
 		EntityService,
 		TeamItemLoaderService,
-		ProductService,
 		TeamService,
 		TaskService,
 		CustomFieldsService,
@@ -58,7 +52,7 @@ import { EntityService } from './entity.service';
 		TagService,
 		PreloaderService,
 		FilterEntityPanelService,
-		SelectionService
-	]
+		SelectionService,
+	],
 })
-export class EntitiesServicesModule { }
+export class EntitiesServicesModule {}

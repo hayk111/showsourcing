@@ -5,7 +5,7 @@ import { ProductActionsFactory, ActionTypes } from '../actions/product.action';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { selectUser } from '../../../user/store/selectors/user.selector';
 import { AppFile } from '../../../store/model/entities/app-file.model';
-import { ProductService } from '../../../store/services/product.service';
+import { ProductService } from '~products/services/product.service';
 import { FileTargetActions } from '../../../store/action/target/file.action';
 
 @Injectable()

@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TeamItemLoaderService } from './team-item-loader.service';
-import { entityRepresentationMap } from '../utils/entities.utils';
-import { tap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
+
+import { entityRepresentationMap } from '~store/utils/entities.utils';
 
 @Injectable()
 export class ProductService {
 	repr = entityRepresentationMap.product;
 	take = 1000;
 
-	constructor(private http: HttpClient,
-							private teamItemLoader: TeamItemLoaderService) { }
+	constructor(private http: HttpClient) {}
 
 	load({ id, maxCounter }) {
 		// loading products by chunks
@@ -25,10 +23,9 @@ export class ProductService {
 		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
 		// 	map((r: any) => r.elements)
 		// );
-		return this.http.get(`api/team/${id}/product?withArchived=false`).pipe(
-			map((r: any) => r.elements),
-			tap(r => r.forEach(elem => this.addCustomFields(elem)))
-		);
+		return this.http
+			.get(`api/team/${id}/product?withArchived=false`)
+			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
 	}
 
 	private getProducts(drop, teamId) {
@@ -44,31 +41,28 @@ export class ProductService {
 	addCustomFields(elem: any) {
 		if (elem.additionalInfo && elem.additionalInfo.customFields) {
 			const cf = elem.additionalInfo.customFields;
-			Object.entries(cf).forEach(([k, v]) => elem['x-' + k] = (v as any).value);
+			Object.entries(cf).forEach(([k, v]) => (elem['x-' + k] = (v as any).value));
 		}
 		// this is done to have minimum order quantity on the same level
-		if (elem.additionalInfo)
-			elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
-		// here we do the opposite though. That's because the backend is waiting for an object when we modify the price
+		if (elem.additionalInfo) elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
+		// here we do the opposite though. That's because the backend
+		// is waiting for an object when we modify the price
 		// amount or priceCurrency.
 		if (elem.priceAmount || elem.priceCurrency)
 			elem.price = { priceAmount: elem.priceAmount, priceCurrency: elem.priceCurrency };
 		return elem;
 	}
 
-	sendPatchRequest(p: { id: string, propName: string, value: any }) {
+	sendPatchRequest(p: { id: string; propName: string; value: any }) {
 		let patch = { [p.propName]: p.value };
 		// need to check if it's price because then we need to take the value
 		// that's from product details page
-		if (p.propName === 'price')
-			patch = p.value;
+		if (p.propName === 'price') patch = p.value;
 
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
-
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
 	}
-
 }
