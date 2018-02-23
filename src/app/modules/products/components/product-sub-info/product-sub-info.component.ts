@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '@modules/products';
+import { Product } from '~products';
 
 @Component({
 	selector: 'product-sub-info-app',

@@ -5,7 +5,7 @@ import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { UrlBuilder } from '../../../utils/url-builder.class';
-import { Log } from '@utils/index';
+import { Log } from '~utils/index';
 import { EntityRepresentation } from '../utils/entities.utils';
 import { FilterGroupName } from '../model/misc/filter.model';
 import { selectUser } from '../../user/store/selectors/user.selector';

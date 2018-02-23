@@ -1,14 +1,14 @@
-import { RatingModule } from '@shared/rating/rating.module';
-import { SelectableImageModule } from '@shared/selectable-image/selectable-image.module';
-import { EditableFieldModule } from '@shared/editable-field/editable-field.module';
-import { SuppliersModule } from '@shared/../suppliers/suppliers.module';
-import { FileModule } from '@shared/file/file.module';
-import { UtilsModule } from '@shared/utils/utils.module';
-import { UserModule } from '@shared/../user/user.module';
-import { AppStoreModule } from '@store/store.module';
-import { PriceModule } from '@shared/price/price.module';
-import { IconsModule } from '@shared/icons/icons.module';
-import { CardModule } from '@shared/card/card.module';
+import { RatingModule } from '~shared/rating/rating.module';
+import { SelectableImageModule } from '~shared/selectable-image/selectable-image.module';
+import { EditableFieldModule } from '~shared/editable-field/editable-field.module';
+import { SuppliersModule } from '~shared/../suppliers/suppliers.module';
+import { FileModule } from '~shared/file/file.module';
+import { UtilsModule } from '~shared/utils/utils.module';
+import { UserModule } from '~shared/../user/user.module';
+import { AppStoreModule } from '~store/store.module';
+import { PriceModule } from '~shared/price/price.module';
+import { IconsModule } from '~shared/icons/icons.module';
+import { CardModule } from '~shared/card/card.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -25,7 +25,7 @@ import {
 	ProductStatusBadgeComponent,
 	ProductInfoCardComponent,
 	ProductBigCardComponent,
-} from '@modules/products';
+} from '~products';
 
 @NgModule({
 	imports: [

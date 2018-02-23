@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { TypedAction } from '@store';
-import { User } from '@modules/user';
+import { TypedAction } from '~store';
+import { User } from '~user';
 
 export enum ActionType {
 	LOAD = '[User] loading',

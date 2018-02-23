@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, Injector } from '@angul
 import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
-import { Log } from '@utils/index';
+import { Log } from '~utils/index';
 import { SelectableItem } from '../selectable-item.interface';
 
 

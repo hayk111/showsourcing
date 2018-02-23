@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { WorkflowPageComponent } from './components/workflow-page/workflow-page.component';
 import { WorkflowKanbanComponent } from './components/workflow-kanban/workflow-kanban.component';
 import { KanbanModule } from '../../shared/kanban/kanban.module';
-import { ProductModule } from '@modules/products';
+import { ProductModule } from '~products';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 
 @NgModule({

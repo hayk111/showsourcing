@@ -39,7 +39,7 @@ import { SupplierActionTypes } from '../action/entities/index';
 import { ProjectActionTypes } from '../action/entities/index';
 import { TaskActionTypes } from '../action/entities/index';
 import { TeamActionTypes } from '../action/entities/index';
-import { commentReducer } from '@app/modules/comment';
+import { commentReducer } from '~comment';
 
 const entities = combineReducers({
 	user: userReducer,

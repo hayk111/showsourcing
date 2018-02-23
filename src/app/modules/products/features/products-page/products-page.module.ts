@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductModule } from '@modules/products';
-import { EntityPageModule } from '@shared/entity-page/entity-page.module';
-import { IconsModule } from '@shared/icons/icons.module';
-import { PriceModule } from '@shared/price/price.module';
-import { SelectionBarModule } from '@shared/selection-bar/selection-bar.module';
-import { UtilsModule } from '@shared/utils/utils.module';
-import { AppStoreModule } from '@store/store.module';
+import { ProductModule } from '~products';
+import { EntityPageModule } from '~shared/entity-page/entity-page.module';
+import { IconsModule } from '~shared/icons/icons.module';
+import { PriceModule } from '~shared/price/price.module';
+import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
+import { UtilsModule } from '~shared/utils/utils.module';
+import { AppStoreModule } from '~store/store.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { ProductDetailsPageModule } from '../product-page/product-details-page.module';

@@ -3,10 +3,10 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { UserService } from '@modules/user';
-import { CommentTargetActions } from '@comment';
-import { AppComment } from '@comment';
-import { selectCommentsForCurrentTarget } from '@store/selectors/target/target.selector';
+import { UserService } from '~user';
+import { CommentTargetActions } from '~comment';
+import { AppComment } from '~comment';
+import { selectCommentsForCurrentTarget } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'app-product-activity-page',

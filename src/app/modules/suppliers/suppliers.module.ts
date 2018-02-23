@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupplierStatusIconComponent, NewSupplierDlgComponent } from './components';
-import { IconsModule } from '../shared/icons/icons.module';
-import { AppStoreModule } from '../store/store.module';
-import { DialogModule } from '../shared/dialog/dialog.module';
-import { UserModule } from '../user/user.module';
+import { IconsModule } from '~shared/icons/icons.module';
+import { AppStoreModule } from '~store/store.module';
+import { DialogModule } from '~shared/dialog/dialog.module';
+import { UserModule } from '~user';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputsModule } from '../shared/inputs/inputs.module';
+import { InputsModule } from '~shared/inputs/inputs.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers, effects } from '@modules/suppliers';
+import { reducers, effects } from '~suppliers';
 import { EffectsModule } from '@ngrx/effects';
-import { EntityPageModule } from '@shared/entity-page/entity-page.module';
-import { SuppliersPageComponent } from '@suppliers/containers/suppliers-page/suppliers-page.component';
-import { SupplierListViewComponent } from '@suppliers/components/supplier-list-view/supplier-list-view.component';
+import { EntityPageModule } from '~shared/entity-page/entity-page.module';
+import { SuppliersPageComponent } from '~suppliers/containers/suppliers-page/suppliers-page.component';
+import { SupplierListViewComponent } from '~suppliers/components/supplier-list-view/supplier-list-view.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { TagModule } from '@shared/tag/tag.module';
-import { UtilsModule } from '@shared/utils/utils.module';
-import { SelectionBarModule } from '@shared/selection-bar/selection-bar.module';
+import { TagModule } from '~shared/tag/tag.module';
+import { UtilsModule } from '~shared/utils/utils.module';
+import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 
 @NgModule({
   imports: [

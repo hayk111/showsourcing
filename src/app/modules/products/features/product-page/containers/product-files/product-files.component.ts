@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserService } from '@modules/user';
-import { FileTargetActions } from '@store/action/target/file.action';
-import { AppFile } from '@store/model/entities/app-file.model';
-import { selectFilesArrayForCurrentTarget } from '@store/selectors/target/target.selector';
-import { AutoUnsub } from '@utils';
+import { UserService } from '~user';
+import { FileTargetActions } from '~store/action/target/file.action';
+import { AppFile } from '~store/model/entities/app-file.model';
+import { selectFilesArrayForCurrentTarget } from '~store/selectors/target/target.selector';
+import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

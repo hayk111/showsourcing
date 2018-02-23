@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AppComment } from '@comment';
+import { AppComment } from '~comment';
 import { Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectCommentsArrayForCurrentTarget, selectCommentsForCurrentTarget } from '@store/selectors/target/target.selector';
-import { CommentTargetActions } from '@comment';
-import { UserService } from '@modules/user';
+import { selectCommentsArrayForCurrentTarget, selectCommentsForCurrentTarget } from '~store/selectors/target/target.selector';
+import { CommentTargetActions } from '~comment';
+import { UserService } from '~user';
 import { map, tap } from 'rxjs/operators';
-import { EntityState, entityStateToArray } from '@store/utils/entities.utils';
+import { EntityState, entityStateToArray } from '~store/utils/entities.utils';
 
 @Component({
   selector: 'comment-ctnr-app',

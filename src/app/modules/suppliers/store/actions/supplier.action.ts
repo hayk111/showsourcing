@@ -1,5 +1,5 @@
-import { makeBasicActionTypes, makeBasicActions, BasicActionTypes } from '@store/action/entities/_entity.action.factory';
-import { entityRepresentationMap } from '@modules/store';
+import { makeBasicActionTypes, makeBasicActions, BasicActionTypes } from '~store/action/entities/_entity.action.factory';
+import { entityRepresentationMap } from '~store';
 
 // Extending action constants with specific ones
 export interface SupplierActionTypes extends BasicActionTypes {

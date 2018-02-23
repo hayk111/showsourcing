@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EntityRepresentation, EntityTarget, Entity } from '../utils/entities.utils';
 import { HttpClient } from '@angular/common/http';
-import { Log } from '@utils/index';
+import { Log } from '~utils/index';
 
 
 @Injectable()

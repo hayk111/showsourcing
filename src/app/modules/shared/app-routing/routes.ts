@@ -7,7 +7,7 @@ import {
 	ProductsPageComponent,
 	ProductTasksComponent,
 	ProductTechDetailsComponent,
-} from '@products/features';
+} from '~products/features';
 
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
 import { AuthCardComponent } from '../../features/auth/components/auth-card/auth-card.component';

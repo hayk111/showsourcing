@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Product } from '@products';
-import { FilterActions } from '@store/action/misc/filter.action';
-import { FilterGroupName, FilterSort } from '@store/model/misc/filter.model';
+import { Product } from '~products';
+import { FilterActions } from '~store/action/misc/filter.action';
+import { FilterGroupName, FilterSort } from '~store/model/misc/filter.model';
 
 @Component({
 	selector: 'product-list-view-app',
