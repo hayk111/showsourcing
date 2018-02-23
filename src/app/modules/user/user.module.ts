@@ -21,9 +21,4 @@ export class UserModule {
 		};
 	}
 
-	static forRoot(): ModuleWithProviders {
-	  return {
-
-    };
-  }
 }
