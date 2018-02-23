@@ -7,6 +7,7 @@ import { SupplierActions } from '~suppliers/store/actions';
 import { Supplier } from '~suppliers/models';
 import { UserService } from '~user';
 
+// TODO, make this dumb component ? Or should be in container.
 @Component({
   selector: 'new-supplier-dlg-app',
   templateUrl: './new-supplier-dlg.component.html',

@@ -12,7 +12,7 @@ import { AuthGuardService } from '../../features/auth/services/auth-guard.servic
 import { DataManagementPageComponent } from '../../features/data-management/components/data-management-page/data-management-page.component';
 import { HomeComponent } from '../../features/home/components/home/home.component';
 import { ProjectsPageComponent } from '../../projects/containers/projects-page/projects-page.component';
-import { SupplierDetailsComponent } from '../../features/supplier-details-page/components/supplier-details/supplier-details.component';
+import { SupplierDetailsComponent } from '../../suppliers/containers/supplier-details/supplier-details.component';
 import { SuppliersPageComponent } from '../../suppliers/containers/suppliers-page/suppliers-page.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 import { TeamManagementPageComponent } from '../../features/team-management/components/team-management-page/team-management-page.component';

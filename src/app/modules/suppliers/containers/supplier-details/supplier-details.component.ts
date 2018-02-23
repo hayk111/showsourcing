@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupplierDetailsComponent implements OnInit {
 
+	// this is put in container because it will access the store
   constructor() { }
 
   ngOnInit() {

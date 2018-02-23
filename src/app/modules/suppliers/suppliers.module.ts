@@ -17,6 +17,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TagModule } from '~shared/tag/tag.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
+import { SupplierDetailsComponent } from '~app/modules/suppliers/containers/supplier-details/supplier-details.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 
   ],
 	declarations: [
+		SupplierDetailsComponent,
 	  SupplierStatusIconComponent,
     NewSupplierDlgComponent,
     SuppliersPageComponent,
