@@ -27,7 +27,7 @@ import { TestProductComponent } from '../../features/test/components/test-produc
 import { TestTabsComponent } from '../../features/test/components/test-tabs/test-tabs.component';
 import { TestComponent } from '../../features/test/test/test.component';
 import { WorkflowPageComponent } from '../../features/workflow/components/workflow-page/workflow-page.component';
-import { CommentCtnrComponent } from '../comment/containers/comment-ctnr/comment-ctnr.component';
+import { CommentCtnrComponent } from '../../comment/containers/comment-ctnr/comment-ctnr.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },

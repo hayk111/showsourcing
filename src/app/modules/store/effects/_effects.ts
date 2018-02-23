@@ -14,7 +14,7 @@ import { EventEffects } from './entities/event.effects';
 import { FilterEntityPanelEffects } from './ui/filter-entity-panel.effects';
 import { ProjectEffects } from './entities/project.effects';
 import { PreloaderEffects } from './misc/preloader.effects';
-import { CommentTargetEffects } from './target/comments.effects';
+import { CommentTargetEffects } from '../../comment/store/effects/comments.effects';
 import { FilesTargetEffects } from './target/files.effects';
 import { ImageTargetEffects } from './target/image.effects';
 import { ProjectTargetEffects } from './target/project.effects';

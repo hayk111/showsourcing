@@ -1,11 +1,13 @@
 {
   "path-intellisense.mappings": {
-    "@app/*": ["${workspaceRoot}/src/app/*"],
-    "@modules/*": ["${workspaceRoot}/src/app/modules/*"],
-		"@products/*": ["${workspaceRoot}/src/app/modules/products/*"],
-		"@utils/*": ["${workspaceRoot}/src/app/utils/*"],
-		"@user/*": ["${workspaceRoot}/src/app/modules/user/*"],
-		"@store/*": ["${workspaceRoot}/src/app/modules/store/*"],
-    "@shared/*": ["${workspaceRoot}/src/app/modules/shared/*"]
+    "~app/*": ["${workspaceRoot}/src/app/*"],
+    "~modules/*": ["${workspaceRoot}/src/app/modules/*"],
+		"~products/*": ["${workspaceRoot}/src/app/modules/products/*"],
+		"~utils/*": ["${workspaceRoot}/src/app/utils/*"],
+		"~user/*": ["${workspaceRoot}/src/app/modules/user/*"],
+		"~suppliers/*": ["${workspaceRoot}/src/app/modules/suppliers/*"],
+		"~comment/*": ["${workspaceRoot}/src/app/modules/comment/*"],
+		"~store/*": ["${workspaceRoot}/src/app/modules/store/*"],
+    "~shared/*": ["${workspaceRoot}/src/app/modules/shared/*"]
   },
 }

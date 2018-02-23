@@ -12,7 +12,7 @@ import { CarouselModule } from '@shared/carousel/carousel.module';
 import { SelectModule } from '@shared/select/select.module';
 import { FileModule } from '@shared/file/file.module';
 import { RatingModule } from '@shared/rating/rating.module';
-import { CommentModule } from '@shared/comment/comment.module';
+import { CommentModule } from '@comment';
 import { KanbanTestComponent } from './components/kanban-test/kanban-test.component';
 import { KanbanModule } from '@shared/kanban/kanban.module';
 import { TestLoadesComponent } from './components/test-loades/test-loades.component';
@@ -21,7 +21,7 @@ import { TestTabsComponent } from './components/test-tabs/test-tabs.component';
 import { TabsModule } from '@shared/tabs/tabs.module';
 import { TestProductComponent } from './components/test-product/test-product.component';
 import { PriceModule } from '@shared/price/price.module';
-import { ProductModule } from '@modules/products';
+import { ProductModule } from '@products';
 
 @NgModule({
 	imports: [

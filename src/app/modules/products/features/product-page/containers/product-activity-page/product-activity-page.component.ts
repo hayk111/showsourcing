@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from '@modules/user';
-import { CommentTargetActions } from '@store/action/target/comment.action';
-import { AppComment } from '@store/model/entities/comment.model';
+import { CommentTargetActions } from '@comment';
+import { AppComment } from '@comment';
 import { selectCommentsForCurrentTarget } from '@store/selectors/target/target.selector';
 
 @Component({

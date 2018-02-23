@@ -6,7 +6,7 @@ import { Product } from '@products';
 import { ProjectTargetActions } from '@store/action/target/project.action';
 import { TargetAction } from '@store/action/target/target.action';
 import { AppFile } from '@store/model/entities/app-file.model';
-import { AppComment } from '@store/model/entities/comment.model';
+import { AppComment } from '@comment';
 import { selectProjectsForCurrentTarget } from '@store/selectors/target/target.selector';
 import { entityRepresentationMap, EntityTarget } from '@store/utils/entities.utils';
 import { AutoUnsub } from '@utils';

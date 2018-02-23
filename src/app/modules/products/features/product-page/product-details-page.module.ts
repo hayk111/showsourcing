@@ -6,7 +6,7 @@ import { TasksPageModule } from '@modules/features/tasks-page/tasks-page.module'
 import { ProductModule } from '@modules/products';
 import { CardModule } from '@shared/card/card.module';
 import { CarouselModule } from '@shared/carousel/carousel.module';
-import { CommentModule } from '@shared/comment/comment.module';
+import { CommentModule } from '@comment';
 import { EditableFieldModule } from '@shared/editable-field/editable-field.module';
 import { EntityMainCardModule } from '@shared/entity-main-card/entity-main-card.module';
 import { FileModule } from '@shared/file/file.module';
