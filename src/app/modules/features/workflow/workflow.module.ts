@@ -7,12 +7,7 @@ import { ProductModule } from '@modules/products';
 import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 
 @NgModule({
-  imports: [
-		CommonModule,
-		KanbanModule,
-		ProductModule,
-		EntityPageModule
-  ],
-  declarations: [ WorkflowPageComponent, WorkflowKanbanComponent ]
+	imports: [CommonModule, KanbanModule, ProductModule, EntityPageModule],
+	declarations: [WorkflowPageComponent, WorkflowKanbanComponent],
 })
-export class WorkflowModule { }
+export class WorkflowModule {}
