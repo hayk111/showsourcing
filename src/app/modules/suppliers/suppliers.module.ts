@@ -18,6 +18,7 @@ import { TagModule } from '~shared/tag/tag.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 import { SupplierDetailsComponent } from '~app/modules/suppliers/containers/supplier-details/supplier-details.component';
+import { EntityMainCardModule } from '~app/modules/shared/entity-main-card';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { SupplierDetailsComponent } from '~app/modules/suppliers/containers/supp
     EntityPageModule, // TODO to be removed and placed inside the component module using it
     NgxDatatableModule, // TODO to be removed and placed inside the component module using it
     TagModule, // TODO to be removed and placed inside the component module using it
-    UtilsModule, // TODO to be removed and placed inside the component module using it
+		UtilsModule, // TODO to be removed and placed inside the component module using it
+		EntityMainCardModule, // used to display the main card in details
 
   ],
 	declarations: [
