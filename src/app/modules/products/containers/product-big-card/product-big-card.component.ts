@@ -1,12 +1,12 @@
+import { selectProductFocused } from '@modules/products/store/selectors';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '@modules/products';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import {
-	selectProductSelected,
 	selectCommentsArrayForCurrentTarget,
 	selectNumCommentsForCurrentTarget,
-	selectNumTasksForSelection
+	selectNumTasksForSelection,
 } from '@store/selectors/target/target.selector';
 import { AutoUnsub } from '@utils/index';
 import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/cons
 	selector: 'product-big-card-app',
 	templateUrl: './product-big-card.component.html',
 	styleUrls: ['./product-big-card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Default
+	changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	product: Product;
@@ -37,7 +37,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const product$ = this.store.select(selectProductSelected).pipe(filter((o: any) => o));
+		const product$ = this.store.select(selectProductFocused).pipe(filter((o: any) => o));
 		product$.pipe(takeUntil(this._destroy$)).subscribe(p => (this.product = p));
 		this.store
 			.select(selectNumCommentsForCurrentTarget)

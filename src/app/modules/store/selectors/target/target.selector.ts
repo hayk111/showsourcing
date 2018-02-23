@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import { EntityTarget, EntityState, entityStateToArray } from '../../utils/entities.utils';
-import { Product, selectProducts } from '../../../products';
 import { Vote } from '../../model/entities/vote.model';
 
 export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;
@@ -62,14 +61,6 @@ export const selectVotesForCurrentTarget = state => state.foccussedEntity.votes;
 export const selectVotesArrayForCurrentTarget = createSelector([selectVotesForCurrentTarget], voteState => {
 	return entityStateToArray(voteState);
 });
-
-export const selectProductSelected = createSelector(
-	[selectProducts, selectCurrentTarget],
-	(productState: EntityState<Product>, foccussedEntity: EntityTarget) => {
-		if (!foccussedEntity) return undefined;
-		return productState.byId[foccussedEntity.entityId];
-	}
-);
 
 export interface VoteByType {
 	positive: Array<Vote>;

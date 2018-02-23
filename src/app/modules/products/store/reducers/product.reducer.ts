@@ -1,12 +1,17 @@
 import { TypedAction } from './../../../store/utils/typed-action.interface';
 import { ProductActionsFactory, ActionTypes } from '../actions/product.action';
 import { Product } from '../../models/product.model';
-import { EntityState, entityInitialState, copyById, addEntities } from '../../../store/utils/entities.utils';
+import {
+	EntityState,
+	entityInitialState,
+	copyById,
+	addEntities,
+} from '../../../store/utils/entities.utils';
 
 // tslint:disable-next-line:no-empty-interface
 export interface ProductState extends EntityState<Product> {}
 
-export function reducer(
+export function productReducer(
 	state: EntityState<Product> = entityInitialState,
 	action: TypedAction<any>
 ): ProductState {
