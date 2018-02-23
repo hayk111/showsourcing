@@ -8,7 +8,6 @@ import { UserModule } from '~user';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '~suppliers/store/reducers';
 import { effects } from '~suppliers/store/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityPageModule } from '~shared/entity-page/entity-page.module';
@@ -22,8 +21,8 @@ import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 @NgModule({
   imports: [
 		CommonModule,
-		StoreModule.forFeature('testEntities', reducers),
-		EffectsModule.forFeature(effects),
+		// StoreModule.forFeature('testEntities', reducers),
+		// EffectsModule.forFeature(effects),
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		AppStoreModule.forRoot(), // TODO to be removed and placed inside the component module using it
 		DialogModule, // TODO to be removed and placed inside the component module using it

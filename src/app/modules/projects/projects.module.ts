@@ -14,7 +14,7 @@ import { effects } from './store/effects';
 @NgModule({
   imports: [
 		CommonModule,
-		EffectsModule.forFeature(effects),
+		// EffectsModule.forFeature(effects),
 		AppStoreModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
 		NgxDatatableModule, // TODO to be removed and placed inside the component module using it

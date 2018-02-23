@@ -4,7 +4,7 @@ import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
 import { AuthenticationEffects } from './misc/authentication.effects';
 import { UserEffects } from '../../user/store/effects/user.effects';
-import { SuppliersEffects } from '../../suppliers/store/effects/supplier.effects';
+import { SuppliersEffects } from '~suppliers';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { CategoryEffects } from './entities/category.effects';
 import { TokenEffects } from './misc/token.effects';
@@ -12,7 +12,7 @@ import { CustomFieldsEffects } from './entities/custom-fields.effects';
 import { TagEffects } from './entities/tag.effects';
 import { EventEffects } from './entities/event.effects';
 import { FilterEntityPanelEffects } from './ui/filter-entity-panel.effects';
-import { ProjectEffects } from '../../projects/store/effects/project.effects';
+import { ProjectEffects } from '~projects';
 import { PreloaderEffects } from './misc/preloader.effects';
 import { CommentTargetEffects } from '../../comment/store/effects/comments.effects';
 import { FilesTargetEffects } from './target/files.effects';
@@ -39,6 +39,7 @@ export const effects = [
 	EventEffects,
 	TagEffects,
 	ProjectEffects,
+	SuppliersEffects,
 
 	// misc
 	SnackBarEffects,
