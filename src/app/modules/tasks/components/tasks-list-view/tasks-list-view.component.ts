@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
-import { selectSuppliers } from '../../../../suppliers/store/selectors/suppliers.selector';
-import { Task } from '../../../../store/model/entities/task.model';
+import { EntityState, entityStateToArray } from '~store/utils/entities.utils';
+import { Task } from './../../models';
 
 @Component({
 	selector: 'tasks-list-view-app',

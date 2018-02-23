@@ -1,5 +1,5 @@
 import { AppErrorsEffects } from './misc/app-error.effects';
-import { TaskEffects } from './entities/task.effects';
+import { TaskEffects } from '../../tasks/store/effects/task.effects';
 import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
 import { AuthenticationEffects } from './misc/authentication.effects';

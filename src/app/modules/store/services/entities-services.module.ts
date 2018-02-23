@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TeamService } from './team.service';
 import { TeamItemLoaderService } from './team-item-loader.service';
-import { TaskService } from './task.service';
+import { TaskService } from '../../tasks/services/task.service';
 import { CustomFieldsService } from './custom-fields.service';
 import { CommentService } from '../../comment/services/comment.service';
 import { FileService } from './file.service';

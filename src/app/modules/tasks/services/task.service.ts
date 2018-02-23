@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TeamItemLoaderService } from './team-item-loader.service';
-import { FilterGroupName } from '../model/misc/filter.model';
-import { entityRepresentationMap, EntityTarget } from '../utils/entities.utils';
+import { TeamItemLoaderService } from '~store/services/team-item-loader.service';
+import { FilterGroupName } from '~store/model/misc/filter.model';
+import { entityRepresentationMap, EntityTarget } from '~store/utils/entities.utils';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()

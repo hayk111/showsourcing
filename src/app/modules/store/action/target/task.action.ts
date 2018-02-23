@@ -1,4 +1,4 @@
-import { Task } from '../../model/entities/task.model';
+import { Task } from '../../../tasks/models/task.model';
 
 export enum ActionType {
 	LOAD = '[TaskTarget] loading',

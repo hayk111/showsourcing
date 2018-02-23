@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Product } from '~products/models';
 import { TaskTargetActions } from '~store/action/target/task.action';
 import { DialogActions } from '~store/action/ui/dialog.action';
-import { Task } from '~store/model/entities/task.model';
+import { Task } from '~store/../../../../../tasks/models/task.model';
 import { DialogName } from '~store/model/ui/dialog.model';
 import { selectTaskArrayForCurrentTarget } from '~store/selectors/target/target.selector';
 

@@ -14,7 +14,7 @@ import { HomeComponent } from '../../features/home/components/home/home.componen
 import { ProjectsPageComponent } from '../../projects/containers/projects-page/projects-page.component';
 import { SupplierDetailsComponent } from '../../suppliers/containers/supplier-details/supplier-details.component';
 import { SuppliersPageComponent } from '../../suppliers/containers/suppliers-page/suppliers-page.component';
-import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
+import { TasksPageComponent } from '../../tasks/containers/tasks-page/tasks-page.component';
 import { TeamManagementPageComponent } from '../../features/team-management/components/team-management-page/team-management-page.component';
 import { KanbanTestComponent } from '../../features/test/components/kanban-test/kanban-test.component';
 import { TestInputsSelectorsComponent } from '../../features/test/components/test-inputs-selectors/test-inputs-selectors.component';

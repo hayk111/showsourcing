@@ -32,6 +32,8 @@
 			"~store": ["app/modules/store/index"],
 			"~suppliers/*": ["app/modules/suppliers/*"],
 			"~suppliers": ["app/modules/suppliers/index"],
+			"~tasks/*": ["app/modules/tasks/*"],
+			"~tasks": ["app/modules/tasks/index"],
 			"~user/*": ["app/modules/user/*"],
 			"~user": ["app/modules/user/index"],
 			"~utils/*": ["app/utils/*"],

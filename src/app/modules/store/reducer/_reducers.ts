@@ -23,7 +23,6 @@ import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action
 import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as FileSlctnActionTypes } from '../action/target/file.action';
-import { ActionType as CommentSltcnActionTypes } from '../../comment/store/actions/comment.action';
 import { imageSelectionReducer } from './target/image-target.reducer';
 import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import {
@@ -35,13 +34,11 @@ import {
 } from '../action/entities/index';
 import { EventActionTypes } from '../action/entities/index';
 import { TagActionTypes } from '../action/entities/index';
-import { SupplierActionTypes } from '../action/entities/index';
-import { ProjectActionTypes } from '../action/entities/index';
-import { TaskActionTypes } from '../action/entities/index';
 import { TeamActionTypes } from '../action/entities/index';
 import { commentReducer } from '~comment';
 import { projectReducer } from '~projects';
 import { supplierReducer } from '~suppliers';
+import { taskReducer } from '~tasks';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -56,7 +53,7 @@ const entities = combineReducers({
 	suppliers: supplierReducer,
 	products: productReducer,
 	productStatus: productStatusReducer,
-	tasks: basicReducerFactory(TaskActionTypes),
+	tasks: taskReducer,
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
 	customFields: basicReducerFactory(CustomFieldsActionTypes),

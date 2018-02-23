@@ -4,6 +4,6 @@ export * from './category.model';
 export * from './counters.interface';
 export * from './event.model';
 export * from './tag.model';
-export * from './task.model';
+export * from '../../../tasks/models/task.model';
 export * from './team.model';
 export * from './vote.model';

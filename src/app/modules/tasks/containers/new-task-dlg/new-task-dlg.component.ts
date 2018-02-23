@@ -1,21 +1,21 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DialogName } from '../../../../store/model/ui/dialog.model';
+import { DialogName } from '~store/model/ui/dialog.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { TaskActions } from '../../../../store/action/entities/index';
-import { Task, TaskStatus, TaskType, TaskParams } from '../../../../store/model/entities/task.model';
+import { TaskActions } from '~store/action/entities/index';
+import { Task, TaskStatus, TaskType, TaskParams } from '../../models/task.model';
 import { UserService } from '~user';
 import { Observable } from 'rxjs/Observable';
-import { selectTaskStatuses } from '../../../../store/selectors/entities/task-status.selector';
+import { selectTaskStatuses } from '~store/selectors/entities/task-status.selector';
 import {
 	entityStateToArray,
 	EntityState,
 	entityRepresentationMap
-} from '../../../../store/utils/entities.utils';
+} from '~store/utils/entities.utils';
 import { map, tap } from 'rxjs/operators';
-import { selectTaskTypes } from '../../../../store/selectors/entities/task-type.selector';
-import { Product } from '../../../../products';
-import { DialogActions } from '../../../../store/action/ui/dialog.action';
+import { selectTaskTypes } from '~store/selectors/entities/task-type.selector';
+import { Product } from '~products/index';
+import { DialogActions } from '~store/action/ui/dialog.action';
 
 @Component({
 	selector: 'new-task-dlg-app',

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { TaskActionTypes as ActionType, TaskActions } from '../../action/entities/index';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { TaskService } from '../../services/task.service';
-
+import { TaskService } from '~tasks/services/task.service';
+import { TaskActions, ActionType } from '../actions';
 @Injectable()
 export class TaskEffects {
 

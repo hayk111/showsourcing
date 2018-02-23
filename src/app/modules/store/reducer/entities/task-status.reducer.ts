@@ -1,5 +1,5 @@
 import { EntityState, Entity } from '../../utils/entities.utils';
-import { TaskStatus } from '../../model/entities/task.model';
+import { TaskStatus } from '../../../tasks/models/task.model';
 
 const initialState: EntityState<Entity> = {
 	pending: false,

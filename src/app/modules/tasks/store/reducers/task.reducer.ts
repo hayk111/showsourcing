@@ -2,4 +2,4 @@ import { EntityState, entityInitialState, TypedAction, addEntities, copyById } f
 import { ActionType } from '../actions';
 import { basicReducerFactory } from '~store';
 
-export const supplierReducer = basicReducerFactory(ActionType);
+export const taskReducer = basicReducerFactory(ActionType);
