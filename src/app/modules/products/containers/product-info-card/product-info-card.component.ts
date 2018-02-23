@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { ProductActionsFactory, Product } from '~products';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { Product } from '~products/models';
+import { ProductActionsFactory } from '~products/store/actions';
 
 @Component({
 	selector: 'product-info-card-app',
 	templateUrl: './product-info-card.component.html',
 	styleUrls: ['./product-info-card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductInfoCardComponent implements OnInit {
 	@Input() product: Product;
