@@ -19,7 +19,7 @@ import { ImageService } from './images.service';
 import { TeamMembersService } from './team-members.service';
 import { CategoryService } from './category.service';
 import { SupplierService } from '~suppliers';
-import { ProjectService } from './project.service';
+import { ProjectService } from '../../projects/services/project.service';
 import { EventService } from './event.service';
 import { TagService } from './tag.service';
 import { PreloaderService } from './preloader.service';

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Project } from '../../../../store/model/entities/project.model';
+import { Project } from '../../models';
 import { Store } from '@ngrx/store';
-import { selectFilteredEntity } from '../../../../store/selectors/misc/filter.selectors';
-import { selectProjects } from '../../../../store/selectors/entities/projects.selector';
+import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
+import { selectProjects } from '../../store/selectors';
 import { map } from 'rxjs/operators';
-import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
-import { FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { FilterGroupName } from '~store/model/misc/filter.model';
 
 @Component({
 	selector: 'projects-page-app',

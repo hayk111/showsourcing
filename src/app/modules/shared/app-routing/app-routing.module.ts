@@ -9,7 +9,7 @@ import { EventsPageModule } from '../../features/events-page/events-page.module'
 import { HomeModule } from '../../features/home/home.module';
 import { TasksPageModule } from '../../features/tasks-page/tasks-page.module';
 import { TestModule } from '../../features/test/test.module';
-import { ProductModule } from './../../products/product.module';
+import { ProductModule } from '~products';
 import { routes } from './routes';
 
 @NgModule({

@@ -40,6 +40,7 @@ import { ProjectActionTypes } from '../action/entities/index';
 import { TaskActionTypes } from '../action/entities/index';
 import { TeamActionTypes } from '../action/entities/index';
 import { commentReducer } from '~comment';
+import { projectReducer } from '~app/modules/projects';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -50,7 +51,7 @@ const entities = combineReducers({
 	categories: basicReducerFactory(CategoryActionTypes),
 	events: basicReducerFactory(EventActionTypes),
 	tags: basicReducerFactory(TagActionTypes),
-	projects: basicReducerFactory(ProjectActionTypes),
+	projects: projectReducer,
 	suppliers: basicReducerFactory(SupplierActionTypes),
 	products: productReducer,
 	productStatus: productStatusReducer,

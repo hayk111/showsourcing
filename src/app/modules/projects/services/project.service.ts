@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { EntityTarget } from '../utils/entities.utils';
-import { Project } from '../model/entities/project.model';
+import { EntityTarget } from '../../store/utils/entities.utils';
+import { Project } from '../models/project.model';
 
 
 @Injectable()

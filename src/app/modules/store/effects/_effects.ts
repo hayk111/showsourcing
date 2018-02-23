@@ -12,7 +12,7 @@ import { CustomFieldsEffects } from './entities/custom-fields.effects';
 import { TagEffects } from './entities/tag.effects';
 import { EventEffects } from './entities/event.effects';
 import { FilterEntityPanelEffects } from './ui/filter-entity-panel.effects';
-import { ProjectEffects } from './entities/project.effects';
+import { ProjectEffects } from '../../projects/store/effects/project.effects';
 import { PreloaderEffects } from './misc/preloader.effects';
 import { CommentTargetEffects } from '../../comment/store/effects/comments.effects';
 import { FilesTargetEffects } from './target/files.effects';

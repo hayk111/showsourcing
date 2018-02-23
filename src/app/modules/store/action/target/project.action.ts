@@ -1,4 +1,4 @@
-import { Project } from '../../model/entities/project.model';
+import { Project } from '../../../projects/models/project.model';
 
 export enum ActionType {
 	LOAD = '[ProjectsTarget] loading',

@@ -4,7 +4,7 @@ import { Currency } from '../../store/model/entities/currency.model';
 import { AppImage } from '../../store/model/entities/app-image.model';
 import { Tag } from '../../store/model/entities/tag.model';
 import { AppFile } from '../../store/model/entities/app-file.model';
-import { Project } from '../../store/model/entities/project.model';
+import { Project } from '../../projects/models/project.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
