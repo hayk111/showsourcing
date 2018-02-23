@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from '@products';
+import { Product } from '~products';
 
 @Component({
 	selector: 'product-card-view-app',

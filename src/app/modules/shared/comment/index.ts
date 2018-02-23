@@ -1,3 +1,3 @@
-export * from './comment.module';
+export * from '../../comment/comment.module';
 export * from './containers';
-export * from './components';
+export * from '../../comment/components/index';

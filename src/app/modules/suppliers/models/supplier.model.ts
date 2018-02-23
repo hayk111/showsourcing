@@ -1,7 +1,7 @@
-import { Tag } from '@modules/store';
-import { Counters } from '@modules/store';
-import { Category } from '@modules/store';
-import { uuid } from '@modules/store';
+import { Tag } from '~store';
+import { Counters } from '~store';
+import { Category } from '~store';
+import { uuid } from '~store';
 
 
 export class Supplier {

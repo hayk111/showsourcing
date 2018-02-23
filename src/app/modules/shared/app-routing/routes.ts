@@ -4,7 +4,7 @@ import {
 	ProductPageComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-} from '@products/features';
+} from '~products/features';
 
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
 import { AuthCardComponent } from '../../features/auth/components/auth-card/auth-card.component';
@@ -24,7 +24,7 @@ import { TestProductComponent } from '../../features/test/components/test-produc
 import { TestTabsComponent } from '../../features/test/components/test-tabs/test-tabs.component';
 import { TestComponent } from '../../features/test/test/test.component';
 import { WorkflowPageComponent } from '../../features/workflow/components/workflow-page/workflow-page.component';
-import { CommentCtnrComponent } from '../comment/containers/comment-ctnr/comment-ctnr.component';
+import { CommentCtnrComponent } from '../../comment/containers/comment-ctnr/comment-ctnr.component';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
@@ -67,13 +67,13 @@ export const routes: Array<Route> = [
 					{
 						path: 'details/:id',
 						component: SupplierDetailsComponent,
-						children: [
-							// { path: 'activity', component: ProductActivityPageComponent },
-							// { path: 'sample', component: ProductSampleComponent },
-							// { path: 'technical-details', component: ProductTechDetailsComponent },
-							// { path: 'tasks', component: ProductTasksComponent },
-							// { path: 'files', component: ProductFilesComponent },
-						],
+						// children: [
+						// 	{ path: 'activity', component: ProductActivityPageComponent },
+						// 	{ path: 'sample', component: ProductSampleComponent },
+						// 	{ path: 'technical-details', component: ProductTechDetailsComponent },
+						// 	{ path: 'tasks', component: ProductTasksComponent },
+						// 	{ path: 'files', component: ProductFilesComponent },
+						// ],
 					},
 				],
 			},

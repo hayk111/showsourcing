@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EntityTarget } from '@store/utils/entities.utils';
+import { EntityTarget } from '~store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { selectSuppliers } from '@suppliers/store/selectors/suppliers.selector';
-import { selectCurrentTarget } from '@store/selectors/target/target.selector';
+import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
+import { selectCurrentTarget } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'product-side-preview-app',

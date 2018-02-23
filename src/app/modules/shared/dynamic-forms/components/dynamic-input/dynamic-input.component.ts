@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef,
 	ViewChild, ComponentRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 import { DynamicFormControl, DynamicFormGroup } from '../../utils/dynamic-controls.class';
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
-import { AutoUnsub } from '@utils/index';
+import { AutoUnsub } from '~utils/index';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '../../utils/descriptors.interface';
 import { ChangeDetectionStrategy } from '@angular/core';

@@ -6,7 +6,7 @@ import { TeamService } from './team.service';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { TaskService } from './task.service';
 import { CustomFieldsService } from './custom-fields.service';
-import { CommentService } from './comment.service';
+import { CommentService } from '../../comment/services/comment.service';
 import { FileService } from './file.service';
 import { CurrencyService } from './currency.service';
 import { CountryService } from './country.service';
@@ -18,7 +18,7 @@ import { LocalStorageModule } from '../../shared/local-storage/local-storage.mod
 import { ImageService } from './images.service';
 import { TeamMembersService } from './team-members.service';
 import { CategoryService } from './category.service';
-import { SupplierService } from '@modules/suppliers';
+import { SupplierService } from '~suppliers';
 import { ProjectService } from './project.service';
 import { EventService } from './event.service';
 import { TagService } from './tag.service';

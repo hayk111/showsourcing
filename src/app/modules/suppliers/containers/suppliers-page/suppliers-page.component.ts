@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName } from '@store/model/misc/filter.model';
+import { FilterGroupName } from '~store/model/misc/filter.model';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, entityRepresentationMap } from '@store/utils/entities.utils';
-import { Supplier } from '@modules/suppliers';
+import { EntityState, Entity, entityRepresentationMap } from '~store/utils/entities.utils';
+import { Supplier } from '~suppliers';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers } from '@suppliers';
-import { selectFilteredEntity } from '@store/selectors/misc/filter.selectors';
+import { selectSuppliers } from '~suppliers';
+import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
 import { map } from 'rxjs/operators';
-import { TargetAction } from '@store/action/target/target.action';
+import { TargetAction } from '~store/action/target/target.action';
 import { Router } from '@angular/router';
-import { DialogActions } from '@store/action/ui/dialog.action';
-import { DialogName } from '@store/model/ui/dialog.model';
+import { DialogActions } from '~store/action/ui/dialog.action';
+import { DialogName } from '~store/model/ui/dialog.model';
 
 @Component({
 	selector: 'app-supplier-page',

@@ -5,7 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 import {  entityRepresentationMap, EntityTarget } from '../../utils/entities.utils';
 import { map } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { CommentTargetActions } from '../../action/target/comment.action';
+import { CommentTargetActions } from '../../../comment/store/actions/comment.action';
 import { FileTargetActions } from '../../action/target/file.action';
 import { ImageTargetActions } from '../../action/target/images.action';
 import { ProjectTargetActions } from '../../action/target/project.action';

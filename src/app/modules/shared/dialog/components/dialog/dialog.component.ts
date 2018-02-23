@@ -7,7 +7,7 @@ import { DialogActions } from '../../../../store/action/ui/dialog.action';
 import { selectDialog } from '../../../../store/selectors/ui/dialog.selector';
 import { Observable } from 'rxjs/Observable';
 import { ElementRef } from '@angular/core';
-import { AutoUnsub } from '@utils/index';
+import { AutoUnsub } from '~utils/index';
 import { takeUntil } from 'rxjs/operators';
 
 // Doctor: "I'm sorry but you suffer from a terminal illness and have only 10 to live."

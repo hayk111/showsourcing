@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EntityTarget, Entity } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '@utils/index';
+import { AutoUnsub } from '~utils/index';
 import { selectCustomField } from '../../../../store/selectors/entities/custom-fields.selector';
 import { Observable } from 'rxjs/Observable';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/descriptors.interface';

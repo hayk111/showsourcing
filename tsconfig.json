@@ -17,21 +17,23 @@
       "dom"
     ],
 		"paths": {
-			"@app/*": ["app/*"],
-			"@modules/*": ["app/modules/*"],
-			"@modules": ["app/modules/index"],
-			"@products": ["app/modules/products/index"],
-			"@products/*": ["app/modules/products/*"],
-			"@shared/*": ["app/modules/shared/*"],
-			"@shared": ["app/modules/store/index"],
-			"@store/*": ["app/modules/store/*"],
-			"@store": ["app/modules/store/index"],
-			"@suppliers/*": ["app/modules/suppliers/*"],
-			"@suppliers": ["app/modules/suppliers/index"],
-			"@user/*": ["app/modules/user/*"],
-			"@user": ["app/modules/user/index"],
-			"@utils/*": ["app/utils/*"],
-			"@utils": ["app/utils/index"]
+			"~app/*": ["app/*"],
+			"~comment/*": ["app/modules/comment/*"],
+			"~comment": ["app/modules/comment/index"],
+			"~modules/*": ["app/modules/*"],
+			"~modules": ["app/modules/index"],
+			"~products": ["app/modules/products/index"],
+			"~products/*": ["app/modules/products/*"],
+			"~shared/*": ["app/modules/shared/*"],
+			"~shared": ["app/modules/store/index"],
+			"~store/*": ["app/modules/store/*"],
+			"~store": ["app/modules/store/index"],
+			"~suppliers/*": ["app/modules/suppliers/*"],
+			"~suppliers": ["app/modules/suppliers/index"],
+			"~user/*": ["app/modules/user/*"],
+			"~user": ["app/modules/user/index"],
+			"~utils/*": ["app/utils/*"],
+			"~utils": ["app/utils/index"]
     }
   }
 }

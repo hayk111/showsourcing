@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Store, Action } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { User } from '@modules/user';
-import { CountryActions } from '@modules/store/action/entities/index';
-import { CurrencyActions } from '@modules/store/action/entities/index';
-import { TeamActions } from '@modules/store/action/entities/index';
+import { User } from '~user';
+import { CountryActions } from '~store/action/entities/index';
+import { CurrencyActions } from '~store/action/entities/index';
+import { TeamActions } from '~store/action/entities/index';
 import { switchMap, filter, tap, map } from 'rxjs/operators';
 import { distinct } from 'rxjs/operators';
 import { Actions, Effect } from '@ngrx/effects';
-import { ActionType, UserActions } from '@modules/user';
-import { UserService } from '@modules/user';
-import { PreloaderActions } from '@modules/store/action/misc/preloader.action';
+import { ActionType, UserActions } from '~user';
+import { UserService } from '~user';
+import { PreloaderActions } from '~store/action/misc/preloader.action';
 
 
 @Injectable()

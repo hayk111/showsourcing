@@ -1,6 +1,6 @@
-import { EntityState, entityInitialState, TypedAction, addEntities, copyById } from '@modules/store';
-import { Supplier } from '@modules/suppliers';
-import { ActionType } from '@modules/suppliers';
+import { EntityState, entityInitialState, TypedAction, addEntities, copyById } from '~store';
+import { Supplier } from '~suppliers';
+import { ActionType } from '~suppliers';
 
 // tslint:disable-next-line:no-empty-interface
 export interface SupplierState extends EntityState<Supplier> {}
