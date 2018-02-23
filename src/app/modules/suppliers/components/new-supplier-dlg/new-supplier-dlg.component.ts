@@ -3,8 +3,8 @@ import { DialogName } from '~store/model/ui/dialog.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogActions } from '~store/action/ui/dialog.action';
 import { Store } from '@ngrx/store';
-import { SupplierActions } from '~suppliers';
-import { Supplier } from '~suppliers';
+import { SupplierActions } from '~suppliers/store/actions';
+import { Supplier } from '~suppliers/models';
 import { UserService } from '~user';
 
 @Component({

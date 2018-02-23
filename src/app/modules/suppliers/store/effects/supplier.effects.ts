@@ -1,9 +1,9 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import { ActionType, SupplierActions } from '~suppliers';
-import { SupplierService } from '~suppliers';
-import { Supplier } from '~suppliers';
+import { ActionType, SupplierActions } from '~suppliers/store/actions';
+import { SupplierService } from '~suppliers/services';
+import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
 

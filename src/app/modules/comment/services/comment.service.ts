@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityTarget } from '../../store/utils/entities.utils';
+import { EntityTarget } from '~store/utils/entities.utils';
 import { AppComment } from '../models/comment.model';
-import { selectUser } from '../../user/store/selectors/user.selector';
+import { selectUser } from '~user';
 import { Store } from '@ngrx/store';
-import { User } from '../../user/models/user.model';
+import { User } from '~user';
 
 @Injectable()
 export class CommentService {

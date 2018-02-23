@@ -18,7 +18,7 @@
     ],
 		"paths": {
 			"~app/*": ["app/*"],
-			"~omment/*": ["app/modules/comment/*"],
+			"~comment/*": ["app/modules/comment/*"],
 			"~comment": ["app/modules/comment/index"],
 			"~modules/*": ["app/modules/*"],
 			"~modules": ["app/modules/index"],
