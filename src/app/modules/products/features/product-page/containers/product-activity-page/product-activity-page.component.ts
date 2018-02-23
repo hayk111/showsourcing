@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { UserService } from '@shared/user/services/user.service';
+import { UserService } from '@modules/user';
 import { CommentTargetActions } from '@store/action/target/comment.action';
 import { AppComment } from '@store/model/entities/comment.model';
 import { selectCommentsForCurrentTarget } from '@store/selectors/target/target.selector';

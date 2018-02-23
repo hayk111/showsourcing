@@ -28,8 +28,8 @@
 			"@store": ["app/modules/store/index"],
 			"@suppliers/*": ["app/modules/suppliers/*"],
 			"@suppliers": ["app/modules/suppliers/index"],
-			"@users/*": ["app/modules/users/*"],
-			"@users": ["app/modules/users/index"],
+			"@user/*": ["app/modules/user/*"],
+			"@user": ["app/modules/user/index"],
 			"@utils/*": ["app/utils/*"],
 			"@utils": ["app/utils/index"]
     }

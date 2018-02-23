@@ -7,7 +7,7 @@ import { HomeModule } from '../../features/home/home.module';
 import { ProductsPageModule } from '@products/features/products-page/products-page.module';
 import { TasksPageModule } from '../../features/tasks-page/tasks-page.module';
 import { EventsPageModule } from '../../features/events-page/events-page.module';
-import { SuppliersPageModule } from '../../features/suppliers-page/suppliers-page.module';
+import { SuppliersModule } from '@modules/suppliers';
 import { TestModule } from '../../features/test/test.module';
 import { ProductDetailsPageModule } from '@products/features/product-page/product-details-page.module';
 
@@ -20,7 +20,7 @@ import { ProductDetailsPageModule } from '@products/features/product-page/produc
 		ProductModule,
 		TasksPageModule,
 		EventsPageModule,
-		SuppliersPageModule,
+		SuppliersModule,
 		ProductDetailsPageModule,
 		TestModule,
 	],

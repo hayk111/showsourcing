@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { entityStateToArray, EntityState } from '../../../../store/utils/entities.utils';
+import { entityStateToArray, EntityState } from '@store/utils/entities.utils';
 import { Supplier } from '@modules/suppliers';
 import { selectSuppliers } from '@modules/suppliers';
 

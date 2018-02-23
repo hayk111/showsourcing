@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserService } from '@shared/user/services/user.service';
+import { UserService } from '@modules/user';
 import { FileTargetActions } from '@store/action/target/file.action';
 import { AppFile } from '@store/model/entities/app-file.model';
 import { selectFilesArrayForCurrentTarget } from '@store/selectors/target/target.selector';
