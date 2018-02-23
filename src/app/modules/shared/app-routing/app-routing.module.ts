@@ -7,7 +7,7 @@ import { SuppliersModule } from '~suppliers';
 
 import { EventsPageModule } from '../../features/events-page/events-page.module';
 import { HomeModule } from '../../features/home/home.module';
-import { TasksPageModule } from '../../features/tasks-page/tasks-page.module';
+import { TasksModule } from '~tasks';
 import { TestModule } from '../../features/test/test.module';
 import { ProductModule } from '~products';
 import { routes } from './routes';
@@ -19,7 +19,7 @@ import { routes } from './routes';
 		HomeModule,
 		ProductsPageModule,
 		ProductModule,
-		TasksPageModule,
+		TasksModule,
 		EventsPageModule,
 		SuppliersModule,
 		ProductDetailsPageModule,

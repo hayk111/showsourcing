@@ -8,27 +8,27 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AppStoreModule } from '~store/store.module';
 import { UserModule } from '~user';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { TaskModule } from '~shared/task/task.module';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 import { SelectModule } from '~shared/select/select.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { NewTaskDlgComponent } from '~tasks/containers';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		EntityPageModule,
-		NgxDatatableModule,
-		AppStoreModule.forRoot(),
-		UserModule,
-		UtilsModule,
-		TaskModule,
-		LoadersModule,
-		SelectionBarModule,
-    DialogModule,
-    InputsModule,
-    SelectModule
+		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
+		EntityPageModule,  // TODO REMOVE UNUSED MODULES
+		NgxDatatableModule,  // TODO REMOVE UNUSED MODULES
+		AppStoreModule.forRoot(),  // TODO REMOVE UNUSED MODULES
+		UserModule,  // TODO REMOVE UNUSED MODULES
+		UtilsModule,  // TODO REMOVE UNUSED MODULES
+		LoadersModule,  // TODO REMOVE UNUSED MODULES
+		SelectionBarModule,  // TODO REMOVE UNUSED MODULES
+    DialogModule,  // TODO REMOVE UNUSED MODULES
+    InputsModule,  // TODO REMOVE UNUSED MODULES
+    SelectModule  // TODO REMOVE UNUSED MODULES
 	],
 	declarations: [
     NewTaskDlgComponent,

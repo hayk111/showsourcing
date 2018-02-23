@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TasksPageModule } from '~modules/features/tasks-page/tasks-page.module';
 import { ProductModule } from '~products';
 import { CardModule } from '~shared/card/card.module';
 import { CarouselModule } from '~shared/carousel/carousel.module';
@@ -16,7 +15,6 @@ import { LikesChartModule } from '~shared/likes-chart/likes-chart.module';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { PriceModule } from '~shared/price/price.module';
 import { SelectModule } from '~shared/select/select.module';
-import { TaskModule } from '~shared/task/task.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 import { AppStoreModule } from '~store/store.module';
 
@@ -43,10 +41,8 @@ import { ProductFilesComponent, ProductPageComponent, ProductTasksComponent } fr
 		CardModule,
 		LikesChartModule,
 		InputsModule,
-		TasksPageModule,
-		TaskModule,
 	],
-	declarations: [ProductPageComponent, ProductPageComponent, ProductTasksComponent, ProductFilesComponent],
+	declarations: [ ProductPageComponent, ProductPageComponent, ProductTasksComponent, ProductFilesComponent ],
 	exports: [ProductPageComponent],
 })
 export class ProductDetailsPageModule {}
