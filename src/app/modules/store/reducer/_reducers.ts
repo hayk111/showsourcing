@@ -1,3 +1,4 @@
+import { productReducer } from './../../products/store/reducers/product.reducer';
 import { ActionReducer, State, ActionReducerMap } from '@ngrx/store';
 import { combineReducers } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
@@ -30,7 +31,7 @@ import {
 	CountryActionTypes,
 	CurrencyActionTypes,
 	CustomFieldsActionTypes,
-	TeamMembersActionTypes
+	TeamMembersActionTypes,
 } from '../action/entities/index';
 import { EventActionTypes } from '../action/entities/index';
 import { TagActionTypes } from '../action/entities/index';
@@ -49,17 +50,18 @@ const entities = combineReducers({
 	events: basicReducerFactory(EventActionTypes),
 	tags: basicReducerFactory(TagActionTypes),
 	projects: basicReducerFactory(ProjectActionTypes),
-
+	suppliers: basicReducerFactory(SupplierActionTypes),
+	products: productReducer,
 	productStatus: productStatusReducer,
 	tasks: basicReducerFactory(TaskActionTypes),
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
-	customFields: basicReducerFactory(CustomFieldsActionTypes)
+	customFields: basicReducerFactory(CustomFieldsActionTypes),
 });
 
 const misc = combineReducers({
 	authentication: authenticationReducer,
-	filters: filtersReducer
+	filters: filtersReducer,
 });
 
 const foccussedEntity = combineReducers({
@@ -70,7 +72,7 @@ const foccussedEntity = combineReducers({
 	comments: targetReducerFactory(CommentSltcnActionTypes),
 	files: targetReducerFactory(FileSlctnActionTypes),
 	images: imageSelectionReducer,
-	votes: targetReducerFactory(VoteSlctnActionTypes)
+	votes: targetReducerFactory(VoteSlctnActionTypes),
 });
 
 const ui = combineReducers({
@@ -79,7 +81,7 @@ const ui = combineReducers({
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
 	sideNav: sidenavReducer,
-	filterEntityPanel: filterEntityPanelReducer
+	filterEntityPanel: filterEntityPanelReducer,
 });
 
 export const reducers = { entities, foccussedEntity, misc, ui };
@@ -99,8 +101,8 @@ export function logger(reducer: ActionReducer<State<any>>): any {
 			prevState: (prevState: Object) => '#1ea306',
 			action: (action: Object) => '#0a83a7',
 			nextState: (nextState: Object) => '#5e2bd9',
-			error: (error: any, prevState: Object) => 'red'
-		}
+			error: (error: any, prevState: Object) => 'red',
+		},
 	})(reducer);
 }
 

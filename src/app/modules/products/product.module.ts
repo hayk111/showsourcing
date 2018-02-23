@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { reducers, effects } from './store';
+import { effects } from './store';
 import {
 	ProductIconsComponent,
 	ProductSelectableCardComponent,
@@ -24,14 +24,14 @@ import {
 	ProductSubInfoComponent,
 	ProductStatusBadgeComponent,
 	ProductInfoCardComponent,
-	ProductBigCardComponent
+	ProductBigCardComponent,
 } from '@modules/products';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild([]),
-		StoreModule.forFeature('testEntities', reducers),
+		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
 		AppStoreModule, // TODO to be removed and placed inside the component module using it
 		UserModule, // TODO to be removed and placed inside the component module using it
@@ -43,7 +43,7 @@ import {
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		CardModule, // TODO to be removed and placed inside the component module using it
 		PriceModule, // TODO to be removed and placed inside the component module using it
-		RatingModule // TODO to be removed and placed inside the component module using it
+		RatingModule, // TODO to be removed and placed inside the component module using it
 	],
 	providers: [],
 	declarations: [
@@ -54,14 +54,14 @@ import {
 		ProductInfoCardComponent,
 		ProductStatusBadgeComponent,
 		ProductSelectableCardComponent,
-		ProductSubInfoComponent
+		ProductSubInfoComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,
 		ProductBigCardComponent,
 		ProductTopCardComponent,
 		ProductInfoCardComponent,
-		ProductSelectableCardComponent
-	]
+		ProductSelectableCardComponent,
+	],
 })
 export class ProductModule {}

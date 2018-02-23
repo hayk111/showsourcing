@@ -1,6 +1,6 @@
+import { createSelector } from 'reselect';
 import { ProductState } from './../reducers/product.reducer';
 import { Filter } from './../../../store/model/misc/filter.model';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { EntitiesState } from './../reducers';
 import { selectProductStatuses } from './../../../store/selectors/entities/product-status.selector';
@@ -13,7 +13,9 @@ import { deepCopy } from './../../../store/utils/deep-copy.utils';
 import { FilterGroupName } from '../../../store/model/misc/filter.model';
 import { selectFilterGroup } from './../../../store/selectors/misc/filter.selectors';
 
-export const getEntitiesState = createFeatureSelector<EntitiesState>('testEntities');
+export const getEntitiesState = state => state.entities;
+const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
+
 export const selectProducts = createSelector(getEntitiesState, (state: EntitiesState) => state.products);
 export const selectProductsObj = createSelector(selectProducts, (state: ProductState) => state.byId);
 
@@ -22,6 +24,14 @@ export const selectProductById = (id: string) => {
 		return products.byId[id];
 	});
 };
+
+export const selectProductFocused = createSelector(
+	[selectProducts, selectCurrentTargetId],
+	(productState: EntityState<Product>, id: string) => {
+		if (!id) return undefined;
+		return productState.byId[id];
+	}
+);
 
 export const selectFilteredEntity = (filterGroupName: FilterGroupName) => {
 	return createSelector([selectFilterGroup(filterGroupName), selectProductsObj], (filters, products) => {

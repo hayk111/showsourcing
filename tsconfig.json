@@ -19,12 +19,19 @@
 		"paths": {
 			"@app/*": ["app/*"],
 			"@modules/*": ["app/modules/*"],
-      "@products/*": ["app/modules/products/*"],
-			"@suppliers/*": ["app/modules/suppliers/*"],
-			"@users/*": ["app/modules/users/*"],
-			"@store/*": ["app/modules/store/*"],
+			"@modules": ["app/modules/index"],
+			"@products": ["app/modules/products/index"],
+			"@products/*": ["app/modules/products/*"],
 			"@shared/*": ["app/modules/shared/*"],
+			"@shared": ["app/modules/store/index"],
+			"@store/*": ["app/modules/store/*"],
+			"@store": ["app/modules/store/index"],
+			"@suppliers/*": ["app/modules/suppliers/*"],
+			"@suppliers": ["app/modules/suppliers/index"],
+			"@users/*": ["app/modules/users/*"],
+			"@users": ["app/modules/users/index"],
 			"@utils/*": ["app/utils/*"],
+			"@utils": ["app/utils/index"]
     }
   }
 }
