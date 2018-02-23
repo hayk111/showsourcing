@@ -10,7 +10,7 @@ import { UtilsModule } from '~shared/utils/utils.module';
 import { AppStoreModule } from '~store/store.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { ProductDetailsPageModule } from '../product-page/product-details-page.module';
+import { ProductDetailsPageModule } from '../product-details/product-details-page.module';
 import { ProductCardViewComponent } from './components/product-card-view/product-card-view.component';
 import { SelectionActionsComponent } from './components/selection-actions/selection-actions.component';
 import { ProductListViewComponent, ProductSidePreviewComponent, ProductsPageComponent } from './containers';

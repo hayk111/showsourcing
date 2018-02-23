@@ -1,12 +1,9 @@
 import { Route } from '@angular/router';
 import {
-	ProductActivityPageComponent,
 	ProductFilesComponent,
 	ProductPageComponent,
-	ProductSampleComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductTechDetailsComponent,
 } from '~products/features';
 
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
@@ -70,13 +67,13 @@ export const routes: Array<Route> = [
 					{
 						path: 'details/:id',
 						component: SupplierDetailsComponent,
-						children: [
-							{ path: 'activity', component: ProductActivityPageComponent },
-							{ path: 'sample', component: ProductSampleComponent },
-							{ path: 'technical-details', component: ProductTechDetailsComponent },
-							{ path: 'tasks', component: ProductTasksComponent },
-							{ path: 'files', component: ProductFilesComponent },
-						],
+						// children: [
+						// 	{ path: 'activity', component: ProductActivityPageComponent },
+						// 	{ path: 'sample', component: ProductSampleComponent },
+						// 	{ path: 'technical-details', component: ProductTechDetailsComponent },
+						// 	{ path: 'tasks', component: ProductTasksComponent },
+						// 	{ path: 'files', component: ProductFilesComponent },
+						// ],
 					},
 				],
 			},

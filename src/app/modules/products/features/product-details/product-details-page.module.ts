@@ -20,18 +20,7 @@ import { TaskModule } from '~shared/task/task.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 import { AppStoreModule } from '~store/store.module';
 
-import {
-	ProductPageMainCardComponent,
-	ProductSampleComponent,
-	ProductShippingComponent,
-	ProductTechDetailsComponent,
-} from './components';
-import {
-	ProductActivityPageComponent,
-	ProductFilesComponent,
-	ProductPageComponent,
-	ProductTasksComponent,
-} from './containers';
+import { ProductFilesComponent, ProductPageComponent, ProductTasksComponent } from './containers';
 
 @NgModule({
 	imports: [
@@ -57,17 +46,7 @@ import {
 		TasksPageModule,
 		TaskModule,
 	],
-	declarations: [
-		ProductPageComponent,
-		ProductPageComponent,
-		ProductActivityPageComponent,
-		ProductSampleComponent,
-		ProductTechDetailsComponent,
-		ProductTasksComponent,
-		ProductFilesComponent,
-		ProductShippingComponent,
-		ProductPageMainCardComponent,
-	],
+	declarations: [ProductPageComponent, ProductPageComponent, ProductTasksComponent, ProductFilesComponent],
 	exports: [ProductPageComponent],
 })
 export class ProductDetailsPageModule {}
