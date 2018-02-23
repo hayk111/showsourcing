@@ -6,7 +6,7 @@ import { EntityPageModule } from '../../shared/entity-page/entity-page.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { AppStoreModule } from '../../store/store.module';
-import { UserModule } from '../../shared/user/user.module';
+import { UserModule } from '../../user/user.module';
 import { SelectionBarModule } from '../../shared/selection-bar/selection-bar.module';
 
 @NgModule({

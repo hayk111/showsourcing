@@ -5,7 +5,7 @@ import { ActionType, SupplierActions } from '@modules/suppliers';
 import { SupplierService } from '@modules/suppliers';
 import { Supplier } from '@modules/suppliers';
 import { of } from 'rxjs/observable/of';
-import { AppErrorActions } from '../../../store/action/misc/app-errors.action';
+import { AppErrorActions } from '@store/action/misc/app-errors.action';
 
 
 @Injectable()

@@ -15,7 +15,7 @@ import { selectEntityById } from '@store/selectors/misc/utils.selector';
 import { entityRepresentationMap } from '@store/utils/entities.utils';
 import { FileTargetActions } from '@store/action/target/file.action';
 import { AppFile } from '@store/model/entities/app-file.model';
-import { UserService } from '@shared/user/services/user.service';
+import { UserService } from '@modules/user';
 import { AppImage } from '@store/model/entities/app-image.model';
 import { ImageTargetActions } from '@store/action/target/images.action';
 import { ChangeDetectionStrategy } from '@angular/core';

@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ProductActionsFactory, ActionTypes } from '../actions/product.action';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { selectUser } from '../../../store/selectors/entities/user.selector';
+import { selectUser } from '../../../user/store/selectors/user.selector';
 import { AppFile } from '../../../store/model/entities/app-file.model';
 import { ProductService } from '../../../store/services/product.service';
 import { FileTargetActions } from '../../../store/action/target/file.action';

@@ -8,5 +8,5 @@ export * from './project.model';
 export * from './tag.model';
 export * from './task.model';
 export * from './team.model';
-export * from './user.model';
+export * from '../../../user/models/user.model';
 export * from './vote.model';

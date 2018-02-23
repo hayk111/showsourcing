@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { EntityState } from '../../../../store/utils/entities.utils';
-import { User } from '../../../../store/model/entities/user.model';
+import { User } from '../../../../user/models/user.model';
 import { VoteByType } from '../../../../store/selectors/target/target.selector';
 
 @Component({

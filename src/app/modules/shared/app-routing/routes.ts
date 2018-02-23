@@ -1,12 +1,9 @@
 import { Route } from '@angular/router';
 import {
-	ProductActivityPageComponent,
 	ProductFilesComponent,
 	ProductPageComponent,
-	ProductSampleComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductTechDetailsComponent,
 } from '@products/features';
 
 import { AccountCreatedComponent } from '../../features/auth/components/account-created/account-created.component';
@@ -16,7 +13,7 @@ import { DataManagementPageComponent } from '../../features/data-management/comp
 import { HomeComponent } from '../../features/home/components/home/home.component';
 import { ProjectsPageComponent } from '../../features/projects-page/components/projects-page/projects-page.component';
 import { SupplierDetailsComponent } from '../../features/supplier-details-page/components/supplier-details/supplier-details.component';
-import { SuppliersPageComponent } from '../../features/suppliers-page/components/suppliers-page/suppliers-page.component';
+import { SuppliersPageComponent } from '../../suppliers/containers/suppliers-page/suppliers-page.component';
 import { TasksPageComponent } from '../../features/tasks-page/components/tasks-page/tasks-page.component';
 import { TeamManagementPageComponent } from '../../features/team-management/components/team-management-page/team-management-page.component';
 import { KanbanTestComponent } from '../../features/test/components/kanban-test/kanban-test.component';
@@ -71,11 +68,11 @@ export const routes: Array<Route> = [
 						path: 'details/:id',
 						component: SupplierDetailsComponent,
 						children: [
-							{ path: 'activity', component: ProductActivityPageComponent },
-							{ path: 'sample', component: ProductSampleComponent },
-							{ path: 'technical-details', component: ProductTechDetailsComponent },
-							{ path: 'tasks', component: ProductTasksComponent },
-							{ path: 'files', component: ProductFilesComponent },
+							// { path: 'activity', component: ProductActivityPageComponent },
+							// { path: 'sample', component: ProductSampleComponent },
+							// { path: 'technical-details', component: ProductTechDetailsComponent },
+							// { path: 'tasks', component: ProductTasksComponent },
+							// { path: 'files', component: ProductFilesComponent },
 						],
 					},
 				],

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../../../store/action/entities/user.action';
+import { UserActions } from '../../../../user/store/actions/user.action';
 import { AuthActions } from '../../../../store/action/misc/authentication.action';
 import { Router } from '@angular/router';
 

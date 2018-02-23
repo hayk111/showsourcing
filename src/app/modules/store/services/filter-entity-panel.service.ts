@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityRepresentation, EntityState, Entity } from '../utils/entities.utils';
-import { selectUserTeamId } from '../selectors/entities/user.selector';
+import { selectUserTeamId } from '../../user/store/selectors/user.selector';
 import { selectEntity, selectEntityArray } from '../selectors/misc/utils.selector';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { deepCopy } from '../utils/deep-copy.utils';

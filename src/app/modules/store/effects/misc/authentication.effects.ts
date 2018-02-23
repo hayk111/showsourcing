@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { ActionType, AuthActions } from '../../action/misc/authentication.action';
 import { map, switchMap,  tap, debounceTime,  mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../action/entities/user.action';
+import { UserActions } from '../../../user/store/actions/user.action';
 import { AuthService } from '../../services/auth.service';
 import { catchError } from 'rxjs/operators/catchError';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';

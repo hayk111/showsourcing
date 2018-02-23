@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { User } from '../model/entities/user.model';
+import { User } from '../../user/models/user.model';
 
 @Injectable()
 export class TeamMembersService {

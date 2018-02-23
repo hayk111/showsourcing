@@ -5,7 +5,7 @@ import { Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectCommentsArrayForCurrentTarget, selectCommentsForCurrentTarget } from '../../../../store/selectors/target/target.selector';
 import { CommentTargetActions } from '../../../../store/action/target/comment.action';
-import { UserService } from '../../../user/services/user.service';
+import { UserService } from '@modules/user';
 import { map, tap } from 'rxjs/operators';
 import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
 

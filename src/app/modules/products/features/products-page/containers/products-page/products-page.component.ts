@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product, ProductActionsFactory, selectFilteredEntity, selectProducts } from '@products';
-import { UserService } from '@shared/user/services/user.service';
+import { UserService } from '@modules/user';
 import { TargetAction } from '@store/action/target/target.action';
 import { VoteSlctnActions } from '@store/action/target/vote.action';
 import { Vote } from '@store/model/entities/vote.model';

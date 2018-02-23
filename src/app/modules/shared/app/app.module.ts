@@ -14,7 +14,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { EntitiesServicesModule } from '../../store/services/entities-services.module';
 import { AppStoreModule } from '../../store/store.module';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../../user/user.module';
 import { AuthModule } from '../../features/auth/auth.module';
 import { environment } from '../../../../environments/environment';
 import { NotificationModule } from '@swimlane/ngx-ui';
