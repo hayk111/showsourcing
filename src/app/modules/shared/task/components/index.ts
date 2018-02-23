@@ -1,0 +1,1 @@
+export * from './new-task-dlg/new-task-dlg.component';

@@ -3,13 +3,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { makeAccessorProvider, AbstractInput } from '../../../inputs/abstract-input.class';
 import { Log } from '@utils/index';
+import { SelectableItem } from '../selectable-item.interface';
 
-export interface SelectableItem {
-	selected?: boolean;
-	id: string;
-	name: string;
-	image?: string;
-}
 
 @Component({
 	selector: 'input-select-one-app',
