@@ -24,6 +24,8 @@
 			"~modules": ["app/modules/index"],
 			"~products": ["app/modules/products/index"],
 			"~products/*": ["app/modules/products/*"],
+			"~projects": ["app/modules/projects/index"],
+			"~projects/*": ["app/modules/projects/*"],
 			"~shared/*": ["app/modules/shared/*"],
 			"~shared": ["app/modules/store/index"],
 			"~store/*": ["app/modules/store/*"],

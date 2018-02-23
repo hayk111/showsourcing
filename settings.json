@@ -3,6 +3,7 @@
     "~app/*": ["${workspaceRoot}/src/app/*"],
     "~modules/*": ["${workspaceRoot}/src/app/modules/*"],
 		"~products/*": ["${workspaceRoot}/src/app/modules/products/*"],
+		"~projects/*": ["${workspaceRoot}/src/app/modules/projects/*"],
 		"~utils/*": ["${workspaceRoot}/src/app/utils/*"],
 		"~user/*": ["${workspaceRoot}/src/app/modules/user/*"],
 		"~suppliers/*": ["${workspaceRoot}/src/app/modules/suppliers/*"],
