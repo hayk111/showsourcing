@@ -1,5 +1,5 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/ui/dialog.action';
+import { TypedAction } from '~store/utils/typed-action.interface';
+import { ActionType } from '../actions/dialog.action';
 
 
 export function dialogReducer(state = {}, action: TypedAction<any>) {

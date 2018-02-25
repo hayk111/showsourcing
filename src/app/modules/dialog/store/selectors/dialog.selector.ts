@@ -1,4 +1,4 @@
-import { DialogName } from '../../model/ui/dialog.model';
+import { DialogName } from '../../models/dialog-names.enum';
 import { createSelector } from 'reselect';
 
 export const selectDialogs = state => state.ui.dialogs;

@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogComponent } from './components/dialog/dialog.component';
-import { UtilsModule } from '../utils/utils.module';
+import { DialogComponent } from './containers/dialog/dialog.component';
+import { UtilsModule } from '../shared/utils/utils.module';
 
 
 @NgModule({

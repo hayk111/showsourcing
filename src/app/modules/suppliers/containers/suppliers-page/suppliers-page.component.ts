@@ -9,8 +9,8 @@ import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
 import { map } from 'rxjs/operators';
 import { TargetAction } from '~store/action/target/target.action';
 import { Router } from '@angular/router';
-import { DialogActions } from '~store/action/ui/dialog.action';
-import { DialogName } from '~store/model/ui/dialog.model';
+import { DialogActions } from '~dialog';
+import { DialogName } from '~dialog';
 
 @Component({
 	selector: 'app-supplier-page',

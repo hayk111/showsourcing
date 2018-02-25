@@ -10,7 +10,8 @@
 		"~comment/*": ["${workspaceRoot}/src/app/modules/comment/*"],
 		"~store/*": ["${workspaceRoot}/src/app/modules/store/*"],
 		"~shared/*": ["${workspaceRoot}/src/app/modules/shared/*"],
-		"~tasks/*": ["${workspaceRoot}/src/app/modules/tasks/*"]
+		"~tasks/*": ["${workspaceRoot}/src/app/modules/tasks/*"],
+		"~dialog/*": ["${workspaceRoot}/src/app/modules/dialog"],
 
   },
 }

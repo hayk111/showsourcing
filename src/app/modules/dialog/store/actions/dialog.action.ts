@@ -1,4 +1,4 @@
-import { DialogName } from '../../model/ui/dialog.model';
+import { DialogName } from '../../models/dialog-names.enum';
 
 export enum ActionType {
 	REGISTER = '[Dialog] register',

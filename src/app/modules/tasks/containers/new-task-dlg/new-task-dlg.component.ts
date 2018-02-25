@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DialogName } from '~store/model/ui/dialog.model';
+import { DialogName } from '~dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TaskActions } from '~store/action/entities/index';
@@ -15,7 +15,7 @@ import {
 import { map, tap } from 'rxjs/operators';
 import { selectTaskTypes } from '~store/selectors/entities/task-type.selector';
 import { Product } from '~products/index';
-import { DialogActions } from '~store/action/ui/dialog.action';
+import { DialogActions } from '~dialog';
 
 @Component({
 	selector: 'new-task-dlg-app',

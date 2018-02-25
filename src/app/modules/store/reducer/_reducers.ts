@@ -8,13 +8,12 @@ import { userReducer } from '~user';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
-import { dialogReducer } from './ui/dialog.reducer';
+import { dialogReducer } from '~dialog';
 import { filtersReducer } from './misc/filter.reducer';
 import { authDlgReducer } from './ui/auth-dlg.reducer';
 import { authenticationReducer } from './misc/authentication.reducer';
 import { viewSwitcherReducer } from './ui/view-switcher.reducer';
 import { filterPanelReducer } from './ui/filter-panel.reducer';
-import { sidenavReducer } from './ui/sidenav.reducer';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { InjectionToken } from '@angular/core';
 import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
@@ -80,8 +79,7 @@ const ui = combineReducers({
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
 	viewSwitcher: viewSwitcherReducer,
-	sideNav: sidenavReducer,
-	filterEntityPanel: filterEntityPanelReducer,
+  filterEntityPanel: filterEntityPanelReducer,
 });
 
 export const reducers = { entities, foccussedEntity, misc, ui };

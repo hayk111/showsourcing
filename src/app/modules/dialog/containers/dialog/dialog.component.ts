@@ -2,12 +2,12 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angu
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
-import { DialogName } from '../../../../store/model/ui/dialog.model';
-import { DialogActions } from '../../../../store/action/ui/dialog.action';
-import { selectDialog } from '../../../../store/selectors/ui/dialog.selector';
+import { DialogName } from '../../models/dialog-names.enum';
+import { DialogActions } from '../../store/actions/dialog.action';
+import { selectDialog } from '../../store/selectors/dialog.selector';
 import { Observable } from 'rxjs/Observable';
 import { ElementRef } from '@angular/core';
-import { AutoUnsub } from '~utils/index';
+import { AutoUnsub } from 'app/utils/index';
 import { takeUntil } from 'rxjs/operators';
 
 // Doctor: "I'm sorry but you suffer from a terminal illness and have only 10 to live."

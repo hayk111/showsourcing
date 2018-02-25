@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SupplierStatusIconComponent, NewSupplierDlgComponent } from './components';
 import { IconsModule } from '~shared/icons/icons.module';
 import { AppStoreModule } from '~store/store.module';
-import { DialogModule } from '~shared/dialog/dialog.module';
+import { DialogModule } from '~shared/../dialog/dialog.module';
 import { UserModule } from '~user';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs/inputs.module';

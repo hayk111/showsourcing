@@ -20,6 +20,8 @@
 			"~app/*": ["app/*"],
 			"~comment/*": ["app/modules/comment/*"],
 			"~comment": ["app/modules/comment/index"],
+			"~dialog/*": ["app/modules/dialog/*"],
+			"~dialog": ["app/modules/dialog/index"],
 			"~modules/*": ["app/modules/*"],
 			"~modules": ["app/modules/index"],
 			"~products": ["app/modules/products/index"],

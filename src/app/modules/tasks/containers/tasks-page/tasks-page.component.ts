@@ -7,8 +7,8 @@ import { Store } from '@ngrx/store';
 import { Task } from '../../models';
 import { EntityState, EntityRepresentation, entityRepresentationMap } from '~store/utils/entities.utils';
 import { selectTasks } from '../../store/selectors';
-import { DialogActions } from '~store/action/ui/dialog.action';
-import { DialogName } from '~store/model/ui/dialog.model';
+import { DialogActions } from '~dialog';
+import { DialogName } from '~dialog';
 import { map } from 'rxjs/operators';
 import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
 
