@@ -67,13 +67,11 @@ export const routes: Array<Route> = [
 					{
 						path: 'details/:id',
 						component: SupplierDetailsComponent,
-						// children: [
-						// 	{ path: 'activity', component: ProductActivityPageComponent },
-						// 	{ path: 'sample', component: ProductSampleComponent },
-						// 	{ path: 'technical-details', component: ProductTechDetailsComponent },
-						// 	{ path: 'tasks', component: ProductTasksComponent },
-						// 	{ path: 'files', component: ProductFilesComponent },
-						// ],
+						children: [
+							{ path: 'activity', component: CommentCtnrComponent },
+							// { path: 'tasks', component: ProductTasksComponent },
+							// { path: 'files', component: ProductFilesComponent },
+						],
 					},
 				],
 			},

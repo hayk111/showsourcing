@@ -5,7 +5,6 @@ import { ProductDetailsPageModule } from '~products/features/product-details/pro
 import { ProductsPageModule } from '~products/features/products-page/products-page.module';
 import { SuppliersModule } from '~suppliers';
 
-import { EventsPageModule } from '../../features/events-page/events-page.module';
 import { HomeModule } from '../../features/home/home.module';
 import { TasksModule } from '~tasks';
 import { TestModule } from '../../features/test/test.module';
@@ -20,7 +19,6 @@ import { routes } from './routes';
 		ProductsPageModule,
 		ProductModule,
 		TasksModule,
-		EventsPageModule,
 		SuppliersModule,
 		ProductDetailsPageModule,
 		TestModule,
