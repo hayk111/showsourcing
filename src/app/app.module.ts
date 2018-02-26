@@ -7,13 +7,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationModule } from '@swimlane/ngx-ui';
 import { AuthModule } from '~auth';
 import { HomeModule } from '~modules/features/home/home.module';
-import { TestModule } from '~modules/features/test/test.module';
-import { ProductDetailsPageModule } from '~modules/products/features/product-details/product-details-page.module';
-import { ProductsPageModule } from '~modules/products/features/products-page/products-page.module';
 import { ProductModule } from '~modules/products/product.module';
+import { ProjectsModule } from '~modules/projects/projects.module';
 import { SuppliersModule } from '~modules/suppliers/suppliers.module';
 import { TasksModule } from '~modules/tasks/tasks.module';
 import { UserModule } from '~modules/user/user.module';
+import { WorkflowModule } from '~modules/workflow/workflow.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms/dynamic-forms.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
@@ -26,7 +25,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './components/app.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { ProjectsModule } from '~modules/projects/projects.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -49,14 +47,12 @@ import { ProjectsModule } from '~modules/projects/projects.module';
 		NotificationModule,
 		HomeModule,
 		ProductModule,
-		TestModule,
+		WorkflowModule,
 		// modules
 		SuppliersModule.forRoot(),
 		ProjectsModule.forRoot(),
 		TasksModule.forRoot(),
 		AuthModule.forRoot(),
-
-
 	],
 	providers: [
 		reducerProvider,
