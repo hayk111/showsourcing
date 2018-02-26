@@ -4,11 +4,8 @@ import { SelectionBarComponent } from './components/selection-bar/selection-bar.
 import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
-  imports: [
-		CommonModule,
-		IconsModule
-  ],
-	declarations: [ SelectionBarComponent ],
-	exports: [ SelectionBarComponent ]
+	imports: [CommonModule, IconsModule],
+	declarations: [SelectionBarComponent],
+	exports: [SelectionBarComponent],
 })
-export class SelectionBarModule { }
+export class SelectionBarModule {}

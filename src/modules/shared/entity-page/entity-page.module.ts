@@ -16,4 +16,4 @@ import { FiltersModule } from '~shared/filters';
 	declarations: [ EntityPageComponent, TopPanelComponent, ViewSwitcherComponent ],
 	exports: [ EntityPageComponent ]
 })
-export class EntityPageModule { }
+export class EntityPageModule {}

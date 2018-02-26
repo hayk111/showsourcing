@@ -13,7 +13,7 @@ export class CarouselComponent implements OnInit {
 	defaultImg = DEFAULT_NO_IMG;
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
-	@Input() pending: boolean = true;
+	@Input() pending = true;
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
