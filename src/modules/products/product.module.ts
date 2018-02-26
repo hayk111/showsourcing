@@ -1,40 +1,59 @@
-import { ProductService } from './services/product.service';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { CardModule } from '~shared/card/card.module';
+import { EditableFieldModule } from '~shared/editable-field';
+import { EntityMainCardModule } from '~shared/entity-main-card';
+import { EntityPageModule } from '~shared/entity-page/entity-page.module';
+import { FileModule } from '~shared/file/file.module';
+import { IconsModule } from '~shared/icons/icons.module';
+import { LikesChartModule } from '~shared/likes-chart/likes-chart.module';
+import { LoadersModule } from '~shared/loaders/loaders.module';
+import { PriceModule } from '~shared/price/price.module';
 import { RatingModule } from '~shared/rating';
 import { SelectableImageModule } from '~shared/selectable-image';
-import { EditableFieldModule } from '~shared/editable-field';
-import { SuppliersModule } from '~suppliers';
-import { FileModule } from '~shared/file/file.module';
+import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { UserModule } from '~user/user.module';
 import { AppStoreModule } from '~store/store.module';
-import { PriceModule } from '~shared/price/price.module';
-import { IconsModule } from '~shared/icons/icons.module';
-import { CardModule } from '~shared/card/card.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { SuppliersModule } from '~suppliers';
+import { UserModule } from '~user/user.module';
 
-import { effects } from './store';
 import {
+	ProductCardViewComponent,
 	ProductIconsComponent,
 	ProductSelectableCardComponent,
-	ProductTopCardComponent,
 	ProductSmallCardComponent,
-	ProductSubInfoComponent,
 	ProductStatusBadgeComponent,
-	ProductInfoCardComponent,
+	ProductSubInfoComponent,
+	ProductTopCardComponent,
+	SelectionActionsComponent,
+} from './components';
+import {
 	ProductBigCardComponent,
-} from '~products';
-
+	ProductFilesComponent,
+	ProductInfoCardComponent,
+	ProductListViewComponent,
+	ProductPageComponent,
+	ProductSidePreviewComponent,
+	ProductsPageComponent,
+	ProductTasksComponent,
+} from './containers';
 import { routes } from './routes';
+import { ProductService } from './services/product.service';
+import { effects } from './store';
+
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
+		NgxDatatableModule,
+		LoadersModule,
+		EntityMainCardModule,
+		LikesChartModule,
 		AppStoreModule, // TODO to be removed and placed inside the component module using it
 		UserModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
@@ -46,24 +65,28 @@ import { routes } from './routes';
 		CardModule, // TODO to be removed and placed inside the component module using it
 		PriceModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // TODO to be removed and placed inside the component module using it
+		SelectionBarModule,
+		EntityPageModule,
 	],
 	providers: [ProductService],
 	declarations: [
 		ProductSmallCardComponent,
-		ProductBigCardComponent,
 		ProductIconsComponent,
 		ProductTopCardComponent,
 		ProductInfoCardComponent,
 		ProductStatusBadgeComponent,
-		ProductSelectableCardComponent,
 		ProductSubInfoComponent,
-	],
-	exports: [
-		ProductSmallCardComponent,
-		ProductBigCardComponent,
-		ProductTopCardComponent,
-		ProductInfoCardComponent,
+		ProductsPageComponent,
+		ProductListViewComponent,
+		ProductCardViewComponent,
+		ProductSidePreviewComponent,
 		ProductSelectableCardComponent,
+		SelectionActionsComponent,
+		ProductBigCardComponent,
+		ProductFilesComponent,
+		ProductPageComponent,
+		ProductTasksComponent,
 	],
+	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],
 })
 export class ProductModule {}

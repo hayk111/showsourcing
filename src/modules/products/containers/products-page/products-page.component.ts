@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Product, ProductActionsFactory, selectFilteredEntity, selectProducts } from '~products';
-import { UserService } from '~user';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Product } from '~products/models';
+import { ProductActionsFactory } from '~products/store/actions';
+import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
 import { Vote } from '~store/model/entities/vote.model';
@@ -19,9 +22,8 @@ import {
 } from '~store/model/misc/filter.model';
 import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 import { Patch } from '~store/utils/patch.interface';
+import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'products-page-app',

@@ -6,7 +6,7 @@ import {
 	ProductPageComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-} from './features';
+} from './containers';
 
 export const routes: Array<Route> = [
 	{

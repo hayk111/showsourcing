@@ -6,6 +6,7 @@ import { AutoUnsub } from '~utils/index';
 import { selectImagesForCurrentTarget } from '~store/selectors/target/target.selector';
 import { ImageTargetActions } from '~store/action/target/images.action';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
 	selector: 'carousel-container-app',
@@ -21,7 +22,7 @@ export class CarouselContainerComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const imagesState$ = this.store.select(selectImagesForCurrentTarget);
+		const imagesState$: Observable<any> = this.store.select(selectImagesForCurrentTarget);
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
 	}
