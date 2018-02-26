@@ -1,4 +1,4 @@
-import { LogLevels } from '../app/utils/logger/log-levels';
+import { LogLevels } from '../app/app-root/utils/logger/log-levels';
 
 
 export const environment = {

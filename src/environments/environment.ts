@@ -1,4 +1,4 @@
-import { LogLevels } from '../app/utils/logger/log-levels';
+import { LogLevels } from '~utils/logger/log-levels';
 
 
 // The file contents for the current environment will overwrite these during build.
