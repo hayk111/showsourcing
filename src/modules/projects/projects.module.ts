@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ProjectService } from '~modules/projects';
 import { EntityPageModule } from '~shared/entity-page/entity-page.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 import { UtilsModule } from '~shared/utils/utils.module';
@@ -9,12 +11,13 @@ import { UserModule } from '~user';
 
 import { ProjectsListViewComponent } from './components/projects-list-view/projects-list-view.component';
 import { ProjectsPageComponent } from './containers/projects-page/projects-page.component';
-import { ProjectService } from '~modules/projects';
+import { routes } from './routes';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		// EffectsModule.forFeature(effects),
+		RouterModule.forChild(routes),
 		AppStoreModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
 		NgxDatatableModule, // TODO to be removed and placed inside the component module using it
@@ -22,15 +25,15 @@ import { ProjectService } from '~modules/projects';
 		UserModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // TODO to be removed and placed inside the component module using it
 	],
-	declarations: [ ProjectsPageComponent, ProjectsListViewComponent ],
-	exports: [ ProjectsPageComponent ],
-	providers: [ ProjectService ]
+	declarations: [ProjectsPageComponent, ProjectsListViewComponent],
+	exports: [ProjectsPageComponent],
+	providers: [ProjectService],
 })
 export class ProjectsModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProjectsModule,
-			providers: [ ProjectService ]
+			providers: [ProjectService],
 		};
 	}
 

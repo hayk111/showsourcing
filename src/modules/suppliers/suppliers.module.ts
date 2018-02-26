@@ -1,29 +1,30 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupplierStatusIconComponent, NewSupplierDlgComponent } from './components';
-import { IconsModule } from '~shared/icons';
-import { AppStoreModule } from '~store/store.module';
-import { DialogModule } from '~dialog/dialog.module';
-import { UserModule } from '~user';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputsModule } from '~shared/inputs';
-import { StoreModule } from '@ngrx/store';
-import { effects } from '~suppliers/store/effects';
-import { EffectsModule } from '@ngrx/effects';
-import { EntityPageModule } from '~shared/entity-page';
-import { SuppliersPageComponent } from '~suppliers/containers';
-import { SupplierListViewComponent } from '~suppliers/components';
+import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DialogModule } from '~dialog/dialog.module';
+import { EntityMainCardModule } from '~shared/entity-main-card';
+import { EntityPageModule } from '~shared/entity-page';
+import { IconsModule } from '~shared/icons';
+import { InputsModule } from '~shared/inputs';
+import { SelectionBarModule } from '~shared/selection-bar';
 import { TagModule } from '~shared/tag';
 import { UtilsModule } from '~shared/utils';
-import { SelectionBarModule } from '~shared/selection-bar';
+import { AppStoreModule } from '~store/store.module';
+import { SupplierListViewComponent } from '~suppliers/components';
+import { SuppliersPageComponent } from '~suppliers/containers';
+import { UserModule } from '~user';
+
+import { NewSupplierDlgComponent, SupplierStatusIconComponent } from './components';
 import { SupplierDetailsComponent } from './containers';
-import { EntityMainCardModule } from '~shared/entity-main-card';
 import { SupplierService } from './services';
+import { routes } from './routes';
 
 @NgModule({
 	imports: [
 		CommonModule,
+		RouterModule.forChild(routes),
 		// StoreModule.forFeature('testEntities', reducers),
 		// EffectsModule.forFeature(effects),
 		IconsModule, // TODO to be removed and placed inside the component module using it
@@ -47,13 +48,13 @@ import { SupplierService } from './services';
 		SupplierListViewComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
-	providers: [ SupplierService ]
+	providers: [SupplierService],
 })
 export class SuppliersModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: SuppliersModule,
-			providers: [ SupplierService ]
+			providers: [SupplierService],
 		};
 	}
 

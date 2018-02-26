@@ -28,10 +28,11 @@ import {
 	ProductBigCardComponent,
 } from '~products';
 
+import { routes } from './routes';
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild(routes),
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
 		AppStoreModule, // TODO to be removed and placed inside the component module using it
