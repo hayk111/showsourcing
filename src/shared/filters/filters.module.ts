@@ -16,7 +16,7 @@ import {
 	FilterTagComponent,
 	FilterSmartPanelComponent
 } from './components';
-import { IconsModule } from '~modules/shared/icons';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
 	imports: [

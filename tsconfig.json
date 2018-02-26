@@ -30,8 +30,8 @@
 			"~products/*": ["modules/products/*"],
 			"~projects": ["modules/projects/index"],
 			"~projects/*": ["modules/projects/*"],
-			"~shared/*": ["modules/shared/*"],
-			"~shared": ["modules/store/index"],
+			"~shared/*": ["shared/*"],
+			"~shared": ["shared/index"],
 			"~store/*": ["app/store/*"],
 			"~store": ["app/store/index"],
 			"~suppliers/*": ["modules/suppliers/*"],
@@ -41,7 +41,7 @@
 			"~user/*": ["modules/user/*"],
 			"~user": ["modules/user/index"],
 			"~utils/*": ["app/utils/*"],
-			"~utils": ["app/utils/index"]
+			"~utils": ["app/utils/index"],
     }
   }
 }

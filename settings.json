@@ -10,9 +10,8 @@
 		"~suppliers/*": ["${workspaceRoot}/src/modules/suppliers/*"],
 		"~comment/*": ["${workspaceRoot}/src/modules/comment/*"],
 		"~store/*": ["${workspaceRoot}/src/app/store/*"],
-		"~shared/*": ["${workspaceRoot}/src/modules/shared/*"],
+		"~shared/*": ["${workspaceRoot}/src/shared/*"],
 		"~tasks/*": ["${workspaceRoot}/src/modules/tasks/*"],
 		"~dialog/*": ["${workspaceRoot}/src/modules/dialog"],
-
   },
 }

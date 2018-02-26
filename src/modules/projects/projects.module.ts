@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ProjectService } from '~modules/projects';
-import { EntityPageModule } from '~shared/entity-page/entity-page.module';
-import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
-import { UtilsModule } from '~shared/utils/utils.module';
+import { UserModule } from '~modules/user';
+import { EntityPageModule } from '~shared/entity-page';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { UtilsModule } from '~shared/utils';
 import { AppStoreModule } from '~store/store.module';
-import { UserModule } from '~user';
 
-import { ProjectsListViewComponent } from './components/projects-list-view/projects-list-view.component';
-import { ProjectsPageComponent } from './containers/projects-page/projects-page.component';
+import { ProjectsListViewComponent } from './components';
+import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
+import { ProjectService } from './services';
 
 @NgModule({
 	imports: [
