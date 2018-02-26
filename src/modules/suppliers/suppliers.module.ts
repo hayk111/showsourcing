@@ -1,24 +1,25 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupplierStatusIconComponent, NewSupplierDlgComponent } from './components';
-import { IconsModule } from '~shared/icons/icons.module';
+import { IconsModule } from '~shared/icons';
 import { AppStoreModule } from '~store/store.module';
-import { DialogModule } from '~shared/../dialog/dialog.module';
+import { DialogModule } from '~dialog/dialog.module';
 import { UserModule } from '~user';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputsModule } from '~shared/inputs/inputs.module';
+import { InputsModule } from '~shared/inputs';
 import { StoreModule } from '@ngrx/store';
 import { effects } from '~suppliers/store/effects';
 import { EffectsModule } from '@ngrx/effects';
-import { EntityPageModule } from '~shared/entity-page/entity-page.module';
-import { SuppliersPageComponent } from '~suppliers/containers/suppliers-page/suppliers-page.component';
-import { SupplierListViewComponent } from '~suppliers/components/supplier-list-view/supplier-list-view.component';
+import { EntityPageModule } from '~shared/entity-page';
+import { SuppliersPageComponent } from '~suppliers/containers';
+import { SupplierListViewComponent } from '~suppliers/components';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { TagModule } from '~shared/tag/tag.module';
-import { UtilsModule } from '~shared/utils/utils.module';
-import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
-import { SupplierDetailsComponent } from '~modules/suppliers/containers/supplier-details/supplier-details.component';
-import { EntityMainCardModule } from '~modules/shared/entity-main-card';
+import { TagModule } from '~shared/tag';
+import { UtilsModule } from '~shared/utils';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { SupplierDetailsComponent } from './containers';
+import { EntityMainCardModule } from '~shared/entity-main-card';
+import { SupplierService } from './services';
 
 @NgModule({
 	imports: [
@@ -46,5 +47,19 @@ import { EntityMainCardModule } from '~modules/shared/entity-main-card';
 		SupplierListViewComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
+	providers: [ SupplierService ]
 })
-export class SuppliersModule {}
+export class SuppliersModule {
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: SuppliersModule,
+			providers: [ SupplierService ]
+		};
+	}
+
+	static forChild(): ModuleWithProviders {
+		return {
+			ngModule: SuppliersModule,
+		};
+	}
+}

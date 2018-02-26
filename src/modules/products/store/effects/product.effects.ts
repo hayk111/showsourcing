@@ -43,8 +43,8 @@ export class ProductEffects {
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store
-			.select(selectUser)
-			.map(user => user.id)
-			.subscribe(id => (this.userID = id));
+			.select(selectUser).pipe(
+				map(user => user.id)
+			).subscribe(id => (this.userID = id));
 	}
 }

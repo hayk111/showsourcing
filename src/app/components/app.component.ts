@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TokenActions } from '~store/action/misc/token.action';
+import { TokenActions } from '~auth';
 
 @Component({
 	selector: 'app-root',

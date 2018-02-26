@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationModule } from '@swimlane/ngx-ui';
-import { AuthModule } from '~modules/features/auth/auth.module';
+import { AuthModule } from '~auth';
 import { HomeModule } from '~modules/features/home/home.module';
 import { TestModule } from '~modules/features/test/test.module';
 import { ProductDetailsPageModule } from '~modules/products/features/product-details/product-details-page.module';
@@ -26,6 +26,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './components/app.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { ProjectsModule } from '~modules/projects/projects.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -33,27 +34,29 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		TemplateModule,
 		DynamicFormsModule.forRoot(),
-		AuthModule.forRoot(),
 		AppStoreModule.forRoot(),
 		RouterModule.forRoot(routes),
 		LocalStorageModule,
 		HttpClientModule,
-		BrowserAnimationsModule,
 		EntitiesServicesModule,
 		UserModule,
 		TemplateModule,
 		IconsModule,
 		NotificationModule,
 		HomeModule,
-		ProductsPageModule,
 		ProductModule,
-		TasksModule,
-		SuppliersModule,
-		ProductDetailsPageModule,
 		TestModule,
+		// modules
+		SuppliersModule.forRoot(),
+		ProjectsModule.forRoot(),
+		TasksModule.forRoot(),
+		AuthModule.forRoot(),
+
+
 	],
 	providers: [
 		reducerProvider,

@@ -18,6 +18,8 @@
     ],
 		"paths": {
 			"~app/*": ["app/*"],
+			"~auth/*": ["modules/auth/*"],
+			"~auth": ["modules/auth/index"],
 			"~comment/*": ["modules/comment/*"],
 			"~comment": ["modules/comment/index"],
 			"~dialog/*": ["modules/dialog/*"],

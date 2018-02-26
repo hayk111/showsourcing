@@ -1,0 +1,8 @@
+
+export enum AuthView {
+	LOGIN,
+	REGISTER,
+	FORGOT_PASSWORD,
+	PASSWORD_RESET,
+	ACCOUNT_CREATED
+}

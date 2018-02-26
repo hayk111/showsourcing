@@ -8,7 +8,6 @@ import { SupplierService } from '~suppliers';
 import { TaskService } from '~tasks/services/task.service';
 import { UserService } from '~user/services/user.service';
 
-import { AuthService } from './auth.service';
 import { CategoryService } from './category.service';
 import { CountryService } from './country.service';
 import { CurrencyService } from './currency.service';
@@ -24,7 +23,6 @@ import { TagService } from './tag.service';
 import { TeamItemLoaderService } from './team-item-loader.service';
 import { TeamMembersService } from './team-members.service';
 import { TeamService } from './team.service';
-import { TokenService } from './token.service';
 import { VoteService } from './vote.service';
 
 @NgModule({
@@ -34,21 +32,21 @@ import { VoteService } from './vote.service';
 		EntityService,
 		TeamItemLoaderService,
 		TeamService,
-		TaskService,
+		// TaskService,
 		CustomFieldsService,
 		CommentService,
 		FileService,
 		CurrencyService,
 		CountryService,
 		VoteService,
-		AuthService,
-		UserService,
-		TokenService,
+		// AuthService,
+		// UserService,
+		// TokenService,
 		ImageService,
 		TeamMembersService,
 		CategoryService,
-		SupplierService,
-		ProjectService,
+		// SupplierService,
+		// ProjectService,
 		EventService,
 		TagService,
 		PreloaderService,

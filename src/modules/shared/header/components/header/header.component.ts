@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '~utils/index';
 import { Observable } from 'rxjs/Observable';
-import { selectAuthentication } from '~store/selectors/misc/authentication.selector';
-import { AuthActions } from '~store/action/misc/authentication.action';
+import { selectAuthentication } from '~auth';
+import { AuthActions } from '~auth';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'header-app',
@@ -18,7 +19,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.authenticated$ = this.store.select(selectAuthentication).map(auth => auth.authenticated);
+		this.authenticated$ = this.store.select(selectAuthentication).pipe(map(auth => auth.authenticated));
 	}
 
 	logout() {

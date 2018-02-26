@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
-import { DialogModule } from '~shared/../dialog/dialog.module';
-import { EntityPageModule } from '~shared/entity-page/entity-page.module';
+import { DialogModule } from '~dialog/dialog.module';
+import { EntityPageModule } from '~shared/entity-page';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AppStoreModule } from '~store/store.module';
 import { UserModule } from '~user';
-import { UtilsModule } from '~shared/utils/utils.module';
-import { LoadersModule } from '~shared/loaders/loaders.module';
-import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
-import { SelectModule } from '~shared/select/select.module';
-import { InputsModule } from '~shared/inputs/inputs.module';
+import { UtilsModule } from '~shared/utils';
+import { LoadersModule } from '~shared/loaders';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { SelectModule } from '~shared/select';
+import { InputsModule } from '~shared/inputs';
 import { NewTaskDlgComponent } from '~tasks/containers';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TaskService } from './services';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 	],
 	exports: [
 		TasksListViewComponent
-	]
+	],
+	providers: [ TaskService ]
 })
-export class TasksModule { }
+export class TasksModule {
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: TasksModule,
+			providers: [ TaskService ]
+		};
+	}
+
+	static forChild(): ModuleWithProviders {
+		return {
+			ngModule: TasksModule,
+		};
+	}
+}
 

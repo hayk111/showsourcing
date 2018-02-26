@@ -33,7 +33,7 @@ export class PreloaderEffects {
 		map(action => action.payload),
 		tap(id => this.getEntities(id)),
 		tap(id => this.getOnceEntities(id)),
-		switchMap(id => interval(PreloaderEffects.RELOAD_TIME).map(x => id)),
+		switchMap(id => interval(PreloaderEffects.RELOAD_TIME).pipe(map(x => id))),
 		switchMap(
 			id =>
 				this.srv

@@ -1,6 +1,7 @@
 {
   "path-intellisense.mappings": {
-    "~app/*": ["${workspaceRoot}/src/app/*"],
+		"~app/*": ["${workspaceRoot}/src/app/*"],
+		"~auth/*": ["${workspaceRoot}/src/modules/auth/*"],
     "~modules/*": ["${workspaceRoot}/src/modules/*"],
 		"~products/*": ["${workspaceRoot}/src/modules/products/*"],
 		"~projects/*": ["${workspaceRoot}/src/modules/projects/*"],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { entityRepresentationMap } from '../utils/entities.utils';
+import { map } from 'rxjs/operators';
 
 
 
@@ -11,8 +12,9 @@ export class CustomFieldsService {
 	}
 
 	load(id, counter) {
-		return this.http.get(`api/team/${id}/customFields?counter=${counter}`)
-			.map(r => this.mapCustomFields(r));
+		return this.http.get(`api/team/${id}/customFields?counter=${counter}`).pipe(
+			map(r => this.mapCustomFields(r))
+		);
 	}
 
 	mapCustomFields(r) {
