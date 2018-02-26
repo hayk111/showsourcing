@@ -4,15 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationModule } from '@swimlane/ngx-ui';
 import { AuthModule } from '~auth';
-import { HomeModule } from '~modules/features/home/home.module';
 import { ProductModule } from '~modules/products/product.module';
 import { ProjectsModule } from '~modules/projects/projects.module';
 import { SuppliersModule } from '~modules/suppliers/suppliers.module';
 import { TasksModule } from '~modules/tasks/tasks.module';
 import { UserModule } from '~modules/user/user.module';
 import { WorkflowModule } from '~modules/workflow/workflow.module';
+import { CardModule } from '~shared/card/card.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms/dynamic-forms.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
@@ -23,13 +24,14 @@ import { reducerProvider } from '~store/reducer/_reducers';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './components/app.component';
+import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent, HomeComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
@@ -39,13 +41,14 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		AppStoreModule.forRoot(),
 		RouterModule.forRoot(routes),
 		LocalStorageModule,
+		NgxChartsModule,
 		HttpClientModule,
 		EntitiesServicesModule,
 		UserModule,
 		TemplateModule,
 		IconsModule,
+		CardModule,
 		NotificationModule,
-		HomeModule,
 		ProductModule,
 		WorkflowModule,
 		// modules

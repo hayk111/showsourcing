@@ -1,19 +1,19 @@
 import { Route } from '@angular/router';
+import { AuthCardComponent, AuthGuardService } from '~auth';
 import { CommentCtnrComponent } from '~modules/comment/containers/comment-ctnr/comment-ctnr.component';
-import { AuthGuardService, AuthCardComponent } from '~auth';
-import { DataManagementPageComponent } from '~modules/features/data-management/components/data-management-page/data-management-page.component';
-import { HomeComponent } from '~modules/features/home/components/home/home.component';
-import { TeamManagementPageComponent } from '~modules/features/team-management/components/team-management-page/team-management-page.component';
-import { WorkflowPageComponent } from '~modules/workflow/containers/workflow-page/workflow-page.component';
+import { DataManagementPageComponent } from '~modules/data-management/containers';
+import { HomeComponent } from '~app/components/home/home.component';
 import { ProjectsPageComponent } from '~modules/projects/containers/projects-page/projects-page.component';
-import { SuppliersPageComponent, SupplierDetailsComponent } from '~suppliers';
-import { TasksPageComponent } from '~tasks';
+import { TeamManagementPageComponent } from '~modules/team-management/components';
+import { WorkflowPageComponent } from '~modules/workflow/containers/workflow-page/workflow-page.component';
 import {
 	ProductFilesComponent,
 	ProductPageComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from '~products/features';
+import { SupplierDetailsComponent, SuppliersPageComponent } from '~suppliers';
+import { TasksPageComponent } from '~tasks';
 
 export const routes: Array<Route> = [
 	{ path: 'login', component: AuthCardComponent },
