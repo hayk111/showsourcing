@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions } from '../../../../store/action/misc/filter.action';
-import { FilterGroupName, Filter } from '../../../../store/model/misc/filter.model';
-import { selectFilterGroup } from '../../../../store/selectors/misc/filter.selectors';
+import { FilterActions } from '~store/action/misc/filter.action';
+import { FilterGroupName, Filter } from '~store/model/misc/filter.model';
+import { selectFilterGroup } from '~store/selectors/misc/filter.selectors';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

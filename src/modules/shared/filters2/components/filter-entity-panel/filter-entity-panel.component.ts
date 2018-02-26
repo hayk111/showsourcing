@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FilterClass, Filter, FilterEntityClass } from '../../../../store/model/misc/filter.model';
+import { FilterClass, Filter, FilterEntityClass } from '~store/model/misc/filter.model';
 import { Store } from '@ngrx/store';
-import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
+import { selectEntityArray } from '~store/selectors/misc/utils.selector';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

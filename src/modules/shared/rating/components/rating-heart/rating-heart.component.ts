@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { EntityTarget } from '../../../../store/utils/entities.utils';
+import { EntityTarget } from '~store/utils/entities.utils';
 
 @Component({
   selector: 'rating-heart-app',

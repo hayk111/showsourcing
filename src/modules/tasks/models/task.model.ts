@@ -1,16 +1,16 @@
-import { uuid } from '../../store/utils/uuid.utils';
+import { uuid } from '~store/utils/uuid.utils';
 
 export enum TaskStatus {
 	TODO = 'Todo',
 	IN_PROGRESS = 'In Progress',
-	DONE = 'Done'
+	DONE = 'Done',
 }
 
 export enum TaskType {
 	CUSTOM = 'Custom',
 	QUOTATION = 'Quotation',
 	SAMPLE = 'Sample',
-	CATALOGUE = 'Catalogue'
+	CATALOGUE = 'Catalogue',
 }
 
 export class Task {

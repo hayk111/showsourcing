@@ -1,12 +1,8 @@
-import { TypedAction } from './../../../store/utils/typed-action.interface';
-import { ProductActionsFactory, ActionTypes } from '../actions/product.action';
+import { addEntities, copyById, entityInitialState, EntityState } from '~store/utils/entities.utils';
+import { TypedAction } from '~store/utils/typed-action.interface';
+
 import { Product } from '../../models/product.model';
-import {
-	EntityState,
-	entityInitialState,
-	copyById,
-	addEntities,
-} from '../../../store/utils/entities.utils';
+import { ActionTypes } from '../actions/product.action';
 
 // tslint:disable-next-line:no-empty-interface
 export interface ProductState extends EntityState<Product> {}

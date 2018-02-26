@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity } from '../../../../store/utils/entities.utils';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { Entity } from '~store/utils/entities.utils';
 
 @Component({
 	selector: 'data-management-table-app',
 	templateUrl: './data-mananagement-table.component.html',
 	styleUrls: ['./data-mananagement-table.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataMananagementTableComponent implements OnInit {
 	@Input() items = [];
@@ -16,11 +16,9 @@ export class DataMananagementTableComponent implements OnInit {
 
 	selected = [];
 	searchStr = '';
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-
-	}
+	ngOnInit() {}
 
 	onUpdate(item, event) {
 		this.update.emit({ propName: 'name', value: event, itemId: item.id });
@@ -44,9 +42,7 @@ export class DataMananagementTableComponent implements OnInit {
 	}
 
 	get availableItems() {
-		if (!this.searchStr)
-			return this.items;
+		if (!this.searchStr) return this.items;
 		return this.items.filter(item => item.name.startsWith(this.searchStr));
 	}
-
 }

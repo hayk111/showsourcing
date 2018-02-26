@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FilterClass, FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { FilterClass, FilterGroupName } from '~store/model/misc/filter.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { FilterPanelAction } from '../../../../store/action/ui/filter-panel.action';
-import { selectFilterPanelOpen } from '../../../../store/selectors/ui/filter-panel.selector';
-import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
+import { FilterPanelAction } from '~store/action/ui/filter-panel.action';
+import { selectFilterPanelOpen } from '~store/selectors/ui/filter-panel.selector';
+import { selectViewSwitcher } from '~store/selectors/ui/view-switcher.selector';
 
 @Component({
 	selector: 'filtered-list-page-app',

@@ -8,7 +8,7 @@
 		"~user/*": ["${workspaceRoot}/src/modules/user/*"],
 		"~suppliers/*": ["${workspaceRoot}/src/modules/suppliers/*"],
 		"~comment/*": ["${workspaceRoot}/src/modules/comment/*"],
-		"~store/*": ["${workspaceRoot}/src/modules/store/*"],
+		"~store/*": ["${workspaceRoot}/src/app/store/*"],
 		"~shared/*": ["${workspaceRoot}/src/modules/shared/*"],
 		"~tasks/*": ["${workspaceRoot}/src/modules/tasks/*"],
 		"~dialog/*": ["${workspaceRoot}/src/modules/dialog"],

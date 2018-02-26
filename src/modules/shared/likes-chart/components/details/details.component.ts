@@ -1,23 +1,22 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { EntityState } from '../../../../store/utils/entities.utils';
-import { User } from '../../../../user/models/user.model';
-import { VoteByType } from '../../../../store/selectors/target/target.selector';
+import { EntityState } from '~store/utils/entities.utils';
+import { User } from '~user/models/user.model';
+import { VoteByType } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'details-app',
 	templateUrl: './details.component.html',
 	styleUrls: ['./details.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent implements OnInit {
 	@Input() votes: VoteByType;
 	@Input() teamMembers: EntityState<User>;
 	detailsShown = false;
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	showDetails() {
 		this.detailsShown = true;
@@ -26,5 +25,4 @@ export class DetailsComponent implements OnInit {
 	hideDetails() {
 		this.detailsShown = false;
 	}
-
 }

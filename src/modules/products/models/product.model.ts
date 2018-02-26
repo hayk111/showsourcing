@@ -1,12 +1,12 @@
-import { Counters } from '../../store/model/entities/counters.interface';
-import { Currency } from '../../store/model/entities/currency.model';
+import { Counters } from '~store/model/entities/counters.interface';
+import { Currency } from '~store/model/entities/currency.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
 	UNDER_ASSESSMENT = 'Under Assessment',
 	NEED_REVIEW = 'Need Review',
 	COMPLETE = 'Complete',
-	REFUSED = 'Refused'
+	REFUSED = 'Refused',
 }
 
 export interface Product {
@@ -27,25 +27,25 @@ export interface Product {
 	additionalInfo: any;
 	additionalInfoCounters: any;
 	status: ProductStatus;
-	flags: { archived: boolean, feedbackRequested: boolean, locked: boolean };
-	computedValues: { taskCount: number, score: number, commentCount: number };
+	flags: { archived: boolean; feedbackRequested: boolean; locked: boolean };
+	computedValues: { taskCount: number; score: number; commentCount: number };
 	description: string;
 	eventId: string;
 	rating: number;
 	mainImage: {
-		id: string,
-		filename: string,
-		imageType: string,
-		creationDate: number,
-		createdByUserId: string,
-		orientation: number,
+		id: string;
+		filename: string;
+		imageType: string;
+		creationDate: number;
+		createdByUserId: string;
+		orientation: number;
 		urls: {
-			url_60x45: string,
-			url_120x90: string,
-			url_220x165: string,
-			url_400x300: string,
-			url_600x450: string,
-			url_1000x1000: string,
+			url_60x45: string;
+			url_120x90: string;
+			url_220x165: string;
+			url_400x300: string;
+			url_600x450: string;
+			url_1000x1000: string;
 		};
 	};
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
 	selector: 'editable-field-app',
 	templateUrl: './editable-field.component.html',
-	styleUrls: ['./editable-field.component.scss']
+	styleUrls: ['./editable-field.component.scss'],
 })
 export class EditableFieldComponent implements OnInit {
 	@Input() value;
@@ -15,10 +15,9 @@ export class EditableFieldComponent implements OnInit {
 
 	editMode = false;
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	openEditMode() {
 		this.editMode = true;
@@ -27,7 +26,6 @@ export class EditableFieldComponent implements OnInit {
 	closeEditMode() {
 		// so the blur event of the input fires
 		// without this, the inputs isn't shown and the blur doesn't fire
-		setTimeout(() => this.editMode = false, 0);
+		setTimeout(() => (this.editMode = false), 0);
 	}
-
 }

@@ -1,14 +1,12 @@
-import { Action } from '@ngrx/store';
-import { Product } from '../../models/product.model';
 import {
 	addActionType,
-	makeBasicActionTypes,
-	makeBasicActions,
+	BasicActions,
 	BasicActionTypes,
-	BasicActions
-} from '../../../store/action/entities/_entity.action.factory';
-import { entityRepresentationMap } from '../../../store/utils/entities.utils';
-import { TypedAction } from '../../../store/utils/typed-action.interface';
+	makeBasicActions,
+	makeBasicActionTypes,
+} from '~store/action/entities/_entity.action.factory';
+import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { TypedAction } from '~store/utils/typed-action.interface';
 
 // Extending action constants with specific ones
 export interface ProductActionTypes extends BasicActionTypes {
@@ -28,7 +26,7 @@ export const ProductActionsFactory: ProductActions = makeBasicActions(ActionType
 ProductActionsFactory.requestPdf = (id: string) => {
 	return {
 		type: ActionTypes.REQUEST_PDF,
-		payload: id
+		payload: id,
 	};
 };
 

@@ -1,17 +1,16 @@
 import { createSelector } from 'reselect';
-import { ProductState } from './../reducers/product.reducer';
-import { Filter } from './../../../store/model/misc/filter.model';
+import { Filter, FilterGroupName } from '~store/model/misc/filter.model';
+import { selectCategories } from '~store/selectors/entities/categories.selector';
+import { selectEvents } from '~store/selectors/entities/events.selector';
+import { selectProductStatuses } from '~store/selectors/entities/product-status.selector';
+import { selectFilterGroup } from '~store/selectors/misc/filter.selectors';
+import { deepCopy } from '~store/utils/deep-copy.utils';
+import { EntityState } from '~store/utils/entities.utils';
+import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
 
-import { EntitiesState } from './../reducers';
-import { selectProductStatuses } from './../../../store/selectors/entities/product-status.selector';
-import { selectCategories } from './../../../store/selectors/entities/categories.selector';
-import { selectEvents } from './../../../store/selectors/entities/events.selector';
-import { selectSuppliers } from '../../../suppliers/store/selectors/suppliers.selector';
-import { entityRepresentationMap, EntityState } from './../../../store/utils/entities.utils';
 import { Product } from '../../models/product.model';
-import { deepCopy } from './../../../store/utils/deep-copy.utils';
-import { FilterGroupName } from '../../../store/model/misc/filter.model';
-import { selectFilterGroup } from './../../../store/selectors/misc/filter.selectors';
+import { EntitiesState } from './../reducers';
+import { ProductState } from './../reducers/product.reducer';
 
 export const getEntitiesState = state => state.entities;
 const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;

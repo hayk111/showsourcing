@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectTeamMembers } from '../../../../store/selectors/entities/team-members.selector';
 import { Observable } from 'rxjs/Observable';
-import { EntityState, entityStateToArray } from '../../../../store/utils/entities.utils';
-import { User } from '../../../../user/models/user.model';
-import { selectVotesForCurrentTarget, selectVotesByType, VoteByType } from '../../../../store/selectors/target/target.selector';
-import { map, tap } from 'rxjs/operators';
-import { Vote } from '../../../../store/model/entities/vote.model';
+import { map } from 'rxjs/operators';
+import { selectTeamMembers } from '~store/selectors/entities/team-members.selector';
+import {
+	selectVotesByType,
+	selectVotesForCurrentTarget,
+	VoteByType,
+} from '~store/selectors/target/target.selector';
+import { EntityState } from '~store/utils/entities.utils';
+import { User } from '~user/models/user.model';
 
 @Component({
 	selector: 'likes-card-app',
@@ -20,16 +23,14 @@ export class LikesCardComponent implements OnInit {
 	colorScheme = {
 		positive: '#71e591',
 		neutral: '#EBEBEB',
-		negative: '#f94259'
+		negative: '#f94259',
 	};
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
 		this.teamMembers$ = this.store.select(selectTeamMembers);
-		this.pending$ = this.store.select(selectVotesForCurrentTarget)
-			.pipe(map(state => state.pending));
+		this.pending$ = this.store.select(selectVotesForCurrentTarget).pipe(map(state => state.pending));
 		this.votes$ = this.store.select(selectVotesByType);
 	}
-
 }

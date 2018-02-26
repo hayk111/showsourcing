@@ -1,7 +1,7 @@
-import { filter, map, tap } from 'rxjs/operators';
-import { EntityState, Entity, entityRepresentationMap, EntityTarget } from '../../store/utils/entities.utils';
 import { Observable } from 'rxjs/Observable';
-import { selectProducts } from '../../products';
+import { filter, map } from 'rxjs/operators';
+import { selectProducts } from '~products';
+import { Entity, entityRepresentationMap, EntityState, EntityTarget } from '~store/utils/entities.utils';
 
 export function getFirstProductEntityTarget(store, takeUntil): Observable<EntityTarget> {
 	// we select a product then we load images for it

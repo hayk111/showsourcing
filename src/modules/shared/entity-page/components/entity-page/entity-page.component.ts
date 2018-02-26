@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/misc/filter.model';
+import { FilterGroupName } from '~store/model/misc/filter.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { selectViewSwitcher } from '../../../../store/selectors/ui/view-switcher.selector';
-import { EntityRepresentation } from '../../../../store/utils/entities.utils';
+import { selectViewSwitcher } from '~store/selectors/ui/view-switcher.selector';
+import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
   selector: 'entity-page-app',

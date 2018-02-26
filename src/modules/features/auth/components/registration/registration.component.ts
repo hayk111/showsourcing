@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Authentication } from '../../../../store/model/misc/authentication.model';
-import { selectAuthentication } from '../../../../store/selectors/misc/authentication.selector';
-import { AuthActions } from '../../../../store/action/misc/authentication.action';
+import { Authentication } from '~store/model/misc/authentication.model';
+import { selectAuthentication } from '~store/selectors/misc/authentication.selector';
+import { AuthActions } from '~store/action/misc/authentication.action';
 
 @Component({
 	selector: 'registration-app',

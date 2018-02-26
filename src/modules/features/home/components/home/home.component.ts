@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectUser } from '../../../../user/store/selectors/user.selector';
-import { AuthActions } from '../../../../store/action/misc/authentication.action';
-
+import { selectUser } from '~user/store/selectors/user.selector';
+import { AuthActions } from '~store/action/misc/authentication.action';
 
 @Component({
 	selector: 'home-app',
 	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.scss']
+	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
 	user$: Observable<any>;
@@ -16,32 +15,29 @@ export class HomeComponent implements OnInit {
 	res = [
 		{
 			name: 'sold',
-			value: 12545
+			value: 12545,
 		},
 		{
 			name: 'bought',
-			value: 8746
+			value: 8746,
 		},
 		{
 			name: 'net gains',
-			value: 3799
-		}
+			value: 3799,
+		},
 	];
 
-
 	colorScheme = {
-		domain: ['#F46B45', '#6188fb', '#f7f228']
+		domain: ['#F46B45', '#6188fb', '#f7f228'],
 	};
 
 	constructor(private store: Store<any>) {
 		this.user$ = this.store.select(selectUser);
 	}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	logout() {
 		this.store.dispatch(AuthActions.logout());
 	}
-
 }

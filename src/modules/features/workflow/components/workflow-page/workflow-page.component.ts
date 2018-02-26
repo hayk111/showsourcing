@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FilterGroupName } from '../../../../store/model/misc/filter.model';
-import { entityRepresentationMap, EntityState } from '../../../../store/utils/entities.utils';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectProducts, Product } from '../../../../products';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { TargetAction } from '../../../../store/action/target/target.action';
+import { Product, selectProducts } from '~products';
+import { TargetAction } from '~store/action/target/target.action';
+import { FilterGroupName } from '~store/model/misc/filter.model';
+import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 
 @Component({
 	selector: 'workflow-page-app',
 	templateUrl: './workflow-page.component.html',
-	styleUrls: ['./workflow-page.component.scss']
+	styleUrls: ['./workflow-page.component.scss'],
 })
 export class WorkflowPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.WORKFLOW_PAGE;

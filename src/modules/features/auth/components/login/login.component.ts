@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Credentials } from '../../utils/credentials.interface';
-import { Authentication } from '../../../../store/model/misc/authentication.model';
-import { selectAuthentication } from '../../../../store/selectors/misc/authentication.selector';
+import { Authentication } from '~store/model/misc/authentication.model';
+import { selectAuthentication } from '~store/selectors/misc/authentication.selector';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AuthActions } from '../../../../store/action/misc/authentication.action';
+import { AuthActions } from '~store/action/misc/authentication.action';
 
 @Component({
 	selector: 'login-app',

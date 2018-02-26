@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { ProductActionsFactory, ActionTypes } from '../actions/product.action';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { selectUser } from '../../../user/store/selectors/user.selector';
-import { AppFile } from '../../../store/model/entities/app-file.model';
 import { ProductService } from '~products/services/product.service';
-import { FileTargetActions } from '../../../store/action/target/file.action';
+import { FileTargetActions } from '~store/action/target/file.action';
+import { AppFile } from '~store/model/entities/app-file.model';
+import { selectUser } from '~user/store/selectors/user.selector';
+
+import { ActionTypes, ProductActionsFactory } from '../actions/product.action';
 
 @Injectable()
 export class ProductEffects {

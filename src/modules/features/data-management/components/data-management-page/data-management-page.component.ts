@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Entity, EntityRepresentation, entityRepresentationMap } from '../../../../store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { selectEntityArray } from '../../../../store/selectors/misc/utils.selector';
-import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { CustomFieldsActions } from '../../../../store/action/entities/index';
+import { selectEntityArray } from '~store/selectors/misc/utils.selector';
+import { Entity, EntityRepresentation, entityRepresentationMap } from '~store/utils/entities.utils';
 
 @Component({
 	selector: 'data-management-page-app',
 	templateUrl: './data-management-page.component.html',
-	styleUrls: ['./data-management-page.component.scss']
+	styleUrls: ['./data-management-page.component.scss'],
 })
 export class DataManagementPageComponent implements OnInit {
 	entities = [
@@ -18,13 +15,13 @@ export class DataManagementPageComponent implements OnInit {
 		entityRepresentationMap.categories,
 		entityRepresentationMap.suppliers,
 		entityRepresentationMap.tags,
-		entityRepresentationMap.projects
+		entityRepresentationMap.projects,
 	];
 	selectedEntity;
 	selection = [];
 	items$: Observable<Array<Entity>>;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
 		this.select(this.entities[0]);
@@ -54,5 +51,4 @@ export class DataManagementPageComponent implements OnInit {
 	updateItem(patch) {
 		this.store.dispatch(this.selectedEntity.actions.patch(patch));
 	}
-
 }

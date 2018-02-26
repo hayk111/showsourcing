@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { FilterGroupName } from '../../../../store/model/misc/filter.model';
-import { selectProductByStatus, ProductActionsFactory } from '../../../../products';
+import { FilterGroupName } from '~store/model/misc/filter.model';
+import { selectProductByStatus, ProductActionsFactory } from '~products';
 
 @Component({
 	selector: 'workflow-kanban-app',
 	templateUrl: './workflow-kanban.component.html',
-	styleUrls: ['./workflow-kanban.component.scss']
+	styleUrls: ['./workflow-kanban.component.scss'],
 })
 export class WorkflowKanbanComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;

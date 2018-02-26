@@ -1,27 +1,22 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '~user';
-import { AppStoreModule } from '../store/store.module';
-import { UserPictureComponent } from './components/user-picture/user-picture.component';
-import { UserPictureWithNameComponent } from './components/user-picture-with-name/user-picture-with-name.component';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { effects } from '~user';
+import { AppStoreModule } from '~store/store.module';
+import { effects, UserService } from '~user';
+
+import { UserPictureWithNameComponent } from './components';
+import { UserPictureComponent } from './components/user-picture/user-picture.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		AppStoreModule.forChild(),
-		EffectsModule.forFeature(effects),
-	],
-	providers: [ UserService ],
-	declarations: [ UserPictureComponent, UserPictureWithNameComponent ],
-	exports: [ UserPictureComponent, UserPictureWithNameComponent ]
+	imports: [CommonModule, AppStoreModule.forChild(), EffectsModule.forFeature(effects)],
+	providers: [UserService],
+	declarations: [UserPictureComponent, UserPictureWithNameComponent],
+	exports: [UserPictureComponent, UserPictureWithNameComponent],
 })
 export class UserModule {
 	static forChild(): ModuleWithProviders {
 		return {
-			ngModule: UserModule
+			ngModule: UserModule,
 		};
 	}
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AppFile } from '../../../../store/model/entities/app-file.model';
+import { AppFile } from '~store/model/entities/app-file.model';
 import { Log } from '~utils/index';
-import { AppImage } from '../../../../store/model/entities/app-image.model';
+import { AppImage } from '~store/model/entities/app-image.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

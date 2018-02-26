@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { entityRepresentationMap } from '../../../../store/utils/entities.utils';
+import { entityRepresentationMap } from '~store/utils/entities.utils';
 
 @Component({
 	selector: 'app-test-inputs-selectors',
 	templateUrl: './test-inputs-selectors.component.html',
-	styleUrls: ['./test-inputs-selectors.component.scss']
+	styleUrls: ['./test-inputs-selectors.component.scss'],
 })
 export class TestInputsSelectorsComponent implements OnInit {
 	event: any;
 	group: FormGroup;
 	choices = [
-		{ id: '1', name: 'first item'},
-		{ id: '2', name: 'second item'},
-		{ id: '3', name: 'third item'},
-		{ id: '4', name: 'fourth item'}
+		{ id: '1', name: 'first item' },
+		{ id: '2', name: 'second item' },
+		{ id: '3', name: 'third item' },
+		{ id: '4', name: 'fourth item' },
 	];
 
 	suppliersRepr = entityRepresentationMap.suppliers;
@@ -24,7 +24,7 @@ export class TestInputsSelectorsComponent implements OnInit {
 			one: ['2'],
 			multi: [['2', '3']],
 			oneSupplier: '6c1fc48c-db9d-499e-9068-d7cea3005b04',
-			manySuppliers: '6c1fc48c-db9d-499e-9068-d7cea3005b04'
+			manySuppliers: '6c1fc48c-db9d-499e-9068-d7cea3005b04',
 		});
 	}
 
@@ -32,9 +32,7 @@ export class TestInputsSelectorsComponent implements OnInit {
 		this.group.controls[name].patchValue(val);
 	}
 
-	ngOnInit() {
-
-	}
+	ngOnInit() {}
 
 	onBlur(event) {
 		console.log(event);

@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '../../../../store/selectors/misc/filter.selectors';
-import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '../../../../store/model/misc/filter.model';
+import { selectFiltersByName, selectFiltersValues, selectFiltersForClass } from '~store/selectors/misc/filter.selectors';
+import { FilterGroupName, FilterClass, Filter, FilterEntity, FilterEntityClass } from '~store/model/misc/filter.model';
 import { SelectableItem } from '../../../inputs/components/input-checkbox/input-checkbox.component';
 import { take } from 'rxjs/operators';
-import { selectEntityArray, selectEntity } from '../../../../store/selectors/misc/utils.selector';
-import { FilterEntityPanelActions } from '../../../../store/action/ui/filter-entity-panel.action';
-import { EntityRepresentation } from '../../../../store/utils/entities.utils';
-import { selectFEPRelevant, selectFEPChoices } from '../../../../store/selectors/ui/filter-entity-panel.selector';
-import { FilterActions } from '../../../../store/action/misc/filter.action';
-import { FilterPanelAction } from '../../../../store/action/ui/filter-panel.action';
+import { selectEntityArray, selectEntity } from '~store/selectors/misc/utils.selector';
+import { FilterEntityPanelActions } from '~store/action/ui/filter-entity-panel.action';
+import { EntityRepresentation } from '~store/utils/entities.utils';
+import { selectFEPRelevant, selectFEPChoices } from '~store/selectors/ui/filter-entity-panel.selector';
+import { FilterActions } from '~store/action/misc/filter.action';
+import { FilterPanelAction } from '~store/action/ui/filter-panel.action';
 
 @Component({
 	selector: 'filter-panel-app',
