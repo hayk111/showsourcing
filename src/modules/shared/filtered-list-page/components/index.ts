@@ -1,1 +1,0 @@
-export * from './filtered-list-page/filtered-list-page.component';

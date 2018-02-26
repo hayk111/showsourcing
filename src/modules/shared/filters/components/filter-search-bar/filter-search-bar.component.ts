@@ -6,7 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { searchEntity, searchEntities, SmartSearch } from '~store/selectors/misc/search-entities.selector';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
 import { take, tap } from 'rxjs/operators';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
+
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -35,6 +36,5 @@ export class FilterSearchBarComponent implements OnInit {
 		if (value)
 			this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
-
 
 }

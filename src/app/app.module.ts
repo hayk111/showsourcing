@@ -14,7 +14,6 @@ import { TasksModule } from '~modules/tasks/tasks.module';
 import { UserModule } from '~modules/user/user.module';
 import { WorkflowModule } from '~modules/workflow/workflow.module';
 import { CardModule } from '~shared/card/card.module';
-import { DynamicFormsModule } from '~shared/dynamic-forms/dynamic-forms.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
 import { TemplateModule } from '~shared/template/template.module';
@@ -37,7 +36,6 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		TemplateModule,
-		DynamicFormsModule.forRoot(),
 		AppStoreModule.forRoot(),
 		RouterModule.forRoot(routes),
 		LocalStorageModule,

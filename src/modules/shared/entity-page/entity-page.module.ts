@@ -2,20 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityPageComponent } from './components/entity-page/entity-page.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component';
-import { SwitchModule } from '../switch/switch.module';
-import { FilterSearchBarModule } from '../filter-search-bar/filter-search-bar.module';
 import { LoadersModule } from '../loaders/loaders.module';
-
+import { ViewSwitcherComponent } from './components';
+import { FiltersModule } from '~shared/filters';
 
 // template for the main pages (suppliers, product, tasks, etc.)
 @NgModule({
   imports: [
 		CommonModule,
-		SwitchModule,
-		FilterSearchBarModule,
+		FiltersModule,
 		LoadersModule
   ],
-	declarations: [ EntityPageComponent, TopPanelComponent ],
+	declarations: [ EntityPageComponent, TopPanelComponent, ViewSwitcherComponent ],
 	exports: [ EntityPageComponent ]
 })
 export class EntityPageModule { }
