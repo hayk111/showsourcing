@@ -3,8 +3,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 import { CommentTargetActions } from '~comment/store/actions/comment.action';
 
-import { FileTargetActions } from '../../action/target/file.action';
-import { ImageTargetActions } from '../../action/target/images.action';
+import { FileTargetActions } from '~features/file';
+import { ImageTargetActions } from '~features/file';
 import { ProjectTargetActions } from '../../action/target/project.action';
 import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { ActionType } from '../../action/target/target.action';

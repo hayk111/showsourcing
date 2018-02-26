@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Product } from '~products';
 import { ProjectTargetActions } from '~store/action/target/project.action';
 import { TargetAction } from '~store/action/target/target.action';
-import { AppFile } from '~store/model/entities/app-file.model';
+import { AppFile } from '~features/file';
 import { AppComment } from '~comment';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { entityRepresentationMap, EntityTarget } from '~store/utils/entities.utils';

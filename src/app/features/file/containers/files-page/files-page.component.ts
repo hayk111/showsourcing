@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserService } from '~user';
-import { FileTargetActions } from '~store/action/target/file.action';
-import { AppFile } from '~store/model/entities/app-file.model';
+import { UserService } from '~features/user';
+import { FileTargetActions } from '~features/file/store/actions';
+import { AppFile } from '~features/file/models';
 import { selectFilesArrayForCurrentTarget } from '~store/selectors/target/target.selector';
 import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-	selector: 'app-product-files',
-	templateUrl: './product-files.component.html',
-	styleUrls: ['./product-files.component.scss'],
+	selector: 'files-page-app',
+	templateUrl: './files-page.component.html',
+	styleUrls: ['./files-page.component.scss'],
 })
-export class ProductFilesComponent extends AutoUnsub implements OnInit {
+export class FilesPageComponent extends AutoUnsub implements OnInit {
 	files$: Observable<Array<AppFile>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {

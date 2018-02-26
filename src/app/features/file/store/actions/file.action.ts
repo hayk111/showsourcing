@@ -1,6 +1,6 @@
-import { AppFile } from '../../model/entities/app-file.model';
+import { AppFile } from '../../models';
 
-export enum ActionType {
+export enum FileActionType {
 	LOAD = '[FileTarget] loading',
 	SET = '[FileTarget] setting',
 	ADD = '[FileTarget] adding',
@@ -12,41 +12,41 @@ export enum ActionType {
 export class FileTargetActions {
 	static load() {
 		return {
-			type: ActionType.LOAD
+			type: FileActionType.LOAD
 		};
 	}
 
 	static set(files: Array<AppFile>) {
 		return {
-			type: ActionType.SET,
+			type: FileActionType.SET,
 			payload: files
 		};
 	}
 
 	static replace(old: AppFile, replacing: AppFile) {
 		return {
-			type: ActionType.REPLACE,
+			type: FileActionType.REPLACE,
 			payload: { old, replacing }
 		};
 	}
 
 	static add(file: AppFile) {
 		return {
-			type: ActionType.ADD,
+			type: FileActionType.ADD,
 			payload: file
 		};
 	}
 
 	static download(file: AppFile) {
 		return {
-			type: ActionType.DOWNLOAD,
+			type: FileActionType.DOWNLOAD,
 			payload: file
 		};
 	}
 
 	static remove(file: AppFile) {
 		return {
-			type: ActionType.REMOVE,
+			type: FileActionType.REMOVE,
 			payload: file
 		};
 	}

@@ -1,20 +1,20 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { FileService } from '../../services/file.service';
-import { SelectionService } from '../../services/selection.service';
-import { ActionType, FileTargetActions } from '../../action/target/file.action';
+import { FileService } from '../../services';
+import { SelectionService } from '~store/services/selection.service';
+import { FileActionType, FileTargetActions } from '../actions';
 import { mergeMap } from 'rxjs/operators';
-import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
+import { FeedbackDlgActions, FeedbackStyle } from '~store/action/ui/feedback-dlg.action';
 import { catchError } from 'rxjs/operators/catchError';
-import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class FilesTargetEffects {
 
 	@Effect()
-	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+	load$ = this.actions$.ofType<any>(FileActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
@@ -25,7 +25,7 @@ export class FilesTargetEffects {
 	// 2. post the file
 	// 3. When the posted file is done, replace here will be called
 	@Effect()
-	add$ = this.actions$.ofType<any>(ActionType.ADD)
+	add$ = this.actions$.ofType<any>(FileActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
@@ -40,7 +40,7 @@ export class FilesTargetEffects {
 		);
 
 	@Effect({ dispatch: false })
-	removeFile$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
+	removeFile$ = this.actions$.ofType<any>(FileActionType.REMOVE).pipe(
 		map(action => action.payload),
 		withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
 		switchMap(p => this.srv.delete(p))
@@ -48,7 +48,7 @@ export class FilesTargetEffects {
 
 
 	@Effect({ dispatch: false })
-	download$ = this.actions$.ofType<any>(ActionType.DOWNLOAD).pipe(
+	download$ = this.actions$.ofType<any>(FileActionType.DOWNLOAD).pipe(
 		map(action => action.payload),
 		tap( img => this.srv.download(img))
 	);

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
-import { AppFile } from '~store/model/entities/app-file.model';
+import { AppFile } from '~features/file';
 import { EntityTarget } from '~store/utils/entities.utils';
 import { ChangeDetectionStrategy } from '@angular/core';
 

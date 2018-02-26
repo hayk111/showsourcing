@@ -2,8 +2,8 @@ import { FileService } from './file.service';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppImage } from '../model/entities/app-image.model';
-import { EntityTarget } from '../utils/entities.utils';
+import { AppImage } from '../models/app-image.model';
+import { EntityTarget } from '~store/utils/entities.utils';
 
 
 

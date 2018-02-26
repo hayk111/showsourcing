@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { CardModule } from '~shared/card/card.module';
+import { FileModule } from '~features/file';
+import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
 import { EntityMainCardModule } from '~shared/entity-main-card';
-import { EntityPageModule } from '~shared/entity-page/entity-page.module';
-import { FileModule } from '~shared/file/file.module';
-import { IconsModule } from '~shared/icons/icons.module';
-import { LikesChartModule } from '~shared/likes-chart/likes-chart.module';
-import { LoadersModule } from '~shared/loaders/loaders.module';
-import { PriceModule } from '~shared/price/price.module';
+import { EntityPageModule } from '~shared/entity-page';
+import { IconsModule } from '~shared/icons';
+import { LikesChartModule } from '~shared/likes-chart';
+import { LoadersModule } from '~shared/loaders';
+import { PriceModule } from '~shared/price';
 import { RatingModule } from '~shared/rating';
 import { SelectableImageModule } from '~shared/selectable-image';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -21,24 +21,23 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
-	ProductCardViewComponent,
-	ProductIconsComponent,
-	ProductSelectableCardComponent,
-	ProductSmallCardComponent,
-	ProductStatusBadgeComponent,
-	ProductSubInfoComponent,
-	ProductTopCardComponent,
-	SelectionActionsComponent,
+  ProductCardViewComponent,
+  ProductIconsComponent,
+  ProductSelectableCardComponent,
+  ProductSmallCardComponent,
+  ProductStatusBadgeComponent,
+  ProductSubInfoComponent,
+  ProductTopCardComponent,
+  SelectionActionsComponent,
 } from './components';
 import {
-	ProductBigCardComponent,
-	ProductFilesComponent,
-	ProductInfoCardComponent,
-	ProductListViewComponent,
-	ProductPageComponent,
-	ProductSidePreviewComponent,
-	ProductsPageComponent,
-	ProductTasksComponent,
+  ProductBigCardComponent,
+  ProductInfoCardComponent,
+  ProductListViewComponent,
+  ProductPageComponent,
+  ProductSidePreviewComponent,
+  ProductsPageComponent,
+  ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
@@ -83,7 +82,6 @@ import { effects } from './store';
 		ProductSelectableCardComponent,
 		SelectionActionsComponent,
 		ProductBigCardComponent,
-		ProductFilesComponent,
 		ProductPageComponent,
 		ProductTasksComponent,
 	],

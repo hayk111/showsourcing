@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { entityStateToArray } from '~store/utils/entities.utils';
 import { Store } from '@ngrx/store';
-import { AppImage } from '~store/model/entities/app-image.model';
+import { AppImage } from '~features/file/models';
 import { AutoUnsub } from '~utils/index';
 import { selectImagesForCurrentTarget } from '~store/selectors/target/target.selector';
-import { ImageTargetActions } from '~store/action/target/images.action';
+import { ImageTargetActions } from '~features/file/store/actions';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Component({
-	selector: 'carousel-container-app',
-	templateUrl: './carousel-container.component.html',
-	styleUrls: ['./carousel-container.component.scss'],
+	selector: 'carousel-selection-app',
+	templateUrl: './carousel-selection.component.html',
+	styleUrls: ['./carousel-selection.component.scss'],
 })
-export class CarouselContainerComponent extends AutoUnsub implements OnInit {
+export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	images$: Observable<Array<AppImage>>;
 	pending$: Observable<Array<boolean>>;
 

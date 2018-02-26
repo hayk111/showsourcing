@@ -1,4 +1,4 @@
-import { Entity } from '../../utils/entities.utils';
+import { Entity } from '../../../app-root/store/utils/entities.utils';
 
 
 export class AppFile extends Entity {

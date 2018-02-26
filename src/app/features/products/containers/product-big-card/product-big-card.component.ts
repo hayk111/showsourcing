@@ -13,12 +13,12 @@ import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { selectEntityById } from '~store/selectors/misc/utils.selector';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { FileTargetActions } from '~store/action/target/file.action';
-import { AppFile } from '~store/model/entities/app-file.model';
+import { FileTargetActions } from '~features/file';
+import { AppFile } from '~features/file';
 import { UserService } from '~user';
-import { AppImage } from '~store/model/entities/app-image.model';
-import { ImageTargetActions } from '~store/action/target/images.action';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { AppImage } from '~features/file';
+import { ImageTargetActions } from '~features/file';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'product-big-card-app',

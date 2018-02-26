@@ -1,23 +1,23 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { addEntities, entityInitialState, replaceEntity } from '../../utils/entities.utils';
-import { ActionType } from '../../action/target/images.action';
+import { TypedAction } from '~store/utils/typed-action.interface';
+import { addEntities, entityInitialState, replaceEntity } from '~store/utils/entities.utils';
+import { ImageActionType } from '../actions';
 
 export function imageSelectionReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
 
-		case ActionType.SET:
+		case ImageActionType.SET:
 			return addEntities(state, action.payload);
 
-		case ActionType.ADD:
+		case ImageActionType.ADD:
 			return addEntities(state, [action.payload]);
 
-		case ActionType.LOAD:
+		case ImageActionType.LOAD:
 			return entityInitialState;
 
-		case ActionType.REPLACE:
+		case ImageActionType.REPLACE:
 			return replaceEntity(state, action.payload.old, action.payload.replacing);
 
-		case ActionType.ROTATE:
+		case ImageActionType.ROTATE:
 			const id = action.payload.id;
 			let rotation = state.byId[id].rotation || 0;
 			rotation++;

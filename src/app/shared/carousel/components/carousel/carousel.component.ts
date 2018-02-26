@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AppImage } from '~store/model/entities/app-image.model';
+import { AppImage } from '~features/file/models/app-image.model';
 import { Log } from '~utils';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
 

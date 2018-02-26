@@ -2,6 +2,7 @@
   "path-intellisense.mappings": {
 		"~app/*": ["${workspaceRoot}/src/app/*"],
 		"~features/*": ["${workspaceRoot}/src/app/features/*"],
+		"~file/*": ["${workspaceRoot}/src/app/features/file/*"],
 		"~auth/*": ["${workspaceRoot}/src/app/features/auth/*"],
 		"~products/*": ["${workspaceRoot}/src/app/features/products/*"],
 		"~projects/*": ["${workspaceRoot}/src/app/features/projects/*"],
@@ -13,6 +14,6 @@
 		"~store/*": ["${workspaceRoot}/src/app/app/store/*"],
 		"~shared/*": ["${workspaceRoot}/src/app/shared/*"],
 		"~tasks/*": ["${workspaceRoot}/src/app/features/tasks/*"],
-		"~dialog/*": ["${workspaceRoot}/src/app/features/dialog"],
+		"~dialog/*": ["${workspaceRoot}/src/app/shared/dialog"],
   },
 }

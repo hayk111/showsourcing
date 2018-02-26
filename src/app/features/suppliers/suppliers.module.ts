@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { DialogModule } from '~dialog/dialog.module';
+import { DialogModule } from '~shared/dialog';
 import { EntityMainCardModule } from '~shared/entity-main-card';
 import { EntityPageModule } from '~shared/entity-page';
 import { IconsModule } from '~shared/icons';

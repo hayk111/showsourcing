@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalCarouselComponent } from './components/modal-carousel/modal-carousel.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
-import { UtilsModule } from '../utils/utils.module';
-import { IconsModule } from '../icons/icons.module';
-import { LoadersModule } from '../loaders/loaders.module';
+import { ModalCarouselComponent } from './components';
+import { CarouselComponent } from './components';
+import { UtilsModule } from '~shared/utils';
+import { IconsModule } from '~shared/icons';
+import { LoadersModule } from '~shared/loaders';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		UtilsModule,
 		IconsModule,
-		LoadersModule
+		LoadersModule,
 	],
 	declarations: [ ModalCarouselComponent, CarouselComponent ],
 	exports: [ ModalCarouselComponent, CarouselComponent ]

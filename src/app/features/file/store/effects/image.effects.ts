@@ -1,12 +1,12 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom, retry, catchError } from 'rxjs/operators';
-import { EntityTarget } from '../../utils/entities.utils';
-import { ImageService } from '../../services/images.service';
-import { AppImage } from '../../model/entities/app-image.model';
-import { SelectionService } from '../../services/selection.service';
-import { ActionType, ImageTargetActions } from '../../action/target/images.action';
-import { AppErrorActions } from '../../action/misc/app-errors.action';
+import { EntityTarget } from '~store/utils/entities.utils';
+import { ImageService } from '../../services';
+import { AppImage } from '../../models';
+import { SelectionService } from '~store/services/selection.service';
+import { ImageActionType, ImageTargetActions } from './../actions';
+import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
@@ -15,14 +15,14 @@ export class ImageTargetEffects {
 	constructor(private actions$: Actions, private srv: ImageService, private selectionSrv: SelectionService) {}
 
 	@Effect()
-	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
+	load$ = this.actions$.ofType<any>(ImageActionType.LOAD).pipe(
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap((target: EntityTarget) => this.srv.load(target)),
 		map((files: Array<AppImage>) => ImageTargetActions.set(files))
 	);
 
 	@Effect()
-	addForSelection$ = this.actions$.ofType<any>(ActionType.ADD)
+	addForSelection$ = this.actions$.ofType<any>(ImageActionType.ADD)
 		.pipe(
 			map(action => action.payload),
 			withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
@@ -37,7 +37,7 @@ export class ImageTargetEffects {
 		));
 
 	@Effect()
-	rotate$ = this.actions$.ofType<any>(ActionType.ROTATE).pipe(
+	rotate$ = this.actions$.ofType<any>(ImageActionType.ROTATE).pipe(
 		map(action => action.payload),
 		switchMap(
 			(img) => this.srv.rotate(img),
@@ -46,13 +46,13 @@ export class ImageTargetEffects {
 	);
 
 	@Effect({ dispatch: false })
-	download$ = this.actions$.ofType<any>(ActionType.DOWNLOAD).pipe(
+	download$ = this.actions$.ofType<any>(ImageActionType.DOWNLOAD).pipe(
 		map(action => action.payload),
 		tap( img => this.srv.download(img))
 	);
 
 	@Effect({ dispatch: false })
-	delete$ = this.actions$.ofType<any>(ActionType.REMOVE).pipe(
+	delete$ = this.actions$.ofType<any>(ImageActionType.REMOVE).pipe(
 		map(action => action.payload),
 		withLatestFrom( this.selectionSrv.getSelection(), (file, target ) => ({ file, target })),
 		switchMap(p => this.srv.delete(p))

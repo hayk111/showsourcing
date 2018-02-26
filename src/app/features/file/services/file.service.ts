@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, switchMap } from 'rxjs/operators';
-import { EntityTarget } from '~store/utils/entities.utils';
-import { selectUser } from '~user/store/selectors/user.selector';
+import { EntityTarget } from 'app/app-root/store/utils/entities.utils';
+import { selectUser } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
-import { AppFile } from '../model/entities/app-file.model';
-import { AppImage } from '../model/entities/app-image.model';
+import { AppFile } from '../models/app-file.model';
+import { AppImage } from '../models/app-image.model';
 
 @Injectable()
 export class FileService {

@@ -21,7 +21,7 @@ import {
 	TeamActionTypes,
 	TeamMembersActionTypes,
 } from '../action/entities';
-import { ActionType as FileSlctnActionTypes } from '../action/target/file.action';
+import { FileActionType } from '~features/file';
 import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
@@ -31,7 +31,7 @@ import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { filtersReducer } from './misc/filter.reducer';
-import { imageSelectionReducer } from './target/image-target.reducer';
+import { imageSelectionReducer } from '~features/file';
 import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
 import { authDlgReducer, authenticationReducer } from '~auth';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
@@ -68,7 +68,7 @@ const foccussedEntity = combineReducers({
 	tags: targetReducerFactory(TagSlctnActionTypes),
 	tasks: targetReducerFactory(TaskSlctnActionTypes),
 	comments: commentReducer,
-	files: targetReducerFactory(FileSlctnActionTypes),
+	files: targetReducerFactory(FileActionType),
 	images: imageSelectionReducer,
 	votes: targetReducerFactory(VoteSlctnActionTypes),
 });

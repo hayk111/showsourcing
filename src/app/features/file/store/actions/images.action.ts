@@ -1,6 +1,6 @@
-import { AppImage } from '../../model/entities/app-image.model';
+import { AppImage } from '../../models';
 
-export enum ActionType {
+export enum ImageActionType {
 	LOAD = '[ImageTarget] loading',
 	SET = '[ImageTarget] setting',
 	ADD = '[ImageTarget] adding',
@@ -13,28 +13,28 @@ export enum ActionType {
 export class ImageTargetActions {
 	static load() {
 		return {
-			type: ActionType.LOAD
+			type: ImageActionType.LOAD
 		};
 	}
 
 
 	static replace(old: AppImage, replacing: AppImage) {
 		return {
-			type: ActionType.REPLACE,
+			type: ImageActionType.REPLACE,
 			payload: { old, replacing }
 		};
 	}
 
 	static add(img: AppImage) {
 		return {
-			type: ActionType.ADD,
+			type: ImageActionType.ADD,
 			payload: img
 		};
 	}
 
 	static set(imgs: Array<AppImage>) {
 		return {
-			type: ActionType.SET,
+			type: ImageActionType.SET,
 			payload: imgs
 		};
 	}
@@ -42,21 +42,21 @@ export class ImageTargetActions {
 
 	static remove(img: AppImage) {
 		return {
-			type: ActionType.REMOVE,
+			type: ImageActionType.REMOVE,
 			payload: img
 		};
 	}
 
 	static rotate(img: AppImage) {
 		return {
-			type: ActionType.ROTATE,
+			type: ImageActionType.ROTATE,
 			payload: img
 		};
 	}
 
 	static download(img: AppImage) {
 		return {
-			type: ActionType.DOWNLOAD,
+			type: ImageActionType.DOWNLOAD,
 			payload: img
 		};
 	}

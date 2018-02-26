@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogName } from '~dialog';
+import { DialogName } from '~shared/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogActions } from '~dialog';
+import { DialogActions } from '~shared/dialog';
 import { Store } from '@ngrx/store';
 import { SupplierActions } from '~suppliers/store/actions';
 import { Supplier } from '~suppliers/models';

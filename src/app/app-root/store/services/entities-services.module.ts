@@ -14,9 +14,7 @@ import { CurrencyService } from './currency.service';
 import { CustomFieldsService } from './custom-fields.service';
 import { EntityService } from './entity.service';
 import { EventService } from './event.service';
-import { FileService } from './file.service';
 import { FilterEntityPanelService } from './filter-entity-panel.service';
-import { ImageService } from './images.service';
 import { PreloaderService } from './preloader.service';
 import { SelectionService } from './selection.service';
 import { TagService } from './tag.service';
@@ -35,14 +33,14 @@ import { VoteService } from './vote.service';
 		// TaskService,
 		CustomFieldsService,
 		CommentService,
-		FileService,
+		// FileService,
 		CurrencyService,
 		CountryService,
 		VoteService,
 		// AuthService,
 		// UserService,
 		// TokenService,
-		ImageService,
+		// ImageService,
 		TeamMembersService,
 		CategoryService,
 		// SupplierService,

@@ -1,7 +1,7 @@
 <header>
 	<icon-app sizePx="24" *ngIf="product?.rating === 5" class="heart flexCenter" name="heart" color="warn"></icon-app>
 	<product-status-badge-app class="status" [status]="product?.status"></product-status-badge-app>
-	<carousel-container-app class="carousel cc" (fileDrop)="onFileDrop($event)" class=".header"></carousel-container-app>
+	<carousel-selection-app class="carousel cc" (fileDrop)="onFileDrop($event)" class=".header"></carousel-selection-app>
 </header>
 
 

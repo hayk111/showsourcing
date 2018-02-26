@@ -2,11 +2,11 @@ import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
 import {
-	ProductFilesComponent,
 	ProductPageComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from './containers';
+import { FilesPageComponent } from '~app/features/file';
 
 export const routes: Array<Route> = [
 	{
@@ -20,7 +20,7 @@ export const routes: Array<Route> = [
 				children: [
 					{ path: 'activity', component: CommentCtnrComponent },
 					{ path: 'tasks', component: ProductTasksComponent },
-					{ path: 'files', component: ProductFilesComponent },
+					{ path: 'files', component: FilesPageComponent },
 				],
 			},
 		],
