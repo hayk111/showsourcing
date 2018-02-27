@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 	selector: 'view-switcher-app',
 	templateUrl: './view-switcher.component.html',
 	styleUrls: ['./view-switcher.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSwitcherComponent implements OnInit {
 	_view: 'list' | 'card' = 'list';
@@ -32,5 +32,4 @@ export class ViewSwitcherComponent implements OnInit {
 	get view() {
 		return this._view;
 	}
-
 }

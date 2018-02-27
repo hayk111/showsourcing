@@ -1,4 +1,8 @@
-<div class="ctnr c-{{ view }} z-2 borderRadius">
-	<button class="small {{ view === 'list' ? 'selected z-1' : ''}}" (mousedown)="switchView('list')">List</button>
-	<button class="small {{ view === 'card' ? 'selected z-1' : ''}}" (mousedown)="switchView('card')">Board</button>
+<div class="ctnr c-{{ view }} borderRadius flex">
+	<button class="small {{ view === 'list' ? 'selected z-1' : ''}}" (mousedown)="switchView('list')">
+		<div class="icon-list"></div>List
+	</button>
+	<button class="small {{ view === 'card' ? 'selected z-1' : ''}}" (mousedown)="switchView('card')">
+			<div class="icon-thumbs"></div>Thumbs
+	</button>
 </div>

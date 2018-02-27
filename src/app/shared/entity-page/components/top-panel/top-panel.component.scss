@@ -1,9 +1,9 @@
 :host {
-	display: block;
+  display: block;
 }
 
 .ctnr {
-	padding: var(--spacing-l);
+	padding: var(--spacing-top-panel) 0;
 }
 
 .right > * {
@@ -12,4 +12,13 @@
 
 .hr {
 	margin: 0 var(--spacing-l);
+}
+
+
+button {
+  height: 40px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

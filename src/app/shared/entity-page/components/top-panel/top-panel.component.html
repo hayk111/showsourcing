@@ -1,7 +1,8 @@
 <div class="ctnr flexBetween">
-	<h3>My {{ repr.entityName }}</h3>
-	<div class="flex right">
-		<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
+	<h2>My {{ repr.entityName }}</h2>
+	<div class="flexCenter right">
+    <filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
+    <div class="vertDivider"></div>
 		<view-switcher-app *ngIf="switchable" (viewChange)="viewChange.emit($event)" [view]="view"></view-switcher-app>
 		<button (click)="onClick()" class="small">create {{ repr.displayName }}</button>
 	</div>
