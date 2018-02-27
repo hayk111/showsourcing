@@ -13,3 +13,12 @@
 .hr {
 	margin: 0 var(--spacing-l);
 }
+
+
+button {
+  height: 40px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

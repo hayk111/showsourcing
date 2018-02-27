@@ -1,5 +1,5 @@
 <ng-container *ngIf="view$ | async as view">
-  <div class="ctnr c-{{ view }} z-2 borderRadius flex">
+  <div class="ctnr c-{{ view }} borderRadius flex">
     <button class="small {{ view === 'list' ? 'selected z-1' : ''}}" (mousedown)="switchView('list')">
       <div class="icon-list"></div>List
     </button>

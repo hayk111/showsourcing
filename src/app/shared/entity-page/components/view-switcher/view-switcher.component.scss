@@ -10,21 +10,18 @@
 }
 
 :host {
-    border-radius: var(--border-radius);
+    border-radius: 2px;
     background: var(--color-bg-switcher);
 }
 
 .ctnr {
     // to suppress the shadow from the btn
     overflow: hidden;
-    height: 33px;
-    &>* {
-        height: 100%;
-    }
 }
 
 button {
     height: 40px;
+    border-radius: 2px;
     display: flex;
     flex-direction: row;
     align-items: center;
