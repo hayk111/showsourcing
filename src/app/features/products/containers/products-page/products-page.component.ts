@@ -53,6 +53,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	previewDialogOpen = false;
 	// keeps tracks of the current selection
 	selections = new Map<string, boolean>();
+	// current view
+	view: 'list' | 'card' = 'list';
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
@@ -99,5 +101,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	closeDialog() {
 		this.previewDialogOpen = false;
+	}
+
+	onViewChange(v: 'list' | 'card') {
+		this.view = v;
 	}
 }

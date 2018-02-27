@@ -1,0 +1,76 @@
+	<ngx-datatable
+		class="fullWidth"
+		[rows]="products"
+		columnMode="force"
+		[reorderable]="true"
+		[headerHeight]="48"
+		[rowHeight]="80"
+		[externalSorting]="true"
+		(sort)="onSort($event)"
+		[limit]="100">
+
+		<ngx-datatable-column name="" [minWidth]="300">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="flexCenter mainCell">
+					<input
+						type="checkbox"
+						[checked]="selections.get(row.id)"
+						(change)="onCheck($event, row.id)"/>
+					<img [src]="row?.mainImage?.urls?.url_60x45"/>
+					<span class="name">{{ row.name }}</span>
+				</div>
+
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="Supplier" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{ row?.supplierId | entityName: 'suppliers' | async }}
+			</ng-template>
+		</ngx-datatable-column>
+
+
+		<ngx-datatable-column name="Category" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{ row?.categoryId | entityName: 'categories' | async }}
+			</ng-template>
+		</ngx-datatable-column>
+
+
+		<ngx-datatable-column name="Price" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="Feedback" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="Created on" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{ row?.creationDate | date: 'MMMM y' }}
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="" [flexGrow]="1" [maxWidth]="50">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="info" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<user-picture-with-name-app
+					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column name="action" [flexGrow]="1">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
+			</ng-template>
+		</ngx-datatable-column>
+	</ngx-datatable>

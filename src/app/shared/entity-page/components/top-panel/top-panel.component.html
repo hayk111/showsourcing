@@ -2,7 +2,7 @@
 	<h3>My {{ repr.entityName }}</h3>
 	<div class="flex right">
 		<filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
-		<view-switcher-app *ngIf="switchable"></view-switcher-app>
+		<view-switcher-app *ngIf="switchable" (viewChange)="viewChange.emit($event)" [view]="view"></view-switcher-app>
 		<button (click)="onClick()" class="small">create {{ repr.displayName }}</button>
 	</div>
 </div>

@@ -1,6 +1,11 @@
-<entity-page-app [filterGroupName]="filterGroupName" [pending]="pending$ | async" [repr]="repr">
+<entity-page-app
+	[filterGroupName]="filterGroupName"
+	[pending]="pending$ | async"
+	[repr]="repr"
+	(viewChange)="onViewChange($event)">
 		<!-- views -->
 		<product-list-view-app
+			*ngIf="view === 'list'"
 			class="list-view"
 			[filterGroupName]="filterGroupName"
 			[selections]="selections"
@@ -8,9 +13,12 @@
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
 			(productOpen)="onItemOpened($event)"
-			(productVote)="onItemVoted($event)"></product-list-view-app>
+			(productVote)="onItemVoted($event)"
+			(productFavorited)="onItemFavorited($event)"
+			(productUnfavorited)="onItemUnfavorited($event)"></product-list-view-app>
 		<product-card-view-app
 			class="card-view"
+			*ngIf="view === 'card'"
 			[products]="products$ | async"
 			[selections]="selections"
 			(productSelect)="onItemSelected($event)"

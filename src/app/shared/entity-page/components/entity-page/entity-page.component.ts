@@ -1,8 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilterGroupName } from '~store/model/misc/filter.model';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { selectViewSwitcher } from '~store/selectors/ui/view-switcher.selector';
 import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
@@ -15,16 +12,14 @@ export class EntityPageComponent implements OnInit {
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
+	@Input() view: 'list' | 'card';
 	@Output() createClick = new EventEmitter<any>();
+	@Output() viewChange = new EventEmitter<any>();
 
-	view$: Observable<any>;
-
-  constructor(private store: Store<any>) { }
+  constructor() { }
 
   ngOnInit() {
-		this.view$ = this.store.select(selectViewSwitcher);
+
 	}
-
-
 
 }

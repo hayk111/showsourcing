@@ -1,6 +1,4 @@
-<ng-container *ngIf="view$ | async as view">
-	<div class="ctnr c-{{ view }} z-2 borderRadius">
-		<button class="small {{ view === 'list' ? 'selected z-1' : ''}}" (mousedown)="switchView('list')">List</button>
-		<button class="small {{ view === 'card' ? 'selected z-1' : ''}}" (mousedown)="switchView('card')">Board</button>
-	</div>
-</ng-container>
+<div class="ctnr c-{{ view }} z-2 borderRadius">
+	<button class="small {{ view === 'list' ? 'selected z-1' : ''}}" (mousedown)="switchView('list')">List</button>
+	<button class="small {{ view === 'card' ? 'selected z-1' : ''}}" (mousedown)="switchView('card')">Board</button>
+</div>
