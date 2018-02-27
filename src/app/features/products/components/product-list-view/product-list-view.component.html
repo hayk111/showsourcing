@@ -23,52 +23,52 @@
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="Supplier" [flexGrow]="1">
+		<ngx-datatable-column name="Supplier">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				{{ row?.supplierId | entityName: 'suppliers' | async }}
 			</ng-template>
 		</ngx-datatable-column>
 
 
-		<ngx-datatable-column name="Category" [flexGrow]="1">
+		<ngx-datatable-column name="Category">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				{{ row?.categoryId | entityName: 'categories' | async }}
 			</ng-template>
 		</ngx-datatable-column>
 
 
-		<ngx-datatable-column name="Price" [flexGrow]="1">
+		<ngx-datatable-column name="Price">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="Feedback" [flexGrow]="1">
+		<ngx-datatable-column name="Feedback">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="Created on" [flexGrow]="1">
+		<ngx-datatable-column name="Created on">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				{{ row?.creationDate | date: 'MMMM y' }}
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="" [flexGrow]="1" [maxWidth]="50">
+		<ngx-datatable-column name="" [maxWidth]="50">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="info" [flexGrow]="1">
+		<ngx-datatable-column name="info">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				<user-picture-with-name-app
 					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
 			</ng-template>
 		</ngx-datatable-column>
 
-		<ngx-datatable-column name="action" [flexGrow]="1">
+		<ngx-datatable-column name="action">
 			<ng-template let-row="row" ngx-datatable-cell-template>
 				<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
 			</ng-template>
