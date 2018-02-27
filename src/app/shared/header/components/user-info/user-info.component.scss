@@ -3,8 +3,8 @@
 	align-items: center;
 }
 
-:host > * {
-	margin: 8px;
+:host > *:not(:last-child) {
+	margin-right: 20px;
 }
 
 
@@ -12,10 +12,23 @@
 	font-size: 12px;
 	font-weight: bold;
 	font-weight: bold;
-	.team {
-		font-weight: 400;
-	}
 }
+
+.team {
+  font-weight: 400;
+  line-height: 24px;
+  text-transform: capitalize;
+  vertical-align: middle;
+}
+.caret {
+  height: 24px;
+  width: 20px;
+  margin-left: 5px;
+  display: block;
+  text-indent: -9999px;
+  background: url('/assets/icons/caret.svg') no-repeat center;
+}
+
 
 .panelCtnr {
 	position: relative;

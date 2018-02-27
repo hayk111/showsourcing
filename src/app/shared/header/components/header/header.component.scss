@@ -19,7 +19,7 @@
     margin-right: 22px;
     display: block;
     text-indent: -9999px;
-    background: url('assets/icons/logo.svg');
+    background: url('/assets/icons/logo.svg');
 }
 
 nav {
@@ -45,8 +45,10 @@ notif-app {
 }
 
 .vertDivider {
-    width: 1px;
-    height: 45px;
-    margin: 0 var(--spacing-default);
-    background-color: var(--color-delimiter);
+  height: 20px;
+  width: 2px;
+  margin-right: 22px;
+  display: block;
+  text-indent: -9999px;
+  background: url('/assets/icons/divider.svg');
 }
