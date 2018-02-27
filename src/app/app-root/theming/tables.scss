@@ -15,17 +15,20 @@ datatable-body {
 	background-color: #F9FAFC;
 	font-weight: bold;
 	border: 1px solid #E6EBF5;
+	border-top: 0;
 }
+
 datatable-body-row {
 	datatable-body-cell {
-		border: 0.5px solid #E6EBF5;
+		border: 1px solid #E6EBF5;
 		display: flex!important;
 		align-items: center;
 		font-weight: normal;
 		padding: var(--spacing-default);
-	}
-	datatable-body-cell:not(:last-child) {
 		border-right: 0;
+	}
+	datatable-body-cell:last-of-type(datatable-body-cell) {
+		border-right: 1px solid #E6EBF5;
 	}
 }
 
@@ -34,12 +37,5 @@ datatable-body-row.active {
 }
 
 datatable-body-row:focus, datatable-body-row:hover {
-	background: rgba(0, 0, 0, 0.04);
-	datatable-body-cell {
-		border: 1px solid var(--color-primary-dark);
-	}
-	datatable-body-cell:not(:last-child) {
-		border-right: 0;
-	}
-
+	background: var(--color-bg-fourth);
 }
