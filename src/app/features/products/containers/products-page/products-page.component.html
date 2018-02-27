@@ -3,17 +3,15 @@
 	[pending]="pending$ | async"
 	[repr]="repr"
 	(viewChange)="onViewChange($event)">
-		<!-- views -->
+		<!-- views: either one will be displayed when the correct view is selected -->
 		<product-list-view-app
 			*ngIf="view === 'list'"
 			class="list-view"
-			[filterGroupName]="filterGroupName"
 			[selections]="selections"
 			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
 			(productOpen)="onItemOpened($event)"
-			(productVote)="onItemVoted($event)"
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"></product-list-view-app>
 		<product-card-view-app
@@ -23,6 +21,7 @@
 			[selections]="selections"
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
+			(productVote)="onItemVoted($event)"
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"
 			(productOpen)="onItemOpened($event)"></product-card-view-app>

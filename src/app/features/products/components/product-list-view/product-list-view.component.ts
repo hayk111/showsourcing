@@ -17,14 +17,13 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
-	@Input() filterGroupName: FilterGroupName;
 	@Input() products: Array<Product>;
 	@Input() selections: Map<string, boolean>;
 
 	constructor() {}
 
 	ngOnInit() {
-		Log.info('table init')
+		Log.info('table init');
 	}
 
 	onActivate(event) {
