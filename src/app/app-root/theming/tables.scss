@@ -1,8 +1,8 @@
 
 datatable-header {
 	text-transform: uppercase;
-	background-color: #5D6D8B;
-	color: white;
+	background-color: var(--color-primary-dark);
+	color: var(--color-primary-dark-contrast);
 	font-weight: bold;
 	vertical-align: middle;
 	display: flex!important;
@@ -36,7 +36,7 @@ datatable-body-row.active {
 datatable-body-row:focus, datatable-body-row:hover {
 	background: rgba(0, 0, 0, 0.04);
 	datatable-body-cell {
-		border: 1px solid #5D6D8B;
+		border: 1px solid var(--color-primary-dark);
 	}
 	datatable-body-cell:not(:last-child) {
 		border-right: 0;
