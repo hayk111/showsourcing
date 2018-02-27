@@ -1,0 +1,29 @@
+
+datatable-header {
+	text-transform: uppercase;
+	background-color: #5D6D8B;
+	color: white;
+	font-weight: bold;
+	vertical-align: middle;
+	display: flex;
+	align-items: center;
+}
+
+datatable-body {
+	background-color: #F9FAFC;
+	font-weight: bold;
+
+}
+
+
+.datatable-body-cell {
+	border: 1px solid #E6EBF5;;
+}
+
+datatable-body-row.active {
+	background: rgba(0, 0, 0, 0.15);
+}
+
+datatable-body-row:focus, datatable-body-row:hover {
+	background: rgba(0, 0, 0, 0.05);
+}
