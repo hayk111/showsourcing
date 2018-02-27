@@ -1,24 +1,16 @@
-import { selectProductFocused } from '~products/store/selectors';
-import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '~products';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { AppImage, ImageTargetActions } from '~features/file';
+import { Product } from '~products/models';
+import { selectProductById, selectProductFocused } from '~products/store';
 import {
-	selectCommentsArrayForCurrentTarget,
 	selectNumCommentsForCurrentTarget,
 	selectNumTasksForSelection,
 } from '~store/selectors/target/target.selector';
-import { AutoUnsub } from '~utils/index';
-import { takeUntil, tap, switchMap, filter } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { selectEntityById } from '~store/selectors/misc/utils.selector';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { FileTargetActions } from '~features/file';
-import { AppFile } from '~features/file';
 import { UserService } from '~user';
-import { AppImage } from '~features/file';
-import { ImageTargetActions } from '~features/file';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-big-card-app',
@@ -37,7 +29,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const product$ = this.store.select(selectProductFocused).pipe(filter((o: any) => o));
+		const product$: Observable<Product> = this.store.select(selectProductFocused).pipe(filter((o: any) => o));
 		product$.pipe(takeUntil(this._destroy$)).subscribe(p => (this.product = p));
 		this.store
 			.select(selectNumCommentsForCurrentTarget)
@@ -49,10 +41,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 			.subscribe(n => (this.numTasks = n));
 
 		product$
-			.pipe(
-				map(product => ({ entityId: product.createdByUserId, entityRepr: entityRepresentationMap.teamMembers })),
-				switchMap(target => this.store.select(selectEntityById(target)))
-			)
+			.pipe(switchMap(target => this.store.select(selectProductById(target.id))))
 			.subscribe(u => (this.user = u));
 	}
 
