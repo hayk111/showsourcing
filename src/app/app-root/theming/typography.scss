@@ -13,7 +13,8 @@ https://getmdl.io/styles/index.html */
 	--font-size-default: 13px;
 	--font-size-l: 15px;
 	--font-size-xl: 17px;
-	--font-size-xxl: 19px;
+  --font-size-xxl: 19px;
+  --font-size-xxxl: 24px;
 }
 /* body 1 */
 body, .body, .body1 {
@@ -28,20 +29,21 @@ body, .body, .body1 {
 }
 
 h2, h3 {
-	font-size: var(--font-size-xxl);
 	font-weight: 500;
-	color: var(--color-txt-strong);
+	color: var(--color-txt-primary);
 	margin: 0;
 }
 
 h2 {
-	margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+  font-size: var(--font-size-xxxl);
 }
 
 // used on top of cards
 h3 {
 	text-align: center;
-	margin-bottom: var(--spacing-l);
+  margin-bottom: var(--spacing-l);
+  font-size: var(--font-size-xxl);
 }
 
 h4 {

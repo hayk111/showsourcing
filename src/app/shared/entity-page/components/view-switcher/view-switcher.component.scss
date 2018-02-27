@@ -1,22 +1,45 @@
-.selected{
-	background: var(--color-bg);
+.selected {
+    background: var(--color-primary-dark);
+    color: white;
+    >[class^="icon-"],
+    [class*=" icon-"] {
+        &:before {
+            color: white;
+        }
+    }
 }
 
 :host {
-	border-radius: var(--border-radius);
+    border-radius: var(--border-radius);
+    background: var(--color-bg-switcher);
 }
 
 .ctnr {
-	// to suppress the shadow from the btn
-	overflow: hidden;
-	height: 33px;
-	& > * {
-		height: 100%;
-	}
+    // to suppress the shadow from the btn
+    overflow: hidden;
+    height: 33px;
+    &>* {
+        height: 100%;
+    }
 }
 
 button {
-	background: var(--color-bg-secondary);
-	color: var(--color-txt-secondary);
-	padding: var(--spacing-s) var(--spacing-xxl);
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: var(--font-size-default);
+    background: var(--color-bg-switcher);
+    color: var(--color-txt-primary);
+    padding: 0 15px;
+    >[class^="icon-"],
+    [class*=" icon-"] {
+        padding: 0 7px;
+        padding-left: 0;
+        font-size: 11px;
+        &:before {
+            color: var(--color-txt-primary);
+        }
+    }
 }
+
