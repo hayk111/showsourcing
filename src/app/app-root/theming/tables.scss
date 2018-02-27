@@ -8,6 +8,7 @@ datatable-header {
 	display: flex!important;
 	align-items: center;
 	border-radius: var(--border-radius) var(--border-radius) 0 0;
+	padding: var(--spacing-default);
 }
 
 datatable-body {
