@@ -1,3 +1,3 @@
-<span class="ctnr" [ngStyle]="{ 'background-color': 'var(--color-' + status.pascalToKebabCase() + ')' }" *ngIf="status">
+<span class="ctnr" [ngClass]="'badge-' + status.pascalToKebabCase()" *ngIf="status">
 	{{ status | entityName: 'productStatus' | async }}
 </span>

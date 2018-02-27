@@ -1,44 +1,36 @@
 <div class="ctnr z-a {{ selected ? 'z-7' : 'z-2'}}">
-	<!-- top of card -->
-	<div class="flexBetween top">
-		<div>
-			<div class="name">{{ product?.name }}</div>
-			<div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
-		</div>
-		<rating-heart-app [rating]="product?.rating" (click)="onRateClick()"></rating-heart-app>
-	</div>
+  <!-- top of card -->
+  <div class="flexColumn top">
+    <div class="flexBetween">
+      <div class="name">{{ product?.name }}</div>
+      <rating-heart-app [rating]="product?.rating" (click)="onRateClick()"></rating-heart-app>
+    </div>
+    <div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
+  </div>
 
 
-	<!-- middle card: picture + badge  -->
-	<div class="imgCtnr flexCenter">
-		<selectable-image-app
-			[selected]="selected"
-			(unselect)="productUnselect.emit(product.id)"
-			(select)="productSelect.emit(product.id)"
-			(open)="productOpen.emit(product.id)"
-			(vote)="onVote($event)"
-			class="img"
-			[url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
-	</div>
+  <!-- middle card: picture + badge  -->
+  <div class="imgCtnr flexCenter">
+    <selectable-image-app [selected]="selected" (unselect)="productUnselect.emit(product.id)" (select)="productSelect.emit(product.id)"
+      (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+  </div>
 
-	<div class="flexCenter">
-		<product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
-	</div>
+  <div class="flexCenter">
+    <product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
+  </div>
 
-	<!-- bottom card -->
+  <!-- bottom card -->
 
-	<div class="bottom">
-		<div>
-			<div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
-		</div>
-		<div class="footer fullWidth flexBetween">
-			<product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
-			<div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
-		</div>
-	</div>
+  <div class="bottom">
+    <div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+    <div class="tags">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+    <div class="footer fullWidth flexBetween">
+      <product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
+      <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
+    </div>
+  </div>
 
-	<!-- border -->
-	<div class="border {{ selected ? 'selected' : '' }}" ></div>
+  <!-- border -->
+  <div class="border {{ selected ? 'selected' : '' }}"></div>
 
 </div>
-

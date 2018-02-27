@@ -25,5 +25,6 @@
 		</div>
 		<icon-app class="pointer hide" name="trash-alt" color="white" (click)="trash.emit()" color="inherit"></icon-app>
 	</div>
-	<img class="{{selected ? 'blurred': ''}}" [src]="url || defaultImg"/>
+  <img class="cardImg {{selected ? 'blurred': ''}}" [src]="url || defaultImg"/>
+  <!-- <div class="cardImg {{selected ? 'blurred': ''}}" [style.backgroundImage]="getURL()"></div> -->
 </div>

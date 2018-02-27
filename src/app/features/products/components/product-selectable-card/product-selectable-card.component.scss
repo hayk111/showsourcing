@@ -1,71 +1,89 @@
 :host {
-	margin: var(--spacing-l);
-	display: block;
+    margin: var(--spacing-l);
+    margin-left: 0;
+    display: block;
 }
 
 .ctnr {
-	height: 327px;
-	width: 260px;
-	box-sizing: border-box;
-	border-radius: var(--border-radius);
-	background-color: var(--color-bg);
-	padding: var(--spacing-default);
-	position: relative;
+    height: 330px;
+    width: 250px;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg);
+    padding: var(--spacing-default);
+    position: relative;
 }
 
 .top {
-	margin-bottom: var(--spacing-s);
-	height: 34px;
-	.name {
-		font-weight: 500;
-	}
-	.category {
-		font-size: var(--font-size-s);
-		color: var(--color-txt-secondary);
-	}
+    margin-bottom: var(--spacing-s);
+    height: 34px;
+    .name {
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 188px;
+    }
+    .category {
+        font-size: var(--font-size-s);
+        color: var(--color-txt-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 218px;
+    }
 }
 
-
 .img {
-	height: 171px;
-	width: 228px;
+    height: 160px;
+    width: 218px;
 }
 
 .badge {
-	margin-top: -10px;
-	// so it's above the img on hover
-	position: relative;
-	z-index: 2;
+    margin-top: -10px; // so it's above the img on hover
+    position: relative;
+    z-index: 2;
 }
 
 .bottom {
-	margin-top: var(--spacing-default);
-	.supplier {
-		font-size: var(--font-size-s);
-	}
-	.footer {
-		position: absolute;
-		bottom: var(--spacing-default);
-		color: var(--color-txt-secondary);
-		width: 228px;
-		.date {
-			text-transform: uppercase;
-		}
-	}
+    margin-top: var(--spacing-default);
+    .supplier {
+        font-size: var(--font-size-s);
+        width: 218px;
+    }
+    .tags {
+        font-size: 11px;
+        color: var(--color-txt-secondary);
+        width: 218px;
+        padding-top: 6px;
+    }
+    .footer {
+        padding: var(--spacing-default) 0;
+        position: absolute;
+        width: 218px;
+        bottom: 0;
+        color: var(--color-txt-secondary);
+        .date {
+            text-transform: uppercase;
+            color: var(--color-txt-secondary);
+            font-size: 11px;
+        }
+    }
 }
 
 .border {
-	background: var(--color-success);
-	height: 4px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	opacity: 0;
-	transition: opacity 0.4s;
-	border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background: var(--color-success);
+    height: 4px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .border.selected {
-	opacity: 1;
+    opacity: 1;
 }

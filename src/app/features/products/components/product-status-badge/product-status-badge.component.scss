@@ -1,11 +1,32 @@
 .ctnr {
 	padding: var(--spacing-xs) var(--spacing-s);
-	border-radius: 1000px;
-	font-size: var(--font-size-s);
-	font-weight: 500;
+	border-radius: 15px;
+	font-size: 10px;
+	font-weight: bold;
 	line-height: 1.25;
-	letter-spacing: -0.1px;
-	color: #ffffff;
+	letter-spacing: 0.44px;
+	color: var(--color-white);
 	text-transform: uppercase;
 }
 
+.badge-idea {
+  background-image: var(--badge-bg-idea);
+  color: var(--color-txt-primary);
+}
+
+.badge-need-review {
+  background-image: var(--badge-bg-need-review);
+  color: var(--color-white);
+}
+.badge-refused {
+  background-image: var(--badge-bg-refused);
+  color: var(--color-white);
+}
+.badge-complete {
+  background-image: var(--badge-bg-complete);
+  color: var(--color-white);
+}
+.badge-under-assessment{
+  background-image: var(--badge-bg-under-assessment);
+  color: var(--color-txt-primary);
+}

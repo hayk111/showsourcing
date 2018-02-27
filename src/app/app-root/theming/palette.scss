@@ -9,8 +9,8 @@ $color-primary-dark: #5D6D8B ;
 $color-primary-dark-contrast: #fff;
 $color-txt-strong: #111;
 $color-txt-primary: #5D6D8B;
-$color-txt-secondary: #9B9B9B;
-$color-delimiter: rgba(155, 155, 155, 0.1);
+$color-txt-secondary: #A3AFC6;
+$color-delimiter: #E6EBF5;
 $color-success: #71e591;
 $color-warn: #f94259;
 
@@ -48,11 +48,11 @@ $color-warn: #f94259;
 	--color-success: $color-success;
 
 	// used
-	--color-white: #fff;
+  --color-white: #fff;
 
-	--color-idea:#f5a623;
-	--color-need-review: #bd10e0;
-	--color-under-assessment: $color-primary;
-	--color-complete: $color-success;
-	--color-refused: $color-warn;
+	--badge-bg-idea: linear-gradient(-90deg, #CCD4E2 0%, #E6EBF5 100%);
+	--badge-bg-need-review: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
+	--badge-bg-refused: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
+	--badge-bg-complete:  linear-gradient(-90deg, #39CE63 2%, #4DD373 96%);
+	--badge-bg-under-assessment: linear-gradient(-90deg, #CCD4E2 0%, #E6EBF5 100%);
 }
