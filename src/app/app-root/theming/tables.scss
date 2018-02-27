@@ -15,7 +15,9 @@ datatable-body {
 	background-color: #F9FAFC;
 	font-weight: bold;
 	border: 1px solid #E6EBF5;
+	border-top: 0;
 }
+
 datatable-body-row {
 	datatable-body-cell {
 		border: 0.5px solid #E6EBF5;
