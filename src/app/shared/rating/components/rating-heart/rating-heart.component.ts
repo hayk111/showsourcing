@@ -1,28 +1,24 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'rating-heart-app',
-  templateUrl: './rating-heart.component.html',
-  styleUrls: ['./rating-heart.component.scss']
+	selector: 'rating-heart-app',
+	templateUrl: './rating-heart.component.html',
+	styleUrls: ['./rating-heart.component.scss'],
 })
 export class RatingHeartComponent implements OnInit {
 	@Output() rated = new EventEmitter<number>();
 	favorite = false;
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-	}
+	ngOnInit() {}
 
 	onClick() {
-		if (this.favorite)
-			this.rated.emit(5);
-		else
-			this.rated.emit(0);
+		if (this.favorite) this.rated.emit(5);
+		else this.rated.emit(0);
 	}
 
-		// an entity is favorited when an entity is 5 stars
+	// an entity is favorited when an entity is 5 stars
 	@Input()
 	set rating(v) {
 		if (v === 5) {

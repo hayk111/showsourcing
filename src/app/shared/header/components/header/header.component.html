@@ -1,26 +1,25 @@
-<div class="titleLogo">
-</div>
+<div class="titleLogo"></div>
 
 <nav>
-	<a [routerLink]="['/home']" routerLinkActive="selected">Dashboard</a>
+  <a [routerLink]="['/home']" routerLinkActive="selected">Dashboard</a>
 
-	<a [routerLink]="['/projects']" routerLinkActive="selected">Projects</a>
+  <a [routerLink]="['/projects']" routerLinkActive="selected">Projects</a>
 
-	<a [routerLink]="['/products']" routerLinkActive="selected">Products</a>
+  <a [routerLink]="['/products']" routerLinkActive="selected">Products</a>
 
-	<a [routerLink]="['/suppliers']" routerLinkActive="selected">Suppliers</a>
+  <a [routerLink]="['/suppliers']" routerLinkActive="selected">Suppliers</a>
 
-	<a [routerLink]="['/tasks']" routerLinkActive="selected">Tasks</a>
+  <a [routerLink]="['/tasks']" routerLinkActive="selected">Tasks</a>
 
-	<a [routerLink]="['/samples']" routerLinkActive="selected">Samples</a>
+  <a [routerLink]="['/samples']" routerLinkActive="selected">Samples</a>
 
-	<a [routerLink]="['/workflow']" routerLinkActive="selected">Workflow</a>
+  <a [routerLink]="['/workflow']" routerLinkActive="selected">Workflow</a>
 
-	<a [routerLink]="['/test']" routerLinkActive="selected">Test</a>
+  <a [routerLink]="['/test']" routerLinkActive="selected">Test</a>
 </nav>
 
 <div class="flexCenter right" *ngIf="(authenticated$ | async)">
-	<search-app></search-app>
-	<div class="vertDivider"></div>
-	<user-info-app></user-info-app>
+  <search-app></search-app>
+  <div class="vertDivider"></div>
+  <user-info-app></user-info-app>
 </div>

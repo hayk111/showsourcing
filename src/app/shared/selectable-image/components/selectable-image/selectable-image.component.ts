@@ -20,4 +20,8 @@ export class SelectableImageComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {}
+
+	public getURL() {
+		return 'url(' + this.url + ')';
+	}
 }

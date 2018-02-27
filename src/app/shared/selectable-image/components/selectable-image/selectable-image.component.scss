@@ -1,65 +1,69 @@
 .imgCtnr {
-	border-radius: var(--border-radius);
-	color: white;
-	margin: auto;
-	overflow: hidden;
-	position: relative;
-	img {
-		max-width: 100%;
-		max-height: 100%;
-	}
+    border-radius: var(--border-radius);
+    color: white;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 img {
-	transition: filter 0.4s;
+    transition: filter 0.4s;
+}
+
+.cardImg {
+    height: 160px;
+    width: 218px;
 }
 
 .blurred {
-	filter: blur(4px);
+    filter: blur(4px);
 }
 
 .hide {
-	display: none;
+    display: none;
 }
 
 .overlay:hover {
-	background-color: rgba(0, 0, 0, 0.55);
-
-	& > .hide {
-		display: block;
-	}
+    background-color: rgba(0, 0, 0, 0.55);
+    &>.hide {
+        display: block;
+    }
 }
 
 .overlay {
-	display: flex;
-	transition: background-color 0.4s;
-	padding: var(--spacing-s);
-	background-color: transparent;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	bottom:0;
-	left: 0;
-	right: 0;
+    display: flex;
+    transition: background-color 0.4s;
+    padding: var(--spacing-s);
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .openCtnr {
-	margin:auto;
-	padding: var(--spacing-xs);
-	flex-grow: 1;
+    margin: auto;
+    padding: var(--spacing-xs);
+    flex-grow: 1;
 }
 
 .open {
-	border-radius: var(--border-radius);
-	border: 1px solid white;
-	color: white;
-	margin: auto;
-	font-size: var(--font-size-xl);
-	padding: var(--spacing-xs);
-	text-align: center;
+    border-radius: var(--border-radius);
+    border: 1px solid white;
+    color: white;
+    margin: auto;
+    font-size: var(--font-size-xl);
+    padding: var(--spacing-xs);
+    text-align: center;
 }
 
 .feedback {
-	display: block;
-	margin-top: var(--spacing-default);
+    display: block;
+    margin-top: var(--spacing-default);
 }
