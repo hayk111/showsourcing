@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product } from '~products';
 import { FilterActions } from '~store/action/misc/filter.action';

@@ -6,5 +6,6 @@
 	[repr]="repr"
 	(viewChange)="viewChange.emit($event)"></top-panel-app>
 <progress-bar-app *ngIf="pending"></progress-bar-app>
-<ng-content select=".list-view"></ng-content>
-<ng-content select=".card-view"></ng-content>
+<ng-content></ng-content>
+<!-- <ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>
+<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content> -->

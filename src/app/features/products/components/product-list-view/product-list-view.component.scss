@@ -8,6 +8,10 @@ img {
 	max-width: 44px;
 	max-height: 44px;
 }
+.mainCell {
+	display: flex;
+	align-items: center;
+}
 .mainCell > *{
 	margin: var(--spacing-s);
 	.name {

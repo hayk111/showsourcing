@@ -27,9 +27,6 @@ datatable-body-row {
 		padding: var(--spacing-default);
 		border-right: 0;
 	}
-	datatable-body-cell:last-of-type(datatable-body-cell) {
-		border-right: 1px solid #E6EBF5;
-	}
 }
 
 datatable-body-row.active {

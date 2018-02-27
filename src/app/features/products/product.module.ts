@@ -42,6 +42,7 @@ import {
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { effects } from './store';
+import { TableModule } from '~app/shared/table';
 
 @NgModule({
 	imports: [
@@ -66,6 +67,7 @@ import { effects } from './store';
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule,
 		EntityPageModule,
+		TableModule
 	],
 	providers: [ProductService],
 	declarations: [

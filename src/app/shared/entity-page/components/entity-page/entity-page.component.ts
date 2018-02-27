@@ -12,7 +12,7 @@ export class EntityPageComponent implements OnInit {
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
-	@Input() view: 'list' | 'card';
+	@Input() view: 'list' | 'card' = 'list';
 	@Output() createClick = new EventEmitter<any>();
 	@Output() viewChange = new EventEmitter<any>();
 

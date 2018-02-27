@@ -1,0 +1,19 @@
+<table>
+	<thead>
+		<tr>
+			<th *ngFor="let column of columns">
+				{{ column.title }}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let row of rows">
+			<td *ngFor="let column of columns">
+				<!-- Render the column template when specified -->
+				<ng-container
+					*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+				</ng-container>
+			</td>
+		</tr>
+	</tbody>
+</table>
