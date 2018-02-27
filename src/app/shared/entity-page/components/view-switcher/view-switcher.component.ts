@@ -1,15 +1,6 @@
-import {
-	Component,
-	OnInit,
-	ViewEncapsulation,
-	Input,
-	ChangeDetectionStrategy,
-	HostBinding,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy, HostBinding, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ViewSwitcherAction } from '~store/action/ui/view-switcher.action';
 import { Observable } from 'rxjs/Observable';
-import { selectViewSwitcher } from '~store/selectors/ui/view-switcher.selector';
 
 @Component({
 	selector: 'view-switcher-app',
@@ -18,14 +9,27 @@ import { selectViewSwitcher } from '~store/selectors/ui/view-switcher.selector';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSwitcherComponent implements OnInit {
-	view$: Observable<string>;
-	constructor(private store: Store<any>) {}
+	_view: 'list' | 'card' = 'list';
+	@Output() viewChange = new EventEmitter<string>();
+	constructor() { }
 
 	ngOnInit() {
-		this.view$ = this.store.select(selectViewSwitcher);
 	}
 
-	switchView(view: string) {
-		this.store.dispatch(ViewSwitcherAction.switchView(view));
+	switchView(view: 'card' | 'list') {
+		this.view = view;
+		this.viewChange.emit(view);
+	}
+
+	@Input()
+	set view(view: 'list' | 'card') {
+		if (view !== 'list' && view !== 'card')
+			this._view = 'list';
+		else
+			this._view = view;
+	}
+
+	get view() {
+		return this._view;
 	}
 }

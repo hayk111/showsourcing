@@ -36,7 +36,6 @@ import { currentTargetReducer, targetReducerFactory } from './target/target.redu
 import { authDlgReducer, authenticationReducer } from '~auth';
 import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
 import { filterPanelReducer } from './ui/filter-panel.reducer';
-import { viewSwitcherReducer } from './ui/view-switcher.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -77,7 +76,6 @@ const ui = combineReducers({
 	authDlg: authDlgReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
-	viewSwitcher: viewSwitcherReducer,
 	filterEntityPanel: filterEntityPanelReducer,
 });
 

@@ -3,7 +3,7 @@
 	<div class="flexCenter right">
     <filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
     <div class="vertDivider"></div>
-		<view-switcher-app *ngIf="switchable"></view-switcher-app>
+		<view-switcher-app *ngIf="switchable" (viewChange)="viewChange.emit($event)" [view]="view"></view-switcher-app>
 		<button (click)="onClick()" class="small">create {{ repr.displayName }}</button>
 	</div>
 </div>

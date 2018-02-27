@@ -28,12 +28,12 @@ import {
   ProductStatusBadgeComponent,
   ProductSubInfoComponent,
   ProductTopCardComponent,
-  SelectionActionsComponent,
+	SelectionActionsComponent,
+	ProductListViewComponent
 } from './components';
 import {
   ProductBigCardComponent,
   ProductInfoCardComponent,
-  ProductListViewComponent,
   ProductPageComponent,
   ProductSidePreviewComponent,
   ProductsPageComponent,
@@ -54,10 +54,10 @@ import { effects } from './store';
 		EntityMainCardModule,
 		LikesChartModule,
 		AppStoreModule, // TODO to be removed and placed inside the component module using it
-		UserModule, // TODO to be removed and placed inside the component module using it
+		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
-		FileModule, // TODO to be removed and placed inside the component module using it
-		SuppliersModule, // TODO to be removed and placed inside the component module using it
+		FileModule.forChild(), // TODO to be removed and placed inside the component module using it
+		SuppliersModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EditableFieldModule, // TODO to be removed and placed inside the component module using it
 		SelectableImageModule, // TODO to be removed and placed inside the component module using it
 		IconsModule, // TODO to be removed and placed inside the component module using it
