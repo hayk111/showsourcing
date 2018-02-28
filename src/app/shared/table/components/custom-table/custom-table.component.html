@@ -1,0 +1,46 @@
+<table-app [rows]="rows">
+	<!-- <ng-content select=".before"></ng-content> -->
+	<ng-template *ngFor="let column of descriptor" columnApp="{{ column.title }}" let-row="row">
+		<ng-container [ngSwitch]="column.type">
+
+			<ng-container *ngSwitchCase="'supplier'">
+						{{ row?.supplierId | entityName: 'suppliers' | async }}
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'category'">
+					{{ row?.categoryId | entityName: 'categories' | async }}
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'price'">
+				{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'feedback'">
+				{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'creationDate'">
+				{{ row?.creationDate | date: 'MMMM y' }}
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'rating'">
+				<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
+			</ng-container>
+
+
+			<ng-container *ngSwitchCase="'user'">
+				<user-picture-with-name-app
+					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
+			</ng-container>
+
+			<ng-container *ngSwitchDefault>
+				default
+				{{ column | json }}
+				{{ row[column.propName] }}
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+	<!-- <ng-content select=".after"></ng-content> -->
+</table-app>

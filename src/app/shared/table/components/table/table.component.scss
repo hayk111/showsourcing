@@ -54,9 +54,9 @@ tbody {
 			padding: var(--spacing-default);
 			border-right: 0;
 		}
-		tr:focus, tr:hover, tr.active {
-			background: var(--color-bg-fourth);
-		}
+	}
+	tr:hover {
+		background: var(--color-bg-fourth);
 	}
 }
 

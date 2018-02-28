@@ -1,123 +1,19 @@
-	<!-- <ngx-datatable
-		#table
-		class="fullWidth"
-		[rows]="products"
-		columnMode="standard"
-		[reorderable]="true"
-		[headerHeight]="48"
-		[rowHeight]="80"
-		[externalSorting]="true"
-		(sort)="onSort($event)"
-		[limit]="100">
 
-		<ngx-datatable-column name="" [minWidth]="300">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				<div class="flexCenter mainCell">
-					<input
-						type="checkbox"
-						[checked]="selections.get(row.id)"
-						(change)="onCheck($event, row.id)"/>
-					<img [src]="row?.mainImage?.urls?.url_60x45"/>
-					<span class="name">{{ row.name }}</span>
-				</div>
-			</ng-template>
-		</ngx-datatable-column>
+<custom-table-app [rows]="products" [descriptor]="descriptor">
 
-		<ngx-datatable-column name="Supplier">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				{{ row?.supplierId | entityName: 'suppliers' | async }}
-			</ng-template>
-		</ngx-datatable-column>
+	<!-- <ng-template columnApp="Name" let-row="row">
+		<div class="mainCell">
+			<input
+				type="checkbox"
+				[checked]="selections.get(row.id)"
+				(change)="onCheck($event, row.id)"/>
+			<img [src]="row?.mainImage?.urls?.url_60x45"/>
+			<span class="name">{{ row.name }}</span>
+		</div>
+	</ng-template> -->
 
-		<ngx-datatable-column name="Category">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				{{ row?.categoryId | entityName: 'categories' | async }}
-			</ng-template>
-		</ngx-datatable-column>
+	<!-- <ng-template columnApp="Actions" let-row="row" [sortable]="false">
+		<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
+	</ng-template> -->
 
-		<ngx-datatable-column name="Price">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
-			</ng-template>
-		</ngx-datatable-column>
-
-		<ngx-datatable-column name="Feedback">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
-			</ng-template>
-		</ngx-datatable-column>
-
-		<ngx-datatable-column name="Created on">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				{{ row?.creationDate | date: 'MMMM y' }}
-			</ng-template>
-		</ngx-datatable-column>
-
-		<ngx-datatable-column name="" [maxWidth]="50">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
-			</ng-template>
-		</ngx-datatable-column>
-
-		<ngx-datatable-column name="info">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				<user-picture-with-name-app
-					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
-			</ng-template>
-		</ngx-datatable-column>
-
-		<ngx-datatable-column name="action">
-			<ng-template let-row="row" ngx-datatable-cell-template>
-				<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
-			</ng-template>
-		</ngx-datatable-column>
-	</ngx-datatable> -->
-
-
-	<table-app [rows]="products">
-
-		<ng-template columnApp="Name" let-row="row">
-			<div class="mainCell">
-				<input
-					type="checkbox"
-					[checked]="selections.get(row.id)"
-					(change)="onCheck($event, row.id)"/>
-				<img [src]="row?.mainImage?.urls?.url_60x45"/>
-				<span class="name">{{ row.name }}</span>
-			</div>
-		</ng-template>
-
-		<ng-template columnApp="Supplier" let-row="row">
-			{{ row?.supplierId | entityName: 'suppliers' | async }}
-		</ng-template>
-
-		<ng-template columnApp="Category" let-row="row">
-			{{ row?.categoryId | entityName: 'categories' | async }}
-		</ng-template>
-
-		<ng-template columnApp="Price" let-row="row">
-			{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
-		</ng-template>
-
-		<ng-template columnApp="Feedback" let-row="row">
-			{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
-		</ng-template>
-
-		<ng-template columnApp="Created on" let-row="row">
-			{{ row?.creationDate | date: 'MMMM y' }}
-		</ng-template>
-
-		<ng-template columnApp="" let-row="row">
-			<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
-		</ng-template>
-
-		<ng-template columnApp="Created By" let-row="row">
-			<user-picture-with-name-app
-				[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
-		</ng-template>
-
-		<ng-template columnApp="Actions" let-row="row" [sortable]="false">
-			<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
-		</ng-template>
-
-	</table-app>
+</custom-table-app>
