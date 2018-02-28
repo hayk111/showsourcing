@@ -7,16 +7,21 @@
 	margin-right: var(--spacing-default);
 }
 
-icon-app {
-	margin-right: var(--spacing-xs);
+.icon-thumb-up, .icon-folder {
+  margin-right: var(--spacing-xs);
+  font-size:  var(--font-size-s);
+  color: var(--color-txt-secondary);
 }
+// icon-app {
+// 	margin-right: var(--spacing-xs);
+// }
 
-icon-app[name="checkmark"] {
-	margin-top: -1px;
-}
+// icon-app[name="checkmark"] {
+// 	margin-top: -1px;
+// }
 
 .num {
-	line-height: 1;
+	line-height: 1.2;
 	// fix for wrong alignement, not sure what's happening here.
 	color: var(--color-txt-secondary);
 }

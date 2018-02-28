@@ -1,14 +1,14 @@
 <div class="flex {{ big ? 'big' : '' }}">
 
   <ng-container>
-    <icon-app name="thumbs-up" color="txt-secondary"></icon-app>
+    <div class="icon-thumb-up"></div>
     <span class="num" *ngIf="score !== undefined">{{ score }}%</span>
     <span class="num" *ngIf="score == undefined">- %</span>
     <span class="spacer"></span>
   </ng-container>
 
   <ng-container>
-    <icon-app name="folder" color="txt-secondary"></icon-app>
+    <div class="icon-folder"></div>
     <span class="num" *ngIf="score !== undefined">{{ score }}</span>
     <span class="num" *ngIf="score == undefined">-</span>
     <span class="spacer"></span>
