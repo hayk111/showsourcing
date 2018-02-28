@@ -1,8 +1,16 @@
 <table>
 	<thead>
 		<tr>
-			<th *ngFor="let column of columns">
-				{{ column.title }}
+			<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
+				<div class="headerContent">
+					{{ column.title }}
+					<ng-container *ngIf="column.currentSort !== 'none'">
+						<icon-app size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+						<ng-template #upArrow>
+							<icon-app size="xs" name="angle-up"></icon-app>
+						</ng-template>
+					</ng-container>
+				</div>
 			</th>
 		</tr>
 	</thead>

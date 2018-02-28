@@ -116,7 +116,7 @@
 				[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
 		</ng-template>
 
-		<ng-template columnApp="Actions" let-row="row">
+		<ng-template columnApp="Actions" let-row="row" [sortable]="false">
 			<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
 		</ng-template>
 

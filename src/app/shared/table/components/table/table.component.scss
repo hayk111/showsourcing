@@ -16,6 +16,7 @@ thead {
 	font-weight: bold;
 	text-align: left;
 	height: 48px;
+	cursor: default;
 
 	th {
 		padding: 0 var(--spacing-default);
@@ -32,6 +33,11 @@ thead {
 
 	tr th:last-child {
 		border-radius: 0 var(--border-radius) 0 0;
+	}
+
+	.headerContent {
+		display: flex;
+		align-items: center;
 	}
 }
 

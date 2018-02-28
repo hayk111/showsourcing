@@ -16,5 +16,11 @@ export class TableComponent implements OnInit, AfterContentInit {
   }
 
 	ngAfterContentInit() {
-  }
+	}
+
+	sort(column: ColumnDirective) {
+		const currentSort = column.currentSort;
+		this.columns.forEach(c => c.resetSort());
+		column.toggleSort(currentSort);
+	}
 }

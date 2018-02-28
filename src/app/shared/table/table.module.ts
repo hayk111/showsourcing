@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ColumnDirective, TableComponent } from './components';
+import { IconsModule } from '~app/shared/icons';
 
 @NgModule({
   imports: [
-    CommonModule
+		CommonModule,
+		IconsModule
   ],
 	declarations: [ TableComponent, ColumnDirective ],
 	exports: [ TableComponent, ColumnDirective ]
