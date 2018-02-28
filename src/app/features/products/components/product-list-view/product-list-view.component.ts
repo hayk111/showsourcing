@@ -28,7 +28,7 @@ export class ProductListViewComponent implements OnInit {
 	{ title: 'Created on', type: 'creationDate' },
 	{ title: '', type: 'rating' },
 	{ title: 'Created by', type: 'user' },
-	{ title: 'MOQ', type: 'txt' , propName: 'additionalInfo.minimumOrderQuantity'},
+	{ title: 'MOQ', type: 'txt' , propName: 'createdByUserId'},
 	];
 
 	constructor() {}
