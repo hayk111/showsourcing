@@ -5,7 +5,7 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 @Component({
 	selector: 'product-selectable-card-app',
 	templateUrl: './product-selectable-card.component.html',
-	styleUrls: ['./product-selectable-card.component.scss']
+	styleUrls: ['./product-selectable-card.component.scss'],
 })
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
@@ -16,6 +16,8 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
+
+	public showOverlay = false;
 
 	constructor() {}
 
@@ -28,5 +30,9 @@ export class ProductSelectableCardComponent implements OnInit {
 
 	onVote(value) {
 		this.productVote.emit({ id: this.product.id, value });
+	}
+
+	public setOverlay(value: boolean) {
+		this.showOverlay = value;
 	}
 }

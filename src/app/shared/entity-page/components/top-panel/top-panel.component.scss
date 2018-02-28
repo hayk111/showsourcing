@@ -7,13 +7,23 @@
 }
 
 .right > * {
-	margin-left: var(--spacing-l);
+	margin-left: var(--spacing-xl);
 }
 
 button {
+  padding: 0 var(--spacing-l);
   height: 40px;
   border-radius: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.icon-add {
+  color: var(--color-white);
+  font-size: 10px;
+  margin-right: 10px;
 }

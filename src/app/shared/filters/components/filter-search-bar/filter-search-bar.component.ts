@@ -1,40 +1,69 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '~store/action/misc/filter.action';
-import { FilterSearch, FilterGroupName, FilterSupplier, FilterCategory, FilterEvent } from '~store/model/misc/filter.model';
-import { Observable } from 'rxjs/Observable';
-import { searchEntity, searchEntities, SmartSearch } from '~store/selectors/misc/search-entities.selector';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { take, tap } from 'rxjs/operators';
-import { ChangeDetectionStrategy } from '@angular/core';
-
+import {
+	FilterCategory,
+	FilterEvent,
+	FilterGroupName,
+	FilterSearch,
+	FilterSupplier,
+} from '~store/model/misc/filter.model';
+import { SmartSearch } from '~store/selectors/misc/search-entities.selector';
 
 @Component({
 	selector: 'filter-search-bar-app',
 	templateUrl: './filter-search-bar.component.html',
 	styleUrls: ['./filter-search-bar.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [
+		trigger('searchAnimation', [
+			state(
+				'shrinked',
+				style({
+					width: '0%',
+					opacity: 0,
+				})
+			),
+			state(
+				'expanded',
+				style({
+					width: '100%',
+					opacity: 1,
+					marginLeft: '10px',
+				})
+			),
+			transition('expanded => shrinked', [animate('200ms ease-in-out', style({ width: '0%', opacity: 0 }))]),
+			transition('shrinked => expanded', [animate('200ms ease-in-out', style({ width: '100%', opacity: 1 }))]),
+		]),
+	],
 })
 export class FilterSearchBarComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@Input() searched = [
-		FilterEvent,
-		FilterSupplier,
-		FilterCategory
-	];
+	@Input() searched = [FilterEvent, FilterSupplier, FilterCategory];
 	smartSearchResult: Array<SmartSearch> = [];
 	sub;
+	public searchstate = 'shrinked';
+	@ViewChild('searchbox') public searchbox: ElementRef;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	search(value) {
 		const filter = new FilterSearch(value);
 		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSearch));
-		if (value)
-			this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+		if (value) this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
 
+	public expandSearch() {
+		this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
+		if (this.searchstate === 'expanded') {
+			this.searchbox.nativeElement.focus();
+		}
+	}
+
+	public clearSearch() {
+		this.searchstate = 'shrinked';
+	}
 }

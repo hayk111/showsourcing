@@ -9,13 +9,13 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 export class SelectableImageComponent implements OnInit {
 	@Input() url: string;
 	@Input() selected: string;
+	@Input() showOverlay: boolean;
 	@Output() vote = new EventEmitter<number>();
 	@Output() open = new EventEmitter();
 	@Output() trash = new EventEmitter();
 	@Output() select = new EventEmitter();
 	@Output() unselect = new EventEmitter();
 
-	public showOverlay = false;
 	defaultImg = DEFAULT_NO_IMG;
 
 	constructor() {}

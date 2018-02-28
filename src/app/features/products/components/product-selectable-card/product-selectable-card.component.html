@@ -1,4 +1,4 @@
-<div class="ctnr z-a" [class.selectedCard]="selected">
+<div class="ctnr z-a" [class.selectedCard]="selected" (mouseenter)="setOverlay(true)" (mouseleave)="setOverlay(false)">
   <!-- top of card -->
   <div class="flexColumn top">
     <div class="flexBetween">
@@ -11,7 +11,7 @@
 
   <!-- middle card: picture + badge  -->
   <div class="imgCtnr flexCenter">
-    <selectable-image-app [selected]="selected" (unselect)="productUnselect.emit(product.id)" (select)="productSelect.emit(product.id)"
+    <selectable-image-app [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)" (select)="productSelect.emit(product.id)"
       (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
   </div>
 
@@ -23,11 +23,13 @@
 
   <div class="bottom">
     <div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
-    <div class="tags">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
-    <div class="footer fullWidth flexBetween">
+    <div class="tags" [class.hidden]="showOverlay">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+    <div class="footer fullWidth flexBetween" [class.hidden]="showOverlay">
       <product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
       <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
     </div>
+    <div class="footer fullWidth flexBetween" [class.hidden]="!showOverlay">
+      <button class="small"><span class="icon-add"></span>Add to project</button>
+    </div>
   </div>
-
 </div>
