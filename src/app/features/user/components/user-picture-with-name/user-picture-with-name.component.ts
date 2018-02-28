@@ -9,6 +9,8 @@ import { User } from '../../models/user.model';
 export class UserPictureWithNameComponent implements OnInit {
 	@Input() user: User;
 	@Input() size: number;
+	@Input() border: boolean;
+
 	constructor() { }
 
 	ngOnInit() {

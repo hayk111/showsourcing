@@ -9,6 +9,7 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 export class UserPictureComponent implements OnInit {
 	private _url: string;
 	@Input() size: number;
+	@Input() border = false;
 
 	constructor() {}
 

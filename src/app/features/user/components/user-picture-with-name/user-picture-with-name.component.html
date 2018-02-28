@@ -3,5 +3,5 @@
     <strong class="name">{{ user?.firstName }} {{ user?.lastName }}</strong>
 		<ng-content></ng-content>
 	</div>
-  <user-picture-app [size]="size" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+  <user-picture-app [border]="border" [size]="size" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 </div>

@@ -46,6 +46,7 @@
 			<ng-container *ngSwitchCase="'user'">
 				<user-picture-with-name-app
 					[size]="18"
+					[border]="true"
 					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
 			</ng-container>
 
