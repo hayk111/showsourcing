@@ -15,37 +15,76 @@
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
+    font-size: 16px;
     line-height: 1.2;
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    color: var(--color-txt-primary)
 }
 
-.icon-list:before {
-    content: "\e900";
-    color: #fff;
+.icon-export:before {
+  content: "\e905";
 }
-
+.icon-feedback:before {
+  content: "\e906";
+}
+.icon-excel:before {
+  content: "\e901";
+}
+.icon-pdf:before {
+  content: "\e902";
+}
+.icon-close:before {
+  content: "\e903";
+}
+.icon-tag:before {
+  content: "\e904";
+}
+.icon-circle-checked:before {
+  content: "\e907";
+}
+.icon-circle-unchecked:before {
+  content: "\e909";
+}
+.icon-delete:before {
+  content: "\e90a";
+}
+.icon-thumb-down:before {
+  content: "\e90b";
+}
+.icon-thumb-up:before {
+  content: "\e90c";
+}
+.icon-folder:before {
+  content: "\e90d";
+}
+.icon-img:before {
+  content: "\e90e";
+}
+.icon-add:before {
+  content: "\e90f";
+}
+.icon-search:before {
+  content: "\e910";
+}
+.icon-caret:before {
+  content: "\e914";
+}
+.icon-heart:before {
+  content: "\e916";
+}
 .icon-thumbs:before {
-    content: "\e901";
-    color: #fff;
+  content: "\e917";
+}
+.icon-list:before {
+  content: "\e900";
+}
+.icon-heart-empty:before {
+  content: "\e915";
 }
 
-.icon-heart {
-    height: 16px;
-    width: 16px;
-    display: block;
-    text-indent: -9999px;
-    background: url('/assets/icons/heart.svg') no-repeat center;
-}
-
-.icon-heart-empty {
-    height: 16px;
-    width: 16px;
-    display: block;
-    text-indent: -9999px;
-    background: url('/assets/icons/heart-empty.svg')no-repeat center;
-}
 
 .vertDivider {
     height: 20px;
