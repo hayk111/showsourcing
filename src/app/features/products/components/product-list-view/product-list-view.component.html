@@ -1,5 +1,8 @@
 
 <custom-table-app
+	infiniScroll
+	bottomDistance="2000"
+	class="list"
 	[rows]="products"
 	[descriptor]="descriptor"
 	[selection]="selection"
@@ -7,5 +10,6 @@
 	(itemUnfavorited)="productUnfavorited.emit($event)"
 	(itemOpen)="productOpen.emit($event)"
 	(itemSelected)="productSelect.emit($event)"
-	(itemUnselected)="productUnselect.emit($event)">
+	(itemUnselected)="productUnselect.emit($event)"
+	(bottomReached)="onBottomReached()">
 </custom-table-app>

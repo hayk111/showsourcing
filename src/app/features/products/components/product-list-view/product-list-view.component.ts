@@ -69,4 +69,8 @@ export class ProductListViewComponent implements OnInit {
 		else
 			this.productFavorited.emit(productId);
 	}
+
+	onBottomReached() {
+		console.log('bottom reached !')
+	}
 }
