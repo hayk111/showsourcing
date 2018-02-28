@@ -1,13 +1,13 @@
 
 <ng-container *ngFor="let product of products; let i = index">
 	<product-selectable-card-app
-		[selected]="selections.get(product.id)"
+		[selected]="selection.get(product.id)"
 		(productSelect)="productSelect.emit($event)"
 		(productUnselect)="productUnselect.emit($event)"
 		(productFavorited)="productFavorited.emit($event)"
 		(productUnfavorited)="productUnfavorited.emit($event)"
 		(productOpen)="productOpen.emit($event)"
 		(productVote)="productVote.emit($event)"
-		[product]="product"></product-selectable-card-app>	
+		[product]="product"></product-selectable-card-app>
 </ng-container>
 

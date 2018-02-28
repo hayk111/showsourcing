@@ -1,7 +1,19 @@
 <table-app [rows]="rows">
-	<!-- <ng-content select=".before"></ng-content> -->
+
 	<ng-template *ngFor="let column of descriptor" columnApp="{{ column.title }}" let-row="row">
 		<ng-container [ngSwitch]="column.type">
+
+			<!-- product list card -->
+			<ng-container *ngSwitchCase="'main'">
+					<div class="mainCell">
+						<input
+							type="checkbox"
+							[checked]="selection.get(row.id)"
+							(change)="onCheck($event, row.id)"/>
+						<img [src]="row?.mainImage?.urls?.url_60x45"/>
+						<span class="name">{{ row.name }}</span>
+					</div>
+			</ng-container>
 
 			<ng-container *ngSwitchCase="'supplier'">
 						{{ row?.supplierId | entityName: 'suppliers' | async }}
@@ -24,23 +36,29 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'rating'">
-				<rating-heart-app [rating]="row?.rating" (click)="onRateClick(row?.rating, row.id)"></rating-heart-app>
+				<rating-heart-app
+					[rating]="row?.rating"
+					(favorited)="itemFavorited.emit(row.id)"
+					(unfavorited)="itemUnfavorited.emit(row.id)"></rating-heart-app>
 			</ng-container>
 
 
 			<ng-container *ngSwitchCase="'user'">
 				<user-picture-with-name-app
+					[size]="18"
 					[user]="row.createdByUserId | entityName: 'teamMembers' | async"></user-picture-with-name-app>
 			</ng-container>
 
 			<ng-container *ngSwitchDefault>
-				default
-				{{ column | json }}
 				{{ row[column.propName] }}
 			</ng-container>
 
 		</ng-container>
 
 	</ng-template>
-	<!-- <ng-content select=".after"></ng-content> -->
+
+	<!-- always actions needed -->
+	<ng-template columnApp="Actions" let-row="row" [sortable]="false">
+		<div class="pointer" (click)="itemOpen.emit(row.id)"> Open </div>
+	</ng-template>
 </table-app>

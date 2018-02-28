@@ -7,7 +7,7 @@
 		<product-list-view-app
 			*ngIf="view === 'list'"
 			class="list-view"
-			[selections]="selections"
+			[selection]="selection"
 			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
@@ -18,7 +18,7 @@
 			class="card-view"
 			*ngIf="view === 'card'"
 			[products]="products$ | async"
-			[selections]="selections"
+			[selection]="selection"
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
 			(productVote)="onItemVoted($event)"
@@ -30,8 +30,8 @@
 
 <selection-bar-app
 	[repr]="repr"
-	*ngIf="selections.size > 0"
-	[selections]="selections"
+	*ngIf="selection.size > 0"
+	[selection]="selection"
 	(close)="unselectAll()">
 	<selection-actions></selection-actions>
 </selection-bar-app>

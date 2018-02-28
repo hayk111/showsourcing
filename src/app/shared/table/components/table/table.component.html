@@ -1,27 +1,29 @@
-<table>
-	<thead>
-		<tr>
-			<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
-				<div class="headerContent">
-					{{ column.title }}
-					<ng-container *ngIf="column.currentSort !== 'none'">
-						<icon-app size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
-						<ng-template #upArrow>
-							<icon-app size="xs" name="angle-up"></icon-app>
-						</ng-template>
+<div class="ctnr horizontal-scroll-except-first-column">
+	<table>
+		<thead>
+			<tr>
+				<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
+					<div class="headerContent">
+						{{ column.title }}
+						<ng-container *ngIf="column.currentSort !== 'none'">
+							<icon-app size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+							<ng-template #upArrow>
+								<icon-app size="xs" name="angle-up"></icon-app>
+							</ng-template>
+						</ng-container>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let row of rows" class="row">
+				<td *ngFor="let column of columns">
+					<!-- Render the column template when specified -->
+					<ng-container
+						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
 					</ng-container>
-				</div>
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let row of rows" class="row">
-			<td *ngFor="let column of columns">
-				<!-- Render the column template when specified -->
-				<ng-container
-					*ngTemplateOutlet="column.template; context: { column: column, row: row }">
-				</ng-container>
-			</td>
-		</tr>
-	</tbody>
-</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,19 +1,11 @@
 
-<custom-table-app [rows]="products" [descriptor]="descriptor">
-
-	<!-- <ng-template columnApp="Name" let-row="row">
-		<div class="mainCell">
-			<input
-				type="checkbox"
-				[checked]="selections.get(row.id)"
-				(change)="onCheck($event, row.id)"/>
-			<img [src]="row?.mainImage?.urls?.url_60x45"/>
-			<span class="name">{{ row.name }}</span>
-		</div>
-	</ng-template> -->
-
-	<!-- <ng-template columnApp="Actions" let-row="row" [sortable]="false">
-		<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
-	</ng-template> -->
-
+<custom-table-app
+	[rows]="products"
+	[descriptor]="descriptor"
+	[selection]="selection"
+	(itemFavorited)="productFavorited.emit($event)"
+	(itemUnfavorited)="productUnfavorited.emit($event)"
+	(itemOpen)="productOpen.emit($event)"
+	(itemSelected)="productSelect.emit($event)"
+	(itemUnselected)="productUnselect.emit($event)">
 </custom-table-app>

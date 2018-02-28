@@ -4,9 +4,9 @@
 	(supplierSelect)="onItemSelected($event)"
 	(supplierUnselect)="onItemUnselected($event)"
 	(supplierOpen)="onItemOpened($event)"
-	[selections]="selections"
+	[selection]="selection"
 	[suppliers]="suppliers$ | async"></supplier-list-view-app>
 	<new-supplier-dlg-app></new-supplier-dlg-app>
 </entity-page-app>
 
-<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections"></selection-bar-app>
+<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>

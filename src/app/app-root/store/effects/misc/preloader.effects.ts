@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs/observable/interval';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { ProductActionsFactory } from '~products/store/actions';
 
 import {
@@ -37,9 +37,10 @@ export class PreloaderEffects {
 		switchMap(
 			id =>
 				this.srv
-					.loadMaxCounter(id)
-					.map((r: any) => r.counter)
-					.filter(c => c > PreloaderEffects.CURRENT),
+					.loadMaxCounter(id).pipe(
+						map((r: any) => r.counter),
+						filter(c => c > PreloaderEffects.CURRENT),
+					),
 			(id, counter: number) => {
 				if (counter > PreloaderEffects.CURRENT && PreloaderEffects.CURRENT !== -1)
 					this.getEntities(id, PreloaderEffects.CURRENT);

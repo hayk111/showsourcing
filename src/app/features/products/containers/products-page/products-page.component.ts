@@ -52,7 +52,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// when an item is clicked current target is a representation of that item
 	previewDialogOpen = false;
 	// keeps tracks of the current selection
-	selections = new Map<string, boolean>();
+	selection = new Map<string, boolean>();
 	// current view
 	view: 'list' | 'card' = 'list';
 
@@ -66,15 +66,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		this.selections.set(entityId, true);
+		this.selection.set(entityId, true);
 	}
 
 	onItemUnselected(entityId: string) {
-		this.selections.delete(entityId);
+		this.selection.delete(entityId);
 	}
 
 	unselectAll() {
-		this.selections = new Map();
+		this.selection = new Map();
 	}
 
 	onItemOpened(entityId: string) {

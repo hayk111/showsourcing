@@ -19,8 +19,9 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Input() products: Array<Product>;
-	@Input() selections: Map<string, boolean>;
+	@Input() selection: Map<string, boolean>;
 	descriptor: TableDescriptor = [
+	{ title: 'Product', type: 'main' },
 	{ title: 'Supplier', type: 'supplier' },
 	{ title: 'Category', type: 'category' },
 	{ title: 'Price', type: 'price' },
@@ -28,7 +29,8 @@ export class ProductListViewComponent implements OnInit {
 	{ title: 'Created on', type: 'creationDate' },
 	{ title: '', type: 'rating' },
 	{ title: 'Created by', type: 'user' },
-	{ title: 'MOQ', type: 'txt' , propName: 'createdByUserId'},
+	{ title: 'MOQ', type: 'txt' , propName: 'minimumOrderQuantity'},
+	{ title: 'Actions', type: 'actions'}
 	];
 
 	constructor() {}

@@ -15,7 +15,7 @@ export class ProductCardViewComponent implements OnInit {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Input() products: Array<Product> = [];
-	@Input() selections: any;
+	@Input() selection: any;
 	constructor() {}
 
 	ngOnInit() {}

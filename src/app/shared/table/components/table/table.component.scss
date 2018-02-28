@@ -3,10 +3,13 @@
 	width: 100%;
 }
 
+.ctnr {
+	overflow: auto;
+}
+
 table {
 	border-collapse: collapse;
 	width: 100%;
-
 }
 
 thead {
@@ -46,6 +49,8 @@ tbody {
 	font-weight: bold;
 	border: 1px solid #E6EBF5;
 	border-top: 0;
+	height: 300px;
+	overflow: auto;
 	tr {
 		height: 88px;
 		td {
@@ -60,4 +65,22 @@ tbody {
 	}
 }
 
+// horizontal scrolling, first column needs not to be scrollable
 
+// .horizontal-scroll-except-first-column {
+// 	margin-left: 20em;
+// }
+
+// .horizontal-scroll-except-first-column > table > * > tr > th:first-child,
+// .horizontal-scroll-except-first-column > table > * > tr > td:first-child {
+// 	position: absolute;
+// 	width: 20em;
+// 	margin-left: -20em;
+// }
+
+// .horizontal-scroll-except-first-column > table > * > tr > th,
+// .horizontal-scroll-except-first-column > table > * > tr > td {
+// 	/* Without this, if a cell wraps onto two lines, the first column
+// 	 * will look bad, and may need padding. */
+// 	white-space: nowrap;
+// }

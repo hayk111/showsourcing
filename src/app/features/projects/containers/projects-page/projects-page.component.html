@@ -6,10 +6,10 @@
 	<projects-list-view-app
 		(projectSelect)="onItemSelected($event)"
 		(projectUnselect)="onItemUnselected($event)"
-		[selections]="selections"
+		[selection]="selection"
 		[projects]="projects$ | async">
 	</projects-list-view-app>
 </entity-page-app>
 
-<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections">
+<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">
 </selection-bar-app>
