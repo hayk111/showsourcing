@@ -1,11 +1,17 @@
 .btn {
-	background: rgba(0, 0, 0, 0.4);
-	margin: var(--spacing-xs);
+	background: var(--color-button-dark);
+	// margin: var(--spacing-xs);
 	padding: var(--spacing-xs) var(--spacing-s);
-	border-radius: var(--border-radius);
-	width: 45%;
+	border-radius: 10px;
+  font-size:  11px;
 }
 
-icon-app {
-	margin-right: var(--spacing-s);
+// icon-app {
+// 	margin-right: var(--spacing-s);
+// }
+
+.icon-thumb-up, .icon-thumb-down {
+  margin-right: var(--spacing-xs);
+  font-size:  var(--font-size-s);
+  color: var(--color-white);
 }

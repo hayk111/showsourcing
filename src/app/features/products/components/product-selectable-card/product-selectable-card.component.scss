@@ -88,3 +88,8 @@
 .border.selected {
     opacity: 1;
 }
+
+.selectedCard {
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 10px 0 rgba(65, 175, 255, 0.40);
+}

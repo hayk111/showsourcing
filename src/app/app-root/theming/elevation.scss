@@ -121,7 +121,6 @@ $_ambient-elevation-map: (
   24: '0px 9px 46px 8px var(--ambient-color)'
 );
 
-
 // Applies the correct css rules to an element to give it the elevation specified by $zValue.
 // The $zValue must be between 0 and 24.
 @mixin mat-elevation($zValue) {

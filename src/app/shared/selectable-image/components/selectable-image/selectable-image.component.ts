@@ -15,6 +15,7 @@ export class SelectableImageComponent implements OnInit {
 	@Output() select = new EventEmitter();
 	@Output() unselect = new EventEmitter();
 
+	public showOverlay = false;
 	defaultImg = DEFAULT_NO_IMG;
 
 	constructor() {}
@@ -23,5 +24,9 @@ export class SelectableImageComponent implements OnInit {
 
 	public getURL() {
 		return 'url(' + this.url + ')';
+	}
+
+	public setOverlay(value: boolean) {
+		this.showOverlay = value;
 	}
 }

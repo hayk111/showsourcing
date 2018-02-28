@@ -1,4 +1,4 @@
-<div class="ctnr z-a {{ selected ? 'z-7' : 'z-2'}}">
+<div class="ctnr z-a" [class.selectedCard]="selected">
   <!-- top of card -->
   <div class="flexColumn top">
     <div class="flexBetween">
@@ -29,8 +29,5 @@
       <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
     </div>
   </div>
-
-  <!-- border -->
-  <div class="border {{ selected ? 'selected' : '' }}"></div>
 
 </div>

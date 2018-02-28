@@ -1,30 +1,23 @@
-<div class="imgCtnr flexCenter">
+<div class="imgCtnr flexCenter" (mouseenter)="setOverlay(true)" (mouseleave)="setOverlay(false)">
 
-	<div class="overlay">
-		<icon-app
-			*ngIf="!selected; else selIc"
-			class="selectionIc pointer hide"
-			circleSize="17"
-			circleColor="white"
-			(click)="select.emit()">
-		</icon-app>
-		<ng-template #selIc>
-			<icon-app
-				class="selectionIc pointer"
-				size="s"
-				name="check"
-				circleSize="17"
-				circleColor="primary"
-				color="white"
-				(click)="unselect.emit()"></icon-app>
-		</ng-template>
+  <div class="overlay hide" [class.hide]="!showOverlay">
+    <div>
+      <div *ngIf="!selected; else selIc" class="selectionIc pointer icon-circle-unchecked" (click)="select.emit()">
+      </div>
+      <ng-template #selIc>
+        <div class="selectionIc pointer icon-circle-checked" name="check" (click)="unselect.emit()"></div>
+      </ng-template>
+    </div>
 
-		<div class="openCtnr hide">
-			<div class="open pointer" (click)="open.emit()">OPEN</div>
-			<thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)"></thumb-buttons-app>
-		</div>
-		<icon-app class="pointer hide" name="trash-alt" color="white" (click)="trash.emit()" color="inherit"></icon-app>
-	</div>
-  <img class="cardImg {{selected ? 'blurred': ''}}" [src]="url || defaultImg"/>
-  <!-- <div class="cardImg {{selected ? 'blurred': ''}}" [style.backgroundImage]="getURL()"></div> -->
+    <div class="openCtnr">
+      <div class="open pointer" (click)="open.emit()">OPEN</div>
+      <thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)"></thumb-buttons-app>
+    </div>
+    <div class="icon-delete" name="trash-alt" (click)="trash.emit()"></div>
+  </div>
+  <img class="cardImg" [class.blurred]="showOverlay" [src]="url || defaultImg" />
+  <div class="imgNumber flexRow" [class.hide]="showOverlay">
+    <span>-</span>
+    <div class="icon-img"></div>
+  </div>
 </div>
