@@ -19,6 +19,8 @@ import * as faFire from '@fortawesome/fontawesome-free-solid/faFire';
 import * as faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 import * as faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import * as faAngleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
+import * as faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
+import * as faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import * as faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle';
 import * as faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
 import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
@@ -59,7 +61,9 @@ export const faIcons = [	faAngleRight,
 	faFolder,
 	faExternalLinkAlt,
 	faChartBar,
-	faCheck
+	faCheck,
+	faAngleUp,
+	faAngleDown
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));
