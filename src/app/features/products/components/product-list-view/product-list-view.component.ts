@@ -4,6 +4,7 @@ import { Product } from '~products';
 import { FilterActions } from '~store/action/misc/filter.action';
 import { FilterGroupName, FilterSort } from '~store/model/misc/filter.model';
 import { Log } from '~app/app-root/utils';
+import { TableDescriptor } from '~app/shared/table';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -19,6 +20,16 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Input() products: Array<Product>;
 	@Input() selections: Map<string, boolean>;
+	descriptor: TableDescriptor = [
+	{ title: 'Supplier', type: 'supplier' },
+	{ title: 'Category', type: 'category' },
+	{ title: 'Price', type: 'price' },
+	{ title: 'Feedback', type: 'feedback' },
+	{ title: 'Created on', type: 'creationDate' },
+	{ title: '', type: 'rating' },
+	{ title: 'Created by', type: 'user' },
+	{ title: 'MOQ', type: 'txt' , propName: 'additionalInfo.minimumOrderQuantity'},
+	];
 
 	constructor() {}
 
