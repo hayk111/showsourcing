@@ -1,33 +1,55 @@
 :host {
-	display: block;
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	z-index: 3;
+    display: block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 3;
 }
 
 .ctnr {
-	background: var(--color-bg);
-	padding: var(--spacing-default);
-}
-
-icon-app {
-	margin-right: var(--spacing-s);
-}
-
-.btn{
-	margin-right: var(--spacing-xl);
-}
-
-.del {
-	color: var(--color-warn);
-	font-weight: bold;
+    background: var(--color-bg);
+    height: 70px;
 }
 
 .left {
-	color: var(--color-txt-secondary);
+    color: var(--color-txt-secondary);
 }
 
-.flex {
-	align-items: center;
+.closeSection {
+    padding-left: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-txt-secondary);
+    display: flex;
+    align-items: center;
+}
+
+button {
+    padding: 0 var(--spacing-l);
+    border-radius: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 12px;
+    background-color: var(--color-warn);
+    width: 210px;
+}
+
+.icon-delete {
+    color: var(--color-white);
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.icon-close {
+    color: var(--color-txt-secondary);
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.selected-text {
+    line-height: 1;
 }

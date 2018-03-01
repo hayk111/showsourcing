@@ -5,7 +5,6 @@
 	(viewChange)="onViewChange($event)">
 		<!-- views: either one will be displayed when the correct view is selected -->
 		<product-list-view-app
-      *ngIf="view === 'list'"
       [class.hidden] = "view !== 'list'"
 			class="list-view"
 			[selections]="selections"
@@ -17,7 +16,6 @@
 			(productUnfavorited)="onItemUnfavorited($event)"></product-list-view-app>
 		<product-card-view-app
 			class="card-view"
-      *ngIf="view === 'card'"
       [class.hidden] = "view !== 'card'"
 			[products]="products$ | async"
 			[selections]="selections"

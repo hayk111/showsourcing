@@ -9,5 +9,5 @@ export const environment = {
 	production: false,
 	apiUrl: 'https://stoemelings.showsourcing.com',
 	LOG_LEVEL: LogLevels.DEBUG,
-	hmr: false,
+	hmr: true,
 };
