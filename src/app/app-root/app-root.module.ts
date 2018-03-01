@@ -40,10 +40,10 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		BrowserModule,
 		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+		StoreModule,
 		TemplateModule,
 		AppStoreModule.forRoot(),
 		RouterModule.forRoot(routes),
-		StoreModule,
 		LocalStorageModule,
 		NgxChartsModule,
 		HttpClientModule,
@@ -72,13 +72,11 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	constructor(public appRef: ApplicationRef, private _store: Store<any>) {
-		const v = 1;
-	}
+	constructor(public appRef: ApplicationRef, private _store: Store<any>) {}
 	hmrOnInit(store) {
 		Log.info('------- HMR init');
 		if (!store || !store.rootState) return;
-		Log.info('HMR store', store);
+		Log.info('HMR store', store.rootState);
 		// restore state by dispatch a SET_ROOT_STATE action
 		if (store.rootState) {
 			this._store.dispatch({
@@ -96,11 +94,11 @@ export class AppRootModule {
 	hmrOnDestroy(store) {
 		Log.info('------- HMR OnDestroy');
 		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-		this._store.take(1).subscribe(s => (store.rootState = s));
+		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
 		store.disposeOldHosts = createNewHosts(cmpLocation);
 		store.restoreInputValues = createInputTransfer();
 		removeNgStyles();
-		Log.info(store);
+		Log.info(store.rootState);
 	}
 	hmrAfterDestroy(store) {
 		Log.info('------- HMR AfterDestroy');
