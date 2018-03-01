@@ -1,6 +1,6 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/misc/filter.action';
-import { AppFilters } from '../../model/misc/filter.model';
+import { ActionType } from 'shared/filters/filter.action';
+import { AppFilters } from '../../../../shared/filters/filter.model';
 
 export const initialState: AppFilters = {
 	productsPage: [],

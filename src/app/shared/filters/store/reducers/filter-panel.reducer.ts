@@ -1,5 +1,5 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/ui/filter-panel.action';
+import { FilterPanelActionType as ActionType } from '~shared/filters/store/filter-panel.action';
 
 export const initialState = {
 	open: false,

@@ -1,5 +1,5 @@
 import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/ui/filter-entity-panel.action';
+import { ActionType } from '../../../../shared/filters/store/filter-entity-panel.action';
 
 
 const initialState = {
