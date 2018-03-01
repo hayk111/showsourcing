@@ -1,6 +1,6 @@
 <div class="titleLogo"></div>
 <nav>
-  <a [routerLink]="['/home']" routerLinkActive="selected">Dashboard</a>
+  <a [routerLink]="['/home']" routerLinkActive="selected">Home</a>
 
   <a [routerLink]="['/projects']" routerLinkActive="selected">Projects</a>
 
@@ -10,11 +10,6 @@
 
   <a [routerLink]="['/tasks']" routerLinkActive="selected">Tasks</a>
 
-  <a [routerLink]="['/samples']" routerLinkActive="selected">Samples</a>
-
-  <a [routerLink]="['/workflow']" routerLinkActive="selected">Workflow</a>
-
-  <a [routerLink]="['/test']" routerLinkActive="selected">Test</a>
 </nav>
 
 <div class="flexCenter right" *ngIf="(authenticated$ | async)">
