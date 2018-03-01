@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TokenActions } from '~auth';
 
@@ -7,10 +7,16 @@ import { TokenActions } from '~auth';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 	constructor(private store: Store<any>) {}
 
 	ngOnInit(): void {
-		this.store.dispatch(TokenActions.check());
+		setTimeout(() => {
+			this.store.dispatch(TokenActions.check());
+		}, 0);
+	}
+
+	ngAfterViewInit(): void {
+		console.log('content init');
 	}
 }

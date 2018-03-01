@@ -1,3 +1,4 @@
+import { HmrService } from './../../app-root/store/services/hmr.service';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -17,40 +18,39 @@ import { CardModule } from '~shared/card';
 import { AuthService } from '~auth/services';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		InputsModule,
-		LoadersModule,
-		TabsModule,
-		CardModule
-	],
+	imports: [CommonModule, ReactiveFormsModule, InputsModule, LoadersModule, TabsModule, CardModule],
 	providers: [
 		AuthService,
 		TokenService,
+		HmrService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptorService,
-			multi: true
+			multi: true,
 		},
 		AuthGuardService,
 	],
-	declarations: [ LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent,
-			ForgotPasswordComponent, PwResettedComponent ],
-	exports: [  LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent ]
+	declarations: [
+		LoginComponent,
+		AuthCardComponent,
+		RegistrationComponent,
+		AccountCreatedComponent,
+		ForgotPasswordComponent,
+		PwResettedComponent,
+	],
+	exports: [LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent],
 })
 export class AuthModule {
-
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: AuthModule,
-			providers: [ AuthGuardService ]
+			providers: [AuthGuardService],
 		};
 	}
 
 	static forChild(): ModuleWithProviders {
 		return {
-			ngModule: AuthModule
+			ngModule: AuthModule,
 		};
 	}
 }
