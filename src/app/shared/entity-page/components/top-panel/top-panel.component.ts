@@ -13,10 +13,16 @@ import { EntityRepresentation } from '~store/utils/entities.utils';
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() repr: EntityRepresentation;
+	// whether the screen can be switched
 	@Input() switchable = true;
+	// view that can be switched into
 	@Input() view: 'list' | 'card';
+
+	// when the create button is clicked
 	@Output() createClick = new EventEmitter<any>();
 	@Output() viewChange = new EventEmitter<string>();
+	// when the filter button is clicked
+	@Output() filterClick = new EventEmitter<null>();
 
 	constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '~store/action/misc/filter.action';
 import { FilterGroupName, Filter } from '~store/model/misc/filter.model';
@@ -11,17 +11,12 @@ import { Observable } from 'rxjs/Observable';
 	styleUrls: ['./filter-cloud.component.scss']
 })
 export class FilterCloudComponent implements OnInit {
-	@Input() filterGroupName: FilterGroupName;
-	filters$: Observable<Array<Filter>>;
+	@Input() filters: Array<Filter>;
+	@Output() removeFilter = new EventEmitter<Filter>();
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
-		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
-	}
-
-	onFilterRemove(filter) {
-		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
 	}
 
 }

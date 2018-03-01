@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CustomInputsModule } from '~shared/custom-inputs/custom-inputs.module';
+import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs/inputs.module';
 
 import {
@@ -9,14 +10,13 @@ import {
   FilterBtnsPanelComponent,
   FilterCloudComponent,
   FilterEntityPanelComponent,
-  FilterPanelComponent,
   FilterPricePanelComponent,
   FilterRatingPanelComponent,
-	FilterSearchBarComponent,
-	FilterTagComponent,
-	FilterSmartPanelComponent
+  FilterSearchBarComponent,
+  FilterSmartPanelComponent,
+  FilterTagComponent,
 } from './components';
-import { IconsModule } from '~shared/icons';
+import { FilterPanelComponent } from './containers';
 
 @NgModule({
 	imports: [

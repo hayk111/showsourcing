@@ -7,7 +7,7 @@ import { FileTargetActions } from '~features/file';
 import { AppFile } from '~features/file';
 import { selectUser } from '~user/store/selectors/user.selector';
 
-import { ActionTypes, ProductActionsFactory } from '../actions/product.action';
+import { ActionTypes, ProductActions } from '../actions/product.action';
 
 @Injectable()
 export class ProductEffects {
@@ -20,9 +20,9 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// set products
-				map((r: any) => ProductActionsFactory.add(r)),
+				map((r: any) => ProductActions.add(r)),
 				// before everything set products as pending
-				startWith(ProductActionsFactory.setPending() as any)
+				startWith(ProductActions.setPending() as any)
 			);
 		})
 	);

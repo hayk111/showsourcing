@@ -19,8 +19,10 @@ export class FilterPricePanelComponent {
 	min: number;
 	max: number;
 	currency: Currency = defaultCurrency;
+
 	@Output() addFilter= new EventEmitter<Filter>();
 	@Output() removeFilterClass = new EventEmitter<FilterClass>();
+
 	@Input()
 	set selected(filters: Array<FilterPrice>) {
 		// there should be at most one filterprice at a time

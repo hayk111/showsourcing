@@ -27,7 +27,7 @@ export class FilterPanelComponent implements OnInit {
 	// FilterClass associated with said button is sent here.
 	selectedFilterClass: FilterClass;
 
-	// panels accept a series of choices as well as values
+	// panels accept a series of choices as well as selected choices (selectedValues).
 	choices$: Observable<Array<SelectableItem>>;
 	// the selected values are the values selected in choices.
 	selectedValues$: Observable<Array<any>>;
@@ -50,6 +50,7 @@ export class FilterPanelComponent implements OnInit {
 		this.selectedValues$ = this.store.select(selectFiltersForClass(this.filterGroupName, filterClass));
 	}
 
+	// filter btn clicked
 	onEntityBtnClick(filterClass: FilterEntityClass) {
 		const repr: EntityRepresentation = filterClass.getEntityRepr();
 		this.store.dispatch(FilterEntityPanelActions.setEntity(repr));
@@ -57,11 +58,12 @@ export class FilterPanelComponent implements OnInit {
 		this.selectedPanel = 'entity';
 	}
 
-
+	// new filter applied
 	onFilterAdded(filter: Filter) {
 		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
 
+	// old filter removed
 	onFilterRemoved(filter: Filter) {
 		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
 	}
@@ -74,10 +76,12 @@ export class FilterPanelComponent implements OnInit {
 		this.store.dispatch(FilterEntityPanelActions.search(value));
 	}
 
+	// no more filters
 	reset() {
 		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
 	}
 
+	// closing the panel
 	close() {
 		if (this.selectedPanel === 'btns')
 			this.store.dispatch(FilterPanelAction.close());

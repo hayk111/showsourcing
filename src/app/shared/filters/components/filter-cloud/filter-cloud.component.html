@@ -1,3 +1,4 @@
-<ng-container *ngFor="let f of (filters$ | async)">
-	<filter-tag-app [filter]="f" (filterRemoved)="onFilterRemove($event)"></filter-tag-app>
-</ng-container>
+<filter-tag-app
+	*ngFor="let filter of filters"
+	[filter]="f"
+	(filterRemoved)="removeFilter(filter)"></filter-tag-app>

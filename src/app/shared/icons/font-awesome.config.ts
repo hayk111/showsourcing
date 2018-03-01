@@ -30,6 +30,7 @@ import * as faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import * as faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
 import * as faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
 import * as faChartBar from '@fortawesome/fontawesome-free-solid/faChartBar';
+import * as faFilter from '@fortawesome/fontawesome-free-solid/faFilter';
 import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
@@ -63,7 +64,8 @@ export const faIcons = [	faAngleRight,
 	faChartBar,
 	faCheck,
 	faAngleUp,
-	faAngleDown
+	faAngleDown,
+	faFilter
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));
