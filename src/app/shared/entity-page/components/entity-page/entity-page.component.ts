@@ -3,9 +3,9 @@ import { FilterGroupName } from '~store/model/misc/filter.model';
 import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
-  selector: 'entity-page-app',
-  templateUrl: './entity-page.component.html',
-  styleUrls: ['./entity-page.component.scss']
+	selector: 'entity-page-app',
+	templateUrl: './entity-page.component.html',
+	styleUrls: ['./entity-page.component.scss'],
 })
 export class EntityPageComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
@@ -16,10 +16,7 @@ export class EntityPageComponent implements OnInit {
 	@Output() createClick = new EventEmitter<any>();
 	@Output() viewChange = new EventEmitter<any>();
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-
-	}
-
+	ngOnInit() {}
 }
