@@ -1,7 +1,7 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { FilterPanelActionType as ActionType } from '~shared/filters/store/filter-panel.action';
+import { TypedAction } from '~store/utils/typed-action.interface';
+import { FilterPanelActionType as ActionType } from '../actions';
 
-export const initialState = {
+const initialState = {
 	open: false,
 };
 

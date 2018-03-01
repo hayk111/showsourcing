@@ -30,12 +30,12 @@ import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
-import { filtersReducer } from './misc/filter.reducer';
+import { filtersReducer } from '../../../shared/filters/store/reducers/filter.reducer';
 import { imageSelectionReducer } from '~features/file';
 import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
 import { authDlgReducer, authenticationReducer } from '~auth';
-import { filterEntityPanelReducer } from './ui/filter-entity-panel.reducer';
-import { filterPanelReducer } from './ui/filter-panel.reducer';
+import { filterEntityPanelReducer } from '../../../shared/filters/store/reducers/filter-entity-panel.reducer';
+import { filterPanelReducer } from '../../../shared/filters/store/reducers/filter-panel.reducer';
 
 const entities = combineReducers({
 	user: userReducer,

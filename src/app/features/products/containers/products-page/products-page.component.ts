@@ -19,7 +19,7 @@ import {
 	FilterStatus,
 	FilterSupplier,
 	FilterTags,
-} from '~store/model/misc/filter.model';
+} from '~shared/filters';
 import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 import { Patch } from '~store/utils/patch.interface';
 import { UserService } from '~user';

@@ -1,9 +1,9 @@
 import { Entity, EntityRepresentation } from '../../utils/entities.utils';
-import { FilterGroupName, FilterEntityClass } from '../../model/misc/filter.model';
+import { FilterGroupName, FilterEntityClass } from '~shared/filters';
 import { Log } from '~utils/index';
 import { selectEntityArray } from './utils.selector';
 import { createSelector } from 'reselect';
-import { selectFiltersValues } from './filter.selectors';
+import { selectFiltersValues } from '~shared/filters';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;

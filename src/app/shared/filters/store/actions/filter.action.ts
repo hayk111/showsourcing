@@ -1,7 +1,7 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { Filter, FilterGroupName, FilterClass } from '../../model/misc/filter.model';
+import { TypedAction } from '~store/utils/typed-action.interface';
+import { Filter, FilterGroupName, FilterClass } from '../../models';
 
-export enum ActionType {
+export enum FilterActionType {
 	ADD_FILTER = '[Filters] adding',
 	REMOVE_FILTER = '[Filters] removing',
 	REMOVE_FILTER_FOR_CLASS = '[Filters] removing all specific filters',
@@ -17,7 +17,7 @@ export class FilterActions {
 		static addFilter(filter: Filter, filterGroupName: FilterGroupName)
 		: TypedAction<any> {
 				return {
-						type: ActionType.ADD_FILTER,
+						type: FilterActionType.ADD_FILTER,
 						payload: { filter, filterGroupName }
 				};
 		}
@@ -25,21 +25,21 @@ export class FilterActions {
 		static removeFilter(filter: Filter, filterGroupName: FilterGroupName)
 			: TypedAction<any> {
 			return {
-				type: ActionType.REMOVE_FILTER,
+				type: FilterActionType.REMOVE_FILTER,
 				payload: { filter, filterGroupName }
 			};
 		}
 
 		static removeFiltersForFilterClass(filterGroupName: FilterGroupName, filterClass: FilterClass) {
 			return {
-				type: ActionType.REMOVE_FILTER_FOR_CLASS,
+				type: FilterActionType.REMOVE_FILTER_FOR_CLASS,
 				payload: { filterGroupName, filterClass }
 			};
 		}
 
 		static clearGroup(filterGroupName: FilterGroupName) {
 			return {
-				type: ActionType.CLEAR,
+				type: FilterActionType.CLEAR,
 				payload: filterGroupName
 			};
 		}

@@ -1,6 +1,6 @@
-import { EntityRepresentation } from '../../utils/entities.utils';
+import { EntityRepresentation } from '~store/utils/entities.utils';
 
-export enum ActionType {
+export enum FEPActionType {
 	SET_ENTITY = '[FilterEntityPanel] setting entity',
 	LOAD_CHOICES = '[FilterEntityPanel] loading choices',
 	SET_CHOICES = '[FilterEntityPanel] setting choices',
@@ -11,34 +11,34 @@ export enum ActionType {
 export class FilterEntityPanelActions {
 	static setEntity(entityRepr: EntityRepresentation) {
 		return {
-			type: ActionType.SET_ENTITY,
+			type: FEPActionType.SET_ENTITY,
 			payload: entityRepr
 		};
 	}
 
 	static reset() {
 		return {
-			type: ActionType.RESET
+			type: FEPActionType.RESET
 		};
 	}
 
 	static search(str: string) {
 		return {
-			type: ActionType.SEARCH,
+			type: FEPActionType.SEARCH,
 			payload: str
 		};
 	}
 
 	static setChoices(items: Array<any>) {
 		return {
-			type: ActionType.SET_CHOICES,
+			type: FEPActionType.SET_CHOICES,
 			payload: items
 		};
 	}
 
 	static loadChoices(entityRepr: EntityRepresentation) {
 		return {
-			type: ActionType.LOAD_CHOICES,
+			type: FEPActionType.LOAD_CHOICES,
 			payload: entityRepr
 		};
 	}

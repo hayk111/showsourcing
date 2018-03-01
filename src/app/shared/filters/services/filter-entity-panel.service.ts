@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { selectUserTeamId } from '~user/store/selectors/user.selector';
+import { selectUserTeamId } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
-import { selectEntityArray } from '../selectors/misc/utils.selector';
-import { Entity, EntityRepresentation } from '../utils/entities.utils';
+import { selectEntityArray } from '~store/selectors/misc/utils.selector';
+import { Entity, EntityRepresentation } from '~store/utils/entities.utils';
 
 @Injectable()
 export class FilterEntityPanelService {

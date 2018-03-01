@@ -7,8 +7,8 @@ import { selectUser } from '~user/store/selectors/user.selector';
 import { Log } from '~utils';
 import { UrlBuilder } from '~utils/url-builder.class';
 
-import { FilterGroupName } from '../model/misc/filter.model';
-import { selectFiltersAsUrlParams } from '../selectors/misc/filter.selectors';
+import { FilterGroupName } from '~shared/filters';
+import { selectFiltersAsUrlParams } from '~shared/filters';
 import { EntityRepresentation } from '../utils/entities.utils';
 
 @Injectable()

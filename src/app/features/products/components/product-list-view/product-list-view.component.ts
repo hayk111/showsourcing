@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~products';
-import { FilterActions } from '~store/action/misc/filter.action';
-import { FilterGroupName, FilterSort } from '~store/model/misc/filter.model';
-import { Log } from '~utils';
-import { TableDescriptor, ColumnDescriptor } from '~app/shared/table';
 
 @Component({
 	selector: 'product-list-view-app',

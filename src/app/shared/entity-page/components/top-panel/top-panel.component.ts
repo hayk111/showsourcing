@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
-import { FilterGroupName } from '~store/model/misc/filter.model';
+import { FilterGroupName } from '~shared/filters';
 import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({

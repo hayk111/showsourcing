@@ -1,10 +1,10 @@
-import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { ActionType, FilterEntityPanelActions } from '../../action/ui/filter-entity-panel.action';
+import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
-import { EntityRepresentation } from '../../utils/entities.utils';
-import { Store } from '@ngrx/store';
+import { EntityRepresentation } from '~store/utils/entities.utils';
+
 import { FilterEntityPanelService } from '../../services/filter-entity-panel.service';
+import { FEPActionType as ActionType, FilterEntityPanelActions } from '../actions/filter-entity-panel.action';
 
 
 @Injectable()
@@ -23,6 +23,6 @@ export class FilterEntityPanelEffects {
 		map(items => FilterEntityPanelActions.setChoices(items))
 	);
 
-	constructor(private actions$: Actions, private srv: FilterEntityPanelService, private store: Store<any>) {}
+	constructor(private actions$: Actions, private srv: FilterEntityPanelService) {}
 
 }

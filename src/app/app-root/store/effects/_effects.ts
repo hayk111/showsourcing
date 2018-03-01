@@ -23,7 +23,7 @@ import { TargetEffects } from './target/target.effects';
 import { TaskTargetEffects } from './target/task.effects';
 import { VoteTargetEffects } from './target/vote.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
-import { FilterEntityPanelEffects } from './ui/filter-entity-panel.effects';
+import { FilterEntityPanelEffects } from '~shared/filters';
 
 export const effects = [
 	// entities
