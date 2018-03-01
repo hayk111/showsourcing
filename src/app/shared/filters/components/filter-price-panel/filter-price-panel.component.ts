@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { FilterActions } from '~store/action/misc/filter.action';
+import { FilterActions } from '../../store/actions';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { FilterPrice, Filter, FilterClass } from '~store/model/misc/filter.model';
+import { FilterPrice, Filter, FilterClass } from '../../models';
 import { Currency, defaultCurrency } from '~store/model/entities/currency.model';
 
 // panel used for prices filtering
@@ -19,8 +19,10 @@ export class FilterPricePanelComponent {
 	min: number;
 	max: number;
 	currency: Currency = defaultCurrency;
+
 	@Output() addFilter= new EventEmitter<Filter>();
 	@Output() removeFilterClass = new EventEmitter<FilterClass>();
+
 	@Input()
 	set selected(filters: Array<FilterPrice>) {
 		// there should be at most one filterprice at a time

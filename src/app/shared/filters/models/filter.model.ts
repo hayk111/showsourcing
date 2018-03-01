@@ -1,5 +1,5 @@
-import { Entity, entityRepresentationMap, EntityRepresentation } from '../../utils/entities.utils';
-import { Currency } from '../entities/currency.model';
+import { Entity, entityRepresentationMap, EntityRepresentation } from '~store/utils/entities.utils';
+import { Currency } from '~store/model/entities/currency.model';
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',

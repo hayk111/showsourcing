@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs/observable/interval';
 import { map, switchMap, tap, filter } from 'rxjs/operators';
-import { ProductActionsFactory } from '~products/store/actions';
+import { ProductActions } from '~products/store/actions';
 
 import {
 	CategoryActions,
@@ -50,7 +50,7 @@ export class PreloaderEffects {
 	);
 
 	private getEntities(id, maxCounter = -1) {
-		this.dispatch(ProductActionsFactory.load({ id, maxCounter }));
+		this.dispatch(ProductActions.load({ id, maxCounter }));
 		this.dispatch(TaskActions.load({ id, maxCounter }));
 		this.dispatch(CategoryActions.load({ id, maxCounter }));
 		this.dispatch(SupplierActions.load({ id, maxCounter }));

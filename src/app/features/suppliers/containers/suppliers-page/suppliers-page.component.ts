@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName } from '~store/model/misc/filter.model';
+import { FilterGroupName } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, entityRepresentationMap } from '~store/utils/entities.utils';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '~suppliers/store/selectors';
-import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
+import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { TargetAction } from '~store/action/target/target.action';
 import { Router } from '@angular/router';

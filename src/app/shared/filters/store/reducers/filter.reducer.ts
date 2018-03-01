@@ -1,8 +1,9 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/misc/filter.action';
-import { AppFilters } from '../../model/misc/filter.model';
+import { TypedAction } from '~store/utils/typed-action.interface';
 
-export const initialState: AppFilters = {
+import { AppFilters } from '../../models';
+import { FilterActionType as ActionType } from '../actions';
+
+const initialState: AppFilters = {
 	productsPage: [],
 	tasksPage: [],
 	supplierPage: [],

@@ -4,7 +4,8 @@
 	[switchable]="switchable"
 	[view]="view"
 	[repr]="repr"
-	(viewChange)="viewChange.emit($event)"></top-panel-app>
+	(viewChange)="viewChange.emit($event)"
+	(filterClick)="filterClick.emit($event)"></top-panel-app>
 <progress-bar-app *ngIf="pending"></progress-bar-app>
 <ng-content></ng-content>
 <!-- <ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>

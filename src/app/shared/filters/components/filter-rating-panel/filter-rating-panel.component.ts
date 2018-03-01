@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions } from '~store/action/misc/filter.action';
-import { FilterGroupName, Filter, FilterRating } from '~store/model/misc/filter.model';
+import { FilterActions } from '../../store/actions';
+import { FilterGroupName, Filter, FilterRating } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '~utils/index';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
@@ -14,7 +14,7 @@ import { entityRepresentationMap } from '~store/utils/entities.utils';
 export class FilterRatingPanelComponent {
 	@Output() addFilter = new EventEmitter<Filter>();
 	@Output() removeFilter = new EventEmitter<Filter>();
-	ratings = [1, 2, 3, 4, 5];
+	ratings = [ 1, 2, 3, 4, 5 ];
 	values: Array<number> = [];
 
 	constructor() {

@@ -1,15 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions } from '~store/action/misc/filter.action';
-import {
-	FilterCategory,
-	FilterEvent,
-	FilterGroupName,
-	FilterSearch,
-	FilterSupplier,
-} from '~store/model/misc/filter.model';
+import { FilterCategory, FilterEvent, FilterGroupName,
+	FilterSearch, FilterSupplier } from '~shared/filters/models';
 import { SmartSearch } from '~store/selectors/misc/search-entities.selector';
+import { FilterActions } from '../../store/actions';
 
 @Component({
 	selector: 'filter-search-bar-app',

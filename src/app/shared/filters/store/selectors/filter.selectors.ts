@@ -1,11 +1,12 @@
-import { createSelector } from '@ngrx/store';
-import { FilterGroupName, Filter, FilterClass } from '../../model/misc/filter.model';
-import { Log } from '~utils/index';
-import { selectEntityArray } from './utils.selector';
-import { EntityRepresentation } from '../../utils/entities.utils';
+import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { FilterGroupName, Filter, FilterClass } from '../../models/filter.model';
+import { Log } from 'app/app-root/utils/index';
+import { selectEntityArray } from '~store/selectors/misc/utils.selector';
+import { EntityRepresentation } from '~store/utils/entities.utils';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 
+// return all filtergroups
 const getFilters = (state) => state.misc.filters;
 
 // return filters for a specific group like for example product-page
@@ -32,21 +33,21 @@ export const selectFiltersByName = (filterGroupName: FilterGroupName) => {
 	});
 };
 
-// select filters for a specific filterClass
+// select filters for a specific filterClass :  [filters]: Array<FilterPrice>
 export const selectFiltersForClass = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
 	return createSelector([ selectFilterGroup(filterGroupName) ], ( groupFilters: Array<Filter> ) => {
 		return groupFilters.filter(f  => f instanceof filterClass);
 	});
 };
 
-// select filters's values for a specific filterClass
+// select filters's values for a specific filterClass, same as above but only values
 export const selectFiltersValues = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
 	return createSelector([ selectFiltersForClass(filterGroupName, filterClass) ], ( groupFilters: Array<Filter> ) => {
-		return groupFilters.filter(f  => f instanceof filterClass).map(f => f.value);
+		return groupFilters.map(f => f.value);
 	});
 };
 
-
+// returns a string like supplier=id&event=id&...
 export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
 	return createSelector(
 		[
@@ -59,17 +60,21 @@ export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
 	);
 };
 
-
-export const selectFilteredEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation) => {
+/**
+ * Selects filtered entities
+ * @param filterGroupName - The filter group name
+ * @param { EntityRepresentation } entityRepr - The entityRepresentation we want to select
+ */
+export const selectFilteredEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation ) => {
 	return createSelector([
 		selectFilterGroup(filterGroupName),
 		selectEntityArray(entityRepr)
 	],
-	(filters, products) => {
+	(filters, entities) => {
 		const returned = [];
-		products.forEach(product => {
-			if (filters.every((afilter: Filter) => afilter.filter(product)))
-				returned.push(product);
+		entities.forEach(entity => {
+			if (filters.every((afilter: Filter) => afilter.filter(entity)))
+				returned.push(entity);
 		});
 		return returned;
 	});

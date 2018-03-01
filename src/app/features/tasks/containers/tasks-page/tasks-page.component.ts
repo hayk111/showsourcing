@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter } from '~store/model/misc/filter.model';
-import { Observable } from 'rxjs/Observable';
-import { AutoUnsub } from '~utils/index';
-import { TaskActions } from '~store/action/entities/index';
 import { Store } from '@ngrx/store';
-import { Task } from '../../models';
-import { EntityState, EntityRepresentation, entityRepresentationMap } from '~store/utils/entities.utils';
-import { selectTasks } from '../../store/selectors';
-import { DialogActions } from '~shared/dialog';
-import { DialogName } from '~shared/dialog';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
+import { DialogActions, DialogName } from '~shared/dialog';
+import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
+import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { AutoUnsub } from '~utils';
+
+import { selectTasks } from '../../store/selectors';
 
 @Component({
 	selector: 'tasks-page-app',

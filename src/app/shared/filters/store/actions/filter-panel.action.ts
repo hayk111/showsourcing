@@ -1,5 +1,5 @@
 
-export enum ActionType {
+export enum FilterPanelActionType {
 	OPEN = '[FilterPanel] open',
 	CLOSE = '[FilterPanel] close'
 }
@@ -8,13 +8,13 @@ export class FilterPanelAction {
 
 	static open() {
 		return {
-			type: ActionType.OPEN,
+			type: FilterPanelActionType.OPEN,
 		};
 	}
 
 	static close() {
 		return {
-			type: ActionType.CLOSE
+			type: FilterPanelActionType.CLOSE
 		};
 	}
 }

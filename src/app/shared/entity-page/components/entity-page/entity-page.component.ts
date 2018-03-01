@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterGroupName } from '~store/model/misc/filter.model';
+import { FilterGroupName } from '~shared/filters';
 import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
@@ -13,8 +13,11 @@ export class EntityPageComponent implements OnInit {
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
 	@Input() view: 'list' | 'card' = 'list';
+	// when create button from toppanel is clicked
 	@Output() createClick = new EventEmitter<any>();
 	@Output() viewChange = new EventEmitter<any>();
+	// when filter button from toppanel is clicked
+	@Output() filterClick = new EventEmitter<null>();
 
 	constructor() {}
 

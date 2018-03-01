@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect';
-import { Filter, FilterGroupName } from '~store/model/misc/filter.model';
+import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
 import { selectCategories } from '~store/selectors/entities/categories.selector';
 import { selectEvents } from '~store/selectors/entities/events.selector';
 import { selectProductStatuses } from '~store/selectors/entities/product-status.selector';
-import { selectFilterGroup } from '~store/selectors/misc/filter.selectors';
 import { deepCopy } from '~store/utils/deep-copy.utils';
 import { EntityState } from '~store/utils/entities.utils';
 import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
@@ -64,21 +63,4 @@ export const selectProductByStatus = (filterGroupName: FilterGroupName) =>
 		}
 	);
 
-export const selectProductsWithNames = createSelector(
-	[selectProducts, selectCategories, selectEvents, selectSuppliers],
-	(products, categories, events, suppliers) => {
-		const returned = [];
-		products = deepCopy(products);
-		products.ids.forEach(id => {
-			const product = products.byId[id];
-			const supplier = suppliers.byId[product.supplierId];
-			const event = events.byId[product.eventId];
-			const category = categories.byId[product.category.id];
-			product.supplierName = supplier ? supplier.name : '';
-			product.eventName = event ? event.name : '';
-			product.categoryName = category ? category.name : '';
-			returned.push(product);
-		});
-		return returned;
-	}
-);
+

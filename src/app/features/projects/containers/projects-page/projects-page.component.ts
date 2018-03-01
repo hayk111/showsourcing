@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Project } from '../../models';
 import { Store } from '@ngrx/store';
-import { selectFilteredEntity } from '~store/selectors/misc/filter.selectors';
-import { selectProjects } from '../../store/selectors';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
 import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { FilterGroupName } from '~store/model/misc/filter.model';
+
+import { Project } from '../../models';
+import { selectProjects } from '../../store/selectors';
 
 @Component({
 	selector: 'projects-page-app',

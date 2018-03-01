@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { Product, selectProducts } from '~products';
 import { TargetAction } from '~store/action/target/target.action';
-import { FilterGroupName } from '~store/model/misc/filter.model';
+import { FilterGroupName } from '~shared/filters';
 import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 
 @Component({

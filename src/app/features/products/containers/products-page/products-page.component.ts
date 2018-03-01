@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { Product } from '~products/models';
-import { ProductActionsFactory } from '~products/store/actions';
+import { ProductActions } from '~products/store/actions';
 import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
@@ -19,7 +19,7 @@ import {
 	FilterStatus,
 	FilterSupplier,
 	FilterTags,
-} from '~store/model/misc/filter.model';
+} from '~shared/filters';
 import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 import { Patch } from '~store/utils/patch.interface';
 import { UserService } from '~user';
@@ -85,12 +85,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	onItemFavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(ProductActionsFactory.patch(patch));
+		this.store.dispatch(ProductActions.patch(patch));
 	}
 
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(ProductActionsFactory.patch(patch));
+		this.store.dispatch(ProductActions.patch(patch));
 	}
 
 	onItemVoted({ id, value }: { id: string; value: number }) {

@@ -22,12 +22,12 @@ export const ActionTypes: ProductActionTypes = makeBasicActionTypes(entityRepres
 addActionType(ActionTypes, entityRepresentationMap.product, 'REQUEST_PDF');
 
 // Generating Action factory inside one object and extending it
-export const ProductActionsFactory: ProductActions = makeBasicActions(ActionTypes);
-ProductActionsFactory.requestPdf = (id: string) => {
+export const ProductActions: ProductActions = makeBasicActions(ActionTypes);
+ProductActions.requestPdf = (id: string) => {
 	return {
 		type: ActionTypes.REQUEST_PDF,
 		payload: id,
 	};
 };
 
-entityRepresentationMap.product.actions = ProductActionsFactory;
+entityRepresentationMap.product.actions = ProductActions;

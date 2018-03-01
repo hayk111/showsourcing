@@ -1,5 +1,5 @@
-import { TypedAction } from '../../utils/typed-action.interface';
-import { ActionType } from '../../action/ui/filter-entity-panel.action';
+import { TypedAction } from '~store/utils/typed-action.interface';
+import { FEPActionType as ActionType } from '../actions';
 
 
 const initialState = {
