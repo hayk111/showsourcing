@@ -6,12 +6,13 @@ import { User } from '../../models/user.model';
 	templateUrl: './user-picture-with-name.component.html',
 	styleUrls: ['./user-picture-with-name.component.scss']
 })
-export class UserPictureWithNameComponent implements OnInit {
+export class UserPictureWithNameComponent {
 	@Input() user: User;
+	@Input() size: number;
+	@Input() border: boolean;
 
 	constructor() { }
 
-	ngOnInit() {
-	}
+
 
 }

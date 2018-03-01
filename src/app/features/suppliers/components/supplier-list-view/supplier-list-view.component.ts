@@ -12,7 +12,7 @@ import { selectSuppliers } from '~suppliers/store/selectors';
 })
 export class SupplierListViewComponent implements OnInit {
 	@Input() suppliers: Array<Supplier> = [];
-	@Input() selections: Map<string, boolean>;
+	@Input() selection: Map<string, boolean>;
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();
 	@Output() supplierOpen = new EventEmitter<string>();

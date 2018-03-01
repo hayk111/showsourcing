@@ -37,9 +37,10 @@ export class PreloaderEffects {
 		switchMap(
 			id =>
 				this.srv
-					.loadMaxCounter(id)
-					.map((r: any) => r.counter)
-					.filter(c => c > PreloaderEffects.CURRENT),
+					.loadMaxCounter(id).pipe(
+						map((r: any) => r.counter),
+						filter(c => c > PreloaderEffects.CURRENT),
+					),
 			(id, counter: number) => {
 				if (counter > PreloaderEffects.CURRENT && PreloaderEffects.CURRENT !== -1)
 					this.getEntities(id, PreloaderEffects.CURRENT);

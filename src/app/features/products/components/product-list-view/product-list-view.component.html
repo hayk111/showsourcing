@@ -1,19 +1,71 @@
 
-<custom-table-app [rows]="products" [descriptor]="descriptor">
-
-	<!-- <ng-template columnApp="Name" let-row="row">
-		<div class="mainCell">
-			<input
-				type="checkbox"
-				[checked]="selections.get(row.id)"
-				(change)="onCheck($event, row.id)"/>
-			<img [src]="row?.mainImage?.urls?.url_60x45"/>
-			<span class="name">{{ row.name }}</span>
-		</div>
-	</ng-template> -->
-
-	<!-- <ng-template columnApp="Actions" let-row="row" [sortable]="false">
-		<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
-	</ng-template> -->
-
+<custom-table-app
+	infiniScroll
+	bottomDistance="2000"
+	class="list"
+	[rows]="products"
+	[descriptor]="descriptor">
 </custom-table-app>
+
+<ng-template #main let-row="row">
+	<div class="mainCell">
+		<input
+			type="checkbox"
+			[checked]="selection.get(row.id)"
+			(change)="onCheck($event, row.id)"/>
+		<img [src]="row?.mainImage?.urls?.url_60x45"/>
+		<span class="name">{{ row.name }}</span>
+	</div>
+</ng-template>
+
+<ng-template #supplier let-row="row">
+			{{ row?.supplierId | entityName: 'suppliers' | async }}
+</ng-template>
+
+<ng-template #category let-row="row">
+		{{ row?.categoryId | entityName: 'categories' | async }}
+</ng-template>
+
+<ng-template #price let-row="row">
+	{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
+</ng-template>
+
+<ng-template #feedback let-row="row">
+	{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
+</ng-template>
+
+<ng-template #creationDate let-row="row">
+	{{ row?.creationDate | date: 'MMMM y' }}
+</ng-template>
+
+<ng-template #rating let-row="row">
+	<rating-heart-app
+		[rating]="row?.rating"
+		(favorited)="productFavorited.emit(row.id)"
+		(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
+</ng-template>
+
+<ng-template #action let-row="row">
+	<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
+</ng-template>
+
+<!-- for some mindblowing reason if this is put last, the viewchild for default template is undefined-->
+<ng-template #default let-row="row" let-column="column">
+	{{ row[column.propName] }}
+</ng-template>
+
+<ng-template #user let-row="row">
+	<div class="flexCenter userP" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
+		<user-picture-app
+			[size]="18"
+			[border]="true"
+			[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+		<span>{{ user.name }}</span>
+	</div>
+<ng-template>
+
+
+
+<ng-template #none></ng-template>
+
+

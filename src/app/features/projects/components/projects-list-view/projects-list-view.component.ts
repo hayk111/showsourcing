@@ -10,7 +10,7 @@ export class ProjectsListViewComponent implements OnInit {
 	@Output() projectSelect = new EventEmitter<string>();
 	@Output() projectUnselect = new EventEmitter<string>();
 	@Input() projects: Array<Project> = [];
-	@Input() selections: Map<string, boolean>;
+	@Input() selection: Map<string, boolean>;
 
   constructor() { }
 

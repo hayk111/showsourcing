@@ -22,7 +22,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasks$;
 	pending$: Observable<boolean>;
 	repr = entityRepresentationMap.tasks;
-	selections = new Map<string, boolean>();
+	selection = new Map<string, boolean>();
 
 	constructor(private store: Store<any>) {
 		super();
@@ -38,11 +38,11 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		this.selections.set(entityId, true);
+		this.selection.set(entityId, true);
 	}
 
 	onItemUnselected(entityId: string) {
-		this.selections.delete(entityId);
+		this.selection.delete(entityId);
 	}
 
 }

@@ -6,12 +6,12 @@
 	<tasks-list-view-app
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
-		[selections]="selections"
+		[selection]="selection"
 		[tasks]="tasks$ | async"></tasks-list-view-app>
 	<new-task-dlg-app></new-task-dlg-app>
 </entity-page-app>
 
-<selection-bar-app [repr]="repr" *ngIf="selections.size > 0" [selections]="selections">
+<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">
 
 </selection-bar-app>
 

@@ -84,7 +84,7 @@ export class AuthenticationEffects {
 
 	private onLoginSuccess(r: HttpResponse<Object>) {
 		const token = r.headers.get('X-Auth-Token');
-		return [AuthActions.authenticate(token, true), AuthDlgActions.setReady(AuthView.LOGIN)];
+		return [ AuthActions.authenticate(token, true), AuthDlgActions.setReady(AuthView.LOGIN)];
 	}
 
 	private onRegisterSuccess() {

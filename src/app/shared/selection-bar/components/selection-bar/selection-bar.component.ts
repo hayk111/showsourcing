@@ -8,7 +8,7 @@ import { EntityRepresentation } from '~store/utils/entities.utils';
 })
 export class SelectionBarComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
-	@Input() selections;
+	@Input() selection: Map<string, boolean>;
 	@Output() close = new EventEmitter();
 	constructor() {}
 

@@ -1,7 +1,10 @@
-<div class="pointer" *ngIf="favorite; then heart else emptyheart"></div>
-<ng-template #heart>
-  <div class="icon-heart"></div>
-</ng-template>
-<ng-template #emptyheart>
-  <div class="icon-heart-empty"></div>
-</ng-template>
+<div (click)="onClick()" class="pointer">
+	<div class="pointer" *ngIf="favorite; then heart else emptyheart"></div>
+	<ng-template #heart>
+		<div class="icon-heart"></div>
+	</ng-template>
+	<ng-template #emptyheart>
+		<div class="icon-heart-empty"></div>
+	</ng-template>
+</div>
+

@@ -13,7 +13,7 @@ import { DialogActions } from '~dialog';
 import { DialogName } from '~dialog';
 
 @Component({
-	selector: 'app-supplier-page',
+	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 })
@@ -23,7 +23,7 @@ export class SuppliersPageComponent implements OnInit {
 	pending$: Observable<boolean>;
 	repr = entityRepresentationMap.suppliers;
 	// maps current selection
-	selections = new Map<string, boolean>();
+	selection = new Map<string, boolean>();
 
 	constructor(private store: Store<any>, private router: Router) { }
 
@@ -37,11 +37,11 @@ export class SuppliersPageComponent implements OnInit {
 	}
 
 	onItemSelected(entityId: string) {
-		this.selections.set(entityId, true);
+		this.selection.set(entityId, true);
 	}
 
 	onItemUnselected(entityId: string) {
-		this.selections.delete(entityId);
+		this.selection.delete(entityId);
 	}
 
 	onItemOpened(entityId: string) {

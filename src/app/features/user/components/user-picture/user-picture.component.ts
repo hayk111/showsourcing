@@ -7,7 +7,9 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 	styleUrls: ['./user-picture.component.scss'],
 })
 export class UserPictureComponent implements OnInit {
-	private _url;
+	private _url: string;
+	@Input() size: number;
+	@Input() border = false;
 
 	constructor() {}
 

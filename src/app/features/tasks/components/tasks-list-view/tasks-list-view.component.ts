@@ -9,7 +9,7 @@ import { Task } from './../../models';
 	styleUrls: ['./tasks-list-view.component.scss']
 })
 export class TasksListViewComponent implements OnInit {
-	@Input() selections: Map<string, boolean>;
+	@Input() selection: Map<string, boolean>;
 	@Output() taskSelect = new EventEmitter<string>();
 	@Output() taskUnselect = new EventEmitter<string>();
 	private _tasks: Array<Task> = [];

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { TableDescriptor } from '~app/shared/table';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ContentChild, Output, EventEmitter } from '@angular/core';
+import { TableDescriptor, ColumnDirective } from '~app/shared/table';
 
 @Component({
   selector: 'custom-table-app',
@@ -14,6 +14,6 @@ export class CustomTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+	}
 
 }
