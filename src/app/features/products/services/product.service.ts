@@ -4,14 +4,6 @@ import { map, tap } from 'rxjs/operators';
 
 import { entityRepresentationMap } from '~entity';
 
-export interface LoadParams {
-	isTeamEntity?: boolean;
-	teamId?: string;
-	entityName?: string;
-	urlParamsAsString?: string;
-	drop?: number;
-	isRecurring?: boolean;
-}
 
 @Injectable()
 export class ProductService {
