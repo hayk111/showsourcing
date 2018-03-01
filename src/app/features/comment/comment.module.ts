@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { AppStoreModule } from '~store/store.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';

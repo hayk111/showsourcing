@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
-import { FilterEntityClass, FilterGroupName, selectFiltersValues } from '~shared/filters';
+import { FilterEntityClass, FilterGroupName } from '~shared/filters/models';
+import { selectFiltersValues } from './filter.selectors';
 import { Log } from '~utils';
 
-import { Entity, EntityRepresentation } from '../../models';
-import { selectEntityArray } from './entity.selector';
+import { Entity, EntityRepresentation } from '~entity';
+import { selectEntityArray } from '~entity';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppStoreModule } from '~store/store.module';
 
 import { UtilsModule } from '../utils/utils.module';
 import { InputCheckboxComponent } from './components/input-checkbox/input-checkbox.component';
@@ -9,6 +8,7 @@ import { InputFileComponent } from './components/input-file/input-file.component
 import { InputRadioComponent } from './components/input-radio/input-radio.component';
 import { InputTextareaComponent } from './components/input-textarea/input-textarea.component';
 import { InputComponent } from './components/input/input.component';
+import { EntityModule } from '~entity';
 
 export const components = [
 	// vanilla inputs
@@ -25,8 +25,7 @@ export const components = [
 		FormsModule,
 		ReactiveFormsModule,
 		UtilsModule,
-		AppStoreModule.forChild(),
-		UtilsModule,
+		EntityModule.forChild(),
 	],
 	declarations: components,
 	// entryComponents: components,

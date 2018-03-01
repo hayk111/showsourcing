@@ -5,7 +5,7 @@ import { ColumnDirective, TableComponent } from './components';
 import { IconsModule } from '~app/shared/icons';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { UserModule } from '~app/features/user';
-import { AppStoreModule } from '~app/app-root/store/store.module';
+import { EntityModule } from '~entity';
 import { RatingModule } from '~app/shared/rating';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { RatingModule } from '~app/shared/rating';
 		CommonModule,
 		IconsModule,
 		UserModule.forChild(),
-		AppStoreModule.forChild(), // TODO REMOVE when entityName pipe is removed from this module
+		EntityModule.forChild(), // TODO REMOVE when entityName pipe is removed from this module
 		RatingModule
   ],
 	declarations: [ TableComponent, ColumnDirective, CustomTableComponent ],

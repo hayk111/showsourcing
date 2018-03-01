@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppStoreModule } from '~store/store.module';
+import { EntityModule } from '~entity';
 
 import { UserModule } from '~features/user';
 import { IconsModule } from '~shared/icons';
@@ -16,7 +16,7 @@ import { UserPanelComponent } from './components';
 	imports: [
 		CommonModule,
 		UtilsModule,
-		AppStoreModule,
+		EntityModule.forChild(),
 		RouterModule.forChild([]),
 		UserModule.forChild(),
 		IconsModule,

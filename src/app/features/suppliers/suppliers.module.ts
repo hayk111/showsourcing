@@ -11,7 +11,7 @@ import { InputsModule } from '~shared/inputs';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { TagModule } from '~shared/tag';
 import { UtilsModule } from '~shared/utils';
-import { AppStoreModule } from '~store/store.module';
+import { EntityModule } from '~entity';
 import { SupplierListViewComponent } from '~suppliers/components';
 import { SuppliersPageComponent } from '~suppliers/containers';
 import { UserModule } from '~user';
@@ -28,7 +28,7 @@ import { routes } from './routes';
 		// StoreModule.forFeature('testEntities', reducers),
 		// EffectsModule.forFeature(effects),
 		IconsModule, // TODO to be removed and placed inside the component module using it
-		AppStoreModule.forRoot(), // TODO to be removed and placed inside the component module using it
+		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
 		DialogModule, // TODO to be removed and placed inside the component module using it
 		ReactiveFormsModule, // TODO to be removed and placed inside the component module using it
 		InputsModule, // TODO to be removed and placed inside the component module using it

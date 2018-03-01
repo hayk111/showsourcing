@@ -6,7 +6,8 @@ import { EntityPipe, EntityNamePipe, EntityExistPipe } from './pipes';
   imports: [
     CommonModule
   ],
-  declarations: [ EntityPipe, EntityNamePipe, EntityExistPipe ]
+	declarations: [ EntityPipe, EntityNamePipe, EntityExistPipe ],
+	exports: [ EntityPipe, EntityNamePipe, EntityExistPipe  ]
 })
 export class EntityModule {
 	static forRoot(): ModuleWithProviders {

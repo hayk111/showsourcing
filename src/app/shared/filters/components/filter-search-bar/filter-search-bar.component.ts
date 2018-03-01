@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChil
 import { Store } from '@ngrx/store';
 import { FilterCategory, FilterEvent, FilterGroupName,
 	FilterSearch, FilterSupplier } from '~shared/filters/models';
-import { SmartSearch } from '~entity';
+import { SmartSearch } from '~shared/filters';
 import { FilterActions } from '../../store/actions';
 
 @Component({

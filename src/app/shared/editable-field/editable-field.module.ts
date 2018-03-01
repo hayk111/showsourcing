@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AppStoreModule } from '~store/store.module';
 
 import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
 import { IconsModule } from '../icons/icons.module';
@@ -8,6 +7,7 @@ import { InputsModule } from '../inputs/inputs.module';
 import { SelectModule } from '../select/select.module';
 import { UtilsModule } from '../utils/utils.module';
 import { EditableFieldComponent } from './components/editable-field/editable-field.component';
+import { EntityModule } from '~app/shared/entity';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -18,7 +18,7 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 		CustomInputsModule,
 		IconsModule,
 		UtilsModule,
-		AppStoreModule.forChild(),
+		EntityModule.forChild(),
 	],
 	declarations: [EditableFieldComponent],
 	exports: [EditableFieldComponent],

@@ -10,7 +10,7 @@ import { LoadersModule } from '~shared/loaders';
 import { SelectModule } from '~shared/select';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
-import { AppStoreModule } from '~store/store.module';
+import { EntityModule } from '~entity';
 import { NewTaskDlgComponent } from '~tasks/containers';
 import { UserModule } from '~user';
 
@@ -26,7 +26,7 @@ import { TaskService } from './services';
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
 		EntityPageModule, // TODO REMOVE UNUSED MODULES
 		NgxDatatableModule, // TODO REMOVE UNUSED MODULES
-		AppStoreModule.forRoot(), // TODO REMOVE UNUSED MODULES
+		EntityModule.forChild(), // TODO REMOVE UNUSED MODULES
 		UserModule, // TODO REMOVE UNUSED MODULES
 		UtilsModule, // TODO REMOVE UNUSED MODULES
 		LoadersModule, // TODO REMOVE UNUSED MODULES

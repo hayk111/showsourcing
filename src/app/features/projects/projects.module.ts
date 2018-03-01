@@ -18,7 +18,7 @@ import { ProjectService } from './services';
 		CommonModule,
 		// EffectsModule.forFeature(effects),
 		RouterModule.forChild(routes),
-		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
+		EntityModule.forChild(),
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
 		NgxDatatableModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it

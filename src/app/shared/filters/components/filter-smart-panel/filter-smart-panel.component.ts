@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { SmartSearch } from '~entity';
+import { SmartSearch } from '~shared/filters';
 
 @Component({
 	selector: 'filter-smart-panel-app',
