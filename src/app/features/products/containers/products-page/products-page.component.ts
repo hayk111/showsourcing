@@ -19,6 +19,8 @@ import {
 	FilterStatus,
 	FilterSupplier,
 	FilterTags,
+	FilterPanelAction,
+	selectFilterPanelOpen,
 } from '~shared/filters';
 import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
 import { Patch } from '~store/utils/patch.interface';
@@ -55,6 +57,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	selection = new Map<string, boolean>();
 	// current view
 	view: 'list' | 'card' = 'list';
+	// whether the filter dialog is visible
+	filterPanelOpen$: Observable<boolean>;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
@@ -63,6 +67,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName));
 		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
+		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 	}
 
 	onItemSelected(entityId: string) {
@@ -97,6 +102,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		const vote = new Vote(value, this.userSrv.getUserId());
 		vote.productId = id;
 		this.store.dispatch(VoteSlctnActions.add(vote));
+	}
+
+	openFilterPanel() {
+		this.store.dispatch(FilterPanelAction.open());
 	}
 
 	closeDialog() {

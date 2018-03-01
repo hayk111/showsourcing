@@ -2,6 +2,7 @@
 	[filterGroupName]="filterGroupName"
 	[pending]="pending$ | async"
 	[repr]="repr"
+	(filterClick)="openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 		<!-- views: either one will be displayed when the correct view is selected -->
 		<product-list-view-app
@@ -40,4 +41,6 @@
 	(clickOutside)="closeDialog()"
 	*ngIf="previewDialogOpen">
 </product-side-preview-app>
+
+<filter-panel-app [filterGroupName]="filterGroupName" [filterClasses]="filterClasses"></filter-panel-app>
 

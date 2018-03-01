@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FiltersModule } from '~app/shared/filters';
+import { TableModule } from '~app/shared/table';
 import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
@@ -21,28 +22,27 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
-	ProductCardViewComponent,
-	ProductIconsComponent,
-	ProductSelectableCardComponent,
-	ProductSmallCardComponent,
-	ProductStatusBadgeComponent,
-	ProductSubInfoComponent,
-	ProductTopCardComponent,
-	SelectionActionsComponent,
-	ProductListViewComponent,
+  ProductCardViewComponent,
+  ProductIconsComponent,
+  ProductListViewComponent,
+  ProductSelectableCardComponent,
+  ProductSmallCardComponent,
+  ProductStatusBadgeComponent,
+  ProductSubInfoComponent,
+  ProductTopCardComponent,
+  SelectionActionsComponent,
 } from './components';
 import {
-	ProductBigCardComponent,
-	ProductInfoCardComponent,
-	ProductPageComponent,
-	ProductSidePreviewComponent,
-	ProductsPageComponent,
-	ProductTasksComponent,
+  ProductBigCardComponent,
+  ProductInfoCardComponent,
+  ProductPageComponent,
+  ProductSidePreviewComponent,
+  ProductsPageComponent,
+  ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { effects } from './store';
-import { TableModule } from '~app/shared/table';
 
 @NgModule({
 	imports: [
@@ -50,10 +50,9 @@ import { TableModule } from '~app/shared/table';
 		RouterModule.forChild(routes),
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
-		NgxDatatableModule,
 		LoadersModule,
-		EntityMainCardModule,
-		LikesChartModule,
+		EntityMainCardModule, // used in details
+		LikesChartModule, // used in details
 		AppStoreModule, // TODO to be removed and placed inside the component module using it
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
@@ -65,9 +64,10 @@ import { TableModule } from '~app/shared/table';
 		CardModule, // TODO to be removed and placed inside the component module using it
 		PriceModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // TODO to be removed and placed inside the component module using it
-		SelectionBarModule,
-		EntityPageModule,
-		TableModule,
+		SelectionBarModule, // could move into EntityPageModule ?
+		EntityPageModule, // used as template of page
+		TableModule, // used in list
+		FiltersModule // used for filters
 	],
 	providers: [ProductService],
 	declarations: [
