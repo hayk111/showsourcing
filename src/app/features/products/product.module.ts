@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { FiltersModule } from '~app/shared/filters';
 import { TableModule } from '~app/shared/table';
+import { EntityModule } from '~entity';
 import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
@@ -17,7 +18,6 @@ import { RatingModule } from '~shared/rating';
 import { SelectableImageModule } from '~shared/selectable-image';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { AppStoreModule } from '~store/store.module';
 import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
@@ -53,7 +53,7 @@ import { effects } from './store';
 		LoadersModule,
 		EntityMainCardModule, // used in details
 		LikesChartModule, // used in details
-		AppStoreModule, // TODO to be removed and placed inside the component module using it
+		EntityModule, // TODO to be removed and placed inside the component module using it
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		FileModule.forChild(), // TODO to be removed and placed inside the component module using it

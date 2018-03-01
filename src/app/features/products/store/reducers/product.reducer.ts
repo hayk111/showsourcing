@@ -1,5 +1,5 @@
-import { addEntities, copyById, entityInitialState, EntityState } from '~store/utils/entities.utils';
-import { TypedAction } from '~store/utils/typed-action.interface';
+import { addEntities, copyById, entityInitialState, EntityState } from '~entity';
+import { TypedAction } from '~utils';
 
 import { Product } from '../../models/product.model';
 import { ActionTypes } from '../actions/product.action';

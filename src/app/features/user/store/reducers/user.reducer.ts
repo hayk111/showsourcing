@@ -1,6 +1,6 @@
 import { User } from '~user/models';
 import { ActionType } from '~user/store/actions';
-import { TypedAction } from '~store';
+import { TypedAction } from '~utils';
 
 export const initialState: User = {
 	id: '',

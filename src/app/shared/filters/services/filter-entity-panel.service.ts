@@ -5,8 +5,8 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { selectUserTeamId } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
-import { selectEntityArray } from '~store/selectors/misc/utils.selector';
-import { Entity, EntityRepresentation } from '~store/utils/entities.utils';
+import { selectEntityArray } from '~entity';
+import { Entity, EntityRepresentation } from '~entity';
 
 @Injectable()
 export class FilterEntityPanelService {

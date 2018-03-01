@@ -6,7 +6,7 @@ import { User } from '~user/models/user.model';
 import { selectUser } from '~user/store/selectors/user.selector';
 
 import { Vote } from '../model/entities/vote.model';
-import { EntityTarget } from '../utils/entities.utils';
+import { EntityTarget } from '~entity';
 
 @Injectable()
 export class VoteService {

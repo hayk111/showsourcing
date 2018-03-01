@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
-import { EntityRepresentation } from '~store/utils/entities.utils';
+import { EntityRepresentation } from '~entity';
 
 import { FilterEntityPanelService } from '../../services/filter-entity-panel.service';
 import { FEPActionType as ActionType, FilterEntityPanelActions } from '../actions/filter-entity-panel.action';

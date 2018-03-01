@@ -5,11 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { selectUser } from '~user/store/selectors/user.selector';
 import { Log } from '~utils';
-import { UrlBuilder } from '~utils/url-builder.class';
+import { UrlBuilder } from '~entity';
 
 import { FilterGroupName } from '~shared/filters';
 import { selectFiltersAsUrlParams } from '~shared/filters';
-import { EntityRepresentation } from '../utils/entities.utils';
+import { EntityRepresentation } from '~entity';
 
 @Injectable()
 export class TeamItemLoaderService {

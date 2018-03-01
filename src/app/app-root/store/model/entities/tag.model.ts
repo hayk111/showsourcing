@@ -1,4 +1,4 @@
-import { EntityTarget, Entity } from '../../utils/entities.utils';
+import { EntityTarget, Entity } from '~entity';
 
 
 export class Tag extends Entity {

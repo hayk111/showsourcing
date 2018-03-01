@@ -1,5 +1,5 @@
-import { EntityState, entityInitialState, TypedAction, addEntities, copyById } from '~store';
+import { EntityState, entityInitialState, addEntities, copyById } from '~entity';
 import { ActionType } from '../actions';
-import { basicReducerFactory } from '~store';
+import { basicReducerFactory } from '~entity';
 
 export const supplierReducer = basicReducerFactory(ActionType);

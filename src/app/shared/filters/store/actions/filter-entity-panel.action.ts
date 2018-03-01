@@ -1,4 +1,4 @@
-import { EntityRepresentation } from '~store/utils/entities.utils';
+import { EntityRepresentation } from '~entity';
 
 export enum FEPActionType {
 	SET_ENTITY = '[FilterEntityPanel] setting entity',

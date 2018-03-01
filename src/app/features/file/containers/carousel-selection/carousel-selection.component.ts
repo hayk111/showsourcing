@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { entityStateToArray } from '~store/utils/entities.utils';
+import { entityStateToArray } from '~entity';
 import { Store } from '@ngrx/store';
 import { AppImage } from '~features/file/models';
 import { AutoUnsub } from '~utils/index';

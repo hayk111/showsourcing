@@ -1,4 +1,4 @@
-import { EntityState, Entity } from '../../utils/entities.utils';
+import { EntityState, Entity } from '~entity';
 import { TaskType } from '~tasks/models/task.model';
 
 const initialState: EntityState<Entity> = {

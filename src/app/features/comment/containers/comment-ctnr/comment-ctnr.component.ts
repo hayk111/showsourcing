@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { AppComment } from '~comment/models';
 import { CommentTargetActions } from '~comment/store/actions';
 import { selectCommentsForCurrentTarget } from '~store/selectors/target/target.selector';
-import { EntityState, entityStateToArray } from '~store/utils/entities.utils';
+import { EntityState, entityStateToArray } from'~entity';
 import { UserService } from '~user';
 
 @Component({

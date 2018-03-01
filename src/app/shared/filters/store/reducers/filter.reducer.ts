@@ -1,4 +1,4 @@
-import { TypedAction } from '~store/utils/typed-action.interface';
+import { TypedAction } from '~utils';
 
 import { AppFilters } from '../../models';
 import { FilterActionType as ActionType } from '../actions';

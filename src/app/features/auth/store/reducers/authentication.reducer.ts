@@ -1,5 +1,5 @@
 import { Authentication } from '~auth/models';
-import { TypedAction } from '~store/utils/typed-action.interface';
+import { TypedAction } from '~utils';
 import { AuthActionType } from '~auth/store/actions';
 
 

@@ -1,4 +1,4 @@
-import { Entity } from '../../utils/entities.utils';
+import { Entity } from '~entity';
 
 export class Vote extends Entity {
 	value: number;

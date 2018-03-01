@@ -1,12 +1,12 @@
 import {
-	addActionType,
-	BasicActions,
-	BasicActionTypes,
-	makeBasicActions,
-	makeBasicActionTypes,
-} from '~store/action/entities/_entity.action.factory';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
-import { TypedAction } from '~store/utils/typed-action.interface';
+  addActionType,
+  BasicActions,
+  BasicActionTypes,
+  entityRepresentationMap,
+  makeBasicActions,
+  makeBasicActionTypes,
+} from '~entity';
+import { TypedAction } from '~utils';
 
 // Extending action constants with specific ones
 export interface ProductActionTypes extends BasicActionTypes {

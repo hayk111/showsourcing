@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { entityRepresentationMap } from '../utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 import { map } from 'rxjs/operators';
 
 

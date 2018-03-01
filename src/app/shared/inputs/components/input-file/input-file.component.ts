@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { AppFile } from '~features/file';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

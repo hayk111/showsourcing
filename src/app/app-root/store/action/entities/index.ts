@@ -1,7 +1,6 @@
-import { makeBasicActionTypes, makeBasicActions, addActionType } from './_entity.action.factory';
-import { entityRepresentationMap } from '../../utils/entities.utils';
+import { makeBasicActionTypes, makeBasicActions, addActionType } from '~entity';
+import { entityRepresentationMap } from '~entity';
 
-export * from './_entity.action.factory';
 // keeping capitalization for backward compatibility
 // category
 export const CategoryActionTypes = makeBasicActionTypes(entityRepresentationMap.categories);

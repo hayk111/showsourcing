@@ -7,14 +7,14 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
 import { FileService, ImageService } from './services';
 import { LoadersModule } from '~shared/loaders';
-import { AppStoreModule } from '~app/app-root/store/store.module';
+import { EntityModule } from '~entity';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		CarouselModule,
 		LoadersModule,
-		AppStoreModule.forChild()
+		EntityModule.forChild()
 	],
 	declarations: [
 	  FileDropDirective,

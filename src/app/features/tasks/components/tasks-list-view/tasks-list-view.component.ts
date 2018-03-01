@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EntityState, entityStateToArray } from '~store/utils/entities.utils';
+import { EntityState, entityStateToArray } from '~entity';
 import { Task } from './../../models';
 
 @Component({

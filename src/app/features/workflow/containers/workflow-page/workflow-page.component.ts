@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Product, selectProducts } from '~products';
 import { TargetAction } from '~store/action/target/target.action';
 import { FilterGroupName } from '~shared/filters';
-import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
+import { entityRepresentationMap, EntityState } from '~entity';
 
 @Component({
 	selector: 'workflow-page-app',

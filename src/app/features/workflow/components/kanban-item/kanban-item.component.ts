@@ -1,5 +1,5 @@
 import { Component, ElementRef, Injectable, Input, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 import { KanbanService } from '../../services/kanban.service';
 

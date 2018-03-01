@@ -4,7 +4,7 @@ import { FilterActions } from '../../store/actions';
 import { FilterGroupName, Filter, FilterRating } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '~utils/index';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 
 @Component({
 	selector: 'filter-rating-panel-app',

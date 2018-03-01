@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom, retry, catchError } from 'rxjs/operators';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 import { ImageService } from '../../services';
 import { AppImage } from '../../models';
 import { SelectionService } from '~store/services/selection.service';

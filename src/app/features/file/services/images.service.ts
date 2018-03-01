@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppImage } from '../models/app-image.model';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 
 
 

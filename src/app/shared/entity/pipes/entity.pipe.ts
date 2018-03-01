@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { selectEntityById } from '../selectors/misc/utils.selector';
-import { entityRepresentationMap } from '../utils/entities.utils';
+import { selectEntityById } from '../store';
+import { entityRepresentationMap } from '../models';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '~utils/index';
+import { AutoUnsub } from 'app/app-root/utils/index';
 import { takeUntil, map } from 'rxjs/operators';
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
-import { TypedAction } from '../../utils/typed-action.interface';
+import { TypedAction } from '../../../utils/typed-action.interface';
 import { ActionType } from '../../action/misc/app-errors.action';
 import { AppError } from '../../model/misc/app-error.model';
 import { FeedbackParams, FeedbackStyle, FeedbackDlgActions } from '../../action/ui/feedback-dlg.action';

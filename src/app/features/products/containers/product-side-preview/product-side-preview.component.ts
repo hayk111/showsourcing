@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 import { Store } from '@ngrx/store';
 import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
 import { selectCurrentTarget } from '~store/selectors/target/target.selector';

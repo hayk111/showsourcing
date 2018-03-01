@@ -44,5 +44,12 @@
 	*ngIf="previewDialogOpen">
 </product-side-preview-app>
 
-<filter-panel-app [filterGroupName]="filterGroupName" [filterClasses]="filterClasses"></filter-panel-app>
+<ng-container *ngIf="filterPanelOpen$ | async">
+	<filter-panel-app
+		[filterGroupName]="filterGroupName"
+		[filterClasses]="filterClasses"
+		(clickOutside)="closeFilterPanel()">
+	</filter-panel-app>
+</ng-container>
+
 

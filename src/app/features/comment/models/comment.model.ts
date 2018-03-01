@@ -1,4 +1,4 @@
-import { Entity } from '~store/utils/entities.utils';
+import { Entity } from '~entity';
 
 export class AppComment extends Entity {
 	pending = true;

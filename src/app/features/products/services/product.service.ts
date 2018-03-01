@@ -2,29 +2,30 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
+
+export interface LoadParams {
+	isTeamEntity?: boolean;
+	teamId?: string;
+	entityName?: string;
+	urlParamsAsString?: string;
+	drop?: number;
+	isRecurring?: boolean;
+}
 
 @Injectable()
 export class ProductService {
 	repr = entityRepresentationMap.product;
-	take = 1000;
+	// how many items we take in one go (pagination)
+	take = 100;
+	// how many items are dropped
+	drop = 0;
 
 	constructor(private http: HttpClient) {}
 
 	load({ id, maxCounter }) {
-		// loading products by chunks
-		// let drop = 0;
-		// return this.getProducts(drop, teamId).pipe(
-		// 	// recursion
-		// 	expand(r => {
-		// 		drop += this.take;
-		// 		return this.getProducts((drop), teamId);
-		// 	}),
-		// 	takeWhile((r: any) => drop + this.take < r.totalCount),
-		// 	map((r: any) => r.elements)
-		// );
 		return this.http
-			.get(`api/team/${id}/product?withArchived=false`)
+			.get(`api/team/${id}/product?take=${this.take}&drop=${this.drop}`)
 			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
 	}
 

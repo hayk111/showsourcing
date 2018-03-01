@@ -6,7 +6,7 @@ import { UserModule } from '~features/user';
 import { EntityPageModule } from '~shared/entity-page';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
-import { AppStoreModule } from '~store/store.module';
+import { EntityModule } from '~entity';
 
 import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
@@ -18,7 +18,7 @@ import { ProjectService } from './services';
 		CommonModule,
 		// EffectsModule.forFeature(effects),
 		RouterModule.forChild(routes),
-		AppStoreModule.forChild(), // TODO to be removed and placed inside the component module using it
+		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
 		NgxDatatableModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it

@@ -1,6 +1,6 @@
-import { TypedAction } from './../../utils/typed-action.interface';
-import { Entity, EntityRepresentation } from '../../utils/entities.utils';
-import { Patch } from '../../utils/patch.interface';
+import { TypedAction } from '~utils';
+import { Entity, EntityRepresentation } from '../../models';
+import { Patch } from '../../models';
 import { Action } from '@ngrx/store';
 
 export interface BasicActionTypes {

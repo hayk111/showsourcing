@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectEntityArray } from '~store/selectors/misc/utils.selector';
-import { Entity, EntityRepresentation, entityRepresentationMap } from '~store/utils/entities.utils';
+import { selectEntityArray } from '~entity';
+import { Entity, EntityRepresentation, entityRepresentationMap } from '~entity';
 
 @Component({
 	selector: 'data-management-page-app',

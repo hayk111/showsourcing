@@ -1,7 +1,7 @@
 import { ActionType } from '../../action/target/target.action';
 import { entityRepresentationMap,
-	 entityInitialState, addEntities, replaceEntity, removeEntity } from '../../utils/entities.utils';
-import { TypedAction } from '../../utils/typed-action.interface';
+	 entityInitialState, addEntities, replaceEntity, removeEntity } from '~entity';
+import { TypedAction } from '~utils';
 
 const initialState = {
 	[entityRepresentationMap.product.entityName]: undefined,

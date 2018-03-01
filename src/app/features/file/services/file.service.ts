@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, switchMap } from 'rxjs/operators';
-import { EntityTarget } from 'app/app-root/store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 import { selectUser } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 

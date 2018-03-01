@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 import { Store } from '@ngrx/store';
-import { ChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
 

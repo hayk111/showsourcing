@@ -1,5 +1,5 @@
-import { TypedAction } from '~store/utils/typed-action.interface';
-import { addEntities, entityInitialState, replaceEntity } from '~store/utils/entities.utils';
+import { TypedAction } from '~utils';
+import { addEntities, entityInitialState, replaceEntity } from '~entity';
 import { ImageActionType } from '../actions';
 
 export function imageSelectionReducer(state = entityInitialState, action: TypedAction<any>) {

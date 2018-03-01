@@ -1,8 +1,8 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { FilterGroupName, Filter, FilterClass } from '../../models/filter.model';
-import { Log } from 'app/app-root/utils/index';
-import { selectEntityArray } from '~store/selectors/misc/utils.selector';
-import { EntityRepresentation } from '~store/utils/entities.utils';
+import { createSelector } from '@ngrx/store';
+import { Log } from 'app/app-root/utils';
+import { EntityRepresentation, selectEntityArray } from '~entity';
+
+import { Filter, FilterClass, FilterGroupName } from '../../models/filter.model';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 

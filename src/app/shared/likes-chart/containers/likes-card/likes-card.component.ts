@@ -8,7 +8,7 @@ import {
 	selectVotesForCurrentTarget,
 	VoteByType,
 } from '~store/selectors/target/target.selector';
-import { EntityState } from '~store/utils/entities.utils';
+import { EntityState } from '~entity';
 import { User } from '~user/models/user.model';
 
 @Component({

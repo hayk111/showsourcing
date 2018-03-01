@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectCurrencies } from '~store/selectors/entities/currencies.selector';
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
-import { selectEntityArray } from '~store/selectors/misc/utils.selector';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { selectEntityArray } from '~entity';
+import { entityRepresentationMap } from '~entity';
 
 // this input is needed because the backend wants an object when updating a product.currency for example,
 // instead of just the id.

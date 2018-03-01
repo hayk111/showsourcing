@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ActionType, TaskTargetActions } from '../../action/target/task.action';
 import { TaskActions } from '../../action/entities/index';
 import { EntityService } from '../../services/entity.service';
-import { entityRepresentationMap } from '../../utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '../../action/misc/app-errors.action';
 import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';

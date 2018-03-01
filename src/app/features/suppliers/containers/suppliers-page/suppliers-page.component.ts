@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, entityRepresentationMap } from '~store/utils/entities.utils';
+import { EntityState, Entity, entityRepresentationMap } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '~suppliers/store/selectors';

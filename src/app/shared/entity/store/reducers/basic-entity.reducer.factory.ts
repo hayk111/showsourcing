@@ -1,11 +1,11 @@
 import {
-	entityInitialState,
 	addEntities,
 	copyById,
 	removeEntity,
 	replaceEntity,
-} from '../../utils/entities.utils';
-import { TypedAction } from '../../utils/typed-action.interface';
+} from './../../utils';
+import { TypedAction } from '~utils';
+import { entityInitialState } from './../../models';
 
 export function basicReducerFactory(actionType: any) {
 	return function(state = entityInitialState, action: TypedAction<any>) {

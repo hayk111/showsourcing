@@ -2,28 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { entityRepresentationMap, EntityState, Patch } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
 import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
+import {
+  FilterCategory,
+  FilterClass,
+  FilterEvent,
+  FilterGroupName,
+  FilterPanelAction,
+  FilterPrice,
+  FilterProjects,
+  FilterRating,
+  FilterStatus,
+  FilterSupplier,
+  FilterTags,
+  selectFilterPanelOpen,
+} from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
 import { Vote } from '~store/model/entities/vote.model';
-import {
-	FilterCategory,
-	FilterClass,
-	FilterEvent,
-	FilterGroupName,
-	FilterPrice,
-	FilterProjects,
-	FilterRating,
-	FilterStatus,
-	FilterSupplier,
-	FilterTags,
-	FilterPanelAction,
-	selectFilterPanelOpen,
-} from '~shared/filters';
-import { entityRepresentationMap, EntityState } from '~store/utils/entities.utils';
-import { Patch } from '~store/utils/patch.interface';
 import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
 
@@ -106,6 +105,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	openFilterPanel() {
 		this.store.dispatch(FilterPanelAction.open());
+	}
+
+	closeFilterPanel() {
+		this.store.dispatch(FilterPanelAction.close());
 	}
 
 	closeDialog() {

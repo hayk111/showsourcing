@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { EntityTarget, EntityRepresentation } from '../../utils/entities.utils';
+import { EntityTarget, EntityRepresentation } from '../../models';
 
 export const selectEntities = state => state.entities;
 

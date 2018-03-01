@@ -1,6 +1,6 @@
 
 // we only need arrays here
-import { entityStateToArray } from '~store/utils/entities.utils';
+import { entityStateToArray } from '~entity';
 import { createSelector } from 'reselect';
 
 export const selectFilesForCurrentTarget = state => state.foccussedEntity.files;

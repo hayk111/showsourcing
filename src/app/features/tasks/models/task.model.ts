@@ -1,4 +1,4 @@
-import { uuid } from '~store/utils/uuid.utils';
+import { uuid } from '~utils';
 
 export enum TaskStatus {
 	TODO = 'Todo',

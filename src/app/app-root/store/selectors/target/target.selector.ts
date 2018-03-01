@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { EntityTarget, EntityState, entityStateToArray } from '../../utils/entities.utils';
+import { EntityTarget, EntityState, entityStateToArray } from '~entity';
 import { Vote } from '../../model/entities/vote.model';
 
 export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;

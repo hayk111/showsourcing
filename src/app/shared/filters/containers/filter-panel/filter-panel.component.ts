@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityRepresentation } from '~store/utils/entities.utils';
+import { EntityRepresentation } from '~entity';
 
 import { SelectableItem } from '../../../inputs/components/input-checkbox/input-checkbox.component';
 import { Filter, FilterClass, FilterEntityClass, FilterGroupName } from '../../models';

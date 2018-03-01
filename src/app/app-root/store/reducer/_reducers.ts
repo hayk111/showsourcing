@@ -26,7 +26,7 @@ import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
 import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
-import { basicReducerFactory } from './entities/basic-entity.reducer.factory';
+import { basicReducerFactory } from '~entity';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';

@@ -10,7 +10,7 @@ import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { ActionType } from '../../action/target/target.action';
 import { TaskTargetActions } from '../../action/target/task.action';
 import { VoteSlctnActions } from '../../action/target/vote.action';
-import { entityRepresentationMap, EntityTarget } from '../../utils/entities.utils';
+import { entityRepresentationMap, EntityTarget } from '~entity';
 
 @Injectable()
 export class TargetEffects {

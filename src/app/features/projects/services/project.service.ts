@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { EntityTarget } from '~store/utils/entities.utils';
+import { EntityTarget } from '~entity';
 
 import { Project } from '../models/project.model';
 

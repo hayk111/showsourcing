@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { DialogActions, DialogName } from '~shared/dialog';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 import { AutoUnsub } from '~utils';
 
 import { selectTasks } from '../../store/selectors';

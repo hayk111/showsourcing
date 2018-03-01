@@ -8,7 +8,7 @@ import { TargetAction } from '~store/action/target/target.action';
 import { AppFile } from '~features/file';
 import { AppComment } from '~comment';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
-import { entityRepresentationMap, EntityTarget } from '~store/utils/entities.utils';
+import { entityRepresentationMap, EntityTarget } from '~entity';
 import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';

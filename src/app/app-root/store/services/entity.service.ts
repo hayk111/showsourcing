@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EntityRepresentation, EntityTarget, Entity } from '../utils/entities.utils';
+import { EntityRepresentation, EntityTarget, Entity } from '~entity';
 import { HttpClient } from '@angular/common/http';
 import { Log } from '~utils/index';
 

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { TypedAction } from '~store';
+import { TypedAction } from '~utils';
 import { User } from '~user';
 
 export enum ActionType {

@@ -1,4 +1,4 @@
-import { Entity, entityRepresentationMap, EntityRepresentation } from '~store/utils/entities.utils';
+import { Entity, entityRepresentationMap, EntityRepresentation } from '~entity';
 import { Currency } from '~store/model/entities/currency.model';
 
 export enum FilterGroupName {

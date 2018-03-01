@@ -12,11 +12,11 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { selectEntity, selectEntityById } from '~store/selectors/misc/utils.selector';
+import { selectEntity, selectEntityById } from '~entity';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 import { ChangeDetectorRef } from '@angular/core';
-import { EntityRepresentation, entityRepresentationMap, Entity } from '~store/utils/entities.utils';
+import { EntityRepresentation, entityRepresentationMap, Entity } from '~entity';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { ChangeDetectionStrategy } from '@angular/core';
 

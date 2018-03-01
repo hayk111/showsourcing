@@ -1,7 +1,5 @@
-import { Tag } from '~store';
-import { Counters } from '~store';
-import { Category } from '~store';
-import { uuid } from '~store';
+import { Category, Counters, Tag } from '~store';
+import { uuid } from '~utils';
 
 
 export class Supplier {

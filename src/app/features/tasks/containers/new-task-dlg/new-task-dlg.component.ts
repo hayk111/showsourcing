@@ -11,7 +11,7 @@ import {
 	entityStateToArray,
 	EntityState,
 	entityRepresentationMap
-} from '~store/utils/entities.utils';
+} from '~entity';
 import { map, tap } from 'rxjs/operators';
 import { selectTaskTypes } from '~store/selectors/entities/task-type.selector';
 import { Product } from '~products/index';

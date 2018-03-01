@@ -1,6 +1,6 @@
 import { ProductStatus } from '~products/models/product.model';
 
-import { Entity, EntityState } from '../../utils/entities.utils';
+import { Entity, EntityState } from '~entity';
 
 const initialState: EntityState<Entity> = {
 	pending: false,

@@ -1,4 +1,4 @@
-import { TypedAction } from '~store/utils/typed-action.interface';
+import { TypedAction } from '~utils';
 import { FilterPanelActionType as ActionType } from '../actions';
 
 const initialState = {

@@ -1,5 +1,5 @@
 import { ActionType } from '../actions';
-import { basicReducerFactory } from '~store';
+import { basicReducerFactory } from '~entity';
 
 
 export const projectReducer = basicReducerFactory(ActionType);

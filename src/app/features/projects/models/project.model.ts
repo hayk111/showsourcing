@@ -1,5 +1,4 @@
-import { Counters } from '~store/model/entities/counters.interface';
-import { uuid } from '~store';
+import { uuid } from '~utils';
 
 
 export class Project {

@@ -1,4 +1,4 @@
-import { EntityTarget } from '../../utils/entities.utils';
+import { EntityTarget } from '~entity';
 
 export enum ActionType {
 	SELECT = '[Target] selecting',

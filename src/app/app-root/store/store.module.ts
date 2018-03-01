@@ -6,10 +6,8 @@ import { effects } from './effects/_effects';
 import { reducerProvider, reducerToken, metaReducers } from './reducer/_reducers';
 import { StoreModule } from '@ngrx/store';
 import { ModuleWithProviders } from '@angular/core';
-import { EntityNamePipe } from './pipes/entity-name.pipe';
 import { EntitiesServicesModule } from './services/entities-services.module';
-import { EntityExistPipe } from './pipes/entity-exist.pipe';
-import { EntityPipe } from './pipes/entity.pipe';
+
 
 @NgModule({
 	imports: [
@@ -24,8 +22,8 @@ import { EntityPipe } from './pipes/entity.pipe';
 		// StoreRouterConnectingModule
 	],
 	providers: [reducerProvider],
-	declarations: [EntityNamePipe, EntityExistPipe, EntityPipe],
-	exports: [EntityNamePipe, EntityExistPipe, EntityPipe, StoreModule],
+	declarations: [],
+	exports: [],
 })
 export class AppStoreModule {
 	static forRoot(): ModuleWithProviders {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityTarget } from '../utils/entities.utils';
+import { EntityTarget } from '~entity';
 import { Tag } from '../model/entities/tag.model';
 
 

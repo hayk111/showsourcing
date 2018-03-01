@@ -1,11 +1,8 @@
 import { createSelector } from 'reselect';
+import { EntityState } from '~entity';
 import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
-import { selectCategories } from '~store/selectors/entities/categories.selector';
-import { selectEvents } from '~store/selectors/entities/events.selector';
 import { selectProductStatuses } from '~store/selectors/entities/product-status.selector';
-import { deepCopy } from '~store/utils/deep-copy.utils';
-import { EntityState } from '~store/utils/entities.utils';
-import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
+import { deepCopy } from '~utils';
 
 import { Product } from '../../models/product.model';
 import { EntitiesState } from './../reducers';

@@ -12,11 +12,12 @@ import { CommentListComponent } from './components';
 import { CommentBadgeComponent } from './components';
 import { CommentCtnrComponent } from './containers';
 import { CommentService } from './services';
+import { EntityModule } from '~app/shared/entity';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		AppStoreModule.forChild(),
+		EntityModule.forChild(),
 		ReactiveFormsModule,
 		IconsModule,
 		UtilsModule,

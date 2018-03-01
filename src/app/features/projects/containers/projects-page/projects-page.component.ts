@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { entityRepresentationMap } from '~store/utils/entities.utils';
+import { entityRepresentationMap } from '~entity';
 
 import { Project } from '../../models';
 import { selectProjects } from '../../store/selectors';
