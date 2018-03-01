@@ -101,4 +101,14 @@ export function logger(reducer: ActionReducer<State<any>>): any {
 	})(reducer);
 }
 
-export const metaReducers = environment.production ? [] : [logger, storeFreeze];
+// Generate a reducer to set the root state in dev mode for HMR
+export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
+	return function(state: any, action: any) {
+		if (action.type === 'SET_ROOT_STATE') {
+			return action.payload;
+		}
+		return reducer(state, action);
+	};
+}
+
+export const metaReducers = environment.production ? [] : [stateSetter, logger, storeFreeze];

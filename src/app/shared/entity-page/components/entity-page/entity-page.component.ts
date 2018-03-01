@@ -3,9 +3,9 @@ import { FilterGroupName } from '~shared/filters';
 import { EntityRepresentation } from '~store/utils/entities.utils';
 
 @Component({
-  selector: 'entity-page-app',
-  templateUrl: './entity-page.component.html',
-  styleUrls: ['./entity-page.component.scss']
+	selector: 'entity-page-app',
+	templateUrl: './entity-page.component.html',
+	styleUrls: ['./entity-page.component.scss'],
 })
 export class EntityPageComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
@@ -19,10 +19,7 @@ export class EntityPageComponent implements OnInit {
 	// when filter button from toppanel is clicked
 	@Output() filterClick = new EventEmitter<null>();
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-
-	}
-
+	ngOnInit() {}
 }
