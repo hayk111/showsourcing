@@ -1,14 +1,3 @@
 :host {
 	display: block;
 }
-
-.mainCell {
-	display: flex;
-	align-items: center;
-}
-.mainCell > *{
-	margin: var(--spacing-s);
-	.name {
-		font-weight: bold;
-	}
-}

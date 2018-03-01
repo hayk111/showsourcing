@@ -7,18 +7,24 @@
 	height: 600px;
 }
 
-// img {
-// 	border-radius: var(--border-radius);
-// 	max-width: 44px;
-// 	max-height: 44px;
-// }
-// .mainCell {
-// 	display: flex;
-// 	align-items: center;
-// }
-// .mainCell > *{
-// 	margin: var(--spacing-s);
-// 	.name {
-// 		font-weight: bold;
-// 	}
-// }
+img {
+	border-radius: var(--border-radius);
+	max-width: 44px;
+	max-height: 44px;
+}
+
+.mainCell {
+	display: flex;
+	align-items: center;
+}
+
+.mainCell > *{
+	margin: var(--spacing-s);
+	.name {
+		font-weight: bold;
+	}
+}
+
+user-picture-app {
+	margin-right: var(--spacing-s);
+}
