@@ -4,7 +4,7 @@
     <filter-search-bar-app [filterGroupName]="filterGroupName"></filter-search-bar-app>
     <div class="vertDivider"></div>
 		<view-switcher-app *ngIf="switchable" (viewChange)="viewChange.emit($event)" [view]="view"></view-switcher-app>
-		<button (click)="onClick()" class="small">create {{ repr.displayName }}</button>
+		<button (click)="onClick()" class="small"><span class="icon-add"></span>create {{ repr.displayName }}</button>
 	</div>
 </div>
 <div class="hr"></div>

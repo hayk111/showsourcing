@@ -1,27 +1,60 @@
-:host{
-	position: relative;
-	background: white;
-	border-radius: var(--border-radius);
+:host {
+    position: relative;
+    border-radius: var(--border-radius);
+    width: 240px;
 }
 
 input {
-	border-radius: var(--border-radius);
-	border: none;
-	width: 328px;
-	font-size: var(--font-size-l);
-	font-style: normal;
-	background: #fff;
-	color: var(--color-primary);
-	padding: var(--spacing-s) var(--spacing-default);
-	margin-right: var(--spacing-s);
+    // 	border-radius: var(--border-radius);
+    	border: none;
+    	width: 100%;
+    	font-size: 13px;
+    	font-style: normal;
+    // 	background: #fff;
+    	color: var(--color-primary);
+    // 	padding: var(--spacing-s) var(--spacing-default);
+    // 	margin-right: var(--spacing-s);
+}
+
+.input-wrapper {
+  display: flex;
+  flex: auto;
+  width: 100px;
+  position: relative;
+  margin: 0;
 }
 
 input::placeholder {
-	color: #dddddd;
+    color: var(--color-txt-primary);
+    font-style: normal;
+    font-size: 13px;
 }
 
 icon-app {
-	position: absolute;
-	right: var(--spacing-s);
-	top: var(--spacing-s);
+    position: absolute;
+    right: var(--spacing-s);
+    top: var(--spacing-s);
+}
+
+.search-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-end;
+    align-items: center;
+    height: 40px;
+}
+
+.fullFlex {
+  flex: 1 1 100%;
+}
+
+.icon-search{
+  font-weight: bold;
+}
+.icon-close{
+  margin-left: 10px;
+  font-size: 11px;
+  // For better inline alignment
+  padding-top: 2px;
 }

@@ -12,7 +12,9 @@ button, input[type="submit"] {
 	border: none;
 	outline: none;
 	color: var(--color-primary-contrast);
-	padding: var(--spacing-default) var(--spacing-xxl);
+  padding: var(--spacing-default) var(--spacing-xxl);
+  box-sizing: border-box;
+	font-family: inherit;
 }
 
 button.small {

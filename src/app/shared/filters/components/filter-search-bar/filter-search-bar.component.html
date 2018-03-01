@@ -1,4 +1,11 @@
+<!-- <input type="text" placeholder="Search" (keyup)="search($event.target.value)" />
+<icon-app name="search" color="primary" size="xl"></icon-app> -->
 
-<input type="text" placeholder="Search" (keyup)="search($event.target.value)"/>
-<icon-app name="search" color="primary" size="xl"></icon-app>
-
+<div class="search-row">
+  <div class="fullFlex"></div>
+  <div class="icon-search" (click)="expandSearch()"></div>
+  <div class="input-wrapper" [@searchAnimation]="searchstate">
+    <input #searchbox placeholder="Type to search" (keyup)="search($event.target.value)">
+  </div>
+  <div class="icon-close" *ngIf="searchstate == 'expanded'" (click)="clearSearch()"></div>
+</div>

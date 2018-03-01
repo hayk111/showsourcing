@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectionStrategy, HostBinding, EventEmitter, Output } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ViewEncapsulation,
+	Input,
+	ChangeDetectionStrategy,
+	HostBinding,
+	EventEmitter,
+	Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,10 +20,9 @@ import { Observable } from 'rxjs/Observable';
 export class ViewSwitcherComponent implements OnInit {
 	_view: 'list' | 'card' = 'list';
 	@Output() viewChange = new EventEmitter<string>();
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	switchView(view: 'card' | 'list') {
 		this.view = view;
@@ -23,10 +31,8 @@ export class ViewSwitcherComponent implements OnInit {
 
 	@Input()
 	set view(view: 'list' | 'card') {
-		if (view !== 'list' && view !== 'card')
-			this._view = 'list';
-		else
-			this._view = view;
+		if (view !== 'list' && view !== 'card') this._view = 'list';
+		else this._view = view;
 	}
 
 	get view() {

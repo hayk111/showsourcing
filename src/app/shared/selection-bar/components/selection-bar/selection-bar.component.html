@@ -1,24 +1,14 @@
 <div class="ctnr z-6 flexBetween">
 
-	<div class="flex left">
-		<icon-app
-			(click)="close.emit()"
-			name="times"
-			sizePx="22"
-			class="pointer"
-		 	color="inherit"></icon-app>
-		<span i18n>
-			{{ selection.size }} items selected
-		</span>
-	</div>
+  <div class="closeSection">
+    <span class="icon-close" (click)="close.emit()"></span>
+    <span i18n class="selected-text">
+      {{ selection.size }} items selected
+    </span>
+  </div>
 
-	<ng-content></ng-content>
+  <ng-content></ng-content>
 
-	<div class="flex del pointer">
-		<icon-app name="trash-alt" color="inherit"></icon-app>
-		<span class="txt" i18n>
-			Delete {{ repr.displayName }}
-		</span>
-	</div>
+  <button class="small"><span class="icon-delete"></span>Delete {{ repr.displayName }}</button>
 
 </div>

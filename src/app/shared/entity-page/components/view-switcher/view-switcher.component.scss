@@ -1,5 +1,5 @@
 .selected {
-    background: var(--color-primary-dark);
+    // background: var(--color-primary-dark);
     color: white;
     >[class^="icon-"],
     [class*=" icon-"] {
@@ -12,6 +12,7 @@
 :host {
     border-radius: 2px;
     background: var(--color-bg-switcher);
+    position: relative;
 }
 
 .ctnr {
@@ -26,17 +27,37 @@ button {
     flex-direction: row;
     align-items: center;
     font-size: var(--font-size-default);
-    background: var(--color-bg-switcher);
+    background: transparent;
     color: var(--color-txt-primary);
     padding: 0 15px;
-    >[class^="icon-"],
-    [class*=" icon-"] {
-        padding: 0 7px;
-        padding-left: 0;
-        font-size: 11px;
-        &:before {
-            color: var(--color-txt-primary);
-        }
+    z-index: 9999;
+}
+
+.icon-thumbs,
+.icon-list {
+    padding: 0 7px;
+    padding-left: 0;
+    font-size: 11px;
+    &:before {
+        color: var(--color-txt-primary);
     }
 }
 
+.slider {
+    background: var(--color-primary-dark);
+    height: 40px;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.4s linear;
+    &.right {
+      left: 70px;
+      width: 92px;
+    }
+    &.left {
+      left: 0px;
+      width: 70px;
+    }
+}

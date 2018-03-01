@@ -7,6 +7,7 @@ $color-primary-light: #24eaef;
 $color-primary-light-contrast: #4A4A4A;
 $color-primary-dark: #5D6D8B ;
 $color-primary-dark-contrast: #fff;
+$color-button-dark: #182844;
 $color-txt-strong: #111;
 $color-txt-primary: #5D6D8B;
 $color-txt-secondary: #A3AFC6;
@@ -35,6 +36,7 @@ $color-warn: #f94259;
 	--color-bg-fourth: #f4f5f9;
   --color-bg-dark: rgba(0, 0, 0, 0.5);
   --color-bg-switcher: #E6EBF5;
+  --color-button-dark: $color-button-dark;
 
 	--color-icon: #ccc;
 
@@ -54,5 +56,5 @@ $color-warn: #f94259;
 	--badge-bg-need-review: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
 	--badge-bg-refused: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
 	--badge-bg-complete:  linear-gradient(-90deg, #39CE63 2%, #4DD373 96%);
-	--badge-bg-under-assessment: linear-gradient(-90deg, #CCD4E2 0%, #E6EBF5 100%);
+	--badge-bg-under-assessment: linear-gradient(-270deg, #FFBB37 0%, #FFA900 97%);
 }

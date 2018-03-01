@@ -1,11 +1,16 @@
 .btn {
-	margin-right: var(--spacing-l);
-}
-
-icon-app {
-	margin-right: var(--spacing-default);
+  margin-right: var(--spacing-edge);
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .flex {
 	align-items: center;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  color: var(--color-primary);
+  font-size: 14px;
+  margin-right: 13px;
 }

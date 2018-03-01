@@ -21,23 +21,23 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
-  ProductCardViewComponent,
-  ProductIconsComponent,
-  ProductSelectableCardComponent,
-  ProductSmallCardComponent,
-  ProductStatusBadgeComponent,
-  ProductSubInfoComponent,
-  ProductTopCardComponent,
+	ProductCardViewComponent,
+	ProductIconsComponent,
+	ProductSelectableCardComponent,
+	ProductSmallCardComponent,
+	ProductStatusBadgeComponent,
+	ProductSubInfoComponent,
+	ProductTopCardComponent,
 	SelectionActionsComponent,
-	ProductListViewComponent
+	ProductListViewComponent,
 } from './components';
 import {
-  ProductBigCardComponent,
-  ProductInfoCardComponent,
-  ProductPageComponent,
-  ProductSidePreviewComponent,
-  ProductsPageComponent,
-  ProductTasksComponent,
+	ProductBigCardComponent,
+	ProductInfoCardComponent,
+	ProductPageComponent,
+	ProductSidePreviewComponent,
+	ProductsPageComponent,
+	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
@@ -67,7 +67,7 @@ import { TableModule } from '~app/shared/table';
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule,
 		EntityPageModule,
-		TableModule
+		TableModule,
 	],
 	providers: [ProductService],
 	declarations: [
