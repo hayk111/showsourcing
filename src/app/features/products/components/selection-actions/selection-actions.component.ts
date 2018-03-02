@@ -1,3 +1,5 @@
+import { Store } from '@ngrx/store';
+import { DialogName, DialogActions } from '~shared/dialog';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./selection-actions.component.scss'],
 })
 export class SelectionActionsComponent implements OnInit {
-	constructor() {}
+	public dialogName: DialogName = DialogName.ADDTOPROJECT;
+	constructor(private store: Store<any>) {}
 
 	ngOnInit() {}
+
+	public addToProject() {
+		this.store.dispatch(DialogActions.open(this.dialogName));
+	}
 }

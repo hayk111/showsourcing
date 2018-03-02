@@ -1,11 +1,10 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'price-app',
 	templateUrl: './price.component.html',
 	styleUrls: ['./price.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriceComponent implements OnInit {
 	@Input() big = false;

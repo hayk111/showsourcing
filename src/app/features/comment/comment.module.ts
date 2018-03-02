@@ -21,22 +21,17 @@ import { EntityModule } from '~app/shared/entity';
 		IconsModule,
 		UtilsModule,
 		InputsModule,
-		LoadersModule
+		LoadersModule,
 	],
-	declarations: [
-		CommentComponent,
-		CommentListComponent,
-		CommentBadgeComponent,
-		CommentCtnrComponent
-	],
-	exports: [ CommentCtnrComponent	],
-	providers: [ CommentService ]
+	declarations: [CommentCtnrComponent, CommentComponent, CommentListComponent, CommentBadgeComponent],
+	exports: [CommentCtnrComponent],
+	providers: [CommentService],
 })
 export class CommentModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: CommentModule,
-			providers: [ CommentService ]
+			providers: [CommentService],
 		};
 	}
 

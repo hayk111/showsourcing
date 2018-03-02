@@ -1,3 +1,4 @@
+import { CommentModule } from './../features/comment/comment.module';
 import 'rxjs/add/operator/take';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -49,6 +50,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		HttpClientModule,
 		EntitiesServicesModule,
 		UserModule,
+		CommentModule,
 		TemplateModule,
 		IconsModule,
 		CardModule,
@@ -87,18 +89,17 @@ export class AppRootModule {
 		if ('restoreInputValues' in store) {
 			store.restoreInputValues();
 		}
-		this.appRef.tick();
+		// this.appRef.tick();
 		Object.keys(store).forEach(prop => delete store[prop]);
 	}
 
 	hmrOnDestroy(store) {
 		Log.info('------- HMR OnDestroy');
-		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
 		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
+		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
 		store.disposeOldHosts = createNewHosts(cmpLocation);
 		store.restoreInputValues = createInputTransfer();
 		removeNgStyles();
-		Log.info(store.rootState);
 	}
 	hmrAfterDestroy(store) {
 		Log.info('------- HMR AfterDestroy');

@@ -1,3 +1,4 @@
+import { DialogModule } from '~dialog/dialog.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -50,6 +51,7 @@ import { PipesModule } from '~app/app-root/pipes';
 		CommonModule,
 		RouterModule.forChild(routes),
 		PipesModule,
+		DialogModule,
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
 		LoadersModule,

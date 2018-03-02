@@ -1,27 +1,45 @@
 import '~utils/string-monkey-patch';
 
-import { enableProdMode } from '@angular/core';
+import { ApplicationRef, enableProdMode } from '@angular/core';
+import { enableDebugTools } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootloader, hmrModule } from '@angularclass/hmr';
 import { Log } from '~utils';
 
 import { AppRootModule } from './app/app-root';
 import { environment } from './environments/environment';
-import { hmrBootstrap } from './hmr';
 
-// add some utility to String
-if (environment.production) {
-	enableProdMode();
-}
+let _decorateModuleRef = function identity<T>(value: T): T {
+	return value;
+};
 
-const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppRootModule);
+_decorateModuleRef = (modRef: any) => {
+	const appRef = modRef.injector.get(ApplicationRef);
+	const cmpRef = appRef.components[0];
 
-if (environment.hmr) {
-	if (module['hot']) {
-		hmrBootstrap(module, bootstrap);
-	} else {
-		console.error('HMR is not enabled for webpack-dev-server!');
-		console.log('Are you using the --hmr flag for ng serve?');
+	const _ng = (<any>window).ng;
+	enableDebugTools(cmpRef);
+	(<any>window).ng.probe = _ng.probe;
+	(<any>window).ng.coreTokens = _ng.coreTokens;
+	return modRef;
+};
+
+export function main(): Promise<any> {
+	// add some utility to String
+	if (environment.production) {
+		enableProdMode();
 	}
-} else {
-	bootstrap().catch(err => Log.error(err));
+	if (environment.hmr && module['hot']) {
+		module['hot'].accept();
+	}
+	return platformBrowserDynamic()
+		.bootstrapModule(AppRootModule)
+		.then(_decorateModuleRef)
+		.then((ngModuleRef: any) => {
+			return hmrModule(ngModuleRef, module);
+		})
+
+		.catch(err => Log.error(err));
 }
+
+bootloader(main);

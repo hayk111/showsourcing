@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
 	selector: 'dialog-app',
 	templateUrl: './dialog.component.html',
-	styleUrls: ['./dialog.component.scss']
+	styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends AutoUnsub implements OnInit {
 	@Input() closeIcon = true;
@@ -31,15 +31,14 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		if (!this.name)
-			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
+		if (!this.name) throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
 		// we first have to register the dialog so it's added to the map in store
 		this.store.dispatch(DialogActions.register(this.name));
 		// check if dlg is open
-		this.isOpen$ = this.store.select(selectDialog(this.name))
-			.map(dlgInfo => dlgInfo.open);
-		this.isOpen$.pipe(takeUntil(this._destroy$))
-			.subscribe(open => this.isOpen = open);
+		this.isOpen$ = this.store.select(selectDialog(this.name)).map(dlgInfo => dlgInfo.open);
+		this.isOpen$.pipe(takeUntil(this._destroy$)).subscribe(open => {
+			this.isOpen = open;
+		});
 	}
 
 	close() {

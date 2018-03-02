@@ -1,5 +1,5 @@
 <div class="flex">
-  <div class="flex btn pointer">
+  <div class="flex btn pointer" (click)="addToProject()">
     <span class="icon-add"></span>
     <span i18n>Add to project</span>
   </div>
@@ -12,3 +12,14 @@
     <span i18n>Export</span>
   </div>
 </div>
+
+
+<dialog-app [name]="dialogName">
+  hello
+</dialog-app>
+
+<dialog-app [name]="dialogName">
+  hello
+</dialog-app>
+
+
