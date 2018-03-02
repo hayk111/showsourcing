@@ -4,24 +4,19 @@ import { ERM, EntityService } from '~entity';
 import { map } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 
-
-
 @Injectable()
 export class CustomFieldsService {
-
-	constructor(private entitySrv: EntityService, private userSrv: UserService) {
-	}
+	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {
-		return this.entitySrv.load({ url: `api/team/${this.userSrv.teamId}/customFields`, recurring: true }).pipe(
-			map(r => this.mapCustomFields(r))
-		);
+		return this.entitySrv
+			.load({ base: ERM.teams, loaded: ERM.customFields, recurring: true })
+			.pipe(map(r => this.mapCustomFields(r)));
 	}
 
 	mapCustomFields(r) {
 		r.productsCFDef.groups.forEach(g => {
-			if (g.name === 'Basic info')
-				g.fields.forEach(f => this.patchBasicInfo(f) );
+			if (g.name === 'Basic info') g.fields.forEach(f => this.patchBasicInfo(f));
 			else
 				g.fields.forEach(f => {
 					f.name = 'x-' + f.name;
@@ -36,8 +31,7 @@ export class CustomFieldsService {
 	// descriptor for it to work with the api that is used here.
 	private patchDescriptor(desc) {
 		desc.productsCFDef.groups.forEach(g => {
-			if (g.name === 'Basic info')
-				this.patchBasicInfo(g.fields);
+			if (g.name === 'Basic info') this.patchBasicInfo(g.fields);
 		});
 		return desc;
 	}
@@ -105,7 +99,7 @@ export class CustomFieldsService {
 				// id of multiple choice is the same as name
 				// because radio values gives back an id and the api
 				// is waiting for a name
-				choices = choices.map((c, i) => ({ id: c, name: c}));
+				choices = choices.map((c, i) => ({ id: c, name: c }));
 				f.choices = choices;
 		}
 	}

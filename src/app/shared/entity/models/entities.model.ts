@@ -4,7 +4,7 @@ import { uuid } from '~utils';
 export const entityInitialState: EntityState<any> = {
 	pending: true,
 	byId: {},
-	ids: []
+	ids: [],
 };
 
 // interfacing the above initialState
@@ -65,8 +65,8 @@ const entityRepresentationMap = {
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
 	images: new EntityRepresentation('images'),
-	customFields: new EntityRepresentation('customFields'),
-	user: new EntityRepresentation('user')
+	customFields: new EntityRepresentation('customFields', 'customFields'),
+	user: new EntityRepresentation('user'),
 };
 
 export const ERM = entityRepresentationMap;
