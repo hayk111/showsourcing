@@ -6,26 +6,20 @@ import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs/inputs.module';
 
 import {
-  FilterBtnComponent,
-  FilterBtnsPanelComponent,
-  FilterCloudComponent,
-  FilterEntityPanelComponent,
-  FilterPricePanelComponent,
-  FilterRatingPanelComponent,
-  FilterSearchBarComponent,
-  FilterSmartPanelComponent,
-  FilterTagComponent,
+	FilterBtnComponent,
+	FilterBtnsPanelComponent,
+	FilterCloudComponent,
+	FilterEntityPanelComponent,
+	FilterPricePanelComponent,
+	FilterRatingPanelComponent,
+	FilterSearchBarComponent,
+	FilterSmartPanelComponent,
+	FilterTagComponent,
 } from './components';
 import { FilterPanelComponent } from './containers';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		InputsModule,
-		CustomInputsModule,
-		FormsModule,
-		IconsModule
-	],
+	imports: [CommonModule, InputsModule, CustomInputsModule, FormsModule, IconsModule],
 	declarations: [
 		FilterPanelComponent,
 		FilterBtnsPanelComponent,
@@ -36,8 +30,8 @@ import { FilterPanelComponent } from './containers';
 		FilterSearchBarComponent,
 		FilterCloudComponent,
 		FilterTagComponent,
-		FilterSmartPanelComponent
+		FilterSmartPanelComponent,
 	],
-	exports: [ FilterPanelComponent, FilterSearchBarComponent ]
+	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
 })
-export class FiltersModule { }
+export class FiltersModule {}

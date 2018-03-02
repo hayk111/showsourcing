@@ -1,5 +1,6 @@
 <entity-page-app
 	[filterGroupName]="filterGroupName"
+	[filters]="filters$ | async"
 	[pending]="pending$ | async"
 	[repr]="repr"
   (filterClick)="openFilterPanel()"
