@@ -2,7 +2,7 @@ import {
   addActionType,
   BasicActions,
   BasicActionTypes,
-  entityRepresentationMap,
+  ERM,
   makeBasicActions,
   makeBasicActionTypes,
 } from '~entity';
@@ -18,8 +18,8 @@ export interface ProductActions extends BasicActions {
 
 // keeping capitalization for backward compatibility
 // Generating Action types constants wrapped inside one object and extending it
-export const ActionTypes: ProductActionTypes = makeBasicActionTypes(entityRepresentationMap.product);
-addActionType(ActionTypes, entityRepresentationMap.product, 'REQUEST_PDF');
+export const ActionTypes: ProductActionTypes = makeBasicActionTypes(ERM.product);
+addActionType(ActionTypes, ERM.product, 'REQUEST_PDF');
 
 // Generating Action factory inside one object and extending it
 export const ProductActions: ProductActions = makeBasicActions(ActionTypes);
@@ -30,4 +30,4 @@ ProductActions.requestPdf = (id: string) => {
 	};
 };
 
-entityRepresentationMap.product.actions = ProductActions;
+ERM.product.actions = ProductActions;

@@ -8,7 +8,7 @@ import { TargetAction } from '~store/action/target/target.action';
 import { AppFile } from '~features/file';
 import { AppComment } from '~comment';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
-import { entityRepresentationMap, EntityTarget } from '~entity';
+import { ERM, EntityTarget } from '~entity';
 import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	target: EntityTarget;
 	files: Array<AppFile>;
 	comments: Array<AppComment>;
-	projectRep = entityRepresentationMap.projects;
+	projectRep = ERM.projects;
 	projects$: Observable<Array<string>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>) {
@@ -33,7 +33,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
 			const id = params['id'];
-			this.target = { entityId: id, entityRepr: entityRepresentationMap.product };
+			this.target = { entityId: id, entityRepr: ERM.product };
 			this.store.dispatch(TargetAction.select(this.target));
 		});
 		this.product$ = this.store.select(selectProductFocused);

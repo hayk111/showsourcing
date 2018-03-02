@@ -1,12 +1,12 @@
 import { ActionType } from '../../action/target/target.action';
-import { entityRepresentationMap,
+import { ERM,
 	 entityInitialState, addEntities, replaceEntity, removeEntity } from '~entity';
 import { TypedAction } from '~utils';
 
 const initialState = {
-	[entityRepresentationMap.product.entityName]: undefined,
-	[entityRepresentationMap.suppliers.entityName]: undefined,
-	[entityRepresentationMap.events.entityName]: undefined,
+	[ERM.product.entityName]: undefined,
+	[ERM.suppliers.entityName]: undefined,
+	[ERM.events.entityName]: undefined,
 };
 
 // when an entity is selected

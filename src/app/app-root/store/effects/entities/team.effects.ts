@@ -10,8 +10,7 @@ export class TeamEffects {
 
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
-		map(action => action.payload),
-		switchMap(counter => this.srv.load(counter)),
+		switchMap(_ => this.srv.load()),
 		map((result: any) => TeamActions.add(result))
 	);
 

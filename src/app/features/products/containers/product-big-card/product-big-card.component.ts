@@ -48,7 +48,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	onFileDrop(files: Array<any>) {
 		files.forEach(async file => {
 			// this async stuff could probably be abstracted in the store.
-			const img = await AppImage.newInstance(file, this.userSrv.getUserId());
+			const img = await AppImage.newInstance(file, this.userSrv.userId);
 			this.store.dispatch(ImageTargetActions.add(img));
 		});
 	}

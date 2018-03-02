@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { entityRepresentationMap } from '~entity';
+import { ERM, EntityService } from '~entity';
 import { map } from 'rxjs/operators';
-
-
+import { UserService } from '~app/features/user';
 
 @Injectable()
 export class CustomFieldsService {
+	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
-	constructor(private http: HttpClient) {
-	}
-
-	load(id, counter) {
-		return this.http.get(`api/team/${id}/customFields?counter=${counter}`).pipe(
-			map(r => this.mapCustomFields(r))
-		);
+	load() {
+		return this.entitySrv
+			.load({ base: ERM.teams, loaded: ERM.customFields, recurring: true })
+			.pipe(map(r => this.mapCustomFields(r)));
 	}
 
 	mapCustomFields(r) {
 		r.productsCFDef.groups.forEach(g => {
-			if (g.name === 'Basic info')
-				g.fields.forEach(f => this.patchBasicInfo(f) );
+			if (g.name === 'Basic info') g.fields.forEach(f => this.patchBasicInfo(f));
 			else
 				g.fields.forEach(f => {
 					f.name = 'x-' + f.name;
@@ -35,8 +31,7 @@ export class CustomFieldsService {
 	// descriptor for it to work with the api that is used here.
 	private patchDescriptor(desc) {
 		desc.productsCFDef.groups.forEach(g => {
-			if (g.name === 'Basic info')
-				this.patchBasicInfo(g.fields);
+			if (g.name === 'Basic info') this.patchBasicInfo(g.fields);
 		});
 		return desc;
 	}
@@ -46,17 +41,17 @@ export class CustomFieldsService {
 			case 'supplier':
 				f.name = 'supplierId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.suppliers;
+				f.metadata = ERM.suppliers;
 				break;
 			case 'category':
 				f.name = 'categoryId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.categories;
+				f.metadata = ERM.categories;
 				break;
 			case 'event':
 				f.name = 'eventId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.events;
+				f.metadata = ERM.events;
 				break;
 			case 'name':
 				f.fieldType = 'text';
@@ -86,7 +81,7 @@ export class CustomFieldsService {
 		switch (f.fieldType) {
 			case 'supplier':
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.suppliers;
+				f.metadata = ERM.suppliers;
 				break;
 			case 'free-text':
 				f.fieldType = 'text';
@@ -104,7 +99,7 @@ export class CustomFieldsService {
 				// id of multiple choice is the same as name
 				// because radio values gives back an id and the api
 				// is waiting for a name
-				choices = choices.map((c, i) => ({ id: c, name: c}));
+				choices = choices.map((c, i) => ({ id: c, name: c }));
 				f.choices = choices;
 		}
 	}

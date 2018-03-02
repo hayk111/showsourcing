@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 
 import { Project } from '../../models';
 import { selectProjects } from '../../store/selectors';
@@ -17,7 +17,7 @@ export class ProjectsPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.PROJECTS_PAGE;
 	pending$: Observable<boolean>;
 	projects$: Observable<Array<Project>>;
-	repr = entityRepresentationMap.projects;
+	repr = ERM.projects;
 	selection = new Map<string, boolean>();
 
 	constructor(private store: Store<any>) {}

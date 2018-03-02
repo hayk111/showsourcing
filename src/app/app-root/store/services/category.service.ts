@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { EntityService } from '~entity';
+import { UserService } from '~app/features/user';
+import { ERM } from '~app/shared/entity/models';
 
 @Injectable()
 export class CategoryService {
+	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
-	constructor(private http: HttpClient) {
-	}
-
-	load(id: string, counter: number) {
-		return this.http.get(`api/team/${id}/category?counter=${counter}`);
+	load() {
+		return this.entitySrv.load({ base: ERM.teams, loaded: ERM.categories, recurring: true });
 	}
 }

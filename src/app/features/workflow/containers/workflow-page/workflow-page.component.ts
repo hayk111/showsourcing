@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Product, selectProducts } from '~products';
 import { TargetAction } from '~store/action/target/target.action';
 import { FilterGroupName } from '~shared/filters';
-import { entityRepresentationMap, EntityState } from '~entity';
+import { ERM, EntityState } from '~entity';
 
 @Component({
 	selector: 'workflow-page-app',
@@ -14,7 +14,7 @@ import { entityRepresentationMap, EntityState } from '~entity';
 })
 export class WorkflowPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.WORKFLOW_PAGE;
-	repr = entityRepresentationMap.product;
+	repr = ERM.product;
 	pending$: Observable<boolean>;
 	previewDialogOpen = false;
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { DialogActions, DialogName } from '~shared/dialog';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 import { AutoUnsub } from '~utils';
 
 import { selectTasks } from '../../store/selectors';
@@ -18,7 +18,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.TASKS_PAGE;
 	tasks$;
 	pending$: Observable<boolean>;
-	repr = entityRepresentationMap.tasks;
+	repr = ERM.tasks;
 	selection = new Map<string, boolean>();
 
 	constructor(private store: Store<any>) {

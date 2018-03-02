@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { selectEntityArray } from '~entity';
-import { Entity, EntityRepresentation, entityRepresentationMap } from '~entity';
+import { Entity, EntityRepresentation, ERM } from '~entity';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -11,11 +11,11 @@ import { Entity, EntityRepresentation, entityRepresentationMap } from '~entity';
 })
 export class DataManagementPageComponent implements OnInit {
 	entities = [
-		entityRepresentationMap.events,
-		entityRepresentationMap.categories,
-		entityRepresentationMap.suppliers,
-		entityRepresentationMap.tags,
-		entityRepresentationMap.projects,
+		ERM.events,
+		ERM.categories,
+		ERM.suppliers,
+		ERM.tags,
+		ERM.projects,
 	];
 	selectedEntity;
 	selection = [];

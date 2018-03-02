@@ -1,4 +1,4 @@
-import { Entity, entityRepresentationMap, EntityRepresentation } from '~entity';
+import { Entity, ERM, EntityRepresentation } from '~entity';
 import { Currency } from '~store/model/entities/currency.model';
 
 export enum FilterGroupName {
@@ -88,7 +88,7 @@ export abstract class FilterEntity extends BaseFilter {
 export class FilterSupplier extends FilterEntity implements Filter {
 	static readonly filterName = 'supplier';
 	static getEntityRepr() {
-		return entityRepresentationMap.suppliers;
+		return ERM.suppliers;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr());
@@ -98,7 +98,7 @@ export class FilterSupplier extends FilterEntity implements Filter {
 export class FilterCategory extends FilterEntity implements Filter {
 	static readonly filterName = 'category';
 	static getEntityRepr() {
-		return entityRepresentationMap.categories;
+		return ERM.categories;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterCategory(value, displayValue, FilterCategory.getEntityRepr());
@@ -108,7 +108,7 @@ export class FilterCategory extends FilterEntity implements Filter {
 export class FilterEvent extends FilterEntity implements Filter {
 	static readonly filterName = 'event';
 	static getEntityRepr() {
-		return entityRepresentationMap.events;
+		return ERM.events;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterEvent(value, displayValue, FilterEvent.getEntityRepr());
@@ -118,7 +118,7 @@ export class FilterEvent extends FilterEntity implements Filter {
 export class FilterTags extends FilterEntity implements Filter {
 	static readonly filterName = 'tag';
 	static getEntityRepr() {
-		return entityRepresentationMap.tags;
+		return ERM.tags;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterTags(value, displayValue, FilterTags.getEntityRepr());
@@ -128,7 +128,7 @@ export class FilterTags extends FilterEntity implements Filter {
 export class FilterProjects extends FilterEntity implements Filter {
 	static readonly filterName = 'project';
 	static getEntityRepr() {
-		return entityRepresentationMap.projects;
+		return ERM.projects;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterProjects(value, displayValue, FilterProjects.getEntityRepr());
@@ -138,7 +138,7 @@ export class FilterProjects extends FilterEntity implements Filter {
 export class FilterStatus extends FilterEntity implements Filter {
 	static readonly filterName = 'status';
 	static getEntityRepr() {
-		return entityRepresentationMap.productStatus;
+		return ERM.productStatus;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterStatus(value, displayValue, FilterStatus.getEntityRepr());

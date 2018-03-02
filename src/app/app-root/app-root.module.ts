@@ -32,6 +32,7 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { EntityModule } from '~app/shared/entity';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -44,6 +45,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		StoreModule,
 		TemplateModule,
 		AppStoreModule.forRoot(),
+		EntityModule.forRoot(),
 		RouterModule.forRoot(routes),
 		LocalStorageModule,
 		NgxChartsModule,

@@ -5,7 +5,7 @@ import { FilterActions } from '../../store/actions';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 import { FilterPrice, Filter, FilterClass } from '../../models';
 import { Currency, defaultCurrency } from '~store/model/entities/currency.model';
 

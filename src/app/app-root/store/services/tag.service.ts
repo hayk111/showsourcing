@@ -1,17 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityTarget } from '~entity';
+import { EntityTarget, EntityService, ERM } from '~entity';
 import { Tag } from '../model/entities/tag.model';
-
+import { UserService } from '~user';
 
 @Injectable()
 export class TagService {
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
-	constructor(private http: HttpClient) {
-	}
-
-	load(id, maxCounter) {
-		return this.http.get(`api/team/${id}/tag?counter=${maxCounter}`);
+	load() {
+		return this.entitySrv.load({ base: ERM.teams, loaded: ERM.tags, recurring: true });
 	}
 
 	loadForTarget(target: EntityTarget) {

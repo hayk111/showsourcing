@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-
+import { EntityService, ERM } from '~entity';
+import { UserService } from '~user';
 
 @Injectable()
 export class EventService {
+	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
-	constructor(private http: HttpClient) {
-	}
-
-	load(id, maxCounter) {
-		return this.http.get(`api/team/${id}/event?counter=${maxCounter}`).pipe(
-			map((r: any) => r.elements)
-		);
+	load() {
+		return this.entitySrv
+			.load({ base: ERM.teams, loaded: ERM.events, recurring: true })
+			.pipe(map((r: any) => r.elements));
 	}
 }

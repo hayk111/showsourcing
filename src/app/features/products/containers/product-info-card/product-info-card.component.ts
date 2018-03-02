@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '~products/models';
@@ -13,9 +13,9 @@ import { ProductActions } from '~products/store/actions';
 })
 export class ProductInfoCardComponent implements OnInit {
 	@Input() product: Product;
-	supplierRep = entityRepresentationMap.suppliers;
-	categoryRep = entityRepresentationMap.categories;
-	eventRep = entityRepresentationMap.events;
+	supplierRep = ERM.suppliers;
+	categoryRep = ERM.categories;
+	eventRep = ERM.events;
 
 	constructor(private store: Store<any>) {}
 
