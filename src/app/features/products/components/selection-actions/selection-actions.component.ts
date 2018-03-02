@@ -8,12 +8,20 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./selection-actions.component.scss'],
 })
 export class SelectionActionsComponent implements OnInit {
-	public dialogName: DialogName = DialogName.ADDTOPROJECT;
+	public addProductDialog: DialogName = DialogName.ADDTOPROJECT;
+	public exportDialog: DialogName = DialogName.EXPORT;
+	public requestFeatureDialog: DialogName = DialogName.REQUESTFEEDBACK;
 	constructor(private store: Store<any>) {}
 
 	ngOnInit() {}
 
 	public addToProject() {
-		this.store.dispatch(DialogActions.open(this.dialogName));
+		this.store.dispatch(DialogActions.open(this.addProductDialog));
+	}
+	public export() {
+		this.store.dispatch(DialogActions.open(this.exportDialog));
+	}
+	public requestFeedback() {
+		this.store.dispatch(DialogActions.open(this.requestFeatureDialog));
 	}
 }

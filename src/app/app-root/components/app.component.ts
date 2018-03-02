@@ -1,26 +1,26 @@
-import { Component, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
+import { ProductActions } from '~products';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TokenActions } from '~auth';
-import { selectUser, User } from '~app/features/user';
-import { filter } from 'rxjs/operators';
 import { PreloaderService } from '~app/app-root/store';
+import { TokenActions } from '~auth';
+
+import { HmrService } from './../store/services/hmr.service';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-	constructor(private store: Store<any>, private preloader: PreloaderService) {}
+export class AppComponent implements OnInit {
+	constructor(private store: Store<any>, private preloader: PreloaderService, private hmrService: HmrService) {}
 
 	ngOnInit(): void {
 		setTimeout(() => {
-			this.store.dispatch(TokenActions.check());
-			this.preloader.init();
+			if (!this.hmrService.isStoreLoaded()) {
+				this.store.dispatch(TokenActions.check());
+				this.preloader.init();
+				this.store.dispatch(ProductActions.load());
+			}
 		}, 0);
-	}
-
-	ngAfterViewInit(): void {
-		console.log('content init');
 	}
 }
