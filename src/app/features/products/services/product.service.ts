@@ -4,7 +4,6 @@ import { map, tap } from 'rxjs/operators';
 
 import { entityRepresentationMap } from '~entity';
 
-
 @Injectable()
 export class ProductService {
 	repr = entityRepresentationMap.product;
@@ -17,12 +16,14 @@ export class ProductService {
 
 	load({ id, maxCounter }) {
 		return this.http
-			.get(`api/team/${id}/product?take=${this.take}&drop=${this.drop}`)
+			.get(`api/team/${id}/product?sort=category&sortOrder=ASC&take=${this.take}&drop=${this.drop}`)
 			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
 	}
 
 	private getProducts(drop, teamId) {
-		return this.http.get(`api/team/${teamId}/product?take=${this.take}&drop=${drop}&withArchived=false`);
+		return this.http.get(
+			`api/team/${teamId}/product?sort=category&sortOrder=ASC&take=${this.take}&drop=${drop}&withArchived=false`
+		);
 	}
 
 	loadById(id: string) {

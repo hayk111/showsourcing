@@ -7,18 +7,18 @@ import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
 import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
 import {
-  FilterCategory,
-  FilterClass,
-  FilterEvent,
-  FilterGroupName,
-  FilterPanelAction,
-  FilterPrice,
-  FilterProjects,
-  FilterRating,
-  FilterStatus,
-  FilterSupplier,
-  FilterTags,
-  selectFilterPanelOpen,
+	FilterCategory,
+	FilterClass,
+	FilterEvent,
+	FilterGroupName,
+	FilterPanelAction,
+	FilterPrice,
+	FilterProjects,
+	FilterRating,
+	FilterStatus,
+	FilterSupplier,
+	FilterTags,
+	selectFilterPanelOpen,
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
@@ -55,7 +55,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 	// current view
-	view: 'list' | 'card' = 'list';
+	view: 'list' | 'card' = 'card';
 	// whether the filter dialog is visible
 	filterPanelOpen$: Observable<boolean>;
 

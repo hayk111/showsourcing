@@ -16,8 +16,8 @@ export class TokenEffects {
 	checkValid$ = this.actions$
 		.ofType<any>(TokenActionType.CHECK)
 		.pipe(
-			filter(_ => this.srv.checkAuthToken()),
 			filter(_ => !this.hmrService.isStoreLoaded()),
+			filter(_ => this.srv.checkAuthToken()),
 			map(_ => AuthActions.authenticate(this.srv.token, false))
 		);
 

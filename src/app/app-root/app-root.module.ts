@@ -1,4 +1,3 @@
-import { Log } from '~utils/index';
 import 'rxjs/add/operator/take';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -26,6 +25,7 @@ import { TemplateModule } from '~shared/template';
 import { AppStoreModule } from '~store//store.module';
 import { reducerProvider } from '~store/reducer/_reducers';
 import { EntitiesServicesModule } from '~store/services/entities-services.module';
+import { Log } from '~utils';
 
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
