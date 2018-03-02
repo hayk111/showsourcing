@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadParams, UrlBuilder } from '~entity/utils';
-import { UserService } from '~user';
+import { UserService } from '~user/services';
 import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 

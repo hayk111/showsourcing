@@ -14,8 +14,12 @@ dialog{
 	margin: auto;
 	z-index: 1000;
 	display:inline-block;
-	border-radius: var(--border-radius);
-	position: relative;
+  border-radius: var(--border-radius);
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+	position: absolute;
 }
 
 h5:empty{

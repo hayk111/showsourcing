@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
 
 @Component({
@@ -24,9 +24,5 @@ export class SelectableImageComponent implements OnInit {
 
 	public getURL() {
 		return 'url(' + this.url + ')';
-	}
-
-	public setOverlay(value: boolean) {
-		this.showOverlay = value;
 	}
 }

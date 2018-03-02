@@ -1,6 +1,7 @@
+import { components } from './../../shared/inputs/inputs.module';
 import { Route } from '@angular/router';
 import { CommentCtnrComponent } from '~features/comment/containers/comment-ctnr/comment-ctnr.component';
-import { SupplierDetailsComponent, SuppliersPageComponent } from '~suppliers';
+import { SupplierDetailsComponent, SuppliersPageComponent } from '~suppliers/containers';
 
 export const routes: Array<Route> = [
 	{
