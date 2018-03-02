@@ -1,13 +1,20 @@
 
-<ng-container *ngFor="let product of products; let i = index">
-	<product-selectable-card-app
-		[selected]="selection.get(product.id)"
-		(productSelect)="productSelect.emit($event)"
-		(productUnselect)="productUnselect.emit($event)"
-		(productFavorited)="productFavorited.emit($event)"
-		(productUnfavorited)="productUnfavorited.emit($event)"
-		(productOpen)="productOpen.emit($event)"
-		(productVote)="productVote.emit($event)"
-		[product]="product"></product-selectable-card-app>
-</ng-container>
+<div *ngFor="let category of products | groupBy: 'categoryId'">
+    <div class="sectionTitle">{{ category?.key | entityName: 'categories' | async }}
+      <div class="sectionTag">{{category.value.length}} products</div>
+    </div>
+    <div  class="section" >
+      <ng-container *ngFor="let product of category.value ">
+        <product-selectable-card-app
+          [selected]="selection.get(product.id)"
+          (productSelect)="productSelect.emit($event)"
+          (productUnselect)="productUnselect.emit($event)"
+          (productFavorited)="productFavorited.emit($event)"
+          (productUnfavorited)="productUnfavorited.emit($event)"
+          (productOpen)="productOpen.emit($event)"
+          (productVote)="productVote.emit($event)"
+          [product]="product"></product-selectable-card-app>
+      </ng-container>
+    </div>
+  </div>
 

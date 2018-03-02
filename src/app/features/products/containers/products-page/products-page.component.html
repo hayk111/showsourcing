@@ -2,7 +2,8 @@
 	[filterGroupName]="filterGroupName"
 	[pending]="pending$ | async"
 	[repr]="repr"
-	(filterClick)="openFilterPanel()"
+  (filterClick)="openFilterPanel()"
+  [view]="view"
 	(viewChange)="onViewChange($event)">
 		<!-- views: either one will be displayed when the correct view is selected -->
     <product-list-view-app

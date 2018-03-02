@@ -22,32 +22,34 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
-  ProductCardViewComponent,
-  ProductIconsComponent,
-  ProductListViewComponent,
-  ProductSelectableCardComponent,
-  ProductSmallCardComponent,
-  ProductStatusBadgeComponent,
-  ProductSubInfoComponent,
-  ProductTopCardComponent,
-  SelectionActionsComponent,
+	ProductCardViewComponent,
+	ProductIconsComponent,
+	ProductListViewComponent,
+	ProductSelectableCardComponent,
+	ProductSmallCardComponent,
+	ProductStatusBadgeComponent,
+	ProductSubInfoComponent,
+	ProductTopCardComponent,
+	SelectionActionsComponent,
 } from './components';
 import {
-  ProductBigCardComponent,
-  ProductInfoCardComponent,
-  ProductPageComponent,
-  ProductSidePreviewComponent,
-  ProductsPageComponent,
-  ProductTasksComponent,
+	ProductBigCardComponent,
+	ProductInfoCardComponent,
+	ProductPageComponent,
+	ProductSidePreviewComponent,
+	ProductsPageComponent,
+	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { effects } from './store';
+import { PipesModule } from '~app/app-root/pipes';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
+		PipesModule,
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature(effects),
 		LoadersModule,
@@ -67,7 +69,7 @@ import { effects } from './store';
 		SelectionBarModule, // could move into EntityPageModule ?
 		EntityPageModule, // used as template of page
 		TableModule, // used in list
-		FiltersModule // used for filters
+		FiltersModule, // used for filters
 	],
 	providers: [ProductService],
 	declarations: [
