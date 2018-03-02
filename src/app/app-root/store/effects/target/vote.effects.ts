@@ -13,7 +13,7 @@ export class VoteTargetEffects {
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
-		switchMap(target => this.srv.load(target)),
+		switchMap(target => this.srv.loadForTarget(target)),
 		map((r: any) => VoteSlctnActions.set(r))
 	);
 

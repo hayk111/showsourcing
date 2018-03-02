@@ -6,8 +6,6 @@ import { FilterEntityPanelService } from '~shared/filters';
 import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
 
 import { CategoryService } from './category.service';
-import { CountryService } from './country.service';
-import { CurrencyService } from './currency.service';
 import { CustomFieldsService } from './custom-fields.service';
 import { EntityService } from './entity.service';
 import { EventService } from './event.service';
@@ -18,6 +16,8 @@ import { TeamItemLoaderService } from './team-item-loader.service';
 import { TeamMembersService } from './team-members.service';
 import { TeamService } from './team.service';
 import { VoteService } from './vote.service';
+import { CountryService } from '~app/app-root/store/services/country.service';
+import { CurrencyService } from '~app/app-root/store/services/currency.service';
 
 @NgModule({
 	imports: [CommonModule, HttpClientModule, LocalStorageModule],
@@ -26,21 +26,13 @@ import { VoteService } from './vote.service';
 		EntityService,
 		TeamItemLoaderService,
 		TeamService,
-		// TaskService,
+		CountryService,
+		CurrencyService,
 		CustomFieldsService,
 		CommentService,
-		// FileService,
-		CurrencyService,
-		CountryService,
 		VoteService,
-		// AuthService,
-		// UserService,
-		// TokenService,
-		// ImageService,
 		TeamMembersService,
 		CategoryService,
-		// SupplierService,
-		// ProjectService,
 		EventService,
 		TagService,
 		PreloaderService,

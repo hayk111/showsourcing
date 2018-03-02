@@ -13,7 +13,6 @@ import { TagEffects } from './entities/tag.effects';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { TeamEffects } from './entities/team.effects';
 import { AppErrorsEffects } from './misc/app-error.effects';
-import { PreloaderEffects } from './misc/preloader.effects';
 import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilesTargetEffects } from '~features/file';
 import { ImageTargetEffects } from '~features/file';
@@ -44,7 +43,7 @@ export const effects = [
 	AppErrorsEffects,
 	AuthenticationEffects,
 	TokenEffects,
-	PreloaderEffects,
+	// PreloaderEffects,
 	FilterEntityPanelEffects,
 
 	// target

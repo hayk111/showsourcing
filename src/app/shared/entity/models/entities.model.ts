@@ -1,17 +1,20 @@
 import { uuid } from '~utils';
 
+// default initial state in store for an entity
 export const entityInitialState: EntityState<any> = {
 	pending: true,
 	byId: {},
 	ids: []
 };
 
+// interfacing the above initialState
 export interface EntityState<G extends Entity> {
 	pending: boolean;
 	byId: { [key: string]: G };
 	ids: Array<string>;
 }
 
+// represents an entity in the store
 export class Entity {
 	id: string;
 	name: string;
@@ -25,6 +28,7 @@ export class Entity {
 	}
 }
 
+// helper class that represent entity in the store, their display names, and url name and any metadata we might need.
 export class EntityRepresentation {
 	actions: any;
 	constructor(
@@ -40,7 +44,8 @@ export class EntityRepresentation {
 	}
 }
 
-export const entityRepresentationMap = {
+// Helper map, exported as ERM below.
+const entityRepresentationMap = {
 	suppliers: new EntityRepresentation('suppliers'),
 	events: new EntityRepresentation('events'),
 	categories: new EntityRepresentation('categories', 'category'),
@@ -54,15 +59,19 @@ export const entityRepresentationMap = {
 	taskStatuses: new EntityRepresentation('tasksStatus'),
 
 	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
-	currencies: new EntityRepresentation('currencies'),
-	countries: new EntityRepresentation('countries'),
+	currencies: new EntityRepresentation('currencies', 'currency'),
+	countries: new EntityRepresentation('countries', 'country'),
 	teamMembers: new EntityRepresentation('teamMembers'),
 	comments: new EntityRepresentation('comments'),
 	files: new EntityRepresentation('files'),
 	images: new EntityRepresentation('images'),
-	customFields: new EntityRepresentation('customFields')
+	customFields: new EntityRepresentation('customFields'),
+	user: new EntityRepresentation('user')
 };
 
+export const ERM = entityRepresentationMap;
+
+// a target entity is represented with an id and a type (entityRepr).
 export interface EntityTarget {
 	entityId?: string;
 	entityRepr: EntityRepresentation;

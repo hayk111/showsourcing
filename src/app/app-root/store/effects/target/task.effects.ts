@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ActionType, TaskTargetActions } from '../../action/target/task.action';
 import { TaskActions } from '../../action/entities/index';
 import { EntityService } from '../../services/entity.service';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '../../action/misc/app-errors.action';
 import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
@@ -18,7 +18,7 @@ export class TaskTargetEffects {
 	load$ = this.actions$.ofType<any>(ActionType.LOAD).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
-		switchMap(target => this.srv.loadForTarget(entityRepresentationMap.tasks, target)),
+		switchMap(target => this.srv.loadForTarget(ERM.tasks, target)),
 		mergeMap((r: any) => [
 			TaskTargetActions.set(r),
 			TaskActions.add(r)
@@ -28,7 +28,7 @@ export class TaskTargetEffects {
 	@Effect()
 	add$ = this.actions$.ofType<any>(ActionType.ADD).pipe(
 		map(action => action.payload),
-		switchMap(task => this.srv.addForTarget(task, entityRepresentationMap.tasks, this.selectionSrv.currentTarget).pipe(
+		switchMap(task => this.srv.addForTarget(task, ERM.tasks, this.selectionSrv.currentTarget).pipe(
 			// replace currently pending files, we need to replace so it's not pending anymore
 			mergeMap((r: any) => ([
 				TaskTargetActions.replace(task, r),

@@ -2,23 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { entityRepresentationMap, EntityState, Patch } from '~entity';
+import { ERM, EntityState, Patch } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
 import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
 import {
-  FilterCategory,
-  FilterClass,
-  FilterEvent,
-  FilterGroupName,
-  FilterPanelAction,
-  FilterPrice,
-  FilterProjects,
-  FilterRating,
-  FilterStatus,
-  FilterSupplier,
-  FilterTags,
-  selectFilterPanelOpen,
+	FilterCategory,
+	FilterClass,
+	FilterEvent,
+	FilterGroupName,
+	FilterPanelAction,
+	FilterPrice,
+	FilterProjects,
+	FilterRating,
+	FilterStatus,
+	FilterSupplier,
+	FilterTags,
+	selectFilterPanelOpen,
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
@@ -49,7 +49,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	pending$: Observable<boolean>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
-	repr = entityRepresentationMap.product;
+	repr = ERM.product;
 	// when an item is clicked current target is a representation of that item
 	previewDialogOpen = false;
 	// keeps tracks of the current selection
@@ -64,6 +64,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.store.dispatch(ProductActions.load());
 		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName));
 		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
@@ -98,7 +99,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onItemVoted({ id, value }: { id: string; value: number }) {
-		const vote = new Vote(value, this.userSrv.getUserId());
+		const vote = new Vote(value, this.userSrv.userId);
 		vote.productId = id;
 		this.store.dispatch(VoteSlctnActions.add(vote));
 	}

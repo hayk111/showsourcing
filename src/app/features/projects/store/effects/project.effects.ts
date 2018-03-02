@@ -10,8 +10,7 @@ export class ProjectEffects {
 
 	@Effect()
 	load$ = this.action$.ofType<any>(ActionType.LOAD).pipe(
-		map(action => action.payload),
-		switchMap(({id, maxCounter}) => this.srv.load(id, maxCounter)),
+		switchMap(_ => this.srv.load()),
 		map((result: any) => ProjectActions.add(result))
 	);
 

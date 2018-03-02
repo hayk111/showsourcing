@@ -1,33 +1,40 @@
+import { LoadParams } from '~shared/entity/utils';
+import { Filter } from '~shared/filters';
 
-// to easily build api endpoints
-// @Deprecated, should be deprecated
+// entities are loaded different ways.
+
+// 1. api/country. The first way and most simple way is api followed
+// by the name of the entity, ex: api/country.
+// this is for static entities, mainly
+
+// 2. api/team/:teamId/product. The second is by loading entities for a team
+
+// 3. api/team/:teamId/product/comments. The third way is for loading entities
+// related to another.
+
+// 4. Same for entities that are intrinsic to the user exmple api/user/team
+
 export class UrlBuilder {
-	private _base: string;
-	private _entity: string;
-	private _id: string;
 
-	constructor(base: string = 'team', entity?: string) {
-		this._base = base;
-		this._entity = entity;
+	static TAKE = 100;
+
+	constructor() {
 	}
 
-	set base(base: 'user' | 'team') {
-		this._base = base;
+	static getUrl(params: LoadParams) {
+		let url = `${params.url}?`;
+
+		if (params.pagination)
+			url += `take=${params.take || UrlBuilder.TAKE }&drop=${params.drop}`;
+
+		if (params.filters)
+			url += UrlBuilder.filtersAsParams(params.filters);
+
+		return url;
 	}
 
-	set entity(entity: string) {
-		this._entity = entity;
+	private static filtersAsParams(filters: Array<Filter>) {
+		return filters.reduce((prev: string, curr: Filter) => prev += `${curr.toUrlParam()}&`, '');
 	}
 
-	set id(id: string) {
-		this._id = id;
-	}
-
-	getUrl() {
-		return `api/${this._base}/${this._id}/${this._entity}`;
-	}
-
-	getUrlWithParams(params: string) {
-		return this.getUrl() + '?' + params;
-	}
 }

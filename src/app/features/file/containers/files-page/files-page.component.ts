@@ -30,7 +30,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 
 	onFileAdded(files: Array<File>) {
 		files.forEach(file => {
-			const appFile = new AppFile(file, this.userSrv.getUserId());
+			const appFile = new AppFile(file, this.userSrv.userId);
 			this.store.dispatch(FileTargetActions.add(appFile));
 		});
 	}

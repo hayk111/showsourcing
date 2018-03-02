@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { entityRepresentationMap } from '~entity';
+import { ERM, EntityService } from '~entity';
 import { map } from 'rxjs/operators';
+import { UserService } from '~app/features/user';
 
 
 
 @Injectable()
 export class CustomFieldsService {
 
-	constructor(private http: HttpClient) {
+	constructor(private entitySrv: EntityService, private userSrv: UserService) {
 	}
 
-	load(id, counter) {
-		return this.http.get(`api/team/${id}/customFields?counter=${counter}`).pipe(
+	load() {
+		return this.entitySrv.load({ url: `api/team/${this.userSrv.teamId}/customFields`, recurring: true }).pipe(
 			map(r => this.mapCustomFields(r))
 		);
 	}
@@ -46,17 +47,17 @@ export class CustomFieldsService {
 			case 'supplier':
 				f.name = 'supplierId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.suppliers;
+				f.metadata = ERM.suppliers;
 				break;
 			case 'category':
 				f.name = 'categoryId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.categories;
+				f.metadata = ERM.categories;
 				break;
 			case 'event':
 				f.name = 'eventId';
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.events;
+				f.metadata = ERM.events;
 				break;
 			case 'name':
 				f.fieldType = 'text';
@@ -86,7 +87,7 @@ export class CustomFieldsService {
 		switch (f.fieldType) {
 			case 'supplier':
 				f.fieldType = 'entitySelect';
-				f.metadata = entityRepresentationMap.suppliers;
+				f.metadata = ERM.suppliers;
 				break;
 			case 'free-text':
 				f.fieldType = 'text';

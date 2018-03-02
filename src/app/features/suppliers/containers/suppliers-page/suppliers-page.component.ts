@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, entityRepresentationMap } from '~entity';
+import { EntityState, Entity, ERM } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
 import { selectSuppliers } from '~suppliers/store/selectors';
@@ -21,7 +21,7 @@ export class SuppliersPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
-	repr = entityRepresentationMap.suppliers;
+	repr = ERM.suppliers;
 	// maps current selection
 	selection = new Map<string, boolean>();
 

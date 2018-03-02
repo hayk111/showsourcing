@@ -10,7 +10,7 @@ import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { ActionType } from '../../action/target/target.action';
 import { TaskTargetActions } from '../../action/target/task.action';
 import { VoteSlctnActions } from '../../action/target/vote.action';
-import { entityRepresentationMap, EntityTarget } from '~entity';
+import { ERM, EntityTarget } from '~entity';
 
 @Injectable()
 export class TargetEffects {
@@ -26,7 +26,7 @@ export class TargetEffects {
 	// if a product has been selected we need to load its comments, files, etc.
 	// if a supplier has been selected we need to load other things
 	loadRelatedEntities(target: EntityTarget) {
-		const m = entityRepresentationMap;
+		const m = ERM;
 		switch (target.entityRepr.entityName) {
 			case m.product.entityName:
 				return [

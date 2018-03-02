@@ -6,16 +6,15 @@ import { User } from '~user/models/user.model';
 import { selectUser } from '~user/store/selectors/user.selector';
 
 import { Vote } from '../model/entities/vote.model';
-import { EntityTarget } from '~entity';
+import { EntityTarget, EntityService } from '~entity';
+import { UserService } from '~user';
 
 @Injectable()
 export class VoteService {
-	user;
-	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser).subscribe((user: User) => (this.user = user));
-	}
 
-	load(target: EntityTarget) {
+	constructor(private http: HttpClient, private store: Store<any>) { }
+
+	loadForTarget(target: EntityTarget) {
 		const name = target.entityRepr.urlName;
 		const id = target.entityId;
 		// TODO API: votes should have an id...

@@ -34,6 +34,6 @@ export class CommentCtnrComponent implements OnInit {
 	}
 
 	onComment(txt: string) {
-		this.store.dispatch(CommentTargetActions.add(new AppComment(txt, this.userSrv.getUserId())));
+		this.store.dispatch(CommentTargetActions.add(new AppComment(txt, this.userSrv.userId)));
 	}
 }

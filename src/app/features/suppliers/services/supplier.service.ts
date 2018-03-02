@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserService } from '~user';
+import { EntityService } from '~entity';
 
 
 @Injectable()
 export class SupplierService {
 
-	constructor(private http: HttpClient, private userSrv: UserService) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
-	load(id: string, maxCounter: number) {
-		return this.http.get(`api/team/${id}/supplier?counter=${maxCounter}`).pipe(
+	load() {
+		return this.entitySrv.load({ url: `api/team/${this.userSrv.teamId}/supplier`, recurring: true }).pipe(
 			map((r: any) => r.elements)
 		);
 	}
@@ -20,7 +21,7 @@ export class SupplierService {
 	}
 
 	create(supplier) {
-		return this.http.post(`api/team/${this.userSrv.user.currentTeamId}/supplier`, supplier);
+		return this.http.post(`api/team/${this.userSrv.teamId}/supplier`, supplier);
 	}
 
 }

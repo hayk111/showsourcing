@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { selectEntityById } from '../store';
-import { entityRepresentationMap } from '../models';
+import { ERM } from '../models';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from 'app/app-root/utils/index';
 import { takeUntil, map } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class EntityPipe extends AutoUnsub implements PipeTransform {
 		if (!name) {
 			throw new Error(`Hey, You forgot to give the entityName an entityName as argument`);
 		}
-		const repr = entityRepresentationMap[name];
+		const repr = ERM[name];
 		if (!repr) {
 			throw new Error(`Hey, the entity representation with name ${name} was not found.
 			Be sure the name you used is the same as in the store buddy.`);

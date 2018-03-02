@@ -10,7 +10,7 @@ import { selectTaskStatuses } from '~store/selectors/entities/task-status.select
 import {
 	entityStateToArray,
 	EntityState,
-	entityRepresentationMap
+	ERM
 } from '~entity';
 import { map, tap } from 'rxjs/operators';
 import { selectTaskTypes } from '~store/selectors/entities/task-type.selector';
@@ -28,9 +28,9 @@ export class NewTaskDlgComponent implements OnInit {
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
 	g: Task;
-	statusRep = entityRepresentationMap.taskStatuses;
-	typeRep = entityRepresentationMap.taskTypes;
-	productRep = entityRepresentationMap.product;
+	statusRep = ERM.taskStatuses;
+	typeRep = ERM.taskTypes;
+	productRep = ERM.product;
 
 	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {}
 
@@ -47,7 +47,7 @@ export class NewTaskDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const value: TaskParams = this.group.value;
-			value.userId = this.userSrv.getUserId();
+			value.userId = this.userSrv.userId;
 			this.store.dispatch(DialogActions.close(DialogName.NEW_TASK));
 			this.newTask.emit(new Task(value));
 		}

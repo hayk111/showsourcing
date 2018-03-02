@@ -16,7 +16,7 @@ import { selectEntity, selectEntityById } from '~entity';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 import { ChangeDetectorRef } from '@angular/core';
-import { EntityRepresentation, entityRepresentationMap, Entity } from '~entity';
+import { EntityRepresentation, ERM, Entity } from '~entity';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { ChangeDetectionStrategy } from '@angular/core';
 

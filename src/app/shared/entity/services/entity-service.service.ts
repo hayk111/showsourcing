@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { LoadParams, UrlBuilder } from '~entity/utils';
+import { UserService } from '~app/features/user';
 
 // entities are loaded different ways.
 
@@ -13,28 +15,23 @@ import { HttpClient } from '@angular/common/http';
 // related to another.
 
 @Injectable()
-export class EntityServiceService {
+export class EntityService {
 	private teamId: string;
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private userSrv: UserService) {}
 
 	load(params: LoadParams) {
-	// 	let url = 'api'
-	// 	if (params.isTeamEntity)
-	// 		url += `/team/${this.teamId}`;
-	// 	if ()
-
-	// }
+		const url = UrlBuilder.getUrl(params);
+		if (!params.recurring) return this.http.get(url);
+		else
+			return this.http
+				.get(url)
+				.pipe
+				// TODO make recursion happen here
+				();
 	}
 
-}
-
-
-export interface LoadParams {
-	isTeamEntity?: boolean;
-	teamId?: string;
-	entityName?: string;
-	urlParamsAsString?: string;
-	drop?: number;
-	isRecurring?: boolean;
+	loadTeamItem(params: LoadParams) {
+		return this.load(params);
+	}
 }

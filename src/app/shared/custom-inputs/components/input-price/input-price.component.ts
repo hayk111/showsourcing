@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { entityRepresentationMap } from '~entity';
+import { ERM } from '~entity';
 import { deepCopy } from '~utils';
 
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
@@ -11,7 +11,7 @@ import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-in
 	providers: [makeAccessorProvider(InputPriceComponent)],
 })
 export class InputPriceComponent extends AbstractInput {
-	currencyRep = entityRepresentationMap.currencies;
+	currencyRep = ERM.currencies;
 
 	constructor() {
 		super();
