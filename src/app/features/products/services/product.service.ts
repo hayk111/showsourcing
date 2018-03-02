@@ -12,7 +12,7 @@ export class ProductService {
 
 	load(drop?: 0) {
 		return this.entitySrv
-			.load({ url: `api/team/${this.userSrv.userId}/product`, pagination: true, recurring: true, drop })
+			.load({ base: ERM.teams, loaded: ERM.product, pagination: true, recurring: true, drop })
 			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
 	}
 

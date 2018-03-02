@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadParams, UrlBuilder } from '~entity/utils';
-import { UserService } from '~app/features/user';
+import { UserService } from '~user';
+import { switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 // entities are loaded different ways.
 
@@ -20,15 +22,23 @@ export class EntityService {
 
 	constructor(private http: HttpClient, private userSrv: UserService) {}
 
-	load(params: LoadParams) {
-		const url = UrlBuilder.getUrl(params);
-		if (!params.recurring) return this.http.get(url);
-		else
-			return this.http
-				.get(url)
-				.pipe
-				// TODO make recursion happen here
-				();
+	load(params: LoadParams): Observable<any> {
+		// we make sure the user is loaded before doing anything
+		return this.userSrv.user$.pipe(
+			take(1),
+			switchMap(user => {
+				// we construct an url given the params
+				const urlBuilder = new UrlBuilder(user);
+				const url = urlBuilder.getUrl(params);
+				// then we make the request
+				// if not recurring simple request
+				if (!params.recurring) {
+					return this.http.get(url);
+				} else {
+					return this.http.get(url);
+				}
+			})
+		);
 	}
 
 	loadTeamItem(params: LoadParams) {

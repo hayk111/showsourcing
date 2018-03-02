@@ -1,5 +1,6 @@
-import { EntityRepresentation } from './../models';
-import { Filter } from '~app/shared/filters';
+import { Filter } from '~shared/filters';
+
+import { EntityRepresentation, EntityTarget } from './../models';
 
 export interface LoadParams {
 	// url entities api/team/:teamId/product/:productId/comment
@@ -10,7 +11,7 @@ export interface LoadParams {
 	// if the user is already loaded
 	loaded?: EntityRepresentation;
 	base?: EntityRepresentation;
-	from?: EntityRepresentation;
+	from?: EntityTarget;
 
 	// filters etc
 	filters?: Array<Filter>;
