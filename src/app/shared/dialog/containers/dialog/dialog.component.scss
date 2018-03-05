@@ -55,10 +55,12 @@ dialog{
 }
 .footer {
   background-color: var(--color-bg-grey);
-  padding: 0 50px;
-  height: 80px;
+  padding: 0 32px;
+  height: 72px;
   display: flex;
   align-items: center;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .icon-close{
