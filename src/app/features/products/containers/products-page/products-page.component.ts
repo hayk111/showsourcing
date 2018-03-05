@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { ERM, EntityState, Patch } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
-import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
+import { selectFilteredEntity, selectProductsState } from '~products/store/selectors';
 import {
 	FilterCategory,
 	FilterClass,
@@ -66,7 +66,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// this.store.dispatch(ProductActions.load());
 		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName));
-		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
+		this.pending$ = this.store.select(selectProductsState).pipe(map((p: EntityState<Product>) => p.pending));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 	}
 

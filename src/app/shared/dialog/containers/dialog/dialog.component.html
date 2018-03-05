@@ -1,11 +1,9 @@
 <div (click)="close()" *ngIf="isOpen$ | async as isOpen" class="modal">
   <dialog class="z-3" [open]="isOpen" (click)="$event.stopPropagation()" attr.role="dialog">
-    <i class="fa fa-times closeIc" aria-hidden="true" (click)="close()" *ngIf="closeIcon" class="z-1"></i>
-
     <!-- don't add white-spaces between header and content !! -->
     <div class="header">
       <ng-content select="[header]"></ng-content>
-      <div class="icon-close"></div>
+      <div class="icon-close" (click)="close()"></div>
     </div>
     <div class="divider"></div>
     <div class="content">

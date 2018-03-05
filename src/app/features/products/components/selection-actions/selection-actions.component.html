@@ -18,14 +18,14 @@
   <div header>Add to project</div>
   <div content>
     <div class="contentTitle">My projects</div>
-    <div class="contentRowBg">
+    <div *ngFor="let project of projects$ | async" class="contentRowBg">
       <div class="contentRow">
         <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
+        <span class="projectName">{{project.name}}</span>
         <div class="productNumber">4</div>
       </div>
     </div>
-    <div class="contentRowBg selected">
+    <!-- <div class="contentRowBg selected">
       <div class="contentRow">
         <div class="icon-circle-checked"></div>
         <span class="projectName">Team Bazare</span>
@@ -45,7 +45,7 @@
         <span class="projectName">Team Bazare</span>
         <div class="productNumber">4</div>
       </div>
-    </div>
+    </div> -->
   </div>
   <div footer>
     <div class="buttons">
@@ -58,13 +58,13 @@
   <div header>Request Team Feedback</div>
   <div content>
     <div class="contentTitle">Team members</div>
-    <div class="contentRowBg">
+    <div *ngFor="let member of teamMembers$ | async"class="contentRowBg">
       <div class="contentRow">
         <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
+        <span class="projectName">{{member.firstName}} {{member.lastName}}</span>
       </div>
     </div>
-    <div class="contentRowBg selected">
+    <!-- <div class="contentRowBg selected">
       <div class="contentRow">
         <div class="icon-circle-checked"></div>
         <span class="projectName">Team Bazare</span>
@@ -81,7 +81,7 @@
         <div class="icon-circle-unchecked"></div>
         <span class="projectName">Team Bazare</span>
       </div>
-    </div>
+    </div> -->
   </div>
   <div footer>
     <div class="buttons">

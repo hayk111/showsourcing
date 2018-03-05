@@ -7,14 +7,14 @@ import { FileTargetActions } from '~features/file';
 import { AppFile } from '~features/file';
 import { selectUser } from '~user/store/selectors/user.selector';
 
-import { ActionTypes, ProductActions } from '../actions/product.action';
+import { ProductActionTypes, ProductActions } from '../actions/product.action';
 
 @Injectable()
 export class ProductEffects {
 	userID: string;
 
 	@Effect()
-	load$ = this.actions$.ofType<any>(ActionTypes.LOAD).pipe(
+	load$ = this.actions$.ofType<any>(ProductActionTypes.LOAD).pipe(
 		map(action => action.payload),
 		switchMap((params: any) => {
 			// get products
@@ -29,7 +29,7 @@ export class ProductEffects {
 
 	@Effect()
 	downloadPdf$ = this.actions$
-		.ofType<any>(ActionTypes.REQUEST_PDF)
+		.ofType<any>(ProductActionTypes.REQUEST_PDF)
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
@@ -38,13 +38,13 @@ export class ProductEffects {
 
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
-		.ofType<any>(ActionTypes.PATCH)
+		.ofType<any>(ProductActionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store
-			.select(selectUser).pipe(
-				map(user => user.id)
-			).subscribe(id => (this.userID = id));
+			.select(selectUser)
+			.pipe(map(user => user.id))
+			.subscribe(id => (this.userID = id));
 	}
 }
