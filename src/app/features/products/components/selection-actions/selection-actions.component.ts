@@ -23,6 +23,8 @@ export class SelectionActionsComponent implements OnInit {
 	projects$: Observable<Array<Project>>;
 	teamMembers$: Observable<Array<User>>;
 
+	selectedExport: 'excel' | 'pdf' = 'excel';
+
 	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
@@ -39,5 +41,9 @@ export class SelectionActionsComponent implements OnInit {
 	}
 	public requestFeedback() {
 		this.store.dispatch(DialogActions.open(this.requestFeatureDialog));
+	}
+
+	public selectExport(value: 'excel' | 'pdf') {
+		this.selectedExport = value;
 	}
 }

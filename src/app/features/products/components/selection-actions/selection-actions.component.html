@@ -32,20 +32,7 @@
         <div class="productNumber">4</div>
       </div>
     </div>
-    <div class="contentRowBg">
-      <div class="contentRow">
-        <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
-        <div class="productNumber">4</div>
-      </div>
-    </div>
-    <div class="contentRowBg">
-      <div class="contentRow">
-        <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
-        <div class="productNumber">4</div>
-      </div>
-    </div> -->
+  -->
   </div>
   <div footer>
     <div class="buttons">
@@ -70,18 +57,7 @@
         <span class="projectName">Team Bazare</span>
       </div>
     </div>
-    <div class="contentRowBg">
-      <div class="contentRow">
-        <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
-      </div>
-    </div>
-    <div class="contentRowBg">
-      <div class="contentRow">
-        <div class="icon-circle-unchecked"></div>
-        <span class="projectName">Team Bazare</span>
-      </div>
-    </div> -->
+  -->
   </div>
   <div footer>
     <div class="buttons">
@@ -94,6 +70,19 @@
 <dialog-app [name]="exportDialog">
   <div header>Export Slection</div>
   <div content>
+      <div class="contentTitle">Export type</div>
+      <div class="exportRow">
+        <div class="exportCell" (click)="selectExport('excel')" [class.selected]="selectedExport === 'excel'">
+          <div class="icon-excel"></div>
+          <div class="title">Excel</div>
+          <div class="subtitle">Perfect for edition</div>
+        </div>
+        <div class="exportCell" (click)="selectExport('pdf')" [class.selected]="selectedExport === 'pdf'">
+            <div class="icon-pdf"></div>
+            <div class="title">PDF</div>
+            <div class="subtitle">Perfect for sharing</div>
+        </div>
+      </div>
   </div>
   <div footer>
     <div class="buttons">
