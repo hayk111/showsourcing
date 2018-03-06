@@ -3,10 +3,7 @@
   <div class="flexColumn top">
     <div class="flexBetween">
       <div class="name">{{ product?.name }}</div>
-			<rating-heart-app
-				[rating]="product?.rating"
-				(favorited)="productFavorited.emit(product?.id)"
-				(unfavorited)="productUnfavorited.emit(product?.id)"></rating-heart-app>
+      <rating-heart-app [rating]="product?.rating" (favorited)="productFavorited.emit(product?.id)" (unfavorited)="productUnfavorited.emit(product?.id)"></rating-heart-app>
     </div>
     <div class="category">{{ product?.categoryId | entityName: 'categories' | async }}</div>
   </div>
@@ -14,8 +11,8 @@
 
   <!-- middle card: picture + badge  -->
   <div class="imgCtnr flexCenter">
-    <selectable-image-app [imgCount]="product?.imageCount" [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)" (select)="productSelect.emit(product.id)"
-      (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+    <selectable-image-app [imgCount]="product?.imageCount" [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)"
+      (select)="productSelect.emit(product.id)" (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
   </div>
 
   <div class="flexCenter">
@@ -26,7 +23,10 @@
 
   <div class="bottom">
     <div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
-    <div class="tags" [class.hidden]="showOverlay">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+    <div class="tags" [class.hidden]="showOverlay">
+      <span *ngFor="let tag of product?.tagIds"> {{ tag | entityName: 'tags' | async }}</span>
+    </div>
+
     <div class="footer fullWidth flexBetween" [class.hidden]="showOverlay">
       <product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
       <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
