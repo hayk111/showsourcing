@@ -1,7 +1,8 @@
-import { ActionType } from '../../action/target/target.action';
-import { ERM,
-	 entityInitialState, addEntities, replaceEntity, removeEntity } from '~entity';
+import { entityInitialState, ERM } from '~app/shared/entity/models';
+import { addEntities, removeEntity, replaceEntity } from '~store';
 import { TypedAction } from '~utils';
+
+import { ActionType } from '../../action/target/target.action';
 
 const initialState = {
 	[ERM.product.entityName]: undefined,
@@ -10,8 +11,7 @@ const initialState = {
 };
 
 // when an entity is selected
-export function currentTargetReducer( state = {}, action) {
-
+export function currentTargetReducer(state = {}, action) {
 	switch (action.type) {
 		case ActionType.SELECT:
 			return action.payload;
@@ -21,10 +21,9 @@ export function currentTargetReducer( state = {}, action) {
 }
 
 // reducer that applies to every entity in target
-export function targetReducerFactory( actionType) {
-	return function (state = entityInitialState, action: TypedAction<any>) {
+export function targetReducerFactory(actionType) {
+	return function(state = entityInitialState, action: TypedAction<any>) {
 		switch (action.type) {
-
 			case actionType['SET']:
 				return addEntities(state, action.payload);
 
@@ -41,7 +40,8 @@ export function targetReducerFactory( actionType) {
 			case actionType['REMOVE']:
 				return removeEntity(state, action.payload.id);
 
-			default: return state;
+			default:
+				return state;
 		}
 	};
 }

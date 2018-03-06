@@ -1,5 +1,10 @@
 import { InjectionToken } from '@angular/core';
-import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/store';
+import {
+	ActionReducer,
+	ActionReducerMap,
+	combineReducers,
+	State,
+} from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { commentReducer } from '~comment';
@@ -26,13 +31,16 @@ import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
 import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
-import { basicReducerFactory } from '~entity';
+import { basicReducerFactory } from './basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { filtersReducer } from '../../../shared/filters/store/reducers/filter.reducer';
 import { imageSelectionReducer } from '~features/file';
-import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
+import {
+	currentTargetReducer,
+	targetReducerFactory,
+} from './target/target.reducer';
 import { authDlgReducer, authenticationReducer } from '~auth';
 import { filterEntityPanelReducer } from '../../../shared/filters/store/reducers/filter-entity-panel.reducer';
 import { filterPanelReducer } from '../../../shared/filters/store/reducers/filter-panel.reducer';
@@ -82,7 +90,9 @@ const ui = combineReducers({
 export const reducers = { entities, foccussedEntity, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
-export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');
+export const reducerToken = new InjectionToken<ActionReducerMap<any>>(
+	'Reducers'
+);
 
 export const reducerProvider = [{ provide: reducerToken, useValue: reducers }];
 // end of fix
@@ -111,4 +121,6 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
 	};
 }
 
-export const metaReducers = environment.production ? [] : [stateSetter, logger, storeFreeze];
+export const metaReducers = environment.production
+	? []
+	: [stateSetter, logger, storeFreeze];

@@ -1,7 +1,8 @@
-import { TypedAction } from '~utils';
-import { Entity, EntityRepresentation } from '../../models';
-import { Patch, LoadParams } from '../../utils';
 import { Action } from '@ngrx/store';
+import { Patch, LoadParams } from '~store/utils';
+import { TypedAction } from '~utils';
+
+import { Entity, EntityRepresentation } from '../../models';
 
 export interface BasicActionTypes {
 	// loading entities or a subset of entities

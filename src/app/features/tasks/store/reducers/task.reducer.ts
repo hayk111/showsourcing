@@ -1,5 +1,5 @@
-import { EntityState, entityInitialState, addEntities, copyById } from '~entity';
+import { basicReducerFactory } from '~store';
+
 import { ActionType } from '../actions';
-import { basicReducerFactory } from '~entity';
 
 export const taskReducer = basicReducerFactory(ActionType);

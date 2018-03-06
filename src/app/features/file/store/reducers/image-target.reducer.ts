@@ -1,10 +1,13 @@
+import { addEntities, replaceEntity } from '~store';
 import { TypedAction } from '~utils';
-import { addEntities, entityInitialState, replaceEntity } from '~entity';
+import { entityInitialState } from '~entity';
 import { ImageActionType } from '../actions';
 
-export function imageSelectionReducer(state = entityInitialState, action: TypedAction<any>) {
+export function imageSelectionReducer(
+	state = entityInitialState,
+	action: TypedAction<any>
+) {
 	switch (action.type) {
-
 		case ImageActionType.SET:
 			return addEntities(state, action.payload);
 
@@ -29,11 +32,12 @@ export function imageSelectionReducer(state = entityInitialState, action: TypedA
 					[id]: {
 						...state.byId[id],
 						rotation,
-						pending: true
-					}
-				}
+						pending: true,
+					},
+				},
 			};
 
-		default: return state;
+		default:
+			return state;
 	}
 }

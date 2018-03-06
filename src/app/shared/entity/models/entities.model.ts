@@ -1,5 +1,12 @@
 import { uuid } from '~utils';
 
+// interfacing the above initialState
+export interface EntityState<G extends Entity> {
+	pending: boolean;
+	byId: { [key: string]: G };
+	ids: Array<string>;
+}
+
 // default initial state in store for an entity
 export const entityInitialState: EntityState<any> = {
 	pending: true,
@@ -7,12 +14,17 @@ export const entityInitialState: EntityState<any> = {
 	ids: [],
 };
 
-// interfacing the above initialState
-export interface EntityState<G extends Entity> {
-	pending: boolean;
-	byId: { [key: string]: G };
-	ids: Array<string>;
+export interface ExtendedEntityState<G extends Entity> extends EntityState<G> {
+	productsCount: Map<String, Number>;
 }
+
+// default initial state in store for an entity
+export const extentedEntityInitialState: ExtendedEntityState<any> = {
+	pending: true,
+	byId: {},
+	ids: [],
+	productsCount: new Map(),
+};
 
 // represents an entity in the store
 export class Entity {

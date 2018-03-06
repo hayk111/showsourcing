@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { EntityState, entityStateToArray } from '~entity';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { Task } from './../../models';
 
 @Component({
 	selector: 'tasks-list-view-app',
 	templateUrl: './tasks-list-view.component.html',
-	styleUrls: ['./tasks-list-view.component.scss']
+	styleUrls: ['./tasks-list-view.component.scss'],
 })
 export class TasksListViewComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
@@ -19,7 +18,7 @@ export class TasksListViewComponent implements OnInit {
 		type: true,
 		description: true,
 		product: true,
-		owner: true
+		owner: true,
 	};
 
 	constructor() {}
@@ -27,10 +26,8 @@ export class TasksListViewComponent implements OnInit {
 	ngOnInit() {}
 
 	onSelect(event, id: string) {
-		if (event.target.checked)
-			this.taskSelect.emit(id);
-		else
-			this.taskUnselect.emit(id);
+		if (event.target.checked) this.taskSelect.emit(id);
+		else this.taskUnselect.emit(id);
 		event.stopPropagation();
 	}
 

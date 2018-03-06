@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
-import { entityStateToArray } from '~entity';
+import { entityStateToArray } from '~store/utils';
 
-export const selectCommentsForCurrentTarget = state => state.foccussedEntity.comments;
+export const selectCommentsForCurrentTarget = state =>
+	state.foccussedEntity.comments;
 
 export const selectCommentsArrayForCurrentTarget = createSelector(
 	[selectCommentsForCurrentTarget],

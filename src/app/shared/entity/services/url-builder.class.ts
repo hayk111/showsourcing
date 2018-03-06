@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
-import { of } from 'rxjs/observable/of';
-import { map, take, tap } from 'rxjs/operators';
-
-import { selectEntity } from '~entity/store/selectors';
 import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
-import { LoadParams } from '~entity/utils';
-import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
+import { LoadParams } from '~store/utils';
+import { Filter } from '~shared/filters';
 import { User } from '~user/models';
 import { UserService } from '~user/services';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 
 // entities are loaded different ways.
 

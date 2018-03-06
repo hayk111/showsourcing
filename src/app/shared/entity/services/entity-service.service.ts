@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoadParams } from '~entity/utils';
-import { UrlBuilder } from './url-builder.class';
-import { UserService } from '~user/services';
-import { switchMap, take, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { selectEntity, ERM, EntityRepresentation } from '~app/shared/entity';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterGroupName, selectFilterGroup } from '~app/shared/filters';
-import { merge } from 'rxjs/observable/merge';
+import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/operators';
 import { User } from '~app/features/user';
+import { LoadParams } from '~store/utils';
+import { UserService } from '~user/services';
+
+import { UrlBuilder } from './url-builder.class';
 
 // entities are loaded different ways.
 
@@ -38,7 +36,7 @@ export class EntityService {
 		return this.userSrv.user$.pipe(
 			switchMap((user: User) => {
 				// we construct an url given the params
-				let url = this.urlBuilder.getUrl(params, user);
+				const url = this.urlBuilder.getUrl(params, user);
 				return this.makeGetRequest(url, params);
 			})
 		);

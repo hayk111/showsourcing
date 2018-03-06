@@ -1,26 +1,16 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DialogName } from '~dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { TaskActions } from '~store/action/entities/index';
-import { Task, TaskStatus, TaskType, TaskParams } from '../../models/task.model';
+import { DialogActions, DialogName } from '~dialog';
+import { ERM } from '~entity';
 import { UserService } from '~user';
-import { Observable } from 'rxjs/Observable';
-import { selectTaskStatuses } from '~store/selectors/entities/task-status.selector';
-import {
-	entityStateToArray,
-	EntityState,
-	ERM
-} from '~entity';
-import { map, tap } from 'rxjs/operators';
-import { selectTaskTypes } from '~store/selectors/entities/task-type.selector';
-import { Product } from '~products/index';
-import { DialogActions } from '~dialog';
+
+import { Task, TaskParams } from '../../models/task.model';
 
 @Component({
 	selector: 'new-task-dlg-app',
 	templateUrl: './new-task-dlg.component.html',
-	styleUrls: ['./new-task-dlg.component.scss']
+	styleUrls: ['./new-task-dlg.component.scss'],
 })
 export class NewTaskDlgComponent implements OnInit {
 	@Input() productId: string;
@@ -32,14 +22,18 @@ export class NewTaskDlgComponent implements OnInit {
 	typeRep = ERM.taskTypes;
 	productRep = ERM.product;
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {}
+	constructor(
+		private fb: FormBuilder,
+		private store: Store<any>,
+		private userSrv: UserService
+	) {}
 
 	ngOnInit() {
 		this.group = this.fb.group({
 			description: ['', Validators.required],
 			status: ['', Validators.required],
 			type: ['', Validators.required],
-			productId: [this.productId, Validators.required]
+			productId: [this.productId, Validators.required],
 		});
 		this.group.reset();
 	}

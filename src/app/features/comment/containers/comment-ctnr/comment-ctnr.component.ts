@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { AppComment } from '~comment/models';
 import { CommentTargetActions } from '~comment/store/actions';
+import { EntityState } from '~entity';
 import { selectCommentsForCurrentTarget } from '~store/selectors/target/target.selector';
-import { EntityState, entityStateToArray } from '~entity';
+import { entityStateToArray } from '~store/utils/entity.utils';
 import { UserService } from '~user';
 
 @Component({
@@ -25,15 +26,21 @@ export class CommentCtnrComponent implements OnInit {
 		const commentsState$ = this.store.select(selectCommentsForCurrentTarget);
 
 		this.comments$ = commentsState$.pipe(
-			map((commentState: EntityState<AppComment>) => entityStateToArray(commentState)),
+			map((commentState: EntityState<AppComment>) =>
+				entityStateToArray(commentState)
+			),
 			// we want it in reverse order
 			map(comments => comments.reverse())
 		);
 
-		this.pending$ = commentsState$.pipe(map((comments: EntityState<AppComment>) => comments.pending));
+		this.pending$ = commentsState$.pipe(
+			map((comments: EntityState<AppComment>) => comments.pending)
+		);
 	}
 
 	onComment(txt: string) {
-		this.store.dispatch(CommentTargetActions.add(new AppComment(txt, this.userSrv.userId)));
+		this.store.dispatch(
+			CommentTargetActions.add(new AppComment(txt, this.userSrv.userId))
+		);
 	}
 }

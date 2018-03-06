@@ -1,19 +1,26 @@
 import { createSelector } from 'reselect';
-import { EntityTarget, EntityState, entityStateToArray } from '~entity';
+import { entityStateToArray } from '~store/utils';
+
 import { Vote } from '../../model/entities/vote.model';
 
 export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;
 
 // we only need arrays here
 export const selectFilesForCurrentTarget = state => state.foccussedEntity.files;
-export const selectFilesArrayForCurrentTarget = createSelector([selectFilesForCurrentTarget], filesState => {
-	return entityStateToArray(filesState);
-});
+export const selectFilesArrayForCurrentTarget = createSelector(
+	[selectFilesForCurrentTarget],
+	filesState => {
+		return entityStateToArray(filesState);
+	}
+);
 
 export const selectTasksForCurrentTarget = state => state.foccussedEntity.tasks;
-export const selectTaskArrayForCurrentTarget = createSelector([selectTasksForCurrentTarget], filesState => {
-	return entityStateToArray(filesState);
-});
+export const selectTaskArrayForCurrentTarget = createSelector(
+	[selectTasksForCurrentTarget],
+	filesState => {
+		return entityStateToArray(filesState);
+	}
+);
 export const selectNumTasksForSelection = createSelector(
 	[selectTaskArrayForCurrentTarget],
 	(tasks: Array<any>) => {
@@ -21,7 +28,8 @@ export const selectNumTasksForSelection = createSelector(
 	}
 );
 
-export const selectProjectsForCurrentTarget = state => state.foccussedEntity.projects;
+export const selectProjectsForCurrentTarget = state =>
+	state.foccussedEntity.projects;
 export const selectProjectsArrayForCurrentTarget = createSelector(
 	[selectProjectsForCurrentTarget],
 	filesState => {
@@ -29,7 +37,8 @@ export const selectProjectsArrayForCurrentTarget = createSelector(
 	}
 );
 
-export const selectImagesForCurrentTarget = state => state.foccussedEntity.images;
+export const selectImagesForCurrentTarget = state =>
+	state.foccussedEntity.images;
 export const selectImagesArrayForCurrentTarget = createSelector(
 	[selectImagesForCurrentTarget],
 	imageState => {
@@ -38,11 +47,15 @@ export const selectImagesArrayForCurrentTarget = createSelector(
 );
 
 export const selectTagsForCurrentTarget = state => state.foccussedEntity.tags;
-export const selectTagsArrayForCurrentTarget = createSelector([selectTagsForCurrentTarget], tagState => {
-	return entityStateToArray(tagState);
-});
+export const selectTagsArrayForCurrentTarget = createSelector(
+	[selectTagsForCurrentTarget],
+	tagState => {
+		return entityStateToArray(tagState);
+	}
+);
 
-export const selectCommentsForCurrentTarget = state => state.foccussedEntity.comments;
+export const selectCommentsForCurrentTarget = state =>
+	state.foccussedEntity.comments;
 export const selectCommentsArrayForCurrentTarget = createSelector(
 	[selectCommentsForCurrentTarget],
 	commentState => {
@@ -58,9 +71,12 @@ export const selectNumCommentsForCurrentTarget = createSelector(
 );
 
 export const selectVotesForCurrentTarget = state => state.foccussedEntity.votes;
-export const selectVotesArrayForCurrentTarget = createSelector([selectVotesForCurrentTarget], voteState => {
-	return entityStateToArray(voteState);
-});
+export const selectVotesArrayForCurrentTarget = createSelector(
+	[selectVotesForCurrentTarget],
+	voteState => {
+		return entityStateToArray(voteState);
+	}
+);
 
 export interface VoteByType {
 	positive: Array<Vote>;
@@ -69,20 +85,28 @@ export interface VoteByType {
 	total: number;
 }
 
-export const selectVotesByType = createSelector([selectVotesArrayForCurrentTarget], votesArray => {
-	const votes = { positive: [], neutral: [], negative: [], total: votesArray.length };
-	votesArray.forEach((v: Vote) => {
-		switch (v.value) {
-			case 100:
-				votes.positive.push(v);
-				break;
-			case 0:
-				votes.negative.push(v);
-				break;
-			default:
-				votes.neutral.push(v);
-				break;
-		}
-	});
-	return votes;
-});
+export const selectVotesByType = createSelector(
+	[selectVotesArrayForCurrentTarget],
+	votesArray => {
+		const votes = {
+			positive: [],
+			neutral: [],
+			negative: [],
+			total: votesArray.length,
+		};
+		votesArray.forEach((v: Vote) => {
+			switch (v.value) {
+				case 100:
+					votes.positive.push(v);
+					break;
+				case 0:
+					votes.negative.push(v);
+					break;
+				default:
+					votes.neutral.push(v);
+					break;
+			}
+		});
+		return votes;
+	}
+);

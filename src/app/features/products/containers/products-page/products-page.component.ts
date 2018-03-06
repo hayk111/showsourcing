@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, tap } from 'rxjs/operators';
-import { ERM, EntityState, Patch, selectEntityArray } from '~entity';
+import { EntityState, ERM, selectEntityArray } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
+import { selectProductsState } from '~products/store/selectors';
 import {
-	selectFilteredEntity,
-	selectProducts,
-	selectProductsState,
-} from '~products/store/selectors';
-import {
+	Filter,
 	FilterCategory,
 	FilterClass,
 	FilterEvent,
@@ -22,14 +18,13 @@ import {
 	FilterStatus,
 	FilterSupplier,
 	FilterTags,
-	selectFilterPanelOpen,
-	Filter,
-	selectFiltersByName,
 	selectFilterGroup,
+	selectFilterPanelOpen,
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
 import { Vote } from '~store/model/entities/vote.model';
+import { Patch } from '~store/utils';
 import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
 

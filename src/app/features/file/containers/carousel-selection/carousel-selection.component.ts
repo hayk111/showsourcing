@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { entityStateToArray } from '~entity';
+import { entityStateToArray } from '~store/utils';
 import { Store } from '@ngrx/store';
 import { AppImage } from '~features/file/models';
 import { AutoUnsub } from '~utils/index';
@@ -22,7 +22,9 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const imagesState$: Observable<any> = this.store.select(selectImagesForCurrentTarget);
+		const imagesState$: Observable<any> = this.store.select(
+			selectImagesForCurrentTarget
+		);
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
 	}
