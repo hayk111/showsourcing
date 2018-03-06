@@ -26,9 +26,8 @@
     <div class="tags" [class.hidden]="showOverlay">
       <span *ngFor="let tag of product?.tagIds"> {{ tag | entityName: 'tags' | async }}</span>
     </div>
-
     <div class="footer fullWidth flexBetween" [class.hidden]="showOverlay">
-      <product-icons-app [score]="product?.computedValues?.score"></product-icons-app>
+      <product-icons-app [numProjects]="product?.projectIds?.length" [score]="product?.computedValues?.score"></product-icons-app>
       <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
     </div>
     <div class="footer fullWidth flexBetween" [class.hidden]="!showOverlay">

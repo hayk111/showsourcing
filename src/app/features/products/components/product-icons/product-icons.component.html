@@ -2,15 +2,13 @@
 
   <ng-container>
     <div class="icon-thumb-up"></div>
-    <span class="num" *ngIf="score !== undefined">{{ score }}%</span>
-    <span class="num" *ngIf="score == undefined">- %</span>
+    <span class="num">{{ score || '-'}}%</span>
     <span class="spacer"></span>
   </ng-container>
 
   <ng-container>
     <div class="icon-folder"></div>
-    <span class="num" *ngIf="score !== undefined">{{ score }}</span>
-    <span class="num" *ngIf="score == undefined">-</span>
+    <span class="num">{{ numProjects || '-' }}</span>
     <span class="spacer"></span>
   </ng-container>
 
