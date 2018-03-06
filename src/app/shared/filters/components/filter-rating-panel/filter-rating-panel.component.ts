@@ -9,36 +9,27 @@ import { ERM } from '~entity';
 @Component({
 	selector: 'filter-rating-panel-app',
 	templateUrl: './filter-rating-panel.component.html',
-	styleUrls: ['./filter-rating-panel.component.scss']
+	styleUrls: ['./filter-rating-panel.component.scss'],
 })
 export class FilterRatingPanelComponent {
 	@Output() addFilter = new EventEmitter<Filter>();
 	@Output() removeFilter = new EventEmitter<Filter>();
-	ratings = [ 1, 2, 3, 4, 5 ];
 	values: Array<number> = [];
 
-	constructor() {
-	}
+	constructor() {}
 
 	isSelected(num: number) {
 		return ~this.values.indexOf(num);
 	}
 
-	getStarArray(num: number) {
-		return this.ratings.slice(0, num);
-	}
-
 	onChange(event, value) {
 		const filter = new FilterRating(value);
-		if (event.target.checked)
-			this.addFilter.emit(filter);
-		else
-			this.removeFilter.emit(filter);
+		if (event.target.checked) this.addFilter.emit(filter);
+		else this.removeFilter.emit(filter);
 	}
 
 	@Input()
 	set selected(filters: Array<Filter>) {
 		this.values = filters.map(f => f.value);
 	}
-
 }

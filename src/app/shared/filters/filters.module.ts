@@ -16,6 +16,7 @@ import {
 	FilterTagComponent,
 } from './components';
 import { FilterPanelComponent, FilterCloudComponent } from './containers';
+import { RatingModule } from '~app/shared/rating';
 
 @NgModule({
 	imports: [
@@ -24,6 +25,7 @@ import { FilterPanelComponent, FilterCloudComponent } from './containers';
 		CustomInputsModule,
 		FormsModule,
 		ReactiveFormsModule,
+		RatingModule, // used in rating panel
 		IconsModule,
 	],
 	declarations: [

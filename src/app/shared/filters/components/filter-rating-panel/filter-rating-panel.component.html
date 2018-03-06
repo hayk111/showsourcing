@@ -1,14 +1,26 @@
-<div class="flexColumn" *ngFor="let r of ratings; let i = index">
-	<div class="flex">
-		<input
-			type="checkbox"
-			id="rating-{{i}}"
-			[value]="r"
-			[checked]="isSelected(r)"
-			(change)="onChange($event, r)">
-		<label for="rating-{{i}}">
-			<i class="fa fa-star" aria-hidden="true" *ngFor="let s of getStarArray(r)"></i>
-		</label>
-	</div>
-
+<!-- not favorited -->
+<div class="flex">
+	<input
+		type="checkbox"
+		id="unf"
+		[value]="1"
+		[checked]="isSelected(1)"
+		(change)="onChange($event, 1)">
+	<label for="unf">
+		<rating-heart-app [static]="true" [rating]="1"></rating-heart-app>
+	</label>
 </div>
+
+<!-- favorited -->
+<div class="flex">
+	<input
+		type="checkbox"
+		id="fav"
+		[value]="5"
+		[checked]="isSelected(5)"
+		(change)="onChange($event, 5)">
+	<label for="fav">
+		<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
+	</label>
+</div>
+
