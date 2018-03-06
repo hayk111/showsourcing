@@ -17,7 +17,7 @@
   </div>
   <img class="cardImg" [class.blurred]="showOverlay" [src]="url || defaultImg" />
   <div class="imgNumber flexRow" [class.hide]="showOverlay">
-    <span>-</span>
+    <span>{{imgCount || '-'}}</span>
     <div class="icon-img"></div>
   </div>
 </div>

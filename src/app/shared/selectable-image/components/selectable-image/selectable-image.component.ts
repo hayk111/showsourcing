@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	SimpleChanges,
+} from '@angular/core';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
 
 @Component({
@@ -10,6 +18,7 @@ export class SelectableImageComponent implements OnInit {
 	@Input() url: string;
 	@Input() selected: string;
 	@Input() showOverlay: boolean;
+	@Input() imgCount: number;
 	@Output() vote = new EventEmitter<number>();
 	@Output() open = new EventEmitter();
 	@Output() trash = new EventEmitter();

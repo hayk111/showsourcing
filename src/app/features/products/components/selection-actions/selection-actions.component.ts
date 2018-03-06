@@ -30,6 +30,7 @@ export class SelectionActionsComponent implements OnInit {
 	teamMembers$: Observable<Array<User>>;
 
 	selectedExport: 'excel' | 'pdf' = 'excel';
+	selectedProjects = {};
 
 	constructor(private store: Store<any>) {}
 
@@ -40,7 +41,6 @@ export class SelectionActionsComponent implements OnInit {
 			.subscribe(count => (this.productsCount = count));
 		this.teamMembers$ = this.store.select(selectMyTeamMembers);
 		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
-		// .switchMap(projects => Observable.of(Object.values(projects)));
 	}
 
 	public addToProject() {
@@ -55,5 +55,13 @@ export class SelectionActionsComponent implements OnInit {
 
 	public selectExport(value: 'excel' | 'pdf') {
 		this.selectedExport = value;
+	}
+
+	public toggleSelectProject(id: string) {
+		if (!this.selectedProjects[id]) {
+			this.selectedProjects[id] = true;
+		} else {
+			delete this.selectedProjects[id];
+		}
 	}
 }
