@@ -1,17 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityRepresentation } from '~entity';
+import { EntityRepresentation } from '~entity/models';
 
 import { SelectableItem } from '../../../inputs/components/input-checkbox/input-checkbox.component';
-import { Filter, FilterClass, FilterEntityClass, FilterGroupName } from '../../models';
-import { FilterActions, FilterEntityPanelActions, FilterPanelAction } from '../../store/actions';
-import { selectFEPChoices, selectFiltersByName, selectFiltersForClass } from '../../store/selectors';
+import {
+	Filter,
+	FilterClass,
+	FilterEntityClass,
+	FilterGroupName,
+} from '../../models';
+import {
+	FilterActions,
+	FilterEntityPanelActions,
+	FilterPanelAction,
+} from '../../store/actions';
+import {
+	selectFEPChoices,
+	selectFiltersByName,
+	selectFiltersForClass,
+} from '../../store/selectors';
 
 @Component({
 	selector: 'filter-panel-app',
 	templateUrl: './filter-panel.component.html',
-	styleUrls: ['./filter-panel.component.scss']
+	styleUrls: ['./filter-panel.component.scss'],
 })
 export class FilterPanelComponent implements OnInit {
 	@Input() filterClasses = [];
@@ -28,7 +41,7 @@ export class FilterPanelComponent implements OnInit {
 	// the selected values are the values selected in choices.
 	selectedValues$: Observable<Array<any>>;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
 		this.filterMap$ = this.store.select(selectFiltersByName(this.filterGroupName));
@@ -43,7 +56,9 @@ export class FilterPanelComponent implements OnInit {
 		} else {
 			this.selectedPanel = filterClass.filterName;
 		}
-		this.selectedValues$ = this.store.select(selectFiltersForClass(this.filterGroupName, filterClass));
+		this.selectedValues$ = this.store.select(
+			selectFiltersForClass(this.filterGroupName, filterClass)
+		);
 	}
 
 	// filter btn clicked
@@ -65,7 +80,9 @@ export class FilterPanelComponent implements OnInit {
 	}
 
 	onFilterClassRemove(filterClass: FilterClass) {
-		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, filterClass));
+		this.store.dispatch(
+			FilterActions.removeFiltersForFilterClass(this.filterGroupName, filterClass)
+		);
 	}
 
 	onEntitySearch(value: string) {
@@ -81,7 +98,6 @@ export class FilterPanelComponent implements OnInit {
 	close() {
 		if (this.selectedPanel === 'btns')
 			this.store.dispatch(FilterPanelAction.close());
-		else
-			this.selectedPanel = 'btns';
+		else this.selectedPanel = 'btns';
 	}
 }

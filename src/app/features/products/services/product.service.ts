@@ -8,16 +8,29 @@ import { UserService } from '~user';
 export class ProductService {
 	repr = ERM.product;
 
-	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(
+		private http: HttpClient,
+		private entitySrv: EntityService,
+		private userSrv: UserService
+	) {}
 
-	load(drop?: 0) {
+	load(params) {
+		params = { ...params };
+		params.base = ERM.teams;
+		params.loaded = ERM.product;
+		params.recurring = true;
 		return this.entitySrv
-			.load({ base: ERM.teams, loaded: ERM.product, pagination: true, recurring: true, drop })
-			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
+			.load(params)
+			.pipe(
+				map((r: any) => r.elements),
+				tap(r => r.forEach(elem => this.addCustomFields(elem)))
+			);
 	}
 
 	loadById(id: string) {
-		return this.http.get(`api/product/${id}`).map(elem => this.addCustomFields(elem));
+		return this.http
+			.get(`api/product/${id}`)
+			.map(elem => this.addCustomFields(elem));
 	}
 
 	// properties in the customFields nested object are added to the product with
@@ -28,12 +41,16 @@ export class ProductService {
 			Object.entries(cf).forEach(([k, v]) => (elem['x-' + k] = (v as any).value));
 		}
 		// this is done to have minimum order quantity on the same level
-		if (elem.additionalInfo) elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
+		if (elem.additionalInfo)
+			elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
 		// here we do the opposite though. That's because the backend
 		// is waiting for an object when we modify the price
 		// amount or priceCurrency.
 		if (elem.priceAmount || elem.priceCurrency)
-			elem.price = { priceAmount: elem.priceAmount, priceCurrency: elem.priceCurrency };
+			elem.price = {
+				priceAmount: elem.priceAmount,
+				priceCurrency: elem.priceCurrency,
+			};
 		return elem;
 	}
 

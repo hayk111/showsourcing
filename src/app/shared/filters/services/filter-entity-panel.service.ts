@@ -5,8 +5,8 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { selectUserTeamId } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
-import { selectEntityArray } from '~entity';
-import { Entity, EntityRepresentation } from '~entity';
+import { selectEntityArray } from '~entity/store/selectors';
+import { Entity, EntityRepresentation } from '~entity/models';
 
 @Injectable()
 export class FilterEntityPanelService {
@@ -17,9 +17,13 @@ export class FilterEntityPanelService {
 	}
 
 	getItemsWithCount(rep: EntityRepresentation) {
-		return combineLatest(this.getItems(rep), this.getCount(rep), (items, counts) => {
-			return this.combineItemAndCount(items, counts);
-		});
+		return combineLatest(
+			this.getItems(rep),
+			this.getCount(rep),
+			(items, counts) => {
+				return this.combineItemAndCount(items, counts);
+			}
+		);
 	}
 
 	getItems(entityRepr: EntityRepresentation) {
@@ -33,12 +37,21 @@ export class FilterEntityPanelService {
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
 		// TODO: ask renaud for a more standard api url
 		// api/team/teamId/:entityName/countBy/:entityName
-		return this.http.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`).map((r: any) => r.items);
+		return this.http
+			.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
+			.map((r: any) => r.items);
 	}
 
-	private combineItemAndCount(items: Array<Entity>, counts: { [key: string]: number }) {
+	private combineItemAndCount(
+		items: Array<Entity>,
+		counts: { [key: string]: number }
+	) {
 		Log.debug('combining items and counts for filters');
-		items = items.map(item => ({ id: item.id, name: item.name, count: counts[item.id] }));
+		items = items.map(item => ({
+			id: item.id,
+			name: item.name,
+			count: counts[item.id],
+		}));
 		items = items.sort((a: any, b: any) => (b.count || 0) - (a.count || 0));
 		return items;
 	}

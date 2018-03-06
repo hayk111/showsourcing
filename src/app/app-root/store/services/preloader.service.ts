@@ -30,7 +30,6 @@ export class PreloaderService {
 		return this.http.get(`api/team/${id}/maxCounter`);
 	}
 
-	// before doing a base load we need to make sure we have the user loaded.
 	baseLoad() {
 		// static entities
 		// (no user actually needed for those but better to keep those here as well for consistency)

@@ -1,17 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName } from '~shared/filters';
+import { FilterGroupName, Filter } from '~shared/filters';
 import { EntityRepresentation } from '~entity';
 
 @Component({
 	selector: 'top-panel-app',
 	templateUrl: './top-panel.component.html',
 	styleUrls: ['./top-panel.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
+
 	@Input() repr: EntityRepresentation;
 	// whether the screen can be switched
 	@Input() switchable = true;
@@ -24,13 +25,11 @@ export class TopPanelComponent implements OnInit {
 	// when the filter button is clicked
 	@Output() filterClick = new EventEmitter<null>();
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	onClick() {
 		this.createClick.emit();
 	}
-
 }

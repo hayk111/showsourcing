@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~products/services/product.service';
 import { FileTargetActions } from '~features/file';
 import { AppFile } from '~features/file';
@@ -20,9 +20,20 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// set products
-				map((r: any) => ProductActions.add(r)),
-				// before everything set products as pending
-				startWith(ProductActions.setPending() as any)
+				map((r: any) => ProductActions.set(r))
+			);
+		})
+	);
+
+	// for pagination
+	@Effect()
+	loadMore$ = this.actions$.ofType<any>(ProductActionTypes.LOAD_MORE).pipe(
+		map(action => action.payload),
+		switchMap((params: any) => {
+			// get products
+			return this.srv.load(params).pipe(
+				// set products
+				map((r: any) => ProductActions.add(r))
 			);
 		})
 	);
@@ -39,9 +50,16 @@ export class ProductEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
 		.ofType<any>(ProductActionTypes.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+		.pipe(
+			map(action => action.payload),
+			switchMap((p: any) => this.srv.sendPatchRequest(p))
+		);
 
-	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
+	constructor(
+		private srv: ProductService,
+		private actions$: Actions,
+		private store: Store<any>
+	) {
 		this.store
 			.select(selectUser)
 			.pipe(map(user => user.id))

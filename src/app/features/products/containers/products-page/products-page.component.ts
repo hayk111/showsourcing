@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
-import { ERM, EntityState, Patch } from '~entity';
+import { map, tap } from 'rxjs/operators';
+import { ERM, EntityState, Patch, selectEntityArray } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
-import { selectFilteredEntity, selectProductsState } from '~products/store/selectors';
+import {
+	selectFilteredEntity,
+	selectProducts,
+	selectProductsState,
+} from '~products/store/selectors';
 import {
 	FilterCategory,
 	FilterClass,
@@ -19,6 +23,9 @@ import {
 	FilterSupplier,
 	FilterTags,
 	selectFilterPanelOpen,
+	Filter,
+	selectFiltersByName,
+	selectFilterGroup,
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { VoteSlctnActions } from '~store/action/target/vote.action';
@@ -32,20 +39,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./products-page.component.scss'],
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
-	// we have to pass a filterGroupName to the filteredListPage
-	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	// those are the filters we want in the page
-	filterClasses: Array<FilterClass> = [
-		FilterSupplier,
-		FilterCategory,
-		FilterEvent,
-		FilterTags,
-		FilterProjects,
-		FilterStatus,
-		FilterRating,
-		FilterPrice,
-	];
 	products$: Observable<Array<Product>>;
+	productsState$: Observable<EntityState<Product>>;
 	pending$: Observable<boolean>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
@@ -55,19 +50,54 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 	// current view
-	view: 'list' | 'card' = 'card';
+	view: 'list' | 'card' = 'list';
 	// whether the filter dialog is visible
 	filterPanelOpen$: Observable<boolean>;
+	// we have to pass a filterGroupName to the filteredListPage
+	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	filters: Array<Filter>;
+	// those are the filters we want in the page
+	filterClasses: Array<FilterClass> = [
+		FilterSupplier,
+		FilterCategory,
+		FilterEvent,
+		FilterProjects,
+		FilterStatus,
+		FilterRating,
+		FilterPrice,
+	];
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
-		// this.store.dispatch(ProductActions.load());
-		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName));
-		this.pending$ = this.store.select(selectProductsState).pipe(map((p: EntityState<Product>) => p.pending));
+		this.products$ = this.store.select(selectEntityArray(ERM.product));
+		this.productsState$ = this.store.select(selectProductsState);
+		this.productsState$.subscribe(state => (this.productEntities = state));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
+		const filters$ = this.store.select<any>(
+			selectFilterGroup(this.filterGroupName)
+		);
+		filters$.subscribe(filters => {
+			this.loadProducts(filters);
+		});
+	}
+
+	loadProducts(filters) {
+		this.store.dispatch(
+			ProductActions.load({ filters: filters, pagination: true, drop: 0 })
+		);
+	}
+
+	loadMore() {
+		this.store.dispatch(
+			ProductActions.loadMore({
+				filters: this.filters,
+				pagination: true,
+				drop: this.productEntities.ids.length,
+			})
+		);
 	}
 
 	onItemSelected(entityId: string) {

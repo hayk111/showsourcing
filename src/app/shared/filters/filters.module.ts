@@ -1,22 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomInputsModule } from '~shared/custom-inputs/custom-inputs.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs/inputs.module';
 
 import {
-  FilterBtnComponent,
-  FilterBtnsPanelComponent,
-  FilterCloudComponent,
-  FilterEntityPanelComponent,
-  FilterPricePanelComponent,
-  FilterRatingPanelComponent,
-  FilterSearchBarComponent,
-  FilterSmartPanelComponent,
-  FilterTagComponent,
+	FilterBtnComponent,
+	FilterBtnsPanelComponent,
+	FilterEntityPanelComponent,
+	FilterPricePanelComponent,
+	FilterRatingPanelComponent,
+	FilterSearchBarComponent,
+	FilterSmartPanelComponent,
+	FilterTagComponent,
 } from './components';
-import { FilterPanelComponent } from './containers';
+import { FilterPanelComponent, FilterCloudComponent } from './containers';
 
 @NgModule({
 	imports: [
@@ -24,7 +23,8 @@ import { FilterPanelComponent } from './containers';
 		InputsModule,
 		CustomInputsModule,
 		FormsModule,
-		IconsModule
+		ReactiveFormsModule,
+		IconsModule,
 	],
 	declarations: [
 		FilterPanelComponent,
@@ -36,8 +36,8 @@ import { FilterPanelComponent } from './containers';
 		FilterSearchBarComponent,
 		FilterCloudComponent,
 		FilterTagComponent,
-		FilterSmartPanelComponent
+		FilterSmartPanelComponent,
 	],
-	exports: [ FilterPanelComponent, FilterSearchBarComponent ]
+	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
 })
-export class FiltersModule { }
+export class FiltersModule {}

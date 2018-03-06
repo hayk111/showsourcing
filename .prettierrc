@@ -2,7 +2,7 @@
   "useTabs": true,
   "tabWidth": 0,
   "singleQuote": true,
-  "printWidth": 110,
+  "printWidth": 80,
   "jsxBracketSameLine": false,
   "bracketSpacing": true,
   "requirePragma": false,

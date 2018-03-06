@@ -1,4 +1,10 @@
-import { addEntities, copyById, entityInitialState, EntityState, basicReducerFactory } from '~entity';
+import {
+	addEntities,
+	copyById,
+	entityInitialState,
+	EntityState,
+	basicReducerFactory,
+} from '~entity';
 import { TypedAction } from '~utils';
 
 import { Product } from '../../models/product.model';

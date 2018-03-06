@@ -1,6 +1,7 @@
+
 <entity-page-app
 	[filterGroupName]="filterGroupName"
-	[pending]="pending$ | async"
+	[pending]="(productsState$ | async).pending"
 	[repr]="repr"
   (filterClick)="openFilterPanel()"
   [view]="view"
@@ -16,7 +17,8 @@
 			(productUnselect)="onItemUnselected($event)"
 			(productOpen)="onItemOpened($event)"
 			(productFavorited)="onItemFavorited($event)"
-			(productUnfavorited)="onItemUnfavorited($event)"></product-list-view-app>
+			(productUnfavorited)="onItemUnfavorited($event)"
+			(bottomReached)="loadMore()"></product-list-view-app>
 		<product-card-view-app
       class="card-view"
       *ngIf="view === 'card'"

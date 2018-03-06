@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoadParams, UrlBuilder } from '~entity/utils';
+import { LoadParams } from '~entity/utils';
+import { UrlBuilder } from './url-builder.class';
 import { UserService } from '~user/services';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { selectEntity, ERM, EntityRepresentation } from '~app/shared/entity';
+import { Store } from '@ngrx/store';
+import { FilterGroupName, selectFilterGroup } from '~app/shared/filters';
+import { merge } from 'rxjs/observable/merge';
+import { User } from '~app/features/user';
 
 // entities are loaded different ways.
 
@@ -20,25 +26,32 @@ import { Observable } from 'rxjs/Observable';
 export class EntityService {
 	private teamId: string;
 
-	constructor(private http: HttpClient, private userSrv: UserService) {}
+	constructor(
+		private http: HttpClient,
+		private userSrv: UserService,
+		private store: Store<any>,
+		private urlBuilder: UrlBuilder
+	) {}
 
 	load(params: LoadParams): Observable<any> {
 		// we make sure the user is loaded before doing anything
 		return this.userSrv.user$.pipe(
-			take(1),
-			switchMap(user => {
+			switchMap((user: User) => {
 				// we construct an url given the params
-				const urlBuilder = new UrlBuilder(user);
-				const url = urlBuilder.getUrl(params);
-				// then we make the request
-				// if not recurring simple request
-				if (!params.recurring) {
-					return this.http.get(url);
-				} else {
-					return this.http.get(url);
-				}
+				let url = this.urlBuilder.getUrl(params, user);
+				return this.makeGetRequest(url, params);
 			})
 		);
+	}
+
+	private makeGetRequest(url: string, params: LoadParams) {
+		// then we make the request
+		// if not recurring simple request
+		if (!params.recurring) {
+			return this.http.get(url);
+		} else {
+			return this.http.get(url);
+		}
 	}
 
 	loadTeamItem(params: LoadParams) {

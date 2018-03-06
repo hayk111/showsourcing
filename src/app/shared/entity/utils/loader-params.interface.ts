@@ -1,6 +1,7 @@
 import { Filter } from '~shared/filters';
 
 import { EntityRepresentation, EntityTarget } from './../models';
+import { FilterGroupName } from '~shared/filters/models';
 
 export interface LoadParams {
 	// url entities api/team/:teamId/product/:productId/comment
@@ -17,9 +18,9 @@ export interface LoadParams {
 	filters?: Array<Filter>;
 	// pagination
 	pagination?: boolean;
+	// how many items are taken in each pagination page.
 	take?: number;
 	drop?: number;
 	// recurring calls every x milliseconds.
 	recurring?: boolean;
-	maxCounter?: number;
 }

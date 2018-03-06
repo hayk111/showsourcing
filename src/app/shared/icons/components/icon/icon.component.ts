@@ -7,12 +7,12 @@ import { ElementRef } from '@angular/core';
 	selector: 'icon-app',
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent implements OnInit {
 	@Input() name: string;
 	@Input() sizePx: number;
-	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl';
+	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl' = 'default';
 	@Input() color = 'icon';
 	// some icons are displayed with a circular background
 	@Input() circleSize: number;
@@ -26,11 +26,10 @@ export class IconComponent implements OnInit {
 	@Input() useSymbol = true;
 	@ViewChild('icon') icon: TemplateRef<any>;
 
-	constructor() { }
+	constructor() {}
 
 	ngOnInit() {
-		if (!this.useSymbol)
-			fontawesome.dom.i2svg(this.icon.elementRef.nativeElement)
+		if (!this.useSymbol) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
 	}
 
 	@Input()
@@ -47,12 +46,14 @@ export class IconComponent implements OnInit {
 	get style() {
 		return {
 			color: this.color === 'inherit' ? this.color : 'var(--color-' + this.color + ')',
-			background: 'var(--color-' + this.circleColor + ')',
+			// background is used for circle
+			background: this.circleColor ? 'var(--color-' + this.circleColor + ')' : 'inherit',
 			'font-size': this.sizePx ? this.sizePx + 'px' : 'var(--font-size-' + this.size + ')',
 			height: this.circleSize + 'px',
 			width: this.circleSize + 'px',
-			border: this.circleBorderSize + 'px solid var(--color-' + this.circleBorderColor + ')'
+			border: this.circleBorderSize
+				? this.circleBorderSize + 'px solid var(--color-' + this.circleBorderColor + ')'
+				: 'none',
 		};
 	}
-
 }

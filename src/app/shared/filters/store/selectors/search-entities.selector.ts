@@ -3,8 +3,8 @@ import { FilterEntityClass, FilterGroupName } from '~shared/filters/models';
 import { selectFiltersValues } from './filter.selectors';
 import { Log } from '~utils';
 
-import { Entity, EntityRepresentation } from '~entity';
-import { selectEntityArray } from '~entity';
+import { Entity, EntityRepresentation } from '~entity/models';
+import { selectEntityArray } from '~entity/store/selectors';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;
@@ -12,7 +12,11 @@ export interface SmartSearch {
 	result: Array<Entity>;
 }
 
-export const searchEntity = (filterGroupName: FilterGroupName, fe: FilterEntityClass, str: string) => {
+export const searchEntity = (
+	filterGroupName: FilterGroupName,
+	fe: FilterEntityClass,
+	str: string
+) => {
 	const repr = fe.getEntityRepr();
 	return createSelector(
 		[selectEntityArray(repr), selectFiltersValues(filterGroupName, fe)],
@@ -21,7 +25,9 @@ export const searchEntity = (filterGroupName: FilterGroupName, fe: FilterEntityC
 			// with no search terms we return all entities
 			if (str === '') return { repr, selected, result: entities };
 			else {
-				const result = entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
+				const result = entities.filter(entity => entity.name.includes(str)) as Array<
+					Entity
+				>;
 				return { repr, selected, result };
 			}
 		}

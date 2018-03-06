@@ -1,7 +1,17 @@
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
+import { of } from 'rxjs/observable/of';
+import { map, take, tap } from 'rxjs/operators';
+
+import { selectEntity } from '~entity/store/selectors';
 import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
 import { LoadParams } from '~entity/utils';
-import { Filter } from '~shared/filters';
-import { User } from '~user';
+import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
+import { User } from '~user/models';
+import { UserService } from '~user/services';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 // entities are loaded different ways.
 
@@ -16,26 +26,26 @@ import { User } from '~user';
 
 // 4. Same for entities that are intrinsic to the user exmple api/user/team
 
+@Injectable()
 export class UrlBuilder {
-	static TAKE = 100;
+	static TAKE = 10;
 
-	constructor(private user: User) {}
+	constructor(private store: Store<any>, private userSrv: UserService) {}
 
-	getUrl(params: LoadParams): string {
+	getUrl(params: LoadParams, user: User): string {
 		let url;
 		// if we have url as a string we can use it, else we gotta build it
 		if (params.url) {
 			url = params.url;
 		} else {
-			url = this.buildUrl(params);
+			url = this.buildUrl(params, user);
 		}
-
 		// adding query params
 		url = this.addParams(url, params);
 		return url;
 	}
 
-	private buildUrl(params: LoadParams) {
+	private buildUrl(params: LoadParams, user: User) {
 		// we need to be able to build
 		// 1. api/team
 		// 2. api/team/:teamId/product
@@ -46,7 +56,7 @@ export class UrlBuilder {
 		let loaded = params.loaded;
 
 		if (base) {
-			url = this.addBase(url, base);
+			url = this.addBase(url, base, user);
 		}
 		if (from) {
 			url = this.addFrom(url, from);
@@ -56,14 +66,18 @@ export class UrlBuilder {
 	}
 
 	// this adds the base which can be user or team with the correct id.
-	private addBase(url: string, base: EntityRepresentation) {
+	private addBase(url: string, base: EntityRepresentation, user: User) {
 		if (base !== ERM.user && base !== ERM.teams) {
-			throw Error(`UrlBuilder: Base ${base.urlName} not supported, supported bases are user and teams`);
+			throw Error(
+				`UrlBuilder: Base ${
+					base.urlName
+				} not supported, supported bases are user and teams`
+			);
 		}
 		if (base === ERM.teams) {
-			url += `/team/${this.user.currentTeamId}`;
+			url += `/team/${user.currentTeamId}`;
 		} else {
-			url += `/user/${this.user.id}`;
+			url += `/user/${user.id}`;
 		}
 		return url;
 	}
@@ -81,13 +95,20 @@ export class UrlBuilder {
 	private addParams(url: string, params: LoadParams) {
 		url = `${url}?`;
 
-		if (params.pagination) url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
+		if (params.filters) {
+			url += this.filtersAsParams(params.filters);
+		}
 
-		if (params.filters) url += this.filtersAsParams(params.filters);
+		if (params.pagination) {
+			url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
+		}
 		return url;
 	}
 
 	private filtersAsParams(filters: Array<Filter>) {
-		return filters.reduce((prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`), '');
+		return filters.reduce(
+			(prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`),
+			''
+		);
 	}
 }

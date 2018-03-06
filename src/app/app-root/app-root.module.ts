@@ -8,7 +8,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
+import {
+	createInputTransfer,
+	createNewHosts,
+	removeNgStyles,
+} from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationModule } from '@swimlane/ngx-ui';
@@ -100,7 +104,9 @@ export class AppRootModule {
 	hmrOnDestroy(store) {
 		Log.info('------- HMR OnDestroy');
 		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
-		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
+		const cmpLocation = this.appRef.components.map(
+			cmp => cmp.location.nativeElement
+		);
 		store.disposeOldHosts = createNewHosts(cmpLocation);
 		store.restoreInputValues = createInputTransfer();
 		removeNgStyles();
