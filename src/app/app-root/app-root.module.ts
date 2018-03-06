@@ -78,11 +78,7 @@ import { EntityModule } from '~app/shared/entity';
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	constructor(public appRef: ApplicationRef, private _store: Store<any>) {
-		const store = module['hot']['data'];
-		console.log('DAta');
-		console.log(appRef);
-	}
+	constructor(public appRef: ApplicationRef, private _store: Store<any>) {}
 	hmrOnInit(store) {
 		Log.info('------- HMR init');
 		if (!store || !store.rootState) return;
