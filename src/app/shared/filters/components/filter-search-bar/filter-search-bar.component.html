@@ -5,7 +5,7 @@
   <div class="fullFlex"></div>
   <div class="icon-search" (click)="expandSearch()"></div>
   <div class="input-wrapper" [@searchAnimation]="searchstate">
-    <input #searchbox placeholder="Type to search" (keyup)="search($event.target.value)">
+    <input #searchbox [formControl]="searchControl" placeholder="Type to search">
   </div>
   <div class="icon-close" *ngIf="searchstate == 'expanded'" (click)="clearSearch()"></div>
 </div>
