@@ -5,17 +5,22 @@ import {
 	combineReducers,
 	State,
 } from '@ngrx/store';
+import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
+import { authDlgReducer, authenticationReducer } from '~auth';
 import { commentReducer } from '~comment';
 import { dialogReducer } from '~dialog';
+import { FileActionType, imageSelectionReducer } from '~features/file';
 import { productReducer } from '~products/store/reducers/product.reducer';
 import { projectReducer } from '~projects';
 import { supplierReducer } from '~suppliers';
 import { taskReducer } from '~tasks';
 import { userReducer } from '~user';
 
-import { environment } from 'environments/environment';
+import { filterEntityPanelReducer } from '../../../shared/filters/store/reducers/filter-entity-panel.reducer';
+import { filterPanelReducer } from '../../../shared/filters/store/reducers/filter-panel.reducer';
+import { filtersReducer } from '../../../shared/filters/store/reducers/filter.reducer';
 import {
 	CategoryActionTypes,
 	CountryActionTypes,
@@ -26,7 +31,6 @@ import {
 	TeamActionTypes,
 	TeamMembersActionTypes,
 } from '../action/entities';
-import { FileActionType } from '~features/file';
 import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
@@ -35,15 +39,10 @@ import { basicReducerFactory } from './basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
-import { filtersReducer } from '../../../shared/filters/store/reducers/filter.reducer';
-import { imageSelectionReducer } from '~features/file';
 import {
 	currentTargetReducer,
 	targetReducerFactory,
 } from './target/target.reducer';
-import { authDlgReducer, authenticationReducer } from '~auth';
-import { filterEntityPanelReducer } from '../../../shared/filters/store/reducers/filter-entity-panel.reducer';
-import { filterPanelReducer } from '../../../shared/filters/store/reducers/filter-panel.reducer';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -54,10 +53,10 @@ const entities = combineReducers({
 	categories: basicReducerFactory(CategoryActionTypes),
 	events: basicReducerFactory(EventActionTypes),
 	tags: basicReducerFactory(TagActionTypes),
-	projects: projectReducer,
 	suppliers: supplierReducer,
 	products: productReducer,
 	productStatus: productStatusReducer,
+	projects: projectReducer,
 	tasks: taskReducer,
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,

@@ -1,6 +1,16 @@
-import { EntityState } from '~entity';
-import { Project } from './../../models/project.model';
-import { ActionType } from '../actions';
+import { ExtendedEntityState } from '~entity';
+import { extentedEntityInitialState } from '~entity/models/entities.model';
+import { Project } from '~projects/models/project.model';
 import { basicReducerFactory } from '~store';
 
-export const projectReducer = basicReducerFactory(ActionType);
+import { ProjectsActionType } from '../actions';
+
+export interface EntitiesState {
+	projects: ProjectsState;
+}
+export interface ProjectsState extends ExtendedEntityState<Project> {}
+
+export const projectReducer = basicReducerFactory(
+	ProjectsActionType,
+	extentedEntityInitialState
+);

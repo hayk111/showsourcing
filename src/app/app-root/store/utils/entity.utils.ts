@@ -14,7 +14,9 @@ export function addEntities(state: any, entities: Array<any> | any) {
 		ids.push(entity.id);
 		byId[entity.id] = entity;
 	});
+
 	return {
+		...state,
 		pending: false,
 		byId,
 		ids,

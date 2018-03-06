@@ -8,14 +8,14 @@ export function basicReducerFactory<G extends Entity>(
 	actionType: BasicActionTypes,
 	initalieState: EntityState<G> = entityInitialState
 ) {
-	return function(state = entityInitialState, action: TypedAction<any>) {
+	return function(state = initalieState, action: TypedAction<any>) {
 		let id;
 		if (action.payload) id = action.payload.id;
 
 		switch (action.type) {
 			// entities are set to the ones in the payload
 			case actionType.SET:
-				return addEntities(entityInitialState, action.payload);
+				return addEntities(state, action.payload);
 
 			// entities in payload are added to the current state
 			case actionType.ADD:
