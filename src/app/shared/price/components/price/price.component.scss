@@ -2,27 +2,6 @@
 	align-items: baseline;
 	justify-content: flex-end
 }
-.currency {
-	color: var(--color-txt-third);
-	font-size: var(--font-size-xs);
-	margin-right: var(--spacing-xs);
-}
-
-.amount {
-	color: var(--color-txt-strong);
-	font-size: var(--font-size-default);
-}
-
-.big {
-	.currency {
-		color: var(--color-txt-secondary);
-		font-size: var(--font-size-default);
-		font-weight: bold;
-	}
-	.amount {
-		font-size: var(--font-size-l);
-	}
-}
 
 :host {
 	align-items: baseline;

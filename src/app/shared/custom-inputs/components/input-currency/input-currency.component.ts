@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
 import { selectCurrencies } from '~store/selectors/entities/currencies.selector';
-import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
-import { selectEntityArray } from '~entity';
-import { ERM } from '~entity';
+
+import {
+	AbstractInput,
+	makeAccessorProvider,
+} from '../../../inputs/abstract-input.class';
 
 // this input is needed because the backend wants an object when updating a product.currency for example,
 // instead of just the id.
@@ -22,7 +25,9 @@ export class InputCurrencyComponent extends AbstractInput implements OnInit {
 
 	ngOnInit() {
 		this.currencies$ = this.store.select(selectCurrencies);
-		this.currencies$.takeUntil(this._destroy$).subscribe(currencies => (this.currencies = currencies));
+		this.currencies$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(currencies => (this.currencies = currencies));
 	}
 
 	onChange(event) {

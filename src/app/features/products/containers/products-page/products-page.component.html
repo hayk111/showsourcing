@@ -49,6 +49,7 @@
 
 <ng-container *ngIf="filterPanelOpen$ | async">
 	<filter-panel-app
+		class="z-4"
 		[filterGroupName]="filterGroupName"
 		[filterClasses]="filterClasses"
 		(clickOutside)="closeFilterPanel()">

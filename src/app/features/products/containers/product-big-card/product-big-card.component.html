@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="col2">
-		<price-app [big]="true" [currency]="product?.priceCurrency?.id" [amount]="product?.priceAmount"></price-app>
+		<price-app [big]="true" [currency]="product?.priceCurrency" [amount]="product?.priceAmount"></price-app>
 		<small *ngIf="product && product?.minimumOrderQuantity !== undefined" class="moq">min {{ product?.minimumOrderQuantity }} pcs</small>
 	</div>
 </main>

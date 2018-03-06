@@ -36,6 +36,7 @@ export interface FilterClass {
 
 export abstract class BaseFilter {
 	static readonly filterName: string = 'Unnamed';
+	private _displayValue;
 	value: any;
 
 	constructor() {}
@@ -53,7 +54,11 @@ export abstract class BaseFilter {
 	}
 
 	get displayValue(): string {
-		return this.value;
+		return this._displayValue || this.value;
+	}
+
+	set displayValue(v: string) {
+		this._displayValue = v;
 	}
 
 	equals(filter: Filter) {

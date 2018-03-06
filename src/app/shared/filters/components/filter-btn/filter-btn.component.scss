@@ -1,5 +1,6 @@
 .filterButton{
-	background: #ccc;
+	background: var(--color-primary-dark);
+	color: white;
 	padding: var(--spacing-xs);
 	border-radius: var(--border-radius);
 	margin-top: var(--spacing-default);

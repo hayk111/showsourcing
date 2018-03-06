@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	ViewChild,
+	TemplateRef,
+} from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import * as fontawesome from '@fortawesome/fontawesome';
 import { ElementRef } from '@angular/core';
@@ -29,7 +35,7 @@ export class IconComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		if (!this.useSymbol) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
+		fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
 	}
 
 	@Input()
@@ -45,10 +51,15 @@ export class IconComponent implements OnInit {
 
 	get style() {
 		return {
-			color: this.color === 'inherit' ? this.color : 'var(--color-' + this.color + ')',
+			color:
+				this.color === 'inherit' ? this.color : 'var(--color-' + this.color + ')',
 			// background is used for circle
-			background: this.circleColor ? 'var(--color-' + this.circleColor + ')' : 'inherit',
-			'font-size': this.sizePx ? this.sizePx + 'px' : 'var(--font-size-' + this.size + ')',
+			background: this.circleColor
+				? 'var(--color-' + this.circleColor + ')'
+				: 'inherit',
+			'font-size': this.sizePx
+				? this.sizePx + 'px'
+				: 'var(--font-size-' + this.size + ')',
 			height: this.circleSize + 'px',
 			width: this.circleSize + 'px',
 			border: this.circleBorderSize

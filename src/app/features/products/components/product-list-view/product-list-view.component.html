@@ -27,7 +27,16 @@
 </ng-template>
 
 <ng-template #price let-row="row">
-	{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
+	<price-app
+		[amount]="row?.priceAmount"
+		[currency]="row?.priceCurrency"
+		*ngIf="row.priceCurrency; else noPrice">
+	</price-app>
+
+	<ng-template #noPrice>
+		<div class="alignRight">-</div>
+	</ng-template>
+
 </ng-template>
 
 <ng-template #feedback let-row="row">

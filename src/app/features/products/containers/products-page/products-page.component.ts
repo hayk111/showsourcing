@@ -62,6 +62,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterCategory,
 		FilterEvent,
 		FilterProjects,
+		FilterTags,
 		FilterStatus,
 		FilterRating,
 		FilterPrice,

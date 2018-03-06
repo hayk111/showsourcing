@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+} from '@angular/core';
+import { Currency } from '~store/model/entities/currency.model';
 
 @Component({
 	selector: 'price-app',
@@ -8,10 +14,31 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 })
 export class PriceComponent implements OnInit {
 	@Input() big = false;
-	@Input() currency: string;
-	@Input() amount: number;
+	@Input() currency: Currency;
+	@Input() fontWeight = 'inherit';
+	@Input() size = 'inherit';
+	// price are 10000 times less than what comes back from the server
+	// @input in setter
+	private _amount: number;
 
 	constructor() {}
 
 	ngOnInit() {}
+
+	@Input()
+	get amount() {
+		return this._amount;
+	}
+
+	set amount(v: number) {
+		this._amount = v / 10000;
+	}
+
+	get styles() {
+		return {
+			'font-weight': this.fontWeight,
+			'font-size':
+				this.size === 'inherit' ? 'inherit' : 'var(--font-size-' + this.size + ')',
+		};
+	}
 }

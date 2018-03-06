@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
 	selector: 'filter-entity-panel-app',
 	templateUrl: './filter-entity-panel.component.html',
-	styleUrls: ['./filter-entity-panel.component.scss']
+	styleUrls: ['./filter-entity-panel.component.scss'],
 })
 export class FilterEntityPanelComponent {
 	// choices displayed
@@ -34,16 +34,13 @@ export class FilterEntityPanelComponent {
 		this.entitySearch.emit(value);
 	}
 
-	onItemAdded({id, name}) {
+	onItemAdded({ id, name }) {
 		const filter = this.filterClass.newInstance(id, name);
 		this.filterAdded.emit(filter);
 	}
 
-	onItemRemoved({id, name}) {
+	onItemRemoved({ id, name }) {
 		const filter = this.filterClass.newInstance(id, name);
 		this.filterRemoved.emit(filter);
 	}
-
-
-
 }

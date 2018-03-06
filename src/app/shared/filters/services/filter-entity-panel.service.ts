@@ -7,6 +7,7 @@ import { Log } from '~utils';
 
 import { selectEntityArray } from '~entity/store/selectors';
 import { Entity, EntityRepresentation } from '~entity/models';
+import { map, startWith } from 'rxjs/operators';
 
 @Injectable()
 export class FilterEntityPanelService {
@@ -39,7 +40,7 @@ export class FilterEntityPanelService {
 		// api/team/teamId/:entityName/countBy/:entityName
 		return this.http
 			.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
-			.map((r: any) => r.items);
+			.pipe(map((r: any) => r.items), startWith({}));
 	}
 
 	private combineItemAndCount(

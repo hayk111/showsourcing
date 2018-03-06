@@ -5,7 +5,7 @@
   height: 4px;
   display: block;
   width: 100%;
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary);
   border-radius: 2px;
   background-clip: padding-box;
   margin: 0.5rem 0 1rem 0;
@@ -13,7 +13,7 @@
 }
 
 .progress .indeterminate {
-	background-color: var(--color-primary);
+	background-color: var(--color-primary-dark);
 }
 
 .progress .indeterminate:before {
