@@ -12,8 +12,7 @@ import { EntityRepresentation } from '~entity';
 })
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	// filters shown in filter cloud
-	@Input() filters: Array<Filter>;
+
 	@Input() repr: EntityRepresentation;
 	// whether the screen can be switched
 	@Input() switchable = true;

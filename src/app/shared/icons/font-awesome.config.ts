@@ -1,4 +1,3 @@
-
 // Icons should be imported individually to keep bundle size down
 import * as faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 import * as faCheckSquare from '@fortawesome/fontawesome-free-solid/faCheckSquare';
@@ -35,7 +34,8 @@ import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
 fontawesome.config.observeMutations = false;
-export const faIcons = [	faAngleRight,
+export const faIcons = [
+	faAngleRight,
 	faAngleLeft,
 	faPencilAlt,
 	faShare,
@@ -65,7 +65,7 @@ export const faIcons = [	faAngleRight,
 	faCheck,
 	faAngleUp,
 	faAngleDown,
-	faFilter
+	faFilter,
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

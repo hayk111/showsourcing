@@ -12,10 +12,16 @@ import { Observable } from 'rxjs/Observable';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterCloudComponent implements OnInit {
-	@Input() filters: Array<Filter>;
-	@Output() removeFilter = new EventEmitter<Filter>();
+	@Input() filterGroupName: FilterGroupName;
+	filters$: Observable<Array<Filter>>;
 
-	constructor() {}
+	constructor(private store: Store<any>) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
+	}
+
+	removeFilter(filter: Filter) {
+		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
+	}
 }

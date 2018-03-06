@@ -8,7 +8,6 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import {
 	FilterBtnComponent,
 	FilterBtnsPanelComponent,
-	FilterCloudComponent,
 	FilterEntityPanelComponent,
 	FilterPricePanelComponent,
 	FilterRatingPanelComponent,
@@ -16,7 +15,7 @@ import {
 	FilterSmartPanelComponent,
 	FilterTagComponent,
 } from './components';
-import { FilterPanelComponent } from './containers';
+import { FilterPanelComponent, FilterCloudComponent } from './containers';
 
 @NgModule({
 	imports: [CommonModule, InputsModule, CustomInputsModule, FormsModule, IconsModule],

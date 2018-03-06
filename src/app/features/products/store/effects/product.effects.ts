@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~products/services/product.service';
 import { FileTargetActions } from '~features/file';
 import { AppFile } from '~features/file';
@@ -39,12 +39,19 @@ export class ProductEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
 		.ofType<any>(ActionTypes.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+		.pipe(
+			map(action => action.payload),
+			switchMap((p: any) => this.srv.sendPatchRequest(p))
+		);
 
-	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
+	constructor(
+		private srv: ProductService,
+		private actions$: Actions,
+		private store: Store<any>
+	) {
 		this.store
-			.select(selectUser).pipe(
-				map(user => user.id)
-			).subscribe(id => (this.userID = id));
+			.select(selectUser)
+			.pipe(map(user => user.id))
+			.subscribe(id => (this.userID = id));
 	}
 }

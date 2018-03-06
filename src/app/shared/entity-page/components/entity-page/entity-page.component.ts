@@ -12,8 +12,7 @@ export class EntityPageComponent implements OnInit {
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
-	// filters shown in filtercloud
-	@Input() filters: Array<Filter>;
+
 	@Input() view: 'list' | 'card' = 'list';
 	// when create button from toppanel is clicked
 	@Output() createClick = new EventEmitter<any>();

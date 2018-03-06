@@ -1,4 +1,4 @@
-import { Entity, ERM, EntityRepresentation } from '~entity';
+import { Entity, ERM, EntityRepresentation } from '~entity/models';
 import { Currency } from '~store/model/entities/currency.model';
 
 export enum FilterGroupName {
@@ -7,7 +7,7 @@ export enum FilterGroupName {
 	TASKS_PAGE = 'tasksPage',
 	SUPPLIER_PAGE = 'supplierPage',
 	PROJECTS_PAGE = 'projectPage',
-	EVENTS_PAGE = 'eventsPage'
+	EVENTS_PAGE = 'eventsPage',
 }
 
 // the key here is actually a FilterGroupName
@@ -62,13 +62,21 @@ export abstract class BaseFilter {
 export interface FilterEntityClass extends FilterClass {
 	getEntityRepr: () => EntityRepresentation;
 	newInstance: (value, displayValue) => FilterEntity;
-	new (value: string, displayValue: string, entityRepr: EntityRepresentation): FilterEntity;
+	new (
+		value: string,
+		displayValue: string,
+		entityRepr: EntityRepresentation
+	): FilterEntity;
 }
 
 export abstract class FilterEntity extends BaseFilter {
 	public static readonly isForEntity = true;
 
-	constructor(public value: string, public displayValue: string, public entityRepr: EntityRepresentation) {
+	constructor(
+		public value: string,
+		public displayValue: string,
+		public entityRepr: EntityRepresentation
+	) {
 		super();
 	}
 

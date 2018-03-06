@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, tap } from 'rxjs/operators';
-import { ERM, EntityState, Patch } from '~entity';
+import { ERM, EntityState, Patch, selectEntityArray } from '~entity';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store/actions';
-import { selectFilteredEntity, selectProducts } from '~products/store/selectors';
+import {
+	selectFilteredEntity,
+	selectProducts,
+} from '~products/store/selectors';
 import {
 	FilterCategory,
 	FilterClass,
@@ -50,13 +53,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterPanelOpen$: Observable<boolean>;
 	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filters$: Observable<Array<Filter>>;
+	filters: Array<Filter>;
 	// those are the filters we want in the page
 	filterClasses: Array<FilterClass> = [
 		FilterSupplier,
 		FilterCategory,
 		FilterEvent,
-		FilterTags,
 		FilterProjects,
 		FilterStatus,
 		FilterRating,
@@ -68,11 +70,33 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.store.dispatch(ProductActions.load());
-		this.products$ = this.store.select(selectFilteredEntity(this.filterGroupName));
-		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
-		this.filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
+		this.products$ = this.store.select(selectEntityArray(ERM.product));
+		this.pending$ = this.store
+			.select(selectProducts)
+			.pipe(map((p: EntityState<Product>) => p.pending));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
+		const filters$ = this.store.select<any>(
+			selectFilterGroup(this.filterGroupName)
+		);
+		filters$.subscribe(filters => {
+			this.loadProducts(filters);
+		});
+	}
+
+	loadProducts(filters) {
+		this.store.dispatch(
+			ProductActions.load({ filters: filters, pagination: false })
+		);
+	}
+
+	loadMore() {
+		this.store.dispatch(
+			ProductActions.load({
+				filters: this.filters,
+				pagination: true,
+				currentCount: this.productEntities.ids.length,
+			})
+		);
 	}
 
 	onItemSelected(entityId: string) {

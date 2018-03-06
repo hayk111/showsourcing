@@ -1,4 +1,9 @@
-import { addEntities, copyById, entityInitialState, EntityState } from '~entity';
+import {
+	addEntities,
+	copyById,
+	entityInitialState,
+	EntityState,
+} from '~entity';
 import { TypedAction } from '~utils';
 
 import { Product } from '../../models/product.model';
@@ -14,7 +19,8 @@ export function productReducer(
 	let id;
 	switch (action.type) {
 		case ActionTypes.ADD:
-			return addEntities(state, action.payload);
+			// we use the initial state to reset products each time we add some.
+			return addEntities(entityInitialState, action.payload);
 
 		case ActionTypes.SET_PENDING:
 			return { ...state, pending: true };
