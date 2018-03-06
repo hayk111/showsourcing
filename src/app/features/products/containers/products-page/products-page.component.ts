@@ -8,6 +8,7 @@ import { ProductActions } from '~products/store/actions';
 import {
 	selectFilteredEntity,
 	selectProducts,
+	selectProductsState,
 } from '~products/store/selectors';
 import {
 	FilterCategory,
@@ -72,7 +73,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.products$ = this.store.select(selectEntityArray(ERM.product));
 		this.pending$ = this.store
-			.select(selectProducts)
+			.select(selectProductsState)
 			.pipe(map((p: EntityState<Product>) => p.pending));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(

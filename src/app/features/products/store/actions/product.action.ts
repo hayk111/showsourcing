@@ -1,10 +1,10 @@
 import {
-  addActionType,
-  BasicActions,
-  BasicActionTypes,
-  ERM,
-  makeBasicActions,
-  makeBasicActionTypes,
+	addActionType,
+	BasicActions,
+	BasicActionTypes,
+	ERM,
+	makeBasicActions,
+	makeBasicActionTypes,
 } from '~entity';
 import { TypedAction } from '~utils';
 
@@ -18,14 +18,14 @@ export interface ProductActions extends BasicActions {
 
 // keeping capitalization for backward compatibility
 // Generating Action types constants wrapped inside one object and extending it
-export const ActionTypes: ProductActionTypes = makeBasicActionTypes(ERM.product);
-addActionType(ActionTypes, ERM.product, 'REQUEST_PDF');
+export const ProductActionTypes: ProductActionTypes = makeBasicActionTypes(ERM.product);
+addActionType(ProductActionTypes, ERM.product, 'REQUEST_PDF');
 
 // Generating Action factory inside one object and extending it
-export const ProductActions: ProductActions = makeBasicActions(ActionTypes);
+export const ProductActions: ProductActions = makeBasicActions(ProductActionTypes);
 ProductActions.requestPdf = (id: string) => {
 	return {
-		type: ActionTypes.REQUEST_PDF,
+		type: ProductActionTypes.REQUEST_PDF,
 		payload: id,
 	};
 };

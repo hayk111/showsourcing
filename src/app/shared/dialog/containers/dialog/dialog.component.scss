@@ -1,13 +1,14 @@
 /* modal */
 .modal{
 	z-index: 999;
-	background: rgba(0,0,0,0.3);
-	position: absolute;
+	background: rgba(24,40,68,0.70);
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	display: flex;
+  display: flex;
+
 }
 
 dialog{
@@ -19,20 +20,8 @@ dialog{
   bottom: 0;
   left: 0;
   right: 0;
-	position: absolute;
-}
-
-h5:empty{
-	margin: 0;
-	padding: 0;
-}
-h5{ order: 1 }
-
-main{ order: 2 }
-
-footer:not(:empty){
-	margin-top: var(--spacing-md);
-	order: 3;
+  position: fixed;
+  padding: 0;
 }
 
 dialog{
@@ -40,20 +29,41 @@ dialog{
 	flex-direction: column;
 }
 
-.closeIc{
-	color: #aaa;
-	text-align: right;
-	cursor: pointer;
-	margin: 0.4rem 0.4rem 0 0;
-	float: right;
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-radius: 50%;
-	height: 1.5rem;
-	width: 1.5rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.header {
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 26px;
+  color: var(--color-button-dark);
+  padding: 0 50px;
+  margin-top: 20px;
 }
 
+.divider{
+  border: 1px solid var(--color-bg-switcher);
+  height: 0;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.footer {
+  background-color: var(--color-bg-grey);
+  padding: 0 32px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.icon-close{
+  color: var(--color-txt-secondary);
+  cursor: pointer;
+}

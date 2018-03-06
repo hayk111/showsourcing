@@ -6,12 +6,12 @@ import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
 import { ERM } from '~entity';
 
 import { Project } from '../../models';
-import { selectProjects } from '../../store/selectors';
+import { selectProjectsState } from '../../store/selectors';
 
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',
-	styleUrls: ['./projects-page.component.scss']
+	styleUrls: ['./projects-page.component.scss'],
 })
 export class ProjectsPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.PROJECTS_PAGE;
@@ -24,7 +24,7 @@ export class ProjectsPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.projects$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
-		this.pending$ = this.store.select(selectProjects).pipe(map(p => p.pending));
+		this.pending$ = this.store.select(selectProjectsState).pipe(map(p => p.pending));
 	}
 
 	onItemSelected(entityId: string) {

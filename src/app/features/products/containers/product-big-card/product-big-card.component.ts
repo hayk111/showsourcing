@@ -41,7 +41,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 			.subscribe(n => (this.numTasks = n));
 
 		product$
-			.pipe(switchMap(target => this.store.select(selectProductById(target.id))))
+			// .pipe(switchMap(target => this.store.select(selectProductById(target.id))))
 			.subscribe(u => (this.user = u));
 	}
 

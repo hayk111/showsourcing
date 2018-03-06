@@ -1,4 +1,3 @@
-import { HmrService } from './../../../../app-root/store/services/hmr.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { TokenActionType, AuthActions } from '../actions';
@@ -15,11 +14,7 @@ export class TokenEffects {
 	@Effect()
 	checkValid$ = this.actions$
 		.ofType<any>(TokenActionType.CHECK)
-		.pipe(
-			filter(_ => !this.hmrService.isStoreLoaded()),
-			filter(_ => this.srv.checkAuthToken()),
-			map(_ => AuthActions.authenticate(this.srv.token, false))
-		);
+		.pipe(filter(_ => this.srv.checkAuthToken()), map(_ => AuthActions.authenticate(this.srv.token, false)));
 
 	@Effect()
 	checkInvalid$ = this.actions$
@@ -29,5 +24,5 @@ export class TokenEffects {
 	@Effect({ dispatch: false })
 	remove$ = this.actions$.ofType<any>(TokenActionType.REMOVE).pipe(tap(_ => this.srv.removeToken()));
 
-	constructor(private actions$: Actions, private srv: TokenService, private hmrService: HmrService) {}
+	constructor(private actions$: Actions, private srv: TokenService) {}
 }

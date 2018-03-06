@@ -14,6 +14,7 @@ $color-txt-secondary: #A3AFC6;
 $color-delimiter: #E6EBF5;
 $color-success: #71e591;
 $color-warn: #f94259;
+$color-grey: #F3F5F8;
 
 :root{
 	--color-primary: $color-primary;
@@ -31,6 +32,7 @@ $color-warn: #f94259;
 	--color-delimiter: $color-delimiter;
 
   --color-bg: #fff;
+  --color-bg-grey: $color-grey;
 	--color-bg-secondary: #f8f8f8;
 	--color-bg-third: #EBEBEB;
 	--color-bg-fourth: #f4f5f9;

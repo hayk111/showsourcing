@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { Product, selectProducts } from '~products';
+import { Product, selectProductsState } from '~products';
 import { TargetAction } from '~store/action/target/target.action';
 import { FilterGroupName } from '~shared/filters';
 import { ERM, EntityState } from '~entity';
@@ -21,7 +21,7 @@ export class WorkflowPageComponent implements OnInit {
 	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
-		this.pending$ = this.store.select(selectProducts).pipe(map((p: EntityState<Product>) => p.pending));
+		this.pending$ = this.store.select(selectProductsState).pipe(map((p: EntityState<Product>) => p.pending));
 	}
 
 	onItemSelected(entityId: string) {

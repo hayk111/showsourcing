@@ -7,6 +7,7 @@ export interface BasicActionTypes {
 	LOAD: string;
 	LOAD_BY_ID: string;
 	ADD: string;
+	SET: string;
 	CREATE: string;
 	REPLACING: string;
 	DELETE: string;
@@ -18,6 +19,7 @@ export interface BasicActionTypes {
 export interface BasicActions {
 	load(params?: any);
 	loadById(id: string);
+	set(toSet: Array<Entity>);
 	add(toAdd: Array<Entity>);
 	create(toCreate: Entity);
 	replace(old: Entity, replacing: Entity);
@@ -37,6 +39,7 @@ export function makeBasicActionTypes(
 		// even though items are preloaded, not every info in them are preloaded
 		// load by id does a 'deep loading'
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
+		SET: `[${repr.entityName.capitalize()} Setting...]`,
 		ADD: `[${repr.entityName.capitalize()}] Adding...`,
 		CREATE: `[${repr.entityName.capitalize()}] Creating...`,
 		REPLACING: `[${repr.entityName.capitalize()}] Replacing...`,
@@ -68,6 +71,10 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 		loadById: (id: string): TypedAction<any> => ({
 			type: actionType.LOAD_BY_ID,
 			payload: id,
+		}),
+		set: (toSet: Array<Entity>): TypedAction<any> => ({
+			type: actionType.SET,
+			payload: toSet,
 		}),
 		add: (toAdd: Array<Entity>): TypedAction<any> => ({
 			type: actionType.ADD,
