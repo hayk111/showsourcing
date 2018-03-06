@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { EntityTarget, EntityService, ERM } from '~entity';
+import { map, startWith } from 'rxjs/operators';
+import { EntityService, EntityTarget, ERM } from '~entity';
 
 import { Project } from '../models/project.model';
-import { UserService } from '~app/features/user';
+import { EntityRepresentation } from './../../../shared/entity/models/entities.model';
 
 @Injectable()
 export class ProjectService {
@@ -17,14 +17,31 @@ export class ProjectService {
 	}
 
 	loadForTarget(target: EntityTarget) {
-		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/project`);
+		return this.http.get(
+			`api/${target.entityRepr.urlName}/${target.entityId}/project`
+		);
 	}
 
 	addForTarget(project, target: EntityTarget) {
-		return this.http.put(`api/${target.entityRepr.urlName}/${target.entityId}/project/${project.id}`, {});
+		return this.http.put(
+			`api/${target.entityRepr.urlName}/${target.entityId}/project/${project.id}`,
+			{}
+		);
 	}
 
 	removeForTarget(project: Project, target: EntityTarget) {
-		return this.http.delete(`api/${target.entityRepr.urlName}/${target.entityId}/project/${project.id}`);
+		return this.http.delete(
+			`api/${target.entityRepr.urlName}/${target.entityId}/project/${project.id}`
+		);
+	}
+
+	getProductCount(entityRepr: EntityRepresentation, teamId: string) {
+		// get urlName for said target
+		let itemUrlName = entityRepr.urlName;
+		// capitalizing because that url needs to be
+		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
+		return this.http
+			.get(`/api/team/${teamId}/countProdsBy${itemUrlName}`)
+			.pipe(map((r: any) => r.items), startWith({}));
 	}
 }

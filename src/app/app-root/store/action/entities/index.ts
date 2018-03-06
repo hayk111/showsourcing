@@ -32,11 +32,6 @@ export const EventActionTypes = makeBasicActionTypes(ERM.events);
 export const EventActions = makeBasicActions(EventActionTypes);
 ERM.events.actions = EventActions;
 
-// projects
-export const ProjectActionTypes = makeBasicActionTypes(ERM.projects);
-export const ProjectActions = makeBasicActions(ProjectActionTypes);
-ERM.projects.actions = ProjectActions;
-
 // supplier
 export const SupplierActionTypes = makeBasicActionTypes(ERM.suppliers);
 export const SupplierActions = makeBasicActions(SupplierActionTypes);

@@ -15,7 +15,7 @@ export const entityInitialState: EntityState<any> = {
 };
 
 export interface ExtendedEntityState<G extends Entity> extends EntityState<G> {
-	productsCount: Map<String, Number>;
+	productsCount: {};
 }
 
 // default initial state in store for an entity
@@ -23,7 +23,7 @@ export const extentedEntityInitialState: ExtendedEntityState<any> = {
 	pending: true,
 	byId: {},
 	ids: [],
-	productsCount: new Map(),
+	productsCount: {},
 };
 
 // represents an entity in the store

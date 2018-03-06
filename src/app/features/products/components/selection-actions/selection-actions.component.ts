@@ -1,3 +1,4 @@
+import { ERM } from '~entity';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 
@@ -5,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Project } from '~projects/models/project.model';
-import { selectMyProjects } from '~projects/store/selectors/projects.selector';
+import { ProjectActions } from '~projects/store/actions/project.actions';
+import {
+	selectMyTeamProjects,
+	selectProjectsProductsCount,
+} from '~projects/store/selectors/projects.selector';
 import { DialogActions, DialogName } from '~shared/dialog';
 import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
 import { User } from '~user/models';
@@ -21,6 +26,7 @@ export class SelectionActionsComponent implements OnInit {
 	public requestFeatureDialog: DialogName = DialogName.REQUESTFEEDBACK;
 
 	projects$: Observable<Array<Project>>;
+	productsCount: any;
 	teamMembers$: Observable<Array<User>>;
 
 	selectedExport: 'excel' | 'pdf' = 'excel';
@@ -28,8 +34,12 @@ export class SelectionActionsComponent implements OnInit {
 	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(selectMyProjects);
+		this.projects$ = this.store.select(selectMyTeamProjects);
+		this.store
+			.select(selectProjectsProductsCount)
+			.subscribe(count => (this.productsCount = count));
 		this.teamMembers$ = this.store.select(selectMyTeamMembers);
+		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
 		// .switchMap(projects => Observable.of(Object.values(projects)));
 	}
 

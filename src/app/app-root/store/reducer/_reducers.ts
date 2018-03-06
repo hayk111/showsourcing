@@ -13,7 +13,7 @@ import { commentReducer } from '~comment';
 import { dialogReducer } from '~dialog';
 import { FileActionType, imageSelectionReducer } from '~features/file';
 import { productReducer } from '~products/store/reducers/product.reducer';
-import { projectReducer } from '~projects';
+import { projectsReducer } from '~projects';
 import { supplierReducer } from '~suppliers';
 import { taskReducer } from '~tasks';
 import { userReducer } from '~user';
@@ -56,7 +56,7 @@ const entities = combineReducers({
 	suppliers: supplierReducer,
 	products: productReducer,
 	productStatus: productStatusReducer,
-	projects: projectReducer,
+	projects: projectsReducer,
 	tasks: taskReducer,
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,

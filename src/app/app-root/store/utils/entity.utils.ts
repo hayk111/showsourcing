@@ -10,9 +10,12 @@ export function addEntities(state: any, entities: Array<any> | any) {
 	if (!Array.isArray(entities)) {
 		entities = [entities];
 	}
+	// We only push if entity is not already in the store
 	entities.forEach(entity => {
-		ids.push(entity.id);
-		byId[entity.id] = entity;
+		if (byId[entity.id] === undefined) {
+			ids.push(entity.id);
+			byId[entity.id] = entity;
+		}
 	});
 
 	return {

@@ -45,7 +45,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 	// current view
-	view: 'list' | 'card' = 'list';
+	view: 'list' | 'card' = 'card';
 	// whether the filter dialog is visible
 	filterPanelOpen$: Observable<boolean>;
 	// we have to pass a filterGroupName to the filteredListPage

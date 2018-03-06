@@ -36,7 +36,6 @@ export function main(): Promise<any> {
 		.bootstrapModule(AppRootModule)
 		.then(_decorateModuleRef)
 		.then((ngModuleRef: any) => {
-			console.log(ngModuleRef);
 			return hmrModule(ngModuleRef, module);
 		})
 
