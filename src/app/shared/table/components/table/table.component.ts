@@ -1,23 +1,31 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, ChangeDetectionStrategy } from '@angular/core';
+import {
+	Output,
+	Component,
+	ContentChildren,
+	Input,
+	OnInit,
+	QueryList,
+	ChangeDetectionStrategy,
+	EventEmitter,
+} from '@angular/core';
 import { ColumnDirective } from '~app/shared/table/components/column.directive';
 
 @Component({
-  selector: 'table-app',
-  templateUrl: './table.component.html',
+	selector: 'table-app',
+	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent implements OnInit, AfterContentInit {
-	@Input() rows: Array<any>
-	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>
+export class TableComponent {
+	@Input() rows: Array<any>;
+	@Output() bottomReached = new EventEmitter<null>();
+	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-  }
+	ngOnInit() {}
 
-	ngAfterContentInit() {
-	}
+	ngAfterContentInit() {}
 
 	sort(column: ColumnDirective) {
 		const currentSort = column.currentSort;

@@ -1,4 +1,4 @@
-<table-app [rows]="rows">
+<table-app [rows]="rows" (bottomReached)="bottomReached.emit()">
 		<ng-template
 			*ngFor="let column of descriptor"
 			columnApp="{{ column.title }}"

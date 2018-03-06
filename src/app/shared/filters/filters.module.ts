@@ -17,6 +17,7 @@ import {
 } from './components';
 import { FilterPanelComponent, FilterCloudComponent } from './containers';
 import { RatingModule } from '~app/shared/rating';
+import { UtilsModule } from '~app/shared/utils';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { RatingModule } from '~app/shared/rating';
 		CustomInputsModule,
 		FormsModule,
 		ReactiveFormsModule,
-		RatingModule, // used in rating panel
+		RatingModule, // used in rating panel,
+		UtilsModule, // for click outside
 		IconsModule,
 	],
 	declarations: [

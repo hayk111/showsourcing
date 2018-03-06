@@ -1,10 +1,13 @@
 <div class="card searchTerms">
 	<ng-container *ngFor="let search of smartSearch">
 		<div *ngIf="search.result.length > 0" class="flexColumn">
-			<div class="title">{{ search?.repr.displayName }}</div>
-
-			<input-checkbox-app [choices]="search.result" [value]="search.selected" (itemAdded)="itemAdded.emit($event)" (itemRemoved)="itemRemoved.emit($event)">
-			</input-checkbox-app>
+			<div class="title">{{ search?.repr?.displayName }}</div>
+			<div class="flexColumn">
+				<div class="flex" *ngFor="let ent of search.result">
+						<input type="checkbox" [checked]="selection.has(ent.id)" (change)="onCheck($event, search.repr, ent.id)"/>
+						<label>{{ ent.name }}</label>
+				</div>
+			</div>
 		</div>
 	</ng-container>
 </div>

@@ -37,14 +37,14 @@ export interface SearchedEntities {
 // 	{ repr: someRepr, result: [entities]}
 // ]
 export const searchEntities = (
-	entities: Array<EntityRepresentation>,
+	reprs: Array<EntityRepresentation>,
 	str: string
 ) => {
-	const sels = entities.map(entity => searchEntity(entity, str)) as any;
+	const sels = reprs.map(repr => searchEntity(repr, str)) as any;
 	return createSelector(sels, (...results) => {
 		results = results
 			.map((entities, i: number) => ({
-				repr: entities[i],
+				repr: reprs[i],
 				result: entities,
 			}))
 			.filter(r => r.result.length > 0);

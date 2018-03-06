@@ -4,12 +4,12 @@
 	*ngIf="panelVisible"
 	(clickOutside)="closePanel($event)">
 
-	<input-checkbox-app
+	<input-checkbox-list-app
 		(itemAdded)="itemAdded.emit($event)"
 		(itemRemoved)="itemRemoved.emit($event)"
 		(update)="onUpdate($event)"
 		[choices]="filteredChoices"
-		[value]="value"></input-checkbox-app>
+		[value]="value"></input-checkbox-list-app>
 
 </searchable-list-app>
 <div class="flex articles">

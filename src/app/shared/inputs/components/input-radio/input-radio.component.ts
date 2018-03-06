@@ -1,6 +1,17 @@
-import { Component, OnInit, Input, Injector, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../../abstract-input.class';
-import { SelectableItem } from '../input-checkbox/input-checkbox.component';
+import {
+	Component,
+	OnInit,
+	Input,
+	Injector,
+	Output,
+	EventEmitter,
+	ChangeDetectorRef,
+} from '@angular/core';
+import {
+	AbstractInput,
+	makeAccessorProvider,
+} from '../../abstract-input.class';
+import { SelectableItem } from '../input-checkbox-list/input-checkbox-list.component';
 import { Log } from '~utils/index';
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -8,9 +19,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 	selector: 'input-radio-app',
 	templateUrl: './input-radio.component.html',
 	styleUrls: ['./input-radio.component.scss'],
-	providers: [ makeAccessorProvider(InputRadioComponent) ],
-	changeDetection: ChangeDetectionStrategy.OnPush
-
+	providers: [makeAccessorProvider(InputRadioComponent)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputRadioComponent extends AbstractInput implements OnInit {
 	@Input() choices: Array<SelectableItem>;
@@ -20,8 +30,7 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	onChange(c) {
 		Log.debug('[InputRadioComponent] on change');
@@ -36,5 +45,4 @@ export class InputRadioComponent extends AbstractInput implements OnInit {
 	trackByFn(index, c: SelectableItem) {
 		return c.id;
 	}
-
 }

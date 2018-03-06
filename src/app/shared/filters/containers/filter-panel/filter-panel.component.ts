@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { EntityRepresentation } from '~entity/models';
 
-import { SelectableItem } from '../../../inputs/components/input-checkbox/input-checkbox.component';
+import { SelectableItem } from '../../../inputs/components/input-checkbox-list/input-checkbox-list.component';
 import {
 	Filter,
 	FilterClass,

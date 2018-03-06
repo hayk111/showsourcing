@@ -7,13 +7,20 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { FilesPageComponent } from '~app/features/file';
+import {
+	ProductListViewComponent,
+	ProductCardViewComponent,
+} from '~app/features/products';
 
 export const routes: Array<Route> = [
 	{
 		path: 'products',
 		children: [
 			{ path: '', redirectTo: 'all', pathMatch: 'full' },
-			{ path: 'all', component: ProductsPageComponent },
+			{
+				path: 'all',
+				component: ProductsPageComponent,
+			},
 			{
 				path: 'details/:id',
 				component: ProductPageComponent,

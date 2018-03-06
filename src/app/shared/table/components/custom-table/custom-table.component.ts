@@ -17,6 +17,7 @@ import { TableDescriptor, ColumnDirective } from '~app/shared/table';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomTableComponent {
+	@Output() bottomReached = new EventEmitter<any>();
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
 

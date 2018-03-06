@@ -36,8 +36,6 @@ export class FilterEntityPanelService {
 		let itemUrlName = entityRepr.urlName;
 		// capitalizing because that url needs to be
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
-		// TODO: ask renaud for a more standard api url
-		// api/team/teamId/:entityName/countBy/:entityName
 		return this.http
 			.get(`/api/team/${this.teamId}/countProdsBy${itemUrlName}`)
 			.pipe(map((r: any) => r.items), startWith({}));

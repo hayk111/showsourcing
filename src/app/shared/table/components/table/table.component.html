@@ -1,4 +1,5 @@
-<div class="ctnr horizontal-scroll-except-first-column">
+<div class="ctnr horizontal-scroll-except-first-column"
+	infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistance]="100">
 	<table>
 		<thead>
 			<tr>

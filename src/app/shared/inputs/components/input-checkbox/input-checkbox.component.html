@@ -1,12 +1,3 @@
-<label>{{ label }}</label>
-<div  *ngFor="let c of choices; let i = index" class="flex">
-	<input
-		id='r-{{ inputId }}-{{i}}'
-		type="checkbox"
-		[value]="c.id"
-		[checked]="checked(c.id)"
-		(change)="preChange($event, c)">
-		<label for="r-{{ inputId }}-{{i}}"> {{ c.name }}
-			<span class="count" *ngIf="c.count !== undefined">{{ c.count}}</span>
-		</label>
-</div>
+<p>
+  input-checkbox works!
+</p>

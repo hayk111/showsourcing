@@ -7,6 +7,7 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
+	OnInit,
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~products';
@@ -17,7 +18,7 @@ import { Product } from '~products';
 	styleUrls: ['./product-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListViewComponent implements AfterViewInit {
+export class ProductListViewComponent implements OnInit {
 	// events
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
@@ -58,7 +59,7 @@ export class ProductListViewComponent implements AfterViewInit {
 
 	constructor() {}
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		this.linkColumns();
 	}
 
@@ -79,6 +80,7 @@ export class ProductListViewComponent implements AfterViewInit {
 		this.descriptor.forEach(column => this.linkColumnWithTemplate(column));
 	}
 
+	// we add a template for the correct column type
 	linkColumnWithTemplate(column: ColumnDescriptor) {
 		switch (column.type) {
 			case 'main':

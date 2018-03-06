@@ -7,16 +7,18 @@ import { CustomTableComponent } from './components/custom-table/custom-table.com
 import { UserModule } from '~app/features/user';
 import { EntityModule } from '~entity';
 import { RatingModule } from '~app/shared/rating';
+import { UtilsModule } from '~app/shared/utils';
 
 @NgModule({
-  imports: [
+	imports: [
 		CommonModule,
 		IconsModule,
 		UserModule.forChild(),
 		EntityModule.forChild(), // TODO REMOVE when entityName pipe is removed from this module
-		RatingModule
-  ],
-	declarations: [ TableComponent, ColumnDirective, CustomTableComponent ],
-	exports: [ TableComponent, ColumnDirective, CustomTableComponent ]
+		RatingModule,
+		UtilsModule,
+	],
+	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
+	exports: [TableComponent, ColumnDirective, CustomTableComponent],
 })
-export class TableModule { }
+export class TableModule {}
