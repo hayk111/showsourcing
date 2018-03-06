@@ -1,10 +1,11 @@
-import { createSelector } from 'reselect';
+import { createSelector, OutputSelector } from 'reselect';
 import { FilterEntityClass, FilterGroupName } from '~shared/filters/models';
 import { selectFiltersValues } from './filter.selectors';
 import { Log } from '~utils';
 
 import { Entity, EntityRepresentation } from '~entity/models';
 import { selectEntityArray } from '~entity/store/selectors';
+import { MemoizedSelector } from '@ngrx/store';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;
@@ -12,35 +13,41 @@ export interface SmartSearch {
 	result: Array<Entity>;
 }
 
-export const searchEntity = (
-	filterGroupName: FilterGroupName,
-	fe: FilterEntityClass,
-	str: string
-) => {
-	const repr = fe.getEntityRepr();
-	return createSelector(
-		[selectEntityArray(repr), selectFiltersValues(filterGroupName, fe)],
-		(entities, selected) => {
-			Log.debug('search entity');
-			// with no search terms we return all entities
-			if (str === '') return { repr, selected, result: entities };
-			else {
-				const result = entities.filter(entity => entity.name.includes(str)) as Array<
-					Entity
-				>;
-				return { repr, selected, result };
-			}
+// returns entities given that startwith string
+export const searchEntity = (repr: EntityRepresentation, str: string) => {
+	return createSelector([selectEntityArray(repr)], entities => {
+		Log.debug('searching entity for string');
+		// with no search terms we return all entities
+		if (str === '') return entities;
+		else {
+			const result = entities.filter(entity => entity.name.includes(str)) as Array<
+				Entity
+			>;
+			return result;
 		}
-	);
+	});
 };
 
+export interface SearchedEntities {
+	repr: EntityRepresentation;
+	result: Array<Entity>;
+}
+
+// returns an array like so [
+// 	{ repr: someRepr, result: [entities]}
+// ]
 export const searchEntities = (
-	filterGroupName: FilterGroupName,
-	fes: Array<FilterEntityClass>,
+	entities: Array<EntityRepresentation>,
 	str: string
 ) => {
-	const sels = fes.map(fe => searchEntity(filterGroupName, fe, str)) as any;
+	const sels = entities.map(entity => searchEntity(entity, str)) as any;
 	return createSelector(sels, (...results) => {
+		results = results
+			.map((entities, i: number) => ({
+				repr: entities[i],
+				result: entities,
+			}))
+			.filter(r => r.result.length > 0);
 		return results;
 	});
 };
