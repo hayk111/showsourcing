@@ -9,7 +9,8 @@ import { selectEntity } from '~entity/store/selectors';
 import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
 import { LoadParams } from '~entity/utils';
 import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
-import { User, UserService } from '~user';
+import { User } from '~user/models';
+import { UserService } from '~user/services';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
 // entities are loaded different ways.
@@ -27,7 +28,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Injectable()
 export class UrlBuilder {
-	static TAKE = 30;
+	static TAKE = 10;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {}
 
@@ -94,11 +95,12 @@ export class UrlBuilder {
 	private addParams(url: string, params: LoadParams) {
 		url = `${url}?`;
 
-		if (params.pagination)
-			url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
-
 		if (params.filters) {
 			url += this.filtersAsParams(params.filters);
+		}
+
+		if (params.pagination) {
+			url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
 		}
 		return url;
 	}

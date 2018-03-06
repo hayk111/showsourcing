@@ -40,6 +40,7 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Array<Product>>;
+	productsState$: Observable<EntityState<Product>>;
 	pending$: Observable<boolean>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
@@ -49,7 +50,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 	// current view
-	view: 'list' | 'card' = 'card';
+	view: 'list' | 'card' = 'list';
 	// whether the filter dialog is visible
 	filterPanelOpen$: Observable<boolean>;
 	// we have to pass a filterGroupName to the filteredListPage
@@ -72,9 +73,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.products$ = this.store.select(selectEntityArray(ERM.product));
-		this.pending$ = this.store
-			.select(selectProductsState)
-			.pipe(map((p: EntityState<Product>) => p.pending));
+		this.productsState$ = this.store.select(selectProductsState);
+		this.productsState$.subscribe(state => (this.productEntities = state));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(
 			selectFilterGroup(this.filterGroupName)
@@ -86,16 +86,16 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	loadProducts(filters) {
 		this.store.dispatch(
-			ProductActions.load({ filters: filters, pagination: false })
+			ProductActions.load({ filters: filters, pagination: true, drop: 0 })
 		);
 	}
 
 	loadMore() {
 		this.store.dispatch(
-			ProductActions.load({
+			ProductActions.loadMore({
 				filters: this.filters,
 				pagination: true,
-				currentCount: this.productEntities.ids.length,
+				drop: this.productEntities.ids.length,
 			})
 		);
 	}

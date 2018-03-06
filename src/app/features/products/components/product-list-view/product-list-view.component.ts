@@ -1,12 +1,12 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  TemplateRef,
-  ViewChild,
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	TemplateRef,
+	ViewChild,
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~products';
@@ -24,6 +24,7 @@ export class ProductListViewComponent implements AfterViewInit {
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
+	@Output() bottomReached = new EventEmitter<null>();
 	// inputs
 	@Input() products: Array<Product>;
 	// currently selected items
@@ -43,16 +44,16 @@ export class ProductListViewComponent implements AfterViewInit {
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
 
 	descriptor: TableDescriptor = [
-	{ title: 'Product', type: 'main', sortable: true },
-	{ title: 'Supplier', type: 'supplier' },
-	{ title: 'Category', type: 'category' },
-	{ title: 'Price', type: 'price' },
-	{ title: 'Feedback', type: 'feedback' },
-	{ title: 'Created on', type: 'creationDate' },
-	{ title: '', type: 'rating' },
-	{ title: 'Created by', type: 'user' },
-	{ title: 'Actions', type: 'action'},
-	{ title: 'MOQ', type: 'txt' , propName: 'minimumOrderQuantity'},
+		{ title: 'Product', type: 'main', sortable: true },
+		{ title: 'Supplier', type: 'supplier' },
+		{ title: 'Category', type: 'category' },
+		{ title: 'Price', type: 'price' },
+		{ title: 'Feedback', type: 'feedback' },
+		{ title: 'Created on', type: 'creationDate' },
+		{ title: '', type: 'rating' },
+		{ title: 'Created by', type: 'user' },
+		{ title: 'Actions', type: 'action' },
+		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity' },
 	];
 
 	constructor() {}
@@ -70,7 +71,7 @@ export class ProductListViewComponent implements AfterViewInit {
 
 	// when bottom is reached
 	onBottomReached() {
-		console.log('bottom reached !')
+		console.log('bottom reached !');
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html

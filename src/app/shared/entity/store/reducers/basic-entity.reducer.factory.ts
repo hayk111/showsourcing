@@ -34,6 +34,8 @@ export function basicReducerFactory(actionType: any) {
 			case actionType.DELETE:
 				return removeEntity(state, id);
 
+			case actionType.LOAD:
+			case actionType.LOAD_MORE:
 			case actionType.SET_PENDING:
 				return { ...state, pending: true };
 

@@ -4,20 +4,30 @@ import { Patch, LoadParams } from '../../utils';
 import { Action } from '@ngrx/store';
 
 export interface BasicActionTypes {
+	// loading entities or a subset of entities
 	LOAD: string;
+	// for pagination
+	LOAD_MORE: string;
+	// for loading one
 	LOAD_BY_ID: string;
+	// adding entities
 	ADD: string;
+	// setting entities (will forget previous ones).
 	SET: string;
 	CREATE: string;
+	// replace existing entity
 	REPLACING: string;
 	DELETE: string;
+	// set pending so we can display a spinner on screen
 	SET_PENDING: string;
+	// modify property of entity
 	PATCH: string;
 	MERGE: string;
 }
 
 export interface BasicActions {
 	load(params?: any);
+	loadMore(params?: any);
 	loadById(id: string);
 	set(toSet: Array<Entity>);
 	add(toAdd: Array<Entity>);
@@ -36,6 +46,7 @@ export function makeBasicActionTypes(
 	// using uppercase for backward compatibility with enums
 	return {
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
+		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
 		// even though items are preloaded, not every info in them are preloaded
 		// load by id does a 'deep loading'
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
@@ -66,6 +77,10 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 	return {
 		load: (params?: LoadParams): TypedAction<any> => ({
 			type: actionType.LOAD,
+			payload: params,
+		}),
+		loadMore: (params?: LoadParams): TypedAction<any> => ({
+			type: actionType.LOAD_MORE,
 			payload: params,
 		}),
 		loadById: (id: string): TypedAction<any> => ({

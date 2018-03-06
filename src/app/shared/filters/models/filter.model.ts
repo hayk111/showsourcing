@@ -36,7 +36,6 @@ export interface FilterClass {
 
 export abstract class BaseFilter {
 	static readonly filterName: string = 'Unnamed';
-	displayValue: string;
 	value: any;
 
 	constructor() {}
@@ -51,6 +50,10 @@ export abstract class BaseFilter {
 
 	get filterName() {
 		return (this.constructor as FilterClass).filterName;
+	}
+
+	get displayValue(): string {
+		return this.value;
 	}
 
 	equals(filter: Filter) {

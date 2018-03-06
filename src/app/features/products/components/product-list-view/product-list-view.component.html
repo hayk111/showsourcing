@@ -1,10 +1,10 @@
 
 <custom-table-app
 	infiniScroll
-	bottomDistance="2000"
 	class="list"
 	[rows]="products"
-	[descriptor]="descriptor">
+	[descriptor]="descriptor"
+	(bottomReached)="bottomReached.emit()">
 </custom-table-app>
 
 <ng-template #main let-row="row">

@@ -20,9 +20,20 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// set products
-				map((r: any) => ProductActions.set(r)),
-				// before everything set products as pending
-				startWith(ProductActions.setPending() as any)
+				map((r: any) => ProductActions.set(r))
+			);
+		})
+	);
+
+	// for pagination
+	@Effect()
+	loadMore$ = this.actions$.ofType<any>(ProductActionTypes.LOAD_MORE).pipe(
+		map(action => action.payload),
+		switchMap((params: any) => {
+			// get products
+			return this.srv.load(params).pipe(
+				// set products
+				map((r: any) => ProductActions.add(r))
 			);
 		})
 	);
