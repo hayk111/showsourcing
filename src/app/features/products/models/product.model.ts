@@ -32,6 +32,7 @@ export interface Product {
 	description: string;
 	eventId: string;
 	rating: number;
+	projectIds: Array<String>;
 	mainImage: {
 		id: string;
 		filename: string;
