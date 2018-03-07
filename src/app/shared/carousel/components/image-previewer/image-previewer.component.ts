@@ -7,22 +7,23 @@ import { UserService } from '~app/features/user';
 	templateUrl: './image-previewer.component.html',
 	styleUrls: ['./image-previewer.component.scss'],
 })
-export class ImagePreviewerComponent implements OnInit {
+export class ImagePreviewerComponent {
+	// array of images displayed
 	@Input() images: Array<AppImage>;
-	@Output() imageClick = new EventEmitter<string>();
+	// returns the index of the images clicked
+	@Output() imageClick = new EventEmitter<number>();
+	// image added
 	@Output() addImage = new EventEmitter<AppImage>();
 
 	constructor(private userSrv: UserService) {}
 
-	ngOnInit() {}
-
+	// getting the url for the image at index
 	getUrl(index) {
 		if (this.images[index].urls) return this.images[index].urls.url_220x165;
 		else return this.images[index].data;
 	}
 
 	onFileAdded(files: Array<File>) {
-		debugger;
 		files.forEach(async file => {
 			const image = await AppImage.newInstance(file, this.userSrv.userId);
 			this.addImage.emit(image);

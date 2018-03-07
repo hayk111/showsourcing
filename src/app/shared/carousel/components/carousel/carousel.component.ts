@@ -102,4 +102,9 @@ export class CarouselComponent implements OnInit {
 		if (img.pending) return img.rotation * -90;
 		else return 0;
 	}
+
+	// when a preview is clicked we want to display the image that was in the preview
+	onPreviewClick(index: number) {
+		this.selectedIndex = index;
+	}
 }
