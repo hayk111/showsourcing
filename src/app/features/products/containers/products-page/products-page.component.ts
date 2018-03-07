@@ -136,10 +136,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(ProductActions.patch(patch));
 	}
 
-	onItemVoted({ id, value }: { id: string; value: number }) {
-		const vote = new Vote(value, this.userSrv.userId);
-		vote.productId = id;
-		this.store.dispatch(VoteSlctnActions.add(vote));
+	onItemVoted({ id, value }: { id: string; value: 0 | 100 }) {
+		this.store.dispatch(ProductActions.vote(id, value));
 	}
 
 	openFilterPanel() {

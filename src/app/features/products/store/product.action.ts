@@ -15,6 +15,7 @@ export interface ProductActionTypes extends BasicActionTypes {
 	REQUEST_PDF?: string;
 	REQUEST_FEEDBACK?: string;
 	REQUEST_FEEDBACK_SUCCESS?: string;
+	VOTE?: string;
 }
 export const ProductActionTypes: ProductActionTypes = makeBasicActionTypes(
 	ERM.product
@@ -22,6 +23,7 @@ export const ProductActionTypes: ProductActionTypes = makeBasicActionTypes(
 addActionType(ProductActionTypes, ERM.product, 'REQUEST_PDF');
 addActionType(ProductActionTypes, ERM.product, 'REQUEST_FEEDBACK');
 addActionType(ProductActionTypes, ERM.product, 'REQUEST_FEEDBACK_SUCCESS');
+addActionType(ProductActionTypes, ERM.product, 'VOTE');
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic actions + extended actions
@@ -33,6 +35,7 @@ export interface ProductActions extends BasicActions {
 		recipientsIds: Array<string>
 	): TypedAction<any>;
 	requestFeedbackSuccess?(result: any): TypedAction<any>;
+	vote?(id: string, value: 0 | 100): TypedAction<any>;
 }
 export const ProductActions: ProductActions = makeBasicActions(
 	ProductActionTypes
@@ -56,6 +59,12 @@ ProductActions.requestFeedbackSuccess = (result: any) => {
 	return {
 		type: ProductActionTypes.REQUEST_FEEDBACK_SUCCESS,
 		payload: result,
+	};
+};
+ProductActions.vote = (id: string, value: 0 | 100) => {
+	return {
+		type: ProductActionTypes.VOTE,
+		payload: { id, value },
 	};
 };
 

@@ -37,6 +37,14 @@ export class ProductEffects {
 		})
 	);
 
+	@Effect({ dispatch: false })
+	vote$ = this.actions$.ofType<any>(ProductActionTypes.VOTE).pipe(
+		map(action => action.payload),
+		switchMap(({ id, value }) => {
+			return this.srv.vote(id, value);
+		})
+	);
+
 	// for pagination
 	@Effect()
 	loadMore$ = this.actions$.ofType<any>(ProductActionTypes.LOAD_MORE).pipe(

@@ -44,7 +44,7 @@ export class EntityService {
 	}
 
 	delete(id: String, entityRep: EntityRepresentation): Observable<any> {
-		return this.http.delete(`/api/${entityRep.urlName}/${id}`);
+		return this.http.delete(`api/${entityRep.urlName}/${id}`);
 	}
 
 	private makeGetRequest(url: string, params: LoadParams) {

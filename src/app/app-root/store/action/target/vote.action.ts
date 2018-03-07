@@ -4,33 +4,35 @@ export enum ActionType {
 	LOAD = '[VoteSelection] loading',
 	SET = '[VoteSelection] setting',
 	ADD = '[VoteSelection] adding',
-	RESET = '[VoteSelection] resetting'
+	RESET = '[VoteSelection] resetting',
 }
+
+// TODO: Cedric supprimer le flux des VOTES
 
 export class VoteSlctnActions {
 	static load() {
 		return {
-			type: ActionType.LOAD
+			type: ActionType.LOAD,
 		};
 	}
 
 	static set(vote: Vote) {
 		return {
 			type: ActionType.SET,
-			payload: vote
+			payload: vote,
 		};
 	}
 
 	static add(vote: Vote) {
 		return {
 			type: ActionType.ADD,
-			payload: vote
+			payload: vote,
 		};
 	}
 
 	static reset() {
 		return {
-			type: ActionType.RESET
+			type: ActionType.RESET,
 		};
 	}
 }
