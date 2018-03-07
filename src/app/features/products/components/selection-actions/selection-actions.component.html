@@ -22,7 +22,7 @@
       <div class="contentRow">
         <div class="pointer" [class.icon-circle-unchecked]="!selectedProjects[project.id]" [class.icon-circle-checked]="selectedProjects[project.id]"
           (click)="toggleSelectProject(project.id)"></div>
-        <span class="projectName">{{project.name}}</span>
+        <span class="name">{{project.name}}</span>
         <div class="productNumber">{{productsCount[project.id] || '-'}}</div>
       </div>
     </div>
@@ -34,20 +34,21 @@
   </div>
 </dialog-app>
 
-<dialog-app [name]="requestFeedbackDialog" (closed)="closeRequestFeedBackDialog($event)">
+<dialog-app [name]="requestFeedbackDialog" (closed)="closeRequestFeedbackDialog($event)">
   <div header>Request Team Feedback</div>
   <div content>
     <div class="contentTitle">Team members</div>
-    <div *ngFor="let member of teamMembers$ | async" class="contentRowBg">
+    <div *ngFor="let member of teamMembers$ | async" class="contentRowBg" [class.selected]="selectedMembers[member.id]">
       <div class="contentRow">
-        <div class="icon-circle-unchecked"></div>
-        <span class="projectName">{{member.firstName}} {{member.lastName}}</span>
+        <div class="pointer" [class.icon-circle-unchecked]="!selectedMembers[member.id]" [class.icon-circle-checked]="selectedMembers[member.id]"
+        (click)="toggleSelectMembers(member.id)"></div>
+        <span class="name">{{member.firstName}} {{member.lastName}}</span>
       </div>
     </div>
     <!-- <div class="contentRowBg selected">
       <div class="contentRow">
         <div class="icon-circle-checked"></div>
-        <span class="projectName">Team Bazare</span>
+        <span class="name">Team Bazare</span>
       </div>
     </div>
   -->

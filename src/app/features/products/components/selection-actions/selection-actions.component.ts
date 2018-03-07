@@ -33,6 +33,7 @@ export class SelectionActionsComponent implements OnInit {
 
 	selectedExport: 'excel' | 'pdf' = 'excel';
 	selectedProjects = {};
+	selectedMembers = {};
 
 	constructor(private store: Store<any>, private actionSubject: ActionsSubject) {}
 
@@ -84,6 +85,14 @@ export class SelectionActionsComponent implements OnInit {
 			this.selectedProjects[id] = true;
 		} else {
 			delete this.selectedProjects[id];
+		}
+	}
+
+	public toggleSelectMembers(id: string) {
+		if (!this.selectedMembers[id]) {
+			this.selectedMembers[id] = true;
+		} else {
+			delete this.selectedMembers[id];
 		}
 	}
 }
