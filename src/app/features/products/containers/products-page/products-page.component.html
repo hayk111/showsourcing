@@ -39,7 +39,7 @@
 	*ngIf="selection.size > 0"
 	[selection]="selection"
 	(close)="unselectAll()">
-	<selection-actions></selection-actions>
+	<selection-actions [selection]="selection"></selection-actions>
 </selection-bar-app>
 
 <product-side-preview-app

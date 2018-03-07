@@ -44,4 +44,11 @@ export class ProjectService {
 			.get(`/api/team/${teamId}/countProdsBy${itemUrlName}`)
 			.pipe(map((r: any) => r.items), startWith({}));
 	}
+
+	addProduct(projectid: String, productid: String) {
+		return this.http.put(`api/project/${projectid}/product/${productid}`, {});
+	}
+	removeProduct(projectid: String, productid: String) {
+		return this.http.delete(`api/project/${projectid}/product/${productid}`, {});
+	}
 }

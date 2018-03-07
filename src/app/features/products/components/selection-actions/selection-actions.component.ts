@@ -2,7 +2,7 @@ import { ERM } from '~entity';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Project } from '~projects/models/project.model';
@@ -21,9 +21,10 @@ import { User } from '~user/models';
 	styleUrls: ['./selection-actions.component.scss'],
 })
 export class SelectionActionsComponent implements OnInit {
+	@Input() selection: Map<string, boolean>;
 	public addProductDialog: DialogName = DialogName.ADDTOPROJECT;
 	public exportDialog: DialogName = DialogName.EXPORT;
-	public requestFeatureDialog: DialogName = DialogName.REQUESTFEEDBACK;
+	public requestFeedbackDialog: DialogName = DialogName.REQUESTFEEDBACK;
 
 	projects$: Observable<Array<Project>>;
 	productsCount: any;
@@ -43,14 +44,23 @@ export class SelectionActionsComponent implements OnInit {
 		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
 	}
 
-	public addToProject() {
+	public openAddToProjectDialog() {
 		this.store.dispatch(DialogActions.open(this.addProductDialog));
 	}
-	public export() {
+	public addToProjects() {
+		const products: Array<String> = new Array();
+		this.selection.forEach((value, key) => {
+			if (value) products.push(key);
+		});
+		this.store.dispatch(
+			ProjectActions.addProducts(Object.keys(this.selectedProjects), products)
+		);
+	}
+	public openExportDialog() {
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
-	public requestFeedback() {
-		this.store.dispatch(DialogActions.open(this.requestFeatureDialog));
+	public openRequestFeedbackDialog() {
+		this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
 	}
 
 	public selectExport(value: 'excel' | 'pdf') {

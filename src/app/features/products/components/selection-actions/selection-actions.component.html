@@ -1,13 +1,13 @@
 <div class="flex">
-  <div class="flex btn pointer" (click)="addToProject()">
+  <div class="flex btn pointer" (click)="openAddToProjectDialog()">
     <span class="icon-add"></span>
     <span i18n>Add to project</span>
   </div>
-  <div class="flex btn pointer" (click)="requestFeedback()">
+  <div class="flex btn pointer" (click)="openRequestFeedbackDialog()">
     <span class="icon-feedback"></span>
     <span i18n>Request Team Feedback</span>
   </div>
-  <div class="flex btn pointer" (click)="export()">
+  <div class="flex btn pointer" (click)="openExportDialog()">
     <span class="icon-export"></span>
     <span i18n>Export</span>
   </div>
@@ -18,7 +18,7 @@
   <div header>Add to project</div>
   <div content>
     <div class="contentTitle">My projects</div>
-    <div *ngFor="let project of projects$ | async" class="contentRowBg">
+    <div *ngFor="let project of projects$ | async" class="contentRowBg" [class.selected]="selectedProjects[project.id]">
       <div class="contentRow">
         <div class="pointer" [class.icon-circle-unchecked]="!selectedProjects[project.id]" [class.icon-circle-checked]="selectedProjects[project.id]"
           (click)="toggleSelectProject(project.id)"></div>
@@ -26,23 +26,15 @@
         <div class="productNumber">{{productsCount[project.id] || '-'}}</div>
       </div>
     </div>
-    <!-- <div class="contentRowBg selected">
-      <div class="contentRow">
-        <div class="icon-circle-checked"></div>
-        <span class="projectName">Team Bazare</span>
-        <div class="productNumber">4</div>
-      </div>
-    </div>
-  -->
   </div>
   <div footer>
     <div class="buttons">
-      <button class="small">Add to project</button>
+      <button class="small" (click)="addToProjects()">Add to project</button>
     </div>
   </div>
 </dialog-app>
 
-<dialog-app [name]="requestFeatureDialog">
+<dialog-app [name]="requestFeedbackDialog">
   <div header>Request Team Feedback</div>
   <div content>
     <div class="contentTitle">Team members</div>
