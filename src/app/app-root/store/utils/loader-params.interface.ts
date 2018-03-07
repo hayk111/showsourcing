@@ -9,6 +9,7 @@ export interface LoadParams {
 	// this allows to resolve problems were we aren't sure
 	// if the user is already loaded
 	loaded?: EntityRepresentation;
+	loadedId?: string;
 	base?: EntityRepresentation;
 	from?: EntityTarget;
 

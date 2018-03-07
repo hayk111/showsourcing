@@ -89,7 +89,7 @@ export class CarouselComponent implements OnInit {
 
 	getUrl(index) {
 		Log.debug('[CarouselComponent] getUrl');
-		if (this.images[index].urls) return this.images[index].urls.url_1000x1000;
+		if (this.images[index].urls) return this.images[index].urls.url_400x300;
 		else return this.images[index].data;
 	}
 

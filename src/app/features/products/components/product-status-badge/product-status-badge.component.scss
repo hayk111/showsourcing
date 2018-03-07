@@ -9,24 +9,24 @@
 	text-transform: uppercase;
 }
 
-.badge-idea {
-  background-image: var(--badge-bg-idea);
+.badge-Idea {
+  background-image: var(--color-Idea);
   color: var(--color-txt-primary);
 }
 
-.badge-need-review {
-  background-image: var(--badge-bg-need-review);
+.badge-NeedReview {
+  background-image: var(--color-NeedReview);
   color: var(--color-white);
 }
-.badge-refused {
-  background-image: var(--badge-bg-refused);
+.badge-Refused {
+  background-image: var(--color-Refused);
   color: var(--color-white);
 }
-.badge-complete {
-  background-image: var(--badge-bg-complete);
+.badge-Complete {
+  background-image: var(--color-Complete);
   color: var(--color-white);
 }
-.badge-under-assessment{
-  background-image: var(--badge-bg-under-assessment);
+.badge-UnderAssessment{
+  background-image: var(--color-UnderAssessment);
   color: var(--color-white);
 }

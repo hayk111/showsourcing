@@ -47,6 +47,7 @@ export class UrlBuilder {
 		let base = params.base;
 		let from = params.from;
 		let loaded = params.loaded;
+		let loadedId = params.loadedId;
 
 		if (base) {
 			url = this.addBase(url, base, user);
@@ -54,7 +55,7 @@ export class UrlBuilder {
 		if (from) {
 			url = this.addFrom(url, from);
 		}
-		url = this.addLoaded(url, loaded);
+		url = this.addLoaded(url, loaded, loadedId);
 		return url;
 	}
 
@@ -81,8 +82,14 @@ export class UrlBuilder {
 	}
 
 	// add the loaded entity
-	private addLoaded(url: string, loaded: EntityRepresentation) {
-		return `${url}/${loaded.urlName}`;
+	private addLoaded(
+		url: string,
+		loaded: EntityRepresentation,
+		loadedId?: string
+	) {
+		url = `${url}/${loaded.urlName}`;
+		if (loadedId) url += `/${loadedId}`;
+		return url;
 	}
 
 	private addParams(url: string, params: LoadParams) {

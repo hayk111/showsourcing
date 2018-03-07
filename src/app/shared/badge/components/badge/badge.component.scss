@@ -1,0 +1,10 @@
+:host {
+	display: flex;
+	align-items: center;
+}
+
+.cercle {
+	margin-right: var(--spacing-s);
+	height: 5px;
+	width: 5px;
+}

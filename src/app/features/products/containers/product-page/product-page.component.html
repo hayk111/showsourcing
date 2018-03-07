@@ -1,29 +1,31 @@
 
+<ng-container *ngIf="product$ | async as product">
 
-<div class="flex content">
-	<div class="left">
+	<div class="flex content">
+		<div class="left">
 
-		<card-app class="carouselCard" [margin]="0">
-			<carousel-selection-app></carousel-selection-app>
-		</card-app>
-
-
-		<card-app>
-			<likes-card-app></likes-card-app>
-		</card-app>
+			<card-app class="carouselCard" [margin]="0">
+				<carousel-selection-app></carousel-selection-app>
+			</card-app>
 
 
-		<card-app>
-			<product-info-card-app [product]="product$ | async"></product-info-card-app>
-		</card-app>
+			<card-app margin="l">
+				<supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
+			</card-app>
 
+
+			<card-app>
+				<product-info-card-app [product]="product"></product-info-card-app>
+			</card-app>
+
+
+		</div>
+
+		<div class="right">
+			<entity-main-card-app></entity-main-card-app>
+		</div>
 
 	</div>
 
-	<div class="right">
 
-		<entity-main-card-app></entity-main-card-app>
-
-	</div>
-</div>
-
+</ng-container>

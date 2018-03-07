@@ -12,7 +12,7 @@
   <!-- middle card: picture + badge  -->
   <div class="imgCtnr flexCenter">
     <selectable-image-app [imgCount]="product?.imageCount" [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)"
-      (select)="productSelect.emit(product.id)" (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_600x450"></selectable-image-app>
+      (select)="productSelect.emit(product.id)" (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_400x300"></selectable-image-app>
   </div>
 
   <div class="flexCenter">
@@ -20,7 +20,6 @@
   </div>
 
   <!-- bottom card -->
-
   <div class="bottom">
     <div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
     <div class="tags" [class.hidden]="showOverlay">

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { selectProductFocused } from '~products/store/selectors';
 import { Store } from '@ngrx/store';
-import { Product } from '~products';
-import { ProjectTargetActions } from '~store/action/target/project.action';
-import { TargetAction } from '~store/action/target/target.action';
-import { AppFile } from '~features/file';
-import { AppComment } from '~comment';
-import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
-import { ERM, EntityTarget } from '~entity';
-import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
+import { AppComment } from '~comment';
+import { EntityTarget, ERM } from '~entity';
+import { AppFile } from '~features/file';
+import { Product } from '~products/models';
+import { ProductActions } from '~products/store/actions';
+import { selectProductFocused } from '~products/store/selectors';
+import { ProjectTargetActions } from '~store/action/target/project.action';
+import { TargetAction } from '~store/action/target/target.action';
+import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-page-app',
@@ -35,6 +36,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 			const id = params['id'];
 			this.target = { entityId: id, entityRepr: ERM.product };
 			this.store.dispatch(TargetAction.select(this.target));
+			this.store.dispatch(ProductActions.loadById(id));
 		});
 		this.product$ = this.store.select(selectProductFocused);
 		this.projects$ = this.store.select(selectProjectsForCurrentTarget);

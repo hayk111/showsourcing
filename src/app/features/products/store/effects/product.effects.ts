@@ -27,16 +27,22 @@ export class ProductEffects {
 
 	// for pagination
 	@Effect()
-	loadMore$ = this.actions$.ofType<any>(ProductActionTypes.LOAD_MORE).pipe(
-		map(action => action.payload),
-		switchMap((params: any) => {
-			// get products
-			return this.srv.load(params).pipe(
-				// set products
-				map((r: any) => ProductActions.add(r))
-			);
-		})
-	);
+	loadMore$ = this.actions$
+		.ofType<any>(ProductActionTypes.LOAD_MORE)
+		.pipe(
+			map(action => action.payload),
+			switchMap((params: any) => this.srv.load(params)),
+			map((r: any) => ProductActions.add(r))
+		);
+
+	@Effect()
+	loadById$ = this.actions$
+		.ofType<any>(ProductActionTypes.LOAD_BY_ID)
+		.pipe(
+			map(action => action.payload),
+			switchMap((id: string) => this.srv.loadById(id)),
+			map((r: any) => ProductActions.add(r))
+		);
 
 	@Effect()
 	downloadPdf$ = this.actions$

@@ -46,6 +46,9 @@ import { ProductService } from './services/product.service';
 import { effects } from './store';
 import { PipesModule } from '~app/app-root/pipes';
 import { CarouselModule } from '~app/shared/carousel';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { SupplierCardComponent } from './components/supplier-card/supplier-card.component';
+import { BadgeModule } from '~app/shared/badge/badge.module';
 
 @NgModule({
 	imports: [
@@ -74,6 +77,7 @@ import { CarouselModule } from '~app/shared/carousel';
 		TableModule, // used in list
 		FiltersModule, // used for filters
 		CarouselModule,
+		BadgeModule,
 	],
 	providers: [ProductService],
 	declarations: [
@@ -92,6 +96,8 @@ import { CarouselModule } from '~app/shared/carousel';
 		ProductBigCardComponent,
 		ProductPageComponent,
 		ProductTasksComponent,
+		ProjectCardComponent,
+		SupplierCardComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,

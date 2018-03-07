@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
+import { LoadParams } from '~app/app-root/store';
 
 @Injectable()
 export class ProductService {
@@ -28,9 +29,14 @@ export class ProductService {
 	}
 
 	loadById(id: string) {
-		return this.http
-			.get(`api/product/${id}`)
-			.map(elem => this.addCustomFields(elem));
+		const params: LoadParams = {
+			loaded: ERM.product,
+			loadedId: id,
+			recurring: true,
+		};
+		return this.entitySrv
+			.load(params)
+			.pipe(map(elem => this.addCustomFields(elem)));
 	}
 
 	// properties in the customFields nested object are added to the product with

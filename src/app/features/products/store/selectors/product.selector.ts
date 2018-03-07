@@ -8,10 +8,17 @@ import { Product } from '../../models/product.model';
 import { EntitiesState, ProductsState } from './../reducers';
 
 export const getEntitiesState = state => state.entities;
-const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
+const selectCurrentTargetId = state =>
+	state.foccussedEntity.currentTarget.entityId;
 
-export const selectProductsState = createSelector(getEntitiesState, (state: EntitiesState) => state.products);
-export const selectProducts = createSelector(selectProductsState, (state: ProductsState) => state.byId);
+export const selectProductsState = createSelector(
+	getEntitiesState,
+	(state: EntitiesState) => state.products
+);
+export const selectProducts = createSelector(
+	selectProductsState,
+	(state: ProductsState) => state.byId
+);
 
 export const selectProductById = (id: string) => {
 	return createSelector([selectProducts], products => {
@@ -19,6 +26,7 @@ export const selectProductById = (id: string) => {
 	});
 };
 
+// select the currently focCCCcussed product
 export const selectProductFocused = createSelector(
 	[selectProductsState, selectCurrentTargetId],
 	(productState: EntityState<Product>, id: string) => {
@@ -28,17 +36,20 @@ export const selectProductFocused = createSelector(
 );
 
 export const selectFilteredEntity = (filterGroupName: FilterGroupName) => {
-	return createSelector([selectFilterGroup(filterGroupName), selectProducts], (filters, products) => {
-		const filteredProducts = Object.keys(products)
-			.map(id => products[id])
-			.reduce((returned, product) => {
-				if (filters.every((afilter: Filter) => afilter.filter(product))) {
-					returned.push(product);
-				}
-				return returned;
-			}, []);
-		return filteredProducts;
-	});
+	return createSelector(
+		[selectFilterGroup(filterGroupName), selectProducts],
+		(filters, products) => {
+			const filteredProducts = Object.keys(products)
+				.map(id => products[id])
+				.reduce((returned, product) => {
+					if (filters.every((afilter: Filter) => afilter.filter(product))) {
+						returned.push(product);
+					}
+					return returned;
+				}, []);
+			return filteredProducts;
+		}
+	);
 };
 
 export const selectProductByStatus = (filterGroupName: FilterGroupName) =>

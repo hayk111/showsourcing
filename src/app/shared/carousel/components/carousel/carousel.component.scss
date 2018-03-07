@@ -1,10 +1,15 @@
+:host{
+	display: block;
+}
+
 .ctnr {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
-	height: 100%;
+	// height of the carousel defined here
+	height: 291px;
 	width: 100%;
 	overflow: hidden;
 }

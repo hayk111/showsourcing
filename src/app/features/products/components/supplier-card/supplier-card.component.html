@@ -1,0 +1,16 @@
+<h3 i18n>Suppliers</h3>
+
+<div class="flex">
+	<div>
+		<div class="cercle supplierIcon"></div>
+	</div>
+
+	<div class="flexColumn">
+		<span>{{ supplier?.name }}</span>
+		<span i18n>Manufacturer from {{ supplier?.countryCode | entity: 'countries': 'fullName' | async }}</span>
+		<badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
+	</div>
+
+</div>
+
+<div class="hr"></div>
