@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	EventEmitter,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
@@ -31,11 +38,14 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		if (!this.name) throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
+		if (!this.name)
+			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
 		// we first have to register the dialog so it's added to the map in store
 		this.store.dispatch(DialogActions.register(this.name));
 		// check if dlg is open
-		this.isOpen$ = this.store.select(selectDialog(this.name)).map(dlgInfo => dlgInfo.open);
+		this.isOpen$ = this.store
+			.select(selectDialog(this.name))
+			.map(dlgInfo => dlgInfo.open);
 		this.isOpen$.pipe(takeUntil(this._destroy$)).subscribe(open => {
 			this.isOpen = open;
 		});
@@ -43,5 +53,6 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 
 	close() {
 		this.store.dispatch(DialogActions.close(this.name));
+		this.closed.emit(this);
 	}
 }

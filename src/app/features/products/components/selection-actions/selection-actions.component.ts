@@ -47,6 +47,9 @@ export class SelectionActionsComponent implements OnInit {
 	public openAddToProjectDialog() {
 		this.store.dispatch(DialogActions.open(this.addProductDialog));
 	}
+	public closeAddToProjectDialog($event) {
+		this.selectedProjects = {};
+	}
 	public addToProjects() {
 		const products: Array<String> = new Array();
 		this.selection.forEach((value, key) => {
@@ -56,12 +59,15 @@ export class SelectionActionsComponent implements OnInit {
 			ProjectActions.addProducts(Object.keys(this.selectedProjects), products)
 		);
 	}
+
 	public openExportDialog() {
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
+	public closeExportDialog($event) {}
 	public openRequestFeedbackDialog() {
 		this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
 	}
+	public closeRequestFeedbackDialog($event) {}
 
 	public selectExport(value: 'excel' | 'pdf') {
 		this.selectedExport = value;
