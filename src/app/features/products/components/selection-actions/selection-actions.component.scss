@@ -81,7 +81,6 @@ button {
 }
 
 .buttons {
-    width: 536px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -89,6 +88,9 @@ button {
 
 [content] {
     max-height: 366px;
+}
+[footer] {
+  width: 100%;
 }
 
 .exportRow {
