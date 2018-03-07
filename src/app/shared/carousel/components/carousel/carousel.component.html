@@ -1,3 +1,4 @@
+<div class="ctnr">
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
@@ -26,6 +27,7 @@
 	</menu>
 
 	<div class="counter">{{ selectedIndex + 1 }} / {{ images.length }}</div>
-
 	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
+</div>
 
+<image-previewer-app [images]="images"></image-previewer-app>

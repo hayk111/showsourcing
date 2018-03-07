@@ -1,0 +1,7 @@
+<div class="ctnr">
+	<div class="plusBtn square pointer">
+		<icon-app name="plus" color="inherit"></icon-app>
+	</div>
+	<img class="square pointer" *ngFor="let image of images; let i = index"
+		[src]="getUrl(i)"/>
+</div>

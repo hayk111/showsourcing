@@ -1,0 +1,25 @@
+.ctnr {
+	display: flex;
+	.square {
+		height: 52px;
+		width: 52px;
+		border-radius: var(--border-radius);
+		margin: var(--spacing-s);
+	}
+	& :first-child {
+		margin-left: 0;
+	}
+	& :last-child {
+		margin-right: 0;
+	}
+}
+
+.plusBtn {
+	background: #ccc;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 24px;
+}
+

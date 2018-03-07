@@ -1,4 +1,4 @@
-:host {
+.ctnr {
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -12,7 +12,7 @@
 	visibility: hidden;
 }
 
-:host:hover > .action {
+.ctnr:hover > .action {
 	visibility: visible;
 }
 
@@ -55,6 +55,8 @@ menu {
 
 .img-ctnr {
 	height: 100%;
+	border-radius: var(--border-radius);
+	overflow: hidden;
 }
 
 img {

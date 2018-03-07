@@ -15,7 +15,7 @@ export function basicReducerFactory<G extends Entity>(
 		switch (action.type) {
 			// entities are set to the ones in the payload
 			case actionType.SET:
-				return addEntities(state, action.payload);
+				return addEntities(initalieState, action.payload);
 
 			// entities in payload are added to the current state
 			case actionType.ADD:

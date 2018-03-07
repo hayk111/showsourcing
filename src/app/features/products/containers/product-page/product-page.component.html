@@ -1,11 +1,12 @@
 
-<product-top-card-app [product]="product$ | async" class="z-4"></product-top-card-app>
 
 <div class="flex content">
 	<div class="left">
 
-		<card-app padding="0">
-			<product-big-card-app></product-big-card-app>
+		<card-app class="carouselCard" [margin]="0">
+			<div class="carouselCtnr">
+				<carousel-selection-app></carousel-selection-app>
+			</div>
 		</card-app>
 
 
