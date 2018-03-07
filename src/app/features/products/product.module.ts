@@ -1,10 +1,11 @@
-import { DialogModule } from '~dialog/dialog.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
+import { PipesModule } from '~app/app-root/pipes';
 import { FiltersModule } from '~app/shared/filters';
 import { TableModule } from '~app/shared/table';
+import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
 import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
@@ -43,8 +44,7 @@ import {
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
-import { effects } from './store';
-import { PipesModule } from '~app/app-root/pipes';
+import { ProductEffects } from './store';
 
 @NgModule({
 	imports: [
@@ -53,7 +53,7 @@ import { PipesModule } from '~app/app-root/pipes';
 		PipesModule,
 		DialogModule,
 		// StoreModule.forFeature('testEntities', reducers),
-		EffectsModule.forFeature(effects),
+		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
 		EntityMainCardModule, // used in details
 		LikesChartModule, // used in details
@@ -91,6 +91,10 @@ import { PipesModule } from '~app/app-root/pipes';
 		ProductPageComponent,
 		ProductTasksComponent,
 	],
-	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],
+	exports: [
+		ProductSmallCardComponent,
+		ProductTopCardComponent,
+		ProductInfoCardComponent,
+	],
 })
 export class ProductModule {}

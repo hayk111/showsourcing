@@ -66,4 +66,8 @@ export class ProductService {
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
 	}
+	requestFeedback(productId: String, recipientsIds: Array<String>) {
+		const recp = { recipients: recipientsIds };
+		return this.http.post(`api/product/${productId}/feedback`, recp);
+	}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { selectProductFocused } from '../../store/selectors';
+import { selectProductFocused } from '../../store';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';

@@ -3,7 +3,7 @@ import { ERM } from '~entity';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '~products/models';
-import { ProductActions } from '~products/store/actions';
+import { ProductActions } from '~products/store';
 
 @Component({
 	selector: 'product-info-card-app',
@@ -31,7 +31,11 @@ export class ProductInfoCardComponent implements OnInit {
 		else {
 			const priceAmount = product.price.priceAmount;
 			const priceCurrency = product.price.priceCurrency;
-			return { priceAmount, priceCurrency, toString: () => priceAmount + ' ' + priceCurrency };
+			return {
+				priceAmount,
+				priceCurrency,
+				toString: () => priceAmount + ' ' + priceCurrency,
+			};
 		}
 	}
 }

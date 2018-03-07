@@ -6,16 +6,16 @@ import { addEntities, copyById, removeEntity, replaceEntity } from './../utils';
 
 export function basicReducerFactory<G extends Entity>(
 	actionType: BasicActionTypes,
-	initalieState: EntityState<G> = entityInitialState
+	initialState: EntityState<G> = entityInitialState
 ) {
-	return function(state = initalieState, action: TypedAction<any>) {
+	return function(state = initialState, action: TypedAction<any>) {
 		let id;
 		if (action.payload) id = action.payload.id;
 
 		switch (action.type) {
-			// entities are set to the ones in the payload
+			// we reset the state using the initiale state to override the store values
 			case actionType.SET:
-				return addEntities(state, action.payload);
+				return addEntities(initialState, action.payload);
 
 			// entities in payload are added to the current state
 			case actionType.ADD:

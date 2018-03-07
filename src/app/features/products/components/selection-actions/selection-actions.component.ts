@@ -60,11 +60,12 @@ export class SelectionActionsComponent implements OnInit {
 		this.store.dispatch(
 			ProjectActions.addProducts(Object.keys(this.selectedProjects), products)
 		);
-		this.actionSubject.subscribe(action => {
-			if (action.type === ProjectsActionTypes.ADD_PRODUCTS_SUCCESS) {
-				this.store.dispatch(DialogActions.close(this.addProductDialog));
-			}
-		});
+		this.store.dispatch(DialogActions.close(this.addProductDialog));
+		// this.actionSubject.subscribe(action => {
+		// 	if (action.type === ProjectsActionTypes.ADD_PRODUCTS_SUCCESS) {
+		// 		this.store.dispatch(DialogActions.close(this.addProductDialog));
+		// 	}
+		// });
 	}
 
 	public openExportDialog() {
@@ -74,7 +75,9 @@ export class SelectionActionsComponent implements OnInit {
 	public openRequestFeedbackDialog() {
 		this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
 	}
-	public closeRequestFeedbackDialog($event) {}
+	public closeRequestFeedbackDialog($event) {
+		this.selectedMembers = {};
+	}
 
 	public selectExport(value: 'excel' | 'pdf') {
 		this.selectedExport = value;

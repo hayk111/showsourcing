@@ -12,7 +12,7 @@ import { authDlgReducer, authenticationReducer } from '~auth';
 import { commentReducer } from '~comment';
 import { dialogReducer } from '~dialog';
 import { FileActionType, imageSelectionReducer } from '~features/file';
-import { productReducer } from '~products/store/reducers/product.reducer';
+import { productReducer } from '~products/store';
 import { projectsReducer } from '~projects';
 import { supplierReducer } from '~suppliers';
 import { taskReducer } from '~tasks';

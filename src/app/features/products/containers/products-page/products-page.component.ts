@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { EntityState, ERM, selectEntityArray } from '~entity';
 import { Product } from '~products/models';
-import { ProductActions } from '~products/store/actions';
-import { selectProductsState } from '~products/store/selectors';
+import { ProductActions, selectProductsState } from '~products/store';
 import {
 	Filter,
 	FilterCategory,
