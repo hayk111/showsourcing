@@ -1,4 +1,4 @@
-<div class="ctnr">
+<div class="ctnr"  (fileDrop)="onFileAdded($event)">
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
@@ -32,5 +32,5 @@
 
 <image-previewer-app
 	(imageClick)="onPreviewClick($event)"
-	(addImage)="addImage.emit($event)"
+	(fileAdded)="onFileAdded($event)"
 	[images]="images"></image-previewer-app>

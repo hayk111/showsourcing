@@ -9,6 +9,7 @@ import {
 import { AppImage } from '~features/file/models/app-image.model';
 import { Log } from '~utils';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'carousel-app',
@@ -29,7 +30,7 @@ export class CarouselComponent implements OnInit {
 	modalOpen = false;
 	menuOpen = false;
 
-	constructor() {}
+	constructor(private userSrv: UserService) {}
 
 	ngOnInit() {}
 
@@ -106,5 +107,12 @@ export class CarouselComponent implements OnInit {
 	// when a preview is clicked we want to display the image that was in the preview
 	onPreviewClick(index: number) {
 		this.selectedIndex = index;
+	}
+
+	onFileAdded(files: Array<File>) {
+		files.forEach(async file => {
+			const image = await AppImage.newInstance(file, this.userSrv.userId);
+			this.addImage.emit(image);
+		});
 	}
 }

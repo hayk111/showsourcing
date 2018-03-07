@@ -12,8 +12,7 @@ export class ImagePreviewerComponent {
 	@Input() images: Array<AppImage>;
 	// returns the index of the images clicked
 	@Output() imageClick = new EventEmitter<number>();
-	// image added
-	@Output() addImage = new EventEmitter<AppImage>();
+	@Output() fileAdded = new EventEmitter<AppImage>();
 
 	constructor(private userSrv: UserService) {}
 
@@ -21,12 +20,5 @@ export class ImagePreviewerComponent {
 	getUrl(index) {
 		if (this.images[index].urls) return this.images[index].urls.url_220x165;
 		else return this.images[index].data;
-	}
-
-	onFileAdded(files: Array<File>) {
-		files.forEach(async file => {
-			const image = await AppImage.newInstance(file, this.userSrv.userId);
-			this.addImage.emit(image);
-		});
 	}
 }
