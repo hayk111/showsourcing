@@ -11,6 +11,7 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Output() productSelect = new EventEmitter<string>();
+	@Output() productDelete = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();

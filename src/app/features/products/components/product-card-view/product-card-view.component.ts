@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
 import { Product } from '~products';
 
 @Component({
@@ -11,6 +18,7 @@ export class ProductCardViewComponent implements OnInit {
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
 	@Output() productOpen = new EventEmitter<string>();
+	@Output() productDelete = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();

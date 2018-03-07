@@ -26,6 +26,7 @@
 			[products]="products$ | async"
 			[selection]="selection"
 			(productSelect)="onItemSelected($event)"
+			(productDelete)="onItemDeleted($event)"
 			(productUnselect)="onItemUnselected($event)"
 			(productVote)="onItemVoted($event)"
 			(productFavorited)="onItemFavorited($event)"

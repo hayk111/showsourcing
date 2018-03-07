@@ -116,6 +116,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.unselectAll();
 	}
 
+	onItemDeleted(entityId: string) {
+		this.store.dispatch(ProductActions.delete([entityId]));
+	}
+
 	onItemOpened(entityId: string) {
 		this.previewDialogOpen = true;
 		const target = { entityId, entityRepr: this.repr };
