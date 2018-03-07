@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
+import { CarouselModule } from '~app/shared/carousel';
 import { FiltersModule } from '~app/shared/filters';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
@@ -44,7 +45,7 @@ import {
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
-import { ProductEffects } from './store';
+import { ProductEffects } from './store/product.effects';
 
 @NgModule({
 	imports: [
@@ -72,6 +73,7 @@ import { ProductEffects } from './store';
 		EntityPageModule, // used as template of page
 		TableModule, // used in list
 		FiltersModule, // used for filters
+		CarouselModule,
 	],
 	providers: [ProductService],
 	declarations: [

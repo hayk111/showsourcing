@@ -21,7 +21,7 @@ import { UserService } from '~user/services';
 
 @Injectable()
 export class UrlBuilder {
-	static TAKE = 10;
+	static TAKE = 30;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {}
 

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { entityStateToArray } from '~store/utils';
-import { Store } from '@ngrx/store';
-import { AppImage } from '~features/file/models';
-import { AutoUnsub } from '~utils/index';
-import { selectImagesForCurrentTarget } from '~store/selectors/target/target.selector';
-import { ImageTargetActions } from '~features/file/store/actions';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { AppImage } from '~features/file/models';
+import { ImageTargetActions } from '~features/file/store/actions';
+import { selectImagesForCurrentTarget } from '~store/selectors/target/target.selector';
+import { entityStateToArray } from '~store/utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'carousel-selection-app',
@@ -27,6 +28,10 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 		);
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
+	}
+
+	add(img: AppImage) {
+		this.store.dispatch(ImageTargetActions.add(img));
 	}
 
 	rotate(img: AppImage) {

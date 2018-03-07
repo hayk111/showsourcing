@@ -1,7 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
 import { AppImage } from '~features/file/models/app-image.model';
 import { Log } from '~utils';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'carousel-app',
@@ -17,11 +25,12 @@ export class CarouselComponent implements OnInit {
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
+	@Output() addImage = new EventEmitter<AppImage>();
 
 	modalOpen = false;
 	menuOpen = false;
 
-	constructor() {}
+	constructor(private userSrv: UserService) {}
 
 	ngOnInit() {}
 
@@ -93,5 +102,17 @@ export class CarouselComponent implements OnInit {
 		const img = this.getImg();
 		if (img.pending) return img.rotation * -90;
 		else return 0;
+	}
+
+	// when a preview is clicked we want to display the image that was in the preview
+	onPreviewClick(index: number) {
+		this.selectedIndex = index;
+	}
+
+	onFileAdded(files: Array<File>) {
+		files.forEach(async file => {
+			const image = await AppImage.newInstance(file, this.userSrv.userId);
+			this.addImage.emit(image);
+		});
 	}
 }

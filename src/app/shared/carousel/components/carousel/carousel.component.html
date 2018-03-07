@@ -1,3 +1,4 @@
+<div class="ctnr"  (fileDrop)="onFileAdded($event)">
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
@@ -17,7 +18,13 @@
 	</div>
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
-	<icon-app name="ellipsis-v" class="menuIc btn action" aria-label="more" (click)="openMenu()"></icon-app>
+	<icon-app
+		name="ellipsis-v"
+		color="white"
+		background="transparent"
+		class="menuIc btn action"
+		aria-label="more"
+		(click)="openMenu()"></icon-app>
 
 	<!-- menu -->
 	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
@@ -26,6 +33,10 @@
 	</menu>
 
 	<div class="counter">{{ selectedIndex + 1 }} / {{ images.length }}</div>
-
 	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
+</div>
 
+<image-previewer-app
+	(imageClick)="onPreviewClick($event)"
+	(fileAdded)="onFileAdded($event)"
+	[images]="images"></image-previewer-app>
