@@ -3,7 +3,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 
 import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, ActionsSubject } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Project } from '~projects/models/project.model';
 import { ProjectActions } from '~projects/store/actions/project.actions';
@@ -14,6 +14,7 @@ import {
 import { DialogActions, DialogName } from '~shared/dialog';
 import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
 import { User } from '~user/models';
+import { ProjectsActionTypes } from '~app/features/projects';
 
 @Component({
 	selector: 'selection-actions',
@@ -33,7 +34,7 @@ export class SelectionActionsComponent implements OnInit {
 	selectedExport: 'excel' | 'pdf' = 'excel';
 	selectedProjects = {};
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>, private actionSubject: ActionsSubject) {}
 
 	ngOnInit() {
 		this.projects$ = this.store.select(selectMyTeamProjects);
@@ -58,6 +59,11 @@ export class SelectionActionsComponent implements OnInit {
 		this.store.dispatch(
 			ProjectActions.addProducts(Object.keys(this.selectedProjects), products)
 		);
+		this.actionSubject.subscribe(action => {
+			if (action.type === ProjectsActionTypes.ADD_PRODUCTS_SUCCESS) {
+				this.store.dispatch(DialogActions.close(this.addProductDialog));
+			}
+		});
 	}
 
 	public openExportDialog() {

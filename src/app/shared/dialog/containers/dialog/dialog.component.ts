@@ -47,12 +47,14 @@ export class DialogComponent extends AutoUnsub implements OnInit {
 			.select(selectDialog(this.name))
 			.map(dlgInfo => dlgInfo.open);
 		this.isOpen$.pipe(takeUntil(this._destroy$)).subscribe(open => {
+			if (this.isOpen && !open) {
+				this.closed.emit(this);
+			}
 			this.isOpen = open;
 		});
 	}
 
 	close() {
 		this.store.dispatch(DialogActions.close(this.name));
-		this.closed.emit(this);
 	}
 }
