@@ -1,3 +1,4 @@
+import { ProductActions } from '~products/store';
 import { ERM } from '~entity';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
@@ -46,6 +47,9 @@ export class SelectionActionsComponent implements OnInit {
 		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
 	}
 
+	// ----------------------------------------------------------------------------
+	// --------------------------- Add to project Dialog
+	// ----------------------------------------------------------------------------
 	public openAddToProjectDialog() {
 		this.store.dispatch(DialogActions.open(this.addProductDialog));
 	}
@@ -68,10 +72,30 @@ export class SelectionActionsComponent implements OnInit {
 		// });
 	}
 
+	public toggleSelectProject(id: string) {
+		if (!this.selectedProjects[id]) {
+			this.selectedProjects[id] = true;
+		} else {
+			delete this.selectedProjects[id];
+		}
+	}
+
+	// ----------------------------------------------------------------------------
+	// --------------------------- Export Dialog
+	// ----------------------------------------------------------------------------
+
 	public openExportDialog() {
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
 	public closeExportDialog($event) {}
+
+	public selectExport(value: 'excel' | 'pdf') {
+		this.selectedExport = value;
+	}
+
+	// ----------------------------------------------------------------------------
+	// --------------------------- Request feedback Dialog
+	// ----------------------------------------------------------------------------
 	public openRequestFeedbackDialog() {
 		this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
 	}
@@ -79,16 +103,15 @@ export class SelectionActionsComponent implements OnInit {
 		this.selectedMembers = {};
 	}
 
-	public selectExport(value: 'excel' | 'pdf') {
-		this.selectedExport = value;
-	}
-
-	public toggleSelectProject(id: string) {
-		if (!this.selectedProjects[id]) {
-			this.selectedProjects[id] = true;
-		} else {
-			delete this.selectedProjects[id];
-		}
+	public requestFeeback() {
+		const products: Array<String> = new Array();
+		this.selection.forEach((value, key) => {
+			if (value) products.push(key);
+		});
+		this.store.dispatch(
+			ProductActions.requestFeedback(products, Object.keys(this.selectedMembers))
+		);
+		this.store.dispatch(DialogActions.close(this.requestFeedbackDialog));
 	}
 
 	public toggleSelectMembers(id: string) {
