@@ -1,7 +1,8 @@
 <div class="ctnr">
-	<div class="plusBtn square pointer">
+	<div class="plusBtn square pointer" (click)="inp.click()">
 		<icon-app name="plus" color="inherit"></icon-app>
 	</div>
+	<input #inp type="file" accept="image/*" (fileSelect)="onFileAdded($event)" class="hidden"/>
 	<img class="square pointer" *ngFor="let image of images; let i = index"
 		[src]="getUrl(i)"/>
 </div>

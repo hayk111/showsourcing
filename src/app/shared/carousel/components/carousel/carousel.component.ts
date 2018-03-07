@@ -24,6 +24,7 @@ export class CarouselComponent implements OnInit {
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
+	@Output() addImage = new EventEmitter<AppImage>();
 
 	modalOpen = false;
 	menuOpen = false;

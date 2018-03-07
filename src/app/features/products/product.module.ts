@@ -45,6 +45,7 @@ import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { effects } from './store';
 import { PipesModule } from '~app/app-root/pipes';
+import { CarouselModule } from '~app/shared/carousel';
 
 @NgModule({
 	imports: [
@@ -72,6 +73,7 @@ import { PipesModule } from '~app/app-root/pipes';
 		EntityPageModule, // used as template of page
 		TableModule, // used in list
 		FiltersModule, // used for filters
+		CarouselModule,
 	],
 	providers: [ProductService],
 	declarations: [
@@ -91,6 +93,10 @@ import { PipesModule } from '~app/app-root/pipes';
 		ProductPageComponent,
 		ProductTasksComponent,
 	],
-	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],
+	exports: [
+		ProductSmallCardComponent,
+		ProductTopCardComponent,
+		ProductInfoCardComponent,
+	],
 })
 export class ProductModule {}
