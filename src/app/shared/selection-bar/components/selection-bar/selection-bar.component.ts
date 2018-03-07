@@ -10,7 +10,12 @@ export class SelectionBarComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
 	@Input() selection: Map<string, boolean>;
 	@Output() close = new EventEmitter();
+	@Output() delete = new EventEmitter();
 	constructor() {}
 
 	ngOnInit() {}
+
+	deleteAction() {
+		this.delete.emit(this.selection);
+	}
 }

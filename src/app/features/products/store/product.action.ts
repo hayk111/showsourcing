@@ -27,10 +27,10 @@ addActionType(ProductActionTypes, ERM.product, 'REQUEST_FEEDBACK_SUCCESS');
 // --------------------------- Constructing basic actions + extended actions
 // ----------------------------------------------------------------------------
 export interface ProductActions extends BasicActions {
-	requestPdf?(id: string): TypedAction<String>;
+	requestPdf?(id: string): TypedAction<string>;
 	requestFeedback?(
-		productsIds: Array<String>,
-		recipientsIds: Array<String>
+		productsIds: Array<string>,
+		recipientsIds: Array<string>
 	): TypedAction<any>;
 	requestFeedbackSuccess?(result: any): TypedAction<any>;
 }
@@ -44,8 +44,8 @@ ProductActions.requestPdf = (id: string) => {
 	};
 };
 ProductActions.requestFeedback = (
-	productsIds: Array<String>,
-	recipientsIds: Array<String>
+	productsIds: Array<string>,
+	recipientsIds: Array<string>
 ) => {
 	return {
 		type: ProductActionTypes.REQUEST_FEEDBACK,

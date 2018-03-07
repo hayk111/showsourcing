@@ -38,7 +38,8 @@
 	[repr]="repr"
 	*ngIf="selection.size > 0"
 	[selection]="selection"
-	(close)="unselectAll()">
+  (close)="unselectAll()"
+  (delete)="deleteSelected()">
 	<selection-actions [selection]="selection"></selection-actions>
 </selection-bar-app>
 

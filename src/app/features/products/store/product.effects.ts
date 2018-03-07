@@ -24,6 +24,18 @@ export class ProductEffects {
 			);
 		})
 	);
+	@Effect({ dispatch: false })
+	delete$ = this.actions$.ofType<any>(ProductActionTypes.DELETE).pipe(
+		map(action => action.payload),
+		switchMap((ids: Array<string>) => {
+			const obs$ = new Array<Observable<any>>();
+			ids.forEach(projectid => {
+				obs$.push(this.srv.delete(projectid));
+			});
+			const result = Observable.forkJoin(obs$);
+			return result;
+		})
+	);
 
 	// for pagination
 	@Effect()

@@ -104,7 +104,7 @@ export class SelectionActionsComponent implements OnInit {
 	}
 
 	public requestFeeback() {
-		const products: Array<String> = new Array();
+		const products: Array<string> = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) products.push(key);
 		});

@@ -70,13 +70,10 @@ export function copyById(state, id, additionalProps?: any) {
 	};
 }
 
-export function removeEntity(state, id) {
-	const ids = [...state.ids];
-	const index = ids.indexOf(id);
-	ids.splice(index, 1);
-
+export function removeEntities(state, entityIds: Array<any>) {
+	const ids = [...state.ids.filter(o => !entityIds.includes(o))];
 	const byId = { ...state.byId };
-	delete byId[id];
+	entityIds.forEach(id => delete byId[id]);
 	return {
 		...state,
 		byId,

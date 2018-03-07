@@ -34,7 +34,7 @@ export interface BasicActions {
 	add(toAdd: Array<Entity>);
 	create(toCreate: Entity);
 	replace(old: Entity, replacing: Entity);
-	delete(toDelete: Entity);
+	delete(ids: Array<String>);
 	setPending();
 	patch(patch: Patch);
 	merge();
@@ -104,9 +104,9 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			type: actionType.REPLACING,
 			payload: { old, replacing },
 		}),
-		delete: (toDelete: Entity): TypedAction<any> => ({
+		delete: (ids: Array<String>): TypedAction<any> => ({
 			type: actionType.DELETE,
-			payload: toDelete,
+			payload: ids,
 		}),
 		setPending: (): Action => ({ type: actionType.SET_PENDING }),
 		patch: (patch: Patch): TypedAction<any> => ({

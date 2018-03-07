@@ -1,3 +1,4 @@
+import { EntityRepresentation } from './../models/entities.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -40,6 +41,10 @@ export class EntityService {
 				return this.makeGetRequest(url, params);
 			})
 		);
+	}
+
+	delete(id: String, entityRep: EntityRepresentation): Observable<any> {
+		return this.http.delete(`/api/${entityRep.urlName}/${id}`);
 	}
 
 	private makeGetRequest(url: string, params: LoadParams) {

@@ -27,6 +27,10 @@ export class ProductService {
 			);
 	}
 
+	delete(id: string) {
+		return this.entitySrv.delete(id, ERM.product);
+	}
+
 	loadById(id: string) {
 		return this.http
 			.get(`api/product/${id}`)

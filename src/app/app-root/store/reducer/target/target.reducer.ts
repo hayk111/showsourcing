@@ -1,5 +1,5 @@
 import { entityInitialState, ERM } from '~app/shared/entity/models';
-import { addEntities, removeEntity, replaceEntity } from '~store';
+import { addEntities, removeEntities, replaceEntity } from '~store';
 import { TypedAction } from '~utils';
 
 import { ActionType } from '../../action/target/target.action';
@@ -38,7 +38,7 @@ export function targetReducerFactory(actionType) {
 				return replaceEntity(state, action.payload.old, action.payload.replacing);
 
 			case actionType['REMOVE']:
-				return removeEntity(state, action.payload.id);
+				return removeEntities(state, [action.payload.id]);
 
 			default:
 				return state;
