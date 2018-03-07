@@ -56,7 +56,7 @@ export class IconComponent implements OnInit {
 			// background is used for circle
 			background: this.circleColor
 				? 'var(--color-' + this.circleColor + ')'
-				: 'inherit',
+				: 'transparent',
 			'font-size': this.sizePx
 				? this.sizePx + 'px'
 				: 'var(--font-size-' + this.size + ')',

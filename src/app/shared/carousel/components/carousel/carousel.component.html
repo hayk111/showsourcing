@@ -18,7 +18,13 @@
 	</div>
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
-	<icon-app name="ellipsis-v" class="menuIc btn action" aria-label="more" (click)="openMenu()"></icon-app>
+	<icon-app
+		name="ellipsis-v"
+		color="white"
+		background="transparent"
+		class="menuIc btn action"
+		aria-label="more"
+		(click)="openMenu()"></icon-app>
 
 	<!-- menu -->
 	<menu class="z-2 flexColumn action" (clickOutside)="closeMenu()" *ngIf="menuOpen">
