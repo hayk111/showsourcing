@@ -8,3 +8,5 @@ export * from './product-top-card/product-top-card.component';
 export * from './product-card-view/product-card-view.component';
 export * from './selection-actions/selection-actions.component';
 export * from './product-list-view/product-list-view.component';
+export * from './supplier-card/supplier-card.component';
+export * from './project-card/project-card.component';
