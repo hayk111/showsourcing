@@ -1,79 +1,14 @@
 <div class="flex">
-  <div class="flex btn pointer" (click)="openAddToProjectDialog()">
+  <div class="flex btn pointer" (click)="openAddToProjectDialog.emit()">
     <span class="icon-add"></span>
     <span i18n>Add to project</span>
   </div>
-  <div class="flex btn pointer" (click)="openRequestFeedbackDialog()">
+  <div class="flex btn pointer" (click)="openRequestFeedbackDialog.emit()">
     <span class="icon-feedback"></span>
     <span i18n>Request Team Feedback</span>
   </div>
-  <div class="flex btn pointer" (click)="openExportDialog()">
+  <div class="flex btn pointer" (click)="openExportDialog.emit()">
     <span class="icon-export"></span>
     <span i18n>Export</span>
   </div>
 </div>
-
-
-<dialog-app [name]="addProductDialog" (closed)="closeAddToProjectDialog($event)">
-  <div header>Add to project</div>
-  <div content>
-    <div class="contentTitle">My projects</div>
-    <div *ngFor="let project of projects$ | async" class="contentRowBg" [class.selected]="selectedProjects[project.id]">
-      <div class="contentRow">
-        <div class="pointer" [class.icon-circle-unchecked]="!selectedProjects[project.id]" [class.icon-circle-checked]="selectedProjects[project.id]"
-          (click)="toggleSelectProject(project.id)"></div>
-        <span class="name">{{project.name}}</span>
-        <div class="productNumber">{{productsCount[project.id] || '-'}}</div>
-      </div>
-    </div>
-  </div>
-  <div footer>
-    <div class="buttons">
-      <button class="small" (click)="addToProjects()">Add to project</button>
-    </div>
-  </div>
-</dialog-app>
-
-<dialog-app [name]="requestFeedbackDialog" (closed)="closeRequestFeedbackDialog($event)">
-  <div header>Request Team Feedback</div>
-  <div content>
-    <div class="contentTitle">Team members</div>
-    <div *ngFor="let member of teamMembers$ | async" class="contentRowBg" [class.selected]="selectedMembers[member.id]">
-      <div class="contentRow">
-        <div class="pointer" [class.icon-circle-unchecked]="!selectedMembers[member.id]" [class.icon-circle-checked]="selectedMembers[member.id]"
-        (click)="toggleSelectMembers(member.id)"></div>
-        <span class="name">{{member.firstName}} {{member.lastName}}</span>
-      </div>
-    </div>
-  </div>
-  <div footer>
-    <div class="buttons">
-      <button class="small" (click)="requestFeeback()">Send request</button>
-    </div>
-  </div>
-</dialog-app>
-
-
-<dialog-app [name]="exportDialog" (closed)="closeExportDialog($event)">
-  <div header>Export Slection</div>
-  <div content>
-    <div class="contentTitle">Export type</div>
-    <div class="exportRow">
-      <div class="exportCell" (click)="selectExport('excel')" [class.selected]="selectedExport === 'excel'">
-        <div class="icon-excel"></div>
-        <div class="title">Excel</div>
-        <div class="subtitle">Perfect for edition</div>
-      </div>
-      <div class="exportCell" (click)="selectExport('pdf')" [class.selected]="selectedExport === 'pdf'">
-        <div class="icon-pdf"></div>
-        <div class="title">PDF</div>
-        <div class="subtitle">Perfect for sharing</div>
-      </div>
-    </div>
-  </div>
-  <div footer>
-    <div class="buttons">
-      <button class="small">Export now</button>
-    </div>
-  </div>
-</dialog-app>

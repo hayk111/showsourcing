@@ -22,6 +22,7 @@ export class ProductCardViewComponent implements OnInit {
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
+	@Output() addToProject = new EventEmitter<string>();
 	@Input() products: Array<Product> = [];
 	@Input() selection: any;
 	constructor() {}

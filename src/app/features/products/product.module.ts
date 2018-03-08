@@ -25,6 +25,7 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
+	ProductActionDialogComponent,
 	ProductCardViewComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
@@ -77,6 +78,7 @@ import { ProductEffects } from './store/product.effects';
 	],
 	providers: [ProductService],
 	declarations: [
+		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
 		ProductTopCardComponent,

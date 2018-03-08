@@ -17,6 +17,7 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
+	@Output() addToProject = new EventEmitter<string>();
 
 	public showOverlay = false;
 
