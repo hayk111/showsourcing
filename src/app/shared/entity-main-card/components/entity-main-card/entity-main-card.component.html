@@ -1,6 +1,5 @@
-<card-app>
-
-	<header class="header">
+	<card-app>
+    <header class="header">
 		<nav>
 			<a [routerLink]="['general']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">General Information</a>
 			<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
@@ -9,9 +8,9 @@
 		</nav>
 	</header>
 
-	<main class="main">
+	<div class="main">
 		<router-outlet></router-outlet>
-	</main>
+  </div>
 </card-app>
 
 

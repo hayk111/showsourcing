@@ -1,10 +1,11 @@
 nav {
     background-color: rgba(230, 235, 245, 0.30);
-    border: 1px solid #E6EBF5;
+    border: 1px solid var(--color-bg-switcher);
+    border-left:none;
     border-bottom: none;
     border-radius: 4px 4px 0 0;
     font-size: var(--font-size-l);
-    font-weight: 500;
+    font-weight: 600;
     display: flex;
     justify-content: flex-start;
     color: var(--color-txt-secondary);
@@ -13,16 +14,20 @@ nav {
     height: 52px;
     a {
         padding: var(--spacing-default) var(--spacing-xl);
-        border-bottom: 1px solid #E6EBF5;
+        border-bottom: 1px solid var(--color-bg-switcher);
         display: flex;
         justify-content: center;
+
+        &:first-child.selected{
+          border-left: none;
+        }
     }
     .selected {
         color: var(--color-primary-dark);
         background: var(--color-white);
         border-radius: 4px 4px 0 0;
-        font-weight: 600;
         border-right: 1px solid var(--color-delimiter);
+        border-left: 1px solid var(--color-delimiter);
         box-sizing: border-box;
         border-bottom: none;
     }
@@ -31,4 +36,8 @@ nav {
       flex: 1 1 0%;
       padding: 0;
     }
+}
+
+.main {
+  padding:  0 var(--spacing-default);
 }

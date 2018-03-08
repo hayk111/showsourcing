@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 @Component({
 	selector: 'card-app',
 	templateUrl: './card.component.html',
-	styleUrls: ['./card.component.scss']
+	styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
 	@Input() elevation: string = 'z-2';
@@ -25,13 +25,13 @@ export class CardComponent implements OnInit {
 
 	get borderStyle() {
 		return {
-			'background-color': 'var(--color-' + this.borderColor + ')'
+			'background-color': 'var(--color-' + this.borderColor + ')',
 		};
 	}
 
 	get mainStyle() {
 		return {
-			padding: 'var(--spacing-' + this.padding + ')'
+			padding: 'var(--spacing-' + this.padding + ')',
 		};
 	}
 
@@ -41,7 +41,7 @@ export class CardComponent implements OnInit {
 
 	get ctnrStyle() {
 		return {
-			margin: 'var(--spacing-' + this.margin + ')'
+			margin: 'var(--spacing-' + this.margin + ')',
 		};
 	}
 }

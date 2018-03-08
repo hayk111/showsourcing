@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
+import { BadgeModule } from '~app/shared/badge/badge.module';
 import { CarouselModule } from '~app/shared/carousel';
 import { FiltersModule } from '~app/shared/filters';
+import { InputsModule } from '~app/shared/inputs';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
@@ -27,6 +29,7 @@ import { UserModule } from '~user/user.module';
 import {
 	ProductActionDialogComponent,
 	ProductCardViewComponent,
+	ProductGeneralInfoComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
 	ProductSelectableCardComponent,
@@ -34,8 +37,8 @@ import {
 	ProductStatusBadgeComponent,
 	ProductSubInfoComponent,
 	ProductTopCardComponent,
-	SelectionActionsComponent,
 	ProjectCardComponent,
+	SelectionActionsComponent,
 	SupplierCardComponent,
 } from './components';
 import {
@@ -49,8 +52,6 @@ import {
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
-import { BadgeModule } from '~app/shared/badge/badge.module';
-import { InputsModule } from '~app/shared/inputs';
 
 @NgModule({
 	imports: [
@@ -103,6 +104,7 @@ import { InputsModule } from '~app/shared/inputs';
 		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
+		ProductGeneralInfoComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,
