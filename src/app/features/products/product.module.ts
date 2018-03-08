@@ -105,11 +105,8 @@ import { FilesCardComponent } from './components/files-card/files-card.component
 		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
-<<<<<<< HEAD
 		FilesCardComponent,
-=======
 		ProductGeneralInfoComponent,
->>>>>>> 783a3aae395ce8dd8e16c6db5f574337d01da9e5
 	],
 	exports: [
 		ProductSmallCardComponent,
