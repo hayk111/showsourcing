@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, startWith, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { map, switchMap } from 'rxjs/operators';
+import { AppFile, FileTargetActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
-import { FileTargetActions } from '~features/file';
-import { AppFile } from '~features/file';
 import { selectUser } from '~user/store/selectors/user.selector';
 
-import { ProductActionTypes, ProductActions } from '../actions/product.action';
+import { ProductActions, ProductActionTypes } from './product.action';
 
 @Injectable()
 export class ProductEffects {
@@ -22,6 +22,26 @@ export class ProductEffects {
 				// set products
 				map((r: any) => ProductActions.set(r))
 			);
+		})
+	);
+	@Effect({ dispatch: false })
+	delete$ = this.actions$.ofType<any>(ProductActionTypes.DELETE).pipe(
+		map(action => action.payload),
+		switchMap((ids: Array<string>) => {
+			const obs$ = new Array<Observable<any>>();
+			ids.forEach(projectid => {
+				obs$.push(this.srv.delete(projectid));
+			});
+			const result = Observable.forkJoin(obs$);
+			return result;
+		})
+	);
+
+	@Effect({ dispatch: false })
+	vote$ = this.actions$.ofType<any>(ProductActionTypes.VOTE).pipe(
+		map(action => action.payload),
+		switchMap(({ id, value }) => {
+			return this.srv.vote(id, value);
 		})
 	);
 
@@ -42,6 +62,23 @@ export class ProductEffects {
 			map(action => action.payload),
 			switchMap((id: string) => this.srv.loadById(id)),
 			map((r: any) => ProductActions.add(r))
+		);
+
+	// for feedback
+	@Effect()
+	requestFeedback$ = this.actions$
+		.ofType<any>(ProductActionTypes.REQUEST_FEEDBACK)
+		.pipe(
+			map(action => action.payload),
+			switchMap(({ productsIds, recipientsIds }) => {
+				const obs$ = new Array<Observable<any>>();
+				productsIds.forEach(projectid => {
+					obs$.push(this.srv.requestFeedback(projectid, recipientsIds));
+				});
+				const result = Observable.forkJoin(obs$);
+				return result;
+			}),
+			map((result: any) => ProductActions.requestFeedbackSuccess(result))
 		);
 
 	@Effect()

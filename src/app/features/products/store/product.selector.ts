@@ -4,8 +4,8 @@ import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
 import { selectProductStatuses } from '~store/selectors/entities/product-status.selector';
 import { deepCopy } from '~utils';
 
-import { Product } from '../../models/product.model';
-import { EntitiesState, ProductsState } from './../reducers';
+import { Product } from '../models/product.model';
+import { EntitiesState, ProductsState } from './';
 
 export const getEntitiesState = state => state.entities;
 const selectCurrentTargetId = state =>

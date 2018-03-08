@@ -11,11 +11,13 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Output() productSelect = new EventEmitter<string>();
+	@Output() productDelete = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
+	@Output() addToProject = new EventEmitter<string>();
 
 	public showOverlay = false;
 

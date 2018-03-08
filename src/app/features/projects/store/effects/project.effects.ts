@@ -1,3 +1,4 @@
+import { ERM } from '~entity';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/withLatestFrom';
 
@@ -46,7 +47,10 @@ export class ProjectEffects {
 			const result = Observable.forkJoin(obs$);
 			return result;
 		}),
-		map((result: any) => ProjectActions.addProductsSuccess(result))
+		switchMap((result: any) => [
+			ProjectActions.addProductsSuccess(result),
+			ProjectActions.loadProductCount(ERM.projects),
+		])
 	);
 
 	constructor(

@@ -11,7 +11,9 @@
           (productUnselect)="productUnselect.emit($event)"
           (productFavorited)="productFavorited.emit($event)"
           (productUnfavorited)="productUnfavorited.emit($event)"
+          (productDelete)="productDelete.emit($event)"
           (productOpen)="productOpen.emit($event)"
+          (addToProject)="addToProject.emit($event)"
           (productVote)="productVote.emit($event)"
           [product]="product"></product-selectable-card-app>
       </ng-container>

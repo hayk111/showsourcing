@@ -26,8 +26,10 @@
 			[products]="products$ | async"
 			[selection]="selection"
 			(productSelect)="onItemSelected($event)"
+			(productDelete)="onItemDeleted($event)"
 			(productUnselect)="onItemUnselected($event)"
 			(productVote)="onItemVoted($event)"
+			(addToProject)="onItemAddToProject($event)"
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"
 			(productOpen)="onItemOpened($event)"></product-card-view-app>
@@ -38,8 +40,14 @@
 	[repr]="repr"
 	*ngIf="selection.size > 0"
 	[selection]="selection"
-	(close)="unselectAll()">
-	<selection-actions [selection]="selection"></selection-actions>
+  (close)="unselectAll()"
+  (delete)="deleteSelected()">
+  <selection-actions
+  [selection]="selection"
+  (openAddToProjectDialog)="openAddToProjectDialog()"
+  (openExportDialog)="openExportDialog()"
+  (openRequestFeedbackDialog)="openRequestFeedbackDialog()"
+  ></selection-actions>
 </selection-bar-app>
 
 <product-side-preview-app
@@ -56,4 +64,33 @@
 	</filter-panel-app>
 </ng-container>
 
+<product-action-dialog-app
+  [dialogName]="addProductDialog"
+  header="Add to projects"
+  title="My projects"
+  buttonLabel="Add to projects"
+  dialogType="add"
+  [entities]="projects$"
+  [productsCount]="productsCount"
+  (buttonClicked)="addToProjects($event)"
+></product-action-dialog-app>
+
+<product-action-dialog-app
+  [dialogName]="requestFeedbackDialog"
+  header="Request Team Feedback"
+  title="Team members"
+  buttonLabel="Send request"
+  [entities]="teamMembers$"
+  dialogType="feedback"
+  (buttonClicked)="requestFeeback($event)"
+></product-action-dialog-app>
+
+<product-action-dialog-app
+  [dialogName]="exportDialog"
+  header="Export Slection"
+  title="Export type"
+  buttonLabel="Export now"
+  dialogType="export"
+  (buttonClicked)="export($event)"
+></product-action-dialog-app>
 

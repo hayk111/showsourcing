@@ -28,6 +28,13 @@ export class ProductService {
 			);
 	}
 
+	delete(id: string) {
+		return this.entitySrv.delete(id, ERM.product);
+	}
+	vote(id: string, value: 0 | 100) {
+		return this.http.post(`api/product/${id}/vote`, { value });
+	}
+
 	loadById(id: string) {
 		const params: LoadParams = {
 			loaded: ERM.product,
@@ -71,5 +78,9 @@ export class ProductService {
 
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
+	}
+	requestFeedback(productId: String, recipientsIds: Array<String>) {
+		const recp = { recipients: recipientsIds };
+		return this.http.post(`api/product/${productId}/feedback`, recp);
 	}
 }

@@ -13,7 +13,7 @@
       <div class="open pointer" (click)="open.emit()">OPEN</div>
       <thumb-buttons-app class="feedback" color="white" (vote)="vote.emit($event)"></thumb-buttons-app>
     </div>
-    <div class="icon-delete" name="trash-alt" (click)="trash.emit()"></div>
+    <div class="icon-delete pointer" name="trash-alt" (click)="trash.emit()"></div>
   </div>
   <img class="cardImg" [class.blurred]="showOverlay" [src]="url || defaultImg" />
   <div class="imgNumber flexRow" [class.hide]="showOverlay">

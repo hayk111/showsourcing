@@ -1,10 +1,12 @@
-import { DialogModule } from '~dialog/dialog.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
+import { PipesModule } from '~app/app-root/pipes';
+import { CarouselModule } from '~app/shared/carousel';
 import { FiltersModule } from '~app/shared/filters';
 import { TableModule } from '~app/shared/table';
+import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
 import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
@@ -23,6 +25,7 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
+	ProductActionDialogComponent,
 	ProductCardViewComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
@@ -32,6 +35,8 @@ import {
 	ProductSubInfoComponent,
 	ProductTopCardComponent,
 	SelectionActionsComponent,
+	ProjectCardComponent,
+	SupplierCardComponent,
 } from './components';
 import {
 	ProductBigCardComponent,
@@ -43,11 +48,7 @@ import {
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
-import { effects } from './store';
-import { PipesModule } from '~app/app-root/pipes';
-import { CarouselModule } from '~app/shared/carousel';
-import { ProjectCardComponent } from './components/project-card/project-card.component';
-import { SupplierCardComponent } from './components/supplier-card/supplier-card.component';
+import { ProductEffects } from './store/product.effects';
 import { BadgeModule } from '~app/shared/badge/badge.module';
 
 @NgModule({
@@ -57,7 +58,7 @@ import { BadgeModule } from '~app/shared/badge/badge.module';
 		PipesModule,
 		DialogModule,
 		// StoreModule.forFeature('testEntities', reducers),
-		EffectsModule.forFeature(effects),
+		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
 		EntityMainCardModule, // used in details
 		LikesChartModule, // used in details
@@ -81,6 +82,7 @@ import { BadgeModule } from '~app/shared/badge/badge.module';
 	],
 	providers: [ProductService],
 	declarations: [
+		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
 		ProductTopCardComponent,
