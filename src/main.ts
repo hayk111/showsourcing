@@ -29,19 +29,16 @@ export function main(): Promise<any> {
 	if (environment.production) {
 		enableProdMode();
 	}
-	if (environment.hmr && module['hot']) {
-		module['hot'].accept();
-	}
-	return (
-		platformBrowserDynamic()
-			.bootstrapModule(AppRootModule)
-			.then(_decorateModuleRef)
-			// .then((ngModuleRef: any) => {
-			// 	return hmrModule(ngModuleRef, module);
-			// })
-
-			.catch(err => Log.error(err))
-	);
+	// if (environment.hmr && module['hot']) {
+	// 	module['hot'].accept();
+	// }
+	return platformBrowserDynamic()
+		.bootstrapModule(AppRootModule)
+		.then(_decorateModuleRef)
+		.then((ngModuleRef: any) => {
+			return hmrModule(ngModuleRef, module);
+		})
+		.catch(err => Log.error(err));
 }
 
 bootloader(main);
