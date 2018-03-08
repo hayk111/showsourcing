@@ -48,6 +48,7 @@ export class ProjectService {
 	addProduct(projectid: String, productid: String) {
 		return this.http.put(`api/project/${projectid}/product/${productid}`, {});
 	}
+
 	removeProduct(projectid: String, productid: String) {
 		return this.http.delete(`api/project/${projectid}/product/${productid}`, {});
 	}

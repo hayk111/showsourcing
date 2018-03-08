@@ -52,6 +52,7 @@ import {
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
+import { FilesCardComponent } from './components/files-card/files-card.component';
 
 @NgModule({
 	imports: [
@@ -104,6 +105,7 @@ import { ProductEffects } from './store/product.effects';
 		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
+		FilesCardComponent,
 		ProductGeneralInfoComponent,
 	],
 	exports: [

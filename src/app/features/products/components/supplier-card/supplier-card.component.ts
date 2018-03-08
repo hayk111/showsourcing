@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	ChangeDetectionStrategy,
+} from '@angular/core';
 import { Supplier } from '~app/features/suppliers';
 import { Router } from '@angular/router';
 
@@ -6,6 +11,7 @@ import { Router } from '@angular/router';
 	selector: 'supplier-card-app',
 	templateUrl: './supplier-card.component.html',
 	styleUrls: ['./supplier-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierCardComponent implements OnInit {
 	@Input() supplier: Supplier;

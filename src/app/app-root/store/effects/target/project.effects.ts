@@ -3,7 +3,10 @@ import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ProjectService } from '~projects/services/project.service';
 
-import { ActionType, ProjectTargetActions } from '../../action/target/project.action';
+import {
+	ActionType,
+	ProjectTargetActions,
+} from '../../action/target/project.action';
 import { SelectionService } from '../../services/selection.service';
 
 @Injectable()
@@ -16,14 +19,18 @@ export class ProjectTargetEffects {
 		map((r: any) => ProjectTargetActions.set(r))
 	);
 
-	@Effect({ dispatch: false })
-	add$ = this.actions$
-		.ofType<any>(ActionType.ADD)
-		.pipe(
-			map(action => action.payload),
-			withLatestFrom(this.selectionSrv.getSelection(), (project, target) => ({ project, target })),
-			switchMap(({ project, target }) => this.srv.addForTarget(project, target))
-		);
+	// @Effect({ dispatch: false })
+	// add$ = this.actions$
+	// 	.ofType<any>(ActionType.ADD)
+	// 	.pipe(
+	// 		map(action => action.payload),
+	// 		withLatestFrom(this.selectionSrv.getSelection(), (project, target) => ({ project, target })),
+	// 		switchMap(({ project, target }) => this.srv.addForTarget(project, target))
+	// 	);
 
-	constructor(private actions$: Actions, private srv: ProjectService, private selectionSrv: SelectionService) {}
+	constructor(
+		private actions$: Actions,
+		private srv: ProjectService,
+		private selectionSrv: SelectionService
+	) {}
 }
