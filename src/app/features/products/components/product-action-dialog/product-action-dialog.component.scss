@@ -1,5 +1,8 @@
 [content] {
   max-height: 366px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 600px;
 }
 [footer] {
 width: 100%;
@@ -35,7 +38,7 @@ width: 100%;
   align-items: center;
   height: 57px;
   color: var(--color-primary-dark);
-  width: 520px;
+  width: 100%;
   box-sizing: border-box;
   padding: 0 10px;
 }
@@ -48,13 +51,11 @@ width: 100%;
 .icon-circle-unchecked {
   color: var(--color-txt-secondary);
   font-size: 24px;
-  margin-right: 13px;
 }
 
 .icon-circle-checked {
   color: var(--color-primary);
   font-size: 22px;
-  margin-right: 13px;
 }
 
 .name {
