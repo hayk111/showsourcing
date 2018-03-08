@@ -5,7 +5,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { selectUserTeamId } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
-import { selectEntityArray } from '~entity/store/selectors';
+import { selectEntityArray } from '~entity/store';
 import { Entity, EntityRepresentation } from '~entity/models';
 import { map, startWith } from 'rxjs/operators';
 
@@ -18,13 +18,9 @@ export class FilterEntityPanelService {
 	}
 
 	getItemsWithCount(rep: EntityRepresentation) {
-		return combineLatest(
-			this.getItems(rep),
-			this.getCount(rep),
-			(items, counts) => {
-				return this.combineItemAndCount(items, counts);
-			}
-		);
+		return combineLatest(this.getItems(rep), this.getCount(rep), (items, counts) => {
+			return this.combineItemAndCount(items, counts);
+		});
 	}
 
 	getItems(entityRepr: EntityRepresentation) {
@@ -41,10 +37,7 @@ export class FilterEntityPanelService {
 			.pipe(map((r: any) => r.items), startWith({}));
 	}
 
-	private combineItemAndCount(
-		items: Array<Entity>,
-		counts: { [key: string]: number }
-	) {
+	private combineItemAndCount(items: Array<Entity>, counts: { [key: string]: number }) {
 		Log.debug('combining items and counts for filters');
 		items = items.map(item => ({
 			id: item.id,

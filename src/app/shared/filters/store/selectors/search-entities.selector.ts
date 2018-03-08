@@ -4,7 +4,7 @@ import { selectFiltersValues } from './filter.selectors';
 import { Log } from '~utils';
 
 import { Entity, EntityRepresentation } from '~entity/models';
-import { selectEntityArray } from '~entity/store/selectors';
+import { selectEntityArray } from '~entity/store';
 import { MemoizedSelector } from '@ngrx/store';
 
 export interface SmartSearch {
@@ -20,9 +20,7 @@ export const searchEntity = (repr: EntityRepresentation, str: string) => {
 		// with no search terms we return all entities
 		if (str === '') return entities;
 		else {
-			const result = entities.filter(entity => entity.name.includes(str)) as Array<
-				Entity
-			>;
+			const result = entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
 			return result;
 		}
 	});
@@ -36,10 +34,7 @@ export interface SearchedEntities {
 // returns an array like so [
 // 	{ repr: someRepr, result: [entities]}
 // ]
-export const searchEntities = (
-	reprs: Array<EntityRepresentation>,
-	str: string
-) => {
+export const searchEntities = (reprs: Array<EntityRepresentation>, str: string) => {
 	const sels = reprs.map(repr => searchEntity(repr, str)) as any;
 	return createSelector(sels, (...results) => {
 		results = results

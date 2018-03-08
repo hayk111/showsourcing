@@ -10,6 +10,7 @@ import { catchError } from 'rxjs/operators/catchError';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 import { AppFile } from '../models';
+import { Swap } from '~app/shared/entity/utils';
 
 @Injectable()
 export class FilesEffects {
@@ -31,16 +32,19 @@ export class FilesEffects {
 			files,
 			target,
 		})),
-		switchMap((p: any) =>
+		switchMap(p =>
 			this.srv.uploadFiles(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
-				map((r: any) =>
+				mergeMap((r: Array<Swap>) => [
 					FeedbackDlgActions.add({
 						styleType: FeedbackStyle.SUCCESS,
 						title: 'File Uploaded',
 						body: 'Your file was uploaded with success',
-					})
-				),
+					}),
+					// we also replace the current pending files
+					FileActions.replace(r),
+				]),
+				// TODO: cedric replace existing with new one as to not be pending
 				catchError(e => of(AppErrorActions.add(e)))
 			)
 		)

@@ -6,16 +6,14 @@ import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
+import { Swap } from '~app/shared/entity/utils';
 
 @Injectable()
 export class SuppliersEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(
-			switchMap(_ => this.srv.load()),
-			map((result: any) => SupplierActions.add(result))
-		);
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => SupplierActions.add(result)));
 
 	@Effect()
 	loadById$ = this.action$
@@ -35,8 +33,10 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						map((r: any) => SupplierActions.replace(supplier, r)),
-						catchError(e => of(AppErrorActions.add(e)))
+						map(
+							(r: any) => SupplierActions.replace([new Swap(supplier, r)]),
+							catchError(e => of(AppErrorActions.add(e)))
+						)
 					)
 			)
 		);

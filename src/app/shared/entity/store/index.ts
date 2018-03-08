@@ -1,2 +1,2 @@
-export * from './actions';
-export * from './selectors';
+export * from './entity.action.factory';
+export * from './entity.selector';

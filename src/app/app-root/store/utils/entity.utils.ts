@@ -1,4 +1,5 @@
 import { Entity, EntityState } from '~entity';
+import { Swap } from '~app/shared/entity/utils';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
@@ -26,6 +27,24 @@ export function addEntities(state: any, entities: Array<any> | any) {
 	};
 }
 
+// replace mutliple entities
+export function replaceEntities(state, swaps: Array<Swap>) {
+	const oldIds = swaps.map(swap => swap.old.id);
+	const replacings = swaps.map(swap => swap.replacing);
+	let ids = [...state.ids];
+	const byId = { ...state.byId };
+	// we remove the ids to be replaced from the array of ids
+	ids = ids.filter(id => !oldIds.includes(id));
+	oldIds.forEach(old => delete byId[old]);
+	replacings.forEach(replacing => (byId[replacing.id] = replacing));
+	return {
+		...state,
+		ids,
+		byId,
+	};
+}
+
+// replace one
 export function replaceEntity(state: any, old: Entity, replacing: Entity) {
 	const oldId = old.id;
 	const replacingId = replacing.id;
@@ -47,9 +66,7 @@ export function replaceEntity(state: any, old: Entity, replacing: Entity) {
 	return state;
 }
 
-export const entityStateToArray = (
-	entityState: EntityState<any>
-): Array<any> => {
+export const entityStateToArray = (entityState: EntityState<any>): Array<any> => {
 	const returned = [];
 	entityState.ids.forEach(id => {
 		returned.push(entityState.byId[id]);

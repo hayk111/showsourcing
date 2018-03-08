@@ -1,13 +1,8 @@
 import { Entity, entityInitialState, EntityState } from '~entity/models';
-import { BasicActionTypes } from '~entity/store/actions/entity.action.factory';
+import { BasicActionTypes } from '~entity/store';
 import { TypedAction } from '~utils';
 
-import {
-	addEntities,
-	copyById,
-	removeEntities,
-	replaceEntity,
-} from './../utils';
+import { addEntities, copyById, removeEntities, replaceEntity, replaceEntities } from './../utils';
 
 export function basicReducerFactory<G extends Entity>(
 	actionType: BasicActionTypes,
@@ -32,9 +27,13 @@ export function basicReducerFactory<G extends Entity>(
 				const value = action.payload.value;
 				return copyById(state, id, { [propName]: value });
 
-			// replacing
+			// replace one
 			case actionType.REPLACE:
-				return replaceEntity(state, action.payload.old, action.payload.replacing);
+				return replaceEntities(state, action.payload);
+
+			// replace many
+			case actionType.REPLACE:
+				return;
 
 			case actionType.DELETE:
 				return removeEntities(state, action.payload);

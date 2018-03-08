@@ -8,6 +8,7 @@ import { SelectionService } from '~store/services/selection.service';
 import { ImageActionType, ImageActions } from './images.action';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
+import { Swap } from '~app/shared/entity/utils';
 
 @Injectable()
 export class ImageEffects {
@@ -34,13 +35,7 @@ export class ImageEffects {
 			this.srv.uploadFiles(p).pipe(
 				// the file might not be ready yet so we have to query it until it's ready.
 				switchMap(
-					(r: any) =>
-						this.srv.queryFile(r).pipe(
-							tap(d => {
-								debugger;
-							}),
-							retry(10)
-						)
+					(r: any) => this.srv.queryFile(r).pipe(retry(10))
 					// TODO: cedric REPLACE
 					// map((r: any) => ImageActions.replace(p.file, r))
 				),
@@ -56,7 +51,7 @@ export class ImageEffects {
 			map(action => action.payload),
 			switchMap(
 				img => this.srv.rotate(img),
-				(old: AppImage, replacing: AppImage) => ImageActions.replace(old, replacing)
+				(old: AppImage, replacing: AppImage) => ImageActions.replace([new Swap(old, replacing)])
 			)
 		);
 

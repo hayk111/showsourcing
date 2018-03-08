@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { EntityTarget, EntityRepresentation, Entity } from '../../models';
+import { EntityTarget, EntityRepresentation, Entity } from '../models';
 
 export const selectEntities = state => state.entities;
 
@@ -15,10 +15,7 @@ export const selectEntityById = (target: EntityTarget) => {
 };
 
 // returns multiples entities given an array of ids.
-export const selectMultipleById = (
-	entityRepr: EntityRepresentation,
-	ids: Array<string>
-) => {
+export const selectMultipleById = (entityRepr: EntityRepresentation, ids: Array<string>) => {
 	return createSelector([selectEntity(entityRepr.entityName)], entityState => {
 		return ids.map(id => entityState.byId[id]);
 	});

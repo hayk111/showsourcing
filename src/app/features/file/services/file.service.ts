@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap, map } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
 import { selectUser } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
@@ -19,6 +19,7 @@ import { merge } from 'rxjs/observable/merge';
 import { FileActions } from '~app/features/file';
 import { mergeMap } from 'rxjs/operator/mergeMap';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Swap } from '~app/shared/entity/utils';
 
 @Injectable()
 export class FileService {
@@ -40,20 +41,25 @@ export class FileService {
 		{ files, target }: { files: Array<AppFile>; target: EntityTarget },
 		type: 'image' | 'attachment' = 'attachment'
 	) {
-		return combineLatest(files.map(file => this.uploadFile(file, target)));
+		return combineLatest(
+			files.map((file: AppFile) =>
+				// resolving to a swap so we can replace easily
+				this.uploadFile(file, target).pipe(map((resp: AppFile) => new Swap(file, resp)))
+			)
+		);
 	}
 
+	// uploads a file and returns an observable of the response which is the saved file
 	uploadFile(
 		file: AppFile,
 		target: EntityTarget,
 		type: 'image' | 'attachment' = 'attachment'
-	): Observable<any> {
+	): Observable<AppFile | AppImage> {
 		let data;
 		const fileName = file.fileName;
 		if (type === 'attachment') data = { fileName };
 		else data = { imageType: 'Photo' };
 		return this.upload(data, type, file, target);
-		//	.pipe(tap(FileActions.replace(p.file, r)));
 	}
 
 	private upload(data, type, file: AppFile, target: EntityTarget) {

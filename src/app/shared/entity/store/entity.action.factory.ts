@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 import { Patch, LoadParams } from '~store/utils';
 import { TypedAction } from '~utils';
 
-import { Entity, EntityRepresentation } from '../../models';
+import { Entity, EntityRepresentation } from '../models';
+import { Swap } from '~app/shared/entity/utils';
 
 export interface BasicActionTypes {
 	// loading entities or a subset of entities
@@ -16,7 +17,7 @@ export interface BasicActionTypes {
 	// setting entities (will forget previous ones).
 	SET: string;
 	CREATE: string;
-	// replace existing entity
+	// replace existing entities
 	REPLACE: string;
 	DELETE: string;
 	DOWNLOAD: string;
@@ -34,7 +35,7 @@ export interface BasicActions {
 	set(toSet: Array<Entity>);
 	add(toAdd: Array<Entity>);
 	create(toCreate: Entity);
-	replace(old: Entity, replacing: Entity);
+	replace(swaps: Array<Swap>);
 	delete(ids: Array<string>);
 	download(url: string);
 	setPending();
@@ -95,9 +96,9 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			type: actionType.CREATE,
 			payload: toCreate,
 		}),
-		replace: (old: Entity, replacing: Entity): TypedAction<any> => ({
+		replace: (swaps: Array<Swap>): TypedAction<any> => ({
 			type: actionType.REPLACE,
-			payload: { old, replacing },
+			payload: swaps,
 		}),
 		delete: (ids: Array<string>): TypedAction<any> => ({
 			type: actionType.DELETE,
