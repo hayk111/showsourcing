@@ -70,8 +70,8 @@
   title="My projects"
   buttonLabel="Add to projects"
   dialogType="add"
-  [entities]="projects$"
-  [productsCount]="productsCount"
+  [entities]="projects$ | async"
+  [productsCount]="productsCount$ | async"
   (buttonClicked)="addToProjects($event)"
 ></product-action-dialog-app>
 
@@ -80,7 +80,7 @@
   header="Request Team Feedback"
   title="Team members"
   buttonLabel="Send request"
-  [entities]="teamMembers$"
+  [entities]="teamMembers$ | async"
   dialogType="feedback"
   (buttonClicked)="requestFeeback($event)"
 ></product-action-dialog-app>

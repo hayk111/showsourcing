@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	Output,
+	EventEmitter,
+	ChangeDetectionStrategy,
+} from '@angular/core';
 import { Product } from '~products';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
 
@@ -6,6 +13,7 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 	selector: 'product-selectable-card-app',
 	templateUrl: './product-selectable-card.component.html',
 	styleUrls: ['./product-selectable-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;

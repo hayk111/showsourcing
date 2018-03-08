@@ -3,6 +3,8 @@ import {
 	OnInit,
 	ChangeDetectionStrategy,
 	Input,
+	Output,
+	EventEmitter,
 } from '@angular/core';
 import { AppFile } from '~app/features/file';
 

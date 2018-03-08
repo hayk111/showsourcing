@@ -13,7 +13,7 @@ export class ProductActionDialogComponent implements OnInit {
 	@Input() public header: string;
 	@Input() public title: string;
 	@Input() public buttonLabel: string;
-	@Input() public entities: Observable<Array<Entity>>;
+	@Input() public entities: Array<Entity>;
 	@Input() public productsCount: any;
 	@Input() public dialogType: 'add' | 'feedback' | 'export';
 	@Output() public closed = new EventEmitter();

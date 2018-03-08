@@ -78,7 +78,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	public requestFeedbackDialog: DialogName = DialogName.REQUESTFEEDBACK;
 
 	projects$: Observable<Array<Project>> = new Observable<Array<Project>>();
-	productsCount: any;
+	productsCount$: Observable<number>;
 	teamMembers$: Observable<Array<User>>;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
@@ -90,25 +90,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.productsState$ = this.store.select(selectProductsState);
 		this.productsState$.subscribe(state => (this.productEntities = state));
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
-		const filters$ = this.store.select<any>(
-			selectFilterGroup(this.filterGroupName)
-		);
+		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		filters$.subscribe(filters => {
 			this.loadProducts(filters);
 		});
 
 		this.projects$ = this.store.select(selectMyTeamProjects);
-		this.store
-			.select(selectProjectsProductsCount)
-			.subscribe(count => (this.productsCount = count));
+		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 		this.teamMembers$ = this.store.select(selectMyTeamMembers);
 		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
 	}
 
 	loadProducts(filters) {
-		this.store.dispatch(
-			ProductActions.load({ filters: filters, pagination: true, drop: 0 })
-		);
+		this.store.dispatch(ProductActions.load({ filters: filters, pagination: true, drop: 0 }));
 	}
 
 	loadMore() {
@@ -134,7 +128,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	public deleteSelected() {
-		const products: Array<String> = new Array();
+		const products: Array<string> = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) products.push(key);
 		});
@@ -200,10 +194,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 	public addToProjects(selectedProjects) {
 		this.store.dispatch(
-			ProjectActions.addProducts(
-				Object.keys(selectedProjects),
-				this.selectedProductForDialog
-			)
+			ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog)
 		);
 		this.store.dispatch(DialogActions.close(this.addProductDialog));
 		// this.actionSubject.subscribe(action => {
@@ -239,10 +230,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	public requestFeeback(selectedMembers) {
 		this.store.dispatch(
-			ProductActions.requestFeedback(
-				this.selectedProductForDialog,
-				Object.keys(selectedMembers)
-			)
+			ProductActions.requestFeedback(this.selectedProductForDialog, Object.keys(selectedMembers))
 		);
 		this.store.dispatch(DialogActions.close(this.requestFeedbackDialog));
 	}

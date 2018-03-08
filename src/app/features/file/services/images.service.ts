@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppImage } from '../models/app-image.model';
 import { EntityTarget } from '~entity';
+import { AppFile } from '~app/features/file';
 
 @Injectable()
 export class ImageService extends FileService {
@@ -15,8 +16,8 @@ export class ImageService extends FileService {
 		return super.load(target, 'image');
 	}
 
-	uploadFile(p: { file; target }) {
-		return super.uploadFile(p, 'image');
+	uploadFile(file: AppFile, target: EntityTarget) {
+		return super.uploadFile(file, target, 'image');
 	}
 
 	delete(p: { id; target }) {

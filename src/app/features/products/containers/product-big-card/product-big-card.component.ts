@@ -29,7 +29,9 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const product$: Observable<Product> = this.store.select(selectProductFocused).pipe(filter((o: any) => o));
+		const product$: Observable<Product> = this.store
+			.select(selectProductFocused)
+			.pipe(filter((o: any) => o));
 		product$.pipe(takeUntil(this._destroy$)).subscribe(p => (this.product = p));
 		this.store
 			.select(selectNumCommentsForCurrentTarget)
@@ -49,7 +51,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 		files.forEach(async file => {
 			// this async stuff could probably be abstracted in the store.
 			const img = await AppImage.newInstance(file, this.userSrv.userId);
-			this.store.dispatch(ImageActions.add(img));
+			this.store.dispatch(ImageActions.add([img]));
 		});
 	}
 }

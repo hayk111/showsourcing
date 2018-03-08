@@ -99,7 +99,7 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			type: actionType.REPLACE,
 			payload: { old, replacing },
 		}),
-		delete: (ids: Array<String>): TypedAction<any> => ({
+		delete: (ids: Array<string>): TypedAction<any> => ({
 			type: actionType.DELETE,
 			payload: ids,
 		}),

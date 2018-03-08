@@ -27,14 +27,20 @@ export class ImageEffects {
 		);
 
 	@Effect()
-	addForSelection$ = this.actions$.ofType<any>(ImageActionType.ADD).pipe(
+	add$ = this.actions$.ofType<any>(ImageActionType.ADD).pipe(
 		map(action => action.payload),
 		withLatestFrom(this.selectionSrv.getSelection(), (files, target) => ({ files, target })),
 		switchMap((p: any) =>
 			this.srv.uploadFiles(p).pipe(
 				// the file might not be ready yet so we have to query it until it's ready.
 				switchMap(
-					(r: any) => this.srv.queryFile(r).pipe(retry(10))
+					(r: any) =>
+						this.srv.queryFile(r).pipe(
+							tap(d => {
+								debugger;
+							}),
+							retry(10)
+						)
 					// TODO: cedric REPLACE
 					// map((r: any) => ImageActions.replace(p.file, r))
 				),

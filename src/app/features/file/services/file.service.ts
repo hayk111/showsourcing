@@ -17,6 +17,8 @@ import { AppFile } from '../models/app-file.model';
 import { AppImage } from '../models/app-image.model';
 import { merge } from 'rxjs/observable/merge';
 import { FileActions } from '~app/features/file';
+import { mergeMap } from 'rxjs/operator/mergeMap';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Injectable()
 export class FileService {
@@ -38,7 +40,7 @@ export class FileService {
 		{ files, target }: { files: Array<AppFile>; target: EntityTarget },
 		type: 'image' | 'attachment' = 'attachment'
 	) {
-		return merge(files.map(file => this.uploadFile(file, target)));
+		return combineLatest(files.map(file => this.uploadFile(file, target)));
 	}
 
 	uploadFile(
