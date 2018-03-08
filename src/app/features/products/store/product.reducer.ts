@@ -29,7 +29,7 @@ export function productReducer(
 		case ProjectsActionTypes.ADD_PRODUCTS_SUCCESS:
 			const byId = { ...state.byId };
 			action.payload.forEach(element => {
-				const product: Product = { ...state.byId[element.productId] };
+				const product: Product = { ...byId[element.productId] };
 				if (!product.projectIds.includes(element.projectId)) {
 					product.projectIds = [...product.projectIds, element.projectId];
 				}
