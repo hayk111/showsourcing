@@ -1,0 +1,71 @@
+<div class="statusbar"></div>
+<div class="sectionTitle">General</div>
+<ng-container *ngIf="product$ | async as product">
+  <div class="flexRow">
+    <div class="flexColumn">
+      <div class="cell">
+        <div class="title">Supplier</div>
+        <div class="context">
+          {{product.supplierId | entityName: 'suppliers' | async }}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Category</div>
+        <div class="context">
+          {{product.categoryId | entityName: 'categories' | async }}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Name</div>
+        <div class="context">
+          {{product.name}}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Price</div>
+        <div class="context">
+          {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Created By</div>
+        <div class="context">
+          {{product.createdByUserId | entityName: 'teamMembers' | async}}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Assignee</div>
+        <div class="context">
+          -----> Assignee to assigne :D
+        </div>
+      </div>
+    </div>
+    <div class="flexColumn">
+      <div class="cell">
+        <div class="title">MOQ</div>
+        <div class="context">
+          {{product.supplierId | entityName: 'suppliers' | async }}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">MOQ Description</div>
+        <div class="context">
+          {{product.categoryId | entityName: 'categories' | async }}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="title">Found At</div>
+        <div class="context">
+          {{product.name}}
+        </div>
+      </div>
+      <div class="cell description">
+        <div class="title">Description</div>
+        <div class="context">
+          {{product.description}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sectionTitle shipping">Shipping & Trading</div>
+</ng-container>

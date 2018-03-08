@@ -29,7 +29,6 @@ import { UserModule } from '~user/user.module';
 import {
 	ProductActionDialogComponent,
 	ProductCardViewComponent,
-	ProductGeneralInfoComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
 	ProductSelectableCardComponent,
@@ -48,6 +47,7 @@ import {
 	ProductSidePreviewComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
+	ProductGeneralInfoComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';

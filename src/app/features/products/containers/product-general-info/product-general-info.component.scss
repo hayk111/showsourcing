@@ -1,0 +1,41 @@
+:host {}
+
+.statusbar {
+    height: 70px;
+}
+
+.sectionTitle {
+    font-size: 17px;
+    color: var(--color-button-dark);
+    padding-bottom: var(--spacing-default);
+    margin-bottom: var(--spacing-s);
+    border-bottom: 2px solid var(--color-bg-switcher);
+}
+
+.flexColumn{
+  flex: 1 1 100%;
+  &:first-child {
+    margin-right: var(--spacing-xl);
+  }
+  &:last-child {
+    margin-left: var(--spacing-xl);
+  }
+}
+.cell {
+    height: 73px;
+    border-bottom: 1px solid var(--color-bg-switcher);
+    .title {
+        padding: var(--spacing-nav) 0;
+        font-weight: 600;
+        font-size: var(--font-size-default);
+        color: var(--color-primary-dark);
+    }
+    .content {
+        font-size: var(--font-size-default);
+        color: var(--color-primary-dark);
+    }
+}
+
+.shipping{
+  margin-top: var(--spacing-xl);
+}

@@ -10,6 +10,5 @@ export class ProjectCardComponent implements OnInit {
 	@Input() projects: Array<Project>;
 
 	constructor() {}
-
 	ngOnInit() {}
 }
