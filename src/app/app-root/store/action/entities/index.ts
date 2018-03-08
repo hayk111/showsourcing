@@ -1,5 +1,5 @@
 import { makeBasicActionTypes, makeBasicActions, addActionType } from '~entity';
-import { ERM } from '~entity';
+import { ERM } from '~entity/models';
 
 // keeping capitalization for backward compatibility
 // category

@@ -1,17 +1,12 @@
 import { InjectionToken } from '@angular/core';
-import {
-	ActionReducer,
-	ActionReducerMap,
-	combineReducers,
-	State,
-} from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { authDlgReducer, authenticationReducer } from '~auth';
 import { commentReducer } from '~comment';
 import { dialogReducer } from '~dialog';
-import { FileActionType, imageSelectionReducer } from '~features/file';
+import { FileActionType, imageReducer } from '~features/file/store';
 import { productReducer } from '~products/store';
 import { projectsReducer } from '~projects';
 import { supplierReducer } from '~suppliers';
@@ -39,10 +34,8 @@ import { basicReducerFactory } from './basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
-import {
-	currentTargetReducer,
-	targetReducerFactory,
-} from './target/target.reducer';
+import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
+import { fileReducer } from '~app/features/file';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -61,6 +54,8 @@ const entities = combineReducers({
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
 	customFields: basicReducerFactory(CustomFieldsActionTypes),
+	files: fileReducer,
+	images: imageReducer,
 });
 
 const misc = combineReducers({
@@ -74,8 +69,6 @@ const foccussedEntity = combineReducers({
 	tags: targetReducerFactory(TagSlctnActionTypes),
 	tasks: targetReducerFactory(TaskSlctnActionTypes),
 	comments: commentReducer,
-	files: targetReducerFactory(FileActionType),
-	images: imageSelectionReducer,
 	votes: targetReducerFactory(VoteSlctnActionTypes),
 });
 
@@ -89,9 +82,7 @@ const ui = combineReducers({
 export const reducers = { entities, foccussedEntity, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
-export const reducerToken = new InjectionToken<ActionReducerMap<any>>(
-	'Reducers'
-);
+export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');
 
 export const reducerProvider = [{ provide: reducerToken, useValue: reducers }];
 // end of fix
@@ -120,6 +111,4 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
 	};
 }
 
-export const metaReducers = environment.production
-	? []
-	: [stateSetter, logger, storeFreeze];
+export const metaReducers = environment.production ? [] : [stateSetter, logger, storeFreeze];

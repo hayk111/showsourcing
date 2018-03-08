@@ -5,15 +5,6 @@ import { Vote } from '../../model/entities/vote.model';
 
 export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;
 
-// we only need arrays here
-export const selectFilesForCurrentTarget = state => state.foccussedEntity.files;
-export const selectFilesArrayForCurrentTarget = createSelector(
-	[selectFilesForCurrentTarget],
-	filesState => {
-		return entityStateToArray(filesState);
-	}
-);
-
 export const selectTasksForCurrentTarget = state => state.foccussedEntity.tasks;
 export const selectTaskArrayForCurrentTarget = createSelector(
 	[selectTasksForCurrentTarget],
@@ -21,6 +12,7 @@ export const selectTaskArrayForCurrentTarget = createSelector(
 		return entityStateToArray(filesState);
 	}
 );
+
 export const selectNumTasksForSelection = createSelector(
 	[selectTaskArrayForCurrentTarget],
 	(tasks: Array<any>) => {
@@ -34,15 +26,6 @@ export const selectProjectsArrayForCurrentTarget = createSelector(
 	[selectProjectsForCurrentTarget],
 	filesState => {
 		return entityStateToArray(filesState);
-	}
-);
-
-export const selectImagesForCurrentTarget = state =>
-	state.foccussedEntity.images;
-export const selectImagesArrayForCurrentTarget = createSelector(
-	[selectImagesForCurrentTarget],
-	imageState => {
-		return entityStateToArray(imageState);
 	}
 );
 

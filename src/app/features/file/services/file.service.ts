@@ -1,14 +1,22 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+	HttpClient,
+	HttpEvent,
+	HttpEventType,
+	HttpRequest,
+	HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
 import { selectUser } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
 
 import { AppFile } from '../models/app-file.model';
 import { AppImage } from '../models/app-image.model';
+import { merge } from 'rxjs/observable/merge';
+import { FileActions } from '~app/features/file';
 
 @Injectable()
 export class FileService {
@@ -26,8 +34,16 @@ export class FileService {
 		return this.http.get(`api/${name}/${id}/${type}`);
 	}
 
+	uploadFiles(
+		{ files, target }: { files: Array<AppFile>; target: EntityTarget },
+		type: 'image' | 'attachment' = 'attachment'
+	) {
+		return merge(files.map(file => this.uploadFile(file, target)));
+	}
+
 	uploadFile(
-		{ file, target }: { file: AppFile; target: EntityTarget },
+		file: AppFile,
+		target: EntityTarget,
 		type: 'image' | 'attachment' = 'attachment'
 	): Observable<any> {
 		let data;
@@ -35,6 +51,7 @@ export class FileService {
 		if (type === 'attachment') data = { fileName };
 		else data = { imageType: 'Photo' };
 		return this.upload(data, type, file, target);
+		//	.pipe(tap(FileActions.replace(p.file, r)));
 	}
 
 	private upload(data, type, file: AppFile, target: EntityTarget) {
@@ -55,7 +72,9 @@ export class FileService {
 	private uploadFileToAws(awsInfo: any, file, type: string, target): Observable<any> {
 		Log.debug('upload to aws');
 		const formData = this.converFormData(file.file, awsInfo.formData);
-		const req = new HttpRequest('POST', awsInfo.url, formData, { reportProgress: true });
+		const req = new HttpRequest('POST', awsInfo.url, formData, {
+			reportProgress: true,
+		});
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
 			filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
@@ -104,12 +123,12 @@ export class FileService {
 	}
 
 	delete(
-		{ file, target }: { file: AppFile | AppImage; target: EntityTarget },
+		{ id, target }: { id: string; target: EntityTarget },
 		type: 'attachment' | 'image' = 'attachment'
 	) {
 		const targetName = target.entityRepr.urlName;
 		const targetId = target.entityId;
-		return this.http.delete(`api/${targetName}/${targetId}/${type}/${file.id}`);
+		return this.http.delete(`api/${targetName}/${targetId}/${type}/${id}`);
 	}
 
 	download(img: AppFile) {

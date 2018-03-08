@@ -33,7 +33,7 @@ export function basicReducerFactory<G extends Entity>(
 				return copyById(state, id, { [propName]: value });
 
 			// replacing
-			case actionType.REPLACING:
+			case actionType.REPLACE:
 				return replaceEntity(state, action.payload.old, action.payload.replacing);
 
 			case actionType.DELETE:

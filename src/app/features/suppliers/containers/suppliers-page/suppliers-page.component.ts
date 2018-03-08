@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers } from '~suppliers/store/selectors';
+import { selectSuppliers } from '~suppliers/store';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { TargetAction } from '~store/action/target/target.action';
@@ -25,7 +25,7 @@ export class SuppliersPageComponent implements OnInit {
 	// maps current selection
 	selection = new Map<string, boolean>();
 
-	constructor(private store: Store<any>, private router: Router) { }
+	constructor(private store: Store<any>, private router: Router) {}
 
 	ngOnInit() {
 		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));

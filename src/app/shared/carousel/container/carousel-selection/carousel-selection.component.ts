@@ -4,10 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppImage } from '~features/file/models';
-import { ImageTargetActions } from '~features/file/store/actions';
-import { selectImagesForCurrentTarget } from '~store/selectors/target/target.selector';
+import { ImageActions } from '~features/file/store';
 import { entityStateToArray } from '~store/utils';
 import { AutoUnsub } from '~utils';
+import { selectImages } from '~app/features/file';
 
 @Component({
 	selector: 'carousel-selection-app',
@@ -23,26 +23,24 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const imagesState$: Observable<any> = this.store.select(
-			selectImagesForCurrentTarget
-		);
+		const imagesState$: Observable<any> = this.store.select(selectImages);
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
 	}
 
 	add(img: AppImage) {
-		this.store.dispatch(ImageTargetActions.add(img));
+		this.store.dispatch(ImageActions.add([img]));
 	}
 
 	rotate(img: AppImage) {
-		this.store.dispatch(ImageTargetActions.rotate(img));
+		this.store.dispatch(ImageActions.rotate(img.id));
 	}
 
 	delete(img: AppImage) {
-		this.store.dispatch(ImageTargetActions.remove(img));
+		this.store.dispatch(ImageActions.delete([img.id]));
 	}
 
 	download(img: AppImage) {
-		this.store.dispatch(ImageTargetActions.download(img));
+		this.store.dispatch(ImageActions.download(img.url));
 	}
 }

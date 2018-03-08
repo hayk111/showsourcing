@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EntityTarget } from '~entity';
 import { Store } from '@ngrx/store';
-import { selectSuppliers } from '~suppliers/store/selectors/suppliers.selector';
+import { selectSuppliers } from '~suppliers/store';
 import { selectCurrentTarget } from '~store/selectors/target/target.selector';
 
 @Component({

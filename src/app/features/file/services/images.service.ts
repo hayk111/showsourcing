@@ -5,11 +5,8 @@ import { Injectable } from '@angular/core';
 import { AppImage } from '../models/app-image.model';
 import { EntityTarget } from '~entity';
 
-
-
 @Injectable()
 export class ImageService extends FileService {
-
 	constructor(protected http: HttpClient, protected store: Store<any>) {
 		super(http, store);
 	}
@@ -18,11 +15,11 @@ export class ImageService extends FileService {
 		return super.load(target, 'image');
 	}
 
-	uploadFile(p: { file, target }) {
+	uploadFile(p: { file; target }) {
 		return super.uploadFile(p, 'image');
 	}
 
-	delete(p: { file, target }) {
+	delete(p: { id; target }) {
 		return super.delete(p, 'image');
 	}
 
@@ -36,7 +33,7 @@ export class ImageService extends FileService {
 
 	rotate(img: AppImage) {
 		// we also need to add the client side rotation because if the client clicks twice on rotation that needs to be added up
-		const orientation = ( img.orientation + 1 ) % 4 + (img.rotation || 0 );
+		const orientation = (img.orientation + 1) % 4 + (img.rotation || 0);
 		return this.http.patch(`api/image/${img.id}`, { orientation });
 	}
 

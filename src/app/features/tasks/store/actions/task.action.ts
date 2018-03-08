@@ -1,10 +1,10 @@
-import { BasicActionTypes, ERM, makeBasicActions, makeBasicActionTypes } from '~entity';
+import {
+	BasicActionTypes,
+	ERM,
+	makeBasicActions,
+	makeBasicActionTypes,
+} from '~entity';
 
-// Extending action constants with specific ones
-export interface TaskActionTypes extends BasicActionTypes {
-}
-// keeping capitalization for backward compatibility
 // Generating Action types constants wrapped inside one object
-export const ActionType: TaskActionTypes = makeBasicActionTypes(ERM.tasks);
+export const ActionType: BasicActionTypes = makeBasicActionTypes(ERM.tasks);
 export const TaskActions = makeBasicActions(ActionType);
-ERM.tasks.actions = TaskActions;

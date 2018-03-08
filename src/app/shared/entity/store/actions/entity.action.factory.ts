@@ -17,8 +17,9 @@ export interface BasicActionTypes {
 	SET: string;
 	CREATE: string;
 	// replace existing entity
-	REPLACING: string;
+	REPLACE: string;
 	DELETE: string;
+	DOWNLOAD: string;
 	// set pending so we can display a spinner on screen
 	SET_PENDING: string;
 	// modify property of entity
@@ -34,40 +35,34 @@ export interface BasicActions {
 	add(toAdd: Array<Entity>);
 	create(toCreate: Entity);
 	replace(old: Entity, replacing: Entity);
-	delete(ids: Array<String>);
+	delete(ids: Array<string>);
+	download(url: string);
 	setPending();
 	patch(patch: Patch);
 	merge();
 }
 
 // makes basic action types
-export function makeBasicActionTypes(
-	repr: EntityRepresentation
-): BasicActionTypes {
+export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTypes {
 	// using uppercase for backward compatibility with enums
 	return {
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
 		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
-		// even though items are preloaded, not every info in them are preloaded
-		// load by id does a 'deep loading'
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
 		SET: `[${repr.entityName.capitalize()} Setting...]`,
 		ADD: `[${repr.entityName.capitalize()}] Adding...`,
 		CREATE: `[${repr.entityName.capitalize()}] Creating...`,
-		REPLACING: `[${repr.entityName.capitalize()}] Replacing...`,
+		REPLACE: `[${repr.entityName.capitalize()}] Replacing...`,
 		DELETE: `[${repr.entityName.capitalize()}] Deleting...`,
 		SET_PENDING: `[${repr.entityName.capitalize()}] Setting pending...`,
 		PATCH: `[${repr.entityName.capitalize()}] Patching...`,
+		DOWNLOAD: `[${repr.entityName.capitalize()}] Downloading...`,
 		MERGE: `[${repr.entityName.capitalize()}] Merging...`,
 	};
 }
 
 // adds actionType to the basic types
-export function addActionType(
-	actionTypes: any,
-	repr: EntityRepresentation,
-	actionName: string
-) {
+export function addActionType(actionTypes: any, repr: EntityRepresentation, actionName: string) {
 	return (actionTypes[
 		actionName.toUpperCase()
 	] = `[${repr.entityName.capitalize()}] ${actionName}...`);
@@ -101,12 +96,16 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			payload: toCreate,
 		}),
 		replace: (old: Entity, replacing: Entity): TypedAction<any> => ({
-			type: actionType.REPLACING,
+			type: actionType.REPLACE,
 			payload: { old, replacing },
 		}),
 		delete: (ids: Array<String>): TypedAction<any> => ({
 			type: actionType.DELETE,
 			payload: ids,
+		}),
+		download: (url: string): TypedAction<any> => ({
+			type: actionType.DOWNLOAD,
+			payload: url,
 		}),
 		setPending: (): Action => ({ type: actionType.SET_PENDING }),
 		patch: (patch: Patch): TypedAction<any> => ({

@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap } from 'rxjs/operators';
-import { AppFile, FileTargetActions } from '~features/file';
+import { AppFile, FileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
@@ -24,6 +24,7 @@ export class ProductEffects {
 			);
 		})
 	);
+
 	@Effect({ dispatch: false })
 	delete$ = this.actions$.ofType<any>(ProductActionTypes.DELETE).pipe(
 		map(action => action.payload),
@@ -87,7 +88,7 @@ export class ProductEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
-			map(path => FileTargetActions.download({ url: path } as AppFile))
+			map(path => FileActions.download(path))
 		);
 
 	@Effect({ dispatch: false })

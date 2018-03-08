@@ -40,6 +40,8 @@ export interface ProductActions extends BasicActions {
 export const ProductActions: ProductActions = makeBasicActions(
 	ProductActionTypes
 );
+
+// additional actions / extensions of the base
 ProductActions.requestPdf = (id: string) => {
 	return {
 		type: ProductActionTypes.REQUEST_PDF,
@@ -67,5 +69,3 @@ ProductActions.vote = (id: string, value: 0 | 100) => {
 		payload: { id, value },
 	};
 };
-
-ERM.product.actions = ProductActions;

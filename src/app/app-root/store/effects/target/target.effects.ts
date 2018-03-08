@@ -3,8 +3,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 import { CommentTargetActions } from '~comment/store/actions/comment.action';
 
-import { FileTargetActions } from '~features/file';
-import { ImageTargetActions } from '~features/file';
+import { FileActions } from '~features/file';
+import { ImageActions } from '~features/file';
 import { ProjectTargetActions } from '../../action/target/project.action';
 import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { ActionType } from '../../action/target/target.action';
@@ -31,15 +31,15 @@ export class TargetEffects {
 			case m.product.entityName:
 				return [
 					CommentTargetActions.load(),
-					FileTargetActions.load(),
-					ImageTargetActions.load(),
+					FileActions.load(),
+					ImageActions.load(),
 					ProjectTargetActions.load(),
 					TagSlctnActions.load(),
 					TaskTargetActions.load(),
 					VoteSlctnActions.load(),
 				];
 			case m.suppliers.entityName:
-				return [CommentTargetActions.load(), FileTargetActions.load(), ImageTargetActions.load()];
+				return [CommentTargetActions.load(), FileActions.load(), ImageActions.load()];
 			default:
 				throw Error('entity target not defined in TargetEffects');
 		}

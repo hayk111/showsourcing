@@ -14,8 +14,8 @@ import { TeamMembersEffects } from './entities/team-members.effects';
 import { TeamEffects } from './entities/team.effects';
 import { AppErrorsEffects } from './misc/app-error.effects';
 import { TokenEffects, AuthenticationEffects } from '~auth';
-import { FilesTargetEffects } from '~features/file';
-import { ImageTargetEffects } from '~features/file';
+import { FilesEffects } from '~features/file';
+import { ImageEffects } from '~features/file';
 import { ProjectTargetEffects } from './target/project.effects';
 import { TagTargetEffects } from './target/tag.effects';
 import { TargetEffects } from './target/target.effects';
@@ -49,8 +49,8 @@ export const effects = [
 	// target
 	TargetEffects,
 	CommentTargetEffects,
-	FilesTargetEffects,
-	ImageTargetEffects,
+	FilesEffects,
+	ImageEffects,
 	ProjectTargetEffects,
 	TagTargetEffects,
 	TaskTargetEffects,
