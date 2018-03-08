@@ -2,11 +2,11 @@
 
 	<header class="header">
 		<nav>
+			<a [routerLink]="['general']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">General Information</a>
 			<a [routerLink]="['activity']" routerLinkActive="selected" i18n="header-link|recent product activity@@Activity">Activity</a>
-			<a [routerLink]="['tasks']" routerLinkActive="selected" i18n="header-link|product tasks@@Tasks">Tasks</a>
-			<a [routerLink]="['files']" routerLinkActive="selected" i18n="header-link|product files@@Files">Files</a>
+			<a [routerLink]="['tech']" routerLinkActive="selected" i18n="header-link|product tasks@@Tasks">Technical Sheet</a>
+			<a class="fillnav"></a>
 		</nav>
-		<div class="hr2"></div>
 	</header>
 
 	<main class="main">
