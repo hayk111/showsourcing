@@ -88,30 +88,27 @@ export class AppRootModule {
 		private _store: Store<any>
 	) {
 		if (environment.hmr && module['hot']) {
-			module['hot']['accept']();
-			if (module['hot']) {
-				if (module['hot']['data']) {
-					this.hmrOnInit(module['hot']['data']);
-				}
-				module['hot']['dispose'](store => {
-					this.hmrOnDestroy(store);
-					_m.destroy();
-					this.hmrAfterDestroy(store);
-				});
+			module['hot']['accept']('./app-root.module.ts');
+			console.log(module);
+			if (module['hot']['data']) {
+				this.customHmrOnInit(module['hot']['data']);
 			}
 		}
 	}
-	hmrOnInit(store) {
-		Log.info('------- HMR init');
+	customHmrOnInit(store) {
 		if (!store || !store.rootState) return;
 		Log.info('HMR store', store.rootState);
-		// restore state by dispatch a SET_ROOT_STATE action
 		if (store.rootState) {
 			this._store.dispatch({
 				type: 'SET_ROOT_STATE',
 				payload: store.rootState,
 			});
 		}
+	}
+
+	hmrOnInit(store) {
+		Log.info('------- HMR init');
+		if (!store || !store.rootState) return;
 		if ('restoreInputValues' in store) {
 			store.restoreInputValues();
 		}

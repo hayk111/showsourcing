@@ -1,8 +1,8 @@
+import { ERM } from './../models/entities.model';
+import { selectMultipleById } from './../store/selectors/entity.selector';
 import { Pipe, PipeTransform } from '@angular/core';
-import { EntityPipe } from './entity.pipe';
-import { selectEntityArray, selectMultipleById, ERM } from '~app/shared/entity';
-import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 
 @Pipe({

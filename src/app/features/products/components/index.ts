@@ -10,3 +10,4 @@ export * from './selection-actions/selection-actions.component';
 export * from './product-list-view/product-list-view.component';
 export * from './supplier-card/supplier-card.component';
 export * from './project-card/project-card.component';
+export * from './product-general-info/product-general-info.component';

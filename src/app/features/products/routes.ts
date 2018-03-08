@@ -1,16 +1,8 @@
 import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
-import {
-	ProductPageComponent,
-	ProductsPageComponent,
-	ProductTasksComponent,
-} from './containers';
-import { FilesPageComponent } from '~app/features/file';
-import {
-	ProductListViewComponent,
-	ProductCardViewComponent,
-} from '~app/features/products';
+import { ProductGeneralInfoComponent } from './components';
+import { ProductPageComponent, ProductsPageComponent } from './containers';
 
 export const routes: Array<Route> = [
 	{
@@ -25,9 +17,8 @@ export const routes: Array<Route> = [
 				path: 'details/:id',
 				component: ProductPageComponent,
 				children: [
+					{ path: 'general', component: ProductGeneralInfoComponent },
 					{ path: 'activity', component: CommentCtnrComponent },
-					{ path: 'tasks', component: ProductTasksComponent },
-					{ path: 'files', component: FilesPageComponent },
 				],
 			},
 		],
