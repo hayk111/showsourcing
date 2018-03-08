@@ -51,6 +51,7 @@ import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
 import { BadgeModule } from '~app/shared/badge/badge.module';
 import { InputsModule } from '~app/shared/inputs';
+import { FilesCardComponent } from './components/files-card/files-card.component';
 
 @NgModule({
 	imports: [
@@ -103,6 +104,7 @@ import { InputsModule } from '~app/shared/inputs';
 		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
+		FilesCardComponent,
 	],
 	exports: [
 		ProductSmallCardComponent,
