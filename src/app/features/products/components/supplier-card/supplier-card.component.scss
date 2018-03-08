@@ -1,3 +1,9 @@
+:host {
+	display: block;
+	// adding some padding on the sides
+	padding: 0 var(--spacing-default);
+}
+
 .supplierIcon {
 	background: var(--color-primary-light);
 	height: 48px;
@@ -18,16 +24,16 @@ h2 {
 	.name {
 		font-size: var(--font-size-l);
 		color: var(--color-txt-strong);
-		font-weight: bold;
+		font-weight: 600;
 	}
 
 	.from {
-		font-weight: bold;
+		font-weight: 600;
 	}
 
 	badge-app {
 		color: var(--color-txt-secondary);
-		font-weight: bold;
+		font-weight: 600;
 	}
 }
 

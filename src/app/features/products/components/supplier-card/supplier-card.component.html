@@ -11,7 +11,7 @@
 			Manufacturer from {{ supplier?.countryCode | entity: 'countries': 'fullName' | async }}
 		</span>
 		<ng-template #noCode>
-			<span i18n>No address</span>
+			<span class="from" i18n>No address</span>
 		</ng-template>
 		<badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
 	</div>

@@ -61,9 +61,11 @@ import { InputsModule } from '~app/shared/inputs';
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
+		// TODO: cedric maybe merge those 3 modules below.
+		EntityPageModule, // used as template of page
 		EntityMainCardModule, // used in details
+		EntityModule,
 		LikesChartModule, // used in details
-		EntityModule, // TODO to be removed and placed inside the component module using it
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		FileModule.forChild(), // TODO to be removed and placed inside the component module using it
@@ -75,7 +77,6 @@ import { InputsModule } from '~app/shared/inputs';
 		PriceModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // could move into EntityPageModule ?
-		EntityPageModule, // used as template of page
 		TableModule, // used in list
 		FiltersModule, // used for filters
 		CarouselModule,

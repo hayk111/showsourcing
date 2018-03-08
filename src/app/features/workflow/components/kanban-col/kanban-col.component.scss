@@ -10,7 +10,7 @@
 header {
 	background: var(--color-bg);
 	text-align: center;
-	font-weight: bold;
+	font-weight: 600;
 	padding: var(--spacing-default);
 	text-transform: uppercase;
 }
@@ -33,7 +33,7 @@ main {
 	background-color: var(--color-bg);
 	.overlayTitle {
 		font-size: var(--font-size-xxl);
-		font-weight: bold;
+		font-weight: 600;
 	}
 }
 
