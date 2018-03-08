@@ -9,13 +9,13 @@
 			</card-app>
 
 
-			<card-app padding="xl">
+			<card-app>
 				<supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
 			</card-app>
 
 
 			<card-app>
-				<project-card-app [projects]="product.projects"></project-card-app>
+				<project-card-app [projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
 			</card-app>
 
 
