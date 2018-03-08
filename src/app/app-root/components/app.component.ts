@@ -19,11 +19,10 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		setTimeout(() => {
-			if (!this.hmrService.isStoreLoaded()) {
-				this.store.dispatch(TokenActions.check());
-				this.preloader.init();
-			}
-		}, 0);
+		console.log('App init');
+		if (!this.hmrService.isStoreLoaded()) {
+			this.store.dispatch(TokenActions.check());
+			this.preloader.init();
+		}
 	}
 }
