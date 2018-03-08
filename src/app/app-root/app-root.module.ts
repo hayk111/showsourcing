@@ -3,7 +3,7 @@ import { CommentModule } from './../features/comment/comment.module';
 import 'rxjs/add/operator/take';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ApplicationRef, NgModule } from '@angular/core';
+import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -82,7 +82,25 @@ import { EntityModule } from '~app/shared/entity';
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	constructor(public appRef: ApplicationRef, private _store: Store<any>) {}
+	constructor(
+		public appRef: ApplicationRef,
+		private _m: NgModuleRef<any>,
+		private _store: Store<any>
+	) {
+		if (environment.hmr && module['hot']) {
+			module['hot']['accept']();
+			if (module['hot']) {
+				if (module['hot']['data']) {
+					this.hmrOnInit(module['hot']['data']);
+				}
+				module['hot']['dispose'](store => {
+					this.hmrOnDestroy(store);
+					_m.destroy();
+					this.hmrAfterDestroy(store);
+				});
+			}
+		}
+	}
 	hmrOnInit(store) {
 		Log.info('------- HMR init');
 		if (!store || !store.rootState) return;
