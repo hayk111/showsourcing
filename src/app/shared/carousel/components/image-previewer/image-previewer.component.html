@@ -1,6 +1,6 @@
-	<div class="plusBtn square pointer" (click)="inp.click()">
-		<icon-app name="plus" color="inherit"></icon-app>
-	</div>
-	<img class="square pointer" *ngFor="let image of images; let i = index"
-		[src]="getUrl(i)" (click)="imageClick.emit(i)"/>
+<div class="plusBtn square pointer" (click)="inp.click()">
+	<icon-app name="plus" color="inherit"></icon-app>
+</div>
+<img class="square pointer" *ngFor="let image of images; let i = index"
+	[src]="getUrl(i)" (click)="imageClick.emit(i)"/>
 <input #inp type="file" accept="image/*" (fileSelect)="fileAdded.emit($event)" class="hidden"/>

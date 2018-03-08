@@ -30,13 +30,13 @@ body, .body, .body1 {
 
 h2, h3 {
 	font-weight: 500;
-	color: var(--color-txt-primary);
+	color: var(--color-txt-strong);
 	margin: 0;
 }
 
 h2 {
   margin-bottom: var(--spacing-s);
-  font-size: var(--font-size-xxxl);
+  font-size: var(--font-size-xxl);
 }
 
 // used on top of cards

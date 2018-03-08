@@ -3,3 +3,30 @@
 	height: 48px;
 	width: 48px;
 }
+
+h2 {
+	margin-bottom: var(--spacing-default);
+}
+
+.right {
+	margin-left: var(--spacing-default);
+	& > * {
+		margin-bottom: var(--spacing-s);
+	}
+	.name {
+		font-size: var(--font-size-l);
+		color: var(--color-txt-strong);
+		font-weight: bold;
+	}
+	.from {
+		font-weight: bold;
+	}
+	badge-app {
+		color: var(--color-txt-secondary);
+		font-weight: bold;
+	}
+}
+
+.hr {
+	margin: var(--spacing-default) 0;
+}

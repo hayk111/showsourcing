@@ -4,12 +4,12 @@
 	<div class="flex content">
 		<div class="left">
 
-			<card-app class="carouselCard" [margin]="0">
+			<card-app class="carouselCard">
 				<carousel-selection-app></carousel-selection-app>
 			</card-app>
 
 
-			<card-app margin="l">
+			<card-app padding="xl">
 				<supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
 			</card-app>
 

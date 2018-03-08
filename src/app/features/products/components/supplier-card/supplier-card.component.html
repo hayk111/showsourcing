@@ -1,16 +1,26 @@
-<h3 i18n>Suppliers</h3>
+<h2 i18n>Supplier</h2>
 
-<div class="flex">
-	<div>
+<div class="flex ">
+	<div class="left flexCenter">
 		<div class="cercle supplierIcon"></div>
 	</div>
 
-	<div class="flexColumn">
-		<span>{{ supplier?.name }}</span>
-		<span i18n>Manufacturer from {{ supplier?.countryCode | entity: 'countries': 'fullName' | async }}</span>
+	<div class="right flexColumn">
+		<span class="name">{{ supplier?.name }}</span>
+		<span class="from" i18n *ngIf="supplier?.countryCode; else noCode">
+			Manufacturer from {{ supplier?.countryCode | entity: 'countries': 'fullName' | async }}
+		</span>
+		<ng-template #noCode>
+			<span i18n>No address</span>
+		</ng-template>
 		<badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
 	</div>
 
 </div>
 
 <div class="hr"></div>
+
+<div class="flexBetween">
+	<a i18n>view supplier</a>
+	<button class="small" i18n>contact supplier</button>
+</div>

@@ -3,24 +3,22 @@ input {
 }
 
 button, input[type="submit"] {
-	text-transform: capitalize;
+	text-transform: uppercase;
 	cursor: pointer;
 	box-sizing: border-box;
-	margin-top: var(--spacing-xl);
-	border-radius: 4px;
+	padding: 0 var(--spacing-l);
+	height: 40px;
+	border-radius: 2px;
+	font-size: var(--font-size-default);
 	background: var(--color-primary);
 	border: none;
 	outline: none;
 	color: var(--color-primary-contrast);
-  padding: var(--spacing-default) var(--spacing-xxl);
+	margin: 0;
   box-sizing: border-box;
 	font-family: inherit;
 }
 
-button.small {
-	padding: var(--spacing-xs) var(--spacing-default);
-	margin: 0;
-}
 
 button.secondary {
 	background: var(--color-secondary);
