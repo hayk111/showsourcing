@@ -14,6 +14,10 @@ width: 100%;
     margin-right: 13px;
 }
 
+input-checkbox-app {
+	margin-right: var(--spacing-s);
+}
+
 .contentTitle {
   padding: var(--spacing-xl);
   font-size: 14px;
@@ -48,15 +52,6 @@ width: 100%;
   color: var(--color-txt-secondary);
 }
 
-.icon-circle-unchecked {
-  color: var(--color-txt-secondary);
-  font-size: 24px;
-}
-
-.icon-circle-checked {
-  color: var(--color-primary);
-  font-size: 22px;
-}
 
 .name {
   display: flex;

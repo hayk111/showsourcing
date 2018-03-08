@@ -63,16 +63,10 @@ export class ProductListViewComponent implements OnInit {
 		this.linkColumns();
 	}
 
-	onCheck(event, productId) {
-		event.preventDefault();
-		event.stopPropagation();
-		if (event.target.checked) this.productSelect.emit(productId);
+	onCheck(value, productId) {
+		debugger;
+		if (value) this.productSelect.emit(productId);
 		else this.productUnselect.emit(productId);
-	}
-
-	// when bottom is reached
-	onBottomReached() {
-		console.log('bottom reached !');
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html

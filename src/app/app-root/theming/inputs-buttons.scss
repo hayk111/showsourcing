@@ -25,6 +25,14 @@ button.secondary {
 	color: var(--color-secondary-contrast);
 }
 
+button.light, .button.light {
+	background: transparent;
+	color: var(--color-txt-primary);
+	&:active {
+		background: var(--color-primary-light);
+	}
+}
+
 .inp-box {
 	margin-bottom: 16px;
 	.error{

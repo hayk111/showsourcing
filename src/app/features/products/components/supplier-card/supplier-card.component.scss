@@ -10,17 +10,21 @@ h2 {
 
 .right {
 	margin-left: var(--spacing-default);
+
 	& > * {
 		margin-bottom: var(--spacing-s);
 	}
+
 	.name {
 		font-size: var(--font-size-l);
 		color: var(--color-txt-strong);
 		font-weight: bold;
 	}
+
 	.from {
 		font-weight: bold;
 	}
+
 	badge-app {
 		color: var(--color-txt-secondary);
 		font-weight: bold;
@@ -30,3 +34,4 @@ h2 {
 .hr {
 	margin: var(--spacing-default) 0;
 }
+

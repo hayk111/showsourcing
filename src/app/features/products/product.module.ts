@@ -50,6 +50,7 @@ import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
 import { BadgeModule } from '~app/shared/badge/badge.module';
+import { InputsModule } from '~app/shared/inputs';
 
 @NgModule({
 	imports: [
@@ -79,6 +80,7 @@ import { BadgeModule } from '~app/shared/badge/badge.module';
 		FiltersModule, // used for filters
 		CarouselModule,
 		BadgeModule,
+		InputsModule, // checkbox
 	],
 	providers: [ProductService],
 	declarations: [

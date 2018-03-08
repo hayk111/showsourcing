@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Supplier } from '~app/features/suppliers';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'supplier-card-app',
@@ -8,7 +9,10 @@ import { Supplier } from '~app/features/suppliers';
 })
 export class SupplierCardComponent implements OnInit {
 	@Input() supplier: Supplier;
-	constructor() {}
+
+	constructor(private router: Router) {}
 
 	ngOnInit() {}
+
+	goToSupplier() {}
 }

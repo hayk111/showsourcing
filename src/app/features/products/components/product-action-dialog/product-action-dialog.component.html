@@ -1,12 +1,11 @@
-<dialog-app [name]="dialogName" (closed)="close($event)">
+<dialog-app [name]="dialogName" (closed)="close()">
   <div header>{{header}}</div>
   <div content>
     <div class="contentTitle">{{title}}</div>
     <div *ngIf="dialogType !== 'export'">
       <div *ngFor="let entity of entities | async" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
         <div class="contentRow">
-          <div class="pointer" [class.icon-circle-unchecked]="!selectedEntities[entity.id]" [class.icon-circle-checked]="selectedEntities[entity.id]"
-            (click)="toggleSelectEntity(entity.id)"></div>
+          <input-checkbox-app (click)="toggleSelectEntity(entity.id)" [checked]="selectedEntities[entity.id]"></input-checkbox-app>
           <span class="name" *ngIf="dialogType === 'add'">{{entity.name}}</span>
           <span class="name" *ngIf="dialogType === 'feedback'">{{entity.firstName}} {{entity.lastName}}</span>
           <div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>

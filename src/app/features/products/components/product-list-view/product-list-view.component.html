@@ -8,10 +8,9 @@
 
 <ng-template #main let-row="row">
 	<div class="mainCell">
-		<input
-			type="checkbox"
-			[checked]="selection.get(row.id)"
-			(change)="onCheck($event, row.id)"/>
+		<input-checkbox-app
+			(update)="onCheck($event, row.id)"
+			[checked]="selection.get(row.id)"></input-checkbox-app>
 		<img [src]="row?.mainImage?.urls?.url_60x45"/>
 		<span class="name">{{ row.name }}</span>
 	</div>
