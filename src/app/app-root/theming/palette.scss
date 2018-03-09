@@ -67,3 +67,23 @@ $color-grey: #F3F5F8;
 [color-success] {
   color: var(--color-success) !important;
 }
+
+[bg-success] {
+	background: var(--color-success);
+}
+
+[color-primary] {
+	color: var(--color-primary);
+}
+
+[bg-primary] {
+	background: var(--color-primary);
+}
+
+[color-primary-light] {
+	color: var(--color-primary-light);
+}
+
+[bg-primary-light] {
+	background: var(--color-primary-light);
+}
