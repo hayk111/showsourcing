@@ -6,7 +6,7 @@ import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
 import { ERM } from '~entity';
 
 import { Project } from '../../models';
-import { selectProjectsState } from '../../store/selectors';
+import { selectProjectsState } from '../../store';
 
 @Component({
 	selector: 'projects-page-app',

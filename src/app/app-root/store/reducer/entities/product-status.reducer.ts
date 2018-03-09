@@ -18,7 +18,6 @@ const initialState: EntityState<Entity> = {
 	ids: ['Idea', 'NeedReview', 'UnderAssessment', 'Complete', 'Refused'],
 };
 
-// we are doing a filter for product status for convenience for the filter panel
 export function productStatusReducer(state = initialState, action) {
 	return state;
 }

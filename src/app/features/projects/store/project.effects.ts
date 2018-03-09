@@ -1,16 +1,13 @@
-import { ERM } from '~entity';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/withLatestFrom';
-
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { ERM } from '~entity';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
-import { ProjectService } from '../../services/project.service';
-import { ProjectActions, ProjectsActionTypes } from '../actions';
+import { ProjectService } from '../services/project.service';
+import { ProjectActions, ProjectsActionTypes } from './project.actions';
 
 @Injectable()
 export class ProjectEffects {

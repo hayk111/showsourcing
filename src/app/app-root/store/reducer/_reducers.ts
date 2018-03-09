@@ -26,11 +26,10 @@ import {
 	TeamActionTypes,
 	TeamMembersActionTypes,
 } from '../action/entities';
-import { ActionType as ProjectSlctnActionTypes } from '../action/target/project.action';
 import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
 import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
-import { basicReducerFactory } from './basic-entity.reducer.factory';
+import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
@@ -65,7 +64,6 @@ const misc = combineReducers({
 
 const foccussedEntity = combineReducers({
 	currentTarget: currentTargetReducer,
-	projects: targetReducerFactory(ProjectSlctnActionTypes),
 	tags: targetReducerFactory(TagSlctnActionTypes),
 	tasks: targetReducerFactory(TaskSlctnActionTypes),
 	comments: commentReducer,

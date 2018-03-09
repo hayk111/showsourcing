@@ -8,7 +8,6 @@ import { EntityTarget, ERM, EntityState } from '~entity';
 import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store';
-import { ProjectTargetActions } from '~store/action/target/project.action';
 import { TargetAction } from '~store/action/target/target.action';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { AutoUnsub } from '~utils';

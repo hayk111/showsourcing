@@ -16,8 +16,6 @@ import { AppErrorsEffects } from './misc/app-error.effects';
 import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilesEffects } from '~features/file';
 import { ImageEffects } from '~features/file';
-import { ProjectTargetEffects } from './target/project.effects';
-import { TagTargetEffects } from './target/tag.effects';
 import { TargetEffects } from './target/target.effects';
 import { TaskTargetEffects } from './target/task.effects';
 import { VoteTargetEffects } from './target/vote.effects';
@@ -51,8 +49,6 @@ export const effects = [
 	CommentTargetEffects,
 	FilesEffects,
 	ImageEffects,
-	ProjectTargetEffects,
-	TagTargetEffects,
 	TaskTargetEffects,
 	VoteTargetEffects,
 

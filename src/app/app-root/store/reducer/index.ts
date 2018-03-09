@@ -1,1 +1,1 @@
-export * from './basic-entity.reducer.factory';
+export * from '../../../shared/entity/store/basic-entity.reducer.factory';

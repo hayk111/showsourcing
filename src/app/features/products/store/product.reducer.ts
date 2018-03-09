@@ -1,7 +1,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { EntityState } from '~entity';
 import { entityInitialState } from '~entity/models/entities.model';
-import { ProjectsActionTypes } from '~projects/store/actions/project.actions';
+import { ProjectsActionTypes } from '~projects/store/project.actions';
 import { basicReducerFactory } from '~store';
 import { TypedAction } from '~utils/typed-action.interface';
 

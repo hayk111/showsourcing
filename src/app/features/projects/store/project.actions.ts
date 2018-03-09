@@ -2,13 +2,12 @@ import {
 	addActionType,
 	BasicActions,
 	BasicActionTypes,
+	EntityRepresentation,
 	ERM,
 	makeBasicActions,
 	makeBasicActionTypes,
 } from '~entity';
 import { TypedAction } from '~utils';
-
-import { EntityRepresentation } from './../../../../shared/entity/models/entities.model';
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic actions type + extended types

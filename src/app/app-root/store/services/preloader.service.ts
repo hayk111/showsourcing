@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
-import { ProjectActions } from '~projects/store/actions/project.actions';
+import { ProjectActions } from '~projects/store/project.actions';
 import {
 	CategoryActions,
 	CountryActions,
@@ -17,11 +17,7 @@ import {
 
 @Injectable()
 export class PreloaderService {
-	constructor(
-		private http: HttpClient,
-		private store: Store<any>,
-		private userSrv: UserService
-	) {}
+	constructor(private http: HttpClient, private store: Store<any>, private userSrv: UserService) {}
 
 	init() {
 		// loading all base entities when the user is received

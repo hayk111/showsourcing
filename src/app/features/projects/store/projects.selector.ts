@@ -3,7 +3,7 @@ import { ProjectsState } from '~app/features/projects';
 import { Project } from '~projects/models/project.model';
 import { selectUserTeamId, User } from '~user';
 
-import { EntitiesState } from './../reducers';
+import { EntitiesState } from './project.reducer';
 
 export const getEntitiesState = state => state.entities;
 export const selectProjectsState = createSelector(
