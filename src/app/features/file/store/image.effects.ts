@@ -33,13 +33,9 @@ export class ImageEffects {
 		withLatestFrom(this.selectionSrv.getSelection(), (files, target) => ({ files, target })),
 		switchMap((p: any) =>
 			this.srv.uploadFiles(p).pipe(
-				// the file might not be ready yet so we have to query it until it's ready.
-				switchMap(
-					(r: any) => this.srv.queryFile(r).pipe(retry(10))
-					// TODO: cedric REPLACE
-					// map((r: any) => ImageActions.replace(p.file, r))
-				),
-				catchError(e => of(AppErrorActions.add(e)))
+				map((swaps: Array<Swap>) => ImageActions.replace(swaps))
+				// we can't catch error because there will be errors..
+				// catchError(e => of(AppErrorActions.add(e)))
 			)
 		)
 	);
@@ -65,7 +61,7 @@ export class ImageEffects {
 		.ofType<any>(ImageActionType.DELETE)
 		.pipe(
 			map(action => action.payload),
-			withLatestFrom(this.selectionSrv.getSelection(), (id, target) => ({ id, target })),
+			withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({ ids, target })),
 			switchMap(p => this.srv.delete(p))
 		);
 }

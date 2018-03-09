@@ -23,15 +23,15 @@ addActionType(ImageActionType, ERM.images, 'ROTATE');
 // --------------------------- Constructing basic actions + extended actions
 // ----------------------------------------------------------------------------
 export interface ImageActions extends BasicActions {
-	rotate?(id: string): TypedAction<string>;
+	rotate?(image: AppImage): TypedAction<AppImage>;
 }
 
 export const ImageActions: ImageActions = makeBasicActions(ImageActionType);
 
 // additional actions / extensions of the base
-ImageActions.rotate = (id: string) => {
+ImageActions.rotate = (image: AppImage) => {
 	return {
 		type: ImageActionType.ROTATE,
-		payload: id,
+		payload: image,
 	};
 };

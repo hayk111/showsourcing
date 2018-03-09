@@ -33,7 +33,7 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	}
 
 	rotate(img: AppImage) {
-		this.store.dispatch(ImageActions.rotate(img.id));
+		this.store.dispatch(ImageActions.rotate(img));
 	}
 
 	delete(img: AppImage) {

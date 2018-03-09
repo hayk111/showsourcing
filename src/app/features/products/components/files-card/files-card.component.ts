@@ -16,7 +16,8 @@ import { AppFile } from '~app/features/file';
 })
 export class FilesCardComponent implements OnInit {
 	@Input() files: Array<AppFile> = [];
-
+	@Output() fileAdded = new EventEmitter<any>();
+	@Output() fileRemoved = new EventEmitter<AppFile>();
 	constructor() {}
 
 	ngOnInit() {}

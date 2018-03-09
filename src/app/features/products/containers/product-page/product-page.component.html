@@ -8,20 +8,19 @@
 				<carousel-selection-app></carousel-selection-app>
 			</card-app>
 
-
 			<card-app>
 				<supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
 			</card-app>
 
-
 			<card-app>
-				<project-card-app [projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
+				<project-card-app
+					(removeProject)="removeProject($event)"
+					[projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
 			</card-app>
 
-			<card-app (fileDrop)="onFileAdded($event)">
-				<files-card-app [files]="files$ | async"></files-card-app>
+			<card-app (fileDrop)="onFileAdded($event)" (fileAdded)="onFileAdded($event)">
+				<files-card-app [files]="files$ | async" (fileRemoved)="onFileRemoved($event)"></files-card-app>
 			</card-app>
-
 
 		</div>
 
@@ -31,5 +30,16 @@
 
 	</div>
 
+	<product-action-dialog-app
+		[dialogName]="projectDlgName"
+		header="Add to projects"
+		title="My projects"
+		buttonLabel="Add projects"
+		dialogType="add"
+		[entities]="projects$ | async"
+		[productsCount]="productsCount$ | async"
+		(buttonClicked)="addToProjects($event)">
+	</product-action-dialog-app>
 
 </ng-container>
+

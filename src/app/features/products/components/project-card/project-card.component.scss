@@ -7,7 +7,19 @@
 
 article {
 	padding: var(--spacing-s);
+	border-radius: var(--border-radius);
+	.minus {
+		display: none;
+	}
+	&:hover .minus {
+		display: block;
+	}
 }
+
+.middle {
+	flex-grow: 1;
+}
+
 .cercle {
 	background: var(--color-primary-light);
 	margin-right: var(--spacing-s);

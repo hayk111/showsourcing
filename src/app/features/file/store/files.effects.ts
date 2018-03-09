@@ -44,7 +44,6 @@ export class FilesEffects {
 					// we also replace the current pending files
 					FileActions.replace(r),
 				]),
-				// TODO: cedric replace existing with new one as to not be pending
 				catchError(e => of(AppErrorActions.add(e)))
 			)
 		)
@@ -53,8 +52,8 @@ export class FilesEffects {
 	@Effect({ dispatch: false })
 	removeFile$ = this.actions$.ofType<any>(FileActionType.DELETE).pipe(
 		map(action => action.payload),
-		withLatestFrom(this.selectionSrv.getSelection(), (id, target) => ({
-			id,
+		withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({
+			ids,
 			target,
 		})),
 		switchMap(p => this.srv.delete(p))

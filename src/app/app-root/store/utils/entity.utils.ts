@@ -33,10 +33,15 @@ export function replaceEntities(state, swaps: Array<Swap>) {
 	const replacings = swaps.map(swap => swap.replacing);
 	let ids = [...state.ids];
 	const byId = { ...state.byId };
-	// we remove the ids to be replaced from the array of ids
-	ids = ids.filter(id => !oldIds.includes(id));
-	oldIds.forEach(old => delete byId[old]);
-	replacings.forEach(replacing => (byId[replacing.id] = replacing));
+	// removing from byId
+	swaps.forEach(swap => {
+		delete byId[swap.old.id];
+		byId[swap.replacing.id] = swap.replacing;
+		const oldIndex = ids.indexOf(swap.old.id);
+		if (~oldIndex) {
+			ids[oldIndex] = swap.replacing.id;
+		}
+	});
 	return {
 		...state,
 		ids,

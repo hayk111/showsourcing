@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { AppComment } from '~comment';
-import { EntityTarget, ERM } from '~entity';
+import { EntityTarget, ERM, EntityState } from '~entity';
 import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store';
@@ -14,6 +14,13 @@ import { TargetAction } from '~store/action/target/target.action';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
+import { DialogName } from '~app/shared/dialog';
+import {
+	selectProjectsProductsCount,
+	selectProjects,
+	Project,
+	selectProjectsState,
+} from '~app/features/projects';
 
 @Component({
 	selector: 'product-page-app',
@@ -26,8 +33,10 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	files: Array<AppFile>;
 	comments: Array<AppComment>;
 	projectRep = ERM.projects;
-	projects$: Observable<Array<string>>;
+	projects$: Observable<Array<Project>>;
 	files$: Observable<Array<AppFile>>;
+	projectDlgName = DialogName.ADDTOPROJECT;
+	productsCount$: Observable<number>;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -45,20 +54,25 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 			this.store.dispatch(ProductActions.loadById(id));
 		});
 		this.product$ = this.store.select(selectProductFocused);
-		this.projects$ = this.store.select(selectProjectsForCurrentTarget);
+		this.projects$ = this.store.select(selectProjects);
 		this.files$ = this.store.select(selectFilesAsArray);
+		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 	}
 
 	onProjectAdded(event) {
-		this.store.dispatch(ProjectTargetActions.add(event));
+		// this.store.dispatch(ProjectTargetActions.add(event));
 	}
 
 	onProjectRemoved(event) {
-		this.store.dispatch(ProjectTargetActions.remove(event));
+		// this.store.dispatch(ProjectTargetActions.remove(event));
 	}
 
 	onFileAdded(files: Array<File>) {
 		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
 		this.store.dispatch(FileActions.add(appFiles));
+	}
+
+	onFileRemoved(file: AppFile) {
+		this.store.dispatch(FileActions.delete([file.id]));
 	}
 }

@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { AppImage } from '../models/app-image.model';
 import { EntityTarget } from '~entity';
 import { AppFile } from '~app/features/file';
+import { switchMap, retry, delay, retryWhen, take } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ImageService extends FileService {
@@ -16,11 +18,19 @@ export class ImageService extends FileService {
 		return super.load(target, 'image');
 	}
 
-	uploadFile(file: AppFile, target: EntityTarget) {
-		return super.uploadFile(file, target, 'image');
+	uploadFile(file: AppFile, target: EntityTarget): Observable<AppFile | AppImage> {
+		return super.uploadFile(file, target, 'image').pipe(
+			// so we are sure the file is actually ready, it might not always be the case (ask antoine).
+			// the weird // resp => resp is so we don't get the response from the
+			switchMap((resp: AppImage) =>
+				this.queryFile(resp)
+					.pipe(retryWhen(errors => errors.pipe(delay(2000), take(10))))
+					.map(r => resp)
+			)
+		);
 	}
 
-	delete(p: { id; target }) {
+	delete(p: { ids; target }) {
 		return super.delete(p, 'image');
 	}
 

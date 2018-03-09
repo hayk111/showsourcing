@@ -4,10 +4,15 @@
 	<div class="flexCenter">
 		<div class="cercle"></div>
 	</div>
-	<div class="flexColumn">
+	<div class="flexColumn middle">
 		<span class="name">{{ project?.name }}</span>
 		<span class="numProducts"> - Products </span>
 	</div>
+	<div class="flexCenter">
+		<icon-app class="minus pointer" (click)="removeProject.emit(project)"
+			 size="xl" name="minus" color="primary-light"></icon-app>
+	</div>
+
 </article>
 
 <div class="hr"></div>

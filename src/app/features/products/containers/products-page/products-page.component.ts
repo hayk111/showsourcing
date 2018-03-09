@@ -1,17 +1,13 @@
-import { ProjectActions } from './../../../projects/store/actions/project.actions';
-import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
-import {
-	selectMyTeamProjects,
-	selectProjectsProductsCount,
-} from './../../../projects/store/selectors/projects.selector';
-import { Project } from '~projects/models/project.model';
-import { DialogName, DialogActions } from '~shared/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { selectProjects } from '~app/features/projects';
 import { EntityState, ERM, selectEntityArray } from '~entity';
+import { ProjectActions, selectProjectsProductsCount } from '~features/projects/store';
 import { Product } from '~products/models';
 import { ProductActions, selectProductsState } from '~products/store';
+import { Project } from '~projects/models/project.model';
+import { DialogActions, DialogName } from '~shared/dialog';
 import {
 	Filter,
 	FilterCategory,
@@ -29,10 +25,9 @@ import {
 	selectFilterPanelOpen,
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
-import { VoteSlctnActions } from '~store/action/target/vote.action';
-import { Vote } from '~store/model/entities/vote.model';
+import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
 import { Patch } from '~store/utils';
-import { UserService, User } from '~user';
+import { User, UserService } from '~user';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -95,7 +90,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.loadProducts(filters);
 		});
 
-		this.projects$ = this.store.select(selectMyTeamProjects);
+		this.projects$ = this.store.select(selectProjects);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 		this.teamMembers$ = this.store.select(selectMyTeamMembers);
 		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
@@ -127,7 +122,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.selection = new Map();
 	}
 
-	public deleteSelected() {
+	deleteSelected() {
 		const products: Array<string> = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) products.push(key);
@@ -197,11 +192,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog)
 		);
 		this.store.dispatch(DialogActions.close(this.addProductDialog));
-		// this.actionSubject.subscribe(action => {
-		// 	if (action.type === ProjectsActionTypes.ADD_PRODUCTS_SUCCESS) {
-		// 		this.store.dispatch(DialogActions.close(this.addProductDialog));
-		// 	}
-		// });
 	}
 
 	// ----------------------------------------------------------------------------

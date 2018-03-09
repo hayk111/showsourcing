@@ -3,6 +3,8 @@ import {
 	OnInit,
 	Input,
 	ChangeDetectionStrategy,
+	Output,
+	EventEmitter,
 } from '@angular/core';
 import { Project } from '~app/features/projects';
 
@@ -14,6 +16,7 @@ import { Project } from '~app/features/projects';
 })
 export class ProjectCardComponent implements OnInit {
 	@Input() projects: Array<Project>;
+	@Output() removeProject = new EventEmitter<Project>();
 
 	constructor() {}
 

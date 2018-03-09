@@ -17,10 +17,7 @@ export class ProjectEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ProjectsActionTypes.LOAD)
-		.pipe(
-			switchMap(_ => this.srv.load()),
-			map((result: any) => ProjectActions.add(result))
-		);
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => ProjectActions.add(result)));
 
 	@Effect()
 	loadProductsCount$ = this.action$
@@ -35,7 +32,7 @@ export class ProjectEffects {
 		);
 
 	@Effect()
-	setProducts$ = this.action$.ofType<any>(ProjectsActionTypes.ADD_PRODUCTS).pipe(
+	addProducts$ = this.action$.ofType<any>(ProjectsActionTypes.ADD_PRODUCTS).pipe(
 		map(action => action.payload),
 		switchMap(({ projects, products }) => {
 			const obs$ = new Array<Observable<any>>();
@@ -53,9 +50,5 @@ export class ProjectEffects {
 		])
 	);
 
-	constructor(
-		private action$: Actions,
-		private store$: Store<any>,
-		private srv: ProjectService
-	) {}
+	constructor(private action$: Actions, private store$: Store<any>, private srv: ProjectService) {}
 }

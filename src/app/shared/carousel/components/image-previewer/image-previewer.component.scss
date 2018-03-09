@@ -9,6 +9,9 @@
 		border-radius: var(--border-radius);
 		margin: var(--spacing-s) var(--spacing-xs) 0 var(--spacing-xs);
 	}
+	.pending {
+		opacity: 0.4;
+	}
 	// the margin for the previews are smaller on the sides
 	& :nth-child(6n+1) {
 		margin-left: 0;

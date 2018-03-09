@@ -1,4 +1,16 @@
 <h2 i18n>Attached Files</h2>
-<div *ngFor="let file of files">
+<article *ngFor="let file of files" class="flex">
 	<spinner-app size="xs" *ngIf="file.pending"></spinner-app>
-	{{ file.fileName }}</div>
+	<div class="cercle"></div>
+	<div class="name pointer">{{ file.fileName }}</div>
+	<div class="flexCenter">
+		<icon-app (click)="fileRemoved.emit(file)" name="minus" class="pointer minus" size="xl" color="primary-light"></icon-app>
+	</div>
+
+</article>
+
+	<div class="hr"></div>
+	<div class="footer">
+		<input #inp type="file" class="hidden" (fileSelect)="fileAdded.emit($event)"/>
+		<button (click)="inp.click()">Add File</button>
+	</div>

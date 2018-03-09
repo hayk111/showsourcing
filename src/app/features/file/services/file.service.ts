@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { filter, switchMap, tap, map } from 'rxjs/operators';
+import { filter, switchMap, tap, map, retry } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
 import { selectUser } from 'app/features/user/store/selectors/user.selector';
 import { Log } from '~utils';
@@ -77,7 +77,7 @@ export class FileService {
 	// first we upload the file to aws,
 	// then we delete the token,
 	// then we link the img with its entity on the backend
-	private uploadFileToAws(awsInfo: any, file, type: string, target): Observable<any> {
+	private uploadFileToAws(awsInfo: any, file, type: string, target): Observable<AppFile | AppImage> {
 		Log.debug('upload to aws');
 		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, {
@@ -131,12 +131,15 @@ export class FileService {
 	}
 
 	delete(
-		{ id, target }: { id: string; target: EntityTarget },
+		{ ids, target }: { ids: Array<string>; target: EntityTarget },
 		type: 'attachment' | 'image' = 'attachment'
 	) {
 		const targetName = target.entityRepr.urlName;
 		const targetId = target.entityId;
-		return this.http.delete(`api/${targetName}/${targetId}/${type}/${id}`);
+		// remove files emitting when all deleted
+		return combineLatest(
+			ids.map(id => this.http.delete(`api/${targetName}/${targetId}/${type}/${id}`))
+		);
 	}
 
 	download(img: AppFile) {

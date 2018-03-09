@@ -1,0 +1,39 @@
+:host {
+	margin: var(--spacing-default) var(--spacing-default) 0 var(--spacing-default);
+	display: block;
+}
+
+article {
+	margin-bottom: var(--spacing-default);
+	.minus {
+		display: none;
+	}
+	&:hover .minus {
+		display: block;
+	}
+}
+.hr {
+	margin: var(--spacing-default) 0;
+}
+
+.footer {
+	text-align: right;
+}
+
+.cercle {
+	width: 32px;
+	height: 32px;
+	background: var(--color-primary-light);
+	margin-right: var(--spacing-s);
+}
+
+.name {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	font-weight: 600;
+}
+
+.hidden {
+	visibility: hidden;
+}

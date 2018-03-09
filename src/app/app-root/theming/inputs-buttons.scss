@@ -5,6 +5,7 @@ input {
 button, input[type="submit"] {
 	text-transform: uppercase;
 	cursor: pointer;
+	font-weight: 600;
 	box-sizing: border-box;
 	padding: 0 var(--spacing-l);
 	height: 40px;
