@@ -64,7 +64,9 @@
           <div class="divider"></div>
           <div class="cell">
             <div class="title">Status</div>
-            <div class="content">$ 15.00</div>
+            <div class="content">
+                <product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
+            </div>
           </div>
         </div>
       </card-app>
