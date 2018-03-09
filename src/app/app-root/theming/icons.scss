@@ -21,9 +21,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    color: var(--color-txt-primary)
+    // color: var(--color-txt-primary)
 }
 
+.icon-edit:before {
+  content: "\e908";
+}
 .icon-export:before {
   content: "\e905";
 }
@@ -83,6 +86,9 @@
 }
 .icon-heart-empty:before {
   content: "\e915";
+}
+.icon-bell:before {
+  content: "\e911";
 }
 
 .icon-circle-checked{

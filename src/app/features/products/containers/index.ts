@@ -4,3 +4,4 @@ export * from './product-page/product-page.component';
 export * from './product-side-preview/product-side-preview.component';
 export * from './product-tasks/product-tasks.component';
 export * from './products-page/products-page.component';
+export * from './product-general-info/product-general-info.component';

@@ -1,0 +1,32 @@
+:host {
+  padding-bottom: 28px;
+  display: block;
+}
+.statusbar {
+    height: 70px;
+}
+
+.sectionTitle {
+    font-size: 17px;
+    color: var(--color-button-dark);
+    padding-bottom: var(--spacing-default);
+    margin-bottom: var(--spacing-s);
+    border-bottom: 2px solid var(--color-bg-switcher);
+}
+
+.flexColumn{
+  flex: 1 1 100%;
+  &:first-child {
+    margin-right: var(--spacing-xl);
+  }
+  &:last-child {
+    margin-left: var(--spacing-xl);
+  }
+}
+user-picture-app {
+  padding-right: 8px;
+}
+
+.shipping{
+  margin-top: var(--spacing-xl);
+}

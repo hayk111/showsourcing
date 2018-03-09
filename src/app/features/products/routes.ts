@@ -1,8 +1,11 @@
 import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
-import { ProductGeneralInfoComponent } from './components';
-import { ProductPageComponent, ProductsPageComponent } from './containers';
+import {
+	ProductGeneralInfoComponent,
+	ProductPageComponent,
+	ProductsPageComponent,
+} from './containers';
 
 export const routes: Array<Route> = [
 	{

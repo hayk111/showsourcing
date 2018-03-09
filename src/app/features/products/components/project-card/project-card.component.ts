@@ -19,6 +19,5 @@ export class ProjectCardComponent implements OnInit {
 	@Output() removeProject = new EventEmitter<Project>();
 
 	constructor() {}
-
 	ngOnInit() {}
 }

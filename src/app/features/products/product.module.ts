@@ -29,7 +29,6 @@ import { UserModule } from '~user/user.module';
 import {
 	ProductActionDialogComponent,
 	ProductCardViewComponent,
-	ProductGeneralInfoComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
 	ProductSelectableCardComponent,
@@ -40,6 +39,8 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
+	CellOneRowComponent,
+	CellTwoRowComponent,
 } from './components';
 import {
 	ProductBigCardComponent,
@@ -48,6 +49,7 @@ import {
 	ProductSidePreviewComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
+	ProductGeneralInfoComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
@@ -87,6 +89,8 @@ import { FilesCardComponent } from './components/files-card/files-card.component
 	],
 	providers: [ProductService],
 	declarations: [
+		CellOneRowComponent,
+		CellTwoRowComponent,
 		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
