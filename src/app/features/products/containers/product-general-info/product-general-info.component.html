@@ -3,69 +3,55 @@
 <ng-container *ngIf="product$ | async as product">
   <div class="flexRow">
     <div class="flexColumn">
-      <div class="cell">
-        <div class="title">Supplier</div>
-        <div class="context">
-          {{product.supplierId | entityName: 'suppliers' | async }}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Category</div>
-        <div class="context">
-          {{product.categoryId | entityName: 'categories' | async }}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Name</div>
-        <div class="context">
-          {{product.name}}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Price</div>
-        <div class="context">
-          {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Created By</div>
-        <div class="context">
-          {{product.createdByUserId | entityName: 'teamMembers' | async}}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Assignee</div>
-        <div class="context">
-          -----> Assignee to assigne :D
-        </div>
-      </div>
+      <cell-two-row-app title="Supplier">
+        {{product.supplierId | entityName: 'suppliers' | async }}
+      </cell-two-row-app>
+      <cell-two-row-app title="Category">
+        {{product.categoryId | entityName: 'categories' | async }}
+      </cell-two-row-app>
+      <cell-two-row-app title="Name">
+        {{product.name}}
+      </cell-two-row-app>
+      <cell-two-row-app title="Price">
+        {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
+      </cell-two-row-app>
+      <cell-two-row-app title="Created By">
+        {{product.createdByUserId | entityName: 'teamMembers' | async}}
+      </cell-two-row-app>
+      <cell-two-row-app title="Assignee">
+        -----> Assignee to assigne :D
+      </cell-two-row-app>
     </div>
     <div class="flexColumn">
-      <div class="cell">
-        <div class="title">MOQ</div>
-        <div class="context">
-          {{product.supplierId | entityName: 'suppliers' | async }}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">MOQ Description</div>
-        <div class="context">
-          {{product.categoryId | entityName: 'categories' | async }}
-        </div>
-      </div>
-      <div class="cell">
-        <div class="title">Found At</div>
-        <div class="context">
-          {{product.name}}
-        </div>
-      </div>
-      <div class="cell description">
-        <div class="title">Description</div>
-        <div class="context">
-          {{product.description}}
-        </div>
-      </div>
+      <cell-two-row-app title="MOQ">
+        ----->
+      </cell-two-row-app>
+      <cell-two-row-app title="MOQ Description">
+        ----->
+      </cell-two-row-app>
+      <cell-two-row-app title="Found At">
+        ----->
+      </cell-two-row-app>
+      <cell-two-row-app title="Description" isFullHeight="true">
+        {{product.description}}
+      </cell-two-row-app>
     </div>
   </div>
   <div class="sectionTitle shipping">Shipping & Trading</div>
+  <div class="flexRow">
+    <div class="flexColumn">
+      <cell-one-row-app title="Inco Term">----></cell-one-row-app>
+      <cell-one-row-app title="Harbour">----></cell-one-row-app>
+      <cell-one-row-app title="Inner Dimension">----></cell-one-row-app>
+      <cell-one-row-app title="Master Carton">----></cell-one-row-app>
+      <cell-one-row-app title="Pieces per Master">----></cell-one-row-app>
+    </div>
+    <div class="flexColumn">
+      <cell-one-row-app title="1000 pcs">----></cell-one-row-app>
+      <cell-one-row-app title="5000 pcs">----></cell-one-row-app>
+      <cell-one-row-app title="10000 pcs">----></cell-one-row-app>
+      <cell-one-row-app title="With Leather">----></cell-one-row-app>
+      <cell-one-row-app title="Paper Stuffing">----></cell-one-row-app>
+    </div>
+  </div>
 </ng-container>

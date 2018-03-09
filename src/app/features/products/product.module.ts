@@ -39,6 +39,8 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
+	CellOneRowComponent,
+	CellTwoRowComponent,
 } from './components';
 import {
 	ProductBigCardComponent,
@@ -87,6 +89,8 @@ import { FilesCardComponent } from './components/files-card/files-card.component
 	],
 	providers: [ProductService],
 	declarations: [
+		CellOneRowComponent,
+		CellTwoRowComponent,
 		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,

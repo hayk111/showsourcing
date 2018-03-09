@@ -1,5 +1,7 @@
-:host {}
-
+:host {
+  padding-bottom: 28px;
+  display: block;
+}
 .statusbar {
     height: 70px;
 }
@@ -21,20 +23,7 @@
     margin-left: var(--spacing-xl);
   }
 }
-.cell {
-    height: 73px;
-    border-bottom: 1px solid var(--color-bg-switcher);
-    .title {
-        padding: var(--spacing-nav) 0;
-        font-weight: 600;
-        font-size: var(--font-size-default);
-        color: var(--color-primary-dark);
-    }
-    .content {
-        font-size: var(--font-size-default);
-        color: var(--color-primary-dark);
-    }
-}
+
 
 .shipping{
   margin-top: var(--spacing-xl);
