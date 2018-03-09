@@ -1,18 +1,63 @@
 .left {
-	card-app {
-		width: 452px;
-	}
+    card-app {
+        width: 452px;
+    }
 }
 
 .content {
-	padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-xl);
 }
 
 .right {
-	flex-grow: 1;
+    flex-grow: 1;
 }
 
 .selected {
-	color: var(--color-primary);
+    color: var(--color-primary);
 }
 
+.summaryBar {
+    height: 128px;
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    .cell {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        padding: var(--spacing-xl);
+        .title {
+            font-weight: 600;
+            font-size: 11px;
+            color: var(--color-txt-secondary);
+            text-transform: uppercase;
+        }
+        .content {
+            display: flex;
+            font-weight: 600;
+            font-size: 23px;
+            color: var(--color-primary-dark);
+            padding: 0;
+            margin-top: 9px;
+            flex-direction: row;
+            align-items: center;
+            [class^="icon-"],
+            [class*=" icon-"] {
+              margin-right: var(--spacing-s);
+              font-size: var(--font-size-xl);
+            }
+        }
+        badge-app {
+            color: var(--color-txt-secondary);
+            font-weight: 500;
+            font-size: var(--font-size-default);
+        }
+    }
+    .divider {
+        background: var(--color-bg-switcher);
+        height: 64px;
+        width: 1px;
+    }
+}

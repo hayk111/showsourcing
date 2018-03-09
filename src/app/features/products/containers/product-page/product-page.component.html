@@ -1,35 +1,77 @@
-
 <ng-container *ngIf="product$ | async as product">
 
-	<div class="flex content">
-		<div class="left">
+  <div class="flex content">
+    <div class="left">
 
-			<card-app class="carouselCard">
-				<carousel-selection-app></carousel-selection-app>
-			</card-app>
-
-
-			<card-app>
-				<supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
-			</card-app>
+      <card-app class="carouselCard">
+        <carousel-selection-app></carousel-selection-app>
+      </card-app>
 
 
-			<card-app>
-				<project-card-app [projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
-			</card-app>
-
-			<card-app>
-				<files-card-app></files-card-app>
-			</card-app>
+      <card-app>
+        <supplier-card-app [supplier]="product?.supplierId | entity:'suppliers' | async"></supplier-card-app>
+      </card-app>
 
 
-		</div>
+      <card-app>
+        <project-card-app [projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
+      </card-app>
 
-		<div class="right">
-			<entity-main-card-app></entity-main-card-app>
-		</div>
+      <card-app>
+        <files-card-app></files-card-app>
+      </card-app>
 
-	</div>
+
+    </div>
+
+    <div class="right">
+      <card-app padding="none">
+        <div class="summaryBar">
+          <div class="cell">
+            <div class="title">Price</div>
+            <div class="content">$ 15.00</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cell">
+            <div class="title">Moq</div>
+            <div class="content">10000</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cell">
+            <div class="title">Team Rating</div>
+            <div class="content">
+              <div class="icon-thumb-up" color-success></div>
+              100%
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cell">
+            <div class="title">Tasks</div>
+            <div class="content">
+                <div class="icon-edit"></div>
+                5
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cell">
+            <div class="title">Supplier connect</div>
+            <div class="content">
+              <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+                <badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
+              </ng-container>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cell">
+            <div class="title">Status</div>
+            <div class="content">$ 15.00</div>
+          </div>
+        </div>
+      </card-app>
+      <entity-main-card-app></entity-main-card-app>
+    </div>
+
+  </div>
 
 
 </ng-container>

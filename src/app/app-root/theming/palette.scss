@@ -63,3 +63,7 @@ $color-grey: #F3F5F8;
 	--color-Complete:  linear-gradient(-90deg, #39CE63 2%, #4DD373 96%);
 	--color-UnderAssessment: linear-gradient(-270deg, #FFBB37 0%, #FFA900 97%);
 }
+
+[color-success] {
+  color: var(--color-success);
+}

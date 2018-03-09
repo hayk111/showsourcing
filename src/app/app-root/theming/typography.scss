@@ -16,6 +16,29 @@ https://getmdl.io/styles/index.html */
   --font-size-xxl: 19px;
   --font-size-xxxl: 24px;
 }
+
+[fs-xs] {
+  font-size: var(--font-size-xs);
+}
+[fs-s] {
+  font-size: var(--font-size-s);
+}
+[fs-default] {
+  font-size: var(--font-size-default);
+}
+[fs-l] {
+  font-size: var(--font-size-l);
+}
+[fs-xl] {
+  font-size: var(--font-size-xl);
+}
+[fs-xxl] {
+  font-size: var(--font-size-xxl);
+}
+[fs-xxxl] {
+  font-size: var(--font-size-xxxl);
+}
+
 /* body 1 */
 body, .body, .body1 {
 	/*  Default font is the one from OS */

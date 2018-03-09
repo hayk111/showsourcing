@@ -16,7 +16,10 @@
         {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
       </cell-two-row-app>
       <cell-two-row-app title="Created By">
-        {{product.createdByUserId | entityName: 'teamMembers' | async}}
+        <ng-container *ngIf="product.createdByUserId | entity: 'teamMembers' | async as user">
+          <user-picture-app [size]="24" [border]="false" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+          {{user.name}}
+        </ng-container>
       </cell-two-row-app>
       <cell-two-row-app title="Assignee">
         -----> Assignee to assigne :D
