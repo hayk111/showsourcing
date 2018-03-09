@@ -1,13 +1,10 @@
 :host {
-  display: block;
+	display: block;
+	padding: 0 var(--spacing-edge);
 }
 
 .ctnr {
 	padding: var(--spacing-top-panel) 0;
-}
-
-.right > * {
-	margin-left: var(--spacing-xl);
 }
 
 button {
@@ -28,6 +25,4 @@ button {
   margin-right: 10px;
 }
 
-.icon-filter {
-	margin-left: 0!important;
-}
+

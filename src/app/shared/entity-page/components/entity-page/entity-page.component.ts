@@ -13,9 +13,12 @@ export class EntityPageComponent implements OnInit {
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
 
+	@Input() subtitle: string;
+
 	@Input() view: 'list' | 'card' = 'list';
 	// when create button from toppanel is clicked
 	@Output() createClick = new EventEmitter<any>();
+	// when changing from list / card
 	@Output() viewChange = new EventEmitter<any>();
 	// when filter button from toppanel is clicked
 	@Output() filterClick = new EventEmitter<null>();

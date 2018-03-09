@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ERM } from '~entity';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
@@ -25,8 +25,8 @@ export class ProjectEffects {
 	@Effect()
 	loadProductsCount$ = this.action$
 		.ofType<any>(ProjectsActionTypes.LOAD_PRODUCT_COUNT)
-		.withLatestFrom(this.store$.select(selectUserTeamId))
 		.pipe(
+			withLatestFrom(this.store$.select(selectUserTeamId)),
 			map(([action, teamid]) => {
 				return { teamid, payload: action.payload };
 			}),

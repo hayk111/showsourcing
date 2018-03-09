@@ -10,6 +10,6 @@ import { EntityPageComponent, TopPanelComponent, ViewSwitcherComponent } from '.
 @NgModule({
 	imports: [CommonModule, FiltersModule, LoadersModule, IconsModule],
 	declarations: [EntityPageComponent, TopPanelComponent, ViewSwitcherComponent],
-	exports: [EntityPageComponent],
+	exports: [EntityPageComponent, TopPanelComponent],
 })
 export class EntityPageModule {}

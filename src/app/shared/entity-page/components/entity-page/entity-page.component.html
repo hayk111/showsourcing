@@ -4,9 +4,35 @@
 	[switchable]="switchable"
 	[view]="view"
 	[repr]="repr"
+	title="My {{ repr.entityName }}"
+	[subtitle]="subtitle"
 	(viewChange)="viewChange.emit($event)"
-	(filterClick)="filterClick.emit($event)"></top-panel-app>
-<progress-bar-app *ngIf="pending"></progress-bar-app>
-<ng-content></ng-content>
-<!-- <ng-content select=".list-view" *ngIf="view === 'list'"></ng-content>
-<ng-content select=".card-view" *ngIf="view === 'card'"></ng-content> -->
+	(filterClick)="filterClick.emit($event)">
+
+	<filter-search-bar-app class="mg-right" [filterGroupName]="filterGroupName"></filter-search-bar-app>
+
+	<div class="vertDivider mg-right"></div>
+
+	<icon-app
+		name="filter"
+		(click)="filterClick.emit()"
+		class="icon-filter pointer mg-right"
+		color="primary-dark">
+	</icon-app>
+
+	<view-switcher-app
+		class="mg-right"
+		*ngIf="switchable"
+		(viewChange)="viewChange.emit($event)"
+		[view]="view"></view-switcher-app>
+
+</top-panel-app>
+
+<main>
+	<filter-cloud-app [filterGroupName]="filterGroupName"></filter-cloud-app>
+	<div class="hr"></div>
+	<progress-bar-app *ngIf="pending"></progress-bar-app>
+	<ng-content></ng-content>
+</main>
+
+
