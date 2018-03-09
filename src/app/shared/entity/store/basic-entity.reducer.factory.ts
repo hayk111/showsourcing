@@ -1,9 +1,12 @@
-import { Entity, entityInitialState, EntityState } from '~entity/models';
-import { BasicActionTypes } from '~entity/store';
+import { Entity, entityInitialState, EntityState } from 'app/shared/entity/models/index';
+import { BasicActionTypes } from 'app/shared/entity/store/index';
 import { TypedAction } from '~utils';
 
-import { addEntities, copyById, removeEntities, replaceEntity, replaceEntities } from './../utils';
+import { addEntities, copyById, removeEntities, replaceEntity, replaceEntities } from '../../../app-root/store/utils/index';
 
+// TODO: hassan stop moving this file outside of Entity module.
+// Maybe move Entity module outside shared if you don't like this being
+// in shared.
 export function basicReducerFactory<G extends Entity>(
 	actionType: BasicActionTypes,
 	initialState: EntityState<G> = entityInitialState
