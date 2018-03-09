@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap } from 'rxjs/operators';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
 import { ProjectService } from '../../services/project.service';
@@ -17,7 +17,13 @@ export class ProjectEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ProjectsActionTypes.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => ProjectActions.add(result)));
+		.pipe(
+			switchMap(_ => this.srv.load()),
+			mergeMap((result: any) => [
+				ProjectActions.add(result),
+				ProjectActions.loadProductCount(ERM.projects),
+			])
+		);
 
 	@Effect()
 	loadProductsCount$ = this.action$

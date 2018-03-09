@@ -17,6 +17,7 @@ import { Project } from '~app/features/projects';
 export class ProjectCardComponent implements OnInit {
 	@Input() projects: Array<Project>;
 	@Output() removeProject = new EventEmitter<Project>();
+	@Output() addProjectClick = new EventEmitter<null>();
 
 	constructor() {}
 	ngOnInit() {}

@@ -93,7 +93,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.projects$ = this.store.select(selectProjects);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 		this.teamMembers$ = this.store.select(selectMyTeamMembers);
-		this.store.dispatch(ProjectActions.loadProductCount(ERM.projects));
 	}
 
 	loadProducts(filters) {
@@ -180,14 +179,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// ----------------------------------------------------------------------------
 	// --------------------------- Add to project Dialog
 	// ----------------------------------------------------------------------------
-	public openAddToProjectDialog() {
+	openAddToProjectDialog() {
 		this.selectedProductForDialog = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) this.selectedProductForDialog.push(key);
 		});
 		this.store.dispatch(DialogActions.open(this.addProductDialog));
 	}
-	public addToProjects(selectedProjects) {
+
+	addToProjects(selectedProjects) {
 		this.store.dispatch(
 			ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog)
 		);
@@ -198,19 +198,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// --------------------------- Export Dialog
 	// ----------------------------------------------------------------------------
 
-	public openExportDialog() {
+	openExportDialog() {
 		this.selectedProductForDialog = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) this.selectedProductForDialog.push(key);
 		});
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
-	public export($event) {}
+	export($event) {}
 
 	// ----------------------------------------------------------------------------
 	// --------------------------- Request feedback Dialog
 	// ----------------------------------------------------------------------------
-	public openRequestFeedbackDialog() {
+	openRequestFeedbackDialog() {
 		this.selectedProductForDialog = new Array();
 		this.selection.forEach((value, key) => {
 			if (value) this.selectedProductForDialog.push(key);
@@ -218,7 +218,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
 	}
 
-	public requestFeeback(selectedMembers) {
+	requestFeeback(selectedMembers) {
 		this.store.dispatch(
 			ProductActions.requestFeedback(this.selectedProductForDialog, Object.keys(selectedMembers))
 		);

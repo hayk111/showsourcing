@@ -14,6 +14,7 @@
 			<card-app>
 				<project-card-app
 					(removeProject)="removeProject($event)"
+					(addProjectClick)="openAddProjectDlg()"
 					[projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
 			</card-app>
 
@@ -23,6 +24,7 @@
 
 		</div>
 
+		<!-- // TODO: hassan put the below in a component -->
     <div class="right">
       <card-app padding="none">
         <div class="summaryBar">
@@ -84,7 +86,7 @@
 		dialogType="add"
 		[entities]="projects$ | async"
 		[productsCount]="productsCount$ | async"
-		(buttonClicked)="addToProjects($event)">
+		(buttonClicked)="addToProjects($event, product)">
 	</product-action-dialog-app>
 
 </ng-container>

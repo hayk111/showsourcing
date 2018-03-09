@@ -22,10 +22,7 @@ export class ProductService {
 		params.recurring = true;
 		return this.entitySrv
 			.load(params)
-			.pipe(
-				map((r: any) => r.elements),
-				tap(r => r.forEach(elem => this.addCustomFields(elem)))
-			);
+			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
 	}
 
 	delete(id: string) {
@@ -41,9 +38,7 @@ export class ProductService {
 			loadedId: id,
 			recurring: true,
 		};
-		return this.entitySrv
-			.load(params)
-			.pipe(map(elem => this.addCustomFields(elem)));
+		return this.entitySrv.load(params).pipe(map(elem => this.addCustomFields(elem)));
 	}
 
 	// properties in the customFields nested object are added to the product with
@@ -54,8 +49,7 @@ export class ProductService {
 			Object.entries(cf).forEach(([k, v]) => (elem['x-' + k] = (v as any).value));
 		}
 		// this is done to have minimum order quantity on the same level
-		if (elem.additionalInfo)
-			elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
+		if (elem.additionalInfo) elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
 		// here we do the opposite though. That's because the backend
 		// is waiting for an object when we modify the price
 		// amount or priceCurrency.
@@ -79,7 +73,7 @@ export class ProductService {
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
 	}
-	requestFeedback(productId: String, recipientsIds: Array<String>) {
+	requestFeedback(productId: String, recipientsIds: Array<string>) {
 		const recp = { recipients: recipientsIds };
 		return this.http.post(`api/product/${productId}/feedback`, recp);
 	}

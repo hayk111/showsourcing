@@ -21,11 +21,9 @@ export interface EntitiesState {
 // ----------------------------------------------------------------------------
 export const basicProductReducer = basicReducerFactory(ProductActionTypes);
 
-export function productReducer(
-	state = entityInitialState,
-	action: TypedAction<any>
-) {
+export function productReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
+		// TODO: hassan we don't use actions from other entities in reducer.
 		case ProjectsActionTypes.ADD_PRODUCTS_SUCCESS:
 			const byId = { ...state.byId };
 			action.payload.forEach(element => {

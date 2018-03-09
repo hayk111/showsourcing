@@ -13,12 +13,13 @@ import { TargetAction } from '~store/action/target/target.action';
 import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
-import { DialogName } from '~app/shared/dialog';
+import { DialogName, DialogActions } from '~app/shared/dialog';
 import {
 	selectProjectsProductsCount,
 	selectProjects,
 	Project,
 	selectProjectsState,
+	ProjectActions,
 } from '~app/features/projects';
 
 import { selectProductById } from './../../store/product.selector';
@@ -64,8 +65,13 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 	}
 
-	onProjectAdded(event) {
-		// this.store.dispatch(ProjectTargetActions.add(event));
+	openAddProjectDlg() {
+		this.store.dispatch(DialogActions.open(this.projectDlgName));
+	}
+
+	addToProjects(selectedProjects: any, product) {
+		this.store.dispatch(ProjectActions.addProducts(Object.keys(selectedProjects), [product.id]));
+		this.store.dispatch(DialogActions.close(this.projectDlgName));
 	}
 
 	onProjectRemoved(event) {
