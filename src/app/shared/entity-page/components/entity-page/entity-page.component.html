@@ -1,5 +1,5 @@
 <top-panel-app
-	(createClick)="createClick.emit()"
+	(buttonClick)="buttonClick.emit()"
 	[filterGroupName]="filterGroupName"
 	[switchable]="switchable"
 	[view]="view"
@@ -14,6 +14,7 @@
 	<div class="vertDivider mg-right"></div>
 
 	<icon-app
+		[fa]="true"
 		name="filter"
 		(click)="filterClick.emit()"
 		class="icon-filter pointer mg-right"

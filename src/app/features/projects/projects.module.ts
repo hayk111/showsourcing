@@ -12,6 +12,7 @@ import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
 import { ProjectService } from './services';
+import { TableModule } from '~app/shared/table';
 
 @NgModule({
 	imports: [
@@ -20,10 +21,10 @@ import { ProjectService } from './services';
 		RouterModule.forChild(routes),
 		EntityModule.forChild(),
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
-		NgxDatatableModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		UserModule, // TODO to be removed and placed inside the component module using it
-		SelectionBarModule, // TODO to be removed and placed inside the component module using it
+		SelectionBarModule, // TODO to be removed and placed inside the component module using it,
+		TableModule, // used in list
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent],
 	exports: [ProjectsPageComponent],

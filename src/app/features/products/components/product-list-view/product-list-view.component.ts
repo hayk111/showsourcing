@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~products';
+import { FilterSort, FilterActions, FilterGroupName } from '~app/shared/filters';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'product-list-view-app',
@@ -43,28 +45,28 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('user') userTemplate: TemplateRef<any>;
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
+	filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Product', type: 'main', sortable: true },
-		{ title: 'Supplier', type: 'supplier' },
-		{ title: 'Category', type: 'category' },
-		{ title: 'Price', type: 'price' },
-		{ title: 'Feedback', type: 'feedback' },
-		{ title: 'Created on', type: 'creationDate' },
-		{ title: '', type: 'rating' },
-		{ title: 'Created by', type: 'user' },
-		{ title: 'Actions', type: 'action' },
-		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity' },
+		{ title: 'Product', type: 'main', sortable: true, sortWith: 'name' },
+		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName' },
+		{ title: 'Category', type: 'category', sortWith: 'categoryName' },
+		{ title: 'Price', type: 'price', sortWith: 'priceAmount' },
+		{ title: 'Feedback', type: 'feedback', sortWith: 'score' },
+		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate' },
+		{ title: '', type: 'rating', sortWith: 'rating' },
+		{ title: 'Created by', type: 'user', sortWith: 'createdByUserId' },
+		{ title: 'Actions', type: 'action', sortable: false },
+		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity' },
 	];
 
-	constructor() {}
+	constructor(private store: Store<any>) {}
 
 	ngOnInit() {
 		this.linkColumns();
 	}
 
 	onCheck(value, productId) {
-		debugger;
 		if (value) this.productSelect.emit(productId);
 		else this.productUnselect.emit(productId);
 	}
@@ -72,6 +74,14 @@ export class ProductListViewComponent implements OnInit {
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html
 	linkColumns() {
 		this.descriptor.forEach(column => this.linkColumnWithTemplate(column));
+	}
+
+	onSort({ order, sortWith }) {
+		// we first need to remove the current sorting filter
+		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
+		// then we add a new one
+		const filter = new FilterSort(sortWith, order.toUpperCase());
+		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
 
 	// we add a template for the correct column type

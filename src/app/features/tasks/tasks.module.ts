@@ -18,6 +18,7 @@ import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { routes } from './router';
 import { TaskService } from './services';
+import { TableModule } from '~app/shared/table';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,6 @@ import { TaskService } from './services';
 		RouterModule.forChild(routes),
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
 		EntityPageModule, // TODO REMOVE UNUSED MODULES
-		NgxDatatableModule, // TODO REMOVE UNUSED MODULES
 		EntityModule.forChild(), // TODO REMOVE UNUSED MODULES
 		UserModule, // TODO REMOVE UNUSED MODULES
 		UtilsModule, // TODO REMOVE UNUSED MODULES
@@ -34,6 +34,7 @@ import { TaskService } from './services';
 		DialogModule, // TODO REMOVE UNUSED MODULES
 		InputsModule, // TODO REMOVE UNUSED MODULES
 		SelectModule, // TODO REMOVE UNUSED MODULES
+		TableModule, // used by list
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],
 	exports: [TasksListViewComponent],

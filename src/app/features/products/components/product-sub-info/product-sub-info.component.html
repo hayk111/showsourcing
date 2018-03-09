@@ -10,7 +10,7 @@
 
 	<tr  *ngIf="product?.categoryId | entityExist: 'categories' | async">
 		<td>
-			<icon-app name="tag" size="xs"></icon-app>
+			<icon-app  [fa]="true" name="tag" size="xs"></icon-app>
 		</td>
 		<td>
 			<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>
@@ -20,7 +20,7 @@
 	<!-- we don't display this one on the big card -->
 	<!-- <tr *ngIf="!big && product?.minimumOrderQuantity !== undefined">
 		<td>
-			<icon-app name="info-circle" size="xs"></icon-app>
+			<icon-app  [fa]="true" name="info-circle" size="xs"></icon-app>
 		</td>
 		<td>
 			<span>{{ product?.minimumOrderQuantity }}</span>

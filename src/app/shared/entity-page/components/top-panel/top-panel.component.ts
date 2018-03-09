@@ -23,7 +23,7 @@ export class TopPanelComponent implements OnInit {
 	@Input() buttonName: string;
 
 	// when the create button is clicked
-	@Output() btnClick = new EventEmitter<any>();
+	@Output() buttonClick = new EventEmitter<any>();
 	@Output() viewChange = new EventEmitter<string>();
 	// when the filter button is clicked
 	@Output() filterClick = new EventEmitter<null>();
@@ -36,6 +36,6 @@ export class TopPanelComponent implements OnInit {
 	}
 
 	onClick() {
-		this.btnClick.emit();
+		this.buttonClick.emit();
 	}
 }

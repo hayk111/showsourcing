@@ -31,7 +31,7 @@ export class IconComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		if (this.icon) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
+		if (!this.useSymbol) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
 	}
 
 	@Input()

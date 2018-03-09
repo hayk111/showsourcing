@@ -1,7 +1,7 @@
 
 <div class="top flexBetween">
 	<button class="secondary small" (click)="reset()">Reset</button>
-	<icon-app class="pointer" name="times" (click)="close()"></icon-app>
+	<icon-app  [fa]="true" class="pointer" name="times" (click)="close()"></icon-app>
 </div>
 
 <ng-container *ngIf="filterMap$ | async as filterMap">

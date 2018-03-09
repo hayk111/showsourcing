@@ -4,7 +4,7 @@
 	<div class="cercle"></div>
 	<div class="name pointer">{{ file.fileName }}</div>
 	<div class="flexCenter">
-		<icon-app (click)="fileRemoved.emit(file)" name="minus" class="pointer minus" size="xl" color="primary-light"></icon-app>
+		<icon-app [fa]="true" (click)="fileRemoved.emit(file)" name="minus" class="pointer minus" size="xl" color="primary-light"></icon-app>
 	</div>
 
 </article>

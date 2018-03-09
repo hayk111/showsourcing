@@ -8,6 +8,7 @@ import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
 import { ProductActions, ProductActionTypes } from './product.action';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class ProductEffects {
@@ -33,7 +34,7 @@ export class ProductEffects {
 			ids.forEach(projectid => {
 				obs$.push(this.srv.delete(projectid));
 			});
-			const result = Observable.forkJoin(obs$);
+			const result = forkJoin(obs$);
 			return result;
 		})
 	);
@@ -67,20 +68,18 @@ export class ProductEffects {
 
 	// for feedback
 	@Effect()
-	requestFeedback$ = this.actions$
-		.ofType<any>(ProductActionTypes.REQUEST_FEEDBACK)
-		.pipe(
-			map(action => action.payload),
-			switchMap(({ productsIds, recipientsIds }) => {
-				const obs$ = new Array<Observable<any>>();
-				productsIds.forEach(projectid => {
-					obs$.push(this.srv.requestFeedback(projectid, recipientsIds));
-				});
-				const result = Observable.forkJoin(obs$);
-				return result;
-			}),
-			map((result: any) => ProductActions.requestFeedbackSuccess(result))
-		);
+	requestFeedback$ = this.actions$.ofType<any>(ProductActionTypes.REQUEST_FEEDBACK).pipe(
+		map(action => action.payload),
+		switchMap(({ productsIds, recipientsIds }) => {
+			const obs$ = new Array<Observable<any>>();
+			productsIds.forEach(projectid => {
+				obs$.push(this.srv.requestFeedback(projectid, recipientsIds));
+			});
+			const result = forkJoin(obs$);
+			return result;
+		}),
+		map((result: any) => ProductActions.requestFeedbackSuccess(result))
+	);
 
 	@Effect()
 	downloadPdf$ = this.actions$
@@ -94,16 +93,9 @@ export class ProductEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
 		.ofType<any>(ProductActionTypes.PATCH)
-		.pipe(
-			map(action => action.payload),
-			switchMap((p: any) => this.srv.sendPatchRequest(p))
-		);
+		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
 
-	constructor(
-		private srv: ProductService,
-		private actions$: Actions,
-		private store: Store<any>
-	) {
+	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store
 			.select(selectUser)
 			.pipe(map(user => user.id))

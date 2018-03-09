@@ -1,5 +1,7 @@
 
-<entity-page-app [switchable]="false" [pending]="pending$ | async" [repr]="repr" (createClick)="openNewDialog()">
+<entity-page-app
+ [filterGroupName]="filterGroupName"
+ [switchable]="false" [pending]="pending$ | async" [repr]="repr" (buttonClick)="openNewDialog()">
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"
 	(supplierUnselect)="onItemUnselected($event)"

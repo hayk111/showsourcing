@@ -1,7 +1,7 @@
 <div class="flexBetween" *ngIf="!editMode">
 	<label>{{ label }}</label>
 	<div class="flex editable pointer">
-		<icon-app (click)="openEditMode()" name="pencil-alt" size="s"></icon-app>
+		<icon-app  [fa]="true" (click)="openEditMode()" name="pencil-alt" size="s"></icon-app>
 		<!-- if we get an id as value, we should display the name of the entity -->
 		<!-- else we just display said value -->
 		<ng-container [ngSwitch]="type">

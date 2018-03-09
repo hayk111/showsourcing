@@ -8,6 +8,7 @@ import { ERM } from '~entity';
 import { AutoUnsub } from '~utils';
 
 import { selectTasks } from '../../store/selectors';
+import { TaskActions } from '~app/app-root/store/action';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -26,6 +27,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.store.dispatch(TaskActions.load());
 		this.tasks$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 		this.pending$ = this.store.select(selectTasks).pipe(map((t: any) => t.pending));
 	}
@@ -41,5 +43,4 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	onItemUnselected(entityId: string) {
 		this.selection.delete(entityId);
 	}
-
 }

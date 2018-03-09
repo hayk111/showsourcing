@@ -18,10 +18,15 @@ import { TableDescriptor, ColumnDirective } from '~app/shared/table';
 })
 export class CustomTableComponent {
 	@Output() bottomReached = new EventEmitter<any>();
+	@Output() sort = new EventEmitter<string>();
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
 
 	constructor() {}
 
 	ngOnInit() {}
+
+	onSort() {
+		debugger;
+	}
 }

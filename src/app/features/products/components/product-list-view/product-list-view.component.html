@@ -3,7 +3,8 @@
 	class="list"
 	[rows]="products"
 	[descriptor]="descriptor"
-	(bottomReached)="bottomReached.emit()">
+	(bottomReached)="bottomReached.emit()"
+	(sort)="onSort($event)">
 </custom-table-app>
 
 <ng-template #main let-row="row">

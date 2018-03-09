@@ -7,9 +7,9 @@
 					<div class="headerContent">
 						{{ column.title }}
 						<ng-container *ngIf="column.currentSort !== 'none'">
-							<icon-app size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+							<icon-app  [fa]="true" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
 							<ng-template #upArrow>
-								<icon-app size="xs" name="angle-up"></icon-app>
+								<icon-app  [fa]="true" size="xs" name="angle-up"></icon-app>
 							</ng-template>
 						</ng-container>
 					</div>

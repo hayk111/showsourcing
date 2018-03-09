@@ -25,6 +25,10 @@ export class ProductCardViewComponent implements OnInit {
 	@Output() addToProject = new EventEmitter<string>();
 	@Input() products: Array<Product> = [];
 	@Input() selection: any;
+
+	// TODO: cedric (from cedric)
+	// this should be a container and not tied to products-page view
+	// this way when we do a sorting on list view it doesn't affect this view.
 	constructor() {}
 
 	ngOnInit() {}

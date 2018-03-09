@@ -20,6 +20,7 @@ import { NewSupplierDlgComponent, SupplierStatusIconComponent } from './componen
 import { SupplierDetailsComponent } from './containers';
 import { SupplierService } from './services';
 import { routes } from './routes';
+import { TableModule } from '~app/shared/table';
 
 @NgModule({
 	imports: [
@@ -35,7 +36,7 @@ import { routes } from './routes';
 		UserModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // TODO to be removed and placed inside the component module using it
 		EntityPageModule, // TODO to be removed and placed inside the component module using it
-		NgxDatatableModule, // TODO to be removed and placed inside the component module using it
+		TableModule, // used by list view
 		TagModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		EntityMainCardModule, // used to display the main card in details

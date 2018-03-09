@@ -17,7 +17,7 @@ export class EntityPageComponent implements OnInit {
 
 	@Input() view: 'list' | 'card' = 'list';
 	// when create button from toppanel is clicked
-	@Output() createClick = new EventEmitter<any>();
+	@Output() buttonClick = new EventEmitter<any>();
 	// when changing from list / card
 	@Output() viewChange = new EventEmitter<any>();
 	// when filter button from toppanel is clicked

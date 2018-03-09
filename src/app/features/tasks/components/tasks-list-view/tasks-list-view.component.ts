@@ -9,6 +9,7 @@ import { Task } from './../../models';
 })
 export class TasksListViewComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
+	@Input() tasks: Array<Task> = [];
 	@Output() taskSelect = new EventEmitter<string>();
 	@Output() taskUnselect = new EventEmitter<string>();
 	private _tasks: Array<Task> = [];
@@ -29,21 +30,5 @@ export class TasksListViewComponent implements OnInit {
 		if (event.target.checked) this.taskSelect.emit(id);
 		else this.taskUnselect.emit(id);
 		event.stopPropagation();
-	}
-
-	@Input()
-	set tasks(tasks: Array<any>) {
-		if (tasks) this._tasks = tasks.reverse();
-	}
-
-	get tasks() {
-		return this._tasks;
-	}
-
-	@Input()
-	set removedCols(arr: Array<string>) {
-		arr.forEach(c => {
-			this.cols[c] = false;
-		});
 	}
 }

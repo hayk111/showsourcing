@@ -3,7 +3,8 @@
 			*ngFor="let column of descriptor"
 			columnApp="{{ column.title }}"
 			[sortable]="column.sortable !== undefined ? column.sortable : true"
-			let-row="row">
+			let-row="row"
+			(sort)="sort.emit({sortWith: column.sortWith, order: $event })">
 			<ng-container
 				*ngTemplateOutlet="column.template; context: { column: column, row: row }">
 			</ng-container>

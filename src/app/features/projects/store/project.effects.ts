@@ -8,6 +8,7 @@ import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
 import { ProjectService } from '../services/project.service';
 import { ProjectActions, ProjectsActionTypes } from './project.actions';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class ProjectEffects {
@@ -23,16 +24,14 @@ export class ProjectEffects {
 		);
 
 	@Effect()
-	loadProductsCount$ = this.action$
-		.ofType<any>(ProjectsActionTypes.LOAD_PRODUCT_COUNT)
-		.pipe(
-			withLatestFrom(this.store$.select(selectUserTeamId)),
-			map(([action, teamid]) => {
-				return { teamid, payload: action.payload };
-			}),
-			switchMap(({ teamid, payload }) => this.srv.getProductCount(payload, teamid)),
-			map((items: Array<any>) => ProjectActions.setProductCount(items))
-		);
+	loadProductsCount$ = this.action$.ofType<any>(ProjectsActionTypes.LOAD_PRODUCT_COUNT).pipe(
+		withLatestFrom(this.store$.select(selectUserTeamId)),
+		map(([action, teamid]) => {
+			return { teamid, payload: action.payload };
+		}),
+		switchMap(({ teamid, payload }) => this.srv.getProductCount(payload, teamid)),
+		map((items: Array<any>) => ProjectActions.setProductCount(items))
+	);
 
 	@Effect()
 	addProducts$ = this.action$.ofType<any>(ProjectsActionTypes.ADD_PRODUCTS).pipe(
@@ -44,7 +43,7 @@ export class ProjectEffects {
 					obs$.push(this.srv.addProduct(projectid, productid));
 				});
 			});
-			const result = Observable.forkJoin(obs$);
+			const result = forkJoin(obs$);
 			return result;
 		}),
 		switchMap((result: any) => [

@@ -3,6 +3,7 @@ import { EntityRepresentation, EntityTarget, Entity } from '~entity';
 import { HttpClient } from '@angular/common/http';
 import { Log } from '~utils/index';
 
+// TODO: cedric should be removed.
 // @Deprecated don't use. Use the other EntityService
 @Injectable()
 export class EntityService {

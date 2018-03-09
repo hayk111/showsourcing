@@ -8,11 +8,12 @@ import { EntityService } from '../../services/entity.service';
 import { ERM } from '~entity';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '../../action/misc/app-errors.action';
-import {
-	FeedbackDlgActions,
-	FeedbackStyle,
-} from '../../action/ui/feedback-dlg.action';
+import { FeedbackDlgActions, FeedbackStyle } from '../../action/ui/feedback-dlg.action';
 
+// TODO: cedric
+// TODO: hassan
+
+// this effect should go away since selection is going away, we already have TaskEffects
 @Injectable()
 export class TaskTargetEffects {
 	@Effect()

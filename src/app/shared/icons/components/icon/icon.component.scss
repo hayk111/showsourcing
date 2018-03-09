@@ -12,9 +12,7 @@
 	transform: scale(0.9);
 }
 
-
 // for icomoon icons
-
 @font-face {
 	font-family: 'icomoon';
 	src: url('/assets/fonts/icomoon.eot?8pshmd');
@@ -44,12 +42,15 @@
 .icon-edit:before {
 	content: "\e908";
 }
+
 .icon-export:before {
 	content: "\e905";
 }
+
 .icon-feedback:before {
 	content: "\e906";
 }
+
 .icon-excel:before {
 	content: "\e901";
 }
