@@ -28,6 +28,7 @@ export class ProductService {
 	delete(id: string) {
 		return this.entitySrv.delete(id, ERM.product);
 	}
+
 	vote(id: string, value: 0 | 100) {
 		return this.http.post(`api/product/${id}/vote`, { value });
 	}

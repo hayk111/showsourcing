@@ -26,7 +26,6 @@ import {
 	TeamActionTypes,
 	TeamMembersActionTypes,
 } from '../action/entities';
-import { ActionType as TagSlctnActionTypes } from '../action/target/tag-selection.action';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
 import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
 import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
@@ -64,9 +63,10 @@ const misc = combineReducers({
 
 const foccussedEntity = combineReducers({
 	currentTarget: currentTargetReducer,
-	tags: targetReducerFactory(TagSlctnActionTypes),
 	tasks: targetReducerFactory(TaskSlctnActionTypes),
 	comments: commentReducer,
+	// votes are used in a component that is not used yet, but antoine said it might in the future
+	// it's a card that displays the likes and dislikes in a chart.
 	votes: targetReducerFactory(VoteSlctnActionTypes),
 });
 

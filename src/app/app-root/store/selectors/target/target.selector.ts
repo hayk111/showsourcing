@@ -20,25 +20,7 @@ export const selectNumTasksForSelection = createSelector(
 	}
 );
 
-export const selectProjectsForCurrentTarget = state =>
-	state.foccussedEntity.projects;
-export const selectProjectsArrayForCurrentTarget = createSelector(
-	[selectProjectsForCurrentTarget],
-	filesState => {
-		return entityStateToArray(filesState);
-	}
-);
-
-export const selectTagsForCurrentTarget = state => state.foccussedEntity.tags;
-export const selectTagsArrayForCurrentTarget = createSelector(
-	[selectTagsForCurrentTarget],
-	tagState => {
-		return entityStateToArray(tagState);
-	}
-);
-
-export const selectCommentsForCurrentTarget = state =>
-	state.foccussedEntity.comments;
+export const selectCommentsForCurrentTarget = state => state.foccussedEntity.comments;
 export const selectCommentsArrayForCurrentTarget = createSelector(
 	[selectCommentsForCurrentTarget],
 	commentState => {
@@ -68,28 +50,25 @@ export interface VoteByType {
 	total: number;
 }
 
-export const selectVotesByType = createSelector(
-	[selectVotesArrayForCurrentTarget],
-	votesArray => {
-		const votes = {
-			positive: [],
-			neutral: [],
-			negative: [],
-			total: votesArray.length,
-		};
-		votesArray.forEach((v: Vote) => {
-			switch (v.value) {
-				case 100:
-					votes.positive.push(v);
-					break;
-				case 0:
-					votes.negative.push(v);
-					break;
-				default:
-					votes.neutral.push(v);
-					break;
-			}
-		});
-		return votes;
-	}
-);
+export const selectVotesByType = createSelector([selectVotesArrayForCurrentTarget], votesArray => {
+	const votes = {
+		positive: [],
+		neutral: [],
+		negative: [],
+		total: votesArray.length,
+	};
+	votesArray.forEach((v: Vote) => {
+		switch (v.value) {
+			case 100:
+				votes.positive.push(v);
+				break;
+			case 0:
+				votes.negative.push(v);
+				break;
+			default:
+				votes.neutral.push(v);
+				break;
+		}
+	});
+	return votes;
+});

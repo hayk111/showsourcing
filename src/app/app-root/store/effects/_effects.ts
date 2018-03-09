@@ -17,10 +17,9 @@ import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilesEffects } from '~features/file';
 import { ImageEffects } from '~features/file';
 import { TargetEffects } from './target/target.effects';
-import { TaskTargetEffects } from './target/task.effects';
-import { VoteTargetEffects } from './target/vote.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { FilterEntityPanelEffects } from '~shared/filters';
+import { TaskTargetEffects } from '~app/app-root/store/effects/target/task.effects';
 
 export const effects = [
 	// entities
@@ -36,6 +35,8 @@ export const effects = [
 	TagEffects,
 	ProjectEffects,
 	SuppliersEffects,
+	FilesEffects,
+	ImageEffects,
 
 	// misc
 	AppErrorsEffects,
@@ -47,10 +48,7 @@ export const effects = [
 	// target
 	TargetEffects,
 	CommentTargetEffects,
-	FilesEffects,
-	ImageEffects,
 	TaskTargetEffects,
-	VoteTargetEffects,
 
 	// UI
 	FeedbackDlgEffects,

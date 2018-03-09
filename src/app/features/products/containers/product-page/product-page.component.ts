@@ -9,7 +9,6 @@ import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store';
 import { TargetAction } from '~store/action/target/target.action';
-import { selectProjectsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
 import { DialogName, DialogActions } from '~app/shared/dialog';
@@ -58,7 +57,6 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			switchMap(params => this.store.select(selectProductById(params.id)))
 		);
-		this.projects$ = this.store.select(selectProjectsForCurrentTarget);
 		this.projects$ = this.store.select(selectProjects);
 		this.files$ = this.store.select(selectFilesAsArray);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);

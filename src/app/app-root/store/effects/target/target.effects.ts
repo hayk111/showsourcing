@@ -5,7 +5,6 @@ import { CommentTargetActions } from '~comment/store/actions/comment.action';
 
 import { FileActions } from '~features/file';
 import { ImageActions } from '~features/file';
-import { TagSlctnActions } from '../../action/target/tag-selection.action';
 import { ActionType } from '../../action/target/target.action';
 import { TaskTargetActions } from '../../action/target/task.action';
 import { VoteSlctnActions } from '../../action/target/vote.action';
