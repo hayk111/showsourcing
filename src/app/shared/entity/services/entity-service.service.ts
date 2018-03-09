@@ -1,4 +1,3 @@
-import { EntityRepresentation } from './../models/entities.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -8,6 +7,7 @@ import { User } from '~app/features/user';
 import { LoadParams } from '~store/utils';
 import { UserService } from '~user/services';
 
+import { EntityRepresentation } from './../models/entities.model';
 import { UrlBuilder } from './url-builder.class';
 
 // entities are loaded different ways.

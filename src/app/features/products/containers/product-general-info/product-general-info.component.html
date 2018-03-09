@@ -27,13 +27,15 @@
     </div>
     <div class="flexColumn">
       <cell-two-row-app title="MOQ">
-        ----->
+        {{product.minimumOrderQuantity}}
       </cell-two-row-app>
       <cell-two-row-app title="MOQ Description">
         ----->
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
-        ----->
+        <ng-container *ngIf="product.eventId | entity: 'events' | async as event">
+          {{event.name}}
+        </ng-container>
       </cell-two-row-app>
       <cell-two-row-app title="Description" isFullHeight="true">
         {{product.description}}
@@ -42,19 +44,21 @@
   </div>
   <div class="sectionTitle shipping">Shipping & Trading</div>
   <div class="flexRow">
-    <div class="flexColumn">
-      <cell-one-row-app title="Inco Term">----></cell-one-row-app>
-      <cell-one-row-app title="Harbour">----></cell-one-row-app>
-      <cell-one-row-app title="Inner Dimension">----></cell-one-row-app>
-      <cell-one-row-app title="Master Carton">----></cell-one-row-app>
-      <cell-one-row-app title="Pieces per Master">----></cell-one-row-app>
-    </div>
-    <div class="flexColumn">
-      <cell-one-row-app title="1000 pcs">----></cell-one-row-app>
-      <cell-one-row-app title="5000 pcs">----></cell-one-row-app>
-      <cell-one-row-app title="10000 pcs">----></cell-one-row-app>
-      <cell-one-row-app title="With Leather">----></cell-one-row-app>
-      <cell-one-row-app title="Paper Stuffing">----></cell-one-row-app>
-    </div>
+    <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+      <div class="flexColumn">
+        <cell-one-row-app title="Inco Term">{{supplier.incoTerm}}</cell-one-row-app>
+        <cell-one-row-app title="Harbour">{{supplier.harbour}}</cell-one-row-app>
+        <cell-one-row-app title="Inner Dimension">----></cell-one-row-app>
+        <cell-one-row-app title="Master Carton">----></cell-one-row-app>
+        <cell-one-row-app title="Pieces per Master">----></cell-one-row-app>
+      </div>
+      <div class="flexColumn">
+        <cell-one-row-app title="1000 pcs">----></cell-one-row-app>
+        <cell-one-row-app title="5000 pcs">----></cell-one-row-app>
+        <cell-one-row-app title="10000 pcs">----></cell-one-row-app>
+        <cell-one-row-app title="With Leather">----></cell-one-row-app>
+        <cell-one-row-app title="Paper Stuffing">----></cell-one-row-app>
+      </div>
+    </ng-container>
   </div>
 </ng-container>

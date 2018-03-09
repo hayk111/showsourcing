@@ -1,20 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { Product } from '~app/features/products';
-
-import { selectProductFocused } from './../../store/product.selector';
+import { selectProductById } from '~products/store';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-general-info-app',
 	templateUrl: './product-general-info.component.html',
 	styleUrls: ['./product-general-info.component.scss'],
 })
-export class ProductGeneralInfoComponent implements OnInit {
+export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
-	constructor(private store: Store<any>) {}
+
+	constructor(private route: ActivatedRoute, private store: Store<any>) {
+		super();
+	}
 
 	ngOnInit() {
-		this.product$ = this.store.select(selectProductFocused);
+		this.product$ = this.route.parent.params.pipe(
+			takeUntil(this._destroy$),
+			switchMap(params => this.store.select(selectProductById(params.id)))
+		);
 	}
 }
