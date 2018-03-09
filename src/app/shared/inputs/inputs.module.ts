@@ -10,6 +10,7 @@ import { InputTextareaComponent } from './components/input-textarea/input-textar
 import { InputComponent } from './components/input/input.component';
 import { EntityModule } from '~entity';
 import { InputCheckboxComponent } from '~app/shared/inputs/components/input-checkbox/input-checkbox.component';
+import { IconsModule } from '~app/shared/icons';
 
 export const components = [
 	InputComponent,
@@ -27,6 +28,7 @@ export const components = [
 		ReactiveFormsModule,
 		UtilsModule,
 		EntityModule.forChild(),
+		IconsModule,
 	],
 	declarations: components,
 	// entryComponents: components,

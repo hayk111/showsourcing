@@ -35,7 +35,8 @@ import * as faMinus from '@fortawesome/fontawesome-free-solid/faMinus';
 import * as fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.config.searchPseudoElements = false;
-fontawesome.config.observeMutations = false;
+fontawesome.config.observeMutations = true;
+
 export const faIcons = [
 	faAngleRight,
 	faAngleLeft,
