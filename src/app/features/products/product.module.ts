@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
 import { BadgeModule } from '~app/shared/badge/badge.module';
@@ -66,7 +65,6 @@ import { ProductEffects } from './store/product.effects';
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
-		NgSelectModule,
 		// TODO: cedric maybe merge those 3 modules below.
 		EntityPageModule, // used as template of page
 		EntityMainCardModule, // used in details

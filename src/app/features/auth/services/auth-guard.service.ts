@@ -20,15 +20,12 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return (
-			this.store
-				.select(selectAuthentication).pipe(
-					map(auth => auth.authenticated),
-					// we need to filter the authstate when it's null because that means we don't know yet
-					filter(authenticated => authenticated !== null),
-					tap(authenticated => this.redirectOnAuth(authenticated))
-				)
-
+		console.log('check auth');
+		return this.store.select(selectAuthentication).pipe(
+			map(auth => auth.authenticated),
+			// we need to filter the authstate when it's null because that means we don't know yet
+			filter(authenticated => authenticated !== null),
+			tap(authenticated => this.redirectOnAuth(authenticated))
 		);
 	}
 

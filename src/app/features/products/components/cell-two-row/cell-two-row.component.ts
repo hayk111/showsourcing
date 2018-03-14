@@ -7,6 +7,7 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 })
 export class CellTwoRowComponent {
 	@Input() title: string;
+	@Input() editable = true;
 
 	@Input()
 	@HostBinding('class.isFullHeight')

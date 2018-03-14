@@ -12,7 +12,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationModule } from '@swimlane/ngx-ui';
 import { environment } from 'environments/environment';
 import { EntityModule } from '~app/shared/entity';
-import { AuthModule } from '~features/auth';
+import { AuthModule, AuthGuardService } from '~features/auth';
 import { ProductModule } from '~features/products';
 import { ProjectsModule } from '~features/projects';
 import { SuppliersModule } from '~features/suppliers';
@@ -71,12 +71,14 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 	providers: [
 		HmrService,
 		reducerProvider,
+		AuthGuardService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpApiRedirectorService,
 			multi: true,
 		},
 	],
+	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {

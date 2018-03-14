@@ -6,6 +6,8 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { Product } from '~app/features/products';
 import { selectProductById } from '~products/store';
 import { AutoUnsub } from '~utils';
+import { Event } from '~events/models';
+import { selectEventsList } from '~app/features/events';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -14,6 +16,7 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
+	events$: Observable<Array<Event>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>) {
 		super();
@@ -24,5 +27,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			switchMap(params => this.store.select(selectProductById(params.id)))
 		);
+		this.events$ = this.store.select(selectEventsList);
 	}
 }

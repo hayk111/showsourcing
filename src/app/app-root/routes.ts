@@ -8,7 +8,14 @@ export const routes: Array<Route> = [
 		path: '',
 		canActivate: [AuthGuardService],
 		canActivateChild: [AuthGuardService],
-		children: [{ path: '', redirectTo: 'home', pathMatch: 'full' }, { path: 'home', component: HomeComponent }],
+		children: [
+			{
+				path: '',
+				redirectTo: 'home',
+				pathMatch: 'full',
+			},
+			{ path: 'home', component: HomeComponent },
+		],
 	},
 	{ path: '**', redirectTo: '' },
 ];

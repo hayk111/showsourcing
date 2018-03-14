@@ -1,3 +1,4 @@
+import { AuthGuardService } from '~features/auth';
 import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
@@ -10,6 +11,8 @@ import {
 export const routes: Array<Route> = [
 	{
 		path: 'products',
+		canActivate: [AuthGuardService],
+		canActivateChild: [AuthGuardService],
 		children: [
 			{ path: '', redirectTo: 'all', pathMatch: 'full' },
 			{

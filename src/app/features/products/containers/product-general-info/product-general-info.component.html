@@ -19,9 +19,6 @@
         <ng-container *ngIf="product.createdByUserId | entity: 'teamMembers' | async as user">
           <user-picture-app [size]="24" [border]="false" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
           {{user.name}}
-          <ng-select [items]="product" bindLabel="name" bindValue="id" >
-          </ng-select>
-
         </ng-container>
       </cell-two-row-app>
       <cell-two-row-app title="Assignee">
@@ -37,6 +34,7 @@
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
         <ng-container *ngIf="product.eventId | entity: 'events' | async as event">
+          <editable-input-selectone></editable-input-selectone>
           {{event.name}}
         </ng-container>
       </cell-two-row-app>
