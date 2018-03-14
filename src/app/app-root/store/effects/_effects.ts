@@ -8,7 +8,7 @@ import { CategoryEffects } from './entities/category.effects';
 import { CountryEffects } from './entities/country.effects';
 import { CurrencyEffects } from './entities/currency.effects';
 import { CustomFieldsEffects } from './entities/custom-fields.effects';
-import { EventEffects } from './entities/event.effects';
+import { EventEffects } from '~events/store';
 import { TagEffects } from './entities/tag.effects';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { TeamEffects } from './entities/team.effects';

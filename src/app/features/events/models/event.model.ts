@@ -1,4 +1,4 @@
-import { Counters } from './counters.interface';
+import { Counters } from '~store/model';
 
 export interface Event {
 	counters: Counters;
@@ -10,4 +10,3 @@ export interface Event {
 	name: string;
 	teamId: string;
 }
-

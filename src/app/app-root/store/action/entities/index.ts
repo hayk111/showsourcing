@@ -27,11 +27,6 @@ export const CustomFieldsActionTypes = makeBasicActionTypes(ERM.customFields);
 export const CustomFieldsActions = makeBasicActions(CustomFieldsActionTypes);
 ERM.customFields.actions = CustomFieldsActions;
 
-// event
-export const EventActionTypes = makeBasicActionTypes(ERM.events);
-export const EventActions = makeBasicActions(EventActionTypes);
-ERM.events.actions = EventActions;
-
 // supplier
 export const SupplierActionTypes = makeBasicActionTypes(ERM.suppliers);
 export const SupplierActions = makeBasicActions(SupplierActionTypes);

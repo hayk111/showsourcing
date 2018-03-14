@@ -8,7 +8,6 @@ import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
 import { CategoryService } from './category.service';
 import { CustomFieldsService } from './custom-fields.service';
 import { EntityService } from './entity.service';
-import { EventService } from './event.service';
 import { PreloaderService } from './preloader.service';
 import { SelectionService } from './selection.service';
 import { TagService } from './tag.service';
@@ -33,7 +32,6 @@ import { CurrencyService } from '~app/app-root/store/services/currency.service';
 		VoteService,
 		TeamMembersService,
 		CategoryService,
-		EventService,
 		TagService,
 		PreloaderService,
 		FilterEntityPanelService,

@@ -1,3 +1,4 @@
+import { EventActions } from '~events/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -8,7 +9,6 @@ import {
 	CountryActions,
 	CurrencyActions,
 	CustomFieldsActions,
-	EventActions,
 	SupplierActions,
 	TagActions,
 	TeamActions,

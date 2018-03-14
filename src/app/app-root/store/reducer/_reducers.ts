@@ -21,7 +21,6 @@ import {
 	CountryActionTypes,
 	CurrencyActionTypes,
 	CustomFieldsActionTypes,
-	EventActionTypes,
 	TagActionTypes,
 	TeamActionTypes,
 	TeamMembersActionTypes,
@@ -34,6 +33,7 @@ import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
 import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
 import { fileReducer } from '~app/features/file';
+import { eventReducer } from '~app/features/events';
 
 const entities = combineReducers({
 	user: userReducer,
@@ -42,7 +42,7 @@ const entities = combineReducers({
 	countries: basicReducerFactory(CountryActionTypes),
 	currencies: basicReducerFactory(CurrencyActionTypes),
 	categories: basicReducerFactory(CategoryActionTypes),
-	events: basicReducerFactory(EventActionTypes),
+	events: eventReducer,
 	tags: basicReducerFactory(TagActionTypes),
 	suppliers: supplierReducer,
 	products: productReducer,

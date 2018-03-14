@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
 import { BadgeModule } from '~app/shared/badge/badge.module';
@@ -27,6 +28,8 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
+	CellOneRowComponent,
+	CellTwoRowComponent,
 	ProductActionDialogComponent,
 	ProductCardViewComponent,
 	ProductIconsComponent,
@@ -39,22 +42,20 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
-	CellOneRowComponent,
-	CellTwoRowComponent,
 } from './components';
+import { FilesCardComponent } from './components/files-card/files-card.component';
 import {
 	ProductBigCardComponent,
+	ProductGeneralInfoComponent,
 	ProductInfoCardComponent,
 	ProductPageComponent,
 	ProductSidePreviewComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductGeneralInfoComponent,
 } from './containers';
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
-import { FilesCardComponent } from './components/files-card/files-card.component';
 
 @NgModule({
 	imports: [
@@ -65,6 +66,7 @@ import { FilesCardComponent } from './components/files-card/files-card.component
 		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
+		NgSelectModule,
 		// TODO: cedric maybe merge those 3 modules below.
 		EntityPageModule, // used as template of page
 		EntityMainCardModule, // used in details
@@ -112,10 +114,6 @@ import { FilesCardComponent } from './components/files-card/files-card.component
 		FilesCardComponent,
 		ProductGeneralInfoComponent,
 	],
-	exports: [
-		ProductSmallCardComponent,
-		ProductTopCardComponent,
-		ProductInfoCardComponent,
-	],
+	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],
 })
 export class ProductModule {}

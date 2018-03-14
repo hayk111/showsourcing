@@ -4,6 +4,7 @@
 		"~features/*": ["${workspaceRoot}/src/app/features/*"],
 		"~file/*": ["${workspaceRoot}/src/app/features/file/*"],
 		"~auth/*": ["${workspaceRoot}/src/app/features/auth/*"],
+		"~events/*": ["${workspaceRoot}/src/app/features/events/*"],
 		"~products/*": ["${workspaceRoot}/src/app/features/products/*"],
 		"~projects/*": ["${workspaceRoot}/src/app/features/projects/*"],
 		"~utils/*": ["${workspaceRoot}/src/app/app-root/utils/*"],

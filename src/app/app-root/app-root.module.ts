@@ -1,5 +1,3 @@
-import { HmrService } from '~store/services/hmr.service';
-import { CommentModule } from './../features/comment/comment.module';
 import 'rxjs/add/operator/take';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -8,15 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import {
-	createInputTransfer,
-	createNewHosts,
-	removeNgStyles,
-} from '@angularclass/hmr';
+import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationModule } from '@swimlane/ngx-ui';
 import { environment } from 'environments/environment';
+import { EntityModule } from '~app/shared/entity';
 import { AuthModule } from '~features/auth';
 import { ProductModule } from '~features/products';
 import { ProjectsModule } from '~features/projects';
@@ -31,13 +26,15 @@ import { TemplateModule } from '~shared/template';
 import { AppStoreModule } from '~store//store.module';
 import { reducerProvider } from '~store/reducer/_reducers';
 import { EntitiesServicesModule } from '~store/services/entities-services.module';
+import { HmrService } from '~store/services/hmr.service';
 import { Log } from '~utils';
 
+import { CommentModule } from './../features/comment/comment.module';
+import { EventsModule } from './../features/events/events.module';
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { EntityModule } from '~app/shared/entity';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -63,6 +60,7 @@ import { EntityModule } from '~app/shared/entity';
 		CardModule,
 		NotificationModule,
 		ProductModule,
+		EventsModule,
 		WorkflowModule,
 		// modules
 		SuppliersModule.forRoot(),
@@ -119,9 +117,7 @@ export class AppRootModule {
 	hmrOnDestroy(store) {
 		Log.info('------- HMR OnDestroy');
 		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
-		const cmpLocation = this.appRef.components.map(
-			cmp => cmp.location.nativeElement
-		);
+		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
 		store.disposeOldHosts = createNewHosts(cmpLocation);
 		store.restoreInputValues = createInputTransfer();
 		removeNgStyles();
