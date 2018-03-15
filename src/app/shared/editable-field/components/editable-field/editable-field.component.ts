@@ -1,3 +1,5 @@
+import { Entity } from './../../../entity/models/entities.model';
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EntityRepresentation } from '~entity';
 
@@ -11,8 +13,9 @@ export class EditableFieldComponent implements OnInit {
 	@Input() type = 'text';
 	@Input() entityRep: EntityRepresentation;
 	@Input() label: string;
+	@Input() isFullWidth = true;
 	@Output() update = new EventEmitter<any>();
-
+	@Input() entities: Observable<Array<Entity>>;
 	editMode = false;
 
 	constructor() {}

@@ -1,6 +1,6 @@
 <ng-container *ngIf="target$ | async as target">
 	<div class="ctnr z-6 flexColumn">
-		<a [routerLink]="['/products', 'details', target.entityId, 'activity']">GO TO PRODUCT</a>
+		<a [routerLink]="['/products', 'details', target.entityId, 'general']">GO TO PRODUCT</a>
 		<div class="hr"></div>
 		<product-big-card-app></product-big-card-app>
 	</div>

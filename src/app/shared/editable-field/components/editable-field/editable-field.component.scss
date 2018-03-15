@@ -1,25 +1,68 @@
 :host {
-	width: 100%;
-}
-
-label {
-	flex-grow: 1;
+    width: 100%;
 }
 
 .editable {
-	align-items: baseline;
-	a:hover {
-		color: var(--color-primary);
-	}
-}
-
-.editable icon-app {
-	visibility: hidden;
-	margin-right: var(--spacing-s);
+    align-items: baseline;
+    flex: 1 1 100%;
+    &.rightAligned {
+        justify-content: flex-end;
+    }
 }
 
 .editable:hover {
-	icon-app {
-		visibility: visible;
-	}
+    .editButton {
+        visibility: visible;
+    }
+}
+
+.editButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    background: var(--color-bg-grey);
+    border: 1px solid var(--color-primary-light);
+    border-radius: var(--border-radius);
+    color: var(--color-txt-secondary);
+    padding: 4px 12px;
+    font-weight: 600;
+    height: 22px;
+    box-sizing: border-box;
+}
+
+.leftButton {
+    margin-right: 12px;
+}
+
+.ng-select.entitySelector {
+    border: 0px;
+    min-height: 0px;
+    border-radius: 0;
+     ::ng-deep.ng-control {
+        border: 1px solid var(--color-primary-light);
+        height: 46px;
+        border-radius: 0;
+        .ng-arrow-zone {
+            display: none;
+        }
+        .ng-input {
+            margin: var(--spacing-s);
+            background: #F9FAFC;
+            border: 1px solid var(--color-primary-light);
+            border-radius: 2px;
+            height: 30px;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: inherit !important;
+            input {
+              height: 28px;
+              padding: 0;
+              font-size: var(--font-size-default);
+              color: var(--color-primary-dark);
+            }
+        }
+    }
 }

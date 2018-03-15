@@ -9,6 +9,8 @@
       <cell-two-row-app title="Category">
         {{product.categoryId | entityName: 'categories' | async }}
       </cell-two-row-app>
+      <editable-field-app label="Category" [value]="product?.categoryId" [entities]="categoryRep | entityList" type="select-entity" [entityRep]="categoryRep"></editable-field-app>
+      <editable-field-app label="Category" [isFullWidth]="false" [value]="product?.categoryId" type="select-entity" [entityRep]="categoryRep"></editable-field-app>
       <cell-two-row-app title="Name">
         {{product.name}}
       </cell-two-row-app>
@@ -34,7 +36,6 @@
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
         <ng-container *ngIf="product.eventId | entity: 'events' | async as event">
-          <editable-input-selectone></editable-input-selectone>
           {{event.name}}
         </ng-container>
       </cell-two-row-app>

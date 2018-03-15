@@ -1,3 +1,4 @@
+import { EntityListPipe } from './pipes/entity-all.pipe';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityPipe, EntityNamePipe, EntityExistPipe } from './pipes';
@@ -6,8 +7,8 @@ import { EntityArrayPipe } from './pipes/entity-array.pipe';
 
 @NgModule({
 	imports: [CommonModule],
-	declarations: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe],
-	exports: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe],
+	declarations: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe, EntityListPipe],
+	exports: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe, EntityListPipe],
 	providers: [EntityService, UrlBuilder],
 })
 export class EntityModule {
