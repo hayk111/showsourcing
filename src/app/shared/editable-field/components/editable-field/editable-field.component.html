@@ -26,7 +26,17 @@
 <div *ngIf="editMode" (clickOutside)="closeEditMode()">
   <input-app [label]="label" [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
   <input-app [label]="label" [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
-  <ng-select class="entitySelector" [items]="entities | async" bindLabel="name" bindValue="id" *ngIf="type === 'select-entity'" (change)="update.emit($event)"></ng-select>
+  <ng-select #api class="entitySelector" [virtualScroll]="true" [items]="filterEntities | async" bindLabel="name" bindValue="id" *ngIf="type === 'select-entity'"
+    (change)="update.emit($event)" [ngModel]="value">
+    <ng-template ng-header-tmp>
+      <!-- <div class="selectCustomHeader">
+        {{ value | entityName: entityRep.entityName | async }}
+      </div> -->
+      <div class="selectCustomInput">
+        <input style="width: 100%" type="text" (input)="api.filter($event.target.value)" />
+      </div>
+    </ng-template>
+  </ng-select>
   <!-- <input-select-entity-app [label]="label" *ngIf="type === 'select-entity'" [panelVisible]="true" [entityRep]="entityRep" [value]="value"
     (update)="update.emit($event)"></input-select-entity-app> -->
   <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>

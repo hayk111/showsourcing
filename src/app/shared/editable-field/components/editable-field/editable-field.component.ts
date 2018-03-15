@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { Entity } from './../../../entity/models/entities.model';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
@@ -18,9 +19,12 @@ export class EditableFieldComponent implements OnInit {
 	@Input() entities: Observable<Array<Entity>>;
 	editMode = false;
 
+	filterEntities: Observable<Array<Entity>>;
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.filterEntities = this.entities;
+	}
 
 	openEditMode() {
 		this.editMode = true;

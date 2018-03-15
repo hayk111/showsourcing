@@ -1,3 +1,5 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -14,6 +16,8 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 @NgModule({
 	imports: [
 		CommonModule,
+		BrowserModule,
+		FormsModule,
 		InputsModule,
 		SelectModule,
 		CustomInputsModule,
