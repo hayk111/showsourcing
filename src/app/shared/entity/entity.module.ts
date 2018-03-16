@@ -1,4 +1,4 @@
-import { EntityListPipe } from './pipes/entity-all.pipe';
+import { EntityListPipe } from './pipes/entity-list.pipe';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityPipe, EntityNamePipe, EntityExistPipe } from './pipes';

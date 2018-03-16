@@ -4,11 +4,10 @@
   <div class="flexRow">
     <div class="flexColumn">
       <cell-two-row-app title="Supplier">
-        {{product.supplierId | entityName: 'suppliers' | async }}
+        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Category">
-        <editable-field-app label="Category" [value]="product?.categoryId" [entities]="categoryRep | entityList" type="select-entity"
-          [entityRep]="categoryRep"></editable-field-app>
+        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="select-entity"></editable-field-app>
       </cell-two-row-app>
 
       <cell-two-row-app title="Name">
@@ -35,9 +34,7 @@
         ----->
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
-        <ng-container *ngIf="product.eventId | entity: 'events' | async as event">
-          {{event.name}}
-        </ng-container>
+        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Description" isFullHeight="true">
         {{product.description}}

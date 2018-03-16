@@ -27,3 +27,9 @@ export const selectEntityArray = (entityRepr: EntityRepresentation) => {
 		return entityState.ids.map(id => entityState.byId[id]);
 	});
 };
+
+export const selectEntityArrayByName = (entityName: string) => {
+	return createSelector([selectEntity(entityName)], entityState => {
+		return entityState.ids.map(id => entityState.byId[id]);
+	});
+};

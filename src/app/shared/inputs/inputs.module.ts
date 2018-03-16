@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IconsModule } from '~app/shared/icons';
-import { EditableSelectOneComponent } from '~app/shared/inputs/components/editable-input-selectone/editable-input-selectone.component';
 import { InputCheckboxComponent } from '~app/shared/inputs/components/input-checkbox/input-checkbox.component';
 import { EntityModule } from '~entity';
 
@@ -21,7 +20,6 @@ export const components = [
 	InputCheckboxComponent,
 	InputCheckboxListComponent,
 	InputFileComponent,
-	EditableSelectOneComponent,
 ];
 
 @NgModule({
