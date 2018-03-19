@@ -38,7 +38,7 @@
     (update)="update.emit($event)"></input-select-entity-app> -->
   <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
   <input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
-  <div class="confirmBlock">
+  <div class="confirmBlock" *ngIf="type !== 'select-entity'">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
     <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
   </div>

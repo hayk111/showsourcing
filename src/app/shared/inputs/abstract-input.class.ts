@@ -1,14 +1,12 @@
-import { ControlValueAccessor, AbstractControl, NgControl, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { Input, Injector, OnInit, AfterViewInit, Output, EventEmitter, forwardRef } from '@angular/core';
-import { Log } from '~utils/index';
-import { AutoUnsub } from '~utils/index';
-import { ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AutoUnsub } from '~utils';
 
 export function makeAccessorProvider(type: any) {
-	return 		{
+	return {
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: forwardRef(() => type),
-		multi: true
+		multi: true,
 	};
 }
 
@@ -36,14 +34,12 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	// changes the formControl value and emits an update event with same value
 	onChange(value: any) {
 		this.value = value;
-		if (this.onChangeFn)
-			this.onChangeFn(value);
+		if (this.onChangeFn) this.onChangeFn(value);
 		this.update.emit(value);
 	}
 
 	onBlur() {
-		if (this.onTouchedFn)
-			this.onTouchedFn();
+		if (this.onTouchedFn) this.onTouchedFn();
 	}
 
 	// to give accessor its the formControl value associated to it
@@ -64,7 +60,4 @@ export class AbstractInput extends AutoUnsub implements ControlValueAccessor, On
 	setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
 	}
-
 }
-
-

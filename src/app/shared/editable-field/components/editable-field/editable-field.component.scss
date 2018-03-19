@@ -58,6 +58,7 @@
     min-height: 0px;
     border-radius: 0;
     height: 30px;
+    flex: 1 1 100%;
     &.filtered {
          ::ng-deep.ng-control .ng-input {
             display: block;
