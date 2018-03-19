@@ -3,7 +3,7 @@
 	[filterGroupName]="filterGroupName"
 	[pending]="(productsState$ | async).pending"
 	[repr]="repr"
-	[subtitle]="all"
+	subtitle="all"
   (filterClick)="openFilterPanel()"
   [view]="view"
 	(viewChange)="onViewChange($event)">

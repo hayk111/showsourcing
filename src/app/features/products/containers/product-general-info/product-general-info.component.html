@@ -4,7 +4,8 @@
   <div class="flexRow">
     <div class="flexColumn">
       <cell-two-row-app title="Supplier">
-        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="select-entity"></editable-field-app>
+				<editable-field-app (update)="onUpdate($event)" [value]="product?.supplierId"
+					[entities]="'suppliers' | entityList" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Category">
         <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="select-entity"></editable-field-app>
