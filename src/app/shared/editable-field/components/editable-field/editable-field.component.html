@@ -4,7 +4,7 @@
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
     <ng-container [ngSwitch]="type">
-      <ng-container *ngSwitchCase="'select-entity'">
+      <ng-container *ngSwitchCase="'suppliers' || 'events' || 'catagories'">
         <span>
           {{ entityName }}
         </span>
@@ -17,7 +17,7 @@
           {{ value?.priceCurrency?.id }}
         </span>
       </ng-container>
-      <ng-container *ngSwitchCase="'user-entity'">
+      <ng-container *ngSwitchCase="'teamMembers'">
         <span class="userOpt">
           <user-picture-app [size]="24" [border]="false" [url]="entityUrl"></user-picture-app>
           {{ entityName }}
@@ -42,7 +42,9 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline', 'price'].indexOf(type) > -1" [type]="type"
+  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type"
+    (update)="updateValue($event)"></input-app>
+  <input-app [label]="label" [value]="value.priceAmount" *ngIf="type === 'price'" [type]="type"
     (update)="updateValue($event)"></input-app>
 
   <!-- Entity selector -->

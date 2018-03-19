@@ -4,10 +4,10 @@
   <div class="flexRow">
     <div class="flexColumn">
       <cell-two-row-app title="Supplier">
-        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="suppliers"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Category">
-        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="categories"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Name">
         <editable-field-app [value]="product?.name" type="text"></editable-field-app>
@@ -22,7 +22,7 @@
         </ng-container>
       </cell-two-row-app>
       <cell-two-row-app title="Assignee">
-        <editable-field-app [value]="product?.createdByUserId" [entities]="'teamMembers' | entityList" type="user-entity"></editable-field-app>
+        <editable-field-app [value]="product?.createdByUserId" [entities]="'teamMembers' | entityList" type="teamMembers"></editable-field-app>
       </cell-two-row-app>
     </div>
     <div class="flexColumn">
@@ -33,7 +33,7 @@
         ----->
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
-        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="events"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Description" isFullHeight="true">
         {{product.description}}
