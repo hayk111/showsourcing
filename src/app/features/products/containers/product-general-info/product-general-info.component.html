@@ -69,6 +69,9 @@
       <cell-two-row-app title="Found At">
         <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="events"></editable-field-app>
       </cell-two-row-app>
+      <cell-two-row-app title="Tags">
+          <editable-field-app [value]="product?.tagIds" [entities]="'tags' | entityList" type="tags"></editable-field-app>
+        </cell-two-row-app>
       <cell-two-row-app title="Description" isFullHeight="true">
         {{product.description}}
       </cell-two-row-app>

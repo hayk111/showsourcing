@@ -20,6 +20,19 @@
     }
 }
 
+.tags {
+    display: flex;
+    flex-direction: row;
+    .tag {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-size: 15px;
+      padding: 4px;
+      margin-right: var(--spacing-s);
+      border-radius: 2px;
+    }
+}
+
 .currencyTag {
     position: absolute;
     display: flex;
