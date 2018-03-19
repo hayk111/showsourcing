@@ -23,10 +23,10 @@
 </div>
 
 
-<div *ngIf="editMode" (clickOutside)="closeEditMode()">
-  <input-app [label]="label" [value]="value" *ngIf="type === 'text'" (update)="update.emit($event)"></input-app>
+<div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
+  <input-app [label]="label" [value]="value" *ngIf="type === 'text'" (update)="updateValue($event)"></input-app>
   <input-app [label]="label" [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
-  <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="filterEntities | async" bindLabel="name" bindValue="id" *ngIf="type === 'select-entity'"
+  <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id" *ngIf="type === 'select-entity'"
     (change)="update.emit($event)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
@@ -38,4 +38,8 @@
     (update)="update.emit($event)"></input-select-entity-app> -->
   <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
   <input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
+  <div class="confirmBlock">
+    <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
+    <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
+  </div>
 </div>

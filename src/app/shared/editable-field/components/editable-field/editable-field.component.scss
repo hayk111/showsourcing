@@ -35,6 +35,23 @@
     margin-right: 12px;
 }
 
+.confirmBlock {
+    width: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .confirmIcon {
+      border-radius: 2px;
+      margin-left: var(--spacing-s);
+      height: 22px;
+      width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+}
+
 .ng-select.entitySelector {
     margin: 0 0 0 -5px;
     border: 0px;
@@ -47,7 +64,7 @@
         }
     }
     &.opened {
-        ::ng-deep.ng-control {
+         ::ng-deep.ng-control {
             border-bottom: none;
         }
     }

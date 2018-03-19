@@ -19,11 +19,10 @@ export class EditableFieldComponent implements OnInit {
 	@Input() entities: Observable<Array<Entity>>;
 	editMode = false;
 	entityName: string;
-	filterEntities: Observable<Array<Entity>>;
+	textValue: string;
 	constructor() {}
 
 	ngOnInit() {
-		this.filterEntities = this.entities;
 		this.entities.subscribe(entities => {
 			if (entities.length > 0) {
 				const currentEntity = entities.filter(entity => entity.id === this.value)[0];
@@ -40,5 +39,9 @@ export class EditableFieldComponent implements OnInit {
 		// so the blur event of the input fires
 		// without this, the inputs isn't shown and the blur doesn't fire
 		setTimeout(() => (this.editMode = false), 0);
+	}
+
+	updateValue(value: string) {
+		this.textValue = value;
 	}
 }

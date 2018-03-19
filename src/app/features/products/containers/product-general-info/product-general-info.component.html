@@ -9,9 +9,8 @@
       <cell-two-row-app title="Category">
         <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="select-entity"></editable-field-app>
       </cell-two-row-app>
-
       <cell-two-row-app title="Name">
-        {{product.name}}
+          <editable-field-app [value]="product?.name" type="text"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Price">
         {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}

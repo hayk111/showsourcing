@@ -76,14 +76,25 @@ $color-grey: #F3F5F8;
 	color: var(--color-primary);
 }
 
-[bg-primary] {
-	background: var(--color-primary);
-}
-
 [color-primary-light] {
 	color: var(--color-primary-light);
 }
 
+[color-white] {
+	color: var(--color-white);
+}
+
+[bg-primary] {
+	background: var(--color-primary);
+}
+
 [bg-primary-light] {
 	background: var(--color-primary-light);
+}
+
+[bg-primary-dark] {
+	background: var(--color-primary-dark);
+}
+[bg-txt-secondary] {
+	background: var(--color-txt-secondary);
 }
