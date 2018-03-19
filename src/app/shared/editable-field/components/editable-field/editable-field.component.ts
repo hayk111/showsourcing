@@ -16,7 +16,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() label: string;
 	@Input() isRightAligned = false;
 	@Output() update = new EventEmitter<any>();
-	@Input() entities: Array<Entity>;
+	@Input() entities: Observable<Array<Entity>>;
 	editMode = false;
 	entityName: string;
 	entityUrl: string;
@@ -25,14 +25,16 @@ export class EditableFieldComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.entities) {
-			if (this.entities.length > 0) {
-				const currentEntity: any = this.entities.filter(entity => entity.id === this.value)[0];
-				if (currentEntity) {
-					this.entityName = currentEntity.name;
-					if (this.type === 'user-entity')
-						this.entityUrl = currentEntity.preferences.profilePicture.urls.url_60x45;
+			this.entities.subscribe(entities => {
+				if (entities.length > 0) {
+					const currentEntity: any = entities.filter(entity => entity.id === this.value)[0];
+					if (currentEntity) {
+						this.entityName = currentEntity.name;
+						if (this.type === 'user-entity')
+							this.entityUrl = currentEntity.preferences.profilePicture.urls.url_60x45;
+					}
 				}
-			}
+			});
 		}
 	}
 
