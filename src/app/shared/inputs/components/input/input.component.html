@@ -7,7 +7,6 @@
 	(keydown)="onKeyDown($event)"
 	(change)="onChange(inp.value)"
   (blur)="onBlur()"
-  [class.inline]="type === 'text-inline'"
 	[readonly]="readonly"/>
 	<!-- we have to pass a formControl as input for this to work -->
   <div class="error" *ngIf="formControl?.hasError('required') && !formControl?.pristine">This field is required</div>

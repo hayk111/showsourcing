@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { RegexpApp } from '~utils';
 
@@ -17,7 +17,10 @@ export class InputComponent extends AbstractInput implements OnInit {
 	private regex;
 	@Input() readonly: boolean;
 	@Input() formControl: FormControl;
-
+	@HostBinding('class.inline')
+	get isInline(): Boolean {
+		return this.type === 'text-inline';
+	}
 	private _type: string;
 
 	constructor() {

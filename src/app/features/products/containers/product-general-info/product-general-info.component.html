@@ -13,7 +13,7 @@
         <editable-field-app [value]="product?.name" type="text"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Price">
-        {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
+        <editable-field-app [value]="product?.price" type="price"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Created By">
         <ng-container *ngIf="product.createdByUserId | entity: 'teamMembers' | async as user">

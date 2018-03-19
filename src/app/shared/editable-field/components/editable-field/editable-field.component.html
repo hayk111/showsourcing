@@ -3,7 +3,7 @@
     <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
-    <ng-container [ngSwitch]="type" class="flex">
+    <ng-container [ngSwitch]="type">
       <ng-container *ngSwitchCase="'select-entity'">
         <span>
           {{ entityName }}
@@ -11,7 +11,10 @@
       </ng-container>
       <ng-container *ngSwitchCase="'price'">
         <span>
-          {{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
+          {{value?.priceCurrency?.symbol}} {{value?.priceAmount}}
+        </span>
+        <span class="currencyTag">
+          {{ value?.priceCurrency?.id }}
         </span>
       </ng-container>
       <ng-container *ngSwitchCase="'user-entity'">
@@ -39,11 +42,12 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline', 'price'].indexOf(type) > -1" [type]="type"
+    (update)="updateValue($event)"></input-app>
 
   <!-- Entity selector -->
   <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
-    *ngIf="type === 'select-entity'" (change)="update.emit($event)" [ngModel]="value">
+    *ngIf="['suppliers', 'categories','events'].indexOf(type) > -1" (change)="update.emit($event)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="entitySelector.filter($event.target.value)" />
@@ -54,7 +58,7 @@
 
   <!-- User selector -->
   <ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
-    *ngIf="type === 'icon-entity'" (change)="update.emit($event)" [ngModel]="value">
+    *ngIf="type === 'teamMembers'" (change)="update.emit($event)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="userSelector.filter($event.target.value)" />
@@ -74,7 +78,7 @@
     </ng-template>
   </ng-select>
 
-  <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
+  <!-- <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app> -->
   <input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
   <div class="confirmBlock" *ngIf="type !== 'select-entity'">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
