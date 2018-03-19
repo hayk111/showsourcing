@@ -1,41 +1,79 @@
-<div class="flexBetween" *ngIf="!editMode">
-  <div class="flex editable pointer" [class.flexBetween]="isFullWidth" [class.rightAligned]="!isFullWidth">
-    <div class="editButton leftButton" *ngIf="!isFullWidth" (click)="openEditMode()">Edit </div>
+<div *ngIf="!editMode">
+  <div class="flex editable pointer" [class.flexBetween]="!isRightAligned" [class.rightAligned]="isRightAligned">
+    <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
     <ng-container [ngSwitch]="type" class="flex">
       <ng-container *ngSwitchCase="'select-entity'">
-        <a class="pointer">{{ entityName }}</a>
+        <span>
+          {{ entityName }}
+        </span>
       </ng-container>
       <ng-container *ngSwitchCase="'price'">
-        {{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
+        <span>
+          {{ value?.priceAmount }} {{ value?.priceCurrency?.id }}
+        </span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'user-entity'">
+        <span class="userOpt">
+          <user-picture-app [size]="24" [border]="false" [url]="entityUrl"></user-picture-app>
+          {{ entityName }}
+        </span>
       </ng-container>
       <ng-container *ngSwitchCase="'currency'">
-        {{ value?.priceCurrency?.id }}
+        <span>
+          {{ value?.priceCurrency?.id }}
+        </span>
       </ng-container>
       <ng-container *ngSwitchDefault>
-        {{ value }}
+        <span class="flex">
+          {{ value }}
+        </span>
       </ng-container>
 
     </ng-container>
-    <div class="editButton" *ngIf="isFullWidth" (click)="openEditMode()">Edit </div>
+    <div class="editButton" *ngIf="!isRightAligned" (click)="openEditMode()">Edit </div>
   </div>
 </div>
 
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
-  <input-app [label]="label" [value]="value" *ngIf="type === 'text'" (update)="updateValue($event)"></input-app>
-  <input-app [label]="label" [value]="value" *ngIf="type === 'number'" type="number" (update)="update.emit($event)"></input-app>
-  <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id" *ngIf="type === 'select-entity'"
-    (change)="update.emit($event)" [ngModel]="value">
+  <!-- Text/Inline/Number editor -->
+  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
+
+  <!-- Entity selector -->
+  <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
+    *ngIf="type === 'select-entity'" (change)="update.emit($event)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="entitySelector.filter($event.target.value)" />
       </div>
     </ng-template>
   </ng-select>
-  <!-- <input-select-entity-app [label]="label" *ngIf="type === 'select-entity'" [panelVisible]="true" [entityRep]="entityRep" [value]="value"
-    (update)="update.emit($event)"></input-select-entity-app> -->
+
+
+  <!-- User selector -->
+  <ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
+    *ngIf="type === 'icon-entity'" (change)="update.emit($event)" [ngModel]="value">
+    <ng-template ng-header-tmp>
+      <div class="selectCustomInput">
+        <input style="width: 100%" type="text" (input)="userSelector.filter($event.target.value)" />
+      </div>
+    </ng-template>
+    <ng-template ng-label-tmp let-item="item">
+      <span class="userOpt">
+        <user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+        {{item.name}}
+      </span>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+      <span class="userOpt">
+        <user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+        {{item.name}}
+      </span>
+    </ng-template>
+  </ng-select>
+
   <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app>
   <input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
   <div class="confirmBlock" *ngIf="type !== 'select-entity'">

@@ -4,13 +4,13 @@
   <div class="flexRow">
     <div class="flexColumn">
       <cell-two-row-app title="Supplier">
-        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList | async" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Category">
-        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList | async" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Name">
-          <editable-field-app [value]="product?.name" type="text"></editable-field-app>
+        <editable-field-app [value]="product?.name" type="text"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Price">
         {{product.price?.priceCurrency?.symbol}} {{product.price?.priceAmount}}
@@ -22,18 +22,18 @@
         </ng-container>
       </cell-two-row-app>
       <cell-two-row-app title="Assignee">
-        -----> Assignee to assigne :D
+        <editable-field-app [value]="product?.createdByUserId" [entities]="'teamMembers' | entityList | async" type="user-entity"></editable-field-app>
       </cell-two-row-app>
     </div>
     <div class="flexColumn">
       <cell-two-row-app title="MOQ">
-        {{product.minimumOrderQuantity}}
+        <editable-field-app [value]="product?.minimumOrderQuantity" type="text"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="MOQ Description">
         ----->
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
-        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="select-entity"></editable-field-app>
+        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList | async" type="select-entity"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="Description" isFullHeight="true">
         {{product.description}}
@@ -44,7 +44,9 @@
   <div class="flexRow">
     <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
       <div class="flexColumn">
-        <cell-one-row-app title="Inco Term">{{supplier.incoTerm}}</cell-one-row-app>
+        <cell-one-row-app title="Inco Term">
+            <editable-field-app [value]="supplier?.incoTerm" type="text-inline" isRightAligned="true"></editable-field-app>
+        </cell-one-row-app>
         <cell-one-row-app title="Harbour">{{supplier.harbour}}</cell-one-row-app>
         <cell-one-row-app title="Inner Dimension">----></cell-one-row-app>
         <cell-one-row-app title="Master Carton">----></cell-one-row-app>

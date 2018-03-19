@@ -1,3 +1,4 @@
+import { UserModule } from './../../features/user/user.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,6 +23,7 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 		SelectModule,
 		CustomInputsModule,
 		NgSelectModule,
+		UserModule,
 		IconsModule,
 		UtilsModule,
 		EntityModule.forChild(),

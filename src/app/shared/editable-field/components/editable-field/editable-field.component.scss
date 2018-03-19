@@ -16,6 +16,10 @@
     }
 }
 
+.fieldValue {
+    justify-content: flex-start;
+}
+
 .editButton {
     display: flex;
     align-items: center;
@@ -41,14 +45,14 @@
     flex-direction: row;
     align-items: center;
     .confirmIcon {
-      border-radius: 2px;
-      margin-left: var(--spacing-s);
-      height: 22px;
-      width: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+        border-radius: 2px;
+        margin-left: var(--spacing-s);
+        height: 22px;
+        width: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
     }
 }
 
@@ -142,5 +146,14 @@
         .ng-dropdown-panel-items {
             border-top: 1px solid var(--color-primary-light);
         }
+    }
+}
+
+.userOpt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    user-picture-app {
+        margin-right: 10px;
     }
 }
