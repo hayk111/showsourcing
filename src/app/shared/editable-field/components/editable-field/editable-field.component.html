@@ -4,7 +4,7 @@
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
     <ng-container [ngSwitch]="type">
-      <ng-container *ngSwitchCase="'suppliers' || 'events' || 'catagories'">
+      <ng-container *ngSwitchCase="'suppliers' || 'events' || 'categories'">
         <span>
           {{ entityName }}
         </span>

@@ -9,7 +9,7 @@ import { selectProductById } from '~products/store';
 import { AutoUnsub } from '~utils';
 import { Event } from '~events/models';
 import { selectEventsList } from '~app/features/events';
-import { FormDescriptor } from '~app/shared/_unused_/dynamic-forms';
+import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
 
 @Component({
@@ -37,9 +37,25 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.customFields$ = this.store.select(
 			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customFields })
 		);
+
+		this.customFields$.subscribe(d => {});
 	}
 
 	onUpdate(value) {
 		console.log(value);
+	}
+
+	isEntityType(fieldType: string) {
+		return ~['suppliers', 'categories', 'events', 'teamMembers'].indexOf(fieldType);
+	}
+
+	getFirstCol(fields: Array<FormControlDescriptor>) {
+		const half = Math.ceil(fields.length / 2);
+		return fields.slice(0, half);
+	}
+
+	getSecondCol(fields: Array<FormControlDescriptor>) {
+		const half = Math.ceil(fields.length / 2);
+		return fields.slice(half);
 	}
 }

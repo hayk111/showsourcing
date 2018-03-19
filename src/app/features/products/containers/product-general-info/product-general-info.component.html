@@ -1,5 +1,39 @@
 <div class="statusbar"></div>
-<div class="sectionTitle">General</div>
+<ng-container *ngIf="product$ | async as product">
+	<ng-container *ngIf="customFields$ | async as cf">
+		<ng-container *ngFor="let group of cf.groups">
+			<div class="sectionTitle">{{ group.name }}</div>
+			<div class="flexRow">
+				<!-- first column -->
+				<div class="flexColumn">
+					<cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
+						<editable-field-app
+							*ngIf="isEntityType(field.fieldType)"
+							[value]="product[field.name]"
+							[entities]="field.fieldType | entityList"
+							[type]="field.fieldType">
+						</editable-field-app>
+					</cell-two-row-app>
+				</div>
+
+				<!-- second column -->
+				<div class="flexColumn">
+					<cell-two-row-app *ngFor="let field of getSecondCol(group.fields)" [title]="field.label">
+						<editable-field-app
+							*ngIf="field.fieldType === 'suppliers'"
+							[value]="product[field.name]"
+							[entities]="field.fieldType | entityList"
+							type="suppliers">
+						</editable-field-app>
+					</cell-two-row-app>
+				</div>
+
+			</div>
+		</ng-container>
+	</ng-container>
+</ng-container>
+<!--
+
 <ng-container *ngIf="product$ | async as product">
   <div class="flexRow">
     <div class="flexColumn">
@@ -30,7 +64,7 @@
         <editable-field-app [value]="product?.minimumOrderQuantity" type="text"></editable-field-app>
       </cell-two-row-app>
       <cell-two-row-app title="MOQ Description">
-        ----->
+        -----
       </cell-two-row-app>
       <cell-two-row-app title="Found At">
         <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="events"></editable-field-app>
@@ -48,17 +82,17 @@
             <editable-field-app [value]="supplier?.incoTerm" type="text-inline" isRightAligned="true"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Harbour">{{supplier.harbour}}</cell-one-row-app>
-        <cell-one-row-app title="Inner Dimension">----></cell-one-row-app>
-        <cell-one-row-app title="Master Carton">----></cell-one-row-app>
-        <cell-one-row-app title="Pieces per Master">----></cell-one-row-app>
+        <cell-one-row-app title="Inner Dimension">----</cell-one-row-app>
+        <cell-one-row-app title="Master Carton">----</cell-one-row-app>
+        <cell-one-row-app title="Pieces per Master">----</cell-one-row-app>
       </div>
       <div class="flexColumn">
-        <cell-one-row-app title="1000 pcs">----></cell-one-row-app>
-        <cell-one-row-app title="5000 pcs">----></cell-one-row-app>
-        <cell-one-row-app title="10000 pcs">----></cell-one-row-app>
-        <cell-one-row-app title="With Leather">----></cell-one-row-app>
-        <cell-one-row-app title="Paper Stuffing">----></cell-one-row-app>
+        <cell-one-row-app title="1000 pcs">----</cell-one-row-app>
+        <cell-one-row-app title="5000 pcs">----</cell-one-row-app>
+        <cell-one-row-app title="10000 pcs">----</cell-one-row-app>
+        <cell-one-row-app title="With Leather">----</cell-one-row-app>
+        <cell-one-row-app title="Paper Stuffing">----</cell-one-row-app>
       </div>
     </ng-container>
   </div>
-</ng-container>
+</ng-container> -->
