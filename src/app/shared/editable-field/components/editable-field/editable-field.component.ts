@@ -16,8 +16,9 @@ export class EditableFieldComponent implements OnInit {
 	@Input() type = 'text';
 	@Input() label: string;
 	@Input() isRightAligned = false;
-	@Output() update = new EventEmitter<any>();
 	@Input() entities: Observable<Array<Entity>>;
+	@Output() update = new EventEmitter<any>();
+	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
 	entityName: string;
 	entityUrl: string;
@@ -56,5 +57,9 @@ export class EditableFieldComponent implements OnInit {
 
 	updateValue(value: string) {
 		this.textValue = value;
+	}
+
+	addEntityCallback(name) {
+		this.addEntity.emit(name);
 	}
 }

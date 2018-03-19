@@ -64,7 +64,7 @@
 
   <!-- Tags selector -->
   <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
-    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event)" [ngModel]="value">
+    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event)" [ngModel]="value" [addTag]="addEntityCallback">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
