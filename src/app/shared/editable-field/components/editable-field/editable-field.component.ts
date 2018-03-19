@@ -1,3 +1,4 @@
+import { Tag } from './../../../../app-root/store/model/entities/tag.model';
 import { take } from 'rxjs/operators';
 import { Entity } from './../../../entity/models/entities.model';
 import { Observable } from 'rxjs/Observable';
@@ -21,17 +22,22 @@ export class EditableFieldComponent implements OnInit {
 	entityName: string;
 	entityUrl: string;
 	textValue: string;
+	tags: Array<Entity>;
 	constructor() {}
 
 	ngOnInit() {
 		if (this.entities) {
 			this.entities.subscribe(entities => {
 				if (entities.length > 0) {
-					const currentEntity: any = entities.filter(entity => entity.id === this.value)[0];
-					if (currentEntity) {
-						this.entityName = currentEntity.name;
-						if (this.type === 'user-entity')
-							this.entityUrl = currentEntity.preferences.profilePicture.urls.url_60x45;
+					if (this.type === 'tags') {
+						this.tags = entities.filter(entity => this.value.indexOf(entity.id) > -1);
+					} else {
+						const currentEntity: any = entities.filter(entity => entity.id === this.value)[0];
+						if (currentEntity) {
+							this.entityName = currentEntity.name;
+							if (this.type === 'user-entity')
+								this.entityUrl = currentEntity.preferences.profilePicture.urls.url_60x45;
+						}
 					}
 				}
 			});

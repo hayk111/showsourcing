@@ -1,15 +1,15 @@
 <div *ngIf="!editMode">
-  <div class="flex editable pointer" [class.flexBetween]="!isRightAligned" [class.rightAligned]="isRightAligned">
+  <div class="flex editable" [class.flexBetween]="!isRightAligned" [class.rightAligned]="isRightAligned">
     <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
-    <ng-container [ngSwitch]="type">
-      <ng-container *ngSwitchCase="'suppliers' || 'events' || 'catagories'">
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories'].indexOf(type) > -1">
         <span>
           {{ entityName }}
         </span>
       </ng-container>
-      <ng-container *ngSwitchCase="'price'">
+      <ng-container *ngSwitchCase="type === 'price'">
         <span>
           {{value?.priceCurrency?.symbol}} {{value?.priceAmount}}
         </span>
@@ -17,13 +17,20 @@
           {{ value?.priceCurrency?.id }}
         </span>
       </ng-container>
-      <ng-container *ngSwitchCase="'teamMembers'">
+      <ng-container *ngSwitchCase="type === 'teamMembers'">
         <span class="userOpt">
           <user-picture-app [size]="24" [border]="false" [url]="entityUrl"></user-picture-app>
           {{ entityName }}
         </span>
       </ng-container>
-      <ng-container *ngSwitchCase="'currency'">
+      <ng-container *ngSwitchCase="type === 'tags'">
+        <span class="tags">
+          <span class="tag" *ngFor="let tag of tags">
+            {{ tag.name }}
+          </span>
+        </span>
+      </ng-container>
+      <ng-container *ngSwitchCase="type === 'currency'">
         <span>
           {{ value?.priceCurrency?.id }}
         </span>
@@ -42,10 +49,8 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type"
-    (update)="updateValue($event)"></input-app>
-  <input-app [label]="label" [value]="value.priceAmount" *ngIf="type === 'price'" [type]="type"
-    (update)="updateValue($event)"></input-app>
+  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [label]="label" [value]="value.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="updateValue($event)"></input-app>
 
   <!-- Entity selector -->
   <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
@@ -57,6 +62,15 @@
     </ng-template>
   </ng-select>
 
+  <!-- Tags selector -->
+  <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
+    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event)" [ngModel]="value">
+    <ng-template ng-header-tmp>
+      <div class="selectCustomInput">
+        <input style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
+      </div>
+    </ng-template>
+  </ng-select>
 
   <!-- User selector -->
   <ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
@@ -80,8 +94,6 @@
     </ng-template>
   </ng-select>
 
-  <!-- <input-price-app [label]="label" *ngIf="type === 'price'" [value]="value" (update)="update.emit($event)"></input-price-app> -->
-  <input-currency-app [label]="label" *ngIf="type === 'currency'" [value]="value" (update)="update.emit($event)"></input-currency-app>
   <div class="confirmBlock" *ngIf="type !== 'select-entity'">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
     <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
