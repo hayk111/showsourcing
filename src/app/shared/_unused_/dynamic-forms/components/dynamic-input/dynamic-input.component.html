@@ -7,7 +7,7 @@
 		[formControl]="ctrl"
 		(update)="onUpdate(descriptor.name, $event)"></input-app>
 
-	<input-radio-app
+	<!-- <input-radio-app
 		[label]="descriptor.label"
 		*ngIf="descriptor.fieldType === 'multiple-choice'"
 		[choices]="descriptor.choices">
@@ -18,7 +18,7 @@
 		[label]="descriptor.label"
 		[formControl]="ctrl"
 		[entityRep]="descriptor.metadata"
-		(update)="onUpdate(descriptor.name, $event)"></input-select-entity-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-select-entity-app> -->
 
 	<!-- <input-price-app
 		*ngIf="descriptor.fieldType === 'price'"

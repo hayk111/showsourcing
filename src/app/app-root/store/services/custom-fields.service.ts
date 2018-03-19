@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ERM, EntityService } from '~entity';
 import { map } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
+import { FieldType } from '~app/shared/_unused_/dynamic-forms';
 
 @Injectable()
 export class CustomFieldsService {
@@ -15,6 +16,7 @@ export class CustomFieldsService {
 	}
 
 	mapCustomFields(r) {
+		// we patch the product cfdef
 		r.productsCFDef.groups.forEach(g => {
 			if (g.name === 'Basic info') g.fields.forEach(f => this.patchBasicInfo(f));
 			else
@@ -23,7 +25,13 @@ export class CustomFieldsService {
 					this.patchCustom(f, r);
 				});
 		});
-		return r;
+		// we need to return an array of entities
+		// first we delete the teamId from the object
+		delete r.teamId;
+		// then we add an id to each entries
+		Object.entries(r).forEach(([k, v]: any) => (v.id = k));
+		// then we return an array
+		return Object.values(r);
 	}
 
 	// TODO : no patch needed
@@ -40,39 +48,28 @@ export class CustomFieldsService {
 		switch (f.name) {
 			case 'supplier':
 				f.name = 'supplierId';
-				f.fieldType = 'entitySelect';
-				f.metadata = ERM.suppliers;
+				f.fieldType = FieldType.SUPPLIER;
 				break;
 			case 'category':
 				f.name = 'categoryId';
-				f.fieldType = 'entitySelect';
-				f.metadata = ERM.categories;
+				f.fieldType = FieldType.CATEGORY;
 				break;
 			case 'event':
 				f.name = 'eventId';
-				f.fieldType = 'entitySelect';
-				f.metadata = ERM.events;
+				f.fieldType = FieldType.EVENT;
 				break;
 			case 'name':
-				f.fieldType = 'text';
-				break;
-			case 'rating':
-				f.fieldType = 'rating';
+				f.fieldType = FieldType.TEXT;
 				break;
 			case 'priceAmount':
-				f.fieldType = 'price';
+				f.fieldType = FieldType.PRICE;
 				break;
-			// case 'priceCurrency':
-			// 	f.fieldType = 'currency';
-			// 	f.label = 'currency';
-			// 	break;
 			case 'description':
-				f.fieldType = 'textarea';
+				f.fieldType = FieldType.TEXTAREA;
 				break;
 			case 'minimumOrderQuantity':
-				f.fieldType = 'number';
+				f.fieldType = FieldType.NUMBER;
 				f.label = 'MOQ';
-				f.fieldName = 'minimumOrderQuantity';
 				break;
 		}
 	}
