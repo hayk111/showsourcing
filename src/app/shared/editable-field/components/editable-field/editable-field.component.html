@@ -19,14 +19,14 @@
       </ng-container>
       <ng-container *ngSwitchCase="type === 'teamMembers'">
         <span class="userOpt">
-          <user-picture-app [size]="24" [border]="false" [url]="entityUrl"></user-picture-app>
+          <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMembers' | async).preferences.profilePicture.urls.url_60x45"></user-picture-app>
           {{ value | entityName: 'teamMembers' | async }}
         </span>
       </ng-container>
       <ng-container *ngSwitchCase="['tags', 'projects'].indexOf(type) > -1">
         <span class="tags">
-          <span class="tag" *ngFor="let tag of mulitpleChoices">
-            {{ tag.name }}
+          <span class="tag" *ngFor="let tagid of value">
+            {{ tagid | entityName: type | async  }}
           </span>
         </span>
       </ng-container>

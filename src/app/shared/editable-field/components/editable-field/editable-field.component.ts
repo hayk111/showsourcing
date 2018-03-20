@@ -30,29 +30,9 @@ export class EditableFieldComponent implements OnInit {
 	@Output() update = new EventEmitter<any>();
 	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
-	entityName: string;
-	entityUrl: string;
-	mulitpleChoices: Array<Entity>;
 	constructor() {}
 
-	ngOnInit() {
-		if (this.entities) {
-			this.entities.subscribe(entities => {
-				if (entities.length > 0) {
-					if (this.type === 'tags' || this.type === 'projects') {
-						this.mulitpleChoices = entities.filter(entity => this.value.indexOf(entity.id) > -1);
-					} else {
-						const currentEntity: any = entities.filter(entity => entity.id === this.value)[0];
-						if (currentEntity) {
-							this.entityName = currentEntity.name;
-							if (this.type === 'user-entity')
-								this.entityUrl = currentEntity.preferences.profilePicture.urls.url_60x45;
-						}
-					}
-				}
-			});
-		}
-	}
+	ngOnInit() {}
 
 	openEditMode() {
 		this.editMode = true;
