@@ -32,7 +32,7 @@
           <ng-container *ngIf="product$ | async as product">
             <div class="cell">
               <div class="title">Price</div>
-              <div class="content">{{product?.price?.priceCurrency?.symbol}} {{product?.price?.priceAmount}}</div>
+              <div class="content">{{product?.priceCurrency?.symbol}} {{product?.priceAmount}}</div>
             </div>
             <div class="divider"></div>
             <div class="cell">
