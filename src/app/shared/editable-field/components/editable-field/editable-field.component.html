@@ -5,7 +5,7 @@
 		<!-- else we just display said value -->
     <ng-container [ngSwitch]="true">
 			<!-- entities -->
-      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus', 'harbours', 'incoTerms', 'currencies'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
@@ -18,12 +18,6 @@
         <span class="currencyTag" *ngIf="entity?.priceCurrency">
           {{ entity?.priceCurrency?.id }}
         </span>
-			</ng-container>
-			<!-- currency -->
-      <ng-container *ngSwitchCase="type === 'currencies'">
-					<span>
-						{{ value?.name }}
-					</span>
 			</ng-container>
 			<!-- user -->
       <ng-container *ngSwitchCase="type === 'teamMembers'">
@@ -52,7 +46,7 @@
       </ng-container>
 
     </ng-container>
-    <div class="editButton" *ngIf="!isRightAligned" (click)="openEditMode()">Edit </div>
+    <div class="editButton pointer" *ngIf="!isRightAligned" (click)="openEditMode()">Edit </div>
   </div>
 </div>
 
@@ -75,7 +69,7 @@
 	<!-- Entity selector -->
 	<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name"
 		bindValue="id"
-		*ngIf="['suppliers', 'categories', 'events', 'currencies'].indexOf(type) > -1"
+		*ngIf="['suppliers', 'categories', 'events', 'currencies', 'incoTerms', 'harbours'].indexOf(type) > -1"
 			(change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
@@ -151,7 +145,7 @@
     </ng-template>
   </ng-select>
 
-  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea', 'currencies'].indexOf(type) === -1">
+  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea', 'currencies', 'harbours','incoTerms'].indexOf(type) === -1">
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
       <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(accumulator); closeEditMode()"></span>
   </div>

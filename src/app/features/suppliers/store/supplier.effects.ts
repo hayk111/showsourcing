@@ -41,5 +41,10 @@ export class SuppliersEffects {
 			)
 		);
 
+	@Effect({ dispatch: false })
+	patch$ = this.action$
+		.ofType<any>(ActionType.PATCH)
+		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+
 	constructor(private action$: Actions, private srv: SupplierService) {}
 }

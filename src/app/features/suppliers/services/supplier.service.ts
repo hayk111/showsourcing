@@ -3,10 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserService } from '~user';
 import { EntityService, ERM } from '~entity';
+import { Patch } from '~app/app-root/store';
 
 @Injectable()
 export class SupplierService {
-	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(
+		private http: HttpClient,
+		private entitySrv: EntityService,
+		private userSrv: UserService
+	) {}
 
 	load() {
 		return this.entitySrv
@@ -20,5 +25,10 @@ export class SupplierService {
 
 	create(supplier) {
 		return this.http.post(`api/team/${this.userSrv.teamId}/supplier`, supplier);
+	}
+
+	sendPatchRequest(p: Patch) {
+		const patch = { [p.propName]: p.value };
+		return this.http.patch(`api/supplier/${p.id}`, patch);
 	}
 }

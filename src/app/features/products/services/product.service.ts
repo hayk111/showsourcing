@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
-import { LoadParams } from '~app/app-root/store';
+import { LoadParams, Patch } from '~app/app-root/store';
+import { Product } from '~app/features/products';
 
 @Injectable()
 export class ProductService {
@@ -20,9 +21,15 @@ export class ProductService {
 		params.base = ERM.teams;
 		params.loaded = ERM.product;
 		params.recurring = true;
-		return this.entitySrv
-			.load(params)
-			.pipe(map((r: any) => r.elements), tap(r => r.forEach(elem => this.addCustomFields(elem))));
+		return this.entitySrv.load(params).pipe(
+			map((r: any) => r.elements),
+			tap(products =>
+				products.forEach(elem => {
+					this.addCustomFields(elem);
+					this.linearize(elem);
+				})
+			)
+		);
 	}
 
 	delete(id: string) {
@@ -39,7 +46,9 @@ export class ProductService {
 			loadedId: id,
 			recurring: true,
 		};
-		return this.entitySrv.load(params).pipe(map(elem => this.addCustomFields(elem)));
+		return this.entitySrv
+			.load(params)
+			.pipe(map(elem => this.addCustomFields(elem)), map(elem => this.linearize(elem)));
 	}
 
 	// properties in the customFields nested object are added to the product with
@@ -54,18 +63,26 @@ export class ProductService {
 		return elem;
 	}
 
-	sendPatchRequest(p: { id: string; propName: string; value: any }) {
-		let patch = { [p.propName]: p.value };
-		// need to check if it's price because then we need to take the value
-		// that's from product details page
-		if (p.propName === 'price') patch = p.value;
+	// putting properties from additional infos into the product so it's linear
+	linearize(product: Product) {
+		if (product.additionalInfo) {
+			const entries = Object.entries(product.additionalInfo);
+			entries.forEach(([k, v]) => {
+				product[k] = v;
+			});
+		}
+		return product;
+	}
 
+	sendPatchRequest(p: Patch) {
+		const patch = { [p.propName]: p.value };
 		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
 	sendPdfReq(id) {
 		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
 	}
+
 	requestFeedback(productId: String, recipientsIds: Array<string>) {
 		const recp = { recipients: recipientsIds };
 		return this.http.post(`api/product/${productId}/feedback`, recp);

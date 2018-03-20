@@ -53,6 +53,8 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			'projects',
 			'productStatus',
 			'currencies',
+			'incoTerms',
+			'harbours',
 		].indexOf(fieldType);
 	}
 
