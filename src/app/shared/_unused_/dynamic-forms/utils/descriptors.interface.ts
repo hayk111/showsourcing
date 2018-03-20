@@ -1,4 +1,4 @@
-export enum FieldType {
+export enum PropType {
 	SUPPLIER = 'suppliers',
 	CATEGORY = 'categories',
 	EVENT = 'events',
@@ -20,8 +20,10 @@ export enum FieldType {
 
 export interface FormControlDescriptor {
 	name?: string;
+	propName?: string;
+	propType?: PropType;
 	value?: any;
-	fieldType?: FieldType;
+	fieldType?: string;
 	label?: string;
 	placeholder?: string;
 	required?: boolean;

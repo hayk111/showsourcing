@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { EntityRepresentation } from '~entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { Patch } from '~app/app-root/store';
 
 @Component({
 	selector: 'editable-field-app',
@@ -17,7 +18,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() label: string;
 	@Input() isRightAligned = false;
 	@Input() entities: Observable<Array<Entity>>;
-	@Output() update = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Patch>();
 	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
 	entityName: string;

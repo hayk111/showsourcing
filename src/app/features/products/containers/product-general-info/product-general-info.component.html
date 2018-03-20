@@ -1,5 +1,23 @@
+
+<ng-template #fields let-field="field" let-product="product">
+	<editable-field-app
+		*ngIf="isEntityType(field.propType)"
+		[value]="product[field.propName]"
+		[entities]="field.propType | entityList"
+		[type]="field.propType"
+		(update)="onUpdate(product.id, field.propName, $event)">
+	</editable-field-app>
+	<editable-field-app
+		*ngIf="!isEntityType(field.propType)"
+		[value]="product[field.propName]"
+		[type]="field.propType"
+		(update)="onUpdate(product.id, field.propName, $event)">
+	</editable-field-app>
+</ng-template>
+
 <div class="statusbar"></div>
 <ng-container *ngIf="product$ | async as product">
+	{{ product | json }}
 	<ng-container *ngIf="customFields$ | async as cf">
 		<ng-container *ngFor="let group of cf.groups">
 			<div class="sectionTitle">{{ group.name }}</div>
@@ -7,34 +25,14 @@
 				<!-- first column -->
 				<div class="flexColumn">
 					<cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
-						<editable-field-app
-							*ngIf="isEntityType(field.fieldType)"
-							[value]="product[field.name]"
-							[entities]="field.fieldType | entityList"
-							[type]="field.fieldType">
-						</editable-field-app>
-						<editable-field-app
-							*ngIf="!isEntityType(field.fieldType)"
-							[value]="product[field.name]"
-							[type]="field.fieldType">
-						</editable-field-app>
+						<ng-container  *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
 					</cell-two-row-app>
 				</div>
 
 				<!-- second column -->
 				<div class="flexColumn">
 					<cell-two-row-app *ngFor="let field of getSecondCol(group.fields)" [title]="field.label">
-						<editable-field-app
-							*ngIf="field.fieldType === 'suppliers'"
-							[value]="product[field.name]"
-							[entities]="field.fieldType | entityList"
-							type="suppliers">
-						</editable-field-app>
-						<editable-field-app
-							*ngIf="!isEntityType(field.fieldType)"
-							[value]="product[field.name]"
-							[type]="field.fieldType">
-						</editable-field-app>
+						<ng-container  *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
 					</cell-two-row-app>
 				</div>
 
@@ -42,51 +40,9 @@
 		</ng-container>
 	</ng-container>
 </ng-container>
-<!--
+
 
 <ng-container *ngIf="product$ | async as product">
-  <div class="flexRow">
-    <div class="flexColumn">
-      <cell-two-row-app title="Supplier">
-        <editable-field-app [value]="product?.supplierId" [entities]="'suppliers' | entityList" type="suppliers"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="Category">
-        <editable-field-app [value]="product?.categoryId" [entities]="'categories' | entityList" type="categories"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="Name">
-        <editable-field-app [value]="product?.name" type="text"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="Price">
-        <editable-field-app [value]="product?.price" type="price"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="Created By">
-        <ng-container *ngIf="product.createdByUserId | entity: 'teamMembers' | async as user">
-          <user-picture-app [size]="24" [border]="false" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-          {{user.name}}
-        </ng-container>
-      </cell-two-row-app>
-      <cell-two-row-app title="Assignee">
-        <editable-field-app [value]="product?.createdByUserId" [entities]="'teamMembers' | entityList" type="teamMembers"></editable-field-app>
-      </cell-two-row-app>
-    </div>
-    <div class="flexColumn">
-      <cell-two-row-app title="MOQ">
-        <editable-field-app [value]="product?.minimumOrderQuantity" type="text"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="MOQ Description">
-        -----
-      </cell-two-row-app>
-      <cell-two-row-app title="Found At">
-        <editable-field-app [value]="product?.eventId" [entities]="'events' | entityList" type="events"></editable-field-app>
-      </cell-two-row-app>
-      <cell-two-row-app title="Tags">
-          <editable-field-app [value]="product?.tagIds" [entities]="'tags' | entityList" type="tags"></editable-field-app>
-        </cell-two-row-app>
-      <cell-two-row-app title="Description" isFullHeight="true">
-        {{product.description}}
-      </cell-two-row-app>
-    </div>
-  </div>
   <div class="sectionTitle shipping">Shipping & Trading</div>
   <div class="flexRow">
     <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
@@ -108,4 +64,4 @@
       </div>
     </ng-container>
   </div>
-</ng-container> -->
+</ng-container>

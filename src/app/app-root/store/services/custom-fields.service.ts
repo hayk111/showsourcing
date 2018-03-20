@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ERM, EntityService } from '~entity';
 import { map } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
-import { FieldType } from '~app/shared/_unused_/dynamic-forms';
+import { PropType } from '~app/shared/_unused_/dynamic-forms';
 
 @Injectable()
 export class CustomFieldsService {
@@ -18,12 +18,8 @@ export class CustomFieldsService {
 	mapCustomFields(r) {
 		// we patch the product cfdef
 		r.productsCFDef.groups.forEach(g => {
-			if (g.name === 'Basic info') g.fields.forEach(f => this.patchBasicInfo(f));
-			else
-				g.fields.forEach(f => {
-					f.name = 'x-' + f.name;
-					this.patchCustom(f, r);
-				});
+			g.fields = g.fields.filter(f => f.name !== 'priceCurrency' && f.name !== 'rating');
+			g.fields.forEach(f => this.patchBasicInfo(f));
 		});
 		// we need to return an array of entities
 		// first we delete the teamId from the object
@@ -45,59 +41,43 @@ export class CustomFieldsService {
 	}
 
 	private patchBasicInfo(f) {
-		switch (f.name) {
-			case 'supplier':
-				f.name = 'supplierId';
-				f.fieldType = FieldType.SUPPLIER;
-				break;
-			case 'category':
-				f.name = 'categoryId';
-				f.fieldType = FieldType.CATEGORY;
-				break;
-			case 'event':
-				f.name = 'eventId';
-				f.fieldType = FieldType.EVENT;
-				break;
-			case 'name':
-				f.fieldType = FieldType.TEXT;
-				break;
-			case 'priceAmount':
-				f.fieldType = FieldType.PRICE;
-				break;
-			case 'description':
-				f.fieldType = FieldType.TEXTAREA;
-				break;
-			case 'minimumOrderQuantity':
-				f.fieldType = FieldType.NUMBER;
-				f.label = 'MOQ';
-				break;
-		}
-	}
-
-	patchCustom(f, r) {
-		switch (f.fieldType) {
-			case 'supplier':
-				f.fieldType = 'entitySelect';
-				f.metadata = ERM.suppliers;
-				break;
-			case 'free-text':
-				f.fieldType = 'text';
-				break;
-			case 'text-zone':
-				f.fieldType = 'textarea';
-				break;
-			case 'price':
-			case 'decimal-number':
-				f.fieldType = 'decimal';
-				break;
-			case 'multiple-choice':
-				const enumName = f.enumerationName;
-				let choices = r.enumerationsDef[enumName];
-				// id of multiple choice is the same as name
-				// because radio values gives back an id and the api
-				// is waiting for a name
-				choices = choices.map((c, i) => ({ id: c, name: c }));
-				f.choices = choices;
+		if (f.fieldType === 'standard') {
+			switch (f.name) {
+				case 'supplier':
+					f.propName = 'supplierId';
+					f.propType = PropType.SUPPLIER;
+					break;
+				case 'category':
+					f.propName = 'categoryId';
+					f.propType = PropType.CATEGORY;
+					break;
+				case 'event':
+					f.propName = 'eventId';
+					f.propType = PropType.EVENT;
+					break;
+				case 'name':
+					f.propName = f.name;
+					f.propType = PropType.TEXT;
+					break;
+				case 'priceAmount':
+					f.propName = 'price';
+					f.propType = PropType.PRICE;
+					break;
+				case 'description':
+					f.propName = f.name;
+					f.propType = PropType.TEXTAREA;
+					break;
+				case 'minimumOrderQuantity':
+					f.propName = f.name;
+					f.propType = PropType.NUMBER;
+					break;
+				default:
+					f.propName = f.name;
+					f.propType = f.fieldType;
+			}
+		} else {
+			f.propName = f.name;
+			f.propType = f.fieldType;
 		}
 	}
 }

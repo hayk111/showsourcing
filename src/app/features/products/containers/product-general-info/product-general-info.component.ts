@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
-import { Product } from '~app/features/products';
-import { selectProductById } from '~products/store';
+import { Product } from '~app/features/products/models';
+import { selectProductById, ProductActions } from '~products/store';
 import { AutoUnsub } from '~utils';
 import { Event } from '~events/models';
 import { selectEventsList } from '~app/features/events';
 import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
+import { Patch } from '~app/app-root/store/utils';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -41,10 +42,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.customFields$.subscribe(d => {});
 	}
 
-	onUpdate(value) {
-		console.log(value);
-	}
-
 	isEntityType(fieldType: string) {
 		return ~['suppliers', 'categories', 'events', 'teamMembers'].indexOf(fieldType);
 	}
@@ -58,4 +55,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		const half = Math.ceil(fields.length / 2);
 		return fields.slice(half);
 	}
+
+	onUpdate(id: string, propName: string, value: any) {
+		this.store.dispatch(ProductActions.patch({ id, propName, value }));
+	}
+
+	onSupplierUpdate() {}
 }
