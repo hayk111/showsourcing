@@ -59,6 +59,15 @@ export class CustomFieldsService {
 					f.propName = f.name;
 					f.propType = PropType.TEXT;
 					break;
+				case 'status':
+					f.propName = f.name;
+					f.propType = PropType.PRODUCT_STATUS;
+				case 'tags':
+					f.propName = 'tagIds';
+					f.propType = PropType.TAG;
+				case 'projects':
+					f.propName = 'projectIds';
+					f.propType = PropType.PROJECT;
 				case 'priceAmount':
 					f.propName = 'price';
 					f.propType = PropType.PRICE;

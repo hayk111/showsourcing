@@ -4,6 +4,8 @@ export enum PropType {
 	EVENT = 'events',
 	TEAM_MEMBERS = 'teamMembers',
 	TAG = 'tags',
+	PROJECT = 'projects',
+	PRODUCT_STATUS = 'productStatus',
 	DIMENSION = 'dimension',
 	TEXT = 'text',
 	TEXTAREA = 'textarea',
