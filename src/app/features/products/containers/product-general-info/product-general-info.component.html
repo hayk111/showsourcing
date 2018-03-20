@@ -17,6 +17,7 @@
 
 <div class="statusbar"></div>
 <ng-container *ngIf="product$ | async as product">
+	{{ product | json }}
 	<ng-container *ngIf="customFields$ | async as cf">
 		<ng-container *ngFor="let group of cf.groups">
 			<div class="sectionTitle">{{ group.name }}</div>
@@ -40,31 +41,54 @@
 	</ng-container>
 </ng-container>
 
-
+<!--
 <ng-container *ngIf="product$ | async as product">
   <div class="sectionTitle shipping">Shipping & Trading</div>
   <div class="flexRow">
     <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
       <div class="flexColumn">
         <cell-one-row-app title="Inco Term">
-          	<!-- <editable-field-app
-							[value]="supplier.incoTerms"
-							[type]="incoTerms"
-							(update)="onUpdate(product.id, field.propName, $event)">
-						</editable-field-app> -->
+					<editable-field-app
+						[value]="supplier.incoTerms"
+						[type]="incoTerms"
+						(update)="onUpdate(supplier.id, 'incoTerms', $event)">
+					</editable-field-app>
         </cell-one-row-app>
-        <cell-one-row-app title="Harbour">{{supplier.harbour}}</cell-one-row-app>
-        <cell-one-row-app title="Inner Dimension">----</cell-one-row-app>
-        <cell-one-row-app title="Master Carton">----</cell-one-row-app>
-        <cell-one-row-app title="Pieces per Master">----</cell-one-row-app>
+        <cell-one-row-app title="Harbour">
+					<editable-field-app
+						[value]="supplier.harbour"
+						[type]="harbours"
+						(update)="onUpdate(supplier.id, 'harbour', $event)">
+					</editable-field-app>
+				</cell-one-row-app>
+        <cell-one-row-app title="Inner Dimension">
+					<editable-field-app
+						[value]="product.innerDimensions"
+						[type]="dimensions"
+						(update)="onUpdate(product.id, 'innerDimensions', $event)">
+					</editable-field-app>
+				</cell-one-row-app>
+        <cell-one-row-app title="Master Carton">
+					<editable-field-app
+						[value]="product.masterCarton"
+						[type]="dimensions"
+						(update)="onUpdate(product.id, 'masterCarton', $event)">
+					</editable-field-app>
+				</cell-one-row-app>
+        <cell-one-row-app title="Pieces per Master">
+					<editable-field-app
+						[value]="product.piecePerMaster"
+						[type]="number"
+						(update)="onUpdate(product.id, 'piecePerMaster', $event)">
+				</cell-one-row-app>
       </div>
       <div class="flexColumn">
         <cell-one-row-app title="1000 pcs">----</cell-one-row-app>
         <cell-one-row-app title="5000 pcs">----</cell-one-row-app>
         <cell-one-row-app title="10000 pcs">----</cell-one-row-app>
-        <cell-one-row-app title="With Leather">----</cell-one-row-app>
-        <cell-one-row-app title="Paper Stuffing">----</cell-one-row-app>
       </div>
     </ng-container>
   </div>
 </ng-container>
+
+-->

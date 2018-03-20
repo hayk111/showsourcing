@@ -2,7 +2,15 @@ import { Tag } from './../../../../app-root/store/model/entities/tag.model';
 import { take } from 'rxjs/operators';
 import { Entity } from './../../../entity/models/entities.model';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	EventEmitter,
+	Output,
+	ViewChild,
+	ChangeDetectionStrategy,
+} from '@angular/core';
 import { EntityRepresentation } from '~entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Patch } from '~app/app-root/store';
@@ -11,6 +19,7 @@ import { Patch } from '~app/app-root/store';
 	selector: 'editable-field-app',
 	templateUrl: './editable-field.component.html',
 	styleUrls: ['./editable-field.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableFieldComponent implements OnInit {
 	@Input() value;
@@ -23,7 +32,6 @@ export class EditableFieldComponent implements OnInit {
 	editMode = false;
 	entityName: string;
 	entityUrl: string;
-	textValue: string;
 	mulitpleChoices: Array<Entity>;
 	constructor() {}
 
@@ -54,10 +62,6 @@ export class EditableFieldComponent implements OnInit {
 		// so the blur event of the input fires
 		// without this, the inputs isn't shown and the blur doesn't fire
 		setTimeout(() => (this.editMode = false), 0);
-	}
-
-	updateValue(value: string) {
-		this.textValue = value;
 	}
 
 	addEntityCallback(name) {

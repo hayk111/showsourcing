@@ -12,6 +12,7 @@ import { selectEventsList } from '~app/features/events';
 import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
 import { Patch } from '~app/app-root/store/utils';
+import { SupplierActions } from '~app/features/suppliers';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -65,9 +66,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(id: string, propName: string, value: any) {
-		console.log(value);
-		// this.store.dispatch(ProductActions.patch({ id, propName, value }));
+		this.store.dispatch(ProductActions.patch({ id, propName, value }));
 	}
 
-	onSupplierUpdate() {}
+	onSupplierUpdate(id: string, propName: string, value: any) {
+		this.store.dispatch(SupplierActions.patch({ id, propName, value }));
+	}
 }

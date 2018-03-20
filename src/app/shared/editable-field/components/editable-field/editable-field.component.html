@@ -6,12 +6,12 @@
     <ng-container [ngSwitch]="true">
       <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus'].indexOf(type) > -1">
         <span>
-          {{ entityName }}
+          {{ value | entityName: type | async }}
         </span>
       </ng-container>
       <ng-container *ngSwitchCase="type === 'price'">
         <span>
-          {{value?.priceCurrency?.symbol}} {{value?.priceAmount}}
+          {{ value?.priceCurrency?.symbol }} {{ value?.priceAmount }}
         </span>
         <span class="currencyTag" *ngIf="value?.priceCurrency">
           {{ value?.priceCurrency?.id }}
@@ -20,7 +20,7 @@
       <ng-container *ngSwitchCase="type === 'teamMembers'">
         <span class="userOpt">
           <user-picture-app [size]="24" [border]="false" [url]="entityUrl"></user-picture-app>
-          {{ entityName }}
+          {{ value | entityName: 'teamMembers' | async }}
         </span>
       </ng-container>
       <ng-container *ngSwitchCase="['tags', 'projects'].indexOf(type) > -1">
@@ -49,15 +49,15 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
-  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="update.emit($event)"></input-app>
+  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="update.emit($event)"></input-app>
 
   <!-- Text Area editor -->
   <div class="textAreaEditor">
-    <input-textarea-app [value]="value" *ngIf="['textarea'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-textarea-app>
+    <input-textarea-app [value]="value" *ngIf="['textarea'].indexOf(type) > -1" [type]="type" (update)="update.emit($event)"></input-textarea-app>
     <div class="confirmBlock" *ngIf="type === 'textarea'">
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
-      <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()">Save</span>
+      <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(value); closeEditMode()">Save</span>
     </div>
   </div>
 
