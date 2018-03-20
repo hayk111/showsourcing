@@ -84,7 +84,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	onChange(v) {
 		this.value = v;
 		// needed because some api expect number instead of str
-		if (this.type === 'number') {
+		if (this._type === 'number' || this._type === 'decimal') {
 			this.value = +v;
 		}
 		super.onChange(this.value);
@@ -92,8 +92,9 @@ export class InputComponent extends AbstractInput implements OnInit {
 
 	get type() {
 		switch (this._type) {
+			case 'number':
 			case 'decimal':
-				return 'number';
+				return 'text';
 			default:
 				return this._type;
 		}

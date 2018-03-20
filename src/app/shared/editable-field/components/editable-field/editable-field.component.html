@@ -70,7 +70,7 @@
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
       <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()">Save</span>
     </div>
-  </div>
+	</div>
 
 	<!-- Entity selector -->
 	<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name"
