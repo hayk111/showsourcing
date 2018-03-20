@@ -2,27 +2,37 @@
   <div class="flex editable" [class.flexBetween]="!isRightAligned" [class.rightAligned]="isRightAligned">
     <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
-    <!-- else we just display said value -->
+		<!-- else we just display said value -->
     <ng-container [ngSwitch]="true">
+			<!-- entities -->
       <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
-      </ng-container>
+			</ng-container>
+			<!-- price -->
       <ng-container *ngSwitchCase="type === 'price'">
         <span>
-          {{ value?.priceCurrency?.symbol }} {{ value?.priceAmount }}
+          {{ value }}
         </span>
-        <span class="currencyTag" *ngIf="value?.priceCurrency">
-          {{ value?.priceCurrency?.id }}
+        <span class="currencyTag" *ngIf="entity?.priceCurrency">
+          {{ entity?.priceCurrency?.id }}
         </span>
-      </ng-container>
+			</ng-container>
+			<!-- currency -->
+      <ng-container *ngSwitchCase="type === 'currencies'">
+					<span>
+						{{ value?.name }}
+					</span>
+			</ng-container>
+			<!-- user -->
       <ng-container *ngSwitchCase="type === 'teamMembers'">
         <span class="userOpt">
           <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMembers' | async).preferences.profilePicture.urls.url_60x45"></user-picture-app>
           {{ value | entityName: 'teamMembers' | async }}
         </span>
-      </ng-container>
+			</ng-container>
+			<!-- tags -->
       <ng-container *ngSwitchCase="['tags', 'projects'].indexOf(type) > -1">
         <span class="tags">
           <span class="tag" *ngFor="let tagid of value">
@@ -50,7 +60,7 @@
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
   <input-app [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
-  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" type="number" (update)="updateValue($event)"></input-app>
 
 
   <!-- Text Area editor -->
@@ -63,8 +73,10 @@
   </div>
 
   <!-- Entity selector -->
-  <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
-    *ngIf="['suppliers', 'categories','events'].indexOf(type) > -1" (change)="update.emit($event?.id)" [ngModel]="value">
+	<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name"
+		bindValue="id"
+		*ngIf="['suppliers', 'categories','events', 'currencies'].indexOf(type) > -1"
+			(change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="entitySelector.filter($event.target.value)" />
@@ -141,7 +153,7 @@
 
   <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea'].indexOf(type) === -1">
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
-      <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
+      <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(accumulator); closeEditMode()"></span>
   </div>
 
 </div>

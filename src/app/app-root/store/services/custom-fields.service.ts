@@ -18,7 +18,8 @@ export class CustomFieldsService {
 	mapCustomFields(r) {
 		// we patch the product cfdef
 		r.productsCFDef.groups.forEach(g => {
-			g.fields = g.fields.filter(f => f.name !== 'priceCurrency' && f.name !== 'rating');
+			// we need to remove rating as its not used in the custom fields
+			g.fields = g.fields.filter(f => f.name !== 'rating');
 			g.fields.forEach(f => this.patchBasicInfo(f));
 		});
 		// we need to return an array of entities
@@ -72,9 +73,13 @@ export class CustomFieldsService {
 					f.propType = PropType.PROJECT;
 					break;
 				case 'priceAmount':
-					f.propName = 'price';
+					f.propName = f.name;
 					f.propType = PropType.PRICE;
 					f.label = 'Price';
+					break;
+				case 'priceCurrency':
+					f.propName = f.name;
+					f.propType = PropType.CURRENCY;
 					break;
 				case 'description':
 					f.propName = f.name;
@@ -86,7 +91,7 @@ export class CustomFieldsService {
 					break;
 				default:
 					f.propName = f.name;
-					f.propType = f.fieldType;
+					f.propType = f.name;
 			}
 		} else {
 			f.propName = f.name;

@@ -6,6 +6,7 @@ export enum PropType {
 	TAG = 'tags',
 	PROJECT = 'projects',
 	PRODUCT_STATUS = 'productStatus',
+	CURRENCY = 'currencies',
 	DIMENSION = 'dimension',
 	TEXT = 'text',
 	TEXTAREA = 'textarea',

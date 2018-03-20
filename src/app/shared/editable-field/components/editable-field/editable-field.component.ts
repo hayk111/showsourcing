@@ -26,11 +26,12 @@ export class EditableFieldComponent implements OnInit {
 	@Input() type = 'text';
 	@Input() label: string;
 	@Input() isRightAligned = false;
+	@Input() entity: Entity;
 	@Input() entities: Observable<Array<Entity>>;
 	@Output() update = new EventEmitter<any>();
 	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
-	textValue: string;
+	accumulator: string | number;
 
 	constructor() {}
 
@@ -60,6 +61,6 @@ export class EditableFieldComponent implements OnInit {
 	}
 
 	updateValue(value: string) {
-		this.textValue = value;
+		this.accumulator = value;
 	}
 }

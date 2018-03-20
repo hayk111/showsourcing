@@ -51,14 +51,6 @@ export class ProductService {
 		}
 		// this is done to have minimum order quantity on the same level
 		if (elem.additionalInfo) elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
-		// here we do the opposite though. That's because the backend
-		// is waiting for an object when we modify the price
-		// amount or priceCurrency.
-		if (elem.priceAmount || elem.priceCurrency)
-			elem.price = {
-				priceAmount: elem.priceAmount,
-				priceCurrency: elem.priceCurrency,
-			};
 		return elem;
 	}
 

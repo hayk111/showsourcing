@@ -3,12 +3,14 @@
 	<editable-field-app
 		*ngIf="isEntityType(field.propType)"
 		[value]="product[field.propName]"
+		[entity]="product"
 		[entities]="field.propType | entityList"
 		[type]="field.propType"
 		(update)="onUpdate(product.id, field.propName, $event)">
 	</editable-field-app>
 	<editable-field-app
 		*ngIf="!isEntityType(field.propType)"
+		[entity]="product"
 		[value]="product[field.propName]"
 		[type]="field.propType"
 		(update)="onUpdate(product.id, field.propName, $event)">
