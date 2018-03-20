@@ -4,7 +4,7 @@
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
     <ng-container [ngSwitch]="true">
-      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus'].indexOf(type) > -1">
         <span>
           {{ entityName }}
         </span>
@@ -62,6 +62,7 @@
     </ng-template>
   </ng-select>
 
+
   <!-- Tags selector -->
   <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
     bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event?.id)" [ngModel]="value" [addTag]="addEntityCallback">
@@ -94,7 +95,31 @@
     </ng-template>
   </ng-select>
 
-  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags'].indexOf(type) === -1">
+
+    <!-- Status selector -->
+
+    <ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
+    *ngIf="type === 'productStatus'" (change)="update.emit($event?.id)" [ngModel]="value">
+    <ng-template ng-header-tmp>
+      <div class="selectCustomInput">
+        <input style="width: 100%" type="text" (input)="statusSelector.filter($event.target.value)" />
+      </div>
+    </ng-template>
+    <ng-template ng-label-tmp let-item="item">
+      <span class="userOpt">
+        <user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+        {{item.name}}
+      </span>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+      <span class="userOpt">
+        <user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+        {{item.name}}
+      </span>
+    </ng-template>
+  </ng-select>
+
+  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus'].indexOf(type) === -1">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
     <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
   </div>
