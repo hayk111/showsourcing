@@ -48,7 +48,7 @@ export class EditableFieldComponent implements OnInit {
 		setTimeout(() => (this.editMode = false), 0);
 	}
 
-	addEntityCallback(name) {
+	addEntityCallback(name: string) {
 		this.addEntity.emit(name);
 	}
 

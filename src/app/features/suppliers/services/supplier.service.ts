@@ -7,11 +7,7 @@ import { Patch } from '~app/app-root/store';
 
 @Injectable()
 export class SupplierService {
-	constructor(
-		private http: HttpClient,
-		private entitySrv: EntityService,
-		private userSrv: UserService
-	) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {
 		return this.entitySrv
@@ -28,7 +24,9 @@ export class SupplierService {
 	}
 
 	sendPatchRequest(p: Patch) {
-		const patch = { [p.propName]: p.value };
+		const patch = {
+			[p.propName]: p.value,
+		};
 		return this.http.patch(`api/supplier/${p.id}`, patch);
 	}
 }

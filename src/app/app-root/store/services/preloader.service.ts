@@ -9,13 +9,13 @@ import {
 	CountryActions,
 	CurrencyActions,
 	CustomFieldsActions,
-	SupplierActions,
 	TagActions,
 	TeamActions,
 	TeamMembersActions,
 	IncoTermsActions,
 	HarbourActions,
 } from '~store/action';
+import { SupplierActions } from '~app/features/suppliers/store//supplier.action';
 
 @Injectable()
 export class PreloaderService {

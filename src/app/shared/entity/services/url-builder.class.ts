@@ -65,7 +65,7 @@ export class UrlBuilder {
 			throw Error(
 				`UrlBuilder: Base ${
 					base.urlName
-				} not supported, supported bases are user and teams`
+				} not supported, supported bases are user and teams, if you need to load a static entity do it via loaded.`
 			);
 		}
 		if (base === ERM.teams) {
@@ -82,11 +82,7 @@ export class UrlBuilder {
 	}
 
 	// add the loaded entity
-	private addLoaded(
-		url: string,
-		loaded: EntityRepresentation,
-		loadedId?: string
-	) {
+	private addLoaded(url: string, loaded: EntityRepresentation, loadedId?: string) {
 		url = `${url}/${loaded.urlName}`;
 		if (loadedId) url += `/${loadedId}`;
 		return url;
@@ -106,9 +102,6 @@ export class UrlBuilder {
 	}
 
 	private filtersAsParams(filters: Array<Filter>) {
-		return filters.reduce(
-			(prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`),
-			''
-		);
+		return filters.reduce((prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`), '');
 	}
 }

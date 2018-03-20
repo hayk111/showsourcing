@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/take';
-
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,7 +21,7 @@ import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~store//store.module';
+import { AppStoreModule } from '~store/store.module';
 import { reducerProvider } from '~store/reducer/_reducers';
 import { EntitiesServicesModule } from '~store/services/entities-services.module';
 import { HmrService } from '~store/services/hmr.service';
@@ -82,11 +80,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	constructor(
-		public appRef: ApplicationRef,
-		private _m: NgModuleRef<any>,
-		private _store: Store<any>
-	) {
+	constructor(public appRef: ApplicationRef, private _m: NgModuleRef<any>, private _store: Store<any>) {
 		if (environment.hmr && module['hot']) {
 			module['hot']['accept']('./app-root.module.ts');
 			console.log(module);

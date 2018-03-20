@@ -16,6 +16,11 @@ export class TagService {
 		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/tag`);
 	}
 
+	create(name: string) {
+		// `https://stoemelings.showsourcing.com/api/team/87df5e10-03e8-4644-9cd3-0c848e1c81f9/tag`
+		// return this.http.post(`api/${}`);
+	}
+
 	addForTarget(tag: Tag, target: EntityTarget) {
 		return this.http.put(`api/${target.entityRepr.urlName}/${target.entityId}/tag/${tag.id}`, {});
 	}

@@ -68,13 +68,15 @@
             <editable-field-app [value]="product.depth" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'depth', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Width">
-            <editable-field-app [value]="product.width" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'width', $event)"></editable-field-app>
+            <editable-field-app [value]="product.width" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'width', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Height">
-            <editable-field-app [value]="product.height" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'height', $event)"></editable-field-app>
+						<editable-field-app
+							[value]="product.height"
+							isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'height', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Unit">
-            <editable-field-app [value]="product.unit" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'unit', $event)"></editable-field-app>
+            <editable-field-app [value]="product.unit" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'unit', $event)"></editable-field-app>
         </cell-one-row-app>
         <div class="subSectionTitle">Master carton</div>
       </div>
