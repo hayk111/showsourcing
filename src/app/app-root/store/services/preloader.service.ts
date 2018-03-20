@@ -13,6 +13,8 @@ import {
 	TagActions,
 	TeamActions,
 	TeamMembersActions,
+	IncoTermsActions,
+	HarbourActions,
 } from '~store/action';
 
 @Injectable()
@@ -35,6 +37,8 @@ export class PreloaderService {
 		// (no user actually needed for those but better to keep those here as well for consistency)
 		this.dispatch(CountryActions.load());
 		this.dispatch(CurrencyActions.load());
+		this.dispatch(IncoTermsActions.load());
+		this.dispatch(HarbourActions.load());
 		// user entities
 		this.dispatch(TeamActions.load());
 		// team entities

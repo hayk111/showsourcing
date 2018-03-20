@@ -12,6 +12,16 @@ export const CountryActionTypes = makeBasicActionTypes(ERM.countries);
 export const CountryActions = makeBasicActions(CountryActionTypes);
 ERM.countries.actions = CountryActions;
 
+// harbours
+export const HarbourActionTypes = makeBasicActionTypes(ERM.harbours);
+export const HarbourActions = makeBasicActions(HarbourActionTypes);
+ERM.harbours.actions = HarbourActions;
+
+// incoTerms
+export const IncoTermsActionTypes = makeBasicActionTypes(ERM.incoTerms);
+export const IncoTermsActions = makeBasicActions(IncoTermsActionTypes);
+ERM.incoTerms.actions = IncoTermsActions;
+
 // currency
 export const CurrencyActionTypes = makeBasicActionTypes(ERM.currencies);
 export const CurrencyActions = makeBasicActions(CurrencyActionTypes);

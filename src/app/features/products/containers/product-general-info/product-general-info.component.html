@@ -48,7 +48,11 @@
     <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
       <div class="flexColumn">
         <cell-one-row-app title="Inco Term">
-            <editable-field-app [value]="supplier?.incoTerm" type="text-inline" isRightAligned="true"></editable-field-app>
+          	<!-- <editable-field-app
+							[value]="supplier.incoTerms"
+							[type]="incoTerms"
+							(update)="onUpdate(product.id, field.propName, $event)">
+						</editable-field-app> -->
         </cell-one-row-app>
         <cell-one-row-app title="Harbour">{{supplier.harbour}}</cell-one-row-app>
         <cell-one-row-app title="Inner Dimension">----</cell-one-row-app>

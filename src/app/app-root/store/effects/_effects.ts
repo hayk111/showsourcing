@@ -20,6 +20,8 @@ import { TargetEffects } from './target/target.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { FilterEntityPanelEffects } from '~shared/filters';
 import { TaskTargetEffects } from '~app/app-root/store/effects/target/task.effects';
+import { HarbourEffects } from '~app/app-root/store/effects/entities/harbour.effects';
+import { IncoTermsEffects } from '~app/app-root/store/effects/entities/inco-terms.effects';
 
 export const effects = [
 	// entities
@@ -28,6 +30,8 @@ export const effects = [
 	UserEffects,
 	CountryEffects,
 	CurrencyEffects,
+	HarbourEffects,
+	IncoTermsEffects,
 	CustomFieldsEffects,
 	TeamMembersEffects,
 	CategoryEffects,

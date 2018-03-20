@@ -24,6 +24,8 @@ import {
 	TagActionTypes,
 	TeamActionTypes,
 	TeamMembersActionTypes,
+	IncoTermsActionTypes,
+	HarbourActionTypes,
 } from '../action/entities';
 import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
 import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
@@ -40,6 +42,8 @@ const entities = combineReducers({
 	teams: basicReducerFactory(TeamActionTypes),
 	teamMembers: basicReducerFactory(TeamMembersActionTypes),
 	countries: basicReducerFactory(CountryActionTypes),
+	incoTerms: basicReducerFactory(IncoTermsActionTypes),
+	harbours: basicReducerFactory(HarbourActionTypes),
 	currencies: basicReducerFactory(CurrencyActionTypes),
 	categories: basicReducerFactory(CategoryActionTypes),
 	events: eventReducer,

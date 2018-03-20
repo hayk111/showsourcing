@@ -13,9 +13,11 @@ export function addEntities(state: any, entities: Array<any> | any) {
 	}
 	// We only push if entity is not already in the store
 	entities.forEach(entity => {
-		if (byId[entity.id] === undefined) {
-			ids.push(entity.id);
-			byId[entity.id] = entity;
+		// sometimes an entity is just a string (like for arbour and incoTerms) so the id will be said string
+		let id = entity.id || entity;
+		if (byId[id] === undefined) {
+			ids.push(id);
+			byId[id] = entity;
 		}
 	});
 

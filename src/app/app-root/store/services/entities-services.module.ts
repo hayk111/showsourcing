@@ -17,6 +17,8 @@ import { TeamService } from './team.service';
 import { VoteService } from './vote.service';
 import { CountryService } from '~app/app-root/store/services/country.service';
 import { CurrencyService } from '~app/app-root/store/services/currency.service';
+import { IncoTermsService } from '~app/app-root/store/services/inco-terms.service';
+import { HarbourService } from '~app/app-root/store/services/harbour.service';
 
 @NgModule({
 	imports: [CommonModule, HttpClientModule, LocalStorageModule],
@@ -27,6 +29,8 @@ import { CurrencyService } from '~app/app-root/store/services/currency.service';
 		TeamService,
 		CountryService,
 		CurrencyService,
+		IncoTermsService,
+		HarbourService,
 		CustomFieldsService,
 		CommentService,
 		VoteService,
