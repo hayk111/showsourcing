@@ -43,7 +43,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	isEntityType(fieldType: string) {
-		return ~['suppliers', 'categories', 'events', 'teamMembers'].indexOf(fieldType);
+		return ~['suppliers', 'categories', 'events', 'teamMembers', 'tags', 'products', 'status'].indexOf(
+			fieldType
+		);
 	}
 
 	getFirstCol(fields: Array<FormControlDescriptor>) {

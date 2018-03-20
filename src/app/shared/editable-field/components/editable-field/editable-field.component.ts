@@ -18,7 +18,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() label: string;
 	@Input() isRightAligned = false;
 	@Input() entities: Observable<Array<Entity>>;
-	@Output() update = new EventEmitter<Patch>();
+	@Output() update = new EventEmitter<any>();
 	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
 	entityName: string;
@@ -30,6 +30,8 @@ export class EditableFieldComponent implements OnInit {
 	ngOnInit() {
 		if (this.entities) {
 			this.entities.subscribe(entities => {
+				console.log(this.type);
+				console.log(entities);
 				if (entities.length > 0) {
 					if (this.type === 'tags') {
 						this.tags = entities.filter(entity => this.value.indexOf(entity.id) > -1);
