@@ -72,10 +72,10 @@
     </div>
   </div>
 
-  <!-- Entity selector -->
+	<!-- Entity selector -->
 	<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name"
 		bindValue="id"
-		*ngIf="['suppliers', 'categories','events', 'currencies'].indexOf(type) > -1"
+		*ngIf="['suppliers', 'categories', 'events', 'currencies'].indexOf(type) > -1"
 			(change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
@@ -151,7 +151,7 @@
     </ng-template>
   </ng-select>
 
-  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea'].indexOf(type) === -1">
+  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea', 'currencies'].indexOf(type) === -1">
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
       <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(accumulator); closeEditMode()"></span>
   </div>
