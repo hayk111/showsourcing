@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
-import { entityStateToArray } from '~app/app-root/store';
+import { entityStateToArray } from '~entity/utils';
 
 export const selectImages = state => state.entities.images;
-export const selectImagesAsArray = createSelector([selectImages], imgs =>
-	entityStateToArray(imgs)
-);
+export const selectImagesAsArray = createSelector([selectImages], imgs => entityStateToArray(imgs));

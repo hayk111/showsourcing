@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
-import { LoadParams } from '~store/utils';
+import { LoadParams } from '~entity/utils';
 import { Filter } from '~shared/filters';
 import { User } from '~user/models';
 import { UserService } from '~user/services';

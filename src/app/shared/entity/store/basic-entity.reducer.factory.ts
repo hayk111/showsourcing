@@ -2,13 +2,7 @@ import { Entity, entityInitialState, EntityState } from 'app/shared/entity/model
 import { BasicActionTypes } from 'app/shared/entity/store/index';
 import { TypedAction } from '~utils';
 
-import {
-	addEntities,
-	copyById,
-	removeEntities,
-	replaceEntity,
-	replaceEntities,
-} from '../../../app-root/store/utils/index';
+import { addEntities, copyById, removeEntities, replaceEntity, replaceEntities } from '~entity/utils';
 
 // TODO: hassan stop moving this file outside of Entity module, plz, I made this module to regroup
 // utils for the store / entity.

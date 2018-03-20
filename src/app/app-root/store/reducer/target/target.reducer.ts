@@ -1,5 +1,5 @@
 import { entityInitialState, ERM } from '~app/shared/entity/models';
-import { addEntities, removeEntities, replaceEntity } from '~store';
+import { addEntities, removeEntities, replaceEntity } from '~entity';
 import { TypedAction } from '~utils';
 
 import { ActionType } from '../../action/target/target.action';

@@ -1,5 +1,5 @@
 import { EntityRepresentation, EntityTarget } from '~entity';
-import { Filter } from '~shared/filters';
+import { Filter } from 'app/shared/filters/index';
 
 export interface LoadParams {
 	// url entities api/team/:teamId/product/:productId/comment

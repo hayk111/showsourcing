@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppImage } from '~features/file/models';
 import { ImageActions } from '~features/file/store';
-import { entityStateToArray } from '~store/utils';
+import { entityStateToArray } from '~entity/utils';
 import { AutoUnsub } from '~utils';
 import { selectImages } from '~app/features/file';
 

@@ -1,5 +1,5 @@
 import { Entity, EntityState } from '~entity';
-import { Swap } from '~app/shared/entity/utils';
+import { Swap } from 'app/shared/entity/utils/index';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.

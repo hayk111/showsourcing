@@ -1,17 +1,14 @@
 import { createSelector } from 'reselect';
-import { entityStateToArray } from '~store/utils';
+import { entityStateToArray } from '~entity/utils';
 
 import { Vote } from '../../model/entities/vote.model';
 
 export const selectCurrentTarget = state => state.foccussedEntity.currentTarget;
 
 export const selectTasksForCurrentTarget = state => state.foccussedEntity.tasks;
-export const selectTaskArrayForCurrentTarget = createSelector(
-	[selectTasksForCurrentTarget],
-	filesState => {
-		return entityStateToArray(filesState);
-	}
-);
+export const selectTaskArrayForCurrentTarget = createSelector([selectTasksForCurrentTarget], filesState => {
+	return entityStateToArray(filesState);
+});
 
 export const selectNumTasksForSelection = createSelector(
 	[selectTaskArrayForCurrentTarget],
@@ -36,12 +33,9 @@ export const selectNumCommentsForCurrentTarget = createSelector(
 );
 
 export const selectVotesForCurrentTarget = state => state.foccussedEntity.votes;
-export const selectVotesArrayForCurrentTarget = createSelector(
-	[selectVotesForCurrentTarget],
-	voteState => {
-		return entityStateToArray(voteState);
-	}
-);
+export const selectVotesArrayForCurrentTarget = createSelector([selectVotesForCurrentTarget], voteState => {
+	return entityStateToArray(voteState);
+});
 
 export interface VoteByType {
 	positive: Array<Vote>;

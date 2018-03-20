@@ -3,18 +3,14 @@ import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
-import { LoadParams, Patch } from '~app/app-root/store';
+import { LoadParams, Patch } from '~entity/utils';
 import { Product } from '~app/features/products';
 
 @Injectable()
 export class ProductService {
 	repr = ERM.product;
 
-	constructor(
-		private http: HttpClient,
-		private entitySrv: EntityService,
-		private userSrv: UserService
-	) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load(params) {
 		params = { ...params };

@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { EntityRepresentation } from '~entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { Patch } from '~app/app-root/store';
+import { Patch } from '~entity/utils';
 
 @Component({
 	selector: 'editable-field-app',

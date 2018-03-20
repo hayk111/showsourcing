@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Patch, LoadParams } from '~store/utils';
+import { Patch, LoadParams } from '../utils';
 import { TypedAction } from '~utils';
 
 import { Entity, EntityRepresentation } from '../models';
@@ -64,9 +64,7 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 
 // adds actionType to the basic types
 export function addActionType(actionTypes: any, repr: EntityRepresentation, actionName: string) {
-	return (actionTypes[
-		actionName.toUpperCase()
-	] = `[${repr.entityName.capitalize()}] ${actionName}...`);
+	return (actionTypes[actionName.toUpperCase()] = `[${repr.entityName.capitalize()}] ${actionName}...`);
 }
 
 // makes basic actions functions

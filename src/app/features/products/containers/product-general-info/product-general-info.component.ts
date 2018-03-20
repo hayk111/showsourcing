@@ -11,7 +11,7 @@ import { Event } from '~events/models';
 import { selectEventsList } from '~app/features/events';
 import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
-import { Patch } from '~app/app-root/store/utils';
+import { Patch } from '~entity/utils';
 import { SupplierActions } from '~app/features/suppliers';
 
 @Component({

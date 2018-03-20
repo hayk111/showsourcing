@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from '~app/features/user';
-import { LoadParams } from '~store/utils';
+import { LoadParams } from '~entity/utils';
 import { UserService } from '~user/services';
 
 import { EntityRepresentation } from './../models/entities.model';

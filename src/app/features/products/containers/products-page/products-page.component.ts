@@ -26,7 +26,7 @@ import {
 } from '~shared/filters';
 import { TargetAction } from '~store/action/target/target.action';
 import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
-import { Patch } from '~store/utils';
+import { Patch } from '~entity/utils';
 import { User, UserService } from '~user';
 import { AutoUnsub } from '~utils';
 
@@ -188,9 +188,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addToProjects(selectedProjects) {
-		this.store.dispatch(
-			ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog)
-		);
+		this.store.dispatch(ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog));
 		this.store.dispatch(DialogActions.close(this.addProductDialog));
 	}
 
