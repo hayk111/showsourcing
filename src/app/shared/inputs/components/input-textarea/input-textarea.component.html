@@ -1,12 +1,10 @@
-<label for="i-{{ inputId }}">{{ label }}</label>
 <textarea
 	#inp
 	id="{{ inputId }}"
 	[placeholder]="placeholder"
 	[value]="value"
 	(change)="onChange(inp.value)"
-	rows="1"
 	(keyup)="value = inp.value"
 	(keydown.enter)="onEnter(inp.value, $event)"></textarea>
-<div class="lengthTip">{{ value?.length }} / 140</div>
+<!-- <div class="lengthTip">{{ value?.length }} / 140</div> -->
 <div class="error" *ngIf="formControl?.hasError('required') && !formControl?.pristine">This field is required</div>

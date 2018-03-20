@@ -30,8 +30,6 @@ export class EditableFieldComponent implements OnInit {
 	ngOnInit() {
 		if (this.entities) {
 			this.entities.subscribe(entities => {
-				console.log(this.type);
-				console.log(entities);
 				if (entities.length > 0) {
 					if (this.type === 'tags' || this.type === 'projects') {
 						this.mulitpleChoices = entities.filter(entity => this.value.indexOf(entity.id) > -1);

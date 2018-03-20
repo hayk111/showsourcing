@@ -49,8 +49,17 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [label]="label" [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
-  <input-app [label]="label" [value]="value?.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" [type]="type" (update)="updateValue($event)"></input-app>
+
+  <!-- Text Area editor -->
+  <div class="textAreaEditor">
+    <input-textarea-app [value]="value" *ngIf="['textarea'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-textarea-app>
+    <div class="confirmBlock" *ngIf="type === 'textarea'">
+      <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
+      <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()">Save</span>
+    </div>
+  </div>
 
   <!-- Entity selector -->
   <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
@@ -129,8 +138,9 @@
     </ng-template>
   </ng-select>
 
-  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus'].indexOf(type) === -1">
+  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'textarea'].indexOf(type) === -1">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
     <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
   </div>
+
 </div>
