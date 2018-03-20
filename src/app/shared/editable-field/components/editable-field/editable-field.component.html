@@ -54,7 +54,7 @@
 
   <!-- Entity selector -->
   <ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
-    *ngIf="['suppliers', 'categories','events'].indexOf(type) > -1" (change)="update.emit($event)" [ngModel]="value">
+    *ngIf="['suppliers', 'categories','events'].indexOf(type) > -1" (change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="entitySelector.filter($event.target.value)" />
@@ -64,7 +64,7 @@
 
   <!-- Tags selector -->
   <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
-    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event)" [ngModel]="value" [addTag]="addEntityCallback">
+    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event?.id)" [ngModel]="value" [addTag]="addEntityCallback">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
@@ -74,7 +74,7 @@
 
   <!-- User selector -->
   <ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
-    *ngIf="type === 'teamMembers'" (change)="update.emit($event)" [ngModel]="value">
+    *ngIf="type === 'teamMembers'" (change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="userSelector.filter($event.target.value)" />
@@ -94,7 +94,7 @@
     </ng-template>
   </ng-select>
 
-  <div class="confirmBlock" *ngIf="type !== 'select-entity'">
+  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags'].indexOf(type) === -1">
     <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
     <span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()"></span>
   </div>
