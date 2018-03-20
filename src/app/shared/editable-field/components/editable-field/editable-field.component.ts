@@ -30,6 +30,8 @@ export class EditableFieldComponent implements OnInit {
 	@Output() update = new EventEmitter<any>();
 	@Output() addEntity = new EventEmitter<any>();
 	editMode = false;
+	textValue: string;
+
 	constructor() {}
 
 	ngOnInit() {}
@@ -55,5 +57,9 @@ export class EditableFieldComponent implements OnInit {
 				return acc;
 			}, [])
 		);
+	}
+
+	updateValue(value: string) {
+		this.textValue = value;
 	}
 }
