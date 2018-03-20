@@ -57,7 +57,8 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(id: string, propName: string, value: any) {
-		this.store.dispatch(ProductActions.patch({ id, propName, value }));
+		console.log(value);
+		// this.store.dispatch(ProductActions.patch({ id, propName, value }));
 	}
 
 	onSupplierUpdate() {}
