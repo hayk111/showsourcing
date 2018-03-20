@@ -1,5 +1,5 @@
 <div *ngIf="!editMode">
-  <div class="flex editable" [class.flexBetween]="!isRightAligned" [class.rightAligned]="isRightAligned">
+  <div class="flex editable" [class.flexBetween]="!isRightAligned && !isCompactInline" [class.isCompactInline]="isCompactInline" [class.rightAligned]="isRightAligned">
     <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
     <!-- else we just display said value -->
@@ -36,8 +36,8 @@
         </span>
       </ng-container> -->
       <ng-container *ngSwitchDefault>
-        <span class="flex">
-          {{ value }}
+        <span class="flex valueContent">
+          {{ value || '-'}}
         </span>
       </ng-container>
 

@@ -83,6 +83,13 @@
     margin-right: 12px;
 }
 
+.isCompactInline {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+.valueContent{
+  margin-right: var(--spacing-s)
+}
 .confirmBlock {
     width: auto;
     display: flex;
