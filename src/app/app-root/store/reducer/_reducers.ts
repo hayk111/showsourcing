@@ -33,7 +33,7 @@ import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.r
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';
 import { tasksTypeReducer } from './entities/task-type.reducer';
-import { currentTargetReducer, targetReducerFactory } from './target/target.reducer';
+import { currentTargetReducer } from './target/target.reducer';
 import { fileReducer } from '~app/features/file';
 import { eventReducer } from '~app/features/events';
 
@@ -58,6 +58,7 @@ const entities = combineReducers({
 	customFields: basicReducerFactory(CustomFieldsActionTypes),
 	files: fileReducer,
 	images: imageReducer,
+	comments: commentReducer,
 });
 
 const misc = combineReducers({
@@ -67,11 +68,6 @@ const misc = combineReducers({
 
 const foccussedEntity = combineReducers({
 	currentTarget: currentTargetReducer,
-	tasks: targetReducerFactory(TaskSlctnActionTypes),
-	comments: commentReducer,
-	// votes are used in a component that is not used yet, but antoine said it might in the future
-	// it's a card that displays the likes and dislikes in a chart.
-	votes: targetReducerFactory(VoteSlctnActionTypes),
 });
 
 const ui = combineReducers({

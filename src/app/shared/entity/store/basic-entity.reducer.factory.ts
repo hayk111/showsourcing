@@ -22,6 +22,7 @@ export function basicReducerFactory<G extends Entity>(
 				return addEntities(initialState, action.payload);
 
 			// entities in payload are added to the current state
+			case actionType.CREATE:
 			case actionType.ADD:
 				return addEntities(state, action.payload);
 

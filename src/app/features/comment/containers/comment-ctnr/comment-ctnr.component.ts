@@ -4,11 +4,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { AppComment } from '~comment/models';
-import { CommentTargetActions } from '~comment/store/actions';
+import { CommentActions } from '~comment/store/actions';
 import { EntityState } from '~entity';
 import { selectCommentsForCurrentTarget } from '~store/selectors/target/target.selector';
 import { entityStateToArray } from '~entity/utils';
 import { UserService } from '~user';
+import { selectComments } from '~app/features/comment/store/selectors';
 
 @Component({
 	selector: 'comment-ctnr-app',
@@ -23,7 +24,7 @@ export class CommentCtnrComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) {}
 
 	ngOnInit() {
-		const commentsState$ = this.store.select(selectCommentsForCurrentTarget);
+		const commentsState$ = this.store.select(selectComments);
 
 		this.comments$ = commentsState$.pipe(
 			map((commentState: EntityState<AppComment>) => entityStateToArray(commentState)),
@@ -35,6 +36,6 @@ export class CommentCtnrComponent implements OnInit {
 	}
 
 	onComment(txt: string) {
-		this.store.dispatch(CommentTargetActions.add(new AppComment(txt, this.userSrv.userId)));
+		this.store.dispatch(CommentActions.create(new AppComment(txt, this.userSrv.userId)));
 	}
 }

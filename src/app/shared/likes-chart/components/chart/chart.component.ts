@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { VoteByType } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'chart-app',
@@ -9,7 +8,7 @@ import { VoteByType } from '~store/selectors/target/target.selector';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
-	@Input() votes: VoteByType;
+	@Input() votes: any;
 	@Input() colorScheme;
 	view: any[] = [150, 150];
 

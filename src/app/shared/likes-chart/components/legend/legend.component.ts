@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { VoteByType } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'legend-app',
@@ -10,7 +9,7 @@ import { VoteByType } from '~store/selectors/target/target.selector';
 })
 export class LegendComponent implements OnInit {
 	@Input() colorScheme;
-	@Input() votes: VoteByType;
+	@Input() votes: any;
 	constructor() {}
 
 	ngOnInit() {}

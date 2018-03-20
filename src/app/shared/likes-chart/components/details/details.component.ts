@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { EntityState } from '~entity';
 import { User } from '~user/models/user.model';
-import { VoteByType } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'details-app',
@@ -10,7 +9,7 @@ import { VoteByType } from '~store/selectors/target/target.selector';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent implements OnInit {
-	@Input() votes: VoteByType;
+	@Input() votes: any;
 	@Input() teamMembers: EntityState<User>;
 	detailsShown = false;
 

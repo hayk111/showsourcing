@@ -31,38 +31,3 @@ export const selectNumCommentsForCurrentTarget = createSelector(
 		return comments.length;
 	}
 );
-
-export const selectVotesForCurrentTarget = state => state.foccussedEntity.votes;
-export const selectVotesArrayForCurrentTarget = createSelector([selectVotesForCurrentTarget], voteState => {
-	return entityStateToArray(voteState);
-});
-
-export interface VoteByType {
-	positive: Array<Vote>;
-	negative: Array<Vote>;
-	neutral: Array<Vote>;
-	total: number;
-}
-
-export const selectVotesByType = createSelector([selectVotesArrayForCurrentTarget], votesArray => {
-	const votes = {
-		positive: [],
-		neutral: [],
-		negative: [],
-		total: votesArray.length,
-	};
-	votesArray.forEach((v: Vote) => {
-		switch (v.value) {
-			case 100:
-				votes.positive.push(v);
-				break;
-			case 0:
-				votes.negative.push(v);
-				break;
-			default:
-				votes.neutral.push(v);
-				break;
-		}
-	});
-	return votes;
-});

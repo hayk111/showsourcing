@@ -20,15 +20,7 @@ export class EntityService {
 	}
 
 	// this could be moved in each of the entity service in the future if this adds problems.
-	sendPatchRequest({
-		target,
-		propName,
-		value,
-	}: {
-		target: EntityTarget;
-		propName: string;
-		value: any;
-	}) {
+	sendPatchRequest({ target, propName, value }: { target: EntityTarget; propName: string; value: any }) {
 		let patch = { [propName]: value };
 		const id = target.entityId;
 		const urlName = target.entityRepr.urlName;

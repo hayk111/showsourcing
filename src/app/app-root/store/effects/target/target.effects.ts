@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
-import { CommentTargetActions } from '~comment/store/actions/comment.action';
+import { CommentActions } from '~comment/store/actions/comment.action';
 
 import { FileActions } from '~features/file';
 import { ImageActions } from '~features/file';
@@ -28,14 +28,14 @@ export class TargetEffects {
 		switch (target.entityRepr.entityName) {
 			case m.product.entityName:
 				return [
-					CommentTargetActions.load(),
+					CommentActions.load(),
 					FileActions.load(),
 					ImageActions.load(),
 					TaskTargetActions.load(),
 					VoteSlctnActions.load(),
 				];
 			case m.suppliers.entityName:
-				return [CommentTargetActions.load(), FileActions.load(), ImageActions.load()];
+				return [CommentActions.load(), FileActions.load(), ImageActions.load()];
 			default:
 				throw Error('entity target not defined in TargetEffects');
 		}
