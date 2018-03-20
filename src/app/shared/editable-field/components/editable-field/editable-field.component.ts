@@ -24,7 +24,7 @@ export class EditableFieldComponent implements OnInit {
 	entityName: string;
 	entityUrl: string;
 	textValue: string;
-	tags: Array<Entity>;
+	mulitpleChoices: Array<Entity>;
 	constructor() {}
 
 	ngOnInit() {
@@ -33,8 +33,8 @@ export class EditableFieldComponent implements OnInit {
 				console.log(this.type);
 				console.log(entities);
 				if (entities.length > 0) {
-					if (this.type === 'tags') {
-						this.tags = entities.filter(entity => this.value.indexOf(entity.id) > -1);
+					if (this.type === 'tags' || this.type === 'projects') {
+						this.mulitpleChoices = entities.filter(entity => this.value.indexOf(entity.id) > -1);
 					} else {
 						const currentEntity: any = entities.filter(entity => entity.id === this.value)[0];
 						if (currentEntity) {
@@ -64,5 +64,14 @@ export class EditableFieldComponent implements OnInit {
 
 	addEntityCallback(name) {
 		this.addEntity.emit(name);
+	}
+
+	updateMultipleEntities(value: Array<Entity>) {
+		this.update.emit(
+			value.reduce((acc, o) => {
+				acc.push(o.id);
+				return acc;
+			}, [])
+		);
 	}
 }

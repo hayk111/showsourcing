@@ -49,7 +49,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			'events',
 			'teamMembers',
 			'tags',
-			'products',
+			'projects',
 			'productStatus',
 		].indexOf(fieldType);
 	}

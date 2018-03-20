@@ -23,6 +23,7 @@
 .tags {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .tag {
       background-color: var(--color-primary-light);
       color: var(--color-primary-dark);

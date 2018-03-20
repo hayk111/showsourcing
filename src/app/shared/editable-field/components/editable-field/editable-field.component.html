@@ -23,9 +23,9 @@
           {{ entityName }}
         </span>
       </ng-container>
-      <ng-container *ngSwitchCase="type === 'tags'">
+      <ng-container *ngSwitchCase="['tags', 'projects'].indexOf(type) > -1">
         <span class="tags">
-          <span class="tag" *ngFor="let tag of tags">
+          <span class="tag" *ngFor="let tag of mulitpleChoices">
             {{ tag.name }}
           </span>
         </span>
@@ -65,10 +65,20 @@
 
   <!-- Tags selector -->
   <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
-    bindValue="id" *ngIf="type === 'tags'" (change)="update.emit($event?.id)" [ngModel]="value" [addTag]="addEntityCallback">
+    bindValue="id" *ngIf="type === 'tags'" (change)="updateMultipleEntities($event)" [ngModel]="value" [addTag]="addEntityCallback">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
+      </div>
+    </ng-template>
+  </ng-select>
+
+  <!-- Project selector -->
+  <ng-select #projectsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
+    bindValue="id" *ngIf="type === 'projects'" (change)="updateMultipleEntities($event)" [ngModel]="value" [addTag]="false">
+    <ng-template ng-header-tmp>
+      <div class="selectCustomInput">
+        <input style="width: 100%" type="text" (input)="projectsSelector.filter($event.target.value)" />
       </div>
     </ng-template>
   </ng-select>
@@ -96,9 +106,9 @@
   </ng-select>
 
 
-    <!-- Status selector -->
+  <!-- Status selector -->
 
-    <ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
+  <ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
     *ngIf="type === 'productStatus'" (change)="update.emit($event?.id)" [ngModel]="value">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
