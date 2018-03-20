@@ -27,6 +27,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() label: string;
 	@Input() isRightAligned = false;
 	@Input() entity: Entity;
+	@Input() isCompactInline = false;
 	@Input() entities: Observable<Array<Entity>>;
 	@Output() update = new EventEmitter<any>();
 	@Output() addEntity = new EventEmitter<any>();

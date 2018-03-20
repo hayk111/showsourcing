@@ -1,4 +1,3 @@
-
 <ng-template #fields let-field="field" let-product="product">
 	<editable-field-app
 		*ngIf="isEntityType(field.propType)"
@@ -19,77 +18,88 @@
 
 <div class="statusbar"></div>
 <ng-container *ngIf="product$ | async as product">
-	<ng-container *ngIf="customFields$ | async as cf">
-		<ng-container *ngFor="let group of cf.groups">
-			<div class="sectionTitle">{{ group.name }}</div>
-			<div class="flexRow">
-				<!-- first column -->
-				<div class="flexColumn">
-					<cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
-						<ng-container  *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
-					</cell-two-row-app>
-				</div>
+  <ng-container *ngIf="customFields$ | async as cf">
+    <ng-container *ngFor="let group of cf.groups">
+      <div class="sectionTitle">{{ group.name }}</div>
+      <div class="flexRow">
+        <!-- first column -->
+        <div class="flexColumn">
+          <cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
+            <ng-container *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
+          </cell-two-row-app>
+        </div>
 
-				<!-- second column -->
-				<div class="flexColumn">
-					<cell-two-row-app *ngFor="let field of getSecondCol(group.fields)" [title]="field.label">
-						<ng-container  *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
-					</cell-two-row-app>
-				</div>
-
-			</div>
-		</ng-container>
-	</ng-container>
+        <!-- second column -->
+        <div class="flexColumn">
+          <cell-two-row-app *ngFor="let field of getSecondCol(group.fields)" [title]="field.label">
+            <ng-container *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
+          </cell-two-row-app>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
 </ng-container>
 
-<!--
+
 <ng-container *ngIf="product$ | async as product">
   <div class="sectionTitle shipping">Shipping & Trading</div>
   <div class="flexRow">
     <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+      <!-- first column -->
       <div class="flexColumn">
+        <div class="subSectionTitle">Trading conditions</div>
         <cell-one-row-app title="Inco Term">
-					<editable-field-app
-						[value]="supplier.incoTerms"
-						[type]="incoTerms"
-						(update)="onUpdate(supplier.id, 'incoTerms', $event)">
-					</editable-field-app>
+          <editable-field-app [value]="supplier.incoTerms" [type]="incoTerms" (update)="onUpdate(supplier.id, 'incoTerms', $event)">
+          </editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Harbour">
-					<editable-field-app
-						[value]="supplier.harbour"
-						[type]="harbours"
-						(update)="onUpdate(supplier.id, 'harbour', $event)">
-					</editable-field-app>
-				</cell-one-row-app>
-        <cell-one-row-app title="Inner Dimension">
-					<editable-field-app
-						[value]="product.innerDimensions"
-						[type]="dimensions"
-						(update)="onUpdate(product.id, 'innerDimensions', $event)">
-					</editable-field-app>
-				</cell-one-row-app>
-        <cell-one-row-app title="Master Carton">
-					<editable-field-app
-						[value]="product.masterCarton"
-						[type]="dimensions"
-						(update)="onUpdate(product.id, 'masterCarton', $event)">
-					</editable-field-app>
-				</cell-one-row-app>
-        <cell-one-row-app title="Pieces per Master">
-					<editable-field-app
-						[value]="product.piecePerMaster"
-						[type]="number"
-						(update)="onUpdate(product.id, 'piecePerMaster', $event)">
-				</cell-one-row-app>
+          <editable-field-app [value]="supplier.harbour" [type]="harbours" (update)="onUpdate(supplier.id, 'harbour', $event)">
+          </editable-field-app>
+        </cell-one-row-app>
+        <div class="subSectionTitle">Inner carton</div>
+        <cell-one-row-app title="Length">
+            <editable-field-app [value]="product.additionalInfo.depth" isRightAligned="true" type="text-inline"></editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app title="Width">
+            <editable-field-app [value]="product.additionalInfo.width" isRightAligned="true" type="text-inline"></editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app title="Height">
+            <editable-field-app [value]="product.additionalInfo.height" isRightAligned="true" type="text-inline"></editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app title="Unit">
+            <editable-field-app [value]="product.additionalInfo.unit" isRightAligned="true" type="text-inline"></editable-field-app>
+        </cell-one-row-app>
+        <div class="subSectionTitle">Master carton</div>
       </div>
+
+      <!-- Second column -->
       <div class="flexColumn">
-        <cell-one-row-app title="1000 pcs">----</cell-one-row-app>
-        <cell-one-row-app title="5000 pcs">----</cell-one-row-app>
-        <cell-one-row-app title="10000 pcs">----</cell-one-row-app>
+        <div class="subSectionTitle">Price Matrix</div>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.additionalInfo.priceLabel1" isCompactInline="true" type="text-inline">
+          </editable-field-app>
+          <editable-field-app [value]="product.additionalInfo.priceValue1" isRightAligned="true" type="text-inline">
+          </editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.additionalInfo.priceLabel2" isCompactInline="true" type="text-inline">
+          </editable-field-app>
+          <editable-field-app [value]="product.additionalInfo.priceValue2" isRightAligned="true" type="text-inline">
+          </editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.additionalInfo.priceLabel3" isCompactInline="true" type="text-inline">
+          </editable-field-app>
+          <editable-field-app [value]="product.additionalInfo.priceValue3" isRightAligned="true" type="text-inline">
+          </editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.additionalInfo.priceLabel4" isCompactInline="true" type="text-inline">
+          </editable-field-app>
+          <editable-field-app [value]="product.additionalInfo.priceValue4" isRightAligned="true" type="text-inline">
+          </editable-field-app>
+        </cell-one-row-app>
       </div>
     </ng-container>
   </div>
 </ng-container>
-
--->
