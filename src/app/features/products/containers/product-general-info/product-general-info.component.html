@@ -18,8 +18,6 @@
 
 <div class="statusbar"></div>
 <ng-container *ngIf="product$ | async as product">
-
-	{{ product | json }}
   <ng-container *ngIf="customFields$ | async as cf">
     <ng-container *ngFor="let group of cf.groups">
       <div class="sectionTitle">{{ group.name }}</div>
