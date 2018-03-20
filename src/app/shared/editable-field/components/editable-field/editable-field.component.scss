@@ -20,15 +20,14 @@
     }
 }
 
-.textAreaEditor{
-  display: flex;
-  flex-direction: column;
-  flex:1;
-  margin-bottom: 12px;
-
-  .confirmBlock {
-    align-self: flex-end;
-  }
+.textAreaEditor {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 12px;
+    .confirmBlock {
+        align-self: flex-end;
+    }
 }
 
 .tags {
@@ -36,12 +35,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     .tag {
-      background-color: var(--color-primary-light);
-      color: var(--color-primary-dark);
-      font-size: 15px;
-      padding: 4px;
-      margin-right: var(--spacing-s);
-      border-radius: 2px;
+        background-color: var(--color-primary-light);
+        color: var(--color-primary-dark);
+        font-size: 15px;
+        padding: 4px;
+        margin-right: var(--spacing-s);
+        margin-bottom: 2px;
+        border-radius: 2px;
     }
 }
 
@@ -84,12 +84,14 @@
 }
 
 .isCompactInline {
-  color: var(--color-primary-dark);
-  font-weight: 600;
+    color: var(--color-primary-dark);
+    font-weight: 600;
 }
-.valueContent{
-  margin-right: var(--spacing-s)
+
+.valueContent {
+    margin-right: var(--spacing-s)
 }
+
 .confirmBlock {
     width: auto;
     display: flex;
@@ -105,19 +107,18 @@
         justify-content: center;
         cursor: pointer;
     }
-    .confirmIconSave{
-      width: 44px;
-      text-transform: uppercase;
-      font-weight: bold;
+    .confirmIconSave {
+        width: 44px;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 }
 
 .ng-select.entitySelector {
     margin: 0 0 0 -5px;
     border: 0px;
-    min-height: 0px;
     border-radius: 0;
-    height: 30px;
+    min-height: 30px;
     flex: 1 1 100%;
     &.filtered {
          ::ng-deep.ng-control .ng-input {
@@ -131,7 +132,6 @@
     }
      ::ng-deep.ng-control {
         border: 1px solid var(--color-primary-light);
-        height: 30px;
         min-height: 30px;
         border-radius: 0;
         .ng-arrow-zone {

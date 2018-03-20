@@ -45,7 +45,7 @@ export class EditableFieldComponent implements OnInit {
 	closeEditMode() {
 		// so the blur event of the input fires
 		// without this, the inputs isn't shown and the blur doesn't fire
-		setTimeout(() => (this.editMode = false), 0);
+		this.editMode = false;
 	}
 
 	addEntityCallback(name: string) {

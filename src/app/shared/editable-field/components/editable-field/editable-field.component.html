@@ -53,8 +53,8 @@
 
 <div class="flexRow" *ngIf="editMode" (clickOutside)="closeEditMode()">
   <!-- Text/Inline/Number editor -->
-  <input-app [value]="value" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
-  <input-app [value]="value?.priceAmount" *ngIf="type === 'price'" type="number" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value || ''" *ngIf="['text', 'number','text-inline'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-app>
+  <input-app [value]="value?.priceAmount || ''" *ngIf="type === 'price'" type="number" (update)="updateValue($event)"></input-app>
 
 
   <!-- Text Area editor -->
