@@ -3,7 +3,7 @@ import { Log } from 'app/app-root/utils';
 import { EntityRepresentation } from '~entity/models';
 import { selectEntityArray } from '~entity/store';
 
-import { Filter, FilterClass, FilterGroupName } from '../../models/filter.model';
+import { Filter, FilterClass, FilterGroupName, FilterSort } from '../../models/filter.model';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 
@@ -34,10 +34,7 @@ export const selectFiltersByName = (filterGroupName: FilterGroupName) => {
 };
 
 // select filters for a specific filterClass :  [filters]: Array<FilterPrice>
-export const selectFiltersForClass = (
-	filterGroupName: FilterGroupName,
-	filterClass: FilterClass
-) => {
+export const selectFiltersForClass = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
 	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
 		return groupFilters.filter(f => f instanceof filterClass);
 	});
@@ -66,17 +63,23 @@ export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
  * @param filterGroupName - The filter group name
  * @param { EntityRepresentation } entityRepr - The entityRepresentation we want to select
  */
-export const selectFilteredEntity = (
-	filterGroupName: FilterGroupName,
-	entityRepr: EntityRepresentation
-) => {
+export const selectFilteredEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation) => {
 	return createSelector(
 		[selectFilterGroup(filterGroupName), selectEntityArray(entityRepr)],
 		(filters, entities) => {
-			const returned = [];
+			let returned = [];
 			entities.forEach(entity => {
 				if (filters.every((afilter: Filter) => afilter.filter(entity))) returned.push(entity);
 			});
+			// we need to apply sorting as well
+			let sort: FilterSort = filters.find(f => f instanceof FilterSort);
+			if (sort) {
+				returned = returned.sort((a, b) => {
+					if (a[sort.value] > b[sort.value]) return sort.order === 'ASC' ? 1 : -1;
+					if (a[sort.value] < b[sort.value]) return sort.order === 'ASC' ? -1 : 1;
+					return 0;
+				});
+			}
 			return returned;
 		}
 	);

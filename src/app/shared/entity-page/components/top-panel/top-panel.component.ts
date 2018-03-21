@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TopPanelComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Input() title: string;
-	@Input() subtitle: string;
+	@Input() subtitles: Array<string>;
 	@Input() repr: EntityRepresentation;
 	// whether the screen can be switched
 	@Input() switchable = true;

@@ -1,7 +1,13 @@
 <div class="ctnr flexBetween">
 	<div>
 		<h2> {{ title }} </h2>
-		<span>{{ title }} &gt; {{ subtitle }} </span>
+		<!-- subtitles -->
+		<div>
+			<span *ngFor="let sub of subtitles; let first = first; let last = last;" class="{{ first ? 'bold': '' }}">
+				{{ sub }} {{ !last ? '&gt; ' : '' }}
+			</span>
+		</div>
+
 	</div>
 	<div class="flexCenter right">
 

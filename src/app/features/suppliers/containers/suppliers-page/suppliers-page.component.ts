@@ -21,7 +21,7 @@ export class SuppliersPageComponent implements OnInit {
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
 	repr = ERM.suppliers;
-	// maps current selection
+	// maps current selection {id: true}
 	selection = new Map<string, boolean>();
 
 	constructor(private store: Store<any>, private router: Router) {}
@@ -55,5 +55,15 @@ export class SuppliersPageComponent implements OnInit {
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
 		this.store.dispatch(SupplierActions.patch(patch));
+	}
+
+	resetSelection() {
+		this.selection = new Map();
+	}
+
+	deleteSelection() {
+		const ids = Array.from(this.selection.keys());
+		this.store.dispatch(SupplierActions.delete(ids));
+		this.selection = new Map();
 	}
 }

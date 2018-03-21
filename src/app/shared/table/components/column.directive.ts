@@ -1,22 +1,22 @@
 import { Directive, Input, TemplateRef, EventEmitter, Output } from '@angular/core';
 
 @Directive({
-  selector: '[columnApp]'
+	selector: '[columnApp]',
 })
 export class ColumnDirective {
 	@Input('columnApp') title: string;
 	@Input() sortable = true;
+	@Input() width;
 	@Output() sort = new EventEmitter<string>();
 	currentSort: 'none' | 'asc' | 'desc' = 'none';
 
-	constructor(public template: TemplateRef<any>) { }
+	constructor(public template: TemplateRef<any>) {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	toggleSort(lastSort: 'none' | 'asc' | 'desc') {
 		if (this.sortable) {
-			this.currentSort = (lastSort === 'asc' ? 'desc' : 'asc');
+			this.currentSort = lastSort === 'asc' ? 'desc' : 'asc';
 			this.sort.emit(this.currentSort);
 		}
 	}
@@ -24,5 +24,4 @@ export class ColumnDirective {
 	resetSort() {
 		this.currentSort = 'none';
 	}
-
 }

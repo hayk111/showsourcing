@@ -28,4 +28,8 @@ export class SupplierService {
 		};
 		return this.http.patch(`api/supplier/${p.id}`, patch);
 	}
+
+	delete(id: string) {
+		return this.http.delete(`api/supplier/${id}`);
+	}
 }

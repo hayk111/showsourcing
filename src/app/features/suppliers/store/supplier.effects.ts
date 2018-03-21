@@ -1,6 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, catchError, distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
 import { ActionType, SupplierActions } from './supplier.action';
 import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
@@ -11,6 +11,9 @@ import { ImageActions, FileActions } from '~app/features/file';
 import { CommentActions } from '~app/features/comment';
 import { ERM } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
+import { Observable } from 'rxjs/Observable';
+import { concat } from 'rxjs/observable/concat';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class SuppliersEffects {
@@ -61,6 +64,14 @@ export class SuppliersEffects {
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+
+	@Effect({ dispatch: false })
+	delete$ = this.action$
+		.ofType<any>(ActionType.DELETE)
+		.pipe(
+			map(action => action.payload),
+			switchMap((ids: Array<string>) => forkJoin(ids.map(supplierId => this.srv.delete(supplierId))))
+		);
 
 	constructor(private action$: Actions, private srv: SupplierService) {}
 }

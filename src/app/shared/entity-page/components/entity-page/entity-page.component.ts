@@ -13,7 +13,7 @@ export class EntityPageComponent implements OnInit {
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
 
-	@Input() subtitle: string;
+	@Input() subtitles: Array<string>;
 
 	@Input() view: 'list' | 'card' = 'list';
 	// when create button from toppanel is clicked

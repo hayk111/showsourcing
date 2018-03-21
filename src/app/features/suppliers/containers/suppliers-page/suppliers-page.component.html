@@ -1,7 +1,7 @@
 
 <entity-page-app
  [filterGroupName]="filterGroupName"
- subtitle="all"
+ [subtitles]="['Suppliers', 'all']"
  [switchable]="false" [pending]="pending$ | async" [repr]="repr" (buttonClick)="openNewDialog()">
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"
@@ -13,4 +13,4 @@
 	[suppliers]="suppliers$ | async"></supplier-list-view-app>
 	<new-supplier-dlg-app></new-supplier-dlg-app>
 </entity-page-app>
-<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>
+<selection-bar-app (close)="resetSelection()" (delete)="deleteSelection()" [repr]="repr" *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>

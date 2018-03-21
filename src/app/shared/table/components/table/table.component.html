@@ -18,7 +18,7 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let row of rows" class="row">
-				<td *ngFor="let column of columns">
+				<td *ngFor="let column of columns" [style.width]="column.width + 'px'">
 					<!-- Render the column template when specified -->
 					<ng-container
 						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
