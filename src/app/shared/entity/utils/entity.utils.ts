@@ -4,7 +4,7 @@ import { Swap } from 'app/shared/entity/utils/index';
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
 // https://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html
-export function addEntities(state: any, entities: Array<any> | any) {
+export function addEntities(state: any, entities: Array<Entity> | any) {
 	const ids = [...state.ids];
 	const byId = { ...state.byId };
 	// if we didn't receive an array let's just create one. We could create an error too.

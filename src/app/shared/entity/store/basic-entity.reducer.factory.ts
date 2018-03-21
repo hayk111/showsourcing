@@ -14,6 +14,12 @@ export function basicReducerFactory<G extends Entity>(
 		if (action.payload) id = action.payload.id;
 
 		switch (action.type) {
+			// when selecting one of the entities (to look at the details)
+			case actionType.SELECT:
+				return {
+					...state,
+					selected: action.payload,
+				};
 			// we reset the state using the initiale state to override the store values
 			case actionType.SET:
 				return addEntities(initialState, action.payload);

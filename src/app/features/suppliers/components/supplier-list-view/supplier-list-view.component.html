@@ -41,7 +41,7 @@
 
 	<!-- user -->
 	<ng-template
-		columnApp="Pwner"
+		columnApp="Owner"
 		let-row="row">
 		<div class="flex" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
 			<user-picture-app

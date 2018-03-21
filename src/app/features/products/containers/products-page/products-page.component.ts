@@ -24,7 +24,6 @@ import {
 	selectFilterGroup,
 	selectFilterPanelOpen,
 } from '~shared/filters';
-import { TargetAction } from '~store/action/target/target.action';
 import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
 import { Patch } from '~entity/utils';
 import { User, UserService } from '~user';
@@ -136,8 +135,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	onItemOpened(entityId: string) {
 		this.previewDialogOpen = true;
-		const target = { entityId, entityRepr: this.repr };
-		this.store.dispatch(TargetAction.select(target));
+		this.store.dispatch(ProductActions.select(entityId));
 	}
 
 	onItemFavorited(entityId: string) {

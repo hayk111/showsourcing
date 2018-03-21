@@ -5,10 +5,6 @@ import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { AppImage, ImageActions } from '~features/file';
 import { Product } from '~products/models';
 import { selectProductById, selectProductFocused } from '~products/store';
-import {
-	selectNumCommentsForCurrentTarget,
-	selectNumTasksForSelection,
-} from '~store/selectors/target/target.selector';
 import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
 

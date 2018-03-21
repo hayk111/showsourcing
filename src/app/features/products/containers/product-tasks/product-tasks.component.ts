@@ -6,11 +6,10 @@ import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
 
 import { Product } from '~products/models';
-import { TaskTargetActions } from '~store/action/target/task.action';
 import { DialogActions } from '~dialog';
-import { Task } from '~tasks';
+import { Task, selectTasks } from '~tasks';
 import { DialogName } from '~dialog';
-import { selectTaskArrayForCurrentTarget } from '~store/selectors/target/target.selector';
+import { TaskActions } from '~app/features/tasks/store';
 
 @Component({
 	selector: 'app-product-tasks',
@@ -26,7 +25,8 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.tasks$ = this.store.select(selectTaskArrayForCurrentTarget);
+		// send request to load tasks for product
+		this.tasks$ = this.store.select(selectTasks);
 		this.product$ = this.store.select(selectProductFocused);
 	}
 
@@ -35,6 +35,6 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewTask(task: Task) {
-		this.store.dispatch(TaskTargetActions.add(task));
+		this.store.dispatch(TaskActions.create(task));
 	}
 }

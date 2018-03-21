@@ -2,10 +2,12 @@ import { Action } from '@ngrx/store';
 import { Patch, ApiParams } from '../utils';
 import { TypedAction } from '~utils';
 
-import { Entity, EntityRepresentation } from '../models';
+import { Entity, EntityRepresentation, EntityTarget } from '../models';
 import { Swap } from '~app/shared/entity/utils';
 
 export interface BasicActionTypes {
+	// when selecting one entity
+	SELECT: string;
 	// loading entities or a subset of entities
 	LOAD: string;
 	// for pagination
@@ -29,6 +31,7 @@ export interface BasicActionTypes {
 }
 
 export interface BasicActions {
+	select(id: string);
 	load(params?: any);
 	loadMore(params?: any);
 	loadById(id: string);
@@ -47,6 +50,7 @@ export interface BasicActions {
 export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTypes {
 	// using uppercase for backward compatibility with enums
 	return {
+		SELECT: `[${repr.entityName.capitalize()}] Selecting...`,
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
 		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
@@ -70,6 +74,10 @@ export function addActionType(actionTypes: any, repr: EntityRepresentation, acti
 // makes basic actions functions
 export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 	return {
+		select: (id: string): TypedAction<any> => ({
+			type: actionType.SELECT,
+			payload: id,
+		}),
 		load: (params?: ApiParams): TypedAction<any> => ({
 			type: actionType.LOAD,
 			payload: params,
@@ -86,7 +94,7 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			type: actionType.SET,
 			payload: toSet,
 		}),
-		add: (toAdd: Array<Entity>): TypedAction<any> => ({
+		add: (toAdd: Array<Entity>, target?: EntityTarget): TypedAction<any> => ({
 			type: actionType.ADD,
 			payload: toAdd,
 		}),

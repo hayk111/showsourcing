@@ -16,7 +16,6 @@ import { AppErrorsEffects } from './misc/app-error.effects';
 import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilesEffects } from '~features/file';
 import { ImageEffects } from '~features/file';
-import { TargetEffects } from './target/target.effects';
 import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { FilterEntityPanelEffects } from '~shared/filters';
 import { HarbourEffects } from '~app/app-root/store/effects/entities/harbour.effects';
@@ -40,17 +39,13 @@ export const effects = [
 	SuppliersEffects,
 	FilesEffects,
 	ImageEffects,
-
+	CommentEffects,
 	// misc
 	AppErrorsEffects,
 	AuthenticationEffects,
 	TokenEffects,
 	// PreloaderEffects,
 	FilterEntityPanelEffects,
-
-	// target
-	TargetEffects,
-	CommentEffects,
 
 	// UI
 	FeedbackDlgEffects,

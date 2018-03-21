@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, mergeMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap, distinctUntilChanged } from 'rxjs/operators';
 import { AppFile, FileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
@@ -12,10 +12,29 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Tag } from '~app/app-root/store';
 import { Project, ProjectActions } from '~app/features/projects';
 import { TagActions } from '~app/app-root/store/action';
+import { CommentActions } from '~app/features/comment';
+import { ImageActions } from '~app/features/file/store';
+import { ERM } from '~app/shared/entity';
+import { TargetAction } from '~app/app-root/store/action/target/target.action';
 
 @Injectable()
 export class ProductEffects {
 	userID: string;
+
+	@Effect()
+	select$ = this.actions$
+		.ofType<any>(ProductActionTypes.SELECT)
+		.pipe(
+			distinctUntilChanged(),
+			map(action => action.payload),
+			map(id => ({ entityId: id, entityRepr: ERM.product })),
+			mergeMap(target => [
+				TargetAction.select(target),
+				CommentActions.load(),
+				FileActions.load(),
+				ImageActions.load(),
+			])
+		);
 
 	@Effect()
 	load$ = this.actions$.ofType<any>(ProductActionTypes.LOAD).pipe(

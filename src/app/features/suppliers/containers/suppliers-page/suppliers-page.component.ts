@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { selectSuppliers, SupplierActions } from '~suppliers/store';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
-import { TargetAction } from '~store/action/target/target.action';
 import { Router } from '@angular/router';
 import { DialogActions } from '~dialog';
 import { DialogName } from '~dialog';

@@ -27,8 +27,6 @@ import {
 	IncoTermsActionTypes,
 	HarbourActionTypes,
 } from '../action/entities';
-import { ActionType as TaskSlctnActionTypes } from '../action/target/task.action';
-import { ActionType as VoteSlctnActionTypes } from '../action/target/vote.action';
 import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
 import { tasksStatusReducer } from './entities/task-status.reducer';

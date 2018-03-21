@@ -8,7 +8,6 @@ import { EntityTarget, ERM, EntityState } from '~entity';
 import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
 import { Product } from '~products/models';
 import { ProductActions } from '~products/store';
-import { TargetAction } from '~store/action/target/target.action';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
 import { DialogName, DialogActions } from '~app/shared/dialog';
@@ -45,8 +44,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
 			const id = params['id'];
-			this.target = { entityId: id, entityRepr: ERM.product };
-			this.store.dispatch(TargetAction.select(this.target));
+			this.store.dispatch(ProductActions.select(id));
 			this.store.dispatch(ProductActions.loadById(id));
 		});
 		this.product$ = this.route.params.pipe(

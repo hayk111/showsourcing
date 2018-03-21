@@ -1,15 +1,26 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { ActionType, SupplierActions } from './supplier.action';
 import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { Swap } from '~app/shared/entity/utils';
+import { ImageActions, FileActions } from '~app/features/file';
+import { CommentActions } from '~app/features/comment';
 
 @Injectable()
 export class SuppliersEffects {
+	@Effect()
+	select$ = this.action$
+		.ofType<any>(ActionType.SELECT)
+		.pipe(
+			distinctUntilChanged(),
+			map(action => action.payload),
+			mergeMap(id => [[CommentActions.load(), FileActions.load(), ImageActions.load()]])
+		);
+
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
@@ -33,10 +44,7 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						map(
-							(r: any) => SupplierActions.replace([new Swap(supplier, r)]),
-							catchError(e => of(AppErrorActions.add(e)))
-						)
+						map((r: any) => SupplierActions.replace([new Swap(supplier, r)]), catchError(e => of(AppErrorActions.add(e))))
 					)
 			)
 		);
