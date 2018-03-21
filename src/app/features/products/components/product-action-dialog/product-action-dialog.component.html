@@ -5,7 +5,7 @@
     <div *ngIf="dialogType !== 'export'">
       <div *ngFor="let entity of entities" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
         <div class="contentRow">
-          <input-checkbox-app (click)="toggleSelectEntity(entity.id)" [checked]="selectedEntities[entity.id]"></input-checkbox-app>
+          <input-checkbox-app (click)="toggleSelectEntity(entity.id, entity)" [checked]="selectedEntities[entity.id]"></input-checkbox-app>
           <span class="name" *ngIf="dialogType === 'add'">{{entity.name}}</span>
           <span class="name" *ngIf="dialogType === 'feedback'">{{entity.firstName}} {{entity.lastName}}</span>
           <div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>

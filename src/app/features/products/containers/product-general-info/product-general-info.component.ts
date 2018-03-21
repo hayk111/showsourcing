@@ -16,6 +16,7 @@ import { SupplierActions } from '~app/features/suppliers';
 import { Tag } from '~app/app-root/store';
 import { UserService } from '~app/features/user';
 import { TagActions } from '~app/app-root/store/action';
+import { Project } from '~app/features/projects';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -26,6 +27,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	events$: Observable<Array<Event>>;
 	customFields$: Observable<FormDescriptor>;
+	productId: string;
 
 	categoryRep = ERM.categories;
 
@@ -38,6 +40,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			switchMap(params => this.store.select(selectProductById(params.id)))
 		);
+		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => (this.productId = product.id));
 		this.events$ = this.store.select(selectEventsList);
 		this.customFields$ = this.store.select(
 			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customFields })
@@ -79,14 +82,25 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(SupplierActions.patch({ id, propName, value }));
 	}
 
+	onTagAdded(tag: Tag) {
+		this.store.dispatch(ProductActions.addTag(tag, this.productId));
+	}
+
+	onTagRemoved(tag: Tag) {
+		this.store.dispatch(ProductActions.removeTag(tag, this.productId));
+	}
+
+	onProjectAdded(project: Project) {
+		this.store.dispatch(ProductActions.addProject(project, this.productId));
+	}
+
+	onProjectRemoved(project: Project) {
+		this.store.dispatch(ProductActions.removeProject(project, this.productId));
+	}
+
 	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
-		// first we create da tag
+		debugger;
 		const tag = new Tag(tagName, this.userSrv.userId);
-		this.store.dispatch(TagActions.create(tag));
-		// TODO: cedric & hassan can't do that since the id is the one of the pending one and not the one from the received tag that replace the temporary one
-		// we need to add actions addTag, createTag, removeTag in project
-		// we patch the product to add the tag to the current list of tags
-		// const tagIds = currentTagIds.concat(tag.id);
-		// this.store.dispatch(ProductActions.patch({ propName: 'tagIds', value: tagIds, id }));
+		this.store.dispatch(ProductActions.createTag(tag, id));
 	}
 }

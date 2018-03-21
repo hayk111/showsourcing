@@ -14,6 +14,7 @@ import {
 import { EntityRepresentation } from '~entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Patch } from '~entity/utils';
+import { Project } from '~app/features/projects';
 
 @Component({
 	selector: 'editable-field-app',
@@ -31,8 +32,10 @@ export class EditableFieldComponent implements OnInit {
 	@Input() entities: Observable<Array<Entity>>;
 	@Output() update = new EventEmitter<any>();
 	@Output() tagCreate = new EventEmitter<string>();
-	@Output() tagAdded = new EventEmitter<string>();
-	@Output() tagRemoved = new EventEmitter<string>();
+	@Output() tagAdded = new EventEmitter<Tag>();
+	@Output() tagRemoved = new EventEmitter<Tag>();
+	@Output() projectAdded = new EventEmitter<Project>();
+	@Output() projectRemoved = new EventEmitter<Project>();
 	@ViewChild('tagSearch') tagSearch;
 	editMode = false;
 	accumulator: string | number;
@@ -64,27 +67,34 @@ export class EditableFieldComponent implements OnInit {
 			return;
 		}
 		// if previous value is bigger we removed item
-		if (this.value > value) {
-			// const removedItem = value.find(v => (this.value as Array<any>).includes(v.id));
-			// this.tagRemoved.emit(removedItem.id);
+		if (this.value.length > value.length) {
+			// the one removed is the one not included in the second array
+			const removedId = this.value.find(v => !value.find(x => x.id === v));
+			// since we only have the id we will send a lookalike Tag with just the id
+			this.tagRemoved.emit({ id: removedId } as Tag);
 		} else {
+			// the one added is the one not included in the first array
+			const addedItem = value.find(v => !(this.value as Array<any>).includes(v.id));
+			this.tagAdded.emit(addedItem);
 		}
 	}
 
-	updateMultipleEntities(value: Array<Entity>) {
+	updateProjects(value: Array<Project>) {
 		// this will be fired when a change event occur with ng select
 		// however when we create a tag, a change is also fired but the id isn't ready yet
 		if (!Array.isArray(value)) {
 			return;
 		}
-
-		// ng select gives back the new values, we only care about the ids of values
-		this.update.emit(
-			value.reduce((acc, o) => {
-				acc.push(o.id);
-				return acc;
-			}, [])
-		);
+		// if previous value is bigger we removed item
+		if (this.value.length > value.length) {
+			// the one removed is the one not included in the second array
+			const removedId = this.value.find(v => !value.find(x => x.id === v));
+			this.projectRemoved.emit({ id: removedId } as Project);
+		} else {
+			// the one added is the one not included in the first array
+			const addedItem = value.find(v => !(this.value as Array<any>).includes(v.id));
+			this.projectAdded.emit(addedItem);
+		}
 	}
 
 	updateValue(value: string) {

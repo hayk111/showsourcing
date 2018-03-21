@@ -13,13 +13,5 @@ export class TagEffects {
 		.ofType<any>(ActionType.LOAD)
 		.pipe(switchMap(_ => this.srv.load()), map((result: any) => TagActions.add(result)));
 
-	@Effect()
-	create$ = this.action$
-		.ofType<any>(ActionType.CREATE)
-		.pipe(
-			map(action => action.payload),
-			switchMap((tag: Tag) => this.srv.create(tag), (tag, r) => TagActions.replace([new Swap(tag, r)]))
-		);
-
 	constructor(private action$: Actions, private srv: TagService) {}
 }

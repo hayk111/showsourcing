@@ -5,6 +5,8 @@ import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
 import { ApiParams, Patch } from '~entity/utils';
 import { Product } from '~app/features/products';
+import { Tag } from '~app/app-root/store';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProductService {
@@ -82,5 +84,30 @@ export class ProductService {
 	requestFeedback(productId: String, recipientsIds: Array<string>) {
 		const recp = { recipients: recipientsIds };
 		return this.http.post(`api/product/${productId}/feedback`, recp);
+	}
+
+	addTag({ tag, productId }): Observable<any> {
+		return this.http.put(`/api/product/${productId}/tag/${tag.id}`, {});
+	}
+
+	removeTag({ tag, productId }): Observable<any> {
+		return this.http.delete(`/api/product/${productId}/tag/${tag.id}`, {});
+	}
+
+	createTag({ tag, productId }): Observable<any> {
+		debugger;
+		return this.http.post(`/api/team/${this.userSrv.teamId}/tag`, { name: tag.name, itemType: 'Product' });
+	}
+
+	addProject({ project, productId }): Observable<any> {
+		return this.http.put(`/api/product/${productId}/project/${project.id}`, {});
+	}
+
+	removeProject({ project, productId }): Observable<any> {
+		return this.http.delete(`/api/product/${productId}/project/${project.id}`, {});
+	}
+
+	createProject({ project, productId }): Observable<any> {
+		return this.http.post(`/api/team/${this.userSrv.teamId}/project`, { name: project.name });
 	}
 }

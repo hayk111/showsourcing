@@ -25,9 +25,9 @@ export class ProductActionDialogComponent implements OnInit {
 
 	ngOnInit() {}
 
-	public toggleSelectEntity(id: string) {
+	public toggleSelectEntity(id: string, entity) {
 		if (!this.selectedEntities[id]) {
-			this.selectedEntities[id] = true;
+			this.selectedEntities[id] = entity;
 		} else {
 			delete this.selectedEntities[id];
 		}

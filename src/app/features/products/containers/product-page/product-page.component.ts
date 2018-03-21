@@ -38,11 +38,7 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	projectDlgName = DialogName.ADDTOPROJECT;
 	productsCount$: Observable<number>;
 
-	constructor(
-		private route: ActivatedRoute,
-		private store: Store<any>,
-		private userSrv: UserService
-	) {
+	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
@@ -66,13 +62,14 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(this.projectDlgName));
 	}
 
-	addToProjects(selectedProjects: any, product) {
-		this.store.dispatch(ProjectActions.addProducts(Object.keys(selectedProjects), [product.id]));
+	addToProjects(selectedProjects: any, productId: string) {
+		const projects = Object.values(selectedProjects);
+		projects.forEach((project: Project) => this.store.dispatch(ProductActions.addProject(project, productId)));
 		this.store.dispatch(DialogActions.close(this.projectDlgName));
 	}
 
-	onProjectRemoved(event) {
-		// this.store.dispatch(ProjectTargetActions.remove(event));
+	removeProject(project, productId: string) {
+		this.store.dispatch(ProductActions.removeProject(project, productId));
 	}
 
 	onFileAdded(files: Array<File>) {

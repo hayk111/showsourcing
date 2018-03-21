@@ -106,7 +106,9 @@ export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 			type: actionType.DOWNLOAD,
 			payload: url,
 		}),
+
 		setPending: (): Action => ({ type: actionType.SET_PENDING }),
+
 		patch: (patch: Patch): TypedAction<any> => ({
 			type: actionType.PATCH,
 			payload: patch,

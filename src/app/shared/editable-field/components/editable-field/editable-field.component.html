@@ -81,7 +81,7 @@
 
   <!-- Tags selector -->
   <ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
-    bindValue="id" *ngIf="type === 'tags'" (change)="updateMultipleEntities($event)" [ngModel]="value" [addTag]="addTagCallback">
+    bindValue="id" *ngIf="type === 'tags'" (change)="updateTags($event)" [ngModel]="value" [addTag]="addTagCallback">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input #tagSearch style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
@@ -91,7 +91,7 @@
 
   <!-- Project selector -->
   <ng-select #projectsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
-    bindValue="id" *ngIf="type === 'projects'" (change)="updateMultipleEntities($event)" [ngModel]="value" [addTag]="addProjectCallback">
+    bindValue="id" *ngIf="type === 'projects'" (change)="updateProjects($event)" [ngModel]="value" [addTag]="addProjectCallback">
     <ng-template ng-header-tmp>
       <div class="selectCustomInput">
         <input style="width: 100%" type="text" (input)="projectsSelector.filter($event.target.value)" />

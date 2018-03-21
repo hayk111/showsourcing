@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap } from 'rxjs/operators';
 import { AppFile, FileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
 import { ProductActions, ProductActionTypes } from './product.action';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Tag } from '~app/app-root/store';
+import { Project, ProjectActions } from '~app/features/projects';
+import { TagActions } from '~app/app-root/store/action';
 
 @Injectable()
 export class ProductEffects {
@@ -94,6 +97,53 @@ export class ProductEffects {
 	patch$ = this.actions$
 		.ofType<any>(ProductActionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+
+	// tags adding / removing / creating
+	@Effect({ dispatch: false })
+	addTag$ = this.actions$
+		.ofType<any>(ProductActionTypes.ADD_TAG)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.addTag(payload)));
+
+	@Effect({ dispatch: false })
+	removeTag$ = this.actions$
+		.ofType<any>(ProductActionTypes.REMOVE_TAG)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeTag(payload)));
+
+	@Effect()
+	createTag$ = this.actions$
+		.ofType<any>(ProductActionTypes.CREATE_TAG)
+		.pipe(
+			map(action => action.payload),
+			switchMap(payload =>
+				this.srv
+					.createTag(payload)
+					.pipe(mergeMap(r => [ProductActions.addTag(r, payload.productId), TagActions.add([r])]))
+			)
+		);
+
+	// projects adding / removing / creating
+	@Effect({ dispatch: false })
+	addProject$ = this.actions$
+		.ofType<any>(ProductActionTypes.ADD_PROJECT)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.addProject(payload)));
+	// TODO: hassan, we also need to update the number of products in a project
+
+	@Effect({ dispatch: false })
+	removeProject$ = this.actions$
+		.ofType<any>(ProductActionTypes.REMOVE_PROJECT)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeProject(payload)));
+
+	@Effect()
+	createProject$ = this.actions$
+		.ofType<any>(ProductActionTypes.CREATE_PROJECT)
+		.pipe(
+			map(action => action.payload),
+			switchMap(payload =>
+				this.srv
+					.createProject(payload)
+					.pipe(mergeMap(r => [(ProductActions.addProject(r, payload.productId), ProjectActions.add([r]))]))
+			)
+		);
 
 	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
 		this.store

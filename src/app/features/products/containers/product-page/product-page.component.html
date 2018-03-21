@@ -15,7 +15,7 @@
 
 			<card-app>
 				<project-card-app
-					(removeProject)="removeProject($event)"
+					(removeProject)="removeProject($event, product.id)"
 					(addProjectClick)="openAddProjectDlg()"
 					[projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
 			</card-app>
@@ -87,7 +87,7 @@
 		dialogType="add"
 		[entities]="projects$ | async"
 		[productsCount]="productsCount$ | async"
-		(buttonClicked)="addToProjects($event, product)">
+		(buttonClicked)="addToProjects($event, product.id)">
 	</product-action-dialog-app>
 
 </ng-container>

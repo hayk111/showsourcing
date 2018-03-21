@@ -7,7 +7,11 @@
 		[entities]="field.propType | entityList"
 		[type]="field.propType"
 		(update)="onUpdate(product.id, field.propName, $event)"
-		(tagCreate)="onTagCreated(product.id, $event, product.tagIds)">
+		(tagCreate)="onTagCreated(product.id, $event, product.tagIds)"
+		(tagAdded)="onTagAdded($event)"
+		(tagRemoved)="onTagRemoved($event)"
+		(projectAdded)="onProjectAdded($event)"
+		(projectRemoved)="onProjectRemoved($event)">
 	</editable-field-app>
 	<!-- else we don't -->
 	<editable-field-app

@@ -11,20 +11,4 @@ export class TagService {
 	load() {
 		return this.entitySrv.load({ base: ERM.teams, target: ERM.tags, recurring: true });
 	}
-
-	loadForTarget(target: EntityTarget) {
-		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/tag`);
-	}
-
-	create(tag: Tag) {
-		return this.entitySrv.post({ base: ERM.teams, target: ERM.tags }, { name: tag.name, itemType: 'Product' });
-	}
-
-	addForTarget(tag: Tag, target: EntityTarget) {
-		return this.http.put(`api/${target.entityRepr.urlName}/${target.entityId}/tag/${tag.id}`, {});
-	}
-
-	removeForTarget(tag: Tag, target: EntityTarget) {
-		return this.http.delete(`api/${target.entityRepr.urlName}/${target.entityId}/tag/${tag.id}`);
-	}
 }
