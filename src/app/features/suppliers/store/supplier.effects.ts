@@ -9,6 +9,8 @@ import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { Swap } from '~app/shared/entity/utils';
 import { ImageActions, FileActions } from '~app/features/file';
 import { CommentActions } from '~app/features/comment';
+import { ERM } from '~app/shared/entity';
+import { TargetAction } from '~app/app-root/store/action/target/target.action';
 
 @Injectable()
 export class SuppliersEffects {
@@ -18,7 +20,13 @@ export class SuppliersEffects {
 		.pipe(
 			distinctUntilChanged(),
 			map(action => action.payload),
-			mergeMap(id => [[CommentActions.load(), FileActions.load(), ImageActions.load()]])
+			map(id => ({ entityId: id, entityRepr: ERM.suppliers })),
+			mergeMap(target => [
+				TargetAction.select(target),
+				CommentActions.load(),
+				FileActions.load(),
+				ImageActions.load(),
+			])
 		);
 
 	@Effect()
