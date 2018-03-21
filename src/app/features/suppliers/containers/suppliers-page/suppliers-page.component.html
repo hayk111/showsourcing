@@ -1,11 +1,14 @@
 
 <entity-page-app
  [filterGroupName]="filterGroupName"
+ subtitle="all"
  [switchable]="false" [pending]="pending$ | async" [repr]="repr" (buttonClick)="openNewDialog()">
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"
 	(supplierUnselect)="onItemUnselected($event)"
 	(supplierOpen)="onItemOpened($event)"
+	(supplierFavorited)="onItemFavorited($event)"
+	(supplierUnfavorited)="onItemUnfavorited($event)"
 	[selection]="selection"
 	[suppliers]="suppliers$ | async"></supplier-list-view-app>
 	<new-supplier-dlg-app></new-supplier-dlg-app>

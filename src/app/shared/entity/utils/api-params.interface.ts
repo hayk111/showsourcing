@@ -1,15 +1,15 @@
 import { EntityRepresentation, EntityTarget } from '~entity';
 import { Filter } from 'app/shared/filters/index';
 
-export interface LoadParams {
+export interface ApiParams {
 	// url entities api/team/:teamId/product/:productId/comment
 	url?: string;
-	// alternatively of a url we can give the entity loaded
-	// example : loaded: Comment, base: Team, from: Product
+	// alternatively of a url we can give the entity target
+	// example : target: Comment, base: Team, from: Product
 	// this allows to resolve problems were we aren't sure
-	// if the user is already loaded
-	loaded?: EntityRepresentation;
-	loadedId?: string;
+	// if the user is already target
+	target?: EntityRepresentation;
+	targetId?: string;
 	base?: EntityRepresentation;
 	from?: EntityTarget;
 

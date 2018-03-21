@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
-import { LoadParams } from '~entity/utils';
+import { ApiParams } from '~entity/utils';
 import { Filter } from '~shared/filters';
 import { User } from '~user/models';
 import { UserService } from '~user/services';
 
-// entities are loaded different ways.
+// entities are target different ways.
 
 // 1. api/country. The first way and most simple way is api followed
 // by the name of the entity, ex: api/country.
@@ -25,7 +25,7 @@ export class UrlBuilder {
 
 	constructor(private store: Store<any>, private userSrv: UserService) {}
 
-	getUrl(params: LoadParams, user: User): string {
+	getUrl(params: ApiParams, user: User): string {
 		let url;
 		// if we have url as a string we can use it, else we gotta build it
 		if (params.url) {
@@ -38,7 +38,7 @@ export class UrlBuilder {
 		return url;
 	}
 
-	private buildUrl(params: LoadParams, user: User) {
+	private buildUrl(params: ApiParams, user: User) {
 		// we need to be able to build
 		// 1. api/team
 		// 2. api/team/:teamId/product
@@ -46,8 +46,8 @@ export class UrlBuilder {
 		let url = 'api';
 		let base = params.base;
 		let from = params.from;
-		let loaded = params.loaded;
-		let loadedId = params.loadedId;
+		let target = params.target;
+		let targetId = params.targetId;
 
 		if (base) {
 			url = this.addBase(url, base, user);
@@ -55,7 +55,7 @@ export class UrlBuilder {
 		if (from) {
 			url = this.addFrom(url, from);
 		}
-		url = this.addLoaded(url, loaded, loadedId);
+		url = this.addTarget(url, target, targetId);
 		return url;
 	}
 
@@ -81,14 +81,14 @@ export class UrlBuilder {
 		return `${url}/${from.entityRepr.urlName}/${from.entityId}`;
 	}
 
-	// add the loaded entity
-	private addLoaded(url: string, loaded: EntityRepresentation, loadedId?: string) {
-		url = `${url}/${loaded.urlName}`;
-		if (loadedId) url += `/${loadedId}`;
+	// add the target entity
+	private addTarget(url: string, target: EntityRepresentation, targetId?: string) {
+		url = `${url}/${target.urlName}`;
+		if (targetId) url += `/${targetId}`;
 		return url;
 	}
 
-	private addParams(url: string, params: LoadParams) {
+	private addParams(url: string, params: ApiParams) {
 		url = `${url}?`;
 
 		if (params.filters) {

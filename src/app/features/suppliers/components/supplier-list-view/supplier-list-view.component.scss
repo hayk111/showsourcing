@@ -1,0 +1,21 @@
+.supplier {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+	input-checkbox-app {
+		margin-right: var(--spacing-default);
+	}
+}
+
+.review {
+	font-weight: 600;
+	background: var(--color-primary-light);
+	color: var(--color-txt);
+	padding: var(--spacing-xs) var(--spacing-l);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-txt);
+}
+
+user-picture-app {
+	margin-right: var(--spacing-s);
+}

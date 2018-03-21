@@ -10,7 +10,7 @@ export class IncoTermsEffects {
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.srv.load({ loaded: ERM.incoTerms })),
+			switchMap(_ => this.srv.load({ target: ERM.incoTerms })),
 			map((result: any) => IncoTermsActions.add(result))
 		);
 

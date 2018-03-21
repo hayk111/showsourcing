@@ -1,12 +1,15 @@
 <ng-template #fields let-field="field" let-product="product">
+	<!-- we need to pass in a list of entities if it's an entity selector type field -->
 	<editable-field-app
 		*ngIf="isEntityType(field.propType)"
 		[value]="product[field.propName]"
 		[entity]="product"
 		[entities]="field.propType | entityList"
 		[type]="field.propType"
-		(update)="onUpdate(product.id, field.propName, $event)">
+		(update)="onUpdate(product.id, field.propName, $event)"
+		(tagCreate)="onTagCreated(product.id, $event, product.tagIds)">
 	</editable-field-app>
+	<!-- else we don't -->
 	<editable-field-app
 		*ngIf="!isEntityType(field.propType)"
 		[entity]="product"

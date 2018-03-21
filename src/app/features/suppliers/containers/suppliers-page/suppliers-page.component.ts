@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, ERM } from '~entity';
+import { EntityState, Entity, ERM, Patch } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers } from '~suppliers/store';
+import { selectSuppliers, SupplierActions } from '~suppliers/store';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { TargetAction } from '~store/action/target/target.action';
@@ -46,5 +46,15 @@ export class SuppliersPageComponent implements OnInit {
 
 	onItemOpened(entityId: string) {
 		this.router.navigate(['/suppliers', 'details', entityId]);
+	}
+
+	onItemFavorited(entityId: string) {
+		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
+		this.store.dispatch(SupplierActions.patch(patch));
+	}
+
+	onItemUnfavorited(entityId: string) {
+		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
+		this.store.dispatch(SupplierActions.patch(patch));
 	}
 }

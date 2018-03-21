@@ -21,6 +21,7 @@ import { SupplierDetailsComponent } from './containers';
 import { SupplierService } from './services';
 import { routes } from './routes';
 import { TableModule } from '~app/shared/table';
+import { RatingModule } from '~app/shared/rating';
 
 @NgModule({
 	imports: [
@@ -39,7 +40,8 @@ import { TableModule } from '~app/shared/table';
 		TableModule, // used by list view
 		TagModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
-		EntityMainCardModule, // used to display the main card in details
+		EntityMainCardModule, // used to display the main card in details,
+		RatingModule, // used for hearth
 	],
 	declarations: [
 		SupplierDetailsComponent,

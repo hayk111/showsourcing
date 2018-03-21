@@ -30,9 +30,13 @@ export class EditableFieldComponent implements OnInit {
 	@Input() isCompactInline = false;
 	@Input() entities: Observable<Array<Entity>>;
 	@Output() update = new EventEmitter<any>();
-	@Output() addEntity = new EventEmitter<any>();
+	@Output() tagCreate = new EventEmitter<string>();
+	@Output() tagAdded = new EventEmitter<string>();
+	@Output() tagRemoved = new EventEmitter<string>();
+	@ViewChild('tagSearch') tagSearch;
 	editMode = false;
 	accumulator: string | number;
+	addTagCallback = (name: string) => this.addTag(name);
 
 	constructor() {}
 
@@ -48,11 +52,33 @@ export class EditableFieldComponent implements OnInit {
 		this.editMode = false;
 	}
 
-	addEntityCallback(name: string) {
-		this.addEntity.emit(name);
+	addTag(name: string) {
+		this.tagCreate.emit(name);
+		this.tagSearch.nativeElement.value = '';
+	}
+
+	updateTags(value: Array<Tag>) {
+		// this will be fired when a change event occur with ng select
+		// however when we create a tag, a change is also fired but the id isn't ready yet
+		if (!Array.isArray(value)) {
+			return;
+		}
+		// if previous value is bigger we removed item
+		if (this.value > value) {
+			// const removedItem = value.find(v => (this.value as Array<any>).includes(v.id));
+			// this.tagRemoved.emit(removedItem.id);
+		} else {
+		}
 	}
 
 	updateMultipleEntities(value: Array<Entity>) {
+		// this will be fired when a change event occur with ng select
+		// however when we create a tag, a change is also fired but the id isn't ready yet
+		if (!Array.isArray(value)) {
+			return;
+		}
+
+		// ng select gives back the new values, we only care about the ids of values
 		this.update.emit(
 			value.reduce((acc, o) => {
 				acc.push(o.id);

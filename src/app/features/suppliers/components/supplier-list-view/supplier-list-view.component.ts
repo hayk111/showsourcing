@@ -1,11 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Supplier } from '~suppliers/models';
 
 @Component({
@@ -20,17 +13,15 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();
 	@Output() supplierOpen = new EventEmitter<string>();
+	@Output() supplierFavorited = new EventEmitter<string>();
+	@Output() supplierUnfavorited = new EventEmitter<string>();
 
 	constructor() {}
 
 	ngOnInit() {}
 
-	onSelect(event, id: string) {
-		if (event.target.checked) {
-			this.supplierSelect.emit(id);
-		} else {
-			this.supplierUnselect.emit(id);
-		}
-		event.stopPropagation();
+	onCheck(value, supplierId) {
+		if (value) this.supplierSelect.emit(supplierId);
+		else this.supplierUnselect.emit(supplierId);
 	}
 }

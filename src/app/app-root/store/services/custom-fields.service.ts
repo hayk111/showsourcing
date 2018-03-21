@@ -11,7 +11,7 @@ export class CustomFieldsService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, loaded: ERM.customFields, recurring: true })
+			.load({ base: ERM.teams, target: ERM.customFields, recurring: true })
 			.pipe(map(r => this.mapCustomFields(r)));
 	}
 

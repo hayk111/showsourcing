@@ -9,16 +9,15 @@ export class TagService {
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {
-		return this.entitySrv.load({ base: ERM.teams, loaded: ERM.tags, recurring: true });
+		return this.entitySrv.load({ base: ERM.teams, target: ERM.tags, recurring: true });
 	}
 
 	loadForTarget(target: EntityTarget) {
 		return this.http.get(`api/${target.entityRepr.urlName}/${target.entityId}/tag`);
 	}
 
-	create(name: string) {
-		// `https://stoemelings.showsourcing.com/api/team/87df5e10-03e8-4644-9cd3-0c848e1c81f9/tag`
-		// return this.http.post(`api/${}`);
+	create(tag: Tag) {
+		return this.entitySrv.post({ base: ERM.teams, target: ERM.tags }, { name: tag.name, itemType: 'Product' });
 	}
 
 	addForTarget(tag: Tag, target: EntityTarget) {

@@ -20,8 +20,6 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	product: Product;
-	numComments: number;
-	numTasks: number;
 	user;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
@@ -29,18 +27,8 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const product$: Observable<Product> = this.store
-			.select(selectProductFocused)
-			.pipe(filter((o: any) => o));
+		const product$: Observable<Product> = this.store.select(selectProductFocused).pipe(filter((o: any) => o));
 		product$.pipe(takeUntil(this._destroy$)).subscribe(p => (this.product = p));
-		this.store
-			.select(selectNumCommentsForCurrentTarget)
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(n => (this.numComments = n));
-		this.store
-			.select(selectNumTasksForSelection)
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(n => (this.numTasks = n));
 
 		product$
 			// .pipe(switchMap(target => this.store.select(selectProductById(target.id))))

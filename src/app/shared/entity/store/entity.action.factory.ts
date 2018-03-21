@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Patch, LoadParams } from '../utils';
+import { Patch, ApiParams } from '../utils';
 import { TypedAction } from '~utils';
 
 import { Entity, EntityRepresentation } from '../models';
@@ -70,11 +70,11 @@ export function addActionType(actionTypes: any, repr: EntityRepresentation, acti
 // makes basic actions functions
 export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
 	return {
-		load: (params?: LoadParams): TypedAction<any> => ({
+		load: (params?: ApiParams): TypedAction<any> => ({
 			type: actionType.LOAD,
 			payload: params,
 		}),
-		loadMore: (params?: LoadParams): TypedAction<any> => ({
+		loadMore: (params?: ApiParams): TypedAction<any> => ({
 			type: actionType.LOAD_MORE,
 			payload: params,
 		}),

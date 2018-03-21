@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
-import { LoadParams, Patch } from '~entity/utils';
+import { ApiParams, Patch } from '~entity/utils';
 import { Product } from '~app/features/products';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ProductService {
 	load(params) {
 		params = { ...params };
 		params.base = ERM.teams;
-		params.loaded = ERM.product;
+		params.target = ERM.product;
 		params.recurring = true;
 		return this.entitySrv.load(params).pipe(
 			map((r: any) => r.elements),
@@ -37,9 +37,9 @@ export class ProductService {
 	}
 
 	loadById(id: string) {
-		const params: LoadParams = {
-			loaded: ERM.product,
-			loadedId: id,
+		const params: ApiParams = {
+			target: ERM.product,
+			targetId: id,
 			recurring: true,
 		};
 		return this.entitySrv

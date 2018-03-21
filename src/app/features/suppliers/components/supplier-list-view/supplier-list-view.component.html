@@ -1,34 +1,80 @@
 <table-app [rows]="suppliers">
+	<!-- supplier row -->
 	<ng-template
-		columnApp=""
+		columnApp="Supplier"
 		let-row="row">
-		<input type="checkbox" [checked]="selection.get(row.id)" (change)="onSelect($event, row.id)" />
+		<div class="supplier">
+			<input-checkbox-app
+				(update)="onCheck($event, row.id)"
+				[checked]="selection.get(row.id)"></input-checkbox-app>
+			<span class="name">{{ row.name }}</span>
+		</div>
 	</ng-template>
-	<ng-template
-		columnApp="Name"
-		let-row="row">
-		<span>{{ row?.name }}</span>
-	</ng-template>
-	<ng-template
-		columnApp="Status"
-		let-row="row">
-		<span>{{ row?.advancedInfos?.status }}</span>
-	</ng-template>
+
+	<!-- categories -->
 	<ng-template
 		columnApp="Categories"
 		let-row="row">
 		<span *ngFor="let cat of row.categories">{{ cat.name }}, </span>
 	</ng-template>
+
+	<!-- country -->
+	<ng-template
+		columnApp="Country"
+		let-row="row">
+		<span>{{ row?.countryCode | entity: 'countries': 'fullName' | async }}</span>
+	</ng-template>
+
+	<!-- tags -->
 	<ng-template
 		columnApp="Tags"
 		let-row="row">
-		<tag-app [tagId]="tag.id" *ngFor="let tag of row.tags"></tag-app>
+		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }}{{ last ? '' : ', '}}</span>
 	</ng-template>
+
+	<!-- date -->
+	<ng-template
+		columnApp="Created"
+		let-row="row">
+		{{ row?.creationDate | date: 'MMMM y' }}
+	</ng-template>
+
+	<!-- user -->
 	<ng-template
 		columnApp="Pwner"
 		let-row="row">
-		<user-picture-with-name-app [user]="row.createdByUserId | entity: 'teamMembers' | async">
-			<time>{{ row?.creationDate | timeAgo }}</time>
-		</user-picture-with-name-app>
+		<div class="flex" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
+			<user-picture-app
+				[size]="18"
+				[border]="true"
+				[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+			<span>{{ user.name }}</span>
+		</div>
 	</ng-template>
+
+	<!-- date -->
+	<ng-template
+		columnApp="Info"
+		let-row="row">
+		{{ row?.creationDate | date: 'MMMM y' }}
+	</ng-template>
+
+	<!-- Action -->
+	<ng-template
+		columnApp="Action"
+		let-row="row">
+		<rating-heart-app
+			[rating]="row?.rating"
+			(favorited)="supplierFavorited.emit(row.id)"
+			(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
+	</ng-template>
+
+	<!-- Review -->
+	<ng-template
+		columnApp=""
+		let-row="row">
+		<a class="review" [routerLink]="['/suppliers', 'details', row.id, 'activity']">REVIEW</a>
+	</ng-template>
+
+
 </table-app>

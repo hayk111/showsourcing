@@ -13,6 +13,9 @@ import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dyna
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
 import { Patch } from '~entity/utils';
 import { SupplierActions } from '~app/features/suppliers';
+import { Tag } from '~app/app-root/store';
+import { UserService } from '~app/features/user';
+import { TagActions } from '~app/app-root/store/action';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -26,7 +29,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	categoryRep = ERM.categories;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>) {
+	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
@@ -74,5 +77,16 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	onSupplierUpdate(id: string, propName: string, value: any) {
 		this.store.dispatch(SupplierActions.patch({ id, propName, value }));
+	}
+
+	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
+		// first we create da tag
+		const tag = new Tag(tagName, this.userSrv.userId);
+		this.store.dispatch(TagActions.create(tag));
+		// TODO: cedric & hassan can't do that since the id is the one of the pending one and not the one from the received tag that replace the temporary one
+		// we need to add actions addTag, createTag, removeTag in project
+		// we patch the product to add the tag to the current list of tags
+		// const tagIds = currentTagIds.concat(tag.id);
+		// this.store.dispatch(ProductActions.patch({ propName: 'tagIds', value: tagIds, id }));
 	}
 }

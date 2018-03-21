@@ -9,6 +9,6 @@ export class CategoryService {
 	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {
-		return this.entitySrv.load({ base: ERM.teams, loaded: ERM.categories, recurring: true });
+		return this.entitySrv.load({ base: ERM.teams, target: ERM.categories, recurring: true });
 	}
 }

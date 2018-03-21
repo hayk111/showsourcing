@@ -10,7 +10,7 @@ export class HarbourEffects {
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.srv.load({ loaded: ERM.harbours })),
+			switchMap(_ => this.srv.load({ target: ERM.harbours })),
 			map((result: any) => HarbourActions.add(result))
 		);
 

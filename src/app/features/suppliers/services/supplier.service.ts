@@ -10,7 +10,7 @@ export class SupplierService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, loaded: ERM.suppliers, recurring: true })
+			.load({ base: ERM.teams, target: ERM.suppliers, recurring: true })
 			.pipe(map((r: any) => r.elements));
 	}
 
