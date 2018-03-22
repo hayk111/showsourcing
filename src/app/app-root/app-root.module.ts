@@ -33,6 +33,7 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { DataManagementModule } from '~app/features/data-management/data-management.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -65,6 +66,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		ProjectsModule.forRoot(),
 		TasksModule.forRoot(),
 		AuthModule.forRoot(),
+		DataManagementModule.forRoot(),
 	],
 	providers: [
 		HmrService,

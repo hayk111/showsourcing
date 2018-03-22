@@ -59,4 +59,4 @@ ProjectActions.addProductsSuccess = (result: Array<any>) => {
 	};
 };
 
-ERM.suppliers.actions = ProjectActions;
+ERM.projects.actions = ProjectActions;

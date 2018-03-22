@@ -22,17 +22,6 @@ export class SupplierService {
 		return this.http.post(`api/team/${this.userSrv.teamId}/supplier`, supplier);
 	}
 
-	sendPatchRequest(p: Patch) {
-		const patch = {
-			[p.propName]: p.value,
-		};
-		return this.http.patch(`api/supplier/${p.id}`, patch);
-	}
-
-	delete(id: string) {
-		return this.http.delete(`api/supplier/${id}`);
-	}
-
 	loadProductCount() {
 		return this.userSrv.user$.pipe(
 			switchMap((user: User) => this.http.get(`api/team/${user.currentTeamId}/countProdsBySupplier`)),

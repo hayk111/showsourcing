@@ -1,9 +1,10 @@
 <li class="flexBetween">
-	<ul *ngFor="let entity of entities" (click)="select(entity)"> {{ entity.displayName }}</ul>
+	<ul *ngFor="let entity of entities" class="pointer" (click)="select(entity)"> {{ entity.displayName }}</ul>
 </li>
 
 <hr>
-<div class="actios flex" *ngIf="selection.length > 0">
+Some things will throw a forbidden error, it might be because we are not the owner or something ?
+<div class="actions flex" *ngIf="selection.length > 0">
   <div> {{ selection.length }} items selected </div> --
   <div (click)="mergeSelection()" i18n>Merge</div> - -
   <div (click)="deleteSelection()" i18n>Delete</div>

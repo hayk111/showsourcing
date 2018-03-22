@@ -13,6 +13,9 @@ export interface ApiParams {
 	base?: EntityRepresentation;
 	from?: EntityTarget;
 
+	// body when post
+	body?: any;
+
 	// filters etc
 	filters?: Array<Filter>;
 	// pagination

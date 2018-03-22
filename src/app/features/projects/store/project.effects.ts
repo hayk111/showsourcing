@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { ERM } from '~entity';
+import { ERM, EntityService } from '~entity';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
 import { ProjectService } from '../services/project.service';
@@ -17,10 +17,7 @@ export class ProjectEffects {
 		.ofType<any>(ProjectsActionTypes.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load()),
-			mergeMap((result: any) => [
-				ProjectActions.add(result),
-				ProjectActions.loadProductCount(ERM.projects),
-			])
+			mergeMap((result: any) => [ProjectActions.add(result), ProjectActions.loadProductCount(ERM.projects)])
 		);
 
 	@Effect()
@@ -52,5 +49,25 @@ export class ProjectEffects {
 		])
 	);
 
-	constructor(private action$: Actions, private store$: Store<any>, private srv: ProjectService) {}
+	@Effect({ dispatch: false })
+	patch$ = this.action$
+		.ofType<any>(ProjectsActionTypes.PATCH)
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.projects)));
+
+	@Effect({ dispatch: false })
+	delete$ = this.action$
+		.ofType<any>(ProjectsActionTypes.DELETE)
+		.pipe(
+			map(action => action.payload),
+			switchMap((ids: Array<string>) =>
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.projects })))
+			)
+		);
+
+	constructor(
+		private action$: Actions,
+		private store$: Store<any>,
+		private srv: ProjectService,
+		private entitySrv: EntityService
+	) {}
 }

@@ -9,7 +9,7 @@ import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { Swap } from '~app/shared/entity/utils';
 import { ImageActions, FileActions } from '~app/features/file';
 import { CommentActions } from '~app/features/comment';
-import { ERM } from '~app/shared/entity';
+import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
 import { Observable } from 'rxjs/Observable';
 import { concat } from 'rxjs/observable/concat';
@@ -63,14 +63,16 @@ export class SuppliersEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.suppliers)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
 		.ofType<any>(ActionType.DELETE)
 		.pipe(
 			map(action => action.payload),
-			switchMap((ids: Array<string>) => forkJoin(ids.map(supplierId => this.srv.delete(supplierId))))
+			switchMap((ids: Array<string>) =>
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.suppliers })))
+			)
 		);
 
 	@Effect()
@@ -78,5 +80,5 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
 		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => SupplierActions.addProductCount(r)));
 
-	constructor(private action$: Actions, private srv: SupplierService) {}
+	constructor(private action$: Actions, private srv: SupplierService, private entitySrv: EntityService) {}
 }

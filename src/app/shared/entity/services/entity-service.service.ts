@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from '~app/features/user';
-import { ApiParams } from '~entity/utils';
+import { ApiParams, Patch } from '~entity/utils';
 import { UserService } from '~user/services';
 
 import { EntityRepresentation } from './../models/entities.model';
@@ -43,19 +43,31 @@ export class EntityService {
 		);
 	}
 
-	post(params: ApiParams, body: any): Observable<any> {
+	post(params: ApiParams): Observable<any> {
 		// we make sure the user is target before doing anything
 		return this.userSrv.user$.pipe(
 			switchMap((user: User) => {
 				// we construct an url given the params
 				const url = this.urlBuilder.getUrl(params, user);
-				return this.http.post(url, body);
+				return this.http.post(url, params.body);
 			})
 		);
 	}
 
-	delete(id: String, entityRep: EntityRepresentation): Observable<any> {
-		return this.http.delete(`api/${entityRep.urlName}/${id}`);
+	delete(params: ApiParams): Observable<any> {
+		return this.http.delete(`api/${params.target.urlName}/${params.targetId}`);
+	}
+
+	patch(patch: Patch, repr: EntityRepresentation) {
+		const value = {
+			[patch.propName]: patch.value,
+		};
+		return this.http.patch(`api/${repr.urlName}/${patch.id}`, value);
+	}
+
+	merge(params: ApiParams) {
+		let url = this.urlBuilder.getUrl(params, this.userSrv.user);
+		return this.http.post(`${url}/mergeWith`, params.body);
 	}
 
 	private makeGetRequest(url: string, params: ApiParams) {

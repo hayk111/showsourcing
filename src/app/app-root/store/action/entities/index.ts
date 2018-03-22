@@ -5,6 +5,7 @@ import { ERM } from '~entity/models';
 // category
 export const CategoryActionTypes = makeBasicActionTypes(ERM.categories);
 export const CategoryActions = makeBasicActions(CategoryActionTypes);
+ERM.categories.actions = CategoryActions;
 
 // country
 export const CountryActionTypes = makeBasicActionTypes(ERM.countries);
@@ -33,6 +34,7 @@ export const CustomFieldsActions = makeBasicActions(CustomFieldsActionTypes);
 // tag
 export const TagActionTypes = makeBasicActionTypes(ERM.tags);
 export const TagActions = makeBasicActions(TagActionTypes);
+ERM.tags.actions = TagActions;
 
 // task
 export const TaskActionTypes = makeBasicActionTypes(ERM.tasks);

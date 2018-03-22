@@ -42,3 +42,5 @@ SupplierActions.addProductCount = (countObject: { [key: string]: number }) => {
 		payload: countObject,
 	};
 };
+
+ERM.suppliers.actions = SupplierActions;

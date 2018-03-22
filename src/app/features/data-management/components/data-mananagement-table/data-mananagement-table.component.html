@@ -4,5 +4,5 @@
 <article class="flex" *ngFor="let item of availableItems">
   <input type="checkbox" (change)="onCheckChange($event, item)"/>
 	<editable-field-app [value]="item.name" (update)="onUpdate(item, $event)"></editable-field-app> -
-	<i class="fa fa-trash" aria-hidden="true" (click)="delete(item)"></i>
+	<span (click)="delete(item)" class="pointer">DELETE</span>
 </article>

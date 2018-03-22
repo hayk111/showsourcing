@@ -43,7 +43,7 @@ export interface BasicActions {
 	download(url: string);
 	setPending();
 	patch(patch: Patch);
-	merge();
+	merge(ids: Array<string>);
 }
 
 // makes basic action types

@@ -14,7 +14,7 @@ import { Project, ProjectActions } from '~app/features/projects';
 import { TagActions } from '~app/app-root/store/action';
 import { CommentActions } from '~app/features/comment';
 import { ImageActions } from '~app/features/file/store';
-import { ERM } from '~app/shared/entity';
+import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
 
 @Injectable()
@@ -53,7 +53,9 @@ export class ProductEffects {
 		.ofType<any>(ProductActionTypes.DELETE)
 		.pipe(
 			map(action => action.payload),
-			switchMap((ids: Array<string>) => forkJoin(ids.map(id => this.srv.delete(id))))
+			switchMap((ids: Array<string>) =>
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.product })))
+			)
 		);
 
 	@Effect({ dispatch: false })
@@ -110,7 +112,7 @@ export class ProductEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
 		.ofType<any>(ProductActionTypes.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.srv.sendPatchRequest(p)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.product)));
 
 	// tags adding / removing / creating
 	@Effect({ dispatch: false })
@@ -140,7 +142,6 @@ export class ProductEffects {
 	addProject$ = this.actions$
 		.ofType<any>(ProductActionTypes.ADD_PROJECT)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.addProject(payload)));
-	// TODO: hassan, we also need to update the number of products in a project
 
 	@Effect({ dispatch: false })
 	removeProject$ = this.actions$
@@ -159,7 +160,12 @@ export class ProductEffects {
 			)
 		);
 
-	constructor(private srv: ProductService, private actions$: Actions, private store: Store<any>) {
+	constructor(
+		private srv: ProductService,
+		private actions$: Actions,
+		private store: Store<any>,
+		private entitySrv: EntityService
+	) {
 		this.store
 			.select(selectUser)
 			.pipe(map(user => user.id))

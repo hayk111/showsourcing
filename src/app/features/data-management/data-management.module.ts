@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EditableFieldModule } from '~shared/editable-field/editable-field.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
@@ -13,4 +13,10 @@ import { routes } from './routes';
 	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
 	exports: [DataManagementPageComponent],
 })
-export class DataManagementModule {}
+export class DataManagementModule {
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: DataManagementModule,
+		};
+	}
+}

@@ -3,7 +3,7 @@ import { uuid } from '~utils';
 // interfacing the above initialState
 export interface EntityState<G extends Entity> {
 	pending: boolean;
-	byId: { [key: string]: G };
+	byId: { [id: string]: G };
 	ids: Array<string>;
 	selected?: string;
 }

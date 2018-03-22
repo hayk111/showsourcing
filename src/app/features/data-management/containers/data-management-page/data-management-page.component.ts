@@ -10,13 +10,7 @@ import { Entity, EntityRepresentation, ERM } from '~entity';
 	styleUrls: ['./data-management-page.component.scss'],
 })
 export class DataManagementPageComponent implements OnInit {
-	entities = [
-		ERM.events,
-		ERM.categories,
-		ERM.suppliers,
-		ERM.tags,
-		ERM.projects,
-	];
+	entities = [ERM.events, ERM.categories, ERM.suppliers, ERM.tags, ERM.projects];
 	selectedEntity;
 	selection = [];
 	items$: Observable<Array<Entity>>;
@@ -27,12 +21,18 @@ export class DataManagementPageComponent implements OnInit {
 		this.select(this.entities[0]);
 	}
 
+	resetSelection() {
+		this.selection = new Array();
+	}
+
 	deleteSelection() {
 		this.selection.forEach(s => this.removeItem(s));
+		this.resetSelection();
 	}
 
 	mergeSelection() {
 		// this.store.dispatch();
+		this.resetSelection();
 	}
 
 	onSelection(itemIds) {
@@ -45,7 +45,7 @@ export class DataManagementPageComponent implements OnInit {
 	}
 
 	removeItem(id: string) {
-		this.store.dispatch(this.selectedEntity.actions.delete(id));
+		this.store.dispatch(this.selectedEntity.actions.delete([id]));
 	}
 
 	updateItem(patch) {

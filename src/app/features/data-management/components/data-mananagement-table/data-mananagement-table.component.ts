@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Entity } from '~entity';
+import { Entity, Patch } from '~entity';
 
 @Component({
 	selector: 'data-management-table-app',
@@ -11,7 +11,7 @@ import { Entity } from '~entity';
 export class DataMananagementTableComponent implements OnInit {
 	@Input() items = [];
 	@Output() itemRemoved = new EventEmitter<Entity>();
-	@Output() update = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Patch>();
 	@Output() selection = new EventEmitter<any>();
 
 	selected = [];
@@ -21,7 +21,7 @@ export class DataMananagementTableComponent implements OnInit {
 	ngOnInit() {}
 
 	onUpdate(item, event) {
-		this.update.emit({ propName: 'name', value: event, itemId: item.id });
+		this.update.emit({ propName: 'name', value: event, id: item.id });
 	}
 
 	search(value) {

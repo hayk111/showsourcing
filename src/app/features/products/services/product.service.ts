@@ -30,10 +30,6 @@ export class ProductService {
 		);
 	}
 
-	delete(id: string) {
-		return this.entitySrv.delete(id, ERM.product);
-	}
-
 	vote(id: string, value: 0 | 100) {
 		return this.http.post(`api/product/${id}/vote`, { value });
 	}
@@ -70,11 +66,6 @@ export class ProductService {
 			});
 		}
 		return product;
-	}
-
-	sendPatchRequest(p: Patch) {
-		const patch = { [p.propName]: p.value };
-		return this.http.patch(`api/product/${p.id}`, patch);
 	}
 
 	sendPdfReq(id) {
