@@ -59,10 +59,10 @@
 
   <!-- Text Area editor -->
   <div class="textAreaEditor">
-    <input-textarea-app [value]="value" *ngIf="['textarea'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-textarea-app>
+    <input-textarea-app [value]="value || ''" *ngIf="['textarea'].indexOf(type) > -1" [type]="type" (update)="updateValue($event)"></input-textarea-app>
     <div class="confirmBlock" *ngIf="type === 'textarea'">
       <span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
-      <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(textValue); closeEditMode()">Save</span>
+      <span class="confirmIcon confirmIconSave" fs-s color-white bg-primary (click)="update.emit(accumulator); closeEditMode()">Save</span>
     </div>
 	</div>
 
