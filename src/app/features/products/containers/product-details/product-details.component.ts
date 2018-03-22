@@ -22,11 +22,11 @@ import {
 import { selectProductById } from './../../store/product.selector';
 
 @Component({
-	selector: 'product-page-app',
-	templateUrl: './product-page.component.html',
-	styleUrls: ['./product-page.component.scss'],
+	selector: 'product-details-app',
+	templateUrl: './product-details.component.html',
+	styleUrls: ['./product-details.component.scss'],
 })
-export class ProductPageComponent extends AutoUnsub implements OnInit {
+export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	target: EntityTarget;
 	files: Array<AppFile>;

@@ -2,11 +2,7 @@ import { AuthGuardService } from '~features/auth';
 import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
-import {
-	ProductGeneralInfoComponent,
-	ProductPageComponent,
-	ProductsPageComponent,
-} from './containers';
+import { ProductGeneralInfoComponent, ProductDetailsComponent, ProductsPageComponent } from './containers';
 
 export const routes: Array<Route> = [
 	{
@@ -21,7 +17,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'details/:id',
-				component: ProductPageComponent,
+				component: ProductDetailsComponent,
 				children: [
 					{ path: 'general', component: ProductGeneralInfoComponent },
 					{ path: 'activity', component: CommentCtnrComponent },
