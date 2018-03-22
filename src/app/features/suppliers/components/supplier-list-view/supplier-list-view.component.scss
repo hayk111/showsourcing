@@ -1,5 +1,6 @@
 :host {
 	display: flex;
+	margin-top: var(--spacing-xl);
 }
 
 .supplier {
@@ -7,7 +8,7 @@
 	align-items: center;
 	font-weight: 600;
 	input-checkbox-app {
-		margin-right: var(--spacing-default);
+		margin-right: var(--spacing-s);
 	}
 }
 
@@ -26,4 +27,12 @@ user-picture-app {
 
 table-app {
 	margin: auto;
+}
+
+.iconPlaceHolder {
+	border-radius: 50%;
+	height: 16px;
+	width: 16px;
+	background-color: #E6EBF5;
+	margin-right: var(--spacing-s);
 }

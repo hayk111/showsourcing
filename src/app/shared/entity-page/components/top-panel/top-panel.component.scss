@@ -3,22 +3,34 @@
 	padding: 0 var(--spacing-edge);
 }
 
-.ctnr {
-	padding: var(--spacing-top-panel) 0;
+.left {
+	font-family: 'Raleway', sans-serif;
+	color: var(--color-txt-primary);
 }
+
+h2 {
+	font-size: 24px;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+
+.ctnr {
+	padding: var(--spacing-xl) 0;
+}
+
 .bold {
 	font-weight: 600;
 }
+
 button {
   padding: 0 var(--spacing-l);
   height: 40px;
-  border-radius: 2px;
+  border-radius: var(--border-radius-s);
   display: flex;
   flex-direction: row;
   align-items: center;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 12px;
 }
 
 .icon-add {

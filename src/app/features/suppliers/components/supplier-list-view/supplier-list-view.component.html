@@ -9,6 +9,7 @@
 			<input-checkbox-app
 				(update)="onCheck($event, row.id)"
 				[checked]="selection.get(row.id)"></input-checkbox-app>
+			<div class="iconPlaceHolder"></div>
 			<span class="name">{{ row.name }}</span>
 		</div>
 	</ng-template>

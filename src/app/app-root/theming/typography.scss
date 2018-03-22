@@ -7,6 +7,9 @@ https://material.io/guidelines/style/typography.html#typography-styles
 summary there:
 https://getmdl.io/styles/index.html */
 
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
 :root {
 	--font-size-xs: 9px;
 	--font-size-s: 12px;
@@ -53,7 +56,6 @@ body, .body, .body1 {
 
 h2, h3 {
 	font-weight: 500;
-	color: var(--color-txt-strong);
 	margin: 0;
 }
 

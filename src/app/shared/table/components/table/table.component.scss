@@ -54,12 +54,18 @@ tbody {
 	height: 300px;
 	overflow: auto;
 	tr {
-		height: 16px;
+		height: 32px;
 		td {
 			border: 1px solid var(--color-primary-light);
 			font-weight: normal;
-			padding: var(--spacing-default);
+			padding: var(--spacing-s);
 			border-right: 0;
+
+			// ellipsis doesn't work in table
+
+			// white-space: nowrap;
+			// overflow: hidden;
+			// text-overflow: ellipsis;
 		}
 	}
 	tr:hover {
