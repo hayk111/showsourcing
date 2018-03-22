@@ -17,15 +17,15 @@ import { filterEntityPanelReducer } from '../../../shared/filters/store/reducers
 import { filterPanelReducer } from '../../../shared/filters/store/reducers/filter-panel.reducer';
 import { filtersReducer } from '../../../shared/filters/store/reducers/filter.reducer';
 import {
-	CategoryActionTypes,
-	CountryActionTypes,
-	CurrencyActionTypes,
-	CustomFieldsActionTypes,
-	TagActionTypes,
-	TeamActionTypes,
-	TeamMembersActionTypes,
-	IncoTermsActionTypes,
-	HarbourActionTypes,
+	categoryActionTypes,
+	countryActionTypes,
+	currencyActionTypes,
+	customFieldsActionTypes,
+	tagActionTypes,
+	teamActionTypes,
+	teamMembersActionTypes,
+	incoTermsActionTypes,
+	harbourActionTypes,
 } from '../action/entities';
 import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
 import { productStatusReducer } from './entities/product-status.reducer';
@@ -37,15 +37,15 @@ import { eventReducer } from '~app/features/events';
 
 const entities = combineReducers({
 	user: userReducer,
-	teams: basicReducerFactory(TeamActionTypes),
-	teamMembers: basicReducerFactory(TeamMembersActionTypes),
-	countries: basicReducerFactory(CountryActionTypes),
-	incoTerms: basicReducerFactory(IncoTermsActionTypes),
-	harbours: basicReducerFactory(HarbourActionTypes),
-	currencies: basicReducerFactory(CurrencyActionTypes),
-	categories: basicReducerFactory(CategoryActionTypes),
+	teams: basicReducerFactory(teamActionTypes),
+	teamMembers: basicReducerFactory(teamMembersActionTypes),
+	countries: basicReducerFactory(countryActionTypes),
+	incoTerms: basicReducerFactory(incoTermsActionTypes),
+	harbours: basicReducerFactory(harbourActionTypes),
+	currencies: basicReducerFactory(currencyActionTypes),
+	categories: basicReducerFactory(categoryActionTypes),
 	events: eventReducer,
-	tags: basicReducerFactory(TagActionTypes),
+	tags: basicReducerFactory(tagActionTypes),
 	suppliers: supplierReducer,
 	products: productReducer,
 	productStatus: productStatusReducer,
@@ -53,7 +53,7 @@ const entities = combineReducers({
 	tasks: taskReducer,
 	tasksStatus: tasksStatusReducer,
 	taskTypes: tasksTypeReducer,
-	customFields: basicReducerFactory(CustomFieldsActionTypes),
+	customFields: basicReducerFactory(customFieldsActionTypes),
 	files: fileReducer,
 	images: imageReducer,
 	comments: commentReducer,
@@ -75,7 +75,7 @@ const ui = combineReducers({
 	filterEntityPanel: filterEntityPanelReducer,
 });
 
-export const reducers = { entities, foccussedEntity, misc, ui };
+export const reducers: ActionReducerMap<any> = { entities, foccussedEntity, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

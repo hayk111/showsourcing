@@ -1,21 +1,16 @@
-import { ExtendedEntityState } from '~entity';
-import { extentedEntityInitialState } from '~entity/models/entities.model';
 import { Project } from '~projects/models/project.model';
 import { basicReducerFactory } from '~store';
 import { TypedAction } from '~utils';
 
-import { ProjectsActionTypes } from './project.actions';
+import { actionTypes } from './project.actions';
+import { entityInitialState } from '~app/shared/entity';
 
-export interface EntitiesState {
-	projects: ProjectsState;
-}
-export interface ProjectsState extends ExtendedEntityState<Project> {}
+const basicProjectsReducer = basicReducerFactory(actionTypes);
+const initialState = { ...entityInitialState, productsCount: {} };
 
-const basicProjectsReducer = basicReducerFactory(ProjectsActionTypes, extentedEntityInitialState);
-
-export function projectsReducer(state = extentedEntityInitialState, action: TypedAction<any>) {
+export function projectsReducer(state = initialState, action: TypedAction<any>) {
 	switch (action.type) {
-		case ProjectsActionTypes.SET_PRODUCT_COUNT:
+		case actionTypes.SET_PRODUCT_COUNT:
 			return { ...state, productsCount: action.payload };
 		default:
 			return basicProjectsReducer(state, action);

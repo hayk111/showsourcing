@@ -1,22 +1,6 @@
-import {
-	BasicActions,
-	BasicActionTypes,
-	ERM,
-	makeBasicActions,
-	makeBasicActionTypes,
-} from '~entity';
+import { BasicActions, ERM, makeBasicActionTypes, BasicActionTypes } from '~entity';
 
-// ----------------------------------------------------------------------------
-// --------------------------- Constructing basic actions type + extended types
-// ----------------------------------------------------------------------------
-export interface EventActionTypes extends BasicActionTypes {}
-export const EventActionTypes: EventActionTypes = makeBasicActionTypes(ERM.events);
-
-// ----------------------------------------------------------------------------
-// --------------------------- Constructing basic actions + extended actions
-// ----------------------------------------------------------------------------
-export interface EventActions extends BasicActions {}
-export const EventActions: EventActions = makeBasicActions(EventActionTypes);
-
+export const eventActionTypes: BasicActionTypes = makeBasicActionTypes(ERM.events);
+export const eventActions = new BasicActions(eventActionTypes);
 // additional actions / extensions of the base
-ERM.events.actions = EventActions;
+ERM.events.actions = eventActions;

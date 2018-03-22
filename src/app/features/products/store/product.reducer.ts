@@ -1,30 +1,22 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { EntityState } from '~entity';
 import { entityInitialState } from '~entity/models/entities.model';
-import { ProjectsActionTypes } from '~projects/store/project.actions';
+import { actionTypes as projectsActionTypes } from '~projects/store/project.actions';
 import { basicReducerFactory } from '~store';
 import { TypedAction } from '~utils/typed-action.interface';
 
 import { Product } from '../models/product.model';
-import { ProductActionTypes } from './product.action';
-
-// ----------------------------------------------------------------------------
-// --------------------------- Defining Product State
-// ----------------------------------------------------------------------------
-export interface ProductsState extends EntityState<Product> {}
-export interface EntitiesState {
-	products: ProductsState;
-}
+import { actionTypes } from './product.action';
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic reducer + extended reducer
 // ----------------------------------------------------------------------------
-export const basicProductReducer = basicReducerFactory(ProductActionTypes);
+export const basicProductReducer = basicReducerFactory(actionTypes);
 
 export function productReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
 		// TODO: hassan we don't use actions from other entities in reducer.
-		case ProjectsActionTypes.ADD_PRODUCTS_SUCCESS:
+		case projectsActionTypes.ADD_PRODUCTS_SUCCESS:
 			var byId = { ...state.byId };
 			action.payload.forEach(element => {
 				const product: Product = { ...byId[element.productId] };
@@ -34,7 +26,7 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 				byId[product.id] = product;
 			});
 			return { ...state, byId };
-		case ProductActionTypes.ADD_TAG:
+		case actionTypes.ADD_TAG:
 			var byId = { ...state.byId };
 			var tagId = action.payload.tag.id;
 			var productId = action.payload.productId;
@@ -49,7 +41,7 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 				...state,
 				byId,
 			};
-		case ProductActionTypes.REMOVE_TAG:
+		case actionTypes.REMOVE_TAG:
 			var byId = { ...state.byId };
 			var tagId = action.payload.tag.id;
 			var productId = action.payload.productId;
@@ -63,7 +55,7 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 				...state,
 				byId,
 			};
-		case ProductActionTypes.ADD_PROJECT:
+		case actionTypes.ADD_PROJECT:
 			var byId = { ...state.byId };
 			var projectId = action.payload.project.id;
 			var productId = action.payload.productId;
@@ -78,7 +70,7 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 				...state,
 				byId,
 			};
-		case ProductActionTypes.REMOVE_PROJECT:
+		case actionTypes.REMOVE_PROJECT:
 			var byId = { ...state.byId };
 			var projectId = action.payload.project.id;
 			var productId = action.payload.productId;

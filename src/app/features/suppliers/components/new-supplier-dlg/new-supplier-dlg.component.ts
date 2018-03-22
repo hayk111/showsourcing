@@ -3,7 +3,7 @@ import { DialogName } from '~shared/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogActions } from '~shared/dialog';
 import { Store } from '@ngrx/store';
-import { SupplierActions } from '~suppliers/store';
+import { supplierActions } from '~suppliers/store';
 import { Supplier } from '~suppliers/models';
 import { UserService } from '~user';
 
@@ -28,7 +28,7 @@ export class NewSupplierDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const name = this.group.value.name;
-			this.store.dispatch(SupplierActions.add([new Supplier(name, this.userSrv.userId)]));
+			this.store.dispatch(supplierActions.add([new Supplier(name, this.userSrv.userId)]));
 			this.group.reset();
 			this.store.dispatch(DialogActions.close(this.name));
 		}

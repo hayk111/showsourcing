@@ -1,22 +1,10 @@
-import { createSelector } from 'reselect';
-import { ProjectsState } from '~app/features/projects';
+import { createSelector, OutputSelector } from 'reselect';
 import { Project } from '~projects/models/project.model';
 import { selectUserTeamId, User } from '~user';
-
-import { EntitiesState } from './project.reducer';
+import { entityStateToArray } from '~app/shared/entity';
 
 export const getEntitiesState = state => state.entities;
-export const selectProjectsState = createSelector(
-	getEntitiesState,
-	(state: EntitiesState) => state.projects
-);
-export const selectProjects = createSelector(selectProjectsState, (state: ProjectsState) =>
-	Object.values(state.byId)
-);
+export const selectProjectsState = createSelector(getEntitiesState, state => state.projects);
+export const selectProjects = createSelector(selectProjectsState, state => entityStateToArray(state));
 
-export const selectProjectsProductsCount = createSelector(
-	selectProjectsState,
-	(state: ProjectsState) => {
-		return state.productsCount;
-	}
-);
+export const selectProjectsProductsCount = createSelector(selectProjectsState, state => state.productsCount);

@@ -1,14 +1,13 @@
-import { EventsState } from './events.reducer';
-import { EntitiesState } from './';
 import { createSelector } from 'reselect';
+import { EntityState } from '~app/shared/entity';
+import { Event } from '../models';
 
 export const getEntitiesState = state => state.entities;
 
-export const selectEventsState = createSelector(
-	getEntitiesState,
-	(state: EntitiesState) => state.events
-);
-export const selectEvents = createSelector(selectEventsState, (state: EventsState) => state.byId);
+export const selectEventsState = createSelector(getEntitiesState, state => state.events);
+
+export const selectEvents = createSelector(selectEventsState, state => state.byId);
+
 export const selectEventsList = createSelector(selectEvents, events => {
 	return Object.keys(events)
 		.map(id => events[id])

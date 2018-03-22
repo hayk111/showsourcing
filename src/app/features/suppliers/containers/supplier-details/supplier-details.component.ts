@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AutoUnsub } from '~app/app-root/utils';
 import { takeUntil } from 'rxjs/operators';
-import { SupplierActions } from '~app/features/suppliers/store//supplier.action';
+import { supplierActions } from '~app/features/suppliers/store//supplier.action';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -19,7 +19,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
 			const id = params['id'];
-			this.store.dispatch(SupplierActions.select(id));
+			this.store.dispatch(supplierActions.select(id));
 		});
 	}
 }

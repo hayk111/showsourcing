@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
-import { CategoryActionTypes as ActionType, CategoryActions } from '../../action/entities/index';
+import { categoryActionTypes as ActionType, categoryActions } from '../../action/entities/index';
 import { CategoryService } from '../../services/category.service';
 import { EntityService, ERM } from '~app/shared/entity';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -11,7 +11,7 @@ export class CategoryEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => CategoryActions.add(result)));
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => categoryActions.add(result)));
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$

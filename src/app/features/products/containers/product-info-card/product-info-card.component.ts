@@ -3,7 +3,7 @@ import { ERM } from '~entity';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '~products/models';
-import { ProductActions } from '~products/store';
+import { productActions } from '~products/store';
 
 @Component({
 	selector: 'product-info-card-app',
@@ -23,7 +23,7 @@ export class ProductInfoCardComponent implements OnInit {
 
 	onUpdate(field, value) {
 		const patch = { id: this.product.id, propName: field, value };
-		this.store.dispatch(ProductActions.patch(patch));
+		this.store.dispatch(productActions.patch(patch));
 	}
 
 	getPriceObject(product: Product) {

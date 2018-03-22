@@ -1,13 +1,13 @@
 import { addEntities, replaceEntity, basicReducerFactory } from '~entity';
 import { TypedAction } from '~utils';
 import { entityInitialState } from '~entity';
-import { ImageActionType } from './images.action';
+import { imageActionTypes } from './images.action';
 
-export const basicReducer = basicReducerFactory(ImageActionType);
+export const basicReducer = basicReducerFactory(imageActionTypes);
 
 export function imageReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
-		case ImageActionType.ROTATE:
+		case imageActionTypes.ROTATE:
 			const id = action.payload.id;
 			let rotation = state.byId[id].rotation || 0;
 			rotation++;

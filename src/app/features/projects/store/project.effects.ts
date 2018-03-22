@@ -7,31 +7,31 @@ import { ERM, EntityService } from '~entity';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
 import { ProjectService } from '../services/project.service';
-import { ProjectActions, ProjectsActionTypes } from './project.actions';
+import { projectActions, actionTypes } from './project.actions';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class ProjectEffects {
 	@Effect()
 	load$ = this.action$
-		.ofType<any>(ProjectsActionTypes.LOAD)
+		.ofType<any>(actionTypes.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load()),
-			mergeMap((result: any) => [ProjectActions.add(result), ProjectActions.loadProductCount(ERM.projects)])
+			mergeMap((result: any) => [projectActions.add(result), projectActions.loadProductCount(ERM.projects)])
 		);
 
 	@Effect()
-	loadProductsCount$ = this.action$.ofType<any>(ProjectsActionTypes.LOAD_PRODUCT_COUNT).pipe(
+	loadProductsCount$ = this.action$.ofType<any>(actionTypes.LOAD_PRODUCT_COUNT).pipe(
 		withLatestFrom(this.store$.select(selectUserTeamId)),
 		map(([action, teamid]) => {
 			return { teamid, payload: action.payload };
 		}),
 		switchMap(({ teamid, payload }) => this.srv.getProductCount(payload, teamid)),
-		map((items: Array<any>) => ProjectActions.setProductCount(items))
+		map((items: Array<any>) => projectActions.setProductCount(items))
 	);
 
 	@Effect()
-	addProducts$ = this.action$.ofType<any>(ProjectsActionTypes.ADD_PRODUCTS).pipe(
+	addProducts$ = this.action$.ofType<any>(actionTypes.ADD_PRODUCTS).pipe(
 		map(action => action.payload),
 		switchMap(({ projects, products }) => {
 			const obs$ = new Array<Observable<any>>();
@@ -44,19 +44,19 @@ export class ProjectEffects {
 			return result;
 		}),
 		switchMap((result: any) => [
-			ProjectActions.addProductsSuccess(result),
-			ProjectActions.loadProductCount(ERM.projects),
+			projectActions.addProductsSuccess(result),
+			projectActions.loadProductCount(ERM.projects),
 		])
 	);
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
-		.ofType<any>(ProjectsActionTypes.PATCH)
+		.ofType<any>(actionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.projects)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
-		.ofType<any>(ProjectsActionTypes.DELETE)
+		.ofType<any>(actionTypes.DELETE)
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>

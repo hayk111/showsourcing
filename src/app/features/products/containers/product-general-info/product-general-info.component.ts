@@ -5,17 +5,17 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
 import { Product } from '~app/features/products/models';
-import { selectProductById, ProductActions } from '~products/store';
+import { selectProductById, productActions } from '~products/store';
 import { AutoUnsub } from '~utils';
 import { Event } from '~events/models';
 import { selectEventsList } from '~app/features/events';
 import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
 import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
 import { Patch } from '~entity/utils';
-import { SupplierActions } from '~app/features/suppliers';
+import { supplierActions } from '~app/features/suppliers';
 import { Tag } from '~app/app-root/store';
 import { UserService } from '~app/features/user';
-import { TagActions } from '~app/app-root/store/action';
+import { tagActions } from '~app/app-root/store/action';
 import { Project } from '~app/features/projects';
 
 @Component({
@@ -75,32 +75,32 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdate(id: string, propName: string, value: any) {
-		this.store.dispatch(ProductActions.patch({ id, propName, value }));
+		this.store.dispatch(productActions.patch({ id, propName, value }));
 	}
 
 	onSupplierUpdate(id: string, propName: string, value: any) {
-		this.store.dispatch(SupplierActions.patch({ id, propName, value }));
+		this.store.dispatch(supplierActions.patch({ id, propName, value }));
 	}
 
 	onTagAdded(tag: Tag) {
-		this.store.dispatch(ProductActions.addTag(tag, this.productId));
+		this.store.dispatch(productActions.addTag(tag, this.productId));
 	}
 
 	onTagRemoved(tag: Tag) {
-		this.store.dispatch(ProductActions.removeTag(tag, this.productId));
+		this.store.dispatch(productActions.removeTag(tag, this.productId));
 	}
 
 	onProjectAdded(project: Project) {
-		this.store.dispatch(ProductActions.addProject(project, this.productId));
+		this.store.dispatch(productActions.addProject(project, this.productId));
 	}
 
 	onProjectRemoved(project: Project) {
-		this.store.dispatch(ProductActions.removeProject(project, this.productId));
+		this.store.dispatch(productActions.removeProject(project, this.productId));
 	}
 
 	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
 		debugger;
 		const tag = new Tag(tagName, this.userSrv.userId);
-		this.store.dispatch(ProductActions.createTag(tag, id));
+		this.store.dispatch(productActions.createTag(tag, id));
 	}
 }

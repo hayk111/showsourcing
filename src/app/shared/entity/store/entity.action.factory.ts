@@ -30,22 +30,6 @@ export interface BasicActionTypes {
 	MERGE: string;
 }
 
-export interface BasicActions {
-	select(id: string);
-	load(params?: any);
-	loadMore(params?: any);
-	loadById(id: string);
-	set(toSet: Array<Entity>);
-	add(toAdd: Array<Entity>);
-	create(toCreate: Entity);
-	replace(swaps: Array<Swap>);
-	delete(ids: Array<string>);
-	download(url: string);
-	setPending();
-	patch(patch: Patch);
-	merge(ids: Array<string>);
-}
-
 // makes basic action types
 export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTypes {
 	// using uppercase for backward compatibility with enums
@@ -66,61 +50,96 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 	};
 }
 
-// adds actionType to the basic types
-export function addActionType(actionTypes: any, repr: EntityRepresentation, actionName: string) {
-	return (actionTypes[actionName.toUpperCase()] = `[${repr.entityName.capitalize()}] ${actionName}...`);
-}
-
 // makes basic actions functions
-export function makeBasicActions(actionType: BasicActionTypes): BasicActions {
-	return {
-		select: (id: string): TypedAction<any> => ({
-			type: actionType.SELECT,
+export class BasicActions {
+	constructor(protected actionType: any) {}
+
+	select(id: string): TypedAction<any> {
+		return {
+			type: this.actionType.SELECT,
 			payload: id,
-		}),
-		load: (params?: ApiParams): TypedAction<any> => ({
-			type: actionType.LOAD,
+		};
+	}
+
+	load(params?: ApiParams): TypedAction<any> {
+		return {
+			type: this.actionType.LOAD,
 			payload: params,
-		}),
-		loadMore: (params?: ApiParams): TypedAction<any> => ({
-			type: actionType.LOAD_MORE,
+		};
+	}
+
+	loadMore(params?: ApiParams): TypedAction<any> {
+		return {
+			type: this.actionType.LOAD_MORE,
 			payload: params,
-		}),
-		loadById: (id: string): TypedAction<any> => ({
-			type: actionType.LOAD_BY_ID,
+		};
+	}
+
+	loadById(id: string): TypedAction<any> {
+		return {
+			type: this.actionType.LOAD_BY_ID,
 			payload: id,
-		}),
-		set: (toSet: Array<Entity>): TypedAction<any> => ({
-			type: actionType.SET,
+		};
+	}
+
+	set(toSet: Array<Entity>): TypedAction<any> {
+		return {
+			type: this.actionType.SET,
 			payload: toSet,
-		}),
-		add: (toAdd: Array<Entity>, target?: EntityTarget): TypedAction<any> => ({
-			type: actionType.ADD,
+		};
+	}
+
+	add(toAdd: Array<Entity>, target?: EntityTarget): TypedAction<any> {
+		return {
+			type: this.actionType.ADD,
 			payload: toAdd,
-		}),
-		create: (toCreate: Entity): TypedAction<any> => ({
-			type: actionType.CREATE,
+		};
+	}
+
+	create(toCreate: Entity): TypedAction<any> {
+		return {
+			type: this.actionType.CREATE,
 			payload: toCreate,
-		}),
-		replace: (swaps: Array<Swap>): TypedAction<any> => ({
-			type: actionType.REPLACE,
+		};
+	}
+
+	replace(swaps: Array<Swap>): TypedAction<any> {
+		return {
+			type: this.actionType.REPLACE,
 			payload: swaps,
-		}),
-		delete: (ids: Array<string>): TypedAction<any> => ({
-			type: actionType.DELETE,
+		};
+	}
+
+	delete(ids: Array<string>): TypedAction<any> {
+		return {
+			type: this.actionType.DELETE,
 			payload: ids,
-		}),
-		download: (url: string): TypedAction<any> => ({
-			type: actionType.DOWNLOAD,
+		};
+	}
+
+	download(url: string): TypedAction<any> {
+		return {
+			type: this.actionType.DOWNLOAD,
 			payload: url,
-		}),
+		};
+	}
 
-		setPending: (): Action => ({ type: actionType.SET_PENDING }),
+	setPending(): Action {
+		return {
+			type: this.actionType.SET_PENDING,
+		};
+	}
 
-		patch: (patch: Patch): TypedAction<any> => ({
-			type: actionType.PATCH,
+	patch(patch: Patch): TypedAction<any> {
+		return {
+			type: this.actionType.PATCH,
 			payload: patch,
-		}),
-		merge: (): Action => ({ type: actionType.MERGE }),
-	};
+		};
+	}
+
+	merge(): Action {
+		return {
+			type: this.actionType.MERGE,
+		};
+	}
 }

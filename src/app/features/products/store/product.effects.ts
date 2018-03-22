@@ -7,13 +7,13 @@ import { AppFile, FileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
-import { ProductActions, ProductActionTypes } from './product.action';
+import { productActions, actionTypes } from './product.action';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Tag } from '~app/app-root/store';
-import { Project, ProjectActions } from '~app/features/projects';
-import { TagActions } from '~app/app-root/store/action';
+import { Project, projectActions } from '~app/features/projects';
+import { tagActions } from '~app/app-root/store/action';
 import { CommentActions } from '~app/features/comment';
-import { ImageActions } from '~app/features/file/store';
+import { imageActions } from '~app/features/file/store';
 import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
 
@@ -23,7 +23,7 @@ export class ProductEffects {
 
 	@Effect()
 	select$ = this.actions$
-		.ofType<any>(ProductActionTypes.SELECT)
+		.ofType<any>(actionTypes.SELECT)
 		.pipe(
 			distinctUntilChanged(),
 			map(action => action.payload),
@@ -32,25 +32,25 @@ export class ProductEffects {
 				TargetAction.select(target),
 				CommentActions.load(),
 				FileActions.load(),
-				ImageActions.load(),
+				imageActions.load(),
 			])
 		);
 
 	@Effect()
-	load$ = this.actions$.ofType<any>(ProductActionTypes.LOAD).pipe(
+	load$ = this.actions$.ofType<any>(actionTypes.LOAD).pipe(
 		map(action => action.payload),
 		switchMap((params: any) => {
 			// get products
 			return this.srv.load(params).pipe(
 				// set products
-				map((r: any) => ProductActions.set(r))
+				map((r: any) => productActions.set(r))
 			);
 		})
 	);
 
 	@Effect({ dispatch: false })
 	delete$ = this.actions$
-		.ofType<any>(ProductActionTypes.DELETE)
+		.ofType<any>(actionTypes.DELETE)
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>
@@ -59,7 +59,7 @@ export class ProductEffects {
 		);
 
 	@Effect({ dispatch: false })
-	vote$ = this.actions$.ofType<any>(ProductActionTypes.VOTE).pipe(
+	vote$ = this.actions$.ofType<any>(actionTypes.VOTE).pipe(
 		map(action => action.payload),
 		switchMap(({ id, value }) => {
 			return this.srv.vote(id, value);
@@ -69,25 +69,25 @@ export class ProductEffects {
 	// for pagination
 	@Effect()
 	loadMore$ = this.actions$
-		.ofType<any>(ProductActionTypes.LOAD_MORE)
+		.ofType<any>(actionTypes.LOAD_MORE)
 		.pipe(
 			map(action => action.payload),
 			switchMap((params: any) => this.srv.load(params)),
-			map((r: any) => ProductActions.add(r))
+			map((r: any) => productActions.add(r))
 		);
 
 	@Effect()
 	loadById$ = this.actions$
-		.ofType<any>(ProductActionTypes.LOAD_BY_ID)
+		.ofType<any>(actionTypes.LOAD_BY_ID)
 		.pipe(
 			map(action => action.payload),
 			switchMap((id: string) => this.srv.loadById(id)),
-			map((r: any) => ProductActions.add(r))
+			map((r: any) => productActions.add(r))
 		);
 
 	// for feedback
 	@Effect()
-	requestFeedback$ = this.actions$.ofType<any>(ProductActionTypes.REQUEST_FEEDBACK).pipe(
+	requestFeedback$ = this.actions$.ofType<any>(actionTypes.REQUEST_FEEDBACK).pipe(
 		map(action => action.payload),
 		switchMap(({ productsIds, recipientsIds }) => {
 			const obs$ = new Array<Observable<any>>();
@@ -97,12 +97,12 @@ export class ProductEffects {
 			const result = forkJoin(obs$);
 			return result;
 		}),
-		map((result: any) => ProductActions.requestFeedbackSuccess(result))
+		map((result: any) => productActions.requestFeedbackSuccess(result))
 	);
 
 	@Effect()
 	downloadPdf$ = this.actions$
-		.ofType<any>(ProductActionTypes.REQUEST_PDF)
+		.ofType<any>(actionTypes.REQUEST_PDF)
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
@@ -111,52 +111,52 @@ export class ProductEffects {
 
 	@Effect({ dispatch: false })
 	patch$ = this.actions$
-		.ofType<any>(ProductActionTypes.PATCH)
+		.ofType<any>(actionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.product)));
 
 	// tags adding / removing / creating
 	@Effect({ dispatch: false })
 	addTag$ = this.actions$
-		.ofType<any>(ProductActionTypes.ADD_TAG)
+		.ofType<any>(actionTypes.ADD_TAG)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.addTag(payload)));
 
 	@Effect({ dispatch: false })
 	removeTag$ = this.actions$
-		.ofType<any>(ProductActionTypes.REMOVE_TAG)
+		.ofType<any>(actionTypes.REMOVE_TAG)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeTag(payload)));
 
 	@Effect()
 	createTag$ = this.actions$
-		.ofType<any>(ProductActionTypes.CREATE_TAG)
+		.ofType<any>(actionTypes.CREATE_TAG)
 		.pipe(
 			map(action => action.payload),
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap(r => [ProductActions.addTag(r, payload.productId), TagActions.add([r])]))
+					.pipe(mergeMap(r => [productActions.addTag(r, payload.productId), tagActions.add([r])]))
 			)
 		);
 
 	// projects adding / removing / creating
 	@Effect({ dispatch: false })
 	addProject$ = this.actions$
-		.ofType<any>(ProductActionTypes.ADD_PROJECT)
+		.ofType<any>(actionTypes.ADD_PROJECT)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.addProject(payload)));
 
 	@Effect({ dispatch: false })
 	removeProject$ = this.actions$
-		.ofType<any>(ProductActionTypes.REMOVE_PROJECT)
+		.ofType<any>(actionTypes.REMOVE_PROJECT)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeProject(payload)));
 
 	@Effect()
 	createProject$ = this.actions$
-		.ofType<any>(ProductActionTypes.CREATE_PROJECT)
+		.ofType<any>(actionTypes.CREATE_PROJECT)
 		.pipe(
 			map(action => action.payload),
 			switchMap(payload =>
 				this.srv
 					.createProject(payload)
-					.pipe(mergeMap(r => [(ProductActions.addProject(r, payload.productId), ProjectActions.add([r]))]))
+					.pipe(mergeMap(r => [(productActions.addProject(r, payload.productId), projectActions.add([r]))]))
 			)
 		);
 

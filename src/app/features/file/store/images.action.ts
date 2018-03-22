@@ -1,37 +1,26 @@
 import { AppImage } from '../models';
 
-import {
-	addActionType,
-	BasicActions,
-	BasicActionTypes,
-	ERM,
-	makeBasicActions,
-	makeBasicActionTypes,
-} from '~entity';
+import { BasicActions, BasicActionTypes, ERM, makeBasicActionTypes } from '~entity';
 import { TypedAction } from '~utils';
 
-// ----------------------------------------------------------------------------
-// --------------------------- Constructing basic actions type + extended types
-// ----------------------------------------------------------------------------
-export interface ImageActionType extends BasicActionTypes {
-	ROTATE?: string;
-}
-export const ImageActionType: ImageActionType = makeBasicActionTypes(ERM.images);
-addActionType(ImageActionType, ERM.images, 'ROTATE');
+export const imageActionTypes = {
+	...makeBasicActionTypes(ERM.images),
+	ROTATE: `[${ERM.images.entityName.capitalize()}] Rotating...`,
+	SET_PRODUCT_COUNT: `[${ERM.images.entityName.capitalize()}] Setting product count...`,
+	ADD_PRODUCTS: `[${ERM.images.entityName.capitalize()}] Adding Product to project...`,
+	ADD_PRODUCTS_SUCCESS: `[${ERM.images.entityName.capitalize()}] Successfully adding product to project...`,
+};
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic actions + extended actions
 // ----------------------------------------------------------------------------
-export interface ImageActions extends BasicActions {
-	rotate?(image: AppImage): TypedAction<AppImage>;
+class ImageActions extends BasicActions {
+	rotate(image: AppImage) {
+		return {
+			type: this.actionType.ROTATE,
+			payload: image,
+		};
+	}
 }
 
-export const ImageActions: ImageActions = makeBasicActions(ImageActionType);
-
-// additional actions / extensions of the base
-ImageActions.rotate = (image: AppImage) => {
-	return {
-		type: ImageActionType.ROTATE,
-		payload: image,
-	};
-};
+export const imageActions = new ImageActions(imageActionTypes);

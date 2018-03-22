@@ -7,7 +7,7 @@ import { AppComment } from '~comment';
 import { EntityTarget, ERM, EntityState } from '~entity';
 import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
 import { Product } from '~products/models';
-import { ProductActions } from '~products/store';
+import { productActions } from '~products/store';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
 import { DialogName, DialogActions } from '~app/shared/dialog';
@@ -16,7 +16,7 @@ import {
 	selectProjects,
 	Project,
 	selectProjectsState,
-	ProjectActions,
+	projectActions,
 } from '~app/features/projects';
 
 import { selectProductById } from './../../store/product.selector';
@@ -43,8 +43,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
 			const id = params['id'];
-			this.store.dispatch(ProductActions.select(id));
-			this.store.dispatch(ProductActions.loadById(id));
+			this.store.dispatch(productActions.select(id));
+			this.store.dispatch(productActions.loadById(id));
 		});
 		this.product$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
@@ -60,15 +60,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	addToProjects(selectedProjects: any, productId: string) {
 		const projects = Object.values(selectedProjects);
-		projects.forEach((project: Project) => this.store.dispatch(ProductActions.addProject(project, productId)));
+		projects.forEach((project: Project) => this.store.dispatch(productActions.addProject(project, productId)));
 		this.store.dispatch(DialogActions.close(this.projectDlgName));
 	}
 
 	removeProject(project, productId: string) {
-		this.store.dispatch(ProductActions.removeProject(project, productId));
+		this.store.dispatch(productActions.removeProject(project, productId));
 	}
 
 	updateStatus(statusId: string, productId: string) {
-		this.store.dispatch(ProductActions.patch({ propName: 'status', value: statusId, id: productId }));
+		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: productId }));
 	}
 }

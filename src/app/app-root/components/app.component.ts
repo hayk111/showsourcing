@@ -1,4 +1,3 @@
-import { ProductActions } from '~products';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PreloaderService } from '~app/app-root/store';

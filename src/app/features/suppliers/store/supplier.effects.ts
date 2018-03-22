@@ -1,13 +1,13 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
-import { SupplierActionType as ActionType, SupplierActions } from './supplier.action';
+import { supplierActionTypes as ActionType, supplierActions } from './supplier.action';
 import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { Swap } from '~app/shared/entity/utils';
-import { ImageActions, FileActions } from '~app/features/file';
+import { imageActions, FileActions } from '~app/features/file';
 import { CommentActions } from '~app/features/comment';
 import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
@@ -28,14 +28,14 @@ export class SuppliersEffects {
 				TargetAction.select(target),
 				CommentActions.load(),
 				FileActions.load(),
-				ImageActions.load(),
+				imageActions.load(),
 			])
 		);
 
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => SupplierActions.add(result)));
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => supplierActions.add(result)));
 
 	@Effect()
 	loadById$ = this.action$
@@ -43,7 +43,7 @@ export class SuppliersEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap((id: any) => this.srv.loadById(id)),
-			map((result: Supplier) => SupplierActions.add([result]))
+			map((result: Supplier) => supplierActions.add([result]))
 		);
 
 	@Effect()
@@ -55,7 +55,7 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						map((r: any) => SupplierActions.replace([new Swap(supplier, r)]), catchError(e => of(AppErrorActions.add(e))))
+						map((r: any) => supplierActions.replace([new Swap(supplier, r)]), catchError(e => of(AppErrorActions.add(e))))
 					)
 			)
 		);
@@ -78,7 +78,7 @@ export class SuppliersEffects {
 	@Effect()
 	loadProductCount$ = this.action$
 		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
-		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => SupplierActions.addProductCount(r)));
+		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => supplierActions.addProductCount(r)));
 
 	constructor(private action$: Actions, private srv: SupplierService, private entitySrv: EntityService) {}
 }

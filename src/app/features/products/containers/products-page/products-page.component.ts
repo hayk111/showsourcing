@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { selectProjects } from '~app/features/projects';
 import { EntityState, ERM, selectEntityArray } from '~entity';
-import { ProjectActions, selectProjectsProductsCount } from '~features/projects/store';
+import { projectActions, selectProjectsProductsCount } from '~features/projects/store';
 import { Product } from '~products/models';
-import { ProductActions, selectProductsState } from '~products/store';
+import { productActions, selectProductsState } from '~products/store';
 import { Project } from '~projects/models/project.model';
 import { DialogActions, DialogName } from '~shared/dialog';
 import {
@@ -95,12 +95,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadProducts(filters) {
-		this.store.dispatch(ProductActions.load({ filters: filters, pagination: true, drop: 0 }));
+		this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
 	}
 
 	loadMore() {
 		this.store.dispatch(
-			ProductActions.loadMore({
+			productActions.loadMore({
 				filters: this.filters,
 				pagination: true,
 				drop: this.productEntities.ids.length,
@@ -125,31 +125,31 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.selection.forEach((value, key) => {
 			if (value) products.push(key);
 		});
-		this.store.dispatch(ProductActions.delete(products));
+		this.store.dispatch(productActions.delete(products));
 		this.unselectAll();
 	}
 
 	onItemDeleted(entityId: string) {
-		this.store.dispatch(ProductActions.delete([entityId]));
+		this.store.dispatch(productActions.delete([entityId]));
 	}
 
 	onItemOpened(entityId: string) {
 		this.previewDialogOpen = true;
-		this.store.dispatch(ProductActions.select(entityId));
+		this.store.dispatch(productActions.select(entityId));
 	}
 
 	onItemFavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(ProductActions.patch(patch));
+		this.store.dispatch(productActions.patch(patch));
 	}
 
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(ProductActions.patch(patch));
+		this.store.dispatch(productActions.patch(patch));
 	}
 
 	onItemVoted({ id, value }: { id: string; value: 0 | 100 }) {
-		this.store.dispatch(ProductActions.vote(id, value));
+		this.store.dispatch(productActions.vote(id, value));
 	}
 
 	openFilterPanel() {
@@ -186,7 +186,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addToProjects(selectedProjects) {
-		this.store.dispatch(ProjectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog));
+		this.store.dispatch(projectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog));
 		this.store.dispatch(DialogActions.close(this.addProductDialog));
 	}
 
@@ -216,7 +216,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	requestFeeback(selectedMembers) {
 		this.store.dispatch(
-			ProductActions.requestFeedback(this.selectedProductForDialog, Object.keys(selectedMembers))
+			productActions.requestFeedback(this.selectedProductForDialog, Object.keys(selectedMembers))
 		);
 		this.store.dispatch(DialogActions.close(this.requestFeedbackDialog));
 	}

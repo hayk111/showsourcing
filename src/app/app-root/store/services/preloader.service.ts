@@ -1,21 +1,21 @@
-import { EventActions } from '~events/store';
+import { eventActions } from '~events/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
-import { ProjectActions } from '~projects/store/project.actions';
+import { projectActions } from '~projects/store/project.actions';
 import {
-	CategoryActions,
-	CountryActions,
-	CurrencyActions,
-	CustomFieldsActions,
-	TagActions,
-	TeamActions,
-	TeamMembersActions,
-	IncoTermsActions,
-	HarbourActions,
+	categoryActions,
+	countryActions,
+	currencyActions,
+	customFieldsActions,
+	tagActions,
+	teamActions,
+	teamMembersActions,
+	incoTermsActions,
+	harbourActions,
 } from '~store/action';
-import { SupplierActions } from '~app/features/suppliers/store//supplier.action';
+import { supplierActions } from '~app/features/suppliers/store//supplier.action';
 
 @Injectable()
 export class PreloaderService {
@@ -35,21 +35,21 @@ export class PreloaderService {
 	baseLoad() {
 		// static entities
 		// (no user actually needed for those but better to keep those here as well for consistency)
-		this.dispatch(CountryActions.load());
-		this.dispatch(CurrencyActions.load());
-		this.dispatch(IncoTermsActions.load());
-		this.dispatch(HarbourActions.load());
+		this.dispatch(countryActions.load());
+		this.dispatch(currencyActions.load());
+		this.dispatch(incoTermsActions.load());
+		this.dispatch(harbourActions.load());
 		// user entities
-		this.dispatch(TeamActions.load());
+		this.dispatch(teamActions.load());
 		// team entities
-		this.dispatch(CategoryActions.load());
-		this.dispatch(CustomFieldsActions.load());
+		this.dispatch(categoryActions.load());
+		this.dispatch(customFieldsActions.load());
 
-		this.dispatch(SupplierActions.load());
-		this.dispatch(EventActions.load());
-		this.dispatch(ProjectActions.load());
-		this.dispatch(TagActions.load());
-		this.dispatch(TeamMembersActions.load());
+		this.dispatch(supplierActions.load());
+		this.dispatch(eventActions.load());
+		this.dispatch(projectActions.load());
+		this.dispatch(tagActions.load());
+		this.dispatch(teamMembersActions.load());
 	}
 
 	private dispatch(any: any) {

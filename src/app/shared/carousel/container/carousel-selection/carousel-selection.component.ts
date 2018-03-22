@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppImage } from '~features/file/models';
-import { ImageActions } from '~features/file/store';
+import { imageActions } from '~features/file/store';
 import { entityStateToArray } from '~entity/utils';
 import { AutoUnsub } from '~utils';
 import { selectImages } from '~app/features/file';
@@ -29,18 +29,18 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	}
 
 	add(img: AppImage) {
-		this.store.dispatch(ImageActions.add([img]));
+		this.store.dispatch(imageActions.add([img]));
 	}
 
 	rotate(img: AppImage) {
-		this.store.dispatch(ImageActions.rotate(img));
+		this.store.dispatch(imageActions.rotate(img));
 	}
 
 	delete(img: AppImage) {
-		this.store.dispatch(ImageActions.delete([img.id]));
+		this.store.dispatch(imageActions.delete([img.id]));
 	}
 
 	download(img: AppImage) {
-		this.store.dispatch(ImageActions.download(img.url));
+		this.store.dispatch(imageActions.download(img.url));
 	}
 }

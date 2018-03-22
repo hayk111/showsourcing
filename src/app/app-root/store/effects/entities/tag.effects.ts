@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { TagService } from '../../services/tag.service';
-import { TagActionTypes as ActionType, TagActions } from '../../action/entities/index';
+import { tagActionTypes as ActionType, tagActions } from '../../action/entities/index';
 import { Tag } from '~app/app-root/store';
 import { Swap, EntityService, ERM } from '~app/shared/entity';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -12,7 +12,7 @@ export class TagEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => TagActions.add(result)));
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => tagActions.add(result)));
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$

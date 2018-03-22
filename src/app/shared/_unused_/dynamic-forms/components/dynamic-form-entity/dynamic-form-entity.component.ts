@@ -1,18 +1,16 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { EntityTarget, Entity } from '~entity';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '~utils/index';
-import { selectCustomField } from '~store/selectors/entities/custom-fields.selector';
 import { Observable } from 'rxjs/Observable';
+import { Entity, EntityTarget, selectEntityById } from '~entity';
+import { selectCustomField } from '~store/selectors/entities/custom-fields.selector';
+import { AutoUnsub } from '~utils';
+
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/descriptors.interface';
-import { selectEntity, selectEntityById } from '~entity';
-import { CustomFieldsActions } from '~store/action/entities/index';
-import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-form-entity-app',
 	templateUrl: './dynamic-form-entity.component.html',
-	styleUrls: ['./dynamic-form-entity.component.scss']
+	styleUrls: ['./dynamic-form-entity.component.scss'],
 })
 export class DynamicFormEntityComponent extends AutoUnsub implements OnInit {
 	@Input() target: EntityTarget;

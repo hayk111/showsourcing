@@ -16,18 +16,6 @@ export const entityInitialState: EntityState<any> = {
 	selected: null,
 };
 
-export interface ExtendedEntityState<G extends Entity> extends EntityState<G> {
-	productsCount: {};
-}
-
-// default initial state in store for an entity
-export const extentedEntityInitialState: ExtendedEntityState<any> = {
-	pending: true,
-	byId: {},
-	ids: [],
-	productsCount: {},
-};
-
 // represents an entity in the store
 export class Entity {
 	id: string;

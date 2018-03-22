@@ -8,13 +8,12 @@ import {
 import { deepCopy } from '~utils';
 
 import { Product } from '../models/product.model';
-import { EntitiesState, ProductsState } from './';
 
 export const getEntitiesState = state => state.entities;
 const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
 
-export const selectProductsState = createSelector(getEntitiesState, (state: EntitiesState) => state.products);
-export const selectProducts = createSelector(selectProductsState, (state: ProductsState) => state.byId);
+export const selectProductsState = createSelector(getEntitiesState, (state: any) => state.products);
+export const selectProducts = createSelector(selectProductsState, (state: any) => state.byId);
 
 export const selectProductById = (id: string) => {
 	return createSelector([selectProducts], products => {

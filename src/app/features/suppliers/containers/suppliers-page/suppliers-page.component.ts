@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers, SupplierActions, selectSupplierState } from '~suppliers/store';
+import { selectSuppliers, selectSupplierState, supplierActions } from '~suppliers/store';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class SuppliersPageComponent implements OnInit {
 
 	ngOnInit() {
 		// we must load the product count on this page
-		this.store.dispatch(SupplierActions.loadProductCount());
+		this.store.dispatch(supplierActions.loadProductCount());
 		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
 		this.productCount$ = this.store.select(selectSupplierState).pipe(map((state: any) => state.productsCount));
 		this.pending$ = this.store.select(selectSupplierState).pipe(map(s => s.pending));
@@ -53,12 +53,12 @@ export class SuppliersPageComponent implements OnInit {
 
 	onItemFavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(SupplierActions.patch(patch));
+		this.store.dispatch(supplierActions.patch(patch));
 	}
 
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(SupplierActions.patch(patch));
+		this.store.dispatch(supplierActions.patch(patch));
 	}
 
 	resetSelection() {
@@ -67,7 +67,7 @@ export class SuppliersPageComponent implements OnInit {
 
 	deleteSelection() {
 		const ids = Array.from(this.selection.keys());
-		this.store.dispatch(SupplierActions.delete(ids));
+		this.store.dispatch(supplierActions.delete(ids));
 		this.selection = new Map();
 	}
 }

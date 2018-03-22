@@ -1,14 +1,12 @@
-
-
-export enum ActionType {
-	LOAD = '[Preloader] loading'
-}
+export const actionType = {
+	LOAD: '[Preloader] loading',
+};
 
 export class PreloaderActions {
 	static load(teamId) {
 		return {
-			type: ActionType.LOAD,
-			payload: teamId
+			type: actionType.LOAD,
+			payload: teamId,
 		};
 	}
 }
