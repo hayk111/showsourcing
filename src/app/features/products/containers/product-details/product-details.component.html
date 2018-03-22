@@ -28,51 +28,7 @@
 
     <div class="right">
       <card-app padding="none">
-        <div class="summaryBar">
-          <ng-container *ngIf="product$ | async as product">
-            <div class="cell">
-              <div class="title">Price</div>
-              <div class="content">{{product?.priceCurrency?.symbol}} {{product?.priceAmount}}</div>
-            </div>
-            <div class="divider"></div>
-            <div class="cell">
-              <div class="title">Moq</div>
-              <div class="content"> {{product?.minimumOrderQuantity}}</div>
-            </div>
-            <div class="divider"></div>
-            <div class="cell">
-              <div class="title">Team Rating</div>
-              <div class="content" color-success>
-                <div class="icon-thumb-up"></div>
-                {{product?.computedValues?.score || "-"}} %
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="cell">
-              <div class="title">Tasks</div>
-              <div class="content">
-                <div class="icon-edit"></div>
-                5
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="cell">
-              <div class="title">Supplier connect</div>
-              <div class="content">
-                <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
-                  <badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
-                </ng-container>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="cell">
-              <div class="title">Status</div>
-              <div class="content">
-                <product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
-              </div>
-            </div>
-          </ng-container>
-        </div>
+				<product-top-bar-app [product]="product" (updateStatus)="updateStatus($event, product.id)"></product-top-bar-app>
       </card-app>
       <entity-main-card-app></entity-main-card-app>
     </div>

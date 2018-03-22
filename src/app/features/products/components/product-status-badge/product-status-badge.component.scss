@@ -1,3 +1,6 @@
+:host {
+	position: relative;
+}
 .ctnr {
 	padding: var(--spacing-xs) var(--spacing-s);
 	border-radius: 15px;
@@ -7,6 +10,29 @@
 	letter-spacing: 0.44px;
 	color: var(--color-white);
 	text-transform: uppercase;
+}
+.selectorIcon {
+	border-left: 1px solid rgba(255, 255, 255, 0.7);
+	padding-left: var(--spacing-xs);
+	margin-left: var(--spacing-xs);
+}
+.selector {
+	position: absolute;
+	background: white;
+}
+.choice{
+	font-size: var(--font-size-default);
+	padding: var(--spacing-s);
+	display: flex;
+	align-items: center;
+	&:hover {
+		background: var(--color-bg-secondary);
+	}
+	.cercle {
+		width: 6px;
+		height: 6px;
+		margin-right: var(--spacing-xs);
+	}
 }
 
 .badge-Idea {

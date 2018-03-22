@@ -1,3 +1,14 @@
-<span class="ctnr" [ngClass]="'badge-' + status" *ngIf="status">
-  {{ status | entityName: 'productStatus' | async }}
-</span>
+<div class="ctnr flexBetween" [ngClass]="'badge-' + status" *ngIf="status">
+	<span class="name">{{ status | entityName: 'productStatus' | async }}</span>
+	<icon-app name="angle-down" color="white" [fa]="true" (click)="displayPanel()"></icon-app>
+</div>
+<!-- panel displayed on click to pick the status -->
+<ng-container *ngIf="'productStatus' | entityList | async as statuses">
+	<div class="z-2 selector" *ngIf="panelVisible" (clickOutside)="closePanel()">
+		<div class="choice pointer" *ngFor="let status of statuses" (click)="selectStatus(status.id)">
+			<span class="cercle" [ngStyle]="{ 'background':'var(--color-' + status.id + ')' }"></span>{{ status.name }}
+		</div>
+	</div>
+</ng-container>
+
+

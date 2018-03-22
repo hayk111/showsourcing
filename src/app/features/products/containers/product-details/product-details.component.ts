@@ -67,4 +67,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	removeProject(project, productId: string) {
 		this.store.dispatch(ProductActions.removeProject(project, productId));
 	}
+
+	updateStatus(statusId: string, productId: string) {
+		this.store.dispatch(ProductActions.patch({ propName: 'status', value: statusId, id: productId }));
+	}
 }

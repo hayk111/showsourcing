@@ -9,8 +9,9 @@ import { Store, StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationModule } from '@swimlane/ngx-ui';
 import { environment } from 'environments/environment';
-import { EntityModule } from '~app/shared/entity';
-import { AuthModule, AuthGuardService } from '~features/auth';
+import { DataManagementModule } from '~app/features/data-management/data-management.module';
+import { EntityModule } from '~app/shared/entity/entity.module';
+import { AuthGuardService, AuthModule } from '~features/auth';
 import { ProductModule } from '~features/products';
 import { ProjectsModule } from '~features/projects';
 import { SuppliersModule } from '~features/suppliers';
@@ -21,10 +22,10 @@ import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~store/store.module';
 import { reducerProvider } from '~store/reducer/_reducers';
 import { EntitiesServicesModule } from '~store/services/entities-services.module';
 import { HmrService } from '~store/services/hmr.service';
+import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
 import { CommentModule } from './../features/comment/comment.module';
@@ -33,7 +34,6 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { DataManagementModule } from '~app/features/data-management/data-management.module';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.

@@ -34,6 +34,7 @@ import * as faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import * as faMinus from '@fortawesome/fontawesome-free-solid/faMinus';
 import * as fontawesome from '@fortawesome/fontawesome';
 
+// TODO observa mutation should not be needed
 fontawesome.config.searchPseudoElements = false;
 fontawesome.config.observeMutations = true;
 

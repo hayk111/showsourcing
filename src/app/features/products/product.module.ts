@@ -37,7 +37,6 @@ import {
 	ProductSmallCardComponent,
 	ProductStatusBadgeComponent,
 	ProductSubInfoComponent,
-	ProductTopCardComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
@@ -54,6 +53,7 @@ import {
 import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
+import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 
 @NgModule({
 	imports: [
@@ -91,7 +91,6 @@ import { ProductEffects } from './store/product.effects';
 		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
-		ProductTopCardComponent,
 		ProductInfoCardComponent,
 		ProductStatusBadgeComponent,
 		ProductSubInfoComponent,
@@ -107,7 +106,8 @@ import { ProductEffects } from './store/product.effects';
 		ProjectCardComponent,
 		SupplierCardComponent,
 		ProductGeneralInfoComponent,
+		ProductTopBarComponent,
 	],
-	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],
+	exports: [ProductSmallCardComponent, ProductInfoCardComponent],
 })
 export class ProductModule {}
