@@ -23,12 +23,14 @@ import { routes } from './routes';
 import { TableModule } from '~app/shared/table';
 import { RatingModule } from '~app/shared/rating';
 import { FileModule } from '~app/features/file';
+import { CardModule } from '~app/shared/card';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		FileModule, // file-card
+		CardModule,
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
 		DialogModule, // TODO to be removed and placed inside the component module using it
