@@ -30,10 +30,14 @@
 
 </top-panel-app>
 
-<main>
+<div class="separation">
 	<filter-cloud-app [filterGroupName]="filterGroupName"></filter-cloud-app>
 	<div class="hr"></div>
 	<progress-bar-app *ngIf="pending"></progress-bar-app>
+</div>
+
+
+<main>
 	<ng-content></ng-content>
 </main>
 

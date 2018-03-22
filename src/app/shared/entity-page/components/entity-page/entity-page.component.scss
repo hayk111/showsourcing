@@ -6,6 +6,11 @@
 	margin-right: var(--spacing-xl);
 }
 
+.separation {
+	margin: var(--spacing-xl) var(--spacing-edge);
+}
+
 main {
-	padding:  0 var(--spacing-edge);
+	width: 1400px;
+  margin: auto;
 }

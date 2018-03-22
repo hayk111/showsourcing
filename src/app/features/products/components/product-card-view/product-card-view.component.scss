@@ -20,6 +20,10 @@
     justify-content: space-between;
 }
 
+.noTopMargin {
+	margin-top: 0;
+}
+
 .sectionTag {
   border-radius: 14px;
   background-color: var(--color-bg-switcher);
