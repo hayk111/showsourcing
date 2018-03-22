@@ -1,8 +1,10 @@
 <table-app [rows]="suppliers" (sort)="onSort($event)">
+
 	<!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
-		let-row="row">
+		let-row="row"
+		width="280">
 		<div class="supplier">
 			<input-checkbox-app
 				(update)="onCheck($event, row.id)"
@@ -15,7 +17,8 @@
 	<ng-template
 		columnApp="Categories"
 		let-row="row"
-		[sortable]="false">
+		[sortable]="false"
+		width="280">
 		<span *ngFor="let cat of row.categories">
 			{{ cat.name }},
 		</span>
@@ -24,7 +27,8 @@
 	<!-- country -->
 	<ng-template
 		columnApp="Country"
-		let-row="row">
+		let-row="row"
+		width="60">
 		<span>
 			{{ row?.countryCode | entity: 'countries': 'fullName' | async }}
 		</span>
@@ -34,7 +38,8 @@
 	<ng-template
 		columnApp="Tags"
 		let-row="row"
-		[sortable]="false">
+		[sortable]="false"
+		width="140">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }}{{ last ? '' : ', '}}</span>
 	</ng-template>
 
@@ -42,7 +47,8 @@
 	<ng-template
 		columnApp="Created"
 		let-row="row"
-		[sortable]="false">
+		[sortable]="false"
+		width="140">
 		{{ row?.creationDate | date: 'MMMM y' }}
 	</ng-template>
 
@@ -50,7 +56,8 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		[sortable]="false">
+		[sortable]="false"
+		width="140">
 		<div class="flex" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
 			<user-picture-app
 				[size]="18"
@@ -64,26 +71,32 @@
 	<ng-template
 		columnApp="Info"
 		let-row="row"
-		[sortable]="false">
-		{{ product?.numProducts }} Products, {{ row?.numTasks }} Tasks, {{ row?.pendingRequests }}Pending requests
+		[sortable]="false"
+		width="140">
+		{{  productsCount[row.id] > 0 ? productsCount[row.id] + ' Products' : '' }}
 	</ng-template>
 
 	<!-- Action -->
 	<ng-template
 		columnApp="Action"
 		let-row="row"
-		[sortable]="false">
-		<rating-heart-app
-			[rating]="row?.rating"
-			(favorited)="supplierFavorited.emit(row.id)"
-			(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
+		[sortable]="false"
+		width="50">
+		<div class="flexCenter">
+			<rating-heart-app
+				[rating]="row?.rating"
+				(favorited)="supplierFavorited.emit(row.id)"
+				(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
+		</div>
+
 	</ng-template>
 
 	<!-- Review -->
 	<ng-template
 		columnApp=""
 		let-row="row"
-		[sortable]="false">
+		[sortable]="false"
+		width="60">
 		<a class="review" [routerLink]="['/suppliers', 'details', row.id, 'activity']">REVIEW</a>
 	</ng-template>
 

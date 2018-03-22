@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch } from '~entity';
 import { Supplier } from '~suppliers/models';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers, SupplierActions } from '~suppliers/store';
+import { selectSuppliers, SupplierActions, selectSupplierState } from '~suppliers/store';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -23,12 +23,16 @@ export class SuppliersPageComponent implements OnInit {
 	repr = ERM.suppliers;
 	// maps current selection {id: true}
 	selection = new Map<string, boolean>();
+	productCount$: Observable<any>; // product count by supplier
 
 	constructor(private store: Store<any>, private router: Router) {}
 
 	ngOnInit() {
+		// we must load the product count on this page
+		this.store.dispatch(SupplierActions.loadProductCount());
 		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
-		this.pending$ = this.store.select(selectSuppliers).pipe(map(s => s.pending));
+		this.productCount$ = this.store.select(selectSupplierState).pipe(map((state: any) => state.productsCount));
+		this.pending$ = this.store.select(selectSupplierState).pipe(map(s => s.pending));
 	}
 
 	openNewDialog() {

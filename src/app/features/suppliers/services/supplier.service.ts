@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { EntityService, ERM, Patch } from '~entity';
-import { UserService } from '~user';
+import { UserService, User } from '~user';
 
 @Injectable()
 export class SupplierService {
@@ -31,5 +31,12 @@ export class SupplierService {
 
 	delete(id: string) {
 		return this.http.delete(`api/supplier/${id}`);
+	}
+
+	loadProductCount() {
+		return this.userSrv.user$.pipe(
+			switchMap((user: User) => this.http.get(`api/team/${user.currentTeamId}/countProdsBySupplier`)),
+			map((r: any) => r.items)
+		);
 	}
 }

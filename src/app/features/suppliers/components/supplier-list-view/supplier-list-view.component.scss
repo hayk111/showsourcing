@@ -1,3 +1,7 @@
+:host {
+	display: flex;
+}
+
 .supplier {
 	display: flex;
 	align-items: center;
@@ -18,4 +22,8 @@
 
 user-picture-app {
 	margin-right: var(--spacing-s);
+}
+
+table-app {
+	margin: auto;
 }

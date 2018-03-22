@@ -11,6 +11,7 @@ import { FilterActions, FilterGroupName, FilterSort } from '~app/shared/filters'
 })
 export class SupplierListViewComponent implements OnInit {
 	@Input() suppliers: Array<Supplier> = [];
+	@Input() productsCount: { [key: string]: number }; // { id: numberProducts }
 	@Input() selection: Map<string, boolean>;
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();

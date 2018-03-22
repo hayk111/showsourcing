@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
-import { ActionType, SupplierActions } from './supplier.action';
+import { SupplierActionType as ActionType, SupplierActions } from './supplier.action';
 import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
@@ -72,6 +72,11 @@ export class SuppliersEffects {
 			map(action => action.payload),
 			switchMap((ids: Array<string>) => forkJoin(ids.map(supplierId => this.srv.delete(supplierId))))
 		);
+
+	@Effect()
+	loadProductCount$ = this.action$
+		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
+		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => SupplierActions.addProductCount(r)));
 
 	constructor(private action$: Actions, private srv: SupplierService) {}
 }
