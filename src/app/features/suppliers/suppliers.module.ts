@@ -22,13 +22,13 @@ import { SupplierService } from './services';
 import { routes } from './routes';
 import { TableModule } from '~app/shared/table';
 import { RatingModule } from '~app/shared/rating';
+import { FileModule } from '~app/features/file';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
-		// StoreModule.forFeature('testEntities', reducers),
-		// EffectsModule.forFeature(effects),
+		FileModule, // file-card
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
 		DialogModule, // TODO to be removed and placed inside the component module using it

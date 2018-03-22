@@ -1,0 +1,22 @@
+<div (fileDrop)="onFileAdded($event)">
+	<h2 i18n>Attached Files</h2>
+	<ng-container *ngIf="files$ | async as files">
+		<article *ngFor="let file of files" class="flex">
+			<spinner-app size="xs" *ngIf="file.pending"></spinner-app>
+			<div class="cercle"></div>
+			<div class="name pointer">
+				<div class="ellipsis">{{ file.fileName }}</div>
+			</div>
+			<div class="flexCenter">
+				<icon-app [fa]="true" (click)="onFileRemoved(file)" name="minus" class="pointer minus" size="xl" color="primary-light"></icon-app>
+			</div>
+
+		</article>
+
+			<div class="hr"></div>
+			<div class="footer">
+				<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+				<button (click)="inp.click()">Add File</button>
+			</div>
+	</ng-container>
+</div>

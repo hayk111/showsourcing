@@ -42,7 +42,6 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 } from './components';
-import { FilesCardComponent } from './components/files-card/files-card.component';
 import {
 	ProductBigCardComponent,
 	ProductGeneralInfoComponent,
@@ -62,17 +61,15 @@ import { ProductEffects } from './store/product.effects';
 		RouterModule.forChild(routes),
 		PipesModule,
 		DialogModule,
-		// StoreModule.forFeature('testEntities', reducers),
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
-		// TODO: cedric maybe merge those 3 modules below.
 		EntityPageModule, // used as template of page
 		EntityMainCardModule, // used in details
 		EntityModule,
 		LikesChartModule, // used in details
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
-		FileModule.forChild(), // TODO to be removed and placed inside the component module using it
+		FileModule.forChild(), // file card used
 		SuppliersModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EditableFieldModule, // TODO to be removed and placed inside the component module using it
 		SelectableImageModule, // TODO to be removed and placed inside the component module using it
@@ -109,7 +106,6 @@ import { ProductEffects } from './store/product.effects';
 		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
-		FilesCardComponent,
 		ProductGeneralInfoComponent,
 	],
 	exports: [ProductSmallCardComponent, ProductTopCardComponent, ProductInfoCardComponent],

@@ -8,11 +8,13 @@ import { FileSelectDirective } from './directives/file-select.directive';
 import { FileService, ImageService } from './services';
 import { LoadersModule } from '~shared/loaders';
 import { EntityModule } from '~entity';
+import { FilesCardComponent } from '~app/features/file/containers/files-card/files-card.component';
+import { IconsModule } from '~app/shared/icons';
 
 @NgModule({
-	imports: [CommonModule, LoadersModule, EntityModule.forChild()],
-	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent],
-	exports: [FileDropDirective, FileSelectDirective, FilesPageComponent],
+	imports: [CommonModule, LoadersModule, EntityModule.forChild(), IconsModule],
+	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
+	exports: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
 	providers: [FileService, ImageService],
 })
 export class FileModule {

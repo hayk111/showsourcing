@@ -33,7 +33,6 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 	comments: Array<AppComment>;
 	projectRep = ERM.projects;
 	projects$: Observable<Array<Project>>;
-	files$: Observable<Array<AppFile>>;
 	projectDlgName = DialogName.ADDTOPROJECT;
 	productsCount$: Observable<number>;
 
@@ -52,7 +51,6 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 			switchMap(params => this.store.select(selectProductById(params.id)))
 		);
 		this.projects$ = this.store.select(selectProjects);
-		this.files$ = this.store.select(selectFilesAsArray);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 	}
 
@@ -68,14 +66,5 @@ export class ProductPageComponent extends AutoUnsub implements OnInit {
 
 	removeProject(project, productId: string) {
 		this.store.dispatch(ProductActions.removeProject(project, productId));
-	}
-
-	onFileAdded(files: Array<File>) {
-		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
-		this.store.dispatch(FileActions.add(appFiles));
-	}
-
-	onFileRemoved(file: AppFile) {
-		this.store.dispatch(FileActions.delete([file.id]));
 	}
 }

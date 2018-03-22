@@ -74,7 +74,7 @@
 		let-row="row"
 		[sortable]="false"
 		width="140">
-		{{  productsCount[row.id] > 0 ? productsCount[row.id] + ' Products' : '' }}
+		<span *ngIf="productsCount">{{  productsCount[row.id] > 0 ? productsCount[row.id] + ' Products' : '' }}</span>
 	</ng-template>
 
 	<!-- Action -->

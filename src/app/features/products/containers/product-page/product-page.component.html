@@ -20,8 +20,8 @@
 					[projects]="product.projectIds | entityArray: 'projects' | async"></project-card-app>
 			</card-app>
 
-			<card-app (fileDrop)="onFileAdded($event)" (fileAdded)="onFileAdded($event)">
-				<files-card-app [files]="files$ | async" (fileRemoved)="onFileRemoved($event)"></files-card-app>
+			<card-app>
+				<files-card-app></files-card-app>
 			</card-app>
 
 		</div>
