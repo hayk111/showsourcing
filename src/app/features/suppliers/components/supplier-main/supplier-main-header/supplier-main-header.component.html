@@ -14,12 +14,12 @@
 <div>
 	<status-selector-badge-app
 		class="badge"
-		(update)="updateStatus.emit($event)"
+		(update)="onStatusChange($event)"
 		[status]="supplier?.advancedInfos?.status"
 		[choices]="'supplierStatus' | entityList | async">
 	</status-selector-badge-app>
 	<rating-heart-app
 		[rating]="supplier?.rating"
-		(favorited)="favorited.emit(supplier.id)"
-		(unfavorited)="unfavorited.emit(supplier.id)"></rating-heart-app>
+		(favorited)="onFavorited()"
+		(unfavorited)="onUnfavorited()"></rating-heart-app>
 </div>

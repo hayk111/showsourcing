@@ -10,6 +10,7 @@ import {
 	selectSupplierSelected,
 	supplierActions,
 } from '~app/features/suppliers/store';
+import { Patch } from '~app/shared/entity';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -32,5 +33,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			this.supplier$ = this.store.select(selectSupplierSelected);
 			this.productsCount$ = this.store.select(selectSupplierProductsCountForId(id));
 		});
+	}
+
+	patch(patch: Patch) {
+		this.store.dispatch(supplierActions.patch(patch));
 	}
 }

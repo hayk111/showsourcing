@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~app/features/suppliers/models';
+import { Patch } from '~app/shared/entity';
 
 @Component({
 	selector: 'supplier-main-app',
@@ -10,8 +11,8 @@ import { Supplier } from '~app/features/suppliers/models';
 export class SupplierMainComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() productsCount: number;
-	@Output() favorited = new EventEmitter<string>();
-	@Output() unfavorited = new EventEmitter<string>();
+	@Output() update = new EventEmitter<Patch>();
+
 	constructor() {}
 
 	ngOnInit() {}

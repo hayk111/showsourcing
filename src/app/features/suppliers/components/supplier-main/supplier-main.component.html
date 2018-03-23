@@ -3,8 +3,7 @@
 	<supplier-main-header-app
 		class="header"
 		[supplier]="supplier"
-		(favorited)="favorited.emit($event)"
-		(unfavorited)="unfavorited.emit($event)"></supplier-main-header-app>
+		(update)="update.emit($event)"></supplier-main-header-app>
 
 	<supplier-summary-app [supplier]="supplier" [productsCount]="productsCount"></supplier-summary-app>
 	<supplier-main-info-app [supplier]="supplier"></supplier-main-info-app>

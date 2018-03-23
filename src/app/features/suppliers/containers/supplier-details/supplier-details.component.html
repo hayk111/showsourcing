@@ -7,6 +7,7 @@
 	<div class="flex">
 		<div class="left ctnr">
 			<supplier-main-app
+				(update)="patch($event)"
 				[supplier]="supplier"
 				[productsCount]="productsCount$ | async"></supplier-main-app>
 		</div>
