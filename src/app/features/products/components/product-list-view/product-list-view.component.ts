@@ -48,16 +48,16 @@ export class ProductListViewComponent implements OnInit {
 	filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Product', type: 'main', sortable: true, sortWith: 'name' },
-		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName' },
-		{ title: 'Category', type: 'category', sortWith: 'categoryName' },
-		{ title: 'Price', type: 'price', sortWith: 'priceAmount' },
-		{ title: 'Feedback', type: 'feedback', sortWith: 'score' },
-		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate' },
-		{ title: '', type: 'rating', sortWith: 'rating' },
-		{ title: 'Created by', type: 'user', sortWith: 'createdByUserId' },
-		{ title: 'Actions', type: 'action', sortable: false },
-		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity' },
+		{ title: 'Product', type: 'main', sortable: true, sortWith: 'name', width: 280 },
+		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName', width: 140 },
+		{ title: 'Category', type: 'category', sortWith: 'categoryName', width: 140 },
+		{ title: 'Price', type: 'price', sortWith: 'priceAmount', width: 50 },
+		{ title: 'Feedback', type: 'feedback', sortWith: 'score', width: 50 },
+		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 50 },
+		{ title: '', type: 'rating', sortWith: 'rating', width: 50 },
+		{ title: 'Created by', type: 'user', sortWith: 'createdByUserId', width: 140 },
+		{ title: 'Actions', type: 'action', sortable: false, width: 140 },
+		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 	];
 
 	constructor(private store: Store<any>) {}

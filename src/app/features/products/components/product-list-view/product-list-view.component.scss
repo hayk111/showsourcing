@@ -9,8 +9,8 @@
 
 img {
 	border-radius: var(--border-radius);
-	max-width: 44px;
-	max-height: 44px;
+	max-width: 32px;
+	max-height: 32px;
 }
 
 .mainCell {
@@ -19,7 +19,7 @@ img {
 }
 
 .mainCell > *{
-	margin: var(--spacing-s);
+	margin-left: var(--spacing-s);
 	.name {
 		font-weight: 600;
 	}

@@ -13,16 +13,16 @@
 			(update)="onCheck($event, row.id)"
 			[checked]="selection.get(row.id)"></input-checkbox-app>
 		<img [src]="row?.mainImage?.urls?.url_60x45"/>
-		<span class="name">{{ row.name }}</span>
+		<a class="name" [routerLink]="['/products', 'details', row.id]">{{ row.name }}</a>
 	</div>
 </ng-template>
 
 <ng-template #supplier let-row="row">
-			{{ row?.supplierId | entityName: 'suppliers' | async }}
+	{{ row?.supplierId | entityName: 'suppliers' | async }}
 </ng-template>
 
 <ng-template #category let-row="row">
-		{{ row?.categoryId | entityName: 'categories' | async }}
+	{{ row?.categoryId | entityName: 'categories' | async }}
 </ng-template>
 
 <ng-template #price let-row="row">
@@ -47,10 +47,12 @@
 </ng-template>
 
 <ng-template #rating let-row="row">
-	<rating-heart-app
-		[rating]="row?.rating"
-		(favorited)="productFavorited.emit(row.id)"
-		(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
+	<div class="flexCenter">
+		<rating-heart-app
+			[rating]="row?.rating"
+			(favorited)="productFavorited.emit(row.id)"
+			(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
+	</div>
 </ng-template>
 
 <ng-template #action let-row="row">
@@ -71,8 +73,6 @@
 		<span>{{ user.name }}</span>
 	</div>
 <ng-template>
-
-
 
 <ng-template #none></ng-template>
 

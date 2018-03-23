@@ -8,4 +8,5 @@ export interface ColumnDescriptor {
 	template?: TemplateRef<ColumnDirective>;
 	sortable?: boolean;
 	sortWith?: string;
+	width?: number;
 }

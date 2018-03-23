@@ -3,6 +3,7 @@
 			*ngFor="let column of descriptor"
 			columnApp="{{ column.title }}"
 			[sortable]="column.sortable !== undefined ? column.sortable : true"
+			[width]="column.width"
 			let-row="row"
 			(sort)="sort.emit({sortWith: column.sortWith, order: $event })">
 			<ng-container
@@ -10,67 +11,3 @@
 			</ng-container>
 		</ng-template>
 </table-app>
-
-<!-- <ng-template *ngFor="let column of descriptor" columnApp="{{ column.title }}" let-row="row">
-	<ng-container [ngSwitch]="column.type">
-
-		<ng-container *ngSwitchCase="'main'">
-				<div class="mainCell">
-					<input
-						type="checkbox"
-						[checked]="selection.get(row.id)"
-						(change)="onCheck($event, row.id)"/>
-					<img [src]="row?.mainImage?.urls?.url_60x45"/>
-					<span class="name">{{ row.name }}</span>
-				</div>
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'supplier'">
-					{{ row?.supplierId | entityName: 'suppliers' | async }}
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'category'">
-				{{ row?.categoryId | entityName: 'categories' | async }}
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'price'">
-			{{ row?.priceCurrency?.symbol ? row.priceCurrency.symbol : row?.priceCurrency?.id }}{{ row?.priceAmount }}
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'feedback'">
-			{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'creationDate'">
-			{{ row?.creationDate | date: 'MMMM y' }}
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'rating'">
-			<rating-heart-app
-				[rating]="row?.rating"
-				(favorited)="itemFavorited.emit(row.id)"
-				(unfavorited)="itemUnfavorited.emit(row.id)"></rating-heart-app>
-		</ng-container>
-
-
-		<ng-container *ngSwitchCase="'user'">
-			<div class="flexCenter userP" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
-				<user-picture-app
-					[size]="18"
-					[border]="true"
-					[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-				<span>{{ user.name }}</span>
-			</div>
-		</ng-container>
-
-		<ng-container *ngSwitchDefault>
-			{{ row[column.propName] }}
-		</ng-container>
-
-	</ng-container>
-
-</ng-template>
-
-<ng-template columnApp="Actions" let-row="row" [sortable]="false">
-	<div class="pointer" (click)="itemOpen.emit(row.id)"> Open </div>
-</ng-template> -->
