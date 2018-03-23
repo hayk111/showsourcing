@@ -64,7 +64,6 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
 		EntityModule.forChild(),
-		LikesChartModule, // used in details
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		FileModule.forChild(), // file card used

@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationsModule } from '~shared/notifications';
 import { environment } from 'environments/environment';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';

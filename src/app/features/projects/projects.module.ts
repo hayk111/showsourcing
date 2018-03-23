@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UserModule } from '~features/user';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';

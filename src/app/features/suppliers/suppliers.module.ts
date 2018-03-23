@@ -2,27 +2,26 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FileModule } from '~app/features/file';
+import { CardModule } from '~app/shared/card';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { RatingModule } from '~app/shared/rating';
+import { TableModule } from '~app/shared/table';
+import { EntityModule } from '~entity';
 import { DialogModule } from '~shared/dialog';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { TagModule } from '~shared/tag';
 import { UtilsModule } from '~shared/utils';
-import { EntityModule } from '~entity';
 import { SupplierListViewComponent } from '~suppliers/components';
 import { SuppliersPageComponent } from '~suppliers/containers';
 import { UserModule } from '~user';
 
 import { NewSupplierDlgComponent, SupplierStatusIconComponent } from './components';
 import { SupplierDetailsComponent } from './containers';
-import { SupplierService } from './services';
 import { routes } from './routes';
-import { TableModule } from '~app/shared/table';
-import { RatingModule } from '~app/shared/rating';
-import { FileModule } from '~app/features/file';
-import { CardModule } from '~app/shared/card';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { SupplierService } from './services';
 
 @NgModule({
 	imports: [

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DialogModule } from '~dialog/dialog.module';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
