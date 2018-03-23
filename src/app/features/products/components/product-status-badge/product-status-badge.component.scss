@@ -25,8 +25,9 @@
 	padding: var(--spacing-s);
 	display: flex;
 	align-items: center;
+	white-space: nowrap;
 	&:hover {
-		background: var(--color-bg-secondary);
+		background: var(--color-primary-light);
 	}
 	.cercle {
 		width: 6px;
