@@ -54,6 +54,7 @@ import { ProductEffects } from './store/product.effects';
 import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import { CommentModule } from '~app/features/comment';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { StatusModule } from '~app/shared/status/status.module';
 
 @NgModule({
 	imports: [
@@ -63,6 +64,7 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
+		StatusModule.forChild(),
 		EntityModule.forChild(),
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it

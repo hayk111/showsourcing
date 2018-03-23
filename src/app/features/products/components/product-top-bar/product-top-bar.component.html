@@ -37,7 +37,12 @@
 			<div class="cell">
 				<div class="title">Status</div>
 				<div class="content">
-					<product-status-badge-app class="badge" (update)="updateStatus.emit($event)" [status]="product?.status"></product-status-badge-app>
+					<status-selector-badge-app
+						class="badge"
+						(update)="updateStatus.emit($event)"
+						[status]="product?.status"
+						[choices]="'productStatus' | entityList | async">
+					</status-selector-badge-app>
 				</div>
 			</div>
 	</div>

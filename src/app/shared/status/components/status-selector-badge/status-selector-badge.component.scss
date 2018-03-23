@@ -1,0 +1,59 @@
+:host {
+	position: relative;
+}
+.ctnr {
+	padding: var(--spacing-xs) var(--spacing-s);
+	border-radius: 15px;
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: 0.44px;
+	color: var(--color-white);
+	text-transform: uppercase;
+}
+.selectorIcon {
+	border-left: 1px solid rgba(255, 255, 255, 0.7);
+	padding-left: var(--spacing-xs);
+	margin-left: var(--spacing-xs);
+}
+.selector {
+	position: absolute;
+	background: white;
+}
+.choice{
+	font-size: var(--font-size-default);
+	padding: var(--spacing-s);
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	&:hover {
+		background: var(--color-primary-light);
+	}
+	.cercle {
+		width: 6px;
+		height: 6px;
+		margin-right: var(--spacing-xs);
+	}
+}
+
+.badge-Idea {
+  background-image: var(--color-Idea);
+  color: var(--color-txt-primary);
+}
+
+.badge-NeedReview {
+  background-image: var(--color-NeedReview);
+  color: var(--color-white);
+}
+.badge-Refused {
+  background-image: var(--color-Refused);
+  color: var(--color-white);
+}
+.badge-Complete {
+  background-image: var(--color-Complete);
+  color: var(--color-white);
+}
+.badge-UnderAssessment{
+  background-image: var(--color-UnderAssessment);
+  color: var(--color-white);
+}
