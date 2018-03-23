@@ -5,12 +5,13 @@ import { FileService } from '../services';
 import { SelectionService } from '~store/services/selection.service';
 import { FileActionType, FileActions } from './file.action';
 import { mergeMap } from 'rxjs/operators';
-import { FeedbackDlgActions, FeedbackStyle } from '~store/action/ui/feedback-dlg.action';
 import { catchError } from 'rxjs/operators/catchError';
-import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 import { AppFile } from '../models';
 import { Swap } from '~app/shared/entity/utils';
+import { notificationActions } from '~app/shared/notifications/store/notification.action';
+import { NotificationType } from '~app/shared/notifications';
+import { appErrorActions } from '~app/shared/error-handler';
 
 @Injectable()
 export class FilesEffects {
@@ -36,15 +37,15 @@ export class FilesEffects {
 			this.srv.uploadFiles(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
 				mergeMap((r: Array<Swap>) => [
-					FeedbackDlgActions.add({
-						styleType: FeedbackStyle.SUCCESS,
+					notificationActions.add({
+						type: NotificationType.SUCCESS,
 						title: 'File Uploaded',
-						body: 'Your file was uploaded with success',
+						message: 'Your file was uploaded with success',
 					}),
 					// we also replace the current pending files
 					FileActions.replace(r),
 				]),
-				catchError(e => of(AppErrorActions.add(e)))
+				catchError(e => of(appErrorActions.add(e)))
 			)
 		)
 	);
@@ -64,9 +65,5 @@ export class FilesEffects {
 		.ofType<any>(FileActionType.DOWNLOAD)
 		.pipe(map(action => action.payload), tap(img => this.srv.download(img)));
 
-	constructor(
-		private actions$: Actions,
-		private srv: FileService,
-		private selectionSrv: SelectionService
-	) {}
+	constructor(private actions$: Actions, private srv: FileService, private selectionSrv: SelectionService) {}
 }

@@ -4,11 +4,7 @@ import { TypedAction } from '~utils';
 
 import { actionType } from '../../action/target/target.action';
 
-const initialState = {
-	[ERM.product.entityName]: undefined,
-	[ERM.suppliers.entityName]: undefined,
-	[ERM.events.entityName]: undefined,
-};
+const initialState = undefined;
 
 // when an entity is selected
 export function currentTargetReducer(state = {}, action) {

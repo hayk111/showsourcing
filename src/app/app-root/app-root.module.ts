@@ -7,7 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { NotificationModule } from '@swimlane/ngx-ui';
+import { NotificationsModule } from '~shared/notifications';
 import { environment } from 'environments/environment';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
 import { EntityModule } from '~app/shared/entity/entity.module';
@@ -44,24 +44,22 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
-		TemplateModule,
+		HttpClientModule,
+		TemplateModule.forRoot(),
 		AppStoreModule.forRoot(),
 		EntityModule.forRoot(),
 		RouterModule.forRoot(routes),
-		LocalStorageModule,
-		NgxChartsModule,
-		HttpClientModule,
+		LocalStorageModule.forRoot(),
 		EntitiesServicesModule,
-		UserModule,
-		CommentModule,
+		UserModule.forRoot(),
 		TemplateModule,
+		ProductModule.forRoot(),
+		EventsModule,
 		IconsModule,
 		CardModule,
-		NotificationModule,
-		ProductModule,
-		EventsModule,
-		WorkflowModule,
-		// modules
+		// shared
+		NotificationsModule.forRoot(),
+		// modules features
 		SuppliersModule.forRoot(),
 		ProjectsModule.forRoot(),
 		TasksModule.forRoot(),

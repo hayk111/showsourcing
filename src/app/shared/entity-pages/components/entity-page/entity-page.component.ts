@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterGroupName, Filter } from '~shared/filters';
-import { EntityRepresentation } from '~entity';
+import { FilterGroupName, Filter } from '~shared/filters/models';
+import { EntityRepresentation } from '~entity/models';
 
 @Component({
 	selector: 'entity-page-app',

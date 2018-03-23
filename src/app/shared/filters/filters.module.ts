@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomInputsModule } from '~shared/custom-inputs/custom-inputs.module';
 import { IconsModule } from '~shared/icons';
@@ -44,4 +44,10 @@ import { UtilsModule } from '~app/shared/utils';
 	],
 	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
 })
-export class FiltersModule {}
+export class FiltersModule {
+	static forChild(): ModuleWithProviders {
+		return {
+			ngModule: FiltersModule,
+		};
+	}
+}

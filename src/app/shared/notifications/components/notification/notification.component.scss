@@ -1,0 +1,12 @@
+.ctnr {
+	margin: var(--spacing-default);
+	background: rgb(38, 40, 48);
+	color: white;
+	padding: var(--spacing-default);
+}
+.success {
+	border-left: 4px solid var(--color-success);
+}
+.error {
+	border-left: 4px solid var(--color-warn);
+}

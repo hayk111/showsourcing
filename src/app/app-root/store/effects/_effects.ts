@@ -12,14 +12,14 @@ import { EventEffects } from '~events/store';
 import { TagEffects } from './entities/tag.effects';
 import { TeamMembersEffects } from './entities/team-members.effects';
 import { TeamEffects } from './entities/team.effects';
-import { AppErrorsEffects } from './misc/app-error.effects';
 import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilesEffects } from '~features/file';
 import { ImageEffects } from '~features/file';
-import { FeedbackDlgEffects } from './ui/feedback-dlg.effects';
 import { FilterEntityPanelEffects } from '~shared/filters';
 import { HarbourEffects } from '~app/app-root/store/effects/entities/harbour.effects';
 import { IncoTermsEffects } from '~app/app-root/store/effects/entities/inco-terms.effects';
+import { AppErrorsEffects } from '~app/shared/error-handler';
+import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
 
 export const effects = [
 	// entities
@@ -48,5 +48,5 @@ export const effects = [
 	FilterEntityPanelEffects,
 
 	// UI
-	FeedbackDlgEffects,
+	NotificationEffects,
 ];

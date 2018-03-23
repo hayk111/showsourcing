@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
@@ -13,8 +13,6 @@ import { EntityModule } from '~entity';
 import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
-import { EntityMainCardModule } from '~shared/entity-main-card';
-import { EntityPageModule } from '~shared/entity-page';
 import { IconsModule } from '~shared/icons';
 import { LikesChartModule } from '~shared/likes-chart';
 import { LoadersModule } from '~shared/loaders';
@@ -54,6 +52,8 @@ import { routes } from './routes';
 import { ProductService } from './services/product.service';
 import { ProductEffects } from './store/product.effects';
 import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
+import { CommentModule } from '~app/features/comment';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [
@@ -63,9 +63,7 @@ import { ProductTopBarComponent } from './components/product-top-bar/product-top
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),
 		LoadersModule,
-		EntityPageModule, // used as template of page
-		EntityMainCardModule, // used in details
-		EntityModule,
+		EntityModule.forChild(),
 		LikesChartModule, // used in details
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
@@ -83,6 +81,8 @@ import { ProductTopBarComponent } from './components/product-top-bar/product-top
 		CarouselModule,
 		BadgeModule,
 		InputsModule, // checkbox
+		CommentModule.forChild(),
+		EntityPagesModule,
 	],
 	providers: [ProductService],
 	declarations: [
@@ -110,4 +110,11 @@ import { ProductTopBarComponent } from './components/product-top-bar/product-top
 	],
 	exports: [ProductSmallCardComponent, ProductInfoCardComponent],
 })
-export class ProductModule {}
+export class ProductModule {
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: ProductModule,
+			providers: [ProductService],
+		};
+	}
+}

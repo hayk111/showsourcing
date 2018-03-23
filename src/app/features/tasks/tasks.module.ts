@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DialogModule } from '~dialog/dialog.module';
-import { EntityPageModule } from '~shared/entity-page';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
 import { SelectModule } from '~shared/select';
@@ -19,14 +18,15 @@ import { TasksPageComponent } from './containers/tasks-page/tasks-page.component
 import { routes } from './router';
 import { TaskService } from './services';
 import { TableModule } from '~app/shared/table';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
-		EntityPageModule, // TODO REMOVE UNUSED MODULES
-		EntityModule.forChild(), // TODO REMOVE UNUSED MODULES
+		EntityModule.forChild(),
+		EntityPagesModule,
 		UserModule, // TODO REMOVE UNUSED MODULES
 		UtilsModule, // TODO REMOVE UNUSED MODULES
 		LoadersModule, // TODO REMOVE UNUSED MODULES

@@ -1,0 +1,7 @@
+<ng-container *ngIf="notifications$ | async">
+	<ng-container *ngFor="let notif of notifications">
+		<notification-app [type]="notif.type" [title]="notif.title" [message]="notif.message">
+
+		</notification-app>
+	</ng-container>
+</ng-container>

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName, Filter } from '~shared/filters';
-import { EntityRepresentation } from '~entity';
+import { FilterGroupName, Filter } from '~shared/filters/models';
+import { EntityRepresentation } from '~entity/models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

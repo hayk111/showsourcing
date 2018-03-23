@@ -6,7 +6,6 @@ import { ImageService } from '../services';
 import { AppImage } from '../models';
 import { SelectionService } from '~store/services/selection.service';
 import { imageActionTypes, imageActions } from './images.action';
-import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { of } from 'rxjs/observable/of';
 import { Swap } from '~app/shared/entity/utils';
 

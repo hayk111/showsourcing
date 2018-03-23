@@ -2,7 +2,7 @@ import { Entity, entityInitialState, EntityState } from 'app/shared/entity/model
 import { BasicActionTypes } from 'app/shared/entity/store/index';
 import { TypedAction } from '~utils';
 
-import { addEntities, copyById, removeEntities, replaceEntity, replaceEntities } from '~entity/utils';
+import { addEntities, removeEntities, replaceEntity, replaceEntities, updateOne } from '~entity/utils';
 
 // hassan, , stop moving this file outside of Entity module, plz, I made this module to regroup utils/generic for the store / entity.
 export function basicReducerFactory<G extends Entity>(
@@ -33,7 +33,7 @@ export function basicReducerFactory<G extends Entity>(
 			case actionType.PATCH:
 				const propName = action.payload.propName;
 				const value = action.payload.value;
-				return copyById(state, id, { [propName]: value });
+				return updateOne(state, id, { [propName]: value });
 
 			// replace one
 			case actionType.REPLACE:

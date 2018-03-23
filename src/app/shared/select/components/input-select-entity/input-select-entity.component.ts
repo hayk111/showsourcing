@@ -3,14 +3,14 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
-import { EntityRepresentation, Entity, EntityTarget } from '~entity';
-import { selectEntityArray } from '~entity';
+import { EntityRepresentation, Entity, EntityTarget } from '~entity/models';
+import { selectEntityArray } from '~entity/store/entity.selector';
 
 @Component({
 	selector: 'input-select-entity-app',
 	templateUrl: './input-select-entity.component.html',
 	styleUrls: ['./input-select-entity.component.scss'],
-	providers: [ makeAccessorProvider(InputSelectEntityComponent) ]
+	providers: [makeAccessorProvider(InputSelectEntityComponent)],
 })
 export class InputSelectEntityComponent extends AbstractInput implements OnInit {
 	@Input() entityRep: EntityRepresentation;
@@ -32,5 +32,4 @@ export class InputSelectEntityComponent extends AbstractInput implements OnInit 
 		super.onChange(v);
 		this.update.emit(v);
 	}
-
 }

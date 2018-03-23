@@ -5,7 +5,6 @@ import { supplierActionTypes as ActionType, supplierActions } from './supplier.a
 import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
-import { AppErrorActions } from '~store/action/misc/app-errors.action';
 import { Swap } from '~app/shared/entity/utils';
 import { imageActions, FileActions } from '~app/features/file';
 import { CommentActions } from '~app/features/comment';
@@ -14,6 +13,7 @@ import { TargetAction } from '~app/app-root/store/action/target/target.action';
 import { Observable } from 'rxjs/Observable';
 import { concat } from 'rxjs/observable/concat';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { appErrorActions } from '~app/shared/error-handler';
 
 @Injectable()
 export class SuppliersEffects {
@@ -55,7 +55,7 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						map((r: any) => supplierActions.replace([new Swap(supplier, r)]), catchError(e => of(AppErrorActions.add(e))))
+						map((r: any) => supplierActions.replace([new Swap(supplier, r)]), catchError(e => of(appErrorActions.add(e))))
 					)
 			)
 		);

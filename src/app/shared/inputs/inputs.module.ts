@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IconsModule } from '~app/shared/icons';
 import { InputCheckboxComponent } from '~app/shared/inputs/components/input-checkbox/input-checkbox.component';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~entity/entity.module';
 
 import { UtilsModule } from '../utils/utils.module';
 import { InputCheckboxListComponent } from './components/input-checkbox-list/input-checkbox-list.component';

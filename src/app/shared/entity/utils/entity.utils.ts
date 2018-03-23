@@ -80,7 +80,7 @@ export const entityStateToArray = (entityState: EntityState<any>): Array<any> =>
 	return returned;
 };
 
-export function copyById(state, id, additionalProps?: any) {
+export function updateOne(state, id, additionalProps?: any) {
 	return {
 		...state,
 		byId: {

@@ -7,8 +7,22 @@ import { EntityArrayPipe } from './pipes/entity-array.pipe';
 
 @NgModule({
 	imports: [CommonModule],
-	declarations: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe, EntityListPipe],
-	exports: [EntityPipe, EntityNamePipe, EntityExistPipe, EntityArrayPipe, EntityListPipe],
+	declarations: [
+		// pipes
+		EntityPipe,
+		EntityNamePipe,
+		EntityExistPipe,
+		EntityArrayPipe,
+		EntityListPipe,
+	],
+	exports: [
+		// pipes
+		EntityPipe,
+		EntityNamePipe,
+		EntityExistPipe,
+		EntityArrayPipe,
+		EntityListPipe,
+	],
 	providers: [EntityService, UrlBuilder],
 })
 export class EntityModule {

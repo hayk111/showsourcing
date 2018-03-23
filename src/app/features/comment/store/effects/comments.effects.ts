@@ -5,7 +5,7 @@ import { map, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators'
 import { SelectionService } from '~store/services/selection.service';
 import { ActionType, CommentActions } from '~comment/store/actions';
 import { of } from 'rxjs/observable/of';
-import { AppErrorActions } from '~store/action/misc/app-errors.action';
+import { appErrorActions } from '~shared/error-handler/app-errors.action';
 import { Swap } from '~app/shared/entity';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class CommentEffects {
 			this.srv.create(p).pipe(
 				// replace currently pending comment, we need to replace so it's not pending anymore
 				map((r: any) => CommentActions.replace([new Swap(p.comment, r)])),
-				catchError(e => of(AppErrorActions.add(e)))
+				catchError(e => of(appErrorActions.add(e)))
 			)
 		)
 	);

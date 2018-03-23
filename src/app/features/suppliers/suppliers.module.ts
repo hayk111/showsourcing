@@ -4,8 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DialogModule } from '~shared/dialog';
-import { EntityMainCardModule } from '~shared/entity-main-card';
-import { EntityPageModule } from '~shared/entity-page';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -24,6 +22,7 @@ import { TableModule } from '~app/shared/table';
 import { RatingModule } from '~app/shared/rating';
 import { FileModule } from '~app/features/file';
 import { CardModule } from '~app/shared/card';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [
@@ -32,17 +31,16 @@ import { CardModule } from '~app/shared/card';
 		FileModule, // file-card
 		CardModule,
 		IconsModule, // TODO to be removed and placed inside the component module using it
-		EntityModule.forChild(), // TODO to be removed and placed inside the component module using it
+		EntityModule.forChild(), // used
+		EntityPagesModule,
 		DialogModule, // TODO to be removed and placed inside the component module using it
 		ReactiveFormsModule, // TODO to be removed and placed inside the component module using it
 		InputsModule, // TODO to be removed and placed inside the component module using it
 		UserModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // TODO to be removed and placed inside the component module using it
-		EntityPageModule, // TODO to be removed and placed inside the component module using it
 		TableModule, // used by list view
 		TagModule, // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
-		EntityMainCardModule, // used to display the main card in details,
 		RatingModule, // used for hearth
 	],
 	declarations: [

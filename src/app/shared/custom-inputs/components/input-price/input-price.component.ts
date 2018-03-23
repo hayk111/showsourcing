@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ERM } from '~entity';
+import { ERM } from '~entity/models';
 import { deepCopy } from '~utils';
 
 import { AbstractInput, makeAccessorProvider } from '../../../inputs/abstract-input.class';
