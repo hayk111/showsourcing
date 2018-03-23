@@ -10,7 +10,7 @@
 				(update)="onCheck($event, row.id)"
 				[checked]="selection.get(row.id)"></input-checkbox-app>
 			<div class="iconPlaceHolder"></div>
-			<span class="name">{{ row.name }}</span>
+			<a class="name" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>
 		</div>
 	</ng-template>
 
