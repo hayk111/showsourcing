@@ -38,7 +38,6 @@ export class PreloaderService {
 
 	baseLoad() {
 		// static entities
-		// (no user actually needed for those but better to keep those here as well for consistency)
 		this.dispatch(countryActions.load());
 		this.dispatch(currencyActions.load());
 		this.dispatch(incoTermsActions.load());
@@ -52,7 +51,6 @@ export class PreloaderService {
 		// team entities
 		this.dispatch(categoryActions.load());
 		this.dispatch(customFieldsActions.load());
-
 		this.dispatch(supplierActions.load());
 		this.dispatch(eventActions.load());
 		this.dispatch(projectActions.load());

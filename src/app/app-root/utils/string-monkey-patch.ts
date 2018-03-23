@@ -2,6 +2,7 @@
 interface String {
 	capitalize: any;
 	pascalToKebabCase: any;
+	splitPascalCase: any;
 }
 
 // 'hello', to 'Hello'
@@ -16,4 +17,8 @@ String.prototype.pascalToKebabCase = function() {
 	return this.split(/(?=[A-Z])/)
 		.join('-')
 		.toLowerCase();
+};
+// insert a space before all caps
+String.prototype.splitPascalCase = function() {
+	return this.replace(/([A-Z])/g, ' $1').substring(1);
 };

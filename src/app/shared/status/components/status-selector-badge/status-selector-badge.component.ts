@@ -17,7 +17,7 @@ export class StatusSelectorBadgeComponent implements OnInit {
 	ngOnInit() {}
 
 	displayPanel() {
-		this.panelVisible = true;
+		if (this.choices.length > 0) this.panelVisible = true;
 	}
 
 	closePanel() {

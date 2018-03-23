@@ -30,6 +30,7 @@ import {
 	productStatusActionTypes,
 	taskTypeActions,
 	taskTypeActionTypes,
+	supplierStatusActionTypes,
 } from '../action/entities';
 import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
 import { currentTargetReducer } from './target/target.reducer';
@@ -53,7 +54,7 @@ const entities = combineReducers({
 	productStatus: basicReducerFactory(productStatusActionTypes),
 	tasksStatus: basicReducerFactory(taskStatusActionTypes),
 	taskTypes: basicReducerFactory(taskTypeActionTypes),
-	supplierStatus: basicReducerFactory(supplierActionTypes),
+	supplierStatus: basicReducerFactory(supplierStatusActionTypes),
 	projects: projectsReducer,
 	tasks: taskReducer,
 	customFields: basicReducerFactory(customFieldsActionTypes),

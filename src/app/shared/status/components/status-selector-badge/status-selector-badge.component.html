@@ -1,6 +1,8 @@
-<div class="ctnr flexBetween" [ngClass]="'badge-' + status" *ngIf="status">
+
+<!-- when there are no choices we just display a badge, if there are then we can select a status from those choices -->
+<div class="ctnr flexBetween {{ choices.length > 0 ? 'pointer' : '' }}" [ngClass]="'badge-' + status" *ngIf="status"  (click)="displayPanel()">
 		<span class="name">{{ status | entityName: 'productStatus' | async }}</span>
-		<icon-app  *ngIf="choices.length > 0" name="angle-down" color="white" [fa]="true" (click)="displayPanel()"></icon-app>
+		<icon-app  *ngIf="choices.length > 0" name="angle-down" color="white" [fa]="true"></icon-app>
 </div>
 <!-- panel displayed on click to pick the status -->
 <ng-container *ngIf="choices.length > 0">
