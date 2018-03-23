@@ -22,6 +22,7 @@ import { NewSupplierDlgComponent, SupplierStatusIconComponent } from './componen
 import { SupplierDetailsComponent } from './containers';
 import { routes } from './routes';
 import { SupplierService } from './services';
+import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 
 @NgModule({
 	imports: [
@@ -48,6 +49,7 @@ import { SupplierService } from './services';
 		NewSupplierDlgComponent,
 		SuppliersPageComponent,
 		SupplierListViewComponent,
+		SupplierMainComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [SupplierService],

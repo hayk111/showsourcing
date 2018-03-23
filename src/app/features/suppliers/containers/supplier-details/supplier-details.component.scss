@@ -1,3 +1,14 @@
+:host {
+	display: block;
+}
+.ctnr {
+	width: 1374px;
+	margin: auto;
+}
 card-app {
 	width: 450px;
+}
+
+.left > * {
+	width: 924px;
 }

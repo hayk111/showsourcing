@@ -10,6 +10,7 @@ import { WorkflowKanbanComponent, WorkflowPageComponent } from './containers';
 import { routes } from './routes';
 import { KanbanService } from './services/kanban.service';
 import { EntityModule } from '~app/shared/entity';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [
@@ -17,6 +18,7 @@ import { EntityModule } from '~app/shared/entity';
 		RouterModule.forChild(routes),
 		ProductModule,
 		EntityModule.forChild(),
+		EntityPagesModule,
 		CardModule,
 		IconsModule,
 	],

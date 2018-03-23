@@ -1,4 +1,15 @@
-<entity-main-card-app>  </entity-main-card-app>
-<card-app>
-	<files-card-app></files-card-app>
-</card-app>
+<ng-container *ngIf="supplier$ | async as supplier">
+	<div class="flex">
+		<div class="left ctnr">
+			<supplier-main-app
+				[supplier]="supplier"
+				[productsCount]="productsCount$ | async"></supplier-main-app>
+		</div>
+		<div class="right">
+			<card-app>
+				<files-card-app></files-card-app>
+			</card-app>
+		</div>
+	</div>
+</ng-container>
+

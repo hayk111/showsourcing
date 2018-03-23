@@ -7,7 +7,7 @@
     "start": "ng serve --proxy-config proxy.config.json --hmr -e=hmr",
     "start:hmr": "ng serve --proxy-config proxy.config.json --hmr -e=hmr",
     "start:fr": "ng serve --aot --i18nFile=src/locale/messages.fr.xlf --i18nFormat=xlf --locale=fr --proxy-config proxy.config.json",
-    "build": "ng build --aot --prod --stats-json",
+    "build": "ng build --aot --prod --stats-json --build-optimizer",
     "analyze": "ng build --aot --stats-json && webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
     "lint": "ng lint",
@@ -43,7 +43,8 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "0.0.40",
+    "@angular-devkit/core": "^0.4.2",
+    "@angular-devkit/schematics": "^0.4.2",
     "@angular/cli": "^1.7.3",
     "@angular/compiler-cli": "^5.2.4",
     "@angularclass/hmr": "^2.1.3",
