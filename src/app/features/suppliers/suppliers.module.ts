@@ -28,6 +28,7 @@ import { SupplierMainHeaderComponent } from './components/supplier-main/supplier
 import { SupplierMainInfoComponent } from './components/supplier-main/supplier-main-info/supplier-main-info.component';
 import { SupplierMainBottomComponent } from './components/supplier-main/supplier-main-bottom/supplier-main-bottom.component';
 import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
+import { StatusModule } from '~app/shared/status/status.module';
 
 @NgModule({
 	imports: [
@@ -35,6 +36,7 @@ import { SupplierLatestProductsComponent } from './components/supplier-latest-pr
 		RouterModule.forChild(routes),
 		FileModule, // file-card
 		CardModule,
+		StatusModule,
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		EntityModule.forChild(), // used
 		EntityPagesModule,

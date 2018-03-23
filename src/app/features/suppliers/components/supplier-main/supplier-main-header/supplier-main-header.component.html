@@ -12,6 +12,12 @@
 
 </div>
 <div>
+	<status-selector-badge-app
+		class="badge"
+		(update)="updateStatus.emit($event)"
+		[status]="supplier?.advancedInfo?.status"
+		[choices]="'productStatus' | entityList | async">
+	</status-selector-badge-app>
 	<rating-heart-app
 		[rating]="supplier?.rating"
 		(favorited)="favorited.emit(supplier.id)"
