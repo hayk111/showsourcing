@@ -1,6 +1,9 @@
 :host {
 	display: block;
 }
+.top {
+	margin: var(--spacing-xl);
+}
 .ctnr {
 	width: 1374px;
 	margin: auto;

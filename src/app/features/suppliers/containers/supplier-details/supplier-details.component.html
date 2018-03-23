@@ -1,4 +1,9 @@
 <ng-container *ngIf="supplier$ | async as supplier">
+
+	<div class="top flexBetween">
+		<bread-crumb-app [title]="'Supplier'" [subtitles]="['My suppliers', supplier.name]"></bread-crumb-app>
+	</div>
+
 	<div class="flex">
 		<div class="left ctnr">
 			<supplier-main-app
