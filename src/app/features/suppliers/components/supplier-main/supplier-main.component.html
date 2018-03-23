@@ -1,31 +1,12 @@
 <card-app>
-	<div class="header">
-		{{ supplier?.name }}
-	</div>
-	<div class="summary flex">
-		<div class="block">
-			<span class="title">PRODUCTS</span>
-			<span class="content">{{ productsCount }}</span>
-		</div>
-		<div class="vr"></div>
-		<div class="block">
-			<span class="title">CONTACTS</span>
-			<span class="content">-</span>
-		</div>
-		<div class="vr"></div>
-		<div class="block">
-			<span class="title">TASKS</span>
-			<span class="content">
-				<div class="icon-edit"></div>
-				{{ supplier?.taskIds?.length }}
-			</span>
-		</div>
-		<div class="vr"></div>
-		<div class="block">
-			<span class="title">COUNTRY</span>
-			<span class="content">{{ supplier.countryCode | entity: 'countries': 'fullName' | async }}</span>
-		</div>
-	</div>
-	<div class="infos"></div>
-	<div class="bottom"></div>
+
+	<supplier-main-header-app
+		class="header"
+		[supplier]="supplier"
+		(favorited)="favorited.emit($event)"
+		(unfavorited)="unfavorited.emit($event)"></supplier-main-header-app>
+
+	<supplier-summary-app [supplier]="supplier" [productsCount]="productsCount"></supplier-summary-app>
+	<supplier-main-info-app [supplier]="supplier"></supplier-main-info-app>
+	<supplier-main-bottom-app [supplier]="supplier"></supplier-main-bottom-app>
 </card-app>

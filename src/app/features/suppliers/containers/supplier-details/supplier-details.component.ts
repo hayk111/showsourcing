@@ -28,6 +28,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
 			const id = params['id'];
 			this.store.dispatch(supplierActions.select(id));
+			this.store.dispatch(supplierActions.loadProductCount());
 			this.supplier$ = this.store.select(selectSupplierSelected);
 			this.productsCount$ = this.store.select(selectSupplierProductsCountForId(id));
 		});

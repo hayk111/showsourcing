@@ -1,0 +1,19 @@
+<div class="flex">
+	<div class="cercle"></div>
+	<div class="flexColumn info">
+		<h2>{{ supplier?.name }}</h2>
+		<div>
+			Supplier
+			<ng-container *ngIf="supplier.countryCode">
+				- {{ supplier.countryCode | entity: 'countries': 'fullName' | async }}
+			</ng-container>
+		</div>
+	</div>
+
+</div>
+<div>
+	<rating-heart-app
+		[rating]="row?.rating"
+		(favorited)="favorited.emit(supplier.id)"
+		(unfavorited)="unfavorited.emit(supplier.id)"></rating-heart-app>
+</div>

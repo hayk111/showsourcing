@@ -1,0 +1,19 @@
+:host {
+	background: var(--color-bg-third);
+	padding: var(--spacing-l);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+h2 {
+	margin: 0;
+}
+
+.cercle {
+	width: 51px;
+	height: 51px;
+	background: var(--color-primary-light);
+}
+.info {
+	margin-left: var(--spacing-default);
+}

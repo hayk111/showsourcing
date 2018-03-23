@@ -18,6 +18,6 @@ export const selectSupplierProductsCountForId = id =>
 		if (!state.productsCount) {
 			return 0;
 		} else {
-			return state.productsCount[state.selected];
+			return state.productsCount[state.selected] || 0;
 		}
 	});

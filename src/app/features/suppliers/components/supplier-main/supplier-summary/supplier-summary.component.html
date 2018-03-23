@@ -1,0 +1,24 @@
+<div class="summary flex">
+		<div class="block">
+			<span class="title">PRODUCTS</span>
+			<span class="content">{{ productsCount }}</span>
+		</div>
+		<div class="vr"></div>
+		<div class="block">
+			<span class="title">CONTACTS</span>
+			<span class="content">-</span>
+		</div>
+		<div class="vr"></div>
+		<div class="block">
+			<span class="title">TASKS</span>
+			<span class="content">
+				<div class="icon-edit"></div>
+				{{ supplier?.taskIds?.length }}
+			</span>
+		</div>
+		<div class="vr"></div>
+		<div class="block">
+			<span class="title">COUNTRY</span>
+			<span class="content">{{ supplier.countryCode | entity: 'countries': 'fullName' | async }}</span>
+		</div>
+	</div>

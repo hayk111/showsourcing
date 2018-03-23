@@ -23,6 +23,11 @@ import { SupplierDetailsComponent } from './containers';
 import { routes } from './routes';
 import { SupplierService } from './services';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
+import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
+import { SupplierMainHeaderComponent } from './components/supplier-main/supplier-main-header/supplier-main-header.component';
+import { SupplierMainInfoComponent } from './components/supplier-main/supplier-main-info/supplier-main-info.component';
+import { SupplierMainBottomComponent } from './components/supplier-main/supplier-main-bottom/supplier-main-bottom.component';
+import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
 
 @NgModule({
 	imports: [
@@ -50,6 +55,11 @@ import { SupplierMainComponent } from './components/supplier-main/supplier-main.
 		SuppliersPageComponent,
 		SupplierListViewComponent,
 		SupplierMainComponent,
+		SupplierSummaryComponent,
+		SupplierMainHeaderComponent,
+		SupplierMainInfoComponent,
+		SupplierMainBottomComponent,
+		SupplierLatestProductsComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [SupplierService],

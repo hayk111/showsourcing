@@ -32,6 +32,12 @@ import * as faChartBar from '@fortawesome/fontawesome-free-solid/faChartBar';
 import * as faFilter from '@fortawesome/fontawesome-free-solid/faFilter';
 import * as faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import * as faMinus from '@fortawesome/fontawesome-free-solid/faMinus';
+import * as faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt';
+import * as faQuestion from '@fortawesome/fontawesome-free-solid/faQuestion';
+import * as faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
+import * as faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+import * as faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 
 // TODO observa mutation should not be needed
@@ -72,6 +78,11 @@ export const faIcons = [
 	faFilter,
 	faPlus,
 	faMinus,
+	faMapMarkerAlt,
+	faQuestion,
+	faEnvelope,
+	faPhone,
+	faGlobe,
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

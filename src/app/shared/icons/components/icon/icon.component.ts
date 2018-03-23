@@ -13,7 +13,7 @@ export class IconComponent implements OnInit {
 	@Input() name: string;
 	@Input() sizePx: number;
 	@Input() size: 'xs' | 's' | 'default' | 'l' | 'xl' | 'xxl' = 'default';
-	@Input() color = 'icon';
+	@Input() color = 'inherit';
 	// some icons are displayed with a circular background
 	@Input() circleSize: number;
 	// color is done via css4 var
