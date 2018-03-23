@@ -1,9 +1,8 @@
 import { Category, Counters, Tag } from '~store';
 import { uuid } from '~utils';
 
-
 export class Supplier {
-	advancedInfos: {favorite: boolean, status: string, supplierType: string };
+	advancedInfos: { favorite: boolean; status: string; supplierType: string };
 	categories: Array<Category>;
 	counters: Counters;
 	countryCode: string;
@@ -16,6 +15,10 @@ export class Supplier {
 	rating: number;
 	tags: Array<Tag>;
 	teamId: string;
+	email: string;
+	website: string;
+	phone: string;
+	description: string;
 	pending = true;
 
 	constructor(name: string, userId: string) {
@@ -25,4 +28,3 @@ export class Supplier {
 		this.id = uuid();
 	}
 }
-

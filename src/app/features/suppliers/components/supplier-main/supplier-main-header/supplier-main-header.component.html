@@ -13,7 +13,7 @@
 </div>
 <div>
 	<rating-heart-app
-		[rating]="row?.rating"
+		[rating]="supplier?.rating"
 		(favorited)="favorited.emit(supplier.id)"
 		(unfavorited)="unfavorited.emit(supplier.id)"></rating-heart-app>
 </div>
