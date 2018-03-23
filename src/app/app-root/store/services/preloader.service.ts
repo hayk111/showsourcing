@@ -14,6 +14,10 @@ import {
 	teamMembersActions,
 	incoTermsActions,
 	harbourActions,
+	taskTypeActions,
+	taskStatusActions,
+	supplierStatusActions,
+	productStatusActions,
 } from '~store/action';
 import { supplierActions } from '~app/features/suppliers/store//supplier.action';
 
@@ -39,6 +43,10 @@ export class PreloaderService {
 		this.dispatch(currencyActions.load());
 		this.dispatch(incoTermsActions.load());
 		this.dispatch(harbourActions.load());
+		this.dispatch(taskTypeActions.load());
+		this.dispatch(taskStatusActions.load());
+		this.dispatch(supplierStatusActions.load());
+		this.dispatch(productStatusActions.load());
 		// user entities
 		this.dispatch(teamActions.load());
 		// team entities

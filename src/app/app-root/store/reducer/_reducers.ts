@@ -9,7 +9,7 @@ import { dialogReducer } from '~dialog';
 import { imageReducer } from '~features/file/store';
 import { productReducer } from '~products/store';
 import { projectsReducer } from '~projects';
-import { supplierReducer } from '~suppliers';
+import { supplierReducer, supplierActionTypes } from '~suppliers';
 import { taskReducer } from '~tasks';
 import { userReducer } from '~user';
 
@@ -26,11 +26,12 @@ import {
 	teamMembersActionTypes,
 	incoTermsActionTypes,
 	harbourActionTypes,
+	taskStatusActionTypes,
+	productStatusActionTypes,
+	taskTypeActions,
+	taskTypeActionTypes,
 } from '../action/entities';
 import { basicReducerFactory } from '../../../shared/entity/store/basic-entity.reducer.factory';
-import { productStatusReducer } from './entities/product-status.reducer';
-import { tasksStatusReducer } from './entities/task-status.reducer';
-import { tasksTypeReducer } from './entities/task-type.reducer';
 import { currentTargetReducer } from './target/target.reducer';
 import { fileReducer } from '~app/features/file';
 import { eventReducer } from '~app/features/events';
@@ -48,11 +49,13 @@ const entities = combineReducers({
 	tags: basicReducerFactory(tagActionTypes),
 	suppliers: supplierReducer,
 	products: productReducer,
-	productStatus: productStatusReducer,
+
+	productStatus: basicReducerFactory(productStatusActionTypes),
+	tasksStatus: basicReducerFactory(taskStatusActionTypes),
+	taskTypes: basicReducerFactory(taskTypeActionTypes),
+	supplierStatus: basicReducerFactory(supplierActionTypes),
 	projects: projectsReducer,
 	tasks: taskReducer,
-	tasksStatus: tasksStatusReducer,
-	taskTypes: tasksTypeReducer,
 	customFields: basicReducerFactory(customFieldsActionTypes),
 	files: fileReducer,
 	images: imageReducer,

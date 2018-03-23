@@ -20,6 +20,10 @@ import { HarbourEffects } from '~app/app-root/store/effects/entities/harbour.eff
 import { IncoTermsEffects } from '~app/app-root/store/effects/entities/inco-terms.effects';
 import { AppErrorsEffects } from '~app/shared/error-handler';
 import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
+import { TaskStatusEffects } from '~app/app-root/store/effects/entities/task-status.effects';
+import { ProductStatusEffects } from '~app/app-root/store/effects/entities/product-status.effects';
+import { SupplierStatusEffects } from '~app/app-root/store/effects/entities/supplier-status.effects';
+import { TaskTypeEffects } from '~app/app-root/store/effects/entities/task-type.effects';
 
 export const effects = [
 	// entities
@@ -40,6 +44,11 @@ export const effects = [
 	FilesEffects,
 	ImageEffects,
 	CommentEffects,
+	// constants
+	TaskStatusEffects,
+	ProductStatusEffects,
+	SupplierStatusEffects,
+	TaskTypeEffects,
 	// misc
 	AppErrorsEffects,
 	AuthenticationEffects,

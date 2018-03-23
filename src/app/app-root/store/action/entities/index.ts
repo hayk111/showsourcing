@@ -43,3 +43,19 @@ export const taskActions = new BasicActions(taskActionTypes);
 // team
 export const teamActionTypes = makeBasicActionTypes(ERM.teams);
 export const teamActions = new BasicActions(teamActionTypes);
+
+// product status
+export const productStatusActionTypes = makeBasicActionTypes(ERM.productStatus);
+export const productStatusActions = new BasicActions(productStatusActionTypes);
+
+// task status
+export const taskStatusActionTypes = makeBasicActionTypes(ERM.taskStatuses);
+export const taskStatusActions = new BasicActions(taskActionTypes);
+
+// supplier status
+export const supplierStatusActionTypes = makeBasicActionTypes(ERM.supplierStatus);
+export const supplierStatusActions = new BasicActions(supplierStatusActionTypes);
+
+// task status
+export const taskTypeActionTypes = makeBasicActionTypes(ERM.taskTypes);
+export const taskTypeActions = new BasicActions(taskTypeActionTypes);

@@ -58,9 +58,9 @@ const entityRepresentationMap = {
 	teams: new EntityRepresentation('teams'),
 
 	taskTypes: new EntityRepresentation('taskTypes'),
-	taskStatuses: new EntityRepresentation('tasksStatus'),
-
-	productStatus: new EntityRepresentation('productStatus', 'status', 'status'),
+	taskStatuses: new EntityRepresentation('tasksStatus', 'taskStatus', 'status'),
+	supplierStatus: new EntityRepresentation('supplierStatus', 'supplierStatus', 'status'),
+	productStatus: new EntityRepresentation('productStatus', 'productStatus', 'status'),
 	currencies: new EntityRepresentation('currencies', 'currency'),
 	countries: new EntityRepresentation('countries', 'country'),
 	incoTerms: new EntityRepresentation('incoTerms'),
