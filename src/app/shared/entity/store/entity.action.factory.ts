@@ -14,6 +14,9 @@ export interface BasicActionTypes {
 	LOAD_MORE: string;
 	// for loading one
 	LOAD_BY_ID: string;
+	// when we load entities relative to the currently focussed/selected entity,
+	// example: api/team/:id/product/:id/task when we are on product-details page
+	LOAD_FOR_SELECTION: string;
 	// adding entities
 	ADD: string;
 	// setting entities (will forget previous ones).
@@ -38,6 +41,7 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
 		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
+		LOAD_FOR_SELECTION: `[${repr.entityName.capitalize()}] Loading for current selection`,
 		SET: `[${repr.entityName.capitalize()} Setting...]`,
 		ADD: `[${repr.entityName.capitalize()}] Adding...`,
 		CREATE: `[${repr.entityName.capitalize()}] Creating...`,
@@ -79,6 +83,12 @@ export class BasicActions {
 		return {
 			type: this.actionType.LOAD_BY_ID,
 			payload: id,
+		};
+	}
+
+	loadForSelection() {
+		return {
+			type: this.actionType.LOAD_FOR_SELECTION,
 		};
 	}
 

@@ -1,10 +1,4 @@
-import {
-	HttpClient,
-	HttpEvent,
-	HttpEventType,
-	HttpRequest,
-	HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +10,6 @@ import { Log } from '~utils';
 import { AppFile } from '../models/app-file.model';
 import { AppImage } from '../models/app-image.model';
 import { merge } from 'rxjs/observable/merge';
-import { FileActions } from '~app/features/file';
 import { mergeMap } from 'rxjs/operator/mergeMap';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Swap } from '~app/shared/entity/utils';
@@ -137,9 +130,7 @@ export class FileService {
 		const targetName = target.entityRepr.urlName;
 		const targetId = target.entityId;
 		// remove files emitting when all deleted
-		return combineLatest(
-			ids.map(id => this.http.delete(`api/${targetName}/${targetId}/${type}/${id}`))
-		);
+		return combineLatest(ids.map(id => this.http.delete(`api/${targetName}/${targetId}/${type}/${id}`)));
 	}
 
 	download(img: AppFile) {

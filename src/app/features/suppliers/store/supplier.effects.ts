@@ -6,14 +6,15 @@ import { SupplierService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { Swap } from '~app/shared/entity/utils';
-import { imageActions, FileActions } from '~app/features/file';
-import { CommentActions } from '~app/features/comment';
+import { imageActions, fileActions } from '~app/features/file';
+import { commentActions } from '~app/features/comment';
 import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
 import { Observable } from 'rxjs/Observable';
 import { concat } from 'rxjs/observable/concat';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { appErrorActions } from '~app/shared/error-handler';
+import { taskActions } from '~app/app-root/store/action';
 
 @Injectable()
 export class SuppliersEffects {
@@ -26,9 +27,10 @@ export class SuppliersEffects {
 			map(id => ({ entityId: id, entityRepr: ERM.suppliers })),
 			mergeMap(target => [
 				TargetAction.select(target),
-				CommentActions.load(),
-				FileActions.load(),
-				imageActions.load(),
+				commentActions.loadForSelection(),
+				fileActions.loadForSelection(),
+				imageActions.loadForSelection(),
+				taskActions.loadForSelection(),
 			])
 		);
 

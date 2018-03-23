@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { AppComment } from '~comment/models';
-import { CommentActions } from '~comment/store/actions';
+import { commentActions } from '~comment/store/actions';
 import { EntityState } from '~entity';
 import { entityStateToArray } from '~entity/utils';
 import { UserService } from '~user';
@@ -35,6 +35,6 @@ export class CommentCtnrComponent implements OnInit {
 	}
 
 	onComment(txt: string) {
-		this.store.dispatch(CommentActions.create(new AppComment(txt, this.userSrv.userId)));
+		this.store.dispatch(commentActions.create(new AppComment(txt, this.userSrv.userId)));
 	}
 }

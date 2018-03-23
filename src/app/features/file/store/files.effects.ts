@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FileService } from '../services';
 import { SelectionService } from '~store/services/selection.service';
-import { FileActionType, FileActions } from './file.action';
+import { fileActionType, fileActions } from './file.action';
 import { mergeMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators/catchError';
 import { of } from 'rxjs/observable/of';
@@ -16,18 +16,18 @@ import { appErrorActions } from '~app/shared/error-handler';
 @Injectable()
 export class FilesEffects {
 	@Effect()
-	load$ = this.actions$.ofType<any>(FileActionType.LOAD).pipe(
+	load$ = this.actions$.ofType<any>(fileActionType.LOAD_FOR_SELECTION).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap(target => this.srv.load(target)),
-		map((r: any) => FileActions.set(r))
+		map((r: any) => fileActions.set(r))
 	);
 
 	// 1. Add file with ref
 	// 2. post the file
 	// 3. When the posted file is done, replace here will be called
 	@Effect()
-	add$ = this.actions$.ofType<any>(FileActionType.ADD).pipe(
+	add$ = this.actions$.ofType<any>(fileActionType.ADD).pipe(
 		map(action => action.payload),
 		withLatestFrom(this.selectionSrv.getSelection(), (files: Array<AppFile>, target) => ({
 			files,
@@ -43,7 +43,7 @@ export class FilesEffects {
 						message: 'Your file was uploaded with success',
 					}),
 					// we also replace the current pending files
-					FileActions.replace(r),
+					fileActions.replace(r),
 				]),
 				catchError(e => of(appErrorActions.add(e)))
 			)
@@ -51,7 +51,7 @@ export class FilesEffects {
 	);
 
 	@Effect({ dispatch: false })
-	removeFile$ = this.actions$.ofType<any>(FileActionType.DELETE).pipe(
+	removeFile$ = this.actions$.ofType<any>(fileActionType.DELETE).pipe(
 		map(action => action.payload),
 		withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({
 			ids,
@@ -62,7 +62,7 @@ export class FilesEffects {
 
 	@Effect({ dispatch: false })
 	download$ = this.actions$
-		.ofType<any>(FileActionType.DOWNLOAD)
+		.ofType<any>(fileActionType.DOWNLOAD)
 		.pipe(map(action => action.payload), tap(img => this.srv.download(img)));
 
 	constructor(private actions$: Actions, private srv: FileService, private selectionSrv: SelectionService) {}

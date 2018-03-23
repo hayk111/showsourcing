@@ -15,7 +15,7 @@ export class ImageEffects {
 
 	@Effect()
 	load$ = this.actions$
-		.ofType<any>(imageActionTypes.LOAD)
+		.ofType<any>(imageActionTypes.LOAD_FOR_SELECTION)
 		.pipe(
 			switchMap(_ => this.selectionSrv.getSelection()),
 			switchMap((target: EntityTarget) => this.srv.load(target)),

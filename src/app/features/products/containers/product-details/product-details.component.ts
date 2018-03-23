@@ -3,21 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { Project, selectProjects, selectProjectsProductsCount } from '~app/features/projects';
+import { UserService } from '~app/features/user';
+import { DialogActions, DialogName } from '~app/shared/dialog';
 import { AppComment } from '~comment';
-import { EntityTarget, ERM, EntityState } from '~entity';
-import { AppFile, selectFilesAsArray, FileActions } from '~features/file';
+import { EntityTarget, ERM } from '~entity';
+import { AppFile } from '~features/file';
 import { Product } from '~products/models';
 import { productActions } from '~products/store';
 import { AutoUnsub } from '~utils';
-import { UserService } from '~app/features/user';
-import { DialogName, DialogActions } from '~app/shared/dialog';
-import {
-	selectProjectsProductsCount,
-	selectProjects,
-	Project,
-	selectProjectsState,
-	projectActions,
-} from '~app/features/projects';
 
 import { selectProductById } from './../../store/product.selector';
 

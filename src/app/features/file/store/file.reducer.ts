@@ -1,4 +1,4 @@
-import { FileActionType } from './file.action';
+import { fileActionType } from './file.action';
 import { basicReducerFactory } from '~store';
 
-export const fileReducer = basicReducerFactory(FileActionType);
+export const fileReducer = basicReducerFactory(fileActionType);

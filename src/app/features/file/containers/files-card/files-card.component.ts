@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { selectFilesAsArray, FileActions } from '~app/features/file/store';
+import { selectFilesAsArray, fileActions } from '~app/features/file/store';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
@@ -22,10 +22,10 @@ export class FilesCardComponent implements OnInit {
 
 	onFileAdded(files: Array<File>) {
 		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
-		this.store.dispatch(FileActions.add(appFiles));
+		this.store.dispatch(fileActions.add(appFiles));
 	}
 
 	onFileRemoved(file: AppFile) {
-		this.store.dispatch(FileActions.delete([file.id]));
+		this.store.dispatch(fileActions.delete([file.id]));
 	}
 }

@@ -6,7 +6,7 @@ import { storeLogger } from 'ngrx-store-logger';
 import { authDlgReducer, authenticationReducer } from '~auth';
 import { commentReducer } from '~comment';
 import { dialogReducer } from '~dialog';
-import { FileActionType, imageReducer } from '~features/file/store';
+import { imageReducer } from '~features/file/store';
 import { productReducer } from '~products/store';
 import { projectsReducer } from '~projects';
 import { supplierReducer } from '~suppliers';

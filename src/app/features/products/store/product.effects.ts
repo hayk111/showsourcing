@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap, mergeMap, distinctUntilChanged } from 'rxjs/operators';
-import { AppFile, FileActions } from '~features/file';
+import { AppFile, fileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Tag } from '~app/app-root/store';
 import { Project, projectActions } from '~app/features/projects';
 import { tagActions } from '~app/app-root/store/action';
-import { CommentActions } from '~app/features/comment';
+import { commentActions } from '~app/features/comment';
 import { imageActions } from '~app/features/file/store';
 import { ERM, EntityService } from '~app/shared/entity';
 import { TargetAction } from '~app/app-root/store/action/target/target.action';
@@ -30,9 +30,9 @@ export class ProductEffects {
 			map(id => ({ entityId: id, entityRepr: ERM.product })),
 			mergeMap(target => [
 				TargetAction.select(target),
-				CommentActions.load(),
-				FileActions.load(),
-				imageActions.load(),
+				commentActions.loadForSelection(),
+				fileActions.loadForSelection(),
+				imageActions.loadForSelection(),
 			])
 		);
 
@@ -106,7 +106,7 @@ export class ProductEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
-			map(path => FileActions.download(path))
+			map(path => fileActions.download(path))
 		);
 
 	@Effect({ dispatch: false })

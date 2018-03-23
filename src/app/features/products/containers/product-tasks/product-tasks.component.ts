@@ -9,7 +9,7 @@ import { Product } from '~products/models';
 import { DialogActions } from '~dialog';
 import { Task, selectTasks } from '~tasks';
 import { DialogName } from '~dialog';
-import { TaskActions } from '~app/features/tasks/store';
+import { taskActions } from '~app/features/tasks/store';
 
 @Component({
 	selector: 'app-product-tasks',
@@ -35,6 +35,6 @@ export class ProductTasksComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewTask(task: Task) {
-		this.store.dispatch(TaskActions.create(task));
+		this.store.dispatch(taskActions.create(task));
 	}
 }

@@ -2,5 +2,5 @@ import { BasicActionTypes, ERM, makeBasicActionTypes, BasicActions } from '~enti
 
 // keeping capitalization for backward compatibility
 // Generating Action types constants wrapped inside one object
-export const ActionType = makeBasicActionTypes(ERM.comments);
-export const CommentActions = new BasicActions(ActionType);
+export const actionType = makeBasicActionTypes(ERM.comments);
+export const commentActions = new BasicActions(actionType);
