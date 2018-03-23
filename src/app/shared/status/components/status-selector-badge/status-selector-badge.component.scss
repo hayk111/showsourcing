@@ -36,25 +36,3 @@
 	}
 }
 
-// TODO this should go into palette with contrasts
-.badge-Idea {
-  background-image: var(--color-Idea);
-  color: var(--color-txt-primary);
-}
-
-.badge-NeedReview {
-  background-image: var(--color-NeedReview);
-  color: var(--color-white);
-}
-.badge-Refused {
-  background-image: var(--color-Refused);
-  color: var(--color-white);
-}
-.badge-Complete {
-  background-image: var(--color-Complete);
-  color: var(--color-white);
-}
-.badge-UnderAssessment{
-  background-image: var(--color-UnderAssessment);
-  color: var(--color-white);
-}
