@@ -33,7 +33,7 @@ export function basicReducerFactory<G extends Entity>(
 			case actionType.PATCH:
 				const propName = action.payload.propName;
 				const value = action.payload.value;
-				return updateOne(state, id, { [propName]: value });
+				return updateOne(state, id, propName, value);
 
 			// replace one
 			case actionType.REPLACE:

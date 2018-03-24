@@ -1,5 +1,6 @@
 import { Entity, EntityState } from '~entity';
 import { Swap } from 'app/shared/entity/utils/index';
+import { deepCopy } from '~app/app-root/utils';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
@@ -24,7 +25,7 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 		...state,
 		pending: false,
 		byId,
-		ids,
+		ids
 	};
 }
 
@@ -46,7 +47,7 @@ export function replaceEntities(state, swaps: Array<Swap>) {
 	return {
 		...state,
 		ids,
-		byId,
+		byId
 	};
 }
 
@@ -65,14 +66,16 @@ export function replaceEntity(state: any, old: Entity, replacing: Entity) {
 		return {
 			...state,
 			ids,
-			byId,
+			byId
 		};
 	}
 	// if not found do nothing
 	return state;
 }
 
-export const entityStateToArray = (entityState: EntityState<any>): Array<any> => {
+export const entityStateToArray = (
+	entityState: EntityState<any>
+): Array<any> => {
 	const returned = [];
 	entityState.ids.forEach(id => {
 		returned.push(entityState.byId[id]);
@@ -80,16 +83,19 @@ export const entityStateToArray = (entityState: EntityState<any>): Array<any> =>
 	return returned;
 };
 
-export function updateOne(state, id, additionalProps?: any) {
+export function updateOne(state, id, propName: string, value: any) {
+	// deep copy because we might access nested properties
+	const target = deepCopy(state.byId[id]);
+
 	return {
 		...state,
 		byId: {
 			...state.byId,
 			[id]: {
 				...state.byId[id],
-				...additionalProps,
-			},
-		},
+				...additionalProps
+			}
+		}
 	};
 }
 
@@ -100,6 +106,6 @@ export function removeEntities(state, entityIds: Array<any>) {
 	return {
 		...state,
 		byId,
-		ids,
+		ids
 	};
 }

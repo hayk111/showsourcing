@@ -17,6 +17,5 @@
 		"~tasks/*": ["${workspaceRoot}/src/app/features/tasks/*"],
 		"~dialog/*": ["${workspaceRoot}/src/app/shared/dialog"],
 		"~entity/*": ["${workspaceRoot}/src/app/shared/entity"],
-
   },
 }

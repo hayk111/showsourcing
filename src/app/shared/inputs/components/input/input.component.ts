@@ -17,6 +17,7 @@ export class InputComponent extends AbstractInput implements OnInit {
 	private regex;
 	@Input() readonly: boolean;
 	@Input() formControl: FormControl;
+
 	@HostBinding('class.inline')
 	get isInline(): Boolean {
 		return this.type === 'text-inline';
@@ -25,54 +26,6 @@ export class InputComponent extends AbstractInput implements OnInit {
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit() {
-		this.addValidatorForType();
-	}
-
-	private addValidatorForType() {
-		switch (this._type) {
-			case 'number':
-				this.regex = new RegExp(RegexpApp.DIGITS);
-				break;
-			case 'decimal':
-				this.regex = new RegExp(RegexpApp.DECIMAL);
-				break;
-			case 'url':
-				break;
-			case 'tel':
-				this.regex = new RegExp(RegexpApp.PHONE);
-				break;
-		}
-	}
-
-	onKeyDown(event: KeyboardEvent) {
-		if (!this.regex) return;
-
-		if (this.checkControls(event)) return;
-		// we only have to test for the entered key (and not currentvalue + entered key)
-		// as pattern for this input only allows a subset of the keys.
-		if (this.regex.test(event.key)) return;
-		// if the pattern matching fails we don't write anything
-		event.preventDefault();
-	}
-
-	// checks for backspace, ctrl + key etc.
-	checkControls(e): boolean {
-		if (e.keyCode === 8 || e.keyCode === 46 || e.keyCode === 37 || e.keyCode === 39) {
-			return true;
-		}
-
-		// Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
-		if (
-			(e.keyCode === 65 || e.keyCode === 86 || e.keyCode === 67) &&
-			(e.ctrlKey === true || e.metaKey === true)
-		)
-			return true;
-
-		// Allow: home, end, left, right, down, up
-		if (e.keyCode >= 35 && e.keyCode <= 40) return true;
 	}
 
 	onBlur() {
