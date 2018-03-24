@@ -24,6 +24,7 @@ export class RestrictInputDirective {
 		}
 	}
 
+	// listens for keypress and prevent some characters if they don't fit the regex
 	@HostListener('keypress')
 	onKeyDown(event: KeyboardEvent) {
 		if (!this.regex) return;
