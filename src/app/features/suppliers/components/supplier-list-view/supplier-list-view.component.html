@@ -7,8 +7,8 @@
 		width="280">
 		<div class="supplier">
 			<checkbox-app
-				(check)="supplierSelect(row.id)"
-				(uncheck)="supplierUnselect(row.id)"
+				(check)="supplierSelect.emit(row.id)"
+				(uncheck)="supplierUnselect.emit(row.id)"
 				[checked]="selection.get(row.id)"></checkbox-app>
 			<div class="iconPlaceHolder"></div>
 			<a class="name" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>

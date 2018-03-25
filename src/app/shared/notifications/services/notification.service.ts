@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
 import { Notification } from '../model/notification.interface';
+import { Subject } from 'rxjs/Subject';
+
 @Injectable()
 export class NotificationService {
 	private static ID = 0;
