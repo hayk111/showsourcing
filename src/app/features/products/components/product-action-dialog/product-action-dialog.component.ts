@@ -21,23 +21,23 @@ export class ProductActionDialogComponent implements OnInit {
 
 	selectedExport: 'excel' | 'pdf' = 'excel';
 	selectedEntities = {};
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
-	public toggleSelectEntity(id: string, entity) {
-		if (!this.selectedEntities[id]) {
-			this.selectedEntities[id] = entity;
-		} else {
-			delete this.selectedEntities[id];
-		}
+	selectEntity(id: string, entity) {
+		this.selectedEntities[id] = entity;
 	}
 
-	public selectExport(value: 'excel' | 'pdf') {
+	unselectEntity(id: string, entity) {
+		delete this.selectedEntities[id];
+	}
+
+	selectExport(value: 'excel' | 'pdf') {
 		this.selectedExport = value;
 	}
 
-	public close() {
+	close() {
 		this.selectedEntities = {};
 		this.closed.emit();
 	}

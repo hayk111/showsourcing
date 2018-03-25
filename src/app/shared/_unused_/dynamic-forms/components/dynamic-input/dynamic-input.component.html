@@ -1,11 +1,11 @@
 <div [formGroup]="group">
 
-	<input-app
+	<!-- <input-app
 		*ngIf="isStandard()"
 		[type]="descriptor.fieldType"
 		[label]="descriptor.label"
 		[formControl]="ctrl"
-		(update)="onUpdate(descriptor.name, $event)"></input-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-app> -->
 
 	<!-- <input-radio-app
 		[label]="descriptor.label"
@@ -27,10 +27,10 @@
 		(update)="onUpdate(descriptor.name, $event)"></input-price-app> -->
 
 
-	<input-textarea-app
+	<!-- <input-textarea-app
 		*ngIf="descriptor.fieldType === 'textarea'"
 		[label]="descriptor.label"
 		[formControl]="ctrl"
-		(update)="onUpdate(descriptor.name, $event)"></input-textarea-app>
+		(update)="onUpdate(descriptor.name, $event)"></input-textarea-app> -->
 
 </div>

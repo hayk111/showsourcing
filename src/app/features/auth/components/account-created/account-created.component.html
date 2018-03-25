@@ -9,8 +9,17 @@
 			<form [formGroup]="form">
 				<div *ngFor="let c of form.controls; let i = index">
 					<div class="flex members" [formGroupName]="i">
-							<input-app label="Email" type="email" placeholder="example@email.com" formControlName="email"></input-app>
-							<input-app label="Full Name" type="text" placeholder="Jhon Doe" formControlName="fullName"></input-app>
+						<!-- email -->
+						<form-field-app>
+							<label-app>Email</label-app>
+							<input inputApp type="email" placeholder="example@email.com" formControlName="email"/>
+						</form-field-app>
+						<!-- full name -->
+						<form-field-app>
+							<label-app>Full Name</label-app>
+							<input inputApp type="text" placeholder="Jhon Doe" formControlName="fullName"/>
+						</form-field-app>
+
 					</div>
 
 				</div>

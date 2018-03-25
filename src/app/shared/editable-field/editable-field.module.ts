@@ -6,10 +6,8 @@ import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EntityModule } from '~app/shared/entity';
 
-import { CustomInputsModule } from '../custom-inputs/custom-inputs.module';
 import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
-import { SelectModule } from '../select/select.module';
 import { UtilsModule } from '../utils/utils.module';
 import { EditableFieldComponent } from './components/editable-field/editable-field.component';
 
@@ -20,8 +18,6 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 		BrowserModule,
 		FormsModule,
 		InputsModule,
-		SelectModule,
-		CustomInputsModule,
 		NgSelectModule,
 		UserModule,
 		IconsModule,
@@ -31,4 +27,4 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 	declarations: [EditableFieldComponent],
 	exports: [EditableFieldComponent],
 })
-export class EditableFieldModule {}
+export class EditableFieldModule { }

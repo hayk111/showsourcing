@@ -15,7 +15,6 @@ export class EntityPipe extends AutoUnsub implements PipeTransform {
 
 	constructor(protected store: Store<any>, protected userSrv: EntityService) {
 		super();
-		debugger;
 	}
 
 	transform(value: string, entityName: string, prop: string): any {

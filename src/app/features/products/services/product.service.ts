@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 export class ProductService {
 	repr = ERM.product;
 
-	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
 	load(params) {
 		params = { ...params };
@@ -86,7 +86,6 @@ export class ProductService {
 	}
 
 	createTag({ tag, productId }): Observable<any> {
-		debugger;
 		return this.http.post(`/api/team/${this.userSrv.teamId}/tag`, { name: tag.name, itemType: 'Product' });
 	}
 

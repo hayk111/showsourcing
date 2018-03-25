@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityRepresentation } from '~entity/models';
+import { EntityRepresentation, Entity } from '~entity/models';
 
-import { SelectableItem } from '../../../inputs/components/input-checkbox-list/input-checkbox-list.component';
 import {
 	Filter,
 	FilterClass,
@@ -37,11 +36,11 @@ export class FilterPanelComponent implements OnInit {
 	selectedFilterClass: FilterClass;
 
 	// panels accept a series of choices as well as selected choices (selectedValues).
-	choices$: Observable<Array<SelectableItem>>;
+	choices$: Observable<Array<Entity>>;
 	// the selected values are the values selected in choices.
 	selectedValues$: Observable<Array<any>>;
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.filterMap$ = this.store.select(selectFiltersByName(this.filterGroupName));

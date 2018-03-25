@@ -21,14 +21,14 @@ export class IconComponent implements OnInit {
 	@Input() circleBorderSize: number;
 	@Input() circleBorderColor: string;
 	// type solid by default https://fontawesome.com/icons/heart?style=regular
-	private _type: string = 's';
+	private _type = 's';
 	// symbols give perf gains but are less configurable
 	@Input() useSymbol = true;
 	// whether font-awesome is used or not
 	@Input() fa = false;
 	@ViewChild('icon') icon: TemplateRef<any>;
 
-	constructor() {}
+	constructor() { }
 
 	ngOnInit() {
 		if (!this.useSymbol) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);

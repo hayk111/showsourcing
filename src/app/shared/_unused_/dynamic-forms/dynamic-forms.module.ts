@@ -3,7 +3,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
 import { RatingModule } from '~shared/rating';
-import { SelectModule } from '~shared/select';
 
 import { DynamicFormComponent, DynamicFormEntityComponent, DynamicInputComponent } from './components';
 import { DynamicFormsService } from './services';
@@ -13,19 +12,18 @@ import { DynamicFormsService } from './services';
 		CommonModule,
 		ReactiveFormsModule,
 		InputsModule,
-		SelectModule,
 		RatingModule,
 	],
-	providers: [ DynamicFormsService ],
-	declarations: [ DynamicFormComponent, DynamicInputComponent, DynamicFormEntityComponent ],
-	exports: [ DynamicFormComponent, DynamicFormEntityComponent ]
+	providers: [DynamicFormsService],
+	declarations: [DynamicFormComponent, DynamicInputComponent, DynamicFormEntityComponent],
+	exports: [DynamicFormComponent, DynamicFormEntityComponent]
 })
 export class DynamicFormsModule {
 
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: DynamicFormsModule,
-			providers: [ DynamicFormComponent ]
+			providers: [DynamicFormComponent]
 		};
 	}
 

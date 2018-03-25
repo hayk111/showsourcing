@@ -20,14 +20,9 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
-	ngOnInit() {}
-
-	onCheck(value, supplierId) {
-		if (value) this.supplierSelect.emit(supplierId);
-		else this.supplierUnselect.emit(supplierId);
-	}
+	ngOnInit() { }
 
 	onSort({ order, sortWith }) {
 		// we first need to remove the current sorting filter

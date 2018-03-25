@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, HostListener, ContentChild } from '@angular/core';
-import { InputDirective } from '~app/shared/inputs/directives/input.directive';
-import { LabelDirective } from '~app/shared/inputs/directives/label.directive';
+import { InputDirective } from '../input.directive';
+import { LabelDirective } from '../label.directive';
 
 @Component({
 	selector: 'form-field-app',

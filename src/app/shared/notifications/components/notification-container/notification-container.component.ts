@@ -15,7 +15,7 @@ export class NotificationContainerComponent implements OnInit {
 	@Input() limit = 5;
 	@Input() defaultTimeout = 5000;
 
-	constructor(private srv: NotificationService) {}
+	constructor(private srv: NotificationService) { }
 
 	ngOnInit() {
 		this.notifications$ = this.srv.notifications$;
@@ -31,7 +31,6 @@ export class NotificationContainerComponent implements OnInit {
 	}
 
 	private removeNotification(id: number) {
-		debugger;
 		this.notifications = this.notifications.filter(notif => notif.id !== id);
 	}
 

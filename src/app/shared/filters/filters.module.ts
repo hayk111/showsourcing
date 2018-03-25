@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomInputsModule } from '~shared/custom-inputs/custom-inputs.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs/inputs.module';
 
@@ -23,7 +22,6 @@ import { UtilsModule } from '~app/shared/utils';
 	imports: [
 		CommonModule,
 		InputsModule,
-		CustomInputsModule,
 		FormsModule,
 		ReactiveFormsModule,
 		RatingModule, // used in rating panel,

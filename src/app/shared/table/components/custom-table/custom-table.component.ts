@@ -22,11 +22,6 @@ export class CustomTableComponent {
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
-
-	onSort() {
-		debugger;
-	}
 }

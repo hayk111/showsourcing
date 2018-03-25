@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from '~dialog/dialog.module';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
-import { SelectModule } from '~shared/select';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
 import { EntityModule } from '~entity';
@@ -32,7 +31,6 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 		SelectionBarModule, // TODO REMOVE UNUSED MODULES
 		DialogModule, // TODO REMOVE UNUSED MODULES
 		InputsModule, // TODO REMOVE UNUSED MODULES
-		SelectModule, // TODO REMOVE UNUSED MODULES
 		TableModule, // used by list
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],

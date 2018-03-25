@@ -10,5 +10,5 @@
 			value="max" [(ngModel)]="max" (blur)="onChange()"/>
 	</div>
 
-	<input-currency-app [value]="currency" (update)="onCurrencyChange($event)"></input-currency-app>
+	<input [value]="currency" (change)="onCurrencyChange($event.target.value)"/>
 

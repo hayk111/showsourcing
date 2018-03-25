@@ -18,7 +18,6 @@ import { LikesChartModule } from '~shared/likes-chart';
 import { LoadersModule } from '~shared/loaders';
 import { PriceModule } from '~shared/price';
 import { RatingModule } from '~shared/rating';
-import { SelectableImageModule } from '~shared/selectable-image';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils/utils.module';
 import { SuppliersModule } from '~suppliers';
@@ -55,6 +54,7 @@ import { ProductTopBarComponent } from './components/product-top-bar/product-top
 import { CommentModule } from '~app/features/comment';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { StatusModule } from '~app/shared/status/status.module';
+import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
 
 @NgModule({
 	imports: [
@@ -71,7 +71,6 @@ import { StatusModule } from '~app/shared/status/status.module';
 		FileModule.forChild(), // file card used
 		SuppliersModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EditableFieldModule, // TODO to be removed and placed inside the component module using it
-		SelectableImageModule, // TODO to be removed and placed inside the component module using it
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		CardModule, // TODO to be removed and placed inside the component module using it
 		PriceModule, // TODO to be removed and placed inside the component module using it
@@ -108,6 +107,7 @@ import { StatusModule } from '~app/shared/status/status.module';
 		SupplierCardComponent,
 		ProductGeneralInfoComponent,
 		ProductTopBarComponent,
+		SelectableImageComponent
 	],
 	exports: [ProductSmallCardComponent, ProductInfoCardComponent],
 })

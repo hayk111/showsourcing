@@ -1,7 +1,10 @@
 
 <dialog-app [name]="name">
 	<form [formGroup]="group" (ngSubmit)="onSubmit()">
-		<input-app label="Name" formControlName="name"></input-app>
+		<form-field-app>
+			<label-app>Name</label-app>
+			<input type="text" formControlName="name"/>
+		</form-field-app>
 		<input type="submit" value="Ok"/>
 	</form>
 </dialog-app>

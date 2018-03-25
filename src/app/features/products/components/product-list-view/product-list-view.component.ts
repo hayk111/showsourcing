@@ -60,15 +60,10 @@ export class ProductListViewComponent implements OnInit {
 		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 	];
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.linkColumns();
-	}
-
-	onCheck(value, productId) {
-		if (value) this.productSelect.emit(productId);
-		else this.productUnselect.emit(productId);
 	}
 
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html

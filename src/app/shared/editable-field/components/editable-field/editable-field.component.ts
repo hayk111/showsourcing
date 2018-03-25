@@ -41,9 +41,9 @@ export class EditableFieldComponent implements OnInit {
 	accumulator: string | number;
 	addTagCallback = (name: string) => this.addTag(name);
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	openEditMode() {
 		this.editMode = true;
@@ -99,5 +99,10 @@ export class EditableFieldComponent implements OnInit {
 
 	updateValue(value: string) {
 		this.accumulator = value;
+	}
+
+	onSave() {
+		this.update.emit(this.accumulator);
+		this.closeEditMode();
 	}
 }

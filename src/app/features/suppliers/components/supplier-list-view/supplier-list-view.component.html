@@ -6,9 +6,10 @@
 		let-row="row"
 		width="280">
 		<div class="supplier">
-			<input-checkbox-app
-				(update)="onCheck($event, row.id)"
-				[checked]="selection.get(row.id)"></input-checkbox-app>
+			<checkbox-app
+				(check)="supplierSelect(row.id)"
+				(uncheck)="supplierUnselect(row.id)"
+				[checked]="selection.get(row.id)"></checkbox-app>
 			<div class="iconPlaceHolder"></div>
 			<a class="name" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>
 		</div>

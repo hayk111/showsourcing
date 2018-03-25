@@ -1,12 +1,12 @@
 
 <label
-	[attr.for]="control.id"
-	[attr.aria-owns]="control.id"
+	[attr.for]="input.id"
+	[attr.aria-owns]="input.id"
 	*ngIf="label">
 
 	<ng-content select="label-app"></ng-content>
 	<!-- * when required -->
-	<span aria-hidden="true" *ngIf="!hideRequiredMarker && control.required && !control.disabled">&nbsp;*</span>
+	<span aria-hidden="true" *ngIf="!hideRequiredMarker && input.required &&  !input.disabled">&nbsp;*</span>
 </label>
 
 <ng-content></ng-content>

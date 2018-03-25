@@ -1,15 +1,11 @@
 
 <h4>{{ filterClass.filterName }}</h4>
 
-<input-app type="text"
-	placeholder="Search"
-	(keyup)="search($event.target.value)">
-</input-app>
+<input type="text" placeholder="Search" (keyup)="search($event.target.value)"/>
 
-<input-checkbox-list-app
-	[choices]="choices"
-	[value]="values"
-	(itemAdded)="onItemAdded($event)"
-	(itemRemoved)="onItemRemoved($event)">
-</input-checkbox-list-app>
-
+<checkbox-app
+	*ngFor="let choice of choices"
+	(check)="onItemAdded(choice.id)"
+	(uncheck)="onItemRemoved(choice.id)">
+	{{ choice.name }}
+</checkbox-app>

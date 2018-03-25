@@ -48,7 +48,6 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 			var product = { ...byId[productId] };
 			var tagIds = product.tagIds;
 			var tagIds = tagIds.filter(id => id !== tagId);
-			debugger;
 			product.tagIds = tagIds;
 			byId[productId] = product;
 			return {

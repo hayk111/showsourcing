@@ -17,10 +17,18 @@ const supportedTypes = new Set([
 	'week',
 ]);
 
+export interface AppFormFieldControl {
+	id: string;
+	readonly: boolean;
+	required: boolean;
+	type: string;
+	disabled: boolean;
+}
+
 @Directive({
 	selector: '[inputApp]'
 })
-export class InputDirective {
+export class InputDirective implements AppFormFieldControl {
 	protected static NEXT_UID = 0;
 
 	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) { }

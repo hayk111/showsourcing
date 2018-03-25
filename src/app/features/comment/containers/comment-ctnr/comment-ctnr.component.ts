@@ -20,7 +20,7 @@ export class CommentCtnrComponent implements OnInit {
 	pending$: Observable<boolean>;
 	ctrl = new FormControl('', Validators.required);
 
-	constructor(private store: Store<any>, private userSrv: UserService) {}
+	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
 		const commentsState$ = this.store.select(selectComments);
@@ -34,7 +34,8 @@ export class CommentCtnrComponent implements OnInit {
 		this.pending$ = commentsState$.pipe(map((comments: EntityState<AppComment>) => comments.pending));
 	}
 
-	onComment(txt: string) {
-		this.store.dispatch(commentActions.create(new AppComment(txt, this.userSrv.userId)));
+	onComment() {
+		this.store.dispatch(commentActions.create(new AppComment(this.ctrl.value, this.userSrv.userId)));
+		this.ctrl.reset();
 	}
 }

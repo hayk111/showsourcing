@@ -1,0 +1,15 @@
+	<icon-app  *ngIf="checked; else unchecked" name="circle-checked" color="primary" (click)="onClick()"></icon-app>
+	<ng-template #unchecked>
+		<icon-app name="circle-unchecked" color="txt-secondary" (click)="onClick()"></icon-app>
+	</ng-template>
+	<input #input
+		type="checkbox"
+		[hidden]="true"
+		[id]="id"
+		[required]="required"
+		[checked]="checked"
+		[attr.value]="value"
+		[disabled]="disabled">
+	<label [attr.for]="id">
+			<ng-content></ng-content>
+	</label>

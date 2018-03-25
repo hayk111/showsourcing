@@ -46,7 +46,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customFields })
 		);
 
-		this.customFields$.subscribe(d => {});
+		this.customFields$.subscribe(d => { });
 	}
 
 	isEntityType(fieldType: string) {
@@ -99,7 +99,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
-		debugger;
 		const tag = new Tag(tagName, this.userSrv.userId);
 		this.store.dispatch(productActions.createTag(tag, id));
 	}
