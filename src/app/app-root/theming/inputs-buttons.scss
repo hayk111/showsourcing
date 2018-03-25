@@ -1,5 +1,20 @@
+label {
+	margin-bottom: 6px;
+	display: block;
+}
+
 input {
-	background: transparent;
+	background: var(--color-bg-third);
+	padding: var(--spacing-s);
+	width: 100%;
+	box-sizing: border-box;
+	font-family: inherit;
+	color: var(--color-txt-primary);
+	border: 1px solid var(--color-primary-light);
+}
+
+form-field-app {
+	margin-bottom: var(--spacing-default);
 }
 
 button, input[type="submit"] {
@@ -34,13 +49,6 @@ button.light, .button.light {
 	}
 }
 
-.inp-box {
-	margin-bottom: 16px;
-	.error{
-		margin-top: 8px;
-	}
-}
-
 fieldset {
 	border: none;
 	margin-top: var(--spacing-xl);
@@ -53,32 +61,11 @@ fieldset legend {
 	padding: 0;
 }
 
-.inp-error {
-	border-color: var(--color-warn);
-}
-
 .error {
 	margin-top: 10px;
 	color: var(--color-warn);
-	font-size: 0.875rem;
+	font-size: var(--font-size-s);
 	font-style: italic;
-}
-
-.twoColsForm .fields {
-	display: flex;
-}
-
-.twoColsForm .fields > *{
-	width: 50%;
-}
-
-textarea, input[type="text"], input[type="search"], input[type="password"] {
-	padding: var(--spacing-s);
-	width: 100%;
-	box-sizing: border-box;
-	font-family: inherit;
-	border: none;
-	border-bottom: 1px solid var(--color-txt-third);
 }
 
 textarea::placeholder, input[type="text"]::placeholder, input[type="search"]::placeholder, input[type="password"]::placeholder {

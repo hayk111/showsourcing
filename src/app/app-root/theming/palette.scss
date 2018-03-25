@@ -1,55 +1,32 @@
 // variable are declared with sass so we can reuse those with
 // so we don't have to change those twice with angular material
 
-$color-primary: #41AFFF;
-$color-primary-contrast: #fff;
-$color-primary-light: #E6EBF5;
-$color-primary-light-contrast: #4A4A4A;
-$color-primary-dark: #5D6D8B ;
-$color-primary-dark-contrast: #fff;
-$color-button-dark: #182844;
-$color-txt-strong: #182844;
-$color-txt-primary: #5D6D8B;
-$color-txt-secondary: #A3AFC6;
-$color-delimiter: #E6EBF5;
-$color-success: #71e591;
-$color-warn: #f94259;
-$color-grey: #F3F5F8;
-
 :root{
-	--color-primary: $color-primary;
+	--color-primary: #41AFFF;
 	--color-primary-contrast: #fff;
-	--color-primary-light: $color-primary-light;
-	--color-primary-light-contrast: $color-primary-light-contrast;
-	--color-primary-dark: $color-primary-dark;
-	--color-primary-dark-contrast: $color-primary-dark-contrast;
+	--color-primary-light: #E6EBF5;
+	--color-primary-light-contrast: #4A4A4A;
+	--color-primary-dark: #5D6D8B;
+	--color-primary-dark-contrast: #fff;
 
 
-	--color-txt-primary: $color-txt-primary;
-	--color-txt-secondary: $color-txt-secondary;
+	--color-txt-primary: var(--color-primary-dark);
+	--color-txt-secondary: #A3AFC6;
 	--color-txt-third: #e0e0e0;
 	--color-txt-strong: $color-txt-strong;
 	--color-delimiter: $color-delimiter;
 
   --color-bg: #fff;
-  --color-bg-grey: $color-grey;
 	--color-bg-secondary: #f4f5f9;
 	--color-bg-third: #F9FAFC;
-	--color-bg-fourth: #f4f5f9;
-  --color-bg-dark: rgba(0, 0, 0, 0.5);
-  --color-bg-switcher: #E6EBF5;
-  --color-button-dark: $color-button-dark;
-
-	--color-icon: #ccc;
-
 
 	--color-secondary: rgba(205,205,205,0.5);
 	--color-secondary-contrast: #4A4A4A;
 	// --color-secondary-light: ;
 	// --color-secondary-dark: ;
 
-	--color-warn: $color-warn;
-	--color-success: $color-success;
+	--color-warn: #f94259;
+	--color-success: #71e591;
 
 	// used
   --color-white: #fff;
@@ -71,7 +48,7 @@ $color-grey: #F3F5F8;
 }
 
 [color-success] {
-  color: var(--color-success) !important;
+  color: var(--color-success);
 }
 
 [bg-success] {
