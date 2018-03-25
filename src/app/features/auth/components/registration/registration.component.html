@@ -1,10 +1,15 @@
 
 <form [formGroup]="form" class="flexColumn" *ngIf="!pending; else spinner">
-	<input-app autocomplete="on" formControlName="email" type="email" placeholder="example@showsourcing.com"
-		label="Email"></input-app>
+	<form-field-app>
+		<label-app>Email</label-app>
+		<input inputApp autocomplete="on" formControlName="email" type="email" placeholder="example@showsourcing.com"/>
+	</form-field-app>
 
-	<input-app autocomplete="on" formControlName="password" type="password"
-		label="Password" placeholder="your password"></input-app>
+	<form-field-app>
+		<label-app>Password</label-app>
+		<input inputApp autocomplete="on" formControlName="password" type="password" placeholder="your password"/>
+	</form-field-app>
+
 
   <input type="submit" value="Create Account" (click)="createAccount()" class="fullWidth"/>
 </form>
