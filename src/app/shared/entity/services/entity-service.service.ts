@@ -9,6 +9,7 @@ import { UserService } from '~user/services';
 
 import { EntityRepresentation } from './../models/entities.model';
 import { UrlBuilder } from './url-builder.class';
+import { Resolver } from '~app/app-root/utils/resolver.class';
 
 // entities are target different ways.
 
@@ -30,7 +31,7 @@ export class EntityService {
 		private userSrv: UserService,
 		private store: Store<any>,
 		private urlBuilder: UrlBuilder
-	) {}
+	) { }
 
 	load(params: ApiParams): Observable<any> {
 		// we make sure the user is target before doing anything
@@ -59,14 +60,12 @@ export class EntityService {
 	}
 
 	patch(patch: Patch, repr: EntityRepresentation) {
-		const value = {
-			[patch.propName]: patch.value,
-		};
+		const value = Resolver.create(patch.propName, patch.value);
 		return this.http.patch(`api/${repr.urlName}/${patch.id}`, value);
 	}
 
 	merge(params: ApiParams) {
-		let url = this.urlBuilder.getUrl(params, this.userSrv.user);
+		const url = this.urlBuilder.getUrl(params, this.userSrv.user);
 		return this.http.post(`${url}/mergeWith`, params.body);
 	}
 

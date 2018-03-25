@@ -22,10 +22,7 @@ export class ProductService {
 		return this.entitySrv.load(params).pipe(
 			map((r: any) => r.elements),
 			tap(products =>
-				products.forEach(elem => {
-					this.addCustomFields(elem);
-					this.linearize(elem);
-				})
+				products.forEach(elem => this.linearize(elem))
 			)
 		);
 	}
@@ -42,22 +39,12 @@ export class ProductService {
 		};
 		return this.entitySrv
 			.load(params)
-			.pipe(map(elem => this.addCustomFields(elem)), map(elem => this.linearize(elem)));
-	}
-
-	// properties in the customFields nested object are added to the product with
-	// the property name started with x-. Ask Antoine for more info.
-	addCustomFields(elem: any) {
-		if (elem.additionalInfo && elem.additionalInfo.customFields) {
-			const cf = elem.additionalInfo.customFields;
-			Object.entries(cf).forEach(([k, v]) => (elem['x-' + k] = (v as any).value));
-		}
-		// this is done to have minimum order quantity on the same level
-		if (elem.additionalInfo) elem.minimumOrderQuantity = elem.additionalInfo.minimumOrderQuantity;
-		return elem;
+			.pipe(map(elem => this.linearize(elem)));
 	}
 
 	// putting properties from additional infos into the product so it's linear
+	// we do this because for patching the server will want { depth: 5} instead of { additionalInfo: { depth: 5 }}
+	// and we need to patch properties on the same level on the client and server.
 	linearize(product: Product) {
 		if (product.additionalInfo) {
 			const entries = Object.entries(product.additionalInfo);

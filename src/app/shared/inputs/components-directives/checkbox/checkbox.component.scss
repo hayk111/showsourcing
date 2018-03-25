@@ -1,10 +1,6 @@
-.icon-circle-unchecked {
-  color: var(--color-txt-third);
-  font-size: 24px;
+:host {
+	display: flex;
 }
-
-.icon-circle-checked {
-  color: var(--color-primary);
-  font-size: 24px;
+icon-app {
+	margin-right: var(--spacing-s);
 }
-

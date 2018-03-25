@@ -10,6 +10,6 @@
 		[checked]="checked"
 		[attr.value]="value"
 		[disabled]="disabled">
-	<label [attr.for]="id">
+	<label [attr.for]="id" (click)="onClick()">
 			<ng-content></ng-content>
 	</label>

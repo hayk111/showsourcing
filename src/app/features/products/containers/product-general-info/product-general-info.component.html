@@ -51,37 +51,41 @@
 <ng-container *ngIf="product$ | async as product">
   <div class="sectionTitle shipping">Shipping & Trading</div>
   <div class="flexRow">
-    <ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+
       <!-- first column -->
       <div class="flexColumn">
-        <div class="subSectionTitle">Trading conditions</div>
-        <cell-one-row-app title="Inco Term">
-					<editable-field-app [entities]="'incoTerms' | entityList"
-						[isRightAligned]="true"
-						[value]="supplier.incoTerm" type="incoTerms" (update)="onSupplierUpdate(supplier.id, 'incoTerm', $event)">
-          </editable-field-app>
-        </cell-one-row-app>
-        <cell-one-row-app title="Harbour">
-					<editable-field-app
-						[entities]="'harbours' | entityList"
-						[isRightAligned]="true"
-						[value]="supplier.harbour" type="harbours" (update)="onSupplierUpdate(supplier.id, 'harbour', $event)">
-          </editable-field-app>
-        </cell-one-row-app>
+
+				<ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+					<div class="subSectionTitle">Trading conditions</div>
+					<cell-one-row-app title="Inco Term">
+						<editable-field-app [entities]="'incoTerms' | entityList"
+							[isRightAligned]="true"
+							[value]="supplier.incoTerm" type="incoTerms" (update)="onSupplierUpdate(supplier.id, 'incoTerm', $event)">
+						</editable-field-app>
+					</cell-one-row-app>
+					<cell-one-row-app title="Harbour">
+						<editable-field-app
+							[entities]="'harbours' | entityList"
+							[isRightAligned]="true"
+							[value]="supplier.harbour" type="harbours" (update)="onSupplierUpdate(supplier.id, 'harbour', $event)">
+						</editable-field-app>
+					</cell-one-row-app>
+				</ng-container>
+
         <div class="subSectionTitle">Inner carton</div>
-        <cell-one-row-app title="Length">
-            <editable-field-app [value]="product.depth" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'depth', $event)"></editable-field-app>
+        <cell-one-row-app title="Depth">
+            <editable-field-app [value]="product.depth" isRightAligned="true" type="number" (update)="onUpdate(product.id, 'depth', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Width">
-            <editable-field-app [value]="product.width" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'width', $event)"></editable-field-app>
+            <editable-field-app [value]="product.width" isRightAligned="true" type="number" (update)="onUpdate(product.id, 'width', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Height">
 						<editable-field-app
 							[value]="product.height"
-							isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'height', $event)"></editable-field-app>
+							isRightAligned="true" type="number" (update)="onUpdate(product.id, 'height', $event)"></editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app title="Unit">
-            <editable-field-app [value]="product.unit" isRightAligned="true" type="text-inline" (update)="onUpdate(product.id, 'unit', $event)"></editable-field-app>
+            <editable-field-app [value]="product.unit" isRightAligned="true" type="text" (update)="onUpdate(product.id, 'unit', $event)"></editable-field-app>
         </cell-one-row-app>
         <div class="subSectionTitle">Master carton</div>
       </div>
@@ -90,30 +94,42 @@
       <div class="flexColumn">
         <div class="subSectionTitle">Price Matrix</div>
         <cell-one-row-app>
-          <editable-field-app [value]="product.priceLabel1" isCompactInline="true" type="text-inline"  (update)="onUpdate(product.id, 'priceLabel1', $event)">
+					<editable-field-app [value]="product.priceLabel1" isCompactInline="true" type="text"
+						(update)="onUpdate(product.id, 'priceLabel1', $event)">
           </editable-field-app>
-          <editable-field-app [value]="product.priceValue1" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'priceValue1', $event)">
-          </editable-field-app>
-        </cell-one-row-app>
-        <cell-one-row-app>
-          <editable-field-app [value]="product.priceLabel2" isCompactInline="true" type="text-inline"  (update)="onUpdate(product.id, 'priceLabel2', $event)">
-          </editable-field-app>
-          <editable-field-app [value]="product.priceValue2" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'priceValue2', $event)">
-          </editable-field-app>
-        </cell-one-row-app>
-        <cell-one-row-app>
-          <editable-field-app [value]="product.priceLabel3" isCompactInline="true" type="text-inline"  (update)="onUpdate(product.id, 'priceLabel3', $event)">
-          </editable-field-app>
-          <editable-field-app [value]="product.priceValue3" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'priceValue3', $event)">
+					<editable-field-app
+						[value]="product.priceValue1"
+						isRightAligned="true"
+						type="price"
+						(update)="onUpdate(product.id, 'priceValue1', $event)">
           </editable-field-app>
         </cell-one-row-app>
         <cell-one-row-app>
-          <editable-field-app [value]="product.priceLabel4" isCompactInline="true" type="text-inline"  (update)="onUpdate(product.id, 'priceLabel4', $event)">
+					<editable-field-app
+						[value]="product.priceLabel2"
+						isCompactInline="true"
+						type="text"
+						(update)="onUpdate(product.id, 'priceLabel2', $event)">
           </editable-field-app>
-          <editable-field-app [value]="product.priceValue4" isRightAligned="true" type="text-inline"  (update)="onUpdate(product.id, 'priceValue4', $event)">
+					<editable-field-app
+						[value]="product.priceValue2"
+						isRightAligned="true"
+						type="price"
+						(update)="onUpdate(product.id, 'priceValue2', $event)">
+          </editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.priceLabel3" isCompactInline="true" type="text"  (update)="onUpdate(product.id, 'priceLabel3', $event)">
+          </editable-field-app>
+          <editable-field-app [value]="product.priceValue3" isRightAligned="true" type="price"  (update)="onUpdate(product.id, 'priceValue3', $event)">
+          </editable-field-app>
+        </cell-one-row-app>
+        <cell-one-row-app>
+          <editable-field-app [value]="product.priceLabel4" isCompactInline="true" type="text"  (update)="onUpdate(product.id, 'priceLabel4', $event)">
+          </editable-field-app>
+          <editable-field-app [value]="product.priceValue4" isRightAligned="true" type="price"  (update)="onUpdate(product.id, 'priceValue4', $event)">
           </editable-field-app>
         </cell-one-row-app>
       </div>
-    </ng-container>
   </div>
 </ng-container>

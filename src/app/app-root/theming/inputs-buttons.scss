@@ -3,7 +3,7 @@ label {
 	display: block;
 }
 
-input {
+input, textarea {
 	background: var(--color-bg-third);
 	padding: var(--spacing-s);
 	width: 100%;

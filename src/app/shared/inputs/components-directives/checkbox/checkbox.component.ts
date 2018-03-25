@@ -16,9 +16,8 @@ export class CheckboxComponent extends AbstractInput {
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
-	set id(value: string) { this._id = value || this._uid; }
-	protected _id: string;
-	protected _uid = '' + CheckboxComponent.NEXT_UID++;
+	set id(value: string) { this._id = value; }
+	protected _id: string = 'checkbox-' + CheckboxComponent.NEXT_UID++;
 	/**
    * Whether the checkbox is checked.
    */
