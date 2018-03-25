@@ -12,9 +12,18 @@ export class Resolver {
 		}, obj || self);
 	}
 
+	/** so we can update value of an object given a nested string ('a.b.c.d') read above for more details */
 	static patch(path: string, obj: any, value) {
-		return path.split('.').reduce((prev, curr) => {
-			return prev ? prev[curr] : undefined;
-		}, obj || self);
+
+		const pathArr = path.split('.');
+		const accessedProperty = pathArr.pop();
+		if (pathArr.length < 1) {
+			obj[accessedProperty] = value;
+		} else {
+			const nested = Resolver.resolve(pathArr.join('.'), obj);
+			nested[accessedProperty] = value;
+		}
+
+		return obj;
 	}
 }

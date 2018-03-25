@@ -1,6 +1,7 @@
 import { Entity, EntityState } from '~entity';
 import { Swap } from 'app/shared/entity/utils/index';
 import { deepCopy } from '~app/app-root/utils';
+import { Resolver } from '~app/app-root/utils/resolver.class';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
@@ -85,15 +86,15 @@ export const entityStateToArray = (
 
 export function updateOne(state, id, propName: string, value: any) {
 	// deep copy because we might access nested properties
-	const target = deepCopy(state.byId[id]);
+	let target = deepCopy(state.byId[id]);
+	target = Resolver.patch(propName, target, value);
 
 	return {
 		...state,
 		byId: {
 			...state.byId,
 			[id]: {
-				...state.byId[id],
-				// ...additionalProps
+				...target
 			}
 		}
 	};
