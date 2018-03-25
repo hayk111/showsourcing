@@ -9,8 +9,8 @@ export class RestrictInputDirective {
 
 	constructor() { }
 
-	@Input('restrict-input')
-	public set inputType(type: string) {
+	@Input('restrictInput')
+	set inputType(type: string) {
 		switch (type) {
 			case 'number':
 				this.regex = new RegExp(RegexpApp.DIGITS);
@@ -25,8 +25,8 @@ export class RestrictInputDirective {
 	}
 
 	// listens for keypress and prevent some characters if they don't fit the regex
-	@HostListener('keypress')
-	onKeyDown(event: KeyboardEvent) {
+	@HostListener('keypress', ['$event'])
+	onKeyPress(event: KeyboardEvent) {
 		if (!this.regex) return;
 
 		const value = String.fromCharCode(event.charCode);

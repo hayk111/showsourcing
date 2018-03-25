@@ -66,15 +66,23 @@
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp type="text" (change)="updateValue($event.target.value)"/>
+				<input inputApp  [value]="value" type="text" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
 		<!-- price -->
-		<ng-container *ngSwitchCase="type === 'price' || type === 'number'">
+		<ng-container *ngSwitchCase="type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp type="number" (change)="updateValue(+$event.target.value)"/>
+				<input inputApp restrictInput="number" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+			</form-field-app>
+		</ng-container>
+
+		<!-- price -->
+		<ng-container *ngSwitchCase="type === 'price'">
+			<form-field-app>
+				<label-app>{{ label }}</label-app>
+				<input inputApp restrictInput="decimal" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
