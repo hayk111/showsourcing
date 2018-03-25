@@ -23,7 +23,7 @@ const supportedTypes = new Set([
 export class InputDirective {
 	protected static NEXT_UID = 0;
 
-	constructor(protected _elementRef: ElementRef, @Optional() @Self() public ngControl: NgControl) { }
+	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) { }
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -49,7 +49,7 @@ export class InputDirective {
 	get type(): string { return this._type; }
 	set type(value: string) {
 		this._type = value || 'text';
-		if (supportedTypes.has(this._type))
+		if (!supportedTypes.has(this._type))
 			throw new Error(`type ${this.type} not supported by inputApp`);
 		// When using Angular inputs, developers are no longer able to set the properties on the native
 		// input element. To ensure that bindings for `type` work, we need to sync the setter
@@ -63,8 +63,8 @@ export class InputDirective {
 	/** Whether the element is disabled. */
 	@Input()
 	get disabled(): boolean {
-		if (this.ngControl && this.ngControl.disabled !== null) {
-			return this.ngControl.disabled;
+		if (this.control && this.control.disabled !== null) {
+			return this.control.disabled;
 		}
 		return this._disabled;
 	}

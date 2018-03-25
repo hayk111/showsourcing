@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, HostListener, ContentChild } from '@angular/core';
+import { InputDirective } from '~app/shared/inputs/directives/input.directive';
+import { LabelDirective } from '~app/shared/inputs/directives/label.directive';
 
 @Component({
 	selector: 'form-field-app',
@@ -9,11 +11,20 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class FormFieldComponent implements OnInit {
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
-	@Input() hintLabel: string;
+	@ContentChild(InputDirective) input: InputDirective;
+	@ContentChild(LabelDirective) label: LabelDirective;
+
+
 	constructor() { }
 
 	ngOnInit() {
+		if (!this.input)
+			throw Error('FormField should have an input in it with the directive inputApp');
 	}
 
+
+	get control() {
+		return this.input.control;
+	}
 
 }

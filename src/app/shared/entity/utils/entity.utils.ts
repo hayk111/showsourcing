@@ -14,7 +14,7 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 	}
 	// We only push if entity is not already in the store
 	entities.forEach(entity => {
-		let id = entity.id;
+		const id = entity.id;
 		if (byId[id] === undefined) {
 			ids.push(id);
 			byId[id] = entity;
@@ -33,7 +33,7 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 export function replaceEntities(state, swaps: Array<Swap>) {
 	const oldIds = swaps.map(swap => swap.old.id);
 	const replacings = swaps.map(swap => swap.replacing);
-	let ids = [...state.ids];
+	const ids = [...state.ids];
 	const byId = { ...state.byId };
 	// removing from byId
 	swaps.forEach(swap => {
@@ -93,7 +93,7 @@ export function updateOne(state, id, propName: string, value: any) {
 			...state.byId,
 			[id]: {
 				...state.byId[id],
-				...additionalProps
+				// ...additionalProps
 			}
 		}
 	};

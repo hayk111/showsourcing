@@ -1,3 +1,18 @@
-<p>
-  form-field works!
-</p>
+
+<label
+	[attr.for]="control.id"
+	[attr.aria-owns]="control.id"
+	*ngIf="label">
+
+	<ng-content select="label-app"></ng-content>
+	<!-- * when required -->
+	<span aria-hidden="true" *ngIf="!hideRequiredMarker && control.required && !control.disabled">&nbsp;*</span>
+</label>
+
+<ng-content></ng-content>
+<!-- we have to pass a formControl as input for this to work -->
+<div class="error" *ngIf="control?.hasError('required') && !control?.pristine">This field is required</div>
+<div class="error" *ngIf="control?.hasError('email') && !control?.pristine" >This field should be a valid email</div>
+<div class="error" *ngIf="control?.hasError('number') && !control?.pristine">This field should be a valid number</div>
+<div class="error" *ngIf="control?.hasError('url') && !control?.pristine">This field isn't a correct url</div>
+<div class="error" *ngIf="control?.hasError('tel') && !control?.pristine">This field isn't a correct phone numer</div>
