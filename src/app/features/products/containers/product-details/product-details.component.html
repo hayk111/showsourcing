@@ -28,7 +28,7 @@
 
     <div class="right">
       <card-app padding="none">
-				<product-top-bar-app [product]="product" (updateStatus)="updateStatus($event, product.id)"></product-top-bar-app>
+				<product-top-bar-app [product]="product" [numTasks]="(tasks$ | async).length" (updateStatus)="updateStatus($event, product.id)"></product-top-bar-app>
       </card-app>
       <entity-main-card-app></entity-main-card-app>
     </div>

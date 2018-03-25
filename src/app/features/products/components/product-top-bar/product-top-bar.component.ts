@@ -9,8 +9,9 @@ import { Product } from '~app/features/products';
 })
 export class ProductTopBarComponent implements OnInit {
 	@Input() product: Product;
+	@Input() numTasks;
 	@Output() updateStatus = new EventEmitter<string>();
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

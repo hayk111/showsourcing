@@ -49,6 +49,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.customFields$.subscribe(d => { });
 	}
 
+
 	getFirstCol(fields: Array<FormControlDescriptor>) {
 		const half = Math.ceil(fields.length / 2);
 		return fields.slice(0, half);

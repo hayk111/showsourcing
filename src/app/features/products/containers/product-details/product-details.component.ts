@@ -7,13 +7,14 @@ import { Project, selectProjects, selectProjectsProductsCount } from '~app/featu
 import { UserService } from '~app/features/user';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 import { AppComment } from '~comment';
-import { EntityTarget, ERM } from '~entity';
+import { EntityTarget, ERM, EntityState } from '~entity';
 import { AppFile } from '~features/file';
 import { Product } from '~products/models';
 import { productActions } from '~products/store';
 import { AutoUnsub } from '~utils';
 
 import { selectProductById } from './../../store/product.selector';
+import { taskActions, Task, selectTasks } from '~app/features/tasks';
 
 @Component({
 	selector: 'product-details-app',
@@ -29,6 +30,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	projects$: Observable<Array<Project>>;
 	projectDlgName = DialogName.ADDTOPROJECT;
 	productsCount$: Observable<number>;
+	tasks$: Observable<Array<Task>>;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
@@ -36,9 +38,10 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
-			const id = params['id'];
+			const id = params.id;
 			this.store.dispatch(productActions.select(id));
 			this.store.dispatch(productActions.loadById(id));
+			this.store.dispatch(taskActions.loadForSelection());
 		});
 		this.product$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
@@ -46,6 +49,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 		this.projects$ = this.store.select(selectProjects);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
+		this.tasks$ = this.store.select(selectTasks);
 	}
 
 	openAddProjectDlg() {

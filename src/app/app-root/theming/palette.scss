@@ -14,7 +14,7 @@
 	--color-txt-secondary: #A3AFC6;
 	--color-txt-third: #e0e0e0;
 	--color-txt-strong: $color-txt-strong;
-	--color-delimiter: $color-delimiter;
+	--color-delimiter:  var(--color-primary-light);
 
   --color-bg: #fff;
 	--color-bg-secondary: #f4f5f9;
