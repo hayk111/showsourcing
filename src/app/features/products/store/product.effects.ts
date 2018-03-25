@@ -11,7 +11,7 @@ import { productActions, actionTypes } from './product.action';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Tag } from '~app/app-root/store';
 import { Project, projectActions } from '~app/features/projects';
-import { tagActions } from '~app/app-root/store/action';
+import { tagActions, taskActions } from '~app/app-root/store/action';
 import { commentActions } from '~app/features/comment';
 import { imageActions } from '~app/features/file/store';
 import { ERM, EntityService } from '~app/shared/entity';
@@ -33,6 +33,7 @@ export class ProductEffects {
 				commentActions.loadForSelection(),
 				fileActions.loadForSelection(),
 				imageActions.loadForSelection(),
+				taskActions.loadForSelection()
 			])
 		);
 

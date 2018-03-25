@@ -41,7 +41,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			const id = params.id;
 			this.store.dispatch(productActions.select(id));
 			this.store.dispatch(productActions.loadById(id));
-			this.store.dispatch(taskActions.loadForSelection());
 		});
 		this.product$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
