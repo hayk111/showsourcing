@@ -26,6 +26,9 @@ import { EntitiesServicesModule } from './services/entities-services.module';
 	exports: [],
 })
 export class AppStoreModule {
+	constructor() {
+		console.log('store constr');
+	}
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: AppStoreModule,
@@ -36,6 +39,7 @@ export class AppStoreModule {
 	static forChild(): ModuleWithProviders {
 		return {
 			ngModule: AppStoreModule,
+			providers: [],
 		};
 	}
 }

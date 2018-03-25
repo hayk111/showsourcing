@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FilterClass, Filter, FilterEntityClass } from '~shared/filters';
+import { FilterClass, Filter, FilterEntityClass } from '~shared/filters/models';
 import { Store } from '@ngrx/store';
-import { selectEntityArray } from '~entity';
+import { selectEntityArray } from '~entity/store/entity.selector';
 import { Observable } from 'rxjs/Observable';
 
 // this is the entity panel that appears once a filter button has been clicked

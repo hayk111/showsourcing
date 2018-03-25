@@ -9,9 +9,15 @@ import { Log } from '~utils';
 import { AppRootModule } from './app/app-root';
 import { environment } from './environments/environment';
 
+
+declare let module: any;
+
+
 let _decorateModuleRef = function identity<T>(value: T): T {
 	return value;
 };
+
+
 
 _decorateModuleRef = (modRef: any) => {
 	const appRef = modRef.injector.get(ApplicationRef);

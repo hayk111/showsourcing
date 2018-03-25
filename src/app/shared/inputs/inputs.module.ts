@@ -15,11 +15,13 @@ import { FormFieldComponent } from '~app/shared/inputs/components/form-field/for
 import { InputDirective } from '~app/shared/inputs/directives/input.directive';
 import { LabelDirective } from '~app/shared/inputs/directives/label.directive';
 import { InputCheckboxComponent } from '~app/shared/inputs/components/input-checkbox/input-checkbox.component';
+import { RestrictInputDirective } from '~app/shared/inputs/directives/restrict-input.directive';
 
 export const components = [
 	FormFieldComponent,
 	InputDirective,
 	LabelDirective,
+	RestrictInputDirective,
 	InputComponent,
 	InputTextareaComponent,
 	InputRadioComponent,

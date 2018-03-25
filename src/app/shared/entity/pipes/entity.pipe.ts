@@ -4,6 +4,8 @@ import { ERM } from '../models';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from 'app/app-root/utils/index';
 import { takeUntil, map } from 'rxjs/operators';
+import { UserService } from '~app/features/user/services';
+import { EntityService } from '../services';
 
 
 @Pipe({
@@ -11,12 +13,14 @@ import { takeUntil, map } from 'rxjs/operators';
 })
 export class EntityPipe extends AutoUnsub implements PipeTransform {
 
-	constructor(protected store: Store<any>) {
+	constructor(protected store: Store<any>, protected userSrv: EntityService) {
 		super();
+		debugger;
 	}
 
 	transform(value: string, entityName: string, prop: string): any {
-		if (!value) return false;
+		if (!value)
+			return false;
 		const entityId = value;
 		const entityRepr = this.getRepr(entityName);
 		return this.store.select(selectEntityById({ entityId, entityRepr }))
@@ -25,13 +29,14 @@ export class EntityPipe extends AutoUnsub implements PipeTransform {
 				map(entity => {
 					// if a prop is defined we return said prop
 					if (prop) {
-						if (entity)
+						if (entity) {
 							return entity[prop];
-						else
+						} else {
 							return '';
-					}
-					else
+						}
+					} else {
 						return entity;
+					}
 				})
 			);
 	}

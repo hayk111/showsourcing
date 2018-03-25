@@ -26,6 +26,9 @@ import { EntityArrayPipe } from './pipes/entity-array.pipe';
 	providers: [EntityService, UrlBuilder],
 })
 export class EntityModule {
+	constructor() {
+		console.log('entitymodule constr');
+	}
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: EntityModule,

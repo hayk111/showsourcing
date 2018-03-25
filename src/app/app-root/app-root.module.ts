@@ -34,22 +34,22 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 
+declare let module: any;
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
 	declarations: [AppComponent, HomeComponent],
 	imports: [
+		AppStoreModule.forRoot(),
 		BrowserModule,
 		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
 		HttpClientModule,
 		TemplateModule.forRoot(),
-		AppStoreModule.forRoot(),
 		EntityModule.forRoot(),
 		RouterModule.forRoot(routes),
 		LocalStorageModule.forRoot(),
-		EntitiesServicesModule,
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
@@ -79,12 +79,12 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
+	// hot module reloading stuff
 	constructor(public appRef: ApplicationRef, private _m: NgModuleRef<any>, private _store: Store<any>) {
-		if (environment.hmr && module['hot']) {
-			module['hot']['accept']('./app-root.module.ts');
-			console.log(module);
-			if (module['hot']['data']) {
-				this.customHmrOnInit(module['hot']['data']);
+		if (environment.hmr && module.hot) {
+			module.hot.accept('./app-root.module.ts');
+			if (module.hot.data) {
+				this.customHmrOnInit(module.hot.data);
 			}
 		}
 	}
