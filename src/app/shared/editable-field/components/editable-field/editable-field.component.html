@@ -6,7 +6,7 @@
     <ng-container [ngSwitch]="true">
 
 			<!-- entities -->
-      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus', 'harbours', 'incoTerms', 'currencies'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus', 'harbours', 'incoTerms'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
@@ -18,7 +18,7 @@
           {{ value }}
         </span>
         <span class="currencyTag" *ngIf="entity?.priceCurrency">
-          {{ entity?.priceCurrency?.id }}
+          {{ entity?.priceCurrency?.symbol || entity?.priceCurrency?.id }}
         </span>
 			</ng-container>
 
@@ -40,9 +40,9 @@
 			</ng-container>
 
 			<!-- currency -->
-      <ng-container *ngSwitchCase="type === 'currency'">
+      <ng-container *ngSwitchCase="type === 'currencies'">
         <span>
-          {{ value?.priceCurrency?.id }}
+					{{ value?.name }}
         </span>
 			</ng-container>
 
@@ -74,7 +74,7 @@
 		<ng-container *ngSwitchCase="type === 'price' || type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp type="number" (change)="updateValue($event.target.value)"/>
+				<input inputApp type="number" (change)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -88,8 +88,8 @@
 
 
 		<!-- Entity selector -->
-		<ng-container *ngSwitchCase="['suppliers', 'categories', 'events', 'currencies', 'incoTerms', 'harbours'].indexOf(type) > -1">
-			<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name"
+		<ng-container *ngSwitchCase="['suppliers', 'categories', 'events', 'incoTerms', 'harbours'].indexOf(type) > -1">
+			<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="type | entityList | async" bindLabel="name"
 				bindValue="id" (change)="update.emit($event?.id)" [ngModel]="value">
 				<ng-template ng-header-tmp>
 					<div class="selectCustomInput">
@@ -99,9 +99,22 @@
 			</ng-select>
 		</ng-container>
 
+		<!-- currency selector -->
+		<ng-container *ngSwitchCase="type === 'currencies'">
+			<ng-select #currenciesSelector class="entitySelector" [virtualScroll]="true"
+				[items]="'currencies' | entityList | async" bindLabel="name"
+				bindValue="id" (change)="update.emit($event)" [ngModel]="value.id">
+				<ng-template ng-header-tmp>
+					<div class="selectCustomInput">
+						<input style="width: 100%" type="text" (input)="currenciesSelector.filter($event.target.value)" />
+					</div>
+				</ng-template>
+			</ng-select>
+		</ng-container>
+
 		<!-- Tags selector -->
 		<ng-container *ngSwitchCase="type === 'tags'">
-			<ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
+			<ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="'tags' | entityList | async" bindLabel="name"
 				bindValue="id" (change)="updateTags($event)" [ngModel]="value" [addTag]="addTagCallback">
 				<ng-template ng-header-tmp>
 					<div class="selectCustomInput">
@@ -114,7 +127,7 @@
 
 		<!-- Project selector -->
 		<ng-container *ngSwitchCase="type === 'projects'">
-			<ng-select #projectsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="entities | async" bindLabel="name"
+			<ng-select #projectsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="'projects' | entityList | async" bindLabel="name"
 				bindValue="id" (change)="updateProjects($event)" [ngModel]="value" [addTag]="addProjectCallback">
 				<ng-template ng-header-tmp>
 					<div class="selectCustomInput">
@@ -127,7 +140,7 @@
 
 		<!-- User selector -->
 		<ng-container *ngSwitchCase="type === 'teamMembers'">
-			<ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async" bindLabel="name" bindValue="id"
+			<ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="'teamMembers' | entityList | async" bindLabel="name" bindValue="id"
 				(change)="update.emit($event?.id)" [ngModel]="value">
 				<ng-template ng-header-tmp>
 					<div class="selectCustomInput">
@@ -151,7 +164,7 @@
 
 		<!-- Status selector -->
 		<ng-container *ngSwitchCase="type === 'productStatus'">
-			<ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="entities | async"
+			<ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="'productStatus' | entityList | async"
 				bindLabel="name" bindValue="id"
 				(change)="update.emit($event?.id)" [ngModel]="value">
 				<ng-template ng-header-tmp>

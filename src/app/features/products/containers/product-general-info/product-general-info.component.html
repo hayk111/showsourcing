@@ -1,10 +1,7 @@
 <ng-template #fields let-field="field" let-product="product">
-	<!-- we need to pass in a list of entities if it's an entity selector type field -->
 	<editable-field-app
-		*ngIf="isEntityType(field.propType)"
 		[value]="product[field.propName]"
 		[entity]="product"
-		[entities]="field.propType | entityList"
 		[type]="field.propType"
 		(update)="onUpdate(product.id, field.propName, $event)"
 		(tagCreate)="onTagCreated(product.id, $event, product.tagIds)"
@@ -12,14 +9,6 @@
 		(tagRemoved)="onTagRemoved($event)"
 		(projectAdded)="onProjectAdded($event)"
 		(projectRemoved)="onProjectRemoved($event)">
-	</editable-field-app>
-	<!-- else we don't -->
-	<editable-field-app
-		*ngIf="!isEntityType(field.propType)"
-		[entity]="product"
-		[value]="product[field.propName]"
-		[type]="field.propType"
-		(update)="onUpdate(product.id, field.propName, $event)">
 	</editable-field-app>
 </ng-template>
 
@@ -58,14 +47,13 @@
 				<ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
 					<div class="subSectionTitle">Trading conditions</div>
 					<cell-one-row-app title="Inco Term">
-						<editable-field-app [entities]="'incoTerms' | entityList"
+						<editable-field-app
 							[isRightAligned]="true"
 							[value]="supplier.incoTerm" type="incoTerms" (update)="onSupplierUpdate(supplier.id, 'incoTerm', $event)">
 						</editable-field-app>
 					</cell-one-row-app>
 					<cell-one-row-app title="Harbour">
 						<editable-field-app
-							[entities]="'harbours' | entityList"
 							[isRightAligned]="true"
 							[value]="supplier.harbour" type="harbours" (update)="onSupplierUpdate(supplier.id, 'harbour', $event)">
 						</editable-field-app>

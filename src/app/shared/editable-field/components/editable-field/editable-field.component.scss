@@ -3,80 +3,80 @@
 }
 
 .editable {
-    position: relative;
-    align-items: baseline;
-    flex: 1 1 100%;
-    &.rightAligned {
-        justify-content: flex-end;
-    }
+	position: relative;
+	align-items: baseline;
+	flex: 1 1 100%;
+	&.rightAligned {
+			justify-content: flex-end;
+	}
 }
 
 .editable:hover {
-    .editButton {
-        visibility: visible;
-    }
-    .currencyTag {
-        visibility: hidden;
-    }
+	.editButton {
+		visibility: visible;
+	}
+	.currencyTag {
+		visibility: hidden;
+	}
 }
 
 .textAreaEditor {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin-bottom: 12px;
-    .confirmBlock {
-        align-self: flex-end;
-    }
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	margin-bottom: 12px;
+	.confirmBlock {
+		align-self: flex-end;
+	}
 }
 
 .tags {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    .tag {
-        background-color: var(--color-primary-light);
-        color: var(--color-primary-dark);
-        font-size: 15px;
-        padding: 4px;
-        margin-right: var(--spacing-s);
-        margin-bottom: 2px;
-        border-radius: 2px;
-    }
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	.tag {
+		background-color: var(--color-primary-light);
+		color: var(--color-primary-dark);
+		font-size: 15px;
+		padding: 4px;
+		margin-right: var(--spacing-s);
+		margin-bottom: 2px;
+		border-radius: 2px;
+	}
 }
 
 .currencyTag {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary);
-    font-size: 11px;
-    font-weight: 600;
-    right: 0;
-    width: 44px;
-    height: 22px;
-    border: 1px solid var(--color-primary);
-    border-radius: 2px;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--color-primary);
+	font-size: 11px;
+	font-weight: 600;
+	right: 0;
+	width: 44px;
+	height: 22px;
+	border: 1px solid var(--color-primary);
+	border-radius: 2px;
 }
 
 .fieldValue {
-    justify-content: flex-start;
+	justify-content: flex-start;
 }
 
 .editButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    background: var(--color-bg-grey);
-    border: 1px solid var(--color-primary-light);
-    border-radius: var(--border-radius);
-    color: var(--color-txt-secondary);
-    padding: 4px 12px;
-    font-weight: 600;
-    height: 22px;
-    box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	visibility: hidden;
+	background: var(--color-bg-grey);
+	border: 1px solid var(--color-primary-light);
+	border-radius: var(--border-radius);
+	color: var(--color-txt-secondary);
+	padding: 4px 12px;
+	font-weight: 600;
+	height: 22px;
+	box-sizing: border-box;
 }
 
 .leftButton {
@@ -93,25 +93,25 @@
 }
 
 .confirmBlock {
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .confirmIcon {
-        border-radius: 2px;
-        margin-left: var(--spacing-s);
-        height: 22px;
-        width: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    .confirmIconSave {
-        width: 44px;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
+	width: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	.confirmIcon {
+		border-radius: 2px;
+		margin-left: var(--spacing-s);
+		height: 22px;
+		width: 22px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+	}
+	.confirmIconSave {
+		width: 44px;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
 }
 
 .ng-select.entitySelector {

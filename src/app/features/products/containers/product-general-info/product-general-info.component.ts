@@ -49,21 +49,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.customFields$.subscribe(d => { });
 	}
 
-	isEntityType(fieldType: string) {
-		return ~[
-			'suppliers',
-			'categories',
-			'events',
-			'teamMembers',
-			'tags',
-			'projects',
-			'productStatus',
-			'currencies',
-			'incoTerms',
-			'harbours',
-		].indexOf(fieldType);
-	}
-
 	getFirstCol(fields: Array<FormControlDescriptor>) {
 		const half = Math.ceil(fields.length / 2);
 		return fields.slice(0, half);
