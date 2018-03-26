@@ -111,7 +111,7 @@
 		<ng-container *ngSwitchCase="type === 'currencies'">
 			<ng-select #currenciesSelector class="entitySelector" [virtualScroll]="true"
 				[items]="'currencies' | entityList | async" bindLabel="name"
-				bindValue="id" (change)="update.emit($event)" [ngModel]="value.id">
+				bindValue="id" (change)="update.emit($event)" [ngModel]="value?.id">
 				<ng-template ng-header-tmp>
 					<div class="selectCustomInput">
 						<input style="width: 100%" type="text" (input)="currenciesSelector.filter($event.target.value)" />

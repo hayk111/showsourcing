@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, mergeMap, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, mergeMap, distinctUntilChanged, tap } from 'rxjs/operators';
 import { AppFile, fileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';

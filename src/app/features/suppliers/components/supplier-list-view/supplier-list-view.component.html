@@ -32,7 +32,7 @@
 		let-row="row"
 		width="60">
 		<span>
-			{{ countries.byId[row?.countryCode]  }}
+			{{ countries.byId[row?.countryCode]?.fullName  }}
 		</span>
 	</ng-template>
 
@@ -60,12 +60,12 @@
 		let-row="row"
 		[sortable]="false"
 		width="140">
-		<div class="flex" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
+		<div class="flex">
 			<user-picture-app
 				[size]="18"
 				[border]="true"
-				[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-			<span>{{ user.name }}</span>
+				[url]="teamMembers.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+			<span>{{ teamMembers.byId[row.createdByUserId]?.name }}</span>
 		</div>
 	</ng-template>
 

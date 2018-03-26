@@ -13,25 +13,25 @@ export const getEntitiesState = state => state.entities;
 const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
 
 export const selectProductsState = createSelector(getEntitiesState, (state: any) => state.products);
-export const selectProducts = createSelector(selectProductsState, (state: any) => state.byId);
+export const selectProductsMap = createSelector(selectProductsState, (state: any) => state.byId);
+export const selectProducts = createSelector(selectProductsState, (state: any) => Object.values(state.byId));
+
 
 export const selectProductById = (id: string) => {
-	return createSelector([selectProducts], products => {
-		return products[id];
-	});
+	return createSelector([selectProductsMap], products => products[id]);
 };
 
 // select the currently focCCCcussed product
 export const selectProductFocused = createSelector(
-	[selectProductsState, selectCurrentTargetId],
-	(productState: EntityState<Product>, id: string) => {
+	[selectProductsMap, selectCurrentTargetId],
+	(products: any, id: string) => {
 		if (!id) return undefined;
-		return productState.byId[id];
+		return products[id];
 	}
 );
 
 export const selectFilteredEntity = (filterGroupName: FilterGroupName) => {
-	return createSelector([selectFilterGroup(filterGroupName), selectProducts], (filters, products) => {
+	return createSelector([selectFilterGroup(filterGroupName), selectProductsMap], (filters, products) => {
 		const filteredProducts = Object.keys(products)
 			.map(id => products[id])
 			.reduce((returned, product) => {
@@ -50,7 +50,7 @@ export const selectProductByStatus = (filterGroupName: FilterGroupName) =>
 		[selectFilteredEntity(filterGroupName), selectProductStatuses],
 		(products: Array<Product>, statuses: Array<any>) => {
 			// creating a new object for each status with just the name
-			let returned: any = statuses.map(status => ({ name: status.name }));
+			const returned: any = statuses.map(status => ({ name: status.name }));
 			// adding empty array of product for each
 			returned.forEach(r => (r.products = []));
 

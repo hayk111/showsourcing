@@ -41,7 +41,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.supplier$ = this.store.select(selectSupplierSelected);
 		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForId(id))));
 		this.tasks$ = this.store.select(selectTasks);
-		this.products$ = this.store.select(selectProducts);
+		this.products$ = this.store.select<any>(selectProducts);
 	}
 
 	patch(patch: Patch) {

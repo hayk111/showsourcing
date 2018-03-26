@@ -13,7 +13,7 @@
 	--color-txt-primary: var(--color-primary-dark);
 	--color-txt-secondary: #A3AFC6;
 	--color-txt-third: #e0e0e0;
-	--color-txt-strong: $color-txt-strong;
+	--color-txt-strong: #182844;
 	--color-delimiter:  var(--color-primary-light);
 
   --color-bg: #fff;
@@ -33,14 +33,16 @@
 
 	// those variable are not conform with the rest to adapt to response from server the
 	// serveur which is in PascalCasing. So we can have dynamic styling.
-	--color-New: $color-success;
-	--color-New-contrast: white;
-	--color-Idea:  linear-gradient(-90deg, #CCD4E2 0%, #E6EBF5 100%);
-	--color-Idea-contrast: $color-txt-primary;
+	--color-New: var(--color-primary-light);
+	--color-New-contrast: var(--color-primary-dark);
+	--color-Idea:  var(--color-primary-light);
+	--color-Idea-contrast: var(--color-primary-dark);
 	--color-NeedReview: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
 	--color-NeedReview-contrast: white;
 	--color-Refused: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
 	--color-Refused-contrast: white;
+	--color-Validated: var(--color-success);
+	--color-Validated-contrast: white;
 	--color-Complete:  linear-gradient(-90deg, #39CE63 2%, #4DD373 96%);
 	--color-Complete-contrast: white;
 	--color-UnderAssessment: linear-gradient(-270deg, #FFBB37 0%, #FFA900 97%);

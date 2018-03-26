@@ -11,9 +11,9 @@ import { Patch } from '~app/shared/entity';
 export class SupplierMainHeaderComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() update = new EventEmitter<Patch>();
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onStatusChange(newStatus: string) {
 		this.update.emit({ propName: 'status', value: newStatus, id: this.supplier.id });

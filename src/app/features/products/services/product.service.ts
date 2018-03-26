@@ -29,8 +29,10 @@ export class ProductService {
 	}
 
 	loadLatestForTarget(target: EntityTarget) {
+		const params = `drop=0&take=8&sort=creationDate&sortOrder=DESC&${target.entityRepr.urlName}=${target.entityId}`;
 		return this.userSrv.user$.pipe(
-			switchMap(user => this.http.get(`api/team/${this.userSrv.teamId}/product?${target.entityRepr.urlName}=${target.entityId}`))
+			switchMap(user => this.http.get(`api/team/${this.userSrv.teamId}/product?${params}`)),
+			map((r: any) => r.elements)
 		);
 	}
 

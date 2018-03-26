@@ -6,12 +6,20 @@ import { UserService, User } from '~user';
 
 @Injectable()
 export class SupplierService {
-	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
 	load() {
 		return this.entitySrv
 			.load({ base: ERM.teams, target: ERM.suppliers, recurring: true })
-			.pipe(map((r: any) => r.elements));
+			.pipe(map((r: any) => r.elements), map(suppliers => this.linearize(suppliers)));
+	}
+
+	linearize(suppliers) {
+		suppliers.forEach(supplier => {
+			const infos = Object.entries(supplier.advancedInfos);
+			infos.forEach(([k, v]) => supplier[k] = v);
+		});
+		return suppliers;
 	}
 
 	loadById(id: string) {

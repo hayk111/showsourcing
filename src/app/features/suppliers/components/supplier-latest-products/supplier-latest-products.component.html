@@ -1,5 +1,7 @@
 <h4>Latest Products</h4>
 
-<div *ngFor="let product of products">
-	<img src="{{ product?.mainImage?.urls?.url_60x45 }}"/>
+<div class="flex">
+	<div *ngFor="let product of products">
+		<img src="{{ product?.mainImage?.urls?.url_60x45 }}"/>
+	</div>
 </div>

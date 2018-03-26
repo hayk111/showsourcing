@@ -11,15 +11,15 @@
 	</div>
 
 </div>
-<div>
-	<status-selector-badge-app
-		class="badge"
-		(update)="onStatusChange($event)"
-		[status]="supplier?.advancedInfos?.status"
-		[choices]="'supplierStatus' | entityList | async">
-	</status-selector-badge-app>
+<div class="flex right">
 	<rating-heart-app
 		[rating]="supplier?.rating"
 		(favorited)="onFavorited()"
 		(unfavorited)="onUnfavorited()"></rating-heart-app>
+	<status-selector-badge-app
+		class="badge"
+		(update)="onStatusChange($event)"
+		[status]="supplier?.status"
+		[choices]="'supplierStatus' | entityList | async">
+	</status-selector-badge-app>
 </div>

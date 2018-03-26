@@ -9,7 +9,7 @@ export function basicReducerFactory<G extends Entity>(
 	actionType: BasicActionTypes,
 	initialState: EntityState<G> = entityInitialState
 ) {
-	return function(state = initialState, action: TypedAction<any>) {
+	return function (state = initialState, action: TypedAction<any>) {
 		let id;
 		if (action.payload) id = action.payload.id;
 

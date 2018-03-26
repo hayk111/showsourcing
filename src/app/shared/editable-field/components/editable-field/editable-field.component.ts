@@ -46,6 +46,14 @@ export class EditableFieldComponent implements OnInit {
 
 	openEditMode() {
 		this.editMode = true;
+		// if the edit mode displays a selector we want to open the selector
+		// the below code isn't really valid angular but it makes things simple
+		if (document) {
+			const selector = document.querySelector('ng-select');
+			if (selector) {
+
+			}
+		}
 	}
 
 	closeEditMode() {

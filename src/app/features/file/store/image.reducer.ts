@@ -1,4 +1,4 @@
-import { addEntities, replaceEntity, basicReducerFactory } from '~entity';
+import { basicReducerFactory } from '~entity';
 import { TypedAction } from '~utils';
 import { entityInitialState } from '~entity';
 import { imageActionTypes } from './images.action';

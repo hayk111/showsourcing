@@ -3,8 +3,8 @@
 <div class="ctnr flexBetween {{ choices.length > 0 ? 'pointer' : '' }}"
 		[ngStyle]="{'background': 'var(--color-' + status +')', 'color': 'var(--color-' + status + '-contrast)'}"
 		*ngIf="status"  (click)="displayPanel()">
-		<span class="name">{{ status | entityName: 'productStatus' | async }}</span>
-		<icon-app  *ngIf="choices.length > 0" name="angle-down" color="white" [fa]="true"></icon-app>
+		<span class="name">{{ status }}</span>
+		<icon-app  *ngIf="choices.length > 0" name="angle-down" [fa]="true"></icon-app>
 </div>
 <!-- panel displayed on click to pick the status -->
 <ng-container *ngIf="choices.length > 0">
