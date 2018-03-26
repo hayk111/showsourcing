@@ -11,7 +11,7 @@ import {
 	supplierActions,
 } from '~app/features/suppliers/store';
 import { Patch } from '~app/shared/entity';
-import { selectTasks } from '~app/features/tasks';
+import { selectTasks, Task } from '~app/features/tasks';
 
 @Component({
 	selector: 'supplier-details-app',

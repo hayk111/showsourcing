@@ -5,7 +5,7 @@
 		[supplier]="supplier"
 		(update)="update.emit($event)"></supplier-main-header-app>
 
-	<supplier-summary-app [supplier]="supplier" [productsCount]="productsCount"></supplier-summary-app>
+	<supplier-summary-app [numTasks]="numTasks" [supplier]="supplier" [productsCount]="productsCount"></supplier-summary-app>
 	<supplier-main-info-app [supplier]="supplier"></supplier-main-info-app>
 	<supplier-main-bottom-app [supplier]="supplier"></supplier-main-bottom-app>
 </card-app>

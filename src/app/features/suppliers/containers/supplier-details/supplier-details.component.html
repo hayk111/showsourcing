@@ -9,7 +9,8 @@
 			<supplier-main-app
 				(update)="patch($event)"
 				[supplier]="supplier"
-				[productsCount]="productsCount$ | async"></supplier-main-app>
+				[productsCount]="productsCount$ | async"
+				[numTasks]="(tasks$ | async).length"></supplier-main-app>
 		</div>
 		<div class="right">
 			<card-app>

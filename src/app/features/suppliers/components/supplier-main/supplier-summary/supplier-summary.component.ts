@@ -10,6 +10,7 @@ import { Supplier } from '~app/features/suppliers/models';
 export class SupplierSummaryComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() productsCount: number;
+	@Input() numTasks: number;
 	constructor() {}
 
 	ngOnInit() {}

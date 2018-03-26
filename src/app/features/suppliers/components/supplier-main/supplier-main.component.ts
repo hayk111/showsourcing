@@ -11,9 +11,10 @@ import { Patch } from '~app/shared/entity';
 export class SupplierMainComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() productsCount: number;
+	@Input() numTasks: number;
 	@Output() update = new EventEmitter<Patch>();
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }
