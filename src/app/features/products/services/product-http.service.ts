@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { Supplier } from '~app/features/suppliers';
 
 @Injectable()
-export class ProductService {
+export class ProductHttpService {
 	repr = ERM.product;
 
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }

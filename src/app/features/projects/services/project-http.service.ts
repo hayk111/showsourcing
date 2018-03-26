@@ -7,7 +7,7 @@ import { Project } from '../models/project.model';
 import { EntityRepresentation } from './../../../shared/entity/models/entities.model';
 
 @Injectable()
-export class ProjectService {
+export class ProjectHttpService {
 	constructor(private http: HttpClient, private entitySrv: EntityService) {}
 
 	load() {
