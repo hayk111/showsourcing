@@ -34,7 +34,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(takeUntil(this._destroy$), map(params => params.id));
 		id$.subscribe(id => {
-			this.store.dispatch(supplierActions.select(id));
+			this.store.dispatch(supplierActions.focus(id));
 			this.store.dispatch(supplierActions.loadProductCount());
 		});
 

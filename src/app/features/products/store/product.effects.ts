@@ -22,18 +22,19 @@ export class ProductEffects {
 	userID: string;
 
 	@Effect()
-	select$ = this.actions$
-		.ofType<any>(actionTypes.SELECT)
+	focus$ = this.actions$
+		.ofType<any>(actionTypes.FOCUS)
 		.pipe(
 			distinctUntilChanged(),
 			map(action => action.payload),
 			map(id => ({ entityId: id, entityRepr: ERM.product })),
 			mergeMap(target => [
 				TargetAction.select(target),
+				productActions.loadById(target.entityId),
 				commentActions.loadForSelection(),
 				fileActions.loadForSelection(),
 				imageActions.loadForSelection(),
-				taskActions.loadForSelection()
+				taskActions.loadForSelection(),
 			])
 		);
 

@@ -6,8 +6,8 @@ import { Entity, EntityRepresentation, EntityTarget } from '../models';
 import { Swap } from '~app/shared/entity/utils';
 
 export interface BasicActionTypes {
-	// when selecting one entity
-	SELECT: string;
+	// when focussing on one entity (viewing its details), this is used to load related entities
+	FOCUS: string;
 	// loading entities or a subset of entities
 	LOAD: string;
 	// for pagination
@@ -38,7 +38,7 @@ export interface BasicActionTypes {
 export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTypes {
 	// using uppercase for backward compatibility with enums
 	return {
-		SELECT: `[${repr.entityName.capitalize()}] Selecting...`,
+		FOCUS: `[${repr.entityName.capitalize()}] Focussing...`,
 		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
 		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
 		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
@@ -52,7 +52,7 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 		PATCH: `[${repr.entityName.capitalize()}] Patching...`,
 		DOWNLOAD: `[${repr.entityName.capitalize()}] Downloading...`,
 		MERGE: `[${repr.entityName.capitalize()}] Merging...`,
-		RESET: `[${repr.entityName.capitalize()}] Resetting...`
+		RESET: `[${repr.entityName.capitalize()}] RESET...`
 	};
 }
 
@@ -60,9 +60,9 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 export class BasicActions {
 	constructor(protected actionType: any) { }
 
-	select(id: string): TypedAction<any> {
+	focus(id: string): TypedAction<any> {
 		return {
-			type: this.actionType.SELECT,
+			type: this.actionType.FOCUS,
 			payload: id,
 		};
 	}

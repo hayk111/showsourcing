@@ -20,8 +20,8 @@ import { productActions } from '~app/features/products/store';
 @Injectable()
 export class SuppliersEffects {
 	@Effect()
-	select$ = this.action$
-		.ofType<any>(ActionType.SELECT)
+	focus$ = this.action$
+		.ofType<any>(ActionType.FOCUS)
 		.pipe(
 			distinctUntilChanged(),
 			map(action => action.payload),
@@ -84,6 +84,6 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
 		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => supplierActions.addProductCount(r)));
 
-	constructor( private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
+	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
 }
 
