@@ -1,30 +1,18 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroupDescriptor, FormDescriptor } from '../../utils/descriptors.interface';
-import { DynamicFormsService } from '../../services/dynamic-forms.service';
-import { DynamicFormGroup } from '../../utils/dynamic-controls.class';
-import { Subject } from 'rxjs/Subject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { AutoUnsub } from '~utils/index';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { take, switchMap, mergeMap, tap } from 'rxjs/operators';
-import { zip } from 'rxjs/observable/zip';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
-import { selectEntity, selectEntityById } from '~entity';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs/observable/of';
-import { ChangeDetectorRef } from '@angular/core';
-import { EntityRepresentation, ERM, Entity } from '~entity';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Entity } from '~entity';
+import { AutoUnsub } from '~utils';
+
+import { DynamicFormsService } from '../../services/dynamic-forms.service';
+import { FormDescriptor } from '../../utils/descriptors.interface';
 
 @Component({
 	selector: 'dynamic-form-app',
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['./dynamic-form.component.scss'],
-	providers: [ DynamicFormComponent ],
+	providers: [DynamicFormComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent extends AutoUnsub {
@@ -43,7 +31,7 @@ export class DynamicFormComponent extends AutoUnsub {
 	}
 
 	constructor(private dynamicFormsSrv: DynamicFormsService,
-							private store: Store<any>) {
+		private store: Store<any>) {
 		super();
 	}
 

@@ -31,6 +31,7 @@ export interface BasicActionTypes {
 	// modify property of entity
 	PATCH: string;
 	MERGE: string;
+	RESET: string;
 }
 
 // makes basic action types
@@ -51,12 +52,13 @@ export function makeBasicActionTypes(repr: EntityRepresentation): BasicActionTyp
 		PATCH: `[${repr.entityName.capitalize()}] Patching...`,
 		DOWNLOAD: `[${repr.entityName.capitalize()}] Downloading...`,
 		MERGE: `[${repr.entityName.capitalize()}] Merging...`,
+		RESET: `[${repr.entityName.capitalize()}] Resetting...`
 	};
 }
 
 // makes basic actions functions
 export class BasicActions {
-	constructor(protected actionType: any) {}
+	constructor(protected actionType: any) { }
 
 	select(id: string): TypedAction<any> {
 		return {
@@ -151,5 +153,9 @@ export class BasicActions {
 		return {
 			type: this.actionType.MERGE,
 		};
+	}
+
+	reset(): Action {
+		return { type: this.actionType.RESET };
 	}
 }

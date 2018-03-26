@@ -18,8 +18,8 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 		const id = entity.id;
 		if (byId[id] === undefined) {
 			ids.push(id);
-			byId[id] = entity;
 		}
+		byId[id] = entity;
 	});
 
 	return {

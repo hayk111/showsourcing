@@ -12,9 +12,9 @@ export class StatusSelectorBadgeComponent implements OnInit {
 	@Output() update = new EventEmitter<string>();
 	panelVisible = false;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	displayPanel() {
 		if (this.choices.length > 0) this.panelVisible = true;
@@ -28,4 +28,5 @@ export class StatusSelectorBadgeComponent implements OnInit {
 		this.update.emit(id);
 		this.closePanel();
 	}
+
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, mergeMap, distinctUntilChanged, tap } from 'rxjs/operators';
+import { map, switchMap, mergeMap, distinctUntilChanged, tap, startWith } from 'rxjs/operators';
 import { AppFile, fileActions } from '~features/file';
 import { ProductService } from '~products/services/product.service';
 import { selectUser } from '~user/store/selectors/user.selector';
@@ -43,8 +43,8 @@ export class ProductEffects {
 		switchMap((params: any) => {
 			// get products
 			return this.srv.load(params).pipe(
-				// set products
-				map((r: any) => productActions.set(r))
+				// add products
+				map((r: any) => productActions.add(r))
 			);
 		})
 	);
@@ -166,7 +166,7 @@ export class ProductEffects {
 		.ofType<any>(actionTypes.LOAD_LATEST_FOR_TARGET)
 		.pipe(
 			map(action => action.payload),
-			switchMap(supplierId => this.srv.loadLatestForTarget(supplierId)),
+			switchMap(supplierId => this.srv.loadLatestForTarget(supplierId).pipe(startWith(productActions.reset()))),
 			map((r: any) => productActions.set(r))
 		);
 

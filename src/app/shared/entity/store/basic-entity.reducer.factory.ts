@@ -51,6 +51,9 @@ export function basicReducerFactory<G extends Entity>(
 			case actionType.SET_PENDING:
 				return { ...state, pending: true };
 
+			case actionType.RESET:
+				return initialState;
+
 			default:
 				return state;
 		}
