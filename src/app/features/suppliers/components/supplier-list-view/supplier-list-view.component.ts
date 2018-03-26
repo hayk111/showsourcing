@@ -2,6 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Supplier } from '~suppliers/models';
 import { Store } from '@ngrx/store';
 import { FilterActions, FilterGroupName, FilterSort } from '~app/shared/filters';
+import { Observable } from 'rxjs/Observable';
+import { Country } from '~app/app-root/store/model/entities/country.model';
+import { selectCountries, selectCountryState } from '~app/app-root/store/selectors/entities/countries.selector';
+import { EntityState } from '~app/shared/entity';
+import { selectTeamMembersState } from '~app/app-root/store/selectors/entities/team-members.selector';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -19,10 +24,17 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
+	countries: EntityState<Country>;
+	teamMembers: EntityState<any>;
 
 	constructor(private store: Store<any>) { }
 
-	ngOnInit() { }
+	ngOnInit() {
+		// subscribing here once instead subscribing for each row with | async
+		// although we could use the ng-container
+		this.store.select(selectCountryState).subscribe(state => this.countries = state);
+		this.store.select(selectTeamMembersState).subscribe(state => this.teamMembers = state);
+	}
 
 	onSort({ order, sortWith }) {
 		// we first need to remove the current sorting filter

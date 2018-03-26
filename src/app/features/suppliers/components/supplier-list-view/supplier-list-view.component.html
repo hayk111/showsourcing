@@ -32,7 +32,7 @@
 		let-row="row"
 		width="60">
 		<span>
-			{{ row?.countryCode | entity: 'countries': 'fullName' | async }}
+			{{ countries.byId[row?.countryCode]  }}
 		</span>
 	</ng-template>
 

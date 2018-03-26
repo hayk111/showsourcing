@@ -19,7 +19,7 @@ export const entityInitialState: EntityState<any> = {
 // represents an entity in the store
 export class Entity {
 	id: string;
-	name: string;
+	name?: string;
 	createdByUserId?: string;
 	creationDate?: number;
 

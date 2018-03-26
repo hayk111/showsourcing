@@ -29,6 +29,7 @@ import { SupplierMainInfoComponent } from './components/supplier-main/supplier-m
 import { SupplierMainBottomComponent } from './components/supplier-main/supplier-main-bottom/supplier-main-bottom.component';
 import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
 import { StatusModule } from '~app/shared/status/status.module';
+import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
 
 @NgModule({
 	imports: [
@@ -62,6 +63,7 @@ import { StatusModule } from '~app/shared/status/status.module';
 		SupplierMainInfoComponent,
 		SupplierMainBottomComponent,
 		SupplierLatestProductsComponent,
+		SupplierInfosComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [SupplierService],
