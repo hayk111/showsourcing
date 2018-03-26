@@ -23,7 +23,6 @@ import { LocalStorageModule } from '~shared/local-storage';
 import { TemplateModule } from '~shared/template';
 import { reducerProvider } from '~store/reducer/_reducers';
 import { EntitiesServicesModule } from '~store/services/entities-services.module';
-import { HmrService } from '~store/services/hmr.service';
 import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
@@ -33,6 +32,8 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { PreloaderModule } from '~app/shared/preloader/preloader.module';
+import { HmrModule } from '~app/shared/hmr/hmr.module';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?
@@ -41,6 +42,8 @@ declare let module: any;
 	declarations: [AppComponent, HomeComponent],
 	imports: [
 		AppStoreModule.forRoot(),
+		PreloaderModule.forRoot(),
+		HmrModule.forRoot(),
 		BrowserModule,
 		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
@@ -66,7 +69,6 @@ declare let module: any;
 		DataManagementModule.forRoot(),
 	],
 	providers: [
-		HmrService,
 		reducerProvider,
 		AuthGuardService,
 		{

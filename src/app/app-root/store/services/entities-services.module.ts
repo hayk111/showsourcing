@@ -7,8 +7,6 @@ import { LocalStorageModule } from '~shared/local-storage/local-storage.module';
 
 import { CategoryHttpService } from './category-http.service';
 import { CustomFieldsHttpService } from './custom-fields-http.service';
-import { EntityService } from './entity.service';
-import { PreloaderService } from './preloader.service';
 import { SelectionService } from './selection.service';
 import { TagHttpService } from './tag-http.service';
 import { TeamMembersHttpService } from './team-members-http.service';
@@ -19,7 +17,6 @@ import { VoteHttpService } from './vote-http.service';
 	imports: [CommonModule, HttpClientModule, LocalStorageModule],
 	declarations: [],
 	providers: [
-		EntityService,
 		TeamHttpService,
 		CustomFieldsHttpService,
 		CommentHttpService,
@@ -27,8 +24,6 @@ import { VoteHttpService } from './vote-http.service';
 		TeamMembersHttpService,
 		CategoryHttpService,
 		TagHttpService,
-		PreloaderService,
-		FilterEntityPanelService,
 		SelectionService,
 	],
 })

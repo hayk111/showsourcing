@@ -23,7 +23,7 @@ import { supplierActions } from '~app/features/suppliers/store//supplier.action'
 
 @Injectable()
 export class PreloaderService {
-	constructor(private http: HttpClient, private store: Store<any>, private userSrv: UserService) {}
+	constructor(private http: HttpClient, private store: Store<any>, private userSrv: UserService) { }
 
 	init() {
 		// loading all base entities when the user is received

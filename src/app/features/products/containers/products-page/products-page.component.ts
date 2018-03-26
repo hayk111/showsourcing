@@ -144,7 +144,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	onItemOpened(entityId: string) {
 		this.previewDialogOpen = true;
-		this.store.dispatch(productActions.select(entityId));
+		this.store.dispatch(productActions.focus(entityId));
 	}
 
 	onItemFavorited(entityId: string) {

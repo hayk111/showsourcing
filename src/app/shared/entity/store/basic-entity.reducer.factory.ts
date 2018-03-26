@@ -15,7 +15,7 @@ export function basicReducerFactory<G extends Entity>(
 
 		switch (action.type) {
 			// when selecting one of the entities (to look at the details)
-			case actionType.SELECT:
+			case actionType.FOCUS:
 				return {
 					...state,
 					selected: action.payload,
