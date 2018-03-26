@@ -4,15 +4,15 @@
     <div class="contentTitle">{{title}}</div>
     <div *ngIf="dialogType !== 'export'">
       <div *ngFor="let entity of entities" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
-        <div class="contentRow">
+        <div class="contentRow flexBetween">
 					<checkbox-app
 						(check)="selectEntity(entity.id, entity)"
 						(uncheck)="unselectEntity(entity.id, entity)"
 						[checked]="selectedEntities[entity.id]">
 						<span class="name" *ngIf="dialogType === 'add'">{{entity.name}}</span>
 						<span class="name" *ngIf="dialogType === 'feedback'">{{entity.firstName}} {{entity.lastName}}</span>
-						<div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>
 					</checkbox-app>
+					<div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>
         </div>
       </div>
     </div>

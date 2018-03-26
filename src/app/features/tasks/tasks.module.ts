@@ -14,7 +14,7 @@ import { UserModule } from '~user';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { routes } from './router';
-import { TaskService } from './services';
+import { TaskHttpService } from './services';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
@@ -35,13 +35,13 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],
 	exports: [TasksListViewComponent],
-	providers: [TaskService],
+	providers: [TaskHttpService],
 })
 export class TasksModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: TasksModule,
-			providers: [TaskService],
+			providers: [TaskHttpService],
 		};
 	}
 

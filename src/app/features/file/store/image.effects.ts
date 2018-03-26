@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom, retry, catchError } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
-import { ImageService } from '../services';
+import { ImageHttpService } from '../services';
 import { AppImage } from '../models';
 import { SelectionService } from '~store/services/selection.service';
 import { imageActionTypes, imageActions } from './images.action';
@@ -11,7 +11,7 @@ import { Swap } from '~app/shared/entity/utils';
 
 @Injectable()
 export class ImageEffects {
-	constructor(private actions$: Actions, private srv: ImageService, private selectionSrv: SelectionService) {}
+	constructor( private actions$: Actions, private srv: ImageHttpService, private selectionSrv: SelectionService) {}
 
 	@Effect()
 	load$ = this.actions$

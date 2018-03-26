@@ -48,7 +48,7 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
-import { ProductService } from './services/product.service';
+import { ProductHttpService } from './services/product-http.service';
 import { ProductEffects } from './store/product.effects';
 import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import { CommentModule } from '~app/features/comment';
@@ -84,7 +84,7 @@ import { SelectableImageComponent } from '~app/features/products/components/sele
 		CommentModule.forChild(),
 		EntityPagesModule,
 	],
-	providers: [ProductService],
+	providers: [ProductHttpService],
 	declarations: [
 		CellOneRowComponent,
 		CellTwoRowComponent,
@@ -115,7 +115,7 @@ export class ProductModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProductModule,
-			providers: [ProductService],
+			providers: [ProductHttpService],
 		};
 	}
 }

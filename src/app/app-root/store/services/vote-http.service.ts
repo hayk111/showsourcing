@@ -10,7 +10,7 @@ import { EntityTarget, EntityService } from '~entity';
 import { UserService } from '~user';
 
 @Injectable()
-export class VoteService {
+export class VoteHttpService {
 
 	constructor(private http: HttpClient, private store: Store<any>) { }
 

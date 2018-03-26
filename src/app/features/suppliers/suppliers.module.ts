@@ -21,7 +21,7 @@ import { UserModule } from '~user';
 import { NewSupplierDlgComponent, SupplierStatusIconComponent } from './components';
 import { SupplierDetailsComponent } from './containers';
 import { routes } from './routes';
-import { SupplierService } from './services';
+import { SupplierHttpService } from './services';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierMainHeaderComponent } from './components/supplier-main/supplier-main-header/supplier-main-header.component';
@@ -68,13 +68,13 @@ import { EditableFieldModule } from '~app/shared/editable-field';
 		SupplierInfosComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
-	providers: [SupplierService],
+	providers: [SupplierHttpService],
 })
 export class SuppliersModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: SuppliersModule,
-			providers: [SupplierService],
+			providers: [SupplierHttpService],
 		};
 	}
 

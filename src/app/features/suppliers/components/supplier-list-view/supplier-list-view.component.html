@@ -11,12 +11,13 @@
 				(uncheck)="supplierUnselect.emit(row.id)"
 				[checked]="selection.get(row.id)"></checkbox-app>
 			<div class="iconPlaceHolder"></div>
-			<a class="name" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>
+			<a class="name capitalize" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>
 		</div>
 	</ng-template>
 
 	<!-- categories -->
 	<ng-template
+		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
 		[sortable]="false"
@@ -28,6 +29,7 @@
 
 	<!-- country -->
 	<ng-template
+		class="capitalize"
 		columnApp="Country"
 		let-row="row"
 		width="60">
@@ -38,6 +40,7 @@
 
 	<!-- tags -->
 	<ng-template
+		class="capitalize"
 		columnApp="Tags"
 		let-row="row"
 		[sortable]="false"
@@ -72,6 +75,7 @@
 	<!-- info -->
 	<ng-template
 		columnApp="Info"
+		class="capitalize"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -92,15 +96,5 @@
 		</div>
 
 	</ng-template>
-
-	<!-- Review -->
-	<ng-template
-		columnApp=""
-		let-row="row"
-		[sortable]="false"
-		width="60">
-		<a class="review" [routerLink]="['/suppliers', 'details', row.id, 'activity']">REVIEW</a>
-	</ng-template>
-
 
 </table-app>

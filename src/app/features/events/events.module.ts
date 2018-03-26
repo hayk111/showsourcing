@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { EventService } from './services/events.service';
+import { EventHttpService } from './services/events-http.service';
 
 @NgModule({
 	imports: [],
-	providers: [EventService],
+	providers: [EventHttpService],
 	declarations: [],
 })
 export class EventsModule {}

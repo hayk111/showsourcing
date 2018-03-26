@@ -16,7 +16,8 @@
   </div>
 
   <div class="flexCenter">
-    <product-status-badge-app class="badge" [status]="product?.status"></product-status-badge-app>
+		<!-- replace this with current status component -->
+    <status-selector-badge-app (update)="onStatusUpdate($event)" [choices]="statuses" class="badge" [status]="product?.status"></status-selector-badge-app>
   </div>
 
   <!-- bottom card -->

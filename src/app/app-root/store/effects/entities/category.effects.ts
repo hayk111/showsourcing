@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
 import { categoryActionTypes as ActionType, categoryActions } from '../../action/entities/index';
-import { CategoryService } from '../../services/category.service';
+import { CategoryHttpService } from '../../services/category-http.service';
 import { EntityService, ERM } from '~app/shared/entity';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
@@ -28,5 +28,5 @@ export class CategoryEffects {
 			)
 		);
 
-	constructor(private action$: Actions, private srv: CategoryService, private entitySrv: EntityService) {}
+	constructor( private action$: Actions, private srv: CategoryHttpService, private entitySrv: EntityService) {}
 }

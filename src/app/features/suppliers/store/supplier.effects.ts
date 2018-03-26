@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
 import { supplierActionTypes as ActionType, supplierActions } from './supplier.action';
-import { SupplierService } from '~suppliers/services';
+import { SupplierHttpService } from '~suppliers/services';
 import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
 import { Swap } from '~app/shared/entity/utils';
@@ -84,6 +84,6 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
 		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => supplierActions.addProductCount(r)));
 
-	constructor(private action$: Actions, private srv: SupplierService, private entitySrv: EntityService) { }
+	constructor( private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
 }
 

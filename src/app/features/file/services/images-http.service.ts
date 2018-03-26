@@ -1,4 +1,4 @@
-import { FileService } from './file.service';
+import { FileService } from './file-http.service';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,7 +9,7 @@ import { switchMap, retry, delay, retryWhen, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class ImageService extends FileService {
+export class ImageHttpService extends FileService {
 	constructor(protected http: HttpClient, protected store: Store<any>) {
 		super(http, store);
 	}

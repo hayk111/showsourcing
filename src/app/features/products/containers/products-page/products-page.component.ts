@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { selectProjects } from '~app/features/projects';
 import { EntityState, ERM, selectEntityArray } from '~entity';
 import { projectActions, selectProjectsProductsCount } from '~features/projects/store';
-import { Product } from '~products/models';
+import { Product, ProductStatus } from '~products/models';
 import { productActions, selectProductsState } from '~products/store';
 import { Project } from '~projects/models/project.model';
 import { DialogActions, DialogName } from '~shared/dialog';
@@ -28,6 +28,7 @@ import { selectMyTeamMembers } from '~store/selectors/entities/team-members.sele
 import { Patch } from '~entity/utils';
 import { User, UserService } from '~user';
 import { AutoUnsub } from '~utils';
+import { selectProductStatuses } from '~app/app-root/store/selectors/entities/product-status.selector';
 
 @Component({
 	selector: 'products-page-app',
@@ -37,6 +38,9 @@ import { AutoUnsub } from '~utils';
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Array<Product>>;
 	productsState$: Observable<EntityState<Product>>;
+	statuses$: Observable<Array<ProductStatus>>;
+	projectState$: Observable<EntityState<Project>>;
+	teamMembersState$: Observable<EntityState<User>>;
 	pending$: Observable<boolean>;
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
@@ -83,6 +87,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.products$ = this.store.select(selectEntityArray(ERM.product));
 		this.productsState$ = this.store.select(selectProductsState);
 		this.productsState$.subscribe(state => (this.productEntities = state));
+		this.statuses$ = this.store.select(selectProductStatuses);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		filters$.subscribe(filters => {
@@ -106,6 +111,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 				drop: this.productEntities.ids.length,
 			})
 		);
+	}
+
+	patch(patch: Patch) {
+		this.store.dispatch(productActions.patch(patch));
 	}
 
 	onItemSelected(entityId: string) {
@@ -201,7 +210,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		});
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
-	export($event) {}
+	export($event) { }
 
 	// ----------------------------------------------------------------------------
 	// --------------------------- Request feedback Dialog

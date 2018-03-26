@@ -6,8 +6,9 @@ import {
 	EventEmitter,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-import { Product } from '~products';
+import { Product, ProductStatus } from '~products';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
+import { Patch } from '~app/shared/entity';
 
 @Component({
 	selector: 'product-selectable-card-app',
@@ -18,6 +19,7 @@ import { DEFAULT_NO_IMG } from '~utils/constants.const';
 export class ProductSelectableCardComponent implements OnInit {
 	@Input() product: Product;
 	@Input() selected: boolean;
+	@Input() statuses: Array<ProductStatus> = [];
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productDelete = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
@@ -26,12 +28,13 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
+	@Output() update = new EventEmitter<Patch>();
 
 	public showOverlay = false;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onRateClick() {
 		if (this.product.rating === 5) this.productUnfavorited.emit(this.product.id);
@@ -42,7 +45,11 @@ export class ProductSelectableCardComponent implements OnInit {
 		this.productVote.emit({ id: this.product.id, value });
 	}
 
-	public setOverlay(value: boolean) {
+	setOverlay(value: boolean) {
 		this.showOverlay = value;
+	}
+
+	onStatusUpdate(newStatus: string) {
+		this.update.emit({ propName: 'status', value: newStatus, id: this.product.id });
 	}
 }

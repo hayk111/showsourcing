@@ -14,17 +14,19 @@
 			(uncheck)="this.productUnselect.emit(row.id)"
 			[checked]="selection.get(row.id)">
 		</checkbox-app>
-		<img [src]="row?.mainImage?.urls?.url_60x45"/>
-		<a class="name" [routerLink]="['/products', 'details', row.id]">{{ row.name }}</a>
+		<div class="imgCtnr">
+			<img [src]="row?.mainImage?.urls?.url_60x45"/>
+		</div>
+		<a class="name" [routerLink]="['/products', 'details', row.id, 'general']">{{ row.name }}</a>
 	</div>
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	{{ row?.supplierId | entityName: 'suppliers' | async }}
+	{{ suppliers[row?.supplierId] }}
 </ng-template>
 
 <ng-template #category let-row="row">
-	{{ row?.categoryId | entityName: 'categories' | async }}
+	{{ categories[row?.categoryId] }}
 </ng-template>
 
 <ng-template #price let-row="row">
@@ -57,6 +59,12 @@
 	</div>
 </ng-template>
 
+<ng-template #projects let-row="row">
+	<div class="flexCenter">
+		<span *ngFor="let projectId of row.projectIds">{{ projects[projectId].name }}</span>
+	</div>
+</ng-template>
+
 <ng-template #action let-row="row">
 	<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
 </ng-template>
@@ -67,12 +75,12 @@
 </ng-template>
 
 <ng-template #user let-row="row">
-	<div class="flexCenter userP" *ngIf="row.createdByUserId | entity: 'teamMembers' | async as user">
+	<div class="flexCenter userP">
 		<user-picture-app
 			[size]="18"
 			[border]="true"
-			[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-		<span>{{ user.name }}</span>
+			[url]="teamMembers[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+		<span>{{ teamMembers[row.createdByUserId] }}</span>
 	</div>
 <ng-template>
 

@@ -1,2 +1,2 @@
-export * from './file.service';
-export * from './images.service';
+export * from './file-http.service';
+export * from './images-http.service';

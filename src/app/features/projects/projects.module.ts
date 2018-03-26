@@ -9,7 +9,7 @@ import { EntityModule } from '~entity';
 import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
-import { ProjectService } from './services';
+import { ProjectHttpService } from './services';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 
@@ -27,13 +27,13 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent],
 	exports: [ProjectsPageComponent],
-	providers: [ProjectService],
+	providers: [ProjectHttpService],
 })
 export class ProjectsModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProjectsModule,
-			providers: [ProjectService],
+			providers: [ProjectHttpService],
 		};
 	}
 

@@ -1,7 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap } from 'rxjs/operators';
-import { TagService } from '../../services/tag.service';
+import { TagHttpService } from '../../services/tag-http.service';
 import { tagActionTypes as ActionType, tagActions } from '../../action/entities/index';
 import { Tag } from '~app/app-root/store';
 import { Swap, EntityService, ERM } from '~app/shared/entity';
@@ -37,5 +37,5 @@ export class TagEffects {
 			switchMap(ids => this.entitySrv.merge({ base: ERM.teams, target: ERM.tags, body: ids }))
 		);
 
-	constructor(private action$: Actions, private srv: TagService, private entitySrv: EntityService) {}
+	constructor( private action$: Actions, private srv: TagHttpService, private entitySrv: EntityService) {}
 }

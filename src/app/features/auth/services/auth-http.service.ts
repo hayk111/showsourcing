@@ -14,7 +14,7 @@ import { Log } from '~utils';
 // To know how that happens please read the README of this module.
 
 @Injectable()
-export class AuthService {
+export class AuthHttpService {
 	constructor(private router: Router, private http: HttpClient) {
 		Log.debug('Auth Service Created');
 	}

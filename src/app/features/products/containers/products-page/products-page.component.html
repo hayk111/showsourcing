@@ -26,6 +26,8 @@
       [class.hidden] = "view !== 'card'"
 			[products]="products$ | async"
 			[selection]="selection"
+			[statuses]="statuses$ | async"
+			(update)="patch($event)"
 			(productSelect)="onItemSelected($event)"
 			(productDelete)="onItemDeleted($event)"
 			(productUnselect)="onItemUnselected($event)"

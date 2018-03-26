@@ -5,7 +5,7 @@ import { UserService } from '~app/features/user';
 import { ERM } from '~app/shared/entity/models';
 
 @Injectable()
-export class CategoryService {
+export class CategoryHttpService {
 	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {

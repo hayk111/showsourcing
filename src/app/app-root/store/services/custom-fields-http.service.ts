@@ -6,7 +6,7 @@ import { UserService } from '~app/features/user';
 import { PropType } from '~app/shared/_unused_/dynamic-forms';
 
 @Injectable()
-export class CustomFieldsService {
+export class CustomFieldsHttpService {
 	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {

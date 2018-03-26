@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '~auth/services';
+import { AuthHttpService } from '~auth/services';
 import { CardModule } from '~shared/card';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
@@ -22,7 +22,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 @NgModule({
 	imports: [CommonModule, ReactiveFormsModule, InputsModule, LoadersModule, TabsModule, CardModule],
 	providers: [
-		AuthService,
+		AuthHttpService,
 		TokenService,
 		{
 			provide: HTTP_INTERCEPTORS,

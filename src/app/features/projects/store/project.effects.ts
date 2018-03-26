@@ -6,7 +6,7 @@ import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ERM, EntityService } from '~entity';
 import { selectUserTeamId } from '~user/store/selectors/user.selector';
 
-import { ProjectService } from '../services/project.service';
+import { ProjectHttpService } from '../services/project-http.service';
 import { projectActions, actionTypes } from './project.actions';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
@@ -67,7 +67,7 @@ export class ProjectEffects {
 	constructor(
 		private action$: Actions,
 		private store$: Store<any>,
-		private srv: ProjectService,
+		private srv: ProjectHttpService,
 		private entitySrv: EntityService
 	) {}
 }

@@ -5,7 +5,7 @@ import { Tag } from '../model/entities/tag.model';
 import { UserService } from '~user';
 
 @Injectable()
-export class TagService {
+export class TagHttpService {
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {

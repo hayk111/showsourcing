@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TeamItemLoaderService } from '~store/services/team-item-loader.service';
 import { FilterGroupName } from '~shared/filters';
 import { ERM, EntityTarget, EntityService } from '~entity';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()
-export class TaskService {
+export class TaskHttpService {
 	private repr = ERM.tasks;
 	private teamId;
 
-	constructor(private http: HttpClient, private entitySrv: EntityService) {}
+	constructor(private http: HttpClient, private entitySrv: EntityService) { }
 
 	load(filterGroupName: FilterGroupName) {
 		return this.entitySrv.load({ base: ERM.teams, target: ERM.tasks }).pipe(

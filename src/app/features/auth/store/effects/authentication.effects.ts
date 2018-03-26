@@ -10,7 +10,7 @@ import { UserActions } from '~user';
 import { TokenActions, AuthActionType, AuthActions } from '~auth/store/actions';
 import { AuthDlgActions } from '~auth/store/actions';
 import { AuthView } from '~auth/models';
-import { AuthService } from '~auth/services';
+import { AuthHttpService } from '~auth/services';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -118,7 +118,7 @@ export class AuthenticationEffects {
 
 	constructor(
 		private actions$: Actions,
-		private srv: AuthService,
+		private srv: AuthHttpService,
 		private store: Store<any>,
 		private router: Router
 	) {}

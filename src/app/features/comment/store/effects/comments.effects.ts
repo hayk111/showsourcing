@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { CommentService } from '~comment/services';
+import { CommentHttpService } from '~comment/services';
 import { map, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
 import { SelectionService } from '~store/services/selection.service';
 import { actionType, commentActions } from '~comment/store/actions';
@@ -34,5 +34,5 @@ export class CommentEffects {
 		)
 	);
 
-	constructor(private actions$: Actions, private srv: CommentService, private selectionSrv: SelectionService) {}
+	constructor( private actions$: Actions, private srv: CommentHttpService, private selectionSrv: SelectionService) {}
 }

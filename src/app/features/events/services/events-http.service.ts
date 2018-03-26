@@ -5,7 +5,7 @@ import { EntityService, ERM } from '~entity';
 import { UserService } from '~user';
 
 @Injectable()
-export class EventService {
+export class EventHttpService {
 	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
 
 	load() {

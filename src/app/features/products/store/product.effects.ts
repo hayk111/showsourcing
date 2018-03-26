@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap, mergeMap, distinctUntilChanged, tap, startWith } from 'rxjs/operators';
 import { AppFile, fileActions } from '~features/file';
-import { ProductService } from '~products/services/product.service';
+import { ProductHttpService } from '~products/services/product-http.service';
 import { selectUser } from '~user/store/selectors/user.selector';
 
 import { productActions, actionTypes } from './product.action';
@@ -171,7 +171,7 @@ export class ProductEffects {
 		);
 
 	constructor(
-		private srv: ProductService,
+		private srv: ProductHttpService,
 		private actions$: Actions,
 		private store: Store<any>,
 		private entitySrv: EntityService

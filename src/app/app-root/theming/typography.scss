@@ -20,6 +20,8 @@ https://getmdl.io/styles/index.html */
   --font-size-xxxl: 24px;
 }
 
+
+
 [fs-xs] {
   font-size: var(--font-size-xs);
 }
@@ -42,6 +44,18 @@ https://getmdl.io/styles/index.html */
   font-size: var(--font-size-xxxl);
 }
 
+.capitalize, [capitalize] {
+	text-transform: capitalize;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.bold-s {
+	font-weight: 600;
+}
+
 /* body 1 */
 body, .body, .body1 {
 	/*  Default font is the one from OS */
@@ -53,6 +67,7 @@ body, .body, .body1 {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 
 h2, h3 {
 	font-weight: 500;

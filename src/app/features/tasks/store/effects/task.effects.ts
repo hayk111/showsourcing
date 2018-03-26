@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { TaskService } from '~tasks/services/task.service';
+import { TaskHttpService } from '~tasks/services/task-http.service';
 import { taskActions, actionType } from '../actions';
 import { SelectionService } from '~app/app-root/store/services/selection.service';
 
@@ -29,5 +29,5 @@ export class TaskEffects {
 			map((r: any) => taskActions.set(r))
 		);
 
-	constructor(private srv: TaskService, private actions$: Actions, private selectionSrv: SelectionService) {}
+	constructor( private srv: TaskHttpService, private actions$: Actions, private selectionSrv: SelectionService) {}
 }
