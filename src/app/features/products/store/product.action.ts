@@ -1,7 +1,8 @@
-import { BasicActions, ERM, makeBasicActionTypes, EntityRepresentation } from '~entity';
+import { BasicActions, ERM, makeBasicActionTypes, EntityRepresentation, EntityTarget } from '~entity';
 import { TypedAction } from '~utils';
 import { Tag } from '~app/app-root/store';
 import { Project } from '~app/features/projects';
+import { Supplier } from '~app/features/suppliers';
 
 // makes product action types
 export const actionTypes = {
@@ -16,6 +17,7 @@ export const actionTypes = {
 	CREATE_PROJECT: `[${ERM.product.entityName.capitalize()}] Creating project for product...`,
 	ADD_PROJECT: `[${ERM.product.entityName.capitalize()}] Adding project to product...`,
 	REMOVE_PROJECT: `[${ERM.product.entityName.capitalize()}] Removing project from product...`,
+	LOAD_LATEST_FOR_TARGET: `[${ERM.product.entityName.capitalize()}] Loading latest for supplier...`
 };
 
 // ----------------------------------------------------------------------------
@@ -91,6 +93,13 @@ class ProductActions extends BasicActions {
 		return {
 			type: this.actionType.REMOVE_PROJECT,
 			payload: { project, productId },
+		};
+	}
+
+	loadLatestForTarget(target: EntityTarget) {
+		return {
+			type: this.actionType.LOAD_LATEST_FOR_TARGET,
+			payload: target
 		};
 	}
 }

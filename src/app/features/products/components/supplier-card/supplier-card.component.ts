@@ -4,7 +4,7 @@ import {
 	Input,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-import { Supplier } from '~app/features/suppliers';
+import { Supplier } from '~app/features/suppliers/models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,9 +16,9 @@ import { Router } from '@angular/router';
 export class SupplierCardComponent implements OnInit {
 	@Input() supplier: Supplier;
 
-	constructor(private router: Router) {}
+	constructor(private router: Router) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
-	goToSupplier() {}
+	goToSupplier() { }
 }

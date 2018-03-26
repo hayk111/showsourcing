@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
-import { EntityService, ERM } from '~entity';
+import { map, tap, switchMap } from 'rxjs/operators';
+import { EntityService, ERM, EntityTarget } from '~entity';
 import { UserService } from '~user';
 import { ApiParams, Patch } from '~entity/utils';
 import { Product } from '~app/features/products';
 import { Tag } from '~app/app-root/store';
 import { Observable } from 'rxjs/Observable';
+import { Supplier } from '~app/features/suppliers';
 
 @Injectable()
 export class ProductService {
@@ -24,6 +25,12 @@ export class ProductService {
 			tap(products =>
 				products.forEach(elem => this.linearize(elem))
 			)
+		);
+	}
+
+	loadLatestForTarget(target: EntityTarget) {
+		return this.userSrv.user$.pipe(
+			switchMap(user => this.http.get(`api/team/${this.userSrv.teamId}/product?${target.entityRepr.urlName}=${target.entityId}`))
 		);
 	}
 

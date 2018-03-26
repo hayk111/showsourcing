@@ -30,6 +30,7 @@ import { SupplierMainBottomComponent } from './components/supplier-main/supplier
 import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
 import { StatusModule } from '~app/shared/status/status.module';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
+import { EditableFieldModule } from '~app/shared/editable-field';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { SupplierInfosComponent } from './components/supplier-infos/supplier-inf
 		RouterModule.forChild(routes),
 		FileModule, // file-card
 		CardModule,
+		EditableFieldModule,
 		StatusModule,
 		IconsModule, // TODO to be removed and placed inside the component module using it
 		EntityModule.forChild(), // used
