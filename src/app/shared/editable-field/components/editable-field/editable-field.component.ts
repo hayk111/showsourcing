@@ -10,11 +10,13 @@ import {
 	Output,
 	ViewChild,
 	ChangeDetectionStrategy,
+	ViewChildren,
 } from '@angular/core';
 import { EntityRepresentation } from '~entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Patch } from '~entity/utils';
 import { Project } from '~app/features/projects';
+import { SelectorComponent } from '~app/shared/selectors/components/selector/selector.component';
 
 @Component({
 	selector: 'editable-field-app',
@@ -27,18 +29,24 @@ export class EditableFieldComponent implements OnInit {
 	@Input() type = 'text';
 	@Input() label: string;
 	@Input() isRightAligned = false;
+	// the entity the editable field targets. This is used to display additional things instead of just the value
+	// for example for the price we also display the currency
 	@Input() entity: Entity;
 	@Input() isCompactInline = false;
+	// update will return the new value
 	@Output() update = new EventEmitter<any>();
+	// emitted when a tag is created
 	@Output() tagCreate = new EventEmitter<string>();
+	// select multiple we add and remove
 	@Output() tagAdded = new EventEmitter<Tag>();
 	@Output() tagRemoved = new EventEmitter<Tag>();
 	@Output() projectAdded = new EventEmitter<Project>();
 	@Output() projectRemoved = new EventEmitter<Project>();
-	@ViewChild('tagSearch') tagSearch;
+	// when an editable field should be a selector we need it to open it on click
+	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	editMode = false;
+	// accumulator to save the new value, we will send an update even not on change but when the button save is clicked
 	accumulator: string | number;
-	addTagCallback = (name: string) => this.addTag(name);
 
 	constructor() { }
 
@@ -46,25 +54,12 @@ export class EditableFieldComponent implements OnInit {
 
 	openEditMode() {
 		this.editMode = true;
-		// if the edit mode displays a selector we want to open the selector
-		// the below code isn't really valid angular but it makes things simple
-		if (document) {
-			const selector = document.querySelector('ng-select');
-			if (selector) {
-
-			}
-		}
+		// using setTimeout so we don't have a selector undefined
+		setTimeout(() => { if (this.selector) this.selector.open(); }, 0);
 	}
 
 	closeEditMode() {
-		// so the blur event of the input fires
-		// without this, the inputs isn't shown and the blur doesn't fire
 		this.editMode = false;
-	}
-
-	addTag(name: string) {
-		this.tagCreate.emit(name);
-		this.tagSearch.nativeElement.value = '';
 	}
 
 	updateTags(value: Array<Tag>) {
@@ -104,6 +99,8 @@ export class EditableFieldComponent implements OnInit {
 		}
 	}
 
+
+
 	updateValue(value: string) {
 		this.accumulator = value;
 	}
@@ -111,5 +108,13 @@ export class EditableFieldComponent implements OnInit {
 	onSave() {
 		this.update.emit(this.accumulator);
 		this.closeEditMode();
+	}
+
+	getSingular(type: string) {
+		if (type === 'categories')
+			return 'category';
+		// removing the 's' at the end of a type
+		else
+			return type.substr(0, type.length - 1);
 	}
 }

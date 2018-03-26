@@ -21,11 +21,7 @@ export class TableComponent {
 	@Output() bottomReached = new EventEmitter<null>();
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 
-	constructor() {}
-
-	ngOnInit() {}
-
-	ngAfterContentInit() {}
+	constructor() { }
 
 	sort(column: ColumnDirective) {
 		const currentSort = column.currentSort;

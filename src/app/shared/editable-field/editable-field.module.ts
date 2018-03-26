@@ -10,6 +10,8 @@ import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { UtilsModule } from '../utils/utils.module';
 import { EditableFieldComponent } from './components/editable-field/editable-field.component';
+import { SelectorsModule } from '~app/shared/selectors/selectors.module';
+import { BadgeModule } from '~app/shared/badge/badge.module';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -23,6 +25,8 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 		IconsModule,
 		UtilsModule,
 		EntityModule.forChild(),
+		SelectorsModule,
+		BadgeModule, // used to display a badge in the status selector
 	],
 	declarations: [EditableFieldComponent],
 	exports: [EditableFieldComponent],

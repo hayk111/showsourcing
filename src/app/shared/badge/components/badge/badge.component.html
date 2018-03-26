@@ -1,2 +1,4 @@
 <div class="cercle" [ngStyle]="{ 'background' : 'var(--color-' + color + ')'}"></div>
-<span>{{ title }}</span>
+<span>
+	<ng-content></ng-content>
+</span>

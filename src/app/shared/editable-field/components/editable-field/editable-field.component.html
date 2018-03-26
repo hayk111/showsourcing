@@ -1,4 +1,4 @@
-<div *ngIf="!editMode">
+<div *ngIf="!editMode" class="pointer" (click)="openEditMode()">
   <div class="flex editable" [class.flexBetween]="!isRightAligned && !isCompactInline" [class.isCompactInline]="isCompactInline" [class.rightAligned]="isRightAligned">
     <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
     <!-- if we get an id as value, we should display the name of the entity -->
@@ -54,7 +54,7 @@
       </ng-container>
 		</ng-container>
 
-    <div class="editButton pointer" *ngIf="!isRightAligned" (click)="openEditMode()">Edit </div>
+    <div class="editButton pointer" *ngIf="!isRightAligned">Edit </div>
   </div>
 </div>
 
@@ -70,7 +70,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- price -->
+		<!-- number -->
 		<ng-container *ngSwitchCase="type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -97,108 +97,81 @@
 
 		<!-- Entity selector -->
 		<ng-container *ngSwitchCase="['suppliers', 'categories', 'events', 'incoTerms', 'harbours'].indexOf(type) > -1">
-			<ng-select #entitySelector class="entitySelector" [virtualScroll]="true" [items]="type | entityList | async" bindLabel="name"
-				bindValue="id" (change)="update.emit($event?.id)" [ngModel]="value">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input style="width: 100%" type="text" (input)="entitySelector.filter($event.target.value)" />
-					</div>
+			<selector-app
+				[value]="value"
+				[choices]="type | entityList | async"
+				[itemName]="getSingular(type)"
+				(select)="update.emit($event?.id)"
+				[canSearch]="true">
+				<ng-template let-item="item">
+					{{ item.name }}
 				</ng-template>
-			</ng-select>
+			</selector-app>
 		</ng-container>
 
 		<!-- currency selector -->
 		<ng-container *ngSwitchCase="type === 'currencies'">
-			<ng-select #currenciesSelector class="entitySelector" [virtualScroll]="true"
-				[items]="'currencies' | entityList | async" bindLabel="name"
-				bindValue="id" (change)="update.emit($event)" [ngModel]="value?.id">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input style="width: 100%" type="text" (input)="currenciesSelector.filter($event.target.value)" />
-					</div>
+			<!-- different than other selectors because of value and returned values -->
+			<selector-app [choices]="'currencies' | entityList | async" [itemName]="'currency'" [value]="value?.id" (select)="update.emit($event)" [canSearch]="true">
+				<ng-template let-item="item">
+					{{ item.name }}
 				</ng-template>
-			</ng-select>
+			</selector-app>
 		</ng-container>
 
 		<!-- Tags selector -->
 		<ng-container *ngSwitchCase="type === 'tags'">
-			<ng-select #tagsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="'tags' | entityList | async" bindLabel="name"
-				bindValue="id" (change)="updateTags($event)" [ngModel]="value" [addTag]="addTagCallback">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input #tagSearch style="width: 100%" type="text" (input)="tagsSelector.filter($event.target.value)" />
-					</div>
+			<selector-app
+				[choices]="'tags' | entityList | async"
+				[multiple]="true"
+				[value]="value?.id"
+				(select)="tagAdded.emit($event)"
+				(unselect)="tagRemoved.emit($event)"
+				(create)="tagCreate.emit($event)"
+				[canSearch]="true"
+				[canCreate]="true">
+				<ng-template let-item="item">
+					{{ item.name }}
 				</ng-template>
-			</ng-select>
+			</selector-app>
 		</ng-container>
-
 
 		<!-- Project selector -->
+		<!-- Tags selector -->
 		<ng-container *ngSwitchCase="type === 'projects'">
-			<ng-select #projectsSelector class="entitySelector" [virtualScroll]="true" multiple="true" [items]="'projects' | entityList | async" bindLabel="name"
-				bindValue="id" (change)="updateProjects($event)" [ngModel]="value" [addTag]="addProjectCallback">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input style="width: 100%" type="text" (input)="projectsSelector.filter($event.target.value)" />
-					</div>
-				</ng-template>
-			</ng-select>
-		</ng-container>
+				<selector-app
+					[choices]="'projects' | entityList | async"
+					[multiple]="true"
+					[value]="value?.id"
+					(select)="projectAdded.emit($event)"
+					(unselect)="projectRemoved.emit($event)"
+					(create)="projectCreate.emit($event)"
+					[canSearch]="true"
+					[canCreate]="true">
+					<ng-template let-item="item">
+						{{ item.name }}
+					</ng-template>
+				</selector-app>
+			</ng-container>
 
-
-		<!-- User selector -->
-		<ng-container *ngSwitchCase="type === 'teamMembers'">
-			<ng-select #userSelector class="entitySelector" [virtualScroll]="true" [items]="'teamMembers' | entityList | async" bindLabel="name" bindValue="id"
-				(change)="update.emit($event?.id)" [ngModel]="value">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input style="width: 100%" type="text" (input)="userSelector.filter($event.target.value)" />
-					</div>
-				</ng-template>
-				<ng-template ng-label-tmp let-item="item">
-					<span class="userOpt">
-						<user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{item.name}}
-					</span>
-				</ng-template>
-				<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-					<span class="userOpt">
-						<user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{item.name}}
-					</span>
-				</ng-template>
-			</ng-select>
-		</ng-container>
 
 		<!-- Status selector -->
 		<ng-container *ngSwitchCase="type === 'productStatus'">
-			<ng-select #statusSelector class="entitySelector" [virtualScroll]="true" [items]="'productStatus' | entityList | async"
-				bindLabel="name" bindValue="id"
-				(change)="update.emit($event?.id)" [ngModel]="value">
-				<ng-template ng-header-tmp>
-					<div class="selectCustomInput">
-						<input style="width: 100%" type="text" (input)="statusSelector.filter($event.target.value)" />
-					</div>
+			<selector-app
+				[choices]="'productStatus' | entityList | async"
+				[value]="value?.id"
+				[canSearch]="false"
+				(select)="update.emit($event.id)">
+				<ng-template let-item="item">
+					<badge-app color="{{ item.id }}">{{ item.name }}</badge-app>
 				</ng-template>
-				<ng-template ng-label-tmp let-item="item">
-					<span class="userOpt">
-						<user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{item.name}}
-					</span>
-				</ng-template>
-				<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-					<span class="userOpt">
-						<user-picture-app [size]="24" [border]="false" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{item.name}}
-					</span>
-				</ng-template>
-			</ng-select>
+			</selector-app>
 		</ng-container>
 
 	</ng-container>
 
 
-  <div class="confirmBlock" *ngIf="['suppliers', 'categories','events', 'tags', 'projects', 'productStatus', 'currencies', 'harbours','incoTerms'].indexOf(type) === -1">
+  <div class="confirmBlock" *ngIf="['text', 'number', 'textarea', 'price', 'decimal', 'dimensions'].indexOf(type) > -1">
 		<span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
 		<span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="onSave()"></span>
   </div>
