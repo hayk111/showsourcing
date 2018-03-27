@@ -9,6 +9,8 @@ import { Entity, Project, Tag } from '~entity';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableFieldComponent implements OnInit {
+	// whether we can edit this field or not
+	@Input() editable = true;
 	@Input() value;
 	@Input() type = 'text';
 	@Input() label: string;
@@ -39,6 +41,9 @@ export class EditableFieldComponent implements OnInit {
 	ngOnInit() { }
 
 	openEditMode() {
+		if (!this.editable)
+			return;
+
 		this.editMode = true;
 		// using setTimeout so we don't have a selector undefined
 		setTimeout(() => { if (this.selector) this.selector.open(); }, 0);

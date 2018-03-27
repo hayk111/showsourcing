@@ -7,7 +7,7 @@
 <div class="hr"></div>
 
 <h4>ABOUT THIS SUPPLIER</h4>
-
+<!-- name -->
 <cell-two-row-app title="name">
 	<editable-field-app
 		[entity]="supplier"
@@ -16,6 +16,7 @@
 		(update)="onUpdate($event, 'name')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- type -->
 <cell-two-row-app title="Type">
 	<editable-field-app
 		[entity]="supplier"
@@ -24,6 +25,7 @@
 		(update)="onUpdate($event, 'supplierType')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- MOQ -->
 <cell-two-row-app title="General MOQ">
 	<editable-field-app
 		[entity]="supplier"
@@ -32,6 +34,7 @@
 		(update)="onUpdate($event, 'minimumOrderQuantity')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- lead time -->
 <cell-two-row-app title="General Lead time">
 	<editable-field-app
 		[entity]="supplier"
@@ -40,6 +43,7 @@
 		(update)="onUpdate($event, 'leadTime')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- country -->
 <cell-two-row-app title="country">
 	<editable-field-app
 		[entity]="supplier"
@@ -48,6 +52,7 @@
 		(update)="onUpdate($event, 'countryCode')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- address -->
 <cell-two-row-app title="address">
 	<editable-field-app
 		[entity]="supplier"
@@ -56,6 +61,7 @@
 		(update)="onUpdate($event, 'address')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- website -->
 <cell-two-row-app title="Web">
 	<editable-field-app
 		[entity]="supplier"
@@ -64,6 +70,7 @@
 		(update)="onUpdate($event, 'website')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- email -->
 <cell-two-row-app title="Office Email">
 	<editable-field-app
 		[entity]="supplier"
@@ -72,6 +79,7 @@
 		(update)="onUpdate($event, 'email')"></editable-field-app>
 </cell-two-row-app>
 
+<!-- phone -->
 <cell-two-row-app title="Office phone">
 	<editable-field-app
 		[entity]="supplier"
@@ -80,14 +88,7 @@
 		(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
 </cell-two-row-app>
 
-<cell-two-row-app title="Met at">
-	<editable-field-app
-		[entity]="supplier"
-		[value]="supplier.phoneNumber"
-		type="tel"
-		(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
-</cell-two-row-app>
-
+<!-- event / Met at -->
 <cell-two-row-app title="Event">
 	<editable-field-app
 		[entity]="supplier"
@@ -96,14 +97,7 @@
 		(update)="onUpdate($event, 'eventId')"></editable-field-app>
 </cell-two-row-app>
 
-<cell-two-row-app title="Created by">
-	<editable-field-app
-		[entity]="supplier"
-		[value]="supplier.createdByUserId"
-		type="users"
-		(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
-</cell-two-row-app>
-
+<!-- inco terms -->
 <cell-two-row-app title="Inco Terms">
 	<editable-field-app
 		[entity]="supplier"
@@ -111,3 +105,23 @@
 		type="incoTerms"
 		(update)="onUpdate($event, 'incoTerm')"></editable-field-app>
 </cell-two-row-app>
+
+<!-- harbour -->
+<cell-two-row-app title="Harbour">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.harbour"
+		type="harbous"
+		(update)="onUpdate($event, 'harbours')"></editable-field-app>
+</cell-two-row-app>
+
+<!-- user / created by -->
+<cell-two-row-app title="Created by">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.createdByUserId"
+		type="teamMembers"
+		[editable]="false"
+		(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
+</cell-two-row-app>
+

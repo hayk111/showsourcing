@@ -1,6 +1,6 @@
-<div *ngIf="!editMode" class="pointer" (click)="openEditMode()">
+<div *ngIf="!editMode" class="{{ editable ? 'pointer': '' }}" (click)="openEditMode()">
   <div class="flex editable" [class.flexBetween]="!isRightAligned && !isCompactInline" [class.isCompactInline]="isCompactInline" [class.rightAligned]="isRightAligned">
-		<div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
+		<div class="editButton leftButton" *ngIf="isRightAligned && editable" (click)="openEditMode()">Edit </div>
 
 		<ng-container *ngIf="!value">
 			-
@@ -36,7 +36,7 @@
 			<!-- user -->
       <ng-container *ngSwitchCase="type === 'teamMembers'">
         <span class="userOpt">
-          <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMembers' | async).preferences.profilePicture.urls.url_60x45"></user-picture-app>
+          <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMembers' | async)?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
           {{ value | entityName: 'teamMembers' | async }}
         </span>
 			</ng-container>
@@ -65,7 +65,7 @@
       </ng-container>
 		</ng-container>
 
-    <div class="editButton pointer" *ngIf="!isRightAligned">Edit </div>
+    <div class="editButton pointer" *ngIf="!isRightAligned && editable">Edit </div>
   </div>
 </div>
 
@@ -115,7 +115,7 @@
 
 
 		<!-- Entity selector -->
-		<ng-container *ngSwitchCase="['suppliers', 'categories', 'events', 'incoTerms', 'harbours'].indexOf(type) > -1">
+		<ng-container *ngSwitchCase="['suppliers', 'categories', 'events', 'incoTerms', 'harbours', 'teamMembers'].indexOf(type) > -1">
 			<selector-app
 				[value]="value"
 				[choices]="type | entityList | async"
@@ -162,7 +162,7 @@
 			<selector-app
 				[choices]="'tags' | entityList | async"
 				[multiple]="true"
-				[value]="value?.id"
+				[value]="value"
 				(select)="tagAdded.emit($event)"
 				(unselect)="tagRemoved.emit($event)"
 				(create)="tagCreate.emit($event)"
@@ -180,7 +180,7 @@
 				<selector-app
 					[choices]="'projects' | entityList | async"
 					[multiple]="true"
-					[value]="value?.id"
+					[value]="value"
 					(select)="projectAdded.emit($event)"
 					(unselect)="projectRemoved.emit($event)"
 					(create)="projectCreate.emit($event)"

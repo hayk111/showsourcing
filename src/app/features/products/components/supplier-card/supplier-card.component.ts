@@ -1,11 +1,6 @@
-import {
-	Component,
-	OnInit,
-	Input,
-	ChangeDetectionStrategy,
-} from '@angular/core';
-import { Supplier } from '~supplier';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Supplier } from '~supplier';
 
 @Component({
 	selector: 'supplier-card-app',
