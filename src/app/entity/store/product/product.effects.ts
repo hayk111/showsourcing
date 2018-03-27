@@ -5,16 +5,19 @@ import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { distinctUntilChanged, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 import { tagActions } from '../tag';
-import { TargetAction } from '~app/app-root/store/action/target/target.action';
-import { commentActions } from '~app/features/comment';
-import { imageActions } from '~app/features/file/store';
-import { projectActions } from '~app/features/projects';
-import { EntityService, ERM } from '~app/shared/entity';
-import { fileActions } from '~features/file';
-import { ProductHttpService } from '~products/services/product-http.service';
-import { selectUser } from '~user/store/selectors/user.selector';
 
 import { actionTypes, productActions } from './product.action';
+import { ProductHttpService } from '~app/entity/store/product/product-http.service';
+import { ERM } from '~app/entity/store/entity.model';
+import { focussedEntityAction } from '~entity/store/focussed-entity';
+import { commentActions } from '~entity/store/comment';
+import { fileActions } from '~entity/store/file';
+import { imageActions } from '~entity/store/image';
+import { taskActions } from '~entity/store/task';
+import { projectActions } from '~entity/store/project';
+import { selectUser } from '~user';
+import { EntityService } from '~app/entity/store/entity.service';
+
 
 @Injectable()
 export class ProductEffects {
@@ -28,7 +31,7 @@ export class ProductEffects {
 			map(action => action.payload),
 			map(id => ({ entityId: id, entityRepr: ERM.product })),
 			mergeMap(target => [
-				TargetAction.select(target),
+				focussedEntityAction.focus(target),
 				productActions.loadById(target.entityId),
 				commentActions.loadForSelection(),
 				fileActions.loadForSelection(),
@@ -107,7 +110,7 @@ export class ProductEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
-			map(path => fileActions.download(path))
+			map((path: string) => fileActions.download(path))
 		);
 
 	@Effect({ dispatch: false })
@@ -134,7 +137,7 @@ export class ProductEffects {
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap(r => [productActions.addTag(r, payload.productId), tagActions.add([r])]))
+					.pipe(mergeMap((r: any) => [productActions.addTag(r, payload.productId), tagActions.add([r])]))
 			)
 		);
 
@@ -157,7 +160,7 @@ export class ProductEffects {
 			switchMap(payload =>
 				this.srv
 					.createProject(payload)
-					.pipe(mergeMap(r => [(productActions.addProject(r, payload.productId), projectActions.add([r]))]))
+					.pipe(mergeMap((r: any) => [(productActions.addProject(r, payload.productId), projectActions.add([r]))]))
 			)
 		);
 

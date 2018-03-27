@@ -1,6 +1,5 @@
-import { selectUser } from '../user';
+import { selectUser, User } from '../user';
 import { createSelector } from 'reselect';
-import { User } from '~app/features/user';
 
 export const selectTeamMembersState = state => state.entities.teamMembers;
 export const selectTeamMembers = createSelector(selectTeamMembersState, state => Object.values(state.byId));

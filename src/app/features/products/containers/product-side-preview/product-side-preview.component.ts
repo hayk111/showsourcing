@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EntityTarget } from '~entity';
+import { EntityTarget, selectFocussedEntity } from '~entity';
 import { Store } from '@ngrx/store';
-import { selectSuppliers } from '~suppliers/store';
-import { selectCurrentTarget } from '~store/selectors/target/target.selector';
 
 @Component({
 	selector: 'product-side-preview-app',
@@ -11,9 +9,9 @@ import { selectCurrentTarget } from '~store/selectors/target/target.selector';
 })
 export class ProductSidePreviewComponent implements OnInit {
 	target$;
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.target$ = this.store.select(selectCurrentTarget);
+		this.target$ = this.store.select(selectFocussedEntity);
 	}
 }

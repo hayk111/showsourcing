@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { EntityService } from '~entity';
 import { User } from '../user';
-import { UserService } from '~user';
+import { UserService } from '~app/features/user';
 
 @Injectable()
 export class TeamMembersHttpService {

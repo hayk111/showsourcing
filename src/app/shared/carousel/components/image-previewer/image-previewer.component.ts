@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AppImage } from '~app/features/file';
 import { UserService } from '~app/features/user';
 import { Log } from '~app/app-root/utils';
+import { AppImage } from '~app/entity';
 
 @Component({
 	selector: 'image-previewer-app',
@@ -15,7 +15,7 @@ export class ImagePreviewerComponent {
 	@Output() imageClick = new EventEmitter<number>();
 	@Output() fileAdded = new EventEmitter<AppImage>();
 
-	constructor(private userSrv: UserService) {}
+	constructor(private userSrv: UserService) { }
 
 	// getting the url for the image at index
 	getUrl(index) {

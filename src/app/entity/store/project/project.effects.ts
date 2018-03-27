@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ERM, EntityService } from '~entity';
-import { selectUserTeamId } from '~user/store/selectors/user.selector';
+import { selectUserTeamId } from '../user';
 
-import { ProjectHttpService } from '../services/project-http.service';
-import { projectActions, actionTypes } from './project.actions';
+import { ProjectHttpService } from './project-http.service';
+import { projectActions, projectActionTypes as actionTypes } from './project.actions';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
@@ -69,5 +69,5 @@ export class ProjectEffects {
 		private store$: Store<any>,
 		private srv: ProjectHttpService,
 		private entitySrv: EntityService
-	) {}
+	) { }
 }

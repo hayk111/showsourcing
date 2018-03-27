@@ -6,10 +6,10 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { AppImage } from '~features/file/models/app-image.model';
 import { Log } from '~utils';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
 import { UserService } from '~app/features/user';
+import { AppImage } from '~app/entity';
 
 @Component({
 	selector: 'carousel-app',
@@ -30,9 +30,9 @@ export class CarouselComponent implements OnInit {
 	modalOpen = false;
 	menuOpen = false;
 
-	constructor(private userSrv: UserService) {}
+	constructor(private userSrv: UserService) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	back(event) {
 		Log.debug('[CarouselComponent] back');

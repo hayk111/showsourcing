@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Supplier } from '~app/features/suppliers/models';
+import { Supplier } from '~supplier';
 
 @Component({
 	selector: 'supplier-main-bottom-app',
@@ -9,7 +9,7 @@ import { Supplier } from '~app/features/suppliers/models';
 })
 export class SupplierMainBottomComponent implements OnInit {
 	@Input() supplier: Supplier;
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

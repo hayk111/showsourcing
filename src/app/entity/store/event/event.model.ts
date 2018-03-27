@@ -1,7 +1,6 @@
-import { Counters } from '~store/model';
 
 export interface Event {
-	counters: Counters;
+	counters: any;
 	createdByUserId: string;
 	creationDate: number;
 	id: string;

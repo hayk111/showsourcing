@@ -9,13 +9,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { NotificationsModule } from '~shared/notifications';
 import { environment } from 'environments/environment';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
-import { AuthGuardService, AuthModule } from '~features/auth';
-import { ProductModule } from '~features/products';
-import { ProjectsModule } from '~features/projects';
-import { SuppliersModule } from '~features/suppliers';
-import { TasksModule } from '~features/tasks';
-import { UserModule } from '~features/user';
-import { WorkflowModule } from '~features/workflow';
+import { AuthGuardService, AuthModule } from '~auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
@@ -32,6 +26,11 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 import { PreloaderModule } from '~app/shared/preloader/preloader.module';
 import { HmrModule } from '~app/shared/hmr/hmr.module';
 import { EntityModule } from '~app/entity';
+import { UserModule } from '~app/features/user';
+import { ProductModule } from '~app/features/products';
+import { ProjectsModule } from '~app/features/projects';
+import { TasksModule } from '~app/features/tasks';
+import { SuppliersModule } from '~app/features/suppliers';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?

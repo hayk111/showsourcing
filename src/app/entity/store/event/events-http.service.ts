@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { EntityService, ERM } from '~entity';
-import { UserService } from '~user';
+import { UserService } from '~app/features/user';
 
 @Injectable()
 export class EventHttpService {
-	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(private entitySrv: EntityService, private userSrv: UserService) { }
 
 	load() {
 		return this.entitySrv

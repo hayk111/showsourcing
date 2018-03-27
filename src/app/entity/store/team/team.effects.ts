@@ -1,8 +1,9 @@
-import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { teamActionTypes as ActionType, teamActions } from '../actions';
-import { TeamHttpService } from '../../services/team-http.service';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { Actions, Effect } from '@ngrx/effects';
+import { map, switchMap } from 'rxjs/operators';
+
+import { TeamHttpService } from './team-http.service';
+import { teamActions, teamActionTypes as ActionType } from './team.action';
 
 @Injectable()
 export class TeamEffects {

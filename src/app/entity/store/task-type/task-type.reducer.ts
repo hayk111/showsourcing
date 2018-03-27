@@ -1,4 +1,4 @@
-import { basicReducerFactory } from '~app/shared/entity/store/entity.reducer.factory';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { taskTypeActionTypes } from './task-type.action';
 
-export const taskTypeReducer = basicReducerFactory(taskTypeActionTypes);
+export const taskTypeReducer = entityReducerFactory(taskTypeActionTypes);

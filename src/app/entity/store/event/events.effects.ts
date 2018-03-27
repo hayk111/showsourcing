@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 
-import { EventHttpService } from '../services';
+import { EventHttpService } from './events-http.service';
 import { eventActions, eventActionTypes } from './events.action';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { EntityService, ERM } from '~app/shared/entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
 
 @Injectable()
 export class EventEffects {
@@ -29,5 +30,5 @@ export class EventEffects {
 			)
 		);
 
-	constructor( private action$: Actions, private srv: EventHttpService, private entitySrv: EntityService) {}
+	constructor(private action$: Actions, private srv: EventHttpService, private entitySrv: EntityService) { }
 }

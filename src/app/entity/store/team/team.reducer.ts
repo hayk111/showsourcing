@@ -1,4 +1,4 @@
-import { basicReducerFactory } from '~app/shared/entity/store/entity.reducer.factory';
-import { teamActionTypes } from '~app/features/team/store/actions';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
+import { teamActionTypes } from './team.action';
 
-export const teamReducer = basicReducerFactory(teamActionTypes);
+export const teamReducer = entityReducerFactory(teamActionTypes);

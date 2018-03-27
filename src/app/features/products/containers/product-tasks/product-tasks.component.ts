@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { selectProductFocused } from '../../store';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs/Observable';
-
-import { Product } from '~products/models';
-import { DialogActions } from '~dialog';
-import { Task, selectTasks } from '~tasks';
-import { DialogName } from '~dialog';
-import { taskActions } from '~app/features/tasks/store';
+import { DialogActions, DialogName } from '~dialog';
+import { Product, selectProductFocused } from '~product';
+import { selectTasks, Task, taskActions } from '~task';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'app-product-tasks',

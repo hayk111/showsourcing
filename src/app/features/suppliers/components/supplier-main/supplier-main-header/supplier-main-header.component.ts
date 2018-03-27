@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Supplier } from '~app/features/suppliers/models';
-import { Patch } from '~app/shared/entity';
+import { Supplier, Patch } from '~app/entity';
+
 
 @Component({
 	selector: 'supplier-main-header-app',

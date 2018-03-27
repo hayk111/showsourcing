@@ -1,17 +1,14 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom, retry, catchError } from 'rxjs/operators';
-import { EntityTarget } from '~entity';
-import { ImageHttpService } from '../services';
-import { AppImage } from '../models';
-import { SelectionService } from '~store/services/selection.service';
+import { EntityTarget, FocussedEntityService, AppImage, Swap } from '~entity';
 import { imageActionTypes, imageActions } from './images.action';
 import { of } from 'rxjs/observable/of';
-import { Swap } from '~app/shared/entity/utils';
+import { ImageHttpService } from '~app/entity/store/image/images-http.service';
 
 @Injectable()
 export class ImageEffects {
-	constructor( private actions$: Actions, private srv: ImageHttpService, private selectionSrv: SelectionService) {}
+	constructor(private actions$: Actions, private srv: ImageHttpService, private selectionSrv: FocussedEntityService) { }
 
 	@Effect()
 	load$ = this.actions$

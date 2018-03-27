@@ -1,8 +1,8 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { taskTypeActionTypes as actionType, taskTypeActions } from '../../action/entities/index';
+import { taskTypeActionTypes as actionType, taskTypeActions } from './task-type.action';
 import { switchMap, map } from 'rxjs/operators';
-import { EntityService, ERM } from '~app/shared/entity';
+import { ERM } from '~entity/store/entity.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -15,5 +15,5 @@ export class TaskTypeEffects {
 		map((result: any) => taskTypeActions.add(result))
 	);
 
-	constructor(private action$: Actions, private http: HttpClient) {}
+	constructor(private action$: Actions, private http: HttpClient) { }
 }

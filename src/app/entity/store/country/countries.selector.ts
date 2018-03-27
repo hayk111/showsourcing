@@ -1,4 +1,4 @@
-import { entityStateToArray } from '~app/shared/entity';
+import { entityStateToArray } from '~entity/utils';
 import { createSelector } from 'reselect';
 
 

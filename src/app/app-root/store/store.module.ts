@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { effects } from './effects/_effects';
-import { reducerProvider, reducerToken, metaReducers } from './reducer/_reducers';
+import { effects } from './_effects';
+import { reducerProvider, reducerToken, metaReducers } from './_reducers';
 import { StoreModule } from '@ngrx/store';
 import { ModuleWithProviders } from '@angular/core';
-import { EntitiesServicesModule } from './services/entities-services.module';
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { EntitiesServicesModule } from './services/entities-services.module';
 		StoreDevtoolsModule.instrument({
 			maxAge: 2,
 		}),
-		EntitiesServicesModule,
 		// doesn't yet work with storeDevTools
 		// StoreRouterConnectingModule
 	],

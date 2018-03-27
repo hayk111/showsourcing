@@ -1,10 +1,7 @@
 import { createSelector } from 'reselect';
-import { EntityState } from '~app/shared/entity';
-import { Event } from '../models';
+import { selectEntities } from '~app/entity';
 
-export const getEntitiesState = state => state.entities;
-
-export const selectEventsState = createSelector(getEntitiesState, state => state.events);
+export const selectEventsState = createSelector(selectEntities, state => state.events);
 
 export const selectEvents = createSelector(selectEventsState, state => state.byId);
 

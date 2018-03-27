@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Log } from '~utils/index';
 import { Observable } from 'rxjs/Observable';
-import { EntityTarget } from '~entity';
-import { selectCurrentTarget } from '../selectors/target/target.selector';
+import { EntityTarget, selectFocussedEntity } from '~entity';
 
 @Injectable()
 export class FocussedEntityService {
@@ -11,11 +10,11 @@ export class FocussedEntityService {
 
 	constructor(private store: Store<any>) {
 		Log.debug('[SelectionService] constructor');
-		this.store.select(selectCurrentTarget).subscribe(s => this.currentTarget = s);
+		this.store.select(selectFocussedEntity).subscribe(s => this.currentTarget = s);
 	}
 
 
 	getSelection(): Observable<EntityTarget> {
-		return this.store.select(selectCurrentTarget);
+		return this.store.select(selectFocussedEntity);
 	}
 }

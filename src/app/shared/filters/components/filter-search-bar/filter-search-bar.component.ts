@@ -18,14 +18,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import {
 	debounceTime,
-	filter,
+	filter as filterPipe,
 	switchMap,
 	takeUntil,
 	tap,
 	map,
 } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { ERM, EntityRepresentation, EntityTarget } from '~app/shared/entity';
 import {
 	SearchedEntities,
 	searchEntities,
@@ -42,6 +41,7 @@ import {
 } from '~shared/filters/models';
 
 import { FilterActions } from '../../store/actions';
+import { ERM } from '~app/entity';
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -95,7 +95,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		this.smartSearch$ = this.searchControl.valueChanges.pipe(
 			takeUntil(this._destroy$),
 			debounceTime(400),
-			filter(value => value.length > 2),
+			filterPipe(value => value.length > 2),
 			switchMap(value => this.store.select(searchEntities(this.searched, value))),
 			tap(d => (this.smartPanelVisible = true))
 		);
@@ -113,7 +113,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 			);
 	}
 
-	onKeyDown() {}
+	onKeyDown() { }
 	// when the user press enter on input we make a normal search
 	search() {
 		const value = this.searchControl.value;

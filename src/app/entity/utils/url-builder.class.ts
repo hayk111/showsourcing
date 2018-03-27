@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EntityRepresentation, EntityTarget, ERM } from '~entity/models';
 import { ApiParams } from '~entity/utils';
 import { Filter } from '~shared/filters';
-import { User } from '~user/models';
-import { UserService } from '~user/services';
-
+import { EntityService } from '~entity/store/entity.service';
+import { ERM, EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
+import { User } from '~app/entity';
+import { UserService } from '~app/features/user';
 // entities are target different ways.
 
 // 1. api/country. The first way and most simple way is api followed
@@ -23,7 +23,7 @@ import { UserService } from '~user/services';
 export class UrlBuilder {
 	static TAKE = 30;
 
-	constructor(private store: Store<any>, private userSrv: UserService) {}
+	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	getUrl(params: ApiParams, user: User): string {
 		let url;
@@ -44,10 +44,10 @@ export class UrlBuilder {
 		// 2. api/team/:teamId/product
 		// 3. api/team/:teamId/product/:productId/comment
 		let url = 'api';
-		let base = params.base;
-		let from = params.from;
-		let target = params.target;
-		let targetId = params.targetId;
+		const base = params.base;
+		const from = params.from;
+		const target = params.target;
+		const targetId = params.targetId;
 
 		if (base) {
 			url = this.addBase(url, base, user);
@@ -64,7 +64,7 @@ export class UrlBuilder {
 		if (base !== ERM.user && base !== ERM.teams) {
 			throw Error(
 				`UrlBuilder: Base ${
-					base.urlName
+				base.urlName
 				} not supported, supported bases are user and teams, if you need to load a static entity do it via loaded.`
 			);
 		}

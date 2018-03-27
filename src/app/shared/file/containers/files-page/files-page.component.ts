@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppFile, fileActions, selectFilesAsArray } from '~entity';
-import { UserService } from '~features/user';
 import { AutoUnsub } from '~utils';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'files-page-app',

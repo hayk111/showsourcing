@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { CommentHttpService } from '~comment/services';
+import { CommentHttpService } from './comment-http.service';
 import { map, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
-import { SelectionService } from '~store/services/selection.service';
-import { actionType, commentActions } from '~comment/store/actions';
+import { commentActionType as actionType, commentActions } from './comment.action';
 import { of } from 'rxjs/observable/of';
 import { appErrorActions } from '~shared/error-handler/app-errors.action';
-import { Swap } from '~app/shared/entity';
+import { Swap } from '~entity/utils';
+import { FocussedEntityService } from '~app/entity';
 
 @Injectable()
 export class CommentEffects {
@@ -15,7 +15,7 @@ export class CommentEffects {
 	load$ = this.actions$
 		.ofType<any>(actionType.LOAD_FOR_SELECTION)
 		.pipe(
-			switchMap(_ => this.selectionSrv.getSelection()),
+			switchMap(_ => this.focusSrv.getSelection()),
 			switchMap(target => this.srv.load(target)),
 			map((r: any) => commentActions.set(r))
 		);
@@ -24,7 +24,7 @@ export class CommentEffects {
 	@Effect()
 	create$ = this.actions$.ofType<any>(actionType.CREATE).pipe(
 		map(action => action.payload),
-		withLatestFrom(this.selectionSrv.getSelection(), (comment, target) => ({ comment, target })),
+		withLatestFrom(this.focusSrv.getSelection(), (comment, target) => ({ comment, target })),
 		switchMap((p: any) =>
 			this.srv.create(p).pipe(
 				// replace currently pending comment, we need to replace so it's not pending anymore
@@ -34,5 +34,5 @@ export class CommentEffects {
 		)
 	);
 
-	constructor( private actions$: Actions, private srv: CommentHttpService, private selectionSrv: SelectionService) {}
+	constructor(private actions$: Actions, private srv: CommentHttpService, private focusSrv: FocussedEntityService) { }
 }

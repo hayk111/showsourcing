@@ -1,7 +1,7 @@
-import { Entity, EntityState } from '~entity';
-import { Swap } from 'app/shared/entity/utils/index';
+import { Entity, EntityState } from '~entity/store/entity.model';
 import { deepCopy } from '~app/app-root/utils';
 import { Resolver } from '~app/app-root/utils/resolver.class';
+import { Swap } from '~app/entity/utils';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.

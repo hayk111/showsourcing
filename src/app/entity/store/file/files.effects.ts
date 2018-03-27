@@ -1,17 +1,15 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { FileService } from '../services';
-import { SelectionService } from '~store/services/selection.service';
 import { fileActionType, fileActions } from './file.action';
 import { mergeMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators/catchError';
 import { of } from 'rxjs/observable/of';
-import { AppFile } from '../models';
-import { Swap } from '~app/shared/entity/utils';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
 import { appErrorActions } from '~app/shared/error-handler';
+import { Swap, AppFile, FocussedEntityService } from '~app/entity';
+import { FileHttpService } from '~app/entity/store/file/file-http.service';
 
 @Injectable()
 export class FilesEffects {
@@ -65,5 +63,5 @@ export class FilesEffects {
 		.ofType<any>(fileActionType.DOWNLOAD)
 		.pipe(map(action => action.payload), tap(img => this.srv.download(img)));
 
-	constructor(private actions$: Actions, private srv: FileService, private selectionSrv: SelectionService) {}
+	constructor(private actions$: Actions, private srv: FileHttpService, private selectionSrv: FocussedEntityService) { }
 }

@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityModule } from '~entity';
-import { UserService } from '~user/services';
 
 import { UserPictureWithNameComponent } from './components';
 import { UserPictureComponent } from './components';
-import { effects } from '~user/store';
+import { UserService } from '~app/features/user';
 
 @NgModule({
-	imports: [CommonModule, EntityModule.forChild(), EffectsModule.forFeature(effects)],
+	imports: [CommonModule, EntityModule.forChild()],
 	providers: [UserService],
 	declarations: [UserPictureComponent, UserPictureWithNameComponent],
 	exports: [UserPictureComponent, UserPictureWithNameComponent],
@@ -18,7 +17,7 @@ export class UserModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: UserModule,
-			providers: [ UserService ]
+			providers: [UserService]
 		};
 	}
 

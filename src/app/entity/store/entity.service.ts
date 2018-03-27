@@ -5,11 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from './user';
 import { ApiParams, Patch } from '~entity/utils';
-import { UserService } from '~user/services';
 
 import { EntityRepresentation } from './entity.model';
 import { UrlBuilder } from '../utils/url-builder.class';
 import { Resolver } from '~app/app-root/utils/resolver.class';
+import { UserService } from '~app/features/user';
 
 // entities are target different ways.
 

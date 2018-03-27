@@ -1,4 +1,4 @@
-import { basicReducerFactory } from '~app/shared/entity/store/entity.reducer.factory';
-import { tagActionTypes } from '~app/shared/entity/store/tag/tag.action';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
+import { tagActionTypes } from './tag.action';
 
-export const tagReducer = basicReducerFactory(tagActionTypes);
+export const tagReducer = entityReducerFactory(tagActionTypes);

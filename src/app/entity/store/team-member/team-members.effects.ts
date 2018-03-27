@@ -1,8 +1,8 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
-import { teamMembersActions, teamMembersActionTypes as ActionType } from '../../action/entities/index';
-import { TeamMembersHttpService } from '../../services/team-members-http.service';
+import { teamMembersActions, teamMembersActionTypes as ActionType } from './team-members.action';
+import { TeamMembersHttpService } from './team-members-http.service';
 
 @Injectable()
 export class TeamMembersEffects {
@@ -11,5 +11,5 @@ export class TeamMembersEffects {
 		.ofType<any>(ActionType.LOAD)
 		.pipe(switchMap(_ => this.srv.load()), map((result: any) => teamMembersActions.add(result)));
 
-	constructor(private action$: Actions, private srv: TeamMembersHttpService) {}
+	constructor(private action$: Actions, private srv: TeamMembersHttpService) { }
 }

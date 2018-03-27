@@ -10,7 +10,6 @@ import { InputsModule } from '~app/shared/inputs';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
-import { FileModule } from '~features/file';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
 import { IconsModule } from '~shared/icons';
@@ -20,8 +19,6 @@ import { PriceModule } from '~shared/price';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { SuppliersModule } from '~suppliers';
-import { UserModule } from '~user/user.module';
 
 import {
 	CellOneRowComponent,
@@ -48,13 +45,15 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
-import { ProductHttpService } from './services/product-http.service';
-import { ProductEffects } from './store/product.effects';
+import { ProductEffects } from '~product';
 import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import { CommentModule } from '~app/features/comment';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { StatusModule } from '~app/shared/status/status.module';
 import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
+import { UserModule } from '~app/features/user';
+import { SuppliersModule } from '~app/features/suppliers';
+import { FileModule } from '~app/shared/file';
 
 @NgModule({
 	imports: [
@@ -84,7 +83,7 @@ import { SelectableImageComponent } from '~app/features/products/components/sele
 		CommentModule.forChild(),
 		EntityPagesModule,
 	],
-	providers: [ProductHttpService],
+	providers: [],
 	declarations: [
 		CellOneRowComponent,
 		CellTwoRowComponent,
@@ -115,7 +114,7 @@ export class ProductModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProductModule,
-			providers: [ProductHttpService],
+			providers: [],
 		};
 	}
 }

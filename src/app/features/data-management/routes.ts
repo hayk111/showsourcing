@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-import { DataManagementPageComponent } from '~features/data-management/containers';
 import { AuthGuardService } from '~app/features/auth';
+import { DataManagementPageComponent } from '~app/features/data-management/containers';
 
 export const routes: Array<Route> = [
 	{

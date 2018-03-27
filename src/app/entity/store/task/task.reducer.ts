@@ -1,5 +1,5 @@
-import { basicReducerFactory } from '~store';
+import { entityReducerFactory } from '../entity.reducer.factory';
 
-import { actionType } from '../actions';
+import { taskActionType } from './task.action';
 
-export const taskReducer = basicReducerFactory(actionType);
+export const taskReducer = entityReducerFactory(taskActionType);

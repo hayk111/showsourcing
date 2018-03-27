@@ -1,4 +1,4 @@
 import { fileActionType } from './file.action';
-import { basicReducerFactory } from '~store';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 
-export const fileReducer = basicReducerFactory(fileActionType);
+export const fileReducer = entityReducerFactory(fileActionType);

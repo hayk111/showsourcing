@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { selectEntityById } from '../store';
-import { ERM } from '../models';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from 'app/app-root/utils/index';
-import { takeUntil, map } from 'rxjs/operators';
-import { UserService } from '~app/features/user/services';
-import { EntityService } from '../services';
+import { AutoUnsub } from 'app/app-root/utils';
+import { map, takeUntil } from 'rxjs/operators';
+
+import { ERM } from '../store/entity.model';
+import { selectEntityById } from '../store/entity.selector';
 
 
 @Pipe({
@@ -13,7 +12,7 @@ import { EntityService } from '../services';
 })
 export class EntityPipe extends AutoUnsub implements PipeTransform {
 
-	constructor(protected store: Store<any>, protected userSrv: EntityService) {
+	constructor(protected store: Store<any>) {
 		super();
 	}
 

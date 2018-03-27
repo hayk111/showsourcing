@@ -1,6 +1,6 @@
-import { AuthGuardService } from '~features/auth';
 import { Route } from '@angular/router';
-import { ProjectsPageComponent } from '~features/projects/containers/projects-page/projects-page.component';
+import { AuthGuardService } from '~app/features/auth';
+import { ProjectsPageComponent } from '~app/features/projects';
 
 export const routes: Array<Route> = [
 	{

@@ -1,4 +1,4 @@
-import { basicReducerFactory } from '~app/shared/entity/store/entity.reducer.factory';
-import { harbourActionTypes } from '~app/shared/harbour/harbour.action';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
+import { harbourActionTypes } from './harbour.action';
 
-export const harbourReducer = basicReducerFactory(harbourActionTypes);
+export const harbourReducer = entityReducerFactory(harbourActionTypes);

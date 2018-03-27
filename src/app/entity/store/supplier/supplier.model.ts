@@ -1,4 +1,4 @@
-import { Category } from '../categories';
+import { Category } from '../category';
 import { Tag } from '../tag';
 import { uuid } from '~utils';
 

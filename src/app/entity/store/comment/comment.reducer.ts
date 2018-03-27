@@ -1,4 +1,4 @@
-import { actionType } from '~comment/store/actions';
-import { basicReducerFactory } from '~app/shared/entity';
+import { commentActionType } from './comment.action';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 
-export const commentReducer = basicReducerFactory(actionType);
+export const commentReducer = entityReducerFactory(commentActionType);

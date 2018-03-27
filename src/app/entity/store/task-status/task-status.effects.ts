@@ -1,8 +1,7 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { taskStatusActionTypes as actionType, taskStatusActions } from '../../action/entities/index';
+import { taskStatusActionTypes as actionType, taskStatusActions } from './task-status.action';
 import { switchMap, map } from 'rxjs/operators';
-import { EntityService, ERM } from '~app/shared/entity';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -15,5 +14,5 @@ export class TaskStatusEffects {
 		map((result: any) => taskStatusActions.add(result))
 	);
 
-	constructor(private action$: Actions, private http: HttpClient) {}
+	constructor(private action$: Actions, private http: HttpClient) { }
 }

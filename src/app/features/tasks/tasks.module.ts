@@ -8,15 +8,13 @@ import { LoadersModule } from '~shared/loaders';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
 import { EntityModule } from '~entity';
-import { NewTaskDlgComponent } from '~tasks/containers';
-import { UserModule } from '~user';
 
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { routes } from './router';
-import { TaskHttpService } from './services';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { NewTaskDlgComponent } from '~app/features/tasks';
 
 @NgModule({
 	imports: [
@@ -25,7 +23,6 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
 		EntityModule.forChild(),
 		EntityPagesModule,
-		UserModule, // TODO REMOVE UNUSED MODULES
 		UtilsModule, // TODO REMOVE UNUSED MODULES
 		LoadersModule, // TODO REMOVE UNUSED MODULES
 		SelectionBarModule, // TODO REMOVE UNUSED MODULES
@@ -35,13 +32,13 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],
 	exports: [TasksListViewComponent],
-	providers: [TaskHttpService],
+	providers: [],
 })
 export class TasksModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: TasksModule,
-			providers: [TaskHttpService],
+			providers: [],
 		};
 	}
 

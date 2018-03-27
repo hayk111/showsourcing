@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { ERM } from '~entity';
 import { DialogActions, DialogName } from '~shared/dialog';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { ERM } from '~entity';
+import { selectTasks, taskActions } from '~task';
 import { AutoUnsub } from '~utils';
-
-import { selectTasks } from '../../store/selectors';
-import { taskActions } from '~app/app-root/store/action';
 
 @Component({
 	selector: 'tasks-page-app',

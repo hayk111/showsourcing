@@ -1,22 +1,20 @@
-import { ActionReducerMap } from '@ngrx/store';
-import { EntityState } from '~entity';
-import { entityInitialState } from '~entity/models/entities.model';
-import { actionTypes as projectsActionTypes } from '~projects/store/project.actions';
-import { basicReducerFactory } from '~store';
+import { entityInitialState } from '~entity/store/entity.model';
+import { projectActionTypes } from '../project';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils/typed-action.interface';
 
-import { Product } from '../models/product.model';
+import { Product } from './product.model';
 import { actionTypes } from './product.action';
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic reducer + extended reducer
 // ----------------------------------------------------------------------------
-export const basicProductReducer = basicReducerFactory(actionTypes);
+export const basicProductReducer = entityReducerFactory(actionTypes);
 
 export function productReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
 		// TODO: hassan we don't use actions from other entities in reducer.
-		case projectsActionTypes.ADD_PRODUCTS_SUCCESS: {
+		case projectActionTypes.ADD_PRODUCTS_SUCCESS: {
 			// tslint:disable-next-line:no-var-keyword
 			const byId = { ...state.byId };
 			action.payload.forEach(element => {

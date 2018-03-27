@@ -1,5 +1,4 @@
-import { Counters } from '~store/model/entities/counters.interface';
-import { Currency } from '~store/model/entities/currency.model';
+import { Currency } from '../currency';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
@@ -23,7 +22,7 @@ export interface Product {
 	lastModifiedDate: number;
 	createdByUserId: string;
 	lastUpdatedByUserId: string;
-	counters: Counters;
+	counters: any;
 	additionalInfo: any;
 	additionalInfoCounters: any;
 	status: ProductStatus;

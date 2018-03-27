@@ -1,5 +1,4 @@
-import { selectEntityArrayByName } from '~entity/store';
-import { ERM, EntityRepresentation } from './../models/entities.model';
+import { selectEntityArrayByName } from '~entity/store/entity.selector';
 import { selectMultipleById } from './../store';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';

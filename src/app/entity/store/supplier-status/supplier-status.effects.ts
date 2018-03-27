@@ -1,8 +1,9 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { supplierStatusActionTypes as actionType, supplierStatusActions } from '../../action/entities/index';
+import { supplierStatusActionTypes as actionType, supplierStatusActions } from './supplier-status.action';
 import { switchMap, map } from 'rxjs/operators';
-import { EntityService, ERM } from '~app/shared/entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -15,5 +16,5 @@ export class SupplierStatusEffects {
 		map((result: any) => supplierStatusActions.add(result))
 	);
 
-	constructor(private action$: Actions, private http: HttpClient) {}
+	constructor(private action$: Actions, private http: HttpClient) { }
 }

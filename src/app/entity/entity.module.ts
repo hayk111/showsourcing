@@ -2,8 +2,9 @@ import { EntityListPipe } from './pipes/entity-list.pipe';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityPipe, EntityNamePipe, EntityExistPipe } from './pipes';
-import { EntityService, UrlBuilder } from './services';
 import { EntityArrayPipe } from './pipes/entity-array.pipe';
+import { EntityService } from '~app/entity/store/entity.service';
+import { UrlBuilder } from '~app/entity/utils/url-builder.class';
 
 @NgModule({
 	imports: [CommonModule],

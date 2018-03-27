@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, takeUntil } from 'rxjs/operators';
 import { AppImage, imageActions, Product, selectProductFocused } from '~entity';
-import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'product-big-card-app',

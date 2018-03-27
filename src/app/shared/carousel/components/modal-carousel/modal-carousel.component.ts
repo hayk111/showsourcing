@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AppFile } from '~features/file';
 import { Log } from '~utils/index';
-import { AppImage } from '~features/file';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AppImage } from '~app/entity';
 
 @Component({
 	selector: 'modal-carousel-app',

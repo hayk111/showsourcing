@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { EntityState } from '~entity';
-import { User } from '~user/models/user.model';
+import { User } from '~user';
 
 @Component({
 	selector: 'details-app',
@@ -13,9 +13,9 @@ export class DetailsComponent implements OnInit {
 	@Input() teamMembers: EntityState<User>;
 	detailsShown = false;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	showDetails() {
 		this.detailsShown = true;

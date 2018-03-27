@@ -1,8 +1,9 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { harbourActionTypes as ActionType, harbourActions } from '../../action/entities/index';
+import { harbourActionTypes as ActionType, harbourActions } from './harbour.action';
 import { switchMap, map } from 'rxjs/operators';
-import { EntityService, ERM } from '~app/shared/entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
 
 @Injectable()
 export class HarbourEffects {
@@ -14,5 +15,5 @@ export class HarbourEffects {
 		map((result: any) => harbourActions.add(result))
 	);
 
-	constructor(private action$: Actions, private srv: EntityService) {}
+	constructor(private action$: Actions, private srv: EntityService) { }
 }

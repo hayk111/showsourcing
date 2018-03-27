@@ -1,4 +1,4 @@
-import { entityStateToArray } from '~app/shared/entity';
+import { entityStateToArray } from '../../utils';
 import { createSelector } from 'reselect';
 
 export const selectProductStatusesState = state => state.entities.productStatus;

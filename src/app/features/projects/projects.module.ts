@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserModule } from '~features/user';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
 import { EntityModule } from '~entity';
@@ -9,9 +8,9 @@ import { EntityModule } from '~entity';
 import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
-import { ProjectHttpService } from './services';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { UserModule } from '~app/features/user';
 
 @NgModule({
 	imports: [
@@ -27,13 +26,13 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent],
 	exports: [ProjectsPageComponent],
-	providers: [ProjectHttpService],
+	providers: [],
 })
 export class ProjectsModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProjectsModule,
-			providers: [ProjectHttpService],
+			providers: [],
 		};
 	}
 

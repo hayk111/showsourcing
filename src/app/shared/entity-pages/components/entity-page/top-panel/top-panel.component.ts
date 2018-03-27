@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { FilterGroupName, Filter } from '~shared/filters/models';
-import { EntityRepresentation } from '~entity/models';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EntityRepresentation } from '~app/entity';
 
 @Component({
 	selector: 'top-panel-app',

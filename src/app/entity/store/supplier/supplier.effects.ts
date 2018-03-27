@@ -2,20 +2,22 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
 import { supplierActionTypes as ActionType, supplierActions } from './supplier.action';
-import { SupplierHttpService } from '~suppliers/services';
-import { Supplier } from '~suppliers/models';
 import { of } from 'rxjs/observable/of';
-import { Swap } from '~app/shared/entity/utils';
-import { imageActions, fileActions } from '~app/features/file';
-import { commentActions } from '~app/features/comment';
-import { ERM, EntityService, EntityTarget } from '~app/shared/entity';
-import { TargetAction } from '~app/app-root/store/action/target/target.action';
 import { Observable } from 'rxjs/Observable';
 import { concat } from 'rxjs/observable/concat';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { appErrorActions } from '~app/shared/error-handler';
-import { taskActions } from '~app/app-root/store/action';
-import { productActions } from '~app/features/products/store';
+import { ERM } from '~app/entity/store/entity.model';
+import { EntityTarget } from '~app/entity/store/entity.model';
+import { focussedEntityAction } from '../focussed-entity';
+import { commentActions } from '../comment';
+import { fileActions } from '../file';
+import { imageActions } from '../image';
+import { taskActions } from '../task';
+import { productActions } from '../product';
+import { Supplier } from './supplier.model';
+import { Swap, EntityService } from '~app/entity';
+import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 
 @Injectable()
 export class SuppliersEffects {
@@ -27,7 +29,7 @@ export class SuppliersEffects {
 			map(action => action.payload),
 			map(id => ({ entityId: id, entityRepr: ERM.suppliers })),
 			mergeMap((target: EntityTarget) => [
-				TargetAction.select(target),
+				focussedEntityAction.focus(target),
 				commentActions.loadForSelection(),
 				fileActions.loadForSelection(),
 				imageActions.loadForSelection(),

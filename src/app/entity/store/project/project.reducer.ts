@@ -1,11 +1,10 @@
-import { Project } from '~projects/models/project.model';
-import { basicReducerFactory } from '~store';
+import { entityInitialState } from '~entity/store/entity.model';
+import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils';
 
-import { actionTypes } from './project.actions';
-import { entityInitialState } from '~app/shared/entity';
+import { projectActionTypes as actionTypes } from './project.actions';
 
-const basicProjectsReducer = basicReducerFactory(actionTypes);
+const basicProjectsReducer = entityReducerFactory(actionTypes);
 const initialState = { ...entityInitialState, productsCount: {} };
 
 export function projectsReducer(state = initialState, action: TypedAction<any>) {
