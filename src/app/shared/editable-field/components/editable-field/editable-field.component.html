@@ -77,7 +77,7 @@
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp  [value]="value" type="text" (change)="updateValue($event.target.value)"/>
+				<input inputApp  [value]="value" [type]="type" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -86,6 +86,14 @@
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
 				<input inputApp restrictInput="number" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+			</form-field-app>
+		</ng-container>
+
+		<!-- tel  -->
+		<ng-container *ngSwitchCase="type === 'tel'">
+			<form-field-app>
+				<label-app>{{ label }}</label-app>
+				<input inputApp restrictInput="tel" [value]="value" type="text" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -201,7 +209,7 @@
 	</ng-container>
 
 
-  <div class="confirmBlock" *ngIf="['text', 'number', 'textarea', 'price', 'decimal', 'dimensions'].indexOf(type) > -1">
+  <div class="confirmBlock" *ngIf="['text', 'number', 'textarea', 'price', 'decimal', 'url', 'tel', 'email', 'dimensions'].indexOf(type) > -1">
 		<span class="confirmIcon icon-close" fs-s color-white bg-txt-secondary (click)="closeEditMode()"></span>
 		<span class="confirmIcon icon-thumb-up" fs-s color-white bg-primary (click)="onSave()"></span>
   </div>

@@ -1,4 +1,12 @@
+<div class="flexColumn flexCenter">
+	<h2>{{ supplier.name }}</h2>
+	<span>subtitle</span>
+</div>
 
+
+<div class="hr"></div>
+
+<h4>ABOUT THIS SUPPLIER</h4>
 
 <cell-two-row-app title="name">
 	<editable-field-app
@@ -54,4 +62,52 @@
 		[value]="supplier.website"
 		type="url"
 		(update)="onUpdate($event, 'website')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Office Email">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.email"
+		type="email"
+		(update)="onUpdate($event, 'email')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Office phone">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.phoneNumber"
+		type="tel"
+		(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Met at">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.phoneNumber"
+		type="tel"
+		(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Event">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.eventId"
+		type="events"
+		(update)="onUpdate($event, 'eventId')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Created by">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.createdByUserId"
+		type="users"
+		(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
+</cell-two-row-app>
+
+<cell-two-row-app title="Inco Terms">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.incoTerm"
+		type="incoTerms"
+		(update)="onUpdate($event, 'incoTerm')"></editable-field-app>
 </cell-two-row-app>

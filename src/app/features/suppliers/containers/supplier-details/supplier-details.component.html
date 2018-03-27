@@ -4,15 +4,15 @@
 		<bread-crumb-app [title]="'Supplier'" [subtitles]="['My suppliers', supplier.name]"></bread-crumb-app>
 	</div>
 
-	<div class="flex">
-		<div class="left ctnr">
+	<div class="flex ctnr">
+		<div class="left">
 			<supplier-main-app
 				(update)="patch($event)"
 				[supplier]="supplier"
 				[productsCount]="productsCount$ | async"
 				[numTasks]="(tasks$ | async).length"></supplier-main-app>
 
-			<card-app>
+			<card-app padding="l">
 				<supplier-latest-products-app [products]="products$ | async"></supplier-latest-products-app>
 			</card-app>
 		</div>

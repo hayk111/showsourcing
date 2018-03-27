@@ -5,13 +5,13 @@
 	margin: var(--spacing-xl);
 }
 .ctnr {
-	width: 1374px;
+	width: 1240px;
 	margin: auto;
 }
-card-app {
-	width: 450px;
-}
 
-.left > * {
-	width: 924px;
+.left {
+	flex-grow: 1;
+}
+.right {
+	width: 350px;
 }
