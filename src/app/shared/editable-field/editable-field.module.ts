@@ -12,6 +12,8 @@ import { UtilsModule } from '../utils/utils.module';
 import { EditableFieldComponent } from './components/editable-field/editable-field.component';
 import { SelectorsModule } from '~app/shared/selectors/selectors.module';
 import { BadgeModule } from '~app/shared/badge/badge.module';
+import { CellOneRowComponent } from '~app/shared/editable-field/components/cell-one-row/cell-one-row.component';
+import { CellTwoRowComponent } from '~app/shared/editable-field/components/cell-two-row/cell-two-row.component';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -28,7 +30,7 @@ import { BadgeModule } from '~app/shared/badge/badge.module';
 		SelectorsModule,
 		BadgeModule, // used to display a badge in the status selector
 	],
-	declarations: [EditableFieldComponent],
-	exports: [EditableFieldComponent],
+	declarations: [EditableFieldComponent, CellOneRowComponent, CellTwoRowComponent],
+	exports: [EditableFieldComponent, CellOneRowComponent, CellTwoRowComponent],
 })
 export class EditableFieldModule { }

@@ -4,9 +4,9 @@
 }
 
 .canCreate {
-	::ng-deep.ng-option.disabled {
-		display: none!important;
-	}
+	// ::ng-deep.ng-option.disabled {
+	// 	display: none!important;
+	// }
 	::ng-deep.ng-select .ng-dropdown-footer {
 		padding: 0;
 	}

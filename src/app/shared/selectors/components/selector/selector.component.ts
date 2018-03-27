@@ -20,6 +20,8 @@ export class SelectorComponent {
 	// string from input to search through the list of choices
 	searchValue = '';
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
+	// When the value is displayed, what property of the entity should be displayed. Default name
+	@Input() propName = 'name';
 	// reference to template transcluded
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
 	// name displayed in messages
@@ -31,7 +33,7 @@ export class SelectorComponent {
 	// whether the list is searchable
 	@Input() canSearch: boolean;
 	// whether we can create new items
-	@Input() canCreate = true;
+	@Input() canCreate = false;
 	// for async items whether they are still being loaded or not
 	@Input() pending: boolean;
 	// whether items must be hiden when picked
@@ -45,29 +47,13 @@ export class SelectorComponent {
 
 	constructor() { }
 
-	onChange(value: Entity | Array<Entity>) {
-		if (this.multiple === true) {
-			return this.onChangeMultiple(value as Array<Entity>);
-		}
-		this.select.emit(value as Entity);
+	onSelect(value: Entity) {
+
+		this.select.emit(value);
 	}
 
-	// on a selector with multiple enabled, the value is an array of objects
-	private onChangeMultiple(value: Array<Entity>) {
-		const newIds = value.map(v => v.id);
-		// if previous value is bigger we removed item
-		if (this.value.length > newIds.length) {
-			// the one removed is the one not included in the second array
-			const removedId = (this.value as Array<string>).find(first => !newIds.find(second => second === first));
-			const item = this.choices.find(choice => choice.id === removedId);
-			// since we only have the id we will send a lookalike Tag with just the id
-			this.unselect.emit(item);
-		} else {
-			// the one added is the one not included in the first array
-			const addedId = newIds.find(id => !(this.value as Array<any>).includes(id));
-			const item = this.choices.find(choice => choice.id === addedId);
-			this.select.emit(item);
-		}
+	onUnselect(removeObj: { value: any }) {
+		this.unselect.emit(removeObj.value);
 	}
 
 	onCreate() {
@@ -76,7 +62,7 @@ export class SelectorComponent {
 	}
 
 	filter() {
-		this.filteredChoices = this.choices.filter(c => c.name.includes(this.searchValue));
+		this.filteredChoices = this.choices.filter(c => c[this.propName].includes(this.searchValue));
 	}
 
 	open() {

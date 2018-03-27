@@ -28,6 +28,8 @@ export class EditableFieldComponent implements OnInit {
 	@Input() value;
 	@Input() type = 'text';
 	@Input() label: string;
+	// whether the label is placed above or inlined with the value
+	@Input() labelPosition: 'top' | 'inline' = 'top';
 	@Input() isRightAligned = false;
 	// the entity the editable field targets. This is used to display additional things instead of just the value
 	// for example for the price we also display the currency

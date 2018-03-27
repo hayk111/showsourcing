@@ -24,8 +24,6 @@ import { SuppliersModule } from '~suppliers';
 import { UserModule } from '~user/user.module';
 
 import {
-	CellOneRowComponent,
-	CellTwoRowComponent,
 	ProductActionDialogComponent,
 	ProductCardViewComponent,
 	ProductIconsComponent,
@@ -86,8 +84,6 @@ import { SelectableImageComponent } from '~app/features/products/components/sele
 	],
 	providers: [ProductHttpService],
 	declarations: [
-		CellOneRowComponent,
-		CellTwoRowComponent,
 		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,

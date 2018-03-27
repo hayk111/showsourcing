@@ -1,14 +1,25 @@
 <div *ngIf="!editMode" class="pointer" (click)="openEditMode()">
   <div class="flex editable" [class.flexBetween]="!isRightAligned && !isCompactInline" [class.isCompactInline]="isCompactInline" [class.rightAligned]="isRightAligned">
-    <div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
+		<div class="editButton leftButton" *ngIf="isRightAligned" (click)="openEditMode()">Edit </div>
+
+		<ng-container *ngIf="!value">
+			-
+		</ng-container>
     <!-- if we get an id as value, we should display the name of the entity -->
 		<!-- else we just display said value -->
-    <ng-container [ngSwitch]="true">
+    <ng-container [ngSwitch]="true" *ngIf="value">
 
 			<!-- entities -->
       <ng-container *ngSwitchCase="['suppliers', 'events', 'categories', 'productStatus', 'harbours', 'incoTerms'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
+        </span>
+			</ng-container>
+
+			<!-- countries -->
+      <ng-container *ngSwitchCase="type === 'countries'">
+        <span>
+          {{ value | entity: 'countries': 'fullName' | async }}
         </span>
 			</ng-container>
 
@@ -49,7 +60,7 @@
 			<!-- default -->
       <ng-container *ngSwitchDefault>
         <span class="flex valueContent">
-          {{ value || '-'}}
+          {{ value }}
         </span>
       </ng-container>
 		</ng-container>
@@ -101,7 +112,7 @@
 				[value]="value"
 				[choices]="type | entityList | async"
 				[itemName]="getSingular(type)"
-				(select)="update.emit($event?.id)"
+				(select)="updateValue($event?.id); onSave()"
 				[canSearch]="true">
 				<ng-template let-item="item">
 					{{ item.name }}
@@ -109,10 +120,29 @@
 			</selector-app>
 		</ng-container>
 
+		<!-- Entity selector -->
+		<ng-container *ngSwitchCase="type === 'countries'">
+			<selector-app
+				[value]="value"
+				[choices]="'countries' | entityList | async"
+				[itemName]="getSingular(type)"
+				(select)="updateValue($event?.id);onSave()"
+				[canSearch]="true"
+				propName="fullName">
+				<ng-template let-item="item">
+					{{ item.fullName }}
+				</ng-template>
+			</selector-app>
+		</ng-container>
+
 		<!-- currency selector -->
 		<ng-container *ngSwitchCase="type === 'currencies'">
 			<!-- different than other selectors because of value and returned values -->
-			<selector-app [choices]="'currencies' | entityList | async" [itemName]="'currency'" [value]="value?.id" (select)="update.emit($event)" [canSearch]="true">
+			<selector-app [choices]="'currencies' | entityList | async"
+				[itemName]="'currency'"
+				[value]="value?.id"
+				(select)="updateValue($event);onSave()"
+				[canSearch]="true">
 				<ng-template let-item="item">
 					{{ item.name }}
 				</ng-template>
@@ -161,7 +191,7 @@
 				[choices]="'productStatus' | entityList | async"
 				[value]="value?.id"
 				[canSearch]="false"
-				(select)="update.emit($event.id)">
+				(select)="updateValue($event?.id);onSave()">
 				<ng-template let-item="item">
 					<badge-app color="{{ item.id }}">{{ item.name }}</badge-app>
 				</ng-template>

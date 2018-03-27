@@ -1,42 +1,42 @@
 <div class="col1 flexColumn">
 	<!-- type -->
-	<div class="row">
+	<div class="row"  *ngIf="supplier && supplier.type">
 		<icon-app [fa]="true" name="question"></icon-app>
 		<span class="value">Supplier</span>
 	</div>
 	<!-- address -->
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.address">
 		<icon-app [fa]="true" name="map-marker-alt"></icon-app>
 		<span class="value">{{ supplier.countryCode | entity: 'countries': 'fullName' | async }}</span>
 	</div>
 	<!-- categories -->
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.categories">
 		<span *ngFor="let cat of supplier.categories">{{ cat.id | entityName: 'categories' | async }}</span>
 	</div>
 	<!-- tags -->
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.tags">
 		<icon-app [fa]="true" name="tag"></icon-app>
 		<span *ngFor="let tag of supplier.tags">{{ tag.id | entityName: 'tags'| async }}</span>
 	</div>
 </div>
 <div class="col2 flexColumn">
 	<!-- phone -->
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.phoneNumber">
 		<icon-app [fa]="true" name="phone"></icon-app>
 		<span class="value">
-			<a href="tel:{{ supplier?.phone }}"></a>
+			<a href="tel:{{ supplier?.phoneNumber }}">{{ supplier?.phoneNumber }}</a>
 		</span>
 	</div>
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.website">
 		<icon-app [fa]="true" name="globe"></icon-app>
 		<span class="value">
-			<a href="{{ supplier?.website }}"></a>
+			<a href="{{ supplier?.website }}">{{ supplier?.website }}</a>
 		</span>
 	</div>
-	<div class="row">
+	<div class="row" *ngIf="supplier && supplier.email">
 		<icon-app [fa]="true" name="envelope"></icon-app>
 		<span class="value">
-			<a href="mailto:{{ supplier?.email }}"></a>
+			<a href="mailto:{{ supplier?.email }}">{{ supplier?.email }}</a>
 		</span>
 	</div>
 </div>
