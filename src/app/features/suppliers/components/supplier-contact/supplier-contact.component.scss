@@ -1,0 +1,15 @@
+
+:host {
+	display: block;
+	padding: var(--spacing-s);
+
+}
+
+.row {
+	width: calc(100%  /3);
+}
+
+.name {
+	color: var(--color-primary);
+	font-weight: 600;
+}

@@ -31,6 +31,8 @@ import { SupplierLatestProductsComponent } from './components/supplier-latest-pr
 import { StatusModule } from '~app/shared/status/status.module';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
 import { EditableFieldModule } from '~app/shared/editable-field';
+import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
+import { SupplierContactComponent } from './components/supplier-contact/supplier-contact.component';
 
 @NgModule({
 	imports: [
@@ -66,6 +68,8 @@ import { EditableFieldModule } from '~app/shared/editable-field';
 		SupplierMainBottomComponent,
 		SupplierLatestProductsComponent,
 		SupplierInfosComponent,
+		SupplierContactCardComponent,
+		SupplierContactComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [SupplierHttpService],
