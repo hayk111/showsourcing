@@ -1,24 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { EntityRepresentation, Entity } from '~entity/models';
+import { Entity, EntityRepresentation } from '~entity/store/entity.model';
 
-import {
-	Filter,
-	FilterClass,
-	FilterEntityClass,
-	FilterGroupName,
-} from '../../models';
-import {
-	FilterActions,
-	FilterEntityPanelActions,
-	FilterPanelAction,
-} from '../../store/actions';
-import {
-	selectFEPChoices,
-	selectFiltersByName,
-	selectFiltersForClass,
-} from '../../store/selectors';
+import { Filter, FilterClass, FilterEntityClass, FilterGroupName } from '../../models';
+import { FilterActions, FilterEntityPanelActions, FilterPanelAction } from '../../store/actions';
+import { selectFEPChoices, selectFiltersByName, selectFiltersForClass } from '../../store/selectors';
 
 @Component({
 	selector: 'filter-panel-app',

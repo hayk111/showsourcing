@@ -3,11 +3,9 @@ import 'rxjs/add/operator/map';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppImage } from '~features/file/models';
-import { imageActions } from '~features/file/store';
 import { entityStateToArray } from '~entity/utils';
 import { AutoUnsub } from '~utils';
-import { selectImages } from '~app/features/file';
+import { selectImages, AppImage, imageActions } from '~app/entity';
 
 @Component({
 	selector: 'carousel-selection-app',

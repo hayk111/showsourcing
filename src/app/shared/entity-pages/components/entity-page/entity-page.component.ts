@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilterGroupName, Filter } from '~shared/filters/models';
-import { EntityRepresentation } from '~entity/models';
+import { EntityRepresentation } from '~entity/store/entity.model';
 
 @Component({
 	selector: 'entity-page-app',
@@ -23,7 +23,7 @@ export class EntityPageComponent implements OnInit {
 	// when filter button from toppanel is clicked
 	@Output() filterClick = new EventEmitter<null>();
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

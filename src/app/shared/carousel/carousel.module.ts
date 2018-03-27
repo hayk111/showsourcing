@@ -6,8 +6,8 @@ import { UtilsModule } from '~shared/utils';
 import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
 import { ImagePreviewerComponent } from './components/image-previewer/image-previewer.component';
-import { FileModule } from '~app/features/file';
 import { CarouselSelectionComponent } from '~app/shared/carousel/container/carousel-selection/carousel-selection.component';
+import { FileModule } from '~app/shared/file';
 
 @NgModule({
 	imports: [CommonModule, UtilsModule, IconsModule, LoadersModule, FileModule],
@@ -23,4 +23,4 @@ import { CarouselSelectionComponent } from '~app/shared/carousel/container/carou
 		CarouselSelectionComponent,
 	],
 })
-export class CarouselModule {}
+export class CarouselModule { }

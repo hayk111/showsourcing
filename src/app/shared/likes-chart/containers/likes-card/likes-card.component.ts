@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { EntityState } from '~entity';
-import { selectTeamMembersState } from '~store/selectors/entities/team-members.selector';
-
-import { User } from '~user/models/user.model';
+import { EntityState, User, selectTeamMembersState } from '~entity';
 
 @Component({
 	selector: 'likes-card-app',
@@ -22,7 +19,7 @@ export class LikesCardComponent implements OnInit {
 		negative: '#f94259',
 	};
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		this.teamMembers$ = this.store.select(selectTeamMembersState);

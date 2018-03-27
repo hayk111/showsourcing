@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ERM } from '~entity';
+import { ERM, Product, productActions } from '~entity';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Product } from '~products/models';
-import { productActions } from '~products/store';
 
 @Component({
 	selector: 'product-info-card-app',
@@ -17,9 +15,9 @@ export class ProductInfoCardComponent implements OnInit {
 	categoryRep = ERM.categories;
 	eventRep = ERM.events;
 
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onUpdate(field, value) {
 		const patch = { id: this.product.id, propName: field, value };

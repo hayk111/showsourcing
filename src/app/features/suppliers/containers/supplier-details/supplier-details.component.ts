@@ -2,19 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { takeUntil, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { Supplier } from '~app/features/suppliers/models';
-import {
-	selectSupplierProductsCountForId,
-	selectSupplierSelected,
-	supplierActions,
-} from '~app/features/suppliers/store';
-import { Patch } from '~app/shared/entity';
-import { Task } from '~app/features/tasks/models';
-import { selectTasks } from '~app/features/tasks/store';
-import { Product } from '~app/features/products/models';
-import { selectProducts } from '~app/features/products/store';
+import { Patch } from '~entity';
+import { Product, selectProducts } from '~product';
+import { selectSupplierProductsCountForId, selectSupplierSelected, Supplier, supplierActions } from '~supplier';
+import { selectTasks, Task } from '~task';
 
 @Component({
 	selector: 'supplier-details-app',

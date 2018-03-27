@@ -2,8 +2,8 @@ import {
 	Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter,
 	Output, TemplateRef, ContentChild, ViewChild
 } from '@angular/core';
-import { Entity } from '~app/shared/entity';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { Entity } from '~app/entity';
 
 @Component({
 	selector: 'selector-app',

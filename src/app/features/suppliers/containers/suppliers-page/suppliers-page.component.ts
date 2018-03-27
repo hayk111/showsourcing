@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FilterGroupName } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch } from '~entity';
-import { Supplier } from '~suppliers/models';
+import { Supplier } from '~supplier';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers, selectSupplierState, supplierActions } from '~suppliers/store';
+import { selectSuppliers, selectSupplierState, supplierActions } from '~supplier';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class SuppliersPageComponent implements OnInit {
 	selection = new Map<string, boolean>();
 	productCount$: Observable<any>; // product count by supplier
 
-	constructor(private store: Store<any>, private router: Router) {}
+	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
 		// we must load the product count on this page

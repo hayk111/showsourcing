@@ -1,12 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import {
-	FilterSupplier,
-	FilterCategory,
-	FilterProjects,
-} from '~shared/filters/models';
-import { EntityRepresentation, EntityTarget } from '~app/shared/entity';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterEvent } from '~app/shared/filters/models';
 import { SearchedEntities } from '~app/shared/filters/store/selectors';
+import { EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
+import { FilterCategory, FilterProjects, FilterSupplier } from '~shared/filters/models';
 
 @Component({
 	selector: 'filter-smart-panel-app',
@@ -18,9 +14,9 @@ export class FilterSmartPanelComponent implements OnInit {
 	@Input() selection: Array<string> = [];
 	@Output() itemAdded = new EventEmitter<EntityTarget>();
 	@Output() itemRemoved = new EventEmitter<EntityTarget>();
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onCheck(event, repr: EntityRepresentation, value: any) {
 		const filter = this.makeFilter(repr, value);

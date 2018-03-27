@@ -10,8 +10,7 @@ import { CommentComponent } from './components';
 import { CommentListComponent } from './components';
 import { CommentBadgeComponent } from './components';
 import { CommentCtnrComponent } from './containers';
-import { CommentHttpService } from './services';
-import { EntityModule } from '~app/shared/entity';
+import { EntityModule } from '~app/entity';
 
 @NgModule({
 	imports: [
@@ -25,13 +24,13 @@ import { EntityModule } from '~app/shared/entity';
 	],
 	declarations: [CommentCtnrComponent, CommentComponent, CommentListComponent, CommentBadgeComponent],
 	exports: [CommentCtnrComponent],
-	providers: [CommentHttpService],
+	providers: [],
 })
 export class CommentModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: CommentModule,
-			providers: [CommentHttpService],
+			providers: [],
 		};
 	}
 

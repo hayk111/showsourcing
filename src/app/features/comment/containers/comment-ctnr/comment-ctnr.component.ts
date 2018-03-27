@@ -3,12 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { AppComment } from '~comment/models';
-import { commentActions } from '~comment/store/actions';
-import { EntityState } from '~entity';
+import { EntityState, AppComment, commentActions, selectComments } from '~entity';
 import { entityStateToArray } from '~entity/utils';
-import { UserService } from '~user';
-import { selectComments } from '~app/features/comment/store/selectors';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'comment-ctnr-app',

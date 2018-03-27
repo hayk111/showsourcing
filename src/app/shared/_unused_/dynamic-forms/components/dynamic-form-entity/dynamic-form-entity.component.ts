@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Entity, EntityTarget, selectEntityById } from '~entity';
-import { selectCustomField } from '~store/selectors/entities/custom-fields.selector';
+import { Entity, EntityTarget, FormDescriptor, FormGroupDescriptor, selectCustomField, selectEntityById } from '~entity';
 import { AutoUnsub } from '~utils';
-
-import { FormDescriptor, FormGroupDescriptor } from '../../utils/descriptors.interface';
 
 @Component({
 	selector: 'dynamic-form-entity-app',

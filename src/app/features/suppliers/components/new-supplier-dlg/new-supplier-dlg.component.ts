@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogName } from '~shared/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogActions } from '~shared/dialog';
 import { Store } from '@ngrx/store';
-import { supplierActions } from '~suppliers/store';
-import { Supplier } from '~suppliers/models';
-import { UserService } from '~user';
+import { DialogActions, DialogName } from '~shared/dialog';
+import { Supplier, supplierActions } from '~supplier';
+import { UserService } from '~app/features/user';
 
 // TODO, make this dumb component ? Or should be in container.
 @Component({
@@ -23,7 +21,7 @@ export class NewSupplierDlgComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onSubmit() {
 		if (this.group.valid) {

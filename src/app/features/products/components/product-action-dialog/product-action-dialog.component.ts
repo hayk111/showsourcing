@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Entity } from '~entity/models';
+import { Entity } from '~entity';
 import { DialogName } from '~shared/dialog';
 
 @Component({

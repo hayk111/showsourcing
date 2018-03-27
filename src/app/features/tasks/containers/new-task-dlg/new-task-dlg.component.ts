@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogActions, DialogName } from '~dialog';
 import { ERM } from '~entity';
-import { UserService } from '~user';
 
-import { Task, TaskParams } from '../../models/task.model';
+import { Task, TaskParams } from '~task';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'new-task-dlg-app',
@@ -26,7 +26,7 @@ export class NewTaskDlgComponent implements OnInit {
 		private fb: FormBuilder,
 		private store: Store<any>,
 		private userSrv: UserService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.group = this.fb.group({

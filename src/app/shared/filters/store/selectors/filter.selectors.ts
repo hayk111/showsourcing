@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 import { Log } from 'app/app-root/utils';
-import { EntityRepresentation } from '~entity/models';
 import { selectEntityArray } from '~entity/store';
 
 import { Filter, FilterClass, FilterGroupName, FilterSort } from '../../models/filter.model';
+import { EntityRepresentation } from '~app/entity';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 
@@ -72,7 +72,7 @@ export const selectFilteredEntity = (filterGroupName: FilterGroupName, entityRep
 				if (filters.every((afilter: Filter) => afilter.filter(entity))) returned.push(entity);
 			});
 			// we need to apply sorting as well
-			let sort: FilterSort = filters.find(f => f instanceof FilterSort);
+			const sort: FilterSort = filters.find(f => f instanceof FilterSort);
 			if (sort) {
 				returned = returned.sort((a, b) => {
 					if (a[sort.value] > b[sort.value]) return sort.order === 'ASC' ? 1 : -1;

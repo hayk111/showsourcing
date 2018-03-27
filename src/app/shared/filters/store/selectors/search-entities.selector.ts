@@ -3,8 +3,7 @@ import { FilterEntityClass, FilterGroupName } from '~shared/filters/models';
 import { selectFiltersValues } from './filter.selectors';
 import { Log } from '~utils';
 
-import { Entity, EntityRepresentation } from '~entity/models';
-import { selectEntityArray } from '~entity/store';
+import { selectEntityArray, EntityRepresentation, Entity } from '~entity/store';
 import { MemoizedSelector } from '@ngrx/store';
 
 export interface SmartSearch {

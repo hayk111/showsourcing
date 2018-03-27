@@ -17,7 +17,7 @@ import {
 	FilterSmartPanelComponent,
 	FilterTagComponent,
 } from './components';
-import { FilterCloudComponent, FilterPanelComponent } from './containers';
+import { FilterPanelComponent, FilterCloudComponent } from './containers';
 
 @NgModule({
 	imports: [
@@ -41,8 +41,8 @@ import { FilterCloudComponent, FilterPanelComponent } from './containers';
 		FilterTagComponent,
 		FilterSmartPanelComponent,
 	],
-	providers: [FilterEntityPanelService],
 	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
+	providers: [FilterEntityPanelService]
 })
 export class FiltersModule {
 	static forRoot(): ModuleWithProviders {

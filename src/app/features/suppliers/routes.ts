@@ -1,8 +1,8 @@
-import { AuthGuardService } from '~features/auth';
+import { AuthGuardService } from '~auth';
 import { components } from './../../shared/inputs/inputs.module';
 import { Route } from '@angular/router';
-import { CommentCtnrComponent } from '~features/comment/containers/comment-ctnr/comment-ctnr.component';
-import { SupplierDetailsComponent, SuppliersPageComponent } from '~suppliers/containers';
+import { CommentCtnrComponent } from '~app/features/comment';
+import { SupplierDetailsComponent, SuppliersPageComponent } from '~app/features/suppliers';
 
 export const routes: Array<Route> = [
 	{

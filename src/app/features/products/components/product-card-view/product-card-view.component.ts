@@ -6,8 +6,7 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { Product, ProductStatus } from '~products';
-import { Patch } from '~app/shared/entity';
+import { Patch, Product, ProductStatus } from '~app/entity';
 
 @Component({
 	selector: 'product-card-view-app',

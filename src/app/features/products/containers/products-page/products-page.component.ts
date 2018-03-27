@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectProjects } from '~app/features/projects';
-import { EntityState, ERM, selectEntityArray } from '~entity';
-import { projectActions, selectProjectsProductsCount } from '~features/projects/store';
-import { Product, ProductStatus } from '~products/models';
-import { productActions, selectProductsState } from '~products/store';
-import { Project } from '~projects/models/project.model';
+import { UserService } from '~app/features/user';
+import {
+	EntityState,
+	ERM,
+	Product,
+	productActions,
+	ProductStatus,
+	Project,
+	projectActions,
+	selectEntityArray,
+	selectMyTeamMembers,
+	selectProductsState,
+	selectProductStatuses,
+	selectProjects,
+	selectProjectsProductsCount,
+	User,
+} from '~entity';
+import { Patch } from '~entity/utils';
 import { DialogActions, DialogName } from '~shared/dialog';
 import {
 	Filter,
@@ -24,11 +36,7 @@ import {
 	selectFilterGroup,
 	selectFilterPanelOpen,
 } from '~shared/filters';
-import { selectMyTeamMembers } from '~store/selectors/entities/team-members.selector';
-import { Patch } from '~entity/utils';
-import { User, UserService } from '~user';
 import { AutoUnsub } from '~utils';
-import { selectProductStatuses } from '~app/app-root/store/selectors/entities/product-status.selector';
 
 @Component({
 	selector: 'products-page-app',
@@ -210,6 +218,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		});
 		this.store.dispatch(DialogActions.open(this.exportDialog));
 	}
+
 	export($event) { }
 
 	// ----------------------------------------------------------------------------

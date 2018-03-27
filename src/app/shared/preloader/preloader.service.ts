@@ -1,25 +1,25 @@
-import { eventActions } from '~events/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
-import { projectActions } from '~projects/store/project.actions';
 import {
 	categoryActions,
 	countryActions,
 	currencyActions,
 	customFieldsActions,
+	eventActions,
+	harbourActions,
+	incoTermsActions,
+	productStatusActions,
+	projectActions,
+	supplierActions,
+	supplierStatusActions,
 	tagActions,
+	taskStatusActions,
+	taskTypeActions,
 	teamActions,
 	teamMembersActions,
-	incoTermsActions,
-	harbourActions,
-	taskTypeActions,
-	taskStatusActions,
-	supplierStatusActions,
-	productStatusActions,
-} from '~store/action';
-import { supplierActions } from '~app/features/suppliers/store//supplier.action';
+} from '~entity/store';
 
 @Injectable()
 export class PreloaderService {

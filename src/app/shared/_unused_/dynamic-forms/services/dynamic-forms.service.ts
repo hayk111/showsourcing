@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectCustomField } from '~store/selectors/entities/custom-fields.selector';
-import { EntityRepresentation } from '~entity';
+import { EntityRepresentation } from '~entity/store/entity.model';
+
 import { RegexpApp } from '~utils/regexes';
 
-import { FormControlDescriptor, FormDescriptor, FormGroupDescriptor } from '../utils/descriptors.interface';
+import { FormControlDescriptor, FormDescriptor, FormGroupDescriptor } from '~entity';
+import { selectCustomField } from '~app/entity';
 
 @Injectable()
 export class DynamicFormsService {
-	constructor(private store: Store<any>) {}
+	constructor(private store: Store<any>) { }
 
 	getDescriptor(entityRepr: EntityRepresentation) {
 		return this.store.select(selectCustomField(entityRepr.descriptorName));

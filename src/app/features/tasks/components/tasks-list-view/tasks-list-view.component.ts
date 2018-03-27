@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Task } from './../../models';
+import { Task } from '~entity';
 
 @Component({
 	selector: 'tasks-list-view-app',
@@ -22,9 +22,9 @@ export class TasksListViewComponent implements OnInit {
 		owner: true,
 	};
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onSelect(event, id: string) {
 		if (event.target.checked) this.taskSelect.emit(id);

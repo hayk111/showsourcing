@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product } from '~app/features/products';
+import { Product } from '~product';
 
 @Component({
 	selector: 'supplier-latest-products-app',

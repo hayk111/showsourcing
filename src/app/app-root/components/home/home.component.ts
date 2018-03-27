@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectUser } from '~user/store/selectors/user.selector';
+import { selectUser } from '~entity';
 import { AuthActions } from '~auth';
 
 @Component({
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 		this.user$ = this.store.select(selectUser);
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	logout() {
 		this.store.dispatch(AuthActions.logout());

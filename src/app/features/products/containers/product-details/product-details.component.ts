@@ -3,18 +3,23 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { Project, selectProjects, selectProjectsProductsCount } from '~app/features/projects';
 import { UserService } from '~app/features/user';
 import { DialogActions, DialogName } from '~app/shared/dialog';
-import { AppComment } from '~comment';
-import { EntityTarget, ERM, EntityState } from '~entity';
-import { AppFile } from '~features/file';
-import { Product } from '~products/models';
-import { productActions } from '~products/store';
+import {
+	AppComment,
+	AppFile,
+	EntityTarget,
+	ERM,
+	Product,
+	productActions,
+	Project,
+	selectProductById,
+	selectProjects,
+	selectProjectsProductsCount,
+	selectTasks,
+	Task,
+} from '~entity';
 import { AutoUnsub } from '~utils';
-
-import { selectProductById } from './../../store/product.selector';
-import { taskActions, Task, selectTasks } from '~app/features/tasks';
 
 @Component({
 	selector: 'product-details-app',
@@ -66,5 +71,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	updateStatus(statusId: string, productId: string) {
 		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: productId }));
+	}
+
+	onFavorited(productId: string) {
+		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: productId }));
 	}
 }

@@ -4,7 +4,7 @@ import {
 	Input,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-import { Supplier } from '~app/features/suppliers/models';
+import { Supplier } from '~supplier';
 import { Router } from '@angular/router';
 
 @Component({

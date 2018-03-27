@@ -1,5 +1,4 @@
-import { Entity, ERM, EntityRepresentation } from '~entity/models';
-import { Currency } from '~store/model/entities/currency.model';
+import { EntityRepresentation, Entity, ERM, Currency } from "~app/entity";
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
@@ -31,7 +30,7 @@ export interface Filter {
 // represent the Filter class
 export interface FilterClass {
 	filterName: string;
-	new (...args: any[]): Filter;
+	new(...args: any[]): Filter;
 }
 
 export abstract class BaseFilter {
@@ -39,7 +38,7 @@ export abstract class BaseFilter {
 	private _displayValue;
 	value: any;
 
-	constructor() {}
+	constructor() { }
 
 	displayName() {
 		return `${(this.constructor as any).filterName}: ${this.displayValue}`;
@@ -70,7 +69,7 @@ export abstract class BaseFilter {
 export interface FilterEntityClass extends FilterClass {
 	getEntityRepr: () => EntityRepresentation;
 	newInstance: (value, displayValue) => FilterEntity;
-	new (
+	new(
 		value: string,
 		displayValue: string,
 		entityRepr: EntityRepresentation

@@ -6,9 +6,8 @@ import {
 	EventEmitter,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-import { Product, ProductStatus } from '~products';
 import { DEFAULT_NO_IMG } from '~utils/constants.const';
-import { Patch } from '~app/shared/entity';
+import { Product, ProductStatus, Patch } from '~app/entity';
 
 @Component({
 	selector: 'product-selectable-card-app',

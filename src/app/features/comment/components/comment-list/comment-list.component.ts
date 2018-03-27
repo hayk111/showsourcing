@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { AppComment } from '~comment/models';
+import { AppComment } from '~entity';
 
 @Component({
-  selector: 'comment-list-app',
-  templateUrl: './comment-list.component.html',
+	selector: 'comment-list-app',
+	templateUrl: './comment-list.component.html',
 	styleUrls: ['./comment-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

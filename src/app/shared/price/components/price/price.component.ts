@@ -4,7 +4,7 @@ import {
 	Input,
 	OnInit,
 } from '@angular/core';
-import { Currency } from '~store/model/entities/currency.model';
+import { Currency } from '~app/entity';
 
 @Component({
 	selector: 'price-app',
@@ -21,9 +21,9 @@ export class PriceComponent implements OnInit {
 	// @input in setter
 	private _amount: number;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	@Input()
 	get amount() {

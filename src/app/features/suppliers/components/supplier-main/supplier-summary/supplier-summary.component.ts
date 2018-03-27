@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Supplier } from '~app/features/suppliers/models';
+import { Supplier } from '~entity';
 
 @Component({
 	selector: 'supplier-summary-app',
@@ -11,7 +11,7 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() productsCount: number;
 	@Input() numTasks: number;
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

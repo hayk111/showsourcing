@@ -1,22 +1,17 @@
-import { ERM, selectEntityById } from '~app/shared/entity';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
-import { Product } from '~app/features/products/models';
-import { selectProductById, productActions } from '~products/store';
 import { AutoUnsub } from '~utils';
-import { Event } from '~events/models';
-import { selectEventsList } from '~app/features/events';
-import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
-import { selectCustomFields } from '~app/app-root/store/selectors/entities/custom-fields.selector';
+import { Event } from '~event';
+import { selectEventsList } from '~event';
+import { FormDescriptor, FormControlDescriptor } from '~entity';
 import { Patch } from '~entity/utils';
-import { supplierActions } from '~app/features/suppliers';
-import { Tag } from '~app/app-root/store';
+import { supplierActions } from '~supplier';
 import { UserService } from '~app/features/user';
-import { tagActions } from '~app/app-root/store/action';
-import { Project } from '~app/features/projects';
+import { Project } from '~project';
+import { Product, ERM, selectProductById, selectEntityById, Tag, productActions } from '~app/entity';
 
 @Component({
 	selector: 'product-general-info-app',

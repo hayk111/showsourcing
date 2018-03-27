@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LoadersModule } from '~shared/loaders/loaders.module';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { UserModule } from '~user';
 
 import { ChartComponent, DetailsComponent, LegendComponent } from './components';
 import { LikesCardComponent } from './containers';
+import { UserModule } from '~app/features/user';
 
 // Module to display likes of an entity with a chart
 @NgModule({
@@ -19,4 +19,4 @@ import { LikesCardComponent } from './containers';
 	declarations: [LegendComponent, ChartComponent, DetailsComponent, LikesCardComponent],
 	exports: [LikesCardComponent],
 })
-export class LikesChartModule {}
+export class LikesChartModule { }
