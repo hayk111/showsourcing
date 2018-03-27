@@ -1,22 +1,6 @@
-import { Tag } from './../../../../app-root/store/model/entities/tag.model';
-import { take } from 'rxjs/operators';
-import { Entity } from './../../../entity/models/entities.model';
-import { Observable } from 'rxjs/Observable';
-import {
-	Component,
-	OnInit,
-	Input,
-	EventEmitter,
-	Output,
-	ViewChild,
-	ChangeDetectionStrategy,
-	ViewChildren,
-} from '@angular/core';
-import { EntityRepresentation } from '~entity';
-import { NgSelectComponent } from '@ng-select/ng-select';
-import { Patch } from '~entity/utils';
-import { Project } from '~app/features/projects';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SelectorComponent } from '~app/shared/selectors/components/selector/selector.component';
+import { Entity, Project, Tag } from '~entity';
 
 @Component({
 	selector: 'editable-field-app',

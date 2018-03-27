@@ -1,0 +1,17 @@
+import { entityInitialState, ERM } from '~app/shared/entity/models';
+import { addEntities, removeEntities, replaceEntity } from '~entity';
+import { TypedAction } from '~utils';
+
+import { actionType } from '../../action/target/target.action';
+
+const initialState = undefined;
+
+// when an entity is selected
+export function focussedEntityReducer(state = {}, action) {
+	switch (action.type) {
+		case actionType.SELECT:
+			return action.payload;
+		default:
+			return state;
+	}
+}

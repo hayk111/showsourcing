@@ -9,7 +9,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { NotificationsModule } from '~shared/notifications';
 import { environment } from 'environments/environment';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
-import { EntityModule } from '~app/shared/entity/entity.module';
 import { AuthGuardService, AuthModule } from '~features/auth';
 import { ProductModule } from '~features/products';
 import { ProjectsModule } from '~features/projects';
@@ -21,8 +20,6 @@ import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { TemplateModule } from '~shared/template';
-import { reducerProvider } from '~store/reducer/_reducers';
-import { EntitiesServicesModule } from '~store/services/entities-services.module';
 import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
@@ -34,6 +31,7 @@ import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { PreloaderModule } from '~app/shared/preloader/preloader.module';
 import { HmrModule } from '~app/shared/hmr/hmr.module';
+import { EntityModule } from '~app/entity';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?
@@ -69,7 +67,6 @@ declare let module: any;
 		DataManagementModule.forRoot(),
 	],
 	providers: [
-		reducerProvider,
 		AuthGuardService,
 		{
 			provide: HTTP_INTERCEPTORS,

@@ -67,4 +67,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	updateStatus(statusId: string, productId: string) {
 		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: productId }));
 	}
+
+	onFavorited(productId: string) {
+		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: productId }));
+	}
 }

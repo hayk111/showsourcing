@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { AppImage, imageActions } from '~features/file';
-import { Product } from '~products/models';
-import { selectProductById, selectProductFocused } from '~products/store';
+import { filter, takeUntil } from 'rxjs/operators';
+import { AppImage, imageActions, Product, selectProductFocused } from '~entity';
 import { UserService } from '~user';
 import { AutoUnsub } from '~utils';
 
@@ -35,7 +33,7 @@ export class ProductBigCardComponent extends AutoUnsub implements OnInit {
 		files.forEach(async file => {
 			// this async stuff could probably be abstracted in the store.
 			const img = await AppImage.newInstance(file, this.userSrv.userId);
-			this.store.dispatch(imageActions.add([img]));
+			this.store.dispatch(imageActions.add([img as any]));
 		});
 	}
 }
