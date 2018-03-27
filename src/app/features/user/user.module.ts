@@ -5,7 +5,7 @@ import { EntityModule } from '~entity';
 
 import { UserPictureWithNameComponent } from './components';
 import { UserPictureComponent } from './components';
-import { UserService } from '~app/features/user';
+import { UserService } from './services';
 
 @NgModule({
 	imports: [CommonModule, EntityModule.forChild()],

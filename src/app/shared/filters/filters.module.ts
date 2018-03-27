@@ -17,6 +17,7 @@ import {
 import { FilterPanelComponent, FilterCloudComponent } from './containers';
 import { RatingModule } from '~app/shared/rating';
 import { UtilsModule } from '~app/shared/utils';
+import { FilterEntityPanelService } from '~app/shared/filters';
 
 @NgModule({
 	imports: [
@@ -41,6 +42,7 @@ import { UtilsModule } from '~app/shared/utils';
 		FilterSmartPanelComponent,
 	],
 	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
+	providers: [FilterEntityPanelService]
 })
 export class FiltersModule {
 	static forChild(): ModuleWithProviders {

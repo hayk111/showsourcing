@@ -3,7 +3,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { ERM, EntityService } from '~entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
 import { selectUserTeamId } from '../user';
 
 import { ProjectHttpService } from './project-http.service';

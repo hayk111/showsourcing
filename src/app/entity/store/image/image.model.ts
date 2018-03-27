@@ -1,4 +1,4 @@
-import { AppFile } from './../file';
+import { AppFile } from '../file/file.model';
 
 export class AppImage extends AppFile {
 	imageType: string;

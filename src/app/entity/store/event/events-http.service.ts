@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { EntityService, ERM } from '~entity';
 import { UserService } from '~app/features/user';
+import { ERM } from '~entity/store/entity.model';
+import { EntityService } from '~entity/store/entity.service';
 
 @Injectable()
 export class EventHttpService {

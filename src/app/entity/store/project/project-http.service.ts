@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
-import { EntityService, EntityTarget, ERM } from '~entity';
+import { ERM, EntityTarget } from '~entity/store/entity.model';
+import { EntityService } from '~entity/store/entity.service';
 
-import { Project } from './project.model';
 import { EntityRepresentation } from './../entity.model';
+import { Project } from './project.model';
 
 @Injectable()
 export class ProjectHttpService {

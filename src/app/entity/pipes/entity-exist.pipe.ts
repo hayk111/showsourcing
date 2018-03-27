@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { selectEntityById } from '../store';
+import { selectEntityById } from '../store/entity.selector';
 import { takeUntil, map } from 'rxjs/operators';
 import { EntityPipe } from './entity.pipe';
 

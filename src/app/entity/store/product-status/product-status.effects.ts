@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { productStatusActions, productStatusActionTypes } from '~app/entity';
+import { productStatusActions, productStatusActionTypes } from './product-status.action';
 
 @Injectable()
 export class ProductStatusEffects {

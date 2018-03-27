@@ -1,23 +1,22 @@
-import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { switchMap, map, catchError, distinctUntilChanged, mergeMap, tap } from 'rxjs/operators';
-import { supplierActionTypes as ActionType, supplierActions } from './supplier.action';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
-import { concat } from 'rxjs/observable/concat';
+import { Actions, Effect } from '@ngrx/effects';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { of } from 'rxjs/observable/of';
+import { catchError, distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
+import { EntityTarget, ERM } from '~app/entity/store/entity.model';
+import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
-import { ERM } from '~app/entity/store/entity.model';
-import { EntityTarget } from '~app/entity/store/entity.model';
-import { focussedEntityAction } from '../focussed-entity';
+import { EntityService } from '~entity/store/entity.service';
+import { Swap } from '~entity/utils';
+
 import { commentActions } from '../comment';
 import { fileActions } from '../file';
+import { focussedEntityAction } from '../focussed-entity';
 import { imageActions } from '../image';
-import { taskActions } from '../task';
 import { productActions } from '../product';
+import { taskActions } from '../task';
+import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
-import { Swap, EntityService } from '~app/entity';
-import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 
 @Injectable()
 export class SuppliersEffects {

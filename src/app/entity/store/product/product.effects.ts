@@ -4,17 +4,17 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { distinctUntilChanged, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
-import { tagActions } from '../tag';
+import { tagActions } from '../tag/tag.action';
 
 import { actionTypes, productActions } from './product.action';
 import { ProductHttpService } from '~app/entity/store/product/product-http.service';
 import { ERM } from '~app/entity/store/entity.model';
 import { focussedEntityAction } from '~entity/store/focussed-entity';
 import { commentActions } from '~entity/store/comment';
-import { fileActions } from '~entity/store/file';
-import { imageActions } from '~entity/store/image';
-import { taskActions } from '~entity/store/task';
-import { projectActions } from '~entity/store/project';
+import { fileActions } from '~entity/store/file/file.action';
+import { imageActions } from '~entity/store/image/images.action';
+import { taskActions } from '~entity/store/task/task.action';
+import { projectActions } from '~entity/store/project/project.actions';
 import { selectUser } from '~user';
 import { EntityService } from '~app/entity/store/entity.service';
 

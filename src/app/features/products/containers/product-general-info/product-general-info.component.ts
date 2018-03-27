@@ -6,7 +6,7 @@ import { switchMap, takeUntil, map } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { Event } from '~event';
 import { selectEventsList } from '~event';
-import { FormDescriptor, FormControlDescriptor } from '~app/shared/_unused_/dynamic-forms';
+import { FormDescriptor, FormControlDescriptor } from '~entity';
 import { Patch } from '~entity/utils';
 import { supplierActions } from '~supplier';
 import { UserService } from '~app/features/user';

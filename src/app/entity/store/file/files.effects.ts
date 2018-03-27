@@ -1,15 +1,19 @@
-import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { fileActionType, fileActions } from './file.action';
-import { mergeMap } from 'rxjs/operators';
-import { catchError } from 'rxjs/operators/catchError';
+import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
-import { notificationActions } from '~app/shared/notifications/store/notification.action';
-import { NotificationType } from '~app/shared/notifications';
-import { appErrorActions } from '~app/shared/error-handler';
-import { Swap, AppFile, FocussedEntityService } from '~app/entity';
+import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators/catchError';
+import { AppFile } from './file.model';
+
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
+import { appErrorActions } from '~app/shared/error-handler';
+import { NotificationType } from '~app/shared/notifications';
+import { notificationActions } from '~app/shared/notifications/store/notification.action';
+import { EntityTarget } from '~entity/store/entity.model';
+import { Swap } from '~entity/utils';
+
+import { fileActions, fileActionType } from './file.action';
+import { FocussedEntityService } from '../focussed-entity';
 
 @Injectable()
 export class FilesEffects {
@@ -17,7 +21,7 @@ export class FilesEffects {
 	load$ = this.actions$.ofType<any>(fileActionType.LOAD_FOR_SELECTION).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
-		switchMap(target => this.srv.load(target)),
+		switchMap((target: EntityTarget) => this.srv.load(target)),
 		map((r: any) => fileActions.set(r))
 	);
 
@@ -31,7 +35,7 @@ export class FilesEffects {
 			files,
 			target,
 		})),
-		switchMap(p =>
+		switchMap((p: any) =>
 			this.srv.uploadFiles(p).pipe(
 				// replace currently pending files, we need to replace so it's not pending anymore
 				mergeMap((r: Array<Swap>) => [
@@ -55,7 +59,7 @@ export class FilesEffects {
 			ids,
 			target,
 		})),
-		switchMap(p => this.srv.delete(p))
+		switchMap((p: any) => this.srv.delete(p))
 	);
 
 	@Effect({ dispatch: false })

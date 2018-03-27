@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { EntityService } from '~entity';
-import { User } from '../user';
 import { UserService } from '~app/features/user';
+import { EntityService } from '~entity/store/entity.service';
+
+import { User } from '../user';
 
 @Injectable()
 export class TeamMembersHttpService {

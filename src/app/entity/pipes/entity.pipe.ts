@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AutoUnsub } from 'app/app-root/utils';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { ERM } from '../store/entity.model';

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FilterGroupName } from '~shared/filters';
-import { ERM, EntityTarget, EntityService } from '~entity';
+import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
+import { ERM, EntityTarget } from '~entity/store/entity.model';
+import { EntityService } from '~entity/store/entity.service';
+import { FilterGroupName } from '~shared/filters';
 
 @Injectable()
 export class TaskHttpService {

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { CommentHttpService } from './comment-http.service';
-import { map, switchMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
-import { commentActionType as actionType, commentActions } from './comment.action';
 import { of } from 'rxjs/observable/of';
-import { appErrorActions } from '~shared/error-handler/app-errors.action';
+import { catchError, map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
 import { Swap } from '~entity/utils';
-import { FocussedEntityService } from '~app/entity';
+import { appErrorActions } from '~shared/error-handler/app-errors.action';
+
+import { FocussedEntityService } from '../focussed-entity';
+import { CommentHttpService } from './comment-http.service';
+import { commentActions, commentActionType as actionType } from './comment.action';
 
 @Injectable()
 export class CommentEffects {

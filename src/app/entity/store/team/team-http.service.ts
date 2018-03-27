@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EntityService } from '~entity';
+import { EntityService } from '../entity.service';
 import { UserService } from '~app/features/user';
 
 @Injectable()

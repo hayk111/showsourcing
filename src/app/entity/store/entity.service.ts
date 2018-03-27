@@ -9,7 +9,7 @@ import { ApiParams, Patch } from '~entity/utils';
 import { EntityRepresentation } from './entity.model';
 import { UrlBuilder } from '../utils/url-builder.class';
 import { Resolver } from '~app/app-root/utils/resolver.class';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services/user.service';
 
 // entities are target different ways.
 

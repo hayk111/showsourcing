@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { selectEntities } from '~app/entity';
+import { selectEntities } from '../entity.selector';
 
 export const selectEventsState = createSelector(selectEntities, state => state.events);
 

@@ -4,8 +4,8 @@ import { ApiParams } from '~entity/utils';
 import { Filter } from '~shared/filters';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM, EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
-import { User } from '~app/entity';
-import { UserService } from '~app/features/user';
+import { User } from '../store/user';
+import { UserService } from '~app/features/user/services/user.service';
 // entities are target different ways.
 
 // 1. api/country. The first way and most simple way is api followed

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Log } from '~utils/index';
 import { Observable } from 'rxjs/Observable';
-import { EntityTarget, selectFocussedEntity } from '~entity';
+import { EntityTarget } from '~entity/store/entity.model';
+import { Log } from '~utils';
+
+import { selectFocussedEntity } from './focussed-entity.selector';
 
 @Injectable()
 export class FocussedEntityService {

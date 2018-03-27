@@ -1,3 +1,3 @@
 import { createSelector } from 'reselect';
 
-export const selectFocussedEntity = state => state.entities.foccussedEntity;
+export const selectFocussedEntity = state => state.focussedEntity;

@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
-import { selectEntities } from '~app/entity';
-import { Filter, FilterGroupName, selectFilterGroup } from '~shared/filters';
+import { selectEntities } from '~entity/store/entity.selector';
 
 import { selectProductStatuses } from '../product-status';
 import { Product } from './product.model';
@@ -16,33 +15,15 @@ export const selectProductById = (id: string) => {
 	return createSelector([selectProductsMap], products => products[id]);
 };
 
-// select the currently focCCCcussed product
-export const selectProductFocused = createSelector(
-	[selectProductsMap, selectCurrentTargetId],
-	(products: any, id: string) => {
-		if (!id) return undefined;
-		return products[id];
-	}
-);
+// select the currently focussed product
+export const selectProductFocused = createSelector([selectProductsState], (state) => state.byId[state.selected]);
 
-export const selectFilteredEntity = (filterGroupName: FilterGroupName) => {
-	return createSelector([selectFilterGroup(filterGroupName), selectProductsMap], (filters, products) => {
-		const filteredProducts = Object.keys(products)
-			.map(id => products[id])
-			.reduce((returned, product) => {
-				if (filters.every((afilter: Filter) => afilter.filter(product))) {
-					returned.push(product);
-				}
-				return returned;
-			}, []);
-		return filteredProducts;
-	});
-};
+
 
 // used in kanban (as it was changed without being tested, it could be not working)
-export const selectProductByStatus = (filterGroupName: FilterGroupName) =>
+export const selectProductByStatus = () =>
 	createSelector(
-		[selectFilteredEntity(filterGroupName), selectProductStatuses],
+		[selectProducts, selectProductStatuses],
 		(products: Array<Product>, statuses: Array<any>) => {
 			// creating a new object for each status with just the name
 			const returned: any = statuses.map(status => ({ name: status.name }));

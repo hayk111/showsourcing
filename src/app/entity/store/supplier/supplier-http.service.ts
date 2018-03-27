@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { EntityService, ERM, Patch } from '~entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
+import { Patch } from '~entity/utils';
+
 import { User } from '~user';
 import { UserService } from '~app/features/user';
 

@@ -16,7 +16,7 @@ export class WorkflowKanbanComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.productsByStatus$ = this.store.select(selectProductByStatus(this.filterGroupName));
+		this.productsByStatus$ = this.store.select(selectProductByStatus());
 	}
 
 	changeStatus(event) {

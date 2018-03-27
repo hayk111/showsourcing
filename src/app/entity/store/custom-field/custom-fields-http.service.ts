@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ERM, EntityService } from '~entity';
+import { EntityService } from '~entity/store/entity.service';
+import { ERM } from '~entity/store/entity.model';
 import { map } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
-import { PropType } from '~app/shared/_unused_/dynamic-forms';
+import { UserService } from '~app/features/user/services/user.service';
+import { PropType } from './custom-field.model';
 
 @Injectable()
 export class CustomFieldsHttpService {
-	constructor(private entitySrv: EntityService, private userSrv: UserService) {}
+	constructor(private entitySrv: EntityService, private userSrv: UserService) { }
 
 	load() {
 		return this.entitySrv

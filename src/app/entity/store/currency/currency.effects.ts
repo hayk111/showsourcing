@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { currencyActionTypes as ActionType, currencyActions } from './currency.action';
-import { switchMap, map } from 'rxjs/operators';
-import { EntityService, ERM } from '~entity';
+import { Actions, Effect } from '@ngrx/effects';
+import { map, switchMap } from 'rxjs/operators';
+import { ERM } from '~entity/store/entity.model';
+import { EntityService } from '~entity/store/entity.service';
+
+import { currencyActions, currencyActionTypes as ActionType } from './currency.action';
 
 @Injectable()
 export class CurrencyEffects {
