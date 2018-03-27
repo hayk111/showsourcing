@@ -9,7 +9,7 @@ import { Supplier } from '~app/features/suppliers/models';
 })
 export class SupplierMainInfoComponent implements OnInit {
 	@Input() supplier: Supplier;
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

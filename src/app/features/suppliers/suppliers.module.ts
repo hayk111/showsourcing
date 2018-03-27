@@ -33,6 +33,7 @@ import { SupplierInfosComponent } from './components/supplier-infos/supplier-inf
 import { EditableFieldModule } from '~app/shared/editable-field';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
 import { SupplierContactComponent } from './components/supplier-contact/supplier-contact.component';
+import { SupplierPicturesComponent } from './components/supplier-pictures/supplier-pictures.component';
 
 @NgModule({
 	imports: [
@@ -70,6 +71,7 @@ import { SupplierContactComponent } from './components/supplier-contact/supplier
 		SupplierInfosComponent,
 		SupplierContactCardComponent,
 		SupplierContactComponent,
+		SupplierPicturesComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [SupplierHttpService],

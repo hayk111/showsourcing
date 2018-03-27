@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~app/features/suppliers/models';
+import { Patch } from '~app/shared/entity';
 
 @Component({
 	selector: 'supplier-main-bottom-app',
@@ -9,7 +10,12 @@ import { Supplier } from '~app/features/suppliers/models';
 })
 export class SupplierMainBottomComponent implements OnInit {
 	@Input() supplier: Supplier;
-	constructor() {}
+	@Output() update = new EventEmitter<Patch>();
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
+
+	onUpdate(value: string) {
+		this.update.emit({ propName: 'description', value, id: this.supplier.id });
+	}
 }

@@ -1,2 +1,10 @@
 <h4>Description</h4>
-{{ supplier.description }}
+<div class="flex">
+	<editable-field-app
+		class="desc"
+		[entity]="supplier"
+		[value]="supplier.description"
+		type="textarea"
+		(update)="onUpdate($event)"></editable-field-app>
+
+</div>
