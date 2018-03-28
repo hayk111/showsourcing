@@ -7,6 +7,7 @@
   (filterClick)="openFilterPanel()"
   [view]="view"
 	(viewChange)="onViewChange($event)">
+
 		<!-- views: either one will be displayed when the correct view is selected -->
     <product-list-view-app
       *ngIf="view === 'list'"
@@ -20,6 +21,7 @@
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"
 			(bottomReached)="loadMore()"></product-list-view-app>
+
 		<product-card-view-app
       class="card-view"
       *ngIf="view === 'card'"
@@ -49,8 +51,7 @@
   [selection]="selection"
   (openAddToProjectDialog)="openAddToProjectDialog()"
   (openExportDialog)="openExportDialog()"
-  (openRequestFeedbackDialog)="openRequestFeedbackDialog()"
-  ></selection-actions>
+  (openRequestFeedbackDialog)="openRequestFeedbackDialog()"></selection-actions>
 </selection-bar-app>
 
 <ng-container *ngIf="filterPanelOpen$ | async">
@@ -58,8 +59,7 @@
 		class="z-4"
 		[filterGroupName]="filterGroupName"
 		[filterClasses]="filterClasses"
-		(clickOutside)="closeFilterPanel()">
-	</filter-panel-app>
+		(clickOutside)="closeFilterPanel()"></filter-panel-app>
 </ng-container>
 
 <product-action-dialog-app
@@ -70,8 +70,7 @@
   dialogType="add"
   [entities]="projects$ | async"
   [productsCount]="productsCount$ | async"
-  (buttonClicked)="addToProjects($event)"
-></product-action-dialog-app>
+  (buttonClicked)="addToProjects($event)"></product-action-dialog-app>
 
 <product-action-dialog-app
   [dialogName]="requestFeedbackDialog"
@@ -80,8 +79,7 @@
   buttonLabel="Send request"
   [entities]="teamMembers$ | async"
   dialogType="feedback"
-  (buttonClicked)="requestFeeback($event)"
-></product-action-dialog-app>
+  (buttonClicked)="requestFeeback($event)"></product-action-dialog-app>
 
 <product-action-dialog-app
   [dialogName]="exportDialog"
@@ -89,6 +87,5 @@
   title="Export type"
   buttonLabel="Export now"
   dialogType="export"
-  (buttonClicked)="export($event)"
-></product-action-dialog-app>
+  (buttonClicked)="export($event)"></product-action-dialog-app>
 

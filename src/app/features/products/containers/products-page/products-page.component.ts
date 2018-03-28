@@ -78,9 +78,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterPrice,
 	];
 
-	public addProductDialog: DialogName = DialogName.ADD_TO_PROJECT;
-	public exportDialog: DialogName = DialogName.EXPORT;
-	public requestFeedbackDialog: DialogName = DialogName.REQUESTFEEDBACK;
+	addProductDialog: DialogName = DialogName.ADD_TO_PROJECT;
+	exportDialog: DialogName = DialogName.EXPORT;
+	requestFeedbackDialog: DialogName = DialogName.REQUESTFEEDBACK;
 
 	projects$: Observable<Array<Project>> = new Observable<Array<Project>>();
 	productsCount$: Observable<number>;
