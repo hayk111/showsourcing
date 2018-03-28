@@ -32,8 +32,8 @@ export class CustomFieldsHttpService {
 		return Object.values(r);
 	}
 
-	// TODO : no patch needed
-	// yup there is a lot of ugly stuff down there but we need to patch the
+	// TODO : ask back end for real descriptor so no more patch needed
+	// yup, atm we need to patch the
 	// descriptor for it to work with the api that is used here.
 	private patchDescriptor(desc) {
 		desc.productsCFDef.groups.forEach(g => {
