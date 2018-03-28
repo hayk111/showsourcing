@@ -35,6 +35,11 @@ button, input[type="submit"] {
 	font-family: inherit;
 }
 
+button:disabled, input[type="submit"]:disabled {
+	background: var(--color-primary-light);
+	color: var(--color-primary-dark);
+}
+
 
 button.secondary {
 	background: var(--color-secondary);

@@ -15,3 +15,18 @@
 .selected {
     color: var(--color-primary);
 }
+
+.carouselCard {
+	position: relative;
+}
+
+rating-heart-app {
+	position: absolute;
+	top: var(--spacing-l);
+	left: var(--spacing-l);
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	z-index: 2;
+}

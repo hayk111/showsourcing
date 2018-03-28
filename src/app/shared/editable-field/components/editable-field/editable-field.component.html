@@ -77,7 +77,7 @@
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp  [value]="value" [type]="type" (change)="updateValue($event.target.value)"/>
+				<input inputApp  [value]="value || ''" [type]="type" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 

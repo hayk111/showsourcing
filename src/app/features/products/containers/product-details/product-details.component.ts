@@ -33,7 +33,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	comments: Array<AppComment>;
 	projectRep = ERM.projects;
 	projects$: Observable<Array<Project>>;
-	projectDlgName = DialogName.ADDTOPROJECT;
+	projectDlgName = DialogName.ADD_TO_PROJECT;
 	productsCount$: Observable<number>;
 	tasks$: Observable<Array<Task>>;
 
@@ -75,5 +75,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	onFavorited(productId: string) {
 		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: productId }));
+	}
+
+	onUnfavorited(productId: string) {
+		this.store.dispatch(productActions.patch({ propName: 'rating', value: 1, id: productId }));
 	}
 }

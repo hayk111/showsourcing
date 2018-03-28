@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
 	selector: 'supplier-contact-card-app',
@@ -7,7 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierContactCardComponent implements OnInit {
-	@Input() contacts = [1, 2, 3];
+	@Input() contacts = [];
+	@Output() newContact = new EventEmitter<null>();
 	constructor() { }
 
 	ngOnInit() {

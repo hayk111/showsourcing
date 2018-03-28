@@ -4,10 +4,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { Patch } from '~entity';
+import { Patch, AppImage, selectImages, selectImagesAsArray } from '~entity';
 import { Product, selectProducts } from '~product';
 import { selectSupplierProductsCountForId, selectSupplierSelected, Supplier, supplierActions } from '~supplier';
 import { selectTasks, Task } from '~task';
+import { DialogActions, DialogName } from '~app/shared/dialog';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -19,6 +20,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	productsCount$: Observable<number>;
 	tasks$: Observable<Array<Task>>;
 	products$: Observable<Array<Product>>;
+	images$: Observable<Array<AppImage>>;
 	// this is put in container because it will access the store
 	constructor(private route: ActivatedRoute, private store: Store<any>) {
 		super();
@@ -35,9 +37,14 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForId(id))));
 		this.tasks$ = this.store.select(selectTasks);
 		this.products$ = this.store.select<any>(selectProducts);
+		this.images$ = this.store.select(selectImagesAsArray);
 	}
 
 	patch(patch: Patch) {
 		this.store.dispatch(supplierActions.patch(patch));
+	}
+
+	openNewContactDlg() {
+		this.store.dispatch(DialogActions.open(DialogName.NEW_CONTACT));
 	}
 }

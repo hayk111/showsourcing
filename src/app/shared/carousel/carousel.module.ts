@@ -21,6 +21,7 @@ import { FileModule } from '~app/shared/file';
 		ModalCarouselComponent,
 		CarouselComponent,
 		CarouselSelectionComponent,
+		ImagePreviewerComponent
 	],
 })
 export class CarouselModule { }

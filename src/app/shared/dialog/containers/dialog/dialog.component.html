@@ -7,10 +7,10 @@
     </div>
     <div class="divider"></div>
     <div class="content">
-      <ng-content select="[content]"></ng-content>
+      <ng-content></ng-content>
     </div>
     <div class="divider"></div>
-    <div class="footer">
+    <div class="footer" *ngIf="hasFooter">
       <ng-content select="[footer]"></ng-content>
     </div>
     <!-- don't add white-spaces between footer and content !! -->

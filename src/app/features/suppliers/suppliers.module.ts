@@ -31,6 +31,8 @@ import { SupplierSummaryComponent } from './components/supplier-main/supplier-su
 import { SupplierPicturesComponent } from './components/supplier-pictures/supplier-pictures.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { routes } from './routes';
+import { CarouselModule } from '~app/shared/carousel';
+import { SupplierNewContactDlgComponent } from './components/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
 
 @NgModule({
 	imports: [
@@ -38,6 +40,7 @@ import { routes } from './routes';
 		RouterModule.forChild(routes),
 		FileModule, // file-card
 		CardModule,
+		CarouselModule,
 		EditableFieldModule,
 		StatusModule,
 		IconsModule, // TODO to be removed and placed inside the component module using it
@@ -69,6 +72,7 @@ import { routes } from './routes';
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierPicturesComponent,
+		SupplierNewContactDlgComponent,
 	],
 	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
 	providers: [],

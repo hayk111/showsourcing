@@ -4,7 +4,10 @@
     <div class="left">
 
       <card-app class="carouselCard">
-				<rating-heart-app [rating]="product.rating" (favorited)="null" (unfavorited)="null"></rating-heart-app>
+				<rating-heart-app class="flexCenter"
+					[rating]="product.rating"
+					(favorited)="onFavorited(product.id)"
+					(unfavorited)="onUnfavorited(product.id)"></rating-heart-app>
         <carousel-selection-app></carousel-selection-app>
       </card-app>
 

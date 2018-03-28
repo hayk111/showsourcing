@@ -29,6 +29,7 @@ import { takeUntil } from 'rxjs/operators';
 export class DialogComponent extends AutoUnsub implements OnInit {
 	@Input() closeIcon = true;
 	@Input() name: DialogName;
+	@Input() hasFooter = true;
 	@Output() closed = new EventEmitter();
 	isOpen$: Observable<boolean>;
 	isOpen: boolean;

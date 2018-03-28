@@ -88,15 +88,6 @@
 		(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
 </cell-two-row-app>
 
-<!-- event / Met at -->
-<cell-two-row-app title="Event">
-	<editable-field-app
-		[entity]="supplier"
-		[value]="supplier.eventId"
-		type="events"
-		(update)="onUpdate($event, 'eventId')"></editable-field-app>
-</cell-two-row-app>
-
 <!-- inco terms -->
 <cell-two-row-app title="Inco Terms">
 	<editable-field-app
@@ -111,8 +102,33 @@
 	<editable-field-app
 		[entity]="supplier"
 		[value]="supplier.harbour"
-		type="harbous"
+		type="harbours"
 		(update)="onUpdate($event, 'harbours')"></editable-field-app>
+</cell-two-row-app>
+
+<!-- event / Met at -->
+<cell-two-row-app title="Event">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.eventId"
+		type="events"
+		(update)="onUpdate($event, 'eventId')"></editable-field-app>
+</cell-two-row-app>
+
+<!-- category -->
+<cell-two-row-app title="Category">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.categoryIds"
+		type="categories"></editable-field-app>
+</cell-two-row-app>
+
+<!-- tags -->
+<cell-two-row-app title="tags">
+	<editable-field-app
+		[entity]="supplier"
+		[value]="supplier.tagIds"
+		type="tags"></editable-field-app>
 </cell-two-row-app>
 
 <!-- user / created by -->

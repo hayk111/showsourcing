@@ -1,0 +1,28 @@
+<dialog-app [name]="dialogName" [hasFooter]="false">
+	<form [formGroup]="formGroup">
+		<form-field-app>
+			<label-app>Name</label-app>
+			<input inputApp formControlName="name" type="text" />
+		</form-field-app>
+
+		<form-field-app>
+			<label-app>Function</label-app>
+			<input inputApp formControlName="function" type="text" />
+		</form-field-app>
+
+		<form-field-app>
+			<label-app>Email</label-app>
+			<input inputApp formControlName="email" type="email" />
+		</form-field-app>
+
+		<form-field-app>
+			<label-app>Phone number</label-app>
+			<input inputApp restrictInput="tel" formControlName="tel" type="tel" />
+		</form-field-app>
+
+		<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT">
+	</form>
+</dialog-app>
+
+
+
