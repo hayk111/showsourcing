@@ -8,7 +8,7 @@ import { UrlBuilder } from '~app/entity/utils/url-builder.class';
 import { CategoryHttpService } from '~app/entity/store/category/category-http.service';
 import { CommentHttpService } from '~app/entity/store/comment/comment-http.service';
 import { CustomFieldsHttpService } from '~app/entity/store/custom-field/custom-fields-http.service';
-import { EventHttpService } from '~app/entity/store/event/events-http.service';
+import { EventHttpService } from '~app/entity/store/event/event-http.service';
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
 import { ImageHttpService } from '~app/entity/store/image/images-http.service';
 import { ProductHttpService } from '~app/entity/store/product/product-http.service';

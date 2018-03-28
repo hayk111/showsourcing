@@ -18,7 +18,7 @@ import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
 import { CommentModule } from './../features/comment/comment.module';
-import { EventsModule } from './../features/events/events.module';
+import { EventModule } from './../features/event/event.module';
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
@@ -53,7 +53,7 @@ declare let module: any;
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
-		EventsModule,
+		EventModule,
 		IconsModule,
 		CardModule,
 		// shared

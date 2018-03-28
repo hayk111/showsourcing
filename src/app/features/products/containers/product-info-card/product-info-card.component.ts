@@ -13,7 +13,7 @@ export class ProductInfoCardComponent implements OnInit {
 	@Input() product: Product;
 	supplierRep = ERM.supplier;
 	categoryRep = ERM.categories;
-	eventRep = ERM.events;
+	eventRep = ERM.event;
 
 	constructor(private store: Store<any>) { }
 

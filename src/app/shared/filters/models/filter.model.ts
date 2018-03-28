@@ -123,7 +123,7 @@ export class FilterCategory extends FilterEntity implements Filter {
 export class FilterEvent extends FilterEntity implements Filter {
 	static readonly filterName = 'event';
 	static getEntityRepr() {
-		return ERM.events;
+		return ERM.event;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterEvent(value, displayValue, FilterEvent.getEntityRepr());

@@ -6,4 +6,4 @@ import { NgModule } from '@angular/core';
 	providers: [],
 	declarations: [],
 })
-export class EventsModule { }
+export class EventModule { }

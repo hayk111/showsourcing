@@ -13,7 +13,7 @@ export class DynamicFormsService {
 	constructor(private store: Store<any>) { }
 
 	getDescriptor(entityRepr: EntityRepresentation) {
-		return this.store.select(selectCustomField(entityRepr.descriptorName));
+		// return this.store.select(selectCustomField(entityRepr.descriptorName));
 	}
 
 	// transform formGroupDescriptor to DynamicFormGroup
