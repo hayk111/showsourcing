@@ -4,5 +4,8 @@
 		(downloadRequest)="download($event)"
 		(deleteRequest)="delete($event)"
 		(addImage)="add($event)"
-		[pending]="pending$ | async"></carousel-app>
+		[pending]="pending$ | async"
+		[hasModalCarousel]="hasModalCarousel"
+		[hasPreview]="hasPreview"
+		[hasInlineCarousel]="hasInlineCarousel"></carousel-app>
 </ng-container>

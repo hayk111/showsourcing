@@ -20,8 +20,13 @@ import { AppImage } from '~app/entity';
 export class CarouselComponent implements OnInit {
 	defaultImg = DEFAULT_NO_IMG;
 	@Input() images: Array<AppImage> = [];
+	// index of currently displaying img
 	@Input() selectedIndex = 0;
 	@Input() pending = true;
+	// whether the different elements are displayed
+	@Input() hasModalCarousel = true;
+	@Input() hasPreview = true;
+	@Input() hasInlineCarousel = true;
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();

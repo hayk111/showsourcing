@@ -1,4 +1,4 @@
-<div class="ctnr"  (fileDrop)="onFileAdded($event)">
+<div class="ctnr" *ngIf="hasInlineCarousel" (fileDrop)="onFileAdded($event)">
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
@@ -35,10 +35,18 @@
 	</menu>
 
 	<div class="counter action">{{ selectedIndex + 1 }} / {{ images.length }}</div>
-	<modal-carousel-app [selectedIndex]=[selectedIndex] [images]="images" *ngIf="modalOpen" (close)="closeModal()"></modal-carousel-app>
 </div>
+<ng-container *ngIf="hasModalCarousel">
+	<modal-carousel-app
+		[selectedIndex]=[selectedIndex]
+		[images]="images"
+		*ngIf="modalOpen"
+		(close)="closeModal()"></modal-carousel-app>
+</ng-container>
+
 
 <image-previewer-app
+	*ngIf="hasPreview"
 	(imageClick)="onPreviewClick($event)"
 	(fileAdded)="onFileAdded($event)"
 	[images]="images"></image-previewer-app>

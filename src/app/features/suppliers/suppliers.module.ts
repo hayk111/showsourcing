@@ -32,7 +32,9 @@ import { SupplierPicturesComponent } from './components/supplier-pictures/suppli
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { routes } from './routes';
 import { CarouselModule } from '~app/shared/carousel';
-import { SupplierNewContactDlgComponent } from './components/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
+import {
+	SupplierNewContactDlgComponent
+} from './components/supplier-contact-card/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
 
 @NgModule({
 	imports: [

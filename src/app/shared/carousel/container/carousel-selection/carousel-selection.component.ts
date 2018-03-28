@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { entityStateToArray } from '~entity/utils';
@@ -13,6 +13,10 @@ import { selectImages, AppImage, imageActions } from '~app/entity';
 	styleUrls: ['./carousel-selection.component.scss'],
 })
 export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
+	// whether the different elements are displayed
+	@Input() hasModalCarousel = true;
+	@Input() hasPreview = true;
+	@Input() hasInlineCarousel = true;
 	images$: Observable<Array<AppImage>>;
 	pending$: Observable<Array<boolean>>;
 

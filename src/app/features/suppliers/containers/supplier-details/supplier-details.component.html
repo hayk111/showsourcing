@@ -1,7 +1,4 @@
 
-<!-- dialog for creating contact -->
-<supplier-new-contact-dlg-app></supplier-new-contact-dlg-app>
-
 <!-- page content -->
 <ng-container *ngIf="supplier$ | async as supplier">
 
@@ -46,10 +43,7 @@
 
 			<!-- images -->
 			<card-app>
-				<image-previewer-app
-					(imageClick)="onPreviewClick($event)"
-					(fileAdded)="onFileAdded($event)"
-					[images]="images"></image-previewer-app>
+				<carousel-selection-app></carousel-selection-app>
 			</card-app>
 
 		</div>
