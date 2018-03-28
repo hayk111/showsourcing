@@ -1,3 +1,27 @@
+
+<!-- page content -->
+<div *ngIf="projects$ | async as projects" class="flex ctnr">
+	<!-- nav -->
+	<project-nav-app
+		[selectedProject]="selectedProject"
+		[projects]="projects"
+		[productCount]="(projectState$ | async)?.productsCount"></project-nav-app>
+
+	<div class="right">
+		<!-- top bar -->
+		<div class="top flexBetween">
+			<bread-crumb-app [title]="'Projects'" [subtitles]="['My projects', 'selectedProject.name']"></bread-crumb-app>
+		</div>
+
+		<div class="hr"></div>
+
+		<!-- products -->
+
+	</div>
+
+
+</div>
+<!--
 <entity-page-app
 	[filterGroupName]="filterGroupName"
 	[pending]="pending$ | async"
@@ -9,7 +33,7 @@
 		[selection]="selection"
 		[projects]="projects$ | async">
 	</projects-list-view-app>
-</entity-page-app>
+</entity-page-app> -->
 
 <selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">
 </selection-bar-app>

@@ -50,7 +50,7 @@ export class EntityRepresentation {
 // Helper map, exported as ERM below.
 const entityRepresentationMap = {
 	supplier: new EntityRepresentation('supplier', 'supplier'),
-	event: new EntityRepresentation('event'),
+	event: new EntityRepresentation('event', 'event'),
 	categories: new EntityRepresentation('categories', 'category'),
 	tags: new EntityRepresentation('tags'),
 	projects: new EntityRepresentation('projects'),

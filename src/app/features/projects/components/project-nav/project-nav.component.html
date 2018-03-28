@@ -1,0 +1,11 @@
+<h2>Projects</h2>
+
+<article
+	class="pointer flexColumn {{ project.id === selectedProject.id ? 'selected' : ''}}"
+	*ngFor="let project of projects"
+	(click)="select.emit(project)">
+
+	<span class="name">{{ project.name }}</span>
+	<span class="productCount">{{ productCount[project.id] || '0' }} Products</span>
+
+</article>

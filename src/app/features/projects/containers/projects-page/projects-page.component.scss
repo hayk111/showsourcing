@@ -1,0 +1,17 @@
+.ctnr {
+	height: 100%;
+}
+
+.right {
+	flex-grow: 1;
+}
+
+.top {
+	padding: var(--spacing-xl);
+}
+
+.hr {
+	margin: var(--spacing-xl);
+	// top already has a padding, we don't want to double the space
+	margin-top: 0;
+}

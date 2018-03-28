@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { map, filter, take, takeUntil } from 'rxjs/operators';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { ERM, Project, selectProjectsState } from '~entity';
+import { ERM, Project, selectProjectsState, selectProjects } from '~entity';
+import { AutoUnsub } from '~app/app-root/utils';
 
 
 @Component({
@@ -11,25 +12,31 @@ import { ERM, Project, selectProjectsState } from '~entity';
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 })
-export class ProjectsPageComponent implements OnInit {
-	filterGroupName = FilterGroupName.PROJECTS_PAGE;
+export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	pending$: Observable<boolean>;
 	projects$: Observable<Array<Project>>;
-	repr = ERM.projects;
+	projectState$: Observable<Array<Project>>;
+	selectedProject: Project;
 	selection = new Map<string, boolean>();
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {
+		super();
+	}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
+		this.projects$ = this.store.select(selectProjects).pipe(filter(arr => arr.length === 0));
+		this.projectState$ = this.store.select(selectProjectsState);
 		this.pending$ = this.store.select(selectProjectsState).pipe(map(p => p.pending));
+		// a project needs to be selectioned at all time. Therefor the first time we receive
+		// the projects we need to select the first one.
+		// after that, the user will selection projects by clicking those in the menu.
+		this.projects$.pipe(take(1), takeUntil(this._destroy$)).subscribe(projects => this.selectProject(projects[0]));
 	}
 
-	onItemSelected(entityId: string) {
-		this.selection.set(entityId, true);
+	selectProject(project: Project) {
+		this.selectedProject = project;
 	}
 
-	onItemUnselected(entityId: string) {
-		this.selection.delete(entityId);
+	unselected(entityId: string) {
 	}
 }

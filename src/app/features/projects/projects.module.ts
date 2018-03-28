@@ -11,6 +11,7 @@ import { routes } from './routes';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { UserModule } from '~app/features/user';
+import { ProjectNavComponent } from './components/project-nav/project-nav.component';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,7 @@ import { UserModule } from '~app/features/user';
 		SelectionBarModule, // TODO to be removed and placed inside the component module using it,
 		TableModule, // used in list
 	],
-	declarations: [ProjectsPageComponent, ProjectsListViewComponent],
+	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent],
 	exports: [ProjectsPageComponent],
 	providers: [],
 })
