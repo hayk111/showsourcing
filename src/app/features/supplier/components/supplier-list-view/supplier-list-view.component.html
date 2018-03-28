@@ -11,7 +11,7 @@
 				(uncheck)="supplierUnselect.emit(row.id)"
 				[checked]="selection.get(row.id)"></checkbox-app>
 			<div class="iconPlaceHolder"></div>
-			<a class="name capitalize" [routerLink]="['/suppliers', 'details', row.id]">{{ row.name }}</a>
+			<a class="name capitalize" [routerLink]="['/supplier', 'details', row.id]">{{ row.name }}</a>
 		</div>
 	</ng-template>
 

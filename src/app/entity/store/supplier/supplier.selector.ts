@@ -5,7 +5,7 @@ import { selectEntities } from '../entity.selector';
 
 
 export const selectSupplierState = createSelector([selectEntities], state => {
-	return state.suppliers;
+	return state.supplier;
 });
 
 export const selectSuppliers = createSelector([selectSupplierState], state => entityStateToArray(state));

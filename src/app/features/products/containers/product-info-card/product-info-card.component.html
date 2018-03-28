@@ -42,7 +42,7 @@
 
 <ul>
   <li>
-    <editable-field-app label="Inco Terms" [value]="(product?.supplierId | entity: 'suppliers' | async)?.incoTerm" type="text"
+    <editable-field-app label="Inco Terms" [value]="(product?.supplierId | entity: 'supplier' | async)?.incoTerm" type="text"
       (update)="onUpdate('description', $event)">
     </editable-field-app>
   </li>

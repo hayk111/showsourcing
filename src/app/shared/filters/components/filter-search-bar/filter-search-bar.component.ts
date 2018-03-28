@@ -78,7 +78,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@ViewChild('searchbox') public searchbox: ElementRef;
 
-	private searched = [ERM.suppliers, ERM.events, ERM.categories, ERM.projects];
+	private searched = [ERM.supplier, ERM.events, ERM.categories, ERM.projects];
 	// we need the filter also because we need to also display the selected chocies
 	searchControl = new FormControl('');
 	smartSearch$: Observable<Array<SearchedEntities>>;

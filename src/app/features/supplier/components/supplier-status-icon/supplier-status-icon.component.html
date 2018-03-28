@@ -1,4 +1,4 @@
-<ng-container *ngIf="supplierId | entity: 'suppliers': 'advancedInfo.status'" [ngSwitch]="status">
+<ng-container *ngIf="supplierId | entity: 'supplier': 'advancedInfo.status'" [ngSwitch]="status">
 	<icon-app  [fa]="true" *ngSwitchCase="'Validated'" color="success" name="check-circle" [size]="size"></icon-app>
 	<icon-app  [fa]="true" *ngSwitchCase="'Refused'" name="times-circle" color="warn" [size]="size"></icon-app>
 	<icon-app  [fa]="true" *ngSwitchDefault name="question-circle" [size]="size"></icon-app>

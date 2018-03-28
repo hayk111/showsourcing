@@ -30,7 +30,7 @@ import { UserModule } from '~app/features/user';
 import { ProductModule } from '~app/features/products';
 import { ProjectsModule } from '~app/features/projects';
 import { TasksModule } from '~app/features/tasks';
-import { SuppliersModule } from '~app/features/suppliers';
+import { SuppliersModule } from '~app/features/supplier';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?

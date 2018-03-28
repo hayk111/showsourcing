@@ -1,10 +1,10 @@
 <table class="{{ big ? 'big' : '' }}">
-	<tr *ngIf="product?.supplierId | entityExist: 'suppliers' | async">
+	<tr *ngIf="product?.supplierId | entityExist: 'supplier' | async">
 		<td>
 			<supplier-status-icon-app [supplierId]="product?.supplierId" size="xs"></supplier-status-icon-app>
 		</td>
 		<td>
-			<span> {{ product?.supplierId | entityName: 'suppliers' | async }}</span>
+			<span> {{ product?.supplierId | entityName: 'supplier' | async }}</span>
 		</td>
 	</tr>
 

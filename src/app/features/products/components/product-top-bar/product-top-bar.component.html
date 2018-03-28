@@ -28,7 +28,7 @@
 			<div class="cell">
 				<div class="title">Supplier connect</div>
 				<div class="content">
-					<ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+					<ng-container *ngIf="product.supplierId | entity: 'supplier' | async as supplier">
 						<badge-app [color]="supplier?.advancedInfos?.status" [title]="supplier?.advancedInfos?.status"></badge-app>
 					</ng-container>
 				</div>

@@ -14,7 +14,7 @@ export class SupplierHttpService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, target: ERM.suppliers, recurring: true })
+			.load({ base: ERM.teams, target: ERM.supplier, recurring: true })
 			.pipe(map((r: any) => r.elements), map(suppliers => this.linearize(suppliers)));
 	}
 

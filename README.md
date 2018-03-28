@@ -95,7 +95,7 @@ Some scss files are based on google material design guidelinds. For instance `el
 ### Entities
 Found in `modules/store/utils/entities.utils.ts`.
 
-The `EntityState` class is used to transform array that come from the back-end. Say we ask for suppliers and receive a list of 1000 suppliers. We don't want to search in the array everytime we want to find a supplier with a specific id. Therefor the array is transformed into:
+The `EntityState` class is used to transform array that come from the back-end. Say we ask for supplier and receive a list of 1000 supplier. We don't want to search in the array everytime we want to find a supplier with a specific id. Therefor the array is transformed into:
 
 ```
 export interface EntityState<G extends Entity> {

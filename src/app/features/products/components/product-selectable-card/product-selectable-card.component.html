@@ -22,7 +22,7 @@
 
   <!-- bottom card -->
   <div class="bottom">
-    <div class="supplier">{{ product?.supplierId | entityName: 'suppliers' | async }}</div>
+    <div class="supplier">{{ product?.supplierId | entityName: 'supplier' | async }}</div>
     <div class="tags" [class.hidden]="showOverlay">
       <span *ngFor="let tag of product?.tagIds"> {{ tag | entityName: 'tags' | async }}</span>
     </div>

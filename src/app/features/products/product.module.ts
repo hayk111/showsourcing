@@ -50,7 +50,7 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 import { StatusModule } from '~app/shared/status/status.module';
 import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
 import { UserModule } from '~app/features/user';
-import { SuppliersModule } from '~app/features/suppliers';
+import { SuppliersModule } from '~app/features/supplier';
 import { FileModule } from '~app/shared/file';
 
 @NgModule({

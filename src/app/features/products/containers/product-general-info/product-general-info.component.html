@@ -44,7 +44,7 @@
       <!-- first column -->
       <div class="flexColumn">
 
-				<ng-container *ngIf="product.supplierId | entity: 'suppliers' | async as supplier">
+				<ng-container *ngIf="product.supplierId | entity: 'supplier' | async as supplier">
 					<div class="subSectionTitle">Trading conditions</div>
 					<cell-one-row-app title="Inco Term">
 						<editable-field-app

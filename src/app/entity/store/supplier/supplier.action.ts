@@ -3,9 +3,9 @@ import { ERM } from '../entity.model';
 import { TypedAction } from '~utils';
 
 export const supplierActionTypes = {
-	...makeEntityActionTypes(ERM.suppliers),
-	LOAD_PRODUCT_COUNT: `[${ERM.suppliers.entityName.capitalize()}] Loading product count...`,
-	ADD_PRODUCT_COUNT: `[${ERM.suppliers.entityName.capitalize()}] Setting product count...`,
+	...makeEntityActionTypes(ERM.supplier),
+	LOAD_PRODUCT_COUNT: `[${ERM.supplier.entityName.capitalize()}] Loading product count...`,
+	ADD_PRODUCT_COUNT: `[${ERM.supplier.entityName.capitalize()}] Setting product count...`,
 };
 
 class SupplierActions extends EntityActions {
@@ -26,4 +26,4 @@ class SupplierActions extends EntityActions {
 
 export const supplierActions = new SupplierActions(supplierActionTypes);
 
-ERM.suppliers.actions = SupplierActions;
+ERM.supplier.actions = SupplierActions;

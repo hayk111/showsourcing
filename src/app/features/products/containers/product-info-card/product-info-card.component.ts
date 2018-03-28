@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class ProductInfoCardComponent implements OnInit {
 	@Input() product: Product;
-	supplierRep = ERM.suppliers;
+	supplierRep = ERM.supplier;
 	categoryRep = ERM.categories;
 	eventRep = ERM.events;
 

@@ -24,7 +24,7 @@ const entities = combineReducers({
 	categories: categoryReducer,
 	events: eventReducer,
 	tags: tagReducer,
-	suppliers: supplierReducer,
+	supplier: supplierReducer,
 	products: productReducer,
 
 	productStatus: productStatusReducer,

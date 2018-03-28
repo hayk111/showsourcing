@@ -20,7 +20,7 @@ export class SuppliersPageComponent implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
-	repr = ERM.suppliers;
+	repr = ERM.supplier;
 	// maps current selection {id: true}
 	selection = new Map<string, boolean>();
 	productCount$: Observable<any>; // product count by supplier
@@ -48,7 +48,7 @@ export class SuppliersPageComponent implements OnInit {
 	}
 
 	onItemOpened(entityId: string) {
-		this.router.navigate(['/suppliers', 'details', entityId]);
+		this.router.navigate(['/supplier', 'details', entityId]);
 	}
 
 	onItemFavorited(entityId: string) {

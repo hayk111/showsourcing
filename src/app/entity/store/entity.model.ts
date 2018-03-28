@@ -37,18 +37,17 @@ export class EntityRepresentation {
 		public entityName: string,
 		public urlName?: string,
 		public displayName?: string,
-		public descriptorName?: string
 	) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
 		this.displayName = displayName || entityName;
-		this.descriptorName = descriptorName || entityName + 'CFDef';
 	}
 }
 
+// TODO: singularize every entity
 // Helper map, exported as ERM below.
 const entityRepresentationMap = {
-	suppliers: new EntityRepresentation('suppliers'),
+	supplier: new EntityRepresentation('supplier', 'supplier'),
 	events: new EntityRepresentation('events'),
 	categories: new EntityRepresentation('categories', 'category'),
 	tags: new EntityRepresentation('tags'),
@@ -58,9 +57,9 @@ const entityRepresentationMap = {
 	teams: new EntityRepresentation('teams'),
 
 	taskTypes: new EntityRepresentation('taskTypes'),
-	taskStatuses: new EntityRepresentation('tasksStatus', 'taskStatus', 'status'),
-	supplierStatus: new EntityRepresentation('supplierStatus', 'supplierStatus', 'status'),
-	productStatus: new EntityRepresentation('productStatus', 'productStatus', 'status'),
+	taskStatuses: new EntityRepresentation('tasksStatus', 'task-status', 'status'),
+	supplierStatus: new EntityRepresentation('supplierStatus', 'supplier-status', 'status'),
+	productStatus: new EntityRepresentation('productStatus', 'product-status', 'status'),
 	currencies: new EntityRepresentation('currencies', 'currency'),
 	countries: new EntityRepresentation('countries', 'country'),
 	incoTerms: new EntityRepresentation('incoTerms'),
@@ -71,6 +70,7 @@ const entityRepresentationMap = {
 	images: new EntityRepresentation('images'),
 	customFields: new EntityRepresentation('customFields', 'customFields'),
 	user: new EntityRepresentation('user'),
+	contact: new EntityRepresentation('contact', 'contact'),
 };
 
 export const ERM = entityRepresentationMap;

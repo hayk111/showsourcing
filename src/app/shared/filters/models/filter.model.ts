@@ -103,7 +103,7 @@ export abstract class FilterEntity extends BaseFilter {
 export class FilterSupplier extends FilterEntity implements Filter {
 	static readonly filterName = 'supplier';
 	static getEntityRepr() {
-		return ERM.suppliers;
+		return ERM.supplier;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterSupplier(value, displayValue, FilterSupplier.getEntityRepr());

@@ -26,7 +26,7 @@ export class SuppliersEffects {
 		.pipe(
 			distinctUntilChanged(),
 			map(action => action.payload),
-			map(id => ({ entityId: id, entityRepr: ERM.suppliers })),
+			map(id => ({ entityId: id, entityRepr: ERM.supplier })),
 			mergeMap((target: EntityTarget) => [
 				focussedEntityAction.focus(target),
 				commentActions.loadForSelection(),
@@ -68,7 +68,7 @@ export class SuppliersEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.suppliers)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.supplier)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
@@ -76,7 +76,7 @@ export class SuppliersEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>
-				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.suppliers })))
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.supplier })))
 			)
 		);
 

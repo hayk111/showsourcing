@@ -26,7 +26,7 @@ export class FilterSmartPanelComponent implements OnInit {
 
 	makeFilter(repr: EntityRepresentation, value) {
 		switch (repr.entityName) {
-			case 'suppliers':
+			case 'supplier':
 				return FilterSupplier.newInstance(value, value);
 			case 'events':
 				return FilterEvent.newInstance(value, value);
