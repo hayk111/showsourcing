@@ -12,11 +12,11 @@ export class ForgotPasswordComponent implements OnInit {
 	@Output() resetPw = new EventEmitter<string>();
 	@Input() pending: boolean;
 	@Input() error: any;
-	group: FormGroup;
+	form: FormGroup;
 
 	constructor(private fb: FormBuilder) {
-		this.group = this.fb.group({
-			email: ['', Validators.required]
+		this.form = this.fb.group({
+			email: ['', Validators.compose([Validators.required, Validators.email])]
 		});
 	}
 
@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
 	}
 
 	onSubmit() {
-		if (this.group.valid)
-			this.resetPw.emit(this.group.controls.email.value);
+		if (this.form.valid)
+			this.resetPw.emit(this.form.controls.email.value);
 	}
 }

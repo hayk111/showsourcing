@@ -37,6 +37,7 @@ import * as faQuestion from '@fortawesome/fontawesome-free-solid/faQuestion';
 import * as faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import * as faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 import * as faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
+import * as faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
 
 import * as fontawesome from '@fortawesome/fontawesome';
 
@@ -83,6 +84,7 @@ export const faIcons = [
 	faEnvelope,
 	faPhone,
 	faGlobe,
+	faArrowLeft
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

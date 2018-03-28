@@ -19,7 +19,6 @@ export class DynamicFormEntityComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.descriptor$ = this.store.select(selectCustomField(this.target.entityRepr.descriptorName));
 		this.entity$ = this.store.select(selectEntityById(this.target));
 	}
 

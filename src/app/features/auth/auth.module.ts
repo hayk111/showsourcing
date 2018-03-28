@@ -18,9 +18,10 @@ import {
 import { AuthCardComponent } from './containers';
 import { TokenInterceptorService, TokenService } from './services';
 import { AuthGuardService } from './services/auth-guard.service';
+import { IconsModule } from '~app/shared/icons';
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, InputsModule, LoadersModule, TabsModule, CardModule],
+	imports: [CommonModule, ReactiveFormsModule, InputsModule, LoadersModule, IconsModule, TabsModule, CardModule],
 	providers: [
 		AuthHttpService,
 		TokenService,
