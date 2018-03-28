@@ -1,6 +1,6 @@
 
 <div *ngFor="let category of products | groupBy: 'categoryId'; let first = first">
-    <div class="sectionTitle">{{ category?.key | entityName: 'categories' | async }}
+    <div class="sectionTitle">{{ category?.key | entityName: 'category' | async }}
       <div class="sectionTag">{{category.value.length}} products</div>
     </div>
     <div  class="section" >

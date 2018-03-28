@@ -24,7 +24,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields$: Observable<FormDescriptor>;
 	productId: string;
 
-	categoryRep = ERM.categories;
+	categoryRep = ERM.category;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();

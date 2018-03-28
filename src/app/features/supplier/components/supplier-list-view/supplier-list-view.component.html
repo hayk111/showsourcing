@@ -15,14 +15,14 @@
 		</div>
 	</ng-template>
 
-	<!-- categories -->
+	<!-- category -->
 	<ng-template
 		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
 		[sortable]="false"
 		width="280">
-		<span *ngFor="let cat of row.categories">
+		<span *ngFor="let cat of row.category">
 			{{ cat.name }},
 		</span>
 	</ng-template>

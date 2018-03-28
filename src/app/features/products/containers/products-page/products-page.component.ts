@@ -37,6 +37,7 @@ import {
 	selectFilterPanelOpen,
 } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'products-page-app',
@@ -53,8 +54,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// whether the products are currently loading.
 	productEntities: EntityState<Product>;
 	repr = ERM.product;
-	// when an item is clicked current target is a representation of that item
-	previewDialogOpen = false;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 
@@ -87,7 +86,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	productsCount$: Observable<number>;
 	teamMembers$: Observable<Array<User>>;
 
-	constructor(private store: Store<any>, private userSrv: UserService) {
+	constructor(private store: Store<any>, private userSrv: UserService, private router: Router) {
 		super();
 	}
 
@@ -150,9 +149,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(productActions.delete([entityId]));
 	}
 
-	onItemOpened(entityId: string) {
-		this.previewDialogOpen = true;
-		this.store.dispatch(productActions.focus(entityId));
+	goToDetails(entityId: string) {
+		this.router.navigate(['/product', 'details', entityId, 'general']);
 	}
 
 	onItemFavorited(entityId: string) {
@@ -175,10 +173,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	closeFilterPanel() {
 		this.store.dispatch(FilterPanelAction.close());
-	}
-
-	closeDialog() {
-		this.previewDialogOpen = false;
 	}
 
 	onViewChange(v: 'list' | 'card') {

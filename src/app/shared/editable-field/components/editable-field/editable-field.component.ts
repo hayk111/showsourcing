@@ -102,7 +102,7 @@ export class EditableFieldComponent implements OnInit {
 	}
 
 	getSingular(type: string) {
-		if (type === 'categories')
+		if (type === 'category')
 			return 'category';
 		// removing the 's' at the end of a type
 		else

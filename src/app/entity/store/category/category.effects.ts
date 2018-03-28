@@ -18,7 +18,7 @@ export class CategoryEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.categories)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.category)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
@@ -26,7 +26,7 @@ export class CategoryEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>
-				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.categories })))
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.category })))
 			)
 		);
 

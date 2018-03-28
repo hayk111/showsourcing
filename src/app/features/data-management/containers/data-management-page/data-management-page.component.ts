@@ -10,7 +10,7 @@ import { Entity, EntityRepresentation, ERM } from '~entity';
 	styleUrls: ['./data-management-page.component.scss'],
 })
 export class DataManagementPageComponent implements OnInit {
-	entities = [ERM.event, ERM.categories, ERM.supplier, ERM.tags, ERM.projects];
+	entities = [ERM.event, ERM.category, ERM.supplier, ERM.tags, ERM.projects];
 	selectedEntity;
 	selection = [];
 	items$: Observable<Array<Entity>>;

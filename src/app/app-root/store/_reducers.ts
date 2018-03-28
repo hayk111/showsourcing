@@ -21,7 +21,7 @@ const entities = combineReducers({
 	incoTerms: incoTermReducer,
 	harbours: harbourReducer,
 	currencies: currencyReducer,
-	categories: categoryReducer,
+	category: categoryReducer,
 	event: eventReducer,
 	tags: tagReducer,
 	supplier: supplierReducer,

@@ -8,12 +8,12 @@
 		</td>
 	</tr>
 
-	<tr  *ngIf="product?.categoryId | entityExist: 'categories' | async">
+	<tr  *ngIf="product?.categoryId | entityExist: 'category' | async">
 		<td>
 			<icon-app  [fa]="true" name="tag" size="xs"></icon-app>
 		</td>
 		<td>
-			<span>{{ product?.categoryId | entityName: 'categories' | async }}</span>
+			<span>{{ product?.categoryId | entityName: 'category' | async }}</span>
 		</td>
 	</tr>
 

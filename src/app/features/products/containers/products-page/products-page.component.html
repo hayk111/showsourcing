@@ -16,7 +16,7 @@
 			[products]="products$ | async"
 			(productSelect)="onItemSelected($event)"
 			(productUnselect)="onItemUnselected($event)"
-			(productOpen)="onItemOpened($event)"
+			(productOpen)="goToDetails($event)"
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"
 			(bottomReached)="loadMore()"></product-list-view-app>
@@ -35,7 +35,7 @@
 			(addToProject)="onItemAddToProject($event)"
 			(productFavorited)="onItemFavorited($event)"
 			(productUnfavorited)="onItemUnfavorited($event)"
-			(productOpen)="onItemOpened($event)"></product-card-view-app>
+			(productOpen)="goToDetails($event)"></product-card-view-app>
 
 </entity-page-app>
 
@@ -52,11 +52,6 @@
   (openRequestFeedbackDialog)="openRequestFeedbackDialog()"
   ></selection-actions>
 </selection-bar-app>
-
-<product-side-preview-app
-	(clickOutside)="closeDialog()"
-	*ngIf="previewDialogOpen">
-</product-side-preview-app>
 
 <ng-container *ngIf="filterPanelOpen$ | async">
 	<filter-panel-app

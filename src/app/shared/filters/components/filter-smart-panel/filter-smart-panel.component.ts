@@ -30,7 +30,7 @@ export class FilterSmartPanelComponent implements OnInit {
 				return FilterSupplier.newInstance(value, value);
 			case 'event':
 				return FilterEvent.newInstance(value, value);
-			case 'categories':
+			case 'category':
 				return FilterCategory.newInstance(value, value);
 			case 'projects':
 				return FilterProjects.newInstance(value, value);

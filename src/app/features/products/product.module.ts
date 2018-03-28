@@ -1,19 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { PipesModule } from '~app/app-root/pipes';
+import { CommentModule } from '~app/features/comment';
+import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
+import { SuppliersModule } from '~app/features/supplier';
+import { UserModule } from '~app/features/user';
 import { BadgeModule } from '~app/shared/badge/badge.module';
 import { CarouselModule } from '~app/shared/carousel';
+import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { FileModule } from '~app/shared/file';
 import { FiltersModule } from '~app/shared/filters';
 import { InputsModule } from '~app/shared/inputs';
+import { StatusModule } from '~app/shared/status/status.module';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
+import { ProductEffects } from '~product';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
 import { IconsModule } from '~shared/icons';
-import { LikesChartModule } from '~shared/likes-chart';
 import { LoadersModule } from '~shared/loaders';
 import { PriceModule } from '~shared/price';
 import { RatingModule } from '~shared/rating';
@@ -33,25 +40,15 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 } from './components';
+import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import {
 	ProductBigCardComponent,
-	ProductGeneralInfoComponent,
-	ProductInfoCardComponent,
 	ProductDetailsComponent,
-	ProductSidePreviewComponent,
+	ProductGeneralInfoComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
-import { ProductEffects } from '~product';
-import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
-import { CommentModule } from '~app/features/comment';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { StatusModule } from '~app/shared/status/status.module';
-import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
-import { UserModule } from '~app/features/user';
-import { SuppliersModule } from '~app/features/supplier';
-import { FileModule } from '~app/shared/file';
 
 @NgModule({
 	imports: [
@@ -86,13 +83,11 @@ import { FileModule } from '~app/shared/file';
 		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
-		ProductInfoCardComponent,
 		ProductStatusBadgeComponent,
 		ProductSubInfoComponent,
 		ProductsPageComponent,
 		ProductListViewComponent,
 		ProductCardViewComponent,
-		ProductSidePreviewComponent,
 		ProductSelectableCardComponent,
 		SelectionActionsComponent,
 		ProductBigCardComponent,
@@ -104,7 +99,7 @@ import { FileModule } from '~app/shared/file';
 		ProductTopBarComponent,
 		SelectableImageComponent
 	],
-	exports: [ProductSmallCardComponent, ProductInfoCardComponent],
+	exports: [ProductSmallCardComponent],
 })
 export class ProductModule {
 	static forRoot(): ModuleWithProviders {

@@ -9,9 +9,9 @@
 		<icon-app [fa]="true" name="map-marker-alt"></icon-app>
 		<span class="value">{{ supplier.countryCode | entity: 'country': 'fullName' | async }}</span>
 	</div>
-	<!-- categories -->
+	<!-- category -->
 	<div class="row" *ngIf="supplier && supplier.categories && supplier.categories.length > 0">
-		<span *ngFor="let cat of supplier.categories">{{ cat.id | entityName: 'categories' | async }}</span>
+		<span *ngFor="let cat of supplier.categories">{{ cat.id | entityName: 'category' | async }}</span>
 	</div>
 	<!-- tags -->
 	<div class="row" *ngIf="supplier && supplier.tags && supplier.tags.length > 0">

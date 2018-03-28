@@ -51,7 +51,7 @@ export class EntityRepresentation {
 const entityRepresentationMap = {
 	supplier: new EntityRepresentation('supplier', 'supplier'),
 	event: new EntityRepresentation('event', 'event'),
-	categories: new EntityRepresentation('categories', 'category'),
+	category: new EntityRepresentation('category', 'category'),
 	tags: new EntityRepresentation('tags'),
 	projects: new EntityRepresentation('projects'),
 	product: new EntityRepresentation('products'),

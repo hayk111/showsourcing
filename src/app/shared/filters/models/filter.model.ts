@@ -113,7 +113,7 @@ export class FilterSupplier extends FilterEntity implements Filter {
 export class FilterCategory extends FilterEntity implements Filter {
 	static readonly filterName = 'category';
 	static getEntityRepr() {
-		return ERM.categories;
+		return ERM.category;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterCategory(value, displayValue, FilterCategory.getEntityRepr());

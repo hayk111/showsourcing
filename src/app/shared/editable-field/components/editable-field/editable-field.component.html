@@ -10,7 +10,7 @@
     <ng-container [ngSwitch]="true" *ngIf="value">
 
 			<!-- entities -->
-      <ng-container *ngSwitchCase="['supplier', 'event', 'categories', 'productStatus', 'harbours', 'incoTerms'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['supplier', 'event', 'category', 'productStatus', 'harbours', 'incoTerms'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
@@ -115,7 +115,7 @@
 
 
 		<!-- Entity selector -->
-		<ng-container *ngSwitchCase="['supplier', 'categories', 'event', 'incoTerms', 'harbours', 'teamMembers'].indexOf(type) > -1">
+		<ng-container *ngSwitchCase="['supplier', 'category', 'event', 'incoTerms', 'harbours', 'teamMembers'].indexOf(type) > -1">
 			<selector-app
 				[value]="value"
 				[choices]="type | entityList | async"
