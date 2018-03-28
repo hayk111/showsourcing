@@ -73,7 +73,7 @@ fieldset legend {
 	font-style: italic;
 }
 
-textarea::placeholder, input[type="text"]::placeholder, input[type="search"]::placeholder, input[type="password"]::placeholder {
+textarea::placeholder, input[type="text"]::placeholder, input[type="search"]::placeholder, input[type="password"]::placeholder,  input[type="email"]::placeholder {
 	color: var(--color-txt-secondary);
 }
 

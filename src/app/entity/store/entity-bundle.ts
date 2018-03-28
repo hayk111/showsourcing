@@ -4,25 +4,20 @@ import { EntityRepresentation } from '~entity/store/entity.model';
 import { entityStateToArray } from '~entity/utils';
 import { entityReducerFactory } from '~app/entity/Store/entity.reducer.factory';
 
-export function makeEntityBundle(repr: EntityRepresentation) {
-	const actionTypes = makeEntityActionTypes(repr);
-	const actions = new EntityActions(actionTypes);
-	const reducer = entityReducerFactory(actionTypes);
+// TODO: in order for this to work we need to remove the use of repr
 
-	// selectors
-	const selectEntities = (state) => state.entities;
-	const selectState = createSelector([selectEntities], entities => entities[repr.entityName]);
-	const selectArray = createSelector([selectState], state => entityStateToArray(state));
-	const selectById = createSelector([selectState], state => state.byId);
-	const selectOne = (id: string) => createSelector([selectState], state => state.byId[id]);
+// export function makeEntityBundle(entityName: string) {
+// 	const actionTypes = makeEntityActionTypes(repr);
+// 	const actions = new EntityActions(actionTypes);
+// 	const reducer = entityReducerFactory(actionTypes);
 
-	return {
-		[`${repr.entityName}ActionTypes`]: actionTypes,
-		[`${repr.entityName}Actions`]: actions,
-		[`${repr.entityName}Reducer`]: reducer,
-		[`selectState${repr.entityName.capitalize()}`]: selectState,
-		[`selectArray${repr.entityName.capitalize()}`]: selectArray,
-		[`selectById${repr.entityName.capitalize()}`]: selectById,
-		[`selectOne${repr.entityName.capitalize()}`]: selectOne
-	};
-}
+// 	// selectors
+// 	const selectEntities = (state) => state.entities;
+// 	const selectState = createSelector([selectEntities], entities => entities[entityName]);
+// 	const selectArray = createSelector([selectState], state => entityStateToArray(state));
+// 	const selectById = createSelector([selectState], state => state.byId);
+// 	const selectOne = (id: string) => createSelector([selectState], state => state.byId[id]);
+
+
+// 	return { actionTypes, actions, reducer, selectState, selectArray, selectById, selectOne };
+// }

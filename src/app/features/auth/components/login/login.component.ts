@@ -9,15 +9,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
-	creds: FormGroup;
+	form: FormGroup;
 	@Output() forgotPassword = new EventEmitter<any>();
 	@Output() login = new EventEmitter<any>();
 	@Input() pending: boolean;
 	@Input() error: any;
 
 	constructor(private store: Store<any>, private fb: FormBuilder) {
-		this.creds = this.fb.group({
-			identifier: ['', Validators.required],
+		this.form = this.fb.group({
+			identifier: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.required]
 		});
 	}
@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit() {
-		if (this.creds.valid)
-			this.login.emit(this.creds.value);
+		if (this.form.valid)
+			this.login.emit(this.form.value);
 	}
 
 	forgotPw() {

@@ -1,17 +1,32 @@
 
 <form [formGroup]="form" class="flexColumn" *ngIf="!pending; else spinner">
+
+	<form-field-app>
+		<label-app>First Name</label-app>
+		<input inputApp required="true"
+			autocomplete="given-name" formControlName="firstName" type="text" placeholder="Your first name"/>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>Last Name</label-app>
+		<input inputApp required="true"
+			autocomplete="family-name" formControlName="lastName" type="text" placeholder="Your last name"/>
+	</form-field-app>
+
 	<form-field-app>
 		<label-app>Email</label-app>
-		<input inputApp autocomplete="on" formControlName="email" type="email" placeholder="example@showsourcing.com"/>
+		<input inputApp required="true"
+			autocomplete="email" formControlName="email" type="email" placeholder="Your email"/>
 	</form-field-app>
 
 	<form-field-app>
 		<label-app>Password</label-app>
-		<input inputApp autocomplete="on" formControlName="password" type="password" placeholder="your password"/>
+		<input inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
+			placeholder="Your password"/>
 	</form-field-app>
 
 
-  <input type="submit" value="Create Account" (click)="createAccount()" class="fullWidth"/>
+  <input type="submit" [disabled]="!form.valid" value="Create Account" (click)="createAccount()" class="fullWidth"/>
 </form>
 
 <ng-template #spinner>

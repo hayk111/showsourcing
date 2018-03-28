@@ -1,8 +1,8 @@
-<form (ngSubmit)="onSubmit()" *ngIf="!pending; else spinner" [formGroup]="creds">
+<form (ngSubmit)="onSubmit()" *ngIf="!pending; else spinner" [formGroup]="form">
 
 	<form-field-app>
 		<label-app>Email</label-app>
-		<input inputApp required="true" autocomplete="current-email" type="text" placeholder="example@showsourcing.com" formControlName="identifier"/>
+		<input inputApp autocomplete="current-email" type="text" placeholder="example@showsourcing.com" formControlName="identifier"/>
 	</form-field-app>
 
 	<form-field-app>
@@ -14,7 +14,7 @@
 		<small class="pointer" (click)="forgotPw()">Forgot Password ?</small>
 	</div>
 
-	<input type="submit" value="LOGIN"/>
+	<input type="submit" value="LOGIN" [disabled]="!form.valid"/>
 </form>
 
 <ng-template #spinner>
