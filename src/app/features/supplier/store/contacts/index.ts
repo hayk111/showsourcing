@@ -1,4 +1,4 @@
-import { makeEntityActionTypes, ERM } from '~app/entity';
+import { makeEntityActionTypes, ERM, EntityActions } from '~app/entity';
 
 export interface Contact {
 	name: string;
@@ -6,4 +6,7 @@ export interface Contact {
 	phoneNumber: string;
 	supplierId: string;
 }
+
 export const contactActionTypes = makeEntityActionTypes(ERM.contact);
+export const contactActions = new EntityActions(contactActionTypes);
+// make entity bundle  n gfn b  c

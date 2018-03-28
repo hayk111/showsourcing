@@ -7,7 +7,7 @@
 	<!-- address -->
 	<div class="row" *ngIf="supplier && supplier.address">
 		<icon-app [fa]="true" name="map-marker-alt"></icon-app>
-		<span class="value">{{ supplier.countryCode | entity: 'countries': 'fullName' | async }}</span>
+		<span class="value">{{ supplier.countryCode | entity: 'country': 'fullName' | async }}</span>
 	</div>
 	<!-- categories -->
 	<div class="row" *ngIf="supplier && supplier.categories && supplier.categories.length > 0">

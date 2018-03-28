@@ -11,7 +11,7 @@ export class CountryEffects {
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.srv.load({ target: ERM.countries })),
+			switchMap(_ => this.srv.load({ target: ERM.country })),
 			map((result: any) => countryActions.add(result))
 		);
 

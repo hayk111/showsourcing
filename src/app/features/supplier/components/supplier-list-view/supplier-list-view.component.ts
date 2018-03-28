@@ -19,7 +19,7 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
-	countries: EntityState<Country>;
+	country: EntityState<Country>;
 	teamMembers: EntityState<any>;
 
 	constructor(private store: Store<any>) { }
@@ -27,7 +27,7 @@ export class SupplierListViewComponent implements OnInit {
 	ngOnInit() {
 		// subscribing here once instead subscribing for each row with | async
 		// although we could use the ng-container
-		this.store.select(selectCountryState).subscribe(state => this.countries = state);
+		this.store.select(selectCountryState).subscribe(state => this.country = state);
 		this.store.select(selectTeamMembersState).subscribe(state => this.teamMembers = state);
 	}
 

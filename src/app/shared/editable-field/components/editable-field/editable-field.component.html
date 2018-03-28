@@ -16,10 +16,10 @@
         </span>
 			</ng-container>
 
-			<!-- countries -->
-      <ng-container *ngSwitchCase="type === 'countries'">
+			<!-- country -->
+      <ng-container *ngSwitchCase="type === 'country'">
         <span>
-          {{ value | entity: 'countries': 'fullName' | async }}
+          {{ value | entity: 'country': 'fullName' | async }}
         </span>
 			</ng-container>
 
@@ -129,10 +129,10 @@
 		</ng-container>
 
 		<!-- Entity selector -->
-		<ng-container *ngSwitchCase="type === 'countries'">
+		<ng-container *ngSwitchCase="type === 'country'">
 			<selector-app
 				[value]="value"
-				[choices]="'countries' | entityList | async"
+				[choices]="'country' | entityList | async"
 				[itemName]="getSingular(type)"
 				(select)="updateValue($event?.id);onSave()"
 				[canSearch]="true"

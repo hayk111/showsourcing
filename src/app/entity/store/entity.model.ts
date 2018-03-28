@@ -61,7 +61,7 @@ const entityRepresentationMap = {
 	supplierStatus: new EntityRepresentation('supplierStatus', 'supplier-status', 'status'),
 	productStatus: new EntityRepresentation('productStatus', 'product-status', 'status'),
 	currencies: new EntityRepresentation('currencies', 'currency'),
-	countries: new EntityRepresentation('countries', 'country'),
+	country: new EntityRepresentation('country', 'country'),
 	incoTerms: new EntityRepresentation('incoTerms'),
 	harbours: new EntityRepresentation('harbours'),
 	teamMembers: new EntityRepresentation('teamMembers'),

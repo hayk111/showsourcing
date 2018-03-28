@@ -5,7 +5,7 @@
 		<div>
 			Supplier
 			<ng-container *ngIf="supplier.countryCode">
-				- {{ supplier.countryCode | entity: 'countries': 'fullName' | async }}
+				- {{ supplier.countryCode | entity: 'country': 'fullName' | async }}
 			</ng-container>
 		</div>
 	</div>

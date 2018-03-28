@@ -17,7 +17,7 @@ const entities = combineReducers({
 	user: userReducer,
 	teams: teamReducer,
 	teamMembers: teamMemberReducer,
-	countries: countryReducer,
+	country: countryReducer,
 	incoTerms: incoTermReducer,
 	harbours: harbourReducer,
 	currencies: currencyReducer,
