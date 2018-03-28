@@ -5,7 +5,8 @@ export interface EntityState<G extends Entity> {
 	pending: boolean;
 	byId: { [id: string]: G };
 	ids: Array<string>;
-	selected?: string;
+	focussed?: string;
+	selected?: Array<string>;
 }
 
 // default initial state in store for an entity
@@ -13,7 +14,8 @@ export const entityInitialState: EntityState<any> = {
 	pending: true,
 	byId: {},
 	ids: [],
-	selected: null,
+	focussed: null,
+	selected: [],
 };
 
 // represents an entity in the store

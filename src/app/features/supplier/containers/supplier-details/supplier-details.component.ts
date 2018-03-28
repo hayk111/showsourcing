@@ -4,9 +4,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { Patch, AppImage, selectImages, selectImagesAsArray } from '~entity';
+import {
+	Patch, AppImage, selectImages, selectImagesAsArray, selectSupplierFocussed,
+	selectSupplierProductsCountForFocussed
+} from '~entity';
 import { Product, selectProducts } from '~product';
-import { selectSupplierProductsCountForId, selectSupplierSelected, Supplier, supplierActions } from '~supplier';
+import { Supplier, supplierActions } from '~supplier';
 import { selectTasks, Task } from '~task';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 
@@ -33,8 +36,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			this.store.dispatch(supplierActions.loadProductCount());
 		});
 
-		this.supplier$ = this.store.select(selectSupplierSelected);
-		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForId(id))));
+		this.supplier$ = this.store.select(selectSupplierFocussed);
+		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForFocussed(id))));
 		this.tasks$ = this.store.select(selectTasks);
 		this.products$ = this.store.select<any>(selectProducts);
 		this.images$ = this.store.select(selectImagesAsArray);

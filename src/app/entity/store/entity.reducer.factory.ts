@@ -18,7 +18,7 @@ export function entityReducerFactory<G extends Entity>(
 			case actionType.FOCUS:
 				return {
 					...state,
-					selected: action.payload,
+					focussed: action.payload,
 				};
 			// we reset the state using the initiale state to override the store values
 			case actionType.SET:

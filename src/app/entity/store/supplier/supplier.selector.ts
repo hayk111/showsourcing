@@ -9,16 +9,16 @@ export const selectSupplierState = createSelector([selectEntities], state => {
 });
 
 export const selectSuppliers = createSelector([selectSupplierState], state => entityStateToArray(state));
-export const selectSupplierSelected = createSelector(
+export const selectSupplierFocussed = createSelector(
 	[selectSupplierState],
-	state => state.byId[state.selected]
+	state => state.byId[state.focussed]
 );
 
-export const selectSupplierProductsCountForId = id =>
+export const selectSupplierProductsCountForFocussed = id =>
 	createSelector([selectSupplierState], state => {
 		if (!state.productsCount) {
 			return 0;
 		} else {
-			return state.productsCount[state.selected] || 0;
+			return state.productsCount[state.focussed] || 0;
 		}
 	});

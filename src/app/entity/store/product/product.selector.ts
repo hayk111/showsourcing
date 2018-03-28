@@ -16,7 +16,7 @@ export const selectProductById = (id: string) => {
 };
 
 // select the currently focussed product
-export const selectProductFocused = createSelector([selectProductsState], (state) => state.byId[state.selected]);
+export const selectProductFocused = createSelector([selectProductsState], (state) => state.byId[state.focussed]);
 
 
 

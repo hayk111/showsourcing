@@ -11,16 +11,19 @@
 		(filterRemove)="onFilterRemoved($event)"
 		[filterMap]="filterMap" [filterClasses]="filterClasses">
 	</filter-btns-panel-app>
+
 	<!-- panel displayed when a filter-btn with that is linked to the store is clicked -->
 	<ng-container *ngIf="selectedValues$ | async as selectedValues">
-
-
+		<!-- rating -->
 		<filter-rating-panel-app *ngIf="selectedPanel === 'rating'"
 			(addFilter)="onFilterAdded($event)"
 			(removeFilter)="onFilterRemoved($event)"></filter-rating-panel-app>
 
+		<!-- price -->
 		<filter-price-panel-app *ngIf="selectedPanel === 'price'" (addFilter)="onFilterAdded($event)" (removeFilterClass)="onFilterClassRemove($event)">
 		</filter-price-panel-app>
+
+		<!-- entity -->
 		<ng-container
 			*ngIf="selectedPanel === 'entity'">
 			<filter-entity-panel-app
@@ -32,5 +35,6 @@
 				(filterRemoved)="onFilterRemoved($event)"
 				(entitySearch)="onEntitySearch($event)"></filter-entity-panel-app>
 		</ng-container>
+
 	</ng-container>
 </ng-container>
