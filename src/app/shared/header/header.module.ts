@@ -7,21 +7,20 @@ import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
 import { HeaderComponent } from './components';
 import { NotifComponent } from './components';
-import { SearchComponent } from './components';
 import { UserInfoComponent } from './components';
 import { UserPanelComponent } from './components';
 import { UserModule } from '~app/features/user';
+import { SharedModule } from '~app/shared/shared.module';
+import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
-		UtilsModule,
-		EntityModule.forChild(),
+		SharedModule,
+		SearchBarAnimatedModule,
 		RouterModule.forChild([]),
 		UserModule.forChild(),
-		IconsModule,
 	],
-	declarations: [HeaderComponent, NotifComponent, SearchComponent, UserInfoComponent, UserPanelComponent],
+	declarations: [HeaderComponent, NotifComponent, UserInfoComponent, UserPanelComponent],
 	exports: [HeaderComponent],
 })
 export class HeaderModule { }

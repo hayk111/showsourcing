@@ -13,7 +13,9 @@
 </nav>
 
 <div class="flexCenter right" *ngIf="(authenticated$ | async)">
-  <search-app></search-app>
+  <search-bar-animated-app>
+		<input inputApp class="searchInput" type="text"/>
+	</search-bar-animated-app>
   <div class="vertDivider"></div>
   <user-info-app></user-info-app>
 </div>
