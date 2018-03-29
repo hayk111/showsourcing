@@ -1,7 +1,8 @@
 
 <div class="top">
 	<h1>Sign up</h1>
-	<h2>Just fill this form and get started with power sourcing!</h2>
+	<h2 *ngIf="!(pending$ | async)">Just fill this form and get started with power sourcing!</h2>
+	<h2 *ngIf="(pending$ | async)">We are now processing your informations</h2>
 </div>
 
 <form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">

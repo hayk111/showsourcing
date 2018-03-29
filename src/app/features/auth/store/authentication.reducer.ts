@@ -1,5 +1,5 @@
 import { TypedAction } from '~utils';
-import { AuthActionType } from './authentication.action';
+import { AuthActionType, AuthActions } from './authentication.action';
 
 export interface State {
 	pending: boolean;
@@ -16,10 +16,12 @@ export function reducer(state: State = initialState, action: TypedAction<any>): 
 	switch (action.type) {
 		case AuthActionType.CHECK_ALREADY_AUTHENTICATED_SUCCESS:
 		case AuthActionType.LOGIN_SUCCESS:
+		case AuthActionType.REGISTER_SUCCESS:
 			return { authenticated: true, pending: false };
 
 		case AuthActionType.CHECK_ALREADY_AUTHENTICATED_ERROR:
 		case AuthActionType.LOGOUT:
+		case AuthActionType.REGISTER_ERROR:
 			return { authenticated: false, pending: false };
 
 		default:

@@ -73,7 +73,7 @@ export class AuthenticationEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(params => this.srv.register(params)),
-			tap(_ => this.router.navigate(['guest', 'account-created'])),
+			tap(_ => this.router.navigate([''])),
 			mergeMap(user => [UserActions.setUser(user), AuthActions.registerSuccess(user)]),
 			catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
 		);

@@ -10,13 +10,15 @@ header {
 	padding: var(--spacing-default);
 	align-items: center;
 	font-family: 'Raleway', sans-serif;
-}
-.titleLogo {
-	height: 26px;
-	width: 21px;
-	margin-right: var(--spacing-default);
-	display: block;
-	background: url('/assets/icons/logo.svg') no-repeat center;
+	color: var(--color-txt-strong);
+
+	.titleLogo {
+		height: 26px;
+		width: 21px;
+		margin-right: var(--spacing-default);
+		display: block;
+		background: url('/assets/icons/logo.svg') no-repeat center;
+	}
 }
 
 main {

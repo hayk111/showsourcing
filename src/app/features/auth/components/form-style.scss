@@ -2,19 +2,30 @@
 	text-align: center;
 }
 
+h1, h2 {
+	white-space: nowrap;
+}
+
 h1 {
+	font-size: 36px;
 	font-family: 'Raleway', sans-serif;
 	color: var(--color-txt-strong);
 }
 
 h2 {
+	font-size: 20px;
 	font-weight: normal;
 	margin-bottom: 64px;
 }
+
 a{
 	font-weight: normal;
 }
+
 .button {
 	height: 36px;
 	margin-bottom: var(--spacing-default);
+}
+spinner-app {
+	margin: auto;
 }

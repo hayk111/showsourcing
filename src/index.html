@@ -5,8 +5,9 @@
   <title>Show Sourcing Web App</title>
   <base href="/">
 
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo.png">
 	<!-- Disable translation prompt: Chrome -->
 	<meta name="google" value="notranslate">
 
@@ -20,54 +21,138 @@
 	<!-- Add to Home Screen: iOS -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="Swimlane">
+	<meta name="apple-mobile-web-app-title" content="ShowSourcing">
 
 	<!-- Add to Home Screen: Android -->
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<style>
-		/** Preloading Spinner */
-		.page-loader {
-			position: absolute;
-			font-family: sans-serif;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			text-align: center;
+		body {
+			color: #182844;
+			padding: 0;
+			margin: 0;
 		}
+		.temp {
+			display: block;
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			background: white;
+		}
+		.temp header {
+			padding: 16px;
+			align-items: center;
+			font-family: 'Raleway', sans-serif;
+			display: flex;
+			font-size: 17px;
+		}
+
+		.temp .titleLogo {
+			height: 26px;
+			width: 21px;
+			margin-right: 16px;
+			display: block;
+			background: url('/assets/icons/logo.svg') no-repeat center;
+		}
+
+		.temp main {
+			font-family: sans-serif;
+			flex-grow: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			color: #5D6D8B;
+		}
+		.temp h1 {
+			font-size: 36px;
+			color: #182844;
+			font-family: 'Raleway', sans-serif;
+		}
+		.temp h2 {
+			font-family: "Source Sans Pro", sans-serif;
+			font-size: 20px;
+			line-height: 25px;
+			text-align: center;
+			font-weight: normal;
+			margin-bottom: 32px;
+		}
+
+
+		.temp .loader {
+			position: relative;
+			margin: 0 auto;
+			width: 64px;
+		}
+
+		.temp .loader:before {
+			content: '';
+			display: block;
+			padding-top: 100%;
+		}
+
+		.temp .circular {
+			animation: rotate 2s linear infinite;
+			height: 100%;
+			transform-origin: center center;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+
+		.temp .path {
+			stroke-dasharray: 1, 200;
+			stroke-dashoffset: 0;
+			animation: dash 1.5s ease-in-out infinite;
+			stroke-linecap: round;
+			stroke: #41AFFF;
+		}
+
+		@keyframes rotate {
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes dash {
+			0% {
+				stroke-dasharray: 1, 200;
+				stroke-dashoffset: 0;
+			}
+			50% {
+				stroke-dasharray: 89, 200;
+				stroke-dashoffset: -35px;
+			}
+			100% {
+				stroke-dasharray: 89, 200;
+				stroke-dashoffset: -124px;
+			}
+		}
+
 	</style>
 </head>
 <body>
   <app-root>
-		<div class="page-loader">
-			<div class="preloader">
-				<div class="arc arc-0"></div>
-				<div class="arc arc-1"></div>
-				<div class="arc arc-2"></div>
-				<div class="arc arc-3"></div>
-				<div class="arc arc-4"></div>
-				<div class="arc arc-5"></div>
-				<div class="arc arc-6"></div>
-				<div class="arc arc-7"></div>
-				<div class="arc arc-8"></div>
-				<div class="arc arc-9"></div>
-				<div class="arc arc-10"></div>
-				<div class="arc arc-11"></div>
-				<div class="arc arc-12"></div>
-				<div class="arc arc-13"></div>
-				<div class="arc arc-14"></div>
-				<div class="arc arc-15"></div>
-				<div class="arc arc-16"></div>
-				<div class="arc arc-17"></div>
-				<div class="arc arc-18"></div>
-				<div class="arc arc-19"></div>
-				<div class="arc arc-20"></div>
-				<div class="arc arc-21"></div>
-				<div class="arc arc-22"></div>
-				<div class="arc arc-23"></div>
-				<div class="arc arc-24"></div>
-			</div>
-			<div class="center">Launching Showsourcing App</div>
+		<div class="temp">
+			<header>
+				<div class="titleLogo"></div>
+				<span class="title"><b>Show</b>Sourcing</span>
+			</header>
+			<main>
+				<h1>Loading Your App...</h1>
+				<h2>We are preparing your experience, please wait a moment</h2>
+
+				<div class="loader">
+					<svg class="circular" viewBox="25 25 50 50">
+						<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+					</svg>
+				</div>
+			</main>
 		</div>
 	</app-root>
 </body>
