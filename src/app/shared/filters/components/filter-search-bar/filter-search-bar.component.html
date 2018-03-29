@@ -1,15 +1,11 @@
 <!-- <input type="text" placeholder="Search" (keyup)="search($event.target.value)" />
 <icon-app  [fa]="true" name="search" color="primary" size="xl"></icon-app> -->
 
-<div class="search-row">
-  <div class="fullFlex"></div>
-	<div *ngIf="searchstate !== 'expanded'" class="icon-search" name="search"
-		(click)="expandSearch()" color="primary-dark"></div>
-  <div class="input-wrapper" [@searchAnimation]="searchstate">
-    <input #searchbox  (keydown.enter)="search()" [formControl]="searchControl" placeholder="Type to search">
-  </div>
-  <div class="icon-close" name="close" *ngIf="searchstate === 'expanded'" (click)="clearSearch()"></div>
-</div>
+<search-bar-animated-app>
+	<input inputApp (keydown.enter)="search()" [formControl]="searchControl" placeholder="Type to search"/>
+</search-bar-animated-app>
+
+
 <div *ngIf="smartSearch$ | async as smartSearch" class="smartCtnr">
 	<filter-smart-panel-app
 		class="z-3"

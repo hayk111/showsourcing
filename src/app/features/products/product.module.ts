@@ -49,24 +49,21 @@ import {
 	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		RouterModule.forChild([]),
 		PipesModule,
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),
-		LoadersModule,
 		StatusModule.forChild(),
-		EntityModule.forChild(),
 		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
 		UtilsModule, // TODO to be removed and placed inside the component module using it
 		FileModule.forChild(), // file card used
 		SuppliersModule.forChild(), // TODO to be removed and placed inside the component module using it
 		EditableFieldModule, // TODO to be removed and placed inside the component module using it
-		IconsModule, // TODO to be removed and placed inside the component module using it
-		CardModule, // TODO to be removed and placed inside the component module using it
 		PriceModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // could move into EntityPageModule ?
@@ -74,7 +71,6 @@ import { routes } from './routes';
 		FiltersModule, // used for filters
 		CarouselModule,
 		BadgeModule,
-		InputsModule, // checkbox
 		CommentModule.forChild(),
 		EntityPagesModule,
 	],

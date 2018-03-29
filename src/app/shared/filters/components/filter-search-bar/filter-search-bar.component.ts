@@ -84,7 +84,6 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	smartSearch$: Observable<Array<SearchedEntities>>;
 	smartSearchSelection$: Observable<any>;
 	smartPanelVisible = false;
-	searchstate = 'shrinked';
 
 	constructor(private store: Store<any>) {
 		super();
@@ -128,17 +127,6 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 
 	closeSmartSearch() {
 		this.smartPanelVisible = false;
-	}
-
-	expandSearch() {
-		this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
-		if (this.searchstate === 'expanded') {
-			this.searchbox.nativeElement.focus();
-		}
-	}
-
-	clearSearch() {
-		this.searchstate = 'shrinked';
 	}
 
 	addFromSmart(filter: Filter) {

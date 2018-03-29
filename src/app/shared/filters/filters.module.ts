@@ -18,16 +18,17 @@ import {
 	FilterTagComponent,
 } from './components';
 import { FilterPanelComponent, FilterCloudComponent } from './containers';
+import { SharedModule } from '~app/shared/shared.module';
+import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		InputsModule,
+		SharedModule,
+		SearchBarAnimatedModule,
 		FormsModule,
 		ReactiveFormsModule,
-		RatingModule, // used in rating panel,
-		UtilsModule, // for click outside
-		IconsModule,
+		RatingModule,
 	],
 	declarations: [
 		FilterPanelComponent,
