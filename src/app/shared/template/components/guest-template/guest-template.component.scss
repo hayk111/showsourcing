@@ -1,5 +1,24 @@
-:root {
+:host {
+	display: block;
 	height: 100vh;
 	width: 100%;
 	background: var(--color-bg);
+	display:flex;
+	flex-direction: column;
+}
+header {
+	padding: var(--spacing-default);
+	align-items: center;
+	font-family: 'Raleway', sans-serif;
+}
+.titleLogo {
+	height: 26px;
+	width: 21px;
+	margin-right: var(--spacing-default);
+	display: block;
+	background: url('/assets/icons/logo.svg') no-repeat center;
+}
+
+main {
+	flex-grow: 1;
 }

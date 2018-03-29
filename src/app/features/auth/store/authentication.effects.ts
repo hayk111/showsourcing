@@ -30,9 +30,9 @@ export class AuthenticationEffects {
 			switchMap(p => this.srv.login(p)),
 			// we save the token for when the user refresh the page
 			tap(r => this.tokenSrv.token = r.headers.get('X-Auth-Token')),
-			map(r => [AuthActions.loginSuccess(r.body), UserActions.setUser(r.body)]),
-			catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e)))
-		);
+			mergeMap(r => [AuthActions.loginSuccess(r.body), UserActions.setUser(r.body)]),
+			catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error))));
+		)
 
 	@Effect({ dispatch: false })
 	loginSuccess$ = this.actions$.pipe(
@@ -43,7 +43,7 @@ export class AuthenticationEffects {
 	@Effect()
 	logout$ = this.actions$.ofType<any>(AuthActionType.LOGOUT).pipe(
 		tap(_ => this.tokenSrv.removeToken()),
-		tap(_ => this.router.navigate([''])),
+		tap(_ => this.router.navigate(['/guest', 'login'])),
 		map(_ => UserActions.resetUser())
 	);
 
@@ -73,9 +73,9 @@ export class AuthenticationEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(params => this.srv.register(params)),
-			tap(_ => this.router.navigate(['account-created'], { relativeTo: this.route })),
+			tap(_ => this.router.navigate(['guest', 'account-created'])),
 			mergeMap(user => [AuthActions.registerSuccess(user), UserActions.setUser(user)]),
-			catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e)))
+			catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
 		);
 
 	constructor(

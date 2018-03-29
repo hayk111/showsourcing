@@ -1,3 +1,8 @@
+<div class="top">
+	<h1>Welcome!</h1>
+	<h2>Welcome to ShowSourcing, please log-in</h2>
+</div>
+
 <form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
 
 	<form-field-app>
@@ -10,15 +15,14 @@
 		<input inputApp autocomplete="current-password" type="password" placeholder="your password" formControlName="password"/>
 	</form-field-app>
 
-	<div class="forgotCtnr">
-		<small class="pointer" (click)="forgotPw()">Forgot Password ?</small>
-	</div>
+	<small class="pointer forgot" (click)="forgotPw()">Forgot Password ?</small>
 
-	<input type="submit" value="LOGIN" [disabled]="!form.valid"/>
+	<input class="button" type="submit" value="LOGIN" [disabled]="!form.valid"/>
+	<a class="button light fullWidth flexCenter" [routerLink]="['../register']">Don't have an account ?</a>
 </form>
 
 <ng-template #spinner>
   <spinner-app></spinner-app>
 </ng-template>
 
-<div>{{ error$ | async}}</div>
+<div>{{ error$ | async }}</div>

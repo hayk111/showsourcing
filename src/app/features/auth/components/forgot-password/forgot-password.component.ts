@@ -9,7 +9,7 @@ import { selectResetPwPagePending, selectResetPwPageError } from '~app/features/
 @Component({
 	selector: 'forgot-password-app',
 	templateUrl: './forgot-password.component.html',
-	styleUrls: ['./forgot-password.component.scss']
+	styleUrls: ['./forgot-password.component.scss', '../form-style.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
 	form: FormGroup;

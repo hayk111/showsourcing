@@ -6,7 +6,7 @@ import { AuthGuardService } from '~auth';
 import { HomeComponent } from './components/home/home.component';
 
 export const routes: Array<Route> = [
-	{ path: 'guest', component: GuestTemplateComponent },
+	{ path: 'guest', component: GuestTemplateComponent, children: [] },
 	{
 		path: '',
 		component: TemplateComponent,

@@ -11,13 +11,17 @@ input, textarea {
 	font-family: inherit;
 	color: var(--color-txt-primary);
 	border: 1px solid var(--color-primary-light);
+	&:not(.ng-pristine).ng-invalid {
+		border-bottom: 1px solid var(--color-warn);
+	}
 }
 
 form-field-app {
 	margin-bottom: var(--spacing-default);
 }
 
-button, input[type="submit"] {
+button, input[type="submit"], .button {
+	display: inline-block;
 	text-transform: uppercase;
 	cursor: pointer;
 	font-weight: 600;
@@ -33,25 +37,16 @@ button, input[type="submit"] {
 	margin: 0;
   box-sizing: border-box;
 	font-family: inherit;
+	&.light {
+		background: var(--color-bg-third);
+		color: var(--color-txt);
+		border: 1px solid var(--color-primary-light);
+	}
 }
 
 button:disabled, input[type="submit"]:disabled {
 	background: var(--color-primary-light);
 	color: var(--color-primary-dark);
-}
-
-
-button.secondary {
-	background: var(--color-secondary);
-	color: var(--color-secondary-contrast);
-}
-
-button.light, .button.light {
-	background: transparent;
-	color: var(--color-txt-primary);
-	&:active {
-		background: var(--color-primary-light);
-	}
 }
 
 fieldset {

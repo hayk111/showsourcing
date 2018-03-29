@@ -7,7 +7,7 @@ import { selectRegisterPagePending, selectRegisterPageError, AuthActions } from 
 @Component({
 	selector: 'registration-app',
 	templateUrl: './registration.component.html',
-	styleUrls: ['./registration.component.scss']
+	styleUrls: ['./registration.component.scss', '../form-style.scss']
 })
 export class RegistrationComponent implements OnInit {
 	form: FormGroup;

@@ -1,4 +1,9 @@
 
+<div class="top">
+	<h1>Sign up</h1>
+	<h2>Just fill this form and get started with power sourcing!</h2>
+</div>
+
 <form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 
 	<form-field-app>
@@ -26,7 +31,9 @@
 	</form-field-app>
 
 
-  <input type="submit" [disabled]="!form.valid" value="Create Account" (click)="createAccount()" class="fullWidth"/>
+  <input class="button" type="submit" [disabled]="!form.valid" value="Create Account" (click)="createAccount()"/>
+
+	<a class="button light flexCenter fullWidth" [routerLink]="['../login']">Have an account? Sign-In!</a>
 </form>
 
 <ng-template #spinner>

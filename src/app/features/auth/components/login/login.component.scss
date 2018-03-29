@@ -1,4 +1,10 @@
-
-.forgotCtnr{
-	text-align: right;
+:host {
+	width: 344px;
 }
+
+.forgot{
+	color: var(--color-primary);
+	margin-bottom: var(--spacing-xl);
+	display: block;
+}
+

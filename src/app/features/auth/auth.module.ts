@@ -22,10 +22,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthenticationEffects } from '~app/features/auth/store/authentication.effects';
 import { reducers } from './store';
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
 
 @NgModule({
 	imports: [
 		CommonModule,
+		RouterModule.forChild(routes),
 		StoreModule.forFeature('auth', reducers),
 		EffectsModule.forFeature([AuthenticationEffects]),
 		ReactiveFormsModule,

@@ -4,7 +4,7 @@ import { LoginComponent, ForgotPasswordComponent, RegistrationComponent, PwReset
 
 export const routes: Routes = [
 	{
-		path: '', component: GuestTemplateComponent, children: [
+		path: 'guest', component: GuestTemplateComponent, children: [
 			{ path: 'login', component: LoginComponent },
 			{ path: 'forgot-password', component: ForgotPasswordComponent },
 			{ path: 'register', component: RegistrationComponent },

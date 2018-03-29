@@ -39,6 +39,7 @@ declare let module: any;
 	declarations: [AppComponent, HomeComponent],
 	imports: [
 		AppStoreModule.forRoot(),
+		AuthModule.forRoot(),
 		PreloaderModule.forRoot(),
 		HmrModule.forRoot(),
 		BrowserModule,
@@ -62,7 +63,6 @@ declare let module: any;
 		SuppliersModule.forRoot(),
 		ProjectsModule.forRoot(),
 		TasksModule.forRoot(),
-		AuthModule.forRoot(),
 		DataManagementModule.forRoot(),
 	],
 	providers: [
