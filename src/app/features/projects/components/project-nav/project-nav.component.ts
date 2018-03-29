@@ -6,9 +6,6 @@ import { Project } from '~app/entity';
 	templateUrl: './project-nav.component.html',
 	styleUrls: ['./project-nav.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'z-2'
-	}
 })
 export class ProjectNavComponent implements OnInit {
 	@Input() projects: Array<Project>;
@@ -19,6 +16,10 @@ export class ProjectNavComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	isSelected(project) {
+		return project.id === this.selectedProject.id;
 	}
 
 }

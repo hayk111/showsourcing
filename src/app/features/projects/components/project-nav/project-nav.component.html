@@ -1,11 +1,14 @@
-<h2>Projects</h2>
 
-<article
-	class="pointer flexColumn {{ project.id === selectedProject.id ? 'selected' : ''}}"
-	*ngFor="let project of projects"
-	(click)="select.emit(project)">
+<side-menu-app title="Projects">
 
-	<span class="name">{{ project.name }}</span>
-	<span class="productCount">{{ productCount[project.id] || '0' }} Products</span>
+	<side-menu-item-app
+		[selected]="isSelected(project)"
+		*ngFor="let project of projects"
+		(click)="select.emit(project)">
 
-</article>
+		<span class="name">{{ project.name }}</span>
+		<span class="productCount">{{ productCount[project.id] || '0' }} Products</span>
+
+	</side-menu-item-app>
+
+</side-menu-app>
