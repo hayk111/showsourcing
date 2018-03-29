@@ -20,6 +20,9 @@ h2 {
 
 a{
 	font-weight: normal;
+	&.button {
+		text-transform: none;
+	}
 }
 
 .button {
