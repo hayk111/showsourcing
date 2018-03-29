@@ -54,7 +54,7 @@ export class AuthenticationEffects {
 		ofType(AuthActionType.CHECK_ALREADY_AUTHENTICATED),
 		switchMap(_ => this.srv.getUser()),
 		mergeMap(user => [UserActions.setUser(user), AuthActions.checkAuthenticatedSuccess(user)]),
-		// catchError(e => of(AuthActions.logout()))
+		catchError(e => of(AuthActions.checkAuthenticatedError(e)))
 	);
 
 	@Effect()

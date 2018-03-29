@@ -11,6 +11,7 @@ export enum AuthActionType {
 
 	CHECK_ALREADY_AUTHENTICATED = '[Authentication] checking if user is already authenticated',
 	CHECK_ALREADY_AUTHENTICATED_SUCCESS = '[Authentication] user is already authenticated',
+	CHECK_ALREADY_AUTHENTICATED_ERROR = '[Authentication] user is NOT already authenticated',
 
 	REGISTER = '[Authentication] register',
 	REGISTER_SUCCESS = '[Authentication] register success',
@@ -54,6 +55,14 @@ export class AuthActions {
 	static checkAuthenticatedSuccess(user: User) {
 		return {
 			type: AuthActionType.CHECK_ALREADY_AUTHENTICATED_SUCCESS,
+			payload: user
+		};
+	}
+
+	// on page refresh a token might be saved to reauthenticate the user
+	static checkAuthenticatedError(user: User) {
+		return {
+			type: AuthActionType.CHECK_ALREADY_AUTHENTICATED_ERROR,
 			payload: user
 		};
 	}

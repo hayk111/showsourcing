@@ -18,6 +18,7 @@ export function reducer(state: State = initialState, action: TypedAction<any>): 
 		case AuthActionType.LOGIN_SUCCESS:
 			return { authenticated: true, pending: false };
 
+		case AuthActionType.CHECK_ALREADY_AUTHENTICATED_ERROR:
 		case AuthActionType.LOGOUT:
 			return { authenticated: false, pending: false };
 
