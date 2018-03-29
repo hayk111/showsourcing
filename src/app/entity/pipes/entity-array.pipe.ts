@@ -1,5 +1,5 @@
 import { ERM } from './../store/entity.model';
-import { selectMultipleById } from './../store';
+import { selectMultipleById } from './../store/entity.selector';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';

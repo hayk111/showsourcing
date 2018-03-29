@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '~auth/store/actions';
+import { AuthActions } from '~auth/store';
 
 @Component({
 	selector: 'user-panel-app',
@@ -9,21 +9,21 @@ import { AuthActions } from '~auth/store/actions';
 	styleUrls: ['./user-panel.component.scss'],
 })
 export class UserPanelComponent implements OnInit {
-	constructor(private store: Store<any>, private router: Router) {}
+	constructor(private store: Store<any>, private router: Router) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
-	goToSettings() {}
+	goToSettings() { }
 
 	goToDataManagement() {
 		this.router.navigate(['data-management']);
 	}
 
-	pickTeam() {}
+	pickTeam() { }
 
-	pickLanguage() {}
+	pickLanguage() { }
 
-	sendFeedback() {}
+	sendFeedback() { }
 
 	logout() {
 		this.store.dispatch(AuthActions.logout());

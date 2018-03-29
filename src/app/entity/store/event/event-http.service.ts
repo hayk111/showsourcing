@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 import { ERM } from '~entity/store/entity.model';
 import { EntityService } from '~entity/store/entity.service';
 

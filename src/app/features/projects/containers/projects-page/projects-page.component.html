@@ -3,6 +3,7 @@
 <div *ngIf="projects$ | async as projects" class="flex ctnr">
 	<!-- nav -->
 	<project-nav-app
+		(select)="selectProject($event)"
 		[selectedProject]="selectedProject"
 		[projects]="projects"
 		[productCount]="(projectState$ | async)?.productsCount"></project-nav-app>

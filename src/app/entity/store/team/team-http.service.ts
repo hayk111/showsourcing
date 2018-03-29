@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityService } from '../entity.service';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 
 @Injectable()
 export class TeamHttpService {

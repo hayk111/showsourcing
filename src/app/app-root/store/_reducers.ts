@@ -3,7 +3,6 @@ import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/s
 import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { authDlgReducer, authenticationReducer } from '~auth';
 import { dialogReducer } from '~dialog';
 import {
 	userReducer, teamReducer, teamMemberReducer, countryReducer, incoTermReducer,
@@ -40,12 +39,10 @@ const entities = combineReducers({
 });
 
 const misc = combineReducers({
-	authentication: authenticationReducer,
 	filters: filtersReducer,
 });
 
 const ui = combineReducers({
-	authDlg: authDlgReducer,
 	filterPanel: filterPanelReducer,
 	dialogs: dialogReducer,
 	filterEntityPanel: filterEntityPanelReducer,

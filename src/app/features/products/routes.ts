@@ -3,12 +3,15 @@ import { Route } from '@angular/router';
 
 import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
 import { ProductGeneralInfoComponent, ProductDetailsComponent, ProductsPageComponent } from './containers';
+import { TemplateComponent } from '~app/shared/template';
 
 export const routes: Array<Route> = [
 	{
-		path: 'products',
+		path: 'product',
 		canActivate: [AuthGuardService],
 		canActivateChild: [AuthGuardService],
+		canLoad: [AuthGuardService],
+		component: TemplateComponent,
 		children: [
 			{ path: '', redirectTo: 'all', pathMatch: 'full' },
 			{

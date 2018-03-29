@@ -8,29 +8,29 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectAuthentication } from '~auth/store/selectors';
 import { map, filter, tap } from 'rxjs/operators';
+import { Log } from '~app/app-root/utils';
+import { selectAuthStatus } from '~app/features/auth/store';
 
 // TODO remove those statements APP wide when made available.
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
-	constructor(private store: Store<any>, private router: Router) {}
+	constructor(private store: Store<any>, private router: Router) { }
 
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		console.log('check auth');
-		return this.store.select(selectAuthentication).pipe(
-			map(auth => auth.authenticated),
-			// we need to filter the authstate when it's null because that means we don't know yet
-			filter(authenticated => authenticated !== null),
+		Log.debug('check auth');
+		return this.store.select<any>(selectAuthStatus).pipe(
+			// we need to filter the authstate when it's pending because that means we don't know yet
+			filter(auth => !auth.pending),
 			tap(authenticated => this.redirectOnAuth(authenticated))
 		);
 	}
 
 	redirectOnAuth(authenticated: boolean) {
-		if (!authenticated) this.router.navigate(['login']);
+		if (!authenticated) this.router.navigate(['guest', 'login']);
 	}
 
 	canActivateChild(

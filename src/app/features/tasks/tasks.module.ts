@@ -14,7 +14,7 @@ import { TasksPageComponent } from './containers/tasks-page/tasks-page.component
 import { routes } from './router';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { NewTaskDlgComponent } from '~app/features/tasks';
+import { NewTaskDlgComponent } from '~app/features/tasks/containers';
 
 @NgModule({
 	imports: [

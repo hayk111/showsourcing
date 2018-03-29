@@ -1,5 +1,5 @@
 
-<form [formGroup]="form" class="flexColumn" *ngIf="!pending; else spinner">
+<form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 
 	<form-field-app>
 		<label-app>First Name</label-app>
@@ -33,4 +33,4 @@
 	<spinner-app></spinner-app>
 </ng-template>
 
-<div>{{ error }}</div>
+<div>{{ error$ | async }}</div>

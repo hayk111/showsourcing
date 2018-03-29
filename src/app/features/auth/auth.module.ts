@@ -15,13 +15,26 @@ import {
 	PwResettedComponent,
 	RegistrationComponent,
 } from './components';
-import { AuthCardComponent } from './containers';
 import { TokenInterceptorService, TokenService } from './services';
 import { AuthGuardService } from './services/auth-guard.service';
 import { IconsModule } from '~app/shared/icons';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthenticationEffects } from '~app/features/auth/store/authentication.effects';
+import { reducers } from './store';
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, InputsModule, LoadersModule, IconsModule, TabsModule, CardModule],
+	imports: [
+		CommonModule,
+		StoreModule.forFeature('auth', reducers),
+		EffectsModule.forFeature([AuthenticationEffects]),
+		ReactiveFormsModule,
+		InputsModule,
+		LoadersModule,
+		IconsModule,
+		TabsModule, // was used, is about to not be used here anymore. If you see this message you can remove this module
+		CardModule
+	],
 	providers: [
 		AuthHttpService,
 		TokenService,
@@ -34,13 +47,12 @@ import { IconsModule } from '~app/shared/icons';
 	],
 	declarations: [
 		LoginComponent,
-		AuthCardComponent,
 		RegistrationComponent,
 		AccountCreatedComponent,
 		ForgotPasswordComponent,
 		PwResettedComponent,
 	],
-	exports: [LoginComponent, AuthCardComponent, RegistrationComponent, AccountCreatedComponent],
+	exports: [LoginComponent, RegistrationComponent, AccountCreatedComponent],
 })
 export class AuthModule {
 	static forRoot(): ModuleWithProviders {

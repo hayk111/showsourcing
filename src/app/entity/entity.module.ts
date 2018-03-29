@@ -19,7 +19,7 @@ import { TaskHttpService } from '~app/entity/store/task/task-http.service';
 import { TeamHttpService } from '~app/entity/store/team/team-http.service';
 import { TeamMembersHttpService } from '~app/entity/store/team-member/team-members-http.service';
 import { UserHttpService } from '~app/entity/store/user/user.http.service';
-import { FocussedEntityService } from '~app/entity';
+import { FocussedEntityService } from '~app/entity/store/focussed-entity/focussed-entity.service';
 
 @NgModule({
 	imports: [CommonModule],

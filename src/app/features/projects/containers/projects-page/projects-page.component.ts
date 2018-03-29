@@ -24,7 +24,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(selectProjects).pipe(filter(arr => arr.length === 0));
+		this.projects$ = this.store.select(selectProjects).pipe(filter(arr => arr.length > 0));
 		this.projectState$ = this.store.select(selectProjectsState);
 		this.pending$ = this.store.select(selectProjectsState).pipe(map(p => p.pending));
 		// a project needs to be selectioned at all time. Therefor the first time we receive

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~entity/entity.module';
 
 import { UserPictureWithNameComponent } from './components';
 import { UserPictureComponent } from './components';

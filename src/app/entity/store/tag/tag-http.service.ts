@@ -4,7 +4,7 @@ import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
 import { Patch } from '~entity/utils';
 
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 
 @Injectable()
 export class TagHttpService {

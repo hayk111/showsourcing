@@ -26,7 +26,7 @@ import { ProjectNavComponent } from './components/project-nav/project-nav.compon
 		TableModule, // used in list
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent],
-	exports: [ProjectsPageComponent],
+	exports: [RouterModule, ProjectsPageComponent],
 	providers: [],
 })
 export class ProjectsModule {

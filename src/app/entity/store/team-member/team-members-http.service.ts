@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 import { EntityService } from '~entity/store/entity.service';
 
 import { User } from '../user';

@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TokenActions } from '~auth';
 
 import { Log } from '~utils';
 import { PreloaderService } from '~app/shared/preloader/preloader.service';
 import { HmrService } from '~app/shared/hmr/hmr.service';
+import { AuthActions } from '~app/features/auth';
 
 @Component({
 	selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 		Log.info('App init');
 		// hmr service or hot module reloading
 		if (!this.hmrService.isStoreLoaded()) {
-			this.store.dispatch(TokenActions.check());
+			this.store.dispatch(AuthActions.checkAuthenticated());
 			this.preloader.init();
 		}
 	}

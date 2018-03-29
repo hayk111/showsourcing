@@ -6,7 +6,7 @@ import { ERM } from '~entity/store/entity.model';
 import { Patch } from '~entity/utils';
 
 import { User } from '~user';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 
 @Injectable()
 export class SupplierHttpService {

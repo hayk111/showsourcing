@@ -1,21 +1,8 @@
 
 
-## Auth States
 
-Authentication has 3 states: null, false, true.
-null is when we don't know yet.
-
-## Auth players
-
-There are 3 mains players needed for this particular implementation:
-
- 1. AuthReducer: contains the AuthState (null, true, false);
- 2. The Auth service: sets the AuthState in the reducer
- 3. Auth Guard: uses that authState
-
-When the application starts the authState is null. A JWT from a previous session could be in the local storage.
-Meaning that the user could or could not be actually connected. Even if the JWT is valid, the JWT could have been
-invalidated on the server. (That can happen if the user tried to connect with another browser / computer).
+When the application starts the authState is pending. A JWT from a previous session could be in the local storage.
+Meaning that the user could or could not be actually connected. Even if the JWT is valid, the JWT could have been invalidated on the server. (That can happen if the user tried to connect with another browser / computer).
 
 Thus when we don't know if the user is connected the authenticated state is NULL.
 

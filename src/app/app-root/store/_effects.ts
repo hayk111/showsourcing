@@ -1,5 +1,4 @@
 
-import { TokenEffects, AuthenticationEffects } from '~auth';
 import { FilterEntityPanelEffects } from '~shared/filters';
 import { AppErrorsEffects } from '~app/shared/error-handler';
 import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
@@ -35,8 +34,6 @@ export const effects = [
 	TaskTypeEffects,
 	// misc
 	AppErrorsEffects,
-	AuthenticationEffects,
-	TokenEffects,
 	// PreloaderEffects,
 	FilterEntityPanelEffects,
 

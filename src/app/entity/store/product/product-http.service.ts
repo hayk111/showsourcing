@@ -7,7 +7,7 @@ import { EntityService } from '~app/entity/store/entity.service';
 import { ApiParams } from '~entity/utils';
 
 import { Product } from './product.model';
-import { UserService } from '~app/features/user';
+import { UserService } from '~app/features/user/services';
 
 @Injectable()
 export class ProductHttpService {
