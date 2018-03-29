@@ -12,13 +12,11 @@ import { of } from 'rxjs/observable/of';
 import { LocalStorageService } from '~app/shared/local-storage';
 import { AuthActionType, AuthActions } from './authentication.action';
 
-
+const TOKEN_HEADER = 'X-Auth-Token';
 // warning: this effect class is a bit of a cluster fuck and hard to follow. Should ultimately
 // be refactored in something easier.
 @Injectable()
 export class AuthenticationEffects {
-	private static TOKEN_NAME = 'TOKEN';
-	private _token;
 
 	@Effect()
 	login$ = this.actions$
@@ -29,7 +27,7 @@ export class AuthenticationEffects {
 			debounceTime(700),
 			switchMap(p => this.srv.login(p)),
 			// we save the token for when the user refresh the page
-			tap(r => this.tokenSrv.token = r.headers.get('X-Auth-Token')),
+			tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
 			mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body)]),
 			catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error)))
 		);
@@ -74,7 +72,8 @@ export class AuthenticationEffects {
 			map(action => action.payload),
 			switchMap(params => this.srv.register(params)),
 			tap(_ => this.router.navigate([''])),
-			mergeMap(user => [UserActions.setUser(user), AuthActions.registerSuccess(user)]),
+			tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
+			mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body)]),
 			catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
 		);
 

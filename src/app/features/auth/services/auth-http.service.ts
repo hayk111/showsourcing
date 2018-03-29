@@ -25,8 +25,8 @@ export class AuthHttpService {
 		return this.http.post('api/auth', credentials, { observe: 'response' });
 	}
 
-	register(credentials: { email: string; password: string }): Observable<any> {
-		return this.http.post(`api/user`, credentials);
+	register(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
+		return this.http.post(`api/user`, credentials, { observe: 'response' });
 	}
 
 	resetPw(email: string): Observable<any> {

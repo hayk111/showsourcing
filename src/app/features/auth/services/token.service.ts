@@ -19,7 +19,7 @@ export class TokenService {
 		return this._token;
 	}
 
-	set token(token: string) {
+	saveToken(token: string) {
 		this.localStorageSrv.setString(TokenService.TOKEN_NAME, token);
 		this._token = token;
 	}
