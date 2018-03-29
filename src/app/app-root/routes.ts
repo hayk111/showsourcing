@@ -4,18 +4,35 @@ import { GuestTemplateComponent } from '~app/shared/template/components/guest-te
 import { AuthGuardService } from '~auth';
 
 import { HomeComponent } from './components/home/home.component';
+import { routes as authRoutes } from '~auth/routes';
+import { routes as projectRoutes } from '~app/features/projects/routes';
+import { routes as dataManagementRoutes } from '~app/features/data-management/routes';
+import { routes as supplierRoutes } from '~app/features/supplier/routes';
+import { routes as taskRoutes } from '~app/features/tasks/router';
+import { routes as productRoutes } from '~app/features/products/routes';
 
 export const routes: Array<Route> = [
-	{ path: 'guest', component: GuestTemplateComponent, children: [] },
+	{
+		path: 'guest', component: GuestTemplateComponent, children: [
+			...authRoutes
+		]
+	},
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivate: [AuthGuardService],
 		canActivateChild: [AuthGuardService],
 		children: [
-			{ path: '', redirectTo: '/home', pathMatch: 'full', },
+			{ path: '', redirectTo: 'home', pathMatch: 'full', },
 			{ path: 'home', component: HomeComponent },
-			{ path: 'project', loadChildren: 'app/features/projects/projects.module#ProjectsModule' }
+			{
+				path: 'project',
+				children: projectRoutes,
+				// loadChildren: 'app/features/projects/projects.module#ProjectsModule'
+			},
+			{ path: 'task', children: taskRoutes },
+			{ path: 'product', children: productRoutes },
+			{ path: 'supplier', children: supplierRoutes },
+			{ path: 'data-management', children: dataManagementRoutes }
 		],
 	},
 	{ path: '**', redirectTo: '' },

@@ -17,7 +17,7 @@ import { ProjectNavComponent } from './components/project-nav/project-nav.compon
 	imports: [
 		CommonModule,
 		// EffectsModule.forFeature(effects),
-		RouterModule.forChild(routes),
+		RouterModule.forChild([]),
 		EntityModule.forChild(),
 		EntityPagesModule,
 		UtilsModule, // TODO to be removed and placed inside the component module using it

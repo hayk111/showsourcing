@@ -19,7 +19,7 @@ import { NewTaskDlgComponent } from '~app/features/tasks/containers';
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild(routes),
+		RouterModule.forChild([]),
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
 		EntityModule.forChild(),
 		EntityPagesModule,

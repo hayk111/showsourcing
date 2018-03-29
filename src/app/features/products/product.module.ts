@@ -53,7 +53,7 @@ import { routes } from './routes';
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild(routes),
+		RouterModule.forChild([]),
 		PipesModule,
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),

@@ -28,14 +28,13 @@ import { routes } from './routes';
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild(routes),
+		RouterModule.forChild([]),
 		StoreModule.forFeature('auth', reducers),
 		EffectsModule.forFeature([AuthenticationEffects]),
 		ReactiveFormsModule,
 		InputsModule,
 		LoadersModule,
 		IconsModule,
-		TabsModule, // was used, is about to not be used here anymore. If you see this message you can remove this module
 		CardModule
 	],
 	providers: [
@@ -55,7 +54,9 @@ import { routes } from './routes';
 		ForgotPasswordComponent,
 		PwResettedComponent,
 	],
-	exports: [LoginComponent, RegistrationComponent, AccountCreatedComponent],
+	exports: [
+		// RouterModule
+	],
 })
 export class AuthModule {
 	static forRoot(): ModuleWithProviders {

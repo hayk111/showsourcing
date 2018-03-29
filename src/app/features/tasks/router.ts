@@ -3,13 +3,6 @@ import { Route } from '@angular/router';
 import { TasksPageComponent } from '~app/features/tasks/containers/tasks-page/tasks-page.component';
 
 export const routes: Array<Route> = [
-	{
-		path: 'tasks',
-		canActivate: [AuthGuardService],
-		canActivateChild: [AuthGuardService],
-		children: [
-			{ path: '', redirectTo: 'all', pathMatch: 'full' },
-			{ path: 'all', component: TasksPageComponent },
-		],
-	},
+	{ path: '', redirectTo: 'all', pathMatch: 'full' },
+	{ path: 'all', component: TasksPageComponent },
 ];

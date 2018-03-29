@@ -12,7 +12,7 @@ import { selectEntityById } from '../store/entity.selector';
 })
 export class EntityPipe extends AutoUnsub implements PipeTransform {
 
-	constructor(protected store: Store<any>) {
+	constructor(public store: Store<any>) {
 		super();
 	}
 

@@ -8,9 +8,10 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, switchMap } from 'rxjs/operators';
 import { Log } from '~app/app-root/utils';
 import { selectAuthStatus } from '~app/features/auth/store';
+import { selectUser, User } from '~app/entity';
 
 // TODO remove those statements APP wide when made available.
 @Injectable()
@@ -24,9 +25,9 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		Log.debug('check auth');
 		return this.store.select<any>(selectAuthStatus).pipe(
 			// we need to filter the authstate when it's pending because that means we don't know yet
-			filter(auth => !auth.pending),
-			tap(authenticated => this.redirectOnAuth(authenticated))
-		);
+			filter(authStatus => !authStatus.pending),
+			map(authStatus => authStatus.authenticated),
+			tap(authenticated => this.redirectOnAuth(authenticated)));
 	}
 
 	redirectOnAuth(authenticated: boolean) {

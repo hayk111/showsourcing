@@ -49,7 +49,6 @@ declare let module: any;
 		HttpClientModule,
 		TemplateModule.forRoot(),
 		EntityModule.forRoot(),
-		RouterModule.forRoot(routes),
 		LocalStorageModule.forRoot(),
 		UserModule.forRoot(),
 		TemplateModule,
@@ -64,6 +63,9 @@ declare let module: any;
 		ProjectsModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
+		// keep this as last module !!
+		RouterModule.forRoot(routes, { enableTracing: true }),
+		// don't put a module down here !! (Router needs to be last)
 	],
 	providers: [
 		AuthGuardService,

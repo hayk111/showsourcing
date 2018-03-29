@@ -39,7 +39,7 @@ import {
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild(routes),
+		RouterModule.forChild([]),
 		FileModule, // file-card
 		CardModule,
 		CarouselModule,

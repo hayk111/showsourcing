@@ -6,26 +6,17 @@ import { ProductGeneralInfoComponent, ProductDetailsComponent, ProductsPageCompo
 import { TemplateComponent } from '~app/shared/template';
 
 export const routes: Array<Route> = [
+	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{
-		path: 'product',
-		canActivate: [AuthGuardService],
-		canActivateChild: [AuthGuardService],
-		canLoad: [AuthGuardService],
-		component: TemplateComponent,
+		path: 'all',
+		component: ProductsPageComponent,
+	},
+	{
+		path: 'details/:id',
+		component: ProductDetailsComponent,
 		children: [
-			{ path: '', redirectTo: 'all', pathMatch: 'full' },
-			{
-				path: 'all',
-				component: ProductsPageComponent,
-			},
-			{
-				path: 'details/:id',
-				component: ProductDetailsComponent,
-				children: [
-					{ path: 'general', component: ProductGeneralInfoComponent },
-					{ path: 'activity', component: CommentCtnrComponent },
-				],
-			},
+			{ path: 'general', component: ProductGeneralInfoComponent },
+			{ path: 'activity', component: CommentCtnrComponent },
 		],
 	},
 ];

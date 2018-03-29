@@ -1,5 +1,5 @@
 
-import { FilterEntityPanelEffects } from '~shared/filters';
+import { FilterEntityPanelEffects } from '~shared/filters/store/effects/filter-entity-panel.effects';
 import { AppErrorsEffects } from '~app/shared/error-handler';
 import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
 import {
@@ -7,7 +7,7 @@ import {
 	IncoTermsEffects, CustomFieldsEffects, TeamMembersEffects, CategoryEffects, EventEffects, TagEffects,
 	ProjectEffects, SuppliersEffects, FilesEffects, CommentEffects, TaskStatusEffects, ImageEffects, ProductStatusEffects,
 	SupplierStatusEffects, TaskTypeEffects
-} from '~app/entity';
+} from '~app/entity/store';
 export const effects = [
 	// entities
 	TaskEffects,

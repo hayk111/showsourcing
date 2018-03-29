@@ -9,8 +9,8 @@ import {
 	harbourReducer, currencyReducer, categoryReducer, eventReducer, tagReducer, supplierReducer,
 	productReducer, productStatusReducer, taskStatusReducer, taskTypeReducer, supplierStatusReducer, projectsReducer,
 	taskReducer, customFieldReducer, fileReducer, imageReducer, commentReducer, focussedEntityReducer
-} from '~app/entity';
-import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~app/shared/filters';
+} from '~app/entity/store';
+import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~app/shared/filters/store/reducers';
 
 const entities = combineReducers({
 	user: userReducer,

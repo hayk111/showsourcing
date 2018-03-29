@@ -34,6 +34,6 @@ export class LoginComponent implements OnInit {
 	}
 
 	forgotPw() {
-		this.router.navigate(['../forgot-password', { relativeTo: this.route }]);
+		this.router.navigate(['../forgot-password'], { relativeTo: this.route });
 	}
 }

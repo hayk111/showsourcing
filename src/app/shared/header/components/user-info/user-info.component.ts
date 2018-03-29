@@ -12,7 +12,8 @@ export class UserInfoComponent implements OnInit {
 	user$: Observable<User>;
 	panelVisible = false;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {
+	}
 
 	ngOnInit() {
 		this.user$ = this.store.select(selectUser);

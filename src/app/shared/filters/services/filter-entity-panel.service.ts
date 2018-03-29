@@ -6,7 +6,7 @@ import { Log } from '~utils';
 
 import { selectEntityArray } from '~entity/store';
 import { map, startWith } from 'rxjs/operators';
-import { selectUserTeamId, EntityRepresentation, Entity } from '~app/entity';
+import { selectUserTeamId, EntityRepresentation, Entity } from '~app/entity/store';
 
 @Injectable()
 export class FilterEntityPanelService {
