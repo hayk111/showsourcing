@@ -1,7 +1,7 @@
 import { selectUser, User } from '../user';
 import { createSelector } from 'reselect';
 
-export const selectTeamMembersState = state => state.entities.teamMembers;
+export const selectTeamMembersState = state => state.entities.teamMember;
 export const selectTeamMembers = createSelector(selectTeamMembersState, state => Object.values(state.byId));
 export const selectTeamMemberByUserId = (userId: string) => {
 	return createSelector([selectTeamMembersState], members => members.byId[userId]);

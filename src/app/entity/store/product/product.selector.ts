@@ -6,7 +6,7 @@ import { Product } from './product.model';
 
 const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
 
-export const selectProductsState = createSelector(selectEntities, (state: any) => state.products);
+export const selectProductsState = createSelector(selectEntities, (state: any) => state.product);
 export const selectProductsMap = createSelector(selectProductsState, (state: any) => state.byId);
 export const selectProducts = createSelector(selectProductsState, (state: any) => Object.values(state.byId));
 

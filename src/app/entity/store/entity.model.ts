@@ -26,6 +26,7 @@ export class Entity {
 	creationDate?: number;
 
 	constructor(userId: string) {
+		// we create an uuid for replacing entities that are being upladed and such
 		this.id = uuid();
 		this.creationDate = Date.now();
 		this.createdByUserId = userId;
@@ -39,12 +40,11 @@ export class EntityRepresentation {
 		public entityName: string,
 		public urlName?: string,
 		public displayName?: string,
-		public singularName?: string,
 		public pluralName?: string
 	) {
-		// for plurals
-		this.urlName = urlName || entityName.slice(0, -1);
+		this.urlName = urlName || entityName;
 		this.displayName = displayName || entityName;
+		this.pluralName = pluralName || (entityName + 's');
 	}
 }
 
@@ -53,7 +53,7 @@ export class EntityRepresentation {
 const entityRepresentationMap = {
 	supplier: new EntityRepresentation('supplier'),
 	event: new EntityRepresentation('event'),
-	category: new EntityRepresentation('category'),
+	category: new EntityRepresentation('category', undefined, undefined, 'categories'),
 	tag: new EntityRepresentation('tag'),
 	project: new EntityRepresentation('project'),
 	product: new EntityRepresentation('product'),
@@ -64,10 +64,10 @@ const entityRepresentationMap = {
 	taskStatus: new EntityRepresentation('tasksStatus', 'task-status', 'status'),
 	supplierStatus: new EntityRepresentation('supplierStatus', 'supplier-status', 'status'),
 	productStatus: new EntityRepresentation('productStatus', 'product-status', 'status'),
-	currency: new EntityRepresentation('currency'),
+	currency: new EntityRepresentation('currency', undefined, undefined, 'currencies'),
 	country: new EntityRepresentation('country'),
-	incoTerm: new EntityRepresentation('incoTerm', 'incoTerms'),
-	harbour: new EntityRepresentation('harbour', 'harbours'),
+	incoTerm: new EntityRepresentation('incoTerm', 'incoTerm'),
+	harbour: new EntityRepresentation('harbour', 'harbour'),
 	teamMember: new EntityRepresentation('teamMember'),
 	comment: new EntityRepresentation('comment'),
 	file: new EntityRepresentation('file'),

@@ -10,7 +10,7 @@ import { CommentHttpService } from '~app/entity/store/comment/comment-http.servi
 import { CustomFieldsHttpService } from '~app/entity/store/custom-field/custom-fields-http.service';
 import { EventHttpService } from '~app/entity/store/event/event-http.service';
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
-import { ImageHttpService } from '~app/entity/store/image/images-http.service';
+import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { ProductHttpService } from '~app/entity/store/product/product-http.service';
 import { ProjectHttpService } from '~app/entity/store/project/project-http.service';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';

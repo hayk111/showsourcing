@@ -31,17 +31,17 @@ import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [],
 })
-export class ProjectsModule {
+export class ProjectModule {
 	static forRoot(): ModuleWithProviders {
 		return {
-			ngModule: ProjectsModule,
+			ngModule: ProjectModule,
 			providers: [],
 		};
 	}
 
 	static forChild(): ModuleWithProviders {
 		return {
-			ngModule: ProjectsModule,
+			ngModule: ProjectModule,
 		};
 	}
 }

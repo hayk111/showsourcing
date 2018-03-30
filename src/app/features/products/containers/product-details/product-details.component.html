@@ -43,7 +43,7 @@
 		title="My projects"
 		buttonLabel="Add projects"
 		dialogType="add"
-		[entities]="projects$ | async"
+		[entities]="project$ | async"
 		[productsCount]="productsCount$ | async"
 		(buttonClicked)="addToProjects($event, product.id)">
 	</product-action-dialog-app>

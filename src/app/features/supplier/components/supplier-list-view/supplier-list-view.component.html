@@ -34,7 +34,7 @@
 		let-row="row"
 		width="60">
 		<span>
-			{{ country.byId[row?.countryCode]?.fullName  }}
+			{{ countryState.byId[row?.countryCode]?.fullName  }}
 		</span>
 	</ng-template>
 
@@ -67,8 +67,8 @@
 			<user-picture-app
 				[size]="18"
 				[border]="true"
-				[url]="teamMembers.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-			<span>{{ teamMembers.byId[row.createdByUserId]?.name }}</span>
+				[url]="teamMemberState.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+			<span>{{ teamMemberState.byId[row.createdByUserId]?.name }}</span>
 		</div>
 	</ng-template>
 

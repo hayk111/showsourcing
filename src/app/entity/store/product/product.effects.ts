@@ -12,7 +12,7 @@ import { ERM } from '~app/entity/store/entity.model';
 import { focussedEntityAction } from '~entity/store/focussed-entity';
 import { commentActions } from '~entity/store/comment';
 import { fileActions } from '~entity/store/file/file.action';
-import { imageActions } from '~entity/store/image/images.action';
+import { imageActions } from '~entity/store/image/image.action';
 import { taskActions } from '~entity/store/task/task.action';
 import { projectActions } from '~entity/store/project/project.actions';
 import { selectUser } from '~user';

@@ -3,7 +3,7 @@
 	<div class="flexColumn info">
 		<h2>{{ supplier?.name }}</h2>
 		<div>
-			Supplier
+			{{ supplier.supplierType || 'Supplier'}}
 			<ng-container *ngIf="supplier.countryCode">
 				- {{ supplier.countryCode | entity: 'country': 'fullName' | async }}
 			</ng-container>

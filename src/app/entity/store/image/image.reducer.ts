@@ -1,7 +1,7 @@
 import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils';
 import { entityInitialState } from '~entity/store/entity.model';
-import { imageActionTypes } from './images.action';
+import { imageActionTypes } from './image.action';
 
 export const basicReducer = entityReducerFactory(imageActionTypes);
 

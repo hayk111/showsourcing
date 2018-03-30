@@ -37,7 +37,7 @@
 					</td>
 
 					<td>
-							{{ file.createdByUserId | entityName: 'teamMembers' | async }}
+							{{ file.createdByUserId | entityName: project | async }}
 					</td>
 
 					<td (click)="deleteFile(file)" i18n="button| action delete file">

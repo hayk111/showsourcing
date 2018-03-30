@@ -4,7 +4,7 @@ export enum PropType {
 	SUPPLIER = 'supplier',
 	CATEGORY = 'category',
 	EVENT = 'event',
-	TEAM_MEMBERS = 'teamMembers',
+	TEAM_MEMBERS = 'project',
 	TAG = 'tag',
 	PROJECT = 'project',
 	PRODUCT_STATUS = 'productStatus',

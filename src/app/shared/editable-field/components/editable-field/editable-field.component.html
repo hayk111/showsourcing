@@ -10,7 +10,7 @@
     <ng-container [ngSwitch]="true" *ngIf="value">
 
 			<!-- entities -->
-      <ng-container *ngSwitchCase="['supplier', 'event', 'category', 'productStatus', 'harbours', 'incoTerms'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['supplier', 'event', 'category', 'productStatus', 'harbour', 'incoTerm'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
@@ -34,10 +34,10 @@
 			</ng-container>
 
 			<!-- user -->
-      <ng-container *ngSwitchCase="type === 'teamMembers'">
+      <ng-container *ngSwitchCase="type === 'teamMember'">
         <span class="userOpt">
-          <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMembers' | async)?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-          {{ value | entityName: 'teamMembers' | async }}
+          <user-picture-app [size]="24" [border]="false" [url]="(value | entity: 'teamMember' | async)?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+          {{ value | entityName: project | async }}
         </span>
 			</ng-container>
 
@@ -115,7 +115,7 @@
 
 
 		<!-- Entity selector -->
-		<ng-container *ngSwitchCase="['supplier', 'category', 'event', 'incoTerms', 'harbours', 'teamMembers'].indexOf(type) > -1">
+		<ng-container *ngSwitchCase="['supplier', 'category', 'event', 'incoTerm', 'harbour', 'teamMember'].indexOf(type) > -1">
 			<selector-app
 				[value]="value"
 				[choices]="type | entityList | async"

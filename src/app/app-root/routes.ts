@@ -5,7 +5,7 @@ import { AuthGuardService } from '~auth';
 
 import { HomeComponent } from './components/home/home.component';
 import { routes as authRoutes } from '~auth/routes';
-import { routes as projectRoutes } from '~app/features/projects/routes';
+import { routes as projectRoutes } from '~app/features/project/routes';
 import { routes as dataManagementRoutes } from '~app/features/data-management/routes';
 import { routes as supplierRoutes } from '~app/features/supplier/routes';
 import { routes as taskRoutes } from '~app/features/tasks/router';
@@ -28,7 +28,7 @@ export const routes: Array<Route> = [
 			{
 				path: 'project',
 				children: projectRoutes,
-				// loadChildren: 'app/features/projects/projects.module#ProjectsModule'
+				// loadChildren: 'app/features/project/project.module#ProjectsModule'
 			},
 			{ path: 'task', children: taskRoutes },
 			{ path: 'product', children: productRoutes },

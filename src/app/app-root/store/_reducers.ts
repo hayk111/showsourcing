@@ -7,7 +7,7 @@ import { dialogReducer } from '~dialog';
 import {
 	userReducer, teamReducer, teamMemberReducer, countryReducer, incoTermReducer,
 	harbourReducer, currencyReducer, categoryReducer, eventReducer, tagReducer, supplierReducer,
-	productReducer, productStatusReducer, taskStatusReducer, taskTypeReducer, supplierStatusReducer, projectsReducer,
+	productReducer, productStatusReducer, taskStatusReducer, taskTypeReducer, supplierStatusReducer, projectReducer,
 	taskReducer, customFieldReducer, fileReducer, imageReducer, commentReducer, focussedEntityReducer
 } from '~app/entity/store';
 import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~app/shared/filters/store/reducers';
@@ -24,17 +24,17 @@ const entities = combineReducers({
 	event: eventReducer,
 	tag: tagReducer,
 	supplier: supplierReducer,
-	products: productReducer,
+	product: productReducer,
 
 	productStatus: productStatusReducer,
 	tasksStatus: taskStatusReducer,
 	taskType: taskTypeReducer,
 	supplierStatus: supplierStatusReducer,
-	project: projectsReducer,
+	project: projectReducer,
 	task: taskReducer,
 	customField: customFieldReducer,
 	file: fileReducer,
-	images: imageReducer,
+	image: imageReducer,
 	comment: commentReducer,
 });
 

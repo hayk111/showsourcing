@@ -7,7 +7,7 @@ import { projectActionTypes as actionTypes } from './project.actions';
 const basicProjectsReducer = entityReducerFactory(actionTypes);
 const initialState = { ...entityInitialState, productsCount: {} };
 
-export function projectsReducer(state = initialState, action: TypedAction<any>) {
+export function projectReducer(state = initialState, action: TypedAction<any>) {
 	switch (action.type) {
 		case actionTypes.SET_PRODUCT_COUNT:
 			return { ...state, productsCount: action.payload };

@@ -19,16 +19,16 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
-	country: EntityState<Country>;
-	teamMembers: EntityState<any>;
+	countryState: EntityState<Country>;
+	teamMemberState: EntityState<any>;
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		// subscribing here once instead subscribing for each row with | async
 		// although we could use the ng-container
-		this.store.select(selectCountryState).subscribe(state => this.country = state);
-		this.store.select(selectTeamMembersState).subscribe(state => this.teamMembers = state);
+		this.store.select(selectCountryState).subscribe(state => this.countryState = state);
+		this.store.select(selectTeamMembersState).subscribe(state => this.teamMemberState = state);
 	}
 
 	onSort({ order, sortWith }) {

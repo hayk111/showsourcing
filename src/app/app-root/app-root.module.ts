@@ -28,7 +28,7 @@ import { HmrModule } from '~app/shared/hmr/hmr.module';
 import { EntityModule } from '~app/entity';
 import { UserModule } from '~app/features/user';
 import { ProductModule } from '~app/features/products';
-import { ProjectsModule } from '~app/features/projects';
+import { ProjectModule } from '~app/features/project';
 import { TasksModule } from '~app/features/tasks';
 import { SuppliersModule } from '~app/features/supplier';
 
@@ -60,7 +60,7 @@ declare let module: any;
 		NotificationsModule.forRoot(),
 		// modules features
 		SuppliersModule.forRoot(),
-		ProjectsModule.forRoot(),
+		ProjectModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
 		// keep this as last module !!

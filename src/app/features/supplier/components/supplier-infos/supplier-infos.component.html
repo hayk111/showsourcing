@@ -1,6 +1,6 @@
 <div class="flexColumn flexCenter">
 	<h2>{{ supplier.name }}</h2>
-	<span>subtitle</span>
+	<span>{{ supplier.supplierType || 'Supplier' }}</span>
 </div>
 
 
@@ -93,7 +93,7 @@
 	<editable-field-app
 		[entity]="supplier"
 		[value]="supplier.incoTerm"
-		type="incoTerms"
+		type="incoTerm"
 		(update)="onUpdate($event, 'incoTerm')"></editable-field-app>
 </cell-two-row-app>
 
@@ -102,8 +102,8 @@
 	<editable-field-app
 		[entity]="supplier"
 		[value]="supplier.harbour"
-		type="harbours"
-		(update)="onUpdate($event, 'harbours')"></editable-field-app>
+		type="harbour"
+		(update)="onUpdate($event, 'harbour')"></editable-field-app>
 </cell-two-row-app>
 
 <!-- event / Met at -->

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { ImageHttpService } from '~app/entity/store/image/images-http.service';
+import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Swap } from '~entity/utils';
 
 import { EntityTarget } from '../entity.model';
 import { FocussedEntityService } from '../focussed-entity/focussed-entity.service';
 import { AppImage } from './image.model';
-import { imageActions, imageActionTypes } from './images.action';
+import { imageActions, imageActionTypes } from './image.action';
 
 @Injectable()
 export class ImageEffects {
