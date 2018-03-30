@@ -38,7 +38,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => (this.productId = product.id));
 		this.events$ = this.store.select(selectEventsList);
 		this.customFields$ = this.store.select(
-			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customFields })
+			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customField })
 		);
 
 		this.customFields$.subscribe(d => { });

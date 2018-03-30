@@ -7,13 +7,13 @@ import { FilterGroupName } from '~shared/filters';
 
 @Injectable()
 export class TaskHttpService {
-	private repr = ERM.tasks;
+	private repr = ERM.task;
 	private teamId;
 
 	constructor(private http: HttpClient, private entitySrv: EntityService) { }
 
 	load(filterGroupName: FilterGroupName) {
-		return this.entitySrv.load({ base: ERM.teams, target: ERM.tasks }).pipe(
+		return this.entitySrv.load({ base: ERM.team, target: ERM.task }).pipe(
 			map((r: any) => r.elements),
 			// we need to add the id to adhere to the standard fixed on the client
 			// where relations are given with Ids. The response gives back the whole product,

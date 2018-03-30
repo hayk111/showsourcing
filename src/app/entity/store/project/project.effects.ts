@@ -18,7 +18,7 @@ export class ProjectEffects {
 		.ofType<any>(actionTypes.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load()),
-			mergeMap((result: any) => [projectActions.add(result), projectActions.loadProductCount(ERM.projects)])
+			mergeMap((result: any) => [projectActions.add(result), projectActions.loadProductCount(ERM.project)])
 		);
 
 	@Effect()
@@ -46,14 +46,14 @@ export class ProjectEffects {
 		}),
 		switchMap((result: any) => [
 			projectActions.addProductsSuccess(result),
-			projectActions.loadProductCount(ERM.projects),
+			projectActions.loadProductCount(ERM.project),
 		])
 	);
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(actionTypes.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.projects)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.project)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
@@ -61,7 +61,7 @@ export class ProjectEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>
-				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.projects })))
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.project })))
 			)
 		);
 

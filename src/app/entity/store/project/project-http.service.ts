@@ -13,7 +13,7 @@ export class ProjectHttpService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, target: ERM.projects, recurring: true })
+			.load({ base: ERM.team, target: ERM.project, recurring: true })
 			.pipe(map((t: any) => t.elements));
 	}
 

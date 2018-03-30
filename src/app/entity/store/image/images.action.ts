@@ -5,11 +5,11 @@ import { ERM } from '../entity.model';
 import { TypedAction } from '~utils';
 
 export const imageActionTypes = {
-	...makeEntityActionTypes(ERM.images),
-	ROTATE: `[${ERM.images.entityName.capitalize()}] Rotating...`,
-	SET_PRODUCT_COUNT: `[${ERM.images.entityName.capitalize()}] Setting product count...`,
-	ADD_PRODUCTS: `[${ERM.images.entityName.capitalize()}] Adding Product to project...`,
-	ADD_PRODUCTS_SUCCESS: `[${ERM.images.entityName.capitalize()}] Successfully adding product to project...`,
+	...makeEntityActionTypes(ERM.image),
+	ROTATE: `[${ERM.image.entityName.capitalize()}] Rotating...`,
+	SET_PRODUCT_COUNT: `[${ERM.image.entityName.capitalize()}] Setting product count...`,
+	ADD_PRODUCTS: `[${ERM.image.entityName.capitalize()}] Adding Product to project...`,
+	ADD_PRODUCTS_SUCCESS: `[${ERM.image.entityName.capitalize()}] Successfully adding product to project...`,
 };
 
 // ----------------------------------------------------------------------------

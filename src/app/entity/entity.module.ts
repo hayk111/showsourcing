@@ -21,6 +21,7 @@ import { TeamMembersHttpService } from '~app/entity/store/team-member/team-membe
 import { UserHttpService } from '~app/entity/store/user/user.http.service';
 import { FocussedEntityService } from '~app/entity/store/focussed-entity/focussed-entity.service';
 import { AppStoreModule } from '~app/app-root/store/store.module';
+import { Log } from '~app/app-root/utils';
 
 @NgModule({
 	imports: [CommonModule, AppStoreModule.forChild()],
@@ -48,7 +49,6 @@ import { AppStoreModule } from '~app/app-root/store/store.module';
 })
 export class EntityModule {
 	constructor() {
-		console.log('entitymodule constr');
 	}
 	static forRoot(): ModuleWithProviders {
 		return {

@@ -18,8 +18,8 @@ export class NewTaskDlgComponent implements OnInit {
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
 	g: Task;
-	statusRep = ERM.taskStatuses;
-	typeRep = ERM.taskTypes;
+	statusRep = ERM.taskStatus;
+	typeRep = ERM.taskType;
 	productRep = ERM.product;
 
 	constructor(

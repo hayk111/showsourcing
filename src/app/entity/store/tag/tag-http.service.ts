@@ -11,7 +11,7 @@ export class TagHttpService {
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
 	load() {
-		return this.entitySrv.load({ base: ERM.teams, target: ERM.tag, recurring: true });
+		return this.entitySrv.load({ base: ERM.team, target: ERM.tag, recurring: true });
 	}
 
 	sendPatchRequest(p: Patch) {

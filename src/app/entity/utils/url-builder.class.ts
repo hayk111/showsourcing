@@ -14,7 +14,7 @@ import { UserService } from '~app/features/user/services/user.service';
 
 // 2. api/team/:teamId/product. The second is by loading entities for a team
 
-// 3. api/team/:teamId/product/:productId/comments. The third way is for loading entities
+// 3. api/team/:teamId/product/:productId/comment. The third way is for loading entities
 // related to another.
 
 // 4. Same for entities that are intrinsic to the user exmple api/user/team
@@ -61,14 +61,14 @@ export class UrlBuilder {
 
 	// this adds the base which can be user or team with the correct id.
 	private addBase(url: string, base: EntityRepresentation, user: User) {
-		if (base !== ERM.user && base !== ERM.teams) {
+		if (base !== ERM.user && base !== ERM.team) {
 			throw Error(
 				`UrlBuilder: Base ${
 				base.urlName
-				} not supported, supported bases are user and teams, if you need to load a static entity do it via loaded.`
+				} not supported, supported bases are user and team, if you need to load a static entity do it via loaded.`
 			);
 		}
-		if (base === ERM.teams) {
+		if (base === ERM.team) {
 			url += `/team/${user.currentTeamId}`;
 		} else {
 			url += `/user/${user.id}`;
@@ -76,7 +76,7 @@ export class UrlBuilder {
 		return url;
 	}
 
-	// for example when loading comments : api/team/id/product/id2/comment from is product
+	// for example when loading comment : api/team/id/product/id2/comment from is product
 	private addFrom(url: string, from: EntityTarget) {
 		return `${url}/${from.entityRepr.urlName}/${from.entityId}`;
 	}

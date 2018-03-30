@@ -17,7 +17,7 @@ export class ProductHttpService {
 
 	load(params) {
 		params = { ...params };
-		params.base = ERM.teams;
+		params.base = ERM.team;
 		params.target = ERM.product;
 		params.recurring = true;
 		return this.entitySrv.load(params).pipe(

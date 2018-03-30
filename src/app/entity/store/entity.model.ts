@@ -39,6 +39,8 @@ export class EntityRepresentation {
 		public entityName: string,
 		public urlName?: string,
 		public displayName?: string,
+		public singularName?: string,
+		public pluralName?: string
 	) {
 		// for plurals
 		this.urlName = urlName || entityName.slice(0, -1);
@@ -49,30 +51,30 @@ export class EntityRepresentation {
 // TODO: singularize every entity
 // Helper map, exported as ERM below.
 const entityRepresentationMap = {
-	supplier: new EntityRepresentation('supplier', 'supplier'),
-	event: new EntityRepresentation('event', 'event'),
-	category: new EntityRepresentation('category', 'category'),
+	supplier: new EntityRepresentation('supplier'),
+	event: new EntityRepresentation('event'),
+	category: new EntityRepresentation('category'),
 	tag: new EntityRepresentation('tag'),
-	projects: new EntityRepresentation('projects'),
-	product: new EntityRepresentation('products'),
-	tasks: new EntityRepresentation('tasks'),
-	teams: new EntityRepresentation('teams'),
+	project: new EntityRepresentation('project'),
+	product: new EntityRepresentation('product'),
+	task: new EntityRepresentation('task'),
+	team: new EntityRepresentation('team'),
 
-	taskTypes: new EntityRepresentation('taskTypes'),
-	taskStatuses: new EntityRepresentation('tasksStatus', 'task-status', 'status'),
+	taskType: new EntityRepresentation('taskType'),
+	taskStatus: new EntityRepresentation('tasksStatus', 'task-status', 'status'),
 	supplierStatus: new EntityRepresentation('supplierStatus', 'supplier-status', 'status'),
 	productStatus: new EntityRepresentation('productStatus', 'product-status', 'status'),
-	currencies: new EntityRepresentation('currencies', 'currency'),
-	country: new EntityRepresentation('country', 'country'),
-	incoTerms: new EntityRepresentation('incoTerms'),
-	harbours: new EntityRepresentation('harbours'),
-	teamMembers: new EntityRepresentation('teamMembers'),
-	comments: new EntityRepresentation('comments'),
-	files: new EntityRepresentation('files'),
-	images: new EntityRepresentation('images'),
-	customFields: new EntityRepresentation('customFields', 'customFields'),
+	currency: new EntityRepresentation('currency'),
+	country: new EntityRepresentation('country'),
+	incoTerm: new EntityRepresentation('incoTerm', 'incoTerms'),
+	harbour: new EntityRepresentation('harbour', 'harbours'),
+	teamMember: new EntityRepresentation('teamMember'),
+	comment: new EntityRepresentation('comment'),
+	file: new EntityRepresentation('file'),
+	image: new EntityRepresentation('image'),
+	customField: new EntityRepresentation('customField', 'customFields'),
 	user: new EntityRepresentation('user'),
-	contact: new EntityRepresentation('contact', 'contact'),
+	contact: new EntityRepresentation('contact'),
 };
 
 export const ERM = entityRepresentationMap;

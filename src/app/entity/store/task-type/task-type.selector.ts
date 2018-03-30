@@ -1,2 +1,2 @@
 
-export const selectTaskTypes = state => state.entities.taskTypes;
+export const selectTaskTypes = state => state.entities.taskType;

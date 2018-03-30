@@ -35,7 +35,7 @@ export class TagEffects {
 		.ofType<any>(ActionType.MERGE)
 		.pipe(
 			map(action => action.payload),
-			switchMap(ids => this.entitySrv.merge({ base: ERM.teams, target: ERM.tag, body: ids }))
+			switchMap(ids => this.entitySrv.merge({ base: ERM.team, target: ERM.tag, body: ids }))
 		);
 
 	constructor(private action$: Actions, private srv: TagHttpService, private entitySrv: EntityService) { }

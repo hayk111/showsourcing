@@ -10,7 +10,7 @@ export class EventHttpService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, target: ERM.event, recurring: true })
+			.load({ base: ERM.team, target: ERM.event, recurring: true })
 			.pipe(map((r: any) => r.elements));
 	}
 }

@@ -19,7 +19,7 @@ export class TaskEffects {
 		})
 	);
 
-	// loads comments for current selection
+	// loads comment for current selection
 	@Effect()
 	loadForSelection$ = this.actions$
 		.ofType<any>(actionType.LOAD_FOR_SELECTION)

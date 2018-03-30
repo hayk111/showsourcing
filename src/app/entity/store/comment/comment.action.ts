@@ -3,5 +3,5 @@ import { ERM } from '../entity.model';
 
 // keeping capitalization for backward compatibility
 // Generating Action types constants wrapped inside one object
-export const commentActionType = makeEntityActionTypes(ERM.comments);
+export const commentActionType = makeEntityActionTypes(ERM.comment);
 export const commentActions = new EntityActions(commentActionType);

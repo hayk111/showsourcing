@@ -2,7 +2,7 @@
   <div class="panelCtnr">
     <div class="flex">
       <div class="flexRow">
-        <div class="team">{{ user?.currentTeamId | entityName: 'teams' | async }}</div>
+        <div class="team">{{ user?.currentTeamId | entityName: 'team' | async }}</div>
         <div class="caret pointer" name="sort-down" (click)="openPanel()"></div>
       </div>
     </div>

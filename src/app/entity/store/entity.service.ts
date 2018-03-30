@@ -19,7 +19,7 @@ import { UserService } from '~app/features/user/services/user.service';
 
 // 2. api/team/:teamId/product. The second is by loading entities for a team
 
-// 3. api/team/:teamId/product/comments. The third way is for loading entities
+// 3. api/team/:teamId/product/comment. The third way is for loading entities
 // related to another.
 
 @Injectable()

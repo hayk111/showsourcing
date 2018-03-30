@@ -31,7 +31,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	target: EntityTarget;
 	files: Array<AppFile>;
 	comments: Array<AppComment>;
-	projectRep = ERM.projects;
+	projectRep = ERM.project;
 	projects$: Observable<Array<Project>>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
 	productsCount$: Observable<number>;

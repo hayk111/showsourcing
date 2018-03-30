@@ -42,7 +42,7 @@
 			</ng-container>
 
 			<!-- tags -->
-      <ng-container *ngSwitchCase="['tag', 'projects'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['tag', 'project'].indexOf(type) > -1">
         <span class="tags">
           <span class="tag" *ngFor="let tagid of value">
             {{ tagid | entityName: type | async }}
@@ -51,7 +51,7 @@
 			</ng-container>
 
 			<!-- currency -->
-      <ng-container *ngSwitchCase="type === 'currencies'">
+      <ng-container *ngSwitchCase="type === 'currency'">
         <span>
 					{{ value?.name }}
         </span>
@@ -144,9 +144,9 @@
 		</ng-container>
 
 		<!-- currency selector -->
-		<ng-container *ngSwitchCase="type === 'currencies'">
+		<ng-container *ngSwitchCase="type === 'currency'">
 			<!-- different than other selectors because of value and returned values -->
-			<selector-app [choices]="'currencies' | entityList | async"
+			<selector-app [choices]="'currency' | entityList | async"
 				[itemName]="'currency'"
 				[value]="value?.id"
 				(select)="updateValue($event);onSave()"
@@ -176,9 +176,9 @@
 
 		<!-- Project selector -->
 		<!-- Tags selector -->
-		<ng-container *ngSwitchCase="type === 'projects'">
+		<ng-container *ngSwitchCase="type === 'project'">
 				<selector-app
-					[choices]="'projects' | entityList | async"
+					[choices]="'project' | entityList | async"
 					[multiple]="true"
 					[value]="value"
 					(select)="projectAdded.emit($event)"

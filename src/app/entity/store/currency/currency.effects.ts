@@ -12,7 +12,7 @@ export class CurrencyEffects {
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.srv.load({ target: ERM.currencies })),
+			switchMap(_ => this.srv.load({ target: ERM.currency })),
 			map((result: any) => currencyActions.add(result))
 		);
 

@@ -14,12 +14,12 @@ import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~a
 
 const entities = combineReducers({
 	user: userReducer,
-	teams: teamReducer,
-	teamMembers: teamMemberReducer,
+	team: teamReducer,
+	teamMember: teamMemberReducer,
 	country: countryReducer,
-	incoTerms: incoTermReducer,
-	harbours: harbourReducer,
-	currencies: currencyReducer,
+	incoTerm: incoTermReducer,
+	harbour: harbourReducer,
+	currency: currencyReducer,
 	category: categoryReducer,
 	event: eventReducer,
 	tag: tagReducer,
@@ -28,14 +28,14 @@ const entities = combineReducers({
 
 	productStatus: productStatusReducer,
 	tasksStatus: taskStatusReducer,
-	taskTypes: taskTypeReducer,
+	taskType: taskTypeReducer,
 	supplierStatus: supplierStatusReducer,
-	projects: projectsReducer,
-	tasks: taskReducer,
-	customFields: customFieldReducer,
-	files: fileReducer,
+	project: projectsReducer,
+	task: taskReducer,
+	customField: customFieldReducer,
+	file: fileReducer,
 	images: imageReducer,
-	comments: commentReducer,
+	comment: commentReducer,
 });
 
 const misc = combineReducers({

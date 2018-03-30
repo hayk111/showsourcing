@@ -143,7 +143,7 @@ export class FilterTags extends FilterEntity implements Filter {
 export class FilterProjects extends FilterEntity implements Filter {
 	static readonly filterName = 'project';
 	static getEntityRepr() {
-		return ERM.projects;
+		return ERM.project;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterProjects(value, displayValue, FilterProjects.getEntityRepr());

@@ -11,7 +11,7 @@ import { commentActions, commentActionType as actionType } from './comment.actio
 
 @Injectable()
 export class CommentEffects {
-	// loads comments for current selection
+	// loads comment for current selection
 	@Effect()
 	load$ = this.actions$
 		.ofType<any>(actionType.LOAD_FOR_SELECTION)

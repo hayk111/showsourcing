@@ -2,5 +2,5 @@ import { makeEntityActionTypes, EntityActions, EntityActionTypes } from '../enti
 import { ERM } from '../entity.model';
 
 
-export const taskStatusActionTypes = makeEntityActionTypes(ERM.taskStatuses);
+export const taskStatusActionTypes = makeEntityActionTypes(ERM.taskStatus);
 export const taskStatusActions = new EntityActions(taskStatusActionTypes);

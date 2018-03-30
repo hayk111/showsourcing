@@ -12,7 +12,7 @@ export class CustomFieldsHttpService {
 
 	load() {
 		return this.entitySrv
-			.load({ base: ERM.teams, target: ERM.customFields, recurring: true })
+			.load({ base: ERM.team, target: ERM.customField, recurring: true })
 			.pipe(map(r => this.mapCustomFields(r)));
 	}
 

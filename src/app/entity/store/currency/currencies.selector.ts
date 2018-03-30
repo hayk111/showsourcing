@@ -1,2 +1,2 @@
 
-export const selectCurrencies = state => state.entities.currencies;
+export const selectCurrencies = state => state.entities.currency;
