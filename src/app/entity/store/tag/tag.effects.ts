@@ -18,7 +18,7 @@ export class TagEffects {
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
-		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.tags)));
+		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.tag)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
@@ -26,7 +26,7 @@ export class TagEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>
-				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.tags })))
+				forkJoin(ids.map(id => this.entitySrv.delete({ targetId: id, target: ERM.tag })))
 			)
 		);
 
@@ -35,7 +35,7 @@ export class TagEffects {
 		.ofType<any>(ActionType.MERGE)
 		.pipe(
 			map(action => action.payload),
-			switchMap(ids => this.entitySrv.merge({ base: ERM.teams, target: ERM.tags, body: ids }))
+			switchMap(ids => this.entitySrv.merge({ base: ERM.teams, target: ERM.tag, body: ids }))
 		);
 
 	constructor(private action$: Actions, private srv: TagHttpService, private entitySrv: EntityService) { }

@@ -6,7 +6,7 @@
         <div class="caret pointer" name="sort-down" (click)="openPanel()"></div>
       </div>
     </div>
-    <user-panel-app *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>
+    <user-panel-app [user]="user" *ngIf="panelVisible" (clickOutside)="closePanel()"></user-panel-app>
   </div>
 	<notif-app></notif-app>
   <!-- gotta get the info in team members because not every info is in user.. -->

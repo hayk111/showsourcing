@@ -1,19 +1,32 @@
-<li class="flexBetween">
-	<ul *ngFor="let entity of entities" class="pointer" (click)="select(entity)"> {{ entity.displayName }}</ul>
-</li>
 
-<hr>
-Some things will throw a forbidden error, it might be because we are not the owner or something ?
-<div class="actions flex" *ngIf="selection.length > 0">
-  <div> {{ selection.length }} items selected </div> --
-  <div (click)="mergeSelection()" i18n>Merge</div> - -
-  <div (click)="deleteSelection()" i18n>Delete</div>
+
+<side-menu-app>
+	<side-menu-item-app [selected]="entity.entityName === selectedEntity.entityName"
+		 *ngFor="let entity of entities"  (click)="select(entity)">
+		{{ entity?.pluralName }}
+	</side-menu-item-app>
+</side-menu-app>
+
+<div>
+	<h1>Manage {{ entity?.pluralName }}</h1>
+
+	<div class="info">
+		Use this list to quickly edit and delete your informations
+	</div>
+	<hr>
+	Some things will throw a forbidden error, it might be because we are not the owner or something ?
+	<div class="actions flex" *ngIf="selection.length > 0">
+		<div> {{ selection.length }} items selected </div> --
+		<div (click)="mergeSelection()" i18n>Merge</div> - -
+		<div (click)="deleteSelection()" i18n>Delete</div>
+	</div>
+	<hr>
+	<ng-container *ngIf="items$ | async as items">
+		<data-management-table-app
+			[items]="items"
+			(selection)="onSelection($event)"
+			(update)="updateItem($event)"
+			(itemRemoved)="removeItem($event)"></data-management-table-app>
+	</ng-container>
 </div>
-<hr>
-<ng-container *ngIf="items$ | async as items">
-	<data-management-table-app
-		[items]="items"
-    (selection)="onSelection($event)"
-		(update)="updateItem($event)"
-		(itemRemoved)="removeItem($event)"></data-management-table-app>
-</ng-container>
+

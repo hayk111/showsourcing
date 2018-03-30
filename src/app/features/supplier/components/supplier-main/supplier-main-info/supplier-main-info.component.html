@@ -16,7 +16,7 @@
 	<!-- tags -->
 	<div class="row" *ngIf="supplier && supplier.tags && supplier.tags.length > 0">
 		<icon-app [fa]="true" name="tag"></icon-app>
-		<span *ngFor="let tag of supplier.tags">{{ tag.id | entityName: 'tags'| async }}</span>
+		<span *ngFor="let tag of supplier.tags">{{ tag.id | entityName: 'tag'| async }}</span>
 	</div>
 </div>
 <div class="col2 flexColumn">

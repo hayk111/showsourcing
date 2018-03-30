@@ -118,7 +118,7 @@ export class ProductEffects {
 		.ofType<any>(actionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.product)));
 
-	// tags adding / removing / creating
+	// tag adding / removing / creating
 	@Effect({ dispatch: false })
 	addTag$ = this.actions$
 		.ofType<any>(actionTypes.ADD_TAG)

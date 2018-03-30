@@ -1,18 +1,60 @@
+:host {
+	width: 300px;
+}
+
 menuitem {
 	padding: var(--spacing-default);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding-bottom: 0;
 	flex-wrap: nowrap;
 	white-space: nowrap;
+	div {
+		// last item has no border so we put this here
+		width: 100%;
+		padding-bottom: var(--spacing-default);
+	}
+	.border{
+		border-bottom: 1px solid var(--color-primary-light);
+	}
 }
 
 menu {
+	position: relative;
 	background: white;
 	color: var(--color-txt-primary);
 	display: block;
+	border-radius: var(--border-radius-s);
+}
+
+// arrow
+menu:after {
+	bottom: 100%;
+	right: 0%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 6px;
+	margin-right: 6px;
+}
+
+.userInfo {
+	padding: var(--spacing-default);
+	.cercle {
+		height: 64px;
+		width: 64px;
+		overflow: hidden;
+		border-radius: 50%;
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
 }
 
 .hr {
-	margin: 0;
+	height: 2px;
 }

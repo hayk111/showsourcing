@@ -42,7 +42,7 @@
 			</ng-container>
 
 			<!-- tags -->
-      <ng-container *ngSwitchCase="['tags', 'projects'].indexOf(type) > -1">
+      <ng-container *ngSwitchCase="['tag', 'projects'].indexOf(type) > -1">
         <span class="tags">
           <span class="tag" *ngFor="let tagid of value">
             {{ tagid | entityName: type | async }}
@@ -158,9 +158,9 @@
 		</ng-container>
 
 		<!-- Tags selector -->
-		<ng-container *ngSwitchCase="type === 'tags'">
+		<ng-container *ngSwitchCase="type === 'tag'">
 			<selector-app
-				[choices]="'tags' | entityList | async"
+				[choices]="'tag' | entityList | async"
 				[multiple]="true"
 				[value]="value"
 				(select)="tagAdded.emit($event)"

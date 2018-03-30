@@ -22,7 +22,7 @@ const entities = combineReducers({
 	currencies: currencyReducer,
 	category: categoryReducer,
 	event: eventReducer,
-	tags: tagReducer,
+	tag: tagReducer,
 	supplier: supplierReducer,
 	products: productReducer,
 

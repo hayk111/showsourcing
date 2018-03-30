@@ -5,14 +5,19 @@
 
 <div class="ctnr {{ size }} {{ color }} flexCenter"
 	[ngStyle]="style">
+
 	<ng-container *ngIf="fa; else icomoon">
 
-		<svg *ngIf="useSymbol; else icon" class="svg-inline--fa fa-w-20"><use [attr.xlink:href]="'#' + name"></use></svg>
+		<svg *ngIf="useSymbol; else icon" class="svg-inline--fa fa-w-20">
+			<use [attr.xlink:href]="'#' + name"></use>
+		</svg>
+
 		<ng-template #icon>
 			<i class="pointer fa{{ type }} fa-{{name}}"></i>
 		</ng-template>
 
 	</ng-container>
+
 	<ng-template #icomoon>
 		<i class="icon-{{ name }}"></i>
 	</ng-template>

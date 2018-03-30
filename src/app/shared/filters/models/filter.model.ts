@@ -133,7 +133,7 @@ export class FilterEvent extends FilterEntity implements Filter {
 export class FilterTags extends FilterEntity implements Filter {
 	static readonly filterName = 'tag';
 	static getEntityRepr() {
-		return ERM.tags;
+		return ERM.tag;
 	}
 	static newInstance(value, displayValue) {
 		return new FilterTags(value, displayValue, FilterTags.getEntityRepr());

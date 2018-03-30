@@ -1,5 +1,5 @@
 
-<input type="search" (change)="search($event.target.value)"/>
+<input type="search" (input)="search($event.target.value)"/>
 
 <article class="flex" *ngFor="let item of availableItems">
   <input type="checkbox" (change)="onCheckChange($event, item)"/>

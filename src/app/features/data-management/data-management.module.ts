@@ -7,9 +7,16 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import { DataMananagementTableComponent } from './components';
 import { DataManagementPageComponent } from './containers';
 import { routes } from './routes';
+import { SharedModule } from '~app/shared/shared.module';
+import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
 
 @NgModule({
-	imports: [CommonModule, RouterModule.forChild(routes), InputsModule, EditableFieldModule],
+	imports: [
+		SharedModule,
+		RouterModule.forChild([]),
+		EditableFieldModule,
+		SideMenuModule
+	],
 	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
 	exports: [DataManagementPageComponent],
 })

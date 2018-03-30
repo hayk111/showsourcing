@@ -1,11 +1,31 @@
 <menu class="z-4">
-	[userdesc]
+	<div class="flex userInfo">
+			<user-picture-app [url]="user?.preferences?.profilePicture?.urls?.url_60x45">
+				<span class="email">jhondoe@gmail.com</span>
+			</user-picture-app>
+	</div>
 	<div class="hr"></div>
-	<menuitem class="pointer flexCenter" (click)="goToSettings()" i18n="user menu | go to settings">Settings</menuitem>
-	<menuitem class="pointer flexCenter" (click)="goToDataManagement()" i18n="user menu | go to page for managing user data like tags">Data Management</menuitem>
-	<menuitem class="pointer flexCenter" (click)="pickTeam()" i18n="user menu | teams">Teams</menuitem>
-	<menuitem class="pointer flexCenter" (click)="pickLanguage()" i18n="user menu | user can pick a language">Language</menuitem>
-	<menuitem class="pointer flexCenter" (click)="sendFeedback()" i18n="user menu | send feedback">Send feedback</menuitem>
+	<menuitem class="pointer flexCenter" (click)="goToSettings()" i18n="user menu | go to settings">
+		<div class="border">Settings</div>
+	</menuitem>
+	<menuitem class="pointer flexCenter" (click)="goToDataManagement()"
+		 i18n="user menu | go to page for managing user data like tags">
+		 <div class="border">Data Management</div>
+	</menuitem>
+	<menuitem class="pointer flexCenter" (click)="pickTeam()" i18n="user menu | teams">
+		<div class="border">Teams</div>
+	</menuitem>
+	<menuitem class="pointer flexCenter" (click)="pickLanguage()" i18n="user menu | user can pick a language">
+		<div class="border">Language</div>
+	</menuitem>
+	<menuitem class="pointer flexCenter" (click)="sendFeedback()" i18n="user menu | send feedback">
+		<div>Send feedback</div>
+	</menuitem>
 	<div class="hr"></div>
-	<menuitem class="pointer flexCenter" (click)="logout()" i18n="user menu | logout">Logout</menuitem>
+	<menuitem class="pointer flexCenter" (click)="logout.emit()" i18n="user menu | logout">
+		<div>
+			<icon-app>logout</icon-app>
+			Logout
+		</div>
+	</menuitem>
 </menu>

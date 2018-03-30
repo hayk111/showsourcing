@@ -52,7 +52,7 @@ const entityRepresentationMap = {
 	supplier: new EntityRepresentation('supplier', 'supplier'),
 	event: new EntityRepresentation('event', 'event'),
 	category: new EntityRepresentation('category', 'category'),
-	tags: new EntityRepresentation('tags'),
+	tag: new EntityRepresentation('tag'),
 	projects: new EntityRepresentation('projects'),
 	product: new EntityRepresentation('products'),
 	tasks: new EntityRepresentation('tasks'),

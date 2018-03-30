@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '~auth/store';
+import { User } from '~app/entity';
+import { DEFAULT_NO_IMG } from '~app/app-root/utils';
 
 @Component({
 	selector: 'user-panel-app',
@@ -9,7 +11,10 @@ import { AuthActions } from '~auth/store';
 	styleUrls: ['./user-panel.component.scss'],
 })
 export class UserPanelComponent implements OnInit {
-	constructor(private store: Store<any>, private router: Router) { }
+	@Input() user: User;
+	@Output() logout = new EventEmitter<any>();
+	defaultImg = DEFAULT_NO_IMG;
+	constructor(private router: Router) { }
 
 	ngOnInit() { }
 
@@ -25,7 +30,4 @@ export class UserPanelComponent implements OnInit {
 
 	sendFeedback() { }
 
-	logout() {
-		this.store.dispatch(AuthActions.logout());
-	}
 }

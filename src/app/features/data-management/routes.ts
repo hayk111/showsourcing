@@ -5,8 +5,6 @@ import { DataManagementPageComponent } from '~app/features/data-management/conta
 export const routes: Array<Route> = [
 	{
 		path: 'data-management',
-		canActivate: [AuthGuardService],
-		canActivateChild: [AuthGuardService],
 		component: DataManagementPageComponent,
 	},
 ];

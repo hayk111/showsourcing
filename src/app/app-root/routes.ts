@@ -10,6 +10,7 @@ import { routes as dataManagementRoutes } from '~app/features/data-management/ro
 import { routes as supplierRoutes } from '~app/features/supplier/routes';
 import { routes as taskRoutes } from '~app/features/tasks/router';
 import { routes as productRoutes } from '~app/features/products/routes';
+import { DataManagementPageComponent } from '~app/features/data-management/containers';
 
 export const routes: Array<Route> = [
 	{
@@ -32,7 +33,7 @@ export const routes: Array<Route> = [
 			{ path: 'task', children: taskRoutes },
 			{ path: 'product', children: productRoutes },
 			{ path: 'supplier', children: supplierRoutes },
-			{ path: 'data-management', children: dataManagementRoutes }
+			{ path: 'data-management', component: DataManagementPageComponent }
 		],
 	},
 	{ path: '**', redirectTo: '' },

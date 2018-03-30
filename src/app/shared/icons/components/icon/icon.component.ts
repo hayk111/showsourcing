@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef, Attribute } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import * as fontawesome from '@fortawesome/fontawesome';
 import { ElementRef } from '@angular/core';
@@ -28,7 +28,13 @@ export class IconComponent implements OnInit {
 	@Input() fa = false;
 	@ViewChild('icon') icon: TemplateRef<any>;
 
-	constructor() { }
+	constructor(elementRef: ElementRef, @Attribute('aria-hidden') ariaHidden: string) {
+		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
+		// the right thing to do for the majority of icon use-cases.
+		if (!ariaHidden) {
+			elementRef.nativeElement.setAttribute('aria-hidden', 'true');
+		}
+	}
 
 	ngOnInit() {
 		if (!this.useSymbol) fontawesome.dom.i2svg(this.icon.elementRef.nativeElement);
