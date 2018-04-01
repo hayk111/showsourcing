@@ -2,3 +2,19 @@
 	display: flex;
 	height: 100%;
 }
+
+main {
+	width: 100%;
+	background: white;
+	h1 {
+		margin: var(--spacing-l);
+	}
+}
+.ctnr {
+	margin: auto;
+	margin-top: var(--spacing-xxl);
+	.info {
+		padding: var(--spacing-default);
+		background: var(--color-bg-third);
+	}
+}

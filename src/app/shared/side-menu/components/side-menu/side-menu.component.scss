@@ -1,5 +1,6 @@
 :host {
-	background: white;
+	background: var(--color-txt-strong);
+	color: rgba(255, 255, 255, 0.6);
 	height: 100%;
 	width: 300px;
 	display: block;
@@ -7,4 +8,5 @@
 
 h2 {
 	padding: var(--spacing-default);
+	color: var(--color-primary-dark-contrast);
 }

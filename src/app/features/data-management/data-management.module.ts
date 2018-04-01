@@ -9,6 +9,7 @@ import { DataManagementPageComponent } from './containers';
 import { routes } from './routes';
 import { SharedModule } from '~app/shared/shared.module';
 import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
+import { EditableFieldComponent } from './components/editable-field/editable-field.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,7 @@ import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
 		EditableFieldModule,
 		SideMenuModule
 	],
-	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
+	declarations: [DataManagementPageComponent, DataMananagementTableComponent, EditableFieldComponent],
 	exports: [DataManagementPageComponent],
 })
 export class DataManagementModule {

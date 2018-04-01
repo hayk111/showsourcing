@@ -1,12 +1,5 @@
-
-side-menu-item.unselected .productCount {
-	color: var(--color-txt-secondary);
+.productCount {
+	color: rgba(255, 255, 255, 0.3);
 }
 
-side-menu-item:hover, side-menu-item.selected {
-	color: var(--color-primary-contrast);
-}
 
-.name {
-	font-weight: 600;
-}

@@ -1,0 +1,14 @@
+:host {
+	width: 550px;
+}
+
+article {
+	padding: var(--spacing-s);
+	checkbox-app {
+		flex-grow: 1;
+	}
+}
+
+article:hover {
+	background: var(--color-bg-third);
+}

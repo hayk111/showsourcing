@@ -23,7 +23,6 @@ import * as faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import * as faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle';
 import * as faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
 import * as faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
-import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faThumbsDown from '@fortawesome/fontawesome-free-solid/faThumbsDown';
 import * as faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import * as faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
@@ -38,6 +37,8 @@ import * as faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import * as faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 import * as faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
 import * as faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
+import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import * as faTrash from '@fortawesome/fontawesome-free-solid/faTrash';
 
 import * as fontawesome from '@fortawesome/fontawesome';
 
@@ -84,7 +85,9 @@ export const faIcons = [
 	faEnvelope,
 	faPhone,
 	faGlobe,
-	faArrowLeft
+	faArrowLeft,
+	faTrashAlt,
+	faTrash
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

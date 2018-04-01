@@ -23,7 +23,6 @@ export const selectMultipleById = (entityRepr: EntityRepresentation, ids: Array<
 
 // returns all entities of a given repr in an array
 export const selectEntityArray = (entityRepr: EntityRepresentation) => {
-	debugger;
 	return createSelector([selectEntityState(entityRepr.entityName)], entityState => {
 		return entityState.ids.map(id => entityState.byId[id]);
 	});
