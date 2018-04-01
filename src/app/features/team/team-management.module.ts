@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 
 import { TeamManagementPageComponent } from './components';
 import { routes } from './routes';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
-	imports: [CommonModule, RouterModule.forChild(routes)],
+	imports: [SharedModule, RouterModule.forChild(routes)],
 	declarations: [TeamManagementPageComponent],
 })
-export class TeamManagementModule {}
+export class TeamManagementModule { }

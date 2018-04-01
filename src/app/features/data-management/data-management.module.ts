@@ -9,16 +9,14 @@ import { DataManagementPageComponent } from './containers';
 import { routes } from './routes';
 import { SharedModule } from '~app/shared/shared.module';
 import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
-import { EditableTextComponent } from './components/editable-text/editable-text.component';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
-		EditableFieldModule,
 		SideMenuModule
 	],
-	declarations: [DataManagementPageComponent, DataMananagementTableComponent, EditableTextComponent],
+	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
 	exports: [DataManagementPageComponent],
 })
 export class DataManagementModule {

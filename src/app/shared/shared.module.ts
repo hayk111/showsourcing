@@ -6,6 +6,8 @@ import { UtilsModule } from '~app/shared/utils';
 import { CardModule } from '~app/shared/card';
 import { EntityModule } from '~app/entity';
 import { InputsModule } from '~app/shared/inputs';
+import { PriceModule } from '~app/shared/price';
+import { EditableFieldModule } from '~app/shared/editable-field';
 
 // those modules are used so commonly that we will just import the shared module
 
@@ -17,7 +19,9 @@ import { InputsModule } from '~app/shared/inputs';
 		UtilsModule,
 		CardModule,
 		InputsModule,
-		EntityModule.forChild()
+		EntityModule.forChild(),
+		PriceModule,
+		EditableFieldModule
 	],
 	declarations: [],
 	exports: [

@@ -13,18 +13,16 @@ import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module'
 import { UserModule } from '~app/features/user';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
 import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		// EffectsModule.forFeature(effects),
 		RouterModule.forChild([]),
-		EntityModule.forChild(),
-		SideMenuModule,
-		EntityPagesModule,
-		UtilsModule, // TODO to be removed and placed inside the component module using it
-		UserModule, // TODO to be removed and placed inside the component module using it
-		SelectionBarModule, // TODO to be removed and placed inside the component module using it,
+		SideMenuModule, // side nav
+		EntityPagesModule, // bread crumb at the top left
+		SelectionBarModule, // used for when selecting an item
 		TableModule, // used in list
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent],

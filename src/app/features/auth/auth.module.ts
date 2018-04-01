@@ -24,18 +24,15 @@ import { AuthenticationEffects } from '~app/features/auth/store/authentication.e
 import { reducers } from './store';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		RouterModule.forChild([]),
 		StoreModule.forFeature('auth', reducers),
 		EffectsModule.forFeature([AuthenticationEffects]),
 		ReactiveFormsModule,
-		InputsModule,
-		LoadersModule,
-		IconsModule,
-		CardModule
 	],
 	providers: [
 		AuthHttpService,

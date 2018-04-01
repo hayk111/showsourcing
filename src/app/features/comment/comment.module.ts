@@ -11,16 +11,12 @@ import { CommentListComponent } from './components';
 import { CommentBadgeComponent } from './components';
 import { CommentCtnrComponent } from './containers';
 import { EntityModule } from '~app/entity';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
-		EntityModule.forChild(),
+		SharedModule,
 		ReactiveFormsModule,
-		IconsModule,
-		UtilsModule,
-		InputsModule,
-		LoadersModule,
 	],
 	declarations: [CommentCtnrComponent, CommentComponent, CommentListComponent, CommentBadgeComponent],
 	exports: [CommentCtnrComponent],

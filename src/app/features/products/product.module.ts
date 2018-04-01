@@ -57,14 +57,10 @@ import { SharedModule } from '~app/shared/shared.module';
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),
 		StatusModule.forChild(),
-		UserModule.forChild(), // TODO to be removed and placed inside the component module using it
-		UtilsModule, // TODO to be removed and placed inside the component module using it
 		FileModule.forChild(), // file card used
-		SuppliersModule.forChild(), // TODO to be removed and placed inside the component module using it
-		EditableFieldModule, // TODO to be removed and placed inside the component module using it
-		PriceModule, // TODO to be removed and placed inside the component module using it
+		EditableFieldModule, // used in details
 		RatingModule, // TODO to be removed and placed inside the component module using it
-		SelectionBarModule, // could move into EntityPageModule ?
+		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
 		FiltersModule, // used for filters
 		CarouselModule,

@@ -15,12 +15,14 @@ import {
 } from '~app/shared/inputs/components-directives';
 import { HintDirective } from '~app/shared/inputs/components-directives/hint.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
 
 export const components = [
 	FormFieldComponent,
 	InputDirective,
 	LabelDirective,
 	CheckboxComponent,
+	SelectorComponent,
 	RestrictInputDirective,
 	HintDirective
 ];
@@ -29,10 +31,10 @@ export const components = [
 	imports: [
 		CommonModule,
 		FormsModule,
-		ReactiveFormsModule,
 		UtilsModule,
 		EntityModule.forChild(),
 		IconsModule,
+		NgSelectModule
 	],
 	declarations: components,
 	// entryComponents: components,

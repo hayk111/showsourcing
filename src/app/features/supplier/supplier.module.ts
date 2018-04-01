@@ -35,27 +35,21 @@ import { CarouselModule } from '~app/shared/carousel';
 import {
 	SupplierNewContactDlgComponent
 } from './components/supplier-contact-card/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		RouterModule.forChild([]),
 		FileModule, // file-card
-		CardModule,
 		CarouselModule,
-		EditableFieldModule,
 		StatusModule,
-		IconsModule, // TODO to be removed and placed inside the component module using it
-		EntityModule.forChild(), // used
 		EntityPagesModule,
 		DialogModule, // TODO to be removed and placed inside the component module using it
 		ReactiveFormsModule, // TODO to be removed and placed inside the component module using it
-		InputsModule, // TODO to be removed and placed inside the component module using it
-		UserModule, // TODO to be removed and placed inside the component module using it
-		SelectionBarModule, // TODO to be removed and placed inside the component module using it
+		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		TagModule, // TODO to be removed and placed inside the component module using it
-		UtilsModule, // TODO to be removed and placed inside the component module using it
 		RatingModule, // used for hearth
 	],
 	declarations: [
