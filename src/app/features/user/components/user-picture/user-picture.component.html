@@ -2,3 +2,8 @@
 	[style.height]="size ? size + 'px' : '32px'"
 	[style.width]="size ? size + 'px' : '32px'">
 </div>
+<!-- content displayed next to picture -->
+<div class="flexColumn side"
+	[ngStyle]="{ 'margin-left': 'var(--spacing-' + spacing + ')' }">
+	<ng-content></ng-content>
+</div>

@@ -1,8 +1,10 @@
 <menu class="z-4">
 	<div class="flex userInfo">
-			<user-picture-app [url]="user?.preferences?.profilePicture?.urls?.url_60x45">
-				<span class="email">jhondoe@gmail.com</span>
+			<user-picture-app size="48" spacing="default" [url]="user?.preferences?.profilePicture?.urls?.url_60x45">
+				<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
+				<span class="email">{{ user?.email }}</span>
 			</user-picture-app>
+
 	</div>
 	<div class="hr"></div>
 	<menuitem class="pointer flexCenter" (click)="goToSettings()" i18n="user menu | go to settings">

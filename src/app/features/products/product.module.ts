@@ -42,11 +42,9 @@ import {
 } from './components';
 import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import {
-	ProductBigCardComponent,
 	ProductDetailsComponent,
 	ProductGeneralInfoComponent,
 	ProductsPageComponent,
-	ProductTasksComponent,
 } from './containers';
 import { routes } from './routes';
 import { SharedModule } from '~app/shared/shared.module';
@@ -86,9 +84,7 @@ import { SharedModule } from '~app/shared/shared.module';
 		ProductCardViewComponent,
 		ProductSelectableCardComponent,
 		SelectionActionsComponent,
-		ProductBigCardComponent,
 		ProductDetailsComponent,
-		ProductTasksComponent,
 		ProjectCardComponent,
 		SupplierCardComponent,
 		ProductGeneralInfoComponent,

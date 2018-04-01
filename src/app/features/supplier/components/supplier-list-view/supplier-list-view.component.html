@@ -67,7 +67,8 @@
 			<user-picture-app
 				[size]="18"
 				[border]="true"
-				[url]="teamMemberState.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+				[url]="teamMemberState.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45">
+			</user-picture-app>
 			<span>{{ teamMemberState.byId[row.createdByUserId]?.name }}</span>
 		</div>
 	</ng-template>

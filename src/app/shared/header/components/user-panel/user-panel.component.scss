@@ -2,6 +2,15 @@
 	width: 300px;
 }
 
+.name {
+	font-size: var(--font-size-l);
+	font-weight: 600;
+}
+
+.email {
+	font-size: var(--font-size-s);
+}
+
 menuitem {
 	padding: var(--spacing-default);
 	padding-bottom: 0;

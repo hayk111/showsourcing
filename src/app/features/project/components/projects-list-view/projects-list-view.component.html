@@ -12,9 +12,7 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row">
-		<user-picture-with-name-app [user]="row.createdByUserId | entity: project | async">
-			<time>{{ row.creationDate | timeAgo }}</time>
-		</user-picture-with-name-app>
+
 	</ng-template>
 
 </table-app>
