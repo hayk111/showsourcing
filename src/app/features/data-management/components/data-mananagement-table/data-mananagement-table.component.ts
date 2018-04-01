@@ -20,8 +20,8 @@ export class DataMananagementTableComponent implements OnInit {
 
 	ngOnInit() { }
 
-	onUpdate(item, event) {
-		this.update.emit({ propName: 'name', value: event, id: item.id });
+	onUpdate(id, value) {
+		this.update.emit({ propName: 'name', value, id: id });
 	}
 
 	search(value) {

@@ -2,8 +2,13 @@
 <input type="search" (input)="search($event.target.value)"/>
 
 <article class="flex flexCenter" *ngFor="let item of availableItems">
-  <checkbox-app (check)="onCheck(item)" (uncheck)="onUncheck(item)">
-		<editable-field-app [value]="item.name" (update)="onUpdate(item, $event)"></editable-field-app>
-	</checkbox-app>
+  <checkbox-app (check)="onCheck(item)" (uncheck)="onUncheck(item)"></checkbox-app>
+
+	<editable-text-app>
+		<label-app> {{ item.name }} </label-app>
+		<input #inp type="text" [value]="item.name"/>
+		<button class="small" (click)="onUpdate(item.id, inp.value)">done</button>
+	</editable-text-app>
+
 	<icon-app name="trash-alt" fa="true" (click)="delete(item)" class="pointer"></icon-app>
 </article>

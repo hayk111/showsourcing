@@ -1,0 +1,9 @@
+<div (clickOutside)="close()">
+	<div class="flex pointer" *ngIf="mode === 'closed'" (click)="open()">
+		<ng-content select="label-app"></ng-content>
+	</div>
+	<ng-container *ngIf="mode === 'edit'">
+		<ng-content></ng-content>
+	</ng-container>
+</div>
+
