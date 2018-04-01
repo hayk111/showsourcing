@@ -77,7 +77,8 @@
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp  [value]="value || ''" [type]="type" (change)="updateValue($event.target.value)"/>
+				<input inputApp (keyup.enter)="onSave()"
+				[value]="value || ''" [type]="type" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -85,7 +86,7 @@
 		<ng-container *ngSwitchCase="type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp restrictInput="number" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+				<input inputApp (keyup.enter)="onSave()" (keyup.enter)="onSave()" restrictInput="number" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -93,7 +94,7 @@
 		<ng-container *ngSwitchCase="type === 'tel'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp restrictInput="tel" [value]="value" type="text" (change)="updateValue($event.target.value)"/>
+				<input inputApp (keyup.enter)="onSave()" restrictInput="tel" [value]="value" type="text" (change)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -101,7 +102,7 @@
 		<ng-container *ngSwitchCase="type === 'price'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp restrictInput="decimal" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+				<input inputApp (keyup.enter)="onSave()" restrictInput="decimal" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -109,7 +110,7 @@
 		<ng-container *ngSwitchCase="type === 'textarea'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<textarea inputApp (change)="updateValue($event.target.value)">{{ value }}</textarea>
+				<textarea inputApp (keyup.enter)="onSave()" (change)="updateValue($event.target.value)">{{ value }}</textarea>
 			</form-field-app>
 		</ng-container>
 
