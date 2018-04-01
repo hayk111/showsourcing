@@ -38,12 +38,12 @@ declare let module: any;
 @NgModule({
 	declarations: [AppComponent, HomeComponent],
 	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
 		AppStoreModule.forRoot(),
 		AuthModule.forRoot(),
 		PreloaderModule.forRoot(),
 		HmrModule.forRoot(),
-		BrowserModule,
-		BrowserAnimationsModule,
 		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
 		HttpClientModule,

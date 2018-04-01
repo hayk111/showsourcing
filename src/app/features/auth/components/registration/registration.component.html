@@ -23,12 +23,14 @@
 		<label-app>Email</label-app>
 		<input inputApp required="true"
 			autocomplete="email" formControlName="email" type="email" placeholder="Your email"/>
+		<hint-app>Tip: the app works better with a company email</hint-app>
 	</form-field-app>
 
 	<form-field-app>
 		<label-app>Password</label-app>
-		<input inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
+		<input #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
 			placeholder="Your password"/>
+		<hint-app *ngIf="pw.value.length < 8">Minimum 8 characters required</hint-app>
 	</form-field-app>
 
 

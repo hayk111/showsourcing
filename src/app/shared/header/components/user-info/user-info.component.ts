@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { selectUser, User } from '~user';
+import { AuthActions } from '~app/features/auth';
 
 @Component({
 	selector: 'user-info-app',
@@ -25,5 +26,9 @@ export class UserInfoComponent implements OnInit {
 
 	closePanel() {
 		this.panelVisible = false;
+	}
+
+	logout() {
+		this.store.dispatch(AuthActions.logout());
 	}
 }

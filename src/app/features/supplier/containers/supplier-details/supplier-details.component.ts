@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
 	Patch, AppImage, selectImages, selectImagesAsArray, selectSupplierFocussed,
-	selectSupplierProductsCountForFocussed
+	selectSupplierProductsCountForFocussed,
+	Tag
 } from '~entity';
 import { Product, selectProducts } from '~product';
 import { Supplier, supplierActions } from '~supplier';
 import { selectTasks, Task } from '~task';
 import { DialogActions, DialogName } from '~app/shared/dialog';
+import { UserService } from '~app/features/user';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -24,8 +26,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	tasks$: Observable<Array<Task>>;
 	products$: Observable<Array<Product>>;
 	images$: Observable<Array<AppImage>>;
+	supplierId: string;
 	// this is put in container because it will access the store
-	constructor(private route: ActivatedRoute, private store: Store<any>) {
+	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
 	}
 
@@ -37,6 +40,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		});
 
 		this.supplier$ = this.store.select(selectSupplierFocussed);
+		this.supplier$.pipe(takeUntil(this._destroy$), filter(d => !!d)).subscribe(supplier => this.supplierId = supplier.id);
 		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForFocussed(id))));
 		this.tasks$ = this.store.select(selectTasks);
 		this.products$ = this.store.select<any>(selectProducts);
@@ -45,6 +49,19 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	patch(patch: Patch) {
 		this.store.dispatch(supplierActions.patch(patch));
+	}
+
+	onTagAdded(tag: Tag) {
+		this.store.dispatch(supplierActions.addTag(tag, this.supplierId));
+	}
+
+	onTagRemoved(tag: Tag) {
+		this.store.dispatch(supplierActions.removeTag(tag, this.supplierId));
+	}
+
+	onTagCreated(tagName: string) {
+		const tag = new Tag(tagName, this.userSrv.userId);
+		this.store.dispatch(supplierActions.createTag(tag, this.supplierId));
 	}
 
 	openNewContactDlg() {

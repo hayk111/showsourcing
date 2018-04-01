@@ -17,6 +17,8 @@ import { productActions } from '../product';
 import { taskActions } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
+import { tagActions } from '~app/entity/store/tag';
+import { categoryActions } from '~app/entity/store/category';
 
 @Injectable()
 export class SuppliersEffects {
@@ -85,6 +87,51 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
 		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => supplierActions.addProductCount(r)));
 
+	// tag adding / removing / creating
+	@Effect({ dispatch: false })
+	addTag$ = this.action$
+		.ofType<any>(ActionType.ADD_TAG)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.addTag(payload)));
+
+	@Effect({ dispatch: false })
+	removeTag$ = this.action$
+		.ofType<any>(ActionType.REMOVE_TAG)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeTag(payload)));
+
+	@Effect()
+	createTag$ = this.action$
+		.ofType<any>(ActionType.CREATE_TAG)
+		.pipe(
+			map(action => action.payload),
+			switchMap(payload =>
+				this.srv
+					.createTag(payload)
+					.pipe(mergeMap((r: any) => [supplierActions.addTag(r, payload.productId), tagActions.add([r])]))
+			)
+		);
+
+	// category adding / removing / creating
+	@Effect({ dispatch: false })
+	addCategory$ = this.action$
+		.ofType<any>(ActionType.ADD_CATEGORY)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.addCategory(payload)));
+
+	@Effect({ dispatch: false })
+	removeCategory$ = this.action$
+		.ofType<any>(ActionType.REMOVE_CATEGORY)
+		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeCategory(payload)));
+
+	@Effect()
+	createCategory$ = this.action$
+		.ofType<any>(ActionType.CREATE_CATEGORY)
+		.pipe(
+			map(action => action.payload),
+			switchMap(payload =>
+				this.srv
+					.createTag(payload)
+					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), categoryActions.add([r])]))
+			)
+		);
 	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
 }
 

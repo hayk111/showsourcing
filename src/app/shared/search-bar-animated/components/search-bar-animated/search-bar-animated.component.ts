@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, OnInit, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, OnInit } from '@angular/core';
 import { InputDirective } from '~app/shared/inputs';
 
 import { animation } from './search-bar-animated.animation';

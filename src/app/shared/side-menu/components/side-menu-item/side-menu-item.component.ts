@@ -5,7 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 	templateUrl: './side-menu-item.component.html',
 	styleUrls: ['./side-menu-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'pointer' }
+	host: { class: 'pointer ripple' }
 })
 export class SideMenuItemComponent implements OnInit {
 	// just adds classes to host on selection

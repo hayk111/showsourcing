@@ -33,7 +33,12 @@
 
 			<!-- editable infos -->
 			<card-app>
-				<supplier-infos-app [supplier]="supplier" (update)="patch($event)"></supplier-infos-app>
+				<supplier-infos-app
+					[supplier]="supplier"
+					(tagAdded)="onTagAdded($event)"
+					(tagRemoved)="onTagRemoved($event)"
+					(tagCreated)="onTagCreated($event)"
+					(update)="patch($event)"></supplier-infos-app>
 			</card-app>
 
 			<!-- files -->

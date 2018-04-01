@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
-import { EntityRepresentation } from '~entity';
+import { EntityRepresentation } from '~entity/store/entity.model';
 
 import { FilterEntityPanelService } from '../../services/filter-entity-panel.service';
 import {
@@ -28,5 +28,5 @@ export class FilterEntityPanelEffects {
 			map(items => FilterEntityPanelActions.setChoices(items))
 		);
 
-	constructor(private actions$: Actions, private srv: FilterEntityPanelService) {}
+	constructor(private actions$: Actions, private srv: FilterEntityPanelService) { }
 }

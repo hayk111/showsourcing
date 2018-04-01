@@ -71,6 +71,11 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(productActions.removeTag(tag, this.productId));
 	}
 
+	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
+		const tag = new Tag(tagName, this.userSrv.userId);
+		this.store.dispatch(productActions.createTag(tag, id));
+	}
+
 	onProjectAdded(project: Project) {
 		this.store.dispatch(productActions.addProject(project, this.productId));
 	}
@@ -79,8 +84,4 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(productActions.removeProject(project, this.productId));
 	}
 
-	onTagCreated(id: string, tagName: string, currentTagIds: Array<string>) {
-		const tag = new Tag(tagName, this.userSrv.userId);
-		this.store.dispatch(productActions.createTag(tag, id));
-	}
 }

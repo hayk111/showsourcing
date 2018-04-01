@@ -20,8 +20,10 @@ export class TokenService {
 	}
 
 	saveToken(token: string) {
-		this.localStorageSrv.setString(TokenService.TOKEN_NAME, token);
-		this._token = token;
+		if (token) {
+			this.localStorageSrv.setString(TokenService.TOKEN_NAME, token);
+			this._token = token;
+		}
 	}
 
 

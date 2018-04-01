@@ -10,9 +10,27 @@
 </label>
 
 <ng-content></ng-content>
-<!-- we have to pass a formControl as input for this to work -->
-<div class="error" *ngIf="control?.hasError('required') && !control?.pristine">This field is required</div>
-<div class="error" *ngIf="control?.hasError('email') && !control?.pristine" >This field should be a valid email</div>
-<div class="error" *ngIf="control?.hasError('number') && !control?.pristine">This field should be a valid number</div>
-<div class="error" *ngIf="control?.hasError('url') && !control?.pristine">This field isn't a correct url</div>
-<div class="error" *ngIf="control?.hasError('tel') && !control?.pristine">This field isn't a correct phone numer</div>
+
+
+<div class="msgWrapper" [ngSwitch]="displayedMessage">
+
+	<!-- hint messages -->
+	<div *ngSwitchCase="'hint'"
+		@transitionMessages class="hint {{ hint?.align === 'left' ? 'left-align' : 'right-align'  }}">
+		<ng-content select="hint-app"></ng-content>
+	</div>
+
+	<!-- we have to pass a formControl as input for this to work -->
+	<div @transitionMessages *ngSwitchCase="'error'">
+		<!-- default errors -->
+		<div class="error" *ngIf="!hasCustomError()  && !control.pristine">
+			{{ defaultErrorMsg }}
+		</div>
+		<!-- for custom error messages -->
+		<div class="error" *ngIf="hasCustomError() && !control.pristine">
+			<ng-content select="error-app"></ng-content>
+		</div>
+	</div>
+
+</div>
+

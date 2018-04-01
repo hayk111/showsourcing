@@ -1,5 +1,6 @@
-import { Directive, Input, ElementRef, Self, Optional } from '@angular/core';
+import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
 
 const supportedTypes = new Set([
 	'color',
@@ -26,23 +27,32 @@ export interface AppFormFieldControl {
 }
 
 @Directive({
-	selector: '[inputApp]'
+	selector: '[inputApp]',
+	host: {
+		'(blur)': 'focussed = false',
+		'(focus)': 'focussed = true',
+	}
 })
-export class InputDirective implements AppFormFieldControl {
+export class InputDirective implements AppFormFieldControl, OnChanges {
 	protected static NEXT_UID = 0;
+	/**
+   * Inform parents of state change
+   */
+	readonly stateChanges: Subject<void> = new Subject<void>();
 
 	constructor(protected _elementRef: ElementRef, @Optional() @Self() public control: NgControl) { }
+
 
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }
-	set id(value: string) { this._id = value; }
+	set id(value: string) { this._id = value; this.stateChanges.next(); }
 	protected _id: string = 'inp-' + InputDirective.NEXT_UID++;
 
 	/** Whether the element is readonly. */
 	@Input()
 	get readonly(): boolean { return this._readonly; }
-	set readonly(value: boolean) { this._readonly = value; }
+	set readonly(value: boolean) { this._readonly = value; this.stateChanges.next(); }
 	private _readonly = false;
 
 	/** Whether the element is required. */
@@ -77,10 +87,24 @@ export class InputDirective implements AppFormFieldControl {
 	}
 	set disabled(value: boolean) {
 		this._disabled = value;
+		this.stateChanges.next();
 	}
 	protected _disabled = false;
 
+	/** Whether the input is on focus */
+	set focussed(value: boolean) {
+		this._focussed = value;
+		this.stateChanges.next();
+	}
+	get focussed() {
+		return this._focussed;
+	}
+	protected _focussed = false;
 
+	/** Whether the has not been typed into */
+	get pristine() {
+		return this.control.pristine;
+	}
 
 	/** Determines if the component host is a textarea. If not recognizable it returns false. */
 	protected _isTextarea() {
@@ -91,5 +115,9 @@ export class InputDirective implements AppFormFieldControl {
 
 	/** Focuses the input. */
 	focus(): void { this._elementRef.nativeElement.focus(); }
+
+	ngOnChanges() {
+		this.stateChanges.next();
+	}
 
 }

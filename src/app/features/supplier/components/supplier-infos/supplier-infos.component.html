@@ -126,6 +126,9 @@
 <!-- tags -->
 <cell-two-row-app title="tag">
 	<editable-field-app
+		(tagAdded)="tagAdded.emit($event)"
+		(tagRemoved)="tagRemoved.emit($event)"
+		(tagCreated)="tagCreated.emit($event)"
 		[entity]="supplier"
 		[value]="supplier.tagIds"
 		type="tag"></editable-field-app>

@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export const animation = [
 	trigger('searchAnimation', [
@@ -17,10 +17,10 @@ export const animation = [
 			})
 		),
 		transition('expanded => shrinked', [
-			animate('200ms ease-in-out', style({ width: '0%', opacity: 0 })),
+			animate('200ms ease-in-out'),
 		]),
 		transition('shrinked => expanded', [
-			animate('200ms ease-in-out', style({ width: '100%', opacity: 1 })),
+			animate('200ms ease-in-out'),
 		]),
 	]),
 ];

@@ -13,6 +13,8 @@ import {
 	LabelDirective,
 	RestrictInputDirective
 } from '~app/shared/inputs/components-directives';
+import { HintDirective } from '~app/shared/inputs/components-directives/hint.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const components = [
 	FormFieldComponent,
@@ -20,6 +22,7 @@ export const components = [
 	LabelDirective,
 	CheckboxComponent,
 	RestrictInputDirective,
+	HintDirective
 ];
 
 @NgModule({
@@ -29,7 +32,6 @@ export const components = [
 		ReactiveFormsModule,
 		UtilsModule,
 		EntityModule.forChild(),
-		NgSelectModule,
 		IconsModule,
 	],
 	declarations: components,
