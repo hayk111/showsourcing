@@ -1,1 +1,23 @@
-works
+
+<form [formGroup]="form" *ngIf="user$ | async as user">
+	<h2>Basic Details</h2>
+	<!-- first name -->
+	<form-field-app>
+		<label-app>First name</label-app>
+		<input inputApp type="text" [value]="user.firstName" (blur)="update('firstName', $event.target.value)" formControlName="firstName"/>
+	</form-field-app>
+
+	<!-- last name -->
+	<form-field-app>
+		<label-app>last name</label-app>
+		<input inputApp type="text" (blur)="update('lastName', $event.target.value)" formControlName="lastName"/>
+	</form-field-app>
+
+	<h2>Log in details</h2>
+
+	<form-field-app>
+		<label-app>Email</label-app>
+		<input inputApp type="email" (blur)="update('email', $event.target.value)"
+			restrictInput="email" formControlName="email"/>
+	</form-field-app>
+</form>

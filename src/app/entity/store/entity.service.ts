@@ -34,25 +34,15 @@ export class EntityService {
 	) { }
 
 	load(params: ApiParams): Observable<any> {
-		// we make sure the user is target before doing anything
-		return this.userSrv.user$.pipe(
-			switchMap((user: User) => {
-				// we construct an url given the params
-				const url = this.urlBuilder.getUrl(params, user);
-				return this.makeGetRequest(url, params);
-			})
-		);
+		// we construct an url given the params
+		const url = this.urlBuilder.getUrl(params, this.userSrv.user);
+		return this.makeGetRequest(url, params);
 	}
 
 	post(params: ApiParams): Observable<any> {
-		// we make sure the user is target before doing anything
-		return this.userSrv.user$.pipe(
-			switchMap((user: User) => {
-				// we construct an url given the params
-				const url = this.urlBuilder.getUrl(params, user);
-				return this.http.post(url, params.body);
-			})
-		);
+		// we construct an url given the params
+		const url = this.urlBuilder.getUrl(params, this.userSrv.user);
+		return this.http.post(url, params.body);
 	}
 
 	delete(params: ApiParams): Observable<any> {

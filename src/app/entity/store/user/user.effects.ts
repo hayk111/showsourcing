@@ -9,7 +9,11 @@ import { UserHttpService } from './user.http.service';
 
 @Injectable()
 export class UserEffects {
-
+	@Effect({ dispatch: false })
+	patch$ = this.actions$.ofType<any>(ActionType.PATCH).pipe(
+		map(action => action.payload),
+		switchMap(patch => this.srv.patch(patch))
+	);
 
 	constructor(
 		private actions$: Actions,

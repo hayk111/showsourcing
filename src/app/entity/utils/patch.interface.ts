@@ -1,5 +1,5 @@
 export interface Patch {
-	id: string;
+	id?: string;
 	propName: string;
 	value: any;
 }

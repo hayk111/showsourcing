@@ -6,9 +6,10 @@ import { EntityModule } from '~entity/entity.module';
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { SharedModule } from '~app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-	imports: [SharedModule],
+	imports: [SharedModule, ReactiveFormsModule],
 	providers: [UserService],
 	declarations: [UserSettingsComponent],
 	exports: [],

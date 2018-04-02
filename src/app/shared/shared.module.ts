@@ -4,7 +4,7 @@ import { IconsModule } from '~app/shared/icons';
 import { LoadersModule } from '~app/shared/loaders';
 import { UtilsModule } from '~app/shared/utils';
 import { CardModule } from '~app/shared/card';
-import { EntityModule } from '~app/entity';
+import { EntityModule } from '~app/entity/entity.module';
 import { InputsModule } from '~app/shared/inputs';
 import { PriceModule } from '~app/shared/price';
 import { EditableFieldModule } from '~app/shared/editable-field';
