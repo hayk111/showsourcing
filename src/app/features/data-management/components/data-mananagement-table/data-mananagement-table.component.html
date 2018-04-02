@@ -1,14 +1,22 @@
+<div class="flex flexCenter searchBox">
+	<icon-app (click)="searchInp.focus()" name="search" size="l" fa="true"></icon-app>
+	<input #searchInp type="search" (input)="search(searchInp.value)"/>
+</div>
 
-<input type="search" (input)="search($event.target.value)"/>
 
 <article class="flex flexCenter" *ngFor="let item of availableItems">
   <checkbox-app (check)="onCheck(item)" (uncheck)="onUncheck(item)"></checkbox-app>
 
-	<editable-text-app>
-		<label-app> {{ item.name }} </label-app>
-		<input #inp type="text" [value]="item.name"/>
-		<button class="small" (click)="onUpdate(item.id, inp.value)">done</button>
+	<editable-text-app #editable [editOnClick]="false" (click)="inp.focus()">
+		<label-app class="flexBetween">
+			<span>{{ item.name }}</span>
+			<icon-app name="edit" fa="true" color="txt-secondary" class="edit pointer" (click)="editable.open()"></icon-app>
+		</label-app>
+		<div class="flex flexCenter">
+			<input #inp type="text" [value]="item.name" (keyup.enter)="onUpdate(item.id, inp.value)"/>
+			<button class="small done" (click)="onUpdate(item.id, inp.value); editable.close()">done</button>
+		</div>
 	</editable-text-app>
 
-	<icon-app name="trash-alt" fa="true" (click)="delete(item)" class="pointer"></icon-app>
+	<icon-app name="trash-alt" fa="true" (click)="delete(item)" class="pointer" color="txt-secondary"></icon-app>
 </article>

@@ -3,13 +3,43 @@
 }
 
 article {
-	padding: var(--spacing-s);
+	padding: var(--spacing-default) var(--spacing-s);
+	margin: 0  var(--spacing-default);
+	border-bottom: 1px solid var(--color-delimiter);
 }
 
 article:hover {
 	background: var(--color-bg-third);
 }
 
+.searchBox {
+	border-bottom: 1px solid var(--color-delimiter);
+	input {
+		background: transparent;
+		border: none;
+	}
+}
+
 editable-text-app {
 	flex-grow: 1;
+	.edit {
+		display: none;
+	}
+	label-app {
+		width: 100%;
+	}
+	input {
+		margin: 0;
+    height: 1.8rem;
+	}
+	.done {
+		height: 1rem;
+		color: var(--color-primary);
+		background: transparent;
+	}
 }
+
+editable-text-app:hover .edit {
+	display: block;
+}
+

@@ -42,6 +42,7 @@ export class DataManagementPageComponent implements OnInit {
 	select(entity: EntityRepresentation) {
 		this.selectedEntity = entity;
 		this.items$ = this.store.select(selectEntityArray(entity));
+		this.resetSelection();
 	}
 
 	removeItem(id: string) {
