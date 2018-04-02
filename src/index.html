@@ -27,6 +27,7 @@
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<style>
+		/* we put the styles here for faster rendering. If http2 is used we could move it in a separate file */
 		body {
 			color: #182844;
 			padding: 0;
@@ -108,9 +109,15 @@
 		.temp .path {
 			stroke-dasharray: 1, 200;
 			stroke-dashoffset: 0;
-			animation: dash 1.5s ease-in-out infinite;
+			animation: dash 1.5s ease-in-out infinite,
+				colors 2s ease-in-out infinite;
 			stroke-linecap: round;
-			stroke: #41AFFF;
+		}
+
+		@keyframes colors {
+			0% { stroke: #41AFFF; }
+			50% { stroke: rgb(95, 86, 223); }
+			100% { stroke: #41AFFF; }
 		}
 
 		@keyframes rotate {
@@ -241,7 +248,7 @@
 
 				<div class="loader">
 					<svg class="circular" viewBox="25 25 50 50">
-						<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+						<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
 					</svg>
 				</div>
 			</main>
