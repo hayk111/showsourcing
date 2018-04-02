@@ -2,5 +2,5 @@ import { makeEntityActionTypes, EntityActions, EntityActionTypes } from '../enti
 import { ERM } from '../entity.model';
 
 // Generating Action types constants wrapped inside one object
-export const fileActionType: EntityActionTypes = makeEntityActionTypes(ERM.file);
+export const fileActionType: EntityActionTypes = makeEntityActionTypes(ERM.file.entityName);
 export const fileActions = new EntityActions(fileActionType);

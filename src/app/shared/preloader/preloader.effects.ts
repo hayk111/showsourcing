@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
 import {
 	categoryActions,
-	countryActions,
 	currencyActions,
 	customFieldsActions,
 	eventActions,
@@ -23,6 +22,7 @@ import {
 import { take, mergeMap } from 'rxjs/operators';
 import { Effect, Actions } from '@ngrx/effects';
 import { ActionType } from './preloader.action';
+import { fromCountry } from '~app/entity/store/country/country.bundle';
 
 @Injectable()
 export class PreloaderEffects {
@@ -32,7 +32,7 @@ export class PreloaderEffects {
 	preload$ = this.actions$.ofType<any>(ActionType.PRELOAD).pipe(
 		mergeMap(_ => [
 			// static entities
-			countryActions.load(),
+			fromCountry.Actions.load(),
 			currencyActions.load(),
 			incoTermsActions.load(),
 			harbourActions.load(),

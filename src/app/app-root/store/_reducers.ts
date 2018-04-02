@@ -5,18 +5,19 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { dialogReducer } from '~dialog';
 import {
-	userReducer, teamReducer, teamMemberReducer, countryReducer, incoTermReducer,
+	userReducer, teamReducer, teamMemberReducer, incoTermReducer,
 	harbourReducer, currencyReducer, categoryReducer, eventReducer, tagReducer, supplierReducer,
 	productReducer, productStatusReducer, taskStatusReducer, taskTypeReducer, supplierStatusReducer, projectReducer,
 	taskReducer, customFieldReducer, fileReducer, imageReducer, commentReducer, focussedEntityReducer
 } from '~app/entity/store';
 import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~app/shared/filters/store/reducers';
+import { fromCountry } from '~app/entity/store/country/country.bundle';
 
 const entities = combineReducers({
 	user: userReducer,
 	team: teamReducer,
 	teamMember: teamMemberReducer,
-	country: countryReducer,
+	country: fromCountry.reducer,
 	incoTerm: incoTermReducer,
 	harbour: harbourReducer,
 	currency: currencyReducer,

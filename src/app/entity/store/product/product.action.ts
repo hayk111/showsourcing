@@ -3,21 +3,21 @@ import { EntityTarget, ERM } from '../entity.model';
 import { Project } from '../project';
 import { Tag } from '../tag';
 
-
+const entityName = ERM.product.entityName;
 // makes product action types
 export const actionTypes = {
-	...makeEntityActionTypes(ERM.product),
-	REQUEST_PDF: `[${ERM.product.entityName.capitalize()}] Requesting pdf...`,
-	REQUEST_FEEDBACK: `[${ERM.product.entityName.capitalize()}] Requesting feedback...`,
-	REQUEST_FEEDBACK_SUCCESS: `[${ERM.product.entityName.capitalize()}] Request feedback success...`,
-	VOTE: `[${ERM.product.entityName.capitalize()}] Voting...`,
-	CREATE_TAG: `[${ERM.product.entityName.capitalize()}] Creating tag for product...`,
-	ADD_TAG: `[${ERM.product.entityName.capitalize()}] Adding existing tag to product...`,
-	REMOVE_TAG: `[${ERM.product.entityName.capitalize()}] Removing tag from product...`,
-	CREATE_PROJECT: `[${ERM.product.entityName.capitalize()}] Creating project for product...`,
-	ADD_PROJECT: `[${ERM.product.entityName.capitalize()}] Adding project to product...`,
-	REMOVE_PROJECT: `[${ERM.product.entityName.capitalize()}] Removing project from product...`,
-	LOAD_LATEST_FOR_TARGET: `[${ERM.product.entityName.capitalize()}] Loading latest for supplier...`
+	...makeEntityActionTypes(entityName),
+	REQUEST_PDF: `[${entityName.capitalize()}] Requesting pdf...`,
+	REQUEST_FEEDBACK: `[${entityName.capitalize()}] Requesting feedback...`,
+	REQUEST_FEEDBACK_SUCCESS: `[${entityName.capitalize()}] Request feedback success...`,
+	VOTE: `[${entityName.capitalize()}] Voting...`,
+	CREATE_TAG: `[${entityName.capitalize()}] Creating tag for product...`,
+	ADD_TAG: `[${entityName.capitalize()}] Adding existing tag to product...`,
+	REMOVE_TAG: `[${entityName.capitalize()}] Removing tag from product...`,
+	CREATE_PROJECT: `[${entityName.capitalize()}] Creating project for product...`,
+	ADD_PROJECT: `[${entityName.capitalize()}] Adding project to product...`,
+	REMOVE_PROJECT: `[${entityName.capitalize()}] Removing project from product...`,
+	LOAD_LATEST_FOR_TARGET: `[${entityName.capitalize()}] Loading latest for supplier...`
 };
 
 

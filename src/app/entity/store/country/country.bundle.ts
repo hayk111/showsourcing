@@ -1,4 +1,4 @@
-// import { makeEntityBundle } from '../entity-bundle';
-// import { ERM } from '~app/entity';
+import { makeEntityBundle } from '../entity-bundle';
+import { ERM } from '~app/entity/store/entity.model';
 
-// makeEntityBundle(ERM.countries)
+export const fromCountry = makeEntityBundle(ERM.country.entityName);

@@ -4,16 +4,18 @@ import { TypedAction } from '~utils';
 import { Tag } from '~app/entity/store/tag';
 import { Category } from '~app/entity/store/category';
 
+const entityName = ERM.supplier.entityName;
+
 export const supplierActionTypes = {
-	...makeEntityActionTypes(ERM.supplier),
-	LOAD_PRODUCT_COUNT: `[${ERM.supplier.entityName.capitalize()}] Loading product count...`,
-	ADD_PRODUCT_COUNT: `[${ERM.supplier.entityName.capitalize()}] Setting product count...`,
-	CREATE_TAG: `[${ERM.product.entityName.capitalize()}] Creating tag for supplier...`,
-	ADD_TAG: `[${ERM.product.entityName.capitalize()}] Adding existing tag to supplier...`,
-	REMOVE_TAG: `[${ERM.product.entityName.capitalize()}] Removing tag from supplier...`,
-	CREATE_CATEGORY: `[${ERM.product.entityName.capitalize()}] Creating category for supplier...`,
-	ADD_CATEGORY: `[${ERM.product.entityName.capitalize()}] Adding existing category to supplier...`,
-	REMOVE_CATEGORY: `[${ERM.product.entityName.capitalize()}] Removing category from supplier...`,
+	...makeEntityActionTypes(entityName),
+	LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count...`,
+	ADD_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
+	CREATE_TAG: `[${entityName.capitalize()}] Creating tag for supplier...`,
+	ADD_TAG: `[${entityName.capitalize()}] Adding existing tag to supplier...`,
+	REMOVE_TAG: `[${entityName.capitalize()}] Removing tag from supplier...`,
+	CREATE_CATEGORY: `[${entityName.capitalize()}] Creating category for supplier...`,
+	ADD_CATEGORY: `[${entityName.capitalize()}] Adding existing category to supplier...`,
+	REMOVE_CATEGORY: `[${entityName.capitalize()}] Removing category from supplier...`,
 };
 
 class SupplierActions extends EntityActions {

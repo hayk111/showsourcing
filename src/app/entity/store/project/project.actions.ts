@@ -2,13 +2,14 @@ import { makeEntityActionTypes, EntityActions, EntityActionTypes } from '../enti
 import { ERM, EntityRepresentation } from '../entity.model';
 import { TypedAction } from '~utils';
 
+export const entityName = ERM.project.entityName;
 // makes project action types
 export const projectActionTypes = {
-	...makeEntityActionTypes(ERM.project),
-	LOAD_PRODUCT_COUNT: `[${ERM.project.entityName.capitalize()}] Loading product count...`,
-	SET_PRODUCT_COUNT: `[${ERM.project.entityName.capitalize()}] Setting product count...`,
-	ADD_PRODUCTS: `[${ERM.project.entityName.capitalize()}] Adding Product to project...`,
-	ADD_PRODUCTS_SUCCESS: `[${ERM.project.entityName.capitalize()}] Successfully adding product to project...`,
+	...makeEntityActionTypes(entityName),
+	LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count...`,
+	SET_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
+	ADD_PRODUCTS: `[${entityName.capitalize()}] Adding Product to project...`,
+	ADD_PRODUCTS_SUCCESS: `[${entityName.capitalize()}] Successfully adding product to project...`,
 };
 
 // ----------------------------------------------------------------------------

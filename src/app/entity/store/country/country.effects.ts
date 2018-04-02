@@ -1,6 +1,6 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { countryActionTypes as ActionType, countryActions } from './country.action';
+import { fromCountry } from './country.bundle';
 import { switchMap, map } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
@@ -9,10 +9,10 @@ import { ERM } from '~entity/store/entity.model';
 export class CountryEffects {
 	@Effect()
 	load$ = this.action$
-		.ofType<any>(ActionType.LOAD)
+		.ofType<any>(fromCountry.ActionTypes.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load({ target: ERM.country })),
-			map((result: any) => countryActions.add(result))
+			map((result: any) => fromCountry.Actions.add(result))
 		);
 
 	constructor(private action$: Actions, private srv: EntityService) { }

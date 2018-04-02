@@ -35,24 +35,24 @@ export interface EntityActionTypes {
 }
 
 // makes basic action types
-export function makeEntityActionTypes(repr: EntityRepresentation): EntityActionTypes {
+export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 	// using uppercase for backward compatibility with enums
 	return {
-		FOCUS: `[${repr.entityName.capitalize()}] Focussing...`,
-		LOAD: `[${repr.entityName.capitalize()}] Loading...`,
-		LOAD_MORE: `[${repr.entityName.capitalize()}] Loading more...`,
-		LOAD_BY_ID: `[${repr.entityName.capitalize()}] Loading by id...`,
-		LOAD_FOR_SELECTION: `[${repr.entityName.capitalize()}] Loading for current selection`,
-		SET: `[${repr.entityName.capitalize()} Setting...]`,
-		ADD: `[${repr.entityName.capitalize()}] Adding...`,
-		CREATE: `[${repr.entityName.capitalize()}] Creating...`,
-		REPLACE: `[${repr.entityName.capitalize()}] Replacing...`,
-		DELETE: `[${repr.entityName.capitalize()}] Deleting...`,
-		SET_PENDING: `[${repr.entityName.capitalize()}] Setting pending...`,
-		PATCH: `[${repr.entityName.capitalize()}] Patching...`,
-		DOWNLOAD: `[${repr.entityName.capitalize()}] Downloading...`,
-		MERGE: `[${repr.entityName.capitalize()}] Merging...`,
-		RESET: `[${repr.entityName.capitalize()}] RESET...`
+		FOCUS: `[${entityName.capitalize()}] Focussing...`,
+		LOAD: `[${entityName.capitalize()}] Loading...`,
+		LOAD_MORE: `[${entityName.capitalize()}] Loading more...`,
+		LOAD_BY_ID: `[${entityName.capitalize()}] Loading by id...`,
+		LOAD_FOR_SELECTION: `[${entityName.capitalize()}] Loading for current selection`,
+		SET: `[${entityName.capitalize()} Setting...]`,
+		ADD: `[${entityName.capitalize()}] Adding...`,
+		CREATE: `[${entityName.capitalize()}] Creating...`,
+		REPLACE: `[${entityName.capitalize()}] Replacing...`,
+		DELETE: `[${entityName.capitalize()}] Deleting...`,
+		SET_PENDING: `[${entityName.capitalize()}] Setting pending...`,
+		PATCH: `[${entityName.capitalize()}] Patching...`,
+		DOWNLOAD: `[${entityName.capitalize()}] Downloading...`,
+		MERGE: `[${entityName.capitalize()}] Merging...`,
+		RESET: `[${entityName.capitalize()}] Resetting...`
 	};
 }
 
