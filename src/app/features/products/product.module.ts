@@ -58,7 +58,6 @@ import { SharedModule } from '~app/shared/shared.module';
 		EffectsModule.forFeature([ProductEffects]),
 		StatusModule.forChild(),
 		FileModule.forChild(), // file card used
-		EditableFieldModule, // used in details
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list

@@ -12,13 +12,14 @@ import { UserPanelComponent } from './components';
 import { UserModule } from '~app/features/user';
 import { SharedModule } from '~app/shared/shared.module';
 import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
+import { UserPictureModule } from '~app/shared/user-picture';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		SearchBarAnimatedModule,
 		RouterModule.forChild([]),
-		UserModule.forChild(),
+		UserPictureModule
 	],
 	declarations: [HeaderComponent, NotifComponent, UserInfoComponent, UserPanelComponent],
 	exports: [HeaderComponent],

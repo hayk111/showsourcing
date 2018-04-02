@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { SelectorComponent } from '~app/shared/selectors/components/selector/selector.component';
 import { Entity, Project, Tag } from '~entity';
+import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
 
 @Component({
 	selector: 'editable-field-app',

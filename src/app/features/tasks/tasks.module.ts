@@ -15,19 +15,16 @@ import { routes } from './router';
 import { TableModule } from '~app/shared/table';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { NewTaskDlgComponent } from '~app/features/tasks/containers';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		RouterModule.forChild([]),
 		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
-		EntityModule.forChild(),
-		EntityPagesModule,
-		UtilsModule, // TODO REMOVE UNUSED MODULES
-		LoadersModule, // TODO REMOVE UNUSED MODULES
-		SelectionBarModule, // TODO REMOVE UNUSED MODULES
+		EntityPagesModule, // used for bread crumb etc
+		SelectionBarModule, // used for selection at the bottom
 		DialogModule, // TODO REMOVE UNUSED MODULES
-		InputsModule, // TODO REMOVE UNUSED MODULES
 		TableModule, // used by list
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],

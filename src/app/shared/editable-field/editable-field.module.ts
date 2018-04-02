@@ -13,6 +13,8 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 import { BadgeModule } from '~app/shared/badge/badge.module';
 import { CellOneRowComponent } from '~app/shared/editable-field/components/cell-one-row/cell-one-row.component';
 import { CellTwoRowComponent } from '~app/shared/editable-field/components/cell-two-row/cell-two-row.component';
+import { UserPictureModule } from '~app/shared/user-picture';
+import { EditableTextComponent } from '~app/shared/editable-field/components/editable-text/editable-text.component';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -23,8 +25,9 @@ import { CellTwoRowComponent } from '~app/shared/editable-field/components/cell-
 		BadgeModule, // used to display a badge in the status selector
 		UtilsModule, // click outside directive used
 		EntityModule.forChild(), // pipes
+		UserPictureModule, // used in editable field type user
 	],
-	declarations: [EditableFieldComponent, CellOneRowComponent, CellTwoRowComponent],
-	exports: [EditableFieldComponent, CellOneRowComponent, CellTwoRowComponent],
+	declarations: [EditableFieldComponent, EditableTextComponent, CellOneRowComponent, CellTwoRowComponent],
+	exports: [EditableFieldComponent, EditableTextComponent, CellOneRowComponent, CellTwoRowComponent],
 })
 export class EditableFieldModule { }

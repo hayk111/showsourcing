@@ -3,15 +3,15 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityModule } from '~entity/entity.module';
 
-import { UserPictureComponent } from './components';
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
-	imports: [CommonModule, EntityModule.forChild()],
+	imports: [SharedModule],
 	providers: [UserService],
-	declarations: [UserPictureComponent, UserSettingsComponent],
-	exports: [UserPictureComponent],
+	declarations: [UserSettingsComponent],
+	exports: [],
 })
 export class UserModule {
 	static forRoot(): ModuleWithProviders {

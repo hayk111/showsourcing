@@ -18,7 +18,7 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { TagModule } from '~shared/tag';
 import { UtilsModule } from '~shared/utils';
 
-import { NewSupplierDlgComponent, SupplierListViewComponent, SupplierStatusIconComponent } from './components';
+import { NewSupplierDlgComponent, SupplierListViewComponent } from './components';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
 import { SupplierContactComponent } from './components/supplier-contact/supplier-contact.component';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
@@ -28,7 +28,6 @@ import { SupplierMainHeaderComponent } from './components/supplier-main/supplier
 import { SupplierMainInfoComponent } from './components/supplier-main/supplier-main-info/supplier-main-info.component';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
-import { SupplierPicturesComponent } from './components/supplier-pictures/supplier-pictures.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { routes } from './routes';
 import { CarouselModule } from '~app/shared/carousel';
@@ -54,7 +53,6 @@ import { SharedModule } from '~app/shared/shared.module';
 	],
 	declarations: [
 		SupplierDetailsComponent,
-		SupplierStatusIconComponent,
 		NewSupplierDlgComponent,
 		SuppliersPageComponent,
 		SupplierListViewComponent,
@@ -67,10 +65,9 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierInfosComponent,
 		SupplierContactCardComponent,
 		SupplierContactComponent,
-		SupplierPicturesComponent,
 		SupplierNewContactDlgComponent,
 	],
-	exports: [SupplierStatusIconComponent, NewSupplierDlgComponent, SuppliersPageComponent],
+	exports: [SuppliersPageComponent],
 	providers: [],
 })
 export class SuppliersModule {
