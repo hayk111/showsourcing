@@ -7,7 +7,9 @@ import { Swap } from '~entity/utils';
 import { EntityTarget } from '../entity.model';
 import { FocussedEntityService } from '../focussed-entity/focussed-entity.service';
 import { AppImage } from './image.model';
-import { imageActions, imageActionTypes } from './image.action';
+import { fromImage } from './image.bundle';
+
+const imageActionTypes = fromImage.ActionTypes;
 
 @Injectable()
 export class ImageEffects {
@@ -19,7 +21,7 @@ export class ImageEffects {
 		.pipe(
 			switchMap(_ => this.selectionSrv.getSelection()),
 			switchMap((target: EntityTarget) => this.srv.load(target)),
-			map((files: Array<AppImage>) => imageActions.set(files))
+			map((files: Array<AppImage>) => fromImage.Actions.set(files))
 		);
 
 	@Effect()
@@ -28,7 +30,7 @@ export class ImageEffects {
 		withLatestFrom(this.selectionSrv.getSelection(), (files, target) => ({ files, target })),
 		switchMap((p: any) =>
 			this.srv.uploadFiles(p).pipe(
-				map((swaps: Array<Swap>) => imageActions.replace(swaps))
+				map((swaps: Array<Swap>) => fromImage.Actions.replace(swaps))
 				// we can't catch error because there will be errors..
 				// catchError(e => of(AppErrorActions.add(e)))
 			)
@@ -42,7 +44,7 @@ export class ImageEffects {
 			map(action => action.payload),
 			switchMap(
 				img => this.srv.rotate(img),
-				(old: AppImage, replacing: AppImage) => imageActions.replace([new Swap(old, replacing)])
+				(old: AppImage, replacing: AppImage) => fromImage.Actions.replace([new Swap(old, replacing)])
 			)
 		);
 

@@ -10,9 +10,11 @@ export const supplierActionTypes = {
 	...makeEntityActionTypes(entityName),
 	LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count...`,
 	ADD_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
+	// tag
 	CREATE_TAG: `[${entityName.capitalize()}] Creating tag for supplier...`,
 	ADD_TAG: `[${entityName.capitalize()}] Adding existing tag to supplier...`,
 	REMOVE_TAG: `[${entityName.capitalize()}] Removing tag from supplier...`,
+	// category
 	CREATE_CATEGORY: `[${entityName.capitalize()}] Creating category for supplier...`,
 	ADD_CATEGORY: `[${entityName.capitalize()}] Adding existing category to supplier...`,
 	REMOVE_CATEGORY: `[${entityName.capitalize()}] Removing category from supplier...`,

@@ -54,7 +54,9 @@ export class FileHttpService {
 	}
 
 	private upload(data, type, file: AppFile | AppImage, target: EntityTarget) {
+		// first we get info regarding the AWS bucket
 		return this.getAWSInfo(data, type).pipe(
+			// once info are loaded then we can upload said file
 			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type, target))
 		);
 	}
@@ -76,7 +78,7 @@ export class FileHttpService {
 		});
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
-			filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
+			// filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
 			switchMap(_ => this.deleteToken(awsInfo)),
 			switchMap((imgInfo: any) => this.linkToItem(target, imgInfo.id, type).map(x => imgInfo))
 		);

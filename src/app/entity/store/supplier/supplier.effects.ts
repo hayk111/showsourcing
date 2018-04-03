@@ -35,7 +35,7 @@ export class SuppliersEffects {
 				fromFile.Actions.loadForSelection(),
 				fromImage.Actions.loadForSelection(),
 				taskActions.loadForSelection(),
-				productActions.loadLatestForTarget(target)
+				// productActions.loadLatestForTarget(target)
 			])
 		);
 

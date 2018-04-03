@@ -15,6 +15,9 @@ export class UserEffects {
 		switchMap(patch => this.srv.patch(patch))
 	);
 
+	// @Effect()
+	// uploadImage$ = this.actions$.ofType<any>(ActionType.UPLOAD_IMG)
+
 	constructor(
 		private actions$: Actions,
 		private srv: UserHttpService

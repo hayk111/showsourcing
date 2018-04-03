@@ -11,13 +11,14 @@ export const actionTypes = {
 	REQUEST_FEEDBACK: `[${entityName.capitalize()}] Requesting feedback...`,
 	REQUEST_FEEDBACK_SUCCESS: `[${entityName.capitalize()}] Request feedback success...`,
 	VOTE: `[${entityName.capitalize()}] Voting...`,
+	// tags
 	CREATE_TAG: `[${entityName.capitalize()}] Creating tag for product...`,
 	ADD_TAG: `[${entityName.capitalize()}] Adding existing tag to product...`,
 	REMOVE_TAG: `[${entityName.capitalize()}] Removing tag from product...`,
+	// projects
 	CREATE_PROJECT: `[${entityName.capitalize()}] Creating project for product...`,
 	ADD_PROJECT: `[${entityName.capitalize()}] Adding project to product...`,
 	REMOVE_PROJECT: `[${entityName.capitalize()}] Removing project from product...`,
-	LOAD_LATEST_FOR_TARGET: `[${entityName.capitalize()}] Loading latest for supplier...`
 };
 
 
@@ -90,13 +91,6 @@ class ProductActions extends EntityActions {
 		return {
 			type: this.actionType.REMOVE_PROJECT,
 			payload: { project, productId },
-		};
-	}
-
-	loadLatestForTarget(target: EntityTarget) {
-		return {
-			type: this.actionType.LOAD_LATEST_FOR_TARGET,
-			payload: target
 		};
 	}
 }

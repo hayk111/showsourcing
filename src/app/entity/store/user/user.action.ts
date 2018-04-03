@@ -6,7 +6,8 @@ import { Patch } from '~app/entity/utils/patch.interface';
 export enum ActionType {
 	SET_USER = '[User] setting',
 	RESET_USER = '[User] resetting',
-	PATCH = '[User] patching'
+	PATCH = '[User] patching',
+	UPLOAD_IMG = '[User] uploading image',
 }
 
 export class UserActions {

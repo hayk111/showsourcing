@@ -164,14 +164,14 @@ export class ProductEffects {
 			)
 		);
 
-	@Effect()
-	loadLatestForTarget$ = this.actions$
-		.ofType<any>(actionTypes.LOAD_LATEST_FOR_TARGET)
-		.pipe(
-			map(action => action.payload),
-			switchMap(supplierId => this.srv.loadLatestForTarget(supplierId).pipe(startWith(productActions.reset()))),
-			map((r: any) => productActions.set(r))
-		);
+	// @Effect()
+	// loadLatestForTarget$ = this.actions$
+	// 	.ofType<any>(actionTypes.LOAD_LATEST_FOR_TARGET)
+	// 	.pipe(
+	// 		map(action => action.payload),
+	// 		switchMap(supplierId => this.srv.loadLatestForTarget(supplierId).pipe(startWith(productActions.reset()))),
+	// 		map((r: any) => productActions.set(r))
+	// 	);
 
 	constructor(
 		private srv: ProductHttpService,
