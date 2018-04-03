@@ -1,13 +1,13 @@
-
-import { FilterEntityPanelEffects } from '~shared/filters/store/effects/filter-entity-panel.effects';
 import { AppErrorsEffects } from '~app/shared/error-handler';
 import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
+import { FilterEntityPanelEffects } from '~shared/filters/store/effects/filter-entity-panel.effects';
 import {
-	TaskEffects, TeamEffects, UserEffects, CountryEffects, CurrencyEffects, HarbourEffects,
-	IncoTermsEffects, CustomFieldsEffects, TeamMembersEffects, CategoryEffects, EventEffects, TagEffects,
-	ProjectEffects, SuppliersEffects, FilesEffects, CommentEffects, TaskStatusEffects, ImageEffects, ProductStatusEffects,
-	SupplierStatusEffects, TaskTypeEffects
-} from '~app/entity/store';
+	TaskEffects, TeamEffects, UserEffects, CategoryEffects, CountryEffects, CurrencyEffects, HarbourEffects, IncoTermsEffects,
+	TeamMembersEffects, CustomFieldsEffects, EventEffects, TagEffects, ProjectEffects, FilesEffects, SuppliersEffects,
+	ImageEffects, CommentEffects, ProductStatusEffects, TaskStatusEffects, SupplierStatusEffects, TaskTypeEffects
+} from '~app/entity';
+
+
 export const effects = [
 	// entities
 	TaskEffects,
@@ -36,7 +36,6 @@ export const effects = [
 	AppErrorsEffects,
 	// PreloaderEffects,
 	FilterEntityPanelEffects,
-
 	// UI
 	NotificationEffects,
 ];

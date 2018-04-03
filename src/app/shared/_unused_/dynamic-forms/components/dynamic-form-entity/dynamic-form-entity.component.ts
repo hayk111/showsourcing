@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Entity, EntityTarget, FormDescriptor, FormGroupDescriptor, selectCustomField, selectEntityById } from '~entity';
+import { Entity, EntityTarget, FormDescriptor, FormGroupDescriptor, selectEntityById } from '~entity';
 import { AutoUnsub } from '~utils';
 
 @Component({

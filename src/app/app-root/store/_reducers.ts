@@ -3,15 +3,20 @@ import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/s
 import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
+import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 import { dialogReducer } from '~dialog';
 import {
-	userReducer, teamReducer, teamMemberReducer, incoTermReducer,
-	harbourReducer, currencyReducer, categoryReducer, eventReducer, tagReducer, supplierReducer,
-	productReducer, productStatusReducer, taskStatusReducer, taskTypeReducer, supplierStatusReducer, projectReducer,
-	taskReducer, customFieldReducer, fileReducer, imageReducer, commentReducer, focussedEntityReducer
-} from '~app/entity/store';
-import { filtersReducer, filterPanelReducer, filterEntityPanelReducer } from '~app/shared/filters/store/reducers';
-import { fromCountry } from '~app/entity/store/country/country.bundle';
+	userReducer, teamReducer, fromCountry, teamMemberReducer, incoTermReducer, harbourReducer, fromCurrency,
+	fromCategory, eventReducer, tagReducer, supplierReducer, productReducer, productStatusReducer, taskStatusReducer,
+	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fileReducer, imageReducer,
+	fromComment, focussedEntityReducer
+} from '~app/entity';
+
+
+
+const misc = combineReducers({
+	filters: filtersReducer,
+});
 
 const entities = combineReducers({
 	user: userReducer,
@@ -20,27 +25,23 @@ const entities = combineReducers({
 	country: fromCountry.reducer,
 	incoTerm: incoTermReducer,
 	harbour: harbourReducer,
-	currency: currencyReducer,
-	category: categoryReducer,
+	currency: fromCurrency.reducer,
+	category: fromCategory.reducer,
 	event: eventReducer,
 	tag: tagReducer,
 	supplier: supplierReducer,
 	product: productReducer,
 
 	productStatus: productStatusReducer,
-	tasksStatus: taskStatusReducer,
+	taskStatus: taskStatusReducer,
 	taskType: taskTypeReducer,
 	supplierStatus: supplierStatusReducer,
 	project: projectReducer,
 	task: taskReducer,
-	customField: customFieldReducer,
+	customField: fromCustomField.reducer,
 	file: fileReducer,
 	image: imageReducer,
-	comment: commentReducer,
-});
-
-const misc = combineReducers({
-	filters: filtersReducer,
+	comment: fromComment.reducer,
 });
 
 const ui = combineReducers({

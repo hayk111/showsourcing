@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { customFieldsActionTypes as ActionType, customFieldsActions } from './custom-fields.action';
-import { CustomFieldsHttpService } from './custom-fields-http.service';
+import { fromCustomField } from './custom-field.bundle';
+import { CustomFieldsHttpService } from './custom-field-http.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -9,8 +9,8 @@ import { Store } from '@ngrx/store';
 export class CustomFieldsEffects {
 	@Effect()
 	load$ = this.actions$
-		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => customFieldsActions.add(result)));
+		.ofType<any>(fromCustomField.ActionTypes.LOAD)
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => fromCustomField.Actions.add(result)));
 
 	constructor(private actions$: Actions, private srv: CustomFieldsHttpService, private store: Store<any>) { }
 }

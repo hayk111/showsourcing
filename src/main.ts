@@ -12,7 +12,6 @@ import { environment } from './environments/environment';
 
 declare let module: any;
 
-
 let _decorateModuleRef = function identity<T>(value: T): T {
 	return value;
 };

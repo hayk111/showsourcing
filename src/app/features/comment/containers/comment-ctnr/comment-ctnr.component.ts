@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { EntityState, AppComment, commentActions, selectComments } from '~entity';
+import { EntityState, AppComment, fromComment } from '~entity';
 import { entityStateToArray } from '~entity/utils';
 import { UserService } from '~app/features/user';
 
@@ -20,7 +20,7 @@ export class CommentCtnrComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		const commentsState$ = this.store.select(selectComments);
+		const commentsState$ = this.store.select(fromComment.selectState);
 
 		this.comments$ = commentsState$.pipe(
 			map((commentState: EntityState<AppComment>) => entityStateToArray(commentState)),
@@ -32,7 +32,7 @@ export class CommentCtnrComponent implements OnInit {
 	}
 
 	onComment() {
-		this.store.dispatch(commentActions.create(new AppComment(this.ctrl.value, this.userSrv.userId)));
+		this.store.dispatch(fromComment.Actions.create(new AppComment(this.ctrl.value, this.userSrv.userId)));
 		this.ctrl.reset();
 	}
 }

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { EntityRepresentation } from '~entity/store/entity.model';
-
-import { RegexpApp } from '~utils/regexes';
-
 import { FormControlDescriptor, FormDescriptor, FormGroupDescriptor } from '~entity';
-import { selectCustomField } from '~app/entity';
+import { EntityRepresentation } from '~entity/store/entity.model';
+import { RegexpApp } from '~utils/regexes';
 
 @Injectable()
 export class DynamicFormsService {

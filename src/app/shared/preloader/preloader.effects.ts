@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
 import {
-	categoryActions,
-	currencyActions,
-	customFieldsActions,
+	fromCategory,
+	fromCurrency,
+	fromCustomField,
 	eventActions,
 	harbourActions,
 	incoTermsActions,
@@ -24,6 +24,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import { ActionType } from './preloader.action';
 import { fromCountry } from '~app/entity/store/country/country.bundle';
 
+
 @Injectable()
 export class PreloaderEffects {
 	constructor(private actions$: Actions) { }
@@ -33,7 +34,7 @@ export class PreloaderEffects {
 		mergeMap(_ => [
 			// static entities
 			fromCountry.Actions.load(),
-			currencyActions.load(),
+			fromCurrency.Actions.load(),
 			incoTermsActions.load(),
 			harbourActions.load(),
 			taskTypeActions.load(),
@@ -43,8 +44,8 @@ export class PreloaderEffects {
 			// user entities
 			teamActions.load(),
 			// team entities
-			categoryActions.load(),
-			customFieldsActions.load(),
+			fromCategory.Actions.load(),
+			fromCustomField.Actions.load(),
 			supplierActions.load(),
 			eventActions.load(),
 			projectActions.load(),

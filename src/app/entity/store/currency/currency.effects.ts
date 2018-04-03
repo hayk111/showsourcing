@@ -4,7 +4,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { ERM } from '~entity/store/entity.model';
 import { EntityService } from '~entity/store/entity.service';
 
-import { currencyActions, currencyActionTypes as ActionType } from './currency.action';
+import { fromCurrency } from './currency.bundle';
+
+const ActionType = fromCurrency.ActionTypes;
 
 @Injectable()
 export class CurrencyEffects {
@@ -13,7 +15,7 @@ export class CurrencyEffects {
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load({ target: ERM.currency })),
-			map((result: any) => currencyActions.add(result))
+			map((result: any) => fromCurrency.Actions.add(result))
 		);
 
 	constructor(private action$: Actions, private srv: EntityService) { }

@@ -10,7 +10,7 @@ import { actionTypes, productActions } from './product.action';
 import { ProductHttpService } from '~app/entity/store/product/product-http.service';
 import { ERM } from '~app/entity/store/entity.model';
 import { focussedEntityAction } from '~entity/store/focussed-entity';
-import { commentActions } from '~entity/store/comment';
+import { fromComment } from '~entity/store/comment';
 import { fileActions } from '~entity/store/file/file.action';
 import { imageActions } from '~entity/store/image/image.action';
 import { taskActions } from '~entity/store/task/task.action';
@@ -33,7 +33,7 @@ export class ProductEffects {
 			mergeMap(target => [
 				focussedEntityAction.focus(target),
 				productActions.loadById(target.entityId),
-				commentActions.loadForSelection(),
+				fromComment.Actions.loadForSelection(),
 				fileActions.loadForSelection(),
 				imageActions.loadForSelection(),
 				taskActions.loadForSelection(),

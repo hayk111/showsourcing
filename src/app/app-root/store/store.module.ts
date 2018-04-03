@@ -11,7 +11,7 @@ import { ModuleWithProviders } from '@angular/core';
 @NgModule({
 	imports: [
 		CommonModule,
-		StoreModule.forRoot(reducerToken, { metaReducers }),
+		StoreModule.forRoot(reducerToken),
 		EffectsModule.forRoot(effects),
 		StoreDevtoolsModule.instrument({
 			maxAge: 2,

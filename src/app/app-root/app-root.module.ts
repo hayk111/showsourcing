@@ -6,31 +6,30 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
-import { NotificationsModule } from '~shared/notifications';
 import { environment } from 'environments/environment';
+import { EntityModule } from '~app/entity';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
+import { ProductModule } from '~app/features/products';
+import { ProjectModule } from '~app/features/project';
+import { SuppliersModule } from '~app/features/supplier';
+import { TasksModule } from '~app/features/tasks';
+import { UserModule } from '~app/features/user';
+import { HmrModule } from '~app/shared/hmr/hmr.module';
+import { PreloaderModule } from '~app/shared/preloader/preloader.module';
 import { AuthGuardService, AuthModule } from '~auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
+import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
 import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
-import { CommentModule } from './../features/comment/comment.module';
 import { EventModule } from './../features/event/event.module';
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { PreloaderModule } from '~app/shared/preloader/preloader.module';
-import { HmrModule } from '~app/shared/hmr/hmr.module';
-import { EntityModule } from '~app/entity';
-import { UserModule } from '~app/features/user';
-import { ProductModule } from '~app/features/products';
-import { ProjectModule } from '~app/features/project';
-import { TasksModule } from '~app/features/tasks';
-import { SuppliersModule } from '~app/features/supplier';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?
@@ -40,7 +39,7 @@ declare let module: any;
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppStoreModule.forRoot(),
+		AppStoreModule,
 		AuthModule.forRoot(),
 		PreloaderModule.forRoot(),
 		HmrModule.forRoot(),

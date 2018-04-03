@@ -9,7 +9,7 @@ import { appErrorActions } from '~app/shared/error-handler';
 import { EntityService } from '~entity/store/entity.service';
 import { Swap } from '~entity/utils';
 
-import { commentActions } from '../comment';
+import { fromComment } from '../comment';
 import { fileActions } from '../file';
 import { focussedEntityAction } from '../focussed-entity';
 import { imageActions } from '../image';
@@ -18,7 +18,7 @@ import { taskActions } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
 import { tagActions } from '~app/entity/store/tag';
-import { categoryActions } from '~app/entity/store/category';
+import { fromCategory } from '~app/entity/store/category';
 
 @Injectable()
 export class SuppliersEffects {
@@ -31,7 +31,7 @@ export class SuppliersEffects {
 			map(id => ({ entityId: id, entityRepr: ERM.supplier })),
 			mergeMap((target: EntityTarget) => [
 				focussedEntityAction.focus(target),
-				commentActions.loadForSelection(),
+				fromComment.Actions.loadForSelection(),
 				fileActions.loadForSelection(),
 				imageActions.loadForSelection(),
 				taskActions.loadForSelection(),
@@ -129,7 +129,7 @@ export class SuppliersEffects {
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), categoryActions.add([r])]))
+					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), fromCategory.Actions.add([r])]))
 			)
 		);
 	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
