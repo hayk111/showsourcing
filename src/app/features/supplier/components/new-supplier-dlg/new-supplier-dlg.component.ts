@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DialogActions, DialogName } from '~shared/dialog';
-import { Supplier, supplierActions } from '~supplier';
+import { DialogActions } from '~shared/dialog/store/dialog.action';
+import { DialogName } from '~shared/dialog/models';
+import { supplierActions } from '~supplier/supplier.action';
+import { Supplier } from '~supplier/supplier.model';
 import { UserService } from '~app/features/user';
+import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
-// TODO, make this dumb component ? Or should be in container.
+const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
+
 @Component({
 	selector: 'new-supplier-dlg-app',
 	templateUrl: './new-supplier-dlg.component.html',
@@ -32,3 +36,5 @@ export class NewSupplierDlgComponent implements OnInit {
 		}
 	}
 }
+
+addDlg();

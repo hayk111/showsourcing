@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { dialogReducer } from '~app/shared/dialog/store/dialog.reducer';
 import { IconsModule } from '~app/shared/icons';
 import { DialogModalComponent } from './containers/dialog-modal/dialog-modal.component';
+import { ConfirmDialogComponent } from './containers/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -21,8 +22,10 @@ import { DialogModalComponent } from './containers/dialog-modal/dialog-modal.com
 		DialogComponent,
 		DialogContainerComponent,
 		DialogHostDirective,
-		DialogModalComponent
+		DialogModalComponent,
+		ConfirmDialogComponent
 	],
+	entryComponents: [ConfirmDialogComponent],
 	exports: [
 		DialogComponent,
 		DialogContainerComponent

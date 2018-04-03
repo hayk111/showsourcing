@@ -9,7 +9,6 @@
 		(taskUnselect)="onItemUnselected($event)"
 		[selection]="selection"
 		[tasks]="tasks$ | async"></tasks-list-view-app>
-	<new-task-dlg-app></new-task-dlg-app>
 </entity-page-app>
 
 <selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">

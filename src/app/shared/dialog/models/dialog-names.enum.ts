@@ -1,4 +1,5 @@
 export enum DialogName {
+	CONFIRM = 'Confirm',
 	ADD_TO_PROJECT = 'Add to project',
 	EXPORT = 'export',
 	REQUEST_FEEDBACK = 'request feedback',

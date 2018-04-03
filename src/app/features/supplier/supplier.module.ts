@@ -68,6 +68,7 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierNewContactDlgComponent,
 	],
 	entryComponents: [
+		NewSupplierDlgComponent,
 		SupplierNewContactDlgComponent
 	],
 	exports: [

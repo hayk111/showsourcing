@@ -1,0 +1,10 @@
+<dialog-app [name]="dlgName">
+	<div content class="content">
+		{{ props.text || 'Are you sure ?'}}
+	</div>
+
+	<div footer>
+		<button class="warn z-h" (click)="onConfirm()">confirm</button>
+	</div>
+
+</dialog-app>

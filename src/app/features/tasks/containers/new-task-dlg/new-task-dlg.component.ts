@@ -1,11 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DialogActions, DialogName } from '~dialog';
+import { DialogActions } from '~dialog/store';
+import { DialogName } from '~dialog/models';
 import { ERM } from '~entity';
 
-import { Task, TaskParams } from '~task';
+import { Task, TaskParams, taskActions } from '~task';
 import { UserService } from '~app/features/user';
+import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+
+
+const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
 
 @Component({
 	selector: 'new-task-dlg-app',
@@ -13,8 +18,6 @@ import { UserService } from '~app/features/user';
 	styleUrls: ['./new-task-dlg.component.scss'],
 })
 export class NewTaskDlgComponent implements OnInit {
-	@Input() productId: string;
-	@Output() newTask = new EventEmitter<Task>();
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
 	g: Task;
@@ -33,7 +36,7 @@ export class NewTaskDlgComponent implements OnInit {
 			description: ['', Validators.required],
 			status: ['', Validators.required],
 			type: ['', Validators.required],
-			productId: [this.productId, Validators.required],
+			// productId: [this.productId, Validators.required],
 		});
 		this.group.reset();
 	}
@@ -43,7 +46,9 @@ export class NewTaskDlgComponent implements OnInit {
 			const value: TaskParams = this.group.value;
 			value.userId = this.userSrv.userId;
 			this.store.dispatch(DialogActions.close(DialogName.NEW_TASK));
-			this.newTask.emit(new Task(value));
+			this.store.dispatch(taskActions.create(new Task(value)));
 		}
 	}
 }
+
+addDlg();

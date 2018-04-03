@@ -38,6 +38,9 @@ button, input[type="submit"], .button {
 		color: var(--color-txt);
 		border: 1px solid var(--color-primary-light);
 	}
+	&.warn {
+		background: var(--color-warn);
+	}
 }
 
 // disabled buttons

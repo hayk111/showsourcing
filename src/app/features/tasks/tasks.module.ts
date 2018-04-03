@@ -28,6 +28,7 @@ import { SharedModule } from '~app/shared/shared.module';
 		TableModule, // used by list
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],
+	entryComponents: [NewTaskDlgComponent],
 	exports: [TasksListViewComponent],
 	providers: [],
 })

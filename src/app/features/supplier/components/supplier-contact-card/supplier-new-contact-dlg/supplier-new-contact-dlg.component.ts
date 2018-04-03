@@ -1,6 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
+import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+
+
+const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CONTACT);
+
 
 @Component({
 	selector: 'supplier-new-contact-dlg-app',
@@ -25,3 +30,5 @@ export class SupplierNewContactDlgComponent implements OnInit {
 	}
 
 }
+
+addDlg();
