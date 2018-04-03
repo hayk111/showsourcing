@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '~utils';
 import { DialogName } from '../../models/dialog-names.enum';
@@ -9,6 +9,7 @@ import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 	selector: 'dialog-app',
 	templateUrl: './dialog.component.html',
 	styleUrls: ['./dialog.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogComponent extends AutoUnsub implements OnInit {
 	@Input() closeIcon = true;

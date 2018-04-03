@@ -12,7 +12,7 @@ export function dialogReducer(state = initialState, action: TypedAction<any>) {
 		case ActionType.OPEN:
 			const name = action.payload.name;
 			const props = action.payload.props;
-			return { name, props };
+			return { ...state, name, props };
 		case ActionType.CLOSE:
 			return initialState;
 		default:

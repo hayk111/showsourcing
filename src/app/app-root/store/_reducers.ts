@@ -29,6 +29,7 @@ import {
 	userReducer,
 } from '~app/entity';
 import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
+import { dialogReducer } from '~app/shared/dialog';
 
 
 

@@ -7,6 +7,7 @@ import { DialogHostDirective } from './containers/dialog-host.directive';
 import { StoreModule } from '@ngrx/store';
 import { dialogReducer } from '~app/shared/dialog/store/dialog.reducer';
 import { IconsModule } from '~app/shared/icons';
+import { DialogModalComponent } from './containers/dialog-modal/dialog-modal.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { IconsModule } from '~app/shared/icons';
 	declarations: [
 		DialogComponent,
 		DialogContainerComponent,
-		DialogHostDirective
+		DialogHostDirective,
+		DialogModalComponent
 	],
 	exports: [
 		DialogComponent,

@@ -1,3 +1,5 @@
-<div (click)="close()" *ngIf="isOpen" class="modal">
+<!-- we have to use another component to wrap the template else the -->
+<dialog-modal-app [isOpen]="isOpen">
 	<ng-template dialogHostApp></ng-template>
-<div>
+<dialog-modal-app>
+
