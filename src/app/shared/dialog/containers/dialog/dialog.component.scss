@@ -36,17 +36,29 @@ dialog{
 .content {
   display: flex;
   align-items: center;
-  padding-bottom: 10px;
+	padding-bottom: 10px;
+	max-height: 366px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 600px;
+}
+
+.contentTitle {
+  padding: var(--spacing-xl);
+  font-size: var(--font-size-l);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
 }
 .footer {
-  background-color: var(--color-bg-grey);
+  background-color: var(--color-bg-third);
   padding: 0 var(--spacing-xl);
   height: 72px;
   display: flex;
-  align-items: center;
-
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
+
+
 
 

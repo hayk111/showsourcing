@@ -7,6 +7,15 @@
 [footer] {
 width: 100%;
 }
+
+.contentTitle {
+  padding: var(--spacing-xl);
+  font-size: var(--font-size-l);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
 [class^="icon-"],
 [class*=" icon-"] {
     color: var(--color-primary);
@@ -14,21 +23,13 @@ width: 100%;
     margin-right: 13px;
 }
 
-.contentTitle {
-  padding: var(--spacing-xl);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-primary);
-  text-transform: uppercase;
-}
-
 .contentRowBg {
   padding: 0 var(--spacing-xl);
   &.selected {
-      background-color: #F9FAFC;
-      .productNumber {
-          color: var(--color-primary);
-      }
+		background-color: #F9FAFC;
+		.productNumber {
+			color: var(--color-primary);
+		}
   }
 }
 

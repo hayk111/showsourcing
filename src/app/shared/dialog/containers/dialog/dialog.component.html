@@ -2,21 +2,23 @@
 
 	<!-- header -->
 	<div class="header">
-		<ng-content select="[header]"></ng-content>
+		<ng-content select="header"></ng-content>
 		<icon-app name="close" class="pointer" color="txt-secondary" (click)="close()"></icon-app>
 	</div>
-
 	<div class="divider"></div>
 
 	<!-- content -->
 	<div class="content">
+		<div class="contentTitle">
+			<ng-content select=".contentTitle"></ng-content>
+		</div>
 		<ng-content></ng-content>
 	</div>
 
 	<!-- footer -->
 	<div class="divider"></div>
 	<div class="footer" *ngIf="hasFooter">
-		<ng-content select="[footer]"></ng-content>
+		<ng-content select="footer"></ng-content>
 	</div>
 
 </dialog>

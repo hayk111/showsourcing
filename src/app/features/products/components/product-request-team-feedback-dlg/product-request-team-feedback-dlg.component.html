@@ -1,38 +1,28 @@
 <dialog-app [name]="dialogName" (closed)="close()">
-	<div header>{{header}}</div>
-	<div content>
-		<div class="contentTitle">{{title}}</div>
-		<div *ngIf="dialogType !== 'export'">
-			<div *ngFor="let entity of entities" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
+	<header> Team Feedback </header>
+
+	<div class="contentTitle">Team members</div>
+
+	<main>
+		<ng-container *ngIf="teamMembers$ | async as teamMembers">
+			<div *ngFor="let user of teamMembers" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
 				<div class="contentRow flexBetween">
 					<checkbox-app
-						(check)="selectEntity(entity.id, entity)"
-						(uncheck)="unselectEntity(entity.id, entity)"
-						[checked]="selectedEntities[entity.id]">
-						<span class="name" *ngIf="dialogType === 'add'">{{entity.name}}</span>
-						<span class="name" *ngIf="dialogType === 'feedback'">{{entity.firstName}} {{entity.lastName}}</span>
+						(check)="selectEntity(user.id, user)"
+						(uncheck)="unselectEntity(user.id, user)"
+						[checked]="selectedEntities[user.id]">
+						<span class="name">{{ user.firstName }} {{ user.lastName }}</span>
 					</checkbox-app>
-					<div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>
+					<div class="productNumber" *ngIf="dialogType === 'add'">{{ productsCount[user.id] || '-'}}</div>
 				</div>
 			</div>
-		</div>
-		<div class="exportRow" *ngIf="dialogType === 'export'">
-			<div class="exportCell" (click)="selectExport('excel')" [class.selected]="selectedExport === 'excel'">
-				<div class="icon-excel"></div>
-				<div class="title">Excel</div>
-				<div class="subtitle">Perfect for edition</div>
-			</div>
-			<div class="exportCell" (click)="selectExport('pdf')" [class.selected]="selectedExport === 'pdf'">
-				<div class="icon-pdf"></div>
-				<div class="title">PDF</div>
-				<div class="subtitle">Perfect for sharing</div>
-			</div>
-		</div>
-	</div>
-	<div footer>
-		<div class="buttons">
-			<button class="small" *ngIf="dialogType !== 'export'" (click)="buttonClicked.emit(selectedEntities)">{{buttonLabel}}</button>
-			<button class="small" *ngIf="dialogType === 'export'" (click)="buttonClicked.emit(selectedExport)">{{buttonLabel}}</button>
-		</div>
-	</div>
+		</ng-container>
+	</main>
+
+	<footer>
+		<button class="small">
+			{{buttonLabel}}
+		</button>
+	</footer>
+
 </dialog-app>
