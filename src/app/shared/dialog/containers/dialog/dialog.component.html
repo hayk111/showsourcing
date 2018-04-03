@@ -1,18 +1,22 @@
-<div (click)="close()" *ngIf="isOpen$ | async as isOpen" class="modal">
-  <dialog class="z-3" [open]="isOpen" (click)="$event.stopPropagation()" attr.role="dialog">
-    <!-- don't add white-spaces between header and content !! -->
-    <div class="header">
-      <ng-content select="[header]"></ng-content>
-      <div class="icon-close" (click)="close()"></div>
-    </div>
-    <div class="divider"></div>
-    <div class="content">
-      <ng-content></ng-content>
-    </div>
-    <div class="divider"></div>
-    <div class="footer" *ngIf="hasFooter">
-      <ng-content select="[footer]"></ng-content>
-    </div>
-    <!-- don't add white-spaces between footer and content !! -->
-  </dialog>
-  <div>
+<dialog class="z-3" [open]="isOpen" attr.role="dialog">
+
+	<!-- header -->
+	<div class="header">
+		<ng-content select="[header]"></ng-content>
+		<icon-app name="close" class="pointer" color="txt-secondary" (click)="close()"></icon-app>
+	</div>
+
+	<div class="divider"></div>
+
+	<!-- content -->
+	<div class="content">
+		<ng-content></ng-content>
+	</div>
+
+	<!-- footer -->
+	<div class="divider"></div>
+	<div class="footer" *ngIf="hasFooter">
+		<ng-content select="[footer]"></ng-content>
+	</div>
+
+</dialog>

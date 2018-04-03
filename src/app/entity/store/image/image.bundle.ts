@@ -8,7 +8,7 @@ export const fromImage: EntityBundle = {
 	Actions: imageActions,
 	ActionTypes: imageActionTypes,
 	reducer: imageReducer,
-	selectState: (state) => selectImages,
+	selectState: selectImages,
 	selectArray: selectImagesAsArray,
 };
 

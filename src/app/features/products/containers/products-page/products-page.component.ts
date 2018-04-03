@@ -80,7 +80,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	addProductDialog: DialogName = DialogName.ADD_TO_PROJECT;
 	exportDialog: DialogName = DialogName.EXPORT;
-	requestFeedbackDialog: DialogName = DialogName.REQUESTFEEDBACK;
+	requestFeedbackDialog: DialogName = DialogName.REQUEST_FEEDBACK;
 
 	projects$: Observable<Array<Project>> = new Observable<Array<Project>>();
 	productsCount$: Observable<number>;

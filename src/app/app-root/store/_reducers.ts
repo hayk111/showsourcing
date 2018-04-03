@@ -3,14 +3,32 @@ import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/s
 import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
-import { dialogReducer } from '~dialog';
 import {
-	userReducer, teamReducer, fromCountry, teamMemberReducer, fromIncoTerm, fromHarbour, fromCurrency,
-	fromCategory, fromEvent, tagReducer, supplierReducer, productReducer, productStatusReducer, taskStatusReducer,
-	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fromFile, fromImage,
-	fromComment, focussedEntityReducer
+	focussedEntityReducer,
+	fromCategory,
+	fromComment,
+	fromCountry,
+	fromCurrency,
+	fromCustomField,
+	fromEvent,
+	fromFile,
+	fromHarbour,
+	fromImage,
+	fromIncoTerm,
+	productReducer,
+	productStatusReducer,
+	projectReducer,
+	supplierReducer,
+	supplierStatusReducer,
+	tagReducer,
+	taskReducer,
+	taskStatusReducer,
+	taskTypeReducer,
+	teamMemberReducer,
+	teamReducer,
+	userReducer,
 } from '~app/entity';
+import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 
 
 
@@ -46,7 +64,6 @@ const entities = combineReducers({
 
 const ui = combineReducers({
 	filterPanel: filterPanelReducer,
-	dialogs: dialogReducer,
 	filterEntityPanel: filterEntityPanelReducer,
 });
 

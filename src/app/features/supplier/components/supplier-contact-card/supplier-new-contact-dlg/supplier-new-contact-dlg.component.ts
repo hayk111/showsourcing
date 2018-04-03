@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DialogName } from '~app/shared/dialog';
+import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 
 @Component({
 	selector: 'supplier-new-contact-dlg-app',

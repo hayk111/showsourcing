@@ -67,7 +67,12 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierContactComponent,
 		SupplierNewContactDlgComponent,
 	],
-	exports: [SuppliersPageComponent],
+	entryComponents: [
+		SupplierNewContactDlgComponent
+	],
+	exports: [
+		SuppliersPageComponent
+	],
 	providers: [],
 })
 export class SuppliersModule {

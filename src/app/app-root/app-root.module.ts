@@ -30,6 +30,7 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { DialogModule } from '~app/shared/dialog';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?
@@ -53,10 +54,11 @@ declare let module: any;
 		TemplateModule,
 		ProductModule.forRoot(),
 		EventModule,
-		IconsModule,
+		IconsModule, // used to create symboles at the top
 		CardModule,
 		// shared
 		NotificationsModule.forRoot(),
+		DialogModule,
 		// modules features
 		SuppliersModule.forRoot(),
 		ProjectModule.forRoot(),
