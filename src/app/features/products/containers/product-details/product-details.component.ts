@@ -16,7 +16,7 @@ import {
 	selectProductById,
 	selectProjects,
 	selectProjectsProductsCount,
-	selectTasks,
+	fromTask,
 	Task,
 } from '~entity';
 import { AutoUnsub } from '~utils';
@@ -52,7 +52,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 		this.projects$ = this.store.select(selectProjects);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
-		this.tasks$ = this.store.select(selectTasks);
+		this.tasks$ = this.store.select(fromTask.selectArray);
 	}
 
 	openAddProjectDlg() {

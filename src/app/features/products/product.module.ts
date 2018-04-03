@@ -48,6 +48,12 @@ import {
 } from './containers';
 import { routes } from './routes';
 import { SharedModule } from '~app/shared/shared.module';
+import { ProductAddToProjectDlgComponent } from './components/product-add-to-project-dlg/product-add-to-project-dlg.component';
+import {
+	ProductRequestTeamFeedbackDlgComponent
+} from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+
+import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
 
 @NgModule({
 	imports: [
@@ -84,7 +90,10 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierCardComponent,
 		ProductGeneralInfoComponent,
 		ProductTopBarComponent,
-		SelectableImageComponent
+		SelectableImageComponent,
+		ProductAddToProjectDlgComponent,
+		ProductRequestTeamFeedbackDlgComponent,
+		ProductExportDlgComponent
 	],
 	exports: [ProductSmallCardComponent],
 })

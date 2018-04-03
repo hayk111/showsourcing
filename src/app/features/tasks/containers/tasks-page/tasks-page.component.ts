@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { ERM } from '~entity';
 import { DialogActions, DialogName } from '~shared/dialog';
 import { FilterGroupName, selectFilteredEntity } from '~shared/filters';
-import { selectTasks, taskActions } from '~task';
+import { fromTask } from '~task';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -25,9 +25,9 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.store.dispatch(taskActions.load());
+		this.store.dispatch(fromTask.Actions.load());
 		this.tasks$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
-		this.pending$ = this.store.select(selectTasks).pipe(map((t: any) => t.pending));
+		this.pending$ = this.store.select(fromTask.selectState).pipe(map((t: any) => t.pending));
 	}
 
 	openNewTaskDlg() {

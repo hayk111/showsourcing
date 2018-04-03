@@ -5,7 +5,7 @@ import { DialogActions } from '~dialog/store';
 import { DialogName } from '~dialog/models';
 import { ERM } from '~entity';
 
-import { Task, TaskParams, taskActions } from '~task';
+import { Task, TaskParams, fromTask } from '~task';
 import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
@@ -46,7 +46,7 @@ export class NewTaskDlgComponent implements OnInit {
 			const value: TaskParams = this.group.value;
 			value.userId = this.userSrv.userId;
 			this.store.dispatch(DialogActions.close(DialogName.NEW_TASK));
-			this.store.dispatch(taskActions.create(new Task(value)));
+			this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}
 }

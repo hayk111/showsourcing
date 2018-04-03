@@ -9,15 +9,15 @@ import { DialogName } from '~shared/dialog';
 	styleUrls: ['./product-action-dialog.component.scss'],
 })
 export class ProductActionDialogComponent implements OnInit {
-	@Input() public dialogName: DialogName;
-	@Input() public header: string;
-	@Input() public title: string;
-	@Input() public buttonLabel: string;
-	@Input() public entities: Array<Entity>;
-	@Input() public productsCount: any;
-	@Input() public dialogType: 'add' | 'feedback' | 'export';
-	@Output() public closed = new EventEmitter();
-	@Output() public buttonClicked = new EventEmitter();
+	@Input() dialogName: DialogName;
+	@Input() header: string;
+	@Input() title: string;
+	@Input() buttonLabel: string;
+	@Input() entities: Array<Entity>;
+	@Input() productsCount: any;
+	@Input() dialogType: 'add' | 'feedback' | 'export';
+	@Output() closed = new EventEmitter();
+	@Output() buttonClicked = new EventEmitter();
 
 	selectedExport: 'excel' | 'pdf' = 'excel';
 	selectedEntities = {};

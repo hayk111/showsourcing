@@ -21,11 +21,11 @@ import {
 	supplierReducer,
 	fromSupplierStatus,
 	fromTag,
-	taskReducer,
-	taskStatusReducer,
-	taskTypeReducer,
+	fromTask,
+	fromTaskStatus,
+	fromTaskType,
 	teamMemberReducer,
-	teamReducer,
+	fromTeam,
 	userReducer,
 } from '~app/entity';
 import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
@@ -39,7 +39,7 @@ const misc = combineReducers({
 
 const entities = combineReducers({
 	user: userReducer,
-	team: teamReducer,
+	team: fromTeam.reducer,
 	teamMember: teamMemberReducer,
 	country: fromCountry.reducer,
 	incoTerm: fromIncoTerm.reducer,
@@ -52,11 +52,11 @@ const entities = combineReducers({
 	product: productReducer,
 
 	productStatus: fromProductStatus.reducer,
-	taskStatus: taskStatusReducer,
-	taskType: taskTypeReducer,
+	taskStatus: fromTaskStatus.reducer,
+	taskType: fromTaskType.reducer,
 	supplierStatus: fromSupplierStatus.reducer,
 	project: projectReducer,
-	task: taskReducer,
+	task: fromTask.reducer,
 	customField: fromCustomField.reducer,
 	file: fromFile.reducer,
 	image: fromImage.reducer,

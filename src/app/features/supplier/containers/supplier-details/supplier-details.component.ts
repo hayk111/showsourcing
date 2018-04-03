@@ -11,7 +11,7 @@ import {
 } from '~entity';
 import { Product, selectProducts } from '~product';
 import { Supplier, supplierActions } from '~supplier';
-import { selectTasks, Task } from '~task';
+import { fromTask, Task } from '~task';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
 
@@ -42,7 +42,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.supplier$ = this.store.select(selectSupplierFocussed);
 		this.supplier$.pipe(takeUntil(this._destroy$), filter(d => !!d)).subscribe(supplier => this.supplierId = supplier.id);
 		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForFocussed(id))));
-		this.tasks$ = this.store.select(selectTasks);
+		this.tasks$ = this.store.select(fromTask.selectArray);
 		this.products$ = this.store.select<any>(selectProducts);
 		this.images$ = this.store.select(fromImage.selectArray);
 	}

@@ -14,9 +14,9 @@ import {
 	supplierActions,
 	fromSupplierStatus,
 	fromTag,
-	taskStatusActions,
-	taskTypeActions,
-	teamActions,
+	fromTaskStatus,
+	fromTaskType,
+	fromTeam,
 	teamMembersActions,
 } from '~entity/store';
 import { take, mergeMap } from 'rxjs/operators';
@@ -37,12 +37,12 @@ export class PreloaderEffects {
 			fromCurrency.Actions.load(),
 			fromIncoTerm.Actions.load(),
 			fromHarbour.Actions.load(),
-			taskTypeActions.load(),
-			taskStatusActions.load(),
+			fromTaskType.Actions.load(),
+			fromTaskStatus.Actions.load(),
 			fromSupplierStatus.Actions.load(),
 			fromProductStatus.Actions.load(),
 			// user entities
-			teamActions.load(),
+			fromTeam.Actions.load(),
 			// team entities
 			fromCategory.Actions.load(),
 			fromCustomField.Actions.load(),

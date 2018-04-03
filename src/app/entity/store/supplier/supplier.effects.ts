@@ -14,7 +14,7 @@ import { fromFile } from '../file';
 import { focussedEntityAction } from '../focussed-entity';
 import { fromImage } from '../image';
 import { productActions } from '../product';
-import { taskActions } from '../task';
+import { fromTask } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
 import { fromTag } from '~app/entity/store/tag';
@@ -36,7 +36,7 @@ export class SuppliersEffects {
 				fromComment.Actions.loadForSelection(),
 				fromFile.Actions.loadForSelection(),
 				fromImage.Actions.loadForSelection(),
-				taskActions.loadForSelection(),
+				fromTask.Actions.loadForSelection(),
 				// productActions.loadLatestForTarget(target)
 			])
 		);

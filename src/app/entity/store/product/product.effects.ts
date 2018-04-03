@@ -13,7 +13,7 @@ import { focussedEntityAction } from '~entity/store/focussed-entity';
 import { fromComment } from '~entity/store/comment';
 import { fromFile } from '~entity/store/file/file.bundle';
 import { imageActions } from '~entity/store/image/image.action';
-import { taskActions } from '~entity/store/task/task.action';
+import { fromTask } from '~entity/store/task/task.bundle';
 import { projectActions } from '~entity/store/project/project.actions';
 import { selectUser } from '~user';
 import { EntityService } from '~app/entity/store/entity.service';
@@ -36,7 +36,7 @@ export class ProductEffects {
 				fromComment.Actions.loadForSelection(),
 				fromFile.Actions.loadForSelection(),
 				imageActions.loadForSelection(),
-				taskActions.loadForSelection(),
+				fromTask.Actions.loadForSelection(),
 			])
 		);
 
