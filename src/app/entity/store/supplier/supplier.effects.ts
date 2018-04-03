@@ -17,7 +17,7 @@ import { productActions } from '../product';
 import { taskActions } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
-import { tagActions } from '~app/entity/store/tag';
+import { fromTag } from '~app/entity/store/tag';
 import { fromCategory } from '~app/entity/store/category';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
@@ -113,7 +113,7 @@ export class SuppliersEffects {
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap((r: any) => [supplierActions.addTag(r, payload.productId), tagActions.add([r])]))
+					.pipe(mergeMap((r: any) => [supplierActions.addTag(r, payload.productId), fromTag.Actions.add([r])]))
 			)
 		);
 

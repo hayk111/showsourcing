@@ -6,14 +6,16 @@ import { map, switchMap } from 'rxjs/operators';
 import { ERM } from '../entity.model';
 import { EntityService } from '../entity.service';
 import { TagHttpService } from './tag-http.service';
-import { tagActions, tagActionTypes as ActionType } from './tag.action';
+import { fromTag } from './tag.bundle';
+
+const ActionType = fromTag.ActionTypes;
 
 @Injectable()
 export class TagEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => tagActions.add(result)));
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => fromTag.Actions.add(result)));
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$

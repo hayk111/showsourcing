@@ -1,5 +1,3 @@
-export * from './tag.action';
+export * from './tag.bundle';
 export * from './tag.effects';
 export * from './tag.model';
-export * from './tag.reducer';
-export * from './tag.selector';

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { distinctUntilChanged, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
-import { tagActions } from '../tag/tag.action';
+import { fromTag } from '../tag';
 
 import { actionTypes, productActions } from './product.action';
 import { ProductHttpService } from '~app/entity/store/product/product-http.service';
@@ -137,7 +137,7 @@ export class ProductEffects {
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap((r: any) => [productActions.addTag(r, payload.productId), tagActions.add([r])]))
+					.pipe(mergeMap((r: any) => [productActions.addTag(r, payload.productId), fromTag.Actions.add([r])]))
 			)
 		);
 

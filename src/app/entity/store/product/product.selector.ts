@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { selectEntities } from '~entity/store/entity.selector';
 
-import { selectProductStatuses } from '../product-status';
+import { fromProductStatus } from '../product-status';
 import { Product } from './product.model';
 
 const selectCurrentTargetId = state => state.foccussedEntity.currentTarget.entityId;
@@ -23,7 +23,7 @@ export const selectProductFocused = createSelector([selectProductsState], (state
 // used in kanban (as it was changed without being tested, it could be not working)
 export const selectProductByStatus = () =>
 	createSelector(
-		[selectProducts, selectProductStatuses],
+		[selectProducts, fromProductStatus.selectArray],
 		(products: Array<Product>, statuses: Array<any>) => {
 			// creating a new object for each status with just the name
 			const returned: any = statuses.map(status => ({ name: status.name }));

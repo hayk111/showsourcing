@@ -13,7 +13,7 @@ import {
 	selectEntityArray,
 	selectMyTeamMembers,
 	selectProductsState,
-	selectProductStatuses,
+	fromProductStatus,
 	selectProjects,
 	selectProjectsProductsCount,
 	User,
@@ -94,7 +94,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.products$ = this.store.select(selectEntityArray(ERM.product));
 		this.productsState$ = this.store.select(selectProductsState);
 		this.productsState$.subscribe(state => (this.productEntities = state));
-		this.statuses$ = this.store.select(selectProductStatuses);
+		this.statuses$ = this.store.select(fromProductStatus.selectArray);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		filters$.subscribe(filters => {

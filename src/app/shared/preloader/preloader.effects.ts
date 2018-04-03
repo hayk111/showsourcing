@@ -9,11 +9,11 @@ import {
 	fromEvent,
 	fromHarbour,
 	fromIncoTerm,
-	productStatusActions,
+	fromProductStatus,
 	projectActions,
 	supplierActions,
-	supplierStatusActions,
-	tagActions,
+	fromSupplierStatus,
+	fromTag,
 	taskStatusActions,
 	taskTypeActions,
 	teamActions,
@@ -39,8 +39,8 @@ export class PreloaderEffects {
 			fromHarbour.Actions.load(),
 			taskTypeActions.load(),
 			taskStatusActions.load(),
-			supplierStatusActions.load(),
-			productStatusActions.load(),
+			fromSupplierStatus.Actions.load(),
+			fromProductStatus.Actions.load(),
 			// user entities
 			teamActions.load(),
 			// team entities
@@ -49,7 +49,7 @@ export class PreloaderEffects {
 			supplierActions.load(),
 			fromEvent.Actions.load(),
 			projectActions.load(),
-			tagActions.load(),
+			fromTag.Actions.load(),
 			teamMembersActions.load(),
 		])
 	);
