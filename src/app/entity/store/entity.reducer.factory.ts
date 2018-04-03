@@ -26,6 +26,14 @@ export function entityReducerFactory<G extends Entity>(
 
 			// entities in payload are added to the current state
 			case actionType.CREATE:
+				return {
+					...state,
+					byId: {
+						...state.byId,
+						[id]: action.payload
+					},
+					ids: [id, ...state.ids]
+				};
 			case actionType.ADD:
 				return addEntities(state, action.payload);
 
