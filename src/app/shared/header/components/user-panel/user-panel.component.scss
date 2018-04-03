@@ -1,7 +1,9 @@
 :host {
 	width: 300px;
 }
-
+user-picture-app {
+	margin-right: var(--spacing-default);
+}
 .name {
 	font-size: var(--font-size-l);
 	font-weight: 600;

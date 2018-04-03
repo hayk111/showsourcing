@@ -1,29 +1,39 @@
 <menu class="z-4">
-	<div class="flex userInfo">
-			<user-picture-app size="48" spacing="default" [url]="user?.preferences?.profilePicture?.urls?.url_60x45">
-				<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
-				<span class="email">{{ user?.email }}</span>
-			</user-picture-app>
 
+	<!-- picture and name -->
+	<div class="flex userInfo">
+		<user-picture-app size="48" spacing="default" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+		<div class="flexColumn">
+			<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
+			<span class="email">{{ user?.email }}</span>
+		</div>
+		<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
+		<span class="email">{{ user?.email }}</span>
 	</div>
+	<!-- Settings -->
 	<div class="hr"></div>
 	<menuitem class="pointer flexCenter" (click)="goToSettings()" i18n="user menu | go to settings">
 		<div class="border">Settings</div>
 	</menuitem>
+	<!-- Data management -->
 	<menuitem class="pointer flexCenter" (click)="goToDataManagement()"
 		 i18n="user menu | go to page for managing user data like tags">
 		 <div class="border">Data Management</div>
 	</menuitem>
+	<!-- Teams -->
 	<menuitem class="pointer flexCenter" (click)="pickTeam()" i18n="user menu | teams">
 		<div class="border">Teams</div>
 	</menuitem>
+	<!-- Language -->
 	<menuitem class="pointer flexCenter" (click)="pickLanguage()" i18n="user menu | user can pick a language">
 		<div class="border">Language</div>
 	</menuitem>
+	<!-- Send Feedback -->
 	<menuitem class="pointer flexCenter" (click)="sendFeedback()" i18n="user menu | send feedback">
 		<div>Send feedback</div>
 	</menuitem>
 	<div class="hr"></div>
+	<!-- Logout -->
 	<menuitem class="pointer flexCenter" (click)="logout.emit()" i18n="user menu | logout">
 		<div>
 			<icon-app>logout</icon-app>
