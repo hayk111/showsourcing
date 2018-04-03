@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions, FilterGroupName, FilterSort } from '~app/shared/filters';
-import { Country, EntityState, selectTeamMembersState, Supplier } from '~entity';
+import { Country, EntityState, fromTeamMember, Supplier } from '~entity';
 import { fromCountry } from '~app/entity/store/country/country.bundle';
 
 @Component({
@@ -29,7 +29,7 @@ export class SupplierListViewComponent implements OnInit {
 		// subscribing here once instead subscribing for each row with | async
 		// although we could use the ng-container
 		this.store.select(fromCountry.selectState).subscribe(state => this.countryState = state);
-		this.store.select(selectTeamMembersState).subscribe(state => this.teamMemberState = state);
+		this.store.select(fromTeamMember.selectState).subscribe(state => this.teamMemberState = state);
 	}
 
 	onSort({ order, sortWith }) {

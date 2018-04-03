@@ -13,7 +13,7 @@ import { ProjectHttpService } from '~app/entity/store/project/project-http.servi
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { TagHttpService } from '~app/entity/store/tag/tag-http.service';
 import { TaskHttpService } from '~app/entity/store/task/task-http.service';
-import { TeamMembersHttpService } from '~app/entity/store/team-member/team-members-http.service';
+import { TeamMemberHttpService } from '~app/entity/store/team-member/team-member-http.service';
 import { TeamHttpService } from '~app/entity/store/team/team-http.service';
 import { UserHttpService } from '~app/entity/store/user/user.http.service';
 import { UrlBuilder } from '~app/entity/utils/url-builder.class';
@@ -70,7 +70,7 @@ export class EntityModule {
 				TagHttpService,
 				TaskHttpService,
 				TeamHttpService,
-				TeamMembersHttpService,
+				TeamMemberHttpService,
 				UserHttpService
 			],
 		};

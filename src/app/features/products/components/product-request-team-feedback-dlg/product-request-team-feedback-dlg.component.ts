@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
 
 @Component({
 	selector: 'product-request-team-feedback-dlg-app',
@@ -8,9 +10,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 
-	constructor() { }
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
+		this.store.select(fromTeamMember.selectArray);
 	}
 
 }

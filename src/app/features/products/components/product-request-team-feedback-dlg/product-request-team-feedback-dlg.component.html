@@ -1,3 +1,38 @@
-<p>
-  <%= dasherize(name) %> works!
-</p>
+<dialog-app [name]="dialogName" (closed)="close()">
+	<div header>{{header}}</div>
+	<div content>
+		<div class="contentTitle">{{title}}</div>
+		<div *ngIf="dialogType !== 'export'">
+			<div *ngFor="let entity of entities" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
+				<div class="contentRow flexBetween">
+					<checkbox-app
+						(check)="selectEntity(entity.id, entity)"
+						(uncheck)="unselectEntity(entity.id, entity)"
+						[checked]="selectedEntities[entity.id]">
+						<span class="name" *ngIf="dialogType === 'add'">{{entity.name}}</span>
+						<span class="name" *ngIf="dialogType === 'feedback'">{{entity.firstName}} {{entity.lastName}}</span>
+					</checkbox-app>
+					<div class="productNumber" *ngIf="dialogType === 'add'">{{productsCount[entity.id] || '-'}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="exportRow" *ngIf="dialogType === 'export'">
+			<div class="exportCell" (click)="selectExport('excel')" [class.selected]="selectedExport === 'excel'">
+				<div class="icon-excel"></div>
+				<div class="title">Excel</div>
+				<div class="subtitle">Perfect for edition</div>
+			</div>
+			<div class="exportCell" (click)="selectExport('pdf')" [class.selected]="selectedExport === 'pdf'">
+				<div class="icon-pdf"></div>
+				<div class="title">PDF</div>
+				<div class="subtitle">Perfect for sharing</div>
+			</div>
+		</div>
+	</div>
+	<div footer>
+		<div class="buttons">
+			<button class="small" *ngIf="dialogType !== 'export'" (click)="buttonClicked.emit(selectedEntities)">{{buttonLabel}}</button>
+			<button class="small" *ngIf="dialogType === 'export'" (click)="buttonClicked.emit(selectedExport)">{{buttonLabel}}</button>
+		</div>
+	</div>
+</dialog-app>

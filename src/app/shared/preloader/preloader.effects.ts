@@ -17,7 +17,7 @@ import {
 	fromTaskStatus,
 	fromTaskType,
 	fromTeam,
-	teamMembersActions,
+	fromTeamMember,
 } from '~entity/store';
 import { take, mergeMap } from 'rxjs/operators';
 import { Effect, Actions } from '@ngrx/effects';
@@ -50,7 +50,7 @@ export class PreloaderEffects {
 			fromEvent.Actions.load(),
 			projectActions.load(),
 			fromTag.Actions.load(),
-			teamMembersActions.load(),
+			fromTeamMember.Actions.load(),
 		])
 	);
 

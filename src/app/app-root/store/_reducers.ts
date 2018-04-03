@@ -5,6 +5,11 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import {
 	focussedEntityReducer,
+	productReducer,
+	userReducer,
+	projectReducer,
+	supplierReducer,
+
 	fromCategory,
 	fromComment,
 	fromCountry,
@@ -15,18 +20,14 @@ import {
 	fromHarbour,
 	fromImage,
 	fromIncoTerm,
-	productReducer,
 	fromProductStatus,
-	projectReducer,
-	supplierReducer,
 	fromSupplierStatus,
 	fromTag,
 	fromTask,
 	fromTaskStatus,
 	fromTaskType,
-	teamMemberReducer,
+	fromTeamMember,
 	fromTeam,
-	userReducer,
 } from '~app/entity';
 import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 import { dialogReducer } from '~app/shared/dialog';
@@ -40,7 +41,7 @@ const misc = combineReducers({
 const entities = combineReducers({
 	user: userReducer,
 	team: fromTeam.reducer,
-	teamMember: teamMemberReducer,
+	teamMember: fromTeamMember.reducer,
 	country: fromCountry.reducer,
 	incoTerm: fromIncoTerm.reducer,
 	harbour: fromHarbour.reducer,

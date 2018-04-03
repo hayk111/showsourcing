@@ -6,7 +6,7 @@ import { EntityService } from '~entity/store/entity.service';
 import { User } from '../user';
 
 @Injectable()
-export class TeamMembersHttpService {
+export class TeamMemberHttpService {
 
 	load() {
 		return this.entitySrv.load({ url: `api/team/${this.userSrv.teamId}/user` })
