@@ -4,6 +4,7 @@ import { EntityRepresentation } from './entity.model';
 import { entityStateToArray } from '~entity/utils';
 import { entityReducerFactory } from './entity.reducer.factory';
 
+// utility method that generates basic entity Actions, ActionTypes, reducer and selectors.
 export function makeEntityBundle(entityName: string) {
 	// keeping capitalization so it looks like we are using standard ngrx classes under the hood
 	const ActionTypes = makeEntityActionTypes(entityName);

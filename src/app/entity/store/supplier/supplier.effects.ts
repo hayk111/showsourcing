@@ -10,7 +10,7 @@ import { EntityService } from '~entity/store/entity.service';
 import { Swap } from '~entity/utils';
 
 import { fromComment } from '../comment';
-import { fileActions } from '../file';
+import { fromFile } from '../file';
 import { focussedEntityAction } from '../focussed-entity';
 import { imageActions } from '../image';
 import { productActions } from '../product';
@@ -32,7 +32,7 @@ export class SuppliersEffects {
 			mergeMap((target: EntityTarget) => [
 				focussedEntityAction.focus(target),
 				fromComment.Actions.loadForSelection(),
-				fileActions.loadForSelection(),
+				fromFile.Actions.loadForSelection(),
 				imageActions.loadForSelection(),
 				taskActions.loadForSelection(),
 				productActions.loadLatestForTarget(target)

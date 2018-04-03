@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppFile, fileActions, selectFilesAsArray } from '~entity';
+import { AppFile, fromFile } from '~entity';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
 
@@ -19,19 +19,19 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.files$ = this.store.select(selectFilesAsArray);
+		this.files$ = this.store.select(fromFile.selectArray);
 	}
 
 	deleteFile(file: AppFile) {
-		this.store.dispatch(fileActions.delete([file.id]));
+		this.store.dispatch(fromFile.Actions.delete([file.id]));
 	}
 
 	onFileAdded(files: Array<File>) {
 		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
-		this.store.dispatch(fileActions.add(appFiles));
+		this.store.dispatch(fromFile.Actions.add(appFiles));
 	}
 
 	download(file: AppFile) {
-		this.store.dispatch(fileActions.download(file.url || file.data));
+		this.store.dispatch(fromFile.Actions.download(file.url || file.data));
 	}
 }

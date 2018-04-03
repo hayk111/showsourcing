@@ -7,8 +7,8 @@ import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~a
 import { dialogReducer } from '~dialog';
 import {
 	userReducer, teamReducer, fromCountry, teamMemberReducer, incoTermReducer, harbourReducer, fromCurrency,
-	fromCategory, eventReducer, tagReducer, supplierReducer, productReducer, productStatusReducer, taskStatusReducer,
-	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fileReducer, imageReducer,
+	fromCategory, fromEvent, tagReducer, supplierReducer, productReducer, productStatusReducer, taskStatusReducer,
+	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fromFile, imageReducer,
 	fromComment, focussedEntityReducer
 } from '~app/entity';
 
@@ -27,7 +27,7 @@ const entities = combineReducers({
 	harbour: harbourReducer,
 	currency: fromCurrency.reducer,
 	category: fromCategory.reducer,
-	event: eventReducer,
+	event: fromEvent.reducer,
 	tag: tagReducer,
 	supplier: supplierReducer,
 	product: productReducer,
@@ -39,7 +39,7 @@ const entities = combineReducers({
 	project: projectReducer,
 	task: taskReducer,
 	customField: fromCustomField.reducer,
-	file: fileReducer,
+	file: fromFile.reducer,
 	image: imageReducer,
 	comment: fromComment.reducer,
 });

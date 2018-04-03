@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 
 import { EventHttpService } from './event-http.service';
-import { eventActions, eventActionTypes } from './event.action';
+import { fromEvent } from './event.bundle';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
@@ -12,17 +12,17 @@ import { ERM } from '~entity/store/entity.model';
 export class EventEffects {
 	@Effect()
 	load$ = this.action$
-		.ofType<any>(eventActionTypes.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => eventActions.add(result)));
+		.ofType<any>(fromEvent.ActionTypes.LOAD)
+		.pipe(switchMap(_ => this.srv.load()), map((result: any) => fromEvent.Actions.add(result)));
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
-		.ofType<any>(eventActionTypes.PATCH)
+		.ofType<any>(fromEvent.ActionTypes.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.event)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
-		.ofType<any>(eventActionTypes.DELETE)
+		.ofType<any>(fromEvent.ActionTypes.DELETE)
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>

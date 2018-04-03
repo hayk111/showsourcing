@@ -12,13 +12,17 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { EntityTarget } from '~entity/store/entity.model';
 import { Swap } from '~entity/utils';
 
-import { fileActions, fileActionType } from './file.action';
+import { fromFile } from './file.bundle';
 import { FocussedEntityService } from '../focussed-entity';
+
+
+const ActionType = fromFile.ActionTypes;
+const fileActions = fromFile.Actions;
 
 @Injectable()
 export class FilesEffects {
 	@Effect()
-	load$ = this.actions$.ofType<any>(fileActionType.LOAD_FOR_SELECTION).pipe(
+	load$ = this.actions$.ofType<any>(ActionType.LOAD_FOR_SELECTION).pipe(
 		// getting the target
 		switchMap(_ => this.selectionSrv.getSelection()),
 		switchMap((target: EntityTarget) => this.srv.load(target)),
@@ -29,7 +33,7 @@ export class FilesEffects {
 	// 2. post the file
 	// 3. When the posted file is done, replace here will be called
 	@Effect()
-	add$ = this.actions$.ofType<any>(fileActionType.ADD).pipe(
+	add$ = this.actions$.ofType<any>(ActionType.ADD).pipe(
 		map(action => action.payload),
 		withLatestFrom(this.selectionSrv.getSelection(), (files: Array<AppFile>, target) => ({
 			files,
@@ -53,7 +57,7 @@ export class FilesEffects {
 	);
 
 	@Effect({ dispatch: false })
-	removeFile$ = this.actions$.ofType<any>(fileActionType.DELETE).pipe(
+	removeFile$ = this.actions$.ofType<any>(ActionType.DELETE).pipe(
 		map(action => action.payload),
 		withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({
 			ids,
@@ -64,7 +68,7 @@ export class FilesEffects {
 
 	@Effect({ dispatch: false })
 	download$ = this.actions$
-		.ofType<any>(fileActionType.DOWNLOAD)
+		.ofType<any>(ActionType.DOWNLOAD)
 		.pipe(map(action => action.payload), tap(img => this.srv.download(img)));
 
 	constructor(private actions$: Actions, private srv: FileHttpService, private selectionSrv: FocussedEntityService) { }

@@ -11,7 +11,7 @@ import { ProductHttpService } from '~app/entity/store/product/product-http.servi
 import { ERM } from '~app/entity/store/entity.model';
 import { focussedEntityAction } from '~entity/store/focussed-entity';
 import { fromComment } from '~entity/store/comment';
-import { fileActions } from '~entity/store/file/file.action';
+import { fromFile } from '~entity/store/file/file.bundle';
 import { imageActions } from '~entity/store/image/image.action';
 import { taskActions } from '~entity/store/task/task.action';
 import { projectActions } from '~entity/store/project/project.actions';
@@ -34,7 +34,7 @@ export class ProductEffects {
 				focussedEntityAction.focus(target),
 				productActions.loadById(target.entityId),
 				fromComment.Actions.loadForSelection(),
-				fileActions.loadForSelection(),
+				fromFile.Actions.loadForSelection(),
 				imageActions.loadForSelection(),
 				taskActions.loadForSelection(),
 			])
@@ -110,7 +110,7 @@ export class ProductEffects {
 		.pipe(
 			map(action => action.payload),
 			switchMap(id => this.srv.sendPdfReq(id)),
-			map((path: string) => fileActions.download(path))
+			map((path: string) => fromFile.Actions.download(path))
 		);
 
 	@Effect({ dispatch: false })

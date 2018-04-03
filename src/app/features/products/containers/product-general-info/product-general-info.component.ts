@@ -2,16 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { switchMap, takeUntil, map } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
-import { Event } from '~event';
-import { selectEventsList } from '~event';
-import { FormDescriptor, FormControlDescriptor } from '~entity';
-import { Patch } from '~entity/utils';
-import { supplierActions } from '~supplier';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { ERM, Product, productActions, selectEntityById, selectProductById, Tag } from '~app/entity';
 import { UserService } from '~app/features/user';
+import { FormControlDescriptor, FormDescriptor } from '~entity';
+import { Event, fromEvent } from '~event';
 import { Project } from '~project';
-import { Product, ERM, selectProductById, selectEntityById, Tag, productActions } from '~app/entity';
+import { supplierActions } from '~supplier';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -36,7 +34,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			switchMap(params => this.store.select(selectProductById(params.id)))
 		);
 		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => (this.productId = product.id));
-		this.events$ = this.store.select(selectEventsList);
 		this.customFields$ = this.store.select(
 			selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customField })
 		);

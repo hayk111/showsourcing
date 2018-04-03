@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '~app/features/user';
-import { AppFile, fileActions, selectFilesAsArray } from '~entity';
+import { AppFile, fromFile } from '~entity';
 
 @Component({
 	selector: 'files-card-app',
@@ -16,15 +16,15 @@ export class FilesCardComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		this.files$ = this.store.select(selectFilesAsArray);
+		this.files$ = this.store.select(fromFile.selectArray);
 	}
 
 	onFileAdded(files: Array<File>) {
 		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
-		this.store.dispatch(fileActions.add(appFiles));
+		this.store.dispatch(fromFile.Actions.add(appFiles));
 	}
 
 	onFileRemoved(file: AppFile) {
-		this.store.dispatch(fileActions.delete([file.id]));
+		this.store.dispatch(fromFile.Actions.delete([file.id]));
 	}
 }
