@@ -19,6 +19,8 @@ import { supplierActions, supplierActionTypes as ActionType } from './supplier.a
 import { Supplier } from './supplier.model';
 import { tagActions } from '~app/entity/store/tag';
 import { fromCategory } from '~app/entity/store/category';
+import { notificationActions } from '~app/shared/notifications/store/notification.action';
+import { NotificationType } from '~app/shared/notifications';
 
 @Injectable()
 export class SuppliersEffects {
@@ -62,15 +64,20 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						map((r: any) => supplierActions.replace([new Swap(supplier, r)]), catchError(e => of(appErrorActions.add(e))))
+						mergeMap((r: any) => [
+							supplierActions.replace([new Swap(supplier, r)]),
+							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 })
+						]),
+						catchError(e => of(appErrorActions.add(e))
+						)
 					)
-			)
-		);
+			));
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(ActionType.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.supplier)));
+
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$

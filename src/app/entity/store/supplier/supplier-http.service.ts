@@ -39,7 +39,7 @@ export class SupplierHttpService {
 	}
 
 	create(supplier) {
-		return this.http.post(`api/team/${this.userSrv.teamId}/supplier`, supplier);
+		return this.http.post(`api/team/${this.userSrv.teamId}/supplier`, { name: supplier.name });
 	}
 
 	loadProductCount() {

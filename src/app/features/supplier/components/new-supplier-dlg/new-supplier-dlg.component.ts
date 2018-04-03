@@ -30,7 +30,7 @@ export class NewSupplierDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const name = this.group.value.name;
-			this.store.dispatch(supplierActions.add([new Supplier(name, this.userSrv.userId)]));
+			this.store.dispatch(supplierActions.create(new Supplier(name, this.userSrv.userId)));
 			this.group.reset();
 			this.store.dispatch(DialogActions.close(this.name));
 		}

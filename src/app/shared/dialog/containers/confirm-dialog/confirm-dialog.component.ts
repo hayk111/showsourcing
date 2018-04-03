@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 
 
-const addDlg = () => { console.error('adding'); addDialog(ConfirmDialogComponent, DialogName.CONFIRM); };
+const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
 
 @Component({
 	selector: 'confirm-dialog-app',
