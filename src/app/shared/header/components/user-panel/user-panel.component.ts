@@ -13,6 +13,7 @@ import { DEFAULT_NO_IMG } from '~app/app-root/utils';
 export class UserPanelComponent implements OnInit {
 	@Input() user: User;
 	@Output() logout = new EventEmitter<any>();
+	@Output() close = new EventEmitter<any>();
 	defaultImg = DEFAULT_NO_IMG;
 	constructor(private router: Router) { }
 
@@ -20,16 +21,24 @@ export class UserPanelComponent implements OnInit {
 
 	goToSettings() {
 		this.router.navigate(['user', 'settings']);
+		this.close.emit();
 	}
 
 	goToDataManagement() {
 		this.router.navigate(['data-management']);
+		this.close.emit();
 	}
 
-	pickTeam() { }
+	pickTeam() {
+		this.close.emit();
+	}
 
-	pickLanguage() { }
+	pickLanguage() {
+		this.close.emit();
+	}
 
-	sendFeedback() { }
+	sendFeedback() {
+		this.close.emit();
+	}
 
 }
