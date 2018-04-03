@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { entityStateToArray } from '~entity/utils';
 import { AutoUnsub } from '~utils';
-import { selectImages, AppImage, imageActions } from '~app/entity';
+import { fromImage, AppImage, } from '~app/entity';
 
 @Component({
 	selector: 'carousel-selection-app',
@@ -25,24 +25,24 @@ export class CarouselSelectionComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const imagesState$: Observable<any> = this.store.select(selectImages);
+		const imagesState$: Observable<any> = this.store.select(fromImage.selectState);
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
 	}
 
 	add(img: AppImage) {
-		this.store.dispatch(imageActions.add([img]));
+		this.store.dispatch(fromImage.Actions.add([img]));
 	}
 
 	rotate(img: AppImage) {
-		this.store.dispatch(imageActions.rotate(img));
+		this.store.dispatch(fromImage.Actions.rotate(img));
 	}
 
 	delete(img: AppImage) {
-		this.store.dispatch(imageActions.delete([img.id]));
+		this.store.dispatch(fromImage.Actions.delete([img.id]));
 	}
 
 	download(img: AppImage) {
-		this.store.dispatch(imageActions.download(img.url));
+		this.store.dispatch(fromImage.Actions.download(img.url));
 	}
 }

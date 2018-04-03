@@ -22,3 +22,13 @@ export function makeEntityBundle(entityName: string) {
 
 	return { ActionTypes, Actions, reducer, selectState, selectArray, selectById, selectOne };
 }
+
+export interface EntityBundle {
+	ActionTypes: any;
+	Actions: any;
+	reducer: any;
+	selectState?: any;
+	selectArray?: any;
+	selectById?: any;
+	selectOne?: any;
+}

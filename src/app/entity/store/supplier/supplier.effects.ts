@@ -12,7 +12,7 @@ import { Swap } from '~entity/utils';
 import { fromComment } from '../comment';
 import { fromFile } from '../file';
 import { focussedEntityAction } from '../focussed-entity';
-import { imageActions } from '../image';
+import { fromImage } from '../image';
 import { productActions } from '../product';
 import { taskActions } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
@@ -33,7 +33,7 @@ export class SuppliersEffects {
 				focussedEntityAction.focus(target),
 				fromComment.Actions.loadForSelection(),
 				fromFile.Actions.loadForSelection(),
-				imageActions.loadForSelection(),
+				fromImage.Actions.loadForSelection(),
 				taskActions.loadForSelection(),
 				productActions.loadLatestForTarget(target)
 			])

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
-	Patch, AppImage, selectImages, selectImagesAsArray, selectSupplierFocussed,
+	Patch, AppImage, fromImage, selectSupplierFocussed,
 	selectSupplierProductsCountForFocussed,
 	Tag
 } from '~entity';
@@ -44,7 +44,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForFocussed(id))));
 		this.tasks$ = this.store.select(selectTasks);
 		this.products$ = this.store.select<any>(selectProducts);
-		this.images$ = this.store.select(selectImagesAsArray);
+		this.images$ = this.store.select(fromImage.selectArray);
 	}
 
 	patch(patch: Patch) {

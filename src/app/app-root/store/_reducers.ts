@@ -6,9 +6,9 @@ import { storeLogger } from 'ngrx-store-logger';
 import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 import { dialogReducer } from '~dialog';
 import {
-	userReducer, teamReducer, fromCountry, teamMemberReducer, incoTermReducer, harbourReducer, fromCurrency,
+	userReducer, teamReducer, fromCountry, teamMemberReducer, fromIncoTerm, fromHarbour, fromCurrency,
 	fromCategory, fromEvent, tagReducer, supplierReducer, productReducer, productStatusReducer, taskStatusReducer,
-	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fromFile, imageReducer,
+	taskTypeReducer, supplierStatusReducer, projectReducer, taskReducer, fromCustomField, fromFile, fromImage,
 	fromComment, focussedEntityReducer
 } from '~app/entity';
 
@@ -23,8 +23,8 @@ const entities = combineReducers({
 	team: teamReducer,
 	teamMember: teamMemberReducer,
 	country: fromCountry.reducer,
-	incoTerm: incoTermReducer,
-	harbour: harbourReducer,
+	incoTerm: fromIncoTerm.reducer,
+	harbour: fromHarbour.reducer,
 	currency: fromCurrency.reducer,
 	category: fromCategory.reducer,
 	event: fromEvent.reducer,
@@ -40,7 +40,7 @@ const entities = combineReducers({
 	task: taskReducer,
 	customField: fromCustomField.reducer,
 	file: fromFile.reducer,
-	image: imageReducer,
+	image: fromImage.reducer,
 	comment: fromComment.reducer,
 });
 

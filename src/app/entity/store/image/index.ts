@@ -1,5 +1,3 @@
 export * from './image.effects';
 export * from './image.model';
-export * from './image.reducer';
-export * from './image.selector';
-export * from './image.action';
+export * from './image.bundle';
