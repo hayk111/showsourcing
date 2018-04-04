@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FilterClass, Filter, FilterEntityClass } from '~shared/filters/models';
+import { Filter } from '~shared/filters/models';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '~entity/store/entity.selector';
 import { Observable } from 'rxjs/Observable';

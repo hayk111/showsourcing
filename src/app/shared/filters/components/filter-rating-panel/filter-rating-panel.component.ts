@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../store/actions';
-import { FilterGroupName, Filter, FilterRating } from '../../models';
+import { FilterGroupName, Filter } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsub } from '~utils/index';
 import { ERM } from '~entity';
@@ -23,9 +23,9 @@ export class FilterRatingPanelComponent {
 	}
 
 	onChange(event, value) {
-		const filter = new FilterRating(value);
-		if (event.target.checked) this.addFilter.emit(filter);
-		else this.removeFilter.emit(filter);
+		// const filter = new FilterRating(value);
+		// if (event.target.checked) this.addFilter.emit(filter);
+		// else this.removeFilter.emit(filter);
 	}
 
 	@Input()

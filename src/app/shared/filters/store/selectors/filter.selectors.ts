@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 import { Log } from 'app/app-root/utils';
 import { selectEntityArray } from '~entity/store';
 
-import { Filter, FilterClass, FilterGroupName, FilterSort } from '../../models/filter.model';
+import { Filter, FilterGroupName } from '../../models/filter.model';
 import { EntityRepresentation } from '~app/entity';
 
 const r = `It should be defined in the initial state in the store filter.reducer.`;
@@ -15,8 +15,20 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 	if (!filterGroupName)
 		throw Error('FilterGroupName undefined in selectFilterGroup. Make sure you pass a value');
 	return createSelector([getFilters], filters => {
-		Log.debug('selectFilterGroup');
 		return filters[filterGroupName] || [];
+	});
+};
+
+// filters for a group are storred as array, this returns a map of every filter
+export const selectFilterType = (filterGroupName: FilterGroupName, type: string) => {
+	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
+		const byName = new Map();
+		groupFilters.forEach((filter: Filter) => {
+			// if the map doesn't have the Filter Class yet we add a new array
+			if (!byName.has(filter.constructor)) byName.set(filter.constructor, []);
+			byName.get(filter.constructor).push(filter);
+		});
+		return byName;
 	});
 };
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { debounceTime, filter as filterPipe, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import { ERM } from '~app/entity';
-import { Filter, FilterGroupName, FilterSearch } from '~shared/filters/models';
+import { Filter, FilterGroupName } from '~shared/filters/models';
 import { SearchedEntities, searchEntities, selectFilterGroup } from '~shared/filters/store/selectors';
 
 import { FilterActions } from '../../store/actions';
@@ -83,14 +83,14 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	onKeyDown() { }
 	// when the user press enter on input we make a normal search
 	search() {
-		const value = this.searchControl.value;
-		const filter = new FilterSearch(value);
-		this.store.dispatch(
-			FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSearch)
-		);
-		if (value) {
-			this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
-		}
+		// const value = this.searchControl.value;
+		// const filter = new FilterSearch(value);
+		// this.store.dispatch(
+		// 	FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSearch)
+		// );
+		// if (value) {
+		// 	this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+		// }
 	}
 
 	closeSmartSearch() {
