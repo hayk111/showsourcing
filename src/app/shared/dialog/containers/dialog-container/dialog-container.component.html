@@ -1,5 +1,7 @@
 <!-- we have to use another component to wrap the template else the -->
-<dialog-modal-app [isOpen]="isOpen">
-	<ng-template dialogHostApp></ng-template>
+<dialog-modal-app [isOpen]="isOpen" (click)="close()">
+	<div (click)="$event.stopPropagation()">
+		<ng-template dialogHostApp></ng-template>
+	</div>
 <dialog-modal-app>
 

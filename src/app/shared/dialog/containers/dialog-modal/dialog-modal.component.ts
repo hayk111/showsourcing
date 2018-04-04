@@ -8,5 +8,4 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 })
 export class DialogModalComponent {
 	@Input() isOpen;
-
 }
