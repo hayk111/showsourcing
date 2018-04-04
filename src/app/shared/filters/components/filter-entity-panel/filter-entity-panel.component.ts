@@ -14,8 +14,6 @@ import { Observable } from 'rxjs/Observable';
 export class FilterEntityPanelComponent {
 	// choices displayed
 	@Input() choices: Array<any> = [];
-	// the type of filter we are actually accessing
-	@Input() filterClass: FilterEntityClass;
 
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
@@ -35,12 +33,10 @@ export class FilterEntityPanelComponent {
 	}
 
 	onItemAdded({ id, name }) {
-		const filter = this.filterClass.newInstance(id, name);
-		this.filterAdded.emit(filter);
+		// this.filterAdded.emit(filter);
 	}
 
 	onItemRemoved({ id, name }) {
-		const filter = this.filterClass.newInstance(id, name);
-		this.filterRemoved.emit(filter);
+		// this.filterRemoved.emit(filter);
 	}
 }

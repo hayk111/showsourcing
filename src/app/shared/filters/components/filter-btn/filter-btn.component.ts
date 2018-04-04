@@ -7,22 +7,16 @@ import { Filter, FilterClass } from '../../models';
 	styleUrls: ['./filter-btn.component.scss']
 })
 export class FilterBtnComponent implements OnInit {
-	@Input() filterClass: FilterClass;
-	@Input() filters: Array<Filter>;
-	@Output() filterRemove = new EventEmitter<Filter>();
-	@Output() btnClicked = new EventEmitter<FilterClass>();
+	@Input() title = '';
+	@Output() btnClicked = new EventEmitter<null>();
 
- 	constructor() { }
+	constructor() { }
 
 	ngOnInit() {
 	}
 
 	onBtnClick() {
-		this.btnClicked.emit(this.filterClass);
-	}
-
-	onFilterClick(index: number) {
-		this.filterRemove.emit(this.filters[index]);
+		this.btnClicked.emit();
 	}
 
 }

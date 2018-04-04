@@ -1,9 +1,21 @@
 <ng-container *ngIf="user$ | async as user">
-	<div class="flex flexCenter">
+	<!-- team -->
+	<div class="teamCtnr flex flexCenter">
 		<div class="team">{{ user?.currentTeamId | entityName: 'team' | async }}</div>
-		<icon-app color="txt-secondary" class="pointer caret" name="angle-down" fa="true"></icon-app>
+		<icon-app (click)="openTeamPicker()" color="txt-secondary" class="pointer caret" name="angle-down" fa="true"></icon-app>
+
+		<div class="teamSelector" *ngIf="teamPickerShown" (clickOutside)="closeTeamPicker()">
+			<list-app *ngIf="teams$ | async as teams">
+				<list-item-app [selected]="team.id === user.currentTeamId" *ngFor="let team of teams">
+					{{ team.name }}
+				</list-item-app>
+			</list-app>
+		</div>
+
 	</div>
+	<!-- notif -->
 	<notif-app></notif-app>
+	<!-- user menu -->
 	<div class="panelCtnr">
 		<user-picture-app class="pointer" (click)="openPanel()" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 		<user-panel-app [user]="user" *ngIf="panelVisible" (close)="closePanel()" (logout)="logout()" (clickOutside)="closePanel()"></user-panel-app>

@@ -53,6 +53,7 @@ import {
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 
 import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
+import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 
 @NgModule({
 	imports: [
@@ -66,7 +67,7 @@ import { ProductExportDlgComponent } from './components/product-export-dlg/produ
 		RatingModule, // TODO to be removed and placed inside the component module using it
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
-		FiltersModule, // used for filters
+		FiltersModule.forChild(), // used for filters
 		CarouselModule,
 		BadgeModule,
 		CommentModule.forChild(),
@@ -91,7 +92,8 @@ import { ProductExportDlgComponent } from './components/product-export-dlg/produ
 		SelectableImageComponent,
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent
+		ProductExportDlgComponent,
+		ProductFiltersComponent
 	],
 	entryComponents: [ProductRequestTeamFeedbackDlgComponent, ProductExportDlgComponent, ProductAddToProjectDlgComponent],
 	exports: [ProductSmallCardComponent],

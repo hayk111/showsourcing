@@ -41,6 +41,10 @@ button, input[type="submit"], .button {
 	&.warn {
 		background: var(--color-warn);
 	}
+	&.transparent {
+		background: transparent;
+		color: var(--color-primary);
+	}
 }
 
 // disabled buttons

@@ -1,0 +1,27 @@
+<filter-panel-app title="">
+
+	<div>
+		<filter-btn-app title="Suppliers"></filter-btn-app>
+		<!-- <filter-tag-app title="supplier.name" *ngFor="let supplier of suppliersSelected"></filter-tag-app>		 -->
+	</div>
+
+	<div>
+		<filter-btn-app title="Events"></filter-btn-app>
+		<!-- <filter-tag-app title="event.name" *ngFor="let event of eventsSelected"></filter-tag-app>		 -->
+	</div>
+
+	<div>
+		<filter-btn-app title="Categories"></filter-btn-app>
+		<!-- <filter-tag-app title="" *ngFor="let category of categoriesSelected"></filter-tag-app>		 -->
+	</div>
+
+	<div>
+		<filter-btn-app title="Tags"></filter-btn-app>
+		<!-- <filter-tag-app title="" *ngFor="let category of tagsSelected"></filter-tag-app>		 -->
+	</div>
+
+	<filter-entity-panel-app *ngIf="entityPanelShown" [choices]="entityPanelChoices"></filter-entity-panel-app>
+	<filter-price-panel-app *ngIf="pricePanelShown"></filter-price-panel-app>
+	<filter-rating-panel-app *ngIf="ratingPanelShown"></filter-rating-panel-app>
+
+</filter-panel-app>

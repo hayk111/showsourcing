@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 	templateUrl: './list-item.component.html',
 	styleUrls: ['./list-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'pointer' }
 })
 export class ListItemComponent {
 	@Input() @HostBinding('class.selected') selected;

@@ -10,7 +10,6 @@ import * as faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import * as faBolt from '@fortawesome/fontawesome-free-solid/faBolt';
 import * as faThumbsUp from '@fortawesome/fontawesome-free-solid/faThumbsUp';
 import * as faBell from '@fortawesome/fontawesome-free-solid/faBell';
-import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
 import * as faShare from '@fortawesome/fontawesome-free-solid/faShare';
 import * as faEllipsisH from '@fortawesome/fontawesome-free-solid/faEllipsisH';
 import * as faEllipsisV from '@fortawesome/fontawesome-free-solid/faEllipsisV';
@@ -39,6 +38,8 @@ import * as faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
 import * as faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
 import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
+import * as faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
+import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
 
 import * as fontawesome from '@fortawesome/fontawesome';
 
@@ -65,7 +66,6 @@ export const faIcons = [
 	faThumbsUp,
 	faThumbsDown,
 	faBell,
-	faSortDown,
 	faInfoCircle,
 	faQuestionCircle,
 	faTimesCircle,
@@ -87,7 +87,9 @@ export const faIcons = [
 	faGlobe,
 	faArrowLeft,
 	faTrashAlt,
-	faEdit
+	faEdit,
+	faSortUp,
+	faSortDown,
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));

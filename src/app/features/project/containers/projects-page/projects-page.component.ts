@@ -42,7 +42,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadProducts(filters) {
-		this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
+		// this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
 	}
 
 	selectProject(project: Project) {

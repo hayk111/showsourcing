@@ -1,12 +1,20 @@
 :host {
 	position: fixed;
-	right: 0;
+	left: 0;
 	top: 0;
 	bottom: 0;
-	background: white;
+	background: var(--color-bg-secondary);
 	z-index: 4;
 	overflow-x: hidden;
 	overflow-y: auto;
 	width: 280px;
 	padding: var(--spacing-default);
+}
+
+.top {
+	margin-bottom: var(--spacing-xl);
+}
+
+.clear {
+	color: var(--color-primary);
 }

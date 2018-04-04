@@ -54,13 +54,7 @@
   (openRequestFeedbackDialog)="openRequestFeedbackDialog()"></selection-actions>
 </selection-bar-app>
 
-<ng-container *ngIf="filterPanelOpen$ | async">
-	<filter-panel-app
-		class="z-4"
-		[filterGroupName]="filterGroupName"
-		[filterClasses]="filterClasses"
-		(clickOutside)="closeFilterPanel()"></filter-panel-app>
-</ng-container>
+<product-filters-app></product-filters-app>
 
 
 

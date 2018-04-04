@@ -16,7 +16,7 @@ export class FilterRatingPanelComponent {
 	@Output() removeFilter = new EventEmitter<Filter>();
 	values: Array<number> = [];
 
-	constructor() {}
+	constructor() { }
 
 	isSelected(num: number) {
 		return ~this.values.indexOf(num);

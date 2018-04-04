@@ -9,15 +9,14 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 
 import {
 	FilterBtnComponent,
-	FilterBtnsPanelComponent,
 	FilterEntityPanelComponent,
 	FilterPricePanelComponent,
 	FilterRatingPanelComponent,
 	FilterSearchBarComponent,
 	FilterSmartPanelComponent,
 	FilterTagComponent,
+	FilterPanelComponent,
 } from './components';
-import { FilterPanelComponent, FilterCloudComponent } from './containers';
 import { SharedModule } from '~app/shared/shared.module';
 import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
 
@@ -32,17 +31,24 @@ import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-
 	],
 	declarations: [
 		FilterPanelComponent,
-		FilterBtnsPanelComponent,
 		FilterBtnComponent,
 		FilterEntityPanelComponent,
 		FilterRatingPanelComponent,
 		FilterPricePanelComponent,
 		FilterSearchBarComponent,
-		FilterCloudComponent,
 		FilterTagComponent,
-		FilterSmartPanelComponent,
+		FilterSmartPanelComponent
 	],
-	exports: [FilterPanelComponent, FilterSearchBarComponent, FilterCloudComponent],
+	exports: [
+		FilterPanelComponent,
+		FilterBtnComponent,
+		FilterEntityPanelComponent,
+		FilterRatingPanelComponent,
+		FilterPricePanelComponent,
+		FilterSearchBarComponent,
+		FilterTagComponent,
+		FilterSmartPanelComponent
+	],
 	providers: [FilterEntityPanelService]
 })
 export class FiltersModule {

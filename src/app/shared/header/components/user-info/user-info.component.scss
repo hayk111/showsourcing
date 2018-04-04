@@ -20,6 +20,20 @@
   text-transform: capitalize;
   vertical-align: middle;
 }
+
+.teamCtnr {
+	position: relative;
+}
+
+.teamSelector {
+	position: absolute;
+	border-radius: var(--border-radius);
+	width: 150px;
+	top: 55px;
+	right: 5px;
+	z-index: 4;
+}
+
 .caret {
 	margin-bottom: -3px;
 	margin-left: 2px;
