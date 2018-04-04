@@ -1,8 +1,20 @@
 import { createSelector } from 'reselect';
-import { EntityActions, makeEntityActionTypes } from './entity.action.factory';
+import { EntityActions, makeEntityActionTypes, EntityActionTypes } from './entity.action.factory';
 import { EntityRepresentation } from './entity.model';
 import { entityStateToArray } from '~entity/utils';
 import { entityReducerFactory } from './entity.reducer.factory';
+
+
+export interface EntityBundle {
+	ActionTypes: EntityActionTypes;
+	Actions: EntityActions;
+	reducer: any;
+	selectState?: any;
+	selectArray?: any;
+	selectById?: any;
+	selectOne?: any;
+	selectFocussed?: any;
+}
 
 // utility method that generates basic entity Actions, ActionTypes, reducer and selectors.
 export function makeEntityBundle(entityName: string) {
@@ -11,24 +23,23 @@ export function makeEntityBundle(entityName: string) {
 	const Actions = new EntityActions(ActionTypes);
 	const reducer = entityReducerFactory(ActionTypes);
 
+	return { ActionTypes, Actions, reducer, ...createEntitySelectors(entityName) };
+}
+export interface EntitySelectors {
+	selectState: any;
+	selectArray: any;
+	selectById: any;
+	selectOne: any;
+	selectFocussed: any;
+}
+export function createEntitySelectors(entityName: string): EntitySelectors {
 	// selectors
-	// TODO: remove use of reselect and just use normal pipes
 	const selectEntities = (state) => state.entities;
 	const selectState = createSelector([selectEntities], entities => entities[entityName]);
 	const selectArray = createSelector([selectState], state => entityStateToArray(state));
 	const selectById = createSelector([selectState], state => state.byId);
 	const selectOne = (id: string) => createSelector([selectState], state => state.byId[id]);
+	const selectFocussed = createSelector([selectState], state => state.byId[state.focussed]);
 
-
-	return { ActionTypes, Actions, reducer, selectState, selectArray, selectById, selectOne };
-}
-
-export interface EntityBundle {
-	ActionTypes: any;
-	Actions: any;
-	reducer: any;
-	selectState?: any;
-	selectArray?: any;
-	selectById?: any;
-	selectOne?: any;
+	return { selectState, selectArray, selectById, selectOne, selectFocussed };
 }

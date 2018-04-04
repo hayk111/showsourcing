@@ -3,10 +3,7 @@ import { EntityRepresentation, Entity, ERM, Currency } from '~entity';
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
 	WORKFLOW_PAGE = 'workflowPage',
-	TASKS_PAGE = 'tasksPage',
-	SUPPLIER_PAGE = 'supplierPage',
-	PROJECTS_PAGE = 'projectPage',
-	EVENTS_PAGE = 'eventsPage',
+	PROJECTS_PAGE = 'projectPage'
 }
 
 // the key here is actually a FilterGroupName

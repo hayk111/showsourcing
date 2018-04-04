@@ -1,7 +1,7 @@
-<!-- we have to use another component to wrap the template else the -->
+<!-- we have to use another component to wrap the template else the viewcontainer is gonna be undefined-->
 <dialog-modal-app [isOpen]="isOpen" (click)="close()">
 	<div (click)="$event.stopPropagation()">
 		<ng-template dialogHostApp></ng-template>
 	</div>
-<dialog-modal-app>
+</dialog-modal-app>
 

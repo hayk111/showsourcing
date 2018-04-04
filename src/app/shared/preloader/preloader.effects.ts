@@ -11,7 +11,7 @@ import {
 	fromIncoTerm,
 	fromProductStatus,
 	projectActions,
-	supplierActions,
+	fromSupplier,
 	fromSupplierStatus,
 	fromTag,
 	fromTaskStatus,
@@ -46,7 +46,7 @@ export class PreloaderEffects {
 			// team entities
 			fromCategory.Actions.load(),
 			fromCustomField.Actions.load(),
-			supplierActions.load(),
+			fromSupplier.Actions.load(),
 			fromEvent.Actions.load(),
 			projectActions.load(),
 			fromTag.Actions.load(),

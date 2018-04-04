@@ -1,5 +1,3 @@
-export * from './supplier.action';
+export * from './supplier.bundle';
 export * from './supplier.effects';
-export * from './supplier.reducer';
-export * from './supplier.selector';
 export * from './supplier.model';

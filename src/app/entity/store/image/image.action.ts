@@ -17,7 +17,7 @@ export const imageActionTypes = {
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic actions + extended actions
 // ----------------------------------------------------------------------------
-class ImageActions extends EntityActions {
+export class ImageActions extends EntityActions {
 	rotate(image: AppImage) {
 		return {
 			type: this.actionType.ROTATE,

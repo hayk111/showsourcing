@@ -20,7 +20,7 @@ export const supplierActionTypes = {
 	REMOVE_CATEGORY: `[${entityName.capitalize()}] Removing category from supplier...`,
 };
 
-class SupplierActions extends EntityActions {
+export class SupplierActions extends EntityActions {
 	// additional actions / extensions of the base
 	loadProductCount() {
 		return {

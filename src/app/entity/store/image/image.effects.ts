@@ -8,8 +8,8 @@ import { EntityTarget } from '../entity.model';
 import { FocussedEntityService } from '../focussed-entity/focussed-entity.service';
 import { AppImage } from './image.model';
 import { fromImage } from './image.bundle';
+import { imageActionTypes } from '~app/entity/store/image/image.action';
 
-const imageActionTypes = fromImage.ActionTypes;
 
 @Injectable()
 export class ImageEffects {

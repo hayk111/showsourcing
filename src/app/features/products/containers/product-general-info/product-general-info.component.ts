@@ -8,7 +8,7 @@ import { UserService } from '~app/features/user';
 import { FormControlDescriptor, FormDescriptor } from '~entity';
 import { Event, fromEvent } from '~event';
 import { Project } from '~project';
-import { supplierActions } from '~supplier';
+import { fromSupplier } from '~supplier';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -57,7 +57,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	onSupplierUpdate(id: string, propName: string, value: any) {
-		this.store.dispatch(supplierActions.patch({ id, propName, value }));
+		this.store.dispatch(fromSupplier.Actions.patch({ id, propName, value }));
 	}
 
 	onTagAdded(tag: Tag) {

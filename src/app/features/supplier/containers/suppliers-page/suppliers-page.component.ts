@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch } from '~entity';
 import { Supplier } from '~supplier';
 import { Observable } from 'rxjs/Observable';
-import { selectSuppliers, selectSupplierState, supplierActions } from '~supplier';
+import { fromSupplier } from '~supplier';
 import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -17,7 +17,6 @@ import { DialogName } from '~dialog';
 	styleUrls: ['./suppliers-page.component.scss'],
 })
 export class SuppliersPageComponent implements OnInit {
-	filterGroupName = FilterGroupName.SUPPLIER_PAGE;
 	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
 	repr = ERM.supplier;
@@ -29,10 +28,11 @@ export class SuppliersPageComponent implements OnInit {
 
 	ngOnInit() {
 		// we must load the product count on this page
-		this.store.dispatch(supplierActions.loadProductCount());
-		this.suppliers$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
-		this.productCount$ = this.store.select(selectSupplierState).pipe(map((state: any) => state.productsCount));
-		this.pending$ = this.store.select(selectSupplierState).pipe(map(s => s.pending));
+		this.store.dispatch(fromSupplier.Actions.loadProductCount());
+		this.suppliers$ = this.store.select(fromSupplier.selectArray);
+		this.productCount$ = this.store.select(fromSupplier.selectState)
+			.pipe(map((state: any) => state.productsCount));
+		this.pending$ = this.store.select(fromSupplier.selectState).pipe(map(s => s.pending));
 	}
 
 	openNewDialog() {
@@ -53,12 +53,12 @@ export class SuppliersPageComponent implements OnInit {
 
 	onItemFavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(supplierActions.patch(patch));
+		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(supplierActions.patch(patch));
+		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 
 	resetSelection() {
@@ -67,7 +67,7 @@ export class SuppliersPageComponent implements OnInit {
 
 	deleteSelection() {
 		const ids = Array.from(this.selection.keys());
-		this.store.dispatch(supplierActions.delete(ids));
+		this.store.dispatch(fromSupplier.Actions.delete(ids));
 		this.selection = new Map();
 	}
 }

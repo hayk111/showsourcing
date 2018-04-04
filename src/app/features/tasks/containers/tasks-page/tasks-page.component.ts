@@ -14,7 +14,6 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./tasks-page.component.scss'],
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
-	filterGroupName = FilterGroupName.TASKS_PAGE;
 	tasks$;
 	pending$: Observable<boolean>;
 	repr = ERM.task;
@@ -26,7 +25,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.store.dispatch(fromTask.Actions.load());
-		this.tasks$ = this.store.select(selectFilteredEntity(this.filterGroupName, this.repr));
+		this.tasks$ = this.store.select(fromTask.selectArray);
 		this.pending$ = this.store.select(fromTask.selectState).pipe(map((t: any) => t.pending));
 	}
 

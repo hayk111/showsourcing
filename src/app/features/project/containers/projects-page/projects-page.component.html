@@ -11,7 +11,7 @@
 	<div class="right">
 		<!-- top bar -->
 		<div class="top flexBetween">
-			<bread-crumb-app [title]="'Projects'" [subtitles]="['My projects', 'selectedProject.name']"></bread-crumb-app>
+			<bread-crumb-app [title]="'Projects'" [subtitles]="['My projects', selectedProject.name]"></bread-crumb-app>
 		</div>
 
 		<div class="hr"></div>
@@ -20,21 +20,6 @@
 
 	</div>
 
-
 </div>
-<!--
-<entity-page-app
-	[filterGroupName]="filterGroupName"
-	[pending]="pending$ | async"
-	[repr]="repr"
-	[switchable]="false">
-	<projects-list-view-app
-		(projectSelect)="onItemSelected($event)"
-		(projectUnselect)="onItemUnselected($event)"
-		[selection]="selection"
-		[projects]="projects$ | async">
-	</projects-list-view-app>
-</entity-page-app> -->
 
-<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">
-</selection-bar-app>
+<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>

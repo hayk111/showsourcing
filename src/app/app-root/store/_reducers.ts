@@ -8,8 +8,7 @@ import {
 	productReducer,
 	userReducer,
 	projectReducer,
-	supplierReducer,
-
+	fromSupplier,
 	fromCategory,
 	fromComment,
 	fromCountry,
@@ -49,7 +48,7 @@ const entities = combineReducers({
 	category: fromCategory.reducer,
 	event: fromEvent.reducer,
 	tag: fromTag.reducer,
-	supplier: supplierReducer,
+	supplier: fromSupplier.reducer,
 	product: productReducer,
 
 	productStatus: fromProductStatus.reducer,

@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { map, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
-	Patch, AppImage, fromImage, selectSupplierFocussed,
-	selectSupplierProductsCountForFocussed,
+	Patch, AppImage, fromImage, fromSupplier,
 	Tag
 } from '~entity';
 import { Product, selectProducts } from '~product';
-import { Supplier, supplierActions } from '~supplier';
+import { Supplier } from '~supplier';
 import { fromTask, Task } from '~task';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
@@ -35,33 +34,37 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(takeUntil(this._destroy$), map(params => params.id));
 		id$.subscribe(id => {
-			this.store.dispatch(supplierActions.focus(id));
-			this.store.dispatch(supplierActions.loadProductCount());
+			this.store.dispatch(fromSupplier.Actions.focus(id));
+			this.store.dispatch(fromSupplier.Actions.loadProductCount());
 		});
 
-		this.supplier$ = this.store.select(selectSupplierFocussed);
-		this.supplier$.pipe(takeUntil(this._destroy$), filter(d => !!d)).subscribe(supplier => this.supplierId = supplier.id);
-		this.productsCount$ = id$.pipe(switchMap(id => this.store.select(selectSupplierProductsCountForFocussed(id))));
+		this.supplier$ = this.store.select(fromSupplier.selectFocussed).pipe(
+			filter(d => !!d)),
+			tap((supplier: Supplier) => this.supplierId = supplier.id);
+
+		this.productsCount$ = this.store.select(fromSupplier.selectState).pipe(
+			map(state => state.productsCount[state.focussed])
+		);
 		this.tasks$ = this.store.select(fromTask.selectArray);
 		this.products$ = this.store.select<any>(selectProducts);
 		this.images$ = this.store.select(fromImage.selectArray);
 	}
 
 	patch(patch: Patch) {
-		this.store.dispatch(supplierActions.patch(patch));
+		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 
 	onTagAdded(tag: Tag) {
-		this.store.dispatch(supplierActions.addTag(tag, this.supplierId));
+		this.store.dispatch(fromSupplier.Actions.addTag(tag, this.supplierId));
 	}
 
 	onTagRemoved(tag: Tag) {
-		this.store.dispatch(supplierActions.removeTag(tag, this.supplierId));
+		this.store.dispatch(fromSupplier.Actions.removeTag(tag, this.supplierId));
 	}
 
 	onTagCreated(tagName: string) {
 		const tag = new Tag(tagName, this.userSrv.userId);
-		this.store.dispatch(supplierActions.createTag(tag, this.supplierId));
+		this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
 	}
 
 	openNewContactDlg() {
