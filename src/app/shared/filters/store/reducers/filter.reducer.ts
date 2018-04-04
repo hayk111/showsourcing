@@ -10,7 +10,7 @@ const initialState: AppFilters = {
 	eventsPage: []
 };
 
-export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any> ): AppFilters {
+export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any>): AppFilters {
 	let groupName, filter, group, newState;
 
 	if (action.payload) {
@@ -28,14 +28,7 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
-			// check readme in the shared/filter module for more info on the instanceof if needed.
 			newState[groupName] = group.filter(f => (!f.equals(filter)));
-			return newState;
-
-		case ActionType.REMOVE_FILTER_FOR_CLASS:
-			newState = { ...state };
-			const filterClass = action.payload.filterClass;
-			newState[groupName] = group.filter(f => !(f instanceof filterClass));
 			return newState;
 
 		case ActionType.CLEAR:

@@ -1,47 +1,15 @@
-import {
-	animate,
-	state,
-	style,
-	transition,
-	trigger,
-} from '@angular/animations';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	Input,
-	OnInit,
-	ViewChild,
-} from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import {
-	debounceTime,
-	filter as filterPipe,
-	switchMap,
-	takeUntil,
-	tap,
-	map,
-} from 'rxjs/operators';
+import { debounceTime, filter as filterPipe, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import {
-	SearchedEntities,
-	searchEntities,
-	selectFiltersValues,
-	selectFilterGroup,
-} from '~shared/filters/store/selectors';
-import {
-	FilterGroupName,
-	FilterSearch,
-	FilterSupplier,
-	FilterEvent,
-	FilterCategory,
-	Filter,
-} from '~shared/filters/models';
+import { ERM } from '~app/entity';
+import { Filter, FilterGroupName, FilterSearch } from '~shared/filters/models';
+import { SearchedEntities, searchEntities, selectFilterGroup } from '~shared/filters/store/selectors';
 
 import { FilterActions } from '../../store/actions';
-import { ERM } from '~app/entity';
 
 @Component({
 	selector: 'filter-search-bar-app',
