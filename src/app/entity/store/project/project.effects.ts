@@ -31,25 +31,6 @@ export class ProjectEffects {
 		map((items: Array<any>) => projectActions.setProductCount(items))
 	);
 
-	@Effect()
-	addProducts$ = this.action$.ofType<any>(actionTypes.ADD_PRODUCTS).pipe(
-		map(action => action.payload),
-		switchMap(({ projects, products }) => {
-			const obs$ = new Array<Observable<any>>();
-			projects.forEach(projectid => {
-				products.forEach(productid => {
-					obs$.push(this.srv.addProduct(projectid, productid));
-				});
-			});
-			const result = forkJoin(obs$);
-			return result;
-		}),
-		switchMap((result: any) => [
-			projectActions.addProductsSuccess(result),
-			projectActions.loadProductCount(ERM.project),
-		])
-	);
-
 	@Effect({ dispatch: false })
 	patch$ = this.action$
 		.ofType<any>(actionTypes.PATCH)

@@ -1,4 +1,3 @@
-export * from './product-action-dialog/product-action-dialog.component';
 export * from './product-icons/product-icons.component';
 export * from './product-selectable-card/product-selectable-card.component';
 export * from './product-small-card/product-small-card.component';

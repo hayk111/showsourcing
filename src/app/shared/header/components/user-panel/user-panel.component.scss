@@ -4,14 +4,20 @@
 user-picture-app {
 	margin-right: var(--spacing-default);
 }
-.name {
-	font-size: var(--font-size-l);
-	font-weight: 600;
+.nameEmail {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	.name {
+		font-size: var(--font-size-l);
+		font-weight: 600;
+	}
+
+	.email {
+		font-size: var(--font-size-s);
+	}
 }
 
-.email {
-	font-size: var(--font-size-s);
-}
 
 menuitem {
 	padding: var(--spacing-default);

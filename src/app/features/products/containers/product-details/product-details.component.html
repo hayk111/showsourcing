@@ -6,8 +6,8 @@
       <card-app class="carouselCard">
 				<rating-heart-app class="flexCenter"
 					[rating]="product.rating"
-					(favorited)="onFavorited(product.id)"
-					(unfavorited)="onUnfavorited(product.id)"></rating-heart-app>
+					(favorited)="onFavorited()"
+					(unfavorited)="onUnfavorited()"></rating-heart-app>
         <carousel-selection-app></carousel-selection-app>
       </card-app>
 
@@ -17,7 +17,7 @@
 
 			<card-app>
 				<project-card-app
-					(removeProject)="removeProject($event, product.id)"
+					(removeProject)="removeProject($event)"
 					(addProjectClick)="openAddProjectDlg()"
 					[projects]="product.projectIds | entityArray: 'project' | async"></project-card-app>
 			</card-app>
@@ -30,23 +30,12 @@
 
     <div class="right">
       <card-app padding="none">
-				<product-top-bar-app [product]="product" [numTasks]="(tasks$ | async).length" (updateStatus)="updateStatus($event, product.id)"></product-top-bar-app>
+				<product-top-bar-app [product]="product" [numTasks]="(tasks$ | async).length" (updateStatus)="updateStatus($event)"></product-top-bar-app>
       </card-app>
       <entity-main-card-app></entity-main-card-app>
     </div>
 
   </div>
-
-	<product-action-dialog-app
-		[dialogName]="projectDlgName"
-		header="Add to projects"
-		title="My projects"
-		buttonLabel="Add projects"
-		dialogType="add"
-		[entities]="project$ | async"
-		[productsCount]="productsCount$ | async"
-		(buttonClicked)="addToProjects($event, product.id)">
-	</product-action-dialog-app>
 
 </ng-container>
 

@@ -3,12 +3,10 @@
 	<!-- picture and name -->
 	<div class="flex userInfo">
 		<user-picture-app size="48" spacing="default" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-		<div class="flexColumn">
+		<div class="nameEmail">
 			<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
 			<span class="email">{{ user?.email }}</span>
 		</div>
-		<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
-		<span class="email">{{ user?.email }}</span>
 	</div>
 	<!-- Settings -->
 	<div class="hr"></div>

@@ -172,17 +172,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.view = v;
 	}
 
-	// onItemAddToProject(id: string) {
-	// 	this.selectedProductForDialog = new Array();
-	// 	this.selectedProductForDialog.push(id);
-	// 	this.store.dispatch(DialogActions.open(this.addProductDialog));
-	// }
+	onItemAddToProject(id: string) {
+		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
+	}
 
 	// ----------------------------------------------------------------------------
 	// --------------------------- Add to project Dialog
 	// ----------------------------------------------------------------------------
 	openAddToProjectDialog() {
-		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT));
+		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray }));
 	}
 
 	// addToProjects(selectedProjects) {
@@ -195,16 +193,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// // ----------------------------------------------------------------------------
 
 	openExportDialog() {
-		this.store.dispatch(DialogActions.open(DialogName.EXPORT));
+		this.store.dispatch(DialogActions.open(DialogName.EXPORT, { selectedProducts: this.selectionArray }));
 	}
 
-	// export($event) { }
 
 	// ----------------------------------------------------------------------------
 	// --------------------------- Request feedback Dialog
 	// ----------------------------------------------------------------------------
 	openRequestFeedbackDialog() {
-		this.store.dispatch(DialogActions.open(DialogName.REQUEST_FEEDBACK));
+		this.store.dispatch(DialogActions.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray }));
+	}
+
+	get selectionArray() {
+		return Array.from(this.selection.keys());
 	}
 
 	// requestFeeback(selectedMembers) {

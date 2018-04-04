@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 import {
@@ -36,6 +36,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	projectDlgName = DialogName.ADD_TO_PROJECT;
 	productsCount$: Observable<number>;
 	tasks$: Observable<Array<Task>>;
+	productId: string;
 
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
 		super();
@@ -48,7 +49,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		});
 		this.product$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.store.select(selectProductById(params.id)))
+			switchMap(params => this.store.select(selectProductById(params.id))),
+			filter(product => !!product),
+			tap(product => this.productId = product.id)
 		);
 		this.projects$ = this.store.select(selectProjects);
 		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
@@ -56,28 +59,22 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.store.dispatch(DialogActions.open(this.projectDlgName));
+		this.store.dispatch(DialogActions.open(this.projectDlgName, { selectedProducts: [this.productId] }));
 	}
 
-	addToProjects(selectedProjects: any, productId: string) {
-		const projects = Object.values(selectedProjects);
-		projects.forEach((project: Project) => this.store.dispatch(productActions.addProject(project, productId)));
-		this.store.dispatch(DialogActions.close(this.projectDlgName));
+	removeProject(project) {
+		this.store.dispatch(productActions.removeProject(project, this.productId));
 	}
 
-	removeProject(project, productId: string) {
-		this.store.dispatch(productActions.removeProject(project, productId));
+	updateStatus(statusId: string) {
+		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: this.productId }));
 	}
 
-	updateStatus(statusId: string, productId: string) {
-		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: productId }));
+	onFavorited() {
+		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: this.productId }));
 	}
 
-	onFavorited(productId: string) {
-		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: productId }));
-	}
-
-	onUnfavorited(productId: string) {
-		this.store.dispatch(productActions.patch({ propName: 'rating', value: 1, id: productId }));
+	onUnfavorited() {
+		this.store.dispatch(productActions.patch({ propName: 'rating', value: 1, id: this.productId }));
 	}
 }

@@ -27,7 +27,8 @@
 .borderRadius {
 	border-radius: var(--border-radius);
 }
-// flex
+
+/////// flex (used everywhere) /////////
 
 .flex{
   display: flex;
@@ -37,6 +38,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flexStart {
+	justify-content: flex-start;
+}
+
+.flexEnd {
+	justify-content: flex-end;
 }
 
 .flexColumn{

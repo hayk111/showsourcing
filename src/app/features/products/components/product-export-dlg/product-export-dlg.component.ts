@@ -13,6 +13,12 @@ const addDlg = () => addDialog(ProductExportDlgComponent, DialogName.EXPORT);
 export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'excel' = '';
 	dlgName = DialogName.EXPORT;
+	// used to give props from the dialog container
+	props = { selectedProducts: [] };
+	get products() {
+		return this.props.selectedProducts;
+	}
+
 	constructor() { }
 
 	ngOnInit() {
@@ -20,6 +26,10 @@ export class ProductExportDlgComponent implements OnInit {
 
 	select(value: '' | 'pdf' | 'excel') {
 		this.selectedExport = value;
+	}
+
+	export() {
+
 	}
 }
 

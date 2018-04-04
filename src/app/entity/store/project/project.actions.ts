@@ -8,8 +8,6 @@ export const projectActionTypes = {
 	...makeEntityActionTypes(entityName),
 	LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count...`,
 	SET_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
-	ADD_PRODUCTS: `[${entityName.capitalize()}] Adding Product to project...`,
-	ADD_PRODUCTS_SUCCESS: `[${entityName.capitalize()}] Successfully adding product to project...`,
 };
 
 // ----------------------------------------------------------------------------
@@ -28,19 +26,6 @@ class ProjectActions extends EntityActions {
 		return {
 			type: this.actionType.SET_PRODUCT_COUNT,
 			payload: items,
-		};
-	}
-
-	addProducts(projects: Array<string>, products: Array<string>) {
-		return {
-			type: this.actionType.ADD_PRODUCTS,
-			payload: { projects, products },
-		};
-	}
-	addProductsSuccess(result: Array<any>) {
-		return {
-			type: this.actionType.ADD_PRODUCTS_SUCCESS,
-			payload: result,
 		};
 	}
 }

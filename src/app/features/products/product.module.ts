@@ -28,7 +28,6 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils/utils.module';
 
 import {
-	ProductActionDialogComponent,
 	ProductCardViewComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
@@ -75,7 +74,6 @@ import { ProductExportDlgComponent } from './components/product-export-dlg/produ
 	],
 	providers: [],
 	declarations: [
-		ProductActionDialogComponent,
 		ProductSmallCardComponent,
 		ProductIconsComponent,
 		ProductStatusBadgeComponent,

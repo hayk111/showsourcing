@@ -13,19 +13,7 @@ export const basicProductReducer = entityReducerFactory(actionTypes);
 
 export function productReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
-		// TODO: hassan we don't use actions from other entities in reducer.
-		case projectActionTypes.ADD_PRODUCTS_SUCCESS: {
-			// tslint:disable-next-line:no-var-keyword
-			const byId = { ...state.byId };
-			action.payload.forEach(element => {
-				const product: Product = { ...byId[element.productId] };
-				if (!product.projectIds.includes(element.projectId)) {
-					product.projectIds = [...product.projectIds, element.projectId];
-				}
-				byId[product.id] = product;
-			});
-			return { ...state, byId };
-		}
+
 		case actionTypes.ADD_TAG: {
 			const byId = { ...state.byId };
 			const tagId = action.payload.tag.id;

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
 import { Observable } from 'rxjs/Observable';
-import { User } from '~app/entity';
+import { User, productActions } from '~app/entity';
 import { DialogName, DialogActions } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
@@ -19,6 +19,11 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	dialogName = DialogName.REQUEST_FEEDBACK;
 	teamMembers$: Observable<Array<User>>;
 	selectedMembers = {};
+	// used to give props from the dialog container
+	props = { selectedProducts: [] };
+	get products() {
+		return this.props.selectedProducts;
+	}
 
 	constructor(private store: Store<any>) { }
 
@@ -34,10 +39,10 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		delete this.selectedMembers[id];
 	}
 
-	requestFeeback() {
-		// this.store.dispatch(
-		// 	productActions.requestFeedback(this.selectedProductForDialog, Object.keys(this.selectedMembers))
-		// );
+	submit() {
+		this.store.dispatch(
+			productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
+		);
 		this.store.dispatch(DialogActions.close(this.dialogName));
 	}
 
