@@ -181,13 +181,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// ----------------------------------------------------------------------------
 	// --------------------------- Add to project Dialog
 	// ----------------------------------------------------------------------------
-	// openAddToProjectDialog() {
-	// 	this.selectedProductForDialog = new Array();
-	// 	this.selection.forEach((value, key) => {
-	// 		if (value) this.selectedProductForDialog.push(key);
-	// 	});
-	// 	this.store.dispatch(DialogActions.open(this.addProductDialog));
-	// }
+	openAddToProjectDialog() {
+		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT));
+	}
 
 	// addToProjects(selectedProjects) {
 	// 	this.store.dispatch(projectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog));
@@ -198,26 +194,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// // --------------------------- Export Dialog
 	// // ----------------------------------------------------------------------------
 
-	// openExportDialog() {
-	// 	this.selectedProductForDialog = new Array();
-	// 	this.selection.forEach((value, key) => {
-	// 		if (value) this.selectedProductForDialog.push(key);
-	// 	});
-	// 	this.store.dispatch(DialogActions.open(this.exportDialog));
-	// }
+	openExportDialog() {
+		this.store.dispatch(DialogActions.open(DialogName.EXPORT));
+	}
 
-	export($event) { }
+	// export($event) { }
 
 	// ----------------------------------------------------------------------------
 	// --------------------------- Request feedback Dialog
 	// ----------------------------------------------------------------------------
-	// openRequestFeedbackDialog() {
-	// 	this.selectedProductForDialog = new Array();
-	// 	this.selection.forEach((value, key) => {
-	// 		if (value) this.selectedProductForDialog.push(key);
-	// 	});
-	// 	this.store.dispatch(DialogActions.open(this.requestFeedbackDialog));
-	// }
+	openRequestFeedbackDialog() {
+		this.store.dispatch(DialogActions.open(DialogName.REQUEST_FEEDBACK));
+	}
 
 	// requestFeeback(selectedMembers) {
 	// 	this.store.dispatch(

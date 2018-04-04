@@ -44,9 +44,8 @@
   flex-direction: column;
 }
 
-.flexRow{
-  display: flex;
-  flex-direction: row;
+.flexGrow {
+	flex-grow: 1;
 }
 
 .flexBetween {
@@ -55,10 +54,6 @@
 	align-items: center;
 }
 
-.flexWrap{
-  display: flex;
-  flex-wrap: wrap;
-}
 
 // align
 

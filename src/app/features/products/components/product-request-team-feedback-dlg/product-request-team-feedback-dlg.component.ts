@@ -3,6 +3,11 @@ import { Store } from '@ngrx/store';
 import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
 import { Observable } from 'rxjs/Observable';
 import { User } from '~app/entity';
+import { DialogName, DialogActions } from '~app/shared/dialog';
+import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+
+
+const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);
 
 @Component({
 	selector: 'product-request-team-feedback-dlg-app',
@@ -11,11 +16,31 @@ import { User } from '~app/entity';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
-	teamMembers$: Observable<User>;
+	dialogName = DialogName.REQUEST_FEEDBACK;
+	teamMembers$: Observable<Array<User>>;
+	selectedMembers = {};
+
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.store.select(fromTeamMember.selectArray);
+		this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
+	}
+
+	select(id: string, user) {
+		this.selectedMembers[id] = user;
+	}
+
+	unselect(id: string) {
+		delete this.selectedMembers[id];
+	}
+
+	requestFeeback() {
+		// this.store.dispatch(
+		// 	productActions.requestFeedback(this.selectedProductForDialog, Object.keys(this.selectedMembers))
+		// );
+		this.store.dispatch(DialogActions.close(this.dialogName));
 	}
 
 }
+
+addDlg();

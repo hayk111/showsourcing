@@ -32,13 +32,15 @@ export interface EntityActionTypes {
 	PATCH: string;
 	MERGE: string;
 	RESET: string;
+	SELECT: string;
+	UNSELECT: string;
+	RESET_SELECTION: string;
 }
 
 // makes basic action types
 export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 	// using uppercase for backward compatibility with enums
 	return {
-		FOCUS: `[${entityName.capitalize()}] Focussing...`,
 		LOAD: `[${entityName.capitalize()}] Loading...`,
 		LOAD_MORE: `[${entityName.capitalize()}] Loading more...`,
 		LOAD_BY_ID: `[${entityName.capitalize()}] Loading by id...`,
@@ -52,7 +54,11 @@ export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 		PATCH: `[${entityName.capitalize()}] Patching...`,
 		DOWNLOAD: `[${entityName.capitalize()}] Downloading...`,
 		MERGE: `[${entityName.capitalize()}] Merging...`,
-		RESET: `[${entityName.capitalize()}] Resetting...`
+		RESET: `[${entityName.capitalize()}] Resetting...`,
+		FOCUS: `[${entityName.capitalize()}] Focussing...`,
+		SELECT: `[${entityName.capitalize()}] Selecting...`,
+		UNSELECT: `[${entityName.capitalize()}] Unselecting...`,
+		RESET_SELECTION: `[${entityName.capitalize()}] resetting selection...`
 	};
 }
 
@@ -157,5 +163,25 @@ export class EntityActions {
 
 	reset(): Action {
 		return { type: this.actionType.RESET };
+	}
+
+	select(id: string) {
+		return {
+			type: this.actionType.SELECT,
+			payload: id
+		};
+	}
+
+	unselect(id: string) {
+		return {
+			type: this.actionType.UNSELECT,
+			payload: id
+		};
+	}
+
+	resettingSelection() {
+		return {
+			type: this.actionType.RESET_SELECTION,
+		};
 	}
 }

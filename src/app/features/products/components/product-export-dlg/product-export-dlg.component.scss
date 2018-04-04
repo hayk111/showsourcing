@@ -1,0 +1,46 @@
+.exportRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 var(--spacing-xxl);
+  margin-bottom: 56px;
+  .exportCell {
+      width: 220px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-bg-grey);
+      border: 2px solid var(--color-bg-switcher);
+      border-radius: 4px;
+      &:first-child {
+          margin-right: var(--spacing-default);
+      }
+      &:last-child {
+          margin-left: var(--spacing-default);
+      }
+      cursor: pointer;
+      .icon-pdf,
+      .icon-excel {
+          font-size: 48px;
+          color: var(--color-txt-secondary);
+          margin-bottom: var(--spacing-default);
+      }
+      .title {
+          font-weight: 600;
+          color: var(--color-button-dark);
+      }
+      .subtitle {
+          color: var(--color-txt-secondary);
+      }
+      &.selected {
+          border: 2px solid var(--color-primary);
+          .icon-pdf,
+          .icon-excel {
+              color: var(--color-primary);
+          }
+      }
+  }
+}

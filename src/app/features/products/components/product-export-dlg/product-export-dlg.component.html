@@ -1,3 +1,23 @@
-<p>
-  <%= dasherize(name) %> works!
-</p>
+<dialog-app [name]="dlgName">
+  <header>Export Selection</header>
+	<div class="subtitle">Export Type</div>
+
+	<main class="exportRow">
+		<div class="exportCell" (click)="select('excel')" [class.selected]="selectedExport === 'excel'">
+			<div class="icon-excel"></div>
+			<div class="title">Excel</div>
+			<div class="subtitle">Perfect for edition</div>
+		</div>
+		<div class="exportCell" (click)="select('pdf')" [class.selected]="selectedExport === 'pdf'">
+			<div class="icon-pdf"></div>
+			<div class="title">PDF</div>
+			<div class="subtitle">Perfect for sharing</div>
+		</div>
+</main>
+
+  <footer>
+		<button class="small" (click)="export()">
+			Export
+		</button>
+  </footer>
+</dialog-app>

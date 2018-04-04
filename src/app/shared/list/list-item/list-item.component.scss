@@ -1,4 +1,5 @@
 :host {
+	display: block;
 	padding: var(--spacing-default) var(--spacing-default) 0 var(--spacing-default);
 	&:hover {
 		background: var(--color-bg-third);

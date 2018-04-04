@@ -34,8 +34,6 @@ dialog{
 }
 
 .content {
-  display: flex;
-  align-items: center;
 	padding-bottom: 10px;
 	max-height: 366px;
   overflow-y: auto;
@@ -43,13 +41,14 @@ dialog{
   width: 600px;
 }
 
-.contentTitle {
+.subtitle {
   padding: var(--spacing-xl);
   font-size: var(--font-size-l);
   font-weight: 600;
   color: var(--color-primary);
   text-transform: uppercase;
 }
+
 .footer {
   background-color: var(--color-bg-third);
   padding: 0 var(--spacing-xl);

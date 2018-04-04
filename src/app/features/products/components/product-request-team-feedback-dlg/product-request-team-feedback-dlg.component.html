@@ -1,27 +1,24 @@
-<dialog-app [name]="dialogName" (closed)="close()">
+<dialog-app [name]="dialogName">
 	<header> Team Feedback </header>
 
-	<div class="contentTitle">Team members</div>
+	<div class="subtitle">Team members</div>
 
 	<main>
-		<ng-container *ngIf="teamMembers$ | async as teamMembers">
-			<div *ngFor="let user of teamMembers" class="contentRowBg" [class.selected]="selectedEntities[entity.id]">
-				<div class="contentRow flexBetween">
+		<list-app *ngIf="teamMembers$ | async as teamMembers">
+			<list-item-app *ngFor="let user of teamMembers" [selected]="selectedMembers[user.id]">
 					<checkbox-app
-						(check)="selectEntity(user.id, user)"
-						(uncheck)="unselectEntity(user.id, user)"
-						[checked]="selectedEntities[user.id]">
+						(check)="select(user.id, user)"
+						(uncheck)="unselect(user.id, user)"
+						[checked]="selectedMembers[user.id]">
 						<span class="name">{{ user.firstName }} {{ user.lastName }}</span>
 					</checkbox-app>
-					<div class="productNumber" *ngIf="dialogType === 'add'">{{ productsCount[user.id] || '-'}}</div>
-				</div>
-			</div>
-		</ng-container>
+				</list-item-app>
+		</list-app>
 	</main>
 
 	<footer>
 		<button class="small">
-			{{buttonLabel}}
+			Request Feedback
 		</button>
 	</footer>
 

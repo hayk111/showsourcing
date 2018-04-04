@@ -17,7 +17,7 @@
   <ng-container *ngIf="customFields$ | async as cf">
     <ng-container *ngFor="let group of cf.groups">
       <div class="sectionTitle">{{ group.name }}</div>
-      <div class="flexRow">
+      <div class="flex">
         <!-- first column -->
         <div class="flexColumn">
           <cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
@@ -39,7 +39,7 @@
 
 <ng-container *ngIf="product$ | async as product">
   <div class="sectionTitle shipping">Shipping & Trading</div>
-  <div class="flexRow">
+  <div class="flex">
 
       <!-- first column -->
       <div class="flexColumn">

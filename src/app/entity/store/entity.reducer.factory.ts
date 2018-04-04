@@ -62,6 +62,13 @@ export function entityReducerFactory<G extends Entity>(
 			case actionType.RESET:
 				return initialState;
 
+			case actionType.SELECT:
+				return { ...state, selected: [...state.selected, action.payload] };
+			case actionType.UNSELECT:
+				return { ...state, selected: state.selected.filter(theId => theId !== action.payload) };
+			case actionType.RESET_SELECTION:
+				return { ...state, selected: [] };
+
 			default:
 				return state;
 		}

@@ -95,6 +95,7 @@ import { ProductExportDlgComponent } from './components/product-export-dlg/produ
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent
 	],
+	entryComponents: [ProductRequestTeamFeedbackDlgComponent, ProductExportDlgComponent, ProductAddToProjectDlgComponent],
 	exports: [ProductSmallCardComponent],
 })
 export class ProductModule {
