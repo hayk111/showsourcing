@@ -37,6 +37,7 @@ import {
 } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'products-page-app',
@@ -44,14 +45,16 @@ import { Router } from '@angular/router';
 	styleUrls: ['./products-page.component.scss'],
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
+	/** currently loaded products */
 	products$: Observable<Array<Product>>;
+	/** non observable version of the above */
+	products: Array<Product> = [];
 	productsState$: Observable<EntityState<Product>>;
+	/** We need the statuses for selectors, if there aren't any productStatus selector in this page this should be removed */
 	statuses$: Observable<Array<ProductStatus>>;
-	projectState$: Observable<EntityState<Project>>;
-	teamMembersState$: Observable<EntityState<User>>;
+	/** Whether the product is pending */
 	pending$: Observable<boolean>;
-	// whether the products are currently loading.
-	productEntities: EntityState<Product>;
+	/** Representation of the product so we can display plural / Singular */
 	repr = ERM.product;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
@@ -83,9 +86,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.products$ = this.store.select(selectEntityArray(ERM.product));
+		this.products$ = this.store.select(selectEntityArray(ERM.product)).pipe(
+			tap(products => this.products = products)
+		);
 		this.productsState$ = this.store.select(selectProductsState);
-		this.productsState$.subscribe(state => (this.productEntities = state));
 		this.statuses$ = this.store.select(fromProductStatus.selectArray);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
@@ -99,33 +103,42 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
 	}
 
+	/** loads more product when we reach the bottom of the page */
 	loadMore() {
 		this.store.dispatch(
 			productActions.loadMore({
 				filters: this.filters,
 				pagination: true,
-				drop: this.productEntities.ids.length,
+				drop: this.products.length,
 			})
 		);
 	}
 
-	patch(patch: Patch) {
-		this.store.dispatch(productActions.patch(patch));
-	}
 
+	/** Selects a product */
 	onItemSelected(entityId: string) {
 		this.selection.set(entityId, true);
 	}
 
+	/** Unselects a product */
 	onItemUnselected(entityId: string) {
 		this.selection.delete(entityId);
 	}
 
+	/** Unselect all produces */
 	unselectAll() {
 		this.selection = new Map();
 	}
 
+	/** Patch a property of a product */
+	patch(patch: Patch) {
+		this.store.dispatch(productActions.patch(patch));
+	}
+
+	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
+		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
+		// Let's avoid doing that whenever possible though.
 		const callback = () => {
 			const products: Array<string> = new Array();
 			this.selection.forEach((value, key) => {
@@ -138,68 +151,63 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(DialogName.CONFIRM, { text, callback }));
 	}
 
-	onItemDeleted(entityId: string) {
-		this.store.dispatch(productActions.delete([entityId]));
-	}
-
+	/** Open details page of a product */
 	goToDetails(entityId: string) {
 		this.router.navigate(['/product', 'details', entityId, 'general']);
 	}
 
+	/** When a product heart is clicked to favorite it */
 	onItemFavorited(entityId: string) {
+		// we are just patching a property of the product, which is the rating property
 		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(productActions.patch(patch));
+		this.patch(patch);
 	}
 
+	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(entityId: string) {
 		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(productActions.patch(patch));
+		this.patch(patch);
 	}
 
+	/** When an product is liked / disliked */
 	onItemVoted({ id, value }: { id: string; value: 0 | 100 }) {
 		this.store.dispatch(productActions.vote(id, value));
 	}
 
+	/** when filter button is clicked at the top we open the panel */
 	openFilterPanel() {
 		this.store.dispatch(FilterPanelAction.open());
 	}
 
+	/** When we need to close the filter panel */
 	closeFilterPanel() {
 		this.store.dispatch(FilterPanelAction.close());
 	}
 
+	/** Whenever we switch from list to card view */
 	onViewChange(v: 'list' | 'card') {
 		this.view = v;
 	}
 
+	/** when the blue button 'ADD TO PROJECT' in a product card is clicked */
 	onItemAddToProject(id: string) {
 		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
 	}
 
-	// ----------------------------------------------------------------------------
-	// --------------------------- Add to project Dialog
-	// ----------------------------------------------------------------------------
+	//////////////////////////////////////////////////////
+	////// Selection bar actions /////////////////////////
+	//////////////////////////////////////////////////////
+
 	openAddToProjectDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray }));
 	}
 
-	// addToProjects(selectedProjects) {
-	// 	this.store.dispatch(projectActions.addProducts(Object.keys(selectedProjects), this.selectedProductForDialog));
-	// 	this.store.dispatch(DialogActions.close(this.addProductDialog));
-	// }
-
-	// // ----------------------------------------------------------------------------
-	// // --------------------------- Export Dialog
-	// // ----------------------------------------------------------------------------
 
 	openExportDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.EXPORT, { selectedProducts: this.selectionArray }));
 	}
 
 
-	// ----------------------------------------------------------------------------
-	// --------------------------- Request feedback Dialog
-	// ----------------------------------------------------------------------------
 	openRequestFeedbackDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray }));
 	}
@@ -208,10 +216,4 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		return Array.from(this.selection.keys());
 	}
 
-	// requestFeeback(selectedMembers) {
-	// 	this.store.dispatch(
-	// 		productActions.requestFeedback(this.selectedProductForDialog, Object.keys(selectedMembers))
-	// 	);
-	// 	this.store.dispatch(DialogActions.close(this.requestFeedbackDialog));
-	// }
 }
