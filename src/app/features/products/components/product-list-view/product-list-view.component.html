@@ -22,11 +22,11 @@
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	{{ suppliers[row?.supplierId] }}
+	{{ row?.supplierId | entityName:'supplier' | async }}
 </ng-template>
 
 <ng-template #category let-row="row">
-	{{ categories[row?.categoryId] }}
+	{{ row?.categoryId | entityName:'category' | async }}
 </ng-template>
 
 <ng-template #price let-row="row">
@@ -61,7 +61,7 @@
 
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
-		<span *ngFor="let projectId of row.projectIds">{{ projects[projectId].name }}</span>
+		<span *ngFor="let projectId of row.projectIds">{{ projectId | entityName: 'project' | async }}</span>
 	</div>
 </ng-template>
 
@@ -76,11 +76,14 @@
 
 <ng-template #user let-row="row">
 	<div class="flexCenter userP">
-		<user-picture-app
-			[size]="18"
-			[border]="true"
-			[url]="teamMembers[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-		<span>{{ teamMembers[row.createdByUserId] }}</span>
+		<ng-container *ngIf="row.createdByUserId | entity:'teamMember' | async as user">
+			<user-picture-app
+				[size]="18"
+				[border]="true"
+				[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+			<span>{{ user.firstName + ' ' + user.lastName }} </span>
+		</ng-container>
+
 	</div>
 <ng-template>
 
