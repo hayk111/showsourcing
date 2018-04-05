@@ -3,13 +3,12 @@
 
 <input type="text" placeholder="Search" (input)="search($event.target.value)"/>
 
-<list-app>
-	<list-item-app *ngFor="let choice of choices" >
-		<checkbox-app
-			[checked]="selected.has(choice.id)"
-			(check)="onItemAdded(choice.id)"
-			(uncheck)="onItemRemoved(choice.id)">
-			{{ choice.name }}
-		</checkbox-app>
-	</list-item-app>
-</list-app>
+
+<checkbox-app
+	*ngFor="let choice of choices"
+	[checked]="selected.has(choice.id)"
+	(check)="onItemAdded(choice.id)"
+	(uncheck)="onItemRemoved(choice.id)">
+	{{ choice.name }}
+</checkbox-app>
+
