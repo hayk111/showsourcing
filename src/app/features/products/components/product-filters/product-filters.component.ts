@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Entity, selectEntityArrayByName } from '~app/entity';
+import { Entity, selectEntityArrayByName, ERM, EntityRepresentation, getPluralEntity } from '~app/entity';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { selectFilterByType, FilterGroupName, Filter, FilterActions } from '~app/shared/filters';
@@ -30,7 +30,16 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	filterMap: Map<string, Map<string, Filter>>;
 	/** for the entity panel we need to pass the correct entities as choice */
 	entityPanelChoices$: Observable<Array<Entity>>;
-	entitySelected;
+	entitySelected: EntityRepresentation;
+
+	/** Those entities are displayed exactly the same way on screen */
+	basicRepr = [
+		ERM.supplier,
+		ERM.event,
+		ERM.category,
+		ERM.tag,
+		ERM.project
+	];
 
 	constructor(private store: Store<any>) {
 		super();
@@ -41,11 +50,14 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(map => this.filterMap = map);
 	}
 
-	toggleEntityPanel(entitySelected: string) {
-		this.entitySelected = entitySelected;
+	toggleEntityPanel(entityRepr?: EntityRepresentation) {
 		this.entityPanelShown = !this.entityPanelShown;
 		this.btnPanelShown = !this.entityPanelShown;
-		this.entityPanelChoices$ = this.store.select(selectEntityArrayByName(entitySelected));
+		// when shown we need to change the choices displayed
+		if (this.entityPanelShown) {
+			this.entitySelected = entityRepr;
+			this.entityPanelChoices$ = this.store.select(selectEntityArrayByName(entityRepr.entityName));
+		}
 	}
 
 	togglePricePanel() {
@@ -58,8 +70,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		this.btnPanelShown = !this.ratingPanelShown;
 	}
 
-	getEntityMap(entityName: string) {
-		return this.filterMap.get(entityName) || new Map();
+	getEntityMap(entityRepr: EntityRepresentation) {
+		return this.filterMap.get(entityRepr.entityName) || new Map();
 	}
 
 	onFilterAdded(filter: Filter) {
@@ -72,6 +84,10 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	onClear() {
 		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
+	}
+
+	getPlural(entityName: string) {
+		return getPluralEntity(entityName);
 	}
 
 }

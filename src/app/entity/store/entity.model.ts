@@ -84,3 +84,11 @@ export interface EntityTarget {
 	entityId?: string;
 	entityRepr: EntityRepresentation;
 }
+
+
+export function getPluralEntity(entityName: string) {
+	if (!ERM[entityName])
+		throw Error(`entity with name ${entityName} was not found in the entityRepresentationMap`);
+	return ERM[entityName].pluralName;
+}
+

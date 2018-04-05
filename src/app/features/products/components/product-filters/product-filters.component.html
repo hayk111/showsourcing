@@ -4,61 +4,35 @@
 	<!-- inside it we put the filter btn that are gonna be displayed -->
 	<filter-btns-panel-app *ngIf="btnPanelShown" (clear)="onClear()">
 
-			<filter-btn-app title="Suppliers" (click)="toggleEntityPanel('supplier')"></filter-btn-app>
+		<!-- same display for basic entities -->
+		<ng-container *ngFor="let basicEntity of basicEntities">
+			<filter-btn-app [title]="basicEntity.pluralName" (click)="toggleEntityPanel(basicEntity)"></filter-btn-app>
 			<div class="flexWrap">
 				<filter-tag-app
 					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('supplier').values()"
-					[title]="filter.value | entityName: 'supplier' | async"></filter-tag-app>
+					*ngFor="let filter of getEntityMap(basicEntity).values()"
+					[title]="filter.value | entityName: basicEntity.entityName | async"></filter-tag-app>
 			</div>
+		</ng-container>
 
-			<filter-btn-app title="Events" (click)="toggleEntityPanel('event')"></filter-btn-app>
-			<div class="flexWrap">
-				<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('event').values()"
-					[title]="filter.value | entityName: 'event' | async"></filter-tag-app>
-				</div>
-
-			<filter-btn-app title="Categories" (click)="toggleEntityPanel('category')"></filter-btn-app>
-			<div class="flexWrap">
-				<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('category').values()"
-					[title]="filter.value | entityName: 'category' | async"></filter-tag-app>
-			</div>
-
-			<filter-btn-app title="Tags" (click)="toggleEntityPanel('tag')"></filter-btn-app>
-			<div class="flexWrap">
-				<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('tag').values()"
-					[title]="filter.value | entityName: 'tag' | async"></filter-tag-app>
-			</div>
-
-			<filter-btn-app title="Projects" (click)="toggleEntityPanel('project')"></filter-btn-app>
-			<div class="flexWrap">
-				<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('project').values()"
-					[title]="filter.value | entityName: 'project' | async"></filter-tag-app>
-			</div>
-
-			<filter-btn-app title="Created By" (click)="toggleEntityPanel('teamMember')"></filter-btn-app>
-			<div class="flexWrap">
-				<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap('teamMember').values()"
-					[title]="filter.value | entityName: 'teamMember' | async"></filter-tag-app>
-			</div>
+		<!-- user tags have a little picture inside them -->
+		<filter-btn-app title="Created By" (click)="toggleEntityPanel('teamMember')"></filter-btn-app>
+		<div class="flexWrap">
+			<filter-tag-app
+				(filterRemoved)="onFilterRemoved(filter)"
+				*ngFor="let filter of getEntityMap(teamMemberRepr).values()"
+				[title]="filter.value | entityName: teamMemberRepr | async">
+				<user-picture-app [url]=""
+			</filter-tag-app>
+		</div>
 
 	</filter-btns-panel-app>
 
 	<!-- filter selection panel displays a close / done button at the top -->
 	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()">
 		<filter-entity-panel-app
-			[title]="entitySelected"
-			[type]="entitySelected"
+			[title]="entitySelected.pluralName"
+			[type]="entitySelected.entityName"
 			*ngIf="entityPanelShown"
 			[choices]="entityPanelChoices$ | async"
 			[selected]="getEntityMap(entitySelected)"
