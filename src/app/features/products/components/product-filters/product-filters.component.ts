@@ -40,6 +40,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		ERM.tag,
 		ERM.project
 	];
+	teamMemberRepr = ERM.teamMember;
 
 	constructor(private store: Store<any>) {
 		super();

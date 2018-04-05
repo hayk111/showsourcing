@@ -56,7 +56,7 @@
 	</selection-actions>
 </selection-bar-app>
 
-<product-filters-app *ngIf="filterPanelOpen$ | async"></product-filters-app>
+<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen$ | async"></product-filters-app>
 
 
 

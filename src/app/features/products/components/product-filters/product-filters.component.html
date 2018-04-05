@@ -5,13 +5,13 @@
 	<filter-btns-panel-app *ngIf="btnPanelShown" (clear)="onClear()">
 
 		<!-- same display for basic entities -->
-		<ng-container *ngFor="let basicEntity of basicEntities">
-			<filter-btn-app [title]="basicEntity.pluralName" (click)="toggleEntityPanel(basicEntity)"></filter-btn-app>
+		<ng-container *ngFor="let repr of basicRepr">
+			<filter-btn-app [title]="repr.pluralName" (click)="toggleEntityPanel(repr)"></filter-btn-app>
 			<div class="flexWrap">
 				<filter-tag-app
 					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap(basicEntity).values()"
-					[title]="filter.value | entityName: basicEntity.entityName | async"></filter-tag-app>
+					*ngFor="let filter of getEntityMap(repr).values()"
+					[title]="filter.value | entityName: repr.entityName | async"></filter-tag-app>
 			</div>
 		</ng-container>
 

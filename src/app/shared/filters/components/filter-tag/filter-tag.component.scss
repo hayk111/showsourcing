@@ -3,5 +3,11 @@ article{
 	color: var(--color-primary-dark);
 	border-radius: var(--border-radius);
 	margin: var(--spacing-default);
-	padding: 3px 9px;
+	padding: var(--spacing-s) var(--spacing-default);
+	border-radius: 500px;
+	display: flex;
+	align-items: flex-end;
+	icon-app {
+		margin-left: var(--spacing-xs);
+	}
 }
