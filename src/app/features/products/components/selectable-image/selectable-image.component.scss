@@ -91,11 +91,11 @@ img {
     background: rgba(93, 109, 139, 0.60);
     border-radius: var(--border-radius);
     span {
-      margin-right: 4px;
+      margin-right: var(--spacing-xs);
     }
     .icon-img {
-        margin: auto;
         color: var(--colorwhite);
-        font-size: 7px;
+				font-size: 8px;
+				margin-top: 2px;
     }
 }

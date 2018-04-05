@@ -37,10 +37,10 @@ export class ProductHttpService {
 		}
 		// adding filters for filtering the product on the backend, filters gotta be parsed
 		if (params.filters) {
-			this.addFilters(url, params);
+			url = this.addFilters(url, params);
 		}
 		if (params.sortBy) {
-			this.addSorting(url, params);
+			url = this.addSorting(url, params);
 		}
 
 		return this.http.get(url).pipe(
@@ -69,10 +69,11 @@ export class ProductHttpService {
 					break;
 			}
 		});
+		return url;
 	}
 
 	private addSorting(url: string, params: ProductLoadingParams) {
-
+		return url;
 	}
 
 	loadLatestForTarget(target: EntityTarget) {

@@ -76,20 +76,20 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		filters$.subscribe(filters => {
 			// saving filters for when we need to paginate
 			this.filters = filters;
-			this.loadProducts(filters, 0);
+			this.loadProducts(filters);
 		});
 
 	}
 
-	loadProducts(filters, drop: number) {
-		this.store.dispatch(productActions.load({ filters, drop }));
+	/** loads initial product and when the filters change */
+	loadProducts(filters) {
+		this.store.dispatch(productActions.load({ filters }));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.loadProducts(this.filters, this.products.length);
+		this.store.dispatch(productActions.loadMore({ filters: this.filters, drop: this.products.length }));
 	}
-
 
 	/** Selects a product */
 	onItemSelected(entityId: string) {

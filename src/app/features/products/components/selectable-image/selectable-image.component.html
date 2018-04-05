@@ -16,7 +16,7 @@
     <div class="icon-delete pointer" name="trash-alt" (click)="trash.emit()"></div>
   </div>
   <img class="cardImg" [class.blurred]="showOverlay" [src]="url || defaultImg" />
-  <div class="imgNumber flex" [class.hide]="showOverlay">
+  <div class="imgNumber flex flexCenter" [class.hide]="showOverlay">
     <span>{{imgCount || '-'}}</span>
     <div class="icon-img"></div>
   </div>
