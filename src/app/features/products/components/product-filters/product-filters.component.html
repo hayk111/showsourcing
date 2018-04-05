@@ -32,6 +32,20 @@
 
 		<!-- price - doesn't open a panel but put the price directly under ? -->
 
+		<!-- (user) filter-tags have a little picture inside them -->
+		<!-- <filter-btn-app title="status" (click)="toggleEntityPanel(teamMemberRepr)"></filter-btn-app>
+		<div class="flexWrap">
+			<filter-tag-app
+				(filterRemoved)="onFilterRemoved(filter)"
+				*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
+				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
+					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+					{{ user.name }}
+				</ng-container>
+
+			</filter-tag-app>
+		</div> -->
+
 	</filter-btns-panel-app>
 
 	<!-- filter selection panel displays a close / done button at the top -->
