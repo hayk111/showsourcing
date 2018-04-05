@@ -24,7 +24,6 @@ import { FilterSelectionPanelComponent } from './components/filter-selection-pan
 
 @NgModule({
 	imports: [
-		CommonModule,
 		SharedModule,
 		SearchBarAnimatedModule,
 		FormsModule,

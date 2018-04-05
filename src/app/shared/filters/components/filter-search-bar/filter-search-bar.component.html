@@ -2,17 +2,19 @@
 <icon-app  [fa]="true" name="search" color="primary" size="xl"></icon-app> -->
 
 <search-bar-animated-app>
-	<input inputApp (keydown.enter)="search()" [formControl]="searchControl" placeholder="Type to search"/>
+	<input inputApp (keydown.enter)="onEnter()" [formControl]="searchControl" placeholder="Type to search"/>
 </search-bar-animated-app>
 
 
-<div *ngIf="smartSearch$ | async as smartSearch" class="smartCtnr">
-	<filter-smart-panel-app
-		class="z-3"
-		*ngIf="smartPanelVisible"
-		(clickOutside)="closeSmartSearch()"
-		[selection]="smartSearchSelection$ | async"
-		[smartSearch]="smartSearch"
-		(itemAdded)="addFromSmart($event)"
-		(itemRemoved)="removeFromSmart($event)"></filter-smart-panel-app>
+<div *ngIf="smartPanelVisible" class="smartCtnr">
+	<ng-container *ngIf="smartSearch$ | async as smartSearch">
+		<filter-smart-panel-app
+			class="z-3"
+			(clickOutside)="closeSmartSearch()"
+			[selection]="filterMap$ | async"
+			[smartSearch]="smartSearch"
+			(filterAdded)="addFromSmart($event)"
+			(filterRemoved)="removeFromSmart($event)"></filter-smart-panel-app>
+	</ng-container>
+
 </div>

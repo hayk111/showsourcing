@@ -4,12 +4,8 @@ import { Filter, FilterGroupName } from '../../models';
 export enum FilterActionType {
 	ADD_FILTER = '[Filters] adding',
 	REMOVE_FILTER = '[Filters] removing',
+	REMOVE_FILTER_TYPE = '[Filters] removing filter type',
 	CLEAR = '[Filter] clear'
-}
-
-export interface FilterArg {
-	filterName: string;
-	filters: Array<Filter>;
 }
 
 export class FilterActions {
@@ -26,6 +22,14 @@ export class FilterActions {
 		return {
 			type: FilterActionType.REMOVE_FILTER,
 			payload: { filter, filterGroupName }
+		};
+	}
+
+	static removeFilterType(type: string, filterGroupName: FilterGroupName)
+		: TypedAction<any> {
+		return {
+			type: FilterActionType.REMOVE_FILTER_TYPE,
+			payload: { type, filterGroupName }
 		};
 	}
 

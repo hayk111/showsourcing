@@ -28,11 +28,14 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 export const selectFilterByType = (filterGroupName: FilterGroupName) => {
 	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
 		const byType = new Map();
+		// let's add an __all__ for every value
+		byType.set('__all__', new Map());
 		groupFilters.forEach((filter: Filter) => {
 			// if the map doesn't have the Filter Class yet we add a new array
 			if (!byType.has(filter.type))
 				byType.set(filter.type, new Map<string, Filter>());
 			byType.get(filter.type).set(filter.value, filter);
+			byType.get('__all__').set(filter.value, filter);
 		});
 		return byType;
 	});

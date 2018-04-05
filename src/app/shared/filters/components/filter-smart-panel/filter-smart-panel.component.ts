@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
-import { SearchedEntities } from '~app/shared/filters/store/selectors/search-entities.selector';
+import { EntityRepresentation, EntityTarget, Entity } from '~entity/store/entity.model';
+import { Filter } from '~app/shared/filters';
 
 @Component({
 	selector: 'filter-smart-panel-app',
@@ -8,18 +8,20 @@ import { SearchedEntities } from '~app/shared/filters/store/selectors/search-ent
 	styleUrls: ['./filter-smart-panel.component.scss'],
 })
 export class FilterSmartPanelComponent implements OnInit {
-	@Input() smartSearch: Array<SearchedEntities> = [];
-	@Input() selection: Array<string> = [];
-	@Output() itemAdded = new EventEmitter<EntityTarget>();
-	@Output() itemRemoved = new EventEmitter<EntityTarget>();
+	@Input() smartSearch: Map<string, Array<Entity>> = new Map();
+	@Input() selection: Map<string, Map<string, Filter>> = new Map();
+	@Output() filterAdded = new EventEmitter<Filter>();
+	@Output() filterRemoved = new EventEmitter<Filter>();
 	constructor() { }
 
 	ngOnInit() { }
 
-	onCheck(event, repr: EntityRepresentation, value: any) {
-		// const filter = this.makeFilter(repr, value);
-		// if (event.target.checked) this.itemAdded.emit(filter);
-		// else this.itemRemoved.emit(filter);
+	onCheck(entityName: string, value: any) {
+		this.filterAdded.emit({ type: entityName, value });
+	}
+
+	onUncheck(entityName: string, value: any) {
+		this.filterRemoved.emit({ type: entityName, value });
 	}
 
 	makeFilter(repr: EntityRepresentation, value) {

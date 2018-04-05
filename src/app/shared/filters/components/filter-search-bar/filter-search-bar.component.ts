@@ -1,56 +1,39 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { debounceTime, filter as filterPipe, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { ERM } from '~app/entity';
+import { ERM, Entity } from '~app/entity';
 import { Filter, FilterGroupName } from '~shared/filters/models';
-import { SearchedEntities, searchEntities, selectFilterGroup } from '~shared/filters/store/selectors';
+import { searchEntity, selectFilterByType } from '~shared/filters/store/selectors';
 
 import { FilterActions } from '../../store/actions';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { merge } from 'rxjs/observable/merge';
+import { take } from 'rxjs/operators';
 
 @Component({
 	selector: 'filter-search-bar-app',
 	templateUrl: './filter-search-bar.component.html',
 	styleUrls: ['./filter-search-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: [
-		trigger('searchAnimation', [
-			state(
-				'shrinked',
-				style({
-					width: '0%',
-					opacity: 0,
-				})
-			),
-			state(
-				'expanded',
-				style({
-					width: '100%',
-					opacity: 1,
-					marginLeft: '10px',
-				})
-			),
-			transition('expanded => shrinked', [
-				animate('200ms ease-in-out', style({ width: '0%', opacity: 0 })),
-			]),
-			transition('shrinked => expanded', [
-				animate('200ms ease-in-out', style({ width: '100%', opacity: 1 })),
-			]),
-		]),
-	],
 })
 export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
-	@ViewChild('searchbox') public searchbox: ElementRef;
+	search$ = new BehaviorSubject<string>(null);
+	smartSearch$: Observable<any>;
 
-	private searched = [ERM.supplier, ERM.event, ERM.category, ERM.project];
-	// we need the filter also because we need to also display the selected chocies
 	searchControl = new FormControl('');
-	smartSearch$: Observable<Array<SearchedEntities>>;
-	smartSearchSelection$: Observable<any>;
+	// we need the filter also because we need to also display the selected chocies
+	// Map<filterType, Map<filterValue, filter>>
+	// this way we can easily display filters for a given type with
+	// map.get(type).values();
+	// or check in constant time if a value has been picked already
+	// map.get(type).has(value);
+	filterMap$: Observable<Map<string, Map<string, Filter>>>;
+	filterMap: Map<string, Map<string, Filter>> = new Map();
 	smartPanelVisible = false;
 
 	constructor(private store: Store<any>) {
@@ -58,50 +41,68 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// when the control changes we make a smart search
-		this.smartSearch$ = this.searchControl.valueChanges.pipe(
+		// when the control changes, if the length is higher than 2
+		this.searchControl.valueChanges.pipe(
 			takeUntil(this._destroy$),
+			// we remove the current search on every input
+			tap(value => {
+				if (this.filterMap.has('search'))
+					this.removeCurrentSearch();
+			}),
+			// but for other actions we debounce it
 			debounceTime(400),
-			filterPipe(value => value.length > 2),
-			switchMap(value => this.store.select(searchEntities(this.searched, value))),
-			tap(d => (this.smartPanelVisible = true))
-		);
-		// selection is basically the filters applied, since when doing a selection we just add a filter.
-		this.smartSearchSelection$ = this.store
-			.select(selectFilterGroup(this.filterGroupName))
-			// making it { value: true } for O(1) access time
-			.pipe(
-				map((filters: Array<Filter>) =>
-					filters.reduce(
-						(prev: Map<string, true>, curr: Filter) => prev.set(curr.value, true),
-						new Map()
-					)
-				)
-			);
+			filter(value => value.length > 2)
+		).subscribe(this.search$);
+		/** When the writes in the input we do a normal search */
+		this.search$.subscribe(value => this.doNormalSearch(value));
+		/** When the user click on enter  we will do a smart search */
+		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
+		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(filterMap => this.filterMap = filterMap);
 	}
 
-	onKeyDown() { }
-	// when the user press enter on input we make a normal search
-	search() {
-		// const value = this.searchControl.value;
-		// const filter = new FilterSearch(value);
-		// this.store.dispatch(
-		// 	FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSearch)
-		// );
-		// if (value) {
-		// 	this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
-		// }
+	/** When the user click on enter  we will do a smart search */
+	onEnter() {
+		this.smartPanelVisible = true;
+		this.smartSearch$ = this.search$.pipe(
+			// we will search the entities below
+			switchMap(value => forkJoin([
+				this.store.select(searchEntity(ERM.category, value)).pipe(take(1)),
+				this.store.select(searchEntity(ERM.supplier, value)).pipe(take(1)),
+				this.store.select(searchEntity(ERM.event, value)).pipe(take(1)),
+				this.store.select(searchEntity(ERM.tag, value)).pipe(take(1)),
+			])),
+			// and group the result in a map for easy access
+			map(searches => {
+				const returnedMap = new Map<string, Array<Entity>>();
+				returnedMap.set('category', searches[0]);
+				returnedMap.set('supplier', searches[1]);
+				returnedMap.set('event', searches[2]);
+				returnedMap.set('tag', searches[3]);
+			})
+		);
+	}
+
+	/** When the writes in the input we do a normal search */
+	doNormalSearch(value) {
+		// we need to check if there is a value, else the user was just cleared the input
+		if (value) {
+			this.store.dispatch(FilterActions.addFilter({ type: 'search', value }, this.filterGroupName));
+		}
+	}
+
+	removeCurrentSearch() {
+		this.store.dispatch(FilterActions.removeFilterType('search', this.filterGroupName));
 	}
 
 	closeSmartSearch() {
 		this.smartPanelVisible = false;
 	}
 
-	addFromSmart(filter: Filter) {
-		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+	addFromSmart(filtr: Filter) {
+		this.store.dispatch(FilterActions.addFilter(filtr, this.filterGroupName));
 	}
 
-	removeFromSmart(filter: Filter) {
-		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
+	removeFromSmart(filtr: Filter) {
+		this.store.dispatch(FilterActions.removeFilter(filtr, this.filterGroupName));
 	}
 }

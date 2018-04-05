@@ -13,31 +13,10 @@ export const searchEntity = (repr: EntityRepresentation, str: string) => {
 	return createSelector([selectEntityArray(repr)], entities => {
 		Log.debug('searching entity for string');
 		// with no search terms we return all entities
-		if (str === '') return entities;
-		else {
-			const result = entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
-			return result;
-		}
+		if (str === '')
+			return entities;
+		else
+			return entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
 	});
 };
 
-export interface SearchedEntities {
-	repr: EntityRepresentation;
-	result: Array<Entity>;
-}
-
-// returns an array like so [
-// 	{ repr: someRepr, result: [entities]}
-// ]
-export const searchEntities = (reprs: Array<EntityRepresentation>, str: string) => {
-	const sels = reprs.map(repr => searchEntity(repr, str)) as any;
-	return createSelector(sels, (...results) => {
-		results = results
-			.map((entities, i: number) => ({
-				repr: reprs[i],
-				result: entities,
-			}))
-			.filter(r => r.result.length > 0);
-		return results;
-	});
-};

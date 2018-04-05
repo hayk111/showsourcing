@@ -1,11 +1,15 @@
 <div class="card searchTerms">
-	<ng-container *ngFor="let search of smartSearch">
-		<div *ngIf="search.result.length > 0" class="flexColumn">
-			<div class="title">{{ search?.repr?.displayName }}</div>
+	<ng-container *ngFor="let entityName of smartSearch.keys()">
+		<div *ngIf="smartSearch.get(entityName).size() > 0" class="flexColumn">
+			<div class="title">{{ entityName }}</div>
 			<div class="flexColumn">
-				<div class="flex" *ngFor="let ent of search.result">
-						<input type="checkbox" [checked]="selection.has(ent.id)" (change)="onCheck($event, search.repr, ent.id)"/>
-						<label>{{ ent.name }}</label>
+				<div class="flex" *ngFor="let entity of smartSearch.get(entityName)">
+						<checkbox-app
+							[checked]="selection.get(entityName).has(entity.id)"
+							(check)="onCheck(entityName, entity.id)"
+							(uncheck)="onUncheck(entityName, entity.id)">
+							<label>{{ entity.name }}</label>
+						</checkbox-app>
 				</div>
 			</div>
 		</div>

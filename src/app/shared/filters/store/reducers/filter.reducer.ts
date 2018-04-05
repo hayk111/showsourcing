@@ -1,6 +1,6 @@
 import { TypedAction } from '~utils';
 
-import { AppFilters } from '../../models';
+import { AppFilters, Filter } from '../../models';
 import { FilterActionType as ActionType } from '../actions';
 
 const initialState: AppFilters = {
@@ -11,7 +11,7 @@ const initialState: AppFilters = {
 };
 
 export function filtersReducer(state: AppFilters = initialState, action: TypedAction<any>): AppFilters {
-	let groupName, filter, group, newState;
+	let groupName, filter, group: Array<Filter>, newState;
 
 	if (action.payload) {
 		groupName = action.payload.filterGroupName;
@@ -29,6 +29,11 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
 			newState[groupName] = group.filter(f => (f.type !== filter.type && f.value !== filter.value));
+			return newState;
+
+		case ActionType.REMOVE_FILTER_TYPE:
+			newState = { ...state };
+			newState[groupName] = group.filter(f => f.type !== action.payload.type);
 			return newState;
 
 		case ActionType.CLEAR:
