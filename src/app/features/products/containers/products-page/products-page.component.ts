@@ -58,7 +58,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterPanelOpen$: Observable<boolean>;
 	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	// filters: Array<Filter>;
+	filters: Array<Filter>;
 
 	constructor(private store: Store<any>, private userSrv: UserService, private router: Router) {
 		super();
@@ -72,25 +72,22 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.statuses$ = this.store.select(fromProductStatus.selectArray);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
+		// when filters change we need to redownload the products
 		filters$.subscribe(filters => {
-			this.loadProducts(filters);
+			// saving filters for when we need to paginate
+			this.filters = filters;
+			this.loadProducts(filters, 0);
 		});
 
 	}
 
-	loadProducts(filters) {
-		this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
+	loadProducts(filters, drop: number) {
+		this.store.dispatch(productActions.load({ filters, drop }));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.store.dispatch(
-			productActions.loadMore({
-				// filters: this.filters,
-				pagination: true,
-				drop: this.products.length,
-			})
-		);
+		this.loadProducts(this.filters, this.products.length);
 	}
 
 
@@ -173,20 +170,24 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
 	}
 
-	//////////////////////////////////////////////////////
-	////// Selection bar actions /////////////////////////
-	//////////////////////////////////////////////////////
+	/**
+	 * Selection bar actions
+	 *
+	 * Each of the actions to open dialog below will open a dialog that is itself a container.
+	 */
 
+	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray }));
 	}
 
 
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.EXPORT, { selectedProducts: this.selectionArray }));
 	}
 
-
+	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
 		this.store.dispatch(DialogActions.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray }));
 	}

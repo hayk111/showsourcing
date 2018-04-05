@@ -8,24 +8,71 @@ import { ApiParams } from '~entity/utils';
 
 import { Product } from './product.model';
 import { UserService } from '~app/features/user/services';
+import { Filter } from '~app/shared/filters';
+
+export interface ProductLoadingParams {
+	filters?: Array<Filter>;
+	recurring?: boolean;
+	sortBy?: 'string';
+	sortOrder?: 'asc' | 'desc';
+	/** drop is for pagination */
+	drop: number;
+}
 
 @Injectable()
 export class ProductHttpService {
 	repr = ERM.product;
+	takeAmount = 30;
 
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
-	load(params) {
+	load(params: ProductLoadingParams, url?: string) {
+		// first we need the filters, then we need to add the filters to the url
 		params = { ...params };
-		params.base = ERM.team;
-		params.target = ERM.product;
-		params.recurring = true;
-		return this.entitySrv.load(params).pipe(
+		// we can pass an url for when using loadMore
+		url = url || `api/team/${this.userSrv.teamId}/product?take=${this.takeAmount}&`;
+		// pagination
+		if (params.drop) {
+			url = `${url}drop=${params.drop}&`;
+		}
+		// adding filters for filtering the product on the backend, filters gotta be parsed
+		if (params.filters) {
+			this.addFilters(url, params);
+		}
+		if (params.sortBy) {
+			this.addSorting(url, params);
+		}
+
+		return this.http.get(url).pipe(
 			map((r: any) => r.elements),
 			tap(products =>
+				// we gonna patch the products so we have the data in the form we want (it was needed for custom fields, might not be anymore though).
 				products.forEach(elem => this.linearize(elem))
 			)
 		);
+	}
+
+	private addFilters(url: string, params: ProductLoadingParams) {
+		params.filters.forEach(filter => {
+			// for each filter we need to add it to the url.
+			switch (filter.type) {
+				case 'supplier':
+				case 'category':
+				case 'event':
+				case 'tag':
+				case 'project':
+				case 'rating':
+					url = url + filter.type + '=' + filter.value + '&';
+					break;
+				case 'user':
+					url = url + 'createdBy=' + filter.value + '&';
+					break;
+			}
+		});
+	}
+
+	private addSorting(url: string, params: ProductLoadingParams) {
+
 	}
 
 	loadLatestForTarget(target: EntityTarget) {

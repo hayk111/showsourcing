@@ -47,6 +47,18 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// add products
+				map((r: any) => productActions.set(r))
+			);
+		})
+	);
+
+	@Effect()
+	loadMore$ = this.actions$.ofType<any>(actionTypes.LOAD_MORE).pipe(
+		map(action => action.payload),
+		switchMap((params: any) => {
+			// get products
+			return this.srv.load(params).pipe(
+				// add products
 				map((r: any) => productActions.add(r))
 			);
 		})
@@ -70,15 +82,6 @@ export class ProductEffects {
 		})
 	);
 
-	// for pagination
-	@Effect()
-	loadMore$ = this.actions$
-		.ofType<any>(actionTypes.LOAD_MORE)
-		.pipe(
-			map(action => action.payload),
-			switchMap((params: any) => this.srv.load(params)),
-			map((r: any) => productActions.add(r))
-		);
 
 	@Effect()
 	loadById$ = this.actions$

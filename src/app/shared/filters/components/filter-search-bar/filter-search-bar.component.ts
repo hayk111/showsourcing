@@ -73,7 +73,6 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 			])),
 			// and group the result in a map for easy access
 			map(searches => {
-				debugger;
 				const returnedMap = new Map<string, Array<Entity>>();
 				returnedMap.set('category', searches[0]);
 				returnedMap.set('supplier', searches[1]);
@@ -81,7 +80,6 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 				returnedMap.set('tag', searches[3]);
 				return returnedMap;
 			}),
-			tap(d => { debugger; })
 		);
 	}
 
