@@ -7,7 +7,6 @@ import { Filter } from '~shared/filters';
 	styleUrls: ['./filter-tag.component.scss']
 })
 export class FilterTagComponent implements OnInit {
-	@Input() title: string;
 	@Output() filterRemoved = new EventEmitter<null>();
 	constructor() { }
 

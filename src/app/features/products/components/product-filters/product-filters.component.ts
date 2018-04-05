@@ -87,8 +87,4 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
 	}
 
-	getPlural(entityName: string) {
-		return getPluralEntity(entityName);
-	}
-
 }

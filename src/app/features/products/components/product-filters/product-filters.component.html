@@ -10,19 +10,23 @@
 			<div class="flexWrap">
 				<filter-tag-app
 					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap(repr).values()"
-					[title]="filter.value | entityName: repr.entityName | async"></filter-tag-app>
+					*ngFor="let filter of getEntityMap(repr).values()">
+					{{ filter.value | entityName: repr.entityName | async }}
+				</filter-tag-app>
 			</div>
 		</ng-container>
 
 		<!-- user tags have a little picture inside them -->
-		<filter-btn-app title="Created By" (click)="toggleEntityPanel('teamMember')"></filter-btn-app>
+		<filter-btn-app title="Created By" (click)="toggleEntityPanel(teamMemberRepr)"></filter-btn-app>
 		<div class="flexWrap">
 			<filter-tag-app
 				(filterRemoved)="onFilterRemoved(filter)"
-				*ngFor="let filter of getEntityMap(teamMemberRepr).values()"
-				[title]="filter.value | entityName: teamMemberRepr | async">
-				<user-picture-app [url]=""
+				*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
+				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
+					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+					{{ user.name }}
+				</ng-container>
+
 			</filter-tag-app>
 		</div>
 
