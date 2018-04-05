@@ -24,7 +24,7 @@ export class FilterSmartPanelComponent implements OnInit {
 		this.filterRemoved.emit({ type: entityName, value });
 	}
 
-	makeFilter(repr: EntityRepresentation, value) {
-
+	getFilterMap(entityName: string) {
+		return this.selection.get(entityName) || new Map();
 	}
 }
