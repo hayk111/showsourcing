@@ -25,7 +25,7 @@ export class IconComponent implements OnInit {
 	// symbols give perf gains but are less configurable
 	@Input() useSymbol = true;
 	// whether font-awesome is used or not
-	@Input() fa = false;
+	@Input() fontSet: 'fa' | 'icomoon' | 'svg' = 'icomoon';
 	@ViewChild('icon') icon: TemplateRef<any>;
 
 	constructor(elementRef: ElementRef, @Attribute('aria-hidden') ariaHidden: string) {
@@ -64,4 +64,5 @@ export class IconComponent implements OnInit {
 				: 'none',
 		};
 	}
+
 }

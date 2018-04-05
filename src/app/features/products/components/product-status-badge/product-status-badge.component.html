@@ -1,6 +1,6 @@
 <div class="ctnr flexBetween" [ngClass]="'badge-' + status" *ngIf="status">
 	<span class="name">{{ status | entityName: 'productStatus' | async }}</span>
-	<icon-app name="angle-down" color="white" [fa]="true" (click)="displayPanel()"></icon-app>
+	<icon-app name="angle-down" color="white" fontSet="fa" (click)="displayPanel()"></icon-app>
 </div>
 <!-- panel displayed on click to pick the status -->
 <ng-container *ngIf="'productStatus' | entityList | async as statuses">

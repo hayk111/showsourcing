@@ -6,20 +6,29 @@
 <div class="ctnr {{ size }} {{ color }} flexCenter"
 	[ngStyle]="style">
 
-	<ng-container *ngIf="fa; else icomoon">
+	<ng-container [ngSwitch]="fontSet">
 
-		<svg *ngIf="useSymbol; else icon" class="svg-inline--fa fa-w-20">
-			<use [attr.xlink:href]="'#' + name"></use>
-		</svg>
+		<ng-container *ngSwitchCase="'fa'">
+			<svg *ngIf="useSymbol; else icon" class="svg-inline--fa fa-w-20">
+				<use [attr.xlink:href]="'#' + name"></use>
+			</svg>
 
-		<ng-template #icon>
-			<i class="pointer fa{{ type }} fa-{{name}}"></i>
-		</ng-template>
+			<ng-template #icon>
+				<i class="pointer fa{{ type }} fa-{{name}}"></i>
+			</ng-template>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'svg'">
+			<img src="assets/icons/{{ name }}.svg"/>
+		</ng-container>
+
+		<!-- todo remove use of icomoon -->
+		<ng-container *ngSwitchDefault>
+			<i class="icon-{{ name }}"></i>
+		</ng-container>
+
 
 	</ng-container>
 
-	<ng-template #icomoon>
-		<i class="icon-{{ name }}"></i>
-	</ng-template>
 
 </div>

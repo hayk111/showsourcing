@@ -2,11 +2,11 @@
 	<!-- grower will push content to the right -->
 	<div class="grower"></div>
 
-	<icon-app [fa]="true" name="times" size="l"
+	<icon-app fontSet="fa" name="times" size="l"
 		class="pointer"
 		*ngIf="searchstate === 'expanded'" (click)="shrinkSearch()"></icon-app>
 
-	<icon-app [fa]="true" *ngIf="searchstate !== 'expanded'" name="search" size="l"
+	<icon-app fontSet="fa" *ngIf="searchstate !== 'expanded'" name="search" size="l"
 		class="pointer"
 		(click)="expandSearch()" color="primary-dark"></icon-app>
 

@@ -2,7 +2,7 @@
 
 <div class="flex ">
 	<div class="left flexCenter">
-		<div class="cercle supplierIcon"></div>
+		<icon-app fontSet="svg" name="supplier"></icon-app>
 	</div>
 
 	<div class="right flexColumn">
@@ -21,6 +21,6 @@
 <div class="hr"></div>
 
 <div class="flexBetween">
-	<button (click)="goToSupplier()" i18n class="light">view supplier</button>
-	<button i18n>contact supplier</button>
+	<button *ngIf="supplier" (click)="goToSupplier()" i18n class="light">view supplier</button>
+	<!-- <button i18n>contact supplier</button> -->
 </div>

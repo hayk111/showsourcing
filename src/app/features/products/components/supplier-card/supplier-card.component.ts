@@ -15,5 +15,7 @@ export class SupplierCardComponent implements OnInit {
 
 	ngOnInit() { }
 
-	goToSupplier() { }
+	goToSupplier() {
+		this.router.navigate(['supplier', 'details', this.supplier.id]);
+	}
 }

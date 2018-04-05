@@ -1,5 +1,5 @@
 <div class="plusBtn square pointer" (click)="inp.click()">
-	<icon-app  [fa]="true" name="plus" color="inherit"></icon-app>
+	<icon-app  fontSet="fa" name="plus" color="inherit"></icon-app>
 </div>
 <img class="square pointer {{ image.pending ? 'pending' : '' }}"
 	*ngFor="let image of images; let i = index"
