@@ -6,7 +6,7 @@ import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { ERM, Currency, defaultCurrency } from '~entity';
-import { FilterPrice, Filter, FilterClass } from '../../models';
+import { Filter } from '../../models';
 
 // panel used for prices filtering
 @Component({
@@ -20,10 +20,10 @@ export class FilterPricePanelComponent {
 	currency: Currency = defaultCurrency;
 
 	@Output() addFilter = new EventEmitter<Filter>();
-	@Output() removeFilterClass = new EventEmitter<FilterClass>();
+	@Output() removeFilterClass = new EventEmitter<any>();
 
 	@Input()
-	set selected(filters: Array<FilterPrice>) {
+	set selected(filters: Array<any>) {
 		// there should be at most one filterprice at a time
 		this.min = filters[0] !== undefined ? undefined : filters[0].min;
 		this.min = filters[0] !== undefined ? undefined : filters[0].max;
@@ -31,10 +31,10 @@ export class FilterPricePanelComponent {
 	}
 
 	onChange() {
-		const filter = new FilterPrice(this.currency, this.min, this.max);
-		// when we add a filter we will also remove price filters in the parent
-		this.removeFilterClass.emit(FilterPrice);
-		this.addFilter.emit(filter);
+		// const filter = new FilterPrice(this.currency, this.min, this.max);
+		// // when we add a filter we will also remove price filters in the parent
+		// this.removeFilterClass.emit(FilterPrice);
+		// this.addFilter.emit(filter);
 	}
 
 	onCurrencyChange(value: Currency) {

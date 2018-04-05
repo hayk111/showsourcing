@@ -1,10 +1,6 @@
-import { createSelector, OutputSelector } from 'reselect';
-import { FilterEntityClass, FilterGroupName } from '~shared/filters/models';
-import { selectFiltersValues } from './filter.selectors';
+import { createSelector } from 'reselect';
+import { Entity, EntityRepresentation, selectEntityArray } from '~entity/store';
 import { Log } from '~utils';
-
-import { selectEntityArray, EntityRepresentation, Entity } from '~entity/store';
-import { MemoizedSelector } from '@ngrx/store';
 
 export interface SmartSearch {
 	repr: EntityRepresentation;

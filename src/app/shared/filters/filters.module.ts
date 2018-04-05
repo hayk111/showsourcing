@@ -19,6 +19,8 @@ import {
 } from './components';
 import { SharedModule } from '~app/shared/shared.module';
 import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
+import { FilterBtnsPanelComponent } from './components/filter-btns-panel/filter-btns-panel.component';
+import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 
 @NgModule({
 	imports: [
@@ -37,7 +39,9 @@ import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-
 		FilterPricePanelComponent,
 		FilterSearchBarComponent,
 		FilterTagComponent,
-		FilterSmartPanelComponent
+		FilterSmartPanelComponent,
+		FilterBtnsPanelComponent,
+		FilterSelectionPanelComponent
 	],
 	exports: [
 		FilterPanelComponent,
@@ -47,7 +51,9 @@ import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-
 		FilterPricePanelComponent,
 		FilterSearchBarComponent,
 		FilterTagComponent,
-		FilterSmartPanelComponent
+		FilterSmartPanelComponent,
+		FilterBtnsPanelComponent,
+		FilterSelectionPanelComponent
 	],
 	providers: [FilterEntityPanelService]
 })

@@ -5,7 +5,6 @@ import { EntityState, Entity, ERM, Patch } from '~entity';
 import { Supplier } from '~supplier';
 import { Observable } from 'rxjs/Observable';
 import { fromSupplier } from '~supplier';
-import { selectFilteredEntity } from '~shared/filters';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DialogActions } from '~dialog';

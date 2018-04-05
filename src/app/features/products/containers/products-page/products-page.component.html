@@ -46,12 +46,14 @@
 	*ngIf="selection.size > 0"
 	[selection]="selection"
   (close)="unselectAll()"
-  (delete)="deleteSelected()">
+	(delete)="deleteSelected()">
+
   <selection-actions
-  [selection]="selection"
-  (openAddToProjectDialog)="openAddToProjectDialog()"
-  (openExportDialog)="openExportDialog()"
-  (openRequestFeedbackDialog)="openRequestFeedbackDialog()"></selection-actions>
+		[selection]="selection"
+		(openAddToProjectDialog)="openAddToProjectDialog()"
+		(openExportDialog)="openExportDialog()"
+		(openRequestFeedbackDialog)="openRequestFeedbackDialog()">
+	</selection-actions>
 </selection-bar-app>
 
 <product-filters-app></product-filters-app>

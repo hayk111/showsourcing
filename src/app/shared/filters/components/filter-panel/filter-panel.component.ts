@@ -1,12 +1,7 @@
-import { Component, Input, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Entity, EntityRepresentation } from '~entity/store/entity.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from '@angular/core';
 
-import { Filter, FilterGroupName } from '../../models';
-import { FilterActions, FilterEntityPanelActions, FilterPanelAction } from '../../store/actions';
-import { selectFEPChoices, selectFiltersByName, selectFiltersForClass } from '../../store/selectors';
 
+// merely holds styling of the container
 @Component({
 	selector: 'filter-panel-app',
 	templateUrl: './filter-panel.component.html',
@@ -17,5 +12,4 @@ import { selectFEPChoices, selectFiltersByName, selectFiltersForClass } from '..
 	}
 })
 export class FilterPanelComponent {
-	@Output() reset = new EventEmitter<null>();
 }

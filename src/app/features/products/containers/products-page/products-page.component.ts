@@ -21,17 +21,8 @@ import { Patch } from '~entity/utils';
 import { DialogActions, DialogName } from '~shared/dialog';
 import {
 	Filter,
-	FilterCategory,
-	FilterClass,
-	FilterEvent,
 	FilterGroupName,
 	FilterPanelAction,
-	FilterPrice,
-	FilterProjects,
-	FilterRating,
-	FilterStatus,
-	FilterSupplier,
-	FilterTags,
 	selectFilterGroup,
 	selectFilterPanelOpen,
 } from '~shared/filters';
@@ -67,19 +58,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterPanelOpen$: Observable<boolean>;
 	// we have to pass a filterGroupName to the filteredListPage
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
-	filters: Array<Filter>;
-	// those are the filters we want in the page
-	filterClasses: Array<FilterClass> = [
-		FilterSupplier,
-		FilterCategory,
-		FilterEvent,
-		FilterProjects,
-		FilterTags,
-		FilterStatus,
-		FilterRating,
-		FilterPrice,
-	];
-
+	// filters: Array<Filter>;
 
 	constructor(private store: Store<any>, private userSrv: UserService, private router: Router) {
 		super();
@@ -107,7 +86,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	loadMore() {
 		this.store.dispatch(
 			productActions.loadMore({
-				filters: this.filters,
+				// filters: this.filters,
 				pagination: true,
 				drop: this.products.length,
 			})

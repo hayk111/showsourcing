@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { Product, selectProductsState } from '~entity';
-import { FilterGroupName } from '~shared/filters';
-import { ERM, EntityState } from '~entity';
+import { EntityState, ERM, Product, selectProductsState } from '~entity';
 
 @Component({
 	selector: 'workflow-page-app',
@@ -12,10 +10,8 @@ import { ERM, EntityState } from '~entity';
 	styleUrls: ['./workflow-page.component.scss'],
 })
 export class WorkflowPageComponent implements OnInit {
-	filterGroupName = FilterGroupName.WORKFLOW_PAGE;
 	repr = ERM.product;
 	pending$: Observable<boolean>;
-	previewDialogOpen = false;
 
 	constructor(private store: Store<any>) { }
 
@@ -27,7 +23,4 @@ export class WorkflowPageComponent implements OnInit {
 
 	}
 
-	closeDialog() {
-		this.previewDialogOpen = false;
-	}
 }

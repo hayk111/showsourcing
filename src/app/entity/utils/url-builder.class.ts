@@ -91,17 +91,10 @@ export class UrlBuilder {
 	private addParams(url: string, params: ApiParams) {
 		url = `${url}?`;
 
-		if (params.filters) {
-			url += this.filtersAsParams(params.filters);
-		}
-
 		if (params.pagination) {
 			url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
 		}
 		return url;
 	}
 
-	private filtersAsParams(filters: Array<Filter>) {
-		return filters.reduce((prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`), '');
-	}
 }

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~product';
-import { FilterSort, FilterActions, FilterGroupName } from '~app/shared/filters';
+import { FilterActions, FilterGroupName } from '~app/shared/filters';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -73,10 +73,10 @@ export class ProductListViewComponent implements OnInit {
 
 	onSort({ order, sortWith }) {
 		// we first need to remove the current sorting filter
-		this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
-		// then we add a new one
-		const filter = new FilterSort(sortWith, order.toUpperCase());
-		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+		// this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
+		// // then we add a new one
+		// const filter = new FilterSort(sortWith, order.toUpperCase());
+		// this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
 	}
 
 	// we add a template for the correct column type

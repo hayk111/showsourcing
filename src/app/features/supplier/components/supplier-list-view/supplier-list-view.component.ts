@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FilterActions, FilterGroupName, FilterSort } from '~app/shared/filters';
+import { FilterActions, FilterGroupName } from '~app/shared/filters';
 import { Country, EntityState, fromTeamMember, Supplier } from '~entity';
 import { fromCountry } from '~app/entity/store/country/country.bundle';
 

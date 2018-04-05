@@ -1,27 +1,36 @@
-<filter-panel-app title="">
+<filter-panel-app *ngIf="filterMap$ | async as filterMap">
 
-	<div>
-		<filter-btn-app title="Suppliers"></filter-btn-app>
-		<!-- <filter-tag-app title="supplier.name" *ngFor="let supplier of suppliersSelected"></filter-tag-app>		 -->
-	</div>
+	<filter-btns-panel-app *ngIf="btnPanelShown">
+		<div>
+			<filter-btn-app title="Suppliers" (click)="toggleEntityPanel('supplier')"></filter-btn-app>
+			<!-- <filter-tag-app title="supplier.name" *ngFor="let supplier of filterMap.get('supplier')."></filter-tag-app>		 -->
+		</div>
 
-	<div>
-		<filter-btn-app title="Events"></filter-btn-app>
-		<!-- <filter-tag-app title="event.name" *ngFor="let event of eventsSelected"></filter-tag-app>		 -->
-	</div>
+		<div>
+			<filter-btn-app title="Events" (click)="toggleEntityPanel('event')"></filter-btn-app>
+			<!-- <filter-tag-app title="event.name" *ngFor="let event of eventsSelected"></filter-tag-app>		 -->
+		</div>
 
-	<div>
-		<filter-btn-app title="Categories"></filter-btn-app>
-		<!-- <filter-tag-app title="" *ngFor="let category of categoriesSelected"></filter-tag-app>		 -->
-	</div>
+		<div>
+			<filter-btn-app title="Categories" (click)="toggleEntityPanel('category')"></filter-btn-app>
+			<!-- <filter-tag-app title="" *ngFor="let category of categoriesSelected"></filter-tag-app>		 -->
+		</div>
 
-	<div>
-		<filter-btn-app title="Tags"></filter-btn-app>
-		<!-- <filter-tag-app title="" *ngFor="let category of tagsSelected"></filter-tag-app>		 -->
-	</div>
+		<div>
+			<filter-btn-app title="Tags" (click)="toggleEntityPanel('tag')"></filter-btn-app>
+			<!-- <filter-tag-app title="" *ngFor="let category of tagsSelected"></filter-tag-app>		 -->
+		</div>
+	</filter-btns-panel-app>
 
-	<filter-entity-panel-app *ngIf="entityPanelShown" [choices]="entityPanelChoices"></filter-entity-panel-app>
-	<filter-price-panel-app *ngIf="pricePanelShown"></filter-price-panel-app>
-	<filter-rating-panel-app *ngIf="ratingPanelShown"></filter-rating-panel-app>
+	<filter-selection-panel-app *ngIf="!btnPanelShown">
+		<filter-entity-panel-app
+			*ngIf="entityPanelShown"
+			[choices]="entityPanelChoices$ | async"
+			[selected]="filterMap.get(entitySelected)">
+		</filter-entity-panel-app>
+		<filter-price-panel-app *ngIf="pricePanelShown"></filter-price-panel-app>
+		<filter-rating-panel-app *ngIf="ratingPanelShown"></filter-rating-panel-app>
+	</filter-selection-panel-app>
+
 
 </filter-panel-app>

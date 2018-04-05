@@ -20,79 +20,20 @@ export const selectFilterGroup = (filterGroupName: FilterGroupName) => {
 };
 
 // filters for a group are storred as array, this returns a map of every filter
-export const selectFilterType = (filterGroupName: FilterGroupName, type: string) => {
+// Map<filterType, Map<filterValue, filter>>
+// this way we can easily display filters for a given type with
+// map.get(type).values();
+// or check in constant time if a value has been picked already
+// map.get(type).has(value);
+export const selectFilterByType = (filterGroupName: FilterGroupName) => {
 	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
-		const byName = new Map();
+		const byType = new Map();
 		groupFilters.forEach((filter: Filter) => {
 			// if the map doesn't have the Filter Class yet we add a new array
-			if (!byName.has(filter.constructor)) byName.set(filter.constructor, []);
-			byName.get(filter.constructor).push(filter);
+			if (!byType.has(filter.type))
+				byType.set(filter.type, new Map<string, Filter>());
+			byType.get(filter.type).set(filter.value, filter);
 		});
-		return byName;
+		return byType;
 	});
-};
-
-// return map filters by filter class like so: { FilterPrice: [filters], FilterSupplier: [filters] }
-export const selectFiltersByName = (filterGroupName: FilterGroupName) => {
-	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
-		const byName = new Map();
-		groupFilters.forEach((filter: Filter) => {
-			// if the map doesn't have the Filter Class yet we add a new array
-			if (!byName.has(filter.constructor)) byName.set(filter.constructor, []);
-			byName.get(filter.constructor).push(filter);
-		});
-		return byName;
-	});
-};
-
-// select filters for a specific filterClass :  [filters]: Array<FilterPrice>
-export const selectFiltersForClass = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
-	return createSelector([selectFilterGroup(filterGroupName)], (groupFilters: Array<Filter>) => {
-		return groupFilters.filter(f => f instanceof filterClass);
-	});
-};
-
-// select filters's values for a specific filterClass, same as above but only values
-export const selectFiltersValues = (filterGroupName: FilterGroupName, filterClass: FilterClass) => {
-	return createSelector(
-		[selectFiltersForClass(filterGroupName, filterClass)],
-		(groupFilters: Array<Filter>) => {
-			return groupFilters.map(f => f.value);
-		}
-	);
-};
-
-// returns a string like supplier=id&event=id&...
-export const selectFiltersAsUrlParams = (filterGroup?: FilterGroupName) => {
-	return createSelector([selectFilterGroup(filterGroup)], filters => {
-		Log.debug(`selectFiltersAsUrlParams ${filterGroup}`);
-		return filters.reduce((prev: string, curr: Filter) => (prev += `${curr.toUrlParam()}&`), '');
-	});
-};
-
-/**
- * Selects filtered entities
- * @param filterGroupName - The filter group name
- * @param { EntityRepresentation } entityRepr - The entityRepresentation we want to select
- */
-export const selectFilteredEntity = (filterGroupName: FilterGroupName, entityRepr: EntityRepresentation) => {
-	return createSelector(
-		[selectFilterGroup(filterGroupName), selectEntityArray(entityRepr)],
-		(filters, entities) => {
-			let returned = [];
-			entities.forEach(entity => {
-				if (filters.every((afilter: Filter) => afilter.filter(entity))) returned.push(entity);
-			});
-			// we need to apply sorting as well
-			const sort: FilterSort = filters.find(f => f instanceof FilterSort);
-			if (sort) {
-				returned = returned.sort((a, b) => {
-					if (a[sort.value] > b[sort.value]) return sort.order === 'ASC' ? 1 : -1;
-					if (a[sort.value] < b[sort.value]) return sort.order === 'ASC' ? -1 : 1;
-					return 0;
-				});
-			}
-			return returned;
-		}
-	);
 };
