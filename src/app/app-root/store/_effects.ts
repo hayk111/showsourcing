@@ -1,6 +1,5 @@
 import { AppErrorsEffects } from '~app/shared/error-handler';
 import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
-import { FilterEntityPanelEffects } from '~shared/filters/store/effects/filter-entity-panel.effects';
 import {
 	TaskEffects, TeamEffects, UserEffects, CategoryEffects, CountryEffects, CurrencyEffects, HarbourEffects, IncoTermsEffects,
 	TeamMembersEffects, CustomFieldsEffects, EventEffects, TagEffects, ProjectEffects, FilesEffects, SuppliersEffects,
@@ -35,8 +34,6 @@ export const effects = [
 	TaskTypeEffects,
 	// misc
 	AppErrorsEffects,
-	// PreloaderEffects,
-	FilterEntityPanelEffects,
 	// UI
 	NotificationEffects,
 ];

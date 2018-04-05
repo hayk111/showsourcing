@@ -28,9 +28,8 @@ import {
 	fromTeamMember,
 	fromTeam,
 } from '~app/entity';
-import { filterEntityPanelReducer, filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
+import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 import { dialogReducer } from '~app/shared/dialog';
-
 
 
 const misc = combineReducers({
@@ -65,7 +64,6 @@ const entities = combineReducers({
 
 const ui = combineReducers({
 	filterPanel: filterPanelReducer,
-	filterEntityPanel: filterEntityPanelReducer,
 });
 
 export const reducers: ActionReducerMap<any> = { entities, focussedEntity: focussedEntityReducer, misc, ui };
