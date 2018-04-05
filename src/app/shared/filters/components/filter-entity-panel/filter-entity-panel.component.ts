@@ -20,6 +20,8 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
 	@Input() selected = new Map<string, boolean>();
+	@Input() type;
+	@Input() title = '';
 	private searchStr$ = new Subject<string>();
 
 	/** Different choices that are displayed in the view */
@@ -50,11 +52,11 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 		this._filteredChoices = this._choices.filter(choice => this.searchFn(choice, str));
 	}
 
-	onItemAdded({ id, name }) {
-		// this.filterAdded.emit(filter);
+	onItemAdded(id) {
+		this.filterAdded.emit({ type: this.type, value: id });
 	}
 
-	onItemRemoved({ id, name }) {
-		// this.filterRemoved.emit(filter);
+	onItemRemoved(id) {
+		this.filterRemoved.emit({ type: this.type, value: id });
 	}
 }

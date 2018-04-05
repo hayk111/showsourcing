@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { Entity, selectEntityArrayByName } from '~app/entity';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
-import { selectFilterByType, FilterGroupName, Filter } from '~app/shared/filters';
-import { tap } from 'rxjs/operators';
+import { selectFilterByType, FilterGroupName, Filter, FilterActions } from '~app/shared/filters';
+import { tap, takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~app/app-root/utils';
 
 @Component({
 	selector: 'product-filters-app',
@@ -12,7 +13,7 @@ import { tap } from 'rxjs/operators';
 	styleUrls: ['./product-filters.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductFiltersComponent implements OnInit {
+export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
 	selectedSuppliers$: Observable<any>;
 	/** Whether the different panel that are displayed when clicking on a button are shown */
@@ -26,14 +27,18 @@ export class ProductFiltersComponent implements OnInit {
 	// or check in constant time if a value has been picked already
 	// map.get(type).has(value);
 	filterMap$: Observable<Map<string, Map<string, Filter>>>;
+	filterMap: Map<string, Map<string, Filter>>;
 	/** for the entity panel we need to pass the correct entities as choice */
 	entityPanelChoices$: Observable<Array<Entity>>;
 	entitySelected;
 
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<any>) {
+		super();
+	}
 
 	ngOnInit() {
 		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
+		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(map => this.filterMap = map);
 	}
 
 	toggleEntityPanel(entitySelected: string) {
@@ -51,6 +56,22 @@ export class ProductFiltersComponent implements OnInit {
 	toggleRatingPanel() {
 		this.ratingPanelShown = !this.ratingPanelShown;
 		this.btnPanelShown = !this.ratingPanelShown;
+	}
+
+	getEntityMap(entityName: string) {
+		return this.filterMap.get(entityName) || new Map();
+	}
+
+	onFilterAdded(filter: Filter) {
+		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+	}
+
+	onFilterRemoved(filter: Filter) {
+		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
+	}
+
+	onClear() {
+		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
 	}
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'filter-selection-panel-app',
@@ -6,11 +6,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./filter-selection-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterSelectionPanelComponent implements OnInit {
+export class FilterSelectionPanelComponent {
+	/** when the panel is closed */
+	@Output() close = new EventEmitter<null>();
 
-	constructor() { }
-
-	ngOnInit() {
+	onDone() {
+		this.close.emit();
 	}
 
 }

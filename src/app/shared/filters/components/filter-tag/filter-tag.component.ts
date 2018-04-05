@@ -7,13 +7,13 @@ import { Filter } from '~shared/filters';
 	styleUrls: ['./filter-tag.component.scss']
 })
 export class FilterTagComponent implements OnInit {
-	@Input() filter: Filter;
-	@Output() filterRemoved = new EventEmitter<Filter>();
+	@Input() title: string;
+	@Output() filterRemoved = new EventEmitter<null>();
 	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
-	removeFilter(filter: Filter) {
-		this.filterRemoved.emit(filter);
+	removeFilter() {
+		this.filterRemoved.emit();
 	}
 }
