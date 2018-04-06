@@ -24,7 +24,7 @@ import { SupplierContactComponent } from './components/supplier-contact/supplier
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
 import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
 import { SupplierMainBottomComponent } from './components/supplier-main/supplier-main-bottom/supplier-main-bottom.component';
-import { SupplierMainHeaderComponent } from './components/supplier-main/supplier-main-header/supplier-main-header.component';
+import { SupplierMainTitleComponent } from './components/supplier-main/supplier-main-title/supplier-main-title.component';
 import { SupplierMainInfoComponent } from './components/supplier-main/supplier-main-info/supplier-main-info.component';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
@@ -58,7 +58,7 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierListViewComponent,
 		SupplierMainComponent,
 		SupplierSummaryComponent,
-		SupplierMainHeaderComponent,
+		SupplierMainTitleComponent,
 		SupplierMainInfoComponent,
 		SupplierMainBottomComponent,
 		SupplierLatestProductsComponent,

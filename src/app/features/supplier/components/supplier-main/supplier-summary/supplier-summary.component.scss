@@ -7,10 +7,13 @@
 		width: 1px;
 		height: 64px;
 		background: var(--color-primary-light);
+		margin: 0 var(--spacing-l);
 	}
 	.block {
-		margin: 0 var(--spacing-xl);
-		text-align: center;
+		text-align: left;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
 	}
 	.title {
 		font-weight: 600;
@@ -28,10 +31,12 @@
 		margin-top: 9px;
 		flex-direction: row;
 		align-items: center;
-		[class^="icon-"],
-		[class*=" icon-"] {
-			margin-left: var(--spacing-s);
-			font-size: var(--font-size-xl);
+		.icon-edit {
+			margin-right: var(--spacing-s);
+			font-size: 18px;
 		}
 	}
+}
+status-selector-badge-app {
+	font-size: 16px;
 }

@@ -12,7 +12,7 @@
 	<div class="z-2 selector" *ngIf="panelVisible" (clickOutside)="closePanel()">
 		<div class="choice pointer" *ngFor="let status of choices" (click)="selectStatus(status.id)">
 			<span class="cercle" [ngStyle]="{ 'background':'var(--color-' + status.id + ')' }"></span>
-				{{ status.name }}
+				<span class="name">{{ status.name }}</span>
 		</div>
 	</div>
 </ng-container>

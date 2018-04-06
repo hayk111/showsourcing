@@ -1,0 +1,25 @@
+:host {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+h1 {
+	margin: 0;
+	margin-bottom: var(--spacing-s);
+	font-family: Raleway;
+  font-size: 21px;
+	font-weight: 600;
+	line-height: 1;
+	text-transform: capitalize;
+}
+
+.info {
+	margin-left: var(--spacing-l);
+}
+
+.type {
+  font-size: var(--font-size-l);
+	font-weight: 600;
+	color: var(--color-txt-secondary);
+}

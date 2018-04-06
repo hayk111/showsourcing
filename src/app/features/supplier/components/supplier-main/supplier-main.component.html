@@ -1,11 +1,19 @@
 <card-app>
+	<header class="flexCenter">
+		<img src="assets/img/supplier-img.svg"/>
+	</header>
 
-	<supplier-main-header-app
-		class="header"
-		[supplier]="supplier"
-		(update)="update.emit($event)"></supplier-main-header-app>
+	<div class="bottom flexBetween">
+		<supplier-main-title-app
+			[supplier]="supplier">
+		</supplier-main-title-app>
 
-	<supplier-summary-app [numTasks]="numTasks" [supplier]="supplier" [productsCount]="productsCount"></supplier-summary-app>
-	<supplier-main-info-app [supplier]="supplier"></supplier-main-info-app>
-	<supplier-main-bottom-app [supplier]="supplier" (update)="update.emit($event)"></supplier-main-bottom-app>
+		<supplier-summary-app
+			(update)="update.emit($event)"
+			[supplier]="supplier"
+			[productCount]="productCount"
+			[taskCount]="taskCount"
+			[contactCount]="contactCount"></supplier-summary-app>
+	</div>
+
 </card-app>

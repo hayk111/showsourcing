@@ -1,3 +1,17 @@
-supplier-summary-app, supplier-main-info-app{
-	margin-bottom: var(--spacing-xl);
+header{
+	background: var(--color-bg-third);
+	border-bottom: 1px solid var(--color-primary-light);
+	height: 240px;
+	img {
+		width: 210px;
+		height: 184px;
+	}
+}
+.bottom {
+	padding-bottom: 11px;
+	align-items: flex-start;
+}
+
+supplier-summary-app {
+	margin-left: var(--spacing-default);
 }

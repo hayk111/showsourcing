@@ -33,8 +33,8 @@
 
 	// those variable are not conform with the rest to adapt to response from server the
 	// serveur which is in PascalCasing. So we can have dynamic styling.
-	--color-New: var(--color-primary-light);
-	--color-New-contrast: var(--color-primary-dark);
+	--color-New: var(--color-txt-secondary);
+	--color-New-contrast: white;
 	--color-Idea:  var(--color-primary-light);
 	--color-Idea-contrast: var(--color-primary-dark);
 	--color-NeedReview: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);

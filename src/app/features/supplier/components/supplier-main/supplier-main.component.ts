@@ -10,8 +10,9 @@ import { Patch } from '~entity';
 })
 export class SupplierMainComponent implements OnInit {
 	@Input() supplier: Supplier;
-	@Input() productsCount: number;
-	@Input() numTasks: number;
+	@Input() productCount: number;
+	@Input() taskCount: number;
+	@Input() contactCount: number;
 	@Output() update = new EventEmitter<Patch>();
 
 	constructor() { }

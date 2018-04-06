@@ -9,19 +9,19 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 	styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-	@Input() elevation: string = 'z-2';
-	@Input() padding: string = 'default';
-	@Input() margin: string = 'default';
+	@Input() elevation = 'z-2';
+	@Input() padding = 'l';
+	@Input() margin = 'default';
 	@Input() className: string;
 
-	@Input() border: boolean = false;
-	@Input() borderBottom: boolean = false;
-	@Input() borderColor: string = 'primary';
+	@Input() border = false;
+	@Input() borderBottom = false;
+	@Input() borderColor = 'primary';
 	@Input() footerColor: string;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	get borderStyle() {
 		return {

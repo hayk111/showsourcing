@@ -13,6 +13,7 @@ import { Supplier } from '~supplier';
 import { fromTask, Task } from '~task';
 import { DialogActions, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -21,7 +22,7 @@ import { UserService } from '~app/features/user';
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
-	productsCount$: Observable<number>;
+	productCount$: Observable<number>;
 	tasks$: Observable<Array<Task>>;
 	products$: Observable<Array<Product>>;
 	images$: Observable<Array<AppImage>>;
@@ -41,9 +42,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			filter(d => !!d)),
 			tap((supplier: Supplier) => this.supplierId = supplier.id);
 
-		this.productsCount$ = this.store.select(fromSupplier.selectState).pipe(
-			map(state => state.productsCount[state.focussed])
-		);
+		// this select the count for all entities we need it just for this one
+		const productsCount$ = this.store.select(fromSupplier.selectProductCount);
+		this.productCount$ = combineLatest(id$, productsCount$, (id, count) => count[id]);
+
 		this.tasks$ = this.store.select(fromTask.selectArray);
 		this.products$ = this.store.select<any>(selectProducts);
 		this.images$ = this.store.select(fromImage.selectArray);
