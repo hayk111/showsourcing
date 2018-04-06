@@ -26,12 +26,13 @@ export class AuthenticationEffects {
 			map(action => action.payload),
 			// debounce time to prevent unnecessary attempts
 			debounceTime(700),
-			switchMap(p => this.srv.login(p)),
-			// we save the token for when the user refresh the page
-			tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
-			// we first put the user action, then the preloading action as the user is needed to make those
-			mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body), PreloaderActions.preload()]),
-			catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error)))
+			switchMap(p => this.srv.login(p).pipe(
+				// we save the token for when the user refresh the page
+				tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
+				// we first put the user action, then the preloading action as the user is needed to make those
+				mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body), PreloaderActions.preload()]),
+				catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error)))
+			))
 		);
 
 	@Effect({ dispatch: false })
