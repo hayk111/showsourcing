@@ -21,7 +21,7 @@
 			"prefix": "app",
 			"serviceWorker": true,
       "styles": [
-        "app/app-root/theming/styles.scss"
+        "app/theming/styles.scss"
 			],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

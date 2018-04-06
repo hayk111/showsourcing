@@ -49,8 +49,6 @@ You can run every script with `npm run`, for example `npm run start`.
 
  - `npm run build` will build a production ready of the app in the dist directory
  - `npm run analyze` will run the dependency reports, so we can analyze the sizes of the different modules
- - `npm run lint` will start the linter
- - `npm run test` will run the unit tests
 
 ## Devtools addon
 
@@ -59,7 +57,7 @@ You can download the redux addon for chrome [here](https://chrome.google.com/web
 
 ## File Structure & guidelines
 
-The application is divided in modules. In the module directory there is 3 sub directories: features, shared and store. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one page / popup / small feature of the app.
+The application is divided in modules. In the module directory there is 4 sub directories: app-root, features, shared and entity. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one page / popup / small feature of the app. App root is the root of the application. Entity directory contains a special module for entities that are loaded at the start of the application (mainly).
 
 In each module the division of the file structure is with those folders (each one being optional).
 
@@ -93,15 +91,13 @@ Some scss files are based on google material design guidelinds. For instance `el
 ## General Architecture Principles
 
 ### Entities
-Found in `modules/store/utils/entities.utils.ts`.
 
 The `EntityState` class is used to transform array that come from the back-end. Say we ask for supplier and receive a list of 1000 supplier. We don't want to search in the array everytime we want to find a supplier with a specific id. Therefor the array is transformed into:
 
 ```
 export interface EntityState<G extends Entity> {
 	pending: boolean;
-	maxEntityCounter: number;
-	byId: { [key: string]: G };
+	byId: { [id: string]: G };
 	ids: Array<string>;
 }
 ```
@@ -110,23 +106,7 @@ The `EntityRepresentation` class is used to represent an entity (like a product)
 
 Its class is relatively straight forward
 
-```
-export class EntityRepresentation  {
-	constructor(public actionType: any,
-							public entityName: string,
-							public isEntity: boolean = false,
-							public urlName?: string,
-							public displayName?: string,
-							public descriptorName?: CustomFieldsName | string) {
-		// for plurals
-		this.urlName = urlName || entityName.slice(0, -1);
-		this.displayName = displayName || entityName;
-		this.descriptorName = descriptorName || entityName + 'CFDef';
-	}
-}
-```
-
-The `entityRepresentationMap` contains all EntityRepresentations. The only time an EntityRepresentation is created should be in that map.
+The `entityRepresentationMap` contains all EntityRepresentations. The only time an EntityRepresentation is created should be in that map. It's exported as `ERM`
 
 The `EntityTarget` is an interface that describe which entity we target.
 
@@ -137,31 +117,13 @@ export interface EntityTarget {
 }
 ```
 
-### Components
-
-Components which have their name ending with `Entity` are wrapper components that use an `EntityTarget`.
-That means that for example a `FileInputEntityComponent` will have as `@Input` only an `EntityTarget`. This component will do its thing and when the user picks a file, everything will be done in the background: the back end will be updated as well as the front end store. No need to do anything except putting the component in the template and giving it an `EntityTarget`. The wrapper component contains other component that are dumb components. In the case of `FileInputEntityComponent` it must contain a `FileInputComponent` which tells the parent `FileInputEntityComponent` what action has been taken (file has been dropped, etc) and which also has the job to display everything.
-
-The architecture is simple:
-
- - Parent wrapper: does the messaging with the store
- - Child component: tells the parent what are the user interactions.
-
-There isn't much services at all as most of the logic is handled with store messages. There are things that don't fit in the store that go into services, but those are generally pretty obvious. Like the `DynamicFormBuilder`.
 
 ### The store
 The main business logic of the app is handled in the store.
-The store is subdivided in : ui, entities. UI is for things that are displayed on screen ( dialog open etc), entities is for the different entities that are loaded via http usually.
-
-The golden rule in the store is to normalize the data. For example if you have a product which contains comments,
-votes, images, and files you'll have 5 entities in the store, namely products, comments, votes, images, and files.
-It might seem annoying to do so at first but you should bite the bullet as it makes things easier afterward.
-
-Effects are used in parallel with entities services. Effects deal with grabbing messages to the store and calling the appropriate service function which is usually just an http call.
 
 
 ### AutoUnsub
 
-To prevent memory leaks, components which are using observables / the store (also obs) should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables.
+To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables.
 The AutoUnsub class should be used as a standard app wise.
-Look at the code of any smart component and you'll find how to do that. If it's missing anywhere fitting the above, then that is an oversight on my part and should be corrected (I tend to be a bit absent minded sometimes).
+Look at the code of any smart component and you'll find how to do that.
