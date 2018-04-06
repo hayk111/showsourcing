@@ -73,12 +73,14 @@ export class AuthenticationEffects {
 		.ofType<any>(AuthActionType.REGISTER)
 		.pipe(
 			map(action => action.payload),
-			switchMap(params => this.srv.register(params)),
-			tap(_ => this.router.navigate([''])),
-			tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
-			mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body), PreloaderActions.preload()]),
-			catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
-		);
+			switchMap(params => this.srv.register(params).pipe(
+				tap(_ => this.router.navigate([''])),
+				tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
+				mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body), PreloaderActions.preload()]),
+				catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
+			)),
+
+	);
 
 	constructor(
 		private actions$: Actions,

@@ -28,7 +28,7 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 
 		case ActionType.REMOVE_FILTER:
 			newState = { ...state };
-			newState[groupName] = group.filter(f => (f.type !== filter.type && f.value !== filter.value));
+			newState[groupName] = group.filter(f => (f.type !== filter.type || f.value !== filter.value));
 			return newState;
 
 		case ActionType.REMOVE_FILTER_TYPE:
