@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { Filter } from '~shared/filters/models';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '~entity/store/entity.selector';
@@ -15,7 +15,7 @@ import { takeUntil, debounceTime } from 'rxjs/operators';
 	templateUrl: './filter-entity-panel.component.html',
 	styleUrls: ['./filter-entity-panel.component.scss'],
 })
-export class FilterEntityPanelComponent extends AutoUnsub implements OnInit, OnChanges {
+export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
@@ -64,6 +64,8 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit, OnC
 	filterChoices(str: string) {
 		this._filteredChoices = this._choices.filter(choice => this.searchFn(choice, str));
 		this._filteredRelevantChoices = this._relevantChoices.filter(choice => this.searchFn(choice, str));
+		// need to trigger change detection even though an event happened. It's because the search is pushed to an observable etc.
+		this.cd.markForCheck();
 	}
 
 	onItemAdded(id) {
@@ -74,7 +76,7 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit, OnC
 		this.filterRemoved.emit({ type: this.type, value: id });
 	}
 
-	ngOnChanges() {
-
+	constructor(private cd: ChangeDetectorRef) {
+		super();
 	}
 }

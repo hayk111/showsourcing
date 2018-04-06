@@ -1,4 +1,8 @@
-
+:host {
+	display: block;
+	// position relative so we can display panels in it bro
+	position: relative;
+}
 .hidden {
   visibility: hidden;
   display: none;

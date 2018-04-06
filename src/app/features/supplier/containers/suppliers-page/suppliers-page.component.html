@@ -1,8 +1,11 @@
 
 <entity-page-app
- [filterGroupName]="filterGroupName"
  [subtitles]="['Suppliers', 'all']"
- [switchable]="false" [pending]="pending$ | async" [repr]="repr" (buttonClick)="openNewDialog()">
+ [switchable]="false"
+ [pending]="pending$ | async"
+ [repr]="repr"
+ (buttonClick)="openNewDialog()">
+
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"
 	(supplierUnselect)="onItemUnselected($event)"
@@ -12,7 +15,9 @@
 	[selection]="selection"
 	[suppliers]="suppliers$ | async"
 	[productsCount]="productCount$ | async"></supplier-list-view-app>
+
 </entity-page-app>
+
 <selection-bar-app
 	(close)="resetSelection()"
 	(delete)="deleteSelection()"

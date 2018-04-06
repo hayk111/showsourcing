@@ -1,8 +1,7 @@
-<entity-page-app [filterGroupName]="filterGroupName" [pending]="pending$ | async" [repr]="repr" [switchable]="false">
+<entity-page-app [pending]="pending$ | async" [repr]="repr" [switchable]="false">
 
 	<!-- views -->
 	<workflow-kanban-app
-		[filterGroupName]="filterGroupName"
 		(productSelect)="onItemSelected($event)"></workflow-kanban-app>
 
 </entity-page-app>
