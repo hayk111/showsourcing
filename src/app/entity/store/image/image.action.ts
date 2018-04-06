@@ -6,18 +6,20 @@ import { TypedAction } from '~utils';
 
 const entityName = ERM.image.entityName;
 
+export interface ImageActionTypes extends EntityActionTypes {
+	ROTATE: string;
+
+}
+
 export const imageActionTypes = {
 	...makeEntityActionTypes(entityName),
-	ROTATE: `[${entityName.capitalize()}] Rotating...`,
-	SET_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
-	ADD_PRODUCTS: `[${entityName.capitalize()}] Adding Product to project...`,
-	ADD_PRODUCTS_SUCCESS: `[${entityName.capitalize()}] Successfully adding product to project...`,
+	ROTATE: `[${entityName.capitalize()}] Rotating...`
 };
 
 // ----------------------------------------------------------------------------
 // --------------------------- Constructing basic actions + extended actions
 // ----------------------------------------------------------------------------
-export class ImageActions extends EntityActions {
+export class ImageActions extends EntityActions<ImageActionTypes> {
 	rotate(image: AppImage) {
 		return {
 			type: this.actionType.ROTATE,

@@ -6,10 +6,19 @@ import { Category } from '~app/entity/store/category';
 
 const entityName = ERM.supplier.entityName;
 
+export interface SupplierActionTypes extends EntityActionTypes {
+	// tag
+	CREATE_TAG: string;
+	ADD_TAG: string;
+	REMOVE_TAG: string;
+	// category
+	CREATE_CATEGORY: string;
+	ADD_CATEGORY: string;
+	REMOVE_CATEGORY: string;
+}
+
 export const supplierActionTypes = {
 	...makeEntityActionTypes(entityName),
-	LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count...`,
-	ADD_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count...`,
 	// tag
 	CREATE_TAG: `[${entityName.capitalize()}] Creating tag for supplier...`,
 	ADD_TAG: `[${entityName.capitalize()}] Adding existing tag to supplier...`,
@@ -20,20 +29,7 @@ export const supplierActionTypes = {
 	REMOVE_CATEGORY: `[${entityName.capitalize()}] Removing category from supplier...`,
 };
 
-export class SupplierActions extends EntityActions {
-	// additional actions / extensions of the base
-	loadProductCount() {
-		return {
-			type: this.actionType.LOAD_PRODUCT_COUNT,
-		};
-	}
-
-	addProductCount(countObject: { [key: string]: number }) {
-		return {
-			type: this.actionType.ADD_PRODUCT_COUNT,
-			payload: countObject,
-		};
-	}
+export class SupplierActions extends EntityActions<SupplierActionTypes> {
 
 	createTag(tag: Tag, supplierId: string) {
 		return {

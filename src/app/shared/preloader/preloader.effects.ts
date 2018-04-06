@@ -10,7 +10,7 @@ import {
 	fromHarbour,
 	fromIncoTerm,
 	fromProductStatus,
-	projectActions,
+	fromProject,
 	fromSupplier,
 	fromSupplierStatus,
 	fromTag,
@@ -48,9 +48,15 @@ export class PreloaderEffects {
 			fromCustomField.Actions.load(),
 			fromSupplier.Actions.load(),
 			fromEvent.Actions.load(),
-			projectActions.load(),
+			fromProject.Actions.load(),
 			fromTag.Actions.load(),
 			fromTeamMember.Actions.load(),
+
+			// loading product counts
+			fromProject.Actions.loadProductCount(),
+			fromEvent.Actions.loadProductCount(),
+			fromCategory.Actions.loadProductCount(),
+			fromSupplier.Actions.loadProductCount()
 		])
 	);
 

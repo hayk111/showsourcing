@@ -14,7 +14,7 @@ import { fromComment } from '~entity/store/comment';
 import { fromFile } from '~entity/store/file/file.bundle';
 import { imageActions } from '~entity/store/image/image.action';
 import { fromTask } from '~entity/store/task/task.bundle';
-import { projectActions } from '~entity/store/project/project.actions';
+import { fromProject } from '~entity/store/project/project.bundle';
 import { selectUser } from '~user';
 import { EntityService } from '~app/entity/store/entity.service';
 
@@ -97,12 +97,9 @@ export class ProductEffects {
 	requestFeedback$ = this.actions$.ofType<any>(actionTypes.REQUEST_FEEDBACK).pipe(
 		map(action => action.payload),
 		switchMap(({ productsIds, recipientsIds }) => {
-			const obs$ = new Array<Observable<any>>();
-			productsIds.forEach(projectid => {
-				obs$.push(this.srv.requestFeedback(projectid, recipientsIds));
+			return productsIds.map(productId => {
+				this.srv.requestFeedback(productId, recipientsIds);
 			});
-			const result = forkJoin(obs$);
-			return result;
 		}),
 		map((result: any) => productActions.requestFeedbackSuccess(result))
 	);
@@ -132,6 +129,7 @@ export class ProductEffects {
 		.ofType<any>(actionTypes.REMOVE_TAG)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeTag(payload)));
 
+	// creates a tag and add it to the product
 	@Effect()
 	createTag$ = this.actions$
 		.ofType<any>(actionTypes.CREATE_TAG)
@@ -155,6 +153,7 @@ export class ProductEffects {
 		.ofType<any>(actionTypes.REMOVE_PROJECT)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.removeProject(payload)));
 
+	// creates a project and add it to the product
 	@Effect()
 	createProject$ = this.actions$
 		.ofType<any>(actionTypes.CREATE_PROJECT)
@@ -163,18 +162,10 @@ export class ProductEffects {
 			switchMap(payload =>
 				this.srv
 					.createProject(payload)
-					.pipe(mergeMap((r: any) => [(productActions.addProject(r, payload.productId), projectActions.add([r]))]))
+					.pipe(mergeMap((r: any) => [(productActions.addProject(r, payload.productId), fromProject.Actions.add([r]))]))
 			)
 		);
 
-	// @Effect()
-	// loadLatestForTarget$ = this.actions$
-	// 	.ofType<any>(actionTypes.LOAD_LATEST_FOR_TARGET)
-	// 	.pipe(
-	// 		map(action => action.payload),
-	// 		switchMap(supplierId => this.srv.loadLatestForTarget(supplierId).pipe(startWith(productActions.reset()))),
-	// 		map((r: any) => productActions.set(r))
-	// 	);
 
 	constructor(
 		private srv: ProductHttpService,

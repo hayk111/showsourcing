@@ -44,7 +44,10 @@ export class SuppliersEffects {
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
-		.pipe(switchMap(_ => this.srv.load()), map((result: any) => supplierActions.add(result)));
+		.pipe(
+			switchMap(_ => this.srv.load()),
+			map((result: any) => supplierActions.add(result))
+		);
 
 	@Effect()
 	loadById$ = this.action$
@@ -89,10 +92,12 @@ export class SuppliersEffects {
 			)
 		);
 
+	// loading product count for each entity
 	@Effect()
-	loadProductCount$ = this.action$
-		.ofType<any>(ActionType.LOAD_PRODUCT_COUNT)
-		.pipe(switchMap(_ => this.srv.loadProductCount()), map((r: any) => supplierActions.addProductCount(r)));
+	loadProductsCount$ = this.action$.ofType<any>(ActionType.LOAD_PRODUCT_COUNT).pipe(
+		switchMap(_ => this.entitySrv.loadProductCount(ERM.supplier)),
+		map((items: any) => supplierActions.setProductCount(items))
+	);
 
 	// tag adding / removing / creating
 	@Effect({ dispatch: false })

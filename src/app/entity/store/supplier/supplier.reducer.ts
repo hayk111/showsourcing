@@ -7,9 +7,6 @@ const basicReducer = entityReducerFactory(supplierActionTypes);
 
 export function supplierReducer(state = entityInitialState, action: TypedAction<any>) {
 	switch (action.type) {
-		case supplierActionTypes.ADD_PRODUCT_COUNT:
-			const countObj = action.payload;
-			return { ...state, productsCount: countObj };
 
 		case supplierActionTypes.ADD_TAG: {
 			const byId = { ...state.byId };

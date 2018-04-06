@@ -3,12 +3,25 @@
 
 <input type="text" placeholder="Search" (input)="search($event.target.value)"/>
 
+Relevant:
+<checkbox-app
+	*ngFor="let choice of relevantChoices"
+	[checked]="selected.has(choice.id)"
+	(check)="onItemAdded(choice.id)"
+	(uncheck)="onItemRemoved(choice.id)">
+	<div class="flexBetween">
+		<span>{{ choice.name }}</span>
+		<span>{{ choice.productCount }}</span>
+	</div>
+</checkbox-app>
 
+
+All:
 <checkbox-app
 	*ngFor="let choice of choices"
 	[checked]="selected.has(choice.id)"
 	(check)="onItemAdded(choice.id)"
 	(uncheck)="onItemRemoved(choice.id)">
-	{{ choice.name }}
+	<span>{{ choice.name }}</span>
 </checkbox-app>
 

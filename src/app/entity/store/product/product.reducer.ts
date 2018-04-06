@@ -1,14 +1,9 @@
 import { entityInitialState } from '~entity/store/entity.model';
-import { projectActionTypes } from '../project';
 import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils/typed-action.interface';
 
-import { Product } from './product.model';
 import { actionTypes } from './product.action';
 
-// ----------------------------------------------------------------------------
-// --------------------------- Constructing basic reducer + extended reducer
-// ----------------------------------------------------------------------------
 export const basicProductReducer = entityReducerFactory(actionTypes);
 
 export function productReducer(state = entityInitialState, action: TypedAction<any>) {

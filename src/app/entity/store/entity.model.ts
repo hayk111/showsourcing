@@ -7,6 +7,7 @@ export interface EntityState<G extends Entity> {
 	ids: Array<string>;
 	focussed?: string;
 	selected?: Array<string>;
+	productCount?: { [id: string]: number };
 }
 
 // default initial state in store for an entity

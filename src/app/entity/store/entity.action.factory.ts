@@ -14,6 +14,9 @@ export interface EntityActionTypes {
 	LOAD_MORE: string;
 	// for loading one
 	LOAD_BY_ID: string;
+	// loading the product count so we can display how many product is related to each entity. That can be seen in lists and filters.
+	LOAD_PRODUCT_COUNT: string;
+	SET_PRODUCT_COUNT: string;
 	// when we load entities relative to the currently focussed/selected entity,
 	// example: api/team/:id/product/:id/task when we are on product-details page
 	LOAD_FOR_SELECTION: string;
@@ -45,6 +48,8 @@ export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 		LOAD_MORE: `[${entityName.capitalize()}] Loading more...`,
 		LOAD_BY_ID: `[${entityName.capitalize()}] Loading by id...`,
 		LOAD_FOR_SELECTION: `[${entityName.capitalize()}] Loading for current selection`,
+		LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count`,
+		SET_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count`,
 		SET: `[${entityName.capitalize()} Setting...]`,
 		ADD: `[${entityName.capitalize()}] Adding...`,
 		CREATE: `[${entityName.capitalize()}] Creating...`,
@@ -63,8 +68,8 @@ export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 }
 
 // makes basic actions functions
-export class EntityActions {
-	constructor(protected actionType: any) { }
+export class EntityActions<G extends EntityActionTypes> {
+	constructor(protected actionType: G) { }
 
 	focus(id: string): TypedAction<any> {
 		return {
@@ -91,6 +96,19 @@ export class EntityActions {
 		return {
 			type: this.actionType.LOAD_BY_ID,
 			payload: id,
+		};
+	}
+
+	loadProductCount(): Action {
+		return {
+			type: this.actionType.LOAD_PRODUCT_COUNT
+		};
+	}
+
+	setProductCount(countObj: { [id: string]: number }): TypedAction<any> {
+		return {
+			type: this.actionType.SET_PRODUCT_COUNT,
+			payload: countObj
 		};
 	}
 

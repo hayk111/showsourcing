@@ -1,9 +1,24 @@
-import { EntityActions, makeEntityActionTypes } from '../entity.action.factory';
+import { EntityActions, makeEntityActionTypes, EntityActionTypes } from '../entity.action.factory';
 import { EntityTarget, ERM } from '../entity.model';
 import { Project } from '../project';
 import { Tag } from '../tag';
 
 const entityName = ERM.product.entityName;
+
+export interface ProductActionTypes extends EntityActionTypes {
+	REQUEST_PDF: string;
+	REQUEST_FEEDBACK: string;
+	REQUEST_FEEDBACK_SUCCESS: string;
+	VOTE: string;
+	// tags
+	CREATE_TAG: string;
+	ADD_TAG: string;
+	REMOVE_TAG: string;
+	// projects
+	CREATE_PROJECT: string;
+	ADD_PROJECT: string;
+	REMOVE_PROJECT: string;
+}
 // makes product action types
 export const actionTypes = {
 	...makeEntityActionTypes(entityName),
@@ -22,7 +37,7 @@ export const actionTypes = {
 };
 
 
-class ProductActions extends EntityActions {
+class ProductActions extends EntityActions<ProductActionTypes> {
 	// additional actions / extensions of the base
 	requestPdf(id: string) {
 		return {

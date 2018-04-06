@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Project, selectProjects, selectProjectsProductsCount, productActions, projectActions } from '~app/entity';
+import { Project, fromProject, productActions } from '~app/entity';
 import { DialogName, DialogActions } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
@@ -29,8 +29,8 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(selectProjects);
-		this.productsCount$ = this.store.select(selectProjectsProductsCount);
+		this.projects$ = this.store.select(fromProject.selectArray);
+		this.productsCount$ = this.store.select(fromProject.selectProductCount);
 	}
 
 	select(id, value) {

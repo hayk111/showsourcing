@@ -3,7 +3,7 @@ import { Filter } from '~shared/filters/models';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '~entity/store/entity.selector';
 import { Observable } from 'rxjs/Observable';
-import { Entity } from '~app/entity';
+import { Entity, EntityState, entityStateToArray } from '~app/entity';
 import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '~app/app-root/utils';
 import { takeUntil, debounceTime } from 'rxjs/operators';
@@ -15,17 +15,19 @@ import { takeUntil, debounceTime } from 'rxjs/operators';
 	templateUrl: './filter-entity-panel.component.html',
 	styleUrls: ['./filter-entity-panel.component.scss'],
 })
-export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
+export class FilterEntityPanelComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
 	@Input() selected = new Map<string, boolean>();
 	@Input() type;
 	@Input() title = '';
+
 	private searchStr$ = new Subject<string>();
 
 	/** Different choices that are displayed in the view */
-	@Input() set choices(value: Array<Entity>) {
+	@Input()
+	set choices(value: Array<Entity>) {
 		this._choices = value;
 	}
 	get choices(): Array<Entity> {
@@ -35,6 +37,17 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 	}
 	private _choices = [];
 	private _filteredChoices;
+
+	/** The relevant choices (with count) */
+	@Input()
+	set relevantChoices(value: Array<Entity>) {
+		this._relevantChoices = value;
+	}
+	get relevantChoices(): Array<Entity> {
+		return this._filteredRelevantChoices || this._relevantChoices;
+	}
+	private _relevantChoices = [];
+	private _filteredRelevantChoices;
 
 	/** a search function to search through the choices. Default check if the name includes a string */
 	@Input() searchFn: Function = (choice, str) => str === '' ? true : choice.name.includes(str);
@@ -50,6 +63,7 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	filterChoices(str: string) {
 		this._filteredChoices = this._choices.filter(choice => this.searchFn(choice, str));
+		this._filteredRelevantChoices = this._relevantChoices.filter(choice => this.searchFn(choice, str));
 	}
 
 	onItemAdded(id) {
@@ -58,5 +72,9 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	onItemRemoved(id) {
 		this.filterRemoved.emit({ type: this.type, value: id });
+	}
+
+	ngOnChanges() {
+
 	}
 }

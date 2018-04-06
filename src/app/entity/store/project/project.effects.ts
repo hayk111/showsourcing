@@ -8,37 +8,36 @@ import { ERM } from '~entity/store/entity.model';
 import { selectUserTeamId } from '../user';
 
 import { ProjectHttpService } from './project-http.service';
-import { projectActions, projectActionTypes as actionTypes } from './project.actions';
+import { fromProject } from './project.bundle';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
+
+const actionType = fromProject.ActionTypes;
+const projectActions = fromProject.Actions;
 @Injectable()
 export class ProjectEffects {
 	@Effect()
 	load$ = this.action$
-		.ofType<any>(actionTypes.LOAD)
+		.ofType<any>(actionType.LOAD)
 		.pipe(
 			switchMap(_ => this.srv.load()),
-			mergeMap((result: any) => [projectActions.add(result), projectActions.loadProductCount(ERM.project)])
+			map((result: any) => projectActions.add(result))
 		);
 
 	@Effect()
-	loadProductsCount$ = this.action$.ofType<any>(actionTypes.LOAD_PRODUCT_COUNT).pipe(
-		withLatestFrom(this.store$.select(selectUserTeamId)),
-		map(([action, teamid]) => {
-			return { teamid, payload: action.payload };
-		}),
-		switchMap(({ teamid, payload }) => this.srv.getProductCount(payload, teamid)),
-		map((items: Array<any>) => projectActions.setProductCount(items))
+	loadProductsCount$ = this.action$.ofType<any>(actionType.LOAD_PRODUCT_COUNT).pipe(
+		switchMap(_ => this.entitySrv.loadProductCount(ERM.project)),
+		map((items: any) => projectActions.setProductCount(items))
 	);
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
-		.ofType<any>(actionTypes.PATCH)
+		.ofType<any>(actionType.PATCH)
 		.pipe(map(action => action.payload), switchMap((p: any) => this.entitySrv.patch(p, ERM.project)));
 
 	@Effect({ dispatch: false })
 	delete$ = this.action$
-		.ofType<any>(actionTypes.DELETE)
+		.ofType<any>(actionType.DELETE)
 		.pipe(
 			map(action => action.payload),
 			switchMap((ids: Array<string>) =>

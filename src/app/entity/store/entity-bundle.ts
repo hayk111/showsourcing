@@ -5,15 +5,20 @@ import { entityStateToArray } from '~entity/utils';
 import { entityReducerFactory } from './entity.reducer.factory';
 
 
-export interface EntityBundle {
-	ActionTypes: EntityActionTypes;
-	Actions: EntityActions;
-	reducer: any;
+export interface EntitySelectors {
 	selectState?: any;
 	selectArray?: any;
 	selectById?: any;
 	selectOne?: any;
+	selectPending?: any;
 	selectFocussed?: any;
+	selectProductCount?: any;
+}
+
+export interface EntityBundle extends EntitySelectors {
+	ActionTypes: EntityActionTypes;
+	Actions: EntityActions<EntityActionTypes>;
+	reducer: any;
 }
 
 // utility method that generates basic entity Actions, ActionTypes, reducer and selectors.
@@ -25,13 +30,7 @@ export function makeEntityBundle(entityName: string) {
 
 	return { ActionTypes, Actions, reducer, ...createEntitySelectors(entityName) };
 }
-export interface EntitySelectors {
-	selectState: any;
-	selectArray: any;
-	selectById: any;
-	selectOne: any;
-	selectFocussed: any;
-}
+
 export function createEntitySelectors(entityName: string): EntitySelectors {
 	// selectors
 	const selectEntities = (state) => state.entities;
@@ -39,7 +38,9 @@ export function createEntitySelectors(entityName: string): EntitySelectors {
 	const selectArray = createSelector([selectState], state => entityStateToArray(state));
 	const selectById = createSelector([selectState], state => state.byId);
 	const selectOne = (id: string) => createSelector([selectState], state => state.byId[id]);
+	const selectPending = createSelector([selectState], state => state.pending);
 	const selectFocussed = createSelector([selectState], state => state.byId[state.focussed]);
+	const selectProductCount = createSelector([selectState], state => state.productCount);
 
-	return { selectState, selectArray, selectById, selectOne, selectFocussed };
+	return { selectState, selectArray, selectById, selectOne, selectPending, selectFocussed, selectProductCount };
 }

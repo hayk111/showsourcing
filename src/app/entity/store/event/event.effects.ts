@@ -30,5 +30,12 @@ export class EventEffects {
 			)
 		);
 
+	// loading product count for each entity
+	@Effect()
+	loadProductsCount$ = this.action$.ofType<any>(fromEvent.ActionTypes.LOAD_PRODUCT_COUNT).pipe(
+		switchMap(_ => this.entitySrv.loadProductCount(ERM.event)),
+		map((items: any) => fromEvent.Actions.setProductCount(items))
+	);
+
 	constructor(private action$: Actions, private srv: EventHttpService, private entitySrv: EntityService) { }
 }

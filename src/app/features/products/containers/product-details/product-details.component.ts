@@ -14,8 +14,7 @@ import {
 	productActions,
 	Project,
 	selectProductById,
-	selectProjects,
-	selectProjectsProductsCount,
+	fromProject,
 	fromTask,
 	Task,
 } from '~entity';
@@ -31,10 +30,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	target: EntityTarget;
 	files: Array<AppFile>;
 	comments: Array<AppComment>;
-	projectRep = ERM.project;
-	projects$: Observable<Array<Project>>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
-	productsCount$: Observable<number>;
 	tasks$: Observable<Array<Task>>;
 	productId: string;
 
@@ -53,8 +49,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			filter(product => !!product),
 			tap(product => this.productId = product.id)
 		);
-		this.projects$ = this.store.select(selectProjects);
-		this.productsCount$ = this.store.select<any>(selectProjectsProductsCount);
 		this.tasks$ = this.store.select(fromTask.selectArray);
 	}
 

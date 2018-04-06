@@ -55,7 +55,8 @@
 			[title]="entitySelected.pluralName"
 			[type]="entitySelected.entityName"
 			*ngIf="entityPanelShown"
-			[choices]="entityPanelChoices$ | async"
+			[choices]="choices$ | async"
+			[relevantChoices]="relevantChoices$ | async"
 			[selected]="getEntityMap(entitySelected)"
 			(filterAdded)="onFilterAdded($event)"
 			(filterRemoved)="onFilterRemoved($event)">

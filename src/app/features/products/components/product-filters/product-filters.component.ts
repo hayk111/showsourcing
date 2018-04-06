@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Entity, selectEntityArrayByName, ERM, EntityRepresentation, getPluralEntity } from '~app/entity';
+import {
+	Entity, selectEntityArrayByName, ERM, EntityRepresentation,
+	getPluralEntity, fromSupplier, fromEvent, fromCategory, selectEntityProductCount, selectEntityArray,
+	selectEntityState, EntityState, entityStateToArray, selectRelevantEntities
+} from '~app/entity';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { selectFilterByType, FilterGroupName, Filter, FilterActions } from '~app/shared/filters';
-import { tap, takeUntil } from 'rxjs/operators';
+import { tap, takeUntil, combineLatest, map } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 
 @Component({
@@ -28,8 +32,9 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	// map.get(type).has(value);
 	filterMap$: Observable<Map<string, Map<string, Filter>>>;
 	filterMap: Map<string, Map<string, Filter>>;
-	/** for the entity panel we need to pass the correct entities as choice */
-	entityPanelChoices$: Observable<Array<Entity>>;
+	/** for the entity panel we need to pass the correct entityState */
+	choices$: Observable<Array<Entity>>;
+	relevantChoices$: Observable<Array<Entity>>;
 	entitySelected: EntityRepresentation;
 
 	/** Those entities are displayed exactly the same way on screen */
@@ -48,7 +53,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
-		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(map => this.filterMap = map);
+		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(mymap => this.filterMap = mymap);
 	}
 
 	toggleEntityPanel(entityRepr?: EntityRepresentation) {
@@ -57,7 +62,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		// when shown we need to change the choices displayed
 		if (this.entityPanelShown) {
 			this.entitySelected = entityRepr;
-			this.entityPanelChoices$ = this.store.select(selectEntityArrayByName(entityRepr.entityName));
+			this.choices$ = this.store.select(selectEntityArray(entityRepr));
+			this.relevantChoices$ = this.store.select(selectRelevantEntities(entityRepr));
 		}
 	}
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
-import { ERM, Project, selectProjectsState, selectProjects } from '~entity';
+import { ERM, Project, fromProject } from '~entity';
 import { AutoUnsub } from '~app/app-root/utils';
 import { selectFilterGroup } from '~app/shared/filters/store';
 import { productActions } from '~app/entity/store';
@@ -25,9 +25,9 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(selectProjects).pipe(filter(arr => arr.length > 0));
-		this.projectState$ = this.store.select(selectProjectsState);
-		this.pending$ = this.store.select(selectProjectsState).pipe(map(p => p.pending));
+		this.projects$ = this.store.select(fromProject.selectArray).pipe(filter(arr => arr.length > 0));
+		this.projectState$ = this.store.select(fromProject.selectState);
+		this.pending$ = this.store.select(fromProject.selectPending);
 		// a project needs to be selectioned at all time. Therefor the first time we receive
 		// the projects we need to select the first one.
 		// after that, the user will selection projects by clicking those in the menu.

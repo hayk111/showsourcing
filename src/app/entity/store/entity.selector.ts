@@ -28,8 +28,29 @@ export const selectEntityArray = (entityRepr: EntityRepresentation) => {
 	});
 };
 
+// same as above but with a name
 export const selectEntityArrayByName = (entityName: string) => {
 	return createSelector([selectEntityState(entityName)], entityState => {
 		return entityState.ids.map(id => entityState.byId[id]);
+	});
+};
+
+// select product count of an entity
+export const selectEntityProductCount = (entityRepr: EntityRepresentation) => {
+	return createSelector([selectEntityState(entityRepr.entityName)], entityState => {
+		return entityState.productCount || {};
+	});
+};
+
+// select entities with a product count
+export const selectRelevantEntities = (entityRepr: EntityRepresentation) => {
+	return createSelector([selectEntityState(entityRepr.entityName)], state => {
+		const count: { [id: string]: number } = state.productCount || {};
+		return Object.entries(count)
+			// we are only interested in entities which have a count
+			.filter(([id, amount]) => state.byId[id])
+			// map the id for the entity
+			.map(([id, amount]) => ({ ...state.byId[id], productCount: amount }))
+			.sort((a, b) => b.productCount - a.productCount);
 	});
 };

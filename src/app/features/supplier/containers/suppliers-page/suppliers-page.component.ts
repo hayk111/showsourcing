@@ -26,8 +26,6 @@ export class SuppliersPageComponent implements OnInit {
 	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
-		// we must load the product count on this page
-		this.store.dispatch(fromSupplier.Actions.loadProductCount());
 		this.suppliers$ = this.store.select(fromSupplier.selectArray);
 		this.productCount$ = this.store.select(fromSupplier.selectState)
 			.pipe(map((state: any) => state.productsCount));

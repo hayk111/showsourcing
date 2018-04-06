@@ -1,34 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import {
 	EntityState,
 	ERM,
+	fromProductStatus,
 	Product,
 	productActions,
 	ProductStatus,
-	Project,
-	projectActions,
 	selectEntityArray,
 	selectProductsState,
-	fromProductStatus,
-	selectProjects,
-	selectProjectsProductsCount,
-	User,
 } from '~entity';
 import { Patch } from '~entity/utils';
 import { DialogActions, DialogName } from '~shared/dialog';
-import {
-	Filter,
-	FilterGroupName,
-	FilterPanelAction,
-	selectFilterGroup,
-	selectFilterPanelOpen,
-} from '~shared/filters';
+import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'products-page-app',

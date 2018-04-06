@@ -36,16 +36,6 @@ export class ProjectHttpService {
 		);
 	}
 
-	getProductCount(entityRepr: EntityRepresentation, teamId: string) {
-		// get urlName for said target
-		let itemUrlName = entityRepr.urlName;
-		// capitalizing because that url needs to be
-		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
-		return this.http
-			.get(`/api/team/${teamId}/countProdsBy${itemUrlName}`)
-			.pipe(map((r: any) => r.items), startWith({}));
-	}
-
 	addProduct(projectid: String, productid: String) {
 		return this.http.put(`api/project/${projectid}/product/${productid}`, {});
 	}

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map, startWith } from 'rxjs/operators';
 import { User } from './user';
 import { ApiParams, Patch } from '~entity/utils';
 
@@ -71,5 +71,15 @@ export class EntityService {
 
 	loadTeamItem(params: ApiParams) {
 		return this.load(params);
+	}
+
+	loadProductCount(entityRepr: EntityRepresentation) {
+		// get urlName for said target
+		let itemUrlName = entityRepr.urlName;
+		// capitalizing because that url needs to be
+		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
+		return this.http
+			.get(`/api/team/${this.userSrv.teamId}/countProdsBy${itemUrlName}`)
+			.pipe(map((r: any) => r.items));
 	}
 }

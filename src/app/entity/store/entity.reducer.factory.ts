@@ -69,6 +69,9 @@ export function entityReducerFactory<G extends Entity>(
 			case actionType.RESET_SELECTION:
 				return { ...state, selected: [] };
 
+			case actionType.SET_PRODUCT_COUNT:
+				return { ...state, productCount: action.payload };
+
 			default:
 				return state;
 		}
