@@ -16,6 +16,7 @@ import {
 import { HintDirective } from '~app/shared/inputs/components-directives/hint.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
+import { ErrorDirective } from '~app/shared/inputs/components-directives/error.directive';
 
 export const components = [
 	FormFieldComponent,
@@ -24,7 +25,8 @@ export const components = [
 	CheckboxComponent,
 	SelectorComponent,
 	RestrictInputDirective,
-	HintDirective
+	HintDirective,
+	ErrorDirective
 ];
 
 @NgModule({

@@ -23,22 +23,22 @@
 		<ng-container *ngIf="votes.neutral.length > 0">
 			<h5 i18n="neutral vote">Neutral</h5>
 			<div>
-				<user-picture-with-name-app
+				<!-- <user-picture-with-name-app
 					[user]="teamMembers.byId[vote.userId]"
 					*ngFor="let vote of votes.neutral">
 					<time>{{ vote.creationDate | timeAgo }}</time>
-				</user-picture-with-name-app>
+				</user-picture-with-name-app> -->
 			</div>
 		</ng-container>
 
 		<ng-container *ngIf="votes.negative.length > 0">
 			<h5 i18n="negative vote">Dislikes</h5>
 			<div>
-				<user-picture-with-name-app
+				<!-- <user-picture-with-name-app
 					[user]="teamMembers.byId[vote.userId]"
 					*ngFor="let vote of votes.negative">
 					<small>{{ vote.creationDate | timeAgo }}</small>
-				</user-picture-with-name-app>
+				</user-picture-with-name-app> -->
 			</div>
 		</ng-container>
 

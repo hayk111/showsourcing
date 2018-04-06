@@ -23,6 +23,16 @@ export class Supplier {
 	phone: string;
 	description: string;
 	pending = true;
+	minimumOrderQuantity: number;
+	leadTime: number;
+	phoneNumber: string;
+	address: string;
+	type: string;
+	incoTerm: string;
+	harbour: string;
+	eventId: string;
+	categoryIds: Array<String>;
+	tagIds: Array<String>;
 
 	constructor(name: string, userId: string) {
 		this.name = name;

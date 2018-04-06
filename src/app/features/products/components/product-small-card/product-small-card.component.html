@@ -22,7 +22,7 @@
 	</main>
 	<footer class="flex">
 		<div class="author">
-			{{ product?.createdByUserId | entityName: project | async }}
+			{{ product?.createdByUserId | entityName: 'project' | async }}
 		</div>
 		<product-icons-app
 			[score]="product?.computedValues?.score"
