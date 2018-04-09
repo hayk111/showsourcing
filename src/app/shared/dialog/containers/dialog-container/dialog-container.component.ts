@@ -1,14 +1,20 @@
 import {
-	Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef,
-	ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ChangeDetectorRef
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ComponentFactoryResolver,
+	ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectDialogState } from '~app/shared/dialog/store/dialog.selector';
 import { AutoUnsub } from '~app/app-root/utils';
-import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
-import { DialogHostDirective } from '~app/shared/dialog/containers/dialog-host.directive';
-import { dialogComponentMap } from '~app/shared/dialog/models/dialog-component-map.const';
-import { DialogActions } from '~app/shared/dialog/store/dialog.action';
+
+import { DialogHostDirective } from '../../containers/dialog-host.directive';
+import { dialogComponentMap } from '../../models/dialog-component-map.const';
+import { DialogName } from '../../models/dialog-names.enum';
+import { DialogActions } from '../../store/dialog.action';
+import { selectDialogState } from '../../store/dialog.selector';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -36,6 +42,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	ngAfterViewInit() {
 		this.viewContainerRef = this.host.viewContainerRef;
 		this.store.select(selectDialogState)
+			.pipe(takeUntil(this._destroy$))
 			.subscribe(({ name, props }) => {
 				// if the name is null it means it's a close action
 				if (!name)

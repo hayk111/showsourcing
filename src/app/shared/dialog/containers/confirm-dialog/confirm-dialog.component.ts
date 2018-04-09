@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DialogActions } from '~app/shared/dialog/store/dialog.action';
+import { addDialog } from '../../models/dialog-component-map.const';
+import { DialogName } from '../../models/dialog-names.enum';
+import { DialogActions } from '../../store/dialog.action';
 
 
 const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);

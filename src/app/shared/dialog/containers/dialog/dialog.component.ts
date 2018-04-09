@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { DialogActions } from '../../store/dialog.action';
 import { AutoUnsub } from '~utils';
+
 import { DialogName } from '../../models/dialog-names.enum';
-import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({
@@ -11,14 +12,12 @@ import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 	styleUrls: ['./dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogComponent extends AutoUnsub implements OnInit {
+export class DialogComponent implements OnInit {
 	@Input() closeIcon = true;
 	@Input() name: DialogName;
 	@Input() hasFooter = true;
 
-	constructor(private store: Store<any>) {
-		super();
-	}
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
 		if (!this.name)

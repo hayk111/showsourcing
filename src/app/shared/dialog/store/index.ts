@@ -1,3 +1,8 @@
-export * from './dialog.action';
-export * from './dialog.reducer';
-export * from './dialog.selector';
+import { DialogActions } from './dialog.action';
+
+
+export const fromDialog = {
+	Actions: DialogActions
+};
+
+
