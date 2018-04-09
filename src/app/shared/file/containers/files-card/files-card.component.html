@@ -1,6 +1,8 @@
-<div (fileDrop)="onFileAdded($event)">
+<card-app (fileDrop)="onFileAdded($event)">
 	<h2 i18n>Attached Files</h2>
+
 	<ng-container *ngIf="files$ | async as files">
+
 		<article *ngFor="let file of files" class="flex">
 			<spinner-app size="xs" *ngIf="file.pending"></spinner-app>
 			<div class="cercle"></div>
@@ -12,11 +14,11 @@
 			</div>
 
 		</article>
-
-			<div class="hr"></div>
-			<div class="footer">
-				<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
-				<button (click)="inp.click()">Add File</button>
-			</div>
 	</ng-container>
-</div>
+
+	<card-footer-app>
+		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+		<button (click)="inp.click()">Add File</button>
+	</card-footer-app>
+</card-app>
+

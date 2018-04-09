@@ -10,11 +10,9 @@
 	</editable-text-app>
 
 	<card-footer-app>
-		<div class="flexEnd">
-			<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
-			<!-- no need to catch the click event since the onBlur of the textarea is gonna be triggered -->
-			<button *ngIf="editable.isOpen">Save</button>
-		</div>
+		<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
+		<!-- no need to catch the click event since the onBlur of the textarea is gonna be triggered -->
+		<button *ngIf="editable.isOpen">Save</button>
 	</card-footer-app>
 
 </card-app>

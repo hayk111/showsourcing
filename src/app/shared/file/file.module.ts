@@ -8,9 +8,10 @@ import { LoadersModule } from '~shared/loaders';
 import { FilesPageComponent } from './containers';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
-	imports: [CommonModule, LoadersModule, EntityModule.forChild(), IconsModule],
+	imports: [SharedModule],
 	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
 	exports: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
 	providers: [],
