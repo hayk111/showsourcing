@@ -26,6 +26,8 @@
 form-field-app {
 	margin: 0;
 	width: 100%;
+	// overrides the config for formfied.
+	padding-bottom: var(--spacing-xs)!important;
 }
 
 .textAreaEditor {

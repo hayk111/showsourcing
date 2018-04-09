@@ -1,11 +1,14 @@
 <dialog class="z-3" [open]="true" attr.role="dialog">
 
 	<!-- header -->
-	<div class="header">
-		<ng-content select="header"></ng-content>
+	<div class="header flexBetween">
+		<div class="spacer">
+			<ng-content select="header"></ng-content>
+		</div>
+
 		<icon-app name="close" class="pointer" color="txt-secondary" (click)="close()"></icon-app>
 	</div>
-	<div class="divider"></div>
+	<!-- <div class="hr"></div> -->
 
 	<!-- content -->
 	<div class="content">
@@ -16,7 +19,7 @@
 	</div>
 
 	<!-- footer -->
-	<div class="divider"></div>
+	<!-- <div class="hr"></div> -->
 	<div class="footer" *ngIf="hasFooter">
 		<ng-content select="footer"></ng-content>
 	</div>
