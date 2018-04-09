@@ -1,4 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import {
+	Component, OnInit, ChangeDetectionStrategy, Input, HostBinding,
+	ContentChildren, AfterContentChecked, QueryList
+} from '@angular/core';
+import { Log } from '~app/app-root/utils';
 
 @Component({
 	selector: 'list-item-app',
@@ -9,8 +13,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 })
 export class ListItemComponent {
 	@Input() @HostBinding('class.selected') selected;
-	constructor() { }
+	@Input() border = true;
 
+	constructor() { }
 
 
 }

@@ -9,8 +9,10 @@
 	}
 }
 
+.ctnr {
+	padding-bottom: var(--spacing-default);
+}
 
 .border{
 	border-bottom: 1px solid var(--color-primary-light);
-	padding-bottom: var(--spacing-default);
 }
