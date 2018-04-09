@@ -13,6 +13,11 @@
 	<div class="flex ctnr">
 		<div class="left">
 
+			<!-- description -->
+			<supplier-description-app
+				(update)="patch($event)"
+				[supplier]="supplier"></supplier-description-app>
+
 			<!-- latest products -->
 			<!-- <card-app padding="l">
 				<supplier-latest-products-app [products]="products$ | async"></supplier-latest-products-app>

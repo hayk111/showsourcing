@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'editable-text-app',
@@ -10,15 +10,18 @@ export class EditableTextComponent implements OnInit {
 	@Input() value;
 	/** Whether click on the value should open the editor */
 	@Input() editOnClick = true;
-	mode: 'edit' | 'closed' = 'closed';
+	@Input() closeOnOutsideClick = true;
+	@Output() closed = new EventEmitter<null>();
+	isOpen = false;
 
-	constructor() { }
+	constructor(private cd: ChangeDetectorRef) { }
 
 	ngOnInit() {
 	}
 
-	close() {
-		this.mode = 'closed';
+	close(isOutsideClick: boolean) {
+		this.isOpen = false;
+		this.closed.emit();
 	}
 
 	open(isClick?: boolean) {
@@ -28,7 +31,9 @@ export class EditableTextComponent implements OnInit {
 		if (isClick && !this.editOnClick) {
 			return;
 		}
-		this.mode = 'edit';
+		this.isOpen = true;
+		// need to check for changes since we can open the edit mode from outside
+		this.cd.markForCheck();
 	}
 
 }

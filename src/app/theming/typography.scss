@@ -75,8 +75,12 @@ h2, h3 {
 }
 
 h2 {
-  margin-bottom: var(--spacing-xs);
-  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-l);
+	font-size: var(--font-size-l);
+	font-family: Raleway, 'sans-serif';
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-txt-strong);
 }
 
 // used on top of cards

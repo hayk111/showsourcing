@@ -9,12 +9,7 @@
 	height: 100%;
 }
 
-.border{
-	height: 3px;
-	border-radius: var(--border-radius)  var(--border-radius) 0 0;
+main {
+	padding: var(--spacing-l);
 }
 
-.border-bottom {
-	border-radius: 0 0 var(--border-radius)  var(--border-radius);
-}
-// border colors class are defined in theming/entities/:entity

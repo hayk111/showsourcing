@@ -1,18 +1,22 @@
 <div class="col1 flexColumn">
+
 	<!-- type -->
 	<div class="row">
 		<icon-app fontSet="fa" name="question"></icon-app>
 		<span class="value">{{ supplier.type || 'Supplier' }}</span>
 	</div>
+
 	<!-- address -->
 	<div class="row" *ngIf="supplier && supplier.address">
 		<icon-app fontSet="fa" name="map-marker-alt"></icon-app>
 		<span class="value">{{ supplier.address }}</span>
 	</div>
+
 	<!-- category -->
 	<div class="row" *ngIf="supplier && supplier.categories && supplier.categories.length > 0">
 		<span *ngFor="let cat of supplier.categories">{{ cat.id | entityName: 'category' | async }}</span>
 	</div>
+
 	<!-- tags -->
 	<div class="row" *ngIf="supplier && supplier.tags && supplier.tags.length > 0">
 		<icon-app fontSet="fa" name="tag"></icon-app>
@@ -20,6 +24,7 @@
 	</div>
 </div>
 <div class="col2 flexColumn">
+
 	<!-- phone -->
 	<div class="row" *ngIf="supplier && supplier.phoneNumber">
 		<icon-app fontSet="fa" name="phone"></icon-app>

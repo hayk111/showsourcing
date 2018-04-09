@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, ContentChild } from '@angular/core';
 import { HostBinding } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+import { CardFooterComponent } from '~app/shared/card/components/card-footer/card-footer.component';
+import { CardHeaderComponent } from '~app/shared/card/components/card-header/card-header.component';
 
 // simply used to have a card component instead of using the class
 @Component({
@@ -8,26 +10,25 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 	templateUrl: './card.component.html',
 	styleUrls: ['./card.component.scss'],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
 	@Input() elevation = 'z-2';
+	// the padding is for the content and footer not for the header
 	@Input() padding = 'l';
 	@Input() margin = 'default';
-	@Input() className: string;
+	@ContentChild(CardFooterComponent) footer: ElementRef;
+	@ContentChild(CardHeaderComponent) header: ElementRef;
 
-	@Input() border = false;
-	@Input() borderBottom = false;
-	@Input() borderColor = 'primary';
-	@Input() footerColor: string;
 
-	constructor() { }
 
-	ngOnInit() { }
-
-	get borderStyle() {
-		return {
-			'background-color': 'var(--color-' + this.borderColor + ')',
-		};
+	get hasFooter() {
+		return !!this.footer;
 	}
+
+	get hasHeader() {
+		return !!this.header;
+	}
+
+
 
 	get mainStyle() {
 		return {
@@ -36,7 +37,9 @@ export class CardComponent implements OnInit {
 	}
 
 	get footerStyle() {
-		return {};
+		return {
+			padding: 'var(--spacing-' + this.padding + ')',
+		};
 	}
 
 	get ctnrStyle() {

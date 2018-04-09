@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Entity, Project, Tag } from '~entity';
 import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
 
@@ -36,7 +36,7 @@ export class EditableFieldComponent implements OnInit {
 	// accumulator to save the new value, we will send an update even not on change but when the button save is clicked
 	accumulator: string | number;
 
-	constructor() { }
+	constructor(private cd: ChangeDetectorRef) { }
 
 	ngOnInit() { }
 
@@ -45,8 +45,17 @@ export class EditableFieldComponent implements OnInit {
 			return;
 
 		this.editMode = true;
-		// using setTimeout so we don't have a selector undefined
-		setTimeout(() => { if (this.selector) this.selector.open(); }, 0);
+
+		// if the type is a selector then we need to open it when the editmode is opening
+		// TODO: remove this by using editable-text (which was created after this component)
+		setTimeout(() => {
+			if (this.selector)
+				this.selector.open();
+		}, 0);
+
+
+		// since we can open the editmode from anywhere we need to check for cd
+		this.cd.markForCheck();
 	}
 
 	closeEditMode() {

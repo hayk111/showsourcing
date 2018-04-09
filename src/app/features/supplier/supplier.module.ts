@@ -35,6 +35,7 @@ import {
 	SupplierNewContactDlgComponent
 } from './components/supplier-contact-card/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
 import { SharedModule } from '~app/shared/shared.module';
+import { SupplierDescriptionComponent } from './components/supplier-description/supplier-description.component';
 
 @NgModule({
 	imports: [
@@ -66,6 +67,7 @@ import { SharedModule } from '~app/shared/shared.module';
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierNewContactDlgComponent,
+		SupplierDescriptionComponent,
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,

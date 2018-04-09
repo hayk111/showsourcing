@@ -22,8 +22,8 @@ button, input[type="submit"], .button {
 	cursor: pointer;
 	font-weight: 600;
 	box-sizing: border-box;
-	padding: 0 var(--spacing-l);
-	height: 40px;
+	height: 36px;
+	width: 146px;
 	border-radius: 2px;
 	font-size: var(--font-size-default);
 	background: var(--color-primary);
@@ -33,6 +33,8 @@ button, input[type="submit"], .button {
 	margin: 0;
   box-sizing: border-box;
 	font-family: inherit;
+	white-space: nowrap;
+	text-align: center;
 	&.light {
 		background: var(--color-bg-third);
 		color: var(--color-txt);

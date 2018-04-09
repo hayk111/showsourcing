@@ -1,11 +1,14 @@
 <div [ngStyle]="ctnrStyle" class="ctnr {{ elevation }} {{ className }}">
-	<div class="border" [ngStyle]="borderStyle" *ngIf="border"></div>
-	<div class="header">
-		<ng-content select="header"></ng-content>
-	</div>
-	<main [ngStyle]="mainStyle">
+
+
+	<ng-content select="card-header-app"></ng-content>
+
+
+	<main>
 		<ng-content></ng-content>
 	</main>
-	<footer [ngStyle]="footerStyle"></footer>
-	<div class="border border-bottom" [ngStyle]="borderStyle" *ngIf="borderBottom"></div>
+
+
+	<ng-content select="card-footer-app"></ng-content>
+
 </div>
