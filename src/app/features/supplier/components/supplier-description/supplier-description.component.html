@@ -1,14 +1,17 @@
 <card-app>
 	<h2>Description</h2>
+
 	<editable-text-app #editable>
 		<label-app>{{ supplier.description }}</label-app>
-		<textarea #txt [value]="supplier.description"></textarea>
+		<textarea inputApp #txt [value]="supplier.description" (blur)="onSave(txt.value)"></textarea>
 	</editable-text-app>
+
 	<card-footer-app>
 		<div class="flexEnd">
 			<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
-			<button *ngIf="editable.isOpen" (click)="onSave(txt.value)">Save</button>
+			<!-- no need to catch the click event since the onBlur of the textarea is gonna be triggered -->
+			<button *ngIf="editable.isOpen">Save</button>
 		</div>
-
 	</card-footer-app>
+
 </card-app>

@@ -113,8 +113,14 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
 	}
 
-	/** Focuses the input. */
-	focus(): void { this._elementRef.nativeElement.focus(); }
+	/** Focuses the input and sets the carret at the end */
+	focus(): void {
+		debugger;
+		const input = this._elementRef.nativeElement;
+		const length = input.value.length;
+		input.focus();
+		input.setSelectionRange(length, length);
+	}
 
 	ngOnChanges() {
 		this.stateChanges.next();

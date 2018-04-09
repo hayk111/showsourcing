@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter, ContentChild } from '@angular/core';
+import { InputDirective } from '~app/shared/inputs';
 
 @Component({
 	selector: 'editable-text-app',
@@ -12,6 +13,7 @@ export class EditableTextComponent implements OnInit {
 	@Input() editOnClick = true;
 	@Input() closeOnOutsideClick = true;
 	@Output() closed = new EventEmitter<null>();
+	@ContentChild(InputDirective) input: InputDirective;
 	isOpen = false;
 
 	constructor(private cd: ChangeDetectorRef) { }
@@ -34,6 +36,12 @@ export class EditableTextComponent implements OnInit {
 		this.isOpen = true;
 		// need to check for changes since we can open the edit mode from outside
 		this.cd.markForCheck();
+		// if we passed a inputApp then we can safely focus it
+		// we have to do it in a timeout because the input isn't shown yet.
+		setTimeout(() => {
+			if (this.input)
+				this.input.focus();
+		}, 0);
 	}
 
 }
