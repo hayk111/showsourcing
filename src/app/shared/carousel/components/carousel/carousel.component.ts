@@ -23,14 +23,9 @@ export class CarouselComponent implements OnInit {
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
 	@Input() pending = true;
-	// whether the different elements are displayed
-	@Input() hasModalCarousel = true;
-	@Input() hasPreview = true;
-	@Input() hasInlineCarousel = true;
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
-	@Output() addImage = new EventEmitter<AppImage>();
 
 	modalOpen = false;
 	menuOpen = false;
@@ -109,15 +104,4 @@ export class CarouselComponent implements OnInit {
 		else return 0;
 	}
 
-	// when a preview is clicked we want to display the image that was in the preview
-	onPreviewClick(index: number) {
-		this.selectedIndex = index;
-	}
-
-	onFileAdded(files: Array<File>) {
-		files.forEach(async file => {
-			const image = await AppImage.newInstance(file, this.userSrv.userId);
-			this.addImage.emit(image);
-		});
-	}
 }

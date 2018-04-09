@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '~app/features/user';
 import { AppFile, fromFile } from '~entity';
+import { DEFAULT_FILE_IMG } from '~app/app-root/utils';
 
 @Component({
 	selector: 'files-card-app',
@@ -12,6 +13,7 @@ import { AppFile, fromFile } from '~entity';
 })
 export class FilesCardComponent implements OnInit {
 	files$: Observable<Array<AppFile>>;
+	defaultImg = DEFAULT_FILE_IMG;
 
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 

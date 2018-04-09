@@ -6,7 +6,7 @@ export const DEFAULT_USER_IMG = 'assets/img/user.svg';
 
 export const DEFAULT_PRODUCT_IMG = 'assets/img/user.svg';
 
-export const DEFAULT_FILE = 'assets/img/file.svg';
+export const DEFAULT_FILE_IMG = 'assets/img/file.svg';
 
 
 

@@ -36,17 +36,5 @@
 
 	<div class="counter action">{{ selectedIndex + 1 }} / {{ images.length }}</div>
 </div>
-<ng-container *ngIf="hasModalCarousel">
-	<modal-carousel-app
-		[selectedIndex]=[selectedIndex]
-		[images]="images"
-		*ngIf="modalOpen"
-		(close)="closeModal()"></modal-carousel-app>
-</ng-container>
 
 
-<image-previewer-app
-	*ngIf="hasPreview"
-	(imageClick)="onPreviewClick($event)"
-	(fileAdded)="onFileAdded($event)"
-	[images]="images"></image-previewer-app>

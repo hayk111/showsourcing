@@ -6,7 +6,7 @@
 	.square {
 		height: 52px;
 		width: 52px;
-		border-radius: var(--border-radius);
+		border-radius: var(--border-radius-s);
 		margin: var(--spacing-s) var(--spacing-xs) 0 var(--spacing-xs);
 	}
 	.pending {
@@ -24,16 +24,10 @@
 
 .plusBtn {
 	background: var(--color-primary-light);
-	color: white;
+	color: var(--color-txt-secondary);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 24px;
+	font-size: 32px;
+	line-height: 1;
 }
-
-.hidden {
-	visibility: hidden;
-	margin: 0;
-	width: 0;
-}
-

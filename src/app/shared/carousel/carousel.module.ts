@@ -6,21 +6,22 @@ import { UtilsModule } from '~shared/utils';
 import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
 import { ImagePreviewerComponent } from './components/image-previewer/image-previewer.component';
-import { CarouselSelectionComponent } from '~app/shared/carousel/container/carousel-selection/carousel-selection.component';
+import { CarouselCardComponent } from '~app/shared/carousel/container/carousel-card/carousel-card.component';
 import { FileModule } from '~app/shared/file';
+import { SharedModule } from '~app/shared/shared.module';
 
 @NgModule({
-	imports: [CommonModule, UtilsModule, IconsModule, LoadersModule, FileModule],
+	imports: [SharedModule, FileModule],
 	declarations: [
 		ModalCarouselComponent,
 		CarouselComponent,
 		ImagePreviewerComponent,
-		CarouselSelectionComponent,
+		CarouselCardComponent,
 	],
 	exports: [
 		ModalCarouselComponent,
 		CarouselComponent,
-		CarouselSelectionComponent,
+		CarouselCardComponent,
 		ImagePreviewerComponent
 	],
 })

@@ -9,7 +9,7 @@
 
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
-			<img src="assets/img/user.svg"/>
+			<img src="assets/img/user.svg" class="pointer" (click)="newContact.emit()"/>
 			<span>No contact for this supplier</span>
 		</div>
 	</ng-template>

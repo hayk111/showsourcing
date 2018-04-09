@@ -13,9 +13,9 @@ export class ImagePreviewerComponent {
 	@Input() images: Array<AppImage>;
 	// returns the index of the images clicked
 	@Output() imageClick = new EventEmitter<number>();
-	@Output() fileAdded = new EventEmitter<AppImage>();
+	@Output() plusClick = new EventEmitter<any>();
 
-	constructor(private userSrv: UserService) { }
+	constructor() { }
 
 	// getting the url for the image at index
 	getUrl(index) {

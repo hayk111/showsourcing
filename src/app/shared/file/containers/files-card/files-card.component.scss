@@ -2,6 +2,14 @@
 	display: block;
 }
 
+.empty {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
+}
+
 article {
 	margin-bottom: var(--spacing-default);
 	.minus {
@@ -9,6 +17,9 @@ article {
 	}
 	&:hover .minus {
 		display: block;
+	}
+	.iconFile {
+		margin-right: var(--spacing-default);
 	}
 }
 .ellipsis {

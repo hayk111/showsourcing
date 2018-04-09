@@ -131,3 +131,11 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+// misc
+
+.hidden {
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}

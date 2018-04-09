@@ -1,0 +1,14 @@
+:host {
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+
+.empty {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
+}

@@ -1,4 +1,5 @@
 import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@angular/core';
+import { AppFile } from '~app/entity';
 
 
 
@@ -6,7 +7,7 @@ import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@ang
 	selector: `[fileSelect]`
 })
 export class FileSelectDirective {
-	@Output() fileSelect = new EventEmitter<Array<File>>();
+	@Output() fileSelect = new EventEmitter<Array<AppFile>>();
 
 
 	@HostListener('change', ['$event'])

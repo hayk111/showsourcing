@@ -1,8 +1,7 @@
-<div class="plusBtn square pointer" (click)="inp.click()">
-	<icon-app  fontSet="fa" name="plus" color="inherit"></icon-app>
+<div class="plusBtn square pointer flex flexCenter" (click)="plusClick.emit()">
+	<span>+</span>
 </div>
 <img class="square pointer {{ image.pending ? 'pending' : '' }}"
 	*ngFor="let image of images; let i = index"
 	[style.transform]="'rotate(' + getRotation(i) + 'deg)'"
 	[src]="getUrl(i)" (click)="imageClick.emit(i)"/>
-<input #inp type="file" accept="image/*" (fileSelect)="fileAdded.emit($event)" class="hidden"/>
