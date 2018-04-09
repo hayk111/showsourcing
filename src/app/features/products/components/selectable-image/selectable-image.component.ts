@@ -7,7 +7,7 @@ import {
 	Output,
 	SimpleChanges,
 } from '@angular/core';
-import { DEFAULT_NO_IMG } from '~utils/constants.const';
+import { DEFAULT_PRODUCT_IMG } from '~utils/constants.const';
 
 @Component({
 	selector: 'selectable-image-app',
@@ -25,11 +25,11 @@ export class SelectableImageComponent implements OnInit {
 	@Output() select = new EventEmitter();
 	@Output() unselect = new EventEmitter();
 
-	defaultImg = DEFAULT_NO_IMG;
+	defaultImg = DEFAULT_PRODUCT_IMG;
 
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	public getURL() {
 		return 'url(' + this.url + ')';

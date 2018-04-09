@@ -1,13 +1,5 @@
-import {
-	Component,
-	OnInit,
-	Input,
-	Output,
-	EventEmitter,
-	ChangeDetectionStrategy,
-} from '@angular/core';
-import { DEFAULT_NO_IMG } from '~utils/constants.const';
-import { Product, ProductStatus, Patch } from '~app/entity';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Patch, Product, ProductStatus } from '~app/entity';
 
 @Component({
 	selector: 'product-selectable-card-app',

@@ -6,7 +6,7 @@
 		</div>
 		<div class="flex">
 			<div class="imgCtnr">
-				<img [src]="product?.mainImage?.urls?.url_120x90 || DEFAULT_IMAGE "/>
+				<img [src]="product?.mainImage?.urls?.url_120x90 || defaultImg "/>
 				<icon-app  fontSet="fa" class="heart" name="heart" color="warn" size="s" *ngIf="product.rating === 5"></icon-app>
 			</div>
 			<product-sub-info-app [product]="product"></product-sub-info-app>

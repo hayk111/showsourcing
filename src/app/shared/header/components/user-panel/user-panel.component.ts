@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '~auth/store';
 import { User } from '~app/entity';
-import { DEFAULT_NO_IMG } from '~app/app-root/utils';
+import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 
 @Component({
 	selector: 'user-panel-app',
@@ -14,7 +14,7 @@ export class UserPanelComponent implements OnInit {
 	@Input() user: User;
 	@Output() logout = new EventEmitter<any>();
 	@Output() close = new EventEmitter<any>();
-	defaultImg = DEFAULT_NO_IMG;
+	defaultImg = DEFAULT_USER_IMG;
 	constructor(private router: Router) { }
 
 	ngOnInit() { }

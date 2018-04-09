@@ -28,14 +28,12 @@
 		<div class="right">
 
 			<!-- editable infos -->
-			<card-app>
-				<supplier-infos-app
-					[supplier]="supplier"
-					(tagAdded)="onTagAdded($event)"
-					(tagRemoved)="onTagRemoved($event)"
-					(tagCreated)="onTagCreated($event)"
-					(update)="patch($event)"></supplier-infos-app>
-			</card-app>
+			<supplier-infos-app
+				[supplier]="supplier"
+				(tagAdded)="onTagAdded($event)"
+				(tagRemoved)="onTagRemoved($event)"
+				(tagCreated)="onTagCreated($event)"
+				(update)="patch($event)"></supplier-infos-app>
 
 			<!-- files -->
 			<card-app>

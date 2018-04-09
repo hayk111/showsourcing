@@ -7,7 +7,7 @@ import {
 	Output,
 } from '@angular/core';
 import { Log } from '~utils';
-import { DEFAULT_NO_IMG } from '~utils/constants.const';
+import { DEFAULT_IMG } from '~utils/constants.const';
 import { UserService } from '~app/features/user';
 import { AppImage } from '~app/entity';
 
@@ -18,7 +18,7 @@ import { AppImage } from '~app/entity';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent implements OnInit {
-	defaultImg = DEFAULT_NO_IMG;
+	defaultImg = DEFAULT_IMG;
 	@Input() images: Array<AppImage> = [];
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
