@@ -19,14 +19,10 @@
 				[supplier]="supplier"></supplier-description-app>
 
 			<!-- latest products -->
-			<!-- <card-app padding="l">
-				<supplier-latest-products-app [products]="products$ | async"></supplier-latest-products-app>
-			</card-app> -->
+			<supplier-latest-products-app [products]="products$ | async"></supplier-latest-products-app>
 
 			<!-- contacts -->
-			<card-app padding="l">
-				<supplier-contact-card-app (newContact)="openNewContactDlg()"></supplier-contact-card-app>
-			</card-app>
+			<supplier-contact-card-app (newContact)="openNewContactDlg()"></supplier-contact-card-app>
 		</div>
 
 		<div class="right">

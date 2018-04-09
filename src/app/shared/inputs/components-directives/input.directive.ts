@@ -115,7 +115,6 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 
 	/** Focuses the input and sets the carret at the end */
 	focus(): void {
-		debugger;
 		const input = this._elementRef.nativeElement;
 		const length = input.value.length;
 		input.focus();

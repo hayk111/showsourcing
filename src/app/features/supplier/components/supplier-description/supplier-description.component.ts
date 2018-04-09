@@ -20,8 +20,6 @@ export class SupplierDescriptionComponent {
 	}
 
 	onSave(value: string) {
-		debugger;
-
 		this.update.emit({ id: this.supplier.id, value, propName: 'description' });
 		this.editable.close();
 	}

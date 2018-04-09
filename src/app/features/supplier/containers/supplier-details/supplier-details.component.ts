@@ -52,7 +52,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	patch(patch: Patch) {
-		debugger;
 		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 

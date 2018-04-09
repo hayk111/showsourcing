@@ -2,7 +2,10 @@
 	<h2>Description</h2>
 
 	<editable-text-app #editable>
-		<label-app>{{ supplier.description }}</label-app>
+		<label-app *ngIf="supplier.description; else noDesc">{{ supplier.description }}</label-app>
+		<ng-template #noDesc>
+			<label-app class="noDesc">No description yet</label-app>
+		</ng-template>
 		<textarea inputApp #txt [value]="supplier.description" (blur)="onSave(txt.value)"></textarea>
 	</editable-text-app>
 

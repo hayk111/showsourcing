@@ -1,15 +1,9 @@
-h2 {
-	margin-bottom: var(--spacing-xl);
-}
 
-supplier-contact-app {
-	border-bottom: 1px solid var(--color-primary-light);
-}
 
-button {
-	margin-top: var(--spacing-default);
-}
-
-.footer {
-	text-align: right;
+.empty {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
 }

@@ -1,6 +1,14 @@
-img {
-	width: 64px;
-	height: 64px;
-	border-radius: var(--border-radius);
-	margin: var(--spacing-s);
+// img {
+// 	width: 64px;
+// 	height: 64px;
+// 	border-radius: var(--border-radius);
+// 	margin: var(--spacing-s);
+// }
+
+.empty {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
 }

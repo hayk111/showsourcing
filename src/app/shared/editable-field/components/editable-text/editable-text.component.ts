@@ -21,7 +21,7 @@ export class EditableTextComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	close(isOutsideClick: boolean) {
+	close(isOutsideClick?: boolean) {
 		this.isOpen = false;
 		this.closed.emit();
 	}
