@@ -21,7 +21,7 @@ export class ImageHttpService extends FileHttpService {
 	uploadFile(file: AppFile, target: EntityTarget): Observable<AppFile | AppImage> {
 		return super.uploadFile(file, target, 'image').pipe(
 			// so we are sure the file is actually ready, it might not always be the case (ask antoine).
-			// the weird // resp => resp is so we don't get the response from the
+			// the weird // r => resp is so we don't get the response from the query but the resp above it
 			switchMap((resp: AppImage) =>
 				this.queryFile(resp)
 					.pipe(retryWhen(errors => errors.pipe(delay(2000), take(10))))
@@ -39,7 +39,7 @@ export class ImageHttpService extends FileHttpService {
 	}
 
 	queryFile(r: AppImage) {
-		return this.http.get(r.urls.url_1000x1000);
+		return this.http.get(r.urls.url_400x300);
 	}
 
 	rotate(img: AppImage) {

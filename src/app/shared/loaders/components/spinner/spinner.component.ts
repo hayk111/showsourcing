@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent implements OnInit {
-	@Input() private _size;
+	@Input() private _size = 'xxl';
 	constructor() { }
 
 	ngOnInit() { }

@@ -4,7 +4,9 @@
 	<ng-container *ngIf="files$ | async as files">
 
 		<article *ngFor="let file of files" class="flex">
-			<spinner-app size="xs" *ngIf="file.pending"></spinner-app>
+
+			<spinner-app size="xl" *ngIf="file.pending"></spinner-app>
+
 			<div class="cercle"></div>
 			<div class="name pointer">
 				<div class="ellipsis">{{ file.fileName }}</div>
