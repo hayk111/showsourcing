@@ -29,7 +29,6 @@ import {
 	fromTeam,
 } from '~app/entity';
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
-import { dialogReducer } from '~app/shared/dialog';
 
 
 const misc = combineReducers({

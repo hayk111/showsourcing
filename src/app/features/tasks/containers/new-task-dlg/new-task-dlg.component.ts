@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DialogActions } from '~dialog/store';
+import { fromDialog } from '~dialog/store';
 import { DialogName } from '~dialog/models';
 import { ERM } from '~entity';
 
@@ -45,7 +45,7 @@ export class NewTaskDlgComponent implements OnInit {
 		if (this.group.valid) {
 			const value: TaskParams = this.group.value;
 			value.userId = this.userSrv.userId;
-			this.store.dispatch(DialogActions.close(DialogName.NEW_TASK));
+			this.store.dispatch(fromDialog.Actions.close(DialogName.NEW_TASK));
 			this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}

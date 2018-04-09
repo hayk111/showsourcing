@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromSupplier } from '~supplier';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { DialogActions } from '~dialog';
+import { fromDialog } from '~dialog';
 import { DialogName } from '~dialog';
 
 @Component({
@@ -33,7 +33,7 @@ export class SuppliersPageComponent implements OnInit {
 	}
 
 	openNewDialog() {
-		this.store.dispatch(DialogActions.open(DialogName.NEW_SUPPLIER));
+		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_SUPPLIER));
 	}
 
 	onItemSelected(entityId: string) {

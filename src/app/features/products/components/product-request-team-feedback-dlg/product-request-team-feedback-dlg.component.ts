@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
 import { Observable } from 'rxjs/Observable';
 import { User, productActions } from '~app/entity';
-import { DialogName, DialogActions } from '~app/shared/dialog';
+import { DialogName, fromDialog } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
 
@@ -43,7 +43,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		this.store.dispatch(
 			productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
 		);
-		this.store.dispatch(DialogActions.close(this.dialogName));
+		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
 	}
 
 }

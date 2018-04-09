@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
-import { DialogActions, DialogName } from '~app/shared/dialog';
+import { fromDialog, DialogName } from '~app/shared/dialog';
 import {
 	AppComment,
 	AppFile,
@@ -53,7 +53,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.store.dispatch(DialogActions.open(this.projectDlgName, { selectedProducts: [this.productId] }));
+		this.store.dispatch(fromDialog.Actions.open(this.projectDlgName, { selectedProducts: [this.productId] }));
 	}
 
 	removeProject(project) {

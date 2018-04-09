@@ -11,7 +11,7 @@ import {
 import { Product, selectProducts } from '~product';
 import { Supplier } from '~supplier';
 import { fromTask, Task } from '~task';
-import { DialogActions, DialogName } from '~app/shared/dialog';
+import { fromDialog, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
@@ -69,6 +69,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openNewContactDlg() {
-		this.store.dispatch(DialogActions.open(DialogName.NEW_CONTACT));
+		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_CONTACT));
 	}
 }

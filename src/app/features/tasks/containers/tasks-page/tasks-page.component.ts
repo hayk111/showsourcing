@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { ERM } from '~entity';
-import { DialogActions, DialogName } from '~shared/dialog';
+import { fromDialog, DialogName } from '~shared/dialog';
 import { FilterGroupName } from '~shared/filters';
 import { fromTask } from '~task';
 import { AutoUnsub } from '~utils';
@@ -30,7 +30,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openNewTaskDlg() {
-		this.store.dispatch(DialogActions.open(DialogName.NEW_TASK));
+		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_TASK));
 	}
 
 	onItemSelected(entityId: string) {
