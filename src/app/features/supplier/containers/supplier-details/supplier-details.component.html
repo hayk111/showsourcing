@@ -8,7 +8,7 @@
 		[supplier]="supplier"
 		[productCount]="productCount$ | async"
 		[taskCount]="(tasks$ | async).length"
-		[contactCount]="0"></supplier-main-app>
+		[contactCount]="(contacts$ | async)?.length"></supplier-main-app>
 	<!-- supplier view -->
 	<div class="flex ctnr">
 		<div class="left">
