@@ -17,6 +17,7 @@ export const entityInitialState: EntityState<any> = {
 	ids: [],
 	focussed: null,
 	selected: [],
+	productCount: {}
 };
 
 // represents an entity in the store

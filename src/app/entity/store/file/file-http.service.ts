@@ -28,14 +28,11 @@ export class FileHttpService {
 		return this.http.get(`api/${name}/${id}/${type}`);
 	}
 
-	uploadFiles(
-		{ files, target }: { files: Array<AppFile>; target: EntityTarget },
-		type: 'image' | 'attachment' = 'attachment'
-	) {
+	uploadFiles(files: Array<AppFile>, type: 'image' | 'attachment' = 'attachment') {
 		return combineLatest(
 			files.map((file: AppFile) =>
 				// resolving to a swap so we can replace easily
-				this.uploadFile(file, target).pipe(map((resp: AppFile) => new Swap(file, resp)))
+				this.uploadFile(file).pipe(map((resp: AppFile) => new Swap(file, resp)))
 			)
 		);
 	}
@@ -43,21 +40,20 @@ export class FileHttpService {
 	// uploads a file and returns an observable of the response which is the saved file
 	uploadFile(
 		file: AppFile,
-		target: EntityTarget,
 		type: 'image' | 'attachment' = 'attachment'
 	): Observable<AppFile | AppImage> {
 		let data;
 		const fileName = file.fileName;
 		if (type === 'attachment') data = { fileName };
 		else data = { imageType: 'Photo' };
-		return this.upload(data, type, file, target);
+		return this.upload(data, type, file);
 	}
 
-	private upload(data, type, file: AppFile | AppImage, target: EntityTarget) {
+	private upload(data, type, file: AppFile | AppImage) {
 		// first we get info regarding the AWS bucket
 		return this.getAWSInfo(data, type).pipe(
 			// once info are loaded then we can upload said file
-			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type, target))
+			switchMap(tokenInfo => this.uploadFileToAws(tokenInfo, file, type))
 		);
 	}
 
@@ -70,7 +66,7 @@ export class FileHttpService {
 	// first we upload the file to aws,
 	// then we delete the token,
 	// then we link the img with its entity on the backend
-	private uploadFileToAws(awsInfo: any, file, type: string, target): Observable<AppFile | AppImage> {
+	private uploadFileToAws(awsInfo: any, file, type: string): Observable<AppFile | AppImage> {
 		Log.debug('upload to aws');
 		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, {
@@ -79,8 +75,7 @@ export class FileHttpService {
 		return this.http.request(req).pipe(
 			// we filter progress events which are used to send progress reports to the store
 			// filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
-			switchMap(_ => this.deleteToken(awsInfo)),
-			switchMap((imgInfo: any) => this.linkToItem(target, imgInfo.id, type).map(x => imgInfo))
+			switchMap(_ => this.deleteToken(awsInfo) as any)
 		);
 	}
 
@@ -112,7 +107,7 @@ export class FileHttpService {
 		return this.http.delete(`api/token/${info.token}`);
 	}
 
-	private linkToItem(target: EntityTarget, attachmentId: string, type: string) {
+	linkToItem(target: EntityTarget, attachmentId: string, type: string = 'attachment') {
 		const name = target.entityRepr.urlName;
 		const itemId = target.entityId;
 		let data;

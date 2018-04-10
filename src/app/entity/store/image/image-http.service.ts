@@ -18,8 +18,8 @@ export class ImageHttpService extends FileHttpService {
 		return super.load(target, 'image');
 	}
 
-	uploadFile(file: AppFile, target: EntityTarget): Observable<AppFile | AppImage> {
-		return super.uploadFile(file, target, 'image').pipe(
+	uploadFile(file: AppFile): Observable<AppFile | AppImage> {
+		return super.uploadFile(file, 'image').pipe(
 			// so we are sure the file is actually ready, it might not always be the case (ask antoine).
 			// the weird // r => resp is so we don't get the response from the query but the resp above it
 			switchMap((resp: AppImage) =>
