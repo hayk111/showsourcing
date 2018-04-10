@@ -1,6 +1,6 @@
 
 .summaryBar {
-	height: 128px;
+	height: 75px;
 	background-color: var(--color-white);
 	display: flex;
 	align-items: center;
@@ -10,7 +10,7 @@
 			justify-content: center;
 			flex-direction: column;
 			height: 100%;
-			padding: var(--spacing-xl);
+			padding: 0 var(--spacing-xl);
 			.title {
 					font-weight: 600;
 					font-size: var(--font-size-s);

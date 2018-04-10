@@ -3,13 +3,13 @@
   <div class="flex content">
     <div class="left">
 
-      <card-app class="carouselCard">
-				<rating-heart-app class="flexCenter"
+      <!-- <div class="carouselCard"> -->
+				<!-- <rating-heart-app class="flexCenter"
 					[rating]="product.rating"
 					(favorited)="onFavorited()"
-					(unfavorited)="onUnfavorited()"></rating-heart-app>
+					(unfavorited)="onUnfavorited()"></rating-heart-app> -->
         <carousel-card-app></carousel-card-app>
-      </card-app>
+			<!-- </div> -->
 
 			<card-app>
 				<supplier-card-app [supplier]="product?.supplierId | entity:'supplier' | async"></supplier-card-app>
@@ -22,9 +22,7 @@
 					[projects]="product.projectIds | entityArray: 'project' | async"></project-card-app>
 			</card-app>
 
-			<card-app>
-				<files-card-app></files-card-app>
-			</card-app>
+			<files-card-app></files-card-app>
 
 		</div>
 
