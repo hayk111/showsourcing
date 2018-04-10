@@ -9,27 +9,22 @@ dialog{
   left: 0;
   right: 0;
   position: fixed;
-  padding: 0;
-}
-
-dialog{
+  padding: var(--spacing-xl);
 	display:flex;
 	flex-direction: column;
 }
 
 .header {
-  height: 90px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: 26px;
   color: var(--color-button-dark);
-  padding: 0 var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
 }
 
 .content {
-	padding-bottom: 10px;
   overflow-y: auto;
   overflow-x: hidden;
 }

@@ -6,7 +6,7 @@
 			<!-- file list -->
 			<list-app>
 
-				<list-item-app *ngFor="let file of files">
+				<list-item-app *ngFor="let file of files; let last = last" [border]="!last">
 					<div class="flex">
 						<spinner-app size="xl" *ngIf="file.pending"></spinner-app>
 

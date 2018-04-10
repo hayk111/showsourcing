@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 
 @Component({
 	selector: 'supplier-contact-card-app',
@@ -6,12 +7,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output
 	styleUrls: ['./supplier-contact-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierContactCardComponent implements OnInit {
+export class SupplierContactCardComponent {
 	@Input() contacts = [];
 	@Output() newContact = new EventEmitter<null>();
-	constructor() { }
-
-	ngOnInit() {
-	}
+	defaultImg = DEFAULT_USER_IMG;
 
 }

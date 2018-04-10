@@ -3,25 +3,24 @@
 	<!-- header -->
 	<div class="header flexBetween">
 		<div class="spacer">
-			<ng-content select="header"></ng-content>
+			<ng-content select="dialog-header-app"></ng-content>
 		</div>
 
 		<icon-app name="close" class="pointer" color="txt-secondary" (click)="close()"></icon-app>
 	</div>
 	<!-- <div class="hr"></div> -->
 
+
+	<ng-content select="dialog-subtitle-app"></ng-content>
+
+
 	<!-- content -->
-	<div class="content">
-		<div class="subtitle">
-			<ng-content select=".subtitle"></ng-content>
-		</div>
-		<ng-content></ng-content>
-	</div>
+	<ng-content></ng-content>
 
 	<!-- footer -->
 	<!-- <div class="hr"></div> -->
 	<div class="footer" *ngIf="hasFooter">
-		<ng-content select="footer"></ng-content>
+		<ng-content select="dialog-footer-app"></ng-content>
 	</div>
 
 </dialog>

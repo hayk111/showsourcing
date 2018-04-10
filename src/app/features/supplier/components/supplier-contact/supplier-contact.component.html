@@ -1,12 +1,26 @@
 <div class="flex">
-	<div class="row flexColumn flexCenter">
-		<div class="name">Name</div>
-		<div class="jobTitle">Jobtitle</div>
+
+	<div class="colImg">
+		<img [src]="contact?.image?.urls?.url_120x90 || defaultImg"/>
 	</div>
-	<div class="row flexCenter">
-		<span>email</span>
+
+	<div class="col flexColumn flexCenter">
+
+		<div class="name">
+			{{ contact.name }}
+		</div>
+
+		<div class="jobTitle">
+			{{ contact.jobTitle }}
+		</div>
 	</div>
-	<div class="row flexCenter">
-		<span>phone</span>
+
+	<div class="col flexCenter">
+		<span>{{ contact.email }}</span>
 	</div>
+
+	<div class="col flexCenter">
+		<span>{{ contact.phoneNumber }}</span>
+	</div>
+
 </div>

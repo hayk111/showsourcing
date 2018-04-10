@@ -7,6 +7,7 @@ import { supplierActions } from '~supplier/supplier.action';
 import { Supplier } from '~supplier/supplier.model';
 import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { RegexpApp } from '~app/app-root/utils';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 

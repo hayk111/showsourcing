@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 
 @Component({
 	selector: 'supplier-contact-app',
@@ -6,11 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	styleUrls: ['./supplier-contact.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierContactComponent implements OnInit {
+export class SupplierContactComponent {
 	@Input() contact: any;
-	constructor() { }
-
-	ngOnInit() {
-	}
+	defaultImg = DEFAULT_USER_IMG;
 
 }

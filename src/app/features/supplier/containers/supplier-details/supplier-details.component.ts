@@ -14,6 +14,9 @@ import { fromTask, Task } from '~task';
 import { fromDialog, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
+import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -26,6 +29,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	tasks$: Observable<Array<Task>>;
 	products$: Observable<Array<Product>>;
 	images$: Observable<Array<AppImage>>;
+	contacts$: Observable<Array<Contact>>;
 	supplierId: string;
 	// this is put in container because it will access the store
 	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
@@ -47,8 +51,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.productCount$ = combineLatest(id$, productsCount$, (id, count) => count[id]);
 
 		this.tasks$ = this.store.select(fromTask.selectArray);
-		this.products$ = this.store.select<any>(selectProducts);
+		this.products$ = this.store.select<any>(fromSupplierProduct.selectArray);
 		this.images$ = this.store.select(fromImage.selectArray);
+		this.contacts$ = this.store.select(fromSupplierContact.selectArray);
 	}
 
 	patch(patch: Patch) {

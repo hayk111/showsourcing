@@ -21,6 +21,7 @@ const fileActions = fromFile.Actions;
 
 @Injectable()
 export class FilesEffects {
+
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD_FOR_SELECTION).pipe(
 		// getting the target
@@ -56,6 +57,7 @@ export class FilesEffects {
 		)
 	);
 
+
 	@Effect({ dispatch: false })
 	removeFile$ = this.actions$.ofType<any>(ActionType.DELETE).pipe(
 		map(action => action.payload),
@@ -65,6 +67,7 @@ export class FilesEffects {
 		})),
 		switchMap((p: any) => this.srv.delete(p))
 	);
+
 
 	@Effect({ dispatch: false })
 	download$ = this.actions$

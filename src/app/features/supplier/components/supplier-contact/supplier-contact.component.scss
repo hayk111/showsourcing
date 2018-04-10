@@ -5,8 +5,17 @@
 
 }
 
-.row {
-	width: calc(100%  /3);
+.colImg {
+	width: 64px;
+	img {
+		width: 48px;
+		height: 36px;
+	}
+}
+
+.col {
+	text-align: left;
+	width: calc((100% - 64px) / 3);
 }
 
 .name {

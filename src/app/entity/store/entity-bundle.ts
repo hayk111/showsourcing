@@ -22,19 +22,19 @@ export interface EntityBundle extends EntitySelectors {
 }
 
 // utility method that generates basic entity Actions, ActionTypes, reducer and selectors.
-export function makeEntityBundle(entityName: string) {
+export function makeEntityBundle(entityName: string, baseSelector?: any) {
 	// keeping capitalization so it looks like we are using standard ngrx classes under the hood
 	const ActionTypes = makeEntityActionTypes(entityName);
 	const Actions = new EntityActions(ActionTypes);
 	const reducer = entityReducerFactory(ActionTypes);
 
-	return { ActionTypes, Actions, reducer, ...createEntitySelectors(entityName) };
+	return { ActionTypes, Actions, reducer, ...createEntitySelectors(entityName, baseSelector) };
 }
 
-export function createEntitySelectors(entityName: string): EntitySelectors {
+export function createEntitySelectors(entityName: string, baseSelector?: any): EntitySelectors {
 	// selectors
-	const selectEntities = (state) => state.entities;
-	const selectState = createSelector([selectEntities], entities => entities[entityName]);
+	baseSelector = baseSelector || ((state) => state.entities);
+	const selectState = createSelector([baseSelector], entities => entities[entityName]);
 	const selectArray = createSelector([selectState], state => entityStateToArray(state));
 	const selectById = createSelector([selectState], state => state.byId);
 	const selectOne = (id: string) => createSelector([selectState], state => state.byId[id]);

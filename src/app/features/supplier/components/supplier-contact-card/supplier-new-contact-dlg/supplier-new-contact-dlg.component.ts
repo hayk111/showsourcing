@@ -2,6 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { Store } from '@ngrx/store';
+import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
+import { fromDialog } from '~app/shared/dialog';
+import { RegexpApp, DEFAULT_IMG } from '~app/app-root/utils';
+import { AppFile } from '~app/entity';
+import { UserService } from '~app/features/user';
 
 
 const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CONTACT);
@@ -16,17 +22,31 @@ const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CO
 export class SupplierNewContactDlgComponent implements OnInit {
 	formGroup: FormGroup;
 	dialogName = DialogName.NEW_CONTACT;
+	preview = '';
+	defaultImg = DEFAULT_IMG;
 
-	constructor(private fb: FormBuilder) {
+	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {
 		this.formGroup = this.fb.group({
 			name: ['', Validators.required],
-			function: '',
-			email: '',
-			tel: ''
+			jobTitle: '',
+			email: ['', Validators.email],
+			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
 		});
 	}
 
 	ngOnInit() {
+	}
+
+	onSubmit() {
+		if (this.formGroup.valid) {
+			this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
+			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		}
+	}
+
+	onFilesAdded(files: Array<File>) {
+		const appFiles = files.map(file => new AppFile(file, this.userSrv.userId));
+		// this.store.dispatch(fromSupplierContact.Actions.)
 	}
 
 }

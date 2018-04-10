@@ -21,6 +21,8 @@ import { fromTag } from '~app/entity/store/tag';
 import { fromCategory } from '~app/entity/store/category';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
+import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
+import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
 
 @Injectable()
 export class SuppliersEffects {
@@ -37,7 +39,8 @@ export class SuppliersEffects {
 				fromFile.Actions.loadForSelection(),
 				fromImage.Actions.loadForSelection(),
 				fromTask.Actions.loadForSelection(),
-				// productActions.loadLatestForTarget(target)
+				fromSupplierContact.Actions.loadForSelection(),
+				fromSupplierProduct.Actions.loadForSelection()
 			])
 		);
 

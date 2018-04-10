@@ -3,13 +3,16 @@
 
 	<h2>Contacts</h2>
 
-	<div class="flex" *ngIf="contacts.length > 0; else noContact">
-		<supplier-contact-app *ngFor="let contact of contacts" [contact]="contact"></supplier-contact-app>
-	</div>
+	<list-app *ngIf="contacts.length > 0; else noContact">
+		<list-item-app
+			*ngFor="let contact of contacts; let last = last" [border]="!last">
+			<supplier-contact-app [contact]="contact"></supplier-contact-app>
+		</list-item-app>
+	</list-app>
 
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
-			<img src="assets/img/user.svg" class="pointer" (click)="newContact.emit()"/>
+			<img src="defaultImg" class="pointer" (click)="newContact.emit()"/>
 			<span>No contact for this supplier</span>
 		</div>
 	</ng-template>

@@ -1,5 +1,16 @@
 form{
 	display: block;
-	width: 320px;
-	padding: var(--spacing-default);
+	width: 340px;
+}
+
+.imgPreview {
+	width: 340px;
+  height: 225px;
+	border-radius: var(--border-radius);
+	background: var(--color-bg-third);
+}
+
+.secondary {
+	margin-top: var(--spacing-s);
+	color: var(--color-txt-secondary);
 }

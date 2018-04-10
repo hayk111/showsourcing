@@ -1,28 +1,39 @@
-<dialog-app [name]="dialogName" [hasFooter]="false">
-	<header>Contact</header>
+<dialog-app [name]="dialogName" [hasFooter]="false" (fileDrop)="onFilesAdded($event)">
 
-	<form [formGroup]="formGroup">
+	<dialog-header-app>Contact</dialog-header-app>
+
+	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp formControlName="name" type="text" />
+			<input inputApp formControlName="name" type="text" autocomplete="off" placeholder="Contact name"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Function</label-app>
-			<input inputApp formControlName="function" type="text" />
+			<input inputApp formControlName="jobTitle" type="text" autocomplete="off" placeholder="Contact Function"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Email</label-app>
-			<input inputApp formControlName="email" type="email" />
+			<input inputApp formControlName="email" type="email" autocomplete="off" placeholder="Contact email address"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Phone number</label-app>
-			<input inputApp restrictInput="tel" formControlName="tel" type="tel" />
+			<input inputApp formControlName="phoneNumber" restrictInput="tel" type="tel" autocomplete="off" placeholder="Contact phone number"/>
 		</form-field-app>
 
-		<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT">
+		<label>Business card</label>
+		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
+			<img [src]="preview || defaultImg"/>
+			<span class="secondary"> Drag & Drop or pick a file</span>
+		</div>
+		<input #inpFile [hidden]="true" class="hidden" type="file"/>
+
+		<dialog-footer-app>
+			<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT" (fileSelect)="onFilesAdded($event)">
+		</dialog-footer-app>
+
 	</form>
 </dialog-app>
 

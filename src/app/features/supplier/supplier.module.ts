@@ -36,10 +36,24 @@ import {
 } from './components/supplier-contact-card/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
 import { SharedModule } from '~app/shared/shared.module';
 import { SupplierDescriptionComponent } from './components/supplier-description/supplier-description.component';
+import { StoreModule } from '@ngrx/store';
+import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
+import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
+import { EffectsModule } from '@ngrx/effects';
+import { ContactEffects } from '~app/features/supplier/store/contacts/contact.effects';
+import { ProductEffects } from '~app/features/supplier/store/product/product.effects';
 
 @NgModule({
 	imports: [
 		SharedModule,
+		StoreModule.forFeature('supplier', {
+			product: fromSupplierProduct.reducer,
+			contact: fromSupplierContact.reducer
+		}),
+		EffectsModule.forFeature([
+			ContactEffects,
+			ProductEffects
+		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card
 		CarouselModule,

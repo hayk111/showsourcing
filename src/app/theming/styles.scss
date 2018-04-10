@@ -4,16 +4,10 @@
 @import './elevation';
 @import './typography';
 @import './browser-fixes';
-@import './inputs-buttons';
 @import './animations';
 @import './tooltip';
+@import './inputs-buttons';
 @import './helper-classes';
 
-// libraries
-@import './libraries';
-@import '~@ng-select/ng-select/themes/default.theme.css';
-// @import '~@swimlane/ngx-datatable/release/assets/icons.css';
-// // icons
-// $fa-font-path: "../../../node_modules/font-awesome/fonts";
-// @import '~font-awesome/scss/font-awesome';
 
+@import '~@ng-select/ng-select/themes/default.theme.css';

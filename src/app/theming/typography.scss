@@ -108,7 +108,8 @@ h5 {
 }
 
 label {
-  font-weight: 600;
+	font-weight: 600;
+	margin-bottom: var(--spacing-s);
 }
 
 strong {
@@ -122,6 +123,7 @@ small {
 }
 
 label {
+	display: block;
 	font-size: var(--font-size-s);
 	font-weight: 500;
 }

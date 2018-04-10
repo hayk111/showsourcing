@@ -80,7 +80,8 @@
 // width and form
 
 .fullWidth{
-  width: 100%;
+	// using important here for quick fix, running low on time
+  width: 100%!important;
 }
 
 // pointer

@@ -10,6 +10,9 @@ import { DialogContainerComponent } from './containers/dialog-container/dialog-c
 import { DialogHostDirective } from './containers/dialog-host.directive';
 import { DialogModalComponent } from './containers/dialog-modal/dialog-modal.component';
 import { DialogComponent } from './containers/dialog/dialog.component';
+import { DialogHeaderComponent } from './containers/dialog-header/dialog-header.component';
+import { DialogSubtitleComponent } from './containers/dialog-subtitle/dialog-subtitle.component';
+import { DialogFooterComponent } from './containers/dialog-footer/dialog-footer.component';
 
 
 @NgModule({
@@ -24,12 +27,18 @@ import { DialogComponent } from './containers/dialog/dialog.component';
 		DialogContainerComponent,
 		DialogHostDirective,
 		DialogModalComponent,
-		ConfirmDialogComponent
+		ConfirmDialogComponent,
+		DialogHeaderComponent,
+		DialogSubtitleComponent,
+		DialogFooterComponent
 	],
 	entryComponents: [ConfirmDialogComponent],
 	exports: [
 		DialogComponent,
-		DialogContainerComponent
+		DialogContainerComponent,
+		DialogHeaderComponent,
+		DialogSubtitleComponent,
+		DialogFooterComponent
 	]
 })
 export class DialogModule {
