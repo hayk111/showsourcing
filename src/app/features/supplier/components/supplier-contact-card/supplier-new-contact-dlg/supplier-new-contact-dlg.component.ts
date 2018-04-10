@@ -8,6 +8,7 @@ import { fromDialog } from '~app/shared/dialog';
 import { RegexpApp, DEFAULT_IMG } from '~app/app-root/utils';
 import { AppFile } from '~app/entity';
 import { UserService } from '~app/features/user';
+import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 
 
 const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CONTACT);
@@ -25,7 +26,7 @@ export class SupplierNewContactDlgComponent implements OnInit {
 	preview = '';
 	defaultImg = DEFAULT_IMG;
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {
+	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService, private imageHttp: ImageHttpService) {
 		this.formGroup = this.fb.group({
 			name: ['', Validators.required],
 			jobTitle: '',
