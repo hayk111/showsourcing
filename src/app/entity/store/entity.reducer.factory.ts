@@ -5,8 +5,8 @@ import { TypedAction } from '~utils';
 import { addEntities, removeEntities, replaceEntity, replaceEntities, updateOne } from '../utils';
 
 // hassan, , stop moving this file outside of Entity module, plz, I made this module to regroup utils/generic for the store / entity.
-export function entityReducerFactory<G extends Entity>(
-	actionType: EntityActionTypes,
+export function entityReducerFactory<G extends Entity, T extends EntityActionTypes>(
+	actionType: T,
 	initialState: EntityState<G> = entityInitialState
 ) {
 	return function (state = initialState, action: TypedAction<any>) {

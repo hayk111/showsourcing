@@ -107,15 +107,17 @@ export class FileHttpService {
 		return this.http.delete(`api/token/${info.token}`);
 	}
 
-	linkToItem(target: EntityTarget, attachmentId: string, type: string = 'attachment') {
+	linkToItem(target: EntityTarget, file: AppFile, type: string = 'attachment') {
 		const name = target.entityRepr.urlName;
 		const itemId = target.entityId;
 		let data;
 
-		if (type === 'attachment') data = { attachmentId, itemId };
-		else data = { imageId: attachmentId, itemId, mainImage: false };
+		if (type === 'attachment')
+			data = { attachmentId: file.id, itemId };
+		else
+			data = { imageId: file.id, itemId, mainImage: false };
 
-		return this.http.post(`api/${name}/${itemId}/${type}`, data);
+		return this.http.post(`api/${name}/${itemId}/${type}`, data).map(_ => file);
 	}
 
 	delete(
