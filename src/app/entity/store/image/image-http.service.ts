@@ -22,11 +22,11 @@ export class ImageHttpService extends FileHttpService {
 		return super.uploadFile(file, 'image').pipe(
 			// so we are sure the file is actually ready, it might not always be the case (ask antoine).
 			// the weird // r => resp is so we don't get the response from the query but the resp above it
-			switchMap((resp: AppImage) =>
-				this.queryFile(resp)
-					.pipe(retryWhen(errors => errors.pipe(delay(2000), take(10))))
-					.map(r => resp)
-			)
+			// switchMap((resp: AppImage) =>
+			// 	this.queryFile(resp)
+			// 		.pipe(retryWhen(errors => errors.pipe(delay(2000), take(10))))
+			// 		.map(r => resp)
+			// )
 		);
 	}
 

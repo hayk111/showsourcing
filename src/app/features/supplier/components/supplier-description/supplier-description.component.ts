@@ -11,7 +11,7 @@ import { Patch } from '~app/entity';
 })
 export class SupplierDescriptionComponent {
 	@Input() supplier;
-	@ViewChild('editable') editable: EditableTextComponent;
+	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	@Output() update = new EventEmitter<Patch>();
 	constructor() { }
 
@@ -19,9 +19,14 @@ export class SupplierDescriptionComponent {
 		this.editable.open();
 	}
 
+	/** Since onSave can be triggered when we click outside this component, we need to check if the
+	 * editable is actually opened to not trigger unnecessary work
+	 */
 	onSave(value: string) {
-		this.update.emit({ id: this.supplier.id, value, propName: 'description' });
-		this.editable.close();
+		if (this.editable.isOpen) {
+			this.update.emit({ id: this.supplier.id, value, propName: 'description' });
+			this.editable.close();
+		}
 	}
 
 	cancel() {

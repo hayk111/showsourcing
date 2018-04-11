@@ -26,23 +26,21 @@
 		<label>Business card</label>
 		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
 
-		<ng-container *ngIf="contact.image; else empty">
-			{{ contact | json}}
-			<img [src]="contact?.image?.data || contact?.image?.urls?.url_400x300" class="previewImg"/>
-		</ng-container>
+			<ng-container *ngIf="previewUrl; else empty">
+				<img [src]="previewUrl" class="previewImg"/>
+			</ng-container>
 
-		<ng-template #empty>
-			<img [src]="defaultImg"/>
-			<span class="secondary"> Drag & Drop or pick a file</span>
-		</ng-template>
+			<ng-template #empty>
+				<img [src]="defaultImg"/>
+				<span class="secondary"> Drag & Drop or pick a file</span>
+			</ng-template>
 
-
+			<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
 
 		</div>
-		<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
 
 		<dialog-footer-app>
-			<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT"/>
+			<input type="submit" [disabled]="!formGroup.valid" value="SAVE"/>
 		</dialog-footer-app>
 
 	</form>
