@@ -112,12 +112,12 @@
 	</cell-two-row-app>
 
 	<!-- category -->
-	<cell-two-row-app title="Category">
+	<!-- <cell-two-row-app title="Category">
 		<editable-field-app
 			[entity]="supplier"
 			[value]="supplier.categoryIds"
 			type="category"></editable-field-app>
-	</cell-two-row-app>
+	</cell-two-row-app> -->
 
 	<!-- tags -->
 	<cell-two-row-app title="tag">
@@ -135,7 +135,7 @@
 		<editable-field-app
 			[entity]="supplier"
 			[value]="supplier.createdByUserId"
-			type="teamMembers"
+			type="teamMember"
 			[editable]="false"
 			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
 	</cell-two-row-app>

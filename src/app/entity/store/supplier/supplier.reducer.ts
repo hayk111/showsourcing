@@ -13,9 +13,10 @@ export function supplierReducer(state = entityInitialState, action: TypedAction<
 			const tagId = action.payload.tag.id;
 			const supplierId = action.payload.supplierId;
 			const supplier = { ...byId[supplierId] };
-			let tagIds = supplier.tagIds;
+			let tagIds = supplier.tagIds || [];
 			// if it's already been added just return state
-			if (tagIds.find(id => id === tagId)) return state;
+			if (tagIds.find(id => id === tagId))
+				return state;
 			tagIds = tagIds.concat(tagId);
 			supplier.tagIds = tagIds;
 			byId[supplierId] = supplier;

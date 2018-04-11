@@ -43,8 +43,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		});
 
 		this.supplier$ = this.store.select(fromSupplier.selectFocussed).pipe(
-			filter(d => !!d)),
-			tap((supplier: Supplier) => this.supplierId = supplier.id);
+			filter(x => !!x),
+			tap((supplier: Supplier) => this.supplierId = supplier.id));
 
 		// this select the count for all entities we need it just for this one
 		const productsCount$ = this.store.select(fromSupplier.selectProductCount);

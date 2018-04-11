@@ -39,7 +39,7 @@
 					<user-picture-app [size]="24" [border]="false"
 						[url]="(value | entity: 'teamMember' | async)?.preferences?.profilePicture?.urls?.url_60x45">
 					</user-picture-app>
-          {{ value | entityName: project | async }}
+          {{ value | entityName: 'teamMember' | async }}
         </span>
 			</ng-container>
 
