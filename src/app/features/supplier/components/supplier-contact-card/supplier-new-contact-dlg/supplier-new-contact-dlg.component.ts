@@ -65,8 +65,8 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 		if (this.isNewContact) {
 			if (this._preview.data)
 				return this._preview.data;
-			else if (this._preview.image)
-				return this._preview.image.urls.url_400x300;
+			else if (this._preview.urls)
+				return this._preview.urls.url_400x300;
 		} else {
 			if (this.contact.image) {
 				return this.contact.image.urls.url_400x300;
@@ -77,14 +77,15 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 	onSubmit() {
 
 		if (this.formGroup.valid) {
-			// if (this.newContact) {
-			// 	const contact = this.formGroup.value;
-			// 	// we need to add the image to the contact before uploading
-			// 	contact.imageId = this.contact.image.id;
-			// 	this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
-			// } else {
-
-			// }
+			if (this.isNewContact) {
+				const contact = this.formGroup.value;
+				// we need to add the image to the contact before uploading
+				contact.imageId = this._preview.id;
+				contact.image = this._preview;
+				this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
+			} else {
+				// this.store.dispatch(fromSupplierContact.Actions.)
+			}
 
 			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
 		}

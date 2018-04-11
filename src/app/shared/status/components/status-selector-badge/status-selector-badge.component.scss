@@ -14,7 +14,7 @@
 .selectorIcon {
 	border-left: 1px solid rgba(255, 255, 255, 0.7);
 	padding-left: var(--spacing-xs);
-	margin-left: var(--spacing-xs);
+	margin-left: var(--spacing-s);
 }
 .selector {
 	position: absolute;
@@ -22,7 +22,7 @@
 }
 .choice{
 	font-size: var(--font-size-default);
-	padding: var(--spacing-s);
+	padding: var(--spacing-s) var(--spacing-default);
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
@@ -30,9 +30,10 @@
 		background: var(--color-primary-light);
 	}
 	.cercle {
-		width: 6px;
-		height: 6px;
-		margin-right: var(--spacing-xs);
+		width: 8px;
+		height: 8px;
+		margin-top: 2px;
+		margin-right: var(--spacing-s);
 	}
 }
 
