@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -41,11 +41,15 @@ export class FileHttpService {
 	uploadFile(
 		file: AppFile,
 		type: 'image' | 'attachment' = 'attachment'
-	): Observable<AppFile | AppImage> {
+	): Observable<any> {
 		let data;
 		const fileName = file.fileName;
-		if (type === 'attachment') data = { fileName };
-		else data = { imageType: 'Photo' };
+
+		if (type === 'attachment')
+			data = { fileName };
+		else
+			data = { imageType: 'Photo' };
+
 		return this.upload(data, type, file);
 	}
 
@@ -72,7 +76,10 @@ export class FileHttpService {
 		const req = new HttpRequest('POST', awsInfo.url, formData, {
 			reportProgress: true,
 		});
-		return this.http.request(req).pipe(
+		return this.http.post(awsInfo.url, formData, {
+			reportProgress: true,
+			observe: 'response'
+		}).pipe(
 			// we filter progress events which are used to send progress reports to the store
 			// filter((event: HttpResponse<any>) => this.isFileProgress(event, file)),
 			switchMap(_ => this.deleteToken(awsInfo) as any)

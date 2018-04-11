@@ -1,11 +1,13 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { fromSupplierContact } from './contact.bundle';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
-import { FocussedEntityService, Swap } from '~app/entity';
+import { FocussedEntityService } from '~app/entity/store/focussed-entity';
 import { HttpClient } from '@angular/common/http';
+import { ImageHttpService } from '~app/entity/store/image/image-http.service';
+import { Swap } from '~app/entity/utils';
 
 @Injectable()
 export class ContactEffects {
@@ -29,5 +31,20 @@ export class ContactEffects {
 			)
 		);
 
-	constructor(private action$: Actions, private http: HttpClient, private focusSrv: FocussedEntityService) { }
+	@Effect()
+	createImg$ = this.action$
+		.ofType<any>(fromSupplierContact.ActionTypes.CREATE_IMG)
+		.pipe(
+			map(action => action.payload),
+			// we can use switchMap since a new upload should cancel the previous one. I think.
+			switchMap(file => this.imageHttp.uploadFile(file).pipe(
+				map(r => fromSupplierContact.Actions.setPreview(r))
+			))
+		);
+
+	constructor(
+		private action$: Actions,
+		private http: HttpClient,
+		private focusSrv: FocussedEntityService,
+		private imageHttp: ImageHttpService) { }
 }

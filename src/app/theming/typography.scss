@@ -109,7 +109,9 @@ h5 {
 
 label {
 	font-weight: 600;
-	margin-bottom: var(--spacing-s);
+	display: block;
+	font-weight: 600;
+	color: var(--color-primary-dark);
 }
 
 strong {
@@ -122,11 +124,6 @@ small {
 	color: var(--color-txt-secondary);
 }
 
-label {
-	display: block;
-	font-size: var(--font-size-s);
-	font-weight: 500;
-}
 
 time {
 	line-height: 1.4;

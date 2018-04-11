@@ -7,6 +7,7 @@ import {
 
 import { entityReducerFactory } from '~app/entity/store/entity.reducer.factory';
 import { AppFile } from './file.model';
+import { TypedAction } from '~app/app-root/utils';
 
 const entityName = ERM.file.entityName;
 
@@ -40,7 +41,6 @@ export interface FileBundle extends EntityBundle {
 	ActionTypes: FileActionType;
 	Actions: FileActions;
 }
-
 
 export const fromFile: FileBundle = {
 	ActionTypes: fileActionTypes,

@@ -5,33 +5,45 @@
 	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp formControlName="name" type="text" autocomplete="off" placeholder="Contact name"/>
+			<input inputApp formControlName="name" type="text" autocomplete="new-name" placeholder="Contact name"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Function</label-app>
-			<input inputApp formControlName="jobTitle" type="text" autocomplete="off" placeholder="Contact Function"/>
+			<input inputApp formControlName="jobTitle" type="text" autocomplete="new-job" placeholder="Contact Function"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Email</label-app>
-			<input inputApp formControlName="email" type="email" autocomplete="off" placeholder="Contact email address"/>
+			<input inputApp formControlName="email" type="email" autocomplete="new-email" placeholder="Contact email address"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Phone number</label-app>
-			<input inputApp formControlName="phoneNumber" restrictInput="tel" type="tel" autocomplete="off" placeholder="Contact phone number"/>
+			<input inputApp formControlName="phoneNumber" restrictInput="tel" type="tel" autocomplete="new-tel" placeholder="Contact phone number"/>
 		</form-field-app>
 
 		<label>Business card</label>
 		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
-			<img [src]="preview || defaultImg"/>
-			<span class="secondary"> Drag & Drop or pick a file</span>
+			<ng-container *ngIf="preview$ | async as preview">
+
+				<ng-container *ngIf="preview.data || preview.urls; else empty">
+					<img [src]="preview.data || preview.urls.url_400x300" class="previewImg"/>
+				</ng-container>
+
+				<ng-template #empty>
+					<img [src]="defaultImg"/>
+					<span class="secondary"> Drag & Drop or pick a file</span>
+				</ng-template>
+
+			</ng-container>
+
+
 		</div>
-		<input #inpFile [hidden]="true" class="hidden" type="file"/>
+		<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
 
 		<dialog-footer-app>
-			<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT" (fileSelect)="onFilesAdded($event)">
+			<input type="submit" [disabled]="!formGroup.valid" value="ADD CONTACT"/>
 		</dialog-footer-app>
 
 	</form>

@@ -8,6 +8,10 @@ form{
   height: 225px;
 	border-radius: var(--border-radius);
 	background: var(--color-bg-third);
+	overflow:hidden;
+	.previewImg {
+		width: 100%;
+	}
 }
 
 .secondary {

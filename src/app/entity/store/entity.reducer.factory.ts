@@ -43,13 +43,9 @@ export function entityReducerFactory<G extends Entity, T extends EntityActionTyp
 				const value = action.payload.value;
 				return updateOne(state, id, propName, value);
 
-			// replace one
-			case actionType.REPLACE:
-				return replaceEntities(state, action.payload);
-
 			// replace many
 			case actionType.REPLACE:
-				return;
+				return replaceEntities(state, action.payload);
 
 			case actionType.DELETE:
 				return removeEntities(state, action.payload);
