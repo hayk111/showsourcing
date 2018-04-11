@@ -1,26 +1,27 @@
-<dialog-app [name]="dialogName" [hasFooter]="false" (fileDrop)="onFilesAdded($event)">
+<dialog-app [name]="dialogName" (close)="onClose()" (fileDrop)="onFilesAdded($event)">
 
 	<dialog-header-app>Contact</dialog-header-app>
 
 	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp formControlName="name" type="text" autocomplete="new-name" placeholder="Contact name"/>
+			<input inputApp (blur)="patch('name', $event.target.value)" formControlName="name" type="text" autocomplete="new-name" placeholder="Contact name"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Function</label-app>
-			<input inputApp formControlName="jobTitle" type="text" autocomplete="new-job" placeholder="Contact Function"/>
+			<input inputApp (blur)="patch('jobTitle', $event.target.value)" formControlName="jobTitle" type="text" autocomplete="new-job" placeholder="Contact Function"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Email</label-app>
-			<input inputApp formControlName="email" type="email" autocomplete="new-email" placeholder="Contact email address"/>
+			<input inputApp (blur)="patch('email', $event.target.value)" formControlName="email" type="email" autocomplete="new-email" placeholder="Contact email address"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Phone number</label-app>
-			<input inputApp formControlName="phoneNumber" restrictInput="tel" type="tel" autocomplete="new-tel" placeholder="Contact phone number"/>
+			<input inputApp (blur)="patch('phoneNumber', $event.target.value)" formControlName="phoneNumber" restrictInput="tel" type="tel"
+				autocomplete="new-tel" placeholder="Contact phone number"/>
 		</form-field-app>
 
 		<label>Business card</label>
@@ -35,15 +36,14 @@
 				<span class="secondary"> Drag & Drop or pick a file</span>
 			</ng-template>
 
-			<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
-
 		</div>
-
-		<dialog-footer-app>
-			<input type="submit" [disabled]="!formGroup.valid" value="SAVE"/>
-		</dialog-footer-app>
+		<input #inpFile [hidden]="true" class="hidden" type="file" (fileSelect)="onFilesAdded($event)"/>
 
 	</form>
+		<!-- no button to save when it's an existing contact -->
+		<dialog-footer-app *ngIf="isNewContact">
+			<input type="submit" [disabled]="!formGroup.valid" value="SAVE" (click)="onSubmit()"/>
+		</dialog-footer-app>
 </dialog-app>
 
 

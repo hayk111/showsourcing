@@ -22,6 +22,7 @@ interface ContactActionTypes extends EntityActionTypes {
 	CREATE_IMG: string;
 	LINK_IMG: string;
 	SET_PREVIEW: string;
+	CHANGE_IMG: string;
 }
 
 const contactActionTypes: ContactActionTypes = {
@@ -29,6 +30,7 @@ const contactActionTypes: ContactActionTypes = {
 	CREATE_IMG: '[Contact] Creating img',
 	LINK_IMG: '[Contact] Linking img',
 	SET_PREVIEW: '[Contact] setting preview',
+	CHANGE_IMG: '[Contact] change img'
 };
 
 
@@ -52,6 +54,13 @@ class ContactActions extends EntityActions<ContactActionTypes> {
 		return {
 			type: this.actionType.SET_PREVIEW,
 			payload: img
+		};
+	}
+
+	changeImg(img, contactId) {
+		return {
+			type: this.actionType.CHANGE_IMG,
+			payload: { img, contactId }
 		};
 	}
 }

@@ -6,11 +6,11 @@ import { Store } from '@ngrx/store';
 import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { fromDialog } from '~app/shared/dialog';
 import { RegexpApp, DEFAULT_IMG, AutoUnsub } from '~app/app-root/utils';
-import { AppFile, AppImage } from '~app/entity';
+import { AppFile, AppImage, Patch } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Observable } from 'rxjs/Observable';
-import { map, takeUntil, filter, tap } from 'rxjs/operators';
+import { map, takeUntil, filter, tap, distinctUntilChanged } from 'rxjs/operators';
 
 
 const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.CONTACT);
@@ -33,6 +33,7 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 	defaultImg = DEFAULT_IMG;
 
 	@Input() contact = {
+		id: '',
 		name: '',
 		jobTitle: '',
 		email: '',
@@ -45,14 +46,23 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	ngOnInit() {
-		this.preview$ = this.store.select(fromSupplierContact.selectState).pipe(
-			map(state => state.previewImg),
-			filter(preview => !!preview && Object.keys(preview).length > 0),
-		);
-		this.preview$.pipe(takeUntil(this._destroy$)).subscribe(preview => {
-			this._preview = preview;
-			this.cd.markForCheck();
-		});
+		if (this.isNewContact) {
+			// when new contact the image is gonna be located in previewImg
+			this.store.select(fromSupplierContact.selectState).pipe(
+				takeUntil(this._destroy$),
+				map(state => state.previewImg),
+				distinctUntilChanged(),
+				filter(preview => !!preview && Object.keys(preview).length > 0),
+			).subscribe(preview => this.preview = preview);
+		} else {
+			// when updating old contact image is on the contact itself
+			this.store.select(fromSupplierContact.selectOne(this.contact.id)).pipe(
+				takeUntil(this._destroy$),
+				distinctUntilChanged(),
+				map(state => state.image)
+			).subscribe(image => this.preview = image);
+		}
+
 		this.formGroup = this.fb.group({
 			name: [this.contact.name, Validators.required],
 			jobTitle: this.contact.jobTitle,
@@ -61,33 +71,36 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 		});
 	}
 
+	/** gives image url */
 	get previewUrl() {
-		if (this.isNewContact) {
-			if (this._preview.data)
-				return this._preview.data;
-			else if (this._preview.urls)
-				return this._preview.urls.url_400x300;
-		} else {
-			if (this.contact.image) {
-				return this.contact.image.urls.url_400x300;
-			}
-		}
+		if (!this._preview || Object.keys(this._preview).length === 0)
+			return;
+		// if the image is pending the base64 is in data else the url is at normal place
+		return this._preview.data || this._preview.urls.url_400x300;
+	}
+
+	set preview(value: AppImage) {
+		this._preview = value;
+		// need to detect for changes since we aren't using any async pipe for it and OnPush change detection
+		this.cd.markForCheck();
 	}
 
 	onSubmit() {
-
 		if (this.formGroup.valid) {
-			if (this.isNewContact) {
-				const contact = this.formGroup.value;
-				// we need to add the image to the contact before uploading
-				contact.imageId = this._preview.id;
-				contact.image = this._preview;
-				this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
-			} else {
-				// this.store.dispatch(fromSupplierContact.Actions.)
-			}
-
+			const contact = this.formGroup.value;
+			// we need to add the image to the contact before uploading
+			contact.imageId = this._preview.id;
+			contact.image = this._preview;
+			this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
 			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		}
+	}
+
+	patch(propName: string, value: any) {
+		/** we only do the patching when it's an existing contact */
+		if (!this.isNewContact) {
+			const patch: Patch = { id: this.contact.id, propName, value };
+			this.store.dispatch(fromSupplierContact.Actions.patch(patch));
 		}
 	}
 
@@ -95,9 +108,17 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 		files.forEach(file => {
 			// image creation is async because we need the base 64 to display it.
 			AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
-				this.store.dispatch(fromSupplierContact.Actions.createImg(appImg));
+				if (this.isNewContact)
+					this.store.dispatch(fromSupplierContact.Actions.createImg(appImg));
+				else
+					this.store.dispatch(fromSupplierContact.Actions.changeImg(appImg, this.contact.id));
 			});
 		});
+	}
+
+	onClose() {
+		// resetting the preview on close
+		this.store.dispatch(fromSupplierContact.Actions.setPreview({}));
 	}
 
 
