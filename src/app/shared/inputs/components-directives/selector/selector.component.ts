@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Entity } from '~app/entity';
+import { InputDecorator } from '@angular/core/src/metadata/directives';
+import { InputDirective } from '../input.directive';
 
 @Component({
 	selector: 'selector-app',
@@ -20,6 +22,7 @@ export class SelectorComponent {
 	// string from input to search through the list of choices
 	searchValue = '';
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
+	@ViewChild(InputDirective) searchInp: InputDirective;
 	// When the value is displayed, what property of the entity should be displayed. Default name
 	@Input() propName = 'name';
 	// reference to template transcluded
@@ -67,6 +70,16 @@ export class SelectorComponent {
 
 	open() {
 		this.ngSelect.open();
+	}
+
+	onOpen() {
+		// needs the set timeout else searchInp is undefined
+		setTimeout(() => {
+			if (this.searchInp) {
+				this.searchInp.focus();
+			}
+		}, 0);
+
 	}
 
 }

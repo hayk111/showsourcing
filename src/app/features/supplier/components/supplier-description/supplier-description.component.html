@@ -6,13 +6,13 @@
 		<ng-template #noDesc>
 			<label-app class="noDesc">No description yet</label-app>
 		</ng-template>
-		<textarea inputApp #txt [value]="supplier.description || ''" (blur)="onSave(txt.value)"></textarea>
+		<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
 	</editable-text-app>
 
 	<card-footer-app>
 		<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
-		<!-- no need to catch the click event since the onBlur of the textarea is gonna be triggered -->
-		<button *ngIf="editable.isOpen">Save</button>
+		<button class="light" *ngIf="editable.isOpen">Cancel</button>
+		<button *ngIf="editable.isOpen" (click)="onSave(txt.value)">Save</button>
 	</card-footer-app>
 
 </card-app>

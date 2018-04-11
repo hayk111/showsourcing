@@ -8,7 +8,7 @@
 
 				<list-item-app *ngFor="let file of files; let last = last" [border]="!last">
 					<div class="flex">
-						<spinner-app size="xl" *ngIf="file.pending"></spinner-app>
+						<spinner-app size="51" width="3" *ngIf="file.pending"></spinner-app>
 
 						<img class="iconFile" [src]="defaultImg"/>
 						<div class="name pointer">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 
 @Component({
@@ -9,6 +9,7 @@ import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 })
 export class SupplierContactComponent {
 	@Input() contact: any;
+	@Output() nameClick = new EventEmitter<null>();
 	defaultImg = DEFAULT_USER_IMG;
 
 }

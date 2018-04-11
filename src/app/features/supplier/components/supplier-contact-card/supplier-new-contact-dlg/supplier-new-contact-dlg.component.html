@@ -25,18 +25,17 @@
 
 		<label>Business card</label>
 		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
-			<ng-container *ngIf="preview$ | async as preview">
 
-				<ng-container *ngIf="preview.data || preview.urls; else empty">
-					<img [src]="preview.data || preview.urls.url_400x300" class="previewImg"/>
-				</ng-container>
+		<ng-container *ngIf="contact.image; else empty">
+			{{ contact | json}}
+			<img [src]="contact?.image?.data || contact?.image?.urls?.url_400x300" class="previewImg"/>
+		</ng-container>
 
-				<ng-template #empty>
-					<img [src]="defaultImg"/>
-					<span class="secondary"> Drag & Drop or pick a file</span>
-				</ng-template>
+		<ng-template #empty>
+			<img [src]="defaultImg"/>
+			<span class="secondary"> Drag & Drop or pick a file</span>
+		</ng-template>
 
-			</ng-container>
 
 
 		</div>

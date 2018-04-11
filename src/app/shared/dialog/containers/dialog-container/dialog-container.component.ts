@@ -61,7 +61,13 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.viewContainerRef.clear();
 
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
-		(<any>componentRef.instance).props = props;
+		// adding properties to dialog
+		if (props) {
+			Object.keys(props).forEach(key => {
+				(<any>componentRef.instance)[key] = props[key];
+			});
+		}
+
 		// mark for cd since we use the store and the event happened somewhere else
 		this.cdRef.markForCheck();
 	}

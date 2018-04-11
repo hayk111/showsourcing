@@ -23,7 +23,7 @@
 				[products]="products$ | async"></supplier-latest-products-app>
 
 			<!-- contacts -->
-			<supplier-contact-card-app [contacts]="contacts$ | async" (newContact)="openNewContactDlg()"></supplier-contact-card-app>
+			<supplier-contact-card-app [contacts]="contacts$ | async" (newContact)="openContactDlg()" (openContact)="openContactDlg($event)"></supplier-contact-card-app>
 		</div>
 
 		<div class="right">

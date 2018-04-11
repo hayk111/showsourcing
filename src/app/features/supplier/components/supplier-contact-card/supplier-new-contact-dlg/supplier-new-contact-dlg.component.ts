@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
@@ -10,10 +10,10 @@ import { AppFile, AppImage } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Observable } from 'rxjs/Observable';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, filter } from 'rxjs/operators';
 
 
-const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CONTACT);
+const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.CONTACT);
 
 
 @Component({
@@ -24,37 +24,55 @@ const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.NEW_CO
 })
 export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit {
 	formGroup: FormGroup;
-	dialogName = DialogName.NEW_CONTACT;
+	dialogName = DialogName.CONTACT;
 	preview$: Observable<AppImage>;
-	preview: AppImage;
 	defaultImg = DEFAULT_IMG;
+	@Input()
+	set contact(value) {
+		// copy so we can modify sealed
+		this._contact = { ...value };
+	}
+	get contact() {
+		return this._contact;
+	}
+	private _contact = {
+		name: '',
+		jobTitle: '',
+		email: '',
+		phoneNumber: '',
+		image: null
+	};
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService,
-		private imageHttp: ImageHttpService) {
+	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService, ) {
 		super();
-		this.formGroup = this.fb.group({
-			name: ['', Validators.required],
-			jobTitle: '',
-			email: ['', Validators.email],
-			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
-		});
 	}
 
 	ngOnInit() {
 		this.preview$ = this.store.select(fromSupplierContact.selectState).pipe(
-			map(state => state.previewImg)
+			map(state => state.previewImg),
+			filter(preview => !!preview)
 		);
-
-		this.preview$.pipe(takeUntil(this._destroy$)).subscribe(preview => this.preview = preview);
+		this.preview$.pipe(takeUntil(this._destroy$)).subscribe(preview => this.contact.image = preview);
+		this.formGroup = this.fb.group({
+			name: [this.contact.name, Validators.required],
+			jobTitle: this.contact.jobTitle,
+			email: [this.contact.email, Validators.email],
+			phoneNumber: [this.contact.phoneNumber, Validators.pattern(RegexpApp.PHONE)]
+		});
 	}
 
 	onSubmit() {
+
 		if (this.formGroup.valid) {
-			const contact = this.formGroup.value;
-			// we need to add the image to the contact before uploading
-			contact.imageId = this.preview.id;
-			contact.image = this.preview;
-			this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
+			// if (this.newContact) {
+			// 	const contact = this.formGroup.value;
+			// 	// we need to add the image to the contact before uploading
+			// 	contact.imageId = this.contact.image.id;
+			// 	this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
+			// } else {
+
+			// }
+
 			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
 		}
 	}
@@ -67,6 +85,7 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 			});
 		});
 	}
+
 
 }
 

@@ -6,7 +6,7 @@
 	<list-app *ngIf="contacts.length > 0; else noContact">
 		<list-item-app
 			*ngFor="let contact of contacts; let last = last" [border]="!last">
-			<supplier-contact-app [contact]="contact"></supplier-contact-app>
+			<supplier-contact-app (nameClick)="openContact.emit(contact)" [contact]="contact"></supplier-contact-app>
 		</list-item-app>
 	</list-app>
 

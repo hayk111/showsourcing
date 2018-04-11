@@ -4,7 +4,7 @@
 		<img [src]="contact?.image?.urls?.url_120x90 || defaultImg"/>
 	</div>
 
-	<div class="col flexColumn">
+	<div class="col flexColumn" (click)="nameClick.emit()">
 
 		<div class="name">
 			{{ contact.name }}

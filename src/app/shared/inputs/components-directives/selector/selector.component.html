@@ -1,5 +1,5 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
-	<ng-select #ngSelect class="custom" [virtualScroll]="true" [items]="filteredChoices" [bindLabel]="propName"
+	<ng-select #ngSelect class="custom" (open)="onOpen()" [virtualScroll]="true" [items]="filteredChoices" [bindLabel]="propName"
 		bindValue="id" (add)="onSelect($event)" (remove)="onUnselect($event)" [ngModel]="value" [multiple]="multiple"
 		[loading]="pending" loadingText="Loading..."
 		[addTagText]="'Create ' + itemName"
@@ -8,7 +8,7 @@
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">
 			<div class="selectCustomInput">
-				<input type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
+				<input #searchInp inputApp type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
 			</div>
 		</ng-template>
 

@@ -72,7 +72,11 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
 	}
 
-	openNewContactDlg() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_CONTACT));
+	openContactDlg(contact?: Contact) {
+		if (contact)
+			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { contact }));
+		// new contact dlg
+		else
+			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT));
 	}
 }

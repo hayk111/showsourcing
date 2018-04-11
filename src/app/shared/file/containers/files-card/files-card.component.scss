@@ -11,6 +11,14 @@
 }
 
 list-item-app {
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+	spinner-app {
+		position: absolute;
+		top: 10px;
+    left: -7px;
+	}
 	.minus {
 		display: none;
 	}
