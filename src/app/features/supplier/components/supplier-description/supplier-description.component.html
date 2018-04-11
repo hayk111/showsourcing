@@ -1,7 +1,7 @@
-<card-app>
+<card-app (clickOutside)="onSave(txt.value)">
 	<h2>Description</h2>
 
-	<editable-text-app #editable>
+	<editable-text-app #editable [closeOnOutsideClick]="false">
 		<label-app *ngIf="supplier.description; else noDesc">{{ supplier.description }}</label-app>
 		<ng-template #noDesc>
 			<label-app class="noDesc">No description yet</label-app>
@@ -11,7 +11,7 @@
 
 	<card-footer-app>
 		<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
-		<button class="light" *ngIf="editable.isOpen">Cancel</button>
+		<button class="light cancel" *ngIf="editable.isOpen" (click)="cancel()">Cancel</button>
 		<button *ngIf="editable.isOpen" (click)="onSave(txt.value)">Save</button>
 	</card-footer-app>
 

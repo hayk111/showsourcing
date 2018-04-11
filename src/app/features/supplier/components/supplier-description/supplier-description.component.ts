@@ -24,4 +24,8 @@ export class SupplierDescriptionComponent {
 		this.editable.close();
 	}
 
+	cancel() {
+		this.editable.close();
+	}
+
 }

@@ -1,4 +1,4 @@
-<div (clickOutside)="close()">
+<div (clickOutside)="close(true)">
 	<div class="flex pointer" *ngIf="!isOpen" (click)="open()">
 		<ng-content select="label-app"></ng-content>
 	</div>

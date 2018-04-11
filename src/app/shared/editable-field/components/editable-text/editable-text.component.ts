@@ -22,8 +22,12 @@ export class EditableTextComponent implements OnInit {
 	}
 
 	close(isOutsideClick?: boolean) {
+		if (isOutsideClick && !this.closeOnOutsideClick) {
+			return;
+		}
 		this.isOpen = false;
 		this.closed.emit();
+		this.cd.markForCheck();
 	}
 
 	open(isClick?: boolean) {
