@@ -6,10 +6,6 @@
 		let-row="row"
 		width="280">
 		<div class="supplier">
-			<checkbox-app
-				(check)="supplierSelect.emit(row.id)"
-				(uncheck)="supplierUnselect.emit(row.id)"
-				[checked]="selection.get(row.id)"></checkbox-app>
 			<div class="iconPlaceHolder"></div>
 			<a class="name capitalize" [routerLink]="['/supplier', 'details', row.id]">{{ row.name }}</a>
 		</div>

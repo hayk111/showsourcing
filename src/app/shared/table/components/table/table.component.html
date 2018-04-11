@@ -3,6 +3,9 @@
 	<table>
 		<thead>
 			<tr>
+				<th *ngIf="hasSelection">
+					<checkbox-app></checkbox-app>
+				</th>
 				<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
 					<div class="headerContent">
 						{{ column.title }}
@@ -18,6 +21,11 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let row of rows" class="row">
+				<!-- selection -->
+				<td *ngIf="hasSelection">
+					<checkbox-app></checkbox-app>
+				</td>
+				<!-- cols -->
 				<td *ngFor="let column of columns" [style.width]="column.width + 'px'">
 					<!-- Render the column template when specified -->
 					<ng-container

@@ -1,9 +1,13 @@
-	<icon-app  *ngIf="checked; else unchecked" name="circle-checked" color="primary" (click)="onClick()"></icon-app>
-	<ng-template #unchecked>
-		<icon-app name="circle-unchecked" color="txt-third" (click)="onClick()"></icon-app>
-	</ng-template>
+	<div class="icon pointer">
+		<icon-app fontSet="fa" size="inherit" *ngIf="checked; else unchecked" name="check-square" color="primary" (click)="onClick()"></icon-app>
+		<ng-template #unchecked>
+			<div class="unChecked" (click)="onClick()"></div>
+		</ng-template>
+	</div>
+
 	<input #input
 		type="checkbox"
+		class="hidden"
 		[hidden]="true"
 		[id]="id"
 		[required]="required"

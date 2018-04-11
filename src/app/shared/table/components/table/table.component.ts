@@ -17,6 +17,8 @@ import { ColumnDirective } from '~app/shared/table/components/column.directive';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
+	// whether rows are selectable
+	@Input() hasSelection = true;
 	@Input() rows: Array<any>;
 	@Output() bottomReached = new EventEmitter<null>();
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
