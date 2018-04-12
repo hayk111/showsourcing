@@ -18,6 +18,15 @@ table {
 	// // since we are using overflow hidden on a table the border will not be seen
 	// // therefor to have a border we can use the box-shadow property
 	// box-shadow: 0 0 0 1px var(--color-primary-light);
+	tr {
+		display: flex;
+		th, td {
+			display: block;
+		}
+	}
+}
+.flexGrow {
+	flex-grow: 1;
 }
 
 thead {
@@ -33,6 +42,10 @@ thead {
 			font-weight: 600;
 			padding: var(--spacing-default);
 			white-space: nowrap;
+		}
+		th:first-child {
+			padding-left: var(--spacing-s);
+			padding-right: var(--spacing-s);
 		}
 		// the col after the empty col has no padding on left
 		th:nth-child(2) {

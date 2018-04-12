@@ -11,10 +11,13 @@ export class ColumnDirective implements OnInit {
 	// property used to make the sorting
 	// we default the sorting property to the title lower cased
 	@Input() sortWith = '';
-	// comparator function for sorting
+	// width of the column
 	@Input() width;
+	// whether the column grows if the table hasn't reached full width
+	@Input() grows = true;
 	@Output() sortRequest = new EventEmitter<string>();
 	currentSort: 'none' | 'asc' | 'desc' = 'none';
+	// comparator function for sorting
 	@Input() comparator = (a, b) => defaultComparator(a, b);
 
 	constructor(public template: TemplateRef<any>) { }
@@ -36,9 +39,6 @@ export class ColumnDirective implements OnInit {
 	}
 
 	sort(rows: Array<any>) {
-		if (this.sortWith === undefined)
-			throw Error(`Please specify the sorting property with [sortWith]`);
-
 		if (this.currentSort === 'asc') {
 			return [...rows].sort((a, b) => this.comparator(a[this.sortWith], b[this.sortWith]));
 		} else {

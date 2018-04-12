@@ -32,6 +32,7 @@
 		columnApp="Country"
 		let-row="row"
 		sortWith="countryName"
+		[grows]="false"
 		width="60">
 		<span>
 			{{ row.countryName  }}
@@ -45,6 +46,7 @@
 		let-row="row"
 		sortWith="tags"
 		[comparator]="arrayComparator"
+		[grows]="false"
 		width="140">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }}{{ last ? '' : ', '}}</span>
 	</ng-template>
@@ -54,7 +56,8 @@
 		columnApp="Created"
 		let-row="row"
 		sortWith="creationDate"
-		width="140">
+		width="140"
+		[grows]="false">
 		{{ row?.creationDate | date: 'MMMM y' }}
 	</ng-template>
 
@@ -63,7 +66,8 @@
 		columnApp="Owner"
 		let-row="row"
 		sortWith="createdByName"
-		width="140">
+		width="140"
+		[grows]="false">
 		<div class="flex">
 			<user-picture-app
 				[size]="18"
@@ -80,7 +84,8 @@
 		class="capitalize"
 		let-row="row"
 		[sortable]="false"
-		width="140">
+		width="140"
+		[grows]="false">
 		<span *ngIf="productsCount">{{  productsCount[row.id] > 0 ? productsCount[row.id] + ' Products' : '' }}</span>
 	</ng-template>
 
@@ -89,7 +94,8 @@
 		columnApp="Action"
 		let-row="row"
 		sortWith="rating"
-		width="50">
+		width="50"
+		[grows]="false">
 		<div class="flexCenter">
 			<rating-heart-app
 				[rating]="row?.rating"

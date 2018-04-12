@@ -1,6 +1,6 @@
 <div class="ctnr horizontal-scroll-except-first-column"
 	infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistance]="100">
-	<table>
+	<table class="fullWidth">
 		<thead>
 			<tr>
 				<!-- empty border -->
@@ -10,7 +10,8 @@
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
 				</th>
 				<!-- columns -->
-				<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
+				<th *ngFor="let column of columns" (click)="sort(column)" [style.width]="column.width + 'px'"
+					 class="{{ column.sortable ? 'pointer' : ''}} {{ column.grows ? 'flexGrow' : '' }}">
 					<div class="headerContent">
 						{{ column.title }}
 						<ng-container *ngIf="column.currentSort !== 'none'">
@@ -33,11 +34,11 @@
 					<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
 				</td>
 				<!-- cols -->
-				<td *ngFor="let column of columns" [style.width]="column.width + 'px'">
-					<!-- Render the column template when specified -->
-					<ng-container
-						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
-					</ng-container>
+				<td *ngFor="let column of columns" class="ellipsis {{ column.grows ? 'flexGrow' : '' }}" [style.width]="column.width + 'px'">
+						<!-- Render the column template when specified -->
+						<ng-container
+							*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+						</ng-container>
 				</td>
 			</tr>
 		</tbody>

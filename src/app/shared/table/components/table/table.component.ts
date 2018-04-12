@@ -15,6 +15,9 @@ import { ColumnDirective } from '~app/shared/table/components/column.directive';
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'fullWidth'
+	}
 })
 export class TableComponent {
 	// whether rows are selectable
