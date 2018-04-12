@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions, FilterGroupName } from '~app/shared/filters';
-import { Country, EntityState, fromTeamMember, Supplier } from '~entity';
+import { Country, EntityState, fromTeamMember, Supplier, fromSupplier } from '~entity';
 import { fromCountry } from '~app/entity/store/country/country.bundle';
+import { tap, map, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -11,7 +15,6 @@ import { fromCountry } from '~app/entity/store/country/country.bundle';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierListViewComponent implements OnInit {
-	@Input() suppliers: Array<Supplier> = [];
 	@Input() productsCount: { [key: string]: number }; // { id: numberProducts }
 	@Input() selection: Map<string, boolean>;
 	@Output() supplierSelect = new EventEmitter<string>();
@@ -19,16 +22,28 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierOpen = new EventEmitter<string>();
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
-	countryState: EntityState<Country>;
-	teamMemberState: EntityState<any>;
+	rows$: Observable<any>;
+	// comparator function for the favorite column, so the table can order it
+	favoriteComparator = (a, b) => (b.rating || 0) - (a.rating || 0);
 
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		// subscribing here once instead subscribing for each row with | async
-		// although we could use the ng-container
-		this.store.select(fromCountry.selectState).subscribe(state => this.countryState = state);
-		this.store.select(fromTeamMember.selectState).subscribe(state => this.teamMemberState = state);
+		const supplierState$ = this.store.select(fromSupplier.selectState);
+		const countryById$ = this.store.select(fromCountry.selectById).pipe(filter(byId => Object.keys(byId).length > 0));
+		const teamMemberById$ = this.store.select(fromTeamMember.selectById).pipe(filter(byId => Object.keys(byId).length > 0));
+		this.rows$ = combineLatest(supplierState$, countryById$, teamMemberById$).pipe(
+			map(([supplierState, countryById, memberById]) => {
+				return supplierState.ids.map(id => {
+					const supplier = supplierState.byId[id];
+					return {
+						...supplier,
+						countryName: supplier.countryCode ? countryById[supplier.countryCode].fullName : '',
+						createdByName: memberById ? memberById[supplier.createdByUserId].name : '',
+						createdBy: memberById ? memberById[supplier.createdByUserId] : undefined,
+					};
+				});
+			}));
 	}
 
 	onSort({ order, sortWith }) {

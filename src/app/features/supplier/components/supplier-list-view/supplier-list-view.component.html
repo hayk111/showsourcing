@@ -1,8 +1,9 @@
-<table-app [rows]="suppliers" (sort)="onSort($event)">
+<table-app [rows]="rows$ | async" (sort)="onSort($event)" class="z-2">
 
 	<!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
+		sortWith="name"
 		let-row="row"
 		width="280">
 		<div class="supplier">
@@ -28,9 +29,10 @@
 		class="capitalize"
 		columnApp="Country"
 		let-row="row"
+		sortWith="countryName"
 		width="60">
 		<span>
-			{{ countryState.byId[row?.countryCode]?.fullName  }}
+			{{ row.countryName  }}
 		</span>
 	</ng-template>
 
@@ -48,7 +50,7 @@
 	<ng-template
 		columnApp="Created"
 		let-row="row"
-		[sortable]="false"
+		sortWith="creationDate"
 		width="140">
 		{{ row?.creationDate | date: 'MMMM y' }}
 	</ng-template>
@@ -57,15 +59,15 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		[sortable]="false"
+		sortWith="createdByName"
 		width="140">
 		<div class="flex">
 			<user-picture-app
 				[size]="18"
 				[border]="true"
-				[url]="teamMemberState.byId[row.createdByUserId]?.preferences?.profilePicture?.urls?.url_60x45">
+				[url]="row.createdBy?.preferences?.profilePicture?.urls?.url_60x45">
 			</user-picture-app>
-			<span>{{ teamMemberState.byId[row.createdByUserId]?.name }}</span>
+			<span>{{ row.createdByName }}</span>
 		</div>
 	</ng-template>
 
@@ -83,7 +85,7 @@
 	<ng-template
 		columnApp="Action"
 		let-row="row"
-		[sortable]="false"
+		[comparator]="favoriteComparator"
 		width="50">
 		<div class="flexCenter">
 			<rating-heart-app

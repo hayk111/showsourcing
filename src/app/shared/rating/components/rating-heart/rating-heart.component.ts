@@ -22,8 +22,10 @@ export class RatingHeartComponent {
 
 	onClick() {
 		if (this.static) return;
-		if (this.favorite) this.unfavorited.emit();
-		else this.favorited.emit();
+		if (this.favorite)
+			this.unfavorited.emit();
+		else
+			this.favorited.emit();
 	}
 
 	// an entity is favorited when an entity is 5 stars

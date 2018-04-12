@@ -12,7 +12,12 @@
 
 table {
 	border-collapse: collapse;
-	border: 1px solid var(--color-primary-light);
+	border: 1px solid  var(--color-primary-light);
+	// overflow: hidden;
+	// border-radius: var(--border-radius);
+	// // since we are using overflow hidden on a table the border will not be seen
+	// // therefor to have a border we can use the box-shadow property
+	// box-shadow: 0 0 0 1px var(--color-primary-light);
 }
 
 thead {
@@ -47,7 +52,6 @@ tbody {
 	height: 300px;
 	overflow: auto;
 	tr {
-		height: 32px;
 		td {
 			font-weight: normal;
 			padding: var(--spacing-default);

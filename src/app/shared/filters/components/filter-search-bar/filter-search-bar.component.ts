@@ -55,7 +55,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		).subscribe(this.search$);
 		/** When the writes in the input we do a normal search */
 		this.search$.subscribe(value => this.doNormalSearch(value));
-		/** When the user click on enter  we will do a smart search */
+		/** When the user click on enter we will do a smart search */
 		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
 		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(filterMap => this.filterMap = filterMap);
 	}

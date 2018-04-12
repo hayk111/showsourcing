@@ -5,7 +5,7 @@
 			[sortable]="column.sortable !== undefined ? column.sortable : true"
 			[width]="column.width"
 			let-row="row"
-			(sort)="sort.emit({sortWith: column.sortWith, order: $event })">
+			(sortRequest)="sort.emit({sortWith: column.sortWith, order: $event })">
 			<ng-container
 				*ngTemplateOutlet="column.template; context: { column: column, row: row }">
 			</ng-container>

@@ -16,7 +16,6 @@ import { DialogName } from '~dialog';
 	styleUrls: ['./suppliers-page.component.scss'],
 })
 export class SuppliersPageComponent implements OnInit {
-	suppliers$: Observable<Array<Supplier>>;
 	pending$: Observable<boolean>;
 	repr = ERM.supplier;
 	// maps current selection {id: true}
@@ -26,7 +25,6 @@ export class SuppliersPageComponent implements OnInit {
 	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
-		this.suppliers$ = this.store.select(fromSupplier.selectArray);
 		this.productCount$ = this.store.select(fromSupplier.selectState)
 			.pipe(map((state: any) => state.productsCount));
 		this.pending$ = this.store.select(fromSupplier.selectState).pipe(map(s => s.pending));
