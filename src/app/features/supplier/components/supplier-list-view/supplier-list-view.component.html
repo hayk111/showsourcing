@@ -1,4 +1,5 @@
-<table-app [rows]="rows$ | async" (sort)="onSort($event)" class="z-2">
+<table-app [rows]="rows$ | async" (sort)="onSort($event)" class="z-2"
+	[selection]="selection">
 
 	<!-- supplier row -->
 	<ng-template

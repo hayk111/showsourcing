@@ -7,7 +7,7 @@
 				<th></th>
 				<!-- select all -->
 				<th *ngIf="hasSelection">
-					<checkbox-app></checkbox-app>
+					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
 				</th>
 				<!-- columns -->
 				<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
@@ -25,12 +25,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let row of rows" class="row">
+			<tr *ngFor="let row of rows;trackBy: trackByFn" class="row">
 				<!-- empty border -->
 				<td></td>
 				<!-- selection -->
 				<td *ngIf="hasSelection">
-					<checkbox-app></checkbox-app>
+					<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
 				</td>
 				<!-- cols -->
 				<td *ngFor="let column of columns" [style.width]="column.width + 'px'">

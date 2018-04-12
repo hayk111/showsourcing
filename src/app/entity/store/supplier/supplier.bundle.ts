@@ -1,4 +1,4 @@
-[;import { supplierActionTypes, supplierActions, SupplierActions } from './supplier.action';
+import { supplierActionTypes, supplierActions, SupplierActions } from './supplier.action';
 import { ERM } from '~app/entity/store/entity.model';
 import { supplierReducer } from './supplier.reducer';
 import { createEntitySelectors, EntityBundle } from '~app/entity/store/entity-bundle';

@@ -14,7 +14,7 @@ import { Patch, Product, ProductStatus } from '~app/entity';
 	styleUrls: ['./product-card-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardViewComponent implements OnInit {
+export class ProductCardViewComponent {
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
 	@Output() productOpen = new EventEmitter<string>();
@@ -27,19 +27,11 @@ export class ProductCardViewComponent implements OnInit {
 	@Input() products: Array<Product> = [];
 	@Input() selection: any;
 	@Input() statuses: Array<ProductStatus>;
+	trackByFn = (index, item) => item.id;
 
-	// TODO: cedric (from cedric)
-	// this should be a container and not tied to products-page view
-	// this way when we do a sorting on list view it doesn't affect this view.
-	constructor() { }
-
-	ngOnInit() { }
 
 	selectProduct(id: string) {
 		this.productSelect.emit(id);
 	}
 
-	trackByFn(index, product) {
-		return product.id;
-	}
 }

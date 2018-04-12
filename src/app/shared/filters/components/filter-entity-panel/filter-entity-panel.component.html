@@ -5,7 +5,7 @@
 
 Relevant:
 <checkbox-app
-	*ngFor="let choice of relevantChoices"
+	*ngFor="let choice of relevantChoices; trackBy: trackByFn"
 	[checked]="selected.has(choice.id)"
 	(check)="onItemAdded(choice.id)"
 	(uncheck)="onItemRemoved(choice.id)">
@@ -18,7 +18,7 @@ Relevant:
 
 All:
 <checkbox-app
-	*ngFor="let choice of choices"
+	*ngFor="let choice of choices; trackBy: trackByFn"
 	[checked]="selected.has(choice.id)"
 	(check)="onItemAdded(choice.id)"
 	(uncheck)="onItemRemoved(choice.id)">

@@ -36,7 +36,6 @@ export class ColumnDirective implements OnInit {
 	}
 
 	sort(rows: Array<any>) {
-		debugger;
 		if (this.currentSort === 'asc') {
 			return [...rows].sort((a, b) => this.comparator(a, b));
 		} else {

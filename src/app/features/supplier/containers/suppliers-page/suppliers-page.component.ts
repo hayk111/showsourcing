@@ -16,6 +16,7 @@ import { DialogName } from '~dialog';
 	styleUrls: ['./suppliers-page.component.scss'],
 })
 export class SuppliersPageComponent implements OnInit {
+	filterGroupName: FilterGroupName.SUPPLIERS_PAGE;
 	pending$: Observable<boolean>;
 	repr = ERM.supplier;
 	// maps current selection {id: true}

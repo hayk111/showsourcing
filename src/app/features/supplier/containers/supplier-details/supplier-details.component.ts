@@ -24,9 +24,13 @@ import { fromSupplierProduct } from '~app/features/supplier/store/product/produc
 	styleUrls: ['./supplier-details.component.scss'],
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
+	// currently displayed supplier
 	supplier$: Observable<Supplier>;
+	// product count for supplier displayed in the summary bar
 	productCount$: Observable<number>;
+	// tasks of the supplier so we can display how many of them there are
 	tasks$: Observable<Array<Task>>;
+	// the latest products for this supplier
 	products$: Observable<Array<Product>>;
 	images$: Observable<Array<AppImage>>;
 	contacts$: Observable<Array<Contact>>;
@@ -55,6 +59,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.contacts$ = this.store.select(fromSupplierContact.selectArray);
 	}
 
+	/** updates supplier */
 	patch(patch: Patch) {
 		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}

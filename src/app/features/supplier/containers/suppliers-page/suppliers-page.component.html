@@ -1,10 +1,11 @@
 
 <entity-page-app
- [subtitles]="['Suppliers', 'all']"
- [switchable]="false"
- [pending]="pending$ | async"
- [repr]="repr"
- (buttonClick)="openNewDialog()">
+	[filterGroupName]="filterGroupName"
+	[subtitles]="['Suppliers', 'all']"
+	[switchable]="false"
+	[pending]="pending$ | async"
+	[repr]="repr"
+	(buttonClick)="openNewDialog()">
 
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"

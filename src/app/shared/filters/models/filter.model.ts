@@ -1,7 +1,8 @@
 import { EntityRepresentation, Entity, ERM, Currency } from '~entity';
 
 export enum FilterGroupName {
-	PRODUCT_PAGE = 'productsPage'
+	PRODUCT_PAGE = 'productsPage',
+	SUPPLIERS_PAGE = 'suppliersPage'
 }
 
 export interface Filter {

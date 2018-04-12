@@ -46,11 +46,4 @@ export class SupplierListViewComponent implements OnInit {
 			}));
 	}
 
-	onSort({ order, sortWith }) {
-		// // we first need to remove the current sorting filter
-		// this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
-		// // then we add a new one
-		// const filter = new FilterSort(sortWith, order.toUpperCase());
-		// this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
-	}
 }

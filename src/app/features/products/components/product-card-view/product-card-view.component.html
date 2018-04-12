@@ -4,7 +4,7 @@
       <div class="sectionTag">{{category.value.length}} products</div>
     </div>
     <div  class="section" >
-      <ng-container *ngFor="let product of category.value">
+      <ng-container *ngFor="let product of category.value; trackBy: trackByFn">
 				<product-selectable-card-app
 					[statuses]="statuses"
           [selected]="selection.get(product.id)"
