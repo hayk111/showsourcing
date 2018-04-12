@@ -18,9 +18,10 @@
 		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
-		[sortable]="false"
+		sortWith="categories"
+		[comparator]="arrayComparator"
 		width="280">
-		<span *ngFor="let cat of row.category">
+		<span *ngFor="let cat of row.categories">
 			{{ cat.name }},
 		</span>
 	</ng-template>
@@ -42,7 +43,8 @@
 		class="capitalize"
 		columnApp="Tags"
 		let-row="row"
-		[sortable]="false"
+		sortWith="tags"
+		[comparator]="arrayComparator"
 		width="140">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }}{{ last ? '' : ', '}}</span>
 	</ng-template>
@@ -86,7 +88,7 @@
 	<ng-template
 		columnApp="Action"
 		let-row="row"
-		[comparator]="favoriteComparator"
+		sortWith="rating"
 		width="50">
 		<div class="flexCenter">
 			<rating-heart-app

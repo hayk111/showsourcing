@@ -15,7 +15,7 @@ export class ColumnDirective implements OnInit {
 	@Input() width;
 	@Output() sortRequest = new EventEmitter<string>();
 	currentSort: 'none' | 'asc' | 'desc' = 'none';
-	@Input() comparator = (a, b) => defaultComparator(a[this.sortWith], b[this.sortWith]);
+	@Input() comparator = (a, b) => defaultComparator(a, b);
 
 	constructor(public template: TemplateRef<any>) { }
 
@@ -36,10 +36,13 @@ export class ColumnDirective implements OnInit {
 	}
 
 	sort(rows: Array<any>) {
+		if (this.sortWith === undefined)
+			throw Error(`Please specify the sorting property with [sortWith]`);
+
 		if (this.currentSort === 'asc') {
-			return [...rows].sort((a, b) => this.comparator(a, b));
+			return [...rows].sort((a, b) => this.comparator(a[this.sortWith], b[this.sortWith]));
 		} else {
-			return [...rows].sort((a, b) => this.comparator(a, b) * -1);
+			return [...rows].sort((a, b) => this.comparator(a[this.sortWith], b[this.sortWith]) * -1);
 		}
 	}
 }

@@ -23,8 +23,8 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	rows$: Observable<any>;
-	// comparator function for the favorite column, so the table can order it
-	favoriteComparator = (a, b) => (b.rating || 0) - (a.rating || 0);
+	// used to sort by tags or by categories
+	arrayComparator = (a, b) => (b || []).length - (a || []).length;
 
 	constructor(private store: Store<any>) { }
 
