@@ -3,9 +3,13 @@
 	<table>
 		<thead>
 			<tr>
+				<!-- empty border -->
+				<th></th>
+				<!-- select all -->
 				<th *ngIf="hasSelection">
 					<checkbox-app></checkbox-app>
 				</th>
+				<!-- columns -->
 				<th *ngFor="let column of columns" (click)="sort(column)" class="{{ column.sortable ? 'pointer' : ''}}">
 					<div class="headerContent">
 						{{ column.title }}
@@ -17,10 +21,13 @@
 						</ng-container>
 					</div>
 				</th>
+
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let row of rows" class="row">
+				<!-- empty border -->
+				<td></td>
 				<!-- selection -->
 				<td *ngIf="hasSelection">
 					<checkbox-app></checkbox-app>

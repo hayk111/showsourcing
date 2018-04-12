@@ -4,15 +4,15 @@ import { Directive, Input, TemplateRef, EventEmitter, Output } from '@angular/co
 	selector: '[columnApp]',
 })
 export class ColumnDirective {
+	// tslint:disable-next-line:no-input-rename
 	@Input('columnApp') title: string;
 	@Input() sortable = true;
 	@Input() width;
 	@Output() sort = new EventEmitter<string>();
 	currentSort: 'none' | 'asc' | 'desc' = 'none';
 
-	constructor(public template: TemplateRef<any>) {}
+	constructor(public template: TemplateRef<any>) { }
 
-	ngOnInit() {}
 
 	toggleSort(lastSort: 'none' | 'asc' | 'desc') {
 		if (this.sortable) {

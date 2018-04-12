@@ -1,5 +1,5 @@
 	<div class="icon pointer">
-		<icon-app fontSet="fa" size="inherit" *ngIf="checked; else unchecked" name="check-square" color="primary" (click)="onClick()"></icon-app>
+		<icon-app class="jello-horizontal" fontSet="fa" size="inherit" *ngIf="checked; else unchecked" name="check-square" color="primary" (click)="onClick()"></icon-app>
 		<ng-template #unchecked>
 			<div class="unChecked" (click)="onClick()"></div>
 		</ng-template>
