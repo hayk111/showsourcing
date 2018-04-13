@@ -1,107 +1,51 @@
 :host {
-	display: block;
+	display: flex;
 	height: 100%;
-}
-
-.ctnr {
-	overflow: auto;
-	height: 100%;
-	box-sizing: border-box;
-	padding-right: var(--spacing-default);
-}
-
-table {
-	border-collapse: collapse;
 	border: 1px solid  var(--color-primary-light);
-	// overflow: hidden;
-	// border-radius: var(--border-radius);
-	// // since we are using overflow hidden on a table the border will not be seen
-	// // therefor to have a border we can use the box-shadow property
-	// box-shadow: 0 0 0 1px var(--color-primary-light);
-	tr {
-		display: flex;
-		th, td {
-			display: block;
-		}
+}
+
+.cell, .header {
+	padding: 0 var(--spacing-default);
+	border-bottom: 1px solid  var(--color-primary-light);
+	height: 48px;
+	display: flex;
+	align-items: center;
+}
+
+.header {
+	background: var(--color-bg-third);
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.col {
+	background: var(--color-bg);
+}
+
+.selectionCol {
+	.header, .cell {
+		padding-left: 0;
 	}
 }
+
 .flexGrow {
 	flex-grow: 1;
 }
 
-thead {
-	text-transform: uppercase;
-	font-weight: 600;
-	text-align: left;
-	height: 48px;
-	background: var(--color-bg-third);
-	border-bottom: 1px solid var(--color-primary-light);
+.defaultCursor {
 	cursor: default;
-	tr {
-		th {
-			font-weight: 600;
-			padding: var(--spacing-default);
-			white-space: nowrap;
-		}
-		th:first-child {
-			padding-left: var(--spacing-s);
-			padding-right: var(--spacing-s);
-		}
-		// the col after the empty col has no padding on left
-		th:nth-child(2) {
-			padding-left: 0;
-		}
-	}
+}
 
-	.headerContent {
-		display: flex;
-		align-items: center;
+.emptyBorder{
+	.cell {
+		border: none;
+	}
+	.cell, .header {
+		padding: 0;
+		width: var(--spacing-default);
 	}
 }
 
-tbody {
-	background-color: var(--color-bg);
-	font-weight: 600;
-	height: 300px;
-	overflow: auto;
-	tr {
-		td {
-			font-weight: normal;
-			padding: var(--spacing-default);
-			border-bottom: 1px solid var(--color-primary-light);
-		}
-		// empty border col is also smaller
-		td:first-child {
-			border: none;
-			padding-left: var(--spacing-s);
-			padding-right: var(--spacing-s);
-		}
-		// the col after the empty col has no padding on left
-		td:nth-child(2) {
-			padding-left: 0;
-		}
-	}
-	tr:hover {
-		background: var(--color-bg-fourth);
-	}
+.ellipsis {
+	width: 100%;
 }
-
-// horizontal scrolling, first column needs not to be scrollable
-
-// .horizontal-scroll-except-first-column {
-// 	margin-left: 20em;
-// }
-
-// .horizontal-scroll-except-first-column > table > * > tr > th:first-child,
-// .horizontal-scroll-except-first-column > table > * > tr > td:first-child {
-// 	position: absolute;
-// 	width: 20em;
-// 	margin-left: -20em;
-// }
-
-// .horizontal-scroll-except-first-column > table > * > tr > th,
-// .horizontal-scroll-except-first-column > table > * > tr > td {
-// 	/* Without this, if a cell wraps onto two lines, the first column
-// 	 * will look bad, and may need padding. */
-// 	white-space: nowrap;
-// }

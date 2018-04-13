@@ -57,6 +57,8 @@ export class TableComponent {
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
+	// track by for column
+	columnTackByFn = (index, item) => index;
 
 
 

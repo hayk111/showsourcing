@@ -9,7 +9,7 @@
 		width="280">
 		<div class="supplier">
 			<div class="iconPlaceHolder"></div>
-			<a class="name capitalize" [routerLink]="['/supplier', 'details', row.id]">{{ row.name }}</a>
+			<a class="name capitalize ellipsis" [routerLink]="['/supplier', 'details', row.id]">{{ row.name }}</a>
 		</div>
 	</ng-template>
 
@@ -33,7 +33,7 @@
 		let-row="row"
 		sortWith="countryName"
 		[grows]="false"
-		width="60">
+		width="140">
 		<span>
 			{{ row.countryName  }}
 		</span>
@@ -74,7 +74,7 @@
 				[border]="true"
 				[url]="row.createdBy?.preferences?.profilePicture?.urls?.url_60x45">
 			</user-picture-app>
-			<span>{{ row.createdByName }}</span>
+			<span class="ellipsis">{{ row.createdByName }}</span>
 		</div>
 	</ng-template>
 
@@ -91,10 +91,10 @@
 
 	<!-- Action -->
 	<ng-template
-		columnApp="Action"
+		columnApp="Fav"
 		let-row="row"
 		sortWith="rating"
-		width="50"
+		width="60"
 		[grows]="false">
 		<div class="flexCenter">
 			<rating-heart-app
