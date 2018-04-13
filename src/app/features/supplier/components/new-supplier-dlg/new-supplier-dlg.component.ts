@@ -16,7 +16,7 @@ const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER)
 	templateUrl: './new-supplier-dlg.component.html',
 	styleUrls: ['./new-supplier-dlg.component.scss'],
 })
-export class NewSupplierDlgComponent implements OnInit {
+export class NewSupplierDlgComponent {
 	name = DialogName.NEW_SUPPLIER;
 	group: FormGroup;
 
@@ -26,7 +26,6 @@ export class NewSupplierDlgComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() { }
 
 	onSubmit() {
 		if (this.group.valid) {

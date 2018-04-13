@@ -5,6 +5,7 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	ViewChild,
+	HostListener,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AutoUnsub } from '~app/app-root/utils';
@@ -72,6 +73,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.cdRef.markForCheck();
 	}
 
+	// @HostListener('keydown.esc', ['$event'])
 	close() {
 		this.store.dispatch(DialogActions.close(this.currentDialog));
 	}
@@ -94,5 +96,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 
 		return component;
 	}
+
 
 }

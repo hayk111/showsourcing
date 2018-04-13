@@ -1,9 +1,8 @@
 
 
-// https://github.com/swimlane/ngx-datatable/blob/master/src/utils/sort.ts
 export function defaultComparator(a: any, b: any): number {
-	if (a === null || typeof a === 'undefined') a = 0;
-	if (b === null || typeof b === 'undefined') b = 0;
+	if (a === null || typeof a === 'undefined' || a === false) a = 0;
+	if (b === null || typeof b === 'undefined' || b === false) b = 0;
 
 	if (a instanceof Date && b instanceof Date) {
 		if (a < b) return -1;

@@ -12,7 +12,11 @@ import { DialogFooterComponent } from '~app/shared/dialog/containers/dialog-foot
 	selector: 'dialog-app',
 	templateUrl: './dialog.component.html',
 	styleUrls: ['./dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'z-2',
+		'attr.role': 'dialog'
+	}
 })
 export class DialogComponent implements OnInit {
 	@Input() closeIcon = true;
@@ -41,4 +45,5 @@ export class DialogComponent implements OnInit {
 		this.store.dispatch(DialogActions.close(this.name));
 		this.close.emit();
 	}
+
 }

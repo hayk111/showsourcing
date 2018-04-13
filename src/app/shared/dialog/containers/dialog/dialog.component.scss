@@ -1,15 +1,12 @@
 
-dialog{
+:host{
+	background: var(--color-bg);
 	margin: auto;
 	z-index: 1000;
 	display: inline-block;
   border-radius: var(--border-radius);
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
-  padding: var(--spacing-l);
+	padding: var(--spacing-xl);
+	padding-bottom: var(--spacing-l);
 	display:flex;
 	flex-direction: column;
 }
