@@ -55,6 +55,10 @@ export class TableComponent {
 	protected _rows = [];
 	protected _sortedRows = [];
 
+	// @Input() set searchedValue( value: any ) {
+	// 	this.
+	// }
+
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
 	// track by for column

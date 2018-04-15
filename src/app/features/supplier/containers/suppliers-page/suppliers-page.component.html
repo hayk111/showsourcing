@@ -5,7 +5,8 @@
 	[switchable]="false"
 	[pending]="pending$ | async"
 	[repr]="repr"
-	(buttonClick)="openNewDialog()">
+	(buttonClick)="openNewDialog()"
+	[hasFilters]="false">
 
 	<supplier-list-view-app
 	(supplierSelect)="onItemSelected($event)"

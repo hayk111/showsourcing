@@ -7,16 +7,10 @@ import { Filter } from '../../models';
 	styleUrls: ['./filter-btn.component.scss']
 })
 export class FilterBtnComponent implements OnInit {
-	@Input() title = '';
-	@Output() btnClicked = new EventEmitter<null>();
 
 	constructor() { }
 
 	ngOnInit() {
-	}
-
-	onBtnClick() {
-		this.btnClicked.emit();
 	}
 
 }

@@ -29,11 +29,9 @@ table-app {
 	margin: auto;
 }
 
-.iconPlaceHolder {
-	border-radius: 50%;
-	height: 16px;
-	width: 16px;
-	background-color: #E6EBF5;
+.supplierIcon {
+	height: 24px;
+	width: 24px;
 	margin-right: var(--spacing-s);
 	flex-shrink: 0;
 }

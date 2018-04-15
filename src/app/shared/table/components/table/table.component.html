@@ -17,15 +17,17 @@
 <!-- content columns -->
 <div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"
 	class="col {{ column.grows ? 'flexGrow' : '' }}">
+	<!-- header -->
 	<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="sort(column)">
 		{{ column.title }}
 		<ng-container *ngIf="column.currentSort !== 'none'">
-			<icon-app  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+			<icon-app class="sortIcon"  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
 			<ng-template #upArrow>
-				<icon-app  fontSet="fa" size="xs" name="angle-up"></icon-app>
+				<icon-app  class="sortIcon" fontSet="fa" size="xs" name="angle-up"></icon-app>
 			</ng-template>
 		</ng-container>
 	</div>
+	<!-- cells -->
 	<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
 		<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
 		<div class="ellipsis">

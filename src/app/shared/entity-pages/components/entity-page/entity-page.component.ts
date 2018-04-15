@@ -12,6 +12,7 @@ export class EntityPageComponent implements OnInit {
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() filterGroupName: FilterGroupName;
+	@Input() hasFilters = true;
 
 	@Input() subtitles: Array<string>;
 

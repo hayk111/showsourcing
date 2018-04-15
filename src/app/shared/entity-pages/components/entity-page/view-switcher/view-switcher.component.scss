@@ -52,13 +52,13 @@ button {
     top: 0;
     bottom: 0;
     z-index: 1;
-    transition: all 0.35s ease-in-out;
-    &.right {
-      left: 72px;
-      width: 99px;
-    }
+    transition: all 0.35s ease-out;
     &.left {
-      left: 0px;
-      width: 78px;
+      left: 0;
+      width: calc(100% / 2);
+    }
+    &.right {
+      left: calc(100% / 2);
+      width: calc(100% / 2);
     }
 }

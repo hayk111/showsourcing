@@ -9,11 +9,6 @@
 
 <ng-template #main let-row="row">
 	<div class="mainCell">
-		<checkbox-app
-			(check)="this.productSelect.emit(row.id)"
-			(uncheck)="this.productUnselect.emit(row.id)"
-			[checked]="selection.get(row.id)">
-		</checkbox-app>
 		<div class="imgCtnr">
 			<img [src]="row?.mainImage?.urls?.url_60x45"/>
 		</div>

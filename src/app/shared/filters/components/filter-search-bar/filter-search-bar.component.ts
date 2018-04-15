@@ -44,14 +44,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		// when the control changes, if the length is higher than 2
 		this.searchControl.valueChanges.pipe(
 			takeUntil(this._destroy$),
-			// we remove the current search on every input
-			tap(value => {
-				if (this.filterMap.has('search'))
-					this.removeCurrentSearch();
-			}),
-			// but for other actions we debounce it
 			debounceTime(400),
-			filter(value => value.length > 2)
 		).subscribe(this.search$);
 		/** When the writes in the input we do a normal search */
 		this.search$.subscribe(value => this.doNormalSearch(value));
@@ -87,7 +80,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	doNormalSearch(value) {
 		// we need to check if there is a value, else the user was just cleared the input
 		if (value) {
-			this.store.dispatch(FilterActions.addFilter({ type: 'search', value }, this.filterGroupName));
+			this.store.dispatch(FilterActions.upsert({ type: 'search', value }, this.filterGroupName));
 		}
 	}
 

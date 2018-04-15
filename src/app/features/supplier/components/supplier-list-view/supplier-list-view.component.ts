@@ -29,21 +29,7 @@ export class SupplierListViewComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		const supplierState$ = this.store.select(fromSupplier.selectState);
-		const countryById$ = this.store.select(fromCountry.selectById).pipe(filter(byId => Object.keys(byId).length > 0));
-		const teamMemberById$ = this.store.select(fromTeamMember.selectById).pipe(filter(byId => Object.keys(byId).length > 0));
-		this.rows$ = combineLatest(supplierState$, countryById$, teamMemberById$).pipe(
-			map(([supplierState, countryById, memberById]) => {
-				return supplierState.ids.map(id => {
-					const supplier = supplierState.byId[id];
-					return {
-						...supplier,
-						countryName: supplier.countryCode ? countryById[supplier.countryCode].fullName : '',
-						createdByName: memberById ? memberById[supplier.createdByUserId].name : '',
-						createdBy: memberById ? memberById[supplier.createdByUserId] : undefined,
-					};
-				});
-			}));
+		this.rows$ = this.store.select(fromSupplier.selectSupplierList);
 	}
 
 }

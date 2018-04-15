@@ -1,6 +1,10 @@
-<div class="flexEnd">
-	<button class="transparent" (click)="onDone()">
-		Done
-	</button>
+<div class="flexBetween fullWidth">
+	<h2 class="back flex flexCenter">
+		<icon-app fontSet="fa" name="angle-left"></icon-app> BACK
+	</h2>
+	<div class="warn pointer" (click)="onDone()">
+		Clear all
+	</div>
 </div>
+<div class="hr"></div>
 <ng-content></ng-content>

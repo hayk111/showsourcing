@@ -6,7 +6,24 @@
 
 		<!-- (suppliers, events, etc) same display for basic entities  -->
 		<ng-container *ngFor="let repr of basicRepr">
-			<filter-btn-app [title]="repr.pluralName" (click)="toggleEntityPanel(repr)"></filter-btn-app>
+
+
+			<div class="editTitle flexBetween">
+				<label>
+					{{ repr.pluralName }}
+				</label>
+
+				<div *ngIf="getEntityMap(repr).size > 0">
+					<span class="edit pointer" (click)="toggleEntityPanel(repr)">Edit</span>
+					<span class="clear pointer">Clear</span>
+				</div>
+			</div>
+
+
+			<filter-btn-app (click)="toggleEntityPanel(repr)" *ngIf="getEntityMap(repr).size === 0">
+				Filter {{ repr.pluralName }}
+			</filter-btn-app>
+
 			<div class="flexColumn">
 				<checkbox-app
 					*ngFor="let filter of getEntityMap(repr).values()"
@@ -21,8 +38,8 @@
 		<filter-btn-app title="Created By" (click)="toggleEntityPanel(teamMemberRepr)"></filter-btn-app>
 		<div class="flexWrap">
 			<filter-tag-app
-				(filterRemoved)="onFilterRemoved(filter)"
-				*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
+					(filterRemoved)="onFilterRemoved(filter)"
+					*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
 				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 					{{ user.name }}

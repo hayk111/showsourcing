@@ -1,0 +1,15 @@
+.back {
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.warn {
+	&:hover {
+		text-decoration: underline;
+		color: var(--color-warn);
+	}
+}
+
+.hr {
+	margin: var(--spacing-default) 0;
+}

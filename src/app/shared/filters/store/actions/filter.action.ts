@@ -3,6 +3,7 @@ import { Filter, FilterGroupName } from '../../models';
 
 export enum FilterActionType {
 	ADD_FILTER = '[Filters] adding',
+	UPSERT_FILTER = '[Filter] upserting',
 	REMOVE_FILTER = '[Filters] removing',
 	REMOVE_FILTER_TYPE = '[Filters] removing filter type',
 	CLEAR = '[Filter] clear'
@@ -13,6 +14,13 @@ export class FilterActions {
 		: TypedAction<any> {
 		return {
 			type: FilterActionType.ADD_FILTER,
+			payload: { filter, filterGroupName }
+		};
+	}
+
+	static upsert(filter: Filter, filterGroupName: FilterGroupName) {
+		return {
+			type: FilterActionType.UPSERT_FILTER,
 			payload: { filter, filterGroupName }
 		};
 	}

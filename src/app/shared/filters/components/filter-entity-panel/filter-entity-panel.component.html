@@ -1,27 +1,34 @@
 
-<h4>{{ title   }}</h4>
+<label>Search {{ title }}</label>
+<div class="section">
+	<input type="text" placeholder="Search" (input)="search($event.target.value)"/>
+</div>
 
-<input type="text" placeholder="Search" (input)="search($event.target.value)"/>
+<div class="section">
+	<label>Relevant:</label>
+	<checkbox-app
+		*ngFor="let choice of relevantChoices; trackBy: trackByFn"
+		[checked]="selected.has(choice.id)"
+		(check)="onItemAdded(choice.id)"
+		(uncheck)="onItemRemoved(choice.id)">
+		<div class="flexBetween">
+			<span>{{ choice.name }}</span>
+			<span>{{ choice.productCount }}</span>
+		</div>
+	</checkbox-app>
+</div>
 
-Relevant:
-<checkbox-app
-	*ngFor="let choice of relevantChoices; trackBy: trackByFn"
-	[checked]="selected.has(choice.id)"
-	(check)="onItemAdded(choice.id)"
-	(uncheck)="onItemRemoved(choice.id)">
-	<div class="flexBetween">
+<div class="section">
+
+	<label>All:</label>
+	<checkbox-app
+		*ngFor="let choice of choices; trackBy: trackByFn"
+		[checked]="selected.has(choice.id)"
+		(check)="onItemAdded(choice.id)"
+		(uncheck)="onItemRemoved(choice.id)">
 		<span>{{ choice.name }}</span>
-		<span>{{ choice.productCount }}</span>
-	</div>
-</checkbox-app>
+	</checkbox-app>
 
 
-All:
-<checkbox-app
-	*ngFor="let choice of choices; trackBy: trackByFn"
-	[checked]="selected.has(choice.id)"
-	(check)="onItemAdded(choice.id)"
-	(uncheck)="onItemRemoved(choice.id)">
-	<span>{{ choice.name }}</span>
-</checkbox-app>
+</div>
 

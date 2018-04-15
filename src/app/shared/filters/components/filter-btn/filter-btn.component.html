@@ -1,4 +1,3 @@
-<div class="filterButton pointer" (click)="onBtnClick()">
-	<span>{{ title }}</span>
-	<icon-app fontSet="fa" name="sort-down"></icon-app>
-</div>
+<button class="light fullWidth" (click)="toggleEntityPanel(repr)">
+		<ng-content></ng-content>
+</button>

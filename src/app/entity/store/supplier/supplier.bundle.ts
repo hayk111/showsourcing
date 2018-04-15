@@ -3,17 +3,18 @@ import { ERM } from '~app/entity/store/entity.model';
 import { supplierReducer } from './supplier.reducer';
 import { createEntitySelectors, EntityBundle } from '~app/entity/store/entity-bundle';
 import { createSelector } from '@ngrx/store';
-import { fromCountry, fromTeamMember } from '~app/entity';
+import { supplierSelectors } from '~app/entity/store/supplier/supplier.selector';
 
 
 
 export interface SupplierBundle extends EntityBundle {
 	Actions: SupplierActions;
+	selectSupplierList: any;
 }
 
 export const fromSupplier: SupplierBundle = {
 	ActionTypes: supplierActionTypes,
 	Actions: supplierActions,
 	reducer: supplierReducer,
-	...createEntitySelectors(ERM.supplier.entityName)
+	...supplierSelectors
 };

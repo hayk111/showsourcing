@@ -6,7 +6,7 @@ import { FilterActionType as ActionType } from '../actions';
 const initialState: AppFilters = {
 	productsPage: [],
 	tasksPage: [],
-	supplierPage: [],
+	suppliersPage: [],
 	eventsPage: []
 };
 
@@ -24,6 +24,12 @@ export function filtersReducer(state: AppFilters = initialState, action: TypedAc
 		case ActionType.ADD_FILTER:
 			newState = { ...state };
 			newState[groupName] = group.concat(filter);
+			return newState;
+
+		// used for search, cannot have 2 search filter at once
+		case ActionType.UPSERT_FILTER:
+			newState = { ...state };
+			newState[groupName] = group.filter(f => f.type !== filter.type).concat(filter);
 			return newState;
 
 		case ActionType.REMOVE_FILTER:

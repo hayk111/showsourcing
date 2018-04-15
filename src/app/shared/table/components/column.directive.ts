@@ -1,5 +1,6 @@
 import { Directive, Input, TemplateRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { defaultComparator } from '../utils/comparator.function';
+import { Resolver } from '~app/app-root/utils/resolver.class';
 
 @Directive({
 	selector: '[columnApp]',
@@ -40,9 +41,18 @@ export class ColumnDirective implements OnInit {
 
 	sort(rows: Array<any>) {
 		if (this.currentSort === 'asc') {
-			return [...rows].sort((a, b) => this.comparator(a[this.sortWith], b[this.sortWith]));
+			return [...rows].sort((a, b) => {
+				// resolver used so we can access props with dot notation
+				const aProp = Resolver.resolve(this.sortWith, a);
+				const bProp = Resolver.resolve(this.sortWith, a);
+				return this.comparator(aProp, aProp);
+			});
 		} else {
-			return [...rows].sort((a, b) => this.comparator(a[this.sortWith], b[this.sortWith]) * -1);
+			return [...rows].sort((a, b) => {
+				const aProp = Resolver.resolve(this.sortWith, a);
+				const bProp = Resolver.resolve(this.sortWith, a);
+				return this.comparator(aProp, bProp) * -1;
+			});
 		}
 	}
 }

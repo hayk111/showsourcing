@@ -14,6 +14,7 @@
 	<div class="vertDivider mg-right"></div>
 
 	<icon-app
+		*ngIf="hasFilters"
 		fontSet="fa"
 		name="filter"
 		(click)="filterClick.emit()"
