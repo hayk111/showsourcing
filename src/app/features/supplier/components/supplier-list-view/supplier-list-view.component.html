@@ -64,7 +64,7 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		sortWith="createdByName"
+		sortWith="createdBy.name"
 		width="140"
 		[grows]="false">
 		<div class="flex">
@@ -73,7 +73,7 @@
 				[border]="true"
 				[url]="row.createdBy?.preferences?.profilePicture?.urls?.url_60x45">
 			</user-picture-app>
-			<span class="ellipsis">{{ row.createdByName }}</span>
+			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
 		</div>
 	</ng-template>
 
@@ -82,10 +82,10 @@
 		columnApp="Info"
 		class="capitalize"
 		let-row="row"
-		[sortable]="false"
+		sortWith="productCount"
 		width="140"
 		[grows]="false">
-		<span *ngIf="productsCount">{{  productsCount[row.id] > 0 ? productsCount[row.id] + ' Products' : '' }}</span>
+		{{ row.productCount }} Products
 	</ng-template>
 
 	<!-- Action -->

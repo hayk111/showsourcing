@@ -9,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from
 export class FilterSelectionPanelComponent {
 	/** when the panel is closed */
 	@Output() close = new EventEmitter<null>();
-
+	@Output() clear = new EventEmitter<null>();
 	onDone() {
 		this.close.emit();
 	}

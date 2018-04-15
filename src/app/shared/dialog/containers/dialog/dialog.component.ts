@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogActions } from '../../store/dialog.action';
 import { AutoUnsub } from '~utils';
@@ -46,4 +46,9 @@ export class DialogComponent implements OnInit {
 		this.close.emit();
 	}
 
+	@HostListener('click', ['$event'])
+	onClick(event) {
+		// stopping propagation so it does not close the modal
+		event.stopPropagation();
+	}
 }

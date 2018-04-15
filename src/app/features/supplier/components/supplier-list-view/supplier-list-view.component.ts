@@ -15,7 +15,6 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierListViewComponent implements OnInit {
-	@Input() productsCount: { [key: string]: number }; // { id: numberProducts }
 	@Input() selection: Map<string, boolean>;
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();

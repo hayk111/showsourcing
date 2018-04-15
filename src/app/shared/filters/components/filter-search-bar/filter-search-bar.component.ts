@@ -81,6 +81,9 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		// we need to check if there is a value, else the user was just cleared the input
 		if (value) {
 			this.store.dispatch(FilterActions.upsert({ type: 'search', value }, this.filterGroupName));
+		} else {
+			// when empty input we remove the filtering
+			this.store.dispatch(FilterActions.removeFilterType('search', this.filterGroupName));
 		}
 	}
 

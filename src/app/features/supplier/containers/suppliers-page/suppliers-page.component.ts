@@ -21,13 +21,10 @@ export class SuppliersPageComponent implements OnInit {
 	repr = ERM.supplier;
 	// maps current selection {id: true}
 	selection = new Map<string, boolean>();
-	productCount$: Observable<any>; // product count by supplier
 
 	constructor(private store: Store<any>, private router: Router) { }
 
 	ngOnInit() {
-		this.productCount$ = this.store.select(fromSupplier.selectState)
-			.pipe(map((state: any) => state.productsCount));
 		this.pending$ = this.store.select(fromSupplier.selectState).pipe(map(s => s.pending));
 	}
 

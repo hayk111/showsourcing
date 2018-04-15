@@ -2,6 +2,8 @@
 	display: flex;
 	height: 100%;
 	border: 1px solid  var(--color-primary-light);
+	background: var(--color-bg);
+	overflow: auto;
 }
 
 .cell, .header {
@@ -18,9 +20,6 @@
 	font-weight: 600;
 }
 
-.col {
-	background: var(--color-bg);
-}
 
 .selectionCol {
 	.header, .cell {

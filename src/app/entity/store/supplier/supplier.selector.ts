@@ -23,12 +23,17 @@ const selectSupplierList = createSelector(
 		// let's try to do only one loop over the supplier array
 		supplierState.ids.forEach(id => {
 			const supplier = { ...supplierState.byId[id] };
+			// we don't add if it does not pass filtering
+			if (!passesFilter(supplier, filters))
+				return;
 			// adding countryName
 			if (countryById && supplier.countryCode && countryById[supplier.countryCode])
 				supplier.countryName = countryById[supplier.countryCode].fullName;
 			// adding createdBy and createdByName. Created by user id is always present on supplier
 			if (memberById && memberById[supplier.createdByUserId])
 				supplier.createdBy = memberById[supplier.createdByUserId];
+			// adding product count
+			supplier.productCount = supplierState.productCount[supplier.id] || 0;
 
 			returned.push(supplier);
 		});
@@ -41,4 +46,13 @@ export const supplierSelectors = {
 	...baseSelectors,
 	selectSupplierList
 };
+
+function passesFilter(supplier: Supplier, filters) {
+	for (const filter of filters) {
+		switch (filter.type) {
+			case 'search': if (!supplier.name.includes(filter.value)) return false;
+		}
+	}
+	return true;
+}
 

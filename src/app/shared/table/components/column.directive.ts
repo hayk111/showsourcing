@@ -44,13 +44,13 @@ export class ColumnDirective implements OnInit {
 			return [...rows].sort((a, b) => {
 				// resolver used so we can access props with dot notation
 				const aProp = Resolver.resolve(this.sortWith, a);
-				const bProp = Resolver.resolve(this.sortWith, a);
-				return this.comparator(aProp, aProp);
+				const bProp = Resolver.resolve(this.sortWith, b);
+				return this.comparator(aProp, bProp);
 			});
 		} else {
 			return [...rows].sort((a, b) => {
 				const aProp = Resolver.resolve(this.sortWith, a);
-				const bProp = Resolver.resolve(this.sortWith, a);
+				const bProp = Resolver.resolve(this.sortWith, b);
 				return this.comparator(aProp, bProp) * -1;
 			});
 		}

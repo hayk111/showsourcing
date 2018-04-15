@@ -1,8 +1,9 @@
 <div class="flexBetween fullWidth">
-	<h2 class="back flex flexCenter">
-		<icon-app fontSet="fa" name="angle-left"></icon-app> BACK
+	<h2 class="back flex flexCenter pointer" (click)="close.emit()">
+		<icon-app fontSet="fa" name="angle-left"></icon-app>
+		BACK
 	</h2>
-	<div class="warn pointer" (click)="onDone()">
+	<div class="warn pointer" (click)="clear.emit()">
 		Clear all
 	</div>
 </div>

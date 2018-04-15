@@ -93,4 +93,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
 	}
 
+	onClearType(type) {
+		this.store.dispatch(FilterActions.removeFilterType(type, this.filterGroupName));
+	}
 }
