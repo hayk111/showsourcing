@@ -78,7 +78,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.store.dispatch(productActions.loadMore({ filters: this.filters, drop: this.products.length }));
+		this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.products.length } }));
 	}
 
 	/** Selects a product */

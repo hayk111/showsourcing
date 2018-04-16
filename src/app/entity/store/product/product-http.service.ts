@@ -20,6 +20,12 @@ export interface ProductLoadingParams {
 	drop: number;
 }
 
+export interface ApiLoadingParams {
+	filters?: Array<Filter>;
+	sort: { sortBy: string, sortOrder: 'asc' | 'desc' };
+	pagination: { drop?: number };
+}
+
 @Injectable()
 export class ProductHttpService {
 	repr = ERM.product;

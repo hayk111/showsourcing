@@ -24,7 +24,7 @@ export class UrlBuilder {
 	static TAKE = 30;
 
 	/** adds filters to a request so we can filter on the back-end */
-	static addFilters(url: string, filters: Array<Filter>) {
+	static addFilters(url: string, filters: Array<Filter> = []) {
 		filters.forEach(filter => {
 			// for each filter we need to add it to the url.
 			switch (filter.type) {
@@ -77,7 +77,7 @@ export class UrlBuilder {
 			url = this.buildUrl(params, user);
 		}
 		// adding query params
-		url = this.addParams(url, params);
+		url = UrlBuilder.addParams(url, params);
 		return url;
 	}
 
@@ -99,6 +99,7 @@ export class UrlBuilder {
 			url = this.addFrom(url, from);
 		}
 		url = this.addTarget(url, target, targetId);
+		url = UrlBuilder.addParams(url, params);
 		return url;
 	}
 
@@ -128,15 +129,6 @@ export class UrlBuilder {
 	private addTarget(url: string, target: EntityRepresentation, targetId?: string) {
 		url = `${url}/${target.urlName}`;
 		if (targetId) url += `/${targetId}`;
-		return url;
-	}
-
-	addParams(url: string, params: ApiParams) {
-		url = `${url}?`;
-
-		if (params.pagination) {
-			url += `take=${params.take || UrlBuilder.TAKE}&drop=${params.drop || 0}`;
-		}
 		return url;
 	}
 
