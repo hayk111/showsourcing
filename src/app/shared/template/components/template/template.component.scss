@@ -6,6 +6,6 @@
 }
 
 main{
-	height: 100%;
+	height: calc(100% - 70px);
 	background: var(--color-bg-fourth);
 }
