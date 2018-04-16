@@ -7,7 +7,7 @@ import { LogLevels } from '~utils/logger/log-levels';
 
 export const environment = {
 	production: false,
-	apiUrl: 'https://stoemelings.showsourcing.com',
+	apiUrl: 'http://localhost:4200',
 	LOG_LEVEL: LogLevels.DEBUG,
 	hmr: false,
 };

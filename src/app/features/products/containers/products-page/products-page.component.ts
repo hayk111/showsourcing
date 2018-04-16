@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import {
 	EntityState,
@@ -58,6 +58,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			tap(products => this.products = products)
 		);
 		this.productsState$ = this.store.select(selectProductsState);
+		this.pending$ = this.productsState$.pipe(map(state => state.pending));
 		this.statuses$ = this.store.select(fromProductStatus.selectArray);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));

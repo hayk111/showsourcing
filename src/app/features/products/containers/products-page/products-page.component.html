@@ -1,7 +1,7 @@
 
 <entity-page-app
 	[filterGroupName]="filterGroupName"
-	[pending]="(productsState$ | async).pending"
+	[pending]="pending$ | async"
 	[repr]="repr"
 	[subtitles]="['Products', 'all']"
   (filterClick)="openFilterPanel()"

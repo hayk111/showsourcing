@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 export class HttpApiRedirectorService implements HttpInterceptor {
 	baseUrl = environment.apiUrl;
 
-	constructor() {}
+	constructor() { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
 		const newReq = req.clone({ url: `${this.baseUrl}/${req.url}` });
