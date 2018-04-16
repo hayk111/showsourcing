@@ -73,12 +73,10 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	onItemAdded(id) {
 		this.filterAdded.emit({ type: this.type, value: id });
-		this.cd.markForCheck();
 	}
 
 	onItemRemoved(id) {
 		this.filterRemoved.emit({ type: this.type, value: id });
-		this.cd.markForCheck();
 	}
 
 	constructor(private cd: ChangeDetectorRef) {

@@ -78,7 +78,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 				return getEntityRepr('teamMember');
 			case FilterType.PRODUCT_STATUS:
 				return getEntityRepr('productStatus');
-			default: return getEntityRepr(type);
+			default:
+				return getEntityRepr(type);
 		}
 	}
 

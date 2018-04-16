@@ -143,7 +143,7 @@
 			*ngIf="entityPanelShown"
 			[choices]="choices$ | async"
 			[relevantChoices]="relevantChoices$ | async"
-			[selected]="getFilterValues(entitySelected)"
+			[selected]="getFilterValues(typeSelected)"
 			(filterAdded)="addFilter($event)"
 			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
