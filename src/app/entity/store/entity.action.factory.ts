@@ -137,10 +137,10 @@ export class EntityActions<G extends EntityActionTypes> {
 		};
 	}
 
-	create(toCreate: Entity): TypedAction<any> {
+	create(toCreate: Entity, redirect?: boolean): TypedAction<any> {
 		return {
 			type: this.actionType.CREATE,
-			payload: toCreate,
+			payload: { toCreate, redirect },
 		};
 	}
 

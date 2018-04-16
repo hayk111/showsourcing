@@ -6,6 +6,7 @@ import { AutoUnsub } from '~utils';
 import { DialogName } from '../../models/dialog-names.enum';
 import { DialogHeaderComponent } from '~app/shared/dialog/containers/dialog-header/dialog-header.component';
 import { DialogFooterComponent } from '~app/shared/dialog/containers/dialog-footer/dialog-footer.component';
+import { InputDirective } from '~app/shared/inputs';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({
@@ -40,6 +41,7 @@ export class DialogComponent implements OnInit {
 		if (!this.name)
 			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
 	}
+
 
 	doClose() {
 		this.store.dispatch(DialogActions.close(this.name));

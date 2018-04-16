@@ -1,8 +1,15 @@
+
+<!-- pending spinner -->
+<div class="pendingOverlay flexCenter" *ngIf="pending">
+	<spinner-app size="xl"></spinner-app>
+</div>
+
 <!-- empty column for space between border bottom and side -->
 <div class="col emptyBorder">
 		<div class="header"></div>
 		<div class="cell"></div>
 </div>
+
 
 <!-- selection column -->
 <div class="col selectionCol" *ngIf="hasSelection">
@@ -13,6 +20,7 @@
 			<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
 		</div>
 </div>
+
 
 <!-- content columns -->
 <div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"

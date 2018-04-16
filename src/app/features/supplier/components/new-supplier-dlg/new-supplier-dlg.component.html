@@ -1,17 +1,19 @@
 <dialog-app [name]="name">
-	<dialog-header-app>
+	<dialog-header-app *ngIf="!pending">
 		New Supplier
 	</dialog-header-app>
 
-	<form [formGroup]="group">
+	<form [formGroup]="group" *ngIf="!pending">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp type="text" formControlName="name" placeholder="Jhon Doe"/>
+			<input inputApp type="text" formControlName="name" placeholder="Jhon Doe" (keyup.enter)="onSubmit()"/>
 		</form-field-app>
 	</form>
 
-	<dialog-footer-app>
+	<dialog-footer-app *ngIf="!pending">
 			<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>
 	</dialog-footer-app>
+
+	<spinner-app *ngIf="pending"></spinner-app>
 </dialog-app>
 

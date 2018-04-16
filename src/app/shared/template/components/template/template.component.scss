@@ -8,4 +8,5 @@
 main{
 	height: calc(100% - 70px);
 	background: var(--color-bg-fourth);
+	overflow-y: auto;
 }

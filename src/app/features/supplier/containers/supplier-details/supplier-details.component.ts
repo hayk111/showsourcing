@@ -54,6 +54,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		const productsCount$ = this.store.select(fromSupplier.selectProductCount);
 		this.productCount$ = combineLatest(id$, productsCount$, (id, count) => count[id] || 0);
 		this.tasks$ = this.store.select(fromTask.selectArray);
+
 		this.products$ = this.store.select<any>(fromSupplierProduct.selectArray);
 		this.images$ = this.store.select(fromImage.selectArray);
 		this.contacts$ = this.store.select(fromSupplierContact.selectArray);

@@ -20,6 +20,7 @@ import { ColumnDirective } from '~app/shared/table/components/column.directive';
 	}
 })
 export class TableComponent {
+	@Input() pending = false;
 	// whether rows are selectable
 	@Input() hasSelection = true;
 	// whether the table will automatically do it's sorting or will rely on external sorting
