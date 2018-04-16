@@ -40,6 +40,14 @@ export class SuppliersPageComponent implements OnInit {
 		this.selection.delete(entityId);
 	}
 
+	onAllSelected(selection: Map<string, boolean>) {
+		this.selection = selection;
+	}
+
+	onAllUnselected(selection: Map<string, boolean>) {
+		this.selection = selection;
+	}
+
 	onItemOpened(entityId: string) {
 		this.router.navigate(['/supplier', 'details', entityId]);
 	}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
-import { catchError, distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
@@ -23,6 +23,7 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { NotificationType } from '~app/shared/notifications';
 import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SuppliersEffects {
@@ -70,8 +71,13 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						mergeMap((r: any) => [
-							supplierActions.replace([new Swap(supplier, r)]),
+						tap((newSupplier: any) => {
+							if (true) {
+								this.router.navigate(['supplier', 'details', newSupplier.id]);
+							}
+						}),
+						mergeMap((newSupplier: any) => [
+							supplierActions.replace([new Swap(supplier, newSupplier)]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 })
 						]),
 						catchError(e => of(appErrorActions.add(e))
@@ -147,6 +153,6 @@ export class SuppliersEffects {
 					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), fromCategory.Actions.add([r])]))
 			)
 		);
-	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService) { }
+	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService, private router: Router) { }
 }
 

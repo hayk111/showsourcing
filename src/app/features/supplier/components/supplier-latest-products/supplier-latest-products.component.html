@@ -1,7 +1,7 @@
 <card-app>
 	<h2>Latest Products</h2>
 
-	<div class="flex" *ngIf="products.length > 0; else noProduct">
+	<div class="flex" *ngIf="false; else noProduct">
 		<div *ngFor="let product of products">
 			<img [src]="product?.mainImage?.urls?.url_60x45"/>
 		</div>

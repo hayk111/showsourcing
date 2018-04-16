@@ -38,9 +38,9 @@ export class NewSupplierDlgComponent implements AfterViewInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const name = this.group.value.name;
-			this.store.dispatch(supplierActions.create(new Supplier(name, this.userSrv.userId), true));
+			this.store.dispatch(supplierActions.create(new Supplier(name, this.userSrv.userId)));
 			this.group.reset();
-			this.pending = true;
+			this.store.dispatch(DialogActions.close(this.name));
 		}
 	}
 }

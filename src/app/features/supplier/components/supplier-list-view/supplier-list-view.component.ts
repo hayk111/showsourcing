@@ -18,6 +18,8 @@ export class SupplierListViewComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();
+	@Output() supplierSelectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() supplierUnselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() supplierOpen = new EventEmitter<string>();
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();

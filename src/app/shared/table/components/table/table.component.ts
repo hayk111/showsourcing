@@ -7,6 +7,7 @@ import {
 	QueryList,
 	ChangeDetectionStrategy,
 	EventEmitter,
+	HostBinding,
 } from '@angular/core';
 import { ColumnDirective } from '~app/shared/table/components/column.directive';
 
@@ -21,6 +22,7 @@ import { ColumnDirective } from '~app/shared/table/components/column.directive';
 })
 export class TableComponent {
 	@Input() pending = false;
+
 	// whether rows are selectable
 	@Input() hasSelection = true;
 	// whether the table will automatically do it's sorting or will rely on external sorting
@@ -31,8 +33,8 @@ export class TableComponent {
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selection = new Map<any, boolean>();
 	// event when we select all rows
-	@Output() selectAll = new EventEmitter<null>();
-	@Output() unselectAll = new EventEmitter<null>();
+	@Output() selectAll = new EventEmitter<Map<any, boolean>>();
+	@Output() unselectAll = new EventEmitter<Map<any, boolean>>();
 	// selecting one row with the checkbox
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
@@ -80,12 +82,12 @@ export class TableComponent {
 	onSelectAll() {
 		// each row will be selectioned
 		this.rows.forEach(row => this.selection.set(row[this.idName], true));
-		this.selectAll.emit();
+		this.selectAll.emit(this.selection);
 	}
 
 	onUnselectAll() {
 		this.rows.forEach(row => this.selection.delete(row[this.idName]));
-		this.unselectAll.emit();
+		this.unselectAll.emit(this.selection);
 	}
 
 	sort(column: ColumnDirective) {

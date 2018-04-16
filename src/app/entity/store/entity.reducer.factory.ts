@@ -30,7 +30,7 @@ export function entityReducerFactory<G extends Entity, T extends EntityActionTyp
 					...state,
 					byId: {
 						...state.byId,
-						[id]: action.payload.toCreate
+						[id]: action.payload
 					},
 					ids: [id, ...state.ids]
 				};
