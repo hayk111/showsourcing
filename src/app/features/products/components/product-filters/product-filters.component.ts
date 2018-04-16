@@ -43,9 +43,10 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		ERM.event,
 		ERM.category,
 		ERM.tag,
-		ERM.project
+		ERM.project,
 	];
 	teamMemberRepr = ERM.teamMember;
+	statusRepr = ERM.productStatus;
 
 	constructor(private store: Store<any>) {
 		super();
@@ -67,18 +68,15 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	/** Opens the panel for filtering on prices */
 	togglePricePanel() {
 		this.pricePanelShown = !this.pricePanelShown;
 		this.btnPanelShown = !this.pricePanelShown;
 	}
 
-	toggleRatingPanel() {
-		this.ratingPanelShown = !this.ratingPanelShown;
-		this.btnPanelShown = !this.ratingPanelShown;
-	}
 
-	getEntityMap(entityRepr: EntityRepresentation) {
-		return this.filterMap.get(entityRepr.entityName) || new Map();
+	getFilterMap(type: string) {
+		return this.filterMap.get(type) || new Map();
 	}
 
 	onFilterAdded(filter: Filter) {
@@ -95,5 +93,28 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	onClearType(type) {
 		this.store.dispatch(FilterActions.removeFilterType(type, this.filterGroupName));
+	}
+
+	/** favorite */
+	addFavoriteFilter() {
+		// favorite are actually item that are rated 5 stars and non favorite is below that.
+		const favoriteFilter: Filter = { type: 'rating', value: 5 };
+		this.onFilterAdded(favoriteFilter);
+	}
+
+	removeFavoriteFilter() {
+		const favoriteFilter: Filter = { type: 'favorite', value: true };
+		this.onFilterRemoved(favoriteFilter);
+	}
+
+	/** some product can be archived so we can add archived */
+	addArchivedFilter() {
+		const archivedFilter: Filter = { type: 'archived', value: true };
+		this.onFilterAdded(archivedFilter);
+	}
+
+	removeArchivedFilter() {
+		const archivedFilter: Filter = { type: 'archived', value: true };
+		this.onFilterRemoved(archivedFilter);
 	}
 }

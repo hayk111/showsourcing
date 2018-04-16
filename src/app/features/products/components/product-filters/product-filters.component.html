@@ -13,20 +13,20 @@
 					{{ repr.pluralName }}
 				</label>
 
-				<div *ngIf="getEntityMap(repr).size > 0">
+				<div *ngIf="getFilterMap(repr.entityName).size > 0">
 					<span class="edit pointer" (click)="toggleEntityPanel(repr)">Edit</span>
 					<span class="clear pointer" (click)="onClearType(repr.entityName)">Clear</span>
 				</div>
 			</div>
 
 
-			<filter-btn-app (click)="toggleEntityPanel(repr)" *ngIf="getEntityMap(repr).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(repr)" *ngIf="getFilterMap(repr.entityName).size === 0">
 				Filter {{ repr.pluralName }}
 			</filter-btn-app>
 
 			<div class="flexColumn">
 				<checkbox-app
-					*ngFor="let filter of getEntityMap(repr).values()"
+					*ngFor="let filter of getFilterMap(repr.entityName).values()"
 					[checked]="true"
 					(uncheck)="onFilterRemoved(filter)">
 					{{ filter.value | entityName:repr.entityName | async }}
@@ -35,11 +35,25 @@
 		</ng-container>
 
 		<!-- (user) filter-tags have a little picture inside them -->
-		<filter-btn-app title="Created By" (click)="toggleEntityPanel(teamMemberRepr)"></filter-btn-app>
+		<div class="editTitle flexBetween">
+			<label>
+				User
+			</label>
+
+			<div *ngIf="getFilterMap(teamMemberRepr.entityName).size > 0">
+				<span class="edit pointer" (click)="toggleEntityPanel(teamMemberRepr)">Edit</span>
+				<span class="clear pointer" (click)="onClearType(teamMemberRepr.entityName)">Clear</span>
+			</div>
+		</div>
+
+		<filter-btn-app (click)="toggleEntityPanel(teamMemberRepr)" *ngIf="getFilterMap(teamMemberRepr.entityName).size === 0">
+			Filter users
+		</filter-btn-app>
+
 		<div class="flexWrap">
 			<filter-tag-app
 					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
+					*ngFor="let filter of getFilterMap(teamMemberRepr.entityName).values()">
 				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 					{{ user.name }}
@@ -48,23 +62,67 @@
 			</filter-tag-app>
 		</div>
 
-		<!-- price - doesn't open a panel but put the price directly under ? -->
+		<!-- status -->
 
-		<!-- (user) filter-tags have a little picture inside them -->
-		<!-- <filter-btn-app title="status" (click)="toggleEntityPanel(teamMemberRepr)"></filter-btn-app>
-		<div class="flexWrap">
-			<filter-tag-app
-				(filterRemoved)="onFilterRemoved(filter)"
-				*ngFor="let filter of getEntityMap(teamMemberRepr).values()">
-				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
-					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-					{{ user.name }}
-				</ng-container>
+		<div class="editTitle flexBetween">
+			<label>
+				Status
+			</label>
 
-			</filter-tag-app>
-		</div> -->
+			<div *ngIf="getFilterMap(statusRepr.entityName).size > 0">
+				<span class="edit pointer" (click)="toggleEntityPanel(statusRepr)">Edit</span>
+				<span class="clear pointer" (click)="onClearType(statusRepr.entityName)">Clear</span>
+			</div>
+		</div>
+
+		<filter-btn-app (click)="toggleEntityPanel(statusRepr)" *ngIf="getFilterMap(statusRepr.entityName).size === 0">
+			Filter Status
+		</filter-btn-app>
+
+		<div class="flexColumn">
+			<checkbox-app
+				*ngFor="let filter of getFilterMap(statusRepr.entityName).values()"
+				[checked]="true"
+				(uncheck)="onFilterRemoved(filter)">
+				<!-- we display the correct badge color -->
+				<div class="flex">
+					<badge-app [color]="filter.value"></badge-app>
+					<span>{{ filter.value | entityName:statusRepr.entityName | async }}</span>
+				</div>
+
+			</checkbox-app>
+		</div>
+
+		<!-- favorite -->
+		<div class="editTitle">
+			<label>
+				Favorite
+			</label>
+		</div>
+
+		<checkbox-app [checked]="getFilterMap('rating').size > 0"  (check)="addFavoriteFilter()" (uncheck)="removeFavoriteFilter()">
+			<div class="flex">
+				<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
+				Only Show Favorite
+			</div>
+
+		</checkbox-app>
+
+
+
+		<!-- archived -->
+		<div class="editTitle">
+			<label>
+				Archived
+			</label>
+		</div>
+
+		<checkbox-app [checked]="getFilterMap('archived').size > 0" (check)="addArchivedFilter()" (uncheck)="removeArchivedFilter()">
+			Show Archived Product
+		</checkbox-app>
 
 	</filter-btns-panel-app>
+
 
 	<!-- filter selection panel displays a close / done button at the top -->
 	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()">
@@ -74,7 +132,7 @@
 			*ngIf="entityPanelShown"
 			[choices]="choices$ | async"
 			[relevantChoices]="relevantChoices$ | async"
-			[selected]="getEntityMap(entitySelected)"
+			[selected]="getFilterMap(entitySelected)"
 			(filterAdded)="onFilterAdded($event)"
 			(filterRemoved)="onFilterRemoved($event)">
 		</filter-entity-panel-app>

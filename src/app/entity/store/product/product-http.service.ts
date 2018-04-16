@@ -62,10 +62,17 @@ export class ProductHttpService {
 				case 'tag':
 				case 'project':
 				case 'rating':
+				case 'favorite':
 					url = url + filter.type + '=' + filter.value + '&';
 					break;
 				case 'user':
 					url = url + 'createdBy=' + filter.value + '&';
+					break;
+				case 'archived':
+					url = url + 'withArchived=true&';
+					break;
+				case 'productStatus':
+					url = url + 'status=' + filter.value + '&';
 					break;
 			}
 		});
