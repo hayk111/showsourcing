@@ -17,11 +17,11 @@ export class FilterSmartPanelComponent implements OnInit {
 	ngOnInit() { }
 
 	onCheck(entityName: string, value: any) {
-		this.filterAdded.emit({ type: entityName, value });
+		// this.filterAdded.emit({ type: entityName, value });
 	}
 
 	onUncheck(entityName: string, value: any) {
-		this.filterRemoved.emit({ type: entityName, value });
+		// this.filterRemoved.emit({ type: entityName, value });
 	}
 
 	getFilterMap(entityName: string) {

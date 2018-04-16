@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import { ERM, Entity } from '~app/entity';
-import { Filter, FilterGroupName } from '~shared/filters/models';
+import { Filter, FilterGroupName, FilterType } from '~shared/filters/models';
 import { searchEntity, selectFilterByType } from '~shared/filters/store/selectors';
 
 import { FilterActions } from '../../store/actions';
@@ -80,10 +80,10 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	doNormalSearch(value) {
 		// we need to check if there is a value, else the user was just cleared the input
 		if (value) {
-			this.store.dispatch(FilterActions.upsert({ type: 'search', value }, this.filterGroupName));
+			this.store.dispatch(FilterActions.upsert({ type: FilterType.SEARCH, value }, this.filterGroupName));
 		} else {
 			// when empty input we remove the filtering
-			this.store.dispatch(FilterActions.removeFilterType('search', this.filterGroupName));
+			this.store.dispatch(FilterActions.removeFilterType(FilterType.SEARCH, this.filterGroupName));
 		}
 	}
 

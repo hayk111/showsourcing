@@ -5,93 +5,99 @@
 	<filter-btns-panel-app *ngIf="btnPanelShown" (reset)="onClear()">
 
 		<!-- (suppliers, events, etc) same display for basic entities  -->
-		<ng-container *ngFor="let repr of basicRepr">
+		<ng-container *ngFor="let type of basicFilterTypes">
 
 
 			<div class="editTitle flexBetween">
 				<label>
-					{{ repr.pluralName }}
+					{{ getRepr(type).pluralName }}
 				</label>
 
-				<div *ngIf="getFilterMap(repr.entityName).size > 0">
-					<span class="edit pointer" (click)="toggleEntityPanel(repr)">Edit</span>
-					<span class="clear pointer" (click)="onClearType(repr.entityName)">Clear</span>
+				<div *ngIf="getFilterValues(type).size > 0">
+					<span class="edit pointer" (click)="toggleEntityPanel(type)">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)">Clear</span>
 				</div>
 			</div>
 
 
-			<filter-btn-app (click)="toggleEntityPanel(repr)" *ngIf="getFilterMap(repr.entityName).size === 0">
-				Filter {{ repr.pluralName }}
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+				Filter {{ getRepr(type).pluralName }}
 			</filter-btn-app>
 
 			<div class="flexColumn">
 				<checkbox-app
-					*ngFor="let filter of getFilterMap(repr.entityName).values()"
+					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
 					(uncheck)="onFilterRemoved(filter)">
-					{{ filter.value | entityName:repr.entityName | async }}
+					{{ filter.value | entityName: type | async }}
 				</checkbox-app>
 			</div>
 		</ng-container>
 
 		<!-- (user) filter-tags have a little picture inside them -->
-		<div class="editTitle flexBetween">
-			<label>
-				User
-			</label>
+		<ng-container *ngIf="filterType.CREATED_BY; let type">
+			<div class="editTitle flexBetween">
+				<label>
+					Created By
+				</label>
 
-			<div *ngIf="getFilterMap(teamMemberRepr.entityName).size > 0">
-				<span class="edit pointer" (click)="toggleEntityPanel(teamMemberRepr)">Edit</span>
-				<span class="clear pointer" (click)="onClearType(teamMemberRepr.entityName)">Clear</span>
+				<div *ngIf="getFilterValues(type).size > 0">
+					<span class="edit pointer" (click)="toggleEntityPanel(type)">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)">Clear</span>
+				</div>
 			</div>
-		</div>
 
-		<filter-btn-app (click)="toggleEntityPanel(teamMemberRepr)" *ngIf="getFilterMap(teamMemberRepr.entityName).size === 0">
-			Filter users
-		</filter-btn-app>
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+				Filter users
+			</filter-btn-app>
 
-		<div class="flexWrap">
-			<filter-tag-app
-					(filterRemoved)="onFilterRemoved(filter)"
-					*ngFor="let filter of getFilterMap(teamMemberRepr.entityName).values()">
-				<ng-container *ngIf="filter.value | entity: teamMemberRepr.entityName | async as user">
-					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-					{{ user.name }}
-				</ng-container>
+			<div class="flexWrap">
+				<filter-tag-app
+						(filterRemoved)="removeFilter(filter)"
+						*ngFor="let filter of getFilterValues(type).values()">
+					<ng-container *ngIf="filter.value | entity: 'teamMember' | async as user">
+						<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+						{{ user.name }}
+					</ng-container>
 
-			</filter-tag-app>
-		</div>
+				</filter-tag-app>
+			</div>
+		</ng-container>
+
 
 		<!-- status -->
+		<ng-container *ngIf="filterType.PRODUCT_STATUS; let type">
+			<div class="editTitle flexBetween">
+				<label>
+					Status
+				</label>
 
-		<div class="editTitle flexBetween">
-			<label>
-				Status
-			</label>
-
-			<div *ngIf="getFilterMap(statusRepr.entityName).size > 0">
-				<span class="edit pointer" (click)="toggleEntityPanel(statusRepr)">Edit</span>
-				<span class="clear pointer" (click)="onClearType(statusRepr.entityName)">Clear</span>
-			</div>
-		</div>
-
-		<filter-btn-app (click)="toggleEntityPanel(statusRepr)" *ngIf="getFilterMap(statusRepr.entityName).size === 0">
-			Filter Status
-		</filter-btn-app>
-
-		<div class="flexColumn">
-			<checkbox-app
-				*ngFor="let filter of getFilterMap(statusRepr.entityName).values()"
-				[checked]="true"
-				(uncheck)="onFilterRemoved(filter)">
-				<!-- we display the correct badge color -->
-				<div class="flex">
-					<badge-app [color]="filter.value"></badge-app>
-					<span>{{ filter.value | entityName:statusRepr.entityName | async }}</span>
+				<div *ngIf="getFilterValues(type).size > 0">
+					<span class="edit pointer" (click)="toggleEntityPanel(type)">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)">Clear</span>
 				</div>
+			</div>
 
-			</checkbox-app>
-		</div>
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+				Filter Status
+			</filter-btn-app>
+
+			<div class="flexColumn">
+				<checkbox-app
+					*ngFor="let filter of getFilterValues(type).values()"
+					[checked]="true"
+					(uncheck)="onFilterRemoved(filter)">
+					<!-- we display the correct badge color -->
+					<div class="flex">
+						<badge-app [color]="filter.value"></badge-app>
+						<span>{{ filter.value | entityName: 'productStatus' | async }}</span>
+					</div>
+
+				</checkbox-app>
+			</div>
+
+		</ng-container>
+
 
 		<!-- favorite -->
 		<div class="editTitle">
@@ -100,7 +106,9 @@
 			</label>
 		</div>
 
-		<checkbox-app [checked]="getFilterMap('rating').size > 0"  (check)="addFavoriteFilter()" (uncheck)="removeFavoriteFilter()">
+		<checkbox-app [checked]="getFilterValues(filterType.FAVORITE).size > 0"
+			(check)="addFilter({ type: filterType.FAVORITE, value: 5 })"
+			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: 5 })">
 			<div class="flex">
 				<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
 				Only Show Favorite
@@ -117,7 +125,10 @@
 			</label>
 		</div>
 
-		<checkbox-app [checked]="getFilterMap('archived').size > 0" (check)="addArchivedFilter()" (uncheck)="removeArchivedFilter()">
+		<checkbox-app
+			[checked]="getFilterValues(filterType.ARCHIVED).size > 0"
+			(check)="addFilter({ type: filterType.ARCHIVED, value: true })"
+			(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: false })">
 			Show Archived Product
 		</checkbox-app>
 
@@ -127,14 +138,14 @@
 	<!-- filter selection panel displays a close / done button at the top -->
 	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()">
 		<filter-entity-panel-app
-			[title]="entitySelected.pluralName"
-			[type]="entitySelected.entityName"
+			[title]="getEntityPanelTitle()"
+			[type]="typeSelected"
 			*ngIf="entityPanelShown"
 			[choices]="choices$ | async"
 			[relevantChoices]="relevantChoices$ | async"
-			[selected]="getFilterMap(entitySelected)"
-			(filterAdded)="onFilterAdded($event)"
-			(filterRemoved)="onFilterRemoved($event)">
+			[selected]="getFilterValues(entitySelected)"
+			(filterAdded)="addFilter($event)"
+			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
 		<filter-price-panel-app *ngIf="pricePanelShown"></filter-price-panel-app>
 		<filter-rating-panel-app *ngIf="ratingPanelShown"></filter-rating-panel-app>

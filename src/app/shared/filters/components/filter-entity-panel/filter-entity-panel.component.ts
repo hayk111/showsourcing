@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { Filter } from '~shared/filters/models';
+import { Filter, FilterType } from '~shared/filters/models';
 import { Store } from '@ngrx/store';
 import { selectEntityArray } from '~entity/store/entity.selector';
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +20,7 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
 	@Input() selected = new Map<string, boolean>();
-	@Input() type;
+	@Input() type: FilterType;
 	@Input() title = '';
 	private searchStr$ = new Subject<string>();
 
@@ -73,10 +73,12 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	onItemAdded(id) {
 		this.filterAdded.emit({ type: this.type, value: id });
+		this.cd.markForCheck();
 	}
 
 	onItemRemoved(id) {
 		this.filterRemoved.emit({ type: this.type, value: id });
+		this.cd.markForCheck();
 	}
 
 	constructor(private cd: ChangeDetectorRef) {

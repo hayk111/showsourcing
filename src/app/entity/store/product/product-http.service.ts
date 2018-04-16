@@ -9,6 +9,7 @@ import { ApiParams } from '~entity/utils';
 import { Product } from './product.model';
 import { UserService } from '~app/features/user/services';
 import { Filter } from '~app/shared/filters';
+import { UrlBuilder } from '~app/entity/utils/url-builder.class';
 
 export interface ProductLoadingParams {
 	filters?: Array<Filter>;
@@ -37,11 +38,11 @@ export class ProductHttpService {
 		}
 		// adding filters for filtering the product on the backend, filters gotta be parsed
 		if (params.filters) {
-			url = this.addFilters(url, params);
+			url = UrlBuilder.addFilters(url, params.filters);
 		}
-		if (params.sortBy) {
-			url = this.addSorting(url, params);
-		}
+		// if (params.sortBy) {
+		// 	url = this.addSorting(url, params);
+		// }
 
 		return this.http.get(url).pipe(
 			map((r: any) => r.elements),
@@ -52,36 +53,6 @@ export class ProductHttpService {
 		);
 	}
 
-	private addFilters(url: string, params: ProductLoadingParams) {
-		params.filters.forEach(filter => {
-			// for each filter we need to add it to the url.
-			switch (filter.type) {
-				case 'supplier':
-				case 'category':
-				case 'event':
-				case 'tag':
-				case 'project':
-				case 'rating':
-				case 'favorite':
-					url = url + filter.type + '=' + filter.value + '&';
-					break;
-				case 'user':
-					url = url + 'createdBy=' + filter.value + '&';
-					break;
-				case 'archived':
-					url = url + 'withArchived=true&';
-					break;
-				case 'productStatus':
-					url = url + 'status=' + filter.value + '&';
-					break;
-			}
-		});
-		return url;
-	}
-
-	private addSorting(url: string, params: ProductLoadingParams) {
-		return url;
-	}
 
 	loadLatestForTarget(target: EntityTarget) {
 		const params = `drop=0&take=8&sort=creationDate&sortOrder=DESC&${target.entityRepr.urlName}=${target.entityId}`;

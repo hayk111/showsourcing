@@ -23,6 +23,7 @@ import { EntityService } from '~app/entity/store/entity.service';
 export class ProductEffects {
 	userID: string;
 
+	// when a product is put at the foreground
 	@Effect()
 	focus$ = this.actions$
 		.ofType<any>(actionTypes.FOCUS)

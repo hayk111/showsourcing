@@ -50,7 +50,6 @@ export class EntityRepresentation {
 	}
 }
 
-// TODO: singularize every entity
 // Helper map, exported as ERM below.
 const entityRepresentationMap = {
 	supplier: new EntityRepresentation('supplier'),
@@ -90,7 +89,13 @@ export interface EntityTarget {
 
 export function getPluralEntity(entityName: string) {
 	if (!ERM[entityName])
-		throw Error(`entity with name ${entityName} was not found in the entityRepresentationMap`);
+		throw Error(`entity with name ${JSON.stringify(entityName)} was not found in the entityRepresentationMap`);
 	return ERM[entityName].pluralName;
+}
+
+export function getEntityRepr(entityName: string) {
+	if (!ERM[entityName])
+		throw Error(`entity with name ${JSON.stringify(entityName)} was not found in the entityRepresentationMap`);
+	return ERM[entityName];
 }
 

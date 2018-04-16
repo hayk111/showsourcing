@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ApiParams } from '~entity/utils';
-import { Filter } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters/models/filter.model';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM, EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
 import { User } from '../store/user';
@@ -22,6 +22,49 @@ import { UserService } from '~app/features/user/services/user.service';
 @Injectable()
 export class UrlBuilder {
 	static TAKE = 30;
+
+	/** adds filters to a request so we can filter on the back-end */
+	static addFilters(url: string, filters: Array<Filter>) {
+		filters.forEach(filter => {
+			// for each filter we need to add it to the url.
+			switch (filter.type) {
+				case FilterType.FAVORITE:
+					url = url + 'rating=5&';
+					break;
+				case FilterType.ARCHIVED:
+					url = url + 'withArchived=true&';
+					break;
+				case FilterType.PRODUCT_STATUS:
+					url = url + 'status=' + filter.value + '&';
+					break;
+				default:
+					url = url + filter.type + '=' + filter.value + '&';
+			}
+		});
+		return url;
+	}
+
+	/** adds the sorting to an url  */
+	static addSorting(url: string, sorting: any) {
+		return url;
+	}
+
+	/** adds pagination to a request */
+	static addPagination(url: string, pagination: any) {
+		if (pagination) {
+			url += `take=${pagination.take || UrlBuilder.TAKE}&drop=${pagination.drop || 0}`;
+		}
+		return url;
+	}
+
+	/** adds filters, sorting and pagination all at once */
+	static addParams(url: string, params: ApiParams) {
+		url += `?`;
+		url = UrlBuilder.addPagination(url, params.pagination);
+		url = UrlBuilder.addFilters(url, params.filters);
+		// url = UrlBuilder.addSorting(url, params.sorting);
+		return url;
+	}
 
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
@@ -88,7 +131,7 @@ export class UrlBuilder {
 		return url;
 	}
 
-	private addParams(url: string, params: ApiParams) {
+	addParams(url: string, params: ApiParams) {
 		url = `${url}?`;
 
 		if (params.pagination) {
@@ -96,5 +139,6 @@ export class UrlBuilder {
 		}
 		return url;
 	}
+
 
 }
