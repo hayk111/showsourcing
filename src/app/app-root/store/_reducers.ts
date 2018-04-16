@@ -29,6 +29,8 @@ import {
 	fromTeam,
 } from '~app/entity';
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
+import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
+import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 
 
 const misc = combineReducers({
@@ -61,11 +63,16 @@ const entities = combineReducers({
 	comment: fromComment.reducer,
 });
 
+const supplier = combineReducers({
+	product: fromSupplierProduct.reducer,
+	contact: fromSupplierContact.reducer
+});
+
 const ui = combineReducers({
 	filterPanel: filterPanelReducer,
 });
 
-export const reducers: ActionReducerMap<any> = { entities, focussedEntity: focussedEntityReducer, misc, ui };
+export const reducers: ActionReducerMap<any> = { entities, focussedEntity: focussedEntityReducer, supplier, misc, ui };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 
 export const reducerToken = new InjectionToken<ActionReducerMap<any>>('Reducers');

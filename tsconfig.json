@@ -49,7 +49,7 @@
 			"~user/*": ["app/entity/store/user/*"],
 			"~user": ["app/entity/store/user/index"],
 			"~utils/*": ["app/app-root/utils/*"],
-			"~utils": ["app/app-root/utils/index"],
+			"~utils": ["app/app-root/utils/index"]
     }
   }
 }

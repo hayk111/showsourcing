@@ -1,4 +1,4 @@
-<div class="ctnr" *ngIf="hasInlineCarousel" (fileDrop)="onFileAdded($event)">
+<div class="ctnr">
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
