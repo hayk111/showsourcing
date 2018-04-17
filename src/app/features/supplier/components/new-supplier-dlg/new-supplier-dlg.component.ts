@@ -10,8 +10,9 @@ import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const'
 import { RegexpApp, AutoUnsub } from '~app/app-root/utils';
 import { InputDirective } from '~app/shared/inputs';
 import { fromStateKey, StateGroup } from '~app/features/state-key/state-key.bundle';
-import { fromSupplierDialog } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.bundle';
 import { takeUntil } from 'rxjs/operators';
+import { selectNewSupplierDialogPending } from '~app/features/supplier/store';
+import { NewSupplierDlgActions } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.actions';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -27,7 +28,11 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 	pending = false;
 	@ViewChild(InputDirective) input: InputDirective;
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService, private cd: ChangeDetectorRef) {
+	constructor(
+		private fb: FormBuilder,
+		private store: Store<any>,
+		private userSrv: UserService,
+		private cd: ChangeDetectorRef) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
@@ -35,7 +40,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 	}
 
 	ngOnInit() {
-		this.store.select(fromSupplierDialog.selectPending).pipe(
+		this.store.select(selectNewSupplierDialogPending).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(pending => {
 			this.pending = pending;
@@ -55,7 +60,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 		if (this.group.valid) {
 			const name = this.group.value.name;
 			const supplier = new Supplier(name, this.userSrv.userId);
-			this.store.dispatch(fromSupplierDialog.Actions.createSupplier(supplier));
+			this.store.dispatch(NewSupplierDlgActions.createSupplier(supplier));
 		}
 	}
 }

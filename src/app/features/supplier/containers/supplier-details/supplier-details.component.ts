@@ -15,8 +15,7 @@ import { fromDialog, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
-import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
-import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
+import { selectLatestProductsArray, selectContactArray } from '~app/features/supplier/store';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -55,9 +54,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.productCount$ = combineLatest(id$, productsCount$, (id, count) => count[id] || 0);
 		this.tasks$ = this.store.select(fromTask.selectArray);
 
-		this.products$ = this.store.select<any>(fromSupplierProduct.selectArray);
+		this.products$ = this.store.select<any>(selectLatestProductsArray);
 		this.images$ = this.store.select(fromImage.selectArray);
-		this.contacts$ = this.store.select(fromSupplierContact.selectArray);
+		this.contacts$ = this.store.select(selectContactArray);
 	}
 
 	/** updates supplier */

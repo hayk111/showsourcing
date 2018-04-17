@@ -29,10 +29,7 @@ import {
 	fromTeam,
 } from '~app/entity';
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
-import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
-import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { fromStateKey } from '~app/features/state-key/state-key.bundle';
-import { fromSupplierDialog } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.bundle';
 
 
 
@@ -62,13 +59,6 @@ const entities = combineReducers({
 	comment: fromComment.reducer,
 });
 
-// TODO should be in feature
-const supplier = combineReducers({
-	product: fromSupplierProduct.reducer,
-	contact: fromSupplierContact.reducer,
-	newSupplierDlg: fromSupplierDialog.reducer
-});
-
 const ui = combineReducers({
 	filterPanel: filterPanelReducer,
 });
@@ -76,8 +66,8 @@ const ui = combineReducers({
 export const reducers: ActionReducerMap<any> = {
 	entities,
 	focussedEntity: focussedEntityReducer,
-	supplier,
-	filters: filtersReducer
+	filters: filtersReducer,
+	ui
 };
 // This is because an error is thrown that the value cannot be resolved because combineReducer is used.
 

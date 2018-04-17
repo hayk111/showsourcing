@@ -1,7 +1,7 @@
 
 <div *ngFor="let category of products | groupBy: 'categoryId'; let first = first">
     <div class="sectionTitle">{{ category?.key | entityName: 'category' | async }}
-      <div class="sectionTag">{{category.value.length}} products</div>
+      <div class="sectionTag">{{ category.value.length }} products</div>
     </div>
     <div  class="section" >
       <ng-container *ngFor="let product of category.value; trackBy: trackByFn">

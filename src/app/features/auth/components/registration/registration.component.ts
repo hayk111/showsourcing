@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { selectRegisterPagePending, selectRegisterPageError, AuthActions } from '~app/features/auth/store';
+import * as fromAuth from '~app/features/auth/store';
 
 @Component({
 	selector: 'registration-app',
@@ -23,13 +23,13 @@ export class RegistrationComponent implements OnInit {
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
 		});
-		this.pending$ = this.store.select(selectRegisterPagePending);
-		this.error$ = this.store.select(selectRegisterPageError);
+		this.pending$ = this.store.select(fromAuth.selectRegisterPagePending);
+		this.error$ = this.store.select(fromAuth.selectRegisterPageError);
 	}
 
 	createAccount() {
 		if (this.form.valid)
-			this.store.dispatch(AuthActions.register(this.form.value));
+			this.store.dispatch(fromAuth.AuthActions.register(this.form.value));
 	}
 
 }

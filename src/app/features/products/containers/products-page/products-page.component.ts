@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import {
 	EntityState,
@@ -23,6 +23,7 @@ import { AutoUnsub } from '~utils';
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** currently loaded products */
@@ -55,6 +56,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.products$ = this.store.select(selectEntityArray(ERM.product)).pipe(
+			distinctUntilChanged(),
 			tap(products => this.products = products)
 		);
 		this.productsState$ = this.store.select(selectProductsState);

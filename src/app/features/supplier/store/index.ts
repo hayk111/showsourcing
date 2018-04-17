@@ -1,20 +1,51 @@
-import { fromSupplierProduct } from './product/product.bundle';
-import { fromSupplierContact } from './contacts/contact.bundle';
-import { EntityState } from '~app/entity';
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromContact from './contacts/contact.reducer';
+import * as fromLatestProduct from './latest-product/latest-product.reducer';
+import * as fromNewSupplierDialog from './new-supplier-dlg/new-supplier-dlg.reducer';
 
+export * from './contacts/contact.actions';
+export * from './latest-product/latest-product.action';
 
-
-
+// defining the state
 export interface SupplierState {
-	product: EntityState<any>;
-	contact: EntityState<any>;
+	latestProduct: fromLatestProduct.State;
+	contact: fromContact.State;
+	newSupplierDialog: fromNewSupplierDialog.State;
 }
 
 export const reducers: ActionReducerMap<SupplierState> = {
-	product: fromSupplierProduct.reducer,
-	contact: fromSupplierContact.reducer,
+	latestProduct: fromLatestProduct.reducer,
+	contact: fromContact.reducer,
+	newSupplierDialog: fromNewSupplierDialog.reducer
 };
 
-export const selectAuthState = createFeatureSelector<SupplierState>('supplier');
+// feature selector
+
+export const selectSupplierState = createFeatureSelector<SupplierState>('supplier');
+
+// latest products
+const selectLatestProducts = createSelector(
+	selectSupplierState,
+	(state: SupplierState) => state.latestProduct
+);
+
+export const selectLatestProductsArray = createSelector(selectLatestProducts, fromLatestProduct.selectAll);
+
+// contacts
+const selectContacts = createSelector(
+	selectSupplierState,
+	(state: SupplierState) => state.contact
+);
+
+export const selectContactArray = createSelector(selectContacts, fromContact.selectAll);
+export const selectContactPreviewImg = createSelector(selectContacts, fromContact.selectPreview);
+export const selectContactOne = (id) => createSelector(selectContacts, fromContact.selectOne(id));
+// new supplierDlg
+const selectNewSupplierDialog = createSelector(
+	selectSupplierState,
+	(state: SupplierState) => state.newSupplierDialog
+);
+
+export const selectNewSupplierDialogPending = createSelector(selectNewSupplierDialog, fromNewSupplierDialog.selectPending);
+
 

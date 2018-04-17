@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 import { Store } from '@ngrx/store';
-import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { fromDialog } from '~app/shared/dialog';
 import { RegexpApp, DEFAULT_IMG, AutoUnsub } from '~app/app-root/utils';
 import { AppFile, AppImage, Patch } from '~app/entity';
@@ -11,7 +10,8 @@ import { UserService } from '~app/features/user';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Observable } from 'rxjs/Observable';
 import { map, takeUntil, filter, tap, distinctUntilChanged } from 'rxjs/operators';
-
+import { ContactActions } from '~app/features/supplier/store';
+import { selectContactPreviewImg, selectContactOne } from '~app/features/supplier/store';
 
 const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.CONTACT);
 
@@ -48,15 +48,14 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 	ngOnInit() {
 		if (this.isNewContact) {
 			// when new contact the image is gonna be located in previewImg
-			this.store.select(fromSupplierContact.selectState).pipe(
+			this.store.select(selectContactPreviewImg).pipe(
 				takeUntil(this._destroy$),
-				map(state => state.previewImg),
 				distinctUntilChanged(),
 				filter(preview => !!preview && Object.keys(preview).length > 0),
 			).subscribe(preview => this.preview = preview);
 		} else {
 			// when updating old contact image is on the contact itself
-			this.store.select(fromSupplierContact.selectOne(this.contact.id)).pipe(
+			this.store.select(selectContactOne(this.contact.id)).pipe(
 				takeUntil(this._destroy$),
 				distinctUntilChanged(),
 				map(state => state.image)
@@ -91,7 +90,7 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 			// we need to add the image to the contact before uploading
 			contact.imageId = this._preview.id;
 			contact.image = this._preview;
-			this.store.dispatch(fromSupplierContact.Actions.create(this.formGroup.value));
+			this.store.dispatch(ContactActions.create(this.formGroup.value));
 			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
 		}
 	}
@@ -100,7 +99,7 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 		/** we only do the patching when it's an existing contact */
 		if (!this.isNewContact) {
 			const patch: Patch = { id: this.contact.id, propName, value };
-			this.store.dispatch(fromSupplierContact.Actions.patch(patch));
+			this.store.dispatch(ContactActions.patch(patch));
 		}
 	}
 
@@ -109,16 +108,16 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 			// image creation is async because we need the base 64 to display it.
 			AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
 				if (this.isNewContact)
-					this.store.dispatch(fromSupplierContact.Actions.createImg(appImg));
+					this.store.dispatch(ContactActions.createImg(appImg));
 				else
-					this.store.dispatch(fromSupplierContact.Actions.changeImg(appImg, this.contact.id));
+					this.store.dispatch(ContactActions.changeImg(appImg, this.contact.id));
 			});
 		});
 	}
 
 	onClose() {
 		// resetting the preview on close
-		this.store.dispatch(fromSupplierContact.Actions.setPreview({}));
+		this.store.dispatch(ContactActions.setPreview({}));
 	}
 
 

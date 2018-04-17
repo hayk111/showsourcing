@@ -3,10 +3,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { ContactEffects } from '~app/features/supplier/store/contacts/contact.effects';
-import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
-import { ProductEffects } from '~app/features/supplier/store/product/product.effects';
+import { ProductEffects } from '~app/features/supplier/store/latest-product/latest-product.effects';
+import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
 import { CarouselModule } from '~app/shared/carousel';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { FileModule } from '~app/shared/file';
@@ -33,12 +32,13 @@ import { SupplierMainTitleComponent } from './components/supplier-main/supplier-
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
-import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
+import { reducers } from './store';
 
 
 @NgModule({
 	imports: [
 		SharedModule,
+		StoreModule.forFeature('supplier', reducers),
 		EffectsModule.forFeature([
 			ContactEffects,
 			ProductEffects,

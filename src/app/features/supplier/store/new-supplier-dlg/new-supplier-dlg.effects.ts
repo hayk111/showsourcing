@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { ActionType } from './new-supplier-dlg.bundle';
+import { NewSupplierDlgActionType as ActionType, NewSupplierDlgActions } from './new-supplier-dlg.actions';
 import { map, switchMap, mergeMap, catchError, tap } from 'rxjs/operators';
 import { NotificationType } from '~app/shared/notifications/model/notification.interface';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
@@ -12,6 +12,8 @@ import { supplierActions } from '~app/entity/store/supplier/supplier.action';
 import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 import { DialogName } from '~app/shared/dialog';
 import { Router } from '@angular/router';
+import { merge } from 'rxjs/observable/merge';
+import { from } from 'rxjs/observable/from';
 
 @Injectable()
 export class NewSupplierDlgEffects {
@@ -30,9 +32,11 @@ export class NewSupplierDlgEffects {
 						mergeMap((newSupplier: any) => [
 							supplierActions.replace([new Swap(supplier, newSupplier)]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 }),
-							DialogActions.close(DialogName.NEW_SUPPLIER)
+							DialogActions.close(DialogName.NEW_SUPPLIER),
+							NewSupplierDlgActions.setReady()
 						]),
-						catchError(e => of(appErrorActions.add(e)))
+						catchError(e =>
+							from([appErrorActions.add(e), NewSupplierDlgActions.setReady()]))
 					)
 			)
 		);

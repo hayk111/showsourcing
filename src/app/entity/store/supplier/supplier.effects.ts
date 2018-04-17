@@ -21,11 +21,10 @@ import { fromTag } from '~app/entity/store/tag';
 import { fromCategory } from '~app/entity/store/category';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
-import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
-import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
 import { Router } from '@angular/router';
 import { fromStateKey, StateGroup } from '~app/features/state-key/state-key.bundle';
 import { Store } from '@ngrx/store';
+import { LatestProductActions, ContactActions } from '~app/features/supplier/store';
 
 @Injectable()
 export class SuppliersEffects {
@@ -42,8 +41,8 @@ export class SuppliersEffects {
 				fromFile.Actions.loadForSelection(),
 				fromImage.Actions.loadForSelection(),
 				fromTask.Actions.loadForSelection(),
-				fromSupplierContact.Actions.loadForSelection(),
-				fromSupplierProduct.Actions.loadForSelection()
+				LatestProductActions.load(),
+				ContactActions.load()
 			])
 		);
 

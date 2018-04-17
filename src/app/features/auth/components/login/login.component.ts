@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input
 import { Store } from '@ngrx/store';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthActions, selectLoginPagePending, selectLoginPageError } from '~app/features/auth/store';
+import * as fromAuth from '~app/features/auth/store';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -24,13 +24,13 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.pending$ = this.store.select(selectLoginPagePending);
-		this.error$ = this.store.select(selectLoginPageError);
+		this.pending$ = this.store.select(fromAuth.selectLoginPagePending);
+		this.error$ = this.store.select(fromAuth.selectLoginPageError);
 	}
 
 	onSubmit() {
 		if (this.form.valid)
-			this.store.dispatch(AuthActions.login(this.form.value));
+			this.store.dispatch(fromAuth.AuthActions.login(this.form.value));
 	}
 
 	forgotPw() {

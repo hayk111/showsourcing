@@ -11,7 +11,10 @@ input, textarea {
 	border: 1px solid var(--color-primary-light);
 	border-radius: var(--border-radius-s);
 	&:not(.ng-pristine).ng-invalid {
-		border-bottom: 1px solid var(--color-warn);
+		border: 1px solid var(--color-warn);
+	}
+	&:focus {
+		border: 1px solid var(--color-primary);
 	}
 }
 // transition

@@ -1,62 +1,63 @@
+<ng-container *ngIf="products$ | async as products">
+	<entity-page-app
+		[filterGroupName]="filterGroupName"
+		[pending]="pending$ | async"
+		[repr]="repr"
+		[subtitles]="['Products', 'all']"
+		(filterClick)="openFilterPanel()"
+		[view]="view"
+		(viewChange)="onViewChange($event)">
 
-<entity-page-app
-	[filterGroupName]="filterGroupName"
-	[pending]="pending$ | async"
-	[repr]="repr"
-	[subtitles]="['Products', 'all']"
-  (filterClick)="openFilterPanel()"
-  [view]="view"
-	(viewChange)="onViewChange($event)">
+			<!-- views: either one will be displayed when the correct view is selected -->
+			<product-list-view-app
+				*ngIf="view === 'list'"
+				[class.hidden] = "view !== 'list'"
+				class="list-view"
+				[selection]="selection"
+				[products]="products"
+				(productSelect)="onItemSelected($event)"
+				(productUnselect)="onItemUnselected($event)"
+				(productOpen)="goToDetails($event)"
+				(productFavorited)="onItemFavorited($event)"
+				(productUnfavorited)="onItemUnfavorited($event)"
+				(bottomReached)="loadMore()"></product-list-view-app>
 
-		<!-- views: either one will be displayed when the correct view is selected -->
-    <product-list-view-app
-      *ngIf="view === 'list'"
-      [class.hidden] = "view !== 'list'"
-			class="list-view"
-			[selection]="selection"
-			[products]="products$ | async"
-			(productSelect)="onItemSelected($event)"
-			(productUnselect)="onItemUnselected($event)"
-			(productOpen)="goToDetails($event)"
-			(productFavorited)="onItemFavorited($event)"
-			(productUnfavorited)="onItemUnfavorited($event)"
-			(bottomReached)="loadMore()"></product-list-view-app>
+			<product-card-view-app
+				class="card-view"
+				*ngIf="view === 'card'"
+				[class.hidden] = "view !== 'card'"
+				[products]="products"
+				[selection]="selection"
+				[statuses]="statuses$ | async"
+				(update)="patch($event)"
+				(productSelect)="onItemSelected($event)"
+				(productUnselect)="onItemUnselected($event)"
+				(productVote)="onItemVoted($event)"
+				(addToProject)="onItemAddToProject($event)"
+				(productFavorited)="onItemFavorited($event)"
+				(productUnfavorited)="onItemUnfavorited($event)"
+				(productOpen)="goToDetails($event)"></product-card-view-app>
 
-		<product-card-view-app
-      class="card-view"
-      *ngIf="view === 'card'"
-      [class.hidden] = "view !== 'card'"
-			[products]="products$ | async"
-			[selection]="selection"
-			[statuses]="statuses$ | async"
-			(update)="patch($event)"
-			(productSelect)="onItemSelected($event)"
-			(productDelete)="onItemDeleted($event)"
-			(productUnselect)="onItemUnselected($event)"
-			(productVote)="onItemVoted($event)"
-			(addToProject)="onItemAddToProject($event)"
-			(productFavorited)="onItemFavorited($event)"
-			(productUnfavorited)="onItemUnfavorited($event)"
-			(productOpen)="goToDetails($event)"></product-card-view-app>
+	</entity-page-app>
 
-</entity-page-app>
-
-<selection-bar-app
-	[repr]="repr"
-	*ngIf="selection.size > 0"
-	[selection]="selection"
-  (close)="unselectAll()"
-	(delete)="deleteSelected()">
-
-  <selection-actions
+	<selection-bar-app
+		[repr]="repr"
+		*ngIf="selection.size > 0"
 		[selection]="selection"
-		(openAddToProjectDialog)="openAddToProjectDialog()"
-		(openExportDialog)="openExportDialog()"
-		(openRequestFeedbackDialog)="openRequestFeedbackDialog()">
-	</selection-actions>
-</selection-bar-app>
+		(close)="unselectAll()"
+		(delete)="deleteSelected()">
 
-<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen$ | async"></product-filters-app>
+		<selection-actions
+			[selection]="selection"
+			(openAddToProjectDialog)="openAddToProjectDialog()"
+			(openExportDialog)="openExportDialog()"
+			(openRequestFeedbackDialog)="openRequestFeedbackDialog()">
+		</selection-actions>
+	</selection-bar-app>
 
+	<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen$ | async"></product-filters-app>
+
+
+</ng-container>
 
 

@@ -49,7 +49,7 @@ export function makeEntityActionTypes(entityName: string): EntityActionTypes {
 		LOAD_BY_ID: `[${entityName.capitalize()}] Loading by id...`,
 		// when loading an entity for a currently focussed entity. For example when loading images
 		// when we are on the product page
-		LOAD_FOR_SELECTION: `[${entityName.capitalize()}] Loading for current selection`,
+		LOAD_FOR_SELECTION: `[${entityName.capitalize()}] Loading for currently focussed entity`,
 		// lots of entities have a product count attached to them
 		LOAD_PRODUCT_COUNT: `[${entityName.capitalize()}] Loading product count`,
 		SET_PRODUCT_COUNT: `[${entityName.capitalize()}] Setting product count`,
