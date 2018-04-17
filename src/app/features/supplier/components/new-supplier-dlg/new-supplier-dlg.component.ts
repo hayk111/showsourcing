@@ -9,6 +9,7 @@ import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 import { RegexpApp } from '~app/app-root/utils';
 import { InputDirective } from '~app/shared/inputs';
+import { fromStateKey } from '~app/features/state-key/state-key.bundle';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -17,16 +18,20 @@ const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER)
 	templateUrl: './new-supplier-dlg.component.html',
 	styleUrls: ['./new-supplier-dlg.component.scss'],
 })
-export class NewSupplierDlgComponent implements AfterViewInit {
+export class NewSupplierDlgComponent implements AfterViewInit, OnInit {
 	name = DialogName.NEW_SUPPLIER;
 	group: FormGroup;
-	pending = false;
+	pending$;
 	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {
 		this.group = this.fb.group({
 			name: ['', Validators.required],
 		});
+	}
+
+	ngOnInit() {
+		this.pending$ = this.store.select(fromStateKey.selectPending);
 	}
 
 	ngAfterViewInit() {

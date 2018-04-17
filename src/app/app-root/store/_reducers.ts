@@ -31,10 +31,12 @@ import {
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
 import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
+import { fromStateKey } from '~app/features/state-key/state-key.bundle';
 
 
 const misc = combineReducers({
 	filters: filtersReducer,
+	stateKey: fromStateKey.reducer
 });
 
 const entities = combineReducers({

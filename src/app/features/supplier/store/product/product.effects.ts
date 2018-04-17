@@ -19,7 +19,7 @@ export class ProductEffects {
 				// tslint:disable-next-line:max-line-length
 				`api/team/${this.userSrv.teamId}/product?take=30&sort=creationDate&sortOrder=DESC&supplier=${this.focusSrv.currentTarget.entityId}&withArchived=false`)),
 			map((result: any) => result.elements),
-			map((result: any) => fromSupplierProduct.Actions.add(result))
+			map((result: any) => fromSupplierProduct.Actions.set(result))
 		);
 
 	constructor(private action$: Actions, private http: HttpClient, private focusSrv: FocussedEntityService, private userSrv: UserService) { }

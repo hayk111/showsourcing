@@ -76,8 +76,6 @@ export class UrlBuilder {
 		} else {
 			url = this.buildUrl(params, user);
 		}
-		// adding query params
-		url = UrlBuilder.addParams(url, params);
 		return url;
 	}
 

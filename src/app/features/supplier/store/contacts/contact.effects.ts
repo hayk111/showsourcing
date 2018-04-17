@@ -17,7 +17,7 @@ export class ContactEffects {
 		.pipe(
 			switchMap(_ => this.http.get(`api/supplier/${this.focusSrv.currentTarget.entityId}/contact`)),
 			map((result: any) => result.elements),
-			map((result: any) => fromSupplierContact.Actions.add(result))
+			map((result: any) => fromSupplierContact.Actions.set(result))
 		);
 
 	@Effect()
