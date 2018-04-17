@@ -6,25 +6,21 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent implements OnInit {
-	private _size = 'l';
+	@Input() size = 'xxl';
 	@Input() width = 5;
 	constructor() { }
 
 	ngOnInit() { }
 
-	@Input()
-	set size(size: string | number) {
-		if (isNaN(size as any))
-			this._size = 'var(--spacing-' + size + ')';
-		else
-			this._size = size + 'px';
-	}
-	get size() {
-		return this._size;
-	}
 
 	get style() {
-		return { width: this._size };
+		let width;
+
+		if (isNaN(this.size as any))
+			width = 'var(--spacing-' + this.size + ')';
+		else
+			width = this.size + 'px';
+		return { width };
 	}
 
 

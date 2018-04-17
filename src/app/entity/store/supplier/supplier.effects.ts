@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
-import { catchError, distinctUntilChanged, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, mergeMap, switchMap, tap, startWith } from 'rxjs/operators';
 import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
@@ -24,6 +24,8 @@ import { NotificationType } from '~app/shared/notifications';
 import { fromSupplierContact } from '~app/features/supplier/store/contacts/contact.bundle';
 import { fromSupplierProduct } from '~app/features/supplier/store/product/product.bundle';
 import { Router } from '@angular/router';
+import { fromStateKey, StateGroup } from '~app/features/state-key/state-key.bundle';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class SuppliersEffects {
@@ -67,23 +69,20 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
+			tap(_ => this.store.dispatch(fromStateKey.Actions.setPending(StateGroup.NEW_SUPPLIER))),
 			switchMap(supplier =>
 				this.srv
 					.create(supplier)
 					.pipe(
-						tap((newSupplier: any) => {
-							if (true) {
-								this.router.navigate(['supplier', 'details', newSupplier.id]);
-							}
-						}),
+						tap(d => { debugger; }),
 						mergeMap((newSupplier: any) => [
 							supplierActions.replace([new Swap(supplier, newSupplier)]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 })
 						]),
-						catchError(e => of(appErrorActions.add(e))
-						)
+						catchError(e => of(appErrorActions.add(e)))
 					)
-			));
+			)
+		);
 
 	@Effect({ dispatch: false })
 	patch$ = this.action$
@@ -153,6 +152,11 @@ export class SuppliersEffects {
 					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), fromCategory.Actions.add([r])]))
 			)
 		);
-	constructor(private action$: Actions, private srv: SupplierHttpService, private entitySrv: EntityService, private router: Router) { }
+	constructor(
+		private action$: Actions,
+		private srv: SupplierHttpService,
+		private entitySrv: EntityService,
+		private router: Router,
+		private store: Store<any>) { }
 }
 

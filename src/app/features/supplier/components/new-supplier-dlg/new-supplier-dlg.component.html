@@ -1,19 +1,24 @@
-<dialog-app [name]="name">
-	<dialog-header-app>
-		New Supplier
-	</dialog-header-app>
 
-	<form [formGroup]="group">
-		<form-field-app>
-			<label-app>Name</label-app>
-			<input inputApp type="text" formControlName="name" placeholder="Jhon Doe" (keyup.enter)="onSubmit()"/>
-		</form-field-app>
-	</form>
+	<dialog-app [name]="name">
 
-	<dialog-footer-app>
-			<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>
-	</dialog-footer-app>
+			<!-- when ready -->
+			<dialog-header-app *ngIf="!pending ">
+				New Supplier
+			</dialog-header-app>
 
-	<spinner-app></spinner-app>
-</dialog-app>
+			<form [formGroup]="group" *ngIf="!pending">
+				<form-field-app>
+					<label-app>Name</label-app>
+					<input inputApp type="text" formControlName="name" placeholder="Jhon Doe" (keyup.enter)="onSubmit()"/>
+				</form-field-app>
+			</form>
+
+			<dialog-footer-app *ngIf="!pending ">
+					<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>
+			</dialog-footer-app>
+
+			<!-- when pending -->
+			<spinner-app *ngIf="pending"></spinner-app>
+
+	</dialog-app>
 

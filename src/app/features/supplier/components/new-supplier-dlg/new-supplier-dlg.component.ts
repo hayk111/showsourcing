@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogActions } from '~shared/dialog/store/dialog.action';
@@ -7,9 +7,11 @@ import { supplierActions } from '~supplier/supplier.action';
 import { Supplier } from '~supplier/supplier.model';
 import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { RegexpApp } from '~app/app-root/utils';
+import { RegexpApp, AutoUnsub } from '~app/app-root/utils';
 import { InputDirective } from '~app/shared/inputs';
-import { fromStateKey } from '~app/features/state-key/state-key.bundle';
+import { fromStateKey, StateGroup } from '~app/features/state-key/state-key.bundle';
+import { fromSupplierDialog } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.bundle';
+import { takeUntil } from 'rxjs/operators';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -17,23 +19,32 @@ const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER)
 	selector: 'new-supplier-dlg-app',
 	templateUrl: './new-supplier-dlg.component.html',
 	styleUrls: ['./new-supplier-dlg.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewSupplierDlgComponent implements AfterViewInit, OnInit {
+export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	name = DialogName.NEW_SUPPLIER;
 	group: FormGroup;
-	pending$;
+	pending = false;
 	@ViewChild(InputDirective) input: InputDirective;
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {
+	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService, private cd: ChangeDetectorRef) {
+		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
 		});
 	}
 
 	ngOnInit() {
-		this.pending$ = this.store.select(fromStateKey.selectPending);
+		this.store.select(fromSupplierDialog.selectPending).pipe(
+			takeUntil(this._destroy$)
+		).subscribe(pending => {
+			this.pending = pending;
+			// mark for check as we are not using async and we are using on push
+			this.cd.markForCheck();
+		});
 	}
 
+	// focus input after view init
 	ngAfterViewInit() {
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
@@ -43,9 +54,8 @@ export class NewSupplierDlgComponent implements AfterViewInit, OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const name = this.group.value.name;
-			this.store.dispatch(supplierActions.create(new Supplier(name, this.userSrv.userId)));
-			this.group.reset();
-			this.store.dispatch(DialogActions.close(this.name));
+			const supplier = new Supplier(name, this.userSrv.userId);
+			this.store.dispatch(fromSupplierDialog.Actions.createSupplier(supplier));
 		}
 	}
 }

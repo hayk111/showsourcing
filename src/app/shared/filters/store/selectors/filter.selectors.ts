@@ -8,7 +8,7 @@ import { EntityRepresentation } from '~app/entity';
 const r = `It should be defined in the initial state in the store filter.reducer.`;
 
 // return all filtergroups
-const getFilters = state => state.misc.filters;
+const getFilters = state => state.filters;
 
 // return filters for a specific group like for example product-page
 export const selectFilterGroup = (filterGroupName: FilterGroupName) => {

@@ -33,6 +33,7 @@ import { SupplierMainTitleComponent } from './components/supplier-main/supplier-
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
+import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 		SharedModule,
 		EffectsModule.forFeature([
 			ContactEffects,
-			ProductEffects
+			ProductEffects,
+			NewSupplierDlgEffects
 		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card

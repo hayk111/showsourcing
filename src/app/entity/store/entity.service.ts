@@ -79,7 +79,7 @@ export class EntityService {
 		// capitalizing because that url needs to be
 		itemUrlName = itemUrlName.charAt(0).toUpperCase() + itemUrlName.slice(1);
 		return this.http
-			.get(`/api/team/${this.userSrv.teamId}/countProdsBy${itemUrlName}`)
+			.get(`api/team/${this.userSrv.teamId}/countProdsBy${itemUrlName}`)
 			.pipe(map((r: any) => r.items));
 	}
 }
