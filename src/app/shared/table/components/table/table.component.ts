@@ -21,8 +21,8 @@ import { ColumnDirective } from '~app/shared/table/components/column.directive';
 	}
 })
 export class TableComponent {
+	// whether the table is currently loading
 	@Input() pending = false;
-
 	// whether rows are selectable
 	@Input() hasSelection = true;
 	// whether the table will automatically do it's sorting or will rely on external sorting
@@ -57,10 +57,6 @@ export class TableComponent {
 	}
 	protected _rows = [];
 	protected _sortedRows = [];
-
-	// @Input() set searchedValue( value: any ) {
-	// 	this.
-	// }
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);

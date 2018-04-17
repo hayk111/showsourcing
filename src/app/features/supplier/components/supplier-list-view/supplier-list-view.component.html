@@ -1,8 +1,10 @@
-<table-app [rows]="rows$ | async" class="z-2"
-(selectOne)="supplierSelect.emit($event)"
-(unselectOne)="supplierUnselect.emit($event)"
-(selectAll)="supplierSelectAll.emit($event)"
-(unselectAll)="supplierUnselectAll.emit($event)">
+<table-app
+	[rows]="rows$ | async"
+	class="z-2"
+	(selectOne)="supplierSelect.emit($event)"
+	(unselectOne)="supplierUnselect.emit($event)"
+	(selectAll)="supplierSelectAll.emit($event)"
+	(unselectAll)="supplierUnselectAll.emit($event)">
 
 
 	<!-- supplier row -->

@@ -74,7 +74,6 @@ export class SuppliersEffects {
 				this.srv
 					.create(supplier)
 					.pipe(
-						tap(d => { debugger; }),
 						mergeMap((newSupplier: any) => [
 							supplierActions.replace([new Swap(supplier, newSupplier)]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 })

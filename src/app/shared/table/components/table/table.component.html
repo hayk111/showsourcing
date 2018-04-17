@@ -1,52 +1,57 @@
 
-<!-- pending -->
-<progress-bar-app *ngIf="pending"></progress-bar-app>
 
-
-<!-- empty column for space between border bottom and side -->
-<div class="col emptyBorder">
-		<div class="header"></div>
-		<div class="cell"></div>
-</div>
-
-
-<!-- selection column -->
-<div class="col selectionCol" *ngIf="hasSelection">
-		<div class="header">
-			<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
-		</div>
-		<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
-			<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
-		</div>
-</div>
-
-
-<!-- content columns -->
-<div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"
-	class="col {{ column.grows ? 'flexGrow' : '' }}">
-	<!-- header -->
-	<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="sort(column)">
-		{{ column.title }}
-		<ng-container *ngIf="column.currentSort !== 'none'">
-			<icon-app class="sortIcon"  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
-			<ng-template #upArrow>
-				<icon-app  class="sortIcon" fontSet="fa" size="xs" name="angle-up"></icon-app>
-			</ng-template>
-		</ng-container>
+<div class="ctnr">
+	<!-- empty column for space between border bottom and side -->
+	<div class="col emptyBorder">
+			<div class="header"></div>
+			<div class="cell"></div>
 	</div>
-	<!-- cells -->
-	<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
-		<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
-		<div class="ellipsis">
-			<!-- Render the column template when specified -->
-			<ng-container
-				*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+
+
+	<!-- selection column -->
+	<div class="col selectionCol" *ngIf="hasSelection">
+			<div class="header">
+				<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
+			</div>
+			<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
+				<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
+			</div>
+	</div>
+
+
+	<!-- content columns -->
+	<div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"
+		class="col {{ column.grows ? 'flexGrow' : '' }}">
+		<!-- header -->
+		<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="sort(column)">
+			{{ column.title }}
+			<ng-container *ngIf="column.currentSort !== 'none'">
+				<icon-app class="sortIcon"  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+				<ng-template #upArrow>
+					<icon-app  class="sortIcon" fontSet="fa" size="xs" name="angle-up"></icon-app>
+				</ng-template>
 			</ng-container>
 		</div>
+		<!-- cells -->
+		<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
+			<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
+			<div class="ellipsis">
+				<!-- Render the column template when specified -->
+				<ng-container
+					*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+				</ng-container>
+			</div>
+		</div>
+
 	</div>
+
 </div>
 
 
+<!-- pending -->
+<div class="pendingCtnr flexCenter" *ngIf="pending">
+	<spinner-app></spinner-app>
+</div>
 
 <!-- previous template for ref -->
 
