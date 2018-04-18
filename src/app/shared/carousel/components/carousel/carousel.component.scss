@@ -24,14 +24,14 @@
 
 .menuIc {
 	position: absolute;
-	top: var(--spacing-default);
-	right: var(--spacing-default);
+	top: var(--spacing-m);
+	right: var(--spacing-m);
 }
 
 menu {
 	position: absolute;
 	top: var(--spacing-xl);
-	right: var(--spacing-default);
+	right: var(--spacing-m);
 }
 
 .btn {
@@ -52,11 +52,11 @@ menu {
 }
 
 .back {
-	left: var(--spacing-default);
+	left: var(--spacing-m);
 }
 
 .next {
-	right: var(--spacing-default);
+	right: var(--spacing-m);
 }
 
 .img-ctnr {
@@ -73,18 +73,18 @@ img {
 .rotate {
 	position: absolute;
 	background: var(--color-bg-dark);
-	padding: 0 var(--spacing-default);
+	padding: 0 var(--spacing-m);
 	color: white;
 	display: flex;
 	align-items: center;
 	right: var(--spacing-xxl);
-	top: var(--spacing-default);
+	top: var(--spacing-m);
 }
 
 .counter {
 	position: absolute;
-	bottom: var(--spacing-default);
-	right: var(--spacing-default);
+	bottom: var(--spacing-m);
+	right: var(--spacing-m);
 	border-radius: var(--border-radius);
 	background-color: var(--color-bg-dark);
 	padding: 0 var(--spacing-xs);

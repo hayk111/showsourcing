@@ -95,12 +95,12 @@ section{
 menu {
 	position: absolute;
 	top: var(--spacing-xl);
-	right: var(--spacing-default);
+	right: var(--spacing-m);
 	padding: 0;
 	menuitem {
 		cursor: pointer;
 		background: var(--color-bg);
-		padding: var(--spacing-xs) var(--spacing-default);
+		padding: var(--spacing-xs) var(--spacing-m);
 	}
 	menuitem:hover {
 		background: var(--color-bg-secondary);

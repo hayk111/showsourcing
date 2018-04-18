@@ -2,7 +2,7 @@
 	width: 300px;
 }
 user-picture-app {
-	margin-right: var(--spacing-default);
+	margin-right: var(--spacing-m);
 }
 .nameEmail {
 	display: flex;
@@ -20,14 +20,14 @@ user-picture-app {
 
 
 menuitem {
-	padding: var(--spacing-default);
+	padding: var(--spacing-m);
 	padding-bottom: 0;
 	flex-wrap: nowrap;
 	white-space: nowrap;
 	div {
 		// last item has no border so we put this here
 		width: 100%;
-		padding-bottom: var(--spacing-default);
+		padding-bottom: var(--spacing-m);
 	}
 	.border{
 		border-bottom: 1px solid var(--color-primary-light);
@@ -59,7 +59,7 @@ menu:after {
 }
 
 .userInfo {
-	padding: var(--spacing-default);
+	padding: var(--spacing-m);
 	.cercle {
 		height: 64px;
 		width: 64px;

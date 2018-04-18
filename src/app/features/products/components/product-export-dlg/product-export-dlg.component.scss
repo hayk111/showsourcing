@@ -16,17 +16,17 @@
       border: 2px solid var(--color-bg-switcher);
       border-radius: 4px;
       &:first-child {
-          margin-right: var(--spacing-default);
+          margin-right: var(--spacing-m);
       }
       &:last-child {
-          margin-left: var(--spacing-default);
+          margin-left: var(--spacing-m);
       }
       cursor: pointer;
       .icon-pdf,
       .icon-excel {
           font-size: 48px;
           color: var(--color-txt-secondary);
-          margin-bottom: var(--spacing-default);
+          margin-bottom: var(--spacing-m);
       }
       .title {
           font-weight: 600;

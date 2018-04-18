@@ -1,7 +1,7 @@
 :host {
 	display: block;
 	// adding some padding on the sides
-	padding: var(--spacing-default) var(--spacing-default) 0 var(--spacing-default);
+	padding: var(--spacing-m) var(--spacing-m) 0 var(--spacing-m);
 }
 
 .supplierIcon {
@@ -11,11 +11,11 @@
 }
 
 h2 {
-	margin-bottom: var(--spacing-default);
+	margin-bottom: var(--spacing-m);
 }
 
 .right {
-	margin-left: var(--spacing-default);
+	margin-left: var(--spacing-m);
 
 	& > * {
 		margin-bottom: var(--spacing-s);
@@ -38,6 +38,6 @@ h2 {
 }
 
 .hr {
-	margin: var(--spacing-default) 0;
+	margin: var(--spacing-m) 0;
 }
 

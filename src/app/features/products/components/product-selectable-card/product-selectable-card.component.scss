@@ -11,7 +11,7 @@
     box-sizing: border-box;
     border-radius: var(--border-radius);
     background-color: var(--color-bg);
-    padding: var(--spacing-default);
+    padding: var(--spacing-m);
     position: relative;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .bottom {
-    margin-top: var(--spacing-default);
+    margin-top: var(--spacing-m);
     .supplier {
         font-size: var(--font-size-s);
         width: 218px;
@@ -60,7 +60,7 @@
         padding-top: 6px;
     }
     .footer {
-        padding: var(--spacing-default) 0;
+        padding: var(--spacing-m) 0;
         position: absolute;
         width: 218px;
         bottom: 0;

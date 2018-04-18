@@ -1,7 +1,7 @@
 :host {
 	display: block;
 	// adding some padding on the sides
-	padding: var(--spacing-default) var(--spacing-default) 0 var(--spacing-default);
+	padding: var(--spacing-m) var(--spacing-m) 0 var(--spacing-m);
 }
 
 
@@ -37,7 +37,7 @@ article {
 }
 
 .hr {
-	margin: var(--spacing-default) 0;
+	margin: var(--spacing-m) 0;
 }
 
 .bottom {

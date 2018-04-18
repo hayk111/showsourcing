@@ -44,7 +44,7 @@ declare let module: any;
 		AuthModule.forRoot(),
 		PreloaderModule.forRoot(),
 		HmrModule.forRoot(),
-		environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
 		HttpClientModule,
 		TemplateModule.forRoot(),

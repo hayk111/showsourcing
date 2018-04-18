@@ -15,7 +15,7 @@
 	top: 50%;
 	width: 20px;
 	height: 20px;
-	padding: var(--spacing-default);
+	padding: var(--spacing-m);
 }
 .back {
 	left: var(--spacing-xl);
@@ -28,7 +28,7 @@
 .close-btn {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.3);
-	padding: var(--spacing-s) var(--spacing-default);
+	padding: var(--spacing-s) var(--spacing-m);
 	color: white;
 	right: var(--spacing-xl);
 	top: var(--spacing-xl);

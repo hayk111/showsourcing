@@ -2,6 +2,7 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromContact from './contacts/contact.reducer';
 import * as fromLatestProduct from './latest-product/latest-product.reducer';
 import * as fromNewSupplierDialog from './new-supplier-dlg/new-supplier-dlg.reducer';
+import * as fromSupplierList from './supplier-list/supplier-list.bundle';
 
 export * from './contacts/contact.actions';
 export * from './latest-product/latest-product.action';
@@ -11,12 +12,14 @@ export interface SupplierState {
 	latestProduct: fromLatestProduct.State;
 	contact: fromContact.State;
 	newSupplierDialog: fromNewSupplierDialog.State;
+	supplierList: fromSupplierList.State;
 }
 
 export const reducers: ActionReducerMap<SupplierState> = {
 	latestProduct: fromLatestProduct.reducer,
 	contact: fromContact.reducer,
-	newSupplierDialog: fromNewSupplierDialog.reducer
+	newSupplierDialog: fromNewSupplierDialog.reducer,
+	supplierList: fromSupplierList.reducer
 };
 
 // feature selector
@@ -47,5 +50,12 @@ const selectNewSupplierDialog = createSelector(
 );
 
 export const selectNewSupplierDialogPending = createSelector(selectNewSupplierDialog, fromNewSupplierDialog.selectPending);
+
+// supplier list
+
+export const selectSupplierList = createSelector(
+	selectSupplierState,
+	(state: SupplierState) => state.supplierList
+);
 
 

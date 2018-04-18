@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	padding: var(--spacing-default) var(--spacing-default) 0 var(--spacing-default);
+	padding: var(--spacing-m) var(--spacing-m) 0 var(--spacing-m);
 	&:hover {
 		background: var(--color-bg-third);
 	}
@@ -10,7 +10,7 @@
 }
 
 .ctnr {
-	padding-bottom: var(--spacing-default);
+	padding-bottom: var(--spacing-m);
 }
 
 .border{

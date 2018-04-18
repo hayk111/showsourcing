@@ -1,13 +1,9 @@
 :host {
 	display: block;
+	background: var(--color-bg);
+	border-radius: var(--border-radius);
 }
 
-.ctnr {
-	background: var(--color-bg);
-	display: block;
-	border-radius: var(--border-radius);
-	height: 100%;
-}
 
 main {
 	padding: var(--spacing-l);
