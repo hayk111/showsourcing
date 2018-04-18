@@ -39,6 +39,16 @@ export class EntityService {
 		return this.makeGetRequest(url, params);
 	}
 
+	private makeGetRequest(url: string, params: ApiParams) {
+		// then we make the request
+		// if not recurring simple request
+		if (!params.recurring) {
+			return this.http.get(url);
+		} else {
+			return this.http.get(url);
+		}
+	}
+
 	post(params: ApiParams): Observable<any> {
 		// we construct an url given the params
 		const url = this.urlBuilder.getUrl(params, this.userSrv.user);
@@ -57,16 +67,6 @@ export class EntityService {
 	merge(params: ApiParams) {
 		const url = this.urlBuilder.getUrl(params, this.userSrv.user);
 		return this.http.post(`${url}/mergeWith`, params.body);
-	}
-
-	private makeGetRequest(url: string, params: ApiParams) {
-		// then we make the request
-		// if not recurring simple request
-		if (!params.recurring) {
-			return this.http.get(url);
-		} else {
-			return this.http.get(url);
-		}
 	}
 
 	loadTeamItem(params: ApiParams) {

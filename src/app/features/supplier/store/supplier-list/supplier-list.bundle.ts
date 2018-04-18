@@ -7,11 +7,11 @@ export enum SupplierListActionType {
 
 
 export class SupplierListActions {
-	load(params: any) {
+	static load(params: any) {
 		return { type: SupplierListActionType.LOAD };
 	}
 
-	add(suppliers: Array<Supplier>) {
+	static add(suppliers: Array<Supplier>) {
 		return {
 			type: SupplierListActionType.ADD,
 			payload: suppliers

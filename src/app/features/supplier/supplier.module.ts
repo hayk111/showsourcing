@@ -33,6 +33,7 @@ import { SupplierMainComponent } from './components/supplier-main/supplier-main.
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { reducers } from './store';
+import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { reducers } from './store';
 		EffectsModule.forFeature([
 			ContactEffects,
 			ProductEffects,
-			NewSupplierDlgEffects
+			NewSupplierDlgEffects,
+			SupplierListEffects
 		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card

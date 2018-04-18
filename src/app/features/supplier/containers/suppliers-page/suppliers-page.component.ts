@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { fromDialog } from '~dialog';
 import { DialogName } from '~dialog';
+import { SupplierListActions } from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -28,7 +29,10 @@ export class SuppliersPageComponent implements OnInit {
 
 	ngOnInit() {
 		// select whether the suppliers are pending
-		this.pending$ = this.store.select(fromSupplier.selectState).pipe(map(s => s.pending));
+		this.pending$ = this.store.select(
+			fromSupplier.selectState
+		).pipe(map(s => s.pending));
+		this.store.dispatch(SupplierListActions.load({}));
 		// select filters
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		// when filters change we need to redownload the suppliers with the new filters

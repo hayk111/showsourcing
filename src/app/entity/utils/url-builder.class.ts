@@ -69,14 +69,7 @@ export class UrlBuilder {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	getUrl(params: ApiParams, user: User): string {
-		let url;
-		// if we have url as a string we can use it, else we gotta build it
-		if (params.url) {
-			url = params.url;
-		} else {
-			url = this.buildUrl(params, user);
-		}
-		return url;
+		return params.url || this.buildUrl(params, user);
 	}
 
 	private buildUrl(params: ApiParams, user: User) {

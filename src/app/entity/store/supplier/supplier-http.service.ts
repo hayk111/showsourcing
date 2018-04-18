@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
-import { Patch } from '~entity/utils';
+import { Patch, ApiParams } from '~entity/utils';
 
 import { User } from '~user';
 import { UserService } from '~app/features/user/services';
@@ -13,12 +13,21 @@ import { Observable } from 'rxjs/Observable';
 export class SupplierHttpService {
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
-	load() {
+	/** loads all suppliers */
+	loadAll() {
 		return this.entitySrv
 			.load({ base: ERM.team, target: ERM.supplier, recurring: true })
 			.pipe(
 				map((r: any) => r.elements),
 				map(suppliers => this.standardize(suppliers)),
+		);
+	}
+
+	/** loads a subset of suppliers given the params */
+	loadAsync(params: ApiParams) {
+		params = { ...params, base: ERM.team, target: ERM.supplier, recurring: true };
+		return this.entitySrv.load(params).pipe(
+			map((r: any) => r.elements),
 		);
 	}
 

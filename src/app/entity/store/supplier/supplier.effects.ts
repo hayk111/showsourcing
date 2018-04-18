@@ -50,7 +50,7 @@ export class SuppliersEffects {
 	load$ = this.action$
 		.ofType<any>(ActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.srv.load()),
+			switchMap(_ => this.srv.loadAll()),
 			map((result: any) => supplierActions.add(result))
 		);
 

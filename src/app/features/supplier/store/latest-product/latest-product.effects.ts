@@ -16,10 +16,10 @@ export class ProductEffects {
 		.ofType<any>(LatestProductActionType.LOAD)
 		.pipe(
 			switchMap(_ => this.http.get(
-				// tslint:disable-next-line:max-line-length
 				'api/team/' + this.userSrv.teamId
 				+ '/product?take=7&drop=0&sort=creationDate&sortOrder=DESC&supplier='
 				+ this.focusSrv.currentTarget.entityId + '&withArchived=false')),
+			// getting the array of products from the json
 			map((result: any) => result.elements),
 			map((result: any) => LatestProductActions.set(result))
 		);

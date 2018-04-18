@@ -38,17 +38,9 @@ export class ProductHttpService {
 		params = { ...params };
 		// we can pass an url for when using loadMore
 		url = url || `api/team/${this.userSrv.teamId}/product?take=${this.takeAmount}&`;
-		// pagination
-		if (params.drop) {
-			url = `${url}drop=${params.drop}&`;
-		}
-		// adding filters for filtering the product on the backend, filters gotta be parsed
-		if (params.filters) {
-			url = UrlBuilder.addFilters(url, params.filters);
-		}
-		// if (params.sortBy) {
-		// 	url = this.addSorting(url, params);
-		// }
+		// adding filters, pagination and sorting
+		url = UrlBuilder.addParams(url, params);
+
 
 		return this.http.get(url).pipe(
 			map((r: any) => r.elements),
