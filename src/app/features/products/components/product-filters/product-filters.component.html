@@ -28,7 +28,7 @@
 				<checkbox-app
 					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
-					(uncheck)="onFilterRemoved(filter)">
+					(uncheck)="removeFilter(filter)">
 					{{ filter.value | entityName: type | async }}
 				</checkbox-app>
 			</div>
@@ -86,7 +86,7 @@
 				<checkbox-app
 					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
-					(uncheck)="onFilterRemoved(filter)">
+					(uncheck)="removeFilter(filter)">
 					<!-- we display the correct badge color -->
 					<div class="flex">
 						<badge-app [color]="filter.value"></badge-app>
@@ -147,8 +147,7 @@
 			(filterAdded)="addFilter($event)"
 			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
-		<filter-price-panel-app *ngIf="pricePanelShown"></filter-price-panel-app>
-		<filter-rating-panel-app *ngIf="ratingPanelShown"></filter-rating-panel-app>
+
 	</filter-selection-panel-app>
 
 
