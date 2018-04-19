@@ -1,11 +1,10 @@
-<card-app>
-	<card-header-app>
+	<header>
 		<div class="flexCenter">
 			<img src="assets/img/supplier-img.svg"/>
 		</div>
-	</card-header-app>
+	</header>
 
-	<div class="bottom flexBetween">
+	<main class="flexBetween">
 		<supplier-main-title-app
 			[supplier]="supplier">
 		</supplier-main-title-app>
@@ -16,6 +15,8 @@
 			[productCount]="productCount"
 			[taskCount]="taskCount"
 			[contactCount]="contactCount"></supplier-summary-app>
-	</div>
+	</main>
 
-</card-app>
+	<footer class="flex {{ supplier.tags.length === 0 ? 'biggerPadding' : '' }}">
+			<span class="tag" *ngFor="let tag of supplier.tags">{{ tag.name }}</span>
+	</footer>

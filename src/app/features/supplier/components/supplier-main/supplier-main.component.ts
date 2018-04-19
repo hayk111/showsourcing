@@ -7,6 +7,9 @@ import { Patch } from '~entity';
 	templateUrl: './supplier-main.component.html',
 	styleUrls: ['./supplier-main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'z-2 mg-m border-radius'
+	}
 })
 export class SupplierMainComponent implements OnInit {
 	@Input() supplier: Supplier;

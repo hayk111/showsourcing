@@ -1,4 +1,9 @@
-card-header-app{
+:host {
+	display: block;
+	background: var(--color-bg);
+}
+
+header{
 	div {
 		background: var(--color-bg-third);
 		border-bottom: 1px solid var(--color-primary-light);
@@ -9,11 +14,29 @@ card-header-app{
 		}
 	}
 }
-.bottom {
-	padding-bottom: 11px;
+
+main {
+	padding: var(--spacing-l);
+	padding-bottom: 0;
 	align-items: flex-start;
 }
 
 supplier-summary-app {
 	margin-left: var(--spacing-m);
+}
+
+footer {
+	padding-left: 100px;
+	padding-bottom: var(--spacing-m);
+	&.biggerPadding {
+		padding-bottom: 34px;
+	}
+}
+
+.tag {
+	padding: var(--spacing-xs);
+	border: 1px solid var(--color-primary-light);
+	background: var(--color-bg-third);
+	border-radius: var(--border-radius-s);
+	margin-right: 12px;
 }
