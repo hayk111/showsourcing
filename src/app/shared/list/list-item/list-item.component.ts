@@ -14,7 +14,7 @@ import { Log } from '~app/app-root/utils';
 export class ListItemComponent {
 	@Input() @HostBinding('class.selected') selected;
 	@Input() border = true;
-
+	@Input() padding = 'm';
 	constructor() { }
 
 

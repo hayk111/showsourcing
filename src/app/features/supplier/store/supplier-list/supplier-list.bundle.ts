@@ -19,16 +19,28 @@ export class SupplierListActions {
 	}
 }
 
-export interface State extends Array<string> { }
-const initialState = [];
+export interface State {
+	ids: Array<boolean>;
+	pending: boolean;
+}
+
+const initialState = {
+	ids: [],
+	pending: true
+};
 
 export function reducer(state = initialState, action) {
 	switch (action.type) {
+		case SupplierListActionType.LOAD:
+			return { ...state, pending: false };
 		case SupplierListActionType.ADD:
 			// we only add the ids
-			return action.payload.map(supplier => supplier.id);
+			return { ...state, ids: action.payload.map(supplier => supplier.id) };
 		default: return state;
 	}
 }
+
+
+
 
 

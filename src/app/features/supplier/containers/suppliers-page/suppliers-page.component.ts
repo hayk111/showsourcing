@@ -29,9 +29,11 @@ export class SuppliersPageComponent implements OnInit {
 
 	ngOnInit() {
 		// select whether the suppliers are pending
-		this.pending$ = this.store.select(
-			fromSupplier.selectState
-		).pipe(map(s => s.pending));
+
+		// this.pending$ = this.store.select(
+		// 	fromSupplier.selectState
+		// ).pipe(map(s => s.pending));
+
 		this.store.dispatch(SupplierListActions.load({}));
 		// select filters
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
@@ -43,6 +45,7 @@ export class SuppliersPageComponent implements OnInit {
 		});
 
 	}
+
 
 	/** loads initial suppliers and when the filters change */
 	loadSuppliers(filters) {

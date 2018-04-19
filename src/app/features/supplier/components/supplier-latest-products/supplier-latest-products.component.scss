@@ -12,8 +12,8 @@
 	height: 95px;
 	overflow: auto;
 	margin-right: var(--spacing-s);
-	img{
-		max-width: 100%;
+	overflow: hidden;
+	img {
 		max-height: 100%;
 	}
 }

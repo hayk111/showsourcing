@@ -33,6 +33,7 @@ export class Supplier {
 	eventId: string;
 	categoryIds: Array<String>;
 	tagIds: Array<String>;
+	leadTimeValue: number;
 
 	constructor(name: string, userId: string) {
 		this.name = name;

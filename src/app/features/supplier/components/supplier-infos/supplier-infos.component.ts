@@ -18,8 +18,7 @@ export class SupplierInfosComponent implements OnInit {
 
 	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 	onUpdate(value: any, propName: string) {
 		const patch: Patch = { propName, value, id: this.supplier.id };

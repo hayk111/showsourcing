@@ -3,12 +3,14 @@
 
 	<h2>Contacts</h2>
 
-	<list-app *ngIf="contacts.length > 0; else noContact">
-		<list-item-app
-			*ngFor="let contact of contacts; let last = last" [border]="!last">
-			<supplier-contact-app (nameClick)="openContact.emit(contact)" [contact]="contact"></supplier-contact-app>
-		</list-item-app>
-	</list-app>
+	<ul *ngIf="contacts.length > 0; else noContact">
+		<supplier-contact-app
+			*ngFor="let contact of contacts; let last = last"
+			[border]="!last"
+			(nameClick)="openContact.emit(contact)"
+			[contact]="contact">
+		</supplier-contact-app>
+	</ul>
 
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">

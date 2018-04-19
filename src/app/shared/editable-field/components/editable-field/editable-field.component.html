@@ -88,7 +88,25 @@
 		<ng-container *ngSwitchCase="type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp (keyup.enter)="onSave()" (keyup.enter)="onSave()" restrictInput="number" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+				<input inputApp
+					(keyup.enter)="onSave()"
+					restrictInput="number"
+					[value]="value"
+					type="number"
+					(change)="updateValue(+$event.target.value)"/>
+			</form-field-app>
+		</ng-container>
+
+		<!-- email -->
+		<ng-container *ngSwitchCase="type === 'email'">
+			<form-field-app>
+				<label-app>{{ label }}</label-app>
+				<input inputApp
+					(keyup.enter)="onSave()"
+					[value]="value || ''"
+					type="email"
+					(change)="updateValue($event.target.value)"
+					email/>
 			</form-field-app>
 		</ng-container>
 

@@ -1,26 +1,33 @@
 <div class="flex">
 
-	<div class="colImg">
+	<!-- block without border -->
+	<div class="colImg pointer" (click)="nameClick.emit()">
 		<img [src]="contact?.image?.urls?.url_120x90 || defaultImg"/>
 	</div>
 
-	<div class="col flexColumn" (click)="nameClick.emit()">
+	<!-- border block -->
+	<div class="flex border">
+		<!-- name and job title -->
+		<div class="col flexColumn pointer" (click)="nameClick.emit()">
 
-		<div class="name">
-			{{ contact.name }}
+			<div class="name">
+				{{ contact.name }}
+			</div>
+
+			<div class="jobTitle">
+				{{ contact.jobTitle }}
+			</div>
 		</div>
 
-		<div class="jobTitle">
-			{{ contact.jobTitle }}
+		<!-- email -->
+		<div class="col">
+			<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
 		</div>
-	</div>
-
-	<div class="col">
-		<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-	</div>
-
-	<div class="col">
-		<a href="telto:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
+		<!-- phone -->
+		<div class="col">
+			<a href="tel:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
+		</div>
 	</div>
 
 </div>
+

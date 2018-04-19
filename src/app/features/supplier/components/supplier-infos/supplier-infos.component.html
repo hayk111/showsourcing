@@ -34,9 +34,9 @@
 	<cell-two-row-app title="General Lead time">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.leadTime"
+			[value]="supplier.leadTimeValue"
 			type="number"
-			(update)="onUpdate($event, 'leadTime')"></editable-field-app>
+			(update)="onUpdate($event, 'leadTimeValue')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- country -->
@@ -63,7 +63,8 @@
 			[entity]="supplier"
 			[value]="supplier.website"
 			type="url"
-			(update)="onUpdate($event, 'website')"></editable-field-app>
+			(update)="onUpdate($event, 'website')">
+		</editable-field-app>
 	</cell-two-row-app>
 
 	<!-- email -->

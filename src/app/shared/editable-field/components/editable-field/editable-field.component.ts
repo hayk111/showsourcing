@@ -19,7 +19,7 @@ export class EditableFieldComponent implements OnInit {
 	@Input() isRightAligned = false;
 	// the entity the editable field targets. This is used to display additional things instead of just the value
 	// for example for the price we also display the currency
-	@Input() entity: Entity;
+	@Input() entity: any;
 	@Input() isCompactInline = false;
 	// update will return the new value
 	@Output() update = new EventEmitter<any>();
