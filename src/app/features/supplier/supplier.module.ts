@@ -34,6 +34,7 @@ import { SupplierSummaryComponent } from './components/supplier-main/supplier-su
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { reducers } from './store';
 import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
+import { NewProductDialogComponent } from './component/new-product-dialog/new-product-dialog.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/
 		SupplierContactComponent,
 		SupplierNewContactDlgComponent,
 		SupplierDescriptionComponent,
+		NewProductDialogComponent,
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,

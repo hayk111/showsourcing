@@ -45,20 +45,22 @@
 
 			<!-- tags, projects -->
       <ng-container *ngSwitchCase="['tag', 'project'].indexOf(type) > -1">
-        <span class="tags">
+        <span class="tags" *ngIf="value.length > 0">
           <span class="tag" *ngFor="let itemId of value">
             {{ itemId | entityName: type | async }}
           </span>
-        </span>
+				</span>
+				<span *ngIf="value.length === 0">-</span>
 			</ng-container>
 
 			<!-- categories -->
 			<ng-container *ngSwitchCase="type === 'categories'">
-				<span class="tags">
+				<span class="tags" *ngIf="value.length > 0">
 					<span class="tag" *ngFor="let itemId of value">
 						{{ itemId | entityName: 'category' | async }}
 					</span>
 				</span>
+				<span *ngIf="value.length === 0">-</span>
 			</ng-container>
 
 			<!-- currency -->
@@ -102,7 +104,7 @@
 				<input inputApp
 					(keyup.enter)="onSave()"
 					restrictInput="number"
-					[value]="value"
+					[value]="value || ''"
 					type="number"
 					(input)="updateValue(+$event.target.value)"/>
 			</form-field-app>
@@ -128,7 +130,7 @@
 				<input inputApp
 				(keyup.enter)="onSave()"
 				restrictInput="tel"
-				[value]="value"
+				[value]="value || ''"
 				type="text"
 				(input)="updateValue($event.target.value)"/>
 			</form-field-app>
@@ -141,7 +143,7 @@
 				<input inputApp
 				(keyup.enter)="onSave()"
 				restrictInput="decimal"
-				[value]="value"
+				[value]="value || ''"
 				type="number"
 				(input)="updateValue(+$event.target.value)"/>
 			</form-field-app>

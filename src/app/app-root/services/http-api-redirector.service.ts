@@ -10,8 +10,12 @@ export class HttpApiRedirectorService implements HttpInterceptor {
 	constructor() { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-		const newReq = req.clone({ url: `${this.baseUrl}/${req.url}` });
-		if (environment.production) return next.handle(newReq);
+		// only for relative urls we will add the baseUrl
+		if (!req.url.startsWith('http://') && !req.url.startsWith('https://')) {
+			const newReq = req.clone({ url: `${this.baseUrl}/${req.url}` });
+			if (environment.production) return next.handle(newReq);
+		}
+
 		return next.handle(req);
 	}
 }

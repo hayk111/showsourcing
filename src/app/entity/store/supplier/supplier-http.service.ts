@@ -59,26 +59,26 @@ export class SupplierHttpService {
 	}
 
 	addTag({ tag, supplierId }): Observable<any> {
-		return this.http.put(`/api/supplier/${supplierId}/tag/${tag.id}`, {});
+		return this.http.put(`api/supplier/${supplierId}/tag/${tag.id}`, {});
 	}
 
 	removeTag({ tag, supplierId }): Observable<any> {
-		return this.http.delete(`/api/supplier/${supplierId}/tag/${tag.id}`, {});
+		return this.http.delete(`api/supplier/${supplierId}/tag/${tag.id}`, {});
 	}
 
 	createTag({ tag, supplierId }): Observable<any> {
-		return this.http.post(`/api/team/${this.userSrv.teamId}/tag`, { name: tag.name, itemType: 'Product' });
+		return this.http.post(`api/team/${this.userSrv.teamId}/tag`, { name: tag.name, itemType: 'Product' });
 	}
 
 	addCategory({ category, supplierId }): Observable<any> {
-		return this.http.put(`/api/supplier/${supplierId}/productCategory/${category.id}`, {});
+		return this.http.put(`api/supplier/${supplierId}/productCategory/${category.id}`, {});
 	}
 
 	removeCategory({ category, supplierId }): Observable<any> {
-		return this.http.delete(`/api/supplier/${supplierId}/productCategory/${category.id}`, {});
+		return this.http.delete(`api/supplier/${supplierId}/productCategory/${category.id}`, {});
 	}
 
 	createCategory({ category, supplierId }): Observable<any> {
-		return this.http.post(`/api/team/${this.userSrv.teamId}/category`, { name: category.name, metaCategory: 'meta-category' });
+		return this.http.post(`api/team/${this.userSrv.teamId}/category`, { name: category.name, metaCategory: 'meta-category' });
 	}
 }

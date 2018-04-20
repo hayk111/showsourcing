@@ -100,4 +100,4 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
 	};
 }
 
-export const metaReducers = environment.production ? [] : [stateSetter, logger, storeFreeze];
+export const metaReducers = environment.production ? [logger] : [stateSetter, logger, storeFreeze];
