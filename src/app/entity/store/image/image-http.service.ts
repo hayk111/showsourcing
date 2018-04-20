@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 import { AppImage } from './image.model';
 import { EntityTarget } from '../entity.model';
 import { AppFile } from '../file';
-import { switchMap, retry, delay, retryWhen, take } from 'rxjs/operators';
+import { switchMap, retry, delay, retryWhen, take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { } from '@angular/common/http';
 
 @Injectable()
 export class ImageHttpService extends FileHttpService {
@@ -25,8 +26,11 @@ export class ImageHttpService extends FileHttpService {
 			// the weird // r => resp is so we don't get the response from the query but the resp above it
 			switchMap((resp: AppImage) =>
 				this.queryFile(resp)
-					.pipe(retryWhen(errors => errors.pipe(delay(200), take(10))))
-					.map(r => resp)
+					.pipe(
+						map(r => resp),
+						retryWhen(errors => errors.pipe(delay(200), take(10))),
+				)
+
 			)
 		);
 	}
@@ -40,7 +44,7 @@ export class ImageHttpService extends FileHttpService {
 	}
 
 	queryFile(r: AppImage) {
-		return this.http.get(r.urls.url_400x300);
+		return this.http.get(r.urls.url_400x300, { responseType: 'blob' });
 	}
 
 	rotate(img: AppImage) {
