@@ -34,6 +34,8 @@ export class EditableFieldComponent implements OnInit {
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	editMode = false;
 	// accumulator to save the new value, we will send an update even not on change but when the button save is clicked
+	// Therefor we need an accumulator to save the value before clicking the save button since we don't yet know which input
+	// is being used
 	accumulator: string | number;
 
 	constructor(private cd: ChangeDetectorRef) { }

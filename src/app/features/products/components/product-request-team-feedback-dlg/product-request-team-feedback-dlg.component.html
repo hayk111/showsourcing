@@ -1,7 +1,7 @@
 <dialog-app [name]="dialogName">
-	<header> Team Feedback </header>
+	<dialog-header-app> Team Feedback </dialog-header-app>
 
-	<div class="subtitle">Team members</div>
+	<dialog-subtitle-app>Team members</dialog-subtitle-app>
 
 	<main>
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
@@ -16,11 +16,11 @@
 		</list-app>
 	</main>
 
-  <footer class="fullWidth flexCenter flexBetween">
+  <dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ products.length }} products selected</span>
 		<button class="small" (click)="submit()">
 			Request Feedback
 		</button>
-	</footer>
+	</dialog-footer-app>
 
 </dialog-app>

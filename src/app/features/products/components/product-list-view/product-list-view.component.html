@@ -17,11 +17,23 @@
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	{{ row?.supplierId | entityName:'supplier' | async }}
+	<ng-container *ngIf="row.supplierId !== undefined">
+		{{ row?.supplierId | entityName:'supplier' | async }}
+	</ng-container>
+	<ng-container *ngIf="row.supplierId === undefined">
+		-
+	</ng-container>
 </ng-template>
 
 <ng-template #category let-row="row">
-	{{ row?.categoryId | entityName:'category' | async }}
+	<ng-container *ngIf="row.categoryId !== undefined">
+		{{ row?.categoryId | entityName:'category' | async }}
+	</ng-container>
+	<ng-container *ngIf="row.categoryId === undefined">
+		-
+	</ng-container>
+
+
 </ng-template>
 
 <ng-template #price let-row="row">

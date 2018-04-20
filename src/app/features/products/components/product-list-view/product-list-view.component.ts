@@ -48,7 +48,7 @@ export class ProductListViewComponent implements OnInit {
 	filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Product', type: 'main', sortable: true, sortWith: 'name', width: 280 },
+		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },
 		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName', width: 140 },
 		{ title: 'Category', type: 'category', sortWith: 'categoryName', width: 140 },
 		{ title: 'Price', type: 'price', sortWith: 'priceAmount', width: 50 },

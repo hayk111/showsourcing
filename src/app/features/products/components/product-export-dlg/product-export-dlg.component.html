@@ -1,6 +1,6 @@
 <dialog-app [name]="dlgName">
-  <header>Export Selection</header>
-	<div class="subtitle">Export Type</div>
+  <dialog-header-app>Export Selection</dialog-header-app>
+	<dialog-subtitle-app>Export Type</dialog-subtitle-app>
 
 	<main class="exportRow">
 		<div class="exportCell" (click)="select('excel')" [class.selected]="selectedExport === 'excel'">
@@ -13,12 +13,12 @@
 			<div class="title">PDF</div>
 			<div class="subtitle">Perfect for sharing</div>
 		</div>
-</main>
+	</main>
 
-  <footer class="fullWidth flexCenter flexBetween">
+  <dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ products.length }} products selected</span>
 		<button class="small" (click)="export()">
 			Export
 		</button>
-  </footer>
+  </dialog-footer-app>
 </dialog-app>

@@ -79,8 +79,10 @@
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp (keyup.enter)="onSave()"
-				[value]="value || ''" [type]="type" (change)="updateValue($event.target.value)"/>
+				<input inputApp
+				(keyup.enter)="onSave()"
+				[value]="value || ''" [type]="type"
+				(input)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -93,7 +95,7 @@
 					restrictInput="number"
 					[value]="value"
 					type="number"
-					(change)="updateValue(+$event.target.value)"/>
+					(input)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -105,7 +107,7 @@
 					(keyup.enter)="onSave()"
 					[value]="value || ''"
 					type="email"
-					(change)="updateValue($event.target.value)"
+					(input)="updateValue($event.target.value)"
 					email/>
 			</form-field-app>
 		</ng-container>
@@ -114,7 +116,12 @@
 		<ng-container *ngSwitchCase="type === 'tel'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp (keyup.enter)="onSave()" restrictInput="tel" [value]="value" type="text" (change)="updateValue($event.target.value)"/>
+				<input inputApp
+				(keyup.enter)="onSave()"
+				restrictInput="tel"
+				[value]="value"
+				type="text"
+				(input)="updateValue($event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
@@ -122,7 +129,12 @@
 		<ng-container *ngSwitchCase="type === 'price'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<input inputApp (keyup.enter)="onSave()" restrictInput="decimal" [value]="value" type="number" (change)="updateValue(+$event.target.value)"/>
+				<input inputApp
+				(keyup.enter)="onSave()"
+				restrictInput="decimal"
+				[value]="value"
+				type="number"
+				(input)="updateValue(+$event.target.value)"/>
 			</form-field-app>
 		</ng-container>
 
