@@ -151,8 +151,8 @@ export class SuppliersEffects {
 			map(action => action.payload),
 			switchMap(payload =>
 				this.srv
-					.createTag(payload)
-					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.productId), fromCategory.Actions.add([r])]))
+					.createCategory(payload)
+					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.supplierId), fromCategory.Actions.add([r])]))
 			)
 		);
 	constructor(

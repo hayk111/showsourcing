@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Entity, Project, Tag } from '~entity';
 import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
 import { EditableFieldValue } from './editable-field-value.interface';
+import { InputDirective } from '~app/shared/inputs';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class EditableFieldComponent implements OnInit {
 	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
 	// when an editable field should be a selector we need it to open it on click
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
+	// same for inputs
+	@ViewChild(InputDirective) input: InputDirective;
 	editMode = false;
 	// accumulator to save the new value, we will send an update even not on change but when the button save is clicked
 	// Therefor we need an accumulator to save the value before clicking the save button since we don't yet know which input
@@ -52,6 +55,8 @@ export class EditableFieldComponent implements OnInit {
 		setTimeout(() => {
 			if (this.selector)
 				this.selector.open();
+			if (this.input)
+				this.input.focus();
 		}, 0);
 
 		// since we can open the editmode from anywhere we need to check for cd

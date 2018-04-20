@@ -71,14 +71,14 @@ export class SupplierHttpService {
 	}
 
 	addCategory({ category, supplierId }): Observable<any> {
-		return this.http.put(`/api/supplier/${supplierId}/category/${category.id}`, {});
+		return this.http.put(`/api/supplier/${supplierId}/productCategory/${category.id}`, {});
 	}
 
 	removeCategory({ category, supplierId }): Observable<any> {
-		return this.http.delete(`/api/supplier/${supplierId}/category/${category.id}`, {});
+		return this.http.delete(`/api/supplier/${supplierId}/productCategory/${category.id}`, {});
 	}
 
 	createCategory({ category, supplierId }): Observable<any> {
-		return this.http.post(`/api/team/${this.userSrv.teamId}/category`, { name: category.name, itemType: 'Product' });
+		return this.http.post(`/api/team/${this.userSrv.teamId}/category`, { name: category.name, metaCategory: 'meta-category' });
 	}
 }

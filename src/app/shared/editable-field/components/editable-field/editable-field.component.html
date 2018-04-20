@@ -43,13 +43,22 @@
         </span>
 			</ng-container>
 
-			<!-- tags -->
+			<!-- tags, projects -->
       <ng-container *ngSwitchCase="['tag', 'project'].indexOf(type) > -1">
         <span class="tags">
-          <span class="tag" *ngFor="let tagid of value">
-            {{ tagid | entityName: type | async }}
+          <span class="tag" *ngFor="let itemId of value">
+            {{ itemId | entityName: type | async }}
           </span>
         </span>
+			</ng-container>
+
+			<!-- categories -->
+			<ng-container *ngSwitchCase="type === 'categories'">
+				<span class="tags">
+					<span class="tag" *ngFor="let itemId of value">
+						{{ itemId | entityName: 'category' | async }}
+					</span>
+				</span>
 			</ng-container>
 
 			<!-- currency -->
@@ -223,6 +232,23 @@
 					</ng-template>
 				</selector-app>
 			</ng-container>
+
+			<!-- categories selector -->
+			<ng-container *ngSwitchCase="type === 'categories'">
+					<selector-app
+						[choices]="'category' | entityList | async"
+						[multiple]="true"
+						[value]="value"
+						(select)="itemAdded.emit({ type: 'category', value: $event })"
+						(unselect)="itemRemoved.emit({ type: 'category', value: $event })"
+						(create)="itemCreate.emit({ type: 'category', value: $event })"
+						[canSearch]="true"
+						[canCreate]="true">
+						<ng-template let-item="item">
+							{{ item.name }}
+						</ng-template>
+					</selector-app>
+				</ng-container>
 
 
 		<!-- Status selector -->

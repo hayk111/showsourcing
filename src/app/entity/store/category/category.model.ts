@@ -1,10 +1,13 @@
 
+import { Entity } from '~entity/store/entity.model';
 
-
-export interface Category {
-	id: string;
-	createdByUserId: string;
-	creationDate: number;
+export class Category extends Entity {
 	name: string;
 	teamId: string;
+	constructor(name: string, userId: string) {
+		super(userId);
+		this.name = name;
+	}
 }
+
+

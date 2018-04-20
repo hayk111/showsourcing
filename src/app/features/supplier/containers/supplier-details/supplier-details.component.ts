@@ -17,6 +17,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 import { selectLatestProductsArray, selectContactArray } from '~app/features/supplier/store';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { Category } from '~entity/store/category/category.model';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -71,6 +72,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			case 'tag':
 				this.onTagCreated(efValue.value);
 				break;
+			case 'category':
+				this.onCategoryCreated(efValue.value);
+				break;
 		}
 	}
 
@@ -78,6 +82,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		switch (efValue.type) {
 			case 'tag':
 				this.store.dispatch(fromSupplier.Actions.addTag(efValue.value, this.supplierId));
+				break;
+			case 'category':
+				this.store.dispatch(fromSupplier.Actions.addCategory(efValue.value, this.supplierId));
 				break;
 		}
 	}
@@ -87,12 +94,20 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			case 'tag':
 				this.store.dispatch(fromSupplier.Actions.removeTag(efValue.value, this.supplierId));
 				break;
+			case 'category':
+				this.store.dispatch(fromSupplier.Actions.removeCategory(efValue.value, this.supplierId));
+				break;
 		}
 	}
 
 	onTagCreated(tagName: string) {
 		const tag = new Tag(tagName, this.userSrv.userId);
 		this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
+	}
+
+	onCategoryCreated(categoryName: string) {
+		const category = new Category(categoryName, this.userSrv.userId);
+		this.store.dispatch(fromSupplier.Actions.createCategory(category, this.supplierId));
 	}
 
 	openContactDlg(contact?: Contact) {

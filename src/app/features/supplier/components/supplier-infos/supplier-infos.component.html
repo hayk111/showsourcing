@@ -112,13 +112,17 @@
 			(update)="onUpdate($event, 'eventId')"></editable-field-app>
 	</cell-two-row-app> -->
 
-	<!-- category -->
-	<!-- <cell-two-row-app title="Category">
+	<!-- categories -->
+	<cell-two-row-app title="Categories">
 		<editable-field-app
+			(itemAdded)="itemAdded.emit($event)"
+			(itemRemoved)="itemRemoved.emit($event)"
+			(itemCreate)="itemCreate.emit($event)"
 			[entity]="supplier"
 			[value]="supplier.categoryIds"
-			type="category"></editable-field-app>
-	</cell-two-row-app> -->
+			type="categories">
+		</editable-field-app>
+	</cell-two-row-app>
 
 	<!-- tags -->
 	<cell-two-row-app title="tag">

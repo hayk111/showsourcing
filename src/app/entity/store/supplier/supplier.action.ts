@@ -54,21 +54,21 @@ export class SupplierActions extends EntityActions<SupplierActionTypes> {
 
 	createCategory(category: Category, supplierId: string) {
 		return {
-			type: this.actionType.CREATE_TAG,
+			type: this.actionType.CREATE_CATEGORY,
 			payload: { category, supplierId },
 		};
 	}
 
 	addCategory(category: Category, supplierId: string) {
 		return {
-			type: this.actionType.ADD_TAG,
+			type: this.actionType.ADD_CATEGORY,
 			payload: { category, supplierId },
 		};
 	}
 
 	removeCategory(category: Category, supplierId: string) {
 		return {
-			type: this.actionType.REMOVE_TAG,
+			type: this.actionType.REMOVE_CATEGORY,
 			payload: { category, supplierId },
 		};
 	}
