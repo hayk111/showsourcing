@@ -7,6 +7,7 @@ import { EntityTarget } from '../entity.model';
 import { AppFile } from '../file';
 import { switchMap, retry, delay, retryWhen, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class ImageHttpService extends FileHttpService {
@@ -20,11 +21,11 @@ export class ImageHttpService extends FileHttpService {
 
 	uploadFile(file: AppFile): Observable<AppFile | AppImage> {
 		return super.uploadFile(file, 'image').pipe(
-			// so we are sure the file is actually ready, it might not always be the case (ask antoine).
+			// so we are sure the file is actually ready, it might not always be the case.
 			// the weird // r => resp is so we don't get the response from the query but the resp above it
 			switchMap((resp: AppImage) =>
 				this.queryFile(resp)
-					.pipe(retryWhen(errors => errors.pipe(delay(2000), take(10))))
+					.pipe(retryWhen(errors => errors.pipe(delay(200), take(10))))
 					.map(r => resp)
 			)
 		);
