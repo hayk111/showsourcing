@@ -196,9 +196,9 @@
 				[choices]="'tag' | entityList | async"
 				[multiple]="true"
 				[value]="value"
-				(select)="tagAdded.emit($event)"
-				(unselect)="tagRemoved.emit($event)"
-				(create)="tagCreate.emit($event)"
+				(select)="itemAdded.emit({ type: 'tag', value: $event })"
+				(unselect)="itemRemoved.emit({ type: 'tag', value: $event })"
+				(create)="itemCreate.emit({ type: 'tag', value: $event })"
 				[canSearch]="true"
 				[canCreate]="true">
 				<ng-template let-item="item">
@@ -208,15 +208,14 @@
 		</ng-container>
 
 		<!-- Project selector -->
-		<!-- Tags selector -->
 		<ng-container *ngSwitchCase="type === 'project'">
 				<selector-app
 					[choices]="'project' | entityList | async"
 					[multiple]="true"
 					[value]="value"
-					(select)="projectAdded.emit($event)"
-					(unselect)="projectRemoved.emit($event)"
-					(create)="projectCreate.emit($event)"
+					(select)="itemAdded.emit({ type: 'project', value: $event })"
+					(unselect)="itemRemoved.emit({ type: 'project', value: $event })"
+					(create)="itemCreate.emit({ type: 'project', value: $event })"
 					[canSearch]="true"
 					[canCreate]="true">
 					<ng-template let-item="item">

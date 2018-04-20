@@ -16,6 +16,7 @@ import { UserService } from '~app/features/user';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 import { selectLatestProductsArray, selectContactArray } from '~app/features/supplier/store';
+import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -64,12 +65,29 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 
-	onTagAdded(tag: Tag) {
-		this.store.dispatch(fromSupplier.Actions.addTag(tag, this.supplierId));
+	/**  */
+	onItemCreated(efValue: EditableFieldValue) {
+		switch (efValue.type) {
+			case 'tag':
+				this.onTagCreated(efValue.value);
+				break;
+		}
 	}
 
-	onTagRemoved(tag: Tag) {
-		this.store.dispatch(fromSupplier.Actions.removeTag(tag, this.supplierId));
+	onItemAdded(efValue: EditableFieldValue) {
+		switch (efValue.type) {
+			case 'tag':
+				this.store.dispatch(fromSupplier.Actions.addTag(efValue.value, this.supplierId));
+				break;
+		}
+	}
+
+	onItemRemoved(efValue: EditableFieldValue) {
+		switch (efValue.type) {
+			case 'tag':
+				this.store.dispatch(fromSupplier.Actions.removeTag(efValue.value, this.supplierId));
+				break;
+		}
 	}
 
 	onTagCreated(tagName: string) {

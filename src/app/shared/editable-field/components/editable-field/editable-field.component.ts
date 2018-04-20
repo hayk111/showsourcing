@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Entity, Project, Tag } from '~entity';
 import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
+import { EditableFieldValue } from './editable-field-value.interface';
+
 
 @Component({
 	selector: 'editable-field-app',
@@ -23,13 +25,10 @@ export class EditableFieldComponent implements OnInit {
 	@Input() isCompactInline = false;
 	// update will return the new value
 	@Output() update = new EventEmitter<any>();
-	// emitted when a tag is created
-	@Output() tagCreate = new EventEmitter<string>();
-	// select multiple we add and remove
-	@Output() tagAdded = new EventEmitter<Tag>();
-	@Output() tagRemoved = new EventEmitter<Tag>();
-	@Output() projectAdded = new EventEmitter<Project>();
-	@Output() projectRemoved = new EventEmitter<Project>();
+	// when select multiple we can create, add and remove
+	@Output() itemCreate = new EventEmitter<EditableFieldValue>();
+	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
+	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
 	// when an editable field should be a selector we need it to open it on click
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	editMode = false;
@@ -55,62 +54,26 @@ export class EditableFieldComponent implements OnInit {
 				this.selector.open();
 		}, 0);
 
-
 		// since we can open the editmode from anywhere we need to check for cd
 		this.cd.markForCheck();
 	}
+
 
 	closeEditMode() {
 		this.editMode = false;
 	}
 
-	updateTags(value: Array<Tag>) {
-		// this will be fired when a change event occur with ng select
-		// however when we create a tag, a change is also fired but the id isn't ready yet
-		if (!Array.isArray(value)) {
-			return;
-		}
-		// if previous value is bigger we removed item
-		if (this.value.length > value.length) {
-			// the one removed is the one not included in the second array
-			const removedId = this.value.find(v => !value.find(x => x.id === v));
-			// since we only have the id we will send a lookalike Tag with just the id
-			this.tagRemoved.emit({ id: removedId } as Tag);
-		} else {
-			// the one added is the one not included in the first array
-			const addedItem = value.find(v => !(this.value as Array<any>).includes(v.id));
-			this.tagAdded.emit(addedItem);
-		}
-	}
-
-	updateProjects(value: Array<Project>) {
-		// this will be fired when a change event occur with ng select
-		// however when we create a tag, a change is also fired but the id isn't ready yet
-		if (!Array.isArray(value)) {
-			return;
-		}
-		// if previous value is bigger we removed item
-		if (this.value.length > value.length) {
-			// the one removed is the one not included in the second array
-			const removedId = this.value.find(v => !value.find(x => x.id === v));
-			this.projectRemoved.emit({ id: removedId } as Project);
-		} else {
-			// the one added is the one not included in the first array
-			const addedItem = value.find(v => !(this.value as Array<any>).includes(v.id));
-			this.projectAdded.emit(addedItem);
-		}
-	}
-
-
-
+	/** save the currently pending value (it has not been saved yet) in an accumulator */
 	updateValue(value: string) {
 		this.accumulator = value;
 	}
 
+	/** when the user decides to save the value either by clicking enter or by clicking the save button */
 	onSave() {
 		this.update.emit(this.accumulator);
 		this.closeEditMode();
 	}
+
 
 	getSingular(type: string) {
 		if (type === 'category')

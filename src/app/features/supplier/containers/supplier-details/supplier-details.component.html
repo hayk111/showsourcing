@@ -8,7 +8,8 @@
 		[supplier]="supplier"
 		[productCount]="productCount$ | async"
 		[taskCount]="(tasks$ | async).length"
-		[contactCount]="(contacts$ | async)?.length"></supplier-main-app>
+		[contactCount]="(contacts$ | async)?.length">
+	</supplier-main-app>
 	<!-- supplier view -->
 	<div class="flex ctnr">
 		<div class="left">
@@ -16,14 +17,20 @@
 			<!-- description -->
 			<supplier-description-app
 				(update)="patch($event)"
-				[supplier]="supplier"></supplier-description-app>
+				[supplier]="supplier">
+			</supplier-description-app>
 
 			<!-- latest products -->
 			<supplier-latest-products-app
-				[products]="products$ | async"></supplier-latest-products-app>
+				[products]="products$ | async">
+			</supplier-latest-products-app>
 
 			<!-- contacts -->
-			<supplier-contact-card-app [contacts]="contacts$ | async" (newContact)="openContactDlg()" (openContact)="openContactDlg($event)"></supplier-contact-card-app>
+			<supplier-contact-card-app
+				[contacts]="contacts$ | async"
+				(newContact)="openContactDlg()"
+				(openContact)="openContactDlg($event)">
+			</supplier-contact-card-app>
 		</div>
 
 		<div class="right">
@@ -31,10 +38,11 @@
 			<!-- editable infos -->
 			<supplier-infos-app
 				[supplier]="supplier"
-				(tagAdded)="onTagAdded($event)"
-				(tagRemoved)="onTagRemoved($event)"
-				(tagCreated)="onTagCreated($event)"
-				(update)="patch($event)"></supplier-infos-app>
+				(itemAdded)="onItemAdded($event)"
+				(itemRemoved)="onItemRemoved($event)"
+				(itemCreate)="onItemCreated($event)"
+				(update)="patch($event)">
+			</supplier-infos-app>
 
 			<!-- files -->
 			<files-card-app></files-card-app>

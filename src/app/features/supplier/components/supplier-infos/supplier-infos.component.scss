@@ -1,6 +1,10 @@
 .user {
 	label {
+		padding-top: var(--spacing-s);
 		font-weight: bold;
+	}
+	editable-field-app {
+		padding: var(--spacing-s) 0;
 	}
 }
 

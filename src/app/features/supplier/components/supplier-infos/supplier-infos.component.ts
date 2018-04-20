@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Patch, Supplier, Tag, productActions } from '~entity';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
+import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 
 @Component({
 	selector: 'supplier-infos-app',
@@ -12,9 +13,10 @@ import { UserService } from '~app/features/user';
 export class SupplierInfosComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() update = new EventEmitter<Patch>();
-	@Output() tagAdded = new EventEmitter<Tag>();
-	@Output() tagRemoved = new EventEmitter<Tag>();
-	@Output() tagCreated = new EventEmitter<String>();
+	// when select multiple we can create, add and remove
+	@Output() itemCreate = new EventEmitter<EditableFieldValue>();
+	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
+	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
 
 	constructor() { }
 

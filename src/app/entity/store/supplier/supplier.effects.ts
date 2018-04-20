@@ -124,7 +124,12 @@ export class SuppliersEffects {
 			switchMap(payload =>
 				this.srv
 					.createTag(payload)
-					.pipe(mergeMap((r: any) => [supplierActions.addTag(r, payload.productId), fromTag.Actions.add([r])]))
+					.pipe(
+						mergeMap((r: any) => [
+							supplierActions.addTag(r, payload.supplierId),
+							fromTag.Actions.add([r])
+						])
+					)
 			)
 		);
 
