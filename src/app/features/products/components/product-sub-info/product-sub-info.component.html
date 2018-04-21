@@ -10,7 +10,7 @@
 
 	<tr  *ngIf="product?.categoryId | entityExist: 'category' | async">
 		<td>
-			<icon-app  fontSet="fa" name="tag" size="xs"></icon-app>
+			<icon-app  fontSet="fa" name="tag"></icon-app>
 		</td>
 		<td>
 			<span>{{ product?.categoryId | entityName: 'category' | async }}</span>

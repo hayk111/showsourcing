@@ -1,15 +1,5 @@
 :host {
-	font-weight: normal;
 	line-height: 1;
-}
-
-.ctnr {
-	// cercle
-	border-radius: 50%;
-}
-
-.thumbs-up {
-	transform: scale(0.9);
 }
 
 // for icomoon icons
@@ -20,6 +10,8 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
+/** icomoon here */
 
 [class^="icon-"],
 [class*=" icon-"] {
@@ -110,10 +102,3 @@
 	content: "\e911";
 }
 
-.icon-circle-checked{
-background: var(--color-white);
-border-radius: 50%;
-border: 1px solid #fff;
-box-sizing: border-box;
-font-size: 14px;
-}
