@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SupplierStatusIconComponent implements OnInit {
 	@Input() supplierId: string;
-	@Input() size: string;
+	@Input() status;
 	constructor() {}
 
 	ngOnInit() {}

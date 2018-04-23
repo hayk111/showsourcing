@@ -1,6 +1,6 @@
 
 
-<div class="ctnr">
+<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistance]="100">
 	<!-- empty column for space between border bottom and side -->
 	<div class="col emptyBorder">
 			<div class="header"></div>
@@ -26,9 +26,10 @@
 		<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="sort(column)">
 			{{ column.title }}
 			<ng-container *ngIf="column.currentSort !== 'none'">
-				<icon-app class="sortIcon"  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
+				<icon-app class="sortIcon fs-xs"  fontSet="fa" name="angle-down"
+					*ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
 				<ng-template #upArrow>
-					<icon-app  class="sortIcon" fontSet="fa" size="xs" name="angle-up"></icon-app>
+					<icon-app  class="sortIcon fs-xs" fontSet="fa" name="angle-up"></icon-app>
 				</ng-template>
 			</ng-container>
 		</div>
@@ -53,47 +54,3 @@
 	<spinner-app></spinner-app>
 </div>
 
-<!-- previous template for ref -->
-
-<!-- <div class="ctnr horizontal-scroll-except-first-column"
-	infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistance]="100">
-	<table class="fullWidth">
-		<thead>
-			<tr>
-				<!- - select all - ->
-				<th *ngIf="hasSelection">
-					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
-				</th>
-				<!- - columns - ->
-				<th *ngFor="let column of columns" (click)="sort(column)" [style.width]="column.width + 'px'"
-					 class="{{ column.sortable ? 'pointer' : ''}} {{ column.grows ? 'flexGrow' : '' }}">
-					<div class="headerContent">
-						{{ column.title }}
-						<ng-container *ngIf="column.currentSort !== 'none'">
-							<icon-app  fontSet="fa" size="xs" name="angle-down" *ngIf="column.currentSort === 'desc'; else upArrow;"></icon-app>
-							<ng-template #upArrow>
-								<icon-app  fontSet="fa" size="xs" name="angle-up"></icon-app>
-							</ng-template>
-						</ng-container>
-					</div>
-				</th>
-
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let row of rows;trackBy: trackByFn" class="row">
-				<!- - selection - ->
-				<td *ngIf="hasSelection">
-					<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
-				</td>
-				<!- - cols - ->
-				<td *ngFor="let column of columns" class="ellipsis {{ column.grows ? 'flexGrow' : '' }}" [style.width]="column.width + 'px'">
-						<!- - Render the column template when specified - ->
-						<ng-container
-							*ngTemplateOutlet="column.template; context: { column: column, row: row }">
-						</ng-container>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div> -->
