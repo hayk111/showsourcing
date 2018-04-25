@@ -49,37 +49,37 @@
 	--color-UnderAssessment-contrast: white;
 }
 
-[color-success] {
+.color-success {
   color: var(--color-success);
 }
 
-[bg-success] {
+.bg-success {
 	background: var(--color-success);
 }
 
-[color-primary] {
+.color-primary {
 	color: var(--color-primary);
 }
 
-[color-primary-light] {
+.color-primary-light {
 	color: var(--color-primary-light);
 }
 
-[color-white] {
+color-white {
 	color: var(--color-white);
 }
 
-[bg-primary] {
+.bg-primary {
 	background: var(--color-primary);
 }
 
-[bg-primary-light] {
+.bg-primary-light {
 	background: var(--color-primary-light);
 }
 
-[bg-primary-dark] {
+.bg-primary-dark {
 	background: var(--color-primary-dark);
 }
-[bg-txt-secondary] {
+.bg-txt-secondary {
 	background: var(--color-txt-secondary);
 }

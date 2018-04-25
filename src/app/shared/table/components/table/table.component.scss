@@ -1,6 +1,7 @@
 :host {
 	background: var(--color-bg);
 	border: 1px solid  var(--color-primary-light);
+	box-sizing: border-box;
 }
 
 .ctnr {
@@ -46,7 +47,6 @@
 .emptyBorder{
 	.cell {
 		border: none;
-		height: 100%;
 	}
 	.cell, .header {
 		padding: 0;
