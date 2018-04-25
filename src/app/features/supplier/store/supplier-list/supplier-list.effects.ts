@@ -4,7 +4,7 @@ import { SupplierListActionType, SupplierListActions } from './supplier-list.bun
 import { map, switchMap, tap } from 'rxjs/operators';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { Supplier } from '~app/entity/store/supplier/supplier.model';
-import { ApiParams } from '~app/entity';
+import { ApiParams, fromSupplier } from '~app/entity';
 import { Store } from '@ngrx/store';
 
 
@@ -29,6 +29,13 @@ export class SupplierListEffects {
 			}
 		}),
 		map((r: Array<Supplier>) => SupplierListActions.add(r)),
+	);
+
+	// when deleting a supplier from the list here we also need to delete it from the global list of suppliers
+	@Effect()
+	delete$ = this.actions$.ofType<any>(SupplierListActionType.DELETE).pipe(
+		map(action => action.payload),
+		map(ids => fromSupplier.Actions.delete([ids]))
 	);
 
 	constructor(private actions$: Actions, private srv: SupplierHttpService, private store: Store<any>) { }

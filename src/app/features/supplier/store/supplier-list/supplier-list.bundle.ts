@@ -6,7 +6,8 @@ export enum SupplierListActionType {
 	LOAD_MORE = '[Supplier List] loading more suppliers',
 	ADD = '[Supplier List] Adding',
 	SET = '[Supplier List] Setting',
-	SET_FULLY_LOADED = '[Supplier List] Setting fully loaded'
+	SET_FULLY_LOADED = '[Supplier List] Setting fully loaded',
+	DELETE = '[Supplier List] Deleting supplier from supplier list'
 }
 
 
@@ -44,6 +45,13 @@ export class SupplierListActions {
 			type: SupplierListActionType.SET_FULLY_LOADED,
 		};
 	}
+
+	static delete(ids: Array<string>) {
+		return {
+			type: SupplierListActionType.DELETE,
+			payload: ids
+		};
+	}
 }
 
 export interface State {
@@ -74,6 +82,9 @@ export function reducer(state = initialState, action) {
 			return { ...state, pending: false, ids: added };
 		case SupplierListActionType.SET_FULLY_LOADED:
 			return { ...state, fullyLoaded: true };
+		case SupplierListActionType.DELETE:
+			const toDel: Array<string> = action.payload;
+			return { ...state, ids: state.ids.filter(id => toDel.some(delId => delId !== id)) };
 		default: return state;
 	}
 }
