@@ -10,6 +10,8 @@ import {
 	HostBinding,
 } from '@angular/core';
 import { ColumnDirective } from '~app/shared/table/components/column.directive';
+import { Sort } from '~app/entity/utils/api-params.interface';
+import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'table-app',
@@ -26,7 +28,7 @@ export class TableComponent {
 	// whether rows are selectable
 	@Input() hasSelection = true;
 	// whether the table will automatically do it's sorting or will rely on external sorting
-	@Input() autoSort = true;
+	@Input() autoSort = false;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	// so this is only useful when the table has selection enabled.
 	@Input() idName = 'id';
@@ -40,9 +42,9 @@ export class TableComponent {
 	@Output() unselectOne = new EventEmitter<string>();
 	// when we scroll down to the end of the table
 	@Output() bottomReached = new EventEmitter<null>();
+	@Output() sort = new EventEmitter<SortEvent>();
 	// all the columns
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
-
 	// currently sorted column
 	currentSortedColumn: ColumnDirective;
 
@@ -62,8 +64,6 @@ export class TableComponent {
 	trackByFn = (index, item) => this.identify(index, item);
 	// track by for column
 	columnTackByFn = (index, item) => index;
-
-
 
 	onSelectOne(id: any) {
 		this.selection.set(id, true);
@@ -86,11 +86,13 @@ export class TableComponent {
 		this.unselectAll.emit(this.selection);
 	}
 
-	sort(column: ColumnDirective) {
+	onSort(column: ColumnDirective) {
 		// remove sorting on all column and add the current sort to the correct one
 		const currentSort = column.currentSort;
 		this.columns.forEach(c => c.resetSort());
 		column.toggleSort(currentSort);
+		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
+		this.sort.emit({ sortBy: column.sortWith, sortOrder: (column.currentSort as 'ASC' | 'DESC') });
 		this.currentSortedColumn = column;
 		if (this.autoSort)
 			this.doSort();
@@ -98,7 +100,7 @@ export class TableComponent {
 
 	private doSort() {
 		const column = this.currentSortedColumn;
-		if (!column || column.currentSort === 'none') {
+		if (!column || column.currentSort === 'NONE') {
 			this._sortedRows = this._rows;
 		} else {
 			this._sortedRows = column.sort(this._rows);
@@ -114,4 +116,5 @@ export class TableComponent {
 	identify(index, item) {
 		return item[this.idName];
 	}
+
 }

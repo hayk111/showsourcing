@@ -15,11 +15,23 @@ export interface ApiParams {
 	from?: EntityTarget;
 	// parameters
 	filters?: Array<Filter>;
-	sort?: { sortBy: string, sortOrder: 'asc' | 'desc' };
-	pagination?: { drop?: number };
+	sort?: Sort;
+	pagination?: Pagination;
 	// recurring calls every x milliseconds.
 	recurring?: boolean;
 
 	// body when post
 	body?: any;
 }
+
+export interface Pagination {
+	drop?: number;
+	take?: number;
+}
+
+
+export interface Sort {
+	sortBy: string;
+	sortOrder: 'ASC' | 'DESC';
+}
+

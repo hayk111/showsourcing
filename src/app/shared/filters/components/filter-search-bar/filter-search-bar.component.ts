@@ -54,27 +54,27 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** When the user click on enter  we will do a smart search */
-	onEnter() {
-		this.smartPanelVisible = true;
-		this.smartSearch$ = this.search$.pipe(
-			// we will search the entities below
-			switchMap(value => forkJoin([
-				this.store.select(searchEntity(ERM.category, value)).pipe(take(1)),
-				this.store.select(searchEntity(ERM.supplier, value)).pipe(take(1)),
-				this.store.select(searchEntity(ERM.event, value)).pipe(take(1)),
-				this.store.select(searchEntity(ERM.tag, value)).pipe(take(1)),
-			])),
-			// and group the result in a map for easy access
-			map(searches => {
-				const returnedMap = new Map<string, Array<Entity>>();
-				returnedMap.set('category', searches[0]);
-				returnedMap.set('supplier', searches[1]);
-				returnedMap.set('event', searches[2]);
-				returnedMap.set('tag', searches[3]);
-				return returnedMap;
-			}),
-		);
-	}
+	// onEnter() {
+	// 	this.smartPanelVisible = true;
+	// 	this.smartSearch$ = this.search$.pipe(
+	// 		// we will search the entities below
+	// 		switchMap(value => forkJoin([
+	// 			this.store.select(searchEntity(ERM.category, value)).pipe(take(1)),
+	// 			this.store.select(searchEntity(ERM.supplier, value)).pipe(take(1)),
+	// 			this.store.select(searchEntity(ERM.event, value)).pipe(take(1)),
+	// 			this.store.select(searchEntity(ERM.tag, value)).pipe(take(1)),
+	// 		])),
+	// 		// and group the result in a map for easy access
+	// 		map(searches => {
+	// 			const returnedMap = new Map<string, Array<Entity>>();
+	// 			returnedMap.set('category', searches[0]);
+	// 			returnedMap.set('supplier', searches[1]);
+	// 			returnedMap.set('event', searches[2]);
+	// 			returnedMap.set('tag', searches[3]);
+	// 			return returnedMap;
+	// 		}),
+	// 	);
+	// }
 
 	/** When the writes in the input we do a normal search */
 	doNormalSearch(value) {

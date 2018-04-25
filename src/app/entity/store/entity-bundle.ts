@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 import { EntityActions, makeEntityActionTypes, EntityActionTypes } from './entity.action.factory';
 import { EntityRepresentation } from './entity.model';
 import { entityStateToArray } from '~entity/utils';

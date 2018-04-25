@@ -8,20 +8,21 @@ import {
 	Input,
 	EventEmitter,
 	Renderer2,
+	OnInit,
 } from '@angular/core';
 import { throttleTime } from 'rxjs/operators';
 
 @Directive({
 	selector: '[infiniScroll]',
 })
-export class InfiniScrollDirective {
+export class InfiniScrollDirective implements OnInit {
 	@Output() topReached = new EventEmitter();
 	@Output() bottomReached = new EventEmitter();
 	private topReached$ = new Subject();
 	private bottomReached$ = new Subject();
 
 	// ms
-	@Input() throttleTime = 300;
+	@Input() throttleTime = 400;
 	// distance of the view height at which point we trigger the event
 	// at 0 only triggers at end (when we can't scroll anymore)
 	@Input() topDistance = 0;
@@ -50,8 +51,12 @@ export class InfiniScrollDirective {
 	onScroll(e) {
 		const scrollTop = e.target.scrollTop;
 		const clientHeight = e.target.clientHeight;
-		if (this.shouldEmitBottom(clientHeight, scrollTop)) this.bottomReached$.next();
-		if (this.shouldEmitTop(scrollTop)) this.topReached$.next();
+		if (this.shouldEmitBottom(clientHeight, scrollTop)) {
+			this.bottomReached$.next();
+		}
+		if (this.shouldEmitTop(scrollTop)) {
+			this.topReached$.next();
+		}
 	}
 
 	shouldEmitBottom(clientHeight, scrollTop) {

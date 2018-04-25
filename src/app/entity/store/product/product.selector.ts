@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 import { selectEntities } from '~entity/store/entity.selector';
 
 import { fromProductStatus } from '../product-status';

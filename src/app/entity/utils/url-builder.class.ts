@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApiParams } from '~entity/utils';
+import { ApiParams, Pagination, Sort } from '~entity/utils';
 import { Filter, FilterType } from '~shared/filters/models/filter.model';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM, EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
@@ -45,14 +45,17 @@ export class UrlBuilder {
 	}
 
 	/** adds the sorting to an url  */
-	static addSorting(url: string, sorting: any) {
+	static addSorting(url: string, sorting: Sort) {
+		if (sorting) {
+			return url + `sortBy=${sorting.sortBy}&sortOrder=${sorting.sortOrder}&`;
+		}
 		return url;
 	}
 
 	/** adds pagination to a request */
-	static addPagination(url: string, pagination: any) {
+	static addPagination(url: string, pagination: Pagination) {
 		if (pagination) {
-			url += `take=${pagination.take || UrlBuilder.TAKE}&drop=${pagination.drop || 0}`;
+			url += `take=${pagination.take || UrlBuilder.TAKE}&drop=${pagination.drop || 0}&`;
 		}
 		return url;
 	}
@@ -62,7 +65,7 @@ export class UrlBuilder {
 		url += `?`;
 		url = UrlBuilder.addPagination(url, params.pagination);
 		url = UrlBuilder.addFilters(url, params.filters);
-		// url = UrlBuilder.addSorting(url, params.sorting);
+		url = UrlBuilder.addSorting(url, params.sort);
 		return url;
 	}
 

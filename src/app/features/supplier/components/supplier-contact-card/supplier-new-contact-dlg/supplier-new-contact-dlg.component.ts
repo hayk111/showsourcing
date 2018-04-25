@@ -85,14 +85,16 @@ export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	onSubmit() {
-		if (this.formGroup.valid) {
-			const contact = this.formGroup.value;
-			// we need to add the image to the contact before uploading
-			contact.imageId = this._preview.id;
-			contact.image = this._preview;
-			this.store.dispatch(ContactActions.create(this.formGroup.value));
-			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
-		}
+		// not checking if form group is valid because at the time of writting this an email cannot be empty
+		// therefor the form will be invalid
+		// if (this.formGroup.valid) {
+		const contact = this.formGroup.value;
+		// we need to add the image to the contact before uploading
+		contact.imageId = this._preview.id;
+		contact.image = this._preview;
+		this.store.dispatch(ContactActions.create(this.formGroup.value));
+		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		// }
 	}
 
 	patch(propName: string, value: any) {

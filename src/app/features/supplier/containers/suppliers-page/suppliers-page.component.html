@@ -1,4 +1,9 @@
-
+<div class="top flexBetween">
+	<bread-crumb-app></bread-crumb-app>
+	<!-- search filter -->
+	<!-- vertical separator -->
+	<button></button>
+</div>
 <entity-page-app
 	[filterGroupName]="filterGroupName"
 	[subtitles]="['Suppliers', 'all']"
@@ -9,14 +14,18 @@
 	[hasFilters]="false">
 
 	<supplier-list-view-app
+		[suppliers]="suppliers"
+		[selection]="selection"
+		[pending]="pending$ | async"
+		(bottomReached)="loadMore()"
+		(sort)="onSort($event)"
 		(supplierSelect)="onItemSelected($event)"
 		(supplierUnselect)="onItemUnselected($event)"
 		(supplierSelectAll)="onAllSelected($event)"
 		(supplierUnselectAll)="onAllUnselected($event)"
 		(supplierOpen)="onItemOpened($event)"
 		(supplierFavorited)="onItemFavorited($event)"
-		(supplierUnfavorited)="onItemUnfavorited($event)"
-		[selection]="selection"></supplier-list-view-app>
+		(supplierUnfavorited)="onItemUnfavorited($event)"></supplier-list-view-app>
 
 </entity-page-app>
 

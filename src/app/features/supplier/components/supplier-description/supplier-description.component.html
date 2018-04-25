@@ -2,7 +2,7 @@
 	<h2>Description</h2>
 
 	<editable-text-app #editable [closeOnOutsideClick]="false">
-		<label-app *ngIf="supplier.description; else noDesc">{{ supplier.description }}</label-app>
+		<label-app class="desc" *ngIf="supplier.description; else noDesc">{{ supplier.description }}</label-app>
 		<ng-template #noDesc>
 			<label-app class="noDesc">No description yet</label-app>
 		</ng-template>

@@ -1,6 +1,6 @@
 import { TypedAction } from '~utils';
 
-import { AppFilters, Filter } from '../../models';
+import { AppFilters, Filter, FilterType } from '../../models';
 import { FilterActionType as ActionType } from '../actions';
 
 const initialState: AppFilters = {

@@ -1,13 +1,13 @@
 :host {
 	background: var(--color-bg);
 	border: 1px solid  var(--color-primary-light);
-	overflow: auto;
-	display: block;
 }
 
 .ctnr {
-	display: flex;
 	height: 100%;
+}
+.contentCtnr {
+	display: flex;
 }
 
 .pendingCtnr {

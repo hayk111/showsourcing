@@ -47,6 +47,12 @@
 					font-weight: 600;
 					color: var(--color-primary-dark);
 			}
+			.ng-value-icon:hover {
+				background: transparent!important;
+			}
+			.ng-value-icon {
+				border-right: none!important;
+			}
 			.ng-input {
 					display: none; // background: #F9FAFC;
 					// border: 1px solid var(--color-primary-light);

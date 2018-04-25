@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 
 
 // State key is a place where we can set whether a form is pending or has an error

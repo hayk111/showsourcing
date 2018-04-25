@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 import { Entity, EntityRepresentation, selectEntityArray } from '~entity/store';
 import { Log } from '~utils';
 
@@ -19,4 +19,3 @@ export const searchEntity = (repr: EntityRepresentation, str: string) => {
 			return entities.filter(entity => entity.name.includes(str)) as Array<Entity>;
 	});
 };
-

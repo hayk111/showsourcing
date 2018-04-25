@@ -1,11 +1,13 @@
 <table-app
-	[rows]="rows$ | async"
+	[rows]="suppliers"
+	[pending]="pending"
 	class="z-2"
 	(selectOne)="supplierSelect.emit($event)"
 	(unselectOne)="supplierUnselect.emit($event)"
 	(selectAll)="supplierSelectAll.emit($event)"
 	(unselectAll)="supplierUnselectAll.emit($event)"
-	[pending]="true">
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)">
 
 
 	<!-- supplier row -->
@@ -63,7 +65,8 @@
 		let-row="row"
 		sortWith="creationDate"
 		width="140"
-		[grows]="false">
+		[grows]="false"
+		[currentSort]="'DESC'">
 		{{ row?.creationDate | date: 'MMMM y' }}
 	</ng-template>
 
@@ -74,7 +77,7 @@
 		sortWith="createdBy.name"
 		width="140"
 		[grows]="false">
-		<div class="flex">
+		<div class="flex flexCenter">
 			<user-picture-app
 				[size]="18"
 				[border]="true"

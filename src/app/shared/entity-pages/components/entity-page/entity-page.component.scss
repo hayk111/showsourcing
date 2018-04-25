@@ -1,5 +1,6 @@
 :host {
-  display: block;
+	display: block;
+	height: 100%;
 }
 
 .mg-right {
@@ -12,4 +13,5 @@
 
 main {
 	margin: 0 var(--spacing-edge);
+	height: calc(100% - 151px);
 }

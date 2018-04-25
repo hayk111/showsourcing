@@ -5,12 +5,21 @@
 	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp (blur)="patch('name', $event.target.value)" formControlName="name" type="text" autocomplete="new-name" placeholder="Contact name"/>
+			<input inputApp (blur)="patch('name', $event.target.value)"
+				formControlName="name"
+				type="text"
+				autocomplete="new-name"
+				placeholder="Contact name"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Function</label-app>
-			<input inputApp (blur)="patch('jobTitle', $event.target.value)" formControlName="jobTitle" type="text" autocomplete="new-job" placeholder="Contact Function"/>
+			<input inputApp
+				(blur)="patch('jobTitle', $event.target.value)"
+				formControlName="jobTitle"
+				type="text"
+				autocomplete="new-job"
+				placeholder="Contact Function"/>
 		</form-field-app>
 
 		<form-field-app>
@@ -42,7 +51,7 @@
 	</form>
 		<!-- no button to save when it's an existing contact -->
 		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!formGroup.valid" value="SAVE" (click)="onSubmit()"/>
+			<input type="submit" [disabled]="!formGroup.controls['name'].valid" value="SAVE" (click)="onSubmit()"/>
 		</dialog-footer-app>
 </dialog-app>
 

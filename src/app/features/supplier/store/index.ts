@@ -3,6 +3,7 @@ import * as fromContact from './contacts/contact.reducer';
 import * as fromLatestProduct from './latest-product/latest-product.reducer';
 import * as fromNewSupplierDialog from './new-supplier-dlg/new-supplier-dlg.reducer';
 import * as fromSupplierList from './supplier-list/supplier-list.bundle';
+import { selectEntityState, EntityState, fromCountry, fromTeamMember } from '~app/entity';
 
 export * from './contacts/contact.actions';
 export * from './latest-product/latest-product.action';
@@ -23,7 +24,6 @@ export const reducers: ActionReducerMap<SupplierState> = {
 };
 
 // feature selector
-
 export const selectSupplierState = createFeatureSelector<SupplierState>('supplier');
 
 // latest products
@@ -43,6 +43,7 @@ const selectContacts = createSelector(
 export const selectContactArray = createSelector(selectContacts, fromContact.selectAll);
 export const selectContactPreviewImg = createSelector(selectContacts, fromContact.selectPreview);
 export const selectContactOne = (id) => createSelector(selectContacts, fromContact.selectOne(id));
+
 // new supplierDlg
 const selectNewSupplierDialog = createSelector(
 	selectSupplierState,
@@ -52,10 +53,45 @@ const selectNewSupplierDialog = createSelector(
 export const selectNewSupplierDialogPending = createSelector(selectNewSupplierDialog, fromNewSupplierDialog.selectPending);
 
 // supplier list
-
-export const selectSupplierList = createSelector(
-	selectSupplierState,
-	(state: SupplierState) => state.supplierList
+export const selectSupplierListState = createSelector(
+	selectSupplierState, (state: SupplierState) => state.supplierList
 );
 
+export const selectSupplierListIds = createSelector(
+	selectSupplierListState,
+	(state: fromSupplierList.State) => state.ids
+);
 
+export const selectSupplierListPending = createSelector(
+	selectSupplierListState,
+	(state: fromSupplierList.State) => state.pending
+);
+
+export const selectSupplierListIsFullyLoaded = createSelector(
+	selectSupplierListState,
+	(state: fromSupplierList.State) => state.fullyLoaded
+);
+
+export const selectSupplierList = createSelector(
+	selectSupplierListIds,
+	(state: any) => state.entities.supplier,
+	(state: any) => state.entities.country.byId,
+	(state: any) => state.entities.teamMember.byId,
+	(ids: Array<string>, supplierState: EntityState<any>, countryById, memberById) => {
+		const returned = [];
+		ids.forEach(id => {
+			const supplier = { ...supplierState.byId[id] };
+			// adding countryName
+			if (countryById && supplier.countryCode && countryById[supplier.countryCode])
+				supplier.countryName = countryById[supplier.countryCode].fullName;
+			// adding createdBy and createdByName. Created by user id is always present on supplier
+			if (memberById && memberById[supplier.createdByUserId])
+				supplier.createdBy = memberById[supplier.createdByUserId];
+			// adding product count
+			supplier.productCount = supplierState.productCount[supplier.id] || 0;
+
+			returned.push(supplier);
+		});
+		return returned;
+	}
+);

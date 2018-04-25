@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 
 
 export const selectFilterPanel = state => state.ui.filterPanel;

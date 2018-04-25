@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 import { EntityTarget, EntityRepresentation, Entity } from './entity.model';
 
 export const selectEntities = state => state.entities;

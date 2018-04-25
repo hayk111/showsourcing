@@ -1,60 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, ERM, Patch } from '~entity';
+import { EntityState, Entity, ERM, Patch, Sort } from '~entity';
 import { Supplier } from '~supplier';
 import { Observable } from 'rxjs/Observable';
 import { fromSupplier } from '~supplier';
-import { map } from 'rxjs/operators';
+import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { fromDialog } from '~dialog';
 import { DialogName } from '~dialog';
 import { SupplierListActions } from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
+import { selectSupplierList, selectSupplierListPending, selectSupplierListIsFullyLoaded } from '~app/features/supplier/store';
+import { Subject } from 'rxjs/Subject';
+import { SortEvent } from '~app/shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~app/app-root/utils';
 
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 })
-export class SuppliersPageComponent implements OnInit {
+export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.SUPPLIERS_PAGE;
 	pending$: Observable<boolean>;
+	supplier$: Observable<Array<Supplier>>;
 	repr = ERM.supplier;
-	// maps current selection {id: true}
+	// maps current selection: { id: true }
 	selection = new Map<string, boolean>();
 	suppliers: Array<Supplier> = [];
 	filters: Array<Filter> = [];
+	sort$: Subject<Sort> = new Subject();
+	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	/** whether we loaded every suppliers */
+	fullyLoaded: boolean;
+	/** number of suppliers requested by paginated request */
+	take = 30;
 
-	constructor(private store: Store<any>, private router: Router) { }
+	constructor(private store: Store<any>, private router: Router) {
+		super();
+	}
 
 	ngOnInit() {
 		// select whether the suppliers are pending
-
-		// this.pending$ = this.store.select(
-		// 	fromSupplier.selectState
-		// ).pipe(map(s => s.pending));
-
+		this.pending$ = this.store.select(selectSupplierListPending);
+		this.store.select(selectSupplierListIsFullyLoaded)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(loaded => this.fullyLoaded = loaded);
+		this.store.select(selectSupplierList)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(suppliers => this.suppliers = suppliers);
 		this.store.dispatch(SupplierListActions.load({}));
 		// select filters
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		// when filters change we need to redownload the suppliers with the new filters
-		filters$.subscribe(filters => {
-			// saving filters for when we need to paginate
-			this.filters = filters;
-			this.loadSuppliers(filters);
-		});
-
+		filters$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(filters => {
+				// saving filters for when we need to paginate
+				this.filters = filters;
+				this.loadSuppliers();
+			});
 	}
 
-
 	/** loads initial suppliers and when the filters change */
-	loadSuppliers(filters) {
-		// this.store.dispatch(productActions.load({ filters }));
+	loadSuppliers() {
+		this.store.dispatch(SupplierListActions.load({
+			filters: this.filters,
+			pagination: { take: this.take, drop: 0 },
+			sort: this.currentSort
+		}));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		// this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.suppliers.length } }));
+		if (!this.fullyLoaded) {
+			this.store.dispatch(SupplierListActions.loadMore({
+				filters: this.filters,
+				pagination: { take: this.take, drop: this.suppliers.length },
+				sort: this.currentSort
+			}));
+		}
+	}
+
+	onSort(sort: SortEvent) {
+		this.currentSort = sort;
+		this.loadSuppliers();
 	}
 
 	/** Opens the dialog for creating a new supplier */

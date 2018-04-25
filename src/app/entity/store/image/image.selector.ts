@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@ngrx/store';
 import { entityStateToArray } from '~entity/utils';
 
 export const selectImages = state => state.entities.image;

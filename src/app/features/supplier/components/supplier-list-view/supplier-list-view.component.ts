@@ -7,6 +7,8 @@ import { tap, map, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { selectSupplierList } from '~app/features/supplier/store';
+import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -14,8 +16,10 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 	styleUrls: ['./supplier-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierListViewComponent implements OnInit {
+export class SupplierListViewComponent {
 	@Input() selection: Map<string, boolean>;
+	@Input() suppliers: Array<Supplier>;
+	@Input() pending = true;
 	@Output() supplierSelect = new EventEmitter<string>();
 	@Output() supplierUnselect = new EventEmitter<string>();
 	@Output() supplierSelectAll = new EventEmitter<Map<string, boolean>>();
@@ -23,14 +27,12 @@ export class SupplierListViewComponent implements OnInit {
 	@Output() supplierOpen = new EventEmitter<string>();
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
-	rows$: Observable<any>;
+	@Output() bottomReached = new EventEmitter<string>();
+	@Output() sort = new EventEmitter<SortEvent>();
 	// used to sort by tags or by categories
 	arrayComparator = (a, b) => (b || []).length - (a || []).length;
 
 	constructor(private store: Store<any>) { }
 
-	ngOnInit() {
-		this.rows$ = this.store.select(fromSupplier.selectSupplierList);
-	}
 
 }

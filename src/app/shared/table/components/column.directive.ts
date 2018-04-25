@@ -17,7 +17,7 @@ export class ColumnDirective implements OnInit {
 	// whether the column grows if the table hasn't reached full width
 	@Input() grows = true;
 	@Output() sortRequest = new EventEmitter<string>();
-	currentSort: 'none' | 'asc' | 'desc' = 'none';
+	@Input() currentSort: 'NONE' | 'ASC' | 'DESC' = 'NONE';
 	// comparator function for sorting
 	@Input() comparator = (a, b) => defaultComparator(a, b);
 
@@ -28,19 +28,19 @@ export class ColumnDirective implements OnInit {
 		this.sortWith = this.sortWith || this.title.toLowerCase();
 	}
 
-	toggleSort(lastSort: 'none' | 'asc' | 'desc') {
+	toggleSort(lastSort: 'NONE' | 'ASC' | 'DESC') {
 		if (this.sortable) {
-			this.currentSort = lastSort === 'asc' ? 'desc' : 'asc';
+			this.currentSort = lastSort === 'ASC' ? 'DESC' : 'ASC';
 			this.sortRequest.emit(this.currentSort);
 		}
 	}
 
 	resetSort() {
-		this.currentSort = 'none';
+		this.currentSort = 'NONE';
 	}
 
 	sort(rows: Array<any>) {
-		if (this.currentSort === 'asc') {
+		if (this.currentSort === 'ASC') {
 			return [...rows].sort((a, b) => {
 				// resolver used so we can access props with dot notation
 				const aProp = Resolver.resolve(this.sortWith, a);
