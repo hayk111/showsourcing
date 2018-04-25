@@ -1,33 +1,27 @@
-<div class="top flexBetween">
-	<bread-crumb-app></bread-crumb-app>
-	<!-- search filter -->
-	<!-- vertical separator -->
-	<button></button>
-</div>
-<entity-page-app
+
+<top-panel-app
 	[filterGroupName]="filterGroupName"
+	[title]="'My Suppliers'"
+	[buttonName]="'Add Supplier'"
 	[subtitles]="['Suppliers', 'all']"
-	[switchable]="false"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	(buttonClick)="openNewDialog()">
+</top-panel-app>
+
+<supplier-list-view-app
+	[suppliers]="suppliers"
+	[selection]="selection"
 	[pending]="pending$ | async"
-	[repr]="repr"
-	(buttonClick)="openNewDialog()"
-	[hasFilters]="false">
-
-	<supplier-list-view-app
-		[suppliers]="suppliers"
-		[selection]="selection"
-		[pending]="pending$ | async"
-		(bottomReached)="loadMore()"
-		(sort)="onSort($event)"
-		(supplierSelect)="onItemSelected($event)"
-		(supplierUnselect)="onItemUnselected($event)"
-		(supplierSelectAll)="onAllSelected($event)"
-		(supplierUnselectAll)="onAllUnselected($event)"
-		(supplierOpen)="onItemOpened($event)"
-		(supplierFavorited)="onItemFavorited($event)"
-		(supplierUnfavorited)="onItemUnfavorited($event)"></supplier-list-view-app>
-
-</entity-page-app>
+	(bottomReached)="loadMore()"
+	(sort)="onSort($event)"
+	(supplierSelect)="onItemSelected($event)"
+	(supplierUnselect)="onItemUnselected($event)"
+	(supplierSelectAll)="onAllSelected($event)"
+	(supplierUnselectAll)="onAllUnselected($event)"
+	(supplierOpen)="onItemOpened($event)"
+	(supplierFavorited)="onItemFavorited($event)"
+	(supplierUnfavorited)="onItemUnfavorited($event)"></supplier-list-view-app>
 
 <selection-bar-app
 	(close)="resetSelection()"

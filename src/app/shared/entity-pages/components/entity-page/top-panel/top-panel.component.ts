@@ -11,31 +11,29 @@ import { EntityRepresentation } from '~app/entity';
 	styleUrls: ['./top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopPanelComponent implements OnInit {
+export class TopPanelComponent {
+	/** The name of the filter group so we can automatically add filters when adding things  */
 	@Input() filterGroupName: FilterGroupName;
+	/** whether we should display the filter icon */
+	@Input() hasFilter = true;
+	/** title of the bread crumb */
 	@Input() title: string;
+	/** subtitles of the bread crumb */
 	@Input() subtitles: Array<string>;
-	@Input() repr: EntityRepresentation;
-	// whether the screen can be switched
-	@Input() switchable = true;
+
+	// whether the screen can be switched from table to list view
+	@Input() hasSwitch = true;
 	// view that can be switched into
 	@Input() view: 'list' | 'card';
-	@Input() buttonName: string;
-
-	// when the create button is clicked
-	@Output() buttonClick = new EventEmitter<any>();
+	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();
+
+	/** what appears in the button on the right for adding an entity */
+	@Input() buttonName: string;
+	/** when said button is clicked */
+	@Output() buttonClick = new EventEmitter<any>();
 	// when the filter button is clicked
 	@Output() filterClick = new EventEmitter<null>();
 
-	ngOnInit() {
-		// if no btn name given let's create one with the entityRepr
-		if (!this.buttonName) {
-			this.buttonName = 'Add ' + this.repr.displayName;
-		}
-	}
 
-	onClick() {
-		this.buttonClick.emit();
-	}
 }

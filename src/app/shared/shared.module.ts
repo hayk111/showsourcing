@@ -10,6 +10,7 @@ import { PriceModule } from '~app/shared/price';
 import { EditableFieldModule } from '~app/shared/editable-field';
 import { UserPictureModule } from '~app/shared/user-picture';
 import { ListModule } from '~app/shared/list/list.module';
+import { DividerModule } from '~app/shared/divider/divider.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -23,7 +24,8 @@ const modules = [
 	PriceModule,
 	EditableFieldModule,
 	UserPictureModule,
-	ListModule
+	ListModule,
+	DividerModule
 ];
 
 @NgModule({

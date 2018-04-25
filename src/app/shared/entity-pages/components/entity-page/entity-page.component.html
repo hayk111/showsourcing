@@ -1,9 +1,8 @@
 <top-panel-app
 	(buttonClick)="buttonClick.emit()"
 	[filterGroupName]="filterGroupName"
-	[switchable]="switchable"
+	[hasSwitch]="switchable"
 	[view]="view"
-	[repr]="repr"
 	title="My {{ repr.pluralName }}"
 	[subtitles]="subtitles"
 	(viewChange)="viewChange.emit($event)"
@@ -18,7 +17,7 @@
 		fontSet="fa"
 		name="filter"
 		(click)="filterClick.emit()"
-		class="icon-filter pointer mg-right"
+		class="icon-filter pointer mg-right fs-m"
 		color="primary-dark"
 		fontSet="fa">
 	</icon-app>
@@ -36,10 +35,5 @@
 	<div class="hr"></div>
 	<progress-bar-app *ngIf="pending"></progress-bar-app>
 </div>
-
-
-<main>
-	<ng-content></ng-content>
-</main>
 
 

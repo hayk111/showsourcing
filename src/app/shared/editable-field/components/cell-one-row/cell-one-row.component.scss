@@ -11,7 +11,7 @@
   flex-direction: row;
   padding: var(--spacing-nav) 0;
   font-weight: bold;
-  font-size: var(--font-size-default);
+  font-size: var(--font-size-m);
   color: var(--color-primary-dark);
   flex: 1 1 100%;
   text-transform: capitalize;
@@ -20,7 +20,7 @@
 .content {
   display: flex;
   flex-direction: row;
-  font-size: var(--font-size-default);
+  font-size: var(--font-size-m);
   color: var(--color-txt-secondary);
   font-weight: 600;
   flex: 1 1 100%;

@@ -5,14 +5,14 @@
 			<span class="title">PRODUCTS</span>
 			<span class="content">{{ productCount !== undefined ? productCount : '-' }}</span>
 		</div>
-		<div class="vr"></div>
+		<divider-app [vertical]="true"></divider-app>
 
 		<!-- contacts count -->
 		<div class="block">
 			<span class="title">CONTACTS</span>
 			<span class="content">{{ contactCount  !== undefined ? contactCount : '-' }}</span>
 		</div>
-		<div class="vr"></div>
+		<divider-app [vertical]="true"></divider-app>
 
 		<!-- tasks count -->
 		<div class="block">
@@ -22,7 +22,7 @@
 				{{ taskCount !== undefined ? taskCount : '-' }}
 			</span>
 		</div>
-		<div class="vr"></div>
+		<divider-app [vertical]="true"></divider-app>
 
 		<!-- favorite -->
 		<div class="block">
@@ -34,7 +34,7 @@
 					[rating]="supplier.rating"></rating-heart-app>
 			</span>
 		</div>
-		<div class="vr"></div>
+		<divider-app [vertical]="true"></divider-app>
 
 		<!-- status -->
 		<div class="block">

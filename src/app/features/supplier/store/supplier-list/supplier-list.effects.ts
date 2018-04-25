@@ -19,17 +19,17 @@ export class SupplierListEffects {
 	);
 
 	// when we reach the bottom of the page and use pagination
-	// @Effect()
-	// loadMore$ = this.actions$.ofType<any>(SupplierListActionType.LOAD_MORE).pipe(
-	// 	map(action => action.payload),
-	// 	switchMap((params: ApiParams) => this.srv.loadAsync(params)),
-	// 	tap((r: Array<Supplier>) => {
-	// 		if (r.length === 0) {
-	// 			this.store.dispatch(SupplierListActions.setFullyLoaded());
-	// 		}
-	// 	}),
-	// 	map((r: Array<Supplier>) => SupplierListActions.add(r)),
-	// );
+	@Effect()
+	loadMore$ = this.actions$.ofType<any>(SupplierListActionType.LOAD_MORE).pipe(
+		map(action => action.payload),
+		switchMap((params: ApiParams) => this.srv.loadAsync(params)),
+		tap((r: Array<Supplier>) => {
+			if (r.length === 0) {
+				this.store.dispatch(SupplierListActions.setFullyLoaded());
+			}
+		}),
+		map((r: Array<Supplier>) => SupplierListActions.add(r)),
+	);
 
 	constructor(private actions$: Actions, private srv: SupplierHttpService, private store: Store<any>) { }
 

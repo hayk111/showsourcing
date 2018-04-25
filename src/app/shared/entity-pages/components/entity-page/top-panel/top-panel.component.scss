@@ -20,5 +20,19 @@ button {
 }
 
 .plusIc {
-	font-size: 8px;
+	margin-right: var(--spacing-s);
+	margin-top: 1px;
+}
+
+.mg-right {
+	margin-right: var(--spacing-xl);
+}
+
+.vert-divider {
+	height: 20px;
+	border-right: 2px solid var(--color-divider);
+}
+
+divider-app {
+	margin: var(--spacing-xl) 0;
 }

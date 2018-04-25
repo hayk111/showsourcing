@@ -36,11 +36,11 @@
 			badge-app {
 					color: var(--color-txt-secondary);
 					font-weight: 500;
-					font-size: var(--font-size-default);
+					font-size: var(--font-size-m);
 			}
 	}
 	.divider {
-			background: var(--color-delimiter);
+			background: var(--color-divider);
 			height: 64px;
 			width: 1px;
 	}

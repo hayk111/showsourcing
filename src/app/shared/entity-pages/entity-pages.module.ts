@@ -10,6 +10,7 @@ import { LoadersModule } from '~app/shared/loaders';
 import { RouterModule } from '@angular/router';
 import { CardModule } from '~app/shared/card';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { DividerModule } from '~app/shared/divider/divider.module';
 
 @NgModule({
 	imports: [
@@ -19,6 +20,7 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
 		LoadersModule,
 		RouterModule.forChild([]),
 		CardModule,
+		DividerModule
 	],
 	declarations: [
 		EntityPageComponent,
@@ -29,4 +31,4 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
 	],
 	exports: [EntityPageComponent, EntityMainCardComponent, TopPanelComponent, BreadCrumbComponent],
 })
-export class EntityPagesModule {}
+export class EntityPagesModule { }
