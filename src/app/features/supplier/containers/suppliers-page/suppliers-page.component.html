@@ -1,5 +1,13 @@
 
-
+<top-panel-app
+	[filterGroupName]="filterGroupName"
+	[title]="'My Suppliers'"
+	[buttonName]="'Add Supplier'"
+	[subtitles]="['Suppliers', 'all']"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	(buttonClick)="openNewDialog()">
+</top-panel-app>
 
 <supplier-list-view-app
 	[suppliers]="suppliers"
