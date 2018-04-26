@@ -54,11 +54,14 @@ import {
 
 import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
+import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
+		ReactiveFormsModule,
 		PipesModule,
 		DialogModule,
 		EffectsModule.forFeature([ProductEffects]),
@@ -93,9 +96,15 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		ProductFiltersComponent
+		ProductFiltersComponent,
+		NewProductDialogComponent
 	],
-	entryComponents: [ProductRequestTeamFeedbackDlgComponent, ProductExportDlgComponent, ProductAddToProjectDlgComponent],
+	entryComponents: [
+		ProductRequestTeamFeedbackDlgComponent,
+		ProductExportDlgComponent,
+		ProductAddToProjectDlgComponent,
+		NewProductDialogComponent
+	],
 	exports: [ProductSmallCardComponent],
 })
 export class ProductModule {

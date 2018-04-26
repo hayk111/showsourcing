@@ -162,6 +162,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(fromDialog.Actions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
 	}
 
+	openCreateDlg() {
+		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_PRODUCT));
+	}
+
 	/**
 	 * Selection bar actions
 	 *

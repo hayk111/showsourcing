@@ -11,7 +11,8 @@
 		[hasFilter]="true"
 		[view]="view"
 		(viewChange)="view = $event"
-		(filterClick)="openFilterPanel()">
+		(filterClick)="openFilterPanel()"
+		(buttonClick)="openCreateDlg()">
 	</top-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->

@@ -22,7 +22,6 @@ import { fromCategory } from '~app/entity/store/category';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
 import { Router } from '@angular/router';
-import { fromStateKey, StateGroup } from '~app/features/state-key/state-key.bundle';
 import { Store } from '@ngrx/store';
 import { LatestProductActions, ContactActions } from '~app/features/supplier/store';
 
@@ -68,7 +67,6 @@ export class SuppliersEffects {
 		.ofType<any>(ActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
-			tap(_ => this.store.dispatch(fromStateKey.Actions.setPending(StateGroup.NEW_SUPPLIER))),
 			switchMap(supplier =>
 				this.srv
 					.create(supplier)

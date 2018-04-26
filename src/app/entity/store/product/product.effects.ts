@@ -65,6 +65,13 @@ export class ProductEffects {
 		})
 	);
 
+	// @Effect()
+	// create$ = this.actions$.ofType<any>(actionTypes.CREATE).pipe(
+	// 	map(action => action.payload),
+	// 	switchMap((product: Product) => this.srv.create(product)),
+
+	// )
+
 	@Effect({ dispatch: false })
 	delete$ = this.actions$
 		.ofType<any>(actionTypes.DELETE)

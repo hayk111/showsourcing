@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+	<dialog-app [name]="name">
+		<dialog-header-app>
+			Create New Product
+		</dialog-header-app>
+
+		<form-field-app>
+			<label-app>
+				Name
+			</label-app>
+			<input type="text" inputApp formControlName="name"/>
+		</form-field-app>
+
+		<dialog-footer-app>
+			<button (click)="createProduct()" [disabled]="!form.valid">Create Product</button>
+		</dialog-footer-app>
+	</dialog-app>
+</form>
+

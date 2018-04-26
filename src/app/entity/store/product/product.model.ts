@@ -1,4 +1,5 @@
 import { Currency } from '../currency';
+import { Entity } from '~app/entity/store/entity.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',
@@ -8,9 +9,7 @@ export enum ProductStatus {
 	REFUSED = 'Refused',
 }
 
-export interface Product {
-	id: string;
-	name: string;
+export class Product extends Entity {
 	priceAmount: number;
 	priceCurrency: Currency;
 	price: any;
@@ -18,15 +17,8 @@ export interface Product {
 	supplierId: string;
 	categoryId: string;
 	teamId: string;
-	creationDate: number;
-	lastModifiedDate: number;
-	createdByUserId: string;
-	lastUpdatedByUserId: string;
-	counters: any;
 	additionalInfo: any;
-	additionalInfoCounters: any;
 	status: ProductStatus;
-	flags: { archived: boolean; feedbackRequested: boolean; locked: boolean };
 	computedValues: { taskCount: number; score: number; commentCount: number };
 	description: string;
 	eventId: string;
@@ -50,4 +42,7 @@ export interface Product {
 			url_1000x1000: string;
 		};
 	};
+	constructor(public name: string, userId: string) {
+		super(userId);
+	}
 }
