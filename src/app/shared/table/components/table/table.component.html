@@ -13,7 +13,9 @@
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
 				</div>
 				<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
-					<checkbox-app [checked]="selection.has(row[idName])" (check)="onSelectOne(row[idName])" (uncheck)="onUnselectOne(row[idName])"></checkbox-app>
+					<checkbox-app [checked]="selected.has(row[idName])"
+						(check)="onSelectOne(row[idName])"
+						(uncheck)="onUnselectOne(row[idName])"></checkbox-app>
 				</div>
 		</div>
 

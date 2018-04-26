@@ -1,23 +1,23 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    margin-right: -15px;
+	display: flex;
+	flex-direction: column;
+	margin: 0 var(--spacing-edge);
 }
 
 .section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .sectionTitle {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: var(--color-txt-primary);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	color: var(--color-txt-primary);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .noTopMargin {

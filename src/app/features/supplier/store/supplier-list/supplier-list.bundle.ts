@@ -1,5 +1,6 @@
 import { Supplier } from '~app/entity/store/supplier/supplier.model';
 import { ApiParams } from '~app/entity/utils/api-params.interface';
+import { supplierActionTypes } from '~app/entity/store/supplier/supplier.action';
 
 export enum SupplierListActionType {
 	LOAD = '[Suppler List] Loading',
@@ -7,7 +8,11 @@ export enum SupplierListActionType {
 	ADD = '[Supplier List] Adding',
 	SET = '[Supplier List] Setting',
 	SET_FULLY_LOADED = '[Supplier List] Setting fully loaded',
-	DELETE = '[Supplier List] Deleting supplier from supplier list'
+	DELETE = '[Supplier List] Deleting supplier from supplier list',
+	SELECT_ONE = '[Supplier List] Select one',
+	SELECT_ALL = '[Supplier List] Select All',
+	UNSELECT_ONE = '[Supplier List] Unselect one',
+	UNSELECT_ALL = '[Supplier List] Unselect all'
 }
 
 
@@ -52,19 +57,43 @@ export class SupplierListActions {
 			payload: ids
 		};
 	}
+	static selectOne(id: string) {
+		return {
+			type: SupplierListActionType.SELECT_ONE,
+			payload: id
+		};
+	}
+	static selectAll() {
+		return {
+			type: SupplierListActionType.SELECT_ALL
+		};
+	}
+	static unselectOne(id: string) {
+		return {
+			type: SupplierListActionType.UNSELECT_ONE,
+			payload: id
+		};
+	}
+	static unselectAll() {
+		return {
+			type: SupplierListActionType.UNSELECT_ALL
+		};
+	}
 }
 
 export interface State {
 	ids: Array<string>;
 	pending: boolean;
 	fullyLoaded: boolean;
+	selected: Array<string>;
 }
 
 const initialState = {
 	ids: [],
 	pending: true,
 	// whether we downloaded everything from the server
-	fullyLoaded: false
+	fullyLoaded: false,
+	selected: []
 };
 
 export function reducer(state = initialState, action) {
@@ -85,6 +114,14 @@ export function reducer(state = initialState, action) {
 		case SupplierListActionType.DELETE:
 			const toDel: Array<string> = action.payload;
 			return { ...state, ids: state.ids.filter(id => toDel.some(delId => delId !== id)) };
+		case SupplierListActionType.SELECT_ONE:
+			return { ...state, selected: [...state.selected, action.payload] };
+		case SupplierListActionType.SELECT_ALL:
+			return { ...state, selected: [...state.ids] };
+		case SupplierListActionType.UNSELECT_ONE:
+			return { ...state, selected: state.selected.filter(id => id !== action.payload) };
+		case SupplierListActionType.UNSELECT_ALL:
+			return { ...state, selected: [] };
 		default: return state;
 	}
 }

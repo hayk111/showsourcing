@@ -33,10 +33,20 @@ export class TableComponent {
 	// so this is only useful when the table has selection enabled.
 	@Input() idName = 'id';
 	// maps of the <id, true> so we can access the items that are selected
-	@Input() selection = new Map<any, boolean>();
+	// we accept map and array but we transform those always to map
+	@Input() set selection(value: any) {
+		if (value instanceof Map) {
+			this._selected = value;
+		} else if (Array.isArray(value)) {
+			this._selected = new Map();
+			value.forEach(val => this._selected.set(val, true));
+		}
+	}
+	get selected(): Map<any, boolean> { return this._selected; }
+	protected _selected: Map<any, boolean> = new Map();
 	// event when we select all rows
-	@Output() selectAll = new EventEmitter<Map<any, boolean>>();
-	@Output() unselectAll = new EventEmitter<Map<any, boolean>>();
+	@Output() selectAll = new EventEmitter<null>();
+	@Output() unselectAll = new EventEmitter<null>();
 	// selecting one row with the checkbox
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
@@ -62,28 +72,24 @@ export class TableComponent {
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
+
 	// track by for column
 	columnTackByFn = (index, item) => index;
 
 	onSelectOne(id: any) {
-		this.selection.set(id, true);
 		this.selectOne.emit(id);
 	}
 
 	onUnselectOne(id: any) {
-		this.selection.delete(id);
 		this.unselectOne.emit(id);
 	}
 
 	onSelectAll() {
-		// each row will be selectioned
-		this.rows.forEach(row => this.selection.set(row[this.idName], true));
-		this.selectAll.emit(this.selection);
+		this.selectAll.emit();
 	}
 
 	onUnselectAll() {
-		this.rows.forEach(row => this.selection.delete(row[this.idName]));
-		this.unselectAll.emit(this.selection);
+		this.unselectAll.emit();
 	}
 
 	onSort(column: ColumnDirective) {
@@ -110,7 +116,7 @@ export class TableComponent {
 	isAllSelected(): boolean {
 		if (!this.rows || this.rows.length === 0)
 			return false;
-		return this.selection.size === this.rows.length;
+		return this._selected.size === this.rows.length;
 	}
 
 	identify(index, item) {

@@ -1,44 +1,45 @@
+
+
 <ng-container *ngIf="products$ | async as products">
-	<entity-page-app
+	<!-- top panel -->
+	<top-panel-app
 		[filterGroupName]="filterGroupName"
-		[pending]="pending$ | async"
-		[repr]="repr"
+		[title]="'My Products'"
+		[buttonName]="'Add Product'"
 		[subtitles]="['Products', 'all']"
-		(filterClick)="openFilterPanel()"
-		[view]="view"
-		(viewChange)="onViewChange($event)">
+		[hasSwitch]="true"
+		[hasFilter]="true">
+	</top-panel-app>
 
-			<!-- views: either one will be displayed when the correct view is selected -->
-			<product-list-view-app
-				*ngIf="view === 'list'"
-				[class.hidden] = "view !== 'list'"
-				class="list-view"
-				[selection]="selection"
-				[products]="products"
-				(productSelect)="onItemSelected($event)"
-				(productUnselect)="onItemUnselected($event)"
-				(productOpen)="goToDetails($event)"
-				(productFavorited)="onItemFavorited($event)"
-				(productUnfavorited)="onItemUnfavorited($event)"
-				(bottomReached)="loadMore()"></product-list-view-app>
+	<!-- views: either one will be displayed when the correct view is selected -->
+	<product-list-view-app
+		*ngIf="view === 'list'"
+		[class.hidden] = "view !== 'list'"
+		class="list-view"
+		[selection]="selection"
+		[products]="products"
+		(productSelect)="onItemSelected($event)"
+		(productUnselect)="onItemUnselected($event)"
+		(productOpen)="goToDetails($event)"
+		(productFavorited)="onItemFavorited($event)"
+		(productUnfavorited)="onItemUnfavorited($event)"
+		(bottomReached)="loadMore()"></product-list-view-app>
 
-			<product-card-view-app
-				class="card-view"
-				*ngIf="view === 'card'"
-				[class.hidden] = "view !== 'card'"
-				[products]="products"
-				[selection]="selection"
-				[statuses]="statuses$ | async"
-				(update)="patch($event)"
-				(productSelect)="onItemSelected($event)"
-				(productUnselect)="onItemUnselected($event)"
-				(productVote)="onItemVoted($event)"
-				(addToProject)="onItemAddToProject($event)"
-				(productFavorited)="onItemFavorited($event)"
-				(productUnfavorited)="onItemUnfavorited($event)"
-				(productOpen)="goToDetails($event)"></product-card-view-app>
-
-	</entity-page-app>
+	<product-card-view-app
+		class="card-view"
+		*ngIf="view === 'card'"
+		[class.hidden] = "view !== 'card'"
+		[products]="products"
+		[selection]="selection"
+		[statuses]="statuses$ | async"
+		(update)="patch($event)"
+		(productSelect)="onItemSelected($event)"
+		(productUnselect)="onItemUnselected($event)"
+		(productVote)="onItemVoted($event)"
+		(addToProject)="onItemAddToProject($event)"
+		(productFavorited)="onItemFavorited($event)"
+		(productUnfavorited)="onItemUnfavorited($event)"
+		(productOpen)="goToDetails($event)"></product-card-view-app>
 
 	<selection-bar-app
 		[repr]="repr"

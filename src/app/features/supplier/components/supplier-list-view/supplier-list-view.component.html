@@ -1,6 +1,7 @@
 <table-app
 	[rows]="suppliers"
 	[pending]="pending"
+	[selection]="selection"
 	class="z-2"
 	(selectOne)="supplierSelect.emit($event)"
 	(unselectOne)="supplierUnselect.emit($event)"

@@ -9,8 +9,8 @@ import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { fromDialog } from '~dialog';
 import { DialogName } from '~dialog';
-import { SupplierListActions } from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
-import { selectSupplierList, selectSupplierListPending, selectSupplierListIsFullyLoaded } from '~app/features/supplier/store';
+import * as fromSupplierList from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
+import { selectSupplierList, selectSupplierListState } from '~app/features/supplier/store';
 import { Subject } from 'rxjs/Subject';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~app/app-root/utils';
@@ -21,16 +21,18 @@ import { AutoUnsub } from '~app/app-root/utils';
 	styleUrls: ['./suppliers-page.component.scss'],
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit {
+	/** filter group name so we can attach filters to this page and filter the suppliers */
 	filterGroupName = FilterGroupName.SUPPLIERS_PAGE;
-	pending$: Observable<boolean>;
-	supplier$: Observable<Array<Supplier>>;
-	repr = ERM.supplier;
-	// maps current selection: { id: true }
-	selection = new Map<string, boolean>();
 	suppliers: Array<Supplier> = [];
 	filters: Array<Filter> = [];
+	repr = ERM.supplier;
+	/** current sort used for sorting suppliers */
 	sort$: Subject<Sort> = new Subject();
 	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	/** selected suppliers */
+	selected: Array<string>;
+	/** whether some suppliers are currently being loaded */
+	pending: boolean;
 	/** whether we loaded every suppliers */
 	fullyLoaded: boolean;
 	/** number of suppliers requested by paginated request */
@@ -42,14 +44,18 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		// select whether the suppliers are pending
-		this.pending$ = this.store.select(selectSupplierListPending);
-		this.store.select(selectSupplierListIsFullyLoaded)
+		this.store.select(selectSupplierListState)
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(loaded => this.fullyLoaded = loaded);
+			.subscribe((state: fromSupplierList.State) => {
+				// we are receiving an id of array from the store while we need a map
+				this.selected = state.selected;
+				this.pending = state.pending;
+				this.fullyLoaded = state.fullyLoaded;
+			});
 		this.store.select(selectSupplierList)
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(suppliers => this.suppliers = suppliers);
-		this.store.dispatch(SupplierListActions.load({}));
+		this.store.dispatch(fromSupplierList.SupplierListActions.load({}));
 		// select filters
 		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
 		// when filters change we need to redownload the suppliers with the new filters
@@ -64,7 +70,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** loads initial suppliers and when the filters change */
 	loadSuppliers() {
-		this.store.dispatch(SupplierListActions.load({
+		this.store.dispatch(fromSupplierList.SupplierListActions.load({
 			filters: this.filters,
 			pagination: { take: this.take, drop: 0 },
 			sort: this.currentSort
@@ -74,7 +80,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
 		if (!this.fullyLoaded) {
-			this.store.dispatch(SupplierListActions.loadMore({
+			this.store.dispatch(fromSupplierList.SupplierListActions.loadMore({
 				filters: this.filters,
 				pagination: { take: this.take, drop: this.suppliers.length },
 				sort: this.currentSort
@@ -93,23 +99,23 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** When a supplier has been selected */
-	onItemSelected(entityId: string) {
-		this.selection.set(entityId, true);
+	selectItem(entityId: string) {
+		this.store.dispatch(fromSupplierList.SupplierListActions.selectOne(entityId));
 	}
 
 	/** When a supplier has been unselected */
-	onItemUnselected(entityId: string) {
-		this.selection.delete(entityId);
+	unselectItem(entityId: string) {
+		this.store.dispatch(fromSupplierList.SupplierListActions.unselectOne(entityId));
 	}
 
 	/** When all suppliers have been selected at once (from the table) */
-	onAllSelected(selection: Map<string, boolean>) {
-		this.selection = selection;
+	selectAll() {
+		this.store.dispatch(fromSupplierList.SupplierListActions.selectAll());
 	}
 
-	/** When all suppliers have been unselected at once (from the table) */
-	onAllUnselected(selection: Map<string, boolean>) {
-		this.selection = selection;
+	/** reset the selection of suppliers */
+	resetSelection() {
+		this.store.dispatch(fromSupplierList.SupplierListActions.unselectAll());
 	}
 
 	/** Navigates to a supplier details page */
@@ -129,15 +135,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(fromSupplier.Actions.patch(patch));
 	}
 
-	/** reset the selection of suppliers */
-	resetSelection() {
-		this.selection = new Map();
-	}
-
 	/** Deletes the currently selected suppliers */
 	deleteSelection() {
-		const ids = Array.from(this.selection.keys());
-		this.store.dispatch(SupplierListActions.delete(ids));
-		this.selection = new Map();
+		this.store.dispatch(fromSupplierList.SupplierListActions.delete(this.selected));
+		this.resetSelection();
 	}
 }

@@ -13,9 +13,10 @@ import { EntityRepresentation } from '~entity';
 })
 export class SelectionBarComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
-	@Input() selection: Map<string, boolean>;
+	@Input() selection: Array<string>;
 	@Output() close = new EventEmitter();
 	@Output() delete = new EventEmitter();
+
 	constructor() { }
 
 	ngOnInit() { }

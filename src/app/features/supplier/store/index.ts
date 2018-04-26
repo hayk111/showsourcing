@@ -57,29 +57,15 @@ export const selectSupplierListState = createSelector(
 	selectSupplierState, (state: SupplierState) => state.supplierList
 );
 
-export const selectSupplierListIds = createSelector(
-	selectSupplierListState,
-	(state: fromSupplierList.State) => state.ids
-);
-
-export const selectSupplierListPending = createSelector(
-	selectSupplierListState,
-	(state: fromSupplierList.State) => state.pending
-);
-
-export const selectSupplierListIsFullyLoaded = createSelector(
-	selectSupplierListState,
-	(state: fromSupplierList.State) => state.fullyLoaded
-);
 
 export const selectSupplierList = createSelector(
-	selectSupplierListIds,
+	selectSupplierListState,
 	(state: any) => state.entities.supplier,
 	(state: any) => state.entities.country.byId,
 	(state: any) => state.entities.teamMember.byId,
-	(ids: Array<string>, supplierState: EntityState<any>, countryById, memberById) => {
+	(supplierListState: fromSupplierList.State, supplierState: EntityState<any>, countryById, memberById) => {
 		const returned = [];
-		ids.forEach(id => {
+		supplierListState.ids.forEach(id => {
 			const supplier = { ...supplierState.byId[id] };
 			// adding countryName
 			if (countryById && supplier.countryCode && countryById[supplier.countryCode])
