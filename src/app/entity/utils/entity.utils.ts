@@ -1,7 +1,6 @@
 import { Entity, EntityState } from '~entity/store/entity.model';
 import { deepCopy } from '~app/app-root/utils';
 import { Resolver } from '~app/app-root/utils/resolver.class';
-import { Swap } from '~app/entity/utils';
 
 // since the response we receive is an array we have to loop
 // through every thing in order to normalize our data.
@@ -31,47 +30,27 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 }
 
 // replace mutliple entities
-export function replaceEntities(state, swaps: Array<Swap>) {
-	const oldIds = swaps.map(swap => swap.old.id);
-	const replacings = swaps.map(swap => swap.replacing);
-	const ids = [...state.ids];
+export function replaceEntities(state, replacingArr: Array<Entity>) {
 	const byId = { ...state.byId };
 	// removing from byId
-	swaps.forEach(swap => {
-		delete byId[swap.old.id];
-		byId[swap.replacing.id] = swap.replacing;
-		const oldIndex = ids.indexOf(swap.old.id);
-		if (~oldIndex) {
-			ids[oldIndex] = swap.replacing.id;
-		}
+	replacingArr.forEach(replacing => {
+		byId[replacing.id] = replacing;
 	});
 	return {
 		...state,
-		ids,
 		byId
 	};
 }
 
 // replace one
-export function replaceEntity(state: any, old: Entity, replacing: Entity) {
-	const oldId = old.id;
-	const replacingId = replacing.id;
-	const oldIdIndex = state.ids.indexOf(old.id);
-	// if index found replace id in ids and Enitity in byId
-	if (~oldIdIndex) {
-		const ids = [...state.ids];
-		const byId = { ...state.byId };
-		ids[oldIdIndex] = replacing.id;
-		delete byId[oldId];
-		byId[replacing.id] = replacing;
-		return {
-			...state,
-			ids,
-			byId
-		};
-	}
-	// if not found do nothing
-	return state;
+export function replaceEntity(state: any, replacing: Entity) {
+	return {
+		...state,
+		byId: {
+			...state.byId,
+			[replacing.id]: replacing
+		}
+	};
 }
 
 export const entityStateToArray = (

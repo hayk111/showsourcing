@@ -6,8 +6,9 @@ import { ERM } from '~entity/store/entity.model';
 import { FocussedEntityService } from '~app/entity/store/focussed-entity';
 import { HttpClient } from '@angular/common/http';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
-import { Swap, Patch } from '~app/entity/utils';
+import { Patch } from '~app/entity/utils';
 import { ContactActionType, ContactActions } from './contact.actions';
+import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 
 @Injectable()
 export class ContactEffects {
@@ -25,10 +26,8 @@ export class ContactEffects {
 		.ofType<any>(ContactActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
-			mergeMap(
-				contact => this.http.post(`api/supplier/${this.focusSrv.currentTarget.entityId}/contact`, contact),
-				(old, replacing) => ContactActions.replace([new Swap(old, <any>replacing)])
-			)
+			mergeMap(contact => this.http.post(`api/supplier/${this.focusSrv.currentTarget.entityId}/contact`, contact)),
+			map((newContact: Contact) => ContactActions.replace([newContact]))
 		);
 
 	@Effect()

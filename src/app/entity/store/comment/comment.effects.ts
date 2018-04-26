@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
-import { Swap } from '~entity/utils';
 import { appErrorActions } from '~shared/error-handler/app-errors.action';
 
 import { FocussedEntityService } from '../focussed-entity';
@@ -31,7 +30,7 @@ export class CommentEffects {
 		switchMap((p: any) =>
 			this.srv.create(p).pipe(
 				// replace currently pending comment, we need to replace so it's not pending anymore
-				map((r: any) => fromComment.Actions.replace([new Swap(p.comment, r)])),
+				map((r: any) => fromComment.Actions.replace(r)),
 				catchError(e => of(appErrorActions.add(e)))
 			)
 		)

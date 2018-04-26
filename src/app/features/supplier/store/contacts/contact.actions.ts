@@ -1,6 +1,5 @@
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 import { AppImage } from '~app/entity/store/image/image.model';
-import { Swap } from '~app/entity/utils/swap.class';
 import { Patch } from '~app/entity/utils/patch.interface';
 
 export enum ContactActionType {
@@ -29,7 +28,7 @@ export class ContactActions {
 		};
 	}
 
-	static replace(swaps: Array<Swap>) {
+	static replace(swaps: Array<Contact>) {
 		return {
 			type: ContactActionType.REPLACE,
 			payload: swaps

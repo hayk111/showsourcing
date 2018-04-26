@@ -7,7 +7,6 @@ import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
 import { EntityService } from '~entity/store/entity.service';
-import { Swap } from '~entity/utils';
 
 import { fromComment } from '../comment';
 import { fromFile } from '../file';
@@ -72,7 +71,7 @@ export class SuppliersEffects {
 					.create(supplier)
 					.pipe(
 						mergeMap((newSupplier: any) => [
-							supplierActions.replace([new Swap(supplier, newSupplier)]),
+							supplierActions.replace([newSupplier]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 })
 						]),
 						catchError(e => of(appErrorActions.add(e)))

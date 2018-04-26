@@ -10,7 +10,6 @@ import { appErrorActions } from '~app/shared/error-handler';
 import { NotificationType } from '~app/shared/notifications';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { EntityTarget } from '~entity/store/entity.model';
-import { Swap } from '~entity/utils';
 
 import { fromFile } from './file.bundle';
 import { FocussedEntityService } from '../focussed-entity';
@@ -74,7 +73,7 @@ export class FilesEffects {
 				}),
 				fileActions.link(p.target, newFile),
 				// we also replace the current pending files
-				fileActions.replace([new Swap(p.file, newFile)]),
+				fileActions.replace([newFile]),
 			]),
 			catchError(e => of(appErrorActions.add(e)))
 		))

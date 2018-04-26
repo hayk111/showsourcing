@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
-import { Swap } from '~entity/utils';
 import { Log } from '~utils';
 
 import { AppImage } from '../image';
@@ -32,7 +31,7 @@ export class FileHttpService {
 		return combineLatest(
 			files.map((file: AppFile) =>
 				// resolving to a swap so we can replace easily
-				this.uploadFile(file).pipe(map((resp: AppFile) => new Swap(file, resp)))
+				this.uploadFile(file)
 			)
 		);
 	}
@@ -46,9 +45,9 @@ export class FileHttpService {
 		const fileName = file.fileName;
 
 		if (type === 'attachment')
-			data = { fileName };
+			data = { fileName, id: file.id };
 		else
-			data = { imageType: 'Photo' };
+			data = { imageType: 'Photo', id: file.id };
 
 		return this.upload(data, type, file);
 	}

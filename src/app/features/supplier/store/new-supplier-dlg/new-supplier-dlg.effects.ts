@@ -7,7 +7,6 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { appErrorActions } from '~app/shared/error-handler/app-errors.action';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { of } from 'rxjs/observable/of';
-import { Swap } from '~entity/utils';
 import { supplierActions } from '~app/entity/store/supplier/supplier.action';
 import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 import { DialogName } from '~app/shared/dialog';
@@ -30,7 +29,7 @@ export class NewSupplierDlgEffects {
 					.pipe(
 						tap((newSupplier: any) => this.router.navigate(['supplier', 'details', newSupplier.id])),
 						mergeMap((newSupplier: any) => [
-							supplierActions.replace([new Swap(supplier, newSupplier)]),
+							supplierActions.replace([newSupplier]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Supplier Added', timeout: 2000 }),
 							DialogActions.close(DialogName.NEW_SUPPLIER),
 							NewSupplierDlgActions.setReady()

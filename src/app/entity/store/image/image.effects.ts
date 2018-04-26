@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { map, switchMap, tap, withLatestFrom, mergeMap, catchError } from 'rxjs/operators';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
-import { Swap } from '~entity/utils';
 
 import { EntityTarget } from '../entity.model';
 import { FocussedEntityService } from '../focussed-entity/focussed-entity.service';
@@ -13,6 +12,7 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { NotificationType } from '~app/shared/notifications';
 import { appErrorActions } from '~app/shared/error-handler';
 import { of } from 'rxjs/observable/of';
+import { AppFile } from '~app/entity';
 
 
 @Injectable()
@@ -52,7 +52,7 @@ export class ImageEffects {
 				}),
 				fromImage.Actions.link(p.target, newFile),
 				// we also replace the current pending files
-				fromImage.Actions.replace([new Swap(p.file, newFile)]),
+				fromImage.Actions.replace([newFile]),
 			]),
 			catchError(e => of(appErrorActions.add(e)))
 		))
@@ -69,10 +69,8 @@ export class ImageEffects {
 		.ofType<any>(imageActionTypes.ROTATE)
 		.pipe(
 			map(action => action.payload),
-			switchMap(
-				img => this.srv.rotate(img),
-				(old: AppImage, replacing: AppImage) => fromImage.Actions.replace([new Swap(old, replacing)])
-			)
+			switchMap(img => this.srv.rotate(img)),
+			map((newFile: AppFile) => fromImage.Actions.replace([newFile]))
 		);
 
 	@Effect({ dispatch: false })

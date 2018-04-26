@@ -3,7 +3,6 @@ import { Patch, ApiParams } from '../utils';
 import { TypedAction } from '~utils';
 
 import { Entity, EntityRepresentation, EntityTarget } from './entity.model';
-import { Swap } from '../utils';
 
 export interface EntityActionTypes {
 	// when focussing on one entity (viewing its details), this is used to load related entities
@@ -144,7 +143,7 @@ export class EntityActions<G extends EntityActionTypes> {
 		};
 	}
 
-	replace(swaps: Array<Swap>): TypedAction<any> {
+	replace(swaps: Array<Entity>): TypedAction<any> {
 		return {
 			type: this.actionType.REPLACE,
 			payload: swaps,
