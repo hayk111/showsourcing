@@ -1,12 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { Filter, FilterType } from '~shared/filters/models';
-import { Store } from '@ngrx/store';
-import { selectEntityArray } from '~entity/store/entity.selector';
-import { Observable } from 'rxjs/Observable';
-import { Entity, EntityState, entityStateToArray } from '~app/entity';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AutoUnsub } from '~app/app-root/utils';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { Filter, FilterType } from '~shared/filters/models';
 
 // this is the entity panel that appears once a filter button has been clicked
 // a list of choices is displayed and the user can pick through those choices
@@ -27,10 +23,10 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	/** Different choices that are displayed in the view */
 	@Input()
-	set choices(value: Array<Entity>) {
+	set choices(value: Array<any>) {
 		this._choices = value;
 	}
-	get choices(): Array<Entity> {
+	get choices(): Array<any> {
 		// choices can be filtered with a search input, therefor filteredChoices is only gonna be populated
 		// when the user has typed something
 		return this._filteredChoices || this._choices;
@@ -40,10 +36,10 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	/** The relevant choices (with count) */
 	@Input()
-	set relevantChoices(value: Array<Entity>) {
+	set relevantChoices(value: Array<any>) {
 		this._relevantChoices = value;
 	}
-	get relevantChoices(): Array<Entity> {
+	get relevantChoices(): Array<any> {
 		return this._filteredRelevantChoices || this._relevantChoices;
 	}
 	private _relevantChoices = [];
