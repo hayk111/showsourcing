@@ -8,13 +8,15 @@
 		[buttonName]="'Add Product'"
 		[subtitles]="['Products', 'all']"
 		[hasSwitch]="true"
-		[hasFilter]="true">
+		[hasFilter]="true"
+		[view]="view"
+		(viewChange)="view = $event"
+		(filterClick)="openFilterPanel()">
 	</top-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<product-list-view-app
 		*ngIf="view === 'list'"
-		[class.hidden] = "view !== 'list'"
 		class="list-view"
 		[selection]="selection"
 		[products]="products"
@@ -28,7 +30,6 @@
 	<product-card-view-app
 		class="card-view"
 		*ngIf="view === 'card'"
-		[class.hidden] = "view !== 'card'"
 		[products]="products"
 		[selection]="selection"
 		[statuses]="statuses$ | async"

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ContentChild, ViewChild, ElementRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 
 @Component({
@@ -12,6 +12,7 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() update = new EventEmitter<boolean>();
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
+	@ViewChild('label') label: ElementRef;
 	disabled = super.disabled;
 	/** id of element, if not specified it will generate automtically */
 	@Input()
@@ -60,6 +61,10 @@ export class CheckboxComponent extends AbstractInput {
 		} else {
 			this.uncheck.emit();
 		}
+	}
+
+	hasContent() {
+		return this.label.nativeElement.children.length === 0;
 	}
 
 }

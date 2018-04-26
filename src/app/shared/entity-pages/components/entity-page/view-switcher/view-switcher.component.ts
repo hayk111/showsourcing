@@ -18,11 +18,11 @@ import { Observable } from 'rxjs/Observable';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewSwitcherComponent implements OnInit {
-	_view: 'list' | 'card' = 'list';
+	_view: 'list' | 'card' = 'card';
 	@Output() viewChange = new EventEmitter<string>();
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	switchView(view: 'card' | 'list') {
 		this.view = view;
@@ -31,8 +31,10 @@ export class ViewSwitcherComponent implements OnInit {
 
 	@Input()
 	set view(view: 'list' | 'card') {
-		if (view !== 'list' && view !== 'card') this._view = 'list';
-		else this._view = view;
+		if (view !== 'list' && view !== 'card')
+			this._view = 'list';
+		else
+			this._view = view;
 	}
 
 	get view() {

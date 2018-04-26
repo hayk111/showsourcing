@@ -1,4 +1,4 @@
-	<div class="icon pointer">
+	<div class="icon pointer {{ hasContent ? 'mg-right' : '' }}">
 		<icon-app
 			class="jello-horizontal color-primary"
 			fontSet="fa"
@@ -18,6 +18,6 @@
 		[checked]="checked"
 		[attr.value]="value"
 		[disabled]="disabled">
-	<label [attr.for]="id" (click)="onClick()">
-			<ng-content></ng-content>
+	<label #label [attr.for]="id" (click)="onClick()">
+		<ng-content></ng-content>
 	</label>
