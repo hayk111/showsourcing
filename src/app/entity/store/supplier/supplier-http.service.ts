@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, scan, takeUntil, takeWhile } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
 import { Patch, ApiParams } from '~entity/utils';
@@ -8,6 +8,9 @@ import { Patch, ApiParams } from '~entity/utils';
 import { User } from '~user';
 import { UserService } from '~app/features/user/services';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SupplierHttpService {
@@ -15,11 +18,26 @@ export class SupplierHttpService {
 
 	/** loads all suppliers */
 	loadAll() {
-		return this.http.get(`api/team/${this.userSrv.teamId}/supplier`)
-			.pipe(
-				map((r: any) => r.elements),
-				map(suppliers => this.standardize(suppliers)),
+		const take = 100;
+		const subject = new BehaviorSubject(0);
+		let i = 0;
+		const rec = subject.pipe(
+			map((acc: number) => (acc * 100)),
+			switchMap(drop => this.http.get(`api/team/${this.userSrv.teamId}/supplier?drop=${drop}&take=${take}`)),
+			map((r: any) => r.elements),
+			map(suppliers => this.standardize(suppliers)),
+			tap(suppliers => {
+				if (suppliers.length === take)
+					subject.next(++i);
+			})
 		);
+		return rec;
+
+		// return this.http.get(`api/team/${this.userSrv.teamId}/supplier&drop=${drop}`)
+		// 	.pipe(
+		// 		map((r: any) => r.elements),
+		// 		map(suppliers => this.standardize(suppliers)),
+		// );
 	}
 
 	/** loads a subset of suppliers given the params */
