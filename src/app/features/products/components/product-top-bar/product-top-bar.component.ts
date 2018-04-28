@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { Product } from '~app/entity';
+import { Product } from '~feature/products/store/product/product.model';
 
 @Component({
 	selector: 'product-top-bar-app',

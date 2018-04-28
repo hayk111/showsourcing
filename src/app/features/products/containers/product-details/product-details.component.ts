@@ -10,15 +10,14 @@ import {
 	AppFile,
 	EntityTarget,
 	ERM,
-	Product,
-	productActions,
 	Project,
-	selectProductById,
 	fromProject,
 	fromTask,
 	Task,
 } from '~entity';
 import { AutoUnsub } from '~utils';
+import { Product, productActions, selectOneProduct } from '~product/store';
+
 
 @Component({
 	selector: 'product-details-app',
@@ -45,7 +44,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		});
 		this.product$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.store.select(selectProductById(params.id))),
+			switchMap(params => this.store.select(selectOneProduct(params.id))),
 			filter(product => !!product),
 			tap(product => this.productId = product.id)
 		);

@@ -12,7 +12,6 @@ import { fromComment } from '../comment';
 import { fromFile } from '../file';
 import { focussedEntityAction } from '../focussed-entity';
 import { fromImage } from '../image';
-import { productActions } from '../product';
 import { fromTask } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
 import { Supplier } from './supplier.model';
@@ -26,6 +25,7 @@ import { LatestProductActions, ContactActions } from '~app/features/supplier/sto
 
 @Injectable()
 export class SuppliersEffects {
+	// when going on suppliers/details we load every related entity
 	@Effect()
 	focus$ = this.action$
 		.ofType<any>(ActionType.FOCUS)
@@ -152,6 +152,7 @@ export class SuppliersEffects {
 					.pipe(mergeMap((r: any) => [supplierActions.addCategory(r, payload.supplierId), fromCategory.Actions.add([r])]))
 			)
 		);
+
 	constructor(
 		private action$: Actions,
 		private srv: SupplierHttpService,

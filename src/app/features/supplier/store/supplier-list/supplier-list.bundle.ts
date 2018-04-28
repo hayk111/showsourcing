@@ -102,24 +102,32 @@ export function reducer(state = initialState, action) {
 		case SupplierListActionType.LOAD_MORE:
 		case SupplierListActionType.LOAD:
 			return { ...state, pending: true, fullyLoaded: false };
+
 		case SupplierListActionType.ADD:
 			added = action.payload.map(supplier => supplier.id);
 			// we only add the ids
 			return { ...state, ids: [...state.ids, ...added], pending: false };
+
 		case SupplierListActionType.SET:
 			added = action.payload.map(supplier => supplier.id);
 			return { ...state, pending: false, ids: added };
+
 		case SupplierListActionType.SET_FULLY_LOADED:
 			return { ...state, fullyLoaded: true };
+
 		case SupplierListActionType.DELETE:
 			const toDel: Array<string> = action.payload;
 			return { ...state, ids: state.ids.filter(id => toDel.some(delId => delId !== id)) };
+
 		case SupplierListActionType.SELECT_ONE:
 			return { ...state, selected: [...state.selected, action.payload] };
+
 		case SupplierListActionType.SELECT_ALL:
 			return { ...state, selected: [...state.ids] };
+
 		case SupplierListActionType.UNSELECT_ONE:
 			return { ...state, selected: state.selected.filter(id => id !== action.payload) };
+
 		case SupplierListActionType.UNSELECT_ALL:
 			return { ...state, selected: [] };
 		default: return state;

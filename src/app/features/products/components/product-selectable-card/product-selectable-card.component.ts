@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Patch, Product, ProductStatus } from '~app/entity';
+import { Patch } from '~app/entity';
+import { Product, ProductStatus } from '../../store/product/product.model';
 
 @Component({
 	selector: 'product-selectable-card-app',

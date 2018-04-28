@@ -29,6 +29,17 @@ export function addEntities(state: any, entities: Array<Entity> | any) {
 	};
 }
 
+export function createEntity(state, entity: Entity) {
+	return {
+		...state,
+		byId: {
+			...state.byId,
+			[entity.id]: entity
+		},
+		ids: [entity.id, ...state.ids]
+	};
+}
+
 // replace mutliple entities
 export function replaceEntities(state, replacingArr: Array<Entity>) {
 	const byId = { ...state.byId };

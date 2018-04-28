@@ -1,5 +1,5 @@
-import { Currency } from '../currency';
 import { Entity } from '~app/entity/store/entity.model';
+import { Currency } from '~app/entity/store/currency/currency.model';
 
 export enum ProductStatus {
 	IDEA = 'Idea',

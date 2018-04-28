@@ -5,7 +5,7 @@ import { map, filter, take, takeUntil } from 'rxjs/operators';
 import { ERM, Project, fromProject } from '~entity';
 import { AutoUnsub } from '~app/app-root/utils';
 import { selectFilterGroup } from '~app/shared/filters/store';
-import { productActions } from '~app/entity/store';
+import { productActions } from '~product';
 
 
 @Component({

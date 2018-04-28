@@ -17,7 +17,7 @@ import { StatusModule } from '~app/shared/status/status.module';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
 import { EntityModule } from '~entity';
-import { ProductEffects } from '~product';
+import { ProductEffects } from './store/product/product.effects';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';
 import { IconsModule } from '~shared/icons';
@@ -56,11 +56,20 @@ import { ProductExportDlgComponent } from './components/product-export-dlg/produ
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { NewProductDlgEffects } from '~app/features/products/store/new-product-dlg/new-product-dlg.effects';
+import { reducers } from './store';
+import { ProductHttpService } from '~app/features/products/store/product/product-http.service';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
+		StoreModule.forFeature('product', reducers),
+		EffectsModule.forFeature([
+			NewProductDlgEffects,
+			ProductEffects
+		]),
 		ReactiveFormsModule,
 		PipesModule,
 		DialogModule,
@@ -108,10 +117,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 	exports: [ProductSmallCardComponent],
 })
 export class ProductModule {
+
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProductModule,
-			providers: [],
+			providers: [ProductHttpService],
 		};
 	}
+
 }

@@ -5,7 +5,6 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import {
 	focussedEntityReducer,
-	productReducer,
 	userReducer,
 	fromProject,
 	fromSupplier,
@@ -44,7 +43,6 @@ const entities = combineReducers({
 	event: fromEvent.reducer,
 	tag: fromTag.reducer,
 	supplier: fromSupplier.reducer,
-	product: productReducer,
 
 	productStatus: fromProductStatus.reducer,
 	taskStatus: fromTaskStatus.reducer,

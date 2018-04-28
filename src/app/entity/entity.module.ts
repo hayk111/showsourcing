@@ -8,7 +8,6 @@ import { EventHttpService } from '~app/entity/store/event/event-http.service';
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
 import { FocussedEntityService } from '~app/entity/store/focussed-entity/focussed-entity.service';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
-import { ProductHttpService } from '~app/entity/store/product/product-http.service';
 import { ProjectHttpService } from '~app/entity/store/project/project-http.service';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { TagHttpService } from '~app/entity/store/tag/tag-http.service';
@@ -64,7 +63,6 @@ export class EntityModule {
 				EventHttpService,
 				FileHttpService,
 				ImageHttpService,
-				ProductHttpService,
 				ProjectHttpService,
 				SupplierHttpService,
 				TagHttpService,

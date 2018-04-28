@@ -15,8 +15,7 @@ export class SupplierHttpService {
 
 	/** loads all suppliers */
 	loadAll() {
-		return this.entitySrv
-			.load({ base: ERM.team, target: ERM.supplier, recurring: true })
+		return this.http.get(`api/team/${this.userSrv.teamId}/supplier`)
 			.pipe(
 				map((r: any) => r.elements),
 				map(suppliers => this.standardize(suppliers)),

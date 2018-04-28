@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
 import { Observable } from 'rxjs/Observable';
-import { User, productActions } from '~app/entity';
+import { User } from '~app/entity';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { productActions } from '~app/features/products/store/product/product.action';
 
 
 const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);

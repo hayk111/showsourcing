@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ERM, Product, productActions, selectEntityById, selectProductById, Tag } from '~app/entity';
+import { ERM, selectEntityById, Tag } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { FormControlDescriptor, FormDescriptor } from '~entity';
 import { Event, fromEvent } from '~event';
 import { Project } from '~project';
 import { fromSupplier } from '~supplier';
 import { AutoUnsub } from '~utils';
+import { Product, productActions, selectOneProduct } from '~product/store';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -31,7 +32,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.store.select(selectProductById(params.id)))
+			switchMap(params => this.store.select(selectOneProduct(params.id)))
 		);
 		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => (this.productId = product.id));
 		this.customFields$ = this.store.select(

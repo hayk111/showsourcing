@@ -5,7 +5,7 @@
 		"~file/*": ["${workspaceRoot}/src/app/entity/store/file/*"],
 		"~auth/*": ["${workspaceRoot}/src/app/features/auth/*"],
 		"~event/*": ["${workspaceRoot}/src/app/entity/store/event/*"],
-		"~product/*": ["${workspaceRoot}/src/app/entity/store/product/*"],
+		"~product/*": ["${workspaceRoot}/src/app/features/products/*"],
 		"~project/*": ["${workspaceRoot}/src/app/entity/store/project/*"],
 		"~utils/*": ["${workspaceRoot}/src/app/app-root/utils/*"],
 		"~user/*": ["${workspaceRoot}/src/app/entity/store/user/*"],

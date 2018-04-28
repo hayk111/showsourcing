@@ -16,7 +16,6 @@ export * from './focussed-entity';
 export * from './harbour';
 export * from './image';
 export * from './inco-term';
-export * from './product';
 export * from './product-status';
 export * from './project';
 export * from './supplier';

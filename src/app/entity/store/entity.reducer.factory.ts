@@ -2,7 +2,7 @@ import { Entity, entityInitialState, EntityState } from './entity.model';
 import { EntityActionTypes } from './entity.action.factory';
 import { TypedAction } from '~utils';
 
-import { addEntities, removeEntities, replaceEntity, replaceEntities, updateOne } from '../utils';
+import { addEntities, removeEntities, replaceEntity, replaceEntities, updateOne, createEntity } from '../utils';
 
 // hassan, , stop moving this file outside of Entity module, plz, I made this module to regroup utils/generic for the store / entity.
 export function entityReducerFactory<G extends Entity, T extends EntityActionTypes>(
@@ -11,7 +11,8 @@ export function entityReducerFactory<G extends Entity, T extends EntityActionTyp
 ) {
 	return function (state = initialState, action: TypedAction<any>) {
 		let id;
-		if (action.payload) id = action.payload.id;
+		if (action.payload)
+			id = action.payload.id;
 
 		switch (action.type) {
 			// when selecting one of the entities (to look at the details)
@@ -26,14 +27,8 @@ export function entityReducerFactory<G extends Entity, T extends EntityActionTyp
 
 			// entities in payload are added to the current state
 			case actionType.CREATE:
-				return {
-					...state,
-					byId: {
-						...state.byId,
-						[id]: action.payload
-					},
-					ids: [id, ...state.ids]
-				};
+				return createEntity(state, action.payload);
+
 			case actionType.ADD:
 				return addEntities(state, action.payload);
 
@@ -55,18 +50,20 @@ export function entityReducerFactory<G extends Entity, T extends EntityActionTyp
 			case actionType.SET_PENDING:
 				return { ...state, pending: true };
 
-			case actionType.RESET:
-				return initialState;
-
 			case actionType.SELECT:
 				return { ...state, selected: [...state.selected, action.payload] };
+
 			case actionType.UNSELECT:
 				return { ...state, selected: state.selected.filter(theId => theId !== action.payload) };
+
 			case actionType.RESET_SELECTION:
 				return { ...state, selected: [] };
 
 			case actionType.SET_PRODUCT_COUNT:
 				return { ...state, productCount: action.payload };
+
+			case actionType.RESET:
+				return initialState;
 
 			default:
 				return state;

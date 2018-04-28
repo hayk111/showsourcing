@@ -8,7 +8,7 @@ import {
 	Patch, AppImage, fromImage, fromSupplier,
 	Tag
 } from '~entity';
-import { Product, selectProducts } from '~product';
+import { Product } from '~feature/products/store/product/product.model';
 import { Supplier } from '~supplier';
 import { fromTask, Task } from '~task';
 import { fromDialog, DialogName } from '~app/shared/dialog';

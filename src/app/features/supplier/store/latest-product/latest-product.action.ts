@@ -1,4 +1,4 @@
-import { Product } from '~app/entity/store/product/product.model';
+import { Product } from '~product/store/product/product.model';
 
 
 export enum LatestProductActionType {

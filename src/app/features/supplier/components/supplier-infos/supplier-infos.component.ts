@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Patch, Supplier, Tag, productActions } from '~entity';
+import { Patch, Supplier, Tag } from '~entity';
 import { Store } from '@ngrx/store';
 import { UserService } from '~app/features/user';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { productActions } from '~product';
 
 @Component({
 	selector: 'supplier-infos-app',

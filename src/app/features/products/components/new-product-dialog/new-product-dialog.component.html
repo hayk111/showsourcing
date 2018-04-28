@@ -1,9 +1,10 @@
-<form [formGroup]="form">
+<form [formGroup]="form" *ngIf="!pending; else spinner">
 	<dialog-app [name]="name">
 		<dialog-header-app>
 			Create New Product
 		</dialog-header-app>
 
+		<!-- Name -->
 		<form-field-app>
 			<label-app>
 				Name
@@ -11,9 +12,36 @@
 			<input type="text" inputApp formControlName="name"/>
 		</form-field-app>
 
+		<!-- Supplier -->
+		<selector-app
+			[choices]="'supplier' | entityList | async"
+			[itemName]="'supplier'"
+			[canSearch]="true">
+			<ng-template let-item="item">
+				{{ item.name }}
+			</ng-template>
+		</selector-app>
+
+		<!-- Category -->
+		<selector-app
+			[choices]="'category' | entityList | async"
+			[itemName]="'category'"
+			[canSearch]="true">
+			<ng-template let-item="item">
+				{{ item.name }}
+			</ng-template>
+		</selector-app>
+
 		<dialog-footer-app>
 			<button (click)="createProduct()" [disabled]="!form.valid">Create Product</button>
 		</dialog-footer-app>
 	</dialog-app>
 </form>
+
+<!-- when pending -->
+<ng-template #spinner>
+	<dialog-app>
+		<spinner-app></spinner-app>
+	</dialog-app>
+</ng-template>
 

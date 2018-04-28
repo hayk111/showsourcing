@@ -3,11 +3,10 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { distinctUntilChanged, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
-import { fromTag } from '../tag';
+import { distinctUntilChanged, map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { actionTypes, productActions } from './product.action';
-import { ProductHttpService } from '~app/entity/store/product/product-http.service';
+import { ProductHttpService } from './product-http.service';
 import { ERM } from '~app/entity/store/entity.model';
 import { focussedEntityAction } from '~entity/store/focussed-entity';
 import { fromComment } from '~entity/store/comment';
@@ -17,13 +16,18 @@ import { fromTask } from '~entity/store/task/task.bundle';
 import { fromProject } from '~entity/store/project/project.bundle';
 import { selectUser } from '~user';
 import { EntityService } from '~app/entity/store/entity.service';
+import { Product } from './product.model';
+import { DialogActions } from '~app/shared/dialog/store/dialog.action';
+import { DialogName } from '~app/shared/dialog';
+import { Router } from '@angular/router';
+import { fromTag } from '~app/entity/store/tag/tag.bundle';
 
 
 @Injectable()
 export class ProductEffects {
 	userID: string;
 
-	// when a product is put at the foreground
+	// when a product is put at the foreground eg product/details
 	@Effect()
 	focus$ = this.actions$
 		.ofType<any>(actionTypes.FOCUS)
@@ -48,7 +52,11 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// add products
-				map((r: any) => productActions.set(r))
+				mergeMap((r: any) => [
+					productActions.set(r),
+					// set product tag
+					// set product project
+				])
 			);
 		})
 	);
@@ -60,17 +68,34 @@ export class ProductEffects {
 			// get products
 			return this.srv.load(params).pipe(
 				// add products
-				map((r: any) => productActions.add(r))
+				mergeMap((r: any) => [
+					productActions.add(r)
+					// add product tag
+					// add product project
+				])
 			);
 		})
 	);
 
-	// @Effect()
-	// create$ = this.actions$.ofType<any>(actionTypes.CREATE).pipe(
-	// 	map(action => action.payload),
-	// 	switchMap((product: Product) => this.srv.create(product)),
+	@Effect()
+	loadById$ = this.actions$
+		.ofType<any>(actionTypes.LOAD_BY_ID)
+		.pipe(
+			map(action => action.payload),
+			switchMap((id: string) => this.srv.loadById(id)),
+			map((r: any) => productActions.add(r))
+		);
 
-	// )
+	@Effect()
+	create$ = this.actions$.ofType<any>(actionTypes.CREATE).pipe(
+		map(action => action.payload),
+		switchMap((product: Product) => this.srv.create(product)),
+		tap((product: Product) => this.router.navigate(['product', 'details', product.id])),
+		mergeMap((product: Product) => [
+			productActions.replace([product]),
+			DialogActions.close(DialogName.NEW_PRODUCT)
+		])
+	);
 
 	@Effect({ dispatch: false })
 	delete$ = this.actions$
@@ -89,16 +114,6 @@ export class ProductEffects {
 			return this.srv.vote(id, value);
 		})
 	);
-
-
-	@Effect()
-	loadById$ = this.actions$
-		.ofType<any>(actionTypes.LOAD_BY_ID)
-		.pipe(
-			map(action => action.payload),
-			switchMap((id: string) => this.srv.loadById(id)),
-			map((r: any) => productActions.add(r))
-		);
 
 	// for feedback
 	@Effect()
@@ -179,7 +194,8 @@ export class ProductEffects {
 		private srv: ProductHttpService,
 		private actions$: Actions,
 		private store: Store<any>,
-		private entitySrv: EntityService
+		private entitySrv: EntityService,
+		private router: Router
 	) {
 		this.store
 			.select(selectUser)

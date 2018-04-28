@@ -1,12 +1,22 @@
-import { entityInitialState } from '~entity/store/entity.model';
+import { entityInitialState, EntityState } from '~entity/store/entity.model';
 import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils/typed-action.interface';
 
 import { actionTypes } from './product.action';
+import { Product } from './product.model';
 
-export const basicProductReducer = entityReducerFactory(actionTypes);
+export const entityReducer = entityReducerFactory(actionTypes);
 
-export function productReducer(state = entityInitialState, action: TypedAction<any>) {
+export interface State extends EntityState<Product> {
+	fullyLoaded: boolean;
+}
+
+const initialState = {
+	fullyLoaded: false,
+	...entityInitialState
+};
+
+export function reducer(state: State, action: TypedAction<any>) {
 	switch (action.type) {
 
 		case actionTypes.ADD_TAG: {
@@ -69,7 +79,7 @@ export function productReducer(state = entityInitialState, action: TypedAction<a
 			};
 		}
 		default: {
-			return basicProductReducer(state, action);
+			return entityReducer(state, action);
 		}
 	}
 }

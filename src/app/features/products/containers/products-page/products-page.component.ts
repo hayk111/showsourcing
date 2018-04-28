@@ -1,23 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { tap, map, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import {
 	EntityState,
 	ERM,
 	fromProductStatus,
-	Product,
-	productActions,
-	ProductStatus,
-	selectEntityArray,
-	selectProductsState,
 } from '~entity';
 import { Patch } from '~entity/utils';
-import { fromDialog, DialogName } from '~shared/dialog';
+import { DialogName, fromDialog } from '~shared/dialog';
 import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { selectProductArray, selectProductState } from '~app/features/products/store';
+import { productActions } from '~app/features/products/store/product/product.action';
+import { ProductStatus, Product } from '~app/features/products/store/product/product.model';
 
 @Component({
 	selector: 'products-page-app',
@@ -55,11 +53,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.products$ = this.store.select(selectEntityArray(ERM.product)).pipe(
+		this.products$ = this.store.select(selectProductArray).pipe(
 			distinctUntilChanged(),
 			tap(products => this.products = products)
 		);
-		this.productsState$ = this.store.select(selectProductsState);
+		this.productsState$ = this.store.select(selectProductState);
 		this.pending$ = this.productsState$.pipe(map(state => state.pending));
 		this.statuses$ = this.store.select(fromProductStatus.selectArray);
 		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);

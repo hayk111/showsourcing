@@ -51,15 +51,6 @@ export class ProductHttpService {
 		);
 	}
 
-
-	loadLatestForTarget(target: EntityTarget) {
-		const params = `drop=0&take=8&sort=creationDate&sortOrder=DESC&${target.entityRepr.urlName}=${target.entityId}`;
-		return this.userSrv.user$.pipe(
-			switchMap(user => this.http.get(`api/team/${this.userSrv.teamId}/product?${params}`)),
-			map((r: any) => r.elements)
-		);
-	}
-
 	vote(id: string, value: 0 | 100) {
 		return this.http.post(`api/product/${id}/vote`, { value });
 	}
@@ -73,6 +64,10 @@ export class ProductHttpService {
 		return this.entitySrv
 			.load(params)
 			.pipe(map(elem => this.linearize(elem)));
+	}
+
+	create(product: Product) {
+		return this.http.post(`api/product`, product);
 	}
 
 	// putting properties from additional infos into the product so it's linear

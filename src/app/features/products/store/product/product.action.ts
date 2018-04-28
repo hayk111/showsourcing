@@ -1,7 +1,8 @@
-import { EntityActions, makeEntityActionTypes, EntityActionTypes } from '../entity.action.factory';
-import { EntityTarget, ERM } from '../entity.model';
-import { Project } from '../project';
-import { Tag } from '../tag';
+import { ERM } from '~app/entity/store/entity.model';
+import { EntityActionTypes, EntityActions, makeEntityActionTypes } from '~app/entity/store/entity.action.factory';
+import { Tag } from '~app/entity/store/tag/tag.model';
+import { Project } from '~app/entity/store/project/project.model';
+
 
 const entityName = ERM.product.entityName;
 

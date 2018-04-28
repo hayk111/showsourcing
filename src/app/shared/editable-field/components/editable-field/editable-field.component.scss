@@ -106,6 +106,7 @@ form-field-app {
 	flex-direction: row;
 	align-items: center;
 	.confirmIcon {
+		color: white;
 		border-radius: 2px;
 		margin-left: var(--spacing-s);
 		height: 22px;
@@ -116,6 +117,7 @@ form-field-app {
 		cursor: pointer;
 	}
 	.confirmIconSave {
+		color: white;
 		width: 44px;
 		text-transform: uppercase;
 		font-weight: bold;
