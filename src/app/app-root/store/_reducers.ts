@@ -4,12 +4,10 @@ import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import {
-	focussedEntityReducer,
 	userReducer,
 	fromProject,
 	fromSupplier,
 	fromCategory,
-	fromComment,
 	fromCountry,
 	fromCurrency,
 	fromCustomField,
@@ -53,7 +51,6 @@ const entities = combineReducers({
 	customField: fromCustomField.reducer,
 	file: fromFile.reducer,
 	image: fromImage.reducer,
-	comment: fromComment.reducer,
 });
 
 const ui = combineReducers({
@@ -62,7 +59,6 @@ const ui = combineReducers({
 
 export const reducers: ActionReducerMap<any> = {
 	entities,
-	focussedEntity: focussedEntityReducer,
 	filters: filtersReducer,
 	ui
 };

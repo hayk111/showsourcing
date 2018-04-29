@@ -1,4 +1,5 @@
 import { Product } from '~product/store/product/product.model';
+import { EntityTarget } from '~app/entity';
 
 
 export enum LatestProductActionType {
@@ -9,7 +10,7 @@ export enum LatestProductActionType {
 export class LatestProductActions {
 	static load() {
 		return {
-			type: LatestProductActionType.LOAD,
+			type: LatestProductActionType.LOAD
 		};
 	}
 

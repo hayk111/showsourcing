@@ -2,21 +2,23 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
-import { FocussedEntityService } from '~app/entity/store/focussed-entity';
+import { ERM, EntityTarget } from '~entity/store/entity.model';
 import { HttpClient } from '@angular/common/http';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Patch } from '~app/entity/utils';
 import { ContactActionType, ContactActions } from './contact.actions';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 
 @Injectable()
 export class ContactEffects {
+
 	@Effect()
 	load$ = this.action$
 		.ofType<any>(ContactActionType.LOAD)
 		.pipe(
-			switchMap(_ => this.http.get(`api/supplier/${this.focusSrv.currentTarget.entityId}/contact`)),
+			map(_ => this.focusSrv.target.entityId),
+			switchMap((target: EntityTarget) => this.http.get(`api/supplier/${target}/contact`)),
 			map((result: any) => result.elements),
 			map((result: any) => ContactActions.set(result))
 		);
@@ -26,7 +28,7 @@ export class ContactEffects {
 		.ofType<any>(ContactActionType.CREATE)
 		.pipe(
 			map(action => action.payload),
-			mergeMap(contact => this.http.post(`api/supplier/${this.focusSrv.currentTarget.entityId}/contact`, contact)),
+			mergeMap((contact: Contact) => this.http.post(`api/supplier/${this.focusSrv.target.entityId}/contact`, contact)),
 			map((newContact: Contact) => ContactActions.replace([newContact]))
 		);
 
@@ -68,6 +70,6 @@ export class ContactEffects {
 	constructor(
 		private action$: Actions,
 		private http: HttpClient,
-		private focusSrv: FocussedEntityService,
-		private imageHttp: ImageHttpService) { }
+		private imageHttp: ImageHttpService,
+		private focusSrv: FocusedEntityService) { }
 }

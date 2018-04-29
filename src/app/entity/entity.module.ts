@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CategoryHttpService } from '~app/entity/store/category/category-http.service';
-import { CommentHttpService } from '~app/entity/store/comment/comment-http.service';
 import { CustomFieldsHttpService } from '~app/entity/store/custom-field/custom-field-http.service';
 import { EntityService } from '~app/entity/store/entity.service';
 import { EventHttpService } from '~app/entity/store/event/event-http.service';
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
-import { FocussedEntityService } from '~app/entity/store/focussed-entity/focussed-entity.service';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { ProjectHttpService } from '~app/entity/store/project/project-http.service';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
@@ -45,7 +43,6 @@ import { EntityListPipe } from './pipes/entity-list.pipe';
 	providers: [
 		EntityService,
 		UrlBuilder,
-		FocussedEntityService
 	],
 })
 export class EntityModule {
@@ -58,7 +55,6 @@ export class EntityModule {
 				EntityService,
 				// http modules
 				CategoryHttpService,
-				CommentHttpService,
 				CustomFieldsHttpService,
 				EventHttpService,
 				FileHttpService,

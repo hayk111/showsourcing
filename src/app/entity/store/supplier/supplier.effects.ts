@@ -8,9 +8,7 @@ import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.se
 import { appErrorActions } from '~app/shared/error-handler';
 import { EntityService } from '~entity/store/entity.service';
 
-import { fromComment } from '../comment';
 import { fromFile } from '../file';
-import { focussedEntityAction } from '../focussed-entity';
 import { fromImage } from '../image';
 import { fromTask } from '../task';
 import { supplierActions, supplierActionTypes as ActionType } from './supplier.action';
@@ -25,24 +23,6 @@ import { LatestProductActions, ContactActions } from '~app/features/supplier/sto
 
 @Injectable()
 export class SuppliersEffects {
-	// when going on suppliers/details we load every related entity
-	@Effect()
-	focus$ = this.action$
-		.ofType<any>(ActionType.FOCUS)
-		.pipe(
-			distinctUntilChanged(),
-			map(action => action.payload),
-			map(id => ({ entityId: id, entityRepr: ERM.supplier })),
-			mergeMap((target: EntityTarget) => [
-				focussedEntityAction.focus(target),
-				fromComment.Actions.loadForSelection(),
-				fromFile.Actions.loadForSelection(),
-				fromImage.Actions.loadForSelection(),
-				fromTask.Actions.loadForSelection(),
-				LatestProductActions.load(),
-				ContactActions.load()
-			])
-		);
 
 	@Effect()
 	load$ = this.action$

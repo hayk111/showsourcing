@@ -5,7 +5,7 @@ import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const'
 import { Store } from '@ngrx/store';
 import { fromDialog } from '~app/shared/dialog';
 import { RegexpApp, DEFAULT_IMG, AutoUnsub } from '~app/app-root/utils';
-import { AppFile, AppImage, Patch } from '~app/entity';
+import { AppFile, AppImage, Patch, EntityTarget } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 import { Observable } from 'rxjs/Observable';

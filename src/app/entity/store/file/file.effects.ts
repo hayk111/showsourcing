@@ -12,8 +12,8 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { EntityTarget } from '~entity/store/entity.model';
 
 import { fromFile } from './file.bundle';
-import { FocussedEntityService } from '../focussed-entity';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 
 
 const ActionType = fromFile.ActionTypes;
@@ -25,7 +25,7 @@ export class FilesEffects {
 	@Effect()
 	load$ = this.actions$.ofType<any>(ActionType.LOAD_FOR_SELECTION).pipe(
 		// getting the target
-		switchMap(_ => this.selectionSrv.getSelection()),
+		map(_ => this.focusSrv.target),
 		switchMap((target: EntityTarget) => this.srv.load(target)),
 		map((r: any) => fileActions.set(r))
 	);
@@ -34,11 +34,7 @@ export class FilesEffects {
 	@Effect({ dispatch: false })
 	removeFile$ = this.actions$.ofType<any>(ActionType.DELETE).pipe(
 		map(action => action.payload),
-		withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({
-			ids,
-			target,
-		})),
-		switchMap((p: any) => this.srv.delete(p))
+		switchMap((ids: Array<string>) => this.srv.delete(ids, this.focusSrv.target))
 	);
 
 
@@ -58,11 +54,7 @@ export class FilesEffects {
 
 	@Effect()
 	addOne$ = this.actions$.ofType<any>(ActionType.ADD_ONE).pipe(
-		map(action => action.payload),
-		withLatestFrom(this.selectionSrv.getSelection(), (file, target) => ({
-			file,
-			target,
-		})),
+		map(action => ({ file: action.payload, target: this.focusSrv.target })),
 		mergeMap((p: any) => this.srv.uploadFile(p.file).pipe(
 			// replace currently pending files, we need to replace so it's not pending anymore
 			mergeMap((newFile) => [
@@ -86,5 +78,5 @@ export class FilesEffects {
 	);
 
 
-	constructor(private actions$: Actions, private srv: FileHttpService, private selectionSrv: FocussedEntityService) { }
+	constructor(private actions$: Actions, private srv: FileHttpService, private focusSrv: FocusedEntityService) { }
 }

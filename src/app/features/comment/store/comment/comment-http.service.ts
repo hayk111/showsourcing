@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EntityTarget } from '~entity/store/entity.model';
-import { AppComment } from '~comment';
+import { AppComment } from '~comment/store/comment/comment.model';
 import { selectUser } from '~user';
 import { Store } from '@ngrx/store';
 import { User } from '~user';
@@ -20,7 +20,7 @@ export class CommentHttpService {
 		return this.http.get(`api/${name}/${id}/comment`);
 	}
 
-	create({ comment, target }: { comment: AppComment, target: EntityTarget }) {
+	create(comment: AppComment, target: EntityTarget) {
 		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/comment`, { text: comment.text });
 	}
 }

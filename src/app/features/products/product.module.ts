@@ -76,7 +76,7 @@ import { ProductHttpService } from '~app/features/products/store/product/product
 		EffectsModule.forFeature([ProductEffects]),
 		StatusModule.forChild(),
 		FileModule.forChild(), // file card used
-		RatingModule, // TODO to be removed and placed inside the component module using it
+		RatingModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
 		FiltersModule.forChild(), // used for filters

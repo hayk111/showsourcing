@@ -6,7 +6,6 @@ import { switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import { fromDialog, DialogName } from '~app/shared/dialog';
 import {
-	AppComment,
 	AppFile,
 	EntityTarget,
 	ERM,
@@ -28,7 +27,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	target: EntityTarget;
 	files: Array<AppFile>;
-	comments: Array<AppComment>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
 	tasks$: Observable<Array<Task>>;
 	productId: string;

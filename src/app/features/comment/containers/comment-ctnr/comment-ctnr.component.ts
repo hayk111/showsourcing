@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { EntityState, AppComment, fromComment } from '~entity';
+import { EntityState, EntityTarget } from '~entity';
 import { entityStateToArray } from '~entity/utils';
 import { UserService } from '~app/features/user';
+import { AppComment } from '~app/features/comment/store/comment/comment.model';
+import { selectCommentArray, selectCommentPending } from '~app/features/comment/store';
+import { CommentActions } from '~app/features/comment/store/comment';
 
 @Component({
 	selector: 'comment-ctnr-app',
@@ -20,19 +23,13 @@ export class CommentCtnrComponent implements OnInit {
 	constructor(private store: Store<any>, private userSrv: UserService) { }
 
 	ngOnInit() {
-		const commentsState$ = this.store.select(fromComment.selectState);
-
-		this.comments$ = commentsState$.pipe(
-			map((commentState: EntityState<AppComment>) => entityStateToArray(commentState)),
-			// we want it in reverse order
-			map(comments => comments.reverse())
-		);
-
-		this.pending$ = commentsState$.pipe(map((comments: EntityState<AppComment>) => comments.pending));
+		this.comments$ = this.store.select(selectCommentArray);
+		this.pending$ = this.store.select(selectCommentPending);
 	}
 
 	onComment() {
-		this.store.dispatch(fromComment.Actions.create(new AppComment(this.ctrl.value, this.userSrv.userId)));
+		const comment = new AppComment(this.ctrl.value, this.userSrv.userId);
+		this.store.dispatch(CommentActions.create(comment));
 		this.ctrl.reset();
 	}
 }

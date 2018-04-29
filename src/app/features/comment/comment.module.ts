@@ -12,15 +12,21 @@ import { CommentBadgeComponent } from './components';
 import { CommentCtnrComponent } from './containers';
 import { EntityModule } from '~app/entity';
 import { SharedModule } from '~app/shared/shared.module';
+import { CommentHttpService } from './store/comment/comment-http.service';
+import { reducer } from './store/comment';
+import { EffectsModule } from '@ngrx/effects';
+import { CommentEffects } from '~app/features/comment/store/comment/comment.effects';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		ReactiveFormsModule,
+		StoreModule.forFeature('comment', reducer),
+		EffectsModule.forFeature([CommentEffects])
 	],
 	declarations: [CommentCtnrComponent, CommentComponent, CommentListComponent, CommentBadgeComponent],
 	exports: [CommentCtnrComponent],
-	providers: [],
+	providers: [CommentHttpService],
 })
 export class CommentModule {
 	static forRoot(): ModuleWithProviders {

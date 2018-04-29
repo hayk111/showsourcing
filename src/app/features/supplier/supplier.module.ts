@@ -3,9 +3,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
+import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { ContactEffects } from '~app/features/supplier/store/contacts/contact.effects';
 import { ProductEffects } from '~app/features/supplier/store/latest-product/latest-product.effects';
 import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
+import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
 import { CarouselModule } from '~app/shared/carousel';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { FileModule } from '~app/shared/file';
@@ -19,7 +22,6 @@ import { TagModule } from '~shared/tag';
 
 import { SupplierListViewComponent } from './components';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
-
 import { SupplierContactComponent } from './components/supplier-contact/supplier-contact.component';
 import { SupplierDescriptionComponent } from './components/supplier-description/supplier-description.component';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
@@ -31,9 +33,7 @@ import { SupplierMainComponent } from './components/supplier-main/supplier-main.
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { reducers } from './store';
-import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
-import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
+import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-details/supplier-details.effects';
 
 
 @NgModule({
@@ -44,15 +44,16 @@ import { NewContactDlgComponent } from '~app/features/supplier/containers/new-co
 			ContactEffects,
 			ProductEffects,
 			NewSupplierDlgEffects,
-			SupplierListEffects
+			SupplierListEffects,
+			SupplierDetailsEffects
 		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card
 		CarouselModule,
 		StatusModule,
 		EntityPagesModule,
-		DialogModule, // TODO check if used
-		ReactiveFormsModule, // TODO check if used
+		DialogModule, // used by new contact dialog
+		ReactiveFormsModule, // used by new contact dialog
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		TagModule, // TODO check if used

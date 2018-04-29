@@ -126,10 +126,7 @@ export class FileHttpService {
 		return this.http.post(`api/${name}/${itemId}/${type}`, data).map(_ => file);
 	}
 
-	delete(
-		{ ids, target }: { ids: Array<string>; target: EntityTarget },
-		type: 'attachment' | 'image' = 'attachment'
-	) {
+	delete(ids: Array<string>, target: EntityTarget, type: 'attachment' | 'image' = 'attachment') {
 		const targetName = target.entityRepr.urlName;
 		const targetId = target.entityId;
 		// remove files emitting when all deleted

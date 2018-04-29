@@ -21,10 +21,10 @@ import { SharedModule } from '~app/shared/shared.module';
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
-		ReactiveFormsModule, // TODO REMOVE UNUSED MODULES
+		ReactiveFormsModule, // TODO check if used
 		EntityPagesModule, // used for bread crumb etc
 		SelectionBarModule, // used for selection at the bottom
-		DialogModule, // TODO REMOVE UNUSED MODULES
+		DialogModule, // TODO check if used
 		TableModule, // used by list
 	],
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],

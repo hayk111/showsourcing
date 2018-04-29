@@ -6,7 +6,8 @@ import { map, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
 	Patch, AppImage, fromImage, fromSupplier,
-	Tag
+	Tag,
+	ERM
 } from '~entity';
 import { Product } from '~feature/products/store/product/product.model';
 import { Supplier } from '~supplier';
@@ -15,9 +16,10 @@ import { fromDialog, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
-import { selectLatestProductsArray, selectContactArray } from '~app/features/supplier/store';
+import { selectLatestProductsArray, selectContactArray, selectFocusedSupplier } from '~app/features/supplier/store';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Category } from '~entity/store/category/category.model';
+import { SupplierDetailsAction } from '~app/features/supplier/store/supplier-details/supplier-details.action';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -44,12 +46,13 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(takeUntil(this._destroy$), map(params => params.id));
 		id$.subscribe(id => {
-			this.store.dispatch(fromSupplier.Actions.focus(id));
+			this.store.dispatch(SupplierDetailsAction.focus(id));
 		});
 
-		this.supplier$ = this.store.select(fromSupplier.selectFocussed).pipe(
+		this.supplier$ = this.store.select(selectFocusedSupplier).pipe(
 			filter(x => !!x),
-			tap((supplier: Supplier) => this.supplierId = supplier.id));
+			tap((supplier: Supplier) => this.supplierId = supplier.id),
+		);
 
 		// this select the count for all entities we need it just for this one
 		const productsCount$ = this.store.select(fromSupplier.selectProductCount);
@@ -111,10 +114,11 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openContactDlg(contact?: Contact) {
+		const target = { entityId: this.supplierId, entityRepr: ERM.supplier };
 		if (contact)
 			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { contact }));
 		// new contact dlg
 		else
-			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: true }));
+			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: true, target }));
 	}
 }

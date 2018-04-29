@@ -7,7 +7,8 @@ export enum SupplierDetailActionType {
 export class SupplierDetailsAction {
 	static focus(id: string) {
 		return {
-			type: SupplierDetailActionType.FOCUS
+			type: SupplierDetailActionType.FOCUS,
+			payload: id
 		};
 	}
 }

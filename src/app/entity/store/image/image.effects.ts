@@ -4,7 +4,6 @@ import { map, switchMap, tap, withLatestFrom, mergeMap, catchError } from 'rxjs/
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
 
 import { EntityTarget } from '../entity.model';
-import { FocussedEntityService } from '../focussed-entity/focussed-entity.service';
 import { AppImage } from './image.model';
 import { fromImage } from './image.bundle';
 import { imageActionTypes } from '~app/entity/store/image/image.action';
@@ -13,17 +12,18 @@ import { NotificationType } from '~app/shared/notifications';
 import { appErrorActions } from '~app/shared/error-handler';
 import { of } from 'rxjs/observable/of';
 import { AppFile } from '~app/entity';
+import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 
 
 @Injectable()
 export class ImageEffects {
-	constructor(private actions$: Actions, private srv: ImageHttpService, private selectionSrv: FocussedEntityService) { }
+	constructor(private actions$: Actions, private srv: ImageHttpService, private focusSrv: FocusedEntityService) { }
 
 	@Effect()
 	load$ = this.actions$
 		.ofType<any>(imageActionTypes.LOAD_FOR_SELECTION)
 		.pipe(
-			switchMap(_ => this.selectionSrv.getSelection()),
+			map(_ => this.focusSrv.target),
 			switchMap((target: EntityTarget) => this.srv.load(target)),
 			map((files: Array<AppImage>) => fromImage.Actions.set(files))
 		);
@@ -37,11 +37,7 @@ export class ImageEffects {
 
 	@Effect()
 	addOne$ = this.actions$.ofType<any>(imageActionTypes.ADD_ONE).pipe(
-		map(action => action.payload),
-		withLatestFrom(this.selectionSrv.getSelection(), (file, target) => ({
-			file,
-			target,
-		})),
+		map(action => ({ file: action.payload, target: this.focusSrv.target })),
 		mergeMap((p: any) => this.srv.uploadFile(p.file).pipe(
 			// replace currently pending files, we need to replace so it's not pending anymore
 			mergeMap((newFile: AppImage) => [
@@ -83,7 +79,6 @@ export class ImageEffects {
 		.ofType<any>(imageActionTypes.DELETE)
 		.pipe(
 			map(action => action.payload),
-			withLatestFrom(this.selectionSrv.getSelection(), (ids, target) => ({ ids, target })),
-			switchMap(p => this.srv.delete(p))
+			switchMap(ids => this.srv.delete(ids, this.focusSrv.target))
 		);
 }

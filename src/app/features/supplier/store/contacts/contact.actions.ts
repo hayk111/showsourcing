@@ -1,6 +1,7 @@
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 import { AppImage } from '~app/entity/store/image/image.model';
 import { Patch } from '~app/entity/utils/patch.interface';
+import { EntityTarget } from '~app/entity';
 
 export enum ContactActionType {
 	LOAD = '[Contact Supplier] Loading...',
@@ -17,7 +18,7 @@ export enum ContactActionType {
 export class ContactActions {
 	static load() {
 		return {
-			type: ContactActionType.LOAD,
+			type: ContactActionType.LOAD
 		};
 	}
 

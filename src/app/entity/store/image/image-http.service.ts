@@ -28,15 +28,15 @@ export class ImageHttpService extends FileHttpService {
 				this.queryFile(resp)
 					.pipe(
 						map(r => resp),
-						retryWhen(errors => errors.pipe(delay(200), take(10))),
+						retryWhen(errors => errors.pipe(delay(500), take(10))),
 				)
 
 			)
 		);
 	}
 
-	delete(p: { ids; target }) {
-		return super.delete(p, 'image');
+	delete(ids: Array<string>, target: EntityTarget) {
+		return super.delete(ids, target, 'image');
 	}
 
 	download(img: AppImage) {

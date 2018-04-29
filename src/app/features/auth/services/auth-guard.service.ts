@@ -13,7 +13,6 @@ import { Log } from '~app/app-root/utils';
 import { selectAuthStatus } from '~app/features/auth/store';
 import { selectUser, User } from '~app/entity';
 
-// TODO remove those statements APP wide when made available.
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
 	constructor(private store: Store<any>, private router: Router) { }

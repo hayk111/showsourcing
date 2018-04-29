@@ -6,13 +6,11 @@ export * from './entity.service';
 
 // entities
 export * from './category';
-export * from './comment';
 export * from './country';
 export * from './currency';
 export * from './custom-field';
 export * from './event';
 export * from './file';
-export * from './focussed-entity';
 export * from './harbour';
 export * from './image';
 export * from './inco-term';

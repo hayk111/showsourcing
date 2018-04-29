@@ -3,7 +3,7 @@ import { NotificationEffects } from '~app/shared/notifications/store/notificatio
 import {
 	TaskEffects, TeamEffects, UserEffects, CategoryEffects, CountryEffects, CurrencyEffects, HarbourEffects, IncoTermsEffects,
 	TeamMembersEffects, CustomFieldsEffects, EventEffects, TagEffects, ProjectEffects, FilesEffects, SuppliersEffects,
-	ImageEffects, CommentEffects, ProductStatusEffects, TaskStatusEffects, SupplierStatusEffects, TaskTypeEffects
+	ImageEffects, ProductStatusEffects, TaskStatusEffects, SupplierStatusEffects, TaskTypeEffects
 } from '~app/entity';
 
 
@@ -26,8 +26,6 @@ export const effects = [
 	SuppliersEffects,
 	FilesEffects,
 	ImageEffects,
-	CommentEffects,
-	// constants
 	TaskStatusEffects,
 	ProductStatusEffects,
 	SupplierStatusEffects,

@@ -3,7 +3,8 @@ import * as fromContact from './contacts/contact.reducer';
 import * as fromLatestProduct from './latest-product/latest-product.reducer';
 import * as fromNewSupplierDialog from './new-supplier-dlg/new-supplier-dlg.reducer';
 import * as fromSupplierList from './supplier-list/supplier-list.bundle';
-import { selectEntityState, EntityState, fromCountry, fromTeamMember } from '~app/entity';
+import * as fromSupplierDetails from './supplier-details/supplier-details.reducer';
+import { selectEntityState, EntityState, fromCountry, fromTeamMember, fromSupplier } from '~app/entity';
 
 export * from './contacts/contact.actions';
 export * from './latest-product/latest-product.action';
@@ -14,13 +15,15 @@ export interface SupplierState {
 	contact: fromContact.State;
 	newSupplierDialog: fromNewSupplierDialog.State;
 	supplierList: fromSupplierList.State;
+	supplierDetails: fromSupplierDetails.State;
 }
 
 export const reducers: ActionReducerMap<SupplierState> = {
 	latestProduct: fromLatestProduct.reducer,
 	contact: fromContact.reducer,
 	newSupplierDialog: fromNewSupplierDialog.reducer,
-	supplierList: fromSupplierList.reducer
+	supplierList: fromSupplierList.reducer,
+	supplierDetails: fromSupplierDetails.reducer
 };
 
 // feature selector
@@ -51,6 +54,10 @@ const selectNewSupplierDialog = createSelector(
 );
 
 export const selectNewSupplierDialogPending = createSelector(selectNewSupplierDialog, fromNewSupplierDialog.selectPending);
+
+// supplier details
+const selectFocusedId = createSelector(selectSupplierState, (state: SupplierState) => state.supplierDetails.focused);
+export const selectFocusedSupplier = createSelector(selectFocusedId, fromSupplier.selectById, (id, byId: any) => byId[id]);
 
 // supplier list
 export const selectSupplierListState = createSelector(

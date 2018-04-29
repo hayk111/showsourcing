@@ -118,7 +118,7 @@ export class EntityActions<G extends EntityActionTypes> {
 
 	loadForSelection() {
 		return {
-			type: this.actionType.LOAD_FOR_SELECTION,
+			type: this.actionType.LOAD_FOR_SELECTION
 		};
 	}
 

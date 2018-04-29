@@ -28,7 +28,7 @@ export const selectEntityArray = (entityRepr: EntityRepresentation) => {
 	});
 };
 
-// same as above but with a name
+// same as above but with a name as param
 export const selectEntityArrayByName = (entityName: string) => {
 	return createSelector([selectEntityState(entityName)], entityState => {
 		return entityState.ids.map(id => entityState.byId[id]);

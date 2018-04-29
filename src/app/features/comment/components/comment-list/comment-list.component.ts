@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { AppComment } from '~entity';
+import { AppComment } from '~comment/store/comment/comment.model';
 
 @Component({
 	selector: 'comment-list-app',
@@ -9,6 +9,6 @@ import { AppComment } from '~entity';
 })
 export class CommentListComponent {
 	@Input() comments: Array<AppComment> = [];
-	@Input() pending: boolean = true;
+	@Input() pending = true;
 
 }

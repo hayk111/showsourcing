@@ -31,6 +31,7 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { DialogModule } from '~app/shared/dialog';
+import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
 
 declare let module: any;
 // Can a kangaroo jump higher than a house ?
@@ -53,6 +54,7 @@ declare let module: any;
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
+		FocusedEntityModule.forRoot(),
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,
@@ -64,9 +66,8 @@ declare let module: any;
 		ProjectModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
-		// keep this as last module !!
+		// keep router as last module
 		RouterModule.forRoot(routes, { enableTracing: true }),
-		// don't put a module down here !! (Router needs to be last)
 	],
 	providers: [
 		AuthGuardService,

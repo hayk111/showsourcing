@@ -7,9 +7,7 @@ import { distinctUntilChanged, map, mergeMap, startWith, switchMap, tap } from '
 
 import { actionTypes, productActions } from './product.action';
 import { ProductHttpService } from './product-http.service';
-import { ERM } from '~app/entity/store/entity.model';
-import { focussedEntityAction } from '~entity/store/focussed-entity';
-import { fromComment } from '~entity/store/comment';
+import { ERM, EntityTarget } from '~app/entity/store/entity.model';
 import { fromFile } from '~entity/store/file/file.bundle';
 import { imageActions } from '~entity/store/image/image.action';
 import { fromTask } from '~entity/store/task/task.bundle';
@@ -21,6 +19,8 @@ import { DialogActions } from '~app/shared/dialog/store/dialog.action';
 import { DialogName } from '~app/shared/dialog';
 import { Router } from '@angular/router';
 import { fromTag } from '~app/entity/store/tag/tag.bundle';
+import { CommentActions } from '~app/features/comment/store/comment';
+import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 
 
 @Injectable()
@@ -35,10 +35,10 @@ export class ProductEffects {
 			distinctUntilChanged(),
 			map(action => action.payload),
 			map(id => ({ entityId: id, entityRepr: ERM.product })),
+			tap((target: EntityTarget) => this.focusSrv.target = target),
 			mergeMap(target => [
-				focussedEntityAction.focus(target),
 				productActions.loadById(target.entityId),
-				fromComment.Actions.loadForSelection(),
+				CommentActions.load(),
 				fromFile.Actions.loadForSelection(),
 				imageActions.loadForSelection(),
 				fromTask.Actions.loadForSelection(),
@@ -193,13 +193,10 @@ export class ProductEffects {
 	constructor(
 		private srv: ProductHttpService,
 		private actions$: Actions,
-		private store: Store<any>,
 		private entitySrv: EntityService,
-		private router: Router
+		private router: Router,
+		private focusSrv: FocusedEntityService
 	) {
-		this.store
-			.select(selectUser)
-			.pipe(map(user => user.id))
-			.subscribe(id => (this.userID = id));
+
 	}
 }

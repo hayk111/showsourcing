@@ -1,4 +1,4 @@
-import { addEntities, entityStateToArray, replaceEntities, updateOne } from '~app/entity/utils/entity.utils';
+import { addEntities, entityStateToArray, replaceEntities, updateOne, createEntity } from '~app/entity/utils/entity.utils';
 
 import { ContactActionType } from './contact.actions';
 
@@ -46,14 +46,7 @@ export function reducer(state = initialState, action) {
 			return replaceEntities(state, action.payload);
 
 		case ContactActionType.CREATE:
-			return {
-				...state,
-				byId: {
-					...state.byId,
-					[id]: action.payload
-				},
-				ids: [id, ...state.ids]
-			};
+			return createEntity(state, action.payload);
 
 		default:
 			return state;
