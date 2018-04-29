@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap, scan, takeUntil, takeWhile } from 'rxjs/operators';
+import { map, switchMap, tap, scan, takeUntil, takeWhile, concatMap, expand } from 'rxjs/operators';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
 import { Patch, ApiParams } from '~entity/utils';
@@ -11,33 +11,25 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { range } from 'rxjs/observable/range';
+import { Supplier } from '~app/entity/store/supplier/supplier.model';
+import { empty } from 'rxjs/observable/empty';
 
 @Injectable()
 export class SupplierHttpService {
+	take = 100;
 	constructor(private http: HttpClient, private entitySrv: EntityService, private userSrv: UserService) { }
 
 	/** loads all suppliers */
 	loadAll() {
-		const take = 100;
-		const subject = new BehaviorSubject(0);
-		let i = 0;
-		const rec = subject.pipe(
-			map((acc: number) => (acc * 100)),
-			switchMap(drop => this.http.get(`api/team/${this.userSrv.teamId}/supplier?drop=${drop}&take=${take}`)),
+		// we can only load 100 suppliers at a time so we gonna paginate. We do know that there won't be 1000000 pages of results though.
+		// so we can range from 0 to 1000000 and stop when we have all the suppliers
+		return range(0, 1000000).pipe(
+			concatMap(page => this.http.get(`api/team/${this.userSrv.teamId}/supplier?drop=${page * this.take}&take=${this.take}`)),
 			map((r: any) => r.elements),
+			takeWhile((suppliers: Array<Supplier>) => (suppliers.length !== 0)),
 			map(suppliers => this.standardize(suppliers)),
-			tap(suppliers => {
-				if (suppliers.length === take)
-					subject.next(++i);
-			})
 		);
-		return rec;
-
-		// return this.http.get(`api/team/${this.userSrv.teamId}/supplier&drop=${drop}`)
-		// 	.pipe(
-		// 		map((r: any) => r.elements),
-		// 		map(suppliers => this.standardize(suppliers)),
-		// );
 	}
 
 	/** loads a subset of suppliers given the params */
