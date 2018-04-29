@@ -136,14 +136,15 @@
 	</cell-two-row-app>
 
 	<!-- user / created by -->
-	<div class="user">
-		<label>Created by</label>
+	<cell-two-row-app title="Created By">
+
 		<editable-field-app
+			class="user"
 			[entity]="supplier"
 			[value]="supplier.createdByUserId"
 			type="teamMember"
 			[editable]="false"
 			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
-	</div>
+	</cell-two-row-app>
 
 </card-app>

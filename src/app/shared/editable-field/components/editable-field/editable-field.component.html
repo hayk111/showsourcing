@@ -83,7 +83,7 @@
 </div>
 
 <!-- when edit mode is on -->
-<div class="flex" *ngIf="editMode" (clickOutside)="closeEditMode()">
+<div class="flex" *ngIf="editMode" (clickOutside)="onSave()">
 	<ng-container [ngSwitch]="true">
 
 		<!-- default text  -->
@@ -153,7 +153,9 @@
 		<ng-container *ngSwitchCase="type === 'textarea'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
-				<textarea inputApp (keyup.enter)="onSave()" (change)="updateValue($event.target.value)">{{ value }}</textarea>
+				<textarea inputApp
+				(keyup.enter)="onSave()"
+				(change)="updateValue($event.target.value)">{{ value }}</textarea>
 			</form-field-app>
 		</ng-container>
 

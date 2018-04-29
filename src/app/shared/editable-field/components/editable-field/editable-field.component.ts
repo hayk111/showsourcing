@@ -75,6 +75,7 @@ export class EditableFieldComponent implements OnInit {
 
 	/** when the user decides to save the value either by clicking enter or by clicking the save button */
 	onSave() {
+		// we save when we have an input so we can save when clicking outside
 		this.update.emit(this.accumulator);
 		this.closeEditMode();
 	}

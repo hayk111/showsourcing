@@ -10,10 +10,10 @@
   }
 }
 
-label {
-	padding-top: var(--spacing-s);
+.title {
+	padding: var(--spacing-m) 0 var(--spacing-s) 0;
 	font-weight: bold;
-	font-size: var(--font-size-m);
+	font-size: var(--font-size-s);
 	color: var(--color-primary-dark);
 	text-transform: capitalize;
 }
