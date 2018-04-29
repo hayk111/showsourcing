@@ -119,8 +119,7 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		const length = input.value.length;
 		input.focus();
 		// at this time only text input supports this
-		if (input.type === 'text')
-			// putting carret at the end
+		if ((input instanceof HTMLInputElement && input.type === 'text') || this._isTextarea())
 			input.setSelectionRange(length, length);
 	}
 
