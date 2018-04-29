@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { EditableFieldComponent } from '~app/shared/editable-field';
 import { EditableTextComponent } from '~app/shared/editable-field/components/editable-text/editable-text.component';
 import { Patch } from '~app/entity';
@@ -12,7 +12,9 @@ import { Patch } from '~app/entity';
 export class SupplierDescriptionComponent {
 	@Input() supplier;
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
+	@ViewChild('txt') textarea: ElementRef;
 	@Output() update = new EventEmitter<Patch>();
+
 	constructor() { }
 
 	edit() {
@@ -31,6 +33,7 @@ export class SupplierDescriptionComponent {
 
 	cancel() {
 		this.editable.close();
+		this.textarea.nativeElement.value = this.supplier.description;
 	}
 
 }

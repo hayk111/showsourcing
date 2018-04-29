@@ -15,12 +15,11 @@ export class SpinnerComponent implements OnInit {
 
 	get style() {
 		let width;
-
 		if (isNaN(this.size as any))
 			width = 'var(--spacing-' + this.size + ')';
 		else
 			width = this.size + 'px';
-		return { width };
+		return { width, height: width };
 	}
 
 
