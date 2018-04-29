@@ -49,6 +49,7 @@ export class EditableFieldComponent implements OnInit {
 			return;
 
 		this.editMode = true;
+		// we put the current value in case we canceled earlier and we still got the previously cancelled value in the accumulator
 		this.accumulator = this.value;
 
 		// if the type is a selector then we need to open it when the editmode is opening
