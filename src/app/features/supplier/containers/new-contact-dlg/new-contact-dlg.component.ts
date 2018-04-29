@@ -13,16 +13,16 @@ import { map, takeUntil, filter, tap, distinctUntilChanged } from 'rxjs/operator
 import { ContactActions } from '~app/features/supplier/store';
 import { selectContactPreviewImg, selectContactOne } from '~app/features/supplier/store';
 
-const addDlg = () => addDialog(SupplierNewContactDlgComponent, DialogName.CONTACT);
+const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
 
 @Component({
-	selector: 'supplier-new-contact-dlg-app',
-	templateUrl: './supplier-new-contact-dlg.component.html',
-	styleUrls: ['./supplier-new-contact-dlg.component.scss'],
+	selector: 'new-contact-dlg-app',
+	templateUrl: './new-contact-dlg.component.html',
+	styleUrls: ['./new-contact-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierNewContactDlgComponent extends AutoUnsub implements OnInit {
+export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	formGroup: FormGroup;
 	dialogName = DialogName.CONTACT;
 	/** preview image */

@@ -17,11 +17,9 @@ import { DialogModule } from '~shared/dialog';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { TagModule } from '~shared/tag';
 
-import { NewSupplierDlgComponent, SupplierListViewComponent } from './components';
+import { SupplierListViewComponent } from './components';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
-import {
-	SupplierNewContactDlgComponent,
-} from './components/supplier-contact-card/supplier-new-contact-dlg/supplier-new-contact-dlg.component';
+
 import { SupplierContactComponent } from './components/supplier-contact/supplier-contact.component';
 import { SupplierDescriptionComponent } from './components/supplier-description/supplier-description.component';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
@@ -34,7 +32,8 @@ import { SupplierSummaryComponent } from './components/supplier-main/supplier-su
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { reducers } from './store';
 import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
-import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
+import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
+import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 
 
 @NgModule({
@@ -52,16 +51,17 @@ import { NewProductDialogComponent } from './components/new-product-dialog/new-p
 		CarouselModule,
 		StatusModule,
 		EntityPagesModule,
-		DialogModule, // TODO to be removed and placed inside the component module using it
-		ReactiveFormsModule, // TODO to be removed and placed inside the component module using it
+		DialogModule, // TODO check if used
+		ReactiveFormsModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
-		TagModule, // TODO to be removed and placed inside the component module using it
+		TagModule, // TODO check if used
 		RatingModule, // used for hearth
 	],
 	declarations: [
 		SupplierDetailsComponent,
 		NewSupplierDlgComponent,
+		NewContactDlgComponent,
 		SuppliersPageComponent,
 		SupplierListViewComponent,
 		SupplierMainComponent,
@@ -73,13 +73,11 @@ import { NewProductDialogComponent } from './components/new-product-dialog/new-p
 		SupplierInfosComponent,
 		SupplierContactCardComponent,
 		SupplierContactComponent,
-		SupplierNewContactDlgComponent,
 		SupplierDescriptionComponent,
-		NewProductDialogComponent,
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,
-		SupplierNewContactDlgComponent
+		NewContactDlgComponent
 	],
 	exports: [
 		SuppliersPageComponent
