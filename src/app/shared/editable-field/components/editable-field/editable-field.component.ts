@@ -49,6 +49,7 @@ export class EditableFieldComponent implements OnInit {
 			return;
 
 		this.editMode = true;
+		this.accumulator = this.value;
 
 		// if the type is a selector then we need to open it when the editmode is opening
 		// TODO: remove this by using editable-text (which was created after this component)
