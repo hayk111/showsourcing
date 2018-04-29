@@ -62,13 +62,14 @@ export class TableComponent {
 	/** Different rows displayed */
 	@Input() set rows(value: Array<any>) {
 		this._rows = value;
-		this.doSort();
+		if (this.autoSort)
+			this.doSort();
 	}
 	get rows() {
 		return this._sortedRows || this._rows;
 	}
 	protected _rows = [];
-	protected _sortedRows = [];
+	protected _sortedRows;
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);

@@ -28,7 +28,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	repr = ERM.supplier;
 	/** current sort used for sorting suppliers */
 	sort$: Subject<Sort> = new Subject();
-	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
 	selected: Array<string>;
 	/** whether some suppliers are currently being loaded */
