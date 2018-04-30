@@ -3,7 +3,7 @@
 
 	<dialog-subtitle-app>Select projects</dialog-subtitle-app>
 
-	<main *ngIf="projects$ | async as projects">
+	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app *ngIf="productsCount$ | async as productsCount">
 			<list-item-app *ngFor="let project of projects" (click)="checkbox.toggle()">
 				<div class="flex">

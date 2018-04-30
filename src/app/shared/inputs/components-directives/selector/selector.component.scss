@@ -1,12 +1,11 @@
 :host {
 	display: block;
 	width: 100%;
+	position: relative;
+	height: 36px;
 }
 
 .canCreate {
-	// ::ng-deep.ng-option.disabled {
-	// 	display: none!important;
-	// }
 	::ng-deep.ng-select .ng-dropdown-footer {
 		padding: 0;
 	}
@@ -14,6 +13,11 @@
 	.createBlock {
 		padding: var(--spacing-s);
 	}
+}
+
+.ng-select {
+	position: absolute;
+	width: 100%;
 }
 // for multiple
 .ng-select.ng-multiple {
@@ -23,7 +27,6 @@
 	}
 }
 .ng-select.custom  {
-	margin: 0 0 0 -5px;
 	border: 0px;
 	border-radius: 0;
 	min-height: 30px;
