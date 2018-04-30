@@ -1,4 +1,4 @@
-import { entityInitialState, EntityState, addEntities, removeEntities } from '~app/entity';
+import { entityInitialState, EntityState, addEntities, removeEntities, replaceEntities } from '~app/entity';
 import { AppComment } from './comment.model';
 import { CommentActionTypes } from './comment.action';
 
@@ -9,14 +9,13 @@ const initialState = entityInitialState;
 export function reducer(state: State = initialState, action) {
 	switch (action.type) {
 		case CommentActionTypes.CREATE:
-			addEntities(state, [action.payload]);
-			break;
+			return addEntities(state, [action.payload]);
 		case CommentActionTypes.SET:
-			addEntities(initialState, action.payload);
-			break;
+			return addEntities(initialState, action.payload);
 		case CommentActionTypes.REMOVE:
-			removeEntities(state, [action.payload]);
-			break;
+			return removeEntities(state, [action.payload]);
+		case CommentActionTypes.REPLACE:
+			return replaceEntities(state, [action.payload]);
 		default:
 			return state;
 	}

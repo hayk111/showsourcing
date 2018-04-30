@@ -21,6 +21,6 @@ export class CommentHttpService {
 	}
 
 	create(comment: AppComment, target: EntityTarget) {
-		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/comment`, { text: comment.text });
+		return this.http.post(`api/${target.entityRepr.urlName}/${target.entityId}/comment`, { text: comment.text, id: comment.id });
 	}
 }
