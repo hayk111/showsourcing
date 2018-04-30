@@ -5,16 +5,20 @@
 
 	<main *ngIf="projects$ | async as projects">
 		<list-app *ngIf="productsCount$ | async as productsCount">
-			<list-item-app *ngFor="let project of projects" class="flex">
-				<checkbox-app
-					(check)="select(project.id, project)"
-					(uncheck)="unselect(project.id)"
-					[checked]="selected[project.id]">
-					<div class="flexCenter flexBetween ">
+			<list-item-app *ngFor="let project of projects" (click)="checkbox.toggle()">
+				<div class="flex">
+					<checkbox-app
+						#checkbox
+						(check)="select(project.id, project)"
+						(uncheck)="unselect(project.id)"
+						[checked]="selected[project.id]">
+					</checkbox-app>
+					<div class="flexCenter flexBetween flexGrow">
 						<span class="name">{{ project.name }}</span>
 						<div class="productNumber" >{{ productsCount[project.id] || '-' }}</div>
 					</div>
-				</checkbox-app>
+				</div>
+
 			</list-item-app>
 		</list-app>
 	</main>

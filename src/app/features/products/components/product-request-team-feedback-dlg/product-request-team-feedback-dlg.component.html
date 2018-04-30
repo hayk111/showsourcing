@@ -5,13 +5,16 @@
 
 	<main>
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
-			<list-item-app *ngFor="let user of teamMembers" [selected]="selectedMembers[user.id]">
+			<list-item-app *ngFor="let user of teamMembers" [selected]="selectedMembers[user.id]" (click)="checkbox.toggle()">
+				<div class="flex">
 					<checkbox-app
+						#checkbox
 						(check)="select(user.id, user)"
 						(uncheck)="unselect(user.id, user)"
 						[checked]="selectedMembers[user.id]">
-						<span class="name">{{ user.firstName }} {{ user.lastName }}</span>
 					</checkbox-app>
+					<span class="name">{{ user.firstName }} {{ user.lastName }}</span>
+				</div>
 				</list-item-app>
 		</list-app>
 	</main>
