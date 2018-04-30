@@ -4,7 +4,7 @@
 
 	<div class="flex" *ngIf="products.length > 0; else noProduct">
 		<a *ngFor="let product of products"
-			[routerLink]="['/product', 'details', product.id]"
+			[routerLink]="['/product', 'details', product.id, 'general']"
 			class="imgCtnr">
 			<img [src]="product?.mainImage?.urls?.url_400x300"/>
 		</a>
