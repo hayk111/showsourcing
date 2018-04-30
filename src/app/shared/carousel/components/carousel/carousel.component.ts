@@ -26,8 +26,8 @@ export class CarouselComponent implements OnInit {
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
+	@Output() imgClick = new EventEmitter<number>();
 
-	modalOpen = false;
 	menuOpen = false;
 
 	constructor(private userSrv: UserService) { }
@@ -36,24 +36,16 @@ export class CarouselComponent implements OnInit {
 
 	back(event) {
 		Log.debug('[CarouselComponent] back');
-		if (this.selectedIndex > 0) this.selectedIndex--;
+		if (this.selectedIndex > 0)
+			this.selectedIndex--;
 		event.stopPropagation();
 	}
 
 	next(event) {
 		Log.debug('[CarouselComponent] next');
-		if (this.selectedIndex < this.images.length - 1) this.selectedIndex++;
+		if (this.selectedIndex < this.images.length - 1)
+			this.selectedIndex++;
 		event.stopPropagation();
-	}
-
-	closeModal() {
-		Log.debug('[CarouselComponent] close modal');
-		this.modalOpen = false;
-	}
-
-	openModal() {
-		Log.debug('[CarouselComponent] open modal');
-		this.modalOpen = true;
 	}
 
 	closeMenu() {
@@ -74,6 +66,9 @@ export class CarouselComponent implements OnInit {
 	delete() {
 		Log.debug('[CarouselComponent] delete');
 		this.deleteRequest.emit(this.getImg());
+		// index needs to go down if we were at the end
+		if (this.selectedIndex === this.images.length - 1)
+			--this.selectedIndex;
 	}
 
 	download() {
@@ -89,8 +84,10 @@ export class CarouselComponent implements OnInit {
 
 	getUrl(index) {
 		Log.debug('[CarouselComponent] getUrl');
-		if (this.images[index].urls) return this.images[index].urls.url_400x300;
-		else return this.images[index].data;
+		if (this.images[index].urls)
+			return this.images[index].urls.url_400x300;
+		else
+			return this.images[index].data;
 	}
 
 	getId() {

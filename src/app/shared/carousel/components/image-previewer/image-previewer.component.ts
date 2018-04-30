@@ -19,14 +19,18 @@ export class ImagePreviewerComponent {
 
 	// getting the url for the image at index
 	getUrl(index) {
-		if (this.images[index].urls) return this.images[index].urls.url_220x165;
-		else return this.images[index].data;
+		if (this.images[index].urls)
+			return this.images[index].urls.url_220x165;
+		else
+			return this.images[index].data;
 	}
 
 	getRotation(i) {
 		const img = this.getImg(i);
-		if (img.pending) return img.rotation * -90;
-		else return 0;
+		if (img.pending)
+			return img.rotation * -90;
+		else
+			return 0;
 	}
 
 	getImg(i) {

@@ -4,7 +4,7 @@
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
-			<img *ngIf="images.length !== 0" [src]="getUrl(selectedIndex)" (click)="openModal()"
+			<img *ngIf="images.length !== 0" [src]="getUrl(selectedIndex)" (click)="imgClick.emit(selectedIndex)"
 			 class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
 		</ng-container>
 		<ng-template #spinner>

@@ -27,6 +27,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile') inpFile: ElementRef;
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
+	modalOpen = false;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
 		super();
@@ -60,9 +61,18 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 		this.store.dispatch(fromImage.Actions.download(img.url));
 	}
 
+	openModal(index: number) {
+		this.selectedIndex = index;
+		this.modalOpen = true;
+	}
+
 	// when a preview is clicked we want to display the image that was in the preview
 	onPreviewClick(index: number) {
 		this.selectedIndex = index;
+	}
+
+	closeModal() {
+		this.modalOpen = false;
 	}
 
 }
