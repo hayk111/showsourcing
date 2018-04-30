@@ -17,7 +17,7 @@
 					[rating]="product.rating"
 					(favorited)="onFavorited()"
 					(unfavorited)="onUnfavorited()"></rating-heart-app> -->
-        <carousel-card-app></carousel-card-app>
+        <carousel-card-app [hasFooter]="false"></carousel-card-app>
 			<!-- </div> -->
 
 			<supplier-card-app [supplier]="product?.supplierId | entity:'supplier' | async"></supplier-card-app>
