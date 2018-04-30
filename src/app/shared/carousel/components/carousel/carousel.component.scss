@@ -72,7 +72,6 @@ img {
 
 .rotate {
 	position: absolute;
-	background: var(--color-bg-dark);
 	padding: 0 var(--spacing-m);
 	color: white;
 	display: flex;
@@ -86,7 +85,7 @@ img {
 	bottom: var(--spacing-m);
 	right: var(--spacing-m);
 	border-radius: var(--border-radius);
-	background-color: var(--color-bg-dark);
-	padding: 0 var(--spacing-xs);
+	padding: var(--spacing-xs);
 	color: white;
+	background: rgba(0, 0, 0, 0.6);
 }

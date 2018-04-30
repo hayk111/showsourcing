@@ -1,4 +1,6 @@
 <div class="ctnr">
+
+	<!-- image -->
 	<div class="img-ctnr flexCenter">
 		<ng-container *ngIf="!pending; else spinner">
 			<img *ngIf="images.length === 0" [src]="defaultImg"/>
@@ -9,21 +11,28 @@
 			<spinner-app size="small"></spinner-app>
 		</ng-template>
 	</div>
+
+	<!-- actions buttons -->
+	<!-- move back -->
 	<div class="move-btn back flexCenter cercle pointer btn action"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0">
 		<icon-app  fontSet="fa" name="angle-left" color="white"></icon-app>
 	</div>
+
+	<!-- move next -->
 	<div class="move-btn next flexCenter cercle pointer btn action"
 		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)">
 		<icon-app  fontSet="fa" name="angle-right" color="white"></icon-app>
 	</div>
+
+	<!-- rotate -->
 	<div class="btn rotate pointer action" (click)="rotate()">rotate</div>
 
+	<!-- menu -->
 	<icon-app
 		fontSet="fa"
 		name="ellipsis-v"
 		color="white"
-		background="transparent"
 		class="menuIc btn action"
 		aria-label="more"
 		(click)="openMenu()"></icon-app>
@@ -34,7 +43,8 @@
 		<menuitem (click)="delete()"> delete </menuitem>
 	</menu>
 
-	<div class="counter action">{{ selectedIndex + 1 }} / {{ images.length }}</div>
+	<!-- counter -->
+	<div class="counter">{{ selectedIndex + 1 }} / {{ images.length }}</div>
 </div>
 
 
