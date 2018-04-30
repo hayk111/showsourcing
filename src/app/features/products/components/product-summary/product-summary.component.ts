@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output
 import { Product } from '~feature/products/store/product/product.model';
 
 @Component({
-	selector: 'product-top-bar-app',
-	templateUrl: './product-top-bar.component.html',
-	styleUrls: ['./product-top-bar.component.scss'],
+	selector: 'product-summary-app',
+	templateUrl: './product-summary.component.html',
+	styleUrls: ['./product-summary.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductTopBarComponent implements OnInit {
+export class ProductSummaryComponent implements OnInit {
 	@Input() product: Product;
 	@Input() numTasks;
 	@Output() updateStatus = new EventEmitter<string>();

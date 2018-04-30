@@ -1,9 +1,6 @@
 :host {
-  padding-bottom: 28px;
+	padding: var(--spacing-l) 0;
   display: block;
-}
-.statusbar {
-    height: 70px;
 }
 
 .sectionTitle {

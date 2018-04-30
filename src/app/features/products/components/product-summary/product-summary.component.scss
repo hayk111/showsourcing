@@ -1,0 +1,44 @@
+
+.summaryBar {
+	background-color: var(--color-bg);
+	display: flex;
+	align-items: center;
+	padding: var(--spacing-s);
+	.cell {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		height: 100%;
+		.title {
+			font-weight: 600;
+			font-size: var(--font-size-s);
+			color: var(--color-txt-secondary);
+			text-transform: uppercase;
+		}
+		.content {
+			display: flex;
+			height: 29px;
+			font-weight: 600;
+			font-size: 23px;
+			color: var(--color-primary-dark);
+			padding: 0;
+			margin-top: 9px;
+			flex-direction: row;
+			align-items: center;
+			[class^="icon-"],
+			[class*=" icon-"] {
+				margin-left: var(--spacing-s);
+				font-size: var(--font-size-xl);
+			}
+		}
+		badge-app {
+			color: var(--color-txt-secondary);
+			font-weight: 500;
+			font-size: var(--font-size-m);
+		}
+	}
+	divider-app {
+		height: 64px;
+		margin: 0 var(--spacing-xl);
+	}
+}

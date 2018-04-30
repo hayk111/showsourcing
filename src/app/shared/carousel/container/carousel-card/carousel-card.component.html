@@ -20,7 +20,7 @@
 			<!-- previews under the carousel -->
 			<image-previewer-app
 				*ngIf="hasPreview"
-				(imageClick)="onPreviewClick($event)"
+				(imageClick)="setSelectedIndex($event)"
 				(plusClick)="openFileBrowser()"
 				[images]="images"></image-previewer-app>
 
@@ -41,7 +41,7 @@
 			(close)="closeModal()"></modal-carousel-app>
 
 	</ng-container>
-	<card-footer-app>
+	<card-footer-app *ngIf="hasFooter">
 		<input #inpFile type="file" accept="image/*" (fileSelect)="add($event)" class="hidden"/>
 		<button (click)="openFileBrowser()">Add picture</button>
 	</card-footer-app>

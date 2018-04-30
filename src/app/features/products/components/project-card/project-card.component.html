@@ -1,22 +1,23 @@
-<h2 i18n>Projects</h2>
 
-<article *ngFor="let project of projects" class="flex">
-	<div class="flexCenter">
-		<div class="cercle"></div>
-	</div>
-	<div class="flexColumn middle">
-		<span class="name capitalize bold">{{ project?.name }}</span>
-		<span class="numProducts"> - Products </span>
-	</div>
-	<div class="flexCenter">
-		<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
-			(click)="removeProject.emit(project)" name="minus"></icon-app>
-	</div>
+<card-app>
+	<h2 i18n>Projects</h2>
 
-</article>
+	<article *ngFor="let project of projects" class="flex">
+		<div class="flexCenter">
+			<div class="cercle"></div>
+		</div>
+		<div class="flexColumn middle">
+			<span class="name capitalize bold">{{ project?.name }}</span>
+			<span class="numProducts"> - Products </span>
+		</div>
+		<div class="flexCenter">
+			<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
+				(click)="removeProject.emit(project)" name="minus"></icon-app>
+		</div>
 
-<divider-app></divider-app>
+	</article>
 
-<div class="bottom">
-	<button (click)="addProjectClick.emit()" i18n>add project</button>
-</div>
+	<card-footer-app>
+		<button (click)="addProjectClick.emit()" i18n>add project</button>
+	</card-footer-app>
+</card-app>

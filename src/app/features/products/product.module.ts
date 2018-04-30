@@ -39,7 +39,6 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 } from './components';
-import { ProductTopBarComponent } from './components/product-top-bar/product-top-bar.component';
 import {
 	ProductDetailsComponent,
 	ProductGeneralInfoComponent,
@@ -61,6 +60,7 @@ import { NewProductDlgEffects } from '~app/features/products/store/new-product-d
 import { reducers } from './store';
 import { ProductHttpService } from '~app/features/products/store/product/product-http.service';
 import { ProductMainCardComponent } from '~app/features/products/components/product-main-card/product-main-card.component';
+import { ProductSummaryComponent } from '~app/features/products/components/product-summary/product-summary.component';
 
 @NgModule({
 	imports: [
@@ -101,7 +101,7 @@ import { ProductMainCardComponent } from '~app/features/products/components/prod
 		ProjectCardComponent,
 		SupplierCardComponent,
 		ProductGeneralInfoComponent,
-		ProductTopBarComponent,
+		ProductSummaryComponent,
 		SelectableImageComponent,
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,

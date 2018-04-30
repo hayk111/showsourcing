@@ -7,6 +7,7 @@
 	[hasSearch]="false"
 	[filterGroupName]="filterGroupName">
 </top-panel-app>
+
 <ng-container *ngIf="product$ | async as product">
   <div class="flex content">
     <div class="left">
@@ -19,26 +20,21 @@
         <carousel-card-app></carousel-card-app>
 			<!-- </div> -->
 
-			<card-app>
-				<supplier-card-app [supplier]="product?.supplierId | entity:'supplier' | async"></supplier-card-app>
-			</card-app>
+			<supplier-card-app [supplier]="product?.supplierId | entity:'supplier' | async"></supplier-card-app>
 
-			<card-app>
-				<project-card-app
-					(removeProject)="removeProject($event)"
-					(addProjectClick)="openAddProjectDlg()"
-					[projects]="product.projectIds | entityArray: 'project' | async"></project-card-app>
-			</card-app>
+			<project-card-app
+				(removeProject)="removeProject($event)"
+				(addProjectClick)="openAddProjectDlg()"
+				[projects]="product.projectIds | entityArray: 'project' | async"></project-card-app>
+
 
 			<files-card-app></files-card-app>
 
 		</div>
 
     <div class="right">
-      <card-app padding="none">
-				<product-top-bar-app [product]="product"
-					[numTasks]="(tasks$ | async).length" (updateStatus)="updateStatus($event)"></product-top-bar-app>
-      </card-app>
+			<product-summary-app [product]="product"
+					[numTasks]="(tasks$ | async).length" (updateStatus)="updateStatus($event)"></product-summary-app>
       <product-main-card-app></product-main-card-app>
     </div>
 

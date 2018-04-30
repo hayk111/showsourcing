@@ -1,3 +1,5 @@
+<card-app>
+
 <h2 i18n>Supplier</h2>
 
 <div class="flex ">
@@ -13,14 +15,17 @@
 		<ng-template #noCode>
 			<span class="from" i18n>No address</span>
 		</ng-template>
-		<badge-app [color]="supplier?.status" [title]="supplier?.status"></badge-app>
+		<badge-app [color]="supplier?.status">
+			{{ supplier.status }}
+		</badge-app>
+
 	</div>
 
 </div>
 
-<divider-app></divider-app>
-
-<div class="flexBetween">
+<card-footer-app>
 	<button *ngIf="supplier" (click)="goToSupplier()" i18n class="light">view supplier</button>
 	<!-- <button i18n>contact supplier</button> -->
-</div>
+</card-footer-app>
+
+</card-app>

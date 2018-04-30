@@ -1,19 +1,19 @@
 .left {
-    card-app{
-        width: 452px;
-    }
-}
-
-.content {
-    padding: 0 var(--spacing-xl);
+	width: 452px;
 }
 
 .right {
-    flex-grow: 1;
+	width: 910px
+}
+
+.content {
+	margin-left: auto;
+	margin-right: auto;
+	width: calc(452px + 910px);
 }
 
 .selected {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .carouselCard {

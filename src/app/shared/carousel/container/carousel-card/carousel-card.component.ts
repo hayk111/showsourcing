@@ -16,9 +16,15 @@ import { UserService } from '~app/features/user';
 export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// whether the different elements are displayed
 	@Input() hasModalCarousel = true;
+	// whether the little clickable thumbnail of the images are displayed
 	@Input() hasPreview = true;
+	// whether the card displays a carousel at all
 	@Input() hasInlineCarousel = true;
+	// whether the card displays a footer (with a button add picture)
+	@Input() hasFooter = true;
+	// title of the card
 	@Input() title = '';
+
 	images$: Observable<Array<AppImage>>;
 	pending$: Observable<Array<boolean>>;
 	/** index of the currently selected image */
@@ -27,6 +33,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile') inpFile: ElementRef;
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
+	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
 	constructor(private store: Store<any>, private userSrv: UserService) {
@@ -38,7 +45,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 		this.images$ = imagesState$.map(r => entityStateToArray(r));
 		this.pending$ = imagesState$.map(r => r.pending);
 	}
-	/** opens the file browser so the user can select a file he wants to upload */
+	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
 	}
@@ -49,30 +56,35 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 		Promise.all(conversions).then(appImages => this.store.dispatch(fromImage.Actions.add(appImages)));
 	}
 
+	/** rotates the image by 90 degrees */
 	rotate(img: AppImage) {
 		this.store.dispatch(fromImage.Actions.rotate(img));
 	}
 
+	/** deletes the image */
 	delete(img: AppImage) {
 		this.store.dispatch(fromImage.Actions.delete([img.id]));
 	}
 
+	/** start downloading the image */
 	download(img: AppImage) {
 		this.store.dispatch(fromImage.Actions.download(img.url));
 	}
 
+	/** opens the modal carousel */
 	openModal(index: number) {
 		this.selectedIndex = index;
 		this.modalOpen = true;
 	}
 
-	// when a preview is clicked we want to display the image that was in the preview
-	onPreviewClick(index: number) {
-		this.selectedIndex = index;
-	}
-
+	/** closes the modal */
 	closeModal() {
 		this.modalOpen = false;
+	}
+
+	/** when a preview is clicked we want to display the image that was in the preview */
+	setSelectedIndex(index: number) {
+		this.selectedIndex = index;
 	}
 
 }

@@ -12,7 +12,7 @@
 	</editable-field-app>
 </ng-template>
 
-<div class="statusbar"></div>
+
 <ng-container *ngIf="product$ | async as product">
   <ng-container *ngIf="customFields$ | async as cf">
     <ng-container *ngFor="let group of cf.groups">
