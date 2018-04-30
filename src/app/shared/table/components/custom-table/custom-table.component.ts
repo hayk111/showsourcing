@@ -21,6 +21,7 @@ export class CustomTableComponent {
 	@Output() sort = new EventEmitter<string>();
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
+	@Input() pending: boolean;
 
 	constructor() { }
 

@@ -25,8 +25,8 @@
 .path {
 	stroke-dasharray: 1, 200;
 	stroke-dashoffset: 0;
-	animation: dash 1.5s ease-in-out infinite,
-		colors 2s ease-in-out infinite;
+	stroke: #41AFFF;
+	animation: dash 1.5s ease-in-out infinite, colors 2s ease-in-out infinite;
 	stroke-linecap: round;
 }
 

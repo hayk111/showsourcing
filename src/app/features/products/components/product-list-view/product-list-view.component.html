@@ -4,7 +4,8 @@
 	[rows]="products"
 	[descriptor]="descriptor"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="onSort($event)">
+	(sort)="onSort($event)"
+	[pending]="true">
 </custom-table-app>
 
 <ng-template #main let-row="row">
