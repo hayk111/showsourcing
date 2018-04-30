@@ -1,8 +1,11 @@
+
 <card-app>
 	<h2>Latest Products</h2>
 
 	<div class="flex" *ngIf="products.length > 0; else noProduct">
-		<a *ngFor="let product of products" [routerLink]="['/product', 'details', product.id]" class="imgCtnr">
+		<a *ngFor="let product of products"
+			[routerLink]="['/product', 'details', product.id]"
+			class="imgCtnr">
 			<img [src]="product?.mainImage?.urls?.url_400x300"/>
 		</a>
 

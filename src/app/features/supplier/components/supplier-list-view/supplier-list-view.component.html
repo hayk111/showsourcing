@@ -18,8 +18,10 @@
 		let-row="row"
 		width="280">
 		<div class="supplier">
-			<img src="assets/icons/supplier.svg" class="supplierIcon"/>
-			<a class="name capitalize ellipsis" [routerLink]="['/supplier', 'details', row.id]">{{ row.name }}</a>
+			<a class="name capitalize ellipsis" [routerLink]="['/supplier', 'details', row.id]">
+				<img src="assets/icons/supplier.svg" class="supplierIcon"/>
+				<span>{{ row.name }}</span>
+			</a>
 		</div>
 	</ng-template>
 

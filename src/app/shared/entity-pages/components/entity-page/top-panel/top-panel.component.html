@@ -4,9 +4,9 @@
 	</div>
 
 	<div class="right flexCenter">
-		<filter-search-bar-app class="mg-right" [filterGroupName]="filterGroupName"></filter-search-bar-app>
+		<filter-search-bar-app *ngIf="hasSearch" class="mg-right" [filterGroupName]="filterGroupName"></filter-search-bar-app>
 
-		<divider-app class="vert-divider mg-right"></divider-app>
+		<divider-app *ngIf="hasSearch" class="vert-divider mg-right"></divider-app>
 
 		<icon-app
 			*ngIf="hasFilter"

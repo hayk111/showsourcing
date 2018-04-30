@@ -16,13 +16,15 @@ export class TopPanelComponent {
 	@Input() filterGroupName: FilterGroupName;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
+	// whether the screen can be switched from table to list view
+	@Input() hasSwitch = true;
+	// whether the screen has a search input
+	@Input() hasSearch = true;
 	/** title of the bread crumb */
 	@Input() title: string;
 	/** subtitles of the bread crumb */
 	@Input() subtitles: Array<string>;
 
-	// whether the screen can be switched from table to list view
-	@Input() hasSwitch = true;
 	// view that can be switched into
 	@Input() view: 'list' | 'card';
 	// when said view changes
