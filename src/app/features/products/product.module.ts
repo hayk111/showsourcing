@@ -60,6 +60,7 @@ import { StoreModule } from '@ngrx/store';
 import { NewProductDlgEffects } from '~app/features/products/store/new-product-dlg/new-product-dlg.effects';
 import { reducers } from './store';
 import { ProductHttpService } from '~app/features/products/store/product/product-http.service';
+import { ProductMainCardComponent } from '~app/features/products/components/product-main-card/product-main-card.component';
 
 @NgModule({
 	imports: [
@@ -106,7 +107,8 @@ import { ProductHttpService } from '~app/features/products/store/product/product
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		ProductFiltersComponent,
-		NewProductDialogComponent
+		NewProductDialogComponent,
+		ProductMainCardComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,

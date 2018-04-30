@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntityPageComponent } from '~app/shared/entity-pages/components/entity-page/entity-page.component';
-import { EntityMainCardComponent } from '~app/shared/entity-pages/components/entity-main-card/entity-main-card.component';
 import { TopPanelComponent } from '~app/shared/entity-pages/components/entity-page/top-panel/top-panel.component';
 import { ViewSwitcherComponent } from '~app/shared/entity-pages/components/entity-page/view-switcher/view-switcher.component';
 import { FiltersModule } from '~app/shared/filters/filters.module';
@@ -24,11 +23,10 @@ import { DividerModule } from '~app/shared/divider/divider.module';
 	],
 	declarations: [
 		EntityPageComponent,
-		EntityMainCardComponent,
 		TopPanelComponent,
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
 	],
-	exports: [EntityPageComponent, EntityMainCardComponent, TopPanelComponent, BreadCrumbComponent],
+	exports: [EntityPageComponent, TopPanelComponent, BreadCrumbComponent],
 })
 export class EntityPagesModule { }
