@@ -4,6 +4,7 @@
 			Create New Product
 		</dialog-header-app>
 
+
 		<!-- Name -->
 		<form-field-app>
 			<label-app>
@@ -13,20 +14,24 @@
 		</form-field-app>
 
 		<!-- Supplier -->
+		<label>Supplier</label>
 		<selector-app
 			[choices]="'supplier' | entityList | async"
 			[itemName]="'supplier'"
-			[canSearch]="true">
+			[canSearch]="true"
+			formControlName="supplierId">
 			<ng-template let-item="item">
 				{{ item.name }}
 			</ng-template>
 		</selector-app>
 
 		<!-- Category -->
+		<label>Category</label>
 		<selector-app
 			[choices]="'category' | entityList | async"
 			[itemName]="'category'"
-			[canSearch]="true">
+			[canSearch]="true"
+			formControlName="categoryId">
 			<ng-template let-item="item">
 				{{ item.name }}
 			</ng-template>

@@ -6,14 +6,16 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { Entity } from '~app/entity';
 import { InputDecorator } from '@angular/core/src/metadata/directives';
 import { InputDirective } from '../input.directive';
+import { AbstractInput, makeAccessorProvider } from '~app/shared/inputs/components-directives';
 
 @Component({
 	selector: 'selector-app',
 	templateUrl: './selector.component.html',
 	styleUrls: ['./selector.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(SelectorComponent)]
 })
-export class SelectorComponent {
+export class SelectorComponent extends AbstractInput {
 	// when we select one
 	@Output() select = new EventEmitter<Entity>();
 	@Output() unselect = new EventEmitter<Entity>();
@@ -29,8 +31,6 @@ export class SelectorComponent {
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
 	// name displayed in messages
 	@Input() itemName = 'Item';
-	// current value
-	@Input() value: string | Array<string>;
 	// whether we can add multiple items
 	@Input() multiple: boolean;
 	// whether the list is searchable
@@ -48,11 +48,13 @@ export class SelectorComponent {
 	private _choices: Array<Entity>;
 	filteredChoices = [];
 
-	constructor() { }
+	constructor() {
+		super();
+	}
 
-	onSelect(value: Entity) {
-
-		this.select.emit(value);
+	onSelect(entity: Entity) {
+		this.select.emit(entity);
+		this.onChangeFn(entity.id);
 	}
 
 	onUnselect(removeObj: { value: any }) {
