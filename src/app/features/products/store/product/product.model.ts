@@ -10,12 +10,12 @@ export enum ProductStatus {
 }
 
 export class Product extends Entity {
+	supplierId: string;
+	categoryId: string;
 	priceAmount: number;
 	priceCurrency: Currency;
 	price: any;
 	minimumOrderQuantity: number;
-	supplierId: string;
-	categoryId: string;
 	teamId: string;
 	additionalInfo: any;
 	status: ProductStatus;
@@ -42,7 +42,10 @@ export class Product extends Entity {
 			url_1000x1000: string;
 		};
 	};
-	constructor(public name: string, userId: string) {
+	constructor(public params: any, userId: string) {
 		super(userId);
+		this.name = params.name;
+		this.supplierId = params.supplierId;
+		this.categoryId = params.categoryId;
 	}
 }

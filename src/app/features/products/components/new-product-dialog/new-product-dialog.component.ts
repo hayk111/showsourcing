@@ -42,8 +42,7 @@ export class NewProductDialogComponent extends AutoUnsub implements OnInit {
 
 	createProduct() {
 		if (this.form.valid) {
-			const name = this.form.value.name;
-			this.store.dispatch(productActions.create(new Product(name, this.userSrv.userId)));
+			this.store.dispatch(productActions.create(new Product(this.form.value, this.userSrv.userId)));
 		}
 	}
 

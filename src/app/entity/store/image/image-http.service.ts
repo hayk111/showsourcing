@@ -30,7 +30,6 @@ export class ImageHttpService extends FileHttpService {
 						map(r => resp),
 						retryWhen(errors => errors.pipe(delay(500), take(10))),
 				)
-
 			)
 		);
 	}

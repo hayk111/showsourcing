@@ -28,7 +28,7 @@ export class NewProductDlgEffects {
 				this.srv
 					.create(product)
 					.pipe(
-						tap((newProduct: any) => this.router.navigate(['product', 'details', newProduct.id])),
+						tap((newProduct: any) => this.router.navigate(['product', 'details', newProduct.id, 'general  '])),
 						mergeMap((newProduct: any) => [
 							productActions.replace([newProduct]),
 							notificationActions.add({ type: NotificationType.SUCCESS, title: 'Product Added', timeout: 2000 }),
