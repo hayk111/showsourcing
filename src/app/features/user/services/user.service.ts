@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '~app/entity/store/user/user.model';
 import { selectUser } from '~app/entity/store/user/user.selector';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 

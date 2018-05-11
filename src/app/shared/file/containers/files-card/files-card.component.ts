@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { UserService } from '~app/features/user';
 import { AppFile, fromFile } from '~entity';
 import { DEFAULT_FILE_IMG } from '~app/app-root/utils';

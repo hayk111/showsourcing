@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  combineLatest } from 'rxjs';
 import { map, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
@@ -14,12 +14,14 @@ import { Supplier } from '~supplier';
 import { fromTask, Task } from '~task';
 import { fromDialog, DialogName } from '~app/shared/dialog';
 import { UserService } from '~app/features/user';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Contact } from '~app/features/supplier/store/contacts/contact.model';
 import { selectLatestProductsArray, selectContactArray, selectFocusedSupplier } from '~app/features/supplier/store';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Category } from '~entity/store/category/category.model';
 import { SupplierDetailsAction } from '~app/features/supplier/store/supplier-details/supplier-details.action';
+import { Apollo } from 'apollo-angular';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { ContactService } from '~app/features/supplier/services/contact.service';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -28,45 +30,50 @@ import { SupplierDetailsAction } from '~app/features/supplier/store/supplier-det
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	// currently displayed supplier
-	supplier$: Observable<Supplier>;
-	// product count for supplier displayed in the summary bar
-	productCount$: Observable<number>;
-	// tasks of the supplier so we can display how many of them there are
-	tasks$: Observable<Array<Task>>;
-	// the latest products for this supplier
-	products$: Observable<Array<Product>>;
-	images$: Observable<Array<AppImage>>;
-	contacts$: Observable<Array<Contact>>;
 	supplierId: string;
+	supplier$: Observable<Supplier>;
+	contacts$: Observable<Contact[]>;
+	products$: Observable<Product[]>;
+	tasks$: Observable<Task[]>;
 	// this is put in container because it will access the store
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(
+		private route: ActivatedRoute,
+		private userSrv: UserService,
+		private supplierSrv: SupplierService,
+		private contactSrv: ContactService,
+		private store: Store<any>) {
 		super();
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(takeUntil(this._destroy$), map(params => params.id));
-		id$.subscribe(id => {
-			this.store.dispatch(SupplierDetailsAction.focus(id));
-		});
 
-		this.supplier$ = this.store.select(selectFocusedSupplier).pipe(
-			filter(x => !!x),
-			tap((supplier: Supplier) => this.supplierId = supplier.id),
+		const id$ = this.route.params.pipe(
+			takeUntil(this._destroy$),
+			map(params => params.id),
+			tap(id => this.supplierId = id)
 		);
 
-		// this select the count for all entities we need it just for this one
-		const productsCount$ = this.store.select(fromSupplier.selectProductCount);
-		this.productCount$ = combineLatest(id$, productsCount$, (id, count) => count[id] || 0);
-		this.tasks$ = this.store.select(fromTask.selectArray);
+		this.supplier$ = id$.pipe(
+			switchMap(id => this.supplierSrv.getById(id))
+		);
 
-		this.products$ = this.store.select<any>(selectLatestProductsArray);
-		this.images$ = this.store.select(fromImage.selectArray);
-		this.contacts$ = this.store.select(selectContactArray);
+		this.contacts$ = id$.pipe(
+			switchMap(id => this.contactSrv.getContacts(id))
+		);
+
+		this.products$ = id$.pipe(
+			switchMap(id => this.supplierSrv.getProducts(id))
+		);
+
+		// this.tasks$ = id$.pipe(
+		// 	switchMap(id => this.supplierSrv.getTasks(id))
+		// );
 	}
 
 	/** updates supplier */
 	patch(patch: Patch) {
-		this.store.dispatch(fromSupplier.Actions.patch(patch));
+		// this.store.dispatch(fromSupplier.Actions.patch(patch));
+		this.supplierSrv.editSupplier({ id: patch.id, [patch.propName]: patch.value });
 	}
 
 	/**  */
@@ -84,10 +91,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	onItemAdded(efValue: EditableFieldValue) {
 		switch (efValue.type) {
 			case 'tag':
-				this.store.dispatch(fromSupplier.Actions.addTag(efValue.value, this.supplierId));
+				// this.store.dispatch(fromSupplier.Actions.addTag(efValue.value, this.supplierId));
 				break;
 			case 'category':
-				this.store.dispatch(fromSupplier.Actions.addCategory(efValue.value, this.supplierId));
+				// this.store.dispatch(fromSupplier.Actions.addCategory(efValue.value, this.supplierId));
 				break;
 		}
 	}
@@ -95,30 +102,30 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	onItemRemoved(efValue: EditableFieldValue) {
 		switch (efValue.type) {
 			case 'tag':
-				this.store.dispatch(fromSupplier.Actions.removeTag(efValue.value, this.supplierId));
+				// this.store.dispatch(fromSupplier.Actions.removeTag(efValue.value, this.supplierId));
 				break;
 			case 'category':
-				this.store.dispatch(fromSupplier.Actions.removeCategory(efValue.value, this.supplierId));
+				// this.store.dispatch(fromSupplier.Actions.removeCategory(efValue.value, this.supplierId));
 				break;
 		}
 	}
 
 	onTagCreated(tagName: string) {
 		const tag = new Tag(tagName, this.userSrv.userId);
-		this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
+		// this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
 	}
 
 	onCategoryCreated(categoryName: string) {
 		const category = new Category(categoryName, this.userSrv.userId);
-		this.store.dispatch(fromSupplier.Actions.createCategory(category, this.supplierId));
+		// this.store.dispatch(fromSupplier.Actions.createCategory(category, this.supplierId));
 	}
 
 	openContactDlg(contact?: Contact) {
 		const target = { entityId: this.supplierId, entityRepr: ERM.supplier };
 		if (contact)
-			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { contact }));
+			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId }));
 		// new contact dlg
 		else
-			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: true, target }));
+			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: true, supplierId: this.supplierId }));
 	}
 }

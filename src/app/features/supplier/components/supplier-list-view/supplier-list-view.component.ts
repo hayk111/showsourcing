@@ -4,9 +4,7 @@ import { FilterActions, FilterGroupName } from '~app/shared/filters';
 import { Country, EntityState, fromTeamMember, Supplier, fromSupplier } from '~entity';
 import { fromCountry } from '~app/entity/store/country/country.bundle';
 import { tap, map, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Observable ,  forkJoin ,  combineLatest } from 'rxjs';
 import { selectSupplierList } from '~app/features/supplier/store';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 

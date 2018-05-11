@@ -1,8 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Observable, combineLatest } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { EntityTarget } from '~entity';
 import { Log } from '~utils';
@@ -123,7 +122,7 @@ export class FileHttpService {
 		else
 			data = { imageId: file.id, itemId, mainImage: false };
 
-		return this.http.post(`api/${name}/${itemId}/${type}`, data).map(_ => file);
+		return this.http.post(`api/${name}/${itemId}/${type}`, data).pipe(map(_ => file));
 	}
 
 	delete(ids: Array<string>, target: EntityTarget, type: 'attachment' | 'image' = 'attachment') {

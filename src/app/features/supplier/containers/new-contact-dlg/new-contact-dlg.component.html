@@ -1,11 +1,11 @@
-<dialog-app [name]="dialogName" (close)="onClose()" (fileDrop)="onFilesAdded($event)">
+<dialog-app [name]="dialogName" (fileDrop)="onFilesAdded($event)">
 
 	<dialog-header-app>Contact</dialog-header-app>
 
-	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp (blur)="patch('name', $event.target.value)"
+			<input inputApp (blur)="updateContact('name', $event.target.value)"
 				formControlName="name"
 				type="text"
 				autocomplete="new-name"
@@ -15,7 +15,7 @@
 		<form-field-app>
 			<label-app>Function</label-app>
 			<input inputApp
-				(blur)="patch('jobTitle', $event.target.value)"
+				(blur)="updateContact('jobTitle', $event.target.value)"
 				formControlName="jobTitle"
 				type="text"
 				autocomplete="new-job"
@@ -24,13 +24,23 @@
 
 		<form-field-app>
 			<label-app>Email</label-app>
-			<input inputApp (blur)="patch('email', $event.target.value)" formControlName="email" type="email" autocomplete="new-email" placeholder="Contact email address"/>
+			<input inputApp
+				(blur)="updateContact('email', $event.target.value)"
+				formControlName="email"
+				type="email"
+				autocomplete="new-email"
+				placeholder="Contact email address"/>
 		</form-field-app>
 
 		<form-field-app>
 			<label-app>Phone number</label-app>
-			<input inputApp (blur)="patch('phoneNumber', $event.target.value)" formControlName="phoneNumber" restrictInput="tel" type="tel"
-				autocomplete="new-tel" placeholder="Contact phone number"/>
+			<input inputApp
+				(blur)="updateContact('phoneNumber', $event.target.value)"
+				formControlName="phoneNumber"
+				restrictInput="tel"
+				type="tel"
+				autocomplete="new-tel"
+				placeholder="Contact phone number"/>
 		</form-field-app>
 
 		<label>Business card</label>
@@ -51,7 +61,7 @@
 	</form>
 		<!-- no button to save when it's an existing contact -->
 		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!formGroup.controls['name'].valid" value="SAVE" (click)="onSubmit()"/>
+			<input type="submit" [disabled]="!form.controls['name'].valid" value="SAVE" (click)="onSubmit()"/>
 		</dialog-footer-app>
 </dialog-app>
 

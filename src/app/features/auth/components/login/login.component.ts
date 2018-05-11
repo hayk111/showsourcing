@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as fromAuth from '~app/features/auth/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'login-app',

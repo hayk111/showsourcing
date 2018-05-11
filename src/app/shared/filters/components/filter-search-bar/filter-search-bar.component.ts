@@ -1,18 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map } from 'rxjs/operators';
+import { BehaviorSubject ,  Observable ,  forkJoin ,  merge } from 'rxjs';
+import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map ,  take } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import { ERM, Entity } from '~app/entity';
 import { Filter, FilterGroupName, FilterType } from '~shared/filters/models';
 import { searchEntity, selectFilterByType } from '~shared/filters/store/selectors';
 
 import { FilterActions } from '../../store/actions';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { merge } from 'rxjs/observable/merge';
-import { take } from 'rxjs/operators';
 
 @Component({
 	selector: 'filter-search-bar-app',

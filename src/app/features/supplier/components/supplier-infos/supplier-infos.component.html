@@ -2,7 +2,6 @@
 
 	<h2>Supplier Information</h2>
 
-
 	<!-- name -->
 	<cell-two-row-app title="name">
 		<editable-field-app
@@ -25,27 +24,27 @@
 	<cell-two-row-app title="General MOQ">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.minimumOrderQuantity"
+			[value]="supplier.generalMOQ"
 			type="number"
-			(update)="onUpdate($event, 'minimumOrderQuantity')"></editable-field-app>
+			(update)="onUpdate($event, 'generalMOQ')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- lead time -->
 	<cell-two-row-app title="General Lead time">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.leadTimeValue"
+			[value]="supplier.generalLeadTime"
 			type="number"
-			(update)="onUpdate($event, 'leadTimeValue')"></editable-field-app>
+			(update)="onUpdate($event, 'generalLeadTime')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- country -->
 	<cell-two-row-app title="country">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.countryCode"
+			[value]="supplier.country"
 			type="country"
-			(update)="onUpdate($event, 'countryCode')"></editable-field-app>
+			(update)="onUpdate($event, 'country')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- address -->
@@ -71,18 +70,18 @@
 	<cell-two-row-app title="Office Email">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.email"
+			[value]="supplier.officeEmail"
 			type="email"
-			(update)="onUpdate($event, 'email')"></editable-field-app>
+			(update)="onUpdate($event, 'officeEmail')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- phone -->
 	<cell-two-row-app title="Office phone">
 		<editable-field-app
 			[entity]="supplier"
-			[value]="supplier.phoneNumber"
+			[value]="supplier.officePhone"
 			type="tel"
-			(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
+			(update)="onUpdate($event, 'officePhone')"></editable-field-app>
 	</cell-two-row-app>
 
 	<!-- inco terms -->
@@ -113,7 +112,7 @@
 	</cell-two-row-app> -->
 
 	<!-- categories -->
-	<cell-two-row-app title="Categories">
+	<!-- <cell-two-row-app title="Categories">
 		<editable-field-app
 			(itemAdded)="itemAdded.emit($event)"
 			(itemRemoved)="itemRemoved.emit($event)"
@@ -122,10 +121,10 @@
 			[value]="supplier.categoryIds"
 			type="categories">
 		</editable-field-app>
-	</cell-two-row-app>
+	</cell-two-row-app> -->
 
 	<!-- tags -->
-	<cell-two-row-app title="tag">
+	<!-- <cell-two-row-app title="tag">
 		<editable-field-app
 			(itemAdded)="itemAdded.emit($event)"
 			(itemRemoved)="itemRemoved.emit($event)"
@@ -133,10 +132,10 @@
 			[entity]="supplier"
 			[value]="supplier.tagIds"
 			type="tag"></editable-field-app>
-	</cell-two-row-app>
+	</cell-two-row-app> -->
 
 	<!-- user / created by -->
-	<cell-two-row-app title="Created By">
+	<!-- <cell-two-row-app title="Created By">
 
 		<editable-field-app
 			class="user"
@@ -145,6 +144,6 @@
 			type="teamMember"
 			[editable]="false"
 			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
-	</cell-two-row-app>
+	</cell-two-row-app> -->
 
 </card-app>

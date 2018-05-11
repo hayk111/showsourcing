@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { AutoUnsub } from '~app/app-root/utils';
 import { Filter, FilterType } from '~shared/filters/models';
 

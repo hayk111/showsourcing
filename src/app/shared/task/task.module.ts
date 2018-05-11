@@ -1,9 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HmrService } from '~app/shared/hmr/hmr.service';
-
-
-// hmr service or hot module reloading
+import { TaskService } from '~app/shared/task/task.service';
 
 @NgModule({
 	imports: [
@@ -11,11 +8,17 @@ import { HmrService } from '~app/shared/hmr/hmr.service';
 	],
 	declarations: []
 })
-export class HmrModule {
+export class TaskModule {
 	static forRoot(): ModuleWithProviders {
 		return {
-			ngModule: HmrModule,
-			providers: [HmrService]
+			ngModule: TaskModule,
+			providers: [TaskService]
+		};
+	}
+
+	static forChild(): ModuleWithProviders {
+		return {
+			ngModule: TaskModule
 		};
 	}
 }

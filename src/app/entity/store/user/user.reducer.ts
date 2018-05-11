@@ -2,7 +2,6 @@
 import { TypedAction } from '~utils';
 import { User } from './user.model';
 import { ActionType } from './user.action';
-import { Action } from 'rxjs/scheduler/Action';
 
 export const initialState: User = {
 	id: '',

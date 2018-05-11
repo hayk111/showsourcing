@@ -1,8 +1,16 @@
 {
-    "/api/*": {
-        "target": "http://stoemelings.showsourcing.com",
-        "secure": "false",
-        "logLevel": "debug"
-		},
-		"compress": true
+	"/api/*": {
+			"target": "http://stoemelings.showsourcing.com",
+			"secure": "false",
+			"logLevel": "debug"
+	},
+	"/graphql/*": {
+		"target": "http://vps540915.ovh.net:9080/graphql/%2Fteam%2F21775152-d838-4c44-9b51-fc49ec726b68",
+		"secure": "false",
+		"logLevel": "debug",
+		"pathRewrite": {
+			"^/graphql": ""
+		}
+	},
+	"compress": true
 }

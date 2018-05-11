@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from '~app/entity';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';

@@ -3,7 +3,7 @@ import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch, Sort } from '~entity';
 import { Supplier } from '~supplier';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { fromSupplier } from '~supplier';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -11,9 +11,9 @@ import { fromDialog } from '~dialog';
 import { DialogName } from '~dialog';
 import * as fromSupplierList from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
 import { selectSupplierList, selectSupplierListState } from '~app/features/supplier/store';
-import { Subject } from 'rxjs/Subject';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~app/app-root/utils';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -24,10 +24,14 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** filter group name so we can attach filters to this page and filter the suppliers */
 	filterGroupName = FilterGroupName.SUPPLIERS_PAGE;
 	suppliers: Array<Supplier> = [];
+	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
 	repr = ERM.supplier;
 	/** current sort used for sorting suppliers */
 	sort$: Subject<Sort> = new Subject();
+	/** current filters applied to suppliers */
+	filters$: Observable<Filter[]>;
+	pagination$: Observable<any>;
 	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
 	selected: Array<string>;
@@ -38,34 +42,20 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** number of suppliers requested by paginated request */
 	take = 30;
 
-	constructor(private store: Store<any>, private router: Router) {
+	constructor(private store: Store<any>, private router: Router, private supplierSrv: SupplierService) {
 		super();
 	}
 
 	ngOnInit() {
-		// select whether the suppliers are pending
-		this.store.select(selectSupplierListState)
-			.pipe(takeUntil(this._destroy$))
-			.subscribe((state: fromSupplierList.State) => {
-				// we are receiving an id of array from the store while we need a map
-				this.selected = state.selected;
-				this.pending = state.pending;
-				this.fullyLoaded = state.fullyLoaded;
-			});
-		this.store.select(selectSupplierList)
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(suppliers => this.suppliers = suppliers);
-		this.store.dispatch(fromSupplierList.SupplierListActions.load({}));
-		// select filters
-		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
-		// when filters change we need to redownload the suppliers with the new filters
-		filters$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(filters => {
-				// saving filters for when we need to paginate
-				this.filters = filters;
-				this.loadSuppliers();
-			});
+		this.suppliers$ = this.supplierSrv.getList();
+		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
+	}
+
+	loadSuppliersV2() {
+		// combineLatest(this.sort$, this.filters$, this.pagination$, (sort, filters, pagination) => {
+
+		// }).pipe();
+		// this.suppliers$ = this.supplierSrv.getList();
 	}
 
 	/** loads initial suppliers and when the filters change */
@@ -124,15 +114,13 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Makes a supplier a favorite */
-	onItemFavorited(entityId: string) {
-		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
-		this.store.dispatch(fromSupplier.Actions.patch(patch));
+	onItemFavorited(id: string) {
+		this.supplierSrv.editSupplier({ id, favorite: true });
 	}
 
 	/** Makes a supplier no more a favorite */
-	onItemUnfavorited(entityId: string) {
-		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
-		this.store.dispatch(fromSupplier.Actions.patch(patch));
+	onItemUnfavorited(id: string) {
+		this.supplierSrv.editSupplier({ id, favorite: false });
 	}
 
 	/** Deletes the currently selected suppliers */

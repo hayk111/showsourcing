@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { EventHttpService } from './event-http.service';
 import { fromEvent } from './event.bundle';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 import { EntityService } from '~entity/store/entity.service';
 import { ERM } from '~entity/store/entity.model';
 

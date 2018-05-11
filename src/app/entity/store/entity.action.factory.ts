@@ -1,8 +1,11 @@
 import { Action } from '@ngrx/store';
 import { Patch, ApiParams } from '../utils';
-import { TypedAction } from '~utils';
-
+import { TypedAction, Log } from '~utils';
 import { Entity, EntityRepresentation, EntityTarget } from './entity.model';
+
+// monkey patching string
+Log.debug('Monkey patching string')
+import 'app/app-root/utils/string-monkey-patch';
 
 export interface EntityActionTypes {
 	// when focussing on one entity (viewing its details), this is used to load related entities

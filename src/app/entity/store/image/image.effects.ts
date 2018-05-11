@@ -10,7 +10,7 @@ import { imageActionTypes } from '~app/entity/store/image/image.action';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { NotificationType } from '~app/shared/notifications';
 import { appErrorActions } from '~app/shared/error-handler';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { AppFile } from '~app/entity';
 import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 

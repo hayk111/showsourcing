@@ -6,7 +6,7 @@ import { CategoryHttpService } from './category-http.service';
 import { EntityService } from '~app/entity/store/entity.service';
 import { ERM } from '~app/entity/store/entity.model';
 
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 const ActionType = fromCategory.ActionTypes;
 
 @Injectable()

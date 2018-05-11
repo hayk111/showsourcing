@@ -3,8 +3,6 @@ import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { Store, StoreModule } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import { EntityModule } from '~app/entity';
@@ -14,7 +12,6 @@ import { ProjectModule } from '~app/features/project';
 import { SuppliersModule } from '~app/features/supplier';
 import { TasksModule } from '~app/features/tasks';
 import { UserModule } from '~app/features/user';
-import { HmrModule } from '~app/shared/hmr/hmr.module';
 import { PreloaderModule } from '~app/shared/preloader/preloader.module';
 import { AuthGuardService, AuthModule } from '~auth';
 import { CardModule } from '~shared/card';
@@ -32,19 +29,21 @@ import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { DialogModule } from '~app/shared/dialog';
 import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
+import { AppApolloModule } from '~app/shared/apollo/apollo.module';
 
 declare let module: any;
+
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
 	declarations: [AppComponent, HomeComponent],
 	imports: [
+		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
 		AppStoreModule,
 		AuthModule.forRoot(),
 		PreloaderModule.forRoot(),
-		HmrModule.forRoot(),
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
 		HttpClientModule,
@@ -81,47 +80,6 @@ declare let module: any;
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	// hot module reloading stuff
-	constructor(public appRef: ApplicationRef, private _m: NgModuleRef<any>, private _store: Store<any>) {
-		if (environment.hmr && module.hot) {
-			module.hot.accept('./app-root.module.ts');
-			if (module.hot.data) {
-				this.customHmrOnInit(module.hot.data);
-			}
-		}
-	}
-	customHmrOnInit(store) {
-		if (!store || !store.rootState) return;
-		Log.info('HMR store', store.rootState);
-		if (store.rootState) {
-			this._store.dispatch({
-				type: 'SET_ROOT_STATE',
-				payload: store.rootState,
-			});
-		}
-	}
 
-	hmrOnInit(store) {
-		Log.info('------- HMR init');
-		if (!store || !store.rootState) return;
-		if ('restoreInputValues' in store) {
-			store.restoreInputValues();
-		}
-		// this.appRef.tick();
-		Object.keys(store).forEach(prop => delete store[prop]);
-	}
 
-	hmrOnDestroy(store) {
-		Log.info('------- HMR OnDestroy');
-		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
-		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-		store.disposeOldHosts = createNewHosts(cmpLocation);
-		store.restoreInputValues = createInputTransfer();
-		removeNgStyles();
-	}
-	hmrAfterDestroy(store) {
-		Log.info('------- HMR AfterDestroy');
-		store.disposeOldHosts();
-		delete store.disposeOldHosts;
-	}
 }

@@ -1,12 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subject } from 'rxjs';
 import {
 	Entity, selectEntityArrayByName, ERM, EntityRepresentation,
 	getPluralEntity, fromSupplier, fromEvent, fromCategory, selectEntityProductCount, selectEntityArray,
 	selectEntityState, EntityState, entityStateToArray, selectRelevantEntities, getEntityRepr
 } from '~app/entity';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs/Subject';
 import { selectFilterByType, FilterGroupName, Filter, FilterActions, FilterType } from '~app/shared/filters';
 import { tap, takeUntil, combineLatest, map } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';

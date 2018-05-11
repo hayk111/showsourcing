@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { EntityService } from '~app/entity/store/entity.service';
@@ -84,7 +84,7 @@ export class ProductHttpService {
 	}
 
 	sendPdfReq(id) {
-		return this.http.get(`api/product/${id}/pdf`).map((o: any) => o.path);
+		return this.http.get(`api/product/${id}/pdf`).pipe(map((o: any) => o.path));
 	}
 
 	requestFeedback(productId: String, recipientsIds: Array<string>) {

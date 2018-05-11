@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom, tap, distinctUntilChanged } from 'rxjs/operators';
 import { appErrorActions } from '~shared/error-handler/app-errors.action';
 

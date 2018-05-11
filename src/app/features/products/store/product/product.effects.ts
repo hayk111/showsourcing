@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Observable ,  forkJoin } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { actionTypes, productActions } from './product.action';
@@ -170,6 +169,7 @@ export class ProductEffects {
 	addProject$ = this.actions$
 		.ofType<any>(actionTypes.ADD_PROJECT)
 		.pipe(map(action => action.payload), switchMap(payload => this.srv.addProject(payload)));
+
 
 	@Effect({ dispatch: false })
 	removeProject$ = this.actions$

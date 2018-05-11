@@ -110,7 +110,7 @@
 			(check)="addFilter({ type: filterType.FAVORITE, value: 5 })"
 			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: 5 })">
 			<div class="flex">
-				<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
+				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
 				Only Show Favorite
 			</div>
 

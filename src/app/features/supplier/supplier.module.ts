@@ -34,6 +34,8 @@ import { SupplierSummaryComponent } from './components/supplier-main/supplier-su
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { reducers } from './store';
 import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-details/supplier-details.effects';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { ContactService } from '~app/features/supplier/services/contact.service';
 
 
 @NgModule({
@@ -83,7 +85,10 @@ import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-de
 	exports: [
 		SuppliersPageComponent
 	],
-	providers: [],
+	providers: [
+		SupplierService,
+		ContactService
+	],
 })
 export class SuppliersModule {
 	static forRoot(): ModuleWithProviders {

@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 const supportedTypes = new Set([
 	'color',

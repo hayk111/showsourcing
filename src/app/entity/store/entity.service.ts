@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, map, startWith } from 'rxjs/operators';
 import { User } from './user';
 import { ApiParams, Patch } from '~entity/utils';

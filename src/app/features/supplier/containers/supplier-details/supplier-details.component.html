@@ -1,15 +1,15 @@
 
-<!-- page content -->
 <ng-container *ngIf="supplier$ | async as supplier">
 
 	<!-- main card -->
 	<supplier-main-app
 		(update)="patch($event)"
 		[supplier]="supplier"
-		[productCount]="productCount$ | async"
-		[taskCount]="(tasks$ | async).length"
+		[productCount]="(products$ | async)?.length"
+		[taskCount]="(tasks$ | async)?.length"
 		[contactCount]="(contacts$ | async)?.length">
 	</supplier-main-app>
+
 	<!-- supplier view -->
 	<div class="flex ctnr">
 		<div class="left">
@@ -22,12 +22,14 @@
 
 			<!-- latest products -->
 			<supplier-latest-products-app
-				[products]="products$ | async">
+				*ngIf="products$ | async as products"
+				[products]="products">
 			</supplier-latest-products-app>
 
 			<!-- contacts -->
 			<supplier-contact-card-app
-				[contacts]="contacts$ | async"
+				*ngIf="contacts$ | async as contacts"
+				[contacts]="contacts"
 				(newContact)="openContactDlg()"
 				(openContact)="openContactDlg($event)">
 			</supplier-contact-card-app>
@@ -51,5 +53,5 @@
 			<carousel-card-app title="Supplier Pictures"></carousel-card-app>
 		</div>
 	</div>
-</ng-container>
 
+</ng-container>

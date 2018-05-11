@@ -59,7 +59,7 @@
 		sortWith="tags"
 		[comparator]="arrayComparator"
 		width="280">
-		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }}{{ last ? '' : ', '}}</span>
+		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
 
 	<!-- date -->
@@ -110,7 +110,7 @@
 		[grows]="false">
 		<div class="flexCenter">
 			<rating-heart-app
-				[rating]="row?.rating"
+				[favorite]="row?.favorite"
 				(favorited)="supplierFavorited.emit(row.id)"
 				(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
 		</div>

@@ -4,14 +4,17 @@ import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 import { Store } from '@ngrx/store';
 import { fromDialog } from '~app/shared/dialog';
-import { RegexpApp, DEFAULT_IMG, AutoUnsub } from '~app/app-root/utils';
+import { RegexpApp, DEFAULT_IMG, AutoUnsub, uuid } from '~app/app-root/utils';
 import { AppFile, AppImage, Patch, EntityTarget } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { ImageHttpService } from '~app/entity/store/image/image-http.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, takeUntil, filter, tap, distinctUntilChanged } from 'rxjs/operators';
 import { ContactActions } from '~app/features/supplier/store';
 import { selectContactPreviewImg, selectContactOne } from '~app/features/supplier/store';
+import { ContactService } from '~app/features/supplier/services/contact.service';
+import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { ActivatedRoute } from '@angular/router';
 
 const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
@@ -22,47 +25,37 @@ const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 	styleUrls: ['./new-contact-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewContactDlgComponent extends AutoUnsub implements OnInit {
-	formGroup: FormGroup;
+export class NewContactDlgComponent extends AutoUnsub {
+	form: FormGroup;
 	dialogName = DialogName.CONTACT;
 	/** preview image */
 	preview$: Observable<AppImage>;
 	private _preview: any = {};
-	/** whather the dialog is for a new contact or an existing one */
-	isNewContact = false;
 	defaultImg = DEFAULT_IMG;
+	// supplier for which we are creating the contact
+	@Input() supplierId: string;
 
-	@Input() contact = {
+	/** whether the dialog is for a new contact or an existing one */
+	@Input() isNewContact = false;
+	@Input() contact: Contact = {
 		id: '',
 		name: '',
 		jobTitle: '',
 		email: '',
-		phoneNumber: '',
-		image: null
+		phoneNumber: ''
 	};
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService, private cd: ChangeDetectorRef) {
+	constructor(
+		private fb: FormBuilder,
+		private store: Store<any>,
+		private userSrv: UserService,
+		private cd: ChangeDetectorRef,
+		private contactSrv: ContactService,
+		private route: ActivatedRoute
+	) {
 		super();
-	}
-
-	ngOnInit() {
-		if (this.isNewContact) {
-			// when new contact the image is gonna be located in previewImg
-			this.store.select(selectContactPreviewImg).pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged(),
-				filter(preview => !!preview && Object.keys(preview).length > 0),
-			).subscribe(preview => this.preview = preview);
-		} else {
-			// when updating old contact image is on the contact itself
-			this.store.select(selectContactOne(this.contact.id)).pipe(
-				takeUntil(this._destroy$),
-				distinctUntilChanged(),
-				map(state => state.image)
-			).subscribe(image => this.preview = image);
-		}
-
-		this.formGroup = this.fb.group({
+		// creating the formGroup using the contact so if we are editing an existing contact it will be the values of said contact
+		this.form = this.fb.group({
 			name: [this.contact.name, Validators.required],
 			jobTitle: this.contact.jobTitle,
 			email: [this.contact.email, Validators.email],
@@ -84,24 +77,27 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		this.cd.markForCheck();
 	}
 
+	// TODO: this is now possible with angular 6
 	onSubmit() {
 		// not checking if form group is valid because at the time of writting this an email cannot be empty
 		// therefor the form will be invalid
 		// if (this.formGroup.valid) {
-		const contact = this.formGroup.value;
+		const contact = this.form.value;
 		// we need to add the image to the contact before uploading
-		contact.imageId = this._preview.id;
-		contact.image = this._preview;
-		this.store.dispatch(ContactActions.create(this.formGroup.value));
+		// contact.imageId = this._preview.id;
+		// contact.image = this._preview;
+		// this.store.dispatch(ContactActions.create(this.formGroup.value));
+		this.contactSrv.createContact(contact, this.supplierId);
 		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
 		// }
 	}
 
-	patch(propName: string, value: any) {
-		/** we only do the patching when it's an existing contact */
+	updateContact(prop: string, value: any) {
+		// resetting the preview on close
+		// this.store.dispatch(ContactActions.setPreview({}));
+		const contact = this.form.value;
 		if (!this.isNewContact) {
-			const patch: Patch = { id: this.contact.id, propName, value };
-			this.store.dispatch(ContactActions.patch(patch));
+			this.contactSrv.updateContact(contact);
 		}
 	}
 
@@ -116,12 +112,6 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			});
 		});
 	}
-
-	onClose() {
-		// resetting the preview on close
-		this.store.dispatch(ContactActions.setPreview({}));
-	}
-
 
 }
 

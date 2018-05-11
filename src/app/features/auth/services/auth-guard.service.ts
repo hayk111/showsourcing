@@ -7,7 +7,7 @@ import {
 	RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, filter, tap, switchMap } from 'rxjs/operators';
 import { Log } from '~app/app-root/utils';
 import { selectAuthStatus } from '~app/features/auth/store';

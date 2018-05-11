@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 // utility class to unsub from observable
 export abstract class AutoUnsub implements OnDestroy {

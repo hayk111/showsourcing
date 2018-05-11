@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { Entity } from '~entity';
 import { AutoUnsub } from '~utils';
 

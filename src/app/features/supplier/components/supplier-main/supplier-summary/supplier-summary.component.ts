@@ -26,10 +26,10 @@ export class SupplierSummaryComponent implements OnInit {
 	}
 
 	onFavorited() {
-		this.update.emit({ propName: 'rating', value: 5, id: this.supplier.id });
+		this.update.emit({ propName: 'favorite', value: true, id: this.supplier.id });
 	}
 
 	onUnfavorited() {
-		this.update.emit({ propName: 'rating', value: 1, id: this.supplier.id });
+		this.update.emit({ propName: 'favorite', value: false, id: this.supplier.id });
 	}
 }

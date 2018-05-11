@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
-import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { catchError } from 'rxjs/operators/catchError';
+import { of ,  forkJoin } from 'rxjs';
+import { map, mergeMap, switchMap, tap, withLatestFrom ,  catchError } from 'rxjs/operators';
 import { AppFile } from './file.model';
 
 import { FileHttpService } from '~app/entity/store/file/file-http.service';
@@ -12,7 +11,6 @@ import { notificationActions } from '~app/shared/notifications/store/notificatio
 import { EntityTarget } from '~entity/store/entity.model';
 
 import { fromFile } from './file.bundle';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';
 
 

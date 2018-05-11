@@ -7,13 +7,8 @@ import { Patch, ApiParams } from '~entity/utils';
 
 import { User } from '~user';
 import { UserService } from '~app/features/user/services';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { range } from 'rxjs/observable/range';
+import { Observable ,  of ,  Subject ,  BehaviorSubject ,  range ,  EMPTY as empty } from 'rxjs';
 import { Supplier } from '~app/entity/store/supplier/supplier.model';
-import { empty } from 'rxjs/observable/empty';
 
 @Injectable()
 export class SupplierHttpService {

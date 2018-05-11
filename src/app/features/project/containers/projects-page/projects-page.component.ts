@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
 import { ERM, Project, fromProject } from '~entity';
 import { AutoUnsub } from '~app/app-root/utils';

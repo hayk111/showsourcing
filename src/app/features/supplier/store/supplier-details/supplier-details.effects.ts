@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { SupplierDetailActionType } from './supplier-details.action';
-import { map } from 'rxjs/operators/map';
-import { mergeMap, tap } from 'rxjs/operators';
+import { map ,  mergeMap, tap } from 'rxjs/operators';
 import { ContactActions } from '~app/features/supplier/store/contacts/contact.actions';
 import { LatestProductActions } from '~app/features/supplier/store/latest-product/latest-product.action';
 import { fromTask } from '~app/entity/store/task/task.bundle';

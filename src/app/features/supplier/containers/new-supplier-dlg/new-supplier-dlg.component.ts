@@ -12,6 +12,8 @@ import { InputDirective } from '~app/shared/inputs';
 import { takeUntil } from 'rxjs/operators';
 import { selectNewSupplierDialogPending } from '~app/features/supplier/store';
 import { NewSupplierDlgActions } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.actions';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { Router } from '@angular/router';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -31,7 +33,9 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 		private fb: FormBuilder,
 		private store: Store<any>,
 		private userSrv: UserService,
-		private cd: ChangeDetectorRef) {
+		private cd: ChangeDetectorRef,
+		private supplierSrv: SupplierService,
+		private router: Router) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
@@ -57,9 +61,17 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 
 	onSubmit() {
 		if (this.group.valid) {
+			this.pending = true;
 			const name = this.group.value.name;
-			const supplier = new Supplier(name, this.userSrv.userId);
-			this.store.dispatch(NewSupplierDlgActions.createSupplier(supplier));
+			const supplier = { name };
+			// this.store.dispatch(NewSupplierDlgActions.createSupplier(supplier));
+			this.supplierSrv.createSupplier({ name })
+				.pipe(takeUntil(this._destroy$))
+				.subscribe(id => {
+					this.pending = false;
+					this.router.navigate(['/supplier', 'details', id]);
+					this.store.dispatch(DialogActions.close(name));
+				});
 		}
 	}
 }

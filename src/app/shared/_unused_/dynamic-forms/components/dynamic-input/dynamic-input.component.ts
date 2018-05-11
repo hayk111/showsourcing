@@ -8,7 +8,7 @@ import { AutoUnsub } from '~utils/index';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormControlDescriptor } from '~entity';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'dynamic-input-app',

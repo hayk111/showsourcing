@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
 import { fromDialog, DialogName } from '~app/shared/dialog';

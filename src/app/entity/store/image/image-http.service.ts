@@ -6,8 +6,7 @@ import { AppImage } from './image.model';
 import { EntityTarget } from '../entity.model';
 import { AppFile } from '../file';
 import { switchMap, retry, delay, retryWhen, take, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable ,  from as fromPromise } from 'rxjs';
 import { } from '@angular/common/http';
 
 @Injectable()

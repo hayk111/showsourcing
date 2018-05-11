@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { combineLatest } from 'rxjs';
 import { Log } from '~utils';
 
 import { selectEntityArray } from '~entity/store';

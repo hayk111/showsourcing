@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterActions } from '../../store/actions';
 import { FilterGroupName, Filter } from '../../models';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';
 import { ERM } from '~entity';
 

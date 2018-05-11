@@ -61,7 +61,7 @@
 <ng-template #rating let-row="row">
 	<div class="flexCenter">
 		<rating-heart-app
-			[rating]="row?.rating"
+			[favorite]="row?.favorite"
 			(favorited)="productFavorited.emit(row.id)"
 			(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
 	</div>

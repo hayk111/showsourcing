@@ -1,12 +1,13 @@
-import 'rxjs/add/operator/map';
+
 
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { entityStateToArray } from '~entity/utils';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { fromImage, AppImage, } from '~app/entity';
 import { UserService } from '~app/features/user';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'carousel-card-app',
@@ -42,8 +43,8 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const imagesState$: Observable<any> = this.store.select(fromImage.selectState);
-		this.images$ = imagesState$.map(r => entityStateToArray(r));
-		this.pending$ = imagesState$.map(r => r.pending);
+		this.images$ = imagesState$.pipe(map(r => entityStateToArray(r)));
+		this.pending$ = imagesState$.pipe(map(r => r.pending));
 	}
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {

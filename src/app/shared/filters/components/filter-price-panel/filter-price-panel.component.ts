@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FilterActions } from '../../store/actions';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { ERM, Currency, defaultCurrency } from '~entity';
 import { Filter } from '../../models';
 

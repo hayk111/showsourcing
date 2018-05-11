@@ -3,7 +3,7 @@
   <div class="flexColumn top">
     <div class="flexBetween">
       <div class="name">{{ product?.name }}</div>
-      <rating-heart-app [rating]="product?.rating" (favorited)="productFavorited.emit(product?.id)" (unfavorited)="productUnfavorited.emit(product?.id)"></rating-heart-app>
+      <rating-heart-app [favorite]="product?.favorite" (favorited)="productFavorited.emit(product?.id)" (unfavorited)="productUnfavorited.emit(product?.id)"></rating-heart-app>
     </div>
     <div class="category">{{ product?.categoryId | entityName: 'category' | async }}</div>
   </div>
