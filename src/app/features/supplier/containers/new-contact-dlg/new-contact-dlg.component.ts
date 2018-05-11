@@ -81,15 +81,15 @@ export class NewContactDlgComponent extends AutoUnsub {
 	onSubmit() {
 		// not checking if form group is valid because at the time of writting this an email cannot be empty
 		// therefor the form will be invalid
-		// if (this.formGroup.valid) {
-		const contact = this.form.value;
-		// we need to add the image to the contact before uploading
-		// contact.imageId = this._preview.id;
-		// contact.image = this._preview;
-		// this.store.dispatch(ContactActions.create(this.formGroup.value));
-		this.contactSrv.createContact(contact, this.supplierId);
-		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
-		// }
+		if (this.form.valid) {
+			const contact = this.form.value;
+			// we need to add the image to the contact before uploading
+			// contact.imageId = this._preview.id;
+			// contact.image = this._preview;
+			// this.store.dispatch(ContactActions.create(this.formGroup.value));
+			this.contactSrv.createContact(contact, this.supplierId);
+			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		}
 	}
 
 	updateContact(prop: string, value: any) {

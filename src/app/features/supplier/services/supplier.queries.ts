@@ -62,7 +62,7 @@ subscription supplierProducts($query: String!) {
 
 export const SUPPLIER_LIST_QUERY = gql`
 subscription suppliers {
-	suppliers {
+	suppliers(take: 30) {
     id,
     name,
     description,

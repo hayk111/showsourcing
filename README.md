@@ -57,7 +57,7 @@ You can download the redux addon for chrome [here](https://chrome.google.com/web
 
 ## File Structure & guidelines
 
-The application is divided in modules. In the module directory there is 4 sub directories: app-root, features, shared and entity. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one page / popup / small feature of the app. App root is the root of the application. Entity directory contains a special module for entities that are loaded at the start of the application (mainly).
+The application is divided in modules. In the module directory there is 4 sub directories: app-root, features, shared. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one feature of the app. App root is the root of the application.
 
 In each module the division of the file structure is with those folders (each one being optional).
 
@@ -82,48 +82,18 @@ Each file extension describe what the file does. EG: `my-builder.service.ts` or 
 
 ## Style Structure
 
-The theming is done in ./src/app/theming and should be straight forward. `Style.scss` is the entry point and imports everything it needs.
+The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs.
 
 Spacing and palette use CSS4 variables and should be used throughout the application. CSS4 variables are used with a fallback (meaning that even if the browser doesn't support CSS4 vars it's gonna work).
 
 Some scss files are based on google material design guidelinds. For instance `elevation.scss` is a somewhat simplified version of the file in angular material design.
 
-## General Architecture Principles
+## Business logic standards
 
-### Entities
-
-The `EntityState` class is used to transform array that come from the back-end. Say we ask for supplier and receive a list of 1000 supplier. We don't want to search in the array everytime we want to find a supplier with a specific id. Therefor the array is transformed into:
-
-```
-export interface EntityState<G extends Entity> {
-	pending: boolean;
-	byId: { [id: string]: G };
-	ids: Array<string>;
-}
-```
-
-The `EntityRepresentation` class is used to represent an entity (like a product), but is also used as an helper when something has a different displaying name than an urlName (for example a specific filter might be displayed as price but when put in an url it might be priceAmount).
-
-Its class is relatively straight forward
-
-The `entityRepresentationMap` contains all EntityRepresentations. The only time an EntityRepresentation is created should be in that map. It's exported as `ERM`
-
-The `EntityTarget` is an interface that describe which entity we target.
-
-```
-export interface EntityTarget {
-	entityId: string;
-	entityRepr: EntityRepresentation;
-}
-```
-
-
-### The store
-The main business logic of the app is handled in the store.
+please read STANDARDS.md
 
 
 ### AutoUnsub
 
-To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables.
+To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
-Look at the code of any smart component and you'll find how to do that.

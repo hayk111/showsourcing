@@ -61,7 +61,7 @@
 	</form>
 		<!-- no button to save when it's an existing contact -->
 		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!form.controls['name'].valid" value="SAVE" (click)="onSubmit()"/>
+			<input type="submit" [disabled]="!form.valid" value="SAVE" (click)="onSubmit()"/>
 		</dialog-footer-app>
 </dialog-app>
 

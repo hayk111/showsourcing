@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable ,  combineLatest } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import {
@@ -46,21 +46,23 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-
+		// getting the id of the supplier
 		const id$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
 			map(params => params.id),
 			tap(id => this.supplierId = id)
 		);
 
+		// getting supplier
 		this.supplier$ = id$.pipe(
 			switchMap(id => this.supplierSrv.getById(id))
 		);
-
+		// gettings his contacts
 		this.contacts$ = id$.pipe(
 			switchMap(id => this.contactSrv.getContacts(id))
 		);
 
+		// getting his products
 		this.products$ = id$.pipe(
 			switchMap(id => this.supplierSrv.getProducts(id))
 		);
