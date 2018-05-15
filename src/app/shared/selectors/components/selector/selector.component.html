@@ -1,7 +1,18 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
-	<ng-select #ngSelect class="custom" (open)="onOpen()" [virtualScroll]="true" [items]="filteredChoices" [bindLabel]="propName"
-		bindValue="id" (add)="onSelect($event)" (remove)="onUnselect($event)" [ngModel]="value" [multiple]="multiple"
-		[loading]="pending" loadingText="Loading..."
+
+	<ng-select #ngSelect
+		class="custom"
+		(open)="onOpen()"
+		(add)="onSelect($event)"
+		(remove)="onUnselect($event)"
+		[virtualScroll]="true"
+		[items]="filteredChoices"
+		[bindLabel]="bindLabel"
+		[bindValue]="bindValue"
+		[ngModel]="value"
+		[multiple]="multiple"
+		[loading]="pending"
+		[loadingText]="'Loading...'"
 		[addTagText]="'Create ' + itemName"
 		[notFoundText]="itemName + ' not found'">
 
@@ -13,8 +24,7 @@
 		</ng-template>
 
 		<ng-template ng-option-tmp let-item="item" let-index="index">
-			<ng-container *ngTemplateOutlet="template; context: { item: item }">
-			</ng-container>
+			<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>
 		</ng-template>
 
 		<ng-template ng-footer-tmp *ngIf="canCreate">

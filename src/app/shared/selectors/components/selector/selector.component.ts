@@ -2,11 +2,13 @@ import {
 	Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter,
 	Output, TemplateRef, ContentChild, ViewChild
 } from '@angular/core';
-import { NgSelectComponent } from '@ng-select/ng-select';
 import { Entity } from '~app/entity';
 import { InputDecorator } from '@angular/core/src/metadata/directives';
-import { InputDirective } from '../input.directive';
-import { AbstractInput, makeAccessorProvider } from '~app/shared/inputs/components-directives';
+import { AbstractInput, makeAccessorProvider, InputDirective } from '~app/shared/inputs/components-directives';
+import { Choice } from '../../utils/choice.interface';
+import { NgSelectComponent } from '@ng-select/ng-select';
+
+
 
 @Component({
 	selector: 'selector-app',
@@ -17,8 +19,8 @@ import { AbstractInput, makeAccessorProvider } from '~app/shared/inputs/componen
 })
 export class SelectorComponent extends AbstractInput {
 	// when we select one
-	@Output() select = new EventEmitter<Entity>();
-	@Output() unselect = new EventEmitter<Entity>();
+	@Output() select = new EventEmitter<Choice>();
+	@Output() unselect = new EventEmitter<Choice>();
 	// when the create button is clicked we want to create an item with what's in the input as name.
 	@Output() create = new EventEmitter<string>();
 	// string from input to search through the list of choices
@@ -26,7 +28,8 @@ export class SelectorComponent extends AbstractInput {
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
 	@ViewChild(InputDirective) searchInp: InputDirective;
 	// When the value is displayed, what property of the entity should be displayed. Default name
-	@Input() propName = 'name';
+	@Input() bindLabel = 'name';
+	@Input() bindValue = 'id';
 	// reference to template transcluded
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
 	// name displayed in messages
@@ -43,18 +46,25 @@ export class SelectorComponent extends AbstractInput {
 	@Input() hideSelected = true;
 
 	/* different choices that an user can pick **/
-	@Input() set choices(value: Array<Entity>) { this._choices = value; this.filter(); }
+	@Input() set choices(value: Array<Choice>) { this._choices = value; this.filter(); }
 	get choices() { return this._choices; }
-	private _choices: Array<Entity>;
+	private _choices: Array<Choice>;
 	filteredChoices = [];
 
 	constructor() {
 		super();
 	}
 
-	onSelect(entity: Entity) {
-		this.select.emit(entity);
-		this.onChangeFn(entity.id);
+	onSelect(choice: Choice) {
+		const val = choice[this.bindValue];
+		this.select.emit(val);
+		if (this.multiple)
+			this.value.push(val);
+		else
+			this.value = val;
+
+		if (this.onChangeFn)
+			this.onChangeFn(this.value);
 	}
 
 	onUnselect(removeObj: { value: any }) {
@@ -66,8 +76,15 @@ export class SelectorComponent extends AbstractInput {
 		this.searchValue = '';
 	}
 
+	/** Finds values that contains the term searched */
 	filter() {
-		this.filteredChoices = this.choices.filter(c => c[this.propName].includes(this.searchValue));
+		if (this.searchValue === '')
+			this.filteredChoices = [...this.choices];
+		this.filteredChoices = this.choices.filter(c => {
+			const searched = (c[this.bindLabel] as string).toLowerCase();
+			const searchString = this.searchValue.toLowerCase();
+			return searched.includes(searchString);
+		});
 	}
 
 	open() {

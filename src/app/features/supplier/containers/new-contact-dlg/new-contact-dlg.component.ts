@@ -25,7 +25,7 @@ const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 	styleUrls: ['./new-contact-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewContactDlgComponent extends AutoUnsub {
+export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	dialogName = DialogName.CONTACT;
 	/** preview image */
@@ -54,6 +54,10 @@ export class NewContactDlgComponent extends AutoUnsub {
 		private route: ActivatedRoute
 	) {
 		super();
+
+	}
+
+	ngOnInit() {
 		// creating the formGroup using the contact so if we are editing an existing contact it will be the values of said contact
 		this.form = this.fb.group({
 			name: [this.contact.name, Validators.required],
@@ -77,7 +81,6 @@ export class NewContactDlgComponent extends AutoUnsub {
 		this.cd.markForCheck();
 	}
 
-	// TODO: this is now possible with angular 6
 	onSubmit() {
 		// not checking if form group is valid because at the time of writting this an email cannot be empty
 		// therefor the form will be invalid
@@ -95,7 +98,7 @@ export class NewContactDlgComponent extends AutoUnsub {
 	updateContact(prop: string, value: any) {
 		// resetting the preview on close
 		// this.store.dispatch(ContactActions.setPreview({}));
-		const contact = this.form.value;
+		const contact = { ...this.form.value, id: this.contact.id };
 		if (!this.isNewContact) {
 			this.contactSrv.updateContact(contact);
 		}

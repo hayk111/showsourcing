@@ -7,7 +7,7 @@ import {
 	Output,
 } from '@angular/core';
 import { Log } from '~utils';
-import { DEFAULT_IMG } from '~utils/constants.const';
+import { DEFAULT_IMG } from '~utils/constants';
 import { UserService } from '~app/features/user';
 import { AppImage } from '~app/entity';
 

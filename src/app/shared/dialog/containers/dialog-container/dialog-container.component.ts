@@ -73,7 +73,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		this.cdRef.markForCheck();
 	}
 
-	// @HostListener('keydown.esc', ['$event'])
+	@HostListener('document:keydown.escape', ['$event'])
 	close() {
 		this.store.dispatch(DialogActions.close(this.currentDialog));
 	}

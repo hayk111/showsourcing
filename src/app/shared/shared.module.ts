@@ -11,6 +11,7 @@ import { EditableFieldModule } from '~app/shared/editable-field';
 import { UserPictureModule } from '~app/shared/user-picture';
 import { ListModule } from '~app/shared/list/list.module';
 import { DividerModule } from '~app/shared/divider/divider.module';
+import { SelectorsModule } from '~app/shared/selectors/selectors.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -20,6 +21,7 @@ const modules = [
 	UtilsModule,
 	CardModule,
 	InputsModule,
+	SelectorsModule,
 	EntityModule,
 	PriceModule,
 	EditableFieldModule,

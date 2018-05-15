@@ -30,6 +30,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 import { DialogModule } from '~app/shared/dialog';
 import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
 import { AppApolloModule } from '~app/shared/apollo/apollo.module';
+import { TestPageModule } from '~app/features/test-page/test-page.module';
 
 declare let module: any;
 
@@ -65,6 +66,7 @@ declare let module: any;
 		ProjectModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
+		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes, { enableTracing: true }),
 	],

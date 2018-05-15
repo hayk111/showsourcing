@@ -1,0 +1,42 @@
+<card-app>
+
+	<!-- <selector-country-app
+		[multiple]="true"
+		[(ngModel)]="country">
+	</selector-country-app>
+		{{ country }}
+
+	<selector-currency-app [(ngModel)]="currency">
+
+	</selector-currency-app>
+		{{ currency}} -->
+
+	<selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
+	{{ country | json }}
+	<selector-entity-app type="currency" [(ngModel)]="currency"></selector-entity-app>
+	{{ currency | json }}
+	<selector-entity-app type="harbour" [(ngModel)]="harbour"></selector-entity-app>
+	{{ harbour | json }}
+	<selector-entity-app type="incoTerm" [(ngModel)]="incoTerm"></selector-entity-app>
+	{{ incoTerm | json }}
+
+	<selector-entity-app type="supplier" [(ngModel)]="supplier"></selector-entity-app>
+	{{ supplier | json }}
+
+	<selector-entity-app type="category" [(ngModel)]="category"></selector-entity-app>
+	{{ category | json }}
+<!--
+	<selector-entity-app type="event" [(ngModel)]="event"></selector-entity-app>
+	{{ event | json }} -->
+
+	<!-- <cell-two-row-app [title]="'Say'">
+		<custom-editable-field-app
+			type="country"
+			value="France"
+			label="country">
+		</custom-editable-field-app>
+	</cell-two-row-app> -->
+
+</card-app>
+
+

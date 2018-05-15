@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Entity, Project, Tag } from '~entity';
-import { SelectorComponent } from '~app/shared/inputs/components-directives/selector/selector.component';
 import { EditableFieldValue } from './editable-field-value.interface';
 import { InputDirective } from '~app/shared/inputs';
+import { CustomSelector } from '~app/shared/selectors/utils/custom-selector.class';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class EditableFieldComponent implements OnInit {
 	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
 	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
 	// when an editable field should be a selector we need it to open it on click
-	@ViewChild(SelectorComponent) selector: SelectorComponent;
+	@ViewChild(CustomSelector) selector: CustomSelector<any>;
 	// same for inputs
 	@ViewChild(InputDirective) input: InputDirective;
 	editMode = false;

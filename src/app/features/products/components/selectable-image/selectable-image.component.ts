@@ -7,7 +7,7 @@ import {
 	Output,
 	SimpleChanges,
 } from '@angular/core';
-import { DEFAULT_PRODUCT_IMG } from '~utils/constants.const';
+import { DEFAULT_PRODUCT_IMG } from '~utils/constants';
 
 @Component({
 	selector: 'selectable-image-app',

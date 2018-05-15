@@ -9,8 +9,7 @@ Since we are moving away from ngrx with rest, towards a more malleable architect
 
 
 
-
-## Filtrage & pagination:
+## Filtering & pagination:
 
 
 
@@ -18,19 +17,23 @@ Since we are moving away from ngrx with rest, towards a more malleable architect
 
 
 
+## Linking entities:
+
+
+
 ## File Architecture:
 
 
 
-## Subscription:
-no subscription
+## Subscription in service:
+ Services that do request
 
 
 ## Mutation:
 
 
 
-## Class vs Interface:
+## Class vs Interface for entities:
 
 
 
@@ -43,8 +46,6 @@ no subscription
 
 
 ## Basic properties creation
-
-
 
 
 
