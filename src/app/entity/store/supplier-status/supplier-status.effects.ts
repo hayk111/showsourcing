@@ -2,8 +2,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { fromSupplierStatus } from './supplier-status.bundle';
 import { switchMap, map } from 'rxjs/operators';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
+import { EntityService } from '~app/entity/store/entity.service';
+import { ERM } from '~app/entity/store/entity.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()

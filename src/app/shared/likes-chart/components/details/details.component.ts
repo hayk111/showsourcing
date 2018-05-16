@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { EntityState } from '~entity';
-import { User } from '~user';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { EntityState } from '~app/entity';
+import { User } from '~models';
 
 @Component({
 	selector: 'details-app',

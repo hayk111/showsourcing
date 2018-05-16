@@ -8,7 +8,7 @@ import { FileHttpService } from '~app/entity/store/file/file-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
 import { NotificationType } from '~app/shared/notifications';
 import { notificationActions } from '~app/shared/notifications/store/notification.action';
-import { EntityTarget } from '~entity/store/entity.model';
+import { EntityTarget } from '~app/entity/store/entity.model';
 
 import { fromFile } from './file.bundle';
 import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.service';

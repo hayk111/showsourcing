@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApiParams, Pagination, Sort } from '~entity/utils';
+import { ApiParams, Pagination, Sort } from '~app/entity/utils';
 import { Filter, FilterType } from '~shared/filters/models/filter.model';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM, EntityRepresentation, EntityTarget } from '~entity/store/entity.model';
+import { EntityService } from '~app/entity/store/entity.service';
+import { ERM, EntityRepresentation, EntityTarget } from '~app/entity/store/entity.model';
 import { User } from '../store/user';
 import { UserService } from '~app/features/user/services/user.service';
 // entities are target different ways.

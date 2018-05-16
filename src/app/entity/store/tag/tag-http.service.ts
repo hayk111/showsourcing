@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
-import { Patch } from '~entity/utils';
+import { EntityService } from '~app/entity/store/entity.service';
+import { ERM } from '~app/entity/store/entity.model';
+import { Patch } from '~app/entity/utils';
 
 import { UserService } from '~app/features/user/services';
 

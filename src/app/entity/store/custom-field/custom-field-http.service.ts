@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
+import { EntityService } from '~app/entity/store/entity.service';
+import { ERM } from '~app/entity/store/entity.model';
 import { map } from 'rxjs/operators';
 import { UserService } from '~app/features/user/services/user.service';
 import { PropType } from './custom-field.model';

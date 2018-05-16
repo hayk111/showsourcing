@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~app/entity';
 
 import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';

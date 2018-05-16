@@ -5,10 +5,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { ContactEffects } from '~app/features/supplier/store/contacts/contact.effects';
-import { ProductEffects } from '~app/features/supplier/store/latest-product/latest-product.effects';
-import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
-import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
 import { CarouselModule } from '~app/shared/carousel';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { FileModule } from '~app/shared/file';
@@ -32,23 +28,14 @@ import { SupplierMainTitleComponent } from './components/supplier-main/supplier-
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
-import { reducers } from './store';
-import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-details/supplier-details.effects';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
 import { ContactService } from '~app/features/supplier/services/contact.service';
+import { SupplierDetailsService } from '~app/features/supplier/services/supplier-details.service';
+import { SupplierListService } from '~app/features/supplier/services/supplier-list.service';
 
 
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('supplier', reducers),
-		EffectsModule.forFeature([
-			ContactEffects,
-			ProductEffects,
-			NewSupplierDlgEffects,
-			SupplierListEffects,
-			SupplierDetailsEffects
-		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card
 		CarouselModule,
@@ -86,7 +73,8 @@ import { ContactService } from '~app/features/supplier/services/contact.service'
 		SuppliersPageComponent
 	],
 	providers: [
-		SupplierService,
+		SupplierListService,
+		SupplierDetailsService,
 		ContactService
 	],
 })

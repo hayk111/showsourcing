@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { Log } from '~utils';
 
-import { selectEntityArray } from '~entity/store';
+import { selectEntityArray } from '~app/entity/store';
 import { map, startWith } from 'rxjs/operators';
 import { selectUserTeamId, EntityRepresentation, Entity } from '~app/entity/store';
 

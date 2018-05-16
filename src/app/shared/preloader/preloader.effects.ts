@@ -18,7 +18,7 @@ import {
 	fromTaskType,
 	fromTeam,
 	fromTeamMember,
-} from '~entity/store';
+} from '~app/entity/store';
 import { take, mergeMap } from 'rxjs/operators';
 import { Effect, Actions } from '@ngrx/effects';
 import { ActionType } from './preloader.action';

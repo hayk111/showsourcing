@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 import { TemplateComponent } from '~app/shared/template';
 import { GuestTemplateComponent } from '~app/shared/template/components/guest-template/guest-template.component';
-import { AuthGuardService } from '~auth';
+import { AuthGuardService } from '~feature/auth';
 
 import { HomeComponent } from './components/home/home.component';
-import { routes as authRoutes } from '~auth/routes';
+import { routes as authRoutes } from '~feature/auth/routes';
 import { routes as projectRoutes } from '~app/features/project/routes';
 import { routes as dataManagementRoutes } from '~app/features/data-management/routes';
 import { routes as supplierRoutes } from '~app/features/supplier/routes';

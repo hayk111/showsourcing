@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { EntityService } from '~app/entity/store/entity.service';
-import { ApiParams } from '~entity/utils';
+import { ApiParams } from '~app/entity/utils';
 
 import { Product } from './product.model';
 import { UserService } from '~app/features/user/services';

@@ -7,10 +7,10 @@ import { distinctUntilChanged, map, mergeMap, startWith, switchMap, tap } from '
 import { actionTypes, productActions } from './product.action';
 import { ProductHttpService } from './product-http.service';
 import { ERM, EntityTarget } from '~app/entity/store/entity.model';
-import { fromFile } from '~entity/store/file/file.bundle';
-import { imageActions } from '~entity/store/image/image.action';
-import { fromTask } from '~entity/store/task/task.bundle';
-import { fromProject } from '~entity/store/project/project.bundle';
+import { fromFile } from '~app/entity/store/file/file.bundle';
+import { imageActions } from '~app/entity/store/image/image.action';
+import { fromTask } from '~app/entity/store/task/task.bundle';
+import { fromProject } from '~app/entity/store/project/project.bundle';
 import { selectUser } from '~user';
 import { EntityService } from '~app/entity/store/entity.service';
 import { Product } from './product.model';

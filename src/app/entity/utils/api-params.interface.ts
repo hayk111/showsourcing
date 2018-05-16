@@ -1,4 +1,4 @@
-import { EntityRepresentation, EntityTarget } from '~entity';
+import { EntityRepresentation, EntityTarget } from '~app/entity';
 import { Filter } from 'app/shared/filters/index';
 
 

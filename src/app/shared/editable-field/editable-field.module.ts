@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~app/entity';
 
 import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';

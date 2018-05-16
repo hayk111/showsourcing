@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { EntityTarget } from '~entity';
+import { EntityTarget } from '~app/entity';
 import { Log } from '~utils';
 
 import { AppImage } from '../image';

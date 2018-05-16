@@ -1,15 +1,12 @@
-import { Category } from '../category';
-import { Tag } from '../tag';
+import { Category } from './category.model';
+import { Tag } from './tag.model';
 import { AppImage } from '~app/entity';
+import { Audit } from './audit.model';
+import { uuid } from '~utils';
+import { Entity } from './_entity.model';
+import { SupplierType } from './supplier-type.model';
 
-// TODO audit is used everywhere move it where it makes sens
-export interface Audit {
-	createdBy?: any;
-	creationDate?: any;
-}
-
-export interface Supplier {
-	id?: string;
+export class Supplier extends Entity<Supplier>{
 	name?: string;
 	fullName?: string;
 	description?: string;
@@ -30,11 +27,6 @@ export interface Supplier {
 	categories?: Category[];
 	favorite?: boolean;
 	globalDatabaseId?: string;
-	audit?: Audit;
 	deleted?: boolean;
 	status?: string;
-}
-
-export enum SupplierType {
-
 }

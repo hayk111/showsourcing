@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ERM, selectEntityById, Tag } from '~app/entity';
 import { UserService } from '~app/features/user';
-import { FormControlDescriptor, FormDescriptor } from '~entity';
+import { FormControlDescriptor, FormDescriptor } from '~app/entity';
 import { Event, fromEvent } from '~event';
 import { Project } from '~project';
 import { fromSupplier } from '~supplier';

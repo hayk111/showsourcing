@@ -1,5 +1,5 @@
 
-import { Entity } from '~entity/store/entity.model';
+import { Entity } from '~app/entity/store/entity.model';
 
 export class Category extends Entity {
 	name: string;

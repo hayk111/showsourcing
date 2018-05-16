@@ -5,7 +5,7 @@ import { FilterActions } from '../../store/actions';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { ERM, Currency, defaultCurrency } from '~entity';
+import { ERM, Currency, defaultCurrency } from '~app/entity';
 import { Filter } from '../../models';
 
 // panel used for prices filtering

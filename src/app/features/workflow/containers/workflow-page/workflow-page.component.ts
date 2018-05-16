@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, ERM } from '~entity';
+import { EntityState, ERM } from '~app/entity';
 import { Product } from '~feature/products/store/product/product.model';
 
 

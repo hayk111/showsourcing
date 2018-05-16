@@ -13,13 +13,13 @@ import { SuppliersModule } from '~app/features/supplier';
 import { TasksModule } from '~app/features/tasks';
 import { UserModule } from '~app/features/user';
 import { PreloaderModule } from '~app/shared/preloader/preloader.module';
-import { AuthGuardService, AuthModule } from '~auth';
+import { AuthGuardService, AuthModule } from '~feature/auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~store/store.module';
+import { AppStoreModule } from '~app/app-root/store/store.module';
 import { Log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';

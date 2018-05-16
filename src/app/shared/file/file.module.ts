@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FilesCardComponent } from '~app/shared/file/containers';
 import { IconsModule } from '~app/shared/icons';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~app/entity';
 import { LoadersModule } from '~shared/loaders';
 
 import { FilesPageComponent } from './containers';

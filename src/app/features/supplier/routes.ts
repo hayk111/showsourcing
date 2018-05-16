@@ -1,4 +1,4 @@
-import { AuthGuardService } from '~auth';
+import { AuthGuardService } from '~feature/auth';
 import { components } from './../../shared/inputs/inputs.module';
 import { Route } from '@angular/router';
 import { CommentCtnrComponent } from '~app/features/comment';

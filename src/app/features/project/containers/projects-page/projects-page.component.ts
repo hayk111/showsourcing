@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
-import { ERM, Project, fromProject } from '~entity';
+import { ERM, Project, fromProject } from '~app/entity';
 import { AutoUnsub } from '~app/app-root/utils';
 import { selectFilterGroup } from '~app/shared/filters/store';
 import { productActions } from '~product';

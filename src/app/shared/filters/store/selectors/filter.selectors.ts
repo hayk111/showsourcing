@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { Log } from 'app/app-root/utils';
-import { selectEntityArray } from '~entity/store';
+import { selectEntityArray } from '~app/entity/store';
 
 import { Filter, FilterGroupName } from '../../models/filter.model';
 import { EntityRepresentation } from '~app/entity';

@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DialogModule } from '~dialog/dialog.module';
+import { DialogModule } from '~shared/dialog/dialog.module';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~app/entity';
 
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';

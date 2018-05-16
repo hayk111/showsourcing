@@ -5,7 +5,7 @@ import { catchError, distinctUntilChanged, map, mergeMap, switchMap, tap, startW
 import { EntityTarget, ERM } from '~app/entity/store/entity.model';
 import { SupplierHttpService } from '~app/entity/store/supplier/supplier-http.service';
 import { appErrorActions } from '~app/shared/error-handler';
-import { EntityService } from '~entity/store/entity.service';
+import { EntityService } from '~app/entity/store/entity.service';
 
 import { fromFile } from '../file';
 import { fromImage } from '../image';

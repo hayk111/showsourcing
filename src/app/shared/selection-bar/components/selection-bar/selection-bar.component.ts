@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EntityRepresentation } from '~entity';
+import { EntityRepresentation } from '~app/entity';
 
 @Component({
 	selector: 'selection-bar-app',

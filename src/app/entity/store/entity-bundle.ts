@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { EntityActions, makeEntityActionTypes, EntityActionTypes } from './entity.action.factory';
 import { EntityRepresentation } from './entity.model';
-import { entityStateToArray } from '~entity/utils';
+import { entityStateToArray } from '~app/entity/utils';
 import { entityReducerFactory } from './entity.reducer.factory';
 
 

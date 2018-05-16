@@ -1,4 +1,4 @@
-import { Entity, EntityState } from '~entity/store/entity.model';
+import { Entity, EntityState } from '~app/entity/store/entity.model';
 import { deepCopy } from '~app/app-root/utils';
 import { Resolver } from '~app/app-root/utils/resolver.class';
 

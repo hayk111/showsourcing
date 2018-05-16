@@ -13,7 +13,7 @@ import {
 	fromProject,
 	fromTask,
 	Task,
-} from '~entity';
+} from '~app/entity';
 import { AutoUnsub } from '~utils';
 import { Product, productActions, selectOneProduct } from '~product/store';
 import { FilterGroupName } from '~app/shared/filters';

@@ -2,7 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { fromTaskType } from './task-type.bundle';
 import { switchMap, map } from 'rxjs/operators';
-import { ERM } from '~entity/store/entity.model';
+import { ERM } from '~app/entity/store/entity.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()

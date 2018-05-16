@@ -5,8 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { EventHttpService } from './event-http.service';
 import { fromEvent } from './event.bundle';
 import { forkJoin } from 'rxjs';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
+import { EntityService } from '~app/entity/store/entity.service';
+import { ERM } from '~app/entity/store/entity.model';
 
 @Injectable()
 export class EventEffects {

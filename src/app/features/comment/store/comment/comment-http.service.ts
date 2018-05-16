@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityTarget } from '~entity/store/entity.model';
+import { EntityTarget } from '~app/entity/store/entity.model';
 import { AppComment } from '~comment/store/comment/comment.model';
 import { selectUser } from '~user';
 import { Store } from '@ngrx/store';

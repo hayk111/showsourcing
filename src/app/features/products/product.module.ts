@@ -16,7 +16,7 @@ import { InputsModule } from '~app/shared/inputs';
 import { StatusModule } from '~app/shared/status/status.module';
 import { TableModule } from '~app/shared/table';
 import { DialogModule } from '~dialog/dialog.module';
-import { EntityModule } from '~entity';
+import { EntityModule } from '~app/entity';
 import { ProductEffects } from './store/product/product.effects';
 import { CardModule } from '~shared/card';
 import { EditableFieldModule } from '~shared/editable-field';

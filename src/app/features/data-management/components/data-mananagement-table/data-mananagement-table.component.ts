@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Entity, Patch } from '~entity';
+import { Entity, Patch } from '~app/entity';
 
 @Component({
 	selector: 'data-management-table-app',

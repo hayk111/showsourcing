@@ -1,5 +1,5 @@
-import { entityInitialState, EntityState } from '~entity/store/entity.model';
-import { entityReducerFactory } from '~entity/store/entity.reducer.factory';
+import { entityInitialState, EntityState } from '~app/entity/store/entity.model';
+import { entityReducerFactory } from '~app/entity/store/entity.reducer.factory';
 import { TypedAction } from '~utils/typed-action.interface';
 
 import { actionTypes } from './product.action';

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { selectEntityArrayByName } from '~entity/store/entity.selector';
+import { selectEntityArrayByName } from '~app/entity/store/entity.selector';
 
 @Pipe({
 	name: 'entityList',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppFile, fromFile } from '~entity';
+import { AppFile, fromFile } from '~app/entity';
 import { AutoUnsub } from '~utils';
 import { UserService } from '~app/features/user';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, User, fromTeamMember } from '~entity';
+import { EntityState, User, fromTeamMember } from '~app/entity';
 
 @Component({
 	selector: 'likes-card-app',

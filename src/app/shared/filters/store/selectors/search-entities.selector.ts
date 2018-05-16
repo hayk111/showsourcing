@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { Entity, EntityRepresentation, selectEntityArray } from '~entity/store';
+import { Entity, EntityRepresentation, selectEntityArray } from '~app/entity/store';
 import { Log } from '~utils';
 
 export interface SmartSearch {

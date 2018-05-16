@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap, scan, takeUntil, takeWhile, concatMap, expand } from 'rxjs/operators';
-import { EntityService } from '~entity/store/entity.service';
-import { ERM } from '~entity/store/entity.model';
-import { Patch, ApiParams } from '~entity/utils';
-
-import { User } from '~user';
-import { UserService } from '~app/features/user/services';
-import { Observable ,  of ,  Subject ,  BehaviorSubject ,  range ,  EMPTY as empty } from 'rxjs';
+import { Observable, range } from 'rxjs';
+import { concatMap, map, switchMap, takeWhile } from 'rxjs/operators';
+import { ERM } from '~app/entity/store/entity.model';
+import { EntityService } from '~app/entity/store/entity.service';
 import { Supplier } from '~app/entity/store/supplier/supplier.model';
+import { ApiParams } from '~app/entity/utils';
+import { UserService } from '~app/features/user/services';
+import { User } from '~user';
 
 @Injectable()
 export class SupplierHttpService {

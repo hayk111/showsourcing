@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthHttpService } from '~auth/services';
+import { AuthHttpService } from '~feature/auth/services';
 import { CardModule } from '~shared/card';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';

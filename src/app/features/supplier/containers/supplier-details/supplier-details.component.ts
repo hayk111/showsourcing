@@ -1,27 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import {
-	Patch, AppImage, fromImage, fromSupplier,
-	Tag,
-	ERM
-} from '~entity';
-import { Product } from '~feature/products/store/product/product.model';
-import { Supplier } from '~supplier';
-import { fromTask, Task } from '~task';
-import { fromDialog, DialogName } from '~app/shared/dialog';
-import { UserService } from '~app/features/user';
-import { Contact } from '~app/features/supplier/store/contacts/contact.model';
-import { selectLatestProductsArray, selectContactArray, selectFocusedSupplier } from '~app/features/supplier/store';
-import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
-import { Category } from '~entity/store/category/category.model';
-import { SupplierDetailsAction } from '~app/features/supplier/store/supplier-details/supplier-details.action';
-import { Apollo } from 'apollo-angular';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { ERM, Patch, Tag } from '~app/entity';
+import { Category } from '~app/entity/store/category/category.model';
 import { ContactService } from '~app/features/supplier/services/contact.service';
+import { SupplierDetailsService } from '../../services/supplier-details.service';
+import { Contact } from '~models';
+import { UserService } from '~app/features/user';
+import { DialogName, fromDialog } from '~app/shared/dialog';
+import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { Product } from '~feature/products/store/product/product.model';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -34,12 +26,12 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	contacts$: Observable<Contact[]>;
 	products$: Observable<Product[]>;
-	tasks$: Observable<Task[]>;
-	// this is put in container because it will access the store
+	// tasks$: Observable<Task[]>;
+
 	constructor(
 		private route: ActivatedRoute,
 		private userSrv: UserService,
-		private supplierSrv: SupplierService,
+		private supplierSrv: SupplierDetailsService,
 		private contactSrv: ContactService,
 		private store: Store<any>) {
 		super();

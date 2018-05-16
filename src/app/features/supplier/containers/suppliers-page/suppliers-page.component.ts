@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, ERM, Patch, Sort } from '~entity';
-import { Supplier } from '~supplier';
+import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
+import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
-import { fromSupplier } from '~supplier';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { fromDialog } from '~dialog';
-import { DialogName } from '~dialog';
-import * as fromSupplierList from '~app/features/supplier/store/supplier-list/supplier-list.bundle';
-import { selectSupplierList, selectSupplierListState } from '~app/features/supplier/store';
+import { fromDialog } from '~shared/dialog';
+import { DialogName } from '~shared/dialog';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~app/app-root/utils';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { SupplierListService } from '../../services/supplier-list.service';
+import { SelectionService } from '../../services/selection.service';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -42,7 +40,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** number of suppliers requested by paginated request */
 	take = 30;
 
-	constructor(private store: Store<any>, private router: Router, private supplierSrv: SupplierService) {
+	constructor(
+		private store: Store<any>,
+		private router: Router,
+		private supplierSrv: SupplierListService,
+		private selectionSrv: SelectionService) {
 		super();
 	}
 
@@ -60,22 +62,22 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** loads initial suppliers and when the filters change */
 	loadSuppliers() {
-		this.store.dispatch(fromSupplierList.SupplierListActions.load({
-			filters: this.filters,
-			pagination: { take: this.take, drop: 0 },
-			sort: this.currentSort
-		}));
+		// 	this.store.dispatch(fromSupplierList.SupplierListActions.load({
+		// 		filters: this.filters,
+		// 		pagination: { take: this.take, drop: 0 },
+		// 		sort: this.currentSort
+		// 	}));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		if (!this.fullyLoaded) {
-			this.store.dispatch(fromSupplierList.SupplierListActions.loadMore({
-				filters: this.filters,
-				pagination: { take: this.take, drop: this.suppliers.length },
-				sort: this.currentSort
-			}));
-		}
+		// if (!this.fullyLoaded) {
+		// 	this.store.dispatch(fromSupplierList.SupplierListActions.loadMore({
+		// 		filters: this.filters,
+		// 		pagination: { take: this.take, drop: this.suppliers.length },
+		// 		sort: this.currentSort
+		// 	}));
+		// }
 	}
 
 	onSort(sort: SortEvent) {
@@ -90,22 +92,22 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** When a supplier has been selected */
 	selectItem(entityId: string) {
-		this.store.dispatch(fromSupplierList.SupplierListActions.selectOne(entityId));
+		this.selectionSrv.selectOne(entityId);
 	}
 
 	/** When a supplier has been unselected */
 	unselectItem(entityId: string) {
-		this.store.dispatch(fromSupplierList.SupplierListActions.unselectOne(entityId));
+		this.selectionSrv.unselectOne(entityId);
 	}
 
 	/** When all suppliers have been selected at once (from the table) */
 	selectAll() {
-		this.store.dispatch(fromSupplierList.SupplierListActions.selectAll());
+		this.selectionSrv.selectAll(this.suppliers.map(s => s.id));
 	}
 
 	/** reset the selection of suppliers */
 	resetSelection() {
-		this.store.dispatch(fromSupplierList.SupplierListActions.unselectAll());
+		this.selectionSrv.unselectAll();
 	}
 
 	/** Navigates to a supplier details page */
@@ -115,17 +117,17 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** Makes a supplier a favorite */
 	onItemFavorited(id: string) {
-		this.supplierSrv.editSupplier({ id, favorite: true });
+		this.supplierSrv.updateSupplier({ id, favorite: true });
 	}
 
 	/** Makes a supplier no more a favorite */
 	onItemUnfavorited(id: string) {
-		this.supplierSrv.editSupplier({ id, favorite: false });
+		this.supplierSrv.updateSupplier({ id, favorite: false });
 	}
 
 	/** Deletes the currently selected suppliers */
 	deleteSelection() {
-		this.store.dispatch(fromSupplierList.SupplierListActions.delete(this.selected));
+		this.supplierSrv.removeSuppliers(Array.from(this.selectionSrv.selection.keys()));
 		this.resetSelection();
 	}
 }

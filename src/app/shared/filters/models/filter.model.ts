@@ -1,4 +1,4 @@
-import { EntityRepresentation, Entity, ERM, Currency } from '~entity';
+import { EntityRepresentation, Entity, ERM, Currency } from '~app/entity';
 
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',

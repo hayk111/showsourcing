@@ -8,8 +8,8 @@ import {
 	EntityState,
 	ERM,
 	fromProductStatus,
-} from '~entity';
-import { Patch } from '~entity/utils';
+} from '~app/entity';
+import { Patch } from '~app/entity/utils';
 import { DialogName, fromDialog } from '~shared/dialog';
 import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
