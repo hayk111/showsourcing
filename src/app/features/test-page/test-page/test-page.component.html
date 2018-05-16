@@ -12,19 +12,19 @@
 		{{ currency}} -->
 
 	<selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
-	{{ country | json }}
+	<p>{{ country | json }}</p>
 	<selector-entity-app type="currency" [(ngModel)]="currency"></selector-entity-app>
-	{{ currency | json }}
+	<p>{{ currency | json }}</p>
 	<selector-entity-app type="harbour" [(ngModel)]="harbour"></selector-entity-app>
-	{{ harbour | json }}
+	<p>{{ harbour | json }}</p>
 	<selector-entity-app type="incoTerm" [(ngModel)]="incoTerm"></selector-entity-app>
-	{{ incoTerm | json }}
+	<p>{{ incoTerm | json }}</p>
 
-	<selector-entity-app type="supplier" [(ngModel)]="supplier"></selector-entity-app>
-	{{ supplier | json }}
+	<selector-entity-app type="supplier" [(ngModel)]="supplier" [multiple]="true"></selector-entity-app>
+	<p>{{ supplier | json }}</p>
 
 	<selector-entity-app type="category" [(ngModel)]="category"></selector-entity-app>
-	{{ category | json }}
+	<p>{{ category | json }}</p>
 <!--
 	<selector-entity-app type="event" [(ngModel)]="event"></selector-entity-app>
 	{{ event | json }} -->

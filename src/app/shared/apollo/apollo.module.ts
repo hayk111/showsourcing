@@ -7,6 +7,7 @@ import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 
 const GRAPHQL_ENDPOINT_WS = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
@@ -62,7 +63,7 @@ export class AppApolloModule {
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			cache
+			cache: new InMemoryCache()
 		});
 	}
 }

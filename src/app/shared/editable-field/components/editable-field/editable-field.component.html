@@ -1,29 +1,29 @@
-<!-- <div *ngIf="!editMode" class="{{ editable ? 'pointer': '' }}" (click)="openEditMode()">
+<div *ngIf="!editMode" class="{{ editable ? 'pointer': '' }}" (click)="openEditMode()">
   <div class="flex editable" [class.flexBetween]="!isRightAligned && !isCompactInline" [class.isCompactInline]="isCompactInline" [class.rightAligned]="isRightAligned">
 		<div class="editButton leftButton" *ngIf="isRightAligned && editable" (click)="openEditMode()">Edit </div>
 
 		<ng-container *ngIf="!value">
 			-
 		</ng-container>
-    <!-- if we get an id as value, we should display the name of the entity - ->
-		<!-- else we just display said value - ->
+    <!-- if we get an id as value, we should display the name of the entity -->
+		<!-- else we just display said value -->
     <ng-container [ngSwitch]="true" *ngIf="value">
 
-			<!-- entities - ->
+			<!-- entities -->
       <ng-container *ngSwitchCase="['supplier', 'event', 'category', 'productStatus', 'harbour', 'incoTerm'].indexOf(type) > -1">
         <span>
           {{ value | entityName: type | async }}
         </span>
 			</ng-container>
 
-			<!-- country - ->
+			<!-- country -->
       <ng-container *ngSwitchCase="type === 'country'">
         <span>
           {{ value | entity: 'country': 'fullName' | async }}
         </span>
 			</ng-container>
 
-			<!-- price - ->
+			<!-- price -->
       <ng-container *ngSwitchCase="type === 'price'">
         <span>
           {{ value }}
@@ -33,7 +33,7 @@
         </span>
 			</ng-container>
 
-			<!-- user - ->
+			<!-- user -->
       <ng-container *ngSwitchCase="type === 'teamMember'">
         <span class="userOpt">
 					<user-picture-app [size]="24" [border]="false"
@@ -43,7 +43,7 @@
         </span>
 			</ng-container>
 
-			<!-- tags, projects - ->
+			<!-- tags, projects -->
       <ng-container *ngSwitchCase="['tag', 'project'].indexOf(type) > -1">
         <span class="tags" *ngIf="value.length > 0">
           <span class="tag" *ngFor="let itemId of value">
@@ -53,7 +53,7 @@
 				<span *ngIf="value.length === 0">-</span>
 			</ng-container>
 
-			<!-- categories - ->
+			<!-- categories -->
 			<ng-container *ngSwitchCase="type === 'categories'">
 				<span class="tags" *ngIf="value.length > 0">
 					<span class="tag" *ngFor="let itemId of value">
@@ -63,14 +63,14 @@
 				<span *ngIf="value.length === 0">-</span>
 			</ng-container>
 
-			<!-- currency - ->
+			<!-- currency -->
       <ng-container *ngSwitchCase="type === 'currency'">
         <span>
 					{{ value?.name }}
         </span>
 			</ng-container>
 
-			<!-- default - ->
+			<!-- default -->
       <ng-container *ngSwitchDefault>
         <span class="flex valueContent">
           {{ value }}
@@ -82,11 +82,11 @@
   </div>
 </div>
 
-<!-- when edit mode is on - ->
+<!-- when edit mode is on -->
 <div class="flex" *ngIf="editMode" (clickOutside)="onSave()">
 	<ng-container [ngSwitch]="true">
 
-		<!-- default text  - ->
+		<!-- default text  -->
 		<ng-container *ngSwitchDefault>
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -97,7 +97,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- number - ->
+		<!-- number -->
 		<ng-container *ngSwitchCase="type === 'number'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -110,7 +110,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- email - ->
+		<!-- email -->
 		<ng-container *ngSwitchCase="type === 'email'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -123,7 +123,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- tel  - ->
+		<!-- tel  -->
 		<ng-container *ngSwitchCase="type === 'tel'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -136,7 +136,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- price - ->
+		<!-- price -->
 		<ng-container *ngSwitchCase="type === 'price'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -149,7 +149,7 @@
 			</form-field-app>
 		</ng-container>
 
-		<!-- Textarea editor - ->
+		<!-- Textarea editor -->
 		<ng-container *ngSwitchCase="type === 'textarea'">
 			<form-field-app>
 				<label-app>{{ label }}</label-app>
@@ -160,7 +160,7 @@
 		</ng-container>
 
 
-		<!-- Entity selector - ->
+		<!-- Entity selector -->
 		<ng-container *ngSwitchCase="['supplier', 'category', 'event', 'incoTerm', 'harbour', 'teamMember'].indexOf(type) > -1">
 			<selector-app
 				[value]="value"
@@ -174,7 +174,7 @@
 			</selector-app>
 		</ng-container>
 
-		<!-- Entity selector - ->
+		<!-- Entity selector -->
 		<ng-container *ngSwitchCase="type === 'country'">
 			<selector-app
 				[value]="value"
@@ -190,9 +190,9 @@
 			<selector
 		</ng-container>
 
-		<!-- currency selector - ->
+		<!-- currency selector -->
 		<ng-container *ngSwitchCase="type === 'currency'">
-			<!-- different than other selectors because of value and returned values - ->
+			<!-- different than other selectors because of value and returned values -->
 			<selector-app [choices]="'currency' | entityList | async"
 				[itemName]="'currency'"
 				[value]="value?.id"
@@ -204,7 +204,7 @@
 			</selector-app>
 		</ng-container>
 
-		<!-- Tags selector - ->
+		<!-- Tags selector -->
 		<ng-container *ngSwitchCase="type === 'tag'">
 			<selector-app
 				[choices]="'tag' | entityList | async"
@@ -221,7 +221,7 @@
 			</selector-app>
 		</ng-container>
 
-		<!-- Project selector - ->
+		<!-- Project selector -->
 		<ng-container *ngSwitchCase="type === 'project'">
 				<selector-app
 					[choices]="'project' | entityList | async"
@@ -238,7 +238,7 @@
 				</selector-app>
 			</ng-container>
 
-			<!-- categories selector - ->
+			<!-- categories selector -->
 			<ng-container *ngSwitchCase="type === 'categories'">
 					<selector-app
 						[choices]="'category' | entityList | async"
@@ -256,7 +256,7 @@
 				</ng-container>
 
 
-		<!-- Status selector - ->
+		<!-- Status selector -->
 		<ng-container *ngSwitchCase="type === 'productStatus'">
 			<selector-app
 				[choices]="'productStatus' | entityList | async"
@@ -277,4 +277,4 @@
 		<span class="confirmIcon icon-thumb-up fs-s color-white bg-primary" (click)="onSave()"></span>
   </div>
 
-</div> -->
+</div>

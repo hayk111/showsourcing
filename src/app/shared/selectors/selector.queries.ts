@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export class SelectorQueries {
 	static suppliers = gql`
-		query suppliers {
+		subscription suppliers {
 			suppliers {
 				id,
 				name
@@ -11,7 +11,7 @@ export class SelectorQueries {
 	`;
 
 	static categories = gql`
-		query categories {
+		subscription categories {
 			categories {
 				id,
 				name
@@ -20,7 +20,7 @@ export class SelectorQueries {
 	`;
 
 	static events = gql`
-		query events {
+		subscription events {
 			events {
 				id,
 				name

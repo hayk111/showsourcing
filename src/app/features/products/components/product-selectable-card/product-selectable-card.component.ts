@@ -29,8 +29,10 @@ export class ProductSelectableCardComponent implements OnInit {
 	ngOnInit() { }
 
 	onRateClick() {
-		if (this.product.rating === 5) this.productUnfavorited.emit(this.product.id);
-		else this.productFavorited.emit(this.product.id);
+		if (this.product.favorite)
+			this.productUnfavorited.emit(this.product.id);
+		else
+			this.productFavorited.emit(this.product.id);
 	}
 
 	onVote(value) {

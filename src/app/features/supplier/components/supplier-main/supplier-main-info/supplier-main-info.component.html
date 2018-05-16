@@ -3,7 +3,7 @@
 	<!-- type -->
 	<div class="row">
 		<icon-app fontSet="fa" name="question"></icon-app>
-		<span class="value">{{ supplier.type || 'Supplier' }}</span>
+		<span class="value">{{ supplier?.supplierType || 'Supplier' }}</span>
 	</div>
 
 	<!-- address -->
@@ -26,10 +26,10 @@
 <div class="col2 flexColumn">
 
 	<!-- phone -->
-	<div class="row" *ngIf="supplier && supplier.phoneNumber">
+	<div class="row" *ngIf="supplier && supplier.officePhone">
 		<icon-app fontSet="fa" name="phone"></icon-app>
 		<span class="value">
-			<a href="tel:{{ supplier?.phoneNumber }}">{{ supplier?.phoneNumber }}</a>
+			<a href="tel:{{ supplier?.officePhone }}">{{ supplier?.officePhone }}</a>
 		</span>
 	</div>
 	<div class="row" *ngIf="supplier && supplier.website">
@@ -38,10 +38,10 @@
 			<a href="{{ supplier?.website }}">{{ supplier?.website }}</a>
 		</span>
 	</div>
-	<div class="row" *ngIf="supplier && supplier.email">
+	<div class="row" *ngIf="supplier && supplier.officeEmail">
 		<icon-app fontSet="fa" name="envelope"></icon-app>
 		<span class="value">
-			<a href="mailto:{{ supplier?.email }}">{{ supplier?.email }}</a>
+			<a href="mailto:{{ supplier?.officeEmail }}">{{ supplier?.officeEmail }}</a>
 		</span>
 	</div>
 </div>

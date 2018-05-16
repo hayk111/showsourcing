@@ -22,7 +22,7 @@ export class Product extends Entity {
 	computedValues: { taskCount: number; score: number; commentCount: number };
 	description: string;
 	eventId: string;
-	rating: number;
+	favorite: boolean;
 	projectIds: Array<string>;
 	tagIds: Array<string>;
 	imageCount: number;

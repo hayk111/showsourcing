@@ -11,8 +11,8 @@ export class TestPageComponent implements OnInit {
 	country = ['DZ'];
 	harbour = 'Bangkok';
 	incoTerm = 'FOB';
-	supplier;
-	category;
+	supplier = ["b8b9726f-c14a-4921-ab06-b0803e243557"];
+	category = "609cf9eb-d63f-448b-9f41-a3c5d678a5a6";
 	event;
 	tags = [];
 

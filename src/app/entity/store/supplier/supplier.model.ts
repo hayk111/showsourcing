@@ -32,6 +32,7 @@ export interface Supplier {
 	globalDatabaseId?: string;
 	audit?: Audit;
 	deleted?: boolean;
+	status?: string;
 }
 
 export enum SupplierType {

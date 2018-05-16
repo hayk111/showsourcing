@@ -9,8 +9,8 @@
 
 	<div class="right flexColumn">
 		<span class="name">{{ supplier?.name }}</span>
-		<span class="from" i18n *ngIf="supplier?.countryCode; else noCode">
-			Manufacturer from {{ supplier?.countryCode | entity: 'country': 'fullName' | async }}
+		<span class="from" i18n *ngIf="supplier?.country; else noCode">
+			Manufacturer from {{ supplier?.country }}
 		</span>
 		<ng-template #noCode>
 			<span class="from" i18n>No address</span>

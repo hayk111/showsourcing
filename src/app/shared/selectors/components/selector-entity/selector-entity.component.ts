@@ -41,12 +41,13 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	onSelect(value: string) {
 		this.select.emit(value);
+		debugger;
 		if (this.multiple)
 			this.value.push(value);
 		else
 			this.value = value;
 		// to notify the formControl we need to call this
-		this.onChangeFn(value);
+		this.onChangeFn(this.value);
 	}
 
 	onUnselect(value: string) {
@@ -55,7 +56,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		if (this.multiple) {
 			this.value = this.value.filter(v => v !== value);
 			// to notify the formControl we need to call this
-			this.onChangeFn(value);
+			this.onChangeFn(this.value);
 		}
 
 	}
