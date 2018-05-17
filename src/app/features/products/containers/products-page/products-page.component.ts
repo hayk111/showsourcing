@@ -13,6 +13,7 @@ import { DialogName, fromDialog } from '~shared/dialog';
 import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
+import { SelectionService, ProductService } from '~app/features/products/services';
 
 @Component({
 	selector: 'products-page-app',
@@ -45,7 +46,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterGroupName = FilterGroupName.PRODUCT_PAGE;
 	filters: Array<Filter>;
 
-	constructor(private store: Store<any>, private userSrv: UserService, private router: Router) {
+	constructor(
+		private store: Store<any>,
+		private userSrv: UserService,
+		private router: Router,
+		private productSrv: ProductService,
+		private selectionSrv: SelectionService) {
 		super();
 	}
 

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { AppFile, EntityTarget } from '~app/entity';
 import { UserService } from '~app/features/user';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { FilterGroupName } from '~app/shared/filters';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
+import { ProductService } from '~app/features/products/services';
 
 
 @Component({
@@ -25,22 +26,30 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	// tasks$: Observable<Array<Task>>;
 	productId: string;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(
+		private route: ActivatedRoute,
+		private store: Store<any>,
+		private userSrv: UserService,
+		private productSrv: ProductService) {
 		super();
 	}
 
 	ngOnInit() {
-		// this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
-		// 	const id = params.id;
-		// 	this.store.dispatch(productActions.focus(id));
-		// });
-		// this.product$ = this.route.params.pipe(
-		// 	takeUntil(this._destroy$),
-		// 	switchMap(params => this.store.select(selectOneProduct(params.id))),
-		// 	filter(product => !!product),
-		// 	tap(product => this.productId = product.id)
+		// getting the id of the supplier
+		const id$ = this.route.params.pipe(
+			takeUntil(this._destroy$),
+			map(params => params.id),
+			tap(id => this.productId = id)
+		);
+
+		// getting supplier
+		this.product$ = id$.pipe(
+			switchMap(id => this.productSrv.getById(id))
+		);
+
+		// this.tasks$ = id$.pipe(
+		// 	switchMap(id => this.productSrv.getTasks(id))
 		// );
-		// this.tasks$ = this.store.select(fromTask.selectArray);
 	}
 
 	openAddProjectDlg() {

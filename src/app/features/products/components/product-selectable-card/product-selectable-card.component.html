@@ -5,13 +5,13 @@
       <div class="name">{{ product?.name }}</div>
       <rating-heart-app [favorite]="product?.favorite" (favorited)="productFavorited.emit(product?.id)" (unfavorited)="productUnfavorited.emit(product?.id)"></rating-heart-app>
     </div>
-    <div class="category">{{ product?.categoryId | entityName: 'category' | async }}</div>
+    <div class="category">{{ product?.category?.name }}</div>
   </div>
 
 
   <!-- middle card: picture + badge  -->
   <div class="imgCtnr flexCenter">
-    <selectable-image-app [imgCount]="product?.imageCount" (trash)="productDelete.emit(product.id)" [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)"
+    <selectable-image-app [imgCount]="product?.images?.length" (trash)="productDelete.emit(product.id)" [selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)"
       (select)="productSelect.emit(product.id)" (open)="productOpen.emit(product.id)" (vote)="onVote($event)" class="img" [url]="product?.mainImage?.urls?.url_400x300"></selectable-image-app>
   </div>
 
@@ -21,13 +21,13 @@
 
   <!-- bottom card -->
   <div class="bottom">
-    <div class="supplier">{{ product?.supplierId | entityName: 'supplier' | async }}</div>
+    <div class="supplier">{{ product?.supplier?.name}}</div>
     <div class="tags" [class.hidden]="showOverlay">
-      <span *ngFor="let tag of product?.tagIds"> {{ tag | entityName: 'tag' | async }}</span>
+      <span *ngFor="let tag of product?.tags"> {{ tag.name }}</span>
     </div>
     <div class="footer flexBetween" [class.hidden]="showOverlay">
-      <product-icons-app [numProjects]="product?.projectIds?.length" [score]="product?.computedValues?.score"></product-icons-app>
-      <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
+      <product-icons-app [numProjects]="product?.projects?.length" [score]="product?.computedValues?.score"></product-icons-app>
+      <div class="date">{{ product?.audit.creationDate | date: 'MMMM y' }}</div>
     </div>
     <div class="footer flexBetween" [class.hidden]="!showOverlay">
       <button class="small" (click)="addToProject.emit(product.id)"><span class="icon-add"></span>Add to project</button>
