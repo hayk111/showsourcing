@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Supplier } from '~supplier';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-main-info-app',

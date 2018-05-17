@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { DEFAULT_USER_IMG } from '~app/app-root/utils';
-import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { Contact } from '~models';
 
 @Component({
 	selector: 'supplier-contact-card-app',

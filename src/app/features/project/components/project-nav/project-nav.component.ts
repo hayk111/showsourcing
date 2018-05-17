@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { Project } from '~app/entity';
+import { Project } from '~models';
 
 @Component({
 	selector: 'project-nav-app',

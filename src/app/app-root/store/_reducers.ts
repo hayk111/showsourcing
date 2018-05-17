@@ -5,25 +5,9 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import {
 	userReducer,
-	fromProject,
-	fromSupplier,
-	fromCategory,
-	fromCountry,
-	fromCurrency,
 	fromCustomField,
-	fromEvent,
 	fromFile,
-	fromHarbour,
 	fromImage,
-	fromIncoTerm,
-	fromProductStatus,
-	fromSupplierStatus,
-	fromTag,
-	fromTask,
-	fromTaskStatus,
-	fromTaskType,
-	fromTeamMember,
-	fromTeam,
 } from '~app/entity';
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 
@@ -31,23 +15,6 @@ import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/re
 
 const entities = combineReducers({
 	user: userReducer,
-	team: fromTeam.reducer,
-	teamMember: fromTeamMember.reducer,
-	country: fromCountry.reducer,
-	incoTerm: fromIncoTerm.reducer,
-	harbour: fromHarbour.reducer,
-	currency: fromCurrency.reducer,
-	category: fromCategory.reducer,
-	event: fromEvent.reducer,
-	tag: fromTag.reducer,
-	supplier: fromSupplier.reducer,
-
-	productStatus: fromProductStatus.reducer,
-	taskStatus: fromTaskStatus.reducer,
-	taskType: fromTaskType.reducer,
-	supplierStatus: fromSupplierStatus.reducer,
-	project: fromProject.reducer,
-	task: fromTask.reducer,
 	customField: fromCustomField.reducer,
 	file: fromFile.reducer,
 	image: fromImage.reducer,

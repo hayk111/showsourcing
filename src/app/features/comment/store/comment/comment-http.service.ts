@@ -1,17 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EntityTarget } from '~app/entity/store/entity.model';
-import { AppComment } from '~comment/store/comment/comment.model';
-import { selectUser } from '~user';
+import { AppComment } from '~feature/comment/store/comment';
 import { Store } from '@ngrx/store';
-import { User } from '~user';
+import { User } from '~models';
 
 @Injectable()
 export class CommentHttpService {
-	user;
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUser)
-			.subscribe((user: User) => this.user = user);
+
 	}
 
 	load(target: EntityTarget) {

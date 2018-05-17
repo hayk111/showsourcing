@@ -6,7 +6,7 @@ import {
 	Output,
 	EventEmitter,
 } from '@angular/core';
-import { Project } from '~project';
+import { Project } from '~models';
 
 @Component({
 	selector: 'project-card-app',

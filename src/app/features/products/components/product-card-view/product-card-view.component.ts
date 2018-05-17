@@ -7,7 +7,7 @@ import {
 	Output,
 } from '@angular/core';
 import { Patch } from '~app/entity';
-import { Product, ProductStatus } from '~product';
+import { Product, ProductStatus } from '~models';
 
 @Component({
 	selector: 'product-card-view-app',

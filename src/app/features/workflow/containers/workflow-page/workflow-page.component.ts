@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EntityState, ERM } from '~app/entity';
-import { Product } from '~feature/products/store/product/product.model';
+import { Product } from '~models';
 
 
 @Component({

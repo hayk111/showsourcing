@@ -9,5 +9,5 @@ export class User {
 	email: string;
 	currentTeam: Team;
 	preferredLanguage: string;
-	teams: [TeamUser];
+	teams: any[];
 }

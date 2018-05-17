@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product } from '~feature/products/store/product/product.model';
+import { Product } from '~models';
 import { Store } from '@ngrx/store';
-import { LatestProductActions, selectLatestProductsArray } from '~app/features/supplier/store';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, User, fromTeamMember } from '~app/entity';
+import { EntityState, User } from '~app/entity';
 
 @Component({
 	selector: 'likes-card-app',
@@ -22,7 +22,7 @@ export class LikesCardComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.store.select(fromTeamMember.selectState);
+		// this.teamMembers$ = this.store.select(fromTeamMember.selectState);
 		// votes must be loaded once again
 		// this.pending$ = this.store.select(selectVotesForCurrentTarget).pipe(map(state => state.pending));
 		// this.votes$ = this.store.select(selectVotesByType);

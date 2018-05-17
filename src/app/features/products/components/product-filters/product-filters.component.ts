@@ -1,14 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable ,  Subject } from 'rxjs';
-import {
-	Entity, selectEntityArrayByName, ERM, EntityRepresentation,
-	getPluralEntity, fromSupplier, fromEvent, fromCategory, selectEntityProductCount, selectEntityArray,
-	selectEntityState, EntityState, entityStateToArray, selectRelevantEntities, getEntityRepr
-} from '~app/entity';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFilterByType, FilterGroupName, Filter, FilterActions, FilterType } from '~app/shared/filters';
-import { tap, takeUntil, combineLatest, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
+import {
+	Entity,
+	EntityRepresentation,
+	getEntityRepr,
+	getPluralEntity,
+	selectEntityArray,
+	selectRelevantEntities,
+} from '~app/entity';
+import { Filter, FilterActions, FilterGroupName, FilterType, selectFilterByType } from '~app/shared/filters';
 
 @Component({
 	selector: 'product-filters-app',

@@ -25,4 +25,8 @@ export class SupplierListService {
 	removeSuppliers(ids: string[]) {
 		throw Error('now implemented yet');
 	}
+
+	createSupplier(supplier): Observable<Supplier> {
+		throw Error('now implemented yet');
+	}
 }

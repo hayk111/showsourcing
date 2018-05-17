@@ -5,7 +5,8 @@ import { FilterActions } from '../../store/actions';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { ERM, Currency, defaultCurrency } from '~app/entity';
+import { ERM } from '~app/entity';
+import { Currency } from '~models'
 import { Filter } from '../../models';
 
 // panel used for prices filtering
@@ -17,7 +18,7 @@ import { Filter } from '../../models';
 export class FilterPricePanelComponent {
 	min: number;
 	max: number;
-	currency: Currency = defaultCurrency;
+	currency: Currency;
 
 	@Output() addFilter = new EventEmitter<Filter>();
 	@Output() removeFilterClass = new EventEmitter<any>();

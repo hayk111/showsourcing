@@ -10,7 +10,7 @@ import {
 	OnInit,
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
-import { Product } from '~feature/products/store/product/product.model';
+import { Product } from '~models';
 import { FilterActions, FilterGroupName } from '~app/shared/filters';
 import { Store } from '@ngrx/store';
 

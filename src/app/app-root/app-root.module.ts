@@ -12,7 +12,6 @@ import { ProjectModule } from '~app/features/project';
 import { SuppliersModule } from '~app/features/supplier';
 import { TasksModule } from '~app/features/tasks';
 import { UserModule } from '~app/features/user';
-import { PreloaderModule } from '~app/shared/preloader/preloader.module';
 import { AuthGuardService, AuthModule } from '~feature/auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
@@ -44,7 +43,6 @@ declare let module: any;
 		BrowserAnimationsModule,
 		AppStoreModule,
 		AuthModule.forRoot(),
-		PreloaderModule.forRoot(),
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		StoreModule,
 		HttpClientModule,

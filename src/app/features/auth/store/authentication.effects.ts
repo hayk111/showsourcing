@@ -4,13 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, map, mergeMap, startWith, switchMap, tap, filter, catchError } from 'rxjs/operators';
-import { UserActions } from '~user';
+import { UserActions } from '~app/entity';
 import { AuthHttpService, TokenService } from '~feature/auth/services';
 import { TypedAction } from '~app/app-root/utils';
 import { of } from 'rxjs';
 import { LocalStorageService } from '~app/shared/local-storage';
 import { AuthActionType, AuthActions } from './authentication.action';
-import { PreloaderActions } from '~app/shared/preloader/preloader.action';
 
 const TOKEN_HEADER = 'X-Auth-Token';
 // warning: this effect class is a bit of a cluster fuck and hard to follow. Should ultimately
@@ -29,7 +28,7 @@ export class AuthenticationEffects {
 				// we save the token for when the user refresh the page
 				tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
 				// we first put the user action, then the preloading action as the user is needed to make those
-				mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body), PreloaderActions.preload()]),
+				mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body)]),
 				catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error)))
 			))
 		);
@@ -53,7 +52,7 @@ export class AuthenticationEffects {
 	checkAuthenticated$ = this.actions$.pipe(
 		ofType(AuthActionType.CHECK_ALREADY_AUTHENTICATED),
 		switchMap(_ => this.srv.getUser()),
-		mergeMap(user => [UserActions.setUser(user), AuthActions.checkAuthenticatedSuccess(user), PreloaderActions.preload()]),
+		mergeMap(user => [UserActions.setUser(user), AuthActions.checkAuthenticatedSuccess(user)]),
 		catchError(e => of(AuthActions.checkAuthenticatedError(e)))
 	);
 
@@ -75,7 +74,7 @@ export class AuthenticationEffects {
 			switchMap(params => this.srv.register(params).pipe(
 				tap(_ => this.router.navigate([''])),
 				tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
-				mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body), PreloaderActions.preload()]),
+				mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body)]),
 				catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
 			)),
 

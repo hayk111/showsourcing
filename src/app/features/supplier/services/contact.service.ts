@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { Contact } from '~models';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { map, take } from 'rxjs/operators';

@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Product } from '~feature/products/store/product/product.model';
+import { Product } from '~models';
 import { DEFAULT_PRODUCT_IMG } from '~utils/constants';
 
 @Component({

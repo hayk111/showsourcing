@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project } from '~app/entity';
+import { Project } from '~models';
 
 @Component({
 	selector: 'projects-list-view-app',

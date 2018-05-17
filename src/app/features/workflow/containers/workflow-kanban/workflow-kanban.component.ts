@@ -2,7 +2,6 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FilterGroupName } from '~shared/filters/models';
-import { selectProductByStatus, productActions } from '~product';
 
 @Component({
 	selector: 'workflow-kanban-app',
@@ -16,12 +15,12 @@ export class WorkflowKanbanComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {
-		this.productsByStatus$ = this.store.select(selectProductByStatus);
+		// this.productsByStatus$ = this.store.select(selectProductByStatus);
 	}
 
 	changeStatus(event) {
 		const patch = { propName: 'status', value: event.enteringBag, id: event.data };
-		this.store.dispatch(productActions.patch(patch));
+		// this.store.dispatch(productActions.patch(patch));
 	}
 
 	selectProduct(id: string) {

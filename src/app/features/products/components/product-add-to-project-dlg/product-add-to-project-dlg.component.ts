@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Project, fromProject } from '~app/entity';
+import { Project } from '~models';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { productActions } from '~product/store/product/product.action';
 
 
 const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_TO_PROJECT);
@@ -30,8 +29,8 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.projects$ = this.store.select(fromProject.selectArray);
-		this.productsCount$ = this.store.select(fromProject.selectProductCount);
+		// this.projects$ = this.store.select(fromProject.selectArray);
+		// this.productsCount$ = this.store.select(fromProject.selectProductCount);
 	}
 
 	select(id, value) {
@@ -44,9 +43,9 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 
 	submit() {
 		// we add each project one by one to the store
-		Object.values(this.selected).forEach((project: Project) => {
-			this.products.forEach((id: string) => this.store.dispatch(productActions.addProject(project, id)));
-		});
+		// Object.values(this.selected).forEach((project: Project) => {
+		// 	this.products.forEach((id: string) => this.store.dispatch(productActions.addProject(project, id)));
+		// });
 		this.store.dispatch(fromDialog.Actions.close(this.dlgName));
 	}
 

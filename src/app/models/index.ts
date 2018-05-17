@@ -18,3 +18,5 @@ export * from './team-user.model';
 export * from './team.model';
 export * from './user.model';
 export * from './contact.model';
+export * from './task.model';
+export * from './currency.model';

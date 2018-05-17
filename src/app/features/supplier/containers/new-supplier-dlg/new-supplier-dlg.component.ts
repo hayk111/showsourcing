@@ -1,19 +1,16 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { DialogActions } from '~shared/dialog/store/dialog.action';
-import { DialogName } from '~shared/dialog/models';
-import { supplierActions } from '~supplier/supplier.action';
-import { Supplier } from '~supplier/supplier.model';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~app/app-root/utils';
 import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { RegexpApp, AutoUnsub } from '~app/app-root/utils';
 import { InputDirective } from '~app/shared/inputs';
-import { takeUntil } from 'rxjs/operators';
-import { selectNewSupplierDialogPending } from '~app/features/supplier/store';
-import { NewSupplierDlgActions } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.actions';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
-import { Router } from '@angular/router';
+import { DialogName } from '~shared/dialog/models';
+import { DialogActions } from '~shared/dialog/store/dialog.action';
+
+import { SupplierListService } from '../../services/supplier-list.service';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -23,7 +20,7 @@ const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER)
 	styleUrls: ['./new-supplier-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit {
 	name = DialogName.NEW_SUPPLIER;
 	group: FormGroup;
 	pending = false;
@@ -34,21 +31,11 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 		private store: Store<any>,
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
-		private supplierSrv: SupplierService,
+		private supplierSrv: SupplierListService,
 		private router: Router) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
-		});
-	}
-
-	ngOnInit() {
-		this.store.select(selectNewSupplierDialogPending).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(pending => {
-			this.pending = pending;
-			// mark for check as we are not using async and we are using on push
-			this.cd.markForCheck();
 		});
 	}
 
@@ -64,7 +51,6 @@ export class NewSupplierDlgComponent extends AutoUnsub implements OnInit, AfterV
 			this.pending = true;
 			const name = this.group.value.name;
 			const supplier = { name };
-			// this.store.dispatch(NewSupplierDlgActions.createSupplier(supplier));
 			this.supplierSrv.createSupplier({ name })
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {

@@ -1,5 +1,3 @@
-import { EntityRepresentation, Entity, ERM, Currency } from '~app/entity';
-
 export enum FilterGroupName {
 	PRODUCT_PAGE = 'productsPage',
 	SUPPLIERS_PAGE = 'suppliersPage'

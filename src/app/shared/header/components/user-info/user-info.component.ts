@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectUser, User } from '~user';
+import { User } from '~models';
 import { AuthActions } from '~app/features/auth';
-import { Team, fromTeam } from '~app/entity';
+import { Team } from '~models';
 
 @Component({
 	selector: 'user-info-app',
@@ -22,8 +22,8 @@ export class UserInfoComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.user$ = this.store.select(selectUser);
-		this.teams$ = this.store.select(fromTeam.selectArray);
+		// this.user$ = this.store.select(selectUser);
+		// this.teams$ = this.store.select(fromTeam.selectArray);
 	}
 
 	openTeamPicker() {

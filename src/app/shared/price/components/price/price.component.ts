@@ -4,7 +4,7 @@ import {
 	Input,
 	OnInit,
 } from '@angular/core';
-import { Currency } from '~app/entity';
+import { Currency } from '~models';
 
 @Component({
 	selector: 'price-app',

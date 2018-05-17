@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { TypedAction } from '~utils';
-import { User } from '~user';
+import { User } from '~models';
 import { Patch } from '~app/entity/utils/patch.interface';
 
 export enum ActionType {

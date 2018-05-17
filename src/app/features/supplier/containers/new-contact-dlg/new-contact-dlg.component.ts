@@ -1,20 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { Store } from '@ngrx/store';
-import { fromDialog } from '~app/shared/dialog';
-import { RegexpApp, DEFAULT_IMG, AutoUnsub, uuid } from '~app/app-root/utils';
-import { AppFile, AppImage, Patch, EntityTarget } from '~app/entity';
-import { UserService } from '~app/features/user';
-import { ImageHttpService } from '~app/entity/store/image/image-http.service';
-import { Observable } from 'rxjs';
-import { map, takeUntil, filter, tap, distinctUntilChanged } from 'rxjs/operators';
-import { ContactActions } from '~app/features/supplier/store';
-import { selectContactPreviewImg, selectContactOne } from '~app/features/supplier/store';
-import { ContactService } from '~app/features/supplier/services/contact.service';
-import { Contact } from '~app/features/supplier/store/contacts/contact.model';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~app/app-root/utils';
+import { AppImage } from '~app/entity';
+import { ContactService } from '~app/features/supplier/services/contact.service';
+import { Contact } from '~models';
+import { UserService } from '~app/features/user';
+import { fromDialog } from '~app/shared/dialog';
+import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
 
 const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
@@ -105,15 +101,15 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFilesAdded(files: Array<File>) {
-		files.forEach(file => {
-			// image creation is async because we need the base 64 to display it.
-			AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
-				if (this.isNewContact)
-					this.store.dispatch(ContactActions.createImg(appImg));
-				else
-					this.store.dispatch(ContactActions.changeImg(appImg, this.contact.id));
-			});
-		});
+		// files.forEach(file => {
+		// 	// image creation is async because we need the base 64 to display it.
+		// 	AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
+		// 		if (this.isNewContact)
+		// 			this.store.dispatch(ContactActions.createImg(appImg));
+		// 		else
+		// 			this.store.dispatch(ContactActions.changeImg(appImg, this.contact.id));
+		// 	});
+		// });
 	}
 
 }

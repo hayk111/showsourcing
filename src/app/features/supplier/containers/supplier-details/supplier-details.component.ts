@@ -4,16 +4,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { ERM, Patch, Tag } from '~app/entity';
-import { Category } from '~app/entity/store/category/category.model';
+import { ERM, Patch } from '~app/entity';
+import { Category } from '~models';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { SupplierDetailsService } from '../../services/supplier-details.service';
 import { Contact } from '~models';
 import { UserService } from '~app/features/user';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
-import { Product } from '~feature/products/store/product/product.model';
-import { Supplier } from '~models';
+import { Product } from '~models';
+import { Supplier, Tag } from '~models';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -104,13 +104,13 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	onTagCreated(tagName: string) {
-		const tag = new Tag(tagName, this.userSrv.userId);
+	onTagCreated(name: string) {
+		const tag = new Tag({ name });
 		// this.store.dispatch(fromSupplier.Actions.createTag(tag, this.supplierId));
 	}
 
-	onCategoryCreated(categoryName: string) {
-		const category = new Category(categoryName, this.userSrv.userId);
+	onCategoryCreated(name: string) {
+		const category = new Category({ name });
 		// this.store.dispatch(fromSupplier.Actions.createCategory(category, this.supplierId));
 	}
 

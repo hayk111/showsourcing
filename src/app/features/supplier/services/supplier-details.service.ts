@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SupplierDetailsQueries } from '~app/features/supplier/services/supplier-details.queries';
-import { Supplier, Task } from '~app/entity';
-import { Contact } from '~app/features/supplier/store/contacts/contact.model';
-import { Product } from '~app/features/products';
+import { Supplier } from '~models';
+import { Contact, Task } from '~models';
+import { Product } from '~models';
 import { uuid } from '~app/app-root/utils/uuid.utils';
 
 
@@ -24,9 +24,6 @@ export class SupplierDetailsService {
 	}
 
 	createSupplier(supplier: Supplier) {
-		supplier.id = uuid();
-		supplier.favorite = false;
-		supplier.deleted = false;
 		return this.apollo.subscribe({ query: SupplierDetailsQueries.createSupplier, variables: { supplier } })
 			.pipe(
 				take(1),
@@ -47,7 +44,7 @@ export class SupplierDetailsService {
 	editSupplier(supplier: Supplier) {
 		return this.apollo.mutate({ mutation: SupplierDetailsQueries.updateSupplier, variables: { supplier } }).pipe(
 			take(1)
-		).subscribe();
+		);
 	}
 
 	addTag(): Observable<any> {

@@ -7,15 +7,12 @@ import { UserService } from '~app/features/user';
 import {
 	EntityState,
 	ERM,
-	fromProductStatus,
 } from '~app/entity';
 import { Patch } from '~app/entity/utils';
 import { DialogName, fromDialog } from '~shared/dialog';
 import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { selectProductArray, selectProductState } from '~app/features/products/store';
-import { productActions } from '~app/features/products/store/product/product.action';
-import { ProductStatus, Product } from '~app/features/products/store/product/product.model';
+import { Product, ProductStatus } from '~models';
 
 @Component({
 	selector: 'products-page-app',
@@ -28,7 +25,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Array<Product>>;
 	/** non observable version of the above */
 	products: Array<Product> = [];
-	productsState$: Observable<EntityState<Product>>;
+	// productsState$: Observable<EntityState<Product>>;
 	/** We need the statuses for selectors, if there aren't any productStatus selector in this page this should be removed */
 	statuses$: Observable<Array<ProductStatus>>;
 	/** Whether the product is pending */
@@ -53,32 +50,32 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.products$ = this.store.select(selectProductArray).pipe(
-			distinctUntilChanged(),
-			tap(products => this.products = products)
-		);
-		this.productsState$ = this.store.select(selectProductState);
-		this.pending$ = this.productsState$.pipe(map(state => state.pending));
-		this.statuses$ = this.store.select(fromProductStatus.selectArray);
-		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
-		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
-		// when filters change we need to redownload the products
-		filters$.subscribe(filters => {
-			// saving filters for when we need to paginate
-			this.filters = filters;
-			this.loadProducts(filters);
-		});
+		// this.products$ = this.store.select(selectProductArray).pipe(
+		// 	distinctUntilChanged(),
+		// 	tap(products => this.products = products)
+		// );
+		// this.productsState$ = this.store.select(selectProductState);
+		// this.pending$ = this.productsState$.pipe(map(state => state.pending));
+		// this.statuses$ = this.store.select(fromProductStatus.selectArray);
+		// this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
+		// const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
+		// // when filters change we need to redownload the products
+		// filters$.subscribe(filters => {
+		// 	// saving filters for when we need to paginate
+		// 	this.filters = filters;
+		// 	this.loadProducts(filters);
+		// });
 
 	}
 
 	/** loads initial product and when the filters change */
 	loadProducts(filters) {
-		this.store.dispatch(productActions.load({ filters }));
+		// this.store.dispatch(productActions.load({ filters }));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.products.length } }));
+		// this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.products.length } }));
 	}
 
 	/** Selects a product */
@@ -98,7 +95,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Patch a property of a product */
 	patch(patch: Patch) {
-		this.store.dispatch(productActions.patch(patch));
+		// this.store.dispatch(productActions.patch(patch));
 	}
 
 	/** Will show a confirm dialog to delete items selected */
@@ -110,7 +107,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
-			this.store.dispatch(productActions.delete(products));
+			// this.store.dispatch(productActions.delete(products));
 			this.unselectAll();
 		};
 		const text = `Delete ${this.selection.size} Products ?`;
@@ -137,7 +134,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** When an product is liked / disliked */
 	onItemVoted({ id, value }: { id: string; value: 0 | 100 }) {
-		this.store.dispatch(productActions.vote(id, value));
+		// this.store.dispatch(productActions.vote(id, value));
 	}
 
 	/** when filter button is clicked at the top we open the panel */

@@ -31,6 +31,7 @@ import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { SupplierDetailsService } from '~app/features/supplier/services/supplier-details.service';
 import { SupplierListService } from '~app/features/supplier/services/supplier-list.service';
+import { SelectionService } from '~app/features/supplier/services/selection.service';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { SupplierListService } from '~app/features/supplier/services/supplier-li
 	providers: [
 		SupplierListService,
 		SupplierDetailsService,
+		SelectionService,
 		ContactService
 	],
 })
