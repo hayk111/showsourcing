@@ -6,14 +6,14 @@ import { Log } from '~utils';
 
 import { selectEntityArray } from '~app/entity/store';
 import { map, startWith } from 'rxjs/operators';
-import { selectUserTeamId, EntityRepresentation, Entity } from '~app/entity/store';
+import { EntityRepresentation, Entity } from '~app/entity/store';
 
 @Injectable()
 export class FilterEntityPanelService {
 	teamId: string;
 
 	constructor(private http: HttpClient, private store: Store<any>) {
-		this.store.select(selectUserTeamId).subscribe(id => (this.teamId = id));
+		// this.store.select(selectUserTeamId).subscribe(id => (this.teamId = id));
 	}
 
 	getItemsWithCount(rep: EntityRepresentation) {

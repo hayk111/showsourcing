@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '~models';
-import { selectUser } from '~app/entity/store/user/user.selector';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';

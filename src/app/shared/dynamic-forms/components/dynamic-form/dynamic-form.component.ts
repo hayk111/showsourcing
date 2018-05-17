@@ -6,7 +6,7 @@ import { Entity } from '~app/entity';
 import { AutoUnsub } from '~utils';
 
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
-import { FormDescriptor } from '~app/entity';
+import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
 
 @Component({
 	selector: 'dynamic-form-app',

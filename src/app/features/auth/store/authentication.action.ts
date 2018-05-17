@@ -1,5 +1,5 @@
 import { TypedAction } from '~utils';
-import { User } from '~app/entity';
+import { User } from '~models';
 import { Credentials } from '../interfaces';
 
 export enum AuthActionType {

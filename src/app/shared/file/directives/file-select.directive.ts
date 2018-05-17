@@ -1,5 +1,5 @@
 import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@angular/core';
-import { AppFile } from '~app/entity';
+import { AppFile } from '~models';
 
 
 

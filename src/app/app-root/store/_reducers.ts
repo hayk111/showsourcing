@@ -3,29 +3,17 @@ import { ActionReducer, ActionReducerMap, combineReducers, State } from '@ngrx/s
 import { environment } from 'environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import {
-	userReducer,
-	fromCustomField,
-	fromFile,
-	fromImage,
-} from '~app/entity';
+
 import { filterPanelReducer, filtersReducer } from '~app/shared/filters/store/reducers';
 
 
 
-const entities = combineReducers({
-	user: userReducer,
-	customField: fromCustomField.reducer,
-	file: fromFile.reducer,
-	image: fromImage.reducer,
-});
 
 const ui = combineReducers({
 	filterPanel: filterPanelReducer,
 });
 
 export const reducers: ActionReducerMap<any> = {
-	entities,
 	filters: filtersReducer,
 	ui
 };

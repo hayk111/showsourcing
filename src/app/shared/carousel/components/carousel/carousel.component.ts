@@ -9,7 +9,7 @@ import {
 import { Log } from '~utils';
 import { DEFAULT_IMG } from '~utils/constants';
 import { UserService } from '~app/features/user';
-import { AppImage } from '~app/entity';
+import { AppImage } from '~models';
 
 @Component({
 	selector: 'carousel-app',
@@ -73,7 +73,7 @@ export class CarouselComponent implements OnInit {
 
 	download() {
 		Log.debug('[CarouselComponent] download');
-		window.open(this.getImg().urls.url_1000x1000);
+		window.open(this.getImg().fileName);
 		this.downloadRequest.emit(this.getImg());
 	}
 
@@ -84,10 +84,10 @@ export class CarouselComponent implements OnInit {
 
 	getUrl(index) {
 		Log.debug('[CarouselComponent] getUrl');
-		if (this.images[index].urls)
-			return this.images[index].urls.url_400x300;
-		else
-			return this.images[index].data;
+		if (this.images[index].fileName)
+			return this.images[index].fileName;
+		// else
+		// 	return this.images[index].data;
 	}
 
 	getId() {
@@ -95,10 +95,10 @@ export class CarouselComponent implements OnInit {
 	}
 
 	getRotation() {
-		Log.debug('[CarouselComponent] getRotation');
-		const img = this.getImg();
-		if (img.pending) return img.rotation * -90;
-		else return 0;
+		// Log.debug('[CarouselComponent] getRotation');
+		// const img = this.getImg();
+		// if (img.pending) return img.rotation * -90;
+		// else return 0;
 	}
 
 }

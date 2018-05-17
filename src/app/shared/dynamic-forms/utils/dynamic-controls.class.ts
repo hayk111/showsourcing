@@ -1,6 +1,6 @@
 import { FormControl, ValidatorFn, AsyncValidatorFn, FormGroup } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
-import { FormControlDescriptor, FormGroupDescriptor } from '~app/entity';
+import { FormDescriptor, FormGroupDescriptor, FormControlDescriptor } from './custom-field.model'
 
 export class DynamicFormControl extends FormControl {
 	constructor(public descriptor: FormControlDescriptor, formState?: any,

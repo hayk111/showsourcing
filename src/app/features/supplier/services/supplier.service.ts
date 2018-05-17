@@ -16,7 +16,7 @@ export class SupplierService {
 	constructor(private apollo: Apollo) { }
 
 	getList(): Observable<Supplier[]> {
-		return this.apollo.watchQuery({ query: SupplierQueries.list }).valueChanges.pipe(
+		return this.apollo.subscribe({ query: SupplierQueries.list }).pipe(
 			map((r: any) => r.data.suppliers)
 		);
 	}

@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, map, mergeMap, startWith, switchMap, tap, filter, catchError } from 'rxjs/operators';
-import { UserActions } from '~app/entity';
 import { AuthHttpService, TokenService } from '~feature/auth/services';
 import { TypedAction } from '~app/app-root/utils';
 import { of } from 'rxjs';

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces';
 import { Log } from '~utils';
-import { User } from '~app/entity';
+import { User } from '~models';
 
 
 @Injectable()

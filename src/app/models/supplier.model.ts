@@ -1,6 +1,6 @@
 import { Category } from './category.model';
 import { Tag } from './tag.model';
-import { AppImage } from '~app/entity';
+import { AppImage } from '~models';
 import { Audit } from './audit.model';
 import { uuid } from '~utils';
 import { Entity } from './_entity.model';

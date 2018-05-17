@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '~feature/auth/store';
-import { User } from '~app/entity';
+import { User } from '~models';
 import { DEFAULT_USER_IMG } from '~app/app-root/utils';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, User } from '~app/entity';
+import { User } from '~models';
 
 @Component({
 	selector: 'likes-card-app',
@@ -10,7 +10,7 @@ import { EntityState, User } from '~app/entity';
 	styleUrls: ['./likes-card.component.scss'],
 })
 export class LikesCardComponent implements OnInit {
-	teamMembers$: Observable<EntityState<User>>;
+	// teamMembers$: Observable<EntityState<User>>;
 	votes$: Observable<any>;
 	pending$: Observable<boolean>;
 	colorScheme = {

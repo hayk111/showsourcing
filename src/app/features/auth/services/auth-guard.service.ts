@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map, filter, tap, switchMap } from 'rxjs/operators';
 import { Log } from '~app/app-root/utils';
 import { selectAuthStatus } from '~app/features/auth/store';
-import { selectUser, User } from '~app/entity';
+import { User } from '~models';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {

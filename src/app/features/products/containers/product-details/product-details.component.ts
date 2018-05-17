@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
-import { AppFile, EntityTarget } from '~app/entity';
+import { AppFile } from '~models';
 import { UserService } from '~app/features/user';
 import { DialogName, DialogService } from '~app/shared/dialog';
 import { FilterGroupName } from '~app/shared/filters';
@@ -20,7 +20,6 @@ import { ProductService } from '~app/features/products/services';
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	filterGroupName: FilterGroupName.PRODUCT_PAGE;
 	product$: Observable<Product>;
-	target: EntityTarget;
 	files: Array<AppFile>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
 	// tasks$: Observable<Array<Task>>;

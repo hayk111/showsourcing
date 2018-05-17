@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~app/app-root/utils';
-import { AppImage } from '~app/entity';
+import { AppImage } from '~models';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { Contact } from '~models';
 import { UserService } from '~app/features/user';

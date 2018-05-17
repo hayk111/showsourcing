@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FormControlDescriptor, FormDescriptor, FormGroupDescriptor } from '~app/entity';
+import { FormDescriptor, FormGroupDescriptor, FormControlDescriptor } from '../utils/custom-field.model'
 import { EntityRepresentation } from '~app/entity/store/entity.model';
 import { RegexpApp } from '~utils/regexes';
 
