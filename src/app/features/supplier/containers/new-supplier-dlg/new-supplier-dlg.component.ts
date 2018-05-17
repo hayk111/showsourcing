@@ -8,8 +8,8 @@ import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 import { InputDirective } from '~app/shared/inputs';
 import { DialogName } from '~shared/dialog/models';
-import { DialogActions } from '~shared/dialog/store/dialog.action';
 import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { DialogService } from '~app/shared/dialog';
 
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
@@ -32,7 +32,8 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
 		private supplierSrv: SupplierService,
-		private router: Router) {
+		private router: Router,
+		private dlgSrv: DialogService) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
@@ -56,7 +57,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 				.subscribe(id => {
 					this.pending = false;
 					this.router.navigate(['/supplier', 'details', id]);
-					this.store.dispatch(DialogActions.close(name));
+					this.dlgSrv.close(this.name);
 				});
 		}
 	}

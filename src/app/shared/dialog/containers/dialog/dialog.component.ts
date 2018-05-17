@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DialogActions } from '../../store/dialog.action';
 import { AutoUnsub } from '~utils';
 
 import { DialogName } from '../../models/dialog-names.enum';
-import { DialogHeaderComponent } from '~app/shared/dialog/containers/dialog-header/dialog-header.component';
-import { DialogFooterComponent } from '~app/shared/dialog/containers/dialog-footer/dialog-footer.component';
+import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
+import { DialogFooterComponent } from '../../components/dialog-footer/dialog-footer.component';
 import { InputDirective } from '~app/shared/inputs';
+import { DialogService } from '~app/shared/dialog/services/dialog.service';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({
@@ -35,7 +35,7 @@ export class DialogComponent implements OnInit {
 		return !!this.header;
 	}
 
-	constructor(private store: Store<any>) { }
+	constructor(private srv: DialogService) { }
 
 	ngOnInit() {
 		if (!this.name)
@@ -44,7 +44,7 @@ export class DialogComponent implements OnInit {
 
 
 	doClose() {
-		this.store.dispatch(DialogActions.close(this.name));
+		this.srv.close(this.name);
 		this.close.emit();
 	}
 

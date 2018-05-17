@@ -8,9 +8,9 @@ import { AppImage } from '~app/entity';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { Contact } from '~models';
 import { UserService } from '~app/features/user';
-import { fromDialog } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
+import { DialogService } from '~app/shared/dialog';
 
 const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
@@ -47,7 +47,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private dlgSrv: DialogService
 	) {
 		super();
 
@@ -87,7 +88,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			// contact.image = this._preview;
 			// this.store.dispatch(ContactActions.create(this.formGroup.value));
 			this.contactSrv.createContact(contact, this.supplierId);
-			this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+			this.dlgSrv.close(this.dialogName);
 		}
 	}
 

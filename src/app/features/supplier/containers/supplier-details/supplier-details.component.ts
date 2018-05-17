@@ -9,7 +9,7 @@ import { Category } from '~models';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { Contact } from '~models';
 import { UserService } from '~app/features/user';
-import { DialogName, fromDialog } from '~app/shared/dialog';
+import { DialogName, DialogService } from '~app/shared/dialog';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';
@@ -33,7 +33,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private supplierSrv: SupplierService,
 		private contactSrv: ContactService,
-		private store: Store<any>) {
+		private store: Store<any>,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -56,7 +57,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting his products
 		this.products$ = id$.pipe(
-			switchMap(id => this.supplierSrv.getProducts(id))
+			switchMap(id => this.supplierSrv.getLatestProducts(id))
 		);
 
 		// this.tasks$ = id$.pipe(
@@ -117,9 +118,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	openContactDlg(contact?: Contact) {
 		const target = { entityId: this.supplierId, entityRepr: ERM.supplier };
 		if (contact)
-			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId }));
+			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId });
 		// new contact dlg
 		else
-			this.store.dispatch(fromDialog.Actions.open(DialogName.CONTACT, { isNewContact: true, supplierId: this.supplierId }));
+			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: true, supplierId: this.supplierId });
 	}
 }

@@ -10,27 +10,27 @@ import { Packaging } from './packaging.model';
 import { PriceMatrix } from './price-matrix.model';
 
 export class Product extends Entity<Product> {
-	name: string;
-	supplier: Supplier;
-	images: AppImage[];
-	price: Price;
-	category: Category;
-	description: string;
-	event: Event;
-	favorite: boolean;
-	status: ProductStatus;
-	tags: Tag[];
-	minimumOrderQuantity: number;
-	moqDescription: string;
-	votes: ProductVote[];
-	score: number;
-	innerCarton: Packaging
-	masterCarton: Packaging
-	priceMatrix: PriceMatrix
-	leadTimeValue: number;
-	leadTimeUnit: string;
-	sample: boolean;
-	samplePrice: number;
-	archived: boolean;
-	deleted: boolean;
+	name?: string;
+	supplier?: Supplier;
+	images?: AppImage[];
+	price?: Price;
+	category?: Category;
+	description?: string;
+	event?: Event;
+	favorite?: boolean;
+	status?: ProductStatus;
+	tags?: Tag[];
+	minimumOrderQuantity?: number;
+	moqDescription?: string;
+	votes?: ProductVote[];
+	score?: number;
+	innerCarton?: Packaging
+	masterCarton?: Packaging
+	priceMatrix?: PriceMatrix
+	leadTimeValue?: number;
+	leadTimeUnit?: string;
+	sample?: boolean;
+	samplePrice?: number;
+	archived?: boolean;
+	deleted?: boolean;
 }

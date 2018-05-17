@@ -20,3 +20,4 @@ export * from './user.model';
 export * from './contact.model';
 export * from './task.model';
 export * from './currency.model';
+export * from './app-file.model';

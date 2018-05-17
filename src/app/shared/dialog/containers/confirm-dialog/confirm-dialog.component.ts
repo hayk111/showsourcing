@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addDialog } from '../../models/dialog-component-map.const';
 import { DialogName } from '../../models/dialog-names.enum';
-import { DialogActions } from '../../store/dialog.action';
+import { DialogService } from '~app/shared/dialog/services/dialog.service';
 
 
 const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
@@ -17,11 +17,11 @@ export class ConfirmDialogComponent {
 	dlgName = DialogName.CONFIRM;
 	props: { text: string, callback: Function };
 
-	constructor(protected store: Store<any>) { }
+	constructor(protected srv: DialogService) { }
 
 	onConfirm() {
 		this.props.callback();
-		this.store.dispatch(DialogActions.close(this.dlgName));
+		this.srv.close(this.dlgName);
 	}
 
 }

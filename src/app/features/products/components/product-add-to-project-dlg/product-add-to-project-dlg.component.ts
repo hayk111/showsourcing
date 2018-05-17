@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Project } from '~models';
-import { DialogName, fromDialog } from '~app/shared/dialog';
+import { DialogName, DialogService } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
 
@@ -25,7 +25,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		return this.props.selectedProducts;
 	}
 
-	constructor(private store: Store<any>) {
+	constructor(private dlgSrv: DialogService) {
 	}
 
 	ngOnInit() {
@@ -46,7 +46,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		// Object.values(this.selected).forEach((project: Project) => {
 		// 	this.products.forEach((id: string) => this.store.dispatch(productActions.addProject(project, id)));
 		// });
-		this.store.dispatch(fromDialog.Actions.close(this.dlgName));
+		this.dlgSrv.close(this.dlgName)
 	}
 
 

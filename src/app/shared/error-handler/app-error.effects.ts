@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TypedAction } from '~app/app-root/utils';
 import { AppError } from '~app/shared/error-handler/app-error.model';
 import { actionType } from '~app/shared/error-handler/app-errors.action';
-import { notificationActions } from '~app/shared/notifications/store/notification.action';
 import { Notification, NotificationType } from '~shared/notifications/model';
+import { NotificationService } from '~app/shared/notifications';
 
 @Injectable()
 export class AppErrorsEffects {
-	@Effect()
+	@Effect({ dispatch: false })
 	add: Observable<any> = this.actions$
 		.ofType(actionType.ADD)
 		.pipe(
 			map((action: TypedAction<AppError>) => action.payload),
-			map((e: Error) => notificationActions.add(this.mapMessage(e)))
+			tap((e: Error) => this.notificationSrv.add(this.mapMessage(e)))
 		);
 
 	mapMessage(e: Error | any): Notification {
@@ -25,5 +25,5 @@ export class AppErrorsEffects {
 		return notif;
 	}
 
-	constructor(private actions$: Actions) {}
+	constructor(private actions$: Actions, private notificationSrv: NotificationService) { }
 }

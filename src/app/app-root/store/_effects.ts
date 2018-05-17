@@ -1,5 +1,4 @@
 import { AppErrorsEffects } from '~app/shared/error-handler';
-import { NotificationEffects } from '~app/shared/notifications/store/notification.effects';
 import {
 	UserEffects,
 	CustomFieldsEffects,
@@ -16,5 +15,4 @@ export const effects = [
 	// misc
 	AppErrorsEffects,
 	// UI
-	NotificationEffects,
 ];

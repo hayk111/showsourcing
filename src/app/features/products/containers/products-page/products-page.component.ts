@@ -9,7 +9,7 @@ import {
 	ERM,
 } from '~app/entity';
 import { Patch } from '~app/entity/utils';
-import { DialogName, fromDialog } from '~shared/dialog';
+import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
@@ -51,7 +51,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private router: Router,
 		private productSrv: ProductService,
-		private selectionSrv: SelectionService) {
+		private selectionSrv: SelectionService,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -117,7 +118,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.unselectAll();
 		};
 		const text = `Delete ${this.selection.size} Products ?`;
-		this.store.dispatch(fromDialog.Actions.open(DialogName.CONFIRM, { text, callback }));
+		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
 	/** Open details page of a product */
@@ -160,11 +161,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** when the blue button 'ADD TO PROJECT' in a product card is clicked */
 	onItemAddToProject(id: string) {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] })
 	}
 
 	openCreateDlg() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_PRODUCT));
+		this.dlgSrv.open(DialogName.NEW_PRODUCT);
 	}
 
 	/**
@@ -175,18 +176,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray })
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.EXPORT, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray })
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray })
 	}
 
 	get selectionArray() {

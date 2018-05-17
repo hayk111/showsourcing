@@ -7,8 +7,7 @@ import { EntityTarget } from '../entity.model';
 import { AppImage } from './image.model';
 import { fromImage } from './image.bundle';
 import { imageActionTypes } from '~app/entity/store/image/image.action';
-import { notificationActions } from '~app/shared/notifications/store/notification.action';
-import { NotificationType } from '~app/shared/notifications';
+import { NotificationType, NotificationService } from '~app/shared/notifications';
 import { appErrorActions } from '~app/shared/error-handler';
 import { of } from 'rxjs';
 import { AppFile } from '~app/entity';
@@ -17,7 +16,11 @@ import { FocusedEntityService } from '~app/shared/focused-entity/focused-entity.
 
 @Injectable()
 export class ImageEffects {
-	constructor(private actions$: Actions, private srv: ImageHttpService, private focusSrv: FocusedEntityService) { }
+	constructor(
+		private actions$: Actions,
+		private srv: ImageHttpService,
+		private focusSrv: FocusedEntityService,
+		private notificationSrv: NotificationService) { }
 
 	@Effect()
 	load$ = this.actions$
@@ -39,13 +42,13 @@ export class ImageEffects {
 	addOne$ = this.actions$.ofType<any>(imageActionTypes.ADD_ONE).pipe(
 		map(action => ({ file: action.payload, target: this.focusSrv.target })),
 		mergeMap((p: any) => this.srv.uploadFile(p.file).pipe(
+			tap(newFile => this.notificationSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'File Uploaded',
+				message: 'Your file was uploaded with success',
+			})),
 			// replace currently pending files, we need to replace so it's not pending anymore
 			mergeMap((newFile: AppImage) => [
-				notificationActions.add({
-					type: NotificationType.SUCCESS,
-					title: 'File Uploaded',
-					message: 'Your file was uploaded with success',
-				}),
 				fromImage.Actions.link(p.target, newFile),
 				// we also replace the current pending files
 				fromImage.Actions.replace([newFile]),

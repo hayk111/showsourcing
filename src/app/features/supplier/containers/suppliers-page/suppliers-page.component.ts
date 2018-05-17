@@ -6,8 +6,7 @@ import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { fromDialog } from '~shared/dialog';
-import { DialogName } from '~shared/dialog';
+import { DialogName, DialogService } from '~shared/dialog';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~app/app-root/utils';
 import { SelectionService } from '../../services/selection.service';
@@ -44,7 +43,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		private store: Store<any>,
 		private router: Router,
 		private supplierSrv: SupplierService,
-		private selectionSrv: SelectionService) {
+		private selectionSrv: SelectionService,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -88,7 +88,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens the dialog for creating a new supplier */
 	openNewDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_SUPPLIER));
+		this.dlgSrv.open(DialogName.NEW_SUPPLIER)
 	}
 
 	/** When a supplier has been selected */

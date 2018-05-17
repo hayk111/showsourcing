@@ -84,7 +84,7 @@ export class SupplierQueries {
 
 	static latestProducts = gql`
 			subscription supplierProducts($query: String!) {
-				products(query: $query) {
+				products(query: $query, take: 7, sortBy: "audit.creationDate", desc: true) {
 					id,
 					name,
 					images {

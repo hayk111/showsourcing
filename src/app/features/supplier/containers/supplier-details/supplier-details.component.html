@@ -5,8 +5,7 @@
 	<supplier-main-app
 		(update)="patch($event)"
 		[supplier]="supplier"
-		[productCount]="(products$ | async)?.length"
-		[taskCount]="(tasks$ | async)?.length"
+		[productCount]="supplier?.productCount"
 		[contactCount]="(contacts$ | async)?.length">
 	</supplier-main-app>
 

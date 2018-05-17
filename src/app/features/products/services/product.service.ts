@@ -16,7 +16,7 @@ export class ProductService {
 		throw Error('not implemented yet');
 	}
 
-	updateProduct(product: Product) {
+	updateProduct(product: Product): Observable<Product> {
 		throw Error('not implemented yet');
 	}
 
@@ -33,6 +33,10 @@ export class ProductService {
 	}
 
 	addComment(): Observable<any> {
+		throw Error('not implemented yet');
+	}
+
+	removeProject(id: string): Observable<any> {
 		throw Error('not implemented yet');
 	}
 

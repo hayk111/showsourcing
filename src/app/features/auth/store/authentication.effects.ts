@@ -10,6 +10,7 @@ import { TypedAction } from '~app/app-root/utils';
 import { of } from 'rxjs';
 import { LocalStorageService } from '~app/shared/local-storage';
 import { AuthActionType, AuthActions } from './authentication.action';
+import { UserService } from '~app/features/user';
 
 const TOKEN_HEADER = 'X-Auth-Token';
 // warning: this effect class is a bit of a cluster fuck and hard to follow. Should ultimately
@@ -28,7 +29,8 @@ export class AuthenticationEffects {
 				// we save the token for when the user refresh the page
 				tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
 				// we first put the user action, then the preloading action as the user is needed to make those
-				mergeMap(r => [UserActions.setUser(r.body), AuthActions.loginSuccess(r.body)]),
+				tap(r => this.userSrv.setUser(r.body)),
+				mergeMap(r => [AuthActions.loginSuccess(r.body)]),
 				catchError((e: HttpErrorResponse) => of(AuthActions.loginError(e.error)))
 			))
 		);
@@ -43,7 +45,7 @@ export class AuthenticationEffects {
 	logout$ = this.actions$.ofType<any>(AuthActionType.LOGOUT).pipe(
 		tap(_ => this.tokenSrv.removeToken()),
 		tap(_ => this.router.navigate(['/guest', 'login'])),
-		map(_ => UserActions.resetUser())
+		tap(_ => this.userSrv.resetUser())
 	);
 
 	// checking if user is already authenticated, if not then we do a logout
@@ -52,7 +54,8 @@ export class AuthenticationEffects {
 	checkAuthenticated$ = this.actions$.pipe(
 		ofType(AuthActionType.CHECK_ALREADY_AUTHENTICATED),
 		switchMap(_ => this.srv.getUser()),
-		mergeMap(user => [UserActions.setUser(user), AuthActions.checkAuthenticatedSuccess(user)]),
+		tap(user => this.userSrv.setUser(user)),
+		mergeMap(user => [AuthActions.checkAuthenticatedSuccess(user)]),
 		catchError(e => of(AuthActions.checkAuthenticatedError(e)))
 	);
 
@@ -74,7 +77,8 @@ export class AuthenticationEffects {
 			switchMap(params => this.srv.register(params).pipe(
 				tap(_ => this.router.navigate([''])),
 				tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
-				mergeMap((r: HttpResponse<any>) => [UserActions.setUser(r.body), AuthActions.registerSuccess(r.body)]),
+				tap(r => this.userSrv.setUser(r.body)),
+				mergeMap((r: HttpResponse<any>) => [AuthActions.registerSuccess(r.body)]),
 				catchError((e: HttpErrorResponse) => of(AuthActions.registerError(e.message)))
 			)),
 
@@ -85,6 +89,7 @@ export class AuthenticationEffects {
 		private srv: AuthHttpService,
 		private tokenSrv: TokenService,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private userSrv: UserService
 	) { }
 }

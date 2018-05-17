@@ -3,14 +3,14 @@
 	<div class="summaryBar">
 		<div class="cell">
 			<div class="title">Price</div>
-			<div class="content">{{product?.price?.currency }} {{product?.price?.value}}</div>
+			<div class="content">{{ product?.price?.currency }} {{ product?.price?.value }}</div>
 		</div>
 
 		<divider-app [vertical]="true"></divider-app>
 
 		<div class="cell">
 			<div class="title">Moq</div>
-			<div class="content"> {{product?.minimumOrderQuantity}}</div>
+			<div class="content"> {{ product?.minimumOrderQuantity }}</div>
 		</div>
 
 		<divider-app [vertical]="true"></divider-app>
@@ -19,7 +19,7 @@
 			<div class="title">Team Rating</div>
 			<div class="content" color-success>
 				<div class="icon-thumb-up"></div>
-				{{product?.computedValues?.score || "-"}} %
+				{{ product?.computedValues?.score || "-" }} %
 			</div>
 		</div>
 

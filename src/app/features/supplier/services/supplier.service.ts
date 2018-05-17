@@ -36,8 +36,11 @@ export class SupplierService {
 			);
 	}
 
-	getProducts(supplierId: string): Observable<Product[]> {
-		return this.apollo.subscribe({ query: SupplierQueries.latestProducts, variables: { query: `id == '${supplierId}'` } }).pipe(
+	getLatestProducts(supplierId: string): Observable<Product[]> {
+		return this.apollo.subscribe({
+			query: SupplierQueries.latestProducts,
+			variables: { query: `id == '${supplierId}'` }
+		}).pipe(
 			map((r: any) => r.data.products)
 		);
 	}

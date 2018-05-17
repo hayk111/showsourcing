@@ -30,5 +30,5 @@ export class Supplier extends Entity<Supplier>{
 	globalDatabaseId?: string;
 	deleted?: boolean;
 	status?: SupplierStatus;
-
+	productCount?: number;
 }

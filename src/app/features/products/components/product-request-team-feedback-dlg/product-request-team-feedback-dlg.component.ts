@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from '~app/entity';
-import { DialogName, fromDialog } from '~app/shared/dialog';
+import { DialogName, DialogService } from '~app/shared/dialog';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
 
 
@@ -24,7 +24,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		return this.props.selectedProducts;
 	}
 
-	constructor(private store: Store<any>) { }
+	constructor(private dlgSrv: DialogService) { }
 
 	ngOnInit() {
 		// this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
@@ -42,7 +42,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		// this.store.dispatch(
 		// 	productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
 		// );
-		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		this.dlgSrv.close(this.dialogName);
 	}
 
 }
