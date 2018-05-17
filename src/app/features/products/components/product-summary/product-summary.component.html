@@ -42,7 +42,7 @@
 					class="badge"
 					(update)="updateStatus.emit($event)"
 					[status]="product?.status"
-					[choices]="'productStatus' | entityList | async">
+					type="product">
 				</status-selector-badge-app>
 			</div>
 		</div>

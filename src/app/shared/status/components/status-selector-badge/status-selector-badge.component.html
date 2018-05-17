@@ -1,18 +1,19 @@
-
-<!-- when there are no choices we just display a badge, if there are then we can select a status from those choices -->
-<div class="ctnr flexBetween {{ choices.length > 0 ? 'pointer' : '' }}"
-		[ngStyle]="{'background': 'var(--color-' + status +')', 'color': 'var(--color-' + status + '-contrast)'}"
-		*ngIf="status"  (click)="displayPanel()">
-		<!-- string monkey patched (search for monkey patch file) -->
-		<span class="name">{{ status.splitPascalCase() }}</span>
-		<icon-app  *ngIf="choices.length > 0" name="angle-down" fontSet="fa"></icon-app>
-</div>
-<!-- panel displayed on click to pick the status -->
-<ng-container *ngIf="choices.length > 0">
-	<div class="z-2 selector" *ngIf="panelVisible" (clickOutside)="closePanel()">
-		<div class="choice pointer" *ngFor="let status of choices" (click)="selectStatus(status.id)">
-			<span class="cercle" [ngStyle]="{ 'background':'var(--color-' + status.id + ')' }"></span>
-				<span class="name">{{ status.name }}</span>
-		</div>
+<ng-container *ngIf="choices$ | async as choices">
+	<!-- when there are no choices we just display a badge, if there are then we can select a status from those choices -->
+	<div class="ctnr flexBetween {{ choices.length > 0 ? 'pointer' : '' }}"
+			[ngStyle]="{'background': status.color, 'color': status.contrastColor }"
+			*ngIf="status"  (click)="displayPanel()">
+			<!-- string monkey patched (search for monkey patch file) -->
+			<span class="name">{{ status.name }}</span>
+			<icon-app  *ngIf="choices.length > 0" name="angle-down" fontSet="fa"></icon-app>
 	</div>
+	<!-- panel displayed on click to pick the status -->
+	<ng-container *ngIf="choices.length > 0">
+		<div class="z-2 selector" *ngIf="panelVisible" (clickOutside)="closePanel()">
+			<div class="choice pointer" *ngFor="let status of choices" (click)="selectStatus(status.id)">
+				<span class="cercle" [ngStyle]="{ 'background': status.color }"></span>
+					<span class="name">{{ status.name }}</span>
+			</div>
+		</div>
+	</ng-container>
 </ng-container>

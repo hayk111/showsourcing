@@ -9,8 +9,8 @@ import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const'
 import { InputDirective } from '~app/shared/inputs';
 import { DialogName } from '~shared/dialog/models';
 import { DialogActions } from '~shared/dialog/store/dialog.action';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
 
-import { SupplierListService } from '../../services/supplier-list.service';
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
 
@@ -31,7 +31,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 		private store: Store<any>,
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
-		private supplierSrv: SupplierListService,
+		private supplierSrv: SupplierService,
 		private router: Router) {
 		super();
 		this.group = this.fb.group({

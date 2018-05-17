@@ -259,7 +259,7 @@
 		<!-- Status selector -->
 		<ng-container *ngSwitchCase="type === 'productStatus'">
 			<selector-app
-				[choices]="'productStatus' | entityList | async"
+				type="product"
 				[value]="value?.id"
 				[canSearch]="false"
 				(select)="updateValue($event?.id);onSave()">

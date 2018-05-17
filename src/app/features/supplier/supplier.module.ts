@@ -29,9 +29,8 @@ import { SupplierMainComponent } from './components/supplier-main/supplier-main.
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { ContactService } from '~app/features/supplier/services/contact.service';
-import { SupplierDetailsService } from '~app/features/supplier/services/supplier-details.service';
-import { SupplierListService } from '~app/features/supplier/services/supplier-list.service';
 import { SelectionService } from '~app/features/supplier/services/selection.service';
+import { SupplierService } from './services/supplier.service';
 
 
 @NgModule({
@@ -74,8 +73,7 @@ import { SelectionService } from '~app/features/supplier/services/selection.serv
 		SuppliersPageComponent
 	],
 	providers: [
-		SupplierListService,
-		SupplierDetailsService,
+		SupplierService,
 		SelectionService,
 		ContactService
 	],

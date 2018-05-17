@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { SupplierDetailsQueries } from '~app/features/supplier/services/supplier-details.queries';
+import { SupplierQueries } from '~app/features/supplier/services/supplier.queries';
 import { Supplier } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
@@ -11,20 +11,25 @@ import { uuid } from '~app/app-root/utils/uuid.utils';
 
 
 @Injectable()
-export class SupplierDetailsService {
+export class SupplierService {
 
 	constructor(private apollo: Apollo) { }
 
+	getList(): Observable<Supplier[]> {
+		return this.apollo.watchQuery({ query: SupplierQueries.list }).valueChanges.pipe(
+			map((r: any) => r.data.suppliers)
+		);
+	}
 
 	// at the moment the subscription works on only one entity and can be done only on list
 	getById(id: string): Observable<Supplier> {
-		return this.apollo.subscribe({ query: SupplierDetailsQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
+		return this.apollo.subscribe({ query: SupplierQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
 			map((r: any) => r.data.suppliers[0])
 		);
 	}
 
 	createSupplier(supplier: Supplier) {
-		return this.apollo.subscribe({ query: SupplierDetailsQueries.createSupplier, variables: { supplier } })
+		return this.apollo.subscribe({ query: SupplierQueries.createSupplier, variables: { supplier } })
 			.pipe(
 				take(1),
 				map((r: any) => r.data.addSupplier.id)
@@ -32,7 +37,7 @@ export class SupplierDetailsService {
 	}
 
 	getProducts(supplierId: string): Observable<Product[]> {
-		return this.apollo.subscribe({ query: SupplierDetailsQueries.latestProducts, variables: { query: `id == '${supplierId}'` } }).pipe(
+		return this.apollo.subscribe({ query: SupplierQueries.latestProducts, variables: { query: `id == '${supplierId}'` } }).pipe(
 			map((r: any) => r.data.products)
 		);
 	}
@@ -41,10 +46,14 @@ export class SupplierDetailsService {
 		throw Error('not implemented yet');
 	}
 
-	editSupplier(supplier: Supplier) {
-		return this.apollo.mutate({ mutation: SupplierDetailsQueries.updateSupplier, variables: { supplier } }).pipe(
+	updateSupplier(supplier: Supplier) {
+		return this.apollo.mutate({ mutation: SupplierQueries.updateSupplier, variables: { supplier } }).pipe(
 			take(1)
 		);
+	}
+
+	removeSuppliers(ids: string[]) {
+		throw Error('now implemented yet');
 	}
 
 	addTag(): Observable<any> {

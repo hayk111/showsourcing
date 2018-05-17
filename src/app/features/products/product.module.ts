@@ -49,7 +49,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 		ReactiveFormsModule,
 		PipesModule,
 		DialogModule,
-		StatusModule.forChild(),
+		StatusModule,
 		FileModule.forChild(), // file card used
 		RatingModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom

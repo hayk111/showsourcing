@@ -10,11 +10,8 @@ import { SupplierStatusIconComponent } from '~app/shared/status/components/suppl
 	imports: [CommonModule, IconsModule, EntityModule, UtilsModule],
 	declarations: [StatusSelectorBadgeComponent, SupplierStatusIconComponent],
 	exports: [StatusSelectorBadgeComponent, SupplierStatusIconComponent],
+	providers: []
 })
 export class StatusModule {
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: StatusModule,
-		};
-	}
+
 }

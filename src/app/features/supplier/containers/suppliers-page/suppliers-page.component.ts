@@ -10,8 +10,8 @@ import { fromDialog } from '~shared/dialog';
 import { DialogName } from '~shared/dialog';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~app/app-root/utils';
-import { SupplierListService } from '../../services/supplier-list.service';
 import { SelectionService } from '../../services/selection.service';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -32,7 +32,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	pagination$: Observable<any>;
 	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
-	selected: Array<string>;
+	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */
 	pending: boolean;
 	/** whether we loaded every suppliers */
@@ -43,13 +43,14 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private store: Store<any>,
 		private router: Router,
-		private supplierSrv: SupplierListService,
+		private supplierSrv: SupplierService,
 		private selectionSrv: SelectionService) {
 		super();
 	}
 
 	ngOnInit() {
 		this.suppliers$ = this.supplierSrv.getList();
+		this.selected$ = this.selectionSrv.selection$;
 		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 

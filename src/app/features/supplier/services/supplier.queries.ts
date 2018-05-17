@@ -2,12 +2,7 @@ import gql from 'graphql-tag';
 
 
 
-
-
-
-
-
-export class SupplierDetailsQueries {
+export class SupplierQueries {
 	// at the time of writing this:
 	// in order to subscribe to a supplier we need to
 	// subscribe to the list and pass a query with the correct id so we
@@ -29,6 +24,12 @@ export class SupplierDetailsQueries {
 				favorite,
 				generalMOQ,
 				generalLeadTime,
+				status {
+					id,
+					name,
+					color,
+					contrastColor
+				}
 				audit {
 					creationDate
 					createdBy {
@@ -51,6 +52,32 @@ export class SupplierDetailsQueries {
 				tags {
 					id,
 					name
+				}
+			}
+		}`;
+
+	static list = gql`
+		subscription suppliers {
+			suppliers(take: 30) {
+				id,
+				name,
+				description,
+				country,
+				favorite,
+				tags {
+					id,
+					name
+				},
+				categories {
+					id,
+					name
+				},
+				audit {
+					creationDate,
+					createdBy {
+						firstName,
+						lastName
+					}
 				}
 			}
 		}`;

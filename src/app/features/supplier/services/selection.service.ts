@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
 export class SelectionService {
-
-	private _selection$ = new Subject<Map<string, boolean>>();
-	subject$ = this._selection$.asObservable();
 	selection = new Map<string, boolean>();
+	private _selection$ = new BehaviorSubject<Map<string, boolean>>(this.selection);
+	selection$ = this._selection$.asObservable();
 
 	emit() {
 		this._selection$.next(this.selection);

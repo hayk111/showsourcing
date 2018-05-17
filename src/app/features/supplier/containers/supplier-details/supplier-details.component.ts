@@ -7,13 +7,13 @@ import { AutoUnsub } from '~app/app-root/utils';
 import { ERM, Patch } from '~app/entity';
 import { Category } from '~models';
 import { ContactService } from '~app/features/supplier/services/contact.service';
-import { SupplierDetailsService } from '../../services/supplier-details.service';
 import { Contact } from '~models';
 import { UserService } from '~app/features/user';
 import { DialogName, fromDialog } from '~app/shared/dialog';
 import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';
+import { SupplierService } from '~app/features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -31,7 +31,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private userSrv: UserService,
-		private supplierSrv: SupplierDetailsService,
+		private supplierSrv: SupplierService,
 		private contactSrv: ContactService,
 		private store: Store<any>) {
 		super();
@@ -67,7 +67,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	/** updates supplier */
 	patch(patch: Patch) {
 		// this.store.dispatch(fromSupplier.Actions.patch(patch));
-		this.supplierSrv.editSupplier({ id: patch.id, [patch.propName]: patch.value });
+		this.supplierSrv.updateSupplier({ id: patch.id, [patch.propName]: patch.value });
 	}
 
 	/**  */
