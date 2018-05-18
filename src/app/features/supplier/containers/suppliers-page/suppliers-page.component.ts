@@ -32,6 +32,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	pending: boolean;
 	/** whether we loaded every suppliers */
 	fullyLoaded: boolean;
+	/** when the suppliers are loaded for the first time */
+	initialLoading = true;
 	/** number of suppliers requested by paginated request */
 	page = 0;
 	perPage = 30;
@@ -46,7 +48,15 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.suppliers$ = this.supplierSrv.selectSuppliers({ perPage: this.perPage });
+		this.pending = true;
+		this.suppliers$ = this.supplierSrv.selectSuppliers({ perPage: this.perPage }).pipe(
+			tap(() => {
+				if (this.initialLoading) {
+					this.pending = false;
+					this.initialLoading = false;
+				}
+			})
+		);
 		this.selected$ = this.selectionSrv.selection$;
 		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
@@ -77,12 +87,17 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		// 	}));
 		// }
 		this.page++;
-		this.supplierSrv.loadSuppliersPage({ page: this.page, perPage: this.perPage });
+		this.pending = true;
+		this.supplierSrv.loadSuppliersPage({ page: this.page, perPage: this.perPage }).then(() => {
+			this.pending = false;
+		});
 	}
 
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
-		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage });
+		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage }).then(() => {
+			this.pending = false;
+		});
 	}
 
 	/** Opens the dialog for creating a new supplier */
