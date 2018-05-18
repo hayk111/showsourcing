@@ -61,40 +61,18 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 
-	loadSuppliersV2() {
-		// combineLatest(this.sort$, this.filters$, this.pagination$, (sort, filters, pagination) => {
-
-		// }).pipe();
-		// this.suppliers$ = this.supplierSrv.getList();
-	}
-
-	/** loads initial suppliers and when the filters change */
-	loadSuppliers() {
-		// 	this.store.dispatch(fromSupplierList.SupplierListActions.load({
-		// 		filters: this.filters,
-		// 		pagination: { take: this.take, drop: 0 },
-		// 		sort: this.currentSort
-		// 	}));
-	}
-
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		// if (!this.fullyLoaded) {
-		// 	this.store.dispatch(fromSupplierList.SupplierListActions.loadMore({
-		// 		filters: this.filters,
-		// 		pagination: { take: this.take, drop: this.suppliers.length },
-		// 		sort: this.currentSort
-		// 	}));
-		// }
 		this.page++;
 		this.pending = true;
-		this.supplierSrv.loadSuppliersPage({ page: this.page, perPage: this.perPage }).then(() => {
+		this.supplierSrv.loadSuppliersNextPage({ page: this.page, perPage: this.perPage }).then(() => {
 			this.pending = false;
 		});
 	}
 
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
+		this.pending = true;
 		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage }).then(() => {
 			this.pending = false;
 		});
