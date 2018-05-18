@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterEntityPanelService } from '~app/shared/filters/services';
 import { RatingModule } from '~app/shared/rating';
 import { UtilsModule } from '~app/shared/utils';
 import { IconsModule } from '~shared/icons';
@@ -54,13 +53,13 @@ import { FilterSelectionPanelComponent } from './components/filter-selection-pan
 		FilterBtnsPanelComponent,
 		FilterSelectionPanelComponent
 	],
-	providers: [FilterEntityPanelService]
+	providers: []
 })
 export class FiltersModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: FiltersModule,
-			providers: [FilterEntityPanelService]
+			providers: []
 		};
 	}
 	static forChild(): ModuleWithProviders {

@@ -21,7 +21,9 @@ export interface Filter {
 	value: any;
 }
 // the key here is actually a FilterGroupName
-export interface AppFilters {
-	[key: string]: Array<Filter>;
+export interface FilterGroup {
+	filters: Array<Filter>;
+	// so we can do group.byType.get('supplier').has('id-88');
+	byType: Map<FilterType, Map<any, Filter>>;
 }
 

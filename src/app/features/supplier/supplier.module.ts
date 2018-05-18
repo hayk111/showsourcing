@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { CarouselModule } from '~app/shared/carousel';

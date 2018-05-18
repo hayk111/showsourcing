@@ -3,7 +3,6 @@ import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { Store, StoreModule } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import { EntityModule } from '~app/entity';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
@@ -18,7 +17,6 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~app/app-root/store/store.module';
 import { Log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';
@@ -41,10 +39,8 @@ declare let module: any;
 		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppStoreModule,
 		AuthModule.forRoot(),
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
-		StoreModule,
 		HttpClientModule,
 		TemplateModule.forRoot(),
 		EntityModule.forRoot(),

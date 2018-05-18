@@ -25,7 +25,7 @@ export class SupplierListViewComponent {
 	// used to sort by tags or by categories
 	arrayComparator = (a, b) => (b || []).length - (a || []).length;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 
 }

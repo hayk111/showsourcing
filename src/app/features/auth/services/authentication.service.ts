@@ -60,11 +60,9 @@ export class AuthenticationService {
 	}
 
 	constructor(
-		private actions$: Actions,
 		private srv: AuthHttpService,
 		private tokenSrv: TokenService,
 		private router: Router,
-		private route: ActivatedRoute,
 		private userSrv: UserService
 	) { }
 }

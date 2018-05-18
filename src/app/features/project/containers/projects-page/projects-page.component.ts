@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
 import { ERM } from '~app/entity';
 import { AutoUnsub } from '~app/app-root/utils';
-import { selectFilterGroup } from '~app/shared/filters/store';
 import { Project } from '~models';
 
 

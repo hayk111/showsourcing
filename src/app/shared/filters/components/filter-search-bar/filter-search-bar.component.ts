@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject ,  Observable ,  forkJoin ,  merge } from 'rxjs';
-import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map ,  take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, forkJoin, merge } from 'rxjs';
+import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map, take } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
 import { ERM, Entity } from '~app/entity';
-import { Filter, FilterGroupName, FilterType } from '~shared/filters/models';
-import { searchEntity, selectFilterByType } from '~shared/filters/store/selectors';
+import { Filter, FilterGroupName, FilterType, FilterGroup } from '~shared/filters/models';
+import { FilterService } from '~app/shared/filters/services/filter.service';
 
-import { FilterActions } from '../../store/actions';
 
 @Component({
 	selector: 'filter-search-bar-app',
@@ -28,11 +27,11 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	// map.get(type).values();
 	// or check in constant time if a value has been picked already
 	// map.get(type).has(value);
-	filterMap$: Observable<Map<string, Map<string, Filter>>>;
-	filterMap: Map<string, Map<string, Filter>> = new Map();
+	filterGroup$: Observable<FilterGroup>;
+	filterMap: FilterGroup;
 	smartPanelVisible = false;
 
-	constructor(private store: Store<any>) {
+	constructor(private filterSrv: FilterService) {
 		super();
 	}
 
@@ -44,13 +43,12 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 		).subscribe(this.search$);
 		/** When the writes in the input we do a normal search */
 		this.search$.subscribe(value => this.doNormalSearch(value));
-		/** When the user click on enter we will do a smart search */
-		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
-		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(filterMap => this.filterMap = filterMap);
 	}
 
-	/** When the user click on enter  we will do a smart search */
+	/** When the user click on enter we will do a smart search */
 	// onEnter() {
+	// this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
+	// this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(filterMap => this.filterMap = filterMap);
 	// 	this.smartPanelVisible = true;
 	// 	this.smartSearch$ = this.search$.pipe(
 	// 		// we will search the entities below
@@ -76,15 +74,14 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	doNormalSearch(value) {
 		// we need to check if there is a value, else the user was just cleared the input
 		if (value) {
-			this.store.dispatch(FilterActions.upsert({ type: FilterType.SEARCH, value }, this.filterGroupName));
+			this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value })
 		} else {
-			// when empty input we remove the filtering
-			this.store.dispatch(FilterActions.removeFilterType(FilterType.SEARCH, this.filterGroupName));
+			this.filterSrv.removeFilterType(FilterType.SEARCH);
 		}
 	}
 
 	removeCurrentSearch() {
-		this.store.dispatch(FilterActions.removeFilterType('search', this.filterGroupName));
+		this.filterSrv.removeFilterType(FilterType.SEARCH);
 	}
 
 	closeSmartSearch() {
@@ -92,10 +89,10 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	}
 
 	addFromSmart(filtr: Filter) {
-		this.store.dispatch(FilterActions.addFilter(filtr, this.filterGroupName));
+		// this.store.dispatch(FilterActions.addFilter(filtr, this.filterGroupName));
 	}
 
 	removeFromSmart(filtr: Filter) {
-		this.store.dispatch(FilterActions.removeFilter(filtr, this.filterGroupName));
+		// this.store.dispatch(FilterActions.removeFilter(filtr, this.filterGroupName));
 	}
 }

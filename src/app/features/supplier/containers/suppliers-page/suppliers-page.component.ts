@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
+import { FilterGroupName, Filter } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
 import { Supplier } from '~models';

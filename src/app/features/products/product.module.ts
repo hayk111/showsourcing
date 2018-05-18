@@ -40,6 +40,8 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
+import { ProductService } from '~app/features/products/services';
+import { SelectionService } from './services/selection.service';
 
 @NgModule({
 	imports: [
@@ -60,7 +62,6 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 		CommentModule.forChild(),
 		EntityPagesModule,
 	],
-	providers: [],
 	declarations: [
 		ProductSmallCardComponent,
 		ProductIconsComponent,
@@ -91,6 +92,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
+	providers: [ProductService, SelectionService]
 })
 export class ProductModule {
 

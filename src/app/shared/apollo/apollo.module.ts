@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { apolloReducer, NgrxCache, NgrxCacheModule } from 'apollo-angular-cache-ngrx';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
@@ -17,9 +16,7 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	imports: [
 		HttpClientModule, // provides HttpClient for HttpLink
 		ApolloModule,
-		HttpLinkModule,
-		StoreModule.forFeature('apollo', apolloReducer),
-		NgrxCacheModule.forRoot('apollo'),
+		HttpLinkModule
 	],
 	exports: [
 		HttpClientModule, // provides HttpClient for HttpLink
@@ -29,12 +26,11 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	declarations: []
 })
 export class AppApolloModule {
-	constructor(private apollo: Apollo, private httpLink: HttpLink, private ngrxCache: NgrxCache) {
+	constructor(private apollo: Apollo, private httpLink: HttpLink) {
 		this.init();
 	}
 
 	async init() {
-		const cache = this.ngrxCache.create({});
 		// Create an http link:
 		const http = this.httpLink.create({
 			uri: GRAPHQL_ENDPOINT_HTTP

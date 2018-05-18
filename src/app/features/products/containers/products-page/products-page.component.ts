@@ -10,7 +10,7 @@ import {
 } from '~app/entity';
 import { Patch } from '~app/entity/utils';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
+import { Filter, FilterGroupName } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
 import { SelectionService, ProductService } from '~app/features/products/services';
@@ -41,9 +41,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// current view
 	view: 'list' | 'card' = 'card';
 	// whether the filter dialog is visible
-	filterPanelOpen$: Observable<boolean>;
-	// we have to pass a filterGroupName to the filteredListPage
-	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	filterPanelOpen: boolean;
 	filters: Array<Filter>;
 
 	constructor(
@@ -146,12 +144,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** when filter button is clicked at the top we open the panel */
 	openFilterPanel() {
-		this.store.dispatch(FilterPanelAction.open());
+		this.filterPanelOpen = true;
 	}
 
 	/** When we need to close the filter panel */
 	closeFilterPanel() {
-		this.store.dispatch(FilterPanelAction.close());
+		this.filterPanelOpen = false;
 	}
 
 	/** Whenever we switch from list to card view */
