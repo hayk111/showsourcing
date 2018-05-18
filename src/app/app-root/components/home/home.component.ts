@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthActions } from '~feature/auth';
 
 
 @Component({
@@ -11,12 +10,11 @@ import { AuthActions } from '~feature/auth';
 })
 export class HomeComponent implements OnInit {
 
-	constructor(private store: Store<any>) {
+	constructor() {
 	}
 
 	ngOnInit() { }
 
 	logout() {
-		this.store.dispatch(AuthActions.logout());
 	}
 }

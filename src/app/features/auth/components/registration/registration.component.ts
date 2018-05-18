@@ -2,19 +2,23 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromAuth from '~app/features/auth/store';
+import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { AutoUnsub } from '~app/app-root/utils';
+import { takeUntil, take, catchError } from 'rxjs/operators';
 
 @Component({
 	selector: 'registration-app',
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.scss', '../form-style.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	pending$: Observable<boolean>;
-	error$: Observable<string>;
+	pending: boolean;
+	error: string;
 
-	constructor(private store: Store<any>, private fb: FormBuilder) { }
+	constructor(private authSrv: AuthenticationService, private fb: FormBuilder) {
+		super();
+	}
 
 	ngOnInit() {
 		this.form = this.fb.group({
@@ -23,13 +27,17 @@ export class RegistrationComponent implements OnInit {
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
 		});
-		this.pending$ = this.store.select(fromAuth.selectRegisterPagePending);
-		this.error$ = this.store.select(fromAuth.selectRegisterPageError);
 	}
 
 	createAccount() {
-		if (this.form.valid)
-			this.store.dispatch(fromAuth.AuthActions.register(this.form.value));
+		if (this.form.valid) {
+			this.pending = true;
+			this.authSrv.login(this.form.value).pipe(
+				takeUntil(this._destroy$),
+				take(1),
+				catchError(error => this.error = error)
+			).subscribe(r => this.pending = false);
+		}
 	}
 
 }

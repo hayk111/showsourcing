@@ -18,20 +18,15 @@ import {
 import { TokenInterceptorService, TokenService } from './services';
 import { AuthGuardService } from './services/auth-guard.service';
 import { IconsModule } from '~app/shared/icons';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthenticationEffects } from '~app/features/auth/store/authentication.effects';
-import { reducers } from './store';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { SharedModule } from '~app/shared/shared.module';
+import { AuthenticationService } from '~app/features/auth/services/authentication.service';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
-		StoreModule.forFeature('auth', reducers),
-		EffectsModule.forFeature([AuthenticationEffects]),
 		ReactiveFormsModule,
 	],
 	providers: [
@@ -59,7 +54,7 @@ export class AuthModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: AuthModule,
-			providers: [AuthGuardService],
+			providers: [AuthGuardService, AuthenticationService],
 		};
 	}
 

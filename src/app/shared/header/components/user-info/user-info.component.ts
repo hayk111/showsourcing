@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from '~models';
-import { AuthActions } from '~app/features/auth';
 import { Team } from '~models';
+import { AuthenticationService } from '~app/features/auth/services/authentication.service';
 
 @Component({
 	selector: 'user-info-app',
@@ -18,7 +18,7 @@ export class UserInfoComponent implements OnInit {
 	/** whether the team picker is visible */
 	teamPickerShown = false;
 
-	constructor(private store: Store<any>) {
+	constructor(private authSrv: AuthenticationService) {
 	}
 
 	ngOnInit() {
@@ -43,6 +43,6 @@ export class UserInfoComponent implements OnInit {
 	}
 
 	logout() {
-		this.store.dispatch(AuthActions.logout());
+		this.authSrv.logout();
 	}
 }
