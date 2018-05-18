@@ -22,7 +22,7 @@ export class NewProductDialogComponent extends AutoUnsub implements OnInit {
 	name = DialogName.NEW_PRODUCT;
 	pending: boolean;
 
-	constructor(private fb: FormBuilder, private store: Store<any>, private userSrv: UserService) {
+	constructor(private fb: FormBuilder, private userSrv: UserService) {
 		super();
 		this.form = this.fb.group(
 			{

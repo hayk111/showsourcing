@@ -10,7 +10,7 @@ import {
 } from '~app/entity';
 import { Patch } from '~app/entity/utils';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterGroupName } from '~shared/filters';
+import { Filter, FilterGroupName, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
 import { SelectionService, ProductService } from '~app/features/products/services';
@@ -19,7 +19,8 @@ import { SelectionService, ProductService } from '~app/features/products/service
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [FilterService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** currently loaded products */
@@ -45,7 +46,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filters: Array<Filter>;
 
 	constructor(
-		private store: Store<any>,
 		private userSrv: UserService,
 		private router: Router,
 		private productSrv: ProductService,

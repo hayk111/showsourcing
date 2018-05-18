@@ -7,38 +7,38 @@
 	</div>
 
 	<!-- address -->
-	<div class="row" *ngIf="supplier && supplier.address">
+	<div class="row" *ngIf="supplier.address">
 		<icon-app fontSet="fa" name="map-marker-alt"></icon-app>
 		<span class="value">{{ supplier.address }}</span>
 	</div>
 
 	<!-- category -->
-	<div class="row" *ngIf="supplier && supplier.categories && supplier.categories.length > 0">
-		<span *ngFor="let cat of supplier.categories">{{ cat.id | entityName: 'category' | async }}</span>
+	<div class="row" *ngIf="supplier.categories.length > 0">
+		<span *ngFor="let cat of supplier.categories">{{ cat.name }}</span>
 	</div>
 
 	<!-- tags -->
-	<div class="row" *ngIf="supplier && supplier.tags && supplier.tags.length > 0">
+	<div class="row" *ngIf="supplier.tags.length > 0">
 		<icon-app fontSet="fa" name="tag"></icon-app>
-		<span *ngFor="let tag of supplier.tags">{{ tag.id | entityName: 'tag'| async }}</span>
+		<span *ngFor="let tag of supplier.tags">{{ tag.name }}</span>
 	</div>
 </div>
 <div class="col2 flexColumn">
 
 	<!-- phone -->
-	<div class="row" *ngIf="supplier && supplier.officePhone">
+	<div class="row" *ngIf="supplier.officePhone">
 		<icon-app fontSet="fa" name="phone"></icon-app>
 		<span class="value">
 			<a href="tel:{{ supplier?.officePhone }}">{{ supplier?.officePhone }}</a>
 		</span>
 	</div>
-	<div class="row" *ngIf="supplier && supplier.website">
+	<div class="row" *ngIf="supplier.website">
 		<icon-app fontSet="fa" name="globe"></icon-app>
 		<span class="value">
 			<a href="{{ supplier?.website }}">{{ supplier?.website }}</a>
 		</span>
 	</div>
-	<div class="row" *ngIf="supplier && supplier.officeEmail">
+	<div class="row" *ngIf="supplier.officeEmail">
 		<icon-app fontSet="fa" name="envelope"></icon-app>
 		<span class="value">
 			<a href="mailto:{{ supplier?.officeEmail }}">{{ supplier?.officeEmail }}</a>

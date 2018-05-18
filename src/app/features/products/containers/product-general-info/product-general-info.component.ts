@@ -24,7 +24,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	categoryRep = ERM.category;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(private route: ActivatedRoute, private userSrv: UserService) {
 		super();
 	}
 

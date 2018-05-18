@@ -27,7 +27,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private store: Store<any>,
 		private userSrv: UserService,
 		private productSrv: ProductService,
 		private dlgSrv: DialogService) {

@@ -15,7 +15,7 @@ export class WorkflowPageComponent implements OnInit {
 	repr = ERM.product;
 	pending$: Observable<boolean>;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.pending$ = this.store.select(selectProductsState).pipe(map((p: EntityState<Product>) => p.pending));

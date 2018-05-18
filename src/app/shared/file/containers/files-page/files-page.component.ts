@@ -14,7 +14,7 @@ import { UserService } from '~app/features/user';
 export class FilesPageComponent extends AutoUnsub implements OnInit {
 	files$: Observable<Array<AppFile>>;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(private route: ActivatedRoute, private userSrv: UserService) {
 		super();
 	}
 

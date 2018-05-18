@@ -36,7 +36,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
-	constructor(private store: Store<any>, private userSrv: UserService) {
+	constructor(private userSrv: UserService) {
 		super();
 	}
 

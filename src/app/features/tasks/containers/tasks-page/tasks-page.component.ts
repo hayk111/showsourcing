@@ -18,7 +18,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	repr = ERM.task;
 	selection = new Map<string, boolean>();
 
-	constructor(private store: Store<any>, private dlgSrv: DialogService) {
+	constructor(private dlgSrv: DialogService) {
 		super();
 	}
 

@@ -2,31 +2,21 @@
 	<main>
 		<div class="top flexBetween">
 			<h4 class="name">{{ product?.name }}</h4>
-			<price-app [currency]="product?.priceCurrency" [amount]="product?.priceAmount"></price-app>
+			<price-app [currency]="product?.price?.currency" [amount]="product?.price?.value"></price-app>
 		</div>
 		<div class="flex">
 			<div class="imgCtnr">
-				<img [src]="product?.mainImage?.urls?.url_120x90 || defaultImg "/>
+				<img [src]="product?.images[0]?.filename || defaultImg "/>
 				<icon-app  fontSet="fa" class="heart" name="heart" *ngIf="product.favorite"></icon-app>
 			</div>
 			<product-sub-info-app [product]="product"></product-sub-info-app>
 		</div>
-		<icon-app
-			class="cercleGreen"
-			name="check-circle"
-			sizePx="82"
-			fontSet="fa"
-			color="success"
-			*ngIf="product?.status === 'Complete'">
-		</icon-app>
+
 	</main>
 	<footer class="flex">
 		<div class="author">
-			{{ product?.createdByUserId | entityName: 'project' | async }}
+			{{ product?.audit?.createdBy?.firstName }}
 		</div>
-		<product-icons-app
-			[score]="product?.computedValues?.score"
-			[numTasks]="product?.computedValues?.taskCount"
-			[numComments]="product?.computedValues?.commentCount"></product-icons-app>
+		<product-icons-app></product-icons-app>
 	</footer>
 </card-app>

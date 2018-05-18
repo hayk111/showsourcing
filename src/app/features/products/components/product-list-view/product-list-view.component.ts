@@ -60,7 +60,7 @@ export class ProductListViewComponent implements OnInit {
 		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 	];
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		this.linkColumns();

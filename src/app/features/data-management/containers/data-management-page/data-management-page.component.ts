@@ -15,7 +15,7 @@ export class DataManagementPageComponent implements OnInit {
 	selection = [];
 	items$: Observable<Array<Entity>>;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		this.select(this.entities[0]);
@@ -41,15 +41,15 @@ export class DataManagementPageComponent implements OnInit {
 
 	select(entity: EntityRepresentation) {
 		this.selectedEntity = entity;
-		this.items$ = this.store.select(selectEntityArray(entity));
+		// this.items$ = this.store.select(selectEntityArray(entity));
 		this.resetSelection();
 	}
 
 	removeItem(id: string) {
-		this.store.dispatch(this.selectedEntity.actions.delete([id]));
+		// this.store.dispatch(this.selectedEntity.actions.delete([id]));
 	}
 
 	updateItem(patch) {
-		this.store.dispatch(this.selectedEntity.actions.patch(patch));
+		// this.store.dispatch(this.selectedEntity.actions.patch(patch));
 	}
 }

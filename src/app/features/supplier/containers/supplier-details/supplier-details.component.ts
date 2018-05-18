@@ -33,7 +33,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private supplierSrv: SupplierService,
 		private contactSrv: ContactService,
-		private store: Store<any>,
 		private dlgSrv: DialogService) {
 		super();
 	}

@@ -43,7 +43,6 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private store: Store<any>,
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,

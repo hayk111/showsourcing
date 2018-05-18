@@ -44,7 +44,7 @@
       <!-- first column -->
       <div class="flexColumn">
 
-				<ng-container *ngIf="product.supplierId | entity: 'supplier' | async as supplier">
+				<!-- <ng-container *ngIf="product.supplier">
 					<div class="subSectionTitle">Trading conditions</div>
 					<cell-one-row-app title="Inco Term">
 						<editable-field-app
@@ -58,7 +58,7 @@
 							[value]="supplier.harbour" type="harbour" (update)="onSupplierUpdate(supplier.id, 'harbour', $event)">
 						</editable-field-app>
 					</cell-one-row-app>
-				</ng-container>
+				</ng-container> -->
 
         <div class="subSectionTitle">Inner carton</div>
         <cell-one-row-app title="Depth">

@@ -13,8 +13,7 @@ export class AccountCreatedComponent implements OnInit {
 	form: FormArray;
 
 	constructor(private fb: FormBuilder,
-							private store: Store<any>,
-							private router: Router) { }
+		private router: Router) { }
 
 	ngOnInit() {
 		this.form = new FormArray([]);

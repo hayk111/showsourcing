@@ -30,8 +30,7 @@ export class DynamicFormComponent extends AutoUnsub {
 		this.formGroup.patchValue(entity);
 	}
 
-	constructor(private dynamicFormsSrv: DynamicFormsService,
-		private store: Store<any>) {
+	constructor(private dynamicFormsSrv: DynamicFormsService) {
 		super();
 	}
 

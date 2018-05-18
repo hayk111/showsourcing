@@ -19,7 +19,7 @@ export class LikesCardComponent implements OnInit {
 		negative: '#f94259',
 	};
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.teamMembers$ = this.store.select(fromTeamMember.selectState);

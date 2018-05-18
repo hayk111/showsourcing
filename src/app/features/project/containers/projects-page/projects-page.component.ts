@@ -19,7 +19,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	selectedProject: Project;
 	selection = new Map<string, boolean>();
 
-	constructor(private store: Store<any>) {
+	constructor() {
 		super();
 	}
 

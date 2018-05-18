@@ -15,7 +15,7 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<any>();
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 

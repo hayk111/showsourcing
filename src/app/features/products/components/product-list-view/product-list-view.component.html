@@ -18,8 +18,8 @@
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplierId !== undefined">
-		{{ row?.supplierId | entityName:'supplier' | async }}
+	<ng-container *ngIf="row.supplier !== undefined">
+		{{ row?.supplier.name }}
 	</ng-container>
 	<ng-container *ngIf="row.supplierId === undefined">
 		-
@@ -27,8 +27,8 @@
 </ng-template>
 
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.categoryId !== undefined">
-		{{ row?.categoryId | entityName:'category' | async }}
+	<ng-container *ngIf="row.category !== undefined">
+		{{ row?.category.name }}
 	</ng-container>
 	<ng-container *ngIf="row.categoryId === undefined">
 		-
@@ -55,7 +55,7 @@
 </ng-template>
 
 <ng-template #creationDate let-row="row">
-	{{ row?.creationDate | date: 'MMMM y' }}
+	{{ row?.audit.creationDate | date: 'MMMM y' }}
 </ng-template>
 
 <ng-template #rating let-row="row">
@@ -69,7 +69,7 @@
 
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
-		<span *ngFor="let projectId of row.projectIds">{{ projectId | entityName: 'project' | async }}</span>
+		<span *ngFor="let project of row.projects">{{ project.name }}</span>
 	</div>
 </ng-template>
 
@@ -84,13 +84,11 @@
 
 <ng-template #user let-row="row">
 	<div class="flexCenter userP">
-		<ng-container *ngIf="row.createdByUserId | entity:'teamMember' | async as user">
-			<user-picture-app
+			<!-- <user-picture-app
 				[size]="18"
 				[border]="true"
 				[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-			<span>{{ user.firstName + ' ' + user.lastName }} </span>
-		</ng-container>
+			<span>{{ user.firstName + ' ' + user.lastName }} </span> -->
 
 	</div>
 <ng-template>

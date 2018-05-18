@@ -25,7 +25,6 @@ export class NewTaskDlgComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private store: Store<any>,
 		private userSrv: UserService,
 		private dlgSrv: DialogService
 	) { }

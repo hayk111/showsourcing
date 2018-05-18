@@ -12,7 +12,7 @@ export class ProductStatusBadgeComponent implements OnInit {
 	@Output() update = new EventEmitter<string>();
 	panelVisible = false;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() { }
 

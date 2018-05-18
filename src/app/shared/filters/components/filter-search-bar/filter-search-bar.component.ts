@@ -31,7 +31,7 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	filterMap: FilterGroup;
 	smartPanelVisible = false;
 
-	constructor(private filterSrv: FilterService) {
+	constructor() {
 		super();
 	}
 
@@ -73,15 +73,15 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	/** When the writes in the input we do a normal search */
 	doNormalSearch(value) {
 		// we need to check if there is a value, else the user was just cleared the input
-		if (value) {
-			this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value })
-		} else {
-			this.filterSrv.removeFilterType(FilterType.SEARCH);
-		}
+		// if (value) {
+		// 	this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value })
+		// } else {
+		// 	this.filterSrv.removeFilterType(FilterType.SEARCH);
+		// }
 	}
 
 	removeCurrentSearch() {
-		this.filterSrv.removeFilterType(FilterType.SEARCH);
+		// this.filterSrv.removeFilterType(FilterType.SEARCH);
 	}
 
 	closeSmartSearch() {

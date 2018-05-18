@@ -15,7 +15,7 @@ export class DynamicFormEntityComponent extends AutoUnsub implements OnInit {
 	descriptor$: Observable<FormGroupDescriptor | FormDescriptor>;
 	entity$: Observable<Entity>;
 
-	constructor(private store: Store<any>) {
+	constructor() {
 		super();
 	}
 

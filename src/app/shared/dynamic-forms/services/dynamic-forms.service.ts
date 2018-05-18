@@ -7,7 +7,7 @@ import { RegexpApp } from '~utils/regexes';
 
 @Injectable()
 export class DynamicFormsService {
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	getDescriptor(entityRepr: EntityRepresentation) {
 		// return this.store.select(selectCustomField(entityRepr.descriptorName));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter } from '~shared/filters';
+import { FilterGroupName, Filter, FilterService } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
 import { Supplier } from '~models';
@@ -16,6 +16,7 @@ import { SupplierService } from '~app/features/supplier/services/supplier.servic
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
+	providers: [FilterService]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** filter group name so we can attach filters to this page and filter the suppliers */
@@ -40,11 +41,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	take = 30;
 
 	constructor(
-		private store: Store<any>,
 		private router: Router,
 		private supplierSrv: SupplierService,
 		private selectionSrv: SelectionService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private filterSrv: FilterService) {
 		super();
 	}
 

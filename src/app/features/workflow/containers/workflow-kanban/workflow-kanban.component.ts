@@ -12,7 +12,7 @@ export class WorkflowKanbanComponent implements OnInit {
 	@Input() filterGroupName: FilterGroupName;
 	@Output() productSelect = new EventEmitter<string>();
 	productsByStatus$: Observable<Array<any>>;
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.productsByStatus$ = this.store.select(selectProductByStatus);
