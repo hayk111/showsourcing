@@ -32,8 +32,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	statuses$: Observable<Array<ProductStatus>>;
 	/** Whether the product is pending */
 	pending$: Observable<boolean>;
-	/** Representation of the product so we can display plural / Singular */
-	repr = ERM.product;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 

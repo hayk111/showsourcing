@@ -115,7 +115,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openContactDlg(contact?: Contact) {
-		const target = { entityId: this.supplierId, entityRepr: ERM.supplier };
 		if (contact)
 			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId });
 		// new contact dlg

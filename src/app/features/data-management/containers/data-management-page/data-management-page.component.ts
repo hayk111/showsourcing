@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectEntityArray } from '~app/entity';
-import { Entity, EntityRepresentation, ERM } from '~app/entity';
+import { ERM } from '~models';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -10,10 +10,10 @@ import { Entity, EntityRepresentation, ERM } from '~app/entity';
 	styleUrls: ['./data-management-page.component.scss'],
 })
 export class DataManagementPageComponent implements OnInit {
-	entities = [ERM.event, ERM.category, ERM.supplier, ERM.tag, ERM.project];
+	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
 	selectedEntity;
 	selection = [];
-	items$: Observable<Array<Entity>>;
+	//items$: Observable<Array<Entity>>;
 
 	constructor() { }
 
@@ -31,7 +31,6 @@ export class DataManagementPageComponent implements OnInit {
 	}
 
 	mergeSelection() {
-		// this.store.dispatch();
 		this.resetSelection();
 	}
 
@@ -39,7 +38,7 @@ export class DataManagementPageComponent implements OnInit {
 		this.selection = itemIds;
 	}
 
-	select(entity: EntityRepresentation) {
+	select(entity: ERM) {
 		this.selectedEntity = entity;
 		// this.items$ = this.store.select(selectEntityArray(entity));
 		this.resetSelection();

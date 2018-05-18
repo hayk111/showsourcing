@@ -12,7 +12,6 @@ import { Product } from '~models';
 	styleUrls: ['./workflow-page.component.scss'],
 })
 export class WorkflowPageComponent implements OnInit {
-	repr = ERM.product;
 	pending$: Observable<boolean>;
 
 	constructor() { }

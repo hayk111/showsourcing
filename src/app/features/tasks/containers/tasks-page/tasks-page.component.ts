@@ -14,7 +14,6 @@ import { AutoUnsub } from '~utils';
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasks$;
 	pending$: Observable<boolean>;
-	repr = ERM.task;
 	selection = new Map<string, boolean>();
 
 	constructor(private dlgSrv: DialogService) {

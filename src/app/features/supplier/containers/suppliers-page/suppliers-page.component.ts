@@ -22,7 +22,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	suppliers: Array<Supplier> = [];
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
-	repr = ERM.supplier;
 	/** current sort used for sorting suppliers */
 	sort$: Subject<Sort> = new Subject();
 	/** current filters applied to suppliers */

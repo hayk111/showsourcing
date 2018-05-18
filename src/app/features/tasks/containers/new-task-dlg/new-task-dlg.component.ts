@@ -19,9 +19,7 @@ const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
 export class NewTaskDlgComponent implements OnInit {
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
-	statusRep = ERM.taskStatus;
-	typeRep = ERM.taskType;
-	productRep = ERM.product;
+
 
 	constructor(
 		private fb: FormBuilder,

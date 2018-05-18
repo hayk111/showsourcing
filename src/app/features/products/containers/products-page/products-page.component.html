@@ -43,7 +43,6 @@
 		(productOpen)="goToDetails($event)"></product-card-view-app>
 
 	<selection-bar-app
-		[repr]="repr"
 		*ngIf="selection.size > 0"
 		[selection]="selection"
 		(close)="unselectAll()"
