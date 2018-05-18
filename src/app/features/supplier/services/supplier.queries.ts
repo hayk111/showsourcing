@@ -57,7 +57,7 @@ export class SupplierQueries {
 		}`;
 
 	static list = gql`
-		subscription suppliers {
+		query suppliers {
 			suppliers(take: 30) {
 				id,
 				name,

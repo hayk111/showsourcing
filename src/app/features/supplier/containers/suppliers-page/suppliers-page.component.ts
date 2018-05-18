@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
-import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
 import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
@@ -37,10 +36,10 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	/** whether we loaded every suppliers */
 	fullyLoaded: boolean;
 	/** number of suppliers requested by paginated request */
-	take = 30;
+	page = 0;
+	perPage = 30;
 
 	constructor(
-		private store: Store<any>,
 		private router: Router,
 		private supplierSrv: SupplierService,
 		private selectionSrv: SelectionService,
@@ -49,7 +48,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.suppliers$ = this.supplierSrv.getList();
+		this.suppliers$ = this.supplierSrv.selectSuppliers({ perPage: this.perPage });
 		this.selected$ = this.selectionSrv.selection$;
 		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
@@ -79,11 +78,16 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		// 		sort: this.currentSort
 		// 	}));
 		// }
+		this.page++;
+		console.log('>> page = ', this.page);
+		this.supplierSrv.getSuppliersPage({ page: this.page, perPage: this.perPage });
 	}
 
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
-		this.loadSuppliers();
+		console.log('>> sort = ', sort);
+		// this.loadSuppliers();
+		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage });
 	}
 
 	/** Opens the dialog for creating a new supplier */
