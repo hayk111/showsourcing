@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~models';
-import { Store } from '@ngrx/store';
+
 
 @Component({
 	selector: 'product-list-view-app',

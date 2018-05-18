@@ -1,7 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
 import { tap, take, catchError } from 'rxjs/operators';
 import { Credentials } from '~app/features/auth/interfaces';
 import { UserService } from '~app/features/user';

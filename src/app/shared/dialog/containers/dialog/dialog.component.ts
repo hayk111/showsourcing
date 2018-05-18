@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild, HostListener } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { AutoUnsub } from '~utils';
 
 import { DialogName } from '../../models/dialog-names.enum';

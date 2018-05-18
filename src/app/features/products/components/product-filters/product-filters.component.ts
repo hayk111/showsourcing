@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';

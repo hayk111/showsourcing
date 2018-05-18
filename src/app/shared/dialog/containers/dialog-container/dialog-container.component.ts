@@ -7,7 +7,7 @@ import {
 	ViewChild,
 	HostListener,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { AutoUnsub } from '~app/app-root/utils';
 
 import { DialogHostDirective } from '../../components/dialog-host.directive';

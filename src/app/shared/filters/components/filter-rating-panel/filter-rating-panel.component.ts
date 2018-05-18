@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Filter } from '../../models';
 import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';

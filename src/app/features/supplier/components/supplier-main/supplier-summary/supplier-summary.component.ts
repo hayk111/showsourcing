@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Supplier } from '~models';
-import { Store } from '@ngrx/store';
+
 
 @Component({
 	selector: 'supplier-summary-app',
