@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { EntityState } from '~app/entity';
 import { User } from '~models';
 
 @Component({
@@ -10,7 +9,7 @@ import { User } from '~models';
 })
 export class DetailsComponent implements OnInit {
 	@Input() votes: any;
-	@Input() teamMembers: EntityState<User>;
+	@Input() teamMembers: any;
 	detailsShown = false;
 
 	constructor() { }

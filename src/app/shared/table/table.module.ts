@@ -5,7 +5,6 @@ import { ColumnDirective, TableComponent } from './components';
 import { IconsModule } from '~app/shared/icons';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { UserModule } from '~app/features/user';
-import { EntityModule } from '~app/entity';
 import { RatingModule } from '~app/shared/rating';
 import { UtilsModule } from '~app/shared/utils';
 import { SharedModule } from '~app/shared/shared.module';

@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Filter } from '../../models';
 import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';
-import { ERM } from '~app/entity';
 
 @Component({
 	selector: 'filter-rating-panel-app',

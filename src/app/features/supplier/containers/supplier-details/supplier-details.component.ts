@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { ERM, Patch } from '~app/entity';
 import { Category } from '~models';
 import { ContactService } from '~app/features/supplier/services/contact.service';
 import { Contact } from '~models';
@@ -65,9 +64,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** updates supplier */
-	patch(patch: Patch) {
-		// this.store.dispatch(fromSupplier.Actions.patch(patch));
-		this.supplierSrv.updateSupplier({ id: patch.id, [patch.propName]: patch.value });
+	patch(supplier: Supplier) {
+		this.supplierSrv.updateSupplier(supplier);
 	}
 
 	/**  */

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Filter } from '~shared/filters/models';
-import { EntityRepresentation } from '~app/entity/store/entity.model';
 
 @Component({
 	selector: 'entity-page-app',
@@ -8,7 +7,6 @@ import { EntityRepresentation } from '~app/entity/store/entity.model';
 	styleUrls: ['./entity-page.component.scss'],
 })
 export class EntityPageComponent implements OnInit {
-	@Input() repr: EntityRepresentation;
 	@Input() pending = true;
 	@Input() switchable = true;
 	@Input() hasFilters = true;

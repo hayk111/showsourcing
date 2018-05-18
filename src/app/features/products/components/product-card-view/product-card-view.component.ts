@@ -6,7 +6,6 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { Patch } from '~app/entity';
 import { Product, ProductStatus } from '~models';
 
 @Component({
@@ -24,7 +23,7 @@ export class ProductCardViewComponent {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
-	@Output() update = new EventEmitter<Patch>();
+	@Output() update = new EventEmitter<Product>();
 	@Input() products: Array<Product> = [];
 	@Input() selection: any;
 	@Input() statuses: Array<ProductStatus>;

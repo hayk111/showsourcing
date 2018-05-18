@@ -7,7 +7,6 @@ import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
-import { EntityModule } from '~app/entity';
 
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';

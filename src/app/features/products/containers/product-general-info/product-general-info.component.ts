@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ERM, selectEntityById } from '~app/entity';
 import { FormControlDescriptor, FormDescriptor } from '~shared/dynamic-forms'
 import { UserService } from '~app/features/user';
 import { Event } from '~models';

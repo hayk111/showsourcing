@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, forkJoin, merge } from 'rxjs';
 import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map, take } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import { ERM, Entity } from '~app/entity';
 import { Filter, FilterType, FilterGroup } from '~shared/filters/models';
 import { FilterService } from '~app/shared/filters/services/filter.service';
 

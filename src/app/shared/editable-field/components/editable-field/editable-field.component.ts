@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Entity } from '~app/entity';
 import { Project, Tag } from '~models';
 import { EditableFieldValue } from './editable-field-value.interface';
 import { InputDirective } from '~app/shared/inputs';

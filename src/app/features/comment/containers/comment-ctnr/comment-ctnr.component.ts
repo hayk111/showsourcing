@@ -3,8 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, EntityTarget } from '~app/entity';
-import { entityStateToArray } from '~app/entity/utils';
 import { UserService } from '~app/features/user';
 import { AppComment } from '~models';
 

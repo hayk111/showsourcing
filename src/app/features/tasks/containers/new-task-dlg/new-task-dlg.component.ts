@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogName } from '~shared/dialog/models';
-import { ERM } from '~app/entity';
 
 import { UserService } from '~app/features/user';
 import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';

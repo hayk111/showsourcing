@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EntityModule } from '~app/entity';
 
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';

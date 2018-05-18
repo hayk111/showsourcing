@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
-import { ERM } from '~app/entity';
 import { AutoUnsub } from '~app/app-root/utils';
 import { Project } from '~models';
 

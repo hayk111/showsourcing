@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectEntityArray } from '~app/entity';
 import { ERM } from '~models';
 
 @Component({

@@ -1,6 +1,6 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class Event extends Entity<Event> {
+export class Event extends BaseEntity<Event> {
 	id: string;
 	alias: string;
 	rating: number;

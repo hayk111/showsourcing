@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ERM } from '~app/entity';
 import { DialogName, DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 

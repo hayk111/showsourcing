@@ -1,6 +1,6 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class AppImage extends Entity<AppImage> {
+export class AppImage extends BaseEntity<AppImage> {
 	fileName: string;
 	orientation: number;
 	imageType: string;

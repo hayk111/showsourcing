@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~models';
-import { Patch } from '~app/entity';
 
 @Component({
 	selector: 'supplier-main-app',
@@ -16,7 +15,7 @@ export class SupplierMainComponent implements OnInit {
 	@Input() productCount: number;
 	@Input() taskCount: number;
 	@Input() contactCount: number;
-	@Output() update = new EventEmitter<Patch>();
+	@Output() update = new EventEmitter<Supplier>();
 
 	constructor() { }
 

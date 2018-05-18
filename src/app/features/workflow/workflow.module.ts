@@ -10,14 +10,12 @@ import { routes } from './routes';
 import { KanbanService } from './services/kanban.service';
 import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
 import { ProductModule } from '~app/features/products';
-import { EntityModule } from '~app/entity';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
 		ProductModule,
-		EntityModule.forChild(),
 		EntityPagesModule,
 		CardModule,
 		IconsModule,

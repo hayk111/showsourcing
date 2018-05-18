@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Filter, FilterService } from '~shared/filters';
 import { Store } from '@ngrx/store';
-import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
 import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
@@ -23,11 +22,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
 	/** current sort used for sorting suppliers */
-	sort$: Subject<Sort> = new Subject();
+	sort$: Subject<SortEvent> = new Subject();
 	/** current filters applied to suppliers */
 	filters$: Observable<Filter[]>;
 	pagination$: Observable<any>;
-	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
+	currentSort: SortEvent = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
 	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */

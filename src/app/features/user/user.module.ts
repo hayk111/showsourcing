@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { EntityModule } from '~app/entity/entity.module';
 
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';

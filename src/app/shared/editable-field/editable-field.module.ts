@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { EntityModule } from '~app/entity';
 
 import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
@@ -27,7 +26,6 @@ import { CustomEditableFieldComponent } from './components/custom-editable-field
 		SelectorsModule,
 		BadgeModule, // used to display a badge in the status selector
 		UtilsModule, // click outside directive used
-		EntityModule.forChild(), // pipes
 		UserPictureModule, // used in editable field type user
 	],
 	declarations: [EditableFieldComponent, EditableTextComponent, CellOneRowComponent, CellTwoRowComponent, CustomEditableFieldComponent],

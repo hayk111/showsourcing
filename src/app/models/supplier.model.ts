@@ -3,11 +3,11 @@ import { Tag } from './tag.model';
 import { AppImage } from '~models';
 import { Audit } from './audit.model';
 import { uuid } from '~utils';
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 import { SupplierType } from './supplier-type.model';
 import { SupplierStatus } from './supplier-status.model';
 
-export class Supplier extends Entity<Supplier>{
+export class Supplier extends BaseEntity<Supplier>{
 	name?: string;
 	fullName?: string;
 	description?: string;

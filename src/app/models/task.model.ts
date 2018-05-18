@@ -1,5 +1,5 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class Task extends Entity<Task> {
+export class Task extends BaseEntity<Task> {
 
 }

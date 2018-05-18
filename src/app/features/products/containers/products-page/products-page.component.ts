@@ -4,11 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { UserService } from '~app/features/user';
-import {
-	EntityState,
-	ERM,
-} from '~app/entity';
-import { Patch } from '~app/entity/utils';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -97,7 +92,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Patch a property of a product */
-	patch(patch: Patch) {
+	patch(patch: Product) {
 		// this.store.dispatch(productActions.patch(patch));
 	}
 
@@ -125,13 +120,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** When a product heart is clicked to favorite it */
 	onItemFavorited(entityId: string) {
 		// we are just patching a property of the product, which is the rating property
-		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
+		const patch: Product = { id: entityId, favorite: true };
 		this.patch(patch);
 	}
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(entityId: string) {
-		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
+		const patch: Product = { id: entityId, favorite: false };
 		this.patch(patch);
 	}
 

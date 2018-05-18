@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IconsModule } from '~app/shared/icons';
-import { EntityModule } from '~app/entity/entity.module';
 
 import { UtilsModule } from '../utils/utils.module';
 import {
@@ -32,7 +31,6 @@ export const components = [
 		CommonModule,
 		FormsModule,
 		UtilsModule,
-		EntityModule.forChild(),
 		IconsModule,
 	],
 	declarations: components,

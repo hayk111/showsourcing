@@ -1,6 +1,6 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
 
-export class AppComment extends Entity<AppComment>{
+export class AppComment extends BaseEntity<AppComment>{
 	message?: string;
 }

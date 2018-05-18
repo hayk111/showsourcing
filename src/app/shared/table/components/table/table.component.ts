@@ -10,7 +10,6 @@ import {
 	HostBinding,
 } from '@angular/core';
 import { ColumnDirective } from '~app/shared/table/components/column.directive';
-import { Sort } from '~app/entity/utils/api-params.interface';
 import { SortEvent } from '~app/shared/table/components/sort-event.interface';
 
 @Component({

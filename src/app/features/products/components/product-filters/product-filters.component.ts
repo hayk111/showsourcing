@@ -3,16 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~app/app-root/utils';
-import {
-	Entity,
-	EntityRepresentation,
-	getEntityRepr,
-	getPluralEntity,
-	selectEntityArray,
-	selectRelevantEntities,
-} from '~app/entity';
+
 import { Filter, FilterType, FilterGroup } from '~app/shared/filters';
 import { FilterService } from '~app/shared/filters/services/filter.service';
+import { Entity } from '~models';
 
 @Component({
 	selector: 'product-filters-app',

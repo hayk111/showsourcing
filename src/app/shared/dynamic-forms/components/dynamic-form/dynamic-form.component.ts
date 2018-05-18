@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { Entity } from '~app/entity';
 import { AutoUnsub } from '~utils';
 
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
+import { Entity } from '~app/models';
 
 @Component({
 	selector: 'dynamic-form-app',

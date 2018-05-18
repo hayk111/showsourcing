@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { environment } from 'environments/environment';
-import { EntityModule } from '~app/entity';
 import { DataManagementModule } from '~app/features/data-management/data-management.module';
 import { ProductModule } from '~app/features/products';
 import { ProjectModule } from '~app/features/project';
@@ -25,7 +24,6 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { DialogModule } from '~app/shared/dialog';
-import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
 import { AppApolloModule } from '~app/shared/apollo/apollo.module';
 import { TestPageModule } from '~app/features/test-page/test-page.module';
 
@@ -43,12 +41,10 @@ declare let module: any;
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
 		TemplateModule.forRoot(),
-		EntityModule.forRoot(),
 		LocalStorageModule.forRoot(),
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
-		FocusedEntityModule.forRoot(),
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,

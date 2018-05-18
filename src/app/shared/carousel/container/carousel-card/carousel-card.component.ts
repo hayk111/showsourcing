@@ -3,7 +3,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { entityStateToArray } from '~app/entity/utils';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { AppImage, } from '~models';
 import { UserService } from '~app/features/user';
