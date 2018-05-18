@@ -12,37 +12,55 @@ import { uuid } from '~app/app-root/utils/uuid.utils';
 
 @Injectable()
 export class SupplierService {
-	suppliersQuery$: QueryRef<string, any>;
+	private suppliersQuery$: QueryRef<string, any>;
 
 	constructor(private apollo: Apollo) { }
 
-    initializeSupplierQuery({ perPage }) {
-        if (!this.suppliersQuery$) {
-            this.suppliersQuery$ = this.apollo.watchQuery<any>({
-                query: SupplierQueries.list,
-                variables: {
-                    $skip: 0,
-                    $take: perPage,
-                }
-            });
-        }
-    }
-
-	selectSuppliers({ perPage }): Observable<Supplier[]> {
-        this.initializeSupplierQuery({ perPage });
-        return this.suppliersQuery$.valueChanges
-            .pipe(
-                map(({ data, loading }) => (<any>data).suppliers),
-            );
+	/*
+		Initialize the underlying query ref for the list of
+		suppliers.
+	 */
+	private initializeSupplierQuery({ perPage }) {
+		if (!this.suppliersQuery$) {
+			this.suppliersQuery$ = this.apollo.watchQuery<any>({
+				query: SupplierQueries.list,
+				variables: {
+					$skip: 0,
+					$take: perPage,
+				}
+			});
+		}
 	}
 
-	getSuppliersPage({ page, perPage }) {
-        this.initializeSupplierQuery({ perPage });
+	/*
+		Method used to get an observable to link on to
+		get the list of suppliers.
+
+		Returns an hot observable to be notified each time
+		the suppliers data associated with the query changes.
+	 */
+	selectSuppliers({ perPage }): Observable<Supplier[]> {
+		this.initializeSupplierQuery({ perPage });
+		return this.suppliersQuery$.valueChanges
+			.pipe(
+				map(({ data, loading }) => (<any>data).suppliers),
+			);
+	}
+
+	/*
+		Triggers the load of a page of suppliers based on
+		a page number.
+
+		This method returns a promise to register on to be
+		notified when the processing ends.
+	 */
+	loadSuppliersPage({ page, perPage }) {
+		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.fetchMore({
-            variables: {
-                '$skip': page * perPage,
-                '$take': perPage
-            },
+			variables: {
+				'$skip': page * perPage,
+				'$take': perPage
+			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
 				return Object.assign({}, prev, {
@@ -52,15 +70,21 @@ export class SupplierService {
 		});
 	}
 
+	/*
+		Sorts the suppliers data for a specified column.
+
+		This method returns a promise to register on to be
+		notified when the processing ends.
+	 */
 	sortSuppliers({ sort, perPage }) {
-        this.initializeSupplierQuery({ perPage });
+		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.refetch({
-            variables: {
-                '$skip': 0,
+			variables: {
+				'$skip': 0,
 				'$take': perPage,
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'DESC'
-            }
+			}
 		});
 	}
 
