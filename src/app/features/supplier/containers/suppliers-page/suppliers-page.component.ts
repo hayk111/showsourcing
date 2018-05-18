@@ -77,14 +77,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		// 	}));
 		// }
 		this.page++;
-		console.log('>> page = ', this.page);
-		this.supplierSrv.getSuppliersPage({ page: this.page, perPage: this.perPage });
+		this.supplierSrv.loadSuppliersPage({ page: this.page, perPage: this.perPage });
 	}
 
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
-		console.log('>> sort = ', sort);
-		// this.loadSuppliers();
 		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage });
 	}
 
