@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
 import { Product } from '~models';
-import { FilterGroupName } from '~app/shared/filters';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -45,7 +44,6 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('user') userTemplate: TemplateRef<any>;
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
-	filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
 
 	descriptor: TableDescriptor = [
 		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },

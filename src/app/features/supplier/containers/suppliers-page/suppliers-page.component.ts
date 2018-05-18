@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, Filter, FilterService } from '~shared/filters';
+import { Filter, FilterService } from '~shared/filters';
 import { Store } from '@ngrx/store';
 import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
 import { Supplier } from '~models';
@@ -19,8 +19,6 @@ import { SupplierService } from '~app/features/supplier/services/supplier.servic
 	providers: [FilterService]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit {
-	/** filter group name so we can attach filters to this page and filter the suppliers */
-	filterGroupName = FilterGroupName.SUPPLIERS_PAGE;
 	suppliers: Array<Supplier> = [];
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];

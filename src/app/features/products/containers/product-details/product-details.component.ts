@@ -6,7 +6,6 @@ import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { AppFile } from '~models';
 import { UserService } from '~app/features/user';
 import { DialogName, DialogService } from '~app/shared/dialog';
-import { FilterGroupName } from '~app/shared/filters';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductService } from '~app/features/products/services';
@@ -18,7 +17,6 @@ import { ProductService } from '~app/features/products/services';
 	styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
-	filterGroupName: FilterGroupName.PRODUCT_PAGE;
 	product$: Observable<Product>;
 	files: Array<AppFile>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;

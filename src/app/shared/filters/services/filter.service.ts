@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Filter, FilterGroupName, FilterGroup, FilterType } from '../models';
+import { Filter, FilterGroup, FilterType } from '../models';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'async';
 

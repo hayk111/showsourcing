@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterGroupName, Filter } from '~shared/filters/models';
+import { Filter } from '~shared/filters/models';
 import { EntityRepresentation } from '~app/entity/store/entity.model';
 
 @Component({
@@ -11,7 +11,6 @@ export class EntityPageComponent implements OnInit {
 	@Input() repr: EntityRepresentation;
 	@Input() pending = true;
 	@Input() switchable = true;
-	@Input() filterGroupName: FilterGroupName;
 	@Input() hasFilters = true;
 
 	@Input() subtitles: Array<string>;

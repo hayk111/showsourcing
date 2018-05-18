@@ -1,8 +1,3 @@
-export enum FilterGroupName {
-	PRODUCT_PAGE = 'productsPage',
-	SUPPLIERS_PAGE = 'suppliersPage'
-}
-
 export enum FilterType {
 	SUPPLIER = 'supplier',
 	EVENT = 'event',

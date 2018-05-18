@@ -11,7 +11,7 @@ import {
 	selectEntityArray,
 	selectRelevantEntities,
 } from '~app/entity';
-import { Filter, FilterGroupName, FilterType, FilterGroup } from '~app/shared/filters';
+import { Filter, FilterType, FilterGroup } from '~app/shared/filters';
 import { FilterService } from '~app/shared/filters/services/filter.service';
 
 @Component({

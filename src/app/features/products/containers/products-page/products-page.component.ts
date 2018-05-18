@@ -10,7 +10,7 @@ import {
 } from '~app/entity';
 import { Patch } from '~app/entity/utils';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterGroupName, FilterService } from '~shared/filters';
+import { Filter, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
 import { SelectionService, ProductService } from '~app/features/products/services';

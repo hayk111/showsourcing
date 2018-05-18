@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { FilterGroupName, Filter } from '~shared/filters/models';
+import { Filter } from '~shared/filters/models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EntityRepresentation } from '~app/entity';
 
@@ -12,8 +12,6 @@ import { EntityRepresentation } from '~app/entity';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopPanelComponent {
-	/** The name of the filter group so we can automatically add filters when adding things  */
-	@Input() filterGroupName: FilterGroupName;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view

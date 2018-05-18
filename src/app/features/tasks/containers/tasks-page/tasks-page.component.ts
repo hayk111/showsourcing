@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ERM } from '~app/entity';
 import { DialogName, DialogService } from '~shared/dialog';
-import { FilterGroupName } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
 @Component({
