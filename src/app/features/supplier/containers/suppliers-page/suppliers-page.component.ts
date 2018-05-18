@@ -6,10 +6,10 @@ import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DialogName, DialogService } from '~shared/dialog';
-import { SortEvent } from '~app/shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~app/app-root/utils';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~app-root/utils';
 import { SelectionService } from '../../services/selection.service';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { SupplierService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-page-app',

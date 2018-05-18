@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Supplier } from '~models';
-import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { EditableFieldValue } from '~shared/editable-field/components/editable-field/editable-field-value.interface';
 
 @Component({
 	selector: 'supplier-infos-app',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ContentChild, OnInit } from '@angular/core';
-import { InputDirective } from '~app/shared/inputs';
+import { InputDirective } from '~shared/inputs';
 
 import { animation } from './search-bar-animated.animation';
 

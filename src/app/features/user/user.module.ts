@@ -4,9 +4,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [

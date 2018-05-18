@@ -9,7 +9,7 @@ import { CommentComponent } from './components';
 import { CommentListComponent } from './components';
 import { CommentBadgeComponent } from './components';
 import { CommentCtnrComponent } from './containers';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [

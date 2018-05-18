@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthHttpService } from '~feature/auth/services';
+import { AuthHttpService } from '~features/auth/services';
 import { CardModule } from '~shared/card';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
@@ -17,11 +17,11 @@ import {
 } from './components';
 import { TokenInterceptorService, TokenService } from './services';
 import { AuthGuardService } from './services/auth-guard.service';
-import { IconsModule } from '~app/shared/icons';
+import { IconsModule } from '~shared/icons';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
-import { SharedModule } from '~app/shared/shared.module';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { SharedModule } from '~shared/shared.module';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 @NgModule({
 	imports: [

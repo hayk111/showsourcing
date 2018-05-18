@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { IconsModule } from '~app/shared/icons';
+import { IconsModule } from '~shared/icons';
 
 import { UtilsModule } from '../utils/utils.module';
 import {
@@ -11,10 +11,10 @@ import {
 	InputDirective,
 	LabelDirective,
 	RestrictInputDirective
-} from '~app/shared/inputs/components-directives';
-import { HintDirective } from '~app/shared/inputs/components-directives/hint.directive';
+} from '~shared/inputs/components-directives';
+import { HintDirective } from '~shared/inputs/components-directives/hint.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorDirective } from '~app/shared/inputs/components-directives/error.directive';
+import { ErrorDirective } from '~shared/inputs/components-directives/error.directive';
 
 export const components = [
 	FormFieldComponent,

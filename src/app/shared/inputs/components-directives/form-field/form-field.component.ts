@@ -5,8 +5,8 @@ import {
 import { InputDirective } from '../input.directive';
 import { LabelDirective } from '../label.directive';
 import { startWith } from 'rxjs/operators';
-import { HintDirective } from '~app/shared/inputs/components-directives/hint.directive';
-import { ErrorDirective } from '~app/shared/inputs/components-directives/error.directive';
+import { HintDirective } from '~shared/inputs/components-directives/hint.directive';
+import { ErrorDirective } from '~shared/inputs/components-directives/error.directive';
 import { animations } from './form-field.animations';
 
 @Component({

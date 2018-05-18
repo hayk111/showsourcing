@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from './components/card/card.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardFooterComponent } from './components/card-footer/card-footer.component';
-import { DividerModule } from '~app/shared/divider/divider.module';
+import { DividerModule } from '~shared/divider/divider.module';
 
 @NgModule({
 	imports: [

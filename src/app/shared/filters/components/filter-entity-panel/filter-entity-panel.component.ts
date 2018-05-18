@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { AutoUnsub } from '~app/app-root/utils';
+import { AutoUnsub } from '~app-root/utils';
 import { Filter, FilterType } from '~shared/filters/models';
 
 // this is the entity panel that appears once a filter button has been clicked

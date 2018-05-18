@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { StatusSelectorService } from '~app/shared/status/services/status-selector.service';
+import { StatusSelectorService } from '~shared/status/services/status-selector.service';
 import { SupplierStatus, ProductStatus } from '~models';
 import { Observable } from 'rxjs';
 

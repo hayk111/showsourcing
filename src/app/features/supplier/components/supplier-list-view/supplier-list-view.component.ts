@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Supplier } from '~models';
-import { SortEvent } from '~app/shared/table/components/sort-event.interface';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'supplier-list-view-app',

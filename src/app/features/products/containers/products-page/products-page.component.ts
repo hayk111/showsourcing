@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
-import { SelectionService, ProductService } from '~app/features/products/services';
+import { SelectionService, ProductService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',

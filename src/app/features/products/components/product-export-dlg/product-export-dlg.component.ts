@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { DialogName } from '~app/shared/dialog';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogName } from '~shared/dialog';
 
 const addDlg = () => addDialog(ProductExportDlgComponent, DialogName.EXPORT);
 

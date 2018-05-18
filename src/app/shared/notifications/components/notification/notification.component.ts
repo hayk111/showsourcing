@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { NotificationType } from '~app/shared/notifications/model/notification.interface';
+import { NotificationType } from '~shared/notifications/model/notification.interface';
 
 @Component({
 	selector: 'notification-app',

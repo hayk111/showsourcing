@@ -1,8 +1,8 @@
-import { AuthGuardService } from '~feature/auth';
+import { AuthGuardService } from '~features/auth';
 import { components } from './../../shared/inputs/inputs.module';
 import { Route } from '@angular/router';
-import { CommentCtnrComponent } from '~app/features/comment';
-import { SupplierDetailsComponent, SuppliersPageComponent } from '~app/features/supplier/containers';
+import { CommentCtnrComponent } from '~features/comment';
+import { SupplierDetailsComponent, SuppliersPageComponent } from '~features/supplier/containers';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

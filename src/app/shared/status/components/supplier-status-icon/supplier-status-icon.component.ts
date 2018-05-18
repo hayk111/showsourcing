@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Supplier } from '~app/models';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-status-icon-app',

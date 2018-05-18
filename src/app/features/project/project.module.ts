@@ -7,12 +7,12 @@ import { UtilsModule } from '~shared/utils';
 import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
-import { TableModule } from '~app/shared/table';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { UserModule } from '~app/features/user';
+import { TableModule } from '~shared/table';
+import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
+import { UserModule } from '~features/user';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
-import { SideMenuModule } from '~app/shared/side-menu/side-menu.module';
-import { SharedModule } from '~app/shared/shared.module';
+import { SideMenuModule } from '~shared/side-menu/side-menu.module';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [

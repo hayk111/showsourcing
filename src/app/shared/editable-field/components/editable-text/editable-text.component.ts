@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter, ContentChild } from '@angular/core';
-import { InputDirective } from '~app/shared/inputs';
+import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-text-app',

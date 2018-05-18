@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
-import { UserService } from '~app/features/user';
-import { DialogName } from '~app/shared/dialog';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { AutoUnsub } from '~app-root/utils';
+import { UserService } from '~features/user';
+import { DialogName } from '~shared/dialog';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 
 import { Product } from '~models';
 

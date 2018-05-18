@@ -6,9 +6,9 @@ import { UtilsModule } from '~shared/utils';
 import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
 import { ImagePreviewerComponent } from './components/image-previewer/image-previewer.component';
-import { CarouselCardComponent } from '~app/shared/carousel/container/carousel-card/carousel-card.component';
-import { FileModule } from '~app/shared/file';
-import { SharedModule } from '~app/shared/shared.module';
+import { CarouselCardComponent } from '~shared/carousel/container/carousel-card/carousel-card.component';
+import { FileModule } from '~shared/file';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [SharedModule, FileModule],

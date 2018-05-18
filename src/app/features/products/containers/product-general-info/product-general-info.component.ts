@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { FormControlDescriptor, FormDescriptor } from '~shared/dynamic-forms'
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { Event } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';

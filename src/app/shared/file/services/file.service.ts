@@ -3,8 +3,8 @@ import { combineLatest, Observable } from 'rxjs';
 import { AppFile, AppImage } from '~models';
 import { switchMap, tap, map, retryWhen, take, delay } from 'rxjs/operators';
 import { HttpEvent, HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
-import { Log } from '~app/app-root/utils';
-import { NotificationService, NotificationType } from '~app/shared/notifications';
+import { Log } from '~app-root/utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Injectable()

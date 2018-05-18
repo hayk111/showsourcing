@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Filter } from '~app/shared/filters';
-import { Entity } from '~app/models';
+import { Filter } from '~shared/filters';
+import { Entity } from '~models';
 
 @Component({
 	selector: 'filter-smart-panel-app',

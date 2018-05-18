@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { AppComment } from '~models';
 
 @Component({

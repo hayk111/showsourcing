@@ -3,16 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
+import { AutoUnsub } from '~app-root/utils';
 import { Category } from '~models';
-import { ContactService } from '~app/features/supplier/services/contact.service';
+import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';
-import { UserService } from '~app/features/user';
-import { DialogName, DialogService } from '~app/shared/dialog';
-import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
+import { EditableFieldValue } from '~shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { SupplierService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-details-app',

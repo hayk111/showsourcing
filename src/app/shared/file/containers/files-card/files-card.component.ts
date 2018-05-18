@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { AppFile } from '~models';
-import { DEFAULT_FILE_IMG } from '~app/app-root/utils';
+import { DEFAULT_FILE_IMG } from '~app-root/utils';
 
 @Component({
 	selector: 'files-card-app',

@@ -9,7 +9,7 @@ import {
 	ViewChild,
 	OnInit,
 } from '@angular/core';
-import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Product } from '~models';
 
 

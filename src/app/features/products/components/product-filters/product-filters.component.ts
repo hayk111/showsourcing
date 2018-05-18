@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } 
 
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
+import { AutoUnsub } from '~app-root/utils';
 
-import { Filter, FilterType, FilterGroup } from '~app/shared/filters';
-import { FilterService } from '~app/shared/filters/services/filter.service';
+import { Filter, FilterType, FilterGroup } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { Entity } from '~models';
 
 @Component({

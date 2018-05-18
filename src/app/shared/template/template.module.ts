@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../header/header.module';
 import { TemplateComponent } from './components/template/template.component';
 import { GuestTemplateComponent } from './components/guest-template/guest-template.component';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [SharedModule, RouterModule.forChild([]), HeaderModule],

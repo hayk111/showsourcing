@@ -5,7 +5,7 @@ import { UtilsModule } from '~shared/utils/utils.module';
 
 import { ChartComponent, DetailsComponent, LegendComponent } from './components';
 import { LikesCardComponent } from './containers';
-import { UserModule } from '~app/features/user';
+import { UserModule } from '~features/user';
 
 // Module to display likes of an entity with a chart
 @NgModule({

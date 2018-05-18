@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { AppFile } from '~models';
-import { UserService } from '~app/features/user';
-import { DialogName, DialogService } from '~app/shared/dialog';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductService } from '~app/features/products/services';
+import { ProductService } from '~features/products/services';
 
 
 @Component({

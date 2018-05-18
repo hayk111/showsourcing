@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
-import { UserService } from '~app/features/user';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { InputDirective } from '~app/shared/inputs';
+import { AutoUnsub } from '~app-root/utils';
+import { UserService } from '~features/user';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { InputDirective } from '~shared/inputs';
 import { DialogName } from '~shared/dialog/models';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
-import { DialogService } from '~app/shared/dialog';
+import { SupplierService } from '~features/supplier/services/supplier.service';
+import { DialogService } from '~shared/dialog';
 
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);

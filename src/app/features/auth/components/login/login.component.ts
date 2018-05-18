@@ -3,9 +3,9 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { take, takeUntil, catchError } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
+import { AutoUnsub } from '~app-root/utils';
 
 @Component({
 	selector: 'login-app',

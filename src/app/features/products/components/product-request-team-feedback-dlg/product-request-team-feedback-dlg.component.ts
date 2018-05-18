@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { User } from '~models';
-import { DialogName, DialogService } from '~app/shared/dialog';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { DialogName, DialogService } from '~shared/dialog';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 
 
 const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);

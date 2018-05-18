@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
 import { AutoUnsub } from '~utils';
-import { Entity } from '~app/models';
+import { Entity } from '~models';
 
 @Component({
 	selector: 'dynamic-form-entity-app',

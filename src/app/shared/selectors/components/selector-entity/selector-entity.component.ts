@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, ViewChild, EventEmitter } from '@angular/core';
-import { SelectorsService } from '~app/shared/selectors/selectors.service';
-import { CustomSelector } from '~app/shared/selectors/utils/custom-selector.class';
-import { makeAccessorProvider, AbstractInput } from '~app/shared/inputs';
-import { SelectorComponent } from '~app/shared/selectors/components/selector/selector.component';
+import { SelectorsService } from '~shared/selectors/selectors.service';
+import { CustomSelector } from '~shared/selectors/utils/custom-selector.class';
+import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
+import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Observable } from 'rxjs';
 
 

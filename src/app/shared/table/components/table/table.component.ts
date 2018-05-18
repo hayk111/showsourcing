@@ -9,8 +9,8 @@ import {
 	EventEmitter,
 	HostBinding,
 } from '@angular/core';
-import { ColumnDirective } from '~app/shared/table/components/column.directive';
-import { SortEvent } from '~app/shared/table/components/sort-event.interface';
+import { ColumnDirective } from '~shared/table/components/column.directive';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'table-app',

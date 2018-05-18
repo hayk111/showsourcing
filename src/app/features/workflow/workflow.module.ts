@@ -8,8 +8,8 @@ import { KanbanColComponent, KanbanItemComponent } from './components';
 import { WorkflowKanbanComponent, WorkflowPageComponent } from './containers';
 import { routes } from './routes';
 import { KanbanService } from './services/kanban.service';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { ProductModule } from '~app/features/products';
+import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
+import { ProductModule } from '~features/products';
 
 @NgModule({
 	imports: [

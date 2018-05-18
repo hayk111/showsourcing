@@ -5,7 +5,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { AppImage, } from '~models';
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { map } from 'rxjs/operators';
 
 @Component({
