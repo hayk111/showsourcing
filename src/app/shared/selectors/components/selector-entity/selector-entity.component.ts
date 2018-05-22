@@ -17,11 +17,15 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	@Input() type: string;
+	// whether it can create a new entity
 	@Input() canCreate = false;
+	// whether multiple entities can be selectioned
 	@Input() multiple = false;
 	// value is the id of the entity
 	@Input() value: any;
+	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName: string;
+	// events that emits the id of the entity
 	@Output() select = new EventEmitter<string>();
 	@Output() unselect = new EventEmitter<string>();
 	@ViewChild('selector') selector: SelectorComponent;
@@ -35,6 +39,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		this.setChoices();
 	}
 
+	/** opens the selector, is used when we want to open it programatically */
 	open() {
 		if (this.selector)
 			this.selector.open();
@@ -42,7 +47,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	onSelect(value: string) {
 		this.select.emit(value);
-		debugger;
 		// to notify the formControl we need to call this
 		this.onChangeFn(this.value);
 	}
@@ -68,6 +72,11 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			case 'event': this.choices$ = this.srv.getEvents(); break;
 			default: throw Error('Unsupported type');
 		}
+	}
+
+	/** creates a new entity */
+	create() {
+
 	}
 
 }
