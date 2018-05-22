@@ -2,21 +2,23 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
-import { RatingModule } from '~shared/rating';
 
-import { DynamicFormComponent, DynamicFormEntityComponent, DynamicInputComponent } from './components';
-import { DynamicFormsService } from './services';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DynamicFormsService } from './services/dynamic-forms.service';
+import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
+import { DynamicEditableTextComponent } from './components/dynamic-editable-text/dynamic-editable-text.component';
+import { EditableFieldModule } from '~shared/editable-field';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		InputsModule,
-		RatingModule,
+		EditableFieldModule
 	],
 	providers: [DynamicFormsService],
-	declarations: [DynamicFormComponent, DynamicInputComponent, DynamicFormEntityComponent],
-	exports: [DynamicFormComponent, DynamicFormEntityComponent]
+	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent],
+	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {
 

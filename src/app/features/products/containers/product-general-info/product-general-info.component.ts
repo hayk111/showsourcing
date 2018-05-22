@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { FormControlDescriptor, FormDescriptor } from '~shared/dynamic-forms'
+import { FormDescriptor, CustomField } from '~shared/dynamic-forms'
 import { UserService } from '~features/user';
 import { Event } from '~models';
 import { Product } from '~models';
@@ -39,12 +39,12 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 
-	getFirstCol(fields: Array<FormControlDescriptor>) {
+	getFirstCol(fields: CustomField[]) {
 		const half = Math.ceil(fields.length / 2);
 		return fields.slice(0, half);
 	}
 
-	getSecondCol(fields: Array<FormControlDescriptor>) {
+	getSecondCol(fields: CustomField[]) {
 		const half = Math.ceil(fields.length / 2);
 		return fields.slice(half);
 	}

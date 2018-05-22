@@ -1,16 +1,8 @@
-<fieldset *ngFor="let gDesc of descriptor.groups">
-	<legend> {{ gDesc.name }} </legend>
-
-	<div class="flexColumn fields">
-
-		<dynamic-input-app
-			*ngFor="let f of gDesc.fields"
-			[ctrl]="getControl(f.name)"
-			[descriptor]="f"
-			[group]="formGroup"
-			(update)="onUpdate($event)">
-		</dynamic-input-app>
-
-	</div>
-
-</fieldset>
+<div [formGroup]="form">
+	<ng-container *ngIf="editable">
+		<dynamic-editable-text-app
+			*ngFor="let field of customFields"
+			[customField]="field"
+			[formControlName]="field.name"></dynamic-editable-text-app>
+	</ng-container>
+</div>

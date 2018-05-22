@@ -1,47 +1,26 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { Subject } from 'rxjs';
-import { AutoUnsub } from '~utils';
-
-import { DynamicFormsService } from '../../services/dynamic-forms.service';
-import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
-import { Entity } from '~models';
+import { CustomField } from '~shared/dynamic-forms/utils';
+import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 
 @Component({
 	selector: 'dynamic-form-app',
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['./dynamic-form.component.scss'],
-	providers: [DynamicFormComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormComponent extends AutoUnsub {
-	@Output() update = new EventEmitter<any>();
-	@Input() descriptor: FormDescriptor;
-	formGroup: FormGroup;
-	private entity$ = new Subject<Entity>();
-
-	@Input()
-	set entity(entity: Entity) {
-		// we redo the formGroup each time for change detection.
-		// ultimately this should be fixed at angular so maybe check if it
-		// has been fixed
-		this.formGroup = this.dynamicFormsSrv.toFormGroup(this.descriptor);
-		this.formGroup.patchValue(entity);
+export class DynamicFormComponent implements OnInit {
+	@Input() customFields: CustomField[];
+	/** when editable is set to true, then the version of the forms becomes one that is using editable text */
+	@Input() editable = false;
+	@Output() formCreated = new EventEmitter<FormGroup>();
+	form: FormGroup;
+	constructor(private dfSrv: DynamicFormsService) {
 	}
 
-	constructor(private dynamicFormsSrv: DynamicFormsService) {
-		super();
-	}
-
-
-	getControl(name: string) {
-		return this.formGroup.controls[name];
-	}
-
-	onUpdate(event) {
-		this.update.emit(event);
+	ngOnInit() {
+		this.form = this.dfSrv.toFormGroup(this.customFields);
+		this.formCreated.emit(this.form);
 	}
 
 }
-

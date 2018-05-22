@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CustomField } from '~shared/dynamic-forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-test-page',
@@ -18,9 +20,19 @@ export class TestPageComponent implements OnInit {
 
 	text = 'lol';
 
+	customFields: CustomField[] = [
+		{ name: 'name', type: 'text', label: 'some label' }
+	]
+
 	constructor() { }
 
 	ngOnInit() {
 	}
 
+
+	onFormCreated(form: FormGroup) {
+		form.valueChanges.subscribe(d => {
+			debugger;
+		})
+	}
 }

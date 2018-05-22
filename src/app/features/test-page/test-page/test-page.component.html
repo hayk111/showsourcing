@@ -1,6 +1,9 @@
 <card-app>
 
-
+	<dynamic-form-app
+		[customFields]="customFields"
+		[editable]="true"
+		(formCreated)="onFormCreated($event)"></dynamic-form-app>
 	<!--<selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
 	<p>{{ country | json }}</p>
 	<selector-entity-app type="currency" [(ngModel)]="currency"></selector-entity-app>
@@ -19,7 +22,7 @@
 	<selector-entity-app type="event" [(ngModel)]="event"></selector-entity-app>
 	{{ event | json }} -->
 
-	 <cell-two-row-app [title]="'Country'">
+	 <!-- <cell-two-row-app [title]="'Country'">
 		<custom-editable-field-app
 			type="country"
 			[multiple]="true"
@@ -38,7 +41,7 @@
 		</custom-editable-field-app>
 	</cell-two-row-app>
 
-	{{ text | json }}
+	{{ text | json }} -->
 
 </card-app>
 
