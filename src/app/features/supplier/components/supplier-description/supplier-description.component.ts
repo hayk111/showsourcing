@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { EditableFieldComponent } from '~app/shared/editable-field';
-import { EditableTextComponent } from '~app/shared/editable-field/components/editable-text/editable-text.component';
-import { Patch } from '~app/entity';
+import { EditableFieldComponent } from '~shared/editable-field';
+import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-description-app',
@@ -13,7 +13,7 @@ export class SupplierDescriptionComponent {
 	@Input() supplier;
 	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
 	@ViewChild('txt') textarea: ElementRef;
-	@Output() update = new EventEmitter<Patch>();
+	@Output() update = new EventEmitter<Supplier>();
 
 	constructor() { }
 
@@ -24,9 +24,9 @@ export class SupplierDescriptionComponent {
 	/** Since onSave can be triggered when we click outside this component, we need to check if the
 	 * editable is actually opened to not trigger unnecessary work
 	 */
-	onSave(value: string) {
+	onSave(description: string) {
 		if (this.editable.isOpen) {
-			this.update.emit({ id: this.supplier.id, value, propName: 'description' });
+			this.update.emit({ id: this.supplier.id, description });
 			this.editable.close();
 		}
 	}

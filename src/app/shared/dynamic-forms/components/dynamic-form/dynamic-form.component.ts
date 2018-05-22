@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
+
 import { Subject } from 'rxjs';
-import { Entity } from '~app/entity';
 import { AutoUnsub } from '~utils';
 
 import { DynamicFormsService } from '../../services/dynamic-forms.service';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
+import { Entity } from '~models';
 
 @Component({
 	selector: 'dynamic-form-app',
@@ -30,8 +30,7 @@ export class DynamicFormComponent extends AutoUnsub {
 		this.formGroup.patchValue(entity);
 	}
 
-	constructor(private dynamicFormsSrv: DynamicFormsService,
-		private store: Store<any>) {
+	constructor(private dynamicFormsSrv: DynamicFormsService) {
 		super();
 	}
 

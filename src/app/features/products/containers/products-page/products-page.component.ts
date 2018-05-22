@@ -1,25 +1,21 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
-import {
-	EntityState,
-	ERM,
-} from '~app/entity';
-import { Patch } from '~app/entity/utils';
+import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
+import { Filter, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
-import { SelectionService, ProductService } from '~app/features/products/services';
+import { SelectionService, ProductService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [FilterService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** currently loaded products */
@@ -31,8 +27,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	statuses$: Observable<Array<ProductStatus>>;
 	/** Whether the product is pending */
 	pending$: Observable<boolean>;
-	/** Representation of the product so we can display plural / Singular */
-	repr = ERM.product;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 
@@ -41,13 +35,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// current view
 	view: 'list' | 'card' = 'card';
 	// whether the filter dialog is visible
-	filterPanelOpen$: Observable<boolean>;
-	// we have to pass a filterGroupName to the filteredListPage
-	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	filterPanelOpen: boolean;
 	filters: Array<Filter>;
 
 	constructor(
-		private store: Store<any>,
 		private userSrv: UserService,
 		private router: Router,
 		private productSrv: ProductService,
@@ -101,7 +92,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Patch a property of a product */
-	patch(patch: Patch) {
+	patch(patch: Product) {
 		// this.store.dispatch(productActions.patch(patch));
 	}
 
@@ -129,13 +120,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** When a product heart is clicked to favorite it */
 	onItemFavorited(entityId: string) {
 		// we are just patching a property of the product, which is the rating property
-		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
+		const patch: Product = { id: entityId, favorite: true };
 		this.patch(patch);
 	}
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(entityId: string) {
-		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
+		const patch: Product = { id: entityId, favorite: false };
 		this.patch(patch);
 	}
 
@@ -146,12 +137,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** when filter button is clicked at the top we open the panel */
 	openFilterPanel() {
-		this.store.dispatch(FilterPanelAction.open());
+		this.filterPanelOpen = true;
 	}
 
 	/** When we need to close the filter panel */
 	closeFilterPanel() {
-		this.store.dispatch(FilterPanelAction.close());
+		this.filterPanelOpen = false;
 	}
 
 	/** Whenever we switch from list to card view */

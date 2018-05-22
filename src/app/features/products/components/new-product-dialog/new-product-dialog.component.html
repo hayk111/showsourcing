@@ -15,7 +15,7 @@
 
 		<!-- Supplier -->
 		<label>Supplier</label>
-		<selector-app
+		<!-- <selector-app
 			[choices]="'supplier' | entityList | async"
 			[itemName]="'supplier'"
 			[canSearch]="true"
@@ -23,11 +23,11 @@
 			<ng-template let-item="item">
 				{{ item.name }}
 			</ng-template>
-		</selector-app>
+		</selector-app> -->
 
 		<!-- Category -->
 		<label>Category</label>
-		<selector-app
+		<!-- <selector-app
 			[choices]="'category' | entityList | async"
 			[itemName]="'category'"
 			[canSearch]="true"
@@ -35,7 +35,7 @@
 			<ng-template let-item="item">
 				{{ item.name }}
 			</ng-template>
-		</selector-app>
+		</selector-app> -->
 
 		<dialog-footer-app>
 			<button (click)="createProduct()" [disabled]="!form.valid">Create Product</button>

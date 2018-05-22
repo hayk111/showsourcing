@@ -1,12 +1,12 @@
-<ng-container *ngIf="user$ | async as user">
 	<!-- team -->
 	<div class="teamCtnr flex flexCenter">
-		<div class="team">{{ user?.currentTeamId | entityName: 'team' | async }}</div>
-		<icon-app (click)="openTeamPicker()" color="txt-secondary" class="pointer caret" name="angle-down" fontSet="fa"></icon-app>
+		<div class="team">{{ user?.currentTeam?.name }}</div>
+		<icon-app (click)="openTeamPicker()" color="txt-secondary"
+			class="pointer caret" name="angle-down" fontSet="fa"></icon-app>
 
 		<div class="teamSelector" *ngIf="teamPickerShown" (clickOutside)="closeTeamPicker()">
-			<list-app *ngIf="teams$ | async as teams">
-				<list-item-app [selected]="team.id === user.currentTeamId" *ngFor="let team of teams">
+			<list-app>
+				<list-item-app [selected]="team.id === user.currentTeam.id" *ngFor="let team of user.teams">
 					{{ team.name }}
 				</list-item-app>
 			</list-app>
@@ -17,8 +17,7 @@
 	<notif-app></notif-app>
 	<!-- user menu -->
 	<div class="panelCtnr">
-		<user-picture-app class="pointer" (click)="openPanel()" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+		<!-- <user-picture-app class="pointer" (click)="openPanel()" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app> -->
 		<user-panel-app [user]="user" *ngIf="panelVisible" (close)="closePanel()" (logout)="logout()" (clickOutside)="closePanel()"></user-panel-app>
 	</div>
 
-</ng-container>

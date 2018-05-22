@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FilesCardComponent } from '~app/shared/file/containers';
-import { IconsModule } from '~app/shared/icons';
-import { EntityModule } from '~app/entity';
+import { FilesCardComponent } from '~shared/file/containers';
+import { IconsModule } from '~shared/icons';
 import { LoadersModule } from '~shared/loaders';
 
 import { FilesPageComponent } from './containers';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [SharedModule],

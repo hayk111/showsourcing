@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Supplier } from '~models';
-import { Store } from '@ngrx/store';
+
 
 @Component({
 	selector: 'supplier-summary-app',
@@ -15,7 +15,7 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<any>();
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { Project } from '~models';
-import { DialogName, DialogService } from '~app/shared/dialog';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { DialogName, DialogService } from '~shared/dialog';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 
 
 const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_TO_PROJECT);

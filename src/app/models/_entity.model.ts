@@ -1,7 +1,12 @@
 import { Audit } from './audit.model';
 import { uuid } from '~utils';
 
-export class Entity<G> {
+export interface Entity {
+	id?: string;
+	name?: string;
+}
+
+export class BaseEntity<G> implements Entity {
 	id?: string;
 	audit?: Audit;
 
@@ -11,3 +16,5 @@ export class Entity<G> {
 		Object.assign(this, config);
 	}
 }
+
+

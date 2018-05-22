@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { LocalStorageService } from '~shared/local-storage';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class TokenService {
 	private static TOKEN_NAME = 'TOKEN';
 	private _token;
 
-	constructor(private localStorageSrv: LocalStorageService, private store: Store<any>) { }
+	constructor(private localStorageSrv: LocalStorageService) { }
 
 	removeToken() {
 		this._token = undefined;

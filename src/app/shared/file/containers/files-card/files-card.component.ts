@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { AppFile } from '~models';
-import { DEFAULT_FILE_IMG } from '~app/app-root/utils';
+import { DEFAULT_FILE_IMG } from '~app-root/utils';
 
 @Component({
 	selector: 'files-card-app',
@@ -15,7 +15,7 @@ export class FilesCardComponent implements OnInit {
 	files$: Observable<Array<AppFile>>;
 	defaultImg = DEFAULT_FILE_IMG;
 
-	constructor(private store: Store<any>, private userSrv: UserService) { }
+	constructor(private userSrv: UserService) { }
 
 	ngOnInit() {
 		// this.files$ = this.store.select(fromFile.selectArray);

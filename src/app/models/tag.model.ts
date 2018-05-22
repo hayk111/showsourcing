@@ -1,8 +1,8 @@
 import { Audit } from './audit.model';
 import { uuid } from '~utils';
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class Tag extends Entity<Tag> {
+export class Tag extends BaseEntity<Tag> {
 	name?: string;
 	deleted?: boolean;
 }

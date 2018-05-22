@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Supplier } from '~models';
 
 @Component({
 	selector: 'supplier-status-icon-app',
@@ -6,9 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./supplier-status-icon.component.scss'],
 })
 export class SupplierStatusIconComponent implements OnInit {
-	@Input() supplierId: string;
+	@Input() supplier: Supplier;
 	@Input() status;
-	constructor() {}
+	constructor() { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

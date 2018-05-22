@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { AppFile } from '~models';
-import { UserService } from '~app/features/user';
-import { DialogName, DialogService } from '~app/shared/dialog';
-import { FilterGroupName } from '~app/shared/filters';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductService } from '~app/features/products/services';
+import { ProductService } from '~features/products/services';
 
 
 @Component({
@@ -18,7 +17,6 @@ import { ProductService } from '~app/features/products/services';
 	styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
-	filterGroupName: FilterGroupName.PRODUCT_PAGE;
 	product$: Observable<Product>;
 	files: Array<AppFile>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
@@ -27,7 +25,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private store: Store<any>,
 		private userSrv: UserService,
 		private productSrv: ProductService,
 		private dlgSrv: DialogService) {

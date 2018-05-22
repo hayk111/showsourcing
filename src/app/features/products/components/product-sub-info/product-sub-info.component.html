@@ -1,19 +1,19 @@
 <table class="{{ big ? 'big' : '' }}">
-	<tr *ngIf="product?.supplierId | entityExist: 'supplier' | async">
+	<tr *ngIf="product?.supplier">
 		<td>
-			<supplier-status-icon-app [supplierId]="product?.supplierId" size="xs"></supplier-status-icon-app>
+			<supplier-status-icon-app [supplier]="product?.supplier" size="xs"></supplier-status-icon-app>
 		</td>
 		<td>
-			<span> {{ product?.supplierId | entityName: 'supplier' | async }}</span>
+			<span> {{ product?.supplier?.name }}</span>
 		</td>
 	</tr>
 
-	<tr  *ngIf="product?.categoryId | entityExist: 'category' | async">
+	<tr *ngIf="product?.category?.name">
 		<td>
 			<icon-app  fontSet="fa" name="tag"></icon-app>
 		</td>
 		<td>
-			<span>{{ product?.categoryId | entityName: 'category' | async }}</span>
+			<span>{{ product?.category?.name }}</span>
 		</td>
 	</tr>
 

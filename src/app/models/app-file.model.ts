@@ -1,6 +1,6 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class AppFile extends Entity<AppFile> {
+export class AppFile extends BaseEntity<AppFile> {
 	fileName: string;
 	deleted: boolean;
 }

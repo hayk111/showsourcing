@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 
 import { Log } from '~utils';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 @Component({
 	selector: 'app-root',

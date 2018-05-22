@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ERM, selectEntityById } from '~app/entity';
 import { FormControlDescriptor, FormDescriptor } from '~shared/dynamic-forms'
-import { UserService } from '~app/features/user';
+import { UserService } from '~features/user';
 import { Event } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';
@@ -22,9 +21,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields$: Observable<FormDescriptor>;
 	productId: string;
 
-	categoryRep = ERM.category;
-
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(private route: ActivatedRoute, private userSrv: UserService) {
 		super();
 	}
 

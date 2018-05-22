@@ -33,11 +33,11 @@
 					</td>
 
 					<td>
-							{{ file.creationDate | date }}
+							{{ file.audit.creationDate | date }}
 					</td>
 
 					<td>
-							{{ file.createdByUserId | entityName: project | async }}
+							{{ file.audit.createdBy.firstName }}
 					</td>
 
 					<td (click)="deleteFile(file)" i18n="button| action delete file">

@@ -1,10 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
 import { tap, take, catchError } from 'rxjs/operators';
-import { Credentials } from '~app/features/auth/interfaces';
-import { UserService } from '~app/features/user';
+import { Credentials } from '~features/auth/interfaces';
+import { UserService } from '~features/user';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
 import { BehaviorSubject } from 'rxjs';
@@ -60,11 +59,9 @@ export class AuthenticationService {
 	}
 
 	constructor(
-		private actions$: Actions,
 		private srv: AuthHttpService,
 		private tokenSrv: TokenService,
 		private router: Router,
-		private route: ActivatedRoute,
 		private userSrv: UserService
 	) { }
 }

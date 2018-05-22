@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Product } from '~models';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 
 @Component({

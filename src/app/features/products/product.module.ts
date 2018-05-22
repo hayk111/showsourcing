@@ -1,19 +1,19 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from '~app/app-root/pipes';
-import { CommentModule } from '~app/features/comment';
-import { ProductMainCardComponent } from '~app/features/products/components/product-main-card/product-main-card.component';
-import { ProductSummaryComponent } from '~app/features/products/components/product-summary/product-summary.component';
-import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
-import { BadgeModule } from '~app/shared/badge/badge.module';
-import { CarouselModule } from '~app/shared/carousel';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { FileModule } from '~app/shared/file';
-import { FiltersModule } from '~app/shared/filters';
-import { SharedModule } from '~app/shared/shared.module';
-import { StatusModule } from '~app/shared/status/status.module';
-import { TableModule } from '~app/shared/table';
+import { PipesModule } from '~app-root/pipes';
+import { CommentModule } from '~features/comment';
+import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
+import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
+import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
+import { BadgeModule } from '~shared/badge/badge.module';
+import { CarouselModule } from '~shared/carousel';
+import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
+import { FileModule } from '~shared/file';
+import { FiltersModule } from '~shared/filters';
+import { SharedModule } from '~shared/shared.module';
+import { StatusModule } from '~shared/status/status.module';
+import { TableModule } from '~shared/table';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -40,6 +40,8 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
+import { ProductService } from '~features/products/services';
+import { SelectionService } from './services/selection.service';
 
 @NgModule({
 	imports: [
@@ -60,7 +62,6 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 		CommentModule.forChild(),
 		EntityPagesModule,
 	],
-	providers: [],
 	declarations: [
 		ProductSmallCardComponent,
 		ProductIconsComponent,
@@ -91,6 +92,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
+	providers: [ProductService, SelectionService]
 })
 export class ProductModule {
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { countries, incoTerms, harbours, currencies } from '~utils/constants';
 import { of } from 'rxjs';
 import { Apollo } from 'apollo-angular';
-import { SelectorQueries } from '~app/shared/selectors/selector.queries';
+import { SelectorQueries } from '~shared/selectors/selector.queries';
 import { map, tap } from 'rxjs/operators';
 
 

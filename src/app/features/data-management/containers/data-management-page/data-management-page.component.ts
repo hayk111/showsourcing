@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { selectEntityArray } from '~app/entity';
-import { Entity, EntityRepresentation, ERM } from '~app/entity';
+import { ERM } from '~models';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -10,12 +9,12 @@ import { Entity, EntityRepresentation, ERM } from '~app/entity';
 	styleUrls: ['./data-management-page.component.scss'],
 })
 export class DataManagementPageComponent implements OnInit {
-	entities = [ERM.event, ERM.category, ERM.supplier, ERM.tag, ERM.project];
+	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
 	selectedEntity;
 	selection = [];
-	items$: Observable<Array<Entity>>;
+	//items$: Observable<Array<Entity>>;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		this.select(this.entities[0]);
@@ -31,7 +30,6 @@ export class DataManagementPageComponent implements OnInit {
 	}
 
 	mergeSelection() {
-		// this.store.dispatch();
 		this.resetSelection();
 	}
 
@@ -39,17 +37,17 @@ export class DataManagementPageComponent implements OnInit {
 		this.selection = itemIds;
 	}
 
-	select(entity: EntityRepresentation) {
+	select(entity: ERM) {
 		this.selectedEntity = entity;
-		this.items$ = this.store.select(selectEntityArray(entity));
+		// this.items$ = this.store.select(selectEntityArray(entity));
 		this.resetSelection();
 	}
 
 	removeItem(id: string) {
-		this.store.dispatch(this.selectedEntity.actions.delete([id]));
+		// this.store.dispatch(this.selectedEntity.actions.delete([id]));
 	}
 
 	updateItem(patch) {
-		this.store.dispatch(this.selectedEntity.actions.patch(patch));
+		// this.store.dispatch(this.selectedEntity.actions.patch(patch));
 	}
 }

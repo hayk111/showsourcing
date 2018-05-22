@@ -21,3 +21,7 @@ export * from './contact.model';
 export * from './task.model';
 export * from './currency.model';
 export * from './app-file.model';
+export * from './app-comment.model';
+export * from './_erm.enum';
+export * from './_entity.model';
+

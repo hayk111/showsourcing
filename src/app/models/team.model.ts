@@ -1,9 +1,9 @@
 import { User } from './user.model';
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 import { TeamUser } from './team-user.model';
 
 
-export class Team extends Entity<Team> {
+export class Team extends BaseEntity<Team> {
 	ownerUser: User;
 	name: string;
 	defaultCurrency: string;

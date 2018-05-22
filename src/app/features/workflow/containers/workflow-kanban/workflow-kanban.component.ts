@@ -1,18 +1,17 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { FilterGroupName } from '~shared/filters/models';
 
+import { Observable } from 'rxjs';
+
+// drag and drop workflow
 @Component({
 	selector: 'workflow-kanban-app',
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss'],
 })
 export class WorkflowKanbanComponent implements OnInit {
-	@Input() filterGroupName: FilterGroupName;
 	@Output() productSelect = new EventEmitter<string>();
 	productsByStatus$: Observable<Array<any>>;
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.productsByStatus$ = this.store.select(selectProductByStatus);

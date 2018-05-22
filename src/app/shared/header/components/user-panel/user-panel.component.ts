@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { User } from '~models';
-import { DEFAULT_USER_IMG } from '~app/app-root/utils';
+import { DEFAULT_USER_IMG } from '~app-root/utils';
 
 @Component({
 	selector: 'user-panel-app',

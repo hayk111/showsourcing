@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterGroupName, selectFilterGroup, Filter } from '~shared/filters';
-import { EntityState, Entity, ERM, Patch, Sort } from '~app/entity';
+import { FilterService, Filter } from '~shared/filters';
 import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DialogName, DialogService } from '~shared/dialog';
-import { SortEvent } from '~app/shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~app/app-root/utils';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~app-root/utils';
 import { SelectionService } from '../../services/selection.service';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { SupplierService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
+	providers: [FilterService]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit {
-	/** filter group name so we can attach filters to this page and filter the suppliers */
-	filterGroupName = FilterGroupName.SUPPLIERS_PAGE;
 	suppliers: Array<Supplier> = [];
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
-	repr = ERM.supplier;
 	/** current sort used for sorting suppliers */
-	sort$: Subject<Sort> = new Subject();
+	sort$: Subject<SortEvent> = new Subject();
 	/** current filters applied to suppliers */
 	filters$: Observable<Filter[]>;
 	pagination$: Observable<any>;
-	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
+	currentSort: SortEvent = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
 	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */
@@ -45,7 +42,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private supplierSrv: SupplierService,
 		private selectionSrv: SelectionService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private filterSrv: FilterService) {
 		super();
 	}
 

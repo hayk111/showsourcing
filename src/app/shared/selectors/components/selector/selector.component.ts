@@ -2,9 +2,8 @@ import {
 	Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter,
 	Output, TemplateRef, ContentChild, ViewChild
 } from '@angular/core';
-import { Entity } from '~app/entity';
 import { InputDecorator } from '@angular/core/src/metadata/directives';
-import { AbstractInput, makeAccessorProvider, InputDirective } from '~app/shared/inputs/components-directives';
+import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs/components-directives';
 import { Choice } from '../../utils/choice.interface';
 import { NgSelectComponent } from '@ng-select/ng-select';
 

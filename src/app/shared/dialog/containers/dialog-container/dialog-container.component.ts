@@ -7,14 +7,14 @@ import {
 	ViewChild,
 	HostListener,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AutoUnsub } from '~app/app-root/utils';
+
+import { AutoUnsub } from '~app-root/utils';
 
 import { DialogHostDirective } from '../../components/dialog-host.directive';
 import { dialogComponentMap } from '../../models/dialog-component-map.const';
 import { DialogName } from '../../models/dialog-names.enum';
 import { takeUntil } from 'rxjs/operators';
-import { DialogService } from '~app/shared/dialog/services/dialog.service';
+import { DialogService } from '~shared/dialog/services/dialog.service';
 
 
 @Component({

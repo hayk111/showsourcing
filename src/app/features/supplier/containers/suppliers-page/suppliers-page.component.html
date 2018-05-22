@@ -1,6 +1,5 @@
 
 <top-panel-app
-	[filterGroupName]="filterGroupName"
 	[title]="'My Suppliers'"
 	[buttonName]="'Add Supplier'"
 	[subtitles]="['Suppliers', 'all']"
@@ -27,7 +26,6 @@
 		<selection-bar-app
 			(close)="resetSelection()"
 			(delete)="deleteSelection()"
-			[repr]="repr"
 			*ngIf="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container>

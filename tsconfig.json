@@ -18,9 +18,10 @@
 			"esnext.asynciterable"
     ],
 		"paths": {
-			"~app/*": ["app/*"],
-			"~feature/*": ["app/features/*"],
-			"~feature/": ["app/features/index"],
+			"~app-root/*": ["app/app-root/*"],
+			"~app-root/": ["app/app-root/index"],
+			"~features/*": ["app/features/*"],
+			"~features/": ["app/features/index"],
 			"~models/*": ["app/models/*"],
 			"~models": ["app/models/index"],
 			"~shared/*": ["app/shared/*"],

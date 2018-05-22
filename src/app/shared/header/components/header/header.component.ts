@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 @Component({
 	selector: 'header-app',

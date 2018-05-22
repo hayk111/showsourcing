@@ -3,7 +3,6 @@
 <ng-container *ngIf="products$ | async as products">
 	<!-- top panel -->
 	<top-panel-app
-		[filterGroupName]="filterGroupName"
 		[title]="'My Products'"
 		[buttonName]="'Add Product'"
 		[subtitles]="['Products', 'all']"
@@ -44,7 +43,6 @@
 		(productOpen)="goToDetails($event)"></product-card-view-app>
 
 	<selection-bar-app
-		[repr]="repr"
 		*ngIf="selection.size > 0"
 		[selection]="selection"
 		(close)="unselectAll()"
@@ -58,7 +56,7 @@
 		</selection-actions>
 	</selection-bar-app>
 
-	<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen$ | async"></product-filters-app>
+	<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen"></product-filters-app>
 
 
 </ng-container>

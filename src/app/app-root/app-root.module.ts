@@ -3,22 +3,19 @@ import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { Store, StoreModule } from '@ngrx/store';
 import { environment } from 'environments/environment';
-import { EntityModule } from '~app/entity';
-import { DataManagementModule } from '~app/features/data-management/data-management.module';
-import { ProductModule } from '~app/features/products';
-import { ProjectModule } from '~app/features/project';
-import { SuppliersModule } from '~app/features/supplier';
-import { TasksModule } from '~app/features/tasks';
-import { UserModule } from '~app/features/user';
-import { AuthGuardService, AuthModule } from '~feature/auth';
+import { DataManagementModule } from '~features/data-management/data-management.module';
+import { ProductModule } from '~features/products';
+import { ProjectModule } from '~features/project';
+import { SuppliersModule } from '~features/supplier';
+import { TasksModule } from '~features/tasks';
+import { UserModule } from '~features/user';
+import { AuthGuardService, AuthModule } from '~features/auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~app/app-root/store/store.module';
 import { Log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';
@@ -26,10 +23,9 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { DialogModule } from '~app/shared/dialog';
-import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
-import { AppApolloModule } from '~app/shared/apollo/apollo.module';
-import { TestPageModule } from '~app/features/test-page/test-page.module';
+import { DialogModule } from '~shared/dialog';
+import { AppApolloModule } from '~shared/apollo/apollo.module';
+import { TestPageModule } from '~features/test-page/test-page.module';
 
 declare let module: any;
 
@@ -41,18 +37,14 @@ declare let module: any;
 		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppStoreModule,
 		AuthModule.forRoot(),
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
-		StoreModule,
 		HttpClientModule,
 		TemplateModule.forRoot(),
-		EntityModule.forRoot(),
 		LocalStorageModule.forRoot(),
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
-		FocusedEntityModule.forRoot(),
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,

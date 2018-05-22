@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
-import { ERM, Patch } from '~app/entity';
+import { AutoUnsub } from '~app-root/utils';
 import { Category } from '~models';
-import { ContactService } from '~app/features/supplier/services/contact.service';
+import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';
-import { UserService } from '~app/features/user';
-import { DialogName, DialogService } from '~app/shared/dialog';
-import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
+import { EditableFieldValue } from '~shared/editable-field/components/editable-field/editable-field-value.interface';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';
-import { SupplierService } from '~app/features/supplier/services/supplier.service';
+import { SupplierService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -33,7 +32,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private supplierSrv: SupplierService,
 		private contactSrv: ContactService,
-		private store: Store<any>,
 		private dlgSrv: DialogService) {
 		super();
 	}
@@ -66,9 +64,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** updates supplier */
-	patch(patch: Patch) {
-		// this.store.dispatch(fromSupplier.Actions.patch(patch));
-		this.supplierSrv.updateSupplier({ id: patch.id, [patch.propName]: patch.value });
+	patch(supplier: Supplier) {
+		this.supplierSrv.updateSupplier(supplier);
 	}
 
 	/**  */
@@ -116,7 +113,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openContactDlg(contact?: Contact) {
-		const target = { entityId: this.supplierId, entityRepr: ERM.supplier };
 		if (contact)
 			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId });
 		// new contact dlg

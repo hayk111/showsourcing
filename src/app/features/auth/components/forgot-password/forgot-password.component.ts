@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { AutoUnsub } from '~app/app-root/utils/auto-unsub.component';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { AutoUnsub } from '~app-root/utils/auto-unsub.component';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { takeUntil, take, catchError } from 'rxjs/operators';
 
 @Component({

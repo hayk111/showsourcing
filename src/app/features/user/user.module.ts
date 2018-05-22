@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
-import { EntityModule } from '~app/entity/entity.module';
+
 
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 
 @NgModule({
 	imports: [

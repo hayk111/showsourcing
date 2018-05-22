@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { Entity, EntityTarget, selectEntityById } from '~app/entity';
 import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
 import { AutoUnsub } from '~utils';
+import { Entity } from '~models';
 
 @Component({
 	selector: 'dynamic-form-entity-app',
@@ -11,16 +11,15 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./dynamic-form-entity.component.scss'],
 })
 export class DynamicFormEntityComponent extends AutoUnsub implements OnInit {
-	@Input() target: EntityTarget;
 	descriptor$: Observable<FormGroupDescriptor | FormDescriptor>;
 	entity$: Observable<Entity>;
 
-	constructor(private store: Store<any>) {
+	constructor() {
 		super();
 	}
 
 	ngOnInit() {
-		this.entity$ = this.store.select(selectEntityById(this.target));
+		// this.entity$ = this.store.select(selectEntityById(this.target));
 	}
 
 	onUpdate(event) {

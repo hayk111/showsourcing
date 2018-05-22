@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { ColumnDirective } from '~app/shared/table';
+import { ColumnDirective } from '~shared/table';
 
 export interface ColumnDescriptor {
 	title: string;

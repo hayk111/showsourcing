@@ -1,5 +1,5 @@
-import { Entity } from './_entity.model';
+import { BaseEntity } from './_entity.model';
 
-export class Category extends Entity<Category>{
+export class Category extends BaseEntity<Category>{
 	name: string;
 }

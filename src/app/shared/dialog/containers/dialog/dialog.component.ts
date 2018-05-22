@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild, HostListener } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { AutoUnsub } from '~utils';
 
 import { DialogName } from '../../models/dialog-names.enum';
 import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
 import { DialogFooterComponent } from '../../components/dialog-footer/dialog-footer.component';
-import { InputDirective } from '~app/shared/inputs';
-import { DialogService } from '~app/shared/dialog/services/dialog.service';
+import { InputDirective } from '~shared/inputs';
+import { DialogService } from '~shared/dialog/services/dialog.service';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({

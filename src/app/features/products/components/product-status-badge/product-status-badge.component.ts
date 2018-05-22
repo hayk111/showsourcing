@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 
 @Component({
 	selector: 'product-status-badge-app',
@@ -12,7 +12,7 @@ export class ProductStatusBadgeComponent implements OnInit {
 	@Output() update = new EventEmitter<string>();
 	panelVisible = false;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() { }
 

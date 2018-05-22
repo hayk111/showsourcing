@@ -6,13 +6,13 @@ import {
 	Router,
 	RouterStateSnapshot,
 } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { map, filter, tap, switchMap } from 'rxjs/operators';
-import { Log } from '~app/app-root/utils';
+import { Log } from '~app-root/utils';
 import { User } from '~models';
-import { UserService } from '~app/features/user';
-import { AuthenticationService } from '~app/features/auth/services/authentication.service';
+import { UserService } from '~features/user';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {

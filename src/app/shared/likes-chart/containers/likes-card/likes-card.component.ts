@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '~models';
@@ -19,7 +19,7 @@ export class LikesCardComponent implements OnInit {
 		negative: '#f94259',
 	};
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.teamMembers$ = this.store.select(fromTeamMember.selectState);

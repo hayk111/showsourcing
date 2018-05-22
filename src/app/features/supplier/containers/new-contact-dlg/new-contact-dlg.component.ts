@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~app/app-root/utils';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~app-root/utils';
 import { AppImage } from '~models';
-import { ContactService } from '~app/features/supplier/services/contact.service';
+import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';
-import { UserService } from '~app/features/user';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { DialogName } from '~app/shared/dialog/models/dialog-names.enum';
-import { DialogService } from '~app/shared/dialog';
+import { UserService } from '~features/user';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogName } from '~shared/dialog/models/dialog-names.enum';
+import { DialogService } from '~shared/dialog';
 
 const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
@@ -43,7 +43,6 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private store: Store<any>,
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,

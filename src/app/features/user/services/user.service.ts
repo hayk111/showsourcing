@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '~models';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Store } from '@ngrx/store';
+
 import { filter } from 'rxjs/operators';
 
 @Injectable()

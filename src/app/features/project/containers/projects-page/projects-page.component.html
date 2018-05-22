@@ -5,8 +5,7 @@
 	<project-nav-app
 		(select)="selectProject($event)"
 		[selectedProject]="selectedProject"
-		[projects]="projects"
-		[productCount]="(projectState$ | async)?.productsCount"></project-nav-app>
+		[projects]="projects"></project-nav-app>
 
 	<div class="right">
 		<!-- top bar -->
@@ -22,4 +21,4 @@
 
 </div>
 
-<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>
+<selection-bar-app *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>

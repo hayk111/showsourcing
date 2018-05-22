@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ERM } from '~app/entity';
 import { DialogName, DialogService } from '~shared/dialog';
-import { FilterGroupName } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -15,10 +13,9 @@ import { AutoUnsub } from '~utils';
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	tasks$;
 	pending$: Observable<boolean>;
-	repr = ERM.task;
 	selection = new Map<string, boolean>();
 
-	constructor(private store: Store<any>, private dlgSrv: DialogService) {
+	constructor(private dlgSrv: DialogService) {
 		super();
 	}
 

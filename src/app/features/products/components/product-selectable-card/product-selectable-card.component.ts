@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Patch } from '~app/entity';
 import { Product, ProductStatus } from '~models';
 
 @Component({
@@ -20,7 +19,7 @@ export class ProductSelectableCardComponent implements OnInit {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
-	@Output() update = new EventEmitter<Patch>();
+	@Output() update = new EventEmitter<Product>();
 
 	public showOverlay = false;
 
@@ -43,7 +42,7 @@ export class ProductSelectableCardComponent implements OnInit {
 		this.showOverlay = value;
 	}
 
-	onStatusUpdate(newStatus: string) {
-		this.update.emit({ propName: 'status', value: newStatus, id: this.product.id });
+	onStatusUpdate(id: string) {
+		this.update.emit({ id: this.product.id, status: { id } });
 	}
 }

@@ -1,1 +1,1 @@
-export * from './filter-entity-panel.service';
+export * from './filter.service';

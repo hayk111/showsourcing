@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { GuestTemplateComponent } from '~app/shared/template/components/guest-template/guest-template.component';
+import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
 import { LoginComponent, ForgotPasswordComponent, RegistrationComponent, PwResettedComponent, AccountCreatedComponent } from './components';
 
 export const routes: Routes = [

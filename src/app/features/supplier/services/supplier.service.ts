@@ -3,11 +3,11 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { SupplierQueries } from '~app/features/supplier/services/supplier.queries';
+import { SupplierQueries } from '~features/supplier/services/supplier.queries';
 import { Supplier } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
-import { uuid } from '~app/app-root/utils/uuid.utils';
+import { uuid } from '~app-root/utils/uuid.utils';
 
 
 @Injectable()
