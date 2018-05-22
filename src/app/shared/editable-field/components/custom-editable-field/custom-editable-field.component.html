@@ -13,11 +13,14 @@
 		</form-field-app>
 	</editable-text-app>
 
-	<editable-text-app *ngSwitchCase="'country'">
+	<editable-text-app *ngSwitchCase="'country'" [hasAction]="false">
 		<label-app>{{ label }}</label-app>
-		<selector-entity-app type="country"></selector-entity-app>>
+		<selector-entity-app
+			type="country"
+			[multiple]="multiple"
+			[value]="value">
+		</selector-entity-app>>
 	</editable-text-app>
-
 
 </ng-container>
 

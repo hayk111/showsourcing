@@ -12,6 +12,7 @@ export class CustomEditableFieldComponent implements OnInit {
 	@Input() value = '';
 	@Input() type = 'text';
 	@Input() label: string = '';
+	@Input() multiple = true;
 
 	constructor() { }
 

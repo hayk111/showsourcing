@@ -16,6 +16,8 @@ export class TestPageComponent implements OnInit {
 	event;
 	tags = [];
 
+	text = 'lol';
+
 	constructor() { }
 
 	ngOnInit() {

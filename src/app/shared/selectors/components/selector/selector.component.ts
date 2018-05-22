@@ -56,6 +56,7 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
+		debugger;
 		const val = choice[this.bindValue];
 		// if it's multiple then we need to append to the array
 		if (this.multiple)

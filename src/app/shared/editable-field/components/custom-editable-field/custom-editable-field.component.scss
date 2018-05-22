@@ -1,17 +1,4 @@
-.confirmBlock {
-	display: flex;
-	align-items: center;
-
-	.confirmIcon {
-		border-radius: var(--border-radius-s);
-		margin-left: var(--spacing-s);
-		height: 22px;
-		width: 22px;
-	}
-	.confirmIconSave {
-		color: white;
-		width: 44px;
-		text-transform: uppercase;
-		font-weight: bold;
-	}
+:host {
+	width: 100%;
+	display: block;
 }

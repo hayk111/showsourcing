@@ -23,26 +23,17 @@ export enum PropType {
 	YES_NO = 'yesNo',
 }
 
-export interface FormControlDescriptor {
+export interface CustomField {
 	name?: string;
-	propName?: string;
-	propType?: PropType;
 	value?: any;
-	fieldType?: string;
+	type?: string;
 	label?: string;
 	placeholder?: string;
 	required?: boolean;
+	multiple?: boolean;
 	metadata?: any;
 	// for when multiple choices
 	choices?: Array<any>;
 }
 
-export interface FormGroupDescriptor {
-	name: string;
-	fields: Array<FormControlDescriptor | FormGroupDescriptor>;
-	class?: string;
-}
-
-export interface FormDescriptor {
-	groups: Array<FormGroupDescriptor>;
-}
+export type FormDescriptor = CustomField[];

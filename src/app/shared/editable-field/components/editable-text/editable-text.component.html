@@ -1,12 +1,23 @@
 <div (clickOutside)="close(true)">
+	<!-- closed -->
 	<label class="flex pointer" *ngIf="!isOpen" (click)="open()">
 		<ng-content select="label-app"></ng-content>
 	</label>
-	<ng-container *ngIf="isOpen">
-		<ng-content></ng-content>
-		<ng-container *ngIf="hasAction">
 
-		</ng-container>
-	</ng-container>
+	<!-- open -->
+	<div *ngIf="isOpen" class="flex openBlock">
+		<ng-content></ng-content>
+
+
+		<div class="confirmBlock" *ngIf="hasAction">
+			<div class="confirmIcon cancel pointer" (click)="close(true)">
+				<icon-app name="times" fontSet="fa"></icon-app>
+			</div>
+			<div class="confirmIcon save pointer" (click)="saved.emit()">
+				<icon-app name="thumbs-up" fontSet="fa"></icon-app>
+			</div>
+		</div>
+
+	</div>
 </div>
 

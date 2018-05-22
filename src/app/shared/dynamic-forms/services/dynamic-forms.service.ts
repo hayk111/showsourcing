@@ -1,47 +1,36 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { FormDescriptor, FormGroupDescriptor, FormControlDescriptor } from '../utils/custom-field.model'
+import { FormDescriptor, CustomField } from '../utils/custom-field.model'
 import { RegexpApp } from '~utils/regexes';
 
 @Injectable()
 export class DynamicFormsService {
 	constructor() { }
 
-	getDescriptor() {
-		// return this.store.select(selectCustomField(entityRepr.descriptorName));
-	}
-
-	// transform formGroupDescriptor to DynamicFormGroup
-	toFormGroup(formDesc: FormDescriptor): FormGroup {
+	/** creates a form group given an array of custom fields */
+	toFormGroup(customFields: CustomField[]): FormGroup {
 		const formGroup = new FormGroup({});
-		formDesc.groups.forEach(gDesc => {
-			gDesc.fields.forEach(ctrlDesc => {
-				const ctrl = this.toDynamicFormControl(ctrlDesc);
-				formGroup.addControl(ctrlDesc.name, ctrl);
-			});
+		customFields.forEach(field => {
+			const ctrl = this.toFormControl(field);
+			formGroup.addControl(field.name, ctrl);
 		});
 		return formGroup;
 	}
 
-	private addCtrlToFormGroup(gDesc: FormGroupDescriptor, formGroup) {
-		gDesc.fields.forEach(ctrlDesc => {
-			const name = ctrlDesc.name.replace(/\/s/g, '');
-			const ctrl = this.toDynamicFormControl(ctrlDesc);
-			formGroup.addControl(ctrlDesc.name, ctrl);
-		});
-	}
-
-	toDynamicFormControl(ctrlDesc: FormControlDescriptor): FormControl {
-		const value = ctrlDesc.value || '';
-		const ctrl = new FormControl(value);
+	/** transforms a custom field into a form control */
+	toFormControl(field: CustomField): FormControl {
+		// when multiple it means we are dealing with an array of values
+		const value = field.multiple ? [] : '';
+		const validators = this.createValidators(field);
+		const ctrl = new FormControl(value, validators);
 		return ctrl;
 	}
 
-	createValidators(ctrlDesc: FormControlDescriptor) {
+	private createValidators(field: CustomField) {
 		const validators = [];
-		if (ctrlDesc.required) validators.push(Validators.required);
-		switch (ctrlDesc.fieldType) {
+		if (field.required) validators.push(Validators.required);
+		switch (field.type) {
 			case 'number':
 				validators.push(Validators.pattern(RegexpApp.DIGITS));
 				break;
@@ -51,6 +40,8 @@ export class DynamicFormsService {
 			case 'tel':
 				validators.push(Validators.pattern(RegexpApp.PHONE));
 				break;
+			case 'email':
+				validators.push(Validators.email);
 		}
 		return Validators.compose(validators);
 	}

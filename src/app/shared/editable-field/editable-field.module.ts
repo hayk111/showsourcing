@@ -23,6 +23,7 @@ import { CustomEditableFieldComponent } from './components/custom-editable-field
 		CommonModule,
 		FormsModule,
 		InputsModule,
+		IconsModule,
 		SelectorsModule,
 		BadgeModule, // used to display a badge in the status selector
 		UtilsModule, // click outside directive used

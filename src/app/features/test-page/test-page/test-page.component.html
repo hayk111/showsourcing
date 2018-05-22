@@ -22,10 +22,23 @@
 	 <cell-two-row-app [title]="'Country'">
 		<custom-editable-field-app
 			type="country"
-			value="TW"
-			label="country">
+			[multiple]="true"
+			[value]="country"
+			[label]="country">
 		</custom-editable-field-app>
-	</cell-two-row-app> 
+	</cell-two-row-app>
+
+	{{ country | json }}
+
+	<cell-two-row-app [title]="'text'">
+		<custom-editable-field-app
+			type="text"
+			[value]="text"
+			[label]="text">
+		</custom-editable-field-app>
+	</cell-two-row-app>
+
+	{{ text | json }}
 
 </card-app>
 
