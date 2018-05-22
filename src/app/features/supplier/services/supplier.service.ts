@@ -25,8 +25,8 @@ export class SupplierService {
 			this.suppliersQuery$ = this.apollo.watchQuery<any>({
 				query: SupplierQueries.list,
 				variables: {
-					$skip: 0,
-					$take: perPage,
+					skip: 0,
+					take: perPage,
 				}
 			});
 		}
@@ -54,18 +54,19 @@ export class SupplierService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	loadSuppliersPage({ page, perPage }) {
+	loadSuppliersNextPage({ page, perPage }) {
 		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.fetchMore({
 			variables: {
-				'$skip': page * perPage,
-				'$take': perPage
+				skip: page * perPage,
+				take: perPage
 			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
-				return Object.assign({}, prev, {
+				return {
+					...prev,
 					suppliers: [...prev.suppliers, ...fetchMoreResult.suppliers],
-				});
+				};
 			}
 		});
 	}
@@ -80,8 +81,8 @@ export class SupplierService {
 		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.refetch({
 			variables: {
-				'$skip': 0,
-				'$take': perPage,
+				skip: 0,
+				take: perPage,
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'DESC'
 			}
