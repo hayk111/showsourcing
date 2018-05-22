@@ -12,6 +12,8 @@ export class EditableTextComponent implements OnInit {
 	/** Whether click on the value should open the editor */
 	@Input() editOnClick = true;
 	@Input() closeOnOutsideClick = true;
+	/** whether we display cancel / save buttons */
+	@Input() hasAction = true;
 	@Output() closed = new EventEmitter<null>();
 	@ContentChild(InputDirective) input: InputDirective;
 	isOpen = false;

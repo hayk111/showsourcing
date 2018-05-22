@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { countries, incoTerms, harbours, currencies } from '~utils/constants';
 import { of } from 'rxjs';
 import { Apollo } from 'apollo-angular';
-import { SelectorQueries } from '~shared/selectors/selector.queries';
+import { SelectorQueries } from './selector.queries';
 import { map, tap } from 'rxjs/operators';
 
 
@@ -37,7 +37,6 @@ export class SelectorsService {
 
 	getCategories() {
 		return this.apollo.subscribe({ query: SelectorQueries.categories }).pipe(
-			tap(d => { debugger }),
 			map(r => r.data.categories)
 		);
 	}

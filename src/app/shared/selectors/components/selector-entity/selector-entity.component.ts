@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, ViewChild, EventEmitter } from '@angular/core';
-import { SelectorsService } from '~shared/selectors/selectors.service';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { SelectorsService } from '../../sercices/selectors.service';
 import { CustomSelector } from '~shared/selectors/utils/custom-selector.class';
 import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Observable } from 'rxjs';
+import { Choice } from '~shared/selectors/utils/choice.interface';
 
 
 @Component({
 	selector: 'selector-entity-app',
 	templateUrl: './selector-entity.component.html',
 	styleUrls: ['./selector-entity.component.scss'],
-	providers: [makeAccessorProvider(SelectorEntityComponent)],
+	providers: [makeAccessorProvider(SelectorEntityComponent), SelectorsService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorEntityComponent extends AbstractInput implements OnInit {
@@ -20,14 +21,14 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@Input() multiple = false;
 	// value is the id of the entity
 	@Input() value: any;
-	@Input() entityName: string;
+	@Input() itemName: string;
 	@Output() select = new EventEmitter<string>();
 	@Output() unselect = new EventEmitter<string>();
 	@ViewChild('selector') selector: SelectorComponent;
 	choices$: Observable<any[]>;
 
-	constructor(private srv: SelectorsService) {
-		super();
+	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
+		super(cd);
 	}
 
 	ngOnInit() {
@@ -42,10 +43,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	onSelect(value: string) {
 		this.select.emit(value);
 		debugger;
-		if (this.multiple)
-			this.value.push(value);
-		else
-			this.value = value;
 		// to notify the formControl we need to call this
 		this.onChangeFn(this.value);
 	}
@@ -54,7 +51,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		this.unselect.emit(value);
 
 		if (this.multiple) {
-			this.value = this.value.filter(v => v !== value);
 			// to notify the formControl we need to call this
 			this.onChangeFn(this.value);
 		}

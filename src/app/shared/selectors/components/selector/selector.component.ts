@@ -1,6 +1,6 @@
 import {
 	Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter,
-	Output, TemplateRef, ContentChild, ViewChild
+	Output, TemplateRef, ContentChild, ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import { InputDecorator } from '@angular/core/src/metadata/directives';
 import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs/components-directives';
@@ -18,8 +18,8 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 })
 export class SelectorComponent extends AbstractInput {
 	// when we select one
-	@Output() select = new EventEmitter<Choice>();
-	@Output() unselect = new EventEmitter<Choice>();
+	@Output() select = new EventEmitter<string>();
+	@Output() unselect = new EventEmitter<string>();
 	// when the create button is clicked we want to create an item with what's in the input as name.
 	@Output() create = new EventEmitter<string>();
 	// string from input to search through the list of choices
@@ -50,13 +50,14 @@ export class SelectorComponent extends AbstractInput {
 	private _choices: Array<Choice>;
 	filteredChoices = [];
 
-	constructor() {
-		super();
+	constructor(protected cd: ChangeDetectorRef) {
+		super(cd);
 	}
 
+	/** when selecting a choice */
 	onSelect(choice: Choice) {
 		const val = choice[this.bindValue];
-		this.select.emit(val);
+		// if it's multiple then we need to append to the array
 		if (this.multiple)
 			this.value.push(val);
 		else
@@ -64,6 +65,9 @@ export class SelectorComponent extends AbstractInput {
 
 		if (this.onChangeFn)
 			this.onChangeFn(this.value);
+
+		// we emit the value of the choice picked
+		this.select.emit(val);
 	}
 
 	onUnselect(removeObj: { value: any }) {

@@ -1,8 +1,8 @@
 <ng-container *ngIf="choices$ | async as choices">
 	<selector-app
-		[value]="value"
+		[(ngModel)]="value"
 		[choices]="choices"
-		[itemName]="entityName"
+		[itemName]="itemName"
 		[canSearch]="true"
 		[canCreate]="canCreate"
 		[multiple]="multiple"

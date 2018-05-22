@@ -20,7 +20,7 @@ export class SupplierService {
 		Initialize the underlying query ref for the list of
 		suppliers.
 	 */
-	private initializeSupplierQuery({ perPage }) {
+	private initializeSupplierQuery({ perPage }): void {
 		if (!this.suppliersQuery$) {
 			this.suppliersQuery$ = this.apollo.watchQuery<any>({
 				query: SupplierQueries.list,
@@ -44,7 +44,7 @@ export class SupplierService {
 		return this.suppliersQuery$.valueChanges
 			.pipe(
 				map(({ data, loading }) => (<any>data).suppliers),
-			);
+		);
 	}
 
 	/*
@@ -54,7 +54,7 @@ export class SupplierService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	loadSuppliersNextPage({ page, perPage }) {
+	loadSuppliersNextPage({ page, perPage }): Promise<any> {
 		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.fetchMore({
 			variables: {
@@ -77,7 +77,7 @@ export class SupplierService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	sortSuppliers({ sort, perPage }) {
+	sortSuppliers({ sort, perPage }): Promise<any> {
 		this.initializeSupplierQuery({ perPage });
 		return this.suppliersQuery$.refetch({
 			variables: {

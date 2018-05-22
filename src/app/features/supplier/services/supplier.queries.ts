@@ -24,6 +24,7 @@ export class SupplierQueries {
 				favorite,
 				generalMOQ,
 				generalLeadTime,
+				productCount,
 				status {
 					id,
 					name,
