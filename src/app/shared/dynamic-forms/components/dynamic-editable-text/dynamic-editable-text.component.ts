@@ -47,4 +47,12 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onClose() {
 
 	}
+
+	/** check if a value is empty */
+	isEmpty(value: any) {
+		if (!value)
+			return true;
+		if (Array.isArray(value) && value.length === 0)
+			return true;
+	}
 }

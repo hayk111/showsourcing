@@ -58,7 +58,7 @@ export class AppApolloModule {
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache()
+			cache: new InMemoryCache({ addTypename: false })
 		});
 	}
 }

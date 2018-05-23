@@ -79,7 +79,14 @@
 
 	<!-- selector -->
 	<editable-text-app #editable *ngSwitchCase="'selector'" (saved)="onSave()" [hasAction]="false">
-		<label-app>{{ customField.value.length !== 0 ? customField.value.name : '-'  }}</label-app>
+		<label-app>
+			<ng-container *ngIf="isEmpty(customField.value); else tag">
+				-
+			</ng-container>
+			<ng-template #tag>
+				<tag-list-app [value]="customField.value"></tag-list-app>
+			</ng-template>
+		</label-app>
 		<selector-entity-app
 			(select)="onSelect($event)"
 			[value]="customField.value.id"

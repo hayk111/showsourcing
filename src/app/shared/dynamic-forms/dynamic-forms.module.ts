@@ -10,6 +10,7 @@ import { DynamicEditableTextComponent } from './components/dynamic-editable-text
 import { EditableFieldModule } from '~shared/editable-field';
 import { FieldCellComponent } from './components/field-cell/field-cell.component';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { TagModule } from '~shared/tag';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,8 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 		ReactiveFormsModule,
 		InputsModule,
 		EditableFieldModule,
-		SelectorsModule
+		SelectorsModule,
+		TagModule // for displaying multiple values
 	],
 	providers: [DynamicFormsService],
 	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],
