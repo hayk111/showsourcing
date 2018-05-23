@@ -1,22 +1,16 @@
 :host {
 	display: block;
 	width: 100%;
-	position: relative;
-	height: 36px;
+
 }
 
 .canCreate {
-	::ng-deep.ng-select .ng-dropdown-footer {
-		padding: 0;
-	}
-
 	.createBlock {
 		padding: var(--spacing-s);
 	}
 }
 
-.ng-select {
-	position: absolute;
+ng-select {
 	width: 100%;
 }
 
