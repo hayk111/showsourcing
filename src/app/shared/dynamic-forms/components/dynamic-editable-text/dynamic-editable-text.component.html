@@ -89,10 +89,15 @@
 			</ng-template>
 		</label-app>
 		<selector-entity-app
+			*ngIf="!customField.metadata.isConst; else const"
 			(select)="onSelect($event)"
-			[value]="customField.value.id"
-			[type]="customField.subtype">
+			(unselect)="onUnselect($event)"
+			[value]="customField.value"
+			[type]="customField.metadata.subtype">
 		</selector-entity-app>
+		<ng-template #const>
+
+		</ng-template>
 	</editable-text-app>
 
 </ng-container>

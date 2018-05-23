@@ -58,7 +58,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			// to notify the formControl we need to call this
 			this.onChangeFn(this.value);
 		}
-
 	}
 
 	setChoices() {

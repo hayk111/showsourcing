@@ -3,12 +3,11 @@ export interface CustomField {
 	name?: string;
 	value?: any;
 	type?: string;
-	subtype?: string;
+	metadata?: any;
 	label?: string;
 	placeholder?: string;
 	required?: boolean;
 	multiple?: boolean;
-	metadata?: any;
 	// for when multiple choices
 	choices?: Array<any>;
 }

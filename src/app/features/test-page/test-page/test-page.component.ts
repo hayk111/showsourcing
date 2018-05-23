@@ -40,8 +40,8 @@ export class TestPageComponent implements OnInit {
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
 		{ name: 'description', type: 'textarea', label: 'description' },
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
-		{ name: 'tags', type: 'selector', subtype: 'tag', label: 'tags', multiple: true }
-
+		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true },
+		// { name: 'Country', type: 'selector', metadata: { subtype: 'country', isConst: false }, label: 'country' }
 	];
 	descriptor$;
 	supplier$: Observable<Supplier>;

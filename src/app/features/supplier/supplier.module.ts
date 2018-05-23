@@ -27,6 +27,7 @@ import { SupplierMainComponent } from './components/supplier-main/supplier-main.
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { SupplierService } from './services/supplier.service';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { SupplierService } from './services/supplier.service';
 		SharedModule,
 		RouterModule.forChild([]),
 		FileModule, // file-card
+		DynamicFormsModule,
 		CarouselModule,
 		StatusModule,
 		EntityPagesModule,

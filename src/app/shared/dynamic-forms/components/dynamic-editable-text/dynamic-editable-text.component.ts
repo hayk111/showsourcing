@@ -3,6 +3,7 @@ import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
+import { Choice } from '~shared/selectors/utils/choice.interface';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -44,16 +45,20 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			this.selector.open();
 	}
 
-	onSelect(v) {
+	onSelect(choice: Choice) {
 		if (this.customField.multiple)
-			this.value.push(v);
+			this.value.push(choice);
 		else
-			this.value = v;
+			this.value = choice;
 		this.onChangeFn(this.value);
 	}
 
-	onUnselect(v) {
+	onUnselect(choice) {
+		// we remove the entity selected
+		if (this.customField.multiple)
+			this.value = this.value.filter(v => v.id === choice.id);
 
+		this.onChangeFn(this.value);
 	}
 
 	onClose() {
