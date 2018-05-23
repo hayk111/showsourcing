@@ -26,8 +26,8 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName: string;
 	// events that emits the id of the entity
-	@Output() select = new EventEmitter<string>();
-	@Output() unselect = new EventEmitter<string>();
+	@Output() select = new EventEmitter<Choice>();
+	@Output() unselect = new EventEmitter<Choice>();
 	@ViewChild('selector') selector: SelectorComponent;
 	choices$: Observable<any[]>;
 
@@ -45,14 +45,14 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			this.selector.open();
 	}
 
-	onSelect(value: string) {
-		this.select.emit(value);
+	onSelect(choice: Choice) {
+		this.select.emit(choice);
 		// to notify the formControl we need to call this
 		this.onChangeFn(this.value);
 	}
 
-	onUnselect(value: string) {
-		this.unselect.emit(value);
+	onUnselect(choice: Choice) {
+		this.unselect.emit(choice);
 
 		if (this.multiple) {
 			// to notify the formControl we need to call this

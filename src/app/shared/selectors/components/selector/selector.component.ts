@@ -18,8 +18,8 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 })
 export class SelectorComponent extends AbstractInput {
 	// when we select one
-	@Output() select = new EventEmitter<string>();
-	@Output() unselect = new EventEmitter<string>();
+	@Output() select = new EventEmitter<Choice>();
+	@Output() unselect = new EventEmitter<Choice>();
 	// when the create button is clicked we want to create an item with what's in the input as name.
 	@Output() create = new EventEmitter<string>();
 	// string from input to search through the list of choices
@@ -56,18 +56,17 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
-		const val = choice[this.bindValue];
 		// if it's multiple then we need to append to the array
 		if (this.multiple)
-			this.value.push(val);
+			this.value.push(choice);
 		else
-			this.value = val;
+			this.value = choice;
 
 		if (this.onChangeFn)
 			this.onChangeFn(this.value);
 
 		// we emit the value of the choice picked
-		this.select.emit(val);
+		this.select.emit(choice);
 	}
 
 	onUnselect(removeObj: { value: any }) {
