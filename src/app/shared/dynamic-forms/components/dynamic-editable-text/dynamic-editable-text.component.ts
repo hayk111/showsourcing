@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -12,6 +13,8 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
+	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
 	accumulator: string;
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -30,6 +33,15 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+	}
+
+	onOpen() {
+		/** let's focus on the target input */
+		// using setTimout because the element isn't rendered yet
+		if (this.input)
+			this.input.focus();
+		if (this.selector)
+			this.selector.open();
 	}
 
 	onSelect(v) {

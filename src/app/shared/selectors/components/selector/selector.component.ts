@@ -45,9 +45,9 @@ export class SelectorComponent extends AbstractInput {
 	@Input() hideSelected = true;
 
 	/* different choices that an user can pick **/
-	@Input() set choices(value: Array<Choice>) { this._choices = value; this.filter(); }
+	@Input() set choices(value: Array<Choice>) { this._choices = value || []; this.filter(); }
 	get choices() { return this._choices; }
-	private _choices: Array<Choice>;
+	private _choices: Array<Choice> = [];
 	filteredChoices = [];
 
 	constructor(protected cd: ChangeDetectorRef) {

@@ -14,11 +14,11 @@ export class EditableTextComponent implements OnInit {
 	@Input() closeOnOutsideClick = true;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
+	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();
 	@Output() canceled = new EventEmitter<null>();
 
-	@ContentChild(InputDirective) input: InputDirective;
 	isOpen = false;
 
 	constructor(private cd: ChangeDetectorRef) { }
@@ -56,12 +56,7 @@ export class EditableTextComponent implements OnInit {
 		this.isOpen = true;
 		// need to check for changes since we can open the edit mode from outside
 		this.cd.markForCheck();
-		// if we passed a inputApp then we can safely focus it
-		// we have to do it in a timeout because the input isn't shown yet.
-		setTimeout(() => {
-			if (this.input)
-				this.input.focus();
-		}, 0);
+		this.opened.emit();
 	}
 
 }

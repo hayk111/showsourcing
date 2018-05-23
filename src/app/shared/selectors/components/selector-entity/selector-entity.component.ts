@@ -28,7 +28,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
-	@ViewChild('selector') selector: SelectorComponent;
+	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {

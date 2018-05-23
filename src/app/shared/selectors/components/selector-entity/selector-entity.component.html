@@ -1,7 +1,6 @@
-<ng-container *ngIf="choices$ | async as choices">
 	<selector-app
 		[(ngModel)]="value"
-		[choices]="choices"
+		[choices]="choices$ | async"
 		[itemName]="itemName"
 		[canSearch]="true"
 		[canCreate]="canCreate"
@@ -13,4 +12,3 @@
 			{{ item.name }}
 		</ng-template>
 	</selector-app>
-</ng-container>
