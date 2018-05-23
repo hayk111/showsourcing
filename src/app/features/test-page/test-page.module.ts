@@ -6,6 +6,7 @@ import { CardModule } from '~shared/card';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { FormsModule } from '@angular/forms';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,9 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		CardModule,
 		SelectorsModule,
 		FormsModule,
-		DynamicFormsModule
+		DynamicFormsModule,
+		NgSelectModule,
+
 	],
 	declarations: [TestPageComponent],
 	exports: [TestPageComponent]

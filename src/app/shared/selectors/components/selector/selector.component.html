@@ -2,18 +2,15 @@
 
 	<ng-select #ngSelect
 		class="custom"
+		[(ngModel)]="value"
 		(open)="onOpen()"
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
-		[bindLabel]="bindLabel"
 		[bindValue]="bindValue"
-		[ngModel]="value"
+		[bindLabel]="bindLabel"
 		[multiple]="multiple"
-		[loading]="pending"
-		[loadingText]="'Loading...'"
-		[addTagText]="'Create ' + itemName"
 		[notFoundText]="itemName + ' not found'">
 
 		<!-- header / search input -->

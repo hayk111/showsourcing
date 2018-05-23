@@ -33,6 +33,14 @@ const querySupplier = gql`
 	styleUrls: ['./test-page.component.scss'],
 })
 export class TestPageComponent implements OnInit {
+	selectedCity;
+	cities = [
+		{ id: 1, name: 'Vilnius' },
+		{ id: 2, name: 'Kaunas' },
+		{ id: 3, name: 'Pavilnys' },
+		{ id: 4, name: 'Pabradė' },
+		{ id: 5, name: 'Klaipėda' }
+	];
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
@@ -51,14 +59,14 @@ export class TestPageComponent implements OnInit {
 	constructor(private apollo: Apollo) { }
 
 	ngOnInit() {
-		this.supplier$ = this.apollo.subscribe({
-			query: querySupplier,
-			variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
-		}).pipe(map((r: any) => r.data.suppliers[0]));
-		this.supplier$.subscribe(s => this.supplier = s);
-		this.descriptor$ = this.supplier$.pipe(
-			map(s => new FormDescriptor(this.customFields, s))
-		);
+		// this.supplier$ = this.apollo.subscribe({
+		// 	query: querySupplier,
+		// 	variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
+		// }).pipe(map((r: any) => r.data.suppliers[0]));
+		// this.supplier$.subscribe(s => this.supplier = s);
+		// this.descriptor$ = this.supplier$.pipe(
+		// 	map(s => new FormDescriptor(this.customFields, s))
+		// );
 	}
 
 

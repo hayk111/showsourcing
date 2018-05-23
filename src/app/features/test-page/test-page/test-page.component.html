@@ -4,12 +4,23 @@
 
 <card-app>
 
-	<ng-container *ngIf="descriptor$ | async as descriptor">
+	<selector-app [choices]="cities" [(ngModel)]="selectedCity" [multiple]="true">
+		<ng-template let-item="item">
+			{{ item.name }}
+		</ng-template>
+	</selector-app>
+	<ng-select [items]="cities" [multiple]="true"
+		bindLabel="name"
+		placeholder="Select city"
+		[(ngModel)]="selectedCity">
+	</ng-select>
+	{{ selectedCity | json }}
+	<!-- <ng-container *ngIf="descriptor$ | async as descriptor">
 		<dynamic-form-app
 			[descriptor]="descriptor"
 			[editable]="true"
 			(formCreated)="onFormCreated($event)"></dynamic-form-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!--<selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
 	<p>{{ country | json }}</p>

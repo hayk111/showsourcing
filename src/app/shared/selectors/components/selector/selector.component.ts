@@ -28,7 +28,7 @@ export class SelectorComponent extends AbstractInput {
 	@ViewChild(InputDirective) searchInp: InputDirective;
 	// When the value is displayed, what property of the entity should be displayed. Default name
 	@Input() bindLabel = 'name';
-	@Input() bindValue = 'id';
+	@Input() bindValue;
 	// reference to template transcluded
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
 	// name displayed in messages
@@ -36,11 +36,9 @@ export class SelectorComponent extends AbstractInput {
 	// whether we can add multiple items
 	@Input() multiple: boolean;
 	// whether the list is searchable
-	@Input() canSearch: boolean;
+	@Input() canSearch: boolean = true;
 	// whether we can create new items
 	@Input() canCreate = false;
-	// for async items whether they are still being loaded or not
-	@Input() pending: boolean;
 	// whether items must be hiden when picked
 	@Input() hideSelected = true;
 
@@ -56,20 +54,24 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
-		// if it's multiple then we need to append to the array
-		if (this.multiple)
-			this.value.push(choice);
-		else
-			this.value = choice;
-
-		if (this.onChangeFn)
-			this.onChangeFn(this.value);
-
 		// we emit the value of the choice picked
 		this.select.emit(choice);
+		if (this.onChangeFn) {
+			if (this.multiple) {
+				// the onselect is triggered before ngselects makes the change
+				this.onChangeFn([...(this.value || []), choice]);
+			} else {
+				this.onChangeFn(choice);
+			}
+		}
+
 	}
 
-	onUnselect(removeObj: { value: any }) {
+	onUnselect(removeObj: { value: any, index: number }) {
+		if (this.onChangeFn) {
+			this.value.splice(removeObj.index, 1);
+			this.onChangeFn(this.value)
+		}
 		this.unselect.emit(removeObj.value);
 	}
 
