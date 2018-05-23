@@ -19,7 +19,7 @@ mutation supplier($input: SupplierInput) {
 const querySupplier = gql`
 	subscription supplier($query: String!) {
 		suppliers(query: $query) {
-			id, name
+			id, name, officeEmail, officePhone, description, generalMOQ
 		}
 	}
 `;
@@ -32,7 +32,12 @@ const querySupplier = gql`
 export class TestPageComponent implements OnInit {
 
 	customFields: CustomField[] = [
-		{ name: 'name', type: 'text', label: 'Name' }
+		{ name: 'name', type: 'text', label: 'Name' },
+		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
+		{ name: 'officePhone', type: 'tel', label: 'Tel' },
+		{ name: 'description', type: 'textarea', label: 'description' },
+		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
+
 	];
 	descriptor$;
 	supplier$: Observable<Supplier>;

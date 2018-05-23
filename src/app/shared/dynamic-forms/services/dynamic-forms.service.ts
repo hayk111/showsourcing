@@ -21,7 +21,7 @@ export class DynamicFormsService {
 	/** transforms a custom field into a form control */
 	toFormControl(field: CustomField): FormControl {
 		// when multiple it means we are dealing with an array of values
-		const value = field.multiple ? [] : '';
+		const value = field.value;
 		const validators = this.createValidators(field);
 		const ctrl = new FormControl(value, validators);
 		return ctrl;

@@ -15,7 +15,6 @@ export class Supplier extends BaseEntity<Supplier>{
 	logoImage?: AppImage;
 	supplierType?: SupplierType;
 	website?: string;
-	phoneNumber?: string;
 	country?: string;
 	address?: string;
 	officeEmail?: string;

@@ -2,7 +2,7 @@
 
 	<!-- default -->
 	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()">
-		<label-app>{{ customField.value }}</label-app>
+		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
 				<input inputApp
@@ -15,14 +15,67 @@
 		</form-field-app>
 	</editable-text-app>
 
-	<!-- <form-field-app>
-		<label-app>{{ label }}</label-app>
-		<input inputApp
-			(keyup.enter)="onSave()"
-			restrictInput="number tel decimal"
-			[value]="value || ''"
-			type="number"
-			(input)="updateValue(+$event.target.value)"/>
-	</form-field-app> -->
+	<!-- tel (restricted input)-->
+	<editable-text-app #editable *ngSwitchCase="'tel'" (saved)="onSave()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="tel"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- number -->
+	<editable-text-app #editable *ngSwitchCase="'number'" (saved)="onSave()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="number"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- decimal -->
+	<editable-text-app #editable *ngSwitchCase="'decimal'" (saved)="onSave()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- textarea -->
+		<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()">
+			<label-app>{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<div class="flex">
+					<textarea inputApp
+						#inp
+						[value]="customField.value"
+						(input)="accumulate(inp.value)"
+						(keyup.enter)="editable.close(); onSave()">
+					</textarea>
+				</div>
+			</form-field-app>
+		</editable-text-app>
 
 </ng-container>
