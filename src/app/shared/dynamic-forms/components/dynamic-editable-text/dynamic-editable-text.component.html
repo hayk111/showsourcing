@@ -1,6 +1,6 @@
 <ng-container [ngSwitch]="customField.type">
 	<!-- default -->
-	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()">
+	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()" (closed)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -15,7 +15,7 @@
 	</editable-text-app>
 
 	<!-- tel (restricted input)-->
-	<editable-text-app #editable *ngSwitchCase="'tel'" (saved)="onSave()">
+	<editable-text-app #editable *ngSwitchCase="'tel'" (saved)="onSave()" (closed)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -31,7 +31,7 @@
 	</editable-text-app>
 
 	<!-- number -->
-	<editable-text-app #editable *ngSwitchCase="'number'" (saved)="onSave()">
+	<editable-text-app #editable *ngSwitchCase="'number'" (saved)="onSave()" (closed)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -47,7 +47,7 @@
 	</editable-text-app>
 
 	<!-- decimal -->
-	<editable-text-app #editable *ngSwitchCase="'decimal'" (saved)="onSave()">
+	<editable-text-app #editable *ngSwitchCase="'decimal'" (saved)="onSave()" (closed)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -63,7 +63,7 @@
 	</editable-text-app>
 
 	<!-- textarea -->
-	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()">
+	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -78,7 +78,8 @@
 	</editable-text-app>
 
 	<!-- selector -->
-	<editable-text-app #editable *ngSwitchCase="'selector'" (saved)="onSave()" [hasAction]="false">
+	<editable-text-app #editable *ngSwitchCase="'selector'"
+		(saved)="onSave()" [hasAction]="false">
 		<label-app>
 			<ng-container *ngIf="isEmpty(customField.value); else tag">
 				-

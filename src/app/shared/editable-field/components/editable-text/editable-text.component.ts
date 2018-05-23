@@ -16,6 +16,7 @@ export class EditableTextComponent implements OnInit {
 	@Input() hasAction = true;
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();
+	@Output() canceled = new EventEmitter<null>();
 
 	@ContentChild(InputDirective) input: InputDirective;
 	isOpen = false;
@@ -29,12 +30,17 @@ export class EditableTextComponent implements OnInit {
 		if (isOutsideClick && !this.closeOnOutsideClick) {
 			return;
 		}
+
 		this.isOpen = false;
 		this.closed.emit();
 		// we can open it from outside so needs for cd
 		this.cd.markForCheck();
 	}
 
+	cancel() {
+		this.isOpen = false;
+		this.canceled.emit();
+	}
 	save() {
 		this.isOpen = false;
 		this.saved.emit();

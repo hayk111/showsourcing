@@ -1,16 +1,15 @@
-<div (clickOutside)="close(true)">
 	<!-- closed -->
 	<label class="flex pointer" *ngIf="!isOpen" (click)="open()">
 		<ng-content select="label-app"></ng-content>
 	</label>
 
 	<!-- open -->
-	<div *ngIf="isOpen" class="flex openBlock">
+	<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
 		<ng-content></ng-content>
 
 
 		<div class="confirmBlock" *ngIf="hasAction">
-			<div class="confirmIcon cancel pointer" (click)="close(true)">
+			<div class="confirmIcon cancel pointer" (click)="cancel()">
 				<icon-app name="times" fontSet="fa"></icon-app>
 			</div>
 			<div class="confirmIcon save pointer" (click)="save()">
@@ -19,5 +18,4 @@
 		</div>
 
 	</div>
-</div>
 

@@ -68,7 +68,6 @@ export class TestPageComponent implements OnInit {
 	}
 
 	updateSupplier(supplier) {
-		debugger;
 		const supplierUpdate = {
 			id: this.supplier.id,
 			...supplier
