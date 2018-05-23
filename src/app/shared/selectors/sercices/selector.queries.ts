@@ -27,4 +27,13 @@ export class SelectorQueries {
 			}
 		}
 	`;
+
+	static tags = gql`
+		subscription tags {
+			tags {
+				id,
+				name
+			}
+		}
+	`;
 }

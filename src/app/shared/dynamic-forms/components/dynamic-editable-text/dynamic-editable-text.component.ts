@@ -32,6 +32,18 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.onChangeFn(this.value);
 	}
 
+	onSelect(v) {
+		if (this.customField.multiple)
+			this.value.push({ id: v });
+		else
+			this.value = { id: v };
+		this.onChangeFn(this.value);
+	}
+
+	onUnselect(v) {
+
+	}
+
 	onClose() {
 
 	}

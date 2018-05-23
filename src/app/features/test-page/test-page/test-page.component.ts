@@ -19,7 +19,10 @@ mutation supplier($input: SupplierInput) {
 const querySupplier = gql`
 	subscription supplier($query: String!) {
 		suppliers(query: $query) {
-			id, name, officeEmail, officePhone, description, generalMOQ
+			id, name, officeEmail, officePhone, description, generalMOQ,
+			tags {
+				id, name
+			}
 		}
 	}
 `;
@@ -37,6 +40,7 @@ export class TestPageComponent implements OnInit {
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
 		{ name: 'description', type: 'textarea', label: 'description' },
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
+		{ name: 'tags', type: 'selector', subtype: 'tag', label: 'tags', multiple: true }
 
 	];
 	descriptor$;
@@ -64,6 +68,7 @@ export class TestPageComponent implements OnInit {
 	}
 
 	updateSupplier(supplier) {
+		debugger;
 		const supplierUpdate = {
 			id: this.supplier.id,
 			...supplier

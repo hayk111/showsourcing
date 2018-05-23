@@ -46,4 +46,10 @@ export class SelectorsService {
 			map(r => r.data.events)
 		);
 	}
+
+	getTags() {
+		return this.apollo.subscribe({ query: SelectorQueries.tags }).pipe(
+			map(r => r.data.tags)
+		);
+	}
 }

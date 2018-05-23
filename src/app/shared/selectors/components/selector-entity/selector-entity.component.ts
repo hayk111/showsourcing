@@ -70,6 +70,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			case 'supplier': this.choices$ = this.srv.getSuppliers(); break;
 			case 'category': this.choices$ = this.srv.getCategories(); break;
 			case 'event': this.choices$ = this.srv.getEvents(); break;
+			case 'tag': this.choices$ = this.srv.getTags(); break;
 			default: throw Error('Unsupported type');
 		}
 	}

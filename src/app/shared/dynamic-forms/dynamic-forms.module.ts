@@ -9,13 +9,15 @@ import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynam
 import { DynamicEditableTextComponent } from './components/dynamic-editable-text/dynamic-editable-text.component';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FieldCellComponent } from './components/field-cell/field-cell.component';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		InputsModule,
-		EditableFieldModule
+		EditableFieldModule,
+		SelectorsModule
 	],
 	providers: [DynamicFormsService],
 	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],

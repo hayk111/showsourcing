@@ -3,6 +3,7 @@ export interface CustomField {
 	name?: string;
 	value?: any;
 	type?: string;
+	subtype?: string;
 	label?: string;
 	placeholder?: string;
 	required?: boolean;

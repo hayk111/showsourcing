@@ -1,5 +1,4 @@
 <ng-container [ngSwitch]="customField.type">
-
 	<!-- default -->
 	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()">
 		<label-app>{{ customField.value || '-' }}</label-app>
@@ -40,7 +39,7 @@
 					#inp
 					restrictInput="number"
 					[value]="customField.value"
-					(input)="accumulate(inp.value)"
+					(input)="accumulate(+inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
 					[type]="customField.type"/>
 			</div>
@@ -56,7 +55,7 @@
 					#inp
 					restrictInput="decimal"
 					[value]="customField.value"
-					(input)="accumulate(inp.value)"
+					(input)="accumulate(+inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
 					[type]="customField.type"/>
 			</div>
@@ -64,18 +63,28 @@
 	</editable-text-app>
 
 	<!-- textarea -->
-		<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()">
-			<label-app>{{ customField.value || '-' }}</label-app>
-			<form-field-app>
-				<div class="flex">
-					<textarea inputApp
-						#inp
-						[value]="customField.value"
-						(input)="accumulate(inp.value)"
-						(keyup.enter)="editable.close(); onSave()">
-					</textarea>
-				</div>
-			</form-field-app>
-		</editable-text-app>
+	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<textarea inputApp
+					#inp
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()">
+				</textarea>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- selector -->
+	<editable-text-app #editable *ngSwitchCase="'selector'" (saved)="onSave()" [hasAction]="false">
+		<label-app>{{ customField.value.length !== 0 ? customField.value.name : '-'  }}</label-app>
+		<selector-entity-app
+			(select)="onSelect($event)"
+			[value]="customField.value.id"
+			[type]="customField.subtype">
+		</selector-entity-app>
+	</editable-text-app>
 
 </ng-container>
