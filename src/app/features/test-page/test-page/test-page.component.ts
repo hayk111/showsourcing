@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CustomField } from '~shared/dynamic-forms';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/utils/custom-field.model';
 import { FormGroup } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -34,6 +34,7 @@ export class TestPageComponent implements OnInit {
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' }
 	];
+	descriptor$;
 	supplier$: Observable<Supplier>;
 	supplier: Supplier;
 	form: FormGroup;
@@ -45,9 +46,10 @@ export class TestPageComponent implements OnInit {
 			query: querySupplier,
 			variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
 		}).pipe(map((r: any) => r.data.suppliers[0]));
-		this.supplier$.subscribe(s => {
-			this.supplier = s;
-		});
+		this.supplier$.subscribe(s => this.supplier = s);
+		this.descriptor$ = this.supplier$.pipe(
+			map(s => new FormDescriptor(this.customFields, s))
+		);
 	}
 
 

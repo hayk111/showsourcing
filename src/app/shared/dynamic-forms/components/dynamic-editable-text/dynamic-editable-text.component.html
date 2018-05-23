@@ -1,12 +1,12 @@
 <ng-container [ngSwitch]="customField.type">
 
 	<editable-text-app *ngSwitchDefault (saved)="onSave()">
-		<label-app>{{ customField.label }}</label-app>
+		<label-app>{{ customField.value }}</label-app>
 		<form-field-app>
 			<div class="flex">
 				<input inputApp
 					#inp
-					[value]="value"
+					[value]="customField.value"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="onSave()"
 					[type]="customField.type"/>

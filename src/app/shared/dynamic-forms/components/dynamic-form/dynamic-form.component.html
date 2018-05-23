@@ -1,7 +1,7 @@
 <div [formGroup]="form">
 	<ng-container *ngIf="editable">
 		<dynamic-editable-text-app
-			*ngFor="let field of customFields"
+			*ngFor="let field of descriptor.fields"
 			[customField]="field"
 			[formControlName]="field.name"></dynamic-editable-text-app>
 	</ng-container>

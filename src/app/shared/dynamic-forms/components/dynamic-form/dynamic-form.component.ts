@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CustomField } from '~shared/dynamic-forms/utils';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/utils/custom-field.model';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-form
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit {
-	@Input() customFields: CustomField[];
+	@Input() descriptor: FormDescriptor;
 	/** when editable is set to true, then the version of the forms becomes one that is using editable text */
 	@Input() editable = false;
 	@Output() formCreated = new EventEmitter<FormGroup>();
@@ -19,7 +19,7 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.form = this.dfSrv.toFormGroup(this.customFields);
+		this.form = this.dfSrv.toFormGroup(this.descriptor.fields);
 		this.formCreated.emit(this.form);
 	}
 
