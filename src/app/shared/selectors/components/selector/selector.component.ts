@@ -69,8 +69,7 @@ export class SelectorComponent extends AbstractInput {
 
 	onUnselect(removeObj: { value: any, index: number }) {
 		if (this.onChangeFn) {
-			this.value.splice(removeObj.index, 1);
-			this.onChangeFn(this.value)
+			this.onChangeFn(this.value.filter(c => c.id !== removeObj.value.id));
 		}
 		this.unselect.emit(removeObj.value);
 	}
