@@ -31,7 +31,13 @@ export class EditableTextComponent implements OnInit {
 		}
 		this.isOpen = false;
 		this.closed.emit();
+		// we can open it from outside so needs for cd
 		this.cd.markForCheck();
+	}
+
+	save() {
+		this.isOpen = false;
+		this.saved.emit();
 	}
 
 	open(isClick?: boolean) {

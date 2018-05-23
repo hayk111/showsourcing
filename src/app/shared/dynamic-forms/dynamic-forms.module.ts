@@ -8,6 +8,7 @@ import { DynamicFormsService } from './services/dynamic-forms.service';
 import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
 import { DynamicEditableTextComponent } from './components/dynamic-editable-text/dynamic-editable-text.component';
 import { EditableFieldModule } from '~shared/editable-field';
+import { FieldCellComponent } from './components/field-cell/field-cell.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,7 @@ import { EditableFieldModule } from '~shared/editable-field';
 		EditableFieldModule
 	],
 	providers: [DynamicFormsService],
-	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent],
+	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],
 	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/utils/custom-field.model';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 
 @Component({

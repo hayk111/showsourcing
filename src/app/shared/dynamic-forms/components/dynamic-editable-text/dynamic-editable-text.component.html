@@ -1,6 +1,7 @@
 <ng-container [ngSwitch]="customField.type">
 
-	<editable-text-app *ngSwitchDefault (saved)="onSave()">
+	<!-- default -->
+	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()">
 		<label-app>{{ customField.value }}</label-app>
 		<form-field-app>
 			<div class="flex">
@@ -8,10 +9,20 @@
 					#inp
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
-					(keyup.enter)="onSave()"
+					(keyup.enter)="editable.close(); onSave()"
 					[type]="customField.type"/>
 			</div>
 		</form-field-app>
 	</editable-text-app>
+
+	<!-- <form-field-app>
+		<label-app>{{ label }}</label-app>
+		<input inputApp
+			(keyup.enter)="onSave()"
+			restrictInput="number tel decimal"
+			[value]="value || ''"
+			type="number"
+			(input)="updateValue(+$event.target.value)"/>
+	</form-field-app> -->
 
 </ng-container>

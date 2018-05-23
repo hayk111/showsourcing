@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/utils/custom-field.model';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { FormGroup } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
