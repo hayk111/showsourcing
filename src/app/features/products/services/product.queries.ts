@@ -10,7 +10,7 @@ export class ProductQueries {
 					id, name, address, country
 				},
 				images {
-					id, filename
+					id, fileName
 				},
 				price {
 					id,
@@ -27,7 +27,7 @@ export class ProductQueries {
 				},
 				favorite,
 				status {
-					id, name, color, contrastColor
+					id, name, color
 				},
 				tags {
 					id, name
