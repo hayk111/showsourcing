@@ -56,8 +56,8 @@ export class AppApolloModule {
 			http,
 		);
 
-		const link = from ([
-			cleanTypenameLink,
+		const link = from([
+			// cleanTypenameLink,
 			transportLink
 		]);
 
