@@ -10,11 +10,15 @@ export interface Entity {
 export class BaseEntity<G> implements Entity {
 	id?: string;
 	creationDate?: string;
+	lastUpdatedDate?: string;
 	createdBy?: User;
+	deleted?: boolean;
 
 	constructor(config: G) {
 		this.id = uuid();
 		this.creationDate = '' + new Date();
+		this.lastUpdatedDate = '' + new Date();
+		this.deleted = false;
 	}
 }
 

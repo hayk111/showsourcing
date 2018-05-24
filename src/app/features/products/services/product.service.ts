@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { Product } from '~models';
+import { ProductQueries } from '~features/products/services/product.queries';
 
 @Injectable()
 export class ProductService {
@@ -13,7 +14,7 @@ export class ProductService {
 	}
 
 	getById(id: string): Observable<Product> {
-		throw Error('not implemented yet');
+		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == ${id}` } });
 	}
 
 	updateProduct(product: Product): Observable<Product> {
