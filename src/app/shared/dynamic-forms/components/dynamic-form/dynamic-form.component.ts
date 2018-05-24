@@ -35,7 +35,7 @@ export class DynamicFormComponent implements OnInit {
 	makeCols() {
 		this.cols = [];
 		const fields = this.descriptor.fields;
-		const fieldPerCol = fields.length / this.colAmount;
+		const fieldPerCol = Math.ceil(fields.length / this.colAmount);
 		for (let i = 0; i < this.colAmount; i++) {
 			const start = i * fieldPerCol;
 			const end = i * fieldPerCol + fieldPerCol;

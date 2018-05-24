@@ -37,8 +37,8 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'description', type: 'textarea', label: 'description' }
 	];
 	customFields2: CustomField[] = [
-		// { name: 'harbour'},
-		// { name: 'incoTerm'},
+		{ name: 'harbour' },
+		{ name: 'incoTerm' },
 		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix'},
