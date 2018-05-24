@@ -41,6 +41,8 @@ export class SelectorComponent extends AbstractInput {
 	@Input() canCreate = false;
 	// whether items must be hiden when picked
 	@Input() hideSelected = true;
+	// how items are compared, to find out if they are already selected
+	@Input() compareWith = (a, b) => a.id === b.id;
 
 	/* different choices that an user can pick **/
 	@Input() set choices(value: Array<Choice>) { this._choices = value || []; this.filter(); }
@@ -54,7 +56,7 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
-		debugger;
+
 		if (this.onChangeFn) {
 			if (this.multiple) {
 				// the onselect is triggered before ngselects makes the change
@@ -70,7 +72,9 @@ export class SelectorComponent extends AbstractInput {
 
 	onUnselect(removeObj: { value: any, index: number }) {
 		if (this.onChangeFn) {
-			this.onChangeFn(this.value.filter(c => c.id !== removeObj.value.id));
+			if (this.multiple) {
+				this.onChangeFn(this.value.filter(c => c.id !== removeObj.value.id));
+			}
 		}
 		this.unselect.emit(removeObj.value);
 	}

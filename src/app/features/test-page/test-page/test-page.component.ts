@@ -55,6 +55,7 @@ export class TestPageComponent implements OnInit {
 	supplier$: Observable<Supplier>;
 	supplier: Supplier;
 	form: FormGroup;
+	supplierTest;
 
 	constructor(private apollo: Apollo) { }
 
@@ -76,7 +77,6 @@ export class TestPageComponent implements OnInit {
 	}
 
 	updateSupplier(supplier) {
-		debugger;
 		const supplierUpdate = {
 			id: this.supplier.id,
 			...supplier

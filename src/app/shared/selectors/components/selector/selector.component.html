@@ -3,6 +3,7 @@
 	<ng-select #ngSelect
 		class="custom"
 		[(ngModel)]="value"
+		[compareWith]="compareWith"
 		(open)="onOpen()"
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"

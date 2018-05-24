@@ -84,7 +84,7 @@
 			(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
 
 			<label-app>
-				<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="customField.value"></tag-list-app>
+				<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
 				<ng-template #none>
 					-
 				</ng-template>

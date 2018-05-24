@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Supplier } from '~models';
 import { EditableFieldValue } from '~shared/editable-field/components/editable-field/editable-field-value.interface';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { FormGroup } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~app-root/utils';
 
 @Component({
 	selector: 'supplier-infos-app',
@@ -9,9 +12,9 @@ import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
 	styleUrls: ['./supplier-infos.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierInfosComponent implements OnInit {
+export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
-	@Output() update = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Supplier>();
 	// when select multiple we can create, add and remove
 	@Output() itemCreate = new EventEmitter<EditableFieldValue>();
 	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
@@ -29,19 +32,22 @@ export class SupplierInfosComponent implements OnInit {
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		// { name: 'categories', type: 'selector', metadata: { subtype: 'category' }, label: 'category', multiple: true },
-		// { name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true }
+		{ name: 'categories', type: 'selector', metadata: { subtype: 'category' }, label: 'category', multiple: true },
+		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true }
 	];
 
-	constructor() { }
+	constructor() {
+		super();
+	}
 
 	ngOnInit() {
 		this.descriptor = new FormDescriptor(this.customFields, this.supplier);
 	}
 
-	onUpdate(value: any, propName: string) {
-		const patch = { [propName]: value };
-		this.update.emit(patch);
+	onFormCreated(form: FormGroup) {
+		form.valueChanges
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(supplier => this.update.emit({ id: this.supplier.id, ...supplier }));
 	}
 
 }

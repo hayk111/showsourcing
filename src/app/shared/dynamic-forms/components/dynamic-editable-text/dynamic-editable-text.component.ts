@@ -46,19 +46,11 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	}
 
 	onSelect(choice: Choice) {
-		if (this.customField.multiple)
-			this.onChangeFn([...this.value, choice]);
-		else
-			this.onChangeFn(choice);
+		this.onChangeFn(this.value);
 	}
 
 	onUnselect(choice) {
-		debugger;
-		// we remove the entity selected
-		if (this.customField.multiple)
-			this.onChangeFn(this.value.filter(v => v.id === choice.id));
-		else
-			this.onChangeFn(this.value);
+		this.onChangeFn(this.value);
 	}
 
 	onClose() {
