@@ -10,5 +10,16 @@ export class StatusSelectorQueries {
 				contrastColor
 			}
 		}
-	`
+	`;
+
+	static productStatus = gql`
+		subscription productStatus {
+			productStatuses {
+				id,
+				name,
+				color,
+				contrastColor
+			}
+		}
+	`;
 }

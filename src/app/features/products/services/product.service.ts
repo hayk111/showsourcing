@@ -1,15 +1,84 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { map, tap, publish, take, refCount } from 'rxjs/operators';
+import { ProductQueries } from '~features/products/services/product.queries';
 import { Product } from '~models';
 
 @Injectable()
 export class ProductService {
+	private productsQuery$: QueryRef<string, any>;
 
 	constructor(private apollo: Apollo) { }
 
-	getList(): Observable<Product[]> {
-		throw Error('not implemented yet');
+	/*
+		Initialize the underlying query ref for the list of
+		products.
+	 */
+	private initializeProductQuery({ perPage }) {
+		if (!this.productsQuery$) {
+			this.productsQuery$ = this.apollo.watchQuery<any>({
+				query: ProductQueries.list,
+				variables: {
+					skip: 0,
+					take: perPage,
+				}
+			});
+		}
+	}
+
+	/*
+		Initialize the underlying query ref for the list of
+		products.
+	 */
+	selectProducts({ perPage }): Observable<Product[]> {
+		this.initializeProductQuery({ perPage });
+		return this.productsQuery$.valueChanges
+			.pipe(
+				map(({ data, loading }) => (<any>data).products),
+			);
+	}
+
+	/*
+		Triggers the load of a page of products based on
+		a page number.
+
+		This method returns a promise to register on to be
+		notified when the processing ends.
+	 */
+	loadProductsNextPage({ page, perPage }) {
+		this.initializeProductQuery({ perPage });
+		return this.productsQuery$.fetchMore({
+			variables: {
+				skip: page * perPage,
+				take: perPage
+			},
+			updateQuery: (prev, { fetchMoreResult }) => {
+				if (!fetchMoreResult) { return prev; }
+				return {
+					...prev,
+					products: [...prev.products, ...fetchMoreResult.products],
+				};
+			}
+		});
+	}
+
+	/*
+		Sorts the products data for a specified column.
+
+		This method returns a promise to register on to be
+		notified when the processing ends.
+	 */
+	sortProducts({ sort, perPage }) {
+		this.initializeProductQuery({ perPage });
+		return this.productsQuery$.refetch({
+			variables: {
+				skip: 0,
+				take: perPage,
+				sortBy: sort.sortBy,
+				descending: sort.sortOrder === 'DESC'
+			}
+		});
 	}
 
 	getById(id: string): Observable<Product> {
