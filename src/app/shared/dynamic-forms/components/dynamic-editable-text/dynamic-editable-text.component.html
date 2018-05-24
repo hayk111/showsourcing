@@ -78,26 +78,64 @@
 	</editable-text-app>
 
 	<!-- selector -->
-	<editable-text-app #editable *ngSwitchCase="'selector'"
+	<ng-container *ngSwitchCase="'selector'">
+		<!-- multiple -->
+		<editable-text-app #editable *ngIf="customField.multiple"
+			(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+
+			<label-app>
+				<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="customField.value"></tag-list-app>
+				<ng-template #none>
+					-
+				</ng-template>
+			</label-app>
+
+			<selector-entity-app
+				[multiple]="true"
+				(select)="onSelect($event)"
+				(unselect)="onUnselect($event)"
+				[(ngModel)]="value"
+				[type]="customField.metadata.subtype">
+			</selector-entity-app>
+		</editable-text-app>
+
+		<!-- one -->
+		<editable-text-app #editable *ngIf="!customField.multiple"
+			(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+
+			<label-app>
+				{{ value.name || '-'}}
+			</label-app>
+
+			<selector-entity-app
+				[multiple]="false"
+				(select)="onSelect($event)"
+				[value]="customField.value"
+				[type]="customField.metadata.subtype">
+			</selector-entity-app>
+		</editable-text-app>
+
+	</ng-container>
+
+
+	<!-- selector const -->
+	<!-- <editable-text-app #editable *ngSwitchCase="'selectorConst'"
 		(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
 		<label-app>
-			<ng-container *ngIf="isEmpty(customField.value); else tag">
+			<ng-container *ngIf="isEmpty(customField.value); else notEmpty">
 				-
 			</ng-container>
-			<ng-template #tag>
-				<tag-list-app [value]="customField.value"></tag-list-app>
+			<ng-template #notEmpty>
+				<tag-list-app *ngIf="customField.multiple" [value]="customField.value"></tag-list-app>
+				<span *ngIf="!customField.multiple"></span>
 			</ng-template>
 		</label-app>
 		<selector-entity-app
-			*ngIf="!customField.metadata.isConst; else const"
-			(select)="onSelect($event)"
-			(unselect)="onUnselect($event)"
+			(select)="onSelect($event.id)"
+			(unselect)="onUnselect($event.id)"
 			[value]="customField.value"
 			[type]="customField.metadata.subtype">
 		</selector-entity-app>
-		<ng-template #const>
-
-		</ng-template>
-	</editable-text-app>
+	</editable-text-app> -->
 
 </ng-container>

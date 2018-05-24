@@ -54,8 +54,7 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
-		// we emit the value of the choice picked
-		this.select.emit(choice);
+		debugger;
 		if (this.onChangeFn) {
 			if (this.multiple) {
 				// the onselect is triggered before ngselects makes the change
@@ -64,6 +63,8 @@ export class SelectorComponent extends AbstractInput {
 				this.onChangeFn(choice);
 			}
 		}
+		// we emit the value of the choice picked
+		this.select.emit(choice);
 
 	}
 

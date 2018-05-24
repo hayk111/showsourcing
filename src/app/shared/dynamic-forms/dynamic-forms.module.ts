@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
 
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
@@ -15,6 +15,7 @@ import { TagModule } from '~shared/tag';
 @NgModule({
 	imports: [
 		CommonModule,
+		FormsModule,
 		ReactiveFormsModule,
 		InputsModule,
 		EditableFieldModule,

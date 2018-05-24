@@ -29,8 +29,8 @@ export class SupplierInfosComponent implements OnInit {
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		{ name: 'categories', type: 'selector', metadata: { subtype: 'category' }, label: 'category', multiple: true },
-		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true }
+		// { name: 'categories', type: 'selector', metadata: { subtype: 'category' }, label: 'category', multiple: true },
+		// { name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true }
 	];
 
 	constructor() { }

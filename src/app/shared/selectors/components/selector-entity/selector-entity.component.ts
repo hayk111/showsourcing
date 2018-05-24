@@ -46,18 +46,19 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	}
 
 	onSelect(choice: Choice) {
-		this.select.emit(choice);
+		debugger;
 		// to notify the formControl we need to call this
 		this.onChangeFn(this.value);
+		this.select.emit(choice);
 	}
 
 	onUnselect(choice: Choice) {
-		this.unselect.emit(choice);
-
+		debugger;
 		if (this.multiple) {
 			// to notify the formControl we need to call this
 			this.onChangeFn(this.value);
 		}
+		this.unselect.emit(choice);
 	}
 
 	setChoices() {

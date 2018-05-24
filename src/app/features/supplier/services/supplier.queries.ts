@@ -73,12 +73,10 @@ export class SupplierQueries {
 					id,
 					name
 				},
-				audit {
-					creationDate,
-					createdBy {
-						firstName,
-						lastName
-					}
+				creationDate,
+				createdBy {
+					firstName,
+					lastName
 				}
 			}
 		}`;

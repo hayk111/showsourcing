@@ -19,7 +19,7 @@ mutation supplier($input: SupplierInput) {
 const querySupplier = gql`
 	subscription supplier($query: String!) {
 		suppliers(query: $query) {
-			id, name, officeEmail, officePhone, description, generalMOQ,
+			id, name, officeEmail, officePhone, description, generalMOQ, country
 			tags {
 				id, name
 			}
@@ -49,7 +49,7 @@ export class TestPageComponent implements OnInit {
 		{ name: 'description', type: 'textarea', label: 'description' },
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
 		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true },
-		// { name: 'Country', type: 'selector', metadata: { subtype: 'country', isConst: false }, label: 'country' }
+		// { name: 'country', type: 'selector', metadata: { subtype: 'country', isConst: false }, label: 'country' }
 	];
 	descriptor$;
 	supplier$: Observable<Supplier>;
@@ -59,14 +59,14 @@ export class TestPageComponent implements OnInit {
 	constructor(private apollo: Apollo) { }
 
 	ngOnInit() {
-		// this.supplier$ = this.apollo.subscribe({
-		// 	query: querySupplier,
-		// 	variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
-		// }).pipe(map((r: any) => r.data.suppliers[0]));
-		// this.supplier$.subscribe(s => this.supplier = s);
-		// this.descriptor$ = this.supplier$.pipe(
-		// 	map(s => new FormDescriptor(this.customFields, s))
-		// );
+		this.supplier$ = this.apollo.subscribe({
+			query: querySupplier,
+			variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
+		}).pipe(map((r: any) => r.data.suppliers[0]));
+		this.supplier$.subscribe(s => this.supplier = s);
+		this.descriptor$ = this.supplier$.pipe(
+			map(s => new FormDescriptor(this.customFields, s))
+		);
 	}
 
 
@@ -76,6 +76,7 @@ export class TestPageComponent implements OnInit {
 	}
 
 	updateSupplier(supplier) {
+		debugger;
 		const supplierUpdate = {
 			id: this.supplier.id,
 			...supplier

@@ -5,9 +5,9 @@
 		[canSearch]="true"
 		[canCreate]="canCreate"
 		[multiple]="multiple"
-		[bindValue]="'id'"
 		[bindLabel]="'name'"
-		(select)="onSelect($event)">
+		(select)="onSelect($event)"
+		(unselect)="onUnselect($event)">
 		<ng-template let-item="item">
 			{{ item.name }}
 		</ng-template>
