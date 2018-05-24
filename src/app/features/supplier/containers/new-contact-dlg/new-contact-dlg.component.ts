@@ -81,7 +81,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		// not checking if form group is valid because at the time of writting this an email cannot be empty
 		// therefor the form will be invalid
 		if (this.form.valid) {
-			const contact = this.form.value;
+			const contact = new Contact(this.form.value);
 			// we need to add the image to the contact before uploading
 			// contact.imageId = this._preview.id;
 			// contact.image = this._preview;

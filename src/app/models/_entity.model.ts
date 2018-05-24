@@ -1,5 +1,6 @@
 import { Audit } from './audit.model';
 import { uuid } from '~utils';
+import { User } from '~models/user.model';
 
 export interface Entity {
 	id?: string;
@@ -8,12 +9,12 @@ export interface Entity {
 
 export class BaseEntity<G> implements Entity {
 	id?: string;
-	audit?: Audit;
+	creationDate?: string;
+	createdBy?: User;
 
 	constructor(config: G) {
 		this.id = uuid();
-		this.audit = new Audit();
-		Object.assign(this, config);
+		this.creationDate = '' + new Date();
 	}
 }
 
