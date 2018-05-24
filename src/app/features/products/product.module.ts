@@ -25,7 +25,6 @@ import {
 	ProductListViewComponent,
 	ProductSelectableCardComponent,
 	ProductSmallCardComponent,
-	ProductStatusBadgeComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
@@ -66,7 +65,6 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 	declarations: [
 		ProductSmallCardComponent,
 		ProductIconsComponent,
-		ProductStatusBadgeComponent,
 		ProductSubInfoComponent,
 		ProductsPageComponent,
 		ProductListViewComponent,
