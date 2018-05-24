@@ -1,11 +1,12 @@
-<div [formGroup]="form">
-	<ng-container *ngIf="editable">
+<div [formGroup]="form" class="form {{ cols.length > 0 ? 'multiple' : '' }}">
+	<div *ngFor="let col of cols" class="col">
+		<ng-container *ngIf="editable">
+			<field-cell-app [label]="field.label" *ngFor="let field of col">
+				<dynamic-editable-text-app
+					[customField]="field"
+					[formControlName]="field.name"></dynamic-editable-text-app>
+			</field-cell-app>
+		</ng-container>
+	</div>
 
-		<field-cell-app [label]="field.label" *ngFor="let field of descriptor.fields">
-			<dynamic-editable-text-app
-				[customField]="field"
-				[formControlName]="field.name"></dynamic-editable-text-app>
-		</field-cell-app>
-
-	</ng-container>
 </div>

@@ -6,17 +6,18 @@ import { CommentModule } from '~features/comment';
 import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
+import { ProductService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
+import { DialogModule } from '~shared/dialog/dialog.module';
 import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
+import { RatingModule } from '~shared/rating';
+import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
-import { DialogModule } from '~shared/dialog/dialog.module';
-import { RatingModule } from '~shared/rating';
-import { SelectionBarModule } from '~shared/selection-bar';
 
 import {
 	ProductCardViewComponent,
@@ -40,14 +41,14 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
-import { ProductService } from '~features/products/services';
 import { SelectionService } from './services/selection.service';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
-
+		DynamicFormsModule,
 		ReactiveFormsModule,
 		PipesModule,
 		DialogModule,

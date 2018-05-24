@@ -1,0 +1,13 @@
+.form {
+	display: flex;
+}
+
+.col {
+	flex-grow: 1;
+}
+
+.multiple {
+	.col {
+		margin-right: 16px;
+	}
+}

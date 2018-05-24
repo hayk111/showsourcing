@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms'
 import { UserService } from '~features/user';
 import { Event } from '~models';
@@ -18,9 +18,16 @@ import { ProductService } from '~features/products/services';
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
-	events$: Observable<Array<Event>>;
-	customFields$: Observable<FormDescriptor>;
-	productId: string;
+	descriptor$: Observable<FormDescriptor>;
+
+	customFields: CustomField[] = [
+		// { name: 'supplier', type: 'selector'},
+		{ name: 'name', type: 'text', required: true, label: 'name' },
+		// { name: 'price', type: 'price'},
+		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
+		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
+		{ name: 'description', type: 'textarea', label: 'description' }
+	]
 
 	constructor(private route: ActivatedRoute, private srv: ProductService) {
 		super();
@@ -29,48 +36,23 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.srv.selectById(params.id))
+			switchMap(params => this.srv.selectById(params.id)),
+		);
+		this.descriptor$ = this.product$.pipe(
+			map(product => new FormDescriptor(this.customFields, product))
 		);
 	}
 
 
-	getFirstCol(fields: CustomField[]) {
-		const half = Math.ceil(fields.length / 2);
-		return fields.slice(0, half);
-	}
+	// getFirstCol(fields: CustomField[]) {
+	// 	const half = Math.ceil(fields.length / 2);
+	// 	return fields.slice(0, half);
+	// }
 
-	getSecondCol(fields: CustomField[]) {
-		const half = Math.ceil(fields.length / 2);
-		return fields.slice(half);
-	}
+	// getSecondCol(fields: CustomField[]) {
+	// 	const half = Math.ceil(fields.length / 2);
+	// 	return fields.slice(half);
+	// }
 
-	onUpdate(id: string, propName: string, value: any) {
-		// this.store.dispatch(productActions.patch({ id, propName, value }));
-	}
-
-	onSupplierUpdate(id: string, propName: string, value: any) {
-		// this.store.dispatch(fromSupplier.Actions.patch({ id, propName, value }));
-	}
-
-	onTagAdded(tag: Tag) {
-		// this.store.dispatch(productActions.addTag(tag, this.productId));
-	}
-
-	onTagRemoved(tag: Tag) {
-		// this.store.dispatch(productActions.removeTag(tag, this.productId));
-	}
-
-	onTagCreated(id: string, name: string, currentTagIds: Array<string>) {
-		const tag = new Tag({ name });
-		// this.store.dispatch(productActions.createTag(tag, id));
-	}
-
-	onProjectAdded(project: Project) {
-		// this.store.dispatch(productActions.addProject(project, this.productId));
-	}
-
-	onProjectRemoved(project: Project) {
-		// this.store.dispatch(productActions.removeProject(project, this.productId));
-	}
 
 }
