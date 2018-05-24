@@ -1,11 +1,11 @@
 export enum FieldType {
 	TEXT,
 	TEXTAREA,
-	NUMBER,
 	PRICE,
+	NUMBER,
 	TEL,
 	URL,
 	EMAIL,
 	DECIMAL,
-	DATE,
+	SELECTOR
 }

@@ -21,6 +21,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	productId: string;
 	descriptor$: Observable<FormDescriptor>;
+	descriptor2$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
 		// { name: 'supplier', type: 'selector'},
@@ -29,6 +30,16 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{ name: 'description', type: 'textarea', label: 'description' }
+	];
+	customFields2: CustomField[] = [
+		// { name: 'harbour'},
+		// { name: 'incoTerm'},
+		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
+		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		// { name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix'},
+		{ name: 'leadTimeValue', type: 'number', label: 'Lead time value' },
+		{ name: 'leadTimeUnit', type: 'text', label: 'Lead time unit' }
+
 	]
 
 	constructor(private route: ActivatedRoute, private srv: ProductService) {
@@ -41,13 +52,19 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			switchMap(params => this.srv.selectById(params.id)),
 			tap(product => this.productId = product.id)
 		);
+		// creating the form descriptor
 		this.descriptor$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields, product))
 		);
+		this.descriptor2$ = this.product$.pipe(
+			map(product => new FormDescriptor(this.customFields2, product))
+		);
 	}
 
+	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
+	 * update the product
+	 */
 	onFormCreated(form: FormGroup) {
-
 		form.valueChanges
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(product => this.updateProduct(product));
@@ -59,16 +76,5 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			.pipe(takeUntil(this._destroy$))
 			.subscribe();
 	}
-
-	// getFirstCol(fields: CustomField[]) {
-	// 	const half = Math.ceil(fields.length / 2);
-	// 	return fields.slice(0, half);
-	// }
-
-	// getSecondCol(fields: CustomField[]) {
-	// 	const half = Math.ceil(fields.length / 2);
-	// 	return fields.slice(half);
-	// }
-
 
 }
