@@ -7,7 +7,7 @@ export class ProductQueries {
 				id,
 				name,
 				supplier {
-					id, name
+					id, name, address, country
 				},
 				images {
 					id, filename
@@ -34,6 +34,7 @@ export class ProductQueries {
 				},
 				minimumOrderQuantity,
 				moqDescription,
+				score,
 				innerCarton {
 					id,
 					height,
@@ -61,6 +62,14 @@ export class ProductQueries {
 				leadTimeUnit,
 				sample,
 				samplePrice
+			}
+		}
+	`;
+
+	static updateProduct = gql`
+		mutation updateProduct($product: ProductInput!) {
+			updateProduct(input: $product) {
+				id
 			}
 		}
 	`;

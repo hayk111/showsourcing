@@ -54,9 +54,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	removeProject(project) {
-		this.productSrv.removeProject(project.id).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		// this.productSrv.removeProject(project.id).pipe(
+		// 	takeUntil(this._destroy$)
+		// ).subscribe();
 	}
 
 	updateStatus(statusId: string) {
