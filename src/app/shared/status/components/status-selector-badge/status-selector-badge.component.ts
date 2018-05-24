@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { StatusSelectorService } from '~shared/status/services/status-selector.service';
-import { SupplierStatus, ProductStatus } from '~models';
+import { SupplierStatus, ProductStatus, Supplier } from '~models';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 	providers: [StatusSelectorService]
 })
 export class StatusSelectorBadgeComponent implements OnInit {
-	@Input() status;
+	@Input() status: SupplierStatus;
 	@Input() type: 'supplier' | 'product';
 	@Output() update = new EventEmitter<string>();
 	choices$: Observable<SupplierStatus[] | ProductStatus[]>
