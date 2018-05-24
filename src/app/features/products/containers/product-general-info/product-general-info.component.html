@@ -14,7 +14,8 @@
 
 
 <ng-container *ngIf="descriptor$ | async as descriptor">
-	<dynamic-form-app [descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+	<dynamic-form-app (formCreated)="onFormCreated($event)"
+	 [descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
 </ng-container>
 
 <!--

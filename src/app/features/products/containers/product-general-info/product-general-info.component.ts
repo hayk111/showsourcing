@@ -10,6 +10,7 @@ import { Product } from '~models';
 import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductService } from '~features/products/services';
+import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -18,6 +19,7 @@ import { ProductService } from '~features/products/services';
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
+	productId: string;
 	descriptor$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
@@ -37,12 +39,26 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectById(params.id)),
+			tap(product => this.productId = product.id)
 		);
 		this.descriptor$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields, product))
 		);
 	}
 
+	onFormCreated(form: FormGroup) {
+
+		form.valueChanges
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(product => this.updateProduct(product));
+	}
+
+	updateProduct(product: Product) {
+		product.id = this.productId;
+		this.srv.updateProduct(product)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe();
+	}
 
 	// getFirstCol(fields: CustomField[]) {
 	// 	const half = Math.ceil(fields.length / 2);
