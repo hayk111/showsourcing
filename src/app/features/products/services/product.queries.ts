@@ -56,7 +56,12 @@ export class ProductQueries {
 					weightUnit,
 				}
 				priceMatrix {
-					id, label, price
+					id,
+					rows {
+						id,
+						label,
+						price
+					}
 				}
 				leadTimeValue,
 				leadTimeUnit,

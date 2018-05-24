@@ -17,8 +17,7 @@ export class StatusSelectorQueries {
 		productStatuses {
 			id,
 			name,
-			color,
-			contrastColor
+			color
 		}
 	}`;
 }
