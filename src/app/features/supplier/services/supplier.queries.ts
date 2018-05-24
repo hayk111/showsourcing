@@ -25,18 +25,16 @@ export class SupplierQueries {
 				generalMOQ,
 				generalLeadTime,
 				productCount,
+				creationDate
+				createdBy {
+						lastName,
+						firstName
+				},
 				status {
 					id,
 					name,
 					color,
 					contrastColor
-				}
-				audit {
-					creationDate
-					createdBy {
-						lastName,
-						firstName
-					}
 				}
 				categories {
 					id,
@@ -83,7 +81,7 @@ export class SupplierQueries {
 
 	static latestProducts = gql`
 			subscription supplierProducts($query: String!) {
-				products(query: $query, take: 7, sortBy: "audit.creationDate", desc: true) {
+				products(query: $query, take: 7, sortBy: "creationDate", desc: true) {
 					id,
 					name,
 					images {
