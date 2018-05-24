@@ -110,7 +110,7 @@
 			<selector-entity-app
 				[multiple]="false"
 				(select)="onSelect($event)"
-				[value]="customField.value"
+				[(ngModel)]="value"
 				[type]="customField.metadata.subtype">
 			</selector-entity-app>
 		</editable-text-app>

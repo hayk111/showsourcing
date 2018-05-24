@@ -24,9 +24,14 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	descriptor2$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
-		// { name: 'supplier', type: 'selector'},
+		{ name: 'supplier', type: 'selector', metadata: { subtype: 'supplier' } },
+		{ name: 'category', type: 'selector', metadata: { subtype: 'category' } },
+		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, multiple: true },
+
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		// { name: 'price', type: 'price'},
+		// { name: 'event', type: 'selector', metadata: { subtype: 'event' } },
+
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{ name: 'description', type: 'textarea', label: 'description' }
