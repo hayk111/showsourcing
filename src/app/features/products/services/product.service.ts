@@ -14,7 +14,7 @@ export class ProductService {
 		throw Error('not implemented yet');
 	}
 
-	getById(id: string): Observable<Product> {
+	selectById(id: string): Observable<Product> {
 		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == "${id}"` } }).pipe(
 			map(r => r.data.products[0])
 		);

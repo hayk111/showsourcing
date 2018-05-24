@@ -9,6 +9,7 @@ import { Event } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
+import { ProductService } from '~features/products/services';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -21,21 +22,15 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields$: Observable<FormDescriptor>;
 	productId: string;
 
-	constructor(private route: ActivatedRoute, private userSrv: UserService) {
+	constructor(private route: ActivatedRoute, private srv: ProductService) {
 		super();
 	}
 
 	ngOnInit() {
-		// this.product$ = this.route.parent.params.pipe(
-		// 	takeUntil(this._destroy$),
-		// 	switchMap(params => this.store.select(selectOneProduct(params.id)))
-		// );
-		// this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => (this.productId = product.id));
-		// this.customFields$ = this.store.select(
-		// 	selectEntityById({ entityId: 'productsCFDef', entityRepr: ERM.customField })
-		// );
-
-		// this.customFields$.subscribe(d => { });
+		this.product$ = this.route.parent.params.pipe(
+			takeUntil(this._destroy$),
+			switchMap(params => this.srv.selectById(params.id))
+		);
 	}
 
 
