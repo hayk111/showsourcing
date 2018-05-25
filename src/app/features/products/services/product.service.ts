@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
-import { take, map } from 'rxjs/operators';
+import { take, map, filter } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
@@ -16,6 +16,7 @@ export class ProductService {
 
 	selectById(id: string): Observable<Product> {
 		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == "${id}"` } }).pipe(
+			filter(r => r.data.products),
 			map(r => r.data.products[0])
 		);
 	}
