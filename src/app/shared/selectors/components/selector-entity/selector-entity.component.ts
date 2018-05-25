@@ -35,6 +35,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
+	@Output() change = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
 
@@ -52,17 +53,16 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			this.selector.open();
 	}
 
-	onSelect(choice: Choice) {
-		// to notify the formControl we need to call this
+	onChange() {
 		this.onChangeFn(this.value);
+		this.change.emit(this.value);
+	}
+
+	onSelect(choice: Choice) {
 		this.select.emit(choice);
 	}
 
 	onUnselect(choice: Choice) {
-		if (this.multiple) {
-			// to notify the formControl we need to call this
-			this.onChangeFn(this.value);
-		}
 		this.unselect.emit(choice);
 	}
 

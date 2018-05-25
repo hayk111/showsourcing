@@ -99,8 +99,7 @@
 
 				<selector-entity-app
 					[multiple]="true"
-					(select)="onSelect($event)"
-					(unselect)="onUnselect($event)"
+					(change)="onChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
 				</selector-entity-app>
@@ -116,7 +115,7 @@
 
 				<selector-entity-app
 					[multiple]="false"
-					(select)="onSelect($event)"
+					(change)="onChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
 				</selector-entity-app>
@@ -136,7 +135,7 @@
 
 					<selector-const-app
 						[multiple]="false"
-						(select)="onSelect($event)"
+						(change)="onChange()"
 						[(ngModel)]="value"
 						[type]="customField.metadata.target">
 					</selector-const-app>

@@ -6,8 +6,7 @@
 		[canCreate]="true"
 		[multiple]="multiple"
 		[bindLabel]="'name'"
-		(select)="onSelect($event)"
-		(unselect)="onUnselect($event)">
+		(change)="onChange()">
 		<ng-template let-item="item">
 			{{ item.name }}
 		</ng-template>

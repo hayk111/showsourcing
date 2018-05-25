@@ -22,6 +22,7 @@ export class SelectorComponent extends AbstractInput {
 	@Output() unselect = new EventEmitter<Choice>();
 	// when the create button is clicked we want to create an item with what's in the input as name.
 	@Output() create = new EventEmitter<string>();
+	@Output() change = new EventEmitter<any>();
 	// string from input to search through the list of choices
 	searchValue = '';
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
@@ -54,28 +55,16 @@ export class SelectorComponent extends AbstractInput {
 		super(cd);
 	}
 
-	/** when selecting a choice */
-	onSelect(choice: Choice) {
-		debugger
-		if (this.onChangeFn) {
-			if (this.multiple) {
-				// the onselect is triggered before ngselects makes the change
-				this.onChangeFn([...(this.value || []), choice]);
-			} else {
-				this.onChangeFn(choice);
-			}
-		}
-		// we emit the value of the choice picked
-		this.select.emit(choice);
+	onChange(e) {
+		this.onChangeFn(this.value);
+		this.change.emit(this.value);
+	}
 
+	onSelect(choice: Choice) {
+		this.select.emit(choice);
 	}
 
 	onUnselect(removeObj: { value: any, index: number }) {
-		if (this.onChangeFn) {
-			if (this.multiple) {
-				this.onChangeFn(this.value.filter(c => c.id !== removeObj.value.id));
-			}
-		}
 		this.unselect.emit(removeObj.value);
 	}
 
