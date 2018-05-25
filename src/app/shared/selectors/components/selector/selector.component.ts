@@ -56,7 +56,7 @@ export class SelectorComponent extends AbstractInput {
 
 	/** when selecting a choice */
 	onSelect(choice: Choice) {
-
+		debugger
 		if (this.onChangeFn) {
 			if (this.multiple) {
 				// the onselect is triggered before ngselects makes the change

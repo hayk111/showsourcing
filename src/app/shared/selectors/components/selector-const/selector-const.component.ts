@@ -51,6 +51,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	}
 
 	onSelect(id: string) {
+		debugger
 		// to notify the formControl we need to call this
 		this.onChangeFn(this.value);
 		this.select.emit(id);
