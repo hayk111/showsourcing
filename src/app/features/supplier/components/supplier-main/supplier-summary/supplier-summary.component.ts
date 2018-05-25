@@ -21,8 +21,8 @@ export class SupplierSummaryComponent implements OnInit {
 
 	}
 
-	onStatusChange(newStatus: string) {
-		// this.update.emit({ status: newStatus, id: this.supplier.id });
+	onStatusChange(statusId: string) {
+		this.update.emit({ status: { id: statusId }, id: this.supplier.id });
 	}
 
 	onFavorited() {
