@@ -36,4 +36,13 @@ export class SelectorQueries {
 			}
 		}
 	`;
+
+	static supplierTypes = gql`
+		subscription supplierTypes {
+			supplierTypes {
+				id,
+				name
+			}
+		}
+	`;
 }

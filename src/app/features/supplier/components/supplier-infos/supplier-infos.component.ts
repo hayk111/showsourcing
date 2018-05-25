@@ -24,16 +24,16 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
-		// { name: 'type', type: 'selector', subtype: 'supplierType', label: 'type' },
+		// { name: 'type', type: 'selector', metadata: { target: 'supplierType', type: 'entity' }, label: 'type' },
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
 		{ name: 'generalLeadTime', type: 'number', label: 'Lead Time' },
-		// { name: 'country', type: 'selector', metadata: { subtype: 'country' }, label: 'country' },
+		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		{ name: 'categories', type: 'selector', metadata: { subtype: 'category' }, label: 'category', multiple: true },
-		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true }
+		{ name: 'categories', type: 'selector', metadata: { target: 'category', type: 'entity' }, label: 'category', multiple: true },
+		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, label: 'tags', multiple: true }
 	];
 
 	constructor() {

@@ -84,42 +84,65 @@
 
 	<!-- selector -->
 	<ng-container *ngSwitchCase="'selector'">
-		<!-- multiple -->
-		<editable-text-app #editable *ngIf="customField.multiple"
-			(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+		<!-- entity selector -->
+		<ng-container *ngIf="customField.metadata.type === 'entity'">
+			<!-- multiple -->
+			<editable-text-app #editable *ngIf="customField.multiple"
+				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
 
-			<label-app>
-				<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
-				<ng-template #none>
-					-
-				</ng-template>
-			</label-app>
+				<label-app>
+					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
+					<ng-template #none>
+						-
+					</ng-template>
+				</label-app>
 
-			<selector-entity-app
-				[multiple]="true"
-				(select)="onSelect($event)"
-				(unselect)="onUnselect($event)"
-				[(ngModel)]="value"
-				[type]="customField.metadata.subtype">
-			</selector-entity-app>
-		</editable-text-app>
+				<selector-entity-app
+					[multiple]="true"
+					(select)="onSelect($event)"
+					(unselect)="onUnselect($event)"
+					[(ngModel)]="value"
+					[type]="customField.metadata.target">
+				</selector-entity-app>
+			</editable-text-app>
 
-		<!-- one -->
-		<editable-text-app #editable *ngIf="!customField.multiple"
-			(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+			<!-- one -->
+			<editable-text-app #editable *ngIf="!customField.multiple"
+				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
 
-			<label-app>
-				{{ value.name || '-'}}
-			</label-app>
+				<label-app>
+					{{ value.name || '-'}}
+				</label-app>
 
-			<selector-entity-app
-				[multiple]="false"
-				(select)="onSelect($event)"
-				[(ngModel)]="value"
-				[type]="customField.metadata.subtype">
-			</selector-entity-app>
-		</editable-text-app>
+				<selector-entity-app
+					[multiple]="false"
+					(select)="onSelect($event)"
+					[(ngModel)]="value"
+					[type]="customField.metadata.target">
+				</selector-entity-app>
+			</editable-text-app>
 
+		</ng-container>
+
+		<!-- const selector -->
+		<ng-container *ngIf="customField.metadata.type === 'const'">
+				<!-- one -->
+				<editable-text-app #editable *ngIf="!customField.multiple"
+					(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+
+					<label-app>
+						{{ value || '-'}}
+					</label-app>
+
+					<selector-const-app
+						[multiple]="false"
+						(select)="onSelect($event)"
+						[(ngModel)]="value"
+						[type]="customField.metadata.target">
+					</selector-const-app>
+				</editable-text-app>
+
+			</ng-container>
 	</ng-container>
 
 

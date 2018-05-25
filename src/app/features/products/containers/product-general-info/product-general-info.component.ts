@@ -24,22 +24,22 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	descriptor2$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
-		{ name: 'supplier', type: 'selector', metadata: { subtype: 'supplier' } },
-		{ name: 'category', type: 'selector', metadata: { subtype: 'category' } },
+		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity' } },
+		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity' } },
 
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		// { name: 'price', type: 'price'},
-		// { name: 'event', type: 'selector', metadata: { subtype: 'event' } },
+		// { name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity' } },
 
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{ name: 'description', type: 'textarea', label: 'description' },
-		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, multiple: true },
+		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, multiple: true },
 
 	];
 	customFields2: CustomField[] = [
-		{ name: 'harbour' },
-		{ name: 'incoTerm' },
+		{ name: 'harbour', metadata: { target: 'harbour', type: 'const' } },
+		{ name: 'incoTerm', metadata: { target: 'incoTerm', type: 'const' } },
 		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix'},

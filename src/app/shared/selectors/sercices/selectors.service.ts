@@ -52,4 +52,10 @@ export class SelectorsService {
 			map(r => r.data.tags)
 		);
 	}
+
+	getSupplierTypes() {
+		return this.apollo.subscribe({ query: SelectorQueries.supplierTypes }).pipe(
+			map(r => r.data.supplierTypes)
+		);
+	}
 }
