@@ -5,10 +5,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { InputsModule } from '~shared/inputs';
+import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 const components = [
 	SelectorComponent,
-	SelectorEntityComponent
+	SelectorEntityComponent,
+	SelectorConstComponent
 ]
 
 @NgModule({

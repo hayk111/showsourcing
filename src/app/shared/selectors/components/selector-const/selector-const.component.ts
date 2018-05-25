@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
@@ -16,16 +7,23 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorsService } from '../../sercices/selectors.service';
 
 
+/** This selector differs from selector entity because instead of dealing with entities from graphql
+ *  we are dealing with constants that are saved on the front end. Also return values must be the id
+ *  of said constant
+ */
 @Component({
-	selector: 'selector-entity-app',
-	templateUrl: './selector-entity.component.html',
-	styleUrls: ['./selector-entity.component.scss'],
-	providers: [makeAccessorProvider(SelectorEntityComponent), SelectorsService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'selector-const-app',
+	templateUrl: './selector-const.component.html',
+	styleUrls: ['./selector-const.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(SelectorConstComponent), SelectorsService],
+
 })
-export class SelectorEntityComponent extends AbstractInput implements OnInit {
+export class SelectorConstComponent extends AbstractInput implements OnInit {
 
 	@Input() type: string;
+	// whether it can create a new entity
+	@Input() canCreate = false;
 	// whether multiple entities can be selectioned
 	@Input() multiple = false;
 	// value is the id of the entity
@@ -36,7 +34,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
-	choices$: Observable<any[]>;
+	choices: any[];
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -68,17 +66,12 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	setChoices() {
 		switch (this.type) {
-			case 'supplier': this.choices$ = this.srv.getSuppliers(); break;
-			case 'category': this.choices$ = this.srv.getCategories(); break;
-			case 'event': this.choices$ = this.srv.getEvents(); break;
-			case 'tag': this.choices$ = this.srv.getTags(); break;
+			case 'country': this.choices = this.srv.getCountries(); break;
+			case 'currency': this.choices = this.srv.getCurrencies(); break;
+			case 'harbour': this.choices = this.srv.getHarbours(); break;
+			case 'incoTerm': this.choices = this.srv.getIncoTerms(); break;
 			default: throw Error('Unsupported type');
 		}
-	}
-
-	/** creates a new entity */
-	create() {
-
 	}
 
 }

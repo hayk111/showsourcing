@@ -14,19 +14,19 @@ export class SelectorsService {
 	constructor(private apollo: Apollo) { }
 
 	getCountries() {
-		return of(countries);
+		return countries;
 	}
 
 	getIncoTerms() {
-		return of(incoTerms);
+		return incoTerms;
 	}
 
 	getHarbours() {
-		return of(harbours);
+		return harbours;
 	}
 
 	getCurrencies() {
-		return of(currencies);
+		return currencies;
 	}
 
 	getSuppliers() {
