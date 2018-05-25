@@ -38,8 +38,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	];
 	customFields2: CustomField[] = [
-		{ name: 'harbour', metadata: { target: 'harbour', type: 'const' } },
-		{ name: 'incoTerm', metadata: { target: 'incoTerm', type: 'const' } },
 		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix'},

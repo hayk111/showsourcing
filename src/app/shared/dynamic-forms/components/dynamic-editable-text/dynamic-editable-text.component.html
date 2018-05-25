@@ -86,35 +86,24 @@
 	<ng-container *ngSwitchCase="'selector'">
 		<!-- entity selector -->
 		<ng-container *ngIf="customField.metadata.type === 'entity'">
-			<!-- multiple -->
-			<editable-text-app #editable *ngIf="customField.multiple"
+			<editable-text-app #editable
 				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
-
-				<label-app>
+				<!-- multiple value label -->
+				<label-app *ngIf="customField.multiple; else solo">
 					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
 					<ng-template #none>
 						-
 					</ng-template>
 				</label-app>
+				<!-- one value label -->
+				<ng-template #solo>
+					<label-app>
+						{{ value?.name || '-'}}
+					</label-app>
+				</ng-template>
 
 				<selector-entity-app
-					[multiple]="true"
-					(change)="onChange()"
-					[(ngModel)]="value"
-					[type]="customField.metadata.target">
-				</selector-entity-app>
-			</editable-text-app>
-
-			<!-- one -->
-			<editable-text-app #editable *ngIf="!customField.multiple"
-				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
-
-				<label-app>
-					{{ value.name || '-'}}
-				</label-app>
-
-				<selector-entity-app
-					[multiple]="false"
+					[multiple]="customField.multiple"
 					(change)="onChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
