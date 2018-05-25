@@ -23,6 +23,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	}
 
 	ngOnInit() {
+		this.accumulator = this.customField.value;
 	}
 
 	/** saves the value because an user might cancel */
@@ -39,10 +40,12 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onOpen() {
 		/** let's focus on the target input */
 		// using setTimout because the element isn't rendered yet
-		if (this.input)
-			this.input.focus();
-		if (this.selector)
-			this.selector.open();
+		setTimeout(_ => {
+			if (this.input)
+				this.input.focus();
+			if (this.selector)
+				this.selector.open();
+		}, 0)
 	}
 
 	onSelect(choice: Choice) {
