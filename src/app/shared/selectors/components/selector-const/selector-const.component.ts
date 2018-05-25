@@ -31,8 +31,9 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
 	@Input() itemName: string;
 	// events that emits the id of the entity
-	@Output() select = new EventEmitter<string>();
-	@Output() unselect = new EventEmitter<string>();
+	@Output() select = new EventEmitter<Choice>();
+	@Output() unselect = new EventEmitter<Choice>();
+	@Output() change = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices: any[];
 
@@ -50,19 +51,18 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 			this.selector.open();
 	}
 
-	onSelect(id: string) {
-		debugger
-		// to notify the formControl we need to call this
+	onChange() {
 		this.onChangeFn(this.value);
-		this.select.emit(id);
+		this.change.emit(this.value);
 	}
 
-	onUnselect(id: string) {
-		if (this.multiple) {
-			// to notify the formControl we need to call this
-			this.onChangeFn(this.value);
-		}
-		this.unselect.emit(id);
+	onSelect(choice: Choice) {
+		// to notify the formControl we need to call this
+		this.select.emit(choice);
+	}
+
+	onUnselect(choice: Choice) {
+		this.unselect.emit(choice);
 	}
 
 	setChoices() {

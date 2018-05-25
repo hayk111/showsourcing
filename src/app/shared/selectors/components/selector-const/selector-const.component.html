@@ -7,6 +7,7 @@
 [multiple]="multiple"
 [bindLabel]="'name'"
 [bindValue]="'id'"
+(change)="onChange()"
 (select)="onSelect($event)"
 (unselect)="onUnselect($event)">
 <ng-template let-item="item">

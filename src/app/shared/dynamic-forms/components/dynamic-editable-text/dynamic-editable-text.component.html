@@ -145,24 +145,4 @@
 	</ng-container>
 
 
-	<!-- selector const -->
-	<!-- <editable-text-app #editable *ngSwitchCase="'selectorConst'"
-		(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
-		<label-app>
-			<ng-container *ngIf="isEmpty(customField.value); else notEmpty">
-				-
-			</ng-container>
-			<ng-template #notEmpty>
-				<tag-list-app *ngIf="customField.multiple" [value]="customField.value"></tag-list-app>
-				<span *ngIf="!customField.multiple"></span>
-			</ng-template>
-		</label-app>
-		<selector-entity-app
-			(select)="onSelect($event.id)"
-			(unselect)="onUnselect($event.id)"
-			[value]="customField.value"
-			[type]="customField.metadata.subtype">
-		</selector-entity-app>
-	</editable-text-app> -->
-
 </ng-container>
