@@ -101,11 +101,13 @@ export class SelectorComponent extends AbstractInput {
 
 	onOpen() {
 		// needs the set timeout else searchInp is undefined
-		setTimeout(() => {
+		setTimeout(_ => {
 			if (this.searchInp) {
+				debugger;
 				this.searchInp.focus();
 			}
-		}, 0);
+		})
+
 
 	}
 

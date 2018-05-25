@@ -17,7 +17,7 @@
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">
 			<div class="selectCustomInput">
-				<input #searchInp inputApp type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
+				<input #searchInp inputApp autofocus="true" type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
 			</div>
 		</ng-template>
 

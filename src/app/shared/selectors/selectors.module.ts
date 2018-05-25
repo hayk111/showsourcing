@@ -4,6 +4,7 @@ import { SelectorComponent } from '~shared/selectors/components/selector/selecto
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
+import { InputsModule } from '~shared/inputs';
 
 const components = [
 	SelectorComponent,
@@ -14,7 +15,8 @@ const components = [
 	imports: [
 		CommonModule,
 		NgSelectModule,
-		FormsModule
+		FormsModule,
+		InputsModule
 	],
 	declarations: components,
 	exports: components

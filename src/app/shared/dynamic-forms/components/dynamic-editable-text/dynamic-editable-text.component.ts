@@ -40,12 +40,10 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onOpen() {
 		/** let's focus on the target input */
 		// using setTimout because the element isn't rendered yet
-		setTimeout(_ => {
-			if (this.input)
-				this.input.focus();
-			if (this.selector)
-				this.selector.open();
-		}, 0)
+		if (this.input)
+			this.input.focus();
+		if (this.selector)
+			this.selector.open();
 	}
 
 	onSelect(choice: Choice) {

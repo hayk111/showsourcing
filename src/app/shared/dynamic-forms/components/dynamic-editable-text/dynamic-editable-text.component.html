@@ -6,6 +6,7 @@
 			<div class="flex">
 				<input inputApp
 					#inp
+					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
@@ -22,6 +23,7 @@
 				<input inputApp
 					#inp
 					restrictInput="tel"
+					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
@@ -38,6 +40,7 @@
 				<input inputApp
 					#inp
 					restrictInput="number"
+					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(+inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
@@ -54,6 +57,7 @@
 				<input inputApp
 					#inp
 					restrictInput="decimal"
+					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(+inp.value)"
 					(keyup.enter)="editable.close(); onSave()"
@@ -69,6 +73,7 @@
 			<div class="flex">
 				<textarea inputApp
 					#inp
+					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close(); onSave()">

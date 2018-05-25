@@ -115,12 +115,14 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 
 	/** Focuses the input and sets the carret at the end */
 	focus(): void {
-		const input = this._elementRef.nativeElement;
-		const length = input.value.length;
-		input.focus();
-		// at this time only text input supports this
-		if ((input instanceof HTMLInputElement && input.type === 'text') || this._isTextarea())
-			input.setSelectionRange(length, length);
+		setTimeout(_ => {
+			const input = this._elementRef.nativeElement;
+			const length = input.value.length;
+			input.focus();
+			// at this time only text input supports this
+			if ((input instanceof HTMLInputElement && input.type === 'text') || this._isTextarea())
+				input.setSelectionRange(length, length);
+		}, 0);
 	}
 
 	ngOnChanges() {
