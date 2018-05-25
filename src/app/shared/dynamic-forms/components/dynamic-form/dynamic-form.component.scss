@@ -4,10 +4,11 @@
 
 .col {
 	flex-grow: 1;
+	box-sizing: border-box;
 }
 
 .multiple {
 	.col {
-		margin-right: 16px;
+		padding-right: 16px;
 	}
 }

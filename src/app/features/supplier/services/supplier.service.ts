@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { map, tap, publish, take, refCount } from 'rxjs/operators';
+import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SupplierQueries } from '~features/supplier/services/supplier.queries';
 import { Supplier } from '~models';
@@ -92,6 +92,7 @@ export class SupplierService {
 	// at the moment the subscription works on only one entity and can be done only on list
 	getById(id: string): Observable<Supplier> {
 		return this.apollo.subscribe({ query: SupplierQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
+			filter((r: any) => r.data.suppliers),
 			map((r: any) => r.data.suppliers[0])
 		);
 	}

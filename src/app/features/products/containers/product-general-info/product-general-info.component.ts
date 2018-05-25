@@ -26,7 +26,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields: CustomField[] = [
 		{ name: 'supplier', type: 'selector', metadata: { subtype: 'supplier' } },
 		{ name: 'category', type: 'selector', metadata: { subtype: 'category' } },
-		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, multiple: true },
 
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		// { name: 'price', type: 'price'},
@@ -34,7 +33,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
-		{ name: 'description', type: 'textarea', label: 'description' }
+		{ name: 'description', type: 'textarea', label: 'description' },
+		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, multiple: true },
+
 	];
 	customFields2: CustomField[] = [
 		{ name: 'harbour' },

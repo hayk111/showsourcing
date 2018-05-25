@@ -27,7 +27,7 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 		// { name: 'type', type: 'selector', subtype: 'supplierType', label: 'type' },
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
 		{ name: 'generalLeadTime', type: 'number', label: 'Lead Time' },
-		{ name: 'country', type: 'selector', metadata: { subtype: 'country' }, label: 'country' },
+		// { name: 'country', type: 'selector', metadata: { subtype: 'country' }, label: 'country' },
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },

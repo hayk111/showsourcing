@@ -15,6 +15,7 @@ export class BaseEntity<G> implements Entity {
 	deleted?: boolean;
 
 	constructor(config: G) {
+		Object.assign(this, config);
 		this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.lastUpdatedDate = '' + new Date();
