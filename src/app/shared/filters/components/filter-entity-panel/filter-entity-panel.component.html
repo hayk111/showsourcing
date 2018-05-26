@@ -10,8 +10,8 @@
 	<checkbox-app
 		*ngFor="let choice of relevantChoices; trackBy: trackByFn"
 		[checked]="selected.has(choice.id)"
-		(check)="onItemAdded(choice.id)"
-		(uncheck)="onItemRemoved(choice.id)">
+		(check)="onItemAdded(choice)"
+		(uncheck)="onItemRemoved(choice)">
 		<div class="flexBetween">
 			<span>{{ choice.name }}</span>
 			<span>{{ choice.productCount }}</span>
@@ -25,8 +25,8 @@
 	<checkbox-app
 		*ngFor="let choice of choices; trackBy: trackByFn"
 		[checked]="selected.has(choice.id)"
-		(check)="onItemAdded(choice.id)"
-		(uncheck)="onItemRemoved(choice.id)">
+		(check)="onItemAdded(choice)"
+		(uncheck)="onItemRemoved(choice)">
 		<span>{{ choice.name }}</span>
 	</checkbox-app>
 

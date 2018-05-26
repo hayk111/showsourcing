@@ -3,7 +3,8 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
-import { take, map, filter } from 'rxjs/operators';
+import { fromPromise } from 'rxjs/Observable/fromPromise';
+import { take, map, filter, first } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
@@ -20,6 +21,7 @@ export class ProductService {
 			this.productsQuery$ = this.apollo.watchQuery<any>({
 				query: ProductQueries.list,
 				variables: {
+					query: '',
 					skip: 0,
 					take: perPage,
 				}
@@ -43,12 +45,12 @@ export class ProductService {
 		Triggers the load of a page of products based on
 		a page number.
 
-		This method returns a promise to register on to be
+		This method returns a observable to register on to be
 		notified when the processing ends.
 	 */
 	loadProductsNextPage({ page, perPage }) {
 		this.initializeProductQuery({ perPage });
-		return this.productsQuery$.fetchMore({
+		return fromPromise(this.productsQuery$.fetchMore({
 			variables: {
 				skip: page * perPage,
 				take: perPage
@@ -60,25 +62,38 @@ export class ProductService {
 					products: [...prev.products, ...fetchMoreResult.products],
 				};
 			}
-		});
+		})).pipe(first());
 	}
 
 	/*
 		Sorts the products data for a specified column.
 
-		This method returns a promise to register on to be
+		This method returns a observable to register on to be
 		notified when the processing ends.
 	 */
 	sortProducts({ sort, perPage }) {
 		this.initializeProductQuery({ perPage });
-		return this.productsQuery$.refetch({
-			variables: {
-				skip: 0,
-				take: perPage,
-				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'DESC'
-			}
-		});
+		return fromPromise(this.productsQuery$.refetch({
+			skip: 0,
+			take: perPage,
+			sortBy: sort.sortBy,
+			descending: sort.sortOrder === 'DESC'
+		})).pipe(first());
+	}
+
+	/*
+		Filter the products data for a specified filter group.
+
+		This method returns an observable to register on to be
+		notified when the processing ends.
+	 */
+	filterProducts({ filtergroup, perPage }) {
+		this.initializeProductQuery({ perPage });
+		return fromPromise(this.productsQuery$.refetch({
+			skip: 0,
+			take: perPage,
+			query: filtergroup.filters.map(({ type, value }) => `${type}.id == "${value}"`).join(' or ')
+		})).pipe(first());
 	}
 
 	selectById(id: string): Observable<Product> {

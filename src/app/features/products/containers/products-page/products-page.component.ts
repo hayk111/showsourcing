@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterService } from '~shared/filters';
+import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
 import { SelectionService, ProductService } from '~features/products/services';
@@ -48,13 +48,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private productSrv: ProductService,
 		private selectionSrv: SelectionService,
+		private filterSrv: FilterService,
 		private dlgSrv: DialogService) {
 		super();
 	}
 
 	ngOnInit() {
 		this.pending = true;
-		console.log('ngOnInit');
 		this.products$ = this.productSrv.selectProducts({ perPage: this.perPage }).pipe(
 			tap(() => {
 				if (this.initialLoading) {
@@ -69,7 +69,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	loadMore() {
 		this.page++;
 		this.pending = true;
-		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).then(() => {
+		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {
+			this.pending = false;
+		});
+	}
+
+	/** filters product based on filter group */
+	filterProducts(filtergroup: FilterGroup) {
+		this.pending = true;
+		this.productSrv.filterProducts({ perPage: this.perPage, filtergroup }).subscribe(() => {
 			this.pending = false;
 		});
 	}

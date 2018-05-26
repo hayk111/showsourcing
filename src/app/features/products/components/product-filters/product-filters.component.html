@@ -20,7 +20,7 @@
 			</div>
 
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
 				Filter {{ type }}
 			</filter-btn-app>
 
@@ -29,7 +29,7 @@
 					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
-					<!-- {{ filter.displayName }} -->
+					{{ getDisplayName(filter, type) }}
 				</checkbox-app>
 			</div>
 		</ng-container>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
 				Filter users
 			</filter-btn-app>
 
