@@ -53,7 +53,8 @@ export class ProductService {
 		return fromPromise(this.productsQuery$.fetchMore({
 			variables: {
 				skip: page * perPage,
-				take: perPage
+				take: perPage,
+				query: ''
 			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
@@ -77,7 +78,8 @@ export class ProductService {
 			skip: 0,
 			take: perPage,
 			sortBy: sort.sortBy,
-			descending: sort.sortOrder === 'DESC'
+			descending: sort.sortOrder === 'DESC',
+			query: ''
 		})).pipe(first());
 	}
 
