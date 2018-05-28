@@ -152,7 +152,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** when the blue button 'ADD TO PROJECT' in a product card is clicked */
 	onItemAddToProject(id: string) {
-		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] })
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] });
 	}
 
 	openCreateDlg() {
@@ -167,18 +167,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray })
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray });
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog() {
-		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray })
+		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
-		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray })
+		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray });
 	}
 
 	get selectionArray() {

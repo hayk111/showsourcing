@@ -14,7 +14,7 @@ export class StatusSelectorBadgeComponent implements OnInit {
 	@Input() status: SupplierStatus;
 	@Input() type: 'supplier' | 'product';
 	@Output() update = new EventEmitter<string>();
-	choices$: Observable<SupplierStatus[] | ProductStatus[]>
+	choices$: Observable<SupplierStatus[] | ProductStatus[]>;
 	panelVisible = false;
 
 	constructor(private srv: StatusSelectorService) { }

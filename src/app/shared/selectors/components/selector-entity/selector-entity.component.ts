@@ -33,7 +33,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// value is the id of the entity
 	@Input() value: any;
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
-	@Input() itemName: string = 'item';
+	@Input() itemName = 'item';
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();

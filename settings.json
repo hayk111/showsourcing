@@ -5,5 +5,5 @@
 		"~models/*": ["${workspaceRoot}/src/app/models/*"],
 		"~utils/*": ["${workspaceRoot}/src/app/app-root/utils/*"],
 		"~shared/*": ["${workspaceRoot}/src/app/shared/*"],
-  },
+	}
 }

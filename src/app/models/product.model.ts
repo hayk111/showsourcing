@@ -24,9 +24,9 @@ export class Product extends BaseEntity<Product> {
 	moqDescription?: string;
 	votes?: ProductVote[];
 	score?: number;
-	innerCarton?: Packaging
-	masterCarton?: Packaging
-	priceMatrix?: PriceMatrix
+	innerCarton?: Packaging;
+	masterCarton?: Packaging;
+	priceMatrix?: PriceMatrix;
 	leadTimeValue?: number;
 	leadTimeUnit?: string;
 	sample?: boolean;

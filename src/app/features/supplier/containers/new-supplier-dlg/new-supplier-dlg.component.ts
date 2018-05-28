@@ -10,6 +10,7 @@ import { InputDirective } from '~shared/inputs';
 import { DialogName } from '~shared/dialog/models';
 import { SupplierService } from '~features/supplier/services/supplier.service';
 import { DialogService } from '~shared/dialog';
+import { Supplier } from '~models/supplier.model';
 
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
@@ -50,8 +51,8 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 		if (this.group.valid) {
 			this.pending = true;
 			const name = this.group.value.name;
-			const supplier = { name };
-			this.supplierSrv.createSupplier({ name })
+			const supplier = new Supplier({ name });
+			this.supplierSrv.createSupplier(supplier)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;
