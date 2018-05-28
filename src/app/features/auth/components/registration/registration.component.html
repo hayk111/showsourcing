@@ -5,7 +5,7 @@
 	<h2 *ngIf="(pending)">We are now processing your informations</h2>
 </div>
 
-<form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
+<form [formGroup]="form" class="flexColumn" *ngIf="!pending; else spinner">
 
 	<form-field-app>
 		<label-app>First Name</label-app>

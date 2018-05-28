@@ -52,7 +52,7 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		PipesModule,
 		DialogModule,
 		StatusModule,
-		FileModule.forChild(), // file card used
+		FileModule, // file card used
 		RatingModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list

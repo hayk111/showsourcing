@@ -12,7 +12,7 @@ export class DataManagementPageComponent implements OnInit {
 	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
 	selectedEntity;
 	selection = [];
-	// items$: Observable<Array<Entity>>;
+	items$: Observable<any>;
 
 	constructor() { }
 
