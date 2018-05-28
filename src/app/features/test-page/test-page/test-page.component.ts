@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 import { FormGroup } from '@angular/forms';
-import { Apollo } from 'apollo-angular';
+import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
 import { Supplier } from '~models';
 import { SupplierQueries } from '~features/supplier/services/supplier.queries';
@@ -57,7 +57,7 @@ export class TestPageComponent implements OnInit {
 	form: FormGroup;
 	supplierTest;
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	ngOnInit() {
 		this.supplier$ = this.apollo.subscribe({

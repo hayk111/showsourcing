@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { countries, incoTerms, harbours, currencies } from '~utils/constants';
 import { of, Observable } from 'rxjs';
-import { Apollo } from 'apollo-angular';
+import { ApolloClient } from '~shared/apollo';
 import { SelectorQueries } from './selector.queries';
 import { map, tap, take } from 'rxjs/operators';
 import { Supplier } from '~models/supplier.model';
@@ -14,7 +14,7 @@ import { Category, Event, Tag, SupplierType } from '~models';
 })
 export class SelectorsService {
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	getCountries(): Array<any> {
 		return countries;

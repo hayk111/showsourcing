@@ -7,6 +7,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { cleanTypenameLink } from './clean.typename.link';
+import { ApolloClient } from './services/apollo-client.service';
 
 
 const GRAPHQL_ENDPOINT_WS = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
@@ -26,7 +27,7 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	declarations: []
 })
 export class AppApolloModule {
-	constructor(private apollo: Apollo, private httpLink: HttpLink) {
+	constructor(private apollo: ApolloClient, private httpLink: HttpLink) {
 		this.init();
 	}
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
+import { QueryRef } from 'apollo-angular';
+import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ import { uuid } from '~app-root/utils/uuid.utils';
 export class SupplierService {
 	private suppliersQuery$: QueryRef<string, any>;
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	/*
 		Initialize the underlying query ref for the list of

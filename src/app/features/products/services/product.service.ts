@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
 import { take, map, filter } from 'rxjs/operators';
+import { ApolloClient } from '~shared/apollo';
 
 @Injectable()
 export class ProductService {
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	getList(): Observable<Product[]> {
 		throw Error('not implemented yet');
@@ -16,8 +17,8 @@ export class ProductService {
 
 	selectById(id: string): Observable<Product> {
 		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == "${id}"` } }).pipe(
-			filter(r => r.data.products),
-			map(r => r.data.products[0])
+			filter((r: any) => r.data.products),
+			map((r: any) => r.data.products[0])
 		);
 	}
 
