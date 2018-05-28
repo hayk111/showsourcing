@@ -11,7 +11,7 @@ import { AutoUnsub } from '~app-root/utils';
 import { Filter, FilterType, FilterGroup } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { Entity } from '~models';
-import { SupplierService } from '~features/supplier/services/supplier.service';
+import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
 	selector: 'product-filters-app',
@@ -49,7 +49,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	filterType = FilterType;
 
 	constructor(private filterSrv: FilterService,
-				private supplierSrv: SupplierService,
+				private filterDataSrv: FilterDataService,
 				private cd: ChangeDetectorRef) {
 		super();
 	}
@@ -87,9 +87,27 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	/** Links data for a type of filter type */
 	selectEntityArray(type: FilterType) {
 		if (type === FilterType.SUPPLIER) {
-			return this.supplierSrv.selectSuppliers({ perPage: 20 })
-				.pipe(takeUntil(this._destroy$));
+			return this.filterDataSrv.selectSuppliers();
 		}
+		if (type === FilterType.EVENT) {
+			return this.filterDataSrv.selectEvents();
+		}
+		if (type === FilterType.CATEGORY) {
+			return this.filterDataSrv.selectCategories();
+		}
+		if (type === FilterType.TAG) {
+			return this.filterDataSrv.selectTags();
+		}
+		if (type === FilterType.PROJECT) {
+			return this.filterDataSrv.selectProjects();
+		}
+		if (type === FilterType.CREATED_BY) {
+			return this.filterDataSrv.selectCreatedBy();
+		}
+		if (type === FilterType.PRODUCT_STATUS) {
+			return this.filterDataSrv.selectStatuses();
+		}
+		// TODO: favorite
 		return of([]);
 	}
 

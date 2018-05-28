@@ -41,6 +41,7 @@ import {
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
 import { SelectionService } from './services/selection.service';
+import { FilterDataService } from './services/filter.data.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 
 @NgModule({
@@ -91,7 +92,7 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductService, SelectionService]
+	providers: [ProductService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 
