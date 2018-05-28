@@ -1,41 +1,66 @@
 <card-app>
+	{{  supplier$ | async | json }}
+</card-app>
 
-	<!-- <selector-country-app
-		[multiple]="true"
-		[(ngModel)]="country">
-	</selector-country-app>
-		{{ country }}
+<card-app>
 
-	<selector-currency-app [(ngModel)]="currency">
+	<!-- <selector-app [choices]="cities" [(ngModel)]="selectedCity" [multiple]="true">
+		<ng-template let-item="item">
+			{{ item.name }}
+		</ng-template>
+	</selector-app> -->
+	<!-- <ng-select [items]="cities" [multiple]="true"
+		bindLabel="name"
+		placeholder="Select city"
+		[(ngModel)]="selectedCity">
+	</ng-select> -->
+	{{ selectedCity | json }}
 
-	</selector-currency-app>
-		{{ currency}} -->
+	<ng-container *ngIf="descriptor$ | async as descriptor">
+		<dynamic-form-app
+			[descriptor]="descriptor"
+			[editable]="true"
+			(formCreated)="onFormCreated($event)"></dynamic-form-app>
+	</ng-container>
 
-	<selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
+	<!-- <selector-entity-app type="country" [(ngModel)]="country" [multiple]="true"></selector-entity-app>
 	<p>{{ country | json }}</p>
 	<selector-entity-app type="currency" [(ngModel)]="currency"></selector-entity-app>
 	<p>{{ currency | json }}</p>
 	<selector-entity-app type="harbour" [(ngModel)]="harbour"></selector-entity-app>
 	<p>{{ harbour | json }}</p>
 	<selector-entity-app type="incoTerm" [(ngModel)]="incoTerm"></selector-entity-app>
-	<p>{{ incoTerm | json }}</p>
+	<p>{{ incoTerm | json }}</p> -->
 
-	<selector-entity-app type="supplier" [(ngModel)]="supplier" [multiple]="true"></selector-entity-app>
-	<p>{{ supplier | json }}</p>
+	<!-- <selector-entity-app type="supplier" [(ngModel)]="supplierTest" [multiple]="true"></selector-entity-app>
+	<p>{{ supplierTest | json }}</p> -->
 
-	<selector-entity-app type="category" [(ngModel)]="category"></selector-entity-app>
-	<p>{{ category | json }}</p>
+	<!-- <selector-entity-app type="category" [(ngModel)]="category"></selector-entity-app>
+	<p>{{ category | json }}</p> -->
 <!--
 	<selector-entity-app type="event" [(ngModel)]="event"></selector-entity-app>
 	{{ event | json }} -->
 
-	<!-- <cell-two-row-app [title]="'Say'">
+	 <!-- <cell-two-row-app [title]="'Country'">
 		<custom-editable-field-app
 			type="country"
-			value="France"
-			label="country">
+			[multiple]="true"
+			[value]="country"
+			[label]="country">
 		</custom-editable-field-app>
-	</cell-two-row-app> -->
+	</cell-two-row-app>
+
+	{{ country | json }}
+
+	<cell-two-row-app [title]="'text'">
+		<custom-editable-field-app
+			type="text"
+			[value]="text"
+			[label]="text">
+		</custom-editable-field-app>
+	</cell-two-row-app>
+
+	{{ text | json }} -->
 
 </card-app>
 

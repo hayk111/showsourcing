@@ -23,6 +23,8 @@ export class StatusSelectorService {
 	}
 
 	getProductStatuses(): Observable<ProductStatus[]> {
-		throw Error('not implemented yet')
+		return this.apollo.subscribe({ query: StatusSelectorQueries.productStatus }).pipe(
+			map(r => r.data.productStatuses)
+		);
 	}
 }

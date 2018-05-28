@@ -1,0 +1,21 @@
+:host {
+	box-sizing: border-box;
+	display: block;
+	border-bottom: 1px solid var(--color-primary-light);
+	padding: var(--spacing-m) 0 var(--spacing-s) 0;
+
+	label-app {
+		padding-bottom: var(--spacing-s);
+		font-weight: bold;
+		font-size: var(--font-size-s);
+		color: var(--color-primary-dark);
+		text-transform: capitalize;
+		display: block;
+	}
+	.content {
+		font-size: var(--font-size-m);
+		color: var(--color-primary-dark);
+		align-items: center;
+	}
+}
+

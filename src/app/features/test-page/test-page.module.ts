@@ -5,6 +5,8 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { CardModule } from '~shared/card';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { FormsModule } from '@angular/forms';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	imports: [
@@ -12,7 +14,10 @@ import { FormsModule } from '@angular/forms';
 		EditableFieldModule,
 		CardModule,
 		SelectorsModule,
-		FormsModule
+		FormsModule,
+		DynamicFormsModule,
+		NgSelectModule,
+
 	],
 	declarations: [TestPageComponent],
 	exports: [TestPageComponent]

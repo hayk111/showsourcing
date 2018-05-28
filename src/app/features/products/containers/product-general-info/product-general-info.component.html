@@ -1,4 +1,4 @@
-<ng-template #fields let-field="field" let-product="product">
+<!-- <ng-template #fields let-field="field" let-product="product">
 	<editable-field-app
 		[value]="product[field.propName]"
 		[entity]="product"
@@ -10,39 +10,28 @@
 		(projectAdded)="onProjectAdded($event)"
 		(projectRemoved)="onProjectRemoved($event)">
 	</editable-field-app>
-</ng-template>
+</ng-template> -->
 
+<div class="sectionTitle shipping">General</div>
 
-<ng-container *ngIf="product$ | async as product">
-  <ng-container *ngIf="customFields$ | async as cf">
-    <ng-container *ngFor="let group of cf.groups">
-      <div class="sectionTitle">{{ group.name }}</div>
-      <div class="flex">
-        <!-- first column -->
-        <div class="flexColumn">
-          <cell-two-row-app *ngFor="let field of getFirstCol(group.fields)" [title]="field.label">
-            <ng-container *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
-          </cell-two-row-app>
-        </div>
-
-        <!-- second column -->
-        <div class="flexColumn">
-          <cell-two-row-app *ngFor="let field of getSecondCol(group.fields)" [title]="field.label">
-            <ng-container *ngTemplateOutlet="fields;  context: { field: field, product: product }"></ng-container>
-          </cell-two-row-app>
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
+<ng-container *ngIf="descriptor$ | async as descriptor">
+	<dynamic-form-app (formCreated)="onFormCreated($event)"
+	 [descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
 </ng-container>
 
+<div class="sectionTitle shipping">Shipping & Trading</div>
 
+<ng-container *ngIf="descriptor2$ | async as descriptor">
+	<dynamic-form-app (formCreated)="onFormCreated($event)"
+		[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+</ng-container>
+<!--
 <ng-container *ngIf="product$ | async as product">
   <div class="sectionTitle shipping">Shipping & Trading</div>
-  <div class="flex">
+  <div class="flex"> -->
 
       <!-- first column -->
-      <div class="flexColumn">
+      <!-- <div class="flexColumn"> -->
 
 				<!-- <ng-container *ngIf="product.supplier">
 					<div class="subSectionTitle">Trading conditions</div>
@@ -60,7 +49,7 @@
 					</cell-one-row-app>
 				</ng-container> -->
 
-        <div class="subSectionTitle">Inner carton</div>
+        <!-- <div class="subSectionTitle">Inner carton</div>
         <cell-one-row-app title="Depth">
             <editable-field-app [value]="product.depth" isRightAligned="true" type="number" (update)="onUpdate(product.id, 'depth', $event)"></editable-field-app>
         </cell-one-row-app>
@@ -77,10 +66,10 @@
         </cell-one-row-app>
 				<div class="subSectionTitle">Master carton</div>
 
-      </div>
+      </div> -->
 
       <!-- Second column -->
-      <div class="flexColumn">
+      <!-- <div class="flexColumn">
         <div class="subSectionTitle">Price Matrix</div>
         <cell-one-row-app>
 					<editable-field-app [value]="product.priceLabel1" isCompactInline="true" type="text"
@@ -121,4 +110,4 @@
         </cell-one-row-app>
       </div>
   </div>
-</ng-container>
+</ng-container> -->

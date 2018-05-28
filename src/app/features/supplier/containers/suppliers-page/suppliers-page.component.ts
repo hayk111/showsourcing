@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filter, FilterService } from '~shared/filters';
-
+import { FilterService, Filter } from '~shared/filters';
 import { Supplier } from '~models';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
@@ -33,8 +32,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	pending: boolean;
 	/** whether we loaded every suppliers */
 	fullyLoaded: boolean;
+	/** when the suppliers are loaded for the first time */
+	initialLoading = true;
 	/** number of suppliers requested by paginated request */
-	take = 30;
+	page = 0;
+	perPage = 30;
 
 	constructor(
 		private router: Router,
@@ -46,41 +48,34 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.suppliers$ = this.supplierSrv.getList();
+		this.pending = true;
+		this.suppliers$ = this.supplierSrv.selectSuppliers({ perPage: this.perPage }).pipe(
+			tap(() => {
+				if (this.initialLoading) {
+					this.pending = false;
+					this.initialLoading = false;
+				}
+			})
+		);
 		this.selected$ = this.selectionSrv.selection$;
 		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 
-	loadSuppliersV2() {
-		// combineLatest(this.sort$, this.filters$, this.pagination$, (sort, filters, pagination) => {
-
-		// }).pipe();
-		// this.suppliers$ = this.supplierSrv.getList();
-	}
-
-	/** loads initial suppliers and when the filters change */
-	loadSuppliers() {
-		// 	this.store.dispatch(fromSupplierList.SupplierListActions.load({
-		// 		filters: this.filters,
-		// 		pagination: { take: this.take, drop: 0 },
-		// 		sort: this.currentSort
-		// 	}));
-	}
-
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		// if (!this.fullyLoaded) {
-		// 	this.store.dispatch(fromSupplierList.SupplierListActions.loadMore({
-		// 		filters: this.filters,
-		// 		pagination: { take: this.take, drop: this.suppliers.length },
-		// 		sort: this.currentSort
-		// 	}));
-		// }
+		this.page++;
+		this.pending = true;
+		this.supplierSrv.loadSuppliersNextPage({ page: this.page, perPage: this.perPage }).then(() => {
+			this.pending = false;
+		});
 	}
 
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
-		this.loadSuppliers();
+		this.pending = true;
+		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage }).then(() => {
+			this.pending = false;
+		});
 	}
 
 	/** Opens the dialog for creating a new supplier */

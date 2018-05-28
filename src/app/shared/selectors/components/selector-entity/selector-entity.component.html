@@ -1,16 +1,14 @@
-<ng-container *ngIf="choices$ | async as choices">
 	<selector-app
-		[value]="value"
-		[choices]="choices"
-		[itemName]="entityName"
+		[(ngModel)]="value"
+		[choices]="choices$ | async"
+		[itemName]="itemName"
 		[canSearch]="true"
-		[canCreate]="canCreate"
+		[canCreate]="true"
 		[multiple]="multiple"
-		[bindValue]="'id'"
 		[bindLabel]="'name'"
-		(select)="onSelect($event)">
+		(change)="onChange()"
+		(create)="create($event)">
 		<ng-template let-item="item">
 			{{ item.name }}
 		</ng-template>
 	</selector-app>
-</ng-container>

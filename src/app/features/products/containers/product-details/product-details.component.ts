@@ -9,6 +9,7 @@ import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductService } from '~features/products/services';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.getById(id))
+			switchMap(id => this.productSrv.selectById(id))
 		);
 
 		// this.tasks$ = id$.pipe(
@@ -54,26 +55,18 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	removeProject(project) {
-		this.productSrv.removeProject(project.id).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		// this.productSrv.removeProject(project.id).subscribe();
 	}
 
 	updateStatus(statusId: string) {
-		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: true }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: false }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
 	}
 }

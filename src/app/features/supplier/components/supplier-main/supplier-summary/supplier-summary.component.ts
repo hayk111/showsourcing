@@ -13,7 +13,7 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() productCount: number;
 	@Input() taskCount: number;
 	@Input() contactCount: number;
-	@Output() update = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Supplier>();
 
 	constructor() { }
 
@@ -21,15 +21,15 @@ export class SupplierSummaryComponent implements OnInit {
 
 	}
 
-	onStatusChange(newStatus: string) {
-		this.update.emit({ propName: 'status', value: newStatus, id: this.supplier.id });
+	onStatusChange(statusId: string) {
+		this.update.emit({ status: { id: statusId }, id: this.supplier.id });
 	}
 
 	onFavorited() {
-		this.update.emit({ propName: 'favorite', value: true, id: this.supplier.id });
+		this.update.emit({ favorite: true, id: this.supplier.id });
 	}
 
 	onUnfavorited() {
-		this.update.emit({ propName: 'favorite', value: false, id: this.supplier.id });
+		this.update.emit({ favorite: false, id: this.supplier.id });
 	}
 }

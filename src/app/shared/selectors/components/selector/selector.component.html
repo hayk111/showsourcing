@@ -2,24 +2,23 @@
 
 	<ng-select #ngSelect
 		class="custom"
+		[(ngModel)]="value"
+		[compareWith]="compareWith"
 		(open)="onOpen()"
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"
+		(change)="onChange($event)"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
-		[bindLabel]="bindLabel"
 		[bindValue]="bindValue"
-		[ngModel]="value"
+		[bindLabel]="bindLabel"
 		[multiple]="multiple"
-		[loading]="pending"
-		[loadingText]="'Loading...'"
-		[addTagText]="'Create ' + itemName"
 		[notFoundText]="itemName + ' not found'">
 
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">
 			<div class="selectCustomInput">
-				<input #searchInp inputApp type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
+				<input #searchInp inputApp autofocus="true" type="text" [(ngModel)]="searchValue" (input)="filter()" (change)="$event.stopPropagation()" />
 			</div>
 		</ng-template>
 

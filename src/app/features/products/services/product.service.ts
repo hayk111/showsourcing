@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { Product } from '~models';
+import { Product, Project } from '~models';
+import { ProductQueries } from '~features/products/services/product.queries';
+import { take, map, filter } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
@@ -12,31 +14,20 @@ export class ProductService {
 		throw Error('not implemented yet');
 	}
 
-	getById(id: string): Observable<Product> {
-		throw Error('not implemented yet');
+	selectById(id: string): Observable<Product> {
+		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == "${id}"` } }).pipe(
+			filter(r => r.data.products),
+			map(r => r.data.products[0])
+		);
 	}
 
 	updateProduct(product: Product): Observable<Product> {
-		throw Error('not implemented yet');
+		return this.apollo.mutate({ mutation: ProductQueries.updateProduct, variables: { product } }).pipe(
+			take(1)
+		);
 	}
 
 	deleteProducts(ids: string[]) {
-		throw Error('not implemented yet');
-	}
-
-	addTask(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeTask(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addComment(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeProject(id: string): Observable<any> {
 		throw Error('not implemented yet');
 	}
 

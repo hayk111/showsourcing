@@ -1,47 +1,47 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { Subject } from 'rxjs';
-import { AutoUnsub } from '~utils';
-
-import { DynamicFormsService } from '../../services/dynamic-forms.service';
-import { FormDescriptor, FormGroupDescriptor } from '../../utils/custom-field.model'
-import { Entity } from '~models';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
+import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 
 @Component({
 	selector: 'dynamic-form-app',
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['./dynamic-form.component.scss'],
-	providers: [DynamicFormComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicFormComponent extends AutoUnsub {
-	@Output() update = new EventEmitter<any>();
+export class DynamicFormComponent implements OnInit {
 	@Input() descriptor: FormDescriptor;
-	formGroup: FormGroup;
-	private entity$ = new Subject<Entity>();
+	/** number of columns */
+	@Input() colAmount: number = 1;
+	/** when editable is set to true, then the version of the forms becomes one that is using editable text */
+	@Input() editable = false;
+	@Output() formCreated = new EventEmitter<FormGroup>();
+	form: FormGroup;
+	cols: CustomField[][];
 
-	@Input()
-	set entity(entity: Entity) {
-		// we redo the formGroup each time for change detection.
-		// ultimately this should be fixed at angular so maybe check if it
-		// has been fixed
-		this.formGroup = this.dynamicFormsSrv.toFormGroup(this.descriptor);
-		this.formGroup.patchValue(entity);
+	constructor(private dfSrv: DynamicFormsService) {
 	}
 
-	constructor(private dynamicFormsSrv: DynamicFormsService) {
-		super();
+	ngOnInit() {
+		this.makeCols();
+		this.form = this.dfSrv.toFormGroup(this.descriptor.fields);
+		this.formCreated.emit(this.form);
 	}
 
+	/** put the custom fields into columns
+	 * If we have only one column then we will have one column with all the fields
+	 * If we have two columns we will have 2 columns with each half the field, etc..
+	 */
+	makeCols() {
+		this.cols = [];
+		const fields = this.descriptor.fields;
+		const fieldPerCol = Math.ceil(fields.length / this.colAmount);
+		for (let i = 0; i < this.colAmount; i++) {
+			const start = i * fieldPerCol;
+			const end = i * fieldPerCol + fieldPerCol;
+			this.cols[i] = fields.slice(start, end);
+		}
 
-	getControl(name: string) {
-		return this.formGroup.controls[name];
-	}
-
-	onUpdate(event) {
-		this.update.emit(event);
 	}
 
 }
-

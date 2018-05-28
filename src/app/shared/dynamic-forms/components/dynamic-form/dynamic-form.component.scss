@@ -1,0 +1,14 @@
+.form {
+	display: flex;
+}
+
+.col {
+	flex-grow: 1;
+	box-sizing: border-box;
+}
+
+.multiple {
+	.col {
+		padding-right: 16px;
+	}
+}
