@@ -23,6 +23,8 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	descriptor$: Observable<FormDescriptor>;
 	descriptor2$: Observable<FormDescriptor>;
 
+	// those are the custom fields for the first form section
+	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
 	customFields: CustomField[] = [
 		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity' } },
 		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity' } },
@@ -37,6 +39,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, multiple: true },
 
 	];
+	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
 		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
@@ -76,9 +79,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: Product) {
 		product.id = this.productId;
-		this.srv.updateProduct(product)
-			.pipe(takeUntil(this._destroy$))
-			.subscribe();
+		this.srv.updateProduct(product).subscribe();
 	}
 
 }

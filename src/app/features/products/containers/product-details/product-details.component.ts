@@ -55,26 +55,18 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	removeProject(project) {
-		// this.productSrv.removeProject(project.id).pipe(
-		// 	takeUntil(this._destroy$)
-		// ).subscribe();
+		// this.productSrv.removeProject(project.id).subscribe();
 	}
 
 	updateStatus(statusId: string) {
-		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: true }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: false }).pipe(
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.productSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
 	}
 }

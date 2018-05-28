@@ -1,21 +1,14 @@
-import { UserModule } from './../../features/user/user.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+import { BadgeModule } from '~shared/badge/badge.module';
+import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { UserPictureModule } from '~shared/user-picture';
 
 import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { UtilsModule } from '../utils/utils.module';
-import { EditableFieldComponent } from './components/editable-field/editable-field.component';
-import { BadgeModule } from '~shared/badge/badge.module';
-import { CellOneRowComponent } from '~shared/editable-field/components/cell-one-row/cell-one-row.component';
-import { CellTwoRowComponent } from '~shared/editable-field/components/cell-two-row/cell-two-row.component';
-import { UserPictureModule } from '~shared/user-picture';
-import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { CustomEditableFieldComponent } from './components/custom-editable-field/custom-editable-field.component';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -29,7 +22,7 @@ import { CustomEditableFieldComponent } from './components/custom-editable-field
 		UtilsModule, // click outside directive used
 		UserPictureModule, // used in editable field type user
 	],
-	declarations: [EditableFieldComponent, EditableTextComponent, CellOneRowComponent, CellTwoRowComponent, CustomEditableFieldComponent],
-	exports: [EditableFieldComponent, EditableTextComponent, CellOneRowComponent, CellTwoRowComponent, CustomEditableFieldComponent],
+	declarations: [EditableTextComponent],
+	exports: [EditableTextComponent],
 })
 export class EditableFieldModule { }

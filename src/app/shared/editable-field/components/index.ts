@@ -1,1 +1,1 @@
-export * from './editable-field/editable-field.component';
+export * from './editable-text/editable-text.component';
