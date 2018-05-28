@@ -83,12 +83,12 @@ export class SelectorsService {
 	createTag(tag: Tag): Observable<any> {
 		return this.apollo.mutate({ mutation: SelectorQueries.createTag, variables: { tag } }).pipe(
 			take(1)
-		)
+		);
 	}
 
 	createSupplierType(supplierType: SupplierType): Observable<any> {
 		return this.apollo.mutate({ mutation: SelectorQueries.createSupplierType, variables: { supplierType } }).pipe(
 			take(1)
-		)
+		);
 	}
 }

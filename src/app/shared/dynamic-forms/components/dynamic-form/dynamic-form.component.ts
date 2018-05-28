@@ -12,7 +12,7 @@ import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-form
 export class DynamicFormComponent implements OnInit {
 	@Input() descriptor: FormDescriptor;
 	/** number of columns */
-	@Input() colAmount: number = 1;
+	@Input() colAmount = 1;
 	/** when editable is set to true, then the version of the forms becomes one that is using editable text */
 	@Input() editable = false;
 	@Output() formCreated = new EventEmitter<FormGroup>();

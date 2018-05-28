@@ -18,12 +18,12 @@ export class FilterService {
 	}
 
 	/** adds filter at the end of the array */
-	addFilter(filter: Filter) {
-		this.filterGroup.filters.push(filter);
-		if (!this.filterGroup.byType.has(filter.type)) {
-			this.filterGroup.byType.set(filter.type, new Map());
+	addFilter(added: Filter) {
+		this.filterGroup.filters.push(added);
+		if (!this.filterGroup.byType.has(added.type)) {
+			this.filterGroup.byType.set(added.type, new Map());
 		}
-		this.filterGroup.byType.get(filter.type).set(filter.value, filter);
+		this.filterGroup.byType.get(added.type).set(added.value, added);
 		this.emit();
 	}
 
@@ -37,7 +37,7 @@ export class FilterService {
 	}
 
 	/** upsert filter, will delete previous filter with the same type */
-	upsertFilter(filter: Filter) {
+	upsertFilter(inserted: Filter) {
 		throw Error('not implemented yet');
 	}
 
@@ -47,7 +47,7 @@ export class FilterService {
 	}
 
 	/** removes one filter */
-	removeFilter(filter: Filter) {
+	removeFilter(removed: Filter) {
 		throw Error('not implemented yet');
 	}
 

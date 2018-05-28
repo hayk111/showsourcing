@@ -7,7 +7,7 @@ import { BaseEntity } from './_entity.model';
 import { SupplierType } from './supplier-type.model';
 import { SupplierStatus } from './supplier-status.model';
 
-export class Supplier extends BaseEntity<Supplier>{
+export class Supplier extends BaseEntity<Supplier> {
 	name?: string;
 	fullName?: string;
 	description?: string;
@@ -27,7 +27,7 @@ export class Supplier extends BaseEntity<Supplier>{
 	categories?: Category[];
 	favorite?: boolean;
 	globalDatabaseId?: string;
-	deleted?: boolean;
 	status?: SupplierStatus;
 	productCount?: number;
 }
+

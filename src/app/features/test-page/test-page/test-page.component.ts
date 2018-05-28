@@ -80,7 +80,7 @@ export class TestPageComponent implements OnInit {
 		const supplierUpdate = {
 			id: this.supplier.id,
 			...supplier
-		}
+		};
 		this.apollo.mutate({
 			mutation: supplierMutation, variables: {
 				input: supplierUpdate

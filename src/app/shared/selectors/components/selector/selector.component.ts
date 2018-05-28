@@ -37,7 +37,7 @@ export class SelectorComponent extends AbstractInput {
 	// whether we can add multiple items
 	@Input() multiple: boolean;
 	// whether the list is searchable
-	@Input() canSearch: boolean = true;
+	@Input() canSearch = true;
 	// whether we can create new items
 	@Input() canCreate = false;
 	// whether items must be hiden when picked
@@ -46,10 +46,14 @@ export class SelectorComponent extends AbstractInput {
 	@Input() compareWith = (a, b) => a.id === b.id;
 
 	/* different choices that an user can pick **/
+
 	@Input() set choices(value: Array<Choice>) { this._choices = value || []; this.filter(); }
 	get choices() { return this._choices; }
+	// tslint:disable-next-line:member-ordering
 	private _choices: Array<Choice> = [];
+	// tslint:disable-next-line:member-ordering
 	filteredChoices = [];
+
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -94,9 +98,7 @@ export class SelectorComponent extends AbstractInput {
 			if (this.searchInp) {
 				this.searchInp.focus();
 			}
-		})
-
-
+		});
 	}
 
 }

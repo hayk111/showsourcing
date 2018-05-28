@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
-import { FormDescriptor, CustomField } from '~shared/dynamic-forms'
+import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { UserService } from '~features/user';
 import { Event } from '~models';
 import { Product } from '~models';
@@ -47,7 +47,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'leadTimeValue', type: 'number', label: 'Lead time value' },
 		{ name: 'leadTimeUnit', type: 'text', label: 'Lead time unit' }
 
-	]
+	];
 
 	constructor(private route: ActivatedRoute, private srv: ProductService) {
 		super();

@@ -5,10 +5,10 @@ import { TooltipDirective } from './tooltip.directive';
 
 // from https://github.com/drozhzhin-n-e/ng2-tooltip-directive
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-	declarations: [ TooltipDirective ],
-	exports: [ TooltipDirective ],
+	imports: [
+		CommonModule
+	],
+	declarations: [TooltipDirective],
+	exports: [TooltipDirective],
 })
 export class TooltipModule { }

@@ -80,7 +80,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens the dialog for creating a new supplier */
 	openNewDialog() {
-		this.dlgSrv.open(DialogName.NEW_SUPPLIER)
+		this.dlgSrv.open(DialogName.NEW_SUPPLIER);
 	}
 
 	/** When a supplier has been selected */

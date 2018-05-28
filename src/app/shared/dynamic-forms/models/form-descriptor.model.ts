@@ -11,6 +11,6 @@ export class FormDescriptor {
 			const target = this.fields.find(f => f.name === k);
 			if (target)
 				target.value = v;
-		})
+		});
 	}
 }

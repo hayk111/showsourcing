@@ -40,7 +40,7 @@ export class NewTaskDlgComponent implements OnInit {
 		if (this.group.valid) {
 			const value = this.group.value;
 			value.userId = this.userSrv.userId;
-			this.dlgSrv.close(DialogName.NEW_TASK)
+			this.dlgSrv.close(DialogName.NEW_TASK);
 			// this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}

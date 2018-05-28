@@ -51,7 +51,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.productId] })
+		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.productId] });
 	}
 
 	removeProject(project) {
