@@ -1,15 +1,16 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from '~app-root/pipes';
 import { CommentModule } from '~features/comment';
 import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
+import { GroupByPipe } from '~features/products/pipes/groupby';
 import { ProductService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
@@ -41,7 +42,6 @@ import {
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
 import { SelectionService } from './services/selection.service';
-import { DynamicFormsModule } from '~shared/dynamic-forms';
 
 @NgModule({
 	imports: [
@@ -49,7 +49,6 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		RouterModule.forChild([]),
 		DynamicFormsModule,
 		ReactiveFormsModule,
-		PipesModule,
 		DialogModule,
 		StatusModule,
 		FileModule, // file card used
@@ -82,7 +81,8 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		ProductExportDlgComponent,
 		ProductFiltersComponent,
 		NewProductDialogComponent,
-		ProductMainCardComponent
+		ProductMainCardComponent,
+		GroupByPipe
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,
