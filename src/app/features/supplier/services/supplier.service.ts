@@ -7,7 +7,7 @@ import { SupplierQueries } from '~features/supplier/services/supplier.queries';
 import { Supplier } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
-import { uuid } from '~app-root/utils/uuid.utils';
+import { uuid } from '~utils/uuid.utils';
 
 
 @Injectable()

@@ -3,7 +3,7 @@ import { Supplier } from '~models';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-infos-app',

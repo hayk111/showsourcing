@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { UserService } from '~features/user';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { InputDirective } from '~shared/inputs';

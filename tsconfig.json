@@ -26,8 +26,8 @@
 			"~models": ["app/models/index"],
 			"~shared/*": ["app/shared/*"],
 			"~shared": ["app/shared/index"],
-			"~utils/*": ["app/app-root/utils/*"],
-			"~utils": ["app/app-root/utils/index"]
+			"~utils/*": ["app/utils/*"],
+			"~utils": ["app/utils/index"]
     }
   }
 }
