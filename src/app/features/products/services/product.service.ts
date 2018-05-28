@@ -94,8 +94,15 @@ export class ProductService {
 		return fromPromise(this.productsQuery$.refetch({
 			skip: 0,
 			take: perPage,
-			query: filtergroup.filters.map(({ type, value }) => `${type}.id == "${value}"`).join(' or ')
+			query: filtergroup.filters.map(({ type, value }) => `${this.getFieldName(type)}.id == "${value}"`).join(' or ')
 		})).pipe(first());
+	}
+
+	getFieldName(type) {
+		if (type === 'tag') {
+			return 'tags';
+		}
+		return type;
 	}
 
 	selectById(id: string): Observable<Product> {

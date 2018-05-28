@@ -43,7 +43,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	];
 	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
 	displayNames = {
-
+		createdBy: (raw) => `${raw.lastName} ${raw.firstName}`
 	};
 	// different filterTypes
 	filterType = FilterType;
@@ -115,7 +115,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	getDisplayName(filter: any) {
 		const { type, value, raw } = filter;
 		const columnName = this.displayNames[type] || 'name';
-		return raw[columnName];
+		return (typeof columnName === 'function') ?
+			columnName(raw) : raw[columnName];
 	}
 
 	/** Opens the panel for filtering on prices */

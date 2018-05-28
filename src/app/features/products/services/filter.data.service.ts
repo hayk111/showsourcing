@@ -18,14 +18,14 @@ export class FilterDataService {
     }
 
     selectEvents(): Observable<Supplier[]> {
-		return this.apollo.subscribe({ query: FilterDataQueries.events }).pipe(
+		return this.apollo.subscribe({ query: FilterDataQueries.events, variables: { take: 30 } }).pipe(
 			map(r => r.data.events)
 		);
     }
 
     selectCategories(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.categories }).pipe(
-			map(r => r.data.events)
+			map(r => r.data.categories)
 		);
     }
 
@@ -43,13 +43,13 @@ export class FilterDataService {
 
     selectCreatedBy(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.createdBy }).pipe(
-			map(r => r.data.events)
+			map(r => r.data.users)
 		);
     }
 
     selectStatuses(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.statuses }).pipe(
-			map(r => r.data.status)
+			map(r => r.data.productStatuses)
 		);
     }
 

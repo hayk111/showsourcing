@@ -12,7 +12,7 @@ export class FilterDataQueries {
     // event
     static events = gql`
         subscription events {
-            events {
+            events(take: 30) {
                 id,
                 name
             }
@@ -47,17 +47,18 @@ export class FilterDataQueries {
 
     // created by
     static createdBy = gql`
-        subscription suppliers {
-            suppliers {
+        subscription users {
+            users {
                 id,
-                name
+                firstName,
+                lastName
             }
         }`;
 
     // status
     static statuses = gql`
-    subscription statuses {
-        statuses {
+    subscription productStatuses {
+        productStatuses {
                 id,
                 name
             }
