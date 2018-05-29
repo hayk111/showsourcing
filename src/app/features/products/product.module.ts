@@ -11,7 +11,6 @@ import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
@@ -42,6 +41,7 @@ import {
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
 import { SelectionService } from './services/selection.service';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
@@ -59,7 +59,7 @@ import { SelectionService } from './services/selection.service';
 		CarouselModule,
 		BadgeModule,
 		CommentModule.forChild(),
-		EntityPagesModule,
+		TopPanelModule,
 	],
 	declarations: [
 		ProductSmallCardComponent,
