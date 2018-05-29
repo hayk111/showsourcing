@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { R } from 'apollo-angular/types';
+import { R, TypedVariables } from 'apollo-angular/types';
 import {
 	ApolloClientOptions,
 	MutationOptions as ApolloMutationOptions,
@@ -59,10 +59,13 @@ export class ApolloClient {
 		);
 	}
 
-	// /** this method is used to create an entity */
-	// create<T, V = R>(options: MutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
-	// 	options.optimisticResponse = ;
-	// 	return super.mutate(options);
-	// }
+	/** this method is used to create an entity */
+	create<T, V = R>(options: ApolloMutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
+		// not sure it will be possible to do optimistic update here since we could
+		// potentially create n entities
+		return this.apollo.mutate(options).pipe(
+			take(1)
+		);
+	}
 
 }
