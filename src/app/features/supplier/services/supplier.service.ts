@@ -101,7 +101,6 @@ export class SupplierService {
 	createSupplier(supplier: Supplier) {
 		return this.apollo.subscribe({ query: SupplierQueries.createSupplier, variables: { supplier } })
 			.pipe(
-				take(1),
 				map((r: any) => r.data.addSupplier.id)
 			);
 	}
@@ -124,9 +123,7 @@ export class SupplierService {
 			mutation: SupplierQueries.updateSupplier,
 			input: supplier,
 			typename: 'Supplier'
-		}).pipe(
-			take(1)
-		);
+		});
 	}
 
 	removeSuppliers(ids: string[]) {
