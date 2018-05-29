@@ -27,6 +27,14 @@ export class ApolloClient {
 		return this.apollo.create(options, name);
 	}
 
+	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
+		return this.apollo.watchQuery<T>(options);
+	}
+
+	subscribe(options: SubscriptionOptions): Observable<any> {
+		return this.apollo.subscribe(options);
+	}
+
 	/** this method is used to update an existing entity*/
 	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
 		if (options.preventOptimisticUi) {
@@ -49,14 +57,6 @@ export class ApolloClient {
 		return this.apollo.mutate<T>(apolloOptions).pipe(
 			take(1)
 		);
-	}
-
-	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
-		return this.apollo.watchQuery<T>(options);
-	}
-
-	subscribe(options: SubscriptionOptions): Observable<any> {
-		return this.apollo.subscribe(options);
 	}
 
 	// /** this method is used to create an entity */
