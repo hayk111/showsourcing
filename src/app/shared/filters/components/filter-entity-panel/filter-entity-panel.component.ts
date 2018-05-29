@@ -50,7 +50,6 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	trackByFn = (index, item) => item.id;
 
-
 	ngOnInit(): void {
 		this.searchStr$.pipe(takeUntil(this._destroy$), debounceTime(400)).subscribe(str => this.filterChoices(str));
 	}
@@ -62,17 +61,18 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 
 	filterChoices(str: string) {
 		this._filteredChoices = this._choices.filter(choice => this.searchFn(choice, str));
-		this._filteredRelevantChoices = this._relevantChoices.filter(choice => this.searchFn(choice, str));
+		// Commented for testing
+		// this._filteredRelevantChoices = this._relevantChoices.filter(choice => this.searchFn(choice, str));
 		// need to trigger change detection even though an event happened. It's because the search is pushed to an observable etc.
 		this.cd.markForCheck();
 	}
 
-	onItemAdded(id) {
-		this.filterAdded.emit({ type: this.type, value: id });
+	onItemAdded(value) {
+		this.filterAdded.emit({ type: this.type, value: value.id, raw: value });
 	}
 
-	onItemRemoved(id) {
-		this.filterRemoved.emit({ type: this.type, value: id });
+	onItemRemoved(value) {
+		this.filterRemoved.emit({ type: this.type, value: value.id, raw: value });
 	}
 
 	constructor(private cd: ChangeDetectorRef) {

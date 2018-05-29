@@ -18,6 +18,7 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import {
 	ProductCardViewComponent,
@@ -40,8 +41,9 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
+import { FilterDataService } from './services/filter.data.service';
 import { SelectionService } from './services/selection.service';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+
 
 @NgModule({
 	imports: [
@@ -91,7 +93,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductService, SelectionService]
+	providers: [ProductService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 

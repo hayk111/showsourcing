@@ -56,7 +56,11 @@
 		</selection-actions>
 	</selection-bar-app>
 
-	<product-filters-app (clickOutside)="closeFilterPanel()" *ngIf="filterPanelOpen"></product-filters-app>
+	<product-filters-app
+		(clickOutside)="closeFilterPanel()"
+		(filter)="filterProducts($event)"
+		*ngIf="filterPanelOpen">
+	</product-filters-app>
 
 
 </ng-container>

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterService } from '~shared/filters';
+import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Product, ProductStatus } from '~models';
 import { SelectionService, ProductService } from '~features/products/services';
@@ -26,7 +26,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** We need the statuses for selectors, if there aren't any productStatus selector in this page this should be removed */
 	statuses$: Observable<Array<ProductStatus>>;
 	/** Whether the product is pending */
-	pending$: Observable<boolean>;
+	pending = false;
+	/** when the suppliers are loaded for the first time */
+	initialLoading = true;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 
@@ -38,42 +40,46 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	filterPanelOpen: boolean;
 	filters: Array<Filter>;
 
+	page = 0;
+	perPage = 30;
+
 	constructor(
 		private userSrv: UserService,
 		private router: Router,
 		private productSrv: ProductService,
 		private selectionSrv: SelectionService,
+		private filterSrv: FilterService,
 		private dlgSrv: DialogService) {
 		super();
 	}
 
 	ngOnInit() {
-		// this.products$ = this.store.select(selectProductArray).pipe(
-		// 	distinctUntilChanged(),
-		// 	tap(products => this.products = products)
-		// );
-		// this.productsState$ = this.store.select(selectProductState);
-		// this.pending$ = this.productsState$.pipe(map(state => state.pending));
-		// this.statuses$ = this.store.select(fromProductStatus.selectArray);
-		// this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
-		// const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
-		// // when filters change we need to redownload the products
-		// filters$.subscribe(filters => {
-		// 	// saving filters for when we need to paginate
-		// 	this.filters = filters;
-		// 	this.loadProducts(filters);
-		// });
-
-	}
-
-	/** loads initial product and when the filters change */
-	loadProducts(filters) {
-		// this.store.dispatch(productActions.load({ filters }));
+		this.pending = true;
+		this.products$ = this.productSrv.selectProducts({ perPage: this.perPage }).pipe(
+			tap(() => {
+				if (this.initialLoading) {
+					this.pending = false;
+					this.initialLoading = false;
+				}
+			})
+		);
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		// this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.products.length } }));
+		this.page++;
+		this.pending = true;
+		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {
+			this.pending = false;
+		});
+	}
+
+	/** filters product based on filter group */
+	filterProducts(filtergroup: FilterGroup) {
+		this.pending = true;
+		this.productSrv.filterProducts({ perPage: this.perPage, filtergroup }).subscribe(() => {
+			this.pending = false;
+		});
 	}
 
 	/** Selects a product */

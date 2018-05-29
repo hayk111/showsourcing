@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
 import { takeUntil } from 'rxjs/operators';
+import { Entity } from '~models';
+import { Filter, FilterGroup, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
 
-import { Filter, FilterType, FilterGroup } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
-import { Entity } from '~models';
+import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
 	selector: 'product-filters-app',
@@ -15,6 +16,7 @@ import { Entity } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFiltersComponent extends AutoUnsub implements OnInit {
+	@Output() filter: EventEmitter<FilterGroup> = new EventEmitter();
 	selectedSuppliers$: Observable<any>;
 	/** Whether the different panel that are displayed when clicking on a button are shown */
 	btnPanelShown = true;
@@ -35,10 +37,16 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		FilterType.TAG,
 		FilterType.PROJECT
 	];
+	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
+	displayNames = {
+		createdBy: (raw) => `${raw.lastName} ${raw.firstName}`
+	};
 	// different filterTypes
 	filterType = FilterType;
 
-	constructor(private filterSrv: FilterService, private cd: ChangeDetectorRef) {
+	constructor(private filterSrv: FilterService,
+		private filterDataSrv: FilterDataService,
+		private cd: ChangeDetectorRef) {
 		super();
 	}
 
@@ -47,6 +55,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(group => {
 				this.filterGroup = group;
+				// re-apply filtering of products
+				this.filter.emit(group);
 				// need to run cd because of onpush and filters could be added from other places
 				this.cd.markForCheck();
 			});
@@ -62,9 +72,47 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 			// we get the correct entity
 			// const entityRepr = this.getRepr(type);
 			this.typeSelected = type;
+			this.choices$ = this.selectEntityArray(type)
+				.pipe(takeUntil(this._destroy$));
+			// }
 			// this.choices$ = this.store.select(selectEntityArray(entityRepr));
 			// this.relevantChoices$ = this.store.select(selectRelevantEntities(entityRepr));
 		}
+	}
+
+	/** Links data for a type of filter type */
+	selectEntityArray(type: FilterType) {
+		if (type === FilterType.SUPPLIER) {
+			return this.filterDataSrv.selectSuppliers();
+		}
+		if (type === FilterType.EVENT) {
+			return this.filterDataSrv.selectEvents();
+		}
+		if (type === FilterType.CATEGORY) {
+			return this.filterDataSrv.selectCategories();
+		}
+		if (type === FilterType.TAG) {
+			return this.filterDataSrv.selectTags();
+		}
+		if (type === FilterType.PROJECT) {
+			return this.filterDataSrv.selectProjects();
+		}
+		if (type === FilterType.CREATED_BY) {
+			return this.filterDataSrv.selectCreatedBy();
+		}
+		if (type === FilterType.PRODUCT_STATUS) {
+			return this.filterDataSrv.selectStatuses();
+		}
+		// TODO: favorite
+		return of([]);
+	}
+
+	/** Returns the value to display for data corresponding to a filter. By default "name" is used */
+	getDisplayName(filter: any) {
+		const { type, value, raw } = filter;
+		const columnName = this.displayNames[type] || 'name';
+		return (typeof columnName === 'function') ?
+			columnName(raw) : raw[columnName];
 	}
 
 	/** Opens the panel for filtering on prices */

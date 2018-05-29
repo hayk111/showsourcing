@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Filter, FilterGroup, FilterType } from '../models';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { filter } from 'async';
 
 
@@ -10,7 +10,7 @@ export class FilterService {
 		filters: [],
 		byType: new Map<FilterType, Map<any, Filter>>()
 	};
-	private _filterGroup$ = new Subject<FilterGroup>();
+	private _filterGroup$ = new BehaviorSubject<FilterGroup>(this.filterGroup);
 	filterGroup$ = this._filterGroup$.asObservable();
 
 	private emit() {
@@ -42,13 +42,19 @@ export class FilterService {
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: string) {
-		throw Error('not implemented yet');
+	removeFilterType(type: FilterType) {
+		this.filterGroup.byType.set(type, new Map());
+		this.emit();
 	}
 
 	/** removes one filter */
-	removeFilter(removed: Filter) {
-		throw Error('not implemented yet');
+	removeFilter(filter: Filter) {
+		const ret = this.filterGroup.byType.get(filter.type).delete(filter.value);
+		const index = this.filterGroup.filters.findIndex(existingFilter => (filter.value === existingFilter.value));
+		if (index !== -1) {
+			this.filterGroup.filters.splice(index, 1);
+		}
+		this.emit();
 	}
 
 	getFiltersAsUrlParams(): Observable<string> {
