@@ -7,7 +7,6 @@ import { ContactService } from '~features/supplier/services/contact.service';
 import { SelectionService } from '~features/supplier/services/selection.service';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { FileModule } from '~shared/file';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -28,6 +27,7 @@ import { SupplierSummaryComponent } from './components/supplier-main/supplier-su
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { SupplierService } from './services/supplier.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 
 @NgModule({
@@ -38,7 +38,7 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		DynamicFormsModule,
 		CarouselModule,
 		StatusModule,
-		EntityPagesModule,
+		TopPanelModule,
 		DialogModule, // used by new contact dialog
 		ReactiveFormsModule, // used by new contact dialog
 		SelectionBarModule, // used for selection bar at the bottom

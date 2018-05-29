@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~app-root/utils';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
 import { AppImage } from '~models';
 import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';

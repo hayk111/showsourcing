@@ -7,6 +7,9 @@
 .canCreate {
 	.createBlock {
 		padding: var(--spacing-s);
+		&:hover {
+			color: var(--color-primary);
+		}
 	}
 }
 

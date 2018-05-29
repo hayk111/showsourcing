@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, filter, take, takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { Project } from '~models';
 
 
@@ -29,7 +29,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 		// a project needs to be selectioned at all time. Therefor the first time we receive
 		// the projects we need to select the first one.
 		// after that, the user will selection projects by clicking those in the menu.
-		this.projects$.pipe(take(1), takeUntil(this._destroy$)).subscribe(projects => this.selectProject(projects[0]));
+		// this.projects$.pipe(take(1), takeUntil(this._destroy$)).subscribe(projects => this.selectProject(projects[0]));
 	}
 
 	loadProducts(filters) {

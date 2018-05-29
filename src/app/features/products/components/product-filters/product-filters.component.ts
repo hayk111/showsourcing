@@ -1,16 +1,12 @@
-import {
-	ChangeDetectionStrategy, Component, OnInit, Input,
-	ChangeDetectorRef, Output, EventEmitter
-} from '@angular/core';
-
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { AutoUnsub } from '~app-root/utils';
-
-import { Filter, FilterType, FilterGroup } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { takeUntil } from 'rxjs/operators';
 import { Entity } from '~models';
+import { Filter, FilterGroup, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
+import { AutoUnsub } from '~utils';
+
 import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
@@ -49,8 +45,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	filterType = FilterType;
 
 	constructor(private filterSrv: FilterService,
-				private filterDataSrv: FilterDataService,
-				private cd: ChangeDetectorRef) {
+		private filterDataSrv: FilterDataService,
+		private cd: ChangeDetectorRef) {
 		super();
 	}
 

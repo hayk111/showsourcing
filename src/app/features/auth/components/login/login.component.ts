@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { take, takeUntil, catchError } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'login-app',

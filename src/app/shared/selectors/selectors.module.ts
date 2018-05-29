@@ -11,7 +11,7 @@ const components = [
 	SelectorComponent,
 	SelectorEntityComponent,
 	SelectorConstComponent
-]
+];
 
 @NgModule({
 	imports: [

@@ -46,7 +46,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		// Object.values(this.selected).forEach((project: Project) => {
 		// 	this.products.forEach((id: string) => this.store.dispatch(productActions.addProject(project, id)));
 		// });
-		this.dlgSrv.close(this.dlgName)
+		this.dlgSrv.close(this.dlgName);
 	}
 
 

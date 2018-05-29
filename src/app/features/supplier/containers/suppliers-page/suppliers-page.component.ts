@@ -6,7 +6,7 @@ import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DialogName, DialogService } from '~shared/dialog';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { SelectionService } from '../../services/selection.service';
 import { SupplierService } from '~features/supplier/services/supplier.service';
 
@@ -80,7 +80,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens the dialog for creating a new supplier */
 	openNewDialog() {
-		this.dlgSrv.open(DialogName.NEW_SUPPLIER)
+		this.dlgSrv.open(DialogName.NEW_SUPPLIER);
 	}
 
 	/** When a supplier has been selected */

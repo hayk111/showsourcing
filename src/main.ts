@@ -1,4 +1,4 @@
-import { Log } from '~app-root/utils';
+import { Log } from '~utils';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

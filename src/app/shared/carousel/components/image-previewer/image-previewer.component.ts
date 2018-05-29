@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '~features/user';
-import { Log } from '~app-root/utils';
+import { Log } from '~utils';
 import { AppImage } from '~models';
 
 @Component({

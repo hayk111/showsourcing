@@ -1,7 +1,7 @@
-import { Output, Input, EventEmitter, ViewChild } from "@angular/core";
-import { SelectorComponent } from "~shared/selectors/components/selector/selector.component";
-import { AbstractInput } from "~shared/inputs";
-import { NgSelectComponent } from "@ng-select/ng-select";
+import { Output, Input, EventEmitter, ViewChild } from '@angular/core';
+import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
+import { AbstractInput } from '~shared/inputs';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 
 export class CustomSelector<G> extends AbstractInput {

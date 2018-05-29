@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '~features/user';
 import { AppFile } from '~models';
-import { DEFAULT_FILE_IMG } from '~app-root/utils';
+import { DEFAULT_FILE_IMG } from '~utils';
 
 @Component({
 	selector: 'files-card-app',

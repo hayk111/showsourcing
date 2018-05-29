@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Supplier } from '~models';
-import { EditableFieldValue } from '~shared/editable-field/components/editable-field/editable-field-value.interface';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-infos-app',
@@ -15,10 +14,6 @@ import { AutoUnsub } from '~app-root/utils';
 export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() update = new EventEmitter<Supplier>();
-	// when select multiple we can create, add and remove
-	@Output() itemCreate = new EventEmitter<EditableFieldValue>();
-	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
-	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
 
 	descriptor: FormDescriptor;
 

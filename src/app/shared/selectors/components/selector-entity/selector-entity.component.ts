@@ -14,6 +14,8 @@ import { SelectorComponent } from '~shared/selectors/components/selector/selecto
 import { Choice } from '~shared/selectors/utils/choice.interface';
 
 import { SelectorsService } from '../../sercices/selectors.service';
+import { Supplier, Category, Event, Tag, SupplierType } from '~models';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -31,7 +33,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// value is the id of the entity
 	@Input() value: any;
 	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
-	@Input() itemName: string;
+	@Input() itemName = 'item';
 	// events that emits the id of the entity
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
@@ -73,13 +75,23 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			case 'event': this.choices$ = this.srv.getEvents(); break;
 			case 'tag': this.choices$ = this.srv.getTags(); break;
 			case 'supplierType': this.choices$ = this.srv.getSupplierTypes(); break;
-			default: throw Error('Unsupported type');
+			default: throw Error(`Unsupported type ${this.type}`);
 		}
 	}
 
 	/** creates a new entity */
-	create() {
-
+	create(name: string) {
+		let createObs$: Observable<any>;
+		switch (this.type) {
+			case 'supplier': createObs$ = this.srv.createSupplier(new Supplier({ name })); break;
+			case 'category': createObs$ = this.srv.createCategory(new Category({ name })); break;
+			case 'event': createObs$ = this.srv.createEvent(new Event({ name })); break;
+			case 'tag': createObs$ = this.srv.createTag(new Tag({ name })); break;
+			case 'supplierType': createObs$ = this.srv.createSupplierType(new SupplierType({ name })); break;
+			default: throw Error(`Unsupported type ${this.type}`);
+		}
+		// we are using take 1 in srv, no need for fancy destroying
+		createObs$.subscribe();
 	}
 
 }

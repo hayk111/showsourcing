@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Currency } from '~models'
+import { Currency } from '~models';
 import { Filter } from '../../models';
 
 // panel used for prices filtering

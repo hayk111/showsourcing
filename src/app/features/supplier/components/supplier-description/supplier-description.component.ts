@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { EditableFieldComponent } from '~shared/editable-field';
 import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
 import { Supplier } from '~models';
 

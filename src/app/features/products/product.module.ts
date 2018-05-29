@@ -1,16 +1,16 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from '~app-root/pipes';
 import { CommentModule } from '~features/comment';
 import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
+import { GroupByPipe } from '~features/products/pipes/groupby';
 import { ProductService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { FileModule } from '~shared/file';
 import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
@@ -18,6 +18,7 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import {
 	ProductCardViewComponent,
@@ -40,9 +41,9 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
-import { SelectionService } from './services/selection.service';
 import { FilterDataService } from './services/filter.data.service';
-import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { SelectionService } from './services/selection.service';
+
 
 @NgModule({
 	imports: [
@@ -50,10 +51,9 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		RouterModule.forChild([]),
 		DynamicFormsModule,
 		ReactiveFormsModule,
-		PipesModule,
 		DialogModule,
 		StatusModule,
-		FileModule.forChild(), // file card used
+		FileModule, // file card used
 		RatingModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
@@ -61,7 +61,7 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		CarouselModule,
 		BadgeModule,
 		CommentModule.forChild(),
-		EntityPagesModule,
+		TopPanelModule,
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -83,7 +83,8 @@ import { DynamicFormsModule } from '~shared/dynamic-forms';
 		ProductExportDlgComponent,
 		ProductFiltersComponent,
 		NewProductDialogComponent,
-		ProductMainCardComponent
+		ProductMainCardComponent,
+		GroupByPipe
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,

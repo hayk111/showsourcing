@@ -9,7 +9,7 @@ import {
 
 import { Observable } from 'rxjs';
 import { map, filter, tap, switchMap } from 'rxjs/operators';
-import { Log } from '~app-root/utils';
+import { Log } from '~utils';
 import { User } from '~models';
 import { UserService } from '~features/user';
 import { AuthenticationService } from '~features/auth/services/authentication.service';

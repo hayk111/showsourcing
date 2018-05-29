@@ -9,5 +9,4 @@ export const environment = {
 	production: false,
 	apiUrl: 'http://localhost:4200',
 	LOG_LEVEL: LogLevels.DEBUG,
-	hmr: false,
 };

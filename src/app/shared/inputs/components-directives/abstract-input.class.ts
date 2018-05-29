@@ -13,10 +13,10 @@ export function makeAccessorProvider(type: any) {
 
 // The goal of this class is to abstract the value accessor implementation
 export class AbstractInput implements ControlValueAccessor {
+	@Input() value: any = '';
 	protected disabled: boolean;
 	protected onTouchedFn: Function = () => { };
 	protected onChangeFn: Function = () => { };
-	@Input() value: any = '';
 
 	constructor(protected cd: ChangeDetectorRef) { }
 

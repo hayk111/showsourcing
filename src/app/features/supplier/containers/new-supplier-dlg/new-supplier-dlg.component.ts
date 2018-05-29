@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { UserService } from '~features/user';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { InputDirective } from '~shared/inputs';
 import { DialogName } from '~shared/dialog/models';
 import { SupplierService } from '~features/supplier/services/supplier.service';
 import { DialogService } from '~shared/dialog';
+import { Supplier } from '~models/supplier.model';
 
 
 const addDlg = () => addDialog(NewSupplierDlgComponent, DialogName.NEW_SUPPLIER);
@@ -50,8 +51,8 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 		if (this.group.valid) {
 			this.pending = true;
 			const name = this.group.value.name;
-			const supplier = { name };
-			this.supplierSrv.createSupplier({ name })
+			const supplier = new Supplier({ name });
+			this.supplierSrv.createSupplier(supplier)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;

@@ -4,20 +4,20 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 	selector: '[tooltip]',
 })
 export class TooltipDirective {
-	constructor(private elementRef: ElementRef) {}
+	constructor(private elementRef: ElementRef) { }
 
 	tooltip: any;
 	elemPosition: any;
-	tooltipOffset: number = 8;
+	tooltipOffset = 8;
 	hideTimeoutId: number;
 	showTimeoutId: number;
 
-	@Input('tooltip') tooltipText = '';
+	@Input() tooltipText = '';
 	@Input() placement = 'top';
 	@Input() delay = 0;
-	@Input('show-delay') showDelay = 0;
-	@Input('hide-delay') hideDelay = 300;
-	@Input('z-index') zIndex = false;
+	@Input() showDelay = 0;
+	@Input() hideDelay = 300;
+	@Input() zIndex = false;
 
 	@HostListener('focusin')
 	@HostListener('mouseenter')
@@ -83,11 +83,11 @@ export class TooltipDirective {
 	}
 
 	setPosition() {
-		let elemHeight = this.elementRef.nativeElement.offsetHeight;
-		let elemWidth = this.elementRef.nativeElement.offsetWidth;
-		let tooltipHeight = this.tooltip.clientHeight;
-		let tooltipWidth = this.tooltip.offsetWidth;
-		let scrollY = window.pageYOffset;
+		const elemHeight = this.elementRef.nativeElement.offsetHeight;
+		const elemWidth = this.elementRef.nativeElement.offsetWidth;
+		const tooltipHeight = this.tooltip.clientHeight;
+		const tooltipWidth = this.tooltip.offsetWidth;
+		const scrollY = window.pageYOffset;
 
 		if (this.placement === 'top') {
 			this.tooltip.style.top =
