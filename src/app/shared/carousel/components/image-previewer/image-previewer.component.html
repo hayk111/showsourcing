@@ -1,7 +1,7 @@
 <div class="plusBtn square pointer flex flexCenter" (click)="plusClick.emit()">
 	<span>+</span>
 </div>
-<img class="square pointer {{ image.pending ? 'pending' : '' }}"
+<img class="square pointer"
 	*ngFor="let image of images; let i = index"
 	[style.transform]="'rotate(' + getRotation(i) + 'deg)'"
-	[src]="getUrl(i)" (click)="imageClick.emit(i)"/>
+	[src]="image.fileName | image: 'm'" (click)="imageClick.emit(i)"/>

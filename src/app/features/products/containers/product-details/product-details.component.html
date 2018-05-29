@@ -17,7 +17,7 @@
 					[favorite]="product.favorite"
 					(favorited)="onFavorited()"
 					(unfavorited)="onUnfavorited()"></rating-heart-app> -->
-        <carousel-card-app [hasFooter]="false"></carousel-card-app>
+        <carousel-card-app [hasFooter]="false" [images]="product.images"></carousel-card-app>
 			<!-- </div> -->
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
