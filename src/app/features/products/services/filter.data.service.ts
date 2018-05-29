@@ -11,47 +11,47 @@ export class FilterDataService {
 
 	constructor(private apollo: Apollo) { }
 
-    selectSuppliers(): Observable<Supplier[]> {
+	selectSuppliers(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.suppliers }).pipe(
 			map(r => r.data.suppliers)
 		);
-    }
+	}
 
-    selectEvents(): Observable<Supplier[]> {
+	selectEvents(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.events, variables: { take: 30 } }).pipe(
 			map(r => r.data.events)
 		);
-    }
+	}
 
-    selectCategories(): Observable<Supplier[]> {
+	selectCategories(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.categories }).pipe(
 			map(r => r.data.categories)
 		);
-    }
+	}
 
-    selectTags(): Observable<Supplier[]> {
+	selectTags(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.tags }).pipe(
 			map(r => r.data.tags)
 		);
-    }
+	}
 
-    selectProjects(): Observable<Supplier[]> {
+	selectProjects(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.projects }).pipe(
 			map(r => r.data.projects)
 		);
-    }
+	}
 
-    selectCreatedBy(): Observable<Supplier[]> {
+	selectCreatedBy(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.createdBy }).pipe(
 			map(r => r.data.users)
 		);
-    }
+	}
 
-    selectStatuses(): Observable<Supplier[]> {
+	selectStatuses(): Observable<Supplier[]> {
 		return this.apollo.subscribe({ query: FilterDataQueries.statuses }).pipe(
 			map(r => r.data.productStatuses)
 		);
-    }
+	}
 
-    // favorite
+	// favorite
 }
