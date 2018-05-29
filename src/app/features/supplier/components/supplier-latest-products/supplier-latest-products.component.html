@@ -6,7 +6,7 @@
 		<a *ngFor="let product of products"
 			[routerLink]="['/product', 'details', product.id, 'general']"
 			class="imgCtnr">
-			<img [src]="product?.images[0].fileName | image:'m'"/>
+			<img [src]="product | image:'m'"/>
 		</a>
 
 	</div>

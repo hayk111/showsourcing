@@ -15,7 +15,17 @@ export class ImagePipe implements PipeTransform {
 	};
 
 	transform(value: any, args?: any): any {
-		return `${ImagePipe.urls[args[0]]}/${value}`;
+		if (typeof value === 'object') {
+			if (!Array.isArray(value.images) && value.images[0].fileName) {
+				throw new Error(`value.images is not an array...`);
+			}
+			if (!value.images[0].fileName) {
+				throw new Error(`value.images[0].fileName is undefined...`);
+			}
+			return `${ImagePipe.urls[args[0]]}/${value.images[0].fileName}`;
+		} else {
+			return `${ImagePipe.urls[args[0]]}/${value}`;
+		}
 	}
 
 }
