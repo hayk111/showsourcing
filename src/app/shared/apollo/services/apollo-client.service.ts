@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { MutationOptions } from 'apollo-client';
+import { MutationOptions } from './mutation-options.interface';
 import { TypedVariables } from 'apollo-angular/types';
 import { Observable } from 'rxjs';
 import { FetchResult } from 'apollo-link';
@@ -17,7 +17,7 @@ export class ApolloClient extends Apollo {
 	constructor() { super(); }
 
 	/** this method is used to update an existing entity*/
-	update<T, V = R>(options: MutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
+	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
 		options.optimisticResponse = options.variables.input;
 		return super.mutate(options);
 	}
@@ -27,4 +27,8 @@ export class ApolloClient extends Apollo {
 	// 	options.optimisticResponse = ;
 	// 	return super.mutate(options);
 	// }
+
+	get() {
+
+	}
 }
