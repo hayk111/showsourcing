@@ -8,11 +8,12 @@ import { FilesPageComponent } from './containers';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
 import { SharedModule } from '~shared/shared.module';
+import { ImagePipe } from './pipes/image.pipe';
 
 @NgModule({
 	imports: [SharedModule],
-	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
-	exports: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent],
+	declarations: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent, ImagePipe],
+	exports: [FileDropDirective, FileSelectDirective, FilesPageComponent, FilesCardComponent, ImagePipe],
 	providers: [],
 })
 export class FileModule {
