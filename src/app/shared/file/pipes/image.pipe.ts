@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Pipes that adds the begining url for images
+ * Pipes that adds the begining url for images,
+ * the pipe accepts either an entity object and will find the first image in object.images.
+ * Either a string value
  */
 @Pipe({
 	name: 'image'
@@ -14,7 +16,12 @@ export class ImagePipe implements PipeTransform {
 		xl: 'https://files.showsourcing.com/xl'
 	};
 
-	transform(value: any, args?: any): any {
+	/**
+	 *
+	 * @param value : Entity object (like supplier) or string
+	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
+	 */
+	transform(value: any | string, args?: ('s' | 'm' | 'l' | 'xl')[]): any {
 		if (typeof value === 'object') {
 			if (!Array.isArray(value.images) && value.images[0].fileName) {
 				throw new Error(`value.images is not an array...`);
