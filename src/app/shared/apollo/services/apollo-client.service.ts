@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { MutationOptions } from './mutation-options.interface';
-import { MutationOptions as ApolloMutationOptions } from 'apollo-client';
-import { TypedVariables } from 'apollo-angular/types';
-import { Observable } from 'rxjs';
-import { FetchResult } from 'apollo-link';
+import { Apollo, QueryRef } from 'apollo-angular';
 import { R } from 'apollo-angular/types';
+import {
+	ApolloClientOptions,
+	MutationOptions as ApolloMutationOptions,
+	SubscriptionOptions,
+	WatchQueryOptions,
+} from 'apollo-client';
+import { FetchResult } from 'apollo-link';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { MutationOptions } from './mutation-options.interface';
 
 /**
  * Wrapper around apollo that allows for automatic optimistic UI.
@@ -17,23 +23,40 @@ export class ApolloClient {
 
 	constructor(private apollo: Apollo) { }
 
+	init<TCacheShape>(options: ApolloClientOptions<TCacheShape>, name?: string) {
+		return this.apollo.create(options, name);
+	}
+
 	/** this method is used to update an existing entity*/
 	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
 		if (options.preventOptimisticUi) {
-			return this.apollo.mutate(options);
+			return this.apollo.mutate<T>(options);
 		}
-		debugger;
 		(options as ApolloMutationOptions).optimisticResponse = {
 			__typename: 'Mutation',
-			[updateComment]: {
-				...options.variables.input,
-				__typename: 'Comment',
+			[(options.mutation.definitions[0] as any).name.value]: {
+				...options.input,
+				__typename: options.typename
 			},
 		};
 
-		return this.apollo.mutate(options);
+		const apolloOptions = {
+			mutation: options.mutation,
+			variables: { input: options.input },
+			context: options.context
+		};
 
+		return this.apollo.mutate<T>(apolloOptions).pipe(
+			take(1)
+		);
+	}
 
+	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
+		return this.apollo.watchQuery<T>(options);
+	}
+
+	subscribe(options: SubscriptionOptions): Observable<any> {
+		return this.apollo.subscribe(options);
 	}
 
 	// /** this method is used to create an entity */
@@ -42,7 +65,4 @@ export class ApolloClient {
 	// 	return super.mutate(options);
 	// }
 
-	get() {
-
-	}
 }

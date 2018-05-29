@@ -62,7 +62,7 @@ export class AppApolloModule {
 			transportLink
 		]);
 
-		this.apollo.create({
+		this.apollo.init({
 			link,
 			connectToDevTools: true,
 			cache: new InMemoryCache({ addTypename: false })

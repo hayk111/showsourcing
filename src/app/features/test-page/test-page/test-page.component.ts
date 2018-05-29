@@ -81,10 +81,10 @@ export class TestPageComponent implements OnInit {
 			id: this.supplier.id,
 			...supplier
 		};
-		this.apollo.mutate({
-			mutation: supplierMutation, variables: {
-				input: supplierUpdate
-			}
-		}).subscribe();
+		// this.apollo.mutate({
+		// 	mutation: supplierMutation, variables: {
+		// 		input: supplierUpdate
+		// 	}
+		// }).subscribe();
 	}
 }

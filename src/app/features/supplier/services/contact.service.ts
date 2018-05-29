@@ -23,10 +23,14 @@ export class ContactService {
 		contact.supplier = {
 			id: supplierId
 		};
-		return this.apollo.mutate({ mutation: CREATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
+		// TODO: fix this
+		throw Error('not implemented yet');
+		// return this.apollo.mutate({ mutation: CREATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
 	}
 
 	updateContact(contact: Contact) {
-		return this.apollo.mutate({ mutation: UPDATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
+		// TODO: fix this
+		throw Error('not implemented yet');
+		// return this.apollo.mutate({ mutation: UPDATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
 	}
 }

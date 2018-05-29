@@ -23,7 +23,7 @@ export class SupplierService {
 	 */
 	private initializeSupplierQuery({ perPage }): void {
 		if (!this.suppliersQuery$) {
-			this.suppliersQuery$ = this.apollo.watchQuery<any>({
+			this.suppliersQuery$ = this.apollo.query<any>({
 				query: SupplierQueries.list,
 				variables: {
 					skip: 0,
@@ -120,7 +120,11 @@ export class SupplierService {
 	}
 
 	updateSupplier(supplier: Supplier) {
-		return this.apollo.mutate({ mutation: SupplierQueries.updateSupplier, variables: { supplier } }).pipe(
+		return this.apollo.update({
+			mutation: SupplierQueries.updateSupplier,
+			input: supplier,
+			typename: 'Supplier'
+		}).pipe(
 			take(1)
 		);
 	}
