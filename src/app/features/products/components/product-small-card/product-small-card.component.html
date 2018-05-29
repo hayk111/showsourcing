@@ -6,7 +6,7 @@
 		</div>
 		<div class="flex">
 			<div class="imgCtnr">
-				<img [src]="product?.images[0]?.filename || defaultImg "/>
+				<img [src]="product?.images[0]?.fileName || defaultImg "/>
 				<icon-app  fontSet="fa" class="heart" name="heart" *ngIf="product.favorite"></icon-app>
 			</div>
 			<product-sub-info-app [product]="product"></product-sub-info-app>
@@ -15,7 +15,7 @@
 	</main>
 	<footer class="flex">
 		<div class="author">
-			{{ product?.audit?.createdBy?.firstName }}
+			{{ product?.createdBy?.firstName }}
 		</div>
 		<product-icons-app></product-icons-app>
 	</footer>
