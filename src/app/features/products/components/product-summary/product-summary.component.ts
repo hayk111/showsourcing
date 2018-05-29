@@ -11,6 +11,7 @@ export class ProductSummaryComponent implements OnInit {
 	@Input() product: Product;
 	@Input() numTasks;
 	@Output() updateStatus = new EventEmitter<string>();
+
 	constructor() { }
 
 	ngOnInit() { }

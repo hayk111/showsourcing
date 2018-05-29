@@ -1,4 +1,4 @@
-import { uuid } from '~app-root/utils/uuid.utils';
+import { uuid } from '~utils/uuid.utils';
 
 
 export class SupplierType {

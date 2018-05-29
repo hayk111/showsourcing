@@ -2,7 +2,7 @@ import {
 	Component, OnInit, ChangeDetectionStrategy, Input, HostBinding,
 	ContentChildren, AfterContentChecked, QueryList
 } from '@angular/core';
-import { Log } from '~app-root/utils';
+import { Log } from '~utils';
 
 @Component({
 	selector: 'list-item-app',

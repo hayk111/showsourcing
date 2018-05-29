@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { BehaviorSubject, Observable, forkJoin, merge } from 'rxjs';
 import { debounceTime, filter, mergeMap, takeUntil, tap, switchMap, map, take } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { Filter, FilterType, FilterGroup } from '~shared/filters/models';
 import { FilterService } from '~shared/filters/services/filter.service';
 

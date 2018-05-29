@@ -6,7 +6,7 @@ import { Team } from '~models';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { UserService } from '~features/user';
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'user-info-app',

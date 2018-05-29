@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { DEFAULT_USER_IMG } from '~app-root/utils';
+import { DEFAULT_USER_IMG } from '~utils';
 import { Contact } from '~models';
 
 @Component({

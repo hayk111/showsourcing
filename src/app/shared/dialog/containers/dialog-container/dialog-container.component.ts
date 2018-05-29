@@ -8,7 +8,7 @@ import {
 	HostListener,
 } from '@angular/core';
 
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 
 import { DialogHostDirective } from '../../components/dialog-host.directive';
 import { dialogComponentMap } from '../../models/dialog-component-map.const';

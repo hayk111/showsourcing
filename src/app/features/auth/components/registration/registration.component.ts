@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError } from 'rxjs/operators';
 
 @Component({
