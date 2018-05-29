@@ -60,10 +60,14 @@ export class ApolloClient {
 	}
 
 	/** this method is used to create an entity */
-	create<T, V = R>(options: ApolloMutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
-		// not sure it will be possible to do optimistic update here since we could
-		// potentially create n entities
-		return this.apollo.mutate(options).pipe(
+	create<T, V = R>(options: MutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
+		const apolloOptions = {
+			mutation: options.mutation,
+			variables: { input: options.input },
+			context: options.context
+		};
+		// TODO optimistic ui update
+		return this.apollo.mutate(apolloOptions).pipe(
 			take(1)
 		);
 	}

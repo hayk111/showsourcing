@@ -12,25 +12,22 @@ export class ContactService {
 	constructor(private apollo: ApolloClient) { }
 
 	getContacts(supplierId: string): Observable<Contact[]> {
-		return this.apollo.subscribe({ query: SUPPLIER_CONTACT_QUERY, variables: { query: `supplier.id == '${supplierId}'` } }).pipe(
-			map((r: any) => r.data.contacts)
-		);
+		return this.apollo.subscribe({ query: SUPPLIER_CONTACT_QUERY, variables: { query: `supplier.id == '${supplierId}'` } })
+			.pipe(
+				map((r: any) => r.data.contacts)
+			);
 	}
 
-	createContact(contact: Contact, supplierId: string) {
+	createContact(contact: Contact, supplierId: string): Observable<Contact> {
 		contact.id = uuid();
 		contact.deleted = false;
 		contact.supplier = {
 			id: supplierId
 		};
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: CREATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
+		return this.apollo.create({ mutation: CREATE_CONTACT, input: contact, typename: 'Contact' });
 	}
 
 	updateContact(contact: Contact) {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: UPDATE_CONTACT, variables: { contact } }).pipe(take(1)).subscribe();
+		return this.apollo.update({ mutation: UPDATE_CONTACT, input: contact, typename: 'Contact' });
 	}
 }

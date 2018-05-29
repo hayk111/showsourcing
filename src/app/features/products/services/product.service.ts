@@ -23,11 +23,7 @@ export class ProductService {
 	}
 
 	updateProduct(product: Product): Observable<Product> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: ProductQueries.updateProduct, variables: { product } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.update({ mutation: ProductQueries.updateProduct, input: product, typename: 'Product' });
 	}
 
 	deleteProducts(ids: string[]) {

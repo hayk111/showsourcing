@@ -63,42 +63,26 @@ export class SelectorsService {
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: SelectorQueries.createSupplier, variables: { supplier } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.create({ mutation: SelectorQueries.createSupplier, input: supplier, typename: 'Supplier' });
 	}
 
 	createCategory(category: Category): Observable<any> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: SelectorQueries.createCategory, variables: { category } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.create({ mutation: SelectorQueries.createCategory, input: category, typename: 'Category' });
 	}
 
 	createEvent(event: Event): Observable<any> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: SelectorQueries.createEvent, variables: { event } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.create({ mutation: SelectorQueries.createEvent, input: event, typename: 'Event' });
 	}
 
 	createTag(tag: Tag): Observable<any> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: SelectorQueries.createTag, variables: { tag } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.create({ mutation: SelectorQueries.createTag, input: tag, typename: 'Tag' });
 	}
 
 	createSupplierType(supplierType: SupplierType): Observable<any> {
-		// TODO: fix this
-		throw Error('not implemented yet');
-		// return this.apollo.mutate({ mutation: SelectorQueries.createSupplierType, variables: { supplierType } }).pipe(
-		// 	take(1)
-		// );
+		return this.apollo.create({
+			mutation: SelectorQueries.createSupplierType,
+			input: supplierType,
+			typename: 'SupplierType'
+		});
 	}
 }
