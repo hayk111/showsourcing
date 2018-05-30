@@ -1,0 +1,14 @@
+	<selector-app
+		[(ngModel)]="value"
+		[choices]="choices$ | async"
+		[itemName]="itemName"
+		[canSearch]="true"
+		[canCreate]="true"
+		[multiple]="multiple"
+		[bindLabel]="'name'"
+		(change)="onChange()"
+		(create)="create($event)">
+		<ng-template let-item="item">
+			{{ item.name }}
+		</ng-template>
+	</selector-app>

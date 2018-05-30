@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Patch, Supplier, Tag } from '~entity';
-import { Store } from '@ngrx/store';
-import { UserService } from '~app/features/user';
-import { EditableFieldValue } from '~app/shared/editable-field/components/editable-field/editable-field-value.interface';
-import { productActions } from '~product';
+import { Supplier } from '~models';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms';
+import { FormGroup } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-infos-app',
@@ -11,22 +11,40 @@ import { productActions } from '~product';
 	styleUrls: ['./supplier-infos.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierInfosComponent implements OnInit {
+export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
-	@Output() update = new EventEmitter<Patch>();
-	// when select multiple we can create, add and remove
-	@Output() itemCreate = new EventEmitter<EditableFieldValue>();
-	@Output() itemAdded = new EventEmitter<EditableFieldValue>();
-	@Output() itemRemoved = new EventEmitter<EditableFieldValue>();
+	@Output() update = new EventEmitter<Supplier>();
 
-	constructor() { }
+	descriptor: FormDescriptor;
 
-	ngOnInit() { }
+	customFields: CustomField[] = [
+		{ name: 'name', type: 'text', label: 'Name' },
+		{ name: 'supplierType', type: 'selector', metadata: { target: 'supplierType', type: 'entity' }, label: 'type' },
+		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
+		{ name: 'generalLeadTime', type: 'number', label: 'Lead Time' },
+		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
+		{ name: 'address', type: 'text', label: 'address' },
+		{ name: 'harbour', type: 'selector', metadata: { target: 'harbour', type: 'const' } },
+		{ name: 'incoTerm', type: 'selector', metadata: { target: 'incoTerm', type: 'const' } },
+		{ name: 'website', type: 'url', label: 'website' },
+		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
+		{ name: 'officePhone', type: 'tel', label: 'Tel' },
+		{ name: 'categories', type: 'selector', metadata: { target: 'category', type: 'entity' }, label: 'category', multiple: true },
+		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, label: 'tags', multiple: true }
+	];
 
-	onUpdate(value: any, propName: string) {
-		const patch: Patch = { propName, value, id: this.supplier.id };
-		this.update.emit(patch);
+	constructor() {
+		super();
 	}
 
+	ngOnInit() {
+		this.descriptor = new FormDescriptor(this.customFields, this.supplier);
+	}
+
+	onFormCreated(form: FormGroup) {
+		form.valueChanges
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(supplier => this.update.emit({ id: this.supplier.id, ...supplier }));
+	}
 
 }

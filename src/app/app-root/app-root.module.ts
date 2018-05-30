@@ -3,26 +3,19 @@ import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
-import { Store, StoreModule } from '@ngrx/store';
 import { environment } from 'environments/environment';
-import { EntityModule } from '~app/entity';
-import { DataManagementModule } from '~app/features/data-management/data-management.module';
-import { ProductModule } from '~app/features/products';
-import { ProjectModule } from '~app/features/project';
-import { SuppliersModule } from '~app/features/supplier';
-import { TasksModule } from '~app/features/tasks';
-import { UserModule } from '~app/features/user';
-import { HmrModule } from '~app/shared/hmr/hmr.module';
-import { PreloaderModule } from '~app/shared/preloader/preloader.module';
-import { AuthGuardService, AuthModule } from '~auth';
+import { DataManagementModule } from '~features/data-management/data-management.module';
+import { ProductModule } from '~features/products';
+import { ProjectModule } from '~features/project';
+import { SuppliersModule } from '~features/supplier';
+import { TasksModule } from '~features/tasks';
+import { UserModule } from '~features/user';
+import { AuthGuardService, AuthModule } from '~features/auth';
 import { CardModule } from '~shared/card';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { AppStoreModule } from '~store/store.module';
 import { Log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';
@@ -30,31 +23,28 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { DialogModule } from '~app/shared/dialog';
-import { FocusedEntityModule } from '~app/shared/focused-entity/focused-entity.module';
+import { DialogModule } from '~shared/dialog';
+import { AppApolloModule } from '~shared/apollo/apollo.module';
+import { TestPageModule } from '~features/test-page/test-page.module';
 
 declare let module: any;
+
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
 	declarations: [AppComponent, HomeComponent],
 	imports: [
+		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppStoreModule,
 		AuthModule.forRoot(),
-		PreloaderModule.forRoot(),
-		HmrModule.forRoot(),
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
-		StoreModule,
 		HttpClientModule,
 		TemplateModule.forRoot(),
-		EntityModule.forRoot(),
 		LocalStorageModule.forRoot(),
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
-		FocusedEntityModule.forRoot(),
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,
@@ -66,6 +56,7 @@ declare let module: any;
 		ProjectModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
+		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes, { enableTracing: true }),
 	],
@@ -81,47 +72,6 @@ declare let module: any;
 	bootstrap: [AppComponent],
 })
 export class AppRootModule {
-	// hot module reloading stuff
-	constructor(public appRef: ApplicationRef, private _m: NgModuleRef<any>, private _store: Store<any>) {
-		if (environment.hmr && module.hot) {
-			module.hot.accept('./app-root.module.ts');
-			if (module.hot.data) {
-				this.customHmrOnInit(module.hot.data);
-			}
-		}
-	}
-	customHmrOnInit(store) {
-		if (!store || !store.rootState) return;
-		Log.info('HMR store', store.rootState);
-		if (store.rootState) {
-			this._store.dispatch({
-				type: 'SET_ROOT_STATE',
-				payload: store.rootState,
-			});
-		}
-	}
 
-	hmrOnInit(store) {
-		Log.info('------- HMR init');
-		if (!store || !store.rootState) return;
-		if ('restoreInputValues' in store) {
-			store.restoreInputValues();
-		}
-		// this.appRef.tick();
-		Object.keys(store).forEach(prop => delete store[prop]);
-	}
 
-	hmrOnDestroy(store) {
-		Log.info('------- HMR OnDestroy');
-		this._store.take(1).subscribe(s => (store.rootState = { ...s, hmr: true }));
-		const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-		store.disposeOldHosts = createNewHosts(cmpLocation);
-		store.restoreInputValues = createInputTransfer();
-		removeNgStyles();
-	}
-	hmrAfterDestroy(store) {
-		Log.info('------- HMR AfterDestroy');
-		store.disposeOldHosts();
-		delete store.disposeOldHosts;
-	}
 }

@@ -10,11 +10,11 @@ import { IconsModule } from '../icons/icons.module';
 		IconsModule
 	],
 	declarations: [
-    ThumbButtonsComponent,
+		ThumbButtonsComponent,
 		RatingHeartComponent
 	],
 	exports: [
-    ThumbButtonsComponent,
+		ThumbButtonsComponent,
 		RatingHeartComponent
 	]
 })

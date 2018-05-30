@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
-import { EntityModule } from '~entity/entity.module';
+
 
 import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		ReactiveFormsModule,
-		EntityPagesModule
+		TopPanelModule
 	],
 	providers: [UserService],
 	declarations: [UserSettingsComponent],

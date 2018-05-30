@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EntityRepresentation } from '~entity';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -12,8 +11,7 @@ import { EntityRepresentation } from '~entity';
 	}
 })
 export class SelectionBarComponent implements OnInit {
-	@Input() repr: EntityRepresentation;
-	@Input() selection: Array<string>;
+	@Input() selection: Map<string, boolean>;
 	@Output() close = new EventEmitter();
 	@Output() delete = new EventEmitter();
 

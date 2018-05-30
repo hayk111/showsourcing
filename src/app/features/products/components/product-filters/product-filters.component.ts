@@ -1,36 +1,29 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import {
-	Entity, selectEntityArrayByName, ERM, EntityRepresentation,
-	getPluralEntity, fromSupplier, fromEvent, fromCategory, selectEntityProductCount, selectEntityArray,
-	selectEntityState, EntityState, entityStateToArray, selectRelevantEntities, getEntityRepr
-} from '~app/entity';
-import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs/Subject';
-import { selectFilterByType, FilterGroupName, Filter, FilterActions, FilterType } from '~app/shared/filters';
-import { tap, takeUntil, combineLatest, map } from 'rxjs/operators';
-import { AutoUnsub } from '~app/app-root/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { takeUntil } from 'rxjs/operators';
+import { Entity } from '~models';
+import { Filter, FilterGroup, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
+import { AutoUnsub } from '~utils';
+
+import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
 	selector: 'product-filters-app',
 	templateUrl: './product-filters.component.html',
 	styleUrls: ['./product-filters.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFiltersComponent extends AutoUnsub implements OnInit {
-	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	@Output() filter: EventEmitter<FilterGroup> = new EventEmitter();
 	selectedSuppliers$: Observable<any>;
 	/** Whether the different panel that are displayed when clicking on a button are shown */
 	btnPanelShown = true;
 	entityPanelShown = false;
 	pricePanelShown = false;
-	// Map<filterType, Map<filterValue, filter>>
-	// this way we can easily display filters for a given type with
-	// map.get(type).values();
-	// or check in constant time if a value has been picked already
-	// map.get(type).has(value);
-	filterMap$: Observable<Map<FilterType, Map<any, Filter>>>;
-	filterMap: Map<FilterType, Map<any, Filter>>;
+	filterGroup: FilterGroup;
+
 	/** for the entity panel we need to pass the correct entityState */
 	choices$: Observable<Array<Entity>>;
 	relevantChoices$: Observable<Array<Entity>>;
@@ -44,16 +37,29 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		FilterType.TAG,
 		FilterType.PROJECT
 	];
+	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
+	displayNames = {
+		createdBy: (raw) => `${raw.lastName} ${raw.firstName}`
+	};
 	// different filterTypes
 	filterType = FilterType;
 
-	constructor(private store: Store<any>) {
+	constructor(private filterSrv: FilterService,
+		private filterDataSrv: FilterDataService,
+		private cd: ChangeDetectorRef) {
 		super();
 	}
 
 	ngOnInit() {
-		this.filterMap$ = this.store.select(selectFilterByType(this.filterGroupName));
-		this.filterMap$.pipe(takeUntil(this._destroy$)).subscribe(mymap => this.filterMap = mymap);
+		this.filterSrv.filterGroup$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(group => {
+				this.filterGroup = group;
+				// re-apply filtering of products
+				this.filter.emit(group);
+				// need to run cd because of onpush and filters could be added from other places
+				this.cd.markForCheck();
+			});
 	}
 
 	/** opens the panel to select an entity */
@@ -64,23 +70,49 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		// when shown we need to change the choices displayed
 		if (this.entityPanelShown) {
 			// we get the correct entity
-			const entityRepr = this.getRepr(type);
+			// const entityRepr = this.getRepr(type);
 			this.typeSelected = type;
-			this.choices$ = this.store.select(selectEntityArray(entityRepr));
-			this.relevantChoices$ = this.store.select(selectRelevantEntities(entityRepr));
+			this.choices$ = this.selectEntityArray(type)
+				.pipe(takeUntil(this._destroy$));
+			// }
+			// this.choices$ = this.store.select(selectEntityArray(entityRepr));
+			// this.relevantChoices$ = this.store.select(selectRelevantEntities(entityRepr));
 		}
 	}
 
-	/** transform a filter type into an entityRepresentation */
-	getRepr(type: FilterType): EntityRepresentation {
-		switch (type) {
-			case FilterType.CREATED_BY:
-				return getEntityRepr('teamMember');
-			case FilterType.PRODUCT_STATUS:
-				return getEntityRepr('productStatus');
-			default:
-				return getEntityRepr(type);
+	/** Links data for a type of filter type */
+	selectEntityArray(type: FilterType) {
+		if (type === FilterType.SUPPLIER) {
+			return this.filterDataSrv.selectSuppliers();
 		}
+		if (type === FilterType.EVENT) {
+			return this.filterDataSrv.selectEvents();
+		}
+		if (type === FilterType.CATEGORY) {
+			return this.filterDataSrv.selectCategories();
+		}
+		if (type === FilterType.TAG) {
+			return this.filterDataSrv.selectTags();
+		}
+		if (type === FilterType.PROJECT) {
+			return this.filterDataSrv.selectProjects();
+		}
+		if (type === FilterType.CREATED_BY) {
+			return this.filterDataSrv.selectCreatedBy();
+		}
+		if (type === FilterType.PRODUCT_STATUS) {
+			return this.filterDataSrv.selectStatuses();
+		}
+		// TODO: favorite
+		return of([]);
+	}
+
+	/** Returns the value to display for data corresponding to a filter. By default "name" is used */
+	getDisplayName(filter: any) {
+		const { type, value, raw } = filter;
+		const columnName = this.displayNames[type] || 'name';
+		return (typeof columnName === 'function') ?
+			columnName(raw) : raw[columnName];
 	}
 
 	/** Opens the panel for filtering on prices */
@@ -91,36 +123,27 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	/** get the map of values for a type */
 	getFilterValues(type: FilterType) {
-		return this.filterMap.get(type) || new Map();
+		return this.filterGroup.byType.get(type) || new Map();
 	}
 
 	/** when an event wants to add a filter */
 	addFilter(filter: Filter): void {
-		this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+		this.filterSrv.addFilter(filter);
 	}
 
 	/** when an event wants to remove a filter */
 	removeFilter(filter: Filter): void {
-		this.store.dispatch(FilterActions.removeFilter(filter, this.filterGroupName));
+		this.filterSrv.removeFilter(filter);
 	}
 
 	/** clears all */
 	onClear(): void {
-		this.store.dispatch(FilterActions.clearGroup(this.filterGroupName));
+		this.filterSrv.clearGroup();
 	}
 
 	/** clears a subset */
 	onClearType(type: FilterType): void {
-		this.store.dispatch(FilterActions.removeFilterType(type, this.filterGroupName));
-	}
-
-	/** From the filter type we get the entity representation then the plural name. That's the title */
-	getEntityPanelTitle() {
-		switch (this.typeSelected) {
-			case FilterType.CREATED_BY: return 'Users';
-			case FilterType.PRODUCT_STATUS: return 'Statuses';
-			default: return getPluralEntity(this.typeSelected);
-		}
+		this.filterSrv.removeFilterType(type);
 	}
 
 }

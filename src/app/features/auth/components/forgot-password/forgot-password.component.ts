@@ -1,34 +1,40 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import * as fromAuth from '~app/features/auth/store';
-import { Observable } from 'rxjs/Observable';
-import { selectResetPwPagePending, selectResetPwPageError } from '~app/features/auth/store';
+
+import { Observable } from 'rxjs';
+import { AutoUnsub } from '~utils/auto-unsub.component';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { takeUntil, take, catchError } from 'rxjs/operators';
 
 @Component({
 	selector: 'forgot-password-app',
 	templateUrl: './forgot-password.component.html',
 	styleUrls: ['./forgot-password.component.scss', '../form-style.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	pending$: Observable<boolean>;
-	error$: Observable<string>;
+	pending: boolean;
+	error: string;
 
-	constructor(private fb: FormBuilder, private store: Store<any>) {
+	constructor(private fb: FormBuilder, private authSrv: AuthenticationService) {
+		super();
 		this.form = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])]
 		});
 	}
 
 	ngOnInit() {
-		this.pending$ = this.store.select(selectResetPwPagePending);
-		this.error$ = this.store.select(selectResetPwPageError);
 	}
 
 	onSubmit() {
-		if (this.form.valid)
-			this.store.dispatch(fromAuth.AuthActions.resetPassword(this.form.value));
+		if (this.form.valid) {
+			this.pending = true;
+			this.authSrv.login(this.form.value).pipe(
+				takeUntil(this._destroy$),
+				take(1),
+				catchError(error => this.error = error)
+			).subscribe(r => this.pending = false);
+		}
 	}
 }

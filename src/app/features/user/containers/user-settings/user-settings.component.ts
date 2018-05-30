@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { UserActions, User, selectUser } from '~app/entity/store/user';
-import { Observable } from 'rxjs/Observable';
+
+import { User } from '~models';
+import { Observable } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'user-settings-app',
@@ -14,7 +15,7 @@ export class UserSettingsComponent implements OnInit {
 	form: FormGroup;
 	user$: Observable<User>;
 
-	constructor(private fb: FormBuilder, private store: Store<any>) {
+	constructor(private fb: FormBuilder, private userSrv: UserService) {
 		this.form = this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
@@ -23,11 +24,11 @@ export class UserSettingsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.user$ = this.store.select(selectUser);
+		this.user$ = this.userSrv.user$;
 	}
 
 	update(propName: string, value: string) {
-		this.store.dispatch(UserActions.patch({ propName, value }));
+		// this.store.dispatch(UserActions.patch({ propName, value }));
 	}
 
 }

@@ -1,23 +1,18 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { NewContactDlgComponent } from '~app/features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
-import { NewSupplierDlgComponent } from '~app/features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { ContactEffects } from '~app/features/supplier/store/contacts/contact.effects';
-import { ProductEffects } from '~app/features/supplier/store/latest-product/latest-product.effects';
-import { NewSupplierDlgEffects } from '~app/features/supplier/store/new-supplier-dlg/new-supplier-dlg.effects';
-import { SupplierListEffects } from '~app/features/supplier/store/supplier-list/supplier-list.effects';
-import { CarouselModule } from '~app/shared/carousel';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { FileModule } from '~app/shared/file';
-import { RatingModule } from '~app/shared/rating';
-import { SharedModule } from '~app/shared/shared.module';
-import { StatusModule } from '~app/shared/status/status.module';
-import { TableModule } from '~app/shared/table';
+import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
+import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
+import { ContactService } from '~features/supplier/services/contact.service';
+import { SelectionService } from '~features/supplier/services/selection.service';
+import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
+import { FileModule } from '~shared/file';
+import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
+import { SharedModule } from '~shared/shared.module';
+import { StatusModule } from '~shared/status/status.module';
+import { TableModule } from '~shared/table';
 import { TagModule } from '~shared/tag';
 
 import { SupplierListViewComponent } from './components';
@@ -26,32 +21,24 @@ import { SupplierContactComponent } from './components/supplier-contact/supplier
 import { SupplierDescriptionComponent } from './components/supplier-description/supplier-description.component';
 import { SupplierInfosComponent } from './components/supplier-infos/supplier-infos.component';
 import { SupplierLatestProductsComponent } from './components/supplier-latest-products/supplier-latest-products.component';
-import { SupplierMainBottomComponent } from './components/supplier-main/supplier-main-bottom/supplier-main-bottom.component';
-import { SupplierMainInfoComponent } from './components/supplier-main/supplier-main-info/supplier-main-info.component';
 import { SupplierMainTitleComponent } from './components/supplier-main/supplier-main-title/supplier-main-title.component';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
-import { reducers } from './store';
-import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-details/supplier-details.effects';
+import { SupplierService } from './services/supplier.service';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('supplier', reducers),
-		EffectsModule.forFeature([
-			ContactEffects,
-			ProductEffects,
-			NewSupplierDlgEffects,
-			SupplierListEffects,
-			SupplierDetailsEffects
-		]),
 		RouterModule.forChild([]),
 		FileModule, // file-card
+		DynamicFormsModule,
 		CarouselModule,
 		StatusModule,
-		EntityPagesModule,
+		TopPanelModule,
 		DialogModule, // used by new contact dialog
 		ReactiveFormsModule, // used by new contact dialog
 		SelectionBarModule, // used for selection bar at the bottom
@@ -68,8 +55,6 @@ import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-de
 		SupplierMainComponent,
 		SupplierSummaryComponent,
 		SupplierMainTitleComponent,
-		SupplierMainInfoComponent,
-		SupplierMainBottomComponent,
 		SupplierLatestProductsComponent,
 		SupplierInfosComponent,
 		SupplierContactCardComponent,
@@ -83,7 +68,11 @@ import { SupplierDetailsEffects } from '~app/features/supplier/store/supplier-de
 	exports: [
 		SuppliersPageComponent
 	],
-	providers: [],
+	providers: [
+		SupplierService,
+		SelectionService,
+		ContactService
+	],
 })
 export class SuppliersModule {
 	static forRoot(): ModuleWithProviders {

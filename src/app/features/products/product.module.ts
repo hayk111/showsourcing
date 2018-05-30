@@ -1,31 +1,24 @@
-import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { PipesModule } from '~app/app-root/pipes';
-import { CommentModule } from '~app/features/comment';
-import { SelectableImageComponent } from '~app/features/products/components/selectable-image/selectable-image.component';
-import { SuppliersModule } from '~app/features/supplier';
-import { UserModule } from '~app/features/user';
-import { BadgeModule } from '~app/shared/badge/badge.module';
-import { CarouselModule } from '~app/shared/carousel';
-import { EntityPagesModule } from '~app/shared/entity-pages/entity-pages.module';
-import { FileModule } from '~app/shared/file';
-import { FiltersModule } from '~app/shared/filters';
-import { InputsModule } from '~app/shared/inputs';
-import { StatusModule } from '~app/shared/status/status.module';
-import { TableModule } from '~app/shared/table';
-import { DialogModule } from '~dialog/dialog.module';
-import { EntityModule } from '~entity';
-import { ProductEffects } from './store/product/product.effects';
-import { CardModule } from '~shared/card';
-import { EditableFieldModule } from '~shared/editable-field';
-import { IconsModule } from '~shared/icons';
-import { LoadersModule } from '~shared/loaders';
-import { PriceModule } from '~shared/price';
+import { CommentModule } from '~features/comment';
+import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
+import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
+import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
+import { GroupByPipe } from '~features/products/pipes/groupby';
+import { ProductService } from '~features/products/services';
+import { BadgeModule } from '~shared/badge/badge.module';
+import { CarouselModule } from '~shared/carousel';
+import { DialogModule } from '~shared/dialog/dialog.module';
+import { DynamicFormsModule } from '~shared/dynamic-forms';
+import { FileModule } from '~shared/file';
+import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
-import { UtilsModule } from '~shared/utils/utils.module';
+import { SharedModule } from '~shared/shared.module';
+import { StatusModule } from '~shared/status/status.module';
+import { TableModule } from '~shared/table';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import {
 	ProductCardViewComponent,
@@ -33,50 +26,34 @@ import {
 	ProductListViewComponent,
 	ProductSelectableCardComponent,
 	ProductSmallCardComponent,
-	ProductStatusBadgeComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent,
 } from './components';
+import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
 import {
-	ProductDetailsComponent,
-	ProductGeneralInfoComponent,
-	ProductsPageComponent,
-} from './containers';
-import { routes } from './routes';
-import { SharedModule } from '~app/shared/shared.module';
-import { ProductAddToProjectDlgComponent } from './components/product-add-to-project-dlg/product-add-to-project-dlg.component';
-import {
-	ProductRequestTeamFeedbackDlgComponent
-} from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
-
+	ProductAddToProjectDlgComponent,
+} from './components/product-add-to-project-dlg/product-add-to-project-dlg.component';
 import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
-import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { NewProductDlgEffects } from '~app/features/products/store/new-product-dlg/new-product-dlg.effects';
-import { reducers } from './store';
-import { ProductHttpService } from '~app/features/products/store/product/product-http.service';
-import { ProductMainCardComponent } from '~app/features/products/components/product-main-card/product-main-card.component';
-import { ProductSummaryComponent } from '~app/features/products/components/product-summary/product-summary.component';
+import {
+	ProductRequestTeamFeedbackDlgComponent,
+} from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
+import { FilterDataService } from './services/filter.data.service';
+import { SelectionService } from './services/selection.service';
+
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
-		StoreModule.forFeature('product', reducers),
-		EffectsModule.forFeature([
-			NewProductDlgEffects,
-			ProductEffects
-		]),
+		DynamicFormsModule,
 		ReactiveFormsModule,
-		PipesModule,
 		DialogModule,
-		EffectsModule.forFeature([ProductEffects]),
-		StatusModule.forChild(),
-		FileModule.forChild(), // file card used
+		StatusModule,
+		FileModule, // file card used
 		RatingModule, // TODO check if used
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
@@ -84,13 +61,11 @@ import { ProductSummaryComponent } from '~app/features/products/components/produ
 		CarouselModule,
 		BadgeModule,
 		CommentModule.forChild(),
-		EntityPagesModule,
+		TopPanelModule,
 	],
-	providers: [],
 	declarations: [
 		ProductSmallCardComponent,
 		ProductIconsComponent,
-		ProductStatusBadgeComponent,
 		ProductSubInfoComponent,
 		ProductsPageComponent,
 		ProductListViewComponent,
@@ -108,7 +83,8 @@ import { ProductSummaryComponent } from '~app/features/products/components/produ
 		ProductExportDlgComponent,
 		ProductFiltersComponent,
 		NewProductDialogComponent,
-		ProductMainCardComponent
+		ProductMainCardComponent,
+		GroupByPipe
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,
@@ -117,13 +93,14 @@ import { ProductSummaryComponent } from '~app/features/products/components/produ
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
+	providers: [ProductService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: ProductModule,
-			providers: [ProductHttpService],
+			providers: [],
 		};
 	}
 

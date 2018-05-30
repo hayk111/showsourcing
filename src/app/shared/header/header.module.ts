@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EntityModule } from '~entity';
 
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
@@ -9,10 +8,10 @@ import { HeaderComponent } from './components';
 import { NotifComponent } from './components';
 import { UserInfoComponent } from './components';
 import { UserPanelComponent } from './components';
-import { UserModule } from '~app/features/user';
-import { SharedModule } from '~app/shared/shared.module';
-import { SearchBarAnimatedModule } from '~app/shared/search-bar-animated/search-bar-animated.module';
-import { UserPictureModule } from '~app/shared/user-picture';
+import { UserModule } from '~features/user';
+import { SharedModule } from '~shared/shared.module';
+import { SearchBarAnimatedModule } from '~shared/search-bar-animated/search-bar-animated.module';
+import { UserPictureModule } from '~shared/user-picture';
 
 @NgModule({
 	imports: [

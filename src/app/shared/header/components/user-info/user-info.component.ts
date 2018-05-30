@@ -1,29 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { selectUser, User } from '~user';
-import { AuthActions } from '~app/features/auth';
-import { Team, fromTeam } from '~app/entity';
+
+import { Observable } from 'rxjs';
+import { User } from '~models';
+import { Team } from '~models';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { UserService } from '~features/user';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'user-info-app',
 	templateUrl: './user-info.component.html',
 	styleUrls: ['./user-info.component.scss'],
 })
-export class UserInfoComponent implements OnInit {
-	user$: Observable<User>;
+export class UserInfoComponent extends AutoUnsub implements OnInit {
+	user: User;
 	teams$: Observable<Array<Team>>;
 	/** Whether the user menu is visible */
 	panelVisible = false;
 	/** whether the team picker is visible */
 	teamPickerShown = false;
 
-	constructor(private store: Store<any>) {
+	constructor(private authSrv: AuthenticationService, private userSrv: UserService) {
+		super();
 	}
 
 	ngOnInit() {
-		this.user$ = this.store.select(selectUser);
-		this.teams$ = this.store.select(fromTeam.selectArray);
+		this.userSrv.user$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(user => this.user = user);
 	}
 
 	openTeamPicker() {
@@ -43,6 +48,6 @@ export class UserInfoComponent implements OnInit {
 	}
 
 	logout() {
-		this.store.dispatch(AuthActions.logout());
+		this.authSrv.logout();
 	}
 }

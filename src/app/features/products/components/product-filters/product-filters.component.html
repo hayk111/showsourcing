@@ -1,5 +1,5 @@
 <!-- filter-panel  is just a wrapper which has as sole function to display the filter panel somewhere on the screen -->
-<filter-panel-app *ngIf="filterMap$ | async as filterMap">
+<filter-panel-app>
 	<!-- filter btn panel is a wrapper that displays a clear and close button at the top -->
 	<!-- inside it we put the filter btn that are gonna be displayed -->
 	<filter-btns-panel-app *ngIf="btnPanelShown" (reset)="onClear()">
@@ -10,7 +10,7 @@
 
 			<div class="editTitle flexBetween">
 				<label>
-					{{ getRepr(type).pluralName }}
+					{{ type }}
 				</label>
 
 				<div *ngIf="getFilterValues(type).size > 0">
@@ -20,8 +20,8 @@
 			</div>
 
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
-				Filter {{ getRepr(type).pluralName }}
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
+				Filter {{ type }}
 			</filter-btn-app>
 
 			<div class="flexColumn">
@@ -29,7 +29,7 @@
 					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
-					{{ filter.value | entityName: type | async }}
+					{{ getDisplayName(filter, type) }}
 				</checkbox-app>
 			</div>
 		</ng-container>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
 				Filter users
 			</filter-btn-app>
 
@@ -55,11 +55,8 @@
 				<filter-tag-app
 						(filterRemoved)="removeFilter(filter)"
 						*ngFor="let filter of getFilterValues(type).values()">
-					<ng-container *ngIf="filter.value | entity: 'teamMember' | async as user">
-						<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{ user.name }}
-					</ng-container>
-
+<!-- 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app -->
+						{{ filter.raw.lastName }} {{ filter.raw.firstName }}
 				</filter-tag-app>
 			</div>
 		</ng-container>
@@ -90,7 +87,7 @@
 					<!-- we display the correct badge color -->
 					<div class="flex">
 						<badge-app [color]="filter.value"></badge-app>
-						<span>{{ filter.value | entityName: 'productStatus' | async }}</span>
+						<span>{{ getDisplayName(filter, type) }}</span>
 					</div>
 
 				</checkbox-app>
@@ -110,10 +107,9 @@
 			(check)="addFilter({ type: filterType.FAVORITE, value: 5 })"
 			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: 5 })">
 			<div class="flex">
-				<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
+				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
 				Only Show Favorite
 			</div>
-
 		</checkbox-app>
 
 
@@ -136,9 +132,10 @@
 
 
 	<!-- filter selection panel displays a close / done button at the top -->
-	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()">
+	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()" 
+	                            (clear)="onClear()">
 		<filter-entity-panel-app
-			[title]="getEntityPanelTitle()"
+			[title]="typeSelected"
 			[type]="typeSelected"
 			*ngIf="entityPanelShown"
 			[choices]="choices$ | async"
@@ -147,8 +144,6 @@
 			(filterAdded)="addFilter($event)"
 			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
-
 	</filter-selection-panel-app>
-
 
 </filter-panel-app>

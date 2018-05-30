@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Log } from '~utils/index';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AppImage } from '~app/entity';
+import { AppImage } from '~models';
 
 @Component({
 	selector: 'modal-carousel-app',
@@ -33,9 +33,8 @@ export class ModalCarouselComponent implements OnInit {
 		event.stopPropagation();
 	}
 
-	getUrl(index) {
-		Log.debug('[CarouselComponent] getUrl');
-		return this.images[index].urls.url_1000x1000;
+	getFileName() {
+		return this.images[this.selectedIndex].fileName;
 	}
 
 }

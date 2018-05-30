@@ -7,7 +7,7 @@
 		[checked]="isSelected(1)"
 		(change)="onChange($event, 1)">
 	<label for="unf">
-		<rating-heart-app [static]="true" [rating]="1"></rating-heart-app>
+		<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
 	</label>
 </div>
 
@@ -20,7 +20,7 @@
 		[checked]="isSelected(5)"
 		(change)="onChange($event, 5)">
 	<label for="fav">
-		<rating-heart-app [static]="true" [rating]="5"></rating-heart-app>
+		<rating-heart-app [static]="true" [favorite]="false"></rating-heart-app>
 	</label>
 </div>
 

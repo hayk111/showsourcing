@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { Supplier } from '~entity';
-import { Store } from '@ngrx/store';
+import { Supplier } from '~models';
+
 
 @Component({
 	selector: 'supplier-summary-app',
@@ -13,23 +13,23 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() productCount: number;
 	@Input() taskCount: number;
 	@Input() contactCount: number;
-	@Output() update = new EventEmitter<any>();
+	@Output() update = new EventEmitter<Supplier>();
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 
 	}
 
-	onStatusChange(newStatus: string) {
-		this.update.emit({ propName: 'status', value: newStatus, id: this.supplier.id });
+	onStatusChange(statusId: string) {
+		this.update.emit({ status: { id: statusId }, id: this.supplier.id });
 	}
 
 	onFavorited() {
-		this.update.emit({ propName: 'rating', value: 5, id: this.supplier.id });
+		this.update.emit({ favorite: true, id: this.supplier.id });
 	}
 
 	onUnfavorited() {
-		this.update.emit({ propName: 'rating', value: 1, id: this.supplier.id });
+		this.update.emit({ favorite: false, id: this.supplier.id });
 	}
 }

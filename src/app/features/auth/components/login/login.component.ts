@@ -1,22 +1,29 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as fromAuth from '~app/features/auth/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { take, takeUntil, catchError } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'login-app',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss', '../form-style.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	pending$: Observable<boolean>;
-	error$: Observable<string>;
+	pending: boolean;
+	error: string;
 
-	constructor(private store: Store<any>, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+	constructor(
+		private srv: AuthenticationService,
+		private fb: FormBuilder,
+		private router: Router,
+		private route: ActivatedRoute) {
+
+		super();
 		this.form = this.fb.group({
 			identifier: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.required]
@@ -24,13 +31,18 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.pending$ = this.store.select(fromAuth.selectLoginPagePending);
-		this.error$ = this.store.select(fromAuth.selectLoginPageError);
+
 	}
 
 	onSubmit() {
-		if (this.form.valid)
-			this.store.dispatch(fromAuth.AuthActions.login(this.form.value));
+		if (this.form.valid) {
+			this.pending = true;
+			this.srv.login(this.form.value).pipe(
+				takeUntil(this._destroy$),
+				take(1),
+				catchError(error => this.error = error)
+			).subscribe(r => this.pending = false);
+		}
 	}
 
 	forgotPw() {

@@ -31,7 +31,7 @@
 				<rating-heart-app
 					(favorited)="onFavorited()"
 					(unfavorited)="onUnfavorited()"
-					[rating]="supplier.rating"></rating-heart-app>
+					[favorite]="supplier.favorite"></rating-heart-app>
 			</span>
 		</div>
 		<divider-app [vertical]="true"></divider-app>
@@ -42,7 +42,7 @@
 			<span class="content">
 				<status-selector-badge-app
 					(update)="onStatusChange($event)"
-					[choices]="'supplierStatus' | entityList | async"
+					type="supplier"
 					[status]="supplier.status">
 				</status-selector-badge-app>
 			</span>

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { TeamManagementPageComponent } from './components';
 import { routes } from './routes';
-import { SharedModule } from '~app/shared/shared.module';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [SharedModule, RouterModule.forChild(routes)],

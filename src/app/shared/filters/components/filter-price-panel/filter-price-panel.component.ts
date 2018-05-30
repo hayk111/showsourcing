@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { FilterActions } from '../../store/actions';
+
+import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';
 import { Log } from '~utils/index';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
-import { ERM, Currency, defaultCurrency } from '~entity';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { Currency } from '~models';
 import { Filter } from '../../models';
 
 // panel used for prices filtering
@@ -17,7 +16,7 @@ import { Filter } from '../../models';
 export class FilterPricePanelComponent {
 	min: number;
 	max: number;
-	currency: Currency = defaultCurrency;
+	currency: Currency;
 
 	@Output() addFilter = new EventEmitter<Filter>();
 	@Output() removeFilterClass = new EventEmitter<any>();

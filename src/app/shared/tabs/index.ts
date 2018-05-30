@@ -1,2 +1,2 @@
 export * from './tabs.module';
-export * from './components'
+export * from './components';

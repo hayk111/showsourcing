@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { EntityModule } from '~entity';
 import { TagComponent } from './components/tag/tag.component';
+import { TagListComponent } from './components/tag-list/tag-list.component';
 
 @NgModule({
-	imports: [CommonModule, EntityModule.forChild()],
-	declarations: [TagComponent],
-	exports: [TagComponent],
+	imports: [CommonModule],
+	declarations: [TagComponent, TagListComponent],
+	exports: [TagComponent, TagListComponent],
 })
-export class TagModule {}
+export class TagModule { }

@@ -1,16 +1,11 @@
-<entity-page-app
-	(buttonClick)="openNewTaskDlg()"
-	[switchable]="false"
-	[pending]="pending$ | async"
-	[repr]="repr">
+
 	<tasks-list-view-app
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		[selection]="selection"
 		[tasks]="tasks$ | async"></tasks-list-view-app>
-</entity-page-app>
 
-<selection-bar-app [repr]="repr" *ngIf="selection.size > 0" [selection]="selection">
+<selection-bar-app  *ngIf="selection.size > 0" [selection]="selection">
 
 </selection-bar-app>
 

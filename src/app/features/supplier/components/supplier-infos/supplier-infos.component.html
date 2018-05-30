@@ -2,141 +2,11 @@
 
 	<h2>Supplier Information</h2>
 
+	<dynamic-form-app [descriptor]="descriptor" [editable]="true" (formCreated)="onFormCreated($event)"></dynamic-form-app>
 
-	<!-- name -->
-	<cell-two-row-app title="name">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.name"
-			type="text"
-			(update)="onUpdate($event, 'name')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- type -->
-	<cell-two-row-app title="Type">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.supplierType"
-			type="text"
-			(update)="onUpdate($event, 'supplierType')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- MOQ -->
-	<cell-two-row-app title="General MOQ">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.minimumOrderQuantity"
-			type="number"
-			(update)="onUpdate($event, 'minimumOrderQuantity')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- lead time -->
-	<cell-two-row-app title="General Lead time">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.leadTimeValue"
-			type="number"
-			(update)="onUpdate($event, 'leadTimeValue')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- country -->
-	<cell-two-row-app title="country">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.countryCode"
-			type="country"
-			(update)="onUpdate($event, 'countryCode')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- address -->
-	<cell-two-row-app title="address">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.address"
-			type="text"
-			(update)="onUpdate($event, 'address')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- website -->
-	<cell-two-row-app title="Web">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.website"
-			type="url"
-			(update)="onUpdate($event, 'website')">
-		</editable-field-app>
-	</cell-two-row-app>
-
-	<!-- email -->
-	<cell-two-row-app title="Office Email">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.email"
-			type="email"
-			(update)="onUpdate($event, 'email')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- phone -->
-	<cell-two-row-app title="Office phone">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.phoneNumber"
-			type="tel"
-			(update)="onUpdate($event, 'phoneNumber')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- inco terms -->
-	<cell-two-row-app title="Inco Terms">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.incoTerm"
-			type="incoTerm"
-			(update)="onUpdate($event, 'incoTerm')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- harbour -->
-	<cell-two-row-app title="Harbour">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.harbour"
-			type="harbour"
-			(update)="onUpdate($event, 'harbour')"></editable-field-app>
-	</cell-two-row-app>
-
-	<!-- event / Met at -->
-	<!-- <cell-two-row-app title="Event">
-		<editable-field-app
-			[entity]="supplier"
-			[value]="supplier.eventId"
-			type="event"
-			(update)="onUpdate($event, 'eventId')"></editable-field-app>
-	</cell-two-row-app> -->
-
-	<!-- categories -->
-	<cell-two-row-app title="Categories">
-		<editable-field-app
-			(itemAdded)="itemAdded.emit($event)"
-			(itemRemoved)="itemRemoved.emit($event)"
-			(itemCreate)="itemCreate.emit($event)"
-			[entity]="supplier"
-			[value]="supplier.categoryIds"
-			type="categories">
-		</editable-field-app>
-	</cell-two-row-app>
-
-	<!-- tags -->
-	<cell-two-row-app title="tag">
-		<editable-field-app
-			(itemAdded)="itemAdded.emit($event)"
-			(itemRemoved)="itemRemoved.emit($event)"
-			(itemCreate)="itemCreate.emit($event)"
-			[entity]="supplier"
-			[value]="supplier.tagIds"
-			type="tag"></editable-field-app>
-	</cell-two-row-app>
 
 	<!-- user / created by -->
-	<cell-two-row-app title="Created By">
+	<!-- <cell-two-row-app title="Created By">
 
 		<editable-field-app
 			class="user"
@@ -145,6 +15,6 @@
 			type="teamMember"
 			[editable]="false"
 			(update)="onUpdate($event, 'createdByUserId')"></editable-field-app>
-	</cell-two-row-app>
+	</cell-two-row-app> -->
 
 </card-app>

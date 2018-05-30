@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Supplier, Patch } from '~app/entity';
+import { Supplier } from '~models';
 
 
 @Component({

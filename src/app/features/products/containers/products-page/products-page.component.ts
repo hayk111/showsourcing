@@ -1,40 +1,34 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
-import {
-	EntityState,
-	ERM,
-	fromProductStatus,
-} from '~entity';
-import { Patch } from '~entity/utils';
-import { DialogName, fromDialog } from '~shared/dialog';
-import { Filter, FilterGroupName, FilterPanelAction, selectFilterGroup, selectFilterPanelOpen } from '~shared/filters';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
+import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { selectProductArray, selectProductState } from '~app/features/products/store';
-import { productActions } from '~app/features/products/store/product/product.action';
-import { ProductStatus, Product } from '~app/features/products/store/product/product.model';
+import { Product, ProductStatus } from '~models';
+import { SelectionService, ProductService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [FilterService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** currently loaded products */
 	products$: Observable<Array<Product>>;
 	/** non observable version of the above */
 	products: Array<Product> = [];
-	productsState$: Observable<EntityState<Product>>;
+	// productsState$: Observable<EntityState<Product>>;
 	/** We need the statuses for selectors, if there aren't any productStatus selector in this page this should be removed */
 	statuses$: Observable<Array<ProductStatus>>;
 	/** Whether the product is pending */
-	pending$: Observable<boolean>;
-	/** Representation of the product so we can display plural / Singular */
-	repr = ERM.product;
+	pending = false;
+	/** when the suppliers are loaded for the first time */
+	initialLoading = true;
 	// keeps tracks of the current selection
 	selection = new Map<string, boolean>();
 
@@ -43,42 +37,49 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// current view
 	view: 'list' | 'card' = 'card';
 	// whether the filter dialog is visible
-	filterPanelOpen$: Observable<boolean>;
-	// we have to pass a filterGroupName to the filteredListPage
-	filterGroupName = FilterGroupName.PRODUCT_PAGE;
+	filterPanelOpen: boolean;
 	filters: Array<Filter>;
 
-	constructor(private store: Store<any>, private userSrv: UserService, private router: Router) {
+	page = 0;
+	perPage = 30;
+
+	constructor(
+		private userSrv: UserService,
+		private router: Router,
+		private productSrv: ProductService,
+		private selectionSrv: SelectionService,
+		private filterSrv: FilterService,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.products$ = this.store.select(selectProductArray).pipe(
-			distinctUntilChanged(),
-			tap(products => this.products = products)
+		this.pending = true;
+		this.products$ = this.productSrv.selectProducts({ perPage: this.perPage }).pipe(
+			tap(() => {
+				if (this.initialLoading) {
+					this.pending = false;
+					this.initialLoading = false;
+				}
+			})
 		);
-		this.productsState$ = this.store.select(selectProductState);
-		this.pending$ = this.productsState$.pipe(map(state => state.pending));
-		this.statuses$ = this.store.select(fromProductStatus.selectArray);
-		this.filterPanelOpen$ = this.store.select(selectFilterPanelOpen);
-		const filters$ = this.store.select<any>(selectFilterGroup(this.filterGroupName));
-		// when filters change we need to redownload the products
-		filters$.subscribe(filters => {
-			// saving filters for when we need to paginate
-			this.filters = filters;
-			this.loadProducts(filters);
-		});
-
-	}
-
-	/** loads initial product and when the filters change */
-	loadProducts(filters) {
-		this.store.dispatch(productActions.load({ filters }));
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.store.dispatch(productActions.loadMore({ filters: this.filters, pagination: { drop: this.products.length } }));
+		this.page++;
+		this.pending = true;
+		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {
+			this.pending = false;
+		});
+	}
+
+	/** filters product based on filter group */
+	filterProducts(filtergroup: FilterGroup) {
+		this.pending = true;
+		this.productSrv.filterProducts({ perPage: this.perPage, filtergroup }).subscribe(() => {
+			this.pending = false;
+		});
 	}
 
 	/** Selects a product */
@@ -97,8 +98,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Patch a property of a product */
-	patch(patch: Patch) {
-		this.store.dispatch(productActions.patch(patch));
+	patch(patch: Product) {
+		// this.store.dispatch(productActions.patch(patch));
 	}
 
 	/** Will show a confirm dialog to delete items selected */
@@ -110,11 +111,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
-			this.store.dispatch(productActions.delete(products));
+			// this.store.dispatch(productActions.delete(products));
 			this.unselectAll();
 		};
 		const text = `Delete ${this.selection.size} Products ?`;
-		this.store.dispatch(fromDialog.Actions.open(DialogName.CONFIRM, { text, callback }));
+		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
 	/** Open details page of a product */
@@ -125,29 +126,29 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** When a product heart is clicked to favorite it */
 	onItemFavorited(entityId: string) {
 		// we are just patching a property of the product, which is the rating property
-		const patch: Patch = { id: entityId, propName: 'rating', value: 5 };
+		const patch: Product = { id: entityId, favorite: true };
 		this.patch(patch);
 	}
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(entityId: string) {
-		const patch: Patch = { id: entityId, propName: 'rating', value: 1 };
+		const patch: Product = { id: entityId, favorite: false };
 		this.patch(patch);
 	}
 
 	/** When an product is liked / disliked */
 	onItemVoted({ id, value }: { id: string; value: 0 | 100 }) {
-		this.store.dispatch(productActions.vote(id, value));
+		// this.store.dispatch(productActions.vote(id, value));
 	}
 
 	/** when filter button is clicked at the top we open the panel */
 	openFilterPanel() {
-		this.store.dispatch(FilterPanelAction.open());
+		this.filterPanelOpen = true;
 	}
 
 	/** When we need to close the filter panel */
 	closeFilterPanel() {
-		this.store.dispatch(FilterPanelAction.close());
+		this.filterPanelOpen = false;
 	}
 
 	/** Whenever we switch from list to card view */
@@ -157,11 +158,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** when the blue button 'ADD TO PROJECT' in a product card is clicked */
 	onItemAddToProject(id: string) {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] }));
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: [id] });
 	}
 
 	openCreateDlg() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.NEW_PRODUCT));
+		this.dlgSrv.open(DialogName.NEW_PRODUCT);
 	}
 
 	/**
@@ -172,18 +173,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray });
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.EXPORT, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog() {
-		this.store.dispatch(fromDialog.Actions.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray }));
+		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray });
 	}
 
 	get selectionArray() {

@@ -1,0 +1,19 @@
+:host {
+	display: block;
+	width: 100%;
+
+}
+
+.canCreate {
+	.createBlock {
+		padding: var(--spacing-s);
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+}
+
+ng-select {
+	width: 100%;
+}
+

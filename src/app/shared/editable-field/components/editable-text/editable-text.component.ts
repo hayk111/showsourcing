@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter, ContentChild } from '@angular/core';
-import { InputDirective } from '~app/shared/inputs';
+import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-text-app',
@@ -12,8 +12,13 @@ export class EditableTextComponent implements OnInit {
 	/** Whether click on the value should open the editor */
 	@Input() editOnClick = true;
 	@Input() closeOnOutsideClick = true;
+	/** whether we display cancel / save buttons */
+	@Input() hasAction = true;
+	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<null>();
-	@ContentChild(InputDirective) input: InputDirective;
+	@Output() saved = new EventEmitter<null>();
+	@Output() canceled = new EventEmitter<null>();
+
 	isOpen = false;
 
 	constructor(private cd: ChangeDetectorRef) { }
@@ -25,9 +30,20 @@ export class EditableTextComponent implements OnInit {
 		if (isOutsideClick && !this.closeOnOutsideClick) {
 			return;
 		}
+
 		this.isOpen = false;
 		this.closed.emit();
+		// we can open it from outside so needs for cd
 		this.cd.markForCheck();
+	}
+
+	cancel() {
+		this.isOpen = false;
+		this.canceled.emit();
+	}
+	save() {
+		this.isOpen = false;
+		this.saved.emit();
 	}
 
 	open(isClick?: boolean) {
@@ -40,12 +56,7 @@ export class EditableTextComponent implements OnInit {
 		this.isOpen = true;
 		// need to check for changes since we can open the edit mode from outside
 		this.cd.markForCheck();
-		// if we passed a inputApp then we can safely focus it
-		// we have to do it in a timeout because the input isn't shown yet.
-		setTimeout(() => {
-			if (this.input)
-				this.input.focus();
-		}, 0);
+		this.opened.emit();
 	}
 
 }

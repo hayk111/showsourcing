@@ -1,12 +1,12 @@
-import 'rxjs/add/operator/map';
+
 
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { entityStateToArray } from '~entity/utils';
+
+import { Observable } from 'rxjs';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
-import { fromImage, AppImage, } from '~app/entity';
-import { UserService } from '~app/features/user';
+import { AppImage, } from '~models';
+import { UserService } from '~features/user';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'carousel-card-app',
@@ -25,8 +25,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// title of the card
 	@Input() title = '';
 
-	images$: Observable<Array<AppImage>>;
-	pending$: Observable<Array<boolean>>;
+	@Input() images: AppImage[] = [];
 	/** index of the currently selected image */
 	selectedIndex = 0;
 	/** hidden file input */
@@ -36,15 +35,11 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
-	constructor(private store: Store<any>, private userSrv: UserService) {
+	constructor(private userSrv: UserService) {
 		super();
 	}
 
-	ngOnInit() {
-		const imagesState$: Observable<any> = this.store.select(fromImage.selectState);
-		this.images$ = imagesState$.map(r => entityStateToArray(r));
-		this.pending$ = imagesState$.map(r => r.pending);
-	}
+	ngOnInit() { }
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
@@ -52,23 +47,23 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
-		const conversions = files.map(file => AppImage.newInstance(file, this.userSrv.userId));
-		Promise.all(conversions).then(appImages => this.store.dispatch(fromImage.Actions.add(appImages)));
+		// const conversions = files.map(file => AppImage.newInstance(file, this.userSrv.userId));
+		// Promise.all(conversions).then(appImages => this.store.dispatch(fromImage.Actions.add(appImages)));
 	}
 
 	/** rotates the image by 90 degrees */
 	rotate(img: AppImage) {
-		this.store.dispatch(fromImage.Actions.rotate(img));
+		// this.store.dispatch(fromImage.Actions.rotate(img));
 	}
 
 	/** deletes the image */
 	delete(img: AppImage) {
-		this.store.dispatch(fromImage.Actions.delete([img.id]));
+		// this.store.dispatch(fromImage.Actions.delete([img.id]));
 	}
 
 	/** start downloading the image */
 	download(img: AppImage) {
-		this.store.dispatch(fromImage.Actions.download(img.url));
+		// this.store.dispatch(fromImage.Actions.download(img.url));
 	}
 
 	/** opens the modal carousel */

@@ -8,7 +8,7 @@ import {
 	EventEmitter,
 	AfterContentInit,
 } from '@angular/core';
-import { TableDescriptor, ColumnDirective } from '~app/shared/table';
+import { TableDescriptor, ColumnDirective } from '~shared/table';
 
 @Component({
 	selector: 'custom-table-app',

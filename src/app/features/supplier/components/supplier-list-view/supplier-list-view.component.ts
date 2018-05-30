@@ -1,14 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { FilterActions, FilterGroupName } from '~app/shared/filters';
-import { Country, EntityState, fromTeamMember, Supplier, fromSupplier } from '~entity';
-import { fromCountry } from '~app/entity/store/country/country.bundle';
-import { tap, map, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { selectSupplierList } from '~app/features/supplier/store';
-import { SortEvent } from '~app/shared/table/components/sort-event.interface';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Supplier } from '~models';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -32,7 +25,7 @@ export class SupplierListViewComponent {
 	// used to sort by tags or by categories
 	arrayComparator = (a, b) => (b || []).length - (a || []).length;
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 
 }

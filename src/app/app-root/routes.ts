@@ -1,17 +1,18 @@
 import { Route } from '@angular/router';
-import { TemplateComponent } from '~app/shared/template';
-import { GuestTemplateComponent } from '~app/shared/template/components/guest-template/guest-template.component';
-import { AuthGuardService } from '~auth';
+import { TemplateComponent } from '~shared/template';
+import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
+import { AuthGuardService } from '~features/auth';
 
 import { HomeComponent } from './components/home/home.component';
-import { routes as authRoutes } from '~auth/routes';
-import { routes as projectRoutes } from '~app/features/project/routes';
-import { routes as dataManagementRoutes } from '~app/features/data-management/routes';
-import { routes as supplierRoutes } from '~app/features/supplier/routes';
-import { routes as taskRoutes } from '~app/features/tasks/router';
-import { routes as productRoutes } from '~app/features/products/routes';
-import { routes as userRoutes } from '~app/features/user/routes';
-import { DataManagementPageComponent } from '~app/features/data-management/containers';
+import { routes as authRoutes } from '~features/auth/routes';
+import { routes as projectRoutes } from '~features/project/routes';
+import { routes as dataManagementRoutes } from '~features/data-management/routes';
+import { routes as supplierRoutes } from '~features/supplier/routes';
+import { routes as taskRoutes } from '~features/tasks/router';
+import { routes as productRoutes } from '~features/products/routes';
+import { routes as userRoutes } from '~features/user/routes';
+import { routes as testRoutes } from '~features/test-page/routes';
+import { DataManagementPageComponent } from '~features/data-management/containers';
 
 export const routes: Array<Route> = [
 	{
@@ -36,6 +37,7 @@ export const routes: Array<Route> = [
 			{ path: 'supplier', children: supplierRoutes },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'user', children: userRoutes },
+			{ path: 'test', children: testRoutes }
 		],
 	},
 	{ path: '**', redirectTo: '' },

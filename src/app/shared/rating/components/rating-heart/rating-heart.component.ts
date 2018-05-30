@@ -18,7 +18,7 @@ export class RatingHeartComponent {
 	@Input() static = false;
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
-	favorite = false;
+	@Input() favorite = false;
 
 	onClick() {
 		if (this.static) return;
@@ -28,13 +28,4 @@ export class RatingHeartComponent {
 			this.favorited.emit();
 	}
 
-	// an entity is favorited when an entity is 5 stars
-	@Input()
-	set rating(v) {
-		if (v === 5) {
-			this.favorite = true;
-		} else {
-			this.favorite = false;
-		}
-	}
 }

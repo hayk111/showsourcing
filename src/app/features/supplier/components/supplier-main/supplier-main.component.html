@@ -18,5 +18,5 @@
 	</main>
 
 	<footer class="flex {{ supplier?.tags?.length === 0 ? 'biggerPadding' : '' }}">
-			<span class="tag" *ngFor="let tagId of supplier.tagIds">{{ tagId | entityName: 'tag' | async }}</span>
+			<span class="tag" *ngFor="let tag of supplier?.tags">{{ tag.name }}</span>
 	</footer>

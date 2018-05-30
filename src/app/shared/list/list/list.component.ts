@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, AfterContentChecked, ContentChildren, QueryList } from '@angular/core';
-import { ListItemComponent } from '~app/shared/list/list-item/list-item.component';
+import { ListItemComponent } from '~shared/list/list-item/list-item.component';
 
 @Component({
 	selector: 'list-app',

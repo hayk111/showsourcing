@@ -9,10 +9,9 @@ import {
 	ViewChild,
 	OnInit,
 } from '@angular/core';
-import { ColumnDescriptor, TableDescriptor } from '~app/shared/table';
-import { Product } from '~feature/products/store/product/product.model';
-import { FilterActions, FilterGroupName } from '~app/shared/filters';
-import { Store } from '@ngrx/store';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { Product } from '~models';
+
 
 @Component({
 	selector: 'product-list-view-app',
@@ -45,7 +44,6 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('user') userTemplate: TemplateRef<any>;
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
-	filterGroupName: FilterGroupName = FilterGroupName.PRODUCT_PAGE;
 
 	descriptor: TableDescriptor = [
 		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },
@@ -60,7 +58,7 @@ export class ProductListViewComponent implements OnInit {
 		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 	];
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
 		this.linkColumns();

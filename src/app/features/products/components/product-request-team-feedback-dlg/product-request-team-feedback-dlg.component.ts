@@ -1,11 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { fromTeamMember } from '~app/entity/store/team-member/team-member.bundle';
-import { Observable } from 'rxjs/Observable';
-import { User } from '~app/entity';
-import { DialogName, fromDialog } from '~app/shared/dialog';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
-import { productActions } from '~app/features/products/store/product/product.action';
+
+import { Observable } from 'rxjs';
+import { User } from '~models';
+import { DialogName, DialogService } from '~shared/dialog';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 
 
 const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);
@@ -26,10 +24,10 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		return this.props.selectedProducts;
 	}
 
-	constructor(private store: Store<any>) { }
+	constructor(private dlgSrv: DialogService) { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
+		// this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
 	}
 
 	select(id: string, user) {
@@ -41,10 +39,10 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	}
 
 	submit() {
-		this.store.dispatch(
-			productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
-		);
-		this.store.dispatch(fromDialog.Actions.close(this.dialogName));
+		// this.store.dispatch(
+		// 	productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
+		// );
+		this.dlgSrv.close(this.dialogName);
 	}
 
 }

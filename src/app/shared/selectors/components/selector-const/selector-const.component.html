@@ -1,0 +1,16 @@
+<selector-app
+	[(ngModel)]="value"
+	[choices]="choices"
+	[itemName]="itemName"
+	[canSearch]="true"
+	[canCreate]="false"
+	[multiple]="multiple"
+	[bindLabel]="'name'"
+	[bindValue]="'id'"
+	(change)="onChange()"
+	(select)="onSelect($event)"
+	(unselect)="onUnselect($event)">
+	<ng-template let-item="item">
+		{{ item.name }}
+	</ng-template>
+</selector-app>

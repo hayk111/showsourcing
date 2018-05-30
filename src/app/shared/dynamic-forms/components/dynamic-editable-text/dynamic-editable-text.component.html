@@ -1,0 +1,137 @@
+<ng-container [ngSwitch]="customField.type">
+	<!-- default -->
+	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- tel (restricted input)-->
+	<editable-text-app #editable *ngSwitchCase="'tel'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="tel"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- number -->
+	<editable-text-app #editable *ngSwitchCase="'number'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="number"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- decimal -->
+	<editable-text-app #editable *ngSwitchCase="'decimal'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="customField.type"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- textarea -->
+	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }}</label-app>
+		<form-field-app>
+			<div class="flex">
+				<textarea inputApp
+					#inp
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close(); onSave()">
+				</textarea>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- selector -->
+	<ng-container *ngSwitchCase="'selector'">
+		<!-- entity selector -->
+		<ng-container *ngIf="customField.metadata.type === 'entity'">
+			<editable-text-app #editable
+				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				<!-- multiple value label -->
+				<label-app *ngIf="customField.multiple; else solo">
+					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
+					<ng-template #none>
+						-
+					</ng-template>
+				</label-app>
+				<!-- one value label -->
+				<ng-template #solo>
+					<label-app>
+						{{ value?.name || '-'}}
+					</label-app>
+				</ng-template>
+
+				<selector-entity-app
+					[multiple]="customField.multiple"
+					(change)="onChange()"
+					[(ngModel)]="value"
+					[type]="customField.metadata.target">
+				</selector-entity-app>
+			</editable-text-app>
+
+		</ng-container>
+
+		<!-- const selector -->
+		<ng-container *ngIf="customField.metadata.type === 'const'">
+				<!-- one -->
+				<editable-text-app #editable *ngIf="!customField.multiple"
+					(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+
+					<label-app>
+						{{ value || '-'}}
+					</label-app>
+
+					<selector-const-app
+						[multiple]="false"
+						(change)="onChange()"
+						[(ngModel)]="value"
+						[type]="customField.metadata.target">
+					</selector-const-app>
+				</editable-text-app>
+
+			</ng-container>
+	</ng-container>
+
+
+</ng-container>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EntityState, User, fromTeamMember } from '~entity';
+import { User } from '~models';
 
 @Component({
 	selector: 'likes-card-app',
@@ -10,7 +10,7 @@ import { EntityState, User, fromTeamMember } from '~entity';
 	styleUrls: ['./likes-card.component.scss'],
 })
 export class LikesCardComponent implements OnInit {
-	teamMembers$: Observable<EntityState<User>>;
+	// teamMembers$: Observable<EntityState<User>>;
 	votes$: Observable<any>;
 	pending$: Observable<boolean>;
 	colorScheme = {
@@ -19,10 +19,10 @@ export class LikesCardComponent implements OnInit {
 		negative: '#f94259',
 	};
 
-	constructor(private store: Store<any>) { }
+	constructor() { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.store.select(fromTeamMember.selectState);
+		// this.teamMembers$ = this.store.select(fromTeamMember.selectState);
 		// votes must be loaded once again
 		// this.pending$ = this.store.select(selectVotesForCurrentTarget).pipe(map(state => state.pending));
 		// this.votes$ = this.store.select(selectVotesByType);

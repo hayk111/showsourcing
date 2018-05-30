@@ -1,22 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { switchMap, takeUntil, tap, filter } from 'rxjs/operators';
-import { UserService } from '~app/features/user';
-import { fromDialog, DialogName } from '~app/shared/dialog';
-import {
-	AppFile,
-	EntityTarget,
-	ERM,
-	Project,
-	fromProject,
-	fromTask,
-	Task,
-} from '~entity';
+
+import { Observable } from 'rxjs';
+import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
+import { AppFile } from '~models';
+import { UserService } from '~features/user';
+import { DialogName, DialogService } from '~shared/dialog';
+import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { Product, productActions, selectOneProduct } from '~product/store';
-import { FilterGroupName } from '~app/shared/filters';
+import { ProductService } from '~features/products/services';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -25,49 +18,55 @@ import { FilterGroupName } from '~app/shared/filters';
 	styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
-	filterGroupName: FilterGroupName.PRODUCT_PAGE;
 	product$: Observable<Product>;
-	target: EntityTarget;
 	files: Array<AppFile>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
-	tasks$: Observable<Array<Task>>;
+	// tasks$: Observable<Array<Task>>;
 	productId: string;
 
-	constructor(private route: ActivatedRoute, private store: Store<any>, private userSrv: UserService) {
+	constructor(
+		private route: ActivatedRoute,
+		private userSrv: UserService,
+		private productSrv: ProductService,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.route.params.pipe(takeUntil(this._destroy$)).subscribe(params => {
-			const id = params.id;
-			this.store.dispatch(productActions.focus(id));
-		});
-		this.product$ = this.route.params.pipe(
+		// getting the id of the supplier
+		const id$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.store.select(selectOneProduct(params.id))),
-			filter(product => !!product),
-			tap(product => this.productId = product.id)
+			map(params => params.id),
+			tap(id => this.productId = id)
 		);
-		this.tasks$ = this.store.select(fromTask.selectArray);
+
+		// getting supplier
+		this.product$ = id$.pipe(
+			switchMap(id => this.productSrv.selectById(id))
+		);
+
+		// this.tasks$ = id$.pipe(
+		// 	switchMap(id => this.productSrv.getTasks(id))
+		// );
 	}
 
 	openAddProjectDlg() {
-		this.store.dispatch(fromDialog.Actions.open(this.projectDlgName, { selectedProducts: [this.productId] }));
+		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.productId] });
 	}
 
 	removeProject(project) {
-		this.store.dispatch(productActions.removeProject(project, this.productId));
+		// this.productSrv.removeProject(project.id).subscribe();
 	}
 
 	updateStatus(statusId: string) {
-		this.store.dispatch(productActions.patch({ propName: 'status', value: statusId, id: this.productId }));
+		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.store.dispatch(productActions.patch({ propName: 'rating', value: 5, id: this.productId }));
+		this.productSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.store.dispatch(productActions.patch({ propName: 'rating', value: 1, id: this.productId }));
+		this.productSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
 	}
 }

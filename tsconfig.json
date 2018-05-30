@@ -8,48 +8,26 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
-    "baseUrl": "./src/",
+		"baseUrl": "./src/",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2017",
-      "dom"
+			"dom",
+			"esnext.asynciterable"
     ],
 		"paths": {
-			"~app/*": ["app/*"],
-			"~auth/*": ["app/features/auth/*"],
-			"~auth": ["app/features/auth/index"],
-			"~comment/*": ["app/features/comment/*"],
-			"~comment": ["app/features/comment/index"],
-			"~dialog/*": ["app/shared/dialog/*"],
-			"~dialog": ["app/shared/dialog/index"],
-			"~entity/*": ["app/entity/*"],
-      "~entity": ["app/entity/index"],
-      "~event": ["app/entity/store/event/index"],
-			"~event/*": ["app/entity/store/event/*"],
-			"~feature/*": ["app/features/*"],
-			"~feature/": ["app/features/index"],
-			"~file/*": ["app/entity/store/file/*"],
-			"~file/": ["app/entity/store/file/index"],
-			"~product": ["app/features/products"],
-			"~product/*": ["app/features/products/*"],
-			"~project": ["app/entity/store/project/index"],
-			"~project/*": ["app/entity/store/project/*"],
-			"~root/*": ["app/app-root/*"],
-			"~root/": ["app/app-root/index"],
+			"~app-root/*": ["app/app-root/*"],
+			"~app-root/": ["app/app-root/index"],
+			"~features/*": ["app/features/*"],
+			"~features/": ["app/features/index"],
+			"~models/*": ["app/models/*"],
+			"~models": ["app/models/index"],
 			"~shared/*": ["app/shared/*"],
 			"~shared": ["app/shared/index"],
-			"~store/*": ["app/app-root/store/*"],
-			"~store": ["app/app-root/store/index"],
-			"~supplier/*": ["app/entity/store/supplier/*"],
-			"~supplier": ["app/entity/store/supplier/index"],
-			"~task/*": ["app/entity/store/task/*"],
-			"~task": ["app/entity/store/task/index"],
-			"~user/*": ["app/entity/store/user/*"],
-			"~user": ["app/entity/store/user/index"],
-			"~utils/*": ["app/app-root/utils/*"],
-			"~utils": ["app/app-root/utils/index"]
+			"~utils/*": ["app/utils/*"],
+			"~utils": ["app/utils/index"]
     }
   }
 }

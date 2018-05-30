@@ -1,13 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { fromDialog } from '~dialog/store';
-import { DialogName } from '~dialog/models';
-import { ERM } from '~entity';
 
-import { Task, TaskParams, fromTask } from '~task';
-import { UserService } from '~app/features/user';
-import { addDialog } from '~app/shared/dialog/models/dialog-component-map.const';
+import { DialogName } from '~shared/dialog/models';
+
+import { UserService } from '~features/user';
+import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogService } from '~shared/dialog';
 
 
 const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
@@ -20,15 +18,12 @@ const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
 export class NewTaskDlgComponent implements OnInit {
 	name = DialogName.NEW_TASK;
 	group: FormGroup;
-	g: Task;
-	statusRep = ERM.taskStatus;
-	typeRep = ERM.taskType;
-	productRep = ERM.product;
+
 
 	constructor(
 		private fb: FormBuilder,
-		private store: Store<any>,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private dlgSrv: DialogService
 	) { }
 
 	ngOnInit() {
@@ -43,10 +38,10 @@ export class NewTaskDlgComponent implements OnInit {
 
 	onSubmit() {
 		if (this.group.valid) {
-			const value: TaskParams = this.group.value;
+			const value = this.group.value;
 			value.userId = this.userSrv.userId;
-			this.store.dispatch(fromDialog.Actions.close(DialogName.NEW_TASK));
-			this.store.dispatch(fromTask.Actions.create(new Task(value)));
+			this.dlgSrv.close(DialogName.NEW_TASK);
+			// this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}
 }

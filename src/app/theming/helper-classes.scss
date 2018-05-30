@@ -140,3 +140,8 @@
 	width: 0;
 	height: 0;
 }
+
+.scrollable {
+	overflow-x: hidden;
+	overflow-y: auto;
+}

@@ -3,7 +3,7 @@
 
 	<dialog-subtitle-app>Team members</dialog-subtitle-app>
 
-	<main>
+	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
 			<list-item-app *ngFor="let user of teamMembers" [selected]="selectedMembers[user.id]" (click)="checkbox.toggle()">
 				<div class="flex">

@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, Self, Optional, OnChanges } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 const supportedTypes = new Set([
 	'color',
@@ -115,12 +115,16 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 
 	/** Focuses the input and sets the carret at the end */
 	focus(): void {
-		const input = this._elementRef.nativeElement;
-		const length = input.value.length;
-		input.focus();
-		// at this time only text input supports this
-		if ((input instanceof HTMLInputElement && input.type === 'text') || this._isTextarea())
-			input.setSelectionRange(length, length);
+		// set timeout is used in case the input is not rendered when we call focus()
+		// when using *ngIf and such.
+		setTimeout(_ => {
+			const input = this._elementRef.nativeElement;
+			const length = input.value.length;
+			input.focus();
+			// at this time only text input supports this
+			if ((input instanceof HTMLInputElement && input.type === 'text') || this._isTextarea())
+				input.setSelectionRange(length, length);
+		});
 	}
 
 	ngOnChanges() {

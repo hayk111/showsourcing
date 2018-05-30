@@ -1,4 +1,4 @@
-import { EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, forwardRef, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoUnsub } from '~utils';
 
@@ -13,15 +13,18 @@ export function makeAccessorProvider(type: any) {
 
 // The goal of this class is to abstract the value accessor implementation
 export class AbstractInput implements ControlValueAccessor {
-	protected disabled: boolean;
-	protected onTouchedFn: Function;
-	protected onChangeFn: Function;
 	@Input() value: any = '';
+	protected disabled: boolean;
+	protected onTouchedFn: Function = () => { };
+	protected onChangeFn: Function = () => { };
+
+	constructor(protected cd: ChangeDetectorRef) { }
 
 	// Implemented as part of ControlValueAccessor.
 	// to give accessor its formControl value associated to it
 	writeValue(value: any): void {
 		this.value = value;
+		this.cd.markForCheck();
 	}
 
 	// Implemented as part of ControlValueAccessor.
