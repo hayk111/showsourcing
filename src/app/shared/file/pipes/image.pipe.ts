@@ -23,7 +23,7 @@ export class ImagePipe implements PipeTransform {
 	 */
 	transform(value: any | string, args?: ('s' | 'm' | 'l' | 'xl')[]): any {
 		if (typeof value === 'object') {
-			if (!Array.isArray(value.images) && value.images[0].fileName) {
+			if (!Array.isArray(value.images)) {
 				throw new Error(`value.images is not an array...`);
 			}
 			if (!value.images[0].fileName) {

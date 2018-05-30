@@ -17,14 +17,6 @@ export class ImagePreviewerComponent {
 
 	constructor() { }
 
-	// getting the url for the image at index
-	getUrl(index) {
-		if (this.images[index].fileName)
-			return this.images[index].fileName;
-		else
-			return this.images[index].fileName;
-	}
-
 	getRotation(i) {
 		// const img = this.getImg(i);
 		// if (img.pending)

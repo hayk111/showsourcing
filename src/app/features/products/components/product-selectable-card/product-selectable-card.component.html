@@ -18,7 +18,7 @@
 		<selectable-image-app [imgCount]="product?.images?.length" (trash)="productDelete.emit(product.id)"
 			[selected]="selected" [showOverlay]="showOverlay" (unselect)="productUnselect.emit(product.id)"
 			(select)="productSelect.emit(product.id)" (open)="productOpen.emit(product.id)"
-			(vote)="onVote($event)" class="img" [url]="product?.images[0].fileName"></selectable-image-app>
+			(vote)="onVote($event)" class="img" [url]="product | image:'m'"></selectable-image-app>
   </div>
 
   <div class="flexCenter">
