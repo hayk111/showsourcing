@@ -22,9 +22,9 @@ export class AuthenticationService {
 		private tokenSrv: TokenService,
 		private router: Router,
 	) {
-		this._refreshToken$.pipe(
-			switchMap(refreshToken => this.authHttp.fetchAccessToken(refreshToken)),
-		).subscribe(token => this.onAccessTokenReceived(token));
+		// this._refreshToken$.pipe(
+		// 	switchMap(refreshToken => this.authHttp.fetchAccessToken(refreshToken)),
+		// ).subscribe(token => this.onAccessTokenReceived(token));
 	}
 
 	// checking if user is already authenticated, if not then we do a logout
@@ -36,7 +36,7 @@ export class AuthenticationService {
 			return;
 		}
 		if (refreshToken) {
-			this._refreshToken$.next(refreshToken);
+			// this._refreshToken$.next(refreshToken);
 		}
 	}
 
@@ -52,19 +52,14 @@ export class AuthenticationService {
 
 
 	logout() {
-		this.tokenSrv.clearTokens();
+		// this.tokenSrv.clearTokens();
 		this.router.navigate(['/guest', 'login']);
 	}
 
 	// checking if user is already authenticated, if not then we do a logout
 	// so we can remove unecessary things
 	checkAlreadyAuthenticated() {
-		this.srv.getUser().pipe(
-			take(1),
-		).subscribe(user => {
-			this.userSrv.setUser(user);
-			this._authenticated$.next(true);
-		}, e => this._authenticated$.next(false));
+
 	}
 
 	resetPw(email: string) {
