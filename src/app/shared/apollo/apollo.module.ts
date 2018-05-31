@@ -8,6 +8,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { cleanTypenameLink } from './clean.typename.link';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 const GRAPHQL_ENDPOINT_WS = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
@@ -27,6 +28,8 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	declarations: []
 })
 export class AppApolloModule {
+	private _clientReady$ = new BehaviorSubject<boolean>(null);
+	clientReady$: Observable<boolean> = this._clientReady$.asObservable();
 
 	constructor(private apollo: Apollo, private httpLink: HttpLink, private authSrv: AuthenticationService) {
 		// when authenticated we start the process
@@ -34,8 +37,10 @@ export class AppApolloModule {
 	}
 
 	private async init() {
-		this.createClient('AllUsers', false, 'user');
-		const user = this.apollo.use('user').query();
+		this.createClient('all-users', false, 'allUser');
+		const user = this.apollo.use('user').query({ query: }).toPromise();
+		this.createClient(`user/${user.id}`, true);
+		this._clientReady$.next(true);
 
 	}
 
