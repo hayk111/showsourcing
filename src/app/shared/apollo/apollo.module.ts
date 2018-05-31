@@ -11,6 +11,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ClientQueries } from '~shared/apollo/apollo-client-queries';
 import { map } from 'rxjs/operators';
+import { TokenService } from '~features/auth/services/token.service';
 
 
 const ALL_USER_ENDPOINT = 'all-users';
@@ -34,12 +35,13 @@ export class AppApolloModule {
 	private static _clientReady$ = new BehaviorSubject<boolean>(null);
 	static clientReady$: Observable<boolean> = AppApolloModule._clientReady$.asObservable();
 
-	constructor(private apollo: Apollo, private httpLink: HttpLink, private authSrv: AuthenticationService) {
+	constructor(private apollo: Apollo, private httpLink: HttpLink, private tokenSrv: TokenService) {
 		// when authenticated we start the process
-		this.authSrv.authenticated$.subscribe(authenticated => authenticated ? this.init() : this.clearCache());
+		this.tokenSrv.accessToken$
+			.subscribe(tokenData => tokenData ? this.init(tokenData.user_token.token_data.identity) : this.clearCache());
 	}
 
-	private async init() {
+	private async init(id: string) {
 		this.createUserClient();
 		const user = await this.apollo.use(USER_CLIENT_NAME).query({
 			query: ClientQueries.selectUser,

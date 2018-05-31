@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces';
 import { Log } from '~utils';
 import { User } from '~models';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, map } from 'rxjs/operators';
+import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class AuthHttpService {
 		Log.debug('Auth Service Created');
 	}
 
-	login(credentials: Credentials): Observable<any> {
+	login(credentials: Credentials): Observable<RefreshTokenResponse> {
 		const loginObj = {
 			app_id: '',
 			provider: 'password',
@@ -26,8 +27,8 @@ export class AuthHttpService {
 				password: credentials.password
 			}
 		};
-		return this.http.post('graphql/auth', loginObj).pipe(
-			tap(d => { debugger; })
+		return this.http.post<RefreshTokenResponse>('api/auth', loginObj).pipe(
+			tap(d => { debugger; }),
 		);
 	}
 
@@ -39,12 +40,4 @@ export class AuthHttpService {
 		return this.http.post(`/api/password/${email}/reset`, {});
 	}
 
-	fetchAccessToken(refreshToken: string) {
-		const accessObj = {
-			app_id: '',
-			provider: 'realm',
-			data: refreshToken,
-		};
-		return this.http.post('graphql/auth', accessObj);
-	}
 }

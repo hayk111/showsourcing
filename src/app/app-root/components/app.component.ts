@@ -11,9 +11,10 @@ import { ApolloClient } from '~shared/apollo';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-	constructor(private authSrv: AuthenticationService, private apollo: ApolloClient) { }
+	constructor(private authSrv: AuthenticationService) { }
 
 	ngOnInit(): void {
 		Log.info('App init');
+		this.authSrv.init();
 	}
 }
