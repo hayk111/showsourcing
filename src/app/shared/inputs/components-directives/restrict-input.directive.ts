@@ -1,5 +1,5 @@
 import { Directive, Input, HostListener } from '@angular/core';
-import { RegexpApp } from '~app-root/utils';
+import { RegexpApp } from '~utils';
 
 @Directive({
 	selector: '[restrictInput]',

@@ -2,7 +2,6 @@
 
 	<h2 *ngIf="title"> {{ title }}</h2>
 
-	<ng-container *ngIf="images$ | async as images">
 		<!-- images -->
 		<ng-container *ngIf="images.length > 0; else noImg">
 			<!-- carousel -->
@@ -13,8 +12,7 @@
 				(imgClick)="openModal($event)"
 				(rotateRequest)="rotate($event)"
 				(downloadRequest)="download($event)"
-				(deleteRequest)="delete($event)"
-				[pending]="pending$ | async">
+				(deleteRequest)="delete($event)">
 			</carousel-app>
 
 			<!-- previews under the carousel -->
@@ -40,7 +38,6 @@
 			[images]="images"
 			(close)="closeModal()"></modal-carousel-app>
 
-	</ng-container>
 	<card-footer-app *ngIf="hasFooter">
 		<input #inpFile type="file" accept="image/*" (fileSelect)="add($event)" class="hidden"/>
 		<button (click)="openFileBrowser()">Add picture</button>

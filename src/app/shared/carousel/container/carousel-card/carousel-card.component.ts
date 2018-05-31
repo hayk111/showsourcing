@@ -25,7 +25,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// title of the card
 	@Input() title = '';
 
-	@Input() images: AppImage[];
+	@Input() images: AppImage[] = [];
 	/** index of the currently selected image */
 	selectedIndex = 0;
 	/** hidden file input */

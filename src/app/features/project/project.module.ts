@@ -8,11 +8,11 @@ import { ProjectsListViewComponent } from './components';
 import { ProjectsPageComponent } from './containers';
 import { routes } from './routes';
 import { TableModule } from '~shared/table';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { UserModule } from '~features/user';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { SharedModule } from '~shared/shared.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
@@ -20,7 +20,7 @@ import { SharedModule } from '~shared/shared.module';
 		// EffectsModule.forFeature(effects),
 		RouterModule.forChild([]),
 		SideMenuModule, // side nav
-		EntityPagesModule, // bread crumb at the top left
+		TopPanelModule, // bread crumb at the top left
 		SelectionBarModule, // used for when selecting an item
 		TableModule, // used in list
 	],

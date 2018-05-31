@@ -3,7 +3,7 @@
 		"~app-root/*": ["${workspaceRoot}/src/app/app-root/*"],
 		"~features/*": ["${workspaceRoot}/src/app/features/*"],
 		"~models/*": ["${workspaceRoot}/src/app/models/*"],
-		"~utils/*": ["${workspaceRoot}/src/app/app-root/utils/*"],
+		"~utils/*": ["${workspaceRoot}/src/app/utils/*"],
 		"~shared/*": ["${workspaceRoot}/src/app/shared/*"],
 	}
 }

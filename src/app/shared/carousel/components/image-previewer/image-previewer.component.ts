@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '~features/user';
-import { Log } from '~app-root/utils';
+import { Log } from '~utils';
 import { AppImage } from '~models';
 
 @Component({
@@ -16,14 +16,6 @@ export class ImagePreviewerComponent {
 	@Output() plusClick = new EventEmitter<any>();
 
 	constructor() { }
-
-	// getting the url for the image at index
-	getUrl(index) {
-		if (this.images[index].fileName)
-			return this.images[index].fileName;
-		else
-			return this.images[index].fileName;
-	}
 
 	getRotation(i) {
 		// const img = this.getImg(i);

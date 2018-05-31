@@ -8,7 +8,7 @@ import { SupplierQueries } from '~features/supplier/services/supplier.queries';
 import { Supplier } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
-import { uuid } from '~app-root/utils/uuid.utils';
+import { uuid } from '~utils/uuid.utils';
 
 
 @Injectable()
@@ -108,7 +108,7 @@ export class SupplierService {
 	getLatestProducts(supplierId: string): Observable<Product[]> {
 		return this.apollo.subscribe({
 			query: SupplierQueries.latestProducts,
-			variables: { query: `id == '${supplierId}'` }
+			variables: { query: `supplier.id == '${supplierId}'` }
 		}).pipe(
 			map((r: any) => r.data.products)
 		);

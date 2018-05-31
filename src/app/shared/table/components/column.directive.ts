@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { defaultComparator } from '../utils/comparator.function';
-import { Resolver } from '~app-root/utils/resolver.class';
+import { Resolver } from '~utils/resolver.class';
 
 @Directive({
 	selector: '[columnApp]',

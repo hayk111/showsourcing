@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ApolloClient } from '~shared/apollo';
 import { map, take } from 'rxjs/operators';
 import { SUPPLIER_CONTACT_QUERY, CREATE_CONTACT, UPDATE_CONTACT } from './contact.queries';
-import { uuid } from '~app-root/utils/uuid.utils';
+import { uuid } from '~utils/uuid.utils';
 
 @Injectable()
 export class ContactService {

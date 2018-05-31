@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { UserService } from '~features/user';
 import { DialogName } from '~shared/dialog';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';

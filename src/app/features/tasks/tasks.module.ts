@@ -12,16 +12,16 @@ import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { routes } from './router';
 import { TableModule } from '~shared/table';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
 import { NewTaskDlgComponent } from '~features/tasks/containers';
 import { SharedModule } from '~shared/shared.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([]),
 		ReactiveFormsModule, // TODO check if used
-		EntityPagesModule, // used for bread crumb etc
+		TopPanelModule, // used for bread crumb etc
 		SelectionBarModule, // used for selection at the bottom
 		DialogModule, // TODO check if used
 		TableModule, // used by list

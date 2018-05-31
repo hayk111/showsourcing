@@ -6,7 +6,7 @@ import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DialogName, DialogService } from '~shared/dialog';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~app-root/utils';
+import { AutoUnsub } from '~utils';
 import { SelectionService } from '../../services/selection.service';
 import { SupplierService } from '~features/supplier/services/supplier.service';
 

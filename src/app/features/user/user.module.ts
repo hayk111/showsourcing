@@ -6,13 +6,13 @@ import { UserService } from './services';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EntityPagesModule } from '~shared/entity-pages/entity-pages.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		ReactiveFormsModule,
-		EntityPagesModule
+		TopPanelModule
 	],
 	providers: [UserService],
 	declarations: [UserSettingsComponent],

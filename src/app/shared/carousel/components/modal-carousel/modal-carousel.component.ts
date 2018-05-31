@@ -33,9 +33,8 @@ export class ModalCarouselComponent implements OnInit {
 		event.stopPropagation();
 	}
 
-	getUrl(index) {
-		Log.debug('[CarouselComponent] getUrl');
-		return this.images[index].fileName;
+	getFileName() {
+		return this.images[this.selectedIndex].fileName;
 	}
 
 }

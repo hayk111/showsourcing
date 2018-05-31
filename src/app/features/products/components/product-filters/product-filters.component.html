@@ -20,7 +20,7 @@
 			</div>
 
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
 				Filter {{ type }}
 			</filter-btn-app>
 
@@ -29,7 +29,7 @@
 					*ngFor="let filter of getFilterValues(type).values()"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
-					<!-- {{ filter.displayName }} -->
+					{{ getDisplayName(filter, type) }}
 				</checkbox-app>
 			</div>
 		</ng-container>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 
-			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="getFilterValues(type).size === 0">
+			<filter-btn-app (click)="toggleEntityPanel(type)" *ngIf="!getFilterValues(type) || getFilterValues(type).size === 0">
 				Filter users
 			</filter-btn-app>
 
@@ -55,9 +55,8 @@
 				<filter-tag-app
 						(filterRemoved)="removeFilter(filter)"
 						*ngFor="let filter of getFilterValues(type).values()">
-<!-- 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-						{{ user.name }} -->
-4
+<!-- 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app -->
+						{{ filter.raw.lastName }} {{ filter.raw.firstName }}
 				</filter-tag-app>
 			</div>
 		</ng-container>
@@ -88,7 +87,7 @@
 					<!-- we display the correct badge color -->
 					<div class="flex">
 						<badge-app [color]="filter.value"></badge-app>
-						<!-- <span>{{ filter.displayName }}</span> -->
+						<span>{{ getDisplayName(filter, type) }}</span>
 					</div>
 
 				</checkbox-app>
@@ -133,7 +132,8 @@
 
 
 	<!-- filter selection panel displays a close / done button at the top -->
-	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()">
+	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()" 
+	                            (clear)="onClear()">
 		<filter-entity-panel-app
 			[title]="typeSelected"
 			[type]="typeSelected"

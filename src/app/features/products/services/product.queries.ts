@@ -1,6 +1,23 @@
 import gql from 'graphql-tag';
 
 export class ProductQueries {
+	static list = gql`
+		query products($query: String!) {
+			products(take: 30, query: $query) {
+				id,
+				name,
+				description,
+				creationDate,
+				createdBy {
+					lastName,
+					firstName
+				},
+				images {
+					fileName
+				}
+			}
+		}`;
+
 	static oneProduct = gql`
 		subscription products($query: String!) {
 			products(query: $query) {
