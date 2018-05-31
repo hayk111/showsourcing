@@ -19,7 +19,7 @@ export class ProductService {
 	 */
 	private initializeProductQuery({ perPage }) {
 		if (!this.productsQuery$) {
-			this.productsQuery$ = this.apollo.watchQuery<any>({
+			this.productsQuery$ = this.apollo.query<any>({
 				query: ProductQueries.list,
 				variables: {
 					query: '',
