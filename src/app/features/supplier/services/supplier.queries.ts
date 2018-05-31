@@ -80,13 +80,12 @@ export class SupplierQueries {
 		}`;
 
 	static latestProducts = gql`
-			subscription supplierProducts($query: String!) {
-				products(query: $query, take: 7, sortBy: "creationDate", descending: true) {
-					id,
-					name,
-					images {
-						fileName
-					}
+		subscription supplierProducts($query: String!) {
+			products(query: $query, take: 7, sortBy: "creationDate", descending: true) {
+				id,
+				name,
+				images {
+					fileName
 				}
 			}
 		}`;
