@@ -10,8 +10,8 @@ export class TokenService {
 	constructor(private localStorageSrv: LocalStorageService) { }
 
 	getTokens(): { accessToken: string, refreshToken: string } {
-		const accessToken = this.localStorageSrv.getItem(this.ACCESS_TOKEN_NAME);
-		const refreshToken = this.localStorageSrv.getItem(this.REFRESH_TOKEN_NAME);
+		// const accessToken = this.localStorageSrv.getItem(this.ACCESS_TOKEN_NAME);
+		// const refreshToken = this.localStorageSrv.getItem(this.REFRESH_TOKEN_NAME);
 		throw Error('not implement');
 	}
 

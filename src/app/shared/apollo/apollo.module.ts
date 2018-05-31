@@ -9,10 +9,12 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { cleanTypenameLink } from './clean.typename.link';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ClientQueries } from '~shared/apollo/apollo-client-queries';
+import { map } from 'rxjs/operators';
 
 
-const GRAPHQL_ENDPOINT_WS = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
-const GRAPHQL_ENDPOINT_HTTP = 'graphql';
+const ALL_USER_ENDPOINT = 'all-users';
+const USER_CLIENT_NAME = 'all-users';
 
 @NgModule({
 	imports: [
@@ -28,8 +30,9 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	declarations: []
 })
 export class AppApolloModule {
-	private _clientReady$ = new BehaviorSubject<boolean>(null);
-	clientReady$: Observable<boolean> = this._clientReady$.asObservable();
+
+	private static _clientReady$ = new BehaviorSubject<boolean>(null);
+	static clientReady$: Observable<boolean> = AppApolloModule._clientReady$.asObservable();
 
 	constructor(private apollo: Apollo, private httpLink: HttpLink, private authSrv: AuthenticationService) {
 		// when authenticated we start the process
@@ -37,29 +40,50 @@ export class AppApolloModule {
 	}
 
 	private async init() {
-		this.createClient('all-users', false, 'allUser');
-		const user = this.apollo.use('user').query({ query: }).toPromise();
-		this.createClient(`user/${user.id}`, true);
-		this._clientReady$.next(true);
-
+		this.createUserClient();
+		const user = await this.apollo.use(USER_CLIENT_NAME).query({
+			query: ClientQueries.selectUser,
+			variables: { id: '6c0b95d4-5e77-4caa-b826-b471e700d1d7' }
+		}).pipe(
+			map((r: any) => r.data.user)
+		).toPromise();
+		// since this is a realm uri, we need to transform it into http url
+		const { wsUri, httpUri } = this.getUris(user.userRealmUri);
+		this.createDefaultClient(httpUri, wsUri);
+		AppApolloModule._clientReady$.next(true);
 	}
 
-	private createClient(endpoint: string, websocket: boolean, name?: string) {
-		// Create an http link:
-		const http = this.httpLink.create({
-			uri: `api/graphql/${endpoint}`
-		});
+	/** transform realm uri into http and ws uri */
+	private getUris(realmUri: string): { httpUri: string, wsUri: string } {
+		const httpUri = new URL(realmUri);
+		httpUri.protocol = 'http';
+		httpUri.pathname = '/graphql/' + encodeURIComponent(httpUri.pathname);
+		// uri for websocket
+		const wsUri = new URL(httpUri.toString());
+		wsUri.protocol = 'ws';
+		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
+	}
 
-		let ws;
-		if (websocket) {
-			// Create a WebSocket link:
-			ws = new WebSocketLink({
-				uri: GRAPHQL_ENDPOINT_WS,
-				options: {
-					reconnect: true
-				}
-			});
-		}
+	private createUserClient() {
+		this.apollo.create({
+			link: this.httpLink.create({
+				uri: `api/graphql/${ALL_USER_ENDPOINT}`
+			}),
+			cache: new InMemoryCache({ addTypename: false })
+		}, USER_CLIENT_NAME);
+	}
+
+	private createDefaultClient(httpUri: string, wsUri: string) {
+		// Create an http link:
+		const http = this.httpLink.create({ uri: httpUri });
+
+		// Create a WebSocket link:
+		const ws = new WebSocketLink({
+			uri: wsUri,
+			options: {
+				reconnect: true
+			}
+		});
 
 		// using the ability to split links, you can send data to each link
 		// depending on what kind of operation is being sent
@@ -78,7 +102,7 @@ export class AppApolloModule {
 			transportLink
 		]);
 
-		this.apollo.init({
+		this.apollo.create({
 			link,
 			connectToDevTools: true,
 			cache: new InMemoryCache({ addTypename: false })

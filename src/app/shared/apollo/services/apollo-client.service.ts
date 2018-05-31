@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { MutationOptions } from './mutation-options.interface';
+import { AppApolloModule } from '~shared/apollo/apollo.module';
 
 /**
  * Wrapper around apollo that allows for automatic optimistic UI.
@@ -20,13 +21,12 @@ import { MutationOptions } from './mutation-options.interface';
 	providedIn: 'root'
 })
 export class ApolloClient {
+	// just a bridge to the module so we can access it with injection
+	clientReady$: Observable<boolean> = AppApolloModule.clientReady$;
 
 	constructor(private apollo: Apollo) { }
 
-	init<TCacheShape>(options: ApolloClientOptions<TCacheShape>, name?: string) {
-		return this.apollo.create(options, name);
-	}
-
+	/** patch functions start */
 	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
 		return this.apollo.watchQuery<T>(options);
 	}
