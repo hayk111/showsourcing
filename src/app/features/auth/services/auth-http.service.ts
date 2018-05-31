@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces';
 import { Log } from '~utils';
 import { User } from '~models';
+import { switchMap, tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -15,8 +16,19 @@ export class AuthHttpService {
 		Log.debug('Auth Service Created');
 	}
 
-	login(credentials: Credentials): Observable<HttpResponse<any>> {
-		return this.http.post('api/auth', credentials, { observe: 'response' });
+	login(credentials: Credentials): Observable<any> {
+		const loginObj = {
+			app_id: '',
+			provider: 'password',
+			data: credentials.identifier,
+			user_info: {
+				register: false,
+				password: credentials.password
+			}
+		};
+		return this.http.post('graphql/auth', loginObj).pipe(
+			tap(d => { debugger; })
+		);
 	}
 
 	register(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
@@ -27,10 +39,12 @@ export class AuthHttpService {
 		return this.http.post(`/api/password/${email}/reset`, {});
 	}
 
-	// if we previously authenticated the token is present in the local storage.
-	// then we request the api/user. The http request is gonna be automatically
-	// populated with the token thank to the token-interceptor.service
-	getUser(): Observable<any> {
-		return this.http.get('api/user');
+	fetchAccessToken(refreshToken: string) {
+		const accessObj = {
+			app_id: '',
+			provider: 'realm',
+			data: refreshToken,
+		};
+		return this.http.post('graphql/auth', accessObj);
 	}
 }

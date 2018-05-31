@@ -9,9 +9,10 @@ export class TokenService {
 
 	constructor(private localStorageSrv: LocalStorageService) { }
 
-	removeToken() {
-		this._token = undefined;
-		this.localStorageSrv.remove(TokenService.TOKEN_NAME);
+	getTokens(): { accessToken: string, refreshToken: string } {
+		const accessToken = this.localStorageSrv.getItem(this.ACCESS_TOKEN_NAME);
+		const refreshToken = this.localStorageSrv.getItem(this.REFRESH_TOKEN_NAME);
+		throw Error('not implement');
 	}
 
 	get token() {
@@ -24,6 +25,10 @@ export class TokenService {
 			this.localStorageSrv.setString(TokenService.TOKEN_NAME, token);
 			this._token = token;
 		}
+	}
+
+	getAccessToken(refreshToken: string) {
+		// this.http.get('graphql/auth', )
 	}
 
 

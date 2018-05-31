@@ -22,7 +22,6 @@ export class NewTaskDlgComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private userSrv: UserService,
 		private dlgSrv: DialogService
 	) { }
 
@@ -39,7 +38,6 @@ export class NewTaskDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const value = this.group.value;
-			value.userId = this.userSrv.userId;
 			this.dlgSrv.close(DialogName.NEW_TASK);
 			// this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}

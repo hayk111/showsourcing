@@ -17,20 +17,42 @@ export class AuthenticationService {
 	private _authenticated$ = new BehaviorSubject<boolean>(null);
 	authenticated$ = this._authenticated$.asObservable();
 
+	constructor(
+		private authHttp: AuthHttpService,
+		private tokenSrv: TokenService,
+		private router: Router,
+	) {
+		this._refreshToken$.pipe(
+			switchMap(refreshToken => this.authHttp.fetchAccessToken(refreshToken)),
+		).subscribe(token => this.onAccessTokenReceived(token));
+	}
+
+	// checking if user is already authenticated, if not then we do a logout
+	// so we can remove unecessary things
+	init() {
+		const { accessToken, refreshToken } = this.tokenSrv.getTokens();
+		if (accessToken) {
+			this._authenticated$.next(true);
+			return;
+		}
+		if (refreshToken) {
+			this._refreshToken$.next(refreshToken);
+		}
+	}
+
 	login(credentials: Credentials) {
-		return this.srv.login(credentials).pipe(
+		return this.authHttp.login(credentials).pipe(
 			// we save the token for when the user refresh the page
-			tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
+			// tap(r => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
 			// we first put the user action, then the preloading action as the user is needed to make those
-			tap(r => this.userSrv.setUser(r.body)),
-			tap(r => this._authenticated$.next(true)),
-			tap(r => this.router.navigate(['']))
+			// tap(r => this._authenticated$.next(true)),
+			// tap(r => this.router.navigate(['']))
 		);
 	}
 
+
 	logout() {
-		this.tokenSrv.removeToken();
-		this.userSrv.resetUser();
+		this.tokenSrv.clearTokens();
 		this.router.navigate(['/guest', 'login']);
 	}
 
@@ -46,22 +68,19 @@ export class AuthenticationService {
 	}
 
 	resetPw(email: string) {
-		return this.srv.resetPw(email);
+		return this.authHttp.resetPw(email);
 	}
 
 	register(creds: { email: string, password: string }) {
-		return this.srv.register(creds).pipe(
-			tap(_ => this.router.navigate([''])),
-			tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
-			tap(r => this.userSrv.setUser(r.body)),
-			tap(r => this._authenticated$.next(true))
-		);
+		// return this.srv.register(creds).pipe(
+		// 	tap(_ => this.router.navigate([''])),
+		// 	tap((r: HttpResponse<any>) => this.tokenSrv.saveToken(r.headers.get(TOKEN_HEADER))),
+		// 	tap(r => this._authenticated$.next(true))
+		// );
 	}
 
-	constructor(
-		private srv: AuthHttpService,
-		private tokenSrv: TokenService,
-		private router: Router,
-		private userSrv: UserService
-	) { }
+	private onAccessTokenReceived(token: any) {
+		debugger;
+	}
+
 }
