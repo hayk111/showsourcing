@@ -14,11 +14,11 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
+import { environment } from 'environments/environment.prod';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
 export const USER_CLIENT_NAME = 'user';
-const BASE_URI = 'http://vps540915.ovh.net:9080';
 
 
 @Injectable({
@@ -146,7 +146,7 @@ export class ApolloService {
 		const headers = new HttpHeaders({ Authorization: token });
 		this.apollo.create({
 			link: this.httpLink.create({
-				uri: `${BASE_URI}/graphql/${ALL_USER_ENDPOINT}`,
+				uri: `${environment.apiUrl}/graphql/${ALL_USER_ENDPOINT}`,
 				headers
 			}),
 			cache: new InMemoryCache({ addTypename: false })
