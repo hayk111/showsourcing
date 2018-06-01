@@ -1,9 +1,11 @@
 <h1>You don't have a team yet. YOU HAVE TO CREATE ONE !!!!!</h1>
 
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 	<form-field-app>
 		<label-app>Team name:</label-app>
 		<input type="text" inputApp formControlName="name"/>
 	</form-field-app>
+
+	<input type="submit" value="save" />
 </form>
