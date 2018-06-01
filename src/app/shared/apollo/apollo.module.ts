@@ -10,7 +10,7 @@ import { cleanTypenameLink } from './clean.typename.link';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ClientQueries } from '~shared/apollo/apollo-client-queries';
-import { map } from 'rxjs/operators';
+import { map, filter, switchMap, tap } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { ApolloIssuePageComponent } from './components/apollo-issue-page/apollo-issue-page.component';
@@ -19,7 +19,8 @@ import { Log } from '~utils';
 
 
 const ALL_USER_ENDPOINT = 'all-users';
-const USER_CLIENT_NAME = 'all-users';
+const ALL_USER_CLIENT_NAME = 'all-users';
+export const USER_CLIENT_NAME = 'user';
 
 @NgModule({
 	imports: [
@@ -36,35 +37,63 @@ const USER_CLIENT_NAME = 'all-users';
 	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {
+	private static _teamClientReady$ = new BehaviorSubject<boolean>(null);
+	static teamClientReady$: Observable<boolean> = AppApolloModule._teamClientReady$.asObservable();
 
-	private static _clientReady$ = new BehaviorSubject<boolean>(null);
-	static clientReady$: Observable<boolean> = AppApolloModule._clientReady$.asObservable();
+	private static _userClientReady$ = new BehaviorSubject<boolean>(null);
+	static userClientReady$: Observable<boolean> = AppApolloModule._userClientReady$.asObservable();
 
-	constructor(private apollo: Apollo, private httpLink: HttpLink, private tokenSrv: TokenService, private router: Router) {
-		// when authenticated we start the process
+	constructor(private apollo: Apollo,
+		private httpLink: HttpLink,
+		private tokenSrv: TokenService,
+		private router: Router
+	) {
+		// TODO: here every time the token changes the process is gonna be restarted
+		let tokenDataTemp;
 		this.tokenSrv.accessToken$
-			.subscribe(tokenData => tokenData ? this.init(tokenData) : this.clearCache());
+			.pipe(
+				tap(tokenData => tokenDataTemp = tokenData)
+			)
+			.subscribe(tokenData => tokenData ? this.initUserClient(tokenData) : this.clearCache());
+
+		AppApolloModule._userClientReady$.pipe(
+			filter(ready => ready),
+			switchMap(_ => this.getTeams()),
+			// create client for first team
+		).subscribe(teams => {
+			debugger;
+			if (teams[0]) {
+				const uris = this.getUris(teams[0].realmUri);
+				this.createTeamClient(uris.httpUri, uris.wsUri, tokenDataTemp);
+				console.log('team client created');
+				AppApolloModule._teamClientReady$.next(true);
+			} else {
+				AppApolloModule._teamClientReady$.next(false);
+			}
+		});
 	}
 
-	private async init(tokenData: AccessTokenResponse) {
-		let user;
+	// TODO: error handling
+
+	/** create the user client  */
+	private async initUserClient(tokenData: AccessTokenResponse) {
+		const token = tokenData.user_token.token;
+		const id = tokenData.user_token.token_data.identity;
 		try {
-			this.createUserClient(tokenData.user_token.token);
-			user = await this.apollo.use(USER_CLIENT_NAME).query({
-				query: ClientQueries.selectUser,
-				variables: { id: tokenData.user_token.token_data.identity }
-			}).pipe(
-				map((r: any) => r.data.user)
-			).toPromise();
+			// 1. creating all-users client and getting the user
+			this.createAllUserClient(token);
+			const user = await this.getUser(id);
+
+			// 2. creating user client and getting teams
+			const userUris = this.getUris(user.userRealmUri);
+			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
+			AppApolloModule._userClientReady$.next(true);
+			console.log('user client created');
 		} catch (e) {
 			Log.error(e);
-			this.router.navigate(['server-issue']);
+			// this.router.navigate(['server-issue']);
+			// AppApolloModule._userClientReady$.next(false);
 		}
-
-		// since this is a realm uri, we need to transform it into http url
-		const { wsUri, httpUri } = this.getUris(user.userRealmUri);
-		this.createDefaultClient(httpUri, wsUri);
-		AppApolloModule._clientReady$.next(true);
 	}
 
 	/** transform realm uri into http and ws uri */
@@ -78,7 +107,27 @@ export class AppApolloModule {
 		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
 	}
 
-	private createUserClient(token: string) {
+	/** gets user from all-users realm */
+	private async getUser(id: string) {
+		return this.apollo.use(ALL_USER_CLIENT_NAME).query({
+			query: ClientQueries.selectUser,
+			variables: { id }
+		}).pipe(
+			map((r: any) => r.data.user)
+		).toPromise();
+	}
+
+	private getTeams(): Observable<any> {
+		return this.apollo.use(USER_CLIENT_NAME).subscribe({
+			query: ClientQueries.selectTeams,
+		}).pipe(
+			map((r: any) => r.data.teams)
+		);
+	}
+
+	/** creates the client that can access the user which gives the userRealmUri */
+	private createAllUserClient(token: string) {
+		debugger;
 		const headers = new HttpHeaders({ Authorization: token });
 		this.apollo.create({
 			link: this.httpLink.create({
@@ -86,18 +135,32 @@ export class AppApolloModule {
 				headers
 			}),
 			cache: new InMemoryCache({ addTypename: false })
-		}, USER_CLIENT_NAME);
+		}, ALL_USER_CLIENT_NAME);
 	}
 
-	private createDefaultClient(httpUri: string, wsUri: string) {
+	private createUserClient(httpUri: string, wsUri: string, token: string) {
+		this.createDefaultClient(httpUri, wsUri, token, USER_CLIENT_NAME);
+	}
+
+	private createTeamClient(httpUri: string, wsUri: string, token: string) {
+		this.createDefaultClient(httpUri, wsUri, token);
+	}
+
+	private createDefaultClient(httpUri: string, wsUri: string, token: string, name?: string) {
 		// Create an http link:
-		const http = this.httpLink.create({ uri: httpUri });
+		const headers = new HttpHeaders({ Authorization: token });
+
+		const http = this.httpLink.create({
+			uri: httpUri,
+			headers
+		});
 
 		// Create a WebSocket link:
 		const ws = new WebSocketLink({
 			uri: wsUri,
 			options: {
-				reconnect: true
+				reconnect: true,
+				connectionParams: { token }
 			}
 		});
 
@@ -121,11 +184,15 @@ export class AppApolloModule {
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
+			// TODO: addTypename should be done with the clean typename link
 			cache: new InMemoryCache({ addTypename: false })
 		}, name);
 	}
 
+	// TODO: clear cache of the right client
 	private clearCache() {
-		this.apollo.getClient().resetStore();
+		const client = this.apollo.getClient();
+		if (client)
+			client.resetStore();
 	}
 }
