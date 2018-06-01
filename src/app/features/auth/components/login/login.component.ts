@@ -42,7 +42,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 				take(1)
 			).subscribe(
 				r => this.pending$.next(false),
-				e => { this.error = e.error.title; this.pending$.next(false); });
+				e => { this.error = e.error; this.pending$.next(false); });
 		}
 	}
 
