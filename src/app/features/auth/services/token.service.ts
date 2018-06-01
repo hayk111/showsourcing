@@ -5,13 +5,16 @@ import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
+import { AccessTokenState } from '~features/auth/interfaces';
 
 const ACCESS_TOKEN_NAME = 'accessToken';
 const REFRESH_TOKEN_NAME = 'refreshToken';
 
+
+
 @Injectable()
 export class TokenService {
-	private _accessToken$ = new Subject<AccessTokenResponse>();
+	private _accessToken$ = new Subject<AccessTokenState>();
 	accessToken$ = this._accessToken$.asObservable();
 	// timeout variable. The timeout will refresh the access token.
 	timer: number;
@@ -27,7 +30,7 @@ export class TokenService {
 
 	// TODO: return value ?
 	restoreAccessToken(): void {
-		const accessToken: AccessTokenResponse = this.localStorageSrv.getItem(ACCESS_TOKEN_NAME);
+		const accessToken: AccessTokenState = this.localStorageSrv.getItem(ACCESS_TOKEN_NAME);
 		if (accessToken && this.isValid(accessToken)) {
 			this._accessToken$.next(accessToken);
 			return;
@@ -37,6 +40,8 @@ export class TokenService {
 		if (refreshToken) {
 			this.fetchAccessToken(refreshToken)
 				.subscribe();
+		} else {
+			this._accessToken$.next({ pending: false, token: null, token_data: null });
 		}
 
 	}
@@ -65,7 +70,12 @@ export class TokenService {
 
 	/** when a new access token arrives */
 	private onNewAccessToken(accessToken: AccessTokenResponse) {
-		this._accessToken$.next(accessToken);
+		const accessTokenState = {
+			pending: false,
+			token: accessToken.user_token.token,
+			token_data: accessToken.user_token.token_data
+		};
+		this._accessToken$.next(accessTokenState);
 		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessToken);
 		this.startTimer(accessToken);
 	}
@@ -80,8 +90,8 @@ export class TokenService {
 		window.clearTimeout(this.timer);
 	}
 
-	private isValid(accessToken: AccessTokenResponse) {
-		return accessToken.user_token.token_data.expires > Date.now();
+	private isValid(accessToken: AccessTokenState) {
+		return accessToken.token_data.expires > Date.now();
 	}
 
 }

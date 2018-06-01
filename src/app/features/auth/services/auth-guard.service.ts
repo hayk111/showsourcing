@@ -25,8 +25,9 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		Log.debug('check auth');
 		return this.authSrv.authenticated$.pipe(
 			// we need to filter the authstate when it's null because it means pending
-			filter(auth => auth !== null),
-			tap(auth => this.redirectOnAuth(auth))
+			filter(authState => !authState.pending),
+			map(authState => authState.authenticated),
+			tap(authenticated => this.redirectOnAuth(authenticated))
 		);
 	}
 

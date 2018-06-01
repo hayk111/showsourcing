@@ -8,7 +8,7 @@
     "start:fr": "ng serve --aot --i18nFile=src/locale/messages.fr.xlf --i18nFormat=xlf --locale=fr --proxy-config proxy.config.json",
     "build": "ng build --aot --prod --build-optimizer",
     "analyze": "ng build --stats-json && webpack-bundle-analyzer dist/stats.json",
-    "sync": "npm run build && cd dist && aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete",
+    "sync": "npm run build && cd dist/showsourcing && aws s3 sync . s3://aws-website-showsourcing-web-dnz2m --delete",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

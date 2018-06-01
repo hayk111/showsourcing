@@ -21,9 +21,6 @@ import { AppApolloModule } from '~shared/apollo/apollo.module';
 	providedIn: 'root'
 })
 export class ApolloClient {
-	// just a bridge to the module so we can access it with injection
-	userClientReady$: Observable<boolean> = AppApolloModule.userClientReady$;
-	teamClientReady$: Observable<boolean> = AppApolloModule.teamClientReady$;
 
 	constructor(private apollo: Apollo) { }
 
