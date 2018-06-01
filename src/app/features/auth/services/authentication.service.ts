@@ -7,13 +7,13 @@ import { UserService } from '~features/user';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { AuthState } from '../interfaces';
 
 @Injectable()
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authenticated$ = new BehaviorSubject<boolean>(null);
+	private _authenticated$ = new BehaviorSubject<AuthState>({ pending: true });
 	authenticated$ = this._authenticated$.asObservable();
 
 	constructor(
@@ -24,7 +24,7 @@ export class AuthenticationService {
 
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
-			map(token => !!token)
+			map(token => ({ pending: false, authenticated: !!token }))
 		).subscribe(this._authenticated$);
 	}
 

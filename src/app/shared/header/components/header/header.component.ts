@@ -18,7 +18,9 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.authenticated$ = this.authSrv.authenticated$;
+		this.authenticated$ = this.authSrv.authenticated$.pipe(
+			map(authState => authState.authenticated)
+		);
 	}
 
 	logout() {
