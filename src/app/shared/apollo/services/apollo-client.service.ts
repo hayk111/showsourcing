@@ -14,6 +14,7 @@ import { take } from 'rxjs/operators';
 import { MutationOptions } from './mutation-options.interface';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 
+
 /**
  * Wrapper around apollo that allows for automatic optimistic UI.
  */

@@ -9,6 +9,7 @@ import { User } from '~models';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 
+const BASE_URI = 'http://vps540915.ovh.net:9080';
 
 @Injectable()
 export class AuthHttpService {
@@ -27,9 +28,7 @@ export class AuthHttpService {
 				password: credentials.password
 			}
 		};
-		return this.http.post<RefreshTokenResponse>('api/auth', loginObj).pipe(
-			tap(d => { debugger; }),
-		);
+		return this.http.post<RefreshTokenResponse>(`${BASE_URI}/auth`, loginObj);
 	}
 
 	register(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
