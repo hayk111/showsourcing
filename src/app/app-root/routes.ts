@@ -13,6 +13,7 @@ import { routes as productRoutes } from '~features/products/routes';
 import { routes as userRoutes } from '~features/user/routes';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { DataManagementPageComponent } from '~features/data-management/containers';
+import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 
 export const routes: Array<Route> = [
 	{
@@ -37,7 +38,8 @@ export const routes: Array<Route> = [
 			{ path: 'supplier', children: supplierRoutes },
 			{ path: 'data-management', component: DataManagementPageComponent },
 			{ path: 'user', children: userRoutes },
-			{ path: 'test', children: testRoutes }
+			{ path: 'test', children: testRoutes },
+			{ path: 'pick-a-team', component: PickATeamPageComponent }
 		],
 	},
 	{ path: '**', redirectTo: '' },
