@@ -5,6 +5,7 @@ import { TokenService } from '~features/auth/services';
 import { ApolloClient, ApolloService } from '~shared/apollo/services';
 import { filter, switchMap, map, tap, catchError } from 'rxjs/operators';
 import { PickATeamService } from '~features/pick-a-team/services/pick-a-team.service';
+import { Log } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,7 +25,8 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 			switchMap(_ => this.srv.getTeams()),
 			map(teams => teams.length),
 			map(length => length > 0),
-			tap(v => this.redirect(v))
+			tap(v => this.redirect(v)),
+			tap(v => Log.debug('has team guard: has team ?', v))
 		);
 	}
 

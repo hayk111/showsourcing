@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
@@ -14,10 +14,12 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 
 @Injectable()
 export class TokenService {
-	private _accessToken$ = new Subject<AccessTokenState>();
+	private _accessToken$ = new BehaviorSubject<AccessTokenState>({ pending: true, token: null, token_data: null });
 	accessToken$ = this._accessToken$.asObservable();
 	// timeout variable. The timeout will refresh the access token.
-	timer: number;
+	timer: any;
+	// TODO: could simplify some things with get & setter
+	refreshToken: RefreshTokenResponse;
 
 	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) { }
 
@@ -35,10 +37,10 @@ export class TokenService {
 			this._accessToken$.next(accessToken);
 			return;
 		}
-		const refreshToken: RefreshTokenResponse = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
+		this.refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
 
-		if (refreshToken) {
-			this.fetchAccessToken(refreshToken)
+		if (this.refreshToken) {
+			this.fetchAccessToken()
 				.subscribe();
 		} else {
 			this._accessToken$.next({ pending: false, token: null, token_data: null });
@@ -48,15 +50,15 @@ export class TokenService {
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
-		return this.fetchAccessToken(refreshToken);
+		return this.fetchAccessToken();
 	}
 
 	// TODO: error handling
-	private fetchAccessToken(refreshToken: RefreshTokenResponse): Observable<AccessTokenResponse> {
+	private fetchAccessToken(): Observable<AccessTokenResponse> {
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',
-			data: refreshToken.refresh_token.token,
+			data: this.refreshToken.refresh_token.token,
 		};
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
 			catchError(e => {
@@ -76,13 +78,18 @@ export class TokenService {
 			token_data: accessToken.user_token.token_data
 		};
 		this._accessToken$.next(accessTokenState);
-		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessToken);
-		this.startTimer(accessToken);
+		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessTokenState);
+		this.startTimer(accessTokenState);
 	}
 
 	/** will ask for a new accessToken soon before it is invalidated */
-	private startTimer(accessToken) {
-		this.timer = setTimeout(_ => { });
+	private startTimer(accessTokenState: AccessTokenState) {
+		// expirity is in second while setTimeout in ms
+		const errorDelta = 5 * 60 * 1000;
+		const delta = (1000 * accessTokenState.token_data.expires) - Date.now();
+		this.timer = setTimeout(_ => {
+			this.fetchAccessToken();
+		}, (delta - errorDelta));
 	}
 
 	/** will destroy the timeout that was set to ask for a new AccessToken */

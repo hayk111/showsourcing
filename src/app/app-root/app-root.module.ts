@@ -60,7 +60,9 @@ declare let module: any;
 		PickATeamModule,
 		TestPageModule,
 		// keep router as last module
-		RouterModule.forRoot(routes, { enableTracing: true }),
+		RouterModule.forRoot(routes,
+			// { enableTracing: true }
+		),
 	],
 	providers: [
 		AuthGuardService,

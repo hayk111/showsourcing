@@ -8,13 +8,12 @@ import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { AccessTokenState } from '~features/auth';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
-import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { AccessTokenState } from '~features/auth';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
@@ -33,6 +32,9 @@ export class ApolloService {
 	private _userClientReady$ = new BehaviorSubject<boolean>(null);
 	userClientReady$: Observable<boolean> = this._userClientReady$.asObservable();
 
+	private accessTokenState: AccessTokenState;
+	currentTeams$: Observable<any[]>;
+
 	constructor(
 		private apollo: Apollo,
 		private httpLink: HttpLink,
@@ -48,58 +50,67 @@ export class ApolloService {
 			throw Error('Apollo has already been initialized, check that there is only one instance running');
 		}
 
-		const authenticated$ = this.authSrv.authState$.pipe(
+		const auth$ = this.authSrv.authState$.pipe(
 			filter(authState => !authState.pending),
 			distinctUntilChanged(),
 			map(authState => authState.authenticated)
 		);
 
 		// when unauthenticated we clear the cache
-		authenticated$.pipe(
+		auth$.pipe(
 			filter(authenticated => authenticated === false)
 		).subscribe(_ => this.clearCache());
 
-		// when authenticated we initialise the apollo user client
-		authenticated$.pipe(
+		// 1. when authenticated we initialise the apollo user client
+		auth$.pipe(
 			filter(authenticated => authenticated === true),
-			switchMap(_ => this.tokenSrv.accessToken$),
-		).subscribe(tokenState => this.initUserClient(tokenState));
+			tap(d => { debugger; }),
+			switchMap(_ => this.tokenSrv.accessToken$.pipe(
+				tap(d => { debugger; })
+			)),
+			filter(tokenState => !tokenState.pending),
+			tap(tokenState => this.accessTokenState = tokenState),
+		).subscribe(tokenState => this.initUserClient());
 
-		this._userClientReady$.pipe(
+		// 2. when the userClient has been initialized we get the current teams
+		this.currentTeams$ = this._userClientReady$.pipe(
 			filter(ready => ready),
 			switchMap(_ => this.getTeams()),
-			// create client for first team
+		);
+		// 3. When we have teams we initialize the team client
+		this.currentTeams$.pipe(
 		).subscribe(teams => {
-			if (teams[0]) {
+			if (teams.length > 0) {
 				const uris = this.getUris(teams[0].realmUri);
-				this.createTeamClient(uris.httpUri, uris.wsUri, tokenDataTemp);
+				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
 				this._teamClientReady$.next(true);
 			} else {
-				this._teamClientReady$.next(false);
+				this.router.navigate(['user', 'pick-a-team']);
+				// we don't do teamClientReady$.next(false) else we gonna be redirected to server-issues.
 			}
-		});
+		},
+			e => this._teamClientReady$.next(false));
 	}
 
-	// TODO: error handling
 
 	/** create the user client  */
-	private async initUserClient(tokenData: AccessTokenState) {
-		const token = tokenData.token;
-		const id = tokenData.token_data.identity;
+	private async initUserClient() {
+		debugger;
+		const token = this.accessTokenState.token;
+		const id = this.accessTokenState.token_data.identity;
 		try {
 			// 1. creating all-users client and getting the user
 			this.createAllUserClient(token);
 			const user = await this.getUser(id);
 
-			// 2. creating user client and getting teams
+			// 2. creating user client
 			const userUris = this.getUris(user.userRealmUri);
 			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
 			this._userClientReady$.next(true);
-			console.log('user client created');
 		} catch (e) {
 			Log.error(e);
-			// this.router.navigate(['server-issue']);
-			// this._userClientReady$.next(false);
+			this.router.navigate(['server-issue']);
+			this._userClientReady$.next(false);
 		}
 	}
 
