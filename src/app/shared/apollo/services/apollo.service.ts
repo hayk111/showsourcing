@@ -64,9 +64,7 @@ export class ApolloService {
 		// 1. when authenticated we initialise the apollo user client
 		auth$.pipe(
 			filter(authenticated => authenticated === true),
-			tap(d => { debugger; }),
 			switchMap(_ => this.tokenSrv.accessToken$.pipe(
-				tap(d => { debugger; })
 			)),
 			filter(tokenState => !tokenState.pending),
 			tap(tokenState => this.accessTokenState = tokenState),
@@ -95,7 +93,6 @@ export class ApolloService {
 
 	/** create the user client  */
 	private async initUserClient() {
-		debugger;
 		const token = this.accessTokenState.token;
 		const id = this.accessTokenState.token_data.identity;
 		try {
