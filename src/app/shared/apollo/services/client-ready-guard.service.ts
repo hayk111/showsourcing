@@ -3,6 +3,7 @@ import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, Router, RouterSt
 import { ApolloService } from '~shared/apollo/services';
 import { Observable } from 'rxjs';
 import { filter, tap, distinctUntilChanged } from 'rxjs/operators';
+import { Log } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,6 +20,7 @@ export class ClientReadyGuardService implements CanActivate, CanActivateChild {
 			distinctUntilChanged(),
 			filter(v => v !== null),
 			tap(v => this.redirect(v)),
+			tap(v => Log.debug('client ready guard: ready ?', v))
 		);
 	}
 

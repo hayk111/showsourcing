@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, filter, tap, switchMap } from 'rxjs/operators';
+import { map, filter, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { Log } from '~utils';
 import { User } from '~models';
 import { UserService } from '~features/user';
@@ -22,12 +22,13 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		Log.debug('check auth');
 		return this.authSrv.authState$.pipe(
 			// we need to filter the authstate when it's null because it means pending
 			filter(authState => !authState.pending),
 			map(authState => authState.authenticated),
-			tap(authenticated => this.redirectOnAuth(authenticated))
+			distinctUntilChanged(),
+			tap(authenticated => this.redirectOnAuth(authenticated)),
+			tap(authenticated => Log.debug('auth guard: authenticated ?', authenticated))
 		);
 	}
 

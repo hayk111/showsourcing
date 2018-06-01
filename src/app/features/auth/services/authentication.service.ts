@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap, take, catchError, map, switchMap } from 'rxjs/operators';
+import { tap, take, catchError, map, switchMap, filter } from 'rxjs/operators';
 import { Credentials } from '~features/auth/interfaces';
 import { UserService } from '~features/user';
 import { AuthHttpService } from './auth-http.service';
@@ -24,7 +24,8 @@ export class AuthenticationService {
 
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
-			map(token => ({ pending: false, authenticated: !!token }))
+			filter(tokenState => !tokenState.pending),
+			map(tokenState => ({ pending: false, authenticated: !!tokenState.token }))
 		).subscribe(this._authState$);
 	}
 
