@@ -13,8 +13,8 @@ import { AuthState } from '../interfaces';
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authenticated$ = new BehaviorSubject<AuthState>({ pending: true });
-	authenticated$ = this._authenticated$.asObservable();
+	private _authState$ = new BehaviorSubject<AuthState>({ pending: true });
+	authState$ = this._authState$.asObservable();
 
 	constructor(
 		private authHttp: AuthHttpService,
@@ -25,7 +25,7 @@ export class AuthenticationService {
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
 			map(token => ({ pending: false, authenticated: !!token }))
-		).subscribe(this._authenticated$);
+		).subscribe(this._authState$);
 	}
 
 	init() {

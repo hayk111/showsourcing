@@ -8,11 +8,13 @@ import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { AccessTokenState } from '~features/auth';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
@@ -23,6 +25,8 @@ export const USER_CLIENT_NAME = 'user';
 	providedIn: 'root'
 })
 export class ApolloService {
+	private static initialized = false;
+
 	private _teamClientReady$ = new BehaviorSubject<boolean>(null);
 	teamClientReady$: Observable<boolean> = this._teamClientReady$.asObservable();
 
@@ -33,19 +37,33 @@ export class ApolloService {
 		private apollo: Apollo,
 		private httpLink: HttpLink,
 		private tokenSrv: TokenService,
+		private authSrv: AuthenticationService,
 		private router: Router
 	) {
 
 	}
 
 	init() {
-		// TODO: here every time the token changes the process is gonna be restarted
-		let tokenDataTemp;
-		this.tokenSrv.accessToken$
-			.pipe(
-				tap(tokenData => tokenDataTemp = tokenData)
-			)
-			.subscribe(tokenData => tokenData ? this.initUserClient(tokenData) : this.clearCache());
+		if (ApolloService.initialized) {
+			throw Error('Apollo has already been initialized, check that there is only one instance running');
+		}
+
+		const authenticated$ = this.authSrv.authState$.pipe(
+			filter(authState => !authState.pending),
+			distinctUntilChanged(),
+			map(authState => authState.authenticated)
+		);
+
+		// when unauthenticated we clear the cache
+		authenticated$.pipe(
+			filter(authenticated => authenticated === false)
+		).subscribe(_ => this.clearCache());
+
+		// when authenticated we initialise the apollo user client
+		authenticated$.pipe(
+			filter(authenticated => authenticated === true),
+			switchMap(_ => this.tokenSrv.accessToken$),
+		).subscribe(tokenState => this.initUserClient(tokenState));
 
 		this._userClientReady$.pipe(
 			filter(ready => ready),
@@ -65,9 +83,9 @@ export class ApolloService {
 	// TODO: error handling
 
 	/** create the user client  */
-	private async initUserClient(tokenData: AccessTokenResponse) {
-		const token = tokenData.user_token.token;
-		const id = tokenData.user_token.token_data.identity;
+	private async initUserClient(tokenData: AccessTokenState) {
+		const token = tokenData.token;
+		const id = tokenData.token_data.identity;
 		try {
 			// 1. creating all-users client and getting the user
 			this.createAllUserClient(token);
@@ -137,7 +155,6 @@ export class ApolloService {
 	private createDefaultClient(httpUri: string, wsUri: string, token: string, name?: string) {
 		// Create an http link:
 		const headers = new HttpHeaders({ Authorization: token });
-
 		const http = this.httpLink.create({
 			uri: httpUri,
 			headers
@@ -177,7 +194,7 @@ export class ApolloService {
 		}, name);
 	}
 
-	// TODO: clear cache of the right client
+	// TODO: clear cache of the right client ?
 	private clearCache() {
 		const client = this.apollo.getClient();
 		if (client)

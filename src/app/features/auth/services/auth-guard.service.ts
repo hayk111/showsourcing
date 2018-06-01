@@ -23,7 +23,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		Log.debug('check auth');
-		return this.authSrv.authenticated$.pipe(
+		return this.authSrv.authState$.pipe(
 			// we need to filter the authstate when it's null because it means pending
 			filter(authState => !authState.pending),
 			map(authState => authState.authenticated),
