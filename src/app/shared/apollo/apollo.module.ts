@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
@@ -12,6 +12,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ClientQueries } from '~shared/apollo/apollo-client-queries';
 import { map } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
+import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
+import { ApolloIssuePageComponent } from './components/apollo-issue-page/apollo-issue-page.component';
+import { Router } from '@angular/router';
+import { Log } from '~utils';
 
 
 const ALL_USER_ENDPOINT = 'all-users';
@@ -26,29 +30,37 @@ const USER_CLIENT_NAME = 'all-users';
 	exports: [
 		HttpClientModule, // provides HttpClient for HttpLink
 		ApolloModule,
-		HttpLinkModule
+		HttpLinkModule,
+		ApolloIssuePageComponent
 	],
-	declarations: []
+	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {
 
 	private static _clientReady$ = new BehaviorSubject<boolean>(null);
 	static clientReady$: Observable<boolean> = AppApolloModule._clientReady$.asObservable();
 
-	constructor(private apollo: Apollo, private httpLink: HttpLink, private tokenSrv: TokenService) {
+	constructor(private apollo: Apollo, private httpLink: HttpLink, private tokenSrv: TokenService, private router: Router) {
 		// when authenticated we start the process
 		this.tokenSrv.accessToken$
-			.subscribe(tokenData => tokenData ? this.init(tokenData.user_token.token_data.identity) : this.clearCache());
+			.subscribe(tokenData => tokenData ? this.init(tokenData) : this.clearCache());
 	}
 
-	private async init(id: string) {
-		this.createUserClient();
-		const user = await this.apollo.use(USER_CLIENT_NAME).query({
-			query: ClientQueries.selectUser,
-			variables: { id: '6c0b95d4-5e77-4caa-b826-b471e700d1d7' }
-		}).pipe(
-			map((r: any) => r.data.user)
-		).toPromise();
+	private async init(tokenData: AccessTokenResponse) {
+		let user;
+		try {
+			this.createUserClient(tokenData.user_token.token);
+			user = await this.apollo.use(USER_CLIENT_NAME).query({
+				query: ClientQueries.selectUser,
+				variables: { id: tokenData.user_token.token_data.identity }
+			}).pipe(
+				map((r: any) => r.data.user)
+			).toPromise();
+		} catch (e) {
+			Log.error(e);
+			this.router.navigate(['server-issue']);
+		}
+
 		// since this is a realm uri, we need to transform it into http url
 		const { wsUri, httpUri } = this.getUris(user.userRealmUri);
 		this.createDefaultClient(httpUri, wsUri);
@@ -66,10 +78,12 @@ export class AppApolloModule {
 		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
 	}
 
-	private createUserClient() {
+	private createUserClient(token: string) {
+		const headers = new HttpHeaders({ Authorization: token });
 		this.apollo.create({
 			link: this.httpLink.create({
-				uri: `api/graphql/${ALL_USER_ENDPOINT}`
+				uri: `api/graphql/${ALL_USER_ENDPOINT}`,
+				headers
 			}),
 			cache: new InMemoryCache({ addTypename: false })
 		}, USER_CLIENT_NAME);

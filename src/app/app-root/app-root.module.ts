@@ -26,6 +26,7 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 import { DialogModule } from '~shared/dialog';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { TestPageModule } from '~features/test-page/test-page.module';
+import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 
 declare let module: any;
 
@@ -56,6 +57,7 @@ declare let module: any;
 		ProjectModule.forRoot(),
 		TasksModule.forRoot(),
 		DataManagementModule.forRoot(),
+		PickATeamModule,
 		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes, { enableTracing: true }),
