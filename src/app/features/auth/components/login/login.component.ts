@@ -42,7 +42,6 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 				take(1)
 			).subscribe(
 				r => {
-					this.pending$.next(false);
 					this.router.navigate(['']);
 				},
 				e => {
