@@ -24,7 +24,12 @@ export class PickATeamService {
 		return this.apollo.use('user').mutate({
 			mutation: PickATeamQueries.createTeam,
 			variables: {
-				input: { name: team.name, id: team.id, creationDate: team.creationDate }
+				input: {
+					name: team.name,
+					id: team.id,
+					creationDate: team.creationDate,
+					realmUri: `http://ros-dev.showsourcing.com:9080/user/${team.id}`
+				}
 			}
 		});
 	}

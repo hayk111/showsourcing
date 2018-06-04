@@ -7,7 +7,6 @@ import { LogLevels } from '~utils/logger/log-levels';
 
 export const environment = {
 	production: false,
-	// TODO uneeded anymore ?
-	apiUrl: 'http://vps540915.ovh.net:9080',
+	apiUrl: 'http://localhost:4200',
 	LOG_LEVEL: LogLevels.DEBUG,
 };
