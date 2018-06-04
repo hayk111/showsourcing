@@ -9,10 +9,8 @@ import {
 	CheckboxComponent,
 	FormFieldComponent,
 	InputDirective,
-	LabelDirective,
 	RestrictInputDirective
 } from '~shared/inputs/components-directives';
-import { HintDirective } from '~shared/inputs/components-directives/hint.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
