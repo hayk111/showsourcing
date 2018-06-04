@@ -11,6 +11,7 @@ h1 {
 	font-family: 'Raleway', sans-serif;
 	color: var(--color-txt-strong);
 	text-align: center;
+	font-weight: bold;
 	margin-bottom: var(--spacing-m);
 }
 
@@ -19,6 +20,8 @@ h2 {
 	font-weight: normal;
 	margin-bottom: var(--spacing-xxl);
 	text-align: center;
+	font-family: 'SourceSansPro', sans-serif;
+	text-transform: none;
 }
 
 a{
@@ -26,6 +29,11 @@ a{
 	&.button {
 		text-transform: none;
 	}
+}
+
+form {
+	display: block;
+	width: 376px;
 }
 
 .button {
