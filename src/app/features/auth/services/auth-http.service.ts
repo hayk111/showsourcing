@@ -31,8 +31,17 @@ export class AuthHttpService {
 		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj);
 	}
 
-	register(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
-		return this.http.post(`api/user`, credentials, { observe: 'response' });
+	register(credentials: { email: string; password: string, firstName: string, lastName: string }): Observable<any> {
+		const registrationObj = {
+			app_id: '',
+			provider: 'password',
+			data: credentials.email,
+			user_info: {
+				register: true,
+				...credentials
+			}
+		};
+		return this.http.post(`api/auth`, registrationObj);
 	}
 
 	resetPw(email: string): Observable<any> {
