@@ -1,11 +1,18 @@
-<h1>You don't have a team yet. YOU HAVE TO CREATE ONE !!!!!</h1>
+<div class="flexCenter">
+	<icon-app name="teamwork" fontSet="svg"></icon-app>
+</div>
 
+
+<h1>Create your team</h1>
+
+<h2>Create your team and start sourcing</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 	<form-field-app>
-		<label-app>Team name:</label-app>
+		<label-app>Team name</label-app>
 		<input type="text" inputApp formControlName="name"/>
 	</form-field-app>
 
-	<input type="submit" value="save" />
+	<input type="submit" class="fullWidth" value="create team" />
+	<a class="button light fullWidth flexCenter">Select Team Instead</a>
 </form>
