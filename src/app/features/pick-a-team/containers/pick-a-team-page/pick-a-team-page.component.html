@@ -8,7 +8,7 @@
 	<h2>Create your team and start sourcing</h2>
 
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
-		<error-app>{{ error }}</error-app>
+		<error-app *ngIf="error">{{ error }}</error-app>
 		<form-field-app>
 			<label-app>Team name</label-app>
 			<input type="text" inputApp formControlName="name"/>

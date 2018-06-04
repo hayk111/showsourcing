@@ -4,7 +4,7 @@
 </div>
 
 <form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
-	<error-app>{{ error }}</error-app>
+	<error-app *ngIf="error">{{ error }}</error-app>
 
 	<form-field-app>
 		<label-app>Email</label-app>

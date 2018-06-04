@@ -24,6 +24,12 @@ h2 {
 	text-transform: none;
 }
 
+error-app {
+	color: var(--color-warn);
+	margin-bottom: var(--spacing-m);
+	display: block;
+}
+
 a{
 	font-weight: normal;
 	&.button {
