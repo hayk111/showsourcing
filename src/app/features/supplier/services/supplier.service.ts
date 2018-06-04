@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
+import { QueryRef } from 'apollo-angular';
+import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ import { uuid } from '~utils/uuid.utils';
 export class SupplierService {
 	private suppliersQuery$: QueryRef<string, any>;
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	/*
 		Initialize the underlying query ref for the list of
@@ -22,7 +23,7 @@ export class SupplierService {
 	 */
 	private initializeSupplierQuery({ perPage }): void {
 		if (!this.suppliersQuery$) {
-			this.suppliersQuery$ = this.apollo.watchQuery<any>({
+			this.suppliersQuery$ = this.apollo.query<any>({
 				query: SupplierQueries.list,
 				variables: {
 					skip: 0,
@@ -100,7 +101,6 @@ export class SupplierService {
 	createSupplier(supplier: Supplier) {
 		return this.apollo.subscribe({ query: SupplierQueries.createSupplier, variables: { supplier } })
 			.pipe(
-				take(1),
 				map((r: any) => r.data.addSupplier.id)
 			);
 	}
@@ -119,9 +119,11 @@ export class SupplierService {
 	}
 
 	updateSupplier(supplier: Supplier) {
-		return this.apollo.mutate({ mutation: SupplierQueries.updateSupplier, variables: { supplier } }).pipe(
-			take(1)
-		);
+		return this.apollo.update({
+			mutation: SupplierQueries.updateSupplier,
+			input: supplier,
+			typename: 'Supplier'
+		});
 	}
 
 	removeSuppliers(ids: string[]) {

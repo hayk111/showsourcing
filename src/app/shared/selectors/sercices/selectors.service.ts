@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { countries, incoTerms, harbours, currencies } from '~utils/constants';
 import { of, Observable } from 'rxjs';
-import { Apollo } from 'apollo-angular';
+import { ApolloClient } from '~shared/apollo';
 import { SelectorQueries } from './selector.queries';
 import { map, tap, take } from 'rxjs/operators';
 import { Supplier } from '~models/supplier.model';
@@ -14,7 +14,7 @@ import { Category, Event, Tag, SupplierType } from '~models';
 })
 export class SelectorsService {
 
-	constructor(private apollo: Apollo) { }
+	constructor(private apollo: ApolloClient) { }
 
 	getCountries(): Array<any> {
 		return countries;
@@ -63,32 +63,26 @@ export class SelectorsService {
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {
-		return this.apollo.mutate({ mutation: SelectorQueries.createSupplier, variables: { supplier } }).pipe(
-			take(1)
-		);
+		return this.apollo.create({ mutation: SelectorQueries.createSupplier, input: supplier, typename: 'Supplier' });
 	}
 
 	createCategory(category: Category): Observable<any> {
-		return this.apollo.mutate({ mutation: SelectorQueries.createCategory, variables: { category } }).pipe(
-			take(1)
-		);
+		return this.apollo.create({ mutation: SelectorQueries.createCategory, input: category, typename: 'Category' });
 	}
 
 	createEvent(event: Event): Observable<any> {
-		return this.apollo.mutate({ mutation: SelectorQueries.createEvent, variables: { event } }).pipe(
-			take(1)
-		);
+		return this.apollo.create({ mutation: SelectorQueries.createEvent, input: event, typename: 'Event' });
 	}
 
 	createTag(tag: Tag): Observable<any> {
-		return this.apollo.mutate({ mutation: SelectorQueries.createTag, variables: { tag } }).pipe(
-			take(1)
-		);
+		return this.apollo.create({ mutation: SelectorQueries.createTag, input: tag, typename: 'Tag' });
 	}
 
 	createSupplierType(supplierType: SupplierType): Observable<any> {
-		return this.apollo.mutate({ mutation: SelectorQueries.createSupplierType, variables: { supplierType } }).pipe(
-			take(1)
-		);
+		return this.apollo.create({
+			mutation: SelectorQueries.createSupplierType,
+			input: supplierType,
+			typename: 'SupplierType'
+		});
 	}
 }

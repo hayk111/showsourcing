@@ -80,30 +80,30 @@ export class SupplierQueries {
 		}`;
 
 	static latestProducts = gql`
-			subscription supplierProducts($query: String!) {
-				products(query: $query, take: 7, sortBy: "creationDate", descending: true) {
-					id,
-					name,
-					images {
-						fileName
-					}
+		subscription supplierProducts($query: String!) {
+			products(query: $query, take: 7, sortBy: "creationDate", descending: true) {
+				id,
+				name,
+				images {
+					fileName
 				}
-			}`;
+			}
+		}`;
 
 	static createSupplier = gql`
-			mutation addSupplier($supplier: SupplierInput!) {
-				addSupplier(input: $supplier) {
-					id
-				}
+		mutation addSupplier($supplier: SupplierInput!) {
+			addSupplier(input: $supplier) {
+				id
 			}
-		`;
+		}
+	`;
 
 	static updateSupplier = gql`
-			mutation supplier($supplier: SupplierInput!) {
-				updateSupplier(input: $supplier) {
-					id
-				}
+		mutation supplier($input: SupplierInput!) {
+			updateSupplier(input: $input) {
+				id
 			}
-		`;
+		}
+	`;
 }
 
