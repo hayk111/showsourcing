@@ -4,12 +4,11 @@ export const cleanTypenameLink = new ApolloLink((operation, forward) => {
 	if (operation.variables) {
 		operation.variables = omitDeep(operation.variables, '__typename');
 	}
-	return forward(operation).map((data) => {
-		return data;
-	});
+
+	return forward(operation);
 });
 
-function omitDeep(obj, key) {
+function omitDeep(obj: object, key: string | number): object {
 	const keys: Array<any> = Object.keys(obj);
 	const newObj: any = {};
 	keys.forEach((i: any) => {
@@ -26,10 +25,8 @@ function omitDeep(obj, key) {
 
 function omitDeepArrayWalk(arr, key) {
 	return arr.map((val) => {
-		if (Array.isArray(val))
-			return omitDeepArrayWalk(val, key);
-		else if (typeof val === 'object')
-			return omitDeep(val, key);
+		if (Array.isArray(val)) return this.omitDeepArrayWalk(val, key);
+		else if (typeof val === 'object') return this.omitDeep(val, key);
 		return val;
 	});
 }

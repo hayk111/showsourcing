@@ -14,7 +14,8 @@ export class ProductQueries {
 				},
 				images {
 					fileName
-				}
+				},
+				favorite
 			}
 		}`;
 
@@ -91,7 +92,7 @@ export class ProductQueries {
 	static updateProduct = gql`
 		mutation updateProduct($product: ProductInput!) {
 			updateProduct(input: $product) {
-				id
+				id, favorite
 			}
 		}
 	`;

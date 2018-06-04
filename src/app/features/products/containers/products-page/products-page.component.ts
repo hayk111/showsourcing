@@ -99,7 +99,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Patch a property of a product */
 	patch(patch: Product) {
-		// this.store.dispatch(productActions.patch(patch));
+		this.productSrv.updateProduct(patch).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */

@@ -5,7 +5,8 @@ export class FilterDataQueries {
 		subscription suppliers {
 			suppliers {
 				id,
-				name
+				name,
+				favorite
 			}
 		}`;
 
@@ -14,7 +15,8 @@ export class FilterDataQueries {
 		subscription events {
 			events(take: 30) {
 				id,
-				name
+				name,
+				favorite
 			}
 		}`;
 
@@ -23,7 +25,8 @@ export class FilterDataQueries {
 		subscription categories {
 			categories {
 				id,
-				name
+				name,
+				favorite
 			}
 		}`;
 
@@ -32,7 +35,8 @@ export class FilterDataQueries {
 		subscription tags {
 			tags {
 				id,
-				name
+				name,
+				favorite
 			}
 		}`;
 
@@ -41,7 +45,8 @@ export class FilterDataQueries {
 		subscription projects {
 			projects {
 				id,
-				name
+				name,
+				favorite
 			}
 		}`;
 
@@ -60,7 +65,8 @@ export class FilterDataQueries {
     subscription productStatuses {
 			productStatuses {
 					id,
-					name
+					name,
+					favorite
 			}
 		}`;
 

@@ -58,14 +58,14 @@ export class AppApolloModule {
 		);
 
 		const link = from([
-			// cleanTypenameLink,
+			cleanTypenameLink,
 			transportLink
 		]);
 
 		this.apollo.init({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache({ addTypename: false })
+			cache: new InMemoryCache({ })
 		});
 	}
 }
