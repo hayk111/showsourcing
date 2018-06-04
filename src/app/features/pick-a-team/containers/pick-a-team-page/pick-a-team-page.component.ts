@@ -19,7 +19,7 @@ export class PickATeamPageComponent {
 	}
 
 	onSubmit() {
-		this.srv.createTeam(new Team(this.form.value)).subscribe( _ => {
+		this.srv.createTeam(new Team(this.form.value)).subscribe(_ => {
 			this.router.navigate(['']);
 		});
 	}

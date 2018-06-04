@@ -77,8 +77,7 @@ export class ApolloService {
 			switchMap(_ => this.getTeams()),
 		);
 		// 3. When we have teams we initialize the team client
-		this.currentTeams$.pipe(
-		).subscribe(teams => {
+		this.currentTeams$.subscribe(teams => {
 			if (teams.length > 0) {
 				const uris = this.getUris(teams[0].realmUri);
 				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);

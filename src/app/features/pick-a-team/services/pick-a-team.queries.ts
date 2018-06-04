@@ -14,7 +14,7 @@ export class PickATeamQueries {
 	static createTeam = gql`
 		mutation createTeam($input: TeamInput!) {
 			updateTeam(input: $input) {
-				id
+				id, name, realmUri
 			}
 		}
 	`;
