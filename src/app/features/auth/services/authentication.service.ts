@@ -13,7 +13,7 @@ import { AuthState } from '../interfaces';
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authState$ = new BehaviorSubject<AuthState>({ pending: true });
+	private _authState$ = new BehaviorSubject<AuthState>({ pending: true, userId: null });
 	authState$ = this._authState$.asObservable();
 
 	constructor(
@@ -25,7 +25,11 @@ export class AuthenticationService {
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
 			filter(tokenState => !tokenState.pending),
-			map(tokenState => ({ pending: false, authenticated: !!tokenState.token }))
+			map(tokenState => ({
+				pending: false,
+				authenticated: !!tokenState.token,
+				userId: (tokenState && tokenState.token_data ? tokenState.token_data.identity : null)
+			}))
 		).subscribe(this._authState$);
 	}
 
@@ -37,6 +41,7 @@ export class AuthenticationService {
 
 	login(credentials: Credentials) {
 		return this.authHttp.login(credentials).pipe(
+			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
 			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
 			tap(_ => this.router.navigate(['']))
 		);
@@ -52,8 +57,12 @@ export class AuthenticationService {
 		throw Error('not implemented yet');
 	}
 
-	register(creds: { email: string, password: string }) {
-		throw Error('not implemented yet');
+	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
+		return this.authHttp.register(creds).pipe(
+			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
+			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
+			tap(_ => this.router.navigate(['']))
+		);
 	}
 
 }

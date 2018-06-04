@@ -16,6 +16,7 @@ export class ClientReadyGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
+		debugger
 		return this.apolloSrv.teamClientReady$.pipe(
 			distinctUntilChanged(),
 			filter(v => v !== null),

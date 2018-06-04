@@ -105,8 +105,10 @@ button, input[type="submit"], .button {
 
 // disabled buttons
 button:disabled, input[type="submit"]:disabled {
-	background: var(--color-primary-light);
-	color: var(--color-primary-dark);
+	background: var(--color-txt-secondary);
+	color: white;
+	border: none;
+	cursor: default;
 }
 
 textarea::placeholder, input::placeholder {

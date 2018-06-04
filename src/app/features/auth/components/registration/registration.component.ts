@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'registration-app',
@@ -16,7 +17,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	pending: boolean;
 	error: string;
 
-	constructor(private authSrv: AuthenticationService, private fb: FormBuilder) {
+	constructor(private authSrv: AuthenticationService, private fb: FormBuilder, private router: Router) {
 		super();
 	}
 
@@ -32,11 +33,20 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	createAccount() {
 		if (this.form.valid) {
 			this.pending = true;
-			// this.authSrv.register(this.form.value).pipe(
-			// 	takeUntil(this._destroy$),
-			// 	take(1),
-			// 	catchError(error => this.error = error)
-			// ).subscribe(r => this.pending = false);
+			this.pending = true;
+			this.authSrv.register(this.form.value).pipe(
+				takeUntil(this._destroy$),
+				take(1),
+			).subscribe(
+				r => {
+					this.pending = false;
+					this.router.navigate(['']);
+				},
+				e => {
+					this.error = e.error.message;
+					this.pending = false;
+				}
+			);
 		}
 	}
 
