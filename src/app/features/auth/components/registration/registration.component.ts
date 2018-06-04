@@ -32,11 +32,11 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 	createAccount() {
 		if (this.form.valid) {
 			this.pending = true;
-			this.authSrv.login(this.form.value).pipe(
-				takeUntil(this._destroy$),
-				take(1),
-				catchError(error => this.error = error)
-			).subscribe(r => this.pending = false);
+			// this.authSrv.register(this.form.value).pipe(
+			// 	takeUntil(this._destroy$),
+			// 	take(1),
+			// 	catchError(error => this.error = error)
+			// ).subscribe(r => this.pending = false);
 		}
 	}
 

@@ -8,7 +8,7 @@ import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
 import { AccessTokenState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -65,8 +65,7 @@ export class ApolloService {
 		// 1. when authenticated we initialise the apollo user client
 		auth$.pipe(
 			filter(authenticated => authenticated === true),
-			switchMap(_ => this.tokenSrv.accessToken$.pipe(
-			)),
+			switchMap(_ => this.tokenSrv.accessToken$.pipe(take(1))),
 			filter(tokenState => !tokenState.pending),
 			tap(tokenState => this.accessTokenState = tokenState),
 		).subscribe(tokenState => this.initUserClient());
@@ -204,8 +203,15 @@ export class ApolloService {
 
 	// TODO: clear cache of the right client ?
 	private clearCache() {
-		const client = this.apollo.getClient();
-		if (client)
-			client.resetStore();
+		const clients = [ALL_USER_CLIENT_NAME, USER_CLIENT_NAME];
+		clients.forEach(clientName => {
+			const client = this.apollo.use(clientName);
+			if (client)
+				client.getClient().resetStore();
+		});
+	}
+
+	private clearClient(name?: string) {
+
 	}
 }

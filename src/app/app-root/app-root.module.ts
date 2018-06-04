@@ -61,7 +61,7 @@ declare let module: any;
 		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes,
-			// { enableTracing: true }
+			{ enableTracing: true }
 		),
 	],
 	providers: [
