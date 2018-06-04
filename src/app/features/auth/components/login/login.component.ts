@@ -41,8 +41,18 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 				takeUntil(this._destroy$),
 				take(1)
 			).subscribe(
-				r => this.pending$.next(false),
-				e => { this.error = e.error; this.pending$.next(false); });
+				r => {
+					this.pending$.next(false);
+					this.router.navigate(['']);
+				},
+				e => {
+					if (e.error && e.error.status === 401) {
+						this.error = 'Incorrect credentials';
+					} else {
+						this.error = 'Submition failed, please try again in a short while';
+					}
+					this.pending$.next(false);
+				});
 		}
 	}
 

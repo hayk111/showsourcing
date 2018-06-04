@@ -18,10 +18,11 @@ import { HasTeamGuard } from '~features/pick-a-team/services/has-team-guard.serv
 import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { ClientReadyGuardService } from '~shared/apollo/services/client-ready-guard.service';
+import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 
 export const routes: Array<Route> = [
 	{
-		path: 'guest', component: GuestTemplateComponent, children: [
+		path: 'guest', component: GuestTemplateComponent, canActivateChild: [UnauthGuardService], children: [
 			...authRoutes
 		]
 	},

@@ -26,7 +26,7 @@ export class TokenService {
 	clearTokens(): void {
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
 		this.localStorageSrv.remove(ACCESS_TOKEN_NAME);
-		this._accessToken$.next(null);
+		this._accessToken$.next({ pending: false, token: null, token_data: null });
 		this.stopTimer();
 	}
 
@@ -50,6 +50,7 @@ export class TokenService {
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
+		this.refreshToken = refreshToken;
 		return this.fetchAccessToken();
 	}
 
@@ -62,7 +63,7 @@ export class TokenService {
 		};
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
 			catchError(e => {
-				this._accessToken$.next(null);
+				this._accessToken$.next({ pending: false, token: null, token_data: null });
 				return Observable.throw(e);
 			}),
 			tap(token => this.onNewAccessToken(token)),

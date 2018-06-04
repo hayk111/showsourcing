@@ -5,8 +5,10 @@ import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { Log } from '~utils';
 
-@Injectable()
-export class AuthGuardService implements CanActivate, CanActivateChild {
+@Injectable({
+	providedIn: 'root'
+})
+export class UnauthGuardService implements CanActivate, CanActivateChild {
 	constructor(private authSrv: AuthenticationService, private router: Router) { }
 
 	canActivate(
@@ -18,14 +20,15 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 			filter(authState => !authState.pending),
 			map(authState => authState.authenticated),
 			distinctUntilChanged(),
-			tap(authenticated => this.redirectOnUnAuthenticated(authenticated)),
-			tap(authenticated => Log.debug('auth guard: authenticated ?', authenticated))
+			tap(authenticated => this.redirectOnAuthenticated(authenticated)),
+			tap(authenticated => Log.debug('auth guard: authenticated ?', authenticated)),
+			map(authenticated => !authenticated)
 		);
 	}
 
-	redirectOnUnAuthenticated(authenticated: boolean) {
-		if (!authenticated)
-			this.router.navigate(['guest', 'login']);
+	redirectOnAuthenticated(authenticated: boolean) {
+		if (authenticated)
+			this.router.navigate(['']);
 	}
 
 	canActivateChild(
