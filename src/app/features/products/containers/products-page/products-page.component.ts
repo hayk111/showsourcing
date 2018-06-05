@@ -67,6 +67,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
+		console.log('loadMore');
 		this.page++;
 		this.pending = true;
 		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {

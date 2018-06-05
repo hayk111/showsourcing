@@ -12,10 +12,26 @@ export class ProductQueries {
 					lastName,
 					firstName
 				},
+				supplier {
+					name
+				},
+				category {
+					name
+				},
+				price {
+					value,
+					currency
+				},
+				createdBy {
+					firstName,
+					lastName
+				}
 				images {
 					fileName
 				},
-				favorite
+				favorite,
+				score,
+				minimumOrderQuantity
 			}
 		}`;
 

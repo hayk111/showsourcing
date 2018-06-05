@@ -11,7 +11,7 @@
 <ng-template #main let-row="row">
 	<div class="mainCell">
 		<div class="imgCtnr">
-			<img [src]="row?.mainImage?.urls?.url_60x45"/>
+			<img [src]="row | image:'s'"/>
 		</div>
 		<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
 	</div>
@@ -21,7 +21,7 @@
 	<ng-container *ngIf="row.supplier !== undefined">
 		{{ row?.supplier.name }}
 	</ng-container>
-	<ng-container *ngIf="row.supplierId === undefined">
+	<ng-container *ngIf="row.supplier === undefined">
 		-
 	</ng-container>
 </ng-template>
@@ -30,7 +30,7 @@
 	<ng-container *ngIf="row.category !== undefined">
 		{{ row?.category.name }}
 	</ng-container>
-	<ng-container *ngIf="row.categoryId === undefined">
+	<ng-container *ngIf="row.category === undefined">
 		-
 	</ng-container>
 
@@ -39,9 +39,9 @@
 
 <ng-template #price let-row="row">
 	<price-app
-		[amount]="row?.priceAmount"
-		[currency]="row?.priceCurrency"
-		*ngIf="row.priceCurrency; else noPrice">
+		[amount]="row?.price?.value"
+		[currency]="row?.price?.currency"
+		*ngIf="row?.price?.currency; else noPrice">
 	</price-app>
 
 	<ng-template #noPrice>
@@ -51,11 +51,11 @@
 </ng-template>
 
 <ng-template #feedback let-row="row">
-	{{ row?.computedValues?.score !== undefined ? row.computedValues.score : '-' }} %
+	{{ row?.score !== undefined ? row.score : '-' }} %
 </ng-template>
 
 <ng-template #creationDate let-row="row">
-	{{ row?.audit.creationDate | date: 'MMMM y' }}
+	{{ row?.creationDate | date: 'MMMM y' }}
 </ng-template>
 
 <ng-template #rating let-row="row">
@@ -84,12 +84,7 @@
 
 <ng-template #user let-row="row">
 	<div class="flexCenter userP">
-			<!-- <user-picture-app
-				[size]="18"
-				[border]="true"
-				[url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-			<span>{{ user.firstName + ' ' + user.lastName }} </span> -->
-
+		{{ row?.createdBy | formatUserName }}
 	</div>
 <ng-template>
 
