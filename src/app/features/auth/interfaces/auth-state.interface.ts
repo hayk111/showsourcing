@@ -1,7 +1,10 @@
+import { AccessTokenState } from '~features/auth';
 
 
 export interface AuthState {
 	pending: boolean;
 	authenticated?: boolean;
-	userId: string;
+	tokenState?: AccessTokenState;
+	userId?: string;
+	token?: string;
 }

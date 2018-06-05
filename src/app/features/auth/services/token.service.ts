@@ -30,21 +30,25 @@ export class TokenService {
 		this.stopTimer();
 	}
 
-	// TODO: return value ?
+	/**
+	 * restore the tokens from the local storage. If only the refresh token is valid we ask
+	 * for a new access token
+	 */
 	restoreAccessToken(): void {
 		const accessToken: AccessTokenState = this.localStorageSrv.getItem(ACCESS_TOKEN_NAME);
 		if (accessToken && this.isValid(accessToken)) {
 			this._accessToken$.next(accessToken);
+			// nothing to do here anymore
 			return;
 		}
+		// if we don't have an access token we'll try to generate one
 		this.refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
 
-		if (this.refreshToken) {
-			this.fetchAccessToken()
-				.subscribe();
-		} else {
+		if (this.refreshToken)
+			this.fetchAccessToken().subscribe();
+		else
 			this._accessToken$.next({ pending: false, token: null, token_data: null });
-		}
+
 
 	}
 
@@ -54,7 +58,6 @@ export class TokenService {
 		return this.fetchAccessToken();
 	}
 
-	// TODO: error handling
 	private fetchAccessToken(): Observable<AccessTokenResponse> {
 		const accessObj = {
 			app_id: '',
@@ -62,12 +65,11 @@ export class TokenService {
 			data: this.refreshToken.refresh_token.token,
 		};
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
+			tap(token => this.onNewAccessToken(token)),
 			catchError(e => {
 				this._accessToken$.next({ pending: false, token: null, token_data: null });
 				return Observable.throw(e);
-			}),
-			tap(token => this.onNewAccessToken(token)),
-
+			})
 		);
 	}
 

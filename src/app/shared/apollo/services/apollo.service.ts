@@ -15,6 +15,7 @@ import { TokenService } from '~features/auth/services/token.service';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
 import { environment } from 'environments/environment.prod';
+import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
@@ -47,28 +48,27 @@ export class ApolloService {
 	}
 
 	init() {
+
 		if (ApolloService.initialized) {
 			throw Error('Apollo has already been initialized, check that there is only one instance running');
 		}
 
-		const auth$ = this.authSrv.authState$.pipe(
-			filter(authState => !authState.pending),
-			distinctUntilChanged(),
-			map(authState => authState.authenticated)
-		);
-
 		// when unauthenticated we clear the cache
-		auth$.pipe(
-			filter(authenticated => authenticated === false)
+		this.authSrv.authState$.pipe(
+			filter(authState => (!authState.pending && authState.authenticated === false)),
+			// we do the two operator below so we do it only once per logout
+			map(authState => authState.pending),
+			distinctUntilChanged(),
 		).subscribe(_ => this.clearCache());
 
 		// 1. when authenticated we initialise the apollo user client
-		auth$.pipe(
-			filter(authenticated => authenticated === true),
-			switchMap(_ => this.tokenSrv.accessToken$.pipe(take(1))),
-			filter(tokenState => !tokenState.pending),
-			tap(tokenState => this.accessTokenState = tokenState),
-		).subscribe(tokenState => this.initUserClient());
+		this.authSrv.authState$.pipe(
+			filter(authState => (!authState.pending && authState.authenticated === true)),
+			tap(authState => this.accessTokenState = authState.tokenState),
+			// we do the two operator below so we do it only once per login
+			map(authState => authState.pending),
+			distinctUntilChanged(),
+		).subscribe(_ => this.initUserClient());
 
 		// 2. when the userClient has been initialized we get the current teams
 		this.currentTeams$ = this._userClientReady$.pipe(
@@ -76,17 +76,10 @@ export class ApolloService {
 			switchMap(_ => this.getTeams()),
 		);
 		// 3. When we have teams we initialize the team client
-		this.currentTeams$.subscribe(teams => {
-			if (teams.length > 0) {
-				const uris = this.getUris(teams[0].realmUri);
-				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
-				this._teamClientReady$.next(true);
-			} else {
-				this.router.navigate(['user', 'pick-a-team']);
-				// we don't do teamClientReady$.next(false) else we gonna be redirected to server-issues.
-			}
-		},
-			e => this._teamClientReady$.next(false));
+		this.currentTeams$.subscribe(
+			teams => this.initTeamClient(teams),
+			e => this._teamClientReady$.next(false)
+		);
 	}
 
 
@@ -101,6 +94,7 @@ export class ApolloService {
 
 			// 2. creating user client
 			const userUris = this.getUris(user.userRealmUri);
+			Log.debug('Apollo service', 'creating user client');
 			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
 			this._userClientReady$.next(true);
 		} catch (e) {
@@ -110,7 +104,26 @@ export class ApolloService {
 		}
 	}
 
-	/** transform realm uri into http and ws uri */
+	private initTeamClient(teams) {
+		if (teams.length > 0) {
+			const uris = this.getUris(teams[0].realmUri);
+			Log.debug('Apollo service', 'creating team client');
+			try {
+				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
+				// TODO: won't throw error
+			} catch (e) {
+				this.router.navigate(['server-issue']);
+				this._teamClientReady$.next(false);
+			}
+			this._teamClientReady$.next(true);
+		} else {
+			this.router.navigate(['user', 'pick-a-team']);
+		}
+	}
+
+	/** transform realm uri into http and ws uri
+	 * ex: realm://blabla/user/489 into http://blabla/graphql/%2Fuser%2F489
+	*/
 	private getUris(realmUri: string): { httpUri: string, wsUri: string } {
 		const httpUri = new URL(realmUri);
 		httpUri.protocol = 'http';
@@ -131,6 +144,7 @@ export class ApolloService {
 		).toPromise();
 	}
 
+	/** gets teams from user realm */
 	private getTeams(): Observable<any> {
 		return this.apollo.use(USER_CLIENT_NAME).subscribe({
 			query: ClientQueries.selectTeams,
@@ -189,15 +203,14 @@ export class ApolloService {
 		);
 
 		const link = from([
-			// cleanTypenameLink,
+			cleanTypenameLink,
 			transportLink
 		]);
 
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			// TODO: addTypename should be done with the clean typename link
-			cache: new InMemoryCache({ addTypename: false })
+			cache: new InMemoryCache()
 		}, name);
 	}
 
