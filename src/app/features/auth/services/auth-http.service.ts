@@ -10,6 +10,7 @@ import { switchMap, tap, map } from 'rxjs/operators';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { environment } from 'environments/environment';
 
+const BASE_URI = 'http://vps540915.ovh.net:9080';
 
 @Injectable()
 export class AuthHttpService {
