@@ -12,7 +12,7 @@ export class ClientQueries {
 	`;
 
 	static selectTeams = gql`
-		subscription teams {
+		query teams {
 			teams {
 				id,
 				realmUri
