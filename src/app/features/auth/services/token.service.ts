@@ -49,7 +49,6 @@ export class TokenService {
 		else
 			this._accessToken$.next({ pending: false, token: null, token_data: null });
 
-
 	}
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
