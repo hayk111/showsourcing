@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { take, takeUntil, catchError } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
@@ -14,7 +14,7 @@ import { AutoUnsub } from '~utils';
 })
 export class LoginComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	pending: boolean;
+	pending$ = new Subject<boolean>();
 	error: string;
 
 	constructor(
@@ -36,12 +36,22 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		if (this.form.valid) {
-			this.pending = true;
+			this.pending$.next(true);
 			this.srv.login(this.form.value).pipe(
 				takeUntil(this._destroy$),
-				take(1),
-				catchError(error => this.error = error)
-			).subscribe(r => this.pending = false);
+				take(1)
+			).subscribe(
+				r => {
+					this.router.navigate(['']);
+				},
+				e => {
+					if (e.error && e.error.status === 401) {
+						this.error = 'Incorrect credentials';
+					} else {
+						this.error = 'Submition failed, please try again in a short while';
+					}
+					this.pending$.next(false);
+				});
 		}
 	}
 

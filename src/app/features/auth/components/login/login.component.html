@@ -3,7 +3,8 @@
 	<h2>Welcome to ShowSourcing, please log-in</h2>
 </div>
 
-<form (ngSubmit)="onSubmit()" *ngIf="!(pending); else spinner" [formGroup]="form">
+<form (ngSubmit)="onSubmit()" *ngIf="!(pending$ | async); else spinner" [formGroup]="form">
+	<error-app *ngIf="error">{{ error }}</error-app>
 
 	<form-field-app>
 		<label-app>Email</label-app>
@@ -25,4 +26,3 @@
   <spinner-app size="xxl"></spinner-app>
 </ng-template>
 
-<div>{{ error }}</div>

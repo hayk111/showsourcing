@@ -3,11 +3,11 @@ import {
 	ChangeDetectorRef, AfterContentInit
 } from '@angular/core';
 import { InputDirective } from '../input.directive';
-import { LabelDirective } from '../label.directive';
 import { startWith } from 'rxjs/operators';
-import { HintDirective } from '~shared/inputs/components-directives/hint.directive';
-import { ErrorDirective } from '~shared/inputs/components-directives/error.directive';
 import { animations } from './form-field.animations';
+import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
+import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
+import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
 
 @Component({
 	selector: 'form-field-app',
@@ -20,9 +20,9 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
 	@ContentChild(InputDirective) input: InputDirective;
-	@ContentChild(LabelDirective) label: LabelDirective;
-	@ContentChild(HintDirective) hint: HintDirective;
-	@ContentChild(ErrorDirective) error: ErrorDirective;
+	@ContentChild(LabelComponent) label: LabelComponent;
+	@ContentChild(HintComponent) hint: HintComponent;
+	@ContentChild(ErrorComponent) error: ErrorComponent;
 
 
 	constructor(private changeDetectorRef: ChangeDetectorRef) { }

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces';
 import { Log } from '~utils';
 import { User } from '~models';
+import { switchMap, tap, map } from 'rxjs/operators';
+import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
+import { environment } from 'environments/environment';
 
 
 @Injectable()
@@ -15,22 +18,34 @@ export class AuthHttpService {
 		Log.debug('Auth Service Created');
 	}
 
-	login(credentials: Credentials): Observable<HttpResponse<any>> {
-		return this.http.post('api/auth', credentials, { observe: 'response' });
+	login(credentials: Credentials): Observable<RefreshTokenResponse> {
+		const loginObj = {
+			app_id: '',
+			provider: 'password',
+			data: credentials.identifier,
+			user_info: {
+				register: false,
+				password: credentials.password
+			}
+		};
+		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj);
 	}
 
-	register(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
-		return this.http.post(`api/user`, credentials, { observe: 'response' });
+	register(credentials: { email: string; password: string, firstName: string, lastName: string }): Observable<any> {
+		const registrationObj = {
+			app_id: '',
+			provider: 'password',
+			data: credentials.email,
+			user_info: {
+				register: true,
+				...credentials
+			}
+		};
+		return this.http.post(`api/auth`, registrationObj);
 	}
 
 	resetPw(email: string): Observable<any> {
 		return this.http.post(`/api/password/${email}/reset`, {});
 	}
 
-	// if we previously authenticated the token is present in the local storage.
-	// then we request the api/user. The http request is gonna be automatically
-	// populated with the token thank to the token-interceptor.service
-	getUser(): Observable<any> {
-		return this.http.get('api/user');
-	}
 }

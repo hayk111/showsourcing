@@ -1,18 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-	ActivatedRouteSnapshot,
-	CanActivate,
-	CanActivateChild,
-	Router,
-	RouterStateSnapshot,
-} from '@angular/router';
-
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, filter, tap, switchMap } from 'rxjs/operators';
-import { Log } from '~utils';
-import { User } from '~models';
-import { UserService } from '~features/user';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { Log } from '~utils';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
@@ -22,15 +13,17 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		Log.debug('check auth');
-		return this.authSrv.authenticated$.pipe(
+		return this.authSrv.authState$.pipe(
 			// we need to filter the authstate when it's null because it means pending
-			filter(auth => auth !== null),
-			tap(auth => this.redirectOnAuth(auth))
+			filter(authState => !authState.pending),
+			map(authState => authState.authenticated),
+			distinctUntilChanged(),
+			tap(authenticated => this.redirectOnUnAuthenticated(authenticated)),
+			tap(authenticated => Log.debug('auth guard: authenticated ?', authenticated))
 		);
 	}
 
-	redirectOnAuth(authenticated: boolean) {
+	redirectOnUnAuthenticated(authenticated: boolean) {
 		if (!authenticated)
 			this.router.navigate(['guest', 'login']);
 	}
