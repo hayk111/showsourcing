@@ -64,7 +64,7 @@ export class TokenService {
 		};
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
 			catchError(e => {
-				this._accessToken$.next(null);
+				this._accessToken$.next({ pending: false, token: null, token_data: null });
 				return Observable.throw(e);
 			}),
 			tap(token => this.onNewAccessToken(token)),
