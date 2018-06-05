@@ -105,10 +105,11 @@ export class ApolloService {
 
 	private initTeamClient(teams) {
 		if (teams.length > 0) {
-			const uris = this.getUris(teams[0].realmUri);
+			// TODO : put this back on
+			// const uris = this.getUris(teams[0].realmUri);
 			Log.debug('Apollo service', 'creating team client');
 			try {
-				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
+				this.createTeamClient('uris.httpUri', 'uris.wsUri', this.accessTokenState.token);
 			} catch (e) {
 				Log.error(e);
 				this.router.navigate(['server-issue']);
@@ -169,6 +170,8 @@ export class ApolloService {
 	}
 
 	private createTeamClient(httpUri: string, wsUri: string, token: string) {
+		httpUri = 'http://vps540915.ovh.net:9080/graphql/%2Fteam%2F21775152-d838-4c44-9b51-fc49ec726b68';
+		wsUri = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F21775152-d838-4c44-9b51-fc49ec726b68';
 		this.createDefaultClient(httpUri, wsUri, token);
 	}
 
@@ -209,7 +212,7 @@ export class ApolloService {
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache()
+			cache: new InMemoryCache({})
 		}, name);
 	}
 

@@ -56,11 +56,12 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// creating the formGroup using the contact so if we are editing an existing contact it will be the values of said contact
 		this.form = this.fb.group({
-			name: [this.contact.name, Validators.required],
-			jobTitle: this.contact.jobTitle,
-			email: [this.contact.email, Validators.email],
-			phoneNumber: [this.contact.phoneNumber, Validators.pattern(RegexpApp.PHONE)]
+			name: ['', Validators.required],
+			jobTitle: '',
+			email: ['', Validators.email],
+			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
 		});
+		this.form.patchValue(this.contact);
 	}
 
 	/** gives image url */
@@ -92,11 +93,9 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateContact(prop: string, value: any) {
-		// resetting the preview on close
-		// this.store.dispatch(ContactActions.setPreview({}));
-		const contact = { ...this.form.value, id: this.contact.id };
 		if (!this.isNewContact) {
-			this.contactSrv.updateContact(contact);
+			const contact = { ...this.form.value, id: this.contact.id };
+			this.contactSrv.updateContact(contact).subscribe();
 		}
 	}
 
