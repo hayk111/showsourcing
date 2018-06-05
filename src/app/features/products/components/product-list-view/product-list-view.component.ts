@@ -47,15 +47,15 @@ export class ProductListViewComponent implements OnInit {
 
 	descriptor: TableDescriptor = [
 		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },
-		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName', width: 140 },
-		{ title: 'Category', type: 'category', sortWith: 'categoryName', width: 140 },
+		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName', width: 120 },
+		{ title: 'Category', type: 'category', sortWith: 'categoryName', width: 120 },
 		{ title: 'Price', type: 'price', sortWith: 'priceAmount', width: 50 },
+		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 		{ title: 'Rating', type: 'feedback', sortWith: 'score', width: 50 },
-		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 50 },
+		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 120 },
 		{ title: 'Fav', type: 'rating', sortWith: 'rating', width: 50 },
 		{ title: 'Created by', type: 'user', sortWith: 'createdByUserId', width: 140 },
 		{ title: 'Actions', type: 'action', sortable: false, width: 140 },
-		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 	];
 
 	constructor() { }

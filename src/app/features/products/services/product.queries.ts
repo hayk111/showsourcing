@@ -12,9 +12,26 @@ export class ProductQueries {
 					lastName,
 					firstName
 				},
+				supplier {
+					name
+				},
+				category {
+					name
+				},
+				price {
+					value,
+					currency
+				},
+				createdBy {
+					firstName,
+					lastName
+				}
 				images {
 					fileName
-				}
+				},
+				favorite,
+				score,
+				minimumOrderQuantity
 			}
 		}`;
 
@@ -91,7 +108,7 @@ export class ProductQueries {
 	static updateProduct = gql`
 		mutation updateProduct($product: ProductInput!) {
 			updateProduct(input: $product) {
-				id
+				id, favorite
 			}
 		}
 	`;

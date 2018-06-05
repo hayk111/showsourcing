@@ -67,6 +67,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
+		console.log('loadMore');
 		this.page++;
 		this.pending = true;
 		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {
@@ -99,7 +100,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Patch a property of a product */
 	patch(patch: Product) {
-		// this.store.dispatch(productActions.patch(patch));
+		this.productSrv.updateProduct(patch).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */
