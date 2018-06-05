@@ -25,8 +25,8 @@ function omitDeep(obj: object, key: string | number): object {
 
 function omitDeepArrayWalk(arr, key) {
 	return arr.map((val) => {
-		if (Array.isArray(val)) return this.omitDeepArrayWalk(val, key);
-		else if (typeof val === 'object') return this.omitDeep(val, key);
+		if (Array.isArray(val)) return omitDeepArrayWalk(val, key);
+		else if (typeof val === 'object') return omitDeep(val, key);
 		return val;
 	});
 }
