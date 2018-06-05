@@ -25,6 +25,7 @@ export class SupplierQueries {
 				generalMOQ,
 				generalLeadTime,
 				productCount,
+				taskCount,
 				creationDate
 				createdBy {
 						lastName,

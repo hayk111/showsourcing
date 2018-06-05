@@ -6,6 +6,7 @@
 		(update)="patch($event)"
 		[supplier]="supplier"
 		[productCount]="supplier?.productCount"
+		[taskCount]="supplier?.taskCount"
 		[contactCount]="(contacts$ | async)?.length">
 	</supplier-main-app>
 
