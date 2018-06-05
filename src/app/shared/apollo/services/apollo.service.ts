@@ -48,7 +48,6 @@ export class ApolloService {
 	}
 
 	init() {
-
 		if (ApolloService.initialized) {
 			throw Error('Apollo has already been initialized, check that there is only one instance running');
 		}
