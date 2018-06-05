@@ -72,7 +72,7 @@ export class ApolloClient {
 	}
 
 	use(name: string) {
-		return this.apollo.use(name);
+		return new ApolloClient(this.apollo.use(name) as Apollo);
 	}
 
 }
