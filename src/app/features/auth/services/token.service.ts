@@ -11,7 +11,6 @@ const ACCESS_TOKEN_NAME = 'accessToken';
 const REFRESH_TOKEN_NAME = 'refreshToken';
 
 
-
 @Injectable()
 export class TokenService {
 	private _accessToken$ = new BehaviorSubject<AccessTokenState>({ pending: true, token: null, token_data: null });
