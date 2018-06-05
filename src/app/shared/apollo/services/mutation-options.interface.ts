@@ -13,7 +13,7 @@ export interface MutationInput {
 export interface MutationOptions {
 	mutation: DocumentNode;
 	input: any;
-	typename: string;
+	typename?: string;
 	preventOptimisticUi?: boolean;
 	context?: any;
 
