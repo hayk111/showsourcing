@@ -28,7 +28,7 @@ export class PickATeamService {
 					name: team.name,
 					id: team.id,
 					creationDate: team.creationDate,
-					realmUri: `http://ros-dev.showsourcing.com:9080/user/${team.id}`
+					realmUri: `realm://ros-dev.showsourcing.com:9080/team/${team.id}`
 				}
 			}
 		});

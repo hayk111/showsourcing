@@ -2,7 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap, take, catchError, map, switchMap, filter } from 'rxjs/operators';
-import { Credentials } from '~features/auth/interfaces';
+import { Credentials, AccessTokenState } from '~features/auth/interfaces';
 import { UserService } from '~features/user';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
@@ -13,7 +13,7 @@ import { AuthState } from '../interfaces';
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authState$ = new BehaviorSubject<AuthState>({ pending: true, userId: null });
+	private _authState$ = new BehaviorSubject<AuthState>({ pending: true });
 	authState$ = this._authState$.asObservable();
 
 	constructor(
@@ -25,11 +25,7 @@ export class AuthenticationService {
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
 			filter(tokenState => !tokenState.pending),
-			map(tokenState => ({
-				pending: false,
-				authenticated: !!tokenState.token,
-				userId: (tokenState && tokenState.token_data ? tokenState.token_data.identity : null)
-			}))
+			map(tokenState => this.tokenStateToAuthState(tokenState))
 		).subscribe(this._authState$);
 	}
 
@@ -63,6 +59,17 @@ export class AuthenticationService {
 			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
 			tap(_ => this.router.navigate(['']))
 		);
+	}
+
+	private tokenStateToAuthState(tokenState: AccessTokenState) {
+		return {
+			pending: false,
+			authenticated: !!tokenState.token,
+			tokenState: tokenState,
+			// for easy access
+			userId: (tokenState && tokenState.token_data ? tokenState.token_data.identity : null),
+			token: tokenState.token,
+		};
 	}
 
 }
