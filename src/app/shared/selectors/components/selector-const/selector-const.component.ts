@@ -45,6 +45,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 		this.setChoices();
 	}
 
+
 	/** opens the selector, is used when we want to open it programatically */
 	open() {
 		if (this.selector)

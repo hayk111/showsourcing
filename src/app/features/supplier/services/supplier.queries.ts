@@ -26,7 +26,8 @@ export class SupplierQueries {
 				generalLeadTime,
 				productCount,
 				taskCount,
-				creationDate
+				creationDate,
+				logoImage,
 				createdBy {
 						lastName,
 						firstName
@@ -92,8 +93,8 @@ export class SupplierQueries {
 		}`;
 
 	static createSupplier = gql`
-		mutation addSupplier($supplier: SupplierInput!) {
-			addSupplier(input: $supplier) {
+		mutation addSupplier($input: SupplierInput!) {
+			addSupplier(input: $input) {
 				id
 			}
 		}
