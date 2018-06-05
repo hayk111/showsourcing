@@ -202,14 +202,14 @@ export class ApolloService {
 		);
 
 		const link = from([
-			// cleanTypenameLink,
+			cleanTypenameLink,
 			transportLink
 		]);
 
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache({ addTypename: false })
+			cache: new InMemoryCache()
 		}, name);
 	}
 
