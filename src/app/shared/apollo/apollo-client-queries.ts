@@ -10,5 +10,14 @@ export class ClientQueries {
 			}
 		}
 	`;
+
+	static selectTeams = gql`
+		query teams {
+			teams {
+				id,
+				realmUri
+			}
+		}
+	`;
 }
 
