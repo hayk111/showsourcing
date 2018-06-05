@@ -27,5 +27,4 @@ import {
 	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {
-
 }
