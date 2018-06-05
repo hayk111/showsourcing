@@ -57,7 +57,7 @@ export class ApolloService {
 		this.authSrv.authState$.pipe(
 			filter(authState => (!authState.pending && authState.authenticated === false)),
 			// we do the two operator below so we do it only once per logout
-			map(authState => authState.pending),
+			map(authState => authState.authenticated),
 			distinctUntilChanged(),
 		).subscribe(_ => this.clearCache());
 
@@ -66,7 +66,7 @@ export class ApolloService {
 			filter(authState => (!authState.pending && authState.authenticated === true)),
 			tap(authState => this.accessTokenState = authState.tokenState),
 			// we do the two operator below so we do it only once per login
-			map(authState => authState.pending),
+			map(authState => authState.authenticated),
 			distinctUntilChanged(),
 		).subscribe(_ => this.initUserClient());
 
@@ -99,8 +99,8 @@ export class ApolloService {
 			this._userClientReady$.next(true);
 		} catch (e) {
 			Log.error(e);
-			this.router.navigate(['server-issue']);
 			this._userClientReady$.next(false);
+			this.router.navigate(['server-issue']);
 		}
 	}
 
@@ -110,8 +110,8 @@ export class ApolloService {
 			Log.debug('Apollo service', 'creating team client');
 			try {
 				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
-				// TODO: won't throw error
 			} catch (e) {
+				Log.error(e);
 				this.router.navigate(['server-issue']);
 				this._teamClientReady$.next(false);
 			}
