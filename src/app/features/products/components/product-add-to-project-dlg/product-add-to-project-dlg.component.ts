@@ -36,13 +36,10 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	}
 
 	select(id, value) {
-		console.log('>> select - id = ', id);
 		this.selected[id] = value;
-		console.log('>> this.selected[id] = ', this.selected);
 	}
 
 	unselect(id) {
-		console.log('>> unselect');
 		delete this.selected[id];
 	}
 
@@ -57,9 +54,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		).subscribe(projects => {
 			this.dlgSrv.close(this.dlgName);
 		});
-
 	}
-
 
 }
 

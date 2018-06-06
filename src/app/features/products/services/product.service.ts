@@ -35,8 +35,11 @@ export class ProductService {
 	}
 
 	/*
-		Initialize the underlying query ref for the list of
-		products.
+		Method used to get an observable to link on to
+		get the list of products.
+
+		Returns an hot observable to be notified each time
+		the products data associated with the query changes.
 	 */
 	selectProducts(): Observable<Product[]> {
 		this.initializeProductQuery();

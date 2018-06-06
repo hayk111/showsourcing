@@ -21,7 +21,7 @@ export class ConfirmDialogComponent {
 	constructor(protected srv: DialogService) { }
 
 	onConfirm() {
-		this./*props.*/callback();
+		this.callback();
 		this.srv.close(this.dlgName);
 	}
 

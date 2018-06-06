@@ -130,7 +130,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
-			// this.store.dispatch(productActions.delete(products));
 			this.unselectAll();
 			this.cdr.detectChanges();
 		};
@@ -193,7 +192,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog() {
-		console.log('>> openAddToProjectDialog - this.selectionArray = ', this.selectionArray);
 		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray });
 	}
 

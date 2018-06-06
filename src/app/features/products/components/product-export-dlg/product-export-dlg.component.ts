@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
-import { DialogName } from '~shared/dialog';
+import { DialogName, DialogService } from '~shared/dialog';
+import { ExportService } from '~features/products/services/export.service';
+
 
 const addDlg = () => addDialog(ProductExportDlgComponent, DialogName.EXPORT);
 
@@ -19,7 +21,7 @@ export class ProductExportDlgComponent implements OnInit {
 		return this.selectedProducts;
 	}
 
-	constructor() { }
+	constructor(private dlgSrv: DialogService, private exportSrv: ExportService) { }
 
 	ngOnInit() {
 	}
@@ -29,7 +31,10 @@ export class ProductExportDlgComponent implements OnInit {
 	}
 
 	export() {
-
+		this.exportSrv.addProductsExport(this.selectedProducts, this.selectedExport)
+			.subscribe(projects => {
+				this.dlgSrv.close(this.dlgName);
+			});
 	}
 }
 

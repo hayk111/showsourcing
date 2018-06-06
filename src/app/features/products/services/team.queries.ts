@@ -6,6 +6,7 @@ export class TeamQueries {
 			teamUsers {
 				id,
 				user {
+					id,
 					firstName,
 					lastName
 				}
