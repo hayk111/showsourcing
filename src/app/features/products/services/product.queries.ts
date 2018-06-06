@@ -31,7 +31,8 @@ export class ProductQueries {
 				},
 				favorite,
 				score,
-				minimumOrderQuantity
+				minimumOrderQuantity,
+				taskCount
 			}
 		}`;
 
@@ -106,8 +107,8 @@ export class ProductQueries {
 	`;
 
 	static updateProduct = gql`
-		mutation updateProduct($product: ProductInput!) {
-			updateProduct(input: $product) {
+		mutation updateProduct($input: ProductInput!) {
+			updateProduct(input: $input) {
 				id, favorite
 			}
 		}
