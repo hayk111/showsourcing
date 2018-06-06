@@ -1,5 +1,4 @@
 export * from './app-image.model';
-export * from './audit.model';
 export * from './category.model';
 export * from './event.model';
 export * from './event.model';

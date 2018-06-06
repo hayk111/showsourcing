@@ -1,13 +1,12 @@
-import { Category } from './category.model';
-import { Tag } from './tag.model';
 import { AppImage } from '~models';
-import { Audit } from './audit.model';
-import { uuid } from '~utils';
-import { BaseEntity } from './_entity.model';
-import { SupplierType } from './supplier-type.model';
-import { SupplierStatus } from './supplier-status.model';
 
-export class Supplier extends BaseEntity<Supplier> {
+import { BaseEntity } from './_entity.model';
+import { Category } from './category.model';
+import { SupplierStatus } from './supplier-status.model';
+import { SupplierType } from './supplier-type.model';
+import { Tag } from './tag.model';
+
+export class Supplier extends BaseEntity<SupplierConfig> {
 	name?: string;
 	fullName?: string;
 	description?: string;
@@ -31,3 +30,24 @@ export class Supplier extends BaseEntity<Supplier> {
 	productCount?: number;
 }
 
+export interface SupplierConfig {
+	name: string;
+	fullName?: string;
+	description?: string;
+	images?: AppImage[];
+	logoImage?: AppImage;
+	supplierType?: SupplierType;
+	website?: string;
+	country?: string;
+	address?: string;
+	officeEmail?: string;
+	officePhone?: string;
+	incoTerm?: string;
+	harbour?: string;
+	generalMOQ?: number;
+	generalLeadTime?: number;
+	tags?: Tag[];
+	categories?: Category[];
+	favorite?: boolean;
+	status?: SupplierStatus;
+}

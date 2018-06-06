@@ -6,8 +6,12 @@ export class SupplierType {
 	name?: string;
 	deleted ?= false;
 
-	constructor(config: SupplierType) {
+	constructor(config: SupplierTypeConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 	}
+}
+
+export interface SupplierTypeConfig {
+	name: string;
 }

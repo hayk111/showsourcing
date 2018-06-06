@@ -93,7 +93,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 				createObs$ = this.srv.createCategory(added);
 				break;
 			case 'event':
-				added = new Event({ name });
+				added = new Event({ alias: name });
 				createObs$ = this.srv.createEvent(added);
 				break;
 			case 'tag':

@@ -1,6 +1,10 @@
 import { BaseEntity } from './_entity.model';
 
-export class Event extends BaseEntity<Event> {
+export class Event extends BaseEntity<EventConfig> {
 	rating?: number;
-	name?: string;
+	alias?: string;
+}
+
+export interface EventConfig {
+	alias: string;
 }
