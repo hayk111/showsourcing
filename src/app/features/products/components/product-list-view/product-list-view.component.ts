@@ -27,6 +27,7 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<null>();
+	@Output() sortColumn = new EventEmitter<{ order: 'ASC' | 'DESC'; sortWith: string; }>();
 	// inputs
 	@Input() products: Array<Product>;
 	// currently selected items
@@ -47,14 +48,14 @@ export class ProductListViewComponent implements OnInit {
 
 	descriptor: TableDescriptor = [
 		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },
-		{ title: 'Supplier', type: 'supplier', sortWith: 'supplierName', width: 120 },
-		{ title: 'Category', type: 'category', sortWith: 'categoryName', width: 120 },
-		{ title: 'Price', type: 'price', sortWith: 'priceAmount', width: 50 },
+		{ title: 'Supplier', type: 'supplier', sortWith: 'supplier.name', width: 120 },
+		{ title: 'Category', type: 'category', sortWith: 'category.name', width: 120 },
+		{ title: 'Price', type: 'price', sortWith: 'price', width: 50 },
 		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
 		{ title: 'Rating', type: 'feedback', sortWith: 'score', width: 50 },
 		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 120 },
 		{ title: 'Fav', type: 'rating', sortWith: 'rating', width: 50 },
-		{ title: 'Created by', type: 'user', sortWith: 'createdByUserId', width: 140 },
+		{ title: 'Created by', type: 'user', sortWith: 'createdBy.id', width: 140 },
 		{ title: 'Actions', type: 'action', sortable: false, width: 140 },
 	];
 
@@ -70,11 +71,15 @@ export class ProductListViewComponent implements OnInit {
 	}
 
 	onSort({ order, sortWith }) {
+		console.log('>> onSort');
+		console.log('  >> order = ', order);
+		console.log('  >> sortWith = ', sortWith);
 		// we first need to remove the current sorting filter
 		// this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
 		// // then we add a new one
 		// const filter = new FilterSort(sortWith, order.toUpperCase());
 		// this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
+		this.sortColumn.emit({ order, sortWith });
 	}
 
 	// we add a template for the correct column type

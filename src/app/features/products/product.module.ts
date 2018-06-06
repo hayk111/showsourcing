@@ -6,7 +6,7 @@ import { ProductMainCardComponent } from '~features/products/components/product-
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
-import { ProductService } from '~features/products/services';
+import { ProductService, ProjectService, TeamService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
@@ -93,7 +93,7 @@ import { SelectionService } from './services/selection.service';
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductService, SelectionService, FilterDataService]
+	providers: [ProductService, ProjectService, TeamService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 

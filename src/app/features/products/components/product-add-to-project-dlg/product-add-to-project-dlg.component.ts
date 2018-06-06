@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { first, map, switchMap } from 'rxjs/operators';
 import { Project } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { ProjectService } from '~features/products/services/project.service';
 
 
 const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_TO_PROJECT);
@@ -19,34 +22,42 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	productsCount$: Observable<any>;
 	dlgName = DialogName.ADD_TO_PROJECT;
 	selected = {};
-	// used to give props from the dialog container
-	props = { selectedProducts: [] };
+	selectedProducts: string[];
 	get products() {
-		return this.props.selectedProducts;
+		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService) {
+	constructor(private dlgSrv: DialogService, private projectSrv: ProjectService) {
 	}
 
 	ngOnInit() {
-		// this.projects$ = this.store.select(fromProject.selectArray);
-		// this.productsCount$ = this.store.select(fromProject.selectProductCount);
+		this.projects$ = this.projectSrv.selectProjects();
+		this.productsCount$ = of(this.selectedProducts.length);
 	}
 
 	select(id, value) {
+		console.log('>> select - id = ', id);
 		this.selected[id] = value;
+		console.log('>> this.selected[id] = ', this.selected);
 	}
 
 	unselect(id) {
+		console.log('>> unselect');
 		delete this.selected[id];
 	}
 
 	submit() {
 		// we add each project one by one to the store
-		// Object.values(this.selected).forEach((project: Project) => {
-		// 	this.products.forEach((id: string) => this.store.dispatch(productActions.addProject(project, id)));
-		// });
-		this.dlgSrv.close(this.dlgName);
+		this.projects$.pipe(
+			first(),
+			map(projects => projects.filter(project => !!this.selected[project.id])),
+			switchMap(projects => {
+				return this.projectSrv.addProductsToProjects(projects, this.selectedProducts);
+			})
+		).subscribe(projects => {
+			this.dlgSrv.close(this.dlgName);
+		});
+
 	}
 
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { TeamService } from '~features/products/services/team.service';
 
 
 const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);
@@ -18,16 +19,15 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	dialogName = DialogName.REQUEST_FEEDBACK;
 	teamMembers$: Observable<Array<User>>;
 	selectedMembers = {};
-	// used to give props from the dialog container
-	props = { selectedProducts: [] };
+	selectedProducts: string[];
 	get products() {
-		return this.props.selectedProducts;
+		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService) { }
+	constructor(private dlgSrv: DialogService, private teamSrv: TeamService) { }
 
 	ngOnInit() {
-		// this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
+		this.teamMembers$ = this.teamSrv.selectTeamMembers();
 	}
 
 	select(id: string, user) {

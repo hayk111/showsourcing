@@ -16,11 +16,12 @@ const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
 export class ConfirmDialogComponent {
 	dlgName = DialogName.CONFIRM;
 	props: { text: string, callback: Function };
+	callback: any;
 
 	constructor(protected srv: DialogService) { }
 
 	onConfirm() {
-		this.props.callback();
+		this./*props.*/callback();
 		this.srv.close(this.dlgName);
 	}
 

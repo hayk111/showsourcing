@@ -1,4 +1,5 @@
-<table-app [rows]="rows" (bottomReached)="bottomReached.emit()" [pending]="pending">
+<table-app [rows]="rows" (bottomReached)="bottomReached.emit()" (selectOne)="selectOne.emit($event)"
+	(unselectOne)="unselectOne.emit($event)"[pending]="pending">
 		<ng-template
 			*ngFor="let column of descriptor"
 			columnApp="{{ column.title }}"

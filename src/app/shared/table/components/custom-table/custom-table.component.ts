@@ -22,6 +22,8 @@ export class CustomTableComponent {
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
 	@Input() pending: boolean;
+	@Output() selectOne = new EventEmitter<string>();
+	@Output() unselectOne = new EventEmitter<string>();
 
 	constructor() { }
 

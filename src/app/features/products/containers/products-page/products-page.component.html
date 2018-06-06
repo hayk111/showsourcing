@@ -25,7 +25,8 @@
 		(productOpen)="goToDetails($event)"
 		(productFavorited)="onItemFavorited($event)"
 		(productUnfavorited)="onItemUnfavorited($event)"
-		(bottomReached)="loadMore()"></product-list-view-app>
+		(bottomReached)="loadMore()"
+		(sortColumn)="sortProducts($event)"></product-list-view-app>
 
 	<product-card-view-app
 		class="card-view"

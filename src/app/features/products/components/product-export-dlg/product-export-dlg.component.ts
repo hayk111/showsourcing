@@ -14,9 +14,9 @@ export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'excel' = '';
 	dlgName = DialogName.EXPORT;
 	// used to give props from the dialog container
-	props = { selectedProducts: [] };
+	selectedProducts: string[];
 	get products() {
-		return this.props.selectedProducts;
+		return this.selectedProducts;
 	}
 
 	constructor() { }
