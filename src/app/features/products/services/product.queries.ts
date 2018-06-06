@@ -101,7 +101,10 @@ export class ProductQueries {
 				leadTimeValue,
 				leadTimeUnit,
 				sample,
-				samplePrice
+				samplePrice,
+				projects {
+					id, name
+				}
 			}
 		}
 	`;

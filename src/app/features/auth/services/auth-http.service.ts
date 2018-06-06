@@ -41,7 +41,7 @@ export class AuthHttpService {
 				...credentials
 			}
 		};
-		return this.http.post(`api/auth`, registrationObj);
+		return this.http.post(`signup/user`, registrationObj);
 	}
 
 	resetPw(email: string): Observable<any> {

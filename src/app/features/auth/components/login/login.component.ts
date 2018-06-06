@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { take, takeUntil, catchError } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
+import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'login-app',

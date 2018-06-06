@@ -1,0 +1,13 @@
+:host {
+	position: absolute;
+	right: 0;
+	top: 1px;
+	bottom: 0;
+	background: white;
+	z-index: 4;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 280px;
+	padding: var(--spacing-l);
+	height: 100vh;
+}
