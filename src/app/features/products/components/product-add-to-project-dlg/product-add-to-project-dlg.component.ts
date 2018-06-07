@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
 import { Project } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';

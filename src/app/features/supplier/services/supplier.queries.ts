@@ -27,7 +27,9 @@ export class SupplierQueries {
 				productCount,
 				taskCount,
 				creationDate,
-				logoImage,
+				logoImage {
+					fileName
+				},
 				createdBy {
 						lastName,
 						firstName

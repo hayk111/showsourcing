@@ -132,7 +132,7 @@
 
 
 	<!-- filter selection panel displays a close / done button at the top -->
-	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()" 
+	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()"
 	                            (clear)="onClear()">
 		<filter-entity-panel-app
 			[title]="typeSelected"
@@ -144,6 +144,7 @@
 			(filterAdded)="addFilter($event)"
 			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
+
 	</filter-selection-panel-app>
 
 </filter-panel-app>
