@@ -5,6 +5,7 @@ import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inp
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { EditableTextComponent } from '~shared/editable-field';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -19,6 +20,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@Output() close = new EventEmitter<null>();
 	@ViewChild(InputDirective) input: InputDirective;
 	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
+	@ViewChild('editable') editable: EditableTextComponent;
 	accumulator: string;
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -38,7 +40,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-		this.close.emit();
+		this.onClose();
 	}
 
 	onOpen() {
@@ -49,6 +51,17 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		if (this.selector)
 			this.selector.open();
 		this.open.emit();
+	}
+
+	onClose() {
+		this.close.emit();
+	}
+
+	onSelectorChange() {
+		if (!this.customField.multiple) {
+			this.editable.close();
+		}
+		this.onChange();
 	}
 
 	onChange() {

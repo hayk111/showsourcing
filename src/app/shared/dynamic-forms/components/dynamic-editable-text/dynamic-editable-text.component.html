@@ -86,7 +86,7 @@
 		<!-- entity selector -->
 		<ng-container *ngIf="customField.metadata.type === 'entity'">
 			<editable-text-app #editable
-				(closed)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				(closed)="onClose()" [hasAction]="false" (opened)="onOpen()">
 				<!-- multiple value label -->
 				<label-app *ngIf="customField.multiple; else solo">
 					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
@@ -104,7 +104,7 @@
 				<selector-entity-app
 					#selector
 					[multiple]="customField.multiple"
-					(change)="onChange()"
+					(change)="onSelectorChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
 				</selector-entity-app>
@@ -116,7 +116,7 @@
 		<ng-container *ngIf="customField.metadata.type === 'const'">
 			<!-- one -->
 			<editable-text-app #editable *ngIf="!customField.multiple"
-				(closed)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				(closed)="onClose()" [hasAction]="false" (opened)="onOpen()">
 
 				<label-app>
 					{{ value || '-'}}
@@ -125,7 +125,7 @@
 				<selector-const-app
 					#selector
 					[multiple]="false"
-					(change)="onChange()"
+					(change)="onSelectorChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
 				</selector-const-app>
