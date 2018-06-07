@@ -7,8 +7,8 @@ import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { Product, ProductStatus } from '~models';
-import { SelectionService, ProductService } from '~features/products/services';
+import { Product, ProductStatus, Project } from '~models';
+import { SelectionService, ProductService, ProjectService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',
@@ -44,6 +44,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// preview panel
 	previewOpen: boolean;
 	previewProduct: Product;
+
+	//
 
 	page = 0;
 

@@ -81,6 +81,26 @@
 		</form-field-app>
 	</editable-text-app>
 
+	<!-- price -->
+	<editable-text-app #editable *ngSwitchCase="'price'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>
+			<span>{{ customField.value.value || '-' }}</span>
+			<span class="currency">{{ customField.value.currency }}</span>
+		</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="'number'"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
 	<!-- selector -->
 	<ng-container *ngSwitchCase="'selector'">
 		<!-- entity selector -->

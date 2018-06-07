@@ -46,6 +46,17 @@ export class ProjectService {
 		);
 	}
 
+	selectProjectsForProduct(id: string): Observable<Project[]> {
+		return this.apollo.subscribe({
+			query: ProjectQueries.listForProduct,
+			variables: {
+				query: `product.id == "${id}"`
+			}
+		}).pipe(
+			map((r: any) => r.data.projects)
+		);
+	}
+
 	/*
         Update a project.
      */

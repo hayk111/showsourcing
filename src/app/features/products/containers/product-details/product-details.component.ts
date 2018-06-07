@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
-import { AppFile } from '~models';
+import { AppFile, Project } from '~models';
 import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductService } from '~features/products/services';
+import { ProductService, ProjectService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
 
 
@@ -22,13 +22,16 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	files: Array<AppFile>;
 	projectDlgName = DialogName.ADD_TO_PROJECT;
 	// tasks$: Observable<Array<Task>>;
+	/** projects for this product */
+	projects$: Observable<Project[]>;
 	productId: string;
 
 	constructor(
 		private route: ActivatedRoute,
 		private userSrv: UserService,
 		private productSrv: ProductService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private projectSrv: ProjectService) {
 		super();
 	}
 
@@ -44,6 +47,10 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.product$ = id$.pipe(
 			switchMap(id => this.productSrv.selectById(id))
 		);
+
+		// this.projects$ = id$.pipe(
+		// 	switchMap(id => this.projectSrv.selectProjectsForProduct(id))
+		// );
 
 		// this.tasks$ = id$.pipe(
 		// 	switchMap(id => this.productSrv.getTasks(id))
