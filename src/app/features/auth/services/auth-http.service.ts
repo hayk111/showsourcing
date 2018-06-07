@@ -32,16 +32,7 @@ export class AuthHttpService {
 	}
 
 	register(credentials: { email: string; password: string, firstName: string, lastName: string }): Observable<any> {
-		const registrationObj = {
-			app_id: '',
-			provider: 'password',
-			data: credentials.email,
-			user_info: {
-				register: true,
-				...credentials
-			}
-		};
-		return this.http.post(`signup/user`, registrationObj);
+		return this.http.post(`signup/user`, credentials);
 	}
 
 	resetPw(email: string): Observable<any> {

@@ -1,11 +1,11 @@
 
 <div class="top">
 	<h1>Sign up</h1>
-	<h2 *ngIf="!(pending)">Just fill this form and get started with power sourcing!</h2>
-	<h2 *ngIf="(pending)">We are now processing your informations</h2>
+	<h2 *ngIf="!(pending$ | async)">Just fill this form and get started with power sourcing!</h2>
+	<h2 *ngIf="(pending$ | async)">We are now processing your informations</h2>
 </div>
 
-<form [formGroup]="form" class="flexColumn" *ngIf="!pending; else spinner">
+<form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app>
 		<label-app>First Name</label-app>

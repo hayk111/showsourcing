@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloBase } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from, split } from 'apollo-link';
@@ -216,17 +216,20 @@ export class ApolloService {
 		}, name);
 	}
 
-	// TODO: clear cache of the right client ?
 	private clearCache() {
-		const clients = [ALL_USER_CLIENT_NAME, USER_CLIENT_NAME];
-		clients.forEach(clientName => {
-			const client = this.apollo.use(clientName);
-			if (client)
-				client.getClient().resetStore();
-		});
+		// resetting intermediate clients
+		this.clearClient(this.apollo.use(ALL_USER_CLIENT_NAME));
+		this.clearClient(this.apollo.use(USER_CLIENT_NAME));
+		// resetting default client
+		this.clearClient(this.apollo);
+
 	}
 
-	private clearClient(name?: string) {
-
+	private clearClient(base: ApolloBase<any>) {
+		if (!base)
+			return;
+		const client = base.getClient();
+		if (client)
+			client.resetStore();
 	}
 }
