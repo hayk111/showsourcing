@@ -13,6 +13,6 @@ export class Project extends BaseEntity<ProjectConfig> {
 
 export interface ProjectConfig {
 	name: string;
-	logoImage: AppImage;
-	description: string;
+	logoImage?: AppImage;
+	description?: string;
 }
