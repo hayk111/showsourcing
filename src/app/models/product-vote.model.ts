@@ -5,3 +5,4 @@ export class ProductVote {
 	user: User;
 	value: number;
 }
+

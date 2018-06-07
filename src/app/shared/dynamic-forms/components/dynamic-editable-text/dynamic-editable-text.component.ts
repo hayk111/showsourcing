@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
+import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -15,7 +16,7 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
 	@ViewChild(InputDirective) input: InputDirective;
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
+	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
 	accumulator: string;
 
 	constructor(protected cd: ChangeDetectorRef) {

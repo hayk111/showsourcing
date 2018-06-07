@@ -35,6 +35,7 @@ export class AuthenticationService {
 		this.tokenSrv.restoreAccessToken();
 	}
 
+
 	login(credentials: Credentials) {
 		return this.authHttp.login(credentials).pipe(
 			// we receive a refresh token as a response we will pass it to the token service so it generates an access token

@@ -1,0 +1,19 @@
+:host {
+	position: absolute;
+	top: 1px;
+	bottom: 0;
+	background: white;
+	z-index: 4;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 280px;
+	padding: var(--spacing-l);
+	height: 100vh;
+	&.alignRight {
+		right: 0;
+	}
+	&.alignLeft {
+		left: 0;
+	}
+
+}

@@ -3,8 +3,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProjectQueries } from '~features/products/services/project.queries';
-import { fromPromise } from 'rxjs/Observable/fromPromise';
-import { forkJoin } from 'rxjs/Observable/forkJoin';
+import { forkJoin, from } from 'rxjs';
 import { take, map, filter, first } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 

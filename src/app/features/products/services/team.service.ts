@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
-import { User } from '~models';
-import { TeamQueries } from '~features/products/services/team.queries';
+import { QueryRef } from 'apollo-angular';
+import { forkJoin, Observable } from 'rxjs';
+import { first, map, switchMap, take } from 'rxjs/operators';
 import { RequestQueries } from '~features/products/services/request.queries';
-import { fromPromise } from 'rxjs/Observable/fromPromise';
-import { forkJoin } from 'rxjs/Observable/forkJoin';
-import { take, map, filter, first, switchMap } from 'rxjs/operators';
+import { TeamQueries } from '~features/products/services/team.queries';
+import { User } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { uuid } from '~utils';
-
 import { PER_PAGE } from '~utils/constants';
 
 @Injectable()
@@ -47,7 +44,7 @@ export class TeamService {
 			.pipe(
 				map(({ data, loading }) => (<any>data).teamUsers),
 				map(teamUsers => teamUsers.map(teamUser => teamUser.user))
-		);
+			);
 	}
 
 	/*
@@ -65,7 +62,7 @@ export class TeamService {
 		const voteRequest = {
 			id: uuid(),
 			status: 'pending'
-				};
+		};
 		return this.addVoteRequest(voteRequest).pipe(
 			switchMap(addedVoteRequest => this.updateVoteRequest({
 				...addedVoteRequest,

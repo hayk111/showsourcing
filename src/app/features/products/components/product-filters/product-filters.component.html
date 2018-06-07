@@ -1,5 +1,4 @@
-<!-- filter-panel  is just a wrapper which has as sole function to display the filter panel somewhere on the screen -->
-<filter-panel-app>
+<side-panel-app>
 	<!-- filter btn panel is a wrapper that displays a clear and close button at the top -->
 	<!-- inside it we put the filter btn that are gonna be displayed -->
 	<filter-btns-panel-app *ngIf="btnPanelShown" (reset)="onClear()">
@@ -132,7 +131,7 @@
 
 
 	<!-- filter selection panel displays a close / done button at the top -->
-	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()" 
+	<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()"
 	                            (clear)="onClear()">
 		<filter-entity-panel-app
 			[title]="typeSelected"
@@ -144,6 +143,7 @@
 			(filterAdded)="addFilter($event)"
 			(filterRemoved)="removeFilter($event)">
 		</filter-entity-panel-app>
+
 	</filter-selection-panel-app>
 
-</filter-panel-app>
+</side-panel-app>

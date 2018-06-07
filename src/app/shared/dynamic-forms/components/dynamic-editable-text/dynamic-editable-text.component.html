@@ -103,6 +103,7 @@
 				</ng-template>
 
 				<selector-entity-app
+					#selector
 					[multiple]="customField.multiple"
 					(change)="onChange()"
 					[(ngModel)]="value"
@@ -114,24 +115,25 @@
 
 		<!-- const selector -->
 		<ng-container *ngIf="customField.metadata.type === 'const'">
-				<!-- one -->
-				<editable-text-app #editable *ngIf="!customField.multiple"
-					(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+			<!-- one -->
+			<editable-text-app #editable *ngIf="!customField.multiple"
+				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
 
-					<label-app>
-						{{ value || '-'}}
-					</label-app>
+				<label-app>
+					{{ value || '-'}}
+				</label-app>
 
-					<selector-const-app
-						[multiple]="false"
-						(change)="onChange()"
-						[(ngModel)]="value"
-						[type]="customField.metadata.target">
-					</selector-const-app>
-				</editable-text-app>
+				<selector-const-app
+					#selector
+					[multiple]="false"
+					(change)="onChange()"
+					[(ngModel)]="value"
+					[type]="customField.metadata.target">
+				</selector-const-app>
+			</editable-text-app>
 
-			</ng-container>
-	</ng-container>
+		</ng-container>
+</ng-container>
 
 
 </ng-container>

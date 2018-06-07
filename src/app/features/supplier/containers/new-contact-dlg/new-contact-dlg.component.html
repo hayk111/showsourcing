@@ -5,7 +5,8 @@
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<form-field-app>
 			<label-app>Name</label-app>
-			<input inputApp (blur)="updateContact('name', $event.target.value)"
+			<input inputApp
+				(blur)="updateContact()"
 				formControlName="name"
 				type="text"
 				autocomplete="new-name"
@@ -15,7 +16,7 @@
 		<form-field-app>
 			<label-app>Function</label-app>
 			<input inputApp
-				(blur)="updateContact('jobTitle', $event.target.value)"
+				(blur)="updateContact()"
 				formControlName="jobTitle"
 				type="text"
 				autocomplete="new-job"
@@ -25,7 +26,7 @@
 		<form-field-app>
 			<label-app>Email</label-app>
 			<input inputApp
-				(blur)="updateContact('email', $event.target.value)"
+				(blur)="updateContact()"
 				formControlName="email"
 				type="email"
 				autocomplete="new-email"
@@ -35,7 +36,7 @@
 		<form-field-app>
 			<label-app>Phone number</label-app>
 			<input inputApp
-				(blur)="updateContact('phoneNumber', $event.target.value)"
+				(blur)="updateContact()"
 				formControlName="phoneNumber"
 				restrictInput="tel"
 				type="tel"

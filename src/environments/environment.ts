@@ -8,5 +8,6 @@ import { LogLevels } from '~utils/logger/log-levels';
 export const environment = {
 	production: false,
 	apiUrl: 'http://vps540915.ovh.net:9080',
+	signupUrl: 'http://ros-dev2.showsourcing.com/signup',
 	LOG_LEVEL: LogLevels.DEBUG,
 };

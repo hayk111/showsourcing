@@ -9,7 +9,7 @@ import { ProductVote } from './product-vote.model';
 import { Packaging } from './packaging.model';
 import { PriceMatrix } from './price-matrix.model';
 
-export class Product extends BaseEntity<Product> {
+export class Product extends BaseEntity<ProductConfig> {
 	name?: string;
 	supplier?: Supplier;
 	images?: AppImage[];
@@ -33,4 +33,27 @@ export class Product extends BaseEntity<Product> {
 	samplePrice?: number;
 	archived?: boolean;
 	deleted?: boolean;
+	taskCount?: number;
+	productCount?: number;
 }
+
+export interface ProductConfig {
+	name: string;
+	supplier?: Supplier;
+	images?: AppImage[];
+	price?: Price;
+	category?: Category;
+	description?: string;
+	event?: Event;
+	favorite?: boolean;
+	status?: ProductStatus;
+	tags?: Tag[];
+	minimumOrderQuantity?: number;
+	moqDescription?: string;
+	innerCarton?: Packaging;
+	masterCarton?: Packaging;
+	priceMatrix?: PriceMatrix;
+	leadTimeValue?: number;
+	leadTimeUnit?: string;
+}
+

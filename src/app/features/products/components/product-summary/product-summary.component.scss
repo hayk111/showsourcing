@@ -25,9 +25,18 @@
 			margin-top: 9px;
 			flex-direction: row;
 			align-items: center;
+
+			&.success {
+				color: var(--color-success);
+			}
+
+			&.warn {
+				color: var(--color-warn);
+			}
+
 			[class^="icon-"],
 			[class*=" icon-"] {
-				margin-left: var(--spacing-s);
+				margin-right: var(--spacing-s);
 				font-size: var(--font-size-xl);
 			}
 		}

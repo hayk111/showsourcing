@@ -111,6 +111,7 @@ export class SupplierService {
 			);
 	}
 
+	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
 		return this.apollo.subscribe({
 			query: SupplierQueries.latestProducts,

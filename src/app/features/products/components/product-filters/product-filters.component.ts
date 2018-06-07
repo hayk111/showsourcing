@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
 import { Filter, FilterGroup, FilterType } from '~shared/filters';
@@ -74,12 +74,12 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 			this.typeSelected = type;
 			this.choices$ = this.selectEntityArray(type)
 				.pipe(
-					map(choices => choices.filter(choice => !choice.favorite)),
+					map((choices: any[]) => choices.filter(choice => !choice.favorite)),
 					takeUntil(this._destroy$)
 				);
 			this.relevantChoices$ = this.selectEntityArray(type)
 				.pipe(
-					map(choices => choices.filter(choice => choice.favorite)),
+					map((choices: any[]) => choices.filter(choice => choice.favorite)),
 					takeUntil(this._destroy$)
 				);
 		}
