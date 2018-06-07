@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { SidePanelComponent } from './component/side-panel/side-panel.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [SidePanelComponent]
+	imports: [
+		CommonModule
+	],
+	declarations: [SidePanelComponent],
+	exports: [SidePanelComponent]
 })
 export class PanelModule { }

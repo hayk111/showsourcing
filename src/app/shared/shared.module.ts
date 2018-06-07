@@ -12,6 +12,8 @@ import { ListModule } from '~shared/list/list.module';
 import { DividerModule } from '~shared/divider/divider.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidePanelComponent } from '~shared/panel/component/side-panel/side-panel.component';
+import { PanelModule } from '~shared/panel/panel.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -27,7 +29,8 @@ const modules = [
 	UserPictureModule,
 	ListModule,
 	DividerModule,
-	ReactiveFormsModule
+	ReactiveFormsModule,
+	PanelModule
 ];
 
 @NgModule({

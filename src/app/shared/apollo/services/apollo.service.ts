@@ -14,7 +14,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 
 const ALL_USER_ENDPOINT = 'all-users';

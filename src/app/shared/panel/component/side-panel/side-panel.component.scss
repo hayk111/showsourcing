@@ -1,6 +1,5 @@
 :host {
 	position: absolute;
-	right: 0;
 	top: 1px;
 	bottom: 0;
 	background: white;
@@ -10,4 +9,11 @@
 	width: 280px;
 	padding: var(--spacing-l);
 	height: 100vh;
+	&.alignRight {
+		right: 0;
+	}
+	&.alignLeft {
+		left: 0;
+	}
+
 }
