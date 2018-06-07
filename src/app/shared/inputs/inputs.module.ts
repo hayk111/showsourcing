@@ -9,21 +9,21 @@ import {
 	CheckboxComponent,
 	FormFieldComponent,
 	InputDirective,
-	LabelDirective,
 	RestrictInputDirective
 } from '~shared/inputs/components-directives';
-import { HintDirective } from '~shared/inputs/components-directives/hint.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorDirective } from '~shared/inputs/components-directives/error.directive';
+import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
+import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
+import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
 
 export const components = [
 	FormFieldComponent,
 	InputDirective,
-	LabelDirective,
 	CheckboxComponent,
 	RestrictInputDirective,
-	HintDirective,
-	ErrorDirective
+	LabelComponent,
+	HintComponent,
+	ErrorComponent
 ];
 
 @NgModule({

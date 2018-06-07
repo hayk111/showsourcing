@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { SharedModule } from '~shared/shared.module';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 
 @NgModule({
 	imports: [
@@ -38,6 +39,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 			multi: true,
 		},
 		AuthGuardService,
+		UnauthGuardService
 	],
 	declarations: [
 		LoginComponent,

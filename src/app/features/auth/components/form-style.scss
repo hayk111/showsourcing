@@ -10,12 +10,24 @@ h1 {
 	font-size: 36px;
 	font-family: 'Raleway', sans-serif;
 	color: var(--color-txt-strong);
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: var(--spacing-m);
 }
 
 h2 {
 	font-size: 20px;
 	font-weight: normal;
-	margin-bottom: 64px;
+	margin-bottom: var(--spacing-xxl);
+	text-align: center;
+	font-family: 'SourceSansPro', sans-serif;
+	text-transform: none;
+}
+
+error-app {
+	color: var(--color-warn);
+	margin-bottom: var(--spacing-m);
+	display: block;
 }
 
 a{
@@ -25,9 +37,14 @@ a{
 	}
 }
 
+form {
+	display: block;
+	width: 376px;
+}
+
 .button {
 	height: 36px;
-	margin-bottom: var(--spacing-m);
+	margin-top: var(--spacing-m);
 }
 spinner-app {
 	margin: auto;

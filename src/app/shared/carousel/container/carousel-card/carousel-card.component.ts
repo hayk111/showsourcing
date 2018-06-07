@@ -47,7 +47,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
-		// const conversions = files.map(file => AppImage.newInstance(file, this.userSrv.userId));
+		// const conversions = files.map(file => AppImage.newInstance(file));
 		// Promise.all(conversions).then(appImages => this.store.dispatch(fromImage.Actions.add(appImages)));
 	}
 

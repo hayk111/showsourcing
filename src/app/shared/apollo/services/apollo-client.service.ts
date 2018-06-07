@@ -12,6 +12,10 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { MutationOptions } from './mutation-options.interface';
+import { AppApolloModule } from '~shared/apollo/apollo.module';
+import { Log } from '~utils';
+
+
 
 /**
  * Wrapper around apollo that allows for automatic optimistic UI.
@@ -23,10 +27,7 @@ export class ApolloClient {
 
 	constructor(private apollo: Apollo) { }
 
-	init<TCacheShape>(options: ApolloClientOptions<TCacheShape>, name?: string) {
-		return this.apollo.create(options, name);
-	}
-
+	/** patch functions start */
 	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
 		return this.apollo.watchQuery<T>(options);
 	}
@@ -37,7 +38,8 @@ export class ApolloClient {
 
 	/** this method is used to update an existing entity*/
 	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
-		if (options.preventOptimisticUi) {
+		if (options.preventOptimisticUi || !options.typename) {
+			Log.warn(`Doing a mutation without optimistic ui: ${(options.mutation.definitions[0] as any).name.value}`);
 			return this.apollo.mutate<T>(options);
 		}
 		(options as ApolloMutationOptions).optimisticResponse = {
@@ -70,6 +72,10 @@ export class ApolloClient {
 		return this.apollo.mutate(apolloOptions).pipe(
 			take(1)
 		);
+	}
+
+	use(name: string) {
+		return new ApolloClient(this.apollo.use(name) as Apollo);
 	}
 
 }
