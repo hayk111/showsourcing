@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
-import { fromPromise } from 'rxjs/Observable/fromPromise';
 import { take, map, filter, first } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 
@@ -58,7 +57,7 @@ export class ProductService {
 	 */
 	loadProductsNextPage({ page, sort, filtergroup }) {
 		this.initializeProductQuery();
-		return fromPromise(this.productsQuery$.fetchMore({
+		return from(this.productsQuery$.fetchMore({
 			variables: sort ? {
 				skip: page * PER_PAGE,
 				take: PER_PAGE,
@@ -66,12 +65,12 @@ export class ProductService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-				skip: page * PER_PAGE,
-				take: PER_PAGE,
-				query: this.createQueryFromFilters(filtergroup),
-				sortBy: 'name',
-				descending: true
-			},
+					skip: page * PER_PAGE,
+					take: PER_PAGE,
+					query: this.createQueryFromFilters(filtergroup),
+					sortBy: 'name',
+					descending: true
+				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
 				return {
@@ -90,7 +89,7 @@ export class ProductService {
 	 */
 	sortProducts({ sort, filtergroup }) {
 		this.initializeProductQuery();
-		return fromPromise(this.productsQuery$.refetch({
+		return from(this.productsQuery$.refetch({
 			skip: 0,
 			take: PER_PAGE,
 			sortBy: sort.sortBy,
@@ -107,19 +106,19 @@ export class ProductService {
 	 */
 	filterProducts({ filtergroup, sort }) {
 		this.initializeProductQuery();
-		return fromPromise(this.productsQuery$.refetch(sort ? {
+		return from(this.productsQuery$.refetch(sort ? {
 			skip: 0,
 			take: PER_PAGE,
 			query: this.createQueryFromFilters(filtergroup),
 			sortBy: 'name',
 			descending: true
 		} : {
-			skip: 0,
-			take: PER_PAGE,
-			query: this.createQueryFromFilters(filtergroup),
-			sortBy: sort.sortBy,
-			descending: sort.sortOrder === 'ASC'
-		})).pipe(first());
+				skip: 0,
+				take: PER_PAGE,
+				query: this.createQueryFromFilters(filtergroup),
+				sortBy: sort.sortBy,
+				descending: sort.sortOrder === 'ASC'
+			})).pipe(first());
 	}
 
 	createQueryFromFilters(filtergroup) {
