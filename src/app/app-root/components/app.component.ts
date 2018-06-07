@@ -14,7 +14,5 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		Log.info('App init');
-		// hmr service or hot module reloading
-		this.authSrv.checkAlreadyAuthenticated();
 	}
 }

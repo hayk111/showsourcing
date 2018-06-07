@@ -7,7 +7,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { cleanTypenameLink } from './clean.typename.link';
-import { ApolloClient } from './services/apollo-client.service';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
 
 
 const GRAPHQL_ENDPOINT_WS = 'ws://vps540915.ovh.net:9080/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
@@ -27,23 +27,34 @@ const GRAPHQL_ENDPOINT_HTTP = 'graphql';
 	declarations: []
 })
 export class AppApolloModule {
-	constructor(private apollo: ApolloClient, private httpLink: HttpLink) {
-		this.init();
+
+	constructor(private apollo: Apollo, private httpLink: HttpLink, private authSrv: AuthenticationService) {
+		// when authenticated we start the process
+		this.authSrv.authenticated$.subscribe(authenticated => authenticated ? this.init() : this.clearCache());
 	}
 
-	async init() {
+	private async init() {
+		this.createClient('AllUsers', false, 'user');
+		const user = this.apollo.use('user').query();
+
+	}
+
+	private createClient(endpoint: string, websocket: boolean, name?: string) {
 		// Create an http link:
 		const http = this.httpLink.create({
-			uri: GRAPHQL_ENDPOINT_HTTP
+			uri: `api/graphql/${endpoint}`
 		});
 
-		// Create a WebSocket link:
-		const ws = new WebSocketLink({
-			uri: GRAPHQL_ENDPOINT_WS,
-			options: {
-				reconnect: true
-			}
-		});
+		let ws;
+		if (websocket) {
+			// Create a WebSocket link:
+			ws = new WebSocketLink({
+				uri: GRAPHQL_ENDPOINT_WS,
+				options: {
+					reconnect: true
+				}
+			});
+		}
 
 		// using the ability to split links, you can send data to each link
 		// depending on what kind of operation is being sent
@@ -65,7 +76,11 @@ export class AppApolloModule {
 		this.apollo.init({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache({ })
-		});
+			cache: new InMemoryCache({ addTypename: false })
+		}, name);
+	}
+
+	private clearCache() {
+		this.apollo.getClient().resetStore();
 	}
 }

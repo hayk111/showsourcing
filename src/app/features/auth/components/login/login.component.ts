@@ -39,8 +39,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			this.pending = true;
 			this.srv.login(this.form.value).pipe(
 				takeUntil(this._destroy$),
-				take(1),
-				catchError(error => this.error = error)
+				take(1)
 			).subscribe(r => this.pending = false);
 		}
 	}
