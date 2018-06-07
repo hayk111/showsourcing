@@ -5,32 +5,34 @@
 	[descriptor]="descriptor"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="onSort($event)"
+	(selectOne)="productSelect.emit($event)"
+	(unselectOne)="productUnselect.emit($event)"
 	[pending]="true">
 </custom-table-app>
 
 <ng-template #main let-row="row">
 	<div class="mainCell">
 		<div class="imgCtnr">
-			<img [src]="row | image:'s'"/>
+			<img *ngIf="row.images?.length > 0" [src]="row | image:'s'"/>
 		</div>
 		<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
 	</div>
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplier !== undefined">
+	<ng-container *ngIf="row.supplier">
 		{{ row?.supplier.name }}
 	</ng-container>
-	<ng-container *ngIf="row.supplier === undefined">
+	<ng-container *ngIf="!row.supplier">
 		-
 	</ng-container>
 </ng-template>
 
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.category !== undefined">
-		{{ row?.category.name }}
+	<ng-container *ngIf="row.category">
+		{{ row?.category?.name }}
 	</ng-container>
-	<ng-container *ngIf="row.category === undefined">
+	<ng-container *ngIf="!row.category">
 		-
 	</ng-container>
 

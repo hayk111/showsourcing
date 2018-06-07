@@ -5,22 +5,22 @@
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
-			<list-item-app *ngFor="let user of teamMembers" [selected]="selectedMembers[user.id]" (click)="checkbox.toggle()">
+			<list-item-app *ngFor="let user of teamMembers" [selected]="selected[user.id]">
 				<div class="flex">
 					<checkbox-app
 						#checkbox
 						(check)="select(user.id, user)"
 						(uncheck)="unselect(user.id, user)"
-						[checked]="selectedMembers[user.id]">
+						[checked]="selected[user.id]">
 					</checkbox-app>
-					<span class="name">{{ user.firstName }} {{ user.lastName }}</span>
+					<span class="name" (click)="checkbox.toggle()">{{ user.firstName }} {{ user.lastName }}</span>
 				</div>
 				</list-item-app>
 		</list-app>
 	</main>
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">{{ products.length }} products selected</span>
+		<span class="txt-secondary">{{ selectedProducts?.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
 		<button class="small" (click)="submit()">
 			Request Feedback
 		</button>

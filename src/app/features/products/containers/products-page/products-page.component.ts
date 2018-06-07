@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap, first, switchMap } from 'rxjs/operators';
 import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
@@ -39,9 +39,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// whether the filter dialog is visible
 	filterPanelOpen: boolean;
 	filters: Array<Filter>;
+	currentSort: { sortBy: string, sortOrder: string };
 
 	page = 0;
-	perPage = 30;
 
 	constructor(
 		private userSrv: UserService,
@@ -49,13 +49,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private cdr: ChangeDetectorRef) {
 		super();
 	}
 
+	/** Connects products for the page */
 	ngOnInit() {
 		this.pending = true;
-		this.products$ = this.productSrv.selectProducts({ perPage: this.perPage }).pipe(
+		this.products$ = this.productSrv.selectProducts().pipe(
 			tap(() => {
 				if (this.initialLoading) {
 					this.pending = false;
@@ -65,20 +67,36 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	/** loads more product when we reach the bottom of the page */
+	/** Loads more products when we reach the bottom of the page */
 	loadMore() {
-		console.log('loadMore');
 		this.page++;
 		this.pending = true;
-		this.productSrv.loadProductsNextPage({ page: this.page, perPage: this.perPage }).subscribe(() => {
+		this.filterSrv.filterGroup$.pipe(
+			first(),
+			switchMap((filtergroup: FilterGroup) => {
+				return this.productSrv.loadProductsNextPage({
+					page: this.page, sort: this.currentSort, filtergroup });
+			})
+		).subscribe(() => {
 			this.pending = false;
 		});
 	}
 
-	/** filters product based on filter group */
+	/** Sorts products based on criteria */
+	sortProducts({ sortWith, order }) {
+		const sort = { sortBy: sortWith, sortOrder: order };
+		this.currentSort = sort;
+		this.filterSrv.filterGroup$.pipe(
+			first()
+		).subscribe((filtergroup: FilterGroup) => {
+			this.productSrv.sortProducts({ sort, filtergroup });
+		});
+	}
+
+	/** Filters products based on filter group */
 	filterProducts(filtergroup: FilterGroup) {
 		this.pending = true;
-		this.productSrv.filterProducts({ perPage: this.perPage, filtergroup }).subscribe(() => {
+		this.productSrv.filterProducts({ filtergroup, sort: this.currentSort }).subscribe(() => {
 			this.pending = false;
 		});
 	}
@@ -95,7 +113,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Unselect all produces */
 	unselectAll() {
-		this.selection = new Map();
+		this.selection.clear();
 	}
 
 	/** Patch a property of a product */
@@ -112,10 +130,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
-			// this.store.dispatch(productActions.delete(products));
 			this.unselectAll();
+			this.cdr.detectChanges();
 		};
-		const text = `Delete ${this.selection.size} Products ?`;
+		const text = `Delete ${this.selection.size} Product${this.selection.size > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
