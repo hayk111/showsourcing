@@ -22,6 +22,8 @@ export class CustomTableComponent {
 	@Input() descriptor: TableDescriptor = [];
 	@Input() rows: Array<any> = [];
 	@Input() pending: boolean;
+	// maps of the <id, true> so we can access the items that are selected
+	@Input() selected: Map<string, boolean> = new Map();
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
 

@@ -45,13 +45,8 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 
 	submit() {
 		// we add each project one by one to the store
-		this.projects$.pipe(
-			first(),
-			map(projects => projects.filter(project => !!this.selected[project.id])),
-			switchMap(projects => {
-				return this.projectSrv.addProductsToProjects(projects, this.selectedProducts);
-			})
-		).subscribe(projects => {
+		const selectedProjects = <Project[]>Object.values(this.selected);
+		this.projectSrv.addProductsToProjects(selectedProjects, this.selectedProducts).subscribe(projects => {
 			this.dlgSrv.close(this.dlgName);
 		});
 	}

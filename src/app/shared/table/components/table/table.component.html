@@ -3,7 +3,9 @@
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
 				<div class="header"></div>
-				<div class="cell"></div>
+				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+					[ngClass]="{ selected: (i === hoverIndex) }"
+					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
 
 
@@ -12,13 +14,24 @@
 				<div class="header">
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
 				</div>
-				<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
+				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+					[ngClass]="{ selected: (i === hoverIndex) }"
+					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<checkbox-app [checked]="selected.has(row[idName])"
 						(check)="onSelectOne(row[idName])"
 						(uncheck)="onUnselectOne(row[idName])"></checkbox-app>
 				</div>
 		</div>
 
+		<div class="col dotCol" *ngIf="hasSelection">
+			<div class="header">
+			</div>
+			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+				[ngClass]="{ selected: (i === hoverIndex) }"
+				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+				<div class="dotSeparator" [ngStyle]="{ display: (i === hoverIndex) ? 'block' : 'none' }"></div>
+			</div>
+		</div>
 
 		<!-- content columns -->
 		<div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"
@@ -35,12 +48,15 @@
 				</ng-container>
 			</div>
 			<!-- cells -->
-			<div class="cell" *ngFor="let row of rows; trackBy: trackByFn">
+			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
+				[ngClass]="{ selected: (i === hoverIndex) }"
+				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
 				<div class="ellipsis">
 					<!-- Render the column template when specified -->
+					selected: {{(i === hoverIndex)}}
 					<ng-container
-						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
+						*ngTemplateOutlet="column.template; context: { column: column, row: row, i: i, hoverIndex: hoverIndex }">
 					</ng-container>
 				</div>
 			</div>

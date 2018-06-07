@@ -59,6 +59,7 @@ export class TableComponent {
 	}
 	protected _rows = [];
 	protected _sortedRows;
+	hoverIndex: number;
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
@@ -111,6 +112,16 @@ export class TableComponent {
 
 	identify(index, item) {
 		return item[this.idName];
+	}
+
+	hoverRow(index: number) {
+		this.hoverIndex = index;
+	}
+
+	isSelected(row, index: number) {
+		console.log('>> selected = ', this.selected);
+		// return this.selected.has(row.id);
+		return false;
 	}
 
 }

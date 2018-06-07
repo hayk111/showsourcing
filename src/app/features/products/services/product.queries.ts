@@ -29,6 +29,9 @@ export class ProductQueries {
 				images {
 					fileName
 				},
+				status {
+					id, name, color
+				},
 				favorite,
 				score,
 				minimumOrderQuantity,
@@ -114,6 +117,12 @@ export class ProductQueries {
 			updateProduct(input: $input) {
 				id, favorite
 			}
+		}
+	`;
+
+	static deleteProduct = gql`
+		mutation deleteProduct($input: String!) {
+			deleteProduct(id: $input)
 		}
 	`;
 }

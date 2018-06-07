@@ -1,5 +1,5 @@
 <div class="flex {{ big ? 'big' : ''}}"
 	[ngStyle]="styles">
-	<span class="currency">{{ currency?.symbol ? currency.symbol : currency?.id }}</span>
 	<span class="amount">{{ amount | number : '1.2-2' }}</span>
+	<span class="currency txt-secondary">{{ currency }}</span>
 </div>

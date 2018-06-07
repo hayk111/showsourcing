@@ -19,13 +19,13 @@ export class ExportService {
 	addProductsExport(productIds: string[], exportType: string): Observable<any> {
 		const exportRequest = {
 			id: uuid(),
-			// status: 'pending',
-			// type: exportType
+			status: 'pending',
+			type: exportType
 		};
 		return this.addExportRequest(exportRequest).pipe(
 			switchMap(addedExportRequest => this.updateExportRequest({
 				...addedExportRequest,
-				products: productIds.map(productId => ({ id: productId })),
+				targetProducts: productIds.map(productId => ({ id: productId })),
 			}))
 		);
 	}

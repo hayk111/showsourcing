@@ -39,7 +39,9 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('supplier') supplierTemplate: TemplateRef<any>;
 	@ViewChild('category') categoryTemplate: TemplateRef<any>;
 	@ViewChild('price') priceTemplate: TemplateRef<any>;
+	@ViewChild('moq') moqTemplate: TemplateRef<any>;
 	@ViewChild('feedback') feedbackTemplate: TemplateRef<any>;
+	@ViewChild('status') statusTemplate: TemplateRef<any>;
 	@ViewChild('creationDate') creationDateTemplate: TemplateRef<any>;
 	@ViewChild('rating') ratingTemplate: TemplateRef<any>;
 	@ViewChild('user') userTemplate: TemplateRef<any>;
@@ -47,16 +49,17 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
 
 	descriptor: TableDescriptor = [
-		{ title: '', type: 'main', sortable: true, sortWith: 'name', width: 280 },
-		{ title: 'Supplier', type: 'supplier', sortWith: 'supplier.name', width: 120 },
+		{ title: 'Name', type: 'main', sortable: true, sortWith: 'name', width: 280 },
 		{ title: 'Category', type: 'category', sortWith: 'category.name', width: 120 },
+		{ title: 'Supplier', type: 'supplier', sortWith: 'supplier.name', width: 120 },
 		{ title: 'Price', type: 'price', sortWith: 'price', width: 50 },
-		{ title: 'MOQ', type: 'txt', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
-		{ title: 'Rating', type: 'feedback', sortWith: 'score', width: 50 },
-		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 120 },
-		{ title: 'Fav', type: 'rating', sortWith: 'rating', width: 50 },
-		{ title: 'Created by', type: 'user', sortWith: 'createdBy.id', width: 140 },
-		{ title: 'Actions', type: 'action', sortable: false, width: 140 },
+		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
+		{ title: 'FAV', type: 'rating', sortWith: 'rating', width: 15 },
+		{ title: 'Status', type: 'status', sortWith: 'status.name', width: 85 },
+		/* { title: 'Rating', type: 'feedback', sortWith: 'score', width: 50 }, */
+		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 120 }
+		/* { title: 'Created by', type: 'user', sortWith: 'createdBy.id', width: 140 },
+		{ title: 'Actions', type: 'action', sortable: false, width: 140 }, */
 	];
 
 	constructor() { }
@@ -97,8 +100,14 @@ export class ProductListViewComponent implements OnInit {
 			case 'price':
 				column.template = this.priceTemplate;
 				break;
+			case 'moq':
+				column.template = this.moqTemplate;
+				break;
 			case 'feedback':
 				column.template = this.feedbackTemplate;
+				break;
+			case 'status':
+				column.template = this.statusTemplate;
 				break;
 			case 'creationDate':
 				column.template = this.creationDateTemplate;

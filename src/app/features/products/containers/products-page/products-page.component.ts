@@ -113,7 +113,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Unselect all produces */
 	unselectAll() {
-		this.selection.clear();
+		console.log('>> unselectAll - this.selection = ', this.selection);
+		// this.selection.clear();
+		this.selection = new Map();
+		console.log('  >> unselectAll - this.selection = ', this.selection);
 	}
 
 	/** Patch a property of a product */
@@ -130,8 +133,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
-			this.unselectAll();
-			this.cdr.detectChanges();
+			this.productSrv.deleteProducts(products).subscribe(() => {
+				this.unselectAll();
+				this.cdr.detectChanges();
+			});
 		};
 		const text = `Delete ${this.selection.size} Product${this.selection.size > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
