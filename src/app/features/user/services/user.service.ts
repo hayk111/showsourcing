@@ -27,6 +27,6 @@ export class UserService {
 	}
 
 	pickTeam(team: Team) {
-		return this.apolloSrv.initTeamClient([team]);
+		return this.apolloSrv.selectTeam(team.id);
 	}
 }
