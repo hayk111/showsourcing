@@ -20,24 +20,41 @@ table-app {
 	width: 32px;
 	height: 32px;
 	overflow: hidden;
-	position: relative;
-	img {
+	img.mini {
 		height: 100%;
+		z-index: 100;
+	}
+	position: relative;
+
+	.imgOverViewCtnrWrapper {
+		position: fixed;
+		z-index: 1000;
 	}
 
 	.imgOverViewCtnr {
-		width: 64px;
-		height: 64px;
+		width: 128px;
+		height: 128px;
 		display: none;
 		position: absolute;
-		top: 16px;
+		top: -20px;
 		left: 16px;
-		z-index: 100;
 	}
-
+	
 	&:hover {
 		.imgOverViewCtnr {
 			display: block;
+		}
+	}
+}
+
+.mainCellWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		.preview {
+			display: flex;
+			align-items: center;
 		}
 	}
 }
@@ -63,4 +80,18 @@ user-picture-app {
 
 .alignRight {
 	text-align: right;
+}
+
+.preview {
+	display: none;
+
+	&>button {
+		color: #5d6d8b;
+		border: solid 1px #a3afc6;
+		background-color: #e6ebf5;
+		font-size: 11px;
+		height: 21px;
+		width: 57px;
+		text-transform: none;
+	}
 }

@@ -119,9 +119,10 @@ export class TableComponent {
 	}
 
 	isSelected(row, index: number) {
-		console.log('>> selected = ', this.selected);
-		// return this.selected.has(row.id);
-		return false;
+		// console.log('row = ', row);
+		// console.log('>> selected = ', this.selected);
+		return this.selected.has(row.id);
+		// return false;
 	}
 
 }

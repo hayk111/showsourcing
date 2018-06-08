@@ -4,7 +4,7 @@
 		<div class="col emptyBorder">
 				<div class="header"></div>
 				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
-					[ngClass]="{ selected: (i === hoverIndex) }"
+					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
 
@@ -15,7 +15,7 @@
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
 				</div>
 				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
-					[ngClass]="{ selected: (i === hoverIndex) }"
+					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<checkbox-app [checked]="selected.has(row[idName])"
 						(check)="onSelectOne(row[idName])"
@@ -27,9 +27,11 @@
 			<div class="header">
 			</div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
-				[ngClass]="{ selected: (i === hoverIndex) }"
+				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-				<div class="dotSeparator" [ngStyle]="{ display: (i === hoverIndex) ? 'block' : 'none' }"></div>
+				<div class="dotSeparator"
+					[ngClass]="{ hover: (i === hoverIndex) }"
+					[ngStyle]="{ display: ((i === hoverIndex) || isSelected(row, i)) ? 'block' : 'none' }"></div>
 			</div>
 		</div>
 
@@ -49,13 +51,13 @@
 			</div>
 			<!-- cells -->
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
-				[ngClass]="{ selected: (i === hoverIndex) }"
+				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
 				<div class="ellipsis">
 					<!-- Render the column template when specified -->
 					<ng-container
-						*ngTemplateOutlet="column.template; context: { column: column, row: row, i: i, hoverIndex: hoverIndex }">
+						*ngTemplateOutlet="column.template; context: { column: column, row: row }">
 					</ng-container>
 				</div>
 			</div>
