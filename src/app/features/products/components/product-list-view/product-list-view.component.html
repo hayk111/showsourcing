@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
-		<button *ngIf="selected">Test</button>
+		<button (click)="previewClick.emit(row)">preview</button>
 	</div>
 </ng-template>
 
@@ -60,13 +60,13 @@
 		[amount]="row?.minimumOrderQuantity"
 		*ngIf="row?.price?.currency; else noMoq">
 	</moq-app>
-	
+
 	<ng-template #noMoq>
 		<div class="alignRight">-</div>
 	</ng-template>
 
 </ng-template>
-	
+
 <ng-template #feedback let-row="row">
 	{{ row?.score !== undefined ? row.score : '-' }} %
 </ng-template>

@@ -26,6 +26,7 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();
+	@Output() previewClick = new EventEmitter<Product>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sortColumn = new EventEmitter<{ order: 'ASC' | 'DESC'; sortWith: string; }>();
 	// inputs
