@@ -8,6 +8,7 @@ import { Resolver } from '~utils/resolver.class';
 export class ColumnDirective implements OnInit {
 	// tslint:disable-next-line:no-input-rename
 	@Input('columnApp') title: string;
+	@Input() type: string;
 	@Input() sortable = true;
 	// property used to make the sorting
 	// we default the sorting property to the title lower cased

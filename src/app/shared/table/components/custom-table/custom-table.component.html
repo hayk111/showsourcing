@@ -3,7 +3,8 @@
 	(unselectOne)="unselectOne.emit($event)"[pending]="pending">
 		<ng-template
 			*ngFor="let column of descriptor"
-			columnApp="{{ column.title }}"
+			[columnApp]="column.title"
+			[type]="column.type"
 			[sortable]="column.sortable !== undefined ? column.sortable : true"
 			[width]="column.width"
 			let-row="row"

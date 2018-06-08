@@ -47,6 +47,17 @@ table-app {
 	}
 }
 
+.mainCellWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		.preview {
+			display: flex;
+			align-items: center;
+		}
+	}
+}
 
 .mainCell {
 	display: flex;
@@ -69,4 +80,18 @@ user-picture-app {
 
 .alignRight {
 	text-align: right;
+}
+
+.preview {
+	display: none;
+
+	&>button {
+		color: #5d6d8b;
+		border: solid 1px #a3afc6;
+		background-color: #e6ebf5;
+		font-size: 11px;
+		height: 21px;
+		width: 57px;
+		text-transform: none;
+	}
 }
