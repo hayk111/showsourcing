@@ -20,6 +20,7 @@
 		class="list-view"
 		[selection]="selection"
 		[products]="products"
+		[pending]="pending"
 		(productSelect)="onItemSelected($event)"
 		(productUnselect)="onItemUnselected($event)"
 		(productOpen)="goToDetails($event)"

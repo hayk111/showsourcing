@@ -32,6 +32,7 @@ export class ProductListViewComponent implements OnInit {
 	@Input() products: Array<Product>;
 	// currently selected items
 	@Input() selection: Map<string, boolean>;
+	@Input() pending: boolean;
 
 	// templates
 	// load cells template for custom table
