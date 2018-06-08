@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 
 export class ProductQueries {
 	static list = gql`
-		query products($query: String!) {
-			products(take: 30, query: $query) {
+		query products($take: Int, $skip: Int, $query: String!, $sortBy: String, $descending: Boolean) {
+			products(take: $take, skip: $skip, query: $query, sortBy: $sortBy, descending: $descending) {
 				id,
 				name,
 				description,
@@ -28,6 +28,9 @@ export class ProductQueries {
 				}
 				images {
 					fileName
+				},
+				status {
+					id, name, color
 				},
 				favorite,
 				score,
@@ -100,16 +103,26 @@ export class ProductQueries {
 				leadTimeValue,
 				leadTimeUnit,
 				sample,
-				samplePrice
+				samplePrice,
+				taskCount,
+				projects {
+					id, name
+				}
 			}
 		}
 	`;
 
 	static updateProduct = gql`
-		mutation updateProduct($product: ProductInput!) {
-			updateProduct(input: $product) {
+		mutation updateProduct($input: ProductInput!) {
+			updateProduct(input: $input) {
 				id, favorite
 			}
+		}
+	`;
+
+	static deleteProduct = gql`
+		mutation deleteProduct($input: String!) {
+			deleteProduct(id: $input)
 		}
 	`;
 }

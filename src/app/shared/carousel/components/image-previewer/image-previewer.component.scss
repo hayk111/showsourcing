@@ -7,14 +7,8 @@
 		height: 52px;
 		width: 52px;
 		border-radius: var(--border-radius-s);
-		margin: var(--spacing-s) var(--spacing-xs) 0 var(--spacing-xs);
-	}
-	// the margin for the previews are smaller on the sides
-	& :nth-child(5n+1) {
-		margin-left: 0;
-	}
-	& :nth-child(5n) {
-		margin-right: 0;
+		margin-bottom: var(--spacing-s);
+		margin-right: var(--spacing-s);
 	}
 }
 

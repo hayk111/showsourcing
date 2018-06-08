@@ -17,9 +17,9 @@
 
 		<div class="cell">
 			<div class="title">Team Rating</div>
-			<div class="content" color-success>
+			<div class="content" [ngClass]="{'success' : (product?.score >= 50), 'warn': (product?.score < 50)}">
 				<div class="icon-thumb-up"></div>
-				{{ product?.score || "-" }} %
+				{{ product?.score !== undefined ? product?.score : '-' }} %
 			</div>
 		</div>
 
@@ -28,8 +28,8 @@
 		<div class="cell">
 			<div class="title">Tasks</div>
 			<div class="content">
-					{{ numTasks }}
 				<div class="icon-edit"></div>
+				{{ product?.taskCount !== undefined ? product?.taskCount : '-' }}
 			</div>
 		</div>
 

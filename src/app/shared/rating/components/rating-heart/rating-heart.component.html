@@ -1,4 +1,4 @@
-<div (click)="onClick()" class="pointer">
+<div (mousedown)="onClick()" class="pointer">
 	<div class="pointer" *ngIf="favorite; then heart else emptyheart"></div>
 	<ng-template #heart>
 		<div class="icon-heart"></div>

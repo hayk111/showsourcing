@@ -68,16 +68,35 @@
 
 	<!-- textarea -->
 	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
+		<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
 				<textarea inputApp
 					#inp
 					autofocus="true"
 					[value]="customField.value"
-					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close(); onSave()">
+					(input)="accumulate(inp.value)">
 				</textarea>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
+	<!-- price -->
+	<editable-text-app #editable *ngSwitchCase="'price'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>
+			<span>{{ customField.value.value || '-' }}</span>
+			<span class="currency">{{ customField.value.currency }}</span>
+		</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="'number'"/>
 			</div>
 		</form-field-app>
 	</editable-text-app>
@@ -87,7 +106,7 @@
 		<!-- entity selector -->
 		<ng-container *ngIf="customField.metadata.type === 'entity'">
 			<editable-text-app #editable
-				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				(closed)="onClose()" [hasAction]="false" (opened)="onOpen()">
 				<!-- multiple value label -->
 				<label-app *ngIf="customField.multiple; else solo">
 					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
@@ -103,8 +122,9 @@
 				</ng-template>
 
 				<selector-entity-app
+					#selector
 					[multiple]="customField.multiple"
-					(change)="onChange()"
+					(change)="onSelectorChange()"
 					[(ngModel)]="value"
 					[type]="customField.metadata.target">
 				</selector-entity-app>
@@ -114,24 +134,25 @@
 
 		<!-- const selector -->
 		<ng-container *ngIf="customField.metadata.type === 'const'">
-				<!-- one -->
-				<editable-text-app #editable *ngIf="!customField.multiple"
-					(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+			<!-- one -->
+			<editable-text-app #editable *ngIf="!customField.multiple"
+				(closed)="onClose()" [hasAction]="false" (opened)="onOpen()">
 
-					<label-app>
-						{{ value || '-'}}
-					</label-app>
+				<label-app>
+					{{ value || '-'}}
+				</label-app>
 
-					<selector-const-app
-						[multiple]="false"
-						(change)="onChange()"
-						[(ngModel)]="value"
-						[type]="customField.metadata.target">
-					</selector-const-app>
-				</editable-text-app>
+				<selector-const-app
+					#selector
+					[multiple]="false"
+					(change)="onSelectorChange()"
+					[(ngModel)]="value"
+					[type]="customField.metadata.target">
+				</selector-const-app>
+			</editable-text-app>
 
-			</ng-container>
-	</ng-container>
+		</ng-container>
+</ng-container>
 
 
 </ng-container>

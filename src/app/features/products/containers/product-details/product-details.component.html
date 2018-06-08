@@ -12,20 +12,20 @@
   <div class="flex content">
     <div class="left">
 
-      <!-- <div class="carouselCard"> -->
-				<!-- <rating-heart-app class="flexCenter"
+      <div class="carouselCard">
+				<rating-heart-app class="flexCenter"
 					[favorite]="product.favorite"
 					(favorited)="onFavorited()"
-					(unfavorited)="onUnfavorited()"></rating-heart-app> -->
+					(unfavorited)="onUnfavorited()"></rating-heart-app>
         <carousel-card-app [hasFooter]="false" [images]="product.images"></carousel-card-app>
-			<!-- </div> -->
+			</div>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 
 			<project-card-app
 				(removeProject)="removeProject($event)"
 				(addProjectClick)="openAddProjectDlg()"
-				[projects]="product.projects"></project-card-app>
+				[projects]="projects$ | async"></project-card-app>
 
 
 			<files-card-app></files-card-app>

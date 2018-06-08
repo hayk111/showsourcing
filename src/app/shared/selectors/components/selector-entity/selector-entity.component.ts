@@ -82,16 +82,39 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	/** creates a new entity */
 	create(name: string) {
 		let createObs$: Observable<any>;
+		let added;
 		switch (this.type) {
-			case 'supplier': createObs$ = this.srv.createSupplier(new Supplier({ name })); break;
-			case 'category': createObs$ = this.srv.createCategory(new Category({ name })); break;
-			case 'event': createObs$ = this.srv.createEvent(new Event({ name })); break;
-			case 'tag': createObs$ = this.srv.createTag(new Tag({ name })); break;
-			case 'supplierType': createObs$ = this.srv.createSupplierType(new SupplierType({ name })); break;
+			case 'supplier':
+				added = new Supplier({ name });
+				createObs$ = this.srv.createSupplier(added);
+				break;
+			case 'category':
+				added = new Category({ name });
+				createObs$ = this.srv.createCategory(added);
+				break;
+			case 'event':
+				added = new Event({ alias: name });
+				createObs$ = this.srv.createEvent(added);
+				break;
+			case 'tag':
+				added = new Tag({ name });
+				createObs$ = this.srv.createTag(new Tag({ name }));
+				break;
+			case 'supplierType':
+				added = new SupplierType({ name });
+				createObs$ = this.srv.createSupplierType(new SupplierType({ name }));
+				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
+		// we add it directly to the value
+		if (this.multiple)
+			this.value.push(added);
+		else
+			this.value = added;
 		// we are using take 1 in srv, no need for fancy destroying
 		createObs$.subscribe();
+		// we changed the value directly so we have to notify the formControl
+		this.onChange();
 	}
 
 }

@@ -3,38 +3,43 @@
 	class="list"
 	[rows]="products"
 	[descriptor]="descriptor"
+	[selected]="selection"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="onSort($event)"
-	[pending]="true">
+	(selectOne)="productSelect.emit($event)"
+	(unselectOne)="productUnselect.emit($event)"
+	[pending]="pending">
 </custom-table-app>
 
-<ng-template #main let-row="row">
+<ng-template #main let-row="row" let-i="i" let-hoverIndex="hoverIndex">
 	<div class="mainCell">
 		<div class="imgCtnr">
-			<img [src]="row | image:'s'"/>
+			<img *ngIf="row.images?.length > 0" [src]="row | image:'s'"/>
+			<div class="imgOverViewCtnr">
+				<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
+			</div>
 		</div>
 		<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
+		<button (click)="previewClick.emit(row)">preview</button>
 	</div>
 </ng-template>
 
 <ng-template #supplier let-row="row">
-	<ng-container *ngIf="row.supplier !== undefined">
+	<ng-container *ngIf="row.supplier">
 		{{ row?.supplier.name }}
 	</ng-container>
-	<ng-container *ngIf="row.supplier === undefined">
+	<ng-container *ngIf="!row.supplier">
 		-
 	</ng-container>
 </ng-template>
 
 <ng-template #category let-row="row">
-	<ng-container *ngIf="row.category !== undefined">
-		{{ row?.category.name }}
+	<ng-container *ngIf="row.category">
+		{{ row?.category?.name }}
 	</ng-container>
-	<ng-container *ngIf="row.category === undefined">
+	<ng-container *ngIf="!row.category">
 		-
 	</ng-container>
-
-
 </ng-template>
 
 <ng-template #price let-row="row">
@@ -50,16 +55,28 @@
 
 </ng-template>
 
+<ng-template #moq let-row="row">
+	<moq-app
+		[amount]="row?.minimumOrderQuantity"
+		*ngIf="row?.price?.currency; else noMoq">
+	</moq-app>
+
+	<ng-template #noMoq>
+		<div class="alignRight">-</div>
+	</ng-template>
+
+</ng-template>
+
 <ng-template #feedback let-row="row">
 	{{ row?.score !== undefined ? row.score : '-' }} %
 </ng-template>
 
 <ng-template #creationDate let-row="row">
-	{{ row?.creationDate | date: 'MMMM y' }}
+	{{ row?.creationDate | date: 'dd MMMM y' }}
 </ng-template>
 
 <ng-template #rating let-row="row">
-	<div class="flexCenter">
+	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"
 			(favorited)="productFavorited.emit(row.id)"
@@ -70,6 +87,15 @@
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
 		<span *ngFor="let project of row.projects">{{ project.name }}</span>
+	</div>
+</ng-template>
+
+<ng-template #status let-row="row">
+	<div class="pointer">
+		<badge-app
+			[color]="row?.status?.color">
+			{{row?.status?.name}}
+		</badge-app>
 	</div>
 </ng-template>
 

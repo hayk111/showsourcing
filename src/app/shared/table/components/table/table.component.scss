@@ -25,6 +25,12 @@
 	align-items: center;
 }
 
+.cell {
+	&.selected {
+		background-color: var(--color-bg-third);
+	}
+}
+
 .header {
 	background: var(--color-bg-third);
 	text-transform: uppercase;
@@ -62,4 +68,16 @@
 
 .sortIcon {
 	margin-left: var(--spacing-xs);
+}
+
+.dotCol > div {
+	/* width: 20px; */
+	padding-left: 16px;
+	padding-right: 0;
+	width: 10px;
+}
+
+.dotSeparator:after {
+	content: '\2807';
+	font-size: 25px;
 }

@@ -26,7 +26,7 @@
 			<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>
 		</ng-template>
 
-		<ng-template ng-footer-tmp *ngIf="canCreate">
+		<ng-template ng-footer-tmp *ngIf="(canCreate && searchValue)">
 			<div class="createBlock pointer" (click)="onCreate()" *ngIf="filteredChoices.length === 0">
 					Create {{ itemName }}
 			</div>

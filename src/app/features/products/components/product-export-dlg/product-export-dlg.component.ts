@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
-import { DialogName } from '~shared/dialog';
+import { DialogName, DialogService } from '~shared/dialog';
+import { ExportService } from '~features/products/services/export.service';
+
 
 const addDlg = () => addDialog(ProductExportDlgComponent, DialogName.EXPORT);
 
@@ -14,12 +16,12 @@ export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'excel' = '';
 	dlgName = DialogName.EXPORT;
 	// used to give props from the dialog container
-	props = { selectedProducts: [] };
+	selectedProducts: string[];
 	get products() {
-		return this.props.selectedProducts;
+		return this.selectedProducts;
 	}
 
-	constructor() { }
+	constructor(private dlgSrv: DialogService, private exportSrv: ExportService) { }
 
 	ngOnInit() {
 	}
@@ -29,7 +31,10 @@ export class ProductExportDlgComponent implements OnInit {
 	}
 
 	export() {
-
+		this.exportSrv.addProductsExport(this.selectedProducts, this.selectedExport)
+			.subscribe(projects => {
+				this.dlgSrv.close(this.dlgName);
+			});
 	}
 }
 

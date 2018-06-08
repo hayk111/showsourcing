@@ -1,4 +1,3 @@
-import { Audit } from './audit.model';
 import { uuid } from '~utils';
 import { User } from '~models/user.model';
 

@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloBase } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from, split } from 'apollo-link';
@@ -14,7 +14,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 
 const ALL_USER_ENDPOINT = 'all-users';
@@ -125,11 +125,11 @@ export class ApolloService {
 	*/
 	private getUris(realmUri: string): { httpUri: string, wsUri: string } {
 		const httpUri = new URL(realmUri);
-		httpUri.protocol = 'http';
+		httpUri.protocol = 'https';
 		httpUri.pathname = '/graphql/' + encodeURIComponent(httpUri.pathname);
 		// uri for websocket
 		const wsUri = new URL(httpUri.toString());
-		wsUri.protocol = 'ws';
+		wsUri.protocol = 'wss';
 		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
 	}
 
@@ -209,21 +209,24 @@ export class ApolloService {
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
-			cache: new InMemoryCache()
+			cache: new InMemoryCache({})
 		}, name);
 	}
 
-	// TODO: clear cache of the right client ?
 	private clearCache() {
-		const clients = [ALL_USER_CLIENT_NAME, USER_CLIENT_NAME];
-		clients.forEach(clientName => {
-			const client = this.apollo.use(clientName);
-			if (client)
-				client.getClient().resetStore();
-		});
+		// resetting intermediate clients
+		this.clearClient(this.apollo.use(ALL_USER_CLIENT_NAME));
+		this.clearClient(this.apollo.use(USER_CLIENT_NAME));
+		// resetting default client
+		this.clearClient(this.apollo);
+
 	}
 
-	private clearClient(name?: string) {
-
+	private clearClient(base: ApolloBase<any>) {
+		if (!base)
+			return;
+		const client = base.getClient();
+		if (client)
+			client.resetStore();
 	}
 }

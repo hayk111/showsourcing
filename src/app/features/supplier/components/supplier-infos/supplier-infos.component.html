@@ -2,7 +2,12 @@
 
 	<h2>Supplier Information</h2>
 
-	<dynamic-form-app [descriptor]="descriptor" [editable]="true" (formCreated)="onFormCreated($event)"></dynamic-form-app>
+	<dynamic-form-app
+		[inlineLabel]="false"
+		[descriptor]="descriptor"
+		[editable]="true"
+		(formCreated)="onFormCreated($event)">
+	</dynamic-form-app>
 
 
 	<!-- user / created by -->

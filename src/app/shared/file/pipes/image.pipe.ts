@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DEFAULT_IMG } from '~utils';
 
 /**
  * Pipes that adds the begining url for images,
@@ -21,13 +22,13 @@ export class ImagePipe implements PipeTransform {
 	 * @param value : Entity object (like supplier) or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
-	transform(value: any | string, args?: ('s' | 'm' | 'l' | 'xl')[]): any {
+	transform(value: any | string, args?: ('s' | 'm' | 'l' | 'xl')[]): string {
 		if (typeof value === 'object') {
 			if (!Array.isArray(value.images)) {
-				throw new Error(`value.images is not an array...`);
+				return DEFAULT_IMG;
 			}
-			if (!value.images[0].fileName) {
-				throw new Error(`value.images[0].fileName is undefined...`);
+			if (!value.images[0] || !value.images[0].fileName) {
+				return DEFAULT_IMG;
 			}
 			return `${ImagePipe.urls[args[0]]}/${value.images[0].fileName}`;
 		} else {

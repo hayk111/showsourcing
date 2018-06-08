@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
+import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { EditableTextComponent } from '~shared/editable-field';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -14,8 +16,11 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
+	@Output() open = new EventEmitter<null>();
+	@Output() close = new EventEmitter<null>();
 	@ViewChild(InputDirective) input: InputDirective;
-	@ViewChild(SelectorEntityComponent) selector: SelectorEntityComponent;
+	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
+	@ViewChild('editable') editable: EditableTextComponent;
 	accumulator: string;
 
 	constructor(protected cd: ChangeDetectorRef) {
@@ -35,6 +40,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+		this.onClose();
 	}
 
 	onOpen() {
@@ -44,15 +50,23 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			this.input.focus();
 		if (this.selector)
 			this.selector.open();
+		this.open.emit();
+	}
+
+	onClose() {
+		this.close.emit();
+	}
+
+	onSelectorChange() {
+		if (!this.customField.multiple) {
+			this.editable.close();
+		}
+		this.onChange();
 	}
 
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-	}
-
-	onClose() {
-
 	}
 
 	/** check if a value is empty */

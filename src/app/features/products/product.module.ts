@@ -6,7 +6,7 @@ import { ProductMainCardComponent } from '~features/products/components/product-
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
-import { ProductService } from '~features/products/services';
+import { ProductService, ProjectService, TeamService, ExportService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
@@ -43,6 +43,7 @@ import {
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
 import { FilterDataService } from './services/filter.data.service';
 import { SelectionService } from './services/selection.service';
+import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { SelectionService } from './services/selection.service';
 		ProductFiltersComponent,
 		NewProductDialogComponent,
 		ProductMainCardComponent,
-		GroupByPipe
+		GroupByPipe,
+		ProductPreviewComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,
@@ -93,7 +95,7 @@ import { SelectionService } from './services/selection.service';
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductService, SelectionService, FilterDataService]
+	providers: [ProductService, ProjectService, TeamService, ExportService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 

@@ -47,40 +47,40 @@ export class SelectorQueries {
 	`;
 
 	static createSupplier = gql`
-		mutation addSupplier($supplier: SupplierInput) {
-			addSupplier(input: $supplier) {
+		mutation addSupplier($input: SupplierInput) {
+			addSupplier(input: $input) {
 				id
 			}
 		}
 	`;
 
 	static createCategory = gql`
-		mutation addCategory($category: CategoryInput) {
-			addCategory(input: $category) {
+		mutation addCategory($input: CategoryInput) {
+			addCategory(input: $input) {
 				id
 			}
 		}
 	`;
 
 	static createEvent = gql`
-		mutation addEvent($event: EventInput) {
-			addEvent(input: $event) {
+		mutation addEvent($input: EventInput) {
+			addEvent(input: $input) {
 				id
 			}
 		}
 	`;
 
 	static createTag = gql`
-		mutation addTag($tag: TagInput) {
-			addTag(input: $tag) {
+		mutation addTag($input: TagInput) {
+			addTag(input: $input) {
 				id
 			}
 		}
 	`;
 
 	static createSupplierType = gql`
-		mutation addSupplierType($supplierType: SupplierTypeInput) {
-			addSupplierType(input: $supplierType) {
+		mutation addSupplierType($input: SupplierTypeInput) {
+			addSupplierType(input: $input) {
 				id
 			}
 		}

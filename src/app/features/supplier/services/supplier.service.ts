@@ -9,6 +9,7 @@ import { Supplier } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
 import { uuid } from '~utils/uuid.utils';
+import { PER_PAGE } from '~utils/constants';
 
 
 @Injectable()
@@ -21,13 +22,13 @@ export class SupplierService {
 		Initialize the underlying query ref for the list of
 		suppliers.
 	 */
-	private initializeSupplierQuery({ perPage }): void {
+	private initializeSupplierQuery(): void {
 		if (!this.suppliersQuery$) {
 			this.suppliersQuery$ = this.apollo.query<any>({
 				query: SupplierQueries.list,
 				variables: {
 					skip: 0,
-					take: perPage,
+					take: PER_PAGE
 				}
 			});
 		}
@@ -40,8 +41,8 @@ export class SupplierService {
 		Returns an hot observable to be notified each time
 		the suppliers data associated with the query changes.
 	 */
-	selectSuppliers({ perPage }): Observable<Supplier[]> {
-		this.initializeSupplierQuery({ perPage });
+	selectSuppliers(): Observable<Supplier[]> {
+		this.initializeSupplierQuery();
 		return this.suppliersQuery$.valueChanges
 			.pipe(
 				map(({ data, loading }) => (<any>data).suppliers),
@@ -55,12 +56,17 @@ export class SupplierService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	loadSuppliersNextPage({ page, perPage }): Promise<any> {
-		this.initializeSupplierQuery({ perPage });
+	loadSuppliersNextPage({ page, sort }): Promise<any> {
+		this.initializeSupplierQuery();
 		return this.suppliersQuery$.fetchMore({
-			variables: {
-				skip: page * perPage,
-				take: perPage
+			variables: sort ? {
+				skip: page * PER_PAGE,
+				take: PER_PAGE,
+				sortBy: sort.sortBy,
+				descending: sort.sortOrder === 'ASC'
+			} : {
+				skip: page * PER_PAGE,
+				take: PER_PAGE
 			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
@@ -78,14 +84,14 @@ export class SupplierService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	sortSuppliers({ sort, perPage }): Promise<any> {
-		this.initializeSupplierQuery({ perPage });
+	sortSuppliers({ sort }): Promise<any> {
+		this.initializeSupplierQuery();
 		return this.suppliersQuery$.refetch({
 			variables: {
 				skip: 0,
-				take: perPage,
+				take: PER_PAGE,
 				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'DESC'
+				descending: sort.sortOrder === 'ASC'
 			}
 		});
 	}
@@ -105,6 +111,7 @@ export class SupplierService {
 			);
 	}
 
+	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
 		return this.apollo.subscribe({
 			query: SupplierQueries.latestProducts,

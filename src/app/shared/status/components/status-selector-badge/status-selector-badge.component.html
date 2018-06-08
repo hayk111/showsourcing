@@ -10,7 +10,7 @@
 	<!-- panel displayed on click to pick the status -->
 	<ng-container *ngIf="choices.length > 0">
 		<div class="z-2 selector" *ngIf="panelVisible" (clickOutside)="closePanel()">
-			<div class="choice pointer" *ngFor="let status of choices" (click)="selectStatus(status.id)">
+			<div class="choice pointer" *ngFor="let status of choices" (mousedown)="selectStatus(status.id)">
 				<span class="cercle" [ngStyle]="{ 'background': status.color }"></span>
 					<span class="name">{{ status.name }}</span>
 			</div>

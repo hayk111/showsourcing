@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { User } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { TeamService } from '~features/products/services/team.service';
+import { take, map, switchMap, first } from 'rxjs/operators';
 
 
 const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);
@@ -17,32 +19,36 @@ const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogNam
 export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	dialogName = DialogName.REQUEST_FEEDBACK;
 	teamMembers$: Observable<Array<User>>;
-	selectedMembers = {};
-	// used to give props from the dialog container
-	props = { selectedProducts: [] };
+	selected = {};
+	selectedProducts: string[];
 	get products() {
-		return this.props.selectedProducts;
+		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService) { }
+	constructor(private dlgSrv: DialogService, private teamSrv: TeamService) { }
 
 	ngOnInit() {
-		// this.teamMembers$ = this.store.select(fromTeamMember.selectArray);
+		this.teamMembers$ = this.teamSrv.selectTeamMembers();
 	}
 
 	select(id: string, user) {
-		this.selectedMembers[id] = user;
+		this.selected[id] = user;
 	}
 
 	unselect(id: string) {
-		delete this.selectedMembers[id];
+		delete this.selected[id];
 	}
 
 	submit() {
-		// this.store.dispatch(
-		// 	productActions.requestFeedback(this.products, Object.keys(this.selectedMembers))
-		// );
-		this.dlgSrv.close(this.dialogName);
+		this.teamMembers$.pipe(
+			first(),
+			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
+			switchMap(projects => {
+				return this.teamSrv.addProductFeedbacksForTeamUsers(projects, this.selectedProducts);
+			})
+		).subscribe(projects => {
+			this.dlgSrv.close(this.dialogName);
+		});
 	}
 
 }

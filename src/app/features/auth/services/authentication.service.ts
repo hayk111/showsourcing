@@ -56,8 +56,8 @@ export class AuthenticationService {
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
 		return this.authHttp.register(creds).pipe(
 			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
-			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
-			tap(_ => this.router.navigate(['']))
+			map(_ => ({ identifier: creds.email, password: creds.password })),
+			switchMap(loginCreds => this.login(loginCreds))
 		);
 	}
 

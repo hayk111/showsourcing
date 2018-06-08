@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, from, forkJoin } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
-import { fromPromise } from 'rxjs/Observable/fromPromise';
 import { take, map, filter, first } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
+
+import { PER_PAGE } from '~utils/constants';
 
 @Injectable()
 export class ProductService {
@@ -17,25 +18,30 @@ export class ProductService {
 		Initialize the underlying query ref for the list of
 		products.
 	 */
-	private initializeProductQuery({ perPage }) {
+	private initializeProductQuery() {
 		if (!this.productsQuery$) {
 			this.productsQuery$ = this.apollo.query<any>({
 				query: ProductQueries.list,
 				variables: {
 					query: '',
 					skip: 0,
-					take: perPage,
+					take: PER_PAGE,
+					sortBy: 'name',
+					descending: true
 				}
 			});
 		}
 	}
 
 	/*
-		Initialize the underlying query ref for the list of
-		products.
+		Method used to get an observable to link on to
+		get the list of products.
+
+		Returns an hot observable to be notified each time
+		the products data associated with the query changes.
 	 */
-	selectProducts({ perPage }): Observable<Product[]> {
-		this.initializeProductQuery({ perPage });
+	selectProducts(): Observable<Product[]> {
+		this.initializeProductQuery();
 		return this.productsQuery$.valueChanges
 			.pipe(
 				map(({ data, loading }) => (<any>data).products),
@@ -49,16 +55,26 @@ export class ProductService {
 		This method returns a observable to register on to be
 		notified when the processing ends.
 	 */
-	loadProductsNextPage({ page, perPage }) {
-		this.initializeProductQuery({ perPage });
-		return fromPromise(this.productsQuery$.fetchMore({
-			variables: {
-				skip: page * perPage,
-				take: perPage,
-				query: ''
-			},
+	loadProductsNextPage({ page, sort, filtergroup }) {
+		this.initializeProductQuery();
+		return from(this.productsQuery$.fetchMore({
+			variables: sort ? {
+				skip: page * PER_PAGE,
+				take: PER_PAGE,
+				query: this.createQueryFromFilters(filtergroup),
+				sortBy: sort.sortBy,
+				descending: sort.sortOrder === 'ASC'
+			} : {
+					skip: page * PER_PAGE,
+					take: PER_PAGE,
+					query: this.createQueryFromFilters(filtergroup),
+					sortBy: 'name',
+					descending: true
+				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
+				console.log('>> prev.products = ', prev.products);
+				console.log('>> fetchMoreResult.products = ', fetchMoreResult);
 				return {
 					...prev,
 					products: [...prev.products, ...fetchMoreResult.products],
@@ -73,14 +89,14 @@ export class ProductService {
 		This method returns a observable to register on to be
 		notified when the processing ends.
 	 */
-	sortProducts({ sort, perPage }) {
-		this.initializeProductQuery({ perPage });
-		return fromPromise(this.productsQuery$.refetch({
+	sortProducts({ sort, filtergroup }) {
+		this.initializeProductQuery();
+		return from(this.productsQuery$.refetch({
 			skip: 0,
-			take: perPage,
+			take: PER_PAGE,
 			sortBy: sort.sortBy,
-			descending: sort.sortOrder === 'DESC',
-			query: ''
+			descending: sort.sortOrder === 'ASC',
+			query: this.createQueryFromFilters(filtergroup)
 		})).pipe(first());
 	}
 
@@ -90,13 +106,27 @@ export class ProductService {
 		This method returns an observable to register on to be
 		notified when the processing ends.
 	 */
-	filterProducts({ filtergroup, perPage }) {
-		this.initializeProductQuery({ perPage });
-		return fromPromise(this.productsQuery$.refetch({
+	filterProducts({ filtergroup, sort }) {
+		this.initializeProductQuery();
+		return from(this.productsQuery$.refetch(sort ? {
 			skip: 0,
-			take: perPage,
-			query: filtergroup.filters.map(({ type, value }) => `${this.getFieldName(type)}.id == "${value}"`).join(' or ')
-		})).pipe(first());
+			take: PER_PAGE,
+			query: this.createQueryFromFilters(filtergroup),
+			sortBy: 'name',
+			descending: true
+		} : {
+				skip: 0,
+				take: PER_PAGE,
+				query: this.createQueryFromFilters(filtergroup),
+				sortBy: sort.sortBy,
+				descending: sort.sortOrder === 'ASC'
+			})).pipe(first());
+	}
+
+	createQueryFromFilters(filtergroup) {
+		return filtergroup ?
+			filtergroup.filters.map(({ type, value }) => `${this.getFieldName(type)}.id == "${value}"`).join(' or ') :
+			'';
 	}
 
 	getFieldName(type) {
@@ -114,11 +144,15 @@ export class ProductService {
 	}
 
 	updateProduct(product: Product): Observable<Product> {
-		return this.apollo.update({ mutation: ProductQueries.updateProduct, input: product, typename: 'Product' });
+		return this.apollo.update({ mutation: ProductQueries.updateProduct, input: product, typename: 'Product' }).pipe(first());
 	}
 
-	deleteProducts(ids: string[]) {
-		throw Error('not implemented yet');
+	deleteProduct(productId: string): Observable<Product> {
+		return this.apollo.update({ mutation: ProductQueries.deleteProduct, input: productId, typename: 'Product' }).pipe(first());
+	}
+
+	deleteProducts(products: string[]) {
+		return forkJoin(products.map(productId => this.deleteProduct(productId)));
 	}
 
 	addFile(): Observable<any> {

@@ -17,20 +17,20 @@ subscription supplierContacts($query: String!) {
 `;
 
 export const CREATE_CONTACT = gql`
-	mutation createContact($contact: ContactInput) {
+	mutation createContact($input: ContactInput) {
 		# using update so we can add a contact without creating a new supplier,
 		# at the time of writing this it's not possible with the adaptator of realm
-		updateContact(input: $contact) {
+		updateContact(input: $input) {
 			id
 		}
 	}
 `;
 
 export const UPDATE_CONTACT = gql`
-	mutation updateContact($contact: ContactInput) {
+	mutation updateContact($input: ContactInput) {
 		# using update so we can add a contact without creating a new supplier,
 		# at the time of writing this it's not possible with the adaptator of realm
-		updateContact(input: $contact) {
+		updateContact(input: $input) {
 			id
 		}
 	}

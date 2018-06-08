@@ -36,7 +36,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	initialLoading = true;
 	/** number of suppliers requested by paginated request */
 	page = 0;
-	perPage = 30;
 
 	constructor(
 		private router: Router,
@@ -49,7 +48,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.pending = true;
-		this.suppliers$ = this.supplierSrv.selectSuppliers({ perPage: this.perPage }).pipe(
+		this.suppliers$ = this.supplierSrv.selectSuppliers().pipe(
 			tap(() => {
 				if (this.initialLoading) {
 					this.pending = false;
@@ -65,7 +64,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	loadMore() {
 		this.page++;
 		this.pending = true;
-		this.supplierSrv.loadSuppliersNextPage({ page: this.page, perPage: this.perPage }).then(() => {
+		this.supplierSrv.loadSuppliersNextPage({ page: this.page, sort: this.currentSort }).then(() => {
 			this.pending = false;
 		});
 	}
@@ -73,7 +72,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
 		this.pending = true;
-		this.supplierSrv.sortSuppliers({ sort, perPage: this.perPage }).then(() => {
+		this.supplierSrv.sortSuppliers({ sort }).then(() => {
 			this.pending = false;
 		});
 	}
