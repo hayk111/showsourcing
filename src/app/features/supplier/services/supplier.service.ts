@@ -65,9 +65,9 @@ export class SupplierService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-				skip: page * PER_PAGE,
-				take: PER_PAGE
-			},
+					skip: page * PER_PAGE,
+					take: PER_PAGE
+				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
 				return {
@@ -105,7 +105,7 @@ export class SupplierService {
 	}
 
 	createSupplier(supplier: Supplier) {
-		return this.apollo.subscribe({ query: SupplierQueries.createSupplier, variables: { supplier } })
+		return this.apollo.create({ mutation: SupplierQueries.createSupplier, input: supplier, typename: 'Supplier' })
 			.pipe(
 				map((r: any) => r.data.addSupplier.id)
 			);

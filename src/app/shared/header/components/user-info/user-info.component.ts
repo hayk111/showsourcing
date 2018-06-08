@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { User } from '~models';
@@ -12,9 +12,10 @@ import { AutoUnsub } from '~utils';
 	selector: 'user-info-app',
 	templateUrl: './user-info.component.html',
 	styleUrls: ['./user-info.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfoComponent extends AutoUnsub implements OnInit {
-	user: User;
+	user$: Observable<User>;
 	teams$: Observable<Array<Team>>;
 	/** Whether the user menu is visible */
 	panelVisible = false;
@@ -26,13 +27,16 @@ export class UserInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.userSrv.user$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(user => this.user = user);
+		this.user$ = this.userSrv.selectUser();
+		this.teams$ = this.userSrv.selectTeams();
 	}
 
 	openTeamPicker() {
 		this.teamPickerShown = true;
+	}
+
+	pickTeam(team) {
+		this.userSrv.pickTeam(team);
 	}
 
 	closeTeamPicker() {

@@ -1,33 +1,32 @@
 import { Injectable } from '@angular/core';
-import { User } from '~models';
+import { User, Team } from '~models';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { filter } from 'rxjs/operators';
+import { filter, switchMap, map, tap } from 'rxjs/operators';
+import { ApolloService, ApolloClient, USER_CLIENT_NAME } from '~shared/apollo';
+import { UserQueries } from '~features/user/services/user.queries';
 
 @Injectable()
 export class UserService {
-	private _user$ = new BehaviorSubject<User>(null);
-	user$: Observable<User> = this._user$.asObservable();
-	private _user: User;
 
-
-	setUser(user: User) {
-		this._user$.next(user);
-		this._user = user;
+	constructor(private apolloSrv: ApolloService, private apollo: ApolloClient) {
 	}
 
-
-	resetUser() {
-		this._user = undefined;
-		this._user$.next(undefined);
+	selectUser() {
+		// if we get to here the user client is ready for sure because of the guard
+		return this.apollo.use(USER_CLIENT_NAME).subscribe({ query: UserQueries.selectUser }).pipe(
+			// we can only subscribe on list at the moment
+			map((r: any) => r.data.users[0])
+		);
 	}
 
-
-	get userId(): string {
-		return this._user.id;
+	selectTeams() {
+		return this.apollo.use(USER_CLIENT_NAME).subscribe({ query: UserQueries.selectTeams }).pipe(
+			map((r: any) => r.data.teams)
+		);
 	}
 
-	get teamId(): string {
-		return this._user.currentTeam.id;
+	pickTeam(team: Team) {
+		return this.apolloSrv.initTeamClient([team]);
 	}
 }

@@ -7,7 +7,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
 import { AccessTokenState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
@@ -16,6 +16,7 @@ import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import { Log } from '~utils';
 import { environment } from 'environments/environment';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
+import { Team } from '~models/team.model';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
@@ -35,7 +36,9 @@ export class ApolloService {
 	userClientReady$: Observable<boolean> = this._userClientReady$.asObservable();
 
 	private accessTokenState: AccessTokenState;
-	currentTeams$: Observable<any[]>;
+	private userTeams$: Observable<Team[]>;
+	private currentTeam$: Observable<Team>;
+	private selectedTeamId$ = new Subject<string>();
 
 	constructor(
 		private apollo: Apollo,
@@ -43,9 +46,7 @@ export class ApolloService {
 		private tokenSrv: TokenService,
 		private authSrv: AuthenticationService,
 		private router: Router
-	) {
-
-	}
+	) { }
 
 	init() {
 		if (ApolloService.initialized) {
@@ -70,17 +71,31 @@ export class ApolloService {
 		).subscribe(_ => this.initUserClient());
 
 		// 2. when the userClient has been initialized we get the current teams
-		this.currentTeams$ = this._userClientReady$.pipe(
+		this.userTeams$ = this._userClientReady$.pipe(
 			filter(ready => ready),
 			switchMap(_ => this.getTeams()),
 		);
-		// 3. When we have teams we initialize the team client
-		this.currentTeams$.subscribe(
-			teams => this.initTeamClient(teams),
+		// 3. When we have teams we find out what the selected team is then we initialize the team client
+		this.currentTeam$ = combineLatest(this.selectedTeamId$, this.userTeams$, (id, teams) => {
+			if (id) {
+				return teams.filter(team => team.id === id)[0];
+			} else if (teams.length > 0) {
+				return teams[0];
+			} else {
+				this.router.navigate(['user', 'pick-a-team']);
+				return null;
+			}
+		});
+
+		this.currentTeam$.subscribe(
+			team => this.initTeamClient(team),
 			e => this._teamClientReady$.next(false)
 		);
 	}
 
+	selectTeam(teamId: string) {
+		this.selectedTeamId$.next(teamId);
+	}
 
 	/** create the user client  */
 	private async initUserClient() {
@@ -103,21 +118,16 @@ export class ApolloService {
 		}
 	}
 
-	private initTeamClient(teams) {
-		if (teams.length > 0) {
-			const uris = this.getUris(teams[0].realmUri);
-			Log.debug('Apollo service', 'creating team client');
-			try {
-				this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
-			} catch (e) {
-				Log.error(e);
-				this.router.navigate(['server-issue']);
-				this._teamClientReady$.next(false);
-			}
-			this._teamClientReady$.next(true);
-		} else {
-			this.router.navigate(['user', 'pick-a-team']);
+	private initTeamClient(team) {
+		const uris = this.getUris(team.realmUri);
+		try {
+			this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
+		} catch (e) {
+			Log.error(e);
+			this.router.navigate(['server-issue']);
+			this._teamClientReady$.next(false);
 		}
+		this._teamClientReady$.next(true);
 	}
 
 	/** transform realm uri into http and ws uri
@@ -229,4 +239,5 @@ export class ApolloService {
 		if (client)
 			client.resetStore();
 	}
+
 }
