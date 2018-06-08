@@ -1,57 +1,61 @@
 :host {
-    display: flex;
-    z-index: auto;
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    height: 70px;
-    padding: var(--spacing-xs);
-    width: 100%;
-    background: var(--color-bg);
-    color: var(--color-txt-primary);
-    padding: 0 var(--spacing-edge);
+	display: flex;
+	z-index: auto;
+	position: relative;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	width: 100%;
+	background: var(--color-txt-strong);
+	color: white;
+	padding: 0 var(--spacing-m);
+	border-top: 3px solid var(--color-primary);
 }
 
 .titleLogo {
-    height: 26px;
-    width: 21px;
-    margin-right: var(--spacing-l);
-    display: block;
-    background: url('/assets/icons/logo.svg') no-repeat center;
+	height: 26px;
+	width: 21px;
+	margin-right: var(--spacing-l);
+	display: block;
+	background: url('/assets/icons/logo.svg') no-repeat center;
 }
 
-.vertDivider {
-	margin-right: var(--spacing-l);
-}
+
 
 nav {
-    font-size: var(--font-size-l);
-    display: flex;
-    justify-content: flex-start;
-    flex-grow: 1;
-    a {
-        display: block;
-        margin-right: var(--spacing-nav);
-        padding: 6px 10px;
-        &.selected {
-            background: var(--color-primary-dark);
-            border-radius: var(--border-radius);
-            color: white;
-            font-weight: 600;
-        }
-    }
+	font-size: var(--font-size-l);
+	display: flex;
+	justify-content: flex-start;
+	flex-grow: 1;
+	a {
+		opacity: 0.9;
+		display: block;
+		padding: var(--spacing-m);
+		&.selected {
+			background: #071327;
+			color: white;
+		}
+	}
 }
 
-notif-app {
-  margin: 0 28px;
+.right {
+	color: var(--color-txt-secondary);
+	notif-app {
+		margin: 0 28px;
+	}
+
+	.searchInput {
+		background: transparent;
+		border: none;
+	}
+
+	.divider {
+		height: var(--spacing-l);
+		width: 1px;
+		margin: 0 var(--spacing-m);
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+
 }
 
-search-bar-animated-app {
-	margin-right: var(--spacing-m);
-}
-.searchInput {
-	background: transparent;
-	border: none;
-}
 
