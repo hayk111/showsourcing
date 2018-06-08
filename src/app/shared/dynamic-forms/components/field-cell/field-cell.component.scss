@@ -1,31 +1,56 @@
 :host {
 	box-sizing: border-box;
-	border-bottom: 1px solid var(--color-primary-light);
-	padding: var(--spacing-m) 0 var(--spacing-s) 0;
-
+	display: block;
+	.content {
+		font-size: var(--font-size-m);
+		color: var(--color-primary-dark);
+		align-items: center;
+	}
 	label-app {
-		padding-bottom: var(--spacing-s);
 		font-weight: bold;
 		font-size: var(--font-size-s);
 		color: var(--color-primary-dark);
 		text-transform: capitalize;
 		display: block;
 	}
-	.content {
-		font-size: var(--font-size-m);
-		color: var(--color-primary-dark);
-		align-items: center;
+	/**
+	there are 4 padding cases:
+	 1. field cell double line with bottom
+	 2. field cell double line without bottom
+	 3. field cell one line with bottom
+	 4. field cell one line without bottom
+	*/
+	&.doubleLine {
+		&.hasBottom {
+			padding: var(--spacing-m) 0 9px 0;
+			border-bottom: 1px solid var(--color-primary-light);
+			label-app {
+				padding-bottom: 10px;
+			}
+		}
+		&.hasNoBottom {
+			padding: var(--spacing-m) 0 0 0;
+			label-app {
+				padding-bottom: 6px;
+			}
+		}
 	}
+	&.oneLine {
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--color-primary-light);
+
+		&.hasBottom {
+			padding: var(--spacing-m) 0 7px 0;
+		}
+		&.hasNoBottom {
+			padding: var(--spacing-m) 0 0 0;
+		}
+	}
+
 }
 
-:host.inlineLabel {
-	label-app {
-		padding-bottom: 0;
-	}
-}
 
-:host.notInlineLabel {
-	display: block;
-}
+
 
 

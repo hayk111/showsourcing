@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
@@ -15,6 +15,8 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
+	@Output() open = new EventEmitter<null>();
+	@Output() close = new EventEmitter<null>();
 	@ViewChild(InputDirective) input: InputDirective;
 	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
 	accumulator: string;
@@ -36,6 +38,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.value = this.accumulator;
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+		this.close.emit();
 	}
 
 	onOpen() {
@@ -45,15 +48,12 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			this.input.focus();
 		if (this.selector)
 			this.selector.open();
+		this.open.emit();
 	}
 
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
-	}
-
-	onClose() {
-
 	}
 
 	/** check if a value is empty */
