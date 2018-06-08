@@ -11,6 +11,7 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { FieldCellComponent } from './components/field-cell/field-cell.component';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { TagModule } from '~shared/tag';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 
 @NgModule({
 	imports: [
@@ -18,6 +19,7 @@ import { TagModule } from '~shared/tag';
 		FormsModule,
 		ReactiveFormsModule,
 		InputsModule,
+		InputsCustomModule,
 		EditableFieldModule,
 		SelectorsModule,
 		TagModule // for displaying multiple values
