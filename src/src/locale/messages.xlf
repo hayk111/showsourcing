@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="f05560e48d601b597572e8b975c911c0834e8761" datatype="html">
+        <source>
+	The instructions to reset your password have been sent to your email address.
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/auth/components/pw-resetted/pw-resetted.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">password reset</note>
+      </trans-unit>
+      <trans-unit id="7f8e64261497f0b38cfb8aa12b8f77cbb01a179b" datatype="html">
+        <source>Merge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ee2f69fe92a308a55064a7a3978694d53d2b8e2f" datatype="html">
+        <source>
+		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Settings<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description"> go to settings</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="bad887871b2435e724d844dbf63bb42ec7ef947c" datatype="html">
+        <source>
+		 <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Data Management<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description"> go to page for managing user data like tags</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="afddf738dbc44f5cb9e7bde8fe9c28cb13fb0f98" datatype="html">
+        <source>
+		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Teams<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description"> teams</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="d29f019ef3d5f5fafdf7e9803fae0b9de4eedd6d" datatype="html">
+        <source>
+		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Language<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description"> user can pick a language</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="f1d54c8e63efb25a1b5cef1d749c7ca9b330264b" datatype="html">
+        <source>
+		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>Send feedback<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description"> send feedback</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="310f074693ec90432aca654c17968424c6e08da3" datatype="html">
+        <source>
+		<x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+			<x id="START_TAG_ICON-APP" ctype="x-icon-app" equiv-text="&lt;icon-app&gt;"/>logout<x id="CLOSE_TAG_ICON-APP" ctype="x-icon-app" equiv-text="&lt;/icon-app&gt;"/>
+			Logout
+		<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/components/user-panel/user-panel.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <note priority="1" from="description"> logout</note>
+        <note priority="1" from="meaning">user menu </note>
+      </trans-unit>
+      <trans-unit id="de5895ee7bcf453d719b4120cd7a3c2deb40a4d0" datatype="html">
+        <source>Add File</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">add file</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="b36a122ce3749a546b525733da455232305e3e7a" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description"> Files Name</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="0c060577ccf026310b1ef6cf340ee654bf265345" datatype="html">
+        <source>Upload date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description"> Files Upload date</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="66667bc63f97f65a25a7444211637b6d378d6a35" datatype="html">
+        <source>Uploaded by</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <note priority="1" from="description"> Files Uploaded by</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="ae84c425f6ba4562459676feb7aa4f8c0d59c666" datatype="html">
+        <source>Action</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description"> File Action</note>
+        <note priority="1" from="meaning">table column header </note>
+      </trans-unit>
+      <trans-unit id="dfd14f56e0e206498418e379686b71b6d3945d18" datatype="html">
+        <source>
+							delete
+					</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-page/files-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description"> action delete file</note>
+        <note priority="1" from="meaning">button</note>
+      </trans-unit>
+      <trans-unit id="b744ded57f493ed222f07b29802f5e316f12a8ad" datatype="html">
+        <source>Attached Files</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/file/containers/files-card/files-card.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cf255d55591f2650af2f644e0124a4747ac8c839" datatype="html">
+        <source>
+      <x id="INTERPOLATION" equiv-text="{{ selection.size }}"/> items selected
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/selection-bar/components/selection-bar/selection-bar.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="09e8f03ffa14acf00f0bf5e05785d880524784bd" datatype="html">
+        <source>Add to project</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0cd2c10c092eac2bd4916014cf721460e2277966" datatype="html">
+        <source>Request Team Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5f19586aba912ec6eb123ec5ab609a3bcc073066" datatype="html">
+        <source>Export</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/selection-actions/selection-actions.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d2a7deb7096cada2c3177157652680fe7e6de0ed" datatype="html">
+        <source>Projects</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="74dbd0e894d44556b53e0100428d18b628cf9da5" datatype="html">
+        <source>add project</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/project-card/project-card.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c903969eedb25df219dedc420b951bf09aa71e52" datatype="html">
+        <source>Supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/supplier-card/supplier-card.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="321335590dcd2cb80772be4685be19721ff5b7da" datatype="html">
+        <source>
+			Manufacturer from <x id="INTERPOLATION" equiv-text="{{ supplier?.country }}"/>
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/supplier-card/supplier-card.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e60ce5c4dca410c4799572338b1ddd7ab6443850" datatype="html">
+        <source>view supplier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/supplier-card/supplier-card.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Activity" datatype="html">
+        <source>General Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">recent product activity</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="d275e6765c8d5c7bc727449a8bc5705cd1e04bfe" datatype="html">
+        <source>
+		There doesn&apos;t seem to be any comment yet, leave one !
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/comment/components/comment-list/comment-list.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="35edc33b17bc236256cb59f258ab222b9ac9eb04" datatype="html">
+        <source> Move to <x id="INTERPOLATION" equiv-text="{{ label }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workflow/components/kanban-col/kanban-col.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="73e159560b825440ad49950430749b9faef991bf" datatype="html">
+        <source> Caution, action will apply </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/workflow/components/kanban-col/kanban-col.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="230252650ca9070f79eec258c121b1e3b07450ed" datatype="html">
+        <source>
+		view details
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4f167cccae9410e9be3006f3cafce24d1f9d4edf" datatype="html">
+        <source>
+		hide details
+	</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5425b5b6fa92d039743fa988f90f2a58b0dc62ab" datatype="html">
+        <source>Likes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">positive vote</note>
+      </trans-unit>
+      <trans-unit id="3b934d29c5e0477eee7193aa3aa6593c7327952b" datatype="html">
+        <source>Neutral</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">neutral vote</note>
+      </trans-unit>
+      <trans-unit id="3a278503f5f3e54741ae597a0d7607734e58bacf" datatype="html">
+        <source>Dislikes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/components/details/details.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <note priority="1" from="description">negative vote</note>
+      </trans-unit>
+      <trans-unit id="5db9a0bd1293ed62001fecf7a74591b1bcc4681f" datatype="html">
+        <source>Team feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/containers/likes-card/likes-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="360bf1ef4a708957334f2fe3870fd810dee59bdf" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ votes.total }}"/> vote<x id="INTERPOLATION_1" equiv-text="{{ votes.total &gt; 1 ? &apos;s&apos; : &apos;&apos;}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/containers/likes-card/likes-card.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="abd41b1e7f126df8ed2b1ec77ead07ccb25f0ccc" datatype="html">
+        <source>There are no votes yet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/likes-chart/containers/likes-card/likes-card.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

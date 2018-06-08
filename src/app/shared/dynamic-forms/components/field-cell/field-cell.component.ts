@@ -8,13 +8,16 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 	host: {
 		'[class.flexBetween]': 'inlineLabel',
 		'[class.flexCenter]': 'inlineLabel',
-		'[class.inlineLabel]': 'inlineLabel',
-		'[class.notInlineLabel]': '!inlineLabel'
+		'[class.oneLine]': 'inlineLabel',
+		'[class.doubleLine]': '!inlineLabel',
+		'[class.hasBottom]': 'hasBottom',
+		'[class.hasNoBottom]': '!hasBottom'
 	}
 })
 export class FieldCellComponent implements OnInit {
 	@Input() label = '';
 	@Input() inlineLabel = false;
+	@Input() hasBottom = true;
 
 	constructor() { }
 

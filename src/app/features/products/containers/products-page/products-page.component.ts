@@ -7,8 +7,8 @@ import { UserService } from '~features/user';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { Product, ProductStatus } from '~models';
-import { SelectionService, ProductService } from '~features/products/services';
+import { Product, ProductStatus, Project } from '~models';
+import { SelectionService, ProductService, ProjectService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',
@@ -35,11 +35,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// This is seperate from normal selection in case we click on one item
 	selectedProductForDialog: Array<string> = new Array();
 	// current view
-	view: 'list' | 'card' = 'card';
+	view: 'list' | 'card' = 'list';
 	// whether the filter dialog is visible
 	filterPanelOpen: boolean;
 	filters: Array<Filter>;
 	currentSort: { sortBy: string, sortOrder: string };
+
+	// preview panel
+	previewOpen: boolean;
+	previewProduct: Product;
+
+	//
 
 	page = 0;
 
@@ -75,7 +81,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			first(),
 			switchMap((filtergroup: FilterGroup) => {
 				return this.productSrv.loadProductsNextPage({
-					page: this.page, sort: this.currentSort, filtergroup });
+					page: this.page, sort: this.currentSort, filtergroup
+				});
 			})
 		).subscribe(() => {
 			this.pending = false;
@@ -100,6 +107,16 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			this.pending = false;
 		});
 	}
+
+	openPreview(product: Product) {
+		this.previewProduct = product;
+		this.previewOpen = true;
+	}
+
+	closePreview() {
+		this.previewOpen = false;
+	}
+
 
 	/** Selects a product */
 	onItemSelected(entityId: string) {

@@ -17,7 +17,7 @@ The goal of this readme is to present the guidelines followed throughout the app
  - General architecture principles
  - Entities
  - Components
- - The Store
+
 
 
 ## Prerequisite

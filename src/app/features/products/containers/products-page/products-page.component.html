@@ -21,6 +21,7 @@
 		[selection]="selection"
 		[products]="products"
 		[pending]="pending"
+		(previewClick)="openPreview($event)"
 		(productSelect)="onItemSelected($event)"
 		(productUnselect)="onItemUnselected($event)"
 		(productOpen)="goToDetails($event)"
@@ -63,6 +64,12 @@
 		(filter)="filterProducts($event)"
 		*ngIf="filterPanelOpen">
 	</product-filters-app>
+	<product-preview-app
+		[product]="previewProduct"
+		(clickOutside)="closePreview()"
+		*ngIf="previewOpen">
+
+	</product-preview-app>
 
 
 </ng-container>
