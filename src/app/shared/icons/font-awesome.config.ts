@@ -40,6 +40,9 @@ import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
 import * as faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
 import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
+import * as faTh from '@fortawesome/fontawesome-free-solid/faTh';
+import * as faListUl from '@fortawesome/fontawesome-free-solid/faListUl';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 
 // TODO observa mutation should not be needed
@@ -89,6 +92,8 @@ export const faIcons = [
 	faEdit,
 	faSortUp,
 	faSortDown,
+	faListUl,
+	faTh
 ];
 
 faIcons.forEach(ic => fontawesome.library.add(ic));
