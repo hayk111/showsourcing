@@ -68,15 +68,14 @@
 
 	<!-- textarea -->
 	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
+		<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
 		<form-field-app>
 			<div class="flex">
 				<textarea inputApp
 					#inp
 					autofocus="true"
 					[value]="customField.value"
-					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close(); onSave()">
+					(input)="accumulate(inp.value)">
 				</textarea>
 			</div>
 		</form-field-app>
@@ -87,7 +86,7 @@
 		<!-- entity selector -->
 		<ng-container *ngIf="customField.metadata.type === 'entity'">
 			<editable-text-app #editable
-				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				(closed)="onSave()" [hasAction]="false" (opened)="onOpen()">
 				<!-- multiple value label -->
 				<label-app *ngIf="customField.multiple; else solo">
 					<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
@@ -117,7 +116,7 @@
 		<ng-container *ngIf="customField.metadata.type === 'const'">
 			<!-- one -->
 			<editable-text-app #editable *ngIf="!customField.multiple"
-				(saved)="onSave()" [hasAction]="false" (opened)="onOpen()">
+				(closed)="onSave()" [hasAction]="false" (opened)="onOpen()">
 
 				<label-app>
 					{{ value || '-'}}
