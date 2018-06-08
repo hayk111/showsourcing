@@ -6,6 +6,7 @@ import { UtilsModule } from '~shared/utils';
 import { CardModule } from '~shared/card';
 import { InputsModule } from '~shared/inputs';
 import { PriceModule } from '~shared/price';
+import { MoqModule } from '~shared/moq';
 import { EditableFieldModule } from '~shared/editable-field';
 import { UserPictureModule } from '~shared/user-picture';
 import { ListModule } from '~shared/list/list.module';
@@ -25,6 +26,7 @@ const modules = [
 	InputsModule,
 	SelectorsModule,
 	PriceModule,
+	MoqModule,
 	EditableFieldModule,
 	UserPictureModule,
 	ListModule,

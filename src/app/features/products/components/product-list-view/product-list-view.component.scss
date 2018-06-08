@@ -20,8 +20,25 @@ table-app {
 	width: 32px;
 	height: 32px;
 	overflow: hidden;
+	position: relative;
 	img {
 		height: 100%;
+	}
+
+	.imgOverViewCtnr {
+		width: 64px;
+		height: 64px;
+		display: none;
+		position: absolute;
+		top: 16px;
+		left: 16px;
+		z-index: 100;
+	}
+
+	&:hover {
+		.imgOverViewCtnr {
+			display: block;
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Observable, from } from 'rxjs';
+import { Observable, from, forkJoin } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProductQueries } from '~features/products/services/product.queries';
 import { take, map, filter, first } from 'rxjs/operators';
@@ -73,6 +73,8 @@ export class ProductService {
 				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
+				console.log('>> prev.products = ', prev.products);
+				console.log('>> fetchMoreResult.products = ', fetchMoreResult);
 				return {
 					...prev,
 					products: [...prev.products, ...fetchMoreResult.products],
@@ -145,8 +147,12 @@ export class ProductService {
 		return this.apollo.update({ mutation: ProductQueries.updateProduct, input: product, typename: 'Product' }).pipe(first());
 	}
 
-	deleteProducts(ids: string[]) {
-		throw Error('not implemented yet');
+	deleteProduct(productId: string): Observable<Product> {
+		return this.apollo.update({ mutation: ProductQueries.deleteProduct, input: productId, typename: 'Product' }).pipe(first());
+	}
+
+	deleteProducts(products: string[]) {
+		return forkJoin(products.map(productId => this.deleteProduct(productId)));
 	}
 
 	addFile(): Observable<any> {
