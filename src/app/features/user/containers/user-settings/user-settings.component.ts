@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { User } from '~models';
+import { User, Team } from '~models';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -14,6 +14,7 @@ import { UserService } from '../../services/user.service';
 export class UserSettingsComponent implements OnInit {
 	form: FormGroup;
 	user$: Observable<User>;
+	teams$: Observable<Team[]>;
 
 	constructor(private fb: FormBuilder, private userSrv: UserService) {
 		this.form = this.fb.group({
@@ -24,7 +25,8 @@ export class UserSettingsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.user$;
+		this.user$ = this.userSrv.selectUser();
+		this.teams$ = this.userSrv.selectTeams();
 	}
 
 	update(propName: string, value: string) {

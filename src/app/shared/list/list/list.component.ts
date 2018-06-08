@@ -13,7 +13,8 @@ export class ListComponent implements AfterContentChecked {
 
 	/** Removes the border of the list item */
 	ngAfterContentChecked(): void {
-		this.items.last.border = false;
+		if (this.items.length > 0)
+			this.items.last.border = false;
 	}
 
 }
