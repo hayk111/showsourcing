@@ -73,8 +73,6 @@ export class ProductService {
 				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
-				console.log('>> prev.products = ', prev.products);
-				console.log('>> fetchMoreResult.products = ', fetchMoreResult);
 				return {
 					...prev,
 					products: [...prev.products, ...fetchMoreResult.products],

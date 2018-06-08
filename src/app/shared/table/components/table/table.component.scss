@@ -28,6 +28,13 @@
 .cell {
 	&.selected {
 		background-color: var(--color-bg-third);
+		color: var(--color-text-primary);
+	}
+
+	&.hover {
+		&.main {
+			color: var(--color-primary);
+		}
 	}
 }
 
@@ -75,6 +82,11 @@
 	padding-left: 16px;
 	padding-right: 0;
 	width: 10px;
+	color: #a3afc6;
+}
+
+.dotSeparator.hover {
+	color: #5d6d8b;
 }
 
 .dotSeparator:after {

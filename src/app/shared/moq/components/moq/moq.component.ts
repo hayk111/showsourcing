@@ -30,7 +30,7 @@ export class MoqComponent implements OnInit {
 	}
 
 	set amount(v: number) {
-		this._amount = v / 10000;
+		this._amount = v;
 	}
 
 	get styles() {
