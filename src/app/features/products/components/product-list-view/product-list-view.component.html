@@ -14,9 +14,12 @@
 <ng-template #main let-row="row" let-i="i" let-hoverIndex="hoverIndex">
 	<div class="mainCell">
 		<div class="imgCtnr">
-			<img *ngIf="row.images?.length > 0" [src]="row | image:'s'"/>
-			<div class="imgOverViewCtnr">
-				<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
+			<img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
+			<div class="imgOverViewCtnrWrapper">
+				<div class="imgOverViewCtnr">
+					<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
+				</div>
+		
 			</div>
 		</div>
 		<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
