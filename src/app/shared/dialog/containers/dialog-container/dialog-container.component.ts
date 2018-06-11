@@ -63,7 +63,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
 		// adding properties to dialog
-		console.log('>> open - props = ', props);
 		if (props) {
 			Object.keys(props).forEach(key => {
 				(<any>componentRef.instance)[key] = props[key];

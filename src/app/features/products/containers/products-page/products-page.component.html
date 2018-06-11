@@ -28,7 +28,10 @@
 		(productFavorited)="onItemFavorited($event)"
 		(productUnfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
-		(sortColumn)="sortProducts($event)"></product-list-view-app>
+		(sortColumn)="sortProducts($event)"
+		(openAddToProjectDialog)="openAddToProjectDialog($event)"
+		(openExportDialog)="openExportDialog($event)"
+		(openRequestFeedbackDialog)="openRequestFeedbackDialog($event)"></product-list-view-app>
 
 	<product-card-view-app
 		class="card-view"

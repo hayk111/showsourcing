@@ -15,7 +15,9 @@ export class FilterDataQueries {
 		subscription events {
 			events(take: 30) {
 				id,
-				name,
+				description {
+					name
+				},
 				favorite
 			}
 		}`;

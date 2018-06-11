@@ -213,19 +213,25 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	 */
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog() {
-		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray });
+	openAddToProjectDialog(product: Product) {
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog() {
-		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray });
+	openExportDialog(product: Product) {
+		this.dlgSrv.open(DialogName.EXPORT, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog() {
-		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray });
+	openRequestFeedbackDialog(product: Product) {
+		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 	get selectionArray() {

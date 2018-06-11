@@ -31,7 +31,13 @@
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<div class="dotSeparator"
 					[ngClass]="{ hover: (i === hoverIndex) }"
-					[ngStyle]="{ display: ((i === hoverIndex) || isSelected(row, i)) ? 'block' : 'none' }"></div>
+					[ngStyle]="{ display: ((i === hoverIndex) || isSelected(row, i)) ? 'block' : 'none' }"
+					(click)="onToggleContextualMenu($event, i)"></div>
+				<div *ngIf="contextualMenuOpened[i]" (click)="onToggleContextualMenu($event, i, false)">
+					<ng-container
+						*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+					</ng-container>
+				</div>
 			</div>
 		</div>
 
@@ -54,7 +60,7 @@
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
-				<div class="ellipsis">
+				<div class="full-width">
 					<!-- Render the column template when specified -->
 					<ng-container
 						*ngTemplateOutlet="column.template; context: { column: column, row: row }">

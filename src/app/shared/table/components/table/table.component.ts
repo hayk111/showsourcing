@@ -8,6 +8,8 @@ import {
 	ChangeDetectionStrategy,
 	EventEmitter,
 	HostBinding,
+	TemplateRef,
+	HostListener
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
@@ -33,6 +35,7 @@ export class TableComponent {
 	@Input() idName = 'id';
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
+	@Input() contextualMenu: TemplateRef<any>;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<null>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -60,6 +63,8 @@ export class TableComponent {
 	protected _rows = [];
 	protected _sortedRows;
 	hoverIndex: number;
+
+	contextualMenuOpened = {};
 
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
@@ -123,6 +128,21 @@ export class TableComponent {
 		// console.log('>> selected = ', this.selected);
 		return this.selected.has(row.id);
 		// return false;
+	}
+
+	onToggleContextualMenu(event, i, display = true) {
+		Object.keys(this.contextualMenuOpened).forEach(key => {
+			this.contextualMenuOpened[key] = false;
+		});
+		this.contextualMenuOpened[i] = display;
+		event.stopPropagation();
+	}
+
+	@HostListener('window:click', [ 'event' ])
+	onClickWindow(event) {
+		Object.keys(this.contextualMenuOpened).forEach(key => {
+			this.contextualMenuOpened[key] = false;
+		});
 	}
 
 }

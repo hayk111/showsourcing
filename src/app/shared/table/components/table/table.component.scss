@@ -23,6 +23,7 @@
 	height: 48px;
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 .cell {
@@ -73,6 +74,10 @@
 	width: 100%;
 }
 
+.full-width {
+	width: 100%;
+}
+
 .sortIcon {
 	margin-left: var(--spacing-xs);
 }
@@ -85,7 +90,7 @@
 	color: #a3afc6;
 }
 
-.dotSeparator.hover {
+.dotSeparator:hover {
 	color: #5d6d8b;
 }
 
