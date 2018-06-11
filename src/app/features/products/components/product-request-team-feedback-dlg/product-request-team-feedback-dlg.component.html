@@ -1,7 +1,7 @@
 <dialog-app [name]="dialogName">
-	<dialog-header-app> Team Feedback </dialog-header-app>
+	<dialog-header-app i18n="dialog header|Feedback request"> Team Feedback </dialog-header-app>
 
-	<dialog-subtitle-app>Team members</dialog-subtitle-app>
+	<dialog-subtitle-app i18n="dialog subtitle|Feedback request">Team members</dialog-subtitle-app>
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
@@ -21,7 +21,7 @@
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ selectedProducts?.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="submit()">
+		<button class="small" (click)="submit()" i18n="button title|Feedback request">
 			Request Feedback
 		</button>
 	</dialog-footer-app>

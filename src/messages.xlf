@@ -167,6 +167,24 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="GlobalOpen" datatype="html">
+        <source> Open </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-list-view/product-list-view.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <note priority="1" from="description">Open and view product</note>
+        <note priority="1" from="meaning">div product</note>
+      </trans-unit>
+      <trans-unit id="0d7c60a6aaa225ffd9af0ea1ed1b68036c029d47" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>Add to project</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-selectable-card/product-selectable-card.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">Product hover information</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
       <trans-unit id="09e8f03ffa14acf00f0bf5e05785d880524784bd" datatype="html">
         <source>Add to project</source>
         <context-group purpose="location">
@@ -225,12 +243,286 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Activity" datatype="html">
+      <trans-unit id="cbc19a00305ba23ebbd4b8b0f13707d8111c75df" datatype="html">
+        <source>General</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/containers/product-general-info/product-general-info.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">Product information</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="5b5674155dd34b4a9d53a872eef6ef3ae3719ec6" datatype="html">
+        <source>Shipping &amp; Trading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/containers/product-general-info/product-general-info.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description">Product information</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="fa1474d5b837e6e39efd0105856c615979e4efb3" datatype="html">
+        <source>Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Product summary title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="29c48ae006992c735bc51cfefe55869f977a631a" datatype="html">
+        <source>Moq</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Product summary title (Minimum Order Quantity)</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="6bb3e412541db0b6cadd7e2c4365c3dc526f83a4" datatype="html">
+        <source>Team Rating</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Product summary title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="3e6610ff5c625200ef782c2f42964a069adaa7e0" datatype="html">
+        <source>Tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">Product summary title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="1b612cd5635525fe45b090c13cead8f3e8cb5f52" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-summary/product-summary.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Product summary title</note>
+        <note priority="1" from="meaning">div title</note>
+      </trans-unit>
+      <trans-unit id="d2d863180799a6725f886a69dcf99834ad939830" datatype="html">
+        <source> Add to project </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Adding products to projects</note>
+        <note priority="1" from="meaning">dialog header</note>
+      </trans-unit>
+      <trans-unit id="5879f446449f5844e3641a0460fe502853aba96b" datatype="html">
+        <source>Select projects</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Adding products to projects</note>
+        <note priority="1" from="meaning">dialog subtitle</note>
+      </trans-unit>
+      <trans-unit id="c0b29c1f6e44f14498ff651dfa0694d5fbc5a705" datatype="html">
+        <source>ADD NOW</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">Adding products to projects</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
+      <trans-unit id="29c0a1e8747c767fd2150fe8f58d131c4d89db64" datatype="html">
+        <source> Team Feedback </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Feedback request</note>
+        <note priority="1" from="meaning">dialog header</note>
+      </trans-unit>
+      <trans-unit id="c52d5e50c9db1fc0df1111f9331c07d4482db02e" datatype="html">
+        <source>Team members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Feedback request</note>
+        <note priority="1" from="meaning">dialog subtitle</note>
+      </trans-unit>
+      <trans-unit id="5fa9ff9bcf3db0ff74bc612da5d608d87b728b73" datatype="html">
+        <source>
+			Request Feedback
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">Feedback request</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
+      <trans-unit id="64d01c341138fd910fd70072baf1c304565cf38d" datatype="html">
+        <source>Export Selection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Export product</note>
+        <note priority="1" from="meaning">dialog header</note>
+      </trans-unit>
+      <trans-unit id="274d9134e95737392a6326d3d1b3a64907d93850" datatype="html">
+        <source>Export Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Export product</note>
+        <note priority="1" from="meaning">dialog subtitle</note>
+      </trans-unit>
+      <trans-unit id="2784f4001fa609d712fc64bc966c66833c6309cd" datatype="html">
+        <source>Perfect for edition</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">Export product</note>
+        <note priority="1" from="meaning">div subtitle</note>
+      </trans-unit>
+      <trans-unit id="156aa9dd5a83ca01b667a8ae52c8e1e83a88e349" datatype="html">
+        <source>Perfect for sharing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Export product</note>
+        <note priority="1" from="meaning">div subtitle</note>
+      </trans-unit>
+      <trans-unit id="48dafaff1efe9d421b9e953a19b98910a8c9407a" datatype="html">
+        <source>
+			Export
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-export-dlg/product-export-dlg.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">Export product</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
+      <trans-unit id="0c126f4ccbb47abb82fad6ba0558e62f31b43c83" datatype="html">
+        <source>
+					Created By
+				</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">label title</note>
+      </trans-unit>
+      <trans-unit id="GlobalEdit" datatype="html">
+        <source>Edit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+        <note priority="1" from="description">edit filter</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="GlobalClear" datatype="html">
+        <source>Clear</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <note priority="1" from="description">clear filter</note>
+        <note priority="1" from="meaning">span</note>
+      </trans-unit>
+      <trans-unit id="43676414f83a400d9a812bd4713221935174cb71" datatype="html">
+        <source>
+				Filter users
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
+      <trans-unit id="fe791721788016f568bca1b2c12f143e0355641c" datatype="html">
+        <source>
+					Status
+				</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">label title</note>
+      </trans-unit>
+      <trans-unit id="27d79711fd9d544b6c81608310105757d39c0623" datatype="html">
+        <source>
+				Filter Status
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">button title</note>
+      </trans-unit>
+      <trans-unit id="e94085a75e02dae864d05165101141e4f4d2b385" datatype="html">
+        <source>
+				Favorite
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">label title</note>
+      </trans-unit>
+      <trans-unit id="913e4e5aa6358c862cd311a08946b3e07b069517" datatype="html">
+        <source>
+				Archived
+			</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+        <note priority="1" from="description">Filtering products</note>
+        <note priority="1" from="meaning">label title</note>
+      </trans-unit>
+      <trans-unit id="23933575d5ca8faabe186835cf7d65ef341f01ee" datatype="html">
+        <source>
+			Show Archived Products
+		</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/products/components/product-filters/product-filters.component.ts</context>
+          <context context-type="linenumber">133</context>
+        </context-group>
+        <note priority="1" from="description">Filtering all products</note>
+        <note priority="1" from="meaning">checkbox</note>
+      </trans-unit>
+      <trans-unit id="5635441faa0030254e3dfbdc2e86319fb7b328d6" datatype="html">
         <source>General Information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
+        <note priority="1" from="description">recent product activity</note>
+        <note priority="1" from="meaning">header-link</note>
+      </trans-unit>
+      <trans-unit id="9fd672e1e286fe97a34f18e2e45a82b58f23492a" datatype="html">
+        <source>Activity</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/features/products/components/product-main-card/product-main-card.component.ts</context>
           <context context-type="linenumber">5</context>

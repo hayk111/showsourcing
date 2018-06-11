@@ -102,6 +102,7 @@ The AutoUnsub class should be used as a standard app wise.
 ### Translation
 
 (08/06/18)
+`ng xi18n` to generate `messages.xlf`.
 In order to generate the messages.xlf translation file for different languages we have to execute the next command.
 `ng xi18n --i18n-locale lang --output-path locale --out-file messages.lang.xlf`
 
