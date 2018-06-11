@@ -27,7 +27,7 @@
 			{{ defaultErrorMsg }}
 		</div>
 		<!-- for custom error messages -->
-		<div class="error" *ngIf="hasCustomError() && !control.pristine">
+		<div class="error" *ngIf="hasCustomError()">
 			<ng-content select="error-app"></ng-content>
 		</div>
 	</div>

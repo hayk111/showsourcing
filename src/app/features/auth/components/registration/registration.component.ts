@@ -42,7 +42,11 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 					this.router.navigate(['']);
 				},
 				e => {
-					this.error = e.error.message;
+					if (e.error && e.error.errors && e.error.errors.email) {
+						this.error = e.error.errors.email.msg;
+					} else {
+						this.error = e.error.message;
+					}
 					this.pending$.next(false);
 				}
 			);
