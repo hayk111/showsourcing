@@ -91,7 +91,7 @@ export class ApolloService {
 
 	selectTeam(teamId: string) {
 		this.storage.setItem(SELECTED_TEAM_ID, teamId);
-		window.location.href = window.location.href;
+		window.location.href = window.location.href + '/home';
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
