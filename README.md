@@ -116,7 +116,7 @@ e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i
                 ···
                 "fr": {
                     "aot": true,
-                    "outputPath": "dist/showsourcing",
+                    "outputPath": "dist/fr",
                     "i18nFile": "src/locale/messages.fr.xlf",
                     "i18nFormat": "xlf",
                     "i18nLocale": "fr"
