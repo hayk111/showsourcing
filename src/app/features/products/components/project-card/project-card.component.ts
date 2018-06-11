@@ -15,7 +15,7 @@ import { Project } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent implements OnInit {
-	@Input() projects: Array<Project>;
+	@Input() projects: Project[];
 	@Output() removeProject = new EventEmitter<Project>();
 	@Output() addProjectClick = new EventEmitter<null>();
 

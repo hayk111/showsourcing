@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Product, Project } from '~models';
 import { ProjectQueries } from '~features/products/services/project.queries';
 import { forkJoin, from } from 'rxjs';
-import { take, map, filter, first } from 'rxjs/operators';
+import { take, map, filter, first, tap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 
 import { PER_PAGE } from '~utils/constants';
@@ -46,21 +46,27 @@ export class ProjectService {
 		);
 	}
 
+	/**
+	 *
+	 * @param id of the product we want to get the projects for
+	 */
 	selectProjectsForProduct(id: string): Observable<Project[]> {
 		return this.apollo.subscribe({
 			query: ProjectQueries.listForProduct,
 			variables: {
-				query: `product.id == "${id}"`
+				query: `products.id == "${id}"`
 			}
 		}).pipe(
 			map((r: any) => r.data.projects)
 		);
 	}
 
-	/*
-        Update a project.
-     */
-	updateProject(project: any): Observable<Product> {
+
+	/**
+	 *
+	 * @param project updated project
+	 */
+	updateProject(project: Project): Observable<Product> {
 		return this.apollo.update({ mutation: ProjectQueries.updateProject, input: project, typename: 'Project' }).pipe(first());
 	}
 

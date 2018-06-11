@@ -104,10 +104,7 @@ export class ProductQueries {
 				leadTimeUnit,
 				sample,
 				samplePrice,
-				taskCount,
-				projects {
-					id, name
-				}
+				taskCount
 			}
 		}
 	`;
