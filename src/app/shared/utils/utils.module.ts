@@ -4,12 +4,13 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { DateToTimeAgoPipe } from './pipes/date-ago.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
 import { InfiniScrollDirective } from './directives';
+import { ConstPipe } from './pipes/const.pipe';
 
 @NgModule({
 	imports: [
 		CommonModule
 	],
-	declarations: [ ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective ],
+	declarations: [ ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective, ConstPipe ],
 	exports: [ ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective ]
 })
 export class UtilsModule { }

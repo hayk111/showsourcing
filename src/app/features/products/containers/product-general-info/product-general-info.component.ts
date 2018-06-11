@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { UserService } from '~features/user';
 import { Event } from '~models';
@@ -30,7 +30,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity' } },
 
 		{ name: 'name', type: 'text', required: true, label: 'name' },
-		// { name: 'price', type: 'price' },
+		{ name: 'price', type: 'price' },
 		// { name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity' } },
 
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
@@ -73,7 +73,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	 */
 	onFormCreated(form: FormGroup) {
 		form.valueChanges
-			.pipe(takeUntil(this._destroy$))
+			.pipe(
+				takeUntil(this._destroy$),
+				distinctUntilChanged()
+			)
 			.subscribe(product => this.updateProduct(product));
 	}
 
