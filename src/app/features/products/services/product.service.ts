@@ -123,7 +123,7 @@ export class ProductService {
 
 	createQueryFromFilters(filtergroup) {
 		return filtergroup ?
-			filtergroup.filters.map(({ type, value }) => `${this.getFieldName(type)}.id == "${value}"`).join(' or ') :
+			filtergroup.filters.map(({ type, value }) => this.getFieldCondition(type, value)).join(' or ') :
 			'';
 	}
 
@@ -132,6 +132,12 @@ export class ProductService {
 			return 'tags';
 		}
 		return type;
+	}
+
+	getFieldCondition(type, value) {
+		return (type !== 'favorite' && type !== 'archived') ?
+			`${this.getFieldName(type)}.id == "${value}"` :
+			`${this.getFieldName(type)} == ${value}`;
 	}
 
 	selectById(id: string): Observable<Product> {

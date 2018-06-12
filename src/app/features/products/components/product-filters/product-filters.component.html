@@ -103,8 +103,8 @@
 		</div>
 
 		<checkbox-app [checked]="getFilterValues(filterType.FAVORITE).size > 0"
-			(check)="addFilter({ type: filterType.FAVORITE, value: 5 })"
-			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: 5 })">
+			(check)="addFilter({ type: filterType.FAVORITE, value: true })"
+			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: true })">
 			<div class="flex">
 				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
 				Only Show Favorite
@@ -123,7 +123,7 @@
 		<checkbox-app
 			[checked]="getFilterValues(filterType.ARCHIVED).size > 0"
 			(check)="addFilter({ type: filterType.ARCHIVED, value: true })"
-			(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: false })">
+			(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: true })">
 			Show Archived Product
 		</checkbox-app>
 

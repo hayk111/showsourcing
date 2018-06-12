@@ -13,7 +13,7 @@
 		(check)="onItemAdded(choice)"
 		(uncheck)="onItemRemoved(choice)">
 		<div class="flexBetween">
-			<span>{{ type !== 'event' ? choice.name : choice.description?.name }}</span>
+			<span>{{ formatDisplayName(type, choice) }}</span>
 			<span>{{ choice.productCount }}</span>
 		</div>
 	</checkbox-app>
@@ -27,7 +27,7 @@
 		[checked]="selected.has(choice.id)"
 		(check)="onItemAdded(choice)"
 		(uncheck)="onItemRemoved(choice)">
-		<span>{{ type !== 'event' ? choice.name : choice.description?.name }}</span>
+		<span>{{ formatDisplayName(type, choice) }}</span>
 	</checkbox-app>
 
 
