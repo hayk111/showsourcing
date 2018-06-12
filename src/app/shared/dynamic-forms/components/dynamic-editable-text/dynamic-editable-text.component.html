@@ -110,7 +110,7 @@
 				<input (keyup.enter)="editable1.close();" type="text" restrictInput="decimal" [value]="customField.value.value"/>
 			</editable-text-app>
 			<!-- currency -->
-			<editable-text-app [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
+			<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
 				<label-app>
 					<span class="currencyLabel">
 						{{ customField.value.currency | const:'currency':'symbol' }}
