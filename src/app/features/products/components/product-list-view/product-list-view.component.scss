@@ -82,9 +82,9 @@ user-picture-app {
 	display: none;
 
 	&>button {
-		color: #5d6d8b;
-		border: solid 1px #a3afc6;
-		background-color: #e6ebf5;
+		color: var(--color-primary-dark);
+		border: solid 1px var(--color-txt-secondary);
+		background-color: var(--color-primary-light);
 		font-size: 11px;
 		height: 21px;
 		width: 57px;
@@ -95,7 +95,7 @@ user-picture-app {
 menu {
 	left: 10px;
 	border: solid 1px var(--color-bg-third);
-	background-color: #e6ebf5;
+	background-color: var(--color-primary-light);
 	width: 150px;
 	z-index: 1000;
 }

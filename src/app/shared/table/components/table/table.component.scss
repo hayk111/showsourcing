@@ -87,11 +87,11 @@
 	padding-left: 16px;
 	padding-right: 0;
 	width: 10px;
-	color: #a3afc6;
+	color: var(--color-txt-secondary);
 }
 
 .dotSeparator:hover {
-	color: #5d6d8b;
+	color: var(--color-primary-dark);
 }
 
 .dotSeparator:after {
