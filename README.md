@@ -97,3 +97,42 @@ please read STANDARDS.md
 
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
+
+
+### Translation
+
+(08/06/18)
+In order to generate the messages.xlf translation file for different languages we have to execute the next command.
+`ng xi18n --i18n-locale lang --output-path locale --out-file messages.lang.xlf`
+
+Since the current version of Angular/cli@~6.0.0 doesn't support the previous format to start the server with a given lenguage 
+e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i18n-format xlf --i18n-missing-translations warning` it has to be declared on `angular.json`. Following the previous example we should declare:
+```JSON
+"projects": {
+    "showsourcing": {
+        ···
+        "build": {
+            "configurations": {   
+                ···
+                "fr": {
+                    "aot": true,
+                    "outputPath": "dist/showsourcing",
+                    "i18nFile": "src/locale/messages.fr.xlf",
+                    "i18nFormat": "xlf",
+                    "i18nLocale": "fr"
+                }
+            }
+        },
+        "serve": {
+            ···
+            "configurations": {
+               ···
+                "fr": {
+                    "browserTarget": "showsourcing:build:fr"
+                }
+            }
+        }
+}
+```
+
+Now to run the serve with this config we have to `ng serve --configuration=fr`
