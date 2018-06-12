@@ -40,7 +40,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onSave() {
 		this.value = this.accumulator;
 		this.customField.value = this.value;
-		this.onChange();
+		this.onChangeFn(this.value);
 		this.onClose();
 	}
 

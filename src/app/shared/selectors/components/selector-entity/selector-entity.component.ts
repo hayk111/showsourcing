@@ -81,7 +81,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	/** creates a new entity */
 	create(name: string) {
-		debugger;
 		let createObs$: Observable<any>;
 		let added;
 		switch (this.type) {
@@ -99,11 +98,11 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 				break;
 			case 'tag':
 				added = new Tag({ name });
-				createObs$ = this.srv.createTag(new Tag({ name }));
+				createObs$ = this.srv.createTag(added);
 				break;
 			case 'supplierType':
 				added = new SupplierType({ name });
-				createObs$ = this.srv.createSupplierType(new SupplierType({ name }));
+				createObs$ = this.srv.createSupplierType(added);
 				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}

@@ -9,7 +9,7 @@
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close(); onSave()"
+					(keyup.enter)="editable.close();"
 					[type]="customField.type"/>
 			</div>
 		</form-field-app>
@@ -26,7 +26,7 @@
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close(); onSave()"
+					(keyup.enter)="editable.close();"
 					[type]="customField.type"/>
 			</div>
 		</form-field-app>
@@ -43,7 +43,7 @@
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close(); onSave()"
+					(keyup.enter)="editable.close();"
 					[type]="customField.type"/>
 			</div>
 		</form-field-app>
@@ -60,7 +60,7 @@
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close(); onSave()"
+					(keyup.enter)="editable.close();"
 					[type]="customField.type"/>
 			</div>
 		</form-field-app>
@@ -77,7 +77,7 @@
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close(); onSave()"
+					(keyup.enter)="editable.close();"
 					[type]="'number'"/>
 			</div>
 		</form-field-app>
@@ -107,7 +107,7 @@
 					<span>{{ customField.value.currency | const:'currency':'symbol'}} </span>
 					<span>{{ customField.value?.value || '-' }}</span>
 				</label-app>
-				<input (keyup.enter)="editable1.close(); onSave()" type="text" restrictInput="decimal" [value]="customField.value.value"/>
+				<input (keyup.enter)="editable1.close();" type="text" restrictInput="decimal" [value]="customField.value.value"/>
 			</editable-text-app>
 			<!-- currency -->
 			<editable-text-app [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
@@ -186,5 +186,5 @@
 		</ng-container>
 </ng-container>
 
-
 </ng-container>
+
