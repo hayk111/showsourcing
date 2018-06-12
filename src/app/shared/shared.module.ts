@@ -32,7 +32,7 @@ const modules = [
 	ListModule,
 	DividerModule,
 	ReactiveFormsModule,
-	PanelModule
+	PanelModule,
 ];
 
 @NgModule({

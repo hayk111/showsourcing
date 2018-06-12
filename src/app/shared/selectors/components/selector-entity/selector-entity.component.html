@@ -8,6 +8,10 @@
 		(change)="onChange()"
 		(create)="create($event)">
 		<ng-template let-item="item">
-			{{ item[propertyName] }}
+			<div class="flex">
+				<img *ngIf="item.logoImage" [src]="item.logoImage | image: 's'"/>
+				<span>{{ item[propertyName] }}</span>
+			</div>
+
 		</ng-template>
 	</selector-app>

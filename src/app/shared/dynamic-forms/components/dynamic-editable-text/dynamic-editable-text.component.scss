@@ -24,15 +24,22 @@ input {
 }
 
 .selectorIcon {
-	width: 20px;
-	height: 20px;
+	/** Putting 17px and not 20px like in the design else the field is not gonna be the same height as others*/
+	width: 17px;
+	height: 17px;
 	margin-right: var(--spacing-xs);
 }
 
 .editableCurrency {
+	display: none;
 	min-width: 140px;
 	label-app {
 		width: 100%;
     text-align: right;
 	}
 }
+
+.editablePrice:hover > .editableCurrency {
+	display: block;
+}
+

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppFile } from '~models';
 import { AutoUnsub } from '~utils';
-import { UserService } from '~features/user';
+import { UserService } from '~features/user/services';
 
 @Component({
 	selector: 'files-page-app',

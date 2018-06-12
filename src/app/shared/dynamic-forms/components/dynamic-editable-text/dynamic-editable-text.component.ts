@@ -6,7 +6,8 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { EditableTextComponent } from '~shared/editable-field';
-import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG } from '~utils';
+import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG, DEFAULT_SUPPLIER_ICON } from '~utils';
+import { ImagePipe } from '~shared/utils/pipes/image.pipe';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -78,10 +79,16 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return true;
 	}
 
-	getIcon(type: string) {
+	getIcon(target: any, type: string) {
+
+		if (target) {
+			const pipe = new ImagePipe();
+			return pipe.transform(target, ['s']);
+		}
+
 		switch (type) {
 			case 'supplier':
-				return DEFAULT_SUPPLIER_IMG;
+				return DEFAULT_SUPPLIER_ICON;
 			case 'user':
 				return DEFAULT_USER_IMG;
 			default:

@@ -100,14 +100,15 @@
 
 	<!-- price -->
 	<ng-container *ngSwitchCase="'price'">
-		<div class="flexBetween">
+		<div class="flexBetween editablePrice">
 			<!-- value -->
 			<editable-text-app #editable1 (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 				<label-app>
 					<span>{{ customField.value.currency | const:'currency':'symbol'}} </span>
 					<span>{{ customField.value?.value || '-' }}</span>
 				</label-app>
-				<input (keyup.enter)="editable1.close();" type="text" restrictInput="decimal" [value]="customField.value.value"/>
+				<input #inp (keyup.enter)="editable1.close();"
+					(input)="accumulate({ value: +inp.value})" type="text" restrictInput="decimal" [value]="customField.value.value"/>
 			</editable-text-app>
 			<!-- currency -->
 			<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
@@ -147,7 +148,7 @@
 					<label-app class="flexCenter">
 						<img class="selectorIcon"
 							*ngIf="getIcon(customField.metadata.target)"
-							src="{{ getIcon(customField.metadata.target) }}" />
+							src="{{ getIcon(value, customField.metadata.target) }}" />
 						<ng-container [ngSwitch]="customField.metadata.target">
 							<span *ngSwitchDefault>{{ (value?.name || '-') }}</span>
 							<span *ngSwitchCase="'event'">{{ (value?.alias || '-') }}</span>

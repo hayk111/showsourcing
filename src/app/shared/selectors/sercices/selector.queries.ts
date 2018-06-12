@@ -5,7 +5,11 @@ export class SelectorQueries {
 		subscription suppliers {
 			suppliers {
 				id,
-				name
+				name,
+				logoImage {
+					id,
+					fileName
+				}
 			}
 		}
 	`;
@@ -23,7 +27,11 @@ export class SelectorQueries {
 		subscription events {
 			events {
 				id,
-				alias
+				alias,
+				logoImage {
+					id,
+					fileName
+				}
 			}
 		}
 	`;

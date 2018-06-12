@@ -44,7 +44,14 @@ export class ProductQueries {
 				id,
 				name,
 				supplier {
-					id, name, address, country
+					id,
+					name,
+					address,
+					country,
+					logoImage {
+						id,
+						fileName
+					}
 				},
 				images {
 					id, fileName

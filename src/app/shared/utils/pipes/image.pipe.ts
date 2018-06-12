@@ -24,14 +24,22 @@ export class ImagePipe implements PipeTransform {
 	 */
 	transform(value: any | string, args?: ('s' | 'm' | 'l' | 'xl')[]): string {
 		if (typeof value === 'object') {
+			// if it's not an array we return the fileName bcuz it's prolly the file object
 			if (!Array.isArray(value.images)) {
-				return DEFAULT_IMG;
+				if (value.fileName) {
+					return `${ImagePipe.urls[args[0]]}/${value.fileName}`;
+				} else {
+					return DEFAULT_IMG;
+				}
 			}
+			// if it's an array but there is no image we return the default
 			if (!value.images[0] || !value.images[0].fileName) {
 				return DEFAULT_IMG;
 			}
+			// if it's an array we return the first image
 			return `${ImagePipe.urls[args[0]]}/${value.images[0].fileName}`;
 		} else {
+			// if it's a string we return the url made of with that string
 			return `${ImagePipe.urls[args[0]]}/${value}`;
 		}
 	}
