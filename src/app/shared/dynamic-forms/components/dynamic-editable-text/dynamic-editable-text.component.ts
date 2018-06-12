@@ -38,6 +38,13 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.accumulator = value;
 	}
 
+	accumulateNested(propName: string, value: any) {
+		this.accumulator = {
+			[propName]: value,
+			...this.value
+		};
+	}
+
 	onSave() {
 		this.value = this.accumulator;
 		this.customField.value = this.value;

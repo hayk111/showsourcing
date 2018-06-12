@@ -108,7 +108,7 @@
 					<span>{{ customField.value?.value || '-' }}</span>
 				</label-app>
 				<input #inp (keyup.enter)="editable1.close();"
-					(input)="accumulate({ value: +inp.value})" type="text" restrictInput="decimal" [value]="customField.value.value"/>
+					(input)="accumulateNested('value', +inp.value)" type="text" restrictInput="decimal" [value]="customField.value.value"/>
 			</editable-text-app>
 			<!-- currency -->
 			<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
