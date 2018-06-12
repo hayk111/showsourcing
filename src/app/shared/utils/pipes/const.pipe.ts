@@ -13,7 +13,7 @@ import { currencyMap, countryMap, harbourMap, incoTermsMap } from '~utils/consta
 })
 export class ConstPipe implements PipeTransform {
 
-	transform(value: any, args?: any): any {
+	transform(value: any, ...args: string[]): any {
 		let constMap;
 		const constName = args[0];
 		const propertyName = args[1];
@@ -39,7 +39,7 @@ export class ConstPipe implements PipeTransform {
 		const constObject = constMap[value];
 
 		if (!constObject)
-			throw Error(`The const ${constName} doesn't have any key of ${value}`);
+			return '';
 
 		if (!propertyName)
 			return constMap[value].name;

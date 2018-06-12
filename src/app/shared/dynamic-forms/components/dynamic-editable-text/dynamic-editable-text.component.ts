@@ -6,6 +6,7 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { EditableTextComponent } from '~shared/editable-field';
+import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG } from '~utils';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -39,7 +40,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	onSave() {
 		this.value = this.accumulator;
 		this.customField.value = this.value;
-		this.onChangeFn(this.value);
+		this.onChange();
 		this.onClose();
 	}
 
@@ -75,5 +76,16 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return true;
 		if (Array.isArray(value) && value.length === 0)
 			return true;
+	}
+
+	getIcon(type: string) {
+		switch (type) {
+			case 'supplier':
+				return DEFAULT_SUPPLIER_IMG;
+			case 'user':
+				return DEFAULT_USER_IMG;
+			default:
+				return '';
+		}
 	}
 }

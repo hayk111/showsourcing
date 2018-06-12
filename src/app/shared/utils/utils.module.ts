@@ -10,7 +10,7 @@ import { ConstPipe } from './pipes/const.pipe';
 	imports: [
 		CommonModule
 	],
-	declarations: [ ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective, ConstPipe ],
-	exports: [ ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective ]
+	declarations: [ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective, ConstPipe],
+	exports: [ClickOutsideDirective, DateToTimeAgoPipe, UserNamePipe, InfiniScrollDirective, ConstPipe]
 })
 export class UtilsModule { }

@@ -81,6 +81,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	/** creates a new entity */
 	create(name: string) {
+		debugger;
 		let createObs$: Observable<any>;
 		let added;
 		switch (this.type) {

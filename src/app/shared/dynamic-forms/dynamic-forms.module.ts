@@ -12,6 +12,8 @@ import { FieldCellComponent } from './components/field-cell/field-cell.component
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { TagModule } from '~shared/tag';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
+import { UtilsModule } from '~shared/utils';
+import { FileModule } from '~shared/file';
 
 @NgModule({
 	imports: [
@@ -22,7 +24,9 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 		InputsCustomModule,
 		EditableFieldModule,
 		SelectorsModule,
-		TagModule // for displaying multiple values
+		TagModule, // for displaying multiple values
+		UtilsModule,
+		FileModule
 	],
 	providers: [DynamicFormsService],
 	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],

@@ -66,6 +66,23 @@
 		</form-field-app>
 	</editable-text-app>
 
+
+	<!-- days -->
+	<editable-text-app #editable *ngSwitchCase="'days'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<label-app>{{ customField.value || '-' }} days</label-app>
+		<form-field-app>
+			<div class="flex">
+				<input inputApp
+					#inp
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close(); onSave()"
+					[type]="'number'"/>
+			</div>
+		</form-field-app>
+	</editable-text-app>
+
 	<!-- textarea -->
 	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 		<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
@@ -82,13 +99,35 @@
 	</editable-text-app>
 
 	<!-- price -->
-	<editable-text-app #editable *ngSwitchCase="'price'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>
-			<span>{{ customField.value?.value || '-' }}</span>
-			<span class="currency">{{ customField.value?.currency }}</span>
-		</label-app>
-		<input-price-currency-app [(ngModel)]="value" [value]="customField.value"></input-price-currency-app>
-	</editable-text-app>
+	<ng-container *ngSwitchCase="'price'">
+		<div class="flexBetween">
+			<!-- value -->
+			<editable-text-app #editable1 (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+				<label-app>
+					<span>{{ customField.value.currency | const:'currency':'symbol'}} </span>
+					<span>{{ customField.value?.value || '-' }}</span>
+				</label-app>
+				<input (keyup.enter)="editable1.close(); onSave()" type="text" restrictInput="decimal" [value]="customField.value.value"/>
+			</editable-text-app>
+			<!-- currency -->
+			<editable-text-app [hasAction]="false" (opened)="onOpen()" (closed)="onClose()" #editable>
+				<label-app>
+					<span class="currencyLabel">
+						{{ customField.value.currency | const:'currency':'symbol' }}
+					</span>
+				</label-app>
+				<selector-const-app
+					#selector
+					[multiple]="false"
+					[(ngModel)]="value.currency"
+					[type]="'currency'"
+					(change)="onSelectorChange()">
+				</selector-const-app>
+
+			</editable-text-app>
+		</div>
+	</ng-container>
+
 
 	<!-- selector -->
 	<ng-container *ngSwitchCase="'selector'">
@@ -105,7 +144,11 @@
 				</label-app>
 				<!-- one value label -->
 				<ng-template #solo>
-					<label-app>
+					<label-app class="flexCenter">
+						<img class="selectorIcon"
+							*ngIf="getIcon(customField.metadata.target)"
+							src="{{ getIcon(customField.metadata.target) }}" />
+
 						{{ value?.name || '-'}}
 					</label-app>
 				</ng-template>
