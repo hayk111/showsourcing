@@ -38,7 +38,7 @@
 		<!-- (user) filter-tags have a little picture inside them -->
 		<ng-container *ngIf="filterType.CREATED_BY; let type">
 			<div class="editTitle flexBetween">
-				<label i18n="label title|Filtering products">
+				<label i18n="label|Filtering products">
 					Created By
 				</label>
 
@@ -50,7 +50,7 @@
 
 			<filter-btn-app (click)="toggleEntityPanel(type)"
 				*ngIf="!getFilterValues(type) || getFilterValues(type).size === 0"
-				i18n="button title|Filtering products">
+				i18n="button|Filtering products">
 				Filter users
 			</filter-btn-app>
 
@@ -68,7 +68,7 @@
 		<!-- status -->
 		<ng-container *ngIf="filterType.PRODUCT_STATUS; let type">
 			<div class="editTitle flexBetween">
-				<label i18n="label title|Filtering products">
+				<label i18n="label|Filtering products">
 					Status
 				</label>
 
@@ -80,7 +80,7 @@
 
 			<filter-btn-app (click)="toggleEntityPanel(type)"
 				*ngIf="getFilterValues(type).size === 0"
-				i18n="button title|Filtering products">
+				i18n="button|Filtering products">
 				Filter Status
 			</filter-btn-app>
 
@@ -103,7 +103,7 @@
 
 		<!-- favorite -->
 		<div class="editTitle">
-			<label i18n="label title|Filtering products">
+			<label i18n="label|Filtering products">
 				Favorite
 			</label>
 		</div>
@@ -121,7 +121,7 @@
 
 		<!-- archived -->
 		<div class="editTitle">
-			<label i18n="label title|Filtering products">
+			<label i18n="label|Filtering products">
 				Archived
 			</label>
 		</div>

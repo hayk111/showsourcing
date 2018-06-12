@@ -1,6 +1,6 @@
 <card-app>
 
-<h2 i18n>Supplier</h2>
+<h2 i18n="header 2|Supplier information when opening a product">Supplier</h2>
 
 <div class="flex ">
 	<div class="left flexCenter">
@@ -25,8 +25,8 @@
 </div>
 
 <card-footer-app>
-	<button *ngIf="supplier" (click)="goToSupplier()" i18n class="light">view supplier</button>
-	<!-- <button i18n>contact supplier</button> -->
+	<button *ngIf="supplier" (click)="goToSupplier()" class="light" i18n="button|Supplier information when opening a product">view supplier</button>
+	<!-- <button i18n="button name|Supplier information when opening a product">contact supplier</button> -->
 </card-footer-app>
 
 </card-app>

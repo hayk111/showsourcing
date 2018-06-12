@@ -2,43 +2,42 @@
 
 		<!-- products count -->
 		<div class="block">
-			<span class="title">PRODUCTS</span>
+			<span class="title" i18n="span|Supplier information summary section">PRODUCTS</span>
 			<span class="content">{{ productCount !== undefined ? productCount : '-' }}</span>
 		</div>
 		<divider-app [vertical]="true"></divider-app>
 
 		<!-- contacts count -->
 		<div class="block">
-			<span class="title">CONTACTS</span>
+			<span class="title" i18n="span|Supplier information summary section">CONTACTS</span>
 			<span class="content">{{ contactCount  !== undefined ? contactCount : '-' }}</span>
 		</div>
 		<divider-app [vertical]="true"></divider-app>
 
 		<!-- tasks count -->
 		<div class="block">
-			<span class="title">TASKS</span>
+			<span class="title" i18n="span|Supplier information summary section">TASKS</span>
 			<span class="content">
 				<div class="icon-edit"></div>
 				{{ taskCount !== undefined ? taskCount : '-' }}
 			</span>
 		</div>
 		<divider-app [vertical]="true"></divider-app>
-
 		<!-- favorite -->
 		<div class="block">
-			<span class="title">FAVORITE</span>
+			<span class="title" i18n="span|Supplier information summary section">FAVORITE</span>
 			<span class="content">
 				<rating-heart-app
 					(favorited)="onFavorited()"
 					(unfavorited)="onUnfavorited()"
 					[favorite]="supplier.favorite"></rating-heart-app>
-			</span>
-		</div>
+				</span>
+			</div>
 		<divider-app [vertical]="true"></divider-app>
 
 		<!-- status -->
 		<div class="block">
-			<span class="title">STATUS</span>
+			<span class="title" i18n="span|Supplier information summary section">STATUS</span>
 			<span class="content">
 				<status-selector-badge-app
 					(update)="onStatusChange($event)"
