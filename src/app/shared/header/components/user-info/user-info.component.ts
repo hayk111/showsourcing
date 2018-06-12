@@ -17,10 +17,7 @@ import { AutoUnsub } from '~utils';
 export class UserInfoComponent extends AutoUnsub implements OnInit {
 	user$: Observable<User>;
 	teams$: Observable<Array<Team>>;
-	/** Whether the user menu is visible */
-	panelVisible = false;
-	/** whether the team picker is visible */
-	teamPickerShown = false;
+
 
 	constructor(private authSrv: AuthenticationService, private userSrv: UserService) {
 		super();
@@ -31,24 +28,8 @@ export class UserInfoComponent extends AutoUnsub implements OnInit {
 		this.teams$ = this.userSrv.selectTeams();
 	}
 
-	openTeamPicker() {
-		this.teamPickerShown = true;
-	}
-
 	pickTeam(team) {
 		this.userSrv.pickTeam(team);
-	}
-
-	closeTeamPicker() {
-		this.teamPickerShown = false;
-	}
-
-	openPanel() {
-		this.panelVisible = true;
-	}
-
-	closePanel() {
-		this.panelVisible = false;
 	}
 
 	logout() {

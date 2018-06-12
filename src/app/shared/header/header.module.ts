@@ -1,24 +1,19 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { IconsModule } from '~shared/icons';
-import { UtilsModule } from '~shared/utils';
-import { HeaderComponent } from './components';
-import { NotifComponent } from './components';
-import { UserInfoComponent } from './components';
-import { UserPanelComponent } from './components';
-import { UserModule } from '~features/user';
-import { SharedModule } from '~shared/shared.module';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { SearchBarAnimatedModule } from '~shared/search-bar-animated/search-bar-animated.module';
+import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
+
+import { HeaderComponent, NotifComponent, UserInfoComponent, UserPanelComponent } from './components';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		SearchBarAnimatedModule,
 		RouterModule.forChild([]),
-		UserPictureModule
+		UserPictureModule,
+		ContextMenuModule
 	],
 	declarations: [HeaderComponent, NotifComponent, UserInfoComponent, UserPanelComponent],
 	exports: [HeaderComponent],

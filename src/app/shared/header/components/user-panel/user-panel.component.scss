@@ -34,29 +34,6 @@ menuitem {
 	}
 }
 
-menu {
-	position: relative;
-	background: white;
-	color: var(--color-txt-primary);
-	display: block;
-	border-radius: var(--border-radius-s);
-}
-
-// arrow
-menu:after {
-	bottom: 100%;
-	right: 0%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(255, 255, 255, 0);
-	border-bottom-color: #ffffff;
-	border-width: 6px;
-	margin-right: 6px;
-}
 
 .userInfo {
 	padding: var(--spacing-m);

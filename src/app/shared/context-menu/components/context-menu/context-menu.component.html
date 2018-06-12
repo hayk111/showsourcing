@@ -1,0 +1,8 @@
+<!-- the trigger -->
+<div class="trigger" (click)="openMenu()">
+	<ng-content select="menu-trigger-app"></ng-content>
+</div>
+<!-- the menu card -->
+<menu class="z-4" *ngIf="menuOpen" [ngClass]="classList">
+	<ng-content></ng-content>
+</menu>
