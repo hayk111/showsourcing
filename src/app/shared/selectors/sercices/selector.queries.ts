@@ -23,7 +23,7 @@ export class SelectorQueries {
 		subscription events {
 			events {
 				id,
-				name
+				alias
 			}
 		}
 	`;

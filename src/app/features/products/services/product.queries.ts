@@ -60,7 +60,7 @@ export class ProductQueries {
 				},
 				description,
 				event {
-					id, name
+					id, alias
 				},
 				favorite,
 				status {

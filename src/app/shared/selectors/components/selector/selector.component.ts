@@ -81,11 +81,12 @@ export class SelectorComponent extends AbstractInput {
 	filter() {
 		if (this.searchValue === '')
 			this.filteredChoices = [...this.choices];
-		this.filteredChoices = this.choices.filter(c => {
-			const searched = (c[this.bindLabel] as string).toLowerCase();
-			const searchString = this.searchValue.toLowerCase();
-			return searched.includes(searchString);
-		});
+		else
+			this.filteredChoices = this.choices.filter(c => {
+				const searched = (c[this.bindLabel] as string).toLowerCase();
+				const searchString = this.searchValue.toLowerCase();
+				return searched.includes(searchString);
+			});
 	}
 
 	open() {

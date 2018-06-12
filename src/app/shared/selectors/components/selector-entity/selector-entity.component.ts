@@ -26,8 +26,18 @@ import { takeUntil } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorEntityComponent extends AbstractInput implements OnInit {
+	/**  the type of entity we gonna select from. */
+	@Input() set type(type: string) {
+		this._type = type;
+		if (this._type === 'event') {
+			this.propertyName = 'alias';
+		}
+	}
+	get type(): string {
+		return this._type;
+	}
+	private _type;
 
-	@Input() type: string;
 	// whether multiple entities can be selectioned
 	@Input() multiple = false;
 	// value is the id of the entity
@@ -40,6 +50,8 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@Output() change = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
+	/** This is the property name we are gonna display */
+	propertyName = 'name';
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);

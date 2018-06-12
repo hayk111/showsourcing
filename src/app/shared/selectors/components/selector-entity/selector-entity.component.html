@@ -5,10 +5,9 @@
 		[canSearch]="true"
 		[canCreate]="true"
 		[multiple]="multiple"
-		[bindLabel]="'name'"
 		(change)="onChange()"
 		(create)="create($event)">
 		<ng-template let-item="item">
-			{{ item.name }}
+			{{ item[propertyName] }}
 		</ng-template>
 	</selector-app>

@@ -30,3 +30,17 @@
 .ng-dropdown-panel .ng-dropdown-footer {
 	padding: 0;
 }
+.ng-select .ng-select-container {
+	border: 1px solid var(--color-primary-light)!important;
+}
+
+.ng-dropdown-panel {
+	border: 1px solid var(--color-primary-light);
+	.ng-dropdown-header {
+		padding: 0;
+		border-bottom: 0;
+		input {
+			border-radius: 0;
+		}
+	}
+}
