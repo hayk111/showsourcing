@@ -21,8 +21,8 @@
 		</span>
 		<div class="actions flex" *ngIf="selection.length > 0">
 			<div> {{ selection.length }} items selected </div> --
-			<div (click)="mergeSelection()" i18n>Merge</div> - -
-			<div (click)="deleteSelection()" i18n>Delete</div>
+			<div (click)="mergeSelection()" i18n="div click|Merge data management items@@dataManagementPage_merge">Merge</div> - -
+			<div (click)="deleteSelection()" i18n="div click|Delete data management items@@dataManagementPage_delete">Delete</div>
 		</div>
 		<hr>
 		<ng-container *ngIf="items$ | async as items">

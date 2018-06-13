@@ -1,6 +1,6 @@
 <card-app>
 
-<h2 i18n="header 2|Supplier information when opening a product">Supplier</h2>
+<h2 i18n="header 2|Supplier information on product page@@supplierCard_supplier">Supplier</h2>
 
 <div class="flex ">
 	<div class="left flexCenter">
@@ -9,7 +9,7 @@
 
 	<div class="right flexColumn">
 		<span class="name">{{ supplier?.name }}</span>
-		<span class="from" i18n *ngIf="supplier?.country">
+		<span class="from" *ngIf="supplier?.country">
 			Manufacturer from {{ supplier?.country }}
 		</span>
 		<span class="from" *ngIf="supplier?.address">
@@ -25,8 +25,8 @@
 </div>
 
 <card-footer-app>
-	<button *ngIf="supplier" (click)="goToSupplier()" class="light" i18n="button|Supplier information when opening a product">view supplier</button>
-	<!-- <button i18n="button name|Supplier information when opening a product">contact supplier</button> -->
+	<button *ngIf="supplier" (click)="goToSupplier()" class="light" i18n="button|View supplier information on product page@@supplierCard_viewSupplier">view supplier</button>
+	<!-- <button i18n="button name|Supplier information when opening a product@@supplierCard_contactSupplier">contact supplier</button> -->
 </card-footer-app>
 
 </card-app>

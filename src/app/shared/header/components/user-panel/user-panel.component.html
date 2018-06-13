@@ -8,19 +8,19 @@
 	</context-menu-trigger-app>
 
 	<!-- Settings -->
-	<context-menu-item-app (click)="goToSettings()" i18n="user menu | go to settings">
+	<context-menu-item-app (click)="goToSettings()" i18n="menu item|User panel settings@@userPanel_settings">
 		Profile
 	</context-menu-item-app>
 
 	<!-- Teams -->
-	<context-menu-item-app (click)="pickTeam()" i18n="user menu | teams">
+	<context-menu-item-app (click)="pickTeam()" i18n="menu item|User panel teams@@userPanel_teams">
 		Change Team
 	</context-menu-item-app>
 
 
 	<context-menu-divider-app></context-menu-divider-app>
 	<!-- Logout -->
-	<context-menu-item-app (click)="logout.emit()" i18n="user menu | logout">
+	<context-menu-item-app (click)="logout.emit()" i18n="menu item|User panel logout@@userPanel_logout">
 		Logout
 	</context-menu-item-app>
 </context-menu-app>

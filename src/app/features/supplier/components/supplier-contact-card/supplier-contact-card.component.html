@@ -1,7 +1,7 @@
 
 <card-app>
 
-	<h2 i18n="header 2|Supplier contacts card">Contacts</h2>
+	<h2 i18n="header 2|Supplier contacts card@@supplierContactCard_contacts">Contacts</h2>
 
 	<ul *ngIf="contacts.length > 0; else noContact">
 		<supplier-contact-app
@@ -15,12 +15,12 @@
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
 			<img [src]="defaultImg" class="pointer" (click)="newContact.emit()"/>
-			<span i18n="span|Supplier contacts card">No contact for this supplier</span>
+			<span i18n="span|Supplier with no contacts@@supplierContactCard_noContacts">No contact for this supplier</span>
 		</div>
 	</ng-template>
 
 	<card-footer-app>
-		<button (click)="newContact.emit()" i18n="button|Supplier contacts card">New Contact</button>
+		<button (click)="newContact.emit()" i18n="button|Add new contact for a supplier@@supplierContactCard_newContact">New Contact</button>
 	</card-footer-app>
 
 </card-app>

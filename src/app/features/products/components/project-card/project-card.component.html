@@ -1,6 +1,6 @@
 
 <card-app>
-	<h2 i18n>Projects</h2>
+	<h2 i18n="header 2|Project card@@projectCard_projects">Projects</h2>
 
 	<article *ngFor="let project of projects" class="flex">
 		<div class="flexCenter">
@@ -8,7 +8,7 @@
 		</div>
 		<div class="flexColumn middle">
 			<span class="name capitalize bold">{{ project?.name }}</span>
-			<span class="numProducts"> {{ project?.productCount }} Products </span>
+			<span class="numProducts" i18n="span|Project card@@projectCard_products">  {{ project?.productCount }} Products </span>
 		</div>
 		<div class="flexCenter">
 			<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
@@ -18,6 +18,6 @@
 	</article>
 
 	<card-footer-app>
-		<button (click)="addProjectClick.emit()" i18n>add project</button>
+		<button (click)="addProjectClick.emit()" i18n="button|Add project@@projectCard_addProject">add project</button>
 	</card-footer-app>
 </card-app>

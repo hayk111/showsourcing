@@ -14,8 +14,8 @@
 				</label>
 
 				<div *ngIf="getFilterValues(type).size > 0">
-					<span class="edit pointer" (click)="toggleEntityPanel(type)">Edit</span>
-					<span class="clear pointer" (click)="onClearType(type)">Clear</span>
+					<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|Edit filter selection@@global_edit">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)" i18n="span|Clear filter selection@@global_clear">Clear</span>
 				</div>
 			</div>
 
@@ -38,19 +38,19 @@
 		<!-- (user) filter-tags have a little picture inside them -->
 		<ng-container *ngIf="filterType.CREATED_BY; let type">
 			<div class="editTitle flexBetween">
-				<label i18n="label|Filtering products">
+				<label i18n="label|Created by filter title@@productFilters_created">
 					Created By
 				</label>
 
 				<div *ngIf="getFilterValues(type).size > 0">
-					<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|edit filter@@GlobalEdit">Edit</span>
-					<span class="clear pointer" (click)="onClearType(type)" i18n="span|clear filter@@GlobalClear">Clear</span>
+					<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|Edit filter selection@@global_edit">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)" i18n="span|Clear filter selection@@global_clear">Clear</span>
 				</div>
 			</div>
 
 			<filter-btn-app (click)="toggleEntityPanel(type)"
 				*ngIf="!getFilterValues(type) || getFilterValues(type).size === 0"
-				i18n="button|Filtering products">
+				i18n="button|Users filter button@@productFilters_users">
 				Filter users
 			</filter-btn-app>
 
@@ -68,19 +68,19 @@
 		<!-- status -->
 		<ng-container *ngIf="filterType.PRODUCT_STATUS; let type">
 			<div class="editTitle flexBetween">
-				<label i18n="label|Filtering products">
+				<label i18n="label|Status filter title@@productFilters_status">
 					Status
 				</label>
 
 				<div *ngIf="getFilterValues(type).size > 0">
-					<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="spam|edit filter@@GlobalEdit">Edit</span>
-					<span class="clear pointer" (click)="onClearType(type)" i18n="span|clear filter@@GlobalClear">Clear</span>
+					<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|Edit filter selection@@global_edit">Edit</span>
+					<span class="clear pointer" (click)="onClearType(type)" i18n="span|Clear filter selection@@global_clear">Clear</span>
 				</div>
 			</div>
 
 			<filter-btn-app (click)="toggleEntityPanel(type)"
 				*ngIf="getFilterValues(type).size === 0"
-				i18n="button|Filtering products">
+				i18n="button|Status filter button@@productFilters_status">
 				Filter Status
 			</filter-btn-app>
 
@@ -103,7 +103,7 @@
 
 		<!-- favorite -->
 		<div class="editTitle">
-			<label i18n="label|Filtering products">
+			<label i18n="label|Favorite filter title@@productFilters_favorite">
 				Favorite
 			</label>
 		</div>
@@ -113,7 +113,7 @@
 			(uncheck)="removeFilter({ type: filterType.FAVORITE, value: true })">
 			<div class="flex">
 				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-				Only Show Favorites
+				<p i18n="paragraph|Only favorites checkbox title@@productFilters_showFavorites">Only Show Favorites</p>
 			</div>
 		</checkbox-app>
 
@@ -121,7 +121,7 @@
 
 		<!-- archived -->
 		<div class="editTitle">
-			<label i18n="label|Filtering products">
+			<label i18n="label|Archieved filter title@@productFilters_archived">
 				Archived
 			</label>
 		</div>
@@ -130,7 +130,7 @@
 			[checked]="getFilterValues(filterType.ARCHIVED).size > 0"
 			(check)="addFilter({ type: filterType.ARCHIVED, value: true })"
 			(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: false })"
-			i18n="checkbox|Filtering all products">
+			i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
 			Show Archived Products
 		</checkbox-app>
 

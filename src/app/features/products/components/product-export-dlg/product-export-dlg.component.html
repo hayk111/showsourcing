@@ -1,23 +1,23 @@
 <dialog-app [name]="dlgName">
-  <dialog-header-app i18n="dialog header|Export product">Export Selection</dialog-header-app>
-	<dialog-subtitle-app i18n="dialog subtitle|Export product">Export Type</dialog-subtitle-app>
+  <dialog-header-app i18n="dialog header|Export selection@@productExport_selection">Export Selection</dialog-header-app>
+	<dialog-subtitle-app i18n="dialog subtitle|Select export type@@productExport_type">Export Type</dialog-subtitle-app>
 
 	<main class="exportRow">
 		<div class="exportCell" (click)="select('excel')" [class.selected]="selectedExport === 'excel'">
 			<div class="icon-excel"></div>
 			<div class="title">Excel</div>
-			<div class="subtitle" i18n="div subtitle|Export product">Perfect for edition</div>
+			<div class="subtitle" i18n="div subtitle|Export product for edition porpuses@@productExport_excelEdit">Perfect for edition</div>
 		</div>
 		<div class="exportCell" (click)="select('pdf')" [class.selected]="selectedExport === 'pdf'">
 			<div class="icon-pdf"></div>
 			<div class="title">PDF</div>
-			<div class="subtitle" i18n="div subtitle|Export product">Perfect for sharing</div>
+			<div class="subtitle" i18n="div subtitle|Export product for sharing porpuses@@productExport_pdfShare">Perfect for sharing</div>
 		</div>
 	</main>
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ selectedProducts?.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="export()" i18n="button|Export product">
+		<button class="small" (click)="export()" i18n="button|Export product@@productExport_export">
 			Export
 		</button>
   </dialog-footer-app>

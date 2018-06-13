@@ -1,16 +1,16 @@
 
 <ng-container *ngIf="votes.total > 0">
-	<div class="detailsBtn pointer" *ngIf="!detailsShown" (click)="showDetails()" i18n>
+	<div class="detailsBtn pointer" *ngIf="!detailsShown" (click)="showDetails()" i18n="div button|View details@@details_viewDetails">
 		view details
 	</div>
 
-	<div class="detailsBtn pointer" *ngIf="detailsShown" (click)="hideDetails()" i18n>
+	<div class="detailsBtn pointer" *ngIf="detailsShown" (click)="hideDetails()" i18n="div button|Hide details@@details_hideDetails">
 		hide details
 	</div>
 
 	<div class="details" *ngIf="detailsShown">
 		<ng-container *ngIf="votes.positive.length > 0">
-			<h5 i18n="positive vote">Likes</h5>
+			<h5 i18n="header 5|Positive vote@@details_likes">Likes</h5>
 			<div>
 				<!-- <user-picture-with-name-app
 					[user]="teamMembers.byId[vote.userId]"
@@ -21,7 +21,7 @@
 		</ng-container>
 
 		<ng-container *ngIf="votes.neutral.length > 0">
-			<h5 i18n="neutral vote">Neutral</h5>
+			<h5 i18n="header 5|Neutral vote@@details_neutral">Neutral</h5>
 			<div>
 				<!-- <user-picture-with-name-app
 					[user]="teamMembers.byId[vote.userId]"
@@ -32,7 +32,7 @@
 		</ng-container>
 
 		<ng-container *ngIf="votes.negative.length > 0">
-			<h5 i18n="negative vote">Dislikes</h5>
+			<h5 i18n="header 5|Negative vote@@details_dislikes">Dislikes</h5>
 			<div>
 				<!-- <user-picture-with-name-app
 					[user]="teamMembers.byId[vote.userId]"

@@ -2,13 +2,13 @@
 	<dialog-app [name]="name">
 
 			<!-- when ready -->
-			<dialog-header-app *ngIf="!pending " i18n="dialog header|Adding new supplier">
+			<dialog-header-app *ngIf="!pending " i18n="dialog header|New supplier title@@newSupplier_newSupplier">
 				New Supplier
 			</dialog-header-app>
 
 			<form [formGroup]="group" *ngIf="!pending">
 				<form-field-app>
-					<label-app i18n="label|Adding new supplier">Name</label-app>
+					<label-app i18n="label|New supplier name title@@supplierSummary_name">Name</label-app>
 					<input inputApp type="text" formControlName="name" placeholder="Jhon Doe" (keyup.enter)="onSubmit()"/>
 				</form-field-app>
 			</form>

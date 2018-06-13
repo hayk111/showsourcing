@@ -1,7 +1,7 @@
 <dialog-app [name]="dlgName">
-	<dialog-header-app i18n="dialog header|Adding products to projects"> Add to project </dialog-header-app>
+	<dialog-header-app i18n="dialog header|Add products to project@@productAddToProject_addProject"> Add to project </dialog-header-app>
 
-	<dialog-subtitle-app i18n="dialog subtitle|Adding products to projects">Select projects</dialog-subtitle-app>
+	<dialog-subtitle-app i18n="dialog subtitle|Select project to add product@@productAddToProject_selectProject">Select projects</dialog-subtitle-app>
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
@@ -25,6 +25,6 @@
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ products.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="submit()" i18n="button|Adding products to projects">ADD NOW</button>
+		<button class="small" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow">ADD NOW</button>
 	</dialog-footer-app>
 </dialog-app>

@@ -3,7 +3,7 @@
 		<h2>Files &amp; Documents</h2>
 
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
-		<button class="small" (click)="inp.click()" i18n="button|add file">Add File</button>
+		<button class="small" (click)="inp.click()" i18n="button|Add file@@filesPage_addFile">Add File</button>
 	</div>
 
 	<ng-container *ngIf="files$ | async as files">
@@ -11,10 +11,10 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th i18n="table column header | Files Name">Name</th>
-					<th i18n="table column header | Files Upload date">Upload date</th>
-					<th i18n="table column header | Files Uploaded by">Uploaded by</th>
-					<th i18n="table column header | File Action">Action</th>
+					<th i18n="table column header|File section name@@filesPage_name">Name</th>
+					<th i18n="table column header|File section upload date@@filesPage_uploadDate">Upload date</th>
+					<th i18n="table column header|File section uploaded by@@filesPage_uploadBy">Uploaded by</th>
+					<th i18n="table column header|File section action@@filesPage_action">Action</th>
 				</tr>
 			</thead>
 
@@ -40,7 +40,7 @@
 							{{ file.audit.createdBy.firstName }}
 					</td>
 
-					<td (click)="deleteFile(file)" i18n="button| action delete file">
+					<td (click)="deleteFile(file)" i18n="button|File section delete@@global_delete">
 							delete
 					</td>
 				</tr>
