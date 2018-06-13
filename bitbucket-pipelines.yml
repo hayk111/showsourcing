@@ -16,7 +16,7 @@ pipelines:
           image: node:9.11
           name: Building
           script:
-            - npm run install
+            - npm install
             - npm run build --prod
           artifacts:
             - ./dist
