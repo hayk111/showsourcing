@@ -173,8 +173,8 @@
 				<ng-template #solo>
 					<label-app class="flexCenter">
 						<img class="selectorIcon"
-							*ngIf="getIcon(customField.metadata.target)"
-							[src]="getIcon(customField.metadata.target)" />
+							*ngIf="value | logo:customField.metadata.target"
+							[src]="value | logo:customField.metadata.target" />
 						<ng-container [ngSwitch]="customField.metadata.target">
 							<span *ngSwitchDefault>{{ (value?.name || '-') }}</span>
 							<span *ngSwitchCase="'event'">{{ (value?.alias || '-') }}</span>

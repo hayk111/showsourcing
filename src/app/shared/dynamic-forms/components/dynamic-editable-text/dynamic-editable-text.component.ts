@@ -110,34 +110,4 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return true;
 	}
 
-	/** gets the correct icon for selectors inputs */
-	getIcon(type: string) {
-		const hasIcon = ['supplier', 'event', 'user', 'project'];
-		// if it's not one of those selectors that have an icon just return nothing
-		if (!hasIcon.find(t => t === type))
-			return;
-
-		// if the current value has a logoImage then return it
-		if (this.value && (this.value.logoImage || this.value.description && this.value.description.logoImage)) {
-			const pipe = new ImagePipe();
-			let target = this.value;
-			// if it's an event the image is in the event description and not the event itself...
-			if (type === 'event') {
-				target = this.value.description;
-			}
-			return pipe.transform(target.logoImage, ['s']);
-		}
-
-		// else we give back the default
-		switch (type) {
-			case 'supplier':
-				return DEFAULT_SUPPLIER_ICON;
-			case 'user':
-				return DEFAULT_USER_ICON;
-			case 'event':
-				return DEFAULT_EVENT_ICON;
-			default:
-				return DEFAULT_IMG;
-		}
-	}
 }
