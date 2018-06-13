@@ -176,9 +176,7 @@
 							*ngIf="value | logo:customField.metadata.target"
 							[src]="value | logo:customField.metadata.target" />
 						<ng-container [ngSwitch]="customField.metadata.target">
-							<span *ngSwitchDefault>{{ (value?.name || '-') }}</span>
-							<span *ngSwitchCase="'event'">{{ (value?.alias || '-') }}</span>
-							<span *ngSwitchCase="'user'">{{ (value?.firstName + ' ' +value?.lastName || '-') }}</span>
+							<span *ngSwitchDefault>{{ (value[customField.metadata.labelName] || '-') }}</span>
 						</ng-container>
 
 					</label-app>
@@ -189,7 +187,9 @@
 					[multiple]="customField.multiple"
 					(change)="onSelectorChange()"
 					[(ngModel)]="value"
-					[type]="customField.metadata.target">
+					[type]="customField.metadata.target"
+					[canCreate]="customField.metadata.canCreate"
+					[propertyName]="customField.metadata.labelName">
 				</selector-entity-app>
 			</editable-text-app>
 

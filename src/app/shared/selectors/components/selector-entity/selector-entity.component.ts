@@ -45,13 +45,16 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	// the name that will appear in the selector. EG: 'No "supplier" found', or 'create new "supplier"'.
 	@Input() itemName = 'item';
 	// events that emits the id of the entity
+	/** This is the property name we are gonna display */
+	@Input() propertyName = 'name';
+	/** whether we can create a new entity */
+	@Input() canCreate = true;
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
-	/** This is the property name we are gonna display */
-	propertyName = 'name';
+
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);

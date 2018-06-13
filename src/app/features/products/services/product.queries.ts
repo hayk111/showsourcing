@@ -120,7 +120,7 @@ export class ProductQueries {
 				samplePrice,
 				taskCount,
 				createdBy {
-					id, firstName, lastName
+					id, name
 				}
 			}
 		}

@@ -26,18 +26,18 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
 	customFields: CustomField[] = [
-		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity' } },
-		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity' } },
+		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name' } },
+		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity', labelName: 'name' } },
 
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
-		{ name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity' } },
-		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity' } },
+		{ name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity', labelName: 'alias' } },
+		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{ name: 'description', type: 'textarea', label: 'description' },
-		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, multiple: true },
+		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name' }, multiple: true },
 
 	];
 	// those are the custom field for the second form section

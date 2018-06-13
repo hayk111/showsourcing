@@ -3,7 +3,7 @@
 		[choices]="choices$ | async"
 		[itemName]="itemName"
 		[canSearch]="true"
-		[canCreate]="true"
+		[canCreate]="canCreate"
 		[multiple]="multiple"
 		(change)="onChange()"
 		(create)="create($event)"

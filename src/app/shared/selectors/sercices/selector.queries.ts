@@ -61,8 +61,7 @@ export class SelectorQueries {
 		subscription users {
 			users {
 				id,
-				firstName,
-				lastName,
+				name,
 				logoImage {
 					id,
 					fileName
