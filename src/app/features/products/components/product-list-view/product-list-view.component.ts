@@ -7,7 +7,10 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
+	ViewChildren,
 	OnInit,
+	ElementRef,
+	Renderer2
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Product } from '~models';
@@ -29,6 +32,11 @@ export class ProductListViewComponent implements OnInit {
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sortColumn = new EventEmitter<{ order: 'ASC' | 'DESC'; sortWith: string; }>();
+	@Output() openAddToProjectDialog = new EventEmitter<Product>();
+	@Output() openExportDialog = new EventEmitter<Product>();
+	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
+	@Output() delete = new EventEmitter<Product>();
+
 	// inputs
 	@Input() products: Array<Product>;
 	// currently selected items
@@ -49,6 +57,7 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('user') userTemplate: TemplateRef<any>;
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
+	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
 	descriptor: TableDescriptor = [
 		{ title: 'Name', type: 'main', sortable: true, sortWith: 'name', width: 280 },
@@ -64,7 +73,7 @@ export class ProductListViewComponent implements OnInit {
 		{ title: 'Actions', type: 'action', sortable: false, width: 140 }, */
 	];
 
-	constructor() { }
+	constructor(private renderer: Renderer2) { }
 
 	ngOnInit() {
 		this.linkColumns();
@@ -126,5 +135,9 @@ export class ProductListViewComponent implements OnInit {
 			default:
 				column.template = this.defaultTemplate;
 		}
+	}
+
+	onTogglePreview(overviewElement, display) {
+		this.renderer.setStyle(overviewElement, 'display', display ? 'block' : 'none');
 	}
 }

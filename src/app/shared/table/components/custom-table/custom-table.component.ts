@@ -7,6 +7,7 @@ import {
 	Output,
 	EventEmitter,
 	AfterContentInit,
+	TemplateRef
 } from '@angular/core';
 import { TableDescriptor, ColumnDirective } from '~shared/table';
 
@@ -20,6 +21,7 @@ export class CustomTableComponent {
 	@Output() bottomReached = new EventEmitter<any>();
 	@Output() sort = new EventEmitter<string>();
 	@Input() descriptor: TableDescriptor = [];
+	@Input() contextualMenu: TemplateRef<any>;
 	@Input() rows: Array<any> = [];
 	@Input() pending: boolean;
 	// maps of the <id, true> so we can access the items that are selected

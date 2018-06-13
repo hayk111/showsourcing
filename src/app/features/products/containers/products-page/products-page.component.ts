@@ -142,12 +142,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
+	deleteSelected(product: Product) {
+		let selection = this.selection;
+		if (product) {
+			selection = new Map<string, boolean>();
+			selection.set(product.id, true);
+		}
 		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
 		// Let's avoid doing that whenever possible though.
 		const callback = () => {
 			const products: Array<string> = new Array();
-			this.selection.forEach((value, key) => {
+			selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
 			this.productSrv.deleteProducts(products).subscribe(() => {
@@ -155,7 +160,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 				this.cdr.detectChanges();
 			});
 		};
-		const text = `Delete ${this.selection.size} Product${this.selection.size > 1 ? 's' : ''} ?`;
+		const text = `Delete ${selection.size} Product${selection.size > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
@@ -213,19 +218,25 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	 */
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog() {
-		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, { selectedProducts: this.selectionArray });
+	openAddToProjectDialog(product: Product) {
+		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog() {
-		this.dlgSrv.open(DialogName.EXPORT, { selectedProducts: this.selectionArray });
+	openExportDialog(product: Product) {
+		this.dlgSrv.open(DialogName.EXPORT, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog() {
-		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, { selectedProducts: this.selectionArray });
+	openRequestFeedbackDialog(product: Product) {
+		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, {
+			selectedProducts: product ? [ product ] : this.selectionArray
+		});
 	}
 
 	get selectionArray() {

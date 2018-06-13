@@ -23,6 +23,7 @@
 	height: 48px;
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 .cell {
@@ -73,6 +74,10 @@
 	width: 100%;
 }
 
+.full-width {
+	width: 100%;
+}
+
 .sortIcon {
 	margin-left: var(--spacing-xs);
 }
@@ -82,11 +87,11 @@
 	padding-left: 16px;
 	padding-right: 0;
 	width: 10px;
-	color: #a3afc6;
+	color: var(--color-txt-secondary);
 }
 
-.dotSeparator.hover {
-	color: #5d6d8b;
+.dotSeparator:hover {
+	color: var(--color-primary-dark);
 }
 
 .dotSeparator:after {

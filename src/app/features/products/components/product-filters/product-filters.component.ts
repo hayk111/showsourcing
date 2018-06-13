@@ -39,7 +39,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	];
 	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
 	displayNames = {
-		createdBy: (raw) => `${raw.lastName} ${raw.firstName}`
+		createdBy: (raw) => `${raw.lastName} ${raw.firstName}`,
+		event: (raw) => raw.description ? raw.description.name : ''
 	};
 	// different filterTypes
 	filterType = FilterType;

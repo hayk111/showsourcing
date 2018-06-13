@@ -3,6 +3,7 @@
 	class="list"
 	[rows]="products"
 	[descriptor]="descriptor"
+	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="onSort($event)"
@@ -11,21 +12,42 @@
 	[pending]="pending">
 </custom-table-app>
 
+<ng-template #contextualMenu let-row="row">
+	<menu class="z-4">
+		<menuitem class="pointer flexCenter" (click)="openAddToProjectDialog.emit(row)" i18n="product menu | add to project">
+			<div class="border">Add to project</div>
+		</menuitem>
+		<menuitem class="pointer flexCenter" (click)="openRequestFeedbackDialog.emit(row)" i18n="product menu | go to request feedback">
+			<div class="border">Request feedback</div>
+		</menuitem>
+		<menuitem class="pointer flexCenter" (click)="openExportDialog.emit(row)" i18n="product menu | export">
+			<div class="border">Export</div>
+		</menuitem>
+		<menuitem class="pointer flexCenter" (click)="delete.emit(row)" i18n="product menu | export">
+			<div class="border">Delete</div>
+		</menuitem>
+	</menu>
+</ng-template>
+
 <ng-template #main let-row="row">
-	<div class="mainCellWrapper">
+	<div class="mainCellWrapper ellipsis">
 		<div class="mainCell">
-			<div class="imgCtnr">
+			<div class="imgCtnr"
+				(mouseenter)="onTogglePreview(overview, true)"
+				(mouseleave)="onTogglePreview(overview, false)">
 				<img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
-				<div class="imgOverViewCtnrWrapper">
-					<div class="imgOverViewCtnr">
-						<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
-					</div>
-				</div>
 			</div>
 			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
 		</div>
 		<div class="preview">
 			<button (click)="previewClick.emit(row)">Preview</button>
+		</div>
+	</div>
+	<div class="imgOverViewCtnrWrapper" #overview
+		(mouseenter)="onTogglePreview(overview, true)"
+		(mouseleave)="onTogglePreview(overview, false)">
+		<div class="imgOverViewCtnr">
+			<img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
 		</div>
 	</div>
 </ng-template>

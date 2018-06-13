@@ -65,12 +65,12 @@ export class ProductService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-					skip: page * PER_PAGE,
-					take: PER_PAGE,
-					query: this.createQueryFromFilters(filtergroup),
-					sortBy: 'name',
-					descending: true
-				},
+				skip: page * PER_PAGE,
+				take: PER_PAGE,
+				query: this.createQueryFromFilters(filtergroup),
+				sortBy: 'name',
+				descending: true
+			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
 				return {
@@ -110,20 +110,20 @@ export class ProductService {
 			skip: 0,
 			take: PER_PAGE,
 			query: this.createQueryFromFilters(filtergroup),
+			sortBy: sort.sortBy,
+			descending: sort.sortOrder === 'ASC'
+		} : {
+			skip: 0,
+			take: PER_PAGE,
+			query: this.createQueryFromFilters(filtergroup),
 			sortBy: 'name',
 			descending: true
-		} : {
-				skip: 0,
-				take: PER_PAGE,
-				query: this.createQueryFromFilters(filtergroup),
-				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'ASC'
-			})).pipe(first());
+		})).pipe(first());
 	}
 
 	createQueryFromFilters(filtergroup) {
 		return filtergroup ?
-			filtergroup.filters.map(({ type, value }) => `${this.getFieldName(type)}.id == "${value}"`).join(' or ') :
+			filtergroup.filters.map(({ type, value }) => this.getFieldCondition(type, value)).join(' or ') :
 			'';
 	}
 
@@ -132,6 +132,12 @@ export class ProductService {
 			return 'tags';
 		}
 		return type;
+	}
+
+	getFieldCondition(type, value) {
+		return (type !== 'favorite' && type !== 'archived') ?
+			`${this.getFieldName(type)}.id == "${value}"` :
+			`${this.getFieldName(type)} == ${value}`;
 	}
 
 	selectById(id: string): Observable<Product> {

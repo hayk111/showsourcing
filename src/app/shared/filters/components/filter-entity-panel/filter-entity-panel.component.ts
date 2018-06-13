@@ -78,4 +78,14 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 	constructor(private cd: ChangeDetectorRef) {
 		super();
 	}
+
+	formatDisplayName(type: string, choice) {
+		if (type === 'event' && choice.description) {
+			return choice.description.name;
+		} else if (type === 'createdBy') {
+			return `${choice.lastName} ${choice.firstName}`;
+		} else {
+			return choice.name;
+		}
+	}
 }
