@@ -1,18 +1,20 @@
 # set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables on bitbucket
 
-image: atlassian/pipelines-awscli
+image: node:9.11
 
 pipelines:
   default:
     - step:
         script:
           - npm install
+          - npm run build --prod
         caches:
           - node
   branches:
     master:
       - step:
+          image: atlassian/pipelines-awscli
           name: Deploy to S3
           deployment: staging
           script:
-            - npm run sync
+            - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
