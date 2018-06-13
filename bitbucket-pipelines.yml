@@ -20,11 +20,14 @@ pipelines:
             - npm run build --prod
           artifacts:
             - ./dist
+          caches:
+            - node
         
       - step:
           image: atlassian/pipelines-awscli
           name: Deploy to S3
           deployment: staging
           script:
+            - ls
             - cd dist/showsourcing
             - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
