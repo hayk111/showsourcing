@@ -4,7 +4,7 @@
 	<dialog-subtitle-app>Select projects</dialog-subtitle-app>
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
-		<list-app *ngIf="productsCount$ | async as productsCount">
+		<list-app>
 			<list-item-app *ngFor="let project of projects">
 				<div class="flex">
 					<checkbox-app
@@ -15,7 +15,7 @@
 					</checkbox-app>
 					<div class="flexCenter flexBetween flexGrow" (click)="checkbox.toggle()">
 						<span class="name">{{ project.name }}</span>
-						<div class="productNumber" >{{ productsCount[project.id] || '-' }}</div>
+						<div class="productNumber" >{{ project.productCount }}</div>
 					</div>
 				</div>
 

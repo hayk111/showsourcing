@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
@@ -18,11 +18,11 @@ const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_T
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductAddToProjectDlgComponent implements OnInit {
-	projects$: Observable<Array<Project>>;
-	productsCount$: Observable<any>;
+	projects$: Observable<Project[]>;
 	dlgName = DialogName.ADD_TO_PROJECT;
 	selected = {};
-	selectedProducts: string[];
+	@Input() selectedProducts: string[];
+
 	get products() {
 		return this.selectedProducts;
 	}
@@ -32,7 +32,6 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 
 	ngOnInit() {
 		this.projects$ = this.projectSrv.selectProjects();
-		this.productsCount$ = of(this.selectedProducts.length);
 	}
 
 	select(id, value) {

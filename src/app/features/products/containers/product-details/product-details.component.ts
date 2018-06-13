@@ -48,9 +48,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.productSrv.selectById(id))
 		);
 
-		// this.projects$ = id$.pipe(
-		// 	switchMap(id => this.projectSrv.selectProjectsForProduct(id))
-		// );
+		this.projects$ = id$.pipe(
+			switchMap(id => this.projectSrv.selectProjectsForProduct(id))
+		);
 
 		// this.tasks$ = id$.pipe(
 		// 	switchMap(id => this.productSrv.getTasks(id))
@@ -61,8 +61,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.productId] });
 	}
 
-	removeProject(project) {
-		// this.productSrv.removeProject(project.id).subscribe();
+	removeProject(project: Project) {
+		const updatedProject = {
+			id: project.id,
+			products: project.products.filter(product => product.id !== this.productId)
+		};
+		this.projectSrv.updateProject(updatedProject).subscribe();
 	}
 
 	updateStatus(statusId: string) {

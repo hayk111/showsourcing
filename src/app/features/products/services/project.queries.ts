@@ -6,6 +6,7 @@ export class ProjectQueries {
 			projects {
 				id,
 				name,
+				productCount,
 				products {
 					id
 				}
@@ -17,6 +18,8 @@ export class ProjectQueries {
 			projects (query: $query) {
 				id,
 				name,
+				productCount,
+				# we are asking for products since we are gonna update those
 				products {
 					id
 				}

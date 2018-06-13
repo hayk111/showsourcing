@@ -4,11 +4,12 @@ import { Product } from './product.model';
 
 
 export class Project extends BaseEntity<ProjectConfig> {
-	name: string;
-	logoImage: AppImage;
-	description: string;
-	products: Product[];
-	deleted: boolean;
+	name?: string;
+	logoImage?: AppImage;
+	description?: string;
+	products?: Product[];
+	deleted?: boolean;
+	productCount?: number;
 }
 
 export interface ProjectConfig {
