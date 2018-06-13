@@ -1,13 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
-import { FormGroup } from '@angular/forms';
-import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
-import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
-import { Choice } from '~shared/selectors/utils/choice.interface';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { EditableTextComponent } from '~shared/editable-field';
-import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON } from '~utils';
+import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
+import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { ImagePipe } from '~shared/utils/pipes/image.pipe';
+import { DEFAULT_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON } from '~utils';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -111,9 +118,14 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return;
 
 		// if the current value has a logoImage then return it
-		if (this.value && this.value.logoImage) {
+		if (this.value && (this.value.logoImage || this.value.description && this.value.description.logoImage)) {
 			const pipe = new ImagePipe();
-			return pipe.transform(this.value.logoImage, ['s']);
+			let target = this.value;
+			// if it's an event the image is in the event description and not the event itself...
+			if (type === 'event') {
+				target = this.value.description;
+			}
+			return pipe.transform(target.logoImage, ['s']);
 		}
 
 		// else we give back the default

@@ -28,9 +28,12 @@ export class SelectorQueries {
 			events {
 				id,
 				alias,
-				logoImage {
+				description {
 					id,
-					fileName
+					logoImage {
+						id,
+						fileName
+					}
 				}
 			}
 		}

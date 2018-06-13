@@ -178,7 +178,7 @@
 						<ng-container [ngSwitch]="customField.metadata.target">
 							<span *ngSwitchDefault>{{ (value?.name || '-') }}</span>
 							<span *ngSwitchCase="'event'">{{ (value?.alias || '-') }}</span>
-							<span *ngSwitchCase="'user'">{{ (value?.firstName || '-') }}</span>
+							<span *ngSwitchCase="'user'">{{ (value?.firstName + ' ' +value?.lastName || '-') }}</span>
 						</ng-container>
 
 					</label-app>
