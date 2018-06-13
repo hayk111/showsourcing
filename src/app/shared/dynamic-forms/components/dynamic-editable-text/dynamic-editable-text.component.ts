@@ -40,8 +40,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	accumulateNested(propName: string, value: any) {
 		this.accumulator = {
-			[propName]: value,
-			...this.value
+			...this.value,
+			[propName]: value
 		};
 	}
 
