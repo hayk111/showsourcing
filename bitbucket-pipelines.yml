@@ -17,5 +17,7 @@ pipelines:
           name: Deploy to S3
           deployment: staging
           script:
-            - cd dist/showsourcing
+            - pwd
+            - ls
+            - cd showsourcing
             - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
