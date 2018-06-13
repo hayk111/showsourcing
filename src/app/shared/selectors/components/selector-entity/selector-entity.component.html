@@ -6,7 +6,8 @@
 		[canCreate]="true"
 		[multiple]="multiple"
 		(change)="onChange()"
-		(create)="create($event)">
+		(create)="create($event)"
+		[bindLabel]="propertyName">
 
 		<ng-template let-item="item">
 
