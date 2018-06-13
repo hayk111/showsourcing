@@ -35,6 +35,7 @@ export class ProductListViewComponent implements OnInit {
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
+	@Output() delete = new EventEmitter<Product>();
 
 	// inputs
 	@Input() products: Array<Product>;

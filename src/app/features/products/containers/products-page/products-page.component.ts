@@ -142,12 +142,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
+	deleteSelected(product: Product) {
+		let selection = this.selection;
+		if (product) {
+			selection = new Map<string, boolean>();
+			selection.set(product.id, true);
+		}
 		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
 		// Let's avoid doing that whenever possible though.
 		const callback = () => {
 			const products: Array<string> = new Array();
-			this.selection.forEach((value, key) => {
+			selection.forEach((value, key) => {
 				if (value) products.push(key);
 			});
 			this.productSrv.deleteProducts(products).subscribe(() => {
@@ -155,7 +160,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 				this.cdr.detectChanges();
 			});
 		};
-		const text = `Delete ${this.selection.size} Product${this.selection.size > 1 ? 's' : ''} ?`;
+		const text = `Delete ${selection.size} Product${selection.size > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
