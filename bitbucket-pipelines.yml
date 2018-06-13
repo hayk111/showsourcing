@@ -19,7 +19,7 @@ pipelines:
             - npm install
             - npm run build --prod
           artifacts:
-            - ./dist
+            - dist/**
           caches:
             - node
         
@@ -29,5 +29,5 @@ pipelines:
           deployment: staging
           script:
             - ls
-            - cd dist/showsourcing
+            - cd showsourcing
             - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
