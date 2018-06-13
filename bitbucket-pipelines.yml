@@ -13,11 +13,18 @@ pipelines:
   branches:
     master:
       - step:
+          image: node:9.11
+          name: Building
+          script:
+            - npm run install
+            - npm run build --prod
+          artifacts:
+            - ./dist
+        
+      - step:
           image: atlassian/pipelines-awscli
           name: Deploy to S3
           deployment: staging
           script:
-            - pwd
-            - ls
-            - cd showsourcing
+            - cd dist/showsourcing
             - aws s3 sync --delete . s3://aws-website-showsourcing-web-dnz2m
