@@ -1,22 +1,33 @@
 .sidemenu {
-    width: 100px;
-    /* display: flex;
-    flex-direction: row; */
-
+    width: 72px;
+    height: 100%;
+    background-color: var(--color-bg-third);
     &.expanded {
         width: 260px;
+    }
+    &__header {
+        margin-bottom: 35px;
     }
 }
 
 .info {
     margin-left: var(--spacing-l);
+    width: 120px;
+
+    &__text {
+        font-weight: bold;
+        font-size: 17px;
+        color: var(--color-txt-strong);
+    }
 }
 
 nav {
 	font-size: var(--font-size-l);
 	display: flex;
-	justify-content: flex-start;
-	flex-grow: 1;
+	justify-content: space-around;
+	/* align-items: center; */
+    flex-grow: 1;
+    flex-direction: column;
 	a {
 		opacity: 0.9;
 		display: block;

@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
-import { SettingsComponent } from '~features/settings/containers/settings/settings.component';
-import { SettingsProfileComponent } from '~features/settings/components/settings-profile/settings-profile.component';
+import {
+	SettingsComponent, SettingsTeamMembersPageComponent
+} from '~features/settings/containers';
+import { SettingsProfileComponent } from '~features/settings/components';
 
 export const routes: Routes = [
 	{
@@ -8,6 +10,7 @@ export const routes: Routes = [
 		component: SettingsComponent,
 		children: [
 			{ path: 'profile', component: SettingsProfileComponent },
+			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
 			{ path: '', component: SettingsProfileComponent }
 		]
 	}

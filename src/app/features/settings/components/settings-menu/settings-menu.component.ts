@@ -36,7 +36,8 @@ export class SettingsMenuComponent implements AfterContentInit {
 					internalExpanded: {
 						currentValue: this.internalExpanded,
 						previousValue: !this.internalExpanded
-					}
+					},
+					link: item.link
 				});
 			});
 		}

@@ -1,0 +1,32 @@
+
+<top-panel-app
+    [title]="'Members'"
+    [buttonName]="'Add Member'"
+    [subtitles]="['Members', 'all']"
+    [hasSwitch]="false"
+    [hasFilter]="false"
+    (buttonClick)="openNewDialog()">
+</top-panel-app>
+
+<team-members-list-view-app
+    [members]="members$ | async"
+    [selection]="selected$ | async"
+    [pending]="pending"
+    (bottomReached)="loadMore()"
+    (sort)="onSort($event)"
+    (supplierSelect)="selectItem($event)"
+    (supplierUnselect)="unselectItem($event)"
+    (supplierSelectAll)="selectAll()"
+    (supplierUnselectAll)="resetSelection()"
+    (supplierOpen)="onItemOpened($event)"
+    (supplierFavorited)="onItemFavorited($event)"
+    (supplierUnfavorited)="onItemUnfavorited($event)"></team-members-list-view-app>
+
+<ng-container *ngIf="selected$ | async as selected">
+    <selection-bar-app
+        (close)="resetSelection()"
+        (delete)="deleteSelection()"
+        *ngIf="selected.size > 0"
+        [selection]="selected"></selection-bar-app>
+</ng-container>
+

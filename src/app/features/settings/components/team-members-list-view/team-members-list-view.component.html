@@ -1,0 +1,57 @@
+<table-app
+	[rows]="members"
+	[pending]="pending"
+	[selected]="selection"
+	class="z-2"
+	(selectOne)="memberSelect.emit($event)"
+	(unselectOne)="memberUnselect.emit($event)"
+	(selectAll)="memberSelectAll.emit($event)"
+	(unselectAll)="memberUnselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)">
+
+    <!-- supplier row -->
+	<ng-template
+		columnApp="Supplier"
+		sortWith="name"
+		let-row="row"
+        width="280">
+        {{ row.name }}
+	</ng-template>
+
+	<!-- email -->
+	<ng-template
+		class="capitalize"
+		columnApp="Email"
+		let-row="row"
+		sortWith="countryName"
+		[grows]="false"
+		width="140">
+		<span>
+			{{ row.email  }}
+		</span>
+	</ng-template>
+
+	<!-- acccountType -->
+	<ng-template
+		class="capitalize"
+		columnApp="Account type"
+		let-row="row"
+		sortWith="tags"
+		[comparator]="arrayComparator"
+		width="280">
+		account type
+	</ng-template>
+
+	<!-- status -->
+	<ng-template
+		columnApp="Status"
+		let-row="row"
+		sortWith="creationDate"
+		width="140"
+		[grows]="false"
+		[currentSort]="'DESC'">
+		status
+	</ng-template>
+
+</table-app>

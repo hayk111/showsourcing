@@ -1,7 +1,15 @@
 <div class="flex">
   <settings-menu-app>
-        <settings-menu-item-app link="/settings/profile" [hasChildren]="true">
+        <settings-menu-item-app link="/settings/profile">
             <icon-app fontSet="svg" name="supplier"></icon-app> <span menuLabelApp>Profile</span>
+        </settings-menu-item-app>
+        <settings-menu-item-app [hasChildren]="true">
+            <div><icon-app fontSet="svg" name="supplier"></icon-app> <span menuLabelApp>Team Members</span></div>
+            <settings-menu-item-group-app menuLabelApp>
+                <settings-menu-item-app link="/settings/team/members">
+                    Pro Team1
+                </settings-menu-item-app>
+            </settings-menu-item-group-app>
         </settings-menu-item-app>
   </settings-menu-app>
 

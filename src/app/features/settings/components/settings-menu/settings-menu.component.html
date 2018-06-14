@@ -1,15 +1,17 @@
 <div class="sidemenu" [ngClass]="{ expanded: internalExpanded }">
-    <div class="flex flexBetween">
-        <icon-app fontSet="fa" name="cog" (click)="onToggleExpanded()"></icon-app>
-        <div class="flexColumn info">
-            <h1 *ngIf="internalExpanded">Settings</h1>
+    <div class="flex sidemenu__header" style="justify-content: space-around">
+        <div [ngClass]="{ flexCenter: !internalExpanded, flexColumn: internalExpanded }">
+            <icon-app class="flexCenter" fontSet="fa" name="cog" style="width: 51px; height: 51px" (click)="onToggleExpanded()"></icon-app>
         </div>
-        <div *ngIf="internalExpanded" (click)="onToggleExpanded()">
+        <div class="flexColumn info" *ngIf="internalExpanded" class="flexCenter" >
+            <h1 class="info__text">Settings</h1>
+        </div>
+        <div *ngIf="internalExpanded" class="flexCenter" (click)="onToggleExpanded()">
             <icon-app fontSet="fa" name="caret-left" (click)="onToggleExpanded()"></icon-app>
         </div>
     </div>
         
-    <nav>
+    <nav class="flex">
         <ng-content></ng-content>
     </nav>
 </div>

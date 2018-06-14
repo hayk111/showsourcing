@@ -2,16 +2,26 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 
-import { SettingsComponent } from './containers';
+import {
+	SettingsComponent, SettingsTeamMembersPageComponent
+} from './containers';
 import {
 	SettingsProfileComponent, SettingsMenuComponent,
-	SettingsMenuItemComponent, SettingsMenuItemLabelDirective
+	SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
+	TeamMembersListViewComponent, SettingsMenuItemGroupComponent
 } from './components';
 import { UserModule } from '~features/user';
 import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { TableModule } from '~shared/table';
+
+import { MemberService } from '~features/settings/services/member.service';
+import { SelectionService } from '~features/settings/services/selection.service';
+console.log('>> MemberService = ', MemberService);
+console.log('>> SelectionService = ', SelectionService);
 
 @NgModule({
 	imports: [
@@ -19,13 +29,16 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		ReactiveFormsModule,
 		RouterModule,
 		TopPanelModule,
-		UserModule.forChild()
+		UserModule.forChild(),
+		SelectionBarModule, // used for selection bar at the bottom
+		TableModule, // used by list view
 	],
-	providers: [],
+	providers: [MemberService, SelectionService],
 	declarations: [
-		SettingsComponent, SettingsProfileComponent,
-		SettingsMenuComponent, SettingsMenuItemComponent,
-		SettingsMenuItemLabelDirective
+		SettingsComponent, SettingsTeamMembersPageComponent,
+		SettingsProfileComponent, SettingsMenuComponent,
+		SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
+		TeamMembersListViewComponent, SettingsMenuItemGroupComponent
 	],
 	exports: [],
 })
