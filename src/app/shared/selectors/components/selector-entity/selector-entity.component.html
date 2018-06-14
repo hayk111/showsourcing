@@ -1,20 +1,20 @@
-	<selector-app
-		[(ngModel)]="value"
-		[choices]="choices$ | async"
-		[itemName]="itemName"
-		[canSearch]="true"
-		[canCreate]="canCreate"
-		[multiple]="multiple"
-		(change)="onChange()"
-		(create)="create($event)"
-		[bindLabel]="propertyName">
+<selector-app
+	[(ngModel)]="value"
+	[choices]="choices$ | async"
+	[itemName]="itemName"
+	[canSearch]="true"
+	[canCreate]="canCreate"
+	[multiple]="multiple"
+	(change)="onChange()"
+	(create)="create($event)"
+	[bindLabel]="propertyName">
 
-		<ng-template let-item="item">
+	<ng-template let-item="item">
 
-			<div class="flex">
-				<img *ngIf="item | logo:type" [src]="item | logo:type"/>
-				<span>{{ item[propertyName] }}</span>
-			</div>
+		<div class="flex">
+			<img *ngIf="item | logo:type" [src]="item | logo:type"/>
+			<span>{{ item[propertyName] }}</span>
+		</div>
 
-		</ng-template>
-	</selector-app>
+	</ng-template>
+</selector-app>

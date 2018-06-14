@@ -1,6 +1,8 @@
 <div [formGroup]="form" class="form" [ngClass]="{ multiple: (cols.length > 0) }">
 
-	<div *ngFor="let col of cols" class="col" [ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
+	<div *ngFor="let col of cols; let last = last" class="col"
+		[ngClass]="{ 'last': last }"
+		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 		<ng-container *ngIf="editable">
 			<dynamic-editable-text-app
 				*ngFor="let field of col"

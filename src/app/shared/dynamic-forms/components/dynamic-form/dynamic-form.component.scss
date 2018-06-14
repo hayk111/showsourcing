@@ -8,7 +8,7 @@
 }
 
 .multiple {
-	.col {
-		padding-right: 16px;
+	.col:not(.last) {
+		padding-right: 60px;
 	}
 }

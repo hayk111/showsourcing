@@ -30,6 +30,11 @@ label {
 	color: var(--color-primary);
 }
 
+.inputCtnr {
+	margin-left: 24px;
+	margin-bottom: 32px
+}
+
 .selectorIcon {
 	/** Putting 17px and not 20px like in the design else the field is not gonna be the same height as others*/
 	width: 17px;
@@ -38,9 +43,11 @@ label {
 	border-radius: 50%;
 }
 
+.rightSelector {
+	min-width: 140px;
+}
 .editableCurrency {
 	display: none;
-	min-width: 140px;
 	label-app {
 		width: 100%;
     text-align: right;

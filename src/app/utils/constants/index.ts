@@ -8,4 +8,5 @@ export * from './inco-terms.map';
 export * from './currencies.const';
 export * from './currencies.map';
 export * from './data.const';
+export * from './lengths.const';
 
