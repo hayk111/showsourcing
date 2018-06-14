@@ -1,7 +1,7 @@
 import {
 	Component, Input, Output,
 	EventEmitter, ContentChildren, QueryList,
-	ElementRef,	Renderer2, OnChanges,
+	ElementRef, Renderer2, OnChanges,
 	OnInit
 } from '@angular/core';
 import { Location } from '@angular/common';
@@ -24,7 +24,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	@Input() link: string;
 	/** the expanded event for the item */
 	@Output() expanded = new EventEmitter<boolean>();
-	@ContentChildren(SidenavItemLabelDirective, {descendants: true, read: ElementRef}) labelRefs: QueryList<ElementRef>;
+	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
 
 	/** the internal expanded state for the item */
 	internalExpanded = false;
@@ -71,7 +71,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 			this.expanded.emit(this.internalExpanded);
 		}
 		if (this.link) {
-			this.router.navigate([ this.link ]);
+			this.router.navigate([this.link]);
 		}
 		event.stopPropagation();
 	}
