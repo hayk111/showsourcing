@@ -3,7 +3,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 
 import { UserService } from './services';
-import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
@@ -15,7 +14,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		TopPanelModule
 	],
 	providers: [UserService],
-	declarations: [UserSettingsComponent],
+	declarations: [],
 	exports: [],
 })
 export class UserModule {

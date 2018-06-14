@@ -1,0 +1,30 @@
+.sidemenu {
+    width: 100px;
+    /* display: flex;
+    flex-direction: row; */
+
+    &.expanded {
+        width: 260px;
+    }
+}
+
+.info {
+    margin-left: var(--spacing-l);
+}
+
+nav {
+	font-size: var(--font-size-l);
+	display: flex;
+	justify-content: flex-start;
+	flex-grow: 1;
+	a {
+		opacity: 0.9;
+		display: block;
+		padding: var(--spacing-m);
+		&.selected {
+			background: #071327;
+			color: white;
+		}
+	}
+}
+

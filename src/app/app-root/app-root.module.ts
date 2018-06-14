@@ -9,6 +9,7 @@ import { ProductModule } from '~features/products';
 import { ProjectModule } from '~features/project';
 import { SuppliersModule } from '~features/supplier';
 import { TasksModule } from '~features/tasks';
+import { SettingsModule } from '~features/settings';
 import { UserModule } from '~features/user';
 import { AuthGuardService, AuthModule } from '~features/auth';
 import { CardModule } from '~shared/card';
@@ -43,6 +44,7 @@ declare let module: any;
 		HttpClientModule,
 		TemplateModule.forRoot(),
 		LocalStorageModule.forRoot(),
+		SettingsModule.forRoot(),
 		UserModule.forRoot(),
 		TemplateModule,
 		ProductModule.forRoot(),
