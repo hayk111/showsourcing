@@ -5,7 +5,7 @@ import { InputDirective } from '~shared/inputs';
 	selector: 'editable-text-app',
 	templateUrl: './editable-text.component.html',
 	styleUrls: ['./editable-text.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableTextComponent implements OnInit {
 	@Input() value;
@@ -41,6 +41,7 @@ export class EditableTextComponent implements OnInit {
 		this.isOpen = false;
 		this.canceled.emit();
 	}
+
 	save() {
 		this.isOpen = false;
 		this.saved.emit();
@@ -55,7 +56,7 @@ export class EditableTextComponent implements OnInit {
 		}
 		this.isOpen = true;
 		// need to check for changes since we can open the edit mode from outside
-		this.cd.markForCheck();
+		this.cd.detectChanges();
 		this.opened.emit();
 	}
 

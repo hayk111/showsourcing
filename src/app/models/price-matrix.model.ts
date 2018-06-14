@@ -1,12 +1,13 @@
 import { Price } from './price.model';
+import { uuid } from '~utils/uuid.utils';
 
-export interface PriceMatrix {
-	id: string;
-	rows: PriceMatrixRow[];
+export class PriceMatrix {
+	id?: string = uuid();
+	rows: PriceMatrixRow[] = [];
 }
 
-export interface PriceMatrixRow {
-	id: string;
-	label: string;
-	price: Price;
+export class PriceMatrixRow {
+	id: string = uuid();
+	label = 'label';
+	price: Price = new Price({ value: 0 });
 }

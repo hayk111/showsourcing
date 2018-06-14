@@ -1,15 +1,12 @@
 form-field-app {
 	padding-bottom: 0;
+	flex-grow: 1;
 }
 
-label-app {
+editable-label-app {
 	text-transform: none;
 	font-weight: normal;
 	font-size: var(--font-size-m);
-}
-
-form-field-app {
-	flex-grow: 1;
 }
 
 input {

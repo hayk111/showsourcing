@@ -9,6 +9,7 @@ import { UserPictureModule } from '~shared/user-picture';
 import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { UtilsModule } from '../utils/utils.module';
+import { EditableLabelComponent } from './components/editable-label/editable-label.component';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -22,7 +23,7 @@ import { UtilsModule } from '../utils/utils.module';
 		UtilsModule, // click outside directive used
 		UserPictureModule, // used in editable field type user
 	],
-	declarations: [EditableTextComponent],
-	exports: [EditableTextComponent],
+	declarations: [EditableTextComponent, EditableLabelComponent],
+	exports: [EditableTextComponent, EditableLabelComponent],
 })
 export class EditableFieldModule { }

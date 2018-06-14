@@ -7,6 +7,8 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	Optional,
+	Self,
 } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
@@ -15,13 +17,14 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { ImagePipe } from '~shared/utils/pipes/image.pipe';
 import { DEFAULT_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON, uuid } from '~utils';
+import { NgControl } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
 	templateUrl: './dynamic-editable-text.component.html',
 	styleUrls: ['./dynamic-editable-text.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(DynamicEditableTextComponent)]
+	providers: [makeAccessorProvider(DynamicEditableTextComponent)],
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
@@ -97,11 +100,16 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			this.editable.close();
 		}
 		this.onChange();
+		this.onTouchedFn();
 	}
 
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
+	}
+
+	onBlur() {
+		this.onTouchedFn();
 	}
 
 	/** check if a value is empty */

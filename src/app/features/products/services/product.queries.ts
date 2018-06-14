@@ -111,7 +111,11 @@ export class ProductQueries {
 					rows {
 						id,
 						label,
-						price
+						price {
+							id,
+							value,
+							currency
+						}
 					}
 				}
 				leadTimeValue,

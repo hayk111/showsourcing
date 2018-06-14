@@ -1,9 +1,9 @@
 <!-- closed -->
 <!-- TODO: this shouldn't be a label but something else.
 	Else we have a ton of labels in dynamic forms and it's getting confusing when reading the source -->
-<label class="flex pointer" *ngIf="!isOpen" (click)="open()">
-	<ng-content select="label-app"></ng-content>
-</label>
+<div class="labelCtnr flex pointer" *ngIf="!isOpen" (click)="open()">
+	<ng-content select="editable-label-app"></ng-content>
+</div>
 
 <!-- open -->
 <div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
