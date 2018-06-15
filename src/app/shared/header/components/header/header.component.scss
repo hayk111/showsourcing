@@ -39,9 +39,15 @@ nav {
 }
 
 .right {
-	color: var(--color-txt-secondary);
-	notif-app {
+	color: var(--color-primary-dark);
+	notif-app, search-animated-app {
+		cursor: pointer;
 		margin: 0 28px;
+		padding: var(--spacing-xs);
+		border-radius: var(--border-radius-s);
+		&:hover {
+			background: #071327;
+		}
 	}
 
 	.searchInput {

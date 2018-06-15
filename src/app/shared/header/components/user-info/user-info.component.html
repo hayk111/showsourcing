@@ -2,8 +2,6 @@
 	<ng-container *ngIf="user$ | async as user">
 		<div class="teamCtnr flex flexCenter">
 			<div class="team">{{ user?.currentTeam?.name }}</div>
-			<icon-app (click)="openTeamPicker()" color="txt-secondary"
-				class="pointer caret" name="angle-down" fontSet="fa"></icon-app>
 
 			<div class="teamSelector" *ngIf="teamPickerShown" (clickOutside)="closeTeamPicker()">
 				<list-app>
@@ -14,8 +12,6 @@
 			</div>
 
 		</div>
-		<!-- notif -->
-		<notif-app></notif-app>
 		<!-- user menu -->
 		<context-menu-app>
 			<menu-trigger-app>
