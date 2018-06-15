@@ -82,11 +82,20 @@ export class ApolloService {
 			switchMap(_ => this.getTeams()),
 		);
 		// 3. When we have teams we find out what the selected team is then we initialize the team client
+		// team => this.initTeamClient(team),
+
 		this.currentTeam$ = combineLatest(this.selectedTeamId$, this.userTeams$, (id, teams) => this.getSelectedTeam(id, teams));
 		this.currentTeam$.subscribe(
-			team => this.initTeamClient(team),
+			team => this.createTemporaryClient(),
 			e => this._teamClientReady$.next(false)
 		);
+	}
+
+	createTemporaryClient() {
+		const httpUri = 'https://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46 ';
+		const wsUri = 'wss://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46 ';
+		this.createTeamClient(httpUri, wsUri, this.accessTokenState.token);
+		this._teamClientReady$.next(true);
 	}
 
 	selectTeam(teamId: string) {
