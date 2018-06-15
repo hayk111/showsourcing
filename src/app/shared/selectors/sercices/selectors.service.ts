@@ -62,6 +62,12 @@ export class SelectorsService {
 		);
 	}
 
+	getUsers(): Observable<Choice[]> {
+		return this.apollo.subscribe({ query: SelectorQueries.users }).pipe(
+			map(r => r.data.users)
+		);
+	}
+
 	createSupplier(supplier: Supplier): Observable<any> {
 		return this.apollo.create({ mutation: SelectorQueries.createSupplier, input: supplier, typename: 'Supplier' });
 	}

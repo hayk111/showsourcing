@@ -118,7 +118,10 @@ export class ProductQueries {
 				leadTimeUnit,
 				sample,
 				samplePrice,
-				taskCount
+				taskCount,
+				createdBy {
+					id, firstName, lastName
+				}
 			}
 		}
 	`;

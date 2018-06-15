@@ -57,6 +57,20 @@ export class SelectorQueries {
 		}
 	`;
 
+	static users = gql`
+		subscription users {
+			users {
+				id,
+				firstName,
+				lastName,
+				logoImage {
+					id,
+					fileName
+				}
+			}
+		}
+	`;
+
 	static createSupplier = gql`
 		mutation addSupplier($input: SupplierInput) {
 			addSupplier(input: $input) {

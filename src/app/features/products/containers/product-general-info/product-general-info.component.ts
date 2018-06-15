@@ -32,6 +32,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
 		{ name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity' } },
+		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity' } },
 
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
