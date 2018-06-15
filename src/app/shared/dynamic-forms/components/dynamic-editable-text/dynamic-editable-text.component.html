@@ -1,105 +1,130 @@
 <ng-container [ngSwitch]="customField.type">
+
+
 	<!-- default -->
-	<editable-text-app #editable *ngSwitchDefault (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
-		<form-field-app>
-			<div class="flex">
-				<input inputApp
-					#inp
+	<!-- hint: field cell is used for almost every field, but not all -->
+	<field-cell-app *ngSwitchDefault [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app>{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<input #inp
+					inputApp
 					autofocus="true"
 					[value]="customField.value"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close();"
 					[type]="customField.type"/>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
 
 	<!-- tel (restricted input)-->
-	<editable-text-app #editable *ngSwitchCase="'tel'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
-		<form-field-app>
-			<div class="flex">
-				<input inputApp
-					#inp
-					restrictInput="tel"
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(inp.value)"
-					(keyup.enter)="editable.close();"
-					[type]="customField.type"/>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+	<field-cell-app *ngSwitchCase="'tel'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app>{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<div class="flex">
+					<input inputApp
+						#inp
+						restrictInput="tel"
+						autofocus="true"
+						[value]="customField.value"
+						(input)="accumulate(inp.value)"
+						(keyup.enter)="editable.close();"
+						[type]="customField.type"/>
+				</div>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
 
 	<!-- number -->
-	<editable-text-app #editable *ngSwitchCase="'number'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
-		<form-field-app>
-			<div class="flex">
-				<input inputApp
-					#inp
-					restrictInput="number"
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close();"
-					[type]="customField.type"/>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+	<field-cell-app *ngSwitchCase="'number'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app>{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<div class="flex">
+					<input inputApp
+						#inp
+						restrictInput="number"
+						autofocus="true"
+						[value]="customField.value"
+						(input)="accumulate(+inp.value)"
+						(keyup.enter)="editable.close();"
+						[type]="customField.type"/>
+				</div>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
+
 
 	<!-- decimal -->
-	<editable-text-app #editable *ngSwitchCase="'decimal'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }}</label-app>
-		<form-field-app>
-			<div class="flex">
-				<input inputApp
-					#inp
-					restrictInput="decimal"
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close();"
-					[type]="customField.type"/>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+	<field-cell-app *ngSwitchCase="'decimal'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app>{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<div class="flex">
+					<input inputApp
+						#inp
+						restrictInput="decimal"
+						autofocus="true"
+						[value]="customField.value"
+						(input)="accumulate(+inp.value)"
+						(keyup.enter)="editable.close();"
+						[type]="customField.type"/>
+				</div>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
+
 
 
 	<!-- days -->
-	<editable-text-app #editable *ngSwitchCase="'days'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app>{{ customField.value || '-' }} days</label-app>
-		<form-field-app>
-			<div class="flex">
-				<input inputApp
-					#inp
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(+inp.value)"
-					(keyup.enter)="editable.close();"
-					[type]="'number'"/>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+	<field-cell-app *ngSwitchCase="'days'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app>{{ customField.value || '-' }} days</label-app>
+			<form-field-app>
+				<div class="flex">
+					<input inputApp
+						#inp
+						autofocus="true"
+						[value]="customField.value"
+						(input)="accumulate(+inp.value)"
+						(keyup.enter)="editable.close();"
+						[type]="'number'"/>
+				</div>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
+
 
 	<!-- textarea -->
-	<editable-text-app #editable *ngSwitchCase="'textarea'" (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
-		<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
-		<form-field-app>
-			<div class="flex">
-				<textarea inputApp
-					#inp
-					autofocus="true"
-					[value]="customField.value"
-					(input)="accumulate(inp.value)">
-				</textarea>
-			</div>
-		</form-field-app>
-	</editable-text-app>
+	<field-cell-app *ngSwitchCase="'textarea'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
+		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+			<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
+			<form-field-app>
+				<div class="flex">
+					<textarea inputApp
+						#inp
+						autofocus="true"
+						[value]="customField.value"
+						(input)="accumulate(inp.value)">
+					</textarea>
+				</div>
+			</form-field-app>
+		</editable-text-app>
+	</field-cell-app>
+
 
 	<!-- price -->
-	<ng-container *ngSwitchCase="'price'">
+	<field-cell-app *ngSwitchCase="'price'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
 		<div class="flexBetween editablePrice">
 			<!-- value -->
 			<editable-text-app #editable1 (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
@@ -127,11 +152,12 @@
 
 			</editable-text-app>
 		</div>
-	</ng-container>
+	</field-cell-app>
 
 
 	<!-- selector -->
-	<ng-container *ngSwitchCase="'selector'">
+	<field-cell-app *ngSwitchCase="'selector'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
+		[label]="customField.label || customField.name">
 		<!-- entity selector -->
 		<ng-container *ngIf="customField.metadata.type === 'entity'">
 			<editable-text-app #editable
@@ -148,7 +174,7 @@
 					<label-app class="flexCenter">
 						<img class="selectorIcon"
 							*ngIf="getIcon(customField.metadata.target)"
-							src="{{ getIcon(value, customField.metadata.target) }}" />
+							[src]="getIcon(customField.metadata.target)" />
 						<ng-container [ngSwitch]="customField.metadata.target">
 							<span *ngSwitchDefault>{{ (value?.name || '-') }}</span>
 							<span *ngSwitchCase="'event'">{{ (value?.alias || '-') }}</span>
@@ -189,7 +215,7 @@
 			</editable-text-app>
 
 		</ng-container>
-</ng-container>
+	</field-cell-app>
 
 </ng-container>
 

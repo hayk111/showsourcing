@@ -19,4 +19,5 @@ export const DEFAULT_FILE_IMG = 'assets/img/file.svg';
 export const DEFAULT_SUPPLIER_IMG = 'assets/img/supplier.svg';
 export const DEFAULT_SUPPLIER_ICON = 'assets/icons/supplier.svg';
 
-
+/** event */
+export const DEFAULT_EVENT_ICON = 'assets/icons/event.svg';

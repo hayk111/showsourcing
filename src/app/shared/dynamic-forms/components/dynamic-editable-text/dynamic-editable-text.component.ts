@@ -6,7 +6,7 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 import { Choice } from '~shared/selectors/utils/choice.interface';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { EditableTextComponent } from '~shared/editable-field';
-import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG, DEFAULT_SUPPLIER_ICON } from '~utils';
+import { DEFAULT_IMG, DEFAULT_SUPPLIER_IMG, DEFAULT_USER_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON } from '~utils';
 import { ImagePipe } from '~shared/utils/pipes/image.pipe';
 
 @Component({
@@ -18,18 +18,30 @@ import { ImagePipe } from '~shared/utils/pipes/image.pipe';
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
+	/** whether the input should be on the same line as the label */
+	@Input() inlineLabel: boolean;
+	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
+	/** when the editable field closes */
 	@Output() close = new EventEmitter<null>();
+	/** input ref (if any), used to focus when opening the field */
 	@ViewChild(InputDirective) input: InputDirective;
+	/** selector ref (if any), used to focus when opening the field */
 	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
+	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
+	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: string;
+	/** whether the editable is open */
+	isOpen = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
 	ngOnInit() {
+		// saving the starting value in the accumulator so
+		// if we do a save without typing anything the field won't be undefined
 		this.accumulator = this.customField.value;
 	}
 
@@ -38,6 +50,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.accumulator = value;
 	}
 
+	/** same as accumulate but the value is an object and we are changing only one field */
 	accumulateNested(propName: string, value: any) {
 		this.accumulator = {
 			...this.value,
@@ -45,6 +58,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		};
 	}
 
+	/** saving the value */
 	onSave() {
 		this.value = this.accumulator;
 		this.customField.value = this.value;
@@ -60,12 +74,15 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		if (this.selector)
 			this.selector.open();
 		this.open.emit();
+		this.isOpen = true;
 	}
 
 	onClose() {
 		this.close.emit();
+		this.isOpen = false;
 	}
 
+	/** when the selector has changed, we don't use the accumulator */
 	onSelectorChange() {
 		if (!this.customField.multiple) {
 			this.editable.close();
@@ -86,20 +103,29 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return true;
 	}
 
-	getIcon(target: any, type: string) {
+	/** gets the correct icon for selectors inputs */
+	getIcon(type: string) {
+		const hasIcon = ['supplier', 'event', 'user', 'project'];
+		// if it's not one of those selectors that have an icon just return nothing
+		if (!hasIcon.find(t => t === type))
+			return;
 
-		if (target) {
+		// if the current value has a logoImage then return it
+		if (this.value && this.value.logoImage) {
 			const pipe = new ImagePipe();
-			return pipe.transform(target, ['s']);
+			return pipe.transform(this.value.logoImage, ['s']);
 		}
 
+		// else we give back the default
 		switch (type) {
 			case 'supplier':
 				return DEFAULT_SUPPLIER_ICON;
 			case 'user':
-				return DEFAULT_USER_IMG;
+				return DEFAULT_USER_ICON;
+			case 'event':
+				return DEFAULT_EVENT_ICON;
 			default:
-				return '';
+				return DEFAULT_IMG;
 		}
 	}
 }
