@@ -45,7 +45,7 @@ export class MemberService {
 		this.initializeMemberQuery();
 		return this.membersQuery$.valueChanges
 			.pipe(
-				map(({ data, loading }) => (<any>data).members),
+				map(({ data, loading }) => (<any>data).teamUsers),
 		);
 	}
 
@@ -101,8 +101,8 @@ export class MemberService {
 	// at the moment the subscription works on only one entity and can be done only on list
 	getById(id: string): Observable<TeamUser> {
 		return this.apollo.subscribe({ query: MemberQueries.member, variables: { query: `id == '${id}'` } }).pipe(
-			filter((r: any) => r.data.members),
-			map((r: any) => r.data.members[0])
+			filter((r: any) => r.data.teamUsers),
+			map((r: any) => r.data.teamUsers[0])
 		);
 	}
 

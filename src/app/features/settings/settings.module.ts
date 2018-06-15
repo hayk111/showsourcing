@@ -20,8 +20,6 @@ import { TableModule } from '~shared/table';
 
 import { MemberService } from '~features/settings/services/member.service';
 import { SelectionService } from '~features/settings/services/selection.service';
-console.log('>> MemberService = ', MemberService);
-console.log('>> SelectionService = ', SelectionService);
 
 @NgModule({
 	imports: [

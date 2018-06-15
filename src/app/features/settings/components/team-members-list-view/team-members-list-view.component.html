@@ -16,7 +16,7 @@
 		sortWith="name"
 		let-row="row"
         width="280">
-        {{ row.name }}
+        {{ row.user.firstName }} {{ row.user.lastName }}
 	</ng-template>
 
 	<!-- email -->
@@ -28,7 +28,7 @@
 		[grows]="false"
 		width="140">
 		<span>
-			{{ row.email  }}
+			{{ row.user.email  }}
 		</span>
 	</ng-template>
 

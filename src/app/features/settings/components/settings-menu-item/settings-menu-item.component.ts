@@ -44,7 +44,9 @@ export class SettingsMenuItemComponent implements OnChanges {
 			this.expanded.emit(this.internalExpanded);
 		}
 		console.log('link = ', this.link);
-		this.router.navigate([ this.link ]);
+		if (this.link) {
+			this.router.navigate([ this.link ]);
+		}
 		event.stopPropagation();
 	}
 
