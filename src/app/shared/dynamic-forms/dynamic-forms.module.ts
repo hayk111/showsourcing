@@ -14,6 +14,7 @@ import { TagModule } from '~shared/tag';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { UtilsModule } from '~shared/utils';
 import { FileModule } from '~shared/file';
+import { EditablePriceMatrixComponent } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,7 @@ import { FileModule } from '~shared/file';
 		FileModule
 	],
 	providers: [DynamicFormsService],
-	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],
+	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent, EditablePriceMatrixComponent],
 	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {

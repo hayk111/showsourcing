@@ -1,0 +1,20 @@
+<div *ngFor="let row of value.rows" class="flexBetween">
+	<editable-text-app>
+		<label-app>
+			{{ row.label }}
+		</label-app>
+
+		<input #inp
+			inputApp
+			autofocus="true"
+			[value]="row.label"
+			(input)="accumulate(row, inp.value)"
+			(keyup.enter)="editable.close();"
+			[type]="customField.type"/>
+	</editable-text-app>
+	<editable-text-app>
+		<label-app>
+			{{ row.value }}
+		</label-app>
+	</editable-text-app>
+</div>
