@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
@@ -66,7 +66,7 @@ export class TokenService {
 			tap(token => this.onNewAccessToken(token)),
 			catchError(e => {
 				this._accessToken$.next({ pending: false, token: null, token_data: null });
-				return Observable.throw(e);
+				return throwError(e);
 			})
 		);
 	}
