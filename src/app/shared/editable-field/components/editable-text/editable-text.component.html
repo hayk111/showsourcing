@@ -5,8 +5,8 @@
 
 	<!-- open -->
 	<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
-		<ng-content></ng-content>
 
+		<ng-content></ng-content>
 
 		<div class="confirmBlock" *ngIf="hasAction">
 			<div class="confirmIcon cancel pointer" (mousedown)="cancel()">
