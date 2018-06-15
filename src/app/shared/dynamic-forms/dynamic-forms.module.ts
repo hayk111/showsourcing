@@ -17,6 +17,7 @@ import { FileModule } from '~shared/file';
 import {
 	EditablePriceMatrixComponent
 } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
+import { EditablePriceMatrixRowComponent } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
 
 @NgModule({
 	imports: [
@@ -33,7 +34,7 @@ import {
 	],
 	providers: [DynamicFormsService],
 	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent,
-		FieldCellComponent, EditablePriceMatrixComponent],
+		FieldCellComponent, EditablePriceMatrixComponent, EditablePriceMatrixRowComponent],
 	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {

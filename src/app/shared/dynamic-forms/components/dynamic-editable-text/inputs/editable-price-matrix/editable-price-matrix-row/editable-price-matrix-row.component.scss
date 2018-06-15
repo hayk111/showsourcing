@@ -1,0 +1,24 @@
+
+field-cell-app {
+	width: 100%;
+	position: relative;
+}
+
+input {
+	padding:  1px 1px 1px var(--spacing-m);
+	width: 90px;
+}
+
+.txtBtn {
+	&.currency {
+		margin-right: var(--spacing-xl);
+	}
+}
+
+selector-const-app {
+	position: absolute;
+	bottom: 0;
+	width: 141px;
+	top: 50px;
+	z-index: 4;
+}

@@ -3,7 +3,7 @@ import { uuid } from '~utils';
 
 export class Price {
 	id: string;
-	currency: string;
+	currency = 'USD';
 	value: number;
 	baseCurrencyValue: number;
 

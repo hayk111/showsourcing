@@ -1,54 +1,5 @@
-<div *ngFor="let row of value?.rows; let i = index" class="flexBetween">
-	<field-cell-app #cell1 [inlineLabel]="true">
-		<label-app>
-			<editable-text-app #editable1>
-
-				<editable-label-app class="label2 txtBtn">
-					{{ row.label }}
-				</editable-label-app>
-
-				<input #inp1
-					inputApp
-					autofocus="true"
-					[value]="row.label"
-					(input)="accumulate('label', inp1.value, i)"
-					(keyup.enter)="editable1.close();"
-					[type]="'text'"/>
-
-			</editable-text-app>
-		</label-app>
-
-		<editable-text-app #editable2 (closed)="save()">
-
-			<editable-label-app class="txtBtn">
-				<span>{{ (row.price.currency || '-') + ' '}}</span>
-
-				<span>{{ row.price.value !== undefined ? row.price.value  : '-' }}</span>
-			</editable-label-app>
-
-			<div class="flexBetween">
-				<div>
-					<span class="txtBtn currency" (click)="openSelector()">{{ (row.price.currency | const:'currency':'id') || '-' }}</span>
-
-					<selector-const-app *ngIf="selectorShown" (select)="onSelectorChange()"
-						type="currency" [(ngModel)]="row.price.currency"></selector-const-app>
-				</div>
-
-
-
-
-				<input #inp2
-					inputApp
-					restrictInput="decimal"
-					autofocus="true"
-					[value]="row.price.value"
-					(input)="accumulate('price', +inp2.value, i)"
-					(keyup.enter)="editable2.close();"
-					[type]="'text'"/>
-			</div>
-
-		</editable-text-app>
-	</field-cell-app>
-
-</div>
-<div (click)="addRow()" >+ add a new row</div>
+<editable-price-matrix-row-app
+	*ngFor="let row of value.rows"
+	[(ngModel)]="row"
+	(change)="onChange()"></editable-price-matrix-row-app>
+<div class="addBtn pointer" (click)="addRow()" >+ Add new price line</div>
