@@ -24,6 +24,13 @@ export class SearchBarAnimatedComponent implements OnInit {
 		}
 	}
 
+	toggleSearch() {
+		if (this.searchstate === 'expanded')
+			this.shrinkSearch();
+		else
+			this.expandSearch();
+	}
+
 	expandSearch() {
 		this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
 		if (this.searchstate === 'expanded' && this.input) {

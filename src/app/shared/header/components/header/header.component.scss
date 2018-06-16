@@ -48,9 +48,18 @@ nav {
 
 	notif-app, search-bar-animated-app {
 		cursor: pointer;
-		margin: 0 28px;
 		padding: var(--spacing-xs);
 		border-radius: var(--border-radius-s);
+	}
+
+	search-bar-animated-app {
+		font-size: 20px;
+		margin-right: 20px;
+	}
+
+	notif-app {
+		margin-right: 16px;
+		font-size: 20px;
 	}
 
 	.searchInput {
@@ -61,7 +70,6 @@ nav {
 	.divider {
 		height: var(--spacing-l);
 		width: 1px;
-		margin: 0 0 0 var(--spacing-m);
 		background-color: rgba(255, 255, 255, 0.1);
 	}
 
