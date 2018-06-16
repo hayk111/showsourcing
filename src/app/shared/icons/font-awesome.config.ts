@@ -69,7 +69,6 @@ export const faIconsSolid = [
 	faBolt,
 	faThumbsUp,
 	faThumbsDown,
-	faBell,
 	faInfoCircle,
 	faQuestionCircle,
 	faTimesCircle,
@@ -96,5 +95,5 @@ export const faIconsSolid = [
 	faSortDown,
 ];
 
-faIconsRegular.forEach(ic => fontawesome.library.add(ic));
+faIconsSolid.forEach(ic => fontawesome.library.add(ic));
 faIconsRegular.forEach(ic => fontawesome.library.add(ic));

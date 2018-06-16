@@ -1,54 +1,8 @@
-:host {
-	width: 300px;
-}
+
 user-picture-app {
 	margin-right: var(--spacing-m);
 }
-.nameEmail {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	.name {
-		font-size: var(--font-size-l);
-		font-weight: 600;
-	}
 
-	.email {
-		font-size: var(--font-size-s);
-	}
-}
-
-
-menuitem {
-	padding: var(--spacing-m);
-	padding-bottom: 0;
-	flex-wrap: nowrap;
-	white-space: nowrap;
-	div {
-		// last item has no border so we put this here
-		width: 100%;
-		padding-bottom: var(--spacing-m);
-	}
-	.border{
-		border-bottom: 1px solid var(--color-primary-light);
-	}
-}
-
-
-.userInfo {
-	padding: var(--spacing-m);
-	.cercle {
-		height: 64px;
-		width: 64px;
-		overflow: hidden;
-		border-radius: 50%;
-		img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-	}
-}
-
-.hr {
-	height: 2px;
+context-menu-app {
+	width: 240px;
 }

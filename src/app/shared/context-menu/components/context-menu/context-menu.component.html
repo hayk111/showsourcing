@@ -1,8 +1,8 @@
 <!-- the trigger -->
 <div class="trigger" (click)="openMenu()">
-	<ng-content select="menu-trigger-app"></ng-content>
+	<ng-content select="context-menu-trigger-app"></ng-content>
 </div>
 <!-- the menu card -->
-<menu class="z-4" *ngIf="menuOpen" [ngClass]="classList">
-	<ng-content></ng-content>
-</menu>
+	<div class="menu z-4 flexColumn"  *ngIf="menuOpen" [ngClass]="classList" (clickOutside)="closeMenu()">
+		<ng-content></ng-content>
+	</div>
