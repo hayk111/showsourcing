@@ -17,53 +17,13 @@ export type MenuPositionY = 'above' | 'below';
 		'aria-haspopup': 'true',
 	}
 })
-export class ContextMenuComponent implements OnInit {
-	private _xPosition: MenuPositionX = 'after';
-	private _yPosition: MenuPositionY = 'below';
-	/** Config object to be passed into the menu's ngClass */
-	classList: { [key: string]: boolean } = {};
+export class ContextMenuComponent {
+	/** Position of the menu in the X axis.*/
+	@Input() xPosition = 16;
+	/** Position of the menu in the Y axis. */
+	@Input() yPosition = 16;
 	menuOpen = false;
 
-	constructor() { }
-
-	ngOnInit() {
-	}
-
-	/** Position of the menu in the X axis. */
-	@Input()
-	get xPosition(): MenuPositionX { return this._xPosition; }
-	set xPosition(value: MenuPositionX) {
-		if (value !== 'before' && value !== 'after') {
-			throw Error('xPosition is contextMenu should be either before or after');
-		}
-		this._xPosition = value;
-		this.setPositionClasses();
-	}
-
-	/** Position of the menu in the Y axis. */
-	@Input()
-	get yPosition(): MenuPositionY { return this._yPosition; }
-	set yPosition(value: MenuPositionY) {
-		if (value !== 'above' && value !== 'below') {
-			throw Error('yPosition is contextMenu should be either above or below');
-		}
-		this._yPosition = value;
-		this.setPositionClasses();
-	}
-
-	/**
- * Adds classes to the menu panel based on its position. Can be used by
- * consumers to add specific styling based on the position.
- * @param posX Position of the menu along the x axis.
- * @param posY Position of the menu along the y axis.
- */
-	setPositionClasses(posX: MenuPositionX = this.xPosition, posY: MenuPositionY = this.yPosition) {
-		const classes = this.classList;
-		classes['menu-before'] = posX === 'before';
-		classes['menu-after'] = posX === 'after';
-		classes['menu-above'] = posY === 'above';
-		classes['menu-below'] = posY === 'below';
-	}
 
 
 	/** Toggles the menu between the open and closed states. */
@@ -80,5 +40,7 @@ export class ContextMenuComponent implements OnInit {
 	closeMenu(): void {
 		this.menuOpen = false;
 	}
+
+
 
 }

@@ -12,8 +12,6 @@ import { animation } from './search-bar-animated.animation';
 })
 export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective) input: InputDirective;
-	// applies a border when expanded
-	get border() { return this.searchstate === 'expanded'; }
 	searchstate: 'expanded' | 'shrinked' = 'shrinked';
 
 	constructor() { }

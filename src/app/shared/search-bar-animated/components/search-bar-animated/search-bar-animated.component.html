@@ -5,7 +5,7 @@
 	<icon-app fontSet="svg" name="search" class="pointer" (click)="toggleSearch()"></icon-app>
 
 
-	<div class="input-wrapper flex {{ border ? 'border' : ''}}" [@searchAnimation]="searchstate">
+	<div class="input-wrapper flex" [@searchAnimation]="searchstate">
 		<ng-content select="[inputApp]"></ng-content>
 	</div>
 
