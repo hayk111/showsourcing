@@ -8,7 +8,7 @@
 	width: 100%;
 	background: var(--color-txt-strong);
 	color: white;
-	padding: 0 var(--spacing-m);
+	padding-left: var(--spacing-m);
 	border-top: 3px solid var(--color-primary);
 }
 
@@ -40,14 +40,17 @@ nav {
 
 .right {
 	color: var(--color-primary-dark);
-	notif-app, search-animated-app {
+	notif-app, search-bar-animated-app, user-panel-app {
+		&:hover {
+			background: #071327;
+		}
+	}
+
+	notif-app, search-bar-animated-app {
 		cursor: pointer;
 		margin: 0 28px;
 		padding: var(--spacing-xs);
 		border-radius: var(--border-radius-s);
-		&:hover {
-			background: #071327;
-		}
 	}
 
 	.searchInput {
@@ -58,7 +61,7 @@ nav {
 	.divider {
 		height: var(--spacing-l);
 		width: 1px;
-		margin: 0 var(--spacing-m);
+		margin: 0 0 0 var(--spacing-m);
 		background-color: rgba(255, 255, 255, 0.1);
 	}
 

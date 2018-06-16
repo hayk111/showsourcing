@@ -1,8 +1,24 @@
+:host {
+	display: block;
+}
 
 user-picture-app {
 	margin-right: var(--spacing-m);
 }
 
 context-menu-app {
-	width: 240px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	padding-left: 12px;
+	width: 212px;
 }
+
+context-menu-item-app {
+	width: 217px;
+}
+
+.name {
+	font-weight: bold;
+}
+

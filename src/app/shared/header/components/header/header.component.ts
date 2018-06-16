@@ -16,7 +16,6 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	constructor(private authSrv: AuthenticationService) {
 		super();
-		console.log('header');
 	}
 
 	ngOnInit() {
