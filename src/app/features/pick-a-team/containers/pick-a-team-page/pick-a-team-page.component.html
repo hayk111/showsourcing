@@ -1,22 +1,20 @@
-<div class="flexCenter">
-	<icon-app name="teamwork" fontSet="svg"></icon-app>
-</div>
-
-
 <ng-container *ngIf="!pending; else spinner">
-	<h1>Create your team</h1>
-	<h2>Create your team and start sourcing</h2>
+	<h1>Select a team</h1>
+	<h2>Select the team you wanna connect to or create a new one</h2>
 
-	<form [formGroup]="form" (ngSubmit)="onSubmit()">
-		<error-app *ngIf="error">{{ error }}</error-app>
-		<form-field-app>
-			<label-app>Team name</label-app>
-			<input type="text" inputApp formControlName="name"/>
-		</form-field-app>
+	<ul>
+		<li class="flex pointer"
+			*ngFor="let team of teams$ | async; let last = last"
+			[ngClass]="{'border': !last}"
+			(click)="selectTeam(team)">
+			<icon-app name="group-4" fontSet="svg"></icon-app>
+			<span>{{ team.name }}</span>
+		</li>
+	</ul>
 
-		<input type="submit" class="fullWidth" value="create team" [disabled]="!form.valid" />
-		<a class="button light fullWidth flexCenter">Select Team Instead</a>
-	</form>
+
+	<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
+
 </ng-container>
 
 <ng-template #spinner>

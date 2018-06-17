@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PickATeamService } from '~features/pick-a-team/services/pick-a-team.service';
 import { Team } from '~models';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'pick-a-team-page-app',
@@ -10,28 +11,21 @@ import { Router } from '@angular/router';
 	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickATeamPageComponent {
+export class PickATeamPageComponent implements OnInit {
+	teams$: Observable<Team[]>;
 	form: FormGroup;
-	pending = false;
-	error: string;
 
 	constructor(private fb: FormBuilder, private srv: PickATeamService, private router: Router) {
-		this.form = this.fb.group({
-			name: ['', Validators.required]
-		});
+
 	}
 
-	onSubmit() {
-		this.pending = true;
-		this.srv.createTeam(new Team(this.form.value)).subscribe(
-			_ => {
-				this.pending = false;
-				this.router.navigate(['']);
-			},
-			e => {
-				this.error = 'We had an error creating your team. Please try again.';
-			}
-		);
+	ngOnInit() {
+		this.teams$ = this.srv.getTeams();
 	}
 
+
+	selectTeam(team: Team) {
+		this.srv.selectTeam(team);
+		this.router.navigate(['']);
+	}
 }

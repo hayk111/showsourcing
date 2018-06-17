@@ -20,11 +20,17 @@ import { Log } from '~utils';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
+const GLOBAL_CLIENT = 'global%2Fconstant';
 export const USER_CLIENT_NAME = 'user';
 
 const SELECTED_TEAM_ID = 'selected-team-id';
 
-
+/**
+ * This class starts the apollo client.
+ *
+ * To start the team client we are going through like 3 other clients
+ * First we go to all-user then global then user then team. Yeah, this wasn't my choice.
+ */
 @Injectable({
 	providedIn: 'root'
 })
@@ -128,10 +134,12 @@ export class ApolloService {
 		try {
 			// 1. creating all-users client and getting the user
 			this.createAllUserClient(token);
+			this.createGlobalClient(token);
 			const user = await this.getUser(id);
+			const realm = await this.getRealm(user.realmServerName);
 
 			// 2. creating user client
-			const userUris = this.getUris(user.userRealmUri);
+			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
 			Log.debug('Apollo service', 'creating user client');
 			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
 			this._userClientReady$.next(true);
@@ -142,11 +150,12 @@ export class ApolloService {
 		}
 	}
 
-	private initTeamClient(team) {
-		const uris = this.getUris(team.realmUri);
+	private async initTeamClient(team) {
 		try {
 			// we first clear the last team picked cache
 			this.clearClient(this.apollo);
+			const realm = await this.getRealm(team.realmServerName);
+			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
 		} catch (e) {
 			Log.error(e);
@@ -159,13 +168,10 @@ export class ApolloService {
 	/** transform realm uri into http and ws uri
 	 * ex: realm://blabla/user/489 into http://blabla/graphql/%2Fuser%2F489
 	*/
-	private getUris(realmUri: string): { httpUri: string, wsUri: string } {
-		const httpUri = new URL(realmUri);
-		httpUri.protocol = 'https';
-		httpUri.pathname = '/graphql/' + encodeURIComponent(httpUri.pathname);
+	private getUris(port: number | string, hostName: string, path: string): { httpUri: string, wsUri: string } {
+		const httpUri = `https://${hostName}:${port}/graphQL${encodeURIComponent(path)}`;
 		// uri for websocket
-		const wsUri = new URL(httpUri.toString());
-		wsUri.protocol = 'wss';
+		const wsUri = `wss://${hostName}:${port}/graphQL${encodeURIComponent(path)}`;
 		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
 	}
 
@@ -176,6 +182,15 @@ export class ApolloService {
 			variables: { id }
 		}).pipe(
 			map((r: any) => r.data.user)
+		).toPromise();
+	}
+
+	private async getRealm(realmName: string): Promise<{ hostname: string, httpsPort: string }> {
+		return this.apollo.use(GLOBAL_CLIENT).query({
+			query: ClientQueries.selectRealmHostName,
+			variables: { query: `name == ${realmName}` }
+		}).pipe(
+			map((r: any) => r.data.realmServers[0])
 		).toPromise();
 	}
 
@@ -200,9 +215,21 @@ export class ApolloService {
 		}, ALL_USER_CLIENT_NAME);
 	}
 
+	private createGlobalClient(token: string) {
+		const headers = new HttpHeaders({ Authorization: token });
+		this.apollo.create({
+			link: this.httpLink.create({
+				uri: `${environment.apiUrl}/graphql/${GLOBAL_CLIENT}`,
+				headers
+			}),
+			cache: new InMemoryCache({ addTypename: false })
+		}, GLOBAL_CLIENT);
+	}
+
 	private createUserClient(httpUri: string, wsUri: string, token: string) {
 		this.createDefaultClient(httpUri, wsUri, token, USER_CLIENT_NAME);
 	}
+
 
 	private createTeamClient(httpUri: string, wsUri: string, token: string) {
 		this.createDefaultClient(httpUri, wsUri, token);
