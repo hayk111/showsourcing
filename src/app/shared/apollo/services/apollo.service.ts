@@ -84,7 +84,10 @@ export class ApolloService {
 
 		this.currentTeam$ = combineLatest(this.selectedTeamId$, this.userTeams$, (id, teams) => this.getSelectedTeam(id, teams));
 		this.currentTeam$
-			.pipe()
+			.pipe(
+				// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
+				filter(t => !!t)
+			)
 			.subscribe(
 				team => this.initTeamClient(team),
 				e => this._teamClientReady$.next(false)
@@ -100,14 +103,15 @@ export class ApolloService {
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
 		// if the user has selected a team during the current session
 		let teamSelected;
-		if (selectedId && (teamSelected = teams.filter(team => team.id === selectedId)[0])) {
+		if (selectedId && (teamSelected = teams.find(team => team.id === selectedId))) {
 			return teamSelected;
-			// if not we pick the first team of the bunch
+			// if not we redirect the user so he can pick a team
 		} else if (teams.length > 0) {
-			return teams[0];
+			this.router.navigate(['user', 'pick-a-team']);
+			return null;
 			// if there are no team we redirect the user to a page that lets him create a team
 		} else {
-			this.router.navigate(['user', 'pick-a-team']);
+			this.router.navigate(['user', 'create-a-team']);
 			return null;
 		}
 	}
