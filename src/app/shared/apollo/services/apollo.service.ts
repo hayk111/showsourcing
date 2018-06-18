@@ -102,9 +102,10 @@ export class ApolloService {
 	}
 
 
-	selectTeam(teamId: string) {
+	selectTeam(teamId: string): Observable<boolean> {
 		this.storage.setItem(SELECTED_TEAM_ID, teamId);
 		this.selectedTeamId$.next(teamId);
+		return this._teamClientReady$;
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
@@ -172,12 +173,12 @@ export class ApolloService {
 			const realm = await this.getRealm(team.realmServerName);
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
+			this._teamClientReady$.next(true);
 		} catch (e) {
 			Log.error(e);
 			this.router.navigate(['server-issue']);
 			this._teamClientReady$.next(false);
 		}
-		this._teamClientReady$.next(true);
 	}
 
 	/** transform realm uri into http and ws uri
@@ -247,6 +248,7 @@ export class ApolloService {
 	}
 
 	private createDefaultClient(httpUri: string, wsUri: string, token: string, name?: string) {
+		debugger;
 		// Create an http link:
 		const headers = new HttpHeaders({ Authorization: token });
 		const http = this.httpLink.create({

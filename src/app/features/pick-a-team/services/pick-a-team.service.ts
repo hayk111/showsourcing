@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PickATeamQueries } from '~features/pick-a-team/services/pick-a-team.queries';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, filter, take } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { Team } from '~models';
 import { ApolloService } from '~shared/apollo';
@@ -32,12 +32,15 @@ export class PickATeamService {
 			typename: 'User'
 		}).pipe(
 			switchMap(_ => this.waitTeamValid(team)),
-			tap(_ => this.selectTeam(team))
+			switchMap(_ => this.selectTeam(team))
 		);
 	}
 
-	selectTeam(team: Team) {
-		this.apolloSrv.selectTeam(team.id);
+	selectTeam(team: Team): Observable<boolean> {
+		return this.apolloSrv.selectTeam(team.id).pipe(
+			filter(r => !!r),
+			take(1)
+		);
 	}
 
 

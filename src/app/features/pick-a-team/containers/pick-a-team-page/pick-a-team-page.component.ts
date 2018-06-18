@@ -25,7 +25,6 @@ export class PickATeamPageComponent implements OnInit {
 
 
 	selectTeam(team: Team) {
-		this.srv.selectTeam(team);
-		this.router.navigate(['']);
+		this.srv.selectTeam(team).subscribe(_ => this.router.navigate(['']));
 	}
 }
