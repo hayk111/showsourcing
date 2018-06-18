@@ -14,7 +14,7 @@ export class ClientQueries {
 
 	static selectTeams = gql`
 		subscription teams {
-			teams(query: "status == 'valid'") {
+			teams(query: "status == 'active'") {
 				id,
 				realmPath,
 				realmServerName

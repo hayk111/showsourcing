@@ -44,7 +44,7 @@ export class PickATeamService {
 	waitTeamValid(team: Team) {
 		return this.apollo.subscribe({
 			query: PickATeamQueries.selectTeamValid,
-			variables: { input: `id == "${team.id}"` }
+			variables: { input: `id == "${team.id}" AND status == "active"` }
 		}).pipe(
 			map(d => { debugger; })
 		);

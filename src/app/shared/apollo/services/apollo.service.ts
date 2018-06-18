@@ -85,6 +85,7 @@ export class ApolloService {
 		this.userTeams$ = this._userClientReady$.pipe(
 			filter(ready => ready),
 			switchMap(_ => this.getTeams()),
+			tap(d => { debugger; })
 		);
 		// 3. When we have teams we find out what the selected team is then we initialize the team client
 		// team => this.initTeamClient(team),
@@ -108,6 +109,7 @@ export class ApolloService {
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
+		debugger;
 		if (!selectedId) {
 			this.router.navigate(['user', 'pick-a-team']);
 			this._teamClientReady$.next(false);
@@ -211,9 +213,11 @@ export class ApolloService {
 
 	/** gets teams from user realm */
 	private getTeams(): Observable<any> {
+		debugger;
 		return this.apollo.use(USER_CLIENT_NAME).subscribe({
 			query: ClientQueries.selectTeams,
 		}).pipe(
+			tap(d => { debugger; }),
 			map((r: any) => r.data.teams)
 		);
 	}
