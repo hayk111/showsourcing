@@ -248,7 +248,6 @@ export class ApolloService {
 	}
 
 	private createDefaultClient(httpUri: string, wsUri: string, token: string, name?: string) {
-		debugger;
 		// Create an http link:
 		const headers = new HttpHeaders({ Authorization: token });
 		const http = this.httpLink.create({
