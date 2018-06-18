@@ -1,18 +1,21 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { PriceMatrixRow } from '~models';
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
-import { AbstractInput } from '~shared/inputs';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-price-matrix-row-app',
 	templateUrl: './editable-price-matrix-row.component.html',
 	styleUrls: ['./editable-price-matrix-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [EditablePriceMatrixRowComponent]
+	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)]
 })
 export class EditablePriceMatrixRowComponent extends AbstractInput implements OnInit {
-	@Input() row: PriceMatrixRow;
+	@Input() set value(v: PriceMatrixRow) { this._value = v || new PriceMatrixRow(); }
+	get value() { return this._value; }
+	private _value;
 	@Output() change = new EventEmitter<PriceMatrixRow>();
+	@Output() blur = new EventEmitter<null>();
 	@ViewChild(SelectorConstComponent) selector: SelectorConstComponent;
 	accumulator: PriceMatrixRow;
 	selectorShown = false;
@@ -22,11 +25,11 @@ export class EditablePriceMatrixRowComponent extends AbstractInput implements On
 	}
 
 	ngOnInit() {
-		this.accumulator = this.value.rows;
+		this.accumulator = this.value;
 	}
 
 	accumulate(type: 'price' | 'label', value: any) {
-		this.accumulator = this.row;
+		this.accumulator = this.value;
 		if (type === 'price')
 			this.accumulator.price.value = value;
 		if (type === 'label')
@@ -35,7 +38,7 @@ export class EditablePriceMatrixRowComponent extends AbstractInput implements On
 
 	save() {
 		this.value = this.accumulator;
-		this.onChangeFn(this.value);
+		this.onChange();
 		/** close currency selector in case it's still open */
 		this.closeSelector();
 	}
@@ -50,7 +53,17 @@ export class EditablePriceMatrixRowComponent extends AbstractInput implements On
 	}
 
 	onSelectorChange() {
-		this.onChangeFn(this.value);
+		this.onChange();
 		this.closeSelector();
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
+	}
+
+	onChange() {
+		this.change.emit();
+		this.onChangeFn(this.value);
 	}
 }

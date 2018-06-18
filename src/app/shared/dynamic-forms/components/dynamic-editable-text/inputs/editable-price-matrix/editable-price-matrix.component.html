@@ -1,5 +1,8 @@
 <editable-price-matrix-row-app
 	*ngFor="let row of value.rows; let i = index"
-	[row]="row"
-	(change)="onChange($event, i)"></editable-price-matrix-row-app>
+	[(ngModel)]="value.rows[i]"
+	(change)="onChange()"
+	(blur)="onBlur()">
+</editable-price-matrix-row-app>
+
 <div class="addBtn pointer" (click)="addRow()" >+ Add new price line</div>

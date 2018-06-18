@@ -43,7 +43,11 @@ export class DynamicFormComponent implements OnInit {
 			const end = i * fieldPerCol + fieldPerCol;
 			this.cols[i] = fields.slice(start, end);
 		}
+	}
 
+	onBlur() {
+		this.form.markAsTouched();
+		this.form.markAsDirty();
 	}
 
 }

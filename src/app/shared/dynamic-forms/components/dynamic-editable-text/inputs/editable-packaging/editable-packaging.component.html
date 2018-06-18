@@ -1,0 +1,73 @@
+
+
+<!-- length -->
+<field-cell-app #cell1 [inlineLabel]="true">
+	<label-app>length</label-app>
+	<editable-text-app #editable1
+		(closed)="onSave(); cell1.hasBottom = true"
+		(opened)="cell1.hasBottom = false">
+		<editable-label-app>{{ customField?.value?.length || '-' }}</editable-label-app>
+		<form-field-app>
+			<input inputApp
+				#inp1
+				restrictInput="number"
+				autofocus="true"
+				[value]="customField?.value?.length"
+				(input)="accumulateNested('length', +inp1.value)"
+				(keyup.enter)="editable1.close();"
+				[type]="'number'"/>
+		</form-field-app>
+	</editable-text-app>
+</field-cell-app>
+
+<!-- width -->
+<field-cell-app #cell2 [inlineLabel]="true">
+	<label-app>width</label-app>
+	<editable-text-app
+		#editable2
+		(closed)="onSave(); cell2.hasBottom = true"
+		(opened)="cell2.hasBottom = false">
+		<editable-label-app>{{ customField?.value?.width || '-' }}</editable-label-app>
+		<form-field-app>
+			<input inputApp
+				#inp2
+				restrictInput="number"
+				autofocus="true"
+				[value]="customField?.value?.width"
+				(input)="accumulateNested('width', +inp2.value)"
+				(keyup.enter)="editable2.close();"
+				[type]="'number'"/>
+		</form-field-app>
+	</editable-text-app>
+</field-cell-app>
+
+<!-- height -->
+<field-cell-app #cell3 [inlineLabel]="true">
+	<label-app>height</label-app>
+	<editable-text-app #editable3
+		(closed)="onSave(); cell3.hasBottom = true"
+		(opened)="cell3.hasBottom = false">
+		<editable-label-app>{{ customField?.value?.height || '-' }}</editable-label-app>
+		<form-field-app>
+			<input inputApp
+				#inp3
+				restrictInput="number"
+				autofocus="true"
+				[value]="customField?.value?.height"
+				(input)="accumulateNested('height', +inp3.value)"
+				(keyup.enter)="editable3.close();"
+				[type]="'number'"/>
+		</form-field-app>
+	</editable-text-app>
+</field-cell-app>
+
+<!-- units -->
+<field-cell-app #cell4 [inlineLabel]="true">
+	<label-app>units</label-app>
+	<editable-text-app #editable4
+		(closed)="onSave(); cell4.hasBottom = true"
+		(opened)="cell4.hasBottom = false">
+		<editable-label-app>{{ customField?.value?.unit || '-' }}</editable-label-app>
+		<selector-const-app class="rightSelector" [type]="'length'" [(ngModel)]="value.unit"></selector-const-app>
+	</editable-text-app>
+</field-cell-app>

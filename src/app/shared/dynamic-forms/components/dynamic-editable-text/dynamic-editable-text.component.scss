@@ -3,11 +3,6 @@ form-field-app {
 	flex-grow: 1;
 }
 
-editable-label-app {
-	text-transform: none;
-	font-weight: normal;
-	font-size: var(--font-size-m);
-}
 
 input {
 	padding: 6px;
@@ -40,9 +35,7 @@ label {
 	border-radius: 50%;
 }
 
-.rightSelector {
-	min-width: 140px;
-}
+
 .editableCurrency {
 	display: none;
 	label-app {

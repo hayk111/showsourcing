@@ -2,10 +2,10 @@ import { uuid } from '~utils';
 
 
 export class Price {
-	id: string;
-	currency = 'USD';
-	value: number;
-	baseCurrencyValue: number;
+	id?: string;
+	currency ?= 'USD';
+	value?: number;
+	baseCurrencyValue?: number;
 
 	constructor(config: PriceConfig) {
 		Object.assign(this, config);

@@ -45,6 +45,7 @@ export class EditableTextComponent implements OnInit {
 	save() {
 		this.isOpen = false;
 		this.saved.emit();
+		this.closed.emit();
 	}
 
 	open(isClick?: boolean) {

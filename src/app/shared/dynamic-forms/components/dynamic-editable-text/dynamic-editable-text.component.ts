@@ -7,17 +7,11 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
-	Optional,
-	Self,
 } from '@angular/core';
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
-import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
-import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
-import { ImagePipe } from '~shared/utils/pipes/image.pipe';
-import { DEFAULT_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON, uuid } from '~utils';
-import { NgControl } from '@angular/forms';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { uuid } from '~utils';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -34,10 +28,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@Output() open = new EventEmitter<null>();
 	/** when the editable field closes */
 	@Output() close = new EventEmitter<null>();
-	/** input ref (if any), used to focus when opening the field */
-	@ViewChild(InputDirective) input: InputDirective;
-	/** selector ref (if any), used to focus when opening the field */
-	@ViewChild('selector') selector: SelectorEntityComponent | SelectorConstComponent;
+	/** blur event for onTouchedFn */
+	@Output() blur = new EventEmitter<null>();
 	/** editable field ref, used to close it programmatically */
 	@ViewChild('editable') editable: EditableTextComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
@@ -60,16 +52,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.accumulator = value;
 	}
 
-	/** same as accumulate but the value is an object and we are changing only one field */
-	accumulateNested(propName: string, value: any) {
-		this.accumulator = {
-			// we need to put an id for new object, if the object already exist then ...this.value will override it
-			id: uuid(),
-			...this.value,
-			[propName]: value
-		};
-	}
-
 	/** saving the value */
 	onSave() {
 		this.value = this.accumulator;
@@ -78,13 +60,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.onClose();
 	}
 
+	/** when the editable field becomes open */
 	onOpen() {
-		/** let's focus on the target input */
-		// using setTimout because the element isn't rendered yet
-		if (this.input)
-			this.input.focus();
-		if (this.selector)
-			this.selector.open();
 		this.open.emit();
 		this.isOpen = true;
 	}
@@ -94,32 +71,20 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.isOpen = false;
 	}
 
-	/** when the selector has changed, we don't use the accumulator */
-	onSelectorChange() {
-		if (!this.customField.multiple) {
-			this.editable.close();
-		}
-		this.onChange();
-		this.onTouchedFn();
-	}
-
+	/** when the value changes */
 	onChange() {
 		this.customField.value = this.value;
 		this.onChangeFn(this.value);
 	}
 
+	/** on blur we need to call onTouchedFn to not have errors of change detection */
 	onBlur() {
 		this.onTouchedFn();
+		this.blur.emit();
 	}
 
-	/** check if a value is empty */
-	isEmpty(value: any) {
-		if (!value)
-			return true;
-		if (Array.isArray(value) && value.length === 0)
-			return true;
-	}
 
+	/** toggle input value from true to false and vice versa */
 	toggleValue() {
 		this.value = !this.value;
 		this.onChange();

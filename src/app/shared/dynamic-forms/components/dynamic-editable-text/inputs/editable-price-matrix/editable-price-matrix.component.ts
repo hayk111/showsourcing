@@ -10,9 +10,11 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	providers: [makeAccessorProvider(EditablePriceMatrixComponent)],
 })
 export class EditablePriceMatrixComponent extends AbstractInput {
-	@Output() change = new EventEmitter<PriceMatrix>();
+	@Output() change = new EventEmitter<null>();
 	@Output() blur = new EventEmitter<null>();
-	@Input() value: PriceMatrix;
+	@Input() set value(v: PriceMatrix) { this._value = v || new PriceMatrix(); }
+	get value() { return this._value; }
+	private _value: PriceMatrix;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -20,18 +22,22 @@ export class EditablePriceMatrixComponent extends AbstractInput {
 
 
 	onChange(row: PriceMatrixRow, index: number) {
-		this.value[index] = row;
+		this.value.rows[index] = row;
+		this.value = { ...this.value };
 		this.onChangeFn(this.value);
 		this.change.emit();
 	}
 
 	addRow() {
-		if (!this.value)
-			this.value = new PriceMatrix();
 		// creating a new row
 		this.value.rows = this.value.rows.concat(new PriceMatrixRow());
 		this.onChangeFn(this.value);
 		this.change.emit();
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 
 }
