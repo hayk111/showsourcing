@@ -21,7 +21,7 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloSrv.teamClientReady$.pipe(
-			filter(d => d !== null)
+			filter(d => d !== null),
 		);
 	}
 

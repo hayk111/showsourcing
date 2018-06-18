@@ -40,6 +40,7 @@ export class ApolloClient {
 	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
 		if (options.preventOptimisticUi || !options.typename) {
 			Log.warn(`Doing a mutation without optimistic ui: ${(options.mutation.definitions[0] as any).name.value}`);
+			// TODO FALSE
 			return this.apollo.mutate<T>(options);
 		}
 		(options as ApolloMutationOptions).optimisticResponse = {

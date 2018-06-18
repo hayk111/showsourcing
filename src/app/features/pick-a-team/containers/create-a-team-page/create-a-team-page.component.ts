@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { PickATeamService } from '~features/pick-a-team/services/pick-a-team.service';
 import { Router } from '@angular/router';
 import { Team } from '~models';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -23,7 +24,9 @@ export class CreateATeamPageComponent {
 
 	onSubmit() {
 		this.pending = true;
-		this.srv.createTeam(new Team(this.form.value)).subscribe(
+		const team = new Team(this.form.value);
+		this.srv.createTeam(team).subscribe(
+			// switchMap(_ => this.srv.waitForValidity(team.id)),
 			_ => {
 				this.pending = false;
 				this.router.navigate(['']);

@@ -20,7 +20,7 @@ import { Log } from '~utils';
 
 const ALL_USER_ENDPOINT = 'all-users';
 export const ALL_USER_CLIENT_NAME = 'all-users';
-const GLOBAL_CLIENT = '%2Fglobal%2Fconstant';
+const GLOBAL_CLIENT = '%2Fglobal%2Fglobal-constants';
 export const USER_CLIENT_NAME = 'user';
 
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -60,7 +60,7 @@ export class ApolloService {
 		if (ApolloService.initialized) {
 			throw Error('Apollo has already been initialized, check that there is only one instance running');
 		}
-
+		this.initGlobalClients();
 		this.restoreSelectedTeam();
 
 		// when unauthenticated we clear the cache
@@ -71,7 +71,8 @@ export class ApolloService {
 			distinctUntilChanged(),
 		).subscribe(_ => this.clearCache());
 
-		// 1. when authenticated we initialise the apollo user client
+		// 1. when the user is connected (we can have an user id but not connected)
+		// then we initialize the team client but we wait for the user client to be ready
 		this.authSrv.authState$.pipe(
 			filter(authState => (!authState.pending && authState.authenticated === true)),
 			tap(authState => this.accessTokenState = authState.tokenState),
@@ -103,23 +104,27 @@ export class ApolloService {
 
 	selectTeam(teamId: string) {
 		this.storage.setItem(SELECTED_TEAM_ID, teamId);
-		window.location.href = window.location.href + '/home';
+		this.selectedTeamId$.next(teamId);
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
+		if (!selectedId) {
+			this.router.navigate(['user', 'pick-a-team']);
+			this._teamClientReady$.next(false);
+			return null;
+		}
 		// if the user has selected a team during the current session
 		let teamSelected;
-		if (selectedId && (teamSelected = teams.find(team => team.id === selectedId))) {
+		if (teamSelected = teams.find(team => team.id === selectedId)) {
 			return teamSelected;
 			// if not we redirect the user so he can pick a team
 		} else if (teams.length > 0) {
 			this.router.navigate(['user', 'pick-a-team']);
-			return null;
 			// if there are no team we redirect the user to a page that lets him create a team
 		} else {
 			this.router.navigate(['user', 'create-a-team']);
-			return null;
 		}
+		this._teamClientReady$.next(false);
 	}
 
 	private restoreSelectedTeam() {
@@ -127,17 +132,27 @@ export class ApolloService {
 		this.selectedTeamId$.next(selectedTeamId);
 	}
 
+	/** creates global and all-users clients */
+	private async initGlobalClients() {
+		try {
+			// 1. creating all-users client and getting the user
+			this.createAllUserClient();
+			this.createGlobalClient();
+		} catch (e) {
+			Log.error(e);
+			this._userClientReady$.next(false);
+			this.router.navigate(['server-issue']);
+		}
+	}
+
 	/** create the user client  */
 	private async initUserClient() {
 		const token = this.accessTokenState.token;
 		const id = this.accessTokenState.token_data.identity;
 		try {
-			// 1. creating all-users client and getting the user
-			this.createAllUserClient();
-			this.createGlobalClient();
+			// 1. getting the user's realm uri. We need to query 2 clients for that. lol wtf ?!
 			const user = await this.getUser(id);
 			const realm = await this.getRealm(user.realmServerName);
-
 			// 2. creating user client
 			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
 			Log.debug('Apollo service', 'creating user client');
@@ -169,9 +184,9 @@ export class ApolloService {
 	 * ex: realm://blabla/user/489 into http://blabla/graphql/%2Fuser%2F489
 	*/
 	private getUris(port: number | string, hostName: string, path: string): { httpUri: string, wsUri: string } {
-		const httpUri = `https://${hostName}:${port}/graphQL${encodeURIComponent(path)}`;
+		const httpUri = `https://${hostName}:${port}/graphQL/${encodeURIComponent(path)}`;
 		// uri for websocket
-		const wsUri = `wss://${hostName}:${port}/graphQL${encodeURIComponent(path)}`;
+		const wsUri = `wss://${hostName}:${port}/graphQL/${encodeURIComponent(path)}`;
 		return { httpUri: httpUri.toString(), wsUri: wsUri.toString() };
 	}
 
@@ -188,7 +203,7 @@ export class ApolloService {
 	private async getRealm(realmName: string): Promise<{ hostname: string, httpsPort: string }> {
 		return this.apollo.use(GLOBAL_CLIENT).query({
 			query: ClientQueries.selectRealmHostName,
-			variables: { query: `name == ${realmName}` }
+			variables: { query: `name == "${realmName}"` }
 		}).pipe(
 			map((r: any) => r.data.realmServers[0])
 		).toPromise();

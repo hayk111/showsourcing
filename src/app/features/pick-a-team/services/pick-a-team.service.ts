@@ -3,16 +3,16 @@ import { Observable } from 'rxjs';
 import { PickATeamQueries } from '~features/pick-a-team/services/pick-a-team.queries';
 import { map, tap } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
-import { uuid } from '~utils';
 import { Team } from '~models';
 import { ApolloService } from '~shared/apollo';
+import { ApolloClient } from '~shared/apollo';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PickATeamService {
 
-	constructor(private apollo: Apollo, private apolloSrv: ApolloService) { }
+	constructor(private apollo: ApolloClient, private apolloSrv: ApolloService) { }
 
 	getTeams(): Observable<any[]> {
 		return this.apollo.use('user').subscribe({ query: PickATeamQueries.selectTeams }).pipe(
@@ -21,17 +21,15 @@ export class PickATeamService {
 	}
 
 	createTeam(team: Team): Observable<any> {
-		return this.apollo.use('user').mutate({
+		return this.apollo.use('user').update({
 			mutation: PickATeamQueries.createTeam,
-			variables: {
-				input: {
-					name: team.name,
-					id: team.id,
-					creationDate: team.creationDate,
-					pending: true,
-					realmUri: `realm://ros-dev2.showsourcing.com:9443/team/${team.id}`
-				}
-			}
+			input: {
+				name: team.name,
+				id: team.id,
+				creationDate: team.creationDate,
+				status: 'PENDING'
+			},
+			typename: 'User'
 		}).pipe(
 			tap(r => this.selectTeam(r.data.team))
 		);
@@ -40,4 +38,8 @@ export class PickATeamService {
 	selectTeam(team: Team) {
 		this.apolloSrv.selectTeam(team.id);
 	}
+
+	// waitForValidity(team: Team) {
+	// 	this.apollo.subscribe({ query: })
+	// }
 }
