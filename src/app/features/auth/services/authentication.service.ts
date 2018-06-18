@@ -1,13 +1,14 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { tap, take, catchError, map, switchMap, filter } from 'rxjs/operators';
-import { Credentials, AccessTokenState } from '~features/auth/interfaces';
-import { UserService } from '~features/user';
+import { Router } from '@angular/router';
+import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+import { BehaviorSubject } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { AccessTokenState, Credentials } from '~features/auth/interfaces';
+
+import { AuthState } from '../interfaces';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthState } from '../interfaces';
+import gql from 'graphql-tag';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,6 +21,7 @@ export class AuthenticationService {
 		private authHttp: AuthHttpService,
 		private tokenSrv: TokenService,
 		private router: Router,
+		private apollo: ApolloClient,
 	) {
 
 		// when there is an access token that means we are authenticated
@@ -55,7 +57,21 @@ export class AuthenticationService {
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
 		return this.authHttp.register(creds).pipe(
-			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
+			// we need to wait for the user to be active
+			tap(_ => this.apolloSrv.createAllUserClient()),
+			switchMap(user => this.apollo.use('all-users').subscribe({
+				query: gql`
+					subscription users($input: String!) {
+						users(query: $input) {
+							id,
+							status
+						}
+					}
+				`,
+				variables: { input: `id == ${user.id} AND status == 'valid'` }
+			}
+			)),
+			tap(d => { debugger; }),
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);

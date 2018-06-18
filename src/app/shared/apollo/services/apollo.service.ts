@@ -19,8 +19,8 @@ import { LocalStorageService } from '~shared/local-storage';
 import { Log } from '~utils';
 
 const ALL_USER_ENDPOINT = 'all-users';
-const ALL_USER_CLIENT_NAME = 'all-users';
-const GLOBAL_CLIENT = 'global%2Fconstant';
+export const ALL_USER_CLIENT_NAME = 'all-users';
+const GLOBAL_CLIENT = '%2Fglobal%2Fconstant';
 export const USER_CLIENT_NAME = 'user';
 
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -133,8 +133,8 @@ export class ApolloService {
 		const id = this.accessTokenState.token_data.identity;
 		try {
 			// 1. creating all-users client and getting the user
-			this.createAllUserClient(token);
-			this.createGlobalClient(token);
+			this.createAllUserClient();
+			this.createGlobalClient();
 			const user = await this.getUser(id);
 			const realm = await this.getRealm(user.realmServerName);
 
@@ -204,23 +204,19 @@ export class ApolloService {
 	}
 
 	/** creates the client that can access the user which gives the userRealmUri */
-	private createAllUserClient(token: string) {
-		const headers = new HttpHeaders({ Authorization: token });
+	createAllUserClient() {
 		this.apollo.create({
 			link: this.httpLink.create({
 				uri: `${environment.apiUrl}/graphql/${ALL_USER_ENDPOINT}`,
-				headers
 			}),
 			cache: new InMemoryCache({ addTypename: false })
 		}, ALL_USER_CLIENT_NAME);
 	}
 
-	private createGlobalClient(token: string) {
-		const headers = new HttpHeaders({ Authorization: token });
+	private createGlobalClient() {
 		this.apollo.create({
 			link: this.httpLink.create({
 				uri: `${environment.apiUrl}/graphql/${GLOBAL_CLIENT}`,
-				headers
 			}),
 			cache: new InMemoryCache({ addTypename: false })
 		}, GLOBAL_CLIENT);

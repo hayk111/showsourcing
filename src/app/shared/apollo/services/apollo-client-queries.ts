@@ -24,7 +24,7 @@ export class ClientQueries {
 
 	static selectRealmHostName = gql`
 		query realmServer($query: String!) {
-			realmServer(query: $query) {
+			realmServers(query: $query) {
 				hostname,
 				httpsPort
 			}
