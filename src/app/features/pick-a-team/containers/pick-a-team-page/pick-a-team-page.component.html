@@ -1,4 +1,3 @@
-<ng-container *ngIf="!pending; else spinner">
 	<h1>Select a team</h1>
 	<h2>Select the team you wanna connect to or create a new one</h2>
 
@@ -15,7 +14,6 @@
 
 	<a class="button light flexCenter" [routerLink]="['../create-a-team']">Create a new team</a>
 
-</ng-container>
 
 <ng-template #spinner>
 	<h1>Setting-Up Your Team</h1>
