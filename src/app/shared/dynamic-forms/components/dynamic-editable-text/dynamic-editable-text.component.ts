@@ -11,8 +11,13 @@ import {
 import { CustomField } from '~shared/dynamic-forms';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { uuid } from '~utils';
 
+/**
+ * component that selects the correct input and display it as an editable text
+ *
+ * Most inputs wait for a blur event to update, therefor we use an accumulator,
+ * in case the user cancels.
+ */
 @Component({
 	selector: 'dynamic-editable-text-app',
 	templateUrl: './dynamic-editable-text.component.html',

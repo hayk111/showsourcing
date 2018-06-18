@@ -55,10 +55,16 @@ export class EditableTextComponent implements OnInit {
 		if (isClick && !this.editOnClick) {
 			return;
 		}
+		this.focusInput();
 		this.isOpen = true;
 		// need to check for changes since we can open the edit mode from outside
 		this.cd.detectChanges();
 		this.opened.emit();
+	}
+
+	/** we are gonna preemptively focus common inputs */
+	focusInput() {
+
 	}
 
 }

@@ -2,6 +2,7 @@
 
 	<!-- default -->
 	<!-- hint: field cell is used for almost every field, but options differs (packaging) -->
+	<!-- hint: when the field is open the bottom should disappear -->
 	<field-cell-app *ngSwitchDefault [hasBottom]="!isOpen" [inlineLabel]="inlineLabel">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->

@@ -12,10 +12,11 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePackagingComponent)]
 })
-export class EditablePackagingComponent extends AbstractInput implements OnInit {
+export class EditablePackagingComponent extends AbstractInput {
 	@Input() set value(v: Packaging) {
 		// we add an uuid for new packaging
 		this._value = v || { id: uuid() };
+		this.accumulator = this._value;
 	}
 	get value() { return this._value; }
 	private _value;
@@ -29,9 +30,6 @@ export class EditablePackagingComponent extends AbstractInput implements OnInit 
 		super(cd);
 	}
 
-	ngOnInit() {
-	}
-
 	/** same as accumulate but the value is an object and we are changing only one field */
 	accumulateNested(propName: string, value: any) {
 		this.accumulator = {
@@ -39,7 +37,6 @@ export class EditablePackagingComponent extends AbstractInput implements OnInit 
 			[propName]: value
 		};
 	}
-
 
 	onSave() {
 		this.value = this.accumulator;

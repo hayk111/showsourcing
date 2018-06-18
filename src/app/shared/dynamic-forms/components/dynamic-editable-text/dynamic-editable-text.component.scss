@@ -27,14 +27,6 @@ label {
 	margin-bottom: 32px
 }
 
-.selectorIcon {
-	/** Putting 17px and not 20px like in the design else the field is not gonna be the same height as others*/
-	width: 17px;
-	height: 17px;
-	margin-right: var(--spacing-xs);
-	border-radius: 50%;
-}
-
 
 .editableCurrency {
 	display: none;
