@@ -31,7 +31,7 @@ export class PickATeamService {
 			},
 			typename: 'User'
 		}).pipe(
-			tap(r => this.selectTeam(r.data.team))
+			tap(r => this.selectTeam(r.data.updateTeam))
 		);
 	}
 
@@ -39,7 +39,4 @@ export class PickATeamService {
 		this.apolloSrv.selectTeam(team.id);
 	}
 
-	// waitForValidity(team: Team) {
-	// 	this.apollo.subscribe({ query: })
-	// }
 }
