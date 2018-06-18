@@ -45,8 +45,6 @@ export class PickATeamService {
 		return this.apollo.subscribe({
 			query: PickATeamQueries.selectTeamValid,
 			variables: { input: `id == "${team.id}" AND status == "active"` }
-		}).pipe(
-			map(d => { debugger; })
-		);
+		});
 	}
 }
