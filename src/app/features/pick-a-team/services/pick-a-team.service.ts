@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PickATeamQueries } from '~features/pick-a-team/services/pick-a-team.queries';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { Team } from '~models';
 import { ApolloService } from '~shared/apollo';
@@ -27,11 +27,12 @@ export class PickATeamService {
 				name: team.name,
 				id: team.id,
 				creationDate: team.creationDate,
-				status: 'PENDING'
+				status: 'pending'
 			},
 			typename: 'User'
 		}).pipe(
-			tap(r => this.selectTeam(r.data.updateTeam))
+			switchMap(_ => this.waitTeamValid(team)),
+			tap(_ => this.selectTeam(team))
 		);
 	}
 
@@ -39,4 +40,13 @@ export class PickATeamService {
 		this.apolloSrv.selectTeam(team.id);
 	}
 
+
+	waitTeamValid(team: Team) {
+		return this.apollo.subscribe({
+			query: PickATeamQueries.selectTeamValid,
+			variables: { input: `id == "${team.id}"` }
+		}).pipe(
+			map(d => { debugger; })
+		);
+	}
 }

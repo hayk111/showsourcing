@@ -14,7 +14,7 @@ export class ClientQueries {
 
 	static selectTeams = gql`
 		subscription teams {
-			teams {
+			teams(query: "status == 'valid'") {
 				id,
 				realmPath,
 				realmServerName
@@ -30,5 +30,6 @@ export class ClientQueries {
 			}
 		}
 	`;
+
 }
 

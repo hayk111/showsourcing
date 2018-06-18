@@ -18,4 +18,12 @@ export class PickATeamQueries {
 			}
 		}
 	`;
+
+	static selectTeamValid = gql`
+		subscription teams($input: String!) {
+			teams(query: $input) {
+				id
+			}
+		}
+	`;
 }

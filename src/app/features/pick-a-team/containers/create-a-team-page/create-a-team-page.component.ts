@@ -25,16 +25,16 @@ export class CreateATeamPageComponent {
 	onSubmit() {
 		this.pending = true;
 		const team = new Team(this.form.value);
-		this.srv.createTeam(team).subscribe(
-			// switchMap(_ => this.srv.waitForValidity(team.id)),
-			_ => {
-				this.pending = false;
-				this.router.navigate(['']);
-			},
-			e => {
-				this.error = 'We had an error creating your team. Please try again.';
-			}
-		);
+		this.srv.createTeam(team)
+			.subscribe(
+				_ => {
+					this.pending = false;
+					this.router.navigate(['']);
+				},
+				e => {
+					this.error = 'We had an error creating your team. Please try again.';
+				}
+			);
 	}
 
 }
