@@ -13,7 +13,7 @@
     <!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
-		sortWith="name"
+		sortWith="user.firstName"
 		let-row="row"
         width="280">
         {{ row.user.firstName }} {{ row.user.lastName }}
@@ -24,7 +24,7 @@
 		class="capitalize"
 		columnApp="Email"
 		let-row="row"
-		sortWith="countryName"
+		sortWith="user.email"
 		[grows]="false"
 		width="140">
 		<span>
@@ -37,21 +37,21 @@
 		class="capitalize"
 		columnApp="Account type"
 		let-row="row"
-		sortWith="tags"
+		sortWith="accessType"
 		[comparator]="arrayComparator"
 		width="280">
-		account type
+		{{ row.accessType }}
 	</ng-template>
 
 	<!-- status -->
 	<ng-template
 		columnApp="Status"
 		let-row="row"
-		sortWith="creationDate"
+		sortWith="status"
 		width="140"
 		[grows]="false"
 		[currentSort]="'DESC'">
-		status
+		{{ row.status }}
 	</ng-template>
 
 </table-app>

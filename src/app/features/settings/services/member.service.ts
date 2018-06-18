@@ -65,9 +65,9 @@ export class MemberService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-					skip: page * PER_PAGE,
-					take: PER_PAGE
-				},
+				skip: page * PER_PAGE,
+				take: PER_PAGE
+			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				console.log('>> prev = ', prev);
 				console.log('>> fetchMoreResult = ', fetchMoreResult);
@@ -89,12 +89,10 @@ export class MemberService {
 	sortMembers({ sort }): Promise<any> {
 		this.initializeMemberQuery();
 		return this.membersQuery$.refetch({
-			variables: {
-				skip: 0,
-				take: PER_PAGE,
-				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'ASC'
-			}
+			skip: 0,
+			take: PER_PAGE,
+			sortBy: sort.sortBy,
+			descending: sort.sortOrder === 'ASC'
 		});
 	}
 

@@ -16,12 +16,8 @@ export class MemberQueries {
 					lastName,
 					email
 				},
-				status {
-					id,
-					name,
-					color,
-					contrastColor
-				}
+				status,
+				accessType
 			}
 		}`;
 
@@ -33,7 +29,9 @@ export class MemberQueries {
 					firstName,
 					lastName,
 					email
-				}
+				},
+				status,
+				accessType
 			}
 		}`;
 

@@ -13,13 +13,13 @@ export class TeamMembersListViewComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() members: Array<TeamUser>;
 	@Input() pending = true;
-	@Output() supplierSelect = new EventEmitter<string>();
-	@Output() supplierUnselect = new EventEmitter<string>();
-	@Output() supplierSelectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() supplierUnselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() supplierOpen = new EventEmitter<string>();
-	@Output() supplierFavorited = new EventEmitter<string>();
-	@Output() supplierUnfavorited = new EventEmitter<string>();
+	@Output() memberSelect = new EventEmitter<string>();
+	@Output() memberUnselect = new EventEmitter<string>();
+	@Output() memberSelectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() memberUnselectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() memberOpen = new EventEmitter<string>();
+	@Output() memberFavorited = new EventEmitter<string>();
+	@Output() memberUnfavorited = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<SortEvent>();
 

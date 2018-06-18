@@ -79,7 +79,7 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 
 	/** Opens the dialog for creating a new member */
 	openNewDialog() {
-		// this.dlgSrv.open(DialogName.NEW_SUPPLIER);
+		// this.dlgSrv.open(DialogName.INVITE_USER);
 	}
 
 	/** When a member has been selected */
