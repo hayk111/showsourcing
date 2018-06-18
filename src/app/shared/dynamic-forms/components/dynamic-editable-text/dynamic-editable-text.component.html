@@ -111,6 +111,11 @@
 		</editable-text-app>
 	</field-cell-app>
 
+	<field-cell-app *ngSwitchCase="'yesNo'">
+		<label-app>{{ customField.label || customField.name }}</label-app>
+		<span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
+	</field-cell-app>
+
 	<!-- price matrix -->
 	<ng-container *ngSwitchCase="'priceMatrix'">
 		<label>{{ customField.label || customField.name }}</label>

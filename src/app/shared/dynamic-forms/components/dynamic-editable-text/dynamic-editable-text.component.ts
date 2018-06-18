@@ -120,4 +120,9 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 			return true;
 	}
 
+	toggleValue() {
+		this.value = !this.value;
+		this.onChange();
+	}
+
 }

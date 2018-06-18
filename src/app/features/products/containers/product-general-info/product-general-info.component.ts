@@ -43,11 +43,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
-		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
-
+		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'sampleLabel', type: 'yesNo', label: 'Sample Received' },
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
-		// { name: 'leadTimeValue', type: 'days', label: 'Lead time value' },
-		// { name: 'leadTimeUnit', type: 'text', label: 'Lead time unit' }
 	];
 
 	constructor(private route: ActivatedRoute, private srv: ProductService) {
