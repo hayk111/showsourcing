@@ -1,29 +1,15 @@
-<div class="flex flexCenter searchBox">
-	<icon-app (click)="searchInp.focus()" name="search" fontSet="fa"></icon-app>
-	<input #searchInp type="search" (input)="search(searchInp.value)"/>
-</div>
+<table-app
+	[rows]="categories"
+	[selected]="selected"
+	(selectOne)="categorySelect.emit($event)"
+	(unselectOne)="categoryUnselect.emit($event)"
+	(selectAll)="categorySelectAll.emit($event)"
+	(unselectAll)="categoryUnselectAll.emit($event)">
+	<!-- Name Category -->
+	<ng-template>
 
-
-<list-app>
-	<list-item-app *ngFor="let item of availableItems">
-		<div class="flex">
-			<checkbox-app (check)="onCheck(item)" (uncheck)="onUncheck(item)"></checkbox-app>
-
-			<editable-text-app class="flexGrow" #editable [editOnClick]="false" (click)="inp.focus()">
-				<label-app class="flexBetween">
-					<span>{{ item.name }}</span>
-					<icon-app name="edit" fontSet="fa" color="txt-secondary" class="edit pointer" (click)="editable.open()"></icon-app>
-				</label-app>
-				<div class="flex flexCenter">
-					<input #inp type="text" [value]="item.name" (keyup.enter)="onUpdate(item.id, inp.value)"/>
-					<button class="small done" (click)="onUpdate(item.id, inp.value); editable.close()">done</button>
-				</div>
-			</editable-text-app>
-
-			<icon-app name="trash-alt" fontSet="fa" (click)="delete(item)" class="pointer" color="txt-secondary"></icon-app>
-		</div>
-
-
-	</list-item-app>
-</list-app>
-
+	</ng-template>
+	<!-- Created By -->
+	<!-- Products Count -->
+	<!-- Supplier Count -->
+</table-app>

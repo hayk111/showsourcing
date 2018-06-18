@@ -63,7 +63,7 @@ nav {
     flex-direction: column;
 	a {
 		opacity: 0.9;
-		display: block;
+		display: flex;
 		padding: var(--spacing-m);
 		&.selected {
 			background: #071327;

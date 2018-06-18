@@ -9,10 +9,14 @@ import { DataManagementPageComponent } from './containers';
 import { routes } from './routes';
 import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { TableModule } from '~shared/table';
 
 @NgModule({
 	imports: [
 		SharedModule,
+		TopPanelModule,
+		TableModule,
 		RouterModule.forChild([]),
 		SideMenuModule
 	],

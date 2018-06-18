@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { ERM } from '~models';
+import { ERM, Category } from '~models';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -10,6 +10,8 @@ import { ERM } from '~models';
 })
 export class DataManagementPageComponent implements OnInit {
 	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
+	categories$: Observable<Category>;
+	selected$: Observable<Map<string, boolean>>;
 	selectedEntity;
 	selection = [];
 	items$: Observable<any>;

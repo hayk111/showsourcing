@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Category } from '~models';
+import { Observable } from 'rxjs';
 import { Entity } from '~models';
 
 @Component({
@@ -8,42 +9,14 @@ import { Entity } from '~models';
 	styleUrls: ['./data-mananagement-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent implements OnInit {
-	@Input() items = [];
-	@Output() itemRemoved = new EventEmitter<Entity>();
-	@Output() update = new EventEmitter<Entity>();
-	@Output() selection = new EventEmitter<any>();
+export class DataMananagementTableComponent {
+	@Input() categories: Array<Category>;
+	@Input() selected: Map<string, boolean>;
+	@Output() categorySelect = new EventEmitter<string>();
+	@Output() categoryUnselect = new EventEmitter<string>();
+	@Output() categorySelectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() categoryUnselectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() categoryOpen = new EventEmitter<string>();
 
-	selected = [];
-	searchStr = '';
-	constructor() { }
 
-	ngOnInit() { }
-
-	onUpdate(id, name) {
-		this.update.emit({ id, name });
-	}
-
-	search(value) {
-		this.searchStr = value;
-	}
-
-	delete(item) {
-		this.itemRemoved.emit(item.id);
-	}
-
-	onCheck(item) {
-		this.selected.push(item.id);
-		this.selection.emit(this.selected);
-	}
-
-	onUncheck(item) {
-		this.selected = this.selected.filter(f => f === item.id);
-		this.selection.emit(this.selected);
-	}
-
-	get availableItems() {
-		if (!this.searchStr) return this.items;
-		return this.items.filter(item => item.name.startsWith(this.searchStr));
-	}
 }
