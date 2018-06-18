@@ -92,8 +92,8 @@ export class ApolloService {
 	}
 
 	createTemporaryClient() {
-		const httpUri = 'https://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46 ';
-		const wsUri = 'wss://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46 ';
+		const httpUri = 'https://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F0ba81c10-327a-4531-a776-1bb9f3119321';
+		const wsUri = 'wss://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F0ba81c10-327a-4531-a776-1bb9f3119321';
 		this.createTeamClient(httpUri, wsUri, this.accessTokenState.token);
 		this._teamClientReady$.next(true);
 	}
