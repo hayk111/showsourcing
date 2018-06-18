@@ -103,13 +103,11 @@ export class ApolloService {
 
 
 	selectTeam(teamId: string) {
-		debugger;
 		this.storage.setItem(SELECTED_TEAM_ID, teamId);
 		this.selectedTeamId$.next(teamId);
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
-		debugger;
 		if (!selectedId) {
 			this.router.navigate(['user', 'pick-a-team']);
 			this._teamClientReady$.next(false);
