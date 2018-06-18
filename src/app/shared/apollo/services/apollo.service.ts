@@ -7,17 +7,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { BehaviorSubject, Observable, combineLatest, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
+import { environment } from 'environments/environment';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AccessTokenState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { TokenService } from '~features/auth/services/token.service';
-import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
-import { Log } from '~utils';
-import { environment } from 'environments/environment';
-import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { Team } from '~models/team.model';
+import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
+import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { LocalStorageService } from '~shared/local-storage';
+import { Log } from '~utils';
 
 const ALL_USER_ENDPOINT = 'all-users';
 const ALL_USER_CLIENT_NAME = 'all-users';
@@ -46,7 +45,6 @@ export class ApolloService {
 	constructor(
 		private apollo: Apollo,
 		private httpLink: HttpLink,
-		private tokenSrv: TokenService,
 		private authSrv: AuthenticationService,
 		private router: Router,
 		private storage: LocalStorageService
@@ -85,18 +83,14 @@ export class ApolloService {
 		// team => this.initTeamClient(team),
 
 		this.currentTeam$ = combineLatest(this.selectedTeamId$, this.userTeams$, (id, teams) => this.getSelectedTeam(id, teams));
-		this.currentTeam$.subscribe(
-			team => this.createTemporaryClient(),
-			e => this._teamClientReady$.next(false)
-		);
+		this.currentTeam$
+			.pipe()
+			.subscribe(
+				team => this.initTeamClient(team),
+				e => this._teamClientReady$.next(false)
+			);
 	}
 
-	createTemporaryClient() {
-		const httpUri = 'https://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F0ba81c10-327a-4531-a776-1bb9f3119321';
-		const wsUri = 'wss://ros-dev2.showsourcing.com:9443/graphql/%2Fteam%2F0ba81c10-327a-4531-a776-1bb9f3119321';
-		this.createTeamClient(httpUri, wsUri, this.accessTokenState.token);
-		this._teamClientReady$.next(true);
-	}
 
 	selectTeam(teamId: string) {
 		this.storage.setItem(SELECTED_TEAM_ID, teamId);
