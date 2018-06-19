@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommentModule } from '~features/comment';
-import { ProductMainCardComponent } from '~features/products/components/product-main-card/product-main-card.component';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
@@ -84,7 +83,6 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 		ProductExportDlgComponent,
 		ProductFiltersComponent,
 		NewProductDialogComponent,
-		ProductMainCardComponent,
 		GroupByPipe,
 		ProductPreviewComponent
 	],

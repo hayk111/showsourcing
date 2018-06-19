@@ -5,8 +5,7 @@
 .sectionTitle {
     font-size: 17px;
     color: var(--color-button-dark);
-    padding-bottom: var(--spacing-m);
-    margin-bottom: var(--spacing-s);
+    margin-bottom: var(--spacing-l);
     border-bottom: 2px solid var(--color-bg-switcher);
     font-weight: 600;
 }
@@ -30,8 +29,4 @@
 }
 user-picture-app {
   padding-right: 8px;
-}
-
-.shipping{
-  margin-top: var(--spacing-xl);
 }

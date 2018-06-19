@@ -1,17 +1,26 @@
 
-<div class="sectionTitle shipping" i18n="div title|Product general information@@productGeneralInfo_general">General</div>
 
+<card-app>
+	<ng-container *ngIf="descriptor$ | async as descriptor">
+		<div class="sectionTitle shipping"
+			i18n="div title|Product general information@@productGeneralInfo_general">
+			General
+		</div>
+		<dynamic-form-app
+			(formCreated)="onFormCreated($event)"
+			[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+	</ng-container>
+</card-app>
 
-<ng-container *ngIf="descriptor$ | async as descriptor">
-	<dynamic-form-app
-		(formCreated)="onFormCreated($event)"
-	 	[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
-</ng-container>
+<card-app>
+	<div class="sectionTitle shipping"
+		i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
+		Shipping & Trading
+	</div>
 
-<div class="sectionTitle shipping" i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">Shipping & Trading</div>
-
-<ng-container *ngIf="descriptor2$ | async as descriptor">
-	<dynamic-form-app (formCreated)="onFormCreated($event)"
-		[inlineLabel]="true"
-		[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
-</ng-container>
+	<ng-container *ngIf="descriptor2$ | async as descriptor">
+		<dynamic-form-app (formCreated)="onFormCreated($event)"
+			[inlineLabel]="true"
+			[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+	</ng-container>
+</card-app>

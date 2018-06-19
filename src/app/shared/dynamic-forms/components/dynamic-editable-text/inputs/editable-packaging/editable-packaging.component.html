@@ -6,7 +6,7 @@
 	<editable-text-app #editable1
 		(closed)="onSave(); cell1.hasBottom = true"
 		(opened)="cell1.hasBottom = false">
-		<editable-label-app>{{ customField?.value?.length || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">{{ customField?.value?.length || '-' }}</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp1
@@ -27,7 +27,7 @@
 		#editable2
 		(closed)="onSave(); cell2.hasBottom = true"
 		(opened)="cell2.hasBottom = false">
-		<editable-label-app>{{ customField?.value?.width || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">{{ customField?.value?.width || '-' }}</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp2
@@ -47,7 +47,9 @@
 	<editable-text-app #editable3
 		(closed)="onSave(); cell3.hasBottom = true"
 		(opened)="cell3.hasBottom = false">
-		<editable-label-app>{{ customField?.value?.height || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">
+			{{ customField?.value?.height || '-' }}
+		</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp3
@@ -67,7 +69,9 @@
 	<editable-text-app #editable4
 		(closed)="onSave(); cell4.hasBottom = true"
 		(opened)="cell4.hasBottom = false">
-		<editable-label-app>{{ customField?.value?.unit || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">
+			{{ customField?.value?.unit || '-' }}
+		</editable-label-app>
 		<selector-const-app class="rightSelector" [type]="'length'" [(ngModel)]="value.unit"></selector-const-app>
 	</editable-text-app>
 </field-cell-app>
