@@ -42,7 +42,7 @@ export class EditablePriceMatrixRowComponent extends AbstractInput implements On
 
 	openSelector() {
 		this.selectorShown = true;
-		this.selector.open();
+		setTimeout(_ => this.selector.open());
 	}
 
 	closeSelector() {

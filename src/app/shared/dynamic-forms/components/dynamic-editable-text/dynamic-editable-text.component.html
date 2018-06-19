@@ -231,6 +231,8 @@
 	</field-cell-app>
 
 
+
+
 	<!-- selector -->
 	<field-cell-app *ngSwitchCase="'selector'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel">
 		<label-app>{{ customField.label || customField.name }}</label-app>
@@ -252,7 +254,7 @@
 							*ngIf="value | logo:customField.metadata.target"
 							[src]="value | logo:customField.metadata.target" />
 						<ng-container [ngSwitch]="customField.metadata.target">
-							<span *ngSwitchDefault>{{ (value[customField.metadata.labelName] || '-') }}</span>
+							<span *ngSwitchDefault>{{ value ? value[customField.metadata.labelName] : '-' }}</span>
 						</ng-container>
 
 					</editable-label-app>

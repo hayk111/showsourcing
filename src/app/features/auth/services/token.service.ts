@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';

@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output, Input, ViewChild, OnInit } from '@angular/core';
-import { PriceMatrix, Price, PriceMatrixRow } from '~models';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { PriceMatrix, PriceMatrixRow } from '~models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { uuid } from '~utils';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 
 @Component({
 	selector: 'editable-price-matrix-app',
@@ -21,7 +19,8 @@ export class EditablePriceMatrixComponent extends AbstractInput {
 	}
 
 
-	onChange() {
+	onChange(row: PriceMatrixRow, index: number) {
+		this.value[index] = row;
 		this.onChangeFn(this.value);
 		this.change.emit();
 	}
@@ -31,7 +30,8 @@ export class EditablePriceMatrixComponent extends AbstractInput {
 			this.value = new PriceMatrix();
 		// creating a new row
 		this.value.rows = this.value.rows.concat(new PriceMatrixRow());
-		this.onChange();
+		this.onChangeFn(this.value);
+		this.change.emit();
 	}
 
 }

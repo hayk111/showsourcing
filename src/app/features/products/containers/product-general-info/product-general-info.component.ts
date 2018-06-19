@@ -28,22 +28,23 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	customFields: CustomField[] = [
 		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name' } },
 		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity', labelName: 'name' } },
-
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
-		{ name: 'event', type: 'selector', metadata: { target: 'event', type: 'entity', labelName: 'alias' } },
 		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
-
+		// { name: 'Assignee', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
-		{ name: 'description', type: 'textarea', label: 'description' },
+		{ name: 'event', label: 'Found at', type: 'selector', metadata: { target: 'event', type: 'entity', labelName: 'alias' } },
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name' }, multiple: true },
+		{ name: 'description', type: 'textarea', label: 'description' },
 
 	];
 	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
 		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
+
 		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		// { name: 'leadTimeValue', type: 'days', label: 'Lead time value' },
 		// { name: 'leadTimeUnit', type: 'text', label: 'Lead time unit' }

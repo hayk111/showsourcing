@@ -4,7 +4,7 @@
 
 	<article *ngFor="let project of projects" class="flex">
 		<div class="flexCenter">
-			<div class="cercle"></div>
+			<img [src]="project | logo:'project'"/>
 		</div>
 		<div class="flexColumn middle">
 			<span class="name capitalize bold">{{ project?.name }}</span>

@@ -67,7 +67,8 @@ export class ProductQueries {
 				},
 				description,
 				event {
-					id, alias,
+					id,
+					alias,
 					description {
 						id
 						logoImage {
