@@ -50,6 +50,13 @@
               "extractLicenses": true,
               "vendorChunk": true,
 							"buildOptimizer": true
+            },
+            "fr": {
+              "aot": true,
+              "outputPath": "dist/fr",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr"
             }
           }
         },
@@ -61,6 +68,9 @@
           "configurations": {
             "production": {
               "browserTarget": "showsourcing:build:production"
+            },
+            "fr": {
+              "browserTarget": "showsourcing:build:fr"
             }
           }
         },

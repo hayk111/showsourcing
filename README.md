@@ -47,8 +47,12 @@ For an up-to-date version of the scripts just open package.json and those figure
 You can run every script with `npm run`, for example `npm run start`.
 
 
- - `npm run build` will build a production ready of the app in the dist directory
- - `npm run analyze` will run the dependency reports, so we can analyze the sizes of the different modules
+ - `npm run build` Builds a production ready of the app in the dist directory
+ - `npm run analyze` Runs the dependency reports, so we can analyze the sizes of the different modules
+ - `npm run translate` Generates the source translation file `messages.xlf`
+ - `npm run start:fr` Run the application with the french language configuration
+ - `npm run build:fr` Builds a production ready of the app in the dist directory with the french language configuration
+ - `npm run translate:fr` Translates and generates `message.xlf` `messages.fr.xlf`, also merges the old source langauge file with the new one (see Translation section)
 
 ## Devtools addon
 
@@ -97,3 +101,52 @@ please read STANDARDS.md
 
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
+
+
+### Translation
+
+(13/06/18)
+
+[Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
+`npm run translate` will generate `messages.xlf`
+
+Since the current version of Angular/cli@~6.0.0 doesn't support the previous format to start the server with a given language
+e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i18n-format xlf --i18n-missing-translations warning` it has to be declared on `angular.json`. Following the previous example with `fr` we have to declare:
+
+```JSON
+"projects": {
+    "showsourcing": {
+        ···
+        "build": {
+            "configurations": {
+                ···
+                "fr": {
+                    "aot": true,
+                    "outputPath": "dist/fr",
+                    "i18nFile": "src/locale/messages.fr.xlf",
+                    "i18nFormat": "xlf",
+                    "i18nLocale": "fr"
+                }
+            }
+        },
+        "serve": {
+            ···
+            "configurations": {
+               ···
+                "fr": {
+                    "browserTarget": "showsourcing:build:fr"
+                }
+            }
+        }
+}
+```
+Now to run the serve with this config we have to `npm run start:fr` that is the same as `ng serve --configuration=fr`
+
+Everytime we execute `npm run translate:fr` the `messages.fr.xlf` file will contain the original data and, if there are new `i18n` translations, it will update the file and let us know in that same file which translations are new using the target state.
+
+In each `messages.lang.xlf` we have 3 different types of target. When we translate we will have to manually change that state, this way xliffmerge can read and update the files properly. The same author developed this [tool](https://martinroob.github.io/tiny-translator/en/#/home) in order to translate this type of files. Even if we use another kind of tool for translation, the state from 'new' to 'translated' can be changed manually with a refractor.
+```
+<target state='new'>Hello</target> 'new' indicates that it hasn't been translated
+<target state='final'>Hello</target> 'final' indicates that it matches with our default language translation
+<target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
+```

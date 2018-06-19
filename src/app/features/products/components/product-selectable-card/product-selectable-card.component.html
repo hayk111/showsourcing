@@ -37,7 +37,7 @@
       <div class="date">{{ product?.creationDate | date: 'MMMM y' }}</div>
     </div>
     <div class="footer flexBetween" [class.hidden]="!showOverlay">
-      <button class="small" (click)="addToProject.emit(product.id)"><span class="icon-add"></span>Add to project</button>
+      <button class="small" (click)="addToProject.emit(product.id)" i18n="button|Product hover information@@productSelectableCard_addProduct"><span class="icon-add"></span>Add to project</button>
     </div>
   </div>
 </div>

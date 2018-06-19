@@ -2,21 +2,21 @@
 <card-app>
 	<div class="summaryBar">
 		<div class="cell">
-			<div class="title">Price</div>
+			<div class="title" i18n="div title|Product summary price title@@productSummary_price">Price</div>
 			<div class="content">{{ product?.price?.currency }} {{ product?.price?.value }}</div>
 		</div>
 
 		<divider-app [vertical]="true"></divider-app>
 
 		<div class="cell">
-			<div class="title">Moq</div>
+			<div class="title" i18n="div title|Product summary Minimum Order Quantity title@@productSummary_moq">Moq</div>
 			<div class="content"> {{ product?.minimumOrderQuantity }}</div>
 		</div>
 
 		<divider-app [vertical]="true"></divider-app>
 
 		<div class="cell">
-			<div class="title">Team Rating</div>
+			<div class="title" i18n="div title|Product summary team rating title@@productSummary_teamRating">Team Rating</div>
 			<div class="content" [ngClass]="{'success' : (product?.score >= 50), 'warn': (product?.score < 50)}">
 				<div class="icon-thumb-up"></div>
 				{{ product?.score !== undefined ? product?.score : '-' }} %
@@ -26,7 +26,7 @@
 		<divider-app [vertical]="true"></divider-app>
 
 		<div class="cell">
-			<div class="title">Tasks</div>
+			<div class="title" i18n="div title|Product summary tasks title@@productSummary_tasks">Tasks</div>
 			<div class="content">
 				<div class="icon-edit"></div>
 				{{ product?.taskCount !== undefined ? product?.taskCount : '-' }}
@@ -36,7 +36,7 @@
 		<divider-app [vertical]="true"></divider-app>
 
 		<div class="cell">
-			<div class="title">Status</div>
+			<div class="title" i18n="div title|Product summary status title@@productSummary_status">Status</div>
 			<div class="content">
 				<status-selector-badge-app
 					class="badge"

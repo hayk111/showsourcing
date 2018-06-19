@@ -128,7 +128,7 @@
 </ng-template>
 
 <ng-template #action let-row="row">
-	<div class="pointer" (click)="productOpen.emit(row.id)"> Open </div>
+	<div class="pointer" (click)="productOpen.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
 </ng-template>
 
 <!-- for some mindblowing reason if this is put last, the viewchild for default template is undefined-->

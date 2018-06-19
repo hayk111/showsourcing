@@ -1,12 +1,12 @@
 
-<div class="sectionTitle shipping">General</div>
+<div class="sectionTitle shipping" i18n="div title|Product general information@@productGeneralInfo_general">General</div>
 
 <ng-container *ngIf="descriptor$ | async as descriptor">
 	<dynamic-form-app (formCreated)="onFormCreated($event)"
 	 [descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
 </ng-container>
 
-<div class="sectionTitle shipping">Shipping & Trading</div>
+<div class="sectionTitle shipping" i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">Shipping & Trading</div>
 
 <ng-container *ngIf="descriptor2$ | async as descriptor">
 	<dynamic-form-app (formCreated)="onFormCreated($event)"

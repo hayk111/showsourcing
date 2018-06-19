@@ -1,5 +1,5 @@
 <card-app (fileDrop)="onFileAdded($event)">
-	<h2 i18n>Attached Files</h2>
+	<h2 i18n="header 2|File section card title@@filesCard_attachedFiles">Attached Files</h2>
 
 	<ng-container *ngIf="files$ | async as files">
 		<ng-container *ngIf="files.length > 0; else noFile">
@@ -28,7 +28,7 @@
 		<ng-template #noFile>
 			<div class="flexColumn flexCenter empty">
 				<img [src]="defaultImg" class="pointer" (click)="inp.click()"/>
-				<span>No Documents attached yet</span>
+				<span i18n="spanFile section with no files@@filesCard_noDocuments">No Documents attached yet</span>
 			</div>
 
 		</ng-template>
@@ -36,7 +36,7 @@
 
 	<card-footer-app>
 		<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
-		<button (click)="inp.click()">Add File</button>
+		<button (click)="inp.click()" i18n="button|Add file@@filesCard_addFile">Add File</button>
 	</card-footer-app>
 
 </card-app>

@@ -1,18 +1,18 @@
 <card-app (clickOutside)="cancel()">
-	<h2>Description</h2>
+	<h2 i18n="header 2|Supplier desciption card@@supplierDescription_description">Description</h2>
 
 	<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
 		<label-app class="desc" *ngIf="supplier.description; else noDesc">{{ supplier.description }}</label-app>
 		<ng-template #noDesc>
-			<label-app class="noDesc">No description yet</label-app>
+			<label-app class="noDesc" i18n="label|Supplier with no description@@supplierDescription_noDescription">No description yet</label-app>
 		</ng-template>
 		<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
 	</editable-text-app>
 
 	<card-footer-app>
-		<button *ngIf="!editable.isOpen" class="light" (click)="edit()">Edit Description</button>
-		<button class="light cancel" *ngIf="editable.isOpen" (click)="cancel()">Cancel</button>
-		<button *ngIf="editable.isOpen" (click)="onSave(txt.value)">Save</button>
+		<button *ngIf="!editable.isOpen" class="light" (click)="edit()" i18n="button|Edit supplier description@@supplierDescription_editDescription">Edit Description</button>
+		<button class="light cancel" *ngIf="editable.isOpen" (click)="cancel()" i18n="button|Cancel edition on supplier description@@global_cancel">Cancel</button>
+		<button *ngIf="editable.isOpen" (click)="onSave(txt.value)" i18n="button|Save edition on supplier description@@global_save">Save</button>
 	</card-footer-app>
 
 </card-app>
