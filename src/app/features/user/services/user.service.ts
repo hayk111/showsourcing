@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User, Team } from '~models';
-import { Observable, BehaviorSubject } from 'rxjs';
-
-import { filter, switchMap, map, tap } from 'rxjs/operators';
-import { ApolloService, ApolloClient, USER_CLIENT_NAME } from '~shared/apollo';
+import { map } from 'rxjs/operators';
 import { UserQueries } from '~features/user/services/user.queries';
+import { Team } from '~models';
+import { ApolloClient, ApolloService, USER_CLIENT_NAME } from '~shared/apollo';
 
 @Injectable()
 export class UserService {
