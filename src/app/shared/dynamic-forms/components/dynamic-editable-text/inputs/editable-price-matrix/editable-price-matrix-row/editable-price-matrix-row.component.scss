@@ -17,8 +17,11 @@ input {
 .label {
 	font-weight: bold;
 	font-size: var(--font-size-s);
-	color: var(--color-primary-dark);
 	text-transform: capitalize;
+}
+
+.editablePrice {
+	// height: 17px;
 }
 
 selector-const-app {

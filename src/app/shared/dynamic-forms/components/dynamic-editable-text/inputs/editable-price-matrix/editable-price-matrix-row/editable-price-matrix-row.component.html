@@ -1,6 +1,6 @@
-<field-cell-app [inlineLabel]="true">
+<field-cell-app [inlineLabel]="true" [hasBottom]="!isOpen">
 	<label-app>
-		<editable-text-app #editable1 (closed)="save()" (saved)="save()">
+		<editable-text-app #editable1 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 			<editable-label-app class="label txtBtn">
 				{{ value?.label }}
@@ -19,7 +19,7 @@
 		</editable-text-app>
 	</label-app>
 
-	<editable-text-app #editable2 (closed)="save()" (saved)="save()">
+	<editable-text-app #editable2 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 		<editable-label-app class="txtBtn">
 			<span>{{ (value?.price?.currency || 'USD') + ' '}}</span>

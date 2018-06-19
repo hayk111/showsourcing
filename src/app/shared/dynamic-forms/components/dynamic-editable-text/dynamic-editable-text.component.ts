@@ -21,7 +21,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 @Component({
 	selector: 'dynamic-editable-text-app',
 	templateUrl: './dynamic-editable-text.component.html',
-	styleUrls: ['./dynamic-editable-text.component.scss'],
+	styleUrls: ['./dynamic-editable-text.component.scss', './common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicEditableTextComponent)],
 })
@@ -91,7 +91,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */
 	onBlur() {
-		debugger;
 		this.onTouchedFn();
 		this.blur.emit();
 	}

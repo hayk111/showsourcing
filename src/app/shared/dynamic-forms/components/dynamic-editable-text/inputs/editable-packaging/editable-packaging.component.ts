@@ -8,7 +8,7 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 @Component({
 	selector: 'editable-packaging-app',
 	templateUrl: './editable-packaging.component.html',
-	styleUrls: ['./editable-packaging.component.scss'],
+	styleUrls: ['./editable-packaging.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePackagingComponent)]
 })

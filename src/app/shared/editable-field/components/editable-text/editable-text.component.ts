@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output, EventEmitter, ContentChild } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
+import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
+import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 
 @Component({
 	selector: 'editable-text-app',
@@ -18,6 +21,13 @@ export class EditableTextComponent implements OnInit {
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();
 	@Output() canceled = new EventEmitter<null>();
+	/** we are gonna query for the most commonly used selector in the app
+	 *  so we can open / focus on them when we are opening the edit mode.
+	 */
+	@ContentChild(SelectorComponent) selector: SelectorComponent;
+	@ContentChild(SelectorConstComponent) selectorConst: SelectorConstComponent;
+	@ContentChild(SelectorEntityComponent) selectorEntity: SelectorEntityComponent;
+	@ContentChild(InputDirective) input: InputDirective;
 
 	isOpen = false;
 
@@ -64,7 +74,25 @@ export class EditableTextComponent implements OnInit {
 
 	/** we are gonna preemptively focus common inputs */
 	focusInput() {
-
+		// set timeout because the input isn't rendered yet
+		setTimeout(_ => {
+			if (this.input) {
+				this.input.focus();
+				return;
+			}
+			if (this.selector) {
+				this.selector.open();
+				return;
+			}
+			if (this.selectorConst) {
+				this.selectorConst.open();
+				return;
+			}
+			if (this.selectorEntity) {
+				this.selectorEntity.open();
+				return;
+			}
+		});
 	}
 
 }

@@ -85,7 +85,6 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	}
 
 	onBlur() {
-		debugger;
 		this.onTouchedFn();
 		this.blur.emit();
 	}

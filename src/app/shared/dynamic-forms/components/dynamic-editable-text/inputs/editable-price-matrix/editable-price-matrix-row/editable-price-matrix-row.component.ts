@@ -6,7 +6,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 @Component({
 	selector: 'editable-price-matrix-row-app',
 	templateUrl: './editable-price-matrix-row.component.html',
-	styleUrls: ['./editable-price-matrix-row.component.scss'],
+	styleUrls: ['./editable-price-matrix-row.component.scss', '../../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)]
 })
@@ -22,6 +22,7 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 	@ViewChild(SelectorConstComponent) selector: SelectorConstComponent;
 	accumulator: PriceMatrixRow;
 	selectorShown = false;
+	isOpen = false;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -40,6 +41,7 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 		this.onChange();
 		/** close currency selector in case it's still open */
 		this.closeSelector();
+		this.isOpen = false;
 	}
 
 	openSelector() {
@@ -64,5 +66,9 @@ export class EditablePriceMatrixRowComponent extends AbstractInput {
 	onChange() {
 		this.change.emit();
 		this.onChangeFn(this.value);
+	}
+
+	onOpen() {
+		this.isOpen = true;
 	}
 }

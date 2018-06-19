@@ -5,7 +5,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 @Component({
 	selector: 'editable-price-matrix-app',
 	templateUrl: './editable-price-matrix.component.html',
-	styleUrls: ['./editable-price-matrix.component.scss'],
+	styleUrls: ['./editable-price-matrix.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceMatrixComponent)],
 })

@@ -9,7 +9,7 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 @Component({
 	selector: 'editable-selector-app',
 	templateUrl: './editable-selector.component.html',
-	styleUrls: ['./editable-selector.component.scss'],
+	styleUrls: ['./editable-selector.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditableSelectorComponent)]
 })
@@ -54,7 +54,6 @@ export class EditableSelectorComponent extends AbstractInput {
 	}
 
 	onBlur() {
-		debugger
 		this.onTouchedFn();
 		this.blur.emit();
 	}

@@ -7,7 +7,7 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 @Component({
 	selector: 'editable-price-app',
 	templateUrl: './editable-price.component.html',
-	styleUrls: ['./editable-price.component.scss'],
+	styleUrls: ['./editable-price.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceComponent)]
 })
