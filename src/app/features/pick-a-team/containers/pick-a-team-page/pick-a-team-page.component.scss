@@ -1,7 +1,33 @@
-icon-app {
-	margin-bottom: var(--spacing-m);
+:host {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-form-field-app {
-	margin-bottom: 50px;
+ul {
+	border: 1px solid var(--color-divider);
+	width: 512px;
+}
+
+li {
+	padding: var(--spacing-m);
+	align-items: center;
+	font-weight: 600;
+	&.border{
+		border-bottom: 1px solid var(--color-divider);
+	}
+	&:hover {
+		background: var(--color-bg-third);
+		color: var(--color-primary);
+	}
+}
+
+icon-app {
+	margin-right: var(--spacing-m);
+}
+
+a {
+	width: 340px;
+	font-size: var(--font-size-l);
 }

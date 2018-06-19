@@ -17,8 +17,9 @@ import { routes as pickATeamRoutes } from '~features/pick-a-team/routes';
 import { HasTeamGuard } from '~features/pick-a-team/services/has-team-guard.service';
 import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-team-page/pick-a-team-page.component';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import { ClientReadyGuardService } from '~shared/apollo/services/client-ready-guard.service';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
+import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
+import { UserClientReadyGuardService } from '~shared/apollo/services/user-client-ready-guard.service';
 
 export const routes: Array<Route> = [
 	{
@@ -27,7 +28,8 @@ export const routes: Array<Route> = [
 		]
 	},
 	{
-		path: 'user', component: GuestTemplateComponent, children: [
+		path: 'user', component: GuestTemplateComponent, canActivateChild: [UserClientReadyGuardService], children: [
+			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [AuthGuardService] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [AuthGuardService] },
 			{ path: 'server-issue', component: ApolloIssuePageComponent, canActivate: [AuthGuardService] },
 		]
@@ -35,7 +37,7 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivateChild: [AuthGuardService, HasTeamGuard, ClientReadyGuardService],
+		canActivateChild: [AuthGuardService, HasTeamGuard],
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full', },
 			{ path: 'home', component: HomeComponent },

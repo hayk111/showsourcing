@@ -20,20 +20,9 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.apolloSrv.userClientReady$.pipe(
-			filter(ready => ready !== null),
-			switchMap(_ => this.srv.getTeams()),
-			map(teams => teams.length),
-			map(length => length > 0),
-			tap(v => this.redirect(v)),
-			tap(v => Log.debug('has team guard: has team ?', v))
+		return this.apolloSrv.teamClientReady$.pipe(
+			filter(d => d !== null),
 		);
-	}
-
-	private redirect(hasTeam: boolean) {
-		if (!hasTeam) {
-			this.router.navigate(['user', 'pick-a-team']);
-		}
 	}
 
 }

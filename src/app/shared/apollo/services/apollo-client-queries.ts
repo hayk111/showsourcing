@@ -6,18 +6,30 @@ export class ClientQueries {
 	static selectUser = gql`
 		query user($id: String!) {
 			user(id: $id) {
-				userRealmUri
+				realmServerName,
+				realmPath
 			}
 		}
 	`;
 
 	static selectTeams = gql`
 		subscription teams {
-			teams {
+			teams(query: "status == 'active'") {
 				id,
-				realmUri
+				realmPath,
+				realmServerName
 			}
 		}
 	`;
+
+	static selectRealmHostName = gql`
+		query realmServer($query: String!) {
+			realmServers(query: $query) {
+				hostname,
+				httpsPort
+			}
+		}
+	`;
+
 }
 
