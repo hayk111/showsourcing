@@ -7,7 +7,6 @@
 	[hasSearch]="false">
 </top-panel-app>
 
-
 <ng-container *ngIf="product$ | async as product">
   <div class="flex content">
     <div class="left">
@@ -27,14 +26,13 @@
 				(addProjectClick)="openAddProjectDlg()"
 				[projects]="projects$ | async"></project-card-app>
 
-
 			<files-card-app></files-card-app>
 
 		</div>
 
     <div class="right">
 			<product-summary-app [product]="product" (updateStatus)="updateStatus($event)"></product-summary-app>
-      <product-main-card-app></product-main-card-app>
+      <router-outlet></router-outlet>
     </div>
 
   </div>

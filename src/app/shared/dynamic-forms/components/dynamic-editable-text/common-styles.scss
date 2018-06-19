@@ -12,3 +12,17 @@ input {
 	padding: 2px 1px 2px 6px;
 	border: none;
 }
+
+.txtSecondary {
+	color: var(--color-txt-secondary);
+	font-weight: 600;
+}
+
+
+.currencySelector {
+	position: absolute;
+	bottom: 0;
+	width: 141px;
+	top: 50px;
+	z-index: 4;
+}

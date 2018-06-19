@@ -19,7 +19,7 @@
 		<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" #editable2>
 			<editable-label-app>
 				<span class="currencyLabel">
-					{{ value?.currency | const:'currency':'symbol' }}
+					{{ value?.currency | const:'currency':'id' }}
 				</span>
 			</editable-label-app>
 			<selector-const-app
