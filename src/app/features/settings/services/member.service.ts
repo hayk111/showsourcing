@@ -3,7 +3,7 @@ import { QueryRef } from 'apollo-angular';
 import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
 import { map, tap, publish, take, refCount, filter, first, switchMap } from 'rxjs/operators';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { MemberQueries } from '~features/settings/services/member.queries';
 import { TeamUser } from '~models';
 import { Contact, Task } from '~models';
@@ -111,6 +111,19 @@ export class MemberService {
 			input: member,
 			typename: 'Member'
 		});
+	}
+
+	updateMembers({ accessType }: { accessType: string }) {
+		return this.selectMembers().pipe(
+			first(),
+			switchMap(members => {
+				return (members && members.length > 0) ?
+					forkJoin(members.map(member => this.updateMember({
+						...member,
+						accessType
+					}))) : of(true);
+			})
+		);
 	}
 
 	deleteMember(memberId: string) {

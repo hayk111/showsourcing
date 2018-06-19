@@ -12,7 +12,7 @@ import { animation } from './search-bar-animated.animation';
 })
 export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective) input: InputDirective;
-	searchstate: 'expanded' | 'shrinked' = 'shrinked';
+	searchstate: 'expanded' | 'shrinked' = 'expanded';
 
 	constructor() { }
 
@@ -23,21 +23,23 @@ export class SearchBarAnimatedComponent implements OnInit {
 	}
 
 	toggleSearch() {
-		if (this.searchstate === 'expanded')
+		// Disabled because the search bar isn't dynamic anymore
+		/* if (this.searchstate === 'expanded')
 			this.shrinkSearch();
 		else
-			this.expandSearch();
+			this.expandSearch(); */
 	}
 
 	expandSearch() {
-		this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
+		// Disabled because the search bar isn't dynamic anymore
+		/* this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
 		if (this.searchstate === 'expanded' && this.input) {
 			this.input.focus();
-		}
+		} */
 	}
 
 	shrinkSearch() {
-		this.searchstate = 'shrinked';
+		// this.searchstate = 'shrinked';
 	}
 
 }

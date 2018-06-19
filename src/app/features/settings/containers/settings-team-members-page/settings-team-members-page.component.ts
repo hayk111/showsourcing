@@ -119,10 +119,16 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	}
 
 	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
-		this.memberSrv.updateMember({
-			...member,
-			accessType
-		}).subscribe();
+		if (member) {
+			this.memberSrv.updateMember({
+				...member,
+				accessType
+			}).subscribe();
+		} else {
+			this.memberSrv.updateMembers({
+				accessType
+			}).subscribe();
+		}
 	}
 
 	/** Deletes the currently selected members */

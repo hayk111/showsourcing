@@ -15,6 +15,7 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
+	@Input() smartPanelVisible = false;
 	search$ = new BehaviorSubject<string>(null);
 	smartSearch$: Observable<any>;
 
@@ -27,7 +28,6 @@ export class FilterSearchBarComponent extends AutoUnsub implements OnInit {
 	// map.get(type).has(value);
 	filterGroup$: Observable<FilterGroup>;
 	filterMap: FilterGroup;
-	smartPanelVisible = false;
 
 	constructor() {
 		super();
