@@ -34,6 +34,8 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
+
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices: any[];
 
@@ -55,6 +57,11 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	onChange() {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 
 	onSelect(choice: Choice) {

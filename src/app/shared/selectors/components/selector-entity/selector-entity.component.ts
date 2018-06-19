@@ -52,6 +52,7 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
 
@@ -81,6 +82,12 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 
 	onUnselect(choice: Choice) {
 		this.unselect.emit(choice);
+	}
+
+	onBlur() {
+		debugger;
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 
 	setChoices() {

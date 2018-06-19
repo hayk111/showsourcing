@@ -6,7 +6,8 @@
 			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
 			<!-- multiple value label -->
 			<editable-label-app *ngIf="customField.multiple; else solo">
-				<tag-list-app  *ngIf="!isEmpty(customField.value); else none" [value]="value"></tag-list-app>
+				<tag-list-app  *ngIf="!isEmpty(value); else none" [value]="value">
+				</tag-list-app>
 				<ng-template #none>
 					-
 				</ng-template>
@@ -19,7 +20,9 @@
 						*ngIf="value | logo:customField.metadata.target"
 						[src]="value | logo:customField.metadata.target" />
 					<ng-container [ngSwitch]="customField.metadata.target">
-						<span *ngSwitchDefault>{{ value ? value[customField.metadata.labelName] : '-' }}</span>
+						<span *ngSwitchDefault>
+							{{ value ? value[customField.metadata.labelName] : '-' }}
+						</span>
 					</ng-container>
 
 				</editable-label-app>
@@ -30,6 +33,7 @@
 				[multiple]="customField.multiple"
 				[(ngModel)]="value"
 				(change)="onSelectorChange()"
+				(blur)="onBlur()"
 				[type]="customField.metadata.target"
 				[canCreate]="customField.metadata.canCreate"
 				[propertyName]="customField.metadata.labelName">
@@ -42,7 +46,7 @@
 	<ng-container *ngIf="customField.metadata.type === 'const'">
 		<!-- one -->
 		<editable-text-app #editable *ngIf="!customField.multiple"
-			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
+			(closed)="closed.emit()" [hasAction]="false" (opened)="onOpen()">
 
 			<editable-label-app>
 				{{ value || '-'}}
@@ -52,6 +56,7 @@
 				#selector
 				[multiple]="false"
 				(change)="onSelectorChange()"
+				(blur)="onBlur()"
 				[(ngModel)]="value"
 				[type]="customField.metadata.target">
 			</selector-const-app>

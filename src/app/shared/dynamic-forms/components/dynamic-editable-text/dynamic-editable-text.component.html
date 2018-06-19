@@ -91,7 +91,6 @@
 		</editable-text-app>
 	</field-cell-app>
 
-
 	<!-- textarea -->
 	<field-cell-app *ngSwitchCase="'textarea'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel">
 		<label-app>{{ customField.label || customField.name }}</label-app>
@@ -109,11 +108,10 @@
 	</field-cell-app>
 
 	<!-- yesNo -->
-	<field-cell-app *ngSwitchCase="'yesNo'">
+	<field-cell-app *ngSwitchCase="'yesNo'" [hasBottom]="true" [inlineLabel]="inlineLabel">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<span class="txtBtn" (click)="toggleValue()">{{ value ? 'Yes' : 'No' }}</span>
 	</field-cell-app>
-
 
 	<!-- price -->
 	<editable-price-app
@@ -151,6 +149,8 @@
 		*ngSwitchCase="'selector'"
 		[customField]="customField"
 		[(ngModel)]="value"
+		(change)="onChange()"
+		(blur)="onBlur()"
 		[inlineLabel]="inlineLabel"
 		[isOpen]="isOpen"
 		(opened)="onOpen()"

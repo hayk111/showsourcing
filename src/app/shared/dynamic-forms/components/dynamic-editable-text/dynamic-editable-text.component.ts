@@ -13,7 +13,7 @@ import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 /**
- * component that selects the correct input and display it as an editable text
+ * Component that selects the correct input and display it as an editable text
  *
  * Most inputs wait for a blur event to update, therefor we use an accumulator,
  * in case the user cancels.
@@ -49,6 +49,7 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	ngOnInit() {
 		// saving the starting value in the accumulator so
 		// if we do a save without typing anything the field won't be undefined
+		// TODO: this should be done in the setter instead
 		this.accumulator = this.customField.value;
 	}
 
@@ -65,15 +66,21 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 		this.onClose();
 	}
 
-	/** when the editable field becomes open */
+	/** when the editable field opens */
 	onOpen() {
 		this.open.emit();
 		this.isOpen = true;
 	}
 
+	/** when an editable field closes */
 	onClose() {
 		this.close.emit();
 		this.isOpen = false;
+	}
+
+	/** when the user cancels we put the previous value back in because onClose is gonna be called */
+	onCancel() {
+		this.accumulator = this.value;
 	}
 
 	/** when the value changes */
@@ -84,10 +91,10 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** on blur we need to call onTouchedFn to not have errors of change detection */
 	onBlur() {
+		debugger;
 		this.onTouchedFn();
 		this.blur.emit();
 	}
-
 
 	/** toggle input value from true to false and vice versa */
 	toggleValue() {

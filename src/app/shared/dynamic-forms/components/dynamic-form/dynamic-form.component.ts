@@ -45,9 +45,5 @@ export class DynamicFormComponent implements OnInit {
 		}
 	}
 
-	onBlur() {
-		this.form.markAsTouched();
-		this.form.markAsDirty();
-	}
 
 }

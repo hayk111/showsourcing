@@ -2,20 +2,24 @@
 	<label-app>{{ customField.label || customField.name }}</label-app>
 	<div class="flexBetween editablePrice">
 		<!-- value -->
-		<editable-text-app #editable1 (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
+		<editable-text-app #editable1 (closed)="onSave()" (opened)="onOpen()">
 			<editable-label-app>
-				<span>{{ customField.value?.currency | const:'currency':'symbol'}} </span>
-				<span>{{ customField.value?.value || '-' }}</span>
+				<span>{{ value?.currency | const:'currency':'symbol'}} </span>
+				<span>{{ value?.value !== undefined ? value.value : '-' }}</span>
 			</editable-label-app>
-			<input #inp inputApp (keyup.enter)="editable1.close();"
-				(input)="accumulatePrice(+inp.value)" type="text" restrictInput="decimal"
+			<input #inp inputApp
+				(keyup.enter)="editable1.close();"
+				(input)="accumulatePrice(+inp.value)"
+				(blur)="onBlur()"
+				type="text"
+				restrictInput="decimal"
 				[value]="customField?.value?.value"/>
 		</editable-text-app>
 		<!-- currency -->
 		<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" #editable2>
 			<editable-label-app>
 				<span class="currencyLabel">
-					{{ customField.value?.currency | const:'currency':'symbol' }}
+					{{ value?.currency | const:'currency':'symbol' }}
 				</span>
 			</editable-label-app>
 			<selector-const-app
@@ -24,7 +28,8 @@
 				[multiple]="false"
 				[(ngModel)]="value.currency"
 				[type]="'currency'"
-				(change)="onChange()">
+				(change)="onChange()"
+				(blur)="onBlur()">
 			</selector-const-app>
 
 		</editable-text-app>

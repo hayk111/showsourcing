@@ -10,8 +10,11 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)]
 })
-export class EditablePriceMatrixRowComponent extends AbstractInput implements OnInit {
-	@Input() set value(v: PriceMatrixRow) { this._value = v || new PriceMatrixRow(); }
+export class EditablePriceMatrixRowComponent extends AbstractInput {
+	@Input() set value(v: PriceMatrixRow) {
+		this._value = v || new PriceMatrixRow();
+		this.accumulator = this.value;
+	}
 	get value() { return this._value; }
 	private _value;
 	@Output() change = new EventEmitter<PriceMatrixRow>();
@@ -22,10 +25,6 @@ export class EditablePriceMatrixRowComponent extends AbstractInput implements On
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
-	}
-
-	ngOnInit() {
-		this.accumulator = this.value;
 	}
 
 	accumulate(type: 'price' | 'label', value: any) {

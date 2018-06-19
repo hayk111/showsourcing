@@ -13,22 +13,19 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditableSelectorComponent)]
 })
-export class EditableSelectorComponent extends AbstractInput implements OnInit {
+export class EditableSelectorComponent extends AbstractInput {
 
 	@Input() isOpen: boolean;
 	@Input() inlineLabel: string;
 	@Input() customField: CustomField;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
-	@Output() change = new EventEmitter<Choice>();
+	@Output() change = new EventEmitter<null>();
+	@Output() blur = new EventEmitter<null>();
 	@ViewChild('editable') editable: EditableTextComponent;
-	@ViewChild('selector') selector: SelectorConstComponent | SelectorEntityComponent;
-
+	@ViewChild('selector') selector: any;
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
-	}
-
-	ngOnInit() {
 	}
 
 	/** check if a value is empty */
@@ -45,11 +42,20 @@ export class EditableSelectorComponent extends AbstractInput implements OnInit {
 			this.editable.close();
 		}
 		this.onChange();
-		this.onTouchedFn();
 	}
 
 	onChange() {
 		this.onChangeFn(this.value);
-		this.change.emit(this.value);
+		this.change.emit();
+	}
+
+	onOpen() {
+		setTimeout(_ => this.selector.open());
+	}
+
+	onBlur() {
+		debugger
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 }

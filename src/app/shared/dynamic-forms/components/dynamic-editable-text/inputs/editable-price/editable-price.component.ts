@@ -11,29 +11,27 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceComponent)]
 })
-export class EditablePriceComponent extends AbstractInput implements OnInit {
+export class EditablePriceComponent extends AbstractInput {
 	@Input() inlineLabel: boolean;
 	@Input() customField: CustomField;
-	@Output() change = new EventEmitter<Price>();
+	@Output() change = new EventEmitter();
+	@Output() blur = new EventEmitter();
 	isOpen: boolean;
 	accumulator;
 
-	@Input() set value(v: Price) { this._value = v || {}; }
+	@Input() set value(v: Price) {
+		this._value = v || new Price({});
+		this.accumulator = this._value;
+	}
 	get value(): Price { return this._value; }
-	private _value = {};
-
-
+	private _value: Price = {};
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
-	ngOnInit() {
-		this.accumulator = this.value.value;
-	}
-
 	onSave() {
-		this.value.value = this.accumulator.value;
+		this.value = this.accumulator;
 		this.onChange();
 	}
 
@@ -42,12 +40,17 @@ export class EditablePriceComponent extends AbstractInput implements OnInit {
 	}
 
 	accumulatePrice(priceAmount: number) {
-		this.value.value = priceAmount;
+		this.accumulator.value = priceAmount;
 	}
 
 	onChange() {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 
 }

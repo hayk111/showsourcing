@@ -8,6 +8,7 @@
 	[bindLabel]="'name'"
 	[bindValue]="'id'"
 	(change)="onChange()"
+	(blur)="onBlur()"
 	(select)="onSelect($event)"
 	(unselect)="onUnselect($event)">
 	<ng-template let-item="item">

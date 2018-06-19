@@ -23,6 +23,7 @@ export class SelectorComponent extends AbstractInput {
 	// when the create button is clicked we want to create an item with what's in the input as name.
 	@Output() create = new EventEmitter<string>();
 	@Output() change = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
 	// string from input to search through the list of choices
 	searchValue = '';
 	@ViewChild('ngSelect') ngSelect: NgSelectComponent;
@@ -100,6 +101,11 @@ export class SelectorComponent extends AbstractInput {
 				this.searchInp.focus();
 			}
 		});
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
 	}
 
 }

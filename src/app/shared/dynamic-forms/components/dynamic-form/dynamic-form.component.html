@@ -6,9 +6,9 @@
 		<ng-container *ngIf="editable">
 			<dynamic-editable-text-app
 				*ngFor="let field of col"
-				(blur)="onBlur()"
 				[customField]="field"
-				[formControlName]="field.name">
+				[formControlName]="field.name"
+				[inlineLabel]="inlineLabel">
 			</dynamic-editable-text-app>
 		</ng-container>
 	</div>

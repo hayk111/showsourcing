@@ -7,6 +7,7 @@
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"
 		(change)="onChange($event)"
+		(blur)="onBlur()"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
 		[bindValue]="bindValue"
