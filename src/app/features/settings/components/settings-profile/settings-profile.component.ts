@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { User, Team } from '~models';
 import { Observable } from 'rxjs';
-import { UserService } from '~features/user/services/user.service';
+import { UserService } from '~shared/global-services';
 
 @Component({
 	selector: 'settings-profile-app',

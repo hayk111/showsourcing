@@ -2,7 +2,9 @@
 	<context-menu-trigger-app class="flex">
 		<user-picture-app></user-picture-app>
 		<div class="flexColumn">
-			<span class="name">Cédric Vanden Bosch</span>
+			<span class="name">
+				{{ user.firstName + ' ' + user.lastName }}
+			</span>
 			<span>Show Sourcing Sa</span>
 		</div>
 	</context-menu-trigger-app>

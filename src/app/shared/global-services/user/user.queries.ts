@@ -26,8 +26,4 @@ export class UserQueries {
 			}
 		}
 	`;
-
-	// static pickTeam = gql`
-	// 	mutation teams
-	// `;
 }
