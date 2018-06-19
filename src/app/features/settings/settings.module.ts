@@ -19,6 +19,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { TableModule } from '~shared/table';
 import { DialogModule } from '~shared/dialog/dialog.module';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 import { MemberService } from '~features/settings/services/member.service';
 import { SelectionService } from '~features/settings/services/selection.service';
@@ -34,6 +35,8 @@ import { MenuService } from '~features/settings/services/menu.service';
 		UserModule.forChild(),
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
+		ContextMenuModule
+
 	],
 	providers: [MemberService, SelectionService, MenuService],
 	declarations: [

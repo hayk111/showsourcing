@@ -2,6 +2,7 @@
     width: 72px;
     height: 100%;
     background-color: var(--color-bg-third);
+    border-right: solid 1px var(--color-primary-light);
     &.expanded {
         width: 260px;
 

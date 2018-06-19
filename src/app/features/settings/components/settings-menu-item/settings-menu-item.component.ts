@@ -6,7 +6,10 @@ import {
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { AutoUnsub } from '~utils';
 import { SettingsMenuItemLabelDirective } from '../settings-menu-item-label/settings-menu-item-label.directive';
 
 @Component({
@@ -14,7 +17,7 @@ import { SettingsMenuItemLabelDirective } from '../settings-menu-item-label/sett
 	templateUrl: './settings-menu-item.component.html',
 	styleUrls: ['./settings-menu-item.component.scss']
 })
-export class SettingsMenuItemComponent implements OnChanges, OnInit {
+export class SettingsMenuItemComponent extends AutoUnsub implements OnChanges, OnInit {
 	@Input() hasChildren = false;
 	@Input() link: string;
 	@Output() expanded = new EventEmitter<boolean>();
@@ -23,10 +26,22 @@ export class SettingsMenuItemComponent implements OnChanges, OnInit {
 	internalExpanded = false;
 	selected = false;
 
+	routerChangesSubscription: Subscription;
+
 	constructor(private renderer: Renderer2, private router: Router, private location: Location) {
+		super();
+		this.routerChangesSubscription = router.events
+			.pipe(takeUntil(this._destroy$))
+			.subscribe((val) => {
+				this.checkItemSelected();
+			});
 	}
 
 	ngOnInit() {
+		this.checkItemSelected();
+	}
+
+	checkItemSelected() {
 		const path = this.location.path();
 		this.selected = (path === this.link);
 	}
@@ -49,7 +64,6 @@ export class SettingsMenuItemComponent implements OnChanges, OnInit {
 			this.handleLabelDisplay(this.internalExpanded);
 			this.expanded.emit(this.internalExpanded);
 		}
-		console.log('link = ', this.link);
 		if (this.link) {
 			this.router.navigate([ this.link ]);
 		}

@@ -1,12 +1,16 @@
 
 <top-panel-app
-    [title]="'Members'"
+    title="ShowSourcing - Fashion"
+    [subtitles]="['Settings', 'Team Members']">
+</top-panel-app>
+
+<sub-panel-app
+    title="Team Members"
     [buttonName]="'Invite Collaborator'"
-    [subtitles]="['Settings', 'Team Members']"
     [hasSwitch]="false"
     [hasFilter]="false"
     (buttonClick)="openNewDialog()">
-</top-panel-app>
+</sub-panel-app>
 
 <team-members-list-view-app
     [members]="members$ | async"
