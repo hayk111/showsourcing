@@ -88,8 +88,13 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 		});
 	}
 
-	/** Opens the dialog for creating a new member */
-	openNewDialog() {
+	/** Opens the dialog for creating a new team */
+	openNewTeamDialog() {
+		this.dlgSrv.open(DialogName.NEW_TEAM);
+	}
+
+	/** Opens the dialog for inviting a new user */
+	openInviteDialog() {
 		this.dlgSrv.open(DialogName.INVITE_USER);
 	}
 

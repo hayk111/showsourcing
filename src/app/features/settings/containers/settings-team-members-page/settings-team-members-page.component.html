@@ -3,7 +3,8 @@
     title="ShowSourcing - Fashion"
     [subtitles]="['Settings', 'Team Members']"
     buttonName="Create New Team"
-    [buttonIcon]="false">
+    [buttonIcon]="false"
+    (buttonClick)="openNewTeamDialog()">
 </top-panel-app>
 
 <sub-panel-app
@@ -12,7 +13,7 @@
     [hasSwitch]="false"
     [hasFilter]="false"
     [buttonIcon]="false"
-    (buttonClick)="openNewDialog()">
+    (buttonClick)="openInviteDialog()">
     <context-menu-app xPosition="after" yPosition="45">
 		<context-menu-trigger-app class="flex pointer">
 			<div class="text">Selection</div>
