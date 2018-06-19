@@ -24,14 +24,19 @@
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
-	background: var(--color-primary-light);
+	background: var(--color-primary);
+	color: white;
 }
 
 .ng-dropdown-panel .ng-dropdown-footer {
 	padding: 0;
 }
 .ng-select .ng-select-container {
-	border: 1px solid var(--color-txt-secondary)!important;
+	border: 1px solid var(--color-primary-light)!important;
+}
+
+.ng-select .ng-arrow-wrapper {
+	display: none;
 }
 
 .ng-dropdown-panel {

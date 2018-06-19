@@ -21,3 +21,10 @@ input {
 	text-transform: capitalize;
 }
 
+.currencySelector {
+	position: absolute;
+	bottom: 0;
+	width: 141px;
+	top: 50px;
+	z-index: 4;
+}
