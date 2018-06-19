@@ -1,4 +1,4 @@
-<div class="titleLogo"></div>
+<i class="logo"></i>
 
 <nav>
   <a [routerLink]="['/home']" routerLinkActive="selected">Home</a>
@@ -13,10 +13,11 @@
 
 </nav>
 
-<div class="flexCenter right" *ngIf="(authenticated$ | async)">
+<div class="flexCenter right">
   <search-bar-animated-app>
-		<input inputApp class="searchInput" type="text"/>
+		<input inputApp class="searchInput" type="text" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
+	<notif-app></notif-app>
   <div class="divider"></div>
-  <user-info-app></user-info-app>
+	<user-panel-app [user]="user$ | async" (logout)="logout()"></user-panel-app>
 </div>

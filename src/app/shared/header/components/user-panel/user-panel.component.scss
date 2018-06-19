@@ -1,77 +1,24 @@
 :host {
-	width: 300px;
+	display: block;
 }
+
 user-picture-app {
 	margin-right: var(--spacing-m);
 }
-.nameEmail {
+
+context-menu-app {
+	height: 50px;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	.name {
-		font-size: var(--font-size-l);
-		font-weight: 600;
-	}
-
-	.email {
-		font-size: var(--font-size-s);
-	}
+	align-items: center;
+	padding-left: 12px;
+	width: 212px;
 }
 
-
-menuitem {
-	padding: var(--spacing-m);
-	padding-bottom: 0;
-	flex-wrap: nowrap;
-	white-space: nowrap;
-	div {
-		// last item has no border so we put this here
-		width: 100%;
-		padding-bottom: var(--spacing-m);
-	}
-	.border{
-		border-bottom: 1px solid var(--color-primary-light);
-	}
+context-menu-item-app {
+	width: 217px;
 }
 
-menu {
-	position: relative;
-	background: white;
-	color: var(--color-txt-primary);
-	display: block;
-	border-radius: var(--border-radius-s);
+.name {
+	font-weight: bold;
 }
 
-// arrow
-menu:after {
-	bottom: 100%;
-	right: 0%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(255, 255, 255, 0);
-	border-bottom-color: #ffffff;
-	border-width: 6px;
-	margin-right: 6px;
-}
-
-.userInfo {
-	padding: var(--spacing-m);
-	.cercle {
-		height: 64px;
-		width: 64px;
-		overflow: hidden;
-		border-radius: 50%;
-		img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-	}
-}
-
-.hr {
-	height: 2px;
-}

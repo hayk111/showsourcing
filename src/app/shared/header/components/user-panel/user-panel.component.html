@@ -1,41 +1,26 @@
-<menu class="z-4">
+<context-menu-app xPosition="-40" yPosition="60">
+	<context-menu-trigger-app class="flex">
+		<user-picture-app></user-picture-app>
+		<div class="flexColumn">
+			<span class="name">Cédric Vanden Bosch</span>
+			<span>Show Sourcing Sa</span>
+		</div>
+	</context-menu-trigger-app>
 
-	<!-- picture and name -->
-	<div class="flex userInfo">
-		<user-picture-app size="48" spacing="default" [url]="user"></user-picture-app>
-		<div class="nameEmail">
-			<span class="name capitalize">{{ user?.firstName  }} {{ user?.lastName }}</span>
-			<span class="email">{{ user?.email }}</span>
-		</div>
-	</div>
 	<!-- Settings -->
-	<divider-app></divider-app>
-	<menuitem class="pointer flexCenter" (click)="goToSettings()" i18n="user menu | go to settings">
-		<div class="border">Settings</div>
-	</menuitem>
-	<!-- Data management -->
-	<menuitem class="pointer flexCenter" (click)="goToDataManagement()"
-		 i18n="user menu | go to page for managing user data like tags">
-		 <div class="border">Data Management</div>
-	</menuitem>
+	<context-menu-item-app (click)="goToSettings()" i18n="user menu | go to settings">
+		Profile
+	</context-menu-item-app>
+
 	<!-- Teams -->
-	<menuitem class="pointer flexCenter" (click)="pickTeam()" i18n="user menu | teams">
-		<div class="border">Teams</div>
-	</menuitem>
-	<!-- Language -->
-	<menuitem class="pointer flexCenter" (click)="pickLanguage()" i18n="user menu | user can pick a language">
-		<div class="border">Language</div>
-	</menuitem>
-	<!-- Send Feedback -->
-	<menuitem class="pointer flexCenter" (click)="sendFeedback()" i18n="user menu | send feedback">
-		<div>Send feedback</div>
-	</menuitem>
-	<divider-app></divider-app>
+	<context-menu-item-app (click)="pickTeam()" i18n="user menu | teams">
+		Change Team
+	</context-menu-item-app>
+
+
+	<context-menu-divider-app></context-menu-divider-app>
 	<!-- Logout -->
-	<menuitem class="pointer flexCenter" (click)="logout.emit()" i18n="user menu | logout">
-		<div>
-			<icon-app>logout</icon-app>
-			Logout
-		</div>
-	</menuitem>
-</menu>
+	<context-menu-item-app (click)="logout.emit()" i18n="user menu | logout">
+		Logout
+	</context-menu-item-app>
+</context-menu-app>

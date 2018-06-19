@@ -1,0 +1,30 @@
+:host {
+	position: relative;
+}
+.trigger {
+	display: inline-block;
+}
+
+.menu {
+	z-index: 10;
+	position: absolute;
+	background: white;
+	color: var(--color-txt-primary);
+	display: block;
+	flex-direction: column;
+	border-radius: var(--border-radius-s);
+}
+
+.menu-before {
+	right: var(--spacing-m);
+}
+.menu-after {
+	left: var(--spacing-m);
+}
+
+.menu-above {
+	top: -(var(--spacing-m));
+}
+.menu-below {
+	bottom: -(var(--spacing-m));
+}

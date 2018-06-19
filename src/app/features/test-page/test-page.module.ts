@@ -7,6 +7,9 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { FormsModule } from '@angular/forms';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { IconsModule } from '~shared/icons';
+import { DividerModule } from '~shared/divider/divider.module';
 
 @NgModule({
 	imports: [
@@ -17,6 +20,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		FormsModule,
 		DynamicFormsModule,
 		NgSelectModule,
+		IconsModule,
+		ContextMenuModule,
+		DividerModule
 
 	],
 	declarations: [TestPageComponent],

@@ -1,4 +1,5 @@
 <!-- this component should be put once in the dom -->
-<i *ngFor="let icon of icons" class="fas fa-{{ icon.iconName }}" [attr.data-fa-symbol]="icon.iconName"></i>
+<i *ngFor="let icon of iconsSolid" class="fas fa-{{ icon.iconName }}" [attr.data-fa-symbol]="icon.iconName"></i>
+<i *ngFor="let icon of iconsRegular" class="far fa-{{ icon.iconName }}" [attr.data-fa-symbol]="icon.iconName"></i>
 
 

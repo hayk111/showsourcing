@@ -9,7 +9,6 @@ import * as faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import * as faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import * as faBolt from '@fortawesome/fontawesome-free-solid/faBolt';
 import * as faThumbsUp from '@fortawesome/fontawesome-free-solid/faThumbsUp';
-import * as faBell from '@fortawesome/fontawesome-free-solid/faBell';
 import * as faShare from '@fortawesome/fontawesome-free-solid/faShare';
 import * as faEllipsisH from '@fortawesome/fontawesome-free-solid/faEllipsisH';
 import * as faEllipsisV from '@fortawesome/fontawesome-free-solid/faEllipsisV';
@@ -40,13 +39,19 @@ import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
 import * as faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
 import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
+import * as faBell from '@fortawesome/fontawesome-free-regular/faBell';
+
 import * as fontawesome from '@fortawesome/fontawesome';
 
 // TODO observa mutation should not be needed
 fontawesome.config.searchPseudoElements = false;
 fontawesome.config.observeMutations = true;
 
-export const faIcons = [
+export const faIconsRegular = [
+	faBell
+];
+
+export const faIconsSolid = [
 	faAngleRight,
 	faAngleLeft,
 	faPencilAlt,
@@ -64,7 +69,6 @@ export const faIcons = [
 	faBolt,
 	faThumbsUp,
 	faThumbsDown,
-	faBell,
 	faInfoCircle,
 	faQuestionCircle,
 	faTimesCircle,
@@ -91,4 +95,5 @@ export const faIcons = [
 	faSortDown,
 ];
 
-faIcons.forEach(ic => fontawesome.library.add(ic));
+faIconsSolid.forEach(ic => fontawesome.library.add(ic));
+faIconsRegular.forEach(ic => fontawesome.library.add(ic));

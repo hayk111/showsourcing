@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { User } from '~models/user.model';
 
 @Component({
 	selector: 'header-app',
@@ -11,18 +12,13 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent extends AutoUnsub implements OnInit {
-	authenticated$: Observable<boolean>;
+	user$: Observable<User>;
 
 	constructor(private authSrv: AuthenticationService) {
 		super();
-		console.log('header');
 	}
 
 	ngOnInit() {
-		this.authenticated$ = this.authSrv.authState$.pipe(
-			takeUntil(this._destroy$),
-			map(authState => authState.authenticated),
-		);
 	}
 
 	logout() {

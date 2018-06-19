@@ -12,8 +12,6 @@ import { animation } from './search-bar-animated.animation';
 })
 export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective) input: InputDirective;
-	// applies a border when expanded
-	get border() { return this.searchstate === 'expanded'; }
 	searchstate: 'expanded' | 'shrinked' = 'shrinked';
 
 	constructor() { }
@@ -22,6 +20,13 @@ export class SearchBarAnimatedComponent implements OnInit {
 		if (!this.input) {
 			throw Error('You must pass an inputApp via transclusion to the search bar animated component');
 		}
+	}
+
+	toggleSearch() {
+		if (this.searchstate === 'expanded')
+			this.shrinkSearch();
+		else
+			this.expandSearch();
 	}
 
 	expandSearch() {

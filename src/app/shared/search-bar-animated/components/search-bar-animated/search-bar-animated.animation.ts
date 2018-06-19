@@ -5,14 +5,14 @@ export const animation = [
 		state(
 			'shrinked',
 			style({
-				width: '0%',
+				width: '0',
 				opacity: 0,
 			})
 		),
 		state(
 			'expanded',
 			style({
-				width: '100%',
+				width: '260px',
 				opacity: 1,
 			})
 		),

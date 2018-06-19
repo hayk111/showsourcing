@@ -8,11 +8,11 @@
 	width: 100%;
 	background: var(--color-txt-strong);
 	color: white;
-	padding: 0 var(--spacing-m);
+	padding-left: var(--spacing-m);
 	border-top: 3px solid var(--color-primary);
 }
 
-.titleLogo {
+.logo {
 	height: 26px;
 	width: 21px;
 	margin-right: var(--spacing-l);
@@ -39,9 +39,31 @@ nav {
 }
 
 .right {
-	color: var(--color-txt-secondary);
+	color: var(--color-primary-dark);
+	notif-app, search-bar-animated-app, user-panel-app {
+		&:hover {
+			background: #071327;
+		}
+	}
+
+	notif-app, search-bar-animated-app {
+		cursor: pointer;
+		padding: var(--spacing-xs) var(--spacing-s);
+		border-radius: var(--border-radius-s);
+	}
+
+	search-bar-animated-app {
+		font-size: 20px;
+		margin-right: 20px;
+		input {
+			padding: 0;
+			padding-left: 12px;
+		}
+	}
+
 	notif-app {
-		margin: 0 28px;
+		margin-right: 16px;
+		font-size: 20px;
 	}
 
 	.searchInput {
@@ -52,7 +74,6 @@ nav {
 	.divider {
 		height: var(--spacing-l);
 		width: 1px;
-		margin: 0 var(--spacing-m);
 		background-color: rgba(255, 255, 255, 0.1);
 	}
 
