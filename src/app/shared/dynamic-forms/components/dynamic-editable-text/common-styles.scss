@@ -17,3 +17,12 @@ input {
 	color: var(--color-txt-secondary);
 	font-weight: 600;
 }
+
+
+.currencySelector {
+	position: absolute;
+	bottom: 0;
+	width: 141px;
+	top: 50px;
+	z-index: 4;
+}
