@@ -2,4 +2,15 @@
 	<div class="left">
 		<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
 	</div>
+	<div class="right flexCenter">
+		<div class="flexColumns">
+			<div class="actions">Actions</div>
+			<div>
+				<button (click)="buttonClick.emit()" class="auto small">
+					<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
+					<span>{{ buttonName }}</span>
+				</button>
+			</div>
+		</div>
+	</div>
 </div>

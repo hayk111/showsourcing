@@ -9,7 +9,7 @@ import {
 	SettingsProfileComponent, SettingsMenuComponent,
 	SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
 	TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
-	InviteUserDlgComponent
+	InviteUserDlgComponent, NewTeamDlgComponent
 } from './components';
 import { UserModule } from '~features/user';
 import { SharedModule } from '~shared/shared.module';
@@ -44,10 +44,10 @@ import { MenuService } from '~features/settings/services/menu.service';
 		SettingsProfileComponent, SettingsMenuComponent,
 		SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
 		TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
-		InviteUserDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent
 	],
 	entryComponents: [
-		InviteUserDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent
 	],
 	exports: [],
 })

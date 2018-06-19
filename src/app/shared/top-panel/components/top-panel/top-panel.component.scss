@@ -44,3 +44,10 @@ button {
 divider-app {
 	margin: var(--spacing-xl) 0;
 }
+
+.actions {
+	text-transform: uppercase;
+	font-size: 11px;
+	color: var(--color-txt-secondary);
+	padding-bottom: 10px;
+}

@@ -88,8 +88,13 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 		});
 	}
 
-	/** Opens the dialog for creating a new member */
-	openNewDialog() {
+	/** Opens the dialog for creating a new team */
+	openNewTeamDialog() {
+		this.dlgSrv.open(DialogName.NEW_TEAM);
+	}
+
+	/** Opens the dialog for inviting a new user */
+	openInviteDialog() {
 		this.dlgSrv.open(DialogName.INVITE_USER);
 	}
 
@@ -119,10 +124,16 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	}
 
 	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
-		this.memberSrv.updateMember({
-			...member,
-			accessType
-		}).subscribe();
+		if (member) {
+			this.memberSrv.updateMember({
+				...member,
+				accessType
+			}).subscribe();
+		} else {
+			this.memberSrv.updateMembers({
+				accessType
+			}).subscribe();
+		}
 	}
 
 	/** Deletes the currently selected members */
