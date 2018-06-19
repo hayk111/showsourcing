@@ -20,6 +20,7 @@ export class EditablePriceComponent extends AbstractInput {
 	@ViewChild('editable2') currencyEditable: EditableTextComponent;
 	isOpen: boolean;
 	accumulator;
+	currencySelectorShown: boolean;
 
 	@Input() set value(v: Price) {
 		this._value = v || new Price({});
@@ -61,6 +62,14 @@ export class EditablePriceComponent extends AbstractInput {
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
+	}
+
+	showCurrencySelector() {
+		this.currencySelectorShown = true;
+	}
+
+	hideCurrencySelector() {
+		this.currencySelectorShown = false;
 	}
 
 }

@@ -16,14 +16,14 @@
 				[value]="customField?.value?.value"/>
 		</editable-text-app>
 		<!-- currency -->
-		<editable-text-app class="editableCurrency" [hasAction]="false" (opened)="onOpen()" #editable2>
-			<editable-label-app>
-				<span class="currencyLabel">
-					{{ value?.currency | const:'currency':'id' }}
-				</span>
-			</editable-label-app>
+		<div class="editableCurrency">
+			<span class="currencyLabel" (click)="showCurrencySelector()">
+				{{ value?.currency | const:'currency':'id' }}
+			</span>
 			<selector-const-app
 				#selector
+				*ngIf="currencySelectorShown"
+				(clickOutside)="hideCurrencySelector()"
 				class="rightSelector"
 				[multiple]="false"
 				[(ngModel)]="value.currency"
@@ -31,7 +31,6 @@
 				(change)="onCurrencyChange()"
 				(blur)="onBlur()">
 			</selector-const-app>
-
-		</editable-text-app>
+		</div>
 	</div>
 </field-cell-app>
