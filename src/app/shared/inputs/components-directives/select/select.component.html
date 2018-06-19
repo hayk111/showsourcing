@@ -1,9 +1,0 @@
-
-<div (click)="onToggleOpen($event)">
-    <div class="label">{{label}}</div>
-    <div *ngIf="opened">
-      <menu>
-        <menuitem class="pointer flexCenter" *ngFor="let value of values" (click)="select.emit(value.value)">{{value.label}}</menuitem>
-        </menu>
-    </div>
-</div>
