@@ -5,7 +5,11 @@ export class SelectorQueries {
 		subscription suppliers {
 			suppliers {
 				id,
-				name
+				name,
+				logoImage {
+					id,
+					fileName
+				}
 			}
 		}
 	`;
@@ -23,7 +27,14 @@ export class SelectorQueries {
 		subscription events {
 			events {
 				id,
-				name
+				alias,
+				description {
+					id,
+					logoImage {
+						id,
+						fileName
+					}
+				}
 			}
 		}
 	`;
@@ -42,6 +53,19 @@ export class SelectorQueries {
 			supplierTypes {
 				id,
 				name
+			}
+		}
+	`;
+
+	static users = gql`
+		subscription users {
+			users {
+				id,
+				name,
+				logoImage {
+					id,
+					fileName
+				}
 			}
 		}
 	`;

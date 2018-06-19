@@ -11,6 +11,16 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { FieldCellComponent } from './components/field-cell/field-cell.component';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { TagModule } from '~shared/tag';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
+import { UtilsModule } from '~shared/utils';
+import { FileModule } from '~shared/file';
+import {
+	EditablePriceMatrixComponent
+} from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
+import { EditablePriceMatrixRowComponent } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
+import { EditablePriceComponent } from './components/dynamic-editable-text/inputs/editable-price/editable-price.component';
+import { EditablePackagingComponent } from './components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
+import { EditableSelectorComponent } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
 
 @NgModule({
 	imports: [
@@ -18,12 +28,16 @@ import { TagModule } from '~shared/tag';
 		FormsModule,
 		ReactiveFormsModule,
 		InputsModule,
+		InputsCustomModule,
 		EditableFieldModule,
 		SelectorsModule,
-		TagModule // for displaying multiple values
+		TagModule, // for displaying multiple values
+		UtilsModule,
+		FileModule
 	],
 	providers: [DynamicFormsService],
-	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent, FieldCellComponent],
+	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent,
+		FieldCellComponent, EditablePriceMatrixComponent, EditablePriceMatrixRowComponent, EditablePriceComponent, EditablePackagingComponent, EditableSelectorComponent],
 	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {

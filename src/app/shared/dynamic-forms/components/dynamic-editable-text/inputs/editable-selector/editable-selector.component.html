@@ -1,0 +1,66 @@
+<field-cell-app [hasBottom]="!isOpen" [inlineLabel]="inlineLabel">
+	<label-app>{{ customField.label || customField.name }}</label-app>
+	<!-- entity selector -->
+	<ng-container *ngIf="customField.metadata.type === 'entity'">
+		<editable-text-app #editable
+			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
+			<!-- multiple value label -->
+			<editable-label-app *ngIf="customField.multiple; else solo">
+				<tag-list-app  *ngIf="!isEmpty(value); else none" [value]="value">
+				</tag-list-app>
+				<ng-template #none>
+					-
+				</ng-template>
+			</editable-label-app>
+
+			<!-- one value label -->
+			<ng-template #solo>
+				<editable-label-app class="flexCenter">
+					<img class="selectorIcon"
+						*ngIf="value | logo:customField.metadata.target"
+						[src]="value | logo:customField.metadata.target" />
+					<ng-container [ngSwitch]="customField.metadata.target">
+						<span *ngSwitchDefault>
+							{{ value ? value[customField.metadata.labelName] : '-' }}
+						</span>
+					</ng-container>
+
+				</editable-label-app>
+			</ng-template>
+
+			<selector-entity-app
+				#selector
+				[multiple]="customField.multiple"
+				[(ngModel)]="value"
+				(change)="onSelectorChange()"
+				(blur)="onBlur()"
+				[type]="customField.metadata.target"
+				[canCreate]="customField.metadata.canCreate"
+				[propertyName]="customField.metadata.labelName">
+			</selector-entity-app>
+		</editable-text-app>
+
+	</ng-container>
+
+	<!-- const selector -->
+	<ng-container *ngIf="customField.metadata.type === 'const'">
+		<!-- one -->
+		<editable-text-app #editable *ngIf="!customField.multiple"
+			(closed)="closed.emit()" [hasAction]="false" (opened)="onOpen()">
+
+			<editable-label-app>
+				{{ value || '-'}}
+			</editable-label-app>
+
+			<selector-const-app
+				#selector
+				[multiple]="false"
+				(change)="onSelectorChange()"
+				(blur)="onBlur()"
+				[(ngModel)]="value"
+				[type]="customField.metadata.target">
+			</selector-const-app>
+		</editable-text-app>
+
+	</ng-container>
+</field-cell-app>

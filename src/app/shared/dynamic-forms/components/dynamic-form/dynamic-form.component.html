@@ -1,15 +1,15 @@
 <div [formGroup]="form" class="form" [ngClass]="{ multiple: (cols.length > 0) }">
-	<div *ngFor="let col of cols" class="col" [ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
+
+	<div *ngFor="let col of cols; let last = last" class="col"
+		[ngClass]="{ 'last': last }"
+		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 		<ng-container *ngIf="editable">
-			<field-cell-app #cell [inlineLabel]="inlineLabel"
-				[label]="field.label || field.name" *ngFor="let field of col">
-				<dynamic-editable-text-app
-					(open)="cell.hasBottom = false"
-					(close)="cell.hasBottom = true"
-					[customField]="field"
-					[formControlName]="field.name">
-				</dynamic-editable-text-app>
-			</field-cell-app>
+			<dynamic-editable-text-app
+				*ngFor="let field of col"
+				[customField]="field"
+				[formControlName]="field.name"
+				[inlineLabel]="inlineLabel">
+			</dynamic-editable-text-app>
 		</ng-container>
 	</div>
 

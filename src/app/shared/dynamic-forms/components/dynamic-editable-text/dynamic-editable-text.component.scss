@@ -1,17 +1,29 @@
-form-field-app {
-	padding-bottom: 0;
+
+
+/** for packaging and price matrix */
+label {
+	color: var(--color-primary);
+  font-size: var(--font-size-l);
+  font-weight: bold;
 }
 
-label-app {
-	text-transform: none;
-	font-weight: normal;
-	font-size: var(--font-size-m);
+
+
+.inputCtnr {
+	margin-left: 24px;
+	margin-bottom: 32px
 }
 
-form-field-app {
-	flex-grow: 1;
+
+.editableCurrency {
+	display: none;
+	label-app {
+		width: 100%;
+    text-align: right;
+	}
 }
 
-input {
-	padding: 6px;
+.editablePrice:hover > .editableCurrency {
+	display: block;
 }
+

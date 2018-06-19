@@ -1,0 +1,55 @@
+<field-cell-app [inlineLabel]="true" [hasBottom]="!isOpen">
+	<label-app>
+		<editable-text-app #editable1 (closed)="save()" (saved)="save()" (opened)="onOpen()">
+
+			<editable-label-app class="label txtBtn">
+				{{ value?.label }}
+			</editable-label-app>
+
+			<input
+				#inp1
+				inputApp
+				autofocus="true"
+				[value]="value.label"
+				(input)="accumulate('label', inp1.value)"
+				(blur)="onBlur()"
+				(keyup.enter)="editable1.close();"
+				[type]="'text'"/>
+
+		</editable-text-app>
+	</label-app>
+
+	<editable-text-app #editable2 (closed)="save()" (saved)="save()" (opened)="onOpen()">
+
+		<editable-label-app class="txtBtn">
+			<span>{{ (value?.price?.currency || 'USD') + ' '}}</span>
+
+			<span>{{ value?.price?.value !== undefined ? value.price.value  : '-' }}</span>
+		</editable-label-app>
+
+		<div class="flexBetween">
+			<div>
+				<span class="txtBtn currency" (click)="openSelector()">
+					{{ (value?.price?.currency || 'USD') | const:'currency':'id' }}
+				</span>
+
+				<selector-const-app
+					*ngIf="selectorShown"
+					(select)="onSelectorChange()"
+					type="currency"
+					[(ngModel)]="value.price.currency"></selector-const-app>
+			</div>
+
+			<input #inp2
+				inputApp
+				restrictInput="decimal"
+				autofocus="true"
+				[value]="value.price.value"
+				(input)="accumulate('price', +inp2.value)"
+				(keyup.enter)="editable2.close();"
+				(blur)="onBlur()"
+				[type]="'text'"/>
+		</div>
+
+		</editable-text-app>
+	</field-cell-app>

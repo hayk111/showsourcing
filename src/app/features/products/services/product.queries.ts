@@ -44,7 +44,14 @@ export class ProductQueries {
 				id,
 				name,
 				supplier {
-					id, name, address, country
+					id,
+					name,
+					address,
+					country,
+					logoImage {
+						id,
+						fileName
+					}
 				},
 				images {
 					id, fileName
@@ -60,7 +67,15 @@ export class ProductQueries {
 				},
 				description,
 				event {
-					id, name
+					id,
+					alias,
+					description {
+						id
+						logoImage {
+							id,
+							fileName
+						}
+					}
 				},
 				favorite,
 				status {
@@ -97,14 +112,21 @@ export class ProductQueries {
 					rows {
 						id,
 						label,
-						price
+						price {
+							id,
+							value,
+							currency
+						}
 					}
 				}
 				leadTimeValue,
 				leadTimeUnit,
 				sample,
 				samplePrice,
-				taskCount
+				taskCount,
+				createdBy {
+					id, name
+				}
 			}
 		}
 	`;

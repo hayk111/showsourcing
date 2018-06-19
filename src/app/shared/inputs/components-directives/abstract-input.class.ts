@@ -1,6 +1,5 @@
-import { EventEmitter, forwardRef, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AutoUnsub } from '~utils';
 
 /** factory function to create an access provider */
 export function makeAccessorProvider(type: any) {
@@ -24,19 +23,25 @@ export class AbstractInput implements ControlValueAccessor {
 	// to give accessor its formControl value associated to it
 	writeValue(value: any): void {
 		this.value = value;
-		this.cd.markForCheck();
+		this.cd.detectChanges();
 	}
 
 	// Implemented as part of ControlValueAccessor.
 	// this is to notify a formControl that the value has changed
 	// this has nothing to do with the change event (altough when a change event occurs this will as well)
 	registerOnChange(fn: any): void {
-		this.onChangeFn = fn;
+		this.onChangeFn = (value) => {
+			fn(value);
+			this.cd.detectChanges();
+		};
 	}
 
 	// Implemented as part of ControlValueAccessor.
 	registerOnTouched(fn: any): void {
-		this.onTouchedFn = fn;
+		this.onTouchedFn = (value) => {
+			fn(value);
+			this.cd.detectChanges();
+		};
 	}
 
 	// Implemented as part of ControlValueAccessor.

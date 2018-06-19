@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { countries, incoTerms, harbours, currencies } from '~utils/constants';
+import { countries, incoTerms, harbours, currencies, lengths } from '~utils/constants';
 import { of, Observable } from 'rxjs';
 import { ApolloClient } from '~shared/apollo';
 import { SelectorQueries } from './selector.queries';
@@ -16,19 +16,19 @@ export class SelectorsService {
 
 	constructor(private apollo: ApolloClient) { }
 
-	getCountries(): Array<any> {
+	getCountries(): any[] {
 		return countries;
 	}
 
-	getIncoTerms(): Array<any> {
+	getIncoTerms(): any[] {
 		return incoTerms;
 	}
 
-	getHarbours(): Array<any> {
+	getHarbours(): any[] {
 		return harbours;
 	}
 
-	getCurrencies(): Array<any> {
+	getCurrencies(): any[] {
 		return currencies;
 	}
 
@@ -60,6 +60,16 @@ export class SelectorsService {
 		return this.apollo.subscribe({ query: SelectorQueries.supplierTypes }).pipe(
 			map(r => r.data.supplierTypes)
 		);
+	}
+
+	getUsers(): Observable<Choice[]> {
+		return this.apollo.subscribe({ query: SelectorQueries.users }).pipe(
+			map(r => r.data.users)
+		);
+	}
+
+	getLengths(): any[] {
+		return lengths;
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

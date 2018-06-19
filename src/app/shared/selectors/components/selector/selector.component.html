@@ -1,5 +1,4 @@
 <div class="{{ canCreate ? 'canCreate' : '' }}">
-
 	<ng-select #ngSelect
 		class="custom"
 		[(ngModel)]="value"
@@ -8,6 +7,7 @@
 		(add)="onSelect($event)"
 		(remove)="onUnselect($event)"
 		(change)="onChange($event)"
+		(blur)="onBlur()"
 		[virtualScroll]="true"
 		[items]="filteredChoices"
 		[bindValue]="bindValue"

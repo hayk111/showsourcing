@@ -26,20 +26,36 @@ import { takeUntil } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorEntityComponent extends AbstractInput implements OnInit {
+	/**  the type of entity we gonna select from. */
+	@Input() set type(type: string) {
+		this._type = type;
+		if (this._type === 'event') {
+			this.propertyName = 'alias';
+		}
+	}
+	get type(): string {
+		return this._type;
+	}
+	private _type;
 
-	@Input() type: string;
 	// whether multiple entities can be selectioned
 	@Input() multiple = false;
 	// value is the id of the entity
 	@Input() value: any;
-	// the name that will appear in the selector. EG: 'No "country" found', or 'create new "country"'.
+	// the name that will appear in the selector. EG: 'No "supplier" found', or 'create new "supplier"'.
 	@Input() itemName = 'item';
 	// events that emits the id of the entity
+	/** This is the property name we are gonna display */
+	@Input() propertyName = 'name';
+	/** whether we can create a new entity */
+	@Input() canCreate = true;
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices$: Observable<any[]>;
+
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);
@@ -68,6 +84,11 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		this.unselect.emit(choice);
 	}
 
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
+	}
+
 	setChoices() {
 		switch (this.type) {
 			case 'supplier': this.choices$ = this.srv.getSuppliers(); break;
@@ -75,6 +96,9 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 			case 'event': this.choices$ = this.srv.getEvents(); break;
 			case 'tag': this.choices$ = this.srv.getTags(); break;
 			case 'supplierType': this.choices$ = this.srv.getSupplierTypes(); break;
+			case 'user':
+				this.choices$ = this.srv.getUsers();
+				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
 	}
@@ -98,11 +122,11 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 				break;
 			case 'tag':
 				added = new Tag({ name });
-				createObs$ = this.srv.createTag(new Tag({ name }));
+				createObs$ = this.srv.createTag(added);
 				break;
 			case 'supplierType':
 				added = new SupplierType({ name });
-				createObs$ = this.srv.createSupplierType(new SupplierType({ name }));
+				createObs$ = this.srv.createSupplierType(added);
 				break;
 			default: throw Error(`Unsupported type ${this.type}`);
 		}

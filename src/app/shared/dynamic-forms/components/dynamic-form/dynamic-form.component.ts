@@ -43,7 +43,7 @@ export class DynamicFormComponent implements OnInit {
 			const end = i * fieldPerCol + fieldPerCol;
 			this.cols[i] = fields.slice(start, end);
 		}
-
 	}
+
 
 }

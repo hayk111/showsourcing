@@ -34,6 +34,8 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 	@Output() select = new EventEmitter<Choice>();
 	@Output() unselect = new EventEmitter<Choice>();
 	@Output() change = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
+
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	choices: any[];
 
@@ -57,6 +59,11 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 		this.change.emit(this.value);
 	}
 
+	onBlur() {
+		this.onTouchedFn();
+		this.blur.emit();
+	}
+
 	onSelect(choice: Choice) {
 		// to notify the formControl we need to call this
 		this.select.emit(choice);
@@ -72,6 +79,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 			case 'currency': this.choices = this.srv.getCurrencies(); break;
 			case 'harbour': this.choices = this.srv.getHarbours(); break;
 			case 'incoTerm': this.choices = this.srv.getIncoTerms(); break;
+			case 'length': this.choices = this.srv.getLengths(); break;
 			default: throw Error('Unsupported type');
 		}
 	}
