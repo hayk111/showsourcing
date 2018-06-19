@@ -123,7 +123,7 @@ export class TableComponent {
 	hoverRow(index: number) {
 		this.hoverIndex = index;
 		// if we have a positive index, extract id of the row entity
-		const idEmit = index >= 0 ? this.rows[index].id : index;
+		const idEmit = index >= 0 ? this.rows[index][this.idName] : index;
 		this.hovered.emit(idEmit);
 	}
 
