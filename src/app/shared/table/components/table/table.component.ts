@@ -45,6 +45,7 @@ export class TableComponent {
 	// when we scroll down to the end of the table
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sort = new EventEmitter<SortEvent>();
+	@Output() hovered = new EventEmitter<string>();
 	// all the columns
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
@@ -121,6 +122,9 @@ export class TableComponent {
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
+		// if we have a positive index, extract id of the row entity
+		const idEmit = index >= 0 ? this.rows[index].id : index;
+		this.hovered.emit(idEmit);
 	}
 
 	isSelected(row, index: number) {
@@ -138,7 +142,7 @@ export class TableComponent {
 		event.stopPropagation();
 	}
 
-	@HostListener('window:click', [ 'event' ])
+	@HostListener('window:click', ['event'])
 	onClickWindow(event) {
 		Object.keys(this.contextualMenuOpened).forEach(key => {
 			this.contextualMenuOpened[key] = false;

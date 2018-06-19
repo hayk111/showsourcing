@@ -22,11 +22,11 @@
 <data-management-table-app
 	[categories]="categories$ |async"
 	[selected]="selected$ | async"
+	[pending]="pending"
 	(sort)="onSort($event)"
 	(categorySelect)="selectItem($event)"
 	(categoryUnselect)="unselectItem($event)"
 	(categorySelectAll)="selectAll()"
 	(categoryUnselectAll)="resetSelection()"
-	(categoryOpen)="onItemOpened($event)"
-	>
+	(categoryOpen)="onItemOpened($event)">
 </data-management-table-app>

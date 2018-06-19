@@ -1,15 +1,58 @@
 <table-app
 	[rows]="categories"
+	[pending]="pending"
 	[selected]="selected"
 	(selectOne)="categorySelect.emit($event)"
 	(unselectOne)="categoryUnselect.emit($event)"
 	(selectAll)="categorySelectAll.emit($event)"
-	(unselectAll)="categoryUnselectAll.emit($event)">
-	<!-- Name Category -->
-	<ng-template>
+	(unselectAll)="categoryUnselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(hovered)="onHover($event)">
 
+	<!-- Name Category -->
+	<ng-template
+		columnApp="Name"
+		let-row="row"
+		width="250">
+		<div class="category_name"> {{row.name}} </div>
 	</ng-template>
+
 	<!-- Created By -->
+	<ng-template
+		columnApp="Created By"
+		let-row="row"
+		width="140">
+		<span class="center">
+			{{ row.createdBy ? row.createdBy.fullName : '-' }}
+			{{ row.createdBy ? row.createdBy.size : '-' }}
+		</span>
+	</ng-template>
+
 	<!-- Products Count -->
+	<ng-template
+		columnApp="Products Count"
+		let-row="row"
+		width="140">
+		<span>
+		</span>
+	</ng-template>
+
 	<!-- Supplier Count -->
+	<ng-template
+		columnApp="Suppliers Count"
+		let-row="row"
+		width="140">
+		<span>
+		</span>
+	</ng-template>
+
+	<!-- No selection options -->
+	<ng-template
+		columnApp=""
+		let-row="row"
+		width="140">
+		<button *ngIf="row.id === idEntityHovered" (click)="addEntity(row.id)">
+			Add
+		</button>
+	</ng-template>
 </table-app>

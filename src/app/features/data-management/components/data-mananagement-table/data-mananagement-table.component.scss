@@ -1,0 +1,10 @@
+:host {
+	display: flex;
+	margin: var(--spacing-xl) var(--spacing-edge);
+	height: calc(100% - 228px);
+}
+
+table-app {
+	margin-left: auto;
+	margin-right: auto;
+}
