@@ -3,15 +3,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { User, Team } from '~models';
 import { Observable } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { UserService } from '~features/user/services/user.service';
 
 @Component({
-	selector: 'user-settings-app',
-	templateUrl: './user-settings.component.html',
-	styleUrls: ['./user-settings.component.scss'],
+	selector: 'settings-profile-app',
+	templateUrl: './settings-profile.component.html',
+	styleUrls: ['./settings-profile.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserSettingsComponent implements OnInit {
+export class SettingsProfileComponent implements OnInit {
 	form: FormGroup;
 	user$: Observable<User>;
 	teams$: Observable<Team[]>;

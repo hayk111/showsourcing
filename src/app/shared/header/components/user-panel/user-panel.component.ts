@@ -19,7 +19,7 @@ export class UserPanelComponent implements OnInit {
 	ngOnInit() { }
 
 	goToSettings() {
-		this.router.navigate(['user', 'settings']);
+		this.router.navigate(['settings', 'profile']);
 		this.close.emit();
 	}
 

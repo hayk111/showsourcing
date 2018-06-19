@@ -5,21 +5,22 @@ import { Filter } from '~shared/filters/models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-	selector: 'top-panel-app',
-	templateUrl: './top-panel.component.html',
-	styleUrls: ['./top-panel.component.scss'],
+	selector: 'sub-panel-app',
+	templateUrl: './sub-panel.component.html',
+	styleUrls: ['./sub-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopPanelComponent {
-	// TODO: the following inputs will be removed in the future. Left here
-	// to avoid errors during migration
-
+export class SubPanelComponent {
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view
 	@Input() hasSwitch = true;
 	// whether the screen has a search input
 	@Input() hasSearch = true;
+	/** title of the bread crumb */
+	@Input() title: string;
+	/** subtitles of the bread crumb */
+	@Input() subtitles: Array<string>;
 
 	// view that can be switched into
 	@Input() view: 'list' | 'card';
@@ -33,11 +34,5 @@ export class TopPanelComponent {
 	// when the filter button is clicked
 	@Output() filterClick = new EventEmitter<null>();
 
-	// TODO: only the two following inputs will remain
-
-	/** title of the bread crumb */
-	@Input() title: string;
-	/** subtitles of the bread crumb */
-	@Input() subtitles: Array<string>;
 
 }

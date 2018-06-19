@@ -1,0 +1,37 @@
+
+<top-panel-app
+    title="ShowSourcing - Fashion"
+    [subtitles]="['Settings', 'Team Members']">
+</top-panel-app>
+
+<sub-panel-app
+    title="Team Members"
+    [buttonName]="'Invite Collaborator'"
+    [hasSwitch]="false"
+    [hasFilter]="false"
+    (buttonClick)="openNewDialog()">
+</sub-panel-app>
+
+<team-members-list-view-app
+    [members]="members$ | async"
+    [selection]="selected$ | async"
+    [pending]="pending"
+    (bottomReached)="loadMore()"
+    (sort)="onSort($event)"
+    (memberSelect)="selectItem($event)"
+    (memberUnselect)="unselectItem($event)"
+    (memberSelectAll)="selectAll()"
+    (memberUnselectAll)="resetSelection()"
+    (accessTypeUpdated)="accessTypeUpdated($event)"
+    (memberOpen)="onItemOpened($event)"
+    (delete)="deleteSelected($event)"></team-members-list-view-app>
+
+<ng-container *ngIf="selected$ | async as selected">
+    <selection-bar-app
+        [ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
+        (close)="resetSelection()"
+        (delete)="deleteSelection()"
+        *ngIf="selected.size > 0"
+        [selection]="selected"></selection-bar-app>
+</ng-container>
+

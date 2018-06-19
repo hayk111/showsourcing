@@ -6,5 +6,6 @@ export enum DialogName {
 	NEW_TASK = 'new task',
 	NEW_SUPPLIER = 'new supplier',
 	CONTACT = 'contact',
-	NEW_PRODUCT = 'new product'
+	NEW_PRODUCT = 'new product',
+	INVITE_USER = 'invite user'
 }

@@ -10,7 +10,7 @@ import { routes as dataManagementRoutes } from '~features/data-management/routes
 import { routes as supplierRoutes } from '~features/supplier/routes';
 import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as productRoutes } from '~features/products/routes';
-import { routes as userRoutes } from '~features/user/routes';
+import { routes as settingsRoutes } from '~features/settings/routes';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { DataManagementPageComponent } from '~features/data-management/containers';
 import { routes as pickATeamRoutes } from '~features/pick-a-team/routes';
@@ -46,7 +46,7 @@ export const routes: Array<Route> = [
 			{ path: 'product', children: productRoutes },
 			{ path: 'supplier', children: supplierRoutes },
 			{ path: 'data-management', component: DataManagementPageComponent },
-			{ path: 'user', children: userRoutes },
+			{ path: 'settings', children: settingsRoutes },
 			{ path: 'test', children: testRoutes },
 		],
 	},
