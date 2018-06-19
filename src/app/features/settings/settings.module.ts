@@ -8,7 +8,8 @@ import {
 import {
 	SettingsProfileComponent, SettingsMenuComponent,
 	SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
-	TeamMembersListViewComponent, SettingsMenuItemGroupComponent
+	TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
+	InviteUserDlgComponent
 } from './components';
 import { UserModule } from '~features/user';
 import { SharedModule } from '~shared/shared.module';
@@ -17,9 +18,11 @@ import { RouterModule } from '@angular/router';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { TableModule } from '~shared/table';
+import { DialogModule } from '~shared/dialog/dialog.module';
 
 import { MemberService } from '~features/settings/services/member.service';
 import { SelectionService } from '~features/settings/services/selection.service';
+import { MenuService } from '~features/settings/services/menu.service';
 
 @NgModule({
 	imports: [
@@ -27,16 +30,21 @@ import { SelectionService } from '~features/settings/services/selection.service'
 		ReactiveFormsModule,
 		RouterModule,
 		TopPanelModule,
+		DialogModule,
 		UserModule.forChild(),
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 	],
-	providers: [MemberService, SelectionService],
+	providers: [MemberService, SelectionService, MenuService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, SettingsMenuComponent,
 		SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
-		TeamMembersListViewComponent, SettingsMenuItemGroupComponent
+		TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
+		InviteUserDlgComponent
+	],
+	entryComponents: [
+		InviteUserDlgComponent
 	],
 	exports: [],
 })

@@ -1,8 +1,10 @@
 import {
 	Component, Input, Output,
 	EventEmitter, ContentChildren, QueryList,
-	ElementRef,	Renderer2, OnChanges
+	ElementRef,	Renderer2, OnChanges,
+	OnInit
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { SettingsMenuItemLabelDirective } from '../settings-menu-item-label/settings-menu-item-label.directive';
@@ -12,17 +14,22 @@ import { SettingsMenuItemLabelDirective } from '../settings-menu-item-label/sett
 	templateUrl: './settings-menu-item.component.html',
 	styleUrls: ['./settings-menu-item.component.scss']
 })
-export class SettingsMenuItemComponent implements OnChanges {
+export class SettingsMenuItemComponent implements OnChanges, OnInit {
 	@Input() hasChildren = false;
 	@Input() link: string;
 	@Output() expanded = new EventEmitter<boolean>();
 	@ContentChildren(SettingsMenuItemLabelDirective, {descendants: true, read: ElementRef}) labelRefs: QueryList<ElementRef>;
 
 	internalExpanded = false;
+	selected = false;
 
-	constructor(private renderer: Renderer2, private router: Router) {
+	constructor(private renderer: Renderer2, private router: Router, private location: Location) {
+	}
 
-		}
+	ngOnInit() {
+		const path = this.location.path();
+		this.selected = (path === this.link);
+	}
 
 	onToggleExpanded() {
 		this.internalExpanded = !this.internalExpanded;
@@ -30,7 +37,6 @@ export class SettingsMenuItemComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes) {
-				console.log('changes = ', changes);
 		if (changes.internalExpanded) {
 			const internalExpanded = changes.internalExpanded.currentValue;
 			this.handleLabelDisplay(internalExpanded);

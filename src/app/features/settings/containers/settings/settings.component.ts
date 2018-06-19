@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { MenuService } from '~features/settings/services/menu.service';
+
 @Component({
 	selector: 'settings-app',
 	templateUrl: './settings.component.html',
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class SettingsComponent {
 
+	constructor(private menuSrv: MenuService) { }
+
+	onMenuExpanded(state: boolean) {
+		if (state) {
+			this.menuSrv.collapseMenu();
+		} else {
+			this.menuSrv.expandMenu();
+		}
+	}
 }

@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { QueryRef } from 'apollo-angular';
 import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
-import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, publish, take, refCount, filter, first, switchMap } from 'rxjs/operators';
+import { Observable, forkJoin } from 'rxjs';
 import { MemberQueries } from '~features/settings/services/member.queries';
 import { TeamUser } from '~models';
 import { Contact, Task } from '~models';
 import { Product } from '~models';
 import { uuid } from '~utils/uuid.utils';
 import { PER_PAGE } from '~utils/constants';
+import { UserService } from '~features/user';
 
 
 @Injectable()
 export class MemberService {
 	private membersQuery$: QueryRef<string, any>;
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(private apollo: ApolloClient, private userSrv: UserService) { }
 
 	/*
 		Initialize the underlying query ref for the list of
@@ -112,9 +113,27 @@ export class MemberService {
 		});
 	}
 
-	removeMembers(ids: string[]) {
-		throw Error('now implemented yet');
+	deleteMember(memberId: string) {
+		return this.apollo.update({ mutation: MemberQueries.deleteMember, input: memberId, typename: 'TeamUser' }).pipe(first());
 	}
 
+	deleteMembers(members: string[]) {
+		return forkJoin(members.map(memberId => this.deleteMember(memberId)));
+	}
+
+	inviteMember(email: string) {
+		return this.userSrv.selectUser().pipe(
+			switchMap(user => {
+				const invitation = {
+					id: uuid(),
+					email,
+					inviter: user,
+					accessType: 'ReadOnly',
+					status: 'pending'
+				};
+				return this.apollo.update({ mutation: MemberQueries.inviteMember, input: invitation, typename: 'TeamUser' }).pipe(first());
+			})
+		);
+	}
 }
 

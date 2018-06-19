@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import {
+	Component, ChangeDetectionStrategy, Input,
+	Output, EventEmitter, ViewChild, TemplateRef
+} from '@angular/core';
 
 import { TeamUser } from '~models';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
@@ -21,8 +24,14 @@ export class TeamMembersListViewComponent {
 	@Output() memberFavorited = new EventEmitter<string>();
 	@Output() memberUnfavorited = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<string>();
+	@Output() accessTypeUpdated = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<SortEvent>();
+	@Output() delete = new EventEmitter<TeamUser>();
 
-	constructor() { }
+	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
+	accessTypes = [
+		{ label: 'Read Only', value: 'ReadOnly' },
+		{ label: 'Full Access', value: 'FullAccess' }
+	];
 }

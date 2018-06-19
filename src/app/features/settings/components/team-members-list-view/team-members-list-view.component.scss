@@ -42,3 +42,15 @@ a:hover {
 	text-decoration: underline;
 	color: var(--color-primary);
 }
+
+menu {
+	left: 10px;
+	border: solid 1px var(--color-bg-third);
+	background-color: var(--color-primary-light);
+	width: 150px;
+	z-index: 1000;
+}
+
+menuitem {
+	padding: 10px;
+}

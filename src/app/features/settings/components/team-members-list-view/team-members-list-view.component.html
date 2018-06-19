@@ -1,5 +1,6 @@
 <table-app
-	[rows]="members"
+    [rows]="members"
+    [contextualMenu]="contextualMenu"
 	[pending]="pending"
 	[selected]="selection"
 	class="z-2"
@@ -12,7 +13,7 @@
 
     <!-- supplier row -->
 	<ng-template
-		columnApp="Supplier"
+		columnApp="Name"
 		sortWith="user.firstName"
 		let-row="row"
         width="280">
@@ -40,7 +41,8 @@
 		sortWith="accessType"
 		[comparator]="arrayComparator"
 		width="280">
-		{{ row.accessType }}
+        <select-app [label]="row.accessType" [values]="accessTypes"
+            (select)="accessTypeUpdated.emit({ member: row, accessType: $event })"></select-app>
 	</ng-template>
 
 	<!-- status -->
@@ -55,3 +57,11 @@
 	</ng-template>
 
 </table-app>
+
+<ng-template #contextualMenu let-row="row">
+        <menu class="z-4">
+            <menuitem class="pointer flexCenter" (click)="delete.emit(row)" i18n="member menu | export">
+                <div class="border">Remove User</div>
+            </menuitem>
+        </menu>
+    </ng-template>    

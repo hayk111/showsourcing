@@ -12,6 +12,7 @@ export class MemberQueries {
 			teamUsers(query: $query) {
 				id,
 				user {
+					id,
 					firstName,
 					lastName,
 					email
@@ -26,6 +27,7 @@ export class MemberQueries {
 			teamUsers(take: 30) {
 				id,
 				user {
+					id,
 					firstName,
 					lastName,
 					email
@@ -38,17 +40,25 @@ export class MemberQueries {
 	static updateMember = gql`
 		mutation teamUsers($input: TeamUserInput!) {
 			updateTeamUser(input: $input) {
-				id
+				id,
+				accessType
 			}
 		}
 	`;
 
 	static deleteMember = gql`
 		mutation teamUsers($input: TeamUserInput!) {
-		deleteTeamuser(input: $input) {
+			deleteTeamuser(input: $input)
+		}
+	`;
+
+	static inviteMember = gql`
+		mutation invitations($input: InvitationInput!) {
+			updateInvitation(input: $input) {
 				id
 			}
 		}
 	`;
+
 }
 

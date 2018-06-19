@@ -1,8 +1,8 @@
 
 <top-panel-app
     [title]="'Members'"
-    [buttonName]="'Add Member'"
-    [subtitles]="['Members', 'all']"
+    [buttonName]="'Invite Collaborator'"
+    [subtitles]="['Settings', 'Team Members']"
     [hasSwitch]="false"
     [hasFilter]="false"
     (buttonClick)="openNewDialog()">
@@ -14,16 +14,17 @@
     [pending]="pending"
     (bottomReached)="loadMore()"
     (sort)="onSort($event)"
-    (supplierSelect)="selectItem($event)"
-    (supplierUnselect)="unselectItem($event)"
-    (supplierSelectAll)="selectAll()"
-    (supplierUnselectAll)="resetSelection()"
-    (supplierOpen)="onItemOpened($event)"
-    (supplierFavorited)="onItemFavorited($event)"
-    (supplierUnfavorited)="onItemUnfavorited($event)"></team-members-list-view-app>
+    (memberSelect)="selectItem($event)"
+    (memberUnselect)="unselectItem($event)"
+    (memberSelectAll)="selectAll()"
+    (memberUnselectAll)="resetSelection()"
+    (accessTypeUpdated)="accessTypeUpdated($event)"
+    (memberOpen)="onItemOpened($event)"
+    (delete)="deleteSelected($event)"></team-members-list-view-app>
 
 <ng-container *ngIf="selected$ | async as selected">
     <selection-bar-app
+        [ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
         (close)="resetSelection()"
         (delete)="deleteSelection()"
         *ngIf="selected.size > 0"

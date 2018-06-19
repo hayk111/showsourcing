@@ -1,18 +1,18 @@
 <div class="flex settings">
-  <settings-menu-app>
+  <settings-menu-app (expanded)="onMenuExpanded($event)">
         <settings-menu-item-app link="/settings/profile">
             <icon-app fontSet="svg" name="profile"></icon-app> <span menuLabelApp>Profile</span>
         </settings-menu-item-app>
-        <settings-menu-item-app link="/settings/profile">
+        <settings-menu-item-app link="/settings/workflows">
             <icon-app fontSet="svg" name="workflow"></icon-app> <span menuLabelApp>Workflows</span>
         </settings-menu-item-app>
-        <settings-menu-item-app link="/settings/profile">
+        <settings-menu-item-app link="/settings/fields">
             <icon-app fontSet="svg" name="fields"></icon-app> <span menuLabelApp>Fields Setup</span>
         </settings-menu-item-app>
         <settings-menu-item-app link="/settings/team/members">
             <icon-app fontSet="svg" name="team"></icon-app> <span menuLabelApp>Team Members</span>
         </settings-menu-item-app>
-        <settings-menu-item-app link="/settings/profile">
+        <settings-menu-item-app link="/settings/data">
             <icon-app fontSet="svg" name="data-cleansing"></icon-app> <span menuLabelApp>Data Cleansing</span>
         </settings-menu-item-app>
         <!-- settings-menu-item-app [hasChildren]="true">
