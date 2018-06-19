@@ -42,12 +42,11 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	];
 	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
-		// { name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		// { name: 'masterCarton', type: 'packaging', label: 'master carton' },
+		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
+		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix'},
-		{ name: 'leadTimeValue', type: 'number', label: 'Lead time value' },
+		{ name: 'leadTimeValue', type: 'days', label: 'Lead time value' },
 		{ name: 'leadTimeUnit', type: 'text', label: 'Lead time unit' }
-
 	];
 
 	constructor(private route: ActivatedRoute, private srv: ProductService) {

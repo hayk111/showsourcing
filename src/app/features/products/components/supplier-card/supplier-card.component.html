@@ -2,21 +2,18 @@
 
 <h2 i18n="header 2|Supplier information on product page@@supplierCard_supplier">Supplier</h2>
 
-<div class="flex ">
+<div class="flexVAlign">
 	<div class="left flexCenter">
-		<icon-app fontSet="svg" name="supplier"></icon-app>
+		<img [src]="supplier | logo:'supplier'"/>
 	</div>
 
 	<div class="right flexColumn">
 		<span class="name">{{ supplier?.name }}</span>
 		<span class="from" *ngIf="supplier?.country">
-			Manufacturer from {{ supplier?.country }}
-		</span>
-		<span class="from" *ngIf="supplier?.address">
-			{{ supplier?.address }}
+			Manufacturer from {{ supplier?.country | const:'country' }}
 		</span>
 
-		<badge-app [color]="supplier?.status">
+		<badge-app *ngIf="supplier.status" [color]="supplier?.status">
 			{{ supplier?.status }}
 		</badge-app>
 

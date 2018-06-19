@@ -16,6 +16,13 @@ input {
 	padding: 6px;
 }
 
+/** for packaging and price matrix */
+label {
+	color: var(--color-primary);
+  font-size: var(--font-size-l);
+  font-weight: bold;
+}
+
 .currencyLabel {
 	padding: var(--spacing-xs) var(--spacing-s);
 	border: 1px solid var(--color-primary);

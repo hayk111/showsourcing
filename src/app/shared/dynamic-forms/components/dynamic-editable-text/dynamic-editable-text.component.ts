@@ -14,7 +14,7 @@ import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inp
 import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { ImagePipe } from '~shared/utils/pipes/image.pipe';
-import { DEFAULT_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON } from '~utils';
+import { DEFAULT_IMG, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON, uuid } from '~utils';
 
 @Component({
 	selector: 'dynamic-editable-text-app',
@@ -60,6 +60,8 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	/** same as accumulate but the value is an object and we are changing only one field */
 	accumulateNested(propName: string, value: any) {
 		this.accumulator = {
+			// we need to put an id for new object, if the object already exist then ...this.value will override it
+			id: uuid(),
 			...this.value,
 			[propName]: value
 		};

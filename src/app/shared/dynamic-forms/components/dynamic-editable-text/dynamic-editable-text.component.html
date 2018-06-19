@@ -2,7 +2,7 @@
 
 
 	<!-- default -->
-	<!-- hint: field cell is used for almost every field, but not all -->
+	<!-- hint: field cell is used for almost every field, but options differs (packaging) -->
 	<field-cell-app *ngSwitchDefault [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"
 		[label]="customField.label || customField.name">
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -26,16 +26,14 @@
 		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 			<label-app>{{ customField.value || '-' }}</label-app>
 			<form-field-app>
-				<div class="flex">
-					<input inputApp
-						#inp
-						restrictInput="tel"
-						autofocus="true"
-						[value]="customField.value"
-						(input)="accumulate(inp.value)"
-						(keyup.enter)="editable.close();"
-						[type]="customField.type"/>
-				</div>
+				<input inputApp
+					#inp
+					restrictInput="tel"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close();"
+					[type]="customField.type"/>
 			</form-field-app>
 		</editable-text-app>
 	</field-cell-app>
@@ -46,16 +44,14 @@
 		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 			<label-app>{{ customField.value || '-' }}</label-app>
 			<form-field-app>
-				<div class="flex">
-					<input inputApp
-						#inp
-						restrictInput="number"
-						autofocus="true"
-						[value]="customField.value"
-						(input)="accumulate(+inp.value)"
-						(keyup.enter)="editable.close();"
-						[type]="customField.type"/>
-				</div>
+				<input inputApp
+					#inp
+					restrictInput="number"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"
+					[type]="customField.type"/>
 			</form-field-app>
 		</editable-text-app>
 	</field-cell-app>
@@ -67,16 +63,14 @@
 		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 			<label-app>{{ customField.value || '-' }}</label-app>
 			<form-field-app>
-				<div class="flex">
-					<input inputApp
-						#inp
-						restrictInput="decimal"
-						autofocus="true"
-						[value]="customField.value"
-						(input)="accumulate(+inp.value)"
-						(keyup.enter)="editable.close();"
-						[type]="customField.type"/>
-				</div>
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"
+					[type]="customField.type"/>
 			</form-field-app>
 		</editable-text-app>
 	</field-cell-app>
@@ -89,15 +83,13 @@
 		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 			<label-app>{{ customField.value || '-' }} days</label-app>
 			<form-field-app>
-				<div class="flex">
-					<input inputApp
-						#inp
-						autofocus="true"
-						[value]="customField.value"
-						(input)="accumulate(+inp.value)"
-						(keyup.enter)="editable.close();"
-						[type]="'number'"/>
-				</div>
+				<input inputApp
+					#inp
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"
+					[type]="'number'"/>
 			</form-field-app>
 		</editable-text-app>
 	</field-cell-app>
@@ -109,18 +101,77 @@
 		<editable-text-app #editable (saved)="onSave()" (closed)="onSave()" (opened)="onOpen()">
 			<label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</label-app>
 			<form-field-app>
-				<div class="flex">
-					<textarea inputApp
-						#inp
-						autofocus="true"
-						[value]="customField.value"
-						(input)="accumulate(inp.value)">
-					</textarea>
-				</div>
+				<textarea inputApp
+					#inp
+					autofocus="true"
+					[value]="customField.value"
+					(input)="accumulate(inp.value)">
+				</textarea>
 			</form-field-app>
 		</editable-text-app>
 	</field-cell-app>
 
+	<!-- price matrix -->
+
+	<!-- packaging -->
+	<ng-container *ngSwitchCase="'packaging'">
+		<label>{{ customField.label || customField.name }}</label>
+		<!-- length -->
+		<field-cell-app #cell1 [inlineLabel]="true" [label]="'legnth'">
+			<editable-text-app #editable1 (saved)="onSave()"
+				(closed)="onSave(); cell1.hasBottom = true" (opened)="onOpen(); cell1.hasBottom = false">
+				<label-app>{{ customField?.value?.length || '-' }}</label-app>
+				<form-field-app>
+					<input inputApp
+						#inp1
+						restrictInput="number"
+						autofocus="true"
+						[value]="customField?.value?.length"
+						(input)="accumulateNested('length', +inp1.value)"
+						(keyup.enter)="editable1.close();"
+						[type]="'number'"/>
+				</form-field-app>
+			</editable-text-app>
+		</field-cell-app>
+
+		<!-- width -->
+		<field-cell-app #cell2 [inlineLabel]="true" [label]="'width'">
+			<editable-text-app #editable2 (saved)="onSave()"
+				(closed)="onSave(); cell2.hasBottom = true" (opened)="onOpen(); cell2.hasBottom = false">
+				<label-app>{{ customField?.value?.width || '-' }}</label-app>
+				<form-field-app>
+					<input inputApp
+						#inp2
+						restrictInput="number"
+						autofocus="true"
+						[value]="customField?.value?.width"
+						(input)="accumulateNested('width', +inp2.value)"
+						(keyup.enter)="editable2.close();"
+						[type]="'number'"/>
+				</form-field-app>
+			</editable-text-app>
+		</field-cell-app>
+
+		<!-- height -->
+		<field-cell-app #cell3 [inlineLabel]="true" [label]="'width'">
+			<editable-text-app #editable3 (saved)="onSave()"
+				(closed)="onSave(); cell3.hasBottom = true" (opened)="onOpen(); cell3.hasBottom = false">
+				<label-app>{{ customField?.value?.height || '-' }}</label-app>
+				<form-field-app>
+						<input inputApp
+							#inp3
+							restrictInput="number"
+							autofocus="true"
+							[value]="customField?.value?.height"
+							(input)="accumulateNested('height', +inp3.value)"
+							(keyup.enter)="editable3.close();"
+							[type]="'number'"/>
+				</form-field-app>
+			</editable-text-app>
+		</field-cell-app>
+
+
+	</ng-container>
 
 	<!-- price -->
 	<field-cell-app *ngSwitchCase="'price'" [hasBottom]="!isOpen" [inlineLabel]="inlineLabel"

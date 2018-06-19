@@ -2,10 +2,10 @@
 	display: block;
 }
 
-.supplierIcon {
-	background: var(--color-primary-light);
+img {
 	height: 48px;
 	width: 48px;
+	border-radius: 50%;
 }
 
 h2 {
@@ -16,7 +16,10 @@ h2 {
 	margin-left: var(--spacing-m);
 
 	& > * {
-		margin-bottom: var(--spacing-s);
+		margin-bottom: 10px;
+	}
+	badge-app {
+		margin-bottom: 0;
 	}
 
 	.name {
