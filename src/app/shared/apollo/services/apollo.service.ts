@@ -153,8 +153,12 @@ export class ApolloService {
 		try {
 			// 1. getting the user's realm uri. We need to query 2 clients for that. lol wtf ?!
 			const user = await this.getUser(id);
-			const realm = await this.getRealm(user.realmServerName);
+			// const realm = await this.getRealm(user.realmServerName);
 			// 2. creating user client
+			const realm = {
+				httpsPort: 9443,
+				hostname: 'ros-dev2.showsourcing.com'
+			};
 			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
 			Log.debug('Apollo service', 'creating user client');
 			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
@@ -170,7 +174,11 @@ export class ApolloService {
 		try {
 			// we first clear the last team picked cache
 			this.clearClient(this.apollo);
-			const realm = await this.getRealm(team.realmServerName);
+			// const realm = await this.getRealm(team.realmServerName);
+			const realm = {
+				httpsPort: 9443,
+				hostname: 'ros-dev2.showsourcing.com'
+			};
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createTeamClient(uris.httpUri, uris.wsUri, this.accessTokenState.token);
 			this._teamClientReady$.next(true);

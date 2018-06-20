@@ -49,11 +49,11 @@ export class ProductService {
 	}
 
 	/*
-		Triggers the load of a page of products based on
-		a page number.
-
-		This method returns a observable to register on to be
-		notified when the processing ends.
+	 *	Triggers the load of a page of products based on
+	 *	a page number.
+	 *
+	 *	This method returns a observable to register on to be
+	 *	notified when the processing ends.
 	 */
 	loadProductsNextPage({ page, sort, filtergroup }) {
 		this.initializeProductQuery();
@@ -65,12 +65,12 @@ export class ProductService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-				skip: page * PER_PAGE,
-				take: PER_PAGE,
-				query: this.createQueryFromFilters(filtergroup),
-				sortBy: 'name',
-				descending: true
-			},
+					skip: page * PER_PAGE,
+					take: PER_PAGE,
+					query: this.createQueryFromFilters(filtergroup),
+					sortBy: 'name',
+					descending: true
+				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) { return prev; }
 				return {
@@ -113,12 +113,12 @@ export class ProductService {
 			sortBy: sort.sortBy,
 			descending: sort.sortOrder === 'ASC'
 		} : {
-			skip: 0,
-			take: PER_PAGE,
-			query: this.createQueryFromFilters(filtergroup),
-			sortBy: 'name',
-			descending: true
-		})).pipe(first());
+				skip: 0,
+				take: PER_PAGE,
+				query: this.createQueryFromFilters(filtergroup),
+				sortBy: 'name',
+				descending: true
+			})).pipe(first());
 	}
 
 	createQueryFromFilters(filtergroup) {
