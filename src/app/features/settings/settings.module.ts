@@ -6,9 +6,7 @@ import {
 	SettingsComponent, SettingsTeamMembersPageComponent
 } from './containers';
 import {
-	SettingsProfileComponent, SettingsMenuComponent,
-	SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
-	TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
+	SettingsProfileComponent, TeamMembersListViewComponent,
 	InviteUserDlgComponent, NewTeamDlgComponent
 } from './components';
 import { UserModule } from '~features/user';
@@ -20,6 +18,7 @@ import { SelectionBarModule } from '~shared/selection-bar';
 import { TableModule } from '~shared/table';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { SidenavModule } from '~shared/sidenav/sidenav.module';
 
 import { MemberService } from '~features/settings/services/member.service';
 import { SelectionService } from '~features/settings/services/selection.service';
@@ -35,15 +34,13 @@ import { MenuService } from '~features/settings/services/menu.service';
 		UserModule.forChild(),
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
-		ContextMenuModule
-
+		ContextMenuModule,
+		SidenavModule
 	],
 	providers: [MemberService, SelectionService, MenuService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
-		SettingsProfileComponent, SettingsMenuComponent,
-		SettingsMenuItemComponent, SettingsMenuItemLabelDirective,
-		TeamMembersListViewComponent, SettingsMenuItemGroupComponent,
+		SettingsProfileComponent, TeamMembersListViewComponent,
 		InviteUserDlgComponent, NewTeamDlgComponent
 	],
 	entryComponents: [
