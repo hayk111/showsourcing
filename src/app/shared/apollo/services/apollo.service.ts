@@ -54,7 +54,6 @@ export class ApolloService {
 		// when unauthenticated we clear the cache
 		// when the user is connected (we can have an user id)
 		this.userSrv.user$.subscribe(user => {
-			debugger;
 			if (user)
 				this.initUserClient(user);
 			else
