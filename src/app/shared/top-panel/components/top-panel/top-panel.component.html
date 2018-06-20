@@ -5,7 +5,13 @@
 	<div class="right flexCenter">
 		<div class="flexColumns">
 			<div class="actions">Actions</div>
-			<div>
+			<div class="flex">
+				<view-switcher-app
+				class="mg-right"
+				*ngIf="hasSwitch"
+				(viewChange)="viewChange.emit($event)"
+				[view]="view"></view-switcher-app>
+
 				<button (click)="buttonClick.emit()" class="auto small">
 					<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
 					<span>{{ buttonName }}</span>

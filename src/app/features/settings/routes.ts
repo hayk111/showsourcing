@@ -12,7 +12,7 @@ export const routes: Routes = [
 		children: [
 			{ path: 'profile', component: SettingsProfileComponent },
 			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
-			{ path: 'data', component: DataManagementPageComponent },
+			{ path: 'data/:entity', component: DataManagementPageComponent },
 			{ path: '', component: SettingsProfileComponent }
 		]
 	}

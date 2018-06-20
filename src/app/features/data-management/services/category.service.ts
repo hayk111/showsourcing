@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { QueryRef } from 'apollo-angular';
-import { ApolloClient } from '~shared/apollo';
-import gql from 'graphql-tag';
-import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { filter, first, map, take } from 'rxjs/operators';
 import { CategoryQueries } from '~features/data-management/services/category.queries';
 import { Category } from '~models';
-import { Contact, Task } from '~models';
-import { Product } from '~models';
-import { uuid } from '~utils/uuid.utils';
+import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils/constants';
 
 
@@ -20,7 +16,7 @@ export class CategoryService {
 
 	/*
 		Initialize the underlying query ref for the list of
-		suppliers.
+		categories.
 	 */
 	private initializeCategoryQuery(): void {
 		if (!this.categoriesQuery$) {
@@ -28,7 +24,9 @@ export class CategoryService {
 				query: CategoryQueries.list,
 				variables: {
 					skip: 0,
-					take: PER_PAGE
+					take: PER_PAGE,
+					sortBy: 'name',
+					descending: true
 				}
 			});
 		}
@@ -84,16 +82,16 @@ export class CategoryService {
 		This method returns a promise to register on to be
 		notified when the processing ends.
 	 */
-	sortCategories({ sort }): Promise<any> {
+	sortCategories({ sort }) {
+		console.log('inside');
+		console.log(sort);
 		this.initializeCategoryQuery();
-		return this.categoriesQuery$.refetch({
-			variables: {
-				skip: 0,
-				take: PER_PAGE,
-				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'ASC'
-			}
-		});
+		return from(this.categoriesQuery$.refetch({
+			skip: 0,
+			take: PER_PAGE,
+			sortBy: sort.sortBy,
+			descending: sort.sortOrder === 'ASC'
+		})).pipe(first());
 	}
 
 	// at the moment the subscription works on only one entity and can be done only on list

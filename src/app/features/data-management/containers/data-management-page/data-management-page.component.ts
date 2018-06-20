@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, tap, takeUntil, catchError, flatMap, max, concat, count, take } from 'rxjs/operators';
-import { ERM, Category } from '~models';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~utils';
+import { tap, takeUntil } from 'rxjs/operators';
 import { CategoryService } from '~features/data-management/services/category.service';
 import { SelectionService } from '~features/supplier/services/selection.service';
+import { Category, ERM } from '~models';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -28,11 +28,15 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private categorySrv: CategoryService,
-		private selectionSrv: SelectionService) {
+		private selectionSrv: SelectionService,
+		private route: ActivatedRoute) {
 		super();
 	}
 
 	ngOnInit() {
+		this.route.params.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(params => params);
 		this.pending = true;
 		this.categories$ = this.categorySrv.selectCategories().pipe(
 			tap(() => {
@@ -68,9 +72,7 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	onSort(sort: SortEvent) {
 		this.currentSort = sort;
 		this.pending = true;
-		this.categorySrv.sortCategories({ sort }).then(() => {
-			this.pending = false;
-		});
+
 	}
 
 }
