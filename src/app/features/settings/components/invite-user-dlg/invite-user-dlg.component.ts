@@ -19,7 +19,7 @@ const addDlg = () => addDialog(InviteUserDlgComponent, DialogName.INVITE_USER);
 	styleUrls: ['./invite-user-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InviteUserDlgComponent extends AutoUnsub implements OnInit {
+export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	dlgName = DialogName.INVITE_USER;
 	pending = false;
@@ -33,18 +33,6 @@ export class InviteUserDlgComponent extends AutoUnsub implements OnInit {
 			}
 		);
 	}
-
-	ngOnInit() {
-		// this.projects$ = this.projectSrv.selectProjects();
-	}
-
-	/* select(id, value) {
-		this.selected[id] = value;
-	}
-
-	unselect(id) {
-		delete this.selected[id];
-	} */
 
 	submit() {
 		if (this.form.valid) {

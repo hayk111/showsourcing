@@ -19,7 +19,7 @@ export class MemberService {
 
 	constructor(private apollo: ApolloClient, private userSrv: UserService) { }
 
-	/*
+	/**
 		Initialize the underlying query ref for the list of
 		members.
 	 */
@@ -35,7 +35,7 @@ export class MemberService {
 		}
 	}
 
-	/*
+	/**
 		Method used to get an observable to link on to
 		get the list of members.
 
@@ -50,7 +50,7 @@ export class MemberService {
 		);
 	}
 
-	/*
+	/**
 		Triggers the load of a page of members based on
 		a page number.
 
@@ -81,7 +81,7 @@ export class MemberService {
 		});
 	}
 
-	/*
+	/**
 		Sorts the members data for a specified column.
 
 		This method returns a promise to register on to be
@@ -97,7 +97,7 @@ export class MemberService {
 		});
 	}
 
-	// at the moment the subscription works on only one entity and can be done only on list
+	/** at the moment the subscription works on only one entity and can be done only on list */
 	getById(id: string): Observable<TeamUser> {
 		return this.apollo.subscribe({ query: MemberQueries.member, variables: { query: `id == '${id}'` } }).pipe(
 			filter((r: any) => r.data.teamUsers),
@@ -134,6 +134,7 @@ export class MemberService {
 		return forkJoin(members.map(memberId => this.deleteMember(memberId)));
 	}
 
+	/** invite a user based on his / her email */
 	inviteMember(email: string) {
 		return this.userSrv.selectUser().pipe(
 			switchMap(user => {
