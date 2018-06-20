@@ -42,8 +42,7 @@ export class ApolloService {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService,
 		private httpLink: HttpLink,
-		private router: Router,
-		private ngZone: NgZone
+		private router: Router
 	) { }
 
 	init() {
@@ -56,7 +55,7 @@ export class ApolloService {
 		// when the user is connected (we can have an user id)
 		this.userSrv.user$.subscribe(user => {
 			if (user)
-				this.ngZone.runOutsideAngular(_ => this.initUserClient(user));
+				this.initUserClient(user);
 			else
 				this.clearCache();
 		});
@@ -67,7 +66,7 @@ export class ApolloService {
 				// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
 				filter(t => !!t)
 			)
-			.subscribe(team => this.ngZone.runOutsideAngular(_ => this.initTeamClient(team)));
+			.subscribe(team => this.initTeamClient(team));
 	}
 
 	/** creates global and all-users clients */
