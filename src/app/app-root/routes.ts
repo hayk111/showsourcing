@@ -19,16 +19,24 @@ import { PickATeamPageComponent } from '~features/pick-a-team/containers/pick-a-
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 import { CreateATeamPageComponent } from '~features/pick-a-team/containers/create-a-team-page/create-a-team-page.component';
-import { UserClientReadyGuardService } from '~shared/apollo/services/user-client-ready-guard.service';
+import * as ClientGuards from '~shared/apollo/guards';
 
 export const routes: Array<Route> = [
 	{
-		path: 'guest', component: GuestTemplateComponent, canActivateChild: [UnauthGuardService], children: [
+		path: 'guest',
+		component: GuestTemplateComponent,
+		canActivateChild: [
+			ClientGuards.GloabalClientsReadyGuardService, UnauthGuardService
+		],
+		children: [
 			...authRoutes
 		]
 	},
 	{
-		path: 'user', component: GuestTemplateComponent, canActivateChild: [UserClientReadyGuardService], children: [
+		path: 'user',
+		component: GuestTemplateComponent,
+		canActivateChild: [ClientGuards.UserClientReadyGuardService],
+		children: [
 			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [AuthGuardService] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [AuthGuardService] },
 			{ path: 'server-issue', component: ApolloIssuePageComponent, canActivate: [AuthGuardService] },
@@ -37,7 +45,13 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivateChild: [AuthGuardService, HasTeamGuard],
+		canActivateChild: [
+			ClientGuards.GloabalClientsReadyGuardService,
+			AuthGuardService,
+			ClientGuards.UserClientReadyGuardService,
+			HasTeamGuard,
+			ClientGuards.TeamClientReadyGuardService
+		],
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full', },
 			{ path: 'home', component: HomeComponent },

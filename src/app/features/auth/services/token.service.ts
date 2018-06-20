@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
@@ -13,19 +13,22 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 
 @Injectable()
 export class TokenService {
-	private _accessToken$ = new BehaviorSubject<AccessTokenState>({ pending: true, token: null, token_data: null });
+	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();
+	// having the token accessible synchronously makes things easier in other places
+	accessTokenSync: AccessTokenState;
 	// timeout variable. The timeout will refresh the access token.
-	timer: any;
-	// TODO: could simplify some things with get & setter
-	refreshToken: RefreshTokenResponse;
+	private timer: any;
+	private refreshToken: RefreshTokenResponse;
 
-	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) { }
+	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) {
+		this.accessToken$.subscribe(token => this.accessTokenSync = token);
+	}
 
 	clearTokens(): void {
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
 		this.localStorageSrv.remove(ACCESS_TOKEN_NAME);
-		this._accessToken$.next({ pending: false, token: null, token_data: null });
+		this._accessToken$.next({ token: null, token_data: null });
 		this.stopTimer();
 	}
 
@@ -46,7 +49,7 @@ export class TokenService {
 		if (this.refreshToken)
 			this.fetchAccessToken().subscribe();
 		else
-			this._accessToken$.next({ pending: false, token: null, token_data: null });
+			this._accessToken$.next({ token: null, token_data: null });
 
 	}
 
@@ -65,7 +68,7 @@ export class TokenService {
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
 			tap(token => this.onNewAccessToken(token)),
 			catchError(e => {
-				this._accessToken$.next({ pending: false, token: null, token_data: null });
+				this._accessToken$.next({ token: null, token_data: null });
 				return throwError(e);
 			})
 		);
@@ -99,7 +102,7 @@ export class TokenService {
 	}
 
 	private isValid(accessToken: AccessTokenState) {
-		return accessToken.token_data.expires > Date.now();
+		return accessToken.token_data.expires * 1000 > Date.now();
 	}
 
 }

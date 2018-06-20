@@ -10,5 +10,6 @@ export class User {
 	email: string;
 	currentTeam: Team;
 	preferredLanguage: string;
-	teams: any[];
+	realmServerName: string;
+	realmPath: string;
 }

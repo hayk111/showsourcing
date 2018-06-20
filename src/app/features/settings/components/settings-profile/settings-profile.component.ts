@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { User, Team } from '~models';
 import { Observable } from 'rxjs';
-import { UserService } from '~features/user/services/user.service';
+import { UserService, TeamService } from '~shared/global-services';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -16,7 +16,11 @@ export class SettingsProfileComponent implements OnInit {
 	user$: Observable<User>;
 	teams$: Observable<Team[]>;
 
-	constructor(private fb: FormBuilder, private userSrv: UserService) {
+	constructor(
+		private fb: FormBuilder,
+		private userSrv: UserService,
+		private teamSrv: TeamService) {
+
 		this.form = this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
@@ -26,7 +30,7 @@ export class SettingsProfileComponent implements OnInit {
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
-		this.teams$ = this.userSrv.selectTeams();
+		this.teams$ = this.teamSrv.selectTeams();
 	}
 
 	update(propName: string, value: string) {

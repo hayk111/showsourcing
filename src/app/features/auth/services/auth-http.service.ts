@@ -1,21 +1,17 @@
-
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Credentials } from '../interfaces';
-import { Log } from '~utils';
-import { User } from '~models';
-import { switchMap, tap, map } from 'rxjs/operators';
-import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
+import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
+
+import { Credentials } from '../interfaces';
+
 
 
 @Injectable()
 export class AuthHttpService {
 
-	constructor(private router: Router, private http: HttpClient) {
-		Log.debug('Auth Service Created');
+	constructor(private http: HttpClient) {
 	}
 
 	login(credentials: Credentials): Observable<RefreshTokenResponse> {
