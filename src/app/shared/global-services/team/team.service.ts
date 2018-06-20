@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Team } from '~models';
 import { map, filter, switchMap } from 'rxjs/operators';
-import { USER_CLIENT_NAME } from '~shared/apollo';
+import { USER_CLIENT_NAME } from '~shared/apollo/services/apollo-endpoints.const';
 import { TeamQueries } from './team.queries';
-import { ApolloClient } from '~shared/apollo';
+import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { LocalStorageService } from '~shared/local-storage';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ const SELECTED_TEAM_ID = 'selected-team-id';
 
 /**
  * Team service. At the start of the application it deals with
- * retrieving the current selected team from the local storage.
+ * retrieving the current selected team.
  */
 @Injectable({ providedIn: 'root' })
 export class TeamService {
@@ -50,17 +50,32 @@ export class TeamService {
 	}
 
 	selectTeams(): Observable<Team[]> {
-		return this.apollo.use(USER_CLIENT_NAME).subscribe({ query: TeamQueries.selectTeams }).pipe(
-			map((r: any) => r.data.teams)
+		return this.teams$;
+	}
+
+	pickTeam(team: Team): Observable<Team> {
+		this.storage.setItem(SELECTED_TEAM_ID, team.id);
+		this._selectedTeamId$.next(team.id);
+		return this._selectedTeam$;
+	}
+
+	createTeam(team: Team): Observable<any> {
+		return this.apollo.use('user').update({
+			mutation: TeamQueries.createTeam,
+			input: {
+				name: team.name,
+				id: team.id,
+				creationDate: team.creationDate,
+				status: 'pending'
+			},
+			typename: 'User'
+		}).pipe(
+			switchMap(_ => this.waitTeamValid(team)),
+			switchMap(_ => this.pickTeam(team))
 		);
 	}
 
-	pickTeam(team: Team): void {
-		this.storage.setItem(SELECTED_TEAM_ID, team.id);
-		this._selectedTeamId$.next(team.id);
-	}
-
-	hasTeam(): Observable<boolean> {
+	get hasTeam$(): Observable<boolean> {
 		return this.selectedTeam$.pipe(
 			// null state means we don't know yet
 			filter(team => team !== null),
@@ -101,6 +116,14 @@ export class TeamService {
 		}).pipe(
 			map((r: any) => r.data.teams)
 		);
+	}
+
+	/** waits for a team to go from pending to active */
+	private waitTeamValid(team: Team) {
+		return this.apollo.subscribe({
+			query: TeamQueries.selectTeamValid,
+			variables: { input: `id == "${team.id}" AND status == "active"` }
+		});
 	}
 
 }

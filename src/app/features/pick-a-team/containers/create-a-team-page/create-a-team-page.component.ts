@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { PickATeamService } from '~features/pick-a-team/services/pick-a-team.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
-import { switchMap } from 'rxjs/operators';
+import { TeamService } from '~shared/global-services';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -16,7 +15,7 @@ export class CreateATeamPageComponent {
 	pending = false;
 	error: string;
 
-	constructor(private fb: FormBuilder, private srv: PickATeamService, private router: Router) {
+	constructor(private fb: FormBuilder, private srv: TeamService, private router: Router) {
 		this.form = this.fb.group({
 			name: ['', Validators.required]
 		});

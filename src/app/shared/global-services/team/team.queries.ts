@@ -3,12 +3,28 @@ import gql from 'graphql-tag';
 
 export class TeamQueries {
 
+	static createTeam = gql`
+	mutation createTeam($input: TeamInput!) {
+		updateTeam(input: $input) {
+			id, name
+		}
+	}
+`;
+
 	static selectTeams = gql`
 		subscription teams {
 			teams {
 				id,
 				name,
 				realmUri
+			}
+		}
+	`;
+
+	static selectTeamValid = gql`
+		subscription teams($input: String!) {
+			teams(query: $input) {
+				id
 			}
 		}
 	`;
