@@ -8,6 +8,8 @@ export class Team extends BaseEntity<TeamConfig> {
 	name: string;
 	defaultCurrency: string;
 	users: [TeamUser];
+	realmServerName: string;
+	realmPath: string;
 }
 
 

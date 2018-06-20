@@ -10,14 +10,6 @@ import { AuthState } from '../interfaces';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
 
-const SELECT_USER_QUERY = gql`
-	subscription users($input: String!) {
-		users(query: $input) {
-			id,
-			status
-		}
-	}`;
-
 @Injectable()
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
@@ -66,12 +58,6 @@ export class AuthenticationService {
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
 		return this.authHttp.register(creds).pipe(
-			// we need to wait for the user to be active
-			// switchMap(user => this.apollo.use('all-users').subscribe({
-			// 	query: SELECT_USER_QUERY,
-			// 	variables: { input: `id == "${user.id}" AND status == "valid"` }
-			// }
-			// )),
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);

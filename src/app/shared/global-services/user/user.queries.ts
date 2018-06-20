@@ -3,27 +3,30 @@ import gql from 'graphql-tag';
 
 export class UserQueries {
 	static selectUser = gql`
-		subscription users {
-			users {
+		subscription users($query: String!) {
+			users(query: $query) {
 				id,
 				firstName,
 				lastName,
-				phoneNumber,
-				companyName,
 				email,
-				currentTeam,
-				preferredLanguage,
+				realmServerName,
+				realmPath
 			}
 		}
 	`;
 
-	static selectTeams = gql`
-		subscription teams {
-			teams {
+	static queryUser = gql`
+		query user($id: String!) {
+			user(id: $id) {
 				id,
-				name,
-				realmUri
+				firstName,
+				lastName,
+				email,
+				realmServerName,
+				realmPath
 			}
 		}
-	`;
+`;
+
+
 }

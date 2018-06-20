@@ -16,7 +16,8 @@ export class TeamQueries {
 			teams {
 				id,
 				name,
-				realmUri
+				realmServerName,
+				realmPath
 			}
 		}
 	`;

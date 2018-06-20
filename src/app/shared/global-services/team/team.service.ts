@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Team } from '~models';
-import { map, filter, switchMap } from 'rxjs/operators';
-import { USER_CLIENT_NAME } from '~shared/apollo/services/apollo-endpoints.const';
-import { TeamQueries } from './team.queries';
-import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
-import { LocalStorageService } from '~shared/local-storage';
-import { BehaviorSubject, Observable, combineLatest, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { Team } from '~models';
+import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { LocalStorageService } from '~shared/local-storage';
+
+import { TeamQueries } from './team.queries';
 
 
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -28,6 +29,8 @@ export class TeamService {
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
+
+		this.init();
 	}
 
 	init() {
@@ -81,7 +84,6 @@ export class TeamService {
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
-		debugger;
 		if (!selectedId) {
 			this.router.navigate(['user', 'pick-a-team']);
 			return;
@@ -107,7 +109,7 @@ export class TeamService {
 
 	/** gets teams from user realm */
 	private getTeams(): Observable<any> {
-		return this.apollo.use(USER_CLIENT_NAME).subscribe({
+		return this.apollo.use(USER_CLIENT).subscribe({
 			query: TeamQueries.selectTeams,
 		}).pipe(
 			map((r: any) => r.data.teams)

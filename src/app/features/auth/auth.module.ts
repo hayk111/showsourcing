@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthHttpService } from '~features/auth/services';
+import { AuthHttpService } from '~features/auth/services/auth-http.service';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { UnauthGuardService } from '~features/auth/services/unauth-guard.service';
 import { SharedModule } from '~shared/shared.module';

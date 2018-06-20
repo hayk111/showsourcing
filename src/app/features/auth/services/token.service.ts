@@ -15,12 +15,15 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 export class TokenService {
 	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();
+	// having the token accessible synchronously makes things easier in other places
+	accessTokenSync: AccessTokenState;
 	// timeout variable. The timeout will refresh the access token.
-	timer: any;
-	// TODO: could simplify some things with get & setter
-	refreshToken: RefreshTokenResponse;
+	private timer: any;
+	private refreshToken: RefreshTokenResponse;
 
-	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) { }
+	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) {
+		this.accessToken$.subscribe(token => this.accessTokenSync = token);
+	}
 
 	clearTokens(): void {
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);

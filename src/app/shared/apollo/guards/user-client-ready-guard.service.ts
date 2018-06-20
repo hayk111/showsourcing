@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { ApolloService } from '~shared/apollo/services/apollo.service';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { tap } from 'rxjs/operators';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { Log } from '~utils';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class UserClientReadyGuardService implements CanActivate, CanActivateChil
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloState.userClientReady$.pipe(
-			tap(d => Log.debug('%c ClientReadyGuard', 'color: turquoise', d))
+			tap(d => Log.debug('%c UserClientReadyGuard', 'color: turquoise', d))
 		);
 	}
 
