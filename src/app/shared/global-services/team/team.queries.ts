@@ -6,7 +6,7 @@ export class TeamQueries {
 	static createTeam = gql`
 	mutation createTeam($input: TeamInput!) {
 		updateTeam(input: $input) {
-			id, name
+			id, name, realmPath, realmServerName
 		}
 	}
 `;

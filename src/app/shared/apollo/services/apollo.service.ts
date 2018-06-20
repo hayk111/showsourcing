@@ -103,7 +103,6 @@ export class ApolloService {
 		try {
 			// we first clear the last team picked cache
 			this.clearClient(this.apollo);
-			debugger;
 			const realm = await this.getRealm(team.realmServerName);
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createTeamClient(uris.httpUri, uris.wsUri);

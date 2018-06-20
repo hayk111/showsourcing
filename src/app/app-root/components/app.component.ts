@@ -22,5 +22,6 @@ export class AppComponent implements OnInit {
 		Log.info('%c App init ', 'color: yellow; background: grey');
 		this.authSrv.init();
 		this.apolloSrv.init();
+		this.userSrv.init();
 	}
 }

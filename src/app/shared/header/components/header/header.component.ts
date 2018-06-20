@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 import { User } from '~models/user.model';
 import { AutoUnsub } from '~utils';
 

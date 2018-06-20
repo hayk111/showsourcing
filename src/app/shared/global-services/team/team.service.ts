@@ -62,6 +62,8 @@ export class TeamService {
 	}
 
 	createTeam(team: Team): Observable<any> {
+		team.realmServerName = 'default';
+		team.realmPath = `/team/${team.id}`;
 		return this.apollo.use('user').update({
 			mutation: TeamQueries.createTeam,
 			input: {

@@ -102,7 +102,7 @@ export class TokenService {
 	}
 
 	private isValid(accessToken: AccessTokenState) {
-		return accessToken.token_data.expires > Date.now();
+		return accessToken.token_data.expires * 1000 > Date.now();
 	}
 
 }
