@@ -10,6 +10,7 @@ import {
 	TemplateRef
 } from '@angular/core';
 import { TableDescriptor, ColumnDirective } from '~shared/table';
+import { SELECT_MULTIPLE_VALUE_ACCESSOR } from '@angular/forms/src/directives/select_multiple_control_value_accessor';
 
 @Component({
 	selector: 'custom-table-app',
@@ -28,6 +29,8 @@ export class CustomTableComponent {
 	@Input() selected: Map<string, boolean> = new Map();
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
+	@Output() selectAll = new EventEmitter<string[]>();
+	@Output() unselectAll = new EventEmitter<null>();
 
 	constructor() { }
 

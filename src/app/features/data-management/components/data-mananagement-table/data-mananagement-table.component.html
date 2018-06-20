@@ -24,7 +24,6 @@
 		width="140">
 		<span class="center">
 			{{ row.createdBy ? row.createdBy.fullName : '-' }}
-			{{ row.createdBy ? row.createdBy.size : '-' }}
 		</span>
 	</ng-template>
 
@@ -51,8 +50,10 @@
 		columnApp=""
 		let-row="row"
 		width="140">
-		<button *ngIf="row.id === idEntityHovered" (click)="addEntity(row.id)">
-			Add
-		</button>
+		<div class="flex">
+			<button *ngIf="row.id === idEntityHovered"  class="light" (click)="addEntity(row.id)">Add</button>
+			<span class="marginSmall"></span>
+			<button *ngIf="row.id === idEntityHovered" class="light" (click)="deleteEntity(row.id)">Delete</button>
+		</div>
 	</ng-template>
 </table-app>

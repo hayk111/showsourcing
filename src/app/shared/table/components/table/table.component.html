@@ -12,7 +12,7 @@
 		<!-- selection column -->
 		<div class="col selectionCol" *ngIf="hasSelection">
 				<div class="header">
-					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll()" (uncheck)="onUnselectAll()"></checkbox-app>
+					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</div>
 				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"

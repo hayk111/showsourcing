@@ -18,12 +18,14 @@
 	<product-list-view-app
 		*ngIf="view === 'list'"
 		class="list-view"
-		[selection]="selection"
+		[selection]="selected$ | async"
 		[products]="products"
 		[pending]="pending"
 		(previewClick)="openPreview($event)"
 		(productSelect)="onItemSelected($event)"
 		(productUnselect)="onItemUnselected($event)"
+		(productSelectAll)="selectAll($event)"
+		(productUnselectAll)="resetSelection()"
 		(productOpen)="goToDetails($event)"
 		(productFavorited)="onItemFavorited($event)"
 		(productUnfavorited)="onItemUnfavorited($event)"
@@ -38,7 +40,7 @@
 		class="card-view"
 		*ngIf="view === 'card'"
 		[products]="products"
-		[selection]="selection"
+		[selection]="selected$ | async"
 		[statuses]="statuses$ | async"
 		(update)="patch($event)"
 		(productSelect)="onItemSelected($event)"
@@ -50,13 +52,13 @@
 		(productOpen)="goToDetails($event)"></product-card-view-app>
 
 	<selection-bar-app
-		*ngIf="selection.size > 0"
-		[selection]="selection"
+		*ngIf="(selected$ | async).size > 0"
+		[selection]="selected$ | async"
 		(close)="unselectAll()"
 		(delete)="deleteSelected()">
 
 		<selection-actions
-			[selection]="selection"
+			[selection]="selected$ | async"
 			(openAddToProjectDialog)="openAddToProjectDialog()"
 			(openExportDialog)="openExportDialog()"
 			(openRequestFeedbackDialog)="openRequestFeedbackDialog()">

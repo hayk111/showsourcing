@@ -1,21 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, tap, first, switchMap } from 'rxjs/operators';
-import { UserService } from '~shared/global-services';
+import { first, switchMap, tap } from 'rxjs/operators';
+import { ProductService, SelectionService } from '~features/products/services';
+import { Product, ProductStatus } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Filter, FilterType, FilterService, FilterGroup } from '~shared/filters';
+import { Filter, FilterGroup, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { Product, ProductStatus, Project } from '~models';
-import { SelectionService, ProductService, ProjectService } from '~features/products/services';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [FilterService]
+	providers: [FilterService, SelectionService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** currently loaded products */
@@ -30,7 +28,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** when the suppliers are loaded for the first time */
 	initialLoading = true;
 	// keeps tracks of the current selection
-	selection = new Map<string, boolean>();
+	selected$: Observable<Map<string, boolean>>;
 
 	// This is seperate from normal selection in case we click on one item
 	selectedProductForDialog: Array<string> = new Array();
@@ -45,18 +43,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	previewOpen: boolean;
 	previewProduct: Product;
 
-	//
-
 	page = 0;
 
 	constructor(
-		private userSrv: UserService,
 		private router: Router,
 		private productSrv: ProductService,
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService,
-		private cdr: ChangeDetectorRef) {
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -71,6 +65,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 				}
 			})
 		);
+		this.selected$ = this.selectionSrv.selection$;
 	}
 
 	/** Loads more products when we reach the bottom of the page */
@@ -120,20 +115,22 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Selects a product */
 	onItemSelected(entityId: string) {
-		this.selection.set(entityId, true);
+		this.selectionSrv.selectOne(entityId);
 	}
 
 	/** Unselects a product */
 	onItemUnselected(entityId: string) {
-		this.selection.delete(entityId);
+		this.selectionSrv.unselectOne(entityId);
+	}
+
+	/** Select all products */
+	selectAll(ids: string[]) {
+		this.selectionSrv.selectAll(ids);
 	}
 
 	/** Unselect all produces */
-	unselectAll() {
-		console.log('>> unselectAll - this.selection = ', this.selection);
-		// this.selection.clear();
-		this.selection = new Map();
-		console.log('  >> unselectAll - this.selection = ', this.selection);
+	resetSelection() {
+		this.selectionSrv.unselectAll();
 	}
 
 	/** Patch a property of a product */
@@ -142,25 +139,16 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Will show a confirm dialog to delete items selected */
-	deleteSelected(product: Product) {
-		let selection = this.selection;
-		if (product) {
-			selection = new Map<string, boolean>();
-			selection.set(product.id, true);
-		}
+	deleteSelected() {
+		const products = Array.from(this.selectionSrv.selection.keys());
 		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
 		// Let's avoid doing that whenever possible though.
 		const callback = () => {
-			const products: Array<string> = new Array();
-			selection.forEach((value, key) => {
-				if (value) products.push(key);
-			});
 			this.productSrv.deleteProducts(products).subscribe(() => {
-				this.unselectAll();
-				this.cdr.detectChanges();
+				this.resetSelection();
 			});
 		};
-		const text = `Delete ${selection.size} Product${selection.size > 1 ? 's' : ''} ?`;
+		const text = `Delete ${products.length} Product${products.length > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 
@@ -240,7 +228,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	get selectionArray() {
-		return Array.from(this.selection.keys());
+		return Array.from(this.selectionSrv.selection.keys());
 	}
 
 }

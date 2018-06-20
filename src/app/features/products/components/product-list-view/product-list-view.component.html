@@ -9,6 +9,8 @@
 	(sort)="onSort($event)"
 	(selectOne)="productSelect.emit($event)"
 	(unselectOne)="productUnselect.emit($event)"
+	(selectAll)="productSelectAll.emit($event)"
+	(unselectAll)="productUnselectAll.emit()"
 	[pending]="pending">
 </custom-table-app>
 
