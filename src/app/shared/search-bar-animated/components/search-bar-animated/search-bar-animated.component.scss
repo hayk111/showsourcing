@@ -3,6 +3,12 @@
 	align-items: center;
 }
 
+.field {
+	background-color: #fff;
+	border-radius: 4px;
+	border: solid 1px var(--color-primary-light);
+}
+
 .input-wrapper {
 	margin: 0;
 	overflow: hidden;

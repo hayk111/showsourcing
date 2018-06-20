@@ -1,7 +1,7 @@
 import {
 	Component, Output, EventEmitter,
 	ContentChildren, QueryList,
-	AfterContentInit
+	AfterContentInit, Input
 } from '@angular/core';
 
 import { SettingsMenuItemComponent } from '../settings-menu-item/settings-menu-item.component';
@@ -12,6 +12,8 @@ import { SettingsMenuItemComponent } from '../settings-menu-item/settings-menu-i
 	styleUrls: ['./settings-menu.component.scss']
 })
 export class SettingsMenuComponent implements AfterContentInit {
+	@Input() menuIcon: string;
+	@Input() menuTitle: string;
 	@Output() expanded = new EventEmitter<boolean>();
 	@ContentChildren(SettingsMenuItemComponent) items: QueryList<SettingsMenuItemComponent>;
 
