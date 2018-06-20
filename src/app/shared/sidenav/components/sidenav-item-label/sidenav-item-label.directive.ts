@@ -1,8 +1,8 @@
 import { Directive, Input, TemplateRef, EventEmitter, Output, OnInit } from '@angular/core';
 
 @Directive({
-	selector: '[menuLabelApp]',
+	selector: '[sidenavLabelApp]',
 })
-export class SettingsMenuItemLabelDirective {
+export class SidenavItemLabelDirective {
 
 }

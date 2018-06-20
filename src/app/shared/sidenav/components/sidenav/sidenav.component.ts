@@ -1,22 +1,30 @@
 import {
 	Component, Output, EventEmitter,
 	ContentChildren, QueryList,
-	AfterContentInit
+	AfterContentInit, Input
 } from '@angular/core';
 
-import { SettingsMenuItemComponent } from '../settings-menu-item/settings-menu-item.component';
+import { SidenavItemComponent } from '../sidenav-item/sidenav-item.component';
 
 @Component({
-	selector: 'settings-menu-app',
-	templateUrl: './settings-menu.component.html',
-	styleUrls: ['./settings-menu.component.scss']
+	selector: 'sidenav-app',
+	templateUrl: './sidenav.component.html',
+	styleUrls: ['./sidenav.component.scss']
 })
-export class SettingsMenuComponent implements AfterContentInit {
+export class SidenavComponent implements AfterContentInit {
+	/** the global menu icon for the navbar */
+	@Input() menuIcon: string;
+	/** the global menu title for the navbar */
+	@Input() menuTitle: string;
+	/** the expanded event for the whole navbar */
 	@Output() expanded = new EventEmitter<boolean>();
-	@ContentChildren(SettingsMenuItemComponent) items: QueryList<SettingsMenuItemComponent>;
+	/** the list of items of the navbar */
+	@ContentChildren(SidenavItemComponent) items: QueryList<SidenavItemComponent>;
 
+	/** the internal expanded state for the navbar */
 	internalExpanded = false;
 
+	/** toggle the expanded state */
 	onToggleExpanded() {
 		this.internalExpanded = !this.internalExpanded;
 		this.expanded.emit(this.internalExpanded);
@@ -28,6 +36,7 @@ export class SettingsMenuComponent implements AfterContentInit {
 		this.registerListenersOnItems();
 	}
 
+	/** trigger the items to change their expanded state */
 	triggerChangesToItems(internalExpanded: boolean) {
 		if (this.items) {
 			this.items.forEach(item => {
@@ -43,6 +52,9 @@ export class SettingsMenuComponent implements AfterContentInit {
 		}
 	}
 
+	/** register on items to detect if they trigger an expanded state change.
+	 * Typically if an item has sub items and we click on it.
+	 */
 	registerListenersOnItems() {
 		if (this.items) {
 			this.items.forEach(item => {

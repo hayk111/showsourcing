@@ -21,8 +21,6 @@ export class TeamMembersListViewComponent {
 	@Output() memberSelectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() memberUnselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() memberOpen = new EventEmitter<string>();
-	@Output() memberFavorited = new EventEmitter<string>();
-	@Output() memberUnfavorited = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<SortEvent>();

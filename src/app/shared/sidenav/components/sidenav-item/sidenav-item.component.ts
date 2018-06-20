@@ -10,28 +10,30 @@ import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils';
-import { SettingsMenuItemLabelDirective } from '../settings-menu-item-label/settings-menu-item-label.directive';
+import { SidenavItemLabelDirective } from '../sidenav-item-label/sidenav-item-label.directive';
 
 @Component({
-	selector: 'settings-menu-item-app',
-	templateUrl: './settings-menu-item.component.html',
-	styleUrls: ['./settings-menu-item.component.scss']
+	selector: 'sidenav-item-app',
+	templateUrl: './sidenav-item.component.html',
+	styleUrls: ['./sidenav-item.component.scss']
 })
-export class SettingsMenuItemComponent extends AutoUnsub implements OnChanges, OnInit {
+export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit {
+	/** specify if the item has children */
 	@Input() hasChildren = false;
+	/** the link associated with the item */
 	@Input() link: string;
+	/** the expanded event for the item */
 	@Output() expanded = new EventEmitter<boolean>();
-	@ContentChildren(SettingsMenuItemLabelDirective, {descendants: true, read: ElementRef}) labelRefs: QueryList<ElementRef>;
+	@ContentChildren(SidenavItemLabelDirective, {descendants: true, read: ElementRef}) labelRefs: QueryList<ElementRef>;
 
+	/** the internal expanded state for the item */
 	internalExpanded = false;
+	/** the internal selected state for the item. Used to change the item background */
 	selected = false;
-
-	routerChangesSubscription: Subscription;
 
 	constructor(private renderer: Renderer2, private router: Router, private location: Location) {
 		super();
-		this.routerChangesSubscription = router.events
-			.pipe(takeUntil(this._destroy$))
+		router.events.pipe(takeUntil(this._destroy$))
 			.subscribe((val) => {
 				this.checkItemSelected();
 			});
@@ -41,16 +43,19 @@ export class SettingsMenuItemComponent extends AutoUnsub implements OnChanges, O
 		this.checkItemSelected();
 	}
 
+	/** check if the item is selected based on path */
 	checkItemSelected() {
 		const path = this.location.path();
 		this.selected = (path === this.link);
 	}
 
+	/** trigger expanded state change */
 	onToggleExpanded() {
 		this.internalExpanded = !this.internalExpanded;
 		this.expanded.emit(this.internalExpanded);
 	}
 
+	/** detect if the internal expanded state changed */
 	ngOnChanges(changes) {
 		if (changes.internalExpanded) {
 			const internalExpanded = changes.internalExpanded.currentValue;
@@ -58,6 +63,7 @@ export class SettingsMenuItemComponent extends AutoUnsub implements OnChanges, O
 		}
 	}
 
+	/** handle click on the item */
 	onClickItem(event) {
 		if (this.hasChildren && !this.internalExpanded) {
 			this.internalExpanded = true;
@@ -70,6 +76,7 @@ export class SettingsMenuItemComponent extends AutoUnsub implements OnChanges, O
 		event.stopPropagation();
 	}
 
+	/** handle the display of the label according to expanded state */
 	handleLabelDisplay(internalExpanded: boolean) {
 		this.labelRefs.forEach(labelRef => {
 			this.renderer.setStyle(

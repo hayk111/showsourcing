@@ -19,7 +19,7 @@ const addDlg = () => addDialog(NewTeamDlgComponent, DialogName.NEW_TEAM);
 	styleUrls: ['./new-team-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewTeamDlgComponent extends AutoUnsub implements OnInit {
+export class NewTeamDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	dlgName = DialogName.NEW_TEAM;
 	pending = false;
@@ -34,26 +34,11 @@ export class NewTeamDlgComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	ngOnInit() {
-		// this.projects$ = this.projectSrv.selectProjects();
-	}
-
-	/* select(id, value) {
-		this.selected[id] = value;
-	}
-
-	unselect(id) {
-		delete this.selected[id];
-	} */
-
 	submit() {
 		if (this.form.valid) {
 			this.pending = true;
 			const { name } = this.form.value;
-			/* this.memberSrv.inviteMember(email).subscribe(() => {
-				this.pending = false;
-				this.dlgSrv.close(this.dlgName);
-			}); */
+			// TODO: leverage the team service to actually create the team
 		}
 	}
 
