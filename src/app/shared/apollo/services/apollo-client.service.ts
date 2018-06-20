@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { R, TypedVariables } from 'apollo-angular/types';
-import {
-	ApolloClientOptions,
-	MutationOptions as ApolloMutationOptions,
-	SubscriptionOptions,
-	WatchQueryOptions,
-} from 'apollo-client';
+import { MutationOptions as ApolloMutationOptions, SubscriptionOptions, WatchQueryOptions } from 'apollo-client';
 import { FetchResult } from 'apollo-link';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Log } from '~utils';
 
 import { MutationOptions } from './mutation-options.interface';
-import { AppApolloModule } from '~shared/apollo/apollo.module';
-import { Log } from '~utils';
 
 
 

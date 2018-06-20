@@ -14,12 +14,10 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.authSrv.authState$.pipe(
-			// we need to filter the authstate when it's null because it means pending
-			filter(authState => !authState.pending),
 			map(authState => authState.authenticated),
 			distinctUntilChanged(),
 			tap(authenticated => this.redirectOnUnAuthenticated(authenticated)),
-			tap(authenticated => Log.debug('auth guard: authenticated ?', authenticated))
+			tap(authenticated => Log.debug('%c auth guard: authenticated ?', 'color: turquoise', authenticated))
 		);
 	}
 

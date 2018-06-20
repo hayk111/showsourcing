@@ -5,7 +5,7 @@ import { USER_CLIENT_NAME } from '~shared/apollo/services/apollo-endpoints.const
 import { TeamQueries } from './team.queries';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { LocalStorageService } from '~shared/local-storage';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
@@ -18,11 +18,8 @@ const SELECTED_TEAM_ID = 'selected-team-id';
  */
 @Injectable({ providedIn: 'root' })
 export class TeamService {
-	private _selectedTeamId$ = new BehaviorSubject<string>(null);
-	// selected team is either null (we don't know yet),
-	// undefined ( we know the user hasn't got one)
-	// or a team
-	private _selectedTeam$ = new BehaviorSubject<Team>(null);
+	private _selectedTeamId$ = new ReplaySubject<string>(1);
+	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable();
 	teams$: Observable<Team[]>;
 
@@ -31,7 +28,9 @@ export class TeamService {
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
+	}
 
+	init() {
 		this.restoreSelectedTeam();
 
 		// 1. when the user client is ready we get the user's teams
@@ -39,14 +38,14 @@ export class TeamService {
 			filter(ready => !!ready),
 			switchMap(_ => this.getTeams())
 		);
+		this.teams$.subscribe();
 
 		// 2. When we have teams we find out what the selected team is
 		combineLatest(
 			this._selectedTeamId$,
 			this.teams$,
 			(id, teams) => this.getSelectedTeam(id, teams)
-		);
-
+		).subscribe(this._selectedTeam$);
 	}
 
 	selectTeams(): Observable<Team[]> {
@@ -77,17 +76,15 @@ export class TeamService {
 
 	get hasTeam$(): Observable<boolean> {
 		return this.selectedTeam$.pipe(
-			// null state means we don't know yet
-			filter(team => team !== null),
 			map(team => !!team)
 		);
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
+		debugger;
 		if (!selectedId) {
-			this._selectedTeam$.next(undefined);
 			this.router.navigate(['user', 'pick-a-team']);
-			return null;
+			return;
 		}
 		// if the user has selected a team during the current session
 		let teamSelected;
@@ -100,7 +97,6 @@ export class TeamService {
 		} else {
 			this.router.navigate(['user', 'create-a-team']);
 		}
-		this._selectedTeam$.next(undefined);
 	}
 
 	/** restore    */

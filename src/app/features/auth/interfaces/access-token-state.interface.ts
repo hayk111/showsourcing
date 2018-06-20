@@ -1,7 +1,6 @@
 
 
 export interface AccessTokenState {
-	pending: boolean;
 	token: string;
 	token_data: {
 		identity: string;

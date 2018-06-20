@@ -80,8 +80,10 @@ export class ApolloService {
 			// 1. creating all-users client and getting the user
 			this.createAllUserClient();
 			this.createGlobalClient();
+			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
 			Log.error(e);
+			this.apolloState.setGlobalClientsNotReady();
 			this.apolloState.setUserClientNotReady();
 			this.router.navigate(['server-issue']);
 		}
@@ -89,15 +91,14 @@ export class ApolloService {
 
 	/** create the user client  */
 	private async initUserClient() {
-		const token = this.accessTokenState.token;
-		const id = this.accessTokenState.token_data.identity;
 		try {
+			const token = this.accessTokenState.token;
+			const id = this.accessTokenState.token_data.identity;
 			// 1. getting the user's realm uri. We need to query 2 clients for that. lol wtf ?!
 			const user = await this.getUser(id);
 			const realm = await this.getRealm(user.realmServerName);
 			// 2. creating user client
 			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
-			Log.debug('Apollo service', 'creating user client');
 			this.createUserClient(userUris.httpUri, userUris.wsUri, token);
 			this.apolloState.setUserClientReady();
 		} catch (e) {

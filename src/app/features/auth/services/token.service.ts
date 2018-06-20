@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
@@ -13,7 +13,7 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 
 @Injectable()
 export class TokenService {
-	private _accessToken$ = new BehaviorSubject<AccessTokenState>({ pending: true, token: null, token_data: null });
+	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();
 	// timeout variable. The timeout will refresh the access token.
 	timer: any;
@@ -25,7 +25,7 @@ export class TokenService {
 	clearTokens(): void {
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
 		this.localStorageSrv.remove(ACCESS_TOKEN_NAME);
-		this._accessToken$.next({ pending: false, token: null, token_data: null });
+		this._accessToken$.next({ token: null, token_data: null });
 		this.stopTimer();
 	}
 
@@ -46,7 +46,7 @@ export class TokenService {
 		if (this.refreshToken)
 			this.fetchAccessToken().subscribe();
 		else
-			this._accessToken$.next({ pending: false, token: null, token_data: null });
+			this._accessToken$.next({ token: null, token_data: null });
 
 	}
 
@@ -65,7 +65,7 @@ export class TokenService {
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
 			tap(token => this.onNewAccessToken(token)),
 			catchError(e => {
-				this._accessToken$.next({ pending: false, token: null, token_data: null });
+				this._accessToken$.next({ token: null, token_data: null });
 				return Observable.throw(e);
 			})
 		);
