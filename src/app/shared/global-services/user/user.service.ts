@@ -33,7 +33,6 @@ export class UserService {
 				else
 					return of(undefined);
 			}),
-			tap(d => { debugger; })
 		).subscribe(this._user$);
 	}
 

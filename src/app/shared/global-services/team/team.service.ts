@@ -64,7 +64,7 @@ export class TeamService {
 	createTeam(team: Team): Observable<any> {
 		team.realmServerName = 'default';
 		team.realmPath = `/team/${team.id}`;
-		return this.apollo.use('user').update({
+		return this.apollo.use(USER_CLIENT).update({
 			mutation: TeamQueries.createTeam,
 			input: {
 				name: team.name,
@@ -120,7 +120,7 @@ export class TeamService {
 
 	/** waits for a team to go from pending to active */
 	private waitTeamValid(team: Team) {
-		return this.apollo.subscribe({
+		return this.apollo.use(USER_CLIENT).subscribe({
 			query: TeamQueries.selectTeamValid,
 			variables: { input: `id == "${team.id}" AND status == "active"` }
 		});

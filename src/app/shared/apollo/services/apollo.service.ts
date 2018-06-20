@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, ApolloBase } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
@@ -8,7 +8,7 @@ import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { environment } from 'environments/environment';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap, take } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
 import { UserService, TeamService } from '~shared/global-services';
 import { Team, User } from '~models';
@@ -42,7 +42,8 @@ export class ApolloService {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService,
 		private httpLink: HttpLink,
-		private router: Router
+		private router: Router,
+		private ngZone: NgZone
 	) { }
 
 	init() {
@@ -55,7 +56,7 @@ export class ApolloService {
 		// when the user is connected (we can have an user id)
 		this.userSrv.user$.subscribe(user => {
 			if (user)
-				this.initUserClient(user);
+				this.ngZone.runOutsideAngular(_ => this.initUserClient(user));
 			else
 				this.clearCache();
 		});
@@ -66,7 +67,7 @@ export class ApolloService {
 				// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
 				filter(t => !!t)
 			)
-			.subscribe(team => this.initTeamClient(team));
+			.subscribe(team => this.ngZone.runOutsideAngular(_ => this.initTeamClient(team)));
 	}
 
 	/** creates global and all-users clients */
@@ -86,7 +87,7 @@ export class ApolloService {
 	/** create the user client  */
 	private async initUserClient(user: User) {
 		try {
-			// 1. getting the user's realm uri. We need to query 2 clients for that. lol wtf ?!
+			this.clearClient(this.apollo.use(USER_CLIENT));
 			const realm = await this.getRealm(user.realmServerName);
 			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
 			this.createUserClient(userUris.httpUri, userUris.wsUri);
@@ -99,14 +100,11 @@ export class ApolloService {
 	}
 
 	private async initTeamClient(team: Team) {
+
 		try {
 			// we first clear the last team picked cache
 			this.clearClient(this.apollo);
-			// const realm = await this.getRealm(team.realmServerName);
-			const realm = {
-				httpsPort: 9443,
-				hostname: 'ros-dev2.showsourcing.com'
-			};
+			const realm = await this.getRealm(team.realmServerName);
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createTeamClient(uris.httpUri, uris.wsUri);
 			this.apolloState.setTeamClientReady();
@@ -131,10 +129,11 @@ export class ApolloService {
 	 * gets a realm given a realm name
 	 */
 	private async getRealm(realmName: string): Promise<{ hostname: string, httpsPort: string }> {
-		return this.apollo.use(GLOBAL_CLIENT).query({
+		return this.apollo.use(GLOBAL_CLIENT).subscribe({
 			query: ClientQueries.selectRealmHostName,
 			variables: { query: `name == "${realmName}"` }
 		}).pipe(
+			take(1),
 			map((r: any) => r.data.realmServers[0])
 		).toPromise();
 	}
@@ -179,11 +178,12 @@ export class ApolloService {
 		});
 
 		// Create a WebSocket link:
+		const connectionParams = (token ? { token } : undefined);
 		const ws = new WebSocketLink({
 			uri: wsUri,
 			options: {
 				reconnect: true,
-				connectionParams: { token }
+				connectionParams
 			}
 		});
 
@@ -203,7 +203,6 @@ export class ApolloService {
 			cleanTypenameLink,
 			transportLink
 		]);
-
 		this.apollo.create({
 			link,
 			connectToDevTools: true,
@@ -219,9 +218,13 @@ export class ApolloService {
 
 	}
 
-	private clearClient(base: ApolloBase<any>) {
+	private clearClient(base: ApolloBase<any> | any) {
 		if (!base)
 			return;
+		if (base.map)
+			base.map.delete(USER_CLIENT);
+		if (base._client)
+			delete base._client;
 		const client = base.getClient();
 		if (client)
 			client.resetStore();

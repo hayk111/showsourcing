@@ -31,6 +31,7 @@ export class CreateATeamPageComponent {
 					this.router.navigate(['']);
 				},
 				e => {
+					this.pending = false;
 					this.error = 'We had an error creating your team. Please try again.';
 				}
 			);

@@ -10,7 +10,6 @@ import { Log } from '~utils';
 })
 export class HasTeamGuard implements CanActivate, CanActivateChild {
 
-
 	constructor(private teamSrv: TeamService, private router: Router) { }
 
 	canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
