@@ -1,16 +1,18 @@
 <top-panel-app
 	[title]="'ShowSourcing'"
 	[subtitles]="['Settings', 'Data Cleansing']"
-	[hasSwitch]="false"
+	[hasActions]="false"
 	(buttonClick)="openNewDialog()">
 </top-panel-app>
 
 <sub-panel-app
 	[title]="'Categories'"
 	[hasFilter]="false">
-	<div class="flex" *ngIf="(selected$ | async).size > 0">
-		<button>Button 1</button>
-		<button>Button 2</button>
+	<div class="flex" *ngIf="(selected$ | async).size == 0">
+		<button class="button warn"> Delete Selected </button>
+		<span class="marginSmall"></span>
+		<button> Merge Selected </button>
+		<span class="marginSmall"></span>
 	</div>
 </sub-panel-app>
 

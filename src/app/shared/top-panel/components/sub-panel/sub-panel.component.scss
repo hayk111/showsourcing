@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	padding: 0 var(--spacing-edge);
+	padding: 0 var(--spacing-l);
 }
 
 .ctnr {
@@ -10,18 +10,6 @@
 		color: var(--color-txt-strong);
 		font-size: 21px;
 	}
-}
-
-
-button {
-  padding: 0 var(--spacing-l);
-  height: 40px;
-  border-radius: var(--border-radius-s);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-transform: uppercase;
-  font-weight: 600;
 }
 
 .plusIc {

@@ -25,7 +25,9 @@
 	// --color-secondary-light: ;
 	// --color-secondary-dark: ;
 
-	--color-warn: #f94259;
+	--color-warn: #ec495d;
+	--color-warn-hover: #f94259;
+	--color-warn-active: #ca263a;
 	--color-success: #71e591;
 
 	// used
@@ -65,10 +67,6 @@
 	color: var(--color-primary-light);
 }
 
-.color-white {
-	color: var(--color-white);
-}
-
 .bg-primary {
 	background: var(--color-primary);
 }
@@ -82,4 +80,8 @@
 }
 .bg-txt-secondary {
 	background: var(--color-txt-secondary);
+}
+
+.bg-default {
+	background: var(--color-bg);
 }

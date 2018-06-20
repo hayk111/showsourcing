@@ -51,9 +51,9 @@
 		let-row="row"
 		width="140">
 		<div class="flex">
-			<button *ngIf="row.id === idEntityHovered"  class="light" (click)="addEntity(row.id)">Add</button>
+			<button *ngIf="row.id === idEntityHovered"  class="button ugly" (click)="addEntity(row.id)">Add</button>
 			<span class="marginSmall"></span>
-			<button *ngIf="row.id === idEntityHovered" class="light" (click)="deleteEntity(row.id)">Delete</button>
+			<button *ngIf="row.id === idEntityHovered" class="button ugly" (click)="deleteEntity(row.id)">Delete</button>
 		</div>
 	</ng-template>
 </table-app>
