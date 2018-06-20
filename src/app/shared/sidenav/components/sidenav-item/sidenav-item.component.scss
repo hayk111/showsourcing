@@ -1,0 +1,30 @@
+:host {
+    width: 100%;
+}
+
+a {
+    height: 51px;
+}
+
+a:hover {
+    background-color: var(--color-primary-light);
+}
+
+.selected {
+    background-color: var(--color-primary-light);
+}
+
+.expanded {
+    align-items: center;
+}
+
+::ng-deep icon-app {
+    flex-basis: 72px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+::ng-deep icon-app {
+    /* flex-grow: 2; */
+}

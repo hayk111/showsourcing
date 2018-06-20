@@ -1,0 +1,17 @@
+<div class="sidemenu" [ngClass]="{ expanded: internalExpanded }">
+    <div class="flex sidemenu__header">
+        <div class="icon" [ngClass]="{ expanded: internalExpanded }">
+            <icon-app class="flexCenter" fontSet="svg" [name]="menuIcon" (click)="onToggleExpanded()"></icon-app>
+        </div>
+        <div class="info" *ngIf="internalExpanded" >
+            <h1 class="info__text">{{ menuTitle }}</h1>
+        </div>
+        <div class="flexCenter collapse" *ngIf="internalExpanded" (click)="onToggleExpanded()">
+            <icon-app fontSet="fa" name="caret-left" (click)="onToggleExpanded()"></icon-app>
+        </div>
+    </div>
+        
+    <nav class="flex">
+        <ng-content></ng-content>
+    </nav>
+</div>
