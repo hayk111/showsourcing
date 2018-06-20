@@ -7,7 +7,7 @@ import { AutoUnsub } from '~utils';
 import { Category } from '~models';
 import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';

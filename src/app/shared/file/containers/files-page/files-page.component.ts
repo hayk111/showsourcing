@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppFile } from '~models';
 import { AutoUnsub } from '~utils';
-import { UserService } from '~features/user/services';
 
 @Component({
 	selector: 'files-page-app',
@@ -14,7 +13,7 @@ import { UserService } from '~features/user/services';
 export class FilesPageComponent extends AutoUnsub implements OnInit {
 	files$: Observable<Array<AppFile>>;
 
-	constructor(private route: ActivatedRoute, private userSrv: UserService) {
+	constructor(private route: ActivatedRoute) {
 		super();
 	}
 

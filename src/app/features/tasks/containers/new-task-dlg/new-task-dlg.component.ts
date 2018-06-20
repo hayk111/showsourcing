@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { DialogName } from '~shared/dialog/models';
 
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { DialogService } from '~shared/dialog';
 

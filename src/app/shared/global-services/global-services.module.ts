@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '~features/user';
+import { UserService, TeamService } from '~shared/global-services';
 
 @NgModule({
 	imports: [
 		CommonModule
 	],
 	declarations: [],
-	providers: [UserService]
+	providers: [UserService, TeamService]
 })
 export class GlobalServicesModule { }

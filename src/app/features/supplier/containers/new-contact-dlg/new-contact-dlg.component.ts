@@ -7,7 +7,7 @@ import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
 import { AppImage } from '~models';
 import { ContactService } from '~features/supplier/services/contact.service';
 import { Contact } from '~models';
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { DialogName } from '~shared/dialog/models/dialog-names.enum';
 import { DialogService } from '~shared/dialog';

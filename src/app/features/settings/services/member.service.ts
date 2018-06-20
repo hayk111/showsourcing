@@ -10,7 +10,7 @@ import { Contact, Task } from '~models';
 import { Product } from '~models';
 import { uuid } from '~utils/uuid.utils';
 import { PER_PAGE } from '~utils/constants';
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 
 
 @Injectable()
@@ -66,9 +66,9 @@ export class MemberService {
 				sortBy: sort.sortBy,
 				descending: sort.sortOrder === 'ASC'
 			} : {
-				skip: page * PER_PAGE,
-				take: PER_PAGE
-			},
+					skip: page * PER_PAGE,
+					take: PER_PAGE
+				},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				console.log('>> prev = ', prev);
 				console.log('>> fetchMoreResult = ', fetchMoreResult);

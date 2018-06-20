@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Log } from '~utils';
 import { DEFAULT_IMG } from '~utils/constants';
-import { UserService } from '~features/user';
+import { UserService } from '~shared/global-services';
 import { AppImage } from '~models';
 
 @Component({

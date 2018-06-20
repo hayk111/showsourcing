@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 
-import { UserService } from './services';
 import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
@@ -13,7 +12,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		ReactiveFormsModule,
 		TopPanelModule
 	],
-	providers: [UserService],
+	providers: [],
 	declarations: [],
 	exports: [],
 })
@@ -21,7 +20,7 @@ export class UserModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: UserModule,
-			providers: [UserService]
+			providers: []
 		};
 	}
 
