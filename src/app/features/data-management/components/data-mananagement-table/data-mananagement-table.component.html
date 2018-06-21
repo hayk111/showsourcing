@@ -1,11 +1,11 @@
 <table-app
-	[rows]="categories"
+	[rows]="items"
 	[pending]="pending"
 	[selected]="selected"
-	(selectOne)="categorySelect.emit($event)"
-	(unselectOne)="categoryUnselect.emit($event)"
-	(selectAll)="categorySelectAll.emit($event)"
-	(unselectAll)="categoryUnselectAll.emit($event)"
+	(selectOne)="entitySelect.emit($event)"
+	(unselectOne)="entityUnselect.emit($event)"
+	(selectAll)="entitySelectAll.emit($event)"
+	(unselectAll)="entityUnselectAll.emit($event)"
 	(sort)="sort.emit($event)"
 	(hovered)="onHover($event)">
 
@@ -17,7 +17,7 @@
 		<div class="category_name"> {{row.name}} </div>
 	</ng-template>
 
-	<!-- Created By -->
+	<!-- Created By *ngIf="dataName.equals('category')"-->
 	<ng-template
 		columnApp="Created By"
 		let-row="row"

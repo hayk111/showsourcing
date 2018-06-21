@@ -29,13 +29,13 @@
 -->
 
 <data-management-table-app
-	[categories]="categories$ |async"
+	[items]="items$ |async"
 	[selected]="selected$ | async"
 	[pending]="pending"
 	(sort)="onSort($event)"
-	(categorySelect)="selectItem($event)"
-	(categoryUnselect)="unselectItem($event)"
-	(categorySelectAll)="selectAll($event)"
-	(categoryUnselectAll)="resetSelection()"
-	(categoryOpen)="onItemOpened($event)">
+	(entitySelect)="selectItem($event)"
+	(entityUnselect)="unselectItem($event)"
+	(entitySelectAll)="selectAll($event)"
+	(entityUnselectAll)="resetSelection()"
+	(entityOpen)="onItemOpened($event)">
 </data-management-table-app>

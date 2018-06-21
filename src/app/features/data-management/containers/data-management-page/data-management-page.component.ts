@@ -17,6 +17,7 @@ import { AutoUnsub } from '~utils';
 export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
 	categories$: Observable<Category[]>;
+	items$: Observable<any[]>;
 	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */
 	pending: boolean;

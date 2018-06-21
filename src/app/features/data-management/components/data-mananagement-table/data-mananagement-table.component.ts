@@ -9,14 +9,14 @@ import { SortEvent } from '~shared/table/components/sort-event.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataMananagementTableComponent {
-	@Input() categories: Array<Category>;
+	@Input() items: Array<any>;
 	@Input() selected: Map<string, boolean>;
 	@Input() pending = true;
-	@Output() categorySelect = new EventEmitter<string>();
-	@Output() categoryUnselect = new EventEmitter<string>();
-	@Output() categorySelectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() categoryUnselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() categoryOpen = new EventEmitter<string>();
+	@Output() enititySelect = new EventEmitter<string>();
+	@Output() enitityUnselect = new EventEmitter<string>();
+	@Output() enititySelectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() enitityUnselectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() enitityOpen = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<SortEvent>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	idEntityHovered: string;
