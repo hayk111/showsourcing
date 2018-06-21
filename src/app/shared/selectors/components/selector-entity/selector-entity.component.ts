@@ -7,6 +7,7 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	TemplateRef,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -54,6 +55,8 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<any>();
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
+	@ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
+	@ViewChild('userTemplate') userTemplate: TemplateRef<any>;
 	choices$: Observable<any[]>;
 
 
@@ -139,6 +142,12 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		createObs$.subscribe();
 		// we changed the value directly so we have to notify the formControl
 		this.onChange();
+	}
+
+	get template() {
+		if (this.type === 'user')
+			return this.userTemplate;
+		return this.defaultTemplate;
 	}
 
 }

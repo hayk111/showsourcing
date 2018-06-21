@@ -20,6 +20,9 @@
 						*ngIf="value | logo:customField.metadata.target"
 						[src]="value | logo:customField.metadata.target" />
 					<ng-container [ngSwitch]="customField.metadata.target">
+						<span *ngSwitchCase="'user'">
+							{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}
+						</span>
 						<span *ngSwitchDefault>
 							{{ value ? value[customField.metadata.labelName] : '-' }}
 						</span>
@@ -49,7 +52,7 @@
 			(closed)="closed.emit()" [hasAction]="false" (opened)="onOpen()">
 
 			<editable-label-app>
-				{{ value || '-'}}
+				{{ (value | const: 'type') || '-'}}
 			</editable-label-app>
 
 			<selector-const-app

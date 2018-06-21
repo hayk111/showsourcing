@@ -11,11 +11,24 @@
 	[bindLabel]="propertyName">
 
 	<ng-template let-item="item">
-
-		<div class="flex">
-			<img *ngIf="item | logo:type" [src]="item | logo:type"/>
-			<span>{{ item[propertyName] }}</span>
-		</div>
-
+		<ng-container *ngTemplateOutlet="template; context: { item: item }"></ng-container>
 	</ng-template>
+
 </selector-app>
+
+<ng-template #defaultTemplate let-item="item">
+
+	<div class="flex">
+		<img *ngIf="item | logo:type" [src]="item | logo:type"/>
+		<span>{{ item[propertyName] }}</span>
+	</div>
+
+</ng-template>
+
+<ng-template #userTemplate let-item="item">
+	<div class="flex">
+		<img *ngIf="item | logo:type" [src]="item | logo:type"/>
+		<span>{{ item?.firstName }} {{ item?.lastName }}</span>
+	</div>
+
+</ng-template>

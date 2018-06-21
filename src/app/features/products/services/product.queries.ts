@@ -125,7 +125,7 @@ export class ProductQueries {
 				samplePrice,
 				taskCount,
 				createdBy {
-					id, name
+					id, firstName, lastName
 				}
 			}
 		}
