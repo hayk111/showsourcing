@@ -10,13 +10,14 @@ import { SortEvent } from '~shared/table/components/sort-event.interface';
 })
 export class DataMananagementTableComponent {
 	@Input() items: Array<any>;
+	@Input() categories: Array<Category>;
 	@Input() selected: Map<string, boolean>;
 	@Input() pending = true;
-	@Output() enititySelect = new EventEmitter<string>();
-	@Output() enitityUnselect = new EventEmitter<string>();
-	@Output() enititySelectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() enitityUnselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() enitityOpen = new EventEmitter<string>();
+	@Output() entitySelect = new EventEmitter<string>();
+	@Output() entityUnselect = new EventEmitter<string>();
+	@Output() entitySelectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() entityUnselectAll = new EventEmitter<null>();
+	@Output() entityOpen = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<SortEvent>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	idEntityHovered: string;

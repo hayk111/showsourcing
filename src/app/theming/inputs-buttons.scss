@@ -69,12 +69,11 @@ input, textarea {
 button, input[type="submit"], .button {
 	@extend .ripple;
 	display: inline-block;
-	text-transform: uppercase;
 	cursor: pointer;
 	font-weight: 600;
 	box-sizing: border-box;
 	height: 36px;
-	width: 146px;
+	width: 160px;
 	border-radius: 4px;
 	font-size: var(--font-size-m);
 	background: var(--color-primary);

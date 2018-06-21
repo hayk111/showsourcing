@@ -21,8 +21,6 @@ export class CategoryQueries {
 				name,
 				createdBy {
 					id,
-					name,
-					fullName,
 					firstName,
 					lastName
 				}

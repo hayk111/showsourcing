@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { tap, takeUntil } from 'rxjs/operators';
+import { tap, takeUntil, first } from 'rxjs/operators';
 import { CategoryService } from '~features/data-management/services/category.service';
 import { SelectionService } from '~features/supplier/services/selection.service';
 import { Category, ERM } from '~models';
@@ -52,6 +52,7 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 
 	/** When a supplier has been selected */
 	selectItem(entityId: string) {
+		console.log('onPageTs', entityId);
 		this.selectionSrv.selectOne(entityId);
 	}
 

@@ -2,7 +2,7 @@
 	<div class="left">
 		<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
 	</div>
-	<div class="right flexCenter">
+	<div class="right flexCenter" *ngIf="hasActions">
 		<div class="flexColumns">
 			<div class="actions">Actions</div>
 			<div class="flex">
@@ -12,9 +12,9 @@
 				(viewChange)="viewChange.emit($event)"
 				[view]="view"></view-switcher-app>
 
-				<button (click)="buttonClick.emit()" class="auto small">
+				<button (click)="buttonClick.emit()" class="flex button auto small">
 					<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
-					<span>{{ buttonName }}</span>
+					<span class="spacing"> {{ buttonName }} </span>
 				</button>
 			</div>
 		</div>

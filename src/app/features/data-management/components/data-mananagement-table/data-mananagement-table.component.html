@@ -1,11 +1,11 @@
 <table-app
-	[rows]="items"
+	[rows]="categories"
 	[pending]="pending"
 	[selected]="selected"
 	(selectOne)="entitySelect.emit($event)"
 	(unselectOne)="entityUnselect.emit($event)"
 	(selectAll)="entitySelectAll.emit($event)"
-	(unselectAll)="entityUnselectAll.emit($event)"
+	(unselectAll)="entityUnselectAll.emit()"
 	(sort)="sort.emit($event)"
 	(hovered)="onHover($event)">
 
@@ -23,7 +23,7 @@
 		let-row="row"
 		width="140">
 		<span class="center">
-			{{ row.createdBy ? row.createdBy.fullName : '-' }}
+			{{ row.createdBy ? row.createdBy.firstName : '' }} {{ row.createdBy ? row.createdBy.lastName : '' }}
 		</span>
 	</ng-template>
 
