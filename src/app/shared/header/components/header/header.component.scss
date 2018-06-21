@@ -20,8 +20,6 @@
 	background: url('/assets/icons/logo.svg') no-repeat center;
 }
 
-
-
 nav {
 	font-size: var(--font-size-l);
 	display: flex;
@@ -55,6 +53,9 @@ nav {
 	search-bar-animated-app {
 		font-size: 20px;
 		margin-right: 20px;
+		&.expanded {
+			background: #071327;
+		}
 		input {
 			padding: 0;
 			padding-left: 12px;

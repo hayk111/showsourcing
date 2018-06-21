@@ -10,10 +10,12 @@ import { RouterModule } from '@angular/router';
 import { CardModule } from '~shared/card';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { DividerModule } from '~shared/divider/divider.module';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
+		SearchBarModule,
 		FiltersModule.forChild(),
 		IconsModule,
 		LoadersModule,

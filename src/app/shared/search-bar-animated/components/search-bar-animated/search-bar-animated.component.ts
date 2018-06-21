@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, OnInit, Input } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
 
 import { animation } from './search-bar-animated.animation';
@@ -9,37 +9,47 @@ import { animation } from './search-bar-animated.animation';
 	styleUrls: ['./search-bar-animated.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: animation,
+	host: {
+		'[class.expanded]': 'searchState == "expanded"',
+		'[class.shrinked]': 'searchState == "shrinked"'
+	}
 })
 export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective) input: InputDirective;
-	searchstate: 'expanded' | 'shrinked' = 'expanded';
+	@Input() animated = true;
+	@Input() hasBorder = true;
+	searchstate: 'expanded' | 'shrinked';
 
 	constructor() { }
 
 	ngOnInit() {
+		this.searchstate = (this.animated ? 'shrinked' : 'expanded');
+
 		if (!this.input) {
 			throw Error('You must pass an inputApp via transclusion to the search bar animated component');
 		}
 	}
 
 	toggleSearch() {
-		// Disabled because the search bar isn't dynamic anymore
-		/* if (this.searchstate === 'expanded')
+		if (this.searchstate === 'expanded')
 			this.shrinkSearch();
 		else
-			this.expandSearch(); */
+			this.expandSearch();
 	}
 
 	expandSearch() {
-		// Disabled because the search bar isn't dynamic anymore
-		/* this.searchstate = this.searchstate === 'expanded' ? 'shrinked' : 'expanded';
+		if (!this.animated)
+			return;
+		this.searchstate = (this.searchstate === 'expanded' ? 'shrinked' : 'expanded');
 		if (this.searchstate === 'expanded' && this.input) {
 			this.input.focus();
-		} */
+		}
 	}
 
 	shrinkSearch() {
-		// this.searchstate = 'shrinked';
+		if (!this.animated)
+			return;
+		this.searchstate = 'shrinked';
 	}
 
 }

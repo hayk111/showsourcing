@@ -1,0 +1,16 @@
+
+
+input {
+	border: none;
+	width: 100%;
+	font-size: 13px;
+	font-style: normal;
+	background: transparent;
+	color: var(--color-primary);
+}
+
+input::placeholder {
+    color: var(--color-txt-primary);
+    font-style: normal;
+    font-size: 13px;
+}
