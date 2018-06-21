@@ -16,6 +16,10 @@
 		[notFoundText]="itemName + ' not found'"
 		[clearable]="false">
 
+		<ng-template ng-label-tmp let-item="item" *ngIf="!multiple">
+			Select {{ itemName }}
+    </ng-template>
+
 		<!-- header / search input -->
 		<ng-template ng-header-tmp *ngIf="canSearch">
 			<div class="selectCustomInput">

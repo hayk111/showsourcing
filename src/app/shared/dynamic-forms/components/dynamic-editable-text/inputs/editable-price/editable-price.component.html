@@ -17,11 +17,10 @@
 		</editable-text-app>
 		<!-- currency -->
 		<div class="editableCurrency">
-			<span class="currencyLabel" (click)="showCurrencySelector()">
+			<span class="currencyLabel pointer" (click)="showCurrencySelector()">
 				{{ value?.currency | const:'currency':'id' }}
 			</span>
 			<selector-const-app
-				#selector
 				*ngIf="currencySelectorShown"
 				(clickOutside)="hideCurrencySelector()"
 				class="rightSelector"

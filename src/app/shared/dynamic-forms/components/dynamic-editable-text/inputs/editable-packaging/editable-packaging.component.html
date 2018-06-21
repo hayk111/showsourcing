@@ -6,7 +6,9 @@
 	<editable-text-app #editable1
 		(closed)="onSave(); cell1.hasBottom = true"
 		(opened)="cell1.hasBottom = false">
-		<editable-label-app class="txtSecondary">{{ customField?.value?.length || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">
+			{{ value?.length !== undefined ? (value?.length + ' ' + value.unit) : '-' }}
+		</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp1
@@ -27,7 +29,9 @@
 		#editable2
 		(closed)="onSave(); cell2.hasBottom = true"
 		(opened)="cell2.hasBottom = false">
-		<editable-label-app class="txtSecondary">{{ customField?.value?.width || '-' }}</editable-label-app>
+		<editable-label-app class="txtSecondary">
+			{{ value?.width !== undefined ? (value?.width + ' ' + value?.unit) : '-' }}
+		</editable-label-app>
 		<form-field-app>
 			<input inputApp
 				#inp2
@@ -48,7 +52,7 @@
 		(closed)="onSave(); cell3.hasBottom = true"
 		(opened)="cell3.hasBottom = false">
 		<editable-label-app class="txtSecondary">
-			{{ customField?.value?.height || '-' }}
+			{{ value?.height !== undefined ? (value?.height + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
 		<form-field-app>
 			<input inputApp

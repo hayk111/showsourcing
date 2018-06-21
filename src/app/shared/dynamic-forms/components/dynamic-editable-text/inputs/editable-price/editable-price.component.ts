@@ -18,6 +18,7 @@ export class EditablePriceComponent extends AbstractInput {
 	@Output() change = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@ViewChild('editable2') currencyEditable: EditableTextComponent;
+	@ViewChild(SelectorConstComponent) currencySelector: SelectorConstComponent;
 	isOpen: boolean;
 	accumulator;
 	currencySelectorShown: boolean;
@@ -56,7 +57,7 @@ export class EditablePriceComponent extends AbstractInput {
 	onCurrencyChange() {
 		this.isOpen = false;
 		this.onChange();
-		this.currencyEditable.close();
+		this.currencySelectorShown = false;
 	}
 
 	onBlur() {
@@ -66,6 +67,7 @@ export class EditablePriceComponent extends AbstractInput {
 
 	showCurrencySelector() {
 		this.currencySelectorShown = true;
+		setTimeout(_ => this.currencySelector.open());
 	}
 
 	hideCurrencySelector() {

@@ -1,5 +1,8 @@
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+	display: none;
+}
 .ng-select  {
 	border: 0px;
 	border-radius: 0;

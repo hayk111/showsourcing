@@ -1,9 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Packaging } from '~models';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Packaging } from '~models/packaging.model';
 import { CustomField } from '~shared/dynamic-forms/models';
-import { uuid } from '~utils';
-import { AbstractInput, makeAccessorProvider, InputDirective } from '~shared/inputs';
-import { SelectorConstComponent } from '~shared/selectors/components/selector-const/selector-const.component';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'editable-packaging-app',
@@ -15,7 +13,7 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 export class EditablePackagingComponent extends AbstractInput {
 	@Input() set value(v: Packaging) {
 		// we add an uuid for new packaging
-		this._value = v || { id: uuid() };
+		this._value = v || new Packaging();
 		this.accumulator = this._value;
 	}
 	get value() { return this._value; }
