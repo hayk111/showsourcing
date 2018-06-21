@@ -33,8 +33,8 @@
 		sortWith="categories"
 		[comparator]="arrayComparator"
 		width="280">
-		<span *ngFor="let cat of row.categories">
-			{{ cat.name }},
+		<span *ngFor="let cat of row.categories; let last = last">
+			{{ cat.name }} {{ last ? '' : ', '}}
 		</span>
 	</ng-template>
 

@@ -26,6 +26,8 @@ export class ProductListViewComponent implements OnInit {
 	// events
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productSelectAll = new EventEmitter<string[]>();
+	@Output() productUnselectAll = new EventEmitter<null>();
 	@Output() productOpen = new EventEmitter<string>();
 	@Output() productFavorited = new EventEmitter<string>();
 	@Output() productUnfavorited = new EventEmitter<string>();

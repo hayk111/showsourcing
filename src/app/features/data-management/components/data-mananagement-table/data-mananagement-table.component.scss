@@ -1,35 +1,10 @@
 :host {
-	width: 550px;
+	display: flex;
+	margin: var(--spacing-l) var(--spacing-l);
+	height: calc(100% - 228px);
 }
 
-.searchBox {
-	border-bottom: 1px solid var(--color-divider);
-	input {
-		background: transparent;
-		border: none;
-	}
+table-app {
+	margin-left: auto;
+	margin-right: auto;
 }
-
-editable-text-app {
-	flex-grow: 1;
-	.edit {
-		display: none;
-	}
-	label-app {
-		width: 100%;
-	}
-	input {
-		margin: 0;
-    height: 1.8rem;
-	}
-	.done {
-		height: 1rem;
-		color: var(--color-primary);
-		background: transparent;
-	}
-}
-
-editable-text-app:hover .edit {
-	display: block;
-}
-

@@ -37,7 +37,7 @@ export class TableComponent {
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
 	// event when we select all rows
-	@Output() selectAll = new EventEmitter<null>();
+	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
 	// selecting one row with the checkbox
 	@Output() selectOne = new EventEmitter<string>();
@@ -45,6 +45,8 @@ export class TableComponent {
 	// when we scroll down to the end of the table
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sort = new EventEmitter<SortEvent>();
+	// when we hover and we want to get the id of the object
+	@Output() hovered = new EventEmitter<string>();
 	// all the columns
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
@@ -80,8 +82,8 @@ export class TableComponent {
 		this.unselectOne.emit(id);
 	}
 
-	onSelectAll() {
-		this.selectAll.emit();
+	onSelectAll(ids: Array<any>) {
+		this.selectAll.emit(ids.map(m => m.id));
 	}
 
 	onUnselectAll() {
@@ -121,6 +123,9 @@ export class TableComponent {
 
 	hoverRow(index: number) {
 		this.hoverIndex = index;
+		// if we have a positive index, extract id of the row entity
+		const idEmit = index >= 0 ? this.rows[index][this.idName] : index;
+		this.hovered.emit(idEmit);
 	}
 
 	isSelected(row, index: number) {
@@ -138,7 +143,7 @@ export class TableComponent {
 		event.stopPropagation();
 	}
 
-	@HostListener('window:click', [ 'event' ])
+	@HostListener('window:click', ['event'])
 	onClickWindow(event) {
 		Object.keys(this.contextualMenuOpened).forEach(key => {
 			this.contextualMenuOpened[key] = false;

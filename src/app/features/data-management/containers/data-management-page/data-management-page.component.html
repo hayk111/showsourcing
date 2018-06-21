@@ -1,38 +1,41 @@
+<top-panel-app
+	[title]="'ShowSourcing'"
+	[subtitles]="['Settings', 'Data Cleansing']"
+	[hasActions]="false">
+</top-panel-app>
 
-
-<side-menu-app>
-	<side-menu-item-app [selected]="entity.entityName === selectedEntity.entityName"
-		 *ngFor="let entity of entities"  (click)="select(entity)">
-		{{ entity?.pluralName }}
-	</side-menu-item-app>
-</side-menu-app>
-
-<main>
-	<h1>Manage your {{ selectedEntity?.pluralName }}</h1>
-
-	<div class="ctnr flexColumn flexCenter">
-
-		<div class="info">
-			Use this list to quickly edit and delete your informations
-		</div>
-		<hr>
-		<span class="error" color-primary>
-			Some things will throw a forbidden error, it might be because we are not the owner or something ?
-		</span>
-		<div class="actions flex" *ngIf="selection.length > 0">
-			<div> {{ selection.length }} items selected </div> --
-			<div (click)="mergeSelection()" i18n="div click|Merge data management items@@dataManagementPage_merge">Merge</div> - -
-			<div (click)="deleteSelection()" i18n="div click|Delete data management items@@dataManagementPage_delete">Delete</div>
-		</div>
-		<hr>
-		<ng-container *ngIf="items$ | async as items">
-			<data-management-table-app
-				[items]="items"
-				(selection)="onSelection($event)"
-				(update)="updateItem($event)"
-				(itemRemoved)="removeItem($event)"></data-management-table-app>
-		</ng-container>
+<sub-panel-app
+	[title]="'Categories'"
+	buttonName="New Category"
+	[hasFilter]="false"
+	[buttonIcon]="false">
+	<div class="flex" *ngIf="(selected$ | async).size > 0">
+		<button class="button warn"> Delete Selected </button>
+		<span class="marginSmall"></span>
+		<button> Merge Selected </button>
 	</div>
+</sub-panel-app>
 
-</main>
+<!-- new-selection-bar
+	[title]="'Categories'"
+	[hasSearch]="true"
+	[isSelected]="isSelected" if selected display the following buttons -> import | delete selected | merge selected | new category
+													 else display the button -> new category
+	[selected]="selected"
+	(merge)="mergeSelection()"
+	(delete)="deleteSelection()"
+	(import)="importSelection()"
+	(create)="createCategory()"
+-->
 
+<data-management-table-app
+	[categories]="categories$ | async"
+	[items]="items$ | async"
+	[selected]="selected$ | async"
+	[pending]="pending"
+	(sort)="onSort($event)"
+	(entitySelect)="selectItem($event)"
+	(entityUnselect)="unselectItem($event)"
+	(entitySelectAll)="selectAll($event)"
+	(entityUnselectAll)="resetSelection()">
+</data-management-table-app>

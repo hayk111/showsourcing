@@ -6,7 +6,7 @@
 	</div>
 	<div class="flexBetween">
 		<div class="left flexCenter">
-			<filter-search-bar-app [smartPanelVisible]="true" *ngIf="hasSearch" class="mg-right"></filter-search-bar-app>
+			<filter-search-bar-app [smartPanelVisible]="true" *ngIf="hasSearch" class="mg-right bg-default"></filter-search-bar-app>
 
 			<!-- divider-app *ngIf="hasSearch" class="vert-divider mg-right"></divider-app -->
 
@@ -20,16 +20,12 @@
 				fontSet="fa">
 			</icon-app>
 
-			<view-switcher-app
-				class="mg-right"
-				*ngIf="hasSwitch"
-				(viewChange)="viewChange.emit($event)"
-				[view]="view"></view-switcher-app>
 		</div>
 
 		<div class="right flexCenter">
 			<ng-content></ng-content>
-			<button (click)="buttonClick.emit()" class="auto small">
+			<span class="marginSmall"></span>
+			<button (click)="buttonClick.emit()">
 				<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
 				<span>{{ buttonName }}</span>
 			</button>

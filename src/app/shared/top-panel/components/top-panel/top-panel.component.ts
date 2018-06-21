@@ -13,7 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TopPanelComponent {
 	// TODO: the following inputs will be removed in the future. Left here
 	// to avoid errors during migration
-
+	/** whether we have action buttons or not*/
+	@Input() hasActions = true;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view

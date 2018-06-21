@@ -69,13 +69,12 @@ input, textarea {
 button, input[type="submit"], .button {
 	@extend .ripple;
 	display: inline-block;
-	text-transform: uppercase;
 	cursor: pointer;
 	font-weight: 600;
 	box-sizing: border-box;
 	height: 36px;
-	width: 146px;
-	border-radius: 2px;
+	width: 160px;
+	border-radius: 4px;
 	font-size: var(--font-size-m);
 	background: var(--color-primary);
 	border: none;
@@ -96,10 +95,26 @@ button, input[type="submit"], .button {
 	}
 	&.warn {
 		background: var(--color-warn);
+		&:hover {
+			background: var(--color-warn-hover);
+		}
+		&:active {
+			background: var(--color-warn-active);
+		}
 	}
 	&.transparent {
 		background: transparent;
 		color: var(--color-primary);
+	}
+
+	&.ugly {
+		color: var(--color-primary-dark);
+		border: solid 1px var(--color-txt-secondary);
+		background-color: var(--color-primary-light);
+		font-size: var(--font-size-s);
+		height: 21px;
+		width: 57px;
+		text-transform: none;
 	}
 }
 
