@@ -1,53 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { ERM } from '~models';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { tap, takeUntil, first } from 'rxjs/operators';
+import { CategoryService } from '~features/data-management/services/category.service';
+import { SelectionService } from '~features/supplier/services/selection.service';
+import { Category, ERM } from '~models';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'data-management-page-app',
 	templateUrl: './data-management-page.component.html',
 	styleUrls: ['./data-management-page.component.scss'],
+	providers: [SelectionService]
 })
-export class DataManagementPageComponent implements OnInit {
+export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
-	selectedEntity;
-	selection = [];
-	items$: Observable<any>;
+	categories$: Observable<Category[]>;
+	items$: Observable<any[]>;
+	selected$: Observable<Map<string, boolean>>;
+	/** whether some suppliers are currently being loaded */
+	pending: boolean;
+	/** when the suppliers are loaded for the first time */
+	initialLoading = true;
+	/** current sort used for sorting suppliers */
+	sort$: Subject<SortEvent> = new Subject();
+	currentSort: SortEvent = { sortBy: 'creationDate', sortOrder: 'ASC' };
 
-	constructor() { }
+	constructor(
+		private categorySrv: CategoryService,
+		private selectionSrv: SelectionService,
+		private route: ActivatedRoute) {
+		super();
+	}
 
 	ngOnInit() {
-		this.select(this.entities[0]);
+		this.route.params.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(params => params);
+		this.pending = true;
+		this.categories$ = this.categorySrv.selectCategories().pipe(
+			tap(() => {
+				if (this.initialLoading) {
+					this.pending = false;
+					this.initialLoading = false;
+				}
+			})
+		);
+		this.selected$ = this.selectionSrv.selection$;
 	}
 
+	/** When a supplier has been selected */
+	selectItem(entityId: string) {
+		console.log('onPageTs', entityId);
+		this.selectionSrv.selectOne(entityId);
+	}
+
+	/** When a supplier has been unselected */
+	unselectItem(entityId: string) {
+		this.selectionSrv.unselectOne(entityId);
+	}
+
+	/** When all suppliers have been selected at once (from the table) */
+	selectAll(ids: string[]) {
+		this.selectionSrv.selectAll(ids);
+	}
+
+	/** reset the selection of suppliers */
 	resetSelection() {
-		this.selection = new Array();
+		this.selectionSrv.unselectAll();
 	}
 
-	deleteSelection() {
-		this.selection.forEach(s => this.removeItem(s));
-		this.resetSelection();
+	onSort(sort: SortEvent) {
+		this.currentSort = sort;
+		this.pending = true;
+
 	}
 
-	mergeSelection() {
-		this.resetSelection();
-	}
-
-	onSelection(itemIds) {
-		this.selection = itemIds;
-	}
-
-	select(entity: ERM) {
-		this.selectedEntity = entity;
-		// this.items$ = this.store.select(selectEntityArray(entity));
-		this.resetSelection();
-	}
-
-	removeItem(id: string) {
-		// this.store.dispatch(this.selectedEntity.actions.delete([id]));
-	}
-
-	updateItem(patch) {
-		// this.store.dispatch(this.selectedEntity.actions.patch(patch));
-	}
 }

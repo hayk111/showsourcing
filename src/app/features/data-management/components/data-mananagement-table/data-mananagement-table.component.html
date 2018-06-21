@@ -1,29 +1,59 @@
-<div class="flex flexCenter searchBox">
-	<icon-app (click)="searchInp.focus()" name="search" fontSet="fa"></icon-app>
-	<input #searchInp type="search" (input)="search(searchInp.value)"/>
-</div>
+<table-app
+	[rows]="categories"
+	[pending]="pending"
+	[selected]="selected"
+	(selectOne)="entitySelect.emit($event)"
+	(unselectOne)="entityUnselect.emit($event)"
+	(selectAll)="entitySelectAll.emit($event)"
+	(unselectAll)="entityUnselectAll.emit()"
+	(sort)="sort.emit($event)"
+	(hovered)="onHover($event)">
 
+	<!-- Name Category -->
+	<ng-template
+		columnApp="Name"
+		let-row="row"
+		width="250">
+		<div class="category_name"> {{row.name}} </div>
+	</ng-template>
 
-<list-app>
-	<list-item-app *ngFor="let item of availableItems">
+	<!-- Created By *ngIf="dataName.equals('category')"-->
+	<ng-template
+		columnApp="Created By"
+		let-row="row"
+		width="140">
+		<span class="center">
+			{{ row.createdBy ? row.createdBy.firstName : '' }} {{ row.createdBy ? row.createdBy.lastName : '' }}
+		</span>
+	</ng-template>
+
+	<!-- Products Count -->
+	<ng-template
+		columnApp="Products Count"
+		let-row="row"
+		width="140">
+		<span>
+		</span>
+	</ng-template>
+
+	<!-- Supplier Count -->
+	<ng-template
+		columnApp="Suppliers Count"
+		let-row="row"
+		width="140">
+		<span>
+		</span>
+	</ng-template>
+
+	<!-- No selection options -->
+	<ng-template
+		columnApp=""
+		let-row="row"
+		width="140">
 		<div class="flex">
-			<checkbox-app (check)="onCheck(item)" (uncheck)="onUncheck(item)"></checkbox-app>
-
-			<editable-text-app class="flexGrow" #editable [editOnClick]="false" (click)="inp.focus()">
-				<label-app class="flexBetween">
-					<span>{{ item.name }}</span>
-					<icon-app name="edit" fontSet="fa" color="txt-secondary" class="edit pointer" (click)="editable.open()"></icon-app>
-				</label-app>
-				<div class="flex flexCenter">
-					<input #inp type="text" [value]="item.name" (keyup.enter)="onUpdate(item.id, inp.value)"/>
-					<button class="small done" (click)="onUpdate(item.id, inp.value); editable.close()">done</button>
-				</div>
-			</editable-text-app>
-
-			<icon-app name="trash-alt" fontSet="fa" (click)="delete(item)" class="pointer" color="txt-secondary"></icon-app>
+			<button *ngIf="row.id === idEntityHovered"  class="button ugly" (click)="addEntity(row.id)">Add</button>
+			<span class="marginSmall"></span>
+			<button *ngIf="row.id === idEntityHovered" class="button ugly" (click)="deleteEntity(row.id)">Delete</button>
 		</div>
-
-
-	</list-item-app>
-</list-app>
-
+	</ng-template>
+</table-app>

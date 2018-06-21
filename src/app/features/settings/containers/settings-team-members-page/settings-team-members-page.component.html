@@ -1,7 +1,8 @@
 
 <top-panel-app
     title="ShowSourcing - Fashion"
-    [subtitles]="['Settings', 'Team Members']"
+		[subtitles]="['Settings', 'Team Members']"
+		[hasSwitch]="false"
     buttonName="Create New Team"
     [buttonIcon]="false"
     (buttonClick)="openNewTeamDialog()">
@@ -15,11 +16,11 @@
     [buttonIcon]="false"
     (buttonClick)="openInviteDialog()">
     <context-menu-app xPosition="after" yPosition="45">
-		<context-menu-trigger-app class="flex pointer">
+		<context-menu-trigger-app class="button flex pointer">
 			<div class="text">Selection</div>
 			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
-        <context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'FullAccess' })">
+    <context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'FullAccess' })">
 			Full Access
 		</context-menu-item-app>
 		<context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'ReadOnly' })">
@@ -40,11 +41,11 @@
     (sort)="onSort($event)"
     (memberSelect)="selectItem($event)"
     (memberUnselect)="unselectItem($event)"
-    (memberSelectAll)="selectAll()"
+    (memberSelectAll)="selectAll($event)"
     (memberUnselectAll)="resetSelection()"
     (accessTypeUpdated)="accessTypeUpdated($event)"
     (memberOpen)="onItemOpened($event)"
-    (delete)="deleteSelected($event)"></team-members-list-view-app>
+    (delete)="deleteSelected()"></team-members-list-view-app>
 
 <!-- ng-container *ngIf="selected$ | async as selected">
     <selection-bar-app

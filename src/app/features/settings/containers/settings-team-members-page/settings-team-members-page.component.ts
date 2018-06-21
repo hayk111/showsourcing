@@ -1,16 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FilterService, Filter } from '~shared/filters';
-import { Supplier } from '~models';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { map, tap, takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { DialogName, DialogService } from '~shared/dialog';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
-import { AutoUnsub } from '~utils';
-import { TeamUser } from '~models';
-import { SelectionService } from '../../services/selection.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MemberService } from '~features/settings/services/member.service';
 import { MenuService } from '~features/settings/services/menu.service';
+import { Supplier, TeamUser } from '~models';
+import { DialogName, DialogService } from '~shared/dialog';
+import { Filter, FilterService } from '~shared/filters';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { AutoUnsub } from '~utils';
+
+import { SelectionService } from '../../services/selection.service';
 
 @Component({
 	selector: 'settings-team-members-page-app',
@@ -41,17 +40,12 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	initialLoading = true;
 	/** number of members requested by paginated request */
 	page = 0;
-	// keeps tracks of the current selection
-	selection = new Map<string, boolean>();
 
 	constructor(
-		private router: Router,
 		private memberSrv: MemberService,
 		private selectionSrv: SelectionService,
 		private dlgSrv: DialogService,
-		private filterSrv: FilterService,
-		private menuSrv: MenuService,
-		private cdr: ChangeDetectorRef) {
+		private menuSrv: MenuService) {
 		super();
 	}
 
@@ -66,7 +60,6 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 			})
 		);
 		this.selected$ = this.selectionSrv.selection$;
-		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 		this.menuCollapsed$ = this.menuSrv.collapsed$;
 		this.menuCollapsed$.subscribe(menuCollapsed => this.menuCollapsed);
 	}
@@ -109,8 +102,8 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	}
 
 	/** When all members have been selected at once (from the table) */
-	selectAll() {
-		this.selectionSrv.selectAll(this.members.map(s => s.id));
+	selectAll(ids: string[]) {
+		this.selectionSrv.selectAll(ids);
 	}
 
 	/** reset the selection of members */
@@ -143,25 +136,16 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	}
 
 	/** Will show a confirm dialog to delete items selected */
-	deleteSelected(member: TeamUser) {
-		let selection = this.selection;
-		if (member) {
-			selection = new Map<string, boolean>();
-			selection.set(member.id, true);
-		}
+	deleteSelected() {
+		const members = Array.from(this.selectionSrv.selection.keys());
 		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
 		// Let's avoid doing that whenever possible though.
 		const callback = () => {
-			const members: Array<string> = new Array();
-			selection.forEach((value, key) => {
-				if (value) members.push(key);
-			});
 			this.memberSrv.deleteMembers(members).subscribe(() => {
 				this.resetSelection();
-				this.cdr.detectChanges();
 			});
 		};
-		const text = `Delete ${selection.size} Member${selection.size > 1 ? 's' : ''} ?`;
+		const text = `Delete ${members.length} Member${members.length > 1 ? 's' : ''} ?`;
 		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 }

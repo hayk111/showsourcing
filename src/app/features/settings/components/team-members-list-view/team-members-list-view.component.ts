@@ -18,8 +18,8 @@ export class TeamMembersListViewComponent {
 	@Input() pending = true;
 	@Output() memberSelect = new EventEmitter<string>();
 	@Output() memberUnselect = new EventEmitter<string>();
-	@Output() memberSelectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() memberUnselectAll = new EventEmitter<Map<string, boolean>>();
+	@Output() memberSelectAll = new EventEmitter<string[]>();
+	@Output() memberUnselectAll = new EventEmitter<null>();
 	@Output() memberOpen = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() accessTypeUpdated = new EventEmitter<string>();

@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterService, Filter } from '~shared/filters';
-import { Supplier } from '~models';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { map, tap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { SupplierService } from '~features/supplier/services/supplier.service';
+import { Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
+import { Filter, FilterService } from '~shared/filters';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
 import { AutoUnsub } from '~utils';
+
 import { SelectionService } from '../../services/selection.service';
-import { SupplierService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
-	providers: [FilterService]
+	providers: [FilterService, SelectionService]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit {
-	suppliers: Array<Supplier> = [];
+
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
 	/** current sort used for sorting suppliers */
@@ -41,8 +42,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private supplierSrv: SupplierService,
 		private selectionSrv: SelectionService,
-		private dlgSrv: DialogService,
-		private filterSrv: FilterService) {
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -57,7 +57,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 			})
 		);
 		this.selected$ = this.selectionSrv.selection$;
-		// this.filters$ = this.store.select(selectFilterGroup(this.filterGroupName));
 	}
 
 	/** loads more product when we reach the bottom of the page */
@@ -93,8 +92,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** When all suppliers have been selected at once (from the table) */
-	selectAll() {
-		this.selectionSrv.selectAll(this.suppliers.map(s => s.id));
+	selectAll(ids: string[]) {
+		this.selectionSrv.selectAll(ids);
 	}
 
 	/** reset the selection of suppliers */
