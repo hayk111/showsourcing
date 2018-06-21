@@ -1,4 +1,5 @@
-field-cell-app {
+:host {
+	display: block;
 	position: relative;
 }
 
@@ -16,9 +17,12 @@ field-cell-app {
 	min-width: 200px;
 	position: absolute;
 	right: -100px;
-	top: 80px;
+	top: 25px;
 }
 
 .editablePrice:hover .currencyLabel {
 	visibility: visible;
+}
+
+:host {
 }

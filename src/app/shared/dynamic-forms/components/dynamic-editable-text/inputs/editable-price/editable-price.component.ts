@@ -10,12 +10,18 @@ import { EditableTextComponent } from '~shared/editable-field';
 	templateUrl: './editable-price.component.html',
 	styleUrls: ['./editable-price.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(EditablePriceComponent)]
+	providers: [makeAccessorProvider(EditablePriceComponent)],
+	host: {
+		'[class.oneLine]': 'inlineLabel',
+		'[class.twoLine]': '!inlineLabel'
+	}
 })
 export class EditablePriceComponent extends AbstractInput {
 	@Input() inlineLabel: boolean;
 	@Input() customField: CustomField;
 	@Output() change = new EventEmitter();
+	@Output() open = new EventEmitter();
+	@Output() close = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@ViewChild('editable2') currencyEditable: EditableTextComponent;
 	@ViewChild(SelectorConstComponent) currencySelector: SelectorConstComponent;
@@ -38,10 +44,12 @@ export class EditablePriceComponent extends AbstractInput {
 		this.value = this.accumulator;
 		this.isOpen = false;
 		this.onChange();
+		this.close.emit();
 	}
 
 	onOpen() {
 		this.isOpen = true;
+		this.open.emit();
 	}
 
 	accumulatePrice(priceAmount: number) {

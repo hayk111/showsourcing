@@ -114,12 +114,16 @@
 	</field-cell-app>
 
 	<!-- price -->
-	<editable-price-app
-		*ngSwitchCase="'price'"
-		[(ngModel)]="value"
-		(change)="onChange()"
-		[inlineLabel]="inlineLabel"
-		[customField]="customField"></editable-price-app>
+	<field-cell-app	*ngSwitchCase="'price'"	[hasBottom]="!isOpen" [inlineLabel]=" inlineLabel">
+			<label-app>{{ customField.label || customField.name }}</label-app>
+			<editable-price-app
+				[(ngModel)]="value"
+				(change)="onChange()"
+				(open)="onOpen()"
+				(close)="onClose()"
+				[inlineLabel]="inlineLabel"
+				[customField]="customField"></editable-price-app>
+	</field-cell-app>
 
 	<!-- price matrix -->
 	<ng-container *ngSwitchCase="'priceMatrix'">

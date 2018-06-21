@@ -44,7 +44,7 @@ nav {
 		}
 	}
 
-	notif-app, search-bar-animated-app {
+	notif-app {
 		cursor: pointer;
 		padding: var(--spacing-xs) var(--spacing-s);
 		border-radius: var(--border-radius-s);
@@ -53,6 +53,8 @@ nav {
 	search-bar-animated-app {
 		font-size: 20px;
 		margin-right: 20px;
+		cursor: pointer;
+		border-radius: var(--border-radius-s);
 		&.expanded {
 			background: #071327;
 		}

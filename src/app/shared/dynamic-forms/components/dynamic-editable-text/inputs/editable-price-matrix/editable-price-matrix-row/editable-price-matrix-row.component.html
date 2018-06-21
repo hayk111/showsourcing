@@ -21,8 +21,8 @@
 
 	<editable-text-app #editable2 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
-		<editable-label-app class="txtSecondary txtBtn">
-			<span>{{ (value?.price?.currency || 'USD') + ' '}}</span>
+		<editable-label-app class="txtBtn">
+			<span>{{ (value?.price?.currency || 'USD') | const : 'currency' : 'symbol'}} </span>
 
 			<span>{{ value?.price?.value !== undefined ? value.price.value  : '-' }}</span>
 		</editable-label-app>
