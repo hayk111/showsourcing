@@ -1,8 +1,7 @@
 <top-panel-app
 	[title]="'ShowSourcing'"
 	[subtitles]="['Settings', 'Data Cleansing']"
-	[hasActions]="false"
-	(buttonClick)="openNewDialog()">
+	[hasActions]="false">
 </top-panel-app>
 
 <sub-panel-app
@@ -38,6 +37,5 @@
 	(entitySelect)="selectItem($event)"
 	(entityUnselect)="unselectItem($event)"
 	(entitySelectAll)="selectAll($event)"
-	(entityUnselectAll)="resetSelection()"
-	(entityOpen)="onItemOpened($event)">
+	(entityUnselectAll)="resetSelection()">
 </data-management-table-app>
