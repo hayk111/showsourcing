@@ -62,7 +62,7 @@
 
 .emptyBorder{
 	.cell {
-		border: none;
+		border-bottom: 1px solid transparent;
 	}
 	.cell, .header {
 		padding: 0;
