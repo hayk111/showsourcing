@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SupplierFeatureService } from '~features/supplier/services/supplier.service';
+import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';

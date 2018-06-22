@@ -25,7 +25,7 @@ import { SupplierMainTitleComponent } from './components/supplier-main/supplier-
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
-import { SupplierFeatureService } from './services/supplier.service';
+import { SupplierFeatureService } from './services/supplier-feature.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 

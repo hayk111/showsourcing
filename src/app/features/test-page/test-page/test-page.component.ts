@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ApolloClient } from '~shared/apollo';
 import gql from 'graphql-tag';
-import { Supplier } from '~models';
-import { SupplierQueries } from '~features/supplier/services/supplier.queries';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Supplier } from '~models';
+import { ApolloClient } from '~shared/apollo';
+import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 
 const supplierMutation = gql`
 mutation supplier($input: SupplierInput) {

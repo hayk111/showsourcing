@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
-import { Category } from '~models';
 import { ContactService } from '~features/supplier/services/contact.service';
-import { Contact } from '~models';
-import { UserService } from '~shared/global-services';
+import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { Contact, Product, Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
-import { Product } from '~models';
-import { Supplier, Tag } from '~models';
-import { SupplierFeatureService } from '~features/supplier/services/supplier.service';
+import { UserService } from '~shared/global-services';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-details-app',

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 
 
-export class SupplierQueries {
+export class SupplierFeatureQueries {
 	// at the time of writing this:
 	// in order to subscribe to a supplier we need to
 	// subscribe to the list and pass a query with the correct id so we

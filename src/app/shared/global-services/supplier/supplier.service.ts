@@ -14,9 +14,9 @@ export class SupplierService {
 	// 	throw Error('not implemented yet');
 	// }
 
-	// selectAll() {
+	selectAll(arr: String) {
 
-	// }
+	}
 
 	update(supplier: Supplier) {
 		throw Error('not implemented yet');

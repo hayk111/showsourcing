@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { SupplierQueries } from '~features/supplier/services/supplier.queries';
+import { SupplierFeatureQueries } from '~features/supplier/services/supplier-feature.queries';
 import { Product, Supplier, Task } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils/constants';
@@ -21,7 +21,7 @@ export class SupplierFeatureService {
 	private initializeSupplierQuery(): void {
 		if (!this.suppliersQuery$) {
 			this.suppliersQuery$ = this.apollo.query<any>({
-				query: SupplierQueries.list,
+				query: SupplierFeatureQueries.list,
 				variables: {
 					skip: 0,
 					take: PER_PAGE
@@ -94,14 +94,14 @@ export class SupplierFeatureService {
 
 	// at the moment the subscription works on only one entity and can be done only on list
 	getById(id: string): Observable<Supplier> {
-		return this.apollo.subscribe({ query: SupplierQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
+		return this.apollo.subscribe({ query: SupplierFeatureQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
 			filter((r: any) => r.data.suppliers),
 			map((r: any) => r.data.suppliers[0])
 		);
 	}
 
 	createSupplier(supplier: Supplier) {
-		return this.apollo.create({ mutation: SupplierQueries.createSupplier, input: supplier, typename: 'Supplier' })
+		return this.apollo.create({ mutation: SupplierFeatureQueries.createSupplier, input: supplier, typename: 'Supplier' })
 			.pipe(
 				map((r: any) => r.data.addSupplier.id)
 			);
@@ -110,7 +110,7 @@ export class SupplierFeatureService {
 	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
 		return this.apollo.subscribe({
-			query: SupplierQueries.latestProducts,
+			query: SupplierFeatureQueries.latestProducts,
 			variables: { query: `supplier.id == '${supplierId}'` }
 		}).pipe(
 			map((r: any) => r.data.products)
@@ -123,7 +123,7 @@ export class SupplierFeatureService {
 
 	updateSupplier(supplier: Supplier) {
 		return this.apollo.update({
-			mutation: SupplierQueries.updateSupplier,
+			mutation: SupplierFeatureQueries.updateSupplier,
 			input: supplier,
 			typename: 'Supplier'
 		});
