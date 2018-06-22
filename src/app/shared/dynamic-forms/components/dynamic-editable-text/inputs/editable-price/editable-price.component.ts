@@ -41,11 +41,8 @@ export class EditablePriceComponent extends AbstractInput {
 	}
 
 	onSave() {
-		// only emit change when value has actually changed
-		if (this.value !== this.accumulator) {
-			this.value = this.accumulator;
-			this.onChange();
-		}
+		this.value = this.accumulator;
+		this.onChange();
 		this.isOpen = false;
 		this.close.emit();
 	}
