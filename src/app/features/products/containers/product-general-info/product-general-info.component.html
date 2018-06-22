@@ -7,6 +7,7 @@
 			General
 		</div>
 		<dynamic-form-app
+			[inlineLabel]="false"
 			(formCreated)="onFormCreated($event)"
 			[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
 	</ng-container>

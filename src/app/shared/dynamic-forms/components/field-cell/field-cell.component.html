@@ -1,7 +1,7 @@
 	<div class="label2">
 		<ng-content select="label-app"></ng-content>
 	</div>
-	<div class="content">
+	<div class="content" [ngClass]="{ 'hasBottom': hasBottom}">
 		<ng-content></ng-content>
 	</div>
 

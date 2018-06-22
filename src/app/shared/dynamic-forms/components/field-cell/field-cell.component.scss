@@ -45,6 +45,9 @@
 			border: none;
 		}
 		.content {
+			color: var(--color-txt-secondary);
+		}
+		.content.hasBottom {
 			font-weight: 600;
 			color: var(--color-txt-secondary);
 			&:hover {

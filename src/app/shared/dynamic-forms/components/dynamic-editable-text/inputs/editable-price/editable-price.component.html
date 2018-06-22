@@ -6,6 +6,11 @@
 				<span class="priceValue">{{ value?.currency | const:'currency':'symbol'}} </span>
 				<span class="priceValue">{{ value?.value !== undefined ? value.value : '-' }}</span>
 			</editable-label-app>
+			<!-- currency block goes before input on single line -->
+			<span *ngIf="inlineLabel"
+				class="currencyLabel1 txtBtn pointer" (click)="showCurrencySelector()">
+				{{ value?.currency | const:'currency':'id' }}
+			</span>
 			<input #inp inputApp
 				(keyup.enter)="editable1.close();"
 				(input)="accumulatePrice(+inp.value)"
@@ -14,20 +19,18 @@
 				restrictInput="decimal"
 				[value]="customField?.value?.value"/>
 		</editable-text-app>
-		<!-- currency -->
-		<div class="editableCurrency" *ngIf="!inlineLabel">
-			<span class="currencyLabel pointer" (click)="showCurrencySelector()">
-				{{ value?.currency | const:'currency':'id' }}
-			</span>
-			<selector-const-app
-				*ngIf="currencySelectorShown"
-				(clickOutside)="hideCurrencySelector()"
-				class="rightSelector"
-				[multiple]="false"
-				[(ngModel)]="value.currency"
-				[type]="'currency'"
-				(change)="onCurrencyChange()"
-				(blur)="onBlur()">
-			</selector-const-app>
-		</div>
+		<!-- currency goes after after when on double line -->
+		<span *ngIf="!inlineLabel" class="currencyLabel2 pointer" (click)="showCurrencySelector()">
+			{{ value?.currency | const:'currency':'id' }}
+		</span>
+		<selector-const-app
+			*ngIf="currencySelectorShown"
+			(clickOutside)="hideCurrencySelector()"
+			class="rightSelector"
+			[multiple]="false"
+			[(ngModel)]="value.currency"
+			[type]="'currency'"
+			(change)="onCurrencyChange()"
+			(blur)="onBlur()">
+		</selector-const-app>
 	</div>

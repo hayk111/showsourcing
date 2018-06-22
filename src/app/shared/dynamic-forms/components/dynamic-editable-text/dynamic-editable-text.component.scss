@@ -1,8 +1,12 @@
-
+field-cell-app {
+	height: 68px;
+	&.fcTxtArea {
+		height: auto;
+	}
+}
 
 /** for packaging and price matrix */
 label {
-	color: var(--color-primary);
   font-size: var(--font-size-l);
   font-weight: bold;
 }

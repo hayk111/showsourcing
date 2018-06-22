@@ -2,8 +2,10 @@
 	display: block;
 	position: relative;
 }
-
-.currencyLabel {
+.currencyLabel1 {
+	margin-right: 50px;
+}
+.currencyLabel2 {
 	visibility: hidden;
 	padding: 4px 11px;
 	border: 1px solid var(--color-primary);
@@ -20,9 +22,17 @@
 	top: 25px;
 }
 
-.editablePrice:hover .currencyLabel {
+.editablePrice:hover .currencyLabel2 {
 	visibility: visible;
 }
 
 :host {
+	&.oneLine {
+		input {
+			padding: 2px 1px 2px 6px;
+			border: none;
+			background: var(--color-bg-third);
+			width: 90px;
+		}
+	}
 }

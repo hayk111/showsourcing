@@ -13,7 +13,7 @@
 			Manufacturer from {{ supplier?.country | const:'country' }}
 		</span>
 
-		<badge-app *ngIf="supplier.status" [color]="supplier?.status">
+		<badge-app *ngIf="supplier && supplier.status" [color]="supplier?.status">
 			{{ supplier?.status }}
 		</badge-app>
 
