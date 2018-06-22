@@ -10,8 +10,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 		'[class.flexCenter]': 'inlineLabel',
 		'[class.oneLine]': 'inlineLabel',
 		'[class.doubleLine]': '!inlineLabel',
-		'[class.hasBottom]': 'hasBottom',
-		'[class.hasNoBottom]': '!hasBottom',
+		'[class.isOpen]': 'isOpen',
+		'[class.isClosed]': '!isOpen',
 		'[class.canGrow]': 'canGrow',
 		'[class.cannotGrow]': '!canGrow',
 
@@ -20,7 +20,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 export class FieldCellComponent implements OnInit {
 	@Input() label = '';
 	@Input() inlineLabel = false;
-	@Input() hasBottom = true;
+	@Input() isOpen = true;
 	// whether the input has a fixed size
 	@Input() canGrow = false;
 

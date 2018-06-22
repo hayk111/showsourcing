@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { countries, incoTerms, harbours, currencies, lengths } from '~utils/constants';
-import { of, Observable } from 'rxjs';
-import { ApolloClient } from '~shared/apollo';
-import { SelectorQueries } from './selector.queries';
-import { map, tap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Category, Event, SupplierType, Tag } from '~models';
 import { Supplier } from '~models/supplier.model';
+import { ApolloClient } from '~shared/apollo';
 import { Choice } from '~shared/selectors/utils/choice.interface';
-import { Category, Event, Tag, SupplierType } from '~models';
+import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
+
+import { SelectorQueries } from './selector.queries';
 
 
 @Injectable({
@@ -30,6 +31,14 @@ export class SelectorsService {
 
 	getCurrencies(): any[] {
 		return currencies;
+	}
+
+	getLengthUnits(): any[] {
+		return lengthUnits;
+	}
+
+	getWeigthUnits(): any[] {
+		return weightUnits;
 	}
 
 	getSuppliers(): Observable<Choice[]> {
@@ -66,10 +75,6 @@ export class SelectorsService {
 		return this.apollo.subscribe({ query: SelectorQueries.users }).pipe(
 			map(r => r.data.users)
 		);
-	}
-
-	getLengths(): any[] {
-		return lengths;
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

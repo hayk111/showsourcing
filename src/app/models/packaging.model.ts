@@ -13,6 +13,7 @@ export class Packaging {
 	constructor(config?: PackagingConfig) {
 		this.id = uuid();
 		this.unit = 'cm';
+		this.weightUnit = 'kg';
 		Object.assign(this, config);
 	}
 }

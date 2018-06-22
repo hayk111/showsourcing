@@ -31,10 +31,10 @@
 			width: 100%;
 		}
 
-		&.hasBottom {
+		&.isOpen {
 			border-bottom: 1px solid var(--color-primary-light);
 		}
-		&.hasNoBottom {
+		&.isClosed {
 			.content {
 				align-items: flex-end;
 			}

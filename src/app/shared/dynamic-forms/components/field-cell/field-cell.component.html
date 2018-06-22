@@ -1,7 +1,7 @@
 	<div class="labelCtnr label2">
 		<ng-content select="label-app"></ng-content>
 	</div>
-	<div class="content flex" [ngClass]="{'txtBtn': inlineLabel }">
+	<div class="content flex" [ngClass]="{'txtBtn': (inlineLabel && isOpen) }">
 		<div class="flexVAlign fullWidth">
 			<ng-content></ng-content>
 		</div>
