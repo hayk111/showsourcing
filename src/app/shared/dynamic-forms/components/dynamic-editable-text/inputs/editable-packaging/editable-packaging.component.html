@@ -1,5 +1,6 @@
 
-
+<!-- when the value is undefined, null or 0 we display '-'.
+A package with 0cm makes no sens -->
 <!-- length -->
 <field-cell-app #cell1 [inlineLabel]="true">
 	<label-app>length</label-app>
@@ -7,7 +8,7 @@
 		(closed)="onSave(); cell1.isOpen = true"
 		(opened)="cell1.isOpen = false">
 		<editable-label-app>
-			{{ value?.length !== null ? (value?.length + ' ' + value.unit) : '-' }}
+			{{ value?.length ? (value?.length + ' ' + value.unit) : '-' }}
 		</editable-label-app>
 		<form-field-app class="edit">
 			<input inputApp
@@ -30,7 +31,7 @@
 		(closed)="onSave(); cell2.isOpen = true"
 		(opened)="cell2.isOpen = false">
 		<editable-label-app>
-			{{ value?.width !== null ? (value?.width + ' ' + value?.unit) : '-' }}
+			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
 		<form-field-app class="edit">
 			<input inputApp
@@ -52,7 +53,7 @@
 		(closed)="onSave(); cell3.isOpen = true"
 		(opened)="cell3.isOpen = false">
 		<editable-label-app>
-			{{ value?.height !== null ? (value?.height + ' ' + value?.unit) : '-' }}
+			{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
 		</editable-label-app>
 		<form-field-app class="edit">
 			<input inputApp
@@ -90,7 +91,7 @@
 		(closed)="onSave(); cell5.isOpen = true"
 		(opened)="cell5.isOpen = false">
 		<editable-label-app>
-			{{ value?.itemsQuantity !== null ? value.itemsQuantity : '-' }}
+			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
 		</editable-label-app>
 		<form-field-app class="edit">
 			<input inputApp
@@ -112,7 +113,7 @@
 		(closed)="onSave(); cell6.isOpen = true"
 		(opened)="cell6.isOpen = false">
 		<editable-label-app>
-			{{ value?.weight !== null ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
+			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
 		</editable-label-app>
 		<form-field-app class="edit">
 			<input inputApp
