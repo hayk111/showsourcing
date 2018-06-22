@@ -5,14 +5,16 @@ switch (type) {
 }
 the name ERM is for retrocompatibility */
 
-class ReadProperty {
+export class ReadProperty {
 	readonly singular;
 	readonly plural;
 	constructor(singular, plural) {
 		this.singular = singular;
 		this.plural = plural;
 	}
+
 }
+
 export class ERM {
 	static readonly CATEGORY = new ReadProperty('category', 'categories');
 	static readonly COMMENT = new ReadProperty('comment', 'comments');
@@ -36,5 +38,17 @@ export class ERM {
 	static readonly TAG = new ReadProperty('tag', 'tags');
 	static readonly TASK = new ReadProperty('task', 'tasks');
 	static readonly USER = new ReadProperty('user', 'users');
+	static readonly NONE = new ReadProperty('not a read property', 'not a read property');
+
+	constructor() { }
+
+	/** if the string matches with any of the attributeson ERM this fucniton will return that property */
+	public getReadProperty(name: string): ReadProperty {
+		for (const item in ERM) {
+			if (name.match(ERM[item].singular) || name.match(ERM[item].plural))
+				return ERM[item];
+		}
+		return ERM.NONE;
+	}
 }
 

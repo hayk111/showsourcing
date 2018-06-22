@@ -1,22 +1,36 @@
 import gql from 'graphql-tag';
+import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
 
+export class CategoryQueries implements GlobalQuery {
 
-
-export class CategoryQueries {
-
-	static createCategory = gql`
-	mutation addCategory($input: CategoryInput!) {
-		addCategory(input: $input) {
-			id
+	create = gql`
+		mutation addCategory($input: CategoryInput!) {
+			addCategory(input: $input) {
+				id
+			}
 		}
-	}
 	`;
 
-	static updateCategory = gql`
-	mutation category($input: CategoryInput!) {
-		updateCategory(input: $input) {
-			id
+	update = gql`
+		mutation category($input: CategoryInput!) {
+			updateCategory(input: $input) {
+				id
+			}
 		}
-	}
 	`;
+
+	delete = gql`
+		mutation category($input: String!) {
+			deleteCategory(id: $input)
+		}
+	`;
+
+	all = (fields: string) => {
+		return gql`
+			subscription categories {
+				categories {
+					${fields}
+				}
+			}`;
+	}
 }

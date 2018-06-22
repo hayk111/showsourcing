@@ -4,28 +4,17 @@
 </top-panel-app>
 
 <sub-panel-app
-	[title]="title"
-	buttonName="New Category"
+	[title]="itemType.plural"
+	buttonName="New {{itemType.singular}}"
 	[hasFilter]="false"
-	[buttonIcon]="false">
+	[buttonIcon]="false"
+	(buttonClick)="openNewEntityDialog()">
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
-		<button class="button warn"> Delete Selected </button>
+		<button class="button warn" (click)="removeSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
-		<button> Merge Selected </button>
+		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
 </sub-panel-app>
-
-<!-- new-selection-bar
-	[title]="'Categories'"
-	[hasSearch]="true"
-	[isSelected]="isSelected" if selected display the following buttons -> import | delete selected | merge selected | new category
-													 else display the button -> new category
-	[selected]="selected"
-	(merge)="mergeSelection()"
-	(delete)="deleteSelection()"
-	(import)="importSelection()"
-	(create)="createCategory()"
--->
 
 <data-management-table-app
 	[items]="items$ | async"
@@ -35,5 +24,7 @@
 	(entitySelect)="selectItem($event)"
 	(entityUnselect)="unselectItem($event)"
 	(entitySelectAll)="selectAll($event)"
-	(entityUnselectAll)="resetSelection()">
+	(entityUnselectAll)="resetSelection()"
+	(addEntity)="addEntity($event)"
+	(removeEntity)="removeEntity($event)">
 </data-management-table-app>

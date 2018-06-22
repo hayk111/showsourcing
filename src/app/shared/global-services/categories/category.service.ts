@@ -1,12 +1,16 @@
-import { Observable } from 'rxjs';
-import { Category } from '~models';
 import { Injectable } from '@angular/core';
-import { CategoryQueries } from '~features/data-management/services/category.queries';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { Category } from '~models';
 import { ApolloClient } from '~shared/apollo';
-import { PER_PAGE } from '~utils/constants';
+import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+
+import { CategoryQueries } from './category.queries';
 
 @Injectable()
-export class CategoryService {
+export class CategoryService implements GlobalServiceInterface<Category> {
+
+	queries = new CategoryQueries();
 
 	constructor(private apollo: ApolloClient) { }
 
@@ -14,28 +18,33 @@ export class CategoryService {
 		throw Error('not implemented yet');
 	}
 
-	// selectList(): Observable<Category[]> {
-	// 	throw Error('not implemented yet');
-	// }
-
-	// selectAll() {
-
-	// }
-	update(category: Category) {
-		return this.apollo.update({
-			mutation: CategoryQueries.updateCategory,
-			input: category,
-			typename: 'Category'
-		});
+	selectAll(fields: string) {
+		return this.apollo.subscribe({
+			query: this.queries.all(fields)
+		}).pipe(map(({ data }) => (<any>data).categories));
 	}
 
-	create(category: Category) {
-		throw Error('not implemented yet');
+	update(category: Category): Observable<Category> {
+		return this.apollo.update({
+			mutation: this.queries.update,
+			input: category,
+			typename: 'Category'
+		}).pipe(map(({ data }) => (<any>data).categories));
+	}
+
+	create(category: Category): Observable<Category> {
+		return this.apollo.create({ mutation: this.queries.create, input: category, typename: 'Category' })
+			.pipe(
+				map((r: any) => r.data.addCategory.id)
+			);
 	}
 
 	delete(category: Category) {
-		throw Error('not implemented yet');
+		return this.apollo.delete({ mutation: this.queries.delete, input: category.id, typename: 'Category' }).pipe(take(1));
 	}
 
+	deleteMany(categories: Category[]) {
+		return null;
+	}
 }
 
