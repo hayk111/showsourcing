@@ -43,6 +43,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 import { FilterDataService } from './services/filter.data.service';
 import { SelectionService } from './services/selection.service';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { ProductNavigationComponent } from './components/product-navigation/product-navigation.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 		ProductFiltersComponent,
 		NewProductDialogComponent,
 		GroupByPipe,
-		ProductPreviewComponent
+		ProductPreviewComponent,
+		ProductNavigationComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,

@@ -1,0 +1,17 @@
+nav {
+	height: 54px;
+	background: white;
+	border-radius: var(--border-radius);
+	margin: var(--spacing-m);
+	overflow: hidden;
+}
+a {
+	height: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
+	font-weight: 600;
+}
+a.active {
+	background: var(--color-bg-third);
+	border-bottom: 4px solid var(--color-primary);
+}
