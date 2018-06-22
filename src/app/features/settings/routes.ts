@@ -10,10 +10,10 @@ export const routes: Routes = [
 		path: '',
 		component: SettingsComponent,
 		children: [
+			{ path: '', redirectTo: 'profile', pathMatch: 'full' },
 			{ path: 'profile', component: SettingsProfileComponent },
 			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
-			{ path: 'data', component: DataManagementPageComponent },
-			{ path: '', component: SettingsProfileComponent }
+			{ path: 'data/:id', component: DataManagementPageComponent },
 		]
 	}
 ];

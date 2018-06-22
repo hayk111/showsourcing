@@ -11,7 +11,9 @@ import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { TableModule } from '~shared/table';
+import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { CategoryService } from '~features/data-management/services/category.service';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 @NgModule({
 	imports: [
@@ -24,7 +26,9 @@ import { CategoryService } from '~features/data-management/services/category.ser
 	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
 	exports: [DataManagementPageComponent],
 	providers: [
-		CategoryService
+		DataManagementService,
+		CategoryService,
+		SelectionService
 	]
 })
 export class DataManagementModule {

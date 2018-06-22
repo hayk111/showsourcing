@@ -10,7 +10,6 @@ import { Sort } from '~shared/table/components/sort.interface';
 })
 export class DataMananagementTableComponent {
 	@Input() items: Array<any>;
-	@Input() categories: Array<Category>;
 	@Input() selected: Map<string, boolean>;
 	@Input() pending = true;
 	@Output() entitySelect = new EventEmitter<string>();

@@ -4,7 +4,7 @@
 </top-panel-app>
 
 <sub-panel-app
-	[title]="'Categories'"
+	[title]="title"
 	buttonName="New Category"
 	[hasFilter]="false"
 	[buttonIcon]="false">
@@ -28,7 +28,6 @@
 -->
 
 <data-management-table-app
-	[categories]="categories$ | async"
 	[items]="items$ | async"
 	[selected]="selected$ | async"
 	[pending]="pending"

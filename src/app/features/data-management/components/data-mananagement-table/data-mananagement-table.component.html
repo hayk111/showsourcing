@@ -1,5 +1,5 @@
 <table-app
-	[rows]="categories"
+	[rows]="items"
 	[pending]="pending"
 	[selected]="selected"
 	(selectOne)="entitySelect.emit($event)"
@@ -49,11 +49,12 @@
 	<ng-template
 		columnApp=""
 		let-row="row"
-		width="140">
+		width="160">
 		<div class="flex">
-			<button *ngIf="row.id === idEntityHovered"  class="button ugly" (click)="addEntity(row.id)">Add</button>
+			<!-- If we are hovering over the row and we have nothing selected-->
+			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="addEntity(row.id)">Rename Category</button>
 			<span class="marginSmall"></span>
-			<button *ngIf="row.id === idEntityHovered" class="button ugly" (click)="deleteEntity(row.id)">Delete</button>
+			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)" class="button ugly" (click)="deleteEntity(row.id)">Delete Category</button>
 		</div>
 	</ng-template>
 </table-app>

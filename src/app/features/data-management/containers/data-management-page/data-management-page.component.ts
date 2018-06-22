@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { tap, takeUntil, first } from 'rxjs/operators';
-import { CategoryService } from '~features/data-management/services/category.service';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { Category, ERM } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
 	selector: 'data-management-page-app',
@@ -15,8 +15,7 @@ import { AutoUnsub } from '~utils';
 	providers: [SelectionService]
 })
 export class DataManagementPageComponent extends AutoUnsub implements OnInit {
-	entities = [ERM.EVENT, ERM.CATEGORY, ERM.SUPPLIER, ERM.TAG, ERM.PROJECT];
-	categories$: Observable<Category[]>;
+	title: string;
 	items$: Observable<any[]>;
 	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */
@@ -28,7 +27,7 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 
 	constructor(
-		private categorySrv: CategoryService,
+		private dataManagementSrv: DataManagementService,
 		private selectionSrv: SelectionService,
 		private route: ActivatedRoute) {
 		super();
@@ -37,9 +36,9 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.route.params.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(params => params);
+		).subscribe(params => this.title = params.id);
 		this.pending = true;
-		this.categories$ = this.categorySrv.selectCategories().pipe(
+		this.items$ = this.dataManagementSrv.selectItems(this.title).pipe(
 			tap(() => {
 				if (this.initialLoading) {
 					this.pending = false;
