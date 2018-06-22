@@ -8,7 +8,7 @@ import { UserService } from '~shared/global-services';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { InputDirective } from '~shared/inputs';
 import { DialogName } from '~shared/dialog/models';
-import { SupplierService } from '~features/supplier/services/supplier.service';
+import { SupplierFeatureService } from '~features/supplier/services/supplier.service';
 import { DialogService } from '~shared/dialog';
 import { Supplier } from '~models/supplier.model';
 
@@ -31,7 +31,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 		private fb: FormBuilder,
 		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
-		private supplierSrv: SupplierService,
+		private supplierSrv: SupplierFeatureService,
 		private router: Router,
 		private dlgSrv: DialogService) {
 		super();

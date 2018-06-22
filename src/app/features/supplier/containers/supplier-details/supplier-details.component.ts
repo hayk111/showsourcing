@@ -11,7 +11,7 @@ import { UserService } from '~shared/global-services';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { Supplier, Tag } from '~models';
-import { SupplierService } from '~features/supplier/services/supplier.service';
+import { SupplierFeatureService } from '~features/supplier/services/supplier.service';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -29,7 +29,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private userSrv: UserService,
-		private supplierSrv: SupplierService,
+		private supplierSrv: SupplierFeatureService,
 		private contactSrv: ContactService,
 		private dlgSrv: DialogService) {
 		super();

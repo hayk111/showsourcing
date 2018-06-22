@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SupplierService } from '~features/supplier/services/supplier.service';
+import { SupplierFeatureService } from '~features/supplier/services/supplier.service';
 import { Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
@@ -40,7 +40,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private router: Router,
-		private supplierSrv: SupplierService,
+		private supplierSrv: SupplierFeatureService,
 		private selectionSrv: SelectionService,
 		private dlgSrv: DialogService) {
 		super();

@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { QueryRef } from 'apollo-angular';
-import { ApolloClient } from '~shared/apollo';
-import gql from 'graphql-tag';
-import { map, tap, publish, take, refCount, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { SupplierQueries } from '~features/supplier/services/supplier.queries';
-import { Supplier } from '~models';
-import { Contact, Task } from '~models';
-import { Product } from '~models';
-import { uuid } from '~utils/uuid.utils';
+import { Product, Supplier, Task } from '~models';
+import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils/constants';
 
 
 @Injectable()
-export class SupplierService {
+export class SupplierFeatureService {
 	private suppliersQuery$: QueryRef<string, any>;
 
 	constructor(private apollo: ApolloClient) { }
