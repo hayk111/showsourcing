@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Filter, FilterGroup, FilterType } from '../models';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { filter } from 'async';
-
 
 @Injectable()
 export class FilterService {
@@ -10,6 +8,7 @@ export class FilterService {
 		filters: [],
 		byType: new Map<FilterType, Map<any, Filter>>()
 	};
+
 	private _filterGroup$ = new BehaviorSubject<FilterGroup>(this.filterGroup);
 	filterGroup$ = this._filterGroup$.asObservable();
 
@@ -57,7 +56,26 @@ export class FilterService {
 		this.emit();
 	}
 
-	getFiltersAsUrlParams(): Observable<string> {
+	getFiltersAsQuery(): Observable<string> {
 		throw Error('not implemented yet');
+	}
+
+	createQueryFromFilters(filtergroup) {
+		return filtergroup ?
+			filtergroup.filters.map(
+				({ type, value }) => this.getFieldCondition(type, value)).join(' or ') : '';
+	}
+
+	private getFieldName(type) {
+		if (type === 'tag') {
+			return 'tags';
+		}
+		return type;
+	}
+
+	private getFieldCondition(type, value) {
+		return (type !== 'favorite' && type !== 'archived') ?
+			`${this.getFieldName(type)}.id == "${value}"` :
+			`${this.getFieldName(type)} == ${value}`;
 	}
 }

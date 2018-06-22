@@ -9,7 +9,7 @@ import { Event } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductService } from '~features/products/services';
+import { ProductFeatureService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -56,7 +56,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	];
 
-	constructor(private route: ActivatedRoute, private srv: ProductService) {
+	constructor(private route: ActivatedRoute, private srv: ProductFeatureService) {
 		super();
 	}
 

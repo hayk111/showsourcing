@@ -8,7 +8,7 @@ import { UserService } from '~shared/global-services';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductService, ProjectService } from '~features/products/services';
+import { ProductFeatureService, ProjectService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
 
 
@@ -29,7 +29,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private userSrv: UserService,
-		private productSrv: ProductService,
+		private productSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private projectSrv: ProjectService) {
 		super();

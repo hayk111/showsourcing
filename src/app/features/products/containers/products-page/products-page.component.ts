@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
-import { ProductService, SelectionService } from '~features/products/services';
+import { ProductFeatureService, SelectionService } from '~features/products/services';
 import { Product, ProductStatus } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterGroup, FilterService } from '~shared/filters';
@@ -47,7 +47,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private router: Router,
-		private productSrv: ProductService,
+		private productSrv: ProductFeatureService,
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService) {

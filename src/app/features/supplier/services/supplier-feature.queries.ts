@@ -96,7 +96,7 @@ export class SupplierFeatureQueries {
 
 	static createSupplier = gql`
 		mutation addSupplier($input: SupplierInput!) {
-			addSupplier(input: $input) {
+			updateSupplier(input: $input) {
 				id
 			}
 		}

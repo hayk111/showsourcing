@@ -1,4 +1,4 @@
-export * from './product.service';
+export * from './product-feature.service';
 export * from './project.service';
 export * from './team.service';
 export * from './export.service';

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
-import { Observable, from, forkJoin } from 'rxjs';
-import { Product, Project } from '~models';
-import { ProductQueries } from '~features/products/services/product.queries';
-import { take, map, filter, first } from 'rxjs/operators';
+import { QueryRef } from 'apollo-angular';
+import { forkJoin, from, Observable } from 'rxjs';
+import { filter, first, map, take } from 'rxjs/operators';
+import { ProductFeatureQueries } from '~features/products/services/product-feature.queries';
+import { Product } from '~models';
 import { ApolloClient } from '~shared/apollo';
-
 import { PER_PAGE } from '~utils/constants';
 
 @Injectable()
-export class ProductService {
+export class ProductFeatureService {
 	private productsQuery$: QueryRef<string, any>;
 
 	constructor(private apollo: ApolloClient) { }
@@ -21,7 +20,7 @@ export class ProductService {
 	private initializeProductQuery() {
 		if (!this.productsQuery$) {
 			this.productsQuery$ = this.apollo.query<any>({
-				query: ProductQueries.list,
+				query: ProductFeatureQueries.list,
 				variables: {
 					query: '',
 					skip: 0,
@@ -44,7 +43,7 @@ export class ProductService {
 		this.initializeProductQuery();
 		return this.productsQuery$.valueChanges
 			.pipe(
-				map(({ data, loading }) => (<any>data).products),
+				map(({ data }) => (<any>data).products),
 		);
 	}
 
@@ -123,36 +122,40 @@ export class ProductService {
 
 	createQueryFromFilters(filtergroup) {
 		return filtergroup ?
-			filtergroup.filters.map(({ type, value }) => this.getFieldCondition(type, value)).join(' or ') :
-			'';
+			filtergroup
+				.filters
+				.map(({ type, value }) => this.getFieldCondition(type, value)).join(' or ') : '';
 	}
 
-	getFieldName(type) {
+	private getFieldName(type) {
 		if (type === 'tag') {
 			return 'tags';
 		}
 		return type;
 	}
 
-	getFieldCondition(type, value) {
+	private getFieldCondition(type, value) {
 		return (type !== 'favorite' && type !== 'archived') ?
 			`${this.getFieldName(type)}.id == "${value}"` :
 			`${this.getFieldName(type)} == ${value}`;
 	}
 
 	selectById(id: string): Observable<Product> {
-		return this.apollo.subscribe({ query: ProductQueries.oneProduct, variables: { query: `id == "${id}"` } }).pipe(
+		return this.apollo.subscribe({
+			query: ProductFeatureQueries.oneProduct,
+			variables: { query: `id == "${id}"` }
+		}).pipe(
 			filter((r: any) => r.data.products),
 			map((r: any) => r.data.products[0])
 		);
 	}
 
 	updateProduct(product: Product): Observable<Product> {
-		return this.apollo.update({ mutation: ProductQueries.updateProduct, input: product, typename: 'Product' }).pipe(first());
+		return this.apollo.update({ mutation: ProductFeatureQueries.updateProduct, input: product, typename: 'Product' }).pipe(first());
 	}
 
 	deleteProduct(productId: string): Observable<Product> {
-		return this.apollo.update({ mutation: ProductQueries.deleteProduct, input: productId, typename: 'Product' }).pipe(first());
+		return this.apollo.update({ mutation: ProductFeatureQueries.deleteProduct, input: productId, typename: 'Product' }).pipe(first());
 	}
 
 	deleteProducts(products: string[]) {

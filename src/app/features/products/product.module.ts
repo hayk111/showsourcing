@@ -5,7 +5,7 @@ import { CommentModule } from '~features/comment';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
-import { ProductService, ProjectService, TeamService, ExportService } from '~features/products/services';
+import { ProductFeatureService, ProjectService, TeamService, ExportService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
@@ -95,7 +95,7 @@ import { ProductNavigationComponent } from './components/product-navigation/prod
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductService, ProjectService, TeamService, ExportService, SelectionService, FilterDataService]
+	providers: [ProductFeatureService, ProjectService, TeamService, ExportService, SelectionService, FilterDataService]
 })
 export class ProductModule {
 

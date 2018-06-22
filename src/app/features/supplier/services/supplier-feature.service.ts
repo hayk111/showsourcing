@@ -6,13 +6,14 @@ import { SupplierFeatureQueries } from '~features/supplier/services/supplier-fea
 import { Product, Supplier, Task } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils/constants';
+import { SupplierService } from '~shared/global-services/supplier/supplier.service';
 
 
 @Injectable()
 export class SupplierFeatureService {
 	private suppliersQuery$: QueryRef<string, any>;
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(private apollo: ApolloClient, private supplierSrv: SupplierService) { }
 
 	/*
 		Initialize the underlying query ref for the list of
@@ -93,18 +94,12 @@ export class SupplierFeatureService {
 	}
 
 	// at the moment the subscription works on only one entity and can be done only on list
-	getById(id: string): Observable<Supplier> {
-		return this.apollo.subscribe({ query: SupplierFeatureQueries.supplier, variables: { query: `id == '${id}'` } }).pipe(
-			filter((r: any) => r.data.suppliers),
-			map((r: any) => r.data.suppliers[0])
-		);
+	selectOne(id: string): Observable<Supplier> {
+		return this.supplierSrv.selectOne(id);
 	}
 
 	createSupplier(supplier: Supplier) {
-		return this.apollo.create({ mutation: SupplierFeatureQueries.createSupplier, input: supplier, typename: 'Supplier' })
-			.pipe(
-				map((r: any) => r.data.addSupplier.id)
-			);
+		return this.supplierSrv.create(supplier);
 	}
 
 	/** gets the latest products, w */
@@ -117,80 +112,7 @@ export class SupplierFeatureService {
 		);
 	}
 
-	getTasks(supplierId: string): Observable<Task[]> {
-		throw Error('not implemented yet');
-	}
 
-	updateSupplier(supplier: Supplier) {
-		return this.apollo.update({
-			mutation: SupplierFeatureQueries.updateSupplier,
-			input: supplier,
-			typename: 'Supplier'
-		});
-	}
 
-	removeSuppliers(ids: string[]) {
-		throw Error('now implemented yet');
-	}
-
-	addTag(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeTag(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addCategory(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeCategory(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addContact(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeContact(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addTask(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeTask(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addComment(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	downloadFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	rotateImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
 }
 

@@ -40,7 +40,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "rxjs": "^6.2.0",
-    "subscriptions-transport-ws": "^0.9.9",
+    "subscriptions-transport-ws": "^0.9.11",
     "uuid": "^3.2.1",
     "zone.js": "^0.8.26"
   },
