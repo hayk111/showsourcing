@@ -1,7 +1,9 @@
-	<div class="label2">
+	<div class="labelCtnr label2">
 		<ng-content select="label-app"></ng-content>
 	</div>
-	<div class="content" [ngClass]="{ 'hasBottom': hasBottom}">
-		<ng-content></ng-content>
+	<div class="content flex">
+		<div class="flexVAlign fullWidth">
+			<ng-content></ng-content>
+		</div>
 	</div>
 

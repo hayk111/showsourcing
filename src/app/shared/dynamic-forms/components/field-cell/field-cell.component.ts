@@ -11,13 +11,18 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 		'[class.oneLine]': 'inlineLabel',
 		'[class.doubleLine]': '!inlineLabel',
 		'[class.hasBottom]': 'hasBottom',
-		'[class.hasNoBottom]': '!hasBottom'
+		'[class.hasNoBottom]': '!hasBottom',
+		'[class.canGrow]': 'canGrow',
+		'[class.cannotGrow]': '!canGrow',
+
 	}
 })
 export class FieldCellComponent implements OnInit {
 	@Input() label = '';
 	@Input() inlineLabel = false;
 	@Input() hasBottom = true;
+	// whether the input has a fixed size
+	@Input() canGrow = false;
 
 	constructor() { }
 
