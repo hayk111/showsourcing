@@ -3,12 +3,13 @@ form-field-app {
 	flex-grow: 1;
 }
 
-
-.oneLine input {
-	padding: 2px 1px 2px 6px;
+.twoLine input, :host.twoLine input {
+	padding: 6px
+}
+.oneLine input, :host.oneLine input {
+	padding: 4px 1px 4px 6px;
 	border: none;
 }
-
 
 
 

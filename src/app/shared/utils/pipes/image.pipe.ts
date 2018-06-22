@@ -18,7 +18,6 @@ export class ImagePipe implements PipeTransform {
 	};
 
 	/**
-	 *
 	 * @param value : Entity object (like supplier) or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */

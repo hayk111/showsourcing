@@ -19,7 +19,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
-	productId: string;
+	product: Product;
 	descriptor$: Observable<FormDescriptor>;
 	descriptor2$: Observable<FormDescriptor>;
 
@@ -64,7 +64,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => this.srv.selectById(params.id)),
-			tap(product => this.productId = product.id)
+			tap(product => this.product = product)
 		);
 		// creating the form descriptor
 		this.descriptor$ = this.product$.pipe(
@@ -88,7 +88,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProduct(product: Product) {
-		product.id = this.productId;
+		product.id = this.product.id;
 		this.srv.updateProduct(product).subscribe();
 	}
 

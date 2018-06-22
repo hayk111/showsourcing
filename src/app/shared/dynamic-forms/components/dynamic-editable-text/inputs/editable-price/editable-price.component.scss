@@ -1,10 +1,14 @@
 :host {
 	display: block;
 	position: relative;
+	width: 100%;
 }
+
+
 .currencyLabel1 {
 	margin-right: 50px;
 }
+
 .currencyLabel2 {
 	visibility: hidden;
 	padding: 4px 11px;
@@ -26,13 +30,6 @@
 	visibility: visible;
 }
 
-:host {
-	&.oneLine {
-		input {
-			padding: 2px 1px 2px 6px;
-			border: none;
-			background: var(--color-bg-third);
-			width: 90px;
-		}
-	}
+input {
+	width: 100px;
 }

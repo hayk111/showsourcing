@@ -1,17 +1,15 @@
-
-
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { AutoUnsub, DEFAULT_IMG } from '~utils';
-import { AppImage, } from '~models';
+import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AppImage } from '~models';
 import { UserService } from '~shared/global-services';
-import { map } from 'rxjs/operators';
+import { AutoUnsub, DEFAULT_IMG } from '~utils';
+
+
 
 @Component({
 	selector: 'carousel-card-app',
 	templateUrl: './carousel-card.component.html',
 	styleUrls: ['./carousel-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// whether the different elements are displayed
@@ -35,7 +33,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
-	constructor(private userSrv: UserService) {
+	constructor() {
 		super();
 	}
 

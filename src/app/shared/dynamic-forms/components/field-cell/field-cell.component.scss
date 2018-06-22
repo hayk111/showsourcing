@@ -56,34 +56,19 @@
 
 	}
 	&.oneLine {
-		height: 20px;
 		display: flex;
 		justify-content: space-between;
+		// we always display the border on single line
 		border-bottom: 1px solid var(--color-primary-light);
-		input {
-			padding: 2px 1px 2px 6px;
-			border: none;
+
+		&.cannotGrow {
+			height: 33px;
 		}
 		.content {
 			color: var(--color-txt-secondary);
-		}
-		.content.hasBottom {
 			font-weight: 600;
-			color: var(--color-txt-secondary);
-			&:hover {
-				color: var(--color-primary);
-				text-decoration: underline;
-			}
-		}
-
-		&.hasBottom {
-			padding: 8px 0 8px 0;
-		}
-		&.hasNoBottom {
-			padding: 6px 0 5px 0;
 		}
 	}
-
 }
 
 

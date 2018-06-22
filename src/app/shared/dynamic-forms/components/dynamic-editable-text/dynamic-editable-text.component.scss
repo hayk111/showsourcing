@@ -16,15 +16,4 @@ label {
 }
 
 
-.editableCurrency {
-	display: none;
-	label-app {
-		width: 100%;
-    text-align: right;
-	}
-}
-
-.editablePrice:hover > .editableCurrency {
-	display: block;
-}
 
