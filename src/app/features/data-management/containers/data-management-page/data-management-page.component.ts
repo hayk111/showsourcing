@@ -34,6 +34,7 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		// we retrieve the parameters from the router given at settings.component.html link
 		this.route.params.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(params => this.title = params.id);
