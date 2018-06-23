@@ -10,7 +10,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { environment } from 'environments/environment';
 import { filter, map, tap, take } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
-import { UserService, TeamService } from '~shared/global-services';
+import { UserService, TeamService } from '../../../global-services';
 import { Team, User } from '~models';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import {

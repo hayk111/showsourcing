@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { TeamService } from '~shared/global-services';
+import { TeamService } from '../../../global-services';
 import { Log } from '~utils';
 
 @Injectable({

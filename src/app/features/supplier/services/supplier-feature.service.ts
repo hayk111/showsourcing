@@ -6,7 +6,7 @@ import { SupplierFeatureQueries } from '~features/supplier/services/supplier-fea
 import { Product, Supplier, Task } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils/constants';
-import { SupplierService } from '~shared/global-services/supplier/supplier.service';
+import { SupplierService } from '../../../global-services/supplier/supplier.service';
 
 
 @Injectable()

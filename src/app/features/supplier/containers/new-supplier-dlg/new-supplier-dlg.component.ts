@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
-import { UserService } from '~shared/global-services';
+import { UserService } from '../../../../global-services';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { InputDirective } from '~shared/inputs';
 import { DialogName } from '~shared/dialog/models';

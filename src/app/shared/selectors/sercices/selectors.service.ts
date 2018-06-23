@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Category, Event, SupplierType, Tag } from '~models';
+import { Category, Event, SupplierType, Tag, TeamUser } from '~models';
 import { Supplier } from '~models/supplier.model';
-import { ApolloClient } from '~shared/apollo';
-import { Choice } from '~shared/selectors/utils/choice.interface';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 
-import { SelectorQueries } from './selector.queries';
-import { SupplierService, CategoryService, EventService, TagService } from '~shared/global-services';
+import { CategoryService, EventService, SupplierService, TagService } from '../../../global-services';
+import { SupplierTypeService } from '../../../global-services/supplier-type/supplier-type.service';
+import { TeamUserService } from '../../../global-services/team-user/team-user.service';
 
 
 @Injectable({
@@ -20,7 +18,9 @@ export class SelectorsService {
 		private supplierSrv: SupplierService,
 		private categorySrv: CategoryService,
 		private eventSrv: EventService,
-		private tagSrv: TagService
+		private tagSrv: TagService,
+		private teamUserSrv: TeamUserService,
+		private supplierTypeSrv: SupplierTypeService
 	) { }
 
 	getCountries(): any[] {
@@ -63,16 +63,12 @@ export class SelectorsService {
 		return this.tagSrv.selectAll();
 	}
 
-	getSupplierTypes(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.supplierTypes }).pipe(
-			map(r => r.data.supplierTypes)
-		);
+	getSupplierTypes(): Observable<SupplierType[]> {
+		return this.supplierTypeSrv.selectAll();
 	}
 
-	getUsers(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.users }).pipe(
-			map(r => r.data.users)
-		);
+	getUsers(): Observable<TeamUser[]> {
+		return this.teamUserSrv.selectAll();
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

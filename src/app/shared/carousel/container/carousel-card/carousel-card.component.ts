@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AppImage } from '~models';
-import { UserService } from '~shared/global-services';
+import { UserService } from '../../../../global-services';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
 
 

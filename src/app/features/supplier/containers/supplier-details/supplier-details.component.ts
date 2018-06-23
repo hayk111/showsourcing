@@ -6,7 +6,7 @@ import { ContactService } from '~features/supplier/services/contact.service';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Contact, Product, Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
-import { UserService } from '~shared/global-services';
+import { UserService } from '../../../../global-services';
 import { AutoUnsub } from '~utils';
 
 @Component({

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { AppFile, Project } from '~models';
-import { UserService } from '~shared/global-services';
+import { UserService } from '../../../../global-services';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';

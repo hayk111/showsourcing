@@ -117,6 +117,7 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	}
 
 	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
+		// TODO: Thiery I believe this if/else doesn't do anything
 		if (member) {
 			this.memberSrv.updateMember({
 				...member,

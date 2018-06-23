@@ -10,7 +10,7 @@ import { Contact, Task } from '~models';
 import { Product } from '~models';
 import { uuid } from '~utils/uuid.utils';
 import { PER_PAGE } from '~utils/constants';
-import { UserService } from '~shared/global-services';
+import { UserService } from '../../../global-services';
 
 
 @Injectable()

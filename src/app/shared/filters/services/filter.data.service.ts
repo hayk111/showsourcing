@@ -5,7 +5,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import { Supplier } from '~models';
 
 import { FilterDataQueries } from './filter.data.queries';
-import { SupplierService } from '~shared/global-services/supplier/supplier.service';
+import { SupplierService } from '../../../global-services/supplier/supplier.service';
 import { FilterType } from '~shared/filters/models';
 
 @Injectable()

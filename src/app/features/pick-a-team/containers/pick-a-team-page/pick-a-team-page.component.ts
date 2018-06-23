@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Team } from '~models';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TeamService } from '~shared/global-services';
+import { TeamService } from '../../../../global-services';
 
 @Component({
 	selector: 'pick-a-team-page-app',

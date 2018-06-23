@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { Product } from '~models';
 import { ApolloClient } from '~shared/apollo';
-import { ProductService } from '~shared/global-services/product/product.service';
+import { ProductService } from '../../../global-services/product/product.service';
 
 @Injectable()
 export class ProductFeatureService {
