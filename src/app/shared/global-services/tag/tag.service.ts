@@ -1,57 +1,58 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { ProductStatus } from '~models';
+import { Tag } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
 
-import { ProductStatusQueries } from './product-status.queries';
+import { TagQueries } from './tag.queries';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class ProductStatusService implements GlobalServiceInterface<ProductStatus> {
-	queries = new ProductStatusQueries();
+export class TagService implements GlobalServiceInterface<Tag> {
+	queries = new TagQueries();
 
 	constructor(private apollo: ApolloClient) { }
 
-	selectOne(id: string): Observable<ProductStatus> {
+	selectOne(id: string): Observable<Tag> {
 		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
-	selectAll(fields: string = 'id, name'): Observable<ProductStatus[]> {
+	selectAll(fields: string = 'id, name'): Observable<Tag[]> {
 		return this.apollo.selectMany({ gql: this.queries.all(fields) }).pipe(
-			map(({ data }) => data.productStatuses)
+			map(({ data }) => data.tags)
 		);
 	}
 
-	update(status: ProductStatus): Observable<ProductStatus> {
+	update(status: Tag): Observable<Tag> {
 		return this.apollo.update({
 			gql: this.queries.update,
 			input: status,
-			typename: 'ProductStatus'
+			typename: 'Tag'
 		}).pipe(
 			first(),
-			map(({ data }) => data.updateProductStatus)
+			map(({ data }) => data.updateTag)
 		);
 	}
 
-	create(status: ProductStatus): Observable<ProductStatus> {
+	create(status: Tag): Observable<Tag> {
 		return this.apollo.create({
 			gql: this.queries.create,
-			input: status
+			input: status,
+			typename: 'Tag'
 		}).pipe(
 			first(),
-			map(({ data }) => data.updateProductStatus)
+			map(({ data }) => data.createTag)
 		);
 	}
 
-	delete(status: ProductStatus): Observable<any> {
+	delete(tag: Tag): Observable<any> {
 		throw Error('not implemented yet');
 	}
 
-	deleteMany(status: ProductStatus[]): Observable<any> {
+	deleteMany(tag: Tag[]): Observable<any> {
 		throw Error('not implemented yet');
 	}
 }

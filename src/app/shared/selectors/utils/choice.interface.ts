@@ -1,4 +1,5 @@
 export interface Choice {
 	id: string;
-	value: any;
+	// could be another property than name, but it's usually name
+	name?: string;
 }

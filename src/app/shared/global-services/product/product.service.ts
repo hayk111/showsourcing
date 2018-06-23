@@ -24,8 +24,8 @@ export class ProductService implements GlobalServiceInterface<Product> {
 		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
-	selectList(page$: any, filters$: any, sort$: any) {
-		return combineLatest(page$, filters$, sort$).pipe(
+	selectMany(page$: any, query$: any, sort$: any) {
+		return combineLatest(page$, query$, sort$).pipe(
 			map(res => ({
 				// assigning default values in case none have been specified
 				page: res[0] || 0,
@@ -53,6 +53,7 @@ export class ProductService implements GlobalServiceInterface<Product> {
 			map(({ data }) => data.products)
 		);
 	}
+
 	update(product: Product): Observable<Product> {
 		return this.apollo.update({
 			gql: this.queries.update,

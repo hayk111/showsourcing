@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { AuthState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { User } from '~models';
-import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
-
-
+import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+import { ALL_USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 
 import { UserQueries } from './user.queries';
-import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+
+
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

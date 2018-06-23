@@ -41,6 +41,22 @@ export class ContactQueries implements GlobalQuery {
 	}
 	`;
 
+	list = gql`
+		subscribe contacts($query: String!) {
+			contacts(query: $query) {
+				id,
+				name,
+				phoneNumber,
+				email,
+				jobTitle
+				businessCardImage {
+					fileName
+				},
+			}
+			}
+		}
+	`
+
 	all = (str: string) => {
 		return gql`
 			subscription contacts {

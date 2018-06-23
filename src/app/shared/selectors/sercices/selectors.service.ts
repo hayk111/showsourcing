@@ -8,6 +8,7 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 
 import { SelectorQueries } from './selector.queries';
+import { SupplierService, CategoryService, EventService, TagService } from '~shared/global-services';
 
 
 @Injectable({
@@ -15,7 +16,12 @@ import { SelectorQueries } from './selector.queries';
 })
 export class SelectorsService {
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(
+		private supplierSrv: SupplierService,
+		private categorySrv: CategoryService,
+		private eventSrv: EventService,
+		private tagSrv: TagService
+	) { }
 
 	getCountries(): any[] {
 		return countries;
@@ -41,28 +47,20 @@ export class SelectorsService {
 		return weightUnits;
 	}
 
-	getSuppliers(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.suppliers }).pipe(
-			map(r => r.data.suppliers)
-		);
+	getSuppliers(): Observable<Supplier[]> {
+		return this.supplierSrv.selectAll();
 	}
 
-	getCategories(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.categories }).pipe(
-			map(r => r.data.categories)
-		);
+	getCategories(): Observable<Category[]> {
+		return this.categorySrv.selectAll();
 	}
 
-	getEvents(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.events }).pipe(
-			map(r => r.data.events)
-		);
+	getEvents(): Observable<Event[]> {
+		return this.eventSrv.selectAll();
 	}
 
-	getTags(): Observable<Choice[]> {
-		return this.apollo.subscribe({ query: SelectorQueries.tags }).pipe(
-			map(r => r.data.tags)
-		);
+	getTags(): Observable<Tag[]> {
+		return this.tagSrv.selectAll();
 	}
 
 	getSupplierTypes(): Observable<Choice[]> {
@@ -78,26 +76,22 @@ export class SelectorsService {
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {
-		return this.apollo.create({ mutation: SelectorQueries.createSupplier, input: supplier, typename: 'Supplier' });
+		return this.supplierSrv.create(supplier);
 	}
 
 	createCategory(category: Category): Observable<any> {
-		return this.apollo.create({ mutation: SelectorQueries.createCategory, input: category, typename: 'Category' });
+		return this.categorySrv.create(category);
 	}
 
 	createEvent(event: Event): Observable<any> {
-		return this.apollo.create({ mutation: SelectorQueries.createEvent, input: event, typename: 'Event' });
+		return this.eventSrv.create(event);
 	}
 
 	createTag(tag: Tag): Observable<any> {
-		return this.apollo.create({ mutation: SelectorQueries.createTag, input: tag, typename: 'Tag' });
+		return this.tagSrv.create(tag);
 	}
 
 	createSupplierType(supplierType: SupplierType): Observable<any> {
-		return this.apollo.create({
-			mutation: SelectorQueries.createSupplierType,
-			input: supplierType,
-			typename: 'SupplierType'
-		});
+		return this.supplierTypeSrv.create(supplierType);
 	}
 }

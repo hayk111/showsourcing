@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Supplier } from '~models';
 import { ApolloClient } from '~shared/apollo';
 
 import { SupplierQueries } from './supplier.queries';
 import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { PER_PAGE } from '~utils';
 
 @Injectable()
 export class SupplierService implements GlobalServiceInterface<Supplier> {
@@ -20,8 +22,13 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 			);
 	}
 
-	// TODO Thierry
-	// selectList() {}
+	selectMany(
+		page$: Observable<number>,
+		query$: Observable<string>,
+		sort$: Observable<SortEvent>
+	): Observable<Supplier[]> {
+		throw Error('not implemented yet')
+	}
 
 	selectAll(fields: string = `id, name`) {
 		return this.apollo.selectMany({

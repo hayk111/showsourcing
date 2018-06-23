@@ -10,6 +10,12 @@ export class Contact extends BaseEntity<ContactConfig> {
 	jobTitle?: string;
 	supplier?: Supplier;
 	deleted?: boolean;
+
+	constructor(config: ContactConfig, supplierId: string) {
+		super(config);
+		this.supplier = { id: supplierId };
+		this.deleted = false;
+	}
 }
 
 export interface ContactConfig {

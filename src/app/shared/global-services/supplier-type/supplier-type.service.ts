@@ -1,57 +1,58 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { ProductStatus } from '~models';
+import { SupplierType } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
 
-import { ProductStatusQueries } from './product-status.queries';
+import { SupplierTypeQueries } from './supplier-type.queries';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class ProductStatusService implements GlobalServiceInterface<ProductStatus> {
-	queries = new ProductStatusQueries();
+export class SupplierTypeService implements GlobalServiceInterface<SupplierType> {
+	queries = new SupplierTypeQueries();
 
 	constructor(private apollo: ApolloClient) { }
 
-	selectOne(id: string): Observable<ProductStatus> {
+	selectOne(id: string): Observable<SupplierType> {
 		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
-	selectAll(fields: string = 'id, name'): Observable<ProductStatus[]> {
+	selectAll(fields: string = 'id, name'): Observable<SupplierType[]> {
 		return this.apollo.selectMany({ gql: this.queries.all(fields) }).pipe(
-			map(({ data }) => data.productStatuses)
+			map(({ data }) => data.supplierTypes)
 		);
 	}
 
-	update(status: ProductStatus): Observable<ProductStatus> {
+	update(status: SupplierType): Observable<SupplierType> {
 		return this.apollo.update({
 			gql: this.queries.update,
 			input: status,
-			typename: 'ProductStatus'
+			typename: 'SupplierType'
 		}).pipe(
 			first(),
-			map(({ data }) => data.updateProductStatus)
+			map(({ data }) => data.updateSupplierType)
 		);
 	}
 
-	create(status: ProductStatus): Observable<ProductStatus> {
+	create(status: SupplierType): Observable<SupplierType> {
 		return this.apollo.create({
 			gql: this.queries.create,
-			input: status
+			input: status,
+			typename: 'SupplierType'
 		}).pipe(
 			first(),
-			map(({ data }) => data.updateProductStatus)
+			map(({ data }) => data.createSupplierType)
 		);
 	}
 
-	delete(status: ProductStatus): Observable<any> {
+	delete(supplierType: SupplierType): Observable<any> {
 		throw Error('not implemented yet');
 	}
 
-	deleteMany(status: ProductStatus[]): Observable<any> {
+	deleteMany(supplierType: SupplierType[]): Observable<any> {
 		throw Error('not implemented yet');
 	}
 }
