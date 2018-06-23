@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Apollo, QueryRef } from 'apollo-angular';
 import { Supplier } from '~models';
-
-import { FilterDataQueries } from './filter.data.queries';
-import { SupplierService } from '../../../global-services/supplier/supplier.service';
 import { FilterType } from '~shared/filters/models';
+
+import { CategoryService, EventService, ProductStatusService, ProjectService, TagService } from '../../../global-services';
+import { SupplierService } from '../../../global-services/supplier/supplier.service';
+import { TeamUserService } from '../../../global-services/team-user/team-user.service';
 
 @Injectable()
 export class FilterDataService {
 
 	constructor(
-		private supplierSrv: SupplierService) { }
+		private supplierSrv: SupplierService,
+		private eventSrv: EventService,
+		private categorySrv: CategoryService,
+		private tagSrv: TagService,
+		private projectSrv: ProjectService,
+		private teamUserSrv: TeamUserService,
+		private productStatusService: ProductStatusService
+	) { }
 
 	selectEntity(type: FilterType) {
 		switch (type) {
@@ -40,34 +46,27 @@ export class FilterDataService {
 	}
 
 	private selectEvents(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.eventSrv.selectAll('id, alias');
 	}
 
 	private selectCategories(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.categorySrv.selectAll();
 	}
 
 	private selectTags(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.tagSrv.selectAll();
 	}
 
 	private selectProjects(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.projectSrv.selectAll();
 	}
 
 	private selectUsers(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.teamUserSrv.selectAll();
 	}
 
 	private selectProductStatuses(): Observable<Supplier[]> {
-		// TODO: use the global service made by michael
-		throw Error('use the global service made by michael')
+		return this.productStatusService.selectAll();
 	}
 
-	// favorite
 }
