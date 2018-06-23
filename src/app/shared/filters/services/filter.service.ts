@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
+import { first, map, tap, take } from 'rxjs/operators';
 
 import { Filter, FilterType } from '../models';
 
@@ -17,8 +17,10 @@ export class FilterService {
 	 *
 	 * byType.get(FilterType.SUPPLIER).has(10)
 	 */
-	private _byType$ = new BehaviorSubject(new Map<FilterType, Map<any, Filter>>());
-	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._byType$.asObservable();
+	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._filters$.asObservable().pipe(
+		map(filters => this.filtersToByType(filters))
+	);
+	initialbyType: Map<FilterType, Map<any, Filter>> = new Map();
 
 	/**
 	 * Returns the filters as a query usable by apollo client
@@ -29,62 +31,46 @@ export class FilterService {
 
 	constructor() {
 		// adding a map for each type
-		const byType = new Map();
-		Object.keys(FilterType).forEach(type => byType.set(type, new Map()));
-		this._byType$.next(byType);
+		Object.values(FilterType).forEach(type => this.initialbyType.set(type, new Map()));
 	}
 
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
+		debugger
 		// adding to array of filters
 		this._filters$.pipe(
+			tap(d => { debugger; }),
 			first(),
 			map(filters => ([...filters, added]))
 		).subscribe(this._filters$);
-
-		// adding to byType
-		this._byType$.pipe(
-			first(),
-			map(byType => this.addFilterToByType(byType, added))
-		).subscribe(this._byType$);
-
 	}
 
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		// removing to array of filters
 		this._filters$.pipe(
-			first(),
+			tap(d => { debugger; }),
+			take(1),
 			map(filters => filters.filter(
 				filter => filter.type !== removed.type && filter.value !== removed.type
 			))
 		).subscribe(this._filters$);
-
-		// removing to byType
-		this._byType$.pipe(
-			first(),
-			map(byType => this.removeFilterToByType(byType, removed))
-		).subscribe(this._byType$);
 	}
 
 	/** removes all filters */
 	clearAll() {
 		this._filters$.next([]);
-		this._byType$.next(new Map());
 	}
 
 	/** remove all filters of a given type */
 	removeFilterType(type: FilterType) {
+		debugger;
 		// removing to byType
-		this._byType$.pipe(
-			first(),
-			map(byType => { byType.delete(type); return byType; })
-		).subscribe(this._byType$);
-
 		this._filters$.pipe(
-			first(),
-			map(filters => filters.filter(filter => filter.type !== type))
+			tap(d => { debugger; }),
+
 		).subscribe(this._filters$);
+
 	}
 
 	/** upsert filter, will delete previous filter with the same type */
@@ -93,14 +79,10 @@ export class FilterService {
 	}
 
 
-	private addFilterToByType(byType: Map<FilterType, Map<any, Filter>>, added: Filter) {
-		byType.get(added.type).set(added.value, added);
-		return byType;
-	}
-
-	private removeFilterToByType(byType: Map<FilterType, Map<any, Filter>>, removed: Filter) {
-		byType.get(removed.type).delete(removed.value);
-		return byType;
+	private filtersToByType(filters: Filter[]) {
+		const copy = new Map(this.initialbyType);
+		filters.forEach(filter => copy.get(filter.type).set(filter.value, filter));
+		return copy;
 	}
 
 	private filtersToQuery(filters: Filter[]) {

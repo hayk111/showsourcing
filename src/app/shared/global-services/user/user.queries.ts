@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
+import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
 
 
-export class UserQueries {
-	static selectUser = gql`
+export class UserQueries implements GlobalQuery {
+	one = gql`
 		subscription users($query: String!) {
 			users(query: $query) {
 				id,
@@ -15,18 +16,34 @@ export class UserQueries {
 		}
 	`;
 
-	static queryUser = gql`
-		query user($id: String!) {
-			user(id: $id) {
-				id,
-				firstName,
-				lastName,
-				email,
-				realmServerName,
-				realmPath
+	create = gql`
+		mutation createUser($input: UserInput) {
+			updateUser(input: $input) {
+				id
 			}
 		}
-`;
+	`;
 
+	update = gql`
+		mutation updateUser($input: UserInput) {
+			updateUser(input: $input) {
+				id
+			}
+		}
+	`;
+
+	delete = gql`
+		mutation updateUser($id: String) {
+			deleteUser(id: $id)
+		}
+	`;
+
+	all = (str: string) => gql`
+		subscription users {
+			users {
+				${str}
+			}
+		}
+	`;
 
 }

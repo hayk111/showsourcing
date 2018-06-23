@@ -135,7 +135,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		const products = Array.from(this.selectionSrv.selection.keys());
+		const products = Array.from(this.selectionSrv.selection.values());
 		// callback for confirm dialog
 		const callback = () => {
 			this.productSrv.deleteProducts(products).subscribe(() => {

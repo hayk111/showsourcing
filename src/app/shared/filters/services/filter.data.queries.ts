@@ -6,7 +6,6 @@ export class FilterDataQueries {
 			suppliers {
 				id,
 				name,
-				favorite
 			}
 		}`;
 
@@ -18,7 +17,6 @@ export class FilterDataQueries {
 				description {
 					name
 				},
-				favorite
 			}
 		}`;
 
@@ -28,7 +26,6 @@ export class FilterDataQueries {
 			categories {
 				id,
 				name,
-				favorite
 			}
 		}`;
 
@@ -38,7 +35,6 @@ export class FilterDataQueries {
 			tags {
 				id,
 				name,
-				favorite
 			}
 		}`;
 
@@ -48,7 +44,6 @@ export class FilterDataQueries {
 			projects {
 				id,
 				name,
-				favorite
 			}
 		}`;
 

@@ -67,45 +67,17 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 			// we get the correct entity
 			// const entityRepr = this.getRepr(type);
 			this.typeSelected = type;
-			this.choices$ = this.selectEntityArray(type)
+			this.choices$ = this.filterDataSrv.selectEntities(type)
 				.pipe(
 					map((choices: any[]) => choices.filter(choice => !choice.favorite)),
 					takeUntil(this._destroy$)
 				);
-			this.relevantChoices$ = this.selectEntityArray(type)
+			this.relevantChoices$ = this.filterDataSrv.selectEntities(type)
 				.pipe(
 					map((choices: any[]) => choices.filter(choice => choice.favorite)),
 					takeUntil(this._destroy$)
 				);
 		}
-	}
-
-	// TODO: Thierry, this shouldn't be in a componenent but in the service.
-	/** Links data for a type of filter type */
-	selectEntityArray(type: FilterType) {
-		if (type === FilterType.SUPPLIER) {
-			return this.filterDataSrv.selectSuppliers();
-		}
-		if (type === FilterType.EVENT) {
-			return this.filterDataSrv.selectEvents();
-		}
-		if (type === FilterType.CATEGORY) {
-			return this.filterDataSrv.selectCategories();
-		}
-		if (type === FilterType.TAG) {
-			return this.filterDataSrv.selectTags();
-		}
-		if (type === FilterType.PROJECT) {
-			return this.filterDataSrv.selectProjects();
-		}
-		if (type === FilterType.CREATED_BY) {
-			return this.filterDataSrv.selectCreatedBy();
-		}
-		if (type === FilterType.PRODUCT_STATUS) {
-			return this.filterDataSrv.selectStatuses();
-		}
-		// TODO: favorite
-		return of([]);
 	}
 
 	/** Returns the value to display for data corresponding to a filter. By default "name" is used */

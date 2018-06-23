@@ -19,10 +19,12 @@ const SELECTED_TEAM_ID = 'selected-team-id';
  */
 @Injectable({ providedIn: 'root' })
 export class TeamService {
+	private queries = new TeamQueries();
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable();
 	teams$: Observable<Team[]>;
+
 
 	constructor(
 		private apollo: ApolloClient,
@@ -65,14 +67,14 @@ export class TeamService {
 		team.realmServerName = 'default';
 		team.realmPath = `/team/${team.id}`;
 		return this.apollo.use(USER_CLIENT).update({
-			mutation: TeamQueries.createTeam,
+			gql: this.queries.create,
 			input: {
 				name: team.name,
 				id: team.id,
 				creationDate: team.creationDate,
 				status: 'pending'
 			},
-			typename: 'User'
+			typename: 'Team'
 		}).pipe(
 			switchMap(_ => this.waitTeamValid(team)),
 			switchMap(_ => this.pickTeam(team))
@@ -111,8 +113,8 @@ export class TeamService {
 
 	/** gets teams from user realm */
 	private getTeams(): Observable<any> {
-		return this.apollo.use(USER_CLIENT).subscribe({
-			query: TeamQueries.selectTeams,
+		return this.apollo.use(USER_CLIENT).selectMany({
+			gql: this.queries.all,
 		}).pipe(
 			map((r: any) => r.data.teams)
 		);
@@ -120,9 +122,9 @@ export class TeamService {
 
 	/** waits for a team to go from pending to active */
 	private waitTeamValid(team: Team) {
-		return this.apollo.use(USER_CLIENT).subscribe({
-			query: TeamQueries.selectTeamValid,
-			variables: { input: `id == "${team.id}" AND status == "active"` }
+		return this.apollo.use(USER_CLIENT).selectMany({
+			gql: this.queries.list,
+			query: `id == "${team.id}" AND status == "active"`
 		});
 	}
 

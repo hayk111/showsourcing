@@ -170,7 +170,6 @@ export class ProductQueries implements GlobalQuery {
 	all = (str: string) => gql`
 		subscription products {
 			products {
-				id,
 				${str}
 			}
 		};

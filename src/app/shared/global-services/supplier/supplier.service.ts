@@ -14,20 +14,18 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 	constructor(private apollo: ApolloClient) { }
 
 	selectOne(id: string): Observable<Supplier> {
-		return this.apollo.subscribe({
-			query: this.queries.one,
-			variables: { query: `id == '${id}'` }
-		}).pipe(
-			map((r: any) => r.data.suppliers ? r.data.suppliers[0] : undefined)
-		);
+		return this.apollo.selectOne({ gql: this.queries.one, id })
+			.pipe(
+				map((r: any) => r.data.suppliers ? r.data.suppliers[0] : undefined)
+			);
 	}
 
 	// TODO Thierry
 	// selectList() {}
 
 	selectAll(fields: string = `id, name`) {
-		return this.apollo.subscribe({
-			query: this.queries.all(fields),
+		return this.apollo.selectMany({
+			gql: this.queries.all(fields),
 		}).pipe(
 			map((r: any) => r.data.suppliers ? r.data.suppliers[0] : undefined)
 		);
@@ -35,7 +33,7 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 
 	update(supplier: Supplier) {
 		return this.apollo.update({
-			mutation: this.queries.update,
+			gql: this.queries.update,
 			input: supplier,
 			typename: 'Supplier'
 		}).pipe(
@@ -45,7 +43,7 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 
 	create(supplier: Supplier) {
 		return this.apollo.create({
-			mutation: this.queries.create,
+			gql: this.queries.create,
 			input: supplier,
 			typename: 'Supplier'
 		}).pipe(
@@ -56,7 +54,7 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 
 	delete(supplier: Supplier) {
 		return this.apollo.create({
-			mutation: this.queries.delete,
+			gql: this.queries.delete,
 			input: supplier.id,
 			typename: 'Supplier'
 		}).pipe(
@@ -69,7 +67,7 @@ export class SupplierService implements GlobalServiceInterface<Supplier> {
 		// removing the first ' OR'
 		query = query.substr(2);
 		return this.apollo.create({
-			mutation: this.queries.delete,
+			gql: this.queries.delete,
 			input: query,
 			typename: 'Supplier'
 		}).pipe(

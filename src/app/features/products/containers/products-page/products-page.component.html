@@ -41,7 +41,7 @@
 		[products]="products"
 		[selection]="selected$ | async"
 		[statuses]="statuses$ | async"
-		(update)="patch($event)"
+		(update)="update($event)"
 		(productSelect)="onItemSelected($event)"
 		(productUnselect)="onItemUnselected($event)"
 		(productVote)="onItemVoted($event)"
@@ -53,7 +53,7 @@
 	<selection-bar-app
 		*ngIf="(selected$ | async).size > 0"
 		[selection]="selected$ | async"
-		(close)="unselectAll()"
+		(close)="resetSelection()"
 		(delete)="deleteSelected()">
 
 		<selection-actions

@@ -21,7 +21,7 @@ export class ProductService implements GlobalServiceInterface<Product> {
 	}
 
 	selectOne(id: string): Observable<Product> {
-		return this.apollo.subscribe({ query: this.queries.one });
+		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
 	selectList(page$: any, filters$: any, sort$: any) {
@@ -35,15 +35,13 @@ export class ProductService implements GlobalServiceInterface<Product> {
 			// we start with this
 			startWith({ page: 0, sort: {}, query: '' }),
 			switchMap((opt: any) => {
-				return this.apollo.subscribe({
-					query: this.queries.list,
-					variables: {
-						skip: opt.page * PER_PAGE,
-						take: PER_PAGE,
-						sortBy: opt.sort.sortBy,
-						descending: opt.sort.sortOrder === 'ASC',
-						query: opt.query
-					}
+				return this.apollo.selectMany({
+					gql: this.queries.list,
+					skip: opt.page * PER_PAGE,
+					take: PER_PAGE,
+					sortBy: opt.sort.sortBy,
+					descending: opt.sort.sortOrder === 'ASC',
+					query: opt.query
 				});
 			}),
 			map(({ data }) => data.products)
@@ -51,13 +49,13 @@ export class ProductService implements GlobalServiceInterface<Product> {
 	}
 
 	selectAll(fields: string = 'id, name'): Observable<Product[]> {
-		return this.apollo.subscribe({ query: this.queries.all(fields) }).pipe(
+		return this.apollo.selectMany({ gql: this.queries.all(fields) }).pipe(
 			map(({ data }) => data.products)
 		);
 	}
 	update(product: Product): Observable<Product> {
 		return this.apollo.update({
-			mutation: this.queries.update,
+			gql: this.queries.update,
 			input: product,
 			typename: 'Supplier'
 		}).pipe(
@@ -68,7 +66,7 @@ export class ProductService implements GlobalServiceInterface<Product> {
 
 	create(product: Product): Observable<Product> {
 		return this.apollo.create({
-			mutation: this.queries.create,
+			gql: this.queries.create,
 			input: product
 		}).pipe(
 			first(),

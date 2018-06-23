@@ -1,8 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
-import { ChangeDetectionStrategy } from '@angular/core';
-import { Filter } from '~shared/filters/models';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
 	selector: 'top-panel-app',

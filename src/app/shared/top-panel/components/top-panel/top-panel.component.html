@@ -5,6 +5,7 @@
 	<div class="right flexCenter" *ngIf="hasActions">
 		<div class="flexColumns">
 			<div class="actions">Actions</div>
+			<div (click)="filterClick.emit()">filters</div>
 			<div class="flex">
 				<view-switcher-app
 				class="mg-right"

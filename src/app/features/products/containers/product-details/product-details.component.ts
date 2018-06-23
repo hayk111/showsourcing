@@ -45,7 +45,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.selectById(id))
+			switchMap(id => this.productSrv.selectOne(id))
 		);
 
 		this.projects$ = id$.pipe(

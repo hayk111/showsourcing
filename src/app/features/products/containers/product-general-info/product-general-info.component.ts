@@ -63,7 +63,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.srv.selectById(params.id)),
+			switchMap(params => this.srv.selectOne(params.id)),
 			tap(product => this.product = product)
 		);
 		// creating the form descriptor

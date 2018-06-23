@@ -13,6 +13,7 @@ import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+	private queries = new UserQueries();
 	private _user$ = new ReplaySubject<User>(1);
 	user$: Observable<User> = this._user$.asObservable();
 
@@ -38,25 +39,15 @@ export class UserService {
 
 	/** gets the user from team realm */
 	selectUser() {
-		// // if we get to here the user client is ready for sure because of the guard
-		// return of(this.user$).pipe(
-
-		// )this.apollo.subscribe({
-		// 	query: UserQueries.selectUser,
-		// 	variables: { query: `id == ${this.userId}` }
-		// }).pipe(
-		// 	// we can only subscribe on list at the moment
-		// 	map((r: any) => r.data.users[0])
-		// );
 		return this.user$;
 	}
 
 	/** gets user from all-users realm */
 	private getUser(id: string) {
 		// we use a query here because we need to get the user once from all_user client
-		return this.apollo.use(ALL_USER_CLIENT).subscribe({
-			query: UserQueries.selectUser,
-			variables: { query: `id == "${id}"` }
+		return this.apollo.use(ALL_USER_CLIENT).selectOne({
+			gql: this.queries.one,
+			id
 		}).pipe(
 			map((r: any) => r.data.users[0])
 		);

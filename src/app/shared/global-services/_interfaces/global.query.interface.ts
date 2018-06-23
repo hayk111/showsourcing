@@ -1,7 +1,7 @@
 
 export interface GlobalQuery {
 	one: any;
-	list: any;
+	list?: any;
 	create: any;
 	update: any;
 	delete: any;

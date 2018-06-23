@@ -14,27 +14,7 @@ export class ProductFeatureService {
 		return this.productSrv.selectList(pages$, filters$, sort$);
 	}
 
-	createQueryFromFilters(filtergroup) {
-		return filtergroup ?
-			filtergroup
-				.filters
-				.map(({ type, value }) => this.getFieldCondition(type, value)).join(' or ') : '';
-	}
-
-	private getFieldName(type) {
-		if (type === 'tag') {
-			return 'tags';
-		}
-		return type;
-	}
-
-	private getFieldCondition(type, value) {
-		return (type !== 'favorite' && type !== 'archived') ?
-			`${this.getFieldName(type)}.id == "${value}"` :
-			`${this.getFieldName(type)} == ${value}`;
-	}
-
-	selectById(id: string): Observable<Product> {
+	selectOne(id: string): Observable<Product> {
 		return this.productSrv.selectOne(id);
 	}
 
@@ -42,13 +22,13 @@ export class ProductFeatureService {
 		return this.productSrv.update(product);
 	}
 
-	deleteProduct(productId: string): Observable<Product> {
+	deleteProduct(productId: string): Observable<any> {
 		// return this.productSrv.delete();
 		throw Error('not implemented yet');
 	}
 
-	deleteProducts(products: string[]) {
-		return forkJoin(products.map(productId => this.deleteProduct(productId)));
+	deleteProducts(products: string[]): Observable<any> {
+		throw Error('not implemented yet');
 	}
 
 	addFile(): Observable<any> {
