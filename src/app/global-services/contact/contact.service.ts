@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+import { GlobalServiceInterface } from '../_interfaces/global.service';
 import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
-import { ContactQueries } from '~shared/global-services/contact/contact.queries';
+import { ContactQueries } from './contact.queries';
 import { ApolloClient } from '~shared/apollo';
 import { Contact } from '~models';
 

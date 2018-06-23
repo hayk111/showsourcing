@@ -56,7 +56,7 @@ export class SelectorsService {
 	}
 
 	getEvents(): Observable<Event[]> {
-		return this.eventSrv.selectAll();
+		return this.eventSrv.selectAll('id, alias');
 	}
 
 	getTags(): Observable<Tag[]> {

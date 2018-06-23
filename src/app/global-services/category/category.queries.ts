@@ -1,4 +1,4 @@
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_interfaces/global.query.interface';
 import gql from 'graphql-tag';
 
 export class CategoryQueries implements GlobalQuery {

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { ProductStatus } from '~models';
 import { ApolloClient } from '~shared/apollo';
-import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+import { GlobalServiceInterface } from '../_interfaces/global.service';
 
 import { ProductStatusQueries } from './product-status.queries';
 

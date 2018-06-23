@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+import { combineLatest, Observable } from 'rxjs';
+import { first, map, startWith, switchMap } from 'rxjs/operators';
 import { Product } from '~models';
 import { ApolloClient } from '~shared/apollo';
-import { Observable, combineLatest } from 'rxjs';
-import { ProductQueries } from '~shared/global-services/product/product.queries';
-import { switchMap, map, first, startWith, tap } from 'rxjs/operators';
 import { PER_PAGE } from '~utils/constants/data.const';
-import { startTimeRange } from '@angular/core/src/profile/wtf_impl';
+
+import { GlobalServiceInterface } from '../_interfaces/global.service';
+import { ProductQueries } from './product.queries';
 
 
 @Injectable({

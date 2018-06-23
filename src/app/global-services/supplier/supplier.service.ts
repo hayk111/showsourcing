@@ -5,7 +5,7 @@ import { Supplier } from '~models';
 import { ApolloClient } from '~shared/apollo';
 
 import { SupplierQueries } from './supplier.queries';
-import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
+import { GlobalServiceInterface } from '../_interfaces/global.service';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
 import { PER_PAGE } from '~utils';
 

@@ -1,32 +1,58 @@
-import { ApolloClient } from '~shared/apollo';
 import { Injectable } from '@angular/core';
-import { GlobalServiceInterface } from '~shared/global-services/_interfaces/global.service';
-import { Category } from '~models';
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
+import { Category } from '~models';
+import { ApolloClient } from '~shared/apollo';
+
+import { GlobalServiceInterface } from '../_interfaces/global.service';
+import { CategoryQueries } from './category.queries';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+	providedIn: 'root'
+})
 export class CategoryService implements GlobalServiceInterface<Category> {
+	queries = new CategoryQueries();
+
 	constructor(private apollo: ApolloClient) { }
 
 	selectOne(id: string): Observable<Category> {
-		throw Error('not implemented yet')
+		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
-	selectAll(): Observable<Category[]> {
-		throw Error('not implemented yet')
+	selectAll(fields: string = 'id, name'): Observable<Category[]> {
+		return this.apollo.selectMany({ gql: this.queries.all(fields) }).pipe(
+			map(({ data }) => data.categories)
+		);
 	}
 
-	update(category: Category): Observable<Category> {
-		throw Error('not implemented yet')
+	update(status: Category): Observable<Category> {
+		return this.apollo.update({
+			gql: this.queries.update,
+			input: status,
+			typename: 'Category'
+		}).pipe(
+			first(),
+			map(({ data }) => data.updateCategory)
+		);
 	}
-	create(entity: Category): Observable<Category> {
-		throw Error('not implemented yet')
+
+	create(status: Category): Observable<Category> {
+		return this.apollo.create({
+			gql: this.queries.create,
+			input: status,
+			typename: 'Category'
+		}).pipe(
+			first(),
+			map(({ data }) => data.createCategory)
+		);
 	}
-	delete(entity: Category): Observable<any> {
-		throw Error('not implemented yet')
+
+	delete(category: Category): Observable<any> {
+		throw Error('not implemented yet');
 	}
-	deleteMany(entity: Category[]): Observable<any> {
-		throw Error('not implemented yet')
+
+	deleteMany(category: Category[]): Observable<any> {
+		throw Error('not implemented yet');
 	}
 }
