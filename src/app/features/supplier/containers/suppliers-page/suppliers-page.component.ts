@@ -118,7 +118,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	/** Deletes the currently selected suppliers */
 	deleteSelection() {
-		this.supplierSrv.removeSuppliers(Array.from(this.selectionSrv.selection.keys()));
+		this.supplierSrv.deleteSuppliers(Array.from(this.selectionSrv.selection.keys()));
 		this.resetSelection();
 	}
 }

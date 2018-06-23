@@ -4,11 +4,14 @@ import { Product } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { Observable, combineLatest } from 'rxjs';
 import { ProductQueries } from '~shared/global-services/product/product.queries';
-import { switchMap, map, first } from 'rxjs/operators';
+import { switchMap, map, first, startWith, tap } from 'rxjs/operators';
 import { PER_PAGE } from '~utils/constants/data.const';
+import { startTimeRange } from '@angular/core/src/profile/wtf_impl';
 
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class ProductService implements GlobalServiceInterface<Product> {
 	queries = new ProductQueries();
 	private take = 30;
@@ -22,19 +25,28 @@ export class ProductService implements GlobalServiceInterface<Product> {
 	}
 
 	selectList(page$: any, filters$: any, sort$: any) {
-		combineLatest(page$, filters$, sort$).pipe(
-			switchMap(([page, filters, sort]) => {
+		return combineLatest(page$, filters$, sort$).pipe(
+			map(res => ({
+				// assigning default values in case none have been specified
+				page: res[0] || 0,
+				query: res[1] || '',
+				sort: res[2] || {}
+			})),
+			// we start with this
+			startWith({ page: 0, sort: {}, query: '' }),
+			switchMap((opt: any) => {
 				return this.apollo.subscribe({
 					query: this.queries.list,
 					variables: {
-						skip: page * PER_PAGE,
+						skip: opt.page * PER_PAGE,
 						take: PER_PAGE,
-						sortBy: sort.sortBy,
-						descending: sort.sortOrder === 'ASC',
-						// query: this.createQueryFromFilters(filtergroup)
+						sortBy: opt.sort.sortBy,
+						descending: opt.sort.sortOrder === 'ASC',
+						query: opt.query
 					}
 				});
-			})
+			}),
+			map(({ data }) => data.products)
 		);
 	}
 

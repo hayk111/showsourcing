@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
@@ -16,13 +16,13 @@ import { FilterDataService } from '../../services/filter.data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFiltersComponent extends AutoUnsub implements OnInit {
-	@Output() filter: EventEmitter<FilterGroup> = new EventEmitter();
-	selectedSuppliers$: Observable<any>;
+	filters$: Observable<Filter[]>;
+	byType$: Observable<Map<FilterType, Map<any, Filter>>>;
+
 	/** Whether the different panel that are displayed when clicking on a button are shown */
 	btnPanelShown = true;
 	entityPanelShown = false;
 	pricePanelShown = false;
-	filterGroup: FilterGroup;
 
 	/** for the entity panel we need to pass the correct entityState */
 	choices$: Observable<Array<Entity>>;
@@ -45,22 +45,16 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 	// different filterTypes
 	filterType = FilterType;
 
-	constructor(private filterSrv: FilterService,
+	constructor(
 		private filterDataSrv: FilterDataService,
-		private cd: ChangeDetectorRef) {
+		private filterSrv: FilterService
+	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.filterSrv.filterGroup$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(group => {
-				this.filterGroup = group;
-				// re-apply filtering of products
-				this.filter.emit(group);
-				// need to run cd because of onpush and filters could be added from other places
-				this.cd.markForCheck();
-			});
+		this.filters$ = this.filterSrv.filters$;
+		this.byType$ = this.filterSrv.byType$;
 	}
 
 	/** opens the panel to select an entity */
@@ -86,6 +80,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	// TODO: Thierry, this shouldn't be in a componenent but in the service.
 	/** Links data for a type of filter type */
 	selectEntityArray(type: FilterType) {
 		if (type === FilterType.SUPPLIER) {
@@ -127,11 +122,6 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 		this.btnPanelShown = !this.pricePanelShown;
 	}
 
-	/** get the map of values for a type */
-	getFilterValues(type: FilterType) {
-		return this.filterGroup.byType.get(type) || new Map();
-	}
-
 	/** when an event wants to add a filter */
 	addFilter(filter: Filter): void {
 		this.filterSrv.addFilter(filter);
@@ -144,7 +134,7 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	/** clears all */
 	onClear(): void {
-		this.filterSrv.clearGroup();
+		this.filterSrv.clearAll();
 	}
 
 	/** clears a subset */

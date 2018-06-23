@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { first, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { ProductFeatureService, SelectionService } from '~features/products/services';
 import { Product, ProductStatus } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterGroup, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { SortEvent } from '~shared/table/components/sort-event.interface';
 
 @Component({
 	selector: 'products-page-app',
@@ -43,7 +44,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	previewOpen: boolean;
 	previewProduct: Product;
 
-	page = 0;
+	private currentPage = 0;
+	private page$ = new BehaviorSubject<number>(0);
+	private sort$ = new BehaviorSubject<SortEvent>(undefined);
+	private query$ = new BehaviorSubject<any>(undefined);
 
 	constructor(
 		private router: Router,
@@ -57,50 +61,41 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** Connects products for the page */
 	ngOnInit() {
 		this.pending = true;
-		this.products$ = this.productSrv.selectProducts().pipe(
-			tap(() => {
-				if (this.initialLoading) {
-					this.pending = false;
-					this.initialLoading = false;
-				}
-			})
+		this.products$ = this.productSrv.selectProductList(
+			this.page$,
+			this.query$,
+			this.sort$
+		).pipe(
+			tap(() => this.onLoad())
 		);
+		this.page$.pipe(takeUntil(this._destroy$))
+			.subscribe(p => this.currentPage = p);
 		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	private onLoad() {
+		if (this.initialLoading) {
+			this.pending = false;
+			this.initialLoading = false;
+		}
 	}
 
 	/** Loads more products when we reach the bottom of the page */
 	loadMore() {
-		this.page++;
-		this.pending = true;
-		this.filterSrv.filterGroup$.pipe(
-			first(),
-			switchMap((filtergroup: FilterGroup) => {
-				return this.productSrv.loadProductsNextPage({
-					page: this.page, sort: this.currentSort, filtergroup
-				});
-			})
-		).subscribe(() => {
-			this.pending = false;
-		});
+		this.page$.next(this.currentPage++);
 	}
 
 	/** Sorts products based on criteria */
-	sortProducts({ sortWith, order }) {
-		const sort = { sortBy: sortWith, sortOrder: order };
-		this.currentSort = sort;
-		this.filterSrv.filterGroup$.pipe(
-			first()
-		).subscribe((filtergroup: FilterGroup) => {
-			this.productSrv.sortProducts({ sort, filtergroup });
-		});
+	sortProducts(sort: SortEvent) {
+		this.sort$.next(sort);
 	}
 
 	/** Filters products based on filter group */
 	filterProducts(filtergroup: FilterGroup) {
 		this.pending = true;
-		this.productSrv.filterProducts({ filtergroup, sort: this.currentSort }).subscribe(() => {
-			this.pending = false;
-		});
+		// this.productSrv.filterProducts({ filtergroup, sort: this.currentSort }).subscribe(() => {
+		// 	this.pending = false;
+		// });
 	}
 
 	openPreview(product: Product) {
@@ -133,16 +128,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.selectionSrv.unselectAll();
 	}
 
-	/** Patch a property of a product */
-	patch(patch: Product) {
-		this.productSrv.updateProduct(patch).subscribe();
+	/** update a product */
+	update(product: Product) {
+		this.productSrv.updateProduct(product).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
 		const products = Array.from(this.selectionSrv.selection.keys());
-		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
-		// Let's avoid doing that whenever possible though.
+		// callback for confirm dialog
 		const callback = () => {
 			this.productSrv.deleteProducts(products).subscribe(() => {
 				this.resetSelection();
@@ -159,15 +153,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** When a product heart is clicked to favorite it */
 	onItemFavorited(entityId: string) {
-		// we are just patching a property of the product, which is the rating property
-		const patch: Product = { id: entityId, favorite: true };
-		this.patch(patch);
+		const product: Product = { id: entityId, favorite: true };
+		this.update(product);
 	}
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(entityId: string) {
-		const patch: Product = { id: entityId, favorite: false };
-		this.patch(patch);
+		const product: Product = { id: entityId, favorite: false };
+		this.update(product);
 	}
 
 	/** When an product is liked / disliked */

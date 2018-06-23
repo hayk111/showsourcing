@@ -24,7 +24,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private userSrv: UserService,
 		private supplierSrv: SupplierFeatureService,
 		private contactSrv: ContactService,
 		private dlgSrv: DialogService) {
@@ -41,7 +40,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.supplierSrv.getById(id))
+			switchMap(id => this.supplierSrv.selectOne(id))
 		);
 		// gettings his contacts
 		this.contacts$ = id$.pipe(

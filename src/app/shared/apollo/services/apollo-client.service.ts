@@ -21,7 +21,9 @@ export class ApolloClient {
 
 	constructor(private apollo: Apollo) { }
 
-	/** patch functions start */
+	/**
+	 * @deprecated it will be removed soon
+	 */
 	query<T>(options: WatchQueryOptions): QueryRef<T, Record<string, any>> {
 		return this.apollo.watchQuery<T>(options);
 	}

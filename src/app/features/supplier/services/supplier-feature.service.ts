@@ -93,13 +93,20 @@ export class SupplierFeatureService {
 		});
 	}
 
-	// at the moment the subscription works on only one entity and can be done only on list
 	selectOne(id: string): Observable<Supplier> {
 		return this.supplierSrv.selectOne(id);
 	}
 
 	createSupplier(supplier: Supplier) {
 		return this.supplierSrv.create(supplier);
+	}
+
+	updateSupplier(supplier: Supplier) {
+		return this.supplierSrv.update(supplier);
+	}
+
+	deleteSuppliers(any: any) {
+		throw Error('not implemented yet');
 	}
 
 	/** gets the latest products, w */

@@ -1,16 +1,5 @@
-import {
-	Component,
-	OnInit,
-	Input,
-	ChangeDetectionStrategy,
-	ContentChild,
-	Output,
-	EventEmitter,
-	AfterContentInit,
-	TemplateRef
-} from '@angular/core';
-import { TableDescriptor, ColumnDirective } from '~shared/table';
-import { SELECT_MULTIPLE_VALUE_ACCESSOR } from '@angular/forms/src/directives/select_multiple_control_value_accessor';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { TableDescriptor } from '~shared/table';
 
 @Component({
 	selector: 'custom-table-app',

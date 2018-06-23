@@ -2,7 +2,7 @@ export enum FilterType {
 	SUPPLIER = 'supplier',
 	EVENT = 'event',
 	CATEGORY = 'category',
-	TAG = 'tag',
+	TAG = 'tags',
 	PROJECT = 'project',
 	CREATED_BY = 'createdBy',
 	PRODUCT_STATUS = 'status',
