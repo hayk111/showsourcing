@@ -76,7 +76,10 @@ export class TeamService {
         Add vote request.
      */
 	addVoteRequest(voteRequest) {
-		return this.apollo.update({ mutation: RequestQueries.addVoteRequest, input: voteRequest, typename: 'voteRequest' })
+		return this.apollo.update({
+			gql: RequestQueries.addVoteRequest,
+			input: voteRequest, typename: 'voteRequest'
+		})
 			.pipe(
 				first(),
 				map((r: any) => r.data.addvoteRequest)
@@ -87,7 +90,7 @@ export class TeamService {
         Update vote request.
      */
 	updateVoteRequest(voteRequest) {
-		return this.apollo.update({ mutation: RequestQueries.updateVoteRequest, input: voteRequest, typename: 'voteRequest' })
+		return this.apollo.update({ gql: RequestQueries.updateVoteRequest, input: voteRequest, typename: 'voteRequest' })
 			.pipe(first());
 	}
 }

@@ -1,6 +1,6 @@
 
 
-export interface SortEvent {
+export interface Sort {
 	sortBy: string;
 	sortOrder: 'ASC' | 'DESC';
 }

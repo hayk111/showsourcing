@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Supplier } from '~models';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -21,7 +21,7 @@ export class SupplierListViewComponent {
 	@Output() supplierFavorited = new EventEmitter<string>();
 	@Output() supplierUnfavorited = new EventEmitter<string>();
 	@Output() bottomReached = new EventEmitter<string>();
-	@Output() sort = new EventEmitter<SortEvent>();
+	@Output() sort = new EventEmitter<Sort>();
 	// used to sort by tags or by categories
 	arrayComparator = (a, b) => (b || []).length - (a || []).length;
 

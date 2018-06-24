@@ -2,7 +2,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { Category } from '~models';
 import { ApolloClient } from '~shared/apollo';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 
 import { GlobalQuery } from './global.query.interface';
 import { PER_PAGE } from '~utils';
@@ -12,7 +12,7 @@ export interface GlobalServiceInterface<T> {
 	selectMany?: (
 		page$: Observable<number>,
 		query$: Observable<string>,
-		sort$: Observable<SortEvent>
+		sort$: Observable<Sort>
 	) => Observable<T[]>;
 	selectAll: (fields: string) => Observable<T[]>;
 	update: (entity: T) => Observable<T>;
@@ -36,7 +36,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		});
 	}
 
-	selectMany(page$?: any, query$?: any, sort$?: any, take: number = PER_PAGE) {
+	selectMany(query$?: any, page$?: any, sort$?: any, take: number = PER_PAGE) {
 		return combineLatest(page$, query$, sort$).pipe(
 			map(res => ({
 				// assigning default values in case none have been specified

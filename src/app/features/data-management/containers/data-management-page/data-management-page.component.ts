@@ -5,7 +5,7 @@ import { tap, takeUntil, first } from 'rxjs/operators';
 import { CategoryService } from '~features/data-management/services/category.service';
 import { SelectionService } from '~features/supplier/services/selection.service';
 import { Category, ERM } from '~models';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -24,8 +24,8 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 	/** when the suppliers are loaded for the first time */
 	initialLoading = true;
 	/** current sort used for sorting suppliers */
-	sort$: Subject<SortEvent> = new Subject();
-	currentSort: SortEvent = { sortBy: 'creationDate', sortOrder: 'ASC' };
+	sort$: Subject<Sort> = new Subject();
+	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 
 	constructor(
 		private categorySrv: CategoryService,
@@ -71,7 +71,7 @@ export class DataManagementPageComponent extends AutoUnsub implements OnInit {
 		this.selectionSrv.unselectAll();
 	}
 
-	onSort(sort: SortEvent) {
+	onSort(sort: Sort) {
 		this.currentSort = sort;
 		this.pending = true;
 

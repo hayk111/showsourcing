@@ -6,7 +6,7 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
 import { SelectionService } from '../../services/selection.service';
@@ -22,11 +22,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 	suppliers$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
 	/** current sort used for sorting suppliers */
-	sort$: Subject<SortEvent> = new Subject();
+	sort$: Subject<Sort> = new Subject();
 	/** current filters applied to suppliers */
 	filters$: Observable<Filter[]>;
 	pagination$: Observable<any>;
-	currentSort: SortEvent = { sortBy: 'creationDate', sortOrder: 'ASC' };
+	currentSort: Sort = { sortBy: 'creationDate', sortOrder: 'ASC' };
 	/** selected suppliers */
 	selected$: Observable<Map<string, boolean>>;
 	/** whether some suppliers are currently being loaded */
@@ -48,32 +48,32 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.pending = true;
-		this.suppliers$ = this.supplierSrv.selectSuppliers().pipe(
-			tap(() => {
-				if (this.initialLoading) {
-					this.pending = false;
-					this.initialLoading = false;
-				}
-			})
-		);
+		// this.suppliers$ = this.supplierSrv.select().pipe(
+		// 	tap(() => {
+		// 		if (this.initialLoading) {
+		// 			this.pending = false;
+		// 			this.initialLoading = false;
+		// 		}
+		// 	})
+		// );
 		this.selected$ = this.selectionSrv.selection$;
 	}
 
 	/** loads more product when we reach the bottom of the page */
 	loadMore() {
-		this.page++;
-		this.pending = true;
-		this.supplierSrv.loadSuppliersNextPage({ page: this.page, sort: this.currentSort }).then(() => {
-			this.pending = false;
-		});
+		// this.page++;
+		// this.pending = true;
+		// this.supplierSrv.loadSuppliersNextPage({ page: this.page, sort: this.currentSort }).then(() => {
+		// 	this.pending = false;
+		// });
 	}
 
-	onSort(sort: SortEvent) {
-		this.currentSort = sort;
-		this.pending = true;
-		this.supplierSrv.sortSuppliers({ sort }).then(() => {
-			this.pending = false;
-		});
+	onSort(sort: Sort) {
+		// this.currentSort = sort;
+		// this.pending = true;
+		// this.supplierSrv.sortSuppliers({ sort }).then(() => {
+		// 	this.pending = false;
+		// });
 	}
 
 	/** Opens the dialog for creating a new supplier */

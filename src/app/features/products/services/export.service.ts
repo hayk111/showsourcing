@@ -34,7 +34,7 @@ export class ExportService {
         Add export request.
      */
 	addExportRequest(exportRequest) {
-		return this.apollo.update({ mutation: RequestQueries.addExportRequest, input: exportRequest, typename: 'exportRequest' })
+		return this.apollo.update({ gql: RequestQueries.addExportRequest, input: exportRequest, typename: 'exportRequest' })
 			.pipe(
 				first(),
 				map((r: any) => r.data.addexportRequest)
@@ -45,7 +45,7 @@ export class ExportService {
         Update export request.
      */
 	updateExportRequest(exportRequest) {
-		return this.apollo.update({ mutation: RequestQueries.updateExportRequest, input: exportRequest, typename: 'exportRequest' })
+		return this.apollo.update({ gql: RequestQueries.updateExportRequest, input: exportRequest, typename: 'exportRequest' })
 			.pipe(first());
 	}
 }

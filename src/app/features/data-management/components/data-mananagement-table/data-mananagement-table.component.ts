@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '~models';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'data-management-table-app',
@@ -18,7 +18,7 @@ export class DataMananagementTableComponent {
 	@Output() entitySelectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() entityUnselectAll = new EventEmitter<null>();
 	@Output() entityOpen = new EventEmitter<string>();
-	@Output() sort = new EventEmitter<SortEvent>();
+	@Output() sort = new EventEmitter<Sort>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	idEntityHovered: string;
 

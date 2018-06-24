@@ -6,7 +6,7 @@ import { MenuService } from '~features/settings/services/menu.service';
 import { Supplier, TeamUser } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
 import { SelectionService } from '../../services/selection.service';
@@ -22,11 +22,11 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 	members$: Observable<Supplier[]>;
 	filters: Array<Filter> = [];
 	/** current sort used for sorting members */
-	sort$: Subject<SortEvent> = new Subject();
+	sort$: Subject<Sort> = new Subject();
 	/** current filters applied to members */
 	filters$: Observable<Filter[]>;
 	pagination$: Observable<any>;
-	currentSort: SortEvent = { sortBy: 'name', sortOrder: 'ASC' };
+	currentSort: Sort = { sortBy: 'name', sortOrder: 'ASC' };
 	/** selected members */
 	selected$: Observable<Map<string, boolean>>;
 	/** menu collapsed */
@@ -73,7 +73,7 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 		});
 	}
 
-	onSort(sort: SortEvent) {
+	onSort(sort: Sort) {
 		this.currentSort = sort;
 		this.pending = true;
 		this.memberSrv.sortMembers({ sort }).then(() => {
@@ -118,16 +118,16 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 
 	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
 		// TODO: Thiery I believe this if/else doesn't do anything
-		if (member) {
-			this.memberSrv.updateMember({
-				...member,
-				accessType
-			}).subscribe();
-		} else {
-			this.memberSrv.updateMembers({
-				accessType
-			}).subscribe();
-		}
+		// if (member) {
+		// 	this.memberSrv.updateMember({
+		// 		...member,
+		// 		accessType
+		// 	}).subscribe();
+		// } else {
+		// 	this.memberSrv.updateMembers({
+		// 		accessType
+		// 	}).subscribe();
+		// }
 	}
 
 	/** Deletes the currently selected members */
@@ -138,15 +138,15 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		const members = Array.from(this.selectionSrv.selection.keys());
-		// A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
-		// Let's avoid doing that whenever possible though.
-		const callback = () => {
-			this.memberSrv.deleteMembers(members).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${members.length} Member${members.length > 1 ? 's' : ''} ?`;
-		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
+		// const members = Array.from(this.selectionSrv.selection.keys());
+		// // A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
+		// // Let's avoid doing that whenever possible though.
+		// const callback = () => {
+		// 	this.memberSrv.deleteMembers(members).subscribe(() => {
+		// 		this.resetSelection();
+		// 	});
+		// };
+		// const text = `Delete ${members.length} Member${members.length > 1 ? 's' : ''} ?`;
+		// this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
 	}
 }

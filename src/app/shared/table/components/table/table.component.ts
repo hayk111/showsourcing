@@ -12,7 +12,7 @@ import {
 	HostListener
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'table-app',
@@ -44,7 +44,7 @@ export class TableComponent {
 	@Output() unselectOne = new EventEmitter<string>();
 	// when we scroll down to the end of the table
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() sort = new EventEmitter<SortEvent>();
+	@Output() sort = new EventEmitter<Sort>();
 	// when we hover and we want to get the id of the object
 	@Output() hovered = new EventEmitter<string>();
 	// all the columns

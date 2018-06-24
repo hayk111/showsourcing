@@ -7,7 +7,7 @@ import { Product, ProductStatus } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterGroup, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { SortEvent } from '~shared/table/components/sort-event.interface';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'products-page-app',
@@ -46,12 +46,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	private currentPage = 0;
 	private page$ = new BehaviorSubject<number>(0);
-	private sort$ = new BehaviorSubject<SortEvent>(undefined);
+	private sort$ = new BehaviorSubject<Sort>(undefined);
 	private query$ = new BehaviorSubject<any>(undefined);
 
 	constructor(
 		private router: Router,
-		private productSrv: ProductFeatureService,
+		private featureSrv: ProductFeatureService,
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService) {
@@ -61,7 +61,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** Connects products for the page */
 	ngOnInit() {
 		this.pending = true;
-		this.products$ = this.productSrv.selectProductList(
+		this.products$ = this.featureSrv.selectProductList(
 			this.page$,
 			this.query$,
 			this.sort$
@@ -86,7 +86,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** Sorts products based on criteria */
-	sortProducts(sort: SortEvent) {
+	sortProducts(sort: Sort) {
 		this.sort$.next(sort);
 	}
 
@@ -130,15 +130,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update a product */
 	update(product: Product) {
-		this.productSrv.updateProduct(product).subscribe();
+		this.featureSrv.updateProduct(product).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		const products = Array.from(this.selectionSrv.selection.values());
+		const products = Array.from(this.selectionSrv.selection.keys());
 		// callback for confirm dialog
 		const callback = () => {
-			this.productSrv.deleteProducts(products).subscribe(() => {
+			this.featureSrv.deleteProducts(products).subscribe(() => {
 				this.resetSelection();
 			});
 		};
