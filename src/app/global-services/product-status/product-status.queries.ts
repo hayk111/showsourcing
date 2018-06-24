@@ -1,4 +1,4 @@
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 import gql from 'graphql-tag';
 
 export class ProductStatusQueries implements GlobalQuery {
@@ -27,9 +27,15 @@ export class ProductStatusQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
-		mutation deleteProductStatus($input: String!) {
-			deleteProductStatus(id: $input)
+	deleteOne = gql`
+		mutation deleteProductStatus($id: String!) {
+			deleteProductStatus(id: $id)
+		}
+	`;
+
+	deleteMany = gql`
+		mutation deleteProductStatuses($query: String!) {
+			deleteProductStatuses(query: $query)
 		}
 	`;
 

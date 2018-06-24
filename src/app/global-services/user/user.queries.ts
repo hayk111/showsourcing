@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 
 
 export class UserQueries implements GlobalQuery {
@@ -32,7 +32,13 @@ export class UserQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
+	deleteOne = gql`
+		mutation updateUser($id: String) {
+			deleteUser(id: $id)
+		}
+	`;
+
+	deleteMany = gql`
 		mutation updateUser($id: String) {
 			deleteUser(id: $id)
 		}

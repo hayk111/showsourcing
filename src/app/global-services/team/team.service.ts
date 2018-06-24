@@ -9,6 +9,7 @@ import { ApolloStateService } from '~shared/apollo/services/apollo-state.service
 import { LocalStorageService } from '~shared/local-storage';
 
 import { TeamQueries } from './team.queries';
+import { GlobalService } from '../_global/global.service';
 
 
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -18,8 +19,7 @@ const SELECTED_TEAM_ID = 'selected-team-id';
  * retrieving the current selected team.
  */
 @Injectable({ providedIn: 'root' })
-export class TeamService {
-	private queries = new TeamQueries();
+export class TeamService extends GlobalService<Team> {
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable();
@@ -27,11 +27,12 @@ export class TeamService {
 
 
 	constructor(
-		private apollo: ApolloClient,
+		protected apollo: ApolloClient,
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
 
+		super(apollo, new TeamQueries(), 'Team');
 		this.init();
 	}
 
@@ -53,7 +54,7 @@ export class TeamService {
 		).subscribe(this._selectedTeam$);
 	}
 
-	selectTeams(): Observable<Team[]> {
+	selectAll(): Observable<Team[]> {
 		return this.teams$;
 	}
 
@@ -63,17 +64,10 @@ export class TeamService {
 		return this._selectedTeam$;
 	}
 
-	createTeam(team: Team): Observable<any> {
-		team.realmServerName = 'default';
-		team.realmPath = `/team/${team.id}`;
+	create(team: Team): Observable<any> {
 		return this.apollo.use(USER_CLIENT).update({
 			gql: this.queries.create,
-			input: {
-				name: team.name,
-				id: team.id,
-				creationDate: team.creationDate,
-				status: 'pending'
-			},
+			input: team,
 			typename: 'Team'
 		}).pipe(
 			switchMap(_ => this.waitTeamValid(team)),
@@ -114,7 +108,7 @@ export class TeamService {
 	/** gets teams from user realm */
 	private getTeams(): Observable<any> {
 		return this.apollo.use(USER_CLIENT).selectMany({
-			gql: this.queries.all,
+			gql: this.queries.all('id, name, realmPath, realmServerName'),
 		}).pipe(
 			map((r: any) => r.data.teams)
 		);

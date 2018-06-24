@@ -8,8 +8,14 @@ export class Team extends BaseEntity<TeamConfig> {
 	name: string;
 	defaultCurrency: string;
 	users: [TeamUser];
-	realmServerName: string;
+	realmServerName: string = 'default';
 	realmPath: string;
+	status = 'pending';
+
+	constructor(config: TeamConfig) {
+		super(config);
+		this.realmPath = `team/${this.id}`;
+	}
 }
 
 

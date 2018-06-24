@@ -5,7 +5,7 @@ import { AuthState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { User } from '~models';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
-import { ALL_USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
+import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 
 import { UserQueries } from './user.queries';
 
@@ -40,6 +40,13 @@ export class UserService {
 	/** gets the user from team realm */
 	selectUser() {
 		return this.user$;
+	}
+
+	update(user: User) {
+		return this.apollo.use(USER_CLIENT).update({
+			gql: this.queries.update,
+			input: user
+		});
 	}
 
 	/** gets user from all-users realm */

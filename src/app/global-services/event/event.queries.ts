@@ -1,4 +1,4 @@
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 import gql from 'graphql-tag';
 
 export class EventQueries implements GlobalQuery {
@@ -27,10 +27,16 @@ export class EventQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
-		mutation deleteEvent($input: String!) {
-			deleteEvent(id: $input)
+	deleteOne = gql`
+		mutation deleteEvent($id: String!) {
+			deleteEvent(id: $id)
 		}
+	`;
+
+	deleteMany = gql`
+	mutation deleteEvent($query: String!) {
+		deleteEvents(query: $query)
+	}
 	`;
 
 	all = (str: string) => gql`

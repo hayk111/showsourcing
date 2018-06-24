@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 
 
 export class TeamQueries implements GlobalQuery {
@@ -35,9 +35,15 @@ export class TeamQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
+	deleteOne = gql`
 		mutation deleteTeam($id: String!) {
 			deleteTeam(id: $id)
+		}
+	`;
+
+	deleteMany = gql`
+		mutation deleteTeams($query: String!) {
+			deleteTeams(query: $query)
 		}
 	`;
 

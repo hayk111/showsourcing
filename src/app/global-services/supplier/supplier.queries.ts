@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {
 	GlobalQuery
-} from '~shared/global-services/_interfaces/global.query.interface';
+} from '../_global/global.query.interface';
 
 
 
@@ -103,9 +103,17 @@ export class SupplierQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
-		mutation supplier($input: String!) {
-			deleteSupplier(id: $input) {
+	deleteOne = gql`
+		mutation supplier($id: String!) {
+			deleteSupplier(id: $id) {
+				id
+			}
+		}
+	`;
+
+	deleteMany = gql`
+		mutation suppliers($query: String!) {
+			deleteSuppliers(query: $query) {
 				id
 			}
 		}

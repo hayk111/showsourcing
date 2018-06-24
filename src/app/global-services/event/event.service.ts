@@ -4,55 +4,21 @@ import { first, map } from 'rxjs/operators';
 import { Event } from '~models';
 import { ApolloClient } from '~shared/apollo';
 
-import { GlobalServiceInterface } from '../_interfaces/global.service';
+import { GlobalServiceInterface, GlobalService } from '../_global/global.service';
 import { EventQueries } from './event.queries';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class EventService implements GlobalServiceInterface<Event> {
-	queries = new EventQueries();
+export class EventService extends GlobalService<Event> {
 
-	constructor(private apollo: ApolloClient) { }
-
-	selectOne(id: string): Observable<Event> {
-		return this.apollo.selectOne({ gql: this.queries.one, id });
+	constructor(protected apollo: ApolloClient) {
+		super(apollo, new EventQueries(), 'Event');
 	}
 
-	selectAll(fields: string = 'id, name'): Observable<Event[]> {
-		return this.apollo.selectMany({ gql: this.queries.all(fields) }).pipe(
-			map(({ data }) => data.events)
-		);
+	selectAll(fields: string = 'id, alias') {
+		return super.selectAll(fields);
 	}
 
-	update(status: Event): Observable<Event> {
-		return this.apollo.update({
-			gql: this.queries.update,
-			input: status,
-			typename: 'Event'
-		}).pipe(
-			first(),
-			map(({ data }) => data.updateEvent)
-		);
-	}
-
-	create(status: Event): Observable<Event> {
-		return this.apollo.create({
-			gql: this.queries.create,
-			input: status,
-			typename: 'Event'
-		}).pipe(
-			first(),
-			map(({ data }) => data.createEvent)
-		);
-	}
-
-	delete(event: Event): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	deleteMany(event: Event[]): Observable<any> {
-		throw Error('not implemented yet');
-	}
 }

@@ -1,4 +1,4 @@
-import { GlobalQuery } from '../_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 import gql from 'graphql-tag';
 
 export class CategoryQueries implements GlobalQuery {
@@ -27,9 +27,9 @@ export class CategoryQueries implements GlobalQuery {
 		}
 	`;
 
-	delete = gql`
-		mutation deleteCategory($input: String!) {
-			deleteCategory(id: $input)
+	deleteOne = gql`
+		mutation deleteCategory($id: String!) {
+			deleteCategory(id: $id)
 		}
 	`;
 

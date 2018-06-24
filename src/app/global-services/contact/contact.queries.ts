@@ -1,4 +1,4 @@
-import { GlobalQuery } from '~shared/global-services/_interfaces/global.query.interface';
+import { GlobalQuery } from '../_global/global.query.interface';
 import gql from 'graphql-tag';
 
 export class ContactQueries implements GlobalQuery {
@@ -35,9 +35,15 @@ export class ContactQueries implements GlobalQuery {
 		}
 	}`;
 
-	delete = gql`
+	deleteOne = gql`
 	mutation deleteContact($id: String!) {
 		deleteContact(id: $id)
+	}
+	`;
+
+	deleteMany = gql`
+	mutation deleteContact($query: String!) {
+		deleteContacts(query: $query)
 	}
 	`;
 
@@ -61,7 +67,7 @@ export class ContactQueries implements GlobalQuery {
 		return gql`
 			subscription contacts {
 				contacts{
-					str
+					${str}
 				}
 			}
 		`

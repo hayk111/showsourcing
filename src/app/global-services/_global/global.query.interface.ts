@@ -4,7 +4,7 @@ export interface GlobalQuery {
 	list?: any;
 	create: any;
 	update: any;
-	delete: any;
+	deleteOne: any;
 	deleteMany: any;
 	all: (str: string) => any;
 }
