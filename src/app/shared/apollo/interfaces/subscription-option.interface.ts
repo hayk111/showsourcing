@@ -1,10 +1,12 @@
+import { DocumentNode } from "graphql";
+
 export interface SubribeToOneOptions {
-	gql: any;
+	gql: DocumentNode;
 	id: any;
 }
 
 export interface SubscribeToManyOptions {
-	gql: any;
+	gql: DocumentNode;
 	query?: string;
 	take?: number;
 	skip?: number;

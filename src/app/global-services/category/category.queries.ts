@@ -33,6 +33,12 @@ export class CategoryQueries implements GlobalQuery {
 		}
 	`;
 
+	deleteMany = gql`
+		mutation deleteCategories($query: String!) {
+			deleteCategories(query: $query)
+		}
+	`
+
 	all = (str: string) => gql`
 		subscription categories {
 			categories {

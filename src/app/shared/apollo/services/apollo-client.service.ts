@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { R, TypedVariables } from 'apollo-angular/types';
-import {
-	MutationOptions as ApolloMutationOptions,
-	SubscriptionOptions as ApolloSubscriptionOptions
-} from 'apollo-client';
+
 import { FetchResult } from 'apollo-link';
 import { Observable } from 'rxjs';
 import { take, first } from 'rxjs/operators';
 import { Log } from '~utils';
 
-import { MutationOptions } from '../interfaces/mutation-options.interface';
+import { UpdateOptions } from '../interfaces/update-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
+import { DeleteOneOptions, DeleteManyOptions } from '~shared/apollo/interfaces/delete-options.interface';
 
 
 
@@ -54,7 +52,7 @@ export class ApolloClient {
 	}
 
 	/** this method is used to update one existing entity*/
-	update<T, V = R>(options: MutationOptions): Observable<FetchResult<T>> {
+	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 
 		if (this.checkNonOptimistic(options)) {
@@ -68,32 +66,46 @@ export class ApolloClient {
 	}
 
 	/** this method is used to create one entity */
-	create<T, V = R>(options: MutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
+	create<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions);
 		}
-
+		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first()
 		);
 	}
 
-	delete<T, V = R>(options: MutationOptions & TypedVariables<V>): Observable<FetchResult<T>> {
-		const apolloOptions = this.createApolloMutationOptions(options);
+	delete<T>(options: DeleteOneOptions): Observable<FetchResult<T>> {
+		const apolloOptions = {
+			mutation: options.gql,
+			variables: { id: options.id },
+		};
 
 		if (this.checkNonOptimistic(options)) {
-			return this.apollo.mutate(apolloOptions);
+			return this.apollo.mutate(apolloOptions).pipe(first());
 		}
-		// (options as any).update = (proxy, { data: { submitComment } }) => {
-		// 	// Read the data from our cache for this query.
-		// 	const data = proxy.readQuery({ query: CommentAppQuery });
-		// 	// Add our comment from the mutation to the end.
-		// 	data.comments.push(submitComment);
-		// 	// Write our data back to the cache.
-		// 	proxy.writeQuery({ query: CommentAppQuery, data });
-		// };
+		// TODO implement optimistic UI
+		return this.apollo.mutate(apolloOptions).pipe(
+			first()
+		);
+	}
+
+	deleteMany<T>(options: DeleteManyOptions): Observable<FetchResult<T>> {
+		let query = options.ids.reduce((acc, curr) => `${acc} OR ${curr}`, '');
+		// removing the first ' OR '
+		query = query.substr(4);
+		const apolloOptions = {
+			mutation: options.gql,
+			variables: { query },
+		};
+
+		if (this.checkNonOptimistic(options)) {
+			return this.apollo.mutate(apolloOptions).pipe(first());
+		}
+		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first()
 		);
@@ -104,15 +116,15 @@ export class ApolloClient {
 		return new ApolloClient(this.apollo.use(name) as Apollo);
 	}
 
-	private createApolloMutationOptions(options: MutationOptions) {
+	private createApolloMutationOptions(options: UpdateOptions) {
 		return {
 			mutation: options.gql,
 			variables: { input: options.input },
-			context: options.context
 		};
 	}
 
-	private addOptimisticResponse(options: MutationOptions) {
+
+	private addOptimisticResponse(options: UpdateOptions) {
 		(options as any).optimisticResponse = {
 			__typename: 'Mutation',
 			[this.getQueryName(options)]: {
@@ -126,7 +138,7 @@ export class ApolloClient {
 		return (options.mutation.definitions[0]).name.value;
 	}
 
-	private checkNonOptimistic(options: MutationOptions) {
+	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
 		if (options.preventOptimisticUi || !options.typename) {
 			Log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
 			return true;

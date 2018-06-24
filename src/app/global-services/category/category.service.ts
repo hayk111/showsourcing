@@ -48,11 +48,9 @@ export class CategoryService implements GlobalServiceInterface<Category> {
 		);
 	}
 
-	delete(category: Category): Observable<any> {
-		throw Error('not implemented yet');
+	delete(ids: string | string[]): Observable<any> {
+		if (Array.isArray(ids))
+			return this.apollo.delete(ids)
 	}
 
-	deleteMany(category: Category[]): Observable<any> {
-		throw Error('not implemented yet');
-	}
 }

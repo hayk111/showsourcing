@@ -5,6 +5,7 @@ export interface GlobalQuery {
 	create: any;
 	update: any;
 	delete: any;
+	deleteMany: any;
 	all: (str: string) => any;
 }
 
