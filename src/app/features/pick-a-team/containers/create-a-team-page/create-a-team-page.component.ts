@@ -24,7 +24,7 @@ export class CreateATeamPageComponent {
 	onSubmit() {
 		this.pending = true;
 		const team = new Team(this.form.value);
-		this.srv.createTeam(team)
+		this.srv.create(team)
 			.subscribe(
 				_ => {
 					this.pending = false;

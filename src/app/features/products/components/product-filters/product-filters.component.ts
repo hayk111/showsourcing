@@ -7,7 +7,7 @@ import { Filter, FilterGroup, FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
 
-import { FilterDataService } from '../../services/filter.data.service';
+import { FilterDataService } from '~shared/filters/services/filter.data.service';
 
 @Component({
 	selector: 'product-filters-app',
@@ -67,12 +67,12 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 			// we get the correct entity
 			// const entityRepr = this.getRepr(type);
 			this.typeSelected = type;
-			this.choices$ = this.filterDataSrv.selectEntities(type)
+			this.choices$ = this.filterDataSrv.selectChoices(type)
 				.pipe(
 					map((choices: any[]) => choices.filter(choice => !choice.favorite)),
 					takeUntil(this._destroy$)
 				);
-			this.relevantChoices$ = this.filterDataSrv.selectEntities(type)
+			this.relevantChoices$ = this.filterDataSrv.selectChoices(type)
 				.pipe(
 					map((choices: any[]) => choices.filter(choice => choice.favorite)),
 					takeUntil(this._destroy$)

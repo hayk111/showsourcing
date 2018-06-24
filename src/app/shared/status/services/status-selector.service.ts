@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApolloClient } from '~shared/apollo';
-import { StatusModule } from '~shared/status/status.module';
-import { StatusSelectorQueries } from './status-selector.queries';
-import { map, tap } from 'rxjs/operators';
-import { SupplierStatus, ProductStatus } from '~models';
 import { Observable } from 'rxjs';
+import { ProductStatusService, SupplierStatusService } from '~global-services';
+import { ProductStatus, SupplierStatus } from '~models';
 
 
 
@@ -14,17 +11,15 @@ import { Observable } from 'rxjs';
 })
 export class StatusSelectorService {
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(
+		private productStatusSrv: ProductStatusService,
+		private supplierStatusSrv: SupplierStatusService) { }
 
 	getSupplierStatuses(): Observable<SupplierStatus[]> {
-		return this.apollo.subscribe({ query: StatusSelectorQueries.supplierStatus }).pipe(
-			map(r => r.data.supplierStatuses)
-		);
+		return this.supplierStatusSrv.selectAll();
 	}
 
 	getProductStatuses(): Observable<ProductStatus[]> {
-		return this.apollo.subscribe({ query: StatusSelectorQueries.productStatus }).pipe(
-			map(r => r.data.productStatuses)
-		);
+		return this.productStatusSrv.selectAll();
 	}
 }

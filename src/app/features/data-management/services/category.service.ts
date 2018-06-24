@@ -40,11 +40,13 @@ export class CategoryService {
 		the suppliers data associated with the query changes.
 	 */
 	selectCategories(): Observable<Category[]> {
-		this.initializeCategoryQuery();
-		return this.categoriesQuery$.valueChanges
-			.pipe(
-				map(({ data, loading }) => (<any>data).categories),
-		);
+		throw Error('this service is done in michael version')
+
+		// this.initializeCategoryQuery();
+		// return this.categoriesQuery$.valueChanges
+		// 	.pipe(
+		// 		map(({ data, loading }) => (<any>data).categories),
+		// );
 	}
 
 	/*
@@ -55,25 +57,27 @@ export class CategoryService {
 		notified when the processing ends.
 	 */
 	loadCategoriesNextPage({ page, sort }): Promise<any> {
-		this.initializeCategoryQuery();
-		return this.categoriesQuery$.fetchMore({
-			variables: sort ? {
-				skip: page * PER_PAGE,
-				take: PER_PAGE,
-				sortBy: sort.sortBy,
-				descending: sort.sortOrder === 'ASC'
-			} : {
-					skip: page * PER_PAGE,
-					take: PER_PAGE
-				},
-			updateQuery: (prev, { fetchMoreResult }) => {
-				if (!fetchMoreResult) { return prev; }
-				return {
-					...prev,
-					categories: [...prev.categories, ...fetchMoreResult.categories],
-				};
-			}
-		});
+		throw Error('this service is done in michael version')
+
+		// this.initializeCategoryQuery();
+		// return this.categoriesQuery$.fetchMore({
+		// 	variables: sort ? {
+		// 		skip: page * PER_PAGE,
+		// 		take: PER_PAGE,
+		// 		sortBy: sort.sortBy,
+		// 		descending: sort.sortOrder === 'ASC'
+		// 	} : {
+		// 			skip: page * PER_PAGE,
+		// 			take: PER_PAGE
+		// 		},
+		// 	updateQuery: (prev, { fetchMoreResult }) => {
+		// 		if (!fetchMoreResult) { return prev; }
+		// 		return {
+		// 			...prev,
+		// 			categories: [...prev.categories, ...fetchMoreResult.categories],
+		// 		};
+		// 	}
+		// });
 	}
 
 	/*
@@ -83,30 +87,35 @@ export class CategoryService {
 		notified when the processing ends.
 	 */
 	sortCategories({ sort }) {
-		console.log('inside');
-		console.log(sort);
-		this.initializeCategoryQuery();
-		return from(this.categoriesQuery$.refetch({
-			skip: 0,
-			take: PER_PAGE,
-			sortBy: sort.sortBy,
-			descending: sort.sortOrder === 'ASC'
-		})).pipe(first());
+		throw Error('this service is done in michael version')
+
+		// console.log('inside');
+		// console.log(sort);
+		// this.initializeCategoryQuery();
+		// return from(this.categoriesQuery$.refetch({
+		// 	skip: 0,
+		// 	take: PER_PAGE,
+		// 	sortBy: sort.sortBy,
+		// 	descending: sort.sortOrder === 'ASC'
+		// })).pipe(first());
 	}
 
 	// at the moment the subscription works on only one entity and can be done only on list
 	getById(id: string): Observable<Category> {
-		return this.apollo.subscribe({ query: CategoryQueries.category, variables: { query: `id == '${id}'` } }).pipe(
-			filter((r: any) => r.data.categories),
-			map((r: any) => r.data.categories[0])
-		);
+		throw Error('this service is done in michael version')
+		// return this.apollo.se({ query: CategoryQueries.category, id }).pipe(
+		// 	filter((r: any) => r.data.categories),
+		// 	map((r: any) => r.data.categories[0])
+		// );
 	}
 
 	createCategory(category: Category) {
-		return this.apollo.create({ mutation: CategoryQueries.createCategory, input: category, typename: 'Category' })
-			.pipe(
-				map((r: any) => r.data.addCategory.id)
-			);
+		throw Error('this service is done in michael version')
+
+		// return this.apollo.create({ mutation: CategoryQueries.createCategory, input: category, typename: 'Category' })
+		// 	.pipe(
+		// 		map((r: any) => r.data.addCategory.id)
+		// 	);
 	}
 
 	// /** gets the latest products, w */
@@ -121,11 +130,12 @@ export class CategoryService {
 
 
 	updateCategory(category: Category) {
-		return this.apollo.update({
-			mutation: CategoryQueries.updateCategory,
-			input: category,
-			typename: 'Category'
-		});
+		throw Error('this service is done in michael version');
+		// return this.apollo.update({
+		// 	mutation: CategoryQueries.updateCategory,
+		// 	input: category,
+		// 	typename: 'Category'
+		// });
 	}
 
 	removeCategory(ids: string[]) {

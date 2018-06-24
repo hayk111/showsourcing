@@ -8,7 +8,7 @@ import { UserService } from '../../../../global-services';
 import { DialogName, DialogService } from '~shared/dialog';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { ProductFeatureService, ProjectService } from '~features/products/services';
+import { ProductFeatureService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
 
 
@@ -28,10 +28,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private userSrv: UserService,
-		private productSrv: ProductFeatureService,
-		private dlgSrv: DialogService,
-		private projectSrv: ProjectService) {
+		private featureSrv: ProductFeatureService,
+		private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -45,16 +43,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id))
 		);
 
 		this.projects$ = id$.pipe(
-			switchMap(id => this.projectSrv.selectProjectsForProduct(id))
+			switchMap(id => this.featureSrv.selectProjectsForProduct(id))
 		);
 
-		// this.tasks$ = id$.pipe(
-		// 	switchMap(id => this.productSrv.getTasks(id))
-		// );
 	}
 
 	openAddProjectDlg() {
@@ -66,18 +61,18 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			id: project.id,
 			products: project.products.filter(product => product.id !== this.productId)
 		};
-		this.projectSrv.updateProject(updatedProject).subscribe();
+		this.featureSrv.updateProject(updatedProject).subscribe();
 	}
 
 	updateStatus(statusId: string) {
-		this.productSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
+		this.featureSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
+		this.featureSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.productSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
+		this.featureSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
 	}
 }

@@ -20,7 +20,7 @@ export class FilterDataService {
 		private productStatusService: ProductStatusService
 	) { }
 
-	selectEntity(type: FilterType) {
+	selectChoices(type: FilterType) {
 		switch (type) {
 			case FilterType.SUPPLIER:
 				return this.selectSuppliers();

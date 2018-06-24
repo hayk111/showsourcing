@@ -20,7 +20,7 @@ export class PickATeamPageComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.teams$ = this.srv.selectTeams();
+		this.teams$ = this.srv.selectAll();
 	}
 
 

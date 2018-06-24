@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, ApolloBase } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
@@ -8,9 +8,10 @@ import { from, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { environment } from 'environments/environment';
-import { filter, map, tap, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
-import { UserService, TeamService } from '../../../global-services';
+import { UserService } from '../../../global-services/user/user.service';
+import { TeamService } from '../../../global-services/team/team.service';
 import { Team, User } from '~models';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import {
