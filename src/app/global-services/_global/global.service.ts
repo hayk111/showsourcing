@@ -1,11 +1,10 @@
-import { Observable, combineLatest } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { Category } from '~models';
+import { combineLatest, Observable } from 'rxjs';
+import { map, scan, startWith, switchMap, tap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 import { Sort } from '~shared/table/components/sort.interface';
+import { PER_PAGE } from '~utils';
 
 import { GlobalQuery } from './global.query.interface';
-import { PER_PAGE } from '~utils';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string) => Observable<T>;
@@ -46,6 +45,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			})),
 			// we start with this
 			startWith({ page: 0, sort: {}, query: '' }),
+			// wz query gql
 			switchMap((opt: any) => {
 				return this.apollo.selectMany({
 					gql: this.queries.list,
@@ -54,9 +54,16 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 					sortBy: opt.sort.sortBy,
 					descending: opt.sort.sortOrder === 'ASC',
 					query: opt.query
-				});
+				}).pipe(
+					map(data => ({ data, page: opt.page }) as any)
+				)
 			}),
-			map(({ data }) => data.products)
+			// we append the result if page was incremented
+			scan((acc: any, curr: any) => {
+				if (curr.page === 0)
+					return curr.data;
+				return acc.push(curr);
+			}, [])
 		);
 	}
 
@@ -67,7 +74,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	update(entity: T): Observable<any> {
 		return this.apollo.update({
 			gql: this.queries.update,
-			input: status,
+			input: entity,
 			typename: this.typeName
 		});
 	}
@@ -75,7 +82,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	create(entity: T): Observable<any> {
 		return this.apollo.create({
 			gql: this.queries.create,
-			input: status,
+			input: entity,
 			typename: this.typeName
 		});
 	}

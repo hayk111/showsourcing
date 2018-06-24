@@ -109,9 +109,7 @@ export class TeamService extends GlobalService<Team> {
 	private getTeams(): Observable<any> {
 		return this.apollo.use(USER_CLIENT).selectMany({
 			gql: this.queries.all('id, name, realmPath, realmServerName'),
-		}).pipe(
-			map((r: any) => r.data.teams)
-		);
+		});
 	}
 
 	/** waits for a team to go from pending to active */

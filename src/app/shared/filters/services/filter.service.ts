@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { first, map, tap, take } from 'rxjs/operators';
+import { first, map, tap, take, share } from 'rxjs/operators';
 
 import { Filter, FilterType } from '../models';
 
@@ -9,6 +9,7 @@ export class FilterService {
 	/** All filters applied as an array */
 	private _filters$ = new BehaviorSubject<Filter[]>([]);
 	filters$: Observable<Filter[]> = this._filters$.asObservable();
+	private currentFilters: Filter[] = [];
 	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
 	 * Allows us to check in constant time if a filter type has a filter of value x.
 	 *
@@ -18,7 +19,8 @@ export class FilterService {
 	 * byType.get(FilterType.SUPPLIER).has(10)
 	 */
 	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._filters$.asObservable().pipe(
-		map(filters => this.filtersToByType(filters))
+		map(filters => this.filtersToByType(filters)),
+		share()
 	);
 	initialbyType: Map<FilterType, Map<any, Filter>> = new Map();
 
@@ -26,7 +28,8 @@ export class FilterService {
 	 * Returns the filters as a query usable by apollo client
 	 */
 	query$: Observable<string> = this._filters$.asObservable().pipe(
-		map(filters => this.filtersToQuery(filters))
+		map(filters => this.filtersToQuery(filters)),
+		share()
 	);
 
 	constructor() {
@@ -36,25 +39,15 @@ export class FilterService {
 
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
-		debugger
-		// adding to array of filters
-		this._filters$.pipe(
-			tap(d => { debugger; }),
-			first(),
-			map(filters => ([...filters, added]))
-		).subscribe(this._filters$);
+		this._filters$.next([...this.currentFilters, added]);
 	}
 
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		// removing to array of filters
-		this._filters$.pipe(
-			tap(d => { debugger; }),
-			take(1),
-			map(filters => filters.filter(
-				filter => filter.type !== removed.type && filter.value !== removed.type
-			))
-		).subscribe(this._filters$);
+		this._filters$.next(this.currentFilters.filter(
+			filter => filter.type !== removed.type && filter.value !== removed.type
+		));
 	}
 
 	/** removes all filters */
@@ -64,12 +57,7 @@ export class FilterService {
 
 	/** remove all filters of a given type */
 	removeFilterType(type: FilterType) {
-		debugger;
-		// removing to byType
-		this._filters$.pipe(
-			tap(d => { debugger; }),
-
-		).subscribe(this._filters$);
+		this._filters$.next(this.currentFilters.filter(f => f.type !== type));
 
 	}
 

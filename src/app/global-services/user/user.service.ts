@@ -53,9 +53,7 @@ export class UserService {
 		return this.apollo.use(ALL_USER_CLIENT).selectOne({
 			gql: this.queries.one,
 			id
-		}).pipe(
-			map((r: any) => r.data.users[0])
-		);
+		});
 	}
 
 }
