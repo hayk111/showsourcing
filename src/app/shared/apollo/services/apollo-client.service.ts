@@ -5,7 +5,7 @@ import { R, TypedVariables } from 'apollo-angular/types';
 import { FetchResult } from 'apollo-link';
 import { Observable } from 'rxjs';
 import { take, first, map } from 'rxjs/operators';
-import { Log } from '~utils';
+import { log } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
@@ -27,69 +27,77 @@ export class ApolloClient {
 	 * @deprecated it will be removed soon
 	 */
 	query<T>(options: any): any {
+		log.error('query method is deprecated, do not use it !!!!');
 		return this.apollo.watchQuery<T>(options);
 	}
 
 	selectOne(options: SubribeToOneOptions) {
-		return this.apollo.subscribe({
-			query: options.gql,
-			variables: { query: `id == "${options.id}"` }
-		}).pipe(
-			// extracting the result
-			// since we are getting an array back we only need the first one
-			map(({ data }) => data[this.getQueryName(options, 'subscription')][0])
-		);
+		const queryName = this.getQueryName(options);
+		const variables = { query: `id == "${options.id}"` };
+		this.log(options, queryName, variables);
+
+		return this.apollo.subscribe({ query: options.gql, variables })
+			.pipe(
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0])
+			);
 	}
 
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
 		let { query, take, skip, sortBy, descending } = options;
-		return this.apollo.subscribe({
-			query: options.gql,
-			variables: {
-				query,
-				take,
-				skip,
-				sortBy,
-				descending
-			}
-		}).pipe(
-			// extracting the result
-			map(({ data }) => data[this.getQueryName(options, 'subscription')])
-		);
+		const queryName = this.getQueryName(options);
+		const variables = {
+			query,
+			take,
+			skip,
+			sortBy,
+			descending
+		};
+		this.log(options, queryName, variables);
+		return this.apollo.subscribe({ query: options.gql, variables })
+			.pipe(
+				// extracting the result
+				map(({ data }) => data[queryName])
+			);
 	}
 
 	/** this method is used to update one existing entity*/
 	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
+		const queryName = this.getQueryName(options);
+		this.log(options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[this.getQueryName(options)])
+				map(({ data }) => data[queryName])
 			);
 		}
 
 		this.addOptimisticResponse(options);
 		return this.apollo.mutate<T>(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[this.getQueryName(options)])
+			map(({ data }) => data[queryName])
 		);
 	}
 
 	/** this method is used to create one entity */
 	create<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
+		const queryName = this.getQueryName(options);
+		this.log(options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[this.getQueryName(options)])
+				map(({ data }) => data[queryName])
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[this.getQueryName(options)])
+			map(({ data }) => data[queryName])
 		);
 	}
 
@@ -98,17 +106,19 @@ export class ApolloClient {
 			mutation: options.gql,
 			variables: { id: options.id },
 		};
+		const queryName = this.getQueryName(options);
+		this.log(options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[this.getQueryName(options)])
+				map(({ data }) => data[queryName])
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[this.getQueryName(options)])
+			map(({ data }) => data[queryName])
 		);
 	}
 
@@ -120,17 +130,19 @@ export class ApolloClient {
 			mutation: options.gql,
 			variables: { query },
 		};
+		const queryName = this.getQueryName(options);
+		this.log(options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[this.getQueryName(options)])
+				map(({ data }) => data[queryName])
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[this.getQueryName(options)])
+			map(({ data }) => data[queryName])
 		);
 	}
 
@@ -157,15 +169,31 @@ export class ApolloClient {
 		};
 	}
 
-	private getQueryName(options: any, type: string = 'mutation') {
+	private getQueryName(options: any) {
 		return (options.gql.definitions[0]).name.value;
 	}
 
 	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
 		if (options.preventOptimisticUi || !options.typename) {
-			Log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
+			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
 			return true;
 		}
+	}
+
+	private log(options: any, queryName: string, variables: any) {
+		// check people don't use query
+		if (options.gql.definitions[0].operation === 'query')
+			log.warn(`%c you are using a query, subscription should be used`, 'color: red');
+
+		// logging for each request
+		log.groupDebug(`%c Selecting one, queryName: ${queryName}`, 'color: teal, background: #ccc');
+		log.debug(`%c queryName: ${queryName}`, 'color: green, background: #ccc');
+		if (variables) {
+			log.groupDebug(`%c variables`, 'color: green, background: #ccc');
+			log.table()
+		}
+		log.debug(`%c gql: ${options.gql.loc.source.body}`, 'color: teal, background: #ccc');
+		log.groupDebugEnd();
 	}
 
 }

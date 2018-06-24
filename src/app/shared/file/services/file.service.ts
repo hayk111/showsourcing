@@ -3,7 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { AppFile, AppImage } from '~models';
 import { switchMap, tap, map, retryWhen, take, delay } from 'rxjs/operators';
 import { HttpEvent, HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
-import { Log } from '~utils';
+import { log } from '~utils';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
 
@@ -69,7 +69,7 @@ export class FileService {
 	}
 
 	private getAWSInfo(data, type) {
-		Log.debug('getting AWS infos');
+		log.debug('getting AWS infos');
 		return this.http.post(`api/${type}`, data);
 	}
 
@@ -78,7 +78,7 @@ export class FileService {
 	// then we delete the token,
 	// then we link the img with its entity on the backend
 	private uploadFileToAws(awsInfo: any, file, type: string): Observable<AppFile | AppImage> {
-		Log.debug('upload to aws');
+		log.debug('upload to aws');
 		const formData = this.converFormData(file.file, awsInfo.formData);
 		const req = new HttpRequest('POST', awsInfo.url, formData, {
 			reportProgress: true,

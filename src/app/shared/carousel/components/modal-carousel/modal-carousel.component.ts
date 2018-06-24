@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Log } from '~utils/index';
+import { log } from '~utils/index';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AppImage } from '~models';
 
@@ -20,14 +20,14 @@ export class ModalCarouselComponent implements OnInit {
 	}
 
 	back(event) {
-		Log.debug('[ModalCarouselComponent] back');
+		log.debug('[ModalCarouselComponent] back');
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
 		event.stopPropagation();
 	}
 
 	next(event) {
-		Log.debug('[ModalCarouselComponent] next');
+		log.debug('[ModalCarouselComponent] next');
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		event.stopPropagation();

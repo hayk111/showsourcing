@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { ApolloService } from '~shared/apollo/services/apollo.service';
-import { Log } from '~utils';
+import { log } from '~utils';
 import { TeamService, UserService } from '../../global-services';
 
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		Log.info('%c App init ', 'color: yellow; background: grey');
+		log.info('%c App init ', 'color: yellow; background: grey');
 		this.authSrv.init();
 		this.apolloSrv.init();
 		this.userSrv.init();

@@ -7,7 +7,7 @@ import { CategoryService, EventService, ProductStatusService, ProjectService, Ta
 import { SupplierService } from '../../../global-services/supplier/supplier.service';
 import { TeamUserService } from '../../../global-services/team-user/team-user.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FilterDataService {
 
 	constructor(

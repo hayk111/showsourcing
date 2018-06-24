@@ -1,4 +1,4 @@
-import { LogLevels } from '~utils/logger/log-levels';
+import { LogLevel } from '~utils/logger/log-level';
 
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
@@ -9,5 +9,5 @@ export const environment = {
 	production: false,
 	apiUrl: 'https://ros-dev2.showsourcing.com:9443',
 	signupUrl: 'https://ros-dev2.showsourcing.com/signup',
-	LOG_LEVEL: LogLevels.DEBUG,
+	LOG_LEVEL: LogLevel.DEBUG,
 };

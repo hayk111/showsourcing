@@ -1,4 +1,4 @@
-import { Log } from '~utils';
+import { log } from '~utils';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -11,4 +11,4 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppRootModule)
-	.catch(err => Log.debug(err));
+	.catch(err => log.debug(err));

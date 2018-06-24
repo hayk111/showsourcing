@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { AutoUnsub } from '~utils/index';
-import { Log } from '~utils/index';
+import { log } from '~utils/index';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Currency } from '~models';
 import { Filter } from '../../models';

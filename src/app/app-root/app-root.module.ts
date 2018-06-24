@@ -17,7 +17,7 @@ import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { Log } from '~utils';
+import { log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';
 import { AppComponent } from './components/app.component';

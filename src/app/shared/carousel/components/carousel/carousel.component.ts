@@ -6,7 +6,7 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { Log } from '~utils';
+import { log } from '~utils';
 import { DEFAULT_IMG } from '~utils/constants';
 import { UserService } from '../../../../global-services';
 import { AppImage } from '~models';
@@ -79,7 +79,7 @@ export class CarouselComponent implements OnInit {
 	}
 
 	getRotation() {
-		// Log.debug('[CarouselComponent] getRotation');
+		// log.debug('[CarouselComponent] getRotation');
 		// const img = this.getImg();
 		// if (img.pending) return img.rotation * -90;
 		// else return 0;

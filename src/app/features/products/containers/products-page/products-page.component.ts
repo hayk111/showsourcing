@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { first, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { ProductFeatureService, SelectionService } from '~features/products/services';
 import { Product, ProductStatus } from '~models';
@@ -8,6 +8,7 @@ import { DialogName, DialogService } from '~shared/dialog';
 import { Filter, FilterGroup, FilterService } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Sort } from '~shared/table/components/sort.interface';
+import { SelectParams } from '~global-services/_global/select-params';
 
 @Component({
 	selector: 'products-page-app',
@@ -38,16 +39,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	// whether the filter dialog is visible
 	filterPanelOpen: boolean;
 	filters: Array<Filter>;
-	currentSort: { sortBy: string, sortOrder: string };
 
 	// preview panel
 	previewOpen: boolean;
 	previewProduct: Product;
 
-	private currentPage = 0;
-	private page$ = new BehaviorSubject<number>(0);
-	private sort$ = new BehaviorSubject<Sort>(undefined);
-	private query$ = new BehaviorSubject<any>(undefined);
+	private currentParams: SelectParams = {
+		page: 0,
+		sort: { sortBy: 'creationDate', sortOrder: 'DESC' },
+		query: ''
+	};
+	private _selectParams$ = new Subject<SelectParams>();
+	private selectParams$ = this._selectParams$.asObservable();
 
 	constructor(
 		private router: Router,
@@ -61,19 +64,16 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/** Connects products for the page */
 	ngOnInit() {
 		this.pending = true;
-		this.products$ = this.featureSrv.selectProductList(
-			this.page$,
-			this.query$,
-			this.sort$
-		).pipe(
-			tap(() => this.onLoad())
-		);
-		this.page$.pipe(takeUntil(this._destroy$))
-			.subscribe(p => this.currentPage = p);
+		this.products$ = this.featureSrv.selectProductList(this.selectParams$)
+			.pipe(tap(() => this.onLoaded()));
 		this.selected$ = this.selectionSrv.selection$;
+		// since filter is a behavior subject it will trigger instantly
+		this.filterSrv.query$.pipe(
+			takeUntil(this._destroy$),
+		).subscribe(query => this.filterProducts(query));
 	}
 
-	private onLoad() {
+	private onLoaded() {
 		if (this.initialLoading) {
 			this.pending = false;
 			this.initialLoading = false;
@@ -82,20 +82,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** Loads more products when we reach the bottom of the page */
 	loadMore() {
-		this.page$.next(this.currentPage++);
+		this.currentParams.page++;
+		this._selectParams$.next(this.currentParams)
 	}
 
 	/** Sorts products based on criteria */
 	sortProducts(sort: Sort) {
-		this.sort$.next(sort);
+		this._selectParams$.next({ page: 0, sort, query: this.currentParams.query });
 	}
 
 	/** Filters products based on filter group */
-	filterProducts(filtergroup: FilterGroup) {
-		this.pending = true;
-		// this.productSrv.filterProducts({ filtergroup, sort: this.currentSort }).subscribe(() => {
-		// 	this.pending = false;
-		// });
+	filterProducts(query: string) {
+		this._selectParams$.next({ page: 0, sort: this.currentParams.sort, query });
 	}
 
 	openPreview(product: Product) {

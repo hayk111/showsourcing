@@ -21,7 +21,7 @@ import {
 } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
-import { Log } from '~utils/logger';
+import { log } from '~utils';
 
 
 /**
@@ -78,7 +78,7 @@ export class ApolloService {
 			this.createGlobalClient();
 			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
-			Log.error(e);
+			log.error(e);
 			this.apolloState.setGlobalClientsNotReady();
 			this.router.navigate(['server-issue']);
 		}
@@ -93,7 +93,7 @@ export class ApolloService {
 			this.createUserClient(userUris.httpUri, userUris.wsUri);
 			this.apolloState.setUserClientReady();
 		} catch (e) {
-			Log.error(e);
+			log.error(e);
 			this.apolloState.setUserClientNotReady();
 			this.router.navigate(['server-issue']);
 		}
@@ -109,7 +109,7 @@ export class ApolloService {
 			this.createTeamClient(uris.httpUri, uris.wsUri);
 			this.apolloState.setTeamClientReady();
 		} catch (e) {
-			Log.error(e);
+			log.error(e);
 			this.router.navigate(['server-issue']);
 			this.apolloState.setTeamClientNotReady();
 		}

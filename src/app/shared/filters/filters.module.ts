@@ -13,6 +13,8 @@ import {
 } from './components';
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 import { FilterBtnsPanelComponent } from '~shared/filters/components/filter-btns-panel/filter-btns-panel.component';
+import { FilterService } from '~shared/filters/services';
+import { FilterDataService } from '~shared/filters/services/filter.data.service';
 
 @NgModule({
 	imports: [
@@ -41,7 +43,10 @@ import { FilterBtnsPanelComponent } from '~shared/filters/components/filter-btns
 		FilterSmartPanelComponent,
 		FilterSelectionPanelComponent
 	],
-	providers: []
+	providers: [
+		FilterService,
+		FilterDataService
+	]
 })
 export class FiltersModule {
 	static forRoot(): ModuleWithProviders {

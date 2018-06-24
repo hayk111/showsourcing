@@ -1,18 +1,14 @@
-import { combineLatest, Observable } from 'rxjs';
-import { map, scan, startWith, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, scan, startWith, switchMap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
-import { Sort } from '~shared/table/components/sort.interface';
-import { PER_PAGE } from '~utils';
+import { PER_PAGE, Log } from '~utils';
 
 import { GlobalQuery } from './global.query.interface';
+import { SelectParams } from './select-params';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string) => Observable<T>;
-	selectMany?: (
-		page$: Observable<number>,
-		query$: Observable<string>,
-		sort$: Observable<Sort>
-	) => Observable<T[]>;
+	selectMany?: (params$?: Observable<SelectParams>, take?: number) => Observable<T[]>;
 	selectAll: (fields: string) => Observable<T[]>;
 	update: (entity: T) => Observable<T>;
 	create: (entity: T) => Observable<T>;
@@ -35,27 +31,30 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		});
 	}
 
-	selectMany(query$?: any, page$?: any, sort$?: any, take: number = PER_PAGE) {
-		return combineLatest(page$, query$, sort$).pipe(
-			map(res => ({
+	selectMany(params$: Observable<SelectParams> = of({}), take: number = PER_PAGE) {
+		return params$.pipe(
+			map(params => ({
 				// assigning default values in case none have been specified
-				page: res[0] || 0,
-				query: res[1] || '',
-				sort: res[2] || {}
+				page: params.page || 0,
+				query: params.query || '',
+				sort: params.sort || {}
 			})),
 			// we start with this
-			startWith({ page: 0, sort: {}, query: '' }),
+			startWith({ page: 0, sort: {}, query: '' } as SelectParams),
 			// wz query gql
-			switchMap((opt: any) => {
+			switchMap(({ page, sort, query }: SelectParams) => {
+				// putting those in variables in case they are undefined
+				const sortBy = sort.sortBy;
+				const descending = sort.sortOrder === undefined ? undefined : (sort.sortOrder === 'ASC');
 				return this.apollo.selectMany({
 					gql: this.queries.list,
-					skip: opt.page * take,
-					take: take,
-					sortBy: opt.sort.sortBy,
-					descending: opt.sort.sortOrder === 'ASC',
-					query: opt.query
+					skip: page * take,
+					take,
+					sortBy,
+					descending,
+					query: query
 				}).pipe(
-					map(data => ({ data, page: opt.page }) as any)
+					map(data => ({ data, page }) as any)
 				)
 			}),
 			// we append the result if page was incremented

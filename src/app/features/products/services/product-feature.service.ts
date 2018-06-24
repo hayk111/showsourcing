@@ -3,6 +3,8 @@ import { Observable, of, forkJoin } from 'rxjs';
 import { Product, Project } from '~models';
 
 import { ProductService, ProjectService } from '../../../global-services';
+import { SelectParams } from '~global-services/_global/select-params';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Injectable()
 export class ProductFeatureService {
@@ -11,8 +13,8 @@ export class ProductFeatureService {
 		private productSrv: ProductService,
 		private projectSrv: ProjectService) { }
 
-	selectProductList(pages$, filters$, sort$): Observable<Product[]> {
-		return this.productSrv.selectMany(pages$, filters$, sort$);
+	selectProductList(selectParams$: Observable<SelectParams>): Observable<Product[]> {
+		return this.productSrv.selectMany(selectParams$);
 	}
 
 	selectOne(id: string): Observable<Product> {
@@ -56,7 +58,8 @@ export class ProductFeatureService {
 	}
 
 	selectProjects(): Observable<Project[]> {
-		return this.projectSrv.selectMany(undefined, undefined, of({ sortBy: 'name' }));
+		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
+		return this.projectSrv.selectMany(of({ sort }));
 	}
 
 	/**
@@ -64,7 +67,7 @@ export class ProductFeatureService {
 	 */
 	selectProjectsForProduct(id: string): Observable<Project[]> {
 		return this.projectSrv.selectMany(
-			of(`products.id == "${id}"`)
+			of({ query: `products.id == "${id}"` })
 		);
 	}
 

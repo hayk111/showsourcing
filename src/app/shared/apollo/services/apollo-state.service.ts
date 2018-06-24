@@ -30,7 +30,7 @@ export class ApolloStateService {
 	}
 
 	private log(str: string) {
-		Log.debug(`%c ApolloState: ${str}`, 'color: tomato');
+		log.debug(`%c ApolloState: ${str}`, 'color: tomato');
 	}
 
 
