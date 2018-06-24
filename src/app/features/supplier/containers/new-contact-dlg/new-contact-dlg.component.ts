@@ -1,16 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
-import { AppImage } from '~models';
-import { ContactService } from '~features/supplier/services/contact.service';
-import { Contact } from '~models';
-import { UserService } from '../../../../global-services';
+import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { AppImage, Contact } from '~models';
+import { DialogService } from '~shared/dialog';
 import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { DialogName } from '~shared/dialog/models/dialog-names.enum';
-import { DialogService } from '~shared/dialog';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
+import { ContactService } from '~global-services';
 
 const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
@@ -43,10 +40,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private userSrv: UserService,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
-		private route: ActivatedRoute,
 		private dlgSrv: DialogService
 	) {
 		super();
@@ -82,12 +77,12 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		// not checking if form group is valid because at the time of writting this an email cannot be empty
 		// therefor the form will be invalid
 		if (this.form.valid) {
-			const contact = new Contact(this.form.value);
+			const contact = new Contact(this.form.value, this.supplierId);
 			// we need to add the image to the contact before uploading
 			// contact.imageId = this._preview.id;
 			// contact.image = this._preview;
 			// this.store.dispatch(ContactActions.create(this.formGroup.value));
-			this.contactSrv.createContact(contact, this.supplierId).subscribe();
+			this.contactSrv.create(contact).subscribe();
 			this.dlgSrv.close(this.dialogName);
 		}
 	}
@@ -95,7 +90,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	updateContact() {
 		if (!this.isNewContact) {
 			const contact = { ...this.form.value, id: this.contact.id };
-			this.contactSrv.updateContact(contact).subscribe();
+			this.contactSrv.update(contact).subscribe();
 		}
 	}
 

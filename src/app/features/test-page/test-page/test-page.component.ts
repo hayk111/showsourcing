@@ -59,9 +59,9 @@ export class TestPageComponent implements OnInit {
 	constructor(private apollo: ApolloClient) { }
 
 	ngOnInit() {
-		this.supplier$ = this.apollo.subscribe({
-			query: querySupplier,
-			variables: { query: 'id = "3243ed5b-4e7b-4646-a858-5e0c41427ccf"' }
+		this.supplier$ = this.apollo.selectOne({
+			gql: querySupplier,
+			id: '3243ed5b-4e7b-4646-a858-5e0c41427ccf'
 		}).pipe(map((r: any) => r.data.suppliers[0]));
 		this.supplier$.subscribe(s => this.supplier = s);
 		this.descriptor$ = this.supplier$.pipe(

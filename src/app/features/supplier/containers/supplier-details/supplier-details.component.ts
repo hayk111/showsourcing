@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ContactService } from '~features/supplier/services/contact.service';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Contact, Product, Supplier } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
-import { UserService } from '../../../../global-services';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -24,8 +22,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private supplierSrv: SupplierFeatureService,
-		private contactSrv: ContactService,
+		private featureSrv: SupplierFeatureService,
 		private dlgSrv: DialogService) {
 		super();
 	}
@@ -40,16 +37,16 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.supplierSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id))
 		);
 		// gettings his contacts
 		this.contacts$ = id$.pipe(
-			switchMap(id => this.contactSrv.getContacts(id))
+			switchMap(id => this.featureSrv.selectContacts(id))
 		);
 
 		// getting his products
 		this.products$ = id$.pipe(
-			switchMap(id => this.supplierSrv.getLatestProducts(id))
+			switchMap(id => this.featureSrv.getLatestProducts(id))
 		);
 
 		// this.tasks$ = id$.pipe(
@@ -59,7 +56,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	patch(supplier: Supplier) {
-		this.supplierSrv.updateSupplier(supplier)
+		this.featureSrv.updateSupplier(supplier)
 			.subscribe();
 	}
 

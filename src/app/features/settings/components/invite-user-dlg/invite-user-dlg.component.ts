@@ -35,14 +35,14 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	}
 
 	submit() {
-		if (this.form.valid) {
-			this.pending = true;
-			const { email } = this.form.value;
-			this.memberSrv.inviteMember(email).subscribe(() => {
-				this.pending = false;
-				this.dlgSrv.close(this.dlgName);
-			});
-		}
+		// if (this.form.valid) {
+		// 	this.pending = true;
+		// 	const { email } = this.form.value;
+		// 	this.memberSrv.inviteMember(email).subscribe(() => {
+		// 		this.pending = false;
+		// 		this.dlgSrv.close(this.dlgName);
+		// 	});
+		// }
 	}
 
 }

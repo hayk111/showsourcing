@@ -30,7 +30,7 @@ export class SettingsProfileComponent implements OnInit {
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
-		this.teams$ = this.teamSrv.selectTeams();
+		this.teams$ = this.teamSrv.selectAll();
 	}
 
 	update(propName: string, value: string) {

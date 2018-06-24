@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { ContactService } from '~features/supplier/services/contact.service';
 import { SelectionService } from '~features/supplier/services/selection.service';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
@@ -70,8 +69,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 	],
 	providers: [
 		SupplierFeatureService,
-		SelectionService,
-		ContactService
+		SelectionService
 	],
 })
 export class SuppliersModule {
