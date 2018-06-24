@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
-import { QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { SupplierFeatureQueries } from '~features/supplier/services/supplier-feature.queries';
-import { Product, Supplier, Task } from '~models';
-import { ApolloClient } from '~shared/apollo';
-import { PER_PAGE } from '~utils/constants';
+import { Observable, of } from 'rxjs';
+import { Contact, Product, Supplier } from '~models';
+
+import { ContactService, ProductService } from '../../../global-services';
 import { SupplierService } from '../../../global-services/supplier/supplier.service';
-import { ProductService } from '../../../global-services';
 
 
 @Injectable()
 export class SupplierFeatureService {
 
 	constructor(
-		private apollo: ApolloClient,
 		private supplierSrv: SupplierService,
-		private productSrv: ProductService
+		private productSrv: ProductService,
+		private contactSrv: ContactService
 	) { }
-
-
 
 	selectOne(id: string): Observable<Supplier> {
 		return this.supplierSrv.selectOne(id);
@@ -33,22 +27,31 @@ export class SupplierFeatureService {
 		return this.supplierSrv.update(supplier);
 	}
 
-	deleteSuppliers(any: any) {
-		throw Error('not implemented yet');
+	deleteSuppliers(ids: string[]) {
+		return this.supplierSrv.deleteMany(ids);
 	}
 
 	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
-		return this.productSrv.selectMany()
-		return this.apollo.subscribe({
-			query: SupplierFeatureQueries.latestProducts,
-			variables: { query: `supplier.id == '${supplierId}'` }
-		}).pipe(
-			map((r: any) => r.data.products)
+		return this.productSrv.selectMany(
+			of(`supplier.id == '${supplierId}'`),
+			undefined,
+			undefined,
+			7
 		);
 	}
 
+	selectContacts(supplierId: string): Observable<Contact[]> {
+		return this.contactSrv.selectMany(of(`supplier.id == '${supplierId}'`))
+	}
 
+	createContact(contact: Contact): Observable<Contact> {
+		return this.contactSrv.create(contact);
+	}
+
+	updateContact(contact: Contact) {
+		return this.contactSrv.update(contact);
+	}
 
 }
 

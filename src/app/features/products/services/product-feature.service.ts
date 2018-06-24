@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product } from '~models';
-import { ApolloClient } from '~shared/apollo';
+
 import { ProductService } from '../../../global-services/product/product.service';
 
 @Injectable()
 export class ProductFeatureService {
 
-	constructor(private apollo: ApolloClient, private productSrv: ProductService) { }
-
+	constructor(private productSrv: ProductService) { }
 
 	selectProductList(pages$, filters$, sort$): Observable<Product[]> {
-		return this.productSrv.selectList(pages$, filters$, sort$);
+		return this.productSrv.selectMany(pages$, filters$, sort$);
 	}
 
 	selectOne(id: string): Observable<Product> {
@@ -22,13 +21,12 @@ export class ProductFeatureService {
 		return this.productSrv.update(product);
 	}
 
-	deleteProduct(productId: string): Observable<any> {
-		// return this.productSrv.delete();
-		throw Error('not implemented yet');
+	deleteProduct(id: string): Observable<any> {
+		return this.productSrv.deleteOne(id);
 	}
 
-	deleteProducts(products: string[]): Observable<any> {
-		throw Error('not implemented yet');
+	deleteProducts(ids: string[]): Observable<any> {
+		return this.productSrv.deleteMany(ids);
 	}
 
 	addFile(): Observable<any> {

@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { Category } from '~models';
 import { ApolloClient } from '~shared/apollo';
 import { SortEvent } from '~shared/table/components/sort-event.interface';
 
 import { GlobalQuery } from './global.query.interface';
+import { PER_PAGE } from '~utils';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string) => Observable<T>;
@@ -35,6 +36,29 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		});
 	}
 
+	selectMany(page$?: any, query$?: any, sort$?: any, take: number = PER_PAGE) {
+		return combineLatest(page$, query$, sort$).pipe(
+			map(res => ({
+				// assigning default values in case none have been specified
+				page: res[0] || 0,
+				query: res[1] || '',
+				sort: res[2] || {}
+			})),
+			// we start with this
+			startWith({ page: 0, sort: {}, query: '' }),
+			switchMap((opt: any) => {
+				return this.apollo.selectMany({
+					gql: this.queries.list,
+					skip: opt.page * take,
+					take: take,
+					sortBy: opt.sort.sortBy,
+					descending: opt.sort.sortOrder === 'ASC',
+					query: opt.query
+				});
+			}),
+			map(({ data }) => data.products)
+		);
+	}
 
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
 		return this.apollo.selectMany({ gql: this.queries.all(fields) });

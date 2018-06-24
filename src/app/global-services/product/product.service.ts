@@ -15,5 +15,7 @@ export class ProductService extends GlobalService<Product> {
 		super(apollo, new ProductQueries(), 'Product');
 	}
 
+
+
 }
 
