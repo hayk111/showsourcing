@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { Log } from '~utils/logger/log.class';
+import { log } from '~utils';
 
 
 
