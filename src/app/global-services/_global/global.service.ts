@@ -35,6 +35,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		});
 	}
 
+
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
 		return this.apollo.selectMany({ gql: this.queries.all(fields) });
 	}

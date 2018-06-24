@@ -9,8 +9,6 @@ import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-end
 
 import { UserQueries } from './user.queries';
 
-
-
 @Injectable({ providedIn: 'root' })
 export class UserService {
 	private queries = new UserQueries();
