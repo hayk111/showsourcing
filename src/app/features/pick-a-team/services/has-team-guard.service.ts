@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { TeamService } from '../../../global-services';
-import { log } from '~utils';
+import { log, LogColor } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,7 +18,7 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.teamSrv.hasTeam$.pipe(
-			tap(d => log.debug('%c hasTeamGuard', 'color: cyan', d)),
+			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
 		);
 	}
 

@@ -4,8 +4,8 @@ import { R, TypedVariables } from 'apollo-angular/types';
 
 import { FetchResult } from 'apollo-link';
 import { Observable } from 'rxjs';
-import { take, first, map } from 'rxjs/operators';
-import { log } from '~utils';
+import { take, first, map, tap } from 'rxjs/operators';
+import { log, LogLevel, LogColor } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
@@ -34,13 +34,14 @@ export class ApolloClient {
 	selectOne(options: SubribeToOneOptions) {
 		const queryName = this.getQueryName(options);
 		const variables = { query: `id == "${options.id}"` };
-		this.log(options, queryName, variables);
+		this.log('Selecting One', options, queryName, variables);
 
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				// extracting the result
 				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0])
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult('SelectOne', queryName, data))
 			);
 	}
 
@@ -54,11 +55,12 @@ export class ApolloClient {
 			sortBy,
 			descending
 		};
-		this.log(options, queryName, variables);
+		this.log('Selecting Many', options, queryName, variables);
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				// extracting the result
-				map(({ data }) => data[queryName])
+				map(({ data }) => data[queryName]),
+				tap(data => this.logResult('Selecting Many', queryName, data))
 			);
 	}
 
@@ -66,19 +68,21 @@ export class ApolloClient {
 	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 		const queryName = this.getQueryName(options);
-		this.log(options, queryName, apolloOptions.variables);
+		this.log('Update', options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[queryName])
+				map(({ data }) => data[queryName]),
+				tap(data => this.logResult('Update', queryName, data))
 			);
 		}
 
 		this.addOptimisticResponse(options);
 		return this.apollo.mutate<T>(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[queryName])
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult('Update', queryName, data))
 		);
 	}
 
@@ -86,18 +90,20 @@ export class ApolloClient {
 	create<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 		const queryName = this.getQueryName(options);
-		this.log(options, queryName, apolloOptions.variables);
+		this.log('Create', options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[queryName])
+				map(({ data }) => data[queryName]),
+				tap(data => this.logResult('Create', queryName, data))
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[queryName])
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult('Create', queryName, data))
 		);
 	}
 
@@ -107,12 +113,13 @@ export class ApolloClient {
 			variables: { id: options.id },
 		};
 		const queryName = this.getQueryName(options);
-		this.log(options, queryName, apolloOptions.variables);
+		this.log('DeleteOne', options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[queryName])
+				map(({ data }) => data[queryName]),
+				tap(data => this.logResult('DeleteOne', queryName, data))
 			);
 		}
 		// TODO implement optimistic UI
@@ -131,7 +138,7 @@ export class ApolloClient {
 			variables: { query },
 		};
 		const queryName = this.getQueryName(options);
-		this.log(options, queryName, apolloOptions.variables);
+		this.log('DeleteMany', options, queryName, apolloOptions.variables);
 
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
@@ -142,7 +149,8 @@ export class ApolloClient {
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[queryName])
+			map(({ data }) => data[queryName]),
+			tap(({ data }) => this.logResult('DeleteMany', queryName, data))
 		);
 	}
 
@@ -180,20 +188,28 @@ export class ApolloClient {
 		}
 	}
 
-	private log(options: any, queryName: string, variables: any) {
+	private log(type: string, options: any, queryName: string, variables: any) {
 		// check people don't use query
 		if (options.gql.definitions[0].operation === 'query')
-			log.warn(`%c you are using a query, subscription should be used`, 'color: red');
-
+			log.error(`%c you are using a query, subscription should be used`);
 		// logging for each request
-		log.groupDebug(`%c Selecting one, queryName: ${queryName}`, 'color: teal, background: #ccc');
-		log.debug(`%c queryName: ${queryName}`, 'color: green, background: #ccc');
+		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px')
+		log.debug(`%c ${options.gql.loc.source.body}`, 'color: #555555');
+		log.groupEnd();
 		if (variables) {
-			log.groupDebug(`%c variables`, 'color: green, background: #ccc');
-			log.table()
+			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');
+			log.table(variables);
+			log.groupEnd();
 		}
-		log.debug(`%c gql: ${options.gql.loc.source.body}`, 'color: teal, background: #ccc');
-		log.groupDebugEnd();
+		log.groupEnd();
+	}
+
+	private logResult(type: string, queryName: string, result) {
+		log.group(`%c ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
+		log.table(result);
+		log.groupEnd();
 	}
 
 }

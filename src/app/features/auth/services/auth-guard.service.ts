@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { log } from '~utils';
+import { log, LogColor } from '~utils';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 			map(authState => authState.authenticated),
 			distinctUntilChanged(),
 			tap(authenticated => this.redirectOnUnAuthenticated(authenticated)),
-			tap(authenticated => log.debug('%c auth guard: authenticated ?', 'color: turquoise', authenticated))
+			tap(authenticated => log.debug('%c auth guard: authenticated ?', LogColor.GUARD, authenticated))
 		);
 	}
 

@@ -14,12 +14,10 @@ export class AppComponent implements OnInit {
 	constructor(
 		private authSrv: AuthenticationService,
 		private apolloSrv: ApolloService,
-		private userSrv: UserService,
-		private teamSrv: TeamService
+		private userSrv: UserService
 	) { }
 
 	ngOnInit(): void {
-		log.info('%c App init ', 'color: yellow; background: grey');
 		this.authSrv.init();
 		this.apolloSrv.init();
 		this.userSrv.init();
