@@ -15,10 +15,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		{
-			provide: FilterService,
-			useValue: new FilterService(StoreKey.FILTER_SUPPLIER)
-		},
+		FilterService,
+		{ provide: 'storeKey', useValue: StoreKey.FILTER_SUPPLIER },
 		SelectionService
 	]
 })

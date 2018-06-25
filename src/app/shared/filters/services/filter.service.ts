@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { first, map, tap, take, share } from 'rxjs/operators';
 
@@ -27,7 +27,6 @@ export class FilterService {
 		toStore(this.storeKey + '/byType'),
 		share()
 	);
-	private initialbyType: Map<FilterType, Map<any, Filter>> = new Map();
 
 	/**
 	 * Returns the filters as a query usable by apollo client
@@ -38,7 +37,7 @@ export class FilterService {
 		share()
 	);
 
-	constructor(public storeKey: string) {
+	constructor(@Inject('storeKey') private storeKey: string) {
 		this._filters$.subscribe(filters => this.currentFilters = filters);
 	}
 

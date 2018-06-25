@@ -3,8 +3,7 @@ import { Project } from '~models';
 import { ApolloClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
-import { ProjectQueries } from './Project.queries';
-import { log } from '~utils';
+import { ProjectQueries } from './project.queries';
 
 
 @Injectable({

@@ -14,7 +14,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		{ provide: FilterService, useValue: new FilterService(StoreKey.FILTER_PRODUCT) },
+		FilterService,
+		{ provide: 'storeKey', useValue: StoreKey.FILTER_PRODUCT },
 		SelectionService
 	]
 })
