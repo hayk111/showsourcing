@@ -11,5 +11,6 @@ export const toStore = (key: string): MonoTypeOperatorFunction<any> =>
 
 export enum StoreKey {
 	FILTER_PRODUCT = 'filters/product',
-	FILTER_SUPPLIER = 'filters/suppliers'
+	FILTER_SUPPLIER = 'filters/suppliers',
+	FILTER_PROJECT = 'filters/projects'
 }

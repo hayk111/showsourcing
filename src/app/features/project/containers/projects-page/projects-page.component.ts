@@ -1,45 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { map, filter, take, takeUntil } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
+import { Component } from '@angular/core';
+import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { Project } from '~models';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { FilterService } from '~shared/filters';
+import { StoreKey } from '~utils/store/store';
+import { Router } from '@angular/router';
+import { DialogService, DialogName } from '~shared/dialog';
 
 
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
+	providers: [
+		SelectionService,
+		FilterService,
+		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT }
+	]
 })
-export class ProjectsPageComponent extends AutoUnsub implements OnInit {
-	pending$: Observable<boolean>;
-	projects$: Observable<Array<Project>>;
-	projectState$: Observable<Array<Project>>;
-	selectedProject: Project;
-	selection = new Map<string, boolean>();
+export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFeatureService> {
 
-	constructor() {
-		super();
+	constructor(
+		protected router: Router,
+		protected featureSrv: ProjectFeatureService,
+		protected selectionSrv: SelectionService,
+		protected filterSrv: FilterService,
+		protected dlgSrv: DialogService
+	) {
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'project', DialogName.NEW_PROJECT);
 	}
 
-	ngOnInit() {
-		// this.projects$ = this.store.select(fromProject.selectArray).pipe(filter(arr => arr.length > 0));
-		// this.projectState$ = this.store.select(fromProject.selectState);
-		// this.pending$ = this.store.select(fromProject.selectPending);
-		// a project needs to be selectioned at all time. Therefor the first time we receive
-		// the projects we need to select the first one.
-		// after that, the user will selection projects by clicking those in the menu.
-		// this.projects$.pipe(take(1), takeUntil(this._destroy$)).subscribe(projects => this.selectProject(projects[0]));
-	}
-
-	loadProducts(filters) {
-		// this.store.dispatch(productActions.load({ filters: filters, pagination: true, drop: 0 }));
-	}
-
-	selectProject(project: Project) {
-		this.selectedProject = project;
-	}
-
-	unselected(entityId: string) {
-	}
 }

@@ -1,15 +1,13 @@
 import {
-	Output,
+	ChangeDetectionStrategy,
 	Component,
 	ContentChildren,
-	Input,
-	OnInit,
-	QueryList,
-	ChangeDetectionStrategy,
 	EventEmitter,
-	HostBinding,
+	HostListener,
+	Input,
+	Output,
+	QueryList,
 	TemplateRef,
-	HostListener
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';

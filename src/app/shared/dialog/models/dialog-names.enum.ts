@@ -5,6 +5,7 @@ export enum DialogName {
 	REQUEST_FEEDBACK = 'request feedback',
 	NEW_TASK = 'new task',
 	NEW_SUPPLIER = 'new supplier',
+	NEW_PROJECT = 'new project',
 	CONTACT = 'contact',
 	NEW_PRODUCT = 'new product',
 	INVITE_USER = 'invite user',

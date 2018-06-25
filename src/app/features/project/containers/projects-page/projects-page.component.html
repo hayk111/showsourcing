@@ -1,24 +1,23 @@
 
-<!-- page content -->
-<div *ngIf="projects$ | async as projects" class="flex ctnr">
-	<!-- nav -->
-	<project-nav-app
-		(select)="selectProject($event)"
-		[selectedProject]="selectedProject"
-		[projects]="projects"></project-nav-app>
+<top-panel-app
+	[title]="'My Projects'"
+	[buttonName]="'Add Project'"
+	[subtitles]="['Projects', 'all']"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	(buttonClick)="openCreateDlg()">
+	</top-panel-app>
 
-	<div class="right">
-		<!-- top bar -->
-		<div class="top flexBetween">
-			<bread-crumb-app [title]="'Projects'" [subtitles]="['My projects', selectedProject.name]"></bread-crumb-app>
-		</div>
+	<ng-container *ngIf="items$ | async as projects">
+		<projects-list-view-app [projects]="projects"></projects-list-view-app>
 
-		<divider-app></divider-app>
+	<ng-container *ngIf="selected$ | async as selected">
+		<selection-bar-app
+			(close)="resetSelection()"
+			(delete)="deleteSelected()"
+			*ngIf="selected.size > 0"
+			[selection]="selected"></selection-bar-app>
+	</ng-container>
 
-		<!-- products -->
+</ng-container>
 
-	</div>
-
-</div>
-
-<selection-bar-app *ngIf="selection.size > 0" [selection]="selection"></selection-bar-app>

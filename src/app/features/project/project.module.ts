@@ -13,6 +13,7 @@ import { ProjectNavComponent } from './components/project-nav/project-nav.compon
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 
 @NgModule({
 	imports: [
@@ -26,7 +27,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 	],
 	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent],
 	exports: [RouterModule, ProjectsPageComponent],
-	providers: [],
+	providers: [ProjectFeatureService],
 })
 export class ProjectModule {
 	static forRoot(): ModuleWithProviders {
@@ -36,11 +37,6 @@ export class ProjectModule {
 		};
 	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: ProjectModule,
-		};
-	}
 }
 
 
