@@ -41,8 +41,7 @@ export class ApolloClient {
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult('SelectOne', queryName, data)),
-				share()
-			);
+		);
 	}
 
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
@@ -66,8 +65,8 @@ export class ApolloClient {
 					return r.data[queryName];
 				}),
 				catchError(errors => of(log.table(errors))),
-				tap(data => this.logResult('Selecting Many', queryName, data))
-			);
+				tap(data => this.logResult('Selecting Many', queryName, data)),
+		);
 	}
 
 	/** this method is used to update one existing entity*/

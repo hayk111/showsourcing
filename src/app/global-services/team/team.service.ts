@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
+import { filter, map, switchMap, shareReplay } from 'rxjs/operators';
 import { Team } from '~models';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
@@ -21,8 +21,8 @@ const SELECTED_TEAM_ID = 'selected-team-id';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
-	private _selectedTeam$ = new ReplaySubject<Team>(1);
-	selectedTeam$ = this._selectedTeam$.asObservable();
+	private _selectedTeam$ = new Subject<Team>();
+	selectedTeam$ = this._selectedTeam$.asObservable().pipe(shareReplay(1));
 	teams$: Observable<Team[]>;
 
 

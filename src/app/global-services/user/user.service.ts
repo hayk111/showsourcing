@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, shareReplay } from 'rxjs/operators';
 import { AuthState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { User } from '~models';
@@ -12,8 +12,10 @@ import { UserQueries } from './user.queries';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 	private queries = new UserQueries();
-	private _user$ = new ReplaySubject<User>(1);
-	user$: Observable<User> = this._user$.asObservable();
+	private _user$ = new Subject<User>();
+	user$: Observable<User> = this._user$.asObservable().pipe(
+		shareReplay(1)
+	);
 
 	constructor(private apollo: ApolloClient, private authSrv: AuthenticationService) {
 	}
