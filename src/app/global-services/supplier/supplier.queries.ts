@@ -63,7 +63,7 @@ export class SupplierQueries implements GlobalQuery {
 		}`;
 
 	list = gql`
-		query suppliers {
+		subscription suppliers {
 			suppliers(take: 30) {
 				id,
 				name,
