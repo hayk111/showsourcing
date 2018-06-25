@@ -139,7 +139,7 @@ export class ApolloService {
 	}
 
 	/** creates the client that can access the user which gives the userRealmUri */
-	createAllUserClient() {
+	private createAllUserClient() {
 		const httpUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
 		const wsUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
 		wsUri.protocol = 'wss';

@@ -41,11 +41,11 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			})),
 			// we start with this
 			startWith({ page: 0, sort: {}, query: '' } as SelectParams),
-			// wz query gql
+			// we query gql
 			switchMap(({ page, sort, query }: SelectParams) => {
 				// putting those in variables in case they are undefined
 				const sortBy = sort.sortBy;
-				const descending = sort.sortOrder === undefined ? undefined : (sort.sortOrder === 'ASC');
+				const descending = sort.sortOrder === 'ASC';
 				const options = {
 					gql: this.queries.list,
 					skip: page * take,
@@ -54,6 +54,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 					descending,
 					query
 				};
+
 				return this.apollo.selectMany(options).pipe(
 					map(data => ({ data, page }) as any)
 				);

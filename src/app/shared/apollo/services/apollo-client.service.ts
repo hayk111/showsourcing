@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
-import { Observable, throwError, of } from 'rxjs';
-import { first, map, take, tap, catchError, share } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, first, map, take, tap } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
-import { debug } from '~utils/debug.rxjs.pipe';
 
 
 
 /**
- * Wrapper around apollo that allows for automatic optimistic UI.
+ * Wrapper around apollo real client
  */
 @Injectable({
 	providedIn: 'root'
@@ -30,6 +29,7 @@ export class ApolloClient {
 		return this.apollo.watchQuery<T>(options);
 	}
 
+	/** select one entity given an id */
 	selectOne(options: SubribeToOneOptions) {
 		const queryName = this.getQueryName(options);
 		const variables = { query: `id == "${options.id}"` };
@@ -44,6 +44,7 @@ export class ApolloClient {
 		);
 	}
 
+	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
 		// default
 
@@ -69,7 +70,7 @@ export class ApolloClient {
 		);
 	}
 
-	/** this method is used to update one existing entity*/
+	/** Update one existing entity*/
 	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 		const queryName = this.getQueryName(options);
@@ -91,7 +92,7 @@ export class ApolloClient {
 		);
 	}
 
-	/** this method is used to create one entity */
+	/** Creates one entity */
 	create<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		const apolloOptions = this.createApolloMutationOptions(options);
 		const queryName = this.getQueryName(options);
@@ -112,6 +113,7 @@ export class ApolloClient {
 		);
 	}
 
+	/** Delete one item given an id */
 	delete<T>(options: DeleteOneOptions): Observable<FetchResult<T>> {
 		const apolloOptions = {
 			mutation: options.gql,
@@ -134,6 +136,7 @@ export class ApolloClient {
 		);
 	}
 
+	/** delete many items given an array of id */
 	deleteMany<T>(options: DeleteManyOptions): Observable<any> {
 		let query = options.ids.reduce((acc, curr) => `${acc} OR id ="${curr}"`, '');
 		// removing the first ' OR '
@@ -164,6 +167,7 @@ export class ApolloClient {
 		return new ApolloClient(this.apollo.use(name) as Apollo);
 	}
 
+	/** create appollo mutationOptions from our updateOptions */
 	private createApolloMutationOptions(options: UpdateOptions) {
 		return {
 			mutation: options.gql,
@@ -172,6 +176,7 @@ export class ApolloClient {
 	}
 
 
+	/** creates an optimistic response the way apollo expects it */
 	private addOptimisticResponse(options: UpdateOptions) {
 		(options as any).optimisticResponse = {
 			__typename: 'Mutation',
@@ -182,10 +187,12 @@ export class ApolloClient {
 		};
 	}
 
+	/** gets the query name from a gql statement */
 	private getQueryName(options: any) {
 		return (options.gql.definitions[0]).selectionSet.selections[0].name.value;
 	}
 
+	/** check if optimistic update is disabled */
 	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
 		if (options.preventOptimisticUi || !options.typename) {
 			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
@@ -193,6 +200,7 @@ export class ApolloClient {
 		}
 	}
 
+	/** logs events to the console */
 	private log(type: string, options: any, queryName: string, variables: any) {
 		// check people don't use query
 		if (options.gql.definitions[0].operation === 'query')
