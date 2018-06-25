@@ -53,7 +53,7 @@ export class ApolloClient {
 			take: options.take !== undefined ? options.take : 30,
 			skip: options.skip || 0,
 			sortBy: options.sortBy || 'creationDate',
-			descending: options.descending || true,
+			descending: !!options.descending,
 		};
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);

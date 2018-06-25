@@ -46,6 +46,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				// putting those in variables in case they are undefined
 				const sortBy = sort.sortBy;
 				const descending = sort.sortOrder === 'ASC';
+				debugger;
 				const options = {
 					gql: this.queries.list,
 					skip: page * take,

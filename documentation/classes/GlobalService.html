@@ -846,14 +846,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -3465,14 +3465,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -5444,7 +5444,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/global-services/_global/global.service.ts:82</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/global-services/_global/global.service.ts:83</a></div>
                             </td>
                         </tr>
 
@@ -5513,7 +5513,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/global-services/_global/global.service.ts:98</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/global-services/_global/global.service.ts:99</a></div>
                             </td>
                         </tr>
 
@@ -5582,7 +5582,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/global-services/_global/global.service.ts:90</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/global-services/_global/global.service.ts:91</a></div>
                             </td>
                         </tr>
 
@@ -5651,7 +5651,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/global-services/_global/global.service.ts:70</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/global-services/_global/global.service.ts:71</a></div>
                             </td>
                         </tr>
 
@@ -5881,7 +5881,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/global-services/_global/global.service.ts:74</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/global-services/_global/global.service.ts:75</a></div>
                             </td>
                         </tr>
 
@@ -5982,11 +5982,11 @@ export abstract class GlobalService&lt;T&gt; implements GlobalServiceInterface&l
 			})),
 			// we start with this
 			startWith({ page: 0, sort: {}, query: &#x27;&#x27; } as SelectParams),
-			// wz query gql
+			// we query gql
 			switchMap(({ page, sort, query }: SelectParams) &#x3D;&gt; {
 				// putting those in variables in case they are undefined
 				const sortBy &#x3D; sort.sortBy;
-				const descending &#x3D; sort.sortOrder &#x3D;&#x3D;&#x3D; undefined ? undefined : (sort.sortOrder &#x3D;&#x3D;&#x3D; &#x27;ASC&#x27;);
+				const descending &#x3D; sort.sortOrder &#x3D;&#x3D;&#x3D; &#x27;ASC&#x27;;
 				const options &#x3D; {
 					gql: this.queries.list,
 					skip: page * take,
@@ -5995,6 +5995,7 @@ export abstract class GlobalService&lt;T&gt; implements GlobalServiceInterface&l
 					descending,
 					query
 				};
+
 				return this.apollo.selectMany(options).pipe(
 					map(data &#x3D;&gt; ({ data, page }) as any)
 				);

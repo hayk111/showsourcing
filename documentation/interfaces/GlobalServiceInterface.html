@@ -846,14 +846,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -3465,14 +3465,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -5591,11 +5591,11 @@ export abstract class GlobalService&lt;T&gt; implements GlobalServiceInterface&l
 			})),
 			// we start with this
 			startWith({ page: 0, sort: {}, query: &#x27;&#x27; } as SelectParams),
-			// wz query gql
+			// we query gql
 			switchMap(({ page, sort, query }: SelectParams) &#x3D;&gt; {
 				// putting those in variables in case they are undefined
 				const sortBy &#x3D; sort.sortBy;
-				const descending &#x3D; sort.sortOrder &#x3D;&#x3D;&#x3D; undefined ? undefined : (sort.sortOrder &#x3D;&#x3D;&#x3D; &#x27;ASC&#x27;);
+				const descending &#x3D; sort.sortOrder &#x3D;&#x3D;&#x3D; &#x27;ASC&#x27;;
 				const options &#x3D; {
 					gql: this.queries.list,
 					skip: page * take,
@@ -5604,6 +5604,7 @@ export abstract class GlobalService&lt;T&gt; implements GlobalServiceInterface&l
 					descending,
 					query
 				};
+
 				return this.apollo.selectMany(options).pipe(
 					map(data &#x3D;&gt; ({ data, page }) as any)
 				);

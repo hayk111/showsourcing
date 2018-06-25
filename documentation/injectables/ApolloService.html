@@ -846,14 +846,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="xs-injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="xs-injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
                                     >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -3465,14 +3465,14 @@
                         <a href="modules/ListPageModule.html" data-type="entity-link">ListPageModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        data-target="#injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                     <span class="fa fa-fw fa-long-arrow-down"></span>
                                     <span>Injectables</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="injectables-links-module-ListPageModule-afe37138a0b304d8aa523f545b39fa47"
+                                        id="injectables-links-module-ListPageModule-5f13a8970416f9632a8f696b64e311bb"
 >
                                         <li class="link">
                                             <a href="injectables/SelectionService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules"}>SelectionService</a>
@@ -5333,6 +5333,7 @@ First we go to all-user then global then user then team. Yeah, this wasn&#39;t m
                                 <a href="#clearClient">clearClient</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#createAllUserClient">createAllUserClient</a>
                             </li>
                             <li>
@@ -5634,6 +5635,7 @@ First we go to all-user then global then user then team. Yeah, this wasn&#39;t m
                         <a name="createAllUserClient"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Private</span>
                             createAllUserClient
                             </b>
                             <a href="#createAllUserClient"><span class="fa fa-link"></span></a>
@@ -5642,7 +5644,8 @@ First we go to all-user then global then user then team. Yeah, this wasn&#39;t m
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>createAllUserClient()</code>
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>createAllUserClient()</code>
                     </td>
                 </tr>
 
@@ -6555,7 +6558,7 @@ export class ApolloService {
 	}
 
 	/** creates the client that can access the user which gives the userRealmUri */
-	createAllUserClient() {
+	private createAllUserClient() {
 		const httpUri &#x3D; new URL(&#x60;${environment.apiUrl}/graphql/${ALL_USER_CLIENT}&#x60;);
 		const wsUri &#x3D; new URL(&#x60;${environment.apiUrl}/graphql/${ALL_USER_CLIENT}&#x60;);
 		wsUri.protocol &#x3D; &#x27;wss&#x27;;
