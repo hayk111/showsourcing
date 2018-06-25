@@ -32,7 +32,7 @@ export class TeamService extends GlobalService<Team> {
 		private storage: LocalStorageService,
 		private router: Router) {
 
-		super(apollo, new TeamQueries(), 'Team');
+		super(apollo.use(USER_CLIENT), new TeamQueries(), 'Team');
 		this.init();
 	}
 

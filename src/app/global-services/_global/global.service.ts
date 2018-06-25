@@ -97,8 +97,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
 	deleteMany(ids: string[]): Observable<any> {
 		return this.apollo.deleteMany({
-			gql: this.queries.deleteOne,
-			ids
+			gql: this.queries.deleteMany,
+			ids,
+			typename: this.typeName
 		});
 	}
 

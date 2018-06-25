@@ -105,17 +105,13 @@ export class SupplierQueries implements GlobalQuery {
 
 	deleteOne = gql`
 		mutation supplier($id: String!) {
-			deleteSupplier(id: $id) {
-				id
-			}
+			deleteSupplier(id: $id)
 		}
 	`;
 
 	deleteMany = gql`
 		mutation suppliers($query: String!) {
-			deleteSuppliers(query: $query) {
-				id
-			}
+			deleteSuppliers(query: $query)
 		}
 	`;
 

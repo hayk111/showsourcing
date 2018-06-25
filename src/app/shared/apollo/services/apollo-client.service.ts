@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
 import { Observable, throwError, of } from 'rxjs';
-import { first, map, take, tap, catchError } from 'rxjs/operators';
+import { first, map, take, tap, catchError, share } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 import { log, LogColor } from '~utils';
@@ -40,7 +40,8 @@ export class ApolloClient {
 				// extracting the result
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult('SelectOne', queryName, data))
+				tap(data => this.logResult('SelectOne', queryName, data)),
+				share()
 			);
 	}
 
@@ -135,7 +136,7 @@ export class ApolloClient {
 	}
 
 	deleteMany<T>(options: DeleteManyOptions): Observable<any> {
-		let query = options.ids.reduce((acc, curr) => `${acc} OR ${curr}`, '');
+		let query = options.ids.reduce((acc, curr) => `${acc} OR id ="${curr}"`, '');
 		// removing the first ' OR '
 		query = query.substr(4);
 		const apolloOptions = {

@@ -52,7 +52,7 @@
 			(closed)="closed.emit()" [hasAction]="false" (opened)="onOpen()">
 
 			<editable-label-app>
-				{{ (value | const: 'type') || '-'}}
+				{{ (value | const: customField.metadata.target) || '-'}}
 			</editable-label-app>
 
 			<selector-const-app
