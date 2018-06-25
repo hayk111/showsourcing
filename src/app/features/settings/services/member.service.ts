@@ -15,6 +15,7 @@ import { UserService } from '../../../global-services';
 
 // =====================>>>>>>
 // TODO: thierry, this is now a feature service, the name should be changed accordingly
+// I've commented things, u'll have to adapt to the new way
 // =====================>>>>>>
 @Injectable()
 export class MemberService {
@@ -106,7 +107,7 @@ export class MemberService {
 
 	/** at the moment the subscription works on only one entity and can be done only on list */
 	getById(id: string): Observable<TeamUser> {
-		throw Error('needs refactoring')
+		throw Error('needs refactoring');
 		// return this.apollo.subscribe({ query: MemberQueries.member, variables: { query: `id == '${id}'` } }).pipe(
 		// 	filter((r: any) => r.data.teamUsers),
 		// 	map((r: any) => r.data.teamUsers[0])

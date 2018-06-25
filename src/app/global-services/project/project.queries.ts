@@ -11,6 +11,19 @@ export class ProjectQueries implements GlobalQuery {
 	}
 	`;
 
+	list: any = gql`
+		subscription projects(
+			$take: Int,
+			$skip: Int,
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean) {
+			projects(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending){
+			  id, name
+			}
+		}
+	`;
+
 	create = gql`
 		mutation createProject($input: ProjectInput!) {
 			updateProject(input: $input) {
@@ -39,12 +52,13 @@ export class ProjectQueries implements GlobalQuery {
 		}
 	`;
 
+
+
 	all = (str: string) => gql`
 		subscription projects {
 			projects {
 				${str}
 			}
 		}
-	`;
-
+	`
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { tap, takeUntil, first } from 'rxjs/operators';
 import { CategoryService } from '~features/data-management/services/category.service';
-import { SelectionService } from '~features/supplier/services/selection.service';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { Category, ERM } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';

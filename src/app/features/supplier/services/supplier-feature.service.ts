@@ -1,35 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Contact, Product, Supplier } from '~models';
+import { Contact, Product } from '~models';
+import { ApolloClient } from '~shared/apollo';
 
 import { ContactService, ProductService } from '../../../global-services';
 import { SupplierService } from '../../../global-services/supplier/supplier.service';
 
 
 @Injectable()
-export class SupplierFeatureService {
+export class SupplierFeatureService extends SupplierService {
 
 	constructor(
-		private supplierSrv: SupplierService,
+		protected apollo: ApolloClient,
 		private productSrv: ProductService,
 		private contactSrv: ContactService
-	) { }
-
-	selectOne(id: string): Observable<Supplier> {
-		return this.supplierSrv.selectOne(id);
+	) {
+		super(apollo);
 	}
 
-	createSupplier(supplier: Supplier) {
-		return this.supplierSrv.create(supplier);
-	}
-
-	updateSupplier(supplier: Supplier) {
-		return this.supplierSrv.update(supplier);
-	}
-
-	deleteSuppliers(ids: string[]) {
-		return this.supplierSrv.deleteMany(ids);
-	}
 
 	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
@@ -40,7 +28,7 @@ export class SupplierFeatureService {
 	}
 
 	selectContacts(supplierId: string): Observable<Contact[]> {
-		return this.contactSrv.selectMany(of({ query: `supplier.id == '${supplierId}'` }))
+		return this.contactSrv.selectMany(of({ query: `supplier.id == '${supplierId}'` }));
 	}
 
 	createContact(contact: Contact): Observable<Contact> {

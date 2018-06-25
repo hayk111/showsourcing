@@ -46,16 +46,17 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				// putting those in variables in case they are undefined
 				const sortBy = sort.sortBy;
 				const descending = sort.sortOrder === undefined ? undefined : (sort.sortOrder === 'ASC');
-				return this.apollo.selectMany({
+				const options = {
 					gql: this.queries.list,
 					skip: page * take,
 					take,
 					sortBy,
 					descending,
-					query: query
-				}).pipe(
+					query
+				};
+				return this.apollo.selectMany(options).pipe(
 					map(data => ({ data, page }) as any)
-				)
+				);
 			}),
 			// we append the result if page was incremented
 			scan((acc: any, curr: any) => {

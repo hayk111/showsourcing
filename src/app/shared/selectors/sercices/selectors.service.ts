@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category, Event, SupplierType, Tag, TeamUser } from '~models';
+import { Category, Event, SupplierType, Tag, TeamUser, User } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 
 import { CategoryService, EventService, SupplierService, TagService } from '../../../global-services';
 import { SupplierTypeService } from '../../../global-services/supplier-type/supplier-type.service';
 import { TeamUserService } from '../../../global-services/team-user/team-user.service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -67,8 +68,10 @@ export class SelectorsService {
 		return this.supplierTypeSrv.selectAll();
 	}
 
-	getUsers(): Observable<TeamUser[]> {
-		return this.teamUserSrv.selectAll();
+	getUsers(): Observable<User[]> {
+		return this.teamUserSrv.selectAll().pipe(
+			map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
+		);
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {

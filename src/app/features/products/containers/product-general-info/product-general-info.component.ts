@@ -89,7 +89,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: Product) {
 		product.id = this.product.id;
-		this.srv.updateProduct(product).subscribe();
+		this.srv.update(product).subscribe();
 	}
 
 }

@@ -5,15 +5,16 @@
 	[subtitles]="['Suppliers', 'all']"
 	[hasSwitch]="false"
 	[hasFilter]="false"
-	(buttonClick)="openNewDialog()">
+	(buttonClick)="openCreateDlg()">
 </top-panel-app>
 
-<supplier-list-view-app
+<ng-container *ngIf="items$ | async as suppliers">
+	<supplier-list-view-app
 	[suppliers]="suppliers$ | async"
 	[selection]="selected$ | async"
 	[pending]="pending"
 	(bottomReached)="loadMore()"
-	(sort)="onSort($event)"
+	(sort)="sort($event)"
 	(supplierSelect)="selectItem($event)"
 	(supplierUnselect)="unselectItem($event)"
 	(supplierSelectAll)="selectAll($event)"
@@ -29,4 +30,6 @@
 			*ngIf="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
+
+</ng-container>
 

@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { SelectionService } from '~features/supplier/services/selection.service';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
 import { FileModule } from '~shared/file';
@@ -68,8 +67,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		SuppliersPageComponent
 	],
 	providers: [
-		SupplierFeatureService,
-		SelectionService
+		SupplierFeatureService
 	],
 })
 export class SuppliersModule {
@@ -77,12 +75,6 @@ export class SuppliersModule {
 		return {
 			ngModule: SuppliersModule,
 			providers: [],
-		};
-	}
-
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: SuppliersModule,
 		};
 	}
 }

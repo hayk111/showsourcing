@@ -1,6 +1,6 @@
 
 export interface ProductStatus {
-	id?: string;
+	id: string;
 	name?: string;
 	final?: boolean;
 	color?: string;

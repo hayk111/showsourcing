@@ -40,7 +40,6 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
-import { SelectionService } from './services/selection.service';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from './components/product-navigation/product-navigation.component';
 
@@ -94,7 +93,7 @@ import { ProductNavigationComponent } from './components/product-navigation/prod
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductFeatureService, TeamService, ExportService, SelectionService]
+	providers: [ProductFeatureService, TeamService, ExportService]
 })
 export class ProductModule {
 

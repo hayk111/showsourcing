@@ -5,33 +5,15 @@ import { Product, Project } from '~models';
 import { ProductService, ProjectService } from '../../../global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
+import { ApolloClient } from '~shared/apollo';
 
 @Injectable()
-export class ProductFeatureService {
+export class ProductFeatureService extends ProductService {
 
-	constructor(
-		private productSrv: ProductService,
-		private projectSrv: ProjectService) { }
-
-	selectProductList(selectParams$: Observable<SelectParams>): Observable<Product[]> {
-		return this.productSrv.selectMany(selectParams$);
+	constructor(protected apollo: ApolloClient, private projectSrv: ProjectService) {
+		super(apollo);
 	}
 
-	selectOne(id: string): Observable<Product> {
-		return this.productSrv.selectOne(id);
-	}
-
-	updateProduct(product: Product): Observable<Product> {
-		return this.productSrv.update(product);
-	}
-
-	deleteProduct(id: string): Observable<any> {
-		return this.productSrv.deleteOne(id);
-	}
-
-	deleteProducts(ids: string[]): Observable<any> {
-		return this.productSrv.deleteMany(ids);
-	}
 
 	addFile(): Observable<any> {
 		throw Error('not implemented yet');
@@ -103,7 +85,7 @@ export class ProductFeatureService {
 	 */
 	private getNewProductList(existingProducts: Product[], productIdsToAdd: string[]) {
 		const existingProductIds = existingProducts.map((product => product.id));
-		let newProducts = existingProductIds.concat(productIdsToAdd);
+		const newProducts = existingProductIds.concat(productIdsToAdd);
 		return newProducts.map(productId => ({ id: productId }));
 	}
 

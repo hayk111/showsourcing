@@ -56,7 +56,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	patch(supplier: Supplier) {
-		this.featureSrv.updateSupplier(supplier)
+		this.featureSrv.update(supplier)
 			.subscribe();
 	}
 

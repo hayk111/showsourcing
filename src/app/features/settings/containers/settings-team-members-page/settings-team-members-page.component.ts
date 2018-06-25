@@ -9,7 +9,7 @@ import { Filter, FilterService } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
-import { SelectionService } from '../../services/selection.service';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
 	selector: 'settings-team-members-page-app',

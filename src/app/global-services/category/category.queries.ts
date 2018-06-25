@@ -37,7 +37,7 @@ export class CategoryQueries implements GlobalQuery {
 		mutation deleteCategories($query: String!) {
 			deleteCategories(query: $query)
 		}
-	`
+	`;
 
 	all = (str: string) => gql`
 		subscription categories {
@@ -45,6 +45,5 @@ export class CategoryQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
-
+	`
 }

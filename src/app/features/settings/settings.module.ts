@@ -1,28 +1,25 @@
-import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-
-
-import {
-	SettingsComponent, SettingsTeamMembersPageComponent
-} from './containers';
-import {
-	SettingsProfileComponent, TeamMembersListViewComponent,
-	InviteUserDlgComponent, NewTeamDlgComponent
-} from './components';
-import { UserModule } from '~features/user';
-import { SharedModule } from '~shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { SelectionBarModule } from '~shared/selection-bar';
-import { TableModule } from '~shared/table';
-import { DialogModule } from '~shared/dialog/dialog.module';
-import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
-import { SidenavModule } from '~shared/sidenav/sidenav.module';
-
 import { MemberService } from '~features/settings/services/member.service';
-import { SelectionService } from '~features/settings/services/selection.service';
 import { MenuService } from '~features/settings/services/menu.service';
+import { UserModule } from '~features/user';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { DialogModule } from '~shared/dialog/dialog.module';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { SharedModule } from '~shared/shared.module';
+import { SidenavModule } from '~shared/sidenav/sidenav.module';
+import { TableModule } from '~shared/table';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+
+import {
+	InviteUserDlgComponent,
+	NewTeamDlgComponent,
+	SettingsProfileComponent,
+	TeamMembersListViewComponent,
+} from './components';
+import { SettingsComponent, SettingsTeamMembersPageComponent } from './containers';
+
 
 @NgModule({
 	imports: [
@@ -37,7 +34,7 @@ import { MenuService } from '~features/settings/services/menu.service';
 		ContextMenuModule,
 		SidenavModule
 	],
-	providers: [MemberService, SelectionService, MenuService],
+	providers: [MemberService, MenuService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,

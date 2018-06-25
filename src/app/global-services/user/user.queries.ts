@@ -50,6 +50,6 @@ export class UserQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
+	`
 
 }

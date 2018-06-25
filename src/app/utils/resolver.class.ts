@@ -6,6 +6,7 @@
 // console.log(Resolver.resolve('a.b', example)) // 4
 export class Resolver {
 
+	/** gives the value of a property given a string that may contain dots  */
 	static resolve(path: string, obj: any) {
 		return path.split('.').reduce((prev, curr) => {
 			return prev ? prev[curr] : undefined;

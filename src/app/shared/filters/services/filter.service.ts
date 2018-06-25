@@ -3,12 +3,16 @@ import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { first, map, tap, take, share } from 'rxjs/operators';
 
 import { Filter, FilterType } from '../models';
+import { toStore } from '~utils/store/store';
+import { by } from 'protractor';
 
 @Injectable()
 export class FilterService {
 	/** All filters applied as an array */
 	private _filters$ = new BehaviorSubject<Filter[]>([]);
-	filters$: Observable<Filter[]> = this._filters$.asObservable();
+	filters$: Observable<Filter[]> = this._filters$.asObservable().pipe(
+		toStore(this.storeKey)
+	);
 	private currentFilters: Filter[] = [];
 	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
 	 * Allows us to check in constant time if a filter type has a filter of value x.
@@ -20,21 +24,22 @@ export class FilterService {
 	 */
 	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._filters$.asObservable().pipe(
 		map(filters => this.filtersToByType(filters)),
+		toStore(this.storeKey + '/byType'),
 		share()
 	);
-	initialbyType: Map<FilterType, Map<any, Filter>> = new Map();
+	private initialbyType: Map<FilterType, Map<any, Filter>> = new Map();
 
 	/**
 	 * Returns the filters as a query usable by apollo client
 	 */
 	query$: Observable<string> = this._filters$.asObservable().pipe(
 		map(filters => this.filtersToQuery(filters)),
+		toStore(this.storeKey + '/query'),
 		share()
 	);
 
-	constructor() {
-		// adding a map for each type
-		Object.values(FilterType).forEach(type => this.initialbyType.set(type, new Map()));
+	constructor(public storeKey: string) {
+		this._filters$.subscribe(filters => this.currentFilters = filters);
 	}
 
 	/** adds filter at the end of the array */
@@ -46,7 +51,7 @@ export class FilterService {
 	removeFilter(removed: Filter) {
 		// removing to array of filters
 		this._filters$.next(this.currentFilters.filter(
-			filter => filter.type !== removed.type && filter.value !== removed.type
+			filter => (filter.type !== removed.type || filter.value !== removed.value)
 		));
 	}
 
@@ -66,9 +71,14 @@ export class FilterService {
 		throw Error('not implemented yet');
 	}
 
+	private getInitialMap() {
+		const byTypeMap = new Map();
+		Object.values(FilterType).forEach(type => byTypeMap.set(type, new Map()));
+		return byTypeMap;
+	}
 
 	private filtersToByType(filters: Filter[]) {
-		const copy = new Map(this.initialbyType);
+		const copy = this.getInitialMap();
 		filters.forEach(filter => copy.get(filter.type).set(filter.value, filter));
 		return copy;
 	}

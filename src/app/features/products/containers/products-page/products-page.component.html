@@ -1,6 +1,6 @@
 
 
-<ng-container *ngIf="products$ | async as products">
+<ng-container *ngIf="items$ | async as products">
 	<!-- top panel -->
 	<top-panel-app
 		[title]="'My Products'"
@@ -29,7 +29,7 @@
 		(productFavorited)="onItemFavorited($event)"
 		(productUnfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
-		(sortColumn)="sortProducts($event)"
+		(sortColumn)="sort($event)"
 		(openAddToProjectDialog)="openAddToProjectDialog($event)"
 		(openExportDialog)="openExportDialog($event)"
 		(openRequestFeedbackDialog)="openRequestFeedbackDialog($event)"
@@ -40,11 +40,9 @@
 		*ngIf="view === 'card'"
 		[products]="products"
 		[selection]="selected$ | async"
-		[statuses]="statuses$ | async"
 		(update)="update($event)"
 		(productSelect)="onItemSelected($event)"
 		(productUnselect)="onItemUnselected($event)"
-		(productVote)="onItemVoted($event)"
 		(addToProject)="onItemAddToProject($event)"
 		(productFavorited)="onItemFavorited($event)"
 		(productUnfavorited)="onItemUnfavorited($event)"

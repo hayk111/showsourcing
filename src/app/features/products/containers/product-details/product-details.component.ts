@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { filter, switchMap, takeUntil, tap, map } from 'rxjs/operators';
-import { AppFile, Project } from '~models';
-import { UserService } from '../../../../global-services';
-import { DialogName, DialogService } from '~shared/dialog';
-import { Product } from '~models';
-import { AutoUnsub } from '~utils';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { FormGroup } from '@angular/forms';
+import { AppFile, Product, Project } from '~models';
+import { DialogName, DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils';
 
 
 @Component({
@@ -65,14 +61,14 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateStatus(statusId: string) {
-		this.featureSrv.updateProduct({ id: this.productId, status: { id: statusId } }).subscribe();
+		this.featureSrv.update({ id: this.productId, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.featureSrv.updateProduct({ id: this.productId, favorite: true }).subscribe();
+		this.featureSrv.update({ id: this.productId, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.featureSrv.updateProduct({ id: this.productId, favorite: false }).subscribe();
+		this.featureSrv.update({ id: this.productId, favorite: false }).subscribe();
 	}
 }

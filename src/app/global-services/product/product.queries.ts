@@ -87,7 +87,6 @@ export class ProductQueries implements GlobalQuery {
 			leadTimeUnit,
 			sample,
 			samplePrice,
-			taskCount,
 			createdBy {
 				id, firstName, lastName
 			}
@@ -115,23 +114,23 @@ export class ProductQueries implements GlobalQuery {
 			description,
 			creationDate,
 			createdBy {
+				id,
 				lastName,
 				firstName
 			},
 			supplier {
+				id,
 				name
 			},
 			category {
+				id,
 				name
 			},
 			price {
+				id,
 				value,
 				currency
 			},
-			createdBy {
-				firstName,
-				lastName
-			}
 			images {
 				fileName
 			},

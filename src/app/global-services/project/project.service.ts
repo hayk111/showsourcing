@@ -4,6 +4,7 @@ import { ApolloClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ProjectQueries } from './Project.queries';
+import { log } from '~utils';
 
 
 @Injectable({
@@ -15,5 +16,8 @@ export class ProjectService extends GlobalService<Project> {
 		super(apollo, new ProjectQueries(), 'Project');
 	}
 
+	selectMany(...args) {
+		return super.selectMany(...args);
+	}
 }
 

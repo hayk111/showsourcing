@@ -29,9 +29,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 
 	constructor(
 		private fb: FormBuilder,
-		private userSrv: UserService,
-		private cd: ChangeDetectorRef,
-		private supplierSrv: SupplierFeatureService,
+		private featureSrv: SupplierFeatureService,
 		private router: Router,
 		private dlgSrv: DialogService) {
 		super();
@@ -52,7 +50,7 @@ export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit 
 			this.pending = true;
 			const name = this.group.value.name;
 			const supplier = new Supplier({ name });
-			this.supplierSrv.createSupplier(supplier)
+			this.featureSrv.create(supplier)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;

@@ -48,7 +48,7 @@ export class ContactQueries implements GlobalQuery {
 	`;
 
 	list = gql`
-		subscribe contacts($query: String!) {
+		subscription contacts($query: String!) {
 			contacts(query: $query) {
 				id,
 				name,
@@ -59,9 +59,8 @@ export class ContactQueries implements GlobalQuery {
 					fileName
 				},
 			}
-			}
 		}
-	`
+	`;
 
 	all = (str: string) => {
 		return gql`
@@ -70,7 +69,7 @@ export class ContactQueries implements GlobalQuery {
 					${str}
 				}
 			}
-		`
+		`;
 	}
 
 }

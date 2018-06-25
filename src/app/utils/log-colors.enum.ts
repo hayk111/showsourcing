@@ -8,5 +8,4 @@ export enum LogColor {
 	APOLLO_CLIENT_POST = 'color: pink; background #555555; padding: 4px',
 	COMPONENT = 'color: #8e8e8e',
 	SERVICES = 'color: #2196f3',
-
 }

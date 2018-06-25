@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
-import { R, TypedVariables } from 'apollo-angular/types';
-
+import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
-import { Observable } from 'rxjs';
-import { take, first, map, tap } from 'rxjs/operators';
-import { log, LogLevel, LogColor } from '~utils';
+import { Observable, throwError, of } from 'rxjs';
+import { first, map, take, tap, catchError } from 'rxjs/operators';
+import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
+import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
+import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
-import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
-import { DeleteOneOptions, DeleteManyOptions } from '~shared/apollo/interfaces/delete-options.interface';
+import { debug } from '~utils/debug.rxjs.pipe';
 
 
 
@@ -46,20 +45,26 @@ export class ApolloClient {
 	}
 
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
-		let { query, take, skip, sortBy, descending } = options;
-		const queryName = this.getQueryName(options);
+		// default
+
 		const variables = {
-			query,
-			take,
-			skip,
-			sortBy,
-			descending
+			query: options.query || '',
+			take: options.take !== undefined ? options.take : 30,
+			skip: options.skip || 0,
+			sortBy: options.sortBy || 'creationDate',
+			descending: options.descending || true,
 		};
+		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				// extracting the result
-				map(({ data }) => data[queryName]),
+				map((r) => {
+					if (!r.data)
+						throwError(r.errors);
+					return r.data[queryName];
+				}),
+				catchError(errors => of(log.table(errors))),
 				tap(data => this.logResult('Selecting Many', queryName, data))
 			);
 	}
@@ -178,7 +183,7 @@ export class ApolloClient {
 	}
 
 	private getQueryName(options: any) {
-		return (options.gql.definitions[0]).name.value;
+		return (options.gql.definitions[0]).selectionSet.selections[0].name.value;
 	}
 
 	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
@@ -195,8 +200,9 @@ export class ApolloClient {
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
-		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px')
+		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
 		log.debug(`%c ${options.gql.loc.source.body}`, 'color: #555555');
+		log.debug(options.gql);
 		log.groupEnd();
 		if (variables) {
 			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');

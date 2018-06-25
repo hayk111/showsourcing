@@ -6,7 +6,10 @@ export class TeamUserQueries implements GlobalQuery {
 	one: any = gql`
 	subscription teamUser($query: String!) {
 		teamUsers(query: $query) {
-			id, name
+			user {
+				id, name
+			}
+
 		}
 	}
 	`;
@@ -14,7 +17,7 @@ export class TeamUserQueries implements GlobalQuery {
 	create = gql`
 		mutation createTeamUser($input: TeamUserInput!) {
 			updateTeamUser(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -22,7 +25,7 @@ export class TeamUserQueries implements GlobalQuery {
 	update = gql`
 		mutation updateTeamUser($input: TeamUserInput!) {
 			updateTeamUser(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -45,6 +48,6 @@ export class TeamUserQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
+	`
 
 }

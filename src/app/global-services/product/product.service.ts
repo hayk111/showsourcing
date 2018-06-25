@@ -15,7 +15,8 @@ export class ProductService extends GlobalService<Product> {
 		super(apollo, new ProductQueries(), 'Product');
 	}
 
-
-
+	selectOne(id: string) {
+		return super.selectOne(id);
+	}
 }
 
