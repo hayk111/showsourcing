@@ -1,4 +1,18 @@
 {
+	"files.autoSave": "onFocusChange",
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"files.trimTrailingWhitespace": true,
+	"git.enableSmartCommit": true,
+	"tslint.enable": true,
+	"tslint.autoFixOnSave": true,
+	"javascript.preferences.quoteStyle": "single",
+	"typescript.preferences.quoteStyle": "single",
+	"[typescript]": {
+		"editor.formatOnSave": true,
+		"editor.acceptSuggestionOnEnter": "on"
+	},
   "path-intellisense.mappings": {
 		"~app-root/*": ["${workspaceRoot}/src/app/app-root/*"],
 		"~features/*": ["${workspaceRoot}/src/app/features/*"],

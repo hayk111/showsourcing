@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrateg
 import { AppImage } from '~models';
 import { UserService } from '../../../../global-services';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
+import { FileService } from '~shared/file/services/file.service';
+import { first } from 'rxjs/operators';
 
 
 
@@ -33,7 +35,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
-	constructor() {
+	constructor(private fileSrv: FileService) {
 		super();
 	}
 
@@ -45,8 +47,9 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
-		// const conversions = files.map(file => AppImage.newInstance(file));
-		// Promise.all(conversions).then(appImages => this.store.dispatch(fromImage.Actions.add(appImages)));
+		this.fileSrv.uploadImages(files).pipe(
+			first()
+		).subscribe();
 	}
 
 	/** rotates the image by 90 degrees */

@@ -38,8 +38,9 @@
 			[images]="images"
 			(close)="closeModal()"></modal-carousel-app>
 
-	<card-footer-app *ngIf="hasFooter">
 		<input #inpFile type="file" accept="image/*" (fileSelect)="add($event)" class="hidden"/>
+
+	<card-footer-app *ngIf="hasFooter">
 		<button (click)="openFileBrowser()">Add picture</button>
 	</card-footer-app>
 </card-app>

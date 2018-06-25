@@ -4,6 +4,7 @@ import { ApolloClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ProductQueries } from './product.queries';
+import { share } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,10 +14,6 @@ export class ProductService extends GlobalService<Product> {
 
 	constructor(protected apollo: ApolloClient) {
 		super(apollo, new ProductQueries(), 'Product');
-	}
-
-	selectOne(id: string) {
-		return super.selectOne(id);
 	}
 }
 

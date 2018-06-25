@@ -3,7 +3,9 @@ import { LogLevel } from './log-level';
 
 export class Log {
 
-	constructor(public level: LogLevel = LogLevel.DEBUG) { }
+	constructor(
+		public level: LogLevel = LogLevel.DEBUG,
+	) { }
 
 	info(...args) {
 		if (this.level >= LogLevel.INFO)

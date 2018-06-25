@@ -52,7 +52,8 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected linkName?: string,
-		protected createDlgName?: DialogName) {
+		protected createDlgName?: DialogName,
+		protected type?: string) {
 		super();
 	}
 

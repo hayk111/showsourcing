@@ -23,4 +23,5 @@ export * from './app-file.model';
 export * from './app-comment.model';
 export * from './_erm.enum';
 export * from './_entity.model';
+export * from './image-upload-request.model';
 

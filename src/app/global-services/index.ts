@@ -11,3 +11,4 @@ export * from './tag/tag.service';
 export * from './team/team.service';
 export * from './team-user/team-user.service';
 export * from './user/user.service';
+export * from './image-upload-request/image-upload.service';

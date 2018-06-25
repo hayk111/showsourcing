@@ -9,14 +9,14 @@ import {
 	ViewChild,
 	TemplateRef,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
 
 import { SelectorsService } from '../../sercices/selectors.service';
 import { Supplier, Category, Event, Tag, SupplierType } from '~models';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -26,18 +26,20 @@ import { takeUntil } from 'rxjs/operators';
 	providers: [makeAccessorProvider(SelectorEntityComponent), SelectorsService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorEntityComponent extends AbstractInput implements OnInit {
+export class SelectorEntityComponent extends AbstractInput {
 	/**  the type of entity we gonna select from. */
 	@Input() set type(type: string) {
 		this._type = type;
 		if (this._type === 'event') {
 			this.propertyName = 'alias';
 		}
+		this.type$.next(type);
 	}
 	get type(): string {
 		return this._type;
 	}
 	private _type;
+	private type$ = new ReplaySubject<string>(1);
 
 	// whether multiple entities can be selectioned
 	@Input() multiple = false;
@@ -57,15 +59,15 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 	@ViewChild(SelectorComponent) selector: SelectorComponent;
 	@ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
 	@ViewChild('userTemplate') userTemplate: TemplateRef<any>;
-	choices$: Observable<any[]>;
+	/** available choices */
+	choices$: Observable<any[]> = this.type$.pipe(
+		distinctUntilChanged(),
+		switchMap(type => this.getChoices(type))
+	);
 
 
 	constructor(private srv: SelectorsService, protected cd: ChangeDetectorRef) {
 		super(cd);
-	}
-
-	ngOnInit() {
-		this.setChoices();
 	}
 
 	/** opens the selector, is used when we want to open it programatically */
@@ -92,16 +94,14 @@ export class SelectorEntityComponent extends AbstractInput implements OnInit {
 		this.blur.emit();
 	}
 
-	setChoices() {
-		switch (this.type) {
-			case 'supplier': this.choices$ = this.srv.getSuppliers(); break;
-			case 'category': this.choices$ = this.srv.getCategories(); break;
-			case 'event': this.choices$ = this.srv.getEvents(); break;
-			case 'tag': this.choices$ = this.srv.getTags(); break;
-			case 'supplierType': this.choices$ = this.srv.getSupplierTypes(); break;
-			case 'user':
-				this.choices$ = this.srv.getUsers();
-				break;
+	getChoices(type: string) {
+		switch (type) {
+			case 'supplier': return this.srv.getSuppliers();
+			case 'category': return this.choices$ = this.srv.getCategories();
+			case 'event': return this.choices$ = this.srv.getEvents();
+			case 'tag': return this.choices$ = this.srv.getTags();
+			case 'supplierType': return this.choices$ = this.srv.getSupplierTypes();
+			case 'user': return this.srv.getUsers();
 			default: throw Error(`Unsupported type ${this.type}`);
 		}
 	}

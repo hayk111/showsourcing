@@ -1,10 +1,11 @@
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, scan, startWith, switchMap } from 'rxjs/operators';
+import { Observable, of, Subject, ReplaySubject } from 'rxjs';
+import { map, scan, startWith, switchMap, distinctUntilChanged, shareReplay, share } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
-import { PER_PAGE, Log } from '~utils';
+import { PER_PAGE } from '~utils';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
+import { debug } from '~utils/debug.rxjs.pipe';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string) => Observable<T>;
@@ -19,16 +20,40 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
+	/** Select one observable to deduplicate logic execution
+	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
+	 *  From 5 different components.
+	 */
+	private selectOneId$ = new ReplaySubject<string>(1);
+	private selectOne$ = this.selectOneId$.asObservable().pipe(
+		distinctUntilChanged(),
+		switchMap(id => this.apollo.selectOne({ gql: this.queries.one, id })),
+		shareReplay(1)
+	);
+
+	/**
+	 * Using pipeline to deduplicate logic
+	 */
+	private selectAllFields$ = new ReplaySubject<string>(1);
+	private selectAll$ = this.selectAllFields$.asObservable().pipe(
+		distinctUntilChanged(),
+		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) })),
+		shareReplay(1)
+	);
+
 	constructor(
 		protected apollo: ApolloClient,
 		protected queries: GlobalQuery,
-		protected typeName: string) { }
+		protected typeName?: string) { }
 
 	selectOne(id: string): Observable<T> {
-		return this.apollo.selectOne({
-			gql: this.queries.one,
-			id
-		});
+		this.selectOneId$.next(id);
+		return this.selectOne$;
+	}
+
+	selectAll(fields: string = 'id, name'): Observable<T[]> {
+		this.selectAllFields$.next(fields);
+		return this.selectAll$;
 	}
 
 	selectMany(params$: Observable<SelectParams> = of({}), take: number = PER_PAGE) {
@@ -66,10 +91,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				return acc.push(curr);
 			}, [])
 		);
-	}
-
-	selectAll(fields: string = 'id, name'): Observable<T[]> {
-		return this.apollo.selectMany({ gql: this.queries.all(fields) });
 	}
 
 	update(entity: T): Observable<any> {
