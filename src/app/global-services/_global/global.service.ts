@@ -43,10 +43,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			startWith({ page: 0, sort: {}, query: '' } as SelectParams),
 			// we query gql
 			switchMap(({ page, sort, query }: SelectParams) => {
-				// putting those in variables in case they are undefined
+				// putting those in variables form
 				const sortBy = sort.sortBy;
 				const descending = sort.sortOrder === 'ASC';
-				debugger;
 				const options = {
 					gql: this.queries.list,
 					skip: page * take,
