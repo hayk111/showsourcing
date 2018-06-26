@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -8,12 +8,12 @@ import { DialogName, DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
-import { GlobalService } from '~global-services/_global/global.service';
+import { GlobalServiceInterface } from '~global-services/_global/global.service';
 
 /**
  * Class used by components that need to display a list
  */
-export abstract class ListPageComponent<T extends { id: string }, G extends GlobalService<T>>
+export abstract class ListPageComponent<T extends { id: string }, G extends GlobalServiceInterface<T>>
 	extends AutoUnsub implements OnInit {
 
 	/** currently loaded items */
@@ -37,12 +37,8 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** previewed item */
 	previewed: T;
 
-	private currentParams: SelectParams = {
-		page: 0,
-		sort: { sortBy: 'creationDate', sortOrder: 'DESC' },
-		query: ''
-	};
-	private _selectParams$ = new Subject<SelectParams>();
+	private currentParams: SelectParams = new SelectParams();
+	private _selectParams$ = new BehaviorSubject<SelectParams>(this.currentParams);
 	private selectParams$ = this._selectParams$.asObservable();
 
 	constructor(
@@ -52,8 +48,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected linkName?: string,
-		protected createDlgName?: DialogName,
-		protected type?: string) {
+		protected createDlgName?: DialogName) {
 		super();
 	}
 
@@ -87,12 +82,16 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this._selectParams$.next({ page: 0, sort, query: this.currentParams.query });
+		this.currentParams.page = 0;
+		this.currentParams.sort = sort;
+		this._selectParams$.next(this.currentParams);
 	}
 
 	/** Filters items based  */
 	private filter(query: string) {
-		this._selectParams$.next({ page: 0, sort: this.currentParams.sort, query });
+		this.currentParams.page = 0;
+		this.currentParams.query = query;
+		this._selectParams$.next(this.currentParams);
 	}
 
 	/** opens the preview for an item */

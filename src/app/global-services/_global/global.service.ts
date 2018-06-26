@@ -1,5 +1,5 @@
 import { Observable, of, Subject, ReplaySubject } from 'rxjs';
-import { map, scan, startWith, switchMap, distinctUntilChanged, shareReplay, share } from 'rxjs/operators';
+import { map, scan, startWith, switchMap, distinctUntilChanged, shareReplay, share, flatMap, tap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 import { PER_PAGE } from '~utils';
 
@@ -8,19 +8,19 @@ import { SelectParams } from './select-params';
 import { debug } from '~utils/debug.rxjs.pipe';
 
 export interface GlobalServiceInterface<T> {
-	selectOne: (id: string) => Observable<T>;
-	selectMany?: (params$?: Observable<SelectParams>, take?: number) => Observable<T[]>;
-	selectAll: (fields: string) => Observable<T[]>;
-	update: (entity: T) => Observable<T>;
-	create: (entity: T) => Observable<T>;
-	deleteOne: (id: string) => Observable<any>;
-	deleteMany: (ids: string[]) => Observable<any>;
+	selectOne: (id: string, ...args) => Observable<T>;
+	selectMany?: (params$?: Observable<SelectParams>, ...args) => Observable<T[]>;
+	selectAll: (fields: string, ...args) => Observable<T[]>;
+	update: (entity: T, ...args) => Observable<T>;
+	create: (entity: T, ...args) => Observable<T>;
+	deleteOne: (id: string, ...args) => Observable<any>;
+	deleteMany: (ids: string[], ...args) => Observable<any>;
 }
 
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
-	/** Select one observable to deduplicate logic execution
+	/** Pipeline Select one : to deduplicate logic execution
 	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
 	 *  From 5 different components.
 	 */
@@ -32,12 +32,54 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	);
 
 	/**
-	 * Using pipeline to deduplicate logic
+	 * Pipelines Select all
 	 */
 	private selectAllFields$ = new ReplaySubject<string>(1);
 	private selectAll$ = this.selectAllFields$.asObservable().pipe(
 		distinctUntilChanged(),
 		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) })),
+		shareReplay(1)
+	);
+
+	/**
+	 * Pipelines Select many
+	 */
+	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
+	selectMany$ = this.selectManyParams$.asObservable().pipe(
+		// retrieve params
+		flatMap(params$ => params$),
+		tap(d => { debugger; }),
+		distinctUntilChanged((x, y) => (
+			x.page === y.page &&
+			x.take === y.take &&
+			x.query === y.query &&
+			x.sort.sortBy === y.sort.sortBy &&
+			x.sort.sortOrder === y.sort.sortOrder
+		)),
+		tap(d => { debugger; }),
+		// we query gql
+		switchMap(({ page, sort, query, take }: SelectParams) => {
+			// putting those in variables form
+			const sortBy = sort.sortBy;
+			const descending = sort.sortOrder === 'ASC';
+			const options = {
+				gql: this.queries.list,
+				skip: page * take,
+				take,
+				sortBy,
+				descending,
+				query
+			};
+			return this.apollo.selectMany(options).pipe(
+				map(data => ({ data, page }) as any)
+			);
+		}),
+		// we append the result if page was incremented
+		scan((acc: any, curr: any) => {
+			if (curr.page === 0)
+				return curr.data;
+			return acc.push(curr);
+		}, []),
 		shareReplay(1)
 	);
 
@@ -56,41 +98,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		return this.selectAll$;
 	}
 
-	selectMany(params$: Observable<SelectParams> = of({}), take: number = PER_PAGE) {
-		return params$.pipe(
-			map(params => ({
-				// assigning default values in case none have been specified
-				page: params.page || 0,
-				query: params.query || '',
-				sort: params.sort || {}
-			})),
-			// we start with this
-			startWith({ page: 0, sort: {}, query: '' } as SelectParams),
-			// we query gql
-			switchMap(({ page, sort, query }: SelectParams) => {
-				// putting those in variables form
-				const sortBy = sort.sortBy;
-				const descending = sort.sortOrder === 'ASC';
-				const options = {
-					gql: this.queries.list,
-					skip: page * take,
-					take,
-					sortBy,
-					descending,
-					query
-				};
-
-				return this.apollo.selectMany(options).pipe(
-					map(data => ({ data, page }) as any)
-				);
-			}),
-			// we append the result if page was incremented
-			scan((acc: any, curr: any) => {
-				if (curr.page === 0)
-					return curr.data;
-				return acc.push(curr);
-			}, [])
-		);
+	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
+		this.selectManyParams$.next(params$);
+		return this.selectMany$;
 	}
 
 	update(entity: T): Observable<any> {

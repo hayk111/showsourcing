@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import { filter, map, switchMap, shareReplay } from 'rxjs/operators';
+import { filter, map, switchMap, shareReplay, distinctUntilChanged } from 'rxjs/operators';
 import { Team } from '~models';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
@@ -42,6 +42,7 @@ export class TeamService extends GlobalService<Team> {
 		// 1. when the user client is ready we get the user's teams
 		this.teams$ = this.apolloState.userClientReady$.pipe(
 			filter(ready => !!ready),
+			distinctUntilChanged(),
 			switchMap(_ => this.getTeams())
 		);
 		this.teams$.subscribe();

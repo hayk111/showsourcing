@@ -46,18 +46,10 @@ export class ApolloClient {
 
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
-		// default
-
-		const variables = {
-			query: options.query || '',
-			take: options.take !== undefined ? options.take : 30,
-			skip: options.skip || 0,
-			sortBy: options.sortBy || 'creationDate',
-			descending: !!options.descending,
-		};
+		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
-		return this.apollo.subscribe({ query: options.gql, variables })
+		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
 				// extracting the result
 				map((r) => {

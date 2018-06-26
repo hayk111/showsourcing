@@ -16,7 +16,9 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFiltersComponent extends AutoUnsub implements OnInit {
+	/** array version of filters */
 	filters$: Observable<Filter[]>;
+	/** map<type, Map<value, filter>> to be able to do byType.get(SUPPLIER).has(value) */
 	byType$: Observable<Map<FilterType, Map<any, Filter>>>;
 
 	/** Whether the different panel that are displayed when clicking on a button are shown */

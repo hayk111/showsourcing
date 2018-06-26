@@ -41,7 +41,7 @@ export class ProductFeatureService extends ProductService {
 
 	selectProjects(): Observable<Project[]> {
 		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
-		return this.projectSrv.selectMany(of({ sort }));
+		return this.projectSrv.selectMany(of(new SelectParams({ sort })));
 	}
 
 	/**
@@ -49,7 +49,7 @@ export class ProductFeatureService extends ProductService {
 	 */
 	selectProjectsForProduct(id: string): Observable<Project[]> {
 		return this.projectSrv.selectMany(
-			of({ query: `products.id == "${id}"` })
+			of(new SelectParams({ query: `products.id == "${id}"` }))
 		);
 	}
 
