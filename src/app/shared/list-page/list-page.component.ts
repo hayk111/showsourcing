@@ -76,22 +76,21 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this.currentParams.page++;
-		this._selectParams$.next(this.currentParams);
+		this._selectParams$.next(new SelectParams({
+			page: this.currentParams.page++,
+			sort: this.currentParams.sort,
+			query: this.currentParams.query
+		}));
 	}
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this.currentParams.page = 0;
-		this.currentParams.sort = sort;
-		this._selectParams$.next(this.currentParams);
+		this._selectParams$.next(new SelectParams({ sort, query: this.currentParams.query }));
 	}
 
 	/** Filters items based  */
 	private filter(query: string) {
-		this.currentParams.page = 0;
-		this.currentParams.query = query;
-		this._selectParams$.next(this.currentParams);
+		this._selectParams$.next(new SelectParams({ query, sort: this.currentParams.sort }));
 	}
 
 	/** opens the preview for an item */
