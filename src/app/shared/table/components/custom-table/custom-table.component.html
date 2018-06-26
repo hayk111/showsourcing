@@ -7,15 +7,16 @@
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
-	[pending]="pending">
+	[pending]="pending"
+	(sort)="sort.emit($event)">
 		<ng-template
 			*ngFor="let column of descriptor"
 			[columnApp]="column.title"
 			[type]="column.type"
 			[sortable]="column.sortable !== undefined ? column.sortable : true"
 			[width]="column.width"
-			let-row="row"
-			(sortRequest)="sort.emit({sortWith: column.sortWith, order: $event })">
+			[sortBy]="column.sortBy"
+			let-row="row">
 			<ng-container
 				*ngTemplateOutlet="column.template; context: { column: column, row: row }">
 			</ng-container>

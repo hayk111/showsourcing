@@ -58,7 +58,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		// }),
 		// we query gql
 		switchMap(({ page, sort, query, take }: SelectParams) => {
-			debugger;
 			// putting those in variables form
 			const sortBy = sort.sortBy;
 			const descending = sort.sortOrder === 'ASC';

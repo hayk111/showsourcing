@@ -47,9 +47,9 @@
 			<!-- header -->
 			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="onSort(column)">
 				{{ column.title }}
-				<ng-container *ngIf="column.currentSort !== 'NONE'">
+				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app class="sortIcon fs-xs"  fontSet="fa" name="angle-down"
-						*ngIf="column.currentSort === 'DESC'; else upArrow;"></icon-app>
+						*ngIf="column.sortOrder === 'DESC'; else upArrow;"></icon-app>
 					<ng-template #upArrow>
 						<icon-app  class="sortIcon fs-xs" fontSet="fa" name="angle-up"></icon-app>
 					</ng-template>

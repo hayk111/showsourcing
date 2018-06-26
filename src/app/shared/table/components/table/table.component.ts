@@ -9,6 +9,7 @@ import {
 	QueryList,
 	TemplateRef,
 	OnInit,
+	AfterContentInit,
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -22,7 +23,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements AfterContentInit {
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
@@ -73,7 +74,7 @@ export class TableComponent implements OnInit {
 	// track by for column
 	columnTackByFn = (index, item) => index;
 
-	ngOnInit() {
+	ngAfterContentInit() {
 		// setting the sorting mechanism for each individual columns
 		this.columns.forEach(c => c.autoSort = this.autoSort);
 	}
@@ -95,8 +96,10 @@ export class TableComponent implements OnInit {
 	}
 
 	onSort(column: ColumnDirective) {
+		if (!column.sortable)
+			return;
 		// remove sorting on all column and add the current sort to the correct one
-		this.columns.filter(c => c === c).forEach(c => c.resetSort());
+		this.columns.filter(c => c !== c).forEach(c => c.resetSort());
 		column.toggleSort();
 		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
 		this.sort.emit({

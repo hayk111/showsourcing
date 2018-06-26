@@ -63,16 +63,16 @@ export class ProductListViewComponent implements OnInit {
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
 
 	descriptor: TableDescriptor = [
-		{ title: 'Name', type: 'main', sortable: true, sortWith: 'name', width: 280 },
-		{ title: 'Category', type: 'category', sortWith: 'category.name', width: 120 },
-		{ title: 'Supplier', type: 'supplier', sortWith: 'supplier.name', width: 120 },
-		{ title: 'Price', type: 'price', sortWith: 'price', width: 50 },
-		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortWith: 'minimumOrderQuantity', width: 50 },
-		{ title: 'FAV', type: 'rating', sortWith: 'rating', width: 15 },
-		{ title: 'Status', type: 'status', sortWith: 'status.name', width: 85 },
-		/* { title: 'Rating', type: 'feedback', sortWith: 'score', width: 50 }, */
-		{ title: 'Created on', type: 'creationDate', sortWith: 'creationDate', width: 120 }
-		/* { title: 'Created by', type: 'user', sortWith: 'createdBy.id', width: 140 },
+		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280 },
+		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120 },
+		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120 },
+		{ title: 'Price', type: 'price', sortBy: 'price', width: 50 },
+		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50 },
+		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15 },
+		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85 },
+		/* { title: 'Rating', type: 'feedback', sortBy: 'score', width: 50 }, */
+		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120 }
+		/* { title: 'Created by', type: 'user', sortBy: 'createdBy.id', width: 140 },
 		{ title: 'Actions', type: 'action', sortable: false, width: 140 }, */
 	];
 
@@ -88,7 +88,6 @@ export class ProductListViewComponent implements OnInit {
 	}
 
 	onSort(sort: Sort) {
-		console.trace();
 		this.sortColumn.emit(sort);
 	}
 
