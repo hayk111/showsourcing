@@ -48,15 +48,14 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	selectMany$ = this.selectManyParams$.asObservable().pipe(
 		// retrieve params
 		flatMap(params$ => params$),
-		tap(d => { debugger; }),
-		distinctUntilChanged((x, y) => (
-			x.page === y.page &&
-			x.take === y.take &&
-			x.query === y.query &&
-			x.sort.sortBy === y.sort.sortBy &&
-			x.sort.sortOrder === y.sort.sortOrder
-		)),
-		tap(d => { debugger; }),
+		distinctUntilChanged((x, y) => {
+			debugger;
+			return x.page === y.page &&
+				x.take === y.take &&
+				x.query === y.query &&
+				x.sort.sortBy === y.sort.sortBy &&
+				x.sort.sortOrder === y.sort.sortOrder;
+		}),
 		// we query gql
 		switchMap(({ page, sort, query, take }: SelectParams) => {
 			// putting those in variables form

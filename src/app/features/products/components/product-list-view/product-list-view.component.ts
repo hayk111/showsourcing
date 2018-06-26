@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Product } from '~models';
+import { Sort } from '~shared/table/components/sort.interface';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ProductListViewComponent implements OnInit {
 	@Output() productUnfavorited = new EventEmitter<string>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() sortColumn = new EventEmitter<{ order: 'ASC' | 'DESC'; sortWith: string; }>();
+	@Output() sortColumn = new EventEmitter<Sort>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
@@ -86,16 +87,8 @@ export class ProductListViewComponent implements OnInit {
 		this.descriptor.forEach(column => this.linkColumnWithTemplate(column));
 	}
 
-	onSort({ order, sortWith }) {
-		console.log('>> onSort');
-		console.log('  >> order = ', order);
-		console.log('  >> sortWith = ', sortWith);
-		// we first need to remove the current sorting filter
-		// this.store.dispatch(FilterActions.removeFiltersForFilterClass(this.filterGroupName, FilterSort));
-		// // then we add a new one
-		// const filter = new FilterSort(sortWith, order.toUpperCase());
-		// this.store.dispatch(FilterActions.addFilter(filter, this.filterGroupName));
-		this.sortColumn.emit({ order, sortWith });
+	onSort(sort: Sort) {
+		this.sortColumn.emit(sort);
 	}
 
 	// we add a template for the correct column type

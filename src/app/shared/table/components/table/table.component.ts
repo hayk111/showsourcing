@@ -127,10 +127,7 @@ export class TableComponent {
 	}
 
 	isSelected(row, index: number) {
-		// console.log('row = ', row);
-		// console.log('>> selected = ', this.selected);
 		return this.selected.has(row.id);
-		// return false;
 	}
 
 	onToggleContextualMenu(event, i, display = true) {
@@ -142,7 +139,7 @@ export class TableComponent {
 	}
 
 	@HostListener('window:click', ['event'])
-	onClickWindow(event) {
+	onClickWindow() {
 		Object.keys(this.contextualMenuOpened).forEach(key => {
 			this.contextualMenuOpened[key] = false;
 		});
