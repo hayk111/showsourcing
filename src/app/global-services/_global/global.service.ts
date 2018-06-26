@@ -81,21 +81,33 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		protected typeName?: string) { }
 
 	selectOne(id: string): Observable<T> {
+		if (!this.queries.one) {
+			throw Error('one query not implemented for this service');
+		}
 		this.selectOneId$.next(id);
 		return this.selectOne$;
 	}
 
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
+		if (!this.queries.all) {
+			throw Error('all query not implemented for this service');
+		}
 		this.selectAllFields$.next(fields);
 		return this.selectAll$;
 	}
 
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
+		if (!this.queries.list) {
+			throw Error('list / many query not implemented for this service');
+		}
 		this.selectManyParams$.next(params$);
 		return this.selectMany$;
 	}
 
 	update(entity: T): Observable<any> {
+		if (!this.queries.update) {
+			throw Error('update query not implemented for this service');
+		}
 		return this.apollo.update({
 			gql: this.queries.update,
 			input: entity,
@@ -104,6 +116,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	create(entity: T): Observable<any> {
+		if (!this.queries.create) {
+			throw Error('create query not implemented for this service');
+		}
 		return this.apollo.create({
 			gql: this.queries.create,
 			input: entity,
@@ -112,6 +127,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	deleteOne(id: string): Observable<any> {
+		if (!this.queries.deleteOne) {
+			throw Error('delete one query not implemented for this service');
+		}
 		return this.apollo.delete({
 			gql: this.queries.deleteOne,
 			id,
@@ -120,6 +138,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	deleteMany(ids: string[]): Observable<any> {
+		if (!this.queries.deleteMany) {
+			throw Error('delete many query not implemented for this service');
+		}
 		return this.apollo.deleteMany({
 			gql: this.queries.deleteMany,
 			ids,
