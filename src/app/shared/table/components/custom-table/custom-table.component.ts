@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { TableDescriptor } from '~shared/table';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'custom-table-app',
@@ -9,7 +10,7 @@ import { TableDescriptor } from '~shared/table';
 })
 export class CustomTableComponent {
 	@Output() bottomReached = new EventEmitter<any>();
-	@Output() sort = new EventEmitter<string>();
+	@Output() sort = new EventEmitter<Sort>();
 	@Input() descriptor: TableDescriptor = [];
 	@Input() contextualMenu: TemplateRef<any>;
 	@Input() rows: Array<any> = [];

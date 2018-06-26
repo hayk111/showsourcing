@@ -8,6 +8,7 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
+	OnInit,
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -21,7 +22,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
@@ -72,6 +73,11 @@ export class TableComponent {
 	// track by for column
 	columnTackByFn = (index, item) => index;
 
+	ngOnInit() {
+		// setting the sorting mechanism for each individual columns
+		this.columns.forEach(c => c.autoSort = this.autoSort);
+	}
+
 	onSelectOne(id: any) {
 		this.selectOne.emit(id);
 	}
@@ -90,22 +96,24 @@ export class TableComponent {
 
 	onSort(column: ColumnDirective) {
 		// remove sorting on all column and add the current sort to the correct one
-		const currentSort = column.currentSort;
-		this.columns.forEach(c => c.resetSort());
-		column.toggleSort(currentSort);
+		this.columns.filter(c => c === c).forEach(c => c.resetSort());
+		column.toggleSort();
 		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
-		this.sort.emit({ sortBy: column.sortWith, sortOrder: (column.currentSort as 'ASC' | 'DESC') });
+		this.sort.emit({
+			sortBy: column.sortBy,
+			sortOrder: (column.sortOrder as 'ASC' | 'DESC')
+		});
 		this.currentSortedColumn = column;
-		if (this.autoSort)
+		if (column.autoSort)
 			this.doSort();
 	}
 
 	private doSort() {
 		const column = this.currentSortedColumn;
-		if (!column || column.currentSort === 'NONE') {
+		if (!column || column.sortOrder === 'NONE') {
 			this._sortedRows = this._rows;
 		} else {
-			this._sortedRows = column.sort(this._rows);
+			this._sortedRows = column.internalSort(this._rows);
 		}
 	}
 

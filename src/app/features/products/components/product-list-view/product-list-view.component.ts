@@ -88,6 +88,7 @@ export class ProductListViewComponent implements OnInit {
 	}
 
 	onSort(sort: Sort) {
+		console.trace();
 		this.sortColumn.emit(sort);
 	}
 
