@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { mergeMap, tap, filter, first } from 'rxjs/operators';
+import { mergeMap, tap, filter, first, switchMap, map } from 'rxjs/operators';
 import { ImageUploadService } from '~global-services';
 import { AppFile, AppImage, ImageUploadRequest } from '~models';
 import { log, LogColor } from '~utils';
@@ -27,8 +27,10 @@ export class FileService {
 			// when ready we make the upload
 			mergeMap(info => this.uploadImageToAws(info, img)),
 			// when the upload is done we tell realm that it's the case
-			(_ => this.imageUploadSrv.update({ id: request.id, status: 'uploaded' })),
-			first()
+			switchMap(_ => this.imageUploadSrv.update({ id: request.id, status: 'uploaded' })),
+			first(),
+			// sending the image back
+			map(_ => request.image)
 		);
 	}
 

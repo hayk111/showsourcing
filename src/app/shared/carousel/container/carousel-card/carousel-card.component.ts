@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { AppImage } from '~models';
 import { UserService } from '../../../../global-services';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
@@ -30,6 +30,8 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	selectedIndex = 0;
 	/** hidden file input */
 	@ViewChild('inpFile') inpFile: ElementRef;
+	/** when a new image has been uploaded */
+	@Output() imgUploaded = new EventEmitter<AppImage[]>();
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
 	// when clicking an image we can open a modal carousel
@@ -49,7 +51,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	add(files: Array<File>) {
 		this.fileSrv.uploadImages(files).pipe(
 			first()
-		).subscribe();
+		).subscribe(imgs => this.imgUploaded.emit(imgs));
 	}
 
 	/** rotates the image by 90 degrees */

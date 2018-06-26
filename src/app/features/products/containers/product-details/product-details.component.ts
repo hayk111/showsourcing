@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { AppFile, Product, Project } from '~models';
+import { AppFile, Product, Project, AppImage } from '~models';
 import { DialogName, DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
@@ -20,7 +20,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	// tasks$: Observable<Array<Task>>;
 	/** projects for this product */
 	projects$: Observable<Project[]>;
-	productId: string;
+	product: Product;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -34,12 +34,12 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		const id$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
 			map(params => params.id),
-			tap(id => this.productId = id)
 		);
 
 		// getting supplier
 		this.product$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id)),
+			tap(product => this.product = product)
 		);
 
 		this.projects$ = id$.pipe(
@@ -49,26 +49,32 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.productId] });
+		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.product.id] });
 	}
 
 	removeProject(project: Project) {
 		const updatedProject = {
 			id: project.id,
-			products: project.products.filter(product => product.id !== this.productId)
+			products: project.products.filter(product => product.id !== this.product.id)
 		};
 		this.featureSrv.updateProject(updatedProject).subscribe();
 	}
 
 	updateStatus(statusId: string) {
-		this.featureSrv.update({ id: this.productId, status: { id: statusId } }).subscribe();
+		this.featureSrv.update({ id: this.product.id, status: { id: statusId } }).subscribe();
 	}
 
 	onFavorited() {
-		this.featureSrv.update({ id: this.productId, favorite: true }).subscribe();
+		this.featureSrv.update({ id: this.product.id, favorite: true }).subscribe();
 	}
 
 	onUnfavorited() {
-		this.featureSrv.update({ id: this.productId, favorite: false }).subscribe();
+		this.featureSrv.update({ id: this.product.id, favorite: false }).subscribe();
+	}
+
+	onNewImages(imgs: AppImage[]) {
+		this.featureSrv
+			.update({ id: this.product.id, images: [...this.product.images, ...imgs] })
+			.subscribe();
 	}
 }
