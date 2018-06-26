@@ -3,9 +3,9 @@ import { Observable, of } from 'rxjs';
 import { Contact, Product } from '~models';
 import { ApolloClient } from '~shared/apollo';
 
-import { ContactService, ProductService } from '../../../global-services';
-import { SupplierService } from '../../../global-services/supplier/supplier.service';
 import { SelectParams } from '~global-services/_global/select-params';
+import { ContactService, ProductService } from '~global-services';
+import { SupplierService } from '~global-services/supplier/supplier.service';
 
 
 @Injectable()

@@ -38,7 +38,6 @@ export class ERM {
 	static readonly TAG = new ReadProperty('tag', 'tags');
 	static readonly TASK = new ReadProperty('task', 'tasks');
 	static readonly USER = new ReadProperty('user', 'users');
-	static readonly NONE = new ReadProperty('not a read property', 'not a read property');
 
 	constructor() { }
 
@@ -48,7 +47,7 @@ export class ERM {
 			if (name.match(ERM[item].singular) || name.match(ERM[item].plural))
 				return ERM[item];
 		}
-		return ERM.NONE;
+		throw Error('The string passed does not exist on the _erm.enum.ts');
 	}
 }
 
