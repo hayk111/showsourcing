@@ -13,7 +13,7 @@ export class BaseEntity<G> implements Entity {
 	createdBy?: User;
 	deleted?: boolean;
 
-	constructor(config: G) {
+	constructor(config?: G) {
 		Object.assign(this, config);
 		this.id = uuid();
 		this.creationDate = '' + new Date();

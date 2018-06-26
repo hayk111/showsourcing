@@ -1,17 +1,20 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { mergeMap, tap, filter, first, switchMap, map } from 'rxjs/operators';
+import { filter, first, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ImageUploadService } from '~global-services';
-import { AppFile, AppImage, ImageUploadRequest } from '~models';
-import { log, LogColor } from '~utils';
 import { GlobalService } from '~global-services/_global/global.service';
+import { FileUploadService } from '~global-services/file-upload-request/file-upload.service';
+import { AppFile, AppImage, ImageUploadRequest } from '~models';
+import { FileUploadRequest } from '~models/file-upload-request.model';
+import { log, LogColor } from '~utils';
 
 
 @Injectable({ providedIn: 'root' })
 export class FileService {
 	constructor(
 		private imageUploadSrv: ImageUploadService,
+		private fileUploadSrv: FileUploadService,
 		private http: HttpClient
 	) { }
 
@@ -24,12 +27,15 @@ export class FileService {
 	}
 
 	uploadFile(file: File, type: 'file' | 'image' = 'file'): Observable<AppImage> {
+		// const extension = file.filename.split('.').pop();
 		const isImage = type === 'image';
-		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest();
+		const ext = file.type.split('/').pop();
+		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(ext);
 		const service: GlobalService<any> = isImage ? this.imageUploadSrv : this.fileUploadSrv;
-		const returned = isImage ? request.image : request.file;
+		const returned = isImage ?
+			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
 
-		return this.service.create(request).pipe(
+		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ => service.selectOne(request.id)),
 			filter(imgRequest => imgRequest.status === 'upload-ready'),
@@ -65,9 +71,7 @@ export class FileService {
 	// we receive an array but formData wants an object
 	private converFormData(file: any, formDataObj: any) {
 		const formData = new FormData();
-		const contentType;
-		debugger;
-		// formData.append('Content-Type', );
+		formData.append('Content-Type', file.type);
 		delete formDataObj.__typename;
 		Object.entries(formDataObj).forEach(([k, v]: any) => formData.append(k, v));
 		formData.append('file', file);
