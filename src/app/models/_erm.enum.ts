@@ -1,9 +1,3 @@
-/** enum used so we don't use strings eg:
-switch (type) {
-  case ERM.PRODUCT: ....
-  case ERM.SUPPLIER: ...
-}
-the name ERM is for retrocompatibility */
 
 export class ReadProperty {
 	readonly singular;
@@ -15,15 +9,18 @@ export class ReadProperty {
 
 }
 
+// Must be added alphabetically
 export class ERM {
 	static readonly CATEGORY = new ReadProperty('category', 'categories');
 	static readonly COMMENT = new ReadProperty('comment', 'comments');
 	static readonly CONTACT = new ReadProperty('contact', 'contacts');
 	static readonly CURRENCY = new ReadProperty('currency', 'currencies');
+	static readonly DETAIL = new ReadProperty('detail', 'details');
 	static readonly EVENT = new ReadProperty('event', 'events');
 	static readonly FIELD = new ReadProperty('field', 'fields');
 	static readonly FILE = new ReadProperty('file', 'files');
 	static readonly IMAGE = new ReadProperty('image', 'images');
+	static readonly ITEM = new ReadProperty('item', 'items');
 	static readonly MEMBER = new ReadProperty('member', 'members');
 	static readonly PRODUCT = new ReadProperty('product', 'products');
 	static readonly PRODUCT_STATUS = new ReadProperty('product status', 'product status');

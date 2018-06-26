@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductFeatureService } from '~features/products/services';
-import { Product } from '~models';
-import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { StoreKey } from '~utils/store/store';
-import { SelectionService } from '~shared/list-page/selection.service';
 import {
-	ProductAddToProjectDlgComponent
+	ProductAddToProjectDlgComponent,
 } from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
 import { ProductExportDlgComponent } from '~features/products/components/product-export-dlg/product-export-dlg.component';
 import {
-	ProductRequestTeamFeedbackDlgComponent
+	ProductRequestTeamFeedbackDlgComponent,
 } from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { StoreKey } from '~utils/store/store';
 
 @Component({
 	selector: 'products-page-app',
@@ -34,7 +34,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'product', ProductsPageComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, ProductsPageComponent);
 	}
 
 	/**

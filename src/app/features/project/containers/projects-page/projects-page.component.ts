@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
-import { Project } from '~models';
+import { Project, ERM } from '~models';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
@@ -28,7 +28,7 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'project', ProjectsPageComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PROJECT, ProjectsPageComponent);
 	}
 
 }

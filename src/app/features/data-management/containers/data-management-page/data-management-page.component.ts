@@ -2,89 +2,90 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { tap, takeUntil, first } from 'rxjs/operators';
-import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { Category, ERM, ReadProperty } from '~models';
 import { AutoUnsub } from '~utils';
 import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
 	selector: 'data-management-page-app',
-	templateUrl: './data-management-page.component.html',
+	template: '<router-outlet></router-outlet>',
 	styleUrls: ['./data-management-page.component.scss'],
 })
-export class DataManagementPageComponent extends AutoUnsub implements OnInit {
-	itemType: ReadProperty;
-	items$: Observable<any[]>;
-	selected$: Observable<Map<string, boolean>>;
-	/** whether some suppliers are currently being loaded */
-	pending: boolean;
-	/** when the suppliers are loaded for the first time */
-	initialLoading = true;
-	/** current sort used for sorting suppliers */
+export class DataManagementPageComponent {
 
-	constructor(
-		private dataManagementSrv: DataManagementService,
-		private selectionSrv: SelectionService,
-		private route: ActivatedRoute) {
-		super();
-	}
+	constructor() { }
+	// itemType: ReadProperty;
+	// items$: Observable<any[]>;
+	// selected$: Observable<Map<string, boolean>>;
+	// /** whether some suppliers are currently being loaded */
+	// pending: boolean;
+	// /** when the suppliers are loaded for the first time */
+	// initialLoading = true;
+	// /** current sort used for sorting suppliers */
 
-	ngOnInit() {
+	// constructor(
+	// 	private dataManagementSrv: DataManagementService,
+	// 	private selectionSrv: SelectionService,
+	// 	private route: ActivatedRoute) {
+	// 	super();
+	// }
 
-		// we retrieve the parameters from the router given at settings.component.html link
-		// and then we try to find a match with our ERM
-		this.route.params.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(params => this.itemType = new ERM().getReadProperty(params.id));
+	// ngOnInit() {
 
-		this.pending = true;
-		this.items$ = this.dataManagementSrv.selectItems(this.itemType).pipe(
-			tap(() => {
-				if (this.initialLoading) {
-					this.pending = false;
-					this.initialLoading = false;
-				}
-			})
-		);
-		this.selected$ = this.selectionSrv.selection$;
-	}
+	// 	// we retrieve the parameters from the router given at settings.component.html link
+	// 	// and then we try to find a match with our ERM
+	// 	this.route.params.pipe(
+	// 		takeUntil(this._destroy$)
+	// 	).subscribe(params => this.itemType = new ERM().getReadProperty(params.id));
 
-	/** When a supplier has been selected */
-	selectItem(entityId: string) {
-		this.selectionSrv.selectOne(entityId);
-	}
+	// 	this.pending = true;
+	// 	this.items$ = this.dataManagementSrv.selectItems(this.itemType).pipe(
+	// 		tap(() => {
+	// 			if (this.initialLoading) {
+	// 				this.pending = false;
+	// 				this.initialLoading = false;
+	// 			}
+	// 		})
+	// 	);
+	// 	this.selected$ = this.selectionSrv.selection$;
+	// }
 
-	/** When a supplier has been unselected */
-	unselectItem(entityId: string) {
-		this.selectionSrv.unselectOne(entityId);
-	}
+	// /** When a supplier has been selected */
+	// selectItem(entityId: string) {
+	// 	this.selectionSrv.selectOne(entityId);
+	// }
 
-	/** When all suppliers have been selected at once (from the table) */
-	selectAll(ids: string[]) {
-		this.selectionSrv.selectAll(ids);
-	}
+	// /** When a supplier has been unselected */
+	// unselectItem(entityId: string) {
+	// 	this.selectionSrv.unselectOne(entityId);
+	// }
 
-	/** reset the selection of suppliers */
-	resetSelection() {
-		this.selectionSrv.unselectAll();
-	}
+	// /** When all suppliers have been selected at once (from the table) */
+	// selectAll(ids: string[]) {
+	// 	this.selectionSrv.selectAll(ids);
+	// }
 
-	onSort(sort: any) {
-	}
+	// /** reset the selection of suppliers */
+	// resetSelection() {
+	// 	this.selectionSrv.unselectAll();
+	// }
 
-	removeEntity(entity: any) {
-		this.dataManagementSrv.deleteItem(this.itemType, entity).subscribe();
-	}
+	// onSort(sort: any) {
+	// }
 
-	mergeSelected() {
+	// removeEntity(entity: any) {
+	// 	this.dataManagementSrv.deleteItem(this.itemType, entity).subscribe();
+	// }
 
-	}
+	// mergeSelected() {
 
-	removeSelected() {
+	// }
 
-	}
+	// removeSelected() {
 
-	openNewEntityDialog() {
+	// }
 
-	}
+	// openNewEntityDialog() {
+
+	// }
 }
