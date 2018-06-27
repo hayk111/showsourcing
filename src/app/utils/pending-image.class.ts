@@ -4,7 +4,8 @@
  */
 export class PendingImage {
 	data: string;
-	pending = true;
+	readonly pending = true;
+
 	constructor(private file: File) {
 
 	}
