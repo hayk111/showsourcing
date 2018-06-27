@@ -1,11 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { addDialog } from '../../models/dialog-component-map.const';
-import { DialogName } from '../../models/dialog-names.enum';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 
-
-const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
 
 @Component({
 	selector: 'confirm-dialog-app',
@@ -14,7 +10,6 @@ const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmDialogComponent {
-	dlgName = DialogName.CONFIRM;
 	// text displayed
 	text: string;
 	callback: Function;
@@ -23,10 +18,7 @@ export class ConfirmDialogComponent {
 
 	onConfirm() {
 		this.callback();
-		this.srv.close(this.dlgName);
+		this.srv.close(ConfirmDialogComponent);
 	}
 
 }
-
-addDlg();
-

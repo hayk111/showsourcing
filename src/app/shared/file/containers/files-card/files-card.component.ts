@@ -3,7 +3,8 @@ import { AppFile } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_IMG } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
-import { DialogService, DialogName } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 @Component({
 	selector: 'files-card-app',
@@ -35,7 +36,7 @@ export class FilesCardComponent {
 	}
 
 	onFileRemoved(file: AppFile) {
-		this.dlgSrv.open(DialogName.CONFIRM, {
+		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Remove 1 file ?',
 			callback: () => this.fileRemove.emit(file)
 		});

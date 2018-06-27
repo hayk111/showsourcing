@@ -2,11 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
 import { Project } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogService } from '~shared/dialog';
 
 
-const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_TO_PROJECT);
 
 @Component({
 	selector: 'product-add-to-project-dlapp',
@@ -16,7 +14,6 @@ const addDlg = () => addDialog(ProductAddToProjectDlgComponent, DialogName.ADD_T
 })
 export class ProductAddToProjectDlgComponent implements OnInit {
 	projects$: Observable<Project[]>;
-	dlgName = DialogName.ADD_TO_PROJECT;
 	selected = {};
 	@Input() selectedProducts: string[];
 
@@ -43,10 +40,8 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		const selectedProjects = <Project[]>Object.values(this.selected);
 		this.featureSrv.addProductsToProjects(selectedProjects, this.selectedProducts)
 			.subscribe(projects => {
-				this.dlgSrv.close(this.dlgName);
+				this.dlgSrv.close(ProductAddToProjectDlgComponent);
 			});
 	}
 
 }
-
-addDlg();

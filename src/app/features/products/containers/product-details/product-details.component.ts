@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { AppFile, Product, Project, AppImage } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
 
@@ -16,7 +16,6 @@ import { AutoUnsub } from '~utils';
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	files: Array<AppFile>;
-	projectDlgName = DialogName.ADD_TO_PROJECT;
 	// tasks$: Observable<Array<Task>>;
 	/** projects for this product */
 	projects$: Observable<Project[]>;
@@ -49,7 +48,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.dlgSrv.open(this.projectDlgName, { selectedProducts: [this.product.id] });
+		this.dlgSrv.open(ProductDetailsComponent, { selectedProducts: [this.product.id] });
 	}
 
 	removeProject(project: Project) {

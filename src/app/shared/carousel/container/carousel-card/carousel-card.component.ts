@@ -1,14 +1,21 @@
 import {
-	Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy,
-	Output, EventEmitter, ChangeDetectorRef
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	ViewChild,
 } from '@angular/core';
-import { AppImage } from '~models';
-import { AutoUnsub, DEFAULT_IMG } from '~utils';
-import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
 import { ImageService } from '~global-services/image/image.service';
+import { AppImage } from '~models';
+import { DialogService } from '~shared/dialog';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { AutoUnsub, DEFAULT_IMG } from '~utils';
 import { PendingImage } from '~utils/pending-image.class';
-import { DialogService, DialogName } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -97,7 +104,7 @@ export class CarouselCardComponent extends AutoUnsub {
 
 	/** deletes the image */
 	delete(img: AppImage) {
-		this.dlgSrv.open(DialogName.CONFIRM, {
+		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Are you sure you want to remove this image ?',
 			callback: () => {
 				this.selectedIndex--;

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { DialogName } from '~shared/dialog/models';
 
 
 @Injectable({
@@ -12,11 +11,11 @@ export class DialogService {
 	private _toClose$ = new Subject<any>();
 	toClose$ = this._toClose$.asObservable();
 
-	open(component: any, props?: any) {
+	open(component: new (...args: any[]) => any, props?: Object) {
 		this._toOpen$.next({ component, props });
 	}
 
-	close(component: any) {
+	close(component: new (...args: any[]) => any) {
 		this._toClose$.next(name);
 	}
 }

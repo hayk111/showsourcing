@@ -4,12 +4,14 @@ import { tap } from 'rxjs/operators';
 import { MemberService } from '~features/settings/services/member.service';
 import { MenuService } from '~features/settings/services/menu.service';
 import { Supplier, TeamUser } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { Filter, FilterService } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
 import { SelectionService } from '~shared/list-page/selection.service';
+import { NewTaskDlgComponent } from '~features/tasks';
+import { InviteUserDlgComponent } from '~features/settings/components';
 
 @Component({
 	selector: 'settings-team-members-page-app',
@@ -83,12 +85,12 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
-		this.dlgSrv.open(DialogName.NEW_TEAM);
+		this.dlgSrv.open(NewTaskDlgComponent);
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dlgSrv.open(DialogName.INVITE_USER);
+		this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
 	/** When a member has been selected */
@@ -147,6 +149,6 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 		// 	});
 		// };
 		// const text = `Delete ${members.length} Member${members.length > 1 ? 's' : ''} ?`;
-		// this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
+		// this.dlgSrv.open(, { text, callback });
 	}
 }

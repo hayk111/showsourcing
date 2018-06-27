@@ -11,8 +11,6 @@ import {
 import { AutoUnsub } from '~utils';
 
 import { DialogHostDirective } from '../../components/dialog-host.directive';
-import { dialogComponentMap } from '../../models/dialog-component-map.const';
-import { DialogName } from '../../models/dialog-names.enum';
 import { takeUntil } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 
@@ -28,8 +26,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	@ViewChild(DialogHostDirective) host: DialogHostDirective;
 	// view container of said host.
 	protected viewContainerRef;
-	// currently displayed dialog if any
-	protected currentDialog: DialogName;
 	isOpen = false;
 
 	constructor(
@@ -56,7 +52,6 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	/** will put a component in the host container */
 	open(component, props: any) {
 		this.isOpen = true;
-		this.currentDialog = name;
 		const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
 

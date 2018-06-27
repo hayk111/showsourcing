@@ -1,15 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { AppImage, Contact } from '~models';
 import { DialogService } from '~shared/dialog';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
-import { DialogName } from '~shared/dialog/models/dialog-names.enum';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
 import { ContactService } from '~global-services';
 
-const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 
 
 @Component({
@@ -20,7 +16,6 @@ const addDlg = () => addDialog(NewContactDlgComponent, DialogName.CONTACT);
 })
 export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	dialogName = DialogName.CONTACT;
 	/** preview image */
 	preview$: Observable<AppImage>;
 	private _preview: any = {};
@@ -83,7 +78,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			// contact.image = this._preview;
 			// this.store.dispatch(ContactActions.create(this.formGroup.value));
 			this.contactSrv.create(contact).subscribe();
-			this.dlgSrv.close(this.dialogName);
+			this.dlgSrv.close(NewContactDlgComponent);
 		}
 	}
 
@@ -107,5 +102,3 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 }
-
-addDlg();
