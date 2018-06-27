@@ -15,7 +15,7 @@ const addDlg = () => addDialog(ConfirmDialogComponent, DialogName.CONFIRM);
 })
 export class ConfirmDialogComponent {
 	dlgName = DialogName.CONFIRM;
-	// props: { text: string, callback: Function };
+	// text displayed
 	text: string;
 	callback: Function;
 

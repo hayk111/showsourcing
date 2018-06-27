@@ -3,6 +3,7 @@ import { AppFile } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_IMG } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
+import { DialogService, DialogName } from '~shared/dialog';
 
 @Component({
 	selector: 'files-card-app',
@@ -23,7 +24,10 @@ export class FilesCardComponent {
 	@Output() fileRemove = new EventEmitter<AppFile>();
 	defaultImg = DEFAULT_FILE_IMG;
 
-	constructor(private uploader: UploaderService) { }
+	constructor(
+		private uploader: UploaderService,
+		private dlgSrv: DialogService
+	) { }
 
 	onFileAdded(files: Array<File>) {
 		this._pendingFiles = files.map(file => new PendingFile(file));
@@ -31,6 +35,9 @@ export class FilesCardComponent {
 	}
 
 	onFileRemoved(file: AppFile) {
-		this.fileRemove.emit(file);
+		this.dlgSrv.open(DialogName.CONFIRM, {
+			text: 'Remove 1 file ?',
+			callback: () => this.fileRemove.emit(file)
+		});
 	}
 }

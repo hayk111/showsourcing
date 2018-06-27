@@ -8,6 +8,7 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
 import { ImageService } from '~global-services/image/image.service';
 import { PendingImage } from '~utils/pending-image.class';
+import { DialogService, DialogName } from '~shared/dialog';
 
 
 
@@ -17,7 +18,7 @@ import { PendingImage } from '~utils/pending-image.class';
 	styleUrls: ['./carousel-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarouselCardComponent extends AutoUnsub implements OnInit {
+export class CarouselCardComponent extends AutoUnsub {
 	// whether the different elements are displayed
 	@Input() hasModalCarousel = true;
 	// whether the little clickable thumbnail of the images are displayed
@@ -60,12 +61,13 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private uploader: UploaderService,
 		private imageSrv: ImageService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
 
-	ngOnInit() { }
+
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
@@ -73,6 +75,8 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
+		this.addPendingImg(files);
+
 		this.uploader.uploadImages(files).pipe(
 			first()
 		).subscribe(imgs => {
@@ -80,12 +84,9 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 			// removing pending image
 			this._pendingImages = [];
 		}, e => this._pendingImages = []);
-		// adding a pending image so we can see there is an image pending visually
-		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
-		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
-		this._pendingImages = pendingImgs;
-		this.cd.detectChanges();
 	}
+
+
 
 	/** rotates the image by 90 degrees */
 	rotate(img: AppImage) {
@@ -97,7 +98,10 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** deletes the image */
 	delete(img: AppImage) {
-		this.imageSrv.deleteOne(img.id).subscribe();
+		this.dlgSrv.open(DialogName.CONFIRM, {
+			text: 'Are you sure you want to remove this image ?',
+			callback: () => this.imageSrv.deleteOne(img.id).subscribe()
+		});
 	}
 
 	/** start downloading the image */
@@ -119,6 +123,15 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	/** when a preview is clicked we want to display the image that was in the preview */
 	setSelectedIndex(index: number) {
 		this.selectedIndex = index;
+	}
+
+	/** adds pending image to the list */
+	private async addPendingImg(files: File[]) {
+		// adding a pending image so we can see there is an image pending visually
+		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
+		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
+		this._pendingImages = pendingImgs;
+		this.cd.detectChanges();
 	}
 
 }
