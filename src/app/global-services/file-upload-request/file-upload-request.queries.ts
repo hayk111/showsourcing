@@ -1,7 +1,7 @@
 import { GlobalQuery } from '../_global/global.query.interface';
 import gql from 'graphql-tag';
 
-export class FileUploadQueries implements GlobalQuery {
+export class FileUploadRequestQueries implements GlobalQuery {
 	one = gql`
 	subscription fileUploadRequests($query: String!) {
 		fileUploadRequests(query: $query) {

@@ -2,19 +2,19 @@ import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/comm
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { filter, first, map, mergeMap, switchMap } from 'rxjs/operators';
-import { ImageUploadService } from '~global-services';
+import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
-import { FileUploadService } from '~global-services/file-upload-request/file-upload.service';
+import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { AppFile, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
 import { log, LogColor } from '~utils';
 
 
 @Injectable({ providedIn: 'root' })
-export class FileService {
+export class UploaderService {
 	constructor(
-		private imageUploadSrv: ImageUploadService,
-		private fileUploadSrv: FileUploadService,
+		private imageUploadRequestSrv: ImageUploadRequestService,
+		private fileUploadRequestSrv: FileUploadRequestService,
 		private http: HttpClient
 	) { }
 
@@ -31,7 +31,7 @@ export class FileService {
 		const isImage = type === 'image';
 		const ext = file.type.split('/').pop();
 		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(ext);
-		const service: GlobalService<any> = isImage ? this.imageUploadSrv : this.fileUploadSrv;
+		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
 			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
 
@@ -47,10 +47,6 @@ export class FileService {
 			// sending the image back
 			map(_ => returned)
 		);
-	}
-
-	download(url: string) {
-		window.open(url);
 	}
 
 	private uploadFileToAws(awsInfo, file: any): Observable<AppImage> {

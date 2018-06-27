@@ -2,8 +2,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrateg
 import { AppImage } from '~models';
 import { UserService } from '../../../../global-services';
 import { AutoUnsub, DEFAULT_IMG } from '~utils';
-import { FileService } from '~shared/file/services/file.service';
+import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
+import { ImageService } from '~global-services/image/image.service';
 
 
 
@@ -37,7 +38,10 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 	// when clicking an image we can open a modal carousel
 	modalOpen = false;
 
-	constructor(private fileSrv: FileService) {
+	constructor(
+		private uploader: UploaderService,
+		private imageSrv: ImageService
+	) {
 		super();
 	}
 
@@ -49,24 +53,27 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
-		this.fileSrv.uploadImages(files).pipe(
+		this.uploader.uploadImages(files).pipe(
 			first()
 		).subscribe(imgs => this.imgUploaded.emit(imgs));
 	}
 
 	/** rotates the image by 90 degrees */
 	rotate(img: AppImage) {
-		// this.store.dispatch(fromImage.Actions.rotate(img));
+		this.imageSrv.update({
+			...img,
+			orientation: (img.orientation + 1) % 4
+		});
 	}
 
 	/** deletes the image */
 	delete(img: AppImage) {
-		// this.store.dispatch(fromImage.Actions.delete([img.id]));
+		this.imageSrv.deleteOne(img.id);
 	}
 
 	/** start downloading the image */
 	download(img: AppImage) {
-		// this.store.dispatch(fromImage.Actions.download(img.url));
+		this.imageSrv.download(img);
 	}
 
 	/** opens the modal carousel */

@@ -12,7 +12,10 @@ import { ProductStatusService } from '~global-services/product-status/product-st
 import { ProjectService } from '~global-services/project/project.service';
 import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
 import { TagService } from '~global-services/tag/tag.service';
-import { ImageUploadService } from '~global-services/image-upload-request/image-upload.service';
+import {
+	ImageUploadRequestService
+} from '~global-services/image-upload-request/image-upload-request.service';
+import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 
 
 
@@ -34,7 +37,8 @@ import { ImageUploadService } from '~global-services/image-upload-request/image-
 		ProjectService,
 		SupplierTypeService,
 		TagService,
-		ImageUploadService
+		ImageUploadRequestService,
+		FileUploadRequestService
 	]
 })
 export class GlobalServicesModule { }
