@@ -4,10 +4,17 @@
 	<!-- top panel -->
 	<top-panel-app
 		[title]="'My Products'"
-		[buttonName]="'Add Product'"
 		[subtitles]="['Products', 'all']"
-		(buttonClick)="openCreateDlg()">
+		[hasAction]="false">
 	</top-panel-app>
+
+	<sub-panel-app
+		buttonName="Add Product"
+		[hasSwitch]="false"
+		[hasFilter]="false"
+		[buttonIcon]="false"
+		(buttonClick)="openCreateDlg()">
+	</sub-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<product-list-view-app

@@ -14,6 +14,10 @@ import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
+import { ProjectDetailsComponent } from './containers/project-details/project-details.component';
+import { ProjectProductsComponent } from './containers/project-products/project-products.component';
+import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
+import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
 
 @NgModule({
 	imports: [
@@ -25,7 +29,7 @@ import { ProjectFeatureService } from '~features/project/services/project-featur
 		SelectionBarModule, // used for when selecting an item
 		TableModule, // used in list
 	],
-	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent],
+	declarations: [ProjectsPageComponent, ProjectsListViewComponent, ProjectNavComponent, ProjectDetailsComponent, ProjectProductsComponent, ProjectSettingsComponent, ProjectProductListComponent],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [ProjectFeatureService],
 })

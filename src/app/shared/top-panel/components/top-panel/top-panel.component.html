@@ -4,7 +4,7 @@
 	</div>
 	<div class="right flexCenter">
 
-		<button (click)="buttonClick.emit()" class="flex button auto small">
+		<button (click)="buttonClick.emit()" class="flex button auto small" *ngIf="hasAction">
 			<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
 			<span class="spacing"> {{ buttonName }} </span>
 		</button>

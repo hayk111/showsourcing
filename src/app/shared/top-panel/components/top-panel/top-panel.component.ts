@@ -17,5 +17,7 @@ export class TopPanelComponent {
 	@Input() title: string;
 	/** subtitles of the bread crumb */
 	@Input() subtitles: Array<string>;
+	/** whether the button on the right is displayed */
+	@Input() hasAction = true;
 
 }

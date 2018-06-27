@@ -1,10 +1,16 @@
 
 <top-panel-app
 	[title]="'My Suppliers'"
-	[buttonName]="'Add Supplier'"
-	[subtitles]="['Suppliers', 'all']"
-	(buttonClick)="openCreateDlg()">
+	[hasAction]="false">
 </top-panel-app>
+
+<sub-panel-app
+	buttonName="Add Supplier"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	[buttonIcon]="false"
+	(buttonClick)="openCreateDlg()">
+</sub-panel-app>
 
 <ng-container *ngIf="items$ | async as suppliers">
 	<supplier-list-view-app
