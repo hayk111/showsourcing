@@ -32,7 +32,7 @@ export class NewTaskDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const value = this.group.value;
-			this.dlgSrv.close(NewTaskDlgComponent);
+			this.dlgSrv.close();
 			// this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}

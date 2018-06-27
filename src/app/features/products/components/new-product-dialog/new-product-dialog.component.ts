@@ -41,7 +41,7 @@ export class NewProductDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	onClose() {
-		this.dlgSrv.close(NewProductDialogComponent);
+		this.dlgSrv.close();
 	}
 
 }

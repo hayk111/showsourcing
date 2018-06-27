@@ -78,7 +78,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			// contact.image = this._preview;
 			// this.store.dispatch(ContactActions.create(this.formGroup.value));
 			this.contactSrv.create(contact).subscribe();
-			this.dlgSrv.close(NewContactDlgComponent);
+			this.dlgSrv.close();
 		}
 	}
 

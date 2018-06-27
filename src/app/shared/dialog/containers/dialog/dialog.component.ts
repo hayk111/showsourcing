@@ -43,7 +43,7 @@ export class DialogComponent {
 	}
 
 	doClose() {
-		// this.srv.close(this.parent);
+		this.srv.close();
 		this.close.emit();
 	}
 

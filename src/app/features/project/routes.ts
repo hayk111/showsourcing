@@ -12,7 +12,7 @@ export const routes: Array<Route> = [
 		path: 'details/:id',
 		component: ProjectDetailsComponent,
 		children: [
-			{ path: 'product', component: ProjectProductsComponent },
+			{ path: 'products', component: ProjectProductsComponent },
 			{ path: 'settings', component: ProjectSettingsComponent }
 		],
 	}

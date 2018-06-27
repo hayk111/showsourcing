@@ -18,7 +18,7 @@ export class ConfirmDialogComponent {
 
 	onConfirm() {
 		this.callback();
-		this.srv.close(ConfirmDialogComponent);
+		this.srv.close();
 	}
 
 }

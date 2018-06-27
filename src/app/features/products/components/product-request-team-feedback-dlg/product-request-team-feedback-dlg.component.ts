@@ -43,7 +43,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 				return this.teamSrv.addProductFeedbacksForTeamUsers(projects, this.selectedProducts);
 			})
 		).subscribe(projects => {
-			this.dlgSrv.close(ProductRequestTeamFeedbackDlgComponent);
+			this.dlgSrv.close();
 		});
 	}
 

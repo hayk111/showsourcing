@@ -15,7 +15,7 @@ export class DialogService {
 		this._toOpen$.next({ component, props });
 	}
 
-	close(component: new (...args: any[]) => any) {
-		this._toClose$.next(name);
+	close() {
+		this._toClose$.next();
 	}
 }

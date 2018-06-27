@@ -40,7 +40,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		const selectedProjects = <Project[]>Object.values(this.selected);
 		this.featureSrv.addProductsToProjects(selectedProjects, this.selectedProducts)
 			.subscribe(projects => {
-				this.dlgSrv.close(ProductAddToProjectDlgComponent);
+				this.dlgSrv.close();
 			});
 	}
 

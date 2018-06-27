@@ -29,7 +29,7 @@ export class ProductExportDlgComponent implements OnInit {
 	export() {
 		this.exportSrv.addProductsExport(this.selectedProducts, this.selectedExport)
 			.subscribe(projects => {
-				this.dlgSrv.close(ProductExportDlgComponent);
+				this.dlgSrv.close();
 			});
 	}
 }
