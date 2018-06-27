@@ -5,6 +5,7 @@ import { ApolloClient } from '~shared/apollo';
 import { GlobalService } from '../_global/global.service';
 import { ImageQueries } from './image.queries';
 import { Observable } from 'rxjs';
+import { ImageUrls } from '~utils';
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class ImageService extends GlobalService<AppImage> {
 
 	download(img: AppImage) {
 		if (window)
-			window.open('https://files.showsourcing.com/xl/' + img.fileName);
+			window.open(ImageUrls.xl + '/' + img.fileName);
 	}
 }
 

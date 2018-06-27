@@ -1,13 +1,14 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
-import { filter, first, map, mergeMap, switchMap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { filter, first, map, mergeMap, switchMap, tap, take, delay, retryWhen } from 'rxjs/operators';
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { AppFile, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
-import { log, LogColor } from '~utils';
+import { log, LogColor, ImageUrls } from '~utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +16,7 @@ export class UploaderService {
 	constructor(
 		private imageUploadRequestSrv: ImageUploadRequestService,
 		private fileUploadRequestSrv: FileUploadRequestService,
+		private notifSrv: NotificationService,
 		private http: HttpClient
 	) { }
 
@@ -34,18 +36,26 @@ export class UploaderService {
 		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
 			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
-
 		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ => service.selectOne(request.id)),
 			filter(imgRequest => imgRequest.status === 'upload-ready'),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file)),
-			// when the upload is done we tell realm that it's the case
-			switchMap(_ => service.update({ id: request.id, status: 'uploaded' })),
+			// when the upload is done on amazon, the image will give a 403 for a few seconds
+			// so we need to wait for it to be ready.
+			mergeMap(_ => this.emitWhenFileReady(request)),
+			// putting the request status to uploaded
+			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' })),
+			// add notification
+			tap(_ => this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'File Uploaded',
+				message: 'Your file was uploaded with success',
+			})),
 			first(),
 			// sending the image back
-			map(_ => returned)
+			map(_ => returned),
 		);
 	}
 
@@ -84,7 +94,19 @@ export class UploaderService {
 		}
 	}
 
-	private queryImage(r: AppImage) {
-		return this.http.get(r.fileName, { responseType: 'blob' });
+	/** checks when an image is ready */
+	private emitWhenFileReady(request: ImageUploadRequest | FileUploadRequest) {
+		if (request instanceof ImageUploadRequest) {
+			return this.queryImage(request).pipe(
+				retryWhen(errors => errors.pipe(delay(500), take(30))),
+			);
+		} else {
+			// files are ready instantly
+			return of();
+		}
+	}
+
+	private queryImage(r: ImageUploadRequest) {
+		return this.http.get(ImageUrls.s + '/' + r.image.fileName, { responseType: 'blob' });
 	}
 }

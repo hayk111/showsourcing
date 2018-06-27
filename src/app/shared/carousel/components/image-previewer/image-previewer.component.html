@@ -2,6 +2,7 @@
 	<span>+</span>
 </div>
 <img class="square pointer"
+	[ngClass]="{ 'pending': image.pending }"
 	*ngFor="let image of images; let i = index"
 	[style.transform]="'rotate(' + getRotation(i) + 'deg)'"
-	[src]="image.fileName | image: 'm'" (click)="imageClick.emit(i)"/>
+	[src]="image | image: 'm'" (click)="imageClick.emit(i)"/>

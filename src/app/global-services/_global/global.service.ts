@@ -27,8 +27,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	private selectOneId$ = new ReplaySubject<string>(1);
 	private selectOne$ = this.selectOneId$.asObservable().pipe(
 		distinctUntilChanged(),
-		switchMap(id => this.apollo.selectOne({ gql: this.queries.one, id })),
-		shareReplay(1)
+		switchMap(id => this.apollo.selectOne({ gql: this.queries.one, id }))
 	);
 
 	/**
@@ -37,8 +36,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	private selectAllFields$ = new ReplaySubject<string>(1);
 	private selectAll$ = this.selectAllFields$.asObservable().pipe(
 		distinctUntilChanged(),
-		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) })),
-		shareReplay(1)
+		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) }))
 	);
 
 	/**
@@ -71,8 +69,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			if (curr.page === 0)
 				return curr.data;
 			return acc.push(curr);
-		}, []),
-		shareReplay(1)
+		}, [])
 	);
 
 	constructor(

@@ -2,14 +2,10 @@
 
 	<!-- image -->
 	<div class="img-ctnr flexCenter">
-		<ng-container *ngIf="!pending; else spinner">
-			<img *ngIf="images.length === 0" [src]="defaultImg"/>
-			<img *ngIf="images.length !== 0" [src]="getImg().fileName | image: 'l'" (click)="imgClick.emit(selectedIndex)"
-			 class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
-		</ng-container>
-		<ng-template #spinner>
-			<spinner-app size="small"></spinner-app>
-		</ng-template>
+		<img *ngIf="images.length === 0" [src]="defaultImg"/>
+		<img *ngIf="images.length !== 0" [src]="getImg() | image: 'l'"
+			(click)="imgClick.emit(selectedIndex)"
+			class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
 	</div>
 
 	<!-- actions buttons -->

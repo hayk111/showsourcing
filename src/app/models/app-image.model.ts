@@ -9,6 +9,6 @@ export class AppImage extends BaseEntity<undefined> {
 		super();
 		this.fileName = `${this.id}.jpg`;
 	}
-
 }
+
 
