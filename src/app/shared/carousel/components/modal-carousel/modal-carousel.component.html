@@ -1,7 +1,11 @@
 <div class="modal" (mousedown)="close.emit($event)">
-	<div class="img-ctnr"><img [src]="getFileName() | image : 'l'" class="loading"/></div>
-	<div class="move-btn back flexCenter pointer" (mousedown)="back($event)" *ngIf="selectedIndex > 0"> &lt; </div>
-	<div class="move-btn next flexCenter pointer" (mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)"> &gt; </div>
+	<div class="img-ctnr">
+		<img-app [image]="getImg()" [size]="'l'" class="loading"></img-app>
+	</div>
+	<div class="move-btn back flexCenter pointer"
+		(mousedown)="back($event)" *ngIf="selectedIndex > 0"> &lt; </div>
+	<div class="move-btn next flexCenter pointer"
+		(mousedown)="next($event)" *ngIf="selectedIndex < (images.length - 1)"> &gt; </div>
 	<span class="close-btn pointer" (mousedown)="close.emit($event)">x close</span>
 	<span class="title">{{ selectedIndex + 1}} / {{ images.length }}</span>
 </div>

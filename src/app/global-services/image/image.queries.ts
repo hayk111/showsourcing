@@ -27,7 +27,7 @@ export class ImageQueries implements GlobalQuery {
 	create = gql`
 		mutation createImage($input: ImageInput!) {
 			updateImage(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -35,7 +35,7 @@ export class ImageQueries implements GlobalQuery {
 	update = gql`
 		mutation updateImage($input: ImageInput!) {
 			updateImage(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;

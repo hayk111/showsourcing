@@ -14,7 +14,7 @@ export class EventQueries implements GlobalQuery {
 	create = gql`
 		mutation createEvent($input: EventInput!) {
 			updateEvent(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -22,7 +22,7 @@ export class EventQueries implements GlobalQuery {
 	update = gql`
 		mutation updateEvent($input: EventInput!) {
 			updateEvent(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -45,6 +45,6 @@ export class EventQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
+	`
 
 }

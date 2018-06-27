@@ -17,14 +17,6 @@ export class ImagePreviewerComponent {
 
 	constructor() { }
 
-	getRotation(i) {
-		// const img = this.getImg(i);
-		// if (img.pending)
-		// 	return img.rotation * -90;
-		// else
-		// 	return 0;
-	}
-
 	getImg(i) {
 		return this.images[i];
 	}

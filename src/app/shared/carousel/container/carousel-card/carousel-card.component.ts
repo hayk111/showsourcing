@@ -92,7 +92,7 @@ export class CarouselCardComponent extends AutoUnsub implements OnInit {
 		this.imageSrv.update({
 			...img,
 			orientation: (img.orientation + 1) % 4
-		});
+		}).subscribe();
 	}
 
 	/** deletes the image */

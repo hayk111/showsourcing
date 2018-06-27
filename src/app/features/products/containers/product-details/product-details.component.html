@@ -10,13 +10,13 @@
 <ng-container *ngIf="product$ | async as product">
   <div class="flex content">
     <div class="left">
-				<carousel-card-app
-					[hasFooter]="false"
-					[images]="product.images"
-					(imgUploaded)="onNewImages($event)"
-					[favorite]="product.favorite"
-					(favorited)="onFavorited()"
-					(unfavorited)="onUnfavorited()"></carousel-card-app>
+			<carousel-card-app
+				[hasFooter]="false"
+				[images]="product.images"
+				(imgUploaded)="onNewImages($event)"
+				[favorite]="product.favorite"
+				(favorited)="onFavorited()"
+				(unfavorited)="onUnfavorited()"></carousel-card-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 

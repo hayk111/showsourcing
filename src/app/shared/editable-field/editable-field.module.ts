@@ -10,6 +10,7 @@ import { IconsModule } from '../icons/icons.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { UtilsModule } from '../utils/utils.module';
 import { EditableLabelComponent } from './components/editable-label/editable-label.component';
+import { ImageModule } from '~shared/image/image.module';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -21,7 +22,7 @@ import { EditableLabelComponent } from './components/editable-label/editable-lab
 		SelectorsModule,
 		BadgeModule, // used to display a badge in the status selector
 		UtilsModule, // click outside directive used
-		UserPictureModule, // used in editable field type user
+		ImageModule
 	],
 	declarations: [EditableTextComponent, EditableLabelComponent],
 	exports: [EditableTextComponent, EditableLabelComponent],

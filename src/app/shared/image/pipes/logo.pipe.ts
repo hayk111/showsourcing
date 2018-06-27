@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DEFAULT_EVENT_ICON, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_IMG } from '~utils/constants';
 
+/** different than image pipe as it will display a logo based on the transformed value
+ * which can be any entity type
+ */
 @Pipe({
 	name: 'logo'
 })
@@ -8,6 +11,7 @@ export class LogoPipe implements PipeTransform {
 	private static readonly baseUrl = 'https://files.showsourcing.com/s';
 
 	transform(value: any, type?: string): any {
+		// TODO use entity Metadata
 		const hasLogo = ['supplier', 'event', 'user', 'project'];
 		// the logoImage
 		let logoImage;

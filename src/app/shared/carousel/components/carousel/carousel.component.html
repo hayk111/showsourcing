@@ -2,10 +2,12 @@
 
 	<!-- image -->
 	<div class="img-ctnr flexCenter">
-		<img *ngIf="images.length === 0" [src]="defaultImg"/>
-		<img *ngIf="images.length !== 0" [src]="getImg() | image: 'l'"
+		<img-app
+			*ngIf="images.length !== 0"
+			[image]="getImg()"
+			[size]="'l'"
 			(click)="imgClick.emit(selectedIndex)"
-			class="pointer" [style.transform]="'rotate(' + getRotation() + 'deg)'"/>
+			class="pointer"></img-app>
 	</div>
 
 	<!-- actions buttons -->

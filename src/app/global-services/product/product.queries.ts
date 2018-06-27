@@ -18,7 +18,7 @@ export class ProductQueries implements GlobalQuery {
 				}
 			},
 			images {
-				id, fileName
+				id, fileName, orientation
 			},
 			price {
 				id,

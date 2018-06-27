@@ -6,9 +6,10 @@ import { SharedModule } from '~shared/shared.module';
 
 import { CarouselComponent, ModalCarouselComponent } from './components';
 import { ImagePreviewerComponent } from './components/image-previewer/image-previewer.component';
+import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({
-	imports: [SharedModule, FileModule, RatingModule],
+	imports: [SharedModule, FileModule, RatingModule, ImageModule],
 	declarations: [
 		ModalCarouselComponent,
 		CarouselComponent,
