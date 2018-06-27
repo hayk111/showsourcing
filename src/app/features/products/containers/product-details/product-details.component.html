@@ -1,15 +1,13 @@
 <top-panel-app
 	buttonName="create product"
 	title="My Products"
-	subtitle="['My Products', 'details']"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasSearch]="false">
+	subtitle="['My Products', 'details']">
 </top-panel-app>
 
 <ng-container *ngIf="product$ | async as product">
   <div class="flex content">
     <div class="left">
+
 			<carousel-card-app
 				[hasFooter]="false"
 				[images]="product.images"
