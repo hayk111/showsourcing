@@ -67,7 +67,6 @@ export class CarouselCardComponent extends AutoUnsub {
 		super();
 	}
 
-
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
@@ -100,7 +99,10 @@ export class CarouselCardComponent extends AutoUnsub {
 	delete(img: AppImage) {
 		this.dlgSrv.open(DialogName.CONFIRM, {
 			text: 'Are you sure you want to remove this image ?',
-			callback: () => this.imageSrv.deleteOne(img.id).subscribe()
+			callback: () => {
+				this.selectedIndex--;
+				this.imageSrv.deleteOne(img.id).subscribe();
+			}
 		});
 	}
 

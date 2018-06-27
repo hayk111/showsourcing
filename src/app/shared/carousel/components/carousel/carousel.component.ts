@@ -59,9 +59,6 @@ export class CarouselComponent implements OnInit {
 
 	delete() {
 		this.deleteRequest.emit(this.getImg());
-		// index needs to go down if we were at the end
-		if (this.selectedIndex === this.images.length - 1)
-			--this.selectedIndex;
 	}
 
 	download() {
