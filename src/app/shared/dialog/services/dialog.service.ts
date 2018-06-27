@@ -7,16 +7,16 @@ import { DialogName } from '~shared/dialog/models';
 	providedIn: 'root'
 })
 export class DialogService {
-	private _toOpen$ = new Subject<{ name: DialogName, props: any }>();
+	private _toOpen$ = new Subject<{ component: any, props: any }>();
 	toOpen$ = this._toOpen$.asObservable();
-	private _toClose$ = new Subject<DialogName>();
+	private _toClose$ = new Subject<any>();
 	toClose$ = this._toClose$.asObservable();
 
-	open(name: DialogName, props?: any) {
-		this._toOpen$.next({ name, props });
+	open(component: any, props?: any) {
+		this._toOpen$.next({ component, props });
 	}
 
-	close(name: DialogName) {
+	close(component: any) {
 		this._toClose$.next(name);
 	}
 }
