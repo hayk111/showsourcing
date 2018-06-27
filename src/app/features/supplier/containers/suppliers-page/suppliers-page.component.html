@@ -14,18 +14,19 @@
 
 <ng-container *ngIf="items$ | async as suppliers">
 	<supplier-list-view-app
-	[suppliers]="suppliers"
-	[selection]="selected$ | async"
-	[pending]="pending"
-	(bottomReached)="loadMore()"
-	(sort)="sort($event)"
-	(supplierSelect)="onItemSelected($event)"
-	(supplierUnselect)="onItemUnselected($event)"
-	(supplierSelectAll)="selectAll($event)"
-	(supplierUnselectAll)="resetSelection()"
-	(supplierOpen)="openPreview($event)"
-	(supplierFavorited)="onItemFavorited($event)"
-	(supplierUnfavorited)="onItemUnfavorited($event)"></supplier-list-view-app>
+		[rows]="suppliers"
+		[selection]="selected$ | async"
+		[pending]="pending"
+		(bottomReached)="loadMore()"
+		(sort)="sort($event)"
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		(open)="openPreview($event)"
+		(favorited)="onItemFavorited($event)"
+		(unfavorited)="onItemUnfavorited($event)">
+	</supplier-list-view-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

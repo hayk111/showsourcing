@@ -1,12 +1,12 @@
 <table-app
-	[rows]="suppliers"
+	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
 	class="z-2"
-	(selectOne)="supplierSelect.emit($event)"
-	(unselectOne)="supplierUnselect.emit($event)"
-	(selectAll)="supplierSelectAll.emit($event)"
-	(unselectAll)="supplierUnselectAll.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
@@ -31,7 +31,6 @@
 		columnApp="Categories"
 		let-row="row"
 		sortWith="categories"
-		[comparator]="arrayComparator"
 		width="280">
 		<span *ngFor="let cat of row.categories; let last = last">
 			{{ cat.name }} {{ last ? '' : ', '}}
@@ -57,7 +56,6 @@
 		columnApp="Tags"
 		let-row="row"
 		sortWith="tags"
-		[comparator]="arrayComparator"
 		width="280">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
@@ -111,8 +109,8 @@
 		<div class="flexCenter">
 			<rating-heart-app
 				[favorite]="row?.favorite"
-				(favorited)="supplierFavorited.emit(row.id)"
-				(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
+				(favorited)="favorited.emit(row.id)"
+				(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 		</div>
 
 	</ng-template>

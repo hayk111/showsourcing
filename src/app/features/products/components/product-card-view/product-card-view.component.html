@@ -1,5 +1,5 @@
 
-<div *ngFor="let category of products | groupBy: 'categoryId'; let first = first">
+<div *ngFor="let category of rows | groupBy: 'categoryId'; let first = first">
     <!-- <div class="sectionTitle">{{ category?.key | entityName: 'category' | async }}
       <div class="sectionTag">{{ category.value.length }} products</div>
     </div> -->
@@ -8,16 +8,17 @@
 				<product-selectable-card-app
 					[statuses]="statuses"
           [selected]="selection.get(product.id)"
-          (productSelect)="productSelect.emit($event)"
-          (productUnselect)="productUnselect.emit($event)"
-          (productFavorited)="productFavorited.emit($event)"
-          (productUnfavorited)="productUnfavorited.emit($event)"
-          (productDelete)="productDelete.emit($event)"
-          (productOpen)="productOpen.emit($event)"
+          (productSelect)="select.emit($event)"
+          (productUnselect)="unselect.emit($event)"
+          (productFavorited)="favorited.emit($event)"
+          (productUnfavorited)="unfavorited.emit($event)"
+          (productDelete)="delete.emit($event)"
+          (productOpen)="open.emit($event)"
           (addToProject)="addToProject.emit($event)"
           (productVote)="productVote.emit($event)"
 					[product]="product"
-					(update)="update.emit($event)"></product-selectable-card-app>
+					(update)="update.emit($event)">
+				</product-selectable-card-app>
       </ng-container>
     </div>
   </div>

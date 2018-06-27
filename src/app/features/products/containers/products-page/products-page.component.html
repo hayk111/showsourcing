@@ -21,18 +21,18 @@
 		*ngIf="view === 'list'"
 		class="list-view"
 		[selection]="selected$ | async"
-		[products]="products"
+		[rows]="products"
 		[pending]="pending"
 		(previewClick)="openPreview($event)"
-		(productSelect)="onItemSelected($event)"
-		(productUnselect)="onItemUnselected($event)"
-		(productSelectAll)="selectAll($event)"
-		(productUnselectAll)="resetSelection()"
-		(productOpen)="goToDetails($event)"
-		(productFavorited)="onItemFavorited($event)"
-		(productUnfavorited)="onItemUnfavorited($event)"
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		(open)="goToDetails($event)"
+		(favorited)="onItemFavorited($event)"
+		(unfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
-		(sortColumn)="sort($event)"
+		(sort)="sort($event)"
 		(openAddToProjectDialog)="openAddToProjectDialog($event)"
 		(openExportDialog)="openExportDialog($event)"
 		(openRequestFeedbackDialog)="openRequestFeedbackDialog($event)"
@@ -41,15 +41,14 @@
 	<product-card-view-app
 		class="card-view"
 		*ngIf="view === 'card'"
-		[products]="products"
+		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
-		(productSelect)="onItemSelected($event)"
-		(productUnselect)="onItemUnselected($event)"
-		(addToProject)="onItemAddToProject($event)"
-		(productFavorited)="onItemFavorited($event)"
-		(productUnfavorited)="onItemUnfavorited($event)"
-		(productOpen)="goToDetails($event)"></product-card-view-app>
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(favorited)="onItemFavorited($event)"
+		(unfavorited)="onItemUnfavorited($event)"
+		(open)="goToDetails($event)"></product-card-view-app>
 
 	<selection-bar-app
 		*ngIf="(selected$ | async).size > 0"
@@ -67,16 +66,16 @@
 
 	<product-filters-app
 		(clickOutside)="closeFilterPanel()"
-		(filter)="filterProducts($event)"
+		(filter)="filter($event)"
 		*ngIf="filterPanelOpen">
 	</product-filters-app>
+
 	<product-preview-app
-		[product]="previewProduct"
+		[product]="previewed"
 		(clickOutside)="closePreview()"
 		*ngIf="previewOpen">
 
 	</product-preview-app>
-
 
 </ng-container>
 
