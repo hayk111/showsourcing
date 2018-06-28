@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DEFAULT_IMG } from '~utils';
+import { DEFAULT_IMG, ImageUrls } from '~utils';
 
 /**
  * Pipes that adds the begining url for images,
@@ -10,23 +10,19 @@ import { DEFAULT_IMG } from '~utils';
 	name: 'image'
 })
 export class ImagePipe implements PipeTransform {
-	private static readonly urls = {
-		s: 'https://files.showsourcing.com/s',
-		m: 'https://files.showsourcing.com/m',
-		l: 'https://files.showsourcing.com/l',
-		xl: 'https://files.showsourcing.com/xl'
-	};
-
 	/**
 	 * @param value : Entity object (like supplier) or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
 	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl')): string {
 		if (typeof value === 'object') {
-			// if it's not an array we return the fileName bcuz it's prolly the file object
+			// if it's not an array we return the fileName bcuz it's the image object
+			// or data if it's a pending image
 			if (!Array.isArray(value.images)) {
 				if (value.fileName) {
-					return `${ImagePipe.urls[size]}/${value.fileName}`;
+					return `${ImageUrls[size]}/${value.fileName}`;
+				} else if (value.data) {
+					return value.data;
 				} else {
 					return DEFAULT_IMG;
 				}
@@ -36,10 +32,10 @@ export class ImagePipe implements PipeTransform {
 				return DEFAULT_IMG;
 			}
 			// if it's an array we return the first image
-			return `${ImagePipe.urls[size]}/${value.images[0].fileName}`;
+			return `${ImageUrls[size]}/${value.images[0].fileName}`;
 		} else {
 			// if it's a string we return the url made of with that string
-			return `${ImagePipe.urls[size]}/${value}`;
+			return `${ImageUrls[size]}/${value}`;
 		}
 	}
 

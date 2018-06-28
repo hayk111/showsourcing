@@ -4,7 +4,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { SelectParams } from '~global-services/_global/select-params';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
@@ -48,7 +48,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected linkName?: string,
-		protected createDlgName?: DialogName) {
+		protected createDlgComponent?: new (...args: any[]) => any) {
 		super();
 	}
 
@@ -139,7 +139,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 			});
 		};
 		const text = `Delete ${items.length} item${items.length > 1 ? 's' : ''} ?`;
-		this.dlgSrv.open(DialogName.CONFIRM, { text, callback });
+		this.dlgSrv.open(this.createDlgComponent, { text, callback });
 	}
 
 	/** Open details page of a product */
@@ -173,7 +173,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	}
 
 	openCreateDlg() {
-		this.dlgSrv.open(this.createDlgName);
+		this.dlgSrv.open(this.createDlgComponent);
 	}
 
 }

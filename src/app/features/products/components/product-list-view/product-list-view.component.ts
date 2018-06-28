@@ -1,20 +1,17 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
 	Input,
+	OnInit,
 	Output,
+	Renderer2,
 	TemplateRef,
 	ViewChild,
-	ViewChildren,
-	OnInit,
-	ElementRef,
-	Renderer2
 } from '@angular/core';
-import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { Product } from '~models';
-import { Sort } from '~shared/table/components/sort.interface';
+import { ColumnDescriptor, TableDescriptor } from '~shared/table';
+import { ListViewComponent } from '~shared/list-page/list-view.component';
 
 
 @Component({
@@ -23,29 +20,11 @@ import { Sort } from '~shared/table/components/sort.interface';
 	styleUrls: ['./product-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListViewComponent implements OnInit {
-	// events
-	@Output() productSelect = new EventEmitter<string>();
-	@Output() productUnselect = new EventEmitter<string>();
-	@Output() productSelectAll = new EventEmitter<string[]>();
-	@Output() productUnselectAll = new EventEmitter<null>();
-	@Output() productOpen = new EventEmitter<string>();
-	@Output() productFavorited = new EventEmitter<string>();
-	@Output() productUnfavorited = new EventEmitter<string>();
-	@Output() previewClick = new EventEmitter<Product>();
-	@Output() bottomReached = new EventEmitter<null>();
-	@Output() sortColumn = new EventEmitter<Sort>();
+export class ProductListViewComponent extends ListViewComponent<Product> implements OnInit {
+
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
-	@Output() delete = new EventEmitter<Product>();
-
-	// inputs
-	@Input() products: Array<Product>;
-	// currently selected items
-	@Input() selection: Map<string, boolean>;
-	@Input() pending: boolean;
-
 	// templates
 	// load cells template for custom table
 	@ViewChild('main') mainTemplate: TemplateRef<any>;
@@ -76,7 +55,9 @@ export class ProductListViewComponent implements OnInit {
 		{ title: 'Actions', type: 'action', sortable: false, width: 140 }, */
 	];
 
-	constructor(private renderer: Renderer2) { }
+	constructor(private renderer: Renderer2) {
+		super();
+	}
 
 	ngOnInit() {
 		this.linkColumns();
@@ -85,10 +66,6 @@ export class ProductListViewComponent implements OnInit {
 	// links a column in the descriptor with one of the template defined in product-list-view.component.html
 	linkColumns() {
 		this.descriptor.forEach(column => this.linkColumnWithTemplate(column));
-	}
-
-	onSort(sort: Sort) {
-		this.sortColumn.emit(sort);
 	}
 
 	// we add a template for the correct column type

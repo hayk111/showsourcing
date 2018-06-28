@@ -6,12 +6,9 @@ import { of } from 'rxjs';
 import { takeUntil, first, map, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { Project } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogService } from '~shared/dialog';
 import { MemberService } from '~features/settings/services/member.service';
 
-
-const addDlg = () => addDialog(NewTeamDlgComponent, DialogName.NEW_TEAM);
 
 @Component({
 	selector: 'new-team-dlgapp',
@@ -21,7 +18,6 @@ const addDlg = () => addDialog(NewTeamDlgComponent, DialogName.NEW_TEAM);
 })
 export class NewTeamDlgComponent extends AutoUnsub {
 	form: FormGroup;
-	dlgName = DialogName.NEW_TEAM;
 	pending = false;
 
 	constructor(private dlgSrv: DialogService, private memberSrv: MemberService,
@@ -43,5 +39,3 @@ export class NewTeamDlgComponent extends AutoUnsub {
 	}
 
 }
-
-addDlg();

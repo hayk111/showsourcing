@@ -5,9 +5,6 @@ import { DateToTimeAgoPipe } from './pipes/date-ago.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
 import { InfiniScrollDirective } from './directives';
 import { ConstPipe } from './pipes/const.pipe';
-import { ImagePipe } from '~shared/utils/pipes/image.pipe';
-import { LogoPipe } from './pipes/logo.pipe';
-
 @NgModule({
 	imports: [
 		CommonModule
@@ -18,8 +15,6 @@ import { LogoPipe } from './pipes/logo.pipe';
 		UserNamePipe,
 		InfiniScrollDirective,
 		ConstPipe,
-		ImagePipe,
-		LogoPipe
 	],
 	exports: [
 		ClickOutsideDirective,
@@ -27,8 +22,6 @@ import { LogoPipe } from './pipes/logo.pipe';
 		UserNamePipe,
 		InfiniScrollDirective,
 		ConstPipe,
-		ImagePipe,
-		LogoPipe
 	]
 })
 export class UtilsModule { }

@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Contact, Product, Supplier } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 
 @Component({
 	selector: 'supplier-details-app',
@@ -62,9 +63,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	openContactDlg(contact?: Contact) {
 		if (contact)
-			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: false, contact, supplierId: this.supplierId });
+			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: false, contact, supplierId: this.supplierId });
 		// new contact dlg
 		else
-			this.dlgSrv.open(DialogName.CONTACT, { isNewContact: true, supplierId: this.supplierId });
+			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: true, supplierId: this.supplierId });
 	}
 }

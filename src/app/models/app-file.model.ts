@@ -1,10 +1,10 @@
 import { BaseEntity } from './_entity.model';
 
-export class AppFile extends BaseEntity<AppFileConfig> {
+export class AppFile extends BaseEntity<undefined> {
 	fileName: string;
 	deleted: boolean;
-}
-
-export interface AppFileConfig {
-	fileName: string;
+	constructor(extension: string) {
+		super();
+		this.fileName = this.id + '.' + extension;
+	}
 }

@@ -1,16 +1,16 @@
 
 <custom-table-app
 	class="list"
-	[rows]="products"
+	[rows]="rows"
 	[descriptor]="descriptor"
 	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="onSort($event)"
-	(selectOne)="productSelect.emit($event)"
-	(unselectOne)="productUnselect.emit($event)"
-	(selectAll)="productSelectAll.emit($event)"
-	(unselectAll)="productUnselectAll.emit()"
+	(sort)=" sort.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
 	[pending]="pending">
 </custom-table-app>
 
@@ -109,8 +109,8 @@
 	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"
-			(favorited)="productFavorited.emit(row.id)"
-			(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
+			(favorited)="favorited.emit(row.id)"
+			(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 	</div>
 </ng-template>
 
@@ -130,7 +130,7 @@
 </ng-template>
 
 <ng-template #action let-row="row">
-	<div class="pointer" (click)="productOpen.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
+	<div class="pointer" (click)="open.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
 </ng-template>
 
 <!-- for some mindblowing reason if this is put last, the viewchild for default template is undefined-->

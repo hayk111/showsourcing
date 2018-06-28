@@ -6,7 +6,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
 import { StoreKey } from '~utils/store/store';
 import { Router } from '@angular/router';
-import { DialogService, DialogName } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'project', DialogName.NEW_PROJECT);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'project', ProjectsPageComponent);
 	}
 
 }

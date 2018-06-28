@@ -1,23 +1,20 @@
 <top-panel-app
 	buttonName="create product"
 	title="My Products"
-	subtitle="['My Products', 'details']"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasSearch]="false">
+	subtitle="['My Products', 'details']">
 </top-panel-app>
 
 <ng-container *ngIf="product$ | async as product">
   <div class="flex content">
     <div class="left">
 
-      <div class="carouselCard">
-				<rating-heart-app class="flexCenter"
-					[favorite]="product.favorite"
-					(favorited)="onFavorited()"
-					(unfavorited)="onUnfavorited()"></rating-heart-app>
-        <carousel-card-app [hasFooter]="false" [images]="product.images"></carousel-card-app>
-			</div>
+			<carousel-card-app
+				[hasFooter]="false"
+				[images]="product.images"
+				(imgUploaded)="onNewImages($event)"
+				[favorite]="product.favorite"
+				(favorited)="onFavorited()"
+				(unfavorited)="onUnfavorited()"></carousel-card-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 

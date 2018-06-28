@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { StoreKey } from '~utils/store/store';
 
 import { SelectionService } from '~shared/list-page/selection.service';
+import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'supplier', DialogName.NEW_SUPPLIER);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'supplier', NewSupplierDlgComponent);
 	}
 
 }

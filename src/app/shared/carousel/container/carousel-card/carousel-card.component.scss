@@ -1,6 +1,7 @@
 :host {
 	width: 100%;
 	display: block;
+	position: relative;
 }
 
 
@@ -10,4 +11,16 @@
 	img {
 		margin-bottom: var(--spacing-s);
 	}
+}
+
+rating-heart-app {
+	position: absolute;
+	top: var(--spacing-s);
+	left: var(--spacing-l);
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	z-index: 2;
+	transform: scale(1.5);
 }

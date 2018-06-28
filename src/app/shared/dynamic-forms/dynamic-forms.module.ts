@@ -17,10 +17,13 @@ import { FileModule } from '~shared/file';
 import {
 	EditablePriceMatrixComponent
 } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
-import { EditablePriceMatrixRowComponent } from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
+import {
+	EditablePriceMatrixRowComponent
+} from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
 import { EditablePriceComponent } from './components/dynamic-editable-text/inputs/editable-price/editable-price.component';
 import { EditablePackagingComponent } from './components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
 import { EditableSelectorComponent } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
+import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({
 	imports: [
@@ -33,11 +36,21 @@ import { EditableSelectorComponent } from './components/dynamic-editable-text/in
 		SelectorsModule,
 		TagModule, // for displaying multiple values
 		UtilsModule,
-		FileModule
+		FileModule,
+		ImageModule
 	],
 	providers: [DynamicFormsService],
-	declarations: [DynamicFormComponent, DynamicFormFieldComponent, DynamicEditableTextComponent,
-		FieldCellComponent, EditablePriceMatrixComponent, EditablePriceMatrixRowComponent, EditablePriceComponent, EditablePackagingComponent, EditableSelectorComponent],
+	declarations: [
+		DynamicFormComponent,
+		DynamicFormFieldComponent,
+		DynamicEditableTextComponent,
+		FieldCellComponent,
+		EditablePriceMatrixComponent,
+		EditablePriceMatrixRowComponent,
+		EditablePriceComponent,
+		EditablePackagingComponent,
+		EditableSelectorComponent
+	],
 	exports: [DynamicFormComponent]
 })
 export class DynamicFormsModule {

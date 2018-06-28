@@ -1,18 +1,118 @@
-<table-app [rows]="projects">
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	class="z-2"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)">
+
+
+	<!-- name -->
 	<ng-template
-		columnApp=""
-		let-row="row">
-		<input type="checkbox" [checked]="selection.get(row.id)" (change)="onSelect($event, row.id)" />
+		columnApp="ProjectName"
+		sortWith="name"
+		let-row="row"
+		width="280">
+		<div class="project">
+			<a class="name capitalize ellipsis" [routerLink]="['/project', 'details', row.id]">
+				<img src="row.logoImage | logo:'supplier'" class="icon"/>
+				<span>{{ row.name }}</span>
+			</a>
+		</div>
 	</ng-template>
+
+	<!-- owned -->
 	<ng-template
-		columnApp="Name"
-		let-row="row">
-		<span>{{ row.name }}</span>
+		class="capitalize"
+		columnApp="Owned"
+		let-row="row"
+		sortWith="createdBy.lastName"
+		width="140">
+		{{ row.createdBy.firstName }}
 	</ng-template>
+
+	<!-- last updated date -->
+	<ng-template
+		class="capitalize"
+		columnApp="Last Upadted Date"
+		let-row="row"
+		sortWith="lastUpdatedDate"
+		width="140">
+		<span>
+			{{ row.lastUpdatedDate }}
+		</span>
+	</ng-template>
+
+	<!-- product count -->
+	<ng-template
+		class="capitalize"
+		columnApp="Product Count"
+		let-row="row"
+		sortWith="productCount"
+		width="140">
+		<span>
+			{{ row.productCount }}
+		</span>
+	</ng-template>
+
+	<!-- date -->
+	<ng-template
+		columnApp="Created"
+		let-row="row"
+		sortWith="creationDate"
+		width="140"
+		[grows]="false"
+		[sortOrder]="'DESC'">
+		{{ row?.creationDate | date: 'MMMM y' }}
+	</ng-template>
+
+	<!-- user -->
 	<ng-template
 		columnApp="Owner"
-		let-row="row">
+		let-row="row"
+		sortWith="createdBy.name"
+		width="140"
+		[grows]="false">
+		<div class="flex flexCenter">
+			<user-picture-app
+				[size]="18"
+				[border]="true"
+				[url]="row.createdBy?.preferences?.profilePicture?.urls?.url_60x45">
+			</user-picture-app>
+			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
+		</div>
+	</ng-template>
+
+	<!-- info -->
+	<ng-template
+		columnApp="Info"
+		class="capitalize"
+		let-row="row"
+		sortWith="productCount"
+		width="140"
+		[grows]="false">
+		{{ row.productCount }} Products
+	</ng-template>
+
+	<!-- Action -->
+	<ng-template
+		columnApp="Fav"
+		let-row="row"
+		sortWith="rating"
+		width="60"
+		[grows]="false">
+		<div class="flexCenter">
+			<rating-heart-app
+				[favorite]="row?.favorite"
+				(favorited)="favorited.emit(row.id)"
+				(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
+		</div>
 
 	</ng-template>
 
 </table-app>
+

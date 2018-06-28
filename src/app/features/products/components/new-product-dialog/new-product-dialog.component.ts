@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { UserService } from '../../../../global-services';
-import { DialogName } from '~shared/dialog';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogService } from '~shared/dialog';
 
-import { Product } from '~models';
-
-// adding the dialog to the dialog list so we can map DialogName to this NewProductDialogComponent
-const addDlg = () => addDialog(NewProductDialogComponent, DialogName.NEW_PRODUCT);
 
 @Component({
 	selector: 'new-product-dialog-app',
@@ -19,10 +13,10 @@ const addDlg = () => addDialog(NewProductDialogComponent, DialogName.NEW_PRODUCT
 })
 export class NewProductDialogComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
-	name = DialogName.NEW_PRODUCT;
+	component = NewProductDialogComponent;
 	pending: boolean;
 
-	constructor(private fb: FormBuilder, private userSrv: UserService) {
+	constructor(private fb: FormBuilder, private dlgSrv: DialogService) {
 		super();
 		this.form = this.fb.group(
 			{
@@ -46,7 +40,10 @@ export class NewProductDialogComponent extends AutoUnsub implements OnInit {
 		// }
 	}
 
+	onClose() {
+		this.dlgSrv.close();
+	}
+
 }
 
-addDlg();
 

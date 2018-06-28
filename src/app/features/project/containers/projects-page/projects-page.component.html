@@ -3,13 +3,19 @@
 	[title]="'My Projects'"
 	[buttonName]="'Add Project'"
 	[subtitles]="['Projects', 'all']"
+	[hasAction]="false">
+</top-panel-app>
+
+<sub-panel-app
+	buttonName="Add Project"
 	[hasSwitch]="false"
 	[hasFilter]="false"
+	[buttonIcon]="false"
 	(buttonClick)="openCreateDlg()">
-	</top-panel-app>
+</sub-panel-app>
 
-	<ng-container *ngIf="items$ | async as projects">
-		<projects-list-view-app [projects]="projects"></projects-list-view-app>
+<ng-container *ngIf="items$ | async as projects">
+	<projects-list-view-app [rows]="projects"></projects-list-view-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

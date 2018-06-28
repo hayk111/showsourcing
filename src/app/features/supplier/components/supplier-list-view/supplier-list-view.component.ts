@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { Supplier } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
+import { ListViewComponent } from '~shared/list-page/list-view.component';
 
 @Component({
 	selector: 'supplier-list-view-app',
@@ -9,23 +10,10 @@ import { Sort } from '~shared/table/components/sort.interface';
 	styleUrls: ['./supplier-list-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierListViewComponent {
-	@Input() selection: Map<string, boolean>;
-	@Input() suppliers: Array<Supplier>;
-	@Input() pending = true;
-	@Output() supplierSelect = new EventEmitter<string>();
-	@Output() supplierUnselect = new EventEmitter<string>();
-	@Output() supplierSelectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() supplierUnselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() supplierOpen = new EventEmitter<string>();
-	@Output() supplierFavorited = new EventEmitter<string>();
-	@Output() supplierUnfavorited = new EventEmitter<string>();
-	@Output() bottomReached = new EventEmitter<string>();
-	@Output() sort = new EventEmitter<Sort>();
-	// used to sort by tags or by categories
-	arrayComparator = (a, b) => (b || []).length - (a || []).length;
+export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
-	constructor() { }
-
+	constructor() {
+		super();
+	}
 
 }

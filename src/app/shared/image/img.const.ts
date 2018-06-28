@@ -1,4 +1,10 @@
-
+// image base url
+export class ImageUrls {
+	static readonly s = 'https://files.showsourcing.com/s';
+	static readonly m = 'https://files.showsourcing.com/m';
+	static readonly l = 'https://files.showsourcing.com/l';
+	static readonly xl = 'https://files.showsourcing.com/xl';
+}
 // when no image is displayed
 export const DEFAULT_IMG = 'assets/img/image.svg';
 
