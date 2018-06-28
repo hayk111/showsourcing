@@ -13,4 +13,8 @@ export class ProjectDetailsComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	openCreateDlg() {
+
+	}
+
 }

@@ -15,6 +15,7 @@ import { ProjectDetailsComponent } from './containers/project-details/project-de
 import { ProjectProductsComponent } from './containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
 import { RatingModule } from '~shared/rating';
+import { SidenavModule } from '~shared/sidenav/sidenav.module';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { RatingModule } from '~shared/rating';
 		TopPanelModule, // bread crumb at the top left
 		SelectionBarModule, // used for when selecting an item
 		TableModule, // used in list
-		RatingModule
+		RatingModule,
+		SidenavModule
 	],
 	declarations: [
 		ProjectsPageComponent,
