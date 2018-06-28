@@ -3,18 +3,29 @@ export class EntityMetadata {
 	readonly singular: string;
 	readonly plural: string;
 	readonly url: string;
+	readonly createDestUrl: string;
+	readonly editDestUrl: string;
 
-	constructor(singular: string, plural: string, url?: string) {
+	constructor(
+		singular: string,
+		plural: string,
+		url?: string,
+		createDestUrl?: string,
+		editDestUrl?: string) {
+
 		this.singular = singular;
 		this.plural = plural;
 		this.url = url || singular;
+		this.createDestUrl = createDestUrl || singular;
+		this.editDestUrl = editDestUrl || singular;
 	}
 
 }
 
 // Must be added alphabetically
 export class ERM {
-	static readonly CATEGORY = new EntityMetadata('category', 'categories');
+	// Discuss if we should implement it like this the destination url
+	static readonly CATEGORY = new EntityMetadata('category', 'categories', '/settings/data/category');
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts');
 	static readonly CURRENCY = new EntityMetadata('currency', 'currencies');

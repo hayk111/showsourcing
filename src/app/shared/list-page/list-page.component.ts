@@ -50,10 +50,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected entityMetadata?: EntityMetadata,
-		protected createDlgComponent?: new (...args: any[]) => any,
-		// Destonation Url is where you want to be redirected when doing something this is just a test
-		// Discuss later
-		protected destinationUrl?: string) {
+		protected createDlgComponent?: new (...args: any[]) => any) {
 		super();
 	}
 
@@ -186,7 +183,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	}
 
 	openCreateDlg() {
-		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, destinationUrl: this.destinationUrl });
+		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata });
 	}
 
 }

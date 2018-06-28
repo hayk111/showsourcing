@@ -19,7 +19,6 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 	group: FormGroup;
 	pending = false;
 	type: EntityMetadata;
-	destinationUrl: string;
 	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(
@@ -45,9 +44,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;
-					// TODO here we have to declare a way to go to a certain destination
-					// modifying the list-page constructor
-					this.router.navigate([this.destinationUrl]);
+					this.router.navigate([this.type.createDestUrl]);
 					this.dlgSrv.close();
 				});
 		}

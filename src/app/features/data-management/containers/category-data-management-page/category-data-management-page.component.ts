@@ -22,7 +22,7 @@ export class CategoryDataManagementPageComponent extends ListPageComponent<Categ
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY, CreationDialogComponent, 'settings/data/category');
+		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY, CreationDialogComponent);
 	}
 	renameEntity(categoryId: string) {
 
