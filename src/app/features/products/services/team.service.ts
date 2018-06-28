@@ -9,6 +9,11 @@ import { ApolloClient } from '~shared/apollo';
 import { uuid } from '~utils';
 import { PER_PAGE } from '~utils/constants';
 
+
+// TODO: thierry this feature should be refactored to adapt to the new architecture
+// So one feature service that call global services. It's way simpler that way.
+// also comments should have two stars else they don't go into the doc and are
+// not self aligned by visual studio code
 @Injectable()
 export class TeamService {
 	private membersQuery$: QueryRef<string, any>;
@@ -51,7 +56,7 @@ export class TeamService {
         Add vote requests for users.
      */
 	addProductFeedbacksForTeamUsers(users: User[], productIds: string[]): Observable<any[]> {
-		// TODO: batching should be used here to execute mutations
+		// TODO: thiery from thiery: batching should be used here to execute mutations
 		return forkJoin(users.map(user => this.addProductFeedbacksTeamUser(user, productIds)));
 	}
 

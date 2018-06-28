@@ -53,7 +53,7 @@ import { ProductNavigationComponent } from './components/product-navigation/prod
 		DialogModule,
 		StatusModule,
 		FileModule, // file card used
-		RatingModule, // TODO check if used
+		RatingModule,
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
 		FiltersModule.forChild(), // used for filters

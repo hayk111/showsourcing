@@ -27,7 +27,6 @@ export class Log {
 			console.warn(...args);
 	}
 
-	// TODO implement group and table
 	group(...args) {
 		if (this.level >= LogLevel.DEBUG) {
 			console.groupCollapsed(...args);

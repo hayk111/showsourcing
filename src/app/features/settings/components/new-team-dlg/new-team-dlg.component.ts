@@ -10,8 +10,10 @@ import { DialogService } from '~shared/dialog';
 import { MemberService } from '~features/settings/services/member.service';
 
 
+// TODO thiery, I believe Michael did a global creation dialog that takes a service
+// Seems like it can work instead of this so we could remove this component.
 @Component({
-	selector: 'new-team-dlgapp',
+	selector: 'new-team-dlg-app',
 	templateUrl: './new-team-dlg.component.html',
 	styleUrls: ['./new-team-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
