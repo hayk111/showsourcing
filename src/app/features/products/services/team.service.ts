@@ -10,19 +10,20 @@ import { uuid } from '~utils';
 import { PER_PAGE } from '~utils/constants';
 
 
-// TODO: thierry this feature should be refactored to adapt to the new architecture
+// TODO: thierry the method of this service should go in the feature service
+//  to adapt to the new architecture
 // So one feature service that call global services. It's way simpler that way.
 // also comments should have two stars else they don't go into the doc and are
-// not self aligned by visual studio code
+// not self aligned by visual studio code. I replaced the first comment to show you.
+// Also we don't use the qref anymore.
 @Injectable()
 export class TeamService {
 	private membersQuery$: QueryRef<string, any>;
 
 	constructor(private apollo: ApolloClient) { }
 
-	/*
-		Initialize the underlying query ref for the list of
-		team members.
+	/**
+	 * Initialize the underlying query ref for the list of team members.
 	 */
 	private initializeTeamMembersQuery() {
 		if (!this.membersQuery$) {
