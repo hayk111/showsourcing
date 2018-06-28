@@ -63,9 +63,11 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 			);
 		this.selected$ = this.selectionSrv.selection$;
 		// since filter is a behavior subject it will trigger instantly
-		this.filterSrv.query$.pipe(
-			takeUntil(this._destroy$),
-		).subscribe(query => this.filter(query));
+		if (this.filterSrv) {
+			this.filterSrv.query$.pipe(
+				takeUntil(this._destroy$),
+			).subscribe(query => this.filter(query));
+		}
 	}
 
 	private onLoaded() {
@@ -141,6 +143,11 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		};
 		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
 		this.dlgSrv.open(this.createDlgComponent, { text, callback });
+	}
+
+	/** Deletes an specific item */
+	deleteItem(itemId: string) {
+
 	}
 
 	/** Open details page of a product */

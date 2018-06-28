@@ -8,9 +8,9 @@
 	buttonName="New {{readProperty.singular}}"
 	[hasFilter]="false"
 	[buttonIcon]="false"
-	(buttonClick)="openNewEntityDialog()">
+	(buttonClick)="openCreateDlg()"
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
-		<button class="button warn" (click)="removeSelected()"> Delete Selected </button>
+		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
 		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
@@ -20,11 +20,11 @@
 	[items]="items$ | async"
 	[selected]="selected$ | async"
 	[pending]="pending"
-	(sort)="onSort($event)"
-	(entitySelect)="selectItem($event)"
-	(entityUnselect)="unselectItem($event)"
+	(sort)="sort($event)"
+	(entitySelect)="onItemSelected($event)"
+	(entityUnselect)="onItemUnselected($event)"
 	(entitySelectAll)="selectAll($event)"
 	(entityUnselectAll)="resetSelection()"
-	(addEntity)="addEntity($event)"
-	(removeEntity)="removeEntity($event)">
+	(renameEntity)="renameEntity($event)"
+	(deleteEntity)="deleteItem($event)">
 </data-management-table-app>

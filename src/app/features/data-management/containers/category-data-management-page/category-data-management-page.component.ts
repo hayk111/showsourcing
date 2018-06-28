@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { Category, ERM } from '~models';
-import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
+import { Category, ERM } from '~models';
+import { DialogName, DialogService } from '~shared/dialog';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { DialogService, DialogName } from '~shared/dialog';
 
 @Component({
 	selector: 'app-category-data-management-page',
@@ -22,6 +22,9 @@ export class CategoryDataManagementPageComponent extends ListPageComponent<Categ
 		protected dlgSrv: DialogService
 	) {
 		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY, DialogName.NEW_CATEGORY);
+	}
+	renameEntity(categoryId: string) {
+
 	}
 
 }

@@ -22,11 +22,11 @@ export const routes: Routes = [
 			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
 			{
 				path: 'data', component: DataManagementPageComponent, children: [
-					{ path: '', redirectTo: ERM.CATEGORY.plural, pathMatch: 'full' },
-					{ path: ERM.CATEGORY.plural, component: CategoryDataManagementPageComponent },
-					{ path: ERM.SUPPLIER_TAG.plural, component: TagDataManagementPageComponent },
-					{ path: ERM.PRODUCT_TAG.plural, component: TagDataManagementPageComponent },
-					{ path: ERM.EVENT.plural, component: EventDataManagementPageComponent }
+					{ path: '', redirectTo: ERM.CATEGORY.url, pathMatch: 'full' },
+					{ path: ERM.CATEGORY.url, component: CategoryDataManagementPageComponent },
+					{ path: ERM.SUPPLIER_TAG.url, component: TagDataManagementPageComponent },
+					{ path: ERM.PRODUCT_TAG.url, component: TagDataManagementPageComponent },
+					{ path: ERM.EVENT.url, component: EventDataManagementPageComponent }
 				]
 			},
 		]

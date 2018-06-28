@@ -24,4 +24,8 @@ export class TagDataManagementPageComponent extends ListPageComponent<Tag, TagMa
 		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.TAG, DialogName.NEW_TAG);
 	}
 
+	renameEntity(tagId: string) {
+
+	}
+
 }
