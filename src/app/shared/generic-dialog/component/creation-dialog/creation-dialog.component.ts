@@ -2,53 +2,52 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@a
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { Supplier } from '~models/supplier.model';
+import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
+import { CrudDialogService } from '~shared/generic-dialog/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 
-
-
 @Component({
-	selector: 'new-supplier-dlg-app',
-	templateUrl: './new-supplier-dlg.component.html',
-	styleUrls: ['./new-supplier-dlg.component.scss'],
+	selector: 'app-creation-dialog',
+	templateUrl: './creation-dialog.component.html',
+	styleUrls: ['./creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewSupplierDlgComponent extends AutoUnsub implements AfterViewInit {
+export class CreationDialogComponent extends AutoUnsub implements AfterViewInit {
+
 	group: FormGroup;
 	pending = false;
+	type: EntityMetadata;
+	destinationUrl: string;
 	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(
 		private fb: FormBuilder,
-		private featureSrv: SupplierFeatureService,
 		private router: Router,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private creatingDlgService: CrudDialogService) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
 		});
 	}
 
-	// focus input after view init
 	ngAfterViewInit() {
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
 	}
 
-
 	onSubmit() {
 		if (this.group.valid) {
 			this.pending = true;
-			const name = this.group.value.name;
-			const supplier = new Supplier({ name });
-			this.featureSrv.create(supplier)
+			this.creatingDlgService.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;
-					this.router.navigate(['/supplier', 'details', id]);
+					// TODO here we have to declare a way to go to a certain destination
+					// modifying the list-page constructor
+					this.router.navigate([this.destinationUrl]);
 					this.dlgSrv.close();
 				});
 		}

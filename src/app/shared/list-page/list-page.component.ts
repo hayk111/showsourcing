@@ -4,12 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
-import { ERM, ReadProperty } from '~models';
+import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 /**
  * Class used by components that need to display a list
@@ -48,8 +49,11 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
-		protected readProperty?: ReadProperty,
-		protected createDlgComponent?: new (...args: any[]) => any) {
+		protected entityMetadata?: EntityMetadata,
+		protected createDlgComponent?: new (...args: any[]) => any,
+		// Destonation Url is where you want to be redirected when doing something this is just a test
+		// Discuss later
+		protected destinationUrl?: string) {
 		super();
 	}
 
@@ -152,7 +156,8 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
-		this.router.navigate([this.readProperty.singular, ERM.DETAIL.plural, itemId]);
+		// TODO change to destination URL
+		this.router.navigate([this.entityMetadata.singular, ERM.DETAIL.plural, itemId]);
 	}
 
 	/** When a product heart is clicked to favorite it */
@@ -181,7 +186,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	}
 
 	openCreateDlg() {
-		this.dlgSrv.open(this.createDlgComponent);
+		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, destinationUrl: this.destinationUrl });
 	}
 
 }

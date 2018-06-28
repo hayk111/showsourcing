@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { ERM, Event } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -21,7 +22,7 @@ export class EventDataManagementPageComponent extends ListPageComponent<Event, E
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.EVENT, DialogName.NEW_EVENT);
+		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.EVENT, CreationDialogComponent);
 	}
 
 	renameEntity(eventId: string) {

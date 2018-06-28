@@ -1,14 +1,16 @@
 <top-panel-app
 	[title]="'ShowSourcing'"
-	[subtitles]="['Settings', 'Data Cleansing']">
+	[subtitles]="['Settings', 'Data Cleansing']"
+	[hasAction]="false">
 </top-panel-app>
 
 <sub-panel-app
-	[title]="readProperty.plural"
-	buttonName="New {{readProperty.singular}}"
+	[title]="entityMetadata.plural"
+	buttonName="New {{entityMetadata.singular}}"
 	[hasFilter]="false"
+	[hasSwitch]="false"
 	[buttonIcon]="false"
-	(buttonClick)="openCreateDlg()"
+	(buttonClick)="openCreateDlg()">
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
 		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>

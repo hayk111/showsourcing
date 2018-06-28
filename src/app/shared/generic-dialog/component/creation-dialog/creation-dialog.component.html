@@ -1,0 +1,25 @@
+
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending ">
+			New {{type.singular}}
+		</dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app> {{type.singular}} Name </label-app>
+				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
+				<label-app> Please provide the {{type.singular}} name to create </label-app>
+			</form-field-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+			<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<!-- when pending -->
+		<spinner-app *ngIf="pending"></spinner-app>
+
+</dialog-app>
+

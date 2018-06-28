@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
 import { Category, ERM } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -21,7 +22,7 @@ export class CategoryDataManagementPageComponent extends ListPageComponent<Categ
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY, DialogName.NEW_CATEGORY);
+		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY, CreationDialogComponent, 'settings/data/category');
 	}
 	renameEntity(categoryId: string) {
 

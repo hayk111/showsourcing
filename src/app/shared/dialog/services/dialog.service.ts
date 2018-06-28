@@ -12,6 +12,8 @@ export class DialogService {
 	toClose$ = this._toClose$.asObservable();
 
 	open(component: new (...args: any[]) => any, props?: Object) {
+		console.log(component);
+		console.log(props);
 		this._toOpen$.next({ component, props });
 	}
 

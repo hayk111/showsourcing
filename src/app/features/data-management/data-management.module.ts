@@ -13,6 +13,7 @@ import { TagDataManagementPageComponent } from './containers/tag-data-management
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
+import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
 
 @NgModule({
 	imports: [
@@ -25,6 +26,7 @@ import { TagManagememtService } from '~features/data-management/services/tag-man
 	declarations: [DataManagementPageComponent, DataMananagementTableComponent, CategoryDataManagementPageComponent,
 		EventDataManagementPageComponent,
 		TagDataManagementPageComponent],
+	entryComponents: [CreationDialogComponent, EditionDialogComponent, MergeDialogComponent],
 	exports: [DataManagementPageComponent],
 	providers: [
 		CategoryManagementService,

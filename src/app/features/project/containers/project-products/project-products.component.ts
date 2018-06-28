@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductService } from '~global-services';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -29,7 +29,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
-		super(router, srv, selectionSrv, filterSrv, dlgSrv, 'product', NewProductDialogComponent);
+		super(router, srv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
 	ngOnInit() {
