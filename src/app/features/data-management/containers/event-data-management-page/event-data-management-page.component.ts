@@ -6,13 +6,18 @@ import { DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~shared/generic-dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { FilterService } from '~shared/filters';
+import { StoreKey } from '~utils';
 
 @Component({
-	selector: 'app-event-data-management-page',
+	selector: 'event-data-management-page-app',
 	templateUrl: './../data-management-page/data-management-page.component.html',
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [SelectionService]
+	providers: [
+		FilterService,
+		{ provide: 'storeKey', useValue: StoreKey.FILTER_EVENT },
+		SelectionService]
 })
 export class EventDataManagementPageComponent extends ListPageComponent<Event, EventManagementService> {
 

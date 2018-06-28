@@ -50,7 +50,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected entityMetadata?: EntityMetadata,
-		protected createDlgComponent?: new (...args: any[]) => any) {
+		protected createDlgComponent?: new (...args: any[]) => any, ) {
 		super();
 	}
 

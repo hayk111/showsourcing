@@ -8,6 +8,7 @@ import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER, NewSupplierDlgComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER, CreationDialogComponent);
 	}
 
 }

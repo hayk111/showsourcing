@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'app-creation-dialog',
+	selector: 'creation-dialog-app',
 	templateUrl: './creation-dialog.component.html',
 	styleUrls: ['./creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -40,11 +40,13 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 	onSubmit() {
 		if (this.group.valid) {
 			this.pending = true;
+			console.log(this.type);
 			this.creatingDlgService.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
+					console.log(id);
 					this.pending = false;
-					this.router.navigate([this.type.createDestUrl]);
+					if (this.type.createDestUrl) this.router.navigate([this.type.createDestUrl, id]);
 					this.dlgSrv.close();
 				});
 		}

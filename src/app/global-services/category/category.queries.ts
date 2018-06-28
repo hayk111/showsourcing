@@ -22,13 +22,13 @@ export class CategoryQueries implements GlobalQuery {
 	list = gql`
 	subscription categories($query: String!) {
 		categories(query: $query) {
-			id,
-	    name,
-	    createdBy {
-	      id,
-	      firstName,
-	      lastName
-	    }
+		id,
+		name,
+			createdBy {
+				id,
+				firstName,
+				lastName
+			}
 		}
 	}
 `;
