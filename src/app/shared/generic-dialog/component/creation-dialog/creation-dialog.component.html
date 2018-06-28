@@ -11,8 +11,8 @@
 				<label-app> {{type.singular}} Name </label-app>
 				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
+			<label-app> Please provide the {{type.singular}} name to create </label-app>
 		</form>
-		<label-app> Please provide the {{type.singular}} name to create </label-app>
 
 		<dialog-footer-app *ngIf="!pending ">
 			<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>

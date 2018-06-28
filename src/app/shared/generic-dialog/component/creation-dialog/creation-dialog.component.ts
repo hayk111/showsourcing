@@ -18,7 +18,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 
 	group: FormGroup;
 	pending = false;
-	type: EntityMetadata;
+	@Input() type: EntityMetadata;
 	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(
