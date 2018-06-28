@@ -49,7 +49,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
-		protected entityMetadata?: EntityMetadata,
+		public entityMetadata?: EntityMetadata,
 		protected createDlgComponent?: new (...args: any[]) => any, ) {
 		super();
 	}
