@@ -50,7 +50,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		public entityMetadata?: EntityMetadata,
-		protected createDlgComponent?: new (...args: any[]) => any, ) {
+		protected createDlgComponent?: new (...args: any[]) => any) {
 		super();
 	}
 
@@ -182,8 +182,8 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		this.view = v;
 	}
 
-	openCreateDlg() {
-		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata });
+	openCreateDlg(shouldRedirect: boolean = false) {
+		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
 	}
 
 }

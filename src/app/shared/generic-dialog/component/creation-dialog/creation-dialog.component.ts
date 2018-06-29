@@ -19,6 +19,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 	group: FormGroup;
 	pending = false;
 	@Input() type: EntityMetadata;
+	@Input() shouldRedirect = false;
 	@ViewChild(InputDirective) input: InputDirective;
 
 	constructor(
@@ -40,13 +41,14 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 	onSubmit() {
 		if (this.group.valid) {
 			this.pending = true;
-			console.log(this.type);
 			this.creatingDlgService.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
-					console.log(id);
 					this.pending = false;
-					if (this.type.createDestUrl) this.router.navigate([this.type.createDestUrl, id]);
+					if (this.shouldRedirect) {
+						if (this.type.createDestUrl) this.router.navigate([this.type.createDestUrl, id.id]);
+						else throw Error(`no destination url`);
+					}
 					this.dlgSrv.close();
 				});
 		}

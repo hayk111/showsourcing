@@ -14,6 +14,7 @@ import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 @Component({
 	selector: 'products-page-app',
@@ -34,7 +35,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, ProductsPageComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, CreationDialogComponent);
 	}
 
 	/**

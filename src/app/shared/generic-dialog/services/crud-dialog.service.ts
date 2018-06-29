@@ -41,22 +41,19 @@ export class CrudDialogService {
 				const project = new Project({ name });
 				return this.projectSrv.create(project);
 			default:
-				throwError(`this create dialog is not implemented yet`);
-				break;
+				throw Error(`this create dialog is not implemented yet`);
 		}
 	}
 	edit(item: FormGroup, type: EntityMetadata) {
 		switch (type) {
 			default:
-				throwError(`this edit dialog is not implemented yet`);
-				break;
+				throw Error(`this edit dialog is not implemented yet`);
 		}
 	}
 	merge(item: FormGroup, type: EntityMetadata) {
 		switch (type) {
 			default:
-				throwError(`this merge dialog is not implemented yet`);
-				break;
+				throw Error(`this merge dialog is not implemented yet`);
 		}
 	}
 }

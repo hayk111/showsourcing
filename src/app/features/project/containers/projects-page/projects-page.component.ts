@@ -7,6 +7,7 @@ import { FilterService } from '~shared/filters';
 import { StoreKey } from '~utils/store/store';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PROJECT, ProjectsPageComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PROJECT, CreationDialogComponent);
 	}
 
 }
