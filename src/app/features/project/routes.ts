@@ -13,7 +13,8 @@ export const routes: Array<Route> = [
 		component: ProjectDetailsComponent,
 		children: [
 			{ path: 'products', component: ProjectProductsComponent },
-			{ path: 'settings', component: ProjectSettingsComponent }
+			{ path: 'settings', component: ProjectSettingsComponent },
+			{ path: '', redirectTo: 'products', pathMatch: 'full' }
 		],
 	}
 ];

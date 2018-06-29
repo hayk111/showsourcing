@@ -17,7 +17,9 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 @Component({
 	selector: 'product-list-view-app',
 	templateUrl: './product-list-view.component.html',
-	styleUrls: ['./product-list-view.component.scss'],
+	styleUrls: [
+		'../../../../../app/theming/specific/list.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListViewComponent extends ListViewComponent<Product> implements OnInit {

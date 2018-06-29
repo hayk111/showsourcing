@@ -9,13 +9,13 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import { ProjectsListViewComponent } from './components';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
-import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
 import { ProjectsPageComponent } from './containers';
 import { ProjectDetailsComponent } from './containers/project-details/project-details.component';
 import { ProjectProductsComponent } from './containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
 import { RatingModule } from '~shared/rating';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
+import { BadgeModule } from '~shared/badge/badge.module';
 
 @NgModule({
 	imports: [
@@ -28,6 +28,7 @@ import { SidenavModule } from '~shared/sidenav/sidenav.module';
 		TableModule, // used in list
 		RatingModule,
 		SidenavModule,
+		BadgeModule
 	],
 	declarations: [
 		ProjectsPageComponent,
@@ -36,7 +37,6 @@ import { SidenavModule } from '~shared/sidenav/sidenav.module';
 		ProjectDetailsComponent,
 		ProjectProductsComponent,
 		ProjectSettingsComponent,
-		ProjectProductListComponent
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [ProjectFeatureService],

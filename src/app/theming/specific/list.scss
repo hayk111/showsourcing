@@ -1,6 +1,6 @@
+// this is intended to be imported by components that need it
+
 :host {
-	/* display: block;
-	margin: 0 var(--spacing-edge); */
 	display: flex;
 	margin: var(--spacing-l) var(--spacing-l);
 	height: calc(100% - 223px);
@@ -15,6 +15,7 @@ table-app {
 	margin-right: auto;
 }
 
+
 .imgCtnr {
 	border-radius: var(--border-radius);
 	width: 32px;
@@ -22,16 +23,27 @@ table-app {
 	overflow: hidden;
 	img.mini {
 		height: 100%;
-		z-index: 100;
+		z-index: 10;
 	}
 }
 
+// TODO: thiery can you please make a component of this ?
+// I suppose this can also be simplified as for now the imgCtnr has
+// overflow hidden, whereas if we put the height and with dirrectly on the image
+// and remove the ctnr we could have this component:
+// I'd personally call it zoomer
+// <host position relative>
+//   <ng-content select="zoomer-trigger-app">
+//   <div position absolute>
+//     <ng-content select="zoomer-tooltip-app">
+
+// This is way cleaner if we need to add it to other list and such. (We will need to)
 .imgOverViewCtnrWrapper {
 	display: none;
 }
 
 .imgOverViewCtnr {
-	z-index: 1000;
+	z-index: 10;
 	width: 128px;
 	height: 128px;
 	position: absolute;
@@ -78,9 +90,9 @@ user-picture-app {
 	text-align: right;
 }
 
+// TODO: thierry Michael made a general class for this kind of button because it appears in a lot of places
 .preview {
 	display: none;
-
 	&>button {
 		color: var(--color-primary-dark);
 		border: solid 1px var(--color-txt-secondary);
@@ -93,7 +105,7 @@ user-picture-app {
 }
 
 // TODO: thiery we should use contextual menu on all list page
-// to not have to do this everywhere
+// to not have to do this everywhere. The context menu should be stylized accordingly.
 menu {
 	left: 10px;
 	border: solid 1px var(--color-bg-third);
