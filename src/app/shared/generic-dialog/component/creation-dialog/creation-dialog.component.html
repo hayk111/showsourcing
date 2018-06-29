@@ -9,12 +9,13 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app> {{type.singular}} Name </label-app>
-				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="text" (input)="test()" formControlName="name" placeholder="New {{type.singular}}" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
 			<label-app> Please provide the {{type.singular}} name to create </label-app>
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
+			<div *ngIf="group.get('name').errors"> REKT ALREADY EXISTS</div>
 			<input [disabled]="!group.valid" type="submit" value="create" (click)="onSubmit()"/>
 		</dialog-footer-app>
 

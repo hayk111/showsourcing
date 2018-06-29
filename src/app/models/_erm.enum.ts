@@ -21,8 +21,8 @@ export class EntityMetadata {
 }
 
 // Must be added alphabetically
+
 export class ERM {
-	// Discuss if we should implement it like this the destination url
 	static readonly CATEGORY = new EntityMetadata('category', 'categories');
 	static readonly COMMENT = new EntityMetadata('comment', 'comments');
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts');

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { DialogService } from '~shared/dialog';
 import { CrudDialogService } from '~shared/generic-dialog/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { ValidateNameNotEqual } from '~shared/inputs/validators/async-name.validator';
+import { ERMService } from '~global-services/_global/erm.service';
 
 @Component({
 	selector: 'creation-dialog-app',
@@ -14,7 +16,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreationDialogComponent extends AutoUnsub implements AfterViewInit {
+export class CreationDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
 	group: FormGroup;
 	pending = false;
@@ -26,16 +28,24 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 		private fb: FormBuilder,
 		private router: Router,
 		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService) {
+		private crudDlgSrv: CrudDialogService,
+		private ermService: ERMService) {
 		super();
+	}
+
+	ngOnInit() {
 		this.group = this.fb.group({
-			name: ['', Validators.required],
+			name: ['', Validators.required, ValidateNameNotEqual.equalValidator(this.ermService, this.type)]
 		});
 	}
 
 	ngAfterViewInit() {
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
+	}
+
+	test() {
+		console.log(this.group);
 	}
 
 	onSubmit() {

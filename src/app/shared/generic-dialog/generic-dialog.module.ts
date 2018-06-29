@@ -7,6 +7,7 @@ import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 import { TagModule } from '~shared/tag';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ERMService } from '~global-services/_global/erm.service';
 
 @NgModule({
 	imports: [
@@ -15,5 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 		SharedModule
 	],
 	declarations: [CreationDialogComponent, EditionDialogComponent, MergeDialogComponent]
+
 })
 export class GenericDialogModule { }
