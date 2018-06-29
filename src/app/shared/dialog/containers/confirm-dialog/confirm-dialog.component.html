@@ -4,7 +4,7 @@
 			{{ text.length > 0 ? text : 'Are you sure you want to delete this?'}}
 	</dialog-header-app>
 
-	<dialog-footer-app *ngIf="!pending ">
+	<dialog-footer-app>
 			<button class="warn z-h" (click)="onConfirm()"> Delete </button>
 	</dialog-footer-app>
 
