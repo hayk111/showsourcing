@@ -67,7 +67,10 @@ export class FilterService {
 
 	/** upsert filter, will delete previous filter with the same type */
 	upsertFilter(inserted: Filter) {
-		throw Error('not implemented yet');
+		const newFilters = this.currentFilters
+			.filter(f => f.type !== inserted.type);
+		newFilters.push(inserted);
+		this._filters$.next(newFilters);
 	}
 
 	private getInitialMap() {
@@ -88,8 +91,14 @@ export class FilterService {
 	}
 
 	private getFieldCondition(type, value) {
-		return (type !== 'favorite' && type !== 'archived') ?
-			`${type}.id == "${value}"` :
-			`${type} == ${value}`;
+		switch (type) {
+			case 'search':
+				return `name CONTAINS "${value}"`;
+			case 'favorite':
+			case 'archived':
+				return `${type} == ${value}`;
+			default:
+				return `${type}.id == "${value}"`;
+		}
 	}
 }

@@ -33,4 +33,8 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER);
 	}
 
+	search(str) {
+		super.search(str);
+	}
+
 }

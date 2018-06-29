@@ -63,8 +63,14 @@ export class SupplierQueries implements GlobalQuery {
 		}`;
 
 	list = gql`
-		subscription suppliers {
-			suppliers(take: 30) {
+		subscription suppliers(
+			$take: Int,
+			$skip: Int,
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean
+		) {
+			suppliers(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 				id,
 				name,
 				description,

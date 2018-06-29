@@ -14,7 +14,7 @@ export enum FilterType {
 export interface Filter {
 	type: FilterType;
 	value: any;
-	raw: string;
+	raw?: string;
 }
 // the key here is actually a FilterGroupName
 export interface FilterGroup {

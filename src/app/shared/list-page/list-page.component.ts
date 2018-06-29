@@ -6,7 +6,7 @@ import { GlobalServiceInterface } from '~global-services/_global/global.service'
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, FilterType } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
@@ -79,6 +79,10 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 			this.pending = false;
 			this.initialLoading = false;
 		}
+	}
+
+	search(str: string) {
+		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
 	}
 
 	/** Loads more items when we reach the bottom of the page */

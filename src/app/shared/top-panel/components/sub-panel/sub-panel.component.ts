@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -38,13 +38,12 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// search event
 	@Output() search = new EventEmitter<string>();
 
-
 	private search$ = new Subject<string>();
 
 	ngOnInit() {
 		this.search$.pipe(
 			debounceTime(400),
-			takeUntil(this._destroy$)
+			takeUntil(this._destroy$),
 		).subscribe(str => this.search.emit(str));
 	}
 

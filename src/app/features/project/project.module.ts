@@ -16,6 +16,7 @@ import { ProjectSettingsComponent } from './containers/project-settings/project-
 import { RatingModule } from '~shared/rating';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { BadgeModule } from '~shared/badge/badge.module';
+import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { BadgeModule } from '~shared/badge/badge.module';
 		ProjectDetailsComponent,
 		ProjectProductsComponent,
 		ProjectSettingsComponent,
+		ProjectProductListComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [ProjectFeatureService],

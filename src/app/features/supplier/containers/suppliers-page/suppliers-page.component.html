@@ -13,7 +13,8 @@
 	[buttonName]="'Add Supplier'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
-	(buttonClick)="openCreateDlg(true)">
+	(buttonClick)="openCreateDlg(true)"
+	(search)="search($event)">
 </sub-panel-app>
 
 <ng-container *ngIf="items$ | async as suppliers">
