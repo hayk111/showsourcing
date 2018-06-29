@@ -21,7 +21,8 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListViewComponent extends ListViewComponent<Product> implements OnInit {
-
+	// TODO, I think we will have to rethink the descriptor / custom table thing
+	// because this won't really work with the type of descriptor Antoine is envisaging
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
@@ -49,10 +50,7 @@ export class ProductListViewComponent extends ListViewComponent<Product> impleme
 		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50 },
 		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15 },
 		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85 },
-		/* { title: 'Rating', type: 'feedback', sortBy: 'score', width: 50 }, */
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120 }
-		/* { title: 'Created by', type: 'user', sortBy: 'createdBy.id', width: 140 },
-		{ title: 'Actions', type: 'action', sortable: false, width: 140 }, */
 	];
 
 	constructor(private renderer: Renderer2) {

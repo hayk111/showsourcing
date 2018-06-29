@@ -1,29 +1,19 @@
 
-<div class="flex">
 		<div class="left">
-			<sidenav-app menuIcon="folder" menuTitle="Project"
-				(expanded)="onMenuExpanded($event)">
-					<sidenav-item-app link="/settings/profile">
-						<icon-app fontSet="svg" name="profile"></icon-app>
-						<span sidenavLabelApp>Profile</span>
-					</sidenav-item-app>
-					<sidenav-item-app link="/settings/workflows">
-							<icon-app fontSet="svg" name="workflow"></icon-app>
-							<span sidenavLabelApp>Workflows</span>
-					</sidenav-item-app>
-					<sidenav-item-app link="/settings/fields">
-							<icon-app fontSet="svg" name="fields"></icon-app>
-							<span sidenavLabelApp>Fields Setup</span>
-					</sidenav-item-app>
-					<sidenav-item-app link="/settings/team/members">
-							<icon-app fontSet="svg" name="team"></icon-app>
-							<span sidenavLabelApp>Team Members</span>
-					</sidenav-item-app>
-					<sidenav-item-app link="/settings/data">
-							<icon-app fontSet="svg" name="data-cleansing"></icon-app>
-							<span sidenavLabelApp>Data Cleansing</span>
-					</sidenav-item-app>
-				</sidenav-app>
+			<sidenav-app menuIcon="shape" menuTitle="Project">
+				<sidenav-item-app link="../workflow">
+						<icon-app fontSet="svg" name="workflow"></icon-app>
+						<span sidenavLabelApp>workflow</span>
+				</sidenav-item-app>
+				<sidenav-item-app link="../product-list">
+						<icon-app fontSet="svg" name="list"></icon-app>
+						<span sidenavLabelApp>Product List</span>
+				</sidenav-item-app>
+				<sidenav-item-app link="../settings">
+						<icon-app fontSet="fa" name="search"></icon-app>
+						<span sidenavLabelApp>Settings</span>
+				</sidenav-item-app>
+			</sidenav-app>
 		</div>
 		<div class="right">
 			<top-panel-app
@@ -43,5 +33,3 @@
 
 			<router-outlet></router-outlet>
 		</div>
-	</div>
-
