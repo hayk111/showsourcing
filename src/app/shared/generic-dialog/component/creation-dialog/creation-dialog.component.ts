@@ -26,7 +26,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 		private fb: FormBuilder,
 		private router: Router,
 		private dlgSrv: DialogService,
-		private creatingDlgService: CrudDialogService) {
+		private crudDlgSrv: CrudDialogService) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
@@ -41,12 +41,12 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit 
 	onSubmit() {
 		if (this.group.valid) {
 			this.pending = true;
-			this.creatingDlgService.create(this.group, this.type)
+			this.crudDlgSrv.create(this.group, this.type)
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(id => {
 					this.pending = false;
 					if (this.shouldRedirect) {
-						if (this.type.createDestUrl) this.router.navigate([this.type.createDestUrl, id.id]);
+						if (this.type.destUrl) this.router.navigate([this.type.destUrl, id.id]);
 						else throw Error(`no destination url`);
 					}
 					this.dlgSrv.close();

@@ -1,20 +1,21 @@
+import { Category } from '~models/category.model';
 
 export class EntityMetadata {
 	readonly singular: string;
 	readonly plural: string;
 	readonly url: string;
-	readonly createDestUrl: string;
+	readonly destUrl: string;
 
 	constructor(
 		singular: string,
 		plural: string,
 		url?: string,
-		createDestUrl?: string) {
+		destUrl?: string) {
 
 		this.singular = singular;
 		this.plural = plural;
 		this.url = url || singular;
-		this.createDestUrl = createDestUrl || '';
+		this.destUrl = destUrl || '';
 	}
 
 }

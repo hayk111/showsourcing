@@ -1,3 +1,25 @@
-<p>
-  edition-dialog works!
-</p>
+
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending ">
+			Change Name
+		</dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app> {{type.singular}} Name </label-app>
+				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}} name" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+			<label-app> Please provide the new {{type.singular}} name for {{entity.name || ''}}</label-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+			<input [disabled]="!group.valid" type="submit" value="rename" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<!-- when pending -->
+		<spinner-app *ngIf="pending"></spinner-app>
+
+</dialog-app>
+

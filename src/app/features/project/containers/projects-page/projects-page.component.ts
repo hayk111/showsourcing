@@ -29,7 +29,7 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PROJECT, CreationDialogComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PROJECT);
 	}
 
 }

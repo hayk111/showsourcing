@@ -27,11 +27,7 @@ export class EventDataManagementPageComponent extends ListPageComponent<Event, E
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.EVENT, CreationDialogComponent);
-	}
-
-	renameEntity(eventId: string) {
-
+		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.EVENT);
 	}
 
 }

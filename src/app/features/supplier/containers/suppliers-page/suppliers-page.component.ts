@@ -30,7 +30,7 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER, CreationDialogComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER);
 	}
 
 }

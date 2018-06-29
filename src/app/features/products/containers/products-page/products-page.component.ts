@@ -35,7 +35,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, CreationDialogComponent);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT);
 	}
 
 	/**

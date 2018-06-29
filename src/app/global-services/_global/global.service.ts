@@ -144,7 +144,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			typename: this.typeName
 		});
 	}
-
 }
 
 
