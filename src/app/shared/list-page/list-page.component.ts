@@ -10,7 +10,8 @@ import { FilterService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent, EditionDialogComponent } from '~shared/generic-dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 /**
  * Class used by components that need to display a list
@@ -42,6 +43,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	private currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new BehaviorSubject<SelectParams>(this.currentParams);
 	private selectParams$ = this._selectParams$.asObservable();
+	protected editDlgComponent: new (...args: any[]) => any;
 
 	constructor(
 		protected router: Router,
@@ -50,8 +52,9 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		public entityMetadata?: EntityMetadata,
-		protected createDlgComponent?: new (...args: any[]) => any) {
+		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
+		this.editDlgComponent = EditionDialogComponent;
 	}
 
 	/** Connects products for the page */
@@ -143,7 +146,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 			});
 		};
 		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
-		this.dlgSrv.open(this.createDlgComponent, { text, callback });
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Deletes an specific item */
@@ -154,7 +157,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
 		// TODO change to destination URL
-		this.router.navigate([this.entityMetadata.singular, ERM.DETAIL.plural, itemId]);
+		this.router.navigate([this.entityMetadata.singular, 'details', itemId]);
 	}
 
 	/** When a product heart is clicked to favorite it */
@@ -182,8 +185,14 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		this.view = v;
 	}
 
+	/** opens the create dialog, redirects you to entityMetadata.createUrl if its truem otherwise it will stay on the same page */
 	openCreateDlg(shouldRedirect: boolean = false) {
 		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
+	}
+
+	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
+	openEditDlg(entity: T) {
+		this.dlgSrv.open(this.editDlgComponent, { type: this.entityMetadata, entity: entity });
 	}
 
 }

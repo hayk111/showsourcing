@@ -28,8 +28,7 @@ export class CrudDialogService {
 				const tag = new Tag({ name });
 				return this.tagSrv.create(tag);
 			case ERM.EVENT:
-				const alias = item.value.name;
-				const event = new Event({ alias });
+				const event = new Event({ name });
 				return this.eventSrv.create(event);
 			case ERM.SUPPLIER:
 				const supplier = new Supplier({ name });
@@ -44,8 +43,23 @@ export class CrudDialogService {
 				throw Error(`this create dialog is not implemented yet`);
 		}
 	}
-	edit(item: FormGroup, type: EntityMetadata) {
+
+	edit(item: FormGroup, type: EntityMetadata, entity: any) {
+		// care with event name
+		entity.name = item.value.name;
 		switch (type) {
+			case ERM.CATEGORY:
+				return this.categorySrv.update(entity);
+			case ERM.TAG:
+				return this.tagSrv.update(entity);
+			case ERM.EVENT:
+				return this.eventSrv.update(entity);
+			case ERM.SUPPLIER:
+				return this.supplierSrv.update(entity);
+			case ERM.PRODUCT:
+				return this.productSrv.update(entity);
+			case ERM.PROJECT:
+				return this.projectSrv.update(entity);
 			default:
 				throw Error(`this edit dialog is not implemented yet`);
 		}
@@ -56,4 +70,5 @@ export class CrudDialogService {
 				throw Error(`this merge dialog is not implemented yet`);
 		}
 	}
+
 }

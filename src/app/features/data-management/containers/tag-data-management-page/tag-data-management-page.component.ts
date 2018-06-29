@@ -27,11 +27,7 @@ export class TagDataManagementPageComponent extends ListPageComponent<Tag, TagMa
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.TAG, CreationDialogComponent);
-	}
-
-	renameEntity(tagId: string) {
-
+		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.TAG);
 	}
 
 }
