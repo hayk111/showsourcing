@@ -1,6 +1,7 @@
 
 <top-panel-app
 	[title]="'My Suppliers'"
+	[subtitles]="['Suppliers', 'all']"
 	[hasAction]="false">
 </top-panel-app>
 
@@ -9,7 +10,10 @@
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[buttonIcon]="false"
-	(buttonClick)="openCreateDlg()">
+	[buttonName]="'Add Supplier'"
+	[hasSwitch]="true"
+	[hasFilter]="true"
+	(buttonClick)="openCreateDlg(true)">
 </sub-panel-app>
 
 <ng-container *ngIf="items$ | async as suppliers">

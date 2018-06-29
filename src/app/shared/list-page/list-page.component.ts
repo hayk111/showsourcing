@@ -1,14 +1,16 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { SelectionService } from '~shared/list-page/selection.service';
+import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
+import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
-import { GlobalServiceInterface } from '~global-services/_global/global.service';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 /**
  * Class used by components that need to display a list
@@ -47,7 +49,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
-		protected linkName?: string,
+		public entityMetadata?: EntityMetadata,
 		protected createDlgComponent?: new (...args: any[]) => any) {
 		super();
 	}
@@ -62,9 +64,11 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 			);
 		this.selected$ = this.selectionSrv.selection$;
 		// since filter is a behavior subject it will trigger instantly
-		this.filterSrv.query$.pipe(
-			takeUntil(this._destroy$),
-		).subscribe(query => this.filter(query));
+		if (this.filterSrv) {
+			this.filterSrv.query$.pipe(
+				takeUntil(this._destroy$),
+			).subscribe(query => this.filter(query));
+		}
 	}
 
 	private onLoaded() {
@@ -138,13 +142,19 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} item${items.length > 1 ? 's' : ''} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
 		this.dlgSrv.open(this.createDlgComponent, { text, callback });
+	}
+
+	/** Deletes an specific item */
+	deleteItem(itemId: string) {
+
 	}
 
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
-		this.router.navigate([this.linkName, 'details', itemId]);
+		// TODO change to destination URL
+		this.router.navigate([this.entityMetadata.singular, ERM.DETAIL.plural, itemId]);
 	}
 
 	/** When a product heart is clicked to favorite it */
@@ -172,8 +182,8 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		this.view = v;
 	}
 
-	openCreateDlg() {
-		this.dlgSrv.open(this.createDlgComponent);
+	openCreateDlg(shouldRedirect: boolean = false) {
+		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
 	}
 
 }

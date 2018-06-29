@@ -12,5 +12,8 @@ export enum StoreKey {
 	FILTER_PRODUCT = 'filters/product',
 	FILTER_SUPPLIER = 'filters/suppliers',
 	FILTER_PROJECT = 'filters/projects',
-	FILTER_PROJECT_PRODUCTS = 'filters/project/products'
+	FILTER_PROJECT_PRODUCTS = 'filters/project/products',
+	FILTER_CATEGORY = 'filters/categories',
+	FILTER_EVENT = 'filters/events',
+	FILTER_TAG = 'filters/tags'
 }

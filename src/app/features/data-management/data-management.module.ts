@@ -1,17 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EditableFieldModule } from '~shared/editable-field/editable-field.module';
-import { InputsModule } from '~shared/inputs/inputs.module';
+import { SharedModule } from '~shared/shared.module';
+import { SideMenuModule } from '~shared/side-menu/side-menu.module';
+import { TableModule } from '~shared/table';
+import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 
 import { DataMananagementTableComponent } from './components';
 import { DataManagementPageComponent } from './containers';
-import { routes } from './routes';
-import { SharedModule } from '~shared/shared.module';
-import { SideMenuModule } from '~shared/side-menu/side-menu.module';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { TableModule } from '~shared/table';
-import { CategoryService } from '~features/data-management/services/category.service';
+import { CategoryDataManagementPageComponent } from './containers/category-data-management-page/category-data-management-page.component';
+import { EventDataManagementPageComponent } from './containers/event-data-management-page/event-data-management-page.component';
+import { TagDataManagementPageComponent } from './containers/tag-data-management-page/tag-data-management-page.component';
+import { EventManagementService } from '~features/data-management/services/event-management.service';
+import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
+import { TagManagememtService } from '~features/data-management/services/tag-management.service';
+import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
 
 @NgModule({
 	imports: [
@@ -21,10 +23,15 @@ import { CategoryService } from '~features/data-management/services/category.ser
 		RouterModule.forChild([]),
 		SideMenuModule
 	],
-	declarations: [DataManagementPageComponent, DataMananagementTableComponent],
+	declarations: [DataManagementPageComponent, DataMananagementTableComponent, CategoryDataManagementPageComponent,
+		EventDataManagementPageComponent,
+		TagDataManagementPageComponent],
+	entryComponents: [CreationDialogComponent, EditionDialogComponent, MergeDialogComponent],
 	exports: [DataManagementPageComponent],
 	providers: [
-		CategoryService
+		CategoryManagementService,
+		TagManagememtService,
+		EventManagementService
 	]
 })
 export class DataManagementModule {

@@ -11,7 +11,7 @@
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[buttonIcon]="false"
-	(buttonClick)="openCreateDlg()">
+	(buttonClick)="openCreateDlg(true)">
 </sub-panel-app>
 
 <ng-container *ngIf="items$ | async as projects">

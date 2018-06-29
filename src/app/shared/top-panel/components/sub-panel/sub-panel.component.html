@@ -9,7 +9,7 @@
 				<input #inp inputApp type="text" (input)="onSearch(inp.value)"/>
 			</search-bar-app>
 
-			<span class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
+			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
 
 			<icon-app
 				*ngIf="hasFilter"

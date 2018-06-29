@@ -10,8 +10,6 @@ import { getMainDefinition } from 'apollo-utilities';
 import { environment } from 'environments/environment';
 import { filter, map, take } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
-import { UserService } from '../../../global-services/user/user.service';
-import { TeamService } from '../../../global-services/team/team.service';
 import { Team, User } from '~models';
 import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import {
@@ -22,6 +20,8 @@ import {
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { log } from '~utils';
+import { UserService } from '~global-services/user/user.service';
+import { TeamService } from '~global-services/team/team.service';
 
 
 /**
