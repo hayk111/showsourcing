@@ -25,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 import { DialogModule } from '~shared/dialog';
+import { GenericDialogModule } from '~shared/generic-dialog/';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { TestPageModule } from '~features/test-page/test-page.module';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
@@ -54,6 +55,7 @@ declare let module: any;
 		// shared
 		NotificationsModule.forRoot(),
 		DialogModule,
+		GenericDialogModule,
 		// modules features
 		SuppliersModule.forRoot(),
 		ProjectModule.forRoot(),

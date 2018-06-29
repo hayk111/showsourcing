@@ -10,7 +10,6 @@ import { Sort } from '~shared/table/components/sort.interface';
 })
 export class DataMananagementTableComponent {
 	@Input() items: Array<any>;
-	@Input() categories: Array<Category>;
 	@Input() selected: Map<string, boolean>;
 	@Input() pending = true;
 	@Output() entitySelect = new EventEmitter<string>();
@@ -19,6 +18,8 @@ export class DataMananagementTableComponent {
 	@Output() entityUnselectAll = new EventEmitter<null>();
 	@Output() entityOpen = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
+	@Output() renameEntity = new EventEmitter<any>();
+	@Output() removeEntity = new EventEmitter<any>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	idEntityHovered: string;
 
@@ -26,11 +27,4 @@ export class DataMananagementTableComponent {
 		this.idEntityHovered = id;
 	}
 
-	addEntity(id: string) {
-		// eventemitteraddition
-	}
-
-	removeEntity(id: string) {
-		// eventemitterdeletion
-	}
 }

@@ -1,41 +1,32 @@
 <top-panel-app
 	[title]="'ShowSourcing'"
 	[subtitles]="['Settings', 'Data Cleansing']"
-	[hasActions]="false">
+	[hasAction]="false">
 </top-panel-app>
 
 <sub-panel-app
-	[title]="'Categories'"
-	buttonName="New Category"
+	[title]="entityMetadata.plural"
+	buttonName="New {{entityMetadata.singular}}"
 	[hasFilter]="false"
-	[buttonIcon]="false">
+	[hasSwitch]="false"
+	[buttonIcon]="false"
+	(buttonClick)="openCreateDlg()">
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
-		<button class="button warn"> Delete Selected </button>
+		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
 		<span class="marginSmall"></span>
-		<button> Merge Selected </button>
+		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
 </sub-panel-app>
 
-<!-- new-selection-bar
-	[title]="'Categories'"
-	[hasSearch]="true"
-	[isSelected]="isSelected" if selected display the following buttons -> import | delete selected | merge selected | new category
-													 else display the button -> new category
-	[selected]="selected"
-	(merge)="mergeSelection()"
-	(delete)="deleteSelection()"
-	(import)="importSelection()"
-	(create)="createCategory()"
--->
-
 <data-management-table-app
-	[categories]="categories$ | async"
 	[items]="items$ | async"
 	[selected]="selected$ | async"
 	[pending]="pending"
-	(sort)="onSort($event)"
-	(entitySelect)="selectItem($event)"
-	(entityUnselect)="unselectItem($event)"
+	(sort)="sort($event)"
+	(entitySelect)="onItemSelected($event)"
+	(entityUnselect)="onItemUnselected($event)"
 	(entitySelectAll)="selectAll($event)"
-	(entityUnselectAll)="resetSelection()">
+	(entityUnselectAll)="resetSelection()"
+	(renameEntity)="renameEntity($event)"
+	(deleteEntity)="deleteItem($event)">
 </data-management-table-app>

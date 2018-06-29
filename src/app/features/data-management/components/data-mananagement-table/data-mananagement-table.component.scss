@@ -1,7 +1,11 @@
 :host {
 	display: flex;
 	margin: var(--spacing-l) var(--spacing-l);
-	height: calc(100% - 228px);
+	height: calc(100% - 223px);
+}
+
+button.button {
+	width: 120px;
 }
 
 table-app {
