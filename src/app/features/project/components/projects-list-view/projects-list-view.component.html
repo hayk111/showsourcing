@@ -23,14 +23,15 @@
 
 	<!-- name -->
 	<ng-template
-		columnApp="ProjectName"
-		sortWith="name"
+		columnApp="Project Name"
+		sortBy="name"
 		let-row="row"
-		width="300">
+		width="300"
+		sortBy="name">
 		<div class="project">
 			<a class="flexVAlign txtBtn capitalize ellipsis"
 				[routerLink]="['/project', 'details', row.id]">
-				<img [src]="row.logoImage | logo:'supplier'" class="icon"/>
+				<img [src]="row.logoImage | logo:'project'" class="icon"/>
 				<b class="semi">{{ row.name }}</b>
 			</a>
 		</div>
@@ -41,7 +42,7 @@
 		class="capitalize"
 		columnApp="Owner"
 		let-row="row"
-		sortWith="createdBy.lastName"
+		sortBy="createdBy.lastName"
 		width="200"
 		[grows]="false">
 		{{ row.createdBy.firstName }} {{ row.createdBy.lastName }}
@@ -52,7 +53,7 @@
 		class="capitalize"
 		columnApp="Last Upadted Date"
 		let-row="row"
-		sortWith="lastUpdatedDate"
+		sortBy="lastUpdatedDate"
 		width="200"
 		[grows]="false">
 		<span>
@@ -65,7 +66,7 @@
 		class="capitalize"
 		columnApp="Product Count"
 		let-row="row"
-		sortWith="productCount"
+		sortBy="productCount"
 		[grows]="false"
 		width="200">
 		<span>
@@ -77,7 +78,7 @@
 	<ng-template
 		columnApp="Created on"
 		let-row="row"
-		sortWith="creationDate"
+		sortBy="creationDate"
 		width="200"
 		[grows]="false"
 		[sortOrder]="'DESC'">
@@ -88,7 +89,6 @@
 	<ng-template
 		columnApp="Description"
 		let-row="row"
-		sortWith="description"
 		width="240">
 		{{ row?.description }}
 	</ng-template>

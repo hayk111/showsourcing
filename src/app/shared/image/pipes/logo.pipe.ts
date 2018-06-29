@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DEFAULT_EVENT_ICON, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_IMG } from '~utils/constants';
+import {
+	DEFAULT_EVENT_ICON, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON,
+	DEFAULT_IMG, DEFAULT_PROJECT_ICON
+} from '~utils/constants';
 
 /** different than image pipe as it will display a logo based on the transformed value
  * which can be any entity type
@@ -45,9 +48,9 @@ export class LogoPipe implements PipeTransform {
 				return DEFAULT_USER_ICON;
 			case 'event':
 				return DEFAULT_EVENT_ICON;
-			// return nothing for those as there is no default icon and we won't display anything
+			case 'project':
+				return DEFAULT_PROJECT_ICON;
 			case 'category':
-				return '';
 			case 'supplierType':
 				return '';
 			default:

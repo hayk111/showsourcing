@@ -27,7 +27,7 @@ import { SidenavModule } from '~shared/sidenav/sidenav.module';
 		SelectionBarModule, // used for when selecting an item
 		TableModule, // used in list
 		RatingModule,
-		SidenavModule
+		SidenavModule,
 	],
 	declarations: [
 		ProjectsPageComponent,

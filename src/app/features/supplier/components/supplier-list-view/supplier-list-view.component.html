@@ -14,7 +14,7 @@
 	<!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
-		sortWith="name"
+		sortBy="name"
 		let-row="row"
 		width="280">
 		<div class="supplier">
@@ -30,7 +30,7 @@
 		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
-		sortWith="categories"
+		sortBy="categories"
 		width="280">
 		<span *ngFor="let cat of row.categories; let last = last">
 			{{ cat.name }} {{ last ? '' : ', '}}
@@ -42,7 +42,7 @@
 		class="capitalize"
 		columnApp="Country"
 		let-row="row"
-		sortWith="countryName"
+		sortBy="countryName"
 		[grows]="false"
 		width="140">
 		<span>
@@ -55,7 +55,7 @@
 		class="capitalize"
 		columnApp="Tags"
 		let-row="row"
-		sortWith="tags"
+		sortBy="tags"
 		width="280">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
@@ -64,7 +64,7 @@
 	<ng-template
 		columnApp="Created"
 		let-row="row"
-		sortWith="creationDate"
+		sortBy="creationDate"
 		width="140"
 		[grows]="false"
 		[sortOrder]="'DESC'">
@@ -75,7 +75,7 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		sortWith="createdBy.name"
+		sortBy="createdBy.name"
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
@@ -93,7 +93,7 @@
 		columnApp="Info"
 		class="capitalize"
 		let-row="row"
-		sortWith="productCount"
+		sortBy="productCount"
 		width="140"
 		[grows]="false">
 		{{ row.productCount }} Products
@@ -103,7 +103,7 @@
 	<ng-template
 		columnApp="Fav"
 		let-row="row"
-		sortWith="rating"
+		sortBy="rating"
 		width="60"
 		[grows]="false">
 		<div class="flexCenter">

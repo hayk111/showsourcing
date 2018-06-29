@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SidePanelComponent } from '~shared/panel/component/side-panel/side-panel.component';
 import { PanelModule } from '~shared/panel/panel.module';
 import { ImageModule } from '~shared/image/image.module';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -34,7 +35,8 @@ const modules = [
 	DividerModule,
 	ReactiveFormsModule,
 	PanelModule,
-	ImageModule
+	ImageModule,
+	ContextMenuModule
 ];
 
 @NgModule({

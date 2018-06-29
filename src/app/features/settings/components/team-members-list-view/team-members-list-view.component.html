@@ -14,7 +14,7 @@
     <!-- supplier row -->
 	<ng-template
 		columnApp="Name"
-		sortWith="user.firstName"
+		sortBy="user.firstName"
 		let-row="row"
         width="280">
         {{ row.user.firstName }} {{ row.user.lastName }}
@@ -25,7 +25,7 @@
 		class="capitalize"
 		columnApp="Email"
 		let-row="row"
-		sortWith="user.email"
+		sortBy="user.email"
 		[grows]="false"
 		width="140">
 		<span>
@@ -38,7 +38,7 @@
 		class="capitalize"
 		columnApp="Account type"
 		let-row="row"
-		sortWith="accessType"
+		sortBy="accessType"
 		width="280">
 		<context-menu-app xPosition="after" yPosition="30">
 			<context-menu-trigger-app class="flex pointer">
@@ -62,7 +62,7 @@
 	<ng-template
 		columnApp="Status"
 		let-row="row"
-		sortWith="status"
+		sortBy="status"
 		width="140"
 		[grows]="false"
 		[sortOrder]="'DESC'">
