@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 
-
+// TODO: thiery check comment in service.
 export class MemberQueries {
 	// at the time of writing this:
 	// in order to subscribe to a member we need to

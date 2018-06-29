@@ -1,12 +1,19 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ContentChild, HostListener } from '@angular/core';
-
-import { AutoUnsub } from '~utils';
-
-import { DialogName } from '../../models/dialog-names.enum';
-import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
-import { DialogFooterComponent } from '../../components/dialog-footer/dialog-footer.component';
-import { InputDirective } from '~shared/inputs';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	EventEmitter,
+	HostListener,
+	Input,
+	OnInit,
+	Output,
+	Host,
+	Optional
+} from '@angular/core';
 import { DialogService } from '~shared/dialog/services/dialog.service';
+
+import { DialogFooterComponent } from '../../components/dialog-footer/dialog-footer.component';
+import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({
@@ -19,13 +26,13 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 		'attr.role': 'dialog'
 	}
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {
 	@Input() closeIcon = true;
-	@Input() name: DialogName;
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent) header: DialogHeaderComponent;
 
+	constructor(private srv: DialogService) { }
 
 	get hasFooter() {
 		return !!this.footer;
@@ -35,16 +42,8 @@ export class DialogComponent implements OnInit {
 		return !!this.header;
 	}
 
-	constructor(private srv: DialogService) { }
-
-	ngOnInit() {
-		if (!this.name)
-			throw Error(`You haven't given a name to your dialog. Example [name]="'dlg1'"`);
-	}
-
-
 	doClose() {
-		this.srv.close(this.name);
+		this.srv.close();
 		this.close.emit();
 	}
 

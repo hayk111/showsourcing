@@ -7,6 +7,7 @@ import { SelectorConstComponent } from '~shared/selectors/components/selector-co
 import { SelectorEntityComponent } from '~shared/selectors/components/selector-entity/selector-entity.component';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { UtilsModule } from '~shared/utils';
+import { ImageModule } from '~shared/image/image.module';
 
 const components = [
 	SelectorComponent,
@@ -20,7 +21,7 @@ const components = [
 		NgSelectModule,
 		FormsModule,
 		InputsModule,
-		UtilsModule, // to use image pipe to display the small images in the selectors
+		ImageModule, // pipes are used
 	],
 	declarations: components,
 	exports: components

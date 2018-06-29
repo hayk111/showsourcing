@@ -1,12 +1,20 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+	ProductAddToProjectDlgComponent,
+} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
+import { ProductExportDlgComponent } from '~features/products/components/product-export-dlg/product-export-dlg.component';
+import {
+	ProductRequestTeamFeedbackDlgComponent,
+} from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductFeatureService } from '~features/products/services';
-import { Product } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
+import { ERM, Product } from '~models';
+import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { StoreKey } from '~utils/store/store';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { StoreKey } from '~utils/store/store';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
 @Component({
 	selector: 'products-page-app',
@@ -27,7 +35,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, 'product', DialogName.NEW_PRODUCT);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, CreationDialogComponent);
 	}
 
 	/**
@@ -38,7 +46,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(product: Product) {
-		this.dlgSrv.open(DialogName.ADD_TO_PROJECT, {
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}
@@ -46,14 +54,14 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
-		this.dlgSrv.open(DialogName.EXPORT, {
+		this.dlgSrv.open(ProductExportDlgComponent, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product: Product) {
-		this.dlgSrv.open(DialogName.REQUEST_FEEDBACK, {
+		this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}

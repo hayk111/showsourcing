@@ -41,7 +41,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		ReactiveFormsModule, // used by new contact dialog
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
-		TagModule, // TODO check if used
+		TagModule,
 		RatingModule, // used for hearth
 	],
 	declarations: [

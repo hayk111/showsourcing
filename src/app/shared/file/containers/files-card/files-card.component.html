@@ -1,7 +1,7 @@
 <card-app (fileDrop)="onFileAdded($event)">
 	<h2 i18n="header 2|File section card title@@filesCard_attachedFiles">Attached Files</h2>
 
-	<ng-container *ngIf="files$ | async as files">
+	<ng-container *ngIf="files">
 		<ng-container *ngIf="files.length > 0; else noFile">
 			<!-- file list -->
 			<list-app>

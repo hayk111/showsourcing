@@ -1,19 +1,22 @@
-
+<!-- TODO: thiery I think at the end here some of the columns are not used anymore
+also rating should become favorite.
+I added comment above each column to make it clearer -->
 <custom-table-app
 	class="list"
-	[rows]="products"
+	[rows]="rows"
 	[descriptor]="descriptor"
 	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="onSort($event)"
-	(selectOne)="productSelect.emit($event)"
-	(unselectOne)="productUnselect.emit($event)"
-	(selectAll)="productSelectAll.emit($event)"
-	(unselectAll)="productUnselectAll.emit()"
+	(sort)="sort.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
 	[pending]="pending">
 </custom-table-app>
 
+<!-- contextual menu -->
 <ng-template #contextualMenu let-row="row">
 	<menu class="z-4">
 		<menuitem class="pointer flexCenter" (click)="openAddToProjectDialog.emit(row)" i18n="product menu | add to project">
@@ -31,6 +34,7 @@
 	</menu>
 </ng-template>
 
+<!-- product preview -->
 <ng-template #main let-row="row">
 	<div class="mainCellWrapper ellipsis">
 		<div class="mainCell">
@@ -54,6 +58,7 @@
 	</div>
 </ng-template>
 
+<!-- name -->
 <ng-template #supplier let-row="row">
 	<ng-container *ngIf="row.supplier">
 		{{ row?.supplier.name }}
@@ -63,6 +68,7 @@
 	</ng-container>
 </ng-template>
 
+<!-- category -->
 <ng-template #category let-row="row">
 	<ng-container *ngIf="row.category">
 		{{ row?.category?.name }}
@@ -72,6 +78,7 @@
 	</ng-container>
 </ng-template>
 
+<!-- price -->
 <ng-template #price let-row="row">
 	<price-app
 		[amount]="row?.price?.value"
@@ -85,6 +92,7 @@
 
 </ng-template>
 
+<!-- moq -->
 <ng-template #moq let-row="row">
 	<moq-app
 		[amount]="row?.minimumOrderQuantity"
@@ -97,29 +105,34 @@
 
 </ng-template>
 
+<!-- feedback -->
 <ng-template #feedback let-row="row">
 	{{ row?.score !== undefined ? row.score : '-' }} %
 </ng-template>
 
+<!-- creation date -->
 <ng-template #creationDate let-row="row">
 	{{ row?.creationDate | date: 'dd MMMM y' }}
 </ng-template>
 
+<!-- favorite -->
 <ng-template #rating let-row="row">
 	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"
-			(favorited)="productFavorited.emit(row.id)"
-			(unfavorited)="productUnfavorited.emit(row.id)"></rating-heart-app>
+			(favorited)="favorited.emit(row.id)"
+			(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 	</div>
 </ng-template>
 
+<!-- projects -->
 <ng-template #projects let-row="row">
 	<div class="flexCenter">
 		<span *ngFor="let project of row.projects">{{ project.name }}</span>
 	</div>
 </ng-template>
 
+<!-- status -->
 <ng-template #status let-row="row">
 	<div class="pointer">
 		<badge-app
@@ -129,21 +142,25 @@
 	</div>
 </ng-template>
 
+<!-- open btn -->
 <ng-template #action let-row="row">
-	<div class="pointer" (click)="productOpen.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
+	<div class="pointer" (click)="open.emit(row.id)" i18n="div product|Open and view product@@global_open"> Open </div>
 </ng-template>
 
-<!-- for some mindblowing reason if this is put last, the viewchild for default template is undefined-->
+<!-- for some mindblowing reason if this is put last,
+	the viewchild for default template is undefined -->
 <ng-template #default let-row="row" let-column="column">
 	{{ row[column.propName] }}
 </ng-template>
 
+<!-- user -->
 <ng-template #user let-row="row">
 	<div class="flexCenter userP">
 		{{ row?.createdBy | formatUserName }}
 	</div>
 <ng-template>
 
+<!-- none -->
 <ng-template #none></ng-template>
 
 

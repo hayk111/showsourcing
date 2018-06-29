@@ -1,15 +1,15 @@
 <div class="ctnr">
 	<div class="left">
-		<h2> {{ title }} </h2>
+		<h2 *ngIf="title"> {{ title }} </h2>
 	</div>
 	<div class="flexBetween">
 		<div class="left flexCenter">
 
 			<search-bar-app class="mg-right">
-				<input inputApp type="text"/>
+				<input #inp inputApp type="text" (input)="onSearch(inp.value)"/>
 			</search-bar-app>
 
-			<!-- divider-app *ngIf="hasSearch" class="vert-divider mg-right"></divider-app -->
+			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
 
 			<icon-app
 				*ngIf="hasFilter"
@@ -25,7 +25,21 @@
 
 		<div class="right flexCenter">
 			<ng-content></ng-content>
+
 			<span class="marginSmall"></span>
+
+			<view-switcher-app
+				*ngIf="hasSwitch"
+				(viewChange)="viewChange.emit($event)"
+				[view]="view">
+			</view-switcher-app>
+
+			<span class="marginSmall"></span>
+
+			<ng-content></ng-content>
+
+			<span class="marginSmall"></span>
+
 			<button (click)="buttonClick.emit()">
 				<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
 				<span>{{ buttonName }}</span>

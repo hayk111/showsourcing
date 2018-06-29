@@ -1,4 +1,5 @@
 import {
+	AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	ContentChildren,
@@ -8,8 +9,6 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
-	OnInit,
-	AfterContentInit,
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';

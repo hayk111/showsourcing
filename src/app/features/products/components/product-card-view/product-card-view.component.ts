@@ -7,6 +7,7 @@ import {
 	Output,
 } from '@angular/core';
 import { Product, ProductStatus } from '~models';
+import { ListViewComponent } from '~shared/list-page/list-view.component';
 
 @Component({
 	selector: 'product-card-view-app',
@@ -14,24 +15,11 @@ import { Product, ProductStatus } from '~models';
 	styleUrls: ['./product-card-view.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardViewComponent {
-	@Output() productSelect = new EventEmitter<string>();
-	@Output() productUnselect = new EventEmitter<string>();
-	@Output() productOpen = new EventEmitter<string>();
-	@Output() productDelete = new EventEmitter<string>();
-	@Output() productFavorited = new EventEmitter<string>();
-	@Output() productUnfavorited = new EventEmitter<string>();
+export class ProductCardViewComponent extends ListViewComponent<Product> {
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
-	@Input() products: Array<Product> = [];
-	@Input() selection: any;
 	@Input() statuses: Array<ProductStatus>;
 	trackByFn = (index, item) => item.id;
-
-
-	selectProduct(id: string) {
-		this.productSelect.emit(id);
-	}
 
 }

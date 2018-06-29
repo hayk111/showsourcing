@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DialogName, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { NewTaskDlgComponent } from '~features/tasks/containers/new-task-dlg/new-task-dlg.component';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -26,7 +26,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openNewTaskDlg() {
-		this.dlgSrv.open(DialogName.NEW_TASK);
+		this.dlgSrv.open(NewTaskDlgComponent);
 	}
 
 	onItemSelected(entityId: string) {

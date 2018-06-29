@@ -1,18 +1,98 @@
-<table-app [rows]="projects">
-	<ng-template
-		columnApp=""
-		let-row="row">
-		<input type="checkbox" [checked]="selection.get(row.id)" (change)="onSelect($event, row.id)" />
-	</ng-template>
-	<ng-template
-		columnApp="Name"
-		let-row="row">
-		<span>{{ row.name }}</span>
-	</ng-template>
-	<ng-template
-		columnApp="Owner"
-		let-row="row">
+<ng-template #contextualMenu let-row="row">
+	<menu class="z-4">
+		<menuitem class="pointer flexCenter"
+			(click)="delete.emit(row)">
+			Delete
+		</menuitem>
+	</menu>
+</ng-template>
 
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenu"
+	class="z-2"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)">
+
+
+	<!-- name -->
+	<ng-template
+		columnApp="Project Name"
+		sortBy="name"
+		let-row="row"
+		width="300"
+		sortBy="name">
+		<div class="project">
+			<a class="flexVAlign txtBtn capitalize ellipsis"
+				[routerLink]="['/project', 'details', row.id]">
+				<img [src]="row.logoImage | logo:'project'" class="icon"/>
+				<b class="semi">{{ row.name }}</b>
+			</a>
+		</div>
 	</ng-template>
+
+	<!-- owner -->
+	<ng-template
+		class="capitalize"
+		columnApp="Owner"
+		let-row="row"
+		sortBy="createdBy.lastName"
+		width="200"
+		[grows]="false">
+		{{ row.createdBy.firstName }} {{ row.createdBy.lastName }}
+	</ng-template>
+
+	<!-- last updated date -->
+	<ng-template
+		class="capitalize"
+		columnApp="Last Upadted Date"
+		let-row="row"
+		sortBy="lastUpdatedDate"
+		width="200"
+		[grows]="false">
+		<span>
+			{{ row.lastUpdatedDate | date: 'dd MMMM y' }}
+		</span>
+	</ng-template>
+
+	<!-- product count -->
+	<ng-template
+		class="capitalize"
+		columnApp="Product Count"
+		let-row="row"
+		sortBy="productCount"
+		[grows]="false"
+		width="200">
+		<span>
+			<b>{{ row.productCount }}</b>
+		</span>
+	</ng-template>
+
+	<!-- date -->
+	<ng-template
+		columnApp="Created on"
+		let-row="row"
+		sortBy="creationDate"
+		width="200"
+		[grows]="false"
+		[sortOrder]="'DESC'">
+		{{ row?.creationDate | date: 'dd MMMM y' }}
+	</ng-template>
+
+	<!-- description -->
+	<ng-template
+		columnApp="Description"
+		let-row="row"
+		width="240">
+		{{ row?.description }}
+	</ng-template>
+
 
 </table-app>
+

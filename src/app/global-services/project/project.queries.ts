@@ -19,7 +19,7 @@ export class ProjectQueries implements GlobalQuery {
 			$sortBy: String,
 			$descending: Boolean) {
 			projects(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending){
-			  id, name
+			  id, name, createdBy { id, firstName, lastName }, productCount, lastUpdatedDate, creationDate, description
 			}
 		}
 	`;

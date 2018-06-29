@@ -15,7 +15,9 @@ import { UserService } from '../../../global-services';
 
 // =====================>>>>>>
 // TODO: thierry, this is now a feature service, the name should be changed accordingly
-// I've commented things, u'll have to adapt to the new way
+// I've commented things, u'll have to adapt to the new way.
+// Basically you will just have to extend TeamUserService and have an empty class.
+//
 // =====================>>>>>>
 @Injectable()
 export class MemberService {

@@ -1,12 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectionService } from './selection.service';
+import { NgModule } from '@angular/core';
+import {
+	CategoryService,
+	EventService,
+	ProductService,
+	SupplierService,
+	TeamService,
+	UserService,
+} from '~global-services';
 
 @NgModule({
 	imports: [
 		CommonModule
 	],
 	declarations: [],
-	providers: [SelectionService]
+	providers: [CategoryService, UserService, TeamService, SupplierService, EventService, ProductService]
 })
 export class ListPageModule { }

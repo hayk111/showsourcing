@@ -22,7 +22,6 @@ export class CarouselComponent implements OnInit {
 	@Input() images: Array<AppImage> = [];
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
-	@Input() pending = false;
 	@Output() rotateRequest = new EventEmitter<AppImage>();
 	@Output() deleteRequest = new EventEmitter<AppImage>();
 	@Output() downloadRequest = new EventEmitter<AppImage>();
@@ -60,9 +59,6 @@ export class CarouselComponent implements OnInit {
 
 	delete() {
 		this.deleteRequest.emit(this.getImg());
-		// index needs to go down if we were at the end
-		if (this.selectedIndex === this.images.length - 1)
-			--this.selectedIndex;
 	}
 
 	download() {
@@ -79,10 +75,7 @@ export class CarouselComponent implements OnInit {
 	}
 
 	getRotation() {
-		// log.debug('[CarouselComponent] getRotation');
-		// const img = this.getImg();
-		// if (img.pending) return img.rotation * -90;
-		// else return 0;
+		return 0;
 	}
 
 }

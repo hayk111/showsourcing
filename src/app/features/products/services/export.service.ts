@@ -8,6 +8,7 @@ import { take, map, filter, first, switchMap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 import { uuid } from '~utils';
 
+// TODO: thiery same comment as in features/product/services/team.service
 @Injectable()
 export class ExportService {
 

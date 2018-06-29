@@ -1,14 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DialogName } from '~shared/dialog/models';
-
-import { UserService } from '../../../../global-services';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
 import { DialogService } from '~shared/dialog';
 
 
-const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
 
 @Component({
 	selector: 'new-task-dlg-app',
@@ -16,7 +11,6 @@ const addDlg = () => addDialog(NewTaskDlgComponent, DialogName.NEW_TASK);
 	styleUrls: ['./new-task-dlg.component.scss'],
 })
 export class NewTaskDlgComponent implements OnInit {
-	name = DialogName.NEW_TASK;
 	group: FormGroup;
 
 
@@ -38,10 +32,8 @@ export class NewTaskDlgComponent implements OnInit {
 	onSubmit() {
 		if (this.group.valid) {
 			const value = this.group.value;
-			this.dlgSrv.close(DialogName.NEW_TASK);
+			this.dlgSrv.close();
 			// this.store.dispatch(fromTask.Actions.create(new Task(value)));
 		}
 	}
 }
-
-addDlg();

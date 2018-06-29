@@ -3,20 +3,29 @@
 	[title]="'My Projects'"
 	[buttonName]="'Add Project'"
 	[subtitles]="['Projects', 'all']"
+	[hasAction]="false">
+</top-panel-app>
+
+<sub-panel-app
+	buttonName="Add Project"
 	[hasSwitch]="false"
 	[hasFilter]="false"
-	(buttonClick)="openCreateDlg()">
-	</top-panel-app>
+	[buttonIcon]="false"
+	(buttonClick)="openCreateDlg(true)">
+</sub-panel-app>
 
-	<ng-container *ngIf="items$ | async as projects">
-		<projects-list-view-app [projects]="projects"></projects-list-view-app>
-
+<ng-container *ngIf="items$ | async as projects">
 	<ng-container *ngIf="selected$ | async as selected">
-		<selection-bar-app
-			(close)="resetSelection()"
-			(delete)="deleteSelected()"
-			*ngIf="selected.size > 0"
-			[selection]="selected"></selection-bar-app>
+
+		<projects-list-view-app
+			(select)="onItemSelected($event)"
+			(unselect)="onItemUnselected($event)"
+			(sort)="sort($event)"
+			(selectAll)="selectAll($event)"
+			(unselectAll)="resetSelection()"
+			[selection]="selected"
+			[rows]="projects"></projects-list-view-app>
+
 	</ng-container>
 
 </ng-container>

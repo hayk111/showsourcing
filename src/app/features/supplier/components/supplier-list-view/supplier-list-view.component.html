@@ -1,12 +1,12 @@
 <table-app
-	[rows]="suppliers"
+	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
 	class="z-2"
-	(selectOne)="supplierSelect.emit($event)"
-	(unselectOne)="supplierUnselect.emit($event)"
-	(selectAll)="supplierSelectAll.emit($event)"
-	(unselectAll)="supplierUnselectAll.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
@@ -14,11 +14,11 @@
 	<!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
-		sortWith="name"
+		sortBy="name"
 		let-row="row"
 		width="280">
 		<div class="supplier">
-			<a class="name capitalize ellipsis" [routerLink]="['/supplier', 'details', row.id]">
+			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
 				<img src="assets/icons/supplier.svg" class="supplierIcon"/>
 				<span>{{ row.name }}</span>
 			</a>
@@ -30,8 +30,7 @@
 		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
-		sortWith="categories"
-		[comparator]="arrayComparator"
+		sortBy="categories"
 		width="280">
 		<span *ngFor="let cat of row.categories; let last = last">
 			{{ cat.name }} {{ last ? '' : ', '}}
@@ -43,7 +42,7 @@
 		class="capitalize"
 		columnApp="Country"
 		let-row="row"
-		sortWith="countryName"
+		sortBy="countryName"
 		[grows]="false"
 		width="140">
 		<span>
@@ -56,8 +55,7 @@
 		class="capitalize"
 		columnApp="Tags"
 		let-row="row"
-		sortWith="tags"
-		[comparator]="arrayComparator"
+		sortBy="tags"
 		width="280">
 		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
@@ -66,7 +64,7 @@
 	<ng-template
 		columnApp="Created"
 		let-row="row"
-		sortWith="creationDate"
+		sortBy="creationDate"
 		width="140"
 		[grows]="false"
 		[sortOrder]="'DESC'">
@@ -77,7 +75,7 @@
 	<ng-template
 		columnApp="Owner"
 		let-row="row"
-		sortWith="createdBy.name"
+		sortBy="createdBy.name"
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
@@ -95,7 +93,7 @@
 		columnApp="Info"
 		class="capitalize"
 		let-row="row"
-		sortWith="productCount"
+		sortBy="productCount"
 		width="140"
 		[grows]="false">
 		{{ row.productCount }} Products
@@ -105,14 +103,14 @@
 	<ng-template
 		columnApp="Fav"
 		let-row="row"
-		sortWith="rating"
+		sortBy="rating"
 		width="60"
 		[grows]="false">
 		<div class="flexCenter">
 			<rating-heart-app
 				[favorite]="row?.favorite"
-				(favorited)="supplierFavorited.emit(row.id)"
-				(unfavorited)="supplierUnfavorited.emit(row.id)"></rating-heart-app>
+				(favorited)="favorited.emit(row.id)"
+				(unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
 		</div>
 
 	</ng-template>

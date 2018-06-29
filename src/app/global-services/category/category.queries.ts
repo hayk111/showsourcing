@@ -19,6 +19,20 @@ export class CategoryQueries implements GlobalQuery {
 		}
 	`;
 
+	list = gql`
+	subscription categories($query: String!) {
+		categories(query: $query) {
+		id,
+		name,
+			createdBy {
+				id,
+				firstName,
+				lastName
+			}
+		}
+	}
+`;
+
 	update = gql`
 		mutation updateCategory($input: CategoryInput!) {
 			updateCategory(input: $input) {

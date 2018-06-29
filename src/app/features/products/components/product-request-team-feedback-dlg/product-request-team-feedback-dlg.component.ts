@@ -2,13 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { User } from '~models';
-import { DialogName, DialogService } from '~shared/dialog';
-import { addDialog } from '~shared/dialog/models/dialog-component-map.const';
+import { DialogService } from '~shared/dialog';
 import { TeamService } from '~features/products/services/team.service';
 import { take, map, switchMap, first } from 'rxjs/operators';
 
-
-const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogName.REQUEST_FEEDBACK);
 
 @Component({
 	selector: 'product-request-team-feedback-dlg-app',
@@ -17,7 +14,6 @@ const addDlg = () => addDialog(ProductRequestTeamFeedbackDlgComponent, DialogNam
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
-	dialogName = DialogName.REQUEST_FEEDBACK;
 	teamMembers$: Observable<Array<User>>;
 	selected = {};
 	selectedProducts: string[];
@@ -47,10 +43,8 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 				return this.teamSrv.addProductFeedbacksForTeamUsers(projects, this.selectedProducts);
 			})
 		).subscribe(projects => {
-			this.dlgSrv.close(this.dialogName);
+			this.dlgSrv.close();
 		});
 	}
 
 }
-
-addDlg();

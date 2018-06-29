@@ -1,0 +1,35 @@
+
+		<div class="left">
+			<sidenav-app menuIcon="shape" menuTitle="Project">
+				<sidenav-item-app link="../workflow">
+						<icon-app fontSet="svg" name="workflow"></icon-app>
+						<span sidenavLabelApp>workflow</span>
+				</sidenav-item-app>
+				<sidenav-item-app link="../product-list">
+						<icon-app fontSet="svg" name="list"></icon-app>
+						<span sidenavLabelApp>Product List</span>
+				</sidenav-item-app>
+				<sidenav-item-app link="../settings">
+						<icon-app fontSet="fa" name="search"></icon-app>
+						<span sidenavLabelApp>Settings</span>
+				</sidenav-item-app>
+			</sidenav-app>
+		</div>
+		<div class="right">
+			<top-panel-app
+				[title]="'Project Name'"
+				[buttonName]="'Add Project'"
+				[subtitles]="['Projects', 'products']"
+				[hasAction]="false">
+			</top-panel-app>
+
+			<sub-panel-app
+				buttonName="Add Project"
+				[hasSwitch]="false"
+				[hasFilter]="false"
+				[buttonIcon]="false"
+				(buttonClick)="openCreateDlg()">
+			</sub-panel-app>
+
+			<router-outlet></router-outlet>
+		</div>
