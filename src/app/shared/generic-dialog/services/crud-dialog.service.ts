@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CategoryService, EventService, TagService, ProductService, SupplierService, ProjectService } from '~global-services';
 import { Category, EntityMetadata, ERM, Event, Tag, Supplier, Product, Project } from '~models';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -64,7 +64,7 @@ export class CrudDialogService {
 				throw Error(`this edit dialog is not implemented yet`);
 		}
 	}
-	merge(item: FormGroup, type: EntityMetadata) {
+	merge(item: FormGroup, type: EntityMetadata, entities: Array<any>): Observable<any> {
 		switch (type) {
 			default:
 				throw Error(`this merge dialog is not implemented yet`);

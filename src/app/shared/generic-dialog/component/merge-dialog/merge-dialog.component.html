@@ -1,3 +1,27 @@
-<p>
-  merge-dialog works!
-</p>
+
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending ">
+			Merge {{type.plural}}
+		</dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app> {{type.singular}} to merge to </label-app>
+				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}} name" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+			<label-app>
+				Please select the category that will remain after the merge.
+				Warning: This action cannot be undone.
+			</label-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+			<input [disabled]="!group.valid" type="submit" value="merge" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<!-- when pending -->
+		<spinner-app *ngIf="pending"></spinner-app>
+
+</dialog-app>

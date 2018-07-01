@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
 import { ERM, Tag } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
@@ -30,4 +30,9 @@ export class TagDataManagementPageComponent extends ListPageComponent<Tag, TagMa
 		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.TAG);
 	}
 
+	mergeSelected() {
+		const items = Array.from(this.selectionSrv.selection.keys());
+		this.dlgSrv.open(MergeDialogComponent, { type: ERM.TAG, entities: items });
+		// send the items to mergeItems
+	}
 }

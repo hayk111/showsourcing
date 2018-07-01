@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
 import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
@@ -29,5 +29,11 @@ export class CategoryDataManagementPageComponent extends ListPageComponent<Categ
 		protected dlgSrv: DialogService
 	) {
 		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY);
+	}
+
+	mergeSelected() {
+		const items = Array.from(this.selectionSrv.selection.keys());
+		this.dlgSrv.open(MergeDialogComponent, { type: ERM.CATEGORY, entities: items });
+		// send the items to mergeItems
 	}
 }
