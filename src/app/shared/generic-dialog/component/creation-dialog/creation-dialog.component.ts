@@ -35,17 +35,13 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 
 	ngOnInit() {
 		this.group = this.fb.group({
-			name: ['', Validators.required, ValidateNameNotEqual.equalValidator(this.ermService, this.type)]
+			name: ['', Validators.required] // , ValidateNameNotEqual.equalValidator(this.ermService, this.type)]
 		});
 	}
 
 	ngAfterViewInit() {
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
-	}
-
-	test() {
-		console.log(this.group);
 	}
 
 	onSubmit() {

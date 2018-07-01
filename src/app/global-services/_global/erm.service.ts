@@ -9,7 +9,7 @@ import { ImageService } from '~global-services/image/image.service';
 import { Injectable } from '@angular/core';
 
 @Injectable(
-	{providedIn: 'root'}
+	{ providedIn: 'root' }
 )
 export class ERMService {
 
@@ -22,7 +22,6 @@ export class ERMService {
 		private imageService: ImageService) { }
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
-		console.log(erm);
 		switch (erm) {
 			case ERM.CATEGORY:
 				return this.categoryService;
