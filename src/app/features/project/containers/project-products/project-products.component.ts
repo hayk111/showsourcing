@@ -33,4 +33,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		super(router, srv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
+
+	// TODO we need to change the relation from project.products to product.projects
+	// since we are filtering the name
 }

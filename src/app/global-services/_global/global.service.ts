@@ -68,7 +68,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		scan((acc: any, curr: any) => {
 			if (curr.page === 0)
 				return curr.data;
-			return acc.push(curr);
+			return [...acc, ...curr.data];
 		}, [])
 	);
 

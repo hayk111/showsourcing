@@ -24,7 +24,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** non observable version of the above */
 	items: Array<T> = [];
 	/** Whether the items are pending */
-	pending = false;
+	pending = true;
 	/** when the items are loaded for the first time */
 	initialLoading = true;
 	/** keeps tracks of the current selection */
@@ -42,7 +42,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	private currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new BehaviorSubject<SelectParams>(this.currentParams);
-	private selectParams$ = this._selectParams$.asObservable();
+	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
 
 	constructor(
@@ -57,15 +57,26 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		this.editDlgComponent = EditionDialogComponent;
 	}
 
-	/** Connects products for the page */
+	/** init */
 	ngOnInit() {
-		this.pending = true;
+		this.setItems();
+		this.setSelection();
+		this.setFilters();
+	}
+
+	protected setItems() {
 		this.items$ = this.featureSrv.selectMany(this.selectParams$)
 			.pipe(
 				// when loaded the pending status needs to be false
 				tap(() => this.onLoaded())
 			);
+	}
+
+	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
+	}
+
+	protected setFilters() {
 		// since filter is a behavior subject it will trigger instantly
 		if (this.filterSrv) {
 			this.filterSrv.query$.pipe(
@@ -74,7 +85,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		}
 	}
 
-	private onLoaded() {
+	protected onLoaded() {
 		if (this.initialLoading) {
 			this.pending = false;
 			this.initialLoading = false;
@@ -88,7 +99,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this._selectParams$.next(new SelectParams({
-			page: this.currentParams.page++,
+			page: ++this.currentParams.page,
 			sort: this.currentParams.sort,
 			query: this.currentParams.query
 		}));

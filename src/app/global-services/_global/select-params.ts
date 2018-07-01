@@ -4,7 +4,7 @@ export class SelectParams {
 	page = 0;
 	query = '';
 	sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
-	take = 30;
+	take = 10;
 
 	constructor(config?: SelectParamsConfig) {
 		Object.assign(this, config);

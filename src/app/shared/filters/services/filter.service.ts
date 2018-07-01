@@ -96,6 +96,7 @@ export class FilterService {
 				return `name CONTAINS "${value}"`;
 			case 'favorite':
 			case 'archived':
+			case 'id':
 				return `${type} == ${value}`;
 			default:
 				return `${type}.id == "${value}"`;

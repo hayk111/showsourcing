@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
-import { Project, ERM } from '~models';
+import { ERM, Project } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FilterService } from '~shared/filters';
 import { StoreKey } from '~utils/store/store';
-import { Router } from '@angular/router';
-import { DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~shared/generic-dialog';
 
 
 @Component({

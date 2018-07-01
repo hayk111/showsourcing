@@ -1,4 +1,5 @@
 export enum FilterType {
+	ID = 'id',
 	SUPPLIER = 'supplier',
 	EVENT = 'event',
 	CATEGORY = 'category',

@@ -15,8 +15,5 @@ export class ProjectService extends GlobalService<Project> {
 		super(apollo, new ProjectQueries(), 'Project');
 	}
 
-	selectMany(...args) {
-		return super.selectMany(...args);
-	}
 }
 

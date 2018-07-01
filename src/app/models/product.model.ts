@@ -31,10 +31,10 @@ export class Product extends BaseEntity<ProductConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
-	archived?: boolean;
-	deleted?: boolean;
+	archived ?= false;
 	taskCount?: number;
 	productCount?: number;
+	projectCount ?= 0;
 }
 
 export interface ProductConfig {
