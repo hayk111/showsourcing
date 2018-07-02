@@ -1,5 +1,4 @@
 <side-panel-app>
-
 	<side-panel-title-app>
 		{{ product.name }}
 	</side-panel-title-app>
@@ -8,14 +7,45 @@
 		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
 	</side-panel-action-app>
 
-	<carousel-app [images]="product.images"></carousel-app>
+	<ng-container *ngIf="product$ | async as product; else spinner">
 
-	<div class="actions flexBetween">
-		<div>
-			<icon-app name="heart" class="heart"></icon-app>
-			<icon-app name="thumbs-up"></icon-app>
+		<carousel-app [images]="product.images"></carousel-app>
+
+		<div class="actions flexBetween">
+			<div>
+				<icon-app name="heart" class="heart"></icon-app>
+				<icon-app name="thumbs-up"></icon-app>
+			</div>
+			<button>Placeholder</button>
 		</div>
-		<button>Placeholder</button>
-	</div>
-	<divider-app></divider-app>
+		<divider-app></divider-app>
+
+		<h3>Product Details</h3>
+		<ng-container *ngIf="descriptor$ | async as desc">
+			<dynamic-form-app
+				[inlineLabel]="true"
+				(formCreated)="onFormCreated($event)"
+				[descriptor]="desc"
+				[editable]="true"
+				[colAmount]="1">
+			</dynamic-form-app>
+		</ng-container>
+
+		<h3 style="margin-top: 12px">Trading information</h3>
+		<ng-container *ngIf="descriptor2$ | async as desc2">
+			<dynamic-form-app
+				[inlineLabel]="true"
+				(formCreated)="onFormCreated($event)"
+				[descriptor]="desc2"
+				[editable]="true"
+				[colAmount]="1">
+			</dynamic-form-app>
+
+		</ng-container>
+
+	</ng-container>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
 </side-panel-app>

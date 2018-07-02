@@ -64,6 +64,9 @@
 		&.cannotGrow {
 			height: 33px;
 		}
+		&.canGrow {
+			min-height: 33px;
+		}
 		.content {
 			color: var(--color-txt-secondary);
 			font-weight: 600;
