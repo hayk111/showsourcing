@@ -1,11 +1,9 @@
-import { Observable, of, Subject, ReplaySubject } from 'rxjs';
-import { map, scan, startWith, switchMap, distinctUntilChanged, shareReplay, share, flatMap, tap } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
-import { PER_PAGE } from '~utils';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
-import { debug } from '~utils/debug.rxjs.pipe';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;

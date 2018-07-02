@@ -1,34 +1,32 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ApplicationRef, NgModule, NgModuleRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { environment } from 'environments/environment';
+import { AuthGuardService, AuthModule } from '~features/auth';
 import { DataManagementModule } from '~features/data-management/data-management.module';
+import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 import { ProductModule } from '~features/products';
 import { ProjectModule } from '~features/project';
+import { SettingsModule } from '~features/settings';
 import { SuppliersModule } from '~features/supplier';
 import { TasksModule } from '~features/tasks';
-import { SettingsModule } from '~features/settings';
+import { TestPageModule } from '~features/test-page/test-page.module';
 import { UserModule } from '~features/user';
-import { AuthGuardService, AuthModule } from '~features/auth';
+import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { CardModule } from '~shared/card';
+import { DialogModule } from '~shared/dialog';
+import { GenericDialogModule } from '~shared/generic-dialog/';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-import { log } from '~utils';
 
 import { EventModule } from './../features/event/event.module';
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
-import { DialogModule } from '~shared/dialog';
-import { GenericDialogModule } from '~shared/generic-dialog/';
-import { AppApolloModule } from '~shared/apollo/apollo.module';
-import { TestPageModule } from '~features/test-page/test-page.module';
-import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 
 declare let module: any;
 
@@ -65,7 +63,7 @@ declare let module: any;
 		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes,
-			{ enableTracing: true }
+			// { enableTracing: true }
 		),
 	],
 	providers: [
