@@ -3,6 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { CategoryService, EventService, TagService, ProductService, SupplierService, ProjectService } from '~global-services';
 import { Category, EntityMetadata, ERM, Event, Tag, Supplier, Product, Project } from '~models';
 import { throwError, Observable } from 'rxjs';
+import { ERMService } from '~global-services/_global/erm.service';
+import { map, first } from 'rxjs/operators';
+import { SelectParams } from '~global-services/_global/select-params';
+import { of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -71,4 +75,13 @@ export class CrudDialogService {
 		}
 	}
 
+	checkExists(ermService: ERMService, type: EntityMetadata, valueInput: string) {
+		return ermService.getGlobalService(type)
+			.selectMany(of(new SelectParams({ query: `name == "${valueInput}"` })))
+			.pipe(
+				map(res => res.length > 0)
+			);
+	}
 }
+
+

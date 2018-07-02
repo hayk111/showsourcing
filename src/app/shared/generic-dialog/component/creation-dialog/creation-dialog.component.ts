@@ -1,20 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
+import { ERMService } from '~global-services/_global/erm.service';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CrudDialogService } from '~shared/generic-dialog/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { ValidateNameNotEqual } from '~shared/inputs/validators/async-name.validator';
-import { ERMService } from '~global-services/_global/erm.service';
+import { Subject } from 'rxjs';
+import { Observable } from 'subscriptions-transport-ws';
 
 @Component({
 	selector: 'creation-dialog-app',
 	templateUrl: './creation-dialog.component.html',
-	styleUrls: ['./creation-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./creation-dialog.component.scss']
 })
 export class CreationDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
@@ -23,6 +23,8 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 	@Input() type: EntityMetadata;
 	@Input() shouldRedirect = false;
 	@ViewChild(InputDirective) input: InputDirective;
+	private typed$: Subject<string> = new Subject();
+	exists$: Observable<boolean>;
 
 	constructor(
 		private fb: FormBuilder,
@@ -35,13 +37,23 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 
 	ngOnInit() {
 		this.group = this.fb.group({
-			name: ['', Validators.required] // , ValidateNameNotEqual.equalValidator(this.ermService, this.type)]
+			name: ['', Validators.required] // ValidateNameNotEqual.equalValidator(this.ermService, this.type) in case is fixed by angular
 		});
+		this.exists$ = this.typed$
+			.pipe(
+				takeUntil(this._destroy$),
+				switchMap((str) => this.crudDlgSrv.checkExists(this.ermService, this.type, str))
+			);
 	}
 
 	ngAfterViewInit() {
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
+	}
+
+	checkExists() {
+		this.typed$.next(this.group.get('name').value);
+
 	}
 
 	onSubmit() {

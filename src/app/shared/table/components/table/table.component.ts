@@ -23,6 +23,8 @@ import { Sort } from '~shared/table/components/sort.interface';
 	}
 })
 export class TableComponent implements AfterContentInit {
+	// display the dot option
+	@Input() dotsOption = true;
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable

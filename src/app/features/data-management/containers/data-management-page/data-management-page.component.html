@@ -22,11 +22,12 @@
 	[items]="items$ | async"
 	[selected]="selected$ | async"
 	[pending]="pending"
+	[entityMetadata]="entityMetadata"
 	(sort)="sort($event)"
 	(entitySelect)="onItemSelected($event)"
 	(entityUnselect)="onItemUnselected($event)"
 	(entitySelectAll)="selectAll($event)"
 	(entityUnselectAll)="resetSelection()"
 	(renameEntity)="openEditDlg($event)"
-	(deleteEntity)="deleteItem($event)">
+	(removeEntity)="deleteItem($event)">
 </data-management-table-app>

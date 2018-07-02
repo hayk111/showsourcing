@@ -12,7 +12,7 @@ export class ValidateNameNotEqual {
 			return ermService.getGlobalService(type)
 				.selectMany(of(new SelectParams({ query: `name == "${control.value}"` })))
 				.pipe(
-					map(result => ({ nameTaken: !!result[0] }))
+					map(result => ({ nameTaken: result.length > 0 }))
 				);
 		};
 	}

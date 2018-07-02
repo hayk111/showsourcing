@@ -1,6 +1,7 @@
 <table-app
 	[rows]="items"
 	[pending]="pending"
+	[dotsOption]="false"
 	[selected]="selected"
 	(selectOne)="entitySelect.emit($event)"
 	(unselectOne)="entityUnselect.emit($event)"
@@ -28,7 +29,7 @@
 	</ng-template>
 
 	<!-- Products Count -->
-	<ng-template
+	<ng-template *ngIf="ermCategory === entityMetadata"
 		columnApp="Products Count"
 		let-row="row"
 		width="140">
@@ -37,7 +38,7 @@
 	</ng-template>
 
 	<!-- Supplier Count -->
-	<ng-template
+	<ng-template *ngIf="ermCategory === entityMetadata"
 		columnApp="Suppliers Count"
 		let-row="row"
 		width="140">
@@ -52,9 +53,9 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selected-->
-			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename Category</button>
+			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
 			<span class="marginSmall"></span>
-			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)" class="button ugly" (click)="removeEntity.emit(row)">Delete Category</button>
+			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)" class="button ugly" (click)="removeEntity.emit(row.id)">Delete</button>
 		</div>
 	</ng-template>
 </table-app>

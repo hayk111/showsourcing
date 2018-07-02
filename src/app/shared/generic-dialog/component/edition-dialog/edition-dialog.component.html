@@ -9,13 +9,14 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app> {{type.singular}} Name </label-app>
-				<input inputApp type="text" formControlName="name" placeholder="New {{type.singular}} name" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="text" (input)="checkExists()" formControlName="name" placeholder="New {{type.singular}} name" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
 			<label-app> Please provide the new {{type.singular}} name for {{entity.name || ''}}</label-app>
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
-			<input [disabled]="!group.valid" type="submit" value="rename" (click)="onSubmit()"/>
+				<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
+				<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="rename" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->
