@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
 import { ERM, Tag } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CreationDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
 
 @Component({
@@ -19,7 +18,7 @@ import { StoreKey } from '~utils';
 		{ provide: 'storeKey', useValue: StoreKey.FILTER_TAG },
 		SelectionService]
 })
-export class TagDataManagementPageComponent extends ListPageComponent<Tag, TagManagememtService> {
+export class TagDataManagementPageComponent extends AbstractDataManagementComponent<Tag, TagManagememtService> {
 
 	constructor(
 		protected router: Router,
@@ -27,12 +26,6 @@ export class TagDataManagementPageComponent extends ListPageComponent<Tag, TagMa
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.TAG);
-	}
-
-	mergeSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		this.dlgSrv.open(MergeDialogComponent, { type: ERM.TAG, entities: items });
-		// send the items to mergeItems
+		super(router, featureSrv, selectionSrv, dlgSrv, ERM.TAG);
 	}
 }

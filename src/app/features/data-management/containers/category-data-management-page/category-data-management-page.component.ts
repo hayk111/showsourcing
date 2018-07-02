@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
 import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
-import { CreationDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
 
 @Component({
@@ -20,7 +19,7 @@ import { StoreKey } from '~utils';
 		SelectionService
 	]
 })
-export class CategoryDataManagementPageComponent extends ListPageComponent<Category, CategoryManagementService> {
+export class CategoryDataManagementPageComponent extends AbstractDataManagementComponent<Category, CategoryManagementService> {
 
 	constructor(
 		protected router: Router,
@@ -28,12 +27,6 @@ export class CategoryDataManagementPageComponent extends ListPageComponent<Categ
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, undefined, dlgSrv, ERM.CATEGORY);
-	}
-
-	mergeSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		this.dlgSrv.open(MergeDialogComponent, { type: ERM.CATEGORY, entities: items });
-		// send the items to mergeItems
+		super(router, featureSrv, selectionSrv, dlgSrv, ERM.CATEGORY);
 	}
 }

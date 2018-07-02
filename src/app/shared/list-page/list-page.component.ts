@@ -165,7 +165,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	}
 
 	/** Deletes an specific item */
-	deleteItem(itemId: string) {
+	deleteOne(itemId: string) {
 		const callback = () => {
 			this.featureSrv.deleteOne(itemId).subscribe();
 		};

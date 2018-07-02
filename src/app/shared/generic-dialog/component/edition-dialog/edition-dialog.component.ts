@@ -1,15 +1,13 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CrudDialogService } from '~shared/generic-dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { ERMService } from '~global-services/_global/erm.service';
-import { Subject } from 'rxjs';
-import { Observable } from 'subscriptions-transport-ws';
 
 @Component({
 	selector: 'edition-dialog-app',
@@ -30,8 +28,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService,
-		private ermService: ERMService) {
+		private crudDlgSrv: CrudDialogService) {
 		super();
 		this.group = this.fb.group({
 			name: ['', Validators.required],
@@ -39,7 +36,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 		this.exists$ = this.typed$
 			.pipe(
 				takeUntil(this._destroy$),
-				switchMap((str) => this.crudDlgSrv.checkExists(this.ermService, this.type, str))
+				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str))
 			);
 	}
 

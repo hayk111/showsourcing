@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { takeUntil, switchMap } from 'rxjs/operators';
-import { ERMService } from '~global-services/_global/erm.service';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable } from 'subscriptions-transport-ws';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { CrudDialogService } from '~shared/generic-dialog/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { Subject } from 'rxjs';
-import { Observable } from 'subscriptions-transport-ws';
 
 @Component({
 	selector: 'creation-dialog-app',
@@ -30,8 +29,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		private fb: FormBuilder,
 		private router: Router,
 		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService,
-		private ermService: ERMService) {
+		private crudDlgSrv: CrudDialogService) {
 		super();
 	}
 
@@ -42,7 +40,7 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 		this.exists$ = this.typed$
 			.pipe(
 				takeUntil(this._destroy$),
-				switchMap((str) => this.crudDlgSrv.checkExists(this.ermService, this.type, str))
+				switchMap((str) => this.crudDlgSrv.checkExists(this.type, str))
 			);
 	}
 
