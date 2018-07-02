@@ -6,7 +6,7 @@
 	z-index: 4;
 	overflow-x: hidden;
 	overflow-y: auto;
-	width: 280px;
+	width: 352px;
 	padding: var(--spacing-l);
 	height: 100vh;
 	&.alignRight {
@@ -16,4 +16,15 @@
 		left: 0;
 	}
 
+}
+
+divider-app {
+	margin: 12px 0;
+}
+
+.top {
+	line-height: 1;
+	side-panel-title-app{
+		margin-bottom: 0;
+	}
 }

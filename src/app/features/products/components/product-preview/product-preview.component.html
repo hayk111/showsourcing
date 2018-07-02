@@ -1,3 +1,21 @@
 <side-panel-app>
-WORKING
+
+	<side-panel-title-app>
+		{{ product.name }}
+	</side-panel-title-app>
+
+	<side-panel-action-app>
+		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
+	</side-panel-action-app>
+
+	<carousel-app [images]="product.images"></carousel-app>
+
+	<div class="actions flexBetween">
+		<div>
+			<icon-app name="heart" class="heart"></icon-app>
+			<icon-app name="thumbs-up"></icon-app>
+		</div>
+		<button>Placeholder</button>
+	</div>
+	<divider-app></divider-app>
 </side-panel-app>

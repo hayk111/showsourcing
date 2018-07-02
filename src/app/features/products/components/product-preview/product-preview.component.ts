@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~models';
 
 @Component({
@@ -9,7 +9,7 @@ import { Product } from '~models';
 })
 export class ProductPreviewComponent implements OnInit {
 	@Input() product: Product;
-
+	@Output() close = new EventEmitter<any>();
 	constructor() { }
 
 	ngOnInit() {
