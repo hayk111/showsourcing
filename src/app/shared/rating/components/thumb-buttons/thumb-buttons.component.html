@@ -1,12 +1,3 @@
 <div [ngStyle]="{ 'color': color }" class="flex">
-  <div class="btn flexCenter pointer" (click)="onClick(100)">
-    <div class="icon-thumb-up"></div>
-    <span>Like</span>
-  </div>
-
-  <div class="btn flexCenter pointer" (click)="onClick(0)">
-    <div class="icon-thumb-down"></div>
-    <span>Dislike</span>
-  </div>
-
+	<icon-app name="thumbs-{{ orientation }}" class="colorClass" (click)="onClick()"></icon-app>
 </div>

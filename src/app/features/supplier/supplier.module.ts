@@ -26,6 +26,7 @@ import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { SupplierFeatureService } from './services/supplier-feature.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { SupplierPreviewComponent } from './containers/supplier-preview/supplier-preview.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDescriptionComponent,
+		SupplierPreviewComponent,
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,
