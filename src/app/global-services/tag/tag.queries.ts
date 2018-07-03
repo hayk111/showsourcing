@@ -11,6 +11,27 @@ export class TagQueries implements GlobalQuery {
 	}
 	`;
 
+	list = gql`
+		subscription tags(
+			$take: Int,
+			$skip: Int,
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean
+			) {
+			tags(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+				id,
+				name,
+				creationDate,
+				createdBy {
+					id,
+					firstName,
+					lastName
+				}
+			}
+		}
+	`;
+
 	create = gql`
 		mutation createTag($input: TagInput!) {
 			updateTag(input: $input) {
@@ -45,6 +66,6 @@ export class TagQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
+	`
 
 }

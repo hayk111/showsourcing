@@ -25,8 +25,9 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 		protected router: Router,
 		protected featureSrv: CategoryManagementService,
 		protected selectionSrv: SelectionService,
+		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, dlgSrv, ERM.CATEGORY);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.CATEGORY);
 	}
 }

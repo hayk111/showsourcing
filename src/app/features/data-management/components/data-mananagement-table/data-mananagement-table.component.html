@@ -7,6 +7,7 @@
 	(unselectOne)="entityUnselect.emit($event)"
 	(selectAll)="entitySelectAll.emit($event)"
 	(unselectAll)="entityUnselectAll.emit()"
+	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(hovered)="onHover($event)">
 
@@ -15,11 +16,14 @@
 		columnApp="Name"
 		let-row="row"
 		width="250">
-		<div class="category_name"> {{row.name}} </div>
+		<div class="flexBetween">
+			<div> {{ entityMetadata == ermEvent ? row.description.name : row.name}} </div>
+			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
+		</div>
 	</ng-template>
 
-	<!-- Created By *ngIf="dataName.equals('category')"-->
-	<ng-template
+	<!-- Created By -->
+	<ng-template *ngIf="ermEvent != entityMetadata"
 		columnApp="Created By"
 		let-row="row"
 		width="140">
@@ -29,7 +33,7 @@
 	</ng-template>
 
 	<!-- Products Count -->
-	<ng-template *ngIf="ermCategory === entityMetadata"
+	<ng-template *ngIf="ermCategory == entityMetadata || ermTag == entityMetadata"
 		columnApp="Products Count"
 		let-row="row"
 		width="140">
@@ -38,11 +42,31 @@
 	</ng-template>
 
 	<!-- Supplier Count -->
-	<ng-template *ngIf="ermCategory === entityMetadata"
+	<ng-template *ngIf="ermCategory == entityMetadata || ermTag == entityMetadata"
 		columnApp="Suppliers Count"
 		let-row="row"
 		width="140">
 		<span>
+		</span>
+	</ng-template>
+
+	<!-- Start Date (Event only) -->
+	<ng-template *ngIf="ermEvent == entityMetadata"
+		columnApp="Start Date"
+		let-row="row"
+		width="140">
+		<span>
+			{{row.description.startDate | date: 'MMMM d, y'}}
+		</span>
+	</ng-template>
+
+	<!-- End Date (Event only) -->
+	<ng-template *ngIf="ermEvent == entityMetadata"
+		columnApp="Start Date"
+		let-row="row"
+		width="140">
+		<span>
+			{{row.description.endDate | date: 'MMMM d, y'}}
 		</span>
 	</ng-template>
 
@@ -53,8 +77,6 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selected-->
-			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
-			<span class="marginSmall"></span>
 			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)" class="button ugly" (click)="removeEntity.emit(row.id)">Delete</button>
 		</div>
 	</ng-template>

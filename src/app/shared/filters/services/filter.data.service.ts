@@ -45,6 +45,7 @@ export class FilterDataService {
 		return this.supplierSrv.selectAll();
 	}
 
+	// Should these methods be all Supplier Observables?
 	private selectEvents(): Observable<Supplier[]> {
 		return this.eventSrv.selectAll('id, alias');
 	}

@@ -11,6 +11,26 @@ export class EventQueries implements GlobalQuery {
 	}
 	`;
 
+	list = gql`
+	subscription events(
+		$take: Int,
+		$skip: Int,
+		$query: String!,
+		$sortBy: String,
+		$descending: Boolean
+		) {
+		events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+			id,
+			description {
+				id,
+				name,
+				startDate,
+				endDate,
+			}
+		}
+	}
+`;
+
 	create = gql`
 		mutation createEvent($input: EventInput!) {
 			updateEvent(input: $input) {

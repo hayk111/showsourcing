@@ -15,7 +15,6 @@ export class CrudDialogService {
 
 	create(item: FormGroup, type: EntityMetadata) {
 		const name = item.value.name;
-		// TODO change this switch cases
 		const entity = new type.constClass({ name });
 		return this.ermService.getGlobalService(type).create(entity);
 	}

@@ -10,6 +10,7 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[buttonIcon]="false"
+	(search)="search($event)"
 	(buttonClick)="openCreateDlg()">
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
 		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
@@ -23,6 +24,7 @@
 	[selected]="selected$ | async"
 	[pending]="pending"
 	[entityMetadata]="entityMetadata"
+	(bottomReached)="loadMore()"
 	(sort)="sort($event)"
 	(entitySelect)="onItemSelected($event)"
 	(entityUnselect)="onItemUnselected($event)"

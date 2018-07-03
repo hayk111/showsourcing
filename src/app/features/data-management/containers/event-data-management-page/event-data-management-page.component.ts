@@ -24,8 +24,9 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 		protected router: Router,
 		protected featureSrv: EventManagementService,
 		protected selectionSrv: SelectionService,
+		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, dlgSrv, ERM.EVENT);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.EVENT);
 	}
 }

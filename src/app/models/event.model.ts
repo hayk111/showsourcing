@@ -12,6 +12,6 @@ export class Event extends BaseEntity<EventConfig> {
 
 export interface EventConfig {
 	alias?: string;
-	// name doesn't actually exist on the event but is
+	// name doesn't actually exist on the event but to keep consistency we do it this way
 	name?: string;
 }

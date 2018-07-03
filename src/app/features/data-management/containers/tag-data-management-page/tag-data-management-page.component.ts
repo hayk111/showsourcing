@@ -24,8 +24,9 @@ export class TagDataManagementPageComponent extends AbstractDataManagementCompon
 		protected router: Router,
 		protected featureSrv: TagManagememtService,
 		protected selectionSrv: SelectionService,
+		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, dlgSrv, ERM.TAG);
+		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.TAG);
 	}
 }

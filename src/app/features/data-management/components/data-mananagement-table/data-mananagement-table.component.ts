@@ -18,14 +18,14 @@ export class DataMananagementTableComponent {
 	@Output() entitySelectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() entityUnselectAll = new EventEmitter<null>();
 	@Output() entityOpen = new EventEmitter<string>();
+	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() removeEntity = new EventEmitter<string>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	ermCategory = ERM.CATEGORY;
-	ermSupplier = ERM.SUPPLIER;
+	ermTag = ERM.TAG;
 	ermEvent = ERM.EVENT;
-	ermProduct = ERM.PRODUCT;
 	idEntityHovered: string;
 
 	onHover(id: string) {

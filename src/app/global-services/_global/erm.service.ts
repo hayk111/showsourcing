@@ -7,6 +7,7 @@ import { ProductService } from '~global-services/product/product.service';
 import { ProjectService } from '~global-services/project/project.service';
 import { ImageService } from '~global-services/image/image.service';
 import { Injectable } from '@angular/core';
+import { EventService } from '~global-services/event/event.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -19,7 +20,8 @@ export class ERMService {
 		private supplierService: SupplierService,
 		private productService: ProductService,
 		private projectService: ProjectService,
-		private imageService: ImageService) { }
+		private imageService: ImageService,
+		private eventService: EventService) { }
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
@@ -33,6 +35,10 @@ export class ERMService {
 				return this.projectService;
 			case ERM.IMAGE:
 				return this.imageService;
+			case ERM.TAG:
+				return this.tagService;
+			case ERM.EVENT:
+				return this.eventService;
 			default:
 				throw Error(`This ERM has not an associated service`);
 		}
