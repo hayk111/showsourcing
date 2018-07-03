@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Supplier } from '~models';
+import { Supplier, Category, TeamUser, ProductStatus, Tag, Project, Event } from '~models';
 import { FilterType } from '~shared/filters/models';
 
 import { CategoryService, EventService, ProductStatusService, ProjectService, TagService } from '../../../global-services';
@@ -45,28 +45,27 @@ export class FilterDataService {
 		return this.supplierSrv.selectAll();
 	}
 
-	// Should these methods be all Supplier Observables?
-	private selectEvents(): Observable<Supplier[]> {
-		return this.eventSrv.selectAll('id, alias');
+	private selectEvents(): Observable<any[]> {
+		return this.eventSrv.selectAll();
 	}
 
-	private selectCategories(): Observable<Supplier[]> {
+	private selectCategories(): Observable<Category[]> {
 		return this.categorySrv.selectAll();
 	}
 
-	private selectTags(): Observable<Supplier[]> {
+	private selectTags(): Observable<Tag[]> {
 		return this.tagSrv.selectAll();
 	}
 
-	private selectProjects(): Observable<Supplier[]> {
+	private selectProjects(): Observable<Project[]> {
 		return this.projectSrv.selectAll();
 	}
 
-	private selectUsers(): Observable<Supplier[]> {
+	private selectUsers(): Observable<TeamUser[]> {
 		return this.teamUserSrv.selectAll();
 	}
 
-	private selectProductStatuses(): Observable<Supplier[]> {
+	private selectProductStatuses(): Observable<ProductStatus[]> {
 		return this.productStatusService.selectAll();
 	}
 

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ERMService } from '~global-services/_global/erm.service';
 import { SelectParams } from '~global-services/_global/select-params';
-import { EntityMetadata } from '~models';
+import { EntityMetadata, ERM } from '~models';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,8 +30,9 @@ export class CrudDialogService {
 	}
 
 	checkExists(type: EntityMetadata, valueInput: string) {
+		const name = type === ERM.EVENT ? 'alias' : 'name';
 		return this.ermService.getGlobalService(type)
-			.selectMany(of(new SelectParams({ query: `name == "${valueInput}"` })))
+			.selectMany(of(new SelectParams({ query: `${name} == "${valueInput.trim()}"` })))
 			.pipe(
 				map(res => res.length > 0)
 			);

@@ -17,7 +17,7 @@
 		let-row="row"
 		width="250">
 		<div class="flexBetween">
-			<div> {{ entityMetadata == ermEvent ? row.description.name : row.name}} </div>
+			<div> {{ entityMetadata == ermEvent ? row.alias : row.name}} </div>
 			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
 		</div>
 	</ng-template>

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
-import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
+import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
