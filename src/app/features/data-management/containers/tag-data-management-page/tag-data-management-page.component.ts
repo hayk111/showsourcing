@@ -10,7 +10,7 @@ import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'tag-data-management-page-app',
-	templateUrl: './../data-management-page/data-management-page.component.html',
+	templateUrl: './../data-management-page.component.html',
 	styleUrls: ['./tag-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [

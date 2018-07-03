@@ -1,12 +1,12 @@
 <table-app
-	[rows]="items"
+	[rows]="rows"
 	[pending]="pending"
 	[dotsOption]="false"
-	[selected]="selected"
-	(selectOne)="entitySelect.emit($event)"
-	(unselectOne)="entityUnselect.emit($event)"
-	(selectAll)="entitySelectAll.emit($event)"
-	(unselectAll)="entityUnselectAll.emit()"
+	[selected]="selection"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(hovered)="onHover($event)">
@@ -18,7 +18,7 @@
 		width="250">
 		<div class="flexBetween">
 			<div> {{ entityMetadata == ermEvent ? row.description.name : row.name}} </div>
-			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
+			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
 		</div>
 	</ng-template>
 
@@ -76,8 +76,8 @@
 		let-row="row"
 		width="160">
 		<div class="flex">
-			<!-- If we are hovering over the row and we have nothing selected-->
-			<button *ngIf="(row.id === idEntityHovered) && (selected.size == 0)" class="button ugly" (click)="removeEntity.emit(row.id)">Delete</button>
+			<!-- If we are hovering over the row and we have nothing selection-->
+			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)" class="button ugly" (click)="removeEntity.emit(row.id)">Delete</button>
 		</div>
 	</ng-template>
 </table-app>

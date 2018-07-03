@@ -10,7 +10,7 @@ import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'category-data-management-page-app',
-	templateUrl: './../data-management-page/data-management-page.component.html',
+	templateUrl: './../data-management-page.component.html',
 	styleUrls: ['./category-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
@@ -30,4 +30,5 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 	) {
 		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.CATEGORY);
 	}
+
 }
