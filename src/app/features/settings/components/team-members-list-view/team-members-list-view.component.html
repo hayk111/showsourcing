@@ -1,13 +1,13 @@
 <table-app
-    [rows]="members"
+    [rows]="rows"
     [contextualMenu]="contextualMenu"
 	[pending]="pending"
 	[selected]="selection"
 	class="z-2"
-	(selectOne)="memberSelect.emit($event)"
-	(unselectOne)="memberUnselect.emit($event)"
-	(selectAll)="memberSelectAll.emit($event)"
-	(unselectAll)="memberUnselectAll.emit()"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
@@ -16,7 +16,7 @@
 		columnApp="Name"
 		sortBy="user.firstName"
 		let-row="row"
-        width="280">
+        width="140">
         {{ row.user.firstName }} {{ row.user.lastName }}
 	</ng-template>
 
@@ -26,7 +26,6 @@
 		columnApp="Email"
 		let-row="row"
 		sortBy="user.email"
-		[grows]="false"
 		width="140">
 		<span>
 			{{ row.user.email  }}
@@ -39,7 +38,7 @@
 		columnApp="Account type"
 		let-row="row"
 		sortBy="accessType"
-		width="280">
+		width="200">
 		<context-menu-app xPosition="after" yPosition="30">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text">{{ row.accessType }}</div>
@@ -64,7 +63,6 @@
 		let-row="row"
 		sortBy="status"
 		width="140"
-		[grows]="false"
 		[sortOrder]="'DESC'">
 		{{ row.status }}
 	</ng-template>

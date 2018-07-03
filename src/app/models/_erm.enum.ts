@@ -55,10 +55,12 @@ export class ERM {
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_STATUS = new EntityMetadata('supplier status', 'supplier status', Supplier, 'supplier-status');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
+	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly TAG = new EntityMetadata('tag', 'tags', Tag);
 	static readonly TASK = new EntityMetadata('task', 'tasks', Task);
 	static readonly TEAM = new EntityMetadata('team', 'teams', Team);
 	static readonly USER = new EntityMetadata('user', 'users', User);
+	static readonly TEAM_USER = new EntityMetadata('team user', 'team users');
 
 	constructor() { }
 

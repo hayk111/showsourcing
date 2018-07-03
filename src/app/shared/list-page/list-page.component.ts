@@ -107,6 +107,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
+		console.log('sort = ', sort);
 		this._selectParams$.next(new SelectParams({ sort, query: this.currentParams.query }));
 	}
 

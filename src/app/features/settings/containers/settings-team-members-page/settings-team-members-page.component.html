@@ -13,14 +13,14 @@
     [hasSwitch]="false"
     [hasFilter]="false"
     [buttonIcon]="false"
-		(buttonClick)="openInviteDialog()">
+	(buttonClick)="openInviteDialog()">
 
     <context-menu-app xPosition="after" yPosition="45">
 		<context-menu-trigger-app class="button flex pointer">
 			<div class="text">Selection</div>
 			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
-    <context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'FullAccess' })">
+        <context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'FullAccess' })">
 			Full Access
 		</context-menu-item-app>
 		<context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'ReadOnly' })">
@@ -34,26 +34,28 @@
 
 </sub-panel-app>
 
-<team-members-list-view-app
-    [members]="members$ | async"
-    [selection]="selected$ | async"
-    [pending]="pending"
-    (bottomReached)="loadMore()"
-    (sort)="onSort($event)"
-    (memberSelect)="selectItem($event)"
-    (memberUnselect)="unselectItem($event)"
-    (memberSelectAll)="selectAll($event)"
-    (memberUnselectAll)="resetSelection()"
-    (accessTypeUpdated)="accessTypeUpdated($event)"
-    (memberOpen)="onItemOpened($event)"
-    (delete)="deleteSelected()"></team-members-list-view-app>
+<ng-container *ngIf="items$ | async as members">
+    <team-members-list-view-app
+		[rows]="members"
+		[selection]="selected$ | async"
+		[pending]="pending"
+		(bottomReached)="loadMore()"
+		(sort)="sort($event)"
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		(open)="openPreview($event)"
+		(favorited)="onItemFavorited($event)"
+		(unfavorited)="onItemUnfavorited($event)">
+    </team-members-list-view-app>
 
-<!-- ng-container *ngIf="selected$ | async as selected">
-    <selection-bar-app
-        [ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
-        (close)="resetSelection()"
-        (delete)="deleteSelection()"
-        *ngIf="selected.size > 0"
-        [selection]="selected"></selection-bar-app>
-</ng-container -->
-
+    <!-- ng-container *ngIf="selected$ | async as selected">
+        <selection-bar-app
+            [ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
+            (close)="resetSelection()"
+            (delete)="deleteSelection()"
+            *ngIf="selected.size > 0"
+            [selection]="selected"></selection-bar-app>
+    </ng-container -->
+</ng-container>
