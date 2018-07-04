@@ -21,6 +21,9 @@
 				<thumb-buttons-app class="icon"
 					(vote)="updateProduct({ votes: $event })"
 					[votes]="product.votes"></thumb-buttons-app>
+				<span>
+					{{ product.score !== undefined ? (product.score + '%') : '' }}
+				</span>
 			</div>
 			<button>Placeholder</button>
 		</div>
@@ -47,7 +50,6 @@
 				[editable]="true"
 				[colAmount]="1">
 			</dynamic-form-app>
-
 		</ng-container>
 
 	</ng-container>
