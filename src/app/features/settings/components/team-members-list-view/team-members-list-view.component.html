@@ -40,7 +40,7 @@
 		let-row="row"
 		sortBy="accessType"
 		width="200">
-		<context-menu-app xPosition="after" yPosition="30" *ngIf="teamOwner">
+		<context-menu-app xPosition="after" yPosition="30" *ngIf="teamOwner && (row.user.id !== user.id)">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text">{{ row.accessType }}</div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
@@ -73,7 +73,7 @@
 </table-app>
 
 <ng-template #contextualMenu let-row="row">
-	<menu class="z-4" *ngIf="teamOwner">
+	<menu class="z-4" *ngIf="teamOwner && (row.user.id !== user.id)">
 		<menuitem class="pointer flexCenter" (click)="delete.emit(row)" i18n="member menu | export">
 			<div class="border">Remove User</div>
 		</menuitem>

@@ -1,5 +1,12 @@
+import { BaseEntity } from './_entity.model';
+import { User } from './user.model';
 
-export interface Invitation {
-	id: string;
-	accessType: string;
+export class Invitation extends BaseEntity<InvitationConfig> {
+	email: string;
+	inviter: User;
+}
+
+export interface InvitationConfig {
+	email: string;
+	inviter: User;
 }

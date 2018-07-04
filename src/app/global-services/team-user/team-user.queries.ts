@@ -28,10 +28,15 @@ export class TeamUserQueries implements GlobalQuery {
 	one: any = gql`
 	subscription teamUser($query: String!) {
 		teamUsers(query: $query) {
+			id,
 			user {
-				id, name
-			}
-
+				id,
+				firstName,
+				lastName,
+				email
+			},
+			status,
+			accessType
 		}
 	}
 	`;

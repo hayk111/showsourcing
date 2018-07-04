@@ -5,7 +5,7 @@ import { takeUntil, first } from 'rxjs/operators';
 import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
-import { ERM, TeamUser } from '~models';
+import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -13,15 +13,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
 
 import { TeamService, UserService } from '../../../../global-services';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
-// TODO: thierry there is ListPageComponent and ListView component that alleviate
-// list pages from A LOT of logic. It's really fast to refactor, check product list
-// component or supplier list component.
-// also you should provide a key to filter service and inject selection service as well
-// next to it
-// You also need 1 feature service now that extend the global service of whatever service
-// the page is about. Again please check suppliers-page, as it will give you a good
-// view of how simple this turns out to be.
 @Component({
 	selector: 'settings-team-members-page-app',
 	templateUrl: './settings-team-members-page.component.html',
@@ -33,7 +26,8 @@ import { TeamService, UserService } from '../../../../global-services';
 	]
 })
 export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
-	teamOwner;
+	teamOwner: boolean;
+	user: User;
 	hasSelected = false;
 
 	constructor(
@@ -46,7 +40,6 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected teamService: TeamService
 	) {
 		super(router, memberSrv, selectionSrv, filterSrv, dlgSrv, ERM.TEAM_USER);
-		// this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
 	ngOnInit() {
@@ -59,14 +52,19 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 
 		this.memberSrv.selectTeamOwner().pipe(
 			takeUntil(this._destroy$)
-		).subscribe(owner => this.teamOwner = owner);
+		).subscribe(({ user, teamOwner }) => {
+			this.teamOwner = teamOwner;
+			this.user = user;
+			this.teamOwner = true;
+		});
 
 		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
-		this.dlgSrv.open(NewTaskDlgComponent);
+		// this.dlgSrv.open(NewTaskDlgComponent);
+		this.dlgSrv.open(CreationDialogComponent, { type: ERM.TEAM, shouldRedirect: false });
 	}
 
 	/** Opens the dialog for inviting a new user */

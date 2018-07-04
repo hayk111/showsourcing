@@ -26,7 +26,10 @@ export class MemberFeatureService extends TeamUserService {
 		).pipe(
 			map(values => {
 				const [user, team] = values;
-				return (team.ownerUser && team.ownerUser.id === user.id);
+				return {
+					teamOwner: (team.ownerUser && team.ownerUser.id === user.id),
+					user
+				};
 			})
 		);
 	}
