@@ -24,8 +24,7 @@ export const routes: Routes = [
 				path: 'data', component: DataManagementPageComponent, children: [
 					{ path: '', redirectTo: 'category', pathMatch: 'full' },
 					{ path: 'category', component: CategoryDataManagementPageComponent },
-					{ path: 'supplier-tag', component: TagDataManagementPageComponent },
-					{ path: 'product-tag', component: TagDataManagementPageComponent },
+					{ path: 'tag', component: TagDataManagementPageComponent },
 					{ path: 'event', component: EventDataManagementPageComponent }
 				]
 			},

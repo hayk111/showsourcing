@@ -23,6 +23,8 @@ import { Sort } from '~shared/table/components/sort.interface';
 	}
 })
 export class TableComponent implements AfterContentInit {
+	// display the dot option
+	@Input() dotsOption = true;
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
@@ -136,8 +138,14 @@ export class TableComponent implements AfterContentInit {
 		this.hovered.emit(idEmit);
 	}
 
-	isSelected(row, index: number) {
-		return this.selected.has(row.id);
+	isSelected(row) {
+		if (!this.hasSelection)
+			return false;
+
+		if (this.selected)
+			return this.selected.has(row.id);
+
+		throw Error(`Selection Input is undefnied`);
 	}
 
 	onToggleContextualMenu(event, i, display = true) {

@@ -11,7 +11,7 @@ import { CategoryDataManagementPageComponent } from './containers/category-data-
 import { EventDataManagementPageComponent } from './containers/event-data-management-page/event-data-management-page.component';
 import { TagDataManagementPageComponent } from './containers/tag-data-management-page/tag-data-management-page.component';
 import { EventManagementService } from '~features/data-management/services/event-management.service';
-import { CategoryManagementService } from '~features/data-management/services/category-management.service.1';
+import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
 import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
 

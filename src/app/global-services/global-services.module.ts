@@ -16,6 +16,7 @@ import {
 	ImageUploadRequestService
 } from '~global-services/image-upload-request/image-upload-request.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
+import { ERMService } from '~global-services/_global/erm.service';
 
 
 
@@ -38,7 +39,8 @@ import { FileUploadRequestService } from '~global-services/file-upload-request/f
 		SupplierTypeService,
 		TagService,
 		ImageUploadRequestService,
-		FileUploadRequestService
+		FileUploadRequestService,
+		ERMService
 	]
 })
 export class GlobalServicesModule { }

@@ -10,6 +10,7 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[buttonIcon]="false"
+	(search)="search($event)"
 	(buttonClick)="openCreateDlg()">
 	<div class="flex" *ngIf="(selected$ | async).size > 0">
 		<button class="button warn" (click)="deleteSelected()"> Delete Selected </button>
@@ -19,14 +20,16 @@
 </sub-panel-app>
 
 <data-management-table-app
-	[items]="items$ | async"
-	[selected]="selected$ | async"
+	[rows]="items$ | async"
+	[selection]="selected$ | async"
 	[pending]="pending"
+	[entityMetadata]="entityMetadata"
+	(bottomReached)="loadMore()"
 	(sort)="sort($event)"
-	(entitySelect)="onItemSelected($event)"
-	(entityUnselect)="onItemUnselected($event)"
-	(entitySelectAll)="selectAll($event)"
-	(entityUnselectAll)="resetSelection()"
+	(select)="onItemSelected($event)"
+	(unselect)="onItemUnselected($event)"
+	(selectAll)="selectAll($event)"
+	(unselectAll)="resetSelection()"
 	(renameEntity)="openEditDlg($event)"
-	(deleteEntity)="deleteItem($event)">
+	(removeEntity)="deleteOne($event)">
 </data-management-table-app>

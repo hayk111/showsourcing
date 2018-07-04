@@ -23,6 +23,7 @@ input, textarea {
 // buttons and submit
 button, input[type="submit"], .button {
 	@extend .ripple;
+	text-transform: capitalize;
 	display: inline-block;
 	cursor: pointer;
 	font-weight: 600;

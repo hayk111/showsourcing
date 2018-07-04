@@ -20,8 +20,14 @@ export class CategoryQueries implements GlobalQuery {
 	`;
 
 	list = gql`
-	subscription categories($query: String!) {
-		categories(query: $query) {
+	subscription categories(
+		$take: Int,
+		$skip: Int,
+		$query: String!,
+		$sortBy: String,
+		$descending: Boolean
+		) {
+		categories(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 		id,
 		name,
 			createdBy {

@@ -165,8 +165,12 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	}
 
 	/** Deletes an specific item */
-	deleteItem(itemId: string) {
-
+	deleteOne(itemId: string) {
+		const callback = () => {
+			this.featureSrv.deleteOne(itemId).subscribe();
+		};
+		const text = `Are you sure you want to delete this item?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Open details page of a product */

@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { Supplier } from '~models';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 
 
@@ -8,7 +6,7 @@ export class ListViewComponent<T> {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */
-	@Input() rows: Array<Supplier>;
+	@Input() rows: Array<T>;
 	/** whether it's loading */
 	@Input() pending = true;
 	@Output() select = new EventEmitter<string>();

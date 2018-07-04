@@ -4,6 +4,7 @@ import { ApolloClient } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
+import { isObject } from 'util';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -100,6 +101,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	update(entity: T): Observable<any> {
+		this.trim(entity);
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
@@ -111,6 +113,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	create(entity: T): Observable<any> {
+		this.trim(entity);
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
@@ -140,6 +143,14 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			gql: this.queries.deleteMany,
 			ids,
 			typename: this.typeName
+		});
+	}
+
+	/** This is used to elimnate spaces at the sides of the strings in the entity*/
+	private trim(entity: T) {
+		Object.entries(entity).forEach(([k, v]) => {
+			// if (isObject(v)) this.trim(v); // enable this line in order to do every objects inside the entity
+			if (!isObject(v) && typeof v === 'string') entity[k] = v.trim();
 		});
 	}
 }
