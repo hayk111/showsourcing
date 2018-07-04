@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { zip } from 'rxjs';
+import { takeUntil, first } from 'rxjs/operators';
+import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { InviteUserDlgComponent } from '~features/settings/components';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
@@ -12,6 +14,9 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
 
 // import { SelectionService } from '~shared/list-page/selection.service';
+
+import { UserService } from '../../../../global-services';
+import { TeamService } from '../../../../global-services';
 
 // TODO: thierry there is ListPageComponent and ListView component that alleviate
 // list pages from A LOT of logic. It's really fast to refactor, check product list
@@ -41,7 +46,8 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
-		// protected userService: UserService
+		protected userService: UserService,
+		protected teamService: TeamService
 	) {
 		super(router, memberSrv, selectionSrv, filterSrv, dlgSrv, ERM.TEAM_USER);
 		// this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
@@ -55,7 +61,13 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 			this.hasSelected = (selected.size > 0);
 		});
 
-
+		zip(
+			this.userService.user$.pipe(first()),
+			this.teamService.selectedTeam$.pipe(first())
+		).subscribe(values => {
+			const [ user, team ] = values;
+			this.teamOwner = (team.ownerUser && team.ownerUser.id === user.id);
+		});
 	}
 
 	/** Opens the dialog for creating a new team */
