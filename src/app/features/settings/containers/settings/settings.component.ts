@@ -12,4 +12,7 @@ export class SettingsComponent {
 
 	erm = ERM;
 
+	onMenuExpanded(expanded) {
+
+	}
 }
