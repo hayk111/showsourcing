@@ -37,7 +37,9 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			const { email } = this.form.value;
 			this.invitationSrv.getInviter().pipe(
 				switchMap(inviter => {
-					return this.invitationSrv.create(new Invitation({ email, inviter }));
+					delete inviter.realmServerName;
+					delete inviter.realmPath;
+					return this.invitationSrv.update(new Invitation({ email, inviter }));
 				})
 			).subscribe(() => {
 		 		this.pending = false;
