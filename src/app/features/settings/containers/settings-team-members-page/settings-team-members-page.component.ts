@@ -33,7 +33,7 @@ import { TeamService, UserService } from '../../../../global-services';
 	]
 })
 export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
-	teamOwner$;
+	teamOwner;
 	hasSelected = false;
 
 	constructor(
@@ -57,7 +57,11 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 			this.hasSelected = (selected.size > 0);
 		});
 
-		this.teamOwner$ = this.memberSrv.selectTeamOwner();
+		this.memberSrv.selectTeamOwner().pipe(
+			takeUntil(this._destroy$)
+		).subscribe(owner => this.teamOwner = owner);
+
+		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
 	/** Opens the dialog for creating a new team */
