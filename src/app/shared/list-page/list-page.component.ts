@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -150,9 +150,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** Update entities */
 	updateSelected(value) {
 		const items = Array.from(this.selectionSrv.selection.keys()).map(id => ({ ...value, id }));
-		forkJoin(items.map(item => {
-			this.featureSrv.update(item);
-		})).subscribe(() => {
+		this.featureSrv.updateMany(items).subscribe(() => {
 			this.resetSelection();
 		});
 	}
