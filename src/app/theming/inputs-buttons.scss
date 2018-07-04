@@ -45,6 +45,7 @@ button, input[type="submit"], .button {
 	white-space: nowrap;
 	text-align: center;
 	&.auto {
+		padding: 0px 12px;
 		width: auto;
 	}
 	&.light {

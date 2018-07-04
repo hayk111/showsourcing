@@ -152,7 +152,7 @@ export class MemberService {
 	/** invite a user based on his / her email */
 	inviteMember(email: string) {
 		throw Error('needs refactoring');
-		// return this.userSrv.selectUser().pipe(
+		// return this.userSrv.selectOne().pipe(
 		// 	switchMap(user => {
 		// 		const invitation = {
 		// 			id: uuid(),

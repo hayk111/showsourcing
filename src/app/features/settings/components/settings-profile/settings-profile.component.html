@@ -6,18 +6,27 @@
 	[hasAction]="false">
 </top-panel-app>
 
-<div class="ctnr" *ngIf="user$ | async as user">
+<profile-card-app class="card-style"
+	[item]="user$ | async"
+	(valueChange)="updateUser($event)"
+></profile-card-app>
+
+<!-- Uncomment when Company realm is out -->
+<!-- <company-profile-card-app class="card-style"
+	[item]="company$ | async"
+	[form]="formCompany"
+></company-profile-card-app> -->
+
+<!-- <div class="flexColumn flexCenter" *ngIf="user$ | async as user">
 	<user-picture-app class="pointer z-2 z-h" (click)="fileInp.click()" size="80" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
 	<input #fileInp type="file" [hidden]="true"/>
 	<form [formGroup]="form">
 		<h2>Basic Details</h2>
-		<!-- first name -->
 		<form-field-app>
 			<label-app>First name</label-app>
 			<input inputApp type="text" [value]="user.firstName" (blur)="update('firstName', $event.target.value)" formControlName="firstName"/>
 		</form-field-app>
 
-		<!-- last name -->
 		<form-field-app>
 			<label-app>last name</label-app>
 			<input inputApp type="text" [value]="user.lastName" (blur)="update('lastName', $event.target.value)" formControlName="lastName"/>
@@ -31,5 +40,12 @@
 				restrictInput="email" formControlName="email" readonly/>
 		</form-field-app>
 	</form>
-
 </div>
+<div class="flexColumn flexCenter" *ngIf="teamUser$ | async as teamU">
+	<form [formGroup]="form">
+		<h2>Company Details</h2>
+
+	</form>
+</div> -->
+
+

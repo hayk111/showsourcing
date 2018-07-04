@@ -1,0 +1,27 @@
+<h1 class="title">User Profile </h1>
+<label-app>Profile Picture</label-app>
+<div class="photoContainer flex">
+	<user-picture-app class="pointer z-3 z-h" [size]="48" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
+	<p class="color-primary">Select Image</p>
+</div>
+
+<form [formGroup]="form">
+	<form-field-app>
+		<label-app>First Name</label-app>
+		<input class="form" inputApp type="text" formControlName="firstName"/>
+	</form-field-app>
+	<form-field-app>
+		<label-app>Last Name</label-app>
+		<input class="form" inputApp type="text"  formControlName="lastName"/>
+	</form-field-app>
+	<form-field-app>
+		<label-app>Email</label-app>
+		<input class="form" inputApp type="text" formControlName="email"/>
+	</form-field-app>
+	<form-field-app>
+		<label-app>Phone</label-app>
+		<input class="form" restrictInput="tel" inputApp type="text"  formControlName="phoneNumber"/>
+	</form-field-app>
+</form>
+
+<button class="auto"  (click)="changePassword()">Change Password</button>

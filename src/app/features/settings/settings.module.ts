@@ -23,9 +23,10 @@ import {
 	SettingsComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsFieldsPageComponent,
-	SettingsWorkflowsPageComponent,
+	SettingsWorkflowsPageComponent
 } from './containers';
-
+import { CompanyProfileCardComponent } from './components/company-profile-card/company-profile-card.component';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 
 @NgModule({
 	imports: [
@@ -44,8 +45,8 @@ import {
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent,
-		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
+		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
+		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent, ProfileCardComponent
 	],
 	entryComponents: [
 		InviteUserDlgComponent, NewTeamDlgComponent
