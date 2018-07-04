@@ -91,7 +91,7 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		// this.memberSrv.deleteMembers(Array.from(this.selectionSrv.selection.keys()));
 		// this.resetSelection();
 		if (member) {
-			this.deleteItem(member.id);
+			this.deleteOne(member.id);
 		} else {
 			this.deleteSelected();
 		}
