@@ -11,13 +11,14 @@
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
-    <!-- supplier row -->
+	<!-- name -->
 	<ng-template
 		columnApp="Name"
 		sortBy="user.firstName"
 		let-row="row"
-        width="140">
-        {{ row.user.firstName }} {{ row.user.lastName }}
+		width="140"
+		[sortOrder]="'DESC'">
+		{{ row.user.firstName }} {{ row.user.lastName }}
 	</ng-template>
 
 	<!-- email -->
@@ -65,8 +66,7 @@
 		columnApp="Status"
 		let-row="row"
 		sortBy="status"
-		width="140"
-		[sortOrder]="'DESC'">
+		width="140">
 		{{ row.status }}
 	</ng-template>
 

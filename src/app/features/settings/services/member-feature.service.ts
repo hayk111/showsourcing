@@ -14,9 +14,4 @@ export class MemberFeatureService extends TeamUserService {
 		super(apollo);
 	}
 
-	selectMany(): Observable<TeamUser[]> {
-		const sort: Sort = { sortBy: 'user.firstName', sortOrder: 'DESC' };
-		return this.teamUserSrv.selectMany(of(new SelectParams({ sort })));
-	}
-
 }

@@ -68,6 +68,7 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 			const [ user, team ] = values;
 			this.teamOwner = (team.ownerUser && team.ownerUser.id === user.id);
 		});
+		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
 	/** Opens the dialog for creating a new team */
