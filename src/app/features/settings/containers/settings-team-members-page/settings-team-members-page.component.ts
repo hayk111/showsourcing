@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { zip } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
-import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { InviteUserDlgComponent } from '~features/settings/components';
+import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser } from '~models';
@@ -13,10 +12,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
 
-// import { SelectionService } from '~shared/list-page/selection.service';
-
-import { UserService } from '../../../../global-services';
-import { TeamService } from '../../../../global-services';
+import { TeamService, UserService } from '../../../../global-services';
 
 // TODO: thierry there is ListPageComponent and ListView component that alleviate
 // list pages from A LOT of logic. It's really fast to refactor, check product list
@@ -37,7 +33,7 @@ import { TeamService } from '../../../../global-services';
 	]
 })
 export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
-	teamOwner = true;
+	teamOwner$;
 	hasSelected = false;
 
 	constructor(
@@ -61,14 +57,7 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 			this.hasSelected = (selected.size > 0);
 		});
 
-		zip(
-			this.userService.user$.pipe(first()),
-			this.teamService.selectedTeam$.pipe(first())
-		).subscribe(values => {
-			const [ user, team ] = values;
-			this.teamOwner = (team.ownerUser && team.ownerUser.id === user.id);
-		});
-		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
+		this.teamOwner$ = this.memberSrv.selectTeamOwner();
 	}
 
 	/** Opens the dialog for creating a new team */
