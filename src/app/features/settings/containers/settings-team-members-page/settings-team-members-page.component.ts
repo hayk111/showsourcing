@@ -69,24 +69,18 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 	}
 
 	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
-		// TODO: Thiery I believe this if/else doesn't do anything
-		// if (member) {
-		//      this.memberSrv.updateMember({
-		//              ...member,
-		//              accessType
-		//      }).subscribe();
-		// } else {
-		//      this.memberSrv.updateMembers({
-		//              accessType
-		//      }).subscribe();
-		// }
+		if (member) {
+			this.update({
+				...member,
+				accessType
+			});
+		} else {
+			this.updateSelected({ accessType });
+		}
 	}
 
 	/** Deletes the currently selected members */
 	deleteSelection(member: TeamUser) {
-		console.log('>> deleteSelection - member = ', member);
-		// this.memberSrv.deleteMembers(Array.from(this.selectionSrv.selection.keys()));
-		// this.resetSelection();
 		if (member) {
 			this.deleteOne(member.id);
 		} else {
