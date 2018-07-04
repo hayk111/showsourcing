@@ -7,7 +7,7 @@ import { takeUntil, first, map, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { Project } from '~models';
 import { DialogService } from '~shared/dialog';
-import { MemberService } from '~features/settings/services/member.service';
+import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 
 
 
@@ -21,7 +21,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService, private memberSrv: MemberService,
+	constructor(private dlgSrv: DialogService, private invitationSrv: InvitationFeatureService,
 		private fb: FormBuilder) {
 		super();
 		this.form = this.fb.group(

@@ -12,10 +12,11 @@
     buttonName="Invite Collaborator"
     [hasSwitch]="false"
     [hasFilter]="false"
+    [hasCreate]="teamOwner"
     [buttonIcon]="false"
 	(buttonClick)="openInviteDialog()">
 
-    <context-menu-app xPosition="after" yPosition="45">
+    <context-menu-app xPosition="after" yPosition="45" *ngIf="teamOwner && hasSelected">
 		<context-menu-trigger-app class="button flex pointer">
 			<div class="text">Selection</div>
 			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
@@ -36,7 +37,8 @@
 
 <ng-container *ngIf="items$ | async as members">
     <team-members-list-view-app
-		[rows]="members"
+        [rows]="members"
+        [teamOwner]="teamOwner"
 		[selection]="selected$ | async"
 		[pending]="pending"
 		(bottomReached)="loadMore()"
@@ -45,9 +47,7 @@
 		(unselect)="onItemUnselected($event)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
-		(open)="openPreview($event)"
-		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)">
+		(delete)="deleteSelection($event)">
     </team-members-list-view-app>
 
     <!-- ng-container *ngIf="selected$ | async as selected">

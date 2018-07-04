@@ -7,7 +7,7 @@ import { takeUntil, first, map, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { Project } from '~models';
 import { DialogService } from '~shared/dialog';
-import { MemberService } from '~features/settings/services/member.service';
+import { TeamFeatureService } from '~features/settings/services/team-feature.service';
 
 
 // TODO thiery, I believe Michael did a global creation dialog that takes a service
@@ -22,7 +22,7 @@ export class NewTeamDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService, private memberSrv: MemberService,
+	constructor(private dlgSrv: DialogService, private teamSrv: TeamFeatureService,
 		private fb: FormBuilder) {
 		super();
 		this.form = this.fb.group(

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { ERM, TeamUser } from '~models';
@@ -33,7 +34,9 @@ import { InviteUserDlgComponent } from '~features/settings/components';
 		SelectionService
 	]
 })
-export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> {
+export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
+	teamOwner = true;
+	hasSelected = false;
 
 	constructor(
 		protected router: Router,
@@ -41,11 +44,22 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
+		// protected userService: UserService
 	) {
 		super(router, memberSrv, selectionSrv, filterSrv, dlgSrv, ERM.TEAM_USER);
 		// this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
+	ngOnInit() {
+		super.ngOnInit();
+		this.selected$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(selected => {
+			this.hasSelected = (selected.size > 0);
+		});
+
+
+	}
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
@@ -72,9 +86,15 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 	}
 
 	/** Deletes the currently selected members */
-	deleteSelection() {
+	deleteSelection(member: TeamUser) {
+		console.log('>> deleteSelection - member = ', member);
 		// this.memberSrv.deleteMembers(Array.from(this.selectionSrv.selection.keys()));
-		this.resetSelection();
+		// this.resetSelection();
+		if (member) {
+			this.deleteItem(member.id);
+		} else {
+			this.deleteSelected();
+		}
 	}
 
 }

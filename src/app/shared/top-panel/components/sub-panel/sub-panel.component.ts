@@ -16,6 +16,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() hasSwitch = true;
 	// whether the screen has a search input
 	@Input() hasSearch = true;
+	// whether the screen has a create button
+	@Input() hasCreate = true;
 
 	@Input() title: string;
 

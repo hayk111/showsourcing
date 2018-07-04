@@ -40,7 +40,8 @@
 
 			<span class="marginSmall"></span>
 
-			<button (click)="buttonClick.emit()" *ngIf="buttonName">
+			<button *ngIf="hasCreate && buttonName"
+			        (click)="buttonClick.emit()">
 				<icon-app *ngIf="buttonIcon" class="plusIc fs-s" name="plus" fontSet="fa"></icon-app>
 				<span>{{ buttonName }}</span>
 			</button>

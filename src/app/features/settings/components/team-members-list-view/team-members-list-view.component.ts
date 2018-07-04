@@ -12,6 +12,7 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
+	@Input() teamOwner: boolean;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 
 	constructor() {
