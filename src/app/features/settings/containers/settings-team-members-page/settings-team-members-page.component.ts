@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
+import { InviteUserDlgComponent } from '~features/settings/components';
 import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
-import { CreationDialogComponent } from '~shared/generic-dialog';
 
 // import { SelectionService } from '~shared/list-page/selection.service';
-import { NewTaskDlgComponent } from '~features/tasks';
-import { InviteUserDlgComponent } from '~features/settings/components';
-
 
 // TODO: thierry there is ListPageComponent and ListView component that alleviate
 // list pages from A LOT of logic. It's really fast to refactor, check product list
