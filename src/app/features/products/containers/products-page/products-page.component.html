@@ -3,13 +3,13 @@
 <ng-container *ngIf="items$ | async as products">
 	<!-- top panel -->
 	<top-panel-app
-		[title]="'My Products'"
+		[title]="entityMetadata.plural"
 		[subtitles]="['Products', 'all']"
-		[hasAction]="false">
+		buttonName="Add {{entityMetadata.singular}}"
+		(buttonClick)="openCreateDlg(true)">
 	</top-panel-app>
 
 	<sub-panel-app
-		buttonName="Add Product"
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[buttonIcon]="false"
