@@ -6,6 +6,9 @@ import { ProductFeatureService } from '~features/products/services';
 import { AppFile, Product, Project, AppImage } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import {
+	ProductAddToProjectDlgComponent
+} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
 
 
 @Component({
@@ -48,7 +51,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openAddProjectDlg() {
-		this.dlgSrv.open(ProductDetailsComponent, { selectedProducts: [this.product.id] });
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product.id] });
 	}
 
 	removeProject(project: Project) {

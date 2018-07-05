@@ -3,7 +3,7 @@
 	<h2 i18n="header 2|Project card@@projectCard_projects">Projects</h2>
 
 	<article *ngFor="let project of projects" class="flex">
-		<div class="flexCenter">
+		<div class="flexCenter logo">
 			<img [src]="project | logo:'project'"/>
 		</div>
 		<div class="flexColumn middle">

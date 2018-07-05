@@ -6,6 +6,7 @@ import { ProductService, ProjectService } from '../../../global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloClient } from '~shared/apollo';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ProductFeatureService extends ProductService {
@@ -50,6 +51,7 @@ export class ProductFeatureService extends ProductService {
 	selectProjectsForProduct(id: string): Observable<Project[]> {
 		return this.projectSrv.selectMany(
 			of(new SelectParams({ query: `products.id == "${id}"` }))
+		).pipe(
 		);
 	}
 
@@ -83,7 +85,7 @@ export class ProductFeatureService extends ProductService {
 	/**
 	 * Get a list of products with unicity.
 	 */
-	private getNewProductList(existingProducts: Product[], productIdsToAdd: string[]) {
+	private getNewProductList(existingProducts: Product[] = [], productIdsToAdd: string[]) {
 		const existingProductIds = existingProducts.map((product => product.id));
 		const newProducts = existingProductIds.concat(productIdsToAdd);
 		return newProducts.map(productId => ({ id: productId }));
