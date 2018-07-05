@@ -72,7 +72,8 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
-	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
+	/** Updates the access type */
+	accessTypeUpdated({ member, accessType }: { member?: TeamUser; accessType: string }) {
 		if (member) {
 			this.update({
 				...member,
@@ -83,13 +84,9 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		}
 	}
 
-	/** Deletes the currently selected members */
-	deleteSelection(member: TeamUser) {
-		if (member) {
-			this.deleteOne(member.id);
-		} else {
-			this.deleteSelected();
-		}
+	/** Deletes the member */
+	deleteOneMember(member: TeamUser) {
+		this.deleteOne(member.id);
 	}
 
 }

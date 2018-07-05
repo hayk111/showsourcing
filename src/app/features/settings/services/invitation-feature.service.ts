@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { Invitation } from '~models';
 
 import { InvitationService } from '../../../global-services';
@@ -18,5 +18,15 @@ export class InvitationFeatureService extends InvitationService {
 
 	getInviter() {
 		return this.userSrv.user$.pipe(first());
+	}
+
+	createInvitation(email: string) {
+		return this.getInviter().pipe(
+			switchMap(inviter => {
+				delete inviter.realmServerName;
+				delete inviter.realmPath;
+				return this.invitationSrv.create(new Invitation({ email, inviter }));
+			})
+		);
 	}
 }

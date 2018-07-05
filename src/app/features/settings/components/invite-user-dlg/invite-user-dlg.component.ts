@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { takeUntil, first, map, switchMap } from 'rxjs/operators';
+import { takeUntil, first, map } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { Invitation } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -35,16 +35,11 @@ export class InviteUserDlgComponent extends AutoUnsub {
 		if (this.form.valid) {
 		 	this.pending = true;
 			const { email } = this.form.value;
-			this.invitationSrv.getInviter().pipe(
-				switchMap(inviter => {
-					delete inviter.realmServerName;
-					delete inviter.realmPath;
-					return this.invitationSrv.update(new Invitation({ email, inviter }));
-				})
-			).subscribe(() => {
-		 		this.pending = false;
-		 		this.dlgSrv.close();
-			});
+			this.invitationSrv.createInvitation(email)
+				.subscribe(() => {
+		 			this.pending = false;
+		 			this.dlgSrv.close();
+				});
 		}
 	}
 }
