@@ -7,7 +7,7 @@ export interface Entity {
 }
 
 export class BaseEntity<G> implements Entity {
-	id?: string;
+	id: string;
 	creationDate?: string;
 	lastUpdatedDate?: string;
 	createdBy?: User;
