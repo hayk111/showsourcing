@@ -18,5 +18,10 @@ export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
 
 	constructor() {
 		super();
+		this.isSelectable = this.isSelectable.bind(this);
+	}
+
+	isSelectable(user: TeamUser) {
+		return (this.user && this.teamOwner && user.user.id !== this.user.id);
 	}
 }

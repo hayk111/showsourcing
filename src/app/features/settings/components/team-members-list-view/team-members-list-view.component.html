@@ -1,8 +1,9 @@
 <table-app
-    [rows]="rows"
-    [contextualMenu]="contextualMenu"
+  [rows]="rows"
+  [contextualMenu]="contextualMenu"
 	[pending]="pending"
 	[selected]="selection"
+	[isSelectable]="isSelectable"
 	class="z-2"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
