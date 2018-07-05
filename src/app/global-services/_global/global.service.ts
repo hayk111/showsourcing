@@ -20,15 +20,6 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
-	/** Pipeline Select one : to deduplicate logic execution
-	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
-	 *  From 5 different components.
-	 */
-	private selectOneId$ = new ReplaySubject<string>(1);
-	private selectOne$ = this.selectOneId$.asObservable().pipe(
-		distinctUntilChanged(),
-		switchMap(id => this.apollo.selectOne({ gql: this.queries.one, id }))
-	);
 
 	/**
 	 * Pipelines Select all
@@ -87,8 +78,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		this.selectOneId$.next(id);
-		return this.selectOne$;
+		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
 	selectAll(fields: string = 'id, name'): Observable<T[]> {

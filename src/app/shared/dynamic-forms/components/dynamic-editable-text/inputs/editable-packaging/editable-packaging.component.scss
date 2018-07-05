@@ -6,4 +6,8 @@ editable-label-app {
 	min-width: 120px;
 	cursor: pointer;
 	text-align: right;
+	&:hover {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { delay, filter, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
+import { delay, filter, first, map, mergeMap, retryWhen, take, tap, catchError } from 'rxjs/operators';
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
@@ -23,7 +23,8 @@ export class UploaderService {
 	uploadImages(imgs: File[]): Observable<any> {
 		return forkJoin(imgs.map(img => this.uploadFile(img, 'image')))
 			.pipe(
-				first()
+				first(),
+				catchError(error => { console.log(error); return of(error); })
 			);
 	}
 
@@ -103,7 +104,10 @@ export class UploaderService {
 	private emitWhenFileReady(request: ImageUploadRequest | FileUploadRequest) {
 		if (request instanceof ImageUploadRequest) {
 			return this.queryImage(request).pipe(
-				retryWhen(errors => errors.pipe(delay(500), take(30))),
+				retryWhen(errors => errors.pipe(
+					delay(500),
+					take(30)
+				)),
 			);
 		} else {
 			// files are ready instantly
@@ -112,6 +116,8 @@ export class UploaderService {
 	}
 
 	private queryImage(r: ImageUploadRequest) {
-		return this.http.get(ImageUrls.s + '/' + r.image.fileName, { responseType: 'blob' });
+		return this.http.get(ImageUrls.s + '/' + r.image.fileName, { responseType: 'blob' }).pipe(
+			first()
+		);
 	}
 }

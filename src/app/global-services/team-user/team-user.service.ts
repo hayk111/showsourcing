@@ -15,7 +15,7 @@ export class TeamUserService extends GlobalService<TeamUser> {
 		super(apollo, new TeamUserQueries(), 'TeamUser');
 	}
 
-	selectAll(fields: string = 'id, user { firstName, lastName }') {
+	selectAll(fields: string = 'id, user { id, firstName, lastName }') {
 		return super.selectAll(fields);
 	}
 }

@@ -22,7 +22,7 @@
 	 4. field cell one line without bottom
 	*/
 	&.doubleLine {
-		padding-top: 16px;
+		margin-bottom: 16px;
 		// label is always the same size
 		.labelCtnr {
 			height: 14px;
@@ -41,14 +41,14 @@
 		}
 		// when the input has a fixed size
 		&.cannotGrow {
-			height: 67px;
+			height: 51px;
 			.content {
 				height: 37px;
 			}
 		}
 
 		&.canGrow {
-			min-height: 67px;
+			min-height: 51px;
 			.content {
 				min-height: 37px;
 			}
@@ -66,6 +66,10 @@
 		}
 		&.canGrow {
 			min-height: 33px;
+		}
+		.labelCtnr {
+			font-size: var(--font-size-m);
+			font-weight: 600;
 		}
 		.content {
 			color: var(--color-txt-secondary);
