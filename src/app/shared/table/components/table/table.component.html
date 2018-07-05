@@ -8,7 +8,6 @@
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
 
-
 		<!-- selection column -->
 		<div class="col selectionCol" *ngIf="hasSelection">
 			<div class="header">
@@ -30,7 +29,7 @@
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-				<div class="dotSeparator"
+				<div class="dotSeparator pointer"
 					[ngClass]="{ hover: (i === hoverIndex) }"
 					[ngStyle]="{ display: ((i === hoverIndex) || isSelected(row, i)) ? 'block' : 'none' }"
 					(click)="onToggleContextualMenu($event, i)"></div>

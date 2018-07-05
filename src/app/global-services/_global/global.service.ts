@@ -1,5 +1,5 @@
-import { Observable, of, ReplaySubject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, mergeMap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
@@ -48,7 +48,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		flatMap(params$ => params$),
 		distinctUntilChanged(),
 		// we query gql
-		switchMap(({ page, sort, query, take }: SelectParams) => {
+		mergeMap(({ page, sort, query, take }: SelectParams) => {
 			// putting those in variables form
 			const sortBy = sort.sortBy;
 			const descending = sort.sortOrder === 'ASC';
@@ -65,11 +65,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			);
 		}),
 		// we append the result if page was incremented
-		scan((acc: any, curr: any) => {
-			if (curr.page === 0)
-				return curr.data;
-			return [...acc, ...curr.data];
-		}, [])
+		scan((acc: any, curr: any) => curr.page === 0 ? curr.data : acc.concat(curr.data), [])
 	);
 
 	constructor(
