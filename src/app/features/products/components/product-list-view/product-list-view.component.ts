@@ -48,9 +48,9 @@ export class ProductListViewComponent extends ListViewComponent<Product> impleme
 		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280 },
 		{ title: 'Category', type: 'category', sortBy: 'category.name', width: 120 },
 		{ title: 'Supplier', type: 'supplier', sortBy: 'supplier.name', width: 120 },
-		{ title: 'Price', type: 'price', sortBy: 'price', width: 50 },
+		{ title: 'Price', type: 'price', sortBy: 'price.value', width: 50 },
 		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50 },
-		{ title: 'FAV', type: 'rating', sortBy: 'rating', width: 15 },
+		{ title: 'FAV', type: 'rating', sortBy: 'favorite', width: 15 },
 		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85 },
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120 }
 	];
