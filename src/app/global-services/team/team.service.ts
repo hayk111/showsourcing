@@ -102,6 +102,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** restore    */
 	private restoreSelectedTeam() {
+		debugger;
 		const selectedTeamId: string = this.storage.getItem(SELECTED_TEAM_ID);
 		this._selectedTeamId$.next(selectedTeamId);
 	}

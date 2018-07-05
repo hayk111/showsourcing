@@ -20,8 +20,7 @@ export class AuthenticationService {
 	constructor(
 		private authHttp: AuthHttpService,
 		private tokenSrv: TokenService,
-		private router: Router,
-		private apollo: ApolloClient,
+		private router: Router
 	) {
 
 		// when there is an access token that means we are authenticated
