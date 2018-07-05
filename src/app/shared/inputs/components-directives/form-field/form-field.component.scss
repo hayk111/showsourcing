@@ -2,6 +2,10 @@
 	display: block;
 	padding-bottom: 24px;
 	position: relative;
+
+	&.padding-bottom {
+		padding-bottom: 16px;
+	}
 }
 
 .left-align {

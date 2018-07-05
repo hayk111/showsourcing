@@ -1,19 +1,19 @@
 <form [formGroup]="form">
-		<form-field-app>
+		<form-field-app [paddingBottom]="true">
 			<label-app>Company Name</label-app>
-			<input inputApp type="text" [value]="item.companyName" formControlName="companyName"/>
+			<input class="borderless" inputApp type="text" formControlName="companyName"/>
 		</form-field-app>
-		<form-field-app>
+		<form-field-app [paddingBottom]="true">
 			<label-app>Country</label-app>
-			<input inputApp type="text" [value]="item.country" formControlName="country"/>
+			<input class="borderless" inputApp type="text" formControlName="country"/>
 		</form-field-app>
-		<form-field-app>
+		<form-field-app [paddingBottom]="true">
 			<label-app>Address</label-app>
-			<input inputApp type="text" [value]="item.address" formControlName="address"/>
+			<input class="borderless" inputApp type="text" formControlName="address"/>
 		</form-field-app>
-		<form-field-app>
+		<form-field-app [paddingBottom]="true">
 			<label-app>TAX ID</label-app>
-			<input inputApp type="text" [value]="item.taxId" formControlName="taxId"/>
+			<input class="borderless" inputApp type="text" formControlName="taxId"/>
 		</form-field-app>
 
 	</form>

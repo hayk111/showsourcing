@@ -20,7 +20,7 @@ import {
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { log } from '~utils';
-import { UserService } from '~global-services/user/user.service';
+import { UserApolloService } from '~global-services/user/user.apollo.service';
 import { TeamService } from '~global-services/team/team.service';
 
 
@@ -39,7 +39,7 @@ export class ApolloService {
 	constructor(
 		private apollo: Apollo,
 		private apolloState: ApolloStateService,
-		private userSrv: UserService,
+		private userApolloSrv: UserApolloService,
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService,
 		private httpLink: HttpLink,
@@ -54,7 +54,7 @@ export class ApolloService {
 
 		// when unauthenticated we clear the cache
 		// when the user is connected (we can have an user id)
-		this.userSrv.user$.subscribe(user => {
+		this.userApolloSrv.user$.subscribe(user => {
 			if (user)
 				this.initUserClient(user);
 			else

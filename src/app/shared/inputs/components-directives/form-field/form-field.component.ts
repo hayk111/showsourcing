@@ -14,10 +14,14 @@ import { HintComponent } from '~shared/inputs/components-directives/hint/hint.co
 	templateUrl: './form-field.component.html',
 	styleUrls: ['./form-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: animations
+	animations: animations,
+	host: {
+		'[class.padding-bottom]': 'paddingBottom'
+	}
 })
 export class FormFieldComponent implements OnInit, AfterContentInit {
 	// whenever the * next to required field should be hidden
+	@Input() paddingBottom = false;
 	@Input() hideRequiredMarker: boolean;
 	@ContentChild(InputDirective) input: InputDirective;
 	@ContentChild(LabelComponent) label: LabelComponent;

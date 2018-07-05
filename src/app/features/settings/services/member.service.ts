@@ -10,7 +10,7 @@ import { Contact, Task } from '~models';
 import { Product } from '~models';
 import { uuid } from '~utils/uuid.utils';
 import { PER_PAGE } from '~utils/constants';
-import { UserService } from '../../../global-services';
+import { UserApolloService } from '../../../global-services';
 
 
 // =====================>>>>>>
@@ -23,7 +23,7 @@ import { UserService } from '../../../global-services';
 export class MemberService {
 	private membersQuery$: QueryRef<string, any>;
 
-	constructor(private userSrv: UserService) { }
+	constructor(private userApolloSrv: UserApolloService) { }
 
 	/**
 		Initialize the underlying query ref for the list of
@@ -152,7 +152,7 @@ export class MemberService {
 	/** invite a user based on his / her email */
 	inviteMember(email: string) {
 		throw Error('needs refactoring');
-		// return this.userSrv.selectOne().pipe(
+		// return this.userApolloSrv.selectOne().pipe(
 		// 	switchMap(user => {
 		// 		const invitation = {
 		// 			id: uuid(),

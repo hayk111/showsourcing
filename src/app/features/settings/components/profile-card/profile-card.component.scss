@@ -10,17 +10,8 @@
 	font-size: var(--font-size-l);
 }
 
-
-input.form {
-	padding: 0;
-	background: white;
-	border:none;
-	border-bottom: 1px solid #e6ebf5;
-	padding-bottom: 8px;
-}
-
 button.auto {
-	margin-top: 32px;
+	margin-top: var(--spacing-m);
 }
 
 .photoContainer {
@@ -38,16 +29,10 @@ user-picture-app {
 	z-index: 2;
 }
 
-form-field-app {
-	height: 44px;
-	padding: 0;
+form {
 	margin-top: 16px;
 }
 
 label-app {
 	font-weight: 600;
-}
-
-spinner-app {
-	margin: 1rem auto auto 1rem;
 }

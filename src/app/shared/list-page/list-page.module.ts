@@ -6,7 +6,7 @@ import {
 	ProductService,
 	SupplierService,
 	TeamService,
-	UserService,
+	UserApolloService,
 } from '~global-services';
 
 @NgModule({
@@ -14,6 +14,6 @@ import {
 		CommonModule
 	],
 	declarations: [],
-	providers: [CategoryService, UserService, TeamService, SupplierService, EventService, ProductService]
+	providers: [CategoryService, UserApolloService, TeamService, SupplierService, EventService, ProductService]
 })
 export class ListPageModule { }

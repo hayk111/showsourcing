@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
-import { UserService } from '../../../../global-services';
 import { Event } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';

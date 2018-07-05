@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { UserService, TeamService } from '../../../../global-services';
 import { User } from '~models/user.model';
 import { AutoUnsub } from '~utils';
 import { Team } from '~models';
+
+import { UserService } from '~global-services';
 
 @Component({
 	selector: 'header-app',
@@ -17,14 +18,12 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private userSrv: UserService,
-		private teamSrv: TeamService) {
+		private userSrv: UserService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectUser();
-		this.team$ = this.teamSrv.selectedTeam$;
+		this.user$ = this.userSrv.selectOne();
 	}
 
 	logout() {

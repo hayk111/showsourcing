@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AutoUnsub } from '~utils';
-import { UserService } from '../../../../global-services';
+import { UserApolloService } from '../../../../global-services';
 import { DialogService } from '~shared/dialog';
 
 

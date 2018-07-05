@@ -23,12 +23,13 @@ export class ProfileCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.form = this.fb.group({
+		this.form = new FormGroup(this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
 			email: ['', Validators.compose([Validators.email, Validators.required])],
 			phoneNumber: ['', Validators.compose([phoneValidator, Validators.required])]
-		});
+		}).controls, { updateOn: 'blur' });
+
 		this.form.patchValue(this.item);
 		this.form.valueChanges
 			.pipe(takeUntil(this._destroy$))

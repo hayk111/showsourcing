@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../../../global-services';
+import { UserApolloService } from '../../../../global-services';
 import { log } from '~utils';
 import { AppImage } from '~models';
 
