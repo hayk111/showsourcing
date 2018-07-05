@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '~models';
+import { Product, ProductConfig } from '~models';
 import { Observable } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -82,7 +82,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			.subscribe(product => this.updateProduct(product));
 	}
 
-	updateProduct(product: Product) {
+	updateProduct(product: ProductConfig) {
 		return this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
