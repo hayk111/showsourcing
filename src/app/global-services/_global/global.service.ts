@@ -40,14 +40,19 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	);
 
 	/**
-	 * Pipelines Select many
+	 * Pipelines Select many:
+	 *
+	 * selectManyParams$ : subject where we push params to sort, paginate and filter.
+	 * selectMany$ : when the params change then so does this observable,
+	 * which is returned by the selectMany function
 	 */
 	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
 	selectMany$ = this.selectManyParams$.asObservable().pipe(
-		// retrieve params
-		flatMap(params$ => params$),
+		// retrieve params from their observable form
+		mergeMap(params$ => params$),
+		// when the params haven't changed we shouldn't do anything
 		distinctUntilChanged(),
-		// we query gql
+		// then we query graphql to get a suscription to some part of the data
 		mergeMap(({ page, sort, query, take }: SelectParams) => {
 			// putting those in variables form
 			const sortBy = sort.sortBy;
@@ -60,12 +65,17 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				descending,
 				query
 			};
+			// the selectMany here is a subscription to some slice of data on the server
 			return this.apollo.selectMany(options).pipe(
+				// we add page data so we can use it in the scan
 				map(data => ({ data, page }) as any)
 			);
 		}),
 		// we append the result if page was incremented
-		scan((acc: any, curr: any) => curr.page === 0 ? curr.data : acc.concat(curr.data), [])
+		// else we just return the result
+		scan((acc: any, curr: any) => {
+			return curr.page === 0 ? curr.data : acc.concat(curr.data);
+		}, [])
 	);
 
 	constructor(

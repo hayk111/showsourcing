@@ -1,14 +1,14 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { filter, first, map, mergeMap, switchMap, tap, take, delay, retryWhen } from 'rxjs/operators';
+import { delay, filter, first, map, mergeMap, retryWhen, take, tap } from 'rxjs/operators';
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { AppFile, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
-import { log, LogColor, ImageUrls } from '~utils';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { ImageUrls, log, LogColor } from '~utils';
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,18 +21,23 @@ export class UploaderService {
 	) { }
 
 	uploadImages(imgs: File[]): Observable<any> {
-		return forkJoin(imgs.map(img => this.uploadFile(img, 'image'))).pipe(first());
+		return forkJoin(imgs.map(img => this.uploadFile(img, 'image')))
+			.pipe(
+				first()
+			);
 	}
 
 	uploadFiles(files: File[]): Observable<any> {
-		return forkJoin(files.map(file => this.uploadFile(file, 'file'))).pipe(first());
+		return forkJoin(files.map(file => this.uploadFile(file, 'file')))
+			.pipe(
+				first()
+			);
 	}
 
 	uploadFile(file: File, type: 'file' | 'image' = 'file'): Observable<AppImage> {
-		// const extension = file.filename.split('.').pop();
 		const isImage = type === 'image';
-		const ext = file.type.split('/').pop();
-		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(ext);
+		const extension = file.type.split('/').pop();
+		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(extension);
 		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
 			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
@@ -53,9 +58,9 @@ export class UploaderService {
 				title: 'File Uploaded',
 				message: 'Your file was uploaded with success',
 			})),
-			first(),
 			// sending the image back
 			map(_ => returned),
+			first(),
 		);
 	}
 

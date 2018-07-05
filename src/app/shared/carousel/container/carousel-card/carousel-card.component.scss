@@ -19,8 +19,10 @@ rating-heart-app {
 	left: var(--spacing-l);
 	width: 40px;
 	height: 40px;
+	color: var(--color-txt-secondary);
 	background: rgba(255, 255, 255, 0.2);
 	border-radius: 50%;
 	z-index: 2;
+	font-size: 18px;
 	transform: scale(1.5);
 }

@@ -21,7 +21,7 @@
 					(vote)="updateProduct({ votes: $event })"
 					[votes]="product.votes"></thumb-buttons-app>
 				<span>
-					{{ product.score !== undefined ? (product.score + '%') : '' }}
+					{{ product.score !== null ? (product.score + '%') : '' }}
 				</span>
 			</div>
 			<button>Placeholder</button>
