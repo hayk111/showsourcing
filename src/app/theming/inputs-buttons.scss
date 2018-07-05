@@ -32,7 +32,7 @@ button, input[type="submit"], .button {
 	min-width: 100px;
 	padding-left: 12px;
 	padding-right: 12px;
-	border-radius: 4px;
+	border-radius: 2px;
 	font-size: var(--font-size-m);
 	background: var(--color-primary);
 	border: none;
@@ -95,3 +95,6 @@ textarea::placeholder, input::placeholder {
 	color: var(--color-txt-secondary);
 }
 
+input[type="file"] {
+	display: none;
+}

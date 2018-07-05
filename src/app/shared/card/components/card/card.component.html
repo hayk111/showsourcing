@@ -2,7 +2,7 @@
 	<ng-content select="card-header-app"></ng-content>
 
 
-	<main>
+	<main #ref [ngClass]="{ padding: ref.children.length !== 0 }">
 		<ng-content></ng-content>
 	</main>
 
