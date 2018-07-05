@@ -21,7 +21,8 @@ export class RatingHeartComponent {
 	@Input() favorite = false;
 
 	onClick() {
-		if (this.static) return;
+		if (this.static)
+			return;
 		if (this.favorite)
 			this.unfavorited.emit();
 		else

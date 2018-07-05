@@ -73,6 +73,7 @@
 
 	<product-preview-app
 		[product]="previewed"
+		(close)="closePreview()"
 		(clickOutside)="closePreview()"
 		*ngIf="previewOpen">
 

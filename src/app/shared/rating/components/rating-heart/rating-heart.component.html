@@ -1,10 +1,5 @@
 <div (mousedown)="onClick()" class="pointer">
-	<div class="pointer" *ngIf="favorite; then heart else emptyheart"></div>
-	<ng-template #heart>
-		<div class="icon-heart"></div>
-	</ng-template>
-	<ng-template #emptyheart>
-		<div class="icon-heart-empty"></div>
-	</ng-template>
+	<icon-app name="heart" fontSet="fa"
+		[ngClass]="{'color-warn': favorite }"></icon-app>
 </div>
 

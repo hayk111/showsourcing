@@ -45,6 +45,5 @@ export class ProductStatusQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
-
+	`
 }

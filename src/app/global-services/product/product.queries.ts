@@ -51,6 +51,13 @@ export class ProductQueries implements GlobalQuery {
 			minimumOrderQuantity,
 			moqDescription,
 			score,
+			votes {
+				id,
+				value,
+				user {
+					id
+				}
+			}
 			innerCarton {
 				id,
 				height,

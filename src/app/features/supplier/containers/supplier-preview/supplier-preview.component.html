@@ -1,0 +1,46 @@
+<!-- <side-panel-app>
+
+	<side-panel-title-app>
+		{{ supplier.name }}
+	</side-panel-title-app>
+
+	<side-panel-action-app>
+		<icon-app class="close pointer" fontSet="fa" name="times"
+			(click)="close.emit()"></icon-app>
+
+	</side-panel-action-app>
+
+	<ng-container *ngIf="supplier$ | async as supplier; else spinner">
+
+		<carousel-app [images]="supplier.images"></carousel-app>
+
+		<div class="actions flexBetween">
+			<div class="flexVAlign">
+				<rating-heart-app class="icon"
+				(favorited)="update({ favorite: true })"
+				(unfavorited)="update({ favorite: false })"
+				[favorite]="supplier.favorite"></rating-heart-app>
+			</div>
+			<button>Placeholder</button>
+		</div>
+
+		<divider-app></divider-app>
+
+		<h3>Product Details</h3>
+		<ng-container *ngIf="descriptor$ | async as desc2">
+			<dynamic-form-app
+				[inlineLabel]="true"
+				(formCreated)="onFormCreated($event)"
+				[descriptor]="desc2"
+				[editable]="true"
+				[colAmount]="1">
+			</dynamic-form-app>
+
+		</ng-container>
+	</ng-container>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+
+</side-panel-app> -->

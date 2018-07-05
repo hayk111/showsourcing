@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, shareReplay, tap } from 'rxjs/operators';
 import { AuthState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { User } from '~models';
@@ -14,8 +14,10 @@ export class UserService {
 	private queries = new UserQueries();
 	private _user$ = new Subject<User>();
 	user$: Observable<User> = this._user$.asObservable().pipe(
+		tap(user => this.userSync = user),
 		shareReplay(1)
 	);
+	userSync: User;
 
 	constructor(private apollo: ApolloClient, private authSrv: AuthenticationService) {
 	}
@@ -33,7 +35,7 @@ export class UserService {
 				// when unauthenticated the user is undefined
 				else
 					return of(undefined);
-			}),
+			})
 		).subscribe(this._user$);
 	}
 
