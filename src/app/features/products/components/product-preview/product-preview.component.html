@@ -9,47 +9,44 @@
 
 	<carousel-app [images]="product.images"></carousel-app>
 
-		<carousel-app [images]="product.images"></carousel-app>
-
-		<div class="actions flexBetween">
-			<div class="flexVAlign">
-				<rating-heart-app class="icon"
-				(favorited)="updateProduct({ favorite: true })"
-				(unfavorited)="updateProduct({ favorite: false })"
-				[favorite]="product.favorite"></rating-heart-app>
-				<thumb-buttons-app class="icon"
-					(vote)="updateProduct({ votes: $event })"></thumb-buttons-app>
-				<span>
-					{{ product.score !== null ? (product.score + '%') : '' }}
-				</span>
-			</div>
-			<button>Placeholder</button>
+	<div class="actions flexBetween">
+		<div class="flexVAlign">
+			<rating-heart-app class="icon"
+			(favorited)="updateProduct({ favorite: true })"
+			(unfavorited)="updateProduct({ favorite: false })"
+			[favorite]="product.favorite"></rating-heart-app>
+			<thumb-buttons-app class="icon"
+				(vote)="updateProduct({ votes: $event })"></thumb-buttons-app>
+			<span>
+				{{ product.score !== null ? (product.score + '%') : '' }}
+			</span>
 		</div>
-		<divider-app></divider-app>
+		<button>Placeholder</button>
+	</div>
+	<divider-app></divider-app>
 
-		<h3>Product Details</h3>
-		<ng-container *ngIf="descriptor$ | async as desc">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				(formCreated)="onFormCreated($event)"
-				[descriptor]="desc"
-				[editable]="true"
-				[colAmount]="1">
-			</dynamic-form-app>
-		</ng-container>
-
-		<h3 style="margin-top: 34px">Trading information</h3>
-		<ng-container *ngIf="descriptor2$ | async as desc2">
-			<dynamic-form-app
-				[inlineLabel]="true"
-				(formCreated)="onFormCreated($event)"
-				[descriptor]="desc2"
-				[editable]="true"
-				[colAmount]="1">
-			</dynamic-form-app>
-		</ng-container>
-
+	<h3>Product Details</h3>
+	<ng-container *ngIf="descriptor$ | async as desc">
+		<dynamic-form-app
+			[inlineLabel]="true"
+			(formCreated)="onFormCreated($event)"
+			[descriptor]="desc"
+			[editable]="true"
+			[colAmount]="1">
+		</dynamic-form-app>
 	</ng-container>
+
+	<h3 style="margin-top: 34px">Trading information</h3>
+	<ng-container *ngIf="descriptor2$ | async as desc2">
+		<dynamic-form-app
+			[inlineLabel]="true"
+			(formCreated)="onFormCreated($event)"
+			[descriptor]="desc2"
+			[editable]="true"
+			[colAmount]="1">
+		</dynamic-form-app>
+	</ng-container>
+
 
 	<ng-template #spinner>
 		<spinner-app></spinner-app>

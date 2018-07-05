@@ -64,7 +64,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.featureSrv.selectOne(this.product.id);
 		this.descriptor$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields, product)),
-			debug
 		);
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
