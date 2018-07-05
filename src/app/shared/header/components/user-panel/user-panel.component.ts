@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '~models';
+import { User, Team } from '~models';
 import { DEFAULT_USER_IMG } from '~utils';
 
 @Component({
@@ -11,6 +11,7 @@ import { DEFAULT_USER_IMG } from '~utils';
 })
 export class UserPanelComponent implements OnInit {
 	@Input() user: User;
+	@Input() team: Team;
 	@Output() logout = new EventEmitter<any>();
 	@Output() close = new EventEmitter<any>();
 	defaultImg = DEFAULT_USER_IMG;

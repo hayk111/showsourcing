@@ -18,5 +18,5 @@
 	</search-bar-animated-app>
 	<notif-app></notif-app>
   <div class="divider"></div>
-	<user-panel-app [user]="user$ | async" (logout)="logout()"></user-panel-app>
+	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>
