@@ -1,4 +1,4 @@
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject, forkJoin } from 'rxjs';
 import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 
@@ -11,6 +11,7 @@ export interface GlobalServiceInterface<T> {
 	selectMany?: (params$?: Observable<SelectParams>, ...args) => Observable<T[]>;
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
+	updateMany: (entities: T[], ...args) => Observable<T[]>;
 	create: (entity: T, ...args) => Observable<T>;
 	deleteOne: (id: string, ...args) => Observable<any>;
 	deleteMany: (ids: string[], ...args) => Observable<any>;
@@ -110,6 +111,10 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			input: entity,
 			typename: this.typeName
 		});
+	}
+
+	updateMany(entities: T[]): Observable<any> {
+		return forkJoin(entities.map(entity => this.update(entity)));
 	}
 
 	create(entity: T): Observable<any> {

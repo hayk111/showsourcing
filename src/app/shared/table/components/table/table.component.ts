@@ -69,6 +69,9 @@ export class TableComponent implements AfterContentInit {
 
 	contextualMenuOpened = {};
 
+	// whether specific rows are selectable or not
+	@Input() isSelectable = (item) => true;
+
 	// function used by the ng for, using an arrow to not lose this context
 	trackByFn = (index, item) => this.identify(index, item);
 

@@ -3,13 +3,40 @@ import gql from 'graphql-tag';
 
 export class TeamUserQueries implements GlobalQuery {
 
+	list: any = gql`
+	subscription teamUsers(
+		$take: Int,
+		$skip: Int,
+		$query: String!,
+		$sortBy: String,
+		$descending: Boolean
+	) {
+		teamUsers(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+			id,
+			user {
+				id,
+				firstName,
+				lastName,
+				email
+			},
+			status,
+			accessType
+		}
+	}
+	`;
+
 	one: any = gql`
 	subscription teamUser($query: String!) {
 		teamUsers(query: $query) {
+			id,
 			user {
-				id, name
-			}
-
+				id,
+				firstName,
+				lastName,
+				email
+			},
+			status,
+			accessType
 		}
 	}
 	`;

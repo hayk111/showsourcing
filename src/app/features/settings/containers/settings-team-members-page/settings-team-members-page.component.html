@@ -1,59 +1,66 @@
 
 <top-panel-app
-    title="ShowSourcing - Fashion"
-		[subtitles]="['Settings', 'Team Members']"
-    buttonName="Create New Team"
-    [buttonIcon]="false"
-    (buttonClick)="openNewTeamDialog()">
+	title="ShowSourcing - Fashion"
+	[subtitles]="['Settings', 'Team Members']"
+	buttonName="Create New Team"
+	[buttonIcon]="false"
+	(buttonClick)="openNewTeamDialog()">
 </top-panel-app>
 
-<sub-panel-app
-    title="Team Members"
-    buttonName="Invite Collaborator"
-    [hasSwitch]="false"
-    [hasFilter]="false"
-    [buttonIcon]="false"
-		(buttonClick)="openInviteDialog()">
 
-    <context-menu-app xPosition="after" yPosition="45">
-		<context-menu-trigger-app class="button flex pointer">
-			<div class="text">Selection</div>
-			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-		</context-menu-trigger-app>
-    <context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'FullAccess' })">
-			Full Access
-		</context-menu-item-app>
-		<context-menu-item-app (click)="accessTypeUpdated({ member: null, accessType: 'ReadOnly' })">
-			Read Only
-		</context-menu-item-app>
-		<context-menu-divider-app></context-menu-divider-app>
-		<context-menu-item-app class="remove-user" (click)="deleteSelection()">
-			<span>Remove User</span>
-		</context-menu-item-app>
-	 </context-menu-app>
+<sub-panel-app
+	title="Team Members"
+	buttonName="Invite Collaborator"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	[hasCreate]="teamOwner"
+	[buttonIcon]="false"
+	(buttonClick)="openInviteDialog()">
+
+	<context-menu-app xPosition="after" yPosition="45" *ngIf="teamOwner && hasSelected">
+	<context-menu-trigger-app class="button flex pointer">
+		<div class="text">Selection</div>
+		<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+	</context-menu-trigger-app>
+			<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'FullAccess' })">
+		Full Access
+	</context-menu-item-app>
+	<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'ReadOnly' })">
+		Read Only
+	</context-menu-item-app>
+	<context-menu-divider-app></context-menu-divider-app>
+	<context-menu-item-app class="remove-user" (click)="deleteSelected()">
+		<span>Remove User</span>
+	</context-menu-item-app>
+	</context-menu-app>
 
 </sub-panel-app>
 
-<team-members-list-view-app
-    [members]="members$ | async"
-    [selection]="selected$ | async"
-    [pending]="pending"
-    (bottomReached)="loadMore()"
-    (sort)="onSort($event)"
-    (memberSelect)="selectItem($event)"
-    (memberUnselect)="unselectItem($event)"
-    (memberSelectAll)="selectAll($event)"
-    (memberUnselectAll)="resetSelection()"
-    (accessTypeUpdated)="accessTypeUpdated($event)"
-    (memberOpen)="onItemOpened($event)"
-    (delete)="deleteSelected()"></team-members-list-view-app>
+<ng-container *ngIf="items$ | async as members">
+	<team-members-list-view-app
+		[rows]="members"
+		[teamOwner]="teamOwner"
+		[user]="user"
+		[selection]="selected$ | async"
+		[pending]="pending"
+		(bottomReached)="loadMore()"
+		(sort)="sort($event)"
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		(accessTypeUpdated)="accessTypeUpdated($event)"
+		(delete)="deleteOneMember($event)">
+	</team-members-list-view-app>
 
-<!-- ng-container *ngIf="selected$ | async as selected">
-    <selection-bar-app
-        [ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
-        (close)="resetSelection()"
-        (delete)="deleteSelection()"
-        *ngIf="selected.size > 0"
-        [selection]="selected"></selection-bar-app>
-</ng-container -->
+	<!-- ng-container *ngIf="selected$ | async as selected">
+		<selection-bar-app
+			[ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
+			(close)="resetSelection()"
+			(delete)="deleteSelection()"
+			*ngIf="selected.size > 0"
+			[selection]="selected"></selection-bar-app>
+	</ng-container -->
+</ng-container>
+
 

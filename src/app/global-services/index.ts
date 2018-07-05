@@ -13,3 +13,4 @@ export * from './team-user/team-user.service';
 export * from './user/user.service';
 export * from './image-upload-request/image-upload-request.service';
 export * from './file-upload-request/file-upload-request.service';
+export * from './invitation/invitation.service';

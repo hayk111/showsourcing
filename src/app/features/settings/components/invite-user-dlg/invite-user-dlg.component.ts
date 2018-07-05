@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { takeUntil, first, map, switchMap } from 'rxjs/operators';
+import { takeUntil, first, map } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
-import { Project } from '~models';
+import { Invitation } from '~models';
 import { DialogService } from '~shared/dialog';
-import { MemberService } from '~features/settings/services/member.service';
+import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 
 
 
@@ -21,7 +21,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService, private memberSrv: MemberService,
+	constructor(private dlgSrv: DialogService, private invitationSrv: InvitationFeatureService,
 		private fb: FormBuilder) {
 		super();
 		this.form = this.fb.group(
@@ -32,13 +32,14 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	}
 
 	submit() {
-		// if (this.form.valid) {
-		// 	this.pending = true;
-		// 	const { email } = this.form.value;
-		// 	this.memberSrv.inviteMember(email).subscribe(() => {
-		// 		this.pending = false;
-		// 		this.dlgSrv.close(this.dlgName);
-		// 	});
-		// }
+		if (this.form.valid) {
+		 	this.pending = true;
+			const { email } = this.form.value;
+			this.invitationSrv.createInvitation(email)
+				.subscribe(() => {
+		 			this.pending = false;
+		 			this.dlgSrv.close();
+				});
+		}
 	}
 }

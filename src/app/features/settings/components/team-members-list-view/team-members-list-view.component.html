@@ -1,23 +1,25 @@
 <table-app
-    [rows]="members"
-    [contextualMenu]="contextualMenu"
+  [rows]="rows"
+  [contextualMenu]="contextualMenu"
 	[pending]="pending"
 	[selected]="selection"
+	[isSelectable]="isSelectable"
 	class="z-2"
-	(selectOne)="memberSelect.emit($event)"
-	(unselectOne)="memberUnselect.emit($event)"
-	(selectAll)="memberSelectAll.emit($event)"
-	(unselectAll)="memberUnselectAll.emit()"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
-    <!-- supplier row -->
+	<!-- name -->
 	<ng-template
 		columnApp="Name"
 		sortBy="user.firstName"
 		let-row="row"
-        width="280">
-        {{ row.user.firstName }} {{ row.user.lastName }}
+		width="140"
+		[sortOrder]="'DESC'">
+		{{ row.user.firstName }} {{ row.user.lastName }}
 	</ng-template>
 
 	<!-- email -->
@@ -26,7 +28,6 @@
 		columnApp="Email"
 		let-row="row"
 		sortBy="user.email"
-		[grows]="false"
 		width="140">
 		<span>
 			{{ row.user.email  }}
@@ -39,8 +40,8 @@
 		columnApp="Account type"
 		let-row="row"
 		sortBy="accessType"
-		width="280">
-		<context-menu-app xPosition="after" yPosition="30">
+		width="200">
+		<context-menu-app xPosition="after" yPosition="30" *ngIf="teamOwner && (row.user.id !== user.id)">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text">{{ row.accessType }}</div>
 				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
@@ -56,6 +57,9 @@
 				<span>Remove User</span>
 			</context-menu-item-app>
 	   </context-menu-app>
+	   <span *ngIf="!teamOwner">
+			{{ row.accessType }}
+	   </span>
 	</ng-template>
 
 	<!-- status -->
@@ -63,16 +67,14 @@
 		columnApp="Status"
 		let-row="row"
 		sortBy="status"
-		width="140"
-		[grows]="false"
-		[sortOrder]="'DESC'">
+		width="140">
 		{{ row.status }}
 	</ng-template>
 
 </table-app>
 
 <ng-template #contextualMenu let-row="row">
-	<menu class="z-4">
+	<menu class="z-4" *ngIf="teamOwner && (row.user.id !== user.id)">
 		<menuitem class="pointer flexCenter" (click)="delete.emit(row)" i18n="member menu | export">
 			<div class="border">Remove User</div>
 		</menuitem>

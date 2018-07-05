@@ -1,100 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { MemberService } from '~features/settings/services/member.service';
-import { MenuService } from '~features/settings/services/menu.service';
-import { Supplier, TeamUser } from '~models';
-import { DialogService } from '~shared/dialog';
-import { Filter, FilterService } from '~shared/filters';
-import { Sort } from '~shared/table/components/sort.interface';
-import { AutoUnsub } from '~utils';
-
-import { SelectionService } from '~shared/list-page/selection.service';
+import { Router } from '@angular/router';
+import { zip } from 'rxjs';
+import { takeUntil, first } from 'rxjs/operators';
+import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
+import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
-import { InviteUserDlgComponent } from '~features/settings/components';
+import { ERM, TeamUser, User } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { StoreKey } from '~utils/store/store';
 
+import { TeamService, UserService } from '../../../../global-services';
+import { CreationDialogComponent } from '~shared/generic-dialog';
 
-// TODO: thierry there is ListPageComponent and ListView component that alleviate
-// list pages from A LOT of logic. It's really fast to refactor, check product list
-// component or supplier list component.
-// also you should provide a key to filter service and inject selection service as well
-// next to it
-// You also need 1 feature service now that extend the global service of whatever service
-// the page is about. Again please check suppliers-page, as it will give you a good
-// view of how simple this turns out to be.
 @Component({
 	selector: 'settings-team-members-page-app',
 	templateUrl: './settings-team-members-page.component.html',
 	styleUrls: ['./settings-team-members-page.component.scss'],
-	providers: [FilterService]
+	providers: [
+		FilterService,
+		{ provide: 'storeKey', useValue: StoreKey.FILTER_TEAM_USERS },
+		SelectionService
+	]
 })
-export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnInit {
-	members: Array<Supplier> = [];
-	members$: Observable<Supplier[]>;
-	filters: Array<Filter> = [];
-	/** current sort used for sorting members */
-	sort$: Subject<Sort> = new Subject();
-	/** current filters applied to members */
-	filters$: Observable<Filter[]>;
-	pagination$: Observable<any>;
-	currentSort: Sort = { sortBy: 'name', sortOrder: 'ASC' };
-	/** selected members */
-	selected$: Observable<Map<string, boolean>>;
-	/** menu collapsed */
-	menuCollapsed$: Observable<boolean>;
-	menuCollapsed = false;
-	/** whether some members are currently being loaded */
-	pending: boolean;
-	/** whether we loaded every members */
-	fullyLoaded: boolean;
-	/** when the members are loaded for the first time */
-	initialLoading = true;
-	/** number of members requested by paginated request */
-	page = 0;
+export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser, MemberFeatureService> implements OnInit {
+	teamOwner: boolean;
+	user: User;
+	hasSelected = false;
 
 	constructor(
-		private memberSrv: MemberService,
-		private selectionSrv: SelectionService,
-		private dlgSrv: DialogService,
-		private menuSrv: MenuService) {
-		super();
+		protected router: Router,
+		protected memberSrv: MemberFeatureService,
+		protected selectionSrv: SelectionService,
+		protected filterSrv: FilterService,
+		protected dlgSrv: DialogService,
+		protected userService: UserService,
+		protected teamService: TeamService
+	) {
+		super(router, memberSrv, selectionSrv, filterSrv, dlgSrv, ERM.TEAM_USER);
 	}
 
 	ngOnInit() {
-		this.pending = true;
-		this.members$ = this.memberSrv.selectMembers().pipe(
-			tap(() => {
-				if (this.initialLoading) {
-					this.pending = false;
-					this.initialLoading = false;
-				}
-			})
-		);
-		this.selected$ = this.selectionSrv.selection$;
-		this.menuCollapsed$ = this.menuSrv.collapsed$;
-		this.menuCollapsed$.subscribe(menuCollapsed => this.menuCollapsed);
-	}
-
-	/** loads more product when we reach the bottom of the page */
-	loadMore() {
-		this.page++;
-		this.pending = true;
-		this.memberSrv.loadMembersNextPage({ page: this.page, sort: this.currentSort }).then(() => {
-			this.pending = false;
+		super.ngOnInit();
+		this.selected$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(selected => {
+			this.hasSelected = (selected.size > 0);
 		});
-	}
 
-	onSort(sort: Sort) {
-		this.currentSort = sort;
-		this.pending = true;
-		this.memberSrv.sortMembers({ sort }).then(() => {
-			this.pending = false;
+		this.memberSrv.selectTeamOwner().pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ user, teamOwner }) => {
+			this.teamOwner = teamOwner;
+			this.user = user;
+			this.teamOwner = true;
 		});
+
+		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
 	}
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
-		this.dlgSrv.open(NewTaskDlgComponent);
+		// this.dlgSrv.open(NewTaskDlgComponent);
+		this.dlgSrv.open(CreationDialogComponent, { type: ERM.TEAM, shouldRedirect: false });
 	}
 
 	/** Opens the dialog for inviting a new user */
@@ -102,62 +72,21 @@ export class SettingsTeamMembersPageComponent extends AutoUnsub implements OnIni
 		this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
-	/** When a member has been selected */
-	selectItem(entityId: string) {
-		this.selectionSrv.selectOne(entityId);
+	/** Updates the access type */
+	accessTypeUpdated({ member, accessType }: { member?: TeamUser; accessType: string }) {
+		if (member) {
+			this.update({
+				...member,
+				accessType
+			});
+		} else {
+			this.updateSelected({ accessType });
+		}
 	}
 
-	/** When a member has been unselected */
-	unselectItem(entityId: string) {
-		this.selectionSrv.unselectOne(entityId);
+	/** Deletes the member */
+	deleteOneMember(member: TeamUser) {
+		this.deleteOne(member.id);
 	}
 
-	/** When all members have been selected at once (from the table) */
-	selectAll(ids: string[]) {
-		this.selectionSrv.selectAll(ids);
-	}
-
-	/** reset the selection of members */
-	resetSelection() {
-		this.selectionSrv.unselectAll();
-	}
-
-	/** Navigates to a member details page */
-	onItemOpened(entityId: string) {
-		// this.router.navigate(['/member', 'details', entityId]);
-	}
-
-	accessTypeUpdated({ member, accessType }: { member: TeamUser; accessType: string }) {
-		// TODO: Thiery I believe this if/else doesn't do anything
-		// if (member) {
-		// 	this.memberSrv.updateMember({
-		// 		...member,
-		// 		accessType
-		// 	}).subscribe();
-		// } else {
-		// 	this.memberSrv.updateMembers({
-		// 		accessType
-		// 	}).subscribe();
-		// }
-	}
-
-	/** Deletes the currently selected members */
-	deleteSelection() {
-		this.memberSrv.deleteMembers(Array.from(this.selectionSrv.selection.keys()));
-		this.resetSelection();
-	}
-
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		// const members = Array.from(this.selectionSrv.selection.keys());
-		// // A callback is sent in the payload. This is an anti pattern in redux but it makes things easy here.
-		// // Let's avoid doing that whenever possible though.
-		// const callback = () => {
-		// 	this.memberSrv.deleteMembers(members).subscribe(() => {
-		// 		this.resetSelection();
-		// 	});
-		// };
-		// const text = `Delete ${members.length} Member${members.length > 1 ? 's' : ''} ?`;
-		// this.dlgSrv.open(, { text, callback });
-	}
 }

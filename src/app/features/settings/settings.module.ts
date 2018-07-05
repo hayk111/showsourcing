@@ -1,7 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MemberService } from '~features/settings/services/member.service';
+import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { MenuService } from '~features/settings/services/menu.service';
 import { UserModule } from '~features/user';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
@@ -34,7 +35,7 @@ import { SettingsComponent, SettingsTeamMembersPageComponent } from './container
 		ContextMenuModule,
 		SidenavModule
 	],
-	providers: [MemberService, MenuService],
+	providers: [MemberFeatureService, InvitationFeatureService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,

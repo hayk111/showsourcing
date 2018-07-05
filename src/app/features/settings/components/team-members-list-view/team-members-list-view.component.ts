@@ -1,35 +1,27 @@
-import {
-	Component, ChangeDetectionStrategy, Input,
-	Output, EventEmitter, ViewChild, TemplateRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 
-import { TeamUser } from '~models';
+import { TeamUser, User } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
+import { ListViewComponent } from '~shared/list-page/list-view.component';
+
 
 @Component({
 	selector: 'team-members-list-view-app',
 	templateUrl: './team-members-list-view.component.html',
 	styleUrls: ['./team-members-list-view.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamMembersListViewComponent {
-	@Input() selection: Map<string, boolean>;
-	@Input() members: Array<TeamUser>;
-	@Input() pending = true;
-	@Output() memberSelect = new EventEmitter<string>();
-	@Output() memberUnselect = new EventEmitter<string>();
-	@Output() memberSelectAll = new EventEmitter<string[]>();
-	@Output() memberUnselectAll = new EventEmitter<null>();
-	@Output() memberOpen = new EventEmitter<string>();
-	@Output() bottomReached = new EventEmitter<string>();
+export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> {
+	@Input() teamOwner: boolean;
+	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
-	@Output() sort = new EventEmitter<Sort>();
-	@Output() delete = new EventEmitter<TeamUser>();
 
-	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	constructor() {
+		super();
+		this.isSelectable = this.isSelectable.bind(this);
+	}
 
-	accessTypes = [
-		{ label: 'Read Only', value: 'ReadOnly' },
-		{ label: 'Full Access', value: 'FullAccess' }
-	];
+	isSelectable(user: TeamUser) {
+		return (this.user && this.teamOwner && user.user.id !== this.user.id);
+	}
 }

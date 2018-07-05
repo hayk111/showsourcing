@@ -12,13 +12,7 @@ export class SettingsComponent {
 
 	erm = ERM;
 
-	constructor(private menuSrv: MenuService) { }
+	onMenuExpanded(expanded) {
 
-	onMenuExpanded(state: boolean) {
-		if (state) {
-			this.menuSrv.collapseMenu();
-		} else {
-			this.menuSrv.expandMenu();
-		}
 	}
 }

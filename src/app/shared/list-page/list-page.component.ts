@@ -51,7 +51,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
-		public entityMetadata?: EntityMetadata,
+		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
 		this.editDlgComponent = EditionDialogComponent;
@@ -107,6 +107,7 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
+		console.log('sort = ', sort);
 		this._selectParams$.next(new SelectParams({ sort, query: this.currentParams.query }));
 	}
 
@@ -144,6 +145,14 @@ export abstract class ListPageComponent<T extends { id: string }, G extends Glob
 	/** Unselect all entity */
 	resetSelection() {
 		this.selectionSrv.unselectAll();
+	}
+
+	/** Update entities */
+	updateSelected(value) {
+		const items = Array.from(this.selectionSrv.selection.keys()).map(id => ({ ...value, id }));
+		this.featureSrv.updateMany(items).subscribe(() => {
+			this.resetSelection();
+		});
 	}
 
 	/** Update a entity */
