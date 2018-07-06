@@ -11,6 +11,7 @@
 
 	<div class="actions flexBetween">
 		<div class="flexVAlign">
+			{{ product.favorite }}
 			<rating-heart-app class="icon"
 			(favorited)="updateProduct({ favorite: true })"
 			(unfavorited)="updateProduct({ favorite: false })"

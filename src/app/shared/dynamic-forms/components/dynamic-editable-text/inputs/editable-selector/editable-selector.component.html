@@ -1,4 +1,4 @@
-<field-cell-app [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
+<field-cell-app [isOpen]="!isOpen" [inlineLabel]="inlineLabel" [canGrow]="customField.multiple">
 	<label-app>{{ customField.label || customField.name }}</label-app>
 	<!-- entity selector -->
 	<ng-container *ngIf="customField.metadata.type === 'entity'">

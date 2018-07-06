@@ -35,7 +35,12 @@
 	padding: 0;
 }
 .ng-select .ng-select-container {
-	border: 1px solid var(--color-primary-light)!important;
+	min-height: 30px;
+	border: 1px solid #E6EBF5!important;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+	height: 28px;
 }
 
 .ng-select .ng-arrow-wrapper {
