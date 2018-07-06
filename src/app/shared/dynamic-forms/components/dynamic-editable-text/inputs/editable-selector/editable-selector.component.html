@@ -28,7 +28,7 @@
 							{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}
 						</span>
 						<span *ngSwitchDefault>
-							{{ value ? value[customField.metadata.labelName] : '-' }}
+							{{ value ? value[labelName] : '-' }}
 						</span>
 					</ng-container>
 

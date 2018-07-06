@@ -57,4 +57,8 @@ export class EditableSelectorComponent extends AbstractInput {
 		this.onTouchedFn();
 		this.blur.emit();
 	}
+
+	get labelName() {
+		return this.customField.metadata.labelName || this.customField.name;
+	}
 }

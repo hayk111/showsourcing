@@ -19,7 +19,12 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
-		{ name: 'supplierType', type: 'selector', metadata: { target: 'supplierType', type: 'entity' }, label: 'type' },
+		{
+			name: 'supplierType',
+			type: 'selector',
+			metadata: { target: 'supplierType', type: 'entity', canCreate: true },
+			label: 'type'
+		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
 		{ name: 'generalLeadTime', type: 'days', label: 'Lead Time' },
 		{ name: 'country', type: 'selector', metadata: { target: 'country', type: 'const' }, label: 'country' },
@@ -29,8 +34,12 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 		{ name: 'website', type: 'url', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		{ name: 'categories', type: 'selector', metadata: { target: 'category', type: 'entity' }, label: 'category', multiple: true },
-		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity' }, label: 'tags', multiple: true }
+		{
+			name: 'categories', type: 'selector', metadata: {
+				target: 'category', type: 'entity', canCreate: true
+			}, label: 'categories', multiple: true
+		},
+		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', canCreate: true }, label: 'tags', multiple: true }
 	];
 
 	constructor() {

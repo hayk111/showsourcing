@@ -20,6 +20,7 @@ export class SupplierQueries implements GlobalQuery {
 				phoneNumber,
 				country,
 				address,
+				supplierType,
 				officeEmail,
 				officePhone,
 				incoTerm,

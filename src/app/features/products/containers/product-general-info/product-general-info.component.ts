@@ -27,7 +27,10 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
 	customFields: CustomField[] = [
 		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
-		{ name: 'category', type: 'selector', metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true } },
+		{
+			name: 'category', type: 'selector',
+			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true }
+		},
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
 		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
