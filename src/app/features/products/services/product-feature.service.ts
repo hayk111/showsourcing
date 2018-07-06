@@ -51,7 +51,6 @@ export class ProductFeatureService extends ProductService {
 	selectProjectsForProduct(id: string): Observable<Project[]> {
 		return this.projectSrv.selectMany(
 			of(new SelectParams({ query: `products.id == "${id}"` }))
-		).pipe(
 		);
 	}
 
