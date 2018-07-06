@@ -9,7 +9,10 @@ import { ProductVoteService } from '~global-services/product-vote/product-vote.s
 	selector: 'thumb-buttons-app',
 	templateUrl: './thumb-buttons.component.html',
 	styleUrls: ['./thumb-buttons.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'(click)': 'onClick($event)'
+	}
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Output() vote = new EventEmitter<ProductVote[]>();

@@ -2,7 +2,6 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	ChangeDetectionStrategy,
 } from '@angular/core';
@@ -12,6 +11,9 @@ import {
 	templateUrl: './rating-heart.component.html',
 	styleUrls: ['./rating-heart.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'(click)': 'onClick($event)'
+	}
 })
 export class RatingHeartComponent {
 	// whether it can be voted or not.
