@@ -12,7 +12,7 @@ import {
 	styleUrls: ['./rating-heart.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'(click)': 'onClick($event)'
+		'(mousedown)': 'onClick($event)'
 	}
 })
 export class RatingHeartComponent {

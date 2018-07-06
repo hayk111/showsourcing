@@ -11,7 +11,7 @@ import { ProductVoteService } from '~global-services/product-vote/product-vote.s
 	styleUrls: ['./thumb-buttons.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'(click)': 'onClick($event)'
+		'(mousedown)': 'onClick($event)'
 	}
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
