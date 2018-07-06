@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product, ProductConfig } from '~models';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub, debug } from '~utils';
@@ -17,8 +17,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() product: Product;
 	@Output() close = new EventEmitter<any>();
-	descriptor$: Observable<FormDescriptor>;
-	descriptor2$: Observable<FormDescriptor>;
+	descriptor$ = new ReplaySubject<FormDescriptor>(1);
+	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
 
@@ -62,12 +62,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		// creating the form descriptor
 		this.product$ = this.featureSrv.selectOne(this.product.id);
-		this.descriptor$ = this.product$.pipe(
+		this.product$.pipe(
+			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields, product)),
-		);
-		this.descriptor2$ = this.product$.pipe(
+		).subscribe(this.descriptor$);
+		this.product$.pipe(
+			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
-		);
+		).subscribe(this.descriptor2$);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and

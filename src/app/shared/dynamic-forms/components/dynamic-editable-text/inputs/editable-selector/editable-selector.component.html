@@ -4,9 +4,13 @@
 	<ng-container *ngIf="customField.metadata.type === 'entity'">
 		<editable-text-app #editable
 			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
+
 			<!-- multiple value label -->
 			<editable-label-app *ngIf="customField.multiple; else solo">
-				<tag-list-app  *ngIf="!isEmpty(value); else none" [value]="value">
+				<tag-list-app
+					*ngIf="!isEmpty(value); else none"
+					[value]="value"
+					[align]="inlineLabel ? 'right' : 'left'">
 				</tag-list-app>
 				<ng-template #none>
 					-
@@ -17,7 +21,7 @@
 			<ng-template #solo>
 				<editable-label-app class="flexCenter">
 					<img class="selectorIcon"
-						*ngIf="value | logo:customField.metadata.target"
+						*ngIf="(value | logo:customField.metadata.target) && !inlineLabel"
 						[src]="value | logo:customField.metadata.target" />
 					<ng-container [ngSwitch]="customField.metadata.target">
 						<span *ngSwitchCase="'user'">
