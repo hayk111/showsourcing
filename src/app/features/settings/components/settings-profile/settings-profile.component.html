@@ -1,4 +1,12 @@
-<bread-crumb-app title="My settings" [subtitles]="['Home', 'My Settings']"></bread-crumb-app>
+
+<top-panel-app
+	*ngIf="user$ | async as user"
+	title="Profile"
+	[subtitles]="[user.firstName, 'Settings']"
+	[hasAction]="false">
+</top-panel-app>
+
+<!-- bread-crumb-app title="My settings" [subtitles]="['Home', 'My Settings']"></bread-crumb-app -->
 
 <div class="ctnr" *ngIf="user$ | async as user">
 	<user-picture-app class="pointer z-2 z-h" (click)="fileInp.click()" size="80" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
