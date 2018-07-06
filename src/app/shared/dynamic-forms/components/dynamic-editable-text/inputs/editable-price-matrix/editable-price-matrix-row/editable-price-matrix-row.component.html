@@ -3,7 +3,7 @@
 		<editable-text-app #editable1 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 			<editable-label-app class="label txtBtn">
-				{{ value?.label }}
+				{{ value?.label  ? value.label : '-' }}
 			</editable-label-app>
 
 			<input

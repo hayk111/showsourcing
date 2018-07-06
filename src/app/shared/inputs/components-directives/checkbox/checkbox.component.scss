@@ -2,18 +2,19 @@
 	display: flex;
 	align-items: center;
 }
+
 .icon {
 	flex-shrink: 0;
-	font-size: 20px;
 	width: 18px;
 	height: 18px;
+	font-size: 20px;
 }
-
 
 label {
 	width: 100%;
 	margin-bottom: 0;
 }
+
 
 .unChecked {
 	width: 16px;
@@ -22,6 +23,7 @@ label {
 	background: var(--color-bg-third);
 	border-radius: 2px;
 }
+
 .mg-right {
 	margin-right: var(--spacing-s);
 }

@@ -1,11 +1,11 @@
 
 
 <card-app>
+	<div class="sectionTitle shipping"
+		i18n="div title|Product general information@@productGeneralInfo_general">
+		General Information
+	</div>
 	<ng-container *ngIf="descriptor$ | async as descriptor">
-		<div class="sectionTitle shipping"
-			i18n="div title|Product general information@@productGeneralInfo_general">
-			General Information
-		</div>
 		<dynamic-form-app
 			[inlineLabel]="false"
 			(formCreated)="onFormCreated($event)"

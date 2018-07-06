@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, first, map, take, tap } from 'rxjs/operators';
+import { catchError, first, map, take, tap, filter } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
-import { log, LogColor } from '~utils';
+import { log, LogColor, Log } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
 
@@ -37,11 +37,13 @@ export class ApolloClient {
 
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
+				filter((r) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult('SelectOne', queryName, data)),
-		);
+				catchError(errors => of(log.table(errors)))
+			);
 	}
 
 	/** select many entities in accordance to the conditions supplied */
@@ -51,14 +53,11 @@ export class ApolloClient {
 		this.log('Selecting Many', options, queryName, variables);
 		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
+				filter((r) => this.checkError(r)),
 				// extracting the result
-				map((r) => {
-					if (!r.data)
-						throwError(r.errors);
-					return r.data[queryName];
-				}),
-				catchError(errors => of(log.table(errors))),
+				map((r) => r.data[queryName]),
 				tap(data => this.logResult('Selecting Many', queryName, data)),
+				catchError(errors => of(log.table(errors))),
 		);
 	}
 
@@ -71,16 +70,20 @@ export class ApolloClient {
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
+				filter((r: any) => this.checkError(r)),
 				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('Update', queryName, data))
+				tap(data => this.logResult('Update', queryName, data)),
+				catchError(errors => of(log.table(errors)))
 			);
 		}
 
 		this.addOptimisticResponse(options);
 		return this.apollo.mutate<T>(apolloOptions).pipe(
 			first(),
+			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
-			tap(data => this.logResult('Update', queryName, data))
+			tap(data => this.logResult('Update', queryName, data)),
+			catchError(errors => of(log.table(errors)))
 		);
 	}
 
@@ -93,15 +96,19 @@ export class ApolloClient {
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
+				filter((r: any) => this.checkError(r)),
 				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('Create', queryName, data))
+				tap(data => this.logResult('Create', queryName, data)),
+				catchError(errors => of(log.table(errors)))
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
+			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
-			tap(data => this.logResult('Create', queryName, data))
+			tap(data => this.logResult('Create', queryName, data)),
+			catchError(errors => of(log.table(errors)))
 		);
 	}
 
@@ -117,14 +124,18 @@ export class ApolloClient {
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
+				filter((r: any) => this.checkError(r)),
 				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('DeleteOne', queryName, data))
+				tap(data => this.logResult('DeleteOne', queryName, data)),
+				catchError(errors => of(log.table(errors)))
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
-			map(({ data }) => data[queryName])
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			catchError(errors => of(log.table(errors)))
 		);
 	}
 
@@ -143,14 +154,18 @@ export class ApolloClient {
 		if (this.checkNonOptimistic(options)) {
 			return this.apollo.mutate(apolloOptions).pipe(
 				first(),
-				map(({ data }) => data[queryName])
+				filter((r: any) => this.checkError(r)),
+				map(({ data }) => data[queryName]),
+				catchError(errors => of(log.table(errors)))
 			);
 		}
 		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
+			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
-			tap(({ data }) => this.logResult('DeleteMany', queryName, data))
+			tap(({ data }) => this.logResult('DeleteMany', queryName, data)),
+			catchError(errors => of(log.table(errors)))
 		);
 	}
 
@@ -181,7 +196,12 @@ export class ApolloClient {
 
 	/** gets the query name from a gql statement */
 	private getQueryName(options: any) {
-		return (options.gql.definitions[0]).selectionSet.selections[0].name.value;
+		try {
+			return (options.gql.definitions[0]).selectionSet.selections[0].name.value;
+		} catch (e) {
+			throw Error('query name not found in apollo client');
+		}
+
 	}
 
 	/** check if optimistic update is disabled */
@@ -216,6 +236,18 @@ export class ApolloClient {
 		log.group(`%c ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
 		log.table(result);
 		log.groupEnd();
+	}
+
+	private checkError(r: { data: any, errors: any[] }) {
+		if (r.errors) {
+			r.errors.forEach(e => log.error(e));
+			return false;
+		} else if (!r.data) {
+			log.error('No data, there must be something wrong with the query, here is the response');
+			log.debug(r);
+			return false;
+		}
+		return true;
 	}
 
 }

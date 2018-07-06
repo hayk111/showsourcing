@@ -23,7 +23,7 @@ export class SupplierFeatureService extends SupplierService {
 	/** gets the latest products, w */
 	getLatestProducts(supplierId: string): Observable<Product[]> {
 		return this.productSrv.selectMany(
-			of(new SelectParams({ query: `supplier.id == '${supplierId}'` }))
+			of(new SelectParams({ query: `supplier.id == '${supplierId}'`, take: 7 }))
 		);
 	}
 

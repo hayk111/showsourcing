@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '~models';
+import { Product, ProductConfig } from '~models';
 import { Observable } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -64,7 +64,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.product$ = this.featureSrv.selectOne(this.product.id);
 		this.descriptor$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields, product)),
-			debug
 		);
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
@@ -83,7 +82,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			.subscribe(product => this.updateProduct(product));
 	}
 
-	updateProduct(product: Product) {
+	updateProduct(product: any) {
 		return this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 

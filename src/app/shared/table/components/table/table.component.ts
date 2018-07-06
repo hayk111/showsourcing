@@ -103,7 +103,8 @@ export class TableComponent implements AfterContentInit {
 		if (!column.sortable)
 			return;
 		// remove sorting on all column and add the current sort to the correct one
-		this.columns.filter(c => c !== c).forEach(c => c.resetSort());
+		const filtered = this.columns.filter(c => c !== column);
+		filtered.forEach(c => c.resetSort());
 		column.toggleSort();
 		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
 		this.sort.emit({

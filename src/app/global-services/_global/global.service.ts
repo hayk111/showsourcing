@@ -1,5 +1,5 @@
 import { Observable, of, ReplaySubject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, mergeMap } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
@@ -20,15 +20,6 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
-	/** Pipeline Select one : to deduplicate logic execution
-	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
-	 *  From 5 different components.
-	 */
-	private selectOneId$ = new ReplaySubject<string>(1);
-	private selectOne$ = this.selectOneId$.asObservable().pipe(
-		distinctUntilChanged(),
-		switchMap(id => this.apollo.selectOne({ gql: this.queries.one, id }))
-	);
 
 	/**
 	 * Pipelines Select all
@@ -40,15 +31,20 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	);
 
 	/**
-	 * Pipelines Select many
+	 * Pipelines Select many:
+	 *
+	 * selectManyParams$ : subject where we push params to sort, paginate and filter.
+	 * selectMany$ : when the params change then so does this observable,
+	 * which is returned by the selectMany function
 	 */
 	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
 	selectMany$ = this.selectManyParams$.asObservable().pipe(
-		// retrieve params
-		flatMap(params$ => params$),
+		// retrieve params from their observable form
+		mergeMap(params$ => params$),
+		// when the params haven't changed we shouldn't do anything
 		distinctUntilChanged(),
-		// we query gql
-		switchMap(({ page, sort, query, take }: SelectParams) => {
+		// then we query graphql to get a suscription to some part of the data
+		mergeMap(({ page, sort, query, take }: SelectParams) => {
 			// putting those in variables form
 			const sortBy = sort.sortBy;
 			const descending = sort.sortOrder === 'ASC';
@@ -60,15 +56,16 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				descending,
 				query
 			};
+			// the selectMany here is a subscription to some slice of data on the server
 			return this.apollo.selectMany(options).pipe(
+				// we add page data so we can use it in the scan
 				map(data => ({ data, page }) as any)
 			);
 		}),
 		// we append the result if page was incremented
+		// else we just return the result
 		scan((acc: any, curr: any) => {
-			if (curr.page === 0)
-				return curr.data;
-			return [...acc, ...curr.data];
+			return curr.page === 0 ? curr.data : acc.concat(curr.data);
 		}, [])
 	);
 
@@ -81,8 +78,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		this.selectOneId$.next(id);
-		return this.selectOne$;
+		return this.apollo.selectOne({ gql: this.queries.one, id });
 	}
 
 	selectAll(fields: string = 'id, name'): Observable<T[]> {

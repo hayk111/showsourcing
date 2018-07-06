@@ -11,16 +11,6 @@
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
 
-			<icon-app
-				*ngIf="hasFilter"
-				fontSet="fa"
-				name="filter"
-				(click)="filterClick.emit()"
-				class="pointer mg-right fs-m"
-				color="primary-dark"
-				fontSet="fa">
-			</icon-app>
-
 		</div>
 
 		<div class="right flexCenter">

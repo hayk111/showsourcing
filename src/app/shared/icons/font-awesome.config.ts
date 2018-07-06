@@ -39,11 +39,13 @@ import * as faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import * as faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
 import * as faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
 import * as faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
-import * as faBell from '@fortawesome/fontawesome-free-regular/faBell';
 import * as faCog from '@fortawesome/fontawesome-free-solid/faCog';
 import * as faCaretLeft from '@fortawesome/fontawesome-free-solid/faCaretLeft';
 import * as faCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown';
 import * as fontawesome from '@fortawesome/fontawesome';
+
+import * as faBell from '@fortawesome/fontawesome-free-regular/faBell';
+
 
 // TODO observa mutation should not be needed
 fontawesome.config.searchPseudoElements = false;

@@ -3,7 +3,7 @@
 	<h2 i18n="header 2|Project card@@projectCard_projects">Projects</h2>
 
 	<article *ngFor="let project of projects" class="flex">
-		<div class="flexCenter">
+		<div class="flexCenter logo">
 			<img [src]="project | logo:'project'"/>
 		</div>
 		<div class="flexColumn middle">
@@ -18,6 +18,8 @@
 	</article>
 
 	<card-footer-app>
-		<button (click)="addProjectClick.emit()" i18n="button|Add project@@projectCard_addProject">add project</button>
+		<button
+			(click)="addProjectClick.emit()"
+			i18n="button|Add project@@projectCard_addProject">add to a project</button>
 	</card-footer-app>
 </card-app>

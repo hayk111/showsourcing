@@ -1,53 +1,55 @@
 
 <card-app (fileDrop)="add($event)">
+	<card-header-app>
+		<rating-heart-app
+			*ngIf="hasHeart"
+			class="flexCenter"
+			[favorite]="favorite"
+			(favorited)="favorited.emit()"
+			(unfavorited)="unfavorited.emit()">
+		</rating-heart-app>
 
-	<rating-heart-app
-		*ngIf="hasHeart"
-		class="flexCenter"
-		[favorite]="favorite"
-		(favorited)="favorited.emit()"
-		(unfavorited)="unfavorited.emit()">
-	</rating-heart-app>
+		<h2 *ngIf="title"> {{ title }}</h2>
 
-	<h2 *ngIf="title"> {{ title }}</h2>
+		<!-- images -->
+		<ng-container *ngIf="images.length > 0; else noImg">
+			<!-- carousel -->
+			<carousel-app
+				*ngIf="hasInlineCarousel"
+				[images]="images"
+				[selectedIndex]="selectedIndex"
+				(imgClick)="openModal($event)"
+				(rotateRequest)="rotate($event)"
+				(downloadRequest)="download($event)"
+				(deleteRequest)="delete($event)">
+			</carousel-app>
 
-	<!-- images -->
-	<ng-container *ngIf="images.length > 0; else noImg">
-		<!-- carousel -->
-		<carousel-app
-			*ngIf="hasInlineCarousel"
+			<!-- previews under the carousel -->
+			<image-previewer-app
+				*ngIf="hasPreview"
+				(imageClick)="setSelectedIndex($event)"
+				(plusClick)="openFileBrowser()"
+				[images]="images"></image-previewer-app>
+
+		</ng-container>
+		<!-- no image -->
+		<ng-template #noImg>
+			<div class="flexColumn flexCenter empty">
+				<img [src]="defaultImg"/>
+				<span>No picture yet</span>
+			</div>
+		</ng-template>
+
+		<!-- modal carousel that can be seen when clicking on the normal carousel -->
+		<modal-carousel-app
+			*ngIf="hasModalCarousel && modalOpen"
+			[selectedIndex]=[selectedIndex]
 			[images]="images"
-			[selectedIndex]="selectedIndex"
-			(imgClick)="openModal($event)"
-			(rotateRequest)="rotate($event)"
-			(downloadRequest)="download($event)"
-			(deleteRequest)="delete($event)">
-		</carousel-app>
+			(close)="closeModal()"></modal-carousel-app>
 
-		<!-- previews under the carousel -->
-		<image-previewer-app
-			*ngIf="hasPreview"
-			(imageClick)="setSelectedIndex($event)"
-			(plusClick)="openFileBrowser()"
-			[images]="images"></image-previewer-app>
+		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	</card-header-app>
 
-	</ng-container>
-	<!-- no image -->
-	<ng-template #noImg>
-		<div class="flexColumn flexCenter empty">
-			<img [src]="defaultImg"/>
-			<span>No picture yet</span>
-		</div>
-	</ng-template>
-
-	<!-- modal carousel that can be seen when clicking on the normal carousel -->
-	<modal-carousel-app
-		*ngIf="hasModalCarousel && modalOpen"
-		[selectedIndex]=[selectedIndex]
-		[images]="images"
-		(close)="closeModal()"></modal-carousel-app>
-
-	<input #inpFile type="file" accept="image/*" (fileSelect)="add($event)" class="hidden"/>
 
 	<card-footer-app *ngIf="hasFooter">
 		<button (click)="openFileBrowser()">Add picture</button>
