@@ -1,6 +1,4 @@
-<!-- TODO: thiery I think at the end here some of the columns are not used anymore
-also rating should become favorite.
-I added comment above each column to make it clearer -->
+
 <custom-table-app
 	class="list"
 	[rows]="rows"
@@ -109,7 +107,7 @@ I added comment above each column to make it clearer -->
 </ng-template>
 
 <!-- favorite -->
-<ng-template #rating let-row="row">
+<ng-template #favorite let-row="row">
 	<div>
 		<rating-heart-app
 			[favorite]="row?.favorite"

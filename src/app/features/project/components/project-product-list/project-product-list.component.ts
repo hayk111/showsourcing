@@ -30,7 +30,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@ViewChild('feedback') feedbackTemplate: TemplateRef<any>;
 	@ViewChild('status') statusTemplate: TemplateRef<any>;
 	@ViewChild('creationDate') creationDateTemplate: TemplateRef<any>;
-	@ViewChild('rating') ratingTemplate: TemplateRef<any>;
+	@ViewChild('favorite') ratingTemplate: TemplateRef<any>;
 	@ViewChild('user') userTemplate: TemplateRef<any>;
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
