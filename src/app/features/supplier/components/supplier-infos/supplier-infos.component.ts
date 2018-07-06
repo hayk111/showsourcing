@@ -22,7 +22,7 @@ export class SupplierInfosComponent extends AutoUnsub implements OnInit {
 		{
 			name: 'supplierType',
 			type: 'selector',
-			metadata: { target: 'supplierType', type: 'entity', canCreate: true },
+			metadata: { target: 'supplierType', type: 'entity', canCreate: true, labelName: 'name' },
 			label: 'type'
 		},
 		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },

@@ -59,6 +59,6 @@ export class EditableSelectorComponent extends AbstractInput {
 	}
 
 	get labelName() {
-		return this.customField.metadata.labelName || this.customField.name;
+		return this.customField.metadata.labelName || 'name';
 	}
 }
