@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ApolloModule } from 'apollo-angular';
 import { HttpLinkModule } from 'apollo-angular-link-http';
-import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+import { GqlClient } from '~shared/apollo/services/gql-client.service';
 import { ApolloService } from '~shared/apollo/services/apollo.service';
 
 import {
@@ -23,7 +23,7 @@ import {
 		HttpLinkModule,
 		ApolloIssuePageComponent
 	],
-	providers: [ApolloClient, ApolloService],
+	providers: [GqlClient, ApolloService],
 	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {

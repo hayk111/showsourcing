@@ -27,9 +27,7 @@ export class SettingsProfileComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		// this id comes from the user realm
-		this.user$ = this.userSrv.selectOne();
-		this.user$.pipe(first(), switchMap((m) => this.userId = m.id)).subscribe().unsubscribe();
+		this.user$ = this.userSrv.selectUser();
 		// this.company$ = this.companySrv.selectAll(); // Uncomment when Company realm is out
 	}
 

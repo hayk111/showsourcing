@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Tag } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { GqlClient } from '~shared/apollo';
 import { GlobalServiceInterface, GlobalService } from '../_global/global.service';
 
 import { TagQueries } from './tag.queries';
@@ -13,8 +13,8 @@ import { TagQueries } from './tag.queries';
 })
 export class TagService extends GlobalService<Tag> {
 
-	constructor(protected apollo: ApolloClient) {
-		super(apollo, new TagQueries(), 'Tag');
+	constructor(protected gqlClient: GqlClient) {
+		super(gqlClient, new TagQueries(), 'Tag');
 	}
 
 }

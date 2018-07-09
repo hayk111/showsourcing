@@ -10,14 +10,13 @@ import { log, LogColor, Log } from '~utils';
 import { UpdateOptions } from '../interfaces/update-options.interface';
 
 
-
 /**
  * Wrapper around apollo real client
  */
 @Injectable({
 	providedIn: 'root'
 })
-export class ApolloClient {
+export class GqlClient {
 
 	constructor(private apollo: Apollo) { }
 
@@ -171,7 +170,7 @@ export class ApolloClient {
 
 	/** to use another named apollo client */
 	use(name: string) {
-		return new ApolloClient(this.apollo.use(name) as Apollo);
+		return new GqlClient(this.apollo.use(name) as Apollo);
 	}
 
 	/** create appollo mutationOptions from our updateOptions */

@@ -4,7 +4,7 @@ import { distinctUntilChanged, map, switchMap, shareReplay } from 'rxjs/operator
 import { AuthState } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { User } from '~models';
-import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
+import { GqlClient } from '~shared/apollo/services/gql-client.service';
 import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 
 import { UserQueries } from './user.queries';
@@ -17,7 +17,7 @@ export class UserApolloService {
 		shareReplay(1)
 	);
 
-	constructor(private apollo: ApolloClient, private authSrv: AuthenticationService) {
+	constructor(private gqlClient: GqlClient, private authSrv: AuthenticationService) {
 	}
 
 	init() {
@@ -43,7 +43,7 @@ export class UserApolloService {
 	}
 
 	update(user: User) {
-		return this.apollo.use(USER_CLIENT).update({
+		return this.gqlClient.use(USER_CLIENT).update({
 			gql: this.queries.update,
 			input: user
 		});
@@ -52,7 +52,7 @@ export class UserApolloService {
 	/** gets user from all-users realm */
 	private getUser(id: string) {
 		// we use a query here because we need to get the user once from all_user client
-		return this.apollo.use(ALL_USER_CLIENT).selectOne({
+		return this.gqlClient.use(ALL_USER_CLIENT).selectOne({
 			gql: this.queries.one,
 			id
 		});

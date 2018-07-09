@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TeamUser } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { GqlClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { TeamUserQueries } from './team-user.queries';
@@ -11,8 +11,8 @@ import { TeamUserQueries } from './team-user.queries';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	constructor(protected apollo: ApolloClient) {
-		super(apollo, new TeamUserQueries(), 'TeamUser');
+	constructor(protected gqlClient: GqlClient) {
+		super(gqlClient, new TeamUserQueries(), 'TeamUser');
 	}
 
 	selectAll(fields: string = 'id, user { id, firstName, lastName }') {

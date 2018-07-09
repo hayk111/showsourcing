@@ -1,10 +1,10 @@
-import { Observable, of, ReplaySubject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, mergeMap } from 'rxjs/operators';
-import { ApolloClient } from '~shared/apollo';
+import { forkJoin, Observable, of, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map, mergeMap, scan, switchMap } from 'rxjs/operators';
+import { isObject } from 'util';
+import { GqlClient } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
-import { isObject } from 'util';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -20,6 +20,15 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
+	/** Pipeline Select one : to deduplicate logic execution
+	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
+	 *  From 5 different components.
+	 */
+	private selectOneId$ = new ReplaySubject<string>(1);
+	private selectOne$ = this.selectOneId$.asObservable().pipe(
+		distinctUntilChanged(),
+		switchMap(id => this.gqlClient.selectOne({ gql: this.queries.one, id }))
+	);
 
 	/**
 	 * Pipelines Select all
@@ -27,7 +36,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	private selectAllFields$ = new ReplaySubject<string>(1);
 	private selectAll$ = this.selectAllFields$.asObservable().pipe(
 		distinctUntilChanged(),
-		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) }))
+		switchMap(fields => this.gqlClient.selectMany({ gql: this.queries.all(fields) }))
 	);
 
 	/**
@@ -56,9 +65,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				descending,
 				query
 			};
-			// the selectMany here is a subscription to some slice of data on the server
-			return this.apollo.selectMany(options).pipe(
-				// we add page data so we can use it in the scan
+			return this.gqlClient.selectMany(options).pipe(
 				map(data => ({ data, page }) as any)
 			);
 		}),
@@ -70,7 +77,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	);
 
 	constructor(
-		protected apollo: ApolloClient,
+		protected gqlClient: GqlClient,
 		protected queries: GlobalQuery,
 		protected typeName?: string) { }
 
@@ -78,7 +85,8 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		return this.apollo.selectOne({ gql: this.queries.one, id });
+		this.selectOneId$.next(id);
+		return this.selectOne$;
 	}
 
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
@@ -102,7 +110,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
-		return this.apollo.update({
+		return this.gqlClient.update({
 			gql: this.queries.update,
 			input: entity,
 			typename: this.typeName
@@ -118,7 +126,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		return this.apollo.create({
+		return this.gqlClient.create({
 			gql: this.queries.create,
 			input: entity,
 			typename: this.typeName
@@ -129,7 +137,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
-		return this.apollo.delete({
+		return this.gqlClient.delete({
 			gql: this.queries.deleteOne,
 			id,
 			typename: this.typeName
@@ -140,7 +148,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
-		return this.apollo.deleteMany({
+		return this.gqlClient.deleteMany({
 			gql: this.queries.deleteMany,
 			ids,
 			typename: this.typeName

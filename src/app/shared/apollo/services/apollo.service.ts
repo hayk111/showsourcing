@@ -61,13 +61,13 @@ export class ApolloService {
 				this.clearCache();
 		});
 
-		// when the the user has selected a team we initialize the team client
-		this.teamSrv.selectedTeam$
-			.pipe(
-				// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
-				filter(t => !!t)
-			)
-			.subscribe(team => this.initTeamClient(team));
+		// // when the the user has selected a team we initialize the team client
+		// this.teamSrv.selectedTeam$
+		// 	.pipe(
+		// 		// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
+		// 		filter(t => !!t)
+		// 	)
+		// 	.subscribe(team => this.initTeamClient(team));
 	}
 
 	/** creates global and all-users clients */

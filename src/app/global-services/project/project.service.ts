@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Project } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { GqlClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ProjectQueries } from './project.queries';
@@ -11,8 +11,8 @@ import { ProjectQueries } from './project.queries';
 })
 export class ProjectService extends GlobalService<Project> {
 
-	constructor(protected apollo: ApolloClient) {
-		super(apollo, new ProjectQueries(), 'Project');
+	constructor(protected gqlClient: GqlClient) {
+		super(gqlClient, new ProjectQueries(), 'Project');
 	}
 
 }

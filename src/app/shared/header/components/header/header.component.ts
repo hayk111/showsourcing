@@ -23,7 +23,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectOne();
+		this.user$ = this.userSrv.selectUser();
 	}
 
 	logout() {

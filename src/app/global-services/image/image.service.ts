@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppImage } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { GqlClient } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ImageQueries } from './image.queries';
@@ -13,8 +13,8 @@ import { ImageUrls } from '~utils';
 })
 export class ImageService extends GlobalService<AppImage> {
 
-	constructor(protected apollo: ApolloClient) {
-		super(apollo, new ImageQueries(), 'Image');
+	constructor(protected gqlClient: GqlClient) {
+		super(gqlClient, new ImageQueries(), 'Image');
 	}
 
 	selectMany(...args) {

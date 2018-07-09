@@ -18,15 +18,13 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private globalClients: GlobalClientsInitializer,
 		private userClient: UserClientInitializer,
-		private teamClient: TeamClientInitializer,
-		private teamSrv: TeamService
+		private teamClient: TeamClientInitializer
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.globalClients.init();
 		this.userClient.init();
-		this.teamSrv.init();
 		this.teamClient.init();
 	}
 }

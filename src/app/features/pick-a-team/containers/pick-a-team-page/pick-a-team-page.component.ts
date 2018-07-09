@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Team } from '~models';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Team } from '~models';
+
 import { TeamService } from '../../../../global-services';
 
 @Component({
@@ -15,19 +16,15 @@ export class PickATeamPageComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	form: FormGroup;
 
-	constructor(private fb: FormBuilder, private srv: TeamService, private router: Router) {
-
-	}
+	constructor(private srv: TeamService) { }
 
 	ngOnInit() {
 		this.teams$ = this.srv.selectAll();
 	}
 
-
 	selectTeam(team: Team) {
 		team.realmServerName = 'default';
 		team.realmPath = `team/${team.id}`;
-		this.srv.pickTeam(team)
-			.subscribe(_ => this.router.navigate(['']));
+		this.srv.pickTeam(team);
 	}
 }

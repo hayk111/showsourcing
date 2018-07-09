@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Contact, Product } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { GqlClient } from '~shared/apollo';
 
 import { SelectParams } from '~global-services/_global/select-params';
 import { ContactService, ProductService } from '~global-services';
@@ -12,11 +12,11 @@ import { SupplierService } from '~global-services/supplier/supplier.service';
 export class SupplierFeatureService extends SupplierService {
 
 	constructor(
-		protected apollo: ApolloClient,
+		protected gqlClient: GqlClient,
 		private productSrv: ProductService,
 		private contactSrv: ContactService
 	) {
-		super(apollo);
+		super(gqlClient);
 	}
 
 
