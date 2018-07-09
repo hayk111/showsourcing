@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '~global-services/product/product.service';
 import { SupplierService } from '~global-services/supplier/supplier.service';
-import { UserApolloService } from '~global-services/user/user.apollo.service';
 import { TeamService } from '~global-services/team/team.service';
 import { TeamUserService } from '~global-services/team-user/team-user.service';
 import { EventService } from '~global-services/event/event.service';
@@ -27,7 +26,6 @@ import { UserService } from '~global-services/user/user.service';
 	],
 	declarations: [],
 	providers: [
-		UserApolloService,
 		TeamService,
 		ProductService,
 		SupplierService,
@@ -41,8 +39,10 @@ import { UserService } from '~global-services/user/user.service';
 		TagService,
 		ImageUploadRequestService,
 		FileUploadRequestService,
+		UserService,
+
+		// helper
 		ERMService,
-		UserService
 	]
 })
 export class GlobalServicesModule { }

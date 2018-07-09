@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserApolloService } from '../../../../global-services';
 import { AppComment } from '~models';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'comment-ctnr-app',
@@ -16,7 +14,7 @@ export class CommentCtnrComponent implements OnInit {
 	pending$: Observable<boolean>;
 	ctrl = new FormControl('', Validators.required);
 
-	constructor(private userApolloSrv: UserApolloService) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.comments$ = this.store.select(selectCommentArray);

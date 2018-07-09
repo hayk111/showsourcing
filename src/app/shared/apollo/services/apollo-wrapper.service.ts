@@ -16,7 +16,7 @@ import { UpdateOptions } from '../interfaces/update-options.interface';
 @Injectable({
 	providedIn: 'root'
 })
-export class GqlClient {
+export class ApolloWrapper {
 
 	constructor(private apollo: Apollo) { }
 
@@ -170,7 +170,7 @@ export class GqlClient {
 
 	/** to use another named apollo client */
 	use(name: string) {
-		return new GqlClient(this.apollo.use(name) as Apollo);
+		return new ApolloWrapper(this.apollo.use(name) as Apollo);
 	}
 
 	/** create appollo mutationOptions from our updateOptions */

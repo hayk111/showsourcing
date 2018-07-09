@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductStatus } from '~models';
-import { GqlClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ProductStatusQueries } from './product-status.queries';
@@ -11,8 +11,8 @@ import { ProductStatusQueries } from './product-status.queries';
 })
 export class ProductStatusService extends GlobalService<ProductStatus> {
 
-	constructor(protected gqlClient: GqlClient) {
-		super(gqlClient, new ProductStatusQueries(), 'ProductStatus');
+	constructor(wrapper: ApolloWrapper) {
+		super(wrapper, new ProductStatusQueries(), 'ProductStatus');
 	}
 
 }

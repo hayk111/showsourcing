@@ -5,13 +5,13 @@ import { Product, Project } from '~models';
 import { ProductService, ProjectService } from '../../../global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
-import { GqlClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 
 @Injectable()
 export class ProductFeatureService extends ProductService {
 
-	constructor(protected gqlClient: GqlClient, private projectSrv: ProjectService) {
-		super(gqlClient);
+	constructor(protected wrapper: ApolloWrapper, private projectSrv: ProjectService) {
+		super(wrapper);
 	}
 
 

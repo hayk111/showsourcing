@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { AutoUnsub } from '~utils';
-import { UserApolloService } from '../../../../global-services';
 import { DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils';
 
 
 @Component({

@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserService, UserApolloService } from '~global-services';
-import { User, AppImage } from '~models';
-import { tap, first, switchMap } from 'rxjs/operators';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { DialogService } from '~shared/dialog';
 import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
+import { UserService } from '~global-services';
+import { User } from '~models';
+import { DialogService } from '~shared/dialog';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
 	selector: 'settings-profile-app',

@@ -1,16 +1,16 @@
-import { AbstractInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
-import { USER_CLIENT, ALL_USER_CLIENT } from '~shared/apollo';
-import { User } from '~models/user.model';
-import { log } from '~utils/log';
-import { Apollo } from 'apollo-angular';
-import { TokenService } from '~features/auth';
-import { HttpLink } from 'apollo-angular-link-http';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
-import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { distinctUntilChanged, tap, first, filter } from 'rxjs/operators';
-import { GqlClient } from '~shared/apollo/services/gql-client.service';
-import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { Injectable } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular-link-http';
+import { distinctUntilChanged, filter, first } from 'rxjs/operators';
+import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { TokenService } from '~features/auth/services/token.service';
+import { User } from '~models/user.model';
+import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { AbstractInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
+import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
+import { log } from '~utils/log';
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractInitializer {
@@ -21,7 +21,7 @@ export class UserClientInitializer extends AbstractInitializer {
 		protected link: HttpLink,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
-		private gqlClient: GqlClient
+		private wrapper: ApolloWrapper
 	) {
 		super(apollo, tokenSrv, link, authSrv, true);
 	}
@@ -42,7 +42,7 @@ export class UserClientInitializer extends AbstractInitializer {
 			const realm = await super.getRealm(user.realmServerName);
 			const userUris = super.getUris(realm.httpsPort, realm.hostname, user.realmPath);
 			super.createClient(userUris.httpUri, userUris.wsUri, USER_CLIENT);
-			this.apolloState.setUserClientReady();
+			setTimeout(this.apolloState.setUserClientReady());
 		} catch (e) {
 			log.error(e);
 			this.apolloState.setUserClientNotReady();
@@ -52,7 +52,7 @@ export class UserClientInitializer extends AbstractInitializer {
 	/** gets user from all-users realm */
 	private async getUser(id: string): Promise<User> {
 		// we use a query here because we need to get the user once from all_user client
-		return this.gqlClient.use(ALL_USER_CLIENT).selectOne({
+		return this.wrapper.use(ALL_USER_CLIENT).selectOne({
 			gql: ClientInitializerQueries.selectUser,
 			id
 		}).pipe(

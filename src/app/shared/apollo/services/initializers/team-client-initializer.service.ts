@@ -7,7 +7,7 @@ import { distinctUntilChanged, filter, shareReplay, switchMap, tap } from 'rxjs/
 import { TokenService } from '~features/auth/services/token.service';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { Team } from '~models/team.model';
-import { GqlClient } from '~shared/apollo/services/gql-client.service';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { AbstractInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
@@ -33,7 +33,7 @@ export class TeamClientInitializer extends AbstractInitializer {
 		protected authSrv: AuthenticationService,
 		private storage: LocalStorageService,
 		private router: Router,
-		private gqlClient: GqlClient
+		private wrapper: ApolloWrapper
 	) {
 		super(apollo, tokenSrv, link, authSrv, true);
 	}
@@ -105,7 +105,7 @@ export class TeamClientInitializer extends AbstractInitializer {
 	}
 
 	selectAll() {
-		return this.gqlClient.use(USER_CLIENT).selectMany({
+		return this.wrapper.use(USER_CLIENT).selectMany({
 			gql: ClientInitializerQueries.allTeams
 		});
 	}

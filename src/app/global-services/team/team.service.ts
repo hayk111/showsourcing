@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Team } from '~models';
-import { GqlClient } from '~shared/apollo/services/gql-client.service';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 
 import { GlobalService } from '../_global/global.service';
@@ -19,16 +19,12 @@ import { TeamClientInitializer } from '~shared/apollo/services/initializers/team
 export class TeamService extends GlobalService<Team> {
 
 	constructor(
-		protected gqlClient: GqlClient,
+		wrapper: ApolloWrapper,
 		protected teamClient: TeamClientInitializer
 	) {
-		super(gqlClient.use(USER_CLIENT), new TeamQueries(), 'Team');
+		super(wrapper.use(USER_CLIENT), new TeamQueries(), 'Team');
 	}
 
-
-	selectAll() {
-		return super.selectAll();
-	}
 
 	create(team: Team): Observable<any> {
 		return super.create(team).pipe(
@@ -39,7 +35,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** waits for a team to go from pending to active */
 	private waitTeamValid(team: Team) {
-		return this.gqlClient.use(USER_CLIENT).selectMany({
+		return this.wrapper.use(USER_CLIENT).selectMany({
 			gql: this.queries.list,
 			query: `id == "${team.id}" AND status == "active"`
 		});
@@ -55,7 +51,5 @@ export class TeamService extends GlobalService<Team> {
 			map(team => !!team)
 		);
 	}
-
-
 
 }

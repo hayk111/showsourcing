@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalService } from '~global-services/_global/global.service';
-import { UserApolloService } from '~global-services/user/user.apollo.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { GqlClient, USER_CLIENT } from '~shared/apollo';
+import { ApolloWrapper, USER_CLIENT } from '~shared/apollo';
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class UserService extends GlobalService<User> {
 
+	userSync: User;
+
 	constructor(
-		protected gqlClient: GqlClient,
-		protected userApolloService: UserApolloService,
+		wrapper: ApolloWrapper,
 		private authSrv: AuthenticationService) {
-		super(gqlClient.use(USER_CLIENT), new UserQueries, 'User');
+		super(wrapper.use(USER_CLIENT), new UserQueries, 'User');
+		this.selectUser().subscribe(user => this.userSync = user);
 	}
 
 	selectUser() {

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Supplier } from '~models';
-import { GqlClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 
 const supplierMutation = gql`
@@ -56,10 +56,10 @@ export class TestPageComponent implements OnInit {
 	form: FormGroup;
 	supplierTest;
 
-	constructor(private gqlClient: GqlClient) { }
+	constructor(private wrapper: ApolloWrapper) { }
 
 	ngOnInit() {
-		this.supplier$ = this.gqlClient.selectOne({
+		this.supplier$ = this.wrapper.selectOne({
 			gql: querySupplier,
 			id: '3243ed5b-4e7b-4646-a858-5e0c41427ccf'
 		}).pipe(map((r: any) => r.data.suppliers[0]));

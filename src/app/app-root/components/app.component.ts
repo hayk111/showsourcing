@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloService } from '~shared/apollo/services/apollo.service';
-import { log } from '~utils';
-import { TeamService, UserApolloService } from '../../global-services';
 import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/global-clients-initializer.service';
 import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';

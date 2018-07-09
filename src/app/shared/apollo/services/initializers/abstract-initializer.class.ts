@@ -99,7 +99,6 @@ export abstract class AbstractInitializer {
 	}
 
 	protected clearClient(clientName?: string) {
-		debugger;
 		const base = this.apollo.use(clientName) || this.apollo;
 		if (!base)
 			return;

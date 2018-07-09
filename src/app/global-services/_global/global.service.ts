@@ -1,7 +1,7 @@
 import { forkJoin, Observable, of, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, scan, switchMap } from 'rxjs/operators';
 import { isObject } from 'util';
-import { GqlClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
@@ -20,6 +20,10 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
+	constructor(
+		protected wrapper: ApolloWrapper,
+		protected queries: GlobalQuery,
+		protected typeName?: string) { }
 	/** Pipeline Select one : to deduplicate logic execution
 	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
 	 *  From 5 different components.
@@ -27,7 +31,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	private selectOneId$ = new ReplaySubject<string>(1);
 	private selectOne$ = this.selectOneId$.asObservable().pipe(
 		distinctUntilChanged(),
-		switchMap(id => this.gqlClient.selectOne({ gql: this.queries.one, id }))
+		switchMap(id => this.wrapper.selectOne({ gql: this.queries.one, id }))
 	);
 
 	/**
@@ -36,7 +40,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	private selectAllFields$ = new ReplaySubject<string>(1);
 	private selectAll$ = this.selectAllFields$.asObservable().pipe(
 		distinctUntilChanged(),
-		switchMap(fields => this.gqlClient.selectMany({ gql: this.queries.all(fields) }))
+		switchMap(fields => this.wrapper.selectMany({ gql: this.queries.all(fields) }))
 	);
 
 	/**
@@ -65,7 +69,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 				descending,
 				query
 			};
-			return this.gqlClient.selectMany(options).pipe(
+			return this.wrapper.selectMany(options).pipe(
 				map(data => ({ data, page }) as any)
 			);
 		}),
@@ -76,10 +80,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		}, [])
 	);
 
-	constructor(
-		protected gqlClient: GqlClient,
-		protected queries: GlobalQuery,
-		protected typeName?: string) { }
 
 	selectOne(id: string): Observable<T> {
 		if (!this.queries.one) {
@@ -110,7 +110,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
-		return this.gqlClient.update({
+		return this.wrapper.update({
 			gql: this.queries.update,
 			input: entity,
 			typename: this.typeName
@@ -126,7 +126,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		return this.gqlClient.create({
+		return this.wrapper.create({
 			gql: this.queries.create,
 			input: entity,
 			typename: this.typeName
@@ -137,7 +137,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
-		return this.gqlClient.delete({
+		return this.wrapper.delete({
 			gql: this.queries.deleteOne,
 			id,
 			typename: this.typeName
@@ -148,7 +148,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
-		return this.gqlClient.deleteMany({
+		return this.wrapper.deleteMany({
 			gql: this.queries.deleteMany,
 			ids,
 			typename: this.typeName
