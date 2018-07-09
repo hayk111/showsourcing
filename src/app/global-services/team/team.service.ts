@@ -31,8 +31,8 @@ export class TeamService extends GlobalService<Team> {
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
-
 		super(apollo.use(USER_CLIENT), new TeamQueries(), 'Team');
+		debugger;
 		this.init();
 	}
 
@@ -55,16 +55,6 @@ export class TeamService extends GlobalService<Team> {
 		).subscribe(this._selectedTeam$);
 	}
 
-	selectAll(): Observable<Team[]> {
-		return this.teams$;
-	}
-
-	pickTeam(team: Team): Observable<Team> {
-		this.storage.setItem(SELECTED_TEAM_ID, team.id);
-		this._selectedTeamId$.next(team.id);
-		return this._selectedTeam$;
-	}
-
 	create(team: Team): Observable<any> {
 		return this.apollo.use(USER_CLIENT).update({
 			gql: this.queries.create,
@@ -74,6 +64,12 @@ export class TeamService extends GlobalService<Team> {
 			switchMap(_ => this.waitTeamValid(team)),
 			switchMap(_ => this.pickTeam(team))
 		);
+	}
+
+	pickTeam(team: Team): Observable<Team> {
+		this.storage.setItem(SELECTED_TEAM_ID, team.id);
+		this._selectedTeamId$.next(team.id);
+		return this._selectedTeam$;
 	}
 
 	get hasTeam$(): Observable<boolean> {
@@ -100,7 +96,7 @@ export class TeamService extends GlobalService<Team> {
 		}
 	}
 
-	/** restore    */
+	/** restore from local storage   */
 	private restoreSelectedTeam() {
 		const selectedTeamId: string = this.storage.getItem(SELECTED_TEAM_ID);
 		this._selectedTeamId$.next(selectedTeamId);

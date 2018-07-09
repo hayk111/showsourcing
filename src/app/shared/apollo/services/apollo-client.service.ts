@@ -171,8 +171,6 @@ export class ApolloClient {
 
 	/** to use another named apollo client */
 	use(name: string) {
-		console.trace();
-		debugger;
 		return new ApolloClient(this.apollo.use(name) as Apollo);
 	}
 

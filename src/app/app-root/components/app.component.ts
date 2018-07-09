@@ -3,6 +3,9 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { ApolloService } from '~shared/apollo/services/apollo.service';
 import { log } from '~utils';
 import { TeamService, UserApolloService } from '../../global-services';
+import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/global-clients-initializer.service';
+import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
+import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
 
 
 @Component({
@@ -13,13 +16,17 @@ import { TeamService, UserApolloService } from '../../global-services';
 export class AppComponent implements OnInit {
 	constructor(
 		private authSrv: AuthenticationService,
-		private apolloSrv: ApolloService,
-		private userApolloSrv: UserApolloService
+		private globalClients: GlobalClientsInitializer,
+		private userClient: UserClientInitializer,
+		private teamClient: TeamClientInitializer,
+		private teamSrv: TeamService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
-		this.apolloSrv.init();
-		this.userApolloSrv.init();
+		this.globalClients.init();
+		this.userClient.init();
+		this.teamSrv.init();
+		this.teamClient.init();
 	}
 }

@@ -23,21 +23,21 @@ export class AuthenticationService {
 		private router: Router
 	) {
 
+	}
+
+	init() {
 		// when there is an access token that means we are authenticated
 		this.tokenSrv.accessToken$.pipe(
 			map(tokenState => this.tokenStateToAuthState(tokenState))
 		).subscribe(this._authState$);
-	}
-
-	init() {
 		// since we subscribe to the access token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
 		this.tokenSrv.restoreAccessToken();
 	}
 
+	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
 		return this.authHttp.login(credentials).pipe(
-			tap((user: any) => this._authState$.next({ authenticated: false, userId: user.id })),
 			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
 			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
 			tap(_ => this.router.navigate(['']))

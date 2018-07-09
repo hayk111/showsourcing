@@ -11,7 +11,6 @@ import { environment } from 'environments/environment';
 import { filter, map, take } from 'rxjs/operators';
 import { TokenService } from '~features/auth/services/token.service';
 import { Team, User } from '~models';
-import { ClientQueries } from '~shared/apollo/services/apollo-client-queries';
 import {
 	ALL_USER_CLIENT,
 	GLOBAL_CLIENT,
@@ -22,6 +21,7 @@ import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { log } from '~utils';
 import { UserApolloService } from '~global-services/user/user.apollo.service';
 import { TeamService } from '~global-services/team/team.service';
+import gql from 'graphql-tag';
 
 
 /**
@@ -130,7 +130,7 @@ export class ApolloService {
 	 */
 	private async getRealm(realmName: string): Promise<{ hostname: string, httpsPort: string }> {
 		return this.apollo.use(GLOBAL_CLIENT).subscribe({
-			query: ClientQueries.selectRealmHostName,
+			query: gql('ClientQueries.selectRealmHostName'),
 			variables: { query: `name == "${realmName}"` }
 		}).pipe(
 			take(1),
