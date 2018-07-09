@@ -1,5 +1,5 @@
-import { forkJoin, Observable, of, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, scan, switchMap } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
+import { distinctUntilChanged, flatMap, mergeMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
 import { isObject } from 'util';
 import { ApolloWrapper } from '~shared/apollo';
 
@@ -24,24 +24,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		protected wrapper: ApolloWrapper,
 		protected queries: GlobalQuery,
 		protected typeName?: string) { }
-	/** Pipeline Select one : to deduplicate logic execution
-	 *  IE: Using a pipeline so we don't get the response 5 times when we are subscribing
-	 *  From 5 different components.
-	 */
-	private selectOneId$ = new ReplaySubject<string>(1);
-	private selectOne$ = this.selectOneId$.asObservable().pipe(
-		distinctUntilChanged(),
-		switchMap(id => this.wrapper.selectOne({ gql: this.queries.one, id }))
-	);
-
-	/**
-	 * Pipelines Select all
-	 */
-	private selectAllFields$ = new ReplaySubject<string>(1);
-	private selectAll$ = this.selectAllFields$.asObservable().pipe(
-		distinctUntilChanged(),
-		switchMap(fields => this.wrapper.selectMany({ gql: this.queries.all(fields) }))
-	);
 
 	/**
 	 * Pipelines Select many:
@@ -80,21 +62,23 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		}, [])
 	);
 
-
+	/** selects one entity given an id */
 	selectOne(id: string): Observable<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		this.selectOneId$.next(id);
-		return this.selectOne$;
+		return this.wrapper.selectOne({ gql: this.queries.one, id });
 	}
 
+	/** selects all entity
+	 * @param fields : string to specify the fields we want to query
+	 * defaults to id, name
+	*/
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
 		if (!this.queries.all) {
 			throw Error('all query not implemented for this service');
 		}
-		this.selectAllFields$.next(fields);
-		return this.selectAll$;
+		return this.wrapper.selectAll({ gql: this.queries.all(fields) });
 	}
 
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {

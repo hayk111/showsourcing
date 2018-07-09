@@ -2,21 +2,24 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, first, map, take, tap, filter } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
-import { log, LogColor, Log } from '~utils';
+import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '../interfaces/update-options.interface';
 
 
 /**
- * Wrapper around apollo real client
+ * Wrapper around apollo real client.
+ * This class is complicated but relieve other parts of the app from any complexity
  */
 @Injectable({
 	providedIn: 'root'
 })
 export class ApolloWrapper {
+	private selectOneCache = new Map();
+	private selectAllCache = new Map();
 
 	constructor(private apollo: Apollo) { }
 
@@ -28,12 +31,24 @@ export class ApolloWrapper {
 		return this.apollo.watchQuery<T>(options);
 	}
 
+	///////////////////////////////
+	//   SELECT ONE SECTION      //
+	///////////////////////////////
+
 	/** select one entity given an id */
 	selectOne(options: SubribeToOneOptions) {
 		const queryName = this.getQueryName(options);
+		const cacheKey = `${options.id}-${queryName}`;
 		const variables = { query: `id == "${options.id}"` };
 		this.log('Selecting One', options, queryName, variables);
 
+		if (!this.selectOneCache.has(cacheKey)) {
+			this.selectOneCache.set(cacheKey, this.selectOnePipe(options, queryName, variables));
+		}
+		return this.selectOneCache.get(cacheKey);
+	}
+
+	selectOnePipe(options: SubribeToOneOptions, queryName: string, variables: any) {
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				filter((r) => this.checkError(r)),
@@ -41,9 +56,20 @@ export class ApolloWrapper {
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult('SelectOne', queryName, data)),
+<<<<<<< HEAD
 				catchError(errors => of(log.table(errors)))
+=======
+				shareReplay(1)
+>>>>>>> some cache added
 			);
 	}
+
+
+	/////////////////////////////
+	//   SELECT MANY SECTION   //
+	/////////////////////////////
+
+	// we don't have a cache for this one as it changes all the time
 
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
@@ -58,6 +84,38 @@ export class ApolloWrapper {
 				tap(data => this.logResult('Selecting Many', queryName, data)),
 				catchError(errors => of(log.table(errors))),
 		);
+	}
+
+	/////////////////////////////
+	//   SELECT ALL SECTION    //
+	/////////////////////////////
+
+	/** select all entities given the query */
+	selectAll(options: SubscribeToManyOptions): Observable<any> {
+		const { gql } = options;
+		const queryName = this.getQueryName(options);
+		// we can use the query body for the cacheKey since there are no vars
+		const cacheKey = this.getQueryBody(options);
+		this.log('Selecting All', options, queryName);
+		if (!this.selectAllCache.has(cacheKey)) {
+			this.selectAllCache.set(cacheKey, this.selectAllPipe(gql, queryName));
+		}
+		return this.selectAllCache.get(cacheKey);
+	}
+
+	selectAllPipe(gql: any, queryName: string) {
+		return this.apollo.subscribe({ query: gql })
+			.pipe(
+				// extracting the result
+				map((r) => {
+					if (!r.data)
+						throwError(r.errors);
+					return r.data[queryName];
+				}),
+				catchError(errors => of(log.table(errors))),
+				tap(data => this.logResult('Selecting Many', queryName, data)),
+				shareReplay(1)
+			);
 	}
 
 	/** Update one existing entity*/
@@ -181,7 +239,6 @@ export class ApolloWrapper {
 		};
 	}
 
-
 	/** creates an optimistic response the way apollo expects it */
 	private addOptimisticResponse(options: UpdateOptions) {
 		(options as any).optimisticResponse = {
@@ -203,6 +260,10 @@ export class ApolloWrapper {
 
 	}
 
+	private getQueryBody(options): string {
+		return options.gql.loc.source.body;
+	}
+
 	/** check if optimistic update is disabled */
 	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
 		if (options.preventOptimisticUi || !options.typename) {
@@ -212,7 +273,7 @@ export class ApolloWrapper {
 	}
 
 	/** logs events to the console */
-	private log(type: string, options: any, queryName: string, variables: any) {
+	private log(type: string, options: any, queryName: string, variables?: any) {
 		// check people don't use query
 		if (options.gql.definitions[0].operation === 'query')
 			log.error(`%c you are using a query, subscription should be used`);
@@ -220,7 +281,7 @@ export class ApolloWrapper {
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
-		log.debug(`%c ${options.gql.loc.source.body}`, 'color: #555555');
+		log.debug(`%c ${this.getQueryBody(options)}`, 'color: #555555');
 		log.debug(options.gql);
 		log.groupEnd();
 		if (variables) {
@@ -237,6 +298,7 @@ export class ApolloWrapper {
 		log.groupEnd();
 	}
 
+<<<<<<< HEAD
 	private checkError(r: { data: any, errors: any[] }) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
@@ -248,5 +310,8 @@ export class ApolloWrapper {
 		}
 		return true;
 	}
+=======
+
+>>>>>>> some cache added
 
 }

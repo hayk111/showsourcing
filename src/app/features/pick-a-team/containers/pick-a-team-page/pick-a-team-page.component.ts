@@ -16,7 +16,7 @@ export class PickATeamPageComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	form: FormGroup;
 
-	constructor(private srv: TeamService) { }
+	constructor(private srv: TeamService, private router: Router) { }
 
 	ngOnInit() {
 		this.teams$ = this.srv.selectAll();

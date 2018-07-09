@@ -44,9 +44,13 @@ export class TeamClientInitializer extends AbstractInitializer {
 		// 1. when the user client is ready we get the user's teams
 		this.teams$ = this.apolloState.userClientReady$.pipe(
 			filter(ready => !!ready),
+			// we want to recheck only when the list of team change, not when one is mutated
+			// therefor we can check if ids in both teams are the same.
+			// usually the order won't change so this check should be enough
 			distinctUntilChanged(),
-			switchMap(_ => this.selectAll())
+			switchMap(_ => this.selectAll()),
 		);
+
 
 		// 2. When we have teams we find out what the selected team is
 		combineLatest(
@@ -93,7 +97,6 @@ export class TeamClientInitializer extends AbstractInitializer {
 		// if the user has selected a team during the current session
 		let teamSelected;
 		if (teamSelected = teams.find(team => team.id === selectedId)) {
-			this.router.navigate(['']);
 			return teamSelected;
 			// if not we redirect the user so he can pick a team
 		} else if (teams.length > 0) {

@@ -6,12 +6,17 @@
 	[hasAction]="false">
 </top-panel-app>
 
-<profile-card-app class="card-style"
-	[item]="user$ | async"
-	(valueChange)="updateUser($event)"
-	(addFile)="addFile($event)"
-	(changePswd)="pswdModal()"
-></profile-card-app>
+<ng-container *ngIf="user$ | async as user">
+
+	<profile-card-app class="card-style"
+		[user]="user"
+		(valueChange)="updateUser($event)"
+		(addFile)="addFile($event)"
+		(changePswd)="pswdModal()"
+	></profile-card-app>
+
+</ng-container>
+
 
 <!-- Uncomment when Company realm is out -->
 <!-- <company-profile-card-app class="card-style"

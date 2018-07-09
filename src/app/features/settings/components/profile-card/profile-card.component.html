@@ -2,7 +2,7 @@
 <label-app>Profile Picture</label-app>
 
 <div class="photoContainer flex">
-	<user-picture-app class="z-3 z-h pointer" [size]="48" [url]="item?.preferences?.profilePicture?.urls?.url_60x45" (click)="openFileBrowser()"></user-picture-app>
+	<user-picture-app class="z-3 z-h pointer" [size]="48" [url]="user.logoImage" (click)="openFileBrowser()"></user-picture-app>
 	<p class="color-primary pointer" (click)="openFileBrowser()">Select Image</p>
 </div>
 
@@ -11,7 +11,7 @@
 <form [formGroup]="form">
 	<form-field-app [paddingBottom]="true">
 		<label-app>First Name</label-app>
-		<input class="borderless" inputApp type="text" formControlName="firstName"/>
+		<input class="borderless" inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
 	</form-field-app>
 	<form-field-app [paddingBottom]="true">
 		<label-app>Last Name</label-app>

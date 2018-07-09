@@ -41,8 +41,8 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 	/** picks a team, puts the selection in local storage */
-	pickTeam(team: Team): void {
-		this.teamClient.pickTeam(team);
+	pickTeam(team: Team) {
+		return this.teamClient.pickTeam(team);
 	}
 
 	get hasTeam$(): Observable<boolean> {

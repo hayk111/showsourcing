@@ -1,4 +1,5 @@
 import { Team } from './team.model';
+import { AppImage } from '~models/app-image.model';
 
 export class User {
 	id: string;
@@ -12,4 +13,5 @@ export class User {
 	preferredLanguage?: string;
 	realmServerName?: string;
 	realmPath?: string;
+	logoImage?: AppImage;
 }

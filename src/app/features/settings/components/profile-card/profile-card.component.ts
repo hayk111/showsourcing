@@ -12,8 +12,7 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileCardComponent extends AutoUnsub implements OnInit {
-
-	@Input() item: User;
+	@Input() user: User;
 	@Input() form: FormGroup;
 	/** hidden file input */
 	@ViewChild('inpFile') inpFile: ElementRef;
@@ -34,7 +33,8 @@ export class ProfileCardComponent extends AutoUnsub implements OnInit {
 			phoneNumber: ['', [phoneValidator, Validators.required]]
 		}).controls, { updateOn: 'blur' });
 
-		this.form.patchValue(this.item);
+		this.form.patchValue(this.user);
+
 		this.form.valueChanges
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(user => this.valueChange.emit(user));

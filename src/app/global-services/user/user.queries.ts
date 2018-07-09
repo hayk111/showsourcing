@@ -9,7 +9,8 @@ export class UserQueries implements GlobalQuery {
 				id,
 				firstName,
 				lastName,
-				email
+				email,
+				phoneNumber
 			}
 		}
 	`;
