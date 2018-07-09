@@ -10,7 +10,6 @@ import { TeamQueries } from './team.queries';
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
 
 
-
 /**
  * Team service. At the start of the application it deals with
  * retrieving the current selected team.
