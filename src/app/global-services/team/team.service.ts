@@ -31,8 +31,7 @@ export class TeamService extends GlobalService<Team> {
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
-		super(apollo, new TeamQueries(), 'Team');
-		this.init();
+		super(apollo.use(USER_CLIENT), new TeamQueries(), 'Team');
 	}
 
 	init() {
@@ -42,7 +41,7 @@ export class TeamService extends GlobalService<Team> {
 		this.teams$ = this.apolloState.userClientReady$.pipe(
 			filter(ready => !!ready),
 			distinctUntilChanged(),
-			switchMap(_ => this.getTeams())
+			switchMap(_ => this.selectAll())
 		);
 		this.teams$.subscribe();
 
@@ -55,11 +54,7 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 	create(team: Team): Observable<any> {
-		return this.apollo.use(USER_CLIENT).update({
-			gql: this.queries.create,
-			input: team,
-			typename: 'Team'
-		}).pipe(
+		return super.create(team).pipe(
 			switchMap(_ => this.waitTeamValid(team)),
 			switchMap(_ => this.pickTeam(team))
 		);
@@ -99,13 +94,6 @@ export class TeamService extends GlobalService<Team> {
 	private restoreSelectedTeam() {
 		const selectedTeamId: string = this.storage.getItem(SELECTED_TEAM_ID);
 		this._selectedTeamId$.next(selectedTeamId);
-	}
-
-	/** gets teams from user realm */
-	private getTeams(): Observable<any> {
-		return this.apollo.use(USER_CLIENT).selectMany({
-			gql: this.queries.all('id, name, realmPath, realmServerName'),
-		});
 	}
 
 	/** waits for a team to go from pending to active */

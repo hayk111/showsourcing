@@ -13,15 +13,6 @@ export class UserService extends GlobalService<User> {
 
 	constructor(protected apollo: ApolloClient, protected userApolloService: UserApolloService) {
 		super(apollo.use(USER_CLIENT), new UserQueries, 'User');
-		log.debug('creation user service');
-	}
-
-	selectOne() {
-		return this.userApolloService.user$;
-	}
-
-	update(user: any) {
-		return super.update(user);
 	}
 
 }
