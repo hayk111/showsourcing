@@ -31,8 +31,7 @@ export class TeamService extends GlobalService<Team> {
 		private apolloState: ApolloStateService,
 		private storage: LocalStorageService,
 		private router: Router) {
-		super(apollo.use(USER_CLIENT), new TeamQueries(), 'Team');
-		debugger;
+		super(apollo, new TeamQueries(), 'Team');
 		this.init();
 	}
 

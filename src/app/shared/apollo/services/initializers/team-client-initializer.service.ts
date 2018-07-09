@@ -38,7 +38,7 @@ export class TeamClientInitializer extends AbstractInitializer {
 	private async initTeamClient(team: Team) {
 		try {
 			// we first clear the last team picked cache
-			this.clearClient(this.apollo);
+			this.clearClient();
 			const realm = await this.getRealm(team.realmServerName);
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
 			this.createClient(uris.httpUri, uris.wsUri);

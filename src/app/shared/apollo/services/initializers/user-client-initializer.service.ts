@@ -7,7 +7,7 @@ import { TokenService } from '~features/auth';
 import { HttpLink } from 'apollo-angular-link-http';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, tap, first } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { Injectable } from '@angular/core';
@@ -36,7 +36,7 @@ export class UserClientInitializer extends AbstractInitializer {
 	/** create the user client  */
 	private async initUserClient(id: string) {
 		try {
-			super.clearClient(this.apollo.use(USER_CLIENT));
+			super.clearClient(USER_CLIENT);
 			const user = await this.getUser(id);
 			const realm = await super.getRealm(user.realmServerName);
 			const userUris = super.getUris(realm.httpsPort, realm.hostname, user.realmPath);
@@ -49,12 +49,14 @@ export class UserClientInitializer extends AbstractInitializer {
 	}
 
 	/** gets user from all-users realm */
-	private getUser(id: string): Promise<User> {
-		debugger;
+	private async getUser(id: string): Promise<User> {
 		// we use a query here because we need to get the user once from all_user client
 		return this.apolloClient.use(ALL_USER_CLIENT).selectOne({
 			gql: ClientInitializerQueries.selectUser,
 			id
-		}).toPromise();
+		}).pipe(
+			first()
+		).toPromise();
 	}
+
 }

@@ -21,18 +21,7 @@ export abstract class AbstractInitializer {
 		protected httpLink: HttpLink,
 		protected authSrv: AuthenticationService,
 		protected clearOnLogout: boolean
-	) {
-
-		if (this.clearOnLogout) {
-			// when unauthenticated we clear the cache
-			this.authSrv.authState$.pipe(
-				map(state => state.authenticated),
-				distinctUntilChanged(),
-				filter(auth => !auth)
-			).subscribe(_ => this.clearCache());
-		}
-
-	}
+	) { }
 
 	/**
  	* to create the uri we need to concatena every parts we got from different DB's.
@@ -109,18 +98,19 @@ export abstract class AbstractInitializer {
 
 	}
 
-	protected clearCache() {
-		for (const client of this.clients.values())
-			this.clearClient(client);
-	}
-
-	protected clearClient(base: ApolloBase<any> | any) {
+	protected clearClient(clientName?: string) {
+		debugger;
+		const base = this.apollo.use(clientName) || this.apollo;
 		if (!base)
 			return;
-		if (base.map)
-			base.map.delete(USER_CLIENT);
-		if (base._client)
-			delete base._client;
+
+		// the way apollo works is that for default client it's put in _client
+		// the named clients are put in a map
+		if (clientName)
+			(this.apollo as any).map.delete(clientName);
+		else
+			delete (this.apollo as any)._client;
+
 		const client = base.getClient();
 		if (client)
 			client.resetStore();
