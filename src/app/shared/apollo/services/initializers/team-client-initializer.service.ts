@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { filter } from 'rxjs/operators';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TeamService } from '~global-services';
@@ -30,7 +30,8 @@ export class TeamClientInitializer extends AbstractInitializer {
 		this.teamSrv.selectedTeam$
 			.pipe(
 				// if the team is null then we should do nothing because we are already redirecting in getSelectedTeam
-				filter(t => !!t)
+				filter(t => !!t),
+				distinctUntilChanged((x, y) => x.id === y.id)
 			).subscribe(team => this.initTeamClient(team));
 	}
 

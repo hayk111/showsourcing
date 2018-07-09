@@ -7,7 +7,7 @@ import { TokenService } from '~features/auth';
 import { HttpLink } from 'apollo-angular-link-http';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { distinctUntilChanged, tap, first } from 'rxjs/operators';
+import { distinctUntilChanged, tap, first, filter } from 'rxjs/operators';
 import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { Injectable } from '@angular/core';
@@ -29,7 +29,8 @@ export class UserClientInitializer extends AbstractInitializer {
 	init() {
 		// when authenticated we start user client
 		this.authSrv.authState$.pipe(
-			distinctUntilChanged((x, y) => x.authenticated === y.authenticated)
+			filter(authState => authState.authenticated),
+			distinctUntilChanged((x, y) => x.authenticated === y.authenticated),
 		).subscribe(authState => this.initUserClient(authState.userId));
 	}
 

@@ -47,7 +47,6 @@ export class ApolloService {
 	) { }
 
 	init() {
-		debugger;
 		if (ApolloService.initialized) {
 			throw Error('Apollo has already been initialized, check that there is only one instance running');
 		}
@@ -91,7 +90,7 @@ export class ApolloService {
 			this.clearClient(this.apollo.use(USER_CLIENT));
 			const realm = await this.getRealm(user.realmServerName);
 			const userUris = this.getUris(realm.httpsPort, realm.hostname, user.realmPath);
-			this.createUserClient(userUris.httpUri, userUris.wsUri);
+			this.createClient(userUris.httpUri, userUris.wsUri, USER_CLIENT);
 			this.apolloState.setUserClientReady();
 		} catch (e) {
 			log.error(e);
@@ -101,13 +100,12 @@ export class ApolloService {
 	}
 
 	private async initTeamClient(team: Team) {
-
 		try {
 			// we first clear the last team picked cache
 			this.clearClient(this.apollo);
 			const realm = await this.getRealm(team.realmServerName);
 			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
-			this.createTeamClient(uris.httpUri, uris.wsUri);
+			this.createClient(uris.httpUri, uris.wsUri);
 			this.apolloState.setTeamClientReady();
 		} catch (e) {
 			log.error(e);
@@ -144,27 +142,19 @@ export class ApolloService {
 		const httpUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
 		const wsUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
 		wsUri.protocol = 'wss';
-		this.createDefaultClient(httpUri.toString(), wsUri.toString(), ALL_USER_CLIENT);
+		this.createClient(httpUri.toString(), wsUri.toString(), ALL_USER_CLIENT);
 	}
 
 	private createGlobalClient() {
 		const httpUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_CLIENT}`);
 		const wsUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_CLIENT}`);
 		wsUri.protocol = 'wss';
-		this.createDefaultClient(httpUri.toString(), wsUri.toString(), GLOBAL_CLIENT);
+		this.createClient(httpUri.toString(), wsUri.toString(), GLOBAL_CLIENT);
 
 	}
 
-	private createUserClient(httpUri: string, wsUri: string) {
-		this.createDefaultClient(httpUri, wsUri, USER_CLIENT);
-	}
 
-
-	private createTeamClient(httpUri: string, wsUri: string) {
-		this.createDefaultClient(httpUri, wsUri);
-	}
-
-	private createDefaultClient(httpUri: string, wsUri: string, name?: string) {
+	private createClient(httpUri: string, wsUri: string, name?: string) {
 		// Create an http link:
 		let token;
 		let headers;
