@@ -1,0 +1,33 @@
+
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending ">
+			Change Password
+		</dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app> Current Password </label-app>
+				<input inputApp type="password" formControlName="currentPswd" placeholder="Introduce your current password" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app> New Password </label-app>
+				<input inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app> Confirm New Password </label-app>
+				<input inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+			<!-- <div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div> -->
+			<input [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<spinner-app *ngIf="pending"></spinner-app>
+
+		<!-- when pending -->
+</dialog-app>
+

@@ -9,6 +9,8 @@
 <profile-card-app class="card-style"
 	[item]="user$ | async"
 	(valueChange)="updateUser($event)"
+	(addFile)="addFile($event)"
+	(changePswd)="pswdModal()"
 ></profile-card-app>
 
 <!-- Uncomment when Company realm is out -->

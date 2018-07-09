@@ -27,6 +27,8 @@ import {
 } from './containers';
 import { CompanyProfileCardComponent } from './components/company-profile-card/company-profile-card.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { FileModule } from '~shared/file';
+import { ChangePswdDlgComponent } from './components/change-pswd-dlg/change-pswd-dlg.component';
 
 @NgModule({
 	imports: [
@@ -39,17 +41,18 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		ContextMenuModule,
-		SidenavModule
+		SidenavModule,
+		FileModule
 	],
 	providers: [MemberFeatureService, InvitationFeatureService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
 		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent, ProfileCardComponent
+		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent, ProfileCardComponent, ChangePswdDlgComponent
 	],
 	entryComponents: [
-		InviteUserDlgComponent, NewTeamDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent, ChangePswdDlgComponent
 	],
 	exports: [],
 })

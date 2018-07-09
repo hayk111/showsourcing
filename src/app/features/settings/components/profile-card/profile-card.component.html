@@ -1,9 +1,12 @@
 <h1 class="title">User Profile </h1>
 <label-app>Profile Picture</label-app>
+
 <div class="photoContainer flex">
-	<user-picture-app class="z-3 z-h pointer" [size]="48" [url]="item?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app>
-	<p class="color-primary pointer">Select Image</p>
+	<user-picture-app class="z-3 z-h pointer" [size]="48" [url]="item?.preferences?.profilePicture?.urls?.url_60x45" (click)="openFileBrowser()"></user-picture-app>
+	<p class="color-primary pointer" (click)="openFileBrowser()">Select Image</p>
 </div>
+
+<input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
 
 <form [formGroup]="form">
 	<form-field-app [paddingBottom]="true">
@@ -24,4 +27,4 @@
 	</form-field-app>
 </form>
 
-<button class="auto"  (click)="changePassword()">Change Password</button>
+<button class="auto" (click)="changePswd.emit()">Change Password</button>
