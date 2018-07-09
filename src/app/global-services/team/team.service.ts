@@ -23,9 +23,12 @@ export class TeamService extends GlobalService<Team> {
 		protected teamClient: TeamClientInitializer
 	) {
 		super(gqlClient.use(USER_CLIENT), new TeamQueries(), 'Team');
-		debugger;
 	}
 
+
+	selectAll() {
+		return super.selectAll();
+	}
 
 	create(team: Team): Observable<any> {
 		return super.create(team).pipe(
