@@ -13,10 +13,13 @@
 </nav>
 
 <div class="flexCenter right">
+  <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35" [width]="400">
+    <search-autocomplete-item-app *ngFor="let t of searchResults">{{t}}</search-autocomplete-item-app>
+  </search-autocomplete-app>
   <search-bar-animated-app [hasBorder]="false">
-		<input inputApp class="searchInput" type="text" placeholder="Search Products, Suppliers..."/>
+    <input inputApp class="searchInput" type="text" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
-	<notif-app></notif-app>
+  <notif-app></notif-app>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>
