@@ -1,13 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
-import { AutoUnsub } from '~utils';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { InputDirective, phoneValidator } from '~shared/inputs';
-import { Input } from '@angular/compiler/src/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from '~shared/dialog';
+import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
+import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'app-change-pswd-dlg',
+	selector: 'change-pswd-dlg-app',
 	templateUrl: './change-pswd-dlg.component.html',
 	styleUrls: ['./change-pswd-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush

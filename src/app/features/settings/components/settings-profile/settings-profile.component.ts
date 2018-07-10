@@ -5,6 +5,7 @@ import { UserService } from '~global-services';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { first, switchMap, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -27,12 +28,13 @@ export class SettingsProfileComponent implements OnInit {
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
+		this.user$.pipe(first()).subscribe(m => this.userId = m.id); // This way we dont have to call the observable eachtime we need the id
 		// this.company$ = this.companySrv.selectAll(); // Uncomment when Company realm is out
 	}
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.userSrv.update(user).subscribe();
+		this.userSrv.update(user).pipe(first()).subscribe();
 	}
 
 	addFile(file: File) {
@@ -43,7 +45,7 @@ export class SettingsProfileComponent implements OnInit {
 		// 	this.userSrv.update({
 		// 		id: this.userId,
 		// 		profilePic: img
-		// 	}).subscribe();
+		// 	}).pipe(first()).subscribe();
 		// });
 	}
 
