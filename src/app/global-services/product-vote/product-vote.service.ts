@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductVote } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalService } from '../_global/global.service';
 import { ProductVoteQueries } from './product-vote.queries';
@@ -11,7 +11,7 @@ import { ProductVoteQueries } from './product-vote.queries';
 })
 export class ProductVoteService extends GlobalService<ProductVote> {
 
-	constructor(protected apollo: ApolloClient) {
+	constructor(protected apollo: ApolloWrapper) {
 		super(apollo, new ProductVoteQueries(), 'ProductVote');
 	}
 

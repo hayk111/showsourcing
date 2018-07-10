@@ -49,6 +49,10 @@ export class TeamService extends GlobalService<Team> {
 		);
 	}
 
+	selectTeam() {
+		return this.teamPicker.selectedTeam$;
+	}
+
 	/** waits for a team to go from pending to active */
 	private waitTeamValid(team: Team) {
 		return this.selectMany(

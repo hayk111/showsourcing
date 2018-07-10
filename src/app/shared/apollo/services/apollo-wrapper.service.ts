@@ -56,11 +56,7 @@ export class ApolloWrapper {
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult('SelectOne', queryName, data)),
-<<<<<<< HEAD
-				catchError(errors => of(log.table(errors)))
-=======
 				shareReplay(1)
->>>>>>> some cache added
 			);
 	}
 
@@ -298,7 +294,6 @@ export class ApolloWrapper {
 		log.groupEnd();
 	}
 
-<<<<<<< HEAD
 	private checkError(r: { data: any, errors: any[] }) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
@@ -310,8 +305,5 @@ export class ApolloWrapper {
 		}
 		return true;
 	}
-=======
-
->>>>>>> some cache added
 
 }
