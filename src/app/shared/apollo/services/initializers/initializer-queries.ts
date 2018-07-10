@@ -24,7 +24,7 @@ export class ClientInitializerQueries {
 	static allTeams = gql`
 		subscription teams {
 			teams {
-				id, name, realmPath, realmServerName
+				id, name, realmPath, realmServerName, status
 			}
 		}
 	`;
@@ -32,7 +32,7 @@ export class ClientInitializerQueries {
 	static teamList = gql`
 		subscription teams($query: String!) {
 			teams(query: $query) {
-				id, name, realmPath, realmServerName
+				id, name, realmPath, realmServerName, status
 			}
 		}
 	`;

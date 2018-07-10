@@ -21,7 +21,7 @@ export class ApolloWrapper {
 	private selectOneCache = new Map();
 	private selectAllCache = new Map();
 
-	constructor(private apollo: Apollo) { }
+	constructor(protected apollo: Apollo) { }
 
 	/**
 	 * @deprecated it will be removed soon

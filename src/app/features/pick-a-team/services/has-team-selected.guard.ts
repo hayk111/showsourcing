@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, tap, distinctUntilChanged } from 'rxjs/operators';
-import { TeamService } from '../../../global-services';
-import { log, LogColor } from '~utils';
+import { tap } from 'rxjs/operators';
+import { debug, log, LogColor } from '~utils';
+import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 
-	constructor(private teamSrv: TeamService, private router: Router) { }
+	constructor(private teamPicker: TeamPickerService, private router: Router) { }
 
-	canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate(childRoute, state);
+	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
+		return this.canActivate();
 	}
 
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.teamSrv.hasTeamSelected$.pipe(
+	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
+		return this.teamPicker.hasTeamSelected$.pipe(
 			tap(d => log.debug('%c hasTeamGuard selected', LogColor.GUARD, d)),
-			distinctUntilChanged(),
 			tap(hasTeam => this.redirect(hasTeam))
 		);
 	}

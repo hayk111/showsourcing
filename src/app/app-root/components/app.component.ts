@@ -3,6 +3,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/global-clients-initializer.service';
 import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
+import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 
 
 @Component({
@@ -15,13 +16,16 @@ export class AppComponent implements OnInit {
 		private authSrv: AuthenticationService,
 		private globalClients: GlobalClientsInitializer,
 		private userClient: UserClientInitializer,
-		private teamClient: TeamClientInitializer
+		private teamClient: TeamClientInitializer,
+		private teamPicker: TeamPickerService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.globalClients.init();
 		this.userClient.init();
+		this.teamPicker.init();
 		this.teamClient.init();
+
 	}
 }

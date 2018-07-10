@@ -99,11 +99,13 @@ export abstract class AbstractInitializer {
 	}
 
 	protected clearClient(clientName?: string) {
-		debugger
 		const base = this.apollo.use(clientName) || this.apollo;
 		if (!base)
 			return;
 
+		const client = base.getClient();
+		if (client)
+			client.resetStore();
 		// the way apollo works is that for default client it's put in _client
 		// the named clients are put in a map
 		if (clientName)
@@ -111,9 +113,6 @@ export abstract class AbstractInitializer {
 		else
 			delete (this.apollo as any)._client;
 
-		const client = base.getClient();
-		if (client)
-			client.resetStore();
 	}
 }
 
