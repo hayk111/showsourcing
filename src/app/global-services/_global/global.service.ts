@@ -1,5 +1,5 @@
 import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, mergeMap, map, scan, switchMap, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap } from 'rxjs/operators';
 import { isObject } from 'util';
 import { ApolloWrapper } from '~shared/apollo';
 
@@ -33,26 +33,18 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * which is returned by the selectMany function
 	 */
 	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
+	// when the params change then so does this observable, which is returned by the selectMany function
 	selectMany$ = this.selectManyParams$.asObservable().pipe(
 		// retrieve params from their observable form
-		mergeMap(params$ => params$),
+		flatMap(params$ => params$),
 		// when the params haven't changed we shouldn't do anything
 		distinctUntilChanged(),
 		// then we query graphql to get a suscription to some part of the data
-		mergeMap(({ page, sort, query, take }: SelectParams) => {
-			// putting those in variables form
-			const sortBy = sort.sortBy;
-			const descending = sort.sortOrder === 'ASC';
-			const options = {
-				gql: this.queries.list,
-				skip: page * take,
-				take,
-				sortBy,
-				descending,
-				query
-			};
+		switchMap((params: SelectParams) => {
+			// the selectMany here is a subscription to some data on the server
+			const options = params.toWrapperOptions(this.queries.list);
 			return this.wrapper.selectMany(options).pipe(
-				map(data => ({ data, page }) as any)
+				map(data => ({ data, page: params.page }) as any)
 			);
 		}),
 		// we append the result if page was incremented
@@ -62,7 +54,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		}, [])
 	);
 
-	/** selects one entity given an id */
+	/** selects all entity
+ 	* @param id : id of the entity selected
+	*/
 	selectOne(id: string): Observable<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');

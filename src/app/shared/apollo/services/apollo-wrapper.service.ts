@@ -113,7 +113,7 @@ export class ApolloWrapper {
 					return r.data[queryName];
 				}),
 				catchError(errors => of(log.table(errors))),
-				tap(data => this.logResult('Selecting Many', queryName, data)),
+				tap(data => this.logResult('Selecting All', queryName, data)),
 				shareReplay(1)
 			);
 	}

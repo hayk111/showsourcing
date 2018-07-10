@@ -35,7 +35,11 @@ export const routes: Array<Route> = [
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
-		canActivateChild: [ClientGuards.UserClientReadyGuardService],
+		canActivateChild: [
+			ClientGuards.GloabalClientsReadyGuardService,
+			AuthGuardService,
+			ClientGuards.UserClientReadyGuardService
+		],
 		children: [
 			{ path: 'create-a-team', component: CreateATeamPageComponent, canActivate: [AuthGuardService] },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [AuthGuardService] },

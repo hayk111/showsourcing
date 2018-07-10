@@ -37,10 +37,12 @@ export class UserClientInitializer extends AbstractInitializer {
 	/** create the user client  */
 	private async initUserClient(id: string) {
 		try {
+			debugger;
 			super.clearClient(USER_CLIENT);
 			const user = await this.getUser(id);
 			const realm = await super.getRealm(user.realmServerName);
 			const userUris = super.getUris(realm.httpsPort, realm.hostname, user.realmPath);
+			debugger;
 			super.createClient(userUris.httpUri, userUris.wsUri, USER_CLIENT);
 			setTimeout(this.apolloState.setUserClientReady());
 		} catch (e) {

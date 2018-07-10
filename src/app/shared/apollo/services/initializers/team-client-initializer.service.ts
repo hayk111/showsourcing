@@ -90,21 +90,7 @@ export class TeamClientInitializer extends AbstractInitializer {
 	}
 
 	private getSelectedTeam(selectedId: string, teams: Team[]) {
-		if (!selectedId) {
-			this.router.navigate(['user', 'pick-a-team']);
-			return;
-		}
-		// if the user has selected a team during the current session
-		let teamSelected;
-		if (teamSelected = teams.find(team => team.id === selectedId)) {
-			return teamSelected;
-			// if not we redirect the user so he can pick a team
-		} else if (teams.length > 0) {
-			this.router.navigate(['user', 'pick-a-team']);
-			// if there are no team we redirect the user to a page that lets him create a team
-		} else {
-			this.router.navigate(['user', 'create-a-team']);
-		}
+		return selectedId ? teams.find(team => team.id === selectedId) : undefined;
 	}
 
 	selectAll() {

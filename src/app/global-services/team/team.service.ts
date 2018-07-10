@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter, first } from 'rxjs/operators';
 import { Team } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
@@ -8,6 +8,7 @@ import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { GlobalService } from '../_global/global.service';
 import { TeamQueries } from './team.queries';
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 /**
@@ -19,11 +20,16 @@ export class TeamService extends GlobalService<Team> {
 
 	constructor(
 		wrapper: ApolloWrapper,
-		protected teamClient: TeamClientInitializer
+		protected teamClient: TeamClientInitializer,
+		protected apolloState: ApolloStateService
 	) {
 		super(wrapper.use(USER_CLIENT), new TeamQueries(), 'Team');
+		// apollo user client might be undefined at this point.
+		this.apolloState.userClientReady$.pipe(
+			filter(isReady => isReady),
+			first()
+		).subscribe(_ => this.wrapper = wrapper.use(USER_CLIENT));
 	}
-
 
 	create(team: Team): Observable<any> {
 		return super.create(team).pipe(
