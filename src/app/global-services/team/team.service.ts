@@ -51,7 +51,7 @@ export class TeamService extends GlobalService<Team> {
 		return this.teamClient.pickTeam(team);
 	}
 
-	get hasTeam$(): Observable<boolean> {
+	get hasTeamSelected$(): Observable<boolean> {
 		return this.teamClient.selectedTeam$.pipe(
 			map(team => !!team)
 		);
