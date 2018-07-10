@@ -6,6 +6,7 @@ import { AutoUnsub } from '~utils';
 import { Team } from '~models';
 
 import { UserService } from '~global-services';
+import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 
 @Component({
 	selector: 'header-app',
@@ -18,12 +19,14 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private userSrv: UserService) {
+		private userSrv: UserService,
+		private teamPickerSrv: TeamPickerService) {
 		super();
 	}
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
+		this.team$ = this.teamPickerSrv.selectedTeam$;
 	}
 
 	logout() {
