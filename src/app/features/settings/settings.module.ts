@@ -19,7 +19,12 @@ import {
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
 } from './components';
-import { SettingsComponent, SettingsTeamMembersPageComponent } from './containers';
+import {
+	SettingsComponent,
+	SettingsTeamMembersPageComponent,
+	SettingsFieldsPageComponent,
+	SettingsWorkflowsPageComponent,
+} from './containers';
 
 
 @NgModule({
@@ -39,7 +44,8 @@ import { SettingsComponent, SettingsTeamMembersPageComponent } from './container
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent,
+		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
 	],
 	entryComponents: [
 		InviteUserDlgComponent, NewTeamDlgComponent

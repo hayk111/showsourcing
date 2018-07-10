@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {
-	SettingsComponent, SettingsTeamMembersPageComponent
+	SettingsComponent, SettingsTeamMembersPageComponent, SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
 } from '~features/settings/containers';
 import { SettingsProfileComponent } from '~features/settings/components';
 import { DataManagementPageComponent } from '~features/data-management/containers';
@@ -19,6 +19,8 @@ export const routes: Routes = [
 		children: [
 			{ path: '', redirectTo: 'profile', pathMatch: 'full' },
 			{ path: 'profile', component: SettingsProfileComponent },
+			{ path: 'fields', component: SettingsFieldsPageComponent },
+			{ path: 'workflows', component: SettingsWorkflowsPageComponent },
 			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
 			{
 				path: 'data', component: DataManagementPageComponent, children: [
