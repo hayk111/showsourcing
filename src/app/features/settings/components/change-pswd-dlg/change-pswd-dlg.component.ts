@@ -27,7 +27,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 
 	ngOnInit() {
 		this.group = this.fb.group({
-			currentPswd: ['', [Validators.required, Validators.minLength(4)]],
+			currentPswd: ['', [Validators.required]],
 			newPswd: ['', Validators.required],
 			confirmPswd: ['', Validators.required]
 		}, { validator: PasswordValidator });
@@ -37,8 +37,11 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 		// setTimeout because we can't yet see the input
 		setTimeout(() => this.input.focus(), 0);
 	}
-	test() {
-		console.log(this.group);
+
+	onSubmit() {
+		this.dlgSrv.close();
+		throw Error(`method for changing password not implemented`);
 	}
+
 
 }

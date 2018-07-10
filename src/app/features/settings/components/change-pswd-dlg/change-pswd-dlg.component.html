@@ -25,7 +25,6 @@
 		</div>
 
 		<dialog-footer-app *ngIf="!pending ">
-			<!-- <div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div> -->
 			<input [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
