@@ -9,17 +9,20 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app> Current Password </label-app>
-				<input inputApp type="password" formControlName="currentPswd" placeholder="Introduce your current password" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="password" (input)="test()"formControlName="currentPswd" placeholder="Introduce your current password"/>
 			</form-field-app>
 			<form-field-app>
 				<label-app> New Password </label-app>
-				<input inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"/>
 			</form-field-app>
 			<form-field-app>
 				<label-app> Confirm New Password </label-app>
-				<input inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password" (keyup.enter)="onSubmit()"/>
+				<input inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password"/>
 			</form-field-app>
 		</form>
+		<div class="color-warn" *ngIf="group.touched && group.hasError('nomatch')">
+			New passwords must match
+		</div>
 
 		<dialog-footer-app *ngIf="!pending ">
 			<!-- <div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div> -->

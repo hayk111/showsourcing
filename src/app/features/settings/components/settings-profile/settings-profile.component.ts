@@ -39,7 +39,6 @@ export class SettingsProfileComponent implements OnInit {
 	}
 
 	addFile(file: File) {
-		console.log(file);
 		// Uncomment when realm user is wroking
 		// this.uploader.uploadFile(file).pipe(
 		// 	first()
