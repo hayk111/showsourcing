@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap, skip } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { Team } from '~models';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
@@ -23,7 +23,7 @@ const SELECTED_TEAM_ID = 'selected-team-id';
 export class TeamPickerService {
 	private queries = new TeamQueries();
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
-	private _selectedTeam$ = new Subject<Team>();
+	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(shareReplay(1));
 	teams$: Observable<Team[]>;
 
@@ -67,7 +67,7 @@ export class TeamPickerService {
 	pickTeam(team: Team): Observable<Team> {
 		this.storage.setItem(SELECTED_TEAM_ID, team.id);
 		this._selectedTeamId$.next(team.id);
-		return this._selectedTeam$;
+		return this._selectedTeam$.pipe();
 	}
 
 	get hasTeamSelected$(): Observable<boolean> {
