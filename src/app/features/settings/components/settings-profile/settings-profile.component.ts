@@ -6,6 +6,7 @@ import { User } from '~models';
 import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first, switchMap, map } from 'rxjs/operators';
+import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -20,33 +21,24 @@ export class SettingsProfileComponent implements OnInit {
 	// company$: Observable<Company>; // Uncomment when Company realm is out
 
 	constructor(
-		private userSrv: UserService,
-		private uploader: UploaderService,
+		private profileSrv: SettingsProfileService,
 		private dlgSrv: DialogService) {
 		// private company: CompanyService) { // Uncomment when Company realm is out
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectUser();
+		this.user$ = this.profileSrv.selectUser();
 		this.user$.pipe(first()).subscribe(m => this.userId = m.id); // This way we dont have to call the observable eachtime we need the id
 		// this.company$ = this.companySrv.selectAll(); // Uncomment when Company realm is out
 	}
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.userSrv.update(user).pipe(first()).subscribe();
+		this.profileSrv.updateUser(user);
 	}
 
 	addFile(file: File) {
-		// Uncomment when realm user is wroking
-		// this.uploader.uploadFile(file).pipe(
-		// 	first()
-		// ).subscribe(img => {
-		// 	this.userSrv.update({
-		// 		id: this.userId,
-		// 		profilePic: img
-		// 	}).pipe(first()).subscribe();
-		// });
+		this.profileSrv.addFile(file);
 	}
 
 	pswdModal() {

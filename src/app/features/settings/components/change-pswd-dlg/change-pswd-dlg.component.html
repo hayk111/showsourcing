@@ -9,22 +9,25 @@
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
 				<label-app> Current Password </label-app>
-				<input inputApp type="password" (input)="test()"formControlName="currentPswd" placeholder="Introduce your current password"/>
+				<input inputApp restrictInput="pass" (blur)="checkCurrentPassword()" type="password" formControlName="currentPswd" placeholder="Introduce your current password"/>
 			</form-field-app>
+			<!-- <p class="color-warn" *ngIf="group.get('currentPswd').hasError('notthesame')"> Incorrect password </p> -->
 			<form-field-app>
 				<label-app> New Password </label-app>
-				<input inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"/>
+				<input [class.warn-border]="group.hasError('nomatch')" inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"/>
+				<error-app>test</error-app>
 			</form-field-app>
 			<form-field-app>
 				<label-app> Confirm New Password </label-app>
-				<input inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password"/>
+				<input [class.warn-border]="group.hasError('nomatch')" inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password"/>
 			</form-field-app>
+					<p class="color-warn" *ngIf="group.touched && group.hasError('nomatch')">
+						New passwords must match
+					</p>
 		</form>
-		<div class="color-warn" *ngIf="group.touched && group.hasError('nomatch')">
-			New passwords must match
-		</div>
 
 		<dialog-footer-app *ngIf="!pending ">
+			<!-- update condition when the checkpassword is implemented -->
 			<input [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 

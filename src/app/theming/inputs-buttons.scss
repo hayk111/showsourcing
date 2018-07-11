@@ -11,7 +11,7 @@ input, textarea {
 	color: var(--color-txt-primary);
 	border: 1px solid var(--color-primary-light);
 	border-radius: var(--border-radius-s);
-	&:not(.ng-pristine .borderless).ng-invalid {
+	&:not(.borderless).ng-invalid.ng-dirty {
 		border: 1px solid var(--color-warn);
 	}
 	&:focus {

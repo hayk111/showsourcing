@@ -18,17 +18,18 @@ import {
 	NewTeamDlgComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
-} from './components';
+} from '~features/settings/components';
 import {
 	SettingsComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsFieldsPageComponent,
 	SettingsWorkflowsPageComponent
-} from './containers';
-import { CompanyProfileCardComponent } from './components/company-profile-card/company-profile-card.component';
-import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+} from '~features/settings/containers';
+import { CompanyProfileCardComponent } from '~features/settings/components/company-profile-card/company-profile-card.component';
+import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
 import { FileModule } from '~shared/file';
-import { ChangePswdDlgComponent } from './components/change-pswd-dlg/change-pswd-dlg.component';
+import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
+import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 
 @NgModule({
 	imports: [
@@ -44,12 +45,13 @@ import { ChangePswdDlgComponent } from './components/change-pswd-dlg/change-pswd
 		SidenavModule,
 		FileModule
 	],
-	providers: [MemberFeatureService, InvitationFeatureService],
+	providers: [MemberFeatureService, InvitationFeatureService, SettingsProfileService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
 		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent, ProfileCardComponent, ChangePswdDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent,
+		ProfileCardComponent, ChangePswdDlgComponent
 	],
 	entryComponents: [
 		InviteUserDlgComponent, NewTeamDlgComponent, ChangePswdDlgComponent
