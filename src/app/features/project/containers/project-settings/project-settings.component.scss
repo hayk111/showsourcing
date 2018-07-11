@@ -4,3 +4,35 @@ card-app {
 	margin: auto;
 	margin-top: var(--spacing-xl);
 }
+
+b{
+	width: 165px;
+	display: block;
+	height: 33px;
+}
+
+.bottom {
+	margin-top: var(--spacing-m);
+}
+
+.picCtnr {
+	align-items: flex-end;
+}
+
+.sel {
+	padding: 0 0 8px 24px;
+}
+
+.cercle {
+	height: 48px;
+	width: 48px;
+	margin-bottom: 16px;
+	img-app {
+		min-width: 100%;
+		min-height: 100%;
+	}
+}
+
+input[type="file"] {
+	display: none;
+}

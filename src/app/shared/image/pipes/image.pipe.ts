@@ -15,10 +15,14 @@ export class ImagePipe implements PipeTransform {
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
 	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl')): string {
+		if (!value)
+			return DEFAULT_IMG;
+
 		if (typeof value === 'object') {
 			// if it's not an array we return the fileName bcuz it's the image object
 			// or data if it's a pending image
 			if (!Array.isArray(value.images)) {
+
 				if (value.fileName) {
 					return `${ImageUrls[size]}/${value.fileName}`;
 				} else if (value.data) {

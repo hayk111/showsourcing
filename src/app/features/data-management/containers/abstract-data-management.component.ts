@@ -7,7 +7,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/generic-dialog';
 import { FilterService } from '~shared/filters';
 
-export abstract class AbstractDataManagementComponent<T extends { id: string },
+export abstract class AbstractDataManagementComponent<T extends { id?: string },
 	G extends GlobalServiceInterface<T>> extends ListPageComponent<T, G> {
 
 	constructor(

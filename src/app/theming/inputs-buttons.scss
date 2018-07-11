@@ -19,8 +19,9 @@ input, textarea {
 	}
 	&.borderless {
 		padding: 0;
-		background: white;
-		border:none;
+		background: transparent;
+		border-radius: 0;
+		border: none;
 		border-bottom: 1px solid #e6ebf5;
 		padding-bottom: 8px;
 		&:not(.ng-pristine).ng-invalid {
