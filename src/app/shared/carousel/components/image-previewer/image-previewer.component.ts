@@ -1,6 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../../../global-services';
-import { log } from '~utils';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({

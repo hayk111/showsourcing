@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Event } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalServiceInterface, GlobalService } from '../_global/global.service';
 import { EventQueries } from './event.queries';
@@ -13,8 +13,8 @@ import { EventQueries } from './event.queries';
 })
 export class EventService extends GlobalService<Event> {
 
-	constructor(protected apollo: ApolloClient) {
-		super(apollo, new EventQueries(), 'Event');
+	constructor(wrapper: ApolloWrapper) {
+		super(wrapper, new EventQueries(), 'Event');
 	}
 
 	selectAll(fields: string = 'id, alias') {

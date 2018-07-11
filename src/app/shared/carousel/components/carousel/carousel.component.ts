@@ -1,15 +1,6 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-} from '@angular/core';
-import { log } from '~utils';
-import { DEFAULT_IMG } from '~utils/constants';
-import { UserService } from '../../../../global-services';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppImage } from '~models';
+import { DEFAULT_IMG } from '~utils/constants';
 
 @Component({
 	selector: 'carousel-app',
@@ -29,7 +20,7 @@ export class CarouselComponent implements OnInit {
 
 	menuOpen = false;
 
-	constructor(private userSrv: UserService) { }
+	constructor() { }
 
 	ngOnInit() { }
 

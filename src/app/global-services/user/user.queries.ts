@@ -10,8 +10,7 @@ export class UserQueries implements GlobalQuery {
 				firstName,
 				lastName,
 				email,
-				realmServerName,
-				realmPath
+				phoneNumber
 			}
 		}
 	`;

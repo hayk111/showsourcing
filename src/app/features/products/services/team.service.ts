@@ -5,7 +5,7 @@ import { first, map, switchMap, take } from 'rxjs/operators';
 import { RequestQueries } from '~features/products/services/request.queries';
 import { TeamQueries } from '~features/products/services/team.queries';
 import { User } from '~models';
-import { ApolloClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 import { uuid } from '~utils';
 import { PER_PAGE } from '~utils/constants';
 
@@ -20,14 +20,14 @@ import { PER_PAGE } from '~utils/constants';
 export class TeamService {
 	private membersQuery$: QueryRef<string, any>;
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(private wrapper: ApolloWrapper) { }
 
 	/**
 	 * Initialize the underlying query ref for the list of team members.
 	 */
 	private initializeTeamMembersQuery() {
 		if (!this.membersQuery$) {
-			this.membersQuery$ = this.apollo.query<any>({
+			this.membersQuery$ = this.wrapper.query<any>({
 				query: TeamQueries.memberList,
 				variables: {
 					query: '',
@@ -82,7 +82,7 @@ export class TeamService {
         Add vote request.
      */
 	addVoteRequest(voteRequest) {
-		return this.apollo.update({
+		return this.wrapper.update({
 			gql: RequestQueries.addVoteRequest,
 			input: voteRequest, typename: 'voteRequest'
 		})
@@ -96,7 +96,7 @@ export class TeamService {
         Update vote request.
      */
 	updateVoteRequest(voteRequest) {
-		return this.apollo.update({ gql: RequestQueries.updateVoteRequest, input: voteRequest, typename: 'voteRequest' })
+		return this.wrapper.update({ gql: RequestQueries.updateVoteRequest, input: voteRequest, typename: 'voteRequest' })
 			.pipe(first());
 	}
 }

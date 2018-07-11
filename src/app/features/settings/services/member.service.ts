@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryRef } from 'apollo-angular';
-import { ApolloClient } from '~shared/apollo';
-import gql from 'graphql-tag';
-import { map, tap, publish, take, refCount, filter, first, switchMap } from 'rxjs/operators';
-import { Observable, forkJoin, of } from 'rxjs';
-import { MemberQueries } from '~features/settings/services/member.queries';
+import { Observable } from 'rxjs';
 import { TeamUser } from '~models';
-import { Contact, Task } from '~models';
-import { Product } from '~models';
-import { uuid } from '~utils/uuid.utils';
-import { PER_PAGE } from '~utils/constants';
-import { UserService } from '../../../global-services';
 
 
 // =====================>>>>>>
@@ -23,7 +14,7 @@ import { UserService } from '../../../global-services';
 export class MemberService {
 	private membersQuery$: QueryRef<string, any>;
 
-	constructor(private userSrv: UserService) { }
+	constructor() { }
 
 	/**
 		Initialize the underlying query ref for the list of
@@ -152,7 +143,7 @@ export class MemberService {
 	/** invite a user based on his / her email */
 	inviteMember(email: string) {
 		throw Error('needs refactoring');
-		// return this.userSrv.selectUser().pipe(
+		// return this.userApolloSrv.selectOne().pipe(
 		// 	switchMap(user => {
 		// 		const invitation = {
 		// 			id: uuid(),

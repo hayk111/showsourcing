@@ -9,6 +9,22 @@ export class SelectParams {
 	constructor(config?: SelectParamsConfig) {
 		Object.assign(this, config);
 	}
+
+	toWrapperOptions(gql: any) {
+		// the selectMany here is a subscription to some data on the server
+		// putting those in variables form
+		const sortBy = this.sort.sortBy;
+		const descending = this.sort.sortOrder === 'ASC';
+		const options = {
+			gql: gql,
+			skip: this.page * this.take,
+			take: this.take,
+			sortBy,
+			descending,
+			query: this.query
+		};
+		return options;
+	}
 }
 
 export interface SelectParamsConfig {

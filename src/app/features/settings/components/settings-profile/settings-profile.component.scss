@@ -2,27 +2,14 @@ bread-crumb-app {
 	margin: var(--spacing-l);
 }
 
-h2 {
-	margin-bottom: var(--spacing-m);
-}
-.ctnr {
+.card-style {
 	display: block;
 	margin: auto;
 	margin-top: var(--spacing-xxl);
-	width: 320px;
+	width: 520px;
 	position: relative;
 	border: 1px solid var(--color-primary-light);
-	padding: var(--spacing-xxl) var(--spacing-l) var(--spacing-l) var(--spacing-l);
+	padding: var(--spacing-l) var(--spacing-l) var(--spacing-l) var(--spacing-l);
 	background: white;
 	border-radius: var(--border-radius);
-}
-
-user-picture-app {
-	position: absolute;
-	top: -40px;
-	left: 142px;
-	z-index: 2;
-}
-input.email {
-	cursor: not-allowed;
 }

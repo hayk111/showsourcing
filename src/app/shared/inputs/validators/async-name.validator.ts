@@ -4,7 +4,6 @@ import { ERMService } from '~global-services/_global/erm.service';
 import { map } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of } from 'rxjs';
-import { debug } from '~utils';
 
 export class ValidateNameNotEqual {
 	static equalValidator(ermService: ERMService, type: EntityMetadata) {

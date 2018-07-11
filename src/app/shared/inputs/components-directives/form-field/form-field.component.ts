@@ -2,9 +2,9 @@ import {
 	Component, OnInit, ChangeDetectionStrategy, Input, HostListener, ContentChild,
 	ChangeDetectorRef, AfterContentInit
 } from '@angular/core';
-import { InputDirective } from '../input.directive';
+import { InputDirective } from '~shared/inputs/components-directives/input.directive';
 import { startWith } from 'rxjs/operators';
-import { animations } from './form-field.animations';
+import { animations } from '~shared/inputs/components-directives/form-field/form-field.animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
@@ -14,9 +14,14 @@ import { HintComponent } from '~shared/inputs/components-directives/hint/hint.co
 	templateUrl: './form-field.component.html',
 	styleUrls: ['./form-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: animations
+	animations: animations,
+	host: {
+		'[class.padding-bottom]': 'paddingBottom'
+	}
 })
 export class FormFieldComponent implements OnInit, AfterContentInit {
+	// padding button when we want the form to be compressed when we have no borders
+	@Input() paddingBottom = false;
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
 	@ContentChild(InputDirective) input: InputDirective;

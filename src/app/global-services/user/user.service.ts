@@ -1,63 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, shareReplay, tap } from 'rxjs/operators';
-import { AuthState } from '~features/auth';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { GlobalService } from '~global-services/_global/global.service';
+import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { ApolloClient } from '~shared/apollo/services/apollo-client.service';
-import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
+import { ApolloWrapper, USER_CLIENT } from '~shared/apollo';
 
-import { UserQueries } from './user.queries';
+@Injectable({
+	providedIn: 'root',
+})
+export class UserService extends GlobalService<User> {
 
-@Injectable({ providedIn: 'root' })
-export class UserService {
-	private queries = new UserQueries();
-	private _user$ = new Subject<User>();
-	user$: Observable<User> = this._user$.asObservable().pipe(
-		tap(user => this.userSync = user),
-		shareReplay(1)
-	);
 	userSync: User;
 
-	constructor(private apollo: ApolloClient, private authSrv: AuthenticationService) {
+	constructor(
+		wrapper: ApolloWrapper,
+		private authSrv: AuthenticationService) {
+		super(wrapper.use(USER_CLIENT), new UserQueries, 'User');
+		this.selectUser().subscribe(user => this.userSync = user);
 	}
 
-	init() {
-		// when unauthenticated we clear the cache
-		// when the user is connected (we can have an user id but not connected)
-		// then we initialize the team client but we wait for the user client to be ready
-		this.authSrv.authState$.pipe(
-			distinctUntilChanged(),
-			switchMap((authState: AuthState) => {
-				// when authenticated we get the user
-				if (authState.authenticated)
-					return this.getUser(authState.userId);
-				// when unauthenticated the user is undefined
-				else
-					return of(undefined);
-			})
-		).subscribe(this._user$);
-	}
-
-	/** gets the user from team realm */
 	selectUser() {
-		return this.user$;
+		return this.authSrv.authState$.pipe(
+			map(authState => authState.userId),
+			distinctUntilChanged(),
+			switchMap(id => super.selectOne(id))
+		);
 	}
-
-	update(user: User) {
-		return this.apollo.use(USER_CLIENT).update({
-			gql: this.queries.update,
-			input: user
-		});
-	}
-
-	/** gets user from all-users realm */
-	private getUser(id: string) {
-		// we use a query here because we need to get the user once from all_user client
-		return this.apollo.use(ALL_USER_CLIENT).selectOne({
-			gql: this.queries.one,
-			id
-		});
-	}
-
 }

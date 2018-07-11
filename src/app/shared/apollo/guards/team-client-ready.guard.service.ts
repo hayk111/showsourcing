@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map, filter } from 'rxjs/operators';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
 
@@ -12,20 +12,16 @@ export class TeamClientReadyGuardService implements CanActivate, CanActivateChil
 
 	constructor(private apolloState: ApolloStateService) { }
 
-	canActivate(
-		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
-	): boolean | Observable<boolean> | Promise<boolean> {
+	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloState.teamClientReady$.pipe(
-			tap(d => log.debug('%c TeamClientReadyGuard', LogColor.GUARD, d))
+			tap(d => log.debug('%c TeamClientReadyGuard', LogColor.GUARD, d)),
+			filter(state => !state.pending),
+			map(state => state.ready)
 		);
 	}
 
 
-	canActivateChild(
-		childRoute: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
-	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate(childRoute, state);
+	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
+		return this.canActivate();
 	}
 }

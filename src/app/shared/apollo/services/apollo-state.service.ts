@@ -3,7 +3,10 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { log } from '~utils';
 
-
+export interface ClientState {
+	pending: boolean;
+	ready: boolean;
+}
 
 /**
  * Used for no circular dependency between apollo.service and team service
@@ -14,14 +17,14 @@ import { log } from '~utils';
 })
 export class ApolloStateService {
 
-	private _globalClientsReady$ = new ReplaySubject<boolean>(1);
+	private _globalClientsReady$ = new ReplaySubject<ClientState>(1);
 	globalClientsReady$ = this._globalClientsReady$.asObservable();
 
-	private _userClientReady$ = new ReplaySubject<boolean>(1);
-	userClientReady$: Observable<boolean> = this._userClientReady$.asObservable();
+	private _userClientReady$ = new ReplaySubject<ClientState>(1);
+	userClientReady$: Observable<ClientState> = this._userClientReady$.asObservable();
 
-	private _teamClientReady$ = new ReplaySubject<boolean>(1);
-	teamClientReady$: Observable<boolean> = this._teamClientReady$.asObservable();
+	private _teamClientReady$ = new ReplaySubject<ClientState>(1);
+	teamClientReady$: Observable<ClientState> = this._teamClientReady$.asObservable();
 
 	constructor() {
 		this.globalClientsReady$.subscribe(d => this.log(`global client ready ? ${d}`));
@@ -35,28 +38,38 @@ export class ApolloStateService {
 
 
 	setUserClientReady() {
-		this._userClientReady$.next(true);
+		this._userClientReady$.next({ ready: true, pending: false });
 	}
 
 	setUserClientNotReady() {
-		this._userClientReady$.next(false);
+		this._userClientReady$.next({ ready: false, pending: false });
+	}
+
+	resetUserClient() {
+		this._userClientReady$.next({ ready: undefined, pending: true });
 	}
 
 	setTeamClientReady() {
-		this._teamClientReady$.next(true);
+		this._teamClientReady$.next({ ready: true, pending: false });
 	}
 
 	setTeamClientNotReady() {
-		this._teamClientReady$.next(false);
+		this._teamClientReady$.next({ ready: false, pending: false });
+	}
+
+	resetTeamClient() {
+		this._teamClientReady$.next({ ready: undefined, pending: true });
 	}
 
 	setGlobalClientsReady() {
-		this._globalClientsReady$.next(true);
+		this._globalClientsReady$.next({ ready: true, pending: false });
 	}
 
 	setGlobalClientsNotReady() {
-		this._globalClientsReady$.next(false);
+		this._globalClientsReady$.next({ ready: false, pending: false });
 	}
 
-
+	resetGlobalClient() {
+		this._globalClientsReady$.next({ ready: undefined, pending: true });
+	}
 }

@@ -1,10 +1,10 @@
-import { Observable, of, ReplaySubject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, mergeMap } from 'rxjs/operators';
-import { ApolloClient } from '~shared/apollo';
+import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap } from 'rxjs/operators';
+import { isObject } from 'util';
+import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
-import { isObject } from 'util';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -20,15 +20,10 @@ export interface GlobalServiceInterface<T> {
 
 export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
-
-	/**
-	 * Pipelines Select all
-	 */
-	private selectAllFields$ = new ReplaySubject<string>(1);
-	private selectAll$ = this.selectAllFields$.asObservable().pipe(
-		distinctUntilChanged(),
-		switchMap(fields => this.apollo.selectMany({ gql: this.queries.all(fields) }))
-	);
+	constructor(
+		protected wrapper: ApolloWrapper,
+		protected queries: GlobalQuery,
+		protected typeName?: string) { }
 
 	/**
 	 * Pipelines Select many:
@@ -38,28 +33,18 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * which is returned by the selectMany function
 	 */
 	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
+	// when the params change then so does this observable, which is returned by the selectMany function
 	selectMany$ = this.selectManyParams$.asObservable().pipe(
 		// retrieve params from their observable form
-		mergeMap(params$ => params$),
+		flatMap(params$ => params$),
 		// when the params haven't changed we shouldn't do anything
 		distinctUntilChanged(),
 		// then we query graphql to get a suscription to some part of the data
-		mergeMap(({ page, sort, query, take }: SelectParams) => {
-			// putting those in variables form
-			const sortBy = sort.sortBy;
-			const descending = sort.sortOrder === 'ASC';
-			const options = {
-				gql: this.queries.list,
-				skip: page * take,
-				take,
-				sortBy,
-				descending,
-				query
-			};
-			// the selectMany here is a subscription to some slice of data on the server
-			return this.apollo.selectMany(options).pipe(
-				// we add page data so we can use it in the scan
-				map(data => ({ data, page }) as any)
+		switchMap((params: SelectParams) => {
+			// the selectMany here is a subscription to some data on the server
+			const options = params.toWrapperOptions(this.queries.list);
+			return this.wrapper.selectMany(options).pipe(
+				map(data => ({ data, page: params.page }) as any)
 			);
 		}),
 		// we append the result if page was incremented
@@ -69,24 +54,25 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		}, [])
 	);
 
-	constructor(
-		protected apollo: ApolloClient,
-		protected queries: GlobalQuery,
-		protected typeName?: string) { }
-
+	/** selects all entity
+ 	* @param id : id of the entity selected
+	*/
 	selectOne(id: string): Observable<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		return this.apollo.selectOne({ gql: this.queries.one, id });
+		return this.wrapper.selectOne({ gql: this.queries.one, id });
 	}
 
+	/** selects all entity
+	 * @param fields : string to specify the fields we want to query
+	 * defaults to id, name
+	*/
 	selectAll(fields: string = 'id, name'): Observable<T[]> {
 		if (!this.queries.all) {
 			throw Error('all query not implemented for this service');
 		}
-		this.selectAllFields$.next(fields);
-		return this.selectAll$;
+		return this.wrapper.selectAll({ gql: this.queries.all(fields) });
 	}
 
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
@@ -102,7 +88,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
-		return this.apollo.update({
+		return this.wrapper.update({
 			gql: this.queries.update,
 			input: entity,
 			typename: this.typeName
@@ -118,7 +104,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		return this.apollo.create({
+		return this.wrapper.create({
 			gql: this.queries.create,
 			input: entity,
 			typename: this.typeName
@@ -129,7 +115,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
-		return this.apollo.delete({
+		return this.wrapper.delete({
 			gql: this.queries.deleteOne,
 			id,
 			typename: this.typeName
@@ -140,14 +126,16 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
-		return this.apollo.deleteMany({
+		return this.wrapper.deleteMany({
 			gql: this.queries.deleteMany,
 			ids,
 			typename: this.typeName
 		});
 	}
 
-	/** This is used to elimnate spaces at the sides of the strings in the entity*/
+	/** Michael did this:
+	 *  This is used to eliminate spaces at the sides of the strings in the entity
+	 */
 	private trim(entity: T) {
 		Object.entries(entity).forEach(([k, v]) => {
 			// if (isObject(v)) this.trim(v); // enable this line in order to do every objects inside the entity

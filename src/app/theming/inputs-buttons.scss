@@ -11,29 +11,40 @@ input, textarea {
 	color: var(--color-txt-primary);
 	border: 1px solid var(--color-primary-light);
 	border-radius: var(--border-radius-s);
-	&:not(.ng-pristine).ng-invalid {
+	&:not(.borderless).ng-invalid.ng-dirty {
 		border: 1px solid var(--color-warn);
 	}
 	&:focus {
 		border: 1px solid var(--color-primary);
 	}
+	&.borderless {
+		padding: 0;
+		background: white;
+		border:none;
+		border-bottom: 1px solid #e6ebf5;
+		padding-bottom: 8px;
+		&:not(.ng-pristine).ng-invalid {
+			border-bottom: 1px solid var(--color-warn);
+		}
+		&:focus {
+			border-bottom: 1px solid var(--color-primary);
+		}
+	}
 }
+
 
 
 // buttons and submit
 button, input[type="submit"], .button {
 	@extend .ripple;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	display: inline-block;
 	cursor: pointer;
 	font-weight: 600;
 	box-sizing: border-box;
-	height: 28px;
-	min-width: 100px;
-	padding-left: 12px;
-	padding-right: 12px;
-	border-radius: 2px;
-	line-height: 0;
+	height: 36px;
+	width: 160px;
+	border-radius: 4px;
 	font-size: var(--font-size-m);
 	background: var(--color-primary);
 	border: none;
@@ -45,10 +56,10 @@ button, input[type="submit"], .button {
 	white-space: nowrap;
 	text-align: center;
 	&.auto {
+		padding: 0px 12px;
 		width: auto;
 	}
 	&.light {
-		text-transform: capitalize;
 		background: var(--color-bg-third);
 		color: var(--color-txt);
 		border: 1px solid var(--color-primary-light);

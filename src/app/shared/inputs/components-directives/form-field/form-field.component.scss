@@ -2,6 +2,10 @@
 	display: block;
 	padding-bottom: 24px;
 	position: relative;
+
+	&.padding-bottom {
+		padding-bottom: 16px;
+	}
 }
 
 .left-align {
@@ -24,4 +28,8 @@
 
 .hint {
 	color: var(--color-txt-secondary);
+}
+
+label {
+	margin-bottom: var(--spacing-xs);
 }

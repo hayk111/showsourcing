@@ -51,7 +51,6 @@ export class CreationDialogComponent extends AutoUnsub implements AfterViewInit,
 
 	checkExists() {
 		this.typed$.next(this.group.get('name').value);
-
 	}
 
 	onSubmit() {

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloService } from '~shared/apollo/services/apollo.service';
-import { log } from '~utils';
-import { TeamService, UserService } from '../../global-services';
+import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/global-clients-initializer.service';
+import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
+import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
+import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 
 
 @Component({
@@ -13,13 +14,18 @@ import { TeamService, UserService } from '../../global-services';
 export class AppComponent implements OnInit {
 	constructor(
 		private authSrv: AuthenticationService,
-		private apolloSrv: ApolloService,
-		private userSrv: UserService
+		private globalClients: GlobalClientsInitializer,
+		private userClient: UserClientInitializer,
+		private teamClient: TeamClientInitializer,
+		private teamPicker: TeamPickerService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
-		this.apolloSrv.init();
-		this.userSrv.init();
+		this.globalClients.init();
+		this.userClient.init();
+		this.teamPicker.init();
+		this.teamClient.init();
+
 	}
 }

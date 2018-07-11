@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserService } from '../../../../global-services';
 import { AppComment } from '~models';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'comment-ctnr-app',
@@ -16,7 +14,7 @@ export class CommentCtnrComponent implements OnInit {
 	pending$: Observable<boolean>;
 	ctrl = new FormControl('', Validators.required);
 
-	constructor(private userSrv: UserService) { }
+	constructor() { }
 
 	ngOnInit() {
 		// this.comments$ = this.store.select(selectCommentArray);
@@ -24,7 +22,7 @@ export class CommentCtnrComponent implements OnInit {
 	}
 
 	onComment() {
-		// const comment = new AppComment(this.ctrl.value, this.userSrv.userId);
+		// const comment = new AppComment(this.ctrl.value, this.userApolloSrv.userId);
 		// this.store.dispatch(CommentActions.create(comment));
 		this.ctrl.reset();
 	}

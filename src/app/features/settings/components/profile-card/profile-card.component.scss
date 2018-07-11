@@ -1,0 +1,38 @@
+
+.title {
+	color: var(--color-txt-strong);
+	font-weight: 600;
+	margin-bottom: var(--spacing-l);
+	font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+	letter-spacing: normal;
+	font-size: var(--font-size-l);
+}
+
+button.auto {
+	margin-top: var(--spacing-m);
+}
+
+.photoContainer {
+	margin-top: 8px;
+	width: 180px;
+	height: 48px;
+	p {
+		margin: 14px;
+		font-weight: 600;
+	}
+}
+
+user-picture-app {
+	margin: 0;
+	z-index: 2;
+}
+
+form {
+	margin-top: 16px;
+}
+
+label-app {
+	font-weight: 600;
+}

@@ -18,14 +18,18 @@ import {
 	NewTeamDlgComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
-} from './components';
+} from '~features/settings/components';
 import {
 	SettingsComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsFieldsPageComponent,
-	SettingsWorkflowsPageComponent,
-} from './containers';
-
+	SettingsWorkflowsPageComponent
+} from '~features/settings/containers';
+import { CompanyProfileCardComponent } from '~features/settings/components/company-profile-card/company-profile-card.component';
+import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
+import { FileModule } from '~shared/file';
+import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
+import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 
 @NgModule({
 	imports: [
@@ -38,17 +42,19 @@ import {
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		ContextMenuModule,
-		SidenavModule
+		SidenavModule,
+		FileModule
 	],
-	providers: [MemberFeatureService, InvitationFeatureService],
+	providers: [MemberFeatureService, InvitationFeatureService, SettingsProfileService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent,
-		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent
+		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
+		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent,
+		ProfileCardComponent, ChangePswdDlgComponent
 	],
 	entryComponents: [
-		InviteUserDlgComponent, NewTeamDlgComponent
+		InviteUserDlgComponent, NewTeamDlgComponent, ChangePswdDlgComponent
 	],
 	exports: [],
 })

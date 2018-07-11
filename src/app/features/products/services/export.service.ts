@@ -5,14 +5,14 @@ import { User } from '~models';
 import { RequestQueries } from '~features/products/services/request.queries';
 import { forkJoin, from } from 'rxjs';
 import { take, map, filter, first, switchMap } from 'rxjs/operators';
-import { ApolloClient } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo';
 import { uuid } from '~utils';
 
 // TODO: thiery same comment as in features/product/services/team.service
 @Injectable()
 export class ExportService {
 
-	constructor(private apollo: ApolloClient) { }
+	constructor(private wrapper: ApolloWrapper) { }
 
 	/*
         Add products export.
@@ -35,7 +35,7 @@ export class ExportService {
         Add export request.
      */
 	addExportRequest(exportRequest) {
-		return this.apollo.update({ gql: RequestQueries.addExportRequest, input: exportRequest, typename: 'exportRequest' })
+		return this.wrapper.update({ gql: RequestQueries.addExportRequest, input: exportRequest, typename: 'exportRequest' })
 			.pipe(
 				first(),
 				map((r: any) => r.data.addexportRequest)
@@ -46,7 +46,7 @@ export class ExportService {
         Update export request.
      */
 	updateExportRequest(exportRequest) {
-		return this.apollo.update({ gql: RequestQueries.updateExportRequest, input: exportRequest, typename: 'exportRequest' })
+		return this.wrapper.update({ gql: RequestQueries.updateExportRequest, input: exportRequest, typename: 'exportRequest' })
 			.pipe(first());
 	}
 }

@@ -1,9 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-import { User, Team } from '~models';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserService, TeamService } from '../../../../global-services';
+import { ChangePswdDlgComponent } from '~features/settings/components/change-pswd-dlg/change-pswd-dlg.component';
+import { UserService } from '~global-services';
+import { User } from '~models';
+import { DialogService } from '~shared/dialog';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { first, switchMap, map } from 'rxjs/operators';
+import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -12,29 +15,33 @@ import { UserService, TeamService } from '../../../../global-services';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsProfileComponent implements OnInit {
-	form: FormGroup;
+
 	user$: Observable<User>;
-	teams$: Observable<Team[]>;
+	userId: string;
+	// company$: Observable<Company>; // Uncomment when Company realm is out
 
 	constructor(
-		private fb: FormBuilder,
-		private userSrv: UserService,
-		private teamSrv: TeamService) {
-
-		this.form = this.fb.group({
-			firstName: ['', Validators.required],
-			lastName: ['', Validators.required],
-			email: ['', Validators.compose([Validators.email, Validators.required])]
-		});
+		private profileSrv: SettingsProfileService,
+		private dlgSrv: DialogService) {
+		// private company: CompanyService) { // Uncomment when Company realm is out
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectUser();
-		this.teams$ = this.teamSrv.selectAll();
+		this.user$ = this.profileSrv.selectUser();
+		this.user$.pipe(first()).subscribe(m => this.userId = m.id); // This way we dont have to call the observable eachtime we need the id
+		// this.company$ = this.companySrv.selectAll(); // Uncomment when Company realm is out
 	}
 
-	update(propName: string, value: string) {
-		// this.store.dispatch(UserActions.patch({ propName, value }));
+	updateUser(user: User) {
+		user.id = this.userId;
+		this.profileSrv.updateUser(user);
 	}
 
+	addFile(file: File) {
+		this.profileSrv.addFile(file);
+	}
+
+	pswdModal() {
+		this.dlgSrv.open(ChangePswdDlgComponent);
+	}
 }

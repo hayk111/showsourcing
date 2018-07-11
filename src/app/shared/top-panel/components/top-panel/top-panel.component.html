@@ -2,7 +2,7 @@
 	<div class="left">
 		<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
 	</div>
-	<div class="right flexCenter">
+	<div class="right flexCenter" *ngIf="buttonName">
 
 		<button (click)="buttonClick.emit()" class="flex button auto small" *ngIf="hasAction">
 			<span class="spacing"> {{ buttonName }} </span>
