@@ -21,6 +21,9 @@ export class RestrictInputDirective {
 			case 'tel':
 				this.regex = new RegExp(RegexpApp.PHONE);
 				break;
+			case 'password':
+				this.regex = new RegExp(RegexpApp.PASSWORD_INPUT);
+				break;
 		}
 	}
 

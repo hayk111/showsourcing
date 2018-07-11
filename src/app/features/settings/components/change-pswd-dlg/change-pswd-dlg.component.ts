@@ -21,7 +21,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 	pending = false;
 	@ViewChild(InputDirective) input: InputDirective;
 	private onBlur$: Subject<string> = new Subject();
-	currentPswd$: Observable<boolean>;
+	isCurrentPswd$: Observable<boolean>;
 
 	constructor(
 		private fb: FormBuilder,
@@ -33,12 +33,12 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 
 	ngOnInit() {
 		this.group = this.fb.group({
-			currentPswd: ['', [Validators.required]],
-			newPswd: ['', Validators.required],
-			confirmPswd: ['', Validators.required]
+			currentPswd: ['', Validators.required],
+			newPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD)]],
+			confirmPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD)]]
 		}, { validator: PasswordValidator });
 		// Uncomment when the service is implemented
-		// this.currentPswd$ = this.onBlur$
+		// this.isCurrentPswd$ = this.onBlur$
 		// 	.pipe(
 		// 		takeUntil(this._destroy$),
 		// 		switchMap((str) => this.profileSrv.checkCurrentPassword(str))
@@ -51,9 +51,8 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 	}
 
 	checkCurrentPassword() {
-		console.log(this.group.get('currentPswd').errors);
-		if (this.group.get('currentPswd').errors == null)   // Uncomment when the service is implemented
-			console.log(this.group.get('currentPswd').value); // this.onBlur$.next(this.group.get('currentPswd').value);
+		// if (this.group.get('currentPswd').errors == null)   // Uncomment when the service is implemented
+		// this.onBlur$.next(this.group.get('currentPswd').value);
 	}
 
 	onSubmit() {
