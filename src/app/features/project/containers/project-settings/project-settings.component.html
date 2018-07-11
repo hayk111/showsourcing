@@ -1,3 +1,9 @@
-<p>
-  project-settings works!
-</p>
+
+
+<card-app *ngIf="project$ | async as project">
+	<h2>Project Settings</h2>
+	{{ project.name }}
+	<span>Created By:</span>
+	<span>Created On:</span>
+	<span>Last Update On:</span>
+</card-app>
