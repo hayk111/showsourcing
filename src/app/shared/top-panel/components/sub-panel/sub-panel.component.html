@@ -5,12 +5,7 @@
 	<div class="flexBetween">
 		<div class="left flexCenter">
 
-			<search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35" [width]="405">
-				<ng-content select="search-autocomplete-item-app"></ng-content>
-				<!-- search-autocomplete-item-app>
-					<search-autocomplete-item-content-app status="deployed" title="title" subtitle="test" image="https://files.showsourcing.com/s/12199705-d825-4be8-84c0-888e4e045021.jpg"></search-autocomplete-item-content-app>
-				</search-autocomplete-item-app -->
-			</search-autocomplete-app>
+			<ng-content select="search-autocomplete-app"></ng-content>
 
 			<search-bar-app class="mg-right" [ngClass]="{ focus: searchbarFocus }">
 				<input #inp inputApp type="text"

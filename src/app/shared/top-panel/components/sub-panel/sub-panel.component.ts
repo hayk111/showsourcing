@@ -1,7 +1,7 @@
 import {
 	ChangeDetectionStrategy, Component, EventEmitter,
 	Input, Output, OnInit,
-	ElementRef, Renderer2, ViewChild,
+	ElementRef, Renderer2, ContentChild,
 	ChangeDetectorRef
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -47,7 +47,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// search event
 	@Output() search = new EventEmitter<string>();
 
-	@ViewChild('searchAutocomplete') searchAutocomplete: SearchAutocompleteComponent;
+	@ContentChild(SearchAutocompleteComponent) searchAutocomplete: SearchAutocompleteComponent;
 
 	private search$ = new Subject<string>();
 

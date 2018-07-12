@@ -33,8 +33,19 @@ export class SearchAutocompleteItemContentComponent {
 	constructor(private router: Router) {}
 
 	displayItem() {
-		if (this.link) {
+		if (this.selectable) {
+			this.toggleCheck();
+		} else if (this.link) {
 			this.router.navigate([ this.link ]);
+		}
+	}
+
+	toggleCheck() {
+		this.checked = !this.checked;
+		if (this.checked) {
+			this.onCheck();
+		} else {
+			this.onUncheck();
 		}
 	}
 

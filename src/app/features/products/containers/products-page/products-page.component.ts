@@ -119,7 +119,6 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	}
 
 	onCheckSearchElement(element) {
-		console.log('>> onCheckSearchElement');
 		this.filterSrv.addFilter({
 			type: element.type,
 			value: element.id,
@@ -128,7 +127,6 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	}
 
 	onUncheckSearchElement(element) {
-		console.log('>> onUncheckSearchElement');
 		this.filterSrv.removeFilter({
 			type: element.type,
 			value: element.id,

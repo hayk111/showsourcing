@@ -1,6 +1,6 @@
 import {
 	Component, OnInit, ChangeDetectionStrategy,
-	ElementRef, Renderer2, ViewChild,
+	ElementRef, Renderer2, ContentChild,
 	Output, EventEmitter
 } from '@angular/core';
 import { SearchAutocompleteItemContentComponent } from '../search-autocomplete-item-content/search-autocomplete-item-content.component';
@@ -16,12 +16,13 @@ import { SearchAutocompleteItemContentComponent } from '../search-autocomplete-i
 })
 export class SearchAutocompleteItemComponent implements OnInit {
 
+	/** The corresponding item was displayed. */
 	@Output() itemDisplayed = new EventEmitter<null>();
 
 	/** The item is selected. */
 	selected = false;
 
-	@ViewChild(SearchAutocompleteItemContentComponent) content: SearchAutocompleteItemContentComponent;
+	@ContentChild(SearchAutocompleteItemContentComponent) content: SearchAutocompleteItemContentComponent;
 
 	constructor(private element: ElementRef, private renderer: Renderer2) { }
 
@@ -39,7 +40,6 @@ export class SearchAutocompleteItemComponent implements OnInit {
 	}
 
 	displayItem() {
-		console.log('>> displayItem - content = ', this.content);
 		if (this.content) {
 			this.content.displayItem();
 			this.itemDisplayed.emit();

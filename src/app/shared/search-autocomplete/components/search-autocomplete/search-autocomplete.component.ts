@@ -37,7 +37,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@ContentChildren(SearchAutocompleteItemComponent) items: QueryList<SearchAutocompleteItemComponent>;
 
 	autocompleteOpen = false;
-	selectedItemIndex: number;
+	selectedItemIndex = 0;
 
 	constructor(private cdr: ChangeDetectorRef) {
 		super();
@@ -51,14 +51,14 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				if (values && values.length > 0) {
 					this.selectedItemIndex = 0;
 					this.refreshItems();
-					values.forEach(value => {
+					/* values.forEach(value => {
 						value.itemDisplayed.subscribe(() => {
 							console.log('>> 1');
 							this.closeAutocomplete();
 						});
-					});
+					}); */
 				} else {
-					this.selectedItemIndex = null;
+					this.selectedItemIndex = 0;
 				}
 			});
 		}
@@ -89,6 +89,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@HostListener('document:keydown.arrowup', ['$event'])
 	onKeyArrowUp(event) {
 		if (this.autocompleteOpen) {
+			console.log('>> arrowup');
 			this.updateItemIndex('up');
 			this.refreshItems();
 			event.stopPropagation();
@@ -98,6 +99,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@HostListener('document:keydown.arrowdown', ['$event'])
 	onKeyArrowDown(event) {
 		if (this.autocompleteOpen) {
+			console.log('>> arrowdown');
 			this.updateItemIndex('down');
 			this.refreshItems();
 			event.stopPropagation();
@@ -116,19 +118,21 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	}
 
 	updateItemIndex(direction = 'down') {
+		console.log('>> updateItemIndex - direction = ', direction);
 		if (direction === 'down') {
-			if (this.selectedItemIndex !== null) {
+			// if (this.selectedItemIndex != null) {
 				if (this.selectedItemIndex < this.items.length - 1) {
 					this.selectedItemIndex++;
 				}
-			} else {
-				this.selectedItemIndex = 0;
-			}
+			// } else {
+			// this.selectedItemIndex = 0;
+			// }
 		} else {
 			if (this.selectedItemIndex !== null && this.selectedItemIndex > 0) {
 					this.selectedItemIndex--;
 			}
 		}
+		console.log('  >> this.selectedItemIndex = ', this.selectedItemIndex);
 	}
 
 	refreshItems() {
