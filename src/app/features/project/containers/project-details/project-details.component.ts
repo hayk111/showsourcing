@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '../../../../../../node_modules/@angular/router';
 
 @Component({
 	selector: 'app-project-details',
@@ -11,6 +12,7 @@ export class ProjectDetailsComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+
 	}
 
 	openCreateDlg() {
