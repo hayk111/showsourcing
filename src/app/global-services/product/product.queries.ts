@@ -125,6 +125,9 @@ export class ProductQueries implements GlobalQuery {
 				lastName,
 				firstName
 			},
+			images {
+				id, fileName, orientation
+			},
 			supplier {
 				id,
 				name

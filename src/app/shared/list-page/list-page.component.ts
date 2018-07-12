@@ -94,6 +94,11 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	search(str: string) {
 		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
+		this.searchFilters(str);
+	}
+
+	searchFilters(str: string) {
+		// 
 	}
 
 	/** Loads more items when we reach the bottom of the page */

@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy, Component, EventEmitter,
+	Input, Output, OnInit,
+	ElementRef, Renderer2, ViewChild,
+	ChangeDetectorRef
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
+import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 
 @Component({
 	selector: 'sub-panel-app',
@@ -40,18 +47,42 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// search event
 	@Output() search = new EventEmitter<string>();
 
+	@ViewChild('searchAutocomplete') searchAutocomplete: SearchAutocompleteComponent;
+
 	private search$ = new Subject<string>();
+
+	searchbarFocus = false;
+
+	searchControl: FormControl;
+
+	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
+		super();
+		this.searchControl = new FormControl();
+	}
 
 	ngOnInit() {
 		this.search$.pipe(
 			debounceTime(400),
 			takeUntil(this._destroy$),
-		).subscribe(str => this.search.emit(str));
+		).subscribe(str => {
+			this.search.emit(str);
+			this.searchAutocomplete.openAutocomplete();
+			this.cdr.detectChanges();
+		});
 	}
 
 	onSearch(str: string) {
 		this.search$.next(str);
 	}
 
+	onBlurSearch(event) {
+		console.log('>> onBlurSearch');
+		this.searchbarFocus = false;
+	}
+
+	onFocusSearch(event) {
+		console.log('>> onFocusSearch');
+		this.searchbarFocus = true;
+	}
 
 }

@@ -3,7 +3,8 @@ import {
 	Input, ViewChild, TemplateRef,
 	ComponentFactoryResolver, ChangeDetectorRef,
 	ContentChildren, QueryList,
-	HostListener, AfterContentInit
+	HostListener, AfterContentInit,
+	Output, EventEmitter
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { SearchAutocompleteItemComponent } from '../search-autocomplete-item/search-autocomplete-item.component';
@@ -32,6 +33,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@Input() yPosition = 16;
 	/** Width of the autocomplete. */
 	@Input() width: number;
+	@Output() close = new EventEmitter<null>();
 	@ContentChildren(SearchAutocompleteItemComponent) items: QueryList<SearchAutocompleteItemComponent>;
 
 	autocompleteOpen = false;
@@ -49,6 +51,12 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				if (values && values.length > 0) {
 					this.selectedItemIndex = 0;
 					this.refreshItems();
+					values.forEach(value => {
+						value.itemDisplayed.subscribe(() => {
+							console.log('>> 1');
+							this.closeAutocomplete();
+						});
+					});
 				} else {
 					this.selectedItemIndex = null;
 				}
@@ -75,6 +83,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	/** Closes the autocomplete. */
 	closeAutocomplete(): void {
 		this.autocompleteOpen = false;
+		this.close.emit();
 	}
 
 	@HostListener('document:keydown.arrowup', ['$event'])
@@ -82,6 +91,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		if (this.autocompleteOpen) {
 			this.updateItemIndex('up');
 			this.refreshItems();
+			event.stopPropagation();
 		}
 	}
 
@@ -90,6 +100,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		if (this.autocompleteOpen) {
 			this.updateItemIndex('down');
 			this.refreshItems();
+			event.stopPropagation();
 		}
 	}
 
@@ -97,6 +108,10 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	onKeyEnter(event) {
 		if (this.autocompleteOpen) {
 			console.log('enter');
+			const selectedItem = this.items.find((item, index) => (index === this.selectedItemIndex));
+			if (selectedItem) {
+				selectedItem.displayItem();
+			}
 		}
 	}
 

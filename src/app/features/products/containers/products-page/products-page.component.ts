@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable, of, zip } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {
 	ProductAddToProjectDlgComponent,
@@ -8,7 +10,9 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
+import { SelectParams } from '~global-services/_global/select-params';
+import { ERM, Product, Tag, Event, Category, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -28,10 +32,15 @@ import { CreationDialogComponent } from '~shared/generic-dialog';
 	]
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+	searchFilterElements$: Observable<any[]>;
 
 	constructor(
 		protected router: Router,
 		protected featureSrv: ProductFeatureService,
+		protected tagSrv: TagService,
+		protected categorySrv: CategoryService,
+		protected supplierSrv: SupplierService,
+		protected eventSrv: EventService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
@@ -70,4 +79,60 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		return Array.from(this.selectionSrv.selection.keys());
 	}
 
+	/** Search within filters */
+	searchFilters(str: string) {
+		this.searchFilterElements$ = zip(
+			this.tagSrv.selectMany(
+				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+			).pipe(first()),
+			this.categorySrv.selectMany(
+				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+			).pipe(first()),
+			this.supplierSrv.selectMany(
+				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+			).pipe(first()),
+			this.eventSrv.selectMany(
+				of(new SelectParams({ query: `alias CONTAINS "${str}"` }))
+			).pipe(first()),
+			this.filterSrv.filters$.pipe(first())
+		).pipe(
+			map(results => {
+				const [ tags, categories, suppliers, events, filters ] = results;
+				const elements = [];
+				elements.push(...tags.map(tag => Object.assign({}, tag, { type: 'tag', checked: this.isFilter(filters, tag, 'tag') })));
+				elements.push(...categories.map(category => Object.assign(
+					{}, category, { type: 'category', checked: this.isFilter(filters, category, 'category') })));
+				elements.push(...suppliers.map(supplier => Object.assign(
+					{}, supplier, { type: 'supplier', checked: this.isFilter(filters, supplier, 'supplier') })));
+				elements.push(...events.map(event => Object.assign({}, event, { type: 'event', checked: this.isFilter(filters, event, 'event') })));
+				return elements;
+			})
+		);
+	}
+
+	isFilter(filters, element, type) {
+		const typeFilters = filters.filter(filter => filter.type === type);
+		const match = filters.find(filter => {
+			return (filter.value === element.id); }
+		);
+		return !!match;
+	}
+
+	onCheckSearchElement(element) {
+		console.log('>> onCheckSearchElement');
+		this.filterSrv.addFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
+
+	onUncheckSearchElement(element) {
+		console.log('>> onUncheckSearchElement');
+		this.filterSrv.removeFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
 }

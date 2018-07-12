@@ -11,6 +11,7 @@ import { CardModule } from '~shared/card';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { DividerModule } from '~shared/divider/divider.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		LoadersModule,
 		RouterModule.forChild([]),
 		CardModule,
-		DividerModule
+		DividerModule,
+		SearchAutocompleteModule
 	],
 	declarations: [
 		TopPanelComponent,

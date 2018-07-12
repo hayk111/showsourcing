@@ -18,6 +18,7 @@ import { SharedModule } from '~shared/shared.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 
 import {
 	ProductCardViewComponent,
@@ -61,6 +62,7 @@ import { ProductNavigationComponent } from './components/product-navigation/prod
 		BadgeModule,
 		CommentModule.forChild(),
 		TopPanelModule,
+		SearchAutocompleteModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
