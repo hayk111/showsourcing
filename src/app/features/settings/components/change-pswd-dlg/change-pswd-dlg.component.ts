@@ -34,8 +34,8 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 	ngOnInit() {
 		this.group = this.fb.group({
 			currentPswd: ['', Validators.required],
-			newPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD)]],
-			confirmPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD)]]
+			newPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD_SPACE)]],
+			confirmPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD_SPACE)]],
 		}, { validator: PasswordValidator });
 		// Uncomment when the service is implemented
 		// this.isCurrentPswd$ = this.onBlur$

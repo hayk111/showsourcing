@@ -17,6 +17,7 @@
 		<span class="marginSmall"></span>
 		<button (click)="mergeSelected()"> Merge Selected </button>
 	</div>
+	<workflow-action-app [status]="items$ | async"></workflow-action-app>
 </sub-panel-app>
 
 <data-management-table-app

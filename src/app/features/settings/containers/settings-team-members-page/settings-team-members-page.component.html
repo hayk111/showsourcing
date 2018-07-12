@@ -18,20 +18,20 @@
 	(buttonClick)="openInviteDialog()">
 
 	<context-menu-app xPosition="after" yPosition="45" *ngIf="teamOwner && hasSelected">
-	<context-menu-trigger-app class="button flex pointer">
-		<div class="text">Selection</div>
-		<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-	</context-menu-trigger-app>
-	<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'FullAccess' })">
-		Team Member
-	</context-menu-item-app>
-	<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'ReadOnly' })">
-		Contributor
-	</context-menu-item-app>
-	<context-menu-divider-app></context-menu-divider-app>
-	<context-menu-item-app class="remove-user" (click)="deleteSelected()">
-		<span>Remove User</span>
-	</context-menu-item-app>
+		<context-menu-trigger-app class="button flex pointer">
+			<div class="text">Selection</div>
+			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'FullAccess' })">
+			Team Member
+		</context-menu-item-app>
+		<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'ReadOnly' })">
+			Contributor
+		</context-menu-item-app>
+		<context-menu-divider-app></context-menu-divider-app>
+		<context-menu-item-app class="remove-user" (click)="deleteSelected()">
+			<span>Remove User</span>
+		</context-menu-item-app>
 	</context-menu-app>
 
 </sub-panel-app>
