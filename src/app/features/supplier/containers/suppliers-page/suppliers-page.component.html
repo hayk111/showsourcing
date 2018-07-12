@@ -28,10 +28,11 @@
 		(unselect)="onItemUnselected($event)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
-		(open)="openPreview($event)"
+		(open)="goToDetails()"
 		(favorited)="onItemFavorited($event)"
-		(unfavorited)="onItemUnfavorited($event)">
-	</supplier-list-view-app>
+		(unfavorited)="onItemUnfavorited($event)"
+		(previewClick)="openPreview($event)"
+		></supplier-list-view-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app
@@ -41,5 +42,6 @@
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
 
+	<supplier-preview-app *ngIf="previewOpen" [supplier]="previewed" (close)="closePreview()"></supplier-preview-app>
 </ng-container>
 

@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Supplier } from '~models';
+
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -7,6 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierPreviewComponent implements OnInit {
+	@Input() supplier: Supplier;
+	@Output() close = new EventEmitter<undefined>();
 
 	constructor() { }
 
