@@ -16,7 +16,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 /**
  * Class used by components that need to display a list
  */
-export abstract class ListPageComponent<T extends { id: string }, G extends GlobalServiceInterface<T>>
+export abstract class ListPageComponent<T extends { id?: string }, G extends GlobalServiceInterface<T>>
 	extends AutoUnsub implements OnInit {
 
 	/** currently loaded items */

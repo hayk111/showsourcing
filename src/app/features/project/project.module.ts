@@ -17,6 +17,7 @@ import { RatingModule } from '~shared/rating';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
+import { FileModule } from '~shared/file';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,8 @@ import { ProjectProductListComponent } from './components/project-product-list/p
 		TableModule, // used in list
 		RatingModule,
 		SidenavModule,
-		BadgeModule
+		BadgeModule,
+		FileModule
 	],
 	declarations: [
 		ProjectsPageComponent,

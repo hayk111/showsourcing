@@ -1,3 +1,46 @@
-<p>
-  project-settings works!
-</p>
+
+
+<card-app *ngIf="project$ | async as project">
+	<h2>Project Settings</h2>
+
+	<label>Project Picture</label>
+
+	<div class="flex picCtnr">
+		<div class="cercle pointer">
+			<img-app size="s" [image]="project.logoImage" (click)="fileInp.click()"></img-app>
+		</div>
+		<div class="color-primary sel">
+			<b class="semi pointer" (click)="fileInp.click()">Select Image</b>
+		</div>
+	</div>
+
+	<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
+
+
+	<form [formGroup]="form">
+		<form-field-app [paddingBottom]="true">
+			<label-app>Project Name</label-app>
+			<input class="borderless" inputApp type="text" formControlName="name"/>
+		</form-field-app>
+
+		<form-field-app [paddingBottom]="true">
+			<label-app>Description</label-app>
+			<textarea inputApp rows="1" formControlName="description" class="borderless"></textarea>
+		</form-field-app>
+	</form>
+
+
+	<div class="bottom">
+		<div class="flex">
+			<b class="semi">Created By: </b> {{ project?.user?.firstName }} {{ project?.user?.lastName }}
+		</div>
+		<div class="flex">
+			<b class="semi">Created On:</b> {{ project?.creationDate | date: 'd MMMM y' }}
+		</div>
+		<div class="flex">
+			<b class="semi">Last Update On:</b> {{ project?.lastUpdatedDate | date: 'd MMMM y' }}
+		</div>
+	</div>
+
+
+</card-app>

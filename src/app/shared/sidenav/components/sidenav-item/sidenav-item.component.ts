@@ -5,7 +5,7 @@ import {
 	OnInit
 } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -31,7 +31,12 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	/** the internal selected state for the item. Used to change the item background */
 	selected = false;
 
-	constructor(private renderer: Renderer2, private router: Router, private location: Location) {
+	constructor(
+		private renderer: Renderer2,
+		private router: Router,
+		private location: Location,
+		private route: ActivatedRoute
+	) {
 		super();
 		router.events.pipe(takeUntil(this._destroy$))
 			.subscribe((val) => {
@@ -71,7 +76,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 			this.expanded.emit(this.internalExpanded);
 		}
 		if (this.link) {
-			this.router.navigate([this.link]);
+			this.router.navigate([this.link], { relativeTo: this.route });
 		}
 		event.stopPropagation();
 	}

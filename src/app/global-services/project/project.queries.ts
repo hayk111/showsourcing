@@ -6,7 +6,7 @@ export class ProjectQueries implements GlobalQuery {
 	one: any = gql`
 	subscription project($query: String!) {
 		projects(query: $query) {
-			id, name
+			id, name, description, lastUpdatedDate, creationDate, createdBy { id, firstName, lastName }, logoImage { id, fileName }
 		}
 	}
 	`;
