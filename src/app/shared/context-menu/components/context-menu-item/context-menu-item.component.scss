@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	padding: 8px 12px;
+	padding: 8px var(--spacing-ms);
 	white-space: nowrap;
 	&:hover {
 		background: var(--color-bg-third);

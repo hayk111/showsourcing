@@ -14,3 +14,16 @@ h2 {
 	font-weight: 600;
 	color: #182844;
 }
+
+status-label-app {
+	margin-top: var(--spacing-s);
+}
+
+.midDivider {
+	margin: var(--spacing-l) 0;
+}
+
+rating-heart-app {
+	// giving same width as button so the icon in the middle is centered
+	width: 56px;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~models';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
@@ -13,7 +13,16 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierPreviewComponent implements OnInit {
-	@Input() supplier: Supplier;
+	@Input() set supplier(supplier: Supplier) {
+		this._supplier = supplier;
+		this.id$.next(supplier.id);
+	}
+	get supplier() {
+		return this._supplier;
+	}
+	private _supplier: Supplier;
+	private id$ = new ReplaySubject<string>(1);
+
 	@Output() close = new EventEmitter<undefined>();
 	/** at first the supplier is the one in the list but it hasn't got all info so we gonna query it again */
 	supplier$: Observable<Supplier>;
@@ -22,7 +31,9 @@ export class SupplierPreviewComponent implements OnInit {
 
 	ngOnInit() {
 		// getting the supplier with all the data
-		this.supplier$ = this.featureSrv.selectOne(this.supplier.id);
+		this.supplier$ = this.id$.pipe(
+			switchMap(id => this.featureSrv.selectOne(this.supplier.id))
+		);
 	}
 
 }

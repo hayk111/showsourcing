@@ -42,6 +42,10 @@
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
 
-	<supplier-preview-app *ngIf="previewOpen" [supplier]="previewed" (close)="closePreview()"></supplier-preview-app>
+	<supplier-preview-app
+		*ngIf="previewOpen"
+		[supplier]="previewed"
+		(close)="closePreview()"
+		(clickOutside)="closePreview()"></supplier-preview-app>
 </ng-container>
 

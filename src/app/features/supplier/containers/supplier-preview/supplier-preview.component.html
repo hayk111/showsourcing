@@ -12,13 +12,13 @@
 		<div class="flexColumn flexCenter">
 			<icon-app class="logo flexCenter" fontSet="svg" name="supplier-preview"></icon-app>
 			<h2>{{ supplier?.name }}</h2>
-			<div>{{ supplier?.supplierType?.name || 'Supplier'}} from {{ supplier.country | const:'country' }}</div>
+			<div>{{ supplier?.supplierType?.name || 'Supplier'}} - {{ supplier.country | const:'country' }}</div>
 			<status-label-app [status]="supplier.status"></status-label-app>
 		</div>
 
-		<span>open</span>
+		<button class="transparent auto">Open</button>
 	</div>
 
-	<divider-app></divider-app>
+	<divider-app class="midDivider"></divider-app>
 
 </side-panel-app>

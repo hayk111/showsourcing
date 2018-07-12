@@ -10,7 +10,7 @@ context-menu-app {
 	height: 50px;
 	display: flex;
 	align-items: center;
-	padding-left: 12px;
+	padding-left: var(--spacing-ms);
 	width: 212px;
 }
 

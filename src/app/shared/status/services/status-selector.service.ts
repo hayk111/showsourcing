@@ -22,4 +22,5 @@ export class StatusSelectorService {
 	getProductStatuses(): Observable<ProductStatus[]> {
 		return this.productStatusSrv.selectAll();
 	}
+
 }

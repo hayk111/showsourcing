@@ -14,13 +14,13 @@ h3 {
 }
 
 .actions {
-	margin-top: 12px;
+	margin-top: var(--spacing-ms);
 	font-size: 20px;
 	color: var(--color-txt-secondary);
 }
 
 divider-app {
-	margin: 12px 0;
+	margin: var(--spacing-ms) 0;
 }
 
 rating-heart-app, thumb-buttons-app {
@@ -37,7 +37,7 @@ rating-heart-app, thumb-buttons-app {
 }
 
 rating-heart-app {
-	margin-right: 12px;
+	margin-right: var(--spacing-ms);
 }
 
 thumb-buttons-app {
