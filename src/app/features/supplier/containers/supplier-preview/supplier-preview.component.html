@@ -8,7 +8,7 @@
 	</side-panel-action-app>
 
 	<div *ngIf="supplier$ | async as supplier" class="top">
-		<rating-heart-app [favorite]="supplier.favorite"></rating-heart-app>
+		<rating-heart-app [favorite]="supplier.favorite" (favorited)="onFavorited()" (unfavorited)="onUnfavorited()"></rating-heart-app>
 		<div class="flexColumn flexCenter">
 			<icon-app class="logo flexCenter" fontSet="svg" name="supplier-preview"></icon-app>
 			<h2>{{ supplier?.name }}</h2>
@@ -20,5 +20,19 @@
 	</div>
 
 	<divider-app class="midDivider"></divider-app>
+
+	<h3>SUPPLIER DETAILS</h3>
+
+	<ng-container *ngIf="descriptor$ | async as desc">
+
+		<dynamic-form-app
+			[inlineLabel]="true"
+			(formCreated)="onFormCreated($event)"
+			[descriptor]="desc"
+			[editable]="true"
+			[colAmount]="1">
+		</dynamic-form-app>
+
+	</ng-container>
 
 </side-panel-app>
