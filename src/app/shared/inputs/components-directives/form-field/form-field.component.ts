@@ -15,13 +15,8 @@ import { HintComponent } from '~shared/inputs/components-directives/hint/hint.co
 	styleUrls: ['./form-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: animations,
-	host: {
-		'[class.padding-bottom]': 'paddingBottom'
-	}
 })
 export class FormFieldComponent implements OnInit, AfterContentInit {
-	// padding button when we want the form to be compressed when we have no borders
-	@Input() paddingBottom = false;
 	// whenever the * next to required field should be hidden
 	@Input() hideRequiredMarker: boolean;
 	@ContentChild(InputDirective) input: InputDirective;

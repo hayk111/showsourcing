@@ -10,21 +10,21 @@
 <input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
 
 <form [formGroup]="form">
-	<form-field-app [paddingBottom]="true">
+	<form-field-app class="borderless">
 		<label-app>First Name</label-app>
-		<input class="borderless" inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
+		<input inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
 	</form-field-app>
-	<form-field-app [paddingBottom]="true">
+	<form-field-app class="borderless">
 		<label-app>Last Name</label-app>
-		<input class="borderless" inputApp type="text"  formControlName="lastName"/>
+		<input inputApp type="text"  formControlName="lastName"/>
 	</form-field-app>
-	<form-field-app [paddingBottom]="true">
+	<form-field-app class="borderless">
 		<label-app>Email</label-app>
-		<input class="borderless" inputApp type="text" formControlName="email"/>
+		<input inputApp type="text" formControlName="email"/>
 	</form-field-app>
-	<form-field-app [paddingBottom]="true">
+	<form-field-app class="borderless">
 		<label-app>Phone Number</label-app>
-		<input class="borderless" restrictInput="tel" inputApp type="text"  formControlName="phoneNumber"/>
+		<input restrictInput="tel" inputApp type="text"  formControlName="phoneNumber"/>
 	</form-field-app>
 </form>
 
