@@ -17,7 +17,7 @@
 				<label-app> New Password</label-app>
 				<input [class.warn-border]="group.get('newPswd').touched  && group.hasError('nomatch')" minlength="8"
 				inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"/>
-				<error-app *ngIf="group.get('newPswd').hasError('pattern')">No spaces allowed</error-app>
+				<error-app *ngIf="group.get('newPswd').hasError('pattern')">No spaces allowed&nbsp;&nbsp;&nbsp;&nbsp;</error-app>
 				<error-app *ngIf="group.get('newPswd').hasError('minlength')">Minimum 8 characters required</error-app>
 			</form-field-app>
 			<form-field-app>
