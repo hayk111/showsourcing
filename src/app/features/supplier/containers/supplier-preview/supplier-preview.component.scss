@@ -1,0 +1,16 @@
+.top {
+	display: flex;
+	justify-content: space-between;
+	.logo {
+		height: 72px;
+		width: 72px;
+	}
+}
+
+h2 {
+	margin-bottom: 0;
+	font-family: Raleway, sans-serif;
+  font-size: 15px;
+	font-weight: 600;
+	color: #182844;
+}

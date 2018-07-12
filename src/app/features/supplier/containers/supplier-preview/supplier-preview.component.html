@@ -1,0 +1,24 @@
+<side-panel-app>
+	<side-panel-title-app>
+		Supplier
+	</side-panel-title-app>
+
+	<side-panel-action-app>
+		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
+	</side-panel-action-app>
+
+	<div *ngIf="supplier$ | async as supplier" class="top">
+		<rating-heart-app [favorite]="supplier.favorite"></rating-heart-app>
+		<div class="flexColumn flexCenter">
+			<icon-app class="logo flexCenter" fontSet="svg" name="supplier-preview"></icon-app>
+			<h2>{{ supplier?.name }}</h2>
+			<div>{{ supplier?.supplierType?.name || 'Supplier'}} from {{ supplier.country | const:'country' }}</div>
+			<status-label-app [status]="supplier.status"></status-label-app>
+		</div>
+
+		<span>open</span>
+	</div>
+
+	<divider-app></divider-app>
+
+</side-panel-app>

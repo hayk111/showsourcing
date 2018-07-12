@@ -27,7 +27,7 @@ import { SupplierFeatureService } from './services/supplier-feature.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { PanelModule } from '~shared/panel/panel.module';
-import { SupplierPreviewComponent } from '~features/supplier/components/supplier-preview/supplier-preview.component';
+import { SupplierPreviewComponent } from '~features/supplier/containers/supplier-preview/supplier-preview.component';
 
 
 @NgModule({
