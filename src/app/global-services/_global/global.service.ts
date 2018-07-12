@@ -5,6 +5,7 @@ import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';
+import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -25,34 +26,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		protected queries: GlobalQuery,
 		protected typeName?: string) { }
 
-	/**
-	 * Pipelines Select many:
-	 *
-	 * selectManyParams$ : subject where we push params to sort, paginate and filter.
-	 * selectMany$ : when the params change then so does this observable,
-	 * which is returned by the selectMany function
-	 */
-	selectManyParams$ = new ReplaySubject<Observable<SelectParams>>(1);
-	// when the params change then so does this observable, which is returned by the selectMany function
-	selectMany$ = this.selectManyParams$.asObservable().pipe(
-		// retrieve params from their observable form
-		flatMap(params$ => params$),
-		// when the params haven't changed we shouldn't do anything
-		distinctUntilChanged(),
-		// then we query graphql to get a suscription to some part of the data
-		switchMap((params: SelectParams) => {
-			// the selectMany here is a subscription to some data on the server
-			const options = params.toWrapperOptions(this.queries.list);
-			return this.wrapper.selectMany(options).pipe(
-				map(data => ({ data, page: params.page }) as any)
-			);
-		}),
-		// we append the result if page was incremented
-		// else we just return the result
-		scan((acc: any, curr: any) => {
-			return curr.page === 0 ? curr.data : acc.concat(curr.data);
-		}, [])
-	);
+
 
 	/** selects all entity
  	* @param id : id of the entity selected
@@ -75,14 +49,23 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		return this.wrapper.selectAll({ gql: this.queries.all(fields) });
 	}
 
+	/** selects all entity
+ 	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
+	*/
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
 		if (!this.queries.list) {
 			throw Error('list / many query not implemented for this service');
 		}
-		this.selectManyParams$.next(params$);
-		return this.selectMany$;
+		return params$.pipe(
+			map((params: SelectParams) => params.toWrapperOptions(this.queries.list)),
+			distinctUntilChanged(),
+			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectMany(opts))
+		);
 	}
 
+	/** update an entity
+ 	* @param entity : entity with an id and the fields we want to update
+	*/
 	update(entity: T): Observable<any> {
 		this.trim(entity);
 		if (!this.queries.update) {
