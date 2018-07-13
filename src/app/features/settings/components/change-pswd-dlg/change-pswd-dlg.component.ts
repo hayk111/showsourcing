@@ -5,7 +5,7 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { AutoUnsub, RegexpApp } from '~utils';
+import { AutoUnsub } from '~utils';
 
 import { switchMap, takeUntil } from 'rxjs/operators';
 
@@ -34,8 +34,8 @@ export class ChangePswdDlgComponent extends AutoUnsub implements AfterViewInit, 
 	ngOnInit() {
 		this.group = this.fb.group({
 			currentPswd: ['', Validators.required],
-			newPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD_SPACE)]],
-			confirmPswd: ['', [Validators.required, Validators.pattern(RegexpApp.PASSWORD_SPACE)]],
+			newPswd: ['', Validators.required],
+			confirmPswd: ['', Validators.required],
 		}, { validator: PasswordValidator });
 		// Uncomment when the service is implemented
 		// this.isCurrentPswd$ = this.onBlur$
