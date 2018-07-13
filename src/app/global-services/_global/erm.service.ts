@@ -8,6 +8,8 @@ import { ProjectService } from '~global-services/project/project.service';
 import { ImageService } from '~global-services/image/image.service';
 import { Injectable } from '@angular/core';
 import { EventService } from '~global-services/event/event.service';
+import { SupplierStatusService } from '~global-services/supplier-status/supplier-status.service';
+import { ProductStatusService } from '~global-services/product-status/product-status.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -18,7 +20,9 @@ export class ERMService {
 		private categoryService: CategoryService,
 		private tagService: TagService,
 		private supplierService: SupplierService,
+		private supplierStatusService: SupplierStatusService,
 		private productService: ProductService,
+		private productStatusService: ProductStatusService,
 		private projectService: ProjectService,
 		private imageService: ImageService,
 		private eventService: EventService) { }
@@ -39,6 +43,11 @@ export class ERMService {
 				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
+			case ERM.SUPPLIER_STATUS:
+				console.log('en supplier service status');
+				return this.supplierStatusService;
+			case ERM.PRODUCT_STATUS:
+				return this.productStatusService;
 			default:
 				throw Error(`This ERM has not an associated service`);
 		}

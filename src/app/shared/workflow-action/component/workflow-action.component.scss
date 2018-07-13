@@ -1,0 +1,41 @@
+context-menu-app {
+	.padding-divider {
+		padding: 8px 0px;
+	}
+	context-menu-trigger-app {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		background-color: var(--color-primary);
+		align-items: center;
+		height: 32px;
+		width: 140px;
+		border-radius: 4px;
+		.text {
+			text-transform: capitalize;
+			color: var(--color-primary-contrast);
+			font-weight: 600;
+		}
+		.selector {
+			icon-app {
+				display: inline;
+				color: var(--color-primary-contrast);
+			}
+		}
+	}
+
+	context-menu-item-app {
+		.status-item {
+			height: 25px;
+			border-radius: 4px;
+			color: var(--color-primary-contrast);
+			padding: 4px 8px;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+	}
+
+	.remove-workflow {
+		color: var(--color-warn);
+	}
+}

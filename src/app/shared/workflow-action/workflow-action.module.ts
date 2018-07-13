@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '~shared/shared.module';
-import { WorkflowActionComponent } from '~shared/workflow-action/workflow-action.component';
+import { WorkflowActionComponent } from '~shared/workflow-action/component/workflow-action.component';
 
 @NgModule({
 	imports: [
