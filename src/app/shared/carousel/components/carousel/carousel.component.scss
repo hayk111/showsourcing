@@ -63,11 +63,10 @@ menu {
 	height: 100%;
 	border-radius: var(--border-radius);
 	overflow: hidden;
-}
-
-img-app {
-	max-width: 100%;
-	max-height: 100%;
+	img-app {
+		min-width: 100%;
+		min-height: 100%;
+	}
 }
 
 .rotate {

@@ -1,6 +1,7 @@
 <div class="plusBtn square pointer flex flexCenter" (click)="plusClick.emit()">
 	<icon-app name="plus-square" fontSet="svg" class="pointer"></icon-app>
 </div>
+
 <img-app class="square pointer"
 	[ngClass]="{ 'pending': image.pending }"
 	*ngFor="let image of images; let i = index"
