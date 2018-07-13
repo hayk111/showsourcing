@@ -76,12 +76,10 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	onBlurSearch(event) {
-		console.log('>> onBlurSearch');
 		this.searchbarFocus = false;
 	}
 
 	onFocusSearch(event) {
-		console.log('>> onFocusSearch');
 		this.searchbarFocus = true;
 	}
 

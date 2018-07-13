@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable, zip, of } from 'rxjs';
 import { takeUntil, debounceTime, first, map } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { UserService, TeamService, ProductService, SupplierService } from '~global-services';
+import { UserService, TeamService, ProductService, SupplierService, SearchService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { User } from '~models/user.model';
 import { AutoUnsub } from '~utils';
@@ -27,10 +27,8 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	searchResults$: Observable<any[]>;
 
 	constructor(
-		private cdr: ChangeDetectorRef,
 		private authSrv: AuthenticationService,
-		private productSrv: ProductService,
-		private supplierSrv: SupplierService,
+		private searchSrv: SearchService,
 		private userSrv: UserService,
 		private teamPickerSrv: TeamPickerService) {
 		super();
@@ -49,25 +47,9 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 				return;
 			}
 
-			this.searchResults$ = zip(
-				this.productSrv.selectMany(
-					of(new SelectParams({ query: `name CONTAINS "${search}"` }))
-				).pipe(first()),
-				this.supplierSrv.selectMany(
-					of(new SelectParams({ query: `name CONTAINS "${search}"` }))
-				).pipe(first()),
-			).pipe(
-				map(results => {
-					const [ products, suppliers ] = results;
-					const elements = [];
-					elements.push(...products.map(product => Object.assign({}, product, { type: 'product' })));
-					elements.push(...suppliers.map(supplier => Object.assign({}, supplier, { type: 'supplier' })));
-					return elements;
-				})
-			);
+			this.searchResults$ = this.searchSrv.search(search);
 
 			this.searchAutocomplete.openAutocomplete();
-			this.cdr.detectChanges();
 		});
 	}
 

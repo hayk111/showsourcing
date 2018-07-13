@@ -14,3 +14,4 @@ export * from './image-upload-request/image-upload-request.service';
 export * from './file-upload-request/file-upload-request.service';
 export * from './invitation/invitation.service';
 export * from './user/user.service';
+export * from './search/search.service';
