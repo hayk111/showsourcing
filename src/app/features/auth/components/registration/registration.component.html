@@ -31,7 +31,6 @@
 		<label-app>Password</label-app>
 		<input #pw inputApp required="true" autocomplete="new-password" minlength="8" formControlName="password" type="password"
 			placeholder="Your password"/>
-		<error-app *ngIf="form.get('password').hasError('pattern')">No spaces allowed</error-app>
 		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
 	</form-field-app>
 
