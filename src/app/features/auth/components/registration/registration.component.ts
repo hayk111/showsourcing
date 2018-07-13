@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { AutoUnsub, RegexpApp } from '~utils';
+import { AutoUnsub } from '~utils';
 import { takeUntil, take, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -27,8 +27,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			lastName: ['', Validators.required],
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.compose([
-				Validators.required, Validators.minLength(8),
-				Validators.pattern(RegexpApp.PASSWORD_SPACE)
+				Validators.required, Validators.minLength(8)
 			])]
 		});
 	}
