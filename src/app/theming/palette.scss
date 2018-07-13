@@ -25,22 +25,32 @@
 	--color-success: #71e591;
 }
 
+
+/* Color classes */
+
 .color-success {
   color: var(--color-success);
-}
-
-.bg-success {
-	background: var(--color-success);
 }
 
 .color-primary {
 	color: var(--color-primary);
 }
 
-.color-primary-light {
+.color-primary-light{
 	color: var(--color-primary-light);
+}
+
+.color-primary-dark {
+	color: var(--color-primary-dark);
 }
 
 .color-warn {
 	color: var(--color-warn);
+}
+.color-txt-dark {
+	color: var(--color-txt);
+}
+
+.color-txt-light {
+	color: white;
 }
