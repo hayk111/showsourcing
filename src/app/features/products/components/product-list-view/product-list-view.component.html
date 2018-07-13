@@ -46,7 +46,7 @@ I added comment above each column to make it clearer -->
 			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
 		</div>
 		<div class="preview">
-			<button (click)="previewClick.emit(row)">Preview</button>
+			<button (click)="previewClick.emit(row)" class="ugly">Preview</button>
 		</div>
 	</div>
 	<div class="imgOverViewCtnrWrapper" #overview

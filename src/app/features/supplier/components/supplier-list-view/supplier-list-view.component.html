@@ -2,12 +2,12 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
-	class="z-2"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	[currentPage]="currentPage"
+	[perPage]="perPage"
 	(next)="next.emit()"
 	(previous)="previous.emit()"
 	(sort)="sort.emit($event)">

@@ -41,6 +41,7 @@ export class TableComponent implements AfterContentInit {
 	// whether the table can be paginated
 	@Input() hasPagination = true;
 	@Input() currentPage = 0;
+	@Input() perPage = 30;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();

@@ -7,7 +7,10 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 @Component({
 	selector: 'supplier-list-view-app',
 	templateUrl: './supplier-list-view.component.html',
-	styleUrls: ['./supplier-list-view.component.scss'],
+	styleUrls: [
+		'./supplier-list-view.component.scss',
+		'../../../../../app/theming/specific/list.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {

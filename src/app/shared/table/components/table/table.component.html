@@ -1,5 +1,5 @@
-<div class="ctnr">
-	<div class="contentCtnr">
+<div class="ctnr z-2">
+	<div class="contentCtnr" *ngIf="!pending">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
 			<div class="header"></div>
@@ -80,12 +80,12 @@
 </div>
 
 <!-- pagination -->
-<div class="flexBetween" *ngIf="hasPagination">
+<div class="flexBetween pagination" *ngIf="hasPagination">
 	<button *ngIf="currentPage !== 0; else spacer" (click)="previous.emit()" class="auto">previous</button>
 	<ng-template #spacer>
 		<span></span>
 	</ng-template>
-	<button (click)="next.emit()" class="auto">next</button>
+	<button *ngIf="rows.length >= perPage" (click)="next.emit()" class="auto">next</button>
 </div>
 
 

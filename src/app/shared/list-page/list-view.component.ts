@@ -9,6 +9,7 @@ export class ListViewComponent<T> {
 	@Input() rows: Array<T>;
 	/** current page for pagination */
 	@Input() currentPage: number;
+	@Input() perPage: number;
 	/** whether it's loading */
 	@Input() pending = true;
 	@Output() select = new EventEmitter<string>();

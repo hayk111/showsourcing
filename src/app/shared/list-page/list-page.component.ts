@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap, map, switchMap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
@@ -25,8 +25,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	items: Array<T> = [];
 	/** Whether the items are pending */
 	pending = true;
-	/** when the items are loaded for the first time */
-	initialLoading = true;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	/** current view */
@@ -66,15 +64,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	protected setItems() {
-		this.items$ = this.featureSrv.selectMany(this.selectParams$)
-			.pipe(
-				takeUntil(this._destroy$),
-				// when loaded the pending status needs to be false
-				tap(() => this.onLoaded())
-			);
-		this.selectParams$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(params => this.currentParams = params);
+		this.items$ = this.selectParams$.pipe(
+			tap(params => this.currentParams = params),
+			takeUntil(this._destroy$),
+			tap(_ => this.onLoad()),
+			switchMap(param$ => this.featureSrv.selectMany(this.selectParams$)),
+			tap(() => this.onLoaded())
+		);
 	}
 
 	protected setSelection() {
@@ -90,11 +86,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		}
 	}
 
+	protected onLoad() {
+		this.pending = true;
+	}
+
 	protected onLoaded() {
-		if (this.initialLoading) {
-			this.pending = false;
-			this.initialLoading = false;
-		}
+		this.pending = false;
 	}
 
 	search(str: string) {
