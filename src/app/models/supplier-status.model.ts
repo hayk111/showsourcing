@@ -5,5 +5,6 @@ export interface SupplierStatus {
 	name?: string;
 	final?: boolean;
 	color?: string;
+	contrastColor?: string;
 	step?: number;
 }

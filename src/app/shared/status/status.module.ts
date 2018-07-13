@@ -4,11 +4,16 @@ import { StatusSelectorBadgeComponent } from './components/status-selector-badge
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
 import { SupplierStatusIconComponent } from '~shared/status/components/supplier-status-icon/supplier-status-icon.component';
+import { StatusLabelComponent } from './components/status-label/status-label.component';
 
 @NgModule({
 	imports: [CommonModule, IconsModule, UtilsModule],
-	declarations: [StatusSelectorBadgeComponent, SupplierStatusIconComponent],
-	exports: [StatusSelectorBadgeComponent, SupplierStatusIconComponent],
+	declarations: [
+		StatusSelectorBadgeComponent,
+		SupplierStatusIconComponent,
+		StatusLabelComponent
+	],
+	exports: [StatusSelectorBadgeComponent, SupplierStatusIconComponent, StatusLabelComponent],
 	providers: []
 })
 export class StatusModule {

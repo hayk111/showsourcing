@@ -11,9 +11,7 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
-
 	constructor() {
 		super();
 	}
-
 }

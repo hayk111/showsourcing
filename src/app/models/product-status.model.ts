@@ -4,5 +4,6 @@ export interface ProductStatus {
 	name?: string;
 	final?: boolean;
 	color?: string;
+	contrastColor?: string;
 	step?: number;
 }

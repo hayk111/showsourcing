@@ -17,11 +17,14 @@
 		sortBy="name"
 		let-row="row"
 		width="280">
-		<div class="supplier">
+		<div class="supplier flexBetween"
+			(mouseenter)="preview.style.display = 'block'"
+			(mouseleave)="preview.style.display = 'none'">
 			<a class="capitalize ellipsis txtBtn" [routerLink]="['/supplier', 'details', row.id]">
 				<img src="assets/icons/supplier.svg" class="supplierIcon"/>
 				<span>{{ row.name }}</span>
 			</a>
+			<button #preview class="ugly" (click)="previewClick.emit(row)">preview</button>
 		</div>
 	</ng-template>
 

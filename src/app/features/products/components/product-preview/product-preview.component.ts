@@ -32,8 +32,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'price', type: 'price' },
 		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{
-			name: 'createdBy', label: 'Assignee', type: 'selector',
-			metadata: { target: 'user', type: 'entity', labelName: 'name' }
+			name: 'createdBy', label: 'Assignee', type: 'selector', metadata:
+				{ target: 'user', type: 'entity', labelName: 'name' }
 		},
 		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
