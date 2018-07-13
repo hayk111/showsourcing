@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { User } from '~models';
-import { first } from '../../../../../node_modules/rxjs/operators';
-import { Observable } from '../../../../../node_modules/apollo-link';
+import { first } from 'rxjs/operators';
 
 @Injectable()
 export class SettingsProfileService {

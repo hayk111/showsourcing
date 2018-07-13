@@ -14,6 +14,7 @@ import { EventManagementService } from '~features/data-management/services/event
 import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
 import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent }
 		TopPanelModule,
 		TableModule,
 		RouterModule.forChild([]),
-		SideMenuModule
+		SideMenuModule,
+		WorkflowActionModule
 	],
 	declarations: [DataManagementPageComponent, DataMananagementTableComponent, CategoryDataManagementPageComponent,
 		EventDataManagementPageComponent,

@@ -18,12 +18,12 @@
 
 
 	<form [formGroup]="form">
-		<form-field-app [paddingBottom]="true">
+		<form-field-app class="borderless">
 			<label-app>Project Name</label-app>
 			<input class="borderless" inputApp type="text" formControlName="name"/>
 		</form-field-app>
 
-		<form-field-app [paddingBottom]="true">
+		<form-field-app class="borderless">
 			<label-app>Description</label-app>
 			<textarea inputApp rows="1" formControlName="description" class="borderless"></textarea>
 		</form-field-app>

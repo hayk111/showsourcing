@@ -17,13 +17,27 @@ input, textarea {
 	&:focus {
 		border: 1px solid var(--color-primary);
 	}
-	&.borderless {
+}
+
+
+form-field-app.borderless {
+	padding-bottom: 0px;
+	padding-top: 16px;
+	box-sizing: border-box;
+	label-app {
+		font-size: var(--font-size-s);
+		height: 14px;
+		margin-bottom: 3px;
+	}
+	input, textarea {
+		box-sizing: border-box;
+		height: 25px;
 		padding: 0;
 		background: transparent;
 		border-radius: 0;
 		border: none;
 		border-bottom: 1px solid #e6ebf5;
-		padding-bottom: 8px;
+		padding-bottom: 7px;
 		&:not(.ng-pristine).ng-invalid {
 			border-bottom: 1px solid var(--color-warn);
 		}
