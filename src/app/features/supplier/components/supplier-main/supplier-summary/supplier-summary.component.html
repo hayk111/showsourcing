@@ -40,16 +40,9 @@
 			<span class="title" i18n="span|Supplier status information summary section@@supplierSummary_status">STATUS</span>
 			<span class="padding-top">
 				<workflow-action-app
-					[xPosition]="after"
+					[xPosition]="'after'"
 					[entity]="supplier"
 					[typeEntity]="erm"></workflow-action-app>
 			</span>
-			<!-- <span class="content">
-				<status-selector-badge-app
-					(update)="onStatusChange($event)"
-					type="supplier"
-					[status]="supplier.status">
-				</status-selector-badge-app>
-			</span> -->
 		</div>
 	</div>
