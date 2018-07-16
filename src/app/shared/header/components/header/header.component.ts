@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, zip, of } from 'rxjs';
-import { takeUntil, debounceTime, first, map } from 'rxjs/operators';
+import { takeUntil, debounceTime, first, map, tap, filter, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { UserService, TeamService, ProductService, SupplierService, SearchService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -39,18 +39,13 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 		this.user$ = this.userSrv.selectUser();
 		this.team$ = this.teamPickerSrv.selectedTeam$;
 
-		this.searchControl.valueChanges.pipe(
+		this.searchResults$ = this.searchControl.valueChanges.pipe(
 			takeUntil(this._destroy$),
-			debounceTime(500)
-		).subscribe(search => {
-			if (!search) {
-				return;
-			}
-
-			this.searchResults$ = this.searchSrv.search(search);
-
-			this.searchAutocomplete.openAutocomplete();
-		});
+			debounceTime(500),
+			filter(search => search),
+			switchMap(search => this.searchSrv.search(search)),
+			tap(() => this.searchAutocomplete.openAutocomplete())
+		);
 	}
 
 	logout() {
