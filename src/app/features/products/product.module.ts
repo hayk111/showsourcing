@@ -29,7 +29,7 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	SupplierCardComponent,
+	SupplierCardComponent
 } from './components';
 import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
 import {
@@ -43,6 +43,7 @@ import {
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from './components/product-navigation/product-navigation.component';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ProductNavigationComponent } from './components/product-navigation/prod
 		BadgeModule,
 		CommentModule.forChild(),
 		TopPanelModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
+		WorkflowActionModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

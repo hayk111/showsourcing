@@ -1,9 +1,29 @@
 :host {
-  font-size: 11px;
-	font-weight: bold;
-	text-transform: uppercase;
-	padding: 2px  var(--spacing-ms);
-	min-width: 72px;
-	border-radius: var(--border-radius-s);
-	cursor: default;
+	&.small {
+
+		font-size: var(--font-size-s);
+		font-weight: bold;
+		text-transform: uppercase;
+		padding: 2px  var(--spacing-ms);
+		min-width: 72px;
+		border-radius: var(--border-radius-s);
+	}
+
+	&.medium {
+		height: 25px;
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-s);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	&.large {
+		height: 25px;
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-s);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
 }

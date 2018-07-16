@@ -12,20 +12,33 @@
 	(hovered)="onHover($event)">
 
 	<!-- Name Category -->
-	<ng-template
+	<ng-template *ngIf="ermEvent !== entityMetadata"
 		columnApp="Name"
 		let-row="row"
 		width="250">
 		<div class="flexBetween">
-			<div> {{ entityMetadata == ermEvent ? row.alias : row.name}} </div>
+			<div> {{ row.name }} </div>
+			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
+		</div>
+	</ng-template>
+
+	<!-- Name Event -->
+	<ng-template *ngIf="ermEvent === entityMetadata"
+		columnApp="Name"
+		let-row="row"
+		width="250"
+		sortBy="description.name">
+		<div class="flexBetween">
+			<div> {{ row.description.name }} </div>
 			<button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button ugly" (click)="renameEntity.emit(row)">Rename</button>
 		</div>
 	</ng-template>
 
 	<!-- Created By -->
-	<ng-template *ngIf="ermEvent != entityMetadata"
+	<ng-template *ngIf="ermEvent !== entityMetadata"
 		columnApp="Created By"
 		let-row="row"
+		sortBy="createdBy.firstName"
 		width="140">
 		<span class="center">
 			{{ row.createdBy ? row.createdBy.firstName : '' }} {{ row.createdBy ? row.createdBy.lastName : '' }}
@@ -33,27 +46,30 @@
 	</ng-template>
 
 	<!-- Products Count -->
-	<ng-template *ngIf="ermCategory == entityMetadata || ermTag == entityMetadata"
+	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		columnApp="Products Count"
 		let-row="row"
+		sortBy="productsCount"
 		width="140">
 		<span>
 		</span>
 	</ng-template>
 
 	<!-- Supplier Count -->
-	<ng-template *ngIf="ermCategory == entityMetadata || ermTag == entityMetadata"
+	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		columnApp="Suppliers Count"
 		let-row="row"
+		sortBy="suppliersCount"
 		width="140">
 		<span>
 		</span>
 	</ng-template>
 
 	<!-- Start Date (Event only) -->
-	<ng-template *ngIf="ermEvent == entityMetadata"
+	<ng-template *ngIf="ermEvent === entityMetadata"
 		columnApp="Start Date"
 		let-row="row"
+		sortBy="description.startDate"
 		width="140">
 		<span>
 			{{row.description.startDate | date: 'MMMM d, y'}}
@@ -61,9 +77,10 @@
 	</ng-template>
 
 	<!-- End Date (Event only) -->
-	<ng-template *ngIf="ermEvent == entityMetadata"
-		columnApp="Start Date"
+	<ng-template *ngIf="ermEvent === entityMetadata"
+		columnApp="End Date"
 		let-row="row"
+		sortBy="description.endDate"
 		width="140">
 		<span>
 			{{row.description.endDate | date: 'MMMM d, y'}}

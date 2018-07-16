@@ -11,8 +11,8 @@
 
 	<ng-container *ngIf="product$ | async as product">
 		<!-- actions -->
-		<div class="actions flexBetween">
-			<div class="flexVAlign">
+		<div class=" flexBetween">
+			<div class="flexVAlign actions">
 				<rating-heart-app class="icon"
 				(favorited)="updateProduct({ favorite: true })"
 				(unfavorited)="updateProduct({ favorite: false })"
@@ -23,7 +23,11 @@
 					{{ product.score !== null ? (product.score + '%') : '' }}
 				</span>
 			</div>
-			<button>Placeholder</button>
+			<workflow-action-app
+				[xPosition]="-100"
+				[entity]="product"
+				[typeEntity]="erm">
+			</workflow-action-app>
 		</div>
 		<divider-app></divider-app>
 

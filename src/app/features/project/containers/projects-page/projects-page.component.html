@@ -3,15 +3,14 @@
 	[title]="'My Projects'"
 	[buttonName]="'Add Project'"
 	[subtitles]="['Projects', 'all']"
-	[hasAction]="false">
+	buttonName="Add Project"
+	(buttonClick)="openCreateDlg(true)">
 </top-panel-app>
 
 <sub-panel-app
-	buttonName="Add Project"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[buttonIcon]="false"
-	(buttonClick)="openCreateDlg(true)"
 	(search)="search($event)">
 </sub-panel-app>
 

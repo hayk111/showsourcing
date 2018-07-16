@@ -43,7 +43,7 @@ export class ProductQueries implements GlobalQuery {
 			},
 			favorite,
 			status {
-				id, name, color
+				id, name, color, contrastColor, step
 			},
 			tags {
 				id, name

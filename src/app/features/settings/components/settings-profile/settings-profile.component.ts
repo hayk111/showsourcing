@@ -7,6 +7,7 @@ import { DialogService } from '~shared/dialog';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first, switchMap, map } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-profile-app',
@@ -14,7 +15,7 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 	styleUrls: ['./settings-profile.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsProfileComponent implements OnInit {
+export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 
 	user$: Observable<User>;
 	userId: string;
@@ -24,6 +25,7 @@ export class SettingsProfileComponent implements OnInit {
 		private profileSrv: SettingsProfileService,
 		private dlgSrv: DialogService) {
 		// private company: CompanyService) { // Uncomment when Company realm is out
+		super();
 	}
 
 	ngOnInit() {
@@ -34,7 +36,7 @@ export class SettingsProfileComponent implements OnInit {
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.profileSrv.updateUser(user);
+		this.profileSrv.updateUser(user).subscribe();
 	}
 
 	addFile(file: File) {

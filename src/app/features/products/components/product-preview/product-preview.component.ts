@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, ProductConfig } from '~models';
+import { Product, ProductConfig, ERM } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -21,6 +21,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
+	erm = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor

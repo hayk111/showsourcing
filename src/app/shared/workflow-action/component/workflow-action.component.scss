@@ -1,0 +1,24 @@
+context-menu-app {
+	.padding-divider {
+		padding: var(--spacing-s) 0px;
+	}
+	context-menu-trigger-app {
+		padding-left: 4px;
+		padding-right: 1px;
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		height: 32px;
+		min-width: 112px;
+		border-radius: var(--border-radius);
+		.text {
+			text-transform: capitalize;
+			font-weight: 600;
+		}
+	}
+
+	.remove-workflow {
+		color: var(--color-warn);
+	}
+}

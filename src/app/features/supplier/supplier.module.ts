@@ -27,7 +27,8 @@ import { SupplierFeatureService } from './services/supplier-feature.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { PanelModule } from '~shared/panel/panel.module';
-import { SupplierPreviewComponent } from '~features/supplier/containers/supplier-preview/supplier-preview.component';
+import { SupplierPreviewComponent } from './containers/supplier-preview/supplier-preview.component';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 
 
 @NgModule({
@@ -44,8 +45,9 @@ import { SupplierPreviewComponent } from '~features/supplier/containers/supplier
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		TagModule,
-		RatingModule, // used for hearth
-		PanelModule
+		RatingModule, // used for heart
+		PanelModule,
+		WorkflowActionModule
 	],
 	declarations: [
 		SupplierDetailsComponent,

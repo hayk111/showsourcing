@@ -3,7 +3,7 @@
 	<ng-content select="context-menu-trigger-app"></ng-content>
 </div>
 <!-- the menu card -->
-<div class="menu z-4 flexColumn"  *ngIf="menuOpen" (clickOutside)="closeMenu()"
+<div class="menu z-4 flexColumn ellipsis"  *ngIf="menuOpen" (clickOutside)="closeMenu()" (click)="closeMenu()"
 	[ngStyle]="{ 'left': xPosition + 'px', 'top': + yPosition + 'px' }">
 	<ng-content></ng-content>
 </div>

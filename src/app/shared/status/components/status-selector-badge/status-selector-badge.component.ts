@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	templateUrl: './status-selector-badge.component.html',
 	styleUrls: ['./status-selector-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [StatusSelectorService]
+	providers: [StatusSelectorService],
 })
 export class StatusSelectorBadgeComponent implements OnInit {
 	@Input() status: SupplierStatus;

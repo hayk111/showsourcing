@@ -1,19 +1,20 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, AfterContentInit } from '@angular/core';
 import { ProductStatus, SupplierStatus } from '~models';
-import { Subject, ReplaySubject } from '../../../../../../node_modules/rxjs';
-import { takeUntil } from '../../../../../../node_modules/rxjs/operators';
-import { AutoUnsub } from '~utils';
-
 @Component({
 	selector: 'status-label-app',
 	templateUrl: './status-label.component.html',
 	styleUrls: ['./status-label.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flexCenter'
+		'[class.flexCenter]': 'labelSize === "s" || labelSize === "small"',
+		'[class.small]': 'labelSize === "s" || labelSize === "small"',
+		'[class.medium]': 'labelSize === "m" || labelSize === "medium"',
+		'[class.large]': 'labelSize === "l" || labelSize === "large"'
 	}
 })
 export class StatusLabelComponent implements AfterContentInit {
+
+	@Input() labelSize = 's';
 	@Input() set status(status: ProductStatus | SupplierStatus) {
 		this._status = status;
 		this.setStyle(status);
@@ -22,7 +23,6 @@ export class StatusLabelComponent implements AfterContentInit {
 		return this._status;
 	}
 	private _status;
-	private _status$ = new ReplaySubject<any>(1);
 
 	constructor(private renderer: Renderer2, private el: ElementRef) {
 	}
@@ -36,7 +36,7 @@ export class StatusLabelComponent implements AfterContentInit {
 		if (!this.el.nativeElement || !status)
 			return; // not defined before ngAfterViewInit
 		this.renderer.setStyle(this.el.nativeElement, 'background', status.color);
-		this.renderer.setStyle(this.el.nativeElement, 'color', this.status.contrastColor === 'light' ? '#FFF' : '#555');
+		this.renderer.addClass(this.el.nativeElement, 'color-txt-' + this.status.contrastColor);
 	}
 
 }

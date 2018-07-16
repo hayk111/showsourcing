@@ -1,0 +1,21 @@
+<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status">
+
+	<context-menu-trigger-app class="flex pointer" [style.background-color]="entity.status.color">
+		<span class="text color-txt-{{entity.status.contrastColor}}">{{entity.status.step || ''}} {{entity.status.name}}</span>
+		<div class="selector color-txt-{{entity.status.contrastColor}}"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+	</context-menu-trigger-app>
+
+	<context-menu-item-app *ngFor="let stat of (status$ | async)">
+		<status-label-app [status]="stat" labelSize="m" (click)="updateStatus(stat)"></status-label-app>
+	</context-menu-item-app>
+
+	<div class="padding-divider">
+		<context-menu-divider-app></context-menu-divider-app>
+	</div>
+
+	<context-menu-item-app class="remove-workflow">
+		<span>Remove from Workflow</span>
+	</context-menu-item-app>
+
+</context-menu-app>
+<ng-content></ng-content>

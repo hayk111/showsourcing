@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { Supplier } from '~models';
+import { Supplier, ERM } from '~models';
 
 
 @Component({
@@ -14,11 +14,11 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() taskCount: number;
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<Supplier>();
+	erm = ERM.SUPPLIER;
 
 	constructor() { }
 
 	ngOnInit() {
-
 	}
 
 	onStatusChange(statusId: string) {
