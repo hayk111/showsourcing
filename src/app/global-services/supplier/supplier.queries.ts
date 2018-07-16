@@ -20,7 +20,9 @@ export class SupplierQueries implements GlobalQuery {
 				phoneNumber,
 				country,
 				address,
-				supplierType,
+				supplierType {
+					id, name
+				},
 				officeEmail,
 				officePhone,
 				incoTerm,
@@ -107,7 +109,7 @@ export class SupplierQueries implements GlobalQuery {
 	`;
 
 	update = gql`
-		mutation updateSupplier($input: SupplierInput!) {
+		mutation updateSupplier($input: Supplier!) {
 			updateSupplier(input: $input) {
 				id,
 				favorite
