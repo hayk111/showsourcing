@@ -130,7 +130,7 @@ export class ApolloWrapper {
 			);
 		}
 
-		this.addOptimisticResponse(options);
+		this.addOptimisticResponse(apolloOptions, options);
 		return this.apollo.mutate<T>(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -236,8 +236,8 @@ export class ApolloWrapper {
 	}
 
 	/** creates an optimistic response the way apollo expects it */
-	private addOptimisticResponse(options: UpdateOptions) {
-		(options as any).optimisticResponse = {
+	private addOptimisticResponse(apolloOptions: any, options: UpdateOptions) {
+		apolloOptions.optimisticResponse = {
 			__typename: 'Mutation',
 			[this.getQueryName(options)]: {
 				...options.input,

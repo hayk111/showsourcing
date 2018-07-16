@@ -107,7 +107,7 @@ export class SupplierQueries implements GlobalQuery {
 	`;
 
 	update = gql`
-		mutation supplier($input: SupplierInput!) {
+		mutation updateSupplier($input: SupplierInput!) {
 			updateSupplier(input: $input) {
 				id
 			}

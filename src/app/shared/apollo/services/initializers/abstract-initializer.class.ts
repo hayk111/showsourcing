@@ -11,6 +11,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { GLOBAL_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
+import { environment } from 'environments/environment.prod';
 
 export abstract class AbstractInitializer {
 	protected clients = new Map();
@@ -83,14 +84,15 @@ export abstract class AbstractInitializer {
 		);
 
 		const link = from([
-			cleanTypenameLink,
+			// cleanTypenameLink,
 			transportLink
 		]);
 
 		this.apollo.create({
 			link,
-			connectToDevTools: true,
-			cache: new InMemoryCache({})
+			connectToDevTools: !environment.production,
+			cache: new InMemoryCache(),
+			queryDeduplication: true
 		}, name);
 
 		// saving the client so we can clear it when logging out

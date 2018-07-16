@@ -3,6 +3,11 @@
 .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
 	display: none;
 }
+
+.ng-select.ng-select-single .ng-select-container, .ng-select.ng-select-multiple .ng-select-container {
+	height: 33px;
+}
+
 .ng-select  {
 	border: 0px;
 	border-radius: 0;
