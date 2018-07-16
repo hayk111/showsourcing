@@ -90,8 +90,8 @@ user-picture-app {
 // TODO: this should use the contextual menu
 menu {
 	left: 10px;
-	border: solid 1px var(--color-bg-third);
-	background-color: var(--color-primary-light);
+	border: solid 1px var(--color-secondary-light);
+	background-color: var(--color-secondary);
 	width: 150px;
 	z-index: 10;
 }

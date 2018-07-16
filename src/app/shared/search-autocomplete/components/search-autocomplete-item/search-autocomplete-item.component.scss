@@ -2,11 +2,11 @@
 	display: block;
 	padding: 4px 10px;
 	white-space: nowrap;
-	border-bottom: 1px solid var(--color-primary-light);
+	border-bottom: 1px solid var(--color-secondary);
 	&:hover {
-		background: var(--color-bg-third);
+		background: var(--color-secondary-light);
 	}
 	&.selected {
-		background: var(--color-bg-third);
+		background: var(--color-secondary-light);
 	}
 }

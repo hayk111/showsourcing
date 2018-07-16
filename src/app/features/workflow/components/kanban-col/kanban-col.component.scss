@@ -16,7 +16,7 @@ header {
 }
 
 main {
-	background: var(--color-bg-secondary);
+	background: var(--color-secondary-light);
 	padding-top: var(--spacing-m);
 	height: 100%;
 	min-height: 136px;
@@ -41,7 +41,7 @@ main {
 	height: 16px;
 	width: 16px;
 	border-radius: 50%;
-	background: var(--color-bg-third);
+	background: var(--color-secondary-light);
 	transform: rotate(26deg);
 	line-height: 1;
 }

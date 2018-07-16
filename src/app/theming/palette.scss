@@ -1,54 +1,28 @@
-// variable are declared with sass so we can reuse those with
-// so we don't have to change those twice with angular material
 
 :root{
 	--color-primary: #41AFFF;
-	--color-primary-contrast: #fff;
-	--color-primary-light: #E6EBF5;
-	--color-primary-light-contrast: #4A4A4A;
-	--color-primary-dark: #5D6D8B;
-	--color-primary-dark-contrast: #fff;
+	--color-primary-contrast: white;
+	--color-primary-light: #6bbeff;;
+	--color-primary-dark: #2e88cf;
+
+	--color-secondary-light: #f9fafc;
+	--color-secondary: #E6EBF5;
+	--color-secondary-dark: #a3afc6;
 
 
-	--color-txt-primary: var(--color-primary-dark);
+	--color-txt-primary: #5D6D8B;
 	--color-txt-secondary: #A3AFC6;
 	--color-txt-third: #e0e0e0;
 	--color-txt-strong: #182844;
-	--color-divider:  var(--color-primary-light);
+	--color-divider:  #E6EBF5;
 
   --color-bg: #fff;
-	--color-bg-secondary: #f4f5f9;
-	--color-bg-third: #F9FAFC;
-
-	--color-secondary: rgba(205,205,205,0.5);
-	--color-secondary-contrast: #4A4A4A;
-	// --color-secondary-light: ;
-	// --color-secondary-dark: ;
 
 	--color-warn: #ec495d;
-	--color-warn-hover: #f94259;
-	--color-warn-active: #ca263a;
+	--color-warn-light: #f94259;
+	--color-warn-dark: #ca263a;
+
 	--color-success: #71e591;
-
-	// used
-  --color-white: #fff;
-
-	// those variable are not conform with the rest to adapt to response from server the
-	// serveur which is in PascalCasing. So we can have dynamic styling.
-	--color-New: var(--color-txt-secondary);
-	--color-New-contrast: white;
-	--color-Idea:  var(--color-primary-light);
-	--color-Idea-contrast: var(--color-primary-dark);
-	--color-NeedReview: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
-	--color-NeedReview-contrast: white;
-	--color-Refused: linear-gradient(-270deg, #FF587A 0%, #F94259 100%);
-	--color-Refused-contrast: white;
-	--color-Validated: var(--color-success);
-	--color-Validated-contrast: white;
-	--color-Complete:  linear-gradient(-90deg, #39CE63 2%, #4DD373 96%);
-	--color-Complete-contrast: white;
-	--color-UnderAssessment: linear-gradient(-270deg, #FFBB37 0%, #FFA900 97%);
-	--color-UnderAssessment-contrast: white;
 }
 
 .color-success {
@@ -69,23 +43,4 @@
 
 .color-warn {
 	color: var(--color-warn);
-}
-
-.bg-primary {
-	background: var(--color-primary);
-}
-
-.bg-primary-light {
-	background: var(--color-primary-light);
-}
-
-.bg-primary-dark {
-	background: var(--color-primary-dark);
-}
-.bg-txt-secondary {
-	background: var(--color-txt-secondary);
-}
-
-.bg-default {
-	background: var(--color-bg);
 }

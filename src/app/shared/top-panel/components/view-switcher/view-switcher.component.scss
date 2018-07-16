@@ -1,5 +1,5 @@
 .selected {
-    // background: var(--color-primary-dark);
+    // background: var(--color-txt-primary);
     color: white;
     >[class^="icon-"],
     [class*=" icon-"] {
@@ -11,7 +11,7 @@
 
 :host {
     border-radius: 2px;
-    background: var(--color-primary-light);
+    background: var(--color-secondary);
     position: relative;
 }
 
@@ -46,7 +46,7 @@ button {
 }
 
 .slider {
-    background: var(--color-primary-dark);
+    background: var(--color-txt-primary);
     height: 40px;
     border-radius: 2px;
     position: absolute;

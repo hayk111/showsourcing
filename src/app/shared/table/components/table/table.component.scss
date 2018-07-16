@@ -7,7 +7,7 @@
 
 .ctnr {
 	background: var(--color-bg);
-	border: 1px solid  var(--color-primary-light);
+	border: 1px solid  var(--color-secondary);
 	box-sizing: border-box;
 	overflow: auto;
 	height: calc(100% - 60px);
@@ -23,7 +23,7 @@
 
 .cell, .header {
 	padding: 0 var(--spacing-m);
-	border-bottom: 1px solid  var(--color-primary-light);
+	border-bottom: 1px solid  var(--color-secondary);
 	height: 48px;
 	display: flex;
 	align-items: center;
@@ -32,7 +32,7 @@
 
 .cell {
 	&.selected {
-		background-color: var(--color-bg-third);
+		background-color: var(--color-secondary-light);
 		color: var(--color-text-primary);
 	}
 
@@ -44,7 +44,7 @@
 }
 
 .header {
-	background: var(--color-bg-third);
+	background: var(--color-secondary-light);
 	text-transform: uppercase;
 	font-weight: 600;
 }
@@ -95,7 +95,7 @@
 }
 
 .dotSeparator:hover {
-	color: var(--color-primary-dark);
+	color: var(--color-txt-primary);
 }
 
 .dotSeparator:after {

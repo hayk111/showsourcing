@@ -90,7 +90,7 @@ export abstract class AbstractApolloInitializer {
 		]);
 
 		this.apollo.create({
-			link: ws,
+			link,
 			connectToDevTools: !environment.production,
 			cache: new InMemoryCache({
 				dataIdFromObject: (object: any) => object.id || null

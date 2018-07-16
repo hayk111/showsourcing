@@ -3,14 +3,14 @@
 	display: block;
 	.content {
 		font-size: var(--font-size-m);
-		color: var(--color-primary-dark);
+		color: var(--color-txt-primary);
 		align-items: center;
 	}
 
 	.labelCtnr {
 		font-weight: bold;
 		font-size: var(--font-size-s);
-		color: var(--color-primary-dark);
+		color: var(--color-txt-primary);
 		text-transform: capitalize;
 		display: block;
 	}
@@ -32,7 +32,7 @@
 		}
 
 		&.isOpen {
-			border-bottom: 1px solid var(--color-primary-light);
+			border-bottom: 1px solid var(--color-secondary);
 		}
 		&.isClosed {
 			.content {
@@ -59,7 +59,7 @@
 		display: flex;
 		justify-content: space-between;
 		// we always display the border on single line
-		border-bottom: 1px solid var(--color-primary-light);
+		border-bottom: 1px solid var(--color-secondary);
 
 		&.cannotGrow {
 			height: 33px;

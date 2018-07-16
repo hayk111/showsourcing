@@ -1,8 +1,8 @@
 .sidemenu {
     width: 72px;
     height: 100%;
-    background-color: var(--color-bg-third);
-    border-right: solid 1px var(--color-primary-light);
+    background-color: var(--color-secondary-light);
+    border-right: solid 1px var(--color-secondary);
     &.expanded {
         width: 260px;
 
