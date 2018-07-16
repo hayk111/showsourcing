@@ -15,6 +15,8 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
 	@Input() entity: Supplier | Product;
+	@Input() xPosition = 16;
+	@Input() yPosition = 30;
 	status$: Observable<SupplierStatus[] | ProductStatus[]>;
 
 	constructor(
@@ -27,9 +29,7 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 		this.status$ = this.workflowSrv.getTableStatus(this.typeEntity);
 	}
 	updateStatus(status) {
-		const tempEntity = this.entity;
-		tempEntity.status = status;
-		this.workflowSrv.updateStatus(tempEntity, this.typeEntity).subscribe();
+		this.workflowSrv.updateStatus({ id: this.entity.id, status }, this.typeEntity).subscribe();
 	}
 
 }

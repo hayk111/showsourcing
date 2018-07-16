@@ -1,8 +1,8 @@
-<context-menu-app xPosition="after" yPosition="30" class="menu-status">
+<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status">
 
 	<context-menu-trigger-app class="flex pointer" [style.background-color]="entity.status.color">
-		<span class="text color-txt-{{entity.status.contrastColor}}">{{entity.status.name}}</span>
-		<div class="selector" [style.background-color]="entity.status.contrastColor"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+		<span class="text color-txt-{{entity.status.contrastColor}}">{{entity.status.step || ''}} {{entity.status.name}}</span>
+		<div class="selector color-txt-{{entity.status.contrastColor}}"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 	</context-menu-trigger-app>
 
 	<context-menu-item-app *ngFor="let stat of (status$ | async)">

@@ -3,7 +3,8 @@ context-menu-app {
 		padding: var(--spacing-s) 0px;
 	}
 	context-menu-trigger-app {
-		padding: 0px 5px;
+		padding-left: 4px;
+		padding-right: 1px;
 		width: 100%;
 		display: flex;
 		justify-content: space-around;

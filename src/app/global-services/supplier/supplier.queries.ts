@@ -45,7 +45,8 @@ export class SupplierQueries implements GlobalQuery {
 					id,
 					name,
 					color,
-					contrastColor
+					contrastColor,
+					step
 				}
 				categories {
 					id,
