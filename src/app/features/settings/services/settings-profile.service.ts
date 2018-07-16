@@ -3,6 +3,7 @@ import { UserService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { User } from '~models';
 import { first } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Injectable()
 export class SettingsProfileService {
@@ -16,7 +17,7 @@ export class SettingsProfileService {
 	}
 
 	updateUser(user: User) {
-		this.userSrv.update(user).pipe(first()).subscribe();
+		return this.userSrv.update(user);
 	}
 
 	addFile(file: File) {

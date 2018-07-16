@@ -44,12 +44,22 @@ export class ERMService {
 			case ERM.EVENT:
 				return this.eventService;
 			case ERM.SUPPLIER_STATUS:
-				console.log('en supplier service status');
 				return this.supplierStatusService;
 			case ERM.PRODUCT_STATUS:
 				return this.productStatusService;
 			default:
 				throw Error(`This ERM has not an associated service`);
+		}
+	}
+
+	getStatusService(erm: EntityMetadata): GlobalService<any> {
+		switch (erm) {
+			case ERM.PRODUCT:
+				return this.productStatusService;
+			case ERM.SUPPLIER:
+				return this.supplierStatusService;
+			default:
+				throw Error(`This ERM has not an associated status service`);
 		}
 	}
 }

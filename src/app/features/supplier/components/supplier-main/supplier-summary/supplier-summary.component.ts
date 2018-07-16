@@ -14,12 +14,11 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() taskCount: number;
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<Supplier>();
-	erm = ERM.SUPPLIER_STATUS;
+	erm = ERM.SUPPLIER;
 
 	constructor() { }
 
 	ngOnInit() {
-
 	}
 
 	onStatusChange(statusId: string) {

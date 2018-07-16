@@ -37,6 +37,7 @@ export class SupplierQueries implements GlobalQuery {
 					fileName
 				},
 				createdBy {
+					id,
 					lastName,
 					firstName
 				},
@@ -55,6 +56,7 @@ export class SupplierQueries implements GlobalQuery {
 					name
 				},
 				images {
+					id,
 					fileName,
 					orientation
 				},
@@ -92,6 +94,7 @@ export class SupplierQueries implements GlobalQuery {
 				},
 				creationDate,
 				createdBy {
+					id,
 					firstName,
 					lastName
 				}
