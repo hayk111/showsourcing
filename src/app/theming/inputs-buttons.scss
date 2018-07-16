@@ -69,9 +69,11 @@ button, input[type="submit"], .button {
 	font-family: inherit;
 	white-space: nowrap;
 	text-align: center;
+	transition: background 0.3s;
 	&:hover {
-		background: #2e88cf;
+		background: var(--color-primary-dark);
 	}
+
 	&.auto {
 		padding: 0px  var(--spacing-ms);
 		width: auto;
@@ -81,6 +83,7 @@ button, input[type="submit"], .button {
 		color: var(--color-txt);
 		border: 1px solid var(--color-secondary);
 	}
+
 	&.warn {
 		background: var(--color-warn);
 		&:hover {
