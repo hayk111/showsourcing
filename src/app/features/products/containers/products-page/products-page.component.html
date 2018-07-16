@@ -4,16 +4,16 @@
 	<!-- top panel -->
 	<top-panel-app
 		[title]="entityMetadata.plural"
-		[subtitles]="['Products', 'all']">
+		[subtitles]="['Products', 'all']"
+		buttonName="Add {{entityMetadata.singular}}"
+		(buttonClick)="openCreateDlg(true)">
 	</top-panel-app>
 
 	<sub-panel-app
 		[hasSwitch]="false"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		buttonName="Add {{entityMetadata.singular}}"
 		[filters]="getFiltersNumber()"
-		(buttonClick)="openCreateDlg(true)"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)">
 		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">

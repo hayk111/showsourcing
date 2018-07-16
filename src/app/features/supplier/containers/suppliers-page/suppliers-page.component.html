@@ -2,18 +2,17 @@
 <top-panel-app
 	[title]="'My Suppliers'"
 	[subtitles]="['Suppliers', 'all']"
-	[hasAction]="false">
+	buttonName="Add Supplier"
+	(buttonClick)="openCreateDlg(true)"
+	>
 </top-panel-app>
 
 <sub-panel-app
-	buttonName="Add Supplier"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[buttonIcon]="false"
-	[buttonName]="'Add Supplier'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
-	(buttonClick)="openCreateDlg(true)"
 	(search)="search($event)">
 </sub-panel-app>
 
