@@ -97,6 +97,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.searchFilters(str);
 	}
 
+	searchFilters(str) {
+		// To be overidden in sub classes
+	}
+
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this._selectParams$.next(new SelectParams({
