@@ -84,7 +84,7 @@ export abstract class AbstractInitializer {
 		);
 
 		const link = from([
-			// cleanTypenameLink,
+			cleanTypenameLink,
 			transportLink
 		]);
 
