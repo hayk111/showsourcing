@@ -13,10 +13,29 @@
 </nav>
 
 <div class="flexCenter right">
-  <search-bar-animated-app [hasBorder]="false">
-		<input inputApp class="searchInput" type="text" placeholder="Search Products, Suppliers..."/>
+  <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35" [width]="400"
+                           (close)="searchBar.shrinkSearch()">
+    <search-autocomplete-item-app *ngFor="let result of (searchResults$ | async)">
+      <search-autocomplete-item-content-app
+        *ngIf="result.type === 'product'"
+        [selectable]="false"
+        [status]="result.status?.name" [title]="result.name" [subtitle]="result.supplier?.name"
+        [image]="result.images?.length > 0 ? (result | image:'m') : null"
+        [link]="'/product/details/' + result.id + '/general'">
+      </search-autocomplete-item-content-app>
+      <search-autocomplete-item-content-app
+        *ngIf="result.type === 'supplier'"
+        [selectable]="false"
+        [status]="result.status?.name" [title]="result.name" [subtitle]="supplierSubtitle(result)"
+        image="/assets/icons/supplier-placeholder.svg"
+        [link]="'/supplier/details/' + result.id">
+      </search-autocomplete-item-content-app>
+    </search-autocomplete-item-app>
+  </search-autocomplete-app>
+  <search-bar-animated-app #searchBar [disableClickOutside]="true" [hasBorder]="false" (searchStateChanged)="onSearchBarStateChanged($event)">
+    <input inputApp class="searchInput" type="text" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
-	<notif-app></notif-app>
+  <notif-app></notif-app>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>

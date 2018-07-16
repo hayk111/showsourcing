@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable, of, zip } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {
 	ProductAddToProjectDlgComponent,
@@ -7,8 +9,10 @@ import { ProductExportDlgComponent } from '~features/products/components/product
 import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
-import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { ProductFeatureService, SearchService } from '~features/products/services';
+import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
+import { SelectParams } from '~global-services/_global/select-params';
+import { ERM, Product, Tag, Event, Category, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -28,10 +32,12 @@ import { CreationDialogComponent } from '~shared/generic-dialog';
 	]
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+	searchFilterElements$: Observable<any[]>;
 
 	constructor(
 		protected router: Router,
 		protected featureSrv: ProductFeatureService,
+		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService) {
@@ -70,4 +76,24 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		return Array.from(this.selectionSrv.selection.keys());
 	}
 
+	/** Search within filters */
+	searchFilters(str: string) {
+		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv);
+	}
+
+	onCheckSearchElement(element) {
+		this.filterSrv.addFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
+
+	onUncheckSearchElement(element) {
+		this.filterSrv.removeFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
 }

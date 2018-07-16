@@ -1,0 +1,32 @@
+:host {
+	position: relative;
+}
+.trigger {
+	display: inline-block;
+}
+
+.autocomplete {
+	z-index: 10;
+	position: absolute;
+	background: white;
+	color: var(--color-txt-primary);
+	display: block;
+	flex-direction: column;
+	border-radius: var(--border-radius-s);
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.autocomplete-before {
+	right: var(--spacing-m);
+}
+.autocomplete-after {
+	left: var(--spacing-m);
+}
+
+.autocomplete-above {
+	top: -(var(--spacing-m));
+}
+.autocomplete-below {
+	bottom: -(var(--spacing-m));
+}

@@ -15,6 +15,16 @@
 		(buttonClick)="openCreateDlg(true)"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)">
+		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+			<search-autocomplete-item-app *ngFor="let element of (searchFilterElements$ | async)">
+				<search-autocomplete-item-content-app
+					[selectable]="true" [title]="element.name" [subtitle]="element.type"
+					[checked]="element.checked" [icon]="element.type"
+					(check)="onCheckSearchElement(element)"
+					(uncheck)="onUncheckSearchElement(element)">
+				</search-autocomplete-item-content-app>
+			</search-autocomplete-item-app>
+		</search-autocomplete-app>
 	</sub-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->

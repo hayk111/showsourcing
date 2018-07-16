@@ -19,10 +19,15 @@ search-bar-app {
 	border-radius: var(--border-radius);
 	padding-left: var(--spacing-s);
 	input {
+		background: #fff;
 		border: none;
 		height: 32px;
+		width: 378px;
 		padding: 0;
 		padding-left: var(--spacing-s);
+	}
+	&.focus {
+		border: 1px solid #45adff;
 	}
 }
 .showFilters {

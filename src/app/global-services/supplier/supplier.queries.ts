@@ -81,6 +81,9 @@ export class SupplierQueries implements GlobalQuery {
 					id,
 					name
 				},
+				images {
+					id, fileName, orientation
+				},
 				categories {
 					id,
 					name

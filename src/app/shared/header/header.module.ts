@@ -6,6 +6,7 @@ import { UserPictureModule } from '~shared/user-picture';
 
 import { HeaderComponent, NotifComponent, UserPanelComponent } from './components';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 
 @NgModule({
 	imports: [
@@ -13,7 +14,7 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 		SearchBarModule,
 		RouterModule.forChild([]),
 		UserPictureModule,
-		ContextMenuModule
+		SearchAutocompleteModule
 	],
 	declarations: [HeaderComponent, NotifComponent, UserPanelComponent],
 	exports: [HeaderComponent],

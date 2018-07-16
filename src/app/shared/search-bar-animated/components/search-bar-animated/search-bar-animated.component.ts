@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, ContentChild, OnInit, Input } from '@angular/core';
+import {
+	ChangeDetectionStrategy, Component,
+	ContentChild, OnInit,
+	Input, Output, EventEmitter
+} from '@angular/core';
 import { InputDirective } from '~shared/inputs';
 
 import { animation } from './search-bar-animated.animation';
@@ -18,6 +22,8 @@ export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective) input: InputDirective;
 	@Input() animated = true;
 	@Input() hasBorder = true;
+	@Input() disableClickOutside = false;
+	@Output() searchStateChanged = new EventEmitter<string>();
 	searchstate: 'expanded' | 'shrinked';
 
 	constructor() { }
@@ -44,12 +50,20 @@ export class SearchBarAnimatedComponent implements OnInit {
 		if (this.searchstate === 'expanded' && this.input) {
 			this.input.focus();
 		}
+		this.searchStateChanged.emit(this.searchstate);
 	}
 
 	shrinkSearch() {
 		if (!this.animated)
 			return;
 		this.searchstate = 'shrinked';
+		this.searchStateChanged.emit(this.searchstate);
+	}
+
+	clickOutside() {
+		if (!this.disableClickOutside) {
+			this.shrinkSearch();
+		}
 	}
 
 }

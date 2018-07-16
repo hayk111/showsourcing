@@ -5,8 +5,14 @@
 	<div class="flexBetween">
 		<div class="left flexCenter">
 
-			<search-bar-app class="mg-right">
-				<input #inp inputApp type="text" (input)="onSearch(inp.value)"/>
+			<ng-content select="search-autocomplete-app"></ng-content>
+
+			<search-bar-app class="mg-right" [ngClass]="{ focus: searchbarFocus }">
+				<input #inp inputApp type="text"
+						placeholder="Type to search	"
+						(blur)="onBlurSearch($event)"
+						(focus)="onFocusSearch($event)"
+						(input)="onSearch(inp.value)"/>
 			</search-bar-app>
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
