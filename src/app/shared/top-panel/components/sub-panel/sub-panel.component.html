@@ -17,6 +17,8 @@
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
 
+			<span *ngIf="hasFilter" class="filters">{{filters}}</span>
+
 		</div>
 
 		<div class="right flexCenter">

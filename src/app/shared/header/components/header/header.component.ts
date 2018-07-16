@@ -25,6 +25,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;
+	searchBarExpanded = false;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -55,6 +56,9 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	onSearchBarStateChanged(state) {
 		if (state === 'shrinked') {
 			this.searchControl.setValue('');
+			this.searchBarExpanded = false;
+		} else {
+			this.searchBarExpanded = true;
 		}
 	}
 

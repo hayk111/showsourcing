@@ -6,6 +6,7 @@ import {
 	HostListener, AfterContentInit,
 	Output, EventEmitter
 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SearchAutocompleteItemComponent } from '../search-autocomplete-item/search-autocomplete-item.component';
 import { AutoUnsub } from '~utils';
@@ -32,11 +33,14 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@Input() yPosition = 16;
 	/** Width of the autocomplete. */
 	@Input() width: number;
+	@Input() closeOnDisplay = false;
 	@Output() close = new EventEmitter<null>();
 	@ContentChildren(SearchAutocompleteItemComponent) items: QueryList<SearchAutocompleteItemComponent>;
 
 	autocompleteOpen = false;
 	selectedItemIndex = 0;
+
+	_destroyItems$ = new Subject<void>();
 
 	constructor(private cdr: ChangeDetectorRef) {
 		super();
@@ -47,9 +51,11 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 			this.items.changes.pipe(
 				takeUntil(this._destroy$)
 			).subscribe((values) => {
+				this._destroyItems$.next();
 				if (values && values.length > 0) {
 					this.selectedItemIndex = 0;
 					this.refreshItems();
+					this.registerListenersForItems(values);
 				} else {
 					this.selectedItemIndex = 0;
 				}
@@ -127,5 +133,17 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				item.unselectItem();
 			}
 		});
+	}
+
+	registerListenersForItems(values) {
+		if (this.closeOnDisplay) {
+			values.forEach(value => {
+				value.itemDisplayed.pipe(
+					takeUntil(this._destroyItems$),
+				).subscribe(() => {
+					this.closeAutocomplete();
+				});
+			});
+		}
 	}
 }

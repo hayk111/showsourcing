@@ -35,6 +35,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() buttonName: string;
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
+	/** number of filters set */
+	@Input() filters: number;
 
 	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();

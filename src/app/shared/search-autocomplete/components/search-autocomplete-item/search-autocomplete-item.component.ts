@@ -32,6 +32,7 @@ export class SearchAutocompleteItemComponent implements OnInit {
 	selectItem() {
 		this.selected = true;
 		this.renderer.addClass(this.element.nativeElement, 'selected');
+		this.element.nativeElement.scrollIntoView();
 	}
 
 	unselectItem() {
