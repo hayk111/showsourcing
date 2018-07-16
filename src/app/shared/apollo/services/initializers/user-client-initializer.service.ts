@@ -8,13 +8,13 @@ import { User } from '~models/user.model';
 import { ALL_USER_CLIENT, USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-import { AbstractInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
+import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { log } from '~utils/log';
 import { from, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class UserClientInitializer extends AbstractInitializer {
+export class UserClientInitializer extends AbstractApolloInitializer {
 
 	constructor(
 		protected apollo: Apollo,

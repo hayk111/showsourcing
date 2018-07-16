@@ -109,7 +109,8 @@ export class SupplierQueries implements GlobalQuery {
 	update = gql`
 		mutation updateSupplier($input: SupplierInput!) {
 			updateSupplier(input: $input) {
-				id
+				id,
+				favorite
 			}
 		}
 	`;

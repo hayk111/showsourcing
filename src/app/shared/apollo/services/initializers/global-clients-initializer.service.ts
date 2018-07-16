@@ -6,12 +6,12 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ALL_USER_CLIENT, GLOBAL_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
-import { AbstractInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
+import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-initializer.class';
 import { log } from '~utils';
 
 
 @Injectable({ providedIn: 'root' })
-export class GlobalClientsInitializer extends AbstractInitializer {
+export class GlobalClientsInitializer extends AbstractApolloInitializer {
 
 	constructor(
 		protected apollo: Apollo,

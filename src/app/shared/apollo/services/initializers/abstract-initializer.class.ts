@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { from, split } from 'apollo-link';
+import { from, split, ApolloLink } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { first, map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { environment } from 'environments/environment.prod';
 
-export abstract class AbstractInitializer {
+export abstract class AbstractApolloInitializer {
 	protected clients = new Map();
 
 	constructor(
@@ -71,6 +71,7 @@ export abstract class AbstractInitializer {
 			}
 		});
 
+
 		// using the ability to split links, you can send data to each link
 		// depending on what kind of operation is being sent
 		const transportLink = split(
@@ -91,7 +92,9 @@ export abstract class AbstractInitializer {
 		this.apollo.create({
 			link,
 			connectToDevTools: !environment.production,
-			cache: new InMemoryCache(),
+			cache: new InMemoryCache({
+				dataIdFromObject: (object: any) => object.id || null
+			}),
 			queryDeduplication: true
 		}, name);
 
