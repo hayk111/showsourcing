@@ -93,6 +93,7 @@ export class SupplierQueries implements GlobalQuery {
 					firstName,
 					lastName
 				}
+				productCount
 			}
 		}`;
 

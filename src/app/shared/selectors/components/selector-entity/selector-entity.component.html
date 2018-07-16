@@ -19,7 +19,7 @@
 <ng-template #defaultTemplate let-item="item">
 
 	<div class="flex flexVAlign">
-		<img *ngIf="item | logo:type" [src]="item | logo:type"/>
+  		<img *ngIf="item | logo:type" [src]="item | logo:type"/>
 		<span>{{ item[propertyName] }}</span>
 	</div>
 
