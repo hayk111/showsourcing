@@ -1,5 +1,5 @@
-<div class="ctnr" infiniScroll (bottomReached)="bottomReached.emit()" [bottomDistance]="100">
-	<div class="contentCtnr">
+<div class="ctnr z-2">
+	<div class="contentCtnr" *ngIf="!pending">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder">
 			<div class="header"></div>
@@ -42,7 +42,7 @@
 		</div>
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; trackBy: columnTackByFn" [style.width]="column.width + 'px'"
+		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
 			<div class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}}" (click)="onSort(column)">
@@ -55,6 +55,7 @@
 					</ng-template>
 				</ng-container>
 			</div>
+
 			<!-- cells -->
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
@@ -76,6 +77,15 @@
 	<div class="pendingCtnr flexCenter" *ngIf="pending">
 		<spinner-app></spinner-app>
 	</div>
+</div>
+
+<!-- pagination -->
+<div class="flexBetween pagination" *ngIf="hasPagination">
+	<button *ngIf="currentPage !== 0; else spacer" (click)="previous.emit()" class="auto">previous</button>
+	<ng-template #spacer>
+		<span></span>
+	</ng-template>
+	<button *ngIf="rows.length >= perPage" (click)="next.emit()" class="auto">next</button>
 </div>
 
 

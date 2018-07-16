@@ -1,10 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { first, map, tap, take, share } from 'rxjs/operators';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
+import { toStore } from '~utils/store/store';
 
 import { Filter, FilterType } from '../models';
-import { toStore } from '~utils/store/store';
-import { by } from 'protractor';
 
 @Injectable()
 export class FilterService {
@@ -37,8 +36,20 @@ export class FilterService {
 		share()
 	);
 
+	/** this is the start when the view is displayed. It will allow us to
+ *  not query items that are created after the view is displayed.
+ */
+	private startTime = new Date();
+
 	constructor(@Inject('storeKey') private storeKey: string) {
 		this._filters$.subscribe(filters => this.currentFilters = filters);
+	}
+
+	/** prevent update when another user create a new item
+	 * the start time will be used and we won't query items created after this start time.
+	 */
+	preventCreationUpdate() {
+		this.addFilter({ type: FilterType.PREVENT_UPDATE, value: true });
 	}
 
 	/** adds filter at the end of the array */
@@ -92,12 +103,14 @@ export class FilterService {
 
 	private getFieldCondition(type, value) {
 		switch (type) {
-			case 'search':
+			case FilterType.SEARCH:
 				return `name CONTAINS "${value}"`;
-			case 'favorite':
-			case 'archived':
-			case 'id':
+			case FilterType.FAVORITE:
+			case FilterType.ARCHIVED:
+			case FilterType.ID:
 				return `${type} == ${value}`;
+			case FilterType.PREVENT_UPDATE:
+				return `creationDate > "${this.startTime.toISOString()}"`;
 			default:
 				return `${type}.id == "${value}"`;
 		}

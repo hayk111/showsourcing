@@ -9,7 +9,8 @@ export enum FilterType {
 	PRODUCT_STATUS = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
-	SEARCH = 'search'
+	SEARCH = 'search',
+	PREVENT_UPDATE = 'prevent_update'
 }
 
 export interface Filter {

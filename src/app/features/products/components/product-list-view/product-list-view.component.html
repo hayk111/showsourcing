@@ -7,12 +7,15 @@ I added comment above each column to make it clearer -->
 	[descriptor]="descriptor"
 	[contextualMenu]="contextualMenuTemplate"
 	[selected]="selection"
+	[currentPage]="currentPage"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
+	(previous)="previous.emit()"
+	(next)="next.emit()"
 	[pending]="pending">
 </custom-table-app>
 
@@ -46,7 +49,7 @@ I added comment above each column to make it clearer -->
 			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
 		</div>
 		<div class="preview">
-			<button (click)="previewClick.emit(row)">Preview</button>
+			<button (click)="previewClick.emit(row)" class="ugly">Preview</button>
 		</div>
 	</div>
 	<div class="imgOverViewCtnrWrapper" #overview

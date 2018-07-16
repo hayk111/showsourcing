@@ -1,25 +1,6 @@
-:host {
-	display: flex;
-	margin: var(--spacing-l) var(--spacing-l);
-	height: calc(100% - 223px);
-}
 
 .icon {
 	width: 36px;
 	height: 28px;
 	margin-right: var(--spacing-s);
-}
-
-// TODO: thiery we should use contextual menu on all list page
-// to not have to do this everywhere
-menu {
-	left: 10px;
-	border: solid 1px var(--color-bg-third);
-	background-color: var(--color-primary-light);
-	width: 150px;
-	z-index: 10;
-}
-
-menuitem {
-	padding: 10px;
 }

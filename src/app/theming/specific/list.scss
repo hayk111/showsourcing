@@ -2,8 +2,8 @@
 
 :host {
 	display: flex;
-	margin: var(--spacing-l) var(--spacing-l);
-	height: calc(100% - 223px);
+	margin: 0 var(--spacing-l);
+	height: calc(100% - 207px);
 }
 
 .list {
@@ -30,17 +30,7 @@ rating-heart-app {
 	}
 }
 
-// TODO: thiery can you please make a component of this ?
-// I suppose this can also be simplified as for now the imgCtnr has
-// overflow hidden, whereas if we put the height and with dirrectly on the image
-// and remove the ctnr we could have this component:
-// I'd personally call it zoomer
-// <host position relative>
-//   <ng-content select="zoomer-trigger-app">
-//   <div position absolute>
-//     <ng-content select="zoomer-tooltip-app">
-
-// This is way cleaner if we need to add it to other list and such. (We will need to)
+// TODO: this should be a component
 .imgOverViewCtnrWrapper {
 	display: none;
 }
@@ -93,22 +83,11 @@ user-picture-app {
 	text-align: right;
 }
 
-// TODO: thierry Michael made a general class for this kind of button because it appears in a lot of places
 .preview {
 	display: none;
-	&>button {
-		color: var(--color-primary-dark);
-		border: solid 1px var(--color-txt-secondary);
-		background-color: var(--color-primary-light);
-		font-size: 11px;
-		height: 21px;
-		width: 57px;
-		text-transform: none;
-	}
 }
 
-// TODO: thiery we should use contextual menu on all list page
-// to not have to do this everywhere. The context menu should be stylized accordingly.
+// TODO: this should use the contextual menu
 menu {
 	left: 10px;
 	border: solid 1px var(--color-bg-third);

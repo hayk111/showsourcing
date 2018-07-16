@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
+import { nextTick } from '../../../../../../node_modules/@types/q';
 
 @Component({
 	selector: 'table-app',
@@ -37,6 +38,10 @@ export class TableComponent implements AfterContentInit {
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
+	// whether the table can be paginated
+	@Input() hasPagination = true;
+	@Input() currentPage = 0;
+	@Input() perPage = 30;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -48,6 +53,9 @@ export class TableComponent implements AfterContentInit {
 	@Output() sort = new EventEmitter<Sort>();
 	// when we hover and we want to get the id of the object
 	@Output() hovered = new EventEmitter<string>();
+	// pagination events
+	@Output() previous = new EventEmitter<undefined>();
+	@Output() next = new EventEmitter<undefined>();
 	// all the columns
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 	// currently sorted column
@@ -76,7 +84,7 @@ export class TableComponent implements AfterContentInit {
 	trackByFn = (index, item) => this.identify(index, item);
 
 	// track by for column
-	columnTackByFn = (index, item) => index;
+	columnTrackByFn = (index) => index;
 
 	ngAfterContentInit() {
 		// setting the sorting mechanism for each individual columns

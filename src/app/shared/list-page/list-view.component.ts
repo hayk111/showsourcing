@@ -7,6 +7,9 @@ export class ListViewComponent<T> {
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */
 	@Input() rows: Array<T>;
+	/** current page for pagination */
+	@Input() currentPage: number;
+	@Input() perPage: number;
 	/** whether it's loading */
 	@Input() pending = true;
 	@Output() select = new EventEmitter<string>();
@@ -20,6 +23,10 @@ export class ListViewComponent<T> {
 	@Output() sort = new EventEmitter<Sort>();
 	@Output() previewClick = new EventEmitter<T>();
 	@Output() delete = new EventEmitter<T>();
+	// pagination
+	@Output() previous = new EventEmitter<undefined>();
+	@Output() next = new EventEmitter<undefined>();
+
 
 	constructor() { }
 
