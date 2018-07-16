@@ -1,4 +1,4 @@
-<div class="search__item cell ng-star-inserted main">
+<div class="search__item cell ng-star-inserted main" (click)="displayItem()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
       <div class="checkboxCtnr" *ngIf="selectable">
@@ -16,7 +16,7 @@
       </div>
       <div class="description">
         <div class="titleCtnr">
-          <a class="title" (click)="displayItem()">{{title}}</a>
+          <a class="title">{{title}}</a>
           <span class="tiny-label" *ngIf="status">{{status}}</span>
         </div>
         <span class="subtitle">{{subtitle}}</span>

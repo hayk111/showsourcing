@@ -36,7 +36,7 @@
   <search-bar-animated-app #searchBar [disableClickOutside]="true" [hasBorder]="false"
                           [ngClass]="{ expanded: searchBarExpanded }"
                           (searchStateChanged)="onSearchBarStateChanged($event)">
-    <input inputApp class="searchInput" type="text" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
+    <input inputApp class="searchInput" type="text" (keydown.enter)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
   <notif-app></notif-app>
   <div class="divider"></div>
