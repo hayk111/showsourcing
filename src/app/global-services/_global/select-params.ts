@@ -17,8 +17,8 @@ export class SelectParams {
 		const descending = this.sort.sortOrder === 'ASC';
 		const options = {
 			gql: gql,
-			skip: 0,
-			take: (this.page + 1) * this.take,
+			skip: this.page * this.take,
+			take: this.take,
 			sortBy,
 			descending,
 			query: this.query

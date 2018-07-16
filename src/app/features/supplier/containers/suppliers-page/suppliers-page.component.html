@@ -22,6 +22,7 @@
 		[rows]="suppliers"
 		[selection]="selected$ | async"
 		[pending]="pending"
+		[currentPage]="currentParams.page"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
 		(select)="onItemSelected($event)"
@@ -32,7 +33,9 @@
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(previewClick)="openPreview($event)"
-		></supplier-list-view-app>
+		(previous)="previousPage()"
+		(next)="nextPage()">
+	</supplier-list-view-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

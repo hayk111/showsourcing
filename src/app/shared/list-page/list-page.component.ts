@@ -40,7 +40,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** previewed item */
 	previewed: T;
 
-	private currentParams: SelectParams = new SelectParams();
+	currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new BehaviorSubject<SelectParams>(this.currentParams);
 	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
@@ -62,14 +62,19 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.setItems();
 		this.setSelection();
 		this.setFilters();
+		// this.filterSrv.preventCreationUpdate();
 	}
 
 	protected setItems() {
 		this.items$ = this.featureSrv.selectMany(this.selectParams$)
 			.pipe(
+				takeUntil(this._destroy$),
 				// when loaded the pending status needs to be false
 				tap(() => this.onLoaded())
 			);
+		this.selectParams$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(params => this.currentParams = params);
 	}
 
 	protected setSelection() {
@@ -110,9 +115,24 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		}));
 	}
 
+	nextPage() {
+		this._selectParams$.next(new SelectParams({
+			page: ++this.currentParams.page,
+			sort: this.currentParams.sort,
+			query: this.currentParams.query
+		}));
+	}
+
+	previousPage() {
+		this._selectParams$.next(new SelectParams({
+			page: --this.currentParams.page,
+			sort: this.currentParams.sort,
+			query: this.currentParams.query
+		}));
+	}
+
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		console.log('sort = ', sort);
 		this._selectParams$.next(new SelectParams({ sort, query: this.currentParams.query }));
 	}
 

@@ -8,7 +8,9 @@
 
 .ctnr {
 	height: 100%;
+	overflow: auto;
 }
+
 .contentCtnr {
 	display: flex;
 }
