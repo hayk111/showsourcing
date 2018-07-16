@@ -7,6 +7,9 @@
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
+	(previous)="previous.emit()"
+	(next)="next.emit()"
+	[currentPage]="currentPage"
 	[pending]="pending"
 	(sort)="sort.emit($event)">
 		<ng-template

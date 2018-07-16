@@ -22,7 +22,13 @@
 </div>
 
 <card-footer-app>
-	<button *ngIf="supplier" (click)="goToSupplier()" class="light" i18n="button|View supplier information on product page@@supplierCard_viewSupplier">view supplier</button>
+	<button
+		*ngIf="supplier"
+		(click)="goToSupplier()"
+		class="light"
+		i18n="button|View supplier information on product page@@supplierCard_viewSupplier">
+		View Supplier
+	</button>
 	<!-- <button i18n="button name|Supplier information when opening a product@@supplierCard_contactSupplier">contact supplier</button> -->
 </card-footer-app>
 
