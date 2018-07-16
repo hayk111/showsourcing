@@ -10,12 +10,15 @@
 			<search-bar-app class="mg-right" [ngClass]="{ focus: searchbarFocus }">
 				<input #inp inputApp type="text"
 						placeholder="Type to search	"
+						[formControl]="searchControl"
 						(blur)="onBlurSearch($event)"
 						(focus)="onFocusSearch($event)"
-						(input)="onSearch(inp.value)"/>
+						(keydown.enter)="triggerSearch($event)" />
 			</search-bar-app>
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
+
+			<span *ngIf="hasFilter" class="filters">{{filters}}</span>
 
 		</div>
 

@@ -25,6 +25,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;
+	searchBarExpanded = false;
 
 	constructor(
 		private authSrv: AuthenticationService,
@@ -38,14 +39,12 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
 		this.team$ = this.teamPickerSrv.selectedTeam$;
+	}
 
-		this.searchResults$ = this.searchControl.valueChanges.pipe(
-			takeUntil(this._destroy$),
-			debounceTime(500),
-			filter(search => search),
-			switchMap(search => this.searchSrv.search(search)),
-			tap(() => this.searchAutocomplete.openAutocomplete())
-		);
+	triggerSearch() {
+		const search = this.searchControl.value;
+		this.searchResults$ = this.searchSrv.search(search);
+		this.searchAutocomplete.openAutocomplete();
 	}
 
 	logout() {
@@ -55,6 +54,9 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	onSearchBarStateChanged(state) {
 		if (state === 'shrinked') {
 			this.searchControl.setValue('');
+			this.searchBarExpanded = false;
+		} else {
+			this.searchBarExpanded = true;
 		}
 	}
 

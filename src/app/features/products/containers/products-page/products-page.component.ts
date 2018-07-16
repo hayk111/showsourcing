@@ -96,4 +96,8 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 			raw: element
 		});
 	}
+
+	getFiltersNumber() {
+		return this.filterSrv.filtersNumber();
+	}
 }

@@ -12,6 +12,7 @@
 		[hasFilter]="true"
 		[buttonIcon]="false"
 		buttonName="Add {{entityMetadata.singular}}"
+		[filters]="getFiltersNumber()"
 		(buttonClick)="openCreateDlg(true)"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)">

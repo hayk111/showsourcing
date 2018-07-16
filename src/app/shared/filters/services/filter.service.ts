@@ -102,4 +102,18 @@ export class FilterService {
 				return `${type}.id == "${value}"`;
 		}
 	}
+
+	filtersNumber() {
+		return this.currentFilters.filter(
+			filter => (filter.type === FilterType.PROJECT ||
+				filter.type === FilterType.SUPPLIER ||
+				filter.type === FilterType.EVENT ||
+				filter.type === FilterType.CATEGORY ||
+				filter.type === FilterType.TAG ||
+				filter.type === FilterType.CREATED_BY ||
+				filter.type === FilterType.PRODUCT_STATUS ||
+				filter.type === FilterType.FAVORITE ||
+				filter.type === FilterType.ARCHIVED)
+		).length;
+	}
 }

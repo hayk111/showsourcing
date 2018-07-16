@@ -1,9 +1,11 @@
 import {
 	Component, OnInit, ChangeDetectionStrategy,
 	ElementRef, Renderer2, ContentChild,
-	Output, EventEmitter
+	Output, EventEmitter, AfterContentInit
 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { SearchAutocompleteItemContentComponent } from '../search-autocomplete-item-content/search-autocomplete-item-content.component';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'search-autocomplete-item-app',
@@ -14,7 +16,7 @@ import { SearchAutocompleteItemContentComponent } from '../search-autocomplete-i
 		class: 'flex pointer'
 	}
 })
-export class SearchAutocompleteItemComponent implements OnInit {
+export class SearchAutocompleteItemComponent extends AutoUnsub implements OnInit, AfterContentInit {
 
 	/** The corresponding item was displayed. */
 	@Output() itemDisplayed = new EventEmitter<null>();
@@ -24,14 +26,25 @@ export class SearchAutocompleteItemComponent implements OnInit {
 
 	@ContentChild(SearchAutocompleteItemContentComponent) content: SearchAutocompleteItemContentComponent;
 
-	constructor(private element: ElementRef, private renderer: Renderer2) { }
+	constructor(private element: ElementRef, private renderer: Renderer2) {
+		super();
+	}
 
 	ngOnInit() {
+	}
+
+	ngAfterContentInit() {
+		this.content.itemDisplayed.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(() => {
+			this.itemDisplayed.emit();
+		});
 	}
 
 	selectItem() {
 		this.selected = true;
 		this.renderer.addClass(this.element.nativeElement, 'selected');
+		this.element.nativeElement.scrollIntoView();
 	}
 
 	unselectItem() {

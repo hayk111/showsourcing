@@ -13,8 +13,9 @@
 </nav>
 
 <div class="flexCenter right">
-  <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35" [width]="400"
-                           (close)="searchBar.shrinkSearch()">
+  <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35"
+                          [width]="400" [closeOnDisplay]="true"
+                          (close)="searchBar.shrinkSearch()">
     <search-autocomplete-item-app *ngFor="let result of (searchResults$ | async)">
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'product'"
@@ -32,8 +33,10 @@
       </search-autocomplete-item-content-app>
     </search-autocomplete-item-app>
   </search-autocomplete-app>
-  <search-bar-animated-app #searchBar [disableClickOutside]="true" [hasBorder]="false" (searchStateChanged)="onSearchBarStateChanged($event)">
-    <input inputApp class="searchInput" type="text" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
+  <search-bar-animated-app #searchBar [disableClickOutside]="true" [hasBorder]="false"
+                          [ngClass]="{ expanded: searchBarExpanded }"
+                          (searchStateChanged)="onSearchBarStateChanged($event)">
+    <input inputApp class="searchInput" type="text" (keydown.enter)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
   <notif-app></notif-app>
   <div class="divider"></div>

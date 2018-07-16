@@ -29,6 +29,9 @@ export class SearchAutocompleteItemContentComponent {
 	@Input() link: string;
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
+	/** The corresponding item was displayed. */
+	@Output() itemDisplayed = new EventEmitter<null>();
+
 
 	constructor(private router: Router) {}
 
@@ -36,6 +39,7 @@ export class SearchAutocompleteItemContentComponent {
 		if (this.selectable) {
 			this.toggleCheck();
 		} else if (this.link) {
+			this.itemDisplayed.emit();
 			this.router.navigate([ this.link ]);
 		}
 	}

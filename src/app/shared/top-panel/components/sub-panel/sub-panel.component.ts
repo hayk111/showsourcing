@@ -2,7 +2,7 @@ import {
 	ChangeDetectionStrategy, Component, EventEmitter,
 	Input, Output, OnInit,
 	ElementRef, Renderer2, ContentChild,
-	ChangeDetectorRef
+	ChangeDetectorRef, ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -35,6 +35,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() buttonName: string;
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
+	/** number of filters set */
+	@Input() filters: number;
 
 	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();
@@ -55,28 +57,36 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	searchControl: FormControl;
 
+	inputEventEnabled = true;
+
 	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
 		super();
 		this.searchControl = new FormControl();
 	}
 
 	ngOnInit() {
-		this.search$.pipe(
-			debounceTime(400),
-			takeUntil(this._destroy$),
-		).subscribe(str => {
-			this.search.emit(str);
-			this.searchAutocomplete.openAutocomplete();
-			this.cdr.detectChanges();
-		});
+		if (this.searchAutocomplete) {
+			this.searchAutocomplete.close.pipe(
+				takeUntil(this._destroy$)
+			).subscribe(() => {
+				this.searchControl.setValue('');
+			});
+		}
 	}
 
-	onSearch(str: string) {
-		this.search$.next(str);
+	triggerSearch(event) {
+		this.inputEventEnabled = false;
+		const search = this.searchControl.value;
+		this.search.emit(search);
+		if (this.searchAutocomplete) {
+			event.target.blur();
+			this.searchAutocomplete.openAutocomplete();
+		}
 	}
 
 	onBlurSearch(event) {
 		this.searchbarFocus = false;
+		this.inputEventEnabled = true;
 	}
 
 	onFocusSearch(event) {
