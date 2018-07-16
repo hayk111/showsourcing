@@ -5,8 +5,8 @@
 
 header{
 	div {
-		background: var(--color-bg-third);
-		border-bottom: 1px solid var(--color-primary-light);
+		background: var(--color-secondary-light);
+		border-bottom: 1px solid var(--color-secondary);
 		height: 240px;
 		img {
 			width: 210px;
@@ -35,8 +35,8 @@ footer {
 
 .tag {
 	padding: var(--spacing-xs);
-	border: 1px solid var(--color-primary-light);
-	background: var(--color-bg-third);
+	border: 1px solid var(--color-secondary);
+	background: var(--color-secondary-light);
 	border-radius: var(--border-radius-s);
 	margin-right: var(--spacing-ms);
 }

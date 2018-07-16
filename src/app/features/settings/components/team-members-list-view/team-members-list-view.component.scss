@@ -15,7 +15,7 @@
 
 .review {
 	font-weight: 600;
-	background: var(--color-primary-light);
+	background: var(--color-secondary);
 	color: var(--color-txt);
 	padding: var(--spacing-xs) var(--spacing-l);
 	border-radius: var(--border-radius);
@@ -45,8 +45,8 @@ a:hover {
 
 menu {
 	left: 10px;
-	border: solid 1px var(--color-bg-third);
-	background-color: var(--color-primary-light);
+	border: solid 1px var(--color-secondary-light);
+	background-color: var(--color-secondary);
 	width: 150px;
 	z-index: 1000;
 }
@@ -60,14 +60,14 @@ context-menu-trigger-app {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--color-primary-light);
+	background-color: var(--color-secondary);
 	height: 32px;
 	width: 111px;
 	padding-left: 25px;
 	padding-right: 10px;
 
 	.text {
-		color: var(--color-primary-dark);
+		color: var(--color-txt-primary);
 	}
 
 	.selector {

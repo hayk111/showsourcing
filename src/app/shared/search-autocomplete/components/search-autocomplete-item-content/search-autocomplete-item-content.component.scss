@@ -1,15 +1,15 @@
 .search {
 	&__item {
 		/* padding: 0 var(--spacing-m);
-    border-bottom: 1px solid var(--color-primary-light); */
+    border-bottom: 1px solid var(--color-secondary); */
     height: 48px;
     display: flex;
 		align-items: center;
-		
+
 		.mainCell {
 			display: flex;
 			align-items: center;
-      
+
       .checkboxCtnr {
         /* margin-right: 5px; */
       }
@@ -38,7 +38,7 @@
 						font-family: 'SourceSansPro', sans-serif;
 						font-size: 14px;
 						font-weight: 600;
-						color: var(--color-primary-dark);
+						color: var(--color-txt-primary);
 					}
 				}
 

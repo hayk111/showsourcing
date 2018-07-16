@@ -15,8 +15,8 @@
 	&.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
 			border-radius: var(--border-radius);
 			background: var(--color-bg-fourth);
-			border: 1px solid var(--color-primary-light);
-			color: var(--color-primary-dark);
+			border: 1px solid var(--color-secondary);
+			color: var(--color-txt-primary);
 			padding: var(--spacing-xs) var(--spacing-s);
 		}
 	&.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
@@ -28,7 +28,7 @@
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked  {
-	background: var(--color-bg-third);
+	background: var(--color-secondary-light);
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
@@ -53,7 +53,7 @@
 }
 
 .ng-dropdown-panel {
-	border: 1px solid var(--color-primary-light);
+	border: 1px solid var(--color-secondary);
 	.ng-dropdown-header {
 		border-bottom: 0;
 		input {
