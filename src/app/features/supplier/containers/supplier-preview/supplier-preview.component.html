@@ -13,7 +13,7 @@
 			<icon-app class="logo flexCenter" fontSet="svg" name="supplier-preview"></icon-app>
 			<h2>{{ supplier?.name }}</h2>
 			<div>{{ supplier?.supplierType?.name || 'Supplier'}}
-				<ng-container *ngIf="supplier.country"$>
+				<ng-container *ngIf="supplier.country">
 					- {{ supplier.country | const:'country' }}
 				</ng-container>
 			</div>
