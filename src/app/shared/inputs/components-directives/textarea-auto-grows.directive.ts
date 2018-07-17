@@ -1,10 +1,8 @@
 import { Directive, HostBinding, ElementRef } from '@angular/core';
 
 
-
-
 @Directive({
-	selector: '[restrictInput]',
+	selector: '[autoGrows]',
 })
 export class TextareaAutoGrowsDirective {
 
