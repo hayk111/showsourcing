@@ -5,7 +5,7 @@ import { first, map, switchMap, take } from 'rxjs/operators';
 import { RequestQueries } from '~features/products/services/request.queries';
 import { TeamQueries } from '~features/products/services/team.queries';
 import { User } from '~models';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { uuid } from '~utils';
 import { PER_PAGE } from '~utils/constants';
 
@@ -16,7 +16,9 @@ import { PER_PAGE } from '~utils/constants';
 // also comments should have two stars else they don't go into the doc and are
 // not self aligned by visual studio code. I replaced the first comment to show you.
 // Also we don't use the qref anymore.
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class TeamService {
 	private membersQuery$: QueryRef<string, any>;
 

@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
+import { AuthModule } from '~features/auth/auth.module';
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
-	providedIn: 'root'
+	providedIn: AuthModule
 })
 export class UnauthGuardService implements CanActivate, CanActivateChild {
 	constructor(private authSrv: AuthenticationService, private router: Router) { }

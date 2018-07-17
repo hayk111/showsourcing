@@ -10,7 +10,9 @@ import { AuthState } from '../interfaces';
 import { AuthHttpService } from './auth-http.service';
 import { TokenService } from './token.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false

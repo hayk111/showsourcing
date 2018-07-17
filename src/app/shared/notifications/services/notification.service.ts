@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Notification } from '../model/notification.interface';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class NotificationService {
 	private static ID = 0;
 	private notifications: Array<Notification> = [];

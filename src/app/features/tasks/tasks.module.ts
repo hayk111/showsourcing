@@ -29,19 +29,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 	declarations: [NewTaskDlgComponent, TasksPageComponent, TasksListViewComponent],
 	entryComponents: [NewTaskDlgComponent],
 	exports: [TasksListViewComponent],
-	providers: [],
 })
 export class TasksModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: TasksModule,
-			providers: [],
-		};
-	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: TasksModule,
-		};
-	}
 }

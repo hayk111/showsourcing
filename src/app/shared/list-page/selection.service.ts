@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class SelectionService {
 	selection = new Map<string, boolean>();
 	private _selection$ = new BehaviorSubject<Map<string, boolean>>(this.selection);

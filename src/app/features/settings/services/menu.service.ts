@@ -3,7 +3,9 @@ import { Subject, BehaviorSubject } from 'rxjs';
 
 
 // TODO: Thiery what is this ?
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class MenuService {
 	private _collapsed$ = new BehaviorSubject<boolean>(false);
 	collapsed$ = this._collapsed$.asObservable();

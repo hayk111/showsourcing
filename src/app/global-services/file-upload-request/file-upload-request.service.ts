@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequest } from '~models';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { FileUploadRequestQueries } from '~global-services/file-upload-request/file-upload-request.queries';
 
 

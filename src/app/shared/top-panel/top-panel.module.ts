@@ -19,7 +19,7 @@ import { SharedModule } from '~shared/shared.module';
 		CommonModule,
 		SharedModule,
 		SearchBarModule,
-		FiltersModule.forChild(),
+		FiltersModule,
 		IconsModule,
 		LoadersModule,
 		RouterModule.forChild([]),

@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
 import { KanbanService } from '../../services/kanban.service';
 
-@Injectable()
 @Component({
 	selector: 'kanban-item-app',
 	templateUrl: './kanban-item.component.html',

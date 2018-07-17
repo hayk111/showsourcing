@@ -5,7 +5,9 @@ import { toStore } from '~utils/store/store';
 
 import { Filter, FilterType } from '../models';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class FilterService {
 	/** All filters applied as an array */
 	private _filters$ = new BehaviorSubject<Filter[]>([]);

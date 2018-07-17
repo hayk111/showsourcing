@@ -43,15 +43,8 @@ import { FileModule } from '~shared/file';
 		ProjectProductListComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
-	providers: [ProjectFeatureService],
 })
 export class ProjectModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: ProjectModule,
-			providers: [],
-		};
-	}
 
 }
 

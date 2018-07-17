@@ -39,7 +39,6 @@ import { ImageModule } from '~shared/image/image.module';
 		FileModule,
 		ImageModule
 	],
-	providers: [DynamicFormsService],
 	declarations: [
 		DynamicFormComponent,
 		DynamicFormFieldComponent,
@@ -55,16 +54,5 @@ import { ImageModule } from '~shared/image/image.module';
 })
 export class DynamicFormsModule {
 
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: DynamicFormsModule,
-			providers: [DynamicFormComponent]
-		};
-	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: DynamicFormsModule
-		};
-	}
 }

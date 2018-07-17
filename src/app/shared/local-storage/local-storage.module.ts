@@ -5,14 +5,8 @@ import { ModuleWithProviders } from '@angular/core';
 
 @NgModule({
 	imports: [CommonModule],
-	providers: [LocalStorageService],
 	declarations: [],
 })
 export class LocalStorageModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: LocalStorageModule,
-			providers: [LocalStorageService],
-		};
-	}
+
 }

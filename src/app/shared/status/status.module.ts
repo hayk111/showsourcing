@@ -14,7 +14,6 @@ import { StatusLabelComponent } from './components/status-label/status-label.com
 		StatusLabelComponent
 	],
 	exports: [StatusSelectorBadgeComponent, SupplierStatusIconComponent, StatusLabelComponent],
-	providers: []
 })
 export class StatusModule {
 
