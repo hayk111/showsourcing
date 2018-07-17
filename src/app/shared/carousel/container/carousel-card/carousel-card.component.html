@@ -19,9 +19,7 @@
 				[images]="images"
 				[selectedIndex]="selectedIndex"
 				(imgClick)="openModal($event)"
-				(rotateRequest)="rotate($event)"
-				(downloadRequest)="download($event)"
-				(deleteRequest)="delete($event)">
+				(deleted)="onDelete($event)">
 			</carousel-app>
 
 			<!-- previews under the carousel -->

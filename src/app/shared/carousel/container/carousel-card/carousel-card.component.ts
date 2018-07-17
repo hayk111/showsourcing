@@ -94,28 +94,9 @@ export class CarouselCardComponent extends AutoUnsub {
 
 
 
-	/** rotates the image by 90 degrees */
-	rotate(img: AppImage) {
-		this.imageSrv.update({
-			...img,
-			orientation: (img.orientation + 1) % 4
-		}).subscribe();
-	}
-
-	/** deletes the image */
-	delete(img: AppImage) {
-		this.dlgSrv.open(ConfirmDialogComponent, {
-			text: 'Are you sure you want to remove this image ?',
-			callback: () => {
-				this.selectedIndex--;
-				this.imageSrv.deleteOne(img.id).subscribe();
-			}
-		});
-	}
-
-	/** start downloading the image */
-	download(img: AppImage) {
-		this.imageSrv.download(img);
+	/** when image is deleted */
+	onDelete() {
+		this.selectedIndex--;
 	}
 
 	/** opens the modal carousel */
