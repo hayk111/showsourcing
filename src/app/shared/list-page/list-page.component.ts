@@ -135,6 +135,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Filters items based  */
 	private filter(query: string) {
+		console.log('query = ', query);
 		this._selectParams$.next(new SelectParams({ query, sort: this.currentParams.sort }));
 	}
 

@@ -6,6 +6,7 @@ import { NewSupplierDlgComponent } from '~features/supplier/containers/new-suppl
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
 import { FileModule } from '~shared/file';
+import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
@@ -13,6 +14,7 @@ import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TagModule } from '~shared/tag';
 import { routes } from './routes';
+import { BadgeModule } from '~shared/badge/badge.module';
 
 import { SupplierListViewComponent } from './components';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
@@ -23,13 +25,16 @@ import { SupplierLatestProductsComponent } from './components/supplier-latest-pr
 import { SupplierMainTitleComponent } from './components/supplier-main/supplier-main-title/supplier-main-title.component';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
+import { SupplierFiltersComponent } from './components/supplier-filters/supplier-filters.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { SupplierFeatureService } from './services/supplier-feature.service';
+import { SearchService } from './services/search.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { PanelModule } from '~shared/panel/panel.module';
 import { SupplierPreviewComponent } from './containers/supplier-preview/supplier-preview.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 
 
 @NgModule({
@@ -46,9 +51,12 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		TagModule,
-		RatingModule, // used for heart
+		WorkflowActionModule,
+		RatingModule, // used for hearth
+		FiltersModule, // used for filters
+		BadgeModule,
 		PanelModule,
-		WorkflowActionModule
+		SearchAutocompleteModule
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -65,6 +73,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		SupplierContactComponent,
 		SupplierDescriptionComponent,
 		SupplierPreviewComponent,
+		SupplierFiltersComponent
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,
@@ -73,7 +82,9 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 	exports: [
 		SuppliersPageComponent
 	],
-
+	providers: [
+		SupplierFeatureService, SearchService
+	],
 })
 export class SuppliersModule {
 

@@ -7,13 +7,37 @@
 	>
 </top-panel-app>
 
-<sub-panel-app
+<!-- 	buttonName="Add Supplier"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[buttonIcon]="false"
 	[hasSwitch]="true"
 	[hasFilter]="true"
+	(buttonClick)="openCreateDlg(true)"
+	[filters]="getFiltersNumber()"
+	(showFilters)="openFilterPanel()"
 	(search)="search($event)">
+
+-->
+<sub-panel-app
+	[hasSwitch]="false"
+	[hasFilter]="true"
+	[buttonIcon]="false"
+	buttonName="Add {{entityMetadata.singular}}"
+	[filters]="getFiltersNumber()"
+	(buttonClick)="openCreateDlg(true)"
+	(showFilters)="openFilterPanel()"
+	(search)="search($event)">
+	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+		<search-autocomplete-item-app *ngFor="let element of (searchFilterElements$ | async)">
+			<search-autocomplete-item-content-app
+				[selectable]="true" [title]="element.name" [subtitle]="element.type"
+				[checked]="element.checked" [icon]="element.type"
+				(check)="onCheckSearchElement(element)"
+				(uncheck)="onUncheckSearchElement(element)">
+			</search-autocomplete-item-content-app>
+		</search-autocomplete-item-app>
+	</search-autocomplete-app>
 </sub-panel-app>
 
 <ng-container *ngIf="items$ | async as suppliers">
@@ -45,6 +69,12 @@
 			*ngIf="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
+
+	<supplier-filters-app
+		(clickOutside)="closeFilterPanel()"
+		(filter)="filter($event)"
+		*ngIf="filterPanelOpen">
+	</supplier-filters-app>
 
 	<supplier-preview-app
 		id="test"
