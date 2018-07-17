@@ -12,6 +12,7 @@ import { SharedModule } from '~shared/shared.module';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { routes } from './routes';
 
 import {
 	InviteUserDlgComponent,
@@ -34,6 +35,7 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 @NgModule({
 	imports: [
 		SharedModule,
+		RouterModule.forChild(routes),
 		ReactiveFormsModule,
 		RouterModule,
 		TopPanelModule,
