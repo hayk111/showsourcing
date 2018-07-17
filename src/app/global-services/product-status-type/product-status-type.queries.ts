@@ -40,8 +40,8 @@ export class ProductStatusTypeQueries implements GlobalQuery {
 	`;
 
 	all = (str: string) => gql`
-		subscription ProductStatusTypes {
-			ProductStatusTypes {
+		subscription productStatusTypes {
+			productStatusTypes {
 				${str}
 			}
 		}

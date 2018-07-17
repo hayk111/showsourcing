@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { EntityMetadata, Product, ProductStatus, Supplier, SupplierStatus, ProductStatusType } from '~models';
 import { WorkflowActionService } from '~shared/workflow-action/service/workflow-action.service';
 import { AutoUnsub } from '~utils';
+import { map } from '../../../../../node_modules/rxjs/operators';
 
 @Component({
 	selector: 'workflow-action-app',
@@ -27,7 +28,6 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.status$ = this.workflowSrv.getTableStatus(this.typeEntity);
-		console.log(this.entity);
 	}
 	updateStatus(status) {
 		this.workflowSrv.updateStatus({ id: this.entity.id, status }, this.typeEntity).subscribe();
