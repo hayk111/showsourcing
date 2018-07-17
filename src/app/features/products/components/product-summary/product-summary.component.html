@@ -41,7 +41,7 @@
 				<status-selector-badge-app
 					class="badge"
 					(update)="updateStatus.emit($event)"
-					[status]="product?.status"
+					[status]="product?.statuses[0].status"
 					type="product">
 				</status-selector-badge-app>
 			</div>

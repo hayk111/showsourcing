@@ -23,7 +23,7 @@
   </div>
 
   <div class="flexCenter">
-    <status-selector-badge-app (update)="onStatusUpdate($event)" type="product" class="badge" [status]="product?.status"></status-selector-badge-app>
+    <status-selector-badge-app (update)="onStatusUpdate($event)" type="product" class="badge" [status]="product?.statuses[0].status"></status-selector-badge-app>
   </div>
 
   <!-- bottom card -->

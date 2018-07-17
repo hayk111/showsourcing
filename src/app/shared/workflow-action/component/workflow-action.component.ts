@@ -15,10 +15,10 @@ import { map } from '../../../../../node_modules/rxjs/operators';
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	@Input() entity: Supplier | Product;
+	@Input() entity: Product;
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;
-	status$: Observable<SupplierStatus[] | ProductStatusType[]>;
+	status$: Observable<ProductStatusType[]>;
 
 	constructor(
 		private workflowSrv: WorkflowActionService
