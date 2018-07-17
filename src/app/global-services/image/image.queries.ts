@@ -6,7 +6,7 @@ export class ImageQueries implements GlobalQuery {
 	one: any = gql`
 	subscription image($query: String!) {
 		images(query: $query) {
-			id, name
+			id, name, orientation
 		}
 	}
 	`;

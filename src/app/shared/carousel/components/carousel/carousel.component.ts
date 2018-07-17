@@ -13,7 +13,13 @@ import { DialogService } from '~shared/dialog';
 })
 export class CarouselComponent implements OnInit {
 	defaultImg = DEFAULT_IMG;
-	@Input() images: Array<AppImage> = [];
+	@Input() set images(img: Array<AppImage>) {
+		this._images = img;
+	}
+	get images() {
+		return this._images;
+	}
+	private _images = [];
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
 	@Output() deleted = new EventEmitter<AppImage>();

@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub, debug } from '~utils';
-import { takeUntil, distinctUntilChanged, map } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 
 @Component({
@@ -74,8 +74,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
- * update the product
- */
+	 * update the product
+	 */
 	onFormCreated(form: FormGroup) {
 		form.valueChanges
 			.pipe(
