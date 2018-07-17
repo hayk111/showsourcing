@@ -8,12 +8,10 @@
 </top-panel-app>
 
 <sub-panel-app
-	[hasSwitch]="false"
+  [hasSwitch]="false"
 	[hasFilter]="true"
 	[buttonIcon]="false"
-	buttonName="Add {{entityMetadata.singular}}"
 	[filters]="getFiltersNumber()"
-	(buttonClick)="openCreateDlg(true)"
 	(showFilters)="openFilterPanel()"
 	(search)="search($event)">
 	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
