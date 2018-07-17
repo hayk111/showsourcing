@@ -6,7 +6,7 @@ export enum FilterType {
 	TAG = 'tags',
 	PROJECT = 'project',
 	CREATED_BY = 'createdBy',
-	PRODUCT_STATUS = 'status',
+	PRODUCT_STATUS_TYPE = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	SEARCH = 'search',

@@ -43,6 +43,7 @@ export class ProductSelectableCardComponent implements OnInit {
 	}
 
 	onStatusUpdate(id: string) {
-		this.update.emit({ id: this.product.id, status: { id } });
+		const prodS = new ProductStatus({ status: { id: id } });
+		this.update.emit({ id: this.product.id, statuses: [prodS, ...this.product.statuses] });
 	}
 }

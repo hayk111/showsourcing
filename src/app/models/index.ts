@@ -6,6 +6,7 @@ export * from './packaging.model';
 export * from './price-matrix.model';
 export * from './price.model';
 export * from './product-status.model';
+export * from './product-status-type.model';
 export * from './product-vote.model';
 export * from './product.model';
 export * from './project.model';

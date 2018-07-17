@@ -42,8 +42,12 @@ export class ProductQueries implements GlobalQuery {
 				}
 			},
 			favorite,
-			status {
-				id, name, color, contrastColor, step
+			statuses {
+				id,
+				cancelled,
+				status {
+					id, name, color, contrastColor, step
+				}
 			},
 			tags {
 				id, name
