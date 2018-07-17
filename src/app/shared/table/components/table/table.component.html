@@ -85,7 +85,7 @@
 	<ng-template #spacer>
 		<span></span>
 	</ng-template>
-	<button *ngIf="rows.length >= perPage" (click)="next.emit()" class="auto">next</button>
+	<button *ngIf="rows && rows.length >= perPage" (click)="next.emit()" class="auto">next</button>
 </div>
 
 

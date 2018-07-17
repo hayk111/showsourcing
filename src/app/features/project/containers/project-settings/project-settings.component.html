@@ -16,7 +16,6 @@
 
 	<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
 
-
 	<form [formGroup]="form">
 		<form-field-app class="borderless">
 			<label-app>Project Name</label-app>
@@ -25,7 +24,7 @@
 
 		<form-field-app class="borderless">
 			<label-app>Description</label-app>
-			<textarea inputApp rows="1" formControlName="description" class="borderless"></textarea>
+			<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
 		</form-field-app>
 	</form>
 
