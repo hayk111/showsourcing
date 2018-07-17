@@ -81,8 +81,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			.pipe(
 				takeUntil(this._destroy$),
 				distinctUntilChanged()
-			)
-			.subscribe(product => this.updateProduct(product));
+			).subscribe(product => this.updateProduct(product));
 	}
 
 	updateProduct(product: any) {
