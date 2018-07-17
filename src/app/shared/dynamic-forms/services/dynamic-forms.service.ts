@@ -4,7 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormDescriptor, CustomField } from '../models';
 import { RegexpApp } from '~utils/regexes';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class DynamicFormsService {
 	constructor() { }
 

@@ -58,10 +58,10 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		RatingModule,
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used in list
-		FiltersModule.forChild(), // used for filters
+		FiltersModule, // used for filters
 		CarouselModule,
 		BadgeModule,
-		CommentModule.forChild(),
+		CommentModule,
 		TopPanelModule,
 		SearchAutocompleteModule,
 		WorkflowActionModule
@@ -97,15 +97,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
-	providers: [ProductFeatureService, TeamService, ExportService, SearchService]
 })
 export class ProductModule {
-
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: ProductModule,
-			providers: [],
-		};
-	}
 
 }

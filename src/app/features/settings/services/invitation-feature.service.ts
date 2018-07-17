@@ -3,9 +3,11 @@ import { switchMap } from 'rxjs/operators';
 import { Invitation } from '~models';
 
 import { InvitationService, UserService } from '../../../global-services';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(protected apollo: ApolloWrapper, private invitationSrv: InvitationService, private userSrv: UserService) {

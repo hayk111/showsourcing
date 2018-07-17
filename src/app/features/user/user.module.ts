@@ -12,22 +12,10 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		ReactiveFormsModule,
 		TopPanelModule
 	],
-	providers: [],
 	declarations: [],
 	exports: [],
 })
 export class UserModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: UserModule,
-			providers: []
-		};
-	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: UserModule,
-		};
-	}
 
 }

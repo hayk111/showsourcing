@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AuthGuardService, AuthModule } from '~features/auth';
+import { AuthModule } from '~features/auth';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 import { ProductModule } from '~features/products';
@@ -28,8 +28,6 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './routes';
 import { HttpApiRedirectorService } from './services/http-api-redirector.service';
 
-declare let module: any;
-
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
@@ -38,26 +36,26 @@ declare let module: any;
 		AppApolloModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		AuthModule.forRoot(),
+		AuthModule,
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
-		TemplateModule.forRoot(),
-		LocalStorageModule.forRoot(),
-		SettingsModule.forRoot(),
-		UserModule.forRoot(),
 		TemplateModule,
-		ProductModule.forRoot(),
+		LocalStorageModule,
+		SettingsModule,
+		UserModule,
+		TemplateModule,
+		ProductModule,
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,
 		// shared
-		NotificationsModule.forRoot(),
+		NotificationsModule,
 		DialogModule,
 		GenericDialogModule,
 		// modules features
-		SuppliersModule.forRoot(),
-		ProjectModule.forRoot(),
-		TasksModule.forRoot(),
+		SuppliersModule,
+		ProjectModule,
+		TasksModule,
 		DataManagementModule.forRoot(),
 		PickATeamModule,
 		TestPageModule,
@@ -67,11 +65,10 @@ declare let module: any;
 		),
 	],
 	providers: [
-		AuthGuardService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpApiRedirectorService,
-			multi: true,
+			multi: true
 		},
 	],
 	exports: [RouterModule],

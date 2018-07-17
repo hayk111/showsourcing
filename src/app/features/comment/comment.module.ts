@@ -18,19 +18,7 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	declarations: [CommentCtnrComponent, CommentComponent, CommentListComponent, CommentBadgeComponent],
 	exports: [CommentCtnrComponent],
-	providers: [],
 })
 export class CommentModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: CommentModule,
-			providers: [],
-		};
-	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: CommentModule,
-		};
-	}
 }

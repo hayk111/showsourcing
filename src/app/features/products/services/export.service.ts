@@ -5,18 +5,19 @@ import { User } from '~models';
 import { RequestQueries } from '~features/products/services/request.queries';
 import { forkJoin, from } from 'rxjs';
 import { take, map, filter, first, switchMap } from 'rxjs/operators';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { uuid } from '~utils';
 
-// TODO: thiery same comment as in features/product/services/team.service
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class ExportService {
 
 	constructor(private wrapper: ApolloWrapper) { }
 
 	/*
-        Add products export.
-     */
+		Add products export.
+	*/
 	addProductsExport(productIds: string[], exportType: string): Observable<any> {
 		const exportRequest = {
 			id: uuid(),

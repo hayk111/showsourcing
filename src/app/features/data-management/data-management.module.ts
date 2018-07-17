@@ -29,9 +29,6 @@ import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent }
 	entryComponents: [CreationDialogComponent, EditionDialogComponent, MergeDialogComponent],
 	exports: [DataManagementPageComponent],
 	providers: [
-		CategoryManagementService,
-		TagManagememtService,
-		EventManagementService
 	]
 })
 export class DataManagementModule {

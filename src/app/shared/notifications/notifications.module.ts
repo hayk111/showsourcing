@@ -12,10 +12,5 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 	providers: [NotificationService],
 })
 export class NotificationsModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: NotificationsModule,
-			providers: [NotificationService],
-		};
-	}
+
 }

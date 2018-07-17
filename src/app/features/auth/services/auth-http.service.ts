@@ -8,7 +8,9 @@ import { Credentials } from '../interfaces';
 
 
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class AuthHttpService {
 
 	constructor(private http: HttpClient) {

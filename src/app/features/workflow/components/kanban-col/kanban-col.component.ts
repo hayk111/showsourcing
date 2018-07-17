@@ -10,7 +10,6 @@ import {
 
 import { KanbanService } from '../../services/kanban.service';
 
-@Injectable()
 @Component({
 	selector: 'kanban-col-app',
 	templateUrl: './kanban-col.component.html',
@@ -24,9 +23,9 @@ export class KanbanColComponent implements OnInit {
 	@Input() borderColor: string;
 	@Output() itemDropped = new EventEmitter<any>();
 
-	constructor(private kanbanSrv: KanbanService) {}
+	constructor(private kanbanSrv: KanbanService) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	onDragOver(event) {
 		event.preventDefault();

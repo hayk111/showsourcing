@@ -13,6 +13,5 @@ import {
 		CommonModule
 	],
 	declarations: [],
-	providers: []
 })
 export class ListPageModule { }

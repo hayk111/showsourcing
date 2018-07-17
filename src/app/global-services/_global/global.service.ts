@@ -1,7 +1,7 @@
 import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
 import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap } from 'rxjs/operators';
 import { isObject } from 'util';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalQuery } from './global.query.interface';
 import { SelectParams } from './select-params';

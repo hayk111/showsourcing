@@ -5,7 +5,9 @@ import { User } from '~models';
 import { first } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class SettingsProfileService {
 
 	constructor(

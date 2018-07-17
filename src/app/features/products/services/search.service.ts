@@ -7,7 +7,9 @@ import { TagService, CategoryService, SupplierService, EventService } from '~glo
 import { FilterService } from '~shared/filters';
 import { SelectParams } from '~global-services/_global/select-params';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class SearchService {
 
 	constructor(protected tagSrv: TagService,
@@ -33,7 +35,7 @@ export class SearchService {
 			filterSrv.filters$.pipe(first())
 		).pipe(
 			map(results => {
-				const [ tags, categories, suppliers, events, filters ] = results;
+				const [tags, categories, suppliers, events, filters] = results;
 				const elements = [];
 				elements.push(...tags.map(tag => Object.assign({}, tag, { type: 'tag', checked: this.isFilter(filters, tag, 'tag') })));
 				elements.push(...categories.map(category => Object.assign(

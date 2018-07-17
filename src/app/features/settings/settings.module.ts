@@ -38,14 +38,13 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 		RouterModule,
 		TopPanelModule,
 		DialogModule,
-		UserModule.forChild(),
+		UserModule,
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		ContextMenuModule,
 		SidenavModule,
 		FileModule
 	],
-	providers: [MemberFeatureService, InvitationFeatureService, SettingsProfileService],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
@@ -59,17 +58,6 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 	exports: [],
 })
 export class SettingsModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: SettingsModule,
-			providers: []
-		};
-	}
 
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: SettingsModule,
-		};
-	}
 
 }

@@ -72,15 +72,8 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 	exports: [
 		SuppliersPageComponent
 	],
-	providers: [
-		SupplierFeatureService
-	],
+
 })
 export class SuppliersModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: SuppliersModule,
-			providers: [],
-		};
-	}
+
 }

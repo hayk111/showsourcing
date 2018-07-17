@@ -5,9 +5,11 @@ import { Product, Project } from '~models';
 import { ProductService, ProjectService } from '../../../global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class ProductFeatureService extends ProductService {
 
 	constructor(protected wrapper: ApolloWrapper, private projectSrv: ProjectService) {

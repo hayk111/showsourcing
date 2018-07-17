@@ -6,12 +6,15 @@ import { AccessTokenResponse } from '~features/auth/interfaces/access-token-resp
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
 import { AccessTokenState } from '~features/auth/interfaces';
+import { AuthModule } from '~features/auth/auth.module';
 
 const ACCESS_TOKEN_NAME = 'accessToken';
 const REFRESH_TOKEN_NAME = 'refreshToken';
 
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class TokenService {
 	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();

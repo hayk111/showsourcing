@@ -44,20 +44,8 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 		FilterSelectionPanelComponent
 	],
 	providers: [
-		FilterService,
-		FilterDataService
 	]
 })
 export class FiltersModule {
-	static forRoot(): ModuleWithProviders {
-		return {
-			ngModule: FiltersModule,
-			providers: []
-		};
-	}
-	static forChild(): ModuleWithProviders {
-		return {
-			ngModule: FiltersModule,
-		};
-	}
+
 }

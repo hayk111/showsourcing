@@ -10,7 +10,9 @@ import { TeamUser } from '~models';
 // Basically you will just have to extend TeamUserService and have an empty class.
 //
 // =====================>>>>>>
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class MemberService {
 	private membersQuery$: QueryRef<string, any>;
 

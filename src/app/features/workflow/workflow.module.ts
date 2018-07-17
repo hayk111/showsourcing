@@ -21,6 +21,5 @@ import { KanbanService } from './services/kanban.service';
 		IconsModule,
 	],
 	declarations: [WorkflowPageComponent, WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],
-	providers: [KanbanService],
 })
 export class WorkflowModule { }

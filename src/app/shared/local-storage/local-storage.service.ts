@@ -2,7 +2,9 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { log, LogColor } from '~utils';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class LocalStorageService {
 
 	private isBrowser: boolean;
