@@ -18,12 +18,13 @@ import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
 import { FileModule } from '~shared/file';
+import { routes } from './routes';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		// EffectsModule.forFeature(effects),
-		RouterModule.forChild([]),
+		RouterModule.forChild(routes),
 		SideMenuModule, // side nav
 		TopPanelModule, // bread crumb at the top left
 		SelectionBarModule, // used for when selecting an item
