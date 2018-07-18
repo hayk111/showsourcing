@@ -8,9 +8,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { first, map } from 'rxjs/operators';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class MemberFeatureService extends TeamUserService {
 
 	constructor(

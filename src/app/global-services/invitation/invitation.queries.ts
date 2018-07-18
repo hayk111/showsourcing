@@ -34,8 +34,8 @@ export class InvitationQueries implements GlobalQuery {
 		}`;
 
 	create = gql`
-        mutation addInvitation($input: InvitationInput!) {
-            addInvitation(input: $input) {
+        mutation createInvitation($input: InvitationInput!) {
+            updateInvitation(input: $input) {
                 id
             }
         }

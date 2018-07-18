@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -24,7 +24,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -63,9 +64,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 	openContactDlg(contact?: Contact) {
 		if (contact)
-			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: false, contact, supplierId: this.supplierId });
+			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: false, contact, supplierId: this.supplierId });
 		// new contact dlg
 		else
-			this.dlgSrv.open(NewContactDlgComponent, { isNewContact: true, supplierId: this.supplierId });
+			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplierId: this.supplierId });
 	}
 }

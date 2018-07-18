@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { zip } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
-import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
-import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { InviteUserDlgComponent } from '../../components/invite-user-dlg/invite-user-dlg.component';
+import { MemberFeatureService } from '../../services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -37,7 +37,8 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected userService: UserService,
-		protected teamService: TeamService
+		protected teamService: TeamService,
+		protected moduleRef: NgModuleRef<any>
 	) {
 		super(router, memberSrv, selectionSrv, filterSrv, dlgSrv, ERM.TEAM_USER);
 	}
@@ -63,13 +64,12 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
-		// this.dlgSrv.open(NewTaskDlgComponent);
 		this.dlgSrv.open(CreationDialogComponent, { type: ERM.TEAM, shouldRedirect: false });
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dlgSrv.open(InviteUserDlgComponent);
+		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
 	}
 
 	/** Updates the access type */

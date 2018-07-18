@@ -7,6 +7,7 @@ import { MenuService } from '~features/settings/services/menu.service';
 import { UserModule } from '~features/user';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
+import { DialogService } from '~shared/dialog/services';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
@@ -18,7 +19,6 @@ import { GenericDialogModule } from '~shared/generic-dialog/generic-dialog.modul
 
 import {
 	InviteUserDlgComponent,
-	NewTeamDlgComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
 } from '~features/settings/components';
@@ -55,13 +55,16 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 		SettingsComponent, SettingsTeamMembersPageComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
 		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
-		InviteUserDlgComponent, NewTeamDlgComponent, CompanyProfileCardComponent,
+		InviteUserDlgComponent, CompanyProfileCardComponent,
 		ProfileCardComponent, ChangePswdDlgComponent
 	],
 	entryComponents: [
-		InviteUserDlgComponent, NewTeamDlgComponent, ChangePswdDlgComponent
+		InviteUserDlgComponent, ChangePswdDlgComponent
 	],
 	exports: [],
+	providers: [
+		MemberFeatureService, InvitationFeatureService
+	]
 })
 export class SettingsModule {
 
