@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
@@ -59,6 +59,9 @@ export class TeamService extends GlobalService<Team> {
 			of(
 				new SelectParams({ query: `id == "${team.id}" AND status == "active"` })
 			)
+		).pipe(
+			map(teams => teams[0]),
+			filter(teamCreated => !!teamCreated)
 		);
 	}
 

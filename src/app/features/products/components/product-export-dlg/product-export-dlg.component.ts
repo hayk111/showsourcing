@@ -28,11 +28,14 @@ export class ProductExportDlgComponent implements OnInit {
 	}
 
 	export() {
-		const request = new ExportRequest({});
-		this.exportSrv.create(request)
-		.subscribe(r => {
-			// do whatever we need to
+		const request = new ExportRequest({
+			type: 'product',
+			format: this.selectedExport
 		});
+		this.exportSrv.create(request)
+			.subscribe(r => {
+				// do whatever we need to
+			});
 	}
 }
 

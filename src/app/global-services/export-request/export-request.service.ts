@@ -6,7 +6,7 @@ import { GlobalService } from '../_global/global.service';
 import { ExportRequestQueries } from './export-request.queries';
 import { of } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
-import { switchMap } from '../../../../node_modules/rxjs/operators';
+import { switchMap, tap, map, filter } from 'rxjs/operators';
 
 
 @Injectable({
@@ -29,6 +29,9 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 			of(
 				new SelectParams({ query: `id == "${request.id}" AND status == "active"` })
 			)
+		).pipe(
+			map(requests => requests[0]),
+			filter(req => !!req),
 		);
 	}
 
