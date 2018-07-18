@@ -15,10 +15,11 @@ import { map } from '../../../../../node_modules/rxjs/operators';
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	@Input() entity: Product;
+	@Input() entity: any;
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;
-	status$: Observable<ProductStatusType[]>;
+	@Input() selectSize = 's';
+	status$: Observable<ProductStatusType[] | SupplierStatus[]>;
 
 	constructor(
 		private workflowSrv: WorkflowActionService
@@ -29,8 +30,13 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.status$ = this.workflowSrv.getTableStatus(this.typeEntity);
 	}
-	updateStatus(status) {
-		this.workflowSrv.updateStatus({ id: this.entity.id, status }, this.typeEntity).subscribe();
+	updateStatusProd(status) {
+		const tempS = new ProductStatus({ status });
+		this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
+	}
+
+	updateStatusSup(status) {
+		this.workflowSrv.updateStatus({ id: this.entity.id, status }, this.typeEntity);
 	}
 
 }

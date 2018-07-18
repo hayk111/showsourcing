@@ -9,7 +9,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 
@@ -43,6 +43,7 @@ export class ProductListViewComponent extends ListViewComponent<Product> impleme
 	@ViewChild('action') actionTemplate: TemplateRef<any>;
 	@ViewChild('default') defaultTemplate: TemplateRef<any>;
 	@ViewChild('contextualMenu') contextualMenuTemplate: TemplateRef<any>;
+	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [
 		{ title: 'Name', type: 'main', sortable: true, sortBy: 'name', width: 280 },
