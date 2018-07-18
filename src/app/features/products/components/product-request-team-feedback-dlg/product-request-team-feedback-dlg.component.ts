@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog';
-import { TeamService } from '~features/products/services/team.service';
+import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
 
 
@@ -17,6 +17,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	teamMembers$: Observable<Array<User>>;
 	selected = {};
 	selectedProducts: string[];
+
 	get products() {
 		return this.selectedProducts;
 	}
@@ -24,7 +25,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	constructor(private dlgSrv: DialogService, private teamSrv: TeamService) { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.teamSrv.selectTeamMembers();
+		this.teamMembers$ = this.teamSrv.selectAll();
 	}
 
 	select(id: string, user) {

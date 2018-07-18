@@ -1,8 +1,8 @@
 import { BaseEntity } from './_entity.model';
 
 
-export class AppComment extends BaseEntity<AppCommentConfig> {
-	message?: string;
+export class AppComment extends BaseEntity<AppCommentConfig> implements AppCommentConfig {
+	message: string;
 }
 
 export interface AppCommentConfig {

@@ -59,7 +59,6 @@ export class TeamService {
         Add vote requests for users.
      */
 	addProductFeedbacksForTeamUsers(users: User[], productIds: string[]): Observable<any[]> {
-		// TODO: thiery from thiery: batching should be used here to execute mutations
 		return forkJoin(users.map(user => this.addProductFeedbacksTeamUser(user, productIds)));
 	}
 
