@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
+import { TextareaAutoGrowsDirective } from '~shared/inputs/components-directives/textarea-auto-grows.directive';
 
 export const components = [
 	FormFieldComponent,
@@ -23,7 +24,8 @@ export const components = [
 	RestrictInputDirective,
 	LabelComponent,
 	HintComponent,
-	ErrorComponent
+	ErrorComponent,
+	TextareaAutoGrowsDirective
 ];
 
 @NgModule({

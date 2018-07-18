@@ -12,7 +12,11 @@
 		<div class="flexColumn flexCenter">
 			<icon-app class="logo flexCenter" fontSet="svg" name="supplier-preview"></icon-app>
 			<h2>{{ supplier?.name }}</h2>
-			<div>{{ supplier?.supplierType?.name || 'Supplier'}} - {{ supplier.country | const:'country' }}</div>
+			<div>{{ supplier?.supplierType?.name || 'Supplier'}}
+				<ng-container *ngIf="supplier.country">
+					- {{ supplier.country | const:'country' }}
+				</ng-container>
+			</div>
 			<status-label-app [status]="supplier.status"></status-label-app>
 		</div>
 

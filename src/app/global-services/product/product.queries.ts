@@ -188,7 +188,7 @@ export class ProductQueries implements GlobalQuery {
 			products {
 				${str}
 			}
-		};
+		}
 	`
 
 }

@@ -11,10 +11,10 @@
 	<ng-content></ng-content>
 
 	<div class="confirmBlock" *ngIf="hasAction">
-		<div class="confirmIcon cancel pointer" (mousedown)="cancel()">
+		<div class="confirmIcon cancel pointer" (click)="cancel()">
 			<icon-app name="times" fontSet="fa"></icon-app>
 		</div>
-		<div class="confirmIcon save pointer" (mousedown)="save()">
+		<div class="confirmIcon save pointer" (click)="save()">
 			<icon-app name="check" fontSet="fa"></icon-app>
 		</div>
 

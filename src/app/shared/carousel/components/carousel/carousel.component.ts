@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppImage } from '~models';
 import { DEFAULT_IMG } from '~utils/constants';
+import { ImageService } from '~global-services/image/image.service';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'carousel-app',
@@ -10,17 +13,24 @@ import { DEFAULT_IMG } from '~utils/constants';
 })
 export class CarouselComponent implements OnInit {
 	defaultImg = DEFAULT_IMG;
-	@Input() images: Array<AppImage> = [];
+	@Input() set images(img: Array<AppImage>) {
+		this._images = img;
+	}
+	get images() {
+		return this._images;
+	}
+	private _images = [];
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
-	@Output() rotateRequest = new EventEmitter<AppImage>();
-	@Output() deleteRequest = new EventEmitter<AppImage>();
-	@Output() downloadRequest = new EventEmitter<AppImage>();
+	@Output() deleted = new EventEmitter<AppImage>();
 	@Output() imgClick = new EventEmitter<number>();
 
 	menuOpen = false;
 
-	constructor() { }
+	constructor(
+		private imageSrv: ImageService,
+		private dlgSrv: DialogService
+	) { }
 
 	ngOnInit() { }
 
@@ -44,17 +54,31 @@ export class CarouselComponent implements OnInit {
 		this.menuOpen = true;
 	}
 
+	/** rotates the image by 90 degrees */
 	rotate() {
-		this.rotateRequest.emit(this.getImg());
+		const img = this.getImg();
+		this.imageSrv.update({
+			...img,
+			orientation: (img.orientation + 1) % 4
+		}).subscribe();
 	}
 
+	/** deletes the image */
 	delete() {
-		this.deleteRequest.emit(this.getImg());
+		const img = this.getImg();
+		this.dlgSrv.open(ConfirmDialogComponent, {
+			text: 'Are you sure you want to remove this image ?',
+			callback: () => {
+				this.deleted.emit();
+				this.imageSrv.deleteOne(img.id).subscribe();
+			}
+		});
 	}
 
+	/** start downloading the image */
 	download() {
-		window.open(this.getImg().fileName);
-		this.downloadRequest.emit(this.getImg());
+		const img = this.getImg();
+		this.imageSrv.download(img);
 	}
 
 	getImg() {

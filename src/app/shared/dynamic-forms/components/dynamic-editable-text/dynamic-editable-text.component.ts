@@ -31,8 +31,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
-	/** when the editable field closes */
-	@Output() close = new EventEmitter<null>();
 	/** blur event for onTouchedFn */
 	@Output() blur = new EventEmitter<null>();
 	/** editable field ref, used to close it programmatically */
@@ -74,7 +72,6 @@ export class DynamicEditableTextComponent extends AbstractInput implements OnIni
 
 	/** when an editable field closes */
 	onClose() {
-		this.close.emit();
 		this.isOpen = false;
 	}
 

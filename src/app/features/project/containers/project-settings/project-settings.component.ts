@@ -1,13 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectService } from '~global-services';
-import { switchMap, map, tap, takeUntil, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Project } from '~models/project.model';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppImage } from '~models';
-import { AutoUnsub } from '~utils';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { ProjectService } from '~global-services';
+import { Project } from '~models/project.model';
 import { UploaderService } from '~shared/file/services/uploader.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'project-settings-app',

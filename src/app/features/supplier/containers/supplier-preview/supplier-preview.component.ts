@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
 import { Supplier } from '~models';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '~utils';
-import { takeUntil, distinctUntilChanged, map } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -20,7 +20,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() close = new EventEmitter<undefined>();
 	/** at first the supplier is the one in the list but it hasn't got all info so we gonna query it again */
 	supplier$: Observable<Supplier>;
-	descriptor$ = new Subject<FormDescriptor>();
+	descriptor$ = new ReplaySubject<FormDescriptor>(1);
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },
@@ -84,4 +84,5 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 			)
 			.subscribe(supplier => this.update(supplier));
 	}
+
 }

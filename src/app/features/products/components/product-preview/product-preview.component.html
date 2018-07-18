@@ -7,9 +7,8 @@
 		<icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
 	</side-panel-action-app>
 
-	<carousel-app [images]="product.images"></carousel-app>
-
 	<ng-container *ngIf="product$ | async as product">
+		<carousel-app [images]="product.images"></carousel-app>
 		<!-- actions -->
 		<div class=" flexBetween">
 			<div class="flexVAlign actions">
