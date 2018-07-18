@@ -9,5 +9,5 @@ export const environment = {
 	production: false,
 	apiUrl: 'https://ros-dev2-b.showsourcing.com:9443',
 	signupUrl: 'https://ros-dev2-b.showsourcing.com/signup',
-	LOG_LEVEL: LogLevel.DEBUG,
+	LOG_LEVEL: LogLevel.DEBUG
 };
