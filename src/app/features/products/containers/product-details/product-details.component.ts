@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { AppFile, Product, Project, AppImage } from '~models';
+import { AppFile, Product, Project, AppImage, ProductStatus } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import {
@@ -63,7 +63,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateStatus(statusId: string) {
-		this.featureSrv.update({ id: this.product.id, status: { id: statusId } }).subscribe();
+		const prodS = new ProductStatus({ status: { id: statusId } });
+		this.featureSrv.update({ id: this.product.id, statuses: [prodS, ...this.product.statuses] }).subscribe();
 	}
 
 	onFavorited() {

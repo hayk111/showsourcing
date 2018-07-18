@@ -126,7 +126,7 @@ export class FilterService {
 				filter.type === FilterType.CATEGORY ||
 				filter.type === FilterType.TAG ||
 				filter.type === FilterType.CREATED_BY ||
-				filter.type === FilterType.PRODUCT_STATUS ||
+				filter.type === FilterType.PRODUCT_STATUS_TYPE ||
 				filter.type === FilterType.FAVORITE ||
 				filter.type === FilterType.ARCHIVED)
 		).length;

@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, AfterContentInit } from '@angular/core';
-import { ProductStatus, SupplierStatus } from '~models';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { ProductStatusType, SupplierStatus } from '~models';
+
 @Component({
 	selector: 'status-label-app',
 	templateUrl: './status-label.component.html',
@@ -15,7 +16,7 @@ import { ProductStatus, SupplierStatus } from '~models';
 export class StatusLabelComponent implements AfterContentInit {
 
 	@Input() labelSize = 's';
-	@Input() set status(status: ProductStatus | SupplierStatus) {
+	@Input() set status(status: ProductStatusType | SupplierStatus) {
 		this._status = status;
 		this.setStyle(status);
 	}

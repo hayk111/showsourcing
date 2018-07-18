@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EntityMetadata, Product, ProductStatus, Supplier, SupplierStatus } from '~models';
+import { EntityMetadata, Product, ProductStatus, Supplier, SupplierStatus, ProductStatusType } from '~models';
 import { WorkflowActionService } from '~shared/workflow-action/service/workflow-action.service';
 import { AutoUnsub } from '~utils';
+import { map } from '../../../../../node_modules/rxjs/operators';
 
 @Component({
 	selector: 'workflow-action-app',
@@ -14,10 +15,10 @@ import { AutoUnsub } from '~utils';
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
-	@Input() entity: Supplier | Product;
+	@Input() entity: Product;
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;
-	status$: Observable<SupplierStatus[] | ProductStatus[]>;
+	status$: Observable<ProductStatusType[]>;
 
 	constructor(
 		private workflowSrv: WorkflowActionService

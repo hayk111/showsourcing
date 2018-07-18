@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Supplier, Category, TeamUser, ProductStatus, Tag, Project, Event } from '~models';
 import { FilterType } from '~shared/filters/models';
 
-import { CategoryService, EventService, ProductStatusService, ProjectService, TagService } from '../../../global-services';
+import { CategoryService, EventService, ProductStatusTypeService, ProjectService, TagService } from '../../../global-services';
 import { SupplierService } from '../../../global-services/supplier/supplier.service';
 import { TeamUserService } from '../../../global-services/team-user/team-user.service';
 
@@ -17,7 +17,7 @@ export class FilterDataService {
 		private tagSrv: TagService,
 		private projectSrv: ProjectService,
 		private teamUserSrv: TeamUserService,
-		private productStatusService: ProductStatusService
+		private productStatusTypeService: ProductStatusTypeService
 	) { }
 
 	selectChoices(type: FilterType) {
@@ -34,7 +34,7 @@ export class FilterDataService {
 				return this.selectProjects();
 			case FilterType.CREATED_BY:
 				return this.selectUsers();
-			case FilterType.PRODUCT_STATUS:
+			case FilterType.PRODUCT_STATUS_TYPE:
 				return this.selectProductStatuses();
 			default: throw Error(`selection for type ${type}, not implemented yet`);
 		}
@@ -66,7 +66,7 @@ export class FilterDataService {
 	}
 
 	private selectProductStatuses(): Observable<ProductStatus[]> {
-		return this.productStatusService.selectAll();
+		return this.productStatusTypeService.selectAll();
 	}
 
 }

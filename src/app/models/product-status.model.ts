@@ -1,9 +1,16 @@
+import { ProductStatusType } from '~models/product-status-type.model';
+import { BaseEntity } from '~models/_entity.model';
+import { User } from '~models/user.model';
 
-export interface ProductStatus {
-	id: string;
-	name?: string;
-	final?: boolean;
-	color?: string;
-	contrastColor?: string;
-	step?: number;
+export class ProductStatus extends BaseEntity<ProductStatusConfig> {
+	status?: ProductStatusType;
+	cancelled ?= false;
+	comment?: Comment;
+	deletedBy?: User;
+	deletionDate?: string;
+	lastUpdatedBy?: string;
+}
+
+export interface ProductStatusConfig {
+	status: ProductStatusType;
 }

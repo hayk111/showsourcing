@@ -20,7 +20,7 @@ export class ProductStatusQueries implements GlobalQuery {
 	`;
 
 	update = gql`
-		mutation updateProductStatus($input: ProductInput!) {
+		mutation updateProductStatus($input: ProductStatusInput!) {
 			updateProductStatus(input: $input) {
 				id, name
 			}

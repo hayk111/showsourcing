@@ -18,7 +18,7 @@ export class Product extends BaseEntity<ProductConfig> {
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	status?: ProductStatus;
+	statuses?: ProductStatus[];
 	tags?: Tag[];
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
@@ -46,7 +46,7 @@ export interface ProductConfig {
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	status?: ProductStatus;
+	statuses?: ProductStatus[];
 	tags?: Tag[];
 	minimumOrderQuantity?: number;
 	moqDescription?: string;

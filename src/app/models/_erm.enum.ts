@@ -48,7 +48,7 @@ export class ERM {
 	static readonly ITEM = new EntityMetadata('item', 'items');
 	static readonly MEMBER = new EntityMetadata('member', 'members');
 	static readonly PRODUCT = new EntityMetadata('product', 'products', Product);
-	static readonly PRODUCT_STATUS = new EntityMetadata('product status', 'product status', Product, 'product-status');
+	static readonly PRODUCT_STATUS_TYPE = new EntityMetadata('product status type', 'product status type', Product, 'product-status-type');
 	static readonly PRODUCT_VOTE = new EntityMetadata('product vote', 'product votes', Product, 'product-vote');
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);

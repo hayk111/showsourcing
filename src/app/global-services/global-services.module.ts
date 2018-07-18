@@ -7,7 +7,7 @@ import { TeamUserService } from '~global-services/team-user/team-user.service';
 import { EventService } from '~global-services/event/event.service';
 import { CategoryService } from '~global-services/category/category.service';
 import { ContactService } from '~global-services/contact/contact.service';
-import { ProductStatusService } from '~global-services/product-status/product-status.service';
+import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
 import { ProjectService } from '~global-services/project/project.service';
 import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
 import { TagService } from '~global-services/tag/tag.service';
@@ -34,7 +34,7 @@ import { SearchService } from '~global-services/search/search.service';
 		EventService,
 		CategoryService,
 		ContactService,
-		ProductStatusService,
+		ProductStatusTypeService,
 		ProjectService,
 		SupplierTypeService,
 		TagService,

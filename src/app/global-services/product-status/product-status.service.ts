@@ -14,6 +14,4 @@ export class ProductStatusService extends GlobalService<ProductStatus> {
 	constructor(wrapper: ApolloWrapper) {
 		super(wrapper, new ProductStatusQueries(), 'ProductStatus');
 	}
-
 }
-

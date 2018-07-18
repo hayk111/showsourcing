@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductStatusService, SupplierStatusService } from '~global-services';
-import { ProductStatus, SupplierStatus } from '~models';
+import { ProductStatusTypeService, SupplierStatusService } from '~global-services';
+import { SupplierStatus, ProductStatusType } from '~models';
 
 
 
@@ -12,15 +12,15 @@ import { ProductStatus, SupplierStatus } from '~models';
 export class StatusSelectorService {
 
 	constructor(
-		private productStatusSrv: ProductStatusService,
+		private productStatusTypeSrv: ProductStatusTypeService,
 		private supplierStatusSrv: SupplierStatusService) { }
 
 	getSupplierStatuses(): Observable<SupplierStatus[]> {
 		return this.supplierStatusSrv.selectAll();
 	}
 
-	getProductStatuses(): Observable<ProductStatus[]> {
-		return this.productStatusSrv.selectAll();
+	getProductStatuses(): Observable<ProductStatusType[]> {
+		return this.productStatusTypeSrv.selectAll();
 	}
 
 }
