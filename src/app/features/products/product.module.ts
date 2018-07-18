@@ -19,6 +19,7 @@ import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { routes } from './routes';
 
 import {
 	ProductCardViewComponent,
@@ -49,7 +50,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild(routes),
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		DialogModule,

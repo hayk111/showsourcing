@@ -19,7 +19,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild(routes),
 		ReactiveFormsModule, // TODO check if used
 		TopPanelModule, // used for bread crumb etc
 		SelectionBarModule, // used for selection at the bottom

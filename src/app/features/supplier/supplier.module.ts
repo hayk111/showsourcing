@@ -12,6 +12,7 @@ import { SharedModule } from '~shared/shared.module';
 import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TagModule } from '~shared/tag';
+import { routes } from './routes';
 
 import { SupplierListViewComponent } from './components';
 import { SupplierContactCardComponent } from './components/supplier-contact-card/supplier-contact-card.component';
@@ -34,7 +35,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild(routes),
 		FileModule, // file-card
 		DynamicFormsModule,
 		CarouselModule,

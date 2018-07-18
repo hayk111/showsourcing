@@ -6,11 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AuthModule } from '~features/auth';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
-import { ProductModule } from '~features/products';
-import { ProjectModule } from '~features/project';
-import { SettingsModule } from '~features/settings';
-import { SuppliersModule } from '~features/supplier';
-import { TasksModule } from '~features/tasks';
 import { TestPageModule } from '~features/test-page/test-page.module';
 import { UserModule } from '~features/user';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
@@ -41,10 +36,8 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		HttpClientModule,
 		TemplateModule,
 		LocalStorageModule,
-		SettingsModule,
 		UserModule,
 		TemplateModule,
-		ProductModule,
 		EventModule,
 		IconsModule, // used to create symboles at the top
 		CardModule,
@@ -53,9 +46,6 @@ import { HttpApiRedirectorService } from './services/http-api-redirector.service
 		DialogModule,
 		GenericDialogModule,
 		// modules features
-		SuppliersModule,
-		ProjectModule,
-		TasksModule,
 		DataManagementModule.forRoot(),
 		PickATeamModule,
 		TestPageModule,
