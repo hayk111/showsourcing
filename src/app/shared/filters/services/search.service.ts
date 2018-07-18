@@ -20,7 +20,6 @@ export class SearchService {
 	}
 
 	searchFilterElements(str: string, filterSrv: FilterService, erm: EntityMetadata) {
-    console.log('>> searchFilterElements - erm = ', erm);
 		if (erm === ERM.PRODUCT) {
 			return this.searchFilterElementsWithAll(str, filterSrv);
 		} else {
