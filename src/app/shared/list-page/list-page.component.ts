@@ -6,7 +6,7 @@ import { GlobalServiceInterface } from '~global-services/_global/global.service'
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, FilterType } from '~shared/filters';
+import { FilterService, FilterType, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
@@ -43,11 +43,14 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
 
+	searchFilterElements$: Observable<any[]>;
+
 	constructor(
 		protected router: Router,
 		protected featureSrv: G,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
@@ -86,6 +89,36 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		}
 	}
 
+	get selectionArray() {
+		return Array.from(this.selectionSrv.selection.keys());
+	}
+
+	/** Search within filters */
+	searchFilters(str: string) {
+		console.log('>> searchFilters');
+		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+	}
+
+	onCheckSearchElement(element) {
+		this.filterSrv.addFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
+
+	onUncheckSearchElement(element) {
+		this.filterSrv.removeFilter({
+			type: element.type,
+			value: element.id,
+			raw: element
+		});
+	}
+
+	getFiltersNumber() {
+		return this.filterSrv.filtersNumber();
+	}
+
 	protected onLoad() {
 		this.pending = true;
 	}
@@ -97,10 +130,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	search(str: string) {
 		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
 		this.searchFilters(str);
-	}
-
-	searchFilters(str) {
-		// To be overidden in sub classes
 	}
 
 	/** Loads more items when we reach the bottom of the page */

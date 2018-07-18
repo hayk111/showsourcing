@@ -7,7 +7,7 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductService } from '~global-services';
 import { Product, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
@@ -29,8 +29,9 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected srv: ProductService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService) {
-		super(router, srv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
+		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
 

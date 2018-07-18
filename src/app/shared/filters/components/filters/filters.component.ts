@@ -3,19 +3,19 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
-import { Filter, FilterGroup, FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { Filter, FilterGroup, FilterType } from '../../models';
+import { FilterService } from '../../services/filter.service';
 import { AutoUnsub } from '~utils';
 
-import { FilterDataService } from '~shared/filters/services/filter.data.service';
+import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
-	selector: 'supplier-filters-app',
-	templateUrl: './supplier-filters.component.html',
-	styleUrls: ['./supplier-filters.component.scss'],
+	selector: 'filters-app',
+	templateUrl: './filters.component.html',
+	styleUrls: ['./filters.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierFiltersComponent extends AutoUnsub implements OnInit {
+export class FiltersComponent extends AutoUnsub implements OnInit {
 	/** array version of filters */
 	filters$: Observable<Filter[]>;
 	/** map<type, Map<value, filter>> to be able to do byType.get(SUPPLIER).has(value) */

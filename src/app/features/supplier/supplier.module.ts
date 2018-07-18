@@ -25,10 +25,8 @@ import { SupplierLatestProductsComponent } from './components/supplier-latest-pr
 import { SupplierMainTitleComponent } from './components/supplier-main/supplier-main-title/supplier-main-title.component';
 import { SupplierMainComponent } from './components/supplier-main/supplier-main.component';
 import { SupplierSummaryComponent } from './components/supplier-main/supplier-summary/supplier-summary.component';
-import { SupplierFiltersComponent } from './components/supplier-filters/supplier-filters.component';
 import { SupplierDetailsComponent, SuppliersPageComponent } from './containers';
 import { SupplierFeatureService } from './services/supplier-feature.service';
-import { SearchService } from './services/search.service';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { PanelModule } from '~shared/panel/panel.module';
@@ -72,8 +70,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDescriptionComponent,
-		SupplierPreviewComponent,
-		SupplierFiltersComponent
+		SupplierPreviewComponent
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,
@@ -83,7 +80,6 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 		SuppliersPageComponent
 	],
 	providers: [
-		SupplierFeatureService, SearchService
 	],
 })
 export class SuppliersModule {

@@ -9,12 +9,12 @@ import { ProductExportDlgComponent } from '~features/products/components/product
 import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
-import { ProductFeatureService, SearchService } from '~features/products/services';
+import { ProductFeatureService } from '~features/products/services';
 import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, Product, Tag, Event, Category, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
@@ -42,7 +42,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PRODUCT);
 	}
 
 	/**
@@ -73,12 +73,12 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		});
 	}
 
-	get selectionArray() {
+	/* get selectionArray() {
 		return Array.from(this.selectionSrv.selection.keys());
-	}
+	} */
 
 	/** Search within filters */
-	searchFilters(str: string) {
+	/* searchFilters(str: string) {
 		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv);
 	}
 
@@ -100,5 +100,5 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	getFiltersNumber() {
 		return this.filterSrv.filtersNumber();
-	}
+	} */
 }

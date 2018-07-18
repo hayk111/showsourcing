@@ -56,11 +56,11 @@
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
 
-	<supplier-filters-app
+	<filters-app
 		(clickOutside)="closeFilterPanel()"
 		(filter)="filter($event)"
 		*ngIf="filterPanelOpen">
-	</supplier-filters-app>
+	</filters-app>
 
 	<supplier-preview-app
 		id="test"

@@ -4,7 +4,7 @@ import { AbstractDataManagementComponent } from '~features/data-management/conta
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { ERM, Event } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
 
@@ -25,8 +25,9 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 		protected featureSrv: EventManagementService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.EVENT);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.EVENT);
 	}
 }

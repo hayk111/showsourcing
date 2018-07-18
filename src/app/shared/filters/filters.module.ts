@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from '~shared/rating';
+import { BadgeModule } from '~shared/badge/badge.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
@@ -10,6 +11,7 @@ import {
 	FilterRatingPanelComponent,
 	FilterSmartPanelComponent,
 	FilterTagComponent,
+	FiltersComponent
 } from './components';
 import { FilterSelectionPanelComponent } from './components/filter-selection-panel/filter-selection-panel.component';
 import { FilterBtnsPanelComponent } from '~shared/filters/components/filter-btns-panel/filter-btns-panel.component';
@@ -22,6 +24,7 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 		FormsModule,
 		ReactiveFormsModule,
 		RatingModule,
+		BadgeModule
 	],
 	declarations: [
 		FilterBtnComponent,
@@ -31,7 +34,8 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 		FilterPricePanelComponent,
 		FilterTagComponent,
 		FilterSmartPanelComponent,
-		FilterSelectionPanelComponent
+		FilterSelectionPanelComponent,
+		FiltersComponent
 	],
 	exports: [
 		FilterBtnComponent,
@@ -41,7 +45,8 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 		FilterPricePanelComponent,
 		FilterTagComponent,
 		FilterSmartPanelComponent,
-		FilterSelectionPanelComponent
+		FilterSelectionPanelComponent,
+		FiltersComponent
 	],
 	providers: [
 	]

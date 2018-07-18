@@ -5,7 +5,7 @@ import { DialogService } from '~shared/dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/generic-dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 
 export abstract class AbstractDataManagementComponent<T extends { id?: string },
 	G extends GlobalServiceInterface<T>> extends ListPageComponent<T, G> {
@@ -15,10 +15,11 @@ export abstract class AbstractDataManagementComponent<T extends { id?: string },
 		protected featureSrv: G,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		public entityMetadata: EntityMetadata
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, entityMetadata);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, entityMetadata);
 	}
 
 	mergeSelected() {
