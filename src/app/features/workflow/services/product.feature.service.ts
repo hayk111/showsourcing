@@ -21,7 +21,7 @@ export class ProductFeatureService extends ProductService {
 			map(products => {
 				const statuses = {};
 				products.forEach(product => {
-					const status = product.status;
+					/* const status = product.status;
 					if (status) {
 						if (!statuses[status.id]) {
 							statuses[status.id] = {
@@ -31,7 +31,7 @@ export class ProductFeatureService extends ProductService {
 						} else {
 							statuses[status.id].products.push(product);
 						}
-					}
+					} */
 				});
 				return Object.keys(statuses).map(key => statuses[key]);
 			})
