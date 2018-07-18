@@ -13,6 +13,8 @@ import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from './routes';
+import { DataManagementModule } from '~features/data-management/data-management.module';
+import { GenericDialogModule } from '~shared/generic-dialog/generic-dialog.module';
 
 import {
 	InviteUserDlgComponent,
@@ -41,11 +43,13 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 		TopPanelModule,
 		DialogModule,
 		UserModule,
+		DataManagementModule,
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
 		ContextMenuModule,
 		SidenavModule,
-		FileModule
+		FileModule,
+		GenericDialogModule
 	],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
