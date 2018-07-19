@@ -8,6 +8,7 @@ import { Tag } from './tag.model';
 import { ProductVote } from './product-vote.model';
 import { Packaging } from './packaging.model';
 import { PriceMatrix } from './price-matrix.model';
+import { Project } from '~models';
 
 export class Product extends BaseEntity<ProductConfig> {
 	name?: string;
@@ -35,6 +36,7 @@ export class Product extends BaseEntity<ProductConfig> {
 	taskCount?: number;
 	productCount?: number;
 	projectCount ?= 0;
+	projects?: Project[];
 }
 
 export interface ProductConfig {

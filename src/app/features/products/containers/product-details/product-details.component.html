@@ -22,7 +22,7 @@
 			<project-card-app
 				(removeProject)="removeProject($event)"
 				(addProjectClick)="openAddProjectDlg()"
-				[projects]="projects$ | async"></project-card-app>
+				[projects]="product.projects"></project-card-app>
 
 			<files-card-app></files-card-app>
 

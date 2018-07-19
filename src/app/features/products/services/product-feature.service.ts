@@ -29,52 +29,23 @@ export class ProductFeatureService extends ProductService {
 	}
 
 	/**
-	 * @param id of the product we want to get the projects for
+	 * select users from current team
 	 */
-	selectProjectsForProduct(id: string): Observable<Project[]> {
-		return this.projectSrv.selectMany(
-			of(new SelectParams({ query: `products.id == "${id}"` }))
-		);
-	}
-
 	selectTeamUsers() {
 		return this.teamUserSrv.selectAll();
-	}
-
-
-	/**
-	 * @param project updated project
-	 */
-	updateProject(project: Project): Observable<Product> {
-		return this.projectSrv.update(project);
 	}
 
 	/**
 	 * Associate products to projects.
 	 */
-	addProductsToProjects(projects: Project[], productIds: string[]): Observable<Product[]> {
-		return forkJoin(projects.map(project => this.addProductsToProject(project, productIds)));
+	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
+		return forkJoin(products.map(prod => this.addProjectsToOneProduct(addedProjects, prod)));
 	}
 
-	/**
-	 * Associate products to a specific project. This handles duplicates into the
-	 * product list to avoid adding same product ids.
-	 */
-	private addProductsToProject(project: Project, productIds: string[]): Observable<Product> {
-		const updatedProject = {
-			...project,
-			products: this.getNewProductList(project.products, productIds)
-		};
-		return this.updateProject(updatedProject);
-	}
-
-	/**
-	 * Get a list of products with unicity.
-	 */
-	private getNewProductList(existingProducts: Product[] = [], productIdsToAdd: string[]) {
-		const existingProductIds = existingProducts.map((product => product.id));
-		const newProducts = existingProductIds.concat(productIdsToAdd);
-		return newProducts.map(productId => ({ id: productId }));
+	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
+		const projects: Project[] = product.projects.map(p => ({ id: p.id }));
+		projects.push(...addedProjects.map(p => ({ id: p.id })));
+		return this.update({ id: product.id, projects });
 	}
 
 	/**

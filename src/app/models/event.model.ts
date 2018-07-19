@@ -8,7 +8,6 @@ export class Event extends BaseEntity<EventConfig> {
 
 	constructor(config: EventConfig) {
 		super(config);
-		this.name = config.name;
 		this.description = new EventDescription(this.name);
 	}
 }

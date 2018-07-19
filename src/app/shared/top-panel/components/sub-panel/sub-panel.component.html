@@ -13,7 +13,8 @@
 						[formControl]="searchControl"
 						(blur)="onBlurSearch($event)"
 						(focus)="onFocusSearch($event)"
-						(keydown.enter)="triggerSearch($event)" />
+						(input)="triggerSearch($event)"
+						(keydown.enter)="smartSearch($event)" />
 			</search-bar-app>
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>

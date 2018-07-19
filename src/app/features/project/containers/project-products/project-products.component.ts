@@ -34,11 +34,11 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	}
 
 	ngOnInit() {
-		this.route.params.pipe(
+		this.route.parent.params.pipe(
 			map(params => params.id),
 			takeUntil(this._destroy$)
 		).subscribe(id => {
-			this.filterSrv.addFilter({ type: FilterType.PROJECT, value: id });
+			this.filterSrv.addFilter({ type: FilterType.PROJECTS, value: id });
 		});
 		super.ngOnInit();
 	}

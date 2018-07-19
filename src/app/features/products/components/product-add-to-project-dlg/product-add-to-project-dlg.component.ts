@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
-import { Project } from '~models';
+import { Project, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 
 
@@ -15,11 +15,8 @@ import { DialogService } from '~shared/dialog';
 export class ProductAddToProjectDlgComponent implements OnInit {
 	projects$: Observable<Project[]>;
 	selected = {};
-	@Input() selectedProducts: string[];
+	@Input() selectedProducts: Product[];
 
-	get products() {
-		return this.selectedProducts;
-	}
 
 	constructor(private dlgSrv: DialogService, private featureSrv: ProductFeatureService) { }
 
@@ -38,7 +35,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	submit() {
 		// we add each project one by one to the store
 		const selectedProjects = <Project[]>Object.values(this.selected);
-		this.featureSrv.addProductsToProjects(selectedProjects, this.selectedProducts)
+		this.featureSrv.addProjectsToProducts(selectedProjects, this.selectedProducts)
 			.subscribe(projects => {
 				this.dlgSrv.close();
 			});

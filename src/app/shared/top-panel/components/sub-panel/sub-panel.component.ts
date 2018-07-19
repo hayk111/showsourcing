@@ -57,7 +57,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	searchControl: FormControl;
 
-	inputEventEnabled = true;
 
 	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
 		super();
@@ -74,19 +73,20 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	triggerSearch(event) {
-		this.inputEventEnabled = false;
-		const search = this.searchControl.value;
-		this.search.emit(search);
+	smartSearch(event) {
 		if (this.searchAutocomplete) {
 			event.target.blur();
 			this.searchAutocomplete.openAutocomplete();
 		}
 	}
 
+	triggerSearch(event) {
+		const search = this.searchControl.value;
+		this.search.emit(search);
+	}
+
 	onBlurSearch(event) {
 		this.searchbarFocus = false;
-		this.inputEventEnabled = true;
 	}
 
 	onFocusSearch(event) {
