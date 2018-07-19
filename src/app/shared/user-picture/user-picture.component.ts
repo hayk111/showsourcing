@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DEFAULT_USER_IMG } from '~utils/constants';
-import { AppImage } from '~models';
 
 @Component({
 	selector: 'user-picture-app',
