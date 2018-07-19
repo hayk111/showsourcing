@@ -81,17 +81,16 @@ export class CarouselCardComponent extends AutoUnsub {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		this.addPendingImg(files);
+		const uuids: string[] = await this.addPendingImg(files);
 
 		this.uploader.uploadImages(files).pipe(
 			first()
 		).subscribe(imgs => {
 			this.imgUploaded.emit(imgs);
 			// removing pending image
-			this._pendingImages = [];
+			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		}, e => this._pendingImages = []);
 	}
-
 
 
 	/** when image is deleted */
@@ -120,8 +119,9 @@ export class CarouselCardComponent extends AutoUnsub {
 		// adding a pending image so we can see there is an image pending visually
 		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
 		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
-		this._pendingImages = pendingImgs;
+		this._pendingImages.push(...pendingImgs);
 		this.cd.detectChanges();
+		return pendingImgs.map(p => p.id);
 	}
 
 }

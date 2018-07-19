@@ -30,7 +30,7 @@ export class ProductQueries implements GlobalQuery {
 				id, name
 			},
 			projects {
-				id, name
+				id, name, productCount
 			}
 			description,
 			event {

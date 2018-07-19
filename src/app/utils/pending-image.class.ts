@@ -1,9 +1,11 @@
+import { uuid } from '~utils/uuid.utils';
 
 /** class that represent an image that is not yet fully uploaded.
  * That lets us display it with a base64 version of the file
  */
 export class PendingImage {
 	data: string;
+	id = uuid();
 	readonly pending = true;
 
 	constructor(private file: File) {

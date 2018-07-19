@@ -22,6 +22,8 @@ import { StoreKey } from '~utils';
 })
 export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 
+	private projectId: string;
+
 	constructor(
 		protected router: Router,
 		protected srv: ProductService,
@@ -37,10 +39,16 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		this.route.parent.params.pipe(
 			map(params => params.id),
 			takeUntil(this._destroy$)
-		).subscribe(id => {
-			this.filterSrv.addFilter({ type: FilterType.PROJECTS, value: id });
-		});
+		).subscribe(id => this.projectId = id);
 		super.ngOnInit();
+	}
+
+	/** Filters items based  */
+	protected filter(query: string) {
+		if (query)
+			super.filter(`projects.id == "${this.projectId}" AND (${query})`);
+		else
+			super.filter(`projects.id == "${this.projectId}"`);
 	}
 
 }
