@@ -3,3 +3,4 @@ export * from './form-field/form-field.component';
 export * from './abstract-input.class';
 export * from './input.directive';
 export * from './restrict-input.directive';
+export * from './restrict-special-input.directive';
