@@ -4,3 +4,4 @@ export * from './filter-price-panel/filter-price-panel.component';
 export * from './filter-rating-panel/filter-rating-panel.component';
 export * from './filter-tag/filter-tag.component';
 export * from './filter-smart-panel/filter-smart-panel.component';
+export * from './filters/filters.component';

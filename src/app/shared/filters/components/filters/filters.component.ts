@@ -3,19 +3,19 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
-import { Filter, FilterGroup, FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { Filter, FilterGroup, FilterType } from '../../models';
+import { FilterService } from '../../services/filter.service';
 import { AutoUnsub } from '~utils';
 
-import { FilterDataService } from '~shared/filters/services/filter.data.service';
+import { FilterDataService } from '../../services/filter.data.service';
 
 @Component({
-	selector: 'product-filters-app',
-	templateUrl: './product-filters.component.html',
-	styleUrls: ['./product-filters.component.scss'],
+	selector: 'filters-app',
+	templateUrl: './filters.component.html',
+	styleUrls: ['./filters.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductFiltersComponent extends AutoUnsub implements OnInit {
+export class FiltersComponent extends AutoUnsub implements OnInit {
 	/** array version of filters */
 	filters$: Observable<Filter[]>;
 	/** map<type, Map<value, filter>> to be able to do byType.get(SUPPLIER).has(value) */
@@ -33,11 +33,8 @@ export class ProductFiltersComponent extends AutoUnsub implements OnInit {
 
 	/** Those filter types are displayed exactly the same way on screen */
 	basicFilterTypes = [
-		FilterType.SUPPLIER,
-		FilterType.EVENT,
 		FilterType.CATEGORY,
-		FilterType.TAG,
-		FilterType.PROJECT
+		FilterType.TAG
 	];
 	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
 	displayNames = {

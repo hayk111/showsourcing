@@ -4,7 +4,7 @@ import { AbstractDataManagementComponent } from '~features/data-management/conta
 import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
 
@@ -26,9 +26,10 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 		protected featureSrv: CategoryManagementService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
+		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.CATEGORY);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.CATEGORY);
 	}
 
 }

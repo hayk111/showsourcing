@@ -10,6 +10,7 @@ import { KanbanColComponent, KanbanItemComponent } from './components';
 import { WorkflowKanbanComponent, WorkflowPageComponent } from './containers';
 import { routes } from './routes';
 import { KanbanService } from './services/kanban.service';
+import { ProductFeatureService } from './services/product.feature.service';
 
 @NgModule({
 	imports: [
@@ -21,5 +22,6 @@ import { KanbanService } from './services/kanban.service';
 		IconsModule,
 	],
 	declarations: [WorkflowPageComponent, WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],
+	providers: [KanbanService, ProductFeatureService],
 })
 export class WorkflowModule { }

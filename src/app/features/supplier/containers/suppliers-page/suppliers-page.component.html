@@ -8,12 +8,22 @@
 </top-panel-app>
 
 <sub-panel-app
-	[hasSwitch]="false"
-	[hasFilter]="false"
-	[buttonIcon]="false"
-	[hasSwitch]="true"
+  [hasSwitch]="false"
 	[hasFilter]="true"
+	[buttonIcon]="false"
+	[filters]="getFiltersNumber()"
+	(showFilters)="openFilterPanel()"
 	(search)="search($event)">
+	<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+		<search-autocomplete-item-app *ngFor="let element of (searchFilterElements$ | async)">
+			<search-autocomplete-item-content-app
+				[selectable]="true" [title]="element.name" [subtitle]="element.type"
+				[checked]="element.checked" [icon]="element.type"
+				(check)="onCheckSearchElement(element)"
+				(uncheck)="onUncheckSearchElement(element)">
+			</search-autocomplete-item-content-app>
+		</search-autocomplete-item-app>
+	</search-autocomplete-app>
 </sub-panel-app>
 
 <ng-container *ngIf="items$ | async as suppliers">
@@ -45,6 +55,12 @@
 			*ngIf="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container>
+
+	<filters-app
+		(clickOutside)="closeFilterPanel()"
+		(filter)="filter($event)"
+		*ngIf="filterPanelOpen">
+	</filters-app>
 
 	<supplier-preview-app
 		id="test"

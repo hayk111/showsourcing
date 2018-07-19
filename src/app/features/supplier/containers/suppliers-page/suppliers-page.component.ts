@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of, zip } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { NewSupplierDlgComponent } from '~features/supplier/containers/new-supplier-dlg/new-supplier-dlg.component';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService } from '~shared/filters';
+import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
@@ -28,10 +30,10 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected featureSrv: SupplierFeatureService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
-		protected dlgSrv: DialogService,
+		protected searchSrv: SearchService,
+		protected dlgSrv: DialogService
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.SUPPLIER);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.SUPPLIER);
 	}
-
 
 }

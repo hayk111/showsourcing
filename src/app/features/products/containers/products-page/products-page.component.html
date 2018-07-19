@@ -79,11 +79,11 @@
 		</selection-actions>
 	</selection-bar-app>
 
-	<product-filters-app
+	<filters-app
 		(clickOutside)="closeFilterPanel()"
 		(filter)="filter($event)"
 		*ngIf="filterPanelOpen">
-	</product-filters-app>
+	</filters-app>
 
 	<product-preview-app
 		[product]="previewed"

@@ -5,7 +5,7 @@ import { CommentModule } from '~features/comment';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
-import { ProductFeatureService, TeamService, ExportService, SearchService } from '~features/products/services';
+import { ProductFeatureService, TeamService, ExportService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';
@@ -37,7 +37,6 @@ import {
 	ProductAddToProjectDlgComponent,
 } from './components/product-add-to-project-dlg/product-add-to-project-dlg.component';
 import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
-import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
@@ -85,7 +84,6 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
-		ProductFiltersComponent,
 		NewProductDialogComponent,
 		GroupByPipe,
 		ProductPreviewComponent,
