@@ -1,0 +1,30 @@
+:host {
+	&.small {
+		display: inline;
+		justify-content: none;
+		height: 22px;
+		font-size: var(--font-size-s);
+		border-radius: var(--border-radius-s);
+		padding: 2px  var(--spacing-s);
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	&.medium {
+		height: 25px;
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-s);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	&.large {
+		height: 30px;
+		font-size: var(--font-size-l);
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-s);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+}
