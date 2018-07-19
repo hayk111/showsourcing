@@ -22,7 +22,12 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-        justify-content: center;
+				justify-content: center;
+				
+				.mini.image {
+					width: 48px;
+					height: 48px;
+				}
 			}
 
 			.description {
