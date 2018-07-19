@@ -180,18 +180,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	/** Selects a an entity */
-	onItemSelected(entityId: string) {
-		this.selectionSrv.selectOne(entityId);
+	onItemSelected(entity: any) {
+		this.selectionSrv.selectOne(entity);
 	}
 
 	/** Unselects a entity */
-	onItemUnselected(entityId: string) {
-		this.selectionSrv.unselectOne(entityId);
+	onItemUnselected(entity: any) {
+		this.selectionSrv.unselectOne(entity);
 	}
 
 	/** Select all entity */
-	selectAll(ids: string[]) {
-		this.selectionSrv.selectAll(ids);
+	selectAll(entities: any[]) {
+		this.selectionSrv.selectAll(entities);
 	}
 
 	/** Unselect all entity */

@@ -6,26 +6,26 @@ import { BehaviorSubject } from 'rxjs';
 	providedIn: 'root'
 })
 export class SelectionService {
-	selection = new Map<string, boolean>();
-	private _selection$ = new BehaviorSubject<Map<string, boolean>>(this.selection);
+	selection = new Map<string, any>();
+	private _selection$ = new BehaviorSubject<Map<string, any>>(this.selection);
 	selection$ = this._selection$.asObservable();
 
 	emit() {
 		this._selection$.next(this.selection);
 	}
 
-	selectOne(id: string) {
-		this.selection.set(id, true);
+	selectOne(item: { id: string }) {
+		this.selection.set(item.id, item);
 		this.emit();
 	}
 
-	unselectOne(id: string) {
-		this.selection.delete(id);
+	unselectOne(item: { id: string }) {
+		this.selection.delete(item.id);
 		this.emit();
 	}
 
-	selectAll(ids: string[]) {
-		ids.forEach(id => this.selection.set(id, true));
+	selectAll(items: { id: string }[]) {
+		items.forEach(item => this.selection.set(item.id, item));
 		this.emit();
 	}
 

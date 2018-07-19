@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { User } from '~models';
+import { User, TeamUser, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
+import { ProductFeatureService } from '~features/products/services';
 
 
 @Component({
@@ -14,18 +15,18 @@ import { take, map, switchMap, first } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
-	teamMembers$: Observable<Array<User>>;
-	selected = {};
-	selectedProducts: string[];
+	teamMembers$: Observable<User[]>;
+	private selected = {};
+	@Input() selectedProducts: Product[];
 
 	get products() {
 		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService, private teamSrv: TeamService) { }
+	constructor(private dlgSrv: DialogService, private featureSrv: ProductFeatureService) { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.teamSrv.selectAll();
+		this.teamMembers$ = this.featureSrv.selectTeamUsers();
 	}
 
 	select(id: string, user) {
@@ -40,8 +41,8 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		this.teamMembers$.pipe(
 			first(),
 			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
-			switchMap(projects => {
-				return this.teamSrv.addProductFeedbacksForTeamUsers(projects, this.selectedProducts);
+			switchMap(teamMembers => {
+				return this.featureSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
 			})
 		).subscribe(projects => {
 			this.dlgSrv.close();
