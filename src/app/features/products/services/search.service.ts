@@ -30,7 +30,7 @@ export class SearchService {
 				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
 			).pipe(first()),
 			this.eventSrv.selectMany(
-				of(new SelectParams({ query: `alias CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
 			).pipe(first()),
 			filterSrv.filters$.pipe(first())
 		).pipe(

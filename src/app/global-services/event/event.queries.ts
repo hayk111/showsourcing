@@ -21,7 +21,7 @@ export class EventQueries implements GlobalQuery {
 		) {
 		events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 			id,
-			alias,
+			name,
 			description {
 				id,
 				name,

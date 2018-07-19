@@ -24,7 +24,7 @@
 .cell, .header {
 	padding: 0 var(--spacing-m);
 	border-bottom: 1px solid  var(--color-secondary);
-	height: 48px;
+	height: 51px;
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -45,7 +45,7 @@
 
 .header {
 	background: var(--color-secondary-light);
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-weight: 600;
 }
 

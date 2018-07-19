@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Router } from '@angular/router';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { Supplier } from '~models';
+import { Supplier, ERM } from '~models';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '~utils';
@@ -21,6 +21,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	/** at first the supplier is the one in the list but it hasn't got all info so we gonna query it again */
 	supplier$: Observable<Supplier>;
 	descriptor$ = new ReplaySubject<FormDescriptor>(1);
+	suppERM = ERM.SUPPLIER;
 
 	customFields: CustomField[] = [
 		{ name: 'name', type: 'text', label: 'Name' },

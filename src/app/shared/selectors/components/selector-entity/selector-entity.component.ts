@@ -30,9 +30,6 @@ export class SelectorEntityComponent extends AbstractInput {
 	/**  the type of entity we gonna select from. */
 	@Input() set type(type: string) {
 		this._type = type;
-		if (this._type === 'event') {
-			this.propertyName = 'alias';
-		}
 		this.type$.next(type);
 	}
 	get type(): string {
@@ -120,7 +117,7 @@ export class SelectorEntityComponent extends AbstractInput {
 				createObs$ = this.srv.createCategory(added);
 				break;
 			case 'event':
-				added = new Event({ alias: name });
+				added = new Event({ name });
 				createObs$ = this.srv.createEvent(added);
 				break;
 			case 'tag':

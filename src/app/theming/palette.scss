@@ -54,3 +54,17 @@
 .color-txt-light {
 	color: white;
 }
+
+/* Background */
+.bg-inProgress {
+	background-color: var(--color-primary);
+}
+.bg-validated {
+	background-color: var(--color-success);
+}
+.bg-rejected {
+	background-color: var(--color-warn);
+}
+.bg-inspiration {
+	background-color: var(--color-secondary-dark);
+}

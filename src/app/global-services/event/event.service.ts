@@ -17,7 +17,7 @@ export class EventService extends GlobalService<Event> {
 		super(wrapper, new EventQueries(), 'Event');
 	}
 
-	selectAll(fields: string = 'id, alias, description {id, name, startDate, endDate}') {
+	selectAll(fields: string = 'id, name, description {id, name, startDate, endDate}') {
 		return super.selectAll(fields);
 	}
 

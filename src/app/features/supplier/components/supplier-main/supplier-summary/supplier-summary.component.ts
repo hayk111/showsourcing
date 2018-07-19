@@ -14,7 +14,7 @@ export class SupplierSummaryComponent implements OnInit {
 	@Input() taskCount: number;
 	@Input() contactCount: number;
 	@Output() update = new EventEmitter<Supplier>();
-	erm = ERM.SUPPLIER;
+	suppERM = ERM.SUPPLIER;
 
 	constructor() { }
 

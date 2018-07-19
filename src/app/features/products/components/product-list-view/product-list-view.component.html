@@ -139,6 +139,7 @@ I added comment above each column to make it clearer -->
 <ng-template #status let-row="row">
 	<div class="pointer">
 		<workflow-action-app
+			[xPosition]="0"
 			[entity]="row"
 			[typeEntity]="prodErm"
 			[selectSize]="'s'">

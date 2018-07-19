@@ -28,7 +28,7 @@ export class ContextMenuComponent {
 
 	/** Toggles the menu between the open and closed states. */
 	toggleMenu(): void {
-		return this.menuOpen ? this.closeMenu() : this.openMenu();
+		this.menuOpen ? this.closeMenu() : this.openMenu();
 	}
 
 	/** Opens the menu. */

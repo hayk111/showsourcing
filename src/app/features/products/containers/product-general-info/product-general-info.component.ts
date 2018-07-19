@@ -41,7 +41,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{
 			name: 'event', label: 'Found at', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'alias', canCreate: true }
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
 		{ name: 'description', type: 'textarea', label: 'description' },
