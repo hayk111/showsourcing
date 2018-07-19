@@ -6,7 +6,17 @@ export class ProductStatusQueries implements GlobalQuery {
 	one: any = gql`
 	subscription productStatus($query: String!) {
 		productStatuses(query: $query) {
-			id, name
+			id,
+			cancelled,
+			status {
+				id,
+				name,
+				inWorkflow,
+				color,
+				contrastColor,
+				step,
+				category
+			}
 		}
 	}
 	`;
@@ -14,7 +24,7 @@ export class ProductStatusQueries implements GlobalQuery {
 	create = gql`
 		mutation createProductStatus($input: ProductStatusInput!) {
 			updateProductStatus(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;
@@ -22,7 +32,7 @@ export class ProductStatusQueries implements GlobalQuery {
 	update = gql`
 		mutation updateProductStatus($input: ProductStatusInput!) {
 			updateProductStatus(input: $input) {
-				id, name
+				id
 			}
 		}
 	`;

@@ -2,10 +2,35 @@ context-menu-app {
 	.padding-divider {
 		padding: var(--spacing-s) 0px;
 	}
-	context-menu-trigger-app {
-		padding-left: 4px;
-		padding-right: 1px;
+
+	context-menu-trigger-app.s {
+		box-sizing: border-box;
+		padding: var(--spacing-xs) var(--spacing-s);
+		width: 112px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		height: 22px;
+		border-radius: var(--border-radius-s);
+		.text {
+			font-size: var(--font-size-ms);
+			text-transform: capitalize;
+			font-weight: 600;
+		}
+	}
+
+	context-menu-item-app.s {
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
+	context-menu-trigger-app.m {
+		margin-top: var(--spacing-s);
+		box-sizing: border-box;
+		padding-left: var(--spacing-s);
+		padding-right: -1px;
 		width: 100%;
+		width: 135px;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
@@ -17,6 +42,7 @@ context-menu-app {
 			font-weight: 600;
 		}
 	}
+
 
 	.remove-workflow {
 		color: var(--color-warn);

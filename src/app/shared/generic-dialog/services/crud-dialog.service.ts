@@ -30,7 +30,7 @@ export class CrudDialogService {
 	}
 
 	checkExists(type: EntityMetadata, valueInput: string) {
-		const name = type === ERM.EVENT ? 'alias' : 'name';
+		const name = 'name';
 		return this.ermService.getGlobalService(type)
 			.selectMany(of(new SelectParams({ query: `${name} == "${valueInput.trim()}"` })))
 			.pipe(

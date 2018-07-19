@@ -21,7 +21,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
-	erm = ERM.PRODUCT;
+	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor
@@ -40,7 +40,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'moqDescription', type: 'text', label: 'MOQ description' },
 		{
 			name: 'event', label: 'Found at', type: 'selector',
-			metadata: { target: 'event', type: 'entity', labelName: 'alias', canCreate: true }
+			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
 		{ name: 'description', type: 'textarea', label: 'description' },

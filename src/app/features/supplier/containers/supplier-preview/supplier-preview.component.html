@@ -17,7 +17,13 @@
 					- {{ supplier.country | const:'country' }}
 				</ng-container>
 			</div>
-			<status-label-app [status]="supplier.status"></status-label-app>
+			<workflow-action-app
+				[xPosition]="-2"
+				[selectSize]="'s'"
+				[typeEntity]="suppERM"
+				[entity]="supplier">
+			</workflow-action-app>
+			<!-- <status-label-app [status]="supplier.status"></status-label-app> -->
 		</div>
 
 		<button class="transparent auto" (click)="goToDetails()">Open</button>

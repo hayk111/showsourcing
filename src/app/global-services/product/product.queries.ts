@@ -32,7 +32,7 @@ export class ProductQueries implements GlobalQuery {
 			description,
 			event {
 				id,
-				alias,
+				name,
 				description {
 					id
 					logoImage {
@@ -148,10 +148,14 @@ export class ProductQueries implements GlobalQuery {
 			images {
 				fileName
 			},
-			status {
-				id, name, color
-			},
 			favorite,
+			statuses {
+				id,
+				cancelled,
+				status {
+					id, name, color, contrastColor, step, category, inWorkflow
+				}
+			},
 			score,
 			minimumOrderQuantity
 		}

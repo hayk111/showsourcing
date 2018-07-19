@@ -138,10 +138,12 @@ I added comment above each column to make it clearer -->
 <!-- status -->
 <ng-template #status let-row="row">
 	<div class="pointer">
-		<badge-app
-			[color]="row?.status?.color">
-			{{row?.status?.name}}
-		</badge-app>
+		<workflow-action-app
+			[xPosition]="0"
+			[entity]="row"
+			[typeEntity]="prodErm"
+			[selectSize]="'s'">
+		</workflow-action-app>
 	</div>
 </ng-template>
 

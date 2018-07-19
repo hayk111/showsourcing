@@ -36,7 +36,7 @@ export class StatusLabelComponent implements AfterContentInit {
 	setStyle(status) {
 		if (!this.el.nativeElement || !status)
 			return; // not defined before ngAfterViewInit
-		this.renderer.setStyle(this.el.nativeElement, 'background', status.color);
+		this.renderer.addClass(this.el.nativeElement, 'bg-' + status.color);
 		this.renderer.addClass(this.el.nativeElement, 'color-txt-' + this.status.contrastColor);
 	}
 

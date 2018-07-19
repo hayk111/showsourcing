@@ -6,7 +6,7 @@
 	--color-primary-dark: #2e88cf;
 
 	--color-secondary-light: #f9fafc;
-	--color-secondary: #E6EBF5;
+	--color-secondary: #e6ebf5;
 	--color-secondary-dark: #a3afc6;
 
 
@@ -14,7 +14,7 @@
 	--color-txt-secondary: #A3AFC6;
 	--color-txt-third: #e0e0e0;
 	--color-txt-strong: #182844;
-	--color-divider:  #E6EBF5;
+	--color-divider:  #e6ebf5;
 
   --color-bg: #fff;
 
@@ -53,4 +53,18 @@
 
 .color-txt-light {
 	color: white;
+}
+
+/* Background */
+.bg-inProgress {
+	background-color: var(--color-primary);
+}
+.bg-validated {
+	background-color: var(--color-success);
+}
+.bg-rejected {
+	background-color: var(--color-warn);
+}
+.bg-inspiration {
+	background-color: var(--color-secondary-dark);
 }
