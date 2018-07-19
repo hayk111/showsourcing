@@ -81,6 +81,9 @@ export class CarouselCardComponent extends AutoUnsub {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
+		if (files.length === 0)
+			return;
+
 		const uuids: string[] = await this.addPendingImg(files);
 
 		this.uploader.uploadImages(files).pipe(
