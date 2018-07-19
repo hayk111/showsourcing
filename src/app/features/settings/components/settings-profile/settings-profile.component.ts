@@ -44,10 +44,13 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	addFile(file: Array<File>) {
 		this.uploaderSrv.uploadImages(file)
 			.subscribe(img => {
-				this.profileSrv.updateUser({
-					id: this.userId,
-					avatar: img[0]
-				}).subscribe();
+				delete img[0].creationDate,
+					delete img[0].lastUpdateDate,
+					delete img[0].deleted,
+					this.profileSrv.updateUser({
+						id: this.userId,
+						avatar: img[0]
+					}).subscribe();
 			});
 	}
 

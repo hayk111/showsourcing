@@ -10,7 +10,14 @@ export class UserQueries implements GlobalQuery {
 				firstName,
 				lastName,
 				email,
-				phoneNumber
+				phoneNumber,
+				currentTeam {
+					id, name, status
+				},
+				preferredLanguage,
+				avatar {
+					id, fileName, orientation
+				}
 			}
 		}
 	`;
