@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -25,7 +25,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: ProductFeatureService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -46,11 +47,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** opens the dialog to add multiple project to product.projects */
 	openAddProjectDlg() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product] });
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, { selectedProducts: [this.product] });
 	}
 
 	/** remove project from product.projects */
 	removeProject(project: Project) {
+		// mapping project to their respective id, to not inadvertently change other props, then removing
+		// the project we need to from the array
 		const projects = this.product.projects.map(p => ({ id: p.id })).filter(p => p.id !== project.id);
 		this.featureSrv.update({ id: this.product.id, projects }).subscribe();
 	}
