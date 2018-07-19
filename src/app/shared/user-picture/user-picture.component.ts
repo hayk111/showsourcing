@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DEFAULT_USER_IMG } from '~utils/constants';
+import { AppImage } from '~models';
 
 @Component({
 	selector: 'user-picture-app',
@@ -10,7 +11,6 @@ import { DEFAULT_USER_IMG } from '~utils/constants';
 export class UserPictureComponent {
 	@Input() size: number;
 	@Input() border = false;
-
 
 	@Input()
 	set url(value: string) {

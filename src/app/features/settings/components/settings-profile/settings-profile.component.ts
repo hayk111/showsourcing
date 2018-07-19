@@ -24,6 +24,7 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private profileSrv: SettingsProfileService,
 		private dlgSrv: DialogService,
+		private uploaderSrv: UploaderService,
 		private moduleRef: NgModuleRef<any>) {
 		// private company: CompanyService) { // Uncomment when Company realm is out
 		super();
@@ -40,8 +41,14 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 		this.profileSrv.updateUser(user).subscribe();
 	}
 
-	addFile(file: File) {
-		this.profileSrv.addFile(file);
+	addFile(file: Array<File>) {
+		this.uploaderSrv.uploadImages(file)
+			.subscribe(img => {
+				this.profileSrv.updateUser({
+					id: this.userId,
+					avatar: img[0]
+				}).subscribe();
+			});
 	}
 
 	pswdModal() {

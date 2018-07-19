@@ -13,5 +13,5 @@ export class User {
 	preferredLanguage?: string;
 	realmServerName?: string;
 	realmPath?: string;
-	logoImage?: AppImage;
+	avatar?: AppImage;
 }

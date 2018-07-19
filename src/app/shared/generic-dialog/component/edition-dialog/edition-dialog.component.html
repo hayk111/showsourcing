@@ -16,7 +16,7 @@
 
 		<dialog-footer-app *ngIf="!pending ">
 				<div class="color-warn" *ngIf="exists$ | async"> That {{type.singular}} name already exists. Please choose another one.</div>
-				<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="rename" (click)="onSubmit()"/>
+				<input [disabled]="!group.valid || (exists$ | async)" type="submit" value="Rename" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->
