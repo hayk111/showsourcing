@@ -5,7 +5,7 @@ import { CommentModule } from '~features/comment';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { GroupByPipe } from '~features/products/pipes/groupby';
-import { ProductFeatureService, TeamService, ExportService } from '~features/products/services';
+import { ProductFeatureService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog/dialog.module';

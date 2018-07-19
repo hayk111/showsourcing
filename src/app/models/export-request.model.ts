@@ -5,7 +5,7 @@ export class ExportRequest implements ExportRequestConfig {
 	id: string;
 	format: string;
 	type: string;
-	query: string;
+	query = 'pending';
 	status: string;
 	documentUrl: string;
 	errors: string[];
@@ -21,12 +21,7 @@ export class ExportRequest implements ExportRequestConfig {
 }
 
 export interface ExportRequestConfig {
-	format: string;
-	type: string;
-	query: string;
-	status: string;
-	documentUrl: string;
-	errors: string[];
-	creationDate: string;
-	createdBy: User;
+	format?: string;
+	type?: string;
+	query?: string;
 }
