@@ -28,7 +28,7 @@ svg {
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
-	font-size: 16px;
+	font-size: var(--font-size-l);
 	line-height: 1;
 	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;

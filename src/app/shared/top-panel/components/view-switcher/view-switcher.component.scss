@@ -39,7 +39,7 @@ button {
 .icon-list {
     padding: 0 7px;
     padding-left: 0;
-    font-size: 11px;
+    font-size: var(--font-size-s);
     &:before {
         color: var(--color-txt-primary);
     }

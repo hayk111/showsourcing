@@ -77,7 +77,7 @@ h2 {
   margin-bottom: var(--spacing-l);
 	font-size: var(--font-size-l);
 	font-family: Raleway, 'sans-serif';
-  font-size: 15px;
+  font-size: var(--font-size-l);
   font-weight: 600;
 	color: var(--color-txt-strong);
 	text-transform: capitalize;

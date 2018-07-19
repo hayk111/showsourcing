@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:fr": "ng serve --configuration=fr --proxy-config proxy.config.json",
-    "build": "ng build --prod",
+    "build": "ng build --prod --aot",
     "build:fr": "ng build --configuration=fr --prod",
     "translate": "ng xi18n --output-path locale",
     "translate:fr": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json fr",
