@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
 import { Observable, of, zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -40,7 +40,8 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
-		protected dlgSrv: DialogService) {
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, filterSrv, dlgSrv, ERM.PRODUCT);
 	}
 
@@ -52,7 +53,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(product: Product) {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}
@@ -60,14 +61,14 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
-		this.dlgSrv.open(ProductExportDlgComponent, {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product: Product) {
-		this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, {
+		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.selectionArray
 		});
 	}

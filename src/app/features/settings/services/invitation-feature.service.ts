@@ -5,9 +5,7 @@ import { Invitation } from '~models';
 import { InvitationService, UserService } from '../../../global-services';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(protected apollo: ApolloWrapper, private invitationSrv: InvitationService, private userSrv: UserService) {

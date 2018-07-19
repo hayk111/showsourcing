@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { DialogService } from '~shared/dialog';
@@ -15,7 +15,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	pending$: Observable<boolean>;
 	selection = new Map<string, boolean>();
 
-	constructor(private dlgSrv: DialogService) {
+	constructor(private dlgSrv: DialogService, private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -26,7 +26,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openNewTaskDlg() {
-		this.dlgSrv.open(NewTaskDlgComponent);
+		this.dlgSrv.openFromModule(NewTaskDlgComponent, this.moduleRef);
 	}
 
 	onItemSelected(entityId: string) {
