@@ -7,11 +7,11 @@
 
 			<!-- multiple value label -->
 			<editable-label-app *ngIf="customField.multiple; else solo">
-				<tag-list-app
+				<badge-list-app
 					*ngIf="!isEmpty(value); else none"
 					[value]="value"
 					[align]="inlineLabel ? 'right' : 'left'">
-				</tag-list-app>
+				</badge-list-app>
 				<ng-template #none>
 					-
 				</ng-template>

@@ -4,11 +4,19 @@ import { Component, OnInit, Input } from '@angular/core';
 	selector: 'badge-app',
 	templateUrl: './badge.component.html',
 	styleUrls: ['./badge.component.scss'],
+	host: {
+		'[class.flexCenter]': 'size === "s" || size === "small"',
+		'[class.small]': 'size === "s" || size === "small"',
+		'[class.medium]': 'size === "m" || size === "medium"',
+		'[class.large]': 'size === "l" || size === "large"'
+	}
 })
 export class BadgeComponent implements OnInit {
-	@Input() title;
-	@Input() color = 'primary';
-	constructor() {}
+	@Input() size: 's' | 'm' | 'l' = 's';
 
-	ngOnInit() {}
+	constructor() { }
+
+	ngOnInit() {
+	}
+
 }

@@ -6,7 +6,7 @@
 	</context-menu-trigger-app>
 
 	<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
-		<status-tag-app [status]="stat" [size]="selectSize" (click)="updateStatusProd(stat)"></status-tag-app>
+		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatusProd(stat)"></status-tag-app>
 	</context-menu-item-app>
 
 	<div class="padding-divider">
@@ -27,7 +27,7 @@
 	</context-menu-trigger-app>
 
 	<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
-		<status-tag-app [status]="stat" [size]="selectSize" (click)="updateStatusSup(stat)"></status-tag-app>
+		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatusSup(stat)"></status-tag-app>
 	</context-menu-item-app>
 
 	<div class="padding-divider">
