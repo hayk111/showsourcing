@@ -45,7 +45,7 @@
 
     &__text {
         font-weight: bold;
-        font-size: 17px;
+        font-size: var(--font-size-xl);
         color: var(--color-txt-strong);
     }
 }

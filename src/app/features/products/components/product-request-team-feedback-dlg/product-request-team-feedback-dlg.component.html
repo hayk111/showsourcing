@@ -5,15 +5,15 @@
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
-			<list-item-app *ngFor="let user of teamMembers" [selected]="selected[user.id]">
+			<list-item-app *ngFor="let member of teamMembers" [selected]="selected[member.id]">
 				<div class="flex">
 					<checkbox-app
 						#checkbox
-						(check)="select(user.id, user)"
-						(uncheck)="unselect(user.id, user)"
-						[checked]="selected[user.id]">
+						(check)="select(member.id, member)"
+						(uncheck)="unselect(member.id, member)"
+						[checked]="selected[member.id]">
 					</checkbox-app>
-					<span class="name" (click)="checkbox.toggle()">{{ user.firstName }} {{ user.lastName }}</span>
+					<span class="name" (click)="checkbox.toggle()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
 				</div>
 				</list-item-app>
 		</list-app>

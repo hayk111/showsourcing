@@ -29,6 +29,9 @@ export class ProductQueries implements GlobalQuery {
 			category {
 				id, name
 			},
+			projects {
+				id, name, productCount
+			}
 			description,
 			event {
 				id,

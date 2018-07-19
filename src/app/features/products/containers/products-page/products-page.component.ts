@@ -54,7 +54,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(product: Product) {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.selectionArray
+			selectedProducts: product ? [product] : this.getSelectedProducts()
 		});
 	}
 
@@ -62,43 +62,19 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(product: Product) {
 		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.selectionArray
+			selectedProducts: product ? [product] : this.getSelectedProducts()
 		});
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product: Product) {
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.selectionArray
+			selectedProducts: product ? [product] : this.getSelectedProducts()
 		});
 	}
 
-	/* get selectionArray() {
-		return Array.from(this.selectionSrv.selection.keys());
-	} */
-
-	/** Search within filters */
-	/* searchFilters(str: string) {
-		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv);
+	getSelectedProducts() {
+		return Array.from(this.selectionSrv.selection.values());
 	}
 
-	onCheckSearchElement(element) {
-		this.filterSrv.addFilter({
-			type: element.type,
-			value: element.id,
-			raw: element
-		});
-	}
-
-	onUncheckSearchElement(element) {
-		this.filterSrv.removeFilter({
-			type: element.type,
-			value: element.id,
-			raw: element
-		});
-	}
-
-	getFiltersNumber() {
-		return this.filterSrv.filtersNumber();
-	} */
 }

@@ -91,16 +91,16 @@ export class TableComponent implements AfterContentInit {
 		this.columns.forEach(c => c.autoSort = this.autoSort);
 	}
 
-	onSelectOne(id: any) {
-		this.selectOne.emit(id);
+	onSelectOne(entity: any) {
+		this.selectOne.emit(entity);
 	}
 
-	onUnselectOne(id: any) {
-		this.unselectOne.emit(id);
+	onUnselectOne(entity: any) {
+		this.unselectOne.emit(entity);
 	}
 
-	onSelectAll(ids: Array<any>) {
-		this.selectAll.emit(ids.map(m => m.id));
+	onSelectAll(rows: any[]) {
+		this.selectAll.emit(rows);
 	}
 
 	onUnselectAll() {

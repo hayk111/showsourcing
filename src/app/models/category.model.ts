@@ -1,6 +1,6 @@
 import { BaseEntity } from './_entity.model';
 
-export class Category extends BaseEntity<CategoryConfig> {
+export class Category extends BaseEntity<CategoryConfig> implements CategoryConfig {
 	name: string;
 }
 

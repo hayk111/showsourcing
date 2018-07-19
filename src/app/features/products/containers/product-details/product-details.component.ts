@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -19,15 +19,14 @@ import {
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	files: Array<AppFile>;
-	// tasks$: Observable<Array<Task>>;
 	/** projects for this product */
-	projects$: Observable<Project[]>;
 	product: Product;
 
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: ProductFeatureService,
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -44,37 +43,38 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			tap(product => this.product = product)
 		);
 
-		this.projects$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectProjectsForProduct(id))
-		);
-
 	}
 
+	/** opens the dialog to add multiple project to product.projects */
 	openAddProjectDlg() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product.id] });
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, { selectedProducts: [this.product] });
 	}
 
+	/** remove project from product.projects */
 	removeProject(project: Project) {
-		const updatedProject = {
-			id: project.id,
-			products: project.products.filter(product => product.id !== this.product.id)
-		};
-		this.featureSrv.updateProject(updatedProject).subscribe();
+		// mapping project to their respective id, to not inadvertently change other props, then removing
+		// the project we need to from the array
+		const projects = this.product.projects.map(p => ({ id: p.id })).filter(p => p.id !== project.id);
+		this.featureSrv.update({ id: this.product.id, projects }).subscribe();
 	}
 
+	/** item status update */
 	updateStatus(statusId: string) {
 		const prodS = new ProductStatus({ status: { id: statusId } });
 		this.featureSrv.update({ id: this.product.id, statuses: [prodS, ...this.product.statuses] }).subscribe();
 	}
 
+	/** item has been favorited */
 	onFavorited() {
 		this.featureSrv.update({ id: this.product.id, favorite: true }).subscribe();
 	}
 
+	/** item has been unfavorited */
 	onUnfavorited() {
 		this.featureSrv.update({ id: this.product.id, favorite: false }).subscribe();
 	}
 
+	/** when a new image is uploaded we add it to the list of images of the product */
 	onNewImages(imgs: AppImage[]) {
 		this.featureSrv
 			.update({ id: this.product.id, images: [...this.product.images, ...imgs] })

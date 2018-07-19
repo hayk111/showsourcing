@@ -64,8 +64,8 @@ export class ERM {
 
 	constructor() { }
 
-	/** if the string matches with any of the attributeson ERM this fucniton will return that property */
-	public getEntityMetadata(name: string): EntityMetadata {
+	/** if the string matches with any of the attributeson ERM this function will return that property */
+	static getEntityMetadata(name: string): EntityMetadata {
 		for (const item in ERM) {
 			if (name.match(ERM[item].singular) || name.match(ERM[item].plural))
 				return ERM[item];

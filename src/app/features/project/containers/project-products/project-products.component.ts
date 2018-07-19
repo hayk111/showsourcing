@@ -1,17 +1,14 @@
-import {
-	ChangeDetectionStrategy, Component, OnInit, ViewChild, Output,
-	EventEmitter, TemplateRef, Renderer2
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, takeUntil } from 'rxjs/operators';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductService } from '~global-services';
-import { Product, ERM } from '~models';
+import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { FilterService, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils';
-import { TableDescriptor, ColumnDescriptor } from '~shared/table';
 
 @Component({
 	selector: 'project-products-app',
@@ -23,18 +20,35 @@ import { TableDescriptor, ColumnDescriptor } from '~shared/table';
 		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT_PRODUCTS }
 	]
 })
-export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> {
+export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
+
+	private projectId: string;
+
 	constructor(
 		protected router: Router,
 		protected srv: ProductService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService) {
+		protected dlgSrv: DialogService,
+		protected route: ActivatedRoute) {
 		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
+	ngOnInit() {
+		this.route.parent.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		).subscribe(id => this.projectId = id);
+		super.ngOnInit();
+	}
 
-	// TODO we need to change the relation from project.products to product.projects
-	// since we are filtering the name
+	/** Filters items based  */
+	protected filter(query: string) {
+		if (query)
+			super.filter(`projects.id == "${this.projectId}" AND (${query})`);
+		else
+			super.filter(`projects.id == "${this.projectId}"`);
+	}
+
 }

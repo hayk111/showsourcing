@@ -1,45 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
-import { Product, Project } from '~models';
+import { Product, Project, TeamUser, ProductVoteRequest, User } from '~models';
 
-import { ProductService, ProjectService } from '../../../global-services';
+import { ProductService, ProjectService, TeamUserService } from '../../../global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { ApolloWrapper } from '~shared/apollo';
+import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProductFeatureService extends ProductService {
 
-	constructor(protected wrapper: ApolloWrapper, private projectSrv: ProjectService) {
+	constructor(
+		protected wrapper: ApolloWrapper,
+		private projectSrv: ProjectService,
+		private productVoteReqSrv: ProductVoteRequestService,
+		private teamUserSrv: TeamUserService
+	) {
 		super(wrapper);
 	}
 
-
-	addFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	downloadFile(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	addImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	removeImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	rotateImage(): Observable<any> {
-		throw Error('not implemented yet');
-	}
 
 	selectProjects(): Observable<Project[]> {
 		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
@@ -47,48 +29,36 @@ export class ProductFeatureService extends ProductService {
 	}
 
 	/**
-	 * @param id of the product we want to get the projects for
+	 * select users from current team
 	 */
-	selectProjectsForProduct(id: string): Observable<Project[]> {
-		return this.projectSrv.selectMany(
-			of(new SelectParams({ query: `products.id == "${id}"` }))
-		);
-	}
-
-
-	/**
-	 * @param project updated project
-	 */
-	updateProject(project: Project): Observable<Product> {
-		return this.projectSrv.update(project);
+	selectTeamUsers() {
+		return this.teamUserSrv.selectAll();
 	}
 
 	/**
 	 * Associate products to projects.
 	 */
-	addProductsToProjects(projects: Project[], productIds: string[]): Observable<Product[]> {
-		return forkJoin(projects.map(project => this.addProductsToProject(project, productIds)));
+	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
+		return forkJoin(products.map(prod => this.addProjectsToOneProduct(addedProjects, prod)));
+	}
+
+	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
+		const projects: Project[] = product.projects.map(p => ({ id: p.id }));
+		projects.push(...addedProjects.map(p => ({ id: p.id })));
+		return this.update({ id: product.id, projects });
 	}
 
 	/**
-	 * Associate products to a specific project. This handles duplicates into the
-	 * product list to avoid adding same product ids.
+	 *
+	 * @param users users that we want to request feedback to
+	 * @param products products we want to request feedback for
 	 */
-	private addProductsToProject(project: Project, productIds: string[]): Observable<Product> {
-		const updatedProject = {
-			...project,
-			products: this.getNewProductList(project.products, productIds)
-		};
-		return this.updateProject(updatedProject);
-	}
-
-	/**
-	 * Get a list of products with unicity.
-	 */
-	private getNewProductList(existingProducts: Product[] = [], productIdsToAdd: string[]) {
-		const existingProductIds = existingProducts.map((product => product.id));
-		const newProducts = existingProductIds.concat(productIdsToAdd);
-		return newProducts.map(productId => ({ id: productId }));
+	askFeedBackToUsers(users: User[], products: Product[]) {
+		// keeping only the ids so we don't send any additional data.
+		users = users.map(user => ({ id: user.id }));
+		products = products.map(product => ({ id: product.id }));
+		const requests = products.map(product => this.productVoteReqSrv.create(new ProductVoteRequest({ users, product })));
+		return forkJoin(requests);
 	}
 
 }

@@ -27,3 +27,6 @@ export * from './_entity.model';
 export * from './image-upload-request.model';
 export * from './file-upload-request.model';
 export * from './invitation.model';
+export * from './product-vote-request.model';
+export * from './export-request.model';
+

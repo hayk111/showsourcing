@@ -34,7 +34,8 @@ export class FiltersComponent extends AutoUnsub implements OnInit {
 	/** Those filter types are displayed exactly the same way on screen */
 	basicFilterTypes = [
 		FilterType.CATEGORY,
-		FilterType.TAG
+		FilterType.TAGS,
+		FilterType.PROJECTS
 	];
 	/** Specifies the display name for elements. If it corresponds to "name", don't add entry here */
 	displayNames = {

@@ -28,8 +28,10 @@ export class FilterDataService {
 				return this.selectEvents();
 			case FilterType.CATEGORY:
 				return this.selectCategories();
+			case FilterType.TAGS:
 			case FilterType.TAG:
 				return this.selectTags();
+			case FilterType.PROJECTS:
 			case FilterType.PROJECT:
 				return this.selectProjects();
 			case FilterType.CREATED_BY:

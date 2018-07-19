@@ -20,7 +20,6 @@
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)">
 
-
 	<!-- name -->
 	<ng-template
 		columnApp="Project Name"
@@ -90,7 +89,9 @@
 		columnApp="Description"
 		let-row="row"
 		width="240">
-		{{ row?.description }}
+		<div class="description">
+			{{ row?.description }}
+		</div>
 	</ng-template>
 
 

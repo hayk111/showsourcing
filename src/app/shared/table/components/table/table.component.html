@@ -18,8 +18,8 @@
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<checkbox-app [checked]="selected.has(row[idName])"
 					*ngIf="isSelectable(row)"
-					(check)="onSelectOne(row[idName])"
-					(uncheck)="onUnselectOne(row[idName])"></checkbox-app>
+					(check)="onSelectOne(row)"
+					(uncheck)="onUnselectOne(row)"></checkbox-app>
 			</div>
 		</div>
 

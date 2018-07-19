@@ -19,7 +19,7 @@
     margin-bottom: var(--spacing-s);
     height: 34px;
     .name {
-        font-size: 16px;
+        font-size: var(--font-size-l);
         font-weight: 600;
         white-space: nowrap;
         overflow: hidden;
@@ -54,7 +54,7 @@
         width: 218px;
     }
     .tags {
-        font-size: 11px;
+        font-size: var(--font-size-s);
         color: var(--color-txt-secondary);
         width: 218px;
         padding-top: 6px;
@@ -68,7 +68,7 @@
         .date {
             text-transform: uppercase;
             color: var(--color-txt-secondary);
-            font-size: 11px;
+            font-size: var(--font-size-s);
         }
     }
 }

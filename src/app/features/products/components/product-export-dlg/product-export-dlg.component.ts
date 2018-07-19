@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ExportService } from '~features/products/services/export.service';
 import { DialogService } from '~shared/dialog';
+import { ExportRequestService } from '~global-services/export-request/export-request.service';
+import { ExportRequest } from '~models';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ProductExportDlgComponent implements OnInit {
 		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService, private exportSrv: ExportService) { }
+	constructor(private dlgSrv: DialogService, private exportSrv: ExportRequestService) { }
 
 	ngOnInit() {
 	}
@@ -27,9 +28,13 @@ export class ProductExportDlgComponent implements OnInit {
 	}
 
 	export() {
-		this.exportSrv.addProductsExport(this.selectedProducts, this.selectedExport)
-			.subscribe(projects => {
-				this.dlgSrv.close();
+		const request = new ExportRequest({
+			type: 'product',
+			format: this.selectedExport
+		});
+		this.exportSrv.create(request)
+			.subscribe(r => {
+				// do whatever we need to
 			});
 	}
 }

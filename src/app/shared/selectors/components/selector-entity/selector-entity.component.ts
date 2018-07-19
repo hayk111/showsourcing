@@ -15,7 +15,7 @@ import { SelectorComponent } from '~shared/selectors/components/selector/selecto
 import { Choice } from '~shared/selectors/utils/choice.interface';
 
 import { SelectorsService } from '../../sercices/selectors.service';
-import { Supplier, Category, Event, Tag, SupplierType } from '~models';
+import { Supplier, Category, Event, Tag, SupplierType, EntityMetadata, ERM } from '~models';
 import { takeUntil, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 
