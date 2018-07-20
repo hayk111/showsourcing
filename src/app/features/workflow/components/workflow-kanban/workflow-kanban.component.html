@@ -1,5 +1,5 @@
 
-<ng-container *ngIf="productsByStatus$ | async as statuses">
+<ng-container *ngIf="statuses">
 	<div class="flex ctnr">
 
 		<kanban-col-app
@@ -12,14 +12,20 @@
 					[data]="product.id"
 					class="item"
 					*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
-					<product-small-card-app
+					<!-- product-small-card-app
 						(click)="selectProduct(product.id)"
 						class="marginSmall"
 						[product]="product">
 
-					</product-small-card-app>
+					</product-small-card-app -->
+					<kanban-item-card-app class="marginSmall" [title]="product.name"
+						[status]="product.status?.name" subtitle1="Zheijiang Guangke El. Equipm."
+						subtitle2="Pen Holder"
+						[image]="product.images?.length > 0 ? (product | image:'m') : null"
+						[link]="'/product/details/' + product.id + '/general'">
+					</kanban-item-card-app>
 				</kanban-item-app>
 		</kanban-col-app>
 
 	</div>
-	</ng-container>
+</ng-container>

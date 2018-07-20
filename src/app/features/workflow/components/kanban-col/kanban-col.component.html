@@ -1,19 +1,20 @@
-<card-app
+<!-- card-app
 	elevation="z-5"
 	class="ctnr"
 	#ctnr
 	(dragover)="onDragOver($event)"
 	(dragstart)="onDragStart($event)"
 	(drop)="onDrop($event)"
-	attr.data-bag="{{ bag }}">
+	attr.data-bag="{{ bag }}" -->
 	<!-- TODO: check if the attr.data-bag is still needed -->
 
 	<header class="paddingDefault flexBetween">
-		<div class="prefix"></div>
+		<!-- div class="prefix"></div>
 		<div class="title">{{ label }}</div>
 		<div class="suffix">
 			<icon-app  fontSet="fa" name="bolt" class="bolt flexCenter pointer fs-xs"></icon-app>
-		</div>
+		</div -->
+		<div class="title">{{ label }}</div>
 	</header>
 
 	<main>
@@ -25,4 +26,4 @@
 	 <ng-content></ng-content>
 	</main>
 
-</card-app>
+<!-- /card-app -->

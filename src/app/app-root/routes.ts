@@ -13,7 +13,6 @@ import { routes as settingsRoutes } from '~features/settings/routes';
 import { routes as supplierRoutes } from '~features/supplier/routes';
 import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as testRoutes } from '~features/test-page/routes';
-import { routes as workflowRoutes } from '~features/workflow/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent } from '~shared/template';
@@ -64,8 +63,7 @@ export const routes: Array<Route> = [
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
 			{ path: 'supplier', loadChildren: 'app/features/supplier/supplier.module#SuppliersModule' },
 			{ path: 'settings', loadChildren: 'app/features/settings/settings.module#SettingsModule' },
-			{ path: 'test', children: testRoutes },
-			{ path: 'workflow', children: workflowRoutes }
+			{ path: 'test', children: testRoutes }
 		],
 	},
 	{ path: '**', redirectTo: '' },

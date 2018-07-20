@@ -1,0 +1,13 @@
+<div *ngIf="project$ | async as project">
+	<top-panel-app
+		[title]="project.name"
+		[buttonName]="'Add Project'"
+		[subtitles]="['Projects', project.name, 'Kanban View']"
+		[hasAction]="false">
+	</top-panel-app>
+
+	<workflow-kanban-app
+		[statuses]="statuses$ | async"
+		(productSelect)="onItemSelected($event)">
+	</workflow-kanban-app>
+</div>

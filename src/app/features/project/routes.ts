@@ -5,6 +5,8 @@ import { ProjectSettingsComponent } from '~features/project/containers/project-s
 
 import { ProjectsPageComponent } from './containers/projects-page/projects-page.component';
 
+import { ProjectWorkflowComponent } from './containers/project-workflow/project-workflow.component';
+
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },
 	{ path: 'all', component: ProjectsPageComponent },
@@ -14,6 +16,7 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: 'products', component: ProjectProductsComponent },
 			{ path: 'settings', component: ProjectSettingsComponent },
+			{ path: 'workflow', component: ProjectWorkflowComponent },
 			{ path: '', redirectTo: 'products', pathMatch: 'full' }
 		],
 	}

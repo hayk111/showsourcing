@@ -1,45 +1,49 @@
+<div *ngIf="project$ | async as project">
+	<top-panel-app
+		[title]="project.name"
+		[buttonName]="'Add Project'"
+		[subtitles]="['Projects', project.name, 'Settings']"
+		[hasAction]="false">
+	</top-panel-app>
 
+	<card-app>
+		<h2>Project Settings</h2>
 
-<card-app *ngIf="project$ | async as project">
-	<h2>Project Settings</h2>
+		<label>Project Picture</label>
 
-	<label>Project Picture</label>
-
-	<div class="flex picCtnr">
-		<div class="cercle pointer">
-			<img-app size="s" [image]="project.logoImage" (click)="fileInp.click()"></img-app>
+		<div class="flex picCtnr">
+			<div class="cercle pointer">
+				<img-app size="s" [image]="project.logoImage" (click)="fileInp.click()"></img-app>
+			</div>
+			<div class="color-primary sel">
+				<b class="semi pointer" (click)="fileInp.click()">Select Image</b>
+			</div>
 		</div>
-		<div class="color-primary sel">
-			<b class="semi pointer" (click)="fileInp.click()">Select Image</b>
+
+		<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
+
+		<form [formGroup]="form">
+			<form-field-app class="borderless">
+				<label-app>Project Name</label-app>
+				<input class="borderless" inputApp type="text" formControlName="name"/>
+			</form-field-app>
+
+			<form-field-app class="borderless">
+				<label-app>Description</label-app>
+				<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
+			</form-field-app>
+		</form>
+
+		<div class="bottom">
+			<div class="flex">
+				<b class="semi">Created By: </b> {{ project?.user?.firstName }} {{ project?.user?.lastName }}
+			</div>
+			<div class="flex">
+				<b class="semi">Created On:</b> {{ project?.creationDate | date: 'd MMMM y' }}
+			</div>
+			<div class="flex">
+				<b class="semi">Last Update On:</b> {{ project?.lastUpdatedDate | date: 'd MMMM y' }}
+			</div>
 		</div>
-	</div>
-
-	<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
-
-	<form [formGroup]="form">
-		<form-field-app class="borderless">
-			<label-app>Project Name</label-app>
-			<input class="borderless" inputApp type="text" formControlName="name"/>
-		</form-field-app>
-
-		<form-field-app class="borderless">
-			<label-app>Description</label-app>
-			<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
-		</form-field-app>
-	</form>
-
-
-	<div class="bottom">
-		<div class="flex">
-			<b class="semi">Created By: </b> {{ project?.user?.firstName }} {{ project?.user?.lastName }}
-		</div>
-		<div class="flex">
-			<b class="semi">Created On:</b> {{ project?.creationDate | date: 'd MMMM y' }}
-		</div>
-		<div class="flex">
-			<b class="semi">Last Update On:</b> {{ project?.lastUpdatedDate | date: 'd MMMM y' }}
-		</div>
-	</div>
-
-
-</card-app>
+	</card-app>
+</div>

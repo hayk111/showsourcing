@@ -19,7 +19,7 @@ export class ProductFeatureService extends ProductService {
 		return this.selectAll().pipe(
 			tap(products => console.log('products = ', products)),
 			map(products => {
-				const statuses = {};
+				const statuses: any = {};
 				products.forEach(product => {
 					/* const status = product.status;
 					if (status) {
@@ -33,6 +33,24 @@ export class ProductFeatureService extends ProductService {
 						}
 					} */
 				});
+
+				statuses['s1'] = {
+					name: 'Send FQ',
+					products: [
+						{ name: 'prod1', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
+						{ name: 'prod1a', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
+						{ name: 'prod1b', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] }
+					]
+				};
+
+				statuses['s2'] = {
+					name: 'Validate Sample',
+					products: [
+						{ name: 'prod2', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
+						{ name: 'prod2b', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] }
+					]
+				};
+
 				return Object.keys(statuses).map(key => statuses[key]);
 			})
 		);

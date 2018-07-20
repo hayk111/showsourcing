@@ -6,10 +6,11 @@ import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { WorkflowModule } from '~features/workflow/workflow.module';
 
 import { ProjectsListViewComponent } from './components';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
-import { ProjectsPageComponent } from './containers';
+import { ProjectsPageComponent, ProjectWorkflowComponent } from './containers';
 import { ProjectDetailsComponent } from './containers/project-details/project-details.component';
 import { ProjectProductsComponent } from './containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
@@ -32,10 +33,12 @@ import { routes } from './routes';
 		RatingModule,
 		SidenavModule,
 		BadgeModule,
-		FileModule
+		FileModule,
+		WorkflowModule
 	],
 	declarations: [
 		ProjectsPageComponent,
+		ProjectWorkflowComponent,
 		ProjectsListViewComponent,
 		ProjectNavComponent,
 		ProjectDetailsComponent,

@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, takeUntil, switchMap, tap } from 'rxjs/operators';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
-import { ProductService } from '~global-services';
-import { ERM, Product } from '~models';
+import { ProductService, ProjectService } from '~global-services';
+import { ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
@@ -22,11 +23,13 @@ import { StoreKey } from '~utils';
 })
 export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 
+	private project$: Observable<Project>;
 	private projectId: string;
 
 	constructor(
 		protected router: Router,
 		protected srv: ProductService,
+		protected projectSrv: ProjectService,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
@@ -36,10 +39,11 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	}
 
 	ngOnInit() {
-		this.route.parent.params.pipe(
+		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
-			takeUntil(this._destroy$)
-		).subscribe(id => this.projectId = id);
+			tap(id => this.projectId = id),
+			switchMap(id => this.projectSrv.selectOne(id)),
+		);
 		super.ngOnInit();
 	}
 

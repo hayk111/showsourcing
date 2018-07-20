@@ -10,11 +10,12 @@ import { ProductFeatureService } from '~features/workflow/services';
 	styleUrls: ['./workflow-kanban.component.scss']
 })
 export class WorkflowKanbanComponent {
+	@Input() statuses;
 	@Output() productSelect = new EventEmitter<string>();
 	productsByStatus$: Observable<Array<any>>;
 
 	constructor(private productSrv: ProductFeatureService) {
-		this.productsByStatus$ = this.productSrv.getProductsStatuses();
+		// this.productsByStatus$ = this.productSrv.getProductsStatuses();
 	}
 
 	changeStatus(event) {

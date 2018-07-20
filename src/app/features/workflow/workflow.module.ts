@@ -5,23 +5,23 @@ import { ProductModule } from '~features/products';
 import { CardModule } from '~shared/card/card.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { SharedModule } from '~shared/shared.module';
 
-import { KanbanColComponent, KanbanItemComponent } from './components';
-import { WorkflowKanbanComponent, WorkflowPageComponent } from './containers';
-import { routes } from './routes';
+import { KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent, WorkflowKanbanComponent } from './components';
 import { KanbanService } from './services/kanban.service';
 import { ProductFeatureService } from './services/product.feature.service';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule.forChild(routes),
+		SharedModule,
 		ProductModule,
 		TopPanelModule,
 		CardModule,
 		IconsModule,
 	],
-	declarations: [WorkflowPageComponent, WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],
+	declarations: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],
+	exports: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],
 	providers: [KanbanService, ProductFeatureService],
 })
 export class WorkflowModule { }
