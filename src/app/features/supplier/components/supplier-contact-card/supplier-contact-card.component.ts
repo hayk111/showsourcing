@@ -12,6 +12,7 @@ export class SupplierContactCardComponent {
 	@Input() contacts = [];
 	@Output() newContact = new EventEmitter<null>();
 	@Output() openContact = new EventEmitter<Contact>();
+	@Output() deleteContact = new EventEmitter<Contact>();
 	defaultImg = DEFAULT_USER_IMG;
 
 

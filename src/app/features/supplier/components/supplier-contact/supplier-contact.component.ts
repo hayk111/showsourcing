@@ -12,7 +12,8 @@ export class SupplierContactComponent {
 	@Input() contact: any;
 	/** whether to display a border at the bottom or not, for the last item in a list */
 	@Input() border: true;
-	@Output() nameClick = new EventEmitter<null>();
+	@Output() edit = new EventEmitter<null>();
+	@Output() delete = new EventEmitter<null>();
 	defaultImg = DEFAULT_USER_IMG;
 
 	constructor(private sanitizer: DomSanitizer) { }

@@ -7,7 +7,8 @@
 		<supplier-contact-app
 			*ngFor="let contact of contacts; let last = last"
 			[border]="!last"
-			(nameClick)="openContact.emit(contact)"
+			(edit)="openContact.emit(contact)"
+			(delete)="deleteContact.emit(contact)"
 			[contact]="contact">
 		</supplier-contact-app>
 	</ul>

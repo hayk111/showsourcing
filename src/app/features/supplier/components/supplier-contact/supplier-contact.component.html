@@ -1,33 +1,44 @@
-<div class="flex">
+<div class="flex flexVAlign">
 
 	<!-- block without border -->
-	<div class="colImg pointer" (click)="nameClick.emit()">
-		<img [src]="contact?.image?.urls?.url_120x90 || defaultImg"/>
-	</div>
+	<img-app [image]="contact.image" class="pointer" (click)="edit.emit()"></img-app>
 
 	<!-- border block -->
-	<div class="flex right {{ border ? 'border' : ''}}">
+	<div class="flexColumn middle {{ border ? 'border' : ''}}">
 		<!-- name and job title -->
-		<div class="col flexColumn pointer" (click)="nameClick.emit()">
-
-			<div class="name">
+		<div class="pointer" (click)="edit.emit()">
+			<span class="name">
 				{{ contact.name }}
-			</div>
+			</span>
 
-			<div class="jobTitle">
-				{{ contact.jobTitle }}
-			</div>
+			<span class="jobTitle" *ngIf="contact.jobTitle">
+				- {{ contact.jobTitle }}
+			</span>
 		</div>
 
 		<!-- email -->
 		<div class="col valign">
 			<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
 		</div>
+
 		<!-- phone -->
 		<div class="col valign">
 			<a href="tel:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
 		</div>
 	</div>
+
+	<context-menu-app>
+		<context-menu-trigger-app>
+			<icon-app fontSet="fa" name="ellipsis-v"></icon-app>
+		</context-menu-trigger-app>
+		<context-menu-item-app (click)="edit.emit()">
+			Edit
+		</context-menu-item-app>
+		<context-menu-divider-app></context-menu-divider-app>
+		<context-menu-item-app class="color-warn" (click)="delete.emit()">
+			Delete
+		</context-menu-item-app>
+	</context-menu-app>
 
 </div>
 
