@@ -12,6 +12,8 @@ import { Product } from '~models';
 export class SupplierImagesComponent implements OnInit {
 	@Input() supplier: Supplier = {};
 	@Input() products: Product[] = [];
+	// max number of images displayed
+	private readonly MAX_NUMBER_OF_IMAGES = 6;
 
 	constructor() { }
 
@@ -26,7 +28,7 @@ export class SupplierImagesComponent implements OnInit {
 		if (!this.products)
 			return images;
 
-		while (images.length < 7 && index < this.products.length - 1) {
+		while (images.length <= this.MAX_NUMBER_OF_IMAGES && index < this.products.length - 1) {
 			images.push(...this.products[index++].images);
 		}
 
