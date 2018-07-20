@@ -11,7 +11,6 @@ export class UserPictureComponent {
 	@Input() size: number;
 	@Input() border = false;
 
-
 	@Input()
 	set url(value: string) {
 		this._url = value;

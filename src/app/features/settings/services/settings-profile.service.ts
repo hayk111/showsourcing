@@ -22,18 +22,6 @@ export class SettingsProfileService {
 		return this.userSrv.update(user);
 	}
 
-	addFile(file: File) {
-		// Uncomment when realm user is wroking
-		// this.uploader.uploadFile(file).pipe(
-		// 	first()
-		// ).subscribe(img => {
-		// 	this.userSrv.update({
-		// 		id: this.userId,
-		// 		profilePic: img
-		// 	}).pipe(first()).subscribe();
-		// });
-	}
-
 	changePassword(pass: String) {
 		// method to update password
 	}
