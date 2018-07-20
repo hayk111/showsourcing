@@ -107,7 +107,9 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	onFocusSearch(event) {
 		this.searchbarFocus = true;
-		this.searchAutocomplete.unselectAll();
+		if (this.searchAutocomplete) {
+			this.searchAutocomplete.unselectAll();
+		}
 	}
 
 }
