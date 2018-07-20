@@ -64,8 +64,7 @@ export const routes: Array<Route> = [
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
 			{ path: 'supplier', loadChildren: 'app/features/supplier/supplier.module#SuppliersModule' },
 			{ path: 'settings', loadChildren: 'app/features/settings/settings.module#SettingsModule' },
-			{ path: 'test', children: testRoutes },
-			{ path: 'workflow', children: workflowRoutes }
+			{ path: 'test', children: testRoutes }
 		],
 	},
 	{ path: '**', redirectTo: '' },

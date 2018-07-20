@@ -47,9 +47,7 @@ import { WorkflowModule } from '~features/workflow';
 		DialogModule,
 		GenericDialogModule,
 		// modules features
-		DataManagementModule.forRoot(),
 		PickATeamModule,
-		WorkflowModule,
 		TestPageModule,
 		// keep router as last module
 		RouterModule.forRoot(routes,
