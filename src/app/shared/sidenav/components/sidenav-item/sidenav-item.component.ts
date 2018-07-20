@@ -51,7 +51,16 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	/** check if the item is selected based on path */
 	checkItemSelected() {
 		const path = this.location.path();
-		this.selected = (path === this.link);
+		if (this.link) {
+			if (this.link.startsWith('./') || this.link.startsWith('../')) {
+				const transformedLink = this.link.replace(/\.\//g, '');
+				this.selected = path.endsWith(transformedLink);
+			} else {
+				this.selected = (path === this.link);
+			}
+		} else {
+			this.selected = false;
+		}
 	}
 
 	/** trigger expanded state change */

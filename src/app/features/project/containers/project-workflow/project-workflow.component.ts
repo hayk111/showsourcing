@@ -4,7 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { ProjectService } from '~global-services';
-import { Project } from '~models/project.model';
+import { ERMService } from '~global-services/_global/erm.service';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
+import { Project, ERM } from '~models';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class ProjectWorkflowComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private projectSrv: ProjectService
+		private projectSrv: ProjectService,
+		private workflowService: ProjectWorkflowFeatureService
 	) { }
 
 	ngOnInit() {
@@ -29,23 +32,9 @@ export class ProjectWorkflowComponent implements OnInit {
 			switchMap(id => this.projectSrv.selectOne(id)),
 		);
 
-		this.statuses$ = of([
-			{
-				name: 'Send FQ',
-				products: [
-					{ name: 'prod1', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
-					{ name: 'prod1a', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
-					{ name: 'prod1b', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] }
-				]
-			},
-			{
-				name: 'Validate Sample',
-				products: [
-					{ name: 'prod2', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] },
-					{ name: 'prod2b', images: [{id: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953", fileName: "27bb4e6a-4830-4f6b-90fc-b6c77cabb953.jpg", orientation: 0}] }
-				]
-			}
-		]);
+		this.statuses$ = this.project$.pipe(
+			switchMap(project => this.workflowService.getStatuses(project))
+		);
 	}
 
 	onItemSelected(entityId: string) {

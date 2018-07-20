@@ -32,4 +32,6 @@ export class KanbanItemCardComponent {
 	@Input() icon: string;
 	/** The link to display the element */
 	@Input() link: string;
+	/** The person associated with the element */
+	@Input() person: any;
 }

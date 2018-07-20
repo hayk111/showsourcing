@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
@@ -47,6 +48,7 @@ import { routes } from './routes';
 		ProjectProductListComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
+	providers: [ProjectWorkflowFeatureService]
 })
 export class ProjectModule {
 

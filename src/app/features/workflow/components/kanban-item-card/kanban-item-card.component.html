@@ -1,4 +1,4 @@
-<div class="kanban__item cell ng-star-inserted main" (click)="displayItem()">
+<div class="kanban__item cell ng-star-inserted main">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
       <!-- div class="checkboxCtnr" *ngIf="selectable">
@@ -23,5 +23,5 @@
       </div>
     </div>
   </div>
-  <div class="owner">Colette R.</div>
+  <div class="person" *ngIf="person">{{person?.firstName}} {{person?.lastName.toUpperCase().charAt(0)}}.</div>
 </div>

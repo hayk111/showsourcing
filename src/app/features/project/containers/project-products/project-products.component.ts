@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, takeUntil, switchMap, tap } from 'rxjs/operators';
+import { map, takeUntil, switchMap, tap, catchError } from 'rxjs/operators';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project } from '~models';
@@ -23,7 +23,7 @@ import { StoreKey } from '~utils';
 })
 export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 
-	private project$: Observable<Project>;
+	project$: Observable<Project>;
 	private projectId: string;
 
 	constructor(

@@ -19,9 +19,10 @@
 
 					</product-small-card-app -->
 					<kanban-item-card-app class="marginSmall" [title]="product.name"
-						[status]="product.status?.name" subtitle1="Zheijiang Guangke El. Equipm."
-						subtitle2="Pen Holder"
+						[status]="product.status?.name" [subtitle1]="product.description ? product.description : 'No description'"
+						[subtitle2]="product.category?.name"
 						[image]="product.images?.length > 0 ? (product | image:'m') : null"
+						[person]="product.createdBy"
 						[link]="'/product/details/' + product.id + '/general'">
 					</kanban-item-card-app>
 				</kanban-item-app>
