@@ -1,3 +1,7 @@
+card-header-app {
+	margin: var(--spacing-xs);
+}
+
 .noDesc {
 	font-style: italic;
 	color: var(--color-txt-secondary);
@@ -19,4 +23,8 @@ textarea {
 
 editable-label-app {
 	white-space: pre-wrap;
+}
+
+.fav {
+	margin-right: var(--spacing-ms);
 }
