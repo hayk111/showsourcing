@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TagComponent } from './components/tag/tag.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
+import { IconsModule } from '~shared/icons';
 
 @NgModule({
-	imports: [CommonModule],
+	imports: [CommonModule, IconsModule],
 	declarations: [TagComponent, TagListComponent],
 	exports: [TagComponent, TagListComponent],
 })
