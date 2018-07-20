@@ -5,6 +5,8 @@ import { AppImage, Contact } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
 import { ContactService } from '~global-services';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { first } from 'rxjs/operators';
 
 
 
@@ -37,7 +39,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private uploader: UploaderService
 	) {
 		super();
 
@@ -55,17 +58,13 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** gives image url */
-	get previewUrl() {
-		if (!this._preview || Object.keys(this._preview).length === 0)
-			return;
-		// if the image is pending the base64 is in data else the url is at normal place
-		return this._preview.data || this._preview.urls.url_400x300;
-	}
-
-	set preview(value: AppImage) {
-		this._preview = value;
-		// need to detect for changes since we aren't using any async pipe for it and OnPush change detection
-		this.cd.markForCheck();
+	onFileAdded(files: File[]) {
+		this.uploader.uploadImages(files).pipe(
+			first()
+		).subscribe(imgs => {
+			// removing pending image
+			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+		}, e => this._pendingImages = []);
 	}
 
 	onSubmit() {

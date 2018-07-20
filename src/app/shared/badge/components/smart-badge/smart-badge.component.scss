@@ -1,9 +1,16 @@
-badge-app {
-	.tag {
-		background: var(--color-secondary);
-	}
-	.category {
-		background: #f5bc24;
-		color: white;
-	}
+:host {
+	display: inline-block;
+}
+
+icon-app {
+	margin-right: var(--spacing-xs);
+}
+
+.tag {
+	background: var(--color-secondary);
+}
+
+.category {
+	background: #f5bc24;
+	color: white;
 }

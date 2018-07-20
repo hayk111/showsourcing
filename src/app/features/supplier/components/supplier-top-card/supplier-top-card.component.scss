@@ -12,6 +12,12 @@
 		font-weight: 600;
 		color: var(--color-txt-strong);
 	}
+	.tags {
+		margin-top: var(--spacing-ms);
+		> * {
+			margin-right: var(--spacing-ms);
+		}
+	}
 }
 .top > * {
 	margin-left: var(--spacing-l);

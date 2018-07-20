@@ -32,6 +32,6 @@ export class SupplierImagesComponent implements OnInit {
 			images.push(...this.products[index++].images);
 		}
 
-		return images;
+		return images.slice(0, this.MAX_NUMBER_OF_IMAGES);
 	}
 }
