@@ -2,6 +2,7 @@
 	text-transform: uppercase;
 
 	&.small {
+		display: inline;
 		font-size: var(--font-size-s);
 		font-weight: bold;
 		padding: 2px  var(--spacing-ms);

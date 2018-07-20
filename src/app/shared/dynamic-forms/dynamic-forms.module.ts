@@ -10,7 +10,7 @@ import { DynamicEditableTextComponent } from '~shared/dynamic-forms/components/d
 import { EditableFieldModule } from '~shared/editable-field';
 import { FieldCellComponent } from '~shared/dynamic-forms/components/field-cell/field-cell.component';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { TagModule } from '~shared/tag';
+import { BadgeModule } from '~shared/badge';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { UtilsModule } from '~shared/utils';
 import { FileModule } from '~shared/file';
@@ -19,10 +19,16 @@ import {
 } from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
 import {
 	EditablePriceMatrixRowComponent
-} from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
-import { EditablePriceComponent } from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price/editable-price.component';
-import { EditablePackagingComponent } from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
-import { EditableSelectorComponent } from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
+} from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
+import {
+	EditablePriceComponent
+} from './components/dynamic-editable-text/inputs/editable-price/editable-price.component';
+import {
+	EditablePackagingComponent
+} from './components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
+import {
+	EditableSelectorComponent
+} from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
 import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({
@@ -34,7 +40,7 @@ import { ImageModule } from '~shared/image/image.module';
 		InputsCustomModule,
 		EditableFieldModule,
 		SelectorsModule,
-		TagModule, // for displaying multiple values
+		BadgeModule, // for displaying multiple values
 		UtilsModule,
 		FileModule,
 		ImageModule

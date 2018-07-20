@@ -26,7 +26,7 @@ import { NewSupplierDlgComponent } from '~features/supplier/containers/new-suppl
 import { SupplierPreviewComponent } from '~features/supplier/containers/supplier-preview/supplier-preview.component';
 import { routes } from '~features/supplier/routes';
 import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { BadgeModule } from '~shared/badge/badge.module';
+import { BadgeModule } from '~shared/badge';
 import { CarouselModule } from '~shared/carousel';
 import { DialogModule } from '~shared/dialog';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
@@ -38,7 +38,6 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
-import { TagModule } from '~shared/tag';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { SupplierTopCardComponent } from './components/supplier-top-card/supplier-top-card.component';
@@ -61,7 +60,7 @@ import { ImageModule } from '~shared/image/image.module';
 		ReactiveFormsModule, // used by new contact dialog
 		SelectionBarModule, // used for selection bar at the bottom
 		TableModule, // used by list view
-		TagModule,
+		BadgeModule,
 		WorkflowActionModule,
 		RatingModule, // used for hearth
 		FiltersModule, // used for filters

@@ -14,7 +14,7 @@ import { MoqModule } from '~shared/moq';
 import { PanelModule } from '~shared/panel/panel.module';
 import { PriceModule } from '~shared/price';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
-import { TagModule } from '~shared/tag';
+import { BadgeModule } from '~shared/badge';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
@@ -37,7 +37,7 @@ const modules = [
 	PanelModule,
 	ImageModule,
 	ContextMenuModule,
-	TagModule,
+	BadgeModule,
 	ImageModule
 ];
 

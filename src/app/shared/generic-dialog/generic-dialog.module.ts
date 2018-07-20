@@ -5,7 +5,7 @@ import { EditionDialogComponent } from '~shared/generic-dialog/component/edition
 import { MergeDialogComponent } from '~shared/generic-dialog/component/merge-dialog/merge-dialog.component';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
-import { TagModule } from '~shared/tag';
+import { BadgeModule } from '~shared/badge';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ERMService } from '~global-services/_global/erm.service';
 

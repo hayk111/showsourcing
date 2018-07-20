@@ -1,1 +1,1 @@
-export * from '~shared/tag/components/tag/tag.component';
+export * from '~shared/badge/components/badge/badge.component';

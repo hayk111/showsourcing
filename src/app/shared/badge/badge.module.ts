@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TagComponent } from '~shared/tag/components/tag/tag.component';
-import { TagListComponent } from '~shared/tag/components/tag-list/badge-list.component';
+import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
+import { BadgeListComponent } from '~shared/badge/components/badge-list/badge-list.component';
 import { IconsModule } from '~shared/icons';
-import { StatusTagComponent } from '~shared/tag/components/status-tag/status-tag.component';
-import { SmartTagComponent } from './components/smart-tag/smart-tag.component';
+import { StatusBadgeComponent } from '~shared/badge/components/status-badge/status-badge.component';
+import { SmartBadgeComponent } from './components/smart-badge/smart-badge.component';
 @NgModule({
 	imports: [CommonModule, IconsModule],
-	declarations: [TagComponent, TagListComponent, StatusTagComponent, SmartTagComponent],
-	exports: [TagComponent, TagListComponent, StatusTagComponent, SmartTagComponent],
+	declarations: [BadgeComponent, BadgeListComponent, StatusBadgeComponent, SmartBadgeComponent],
+	exports: [BadgeComponent, BadgeListComponent, StatusBadgeComponent, SmartBadgeComponent],
 })
-export class TagModule { }
+export class BadgeModule { }
