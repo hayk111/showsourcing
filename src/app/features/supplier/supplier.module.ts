@@ -80,6 +80,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 		SuppliersPageComponent
 	],
 	providers: [
+		SupplierFeatureService
 	],
 })
 export class SuppliersModule {
