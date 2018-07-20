@@ -9,7 +9,8 @@ import {
 	CheckboxComponent,
 	FormFieldComponent,
 	InputDirective,
-	RestrictInputDirective
+	RestrictInputDirective,
+	RestrictSpecialInputDirective
 } from '~shared/inputs/components-directives';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
@@ -22,6 +23,7 @@ export const components = [
 	InputDirective,
 	CheckboxComponent,
 	RestrictInputDirective,
+	RestrictSpecialInputDirective,
 	LabelComponent,
 	HintComponent,
 	ErrorComponent,

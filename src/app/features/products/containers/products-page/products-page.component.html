@@ -15,9 +15,11 @@
 		[buttonIcon]="false"
 		[filters]="getFiltersNumber()"
 		(showFilters)="openFilterPanel()"
-		(search)="search($event)">
-		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
-			<search-autocomplete-item-app *ngFor="let element of (searchFilterElements$ | async)">
+		(search)="search($event)"
+		(search)="search($event)"
+		(smartSearch)="smartSearch($event)">
+			<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async)">
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
 					[checked]="element.checked" [icon]="element.type"

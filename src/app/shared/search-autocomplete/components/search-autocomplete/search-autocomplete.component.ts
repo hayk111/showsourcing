@@ -35,6 +35,10 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	@Input() width: number;
 	@Input() closeOnDisplay = false;
 	@Output() close = new EventEmitter<null>();
+	/** When an item is selected */
+	@Output() itemSelected = new EventEmitter<null>();
+	/** When all items are unselected */
+	@Output() allItemsUnselected = new EventEmitter<null>();
 	@ContentChildren(SearchAutocompleteItemComponent) items: QueryList<SearchAutocompleteItemComponent>;
 
 	autocompleteOpen = false;
@@ -53,11 +57,11 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 			).subscribe((values) => {
 				this._destroyItems$.next();
 				if (values && values.length > 0) {
-					this.selectedItemIndex = 0;
+					this.selectedItemIndex = -1;
 					this.refreshItems();
 					this.registerListenersForItems(values);
 				} else {
-					this.selectedItemIndex = 0;
+					this.selectedItemIndex = -1;
 				}
 			});
 		}
@@ -115,23 +119,37 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 
 	updateItemIndex(direction = 'down') {
 		if (direction === 'down') {
-			if (this.selectedItemIndex < this.items.length - 1) {
+			if (this.selectedItemIndex === -1) {
+				this.selectedItemIndex = 0;
+			} else if (this.selectedItemIndex < this.items.length - 1) {
 				this.selectedItemIndex++;
 			}
 		} else {
-			if (this.selectedItemIndex !== null && this.selectedItemIndex > 0) {
-					this.selectedItemIndex--;
+			if (this.selectedItemIndex >= 0) {
+				this.selectedItemIndex--;
 			}
 		}
 	}
 
 	refreshItems() {
+		if (this.selectedItemIndex !== -1) {
+			this.items.forEach((item, index) => {
+				if (index === this.selectedItemIndex) {
+					item.selectItem();
+				} else {
+					item.unselectItem();
+				}
+				this.itemSelected.emit();
+			});
+		} else {
+			this.unselectAll();
+			this.allItemsUnselected.emit();
+		}
+	}
+
+	unselectAll() {
 		this.items.forEach((item, index) => {
-			if (index === this.selectedItemIndex) {
-				item.selectItem();
-			} else {
-				item.unselectItem();
-			}
+			item.unselectItem();
 		});
 	}
 

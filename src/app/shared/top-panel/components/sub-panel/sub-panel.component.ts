@@ -48,8 +48,11 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterClick = new EventEmitter<null>();
 	// search event
 	@Output() search = new EventEmitter<string>();
+	// smart search event
+	@Output() smartSearch = new EventEmitter<string>();
 
 	@ContentChild(SearchAutocompleteComponent) searchAutocomplete: SearchAutocompleteComponent;
+	@ViewChild('inp') inputRef: ElementRef;
 
 	private search$ = new Subject<string>();
 
@@ -70,12 +73,25 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 			).subscribe(() => {
 				this.searchControl.setValue('');
 			});
+
+			this.searchAutocomplete.itemSelected.pipe(
+				takeUntil(this._destroy$)
+			).subscribe(() => {
+				this.inputRef.nativeElement.blur();
+			});
+
+			this.searchAutocomplete.allItemsUnselected.pipe(
+				takeUntil(this._destroy$)
+			).subscribe(() => {
+				this.inputRef.nativeElement.focus();
+			});
 		}
 	}
 
-	smartSearch(event) {
+	triggerSmartSearch(event) {
+		const search = this.searchControl.value;
+		this.smartSearch.emit(search);
 		if (this.searchAutocomplete) {
-			event.target.blur();
 			this.searchAutocomplete.openAutocomplete();
 		}
 	}
@@ -91,6 +107,9 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	onFocusSearch(event) {
 		this.searchbarFocus = true;
+		if (this.searchAutocomplete) {
+			this.searchAutocomplete.unselectAll();
+		}
 	}
 
 }
