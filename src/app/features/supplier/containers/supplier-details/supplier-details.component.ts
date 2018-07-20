@@ -15,7 +15,6 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	// currently displayed supplier
-	supplierId: string;
 	supplier$: Observable<Supplier>;
 	contacts$: Observable<Contact[]>;
 	products$: Observable<Product[]>;
@@ -36,7 +35,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			tap(id => this.supplierId = id)
+			map(params => params.id),
+			switchMap(id => this.featureSrv.selectOne(id))
 		);
 
 	}
