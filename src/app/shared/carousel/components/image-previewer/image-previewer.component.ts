@@ -6,7 +6,7 @@ import { AppImage } from '~models';
 	templateUrl: './image-previewer.component.html',
 	styleUrls: ['./image-previewer.component.scss'],
 	host: {
-		'[class.overflow]': 'hasOverflow'
+		'[class.overflow]': 'showOneLine'
 	}
 })
 export class ImagePreviewerComponent {
@@ -15,7 +15,7 @@ export class ImagePreviewerComponent {
 	// whether we display the add button or not
 	@Input() hasAdd = true;
 	// display only the first row of images and the rest on overflow
-	@Input() hasOverflow = false;
+	@Input() showOneLine = false;
 	// returns the index of the images clicked
 	@Output() imageClick = new EventEmitter<number>();
 	@Output() plusClick = new EventEmitter<any>();

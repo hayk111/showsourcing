@@ -3,11 +3,15 @@
 		Send Request for Quotation (RFQ)
 	</dialog-header-app>
 
+	<stage-indicator-app
+		[titles]="titles">
+	</stage-indicator-app>
+
 	<h3>REQUEST DETAIL</h3>
 	<label-app class="title">Product</label-app>
 	<image-previewer-app
-	[hasAdd] = "false"
-	[hasOverflow] = "true"
+	[hasAdd]="false"
+	[showOneLine]="true"
 	[images]="product.images"></image-previewer-app>
 
 	<form [formGroup]="group" *ngIf="!pending">

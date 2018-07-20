@@ -8,8 +8,7 @@ import { SharedModule } from '~shared/shared.module';
 	imports: [
 		CommonModule,
 		DialogModule,
-		SharedModule,
+		SharedModule
 	]
-
 })
 export class RfqDialogModule { }

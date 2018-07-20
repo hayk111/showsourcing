@@ -1,0 +1,36 @@
+:host {
+	display: block;
+}
+
+.oval-empty {
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+	border: solid 1px var(--color-secondary-dark);
+	border-radius: 9px;
+}
+
+.text {
+	font-size: var(--font-size-m);
+	margin-top: 8px;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.selected {
+  .oval-empty {
+		background-color: var(--color-primary);
+	}
+	p.text {
+		color: var(--color-primary);
+	}
+}
+
+.horizontal {
+	width:68px;
+	margin-top: 7px;
+	display: block;
+  border-top-width: 1px;
+	border-top-style: solid;
+	border-color: var(--color-divider);
+}

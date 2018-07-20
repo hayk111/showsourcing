@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '~shared/dialog';
 
 @Component({
-	selector: 'app-rfq-dialog',
+	selector: 'rfq-dialog-app',
 	templateUrl: './rfq-dialog.component.html',
 	styleUrls: ['./rfq-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,6 +15,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	group: FormGroup;
 	pending = false;
+	titles = ['review', 'recipient', 'confirmation'];
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
 
@@ -33,7 +34,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	ngAfterViewInit() {
-		setTimeout(() => this.input.focus(), 0);
+		this.input.focus();
 	}
 
 	closeDlg() {

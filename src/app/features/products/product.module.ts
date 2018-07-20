@@ -44,6 +44,7 @@ import { ProductPreviewComponent } from '~features/products/components/product-p
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
+import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 
 @NgModule({
 	imports: [
@@ -62,7 +63,8 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 		CommentModule,
 		TopPanelModule,
 		SearchAutocompleteModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		StageIndicatorModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
