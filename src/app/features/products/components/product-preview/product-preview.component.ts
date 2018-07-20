@@ -6,6 +6,8 @@ import { FormGroup } from '@angular/forms';
 import { AutoUnsub, debug } from '~utils';
 import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
+import { DialogService } from '~shared/dialog';
+import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 
 @Component({
 	selector: 'product-preview-app',
@@ -56,7 +58,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
 
-	constructor(private featureSrv: ProductFeatureService) {
+	constructor(private featureSrv: ProductFeatureService, private dlgSrv: DialogService) {
 		super();
 	}
 
@@ -86,6 +88,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: any) {
 		return this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+	}
+
+	openRfq() {
+		this.dlgSrv.open(RfqDialogComponent, { product: this.product });
 	}
 
 }

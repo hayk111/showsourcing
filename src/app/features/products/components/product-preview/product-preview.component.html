@@ -23,6 +23,7 @@
 					{{ product.score !== null ? (product.score + '%') : '' }}
 				</span>
 			</div>
+			<button class="light" (click)="openRfq()">SEND RFQ</button>
 			<workflow-action-app
 				[xPosition]="-67"
 				[entity]="product"

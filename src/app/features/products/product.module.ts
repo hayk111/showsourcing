@@ -43,7 +43,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
-
+import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 
 @NgModule({
 	imports: [
@@ -85,13 +85,15 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		NewProductDialogComponent,
 		GroupByPipe,
 		ProductPreviewComponent,
-		ProductNavigationComponent
+		ProductNavigationComponent,
+		RfqDialogComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		ProductAddToProjectDlgComponent,
-		NewProductDialogComponent
+		NewProductDialogComponent,
+		RfqDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
 	providers: [ProductFeatureService]

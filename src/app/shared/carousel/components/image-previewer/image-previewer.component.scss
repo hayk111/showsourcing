@@ -3,6 +3,10 @@
 	margin-top: var(--spacing-s);
 	display: flex;
 	flex-wrap: wrap;
+	&.overflow {
+		height: 60px;
+		overflow: overlay;
+	}
 	.square {
 		overflow: hidden;
 		height: 52px;
@@ -15,6 +19,13 @@
 			min-width: 100%;
 		}
 	}
+}
+
+.product-images {
+	height: 50px;
+	display: flex;
+	width: 100%;
+	overflow: scroll;
 }
 
 .pending {
