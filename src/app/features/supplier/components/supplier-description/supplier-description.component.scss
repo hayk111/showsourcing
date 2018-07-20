@@ -1,5 +1,16 @@
 card-header-app {
 	margin: var(--spacing-xs);
+	background-image: url("/assets/img/supplier-bg.jpg");
+	height: 158px;
+	h1, h2 {
+		color: white;
+	}
+	h1 {
+		margin-bottom: var(--spacing-s);
+	}
+	.alignCenter {
+		text-align: center;
+	}
 }
 
 .noDesc {

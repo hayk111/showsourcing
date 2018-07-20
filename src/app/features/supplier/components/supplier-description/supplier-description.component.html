@@ -1,6 +1,12 @@
 <card-app (clickOutside)="cancel()">
-	<card-header-app>
-		<img src="/assets/img/supplier-bg.jpg"/>
+	<card-header-app class="flexCenter">
+		<div class="alignCenter">
+			<h1>{{ supplier.name }}</h1>
+			<h2>
+				{{ supplier.supplierType || 'Supplier' }}
+				<ng-container *ngIf="supplier.country"> - {{ supplier.country | const:'country' }}</ng-container>
+			</h2>
+		</div>
 	</card-header-app>
 
 
