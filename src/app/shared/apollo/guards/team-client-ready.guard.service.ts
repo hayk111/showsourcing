@@ -14,7 +14,7 @@ export class TeamClientReadyGuardService implements CanActivate, CanActivateChil
 
 	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloState.teamClientReady$.pipe(
-			tap(d => log.debug('%c TeamClientReadyGuard', LogColor.GUARD, d)),
+			tap(d => log.debug('%c TeamClientReadyGuard', LogColor.GUARD, d.ready)),
 			filter(state => !state.pending),
 			map(state => state.ready)
 		);

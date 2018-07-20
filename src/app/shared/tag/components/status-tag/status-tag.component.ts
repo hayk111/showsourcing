@@ -13,7 +13,7 @@ import { ProductStatusType, SupplierStatus } from '~models';
 		'[class.large]': 'size === "l" || size === "large"'
 	}
 })
-export class StatusLabelComponent implements AfterContentInit {
+export class StatusTagComponent implements AfterContentInit {
 
 	@Input() size = 's';
 

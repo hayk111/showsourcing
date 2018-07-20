@@ -15,7 +15,6 @@ import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
-import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
@@ -53,7 +52,6 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		DialogModule,
-		StatusModule,
 		FileModule, // file card used
 		RatingModule,
 		SelectionBarModule, // used for selection bar at the bottom

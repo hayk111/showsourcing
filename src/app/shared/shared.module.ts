@@ -1,23 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IconsModule } from '~shared/icons';
-import { LoadersModule } from '~shared/loaders';
-import { UtilsModule } from '~shared/utils';
-import { CardModule } from '~shared/card';
-import { InputsModule } from '~shared/inputs';
-import { PriceModule } from '~shared/price';
-import { MoqModule } from '~shared/moq';
-import { EditableFieldModule } from '~shared/editable-field';
-import { UserPictureModule } from '~shared/user-picture';
-import { ListModule } from '~shared/list/list.module';
-import { DividerModule } from '~shared/divider/divider.module';
-import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SidePanelComponent } from '~shared/panel/component/side-panel/side-panel.component';
-import { PanelModule } from '~shared/panel/panel.module';
-import { ImageModule } from '~shared/image/image.module';
+import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
-import { StatusModule } from '~shared/status/status.module';
+import { DividerModule } from '~shared/divider/divider.module';
+import { EditableFieldModule } from '~shared/editable-field';
+import { IconsModule } from '~shared/icons';
+import { ImageModule } from '~shared/image/image.module';
+import { InputsModule } from '~shared/inputs';
+import { ListModule } from '~shared/list/list.module';
+import { LoadersModule } from '~shared/loaders';
+import { MoqModule } from '~shared/moq';
+import { PanelModule } from '~shared/panel/panel.module';
+import { PriceModule } from '~shared/price';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
+import { TagModule } from '~shared/tag';
+import { UserPictureModule } from '~shared/user-picture';
+import { UtilsModule } from '~shared/utils';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -38,7 +37,7 @@ const modules = [
 	PanelModule,
 	ImageModule,
 	ContextMenuModule,
-	StatusModule,
+	TagModule,
 	ImageModule
 ];
 

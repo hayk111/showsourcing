@@ -14,7 +14,7 @@ export class GloabalClientsReadyGuardService implements CanActivate, CanActivate
 
 	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloState.globalClientsReady$.pipe(
-			tap(d => log.debug('%c GlobalClientsReadyGuard', LogColor.GUARD, d)),
+			tap(d => log.debug('%c GlobalClientsReadyGuard', LogColor.GUARD, d.ready)),
 			filter(state => !state.pending),
 			map(state => state.ready)
 		);
