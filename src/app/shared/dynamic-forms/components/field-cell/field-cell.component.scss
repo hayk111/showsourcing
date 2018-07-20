@@ -26,6 +26,9 @@
 		// label is always the same size
 		.labelCtnr {
 			height: 14px;
+			font-size: var(--font-size-m);
+			color: var(--color-txt-secondary);
+			font-weight: normal;
 		}
 		.content {
 			width: 100%;
