@@ -4,8 +4,8 @@ import { FileModule } from '~shared/file';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
-import { CarouselComponent, ModalCarouselComponent } from './components';
-import { ImagePreviewerComponent } from './components/image-previewer/image-previewer.component';
+import { CarouselComponent, ModalCarouselComponent } from '~shared/carousel/components';
+import { ImagePreviewerComponent } from '~shared/carousel/components/image-previewer/image-previewer.component';
 import { ImageModule } from '~shared/image/image.module';
 
 @NgModule({

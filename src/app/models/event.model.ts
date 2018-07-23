@@ -1,4 +1,4 @@
-import { BaseEntity } from './_entity.model';
+import { BaseEntity } from '~models/_entity.model';
 import { EventDescription } from '~models/event-description.model';
 
 export class Event extends BaseEntity<EventConfig> {

@@ -1,4 +1,4 @@
-import { Team } from './team.model';
+import { Team } from '~models/team.model';
 import { AppImage } from '~models/app-image.model';
 
 export class User {

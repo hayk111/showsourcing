@@ -1,3 +1,3 @@
-export * from './components';
-export * from './containers';
-export * from './project.module';
+export * from '~features/project/components';
+export * from '~features/project/containers';
+export * from '~features/project/project.module';

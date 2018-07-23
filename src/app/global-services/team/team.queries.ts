@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { GlobalQuery } from '../_global/global.query.interface';
+import { GlobalQuery } from '~global-services/_global/global.query.interface';
 
 
 export class TeamQueries implements GlobalQuery {

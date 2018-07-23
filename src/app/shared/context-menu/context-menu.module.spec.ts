@@ -1,4 +1,4 @@
-import { ContextMenuModule } from './context-menu.module';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 describe('ContextMenuModule', () => {
   let contextMenuModule: ContextMenuModule;

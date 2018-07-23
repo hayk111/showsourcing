@@ -2,8 +2,8 @@ import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { zip } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
-import { InviteUserDlgComponent } from '../../components/invite-user-dlg/invite-user-dlg.component';
-import { MemberFeatureService } from '../../services/member-feature.service';
+import { InviteUserDlgComponent } from '~features/settings/components/invite-user-dlg/invite-user-dlg.component';
+import { MemberFeatureService } from '~features/settings/services/member-feature.service';
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -12,7 +12,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
 
-import { TeamService, UserService } from '../../../../global-services';
+import { TeamService, UserService } from '~global-services';
 import { CreationDialogComponent } from '~shared/generic-dialog';
 
 @Component({

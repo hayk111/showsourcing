@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin, zip } from 'rxjs';
 import { TeamUser } from '~models';
 
-import { TeamUserService, TeamService, UserService } from '../../../global-services';
+import { TeamUserService, TeamService, UserService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';

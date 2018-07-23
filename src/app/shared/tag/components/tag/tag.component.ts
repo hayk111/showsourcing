@@ -5,14 +5,14 @@ import { Component, OnInit, Input } from '@angular/core';
 	templateUrl: './tag.component.html',
 	styleUrls: ['./tag.component.scss'],
 	host: {
-		'[class.flexCenter]': 'labelSize === "s" || labelSize === "small"',
-		'[class.small]': 'labelSize === "s" || labelSize === "small"',
-		'[class.medium]': 'labelSize === "m" || labelSize === "medium"',
-		'[class.large]': 'labelSize === "l" || labelSize === "large"'
+		'[class.flexCenter]': 'size === "s" || size === "small"',
+		'[class.small]': 'size === "s" || size === "small"',
+		'[class.medium]': 'size === "m" || size === "medium"',
+		'[class.large]': 'size === "l" || size === "large"'
 	}
 })
 export class TagComponent implements OnInit {
-	@Input() labelSize: 's' | 'm' | 'l' = 's';
+	@Input() size: 's' | 'm' | 'l' = 's';
 
 	constructor() { }
 

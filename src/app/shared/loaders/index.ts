@@ -1,2 +1,2 @@
-export * from './loaders.module';
-export * from './components';
+export * from '~shared/loaders/loaders.module';
+export * from '~shared/loaders/components';

@@ -1,2 +1,2 @@
-export * from './table/table.component';
-export * from './column.directive';
+export * from '~shared/table/components/table/table.component';
+export * from '~shared/table/components/column.directive';

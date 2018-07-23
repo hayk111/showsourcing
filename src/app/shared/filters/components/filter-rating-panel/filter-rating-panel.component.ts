@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
-import { Filter } from '../../models';
+import { Filter } from '~shared/filters/models';
 import { Observable } from 'rxjs';
-import { AutoUnsub } from '~utils/index';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'filter-rating-panel-app',

@@ -1,1 +1,1 @@
-export * from './data-management-page/data-management-page.component';
+export * from '~features/data-management/containers/data-management-page/data-management-page.component';

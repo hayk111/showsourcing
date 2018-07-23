@@ -1,1 +1,1 @@
-export * from './dialog.service';
+export * from '~shared/dialog/services/dialog.service';

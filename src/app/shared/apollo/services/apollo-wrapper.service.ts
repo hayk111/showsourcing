@@ -7,7 +7,7 @@ import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/d
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 import { log, LogColor } from '~utils';
 
-import { UpdateOptions } from '../interfaces/update-options.interface';
+import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
 
 
 /**

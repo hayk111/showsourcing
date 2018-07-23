@@ -1,2 +1,2 @@
-export * from './carousel.module';
-export * from './components';
+export * from '~shared/carousel/carousel.module';
+export * from '~shared/carousel/components';

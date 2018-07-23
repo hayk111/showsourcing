@@ -1,2 +1,2 @@
-export * from './likes-chart.module';
-export * from './components';
+export * from '~shared/likes-chart/likes-chart.module';
+export * from '~shared/likes-chart/components';

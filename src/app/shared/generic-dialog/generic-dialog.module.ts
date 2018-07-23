@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreationDialogComponent } from './component/creation-dialog/creation-dialog.component';
-import { EditionDialogComponent } from './component/edition-dialog/edition-dialog.component';
-import { MergeDialogComponent } from './component/merge-dialog/merge-dialog.component';
+import { CreationDialogComponent } from '~shared/generic-dialog/component/creation-dialog/creation-dialog.component';
+import { EditionDialogComponent } from '~shared/generic-dialog/component/edition-dialog/edition-dialog.component';
+import { MergeDialogComponent } from '~shared/generic-dialog/component/merge-dialog/merge-dialog.component';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 import { TagModule } from '~shared/tag';

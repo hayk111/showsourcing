@@ -4,7 +4,7 @@ import {
 	Output, EventEmitter, AfterContentInit
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { SearchAutocompleteItemContentComponent } from '../search-autocomplete-item-content/search-autocomplete-item-content.component';
+import { SearchAutocompleteItemContentComponent } from '~shared/search-autocomplete/components/search-autocomplete-item-content/search-autocomplete-item-content.component';
 import { AutoUnsub } from '~utils';
 
 @Component({

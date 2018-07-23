@@ -18,9 +18,9 @@ import { ProjectSettingsComponent } from './containers/project-settings/project-
 import { RatingModule } from '~shared/rating';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { BadgeModule } from '~shared/badge/badge.module';
-import { ProjectProductListComponent } from './components/project-product-list/project-product-list.component';
+import { ProjectProductListComponent } from '~features/project/components/project-product-list/project-product-list.component';
 import { FileModule } from '~shared/file';
-import { routes } from './routes';
+import { routes } from '~features/project/routes';
 
 @NgModule({
 	imports: [

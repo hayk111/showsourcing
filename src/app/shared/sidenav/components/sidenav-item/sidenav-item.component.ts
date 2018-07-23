@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils';
-import { SidenavItemLabelDirective } from '../sidenav-item-label/sidenav-item-label.directive';
+import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
 
 @Component({
 	selector: 'sidenav-item-app',

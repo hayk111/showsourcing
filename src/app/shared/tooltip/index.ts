@@ -1,2 +1,2 @@
-export * from './tooltip.directive';
-export * from './tooltip.module';
+export * from '~shared/tooltip/tooltip.directive';
+export * from '~shared/tooltip/tooltip.module';

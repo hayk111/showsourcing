@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { Supplier, Category, TeamUser, ProductStatus, Tag, Project, Event } from '~models';
 import { FilterType } from '~shared/filters/models';
 
-import { CategoryService, EventService, ProductStatusTypeService, ProjectService, TagService } from '../../../global-services';
-import { SupplierService } from '../../../global-services/supplier/supplier.service';
-import { TeamUserService } from '../../../global-services/team-user/team-user.service';
+import { CategoryService, EventService, ProductStatusTypeService, ProjectService, TagService } from '~global-services';
+import { SupplierService } from '~global-services/supplier/supplier.service';
+import { TeamUserService } from '~global-services/team-user/team-user.service';
 
 @Injectable({ providedIn: 'root' })
 export class FilterDataService {

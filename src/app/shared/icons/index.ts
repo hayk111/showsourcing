@@ -1,2 +1,2 @@
-export * from './icons.module';
-export * from './components';
+export * from '~shared/icons/icons.module';
+export * from '~shared/icons/components';

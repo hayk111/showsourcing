@@ -1,3 +1,3 @@
-export * from './utils.module';
-export * from './directives';
-export * from './pipes';
+export * from '~shared/utils/utils.module';
+export * from '~shared/utils/directives';
+export * from '~shared/utils/pipes';

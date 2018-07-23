@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable, zip, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { GlobalService } from '../_global/global.service';
-import { SupplierService } from '../supplier/supplier.service';
-import { ProductService } from '../product/product.service';
+import { GlobalService } from '~global-services/_global/global.service';
+import { SupplierService } from '~global-services/supplier/supplier.service';
+import { ProductService } from '~global-services/product/product.service';
 import { SelectParams } from '~global-services/_global/select-params';
 
 @Injectable({ providedIn: 'root' })

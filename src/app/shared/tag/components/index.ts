@@ -1,1 +1,1 @@
-export * from './tag/tag.component';
+export * from '~shared/tag/components/tag/tag.component';

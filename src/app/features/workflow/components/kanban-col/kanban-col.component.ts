@@ -8,7 +8,7 @@ import {
 	Output,
 } from '@angular/core';
 
-import { KanbanService } from '../../services/kanban.service';
+import { KanbanService } from '~features/workflow/services/kanban.service';
 
 @Component({
 	selector: 'kanban-col-app',

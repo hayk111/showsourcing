@@ -1,2 +1,2 @@
-export * from './header.module';
-export * from './components';
+export * from '~shared/header/header.module';
+export * from '~shared/header/components';

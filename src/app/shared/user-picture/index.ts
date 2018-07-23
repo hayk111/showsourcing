@@ -1,1 +1,1 @@
-export * from './user-picture.module';
+export * from '~shared/user-picture/user-picture.module';

@@ -1,8 +1,5 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef, Attribute } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import * as fontawesome from '@fortawesome/fontawesome';
-import { ElementRef } from '@angular/core';
-import { FontSet } from '../font-set.enum';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core';
+import { FontSet } from '~shared/icons/components/font-set.enum';
 
 @Component({
 	selector: 'icon-app',

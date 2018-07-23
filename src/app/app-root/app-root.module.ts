@@ -11,17 +11,17 @@ import { UserModule } from '~features/user';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { CardModule } from '~shared/card';
 import { DialogModule } from '~shared/dialog';
-import { GenericDialogModule } from '~shared/generic-dialog/';
+import { GenericDialogModule } from '~shared/generic-dialog';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
 
-import { EventModule } from './../features/event/event.module';
-import { AppComponent } from './components/app.component';
-import { HomeComponent } from './components/home/home.component';
-import { routes } from './routes';
-import { HttpApiRedirectorService } from './services/http-api-redirector.service';
+import { EventModule } from '~features/event/event.module';
+import { AppComponent } from '~app-root/components/app.component';
+import { HomeComponent } from '~app-root/components/home/home.component';
+import { routes } from '~app-root/routes';
+import { HttpApiRedirectorService } from '~app-root/services/http-api-redirector.service';
 import { WorkflowModule } from '~features/workflow';
 
 // Can a kangaroo jump higher than a house ?

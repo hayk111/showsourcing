@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Category } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-import { GlobalService } from '../_global/global.service';
-import { CategoryQueries } from './category.queries';
+import { GlobalService } from '~global-services/_global/global.service';
+import { CategoryQueries } from '~global-services/category/category.queries';
 
 
 @Injectable({

@@ -1,1 +1,1 @@
-export * from './comment-ctnr/comment-ctnr.component';
+export * from '~features/comment/containers/comment-ctnr/comment-ctnr.component';

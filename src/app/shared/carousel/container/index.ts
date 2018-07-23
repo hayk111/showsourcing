@@ -1,1 +1,1 @@
-export * from './carousel-card/carousel-card.component';
+export * from '~shared/carousel/container/carousel-card/carousel-card.component';

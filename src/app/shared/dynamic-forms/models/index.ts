@@ -1,3 +1,3 @@
-export * from './form-descriptor.model';
-export * from './custom-field.model';
-export * from './field-type.enum';
+export * from '~shared/dynamic-forms/models/form-descriptor.model';
+export * from '~shared/dynamic-forms/models/custom-field.model';
+export * from '~shared/dynamic-forms/models/field-type.enum';

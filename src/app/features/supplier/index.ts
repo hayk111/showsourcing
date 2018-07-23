@@ -1,1 +1,1 @@
-export * from './supplier.module';
+export * from '~features/supplier/supplier.module';

@@ -1,3 +1,3 @@
-export * from './model/notification.interface';
-export * from './services/notification.service';
-export * from './notifications.module';
+export * from '~shared/notifications/model/notification.interface';
+export * from '~shared/notifications/services/notification.service';
+export * from '~shared/notifications/notifications.module';

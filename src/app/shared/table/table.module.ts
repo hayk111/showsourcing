@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ColumnDirective, TableComponent } from './components';
+import { ColumnDirective, TableComponent } from '~shared/table/components';
 import { IconsModule } from '~shared/icons';
-import { CustomTableComponent } from './components/custom-table/custom-table.component';
+import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
 import { UserModule } from '~features/user';
 import { RatingModule } from '~shared/rating';
 import { UtilsModule } from '~shared/utils';

@@ -1,1 +1,1 @@
-export * from './http-api-redirector.service';
+export * from '~app-root/services/http-api-redirector.service';

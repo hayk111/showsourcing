@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of, forkJoin } from 'rxjs';
 import { Invitation } from '~models';
 
-import { TeamService } from '../../../global-services';
+import { TeamService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';

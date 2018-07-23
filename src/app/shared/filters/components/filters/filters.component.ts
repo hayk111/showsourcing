@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
-import { Filter, FilterGroup, FilterType } from '../../models';
-import { FilterService } from '../../services/filter.service';
+import { Filter, FilterGroup, FilterType } from '~shared/filters/models';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
 
-import { FilterDataService } from '../../services/filter.data.service';
+import { FilterDataService } from '~shared/filters/services/filter.data.service';
 
 @Component({
 	selector: 'filters-app',

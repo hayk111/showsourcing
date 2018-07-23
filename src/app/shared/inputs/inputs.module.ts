@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IconsModule } from '~shared/icons';
 
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from '~shared/utils/utils.module';
 import {
 	CheckboxComponent,
 	FormFieldComponent,

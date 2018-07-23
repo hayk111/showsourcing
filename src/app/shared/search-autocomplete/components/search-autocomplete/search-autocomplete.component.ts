@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SearchAutocompleteItemComponent } from '../search-autocomplete-item/search-autocomplete-item.component';
+import { SearchAutocompleteItemComponent } from '~shared/search-autocomplete/components/search-autocomplete-item/search-autocomplete-item.component';
 import { AutoUnsub } from '~utils';
 
 export type AutocompletePositionX = 'before' | 'after';

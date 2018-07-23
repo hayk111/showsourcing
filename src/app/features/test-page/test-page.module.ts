@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TestPageComponent } from './test-page/test-page.component';
+import { TestPageComponent } from '~features/test-page/test-page/test-page.component';
 import { EditableFieldModule } from '~shared/editable-field';
 import { CardModule } from '~shared/card';
 import { SelectorsModule } from '~shared/selectors/selectors.module';

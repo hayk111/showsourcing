@@ -13,7 +13,7 @@ import { SharedModule } from '~shared/shared.module';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
-import { routes } from './routes';
+import { routes } from '~features/settings/routes';
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import { GenericDialogModule } from '~shared/generic-dialog/generic-dialog.module';
 

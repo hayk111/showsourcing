@@ -6,9 +6,9 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { AccessTokenState, Credentials } from '~features/auth/interfaces';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-import { AuthState } from '../interfaces';
-import { AuthHttpService } from './auth-http.service';
-import { TokenService } from './token.service';
+import { AuthState } from '~features/auth/interfaces';
+import { AuthHttpService } from '~features/auth/services/auth-http.service';
+import { TokenService } from '~features/auth/services/token.service';
 
 @Injectable({
 	providedIn: 'root'

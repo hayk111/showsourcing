@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Tag } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-import { GlobalServiceInterface, GlobalService } from '../_global/global.service';
+import { GlobalServiceInterface, GlobalService } from '~global-services/_global/global.service';
 
-import { TagQueries } from './tag.queries';
+import { TagQueries } from '~global-services/tag/tag.queries';
 
 
 @Injectable({

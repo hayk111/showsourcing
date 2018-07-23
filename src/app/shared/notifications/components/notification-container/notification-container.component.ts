@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { NotificationService } from '../../services/notification.service';
-import { Notification } from '../../model/notification.interface';
+import { NotificationService } from '~shared/notifications/services/notification.service';
+import { Notification } from '~shared/notifications/model/notification.interface';
 import { Observable } from 'rxjs';
 
 // container component to show notifications

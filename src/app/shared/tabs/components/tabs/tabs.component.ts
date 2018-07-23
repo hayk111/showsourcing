@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
-import { TabComponent } from '../tab/tab.component';
+import { TabComponent } from '~shared/tabs/components/tab/tab.component';
 
 @Component({
 	selector: 'tabs-app',

@@ -4,9 +4,9 @@ import { Category, Event, SupplierType, Tag, TeamUser, User } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { countries, currencies, harbours, incoTerms, lengthUnits, weightUnits } from '~utils/constants';
 
-import { CategoryService, EventService, SupplierService, TagService } from '../../../global-services';
-import { SupplierTypeService } from '../../../global-services/supplier-type/supplier-type.service';
-import { TeamUserService } from '../../../global-services/team-user/team-user.service';
+import { CategoryService, EventService, SupplierService, TagService } from '~global-services';
+import { SupplierTypeService } from '~global-services/supplier-type/supplier-type.service';
+import { TeamUserService } from '~global-services/team-user/team-user.service';
 import { map } from 'rxjs/operators';
 
 

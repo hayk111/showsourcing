@@ -1,3 +1,3 @@
-export * from './header/header.component';
-export * from './notif/notif.component';
-export * from './user-panel/user-panel.component';
+export * from '~shared/header/components/header/header.component';
+export * from '~shared/header/components/notif/notif.component';
+export * from '~shared/header/components/user-panel/user-panel.component';

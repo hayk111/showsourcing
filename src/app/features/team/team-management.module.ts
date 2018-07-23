@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { TeamManagementPageComponent } from './components';
-import { routes } from './routes';
+import { TeamManagementPageComponent } from '~features/team/components';
+import { routes } from '~features/team/routes';
 import { SharedModule } from '~shared/shared.module';
 
 @NgModule({

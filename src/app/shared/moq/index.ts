@@ -1,2 +1,2 @@
-export * from './moq.module';
-export * from './components';
+export * from '~shared/moq/moq.module';
+export * from '~shared/moq/components';

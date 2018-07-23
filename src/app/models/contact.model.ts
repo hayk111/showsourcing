@@ -1,6 +1,6 @@
-import { BaseEntity } from './_entity.model';
-import { AppImage } from './app-image.model';
-import { Supplier } from './supplier.model';
+import { BaseEntity } from '~models/_entity.model';
+import { AppImage } from '~models/app-image.model';
+import { Supplier } from '~models/supplier.model';
 
 export class Contact extends BaseEntity<ContactConfig> {
 	name: string;

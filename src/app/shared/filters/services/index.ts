@@ -1,2 +1,2 @@
-export * from './filter.service';
-export * from './search.service';
+export * from '~shared/filters/services/filter.service';
+export * from '~shared/filters/services/search.service';

@@ -4,7 +4,7 @@ import {
 	AfterContentInit, Input
 } from '@angular/core';
 
-import { SidenavItemComponent } from '../sidenav-item/sidenav-item.component';
+import { SidenavItemComponent } from '~shared/sidenav/components/sidenav-item/sidenav-item.component';
 
 @Component({
 	selector: 'sidenav-app',
