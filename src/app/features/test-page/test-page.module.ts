@@ -10,6 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { DividerModule } from '~shared/divider/divider.module';
+import { UserPictureModule } from '~shared/user-picture';
 
 @NgModule({
 	imports: [
@@ -22,7 +23,8 @@ import { DividerModule } from '~shared/divider/divider.module';
 		NgSelectModule,
 		IconsModule,
 		ContextMenuModule,
-		DividerModule
+		DividerModule,
+		UserPictureModule
 
 	],
 	declarations: [TestPageComponent],

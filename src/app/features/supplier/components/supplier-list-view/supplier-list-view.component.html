@@ -84,11 +84,10 @@
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
-			<!-- <user-picture-app
+			<user-picture-app
 				[size]="18"
-				[border]="true"
-				[url]="row.createdBy?.preferences?.profilePicture?.urls?.url_60x45">
-			</user-picture-app> -->
+				[image]="row.createdBy?.logoImage">
+			</user-picture-app>
 			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
 		</div>
 	</ng-template>

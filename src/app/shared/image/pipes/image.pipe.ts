@@ -11,36 +11,55 @@ import { DEFAULT_IMG, ImageUrls } from '~utils';
 })
 export class ImagePipe implements PipeTransform {
 	/**
-	 * @param value : Entity object (like supplier) or string
+	 * Display image based on an input that can be an object an array or a string
+	 *
+	 *  Image rules
+	 *  0. No value
+	 *  - return default image
+	 *  1. If array
+	 *  - display first one
+	 *  2. If object
+	 *  - display fileName or images[0].fileName
+	 *  3. If string,
+	 *  - return url made out of that string
+	 *
+	 * @param value : Entity object (like supplier), array or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
 	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl')): string {
-		if (!value)
-			return DEFAULT_IMG;
+		try {
+			// no value
+			if (!value)
+				return DEFAULT_IMG;
 
-		if (typeof value === 'object') {
-			// if it's not an array we return the fileName bcuz it's the image object
-			// or data if it's a pending image
-			if (!Array.isArray(value.images)) {
+			// array
+			if (Array.isArray(value)) {
+				return `${ImageUrls[size]}/${value[0].fileName}`;
+			}
+			// Object
+			if (typeof value === 'object') {
 
-				if (value.fileName) {
+				// AppImage Object
+				if (value.fileName || value.data) {
 					return `${ImageUrls[size]}/${value.fileName}`;
-				} else if (value.data) {
-					return value.data;
-				} else {
-					return DEFAULT_IMG;
+				}
+
+				// PendingImage Object
+				if (value.data) {
+					return `${ImageUrls[size]}/${value.data}`;
+				}
+
+				// Supplier, product, Entity object...
+				if (Array.isArray(value.images)) {
+					return `${ImageUrls[size]}/${value.images[0].fileName}`;
 				}
 			}
-			// if it's an array but there is no image we return the default
-			if (!value.images[0] || !value.images[0].fileName) {
-				return DEFAULT_IMG;
-			}
-			// if it's an array we return the first image
-			return `${ImageUrls[size]}/${value.images[0].fileName}`;
-		} else {
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;
+		} catch (e) {
+			return DEFAULT_IMG;
 		}
+
 	}
 
 }

@@ -9,7 +9,7 @@ import { AppImage } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPictureComponent {
-	@Input() size: number;
+	@Input() size = 32;
 	@Input() border = false;
 	@Input() image;
 }

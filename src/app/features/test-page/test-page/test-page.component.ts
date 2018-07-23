@@ -7,83 +7,11 @@ import { Supplier } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 
-const supplierMutation = gql`
-mutation supplier($input: SupplierInput) {
-	updateSupplier(input: $input) {
-		id
-	}
-}
-`;
-
-const querySupplier = gql`
-	subscription supplier($query: String!) {
-		suppliers(query: $query) {
-			id, name, officeEmail, officePhone, description, generalMOQ, country
-			tags {
-				id, name
-			}
-		}
-	}
-`;
-
 @Component({
 	selector: 'app-test-page',
 	templateUrl: './test-page.component.html',
 	styleUrls: ['./test-page.component.scss'],
 })
-export class TestPageComponent implements OnInit {
-	selectedCity;
-	cities = [
-		{ id: 1, name: 'Vilnius' },
-		{ id: 2, name: 'Kaunas' },
-		{ id: 3, name: 'Pavilnys' },
-		{ id: 4, name: 'Pabradė' },
-		{ id: 5, name: 'Klaipėda' }
-	];
+export class TestPageComponent {
 
-	customFields: CustomField[] = [
-		{ name: 'name', type: 'text', label: 'Name' },
-		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
-		{ name: 'officePhone', type: 'tel', label: 'Tel' },
-		{ name: 'description', type: 'textarea', label: 'description' },
-		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
-		{ name: 'tags', type: 'selector', metadata: { subtype: 'tag' }, label: 'tags', multiple: true },
-		// { name: 'country', type: 'selector', metadata: { subtype: 'country', isConst: false }, label: 'country' }
-	];
-	descriptor$;
-	supplier$: Observable<Supplier>;
-	supplier: Supplier;
-	form: FormGroup;
-	supplierTest;
-
-	constructor(private wrapper: ApolloWrapper) { }
-
-	ngOnInit() {
-		this.supplier$ = this.wrapper.selectOne({
-			gql: querySupplier,
-			id: '3243ed5b-4e7b-4646-a858-5e0c41427ccf'
-		}).pipe(map((r: any) => r.data.suppliers[0]));
-		this.supplier$.subscribe(s => this.supplier = s);
-		this.descriptor$ = this.supplier$.pipe(
-			map(s => new FormDescriptor(this.customFields, s))
-		);
-	}
-
-
-	onFormCreated(form: FormGroup) {
-		this.form = form;
-		form.valueChanges.subscribe(supplier => this.updateSupplier(supplier));
-	}
-
-	updateSupplier(supplier) {
-		const supplierUpdate = {
-			id: this.supplier.id,
-			...supplier
-		};
-		// this.apollo.mutate({
-		// 	mutation: supplierMutation, variables: {
-		// 		input: supplierUpdate
-		// 	}
-		// }).subscribe();
-	}
 }

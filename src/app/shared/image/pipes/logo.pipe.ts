@@ -26,7 +26,6 @@ export class LogoPipe implements PipeTransform {
 		// if it's an event the image is in the event description and not the event itself...
 
 		if (value) {
-
 			if (value.logoImage)
 				logoImage = value.logoImage;
 			else if (type === 'event' && value.description && value.description.logoImage)
