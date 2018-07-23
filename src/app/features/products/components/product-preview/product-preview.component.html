@@ -17,6 +17,7 @@
 				(unfavorited)="updateProduct({ favorite: false })"
 				[favorite]="product.favorite"></rating-heart-app>
 				<thumb-buttons-app class="icon"
+					[votes]="product.votes"
 					(vote)="updateProduct({ votes: $event })"></thumb-buttons-app>
 				<span>
 					{{ product.score !== null ? (product.score + '%') : '' }}

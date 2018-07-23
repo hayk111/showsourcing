@@ -21,9 +21,13 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.userVote = votes.find(v => v.user.id === this.userSrv.userSync.id);
 		this._votes = votes;
 	}
+	get votes() {
+		return this._votes;
+	}
 	private _votes: ProductVote[];
 
 	userVote: ProductVote;
+
 	constructor(
 		private userSrv: UserService,
 		private voteSrv: ProductVoteService) {
@@ -40,11 +44,11 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 				user: { id: this.userSrv.userSync.id }
 			});
 			this.voteSrv.create(vote).subscribe(newVote => {
-				this.vote.emit(newVote);
+				this.vote.emit([...this.votes, newVote]);
 			});
 		} else {
 			this.userVote.value = this.userVote.value === 100 ? 0 : 100;
-			this.vote.emit(this.votes);
+			this.vote.emit(this._votes);
 		}
 	}
 
