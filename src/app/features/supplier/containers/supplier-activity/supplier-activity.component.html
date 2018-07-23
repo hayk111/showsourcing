@@ -1,0 +1,40 @@
+
+
+<ng-container *ngIf="supplier$ | async as supplier">
+
+	<!-- left side -->
+	<div class="left">
+		<!-- description -->
+		<supplier-description-app
+			(update)="patch($event)"
+			[supplier]="supplier">
+		</supplier-description-app>
+
+		<!-- images-->
+		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
+
+		<!-- activity -->
+	</div>
+
+	<!-- right side -->
+	<div class="right">
+		<!-- editable infos -->
+		<supplier-infos-app
+			[supplier]="supplier"
+			(update)="patch($event)">
+		</supplier-infos-app>
+
+		<!-- files -->
+		<files-card-app></files-card-app>
+
+		<!-- contacts -->
+		<supplier-contact-card-app
+			*ngIf="contacts$ | async as contacts"
+			[contacts]="contacts"
+			(newContact)="openContactDlg()"
+			(openContact)="openContactDlg($event)"
+			(deleteContact)="deleteContact($event)">
+		</supplier-contact-card-app>
+	</div>
+
+</ng-container>
