@@ -7,11 +7,14 @@
 
 			<!-- multiple value label -->
 			<editable-label-app *ngIf="customField.multiple; else solo">
-				<smart-badge-app
-					*ngFor="let tag of value"
-					[type]="customField.metadata.target">
-					{{ tag.name }}
-				</smart-badge-app>
+				<ng-container	*ngIf="!isEmpty(value); else none">
+					<smart-badge-app
+						*ngFor="let tag of value"
+						[type]="customField.metadata.target">
+						{{ tag.name }}
+					</smart-badge-app>
+				</ng-container>
+
 				<ng-template #none>
 					-
 				</ng-template>
