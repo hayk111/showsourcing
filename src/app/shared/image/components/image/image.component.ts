@@ -10,6 +10,9 @@ import { AppImage } from '~models';
 export class ImageComponent {
 	@Input() image: AppImage;
 	@Input() size: string;
+	// type of the image (supplier, product, user...)
+	// so we can have an appropriate default image
+	@Input() type: string;
 
 	constructor() { }
 
