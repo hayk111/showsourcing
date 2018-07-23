@@ -29,11 +29,13 @@
 
 		<div class="flexBetween">
 
-			<div class="flex flexVAlign">
+			<div class="flex flexVAlign userInfo">
 				<user-picture-app [image]="supplier?.createdBy?.avatar" [border]="true"></user-picture-app>
-				<div class="flexColumn userInfo">
+				<div class="flexColumn">
 					<span>Created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
-					<span>{{ supplier?.creationDate | timeAgo }}</span>
+					<span>
+						{{ supplier?.creationDate | timeAgo }}
+					</span>
 				</div>
 			</div>
 
