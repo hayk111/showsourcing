@@ -1,0 +1,32 @@
+
+<ng-container *ngIf="statuses">
+	<div class="flex ctnr">
+
+		<kanban-col-app
+			(itemDropped)="changeStatus($event)"
+			[bag]="status.id"
+			[label]="status.name"
+			borderColor="{{ status.id }}"
+			*ngFor="let status of statuses; let i = index">
+				<kanban-item-app
+					[data]="product.id"
+					class="item"
+					*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
+					<!-- product-small-card-app
+						(click)="selectProduct(product.id)"
+						class="marginSmall"
+						[product]="product">
+
+					</product-small-card-app -->
+					<kanban-item-card-app class="marginSmall" [title]="product.name"
+						[status]="product.status?.name" [subtitle1]="product.description ? product.description : 'No description'"
+						[subtitle2]="product.category?.name"
+						[image]="product.images?.length > 0 ? (product | image:'m') : null"
+						[person]="product.createdBy"
+						[link]="'/product/details/' + product.id + '/general'">
+					</kanban-item-card-app>
+				</kanban-item-app>
+		</kanban-col-app>
+
+	</div>
+</ng-container>

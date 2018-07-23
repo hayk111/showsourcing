@@ -8,11 +8,11 @@
 }
 
 header {
-	background: var(--color-bg);
-	text-align: center;
+	text-align: left;
 	font-weight: 600;
+	color: var(--color-txt-strong);
+	font-size: 17px;
 	padding: var(--spacing-m);
-	text-transform: uppercase;
 }
 
 main {

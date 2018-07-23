@@ -1,15 +1,17 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
+import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
 import { SideMenuModule } from '~shared/side-menu/side-menu.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { WorkflowModule } from '~features/workflow/workflow.module';
 
 import { ProjectsListViewComponent } from './components';
 import { ProjectNavComponent } from './components/project-nav/project-nav.component';
-import { ProjectsPageComponent } from './containers';
+import { ProjectsPageComponent, ProjectWorkflowComponent } from './containers';
 import { ProjectDetailsComponent } from './containers/project-details/project-details.component';
 import { ProjectProductsComponent } from './containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
@@ -32,10 +34,12 @@ import { routes } from './routes';
 		RatingModule,
 		SidenavModule,
 		BadgeModule,
-		FileModule
+		FileModule,
+		WorkflowModule
 	],
 	declarations: [
 		ProjectsPageComponent,
+		ProjectWorkflowComponent,
 		ProjectsListViewComponent,
 		ProjectNavComponent,
 		ProjectDetailsComponent,
@@ -44,6 +48,7 @@ import { routes } from './routes';
 		ProjectProductListComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
+	providers: [ProjectWorkflowFeatureService]
 })
 export class ProjectModule {
 

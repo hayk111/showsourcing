@@ -1,27 +1,36 @@
-<sub-panel-app
-	buttonName="Add Product"
-	[hasSwitch]="false"
-	[hasFilter]="false"
-	[buttonIcon]="false"
-	(buttonClick)="openCreateDlg()"
-	(search)="search($event)">
-</sub-panel-app>
+<div *ngIf="project$ | async as project">
+	<top-panel-app
+		[title]="project.name"
+		[buttonName]="'Add Project'"
+		[subtitles]="['Projects', project.name, 'Products']"
+		[hasAction]="false">
+	</top-panel-app>
 
-<project-product-list-app
-	*ngIf="view === 'list'"
-	class="list-view"
-	[selection]="selected$ | async"
-	[rows]="items$ | async"
-	[pending]="pending"
-	(previewClick)="openPreview($event)"
-	(select)="onItemSelected($event)"
-	(unselect)="onItemUnselected($event)"
-	(selectAll)="selectAll($event)"
-	(unselectAll)="resetSelection()"
-	(open)="goToDetails($event)"
-	(favorited)="onItemFavorited($event)"
-	(unfavorited)="onItemUnfavorited($event)"
-	(bottomReached)="loadMore()"
-	(sort)="sort($event)"
-	(delete)="deleteSelected($event)">
-</project-product-list-app>
+	<sub-panel-app
+		buttonName="Add Product"
+		[hasSwitch]="false"
+		[hasFilter]="false"
+		[buttonIcon]="false"
+		(buttonClick)="openCreateDlg()"
+		(search)="search($event)">
+	</sub-panel-app>
+
+	<project-product-list-app
+		*ngIf="view === 'list'"
+		class="list-view"
+		[selection]="selected$ | async"
+		[rows]="items$ | async"
+		[pending]="pending"
+		(previewClick)="openPreview($event)"
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		(open)="goToDetails($event)"
+		(favorited)="onItemFavorited($event)"
+		(unfavorited)="onItemUnfavorited($event)"
+		(bottomReached)="loadMore()"
+		(sort)="sort($event)"
+		(delete)="deleteSelected($event)">
+	</project-product-list-app>
+</div>
