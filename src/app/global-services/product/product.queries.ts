@@ -149,6 +149,7 @@ export class ProductQueries implements GlobalQuery {
 				currency
 			},
 			images {
+				id,
 				fileName
 			},
 			favorite,

@@ -33,6 +33,12 @@ import { PanelModule } from '~shared/panel/panel.module';
 import { SupplierPreviewComponent } from './containers/supplier-preview/supplier-preview.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { SupplierTopCardComponent } from './components/supplier-top-card/supplier-top-card.component';
+import { SupplierActivityComponent } from './containers/supplier-activity/supplier-activity.component';
+import { SupplierPublicProfileComponent } from './containers/supplier-public-profile/supplier-public-profile.component';
+import { SupplierImagesComponent } from './components/supplier-images/supplier-images.component';
+import { SupplierProductsComponent } from './containers/supplier-products/supplier-products.component';
+import { ImageModule } from '~shared/image/image.module';
 
 
 @NgModule({
@@ -54,7 +60,7 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 		FiltersModule, // used for filters
 		BadgeModule,
 		PanelModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -70,7 +76,12 @@ import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-aut
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDescriptionComponent,
-		SupplierPreviewComponent
+		SupplierPreviewComponent,
+		SupplierTopCardComponent,
+		SupplierActivityComponent,
+		SupplierPublicProfileComponent,
+		SupplierImagesComponent,
+		SupplierProductsComponent,
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,

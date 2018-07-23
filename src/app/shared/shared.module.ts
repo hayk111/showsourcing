@@ -38,7 +38,8 @@ const modules = [
 	PanelModule,
 	ImageModule,
 	ContextMenuModule,
-	StatusModule
+	StatusModule,
+	ImageModule
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="supplier$ | async as supplier">
-
+	<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 	<!-- main card -->
 	<supplier-main-app
 		(update)="patch($event)"

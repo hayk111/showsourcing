@@ -21,6 +21,7 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	// tasks$: Observable<Task[]>;
 
+
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
@@ -30,43 +31,13 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// getting the id of the supplier
 		const id$ = this.route.params.pipe(
-			takeUntil(this._destroy$),
-			map(params => params.id),
+			map(params => params.id)
+		);
+
+		this.supplier$ = id$.pipe(
 			tap(id => this.supplierId = id)
 		);
 
-		// getting supplier
-		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
-		);
-		// gettings his contacts
-		this.contacts$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectContacts(id))
-		);
-
-		// getting his products
-		this.products$ = id$.pipe(
-			switchMap(id => this.featureSrv.getLatestProducts(id))
-		);
-
-		// this.tasks$ = id$.pipe(
-		// 	switchMap(id => this.supplierSrv.getTasks(id))
-		// );
-	}
-
-	/** updates supplier */
-	patch(supplier: Supplier) {
-		this.featureSrv.update(supplier)
-			.subscribe();
-	}
-
-	openContactDlg(contact?: Contact) {
-		if (contact)
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: false, contact, supplierId: this.supplierId });
-		// new contact dlg
-		else
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplierId: this.supplierId });
 	}
 }
