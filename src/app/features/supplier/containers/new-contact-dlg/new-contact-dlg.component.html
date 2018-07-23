@@ -48,7 +48,7 @@
 		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
 
 			<ng-container *ngIf="image; else empty">
-				<img-app [image]="image" class="previewImg"></img-app>
+				<img-app [image]="image" size="m" class="previewImg"></img-app>
 			</ng-container>
 
 			<ng-template #empty>

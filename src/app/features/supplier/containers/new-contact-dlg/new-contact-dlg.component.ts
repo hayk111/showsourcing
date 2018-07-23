@@ -24,7 +24,7 @@ import { first } from 'rxjs/operators';
 export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	/** preview image */
-	private pendingImg;
+	private pendingImg: PendingImage;
 	private uploadedImg;
 	defaultImg = DEFAULT_IMG;
 	// supplier for which we are creating the contact
@@ -64,8 +64,9 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	/** gives image url */
 	async onFilesAdded(files: File[]) {
 		const file = files[0];
-		this.pendingImg = new PendingImage(file);
-		await this.pendingImg.createData();
+		const pending = new PendingImage(file);
+		this.pendingImg = await pending.createData();
+		this.cd.markForCheck();
 		this.uploader.uploadImage(file).pipe(
 			first()
 		).subscribe(img => {
@@ -84,7 +85,6 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			this.addImageToContact(contact);
 			this.contactSrv.update(contact).subscribe();
 		}
-		this.dlgSrv.close();
 	}
 
 	createContact() {
@@ -105,7 +105,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 
 	get image() {
-		return this.pendingImg || this.uploadedImg || this.contact.businessCardImage;
+		return this.uploadedImg || this.pendingImg || this.contact.businessCardImage;
 	}
 
 }

@@ -43,13 +43,13 @@ export class ImagePipe implements PipeTransform {
 			if (typeof value === 'object') {
 
 				// AppImage Object
-				if (value.fileName || value.data) {
+				if (value.fileName) {
 					return `${ImageUrls[size]}/${value.fileName}`;
 				}
 
 				// PendingImage Object
 				if (value.data) {
-					return `${ImageUrls[size]}/${value.data}`;
+					return `${value.data}`;
 				}
 
 				// Supplier, product, Entity object...
