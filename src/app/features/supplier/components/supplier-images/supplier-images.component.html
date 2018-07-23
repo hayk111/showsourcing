@@ -1,10 +1,19 @@
 
-<card-app>
+<card-app padding="ms">
+
 	<card-header-app>
+
 		<h2>Supplier Pictures</h2>
-		<div class="flex">
-			<img-app *ngFor="let image of images" size="m" [image]="image"></img-app>
+
+		<div class="flex imgCtnr">
+			<img-app
+			*ngFor="let image of images; let last = last"
+			[ngClass]="{ 'last': last }"
+			size="m"
+			[image]="image"></img-app>
 		</div>
+
 	</card-header-app>
+
 </card-app>
 

@@ -5,9 +5,9 @@
 	<div>
 		<h1>{{ supplier.name }}</h1>
 		<div class="flex tags">
-			<status-badge-app [status]="supplier.status"></status-badge-app>
-			<smart-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</smart-badge-app>
+			<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>
 			<smart-badge-app *ngFor="let category of supplier.categories" type="category">{{ category.name }}</smart-badge-app>
+			<smart-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</smart-badge-app>
 		</div>
 	</div>
 

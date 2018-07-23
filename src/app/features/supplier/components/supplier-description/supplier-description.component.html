@@ -10,7 +10,7 @@
 	</card-header-app>
 
 
-	<h2 i18n="header 2|Supplier desciption card@@supplierDescription_description">Supplier Description</h2>
+	<h4>Supplier Description</h4>
 
 	<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
 		<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
@@ -30,9 +30,12 @@
 		<div class="flexBetween">
 
 			<div class="flex flexVAlign userInfo">
-				<user-picture-app [image]="supplier?.createdBy?.avatar" [border]="true"></user-picture-app>
+				<user-picture-app
+				[size]="23"
+				[image]="supplier?.createdBy?.avatar"
+				[border]="true"></user-picture-app>
 				<div class="flexColumn">
-					<span>Created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
+					<span>created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
 					<span>
 						{{ supplier?.creationDate | timeAgo }}
 					</span>
@@ -45,7 +48,7 @@
 				<ng-container *ngIf="!editable.isOpen; else closed">
 					<button class="light auto fav" (click)="toggleFavorite()">
 						<icon-app name="heart" fontSet="fa" [ngClass]="{ 'color-warn': supplier.favorite }"></icon-app>
-						Favorite
+						<span>Favorite</span>
 					</button>
 					<button (click)="edit()" class="auto">
 						Edit Description

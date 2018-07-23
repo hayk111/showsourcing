@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	host: {
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'size === "s" || size === "small"',
+		'[class.mini]': 'size === "mini"',
 		'[class.small]': 'size === "s" || size === "small"',
 		'[class.medium]': 'size === "m" || size === "medium"',
 		'[class.large]': 'size === "l" || size === "large"'

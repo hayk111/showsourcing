@@ -7,10 +7,18 @@ card-header-app {
 	}
 	h1 {
 		margin-bottom: var(--spacing-s);
+		font-family: Raleway, sans-serif;
+	}
+	h2 {
+		margin: 0;
 	}
 	.alignCenter {
 		text-align: center;
 	}
+}
+
+h4 {
+	margin-bottom: var(--spacing-ms);
 }
 
 .noDesc {
@@ -33,11 +41,14 @@ textarea {
 }
 
 editable-label-app {
-	white-space: pre-wrap;
+	white-space: pre-line;
 }
 
 .fav {
 	margin-right: var(--spacing-ms);
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
 }
 
 .userInfo {

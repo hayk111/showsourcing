@@ -95,7 +95,7 @@
 	<field-cell-app [canGrow]="true" *ngSwitchCase="'textarea'" [isOpen]="!isOpen" [inlineLabel]="inlineLabel">
 		<label-app>{{ customField.label || customField.name }}</label-app>
 		<editable-text-app #editable (closed)="onSave()" (opened)="onOpen()">
-			<editable-label-app style="white-space: pre-wrap">{{ customField.value || '-' }}</editable-label-app>
+			<editable-label-app style="white-space: pre-line">{{ customField.value || '-' }}</editable-label-app>
 			<form-field-app>
 				<textarea inputApp
 					#inp

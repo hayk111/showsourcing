@@ -39,7 +39,10 @@ export class SupplierQueries implements GlobalQuery {
 				createdBy {
 					id,
 					lastName,
-					firstName
+					firstName,
+					avatar {
+						id, fileName
+					}
 				},
 				status {
 					id,

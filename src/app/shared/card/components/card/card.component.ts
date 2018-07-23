@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'card-app',
@@ -10,5 +10,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	}
 })
 export class CardComponent {
+	@Input() padding: 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' = 'l';
+	@ViewChild('ref') ctnrRef;
 
+	get style() {
+		if (this.ctnrRef.children === 0)
+			return { padding: 0 };
+		else
+			return { padding: `var(--spacing-${this.padding})` };
+	}
 }

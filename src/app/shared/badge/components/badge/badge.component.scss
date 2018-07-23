@@ -1,5 +1,12 @@
 :host {
 	box-sizing: border-box;
+	&.mini {
+		font-family: Raleway;
+		font-size: var(--font-size-s);
+		font-weight: 600;
+		padding: var(--spacing-xs) var(--spacing-s);
+		border-radius: var(--border-radius-s);
+	}
 	&.small {
 		font-size: var(--font-size-s);
 		font-weight: bold;

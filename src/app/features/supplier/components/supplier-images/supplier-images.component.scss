@@ -1,13 +1,18 @@
 img-app {
 	width: 121px;
 	height: 121px;
-	margin: var(--spacing-xs);
+	&:not(.last) {
+		margin-right: var(--spacing-xs);
+	}
 }
-
 card-header-app {
-	padding: var(--spacing-xs);
+	padding: var(--spacing-ms) var(--spacing-s) var(--spacing-s) var(--spacing-s);
+	display: block;
 }
 
 h2 {
-	margin: var(--spacing-s);
+	margin: 0 0 var(--spacing-ms) 0;
 }
+
+
+
