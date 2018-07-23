@@ -43,9 +43,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 
 	triggerSearch() {
 		const search = this.searchControl.value;
-		this.searchResults$ = this.searchSrv.search(search).pipe(
-			tap(r => console.log('results = ', r))
-		);
+		this.searchResults$ = this.searchSrv.search(search);
 		this.searchAutocomplete.openAutocomplete();
 	}
 
