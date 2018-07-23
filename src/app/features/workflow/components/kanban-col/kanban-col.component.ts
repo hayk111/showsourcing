@@ -7,51 +7,49 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 
-import { KanbanService } from '~features/workflow/services/kanban.service';
+import { AutoUnsub } from '~utils/auto-unsub.component';
+import { KanbanService } from '../../services/kanban.service';
 
 @Component({
 	selector: 'kanban-col-app',
 	templateUrl: './kanban-col.component.html',
 	styleUrls: ['./kanban-col.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+// 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanColComponent implements OnInit {
+export class KanbanColComponent extends AutoUnsub implements OnInit {
 	over = false;
 	@Input() bag;
+	@Input() data;
 	@Input() label: string;
+	@Input() namespace: string;
 	@Input() borderColor: string;
 	@Output() itemDropped = new EventEmitter<any>();
 
-	constructor(private kanbanSrv: KanbanService) { }
+	droppableArea = false;
+	sourceArea = false;
 
-	ngOnInit() { }
-
-	onDragOver(event) {
-		event.preventDefault();
-		this.over = true;
+	constructor(private kanbanSrv: KanbanService) {
+		super();
 	}
 
-	isOver() {
-		return this.over && this.kanbanSrv.isDragging && this.kanbanSrv.leavingBag !== this.bag;
+	ngOnInit() {
+		this.kanbanSrv.dragStart$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ namespace }) => {
+			if (namespace) {
+				this.sourceArea = (namespace === this.namespace);
+				this.droppableArea = (namespace !== this.namespace);
+			}
+		});
+
+		this.kanbanSrv.dragEnd$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ data, namespace }) => {
+			this.sourceArea = false;
+			this.droppableArea = false;
+		});
 	}
 
-	onDragStart(event) {
-		this.over = false;
-		const data = this.kanbanSrv.dataTransfer;
-		this.kanbanSrv.leavingBag = this.bag;
-	}
-
-	onDrop(event) {
-		this.over = false;
-		const data = this.kanbanSrv.dataTransfer;
-		const leavingBag = this.kanbanSrv.leavingBag;
-		const enteringBag = this.bag;
-		this.itemDropped.emit({ data, leavingBag, enteringBag, event });
-		// event.preventDefault();
-	}
-
-	onDragLeave(event) {
-		this.over = false;
-	}
 }

@@ -11,14 +11,10 @@ import { Observable } from 'rxjs';
 export class WorkflowKanbanComponent {
 	@Input() statuses;
 	@Output() productSelect = new EventEmitter<string>();
+	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	productsByStatus$: Observable<Array<any>>;
 
 	constructor() {
-	}
-
-	changeStatus(event) {
-		const patch = { propName: 'status', value: event.enteringBag, id: event.data };
-		// this.store.dispatch(productActions.patch(patch));
 	}
 
 	selectProduct(id: string) {
@@ -27,5 +23,16 @@ export class WorkflowKanbanComponent {
 
 	trackByFn(index, product) {
 		return product.id;
+	}
+
+	getCurrentStatusId(product) {
+		if (product.statuses) {
+			return product.statuses[0].status.id;
+		}
+		return null;
+	}
+
+	onItemDropped(event) {
+		
 	}
 }

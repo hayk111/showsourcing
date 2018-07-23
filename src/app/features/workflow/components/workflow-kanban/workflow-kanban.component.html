@@ -3,21 +3,18 @@
 	<div class="flex ctnr">
 
 		<kanban-col-app
-			(itemDropped)="changeStatus($event)"
+			[dropzoneApp]="status"
+			(itemDropped)="itemDropped.next($event)"
 			[bag]="status.id"
 			[label]="status.name"
 			borderColor="{{ status.id }}"
+			[namespace]="status.id"
 			*ngFor="let status of statuses; let i = index">
 				<kanban-item-app
-					[data]="product.id"
-					class="item"
-					*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
-					<!-- product-small-card-app
-						(click)="selectProduct(product.id)"
-						class="marginSmall"
-						[product]="product">
-
-					</product-small-card-app -->
+						class="item"
+						[namespace]="getCurrentStatusId(product)"
+						[data]="product"
+						*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 					<kanban-item-card-app class="marginSmall" [title]="product.name"
 						[status]="product.status?.name" [subtitle1]="product.description ? product.description : 'No description'"
 						[subtitle2]="product.category?.name"

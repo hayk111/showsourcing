@@ -17,12 +17,12 @@
 		<div class="title">{{ label }}</div>
 	</header>
 
-	<main>
-		<div class="overlay flexColumn" *ngIf="isOver()"
-			(dragleave)="onDragLeave($event)">
-			<span class="overlayTitle" i18n="span|Kanban distribution move to @@kanbanCol_move"> Move to {{ label }} </span>
+	<main [ngClass]="{ 'source-area-overlay': sourceArea, 'droppable-area-overlay': droppableArea }">
+		<!-- div class="overlay flexColumn" --><!-- *ngIf="isOver()" -->
+			<!-- (dragleave)="onDragLeave($event)" -->
+			<!-- span class="overlayTitle" i18n="span|Kanban distribution move to @@kanbanCol_move"> Move to {{ label }} </span>
 			<span class="overlaySub" i18n="span|Kanban distribution warning message@@kanbanCol_caution"> Caution, action will apply </span>
-		</div>
+		</div -->
 	 <ng-content></ng-content>
 	</main>
 

@@ -5,6 +5,7 @@ import { CardModule } from '~shared/card/card.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SharedModule } from '~shared/shared.module';
+import { DndModule } from '~shared/dnd/dnd.module';
 
 import { KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent, WorkflowKanbanComponent } from './components';
 import { KanbanService } from './services/kanban.service';
@@ -16,6 +17,7 @@ import { KanbanService } from './services/kanban.service';
 		TopPanelModule,
 		CardModule,
 		IconsModule,
+		DndModule
 	],
 	declarations: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],
 	exports: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],

@@ -12,23 +12,17 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 export class KanbanItemComponent implements OnInit {
 	@Input() data;
 	@Input() index;
+	@Input() namespace;
 
 	constructor(private kanbanSrv: KanbanService, private el: ElementRef) {}
 
 	ngOnInit() {}
 
-	allowDrag(event) {
-		event.preventDefault();
-	}
-
 	onDragStart(event) {
-		// passing data to service so we can retrieve it
-		this.kanbanSrv.dataTransfer = this.data;
-		this.kanbanSrv.index = this.index;
-		this.kanbanSrv.isDragging = true;
+		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: this.data });
 	}
 
 	onDragEnd(event) {
-		this.kanbanSrv.isDragging = false;
+		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: this.data });
 	}
 }

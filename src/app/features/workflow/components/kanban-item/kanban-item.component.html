@@ -1,8 +1,9 @@
-<div
-	class="draggable"
-	draggable="true"
+<div class="draggable" [movableApp]="data" [appMovableReset]="true"
+	(dragStart)="onDragStart($event)"
+	(dragEnd)="onDragEnd($event)">
+<!-- draggable="true"
 	(dragover)="allowDrag($event)"
 	(dragstart)="onDragStart($event)"
-	(dragend)="onDragEnd($event)">
+	(dragend)="onDragEnd($event)" -->
 	<ng-content></ng-content>
 </div>
