@@ -1,8 +1,7 @@
 <div class="flex flexVAlign">
 
 	<!-- block without border -->
-	<img-app [image]="contact.image" class="pointer" (click)="edit.emit()"></img-app>
-
+	<user-picture-app [image]="contact.businessCardImage" class="pointer" (click)="edit.emit()"></user-picture-app>
 	<!-- border block -->
 	<div class="flexColumn middle {{ border ? 'border' : ''}}">
 		<!-- name and job title -->
