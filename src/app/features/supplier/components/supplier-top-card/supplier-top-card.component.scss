@@ -2,23 +2,41 @@
 	display: block;
 	background: var(--color-bg);
 	height: 126px;
-	padding: var(--spacing-l);
 	box-sizing: border-box;
 }
-.top > * {
-	margin-right: var(--spacing-l);
-}
-
-a {
-	width: 120px;
-	font-size: var(--font-size-l);
-	display: block;
-	&.active {
-		font-weight: bold;
-		color: var(--color-primary);
-		border-color: var(--color-primary);
+.top {
+	padding-top: var(--spacing-l);
+	padding-bottom: var(--spacing-ms);
+	h1 {
+		font-size: 20px;
+		font-weight: 600;
+		color: var(--color-txt-strong);
 	}
 }
+.top > * {
+	margin-left: var(--spacing-l);
+}
+
+nav {
+	margin-left: 156px;
+	a {
+		width: 120px;
+		margin-right: var(--font-size-l);
+		font-size: var(--font-size-l);
+		display: block;
+		height: 28px;
+		border-bottom: 2px solid transparent;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		&.active {
+			font-weight: bold;
+			color: var(--color-primary);
+			border-color: var(--color-primary);
+		}
+	}
+}
+
 
 .logo {
 	width: 64px;
