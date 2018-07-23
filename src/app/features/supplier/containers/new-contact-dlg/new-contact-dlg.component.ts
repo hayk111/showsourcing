@@ -8,8 +8,13 @@ import { ContactService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
 
-
-
+// different cases regarding the image upload and saving the contact
+// 1. contact is not created yet and an image is pending
+// 2. contact is not created yet and an image has been uploaded
+// 3. contact is not created yet and and there is nothing with image
+// 4. contact is modified and nothing with image
+// 5. contact is modified and image uploaded
+// 6. contact is modified and an image is pending
 @Component({
 	selector: 'new-contact-dlg-app',
 	templateUrl: './new-contact-dlg.component.html',
@@ -68,37 +73,22 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			this.pendingImg = undefined;
 			this.uploadedImg = img;
 			if (!this.isNewContact) {
-				this.updateOrCreateContact();
+				this.updateContact();
 			}
 		}, e => this.pendingImg = undefined);
 	}
 
-	onSubmit() {
-		// not checking if form group is valid because at the time of writting this an email cannot be empty
-		// therefor the form will be invalid
-		if (this.form.valid) {
-			const contact = new Contact(this.form.value, this.supplierId);
-			// 1. contact is not created yet and an image is pending
-			// 2. contact is not created yet and an image has been uploaded
-			// 3. contact is not created yet and and there is nothing with image
-			// 4. contact is modified and nothing with image
-			// 5. contact is modified and image uploaded
-			// 6. contact is modified and an image is pending
-
-			// In the case of pending we could save the contact in a variable and do the
-			// backend modification when the image is uploaded in other case we can do it here
-
-			this.updateOrCreateContact();
-
-		}
-	}
-
-	private updateOrCreateContact() {
+	updateContact() {
 		if (!this.isNewContact) {
 			const contact = { ...this.form.value, id: this.contact.id };
 			this.addImageToContact(contact);
 			this.contactSrv.update(contact).subscribe();
-		} else {
+		}
+		this.dlgSrv.close();
+	}
+
+	createContact() {
+		if (this.isNewContact) {
 			const contact = new Contact(this.form.value, this.supplierId);
 			this.addImageToContact(contact);
 			this.contactSrv.create(contact).subscribe();
