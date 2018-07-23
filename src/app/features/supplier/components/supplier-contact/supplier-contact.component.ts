@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { DEFAULT_USER_IMG } from '~utils';
+import { DEFAULT_USER_ICON } from '~utils';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Contact } from '~models';
 
@@ -15,7 +15,7 @@ export class SupplierContactComponent {
 	@Input() border: true;
 	@Output() edit = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<null>();
-	defaultImg = DEFAULT_USER_IMG;
+	defaultImg = DEFAULT_USER_ICON;
 
 	constructor(private sanitizer: DomSanitizer) { }
 

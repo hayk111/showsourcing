@@ -8,9 +8,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloWrapper } from '~shared/apollo';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ProductFeatureService extends ProductService {
 
 	constructor(

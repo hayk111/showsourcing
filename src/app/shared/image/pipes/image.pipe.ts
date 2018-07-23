@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DEFAULT_IMG, ImageUrls } from '~utils';
+import {
+	DEFAULT_IMG, ImageUrls, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON, DEFAULT_EVENT_ICON,
+	DEFAULT_PROJECT_ICON, DEFAULT_CATEGORY_ICON, DEFAULT_PRODUCT_ICON
+} from '~utils';
 
 /**
  * Pipes that adds the begining url for images,
@@ -26,11 +29,11 @@ export class ImagePipe implements PipeTransform {
 	 * @param value : Entity object (like supplier), array or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
-	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl')): string {
+	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl'), type: string): string {
 		try {
 			// no value
 			if (!value)
-				return DEFAULT_IMG;
+				return this.getDefault(type);
 
 			// array
 			if (Array.isArray(value)) {
@@ -57,9 +60,29 @@ export class ImagePipe implements PipeTransform {
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;
 		} catch (e) {
-			return DEFAULT_IMG;
+			return this.getDefault(type);
 		}
+	}
 
+	/** gets the correct icon for selectors inputs */
+	getDefault(type: string) {
+		// TODO use entity metadata
+		switch (type) {
+			case 'supplier':
+				return DEFAULT_SUPPLIER_ICON;
+			case 'user':
+				return DEFAULT_USER_ICON;
+			case 'event':
+				return DEFAULT_EVENT_ICON;
+			case 'project':
+				return DEFAULT_PROJECT_ICON;
+			case 'category':
+				return DEFAULT_CATEGORY_ICON;
+			case 'product':
+				return DEFAULT_PRODUCT_ICON;
+			default:
+				return DEFAULT_IMG;
+		}
 	}
 
 }

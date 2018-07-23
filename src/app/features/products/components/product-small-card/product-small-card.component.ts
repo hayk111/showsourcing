@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '~models';
-import { DEFAULT_PRODUCT_IMG } from '~utils/constants';
+import { DEFAULT_PRODUCT_ICON } from '~utils';
 
 @Component({
 	selector: 'product-small-card-app',
@@ -10,7 +10,7 @@ import { DEFAULT_PRODUCT_IMG } from '~utils/constants';
 })
 export class ProductSmallCardComponent implements OnInit {
 	@Input() product: Product;
-	defaultImg = DEFAULT_PRODUCT_IMG;
+	defaultImg = DEFAULT_PRODUCT_ICON;
 
 	constructor() { }
 

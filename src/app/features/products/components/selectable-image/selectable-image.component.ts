@@ -1,13 +1,5 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnInit,
-	Output,
-	SimpleChanges,
-} from '@angular/core';
-import { DEFAULT_PRODUCT_IMG } from '~utils/constants';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DEFAULT_PRODUCT_ICON } from '~utils/constants';
 
 @Component({
 	selector: 'selectable-image-app',
@@ -25,7 +17,7 @@ export class SelectableImageComponent implements OnInit {
 	@Output() select = new EventEmitter();
 	@Output() unselect = new EventEmitter();
 
-	defaultImg = DEFAULT_PRODUCT_IMG;
+	defaultImg = DEFAULT_PRODUCT_ICON;
 
 	constructor() { }
 

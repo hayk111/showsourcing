@@ -94,6 +94,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
+	providers: [ProductFeatureService]
 })
 export class ProductModule {
 
