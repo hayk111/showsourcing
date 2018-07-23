@@ -1,13 +1,12 @@
 :host {
-	text-transform: uppercase;
-
+	box-sizing: border-box;
 	&.small {
-		display: inline;
 		font-size: var(--font-size-s);
 		font-weight: bold;
 		padding: 2px  var(--spacing-ms);
 		min-width: 72px;
 		border-radius: var(--border-radius-s);
+		font-weight: 600;
 	}
 
 	&.medium {

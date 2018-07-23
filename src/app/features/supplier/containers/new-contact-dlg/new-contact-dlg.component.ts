@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AppImage, Contact } from '~models';
 import { DialogService } from '~shared/dialog';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
 import { ContactService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
@@ -19,12 +19,11 @@ import { first } from 'rxjs/operators';
 export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	/** preview image */
-	preview$: Observable<AppImage>;
-	private _preview: any = {};
+	private pendingImg;
+	private uploadedImg;
 	defaultImg = DEFAULT_IMG;
 	// supplier for which we are creating the contact
 	@Input() supplierId: string;
-
 	/** whether the dialog is for a new contact or an existing one */
 	@Input() isNewContact = false;
 	@Input() contact: Contact = {
@@ -58,13 +57,20 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** gives image url */
-	onFileAdded(files: File[]) {
-		this.uploader.uploadImages(files).pipe(
+	async onFilesAdded(files: File[]) {
+		const file = files[0];
+		this.pendingImg = new PendingImage(file);
+		await this.pendingImg.createData();
+		this.uploader.uploadImage(file).pipe(
 			first()
-		).subscribe(imgs => {
+		).subscribe(img => {
 			// removing pending image
-			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		}, e => this._pendingImages = []);
+			this.pendingImg = undefined;
+			this.uploadedImg = img;
+			if (!this.isNewContact) {
+				this.updateOrCreateContact();
+			}
+		}, e => this.pendingImg = undefined);
 	}
 
 	onSubmit() {
@@ -72,32 +78,44 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		// therefor the form will be invalid
 		if (this.form.valid) {
 			const contact = new Contact(this.form.value, this.supplierId);
-			// we need to add the image to the contact before uploading
-			// contact.imageId = this._preview.id;
-			// contact.image = this._preview;
-			// this.store.dispatch(ContactActions.create(this.formGroup.value));
-			this.contactSrv.create(contact).subscribe();
-			this.dlgSrv.close();
+			// 1. contact is not created yet and an image is pending
+			// 2. contact is not created yet and an image has been uploaded
+			// 3. contact is not created yet and and there is nothing with image
+			// 4. contact is modified and nothing with image
+			// 5. contact is modified and image uploaded
+			// 6. contact is modified and an image is pending
+
+			// In the case of pending we could save the contact in a variable and do the
+			// backend modification when the image is uploaded in other case we can do it here
+
+			this.updateOrCreateContact();
+
 		}
 	}
 
-	updateContact() {
+	private updateOrCreateContact() {
 		if (!this.isNewContact) {
 			const contact = { ...this.form.value, id: this.contact.id };
+			this.addImageToContact(contact);
 			this.contactSrv.update(contact).subscribe();
+		} else {
+			const contact = new Contact(this.form.value, this.supplierId);
+			this.addImageToContact(contact);
+			this.contactSrv.create(contact).subscribe();
+		}
+		this.isNewContact = false;
+		this.dlgSrv.close();
+	}
+
+	private addImageToContact(contact) {
+		if (this.uploadedImg) {
+			contact.businessCardImage = this.uploadedImg;
 		}
 	}
 
-	onFilesAdded(files: Array<File>) {
-		// files.forEach(file => {
-		// 	// image creation is async because we need the base 64 to display it.
-		// 	AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
-		// 		if (this.isNewContact)
-		// 			this.store.dispatch(ContactActions.createImg(appImg));
-		// 		else
-		// 			this.store.dispatch(ContactActions.changeImg(appImg, this.contact.id));
-		// 	});
-		// });
+
+	get image() {
+		return this.pendingImg || this.uploadedImg || this.contact.businessCardImage;
 	}
 
 }

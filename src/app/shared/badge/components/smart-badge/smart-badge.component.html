@@ -1,4 +1,6 @@
 <badge-app class="{{ type }}">
-	<icon-app fontSet="svg" name="{{ type }}"></icon-app>
-	<ng-content></ng-content>
+	<icon-app fontSet="svg" name="badge-{{ type }}"></icon-app>
+	<span>
+		<ng-content></ng-content>
+	</span>
 </badge-app>
