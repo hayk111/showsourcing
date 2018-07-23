@@ -29,7 +29,9 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	SupplierCardComponent
+	SupplierCardComponent,
+	RfqDialogComponent,
+	EmailListComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import {
@@ -43,7 +45,6 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
-import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 
 @NgModule({
@@ -88,7 +89,8 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		GroupByPipe,
 		ProductPreviewComponent,
 		ProductNavigationComponent,
-		RfqDialogComponent
+		RfqDialogComponent,
+		EmailListComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,

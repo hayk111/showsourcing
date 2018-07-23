@@ -1,6 +1,11 @@
 :host {
 	display: flex;
 	align-items: center;
+	&.longText .label {
+		width: 100%;
+		color:var(--color-text-primary);
+		font-weight: normal;
+	}
 }
 
 .icon {

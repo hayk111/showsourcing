@@ -16,9 +16,10 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	detailGroup: FormGroup;
 	emailGroup: FormGroup;
 	pending = false;
+	copyEmail = false;
 	titles = ['review', 'recipient', 'confirmation'];
 	index = 0;
-	emails: Array<any>;
+	contactList: Array<any>;
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, ProductConfig, ERM } from '~models';
+import { Product, ProductConfig, ERM, Contact } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
@@ -23,6 +23,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
+	/** Contacts given a supplier of the product */
+	contacts$: Observable<Contact[]>;
 	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
@@ -73,6 +75,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
+		// console.log('decrfipti');
+		// this.contacts$ = this.featureSrv.getContacts(this.product.supplier.id);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and

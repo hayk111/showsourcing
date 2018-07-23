@@ -1,0 +1,16 @@
+<div *ngIf="!contacts$ | async">
+	<icon-app type="r" name="envelope" fontSet="fa"></icon-app>
+	Please add the supplier email address to send the RFQ
+</div>
+<ng-container *ngIf="contacts$ | async as contacts">
+	<div *ngFor="let contact of contacts">
+		<checkbox-app>
+			<icon-app></icon-app>
+		</checkbox-app>
+		<div>
+			<label-app>{{contact.email || 'No email'}}</label-app>
+			<p>{{contact.name ? contact.name + " - " : ''}}{{contact.jobTitle || 'Unknown'}} </p>
+		</div>
+	</div>
+
+</ng-container>

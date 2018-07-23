@@ -43,6 +43,12 @@
 			</form-field-app>
 			<button class="add-email" [disabled]="!emailGroup.valid">Add</button>
 		</form>
+		<email-list-app
+		[supplierId]="product.supplier.id"></email-list-app>
+		<checkbox-app
+			[class.longText]="true"
+			#checkbox
+			[checked]="copyEmail">Send me a copy to my email address</checkbox-app>
 	</ng-container>
 
 	<ng-container *ngIf="index == 2">

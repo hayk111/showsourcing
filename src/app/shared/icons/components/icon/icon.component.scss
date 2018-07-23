@@ -1,6 +1,10 @@
 :host {
 	line-height: 1;
 	cursor: pointer;
+	&svg.r {
+		width: 2.05rem;
+		height: 2.5rem;
+	}
 }
 
 // for icomoon icons
