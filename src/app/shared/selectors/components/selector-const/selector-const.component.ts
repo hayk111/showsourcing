@@ -4,7 +4,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { Choice } from '~shared/selectors/utils/choice.interface';
 
-import { SelectorsService } from '../../sercices/selectors.service';
+import { SelectorsService } from '~shared/selectors/sercices/selectors.service';
 
 
 /** This selector differs from selector entity because instead of dealing with entities from graphql

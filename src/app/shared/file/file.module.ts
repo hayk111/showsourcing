@@ -2,9 +2,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FilesCardComponent } from '~shared/file/containers';
 import { SharedModule } from '~shared/shared.module';
 
-import { FilesPageComponent } from './containers';
-import { FileDropDirective } from './directives/file-drop.directive';
-import { FileSelectDirective } from './directives/file-select.directive';
+import { FilesPageComponent } from '~shared/file/containers';
+import { FileDropDirective } from '~shared/file/directives/file-drop.directive';
+import { FileSelectDirective } from '~shared/file/directives/file-select.directive';
 
 @NgModule({
 	imports: [SharedModule],

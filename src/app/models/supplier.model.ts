@@ -1,10 +1,10 @@
 import { AppImage } from '~models';
 
-import { BaseEntity } from './_entity.model';
-import { Category } from './category.model';
-import { SupplierStatus } from './supplier-status.model';
-import { SupplierType } from './supplier-type.model';
-import { Tag } from './tag.model';
+import { BaseEntity } from '~models/_entity.model';
+import { Category } from '~models/category.model';
+import { SupplierStatus } from '~models/supplier-status.model';
+import { SupplierType } from '~models/supplier-type.model';
+import { Tag } from '~models/tag.model';
 
 export class Supplier extends BaseEntity<SupplierConfig> {
 	name?: string;

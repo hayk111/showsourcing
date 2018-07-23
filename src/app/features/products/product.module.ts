@@ -15,11 +15,10 @@ import { FiltersModule } from '~shared/filters';
 import { RatingModule } from '~shared/rating';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { SharedModule } from '~shared/shared.module';
-import { StatusModule } from '~shared/status/status.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
-import { routes } from './routes';
+import { routes } from '~features/products/routes';
 
 import {
 	ProductCardViewComponent,
@@ -31,18 +30,18 @@ import {
 	ProjectCardComponent,
 	SelectionActionsComponent,
 	SupplierCardComponent
-} from './components';
-import { NewProductDialogComponent } from './components/new-product-dialog/new-product-dialog.component';
+} from '~features/products/components';
+import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import {
 	ProductAddToProjectDlgComponent,
-} from './components/product-add-to-project-dlg/product-add-to-project-dlg.component';
-import { ProductExportDlgComponent } from './components/product-export-dlg/product-export-dlg.component';
+} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
+import { ProductExportDlgComponent } from '~features/products/components/product-export-dlg/product-export-dlg.component';
 import {
 	ProductRequestTeamFeedbackDlgComponent,
-} from './components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
-import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
-import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
-import { ProductNavigationComponent } from './components/product-navigation/product-navigation.component';
+} from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
+import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
+import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 
 
@@ -53,7 +52,6 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		DynamicFormsModule,
 		ReactiveFormsModule,
 		DialogModule,
-		StatusModule,
 		FileModule, // file card used
 		RatingModule,
 		SelectionBarModule, // used for selection bar at the bottom
@@ -96,6 +94,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		NewProductDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
+	providers: [ProductFeatureService]
 })
 export class ProductModule {
 

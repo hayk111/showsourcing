@@ -1,4 +1,4 @@
-import { BaseEntity } from './_entity.model';
+import { BaseEntity } from '~models/_entity.model';
 
 export class AppFile extends BaseEntity<undefined> {
 	fileName: string;

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidePanelComponent } from './component/side-panel/side-panel.component';
+import { SidePanelComponent } from '~shared/panel/component/side-panel/side-panel.component';
 import { DividerModule } from '~shared/divider/divider.module';
-import { SidePanelTitleComponent } from './component/side-panel/side-panel-title.component';
+import { SidePanelTitleComponent } from '~shared/panel/component/side-panel/side-panel-title.component';
 import { SidePanelActionComponent } from '~shared/panel/component/side-panel/side-panel-action.component';
 
 @NgModule({

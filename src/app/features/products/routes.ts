@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
-import { CommentCtnrComponent } from './../comment/containers/comment-ctnr/comment-ctnr.component';
-import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from './containers';
+import { CommentCtnrComponent } from '~features/comment/containers/comment-ctnr/comment-ctnr.component';
+import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

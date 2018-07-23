@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { log } from '~utils/index';
+import { log } from '~utils';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AppImage } from '~models';
 

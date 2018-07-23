@@ -1,2 +1,2 @@
-export * from './files-page/files-page.component';
-export * from './files-card/files-card.component';
+export * from '~shared/file/containers/files-page/files-page.component';
+export * from '~shared/file/containers/files-card/files-card.component';

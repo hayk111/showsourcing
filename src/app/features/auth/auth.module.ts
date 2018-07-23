@@ -9,7 +9,7 @@ import {
 	LoginComponent,
 	PwResettedComponent,
 	RegistrationComponent,
-} from './components';
+} from '~features/auth/components';
 
 
 

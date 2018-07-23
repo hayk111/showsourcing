@@ -1,0 +1,18 @@
+:host {
+	display: inline-block;
+	cursor: default;
+}
+
+icon-app {
+	margin-right: var(--spacing-xs);
+	cursor: default;
+}
+
+.tag {
+	background: var(--color-secondary);
+}
+
+.category {
+	background: #f5bc24;
+	color: white;
+}

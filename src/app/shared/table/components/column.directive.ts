@@ -1,5 +1,5 @@
 import { Directive, Input, TemplateRef, EventEmitter, Output, OnInit } from '@angular/core';
-import { defaultComparator } from '../utils/comparator.function';
+import { defaultComparator } from '~shared/table/utils/comparator.function';
 import { Resolver } from '~utils/resolver.class';
 import { Sort } from '~shared/table/components/sort.interface';
 

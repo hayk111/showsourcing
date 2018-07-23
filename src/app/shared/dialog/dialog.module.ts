@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils/utils.module';
 
-import { ConfirmDialogComponent } from './containers/confirm-dialog/confirm-dialog.component';
-import { DialogContainerComponent } from './containers/dialog-container/dialog-container.component';
-import { DialogComponent } from './containers/dialog/dialog.component';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogContainerComponent } from '~shared/dialog/containers/dialog-container/dialog-container.component';
+import { DialogComponent } from '~shared/dialog/containers/dialog/dialog.component';
 import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
 import { DialogModalComponent } from '~shared/dialog/components/dialog-modal/dialog-modal.component';
 import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';

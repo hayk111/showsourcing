@@ -1,7 +1,7 @@
 import { Component, ElementRef, Injectable, Input, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 
-import { KanbanService } from '../../services/kanban.service';
+import { KanbanService } from '~features/workflow/services/kanban.service';
 
 @Component({
 	selector: 'kanban-item-app',

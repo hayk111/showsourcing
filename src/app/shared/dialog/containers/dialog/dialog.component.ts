@@ -12,8 +12,8 @@ import {
 } from '@angular/core';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 
-import { DialogFooterComponent } from '../../components/dialog-footer/dialog-footer.component';
-import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
+import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
+import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';
 
 // This is merely a presentational component. The logic for displaying a component is in the container
 @Component({

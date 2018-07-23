@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, share } from 'rxjs/operators';
 import { toStore } from '~utils/store/store';
 
-import { Filter, FilterType } from '../models';
+import { Filter, FilterType } from '~shared/filters/models';
 
 @Injectable({
 	providedIn: 'root'

@@ -6,10 +6,10 @@ import { EditableTextComponent } from '~shared/editable-field/components/editabl
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 
-import { IconsModule } from '../icons/icons.module';
-import { InputsModule } from '../inputs/inputs.module';
-import { UtilsModule } from '../utils/utils.module';
-import { EditableLabelComponent } from './components/editable-label/editable-label.component';
+import { IconsModule } from '~shared/icons/icons.module';
+import { InputsModule } from '~shared/inputs/inputs.module';
+import { UtilsModule } from '~shared/utils/utils.module';
+import { EditableLabelComponent } from '~shared/editable-field/components/editable-label/editable-label.component';
 import { ImageModule } from '~shared/image/image.module';
 
 // text where when it is clicked an input appears

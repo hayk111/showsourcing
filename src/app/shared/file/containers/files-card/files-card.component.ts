@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppFile } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { DEFAULT_FILE_IMG } from '~utils';
+import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -13,7 +13,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilesCardComponent {
-	@Input() set files(files: Array<AppFile>) {
+	@Input() set files(files: Array<AppFile | PendingFile>) {
 		this._files = files;
 	}
 	get files() {
@@ -23,7 +23,7 @@ export class FilesCardComponent {
 	private _pendingFiles = [];
 
 	@Output() fileRemove = new EventEmitter<AppFile>();
-	defaultImg = DEFAULT_FILE_IMG;
+	defaultImg = DEFAULT_FILE_ICON;
 
 	constructor(
 		private uploader: UploaderService,

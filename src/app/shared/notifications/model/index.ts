@@ -1,1 +1,1 @@
-export * from './notification.interface';
+export * from '~shared/notifications/model/notification.interface';

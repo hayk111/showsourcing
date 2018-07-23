@@ -1,6 +1,6 @@
-import { BaseEntity } from './_entity.model';
-import { AppImage } from './app-image.model';
-import { Product } from './product.model';
+import { BaseEntity } from '~models/_entity.model';
+import { AppImage } from '~models/app-image.model';
+import { Product } from '~models/product.model';
 
 
 export class Project extends BaseEntity<ProjectConfig> {

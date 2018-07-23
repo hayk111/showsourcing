@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TestPageComponent } from './test-page/test-page.component';
+import { TestPageComponent } from '~features/test-page/test-page/test-page.component';
 import { EditableFieldModule } from '~shared/editable-field';
 import { CardModule } from '~shared/card';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
@@ -10,6 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { DividerModule } from '~shared/divider/divider.module';
+import { UserPictureModule } from '~shared/user-picture';
 
 @NgModule({
 	imports: [
@@ -22,7 +23,8 @@ import { DividerModule } from '~shared/divider/divider.module';
 		NgSelectModule,
 		IconsModule,
 		ContextMenuModule,
-		DividerModule
+		DividerModule,
+		UserPictureModule
 
 	],
 	declarations: [TestPageComponent],

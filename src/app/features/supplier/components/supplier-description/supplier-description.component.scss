@@ -1,3 +1,18 @@
+card-header-app {
+	margin: var(--spacing-xs);
+	background-image: url("/assets/img/supplier-bg.jpg");
+	height: 158px;
+	h1, h2 {
+		color: white;
+	}
+	h1 {
+		margin-bottom: var(--spacing-s);
+	}
+	.alignCenter {
+		text-align: center;
+	}
+}
+
 .noDesc {
 	font-style: italic;
 	color: var(--color-txt-secondary);
@@ -19,4 +34,15 @@ textarea {
 
 editable-label-app {
 	white-space: pre-wrap;
+}
+
+.fav {
+	margin-right: var(--spacing-ms);
+}
+
+.userInfo {
+	font-size: var(--font-size-s);
+	user-picture-app {
+		margin-right: var(--spacing-s);
+	}
 }

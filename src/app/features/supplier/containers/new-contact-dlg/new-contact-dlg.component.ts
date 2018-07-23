@@ -3,11 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AppImage, Contact } from '~models';
 import { DialogService } from '~shared/dialog';
-import { AutoUnsub, DEFAULT_IMG, RegexpApp } from '~utils';
+import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
 import { ContactService } from '~global-services';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { first } from 'rxjs/operators';
 
-
-
+// different cases regarding the image upload and saving the contact
+// 1. contact is not created yet and an image is pending
+// 2. contact is not created yet and an image has been uploaded
+// 3. contact is not created yet and and there is nothing with image
+// 4. contact is modified and nothing with image
+// 5. contact is modified and image uploaded
+// 6. contact is modified and an image is pending
 @Component({
 	selector: 'new-contact-dlg-app',
 	templateUrl: './new-contact-dlg.component.html',
@@ -17,12 +24,11 @@ import { ContactService } from '~global-services';
 export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	/** preview image */
-	preview$: Observable<AppImage>;
-	private _preview: any = {};
+	private pendingImg;
+	private uploadedImg;
 	defaultImg = DEFAULT_IMG;
 	// supplier for which we are creating the contact
 	@Input() supplierId: string;
-
 	/** whether the dialog is for a new contact or an existing one */
 	@Input() isNewContact = false;
 	@Input() contact: Contact = {
@@ -37,7 +43,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
+		private uploader: UploaderService
 	) {
 		super();
 
@@ -55,50 +62,50 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** gives image url */
-	get previewUrl() {
-		if (!this._preview || Object.keys(this._preview).length === 0)
-			return;
-		// if the image is pending the base64 is in data else the url is at normal place
-		return this._preview.data || this._preview.urls.url_400x300;
-	}
-
-	set preview(value: AppImage) {
-		this._preview = value;
-		// need to detect for changes since we aren't using any async pipe for it and OnPush change detection
-		this.cd.markForCheck();
-	}
-
-	onSubmit() {
-		// not checking if form group is valid because at the time of writting this an email cannot be empty
-		// therefor the form will be invalid
-		if (this.form.valid) {
-			const contact = new Contact(this.form.value, this.supplierId);
-			// we need to add the image to the contact before uploading
-			// contact.imageId = this._preview.id;
-			// contact.image = this._preview;
-			// this.store.dispatch(ContactActions.create(this.formGroup.value));
-			this.contactSrv.create(contact).subscribe();
-			this.dlgSrv.close();
-		}
+	async onFilesAdded(files: File[]) {
+		const file = files[0];
+		this.pendingImg = new PendingImage(file);
+		await this.pendingImg.createData();
+		this.uploader.uploadImage(file).pipe(
+			first()
+		).subscribe(img => {
+			// removing pending image
+			this.pendingImg = undefined;
+			this.uploadedImg = img;
+			if (!this.isNewContact) {
+				this.updateContact();
+			}
+		}, e => this.pendingImg = undefined);
 	}
 
 	updateContact() {
 		if (!this.isNewContact) {
 			const contact = { ...this.form.value, id: this.contact.id };
+			this.addImageToContact(contact);
 			this.contactSrv.update(contact).subscribe();
+		}
+		this.dlgSrv.close();
+	}
+
+	createContact() {
+		if (this.isNewContact) {
+			const contact = new Contact(this.form.value, this.supplierId);
+			this.addImageToContact(contact);
+			this.contactSrv.create(contact).subscribe();
+		}
+		this.isNewContact = false;
+		this.dlgSrv.close();
+	}
+
+	private addImageToContact(contact) {
+		if (this.uploadedImg) {
+			contact.businessCardImage = this.uploadedImg;
 		}
 	}
 
-	onFilesAdded(files: Array<File>) {
-		// files.forEach(file => {
-		// 	// image creation is async because we need the base 64 to display it.
-		// 	AppImage.newInstance(file, this.userSrv.userId).then(appImg => {
-		// 		if (this.isNewContact)
-		// 			this.store.dispatch(ContactActions.createImg(appImg));
-		// 		else
-		// 			this.store.dispatch(ContactActions.changeImg(appImg, this.contact.id));
-		// 	});
-		// });
+
+	get image() {
+		return this.pendingImg || this.uploadedImg || this.contact.businessCardImage;
 	}
 
 }

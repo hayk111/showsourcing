@@ -1,1 +1,1 @@
-export * from './editable-text/editable-text.component';
+export * from '~shared/editable-field/components/editable-text/editable-text.component';

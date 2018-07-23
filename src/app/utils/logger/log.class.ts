@@ -1,4 +1,4 @@
-import { LogLevel } from './log-level';
+import { LogLevel } from '~utils/logger/log-level';
 
 
 export class Log {

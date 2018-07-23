@@ -11,7 +11,7 @@ import {
 
 import { AutoUnsub } from '~utils';
 
-import { DialogHostDirective } from '../../components/dialog-host.directive';
+import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
 import { takeUntil } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 

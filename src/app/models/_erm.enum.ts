@@ -16,13 +16,15 @@ export class EntityMetadata {
 	readonly plural: string;
 	readonly url: string;
 	readonly destUrl: string;
+	readonly image: string;
 
 	constructor(
 		singular: string,
 		plural: string,
 		constClass?: new (...args: any[]) => any,
 		url?: string,
-		destUrl?: string) {
+		destUrl?: string
+	) {
 
 		this.singular = singular;
 		this.plural = plural;

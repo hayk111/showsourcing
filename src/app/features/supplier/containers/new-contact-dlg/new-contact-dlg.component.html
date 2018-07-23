@@ -2,7 +2,7 @@
 
 	<dialog-header-app>Contact</dialog-header-app>
 
-	<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<form [formGroup]="form" (ngSubmit)="createContact()">
 		<form-field-app>
 			<label-app>Name</label-app>
 			<input inputApp
@@ -47,8 +47,8 @@
 		<label>Business card</label>
 		<div class="imgPreview flexColumn flexCenter pointer" (click)="inpFile.click()">
 
-			<ng-container *ngIf="previewUrl; else empty">
-				<img [src]="previewUrl" class="previewImg"/>
+			<ng-container *ngIf="image; else empty">
+				<img-app [image]="image" class="previewImg"></img-app>
 			</ng-container>
 
 			<ng-template #empty>
@@ -62,7 +62,7 @@
 	</form>
 		<!-- no button to save when it's an existing contact -->
 		<dialog-footer-app *ngIf="isNewContact">
-			<input type="submit" [disabled]="!form.valid" value="SAVE" (click)="onSubmit()"/>
+			<input type="submit" [disabled]="!form.valid" value="SAVE" (click)="createContact()"/>
 		</dialog-footer-app>
 </dialog-app>
 

@@ -8,9 +8,9 @@ import { LoadersModule } from '~shared/loaders';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { UtilsModule } from '~shared/utils';
 
-import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
-import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
-import { routes } from './router';
+import { TasksListViewComponent } from '~features/tasks/components/tasks-list-view/tasks-list-view.component';
+import { TasksPageComponent } from '~features/tasks/containers/tasks-page/tasks-page.component';
+import { routes } from '~features/tasks/router';
 import { TableModule } from '~shared/table';
 import { NewTaskDlgComponent } from '~features/tasks/containers';
 import { SharedModule } from '~shared/shared.module';

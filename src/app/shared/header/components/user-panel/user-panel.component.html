@@ -1,6 +1,6 @@
 <context-menu-app xPosition="-40" yPosition="60">
-	<context-menu-trigger-app class="flex">
-		<user-picture-app></user-picture-app>
+	<context-menu-trigger-app class="flex flexVAlign">
+		<user-picture-app [image]="user?.avatar"></user-picture-app>
 		<div class="flexColumn">
 			<span class="name">
 				{{ user?.firstName + ' ' + user?.lastName }}

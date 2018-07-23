@@ -3,8 +3,8 @@ import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge
 import { isObject } from 'util';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-import { GlobalQuery } from './global.query.interface';
-import { SelectParams } from './select-params';
+import { GlobalQuery } from '~global-services/_global/global.query.interface';
+import { SelectParams } from '~global-services/_global/select-params';
 import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 
 export interface GlobalServiceInterface<T> {

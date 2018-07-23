@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User, Team } from '~models';
-import { DEFAULT_USER_IMG } from '~utils';
+import { DEFAULT_USER_ICON } from '~utils';
 
 @Component({
 	selector: 'user-panel-app',
@@ -14,7 +14,7 @@ export class UserPanelComponent implements OnInit {
 	@Input() team: Team;
 	@Output() logout = new EventEmitter<any>();
 	@Output() close = new EventEmitter<any>();
-	defaultImg = DEFAULT_USER_IMG;
+	defaultImg = DEFAULT_USER_ICON;
 	constructor(private router: Router) { }
 
 	ngOnInit() { }

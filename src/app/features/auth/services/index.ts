@@ -1,3 +1,3 @@
-export * from './auth-guard.service';
-export * from './auth-http.service';
-export * from './token.service';
+export * from '~features/auth/services/auth-guard.service';
+export * from '~features/auth/services/auth-http.service';
+export * from '~features/auth/services/token.service';

@@ -35,6 +35,10 @@ export class UploaderService {
 			);
 	}
 
+	uploadImage(file: File) {
+		return this.uploadFile(file, 'image');
+	}
+
 	uploadFile(file: File, type: 'file' | 'image' = 'file'): Observable<AppImage> {
 		const isImage = type === 'image';
 		const extension = file.type.split('/').pop();

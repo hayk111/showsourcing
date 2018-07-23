@@ -1,1 +1,1 @@
-export { SupplierFeatureService } from './supplier-feature.service';
+export { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';

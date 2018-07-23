@@ -4,38 +4,36 @@
 	padding-top: var(--spacing-s);
 }
 
-.colImg {
-	width: 64px;
-	img {
-		width: 48px;
-		height: 36px;
-	}
+img-app {
+	width: 32px;
+	height: 32px;
 }
 
 /** col on the right that need to take the remainder space */
-.right {
+.middle {
 	flex-grow: 1;
-	height: 34px;
+	margin-left: var(--spacing-l);
 	padding-bottom: var(--spacing-s);
 	&.border {
 		border-bottom: 1px solid var(--color-secondary);
 	}
+	> * {
+		margin-bottom: var(--spacing-xs);
+		height: 18px;
+	}
 }
 
-.col {
-	text-align: left;
-	width: calc(100% / 3);
-}
+
 .valign {
 	display: flex;
 	align-items: center;
 }
 
 .name {
-	color: var(--color-primary);
 	font-weight: 600;
 }
 
 a:hover, .name:hover{
+	color: var(--color-primary);
 	text-decoration: underline;
 }

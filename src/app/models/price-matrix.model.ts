@@ -1,4 +1,4 @@
-import { Price } from './price.model';
+import { Price } from '~models/price.model';
 import { uuid } from '~utils/uuid.utils';
 
 export class PriceMatrix {

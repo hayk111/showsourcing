@@ -1,1 +1,1 @@
-export * from './dynamic-forms.service';
+export * from '~shared/dynamic-forms/services/dynamic-forms.service';

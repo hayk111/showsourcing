@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Notification } from '../model/notification.interface';
+import { Notification } from '~shared/notifications/model/notification.interface';
 import { Subject } from 'rxjs';
 
 @Injectable({

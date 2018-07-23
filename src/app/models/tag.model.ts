@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-import { BaseEntity } from './_entity.model';
+import { BaseEntity } from '~models/_entity.model';
 
 export class Tag extends BaseEntity<TagConfig> {
 	name?: string;

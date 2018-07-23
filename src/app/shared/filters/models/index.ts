@@ -1,1 +1,1 @@
-export * from './filter.model';
+export * from '~shared/filters/models/filter.model';

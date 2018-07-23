@@ -1,2 +1,2 @@
-export * from './icon/icon.component';
-export * from './icon-symbols/icon-symbols.component';
+export * from '~shared/icons/components/icon/icon.component';
+export * from '~shared/icons/components/icon-symbols/icon-symbols.component';

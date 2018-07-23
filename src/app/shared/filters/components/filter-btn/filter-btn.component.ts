@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Filter } from '../../models';
+import { Filter } from '~shared/filters/models';
 
 @Component({
 	selector: 'filter-btn-app',

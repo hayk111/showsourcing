@@ -1,3 +1,3 @@
-export * from './int.validator';
-export * from './phone.validator';
-export * from './url.validator';
+export * from '~shared/inputs/validators/int.validator';
+export * from '~shared/inputs/validators/phone.validator';
+export * from '~shared/inputs/validators/url.validator';

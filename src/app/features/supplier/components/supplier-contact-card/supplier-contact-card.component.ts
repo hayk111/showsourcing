@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { DEFAULT_USER_IMG } from '~utils';
+import { DEFAULT_USER_ICON } from '~utils';
 import { Contact } from '~models';
 
 @Component({
@@ -12,7 +12,8 @@ export class SupplierContactCardComponent {
 	@Input() contacts = [];
 	@Output() newContact = new EventEmitter<null>();
 	@Output() openContact = new EventEmitter<Contact>();
-	defaultImg = DEFAULT_USER_IMG;
+	@Output() deleteContact = new EventEmitter<Contact>();
+	defaultImg = DEFAULT_USER_ICON;
 
 
 }

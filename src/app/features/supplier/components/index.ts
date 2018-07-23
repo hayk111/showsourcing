@@ -1,1 +1,1 @@
-export * from './supplier-list-view/supplier-list-view.component';
+export * from '~features/supplier/components/supplier-list-view/supplier-list-view.component';

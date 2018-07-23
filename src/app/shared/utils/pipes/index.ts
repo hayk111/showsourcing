@@ -1,2 +1,2 @@
-export * from './date-ago.pipe';
-export * from './user-name.pipe';
+export * from '~shared/utils/pipes/date-ago.pipe';
+export * from '~shared/utils/pipes/user-name.pipe';

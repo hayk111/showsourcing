@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { MoqComponent } from './components/moq/moq.component';
+import { MoqComponent } from '~shared/moq/components/moq/moq.component';
 
 @NgModule({
 	imports: [CommonModule],

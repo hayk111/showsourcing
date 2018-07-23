@@ -1,2 +1,2 @@
-export * from './dialog/dialog.component';
-export * from './dialog-container/dialog-container.component';
+export * from '~shared/dialog/containers/dialog/dialog.component';
+export * from '~shared/dialog/containers/dialog-container/dialog-container.component';

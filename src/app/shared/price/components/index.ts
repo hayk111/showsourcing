@@ -1,1 +1,1 @@
-export * from './price/price.component';
+export * from '~shared/price/components/price/price.component';

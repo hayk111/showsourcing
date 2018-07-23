@@ -4,13 +4,12 @@
 
 
 :root {
-	--font-size-xs: 9px;
-	--font-size-s: 11px;
-	--font-size-ms: 12px;
-	--font-size-m: 13px;
-	--font-size-l: 15px;
-	--font-size-xl: 17px;
-  --font-size-xxl: 19px;
+	--font-size-xs: 10px;
+	--font-size-s: 12px;
+	--font-size-m: 14px;
+	--font-size-l: 16px;
+	--font-size-xl: 18px;
+  --font-size-xxl: 20px;
   --font-size-xxxl: 24px;
 }
 
@@ -67,6 +66,10 @@ body, .body, .body1 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+	font-family: Raleway;
+	font-size: var(--font-size-xxl);
+}
 
 h2, h3 {
 	font-weight: 500;

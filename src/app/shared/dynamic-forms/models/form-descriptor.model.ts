@@ -1,4 +1,4 @@
-import { CustomField } from './custom-field.model';
+import { CustomField } from '~shared/dynamic-forms/models/custom-field.model';
 
 export class FormDescriptor {
 	constructor(public fields: CustomField[], value: any = {}) {

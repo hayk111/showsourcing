@@ -7,8 +7,8 @@ import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
-import { GlobalService } from '../_global/global.service';
-import { TeamQueries } from './team.queries';
+import { GlobalService } from '~global-services/_global/global.service';
+import { TeamQueries } from '~global-services/team/team.queries';
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 import { log } from '~utils';
 

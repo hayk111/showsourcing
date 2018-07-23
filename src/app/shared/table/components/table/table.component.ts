@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
-import { nextTick } from '../../../../../../node_modules/@types/q';
+import { nextTick } from 'q';
 
 @Component({
 	selector: 'table-app',

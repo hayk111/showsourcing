@@ -5,10 +5,10 @@ import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
-import { CommentComponent } from './components';
-import { CommentListComponent } from './components';
-import { CommentBadgeComponent } from './components';
-import { CommentCtnrComponent } from './containers';
+import { CommentComponent } from '~features/comment/components';
+import { CommentListComponent } from '~features/comment/components';
+import { CommentBadgeComponent } from '~features/comment/components';
+import { CommentCtnrComponent } from '~features/comment/containers';
 import { SharedModule } from '~shared/shared.module';
 
 @NgModule({

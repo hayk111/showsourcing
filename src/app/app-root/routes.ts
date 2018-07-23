@@ -18,7 +18,7 @@ import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent } from '~shared/template';
 import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
 
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from '~app-root/components/home/home.component';
 
 export const routes: Array<Route> = [
 	{

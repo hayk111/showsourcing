@@ -3,7 +3,7 @@ import { ProjectDetailsComponent } from '~features/project/containers/project-de
 import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
 import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
 
-import { ProjectsPageComponent } from './containers/projects-page/projects-page.component';
+import { ProjectsPageComponent } from '~features/project/containers/projects-page/projects-page.component';
 
 import { ProjectWorkflowComponent } from './containers/project-workflow/project-workflow.component';
 

@@ -70,7 +70,6 @@
 					<filter-tag-app
 							(filterRemoved)="removeFilter(filter)"
 							*ngFor="let filter of byType.get(type).values()">
-	<!-- 					<user-picture-app class="" size="16" [url]="user?.preferences?.profilePicture?.urls?.url_60x45"></user-picture-app -->
 							{{ filter.raw.lastName }} {{ filter.raw.firstName }}
 					</filter-tag-app>
 				</div>
@@ -103,7 +102,6 @@
 						(uncheck)="removeFilter(filter)">
 						<!-- we display the correct badge color -->
 						<div class="flex">
-							<badge-app [color]="filter.value"></badge-app>
 							<span>{{ getDisplayName(filter, type) }}</span>
 						</div>
 

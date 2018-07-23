@@ -1,1 +1,1 @@
-export * from './settings.module';
+export * from '~features/settings/settings.module';

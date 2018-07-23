@@ -14,7 +14,7 @@ export class UserClientReadyGuardService implements CanActivate, CanActivateChil
 
 	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.apolloState.userClientReady$.pipe(
-			tap(d => log.debug('%c UserClientReadyGuard', LogColor.GUARD, d)),
+			tap(d => log.debug('%c UserClientReadyGuard', LogColor.GUARD, d.ready)),
 			filter(state => !state.pending),
 			map((state) => state.ready)
 		);

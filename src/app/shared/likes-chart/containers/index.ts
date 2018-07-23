@@ -1,1 +1,1 @@
-export * from './likes-card/likes-card.component';
+export * from '~shared/likes-chart/containers/likes-card/likes-card.component';

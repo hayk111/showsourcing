@@ -1,3 +1,3 @@
-import { ColumnDescriptor } from './column-descriptor.interface';
+import { ColumnDescriptor } from '~shared/table/models/column-descriptor.interface';
 
 export type TableDescriptor = Array<ColumnDescriptor>;

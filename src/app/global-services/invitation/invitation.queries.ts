@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {
 	GlobalQuery
-} from '../_global/global.query.interface';
+} from '~global-services/_global/global.query.interface';
 
 
 

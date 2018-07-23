@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AutoUnsub } from '~utils/index';
+import { AutoUnsub } from '~utils';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ProductVote } from '~models';
 import { UserService } from '~global-services';

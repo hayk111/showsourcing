@@ -1,9 +1,11 @@
 :host {
-	padding: 0 var(--spacing-l) var(--spacing-m) var(--spacing-l);
+	padding: 0 var(--spacing-l) var(--spacing-ms) var(--spacing-l);
 	display: block;
-	text-align: right;
+	&.right {
+		text-align: right;
+	}
 }
 
 divider-app {
-	margin-bottom: var(--spacing-m);
+	margin-bottom: var(--spacing-ms);
 }

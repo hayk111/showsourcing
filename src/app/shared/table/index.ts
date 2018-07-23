@@ -1,3 +1,3 @@
-export * from './table.module';
-export * from './models';
-export * from './components';
+export * from '~shared/table/table.module';
+export * from '~shared/table/models';
+export * from '~shared/table/components';

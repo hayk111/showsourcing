@@ -1,2 +1,2 @@
-export * from './local-storage.module';
-export * from './local-storage.service';
+export * from '~shared/local-storage/local-storage.module';
+export * from '~shared/local-storage/local-storage.service';

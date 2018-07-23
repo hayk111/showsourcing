@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 
-import { Credentials } from '../interfaces';
+import { Credentials } from '~features/auth/interfaces';
 
 
 

@@ -1,13 +1,13 @@
-import { Supplier } from './supplier.model';
-import { AppImage } from './app-image.model';
-import { Price } from './price.model';
-import { Category } from './category.model';
-import { BaseEntity } from './_entity.model';
-import { ProductStatus } from './product-status.model';
-import { Tag } from './tag.model';
-import { ProductVote } from './product-vote.model';
-import { Packaging } from './packaging.model';
-import { PriceMatrix } from './price-matrix.model';
+import { Supplier } from '~models/supplier.model';
+import { AppImage } from '~models/app-image.model';
+import { Price } from '~models/price.model';
+import { Category } from '~models/category.model';
+import { BaseEntity } from '~models/_entity.model';
+import { ProductStatus } from '~models/product-status.model';
+import { Tag } from '~models/tag.model';
+import { ProductVote } from '~models/product-vote.model';
+import { Packaging } from '~models/packaging.model';
+import { PriceMatrix } from '~models/price-matrix.model';
 import { Project } from '~models';
 
 export class Product extends BaseEntity<ProductConfig> {

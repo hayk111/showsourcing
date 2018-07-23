@@ -14,6 +14,7 @@ export class SupplierDescriptionComponent {
 	@ViewChild('txt') textarea: ElementRef;
 	@Output() update = new EventEmitter<Supplier>();
 
+
 	constructor() { }
 
 	edit() {
@@ -33,6 +34,10 @@ export class SupplierDescriptionComponent {
 	cancel() {
 		this.editable.close();
 		this.textarea.nativeElement.value = this.supplier.description;
+	}
+
+	toggleFavorite() {
+		this.update.emit({ id: this.supplier.id, favorite: !this.supplier.favorite });
 	}
 
 }

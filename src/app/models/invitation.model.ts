@@ -1,5 +1,5 @@
-import { BaseEntity } from './_entity.model';
-import { User } from './user.model';
+import { BaseEntity } from '~models/_entity.model';
+import { User } from '~models/user.model';
 import { uuid } from '~utils';
 
 export class Invitation {

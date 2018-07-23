@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
-import { LoginComponent, ForgotPasswordComponent, RegistrationComponent, PwResettedComponent, AccountCreatedComponent } from './components';
+import { LoginComponent, ForgotPasswordComponent, RegistrationComponent, PwResettedComponent, AccountCreatedComponent } from '~features/auth/components';
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },

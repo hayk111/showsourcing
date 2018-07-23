@@ -1,4 +1,4 @@
-import { TestPageComponent } from './test-page/test-page.component';
+import { TestPageComponent } from '~features/test-page/test-page/test-page.component';
 import { Route } from '@angular/router';
 
 

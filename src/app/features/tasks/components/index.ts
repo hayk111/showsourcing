@@ -1,1 +1,1 @@
-export * from './tasks-list-view/tasks-list-view.component';
+export * from '~features/tasks/components/tasks-list-view/tasks-list-view.component';

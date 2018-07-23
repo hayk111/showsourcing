@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
 
-import { animation } from './search-bar-animated.animation';
+import { animation } from '~shared/search-bar-animated/components/search-bar-animated/search-bar-animated.animation';
 
 @Component({
 	selector: 'search-bar-animated-app',

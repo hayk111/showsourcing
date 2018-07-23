@@ -1,5 +1,16 @@
 <card-app (clickOutside)="cancel()">
-	<h2 i18n="header 2|Supplier desciption card@@supplierDescription_description">Description</h2>
+	<card-header-app class="flexCenter">
+		<div class="alignCenter">
+			<h1>{{ supplier.name }}</h1>
+			<h2>
+				{{ supplier?.supplierType?.name || 'Supplier' }}
+				<ng-container *ngIf="supplier.country"> - {{ supplier.country | const:'country' }}</ng-container>
+			</h2>
+		</div>
+	</card-header-app>
+
+
+	<h2 i18n="header 2|Supplier desciption card@@supplierDescription_description">Supplier Description</h2>
 
 	<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
 		<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
@@ -14,10 +25,40 @@
 		<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
 	</editable-text-app>
 
-	<card-footer-app>
-		<button *ngIf="!editable.isOpen" class="light" (click)="edit()" i18n="button|Edit supplier description@@supplierDescription_editDescription">Edit Description</button>
-		<button class="light cancel" *ngIf="editable.isOpen" (click)="cancel()" i18n="button|Cancel edition on supplier description@@global_cancel">Cancel</button>
-		<button *ngIf="editable.isOpen" (click)="onSave(txt.value)" i18n="button|Save edition on supplier description@@global_save">Save</button>
+	<card-footer-app align="left">
+
+		<div class="flexBetween">
+
+			<div class="flex flexVAlign userInfo">
+				<user-picture-app [image]="supplier?.createdBy?.avatar" [border]="true"></user-picture-app>
+				<div class="flexColumn">
+					<span>Created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
+					<span>
+						{{ supplier?.creationDate | timeAgo }}
+					</span>
+				</div>
+			</div>
+
+
+
+			<div class="right">
+				<ng-container *ngIf="!editable.isOpen; else closed">
+					<button class="light auto fav" (click)="toggleFavorite()">
+						<icon-app name="heart" fontSet="fa" [ngClass]="{ 'color-warn': supplier.favorite }"></icon-app>
+						Favorite
+					</button>
+					<button (click)="edit()" class="auto">
+						Edit Description
+					</button>
+				</ng-container>
+
+				<ng-template #closed>
+					<button class="light cancel" (click)="cancel()" >Cancel</button>
+					<button (click)="onSave(txt.value)">Save</button>
+				</ng-template>
+			</div>
+		</div>
+
 	</card-footer-app>
 
 </card-app>

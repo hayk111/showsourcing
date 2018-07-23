@@ -1,4 +1,4 @@
-<i class="logo"></i>
+<img src="assets/img/logo.svg" class="logo"/>
 <nav>
   <a [routerLink]="['/home']" routerLinkActive="selected">Home</a>
 
@@ -13,6 +13,7 @@
 </nav>
 
 <div class="flexCenter right">
+	<!-- Let's move this in a component... -->
   <search-autocomplete-app #searchAutocomplete [xPosition]="0" [yPosition]="35"
                           [width]="400" [closeOnDisplay]="true"
                           (close)="searchBar.shrinkSearch()">
