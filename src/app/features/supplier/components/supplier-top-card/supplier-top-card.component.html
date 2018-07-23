@@ -1,7 +1,7 @@
 <div class="flex top">
 
 	<icon-app name="arrow-left" fontSet="fa" (click)="goBack()"></icon-app>
-	<div class="logo bg-secondary"></div>
+	<img-app [image]="supplier.logoImage" type="supplier" class="logo"></img-app>
 	<div>
 		<h1>{{ supplier.name }}</h1>
 		<div class="flex tags">
