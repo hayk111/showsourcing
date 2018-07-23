@@ -43,5 +43,9 @@ export class SupplierFeatureService extends SupplierService {
 		return this.contactSrv.update(contact);
 	}
 
+	deleteContact(contact: Contact) {
+		return this.contactSrv.deleteOne(contact.id);
+	}
+
 }
 

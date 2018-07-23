@@ -14,7 +14,10 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 	selector: 'supplier-activity-app',
 	templateUrl: './supplier-activity.component.html',
 	styleUrls: ['./supplier-activity.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex'
+	}
 })
 export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	// currently displayed supplier
@@ -69,5 +72,9 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// new contact dlg
 		else
 			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplierId: this.supplierId });
+	}
+
+	deleteContact(contact: Contact) {
+		this.featureSrv.deleteContact(contact).subscribe();
 	}
 }

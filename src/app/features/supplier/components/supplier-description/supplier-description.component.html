@@ -3,7 +3,7 @@
 		<div class="alignCenter">
 			<h1>{{ supplier.name }}</h1>
 			<h2>
-				{{ supplier.supplierType || 'Supplier' }}
+				{{ supplier?.supplierType?.name || 'Supplier' }}
 				<ng-container *ngIf="supplier.country"> - {{ supplier.country | const:'country' }}</ng-container>
 			</h2>
 		</div>

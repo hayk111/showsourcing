@@ -1,58 +1,39 @@
 
 <ng-container *ngIf="supplier$ | async as supplier">
-	<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
-	<!-- main card -->
-	<supplier-main-app
-		(update)="patch($event)"
-		[supplier]="supplier"
-		[productCount]="supplier?.productCount"
-		[taskCount]="supplier?.taskCount"
-		[contactCount]="(contacts$ | async)?.length">
-	</supplier-main-app>
 
-	<!-- supplier view -->
-	<div class="flex ctnr">
-		<div class="left">
+	<!-- left side -->
+	<div class="left">
+		<!-- description -->
+		<supplier-description-app
+			(update)="patch($event)"
+			[supplier]="supplier">
+		</supplier-description-app>
 
-			<!-- description -->
-			<supplier-description-app
-				(update)="patch($event)"
-				[supplier]="supplier">
-			</supplier-description-app>
+		<!-- images-->
+		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 
-			<!-- latest products -->
-			<supplier-latest-products-app
-				*ngIf="products$ | async as products"
-				[products]="products">
-			</supplier-latest-products-app>
+		<!-- activity -->
+	</div>
 
-			<!-- contacts -->
-			<supplier-contact-card-app
-				*ngIf="contacts$ | async as contacts"
-				[contacts]="contacts"
-				(newContact)="openContactDlg()"
-				(openContact)="openContactDlg($event)">
-			</supplier-contact-card-app>
-		</div>
+	<!-- right side -->
+	<div class="right">
+		<!-- editable infos -->
+		<supplier-infos-app
+			[supplier]="supplier"
+			(update)="patch($event)">
+		</supplier-infos-app>
 
-		<div class="right">
+		<!-- files -->
+		<files-card-app></files-card-app>
 
-			<!-- editable infos -->
-			<supplier-infos-app
-				[supplier]="supplier"
-				(update)="patch($event)">
-			</supplier-infos-app>
-
-			<!-- files -->
-			<files-card-app></files-card-app>
-
-			<!-- images -->
-			<carousel-card-app
-				 [hasHeart]="false"
-				 title="Supplier Pictures"
-				 [images]="supplier.images">
-			</carousel-card-app>
-		</div>
+		<!-- contacts -->
+		<supplier-contact-card-app
+			*ngIf="contacts$ | async as contacts"
+			[contacts]="contacts"
+			(newContact)="openContactDlg()"
+			(openContact)="openContactDlg($event)"
+			(deleteContact)="deleteContact($event)">
+		</supplier-contact-card-app>
 	</div>
 
 </ng-container>

@@ -11,7 +11,7 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 @Component({
 	selector: 'supplier-details-app',
 	templateUrl: './supplier-details.component.html',
-	styleUrls: ['./supplier-details.component.scss'],
+	styleUrls: ['./supplier-details.component.scss']
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	// currently displayed supplier
@@ -19,7 +19,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	contacts$: Observable<Contact[]>;
 	products$: Observable<Product[]>;
 	// tasks$: Observable<Task[]>;
-
 
 	constructor(
 		private route: ActivatedRoute,
@@ -35,7 +34,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			map(params => params.id),
 			switchMap(id => this.featureSrv.selectOne(id))
 		);
 

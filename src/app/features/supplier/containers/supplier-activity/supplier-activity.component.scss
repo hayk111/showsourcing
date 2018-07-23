@@ -1,0 +1,13 @@
+:host {
+	margin: auto;
+	width: calc(796px + 452px);
+	padding-top: var(--spacing-m);
+}
+
+.left {
+	width: 796px;
+}
+
+.right {
+	width: 452px;
+}
