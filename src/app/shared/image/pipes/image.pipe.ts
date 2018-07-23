@@ -29,7 +29,7 @@ export class ImagePipe implements PipeTransform {
 	 * @param value : Entity object (like supplier), array or string
 	 * @param args : 's' | 'm' | 'l' | 'xl' size of the image
 	 */
-	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl'), type: string): string {
+	transform(value: any | string, size: ('s' | 'm' | 'l' | 'xl') = 's', type: string = 'image'): string {
 		try {
 			// no value
 			if (!value)
