@@ -25,22 +25,37 @@
 		<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
 	</editable-text-app>
 
-	<card-footer-app>
+	<card-footer-app align="left">
 
-		<ng-container *ngIf="!editable.isOpen; else closed">
-			<button class="light auto fav" (click)="toggleFavorite()">
-				<icon-app name="heart" fontSet="fa" [ngClass]="{ 'color-warn': supplier.favorite }"></icon-app>
-				Favorite
-			</button>
-			<button (click)="edit()" class="auto">
-				Edit Description
-			</button>
-		</ng-container>
+		<div class="flexBetween">
 
-		<ng-template #closed>
-			<button class="light cancel" (click)="cancel()" >Cancel</button>
-			<button (click)="onSave(txt.value)">Save</button>
-		</ng-template>
+			<div class="flex flexVAlign">
+				<user-picture-app [image]="supplier?.createdBy?.avatar" [border]="true"></user-picture-app>
+				<div class="flexColumn userInfo">
+					<span>Created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
+					<span>{{ supplier?.creationDate | timeAgo }}</span>
+				</div>
+			</div>
+
+
+
+			<div class="right">
+				<ng-container *ngIf="!editable.isOpen; else closed">
+					<button class="light auto fav" (click)="toggleFavorite()">
+						<icon-app name="heart" fontSet="fa" [ngClass]="{ 'color-warn': supplier.favorite }"></icon-app>
+						Favorite
+					</button>
+					<button (click)="edit()" class="auto">
+						Edit Description
+					</button>
+				</ng-container>
+
+				<ng-template #closed>
+					<button class="light cancel" (click)="cancel()" >Cancel</button>
+					<button (click)="onSave(txt.value)">Save</button>
+				</ng-template>
+			</div>
+		</div>
 
 	</card-footer-app>
 

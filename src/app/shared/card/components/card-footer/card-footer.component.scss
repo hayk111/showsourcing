@@ -1,7 +1,9 @@
 :host {
 	padding: 0 var(--spacing-l) var(--spacing-ms) var(--spacing-l);
 	display: block;
-	text-align: right;
+	&.right {
+		text-align: right;
+	}
 }
 
 divider-app {
