@@ -1,0 +1,26 @@
+:host {
+	display: block;
+	background: var(--color-bg);
+	height: 126px;
+	padding: var(--spacing-l);
+	box-sizing: border-box;
+}
+.top > * {
+	margin-right: var(--spacing-l);
+}
+
+a {
+	width: 120px;
+	font-size: var(--font-size-l);
+	display: block;
+	&.active {
+		font-weight: bold;
+		color: var(--color-primary);
+		border-color: var(--color-primary);
+	}
+}
+
+.logo {
+	width: 64px;
+	height: 64px;
+}
