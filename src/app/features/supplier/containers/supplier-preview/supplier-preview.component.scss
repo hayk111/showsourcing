@@ -1,6 +1,17 @@
 .top {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	position: relative;
+	button, rating-heart-app {
+		position: absolute;
+		top: 0;
+	}
+	rating-heart-app {
+		left: 0;
+	}
+	button {
+		right: 0;
+	}
 	.logo {
 		height: 72px;
 		width: 72px;
@@ -13,9 +24,10 @@ h2 {
 	font-size: var(--font-size-l);
 	font-weight: 600;
 	color: #182844;
+	text-align: center;
 }
 
-status-label-app {
+workflow-action-app {
 	margin-top: var(--spacing-s);
 }
 
