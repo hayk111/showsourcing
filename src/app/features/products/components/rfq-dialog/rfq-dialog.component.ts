@@ -16,6 +16,8 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	group: FormGroup;
 	pending = false;
 	titles = ['review', 'recipient', 'confirmation'];
+	index = 0;
+	emails: Array<any>;
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
 
@@ -35,6 +37,17 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	ngAfterViewInit() {
 		this.input.focus();
+	}
+
+	onSubmit() {
+		if (this.index < 2)++this.index;
+		else {
+			// Send information
+		}
+	}
+
+	previous() {
+		this.index = (this.index > 0 && this.index <= 2) ? --this.index : this.index;
 	}
 
 	closeDlg() {

@@ -1,7 +1,6 @@
 dialog-app {
 
 	width: 468px;
-	height: 747px;
 	display: block;
 
 	dialog-header-app {
@@ -11,10 +10,12 @@ dialog-app {
 		margin-top: var(--spacing-ms);
 		button {
 			width: 106px;
+			&.cancel {
+				margin-right: 12px;
+			}
 		}
 		input {
 			width: 126px;
-			margin-left: 12px;
 		}
 	}
 

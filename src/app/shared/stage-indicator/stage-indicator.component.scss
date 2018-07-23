@@ -1,6 +1,25 @@
 :host {
 	display: block;
 }
+.selected {
+	.oval-empty {
+		background-color: var(--color-primary);
+		border: solid 1px var(--color-primary);
+	}
+	.text {
+		color: var(--color-primary);
+	}
+}
+
+.visited {
+	.oval-empty {
+		background-color: var(--color-divider);
+		border: solid 1px var(--color-divider);
+	}
+	.text {
+		color: var(--color-secondary-dark);
+	}
+}
 
 .oval-empty {
   width: 14px;
@@ -15,15 +34,6 @@
 	margin-top: 8px;
 	text-align: center;
 	text-transform: capitalize;
-}
-
-.selected {
-  .oval-empty {
-		background-color: var(--color-primary);
-	}
-	p.text {
-		color: var(--color-primary);
-	}
 }
 
 .horizontal {

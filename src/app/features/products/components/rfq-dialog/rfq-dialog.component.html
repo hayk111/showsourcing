@@ -1,40 +1,53 @@
 <dialog-app>
+
 	<dialog-header-app *ngIf="!pending">
 		Send Request for Quotation (RFQ)
 	</dialog-header-app>
 
 	<stage-indicator-app
-		[titles]="titles">
+		[titles]="titles"
+		[index]="index">
 	</stage-indicator-app>
 
-	<h3>REQUEST DETAIL</h3>
-	<label-app class="title">Product</label-app>
-	<image-previewer-app
-	[hasAdd]="false"
-	[showOneLine]="true"
-	[images]="product.images"></image-previewer-app>
+	<ng-container *ngIf="index == 0">
+		<h3>REQUEST DETAIL</h3>
+		<label-app class="title">Product</label-app>
+		<image-previewer-app
+		[hasAdd]="false"
+		[showOneLine]="true"
+		[images]="product.images"></image-previewer-app>
 
-	<form [formGroup]="group" *ngIf="!pending">
-		<form-field-app>
-			<label-app>Request Title</label-app>
-			<input inputApp type="text" formControlName="title"/>
-		</form-field-app>
-		<form-field-app>
-			<label-app>Targeted Quantity</label-app>
-			<input inputApp type="text" formControlName="quantity"/>
-		</form-field-app>
-		<form-field-app>
-			<label-app>Description</label-app>
-			<textarea inputApp type="text" formControlName="description" cols="30" rows="10"></textarea>
-			<p>Be as precise as possible regarding your requested message</p>
-		</form-field-app>
-	</form>
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app>Request Title</label-app>
+				<input inputApp type="text" formControlName="title"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app>Targeted Quantity</label-app>
+				<input inputApp type="text" formControlName="quantity"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app>Description</label-app>
+				<textarea inputApp type="text" formControlName="description" cols="30" rows="10"></textarea>
+				<p>Be as precise as possible regarding your requested message</p>
+			</form-field-app>
+		</form>
+	</ng-container>
+
+	<ng-container *ngIf="index == 1">
+		<h3> SELECT RECIPIENT </h3>
+	</ng-container>
+
+	<ng-container *ngIf="index == 1">
+		<h3> SELECT RECIPIENT </h3>
+	</ng-container>
 
 	<divider-app></divider-app>
 
 	<dialog-footer-app *ngIf="!pending">
-		<button class="light" (click)="closeDlg()">Cancel</button>
-		<input [disabled]="!group.vlaid" type="submit" value="Next" (click)="onSubmit()">
+		<button class="light cancel" (click)="closeDlg()">Cancel</button>
+		<button *ngIf="index > 0" class="light" (click)="previous()">Back</button>
+		<input [disabled]="!group.valid" type="submit" value="Next" (click)="onSubmit()">
 	</dialog-footer-app>
 
 	<spinner-app *ngIf="pending"></spinner-app>
