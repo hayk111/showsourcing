@@ -11,7 +11,11 @@ import { Choice } from '~shared/selectors/utils/choice.interface';
 	templateUrl: './editable-selector.component.html',
 	styleUrls: ['./editable-selector.component.scss', '../../common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(EditableSelectorComponent)]
+	providers: [makeAccessorProvider(EditableSelectorComponent)],
+	host: {
+		'[class.oneLine]': 'inlineLabel',
+		'[class.twoLine]': '!inlineLabel'
+	}
 })
 export class EditableSelectorComponent extends AbstractInput {
 

@@ -14,8 +14,11 @@ form-field-app {
 	border: none;
 }
 
-editable-label-app {
+.twoLine editable-label-app, :host.twoLine editable-label-app {
 	min-width: 20px;
-	color: var(--color-txt-strong);
+	color: var(--color-txt-strong)!important;
 	font-size: var(--font-size-l);
+	&:hover {
+		color: var(--color-primary)!important;
+	}
 }

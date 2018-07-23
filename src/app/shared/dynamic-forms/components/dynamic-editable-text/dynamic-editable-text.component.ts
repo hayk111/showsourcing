@@ -24,6 +24,10 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	styleUrls: ['./dynamic-editable-text.component.scss', './common-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicEditableTextComponent)],
+	host: {
+		'[class.oneLine]': 'inlineLabel',
+		'[class.twoLine]': '!inlineLabel'
+	}
 })
 export class DynamicEditableTextComponent extends AbstractInput implements OnInit {
 	@Input() customField: CustomField;
