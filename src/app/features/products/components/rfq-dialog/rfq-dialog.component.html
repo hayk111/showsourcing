@@ -17,7 +17,7 @@
 		[showOneLine]="true"
 		[images]="product.images"></image-previewer-app>
 
-		<form [formGroup]="group" *ngIf="!pending">
+		<form [formGroup]="detailGroup" *ngIf="!pending">
 			<form-field-app>
 				<label-app>Request Title</label-app>
 				<input inputApp type="text" formControlName="title"/>
@@ -35,11 +35,18 @@
 	</ng-container>
 
 	<ng-container *ngIf="index == 1">
-		<h3> SELECT RECIPIENT </h3>
+		<h3>SELECT RECIPIENT</h3>
+		<form [formGroup]="emailGroup" class="flex">
+			<form-field-app class="email-field">
+				<label-app>Add New Email Address</label-app>
+				<input inputApp type="text" formControlName="email"/>
+			</form-field-app>
+			<button class="add-email" [disabled]="!emailGroup.valid">Add</button>
+		</form>
 	</ng-container>
 
-	<ng-container *ngIf="index == 1">
-		<h3> SELECT RECIPIENT </h3>
+	<ng-container *ngIf="index == 2">
+		<h3>REQUEST DETAIL</h3>
 	</ng-container>
 
 	<divider-app></divider-app>
@@ -47,7 +54,7 @@
 	<dialog-footer-app *ngIf="!pending">
 		<button class="light cancel" (click)="closeDlg()">Cancel</button>
 		<button *ngIf="index > 0" class="light" (click)="previous()">Back</button>
-		<input [disabled]="!group.valid" type="submit" value="Next" (click)="onSubmit()">
+		<input [disabled]="!detailGroup.valid" type="submit" value="Next" (click)="onSubmit()">
 	</dialog-footer-app>
 
 	<spinner-app *ngIf="pending"></spinner-app>

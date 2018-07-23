@@ -13,7 +13,8 @@ import { DialogService } from '~shared/dialog';
 })
 export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
 
-	group: FormGroup;
+	detailGroup: FormGroup;
+	emailGroup: FormGroup;
 	pending = false;
 	titles = ['review', 'recipient', 'confirmation'];
 	index = 0;
@@ -28,10 +29,13 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	ngOnInit() {
-		this.group = this.fb.group({
+		this.detailGroup = this.fb.group({
 			title: ['', Validators.required],
 			quantity: ['', Validators.required],
 			description: ['', Validators.required]
+		});
+		this.emailGroup = this.fb.group({
+			email: ['', Validators.email]
 		});
 	}
 

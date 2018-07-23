@@ -44,6 +44,19 @@ h3 {
 	margin-bottom: var(--spacing-ms);
 }
 
+form-field-app.email-field{
+	width: 100%;
+	margin-right: 21px;
+}
+
+.add-email {
+	height:35px;
+	width:unset;
+	margin-top: 24px;
+	padding-left: 17px;
+	padding-right: 19px;
+}
+
 spinner-app {
 	margin: 1rem auto auto 1rem;
 }
