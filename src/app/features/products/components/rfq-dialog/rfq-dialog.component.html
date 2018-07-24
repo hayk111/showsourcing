@@ -1,6 +1,6 @@
 <dialog-app>
 
-	<dialog-header-app *ngIf="!pending">
+	<dialog-header-app>
 		Send Request for Quotation (RFQ)
 	</dialog-header-app>
 
@@ -18,7 +18,7 @@
 			[showOneLine]="true"
 			[images]="product.images">
 		</image-previewer-app>
-		<form [formGroup]="detailGroup" *ngIf="!pending">
+		<form [formGroup]="detailGroup">
 			<form-field-app>
 				<label-app>Request Title</label-app>
 				<input inputApp type="text" formControlName="title" placeholder="Inquiry for {{product.supplier.name}}"/>
@@ -44,15 +44,20 @@
 				<label-app>Add New Email Address</label-app>
 				<input inputApp type="text" formControlName="email" placeholder="Add Email Address"/>
 			</form-field-app>
-			<button class="add-email" [disabled]="!emailGroup.valid" (click)="addEmail()">Add</button>
+			<button class="add-email" [disabled]="!emailGroup.valid" (click)="addEmail()" (keyup.enter)="addEmail()">Add</button>
 		</form>
 		<email-list-app
 			[contacts]="contacts"
-			[supplierId]="product.supplier.id">
+			[supplierId]="product.supplier.id"
+			[selected]="selected"
+			(onSelectMail)="selectMail($event)"
+			(onUnselectMail)="unSelectMail($event)">
 		</email-list-app>
 		<checkbox-app
 			[class.longText]="true"
 			#checkbox
+			(check)="toggleCopy()"
+			(unCheck)="toggleCopy()"
 			[checked]="copyEmail">Send me a copy to my email address
 		</checkbox-app>
 	</ng-container>
@@ -60,15 +65,20 @@
 	<!-- Stage 3 -->
 	<ng-container *ngIf="index == 2">
 		<h3>REQUEST DETAIL</h3>
+		<label-app class="title">Product</label-app>
+		<image-previewer-app
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
 	</ng-container>
 
 	<divider-app></divider-app>
 
-	<dialog-footer-app *ngIf="!pending">
+	<dialog-footer-app>
 		<button class="light cancel" (click)="closeDlg()">Cancel</button>
 		<button *ngIf="index > 0" class="light" (click)="previous()">Back</button>
-		<input [disabled]="!detailGroup.valid" type="submit" value="Next" (click)="onSubmit()"/>
+		<input [disabled]="!detailGroup.valid || (index === 1 && selected.size <= 0)" type="submit" value="{{index !== 2 ? 'Next' : 'Send RFQ'}}" (click)="onSubmit()"/>
 	</dialog-footer-app>
 
-	<spinner-app *ngIf="pending"></spinner-app>
 </dialog-app>

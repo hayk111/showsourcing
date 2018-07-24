@@ -115,8 +115,8 @@ button, input[type="submit"], .button {
 
 // disabled buttons
 button:disabled, input[type="submit"]:disabled {
-	background: var(--color-secondary-dark);
-	color: white;
+	background: var(--color-secondary);
+	color: var(--color-secondary-dark);
 	border: none;
 	cursor: default;
 }

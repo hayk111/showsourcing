@@ -15,11 +15,12 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	detailGroup: FormGroup;
 	emailGroup: FormGroup;
-	pending = false;
 	copyEmail = false;
 	titles = ['review', 'recipient', 'confirmation'];
 	maxInd = this.titles.length - 1;
 	index = 0;
+	selected = new Map<number, Contact>();
+
 	@Input() contacts: Array<Contact>;
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
@@ -53,7 +54,11 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	addEmail() {
-		this.contacts = [{ name: null, email: this.emailGroup.value.email, jobTitle: null }, ...this.contacts];
+		this.contacts.push({ name: null, email: this.emailGroup.value.email, jobTitle: null });
+		this.contacts = [...this.contacts]; // change detection
+		const len = this.contacts.length - 1;
+		this.selected.set(len, this.contacts[len]);
+		console.log(this.selected);
 		this.emailGroup.reset();
 	}
 
@@ -63,6 +68,19 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	closeDlg() {
 		this.dlgSrv.close();
+	}
+
+	toggleCopy() {
+		this.copyEmail = this.copyEmail ? false : true;
+	}
+
+	selectMail(index: Array<any>) {
+		this.selected.set(index[0], index[1]);
+	}
+
+	unSelectMail(i: any) {
+		console.log(i);
+		this.selected.delete(i);
 	}
 
 }
