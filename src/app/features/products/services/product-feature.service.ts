@@ -61,7 +61,6 @@ export class ProductFeatureService extends ProductService {
 	}
 
 	getContacts(supplierId: string) {
-		console.log('dentro cotnat');
 		return this.contactSrv.selectMany(
 			of(new SelectParams({ query: `supplier.id == "${supplierId}"` }))
 		);

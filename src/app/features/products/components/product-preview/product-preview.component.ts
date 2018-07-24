@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub, debug } from '~utils';
-import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { DialogService } from '~shared/dialog';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
@@ -24,7 +24,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
 	/** Contacts given a supplier of the product */
-	contacts$: Observable<Contact[]>;
+	contacts: Array<Contact>;
 	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
@@ -75,8 +75,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
-		// console.log('decrfipti'); // Remove when cleared error
-		// this.contacts$ = this.featureSrv.getContacts(this.product.supplier.id);
+		this.featureSrv.getContacts(this.product.supplier.id).pipe(
+			first()
+		).subscribe(m => this.contacts = m);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -95,8 +96,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		// remove when clearing error
-		this.dlgSrv.open(RfqDialogComponent, { product: this.product }); // , contacts: this.contacts$ });
+		this.dlgSrv.open(RfqDialogComponent, { product: this.product, contacts: this.contacts });
 	}
 
 }

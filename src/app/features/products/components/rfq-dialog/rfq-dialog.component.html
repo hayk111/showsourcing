@@ -18,7 +18,6 @@
 			[showOneLine]="true"
 			[images]="product.images">
 		</image-previewer-app>
-
 		<form [formGroup]="detailGroup" *ngIf="!pending">
 			<form-field-app>
 				<label-app>Request Title</label-app>
@@ -40,16 +39,15 @@
 	<!-- Stage 2 -->
 	<ng-container *ngIf="index == 1">
 		<h3>SELECT RECIPIENT</h3>
-
 		<form [formGroup]="emailGroup" class="flex">
 			<form-field-app class="email-field">
 				<label-app>Add New Email Address</label-app>
 				<input inputApp type="text" formControlName="email" placeholder="Add Email Address"/>
 			</form-field-app>
-			<button class="add-email" [disabled]="!emailGroup.valid">Add</button>
+			<button class="add-email" [disabled]="!emailGroup.valid" (click)="addEmail()">Add</button>
 		</form>
-
 		<email-list-app
+			[contacts]="contacts"
 			[supplierId]="product.supplier.id">
 		</email-list-app>
 		<checkbox-app

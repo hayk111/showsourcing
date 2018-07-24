@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { Product } from '~models';
+import { Product, Contact } from '~models';
 import { AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -18,8 +18,9 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	pending = false;
 	copyEmail = false;
 	titles = ['review', 'recipient', 'confirmation'];
+	maxInd = this.titles.length - 1;
 	index = 0;
-	contactList: Array<any>;
+	@Input() contacts: Array<Contact>;
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
 
@@ -45,14 +46,19 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	onSubmit() {
-		if (this.index < 2)++this.index;
+		if (this.index < this.maxInd)++this.index;
 		else {
 			// Send information
 		}
 	}
 
+	addEmail() {
+		this.contacts = [{ name: null, email: this.emailGroup.value.email, jobTitle: null }, ...this.contacts];
+		this.emailGroup.reset();
+	}
+
 	previous() {
-		this.index = (this.index > 0 && this.index <= 2) ? --this.index : this.index;
+		this.index = (this.index > 0 && this.index <= this.maxInd) ? --this.index : this.index;
 	}
 
 	closeDlg() {

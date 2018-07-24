@@ -2,8 +2,9 @@
 	display: block;
 	background-color: var(--color-secondary-light);
 	border: 1px solid var(--color-secondary);
-	border-radius: var(border-radius-s);
-	height: 226px;
+	border-radius: var(--border-radius-s);
+	overflow: overlay;
+	height: 223px;
 }
 
 .empty-contacts{
@@ -17,6 +18,11 @@
 
 
 .mail-container {
+	display: flex;
+	height: 55px;
+	margin: 0px 11px;
+	border-bottom: 1px solid var(--color-divider);
+
 	checkbox-app {
 		margin-top: 2px;
 	}
@@ -26,14 +32,14 @@
 		margin-left: 11px;
 		margin-right: 18px;
 	}
-	display: flex;
-	height: 55px;
-	margin: 0px 11px;
-	border-bottom: 1px solid var(--color-divider);
 	p {
 		font-size: var(--font-size-s);
 		color: var(--color-txt-secondary)
 	}
+}
+
+.no-divider {
+	border-bottom: 0px solid var(--color-divider);
 }
 
 .contact-info {
