@@ -56,8 +56,8 @@ export const routes: Array<Route> = [
 			ClientGuards.TeamClientReadyGuardService
 		],
 		children: [
-			{ path: '', redirectTo: 'home', pathMatch: 'full', },
-			{ path: 'home', component: 'app/features/dashboard/dashboard.module#DashboardModule' },
+			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },
+			{ path: 'dashboard', component: 'app/features/dashboard/dashboard.module#DashboardModule' },
 			{ path: 'project', loadChildren: 'app/features/project/project.module#ProjectModule' },
 			{ path: 'task', loadChildren: 'app/features/tasks/tasks.module#TasksModule' },
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
