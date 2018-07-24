@@ -5,6 +5,37 @@
 	border-radius: var(border-radius-s);
 	height: 226px;
 }
-icon-app {
-	color: var(--color-secondary-dark);
+
+.empty-contacts{
+	margin-top: 83px;
+	margin-left: 3px;
+	text-align: center;
+	p {
+		margin-top:6px;
+	}
+}
+
+
+.mail-container {
+	checkbox-app {
+		margin-top: 2px;
+	}
+	icon-app {
+		color: var(--color-secondary-dark);
+		margin-top: 23px;
+		margin-left: 11px;
+		margin-right: 18px;
+	}
+	display: flex;
+	height: 55px;
+	margin: 0px 11px;
+	border-bottom: 1px solid var(--color-divider);
+	p {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-secondary)
+	}
+}
+
+.contact-info {
+	margin-top: 12px;
 }

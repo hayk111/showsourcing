@@ -9,22 +9,24 @@
 		[index]="index">
 	</stage-indicator-app>
 
+	<!-- Stage 1 -->
 	<ng-container *ngIf="index == 0">
 		<h3>REQUEST DETAIL</h3>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
-		[hasAdd]="false"
-		[showOneLine]="true"
-		[images]="product.images"></image-previewer-app>
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
 
 		<form [formGroup]="detailGroup" *ngIf="!pending">
 			<form-field-app>
 				<label-app>Request Title</label-app>
-				<input inputApp type="text" formControlName="title"/>
+				<input inputApp type="text" formControlName="title" placeholder="Inquiry for {{product.supplier.name}}"/>
 			</form-field-app>
 			<form-field-app>
 				<label-app>Targeted Quantity</label-app>
-				<input inputApp type="text" formControlName="quantity"/>
+				<input inputApp type="text" formControlName="quantity" placeholder="Quantity for {{product.supplier.name}}"/>
 			</form-field-app>
 			<form-field-app>
 				<label-app>Description</label-app>
@@ -32,25 +34,32 @@
 				<p>Be as precise as possible regarding your requested message</p>
 			</form-field-app>
 		</form>
+
 	</ng-container>
 
+	<!-- Stage 2 -->
 	<ng-container *ngIf="index == 1">
 		<h3>SELECT RECIPIENT</h3>
+
 		<form [formGroup]="emailGroup" class="flex">
 			<form-field-app class="email-field">
 				<label-app>Add New Email Address</label-app>
-				<input inputApp type="text" formControlName="email"/>
+				<input inputApp type="text" formControlName="email" placeholder="Add Email Address"/>
 			</form-field-app>
 			<button class="add-email" [disabled]="!emailGroup.valid">Add</button>
 		</form>
+
 		<email-list-app
-		[supplierId]="product.supplier.id"></email-list-app>
+			[supplierId]="product.supplier.id">
+		</email-list-app>
 		<checkbox-app
 			[class.longText]="true"
 			#checkbox
-			[checked]="copyEmail">Send me a copy to my email address</checkbox-app>
+			[checked]="copyEmail">Send me a copy to my email address
+		</checkbox-app>
 	</ng-container>
 
+	<!-- Stage 3 -->
 	<ng-container *ngIf="index == 2">
 		<h3>REQUEST DETAIL</h3>
 	</ng-container>
@@ -60,7 +69,7 @@
 	<dialog-footer-app *ngIf="!pending">
 		<button class="light cancel" (click)="closeDlg()">Cancel</button>
 		<button *ngIf="index > 0" class="light" (click)="previous()">Back</button>
-		<input [disabled]="!detailGroup.valid" type="submit" value="Next" (click)="onSubmit()">
+		<input [disabled]="!detailGroup.valid" type="submit" value="Next" (click)="onSubmit()"/>
 	</dialog-footer-app>
 
 	<spinner-app *ngIf="pending"></spinner-app>

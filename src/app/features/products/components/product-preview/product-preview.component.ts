@@ -75,7 +75,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
-		// console.log('decrfipti');
+		// console.log('decrfipti'); // Remove when cleared error
 		// this.contacts$ = this.featureSrv.getContacts(this.product.supplier.id);
 	}
 
@@ -95,7 +95,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		this.dlgSrv.open(RfqDialogComponent, { product: this.product });
+		// remove when clearing error
+		this.dlgSrv.open(RfqDialogComponent, { product: this.product }); // , contacts: this.contacts$ });
 	}
 
 }

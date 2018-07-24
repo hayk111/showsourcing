@@ -6,6 +6,10 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.r]': 'type === \'r\'',
+		'[class.l]': 'type === \'l\''
+	}
 })
 export class IconComponent {
 	@Input() name: string;

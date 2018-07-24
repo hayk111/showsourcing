@@ -36,7 +36,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 			description: ['', Validators.required]
 		});
 		this.emailGroup = this.fb.group({
-			email: ['', Validators.email]
+			email: ['', [Validators.required, Validators.email]]
 		});
 	}
 
