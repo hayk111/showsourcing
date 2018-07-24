@@ -58,7 +58,6 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 		this.contacts = [...this.contacts]; // change detection
 		const len = this.contacts.length - 1;
 		this.selected.set(len, this.contacts[len]);
-		console.log(this.selected);
 		this.emailGroup.reset();
 	}
 
@@ -79,7 +78,6 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	unSelectMail(i: any) {
-		console.log(i);
 		this.selected.delete(i);
 	}
 
