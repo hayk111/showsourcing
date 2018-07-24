@@ -3,41 +3,44 @@
 	<!-- block without border -->
 	<user-picture-app [image]="contact.businessCardImage" class="pointer" (click)="edit.emit()"></user-picture-app>
 	<!-- border block -->
-	<div class="flexColumn middle {{ border ? 'border' : ''}}">
-		<!-- name and job title -->
-		<div class="pointer" (click)="edit.emit()">
-			<span class="name">
-				{{ contact.name }}
-			</span>
+	<div class="right flexBetween flexGrow {{ border ? 'border' : '' }}">
+		<div class="flexColumn middle">
+			<!-- name and job title -->
+			<div class="pointer" (click)="edit.emit()">
+				<span class="name">
+					{{ contact.name }}
+				</span>
 
-			<span class="jobTitle" *ngIf="contact.jobTitle">
-				- {{ contact.jobTitle }}
-			</span>
+				<span class="jobTitle" *ngIf="contact.jobTitle">
+					- {{ contact.jobTitle }}
+				</span>
+			</div>
+
+			<!-- email -->
+			<div class="col valign">
+				<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+			</div>
+
+			<!-- phone -->
+			<div class="col valign">
+				<a href="tel:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
+			</div>
 		</div>
 
-		<!-- email -->
-		<div class="col valign">
-			<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-		</div>
+		<context-menu-app>
+			<context-menu-trigger-app>
+				<icon-app fontSet="fa" name="ellipsis-v"></icon-app>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="edit.emit()">
+				Edit
+			</context-menu-item-app>
+			<context-menu-divider-app></context-menu-divider-app>
+			<context-menu-item-app class="color-warn" (click)="delete.emit()">
+				Delete
+			</context-menu-item-app>
+		</context-menu-app>
 
-		<!-- phone -->
-		<div class="col valign">
-			<a href="tel:{{ contact.phoneNumber }}">{{ contact.phoneNumber }}</a>
-		</div>
 	</div>
-
-	<context-menu-app>
-		<context-menu-trigger-app>
-			<icon-app fontSet="fa" name="ellipsis-v"></icon-app>
-		</context-menu-trigger-app>
-		<context-menu-item-app (click)="edit.emit()">
-			Edit
-		</context-menu-item-app>
-		<context-menu-divider-app></context-menu-divider-app>
-		<context-menu-item-app class="color-warn" (click)="delete.emit()">
-			Delete
-		</context-menu-item-app>
-	</context-menu-app>
 
 </div>
 

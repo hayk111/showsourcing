@@ -17,14 +17,19 @@ card-header-app {
 	}
 }
 
-h4 {
-	margin-bottom: var(--spacing-ms);
-}
+main {
+	padding: var(--spacing-ms) var(--spacing-l) var(--spacing-l) var(--spacing-l);
 
-.noDesc {
-	font-style: italic;
-	color: var(--color-txt-secondary);
-	font-weight: normal;
+	h2 {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.noDesc {
+		font-style: italic;
+		color: var(--color-txt-secondary);
+		font-weight: normal;
+	}
+
 }
 
 textarea {

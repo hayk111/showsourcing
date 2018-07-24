@@ -1,4 +1,4 @@
-<card-app (clickOutside)="cancel()">
+<card-app (clickOutside)="cancel()" padding="0">
 	<card-header-app class="flexCenter">
 		<div class="alignCenter">
 			<h1>{{ supplier.name }}</h1>
@@ -9,21 +9,23 @@
 		</div>
 	</card-header-app>
 
+	<main>
+		<h2>Supplier Description</h2>
 
-	<h4>Supplier Description</h4>
-
-	<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
-		<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
-			{{ supplier.description }}
-		</editable-label-app>
-		<ng-template #noDesc>
-			<editable-label-app class="noDesc"
-				i18n="label|Supplier with no description@@supplierDescription_noDescription">
-				No description yet
+		<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
+			<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
+				{{ supplier.description }}
 			</editable-label-app>
-		</ng-template>
-		<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
-	</editable-text-app>
+			<ng-template #noDesc>
+				<editable-label-app class="noDesc"
+					i18n="label|Supplier with no description@@supplierDescription_noDescription">
+					No description yet
+				</editable-label-app>
+			</ng-template>
+			<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
+		</editable-text-app>
+	</main>
+
 
 	<card-footer-app align="left">
 

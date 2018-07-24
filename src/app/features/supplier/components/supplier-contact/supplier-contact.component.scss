@@ -2,7 +2,21 @@
 :host {
 	display: block;
 	padding-top: var(--spacing-s);
+	context-menu-trigger-app {
+		visibility: hidden;
+	}
+	&:hover context-menu-trigger-app {
+		visibility: visible;
+	}
 }
+
+.right {
+	margin-left: var(--spacing-l);
+	&.border {
+		border-bottom: 1px solid var(--color-secondary);
+	}
+}
+
 
 img-app {
 	width: 32px;
@@ -12,11 +26,7 @@ img-app {
 /** col on the right that need to take the remainder space */
 .middle {
 	flex-grow: 1;
-	margin-left: var(--spacing-l);
 	padding-bottom: var(--spacing-s);
-	&.border {
-		border-bottom: 1px solid var(--color-secondary);
-	}
 	> * {
 		margin-bottom: var(--spacing-xs);
 		height: 18px;
@@ -33,7 +43,7 @@ img-app {
 	font-weight: 600;
 }
 
-a:hover, .name:hover{
+a:hover, .name:hover {
 	color: var(--color-primary);
 	text-decoration: underline;
 }

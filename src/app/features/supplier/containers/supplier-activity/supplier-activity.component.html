@@ -24,9 +24,6 @@
 			(update)="patch($event)">
 		</supplier-infos-app>
 
-		<!-- files -->
-		<files-card-app></files-card-app>
-
 		<!-- contacts -->
 		<supplier-contact-card-app
 			*ngIf="contacts$ | async as contacts"
@@ -35,6 +32,9 @@
 			(openContact)="openContactDlg($event)"
 			(deleteContact)="deleteContact($event)">
 		</supplier-contact-card-app>
+
+		<!-- files -->
+		<files-card-app></files-card-app>
 	</div>
 
 </ng-container>
