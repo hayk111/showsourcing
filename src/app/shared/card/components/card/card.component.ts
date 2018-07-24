@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 	styleUrls: ['./card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'z-2 mg-m'
+		class: 'mg-m'
 	}
 })
 export class CardComponent {

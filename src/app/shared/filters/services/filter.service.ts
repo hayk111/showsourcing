@@ -106,7 +106,7 @@ export class FilterService {
 	private getFieldCondition(type, value) {
 		switch (type) {
 			case FilterType.SEARCH:
-				return `name CONTAINS "${value}"`;
+				return `name CONTAINS[c] "${value}"`;
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 			case FilterType.ID:

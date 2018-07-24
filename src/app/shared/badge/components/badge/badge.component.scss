@@ -1,5 +1,6 @@
 :host {
 	box-sizing: border-box;
+	white-space: nowrap;
 	&.mini {
 		font-family: Raleway;
 		font-size: var(--font-size-s);

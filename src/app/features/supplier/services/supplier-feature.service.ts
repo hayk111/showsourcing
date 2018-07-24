@@ -6,6 +6,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { SelectParams } from '~global-services/_global/select-params';
 import { ContactService, ProductService } from '~global-services';
 import { SupplierService } from '~global-services/supplier/supplier.service';
+import { first } from 'rxjs/operators';
 
 
 @Injectable({
@@ -26,6 +27,8 @@ export class SupplierFeatureService extends SupplierService {
 	getProducts(supplierId: string): Observable<Product[]> {
 		return this.productSrv.selectMany(
 			of(new SelectParams({ query: `supplier.id == '${supplierId}'` }))
+		).pipe(
+			first()
 		);
 	}
 
