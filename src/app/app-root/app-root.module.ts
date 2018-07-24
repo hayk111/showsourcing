@@ -19,7 +19,6 @@ import { TemplateModule } from '~shared/template';
 
 import { EventModule } from '~features/event/event.module';
 import { AppComponent } from '~app-root/components/app.component';
-import { HomeComponent } from '~app-root/components/home/home.component';
 import { routes } from '~app-root/routes';
 import { HttpApiRedirectorService } from '~app-root/services/http-api-redirector.service';
 import { WorkflowModule } from '~features/workflow';
