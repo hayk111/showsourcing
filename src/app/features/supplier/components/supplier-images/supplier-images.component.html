@@ -7,11 +7,19 @@
 
 		<div class="flex imgCtnr">
 			<img-app
-			*ngFor="let image of images; let last = last"
+			*ngFor="let image of images; let last = last; let i = index"
 			[ngClass]="{ 'last': last }"
 			size="m"
-			[image]="image"></img-app>
+			[image]="image"
+			(click)="openModal(i)"></img-app>
 		</div>
+
+		<!-- modal carousel that can be seen when clicking on the normal carousel -->
+		<modal-carousel-app
+			*ngIf="modalOpen"
+			[images]="images"
+			(close)="closeModal()"
+			[selectedIndex]="selectedIndex"></modal-carousel-app>
 
 	</card-header-app>
 

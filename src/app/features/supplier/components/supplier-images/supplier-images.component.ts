@@ -12,6 +12,9 @@ import { Product } from '~models';
 export class SupplierImagesComponent implements OnInit {
 	@Input() supplier: Supplier = {};
 	@Input() products: Product[] = [];
+	modalOpen = false;
+	// index for modal when clicking on a picture
+	selectedIndex = 0;
 	// max number of images displayed
 	private readonly MAX_NUMBER_OF_IMAGES = 6;
 
@@ -33,5 +36,13 @@ export class SupplierImagesComponent implements OnInit {
 		}
 
 		return images.slice(0, this.MAX_NUMBER_OF_IMAGES);
+	}
+
+	openModal(index: number) {
+		this.modalOpen = true;
+	}
+
+	closeModal() {
+		this.modalOpen = false;
 	}
 }
