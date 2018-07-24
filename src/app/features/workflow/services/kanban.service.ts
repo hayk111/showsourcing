@@ -12,6 +12,8 @@ export class KanbanService {
 
 	dragStart$ = new Subject<{ namespace: string, data: any }>();
 	dragEnd$ = new Subject<{ namespace: string, data: any }>();
+	itemEntered$ = new Subject<{ namespace: string }>();
+	itemLeft$ = new Subject<{ namespace: string }>();
 
 	constructor() { }
 

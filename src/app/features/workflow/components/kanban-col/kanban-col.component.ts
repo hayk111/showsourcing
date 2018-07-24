@@ -29,6 +29,7 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 
 	droppableArea = false;
 	sourceArea = false;
+	enteredArea = false;
 
 	constructor(private kanbanSrv: KanbanService) {
 		super();
@@ -49,6 +50,23 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 		).subscribe(({ data, namespace }) => {
 			this.sourceArea = false;
 			this.droppableArea = false;
+			this.enteredArea = false;
+		});
+
+		this.kanbanSrv.itemEntered$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ namespace }) => {
+			if (namespace && (namespace === this.namespace) && !this.sourceArea) {
+				this.enteredArea = true;
+			}
+		});
+
+		this.kanbanSrv.itemLeft$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ namespace }) => {
+			if (namespace && (namespace === this.namespace) && !this.sourceArea) {
+				this.enteredArea = false;
+			}
 		});
 	}
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { KanbanService } from '../../services/kanban.service';
 
 // drag and drop workflow
 @Component({
@@ -14,8 +15,9 @@ export class WorkflowKanbanComponent {
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	productsByStatus$: Observable<Array<any>>;
 
-	constructor() {
+	constructor(private kanbanSrv: KanbanService) {
 	}
+
 
 	selectProduct(id: string) {
 		this.productSelect.emit(id);
@@ -33,6 +35,15 @@ export class WorkflowKanbanComponent {
 	}
 
 	onItemDropped(event) {
-		
+
 	}
+
+	onItemEntered(namespace: string) {
+		this.kanbanSrv.itemEntered$.next({ namespace });
+	}
+
+	onItemLeft(namespace: string) {
+		this.kanbanSrv.itemLeft$.next({ namespace });
+	}
+
 }

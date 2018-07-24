@@ -58,3 +58,11 @@ main {
   background-color: var(--color-secondary-light);
 	border: dashed 1px #45adff;
 }
+
+.entered-area-overlay {
+	border: dashed 1px orange !important;
+}
+
+.hide-items {
+	display: none;
+}

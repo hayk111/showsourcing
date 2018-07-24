@@ -15,6 +15,8 @@ export class DropzoneDirective implements OnInit {
 	@Input('dropzoneApp') value: any;
 	@Input() data: any;
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
+	@Output() itemEntered = new EventEmitter<null>();
+	@Output() itemLeft = new EventEmitter<null>();
 
 	private clientRect: ClientRect;
 
@@ -43,6 +45,7 @@ export class DropzoneDirective implements OnInit {
 			return;
 		}
 
+		this.itemEntered.emit();
 		this.entered = true;
 	}
 
@@ -51,6 +54,7 @@ export class DropzoneDirective implements OnInit {
 			return;
 		}
 
+		this.itemLeft.emit();
 		this.entered = false;
 	}
 
