@@ -39,6 +39,7 @@ export class SupplierImagesComponent implements OnInit {
 	}
 
 	openModal(index: number) {
+		this.selectedIndex = index;
 		this.modalOpen = true;
 	}
 

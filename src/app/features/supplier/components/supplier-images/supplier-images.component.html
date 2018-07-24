@@ -7,6 +7,7 @@
 
 		<div class="flex imgCtnr">
 			<img-app
+			class="pointer"
 			*ngFor="let image of images; let last = last; let i = index"
 			[ngClass]="{ 'last': last }"
 			size="m"
