@@ -57,7 +57,7 @@ export const routes: Array<Route> = [
 		],
 		children: [
 			{ path: '', redirectTo: 'home', pathMatch: 'full', },
-			{ path: 'home', component: HomeComponent },
+			{ path: 'home', component: 'app/features/dashboard/dashboard.module#DashboardModule' },
 			{ path: 'project', loadChildren: 'app/features/project/project.module#ProjectModule' },
 			{ path: 'task', loadChildren: 'app/features/tasks/tasks.module#TasksModule' },
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
