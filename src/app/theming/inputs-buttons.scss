@@ -76,7 +76,14 @@ button, input[type="submit"], .button {
 	&:hover {
 		background: var(--color-primary-dark);
 	}
-
+	&.secondary {
+		background: var(--color-secondary);
+		color: var(--color-txt-primary);
+		&:hover {
+			background: var(--color-secondary-dark);
+			color: white;
+		}
+	}
 	&.light {
 		background: transparent;
 		color: var(--color-txt);

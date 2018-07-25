@@ -76,8 +76,8 @@
 	<divider-app></divider-app>
 
 	<dialog-footer-app>
-		<button class="light cancel" (click)="closeDlg()">Cancel</button>
-		<button *ngIf="index > 0" class="light" (click)="previous()">Back</button>
+		<button class="secondary" (click)="closeDlg()">Cancel</button>
+		<button *ngIf="index > 0" class="secondary" (click)="previous()">Back</button>
 		<input [disabled]="!detailGroup.valid || (index === 1 && selected.size <= 0)" type="submit" value="{{index !== 2 ? 'Next' : 'Send RFQ'}}" (click)="onSubmit()"/>
 	</dialog-footer-app>
 
