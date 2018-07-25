@@ -39,6 +39,8 @@ import { ProductPreviewComponent } from '~features/products/components/product-p
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
+import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
+
 
 @NgModule({
 	imports: [
@@ -80,7 +82,8 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		ProductPreviewComponent,
 		ProductNavigationComponent,
 		RfqDialogComponent,
-		EmailListComponent
+		EmailListComponent,
+		ProductGridCardComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
