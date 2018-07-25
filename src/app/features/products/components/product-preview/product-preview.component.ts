@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule } from '@angular/core';
 import { Product, ProductConfig, ERM, Contact } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
@@ -8,6 +8,8 @@ import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators
 import { ProductFeatureService } from '~features/products/services';
 import { DialogService } from '~shared/dialog';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
+import { ProductModule } from '~features/products';
+import { NgModuleRef } from '@angular/core';
 
 @Component({
 	selector: 'product-preview-app',
@@ -60,7 +62,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
 
-	constructor(private featureSrv: ProductFeatureService, private dlgSrv: DialogService) {
+	constructor(
+		private featureSrv: ProductFeatureService,
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -96,7 +101,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
-		this.dlgSrv.open(RfqDialogComponent, { product: this.product, contacts: this.contacts });
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product, contacts: this.contacts });
 	}
 
 }
