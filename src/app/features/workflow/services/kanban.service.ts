@@ -5,14 +5,13 @@ import { Subject } from 'rxjs';
 	providedIn: 'root'
 })
 export class KanbanService {
-	dataTransfer: any;
-	leavingBag: any;
-	index: number;
-	isDragging: boolean;
-
+	/** The dragStart subject for the kanban (the drag'n drop started) */
 	dragStart$ = new Subject<{ namespace: string, data: any }>();
+	/** The dragStart subject for the kanban (the drag'n drop ended) */
 	dragEnd$ = new Subject<{ namespace: string, data: any }>();
+	/** The itemEntered subject for the kanban (item entered a dropzone) */
 	itemEntered$ = new Subject<{ namespace: string }>();
+	/** The itemLeft subject for the kanban (item left a dropzone) */
 	itemLeft$ = new Subject<{ namespace: string }>();
 
 	constructor() { }

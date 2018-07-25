@@ -7,7 +7,6 @@
 			(itemDropped)="itemDropped.next($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"
-			[bag]="status.id"
 			[label]="status.name"
 			borderColor="{{ status.id }}"
 			[namespace]="status.id"

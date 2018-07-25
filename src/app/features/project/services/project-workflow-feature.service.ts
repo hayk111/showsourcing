@@ -47,8 +47,8 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	}
 
 	updateProductStatus(product: Product, status: ProductStatus) {
-		console.log('>> updateProductStatus - product = ', product, ' - status = ', status);
-		if (status.id !== product.statuses[0].status.id) { // we dont update if we click the same
+		 // we dont update if we click the same status as the current one of the product
+		if (status.id !== product.statuses[0].status.id) {
 			const tempS = new ProductStatus({ status: { id: status.id } });
 			return this.update({ ...product, statuses: [tempS, ...product.statuses] });
 		}

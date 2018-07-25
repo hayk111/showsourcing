@@ -8,6 +8,11 @@ interface Position {
 	y: number;
 }
 
+/**
+ * The directive relying on drag'n drop events (dragStart, dragMove, dragEnd) and handling element moving.
+ * Most of the time this directive is used for elements to drag.
+ */
+
 @Directive({
 	selector: '[movableApp]'
 })
@@ -20,11 +25,15 @@ export class MovableDirective extends DraggableDirective {
 
 	@HostBinding('class.movable') movable = true;
 
+	/** The current position of the element involved in drag'n drop */
 	position: Position = {x: 0, y: 0};
 
+	/** The start position of the element */
 	private startPosition: Position;
 
-  @Input('movableApp') data: any;
+	/** The data associated with the element */
+	@Input('movableApp') data: any;
+	/** If the element position must be on dragEnd event */
 	@Input('appMovableReset') reset = false;
 
 	constructor(private sanitizer: DomSanitizer, public element: ElementRef,
@@ -37,7 +46,7 @@ export class MovableDirective extends DraggableDirective {
 		this.startPosition = {
 			x: event.clientX - this.position.x,
 			y: event.clientY - this.position.y
-    };
+		};
 		this.droppableService.onDragStart(event, this.data);
 	}
 
