@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, switchMap, tap, catchError } from 'rxjs/operators';
@@ -34,8 +34,9 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
-		protected route: ActivatedRoute) {
-		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PRODUCT, NewProductDialogComponent);
+		protected route: ActivatedRoute,
+		protected moduleRef: NgModuleRef<any>) {
+		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
 	ngOnInit() {

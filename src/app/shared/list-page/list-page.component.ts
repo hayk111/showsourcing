@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil, tap, map, switchMap } from 'rxjs/operators';
@@ -53,6 +53,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>,
 		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
@@ -275,12 +276,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** opens the create dialog, redirects you to entityMetadata.createUrl if its truem otherwise it will stay on the same page */
 	openCreateDlg(shouldRedirect: boolean = false) {
-		this.dlgSrv.open(this.createDlgComponent, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
+		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
 	openEditDlg(entity: T) {
-		this.dlgSrv.open(this.editDlgComponent, { type: this.entityMetadata, entity: entity });
+		this.dlgSrv.openFromModule(this.editDlgComponent, this.moduleRef, { type: this.entityMetadata, entity: entity });
 	}
 
 }

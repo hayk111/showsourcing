@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service';
@@ -27,9 +27,10 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.CATEGORY);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.CATEGORY);
 	}
 
 }

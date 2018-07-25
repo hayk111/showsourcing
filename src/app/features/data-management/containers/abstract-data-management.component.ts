@@ -6,6 +6,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/generic-dialog';
 import { FilterService, SearchService } from '~shared/filters';
+import { NgModuleRef } from '@angular/core';
 
 export abstract class AbstractDataManagementComponent<T extends { id?: string },
 	G extends GlobalServiceInterface<T>> extends ListPageComponent<T, G> {
@@ -17,13 +18,14 @@ export abstract class AbstractDataManagementComponent<T extends { id?: string },
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>,
 		public entityMetadata: EntityMetadata
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, entityMetadata);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, entityMetadata);
 	}
 
 	mergeSelected() {
 		const items = Array.from(this.selectionSrv.selection.keys());
-		this.dlgSrv.open(MergeDialogComponent, { type: this.entityMetadata, entities: items });
+		this.dlgSrv.openFromModule(MergeDialogComponent, this.moduleRef, { type: this.entityMetadata, entities: items });
 	}
 }
