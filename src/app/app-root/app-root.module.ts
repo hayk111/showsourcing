@@ -26,7 +26,7 @@ import { WorkflowModule } from '~features/workflow';
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
 @NgModule({
-	declarations: [AppComponent, HomeComponent],
+	declarations: [AppComponent],
 	imports: [
 		AppApolloModule,
 		BrowserModule,
@@ -63,7 +63,4 @@ import { WorkflowModule } from '~features/workflow';
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })
-export class AppRootModule {
-
-
-}
+export class AppRootModule { }
