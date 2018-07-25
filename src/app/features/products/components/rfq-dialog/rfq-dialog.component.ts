@@ -47,7 +47,8 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	onSubmit() {
-		if (this.index < this.maxInd)++this.index;
+		if (this.index < this.maxInd)
+			++this.index;
 		else {
 			// Send information
 		}

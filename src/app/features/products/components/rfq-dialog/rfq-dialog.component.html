@@ -10,7 +10,7 @@
 	</stage-indicator-app>
 
 	<!-- Stage 1 -->
-	<ng-container *ngIf="index == 0">
+	<ng-container *ngIf="index === 0">
 		<h3>REQUEST DETAIL</h3>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
@@ -37,7 +37,7 @@
 	</ng-container>
 
 	<!-- Stage 2 -->
-	<ng-container *ngIf="index == 1">
+	<ng-container *ngIf="index === 1">
 		<h3>SELECT RECIPIENT</h3>
 		<form [formGroup]="emailGroup" class="flex">
 			<form-field-app class="email-field">
@@ -63,7 +63,7 @@
 	</ng-container>
 
 	<!-- Stage 3 -->
-	<ng-container *ngIf="index == 2">
+	<ng-container *ngIf="index === 2">
 		<h3>REQUEST DETAIL</h3>
 		<label-app class="title">Product</label-app>
 		<image-previewer-app
