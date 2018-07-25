@@ -15,8 +15,7 @@ import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import * as ClientGuards from '~shared/apollo/guards';
-import { TemplateComponent } from '~shared/template';
-import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
+import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 
 export const routes: Array<Route> = [
 	{
@@ -44,6 +43,15 @@ export const routes: Array<Route> = [
 		]
 	},
 	{
+		path: 'rfq',
+		component: RfqTemplateComponent,
+		canActivateChild: [
+		],
+		children: [
+			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
+		],
+	},
+	{
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
@@ -61,6 +69,7 @@ export const routes: Array<Route> = [
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
 			{ path: 'supplier', loadChildren: 'app/features/supplier/supplier.module#SuppliersModule' },
 			{ path: 'settings', loadChildren: 'app/features/settings/settings.module#SettingsModule' },
+			{ path: 'rfq', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 			{ path: 'test', children: testRoutes }
 		],
 	},

@@ -5,10 +5,11 @@ import { SharedModule } from '~shared/shared.module';
 import { HeaderModule } from '~shared/header/header.module';
 import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
 import { TemplateComponent } from '~shared/template/components/template/template.component';
+import { RfqTemplateComponent } from '~shared/template/components/rfq-template/rfq-template.component';
 
 @NgModule({
 	imports: [SharedModule, RouterModule.forChild([]), HeaderModule],
-	declarations: [TemplateComponent, GuestTemplateComponent],
+	declarations: [TemplateComponent, GuestTemplateComponent, RfqTemplateComponent],
 	exports: [],
 })
 export class TemplateModule {

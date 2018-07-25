@@ -1,0 +1,30 @@
+:host {
+	display: block;
+	height: 100vh;
+	width: 100%;
+	background: var(--color-bg);
+	display:flex;
+	flex-direction: column;
+}
+header {
+	padding: var(--spacing-m);
+	align-items: center;
+	font-family: 'Raleway', sans-serif;
+	color: var(--color-txt-strong);
+
+	&.left {
+		align-items: start;
+	}
+
+	.sub-title {
+		margin-top: 12px;
+	}
+}
+
+b {
+	font-weight: bold;
+}
+
+main {
+	flex-grow: 1;
+}
