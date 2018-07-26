@@ -1,0 +1,84 @@
+<dialog-app>
+
+	<dialog-header-app>
+		Send Request for Quotation (RFQ)
+	</dialog-header-app>
+
+	<stage-indicator-app
+		[titles]="titles"
+		[index]="index">
+	</stage-indicator-app>
+
+	<!-- Stage 1 -->
+	<ng-container *ngIf="index === 0">
+		<h3>REQUEST DETAIL</h3>
+		<label-app class="title">Product</label-app>
+		<image-previewer-app
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
+		<form [formGroup]="detailGroup">
+			<form-field-app>
+				<label-app>Request Title</label-app>
+				<input inputApp type="text" formControlName="title" placeholder="Inquiry for {{product.supplier.name}}"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app>Targeted Quantity</label-app>
+				<input inputApp type="text" formControlName="quantity" placeholder="Quantity for {{product.supplier.name}}"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app>Description</label-app>
+				<textarea inputApp type="text" formControlName="description" cols="30" rows="10"></textarea>
+				<p>Be as precise as possible regarding your requested message</p>
+			</form-field-app>
+		</form>
+
+	</ng-container>
+
+	<!-- Stage 2 -->
+	<ng-container *ngIf="index === 1">
+		<h3>SELECT RECIPIENT</h3>
+		<form [formGroup]="emailGroup" class="flex">
+			<form-field-app class="email-field">
+				<label-app>Add New Email Address</label-app>
+				<input inputApp type="text" formControlName="email" placeholder="Add Email Address"/>
+			</form-field-app>
+			<button class="add-email" [disabled]="!emailGroup.valid" (click)="addEmail()" (keyup.enter)="addEmail()">Add</button>
+		</form>
+		<email-list-app
+			[contacts]="contacts"
+			[supplierId]="product.supplier.id"
+			[selected]="selected"
+			(onSelectMail)="selectMail($event)"
+			(onUnselectMail)="unSelectMail($event)">
+		</email-list-app>
+		<checkbox-app
+			[class.longText]="true"
+			#checkbox
+			(check)="toggleCopy()"
+			(unCheck)="toggleCopy()"
+			[checked]="copyEmail">Send me a copy to my email address
+		</checkbox-app>
+	</ng-container>
+
+	<!-- Stage 3 -->
+	<ng-container *ngIf="index === 2">
+		<h3>REQUEST DETAIL</h3>
+		<label-app class="title">Product</label-app>
+		<image-previewer-app
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
+	</ng-container>
+
+	<divider-app></divider-app>
+
+	<dialog-footer-app>
+		<button class="secondary" (click)="closeDlg()">Cancel</button>
+		<button *ngIf="index > 0" class="secondary" (click)="previous()">Back</button>
+		<input [disabled]="!detailGroup.valid || (index === 1 && selected.size <= 0)" type="submit" value="{{index !== 2 ? 'Next' : 'Send RFQ'}}" (click)="onSubmit()"/>
+	</dialog-footer-app>
+
+</dialog-app>

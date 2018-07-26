@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ERM, Project } from '~models';
@@ -27,9 +27,10 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PROJECT);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PROJECT);
 	}
 
 }

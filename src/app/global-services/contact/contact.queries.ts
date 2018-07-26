@@ -11,6 +11,7 @@ export class ContactQueries implements GlobalQuery {
 			email,
 			jobTitle
 			businessCardImage {
+				id,
 				fileName
 			},
 		}
@@ -56,8 +57,13 @@ export class ContactQueries implements GlobalQuery {
 				email,
 				jobTitle
 				businessCardImage {
+					id,
 					fileName
 				},
+				supplier {
+					id,
+					name,
+				}
 			}
 		}
 	`;

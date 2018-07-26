@@ -76,7 +76,14 @@ button, input[type="submit"], .button {
 	&:hover {
 		background: var(--color-primary-dark);
 	}
-
+	&.secondary {
+		background: var(--color-secondary);
+		color: var(--color-txt-primary);
+		&:hover {
+			background: var(--color-secondary-dark);
+			color: white;
+		}
+	}
 	&.light {
 		background: transparent;
 		color: var(--color-txt);
@@ -115,8 +122,8 @@ button, input[type="submit"], .button {
 
 // disabled buttons
 button:disabled, input[type="submit"]:disabled {
-	background: var(--color-secondary-dark);
-	color: white;
+	background: var(--color-secondary);
+	color: var(--color-secondary-dark);
 	border: none;
 	cursor: default;
 }

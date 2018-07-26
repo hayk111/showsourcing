@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractDataManagementComponent } from '~features/data-management/containers/abstract-data-management.component';
 import { EventManagementService } from '~features/data-management/services/event-management.service';
@@ -26,8 +26,9 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.EVENT);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
 	}
 }

@@ -29,7 +29,9 @@ import {
 	ProductSubInfoComponent,
 	ProjectCardComponent,
 	SelectionActionsComponent,
-	SupplierCardComponent
+	SupplierCardComponent,
+	RfqDialogComponent,
+	EmailListComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import {
@@ -43,7 +45,7 @@ import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageCompo
 import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
-
+import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 
 @NgModule({
 	imports: [
@@ -62,7 +64,8 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		CommentModule,
 		TopPanelModule,
 		SearchAutocompleteModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		StageIndicatorModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -85,13 +88,16 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		NewProductDialogComponent,
 		GroupByPipe,
 		ProductPreviewComponent,
-		ProductNavigationComponent
+		ProductNavigationComponent,
+		RfqDialogComponent,
+		EmailListComponent
 	],
 	entryComponents: [
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent,
 		ProductAddToProjectDlgComponent,
-		NewProductDialogComponent
+		NewProductDialogComponent,
+		RfqDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
 	providers: [ProductFeatureService]

@@ -41,7 +41,7 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected teamService: TeamService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, memberSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.TEAM_USER);
+		super(router, memberSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER);
 	}
 
 	ngOnInit() {

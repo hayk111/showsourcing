@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -31,9 +31,10 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService
+		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.SUPPLIER);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.SUPPLIER);
 	}
 
 }

@@ -6,7 +6,10 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-  display: flex;
+	display: block;
 	align-items: center;
 	justify-content: center;
+  overflow-y: overlay;
+	padding-top: 18px;
+	padding-bottom: 18px;
 }

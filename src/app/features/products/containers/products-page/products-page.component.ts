@@ -42,7 +42,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, ERM.PRODUCT);
+		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	/**

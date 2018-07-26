@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
 import { Product, Project, TeamUser, ProductVoteRequest, User } from '~models';
 
-import { ProductService, ProjectService, TeamUserService } from '~global-services';
+import { ProductService, ProjectService, TeamUserService, ContactService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ApolloWrapper } from '~shared/apollo';
@@ -15,7 +15,8 @@ export class ProductFeatureService extends ProductService {
 		protected wrapper: ApolloWrapper,
 		private projectSrv: ProjectService,
 		private productVoteReqSrv: ProductVoteRequestService,
-		private teamUserSrv: TeamUserService
+		private teamUserSrv: TeamUserService,
+		private contactSrv: ContactService
 	) {
 		super(wrapper);
 	}
@@ -57,6 +58,12 @@ export class ProductFeatureService extends ProductService {
 		products = products.map(product => ({ id: product.id }));
 		const requests = products.map(product => this.productVoteReqSrv.create(new ProductVoteRequest({ users, product })));
 		return forkJoin(requests);
+	}
+
+	getContacts(supplierId: string) {
+		return this.contactSrv.selectMany(
+			of(new SelectParams({ query: `supplier.id == "${supplierId}"` }))
+		);
 	}
 
 }

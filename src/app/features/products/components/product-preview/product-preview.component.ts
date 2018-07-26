@@ -1,11 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, ProductConfig, ERM } from '~models';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule } from '@angular/core';
+import { Product, ProductConfig, ERM, Contact } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub, debug } from '~utils';
-import { takeUntil, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
+import { DialogService } from '~shared/dialog';
+import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
+import { ProductModule } from '~features/products';
+import { NgModuleRef } from '@angular/core';
 
 @Component({
 	selector: 'product-preview-app',
@@ -21,6 +25,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	descriptor2$ = new ReplaySubject<FormDescriptor>(1);
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
+	/** Contacts given a supplier of the product */
+	contacts: Array<Contact>;
 	prodERM = ERM.PRODUCT;
 
 	// those are the custom fields for the first form section
@@ -56,7 +62,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
 
-	constructor(private featureSrv: ProductFeatureService) {
+	constructor(
+		private featureSrv: ProductFeatureService,
+		private dlgSrv: DialogService,
+		private moduleRef: NgModuleRef<any>) {
 		super();
 	}
 
@@ -71,6 +80,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
+		this.featureSrv.getContacts(this.product.supplier.id).pipe(
+			first()
+		).subscribe(m => this.contacts = m);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -86,6 +98,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: any) {
 		return this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+	}
+
+	openRfq() {
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product, contacts: this.contacts });
 	}
 
 }
