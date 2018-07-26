@@ -59,16 +59,23 @@ export class ActivityService {
   getDashboardActivity() {
     const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
     const client = stream.connect('mvufdhfnfz83', null, '39385');
+    // gets feed token
     return this.http.get(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
+      // once we have the token we can get a feed
       switchMap(({ token }: any) => {
         const teamStream = client.feed('team', teamId, token);
         return from(teamStream.get({ limit: 15 }));
       }),
       map((r: any) => r.results),
+      // since a feed only has ids we need to select items in the db and add those to the feed
       tap(results => this.addData(results))
     );
   }
 
+  /**
+   *
+   * Selects item in db and add those to feed
+   */
   private addData(results: GetStreamResult[]) {
     results.forEach(res => {
       res.obs = forkJoin(res.activities.map(act => this.addDataToActivity(act)));
