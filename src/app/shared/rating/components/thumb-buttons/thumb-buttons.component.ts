@@ -20,7 +20,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Input() isSingle = true;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
-		this.userVote = votes.find(v => v.user.id === this.userSrv.userSync.id);
+		this.userVote = (votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 		this._votes = votes;
 	}
 	get votes() {

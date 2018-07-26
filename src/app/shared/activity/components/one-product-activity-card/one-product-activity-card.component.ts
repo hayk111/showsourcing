@@ -10,6 +10,7 @@ import { Product } from '~models';
 export class OneProductActivityCardComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
+	@Output() viewProduct = new EventEmitter<string>();
 	constructor() { }
 
 	ngOnInit() {
@@ -27,5 +28,13 @@ export class OneProductActivityCardComponent implements OnInit {
 		this.update.emit({ id: this.product.id, favorite: false });
 	}
 
+
+	onVote(votes) {
+		this.update.emit({ id: this.product.id, votes });
+	}
+
+	onViewProduct() {
+		this.viewProduct.emit(this.product.id);
+	}
 
 }
