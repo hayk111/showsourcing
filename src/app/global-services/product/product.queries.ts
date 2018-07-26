@@ -103,7 +103,8 @@ export class ProductQueries implements GlobalQuery {
 			samplePrice,
 			createdBy {
 				id, firstName, lastName
-			}
+			},
+			creationDate
 		}
 	}
 	`;

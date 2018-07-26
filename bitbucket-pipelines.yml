@@ -8,8 +8,8 @@ pipelines:
         script:
           - npm install
           - npm run build --prod
-        caches:
-          - node
+        # caches:
+        #   - node
   branches:
     master:
       - step:
