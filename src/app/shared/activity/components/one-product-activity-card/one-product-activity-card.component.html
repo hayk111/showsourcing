@@ -9,7 +9,7 @@
 	<!-- preview  -->
 	<div class="previewCtnr flex flexGrow" (click)="onViewProduct()" *ngIf="product.images as images">
 		<ng-container *ngIf="images[0]">
-			<img-app size="l" class="img1" [ngClass]="{ 'big' : !hasThreeImages() }" [image]="images[0]"></img-app>
+			<img-app size="xl" class="img1" [ngClass]="{ 'big' : !hasThreeImages() }" [image]="images[0]"></img-app>
 		</ng-container>
 
 		<div *ngIf="hasThreeImages()" class="flexColumn flexBetween">
