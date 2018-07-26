@@ -8,7 +8,7 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import {
 	ProductAddToProjectDlgComponent
-} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
+} from '~shared/custom-dialog';
 
 
 @Component({

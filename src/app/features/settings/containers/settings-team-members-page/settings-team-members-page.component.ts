@@ -13,7 +13,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
 
 import { TeamService, UserService } from '~global-services';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'settings-team-members-page-app',

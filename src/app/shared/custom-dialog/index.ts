@@ -1,3 +1,3 @@
-export * from '~shared/generic-dialog/generic-dialog.module';
-export * from '~shared/generic-dialog/component';
-export * from '~shared/generic-dialog/services';
+export * from '~shared/custom-dialog/custom-dialog.module';
+export * from '~shared/custom-dialog/component';
+export * from '~shared/custom-dialog/services';

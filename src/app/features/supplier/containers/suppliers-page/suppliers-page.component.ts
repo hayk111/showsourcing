@@ -10,7 +10,7 @@ import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent } from '~shared/custom-dialog';
 
 
 @Component({

@@ -13,7 +13,7 @@ import { TagDataManagementPageComponent } from '~features/data-management/contai
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
-import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent, EditionDialogComponent, MergeDialogComponent } from '~shared/custom-dialog';
 
 @NgModule({
 	imports: [

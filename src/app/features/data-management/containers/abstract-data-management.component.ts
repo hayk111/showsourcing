@@ -4,7 +4,7 @@ import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { MergeDialogComponent } from '~shared/generic-dialog';
+import { MergeDialogComponent } from '~shared/custom-dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { NgModuleRef } from '@angular/core';
 

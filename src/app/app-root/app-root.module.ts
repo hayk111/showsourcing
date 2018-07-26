@@ -11,7 +11,7 @@ import { UserModule } from '~features/user';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { CardModule } from '~shared/card';
 import { DialogModule } from '~shared/dialog';
-import { GenericDialogModule } from '~shared/generic-dialog';
+import { CustomDialogModule } from '~shared/custom-dialog';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
@@ -45,7 +45,7 @@ import { WorkflowModule } from '~features/workflow';
 		// shared
 		NotificationsModule,
 		DialogModule,
-		GenericDialogModule,
+		CustomDialogModule,
 		// modules features
 		PickATeamModule,
 		TestPageModule,

@@ -5,7 +5,7 @@ import { DialogService } from '~shared/dialog';
 import { Router } from '@angular/router';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { CrudDialogService } from '~shared/generic-dialog/services';
+import { CrudDialogService } from '~shared/custom-dialog/services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

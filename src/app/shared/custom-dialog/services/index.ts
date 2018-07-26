@@ -1,1 +1,1 @@
-export * from '~shared/generic-dialog/services/crud-dialog.service';
+export * from '~shared/custom-dialog/services/crud-dialog.service';

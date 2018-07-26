@@ -15,7 +15,7 @@ import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/settings/routes';
 import { DataManagementModule } from '~features/data-management/data-management.module';
-import { GenericDialogModule } from '~shared/generic-dialog/generic-dialog.module';
+import { CustomDialogModule } from '~shared/custom-dialog/custom-dialog.module';
 
 import {
 	InviteUserDlgComponent,
@@ -49,7 +49,7 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 		ContextMenuModule,
 		SidenavModule,
 		FileModule,
-		GenericDialogModule
+		CustomDialogModule
 	],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,

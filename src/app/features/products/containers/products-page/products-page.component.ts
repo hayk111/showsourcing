@@ -4,11 +4,9 @@ import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {
 	ProductAddToProjectDlgComponent,
-} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
-import { ProductExportDlgComponent } from '~features/products/components/product-export-dlg/product-export-dlg.component';
-import {
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
+	ProductExportDlgComponent,
+	ProductRequestTeamFeedbackDlgComponent
+} from '~shared/custom-dialog';
 import { ProductFeatureService } from '~features/products/services';
 import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -18,7 +16,7 @@ import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
-import { CreationDialogComponent } from '~shared/generic-dialog';
+import { CreationDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'products-page-app',
