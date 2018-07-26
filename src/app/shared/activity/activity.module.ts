@@ -12,7 +12,8 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule
+		SharedModule,
+		RatingModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,

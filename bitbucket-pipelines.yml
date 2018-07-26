@@ -20,8 +20,8 @@ pipelines:
             - npm run build --prod
           artifacts:
             - dist/**
-          # caches:
-          #   - node
+          caches:
+            - node
 
       - step:
           image: atlassian/pipelines-awscli
