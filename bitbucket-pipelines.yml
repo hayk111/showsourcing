@@ -8,8 +8,8 @@ pipelines:
         script:
           - npm install
           - npm run build --prod
-        # caches:
-        #   - node
+        caches:
+          - node
   branches:
     master:
       - step:
@@ -20,8 +20,8 @@ pipelines:
             - npm run build --prod
           artifacts:
             - dist/**
-          # caches:
-          #   - node
+          caches:
+            - node
 
       - step:
           image: atlassian/pipelines-awscli
