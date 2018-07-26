@@ -52,13 +52,16 @@ export class ActivityService {
 
   }
 
+  /**
+   * Gets the dashboard activity
+   */
   getDashboardActivity() {
-    const teamId = 'e7b197c7-6811-478d-a76f-359bb918821b';
+    const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
     const client = stream.connect('mvufdhfnfz83', null, '39385');
     return this.http.get(`http://localhost:3000/${teamId}`).pipe(
       switchMap(({ token }: any) => {
         const teamStream = client.feed('team', teamId, token);
-        return from(teamStream.get({ limit: 2 }))
+        return from(teamStream.get({ limit: 15 }))
       }),
       map((r: any) => r.results),
       tap(results => this.addData(results))
@@ -69,8 +72,6 @@ export class ActivityService {
     results.forEach(res => {
       res.obs = forkJoin(res.activities.map(act => this.addDataToActivity(act)));
     });
-
-
   }
 
   private addDataToActivity(activity: GetStreamActivity) {

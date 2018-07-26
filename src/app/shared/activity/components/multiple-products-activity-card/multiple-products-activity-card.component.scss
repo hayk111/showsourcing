@@ -9,8 +9,10 @@ activity-user-app {
 // previews
 
 .previewCtnr {
+	overflow-x: auto;
 	height: 174px;
 	.preview {
+		margin-right: var(--spacing-s);
 		width: 140px;
 		img-app {
 			width: 140px;

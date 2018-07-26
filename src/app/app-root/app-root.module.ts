@@ -25,6 +25,7 @@ import { WorkflowModule } from '~features/workflow';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
+
 @NgModule({
 	declarations: [AppComponent],
 	imports: [

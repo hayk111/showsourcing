@@ -1,21 +1,27 @@
 <ng-container *ngFor="let feed of feeds">
-  <ng-container [ngSwitch]="feed.verb">
 
+  <ng-container [ngSwitch]="feed.verb">
+    <!-- product -->
     <ng-container *ngSwitchCase="'update_product'">
+
       <ng-container *ngIf="feed.activities.length > 1; else one">
-        <multiple-products-activity-card-app [products]="feed.obs | async"></multiple-products-activity-card-app>
+        <ng-container *ngIf="feed.obs | async as products">
+          <multiple-products-activity-card-app
+          [products]="feed.obs | async"></multiple-products-activity-card-app>
+        </ng-container>
       </ng-container>
       <ng-template #one>
-        <one-product-activity-card-app [product]="(feed.obs | async)[0]"></one-product-activity-card-app>
+        <ng-container *ngIf="(feed.obs | async) as products">
+          <one-product-activity-card-app
+          [product]="products[0]"
+          (update)="updateProduct($event)"
+          (viewProduct)="goToProduct($event)"></one-product-activity-card-app>
+        </ng-container>
       </ng-template>
-    </ng-container>
-  </ng-container>
 
+    </ng-container>
+
+  </ng-container>
 
 </ng-container>
 
-
-
-  <!-- <one-product-activity-card-app>
-
-  </one-product-activity-card-app> -->

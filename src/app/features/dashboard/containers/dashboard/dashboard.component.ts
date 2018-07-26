@@ -27,12 +27,4 @@ export class DashboardComponent implements OnInit {
 		this.feeds$ = this.activitySrv.getDashboardActivity();
 	}
 
-	updateProduct(product: Product) {
-		this.productSrv.update(product).subscribe();
-	}
-
-	goToProduct(id: string) {
-		this.router.navigate(['product', 'details', id]);
-	}
-
 }

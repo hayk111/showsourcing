@@ -3,19 +3,19 @@
 	<!-- user -->
 	<activity-user-app
 		[user]="products[0].createdBy"
-		[time]="products[0].creationDate"
+		[time]="time"
 		action="created {{ products.length }} new products"></activity-user-app>
 
 	<!-- previews -->
-	<div class="previewCtnr">
-		<div class="preview flexColumn" *ngFor="let product of products">
+	<div class="previewCtnr flex">
+		<div class="preview flexColumn" *ngFor="let product of firstFour">
 			<img-app
 				class="pointer"
 				[image]="product"></img-app>
 			<div class="productName flexBetween">
 				<span>{{ product.name }}</span>
 				<div>
-					<icon-app  class="fav" name="heart" fontSet="fa" *ngIf="product.favorite"></icon-app>
+					<icon-app class="fav" name="heart" fontSet="fa" *ngIf="product.favorite"></icon-app>
 				</div>
 			</div>
 			<span class="priceMoq">

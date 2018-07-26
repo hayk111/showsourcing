@@ -8,11 +8,16 @@ import { Product } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleProductsActivityCardComponent implements OnInit {
-	@Input() products: Product[];
+	@Input() products: Product[] = [];
+	@Input() time: Date;
 	@Output() viewProducts = new EventEmitter<Product[]>();
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	get firstFour() {
+		return this.products.slice(0, 4);
 	}
 
 }

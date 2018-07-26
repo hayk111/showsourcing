@@ -117,11 +117,11 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	/** Michael did this:
-	 *  This is used to eliminate spaces at the sides of the strings in the entity
+	 *  This is used to eliminate spaces at the sides of the strings in the entity properties.
+	 *  CopyRight Michael Corp.
 	 */
 	private trim(entity: T) {
 		Object.entries(entity).forEach(([k, v]) => {
-			// if (isObject(v)) this.trim(v); // enable this line in order to do every objects inside the entity
 			if (!isObject(v) && typeof v === 'string') entity[k] = v.trim();
 		});
 	}

@@ -22,7 +22,8 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
 	],
 	exports: [
 		OneProductActivityCardComponent,
-		MultipleProductsActivityCardComponent
+		MultipleProductsActivityCardComponent,
+		ActivityListComponent
 	]
 })
 export class ActivityModule { }
