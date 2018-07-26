@@ -15,8 +15,7 @@
         <ng-container *ngIf="(feed.obs | async) as products">
           <one-product-activity-card-app
           [product]="products[0]"
-          (update)="updateProduct($event)"
-          (viewProduct)="goToProduct($event)"></one-product-activity-card-app>
+          (update)="updateProduct($event)"></one-product-activity-card-app>
         </ng-container>
       </ng-template>
 

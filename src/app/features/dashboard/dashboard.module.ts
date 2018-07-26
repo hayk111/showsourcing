@@ -7,6 +7,7 @@ import { ActivityModule } from '~shared/activity/activity.module';
 import { DialogModule } from '~shared/dialog';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import { ProductDialogService } from '~shared/custom-dialog/services/product-dia
 		RouterModule.forChild(routes),
 		ActivityModule,
 		DialogModule,
-		CustomDialogModule
+		CustomDialogModule,
+		UtilsModule
 	],
 	declarations: [DashboardComponent],
 	providers: [
