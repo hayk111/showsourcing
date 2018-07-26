@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
 import { Product } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
@@ -14,7 +14,11 @@ export class OneProductActivityCardComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
-	constructor(private router: Router, private dlgSrv: DialogService) { }
+	constructor(
+		private router: Router,
+		private dlgSrv: DialogService,
+		private module: NgModuleRef<any>
+	) { }
 
 	ngOnInit() {
 	}
@@ -45,7 +49,7 @@ export class OneProductActivityCardComponent implements OnInit {
 	}
 
 	openAddToProject() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: this.product });
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
 	}
 
 }

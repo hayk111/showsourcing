@@ -6,6 +6,7 @@ import { routes } from './routes';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { DialogModule } from '~shared/dialog';
 import { CustomDialogModule } from '~shared/custom-dialog';
+import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
 
 @NgModule({
 	imports: [
@@ -15,6 +16,9 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		DialogModule,
 		CustomDialogModule
 	],
-	declarations: [DashboardComponent]
+	declarations: [DashboardComponent],
+	providers: [
+		ProductDialogService
+	]
 })
 export class DashboardModule { }

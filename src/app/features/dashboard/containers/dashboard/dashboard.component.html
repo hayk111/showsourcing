@@ -1,2 +1,2 @@
 
-<activity-list-app [feeds]="feeds$ | async"></activity-list-app>
+<activity-list-app [feeds]="(feeds$ | async)?.results"></activity-list-app>

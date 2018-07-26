@@ -1,22 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
-import { Observable, of, zip } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent
+	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
-import { ProductFeatureService } from '~features/products/services';
-import { TagService, CategoryService, SupplierService, EventService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
-import { ERM, Product, Tag, Event, Category, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
-import { CreationDialogComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'products-page-app',

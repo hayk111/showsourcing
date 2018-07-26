@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
 import { ProductService } from '~global-services';
 import { Product } from '~models';
 import { Router } from '@angular/router';
-import { ActivityService, GetStreamResult } from '~shared/activity/services/activity.service';
+import { ActivityService, GetStreamResult, GetStreamResponse } from '~shared/activity/services/activity.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 	}
 })
 export class DashboardComponent implements OnInit {
-	feeds$: Observable<GetStreamResult[]>;
+	feeds$: Observable<GetStreamResponse>;
 
 	constructor(
 		private productSrv: ProductService,
