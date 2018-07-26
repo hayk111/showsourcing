@@ -1,1 +1,10 @@
-<icon-app name="thumbs-{{ orientation }}" class="{{ colorClass }}"></icon-app>
+<!-- <ng-container *ngIf="isSingle; else double"> -->
+<button class="icon light">
+	<icon-app name="thumbs-{{ orientation }}" class="{{ colorClass }}"></icon-app>
+</button>
+<!-- </ng-container> -->
+
+<!-- <ng-template #double>
+	<icon-app name="thumbs-up" class="{{ isVoteUp ? 'color-primary' : '' }}"></icon-app>
+	<icon-app name="thumbs-down" class="{{ isVoteDown ? 'color-warn' : '' }}"></icon-app>
+</ng-template> -->

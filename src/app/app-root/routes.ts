@@ -18,8 +18,6 @@ import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent } from '~shared/template';
 import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
 
-import { HomeComponent } from '~app-root/components/home/home.component';
-
 export const routes: Array<Route> = [
 	{
 		path: 'guest',
@@ -56,8 +54,8 @@ export const routes: Array<Route> = [
 			ClientGuards.TeamClientReadyGuardService
 		],
 		children: [
-			{ path: '', redirectTo: 'home', pathMatch: 'full', },
-			{ path: 'home', component: HomeComponent },
+			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },
+			{ path: 'dashboard', loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule' },
 			{ path: 'project', loadChildren: 'app/features/project/project.module#ProjectModule' },
 			{ path: 'task', loadChildren: 'app/features/tasks/tasks.module#TasksModule' },
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, NgModuleRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, takeUntil, switchMap, tap, catchError } from 'rxjs/operators';
+import { map, takeUntil, switchMap, tap, catchError, take, first } from 'rxjs/operators';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project } from '~models';
@@ -40,12 +40,16 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	}
 
 	ngOnInit() {
-		this.project$ = this.route.parent.params.pipe(
+		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.projectId = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
 		);
-		super.ngOnInit();
+		this.project$ = id$.pipe(switchMap(id => this.projectSrv.selectOne(id)));
+		// we need to wait to have the id to call super.ngOnInit, because we want the filter
+		// method to be called when we actually have the id
+		id$.pipe(
+			first()
+		).subscribe(_ => super.ngOnInit());
 	}
 
 	/** Filters items based  */

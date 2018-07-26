@@ -48,7 +48,10 @@ import { routes } from '~features/project/routes';
 		ProjectProductListComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
-	providers: [ProjectWorkflowFeatureService]
+	providers: [
+		ProjectFeatureService,
+		ProjectWorkflowFeatureService
+	]
 })
 export class ProjectModule {
 
