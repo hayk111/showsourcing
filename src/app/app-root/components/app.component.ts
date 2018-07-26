@@ -4,6 +4,7 @@ import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/g
 import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
+import { ActivityService } from '~shared/activity/services/activity.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
 		private globalClients: GlobalClientsInitializer,
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
-		private teamPicker: TeamPickerService
+		private teamPicker: TeamPickerService,
+		private activitySrv: ActivityService
 	) { }
 
 	ngOnInit(): void {
@@ -26,6 +28,6 @@ export class AppComponent implements OnInit {
 		this.userClient.init();
 		this.teamPicker.init();
 		this.teamClient.init();
-
+		this.activitySrv.init();
 	}
 }

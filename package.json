@@ -38,6 +38,7 @@
     "apollo-client": "^2.3.5",
     "apollo-link-ws": "^1.0.8",
     "core-js": "^2.5.4",
+    "getstream": "^3.19.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "rxjs": "^6.2.1",

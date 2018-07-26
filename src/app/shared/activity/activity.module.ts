@@ -5,6 +5,9 @@ import {
 	MultipleProductsActivityCardComponent
 } from './components/multiple-products-activity-card/multiple-products-activity-card.component';
 import { SharedModule } from '~shared/shared.module';
+import { RatingModule } from '~shared/rating';
+import { ActivityUserComponent } from './components/activity-user/activity-user.component';
+import { ActivityListComponent } from './components/activity-list/activity-list.component';
 
 @NgModule({
 	imports: [
@@ -13,7 +16,9 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	declarations: [
 		OneProductActivityCardComponent,
-		MultipleProductsActivityCardComponent
+		MultipleProductsActivityCardComponent,
+		ActivityUserComponent,
+		ActivityListComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,
