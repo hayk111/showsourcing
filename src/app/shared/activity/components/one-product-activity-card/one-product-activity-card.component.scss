@@ -1,0 +1,34 @@
+:host {
+	width: 680px;
+	display: block;
+}
+
+activity-user-app {
+	margin-bottom: var(--spacing-ms);
+}
+
+.img1 {
+	width: 488px;
+	height: 320px;
+	margin-right: var(--spacing-xs);
+	.big {
+		width: 660px;
+	}
+}
+
+.img2, .img3 {
+	width: 164px;
+	height: 158px;
+}
+
+img-app {
+	border-radius: var(--border-radius-s);
+}
+
+.actions {
+	font-size: 20px;
+	color: var(--color-txt-secondary);
+	& > * {
+		margin-right: var(--spacing-l);
+	}
+}

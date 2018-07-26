@@ -16,6 +16,8 @@ import { ProductVoteService } from '~global-services/product-vote/product-vote.s
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Output() vote = new EventEmitter<ProductVote[]>();
+	/** whether we display two thumbs or just one */
+	@Input() isSingle = true;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
 		this.userVote = votes.find(v => v.user.id === this.userSrv.userSync.id);
@@ -62,9 +64,17 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	get colorClass() {
 		if (!this.userVote)
 			return;
-		if (this.userVote.value === 100)
+		if (this.isVoteUp)
 			return 'color-primary';
 		return 'color-warn';
+	}
+
+	get isVoteUp() {
+		return this.userVote && this.userVote.value === 100;
+	}
+
+	get isVoteDown() {
+		return this.userVote && this.userVote.value === 0;
 	}
 
 }

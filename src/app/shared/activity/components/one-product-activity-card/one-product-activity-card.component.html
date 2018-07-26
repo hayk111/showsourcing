@@ -1,0 +1,43 @@
+<card-app>
+
+	<!-- user -->
+	<activity-user-app
+		[user]="product.createdBy"
+		[time]="product.creationDate"
+		action="created a new product"></activity-user-app>
+
+	<!-- preview  -->
+	<div class="previewCtnr flex flexGrow" *ngIf="product.images as images">
+		<ng-container *ngIf="images[0]">
+			<img-app class="img1" [ngClass]="{ 'big' : !hasThreeImages() }" [image]="images[0]"></img-app>
+		</ng-container>
+
+		<div *ngIf="hasThreeImages()" class="flexColumn flexBetween">
+			<ng-container *ngIf="images[1]">
+				<img-app class="img2" [image]="images[1]"></img-app>
+			</ng-container>
+
+			<ng-container *ngIf="images[2]">
+				<img-app class="img3" [image]="images[2]"></img-app>
+			</ng-container>
+		</div>
+
+	</div>
+
+
+
+	<card-footer-app align="left">
+
+		<div class="flexBetween">
+			<div class="actions flex flexVAlign">
+				<rating-heart-app [favorite]="product.favorite"></rating-heart-app>
+				<thumb-buttons-app [votes]="product.votes" [isSingle]="false"></thumb-buttons-app>
+				<button class="light icon">
+					<icon-app fontSet="fa" name="folder"></icon-app>
+				</button>
+			</div>
+			<button>View Product</button>
+		</div>
+
+	</card-footer-app>
+</card-app>
