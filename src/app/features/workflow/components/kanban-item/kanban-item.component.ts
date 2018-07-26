@@ -10,25 +10,24 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KanbanItemComponent implements OnInit {
+	/** The data associated with the item */
 	@Input() data;
+	/** The index associated with the item */
 	@Input() index;
+	/** The namespace associated with the item */
+	@Input() namespace;
 
 	constructor(private kanbanSrv: KanbanService, private el: ElementRef) {}
 
 	ngOnInit() {}
 
-	allowDrag(event) {
-		event.preventDefault();
-	}
-
+	/** Dispatch the dragStart event through the kanban service */
 	onDragStart(event) {
-		// passing data to service so we can retrieve it
-		this.kanbanSrv.dataTransfer = this.data;
-		this.kanbanSrv.index = this.index;
-		this.kanbanSrv.isDragging = true;
+		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: this.data });
 	}
 
+	/** Dispatch the dragEnd event through the kanban service */
 	onDragEnd(event) {
-		this.kanbanSrv.isDragging = false;
+		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: this.data });
 	}
 }

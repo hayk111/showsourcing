@@ -20,6 +20,8 @@ main {
 	padding-top: var(--spacing-m);
 	height: 100%;
 	min-height: 136px;
+	border: solid 1px transparent;
+	margin: 5px;
 }
 
 .overlay {
@@ -44,4 +46,23 @@ main {
 	background: var(--color-secondary-light);
 	transform: rotate(26deg);
 	line-height: 1;
+}
+
+.source-area-overlay {
+	background-color: var(--color-secondary-light);
+	margin: 5px;
+	border: dashed 1px var(--color-secondary);
+}
+
+.droppable-area-overlay {
+  background-color: var(--color-secondary-light);
+	border: dashed 1px #45adff;
+}
+
+.entered-area-overlay {
+	border: dashed 1px orange !important;
+}
+
+.hide-items {
+	display: none;
 }

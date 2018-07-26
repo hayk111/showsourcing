@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
@@ -22,7 +22,8 @@ export class ProjectWorkflowComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
-		private workflowService: ProjectWorkflowFeatureService
+		private workflowService: ProjectWorkflowFeatureService,
+		private cdr: ChangeDetectorRef
 	) { }
 
 	ngOnInit() {
@@ -39,6 +40,12 @@ export class ProjectWorkflowComponent implements OnInit {
 
 	onItemSelected(entityId: string) {
 
+	}
+
+	onUpdateProductStatus({ target, droppedElement }) {
+		this.workflowService.updateProductStatus(droppedElement, target).subscribe(() => {
+			this.cdr.detectChanges();
+		});
 	}
 
 }
