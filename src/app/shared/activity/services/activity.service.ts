@@ -48,6 +48,7 @@ export class ActivityService {
     private productSrv: ProductService
   ) { }
 
+
   init() {
 
   }
@@ -58,10 +59,10 @@ export class ActivityService {
   getDashboardActivity() {
     const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
     const client = stream.connect('mvufdhfnfz83', null, '39385');
-    return this.http.get(`http://localhost:3000/${teamId}`).pipe(
+    return this.http.get(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
       switchMap(({ token }: any) => {
         const teamStream = client.feed('team', teamId, token);
-        return from(teamStream.get({ limit: 15 }))
+        return from(teamStream.get({ limit: 15 }));
       }),
       map((r: any) => r.results),
       tap(results => this.addData(results))
