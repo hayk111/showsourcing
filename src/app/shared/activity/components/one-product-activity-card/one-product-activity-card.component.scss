@@ -11,7 +11,7 @@ activity-user-app {
 	width: 488px;
 	height: 320px;
 	margin-right: var(--spacing-xs);
-	.big {
+	&.big {
 		width: 660px;
 	}
 }
@@ -30,5 +30,19 @@ img-app {
 	color: var(--color-txt-secondary);
 	& > * {
 		margin-right: var(--spacing-l);
+	}
+}
+
+.prodInfo {
+	margin-top: var(--spacing-l);
+	.name {
+		color: var(--color-txt-strong);
+		font-size: var(--font-size-l);
+	}
+}
+
+.badges {
+	> * {
+		margin-right: var(--spacing-xs);
 	}
 }

@@ -25,10 +25,12 @@ export class RatingHeartComponent {
 	onClick() {
 		if (this.static)
 			return;
-		if (this.favorite)
+		if (this.favorite) {
 			this.unfavorited.emit();
-		else
-			this.favorited.emit();
+		} else {
+			this.favorited.emit();			
+		}
+
 	}
 
 }

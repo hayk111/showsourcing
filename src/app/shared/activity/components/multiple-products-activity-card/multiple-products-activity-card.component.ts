@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~models';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'multiple-products-activity-card-app',
@@ -10,14 +11,18 @@ import { Product } from '~models';
 export class MultipleProductsActivityCardComponent implements OnInit {
 	@Input() products: Product[] = [];
 	@Input() time: Date;
-	@Output() viewProducts = new EventEmitter<Product[]>();
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() {
+
 	}
 
 	get firstFour() {
 		return this.products.slice(0, 4);
+	}
+
+	goToProduct(product: Product) {
+		this.router.navigate(['product', 'details', product.id ]);
 	}
 
 }

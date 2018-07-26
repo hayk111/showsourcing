@@ -34,13 +34,6 @@ import {
 	EmailListComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
-import {
-	ProductAddToProjectDlgComponent,
-} from '~features/products/components/product-add-to-project-dlg/product-add-to-project-dlg.component';
-import { ProductExportDlgComponent } from '~features/products/components/product-export-dlg/product-export-dlg.component';
-import {
-	ProductRequestTeamFeedbackDlgComponent,
-} from '~features/products/components/product-request-team-feedback-dlg/product-request-team-feedback-dlg.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
 import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
@@ -82,9 +75,6 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		ProductGeneralInfoComponent,
 		ProductSummaryComponent,
 		SelectableImageComponent,
-		ProductAddToProjectDlgComponent,
-		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent,
 		NewProductDialogComponent,
 		GroupByPipe,
 		ProductPreviewComponent,
@@ -93,9 +83,6 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		EmailListComponent
 	],
 	entryComponents: [
-		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent,
-		ProductAddToProjectDlgComponent,
 		NewProductDialogComponent,
 		RfqDialogComponent
 	],

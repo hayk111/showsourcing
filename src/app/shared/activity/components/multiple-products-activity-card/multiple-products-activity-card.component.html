@@ -8,7 +8,7 @@
 
 	<!-- previews -->
 	<div class="previewCtnr flex">
-		<div class="preview flexColumn" *ngFor="let product of firstFour">
+		<div class="preview flexColumn" (click)="goToProduct(product)" *ngFor="let product of firstFour">
 			<img-app
 				class="pointer"
 				[image]="product"></img-app>
