@@ -1,0 +1,55 @@
+<card-app>
+
+	<!-- user -->
+	<activity-user-app
+		[user]="products[0].createdBy"
+		[time]="products[0].creationDate"
+		action="created {{ products.length }} new products"></activity-user-app>
+
+	<!-- previews -->
+	<div class="previewCtnr">
+		<div class="preview flexColumn" *ngFor="let product of products">
+			<img-app
+				class="pointer"
+				[image]="product"></img-app>
+			<div class="productName flexBetween">
+				<span>{{ product.name }}</span>
+				<div>
+					<icon-app  class="fav" name="heart" fontSet="fa" *ngIf="product.favorite"></icon-app>
+				</div>
+			</div>
+			<span class="priceMoq">
+				<ng-container *ngIf="product.price !== undefined">
+					{{ product.price.currency }} {{ product.price.value }}
+				</ng-container>
+				<ng-container *ngIf="product.minimumOrderQuantity !== undefined">
+					- {{ product.minimumOrderQuantity }} pcs
+				</ng-container>
+			</span>
+		</div>
+
+	</div>
+	<!-- supplier -->
+
+	<div class="flex supplier" *ngIf="products[0]?.supplier as supplier">
+		<div class="cercle">
+			<img-app [image]="supplier.logoImage" type="supplier"></img-app>
+		</div>
+
+		<div class="flexColumn">
+			<span class="supplierName">{{ supplier.name }}</span>
+			<span class="supplierType">
+				{{ supplier.supplierType || 'Supplier' }}
+				<ng-container *ngIf="supplier.country">
+					{{ supplier.country | const: 'country' }}
+				</ng-container>
+			</span>
+		</div>
+	</div>
+
+
+	<card-footer-app>
+		<button (click)="viewProducts.emit(products)">View Products</button>
+	</card-footer-app>
+
+</card-app>
