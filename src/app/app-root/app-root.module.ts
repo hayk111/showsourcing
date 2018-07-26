@@ -45,7 +45,6 @@ import { WorkflowModule } from '~features/workflow';
 		// shared
 		NotificationsModule,
 		DialogModule,
-		CustomDialogModule,
 		// modules features
 		PickATeamModule,
 		TestPageModule,

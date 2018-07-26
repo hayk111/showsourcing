@@ -25,10 +25,13 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 		RouterModule.forChild([]),
 		SideMenuModule
 	],
-	declarations: [DataManagementPageComponent, DataMananagementTableComponent, CategoryDataManagementPageComponent,
+	declarations: [
+		DataManagementPageComponent,
+		DataMananagementTableComponent,
+		CategoryDataManagementPageComponent,
 		EventDataManagementPageComponent,
-		TagDataManagementPageComponent],
-	entryComponents: [CreationDialogComponent, EditionDialogComponent, MergeDialogComponent],
+		TagDataManagementPageComponent
+	],
 	exports: [DataManagementPageComponent]
 })
 export class DataManagementModule {
