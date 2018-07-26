@@ -45,7 +45,7 @@ export class OneProductActivityCardComponent implements OnInit {
 	}
 
 	openAddToProject() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent);
+		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: this.product });
 	}
 
 }

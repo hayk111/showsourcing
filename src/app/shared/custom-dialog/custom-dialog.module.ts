@@ -20,6 +20,14 @@ import { ERMService } from '~global-services/_global/erm.service';
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
 		ProductExportDlgComponent
+	],
+	entryComponents: [
+		CreationDialogComponent,
+		EditionDialogComponent,
+		MergeDialogComponent,
+		ProductAddToProjectDlgComponent,
+		ProductRequestTeamFeedbackDlgComponent,
+		ProductExportDlgComponent
 	]
 
 })

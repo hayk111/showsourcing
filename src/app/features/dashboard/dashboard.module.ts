@@ -4,12 +4,16 @@ import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { RouterModule } from '../../../../node_modules/@angular/router';
 import { routes } from './routes';
 import { ActivityModule } from '~shared/activity/activity.module';
+import { DialogModule } from '~shared/dialog';
+import { CustomDialogModule } from '~shared/custom-dialog';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(routes),
-		ActivityModule
+		ActivityModule,
+		DialogModule,
+		CustomDialogModule
 	],
 	declarations: [DashboardComponent]
 })

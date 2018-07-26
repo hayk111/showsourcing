@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
 import { Project, Product } from '~models';
 import { DialogService } from '~shared/dialog';
+import { ProjectService, ProductService } from '~global-services';
+import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
 
 
 
@@ -18,10 +20,12 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	@Input() selectedProducts: Product[];
 
 
-	constructor(private dlgSrv: DialogService, private featureSrv: ProductFeatureService) { }
+	constructor(
+		private dlgSrv: DialogService,
+		private productDlgSrv: ProductDialogService) { }
 
 	ngOnInit() {
-		this.projects$ = this.featureSrv.selectProjects();
+		this.projects$ = this.productDlgSrv.selectProjects();
 	}
 
 	select(id, value) {
@@ -35,7 +39,7 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 	submit() {
 		// we add each project one by one to the store
 		const selectedProjects = <Project[]>Object.values(this.selected);
-		this.featureSrv.addProjectsToProducts(selectedProjects, this.selectedProducts)
+		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.selectedProducts)
 			.subscribe(projects => {
 				this.dlgSrv.close();
 			});

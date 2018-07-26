@@ -6,6 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
+import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 		return this.selectedProducts;
 	}
 
-	constructor(private dlgSrv: DialogService, private featureSrv: ProductFeatureService) { }
+	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) { }
 
 	ngOnInit() {
-		this.teamMembers$ = this.featureSrv.selectTeamUsers();
+		this.teamMembers$ = this.productDlgSrv.selectTeamUsers();
 	}
 
 	select(id: string, user) {
@@ -42,7 +43,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 			first(),
 			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
 			switchMap(teamMembers => {
-				return this.featureSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
+				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.selectedProducts);
 			})
 		).subscribe(projects => {
 			this.dlgSrv.close();

@@ -15,6 +15,7 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: 'general', component: ProductGeneralInfoComponent },
 			{ path: 'activity', component: CommentCtnrComponent },
+			{ path: '', redirectTo: 'general', pathMatch: 'full' }
 		],
 	},
 ];
