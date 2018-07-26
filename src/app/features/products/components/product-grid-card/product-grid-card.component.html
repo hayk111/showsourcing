@@ -1,3 +1,13 @@
-<div class="card-container" [class.selectedCard]="selected">
-
+<div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
+	<div class="card-content flexColumn">
+		<img [src]="product | image:'l'" alt="rekt">
+		<div class="flexGrow">
+			<p>{{product.name}}</p>
+			<p>{{product.supplier.name}}</p>
+		</div>
+		<div class="flex" style="height: 48px; background:red; margin-bottom: 4px;" *ngIf="!showOptionsBar">
+				<rating-heart-app class="icon"></rating-heart-app>
+				<thumb-buttons-app class="icon"></thumb-buttons-app>
+		</div>
+	</div>
 </div>

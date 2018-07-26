@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { Product } from '~models';
 
 @Component({
-	selector: 'app-product-grid-card',
+	selector: 'product-grid-card-app',
 	templateUrl: './product-grid-card.component.html',
 	styleUrls: ['./product-grid-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,9 +18,15 @@ export class ProductGridCardComponent implements OnInit {
 	@Output() productLike = new EventEmitter<string>();
 	@Output() productDislike = new EventEmitter<string>();
 
+	showOptionsBar = false;
+
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	setShowOptionsBar(b: boolean) {
+		this.showOptionsBar = b;
 	}
 
 }

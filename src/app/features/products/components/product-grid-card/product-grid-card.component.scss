@@ -8,4 +8,22 @@
 .card-container {
 	width: 330px;
 	height: 340px;
+	background: white;
+	&.selectedCard {
+		border: 2px solid var(--color-primary);
+		border-radius: 2px;
+	}
+	img {
+		object-fit:fill;
+		height:282px;
+	}
+
+	.card-content {
+		margin: 4px;
+		height: 100%;
+	}
+	rating-heart-app {
+		width: 32px;
+		height: 32px;
+	}
 }

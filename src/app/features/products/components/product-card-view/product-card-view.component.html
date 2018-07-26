@@ -7,7 +7,7 @@
 		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
 			<product-selectable-card-app
 				[statuses]="statuses"
-				[selected]="selection.get(product.id)"
+				[selected]="selection.has(product.id)"
 				(productSelect)="select.emit($event)"
 				(productUnselect)="unselect.emit($event)"
 				(productFavorited)="favorited.emit($event)"
@@ -19,6 +19,13 @@
 				[product]="product"
 				(update)="update.emit($event)">
 			</product-selectable-card-app>
+		</ng-container>
+		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
+			<product-grid-card-app
+				[product]="product"
+				[selected]="selection.has(product.id)">
+
+			</product-grid-card-app>
 		</ng-container>
 	</div>
 </div>
