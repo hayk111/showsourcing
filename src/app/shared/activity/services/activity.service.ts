@@ -7,6 +7,7 @@ import { ProductService } from '~global-services';
 import { Observable } from 'rxjs';
 import { preserveWhitespacesDefault } from '../../../../../node_modules/@angular/compiler';
 import { access } from 'fs';
+import { select } from '../../../../../node_modules/@types/async';
 
 
 export interface GetStreamResponse {
@@ -58,25 +59,26 @@ export class ActivityService {
   /**
    * Gets the dashboard activity
    */
-  getDashboardActivity(selectParams$: Observable<GetStreamResult[]>) {
+  getDashboardActivity(page$: Observable<number>) {
     const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
     const client = stream.connect('mvufdhfnfz83', null, '39385');
     // gets feed token
-    return selectParams$.pipe(
-      tap(d => { debugger; }),
-      switchMap(feed => this.http.get<GetStreamResponse>(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
-        // once we have the token we can get a feed
-        switchMap(({ token }: any) => {
-          const teamStream = client.feed('team', teamId, token);
-          // so we are using the current feed (at the start it's an empty array)
-          // to determine what is the last id we need
-          return teamStream.get({ limit: 15, id_lt: feed.length > 0 ? this.getLastUuid(feed) : undefined });
-        }),
-        // since a feed only has ids we need to select items in the db and add those to the feed
-        tap((r: any) => this.addData(r.results))
-      )),
+    return this.http.get<GetStreamResponse>(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
+      // once we have the token we can get a feed
+      switchMap(({ token }: any) => this.getActivityStream(page$, client, teamId, token)),
+      tap((r: any) => this.addData(r.results)),
       map(r => r.results),
       scan((pre, curr) => ([...pre, ...curr]), [])
+    );
+  }
+
+  private getActivityStream(page$, client, teamId, token) {
+    return page$.pipe(
+      switchMap((page: number) => {
+        const teamStream = client.feed('team', teamId, token);
+        // TODO : we use offset but it isn't recommended, we should use id_lt
+        return teamStream.get({ limit: 15, offset: page * 15 });
+      })
     );
   }
 

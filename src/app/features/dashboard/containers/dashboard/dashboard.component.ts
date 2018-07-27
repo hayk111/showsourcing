@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ActivityService, GetStreamResult } from '~shared/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
 
@@ -14,20 +14,20 @@ import { AutoUnsub } from '~utils';
 })
 export class DashboardComponent extends AutoUnsub implements OnInit {
 	feeds$: Observable<GetStreamResult[]>;
-	private _selectParams$ = new BehaviorSubject<Observable<GetStreamResult[]>>(of([]));
-	private selectParams$ = this._selectParams$.asObservable().pipe(
-		switchMap(feed$ => feed$)
-	);
-
+	private page$ = new BehaviorSubject(0);
+	private page: number;
 	constructor(private activitySrv: ActivityService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.feeds$ = this.activitySrv.getDashboardActivity(this.selectParams$);
+		this.feeds$ = this.activitySrv.getDashboardActivity(this.page$);
+		this.page$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(page => this.page = page)
 	}
 
 	loadMore() {
-		this._selectParams$.next(this.feeds$);
+		this.page$.next(++this.page);
 	}
 }
