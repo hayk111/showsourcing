@@ -1,20 +1,20 @@
-
-<top-panel-app
-	[title]="'My Projects'"
-	[buttonName]="'Add Project'"
-	[subtitles]="['Projects', 'all']"
-	buttonName="Add Project"
-	(buttonClick)="openCreateDlg(true)">
-</top-panel-app>
-
-<sub-panel-app
-	[hasSwitch]="false"
-	[hasFilter]="false"
-	[buttonIcon]="false"
-	(search)="search($event)">
-</sub-panel-app>
-
 <ng-container *ngIf="items$ | async as projects; else pending">
+
+	<top-panel-app
+		[title]="'My Projects'"
+		[buttonName]="'Add Project'"
+		[subtitles]="['Projects', 'all']"
+		buttonName="Add Project"
+		(buttonClick)="openCreateDlg(true)">
+	</top-panel-app>
+
+	<sub-panel-app
+		[hasSwitch]="false"
+		[hasFilter]="false"
+		[buttonIcon]="false"
+		(search)="search($event)">
+	</sub-panel-app>
+
 	<ng-container *ngIf="selected$ | async as selected">
 
 		<projects-list-view-app
