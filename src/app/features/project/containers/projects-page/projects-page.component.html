@@ -14,7 +14,7 @@
 	(search)="search($event)">
 </sub-panel-app>
 
-<ng-container *ngIf="items$ | async as projects">
+<ng-container *ngIf="items$ | async as projects; else pending">
 	<ng-container *ngIf="selected$ | async as selected">
 
 		<projects-list-view-app
@@ -31,3 +31,7 @@
 
 </ng-container>
 
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

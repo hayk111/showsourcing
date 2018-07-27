@@ -8,6 +8,7 @@ import { DialogModule } from '~shared/dialog';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
 import { UtilsModule } from '~shared/utils';
+import { LoadersModule } from '~shared/loaders';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import { UtilsModule } from '~shared/utils';
 		ActivityModule,
 		DialogModule,
 		CustomDialogModule,
-		UtilsModule
+		UtilsModule,
+		LoadersModule
 	],
 	declarations: [DashboardComponent],
 	providers: [

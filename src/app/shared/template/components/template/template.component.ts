@@ -7,7 +7,7 @@ import { routerAnimation } from '~shared/template/components/animation';
 	templateUrl: './template.component.html',
 	styleUrls: ['./template.component.scss'],
 	animations: [
-		//	routerAnimation
+		routerAnimation
 	]
 })
 export class TemplateComponent implements OnInit {

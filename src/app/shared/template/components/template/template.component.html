@@ -1,4 +1,4 @@
 <header-app class="z-3"></header-app>
-<main>
-	<router-outlet></router-outlet>
+<main [@routerAnimation]="o.isActivated ? o.activatedRoute : ''">
+	<router-outlet #o="outlet"></router-outlet>
 </main>

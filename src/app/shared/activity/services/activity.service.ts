@@ -6,6 +6,7 @@ import { from, forkJoin } from 'rxjs';
 import { ProductService } from '~global-services';
 import { Observable } from 'rxjs';
 import { preserveWhitespacesDefault } from '../../../../../node_modules/@angular/compiler';
+import { access } from 'fs';
 
 
 export interface GetStreamResponse {
@@ -57,19 +58,19 @@ export class ActivityService {
   /**
    * Gets the dashboard activity
    */
-  getDashboardActivity(page$: Observable<number>) {
+  getDashboardActivity(selectParams$: Observable<GetStreamResult[]>) {
     const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
     const client = stream.connect('mvufdhfnfz83', null, '39385');
     // gets feed token
-    return page$.pipe(
-      switchMap(page => this.http.get<GetStreamResponse>(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
+    return selectParams$.pipe(
+      tap(d => { debugger; }),
+      switchMap(feed => this.http.get<GetStreamResponse>(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`).pipe(
         // once we have the token we can get a feed
         switchMap(({ token }: any) => {
           const teamStream = client.feed('team', teamId, token);
-          const firstPage = page === 0;
-          // TODO: The doc says not to use an offset but less than an id instead
-          // https://github.com/getstream/stream-js
-          return teamStream.get({ limit: 15, offset: 15 * page });
+          // so we are using the current feed (at the start it's an empty array)
+          // to determine what is the last id we need
+          return teamStream.get({ limit: 15, id_lt: feed.length > 0 ? this.getLastUuid(feed) : undefined });
         }),
         // since a feed only has ids we need to select items in the db and add those to the feed
         tap((r: any) => this.addData(r.results))
@@ -101,5 +102,11 @@ export class ActivityService {
       case 'create_product':
         return this.productSrv.selectOne(activity.object).pipe(first());
     }
+  }
+
+  private getLastUuid(feeds: GetStreamResult[]) {
+    const lastIndex = feeds.length - 1;
+    const lastActivities = feeds[lastIndex].activities;
+    return lastActivities[lastActivities.length - 1].id;
   }
 }

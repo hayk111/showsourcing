@@ -4,7 +4,11 @@ import {
 	Input,
 	Output,
 	ChangeDetectionStrategy,
+	ViewChild,
+	Renderer2,
+	ElementRef
 } from '@angular/core';
+import { IconComponent } from '~shared/icons';
 
 @Component({
 	selector: 'rating-heart-app',
@@ -21,6 +25,11 @@ export class RatingHeartComponent {
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Input() favorite = false;
+	@ViewChild(IconComponent, { read: ElementRef }) icon;
+
+	constructor(private renderer: Renderer2) {
+
+	}
 
 	onClick() {
 		if (this.static)
@@ -28,9 +37,17 @@ export class RatingHeartComponent {
 		if (this.favorite) {
 			this.unfavorited.emit();
 		} else {
-			this.favorited.emit();			
+			this.favorited.emit();
 		}
+		this.addAnimationClass();
+	}
 
+	addAnimationClass() {
+		// removing the animation class to retrigger animation by readding the class
+		this.renderer.removeClass(this.icon.nativeElement, 'jello-horizontal');
+		// lil trick to retrigger animation
+		this.renderer.setAttribute(this.icon.nativeElement, 'offsetWidth', this.icon.nativeElement.offsetWidth);
+		this.renderer.addClass(this.icon.nativeElement, 'jello-horizontal');
 	}
 
 }

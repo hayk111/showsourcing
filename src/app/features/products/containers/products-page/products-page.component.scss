@@ -1,6 +1,5 @@
-.hidden {
-  visibility: hidden;
-  display: none;
+:host {
+  display: block;
+  height: 100%;
 }
-
 

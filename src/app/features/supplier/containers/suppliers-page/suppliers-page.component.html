@@ -27,7 +27,7 @@
 	</search-autocomplete-app>
 </sub-panel-app>
 
-<ng-container *ngIf="items$ | async as suppliers">
+<ng-container *ngIf="items$ | async as suppliers; else spinner">
 	<supplier-list-view-app
 		[rows]="suppliers"
 		[selection]="selected$ | async"
@@ -71,3 +71,6 @@
 		(clickOutside)="closePreview()"></supplier-preview-app>
 </ng-container>
 
+	<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>
