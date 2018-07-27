@@ -6,7 +6,9 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-
+	host: {
+		class: 'flexCenter'
+	}
 })
 export class IconComponent {
 	@Input() name: string;
