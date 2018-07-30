@@ -1,0 +1,21 @@
+<card-app>
+  <h2>Upcoming shows</h2>
+  <h4>In your industries</h4>
+  <divider-app></divider-app>
+
+
+  <div *ngFor="let event of events" class="event flex">
+    <div class="dateSquare flexColumn flexCenter">
+      <span>{{ event.startAt | date:'d' }} - {{ event.endAt | date:'d' }}</span>
+      <span class="month">{{ event.startAt | date:'MMM'}}</span>
+    </div>
+    <div class="flexColumn">
+      <span class="name">{{ event.name }}</span>
+      <span class="address">{{ event.address }} {{ event.country | const: 'country'}}</span>
+    </div>
+  </div>
+
+  <card-footer-app>
+    <button class="secondary">Browse shows</button>
+  </card-footer-app>
+</card-app>

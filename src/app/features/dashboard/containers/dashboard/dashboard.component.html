@@ -1,8 +1,18 @@
 
-<ng-container *ngIf="feeds$ | async as feeds; else spinner">
-	<activity-list-app (bottomReached)="loadMore()" infiniScroll [feeds]="feeds"></activity-list-app>
-</ng-container>
+<div class="ctnr" infiniScroll (bottomReached)="loadMore()">
+	<div class="left">
+		<ng-container *ngIf="feeds$ | async as feeds; else spinner">
+			<activity-list-app [feeds]="feeds"></activity-list-app>
+		</ng-container>
 
-<ng-template #spinner>
-	<spinner-app></spinner-app>
-</ng-template>
+		<ng-template #spinner>
+			<spinner-app></spinner-app>
+		</ng-template>
+	</div>
+	<div class="right">
+		<dashboard-summary-app></dashboard-summary-app>
+		<team-card-app></team-card-app>
+		<events-card-app></events-card-app>
+	</div>
+</div>
+

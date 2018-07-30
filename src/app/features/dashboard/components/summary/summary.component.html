@@ -1,0 +1,55 @@
+<card-app>
+  <div class="top flexCenter flexColumn">
+
+    <ng-container *ngIf="user$ | async as user">
+      <div class="cercle">
+        <img-app [image]="user?.avatar" type="user"></img-app>
+      </div>
+      <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
+      <h3>{{ user?.companyName }}</h3>
+    </ng-container>
+
+  </div>
+
+  <divider-app></divider-app>
+
+  <div class="secondBlock flexColumn">
+
+    <div class="flex">
+      <span class="amount">240</span>
+      <div class="flexColumn">
+        <span class="taskType">Product Need review</span>
+        <span><a>Review Products</a></span>
+      </div>
+    </div>
+
+
+    <div class="flex">
+      <span class="amount">45</span>
+      <div class="flexColumn">
+        <span class="taskType">Products in progress</span>
+        <span><a>To my workspace</a></span>
+      </div>
+    </div>
+
+
+    <div class="flex">
+      <span class="amount">54</span>
+      <div class="flexColumn">
+        <span class="taskType">Supplier to assess</span>
+        <span><a>To my workspace</a></span>
+      </div>
+    </div>
+
+
+  </div>
+
+<!--
+  <divider-app></divider-app>
+  block 2 -->
+
+  <card-footer-app>
+    <button>Open my workspace</button>
+  </card-footer-app>
+
+</card-app>

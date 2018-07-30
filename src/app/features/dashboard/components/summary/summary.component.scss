@@ -1,0 +1,37 @@
+.cercle {
+	width: 68px;
+	height: 68px;
+	border: 2px solid var(--color-primary);
+	margin-bottom: var(--spacing-ms);
+}
+
+h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: var(--font-size-l);
+	font-weight: 600;
+	margin-bottom: var(--spacing-xs);
+}
+
+h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+	font-size: var(--font-size-m);
+	margin-bottom: var(--spacing-ms);
+}
+
+.secondBlock {
+	padding: 18px;
+
+	.amount {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 40px;
+		width: 80px;
+	}
+
+	.taskType {
+		font-size: var(--font-size-l);
+	}
+	a {
+		color: var(--color-primary);
+	}
+}
+

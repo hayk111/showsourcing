@@ -15,7 +15,7 @@ export class TeamUserService extends GlobalService<TeamUser> {
 		super(wrapper, new TeamUserQueries(), 'TeamUser');
 	}
 
-	selectAll(fields: string = 'id, user { id, firstName, lastName }') {
+	selectAll(fields: string = 'id, user { id, firstName, lastName, email }') {
 		return super.selectAll(fields);
 	}
 }

@@ -1,0 +1,22 @@
+<card-app>
+
+  <ng-container *ngIf="team$ | async as team">
+    <h2>{{ team?.name }}</h2>
+    <h4>{{ team?.ownerUser?.firstName }} {{ team?.ownerUser?.lastName }}</h4>
+  </ng-container>
+  <divider-app></divider-app>
+
+  <div *ngFor="let member of members$ | async" class="flex member">
+    <user-picture-app [image]="member.user.avatar" [border]="true"></user-picture-app>
+    <div class="flexColumn">
+      <span class="name">
+        {{ member?.user?.firstName }} {{ member?.user?.lastName}}
+      </span>
+      <span>{{ member.user.email }}</span>
+    </div>
+  </div>
+
+  <card-footer-app>
+    <button>Invite team members</button>
+  </card-footer-app>
+</card-app>
