@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
 	selector: 'action-bar-app',
@@ -8,10 +8,13 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from
 })
 export class ActionBarComponent implements OnInit {
 
-	@Output() favorite = new EventEmitter<null>();
-	@Output() unfavorite = new EventEmitter<null>();
-	@Output() like = new EventEmitter<null>();
-	@Output() dislike = new EventEmitter<null>();
+	@Input() favorited = false;
+	@Input() liked = false;
+	@Input() disliked = false;
+	@Output() onFavorite = new EventEmitter<null>();
+	@Output() onUnfavorite = new EventEmitter<null>();
+	@Output() onLike = new EventEmitter<boolean>();
+	@Output() onDislike = new EventEmitter<boolean>();
 	@Output() addToProject = new EventEmitter<null>();
 
 	constructor() { }

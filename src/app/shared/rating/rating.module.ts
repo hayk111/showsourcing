@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
-import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
+import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons/icons.module';
+import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
+import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
+
+import { DoubleThumbsComponent } from './components/double-thumbs/double-thumbs.component';
 
 @NgModule({
 	imports: [
@@ -11,11 +13,13 @@ import { IconsModule } from '~shared/icons/icons.module';
 	],
 	declarations: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		DoubleThumbsComponent
 	],
 	exports: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		DoubleThumbsComponent
 	]
 })
 export class RatingModule { }

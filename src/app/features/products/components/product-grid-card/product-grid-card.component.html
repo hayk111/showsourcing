@@ -1,13 +1,13 @@
 <div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
-		<img [src]="product | image:'m'" alt="rekt">
+		<img class="noselect" [src]="product | image:'m'" alt="rekt">
 
 		<div class="information">
 			<div class="text-bar">
 				<p class="bold-s">{{product.name}}</p>
 				<p class="fs-s">{{product.supplier.name}}</p>
 			</div>
-			<div class="flex">
+			<div class="flex noselect">
 				<rating-heart-app></rating-heart-app>
 				<thumb-buttons-app></thumb-buttons-app>
 				<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
@@ -16,10 +16,13 @@
 
 		<action-bar-app
 			[class.isHovered]="showOptionsBar"
-			(favorite)="productFavorite.emit()"
-			(unfavorite)="productUnfavorite.emit()"
-			(like)="productLike.emit()"
-			(dislike)="productDislike.emit()"
+			[favorited]=""
+			[liked]=""
+			[disliked]=""
+			(onFavorite)="productFavorite.emit()"
+			(onUnfavorite)="productUnfavorite.emit()"
+			(onLike)="productLike.emit()"
+			(onDislike)="productDislike.emit()"
 			(addToProject)="addToProject.emit()">
 		</action-bar-app>
 

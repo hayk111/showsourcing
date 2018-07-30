@@ -1,8 +1,17 @@
 	<div class="action-container flexBetween">
-		<div class="flex icon-container">
-			<rating-heart-app size="m"></rating-heart-app>
-			<icon-app name="thumbs-up" size="m" (click)="like.emit()"></icon-app>
-			<icon-app name="thumbs-down" size="m" (click)="dislike.emit()"></icon-app>
+		<div class="flex icon-container noselect">
+			<rating-heart-app
+			 size="m"
+			 [favorite]="favorited"
+			 (favorited)="onFavorite().emit()"
+			 (unfavorited)="onUnfavorite().emit()"></rating-heart-app>
+			<double-thumbs-app
+				size="m"
+				[liked]="liked"
+				[disliked]="disliked"
+				(onLike)="onLike.emit($event)"
+				(onDislike)="onDislike.emit($event)">
+			</double-thumbs-app>
 			<icon-app fontSet="svg" name="folder" size="m" (click)="addToProject.emit()"></icon-app>
 			<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
 		</div>

@@ -29,9 +29,9 @@
 	margin-left: 14px;
 }
 
-rating-heart-app, thumb-buttons-app, icon-app {
+rating-heart-app, double-thumbs-app, icon-app {
 	color: var(--color-secondary-dark);
-	margin-right: 20px;
+	margin-right: var(--spacing-ml);
 }
 
 button {

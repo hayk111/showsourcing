@@ -13,10 +13,10 @@ export class ProductGridCardComponent implements OnInit {
 	@Input() selected: boolean;
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
-	@Output() productFavorite = new EventEmitter<string>();
-	@Output() productUnfavorite = new EventEmitter<string>();
-	@Output() productLike = new EventEmitter<string>();
-	@Output() productDislike = new EventEmitter<string>();
+	@Output() productFavorite = new EventEmitter<null>();
+	@Output() productUnfavorite = new EventEmitter<null>();
+	@Output() productLike = new EventEmitter<boolean>();
+	@Output() productDislike = new EventEmitter<boolean>();
 	@Output() addToProject = new EventEmitter<null>();
 
 	showOptionsBar = false;
