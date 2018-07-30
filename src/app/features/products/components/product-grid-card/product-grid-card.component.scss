@@ -32,6 +32,10 @@
 			align-items: center;
 			flex-grow: 1;
 
+			.small-icons {
+				padding-bottom: 25px;
+			}
+
 			.text-bar {
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
@@ -41,9 +45,6 @@
 				margin-right: var(--spacing-ms);
 			}
 
-		}
-		action-bar-app {
-			margin-bottom: var(--spacing-s);
 		}
 	}
 }

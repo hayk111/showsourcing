@@ -13,6 +13,7 @@
 		visibility: visible;
 		opacity: 1;
 		.action-container {
+			margin-bottom: var(--spacing-s);
 			max-height: 48px;
 			transition: max-height 0.2s ease-in
 		}
