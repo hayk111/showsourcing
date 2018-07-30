@@ -26,6 +26,9 @@ h3 {
 		font-size: 40px;
 		width: 80px;
 	}
+	.desc {
+		justify-content: center;
+	}
 
 	.taskType {
 		font-size: var(--font-size-l);
@@ -35,3 +38,30 @@ h3 {
 	}
 }
 
+.taskTitle {
+	text-align: center;
+	font-weight: 600;
+	color: var(--color-txt-strong);
+	margin: var(--spacing-ms) 0;
+}
+.cylinder {
+	margin: auto;
+	border-radius: 500px;
+	margin-bottom: var(--spacing-m);
+	height: 16px;
+	width: 270px;
+	background: var(--color-secondary);
+	overflow: hidden;
+	.part1 {
+    background: var(--color-success);
+    width: 60%;
+    height: 100%;
+	}
+}
+
+checkbox-app {
+	margin: var(--spacing-ms);
+	user-picture-app {
+		margin-right: var(--spacing-xs);
+	}
+}
