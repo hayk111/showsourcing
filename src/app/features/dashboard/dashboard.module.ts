@@ -9,18 +9,20 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
 import { UtilsModule } from '~shared/utils';
 import { LoadersModule } from '~shared/loaders';
+import { SummaryComponent } from './components/summary/summary.component';
+import { TeamCardComponent } from './components/team-card/team-card.component';
+import { EventsCardComponent } from './components/events-card/events-card.component';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
+		SharedModule,
 		RouterModule.forChild(routes),
 		ActivityModule,
 		DialogModule,
 		CustomDialogModule,
-		UtilsModule,
-		LoadersModule
 	],
-	declarations: [DashboardComponent],
+	declarations: [DashboardComponent, SummaryComponent, TeamCardComponent, EventsCardComponent],
 	providers: [
 		ProductDialogService
 	]

@@ -1,9 +1,24 @@
-:host {
+.ctnr {
 	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: var(--spacing-ms);
 }
 
 activity-list-app {
-	padding: var(--spacing-ms);
 	height: 100%;
 	margin: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+.left {
+	width: 712px;
+}
+
+.right {
+	width: 396px;
 }

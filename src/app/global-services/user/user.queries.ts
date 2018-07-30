@@ -17,7 +17,8 @@ export class UserQueries implements GlobalQuery {
 				preferredLanguage,
 				avatar {
 					id, fileName, orientation
-				}
+				},
+				companyName
 			}
 		}
 	`;

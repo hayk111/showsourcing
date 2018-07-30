@@ -9,7 +9,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss'],
 	host: {
-		class: 'flex flexCenter flexColumn'
+		class: 'flex'
 	}
 })
 export class DashboardComponent extends AutoUnsub implements OnInit {

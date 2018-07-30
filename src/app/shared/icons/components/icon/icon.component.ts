@@ -7,7 +7,7 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	styleUrls: ['./icon.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flexCenter'
+		'[class.flexCenter]': 'true'
 	}
 })
 export class IconComponent {

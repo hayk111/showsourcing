@@ -1,6 +1,10 @@
 <!-- <ng-container *ngIf="isSingle; else double"> -->
 <button class="icon light">
-	<icon-app name="thumbs-{{ orientation }}" class="{{ colorClass }}"></icon-app>
+	<icon-app
+		[@thumbAnimation]="state"
+		name="thumbs-up"
+		fontSet="fa">
+	</icon-app>
 </button>
 <!-- </ng-container> -->
 

@@ -6,7 +6,7 @@ export class TeamQueries implements GlobalQuery {
 	one = gql`
 		subscription teams($query: String!) {
 			teams(query: $query) {
-				id, name, realmPath, realmServerName, ownerUser { id }, status
+				id, name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status
 			}
 		}
 	`;
@@ -14,7 +14,7 @@ export class TeamQueries implements GlobalQuery {
 	list = gql`
 		subscription teams($query: String!) {
 			teams(query: $query) {
-				id, name, realmPath, realmServerName, ownerUser { id }, status
+				id, name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status
 			}
 		}
 	`;
@@ -50,7 +50,7 @@ export class TeamQueries implements GlobalQuery {
 	all = (str: string) => gql`
 			subscription teams {
 			teams {
-				id, name, realmPath, realmServerName, status
+				id, name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }
 			}
 		}
 	`
