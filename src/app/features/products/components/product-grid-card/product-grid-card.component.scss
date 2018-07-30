@@ -16,7 +16,7 @@
 	}
 
 	.card-content {
-		margin: 4px;
+		margin: var(--spacing-xs);
 		height: 100%;
 
 		img {
@@ -33,17 +33,17 @@
 			flex-grow: 1;
 
 			.text-bar {
-				margin-left: 4px;
-				margin-top: 4px;
+				margin-left: var(--spacing-xs);
+				margin-top: var(--spacing-xs);
 			}
 			rating-heart-app, thumb-buttons-app, icon-app {
 				color: var(--color-secondary-dark);
-				margin-right:12px;
+				margin-right: var(--spacing-ms);
 			}
 
 		}
 		action-bar-app {
-			margin-bottom: 8px;
+			margin-bottom: var(--spacing-s);
 		}
 	}
 }
