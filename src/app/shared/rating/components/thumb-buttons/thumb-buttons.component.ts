@@ -28,6 +28,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	get votes() {
 		return this._votes;
 	}
+	@Input() size = 's';
 	private _votes: ProductVote[];
 
 	userVote: ProductVote;

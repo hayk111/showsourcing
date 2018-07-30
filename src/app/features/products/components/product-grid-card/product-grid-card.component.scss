@@ -9,21 +9,43 @@
 	width: 330px;
 	height: 340px;
 	background: white;
+
 	&.selectedCard {
 		border: 2px solid var(--color-primary);
 		border-radius: 2px;
-	}
-	img {
-		object-fit:fill;
-		height:282px;
 	}
 
 	.card-content {
 		margin: 4px;
 		height: 100%;
-	}
-	rating-heart-app {
-		width: 32px;
-		height: 32px;
+
+		img {
+			object-fit: fill;
+			flex-grow: 1;
+			height: 234px;
+		}
+
+		.information {
+			max-height: 54px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-grow: 1;
+
+			.text-bar {
+				margin-left: 4px;
+				margin-top: 4px;
+			}
+			rating-heart-app, thumb-buttons-app, icon-app {
+				color: var(--color-secondary-dark);
+				margin-right:12px;
+			}
+
+		}
+		action-bar-app {
+			margin-bottom: 8px;
+		}
 	}
 }
+
+

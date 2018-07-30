@@ -40,6 +40,7 @@ import { ProductNavigationComponent } from '~features/products/components/produc
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { ProductGridCardComponent } from './components/product-grid-card/product
 		TopPanelModule,
 		SearchAutocompleteModule,
 		WorkflowActionModule,
-		StageIndicatorModule
+		StageIndicatorModule,
+		ActionBarModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
