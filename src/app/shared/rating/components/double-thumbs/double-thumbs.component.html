@@ -1,5 +1,9 @@
 <icon-app *ngIf="single" name="thumbs-{{ orientationSingle }}" class="{{ colorSingle }}" (click)="singleClick()"></icon-app>
 <div *ngIf="!single" class="flex">
-	<icon-app name="thumbs-up" [class.color-primary]="like" [size]="size" (click)="thumbUp()"></icon-app>
-	<icon-app name="thumbs-down" [class.color-warn]="dislike" [size]="size" (click)="thumbDown()"></icon-app>
+	<button class="icon light">
+		<icon-app name="thumbs-up" [class.color-primary]="like" [size]="size" (click)="thumbUp()"></icon-app>
+	</button>
+	<button class="icon light">
+		<icon-app name="thumbs-down" [class.color-warn]="dislike" [size]="size" (click)="thumbDown()"></icon-app>
+	</button>
 </div>

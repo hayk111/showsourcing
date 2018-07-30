@@ -33,16 +33,20 @@
 			flex-grow: 1;
 
 			.small-icons {
-				padding-bottom: 25px;
+				padding-bottom: 23px;
 			}
 
 			.text-bar {
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
 			}
-			rating-heart-app, thumb-buttons-app, icon-app {
+			thumb-buttons-app, icon-app {
 				color: var(--color-secondary-dark);
-				margin-right: var(--spacing-ms);
+				margin-right: var(--spacing-xs);
+			}
+
+			rating-heart-app {
+				color: var(--color-secondary-dark);
 			}
 
 		}

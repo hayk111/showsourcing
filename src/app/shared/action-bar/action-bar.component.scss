@@ -27,12 +27,21 @@
 }
 
 .icon-container {
-	margin-left: 14px;
+	margin-left: 10px;
 }
 
-rating-heart-app, double-thumbs-app, icon-app {
+double-thumbs-app, icon-app {
 	color: var(--color-secondary-dark);
-	margin-right: var(--spacing-ml);
+	margin-right: var(--spacing-m);
+}
+rating-heart-app {
+	color: var(--color-secondary-dark);
+	margin-right: 7px;
+	margin-top: 5px;
+}
+
+double-thumbs-app {
+	margin-top: 5px;
 }
 
 button {
