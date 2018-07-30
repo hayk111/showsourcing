@@ -11,6 +11,7 @@
 		<div class="preview flexColumn" (click)="goToProduct(product)" *ngFor="let product of firstFour">
 			<img-app
 				class="pointer"
+				size="xl"
 				[image]="product"></img-app>
 			<div class="productName flexBetween">
 				<span>{{ product.name }}</span>
@@ -33,7 +34,7 @@
 
 	<div class="flex supplier" *ngIf="products[0]?.supplier as supplier">
 		<div class="cercle">
-			<img-app [image]="supplier.logoImage" type="supplier" size="l"></img-app>
+			<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 		</div>
 
 		<div class="flexColumn">
