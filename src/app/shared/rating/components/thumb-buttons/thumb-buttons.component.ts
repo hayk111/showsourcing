@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { ProductVote } from '~models';
 import { UserService } from '~global-services';
 import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
+import { thumbAnimation } from './animation';
 
 @Component({
 	selector: 'thumb-buttons-app',
@@ -12,7 +13,8 @@ import { ProductVoteService } from '~global-services/product-vote/product-vote.s
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'(mousedown)': 'onClick($event)'
-	}
+	},
+	animations: thumbAnimation
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Output() vote = new EventEmitter<ProductVote[]>();
@@ -54,27 +56,10 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	get orientation() {
-		// when no vote orientation is up
+	get state() {
 		if (!this.userVote)
-			return 'up';
+			return 'none';
 		return this.userVote.value === 100 ? 'up' : 'down';
-	}
-
-	get colorClass() {
-		if (!this.userVote)
-			return;
-		if (this.isVoteUp)
-			return 'color-primary';
-		return 'color-warn';
-	}
-
-	get isVoteUp() {
-		return this.userVote && this.userVote.value === 100;
-	}
-
-	get isVoteDown() {
-		return this.userVote && this.userVote.value === 0;
 	}
 
 }
