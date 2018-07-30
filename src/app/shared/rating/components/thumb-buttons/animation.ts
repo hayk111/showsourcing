@@ -13,6 +13,8 @@ export const thumbAnimation = [
 			color: 'var(--color-warn)',
 			transform: 'rotateX(180deg)'
 		})),
-		transition('* => *', animate('400ms ease-in'))
+		transition('none => up', animate('400ms ease-in')),
+		transition('up => down', animate('400ms ease-in')),
+		transition('down => up', animate('400ms ease-in')),
 	])
 ];

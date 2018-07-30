@@ -6,4 +6,9 @@ activity-list-app {
 	padding: var(--spacing-ms);
 	height: 100%;
 	margin: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
 }
