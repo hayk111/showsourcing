@@ -23,8 +23,10 @@
 		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
 			<product-grid-card-app
 				[product]="product"
-				[selected]="selection.has(product.id)">
-
+				[selected]="selection.has(product.id)"
+				[favorite]="product?.favorite"
+				(productFavorite)="favorited.emit(product.id)"
+				(productUnfavorite)="unfavorited.emit(product.id)">
 			</product-grid-card-app>
 		</ng-container>
 	</div>

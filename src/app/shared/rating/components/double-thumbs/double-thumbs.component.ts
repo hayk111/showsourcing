@@ -13,8 +13,8 @@ export class DoubleThumbsComponent implements OnInit {
 	@Input() single: true | false = false;
 	// we can have 2 status for each thumb
 	// both status can be false at the same time, but they can't be true at the same time
-	@Input() liked = false;
-	@Input() disliked = false;
+	@Input() like = false;
+	@Input() dislike = false;
 	// we notify the future status since it can be false or true for each thumb
 	@Output() onLike = new EventEmitter<boolean>();
 	@Output() onDislike = new EventEmitter<boolean>();
@@ -25,45 +25,45 @@ export class DoubleThumbsComponent implements OnInit {
 	}
 
 	get orientationSingle() {
-		return this.disliked ? 'down' : 'up';
+		return this.dislike ? 'down' : 'up';
 	}
 
 	get colorSingle() {
-		return this.disliked ? 'color-warn' : this.liked ? 'color-success' : '';
+		return this.dislike ? 'color-warn' : this.like ? 'color-success' : '';
 	}
 
 	singleClick() {
-		if (!this.liked && !this.disliked) {
+		if (!this.like && !this.dislike) {
 			this.thumbUp();
 		} else {
-			this.liked ? this.thumbDown() : this.thumbUp();
+			this.like ? this.thumbDown() : this.thumbUp();
 		}
 	}
 
 	thumbUp() {
-		if (this.liked) {
-			this.liked = false;
+		if (this.like) {
+			this.like = false;
 		} else {
-			this.liked = true;
-			if (this.disliked) { // since both can't be true we have to check
-				this.disliked = false;
-				this.onDislike.emit(this.disliked);
+			this.like = true;
+			if (this.dislike) { // since both can't be true we have to check
+				this.dislike = false;
+				this.onDislike.emit(this.dislike);
 			}
 		}
-		this.onLike.emit(this.liked);
+		this.onLike.emit(this.like);
 	}
 
 	thumbDown() {
-		if (this.disliked) {
-			this.disliked = false;
+		if (this.dislike) {
+			this.dislike = false;
 		} else {
-			this.disliked = true;
-			if (this.liked) { // since both can't be true we have to check
-				this.liked = false;
-				this.onLike.emit(this.liked);
+			this.dislike = true;
+			if (this.like) { // since both can't be true we have to check
+				this.like = false;
+				this.onLike.emit(this.like);
 			}
 		}
-		this.onDislike.emit(this.disliked);
+		this.onDislike.emit(this.dislike);
 	}
 
 }

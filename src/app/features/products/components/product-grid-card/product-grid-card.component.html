@@ -8,7 +8,11 @@
 				<p class="fs-s">{{product.supplier.name}}</p>
 			</div>
 			<div class="flex noselect">
-				<rating-heart-app></rating-heart-app>
+				<rating-heart-app
+					[favorite]="favorite"
+					(favorited)="productFavorite.emit()"
+					(unfavorited)="productUnfavorite.emit()">
+				</rating-heart-app>
 				<thumb-buttons-app></thumb-buttons-app>
 				<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
 			</div>
@@ -16,9 +20,9 @@
 
 		<action-bar-app
 			[class.isHovered]="showOptionsBar"
-			[favorited]=""
-			[liked]=""
-			[disliked]=""
+			[favorite]="favorite"
+			[like]=""
+			[dislike]=""
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
 			(onLike)="productLike.emit()"

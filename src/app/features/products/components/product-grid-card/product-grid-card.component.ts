@@ -11,6 +11,7 @@ export class ProductGridCardComponent implements OnInit {
 
 	@Input() product: Product;
 	@Input() selected: boolean;
+	@Input() favorite: boolean;
 	@Output() productSelect = new EventEmitter<string>();
 	@Output() productUnselect = new EventEmitter<string>();
 	@Output() productFavorite = new EventEmitter<null>();

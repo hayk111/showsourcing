@@ -2,13 +2,13 @@
 		<div class="flex icon-container noselect">
 			<rating-heart-app
 			 size="m"
-			 [favorite]="favorited"
-			 (favorited)="onFavorite().emit()"
-			 (unfavorited)="onUnfavorite().emit()"></rating-heart-app>
+			 [favorite]="favorite"
+			 (favorited)="onFavorite.emit()"
+			 (unfavorited)="onUnfavorite.emit()"></rating-heart-app>
 			<double-thumbs-app
 				size="m"
-				[liked]="liked"
-				[disliked]="disliked"
+				[like]="like"
+				[dislike]="dislike"
 				(onLike)="onLike.emit($event)"
 				(onDislike)="onDislike.emit($event)">
 			</double-thumbs-app>
