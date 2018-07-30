@@ -3,13 +3,7 @@
 image: node:9.11
 
 pipelines:
-  default:
-    - step:
-        script:
-          - npm install
-          - npm run build --prod
-        caches:
-          - node
+
   branches:
     master:
       - step:
