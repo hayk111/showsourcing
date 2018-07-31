@@ -4,14 +4,8 @@
 			 size="m"
 			 [favorite]="favorite"
 			 (favorited)="onFavorite.emit()"
-			 (unfavorited)="onUnfavorite.emit()"></rating-heart-app>
-			<!-- <double-thumbs-app
-				size="m"
-				[like]="like"
-				[dislike]="dislike"
-				(onLike)="onLike.emit($event)"
-				(onDislike)="onDislike.emit($event)">
-			</double-thumbs-app> -->
+			 (unfavorited)="onUnfavorite.emit()">
+			</rating-heart-app>
 			<thumb-buttons-app
 				size="m"
 				[votes]="votes"

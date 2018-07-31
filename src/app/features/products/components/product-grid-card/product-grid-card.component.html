@@ -13,7 +13,10 @@
 					(favorited)="productFavorite.emit()"
 					(unfavorited)="productUnfavorite.emit()">
 				</rating-heart-app>
-				<thumb-buttons-app></thumb-buttons-app>
+				<thumb-buttons-app
+					[votes]="product.votes"
+					(vote)="updateProduct({ votes: $event })">
+				</thumb-buttons-app>
 				<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
 			</div>
 		</div>
