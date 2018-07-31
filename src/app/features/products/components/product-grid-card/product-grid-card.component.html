@@ -19,15 +19,15 @@
 		</div>
 
 		<action-bar-app
-			[class.isHovered]="true"
+			buttonName="Open"
+			[isVisible]="showOptionsBar"
 			[votes]="product.votes"
 			[favorite]="favorite"
-			[like]=""
-			[dislike]=""
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
-			(updateProduct)="updateProduct.emit({ votes: $event })"
-			(addToProject)="addToProject.emit()">
+			(vote)="updateProduct({ votes: $event })"
+			(addToProject)="addToProject.emit()"
+			(buttonClick)="openProjectModal()">
 		</action-bar-app>
 
 	</div>

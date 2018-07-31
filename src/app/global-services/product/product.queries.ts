@@ -185,7 +185,7 @@ export class ProductQueries implements GlobalQuery {
 	update = gql`
 		mutation updateProduct($input: ProductInput!) {
 			updateProduct(input: $input) {
-				id, favorite
+				id
 			}
 		}
 	`;

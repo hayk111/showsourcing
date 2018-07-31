@@ -8,12 +8,14 @@ import { SharedModule } from '~shared/shared.module';
 import { RatingModule } from '~shared/rating';
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
-		RatingModule
+		RatingModule,
+		ActionBarModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,

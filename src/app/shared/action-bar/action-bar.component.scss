@@ -9,7 +9,7 @@
 		max-height: 0px;
 		transition: max-height 0.2s ease-out;
 	}
-	&.isHovered {
+	&.isVisible {
 		visibility: visible;
 		opacity: 1;
 		.action-container {

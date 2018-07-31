@@ -26,10 +26,10 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		return this._votes;
 	}
 	@Input() size = 's';
-	// we can have 2 status for each thumb
+	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
-	@Input() like = false;
-	@Input() dislike = false;
+	like = false;
+	dislike = false;
 	private _votes: ProductVote[];
 
 	userVote: ProductVote;
@@ -41,65 +41,59 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-	}
-
-	// onClick() {
-	// 	if (!this.userVote) {
-	// 		const vote = new ProductVote({
-	// 			value: 100,
-	// 			user: { id: this.userSrv.userSync.id }
-	// 		});
-	// 		this.voteSrv.create(vote).subscribe(newVote => {
-	// 			this.vote.emit([...this.votes, newVote]);
-	// 		});
-	// 	} else {
-	// 		this.userVote.value = this.userVote.value === 100 ? 0 : 100;
-	// 		this.vote.emit(this._votes);
-	// 	}
-	// }
-
-	singleClick() {
-		if (!this.userVote) { // !this.like && !this.dislike
-			this.like = true;
-			// const vote = new ProductVote({
-			// 	value: 100,
-			// 	user: { id: this.userSrv.userSync.id }
-			// });
-			// this.voteSrv.create(vote).subscribe(newVote => {
-			// 	this.vote.emit([...this.votes, newVote]);
-			// });
-		} else {
-			this.like ? this.thumbDown() : this.thumbUp();
+		if (this.userVote) {
+			this.userVote.value === 100 ? this.like = true : this.dislike = true;
 		}
 	}
 
+
+	singleClick() {
+		if (!this.userVote)
+			this.createEmitVote();
+		else this.updateEmitVote();
+	}
+
 	thumbUp() {
-		if (this.like) {
+		if (this.like) { // if we click over the active like we have to delete the vote
 			this.like = false;
-			// emit delete vote
+			this.voteSrv.deleteOne(this.userVote.id).subscribe();
 		} else {
 			this.like = true;
-			this.dislike = false;
-			console.log(this.userVote);
-			// this.emitVote();
-			// emite update vote
+			if (!this.dislike) // if it was false already it means that we have to create a new vote
+				this.createEmitVote();
+			else {
+				this.dislike = false;
+				this.updateEmitVote();
+			}
 		}
 	}
 
 	thumbDown() {
-		if (this.dislike) {
+		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
-			// emit delete vote
+			this.voteSrv.deleteOne(this.userVote.id).subscribe();
 		} else {
 			this.dislike = true;
-			this.like = false;
-			console.log(this.userVote);
-			// this.emitVote();
-			// emit updatevote
+			if (!this.like) // if it was false already it means that we have to create a new vote
+				this.createEmitVote();
+			else {
+				this.like = false;
+				this.updateEmitVote();
+			}
 		}
 	}
 
-	emitVote() {
+	createEmitVote() {
+		const vote = new ProductVote({
+			value: 100,
+			user: { id: this.userSrv.userSync.id }
+		});
+		this.voteSrv.create(vote).subscribe(newVote => {
+			this.vote.emit([...this.votes, newVote]);
+		});
+	}
+
+	updateEmitVote() {
 		this.userVote.value = this.userVote.value === 100 ? 0 : 100;
 		this.vote.emit(this._votes);
 	}

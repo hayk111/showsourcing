@@ -37,4 +37,8 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
+	openProjectModal() {
+
+	}
+
 }

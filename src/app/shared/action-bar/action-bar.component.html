@@ -16,12 +16,10 @@
 				size="m"
 				[votes]="votes"
 				[single]="false"
-				[like]="like"
-				[dislike]="dislike"
-				(vote)="updateProduct.emit($event)">
+				(vote)="vote.emit($event)">
 			</thumb-buttons-app>
 			<icon-app fontSet="svg" name="folder" size="m" (click)="addToProject.emit()"></icon-app>
 			<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
 		</div>
-		<button>Open</button>
+		<button *ngIf="buttonName" (click)="buttonClick.emit()">{{buttonName}}</button>
 	</div>
