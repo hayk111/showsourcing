@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
 
 @Component({
 	selector: 'card-footer-app',
@@ -12,10 +12,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class CardFooterComponent implements OnInit {
 	@Input() align: 'left' | 'right' = 'right';
-
+	@Input() paddingSide: 'ms' | 'l' = 'ms';
 	constructor() { }
 
 	ngOnInit() {
 	}
+
+
 
 }

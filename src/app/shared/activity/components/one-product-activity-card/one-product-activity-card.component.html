@@ -1,4 +1,4 @@
-<card-app>
+<card-app padding="ms">
 
 	<!-- user -->
 	<activity-user-app
@@ -28,11 +28,15 @@
 		<span class="name">{{ product.name }}</span>
 		<span class="supplier">{{ product.supplier.name }}</span>
 		<div class="badges flexVAlign">
-			<status-badge-app [status]="product.statuses[0].status"></status-badge-app>
+			<status-badge-app
+				size="mini"
+			 [status]="product.statuses[0].status"></status-badge-app>
 			<smart-badge-app
+				size="mini"
 				type="category">{{ product.category.name }}
 			</smart-badge-app>
 			<smart-badge-app
+				size="mini"
 				type="tag"
 				*ngFor="let tag of product.tags">{{ tag.name }}
 			</smart-badge-app>

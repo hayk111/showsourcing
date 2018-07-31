@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core';
-import * as stream from 'getstream'
 import { HttpClient } from '@angular/common/http';
-import { switchMap, map, take, first, tap, scan } from 'rxjs/operators';
-import { from, forkJoin } from 'rxjs';
+import { Injectable } from '@angular/core';
+import * as stream from 'getstream';
+import { forkJoin, Observable } from 'rxjs';
+import { first, map, scan, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~global-services';
-import { Observable } from 'rxjs';
-import { preserveWhitespacesDefault } from '../../../../../node_modules/@angular/compiler';
-import { access } from 'fs';
-import { select } from '../../../../../node_modules/@types/async';
 
 
 export interface GetStreamResponse {

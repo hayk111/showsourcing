@@ -77,7 +77,7 @@ export class EditableTextComponent implements OnInit {
 		// set timeout because the input isn't rendered yet
 		setTimeout(_ => {
 			if (this.input) {
-				this.input.focus();
+				this.input.select();
 				return;
 			}
 			if (this.selector) {

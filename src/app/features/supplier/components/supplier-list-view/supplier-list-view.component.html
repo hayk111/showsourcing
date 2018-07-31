@@ -47,11 +47,11 @@
 		class="capitalize"
 		columnApp="Country"
 		let-row="row"
-		sortBy="countryName"
+		sortBy="country"
 		[grows]="false"
 		width="140">
 		<span>
-			{{ row.countryName  }}
+			{{ row.country | const: 'country'  }}
 		</span>
 	</ng-template>
 

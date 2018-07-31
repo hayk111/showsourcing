@@ -19,4 +19,8 @@ export class CardComponent {
 		else
 			return { padding: `var(--spacing-${this.padding})` };
 	}
+
+	get footerStyle() {
+		return { padding: `0 var(--spacing-${this.padding}) 0 var(--spacing-${this.padding})` };
+	}
 }

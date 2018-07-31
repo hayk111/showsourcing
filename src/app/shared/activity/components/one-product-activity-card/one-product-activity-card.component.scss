@@ -34,10 +34,14 @@ img-app {
 }
 
 .prodInfo {
-	margin-top: var(--spacing-l);
+	margin-top: var(--spacing-ms);
 	.name {
 		color: var(--color-txt-strong);
 		font-size: var(--font-size-l);
+		font-weight: 600;
+	}
+	.supplier {
+		margin-bottom: var(--spacing-s);
 	}
 }
 

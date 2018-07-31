@@ -1,11 +1,9 @@
 :host {
-	padding: 0 var(--spacing-l) var(--spacing-ms) var(--spacing-l);
+	border-top: 1px solid var(--color-divider);
+	padding: var(--spacing-ms) 0 var(--spacing-ms) 0;
 	display: block;
 	&.right {
 		text-align: right;
 	}
 }
 
-divider-app {
-	margin-bottom: var(--spacing-ms);
-}

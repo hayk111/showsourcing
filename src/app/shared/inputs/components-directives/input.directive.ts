@@ -127,6 +127,13 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		});
 	}
 
+	/** Selects the content of the input */
+	select(): void {
+		setTimeout(_ => {
+			this._elementRef.nativeElement.select();
+		})
+	}
+
 	ngOnChanges() {
 		this.stateChanges.next();
 	}

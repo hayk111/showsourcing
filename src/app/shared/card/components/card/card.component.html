@@ -6,5 +6,6 @@
 		<ng-content></ng-content>
 	</main>
 
-
-	<ng-content select="card-footer-app"></ng-content>
+	<footer [ngStyle]="footerStyle">
+		<ng-content select="card-footer-app"></ng-content>
+	</footer>

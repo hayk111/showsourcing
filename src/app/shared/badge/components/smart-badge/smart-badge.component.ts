@@ -11,7 +11,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class SmartBadgeComponent implements OnInit {
 	@Input() type: string;
-
+	@Input() size = 'mini';
 	constructor() { }
 
 	ngOnInit() {

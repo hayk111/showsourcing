@@ -1,4 +1,4 @@
-<card-app>
+<card-app padding="ms">
 
 	<!-- user -->
 	<activity-user-app
@@ -20,11 +20,14 @@
 				</div>
 			</div>
 			<span class="priceMoq">
-				<ng-container *ngIf="product.price !== undefined">
+				<ng-container *ngIf="product.price && product.price.value">
 					{{ product.price.currency }} {{ product.price.value }}
 				</ng-container>
-				<ng-container *ngIf="product.minimumOrderQuantity !== undefined">
-					- {{ product.minimumOrderQuantity }} pcs
+				<ng-container *ngIf="product.price && product.price.value && product.minimumOrderQuantity">
+					-
+				</ng-container>
+				<ng-container *ngIf="product.minimumOrderQuantity">
+					{{ product.minimumOrderQuantity }} pcs
 				</ng-container>
 			</span>
 		</div>
@@ -33,9 +36,7 @@
 	<!-- supplier -->
 
 	<div class="flex supplier" *ngIf="products[0]?.supplier as supplier">
-		<div class="circle">
-			<img-app [image]="supplier.logoImage" type="supplier"></img-app>
-		</div>
+		<img-app class="supplierImg" [image]="supplier.logoImage" type="supplier"></img-app>
 
 		<div class="flexColumn">
 			<span class="supplierName">{{ supplier.name }}</span>
