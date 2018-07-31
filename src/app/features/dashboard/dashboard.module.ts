@@ -13,6 +13,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { TeamCardComponent } from './components/team-card/team-card.component';
 import { EventsCardComponent } from './components/events-card/events-card.component';
 import { SharedModule } from '~shared/shared.module';
+import { RatingModule } from '~shared/rating';
 
 @NgModule({
 	imports: [
@@ -21,6 +22,7 @@ import { SharedModule } from '~shared/shared.module';
 		ActivityModule,
 		DialogModule,
 		CustomDialogModule,
+		RatingModule
 	],
 	declarations: [DashboardComponent, SummaryComponent, TeamCardComponent, EventsCardComponent],
 	providers: [

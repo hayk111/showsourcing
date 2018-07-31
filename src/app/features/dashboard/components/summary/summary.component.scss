@@ -44,19 +44,9 @@ h3 {
 	color: var(--color-txt-strong);
 	margin: var(--spacing-ms) 0;
 }
-.cylinder {
-	margin: auto;
-	border-radius: 500px;
-	margin-bottom: var(--spacing-m);
-	height: 16px;
-	width: 270px;
-	background: var(--color-secondary);
-	overflow: hidden;
-	.part1 {
-    background: var(--color-success);
-    width: 60%;
-    height: 100%;
-	}
+
+rating-cylinder-app {
+	margin-bottom: var(--spacing-l);
 }
 
 checkbox-app {
