@@ -168,7 +168,10 @@ export class ProductQueries implements GlobalQuery {
 				user {
 					id
 				},
-			value
+				value
+			},
+			projects {
+				id
 			}
 		}
 	}`;

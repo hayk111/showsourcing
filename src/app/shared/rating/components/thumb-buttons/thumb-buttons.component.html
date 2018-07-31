@@ -9,11 +9,11 @@
 </button>
 </ng-container>
 
-<ng-template #double class="flex">
+<ng-template #double>
 	<button class="icon light first" (click)="thumbUp()">
 		<icon-app name="thumbs-up" fontSet="fa" [class.color-primary]="like" [size]="size" ></icon-app>
 	</button>
-	<button class="icon light" (click)="thumbDown()">
+	<button class="icon light second" (click)="thumbDown()">
 		<icon-app name="thumbs-down" fontSet="fa" [class.color-warn]="dislike" [size]="size"></icon-app>
 	</button>
 </ng-template>

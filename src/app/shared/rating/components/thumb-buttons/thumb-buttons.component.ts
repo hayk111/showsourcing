@@ -11,7 +11,12 @@ import { thumbAnimation } from './animation';
 	templateUrl: './thumb-buttons.component.html',
 	styleUrls: ['./thumb-buttons.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: thumbAnimation
+	animations: thumbAnimation,
+	host: {
+		'[class.reverse]': 'reverse && !like && !dislike',
+		'[class.reverse-like]': 'reverse && like',
+		'[class.reverse-dislike]': 'reverse && dislike'
+	}
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Output() vote = new EventEmitter<ProductVote[]>();
@@ -26,6 +31,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		return this._votes;
 	}
 	@Input() size = 's';
+	// when we want the color of the thumb be the background isntead of the icon
+	@Input() reverse = false;
 	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
 	like = false;
@@ -99,9 +106,12 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	get state() {
+		let val: string;
 		if (!this.userVote)
-			return 'none';
-		return this.userVote.value === 100 ? 'up' : 'down';
+			val = this.reverse ? 'none-rev' : 'none';
+		else if (this.reverse) val = this.userVote.value === 100 ? 'up-rev' : 'down-rev';
+		else val = this.userVote.value === 100 ? 'up' : 'down';
+		return val;
 	}
 
 }

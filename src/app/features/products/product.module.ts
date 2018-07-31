@@ -41,6 +41,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { CustomDialogModule } from '~shared/custom-dialog';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		SearchAutocompleteModule,
 		WorkflowActionModule,
 		StageIndicatorModule,
-		ActionBarModule
+		ActionBarModule,
+		CustomDialogModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

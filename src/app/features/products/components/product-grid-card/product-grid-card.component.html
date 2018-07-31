@@ -13,11 +13,19 @@
 					(favorited)="productFavorite.emit()"
 					(unfavorited)="productUnfavorite.emit()">
 				</rating-heart-app>
-				<thumb-buttons-app
-					[votes]="product.votes"
-					(vote)="updateProduct({ votes: $event })">
-				</thumb-buttons-app>
-				<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
+				<div class="flex">
+					<thumb-buttons-app
+						size="xs"
+						[reverse]="true"
+						[votes]="product.votes"
+						(vote)="updateProduct({ votes: $event })">
+					</thumb-buttons-app>
+					<p class="numbers">{{product?.score || '-'}}%</p>
+				</div>
+				<div class="flex">
+					<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
+					<p class="numbers">{{product?.projects?.length || 0}}</p>
+				</div>
 			</div>
 		</div>
 
@@ -29,8 +37,8 @@
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
 			(vote)="updateProduct({ votes: $event })"
-			(addToProject)="addToProject.emit()"
-			(buttonClick)="openProjectModal()">
+			(addToProject)="openAddToProject()"
+			(buttonClick)="onViewProduct()">
 		</action-bar-app>
 
 	</div>

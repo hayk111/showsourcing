@@ -12,8 +12,12 @@
 				[single]="false"
 				(vote)="vote.emit($event)">
 			</thumb-buttons-app>
-			<icon-app fontSet="svg" name="folder" size="m" (click)="addToProject.emit()"></icon-app>
-			<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+			<button class="icon light folder" (click)="addToProject.emit()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+			<button class="icon light dots">
+				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+			</button>
 		</div>
 		<button *ngIf="buttonName" (click)="buttonClick.emit()">{{buttonName}}</button>
 	</div>

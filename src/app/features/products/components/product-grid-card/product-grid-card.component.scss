@@ -40,12 +40,21 @@
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
 			}
-			thumb-buttons-app, icon-app {
-				color: var(--color-secondary-dark);
-				margin-right: var(--spacing-s);
+			icon-app, thumb-buttons-app {
+				margin-right: var(--spacing-xs);
 			}
 
-			rating-heart-app {
+			rating-heart-app, thumb-buttons-app, icon-app {
+				color: var(--color-secondary-dark);
+			}
+			thumb-buttons-app {
+				margin-left: 2px;
+				margin-top: 6px;
+			}
+
+			.numbers {
+				margin-right: 6px;
+				margin-top: 7px;
 				color: var(--color-secondary-dark);
 			}
 

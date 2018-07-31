@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
 import { Product } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
+import { DialogService } from '~shared/dialog';
+import { Router } from '@angular/router';
+import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -22,7 +25,11 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 
 	showOptionsBar = false;
 
-	constructor(private featureSrv: ProductFeatureService) {
+	constructor(
+		private featureSrv: ProductFeatureService,
+		private dlgSrv: DialogService,
+		private module: NgModuleRef<any>,
+		private router: Router) {
 		super();
 	}
 
@@ -37,8 +44,12 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
-	openProjectModal() {
+	onViewProduct() {
+		this.router.navigate(['product', 'details', this.product.id]);
+	}
 
+	openAddToProject() {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
 	}
 
 }

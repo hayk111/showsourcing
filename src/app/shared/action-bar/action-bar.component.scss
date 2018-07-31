@@ -30,20 +30,20 @@
 	margin-left: 10px;
 }
 
-thumb-buttons-app, icon-app {
+thumb-buttons-app, icon-app, rating-heart-app {
 	color: var(--color-secondary-dark);
-	margin-right: var(--spacing-m);
 }
 rating-heart-app {
-	color: var(--color-secondary-dark);
 	margin-right: 7px;
-	margin-top: 5px;
 }
 
 thumb-buttons-app {
-	margin-top: 5px;
+	margin-right: var(--spacing-ms);
 }
 
-button {
+button.folder, button.dots, thumb-buttons-app, rating-heart-app {
+	margin-top: 5px;
+}
+button:not(.icon){
 	overflow: hidden;
 }

@@ -1,6 +1,13 @@
 :host {
 	line-height: 1;
 	cursor: pointer;
+	&.xs {
+		svg, img, i{
+			width: 0.6rem;
+			height: 0.6rem;
+		}
+	}
+
 	&.s {
 		svg, img, i{
 			width: 1.0rem;
@@ -22,6 +29,7 @@
 		}
 	}
 }
+
 
 // for icomoon icons
 @font-face {
