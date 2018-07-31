@@ -19,14 +19,14 @@
 		</div>
 
 		<action-bar-app
-			[class.isHovered]="showOptionsBar"
+			[class.isHovered]="true"
+			[votes]="product.votes"
 			[favorite]="favorite"
 			[like]=""
 			[dislike]=""
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
-			(onLike)="productLike.emit()"
-			(onDislike)="productDislike.emit()"
+			(updateProduct)="updateProduct.emit({ votes: $event })"
 			(addToProject)="addToProject.emit()">
 		</action-bar-app>
 

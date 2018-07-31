@@ -162,7 +162,14 @@ export class ProductQueries implements GlobalQuery {
 				}
 			},
 			score,
-			minimumOrderQuantity
+			minimumOrderQuantity,
+			votes {
+				id,
+				user {
+					id
+				},
+			value
+			}
 		}
 	}`;
 

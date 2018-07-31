@@ -5,13 +5,21 @@
 			 [favorite]="favorite"
 			 (favorited)="onFavorite.emit()"
 			 (unfavorited)="onUnfavorite.emit()"></rating-heart-app>
-			<double-thumbs-app
+			<!-- <double-thumbs-app
 				size="m"
 				[like]="like"
 				[dislike]="dislike"
 				(onLike)="onLike.emit($event)"
 				(onDislike)="onDislike.emit($event)">
-			</double-thumbs-app>
+			</double-thumbs-app> -->
+			<thumb-buttons-app
+				size="m"
+				[votes]="votes"
+				[single]="false"
+				[like]="like"
+				[dislike]="dislike"
+				(vote)="updateProduct.emit($event)">
+			</thumb-buttons-app>
 			<icon-app fontSet="svg" name="folder" size="m" (click)="addToProject.emit()"></icon-app>
 			<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
 		</div>
