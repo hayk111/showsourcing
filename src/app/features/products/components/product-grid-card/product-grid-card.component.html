@@ -21,11 +21,11 @@
 						(vote)="updateProduct({ votes: $event })"
 						(colorOut)="colorOut = $event">
 					</thumb-buttons-app>
-					<p class="color-{{colorOut}} numbers">{{product?.score || '-'}}%</p>
+					<p class="color-{{colorOut || 'txt-secondary'}} numbers">{{product?.score || '-'}}%</p>
 				</div>
 				<div class="flex" *ngIf="!showOptionsBar">
 					<icon-app fontSet="svg" name="folder"></icon-app>
-					<p class="numbers">{{product?.projects?.length || 0}}</p>
+					<p class="numbers color-txt-secondary">{{product?.projects?.length || 0}}</p>
 				</div>
 			</div>
 		</div>
