@@ -4,7 +4,7 @@
 		background: var(--color-secondary-dark);
 	}
 	&.reverse-like {
-		background: var(--color-primary);
+		background: var(--color-success);
 	}
 	&.reverse-dislike {
 		background: var(--color-warn);
@@ -16,6 +16,11 @@
 		icon-app {
 			margin-top: -1px;
 			margin-left: 1px;
+		}
+	}
+	&.reverse-dislike button, &.reverse-dislike {
+		icon-app {
+			margin-top: 0px;
 		}
 	}
 }

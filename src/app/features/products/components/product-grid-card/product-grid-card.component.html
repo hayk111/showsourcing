@@ -18,12 +18,13 @@
 						size="xs"
 						[reverse]="true"
 						[votes]="product.votes"
-						(vote)="updateProduct({ votes: $event })">
+						(vote)="updateProduct({ votes: $event })"
+						(colorOut)="colorOut = $event">
 					</thumb-buttons-app>
-					<p class="numbers">{{product?.score || '-'}}%</p>
+					<p class="color-{{colorOut}} numbers">{{product?.score || '-'}}%</p>
 				</div>
-				<div class="flex">
-					<icon-app *ngIf="!showOptionsBar" fontSet="svg" name="folder"></icon-app>
+				<div class="flex" *ngIf="!showOptionsBar">
+					<icon-app fontSet="svg" name="folder"></icon-app>
 					<p class="numbers">{{product?.projects?.length || 0}}</p>
 				</div>
 			</div>

@@ -44,6 +44,9 @@ thumb-buttons-app {
 button.folder, button.dots, thumb-buttons-app, rating-heart-app {
 	margin-top: 5px;
 }
+button.dots {
+	margin-left: 5px;
+}
 button:not(.icon){
 	overflow: hidden;
 }

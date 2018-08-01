@@ -5,6 +5,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { DialogService } from '~shared/dialog';
 import { Router } from '@angular/router';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
+import { UserService } from '~global-services';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -24,6 +25,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	@Output() addToProject = new EventEmitter<null>();
 
 	showOptionsBar = false;
+	colorOut = '';
 
 	constructor(
 		private featureSrv: ProductFeatureService,
