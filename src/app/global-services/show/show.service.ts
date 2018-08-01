@@ -4,12 +4,12 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ShowQueries } from '~global-services/show/show.queries';
+import { GLOBAL_DATA_CLIENT } from '~shared/apollo';
 
 @Injectable({ providedIn: 'root' })
 export class ShowService extends GlobalService<Show> {
 
 	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new ShowQueries(), 'Show');
+		super(wrapper.use(GLOBAL_DATA_CLIENT), new ShowQueries(), 'Show');
 	}
-
 }

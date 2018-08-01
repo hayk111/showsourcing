@@ -8,6 +8,7 @@ import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/inte
 import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
+import { ApolloQueryResult } from '../../../../../node_modules/apollo-client';
 
 
 /**
@@ -23,13 +24,6 @@ export class ApolloWrapper {
 
 	constructor(protected apollo: Apollo) { }
 
-	/**
-	 * @deprecated it will be removed soon
-	 */
-	query<T>(options: any): any {
-		log.error('query method is deprecated, do not use it !!!!');
-		return this.apollo.watchQuery<T>(options);
-	}
 
 	///////////////////////////////
 	//   SELECT ONE SECTION      //
@@ -81,6 +75,25 @@ export class ApolloWrapper {
 				catchError(errors => of(log.table(errors))),
 		);
 	}
+
+	/////////////////////////////
+	//      SELECT LIST        //
+	/////////////////////////////
+	/** does a query against the graphql db */
+	selectList(options: SubscribeToManyOptions): Observable<any> {
+		const { gql, ...variables } = options;
+		const queryName = this.getQueryName(options);
+		this.log('Selecting List (query)', options, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				map((r) => r.data[queryName]),
+				tap(data => this.logResult('Selecting List (query)', queryName, data)),
+				catchError(errors => of(log.table(errors))),
+		);
+	}
+
 
 	/////////////////////////////
 	//   SELECT ALL SECTION    //

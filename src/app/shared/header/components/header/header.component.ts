@@ -12,6 +12,7 @@ import {
 import { AutoUnsub } from '~utils';
 import { SearchService } from '../../services/search.service';
 
+
 @Component({
 	selector: 'header-app',
 	templateUrl: './header.component.html',

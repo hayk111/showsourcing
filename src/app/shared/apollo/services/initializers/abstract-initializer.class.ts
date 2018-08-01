@@ -8,7 +8,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { first, map } from 'rxjs/operators';
 import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { GLOBAL_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
+import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { environment } from 'environments/environment.prod';
@@ -38,7 +38,7 @@ export abstract class AbstractApolloInitializer {
 	 * gets a realm given a realm name
 	 */
 	protected async getRealm(realmName: string): Promise<{ hostname: string, httpsPort: string }> {
-		return this.apollo.use(GLOBAL_CLIENT).subscribe({
+		return this.apollo.use(GLOBAL_CONSTANT_CLIENT).subscribe({
 			query: ClientInitializerQueries.selectRealmHostName,
 			variables: { query: `name == "${realmName}"` }
 		}).pipe(

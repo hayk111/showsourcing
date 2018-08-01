@@ -9,7 +9,8 @@
   <sub-panel-app
     [hasSwitch]="false"
     [hasFilter]="false"
-    [buttonIcon]="false">
+    [buttonIcon]="false"
+    (search)="search($event)">
 
     <div class="flexBetween">
       <checkbox-app>
@@ -22,5 +23,5 @@
 
   </sub-panel-app>
 
-  <show-list-app></show-list-app>
+  <show-list-app [items]="items$ | async"></show-list-app>
 </div>

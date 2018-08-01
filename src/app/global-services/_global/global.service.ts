@@ -6,6 +6,8 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
+import { ListParams } from '~global-services/_global/list-params';
+import { preserveWhitespacesDefault } from '../../../../node_modules/@angular/compiler';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -60,6 +62,30 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			map((params: SelectParams) => params.toWrapperOptions(this.queries.list)),
 			distinctUntilChanged(),
 			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectMany(opts))
+		);
+	}
+
+	/**
+	 * Same as select many but with a query instead of a subscription
+	 * This can be used for infini scroll as the result is added on page changes.
+	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying
+	 */
+	selectList(params$: Observable<SelectParams>) {
+
+		return params$.pipe(
+			distinctUntilChanged(),
+			mergeMap(params => {
+				const opts = params.toWrapperOptions(this.queries.list);
+				return this.wrapper.selectList(opts).pipe(
+					map(data => ({ data, page: params.page }))
+				)
+			}),
+			scan((prev: any[], curr: { data, page }) => {
+				if (curr.page === 0)
+					return curr.data;
+				else
+					return [...prev, curr.data];
+			}, [])
 		);
 	}
 

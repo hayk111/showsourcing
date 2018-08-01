@@ -10,7 +10,7 @@ export class ShowQueries implements GlobalQuery {
 	one = gql`
 		subscription show($query: String!) {
 			events(query: $query) {
-
+				id
 			}
 		}`;
 
@@ -24,25 +24,24 @@ export class ShowQueries implements GlobalQuery {
 		) {
 			events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 				description {
-					name,
+					name
 					description
 					startDate
 					endDate
 					logoImage {
 						fileName
-					},
+					}
 					primaryColor
 					secondaryColor
 					venue {
 						name
-						countryCode,
-						addressFull,
-						city,
+						countryCode
+						addressFull
+						city
 					}
 				}
 			}
 		}`;
-
 
 	create = gql`
 		mutation addShow($input: ShowInput!) {

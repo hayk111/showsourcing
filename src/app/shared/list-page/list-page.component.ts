@@ -51,9 +51,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected featureSrv: G,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>,
+		protected searchSrv?: SearchService,
+		protected dlgSrv?: DialogService,
+		protected moduleRef?: NgModuleRef<any>,
 		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
