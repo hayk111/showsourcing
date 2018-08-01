@@ -35,6 +35,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
+
 	ngOnInit() {
 	}
 

@@ -1,0 +1,6 @@
+<div class="flex noselect small-icons">
+	<icon-app name="heart" [ngClass]="{'color-warn': favorite, 'color-txt-secondary': !favorite}"></icon-app>
+	<icon-app name="thumbs-up-white" [ngStyle]="successStyle" size="9" fontSet="svg"></icon-app>
+	<p class="numbers color-txt-secondary">{{product?.score || '-'}}%</p>
+	<ng-content></ng-content>
+</div>

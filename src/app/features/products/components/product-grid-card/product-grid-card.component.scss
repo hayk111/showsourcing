@@ -6,23 +6,36 @@
 }
 
 .card-container {
+	margin: 0px;
 	width: 330px;
-	height: 340px;
+	height: 330px;
 	background: white;
+	overflow: hidden;
+	border: 4px solid white;
+	transform: translateY(0px);
+	&:hover {
+		img, .information, action-bar-app {
+			transform: translateY(-30px);
+		}
+	}
 
 	&.selectedCard {
-		border: 2px solid var(--color-primary);
+		outline: 2px solid var(--color-primary);
 		border-radius: 2px;
 	}
 
 	.card-content {
-		margin: var(--spacing-xs);
-		height: 100%;
+		height: 395px;
 
 		img {
 			object-fit: fill;
-			flex-grow: 1;
-			height: 234px;
+			height: 272px;
+			padding-bottom: 2px;
+			transition: transform 0.2s linear;
+		}
+
+		icons-status-app {
+			padding-bottom: 22px;
 		}
 
 		.information {
@@ -30,31 +43,17 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			flex-grow: 1;
-
-			.small-icons {
-				padding-bottom: 23px;
-			}
+			transition: transform 0.2s linear;
 
 			.text-bar {
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
 			}
-			icon-app, thumb-buttons-app {
-				margin-right: var(--spacing-xs);
+			icon-app { // has to be the same as in  icons-status-app
+				margin-right: var(--spacing-s);
 			}
-
-			rating-heart-app, thumb-buttons-app, icon-app {
-				color: var(--color-secondary-dark);
-			}
-			thumb-buttons-app {
-				margin-left: 2px;
-				margin-top: 6px;
-			}
-
-			.numbers {
+			.numbers { // has to be the same as in  icons-status-app
 				margin-right: 6px;
-				margin-top: 7px;
 			}
 		}
 	}

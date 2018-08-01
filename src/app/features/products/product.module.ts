@@ -42,6 +42,7 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
+import { IconsStatusComponent } from './components/icons-status/icons-status.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,
-		ProductGridCardComponent
+		ProductGridCardComponent,
+		IconsStatusComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

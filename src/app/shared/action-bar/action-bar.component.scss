@@ -4,7 +4,7 @@
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.6s linear;
+	transition: visibility 0s, opacity 0.4s linear;
 	.action-container {
 		max-height: 0px;
 		transition: max-height 0.2s ease-out;
@@ -14,8 +14,8 @@
 		opacity: 1;
 		.action-container {
 			margin-bottom: var(--spacing-s);
-			max-height: 48px;
-			transition: max-height 0.2s ease-in
+			max-height: 46px;
+			transition: max-height 0.1s ease-out;
 		}
 	}
 }

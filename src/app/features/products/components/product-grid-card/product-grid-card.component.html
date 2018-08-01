@@ -1,33 +1,19 @@
 <div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
-		<img class="noselect" [src]="product | image:'m'" alt="rekt">
-
+		<img class="noselect" [src]="product | image:'m'">
 		<div class="information">
 			<div class="text-bar">
 				<p class="bold-s">{{product.name}}</p>
 				<p class="fs-s">{{product.supplier.name}}</p>
 			</div>
-			<div class="flex noselect small-icons">
-				<rating-heart-app
-					[favorite]="favorite"
-					(favorited)="productFavorite.emit()"
-					(unfavorited)="productUnfavorite.emit()">
-				</rating-heart-app>
-				<div class="flex">
-					<thumb-buttons-app
-						size="xs"
-						[reverse]="true"
-						[votes]="product.votes"
-						(vote)="updateProduct({ votes: $event })"
-						(colorOut)="colorOut = $event">
-					</thumb-buttons-app>
-					<p class="color-{{colorOut || 'txt-secondary'}} numbers">{{product?.score || '-'}}%</p>
-				</div>
-				<div class="flex" *ngIf="!showOptionsBar">
+			<icons-status-app
+				[product]="product"
+				[favorite]="favorite">
+				<ng-template *ngIf="product?.projects?.length">
 					<icon-app fontSet="svg" name="folder"></icon-app>
 					<p class="numbers color-txt-secondary">{{product?.projects?.length || 0}}</p>
-				</div>
-			</div>
+				</ng-template>
+			</icons-status-app>
 		</div>
 
 		<action-bar-app

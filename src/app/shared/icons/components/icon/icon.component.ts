@@ -8,14 +8,16 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexCenter]': 'true',
-		'[class.xs]': 'size === \'xs\'',
-		'[class.s]': 'size === \'s\'',
-		'[class.m]': 'size === \'m\'',
-		'[class.l]': 'size === \'l\''
+		'[class.fs-xxs]': 'size === \'xs\'',
+		'[class.fs-l]': 'size === \'s\'',
+		'[class.fs-xxl]': 'size === \'m\'',
+		'[class.fs-huge]': 'size === \'l\'',
+		'[style.font-size]': 'size+\'px\''
 	}
 })
 export class IconComponent {
-	@Input() size: 'xs' | 's' | 'm' | 'l' = 's';
+	// the size accepts any number and specific sizes as: xs, s, m and l.
+	@Input() size = 's';
 	@Input() name: string;
 	// type solid by default https://fontawesome.com/icons/heart?style=regular
 	@Input() type: 's' | 'r' | 'l' = 's';
