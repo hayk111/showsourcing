@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'rfq-template-app',
@@ -7,10 +7,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RfqTemplateComponent implements OnInit {
+	@ViewChild('main') mainRef;
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
+	onActivate(event) {
+		// this.mainRef.nativeElement.scrollIntoView();
+		window.scrollTo(0, 0);
+	}
 }

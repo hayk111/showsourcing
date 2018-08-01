@@ -1,37 +1,53 @@
-<div class="step">
-	<h1>You got a Request for Quotation<br/> from Jeron Vanmeulen</h1>
+<div class="step-container">
+	<div class="step">
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="1">
+		</stage-indicator-app>
 
-	<h2>Request from</h2>
+		<div class="flex description">
+			<div class="left">
+					<carousel-card-app
+					[hasFooter]="false"
+					[images]="product.images"></carousel-card-app>
+			</div>
 
-	<div class="flexVAlign">
-		<div class="imgCtnr">
-			<img class="mini" src="/assets/img/logo.svg"/>
-		</div>
-		<div class="flexColumn person">
-			<a class="name"><strong>Name</strong></a>
-			<span class="text">Wanlixing rubber S.A.S.</span>
-		</div>
+			<div class="right">
+					<card-app>
+						<div class="sectionTitle shipping"
+							i18n="div title|Product general information@@productGeneralInfo_general">
+							General Information
+						</div>
+						<ng-container *ngIf="descriptor$ | async as descriptor">
+							<dynamic-form-app
+								[inlineLabel]="false"
+								(formCreated)="onFormCreated($event)"
+								[descriptor]="descriptor"
+								[editable]="true"
+								[colAmount]="2">
+							</dynamic-form-app>
+						</ng-container>
+					</card-app>
+					
+					<card-app>
+						<div class="sectionTitle shipping"
+							i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
+							Shipping & Trading
+						</div>
+
+						<ng-container *ngIf="descriptor2$ | async as descriptor">
+							<dynamic-form-app (formCreated)="onFormCreated($event)"
+								[inlineLabel]="true"
+								[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+						</ng-container>
+					</card-app>
+			</div>
 	</div>
 
-	<h2>Description</h2>
-
-	<div class="description">
-
-	<textarea rows="15" class="text">Hello Jerone,
-
-Please find attached the quotation.
-
-Best,
-Janette Wong</textarea>
-
-	</div>	
-	
-	<h2>Product</h2>
-
-	<div class="carousel"></div>
-
-	<h3>minh-0023-AC</h3>
-
-	<div class="text">Created on Monday 12 May 2018</div>
-	<div class="text">Canton Fair 2018 - Phase 2</div>
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn back" routerLink="../new-request">Back</button>
+			<button class="btn" routerLink="../review-send">Validate & Review</button>
+		</div>
+	</div>
 </div>

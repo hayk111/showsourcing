@@ -6,6 +6,7 @@
 			From <b>Gauthier Van Den Eynde</b> on <b>12 March 2018</b>
 	</div>
 </header>
-<main class="flexCenter">
-	<router-outlet></router-outlet>
+<main>
+	<div #main></div>
+	<router-outlet (activate)="onActivate($event)"></router-outlet>
 </main>

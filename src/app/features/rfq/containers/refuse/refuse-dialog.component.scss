@@ -1,0 +1,29 @@
+dialog-app {
+	width: 426px;
+
+  h2 {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--color-txt-strong);
+    margin-top: 24px;
+    margin-bottom: 10px;
+    text-transform: none;
+  }
+
+  .text {
+    color: var(--color-txt-primary);
+    font-size: 13px;
+  }
+
+  button {
+    margin-left: 15px;
+
+    &.danger {
+      background-color: #ec495d;
+    }
+  }
+}
+
+.scrollable {
+	height: 250px;
+}
