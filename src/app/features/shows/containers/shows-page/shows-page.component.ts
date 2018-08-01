@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { Show } from '~models/show.model';
 import { Router } from '@angular/router';
-import { first } from '../../../../../../node_modules/rxjs/operators';
+import { first, tap, takeUntil, switchMap } from 'rxjs/operators';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { StoreKey } from '~utils/store/store';
 
@@ -20,7 +20,9 @@ import { StoreKey } from '~utils/store/store';
   ]
 })
 export class ShowsPageComponent extends ListPageComponent<Show, ShowService> implements OnInit {
+
   currentParams = new SelectParams({ sort: { sortBy: 'description.startDate', sortOrder: 'DESC' } });
+
   constructor(
     protected router: Router,
     protected srv: ShowService,
@@ -31,7 +33,20 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowService> imp
 
   /** init */
   ngOnInit() {
+    // overriding onInit to remove selection
     this.setItems();
     this.setFilters();
   }
+
+  setItems() {
+    this.items$ = this.selectParams$.pipe(
+      tap(params => this.currentParams = params),
+      takeUntil(this._destroy$),
+      tap(_ => this.onLoad()),
+      switchMap(param$ => this.featureSrv.selectList(this.selectParams$)),
+      tap(() => this.onLoaded())
+    );
+  }
+
+
 }

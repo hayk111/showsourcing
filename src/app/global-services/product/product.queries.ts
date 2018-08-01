@@ -109,7 +109,7 @@ export class ProductQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 	subscription products(
 		$take: Int,
 		$skip: Int,

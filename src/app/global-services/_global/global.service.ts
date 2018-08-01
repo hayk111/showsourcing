@@ -55,11 +55,11 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
-		if (!this.queries.list) {
+		if (!this.queries.many) {
 			throw Error('list / many query not implemented for this service');
 		}
 		return params$.pipe(
-			map((params: SelectParams) => params.toWrapperOptions(this.queries.list)),
+			map((params: SelectParams) => params.toWrapperOptions(this.queries.many)),
 			distinctUntilChanged(),
 			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectMany(opts))
 		);
@@ -75,7 +75,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		return params$.pipe(
 			distinctUntilChanged(),
 			mergeMap(params => {
-				const opts = params.toWrapperOptions(this.queries.list);
+				const opts = params.toWrapperOptions(this.queries.many);
 				return this.wrapper.selectList(opts).pipe(
 					map(data => ({ data, page: params.page }))
 				)

@@ -11,7 +11,7 @@ export class EventQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 	subscription events(
 		$take: Int,
 		$skip: Int,

@@ -26,7 +26,7 @@ export class MemberService {
 		throw Error('needs refactoring');
 		// if (!this.membersQuery$) {
 		// 	this.membersQuery$ = this.apollo.query<any>({
-		// 		query: MemberQueries.list,
+		// 		query: Memberqueries.many,
 		// 		variables: {
 		// 			skip: 0,
 		// 			take: PER_PAGE

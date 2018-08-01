@@ -14,7 +14,7 @@ export class ShowQueries implements GlobalQuery {
 			}
 		}`;
 
-	list = gql`
+	many = gql`
 		subscription shows(
 			$take: Int,
 			$skip: Int,

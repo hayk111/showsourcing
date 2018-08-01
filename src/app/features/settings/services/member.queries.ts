@@ -22,7 +22,7 @@ export class MemberQueries {
 			}
 		}`;
 
-	static list = gql`
+	static many = gql`
 		query teamUsers {
 			teamUsers(take: 30) {
 				id,

@@ -48,7 +48,7 @@ export class ContactQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription contacts($query: String!) {
 			contacts(query: $query) {
 				id,
