@@ -1,5 +1,6 @@
 :host {
   width: 100%;
+  background: #fff;
 }
 
 .step-container {
@@ -53,6 +54,17 @@
     font-size: 13px;
   }
 
+  .circle {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--color-primary)
+  }
+
   .person {
     margin-left: 15px;
 
@@ -83,7 +95,7 @@
   .toolbar {
     margin-left: 30px;
     margin-right: 30px;
-    padding-top: 50px;
+    padding-top: 250px;
     padding-bottom: 24px;
     text-align: center;
 

@@ -1,5 +1,6 @@
 :host {
   width: 100%;
+  background: #fff;
 }
 
 .step-container {
@@ -42,6 +43,17 @@
   .text {
     color: var(--color-txt-primary);
     font-size: 13px;
+  }
+
+  .circle {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--color-primary)
   }
 
   .person {
