@@ -9,10 +9,6 @@
 			<icons-status-app
 				[product]="product"
 				[favorite]="favorite">
-				<ng-template *ngIf="product?.projects?.length">
-					<icon-app fontSet="svg" name="folder"></icon-app>
-					<p class="numbers color-txt-secondary">{{product?.projects?.length || 0}}</p>
-				</ng-template>
 			</icons-status-app>
 		</div>
 

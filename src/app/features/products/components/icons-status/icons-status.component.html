@@ -1,6 +1,9 @@
 <div class="flex noselect small-icons">
-	<icon-app name="heart" [ngClass]="{'color-warn': favorite, 'color-txt-secondary': !favorite}"></icon-app>
-	<icon-app name="thumbs-up-white" [ngStyle]="successStyle" size="9" fontSet="svg"></icon-app>
-	<p class="numbers color-txt-secondary">{{product?.score || '-'}}%</p>
-	<ng-content></ng-content>
+	<icon-app *ngIf="favorite" name="heart" [ngClass]="{'color-warn': favorite, 'color-txt-secondary': !favorite}"></icon-app>
+	<icon-app name="thumbs-{{ dislike ? 'down' : 'up' }}{{ (dislike || like) ? '-white' : '' }}" [ngStyle]="successStyle" [size]="size" fontSet="svg"></icon-app>
+	<p class="numbers color-{{ dislike ? 'warn' : like ? 'success' : 'txt-secondary'}} {{ (dislike || like) ? '' : 'fs-s'}}">{{product?.score || '-'}}%</p>
+	<ng-container *ngIf="product?.projects?.length">
+		<icon-app fontSet="svg" name="folder"></icon-app>
+		<p class="numbers color-txt-secondary">{{product?.projects?.length || 0}}</p>
+	</ng-container>
 </div>

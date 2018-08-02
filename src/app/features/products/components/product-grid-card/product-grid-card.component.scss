@@ -1,7 +1,7 @@
 :host {
-	margin: var(--spacing-l);
-	margin-left: 0;
-	margin-bottom: 0;
+	margin: 0px;
+	margin-right: var(--spacing-xl);
+	margin-top: 44px;
 	display: block;
 }
 
@@ -12,10 +12,9 @@
 	background: white;
 	overflow: hidden;
 	border: 4px solid white;
-	transform: translateY(0px);
 	&:hover {
 		img, .information, action-bar-app {
-			transform: translateY(-30px);
+			transform: translateY(-40px);
 		}
 	}
 
@@ -29,13 +28,13 @@
 
 		img {
 			object-fit: fill;
-			height: 272px;
+			height: 285px;
 			padding-bottom: 2px;
 			transition: transform 0.2s linear;
 		}
 
 		icons-status-app {
-			padding-bottom: 22px;
+			padding-bottom: 14px;
 		}
 
 		.information {
@@ -48,12 +47,6 @@
 			.text-bar {
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
-			}
-			icon-app { // has to be the same as in  icons-status-app
-				margin-right: var(--spacing-s);
-			}
-			.numbers { // has to be the same as in  icons-status-app
-				margin-right: 6px;
 			}
 		}
 	}

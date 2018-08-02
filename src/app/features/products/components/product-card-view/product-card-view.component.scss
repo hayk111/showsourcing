@@ -12,8 +12,8 @@
 
 .sectionTitle {
 	font-weight: bold;
-	margin-top: 40px;
-	margin-bottom: 20px;
+	margin-top: 21px;
+	margin-bottom: 2px;
 	font-size: 20px;
 	text-transform: capitalize;
 	color: var(--color-txt-strong);
@@ -28,7 +28,8 @@
 
 .sectionTag {
   border-radius: 14px;
-  background-color: var(--color-secondary);
+	background-color: var(--color-secondary);
+	color: var(--color-txt-primary);
   font-size: var(--font-size-m);
   display: flex;
   text-transform: capitalize;
