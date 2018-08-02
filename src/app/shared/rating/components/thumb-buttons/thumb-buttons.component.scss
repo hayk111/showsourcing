@@ -1,28 +1,5 @@
 :host {
 	display: flex;
-	&.reverse {
-		background: var(--color-secondary-dark);
-	}
-	&.reverse-like {
-		background: var(--color-success);
-	}
-	&.reverse-dislike {
-		background: var(--color-warn);
-	}
-	&.reverse button, &.reverse-like button, &.reverse-dislike button, &.reverse, &.reverse-like, &.reverse-dislike {
-		border-radius: 15px;
-		width: 20px;
-		height: 20px;
-		icon-app {
-			margin-top: -1px;
-			margin-left: 1px;
-		}
-	}
-	&.reverse-dislike button, &.reverse-dislike {
-		icon-app {
-			margin-top: 0px;
-		}
-	}
 }
 .btn {
 	background: var(--color-button-dark);

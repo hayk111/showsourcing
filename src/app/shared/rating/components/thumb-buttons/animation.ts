@@ -4,16 +4,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 export const thumbAnimation = [
 	trigger('thumbAnimation', [
-		state('none-rev', style({ color: 'white' })),
 		state('none', style({})),
-		state('up-rev', style({
-			color: 'white',
-			transform: 'rotateX(0deg)'
-		})),
-		state('down-rev', style({
-			color: 'white',
-			transform: 'rotateX(180deg)'
-		})),
 		state('up', style({
 			color: 'var(--color-primary)',
 			transform: 'rotateX(0deg)'

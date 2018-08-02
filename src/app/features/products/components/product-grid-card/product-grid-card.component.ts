@@ -25,7 +25,6 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	@Output() addToProject = new EventEmitter<null>();
 
 	showOptionsBar = false;
-	colorOut = '';
 
 	constructor(
 		private featureSrv: ProductFeatureService,

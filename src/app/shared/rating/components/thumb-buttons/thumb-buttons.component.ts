@@ -11,16 +11,10 @@ import { thumbAnimation } from './animation';
 	templateUrl: './thumb-buttons.component.html',
 	styleUrls: ['./thumb-buttons.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: thumbAnimation,
-	host: {
-		'[class.reverse]': 'reverse && !like && !dislike',
-		'[class.reverse-like]': 'reverse && like',
-		'[class.reverse-dislike]': 'reverse && dislike'
-	}
+	animations: thumbAnimation
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Output() vote = new EventEmitter<ProductVote[]>();
-	@Output() colorOut = new EventEmitter<string>();
 	/** whether we display two thumbs or just one */
 	@Input() single = true;
 	/** list of all votes */
@@ -49,10 +43,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.userVote) {
+		if (this.userVote)
 			this.userVote.value === 100 ? this.like = true : this.dislike = true;
-			this.userVote.value === 100 ? this.colorOut.emit('success') : this.colorOut.emit('warn');
-		}
 	}
 
 
@@ -66,7 +58,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		if (this.like) { // if we click over the active like we have to delete the vote
 			this.like = false;
 			this.voteSrv.deleteOne(this.userVote.id).subscribe();
-			this.colorOut.emit('');
 		} else {
 			this.like = true;
 			if (!this.dislike) // if it was false already it means that we have to create a new vote
@@ -82,7 +73,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
 			this.voteSrv.deleteOne(this.userVote.id).subscribe();
-			this.colorOut.emit('');
 		} else {
 			this.dislike = true;
 			if (!this.like) // if it was false already it means that we have to create a new vote
@@ -101,21 +91,18 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		});
 		this.voteSrv.create(vote).subscribe(newVote => {
 			this.vote.emit([...this.votes, newVote]);
-			this.colorOut.emit('success');
 		});
 	}
 
 	updateEmitVote() {
 		this.userVote.value = this.userVote.value === 100 ? 0 : 100;
-		this.colorOut.emit(this.userVote.value === 100 ? 'success' : 'warn');
 		this.vote.emit(this._votes);
 	}
 
 	get state() {
 		let val: string;
 		if (!this.userVote)
-			val = this.reverse ? 'none-rev' : 'none';
-		else if (this.reverse) val = this.userVote.value === 100 ? 'up-rev' : 'down-rev';
+			val = 'none';
 		else val = this.userVote.value === 100 ? 'up' : 'down';
 		return val;
 	}
