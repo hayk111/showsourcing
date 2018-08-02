@@ -13,6 +13,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SharedModule } from '~shared/shared.module';
+import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { SharedModule } from '~shared/shared.module';
 		SubPanelComponent,
 		ViewSwitcherComponent,
 		BreadCrumbComponent,
+		TopPanelDetailsComponent,
 	],
-	exports: [TopPanelComponent, SubPanelComponent, BreadCrumbComponent],
+	exports: [TopPanelComponent, SubPanelComponent, BreadCrumbComponent, TopPanelDetailsComponent],
 })
 export class TopPanelModule { }

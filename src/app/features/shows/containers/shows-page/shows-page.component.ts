@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { Show } from '~models/show.model';
 import { Router } from '@angular/router';
-import { first, tap, takeUntil, switchMap } from 'rxjs/operators';
+import { first, tap, takeUntil, switchMap, mergeMap } from 'rxjs/operators';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { StoreKey } from '~utils/store/store';
 import { realmDateFormat } from '~utils/realm-date-format.util';
@@ -46,13 +46,18 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowService> imp
   }
 
   setItems() {
-    this.items$ = this.selectParams$.pipe(
+
+    this.selectParams$.pipe(
       takeUntil(this._destroy$),
       tap(params => this.currentParams = params),
-      tap(_ => this.onLoad()),
-      switchMap(param$ => this.featureSrv.selectInfiniteList(this.selectParams$)),
-      tap(() => this.onLoaded()),
+    ).subscribe(_ => {
+      this.onLoad();
+    });
+
+    this.items$ = this.featureSrv.selectInfiniteList(this.selectParams$).pipe(
+      tap(_ => this.onLoaded())
     );
+
   }
 
 

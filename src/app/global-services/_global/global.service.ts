@@ -78,10 +78,9 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 					first(),
 					map(result => ({ result, page: params.page }))
 				)
-			), tap((d) => { debugger }),
+			),
 			// adding to the previous resultset
 			scan((prev, curr: { result, page }) => {
-				debugger;
 				if (curr.page === 0) {
 					return curr.result;
 				} else {

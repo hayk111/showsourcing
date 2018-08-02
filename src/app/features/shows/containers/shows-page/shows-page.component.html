@@ -22,7 +22,9 @@
 
     </sub-panel-app>
 
-    <show-list-app [items]="items$ | async"></show-list-app>
+    <show-list-app
+      [pending]="pending"
+      [items]="items$ | async"></show-list-app>
   </div>
 
 </div>

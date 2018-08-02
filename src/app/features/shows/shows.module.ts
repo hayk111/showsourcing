@@ -6,6 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { ShowListComponent } from '~features/shows/components/show-list/show-list.component';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { ShowDetailsComponent } from './containers/show-details/show-details.component';
 
 @NgModule({
   imports: [
@@ -14,9 +15,10 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
     TopPanelModule,
     SearchBarModule,
     RouterModule.forChild([
-      { path: '', component: ShowsPageComponent }
+      { path: '', component: ShowsPageComponent, pathMatch: 'full' },
+      { path: ':id', component: ShowDetailsComponent }
     ])
   ],
-  declarations: [ShowsPageComponent, ShowListComponent]
+  declarations: [ShowsPageComponent, ShowListComponent, ShowDetailsComponent]
 })
 export class ShowsModule { }

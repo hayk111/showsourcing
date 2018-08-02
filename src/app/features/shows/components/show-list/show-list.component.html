@@ -22,11 +22,11 @@
 
       <div class="showActions flexColumn flexCenter flexGrow">
         <button class="z-1 mg-s">Add to my Shows</button>
-        <button class="z-1 mg-s secondary">Browse Show</button>
+        <button class="z-1 mg-s secondary" (click)="goToDetail(event)">Browse Show</button>
       </div>
     </div>
 
-
   </div>
-
+  <spinner-app *ngIf="pending"></spinner-app>
+  <em *ngIf="!pending && items.length === 0"> No shows</em>
 </card-app>

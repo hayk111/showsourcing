@@ -23,6 +23,7 @@ export class ShowQueries implements GlobalQuery {
 			$descending: Boolean
 		) {
 			events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+				id
 				description {
 					name
 					description
