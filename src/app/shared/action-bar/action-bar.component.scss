@@ -22,11 +22,9 @@
 
 .action-container {
 	margin-right: 6px;
-	margin-bottom: 3px;
-	margin-top: 4px;
 }
 
-.icon-container {
+.icons-container {
 	margin-left: 10px;
 }
 
@@ -34,19 +32,14 @@ thumb-buttons-app, icon-app, rating-heart-app {
 	color: var(--color-secondary-dark);
 }
 rating-heart-app {
-	margin-right: 7px;
+	margin-right: 9px;
 }
 
 thumb-buttons-app {
 	margin-right: var(--spacing-ms);
 }
 
-button.folder, button.dots, thumb-buttons-app, rating-heart-app {
-	margin-top: 5px;
-}
-button.dots {
-	margin-left: 5px;
-}
-button:not(.icon){
+button {
 	overflow: hidden;
+	min-width: 86px;
 }

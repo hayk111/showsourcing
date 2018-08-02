@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
 import { DialogService } from '~shared/dialog';
@@ -16,14 +16,18 @@ import { UserService } from '~global-services';
 export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 
 	@Input() product: Product;
-	@Input() selected: boolean;
+	@Input() set selection(selection: Map<string, boolean>) {
+		this.selected = selection.has(this.product.id);
+	}
+	selected: boolean;
 	@Input() favorite: boolean;
-	@Output() productSelect = new EventEmitter<string>();
-	@Output() productUnselect = new EventEmitter<string>();
+	@Output() productSelect = new EventEmitter<null>();
+	@Output() productUnselect = new EventEmitter<null>();
 	@Output() productFavorite = new EventEmitter<null>();
 	@Output() productUnfavorite = new EventEmitter<null>();
 	@Output() addToProject = new EventEmitter<null>();
 
+	prodERM = ERM.PRODUCT;
 	showOptionsBar = false;
 
 	constructor(
@@ -34,6 +38,21 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
+	get workflowStyle() {
+		return {
+			'position': 'absolute',
+			'top': '6px',
+			'left': '6px'
+		};
+	}
+
+	get checkboxStyle() {
+		return {
+			'position': 'absolute',
+			'top': '8px',
+			'left': '304px'
+		};
+	}
 
 	ngOnInit() {
 	}

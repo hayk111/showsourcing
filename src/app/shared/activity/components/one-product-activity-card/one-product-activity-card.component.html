@@ -52,8 +52,11 @@
 			(vote)="onVote($event)"
 			(onFavorite)="onFavorite()"
 			(onUnfavorite)="onUnFavorite()"
-			(addToProject)="openAddToProject()"
 			(buttonClick)="onViewProduct()">
+
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
 		</action-bar-app>
 
 	</card-footer-app>

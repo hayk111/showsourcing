@@ -1,6 +1,33 @@
 <div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
 		<img class="noselect" [src]="product | image:'m'">
+
+		<div class="imgNumber flex flexCenter">
+				<span>{{product?.images?.length || '-'}}</span>
+				<div class="icon-img"></div>
+		</div>
+
+		<div class="imgPrice flex flexCenter">
+				<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
+		</div>
+
+		<workflow-action-app
+			[xPosition]="-2"
+			[selectSize]="'s'"
+			[typeEntity]="prodERM"
+			[entity]="product"
+			[ngStyle]="workflowStyle">
+		</workflow-action-app>
+
+		<checkbox-app
+			*ngIf="selected || showOptionsBar"
+			[size]="20"
+			[checked]="selected"
+			(check)="productSelect.emit()"
+			(uncheck)="productUnselect.emit()"
+			[ngStyle]="checkboxStyle">
+		</checkbox-app>
+
 		<div class="information">
 			<div class="text-bar">
 				<p class="bold-s">{{product.name}}</p>
@@ -20,8 +47,16 @@
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
 			(vote)="updateProduct({ votes: $event })"
-			(addToProject)="openAddToProject()"
+			buttonName="Open"
 			(buttonClick)="onViewProduct()">
+
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+			<button class="icon light dots">
+				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+			</button>
+
 		</action-bar-app>
 
 	</div>

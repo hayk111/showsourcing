@@ -50,3 +50,15 @@ img-app {
 		margin-right: var(--spacing-xs);
 	}
 }
+card-footer-app > action-bar-app {
+	padding: 0px;
+}
+button.icon {
+	margin-top: 4px;
+	margin-right: 9px;
+}
+button.button {
+	margin-top: 4px;
+	min-width: 86px;
+	margin-left: 15px;
+}

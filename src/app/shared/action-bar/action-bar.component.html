@@ -1,5 +1,5 @@
 	<div class="action-container flexBetween">
-		<div class="flex icon-container noselect">
+		<div class="flex icons-container noselect">
 			<rating-heart-app
 			 size="m"
 			 [favorite]="favorite"
@@ -12,12 +12,7 @@
 				[single]="false"
 				(vote)="vote.emit($event)">
 			</thumb-buttons-app>
-			<button class="icon light folder" (click)="addToProject.emit()">
-				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
-			</button>
-			<button class="icon light dots">
-				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
-			</button>
+			<ng-content></ng-content>
 		</div>
 		<button *ngIf="buttonName" (click)="buttonClick.emit()">{{buttonName}}</button>
 	</div>
