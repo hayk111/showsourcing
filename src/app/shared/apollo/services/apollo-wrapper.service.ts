@@ -108,23 +108,6 @@ export class ApolloWrapper {
 			);
 	}
 
-
-	/////////////////////////////
-	//       SELECT LIST       //
-	/////////////////////////////
-	/** select entities given the query, this function doesn't give Optimistic UI */
-	selectList(options: SubscribeToManyOptions): Observable<any> {
-		const { gql } = options;
-		const queryName = this.getQueryName(options);
-		// we can use the query body for the cacheKey since there are no vars
-		const cacheKey = this.getQueryBody(options);
-		this.log('Selecting All', options, queryName);
-		if (!this.selectAllCache.has(cacheKey)) {
-			this.selectAllCache.set(cacheKey, this.selectAllPipe(gql, queryName));
-		}
-		return this.selectAllCache.get(cacheKey);
-	}
-
 	/** Update one existing entity */
 	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
 		let apolloOptions: any = this.createApolloMutationOptions(options);

@@ -69,21 +69,19 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying,
 	 * the difference with select many is that when the page change the result is added to the previous one
 	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
-	 * However optimistic UI works for this.
 	 */
 	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams())): Observable<any> {
 		return params$.pipe(
 			// taking the first result of a selectMany
 			mergeMap(
-				params => {
-					this.wrapper.s
-				}this.selectMany(of(params)).pipe(
+				params => this.selectMany(of(params)).pipe(
 					first(),
 					map(result => ({ result, page: params.page }))
 				)
-			),
+			), tap((d) => { debugger }),
 			// adding to the previous resultset
 			scan((prev, curr: { result, page }) => {
+				debugger;
 				if (curr.page === 0) {
 					return curr.result;
 				} else {
