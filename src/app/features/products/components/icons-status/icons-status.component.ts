@@ -53,7 +53,10 @@ export class IconsStatusComponent implements OnInit {
 				'margin-top': '2px',
 			};
 		} else {
-			this.size = '12';
+			this.size = '14';
+			style = {
+				'margin-top': '2px'
+			};
 		}
 		return style;
 	}
