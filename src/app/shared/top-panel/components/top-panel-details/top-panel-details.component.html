@@ -1,7 +1,10 @@
 <div class="flex top">
 
-	<icon-app fontSet="svg" name="back-arrow" (click)="goBack()" class="flexStart"></icon-app>
-	<img-app [image]="logo" type="supplier" class="logo"></img-app>
+  <icon-app fontSet="svg" name="back-arrow" (click)="goBack()" class="flexStart"></icon-app>
+  <div class="logo">
+    <ng-content select="img-app"></ng-content>
+  </div>
+
 	<div>
 		<h1>{{ title }}</h1>
 		<ng-content></ng-content>

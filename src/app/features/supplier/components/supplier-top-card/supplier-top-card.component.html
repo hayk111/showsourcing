@@ -1,7 +1,8 @@
 <top-panel-details-app
-	[logo]="supplier.logoImage"
 	[title]="supplier.name"
 	[links]="['activity', 'public-profile', 'products']">
+
+	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 
 	<div class="flex tags">
 		<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>

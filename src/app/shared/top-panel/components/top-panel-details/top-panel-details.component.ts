@@ -9,9 +9,16 @@ import { Location } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopPanelDetailsComponent implements OnInit {
+  /** logo displayed */
   @Input() logo: AppImage;
+  /** sometimes we use logos with alpha channels where we want to have a gradient background */
+  @Input() logoPrimaryColor: string;
+  @Input() logoSecondaryColor: string;
+  /** title displayed */
   @Input() title: string;
-  @Input() links;
+  /** on some pages (at the time of writing this) we have navigation links in the top panel details */
+  @Input() links: string[];
+
 
   constructor(
     private location: Location

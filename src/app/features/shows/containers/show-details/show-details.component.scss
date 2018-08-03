@@ -1,0 +1,15 @@
+h1, .info, .tags {
+	line-height: 1;
+}
+
+h1 {
+	margin-bottom: var(--spacing-s);
+}
+
+.info {
+	color: var(--color-primary);
+}
+
+.tags {
+	margin-top: var(--spacing-s);
+}

@@ -7,6 +7,10 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { ShowListComponent } from '~features/shows/components/show-list/show-list.component';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { ShowDetailsComponent } from './containers/show-details/show-details.component';
+import { ImgShowComponent } from './components/img-show/img-show.component';
+import { ShowSummaryComponent } from './components/show-summary/show-summary.component';
+import { ShowAboutComponent } from './components/show-about/show-about.component';
+import { ShowExhibitorsComponent } from './components/show-exhibitors/show-exhibitors.component';
 
 @NgModule({
   imports: [
@@ -19,6 +23,6 @@ import { ShowDetailsComponent } from './containers/show-details/show-details.com
       { path: ':id', component: ShowDetailsComponent }
     ])
   ],
-  declarations: [ShowsPageComponent, ShowListComponent, ShowDetailsComponent]
+  declarations: [ShowsPageComponent, ShowListComponent, ShowDetailsComponent, ImgShowComponent, ShowSummaryComponent, ShowAboutComponent, ShowExhibitorsComponent]
 })
 export class ShowsModule { }

@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./badge.component.scss'],
 	host: {
 		'[class.flexVAlign]': 'true',
-		'[class.flexCenter]': 'size === "s" || size === "small"',
+		'[class.flexCenter]': 'true',
 		'[class.mini]': 'size === "mini"',
 		'[class.small]': 'size === "s" || size === "small"',
 		'[class.medium]': 'size === "m" || size === "medium"',

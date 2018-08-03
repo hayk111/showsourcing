@@ -16,9 +16,6 @@ export class ShowListComponent implements OnInit {
   ngOnInit() {
   }
 
-  getGradient(item: any) {
-    return `linear-gradient(${item.description.secondaryColor}, ${item.description.primaryColor})`;
-  }
 
   goToDetail(item: any) {
     this.router.navigate([item.id], { relativeTo: this.route })
