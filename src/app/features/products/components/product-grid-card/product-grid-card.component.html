@@ -3,17 +3,17 @@
 		<img class="noselect" [src]="product | image:'m'">
 
 		<div class="imgNumber flex flexCenter">
-				<span>{{product?.images?.length || '-'}}</span>
-				<div class="icon-img"></div>
+			<span>{{product?.images?.length || '-'}}</span>
+			<div class="icon-img"></div>
 		</div>
 
 		<div class="imgPrice flex flexCenter">
-				<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
+			<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
 		</div>
 
 		<workflow-action-app
 			[xPosition]="-2"
-			[selectSize]="'s'"
+			selectSize="s"
 			[typeEntity]="prodERM"
 			[entity]="product"
 			[ngStyle]="workflowStyle">

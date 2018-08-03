@@ -12,8 +12,8 @@ export class ListViewComponent<T> {
 	@Input() perPage: number;
 	/** whether it's loading */
 	@Input() pending = true;
-	@Output() select = new EventEmitter<string>();
-	@Output() unselect = new EventEmitter<string>();
+	@Output() select = new EventEmitter<any>();
+	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() open = new EventEmitter<string>();
