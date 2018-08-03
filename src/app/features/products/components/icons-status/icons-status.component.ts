@@ -32,9 +32,11 @@ export class IconsStatusComponent implements OnInit {
 		if (this.userVote) {
 			if (this.userVote.value === 100) {
 				this.like = true;
+				this.dislike = false;
 				this.name = 'thumbs-up-white';
 			} else {
 				this.dislike = true;
+				this.like = false;
 				this.name = 'thumbs-down-white';
 			}
 		}
