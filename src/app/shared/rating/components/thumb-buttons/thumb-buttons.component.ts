@@ -51,7 +51,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	singleClick() {
 		if (!this.userVote)
 			this.createEmitVote();
-		else this.updateEmitVote();
+		else
+			this.updateEmitVote();
 	}
 
 	thumbUp() {
@@ -103,7 +104,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		let val: string;
 		if (!this.userVote)
 			val = 'none';
-		else val = this.userVote.value === 100 ? 'up' : 'down';
+		else
+			val = this.userVote.value === 100 ? 'up' : 'down';
 		return val;
 	}
 

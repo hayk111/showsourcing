@@ -19,6 +19,7 @@ export class IconsStatusComponent implements OnInit {
 	}
 	@Input() favorite = false;
 
+	name = 'thumbs-up';
 	size = '9';
 	like = false;
 	dislike = false;
@@ -29,16 +30,23 @@ export class IconsStatusComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.userVote) {
-			this.userVote.value === 100 ? this.like = true : this.dislike = true;
+			if (this.userVote.value === 100) {
+				this.like = true;
+				this.name = 'thumbs-up-white';
+			} else {
+				this.dislike = true;
+				this.name = 'thumbs-down-white';
+			}
 		}
 	}
 
 	get successStyle() {
-		const suc = this.like ? 'success' : this.dislike ? 'warn' : '';
-		if (suc !== '') {
+		const state = this.like ? 'success' : this.dislike ? 'warn' : '';
+		let style = {};
+		if (state) {
 			this.size = '9';
-			return {
-				background: `var(--color-${suc})`,
+			style = {
+				background: `var(--color-${state})`,
 				'border-radius': '50%',
 				'width': '17px',
 				'height': '17px',
@@ -47,6 +55,7 @@ export class IconsStatusComponent implements OnInit {
 		} else {
 			this.size = '12';
 		}
+		return style;
 	}
 
 }
