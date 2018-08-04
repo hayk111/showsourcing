@@ -10,7 +10,8 @@ import {
 	FormFieldComponent,
 	InputDirective,
 	RestrictInputDirective,
-	RestrictSpecialInputDirective
+	RestrictSpecialInputDirective,
+	RadioComponent
 } from '~shared/inputs/components-directives';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
@@ -27,7 +28,8 @@ export const components = [
 	LabelComponent,
 	HintComponent,
 	ErrorComponent,
-	TextareaAutoGrowsDirective
+	TextareaAutoGrowsDirective,
+	RadioComponent
 ];
 
 @NgModule({

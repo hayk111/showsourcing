@@ -69,7 +69,6 @@ export const routes: Array<Route> = [
 			{ path: 'product', loadChildren: 'app/features/products/product.module#ProductModule' },
 			{ path: 'supplier', loadChildren: 'app/features/supplier/supplier.module#SuppliersModule' },
 			{ path: 'settings', loadChildren: 'app/features/settings/settings.module#SettingsModule' },
-			{ path: 'rfq', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 			{ path: 'test', children: testRoutes }
 		],
 	},

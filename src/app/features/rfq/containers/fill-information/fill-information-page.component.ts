@@ -15,7 +15,12 @@ export class FillInformationPageComponent {
 	descriptor2$: Observable<FormDescriptor>;
 
 	customFields: CustomField[] = [
-		{ name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
+		{	name: 'name', label: 'Reference', type: 'text'	},
+		{ name: 'price', type: 'price' },
+		{ name: 'description', type: 'textarea', label: 'Description' },
+		{ name: 'minimumOrderQuantity', type: 'number', label: 'MOQ' },
+		{ name: 'moqDescription', type: 'text', label: 'MOQ description', metadata: { rows: 10 } },
+		/* { name: 'supplier', type: 'selector', metadata: { target: 'supplier', type: 'entity', labelName: 'name', canCreate: true } },
 		{
 			name: 'category', type: 'selector',
 			metadata: { target: 'category', type: 'entity', labelName: 'name', canCreate: true }
@@ -34,17 +39,16 @@ export class FillInformationPageComponent {
 			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
-		{ name: 'description', type: 'textarea', label: 'description' },
+		{ name: 'description', type: 'textarea', label: 'description' }, */
 
 	];
 	// those are the custom field for the second form section
 	customFields2: CustomField[] = [
 		{ name: 'innerCarton', type: 'packaging', label: 'inner carton' },
-		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 		// { name: 'samplePrice', type: 'number', label: 'Sample Price' },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price matrix' },
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
+		{ name: 'masterCarton', type: 'packaging', label: 'master carton' },
 	];
 
 	product = {

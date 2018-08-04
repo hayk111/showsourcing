@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
 
 import { DynamicFormComponent } from '~shared/dynamic-forms/components/dynamic-form/dynamic-form.component';
+import { DynamicEditableFormComponent } from '~shared/dynamic-forms/components/dynamic-editable-form/dynamic-editable-form.component';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { DynamicFormFieldComponent } from '~shared/dynamic-forms/components/dynamic-form-field/dynamic-form-field.component';
 import { DynamicEditableTextComponent } from '~shared/dynamic-forms/components/dynamic-editable-text/dynamic-editable-text.component';
@@ -29,7 +30,15 @@ import {
 import {
 	EditableSelectorComponent
 } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';
+import {
+	DynamicInputTextComponent
+} from './components/dynamic-input-text/dynamic-input-text.component';
+import {
+	InputPackagingComponent
+} from './components/dynamic-input-text/inputs/input-packaging/input-packaging.component';
 import { ImageModule } from '~shared/image/image.module';
+
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	imports: [
@@ -43,10 +52,12 @@ import { ImageModule } from '~shared/image/image.module';
 		BadgeModule, // for displaying multiple values
 		UtilsModule,
 		FileModule,
-		ImageModule
+		ImageModule,
+		NgSelectModule
 	],
 	declarations: [
 		DynamicFormComponent,
+		DynamicEditableFormComponent,
 		DynamicFormFieldComponent,
 		DynamicEditableTextComponent,
 		FieldCellComponent,
@@ -54,9 +65,11 @@ import { ImageModule } from '~shared/image/image.module';
 		EditablePriceMatrixRowComponent,
 		EditablePriceComponent,
 		EditablePackagingComponent,
-		EditableSelectorComponent
+		EditableSelectorComponent,
+		DynamicInputTextComponent,
+		InputPackagingComponent
 	],
-	exports: [DynamicFormComponent]
+	exports: [DynamicFormComponent, DynamicEditableFormComponent]
 })
 export class DynamicFormsModule {
 

@@ -65,6 +65,19 @@
       font-weight: bold;
     }
   }
+
+  .sectionTitle {
+    color: #41afff;
+    text-transform: uppercase;
+  }
+
+  ::ng-deep card-app {
+    border: 0;
+  }
+
+  card-app {
+    margin-top: 10px;
+  }
 }
 
 .toolbar-wrapper {

@@ -8,23 +8,22 @@
 		<div class="flex description">
 			<div class="left">
 					<carousel-card-app
-					[hasFooter]="false"
-					[images]="product.images"></carousel-card-app>
+						[hasFooter]="false"
+						[images]="product.images"></carousel-card-app>
 			</div>
 
 			<div class="right">
 					<card-app>
-						<div class="sectionTitle shipping"
+						<div class="sectionTitle information"
 							i18n="div title|Product general information@@productGeneralInfo_general">
 							General Information
 						</div>
 						<ng-container *ngIf="descriptor$ | async as descriptor">
-							<dynamic-form-app
+							<dynamic-editable-form-app
 								[inlineLabel]="false"
 								[descriptor]="descriptor"
-								[editable]="true"
 								[colAmount]="2">
-							</dynamic-form-app>
+							</dynamic-editable-form-app>
 						</ng-container>
 					</card-app>
 					
@@ -35,9 +34,12 @@
 						</div>
 
 						<ng-container *ngIf="descriptor2$ | async as descriptor">
-							<dynamic-form-app
-								[inlineLabel]="true"
-								[descriptor]="descriptor" [editable]="true" [colAmount]="2"></dynamic-form-app>
+							<dynamic-editable-form-app
+								[inlineLabel]="false"
+								[descriptor]="descriptor"
+								[colAmount]="2"
+								[elementsPerColAmount]="3">
+							</dynamic-editable-form-app>
 						</ng-container>
 					</card-app>
 			</div>
