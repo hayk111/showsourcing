@@ -16,8 +16,8 @@ export class StatusBadgeComponent implements OnInit {
 
 	@Input() status: ProductStatusType | SupplierStatusType;
 
-	// we need to pass this in order to know if the element has no status type
-	// if it is a new product, supplier, etc
+	// we need to pass this so when the
+	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
 	// if we display the caret down or not
 	@Input() hasArrow = false;
