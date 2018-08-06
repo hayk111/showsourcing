@@ -8,19 +8,20 @@ export interface Show {
 }
 
 export interface ShowDescription {
-	name: string,
-	description: string,
-	startDate: Date,
-	endDate: Date,
-	logoImage: AppImage,
-	primaryColor: string,
-	secondaryColor: string,
-	venue: Venue
+	name: string;
+	description: string;
+	startDate: Date;
+	endDate: Date;
+	logoImage: AppImage;
+	primaryColor: string;
+	secondaryColor: string;
+	venue: Venue;
+	supplierCount: number;
 }
 
 export interface Venue {
-	name: string,
-	countryCode: string,
-	addressFull: string,
-	city: string,
+	name: string;
+	countryCode: string;
+	addressFull: string;
+	city: string;
 }

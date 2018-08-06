@@ -73,11 +73,13 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams())): Observable<any> {
 		return params$.pipe(
 			// taking the first result of a selectMany
-			mergeMap(
-				params => this.selectMany(of(params)).pipe(
-					first(),
-					map(result => ({ result, page: params.page }))
-				)
+			switchMap(
+				params => {
+					return this.selectMany(of(params)).pipe(
+						first(),
+						map(result => ({ result, page: params.page }))
+					)
+				}
 			),
 			// adding to the previous resultset
 			scan((prev, curr: { result, page }) => {

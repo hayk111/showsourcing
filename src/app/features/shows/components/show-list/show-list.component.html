@@ -18,6 +18,9 @@
         <p>
           {{ show.description.description }}
         </p>
+        <p>
+          <badge-app *ngIf="show.mine">Saved</badge-app>
+        </p>
       </div>
 
       <div class="showActions flexColumn flexCenter flexGrow">
@@ -28,5 +31,5 @@
 
   </div>
   <spinner-app *ngIf="pending"></spinner-app>
-  <em *ngIf="!pending && items.length === 0"> No shows</em>
+  <em *ngIf="!pending && items && items.length === 0">No shows</em>
 </card-app>

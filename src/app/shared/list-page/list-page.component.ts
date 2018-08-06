@@ -170,6 +170,15 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		}));
 	}
 
+	firstPage() {
+		this._selectParams$.next(new SelectParams({
+			page: 0,
+			sort: this.currentParams.sort,
+			query: this.currentParams.query,
+			take: this.currentParams.take
+		}));
+	}
+
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
 		this._selectParams$.next(new SelectParams({

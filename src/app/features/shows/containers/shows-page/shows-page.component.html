@@ -23,8 +23,14 @@
     </sub-panel-app>
 
     <show-list-app
+      *ngIf="!checkboxes.myShows"
       [pending]="pending"
-      [items]="items$ | async"></show-list-app>
+      [items]="allShows$ | async"></show-list-app>
+
+    <show-list-app
+      *ngIf="checkboxes.myShows"
+      [pending]="pending"
+      [items]="myShows$ | async"></show-list-app>
   </div>
 
 </div>

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, share, filter } from 'rxjs/operators';
 import { toStore } from '~utils/store/store';
@@ -43,7 +43,7 @@ export class FilterService {
  */
 	private startTime = new Date();
 
-	constructor(@Inject('storeKey') private storeKey: string) {
+	constructor(@Optional() @Inject('storeKey') private storeKey: string) {
 		this._filters$.subscribe(filters => this.currentFilters = filters);
 	}
 
@@ -52,6 +52,11 @@ export class FilterService {
 	 */
 	preventCreationUpdate() {
 		// this.addFilter({ type: FilterType.PREVENT_UPDATE, value: true });
+	}
+
+	/** adds an array of filters at the end of current filters */
+	addFilters(added: Filter[]) {
+		this._filters$.next([...this.currentFilters, ...added]);
 	}
 
 	/** adds filter at the end of the array */
@@ -98,7 +103,11 @@ export class FilterService {
 		return copy;
 	}
 
-	private filtersToQuery(filters: Filter[]) {
+	private filtersToQuery(filters: Filter[]): string {
+		return FilterService.filtersToQuery(filters);
+	}
+
+	static filtersToQuery(filters: Filter[]) {
 		if (filters.length === 0)
 			return '';
 
@@ -109,18 +118,18 @@ export class FilterService {
 			if (comparator)
 				return `${type} ${comparator} ${value}`;
 			// else we return the filter given the type
-			return this.getFieldCondition(type, value)
+			return FilterService.getFieldCondition(type, value)
 		}).join(' or ');
 	}
 
-	private getFieldCondition(type, value) {
+	private static getFieldCondition(type, value) {
 		switch (type) {
 			case FilterType.SEARCH:
 				return `name CONTAINS[c] "${value}"`;
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 			case FilterType.ID:
-				return `${type} == ${value}`;
+				return `${type} == "${value}"`;
 			default:
 				return `${type}.id == "${value}"`;
 		}

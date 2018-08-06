@@ -9,6 +9,8 @@ import { first, tap, takeUntil, switchMap, mergeMap } from 'rxjs/operators';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { StoreKey } from '~utils/store/store';
 import { realmDateFormat } from '~utils/realm-date-format.util';
+import { ShowFeatureService } from '~features/shows/services/show-feature.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'shows-page-app',
@@ -20,7 +22,9 @@ import { realmDateFormat } from '~utils/realm-date-format.util';
     { provide: 'storeKey', useValue: StoreKey.FILTER_SUPPLIER },
   ]
 })
-export class ShowsPageComponent extends ListPageComponent<Show, ShowService> implements OnInit {
+export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureService> implements OnInit {
+  allShows$: Observable<Show[]>;
+  myShows$: Observable<Show[]>;
 
   currentParams = new SelectParams({ take: 10, sort: { sortBy: 'description.startDate', sortOrder: 'DESC' } });
   checkboxes = {
@@ -30,7 +34,7 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowService> imp
 
   constructor(
     protected router: Router,
-    protected srv: ShowService,
+    protected srv: ShowFeatureService,
     protected filterSrv: FilterService,
     protected userSrv: UserService
   ) {
@@ -54,16 +58,19 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowService> imp
       this.onLoad();
     });
 
-    this.items$ = this.featureSrv.selectInfiniteList(this.selectParams$).pipe(
+    this.allShows$ = this.featureSrv.selectInfiniteListAllShows(this.selectParams$).pipe(
       tap(_ => this.onLoaded())
     );
 
+    this.myShows$ = this.featureSrv.selectInfiniteListMyShows(this.selectParams$).pipe(
+      tap(_ => this.onLoaded())
+    );
   }
 
 
   toggleMyEvents() {
-    //this.filterSrv.addFilter({ raw: `description.createdBy.id == "${this.userSrv.userSync.id}"` });
     this.checkboxes.myShows = !this.checkboxes.myShows;
+    this.firstPage();
   }
 
   togglePastEvents() {
@@ -75,5 +82,4 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowService> imp
       this.filterSrv.removeFilterType('description.endDate');
     }
   }
-
 }

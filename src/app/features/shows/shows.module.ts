@@ -11,6 +11,8 @@ import { ImgShowComponent } from './components/img-show/img-show.component';
 import { ShowSummaryComponent } from './components/show-summary/show-summary.component';
 import { ShowAboutComponent } from './components/show-about/show-about.component';
 import { ShowExhibitorsComponent } from './components/show-exhibitors/show-exhibitors.component';
+import { ShowTopPanelDetailComponent } from './components/show-top-panel-detail/show-top-panel-detail.component';
+import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 
 @NgModule({
   imports: [
@@ -23,6 +25,18 @@ import { ShowExhibitorsComponent } from './components/show-exhibitors/show-exhib
       { path: ':id', component: ShowDetailsComponent }
     ])
   ],
-  declarations: [ShowsPageComponent, ShowListComponent, ShowDetailsComponent, ImgShowComponent, ShowSummaryComponent, ShowAboutComponent, ShowExhibitorsComponent]
+  declarations: [
+    ShowsPageComponent,
+    ShowListComponent,
+    ShowDetailsComponent,
+    ImgShowComponent,
+    ShowSummaryComponent,
+    ShowAboutComponent,
+    ShowExhibitorsComponent,
+    ShowTopPanelDetailComponent
+  ],
+  providers: [
+    ShowFeatureService
+  ]
 })
 export class ShowsModule { }

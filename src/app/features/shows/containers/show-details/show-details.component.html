@@ -1,27 +1,10 @@
-<ng-container *ngIf="show$ | async as show">
-  <top-panel-details-app
-    [title]="show?.description?.name">
-    <img-app [image]="show?.description?.logoImage" type="show"></img-app>
+<show-top-panel-detail-app [show]="show$ | async"></show-top-panel-detail-app>
 
-    <div>
-      <span class="info">
-        {{ show?.description?.startDate | date: 'd' }}
-        -
-        {{ show?.description?.endDate | date: 'd' }}
-        {{ show?.description?.endDate | date: 'M'}}
-        -
-        {{ show?.description?.venue.addressFull }},
-        {{ show?.description?.venue.country | const:'country' }}
-      </span>
-
-      <div class="flex tags">
-        <badge-app size="mini" class="bg-secondary">
-          {{ show?.description?.supplierCount }} Suppliers
-        </badge-app>
-      </div>
-
-    </div>
-
-  </top-panel-details-app>
-</ng-container>
+<div class="flex">
+  <div class="flexColumn">
+    <show-summary-app></show-summary-app>
+    <show-exhibitors-app></show-exhibitors-app>
+  </div>
+  <show-about-app></show-about-app>
+</div>
 
