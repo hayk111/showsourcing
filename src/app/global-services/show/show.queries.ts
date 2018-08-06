@@ -52,6 +52,7 @@ export class ShowQueries implements GlobalQuery {
 					}
 					primaryColor
 					secondaryColor
+					supplierCount
 					venue {
 						name
 						countryCode

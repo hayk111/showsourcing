@@ -23,7 +23,7 @@
           {{ show?.description?.description }}
         </p>
         <div class="flex">
-          <badge-app>{{ show?.description?.supplierCount }} suppliers</badge-app>
+          <badge-app *ngIf="show.description.supplierCount">{{ show?.description?.supplierCount }} suppliers</badge-app>
           <badge-app type="accent" *ngIf="show.saved">Saved</badge-app>
         </div>
       </div>
