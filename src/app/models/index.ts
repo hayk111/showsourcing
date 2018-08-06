@@ -29,4 +29,7 @@ export * from '~models/file-upload-request.model';
 export * from '~models/invitation.model';
 export * from '~models/product-vote-request.model';
 export * from '~models/export-request.model';
+export * from '~models/show.model';
+
+
 

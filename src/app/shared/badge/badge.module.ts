@@ -4,7 +4,7 @@ import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 import { BadgeListComponent } from '~shared/badge/components/badge-list/badge-list.component';
 import { IconsModule } from '~shared/icons';
 import { StatusBadgeComponent } from '~shared/badge/components/status-badge/status-badge.component';
-import { SmartBadgeComponent } from './components/smart-badge/smart-badge.component';
+import { SmartBadgeComponent } from '~shared/badge/components/smart-badge/smart-badge.component';
 @NgModule({
 	imports: [CommonModule, IconsModule],
 	declarations: [BadgeComponent, BadgeListComponent, StatusBadgeComponent, SmartBadgeComponent],

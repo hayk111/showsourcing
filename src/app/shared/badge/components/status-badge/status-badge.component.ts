@@ -3,7 +3,7 @@ import {
 	Component, ElementRef, Input, Renderer2, ViewChild
 } from '@angular/core';
 import { ProductStatusType, SupplierStatus } from '~models';
-import { BadgeComponent } from '../badge/badge.component';
+import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 
 @Component({
 	selector: 'status-badge-app',

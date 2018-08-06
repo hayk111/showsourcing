@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { KanbanService } from '../../services/kanban.service';
+import { KanbanService } from '~features/workflow/services/kanban.service';
 
 /** Drag'n drop workflow */
 

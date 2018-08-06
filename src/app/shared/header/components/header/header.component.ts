@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, zip, of } from 'rxjs';
-import { takeUntil, debounceTime, first, map, tap, filter, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { UserService, TeamService, ProductService, SupplierService, SearchService } from '~global-services';
-import { SelectParams } from '~global-services/_global/select-params';
-import { User } from '~models/user.model';
-import { AutoUnsub } from '~utils';
-import { Team } from '~models';
-import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
-
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
+import { UserService } from '~global-services';
+import { Team } from '~models';
+import { User } from '~models/user.model';
+import {
+	SearchAutocompleteComponent,
+} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+import { AutoUnsub } from '~utils';
+import { SearchService } from '../../services/search.service';
 
 @Component({
 	selector: 'header-app',

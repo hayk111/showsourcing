@@ -2,7 +2,7 @@ import {
 	Directive, ElementRef, EventEmitter,
 	HostBinding, HostListener, OnInit,
 	Output, SkipSelf, Input } from '@angular/core';
-import { DroppableService } from '../../services/droppable.service';
+import { DroppableService } from '~shared/dnd/services/droppable.service';
 
 /** The directive to use to define a dropzone within drag'n drop */
 

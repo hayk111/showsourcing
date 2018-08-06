@@ -20,13 +20,13 @@ import {
 } from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix.component';
 import {
 	EditablePriceMatrixRowComponent
-} from './components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
+} from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price-matrix/editable-price-matrix-row/editable-price-matrix-row.component';
 import {
 	EditablePriceComponent
-} from './components/dynamic-editable-text/inputs/editable-price/editable-price.component';
+} from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-price/editable-price.component';
 import {
 	EditablePackagingComponent
-} from './components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
+} from '~shared/dynamic-forms/components/dynamic-editable-text/inputs/editable-packaging/editable-packaging.component';
 import {
 	EditableSelectorComponent
 } from './components/dynamic-editable-text/inputs/editable-selector/editable-selector.component';

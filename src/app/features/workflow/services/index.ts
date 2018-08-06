@@ -1,1 +1,1 @@
-export * from './kanban.service';
+export * from '~features/workflow/services/kanban.service';

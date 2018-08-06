@@ -40,11 +40,11 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
-import { SupplierTopCardComponent } from './components/supplier-top-card/supplier-top-card.component';
-import { SupplierActivityComponent } from './containers/supplier-activity/supplier-activity.component';
-import { SupplierPublicProfileComponent } from './containers/supplier-public-profile/supplier-public-profile.component';
-import { SupplierImagesComponent } from './components/supplier-images/supplier-images.component';
-import { SupplierProductsComponent } from './containers/supplier-products/supplier-products.component';
+import { SupplierTopCardComponent } from '~features/supplier/components/supplier-top-card/supplier-top-card.component';
+import { SupplierActivityComponent } from '~features/supplier/containers/supplier-activity/supplier-activity.component';
+import { SupplierPublicProfileComponent } from '~features/supplier/containers/supplier-public-profile/supplier-public-profile.component';
+import { SupplierImagesComponent } from '~features/supplier/components/supplier-images/supplier-images.component';
+import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
 import { ImageModule } from '~shared/image/image.module';
 
 

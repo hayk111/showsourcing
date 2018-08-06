@@ -1,4 +1,4 @@
-import { ShowsModule } from './shows.module';
+import { ShowsModule } from '~features/shows/shows.module';
 
 describe('ShowsModule', () => {
   let showsModule: ShowsModule;
