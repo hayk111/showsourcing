@@ -19,6 +19,13 @@
 		position: relative;
 		height: 100%;
 
+		&:hover {
+			.dotSeparator-wrapper {
+				color: var(--color-txt-primary);
+				display: block;
+			}
+		}
+
 		.mainCell {
 			display: flex;
 			align-items: center;
@@ -32,14 +39,15 @@
     		width: 78px;
 				height: 78px;
 				margin-right: 10px;
+				margin-left: 4px;
         overflow: hidden;
         display: flex;
         align-items: center;
 				justify-content: center;
 
 				.mini.image {
-					width: 48px;
-					height: 48px;
+					width: 80px;
+					height: 80px;
 				}
 			}
 
@@ -52,7 +60,7 @@
 				.titleCtnr {
 					display: flex;
 					align-items: center;
-					margin-bottom: 10px;
+					margin-bottom: 5px;
 
 					.title {
 						font-family: 'Source Sans Pro', sans-serif;
@@ -79,7 +87,7 @@
 					color: var(--color-txt-primary);
 
 					&.first{
-						margin-bottom: 10px;
+						margin-bottom: 5px;
 					}
 				}
 			}
@@ -92,6 +100,49 @@
 			font-family: 'Source Sans Pro', sans-serif;
 			font-size: 13px;
 			color: var(--color-txt-secondary);
+		}
+
+		.dotSeparator-wrapper {
+			background-color: var(--color-bg);
+			width: 21px;
+			display: none;
+			position: absolute;
+			right: 5px;
+			bottom: 1px;
+			text-align: center;
+			padding-left: 5px;
+
+			&.opened {
+				display: block !important;
+			}
+
+			.dotSeparator {
+				background-color: var(--color-bg);
+				width: 10px;
+				overflow: hidden;
+
+				&:after {
+					content: '\2807';
+					font-size: 27px;
+					color: var(--color-txt-secondary);
+				}
+			}
+		}
+
+		.contextual-menu {
+			top: 170px;
+			left: 30px;
+
+			::ng-deep menu {
+				top: 85px;
+				right: 0;
+			}
+		}
+
+		.check {
+			position: absolute;
+			right: 3px;
+			top: 10px;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 import {
 	Directive, EventEmitter, HostBinding,
-	HostListener, OnInit, Output
+	HostListener, OnInit, Output,
+	Input
 } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { repeat, switchMap, take, takeUntil, mapTo } from 'rxjs/operators';
@@ -16,6 +17,9 @@ export class DraggableDirective implements OnInit {
 
 	/** to trigger pointer-events polyfill */
 	@HostBinding('attr.touch-action') touchAction = 'none';
+
+	@Input()
+	disabled: boolean;
 
 	/** The dragStart event */
 	@Output() dragStart = new EventEmitter<PointerEvent>();
@@ -33,17 +37,23 @@ export class DraggableDirective implements OnInit {
 
 	@HostListener('pointerdown', ['$event'])
 	onPointerDown(event: PointerEvent): void {
-		this.pointerDown.next(event);
+		if (this.disabled) {
+			this.pointerDown.next(event);
+		}
 	}
 
 	@HostListener('document:pointermove', ['$event'])
 	onPointerMove(event: PointerEvent): void {
-		this.pointerMove.next(event);
+		if (this.disabled) {
+			this.pointerMove.next(event);
+		}
 	}
 
 	@HostListener('document:pointerup', ['$event'])
 	onPointerUp(event: PointerEvent): void {
-		this.pointerUp.next(event);
+		if (this.disabled) {
+			this.pointerUp.next(event);
+		}
 	}
 
 	ngOnInit(): void {

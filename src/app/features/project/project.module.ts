@@ -21,6 +21,8 @@ import { BadgeModule } from '~shared/badge/badge.module';
 import { ProjectProductListComponent } from '~features/project/components/project-product-list/project-product-list.component';
 import { FileModule } from '~shared/file';
 import { routes } from '~features/project/routes';
+import { CustomDialogModule } from '~shared/custom-dialog';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 @NgModule({
 	imports: [
@@ -35,7 +37,9 @@ import { routes } from '~features/project/routes';
 		SidenavModule,
 		BadgeModule,
 		FileModule,
-		WorkflowModule
+		WorkflowModule,
+		CustomDialogModule,
+		ActionBarModule
 	],
 	declarations: [
 		ProjectsPageComponent,

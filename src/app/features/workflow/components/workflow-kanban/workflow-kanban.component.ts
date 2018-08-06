@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, TemplateRef } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
@@ -13,8 +13,13 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 export class WorkflowKanbanComponent {
 	/** The list of statuses included associated products */
 	@Input() statuses;
+	@Input() contextualMenu: TemplateRef<any>;
 	/** The dropped item event including data associated with the target and the element */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
+	/** Triggers when the item is selected */
+	@Output() selectItem = new EventEmitter<any>();
+	/** Triggers when the item is unselected */
+	@Output() unselectItem = new EventEmitter<any>();
 
 	constructor(private kanbanSrv: KanbanService) {
 	}

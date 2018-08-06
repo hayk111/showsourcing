@@ -8,6 +8,7 @@ import {
 	Input,
 	OnInit,
 	Output,
+	TemplateRef
 } from '@angular/core';
 
 @Component({
@@ -34,4 +35,39 @@ export class KanbanItemCardComponent {
 	@Input() link: string;
 	/** The person associated with the element */
 	@Input() person: any;
+	/** The reference to the contextual menu content */
+	@Input() contextualMenu: TemplateRef<any>;
+
+	/** Trigger the event to enable / disable drag'n drop to the container element */
+	@Output() dragDropEnable = new EventEmitter<boolean>();
+	/** Trigger the event when the element is selected via the checkbox */
+	@Output() select = new EventEmitter<any>();
+	/** Trigger the event when the element is unselected via the checkbox */
+	@Output() unselect = new EventEmitter<any>();
+
+	/** The drag'n drop enabled */
+	dragDropEnabled = true;
+	/** The contextual menu is opened */
+	contextualMenuOpened = false;
+
+	/**  */
+	onToggleContextualMenu(event) {
+		this.contextualMenuOpened = !this.contextualMenuOpened;
+		event.stopPropagation();
+	}
+
+	toggleDragDropEnable() {
+		if (!this.contextualMenuOpened) {
+			this.dragDropEnabled = !this.dragDropEnabled;
+			this.dragDropEnable.emit(this.dragDropEnabled);
+		}
+	}
+
+	onClickOutsideCard() {
+		if (this.contextualMenuOpened) {
+			this.contextualMenuOpened = !this.contextualMenuOpened;
+			this.dragDropEnabled = true;
+			this.dragDropEnable.emit(this.dragDropEnabled);
+		}
+	}
 }
