@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
-import { DroppableService } from './services/droppable.service';
-import { DraggableDirective, MovableDirective, DropzoneDirective } from './components';
+import { DroppableService } from '~shared/dnd/services/droppable.service';
+import { DraggableDirective, MovableDirective, DropzoneDirective } from '~shared/dnd/components';
 
 @NgModule({
 	imports: [

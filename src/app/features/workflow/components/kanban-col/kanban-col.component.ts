@@ -10,7 +10,7 @@ import {
 import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { KanbanService } from '../../services/kanban.service';
+import { KanbanService } from '~features/workflow/services/kanban.service';
 
 @Component({
 	selector: 'kanban-col-app',

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { ProductVote } from '~models';
 import { UserService } from '~global-services';
 import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
-import { thumbAnimation } from './animation';
+import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animation';
 
 @Component({
 	selector: 'thumb-buttons-app',

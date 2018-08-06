@@ -11,7 +11,7 @@ export class TagQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription tags(
 			$take: Int,
 			$skip: Int,

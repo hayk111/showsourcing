@@ -42,7 +42,7 @@ export class ImageUploadRequestQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription imageUploadRequests($query: String!) {
 			imageUploadRequests(query: $query) {
 				id,

@@ -36,7 +36,7 @@ export class ExportRequestQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription exportRequests($query: String!) {
 			exportRequests(query: $query) {
 				id

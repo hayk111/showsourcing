@@ -11,7 +11,7 @@ export class TeamQueries implements GlobalQuery {
 		}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription teams($query: String!) {
 			teams(query: $query) {
 				id, name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status

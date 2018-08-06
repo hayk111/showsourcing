@@ -42,7 +42,7 @@ export class FileUploadRequestQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription fileUploadRequests($query: String!) {
 			fileUploadRequests(query: $query) {
 				id,

@@ -1,0 +1,21 @@
+:host {
+	display: block;
+	height: 100%;
+}
+
+.scroller {
+	height: 100%;
+}
+
+.ctnr {
+	width: 804px;
+	margin: auto;
+}
+
+sub-panel-app {
+	padding: var(--spacing-l) 0 var(--spacing-ms) 0;
+}
+
+checkbox-app {
+	margin-right: var(--spacing-ms);
+}

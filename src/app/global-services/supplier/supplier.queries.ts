@@ -71,7 +71,7 @@ export class SupplierQueries implements GlobalQuery {
 			}
 		}`;
 
-	list = gql`
+	many = gql`
 		subscription suppliers(
 			$take: Int,
 			$skip: Int,

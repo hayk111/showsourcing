@@ -1,11 +1,10 @@
-import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { distinctUntilChanged, first, map, scan, switchMap } from 'rxjs/operators';
 import { isObject } from 'util';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -53,13 +52,40 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
-		if (!this.queries.list) {
+		if (!this.queries.many) {
 			throw Error('list / many query not implemented for this service');
 		}
 		return params$.pipe(
-			map((params: SelectParams) => params.toWrapperOptions(this.queries.list)),
+			map((params: SelectParams) => params.toWrapperOptions(this.queries.many)),
 			distinctUntilChanged(),
 			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectMany(opts))
+		);
+	}
+
+	/**
+	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying,
+	 * the difference with select many is that when the page change the result is added to the previous one
+	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
+	 */
+	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams())): Observable<any> {
+		return params$.pipe(
+			// taking the first result of a selectMany
+			switchMap(
+				params => {
+					return this.selectMany(of(params)).pipe(
+						first(),
+						map(result => ({ result, page: params.page }))
+					)
+				}
+			),
+			// adding to the previous resultset
+			scan((prev, curr: { result, page }) => {
+				if (curr.page === 0) {
+					return curr.result;
+				} else {
+					return [...prev, ...curr.result];
+				}
+			}, [])
 		);
 	}
 

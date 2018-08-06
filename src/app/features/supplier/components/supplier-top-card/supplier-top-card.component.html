@@ -1,26 +1,15 @@
-<div class="flex top">
+<top-panel-details-app
+	[title]="supplier.name"
+	[links]="['activity', 'public-profile', 'products']">
 
-	<icon-app name="back-arrow" fontSet="svg" (click)="goBack()"></icon-app>
-	<img-app [image]="supplier.logoImage" type="supplier" class="logo"></img-app>
-	<div>
-		<h1>{{ supplier.name }}</h1>
-		<div class="flex tags">
-			<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>
-			<smart-badge-app *ngFor="let category of supplier.categories" type="category">{{ category.name }}</smart-badge-app>
-			<smart-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</smart-badge-app>
-		</div>
+	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
+
+	<div class="flex tags">
+		<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>
+		<badge-app type="accent" *ngFor="let category of supplier.categories" type="category">{{ category.name }}</badge-app>
+		<badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</badge-app>
 	</div>
 
-</div>
+</top-panel-details-app>
 
-<nav class="flex">
-	<a routerLink="./activity" routerLinkActive="active">
-		Activity
-	</a>
-	<a routerLink="./public-profile" routerLinkActive="active">
-		Public Profile
-	</a>
-	<a routerLink="./products" routerLinkActive="active">
-		Products
-	</a>
-</nav>
+

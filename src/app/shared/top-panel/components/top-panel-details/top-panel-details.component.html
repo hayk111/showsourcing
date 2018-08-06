@@ -1,0 +1,16 @@
+<div class="flex top">
+
+  <icon-app fontSet="svg" name="back-arrow" (click)="goBack()" class="flexStart"></icon-app>
+  <div class="logo">
+    <ng-content select="img-app"></ng-content>
+  </div>
+
+	<div>
+		<h1>{{ title }}</h1>
+		<ng-content></ng-content>
+	</div>
+</div>
+
+<nav class="flex">
+	<a *ngFor="let link of links" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>
+</nav>

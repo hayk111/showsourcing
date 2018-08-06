@@ -1,0 +1,37 @@
+<div class="scroller" infiniScroll (bottomReached)="loadMore()">
+  <top-panel-app
+    title="Shows & Events"
+    [hasAction]="false">
+  </top-panel-app>
+
+  <div class="ctnr">
+    <sub-panel-app
+      [hasSwitch]="false"
+      [hasFilter]="false"
+      [buttonIcon]="false"
+      (search)="search($event)">
+
+      <div class="flexBetween">
+        <checkbox-app [checked]="checkboxes.myShows" (update)="toggleMyEvents()">
+          Only display my Shows
+        </checkbox-app>
+        <checkbox-app [checked]="!checkboxes.futureShowOnly" (update)="togglePastEvents()">
+          Show past Events
+        </checkbox-app>
+      </div>
+
+    </sub-panel-app>
+
+    <show-list-app
+      *ngIf="!checkboxes.myShows"
+      [pending]="pending"
+      [items]="allShows$ | async"></show-list-app>
+
+    <show-list-app
+      *ngIf="checkboxes.myShows"
+      [pending]="pending"
+      [items]="myShows$ | async"></show-list-app>
+  </div>
+
+</div>
+

@@ -14,4 +14,4 @@ export * from '~global-services/image-upload-request/image-upload-request.servic
 export * from '~global-services/file-upload-request/file-upload-request.service';
 export * from '~global-services/invitation/invitation.service';
 export * from '~global-services/user/user.service';
-export * from '~global-services/search/search.service';
+export * from '~global-services/show/show.service';

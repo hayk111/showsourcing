@@ -36,7 +36,7 @@ export class ProductVoteRequestQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 		subscription productVoteRequests($query: String!) {
 			productVoteRequests(query: $query) {
 				id

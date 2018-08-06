@@ -1,2 +1,2 @@
-export * from './projects-page/projects-page.component';
-export * from './project-workflow/project-workflow.component';
+export * from '~features/project/containers/projects-page/projects-page.component';
+export * from '~features/project/containers/project-workflow/project-workflow.component';

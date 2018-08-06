@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '~global-services';
-import { UploaderService } from '~shared/file/services/uploader.service';
 import { User } from '~models';
-import { first } from 'rxjs/operators';
-import { AutoUnsub } from '~utils';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Injectable({
 	providedIn: 'root'

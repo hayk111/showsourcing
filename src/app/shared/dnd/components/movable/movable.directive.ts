@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
-import { DraggableDirective } from '../draggable/draggable.directive';
+import { DraggableDirective } from '~shared/dnd/components/draggable/draggable.directive';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DroppableService } from '../../services/droppable.service';
+import { DroppableService } from '~shared/dnd/services/droppable.service';
 
 interface Position {
 	x: number;

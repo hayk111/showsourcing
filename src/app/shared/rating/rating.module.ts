@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons/icons.module';
 import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
 import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
+import { RatingCylinderComponent } from '~shared/rating/components/rating-cylinder/rating-cylinder.component';
 
 @NgModule({
 	imports: [
@@ -11,11 +12,13 @@ import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/t
 	],
 	declarations: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		RatingCylinderComponent
 	],
 	exports: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		RatingCylinderComponent
 	]
 })
 export class RatingModule { }

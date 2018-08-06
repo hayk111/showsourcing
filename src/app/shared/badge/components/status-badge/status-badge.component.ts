@@ -1,9 +1,9 @@
 import {
 	AfterViewInit, AfterContentInit, ChangeDetectionStrategy,
-	Component, ElementRef, Input, Renderer2, ViewChild
+	Component, ElementRef, Input, Renderer2, ViewChild, OnInit
 } from '@angular/core';
 import { ProductStatusType, SupplierStatus } from '~models';
-import { BadgeComponent } from '../badge/badge.component';
+import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 
 @Component({
 	selector: 'status-badge-app',
@@ -11,33 +11,17 @@ import { BadgeComponent } from '../badge/badge.component';
 	styleUrls: ['./status-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatusBadgeComponent implements AfterViewInit {
+export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() set status(status: ProductStatusType | SupplierStatus) {
-		this._status = status;
-		this.setStyle(status);
-	}
-	get status() {
-		return this._status;
-	}
-	private _status;
+	@Input() status: ProductStatusType | SupplierStatus;
 
-	@ViewChild('badge', { read: ElementRef }) badge: ElementRef<BadgeComponent>;
-
-	constructor(private renderer: Renderer2) {
+	constructor() {
 	}
 
-
-	ngAfterViewInit() {
-		this.setStyle(this._status);
+	ngOnInit() {
+		// switch (this.status.)
 	}
 
-	setStyle(status) {
-		if (!this.badge.nativeElement || !status)
-			return; // not defined before ngAfterViewInit
-		this.renderer.addClass(this.badge.nativeElement, 'bg-' + status.color);
-		this.renderer.addClass(this.badge.nativeElement, 'color-txt-' + this.status.contrastColor);
-	}
 
 }
