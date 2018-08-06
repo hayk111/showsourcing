@@ -20,6 +20,7 @@
 
 
     <show-list-app
+      (saveShow)="saveShow($event)"
       *ngIf="!checkboxes.myShows"
       [pending]="pending"
       [items]="allShows$ | async"></show-list-app>

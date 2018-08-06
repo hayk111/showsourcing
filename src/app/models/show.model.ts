@@ -9,6 +9,7 @@ export interface Show {
 }
 
 export interface ShowDescription {
+	id: string
 	name: string;
 	description: string;
 	startDate: Date;
@@ -21,8 +22,9 @@ export interface ShowDescription {
 }
 
 export interface Venue {
+	id: string
 	name: string;
-	countryCode: string;
+	country: string;
 	addressFull: string;
 	city: string;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ShowService, EventService, SupplierService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
+import { ApolloWrapper, GLOBAL_DATA_CLIENT } from '~shared/apollo';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Observable, of } from 'rxjs';
 import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
@@ -54,17 +54,22 @@ export class ShowFeatureService extends ShowService {
 
   // this gets the list of events of the team then with the id we receive query backs the global db
   selectInfiniteListMyShows(params$: Observable<SelectParams>): Observable<Show[]> {
+    // we return the events from team realm directly
     return this.eventSrv.selectInfiniteList(params$).pipe(
       tap(events => events.forEach(evt => evt.saved = true))
     );
   }
 
+  // this will save the show on team realm
+  saveShow(show: Show) {
+    // we need to save the correct infos
+    return this.eventSrv.create(show as any);
+  }
 
   // so we get the suppliers from the shows then we change the suppliers with the one from
   // team realm if they exist
-  selectSuppliers(params$: Observable<SelectParams>) {
+  selectBooths(params$: Observable<SelectParams>) {
 
   }
-
 
 }

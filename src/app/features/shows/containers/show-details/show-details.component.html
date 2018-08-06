@@ -2,7 +2,7 @@
 
 <div class="flex">
   <div class="flexColumn">
-    <show-summary-app></show-summary-app>
+    <show-summary-app [show]="show$ | async"></show-summary-app>
     <show-exhibitors-app></show-exhibitors-app>
   </div>
   <show-about-app></show-about-app>

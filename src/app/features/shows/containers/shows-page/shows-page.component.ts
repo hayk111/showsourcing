@@ -88,4 +88,8 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
   search(str: string) {
     this.filterSrv.upsertFilter({ type: 'description.name', comparator: 'CONTAINS[c]', value: `"${str}"` });
   }
+
+  saveShow(show) {
+    this.srv.saveShow(show).subscribe(_ => show.saved = true);
+  }
 }
