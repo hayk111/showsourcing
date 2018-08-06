@@ -72,29 +72,15 @@ export abstract class AbstractApolloInitializer {
 		});
 
 
-		// using the ability to split links, you can send data to each link
-		// depending on what kind of operation is being sent
-		const transportLink = split(
-			// split based on operation type
-			({ query }) => {
-				const { kind, operation } = getMainDefinition(query) as any;
-				return kind === 'OperationDefinition' && operation === 'subscription';
-			},
-			ws,
-			http,
-		);
-
 		const link = from([
 			cleanTypenameLink,
-			transportLink
+			ws
 		]);
 
 		this.apollo.create({
 			link,
 			connectToDevTools: !environment.production,
-			cache: new InMemoryCache({
-				dataIdFromObject: (object: any) => object.id || null
-			}),
+			cache: new InMemoryCache({}),
 			queryDeduplication: true
 		}, name);
 

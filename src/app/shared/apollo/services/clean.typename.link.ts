@@ -1,6 +1,7 @@
 import { ApolloLink } from 'apollo-link';
 
 export const cleanTypenameLink = new ApolloLink((operation, forward) => {
+
 	if (operation.variables) {
 		operation.variables = omitDeep(operation.variables, '__typename');
 	}
@@ -16,7 +17,7 @@ function omitDeep(obj: object, key: string | number): object {
 			const val: any = obj[i];
 			if (val instanceof Date) newObj[i] = val;
 			else if (Array.isArray(val)) newObj[i] = omitDeepArrayWalk(val, key);
-			else if (typeof val === 'object' && val !== null) newObj[i] = omitDeep(val, key);
+			else if (typeof val === 'object') newObj[i] = omitDeep(val, key);
 			else newObj[i] = val;
 		}
 	});

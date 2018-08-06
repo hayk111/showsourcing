@@ -1,27 +1,29 @@
+<div class="scroller" infiniScroll (bottomReached)="loadMore()">
+  <top-panel-app
+    title="Shows & Events"
+    [hasAction]="false">
+  </top-panel-app>
 
+  <div class="ctnr">
+    <sub-panel-app
+      [hasSwitch]="false"
+      [hasFilter]="false"
+      [buttonIcon]="false"
+      (search)="search($event)">
 
-<top-panel-app
-  title="Shows & Events"
-  [hasAction]="false">
-</top-panel-app>
+      <div class="flexBetween">
+        <checkbox-app [checked]="checkboxes.myShows" (update)="toggleMyEvents()">
+          Only display my Shows
+        </checkbox-app>
+        <checkbox-app [checked]="!checkboxes.futureShowOnly" (update)="togglePastEvents()">
+          Show past Events
+        </checkbox-app>
+      </div>
 
-<div class="ctnr">
-  <sub-panel-app
-    [hasSwitch]="false"
-    [hasFilter]="false"
-    [buttonIcon]="false"
-    (search)="search($event)">
+    </sub-panel-app>
 
-    <div class="flexBetween">
-      <checkbox-app>
-        Only display my Shows
-      </checkbox-app>
-      <checkbox-app>
-        Show past Events
-      </checkbox-app>
-    </div>
+    <show-list-app [items]="items$ | async"></show-list-app>
+  </div>
 
-  </sub-panel-app>
-
-  <show-list-app [items]="items$ | async"></show-list-app>
 </div>
+

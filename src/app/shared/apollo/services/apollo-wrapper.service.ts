@@ -8,7 +8,6 @@ import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/inte
 import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
-import { ApolloQueryResult } from '../../../../../node_modules/apollo-client';
 
 
 /**
@@ -45,7 +44,7 @@ export class ApolloWrapper {
 	selectOnePipe(options: SubribeToOneOptions, queryName: string, variables: any) {
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
-				filter((r) => this.checkError(r)),
+				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
@@ -72,24 +71,6 @@ export class ApolloWrapper {
 				// extracting the result
 				map((r) => r.data[queryName]),
 				tap(data => this.logResult('Selecting Many', queryName, data)),
-				catchError(errors => of(log.table(errors))),
-		);
-	}
-
-	/////////////////////////////
-	//      SELECT LIST        //
-	/////////////////////////////
-	/** does a query against the graphql db */
-	selectList(options: SubscribeToManyOptions): Observable<any> {
-		const { gql, ...variables } = options;
-		const queryName = this.getQueryName(options);
-		this.log('Selecting List (query)', options, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				map((r) => r.data[queryName]),
-				tap(data => this.logResult('Selecting List (query)', queryName, data)),
 				catchError(errors => of(log.table(errors))),
 		);
 	}
@@ -127,24 +108,34 @@ export class ApolloWrapper {
 			);
 	}
 
-	/** Update one existing entity*/
+
+	/////////////////////////////
+	//       SELECT LIST       //
+	/////////////////////////////
+	/** select entities given the query, this function doesn't give Optimistic UI */
+	selectList(options: SubscribeToManyOptions): Observable<any> {
+		const { gql } = options;
+		const queryName = this.getQueryName(options);
+		// we can use the query body for the cacheKey since there are no vars
+		const cacheKey = this.getQueryBody(options);
+		this.log('Selecting All', options, queryName);
+		if (!this.selectAllCache.has(cacheKey)) {
+			this.selectAllCache.set(cacheKey, this.selectAllPipe(gql, queryName));
+		}
+		return this.selectAllCache.get(cacheKey);
+	}
+
+	/** Update one existing entity */
 	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
-		const apolloOptions = this.createApolloMutationOptions(options);
+		let apolloOptions: any = this.createApolloMutationOptions(options);
 		const queryName = this.getQueryName(options);
 		this.log('Update', options, queryName, apolloOptions.variables);
 
-		if (this.checkNonOptimistic(options)) {
-			return this.apollo.mutate(apolloOptions).pipe(
-				first(),
-				filter((r: any) => this.checkError(r)),
-				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('Update', queryName, data)),
-				catchError(errors => of(log.table(errors)))
-			);
+		if (this.checkOptimistic(options)) {
+			this.addOptimisticResponse(apolloOptions, options);
 		}
 
-		this.addOptimisticResponse(apolloOptions, options);
-		return this.apollo.mutate<T>(apolloOptions).pipe(
+		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -159,16 +150,10 @@ export class ApolloWrapper {
 		const queryName = this.getQueryName(options);
 		this.log('Create', options, queryName, apolloOptions.variables);
 
-		if (this.checkNonOptimistic(options)) {
-			return this.apollo.mutate(apolloOptions).pipe(
-				first(),
-				filter((r: any) => this.checkError(r)),
-				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('Create', queryName, data)),
-				catchError(errors => of(log.table(errors)))
-			);
+		if (this.checkOptimistic(options)) {
+			// TODO implement optimistic UI
 		}
-		// TODO implement optimistic UI
+
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -187,16 +172,9 @@ export class ApolloWrapper {
 		const queryName = this.getQueryName(options);
 		this.log('DeleteOne', options, queryName, apolloOptions.variables);
 
-		if (this.checkNonOptimistic(options)) {
-			return this.apollo.mutate(apolloOptions).pipe(
-				first(),
-				filter((r: any) => this.checkError(r)),
-				map(({ data }) => data[queryName]),
-				tap(data => this.logResult('DeleteOne', queryName, data)),
-				catchError(errors => of(log.table(errors)))
-			);
+		if (this.checkOptimistic(options)) {
+			// TODO implement optimistic UI
 		}
-		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -217,15 +195,9 @@ export class ApolloWrapper {
 		const queryName = this.getQueryName(options);
 		this.log('DeleteMany', options, queryName, apolloOptions.variables);
 
-		if (this.checkNonOptimistic(options)) {
-			return this.apollo.mutate(apolloOptions).pipe(
-				first(),
-				filter((r: any) => this.checkError(r)),
-				map(({ data }) => data[queryName]),
-				catchError(errors => of(log.table(errors)))
-			);
+		if (this.checkOptimistic(options)) {
+			// TODO implement optimistic UI
 		}
-		// TODO implement optimistic UI
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -274,8 +246,8 @@ export class ApolloWrapper {
 	}
 
 	/** check if optimistic update is disabled */
-	private checkNonOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
-		if (options.preventOptimisticUi || !options.typename) {
+	private checkOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
+		if (!options.preventOptimisticUi && options.typename) {
 			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
 			return true;
 		}

@@ -12,4 +12,5 @@ export class ShowService extends GlobalService<Show> {
 	constructor(wrapper: ApolloWrapper) {
 		super(wrapper.use(GLOBAL_DATA_CLIENT), new ShowQueries(), 'Show');
 	}
+
 }

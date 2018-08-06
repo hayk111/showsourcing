@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { map, share, filter } from 'rxjs/operators';
 import { toStore } from '~utils/store/store';
 
 import { Filter, FilterType } from '~shared/filters/models';
@@ -51,7 +51,7 @@ export class FilterService {
 	 * the start time will be used and we won't query items created after this start time.
 	 */
 	preventCreationUpdate() {
-		this.addFilter({ type: FilterType.PREVENT_UPDATE, value: true });
+		// this.addFilter({ type: FilterType.PREVENT_UPDATE, value: true });
 	}
 
 	/** adds filter at the end of the array */
@@ -73,7 +73,7 @@ export class FilterService {
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: FilterType) {
+	removeFilterType(type: FilterType | string) {
 		this._filters$.next(this.currentFilters.filter(f => f.type !== type));
 
 	}
@@ -99,8 +99,18 @@ export class FilterService {
 	}
 
 	private filtersToQuery(filters: Filter[]) {
-		return filters.length > 0 ? filters.map(
-			({ type, value }) => this.getFieldCondition(type, value)).join(' or ') : '';
+		if (filters.length === 0)
+			return '';
+
+		return filters.map(({ type, value, raw, comparator }) => {
+			// if there is a raw value for filter that's what we return
+			if (raw)
+				return raw;
+			if (comparator)
+				return `${type} ${comparator} ${value}`;
+			// else we return the filter given the type
+			return this.getFieldCondition(type, value)
+		}).join(' or ');
 	}
 
 	private getFieldCondition(type, value) {
@@ -111,8 +121,6 @@ export class FilterService {
 			case FilterType.ARCHIVED:
 			case FilterType.ID:
 				return `${type} == ${value}`;
-			case FilterType.PREVENT_UPDATE:
-				return `creationDate > "${this.startTime.toISOString()}"`;
 			default:
 				return `${type}.id == "${value}"`;
 		}

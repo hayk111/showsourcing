@@ -4,7 +4,8 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { share } from 'rxjs/operators';
+import { share, map, tap } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
 
 
 @Injectable({
@@ -15,5 +16,7 @@ export class ProductService extends GlobalService<Product> {
 	constructor(wrapper: ApolloWrapper) {
 		super(wrapper, new ProductQueries(), 'Product');
 	}
+
+
 }
 

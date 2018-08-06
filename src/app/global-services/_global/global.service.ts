@@ -1,5 +1,5 @@
 import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap, first } from 'rxjs/operators';
 import { isObject } from 'util';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
@@ -66,25 +66,29 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	/**
-	 * Same as select many but with a query instead of a subscription
-	 * This can be used for infini scroll as the result is added on page changes.
-	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying
+	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying,
+	 * the difference with select many is that when the page change the result is added to the previous one
+	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
+	 * However optimistic UI works for this.
 	 */
-	selectList(params$: Observable<SelectParams>) {
-
+	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams())): Observable<any> {
 		return params$.pipe(
-			distinctUntilChanged(),
-			mergeMap(params => {
-				const opts = params.toWrapperOptions(this.queries.many);
-				return this.wrapper.selectList(opts).pipe(
-					map(data => ({ data, page: params.page }))
+			// taking the first result of a selectMany
+			mergeMap(
+				params => {
+					this.wrapper.s
+				}this.selectMany(of(params)).pipe(
+					first(),
+					map(result => ({ result, page: params.page }))
 				)
-			}),
-			scan((prev: any[], curr: { data, page }) => {
-				if (curr.page === 0)
-					return curr.data;
-				else
-					return [...prev, curr.data];
+			),
+			// adding to the previous resultset
+			scan((prev, curr: { result, page }) => {
+				if (curr.page === 0) {
+					return curr.result;
+				} else {
+					return [...prev, ...curr.result];
+				}
 			}, [])
 		);
 	}
