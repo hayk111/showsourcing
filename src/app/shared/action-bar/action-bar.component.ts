@@ -20,7 +20,6 @@ export class ActionBarComponent implements OnInit {
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
-	@Output() addToProject = new EventEmitter<null>();
 	@Output() buttonClick = new EventEmitter<null>();
 
 	constructor() { }

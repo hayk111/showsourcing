@@ -1,9 +1,6 @@
 
 <ng-container [ngSwitch]="fontSet">
 
-	<!-- <ng-container *ngSwitchCase="'imoon'">
-			<i class="icomoon icon-{{ name }}"></i>
-	</ng-container> -->
 	<ng-container *ngSwitchCase="'fa'">
 		<svg class="svg-inline--fa">
 			<use [attr.xlink:href]="'#' + name"></use>
@@ -14,10 +11,8 @@
 		<img src="assets/icons/{{ name }}.svg"/>
 	</ng-container>
 
-	<!-- todo remove use of icomoon -->
 	<ng-container *ngSwitchDefault>
 		<i class="icon-{{ name }}"></i>
 	</ng-container>
-
 
 </ng-container>

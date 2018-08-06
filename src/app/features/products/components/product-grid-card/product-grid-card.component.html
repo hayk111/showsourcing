@@ -11,16 +11,8 @@
 			<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
 		</div>
 
-		<!-- <workflow-action-app
-			[xPosition]="-2"
-			selectSize="s"
-			[typeEntity]="prodERM"
-			[entity]="product"
-			[ngStyle]="workflowStyle">
-		</workflow-action-app> -->
 		<status-badge-app
-			[status]="product.statuses[0].status"
-			[ngStyle]="badgeStyle">
+			[status]="product.statuses[0].status">
 		</status-badge-app>
 
 		<checkbox-app
@@ -28,8 +20,7 @@
 			[size]="20"
 			[checked]="selected"
 			(check)="productSelect.emit()"
-			(uncheck)="productUnselect.emit()"
-			[ngStyle]="checkboxStyle">
+			(uncheck)="productUnselect.emit()">
 		</checkbox-app>
 
 		<div class="information">

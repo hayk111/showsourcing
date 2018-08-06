@@ -94,7 +94,9 @@
 		(close)="resetSelection()"
 		(delete)="deleteSelected()">
 
-		<action-bar-app>
+		<action-bar-app
+			(onFavorite)=""
+			(onUnfavorite)="">
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
 			</button>
