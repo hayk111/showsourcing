@@ -105,17 +105,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	search(str: string) {
 		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
-		this.searchFilters(str);
 	}
 
 	smartSearch(str: string) {
 		this.smartSearchFilters(str);
-	}
-
-	/** Search within filters */
-	searchFilters(str: string) {
-		if (this.searchSrv)
-			this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
 	}
 
 	/** Search within filters */

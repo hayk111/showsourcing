@@ -5,6 +5,7 @@ import { AppImage } from '~models/app-image.model';
 export interface Show {
 	id: string;
 	description: ShowDescription;
+	saved: boolean;
 }
 
 export interface ShowDescription {

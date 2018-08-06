@@ -11,6 +11,7 @@ import { StoreKey } from '~utils/store/store';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Observable } from 'rxjs';
+import { FilterType } from '~shared/filters/models/filter.model';
 
 @Component({
   selector: 'shows-page-app',
@@ -81,5 +82,10 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
     } else {
       this.filterSrv.removeFilterType('description.endDate');
     }
+  }
+
+
+  search(str: string) {
+    this.filterSrv.upsertFilter({ type: 'description.name', comparator: 'CONTAINS[c]', value: `"${str}"` });
   }
 }

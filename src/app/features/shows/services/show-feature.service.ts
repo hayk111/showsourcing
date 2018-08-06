@@ -20,6 +20,20 @@ export class ShowFeatureService extends ShowService {
     super(wrapper);
   }
 
+  selectOne(id: string) {
+    return super.selectOne(id).pipe(
+      // we need to check if the team has saved this event on their realm
+      switchMap(
+        show => this.eventSrv.selectOne(id),
+        (show, event) => {
+          if (event)
+            show.saved = true;
+          return show;
+        }
+      )
+    );
+  }
+
   // we want to actually replace the show with an event on team realm if it's one from team realm
   // if they exist
   selectInfiniteListAllShows(params$: Observable<SelectParams>): Observable<Show[]> {

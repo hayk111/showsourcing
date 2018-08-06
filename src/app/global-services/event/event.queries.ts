@@ -6,7 +6,25 @@ export class EventQueries implements GlobalQuery {
 	one: any = gql`
 	subscription event($query: String!) {
 		events(query: $query) {
-			id, name
+			id
+			description {
+				name
+				description
+				startDate
+				endDate
+				supplierCount
+				logoImage {
+					fileName
+				}
+				primaryColor
+				secondaryColor
+				venue {
+					name
+					country
+					addressFull
+					city
+				}
+			}
 		}
 	}
 	`;
