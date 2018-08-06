@@ -6,8 +6,8 @@
 
 	<div class="flex tags">
 		<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>
-		<smart-badge-app *ngFor="let category of supplier.categories" type="category">{{ category.name }}</smart-badge-app>
-		<smart-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</smart-badge-app>
+		<badge-app type="accent" *ngFor="let category of supplier.categories" type="category">{{ category.name }}</badge-app>
+		<badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</badge-app>
 	</div>
 
 </top-panel-details-app>

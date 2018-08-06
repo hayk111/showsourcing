@@ -3,7 +3,7 @@ import { ShowService, EventService, SupplierService } from '~global-services';
 import { ApolloWrapper } from '~shared/apollo';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Observable, of } from 'rxjs';
-import { combineLatest, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
 import { FilterService, Filter, FilterType } from '~shared/filters';
 import { ShowsModule } from '~features/shows/shows.module';
 import { Show } from '~models/show.model';
@@ -40,20 +40,8 @@ export class ShowFeatureService extends ShowService {
 
   // this gets the list of events of the team then with the id we receive query backs the global db
   selectInfiniteListMyShows(params$: Observable<SelectParams>): Observable<Show[]> {
-
     return this.eventSrv.selectInfiniteList(params$).pipe(
-      switchMap(
-        events => {
-          const filters: Filter[] = events.map(event => ({ type: FilterType.ID, value: event.id }));
-          // if we get no id then we can't have any events
-          if (filters.length === 0)
-            return of([]);
-          return this.selectMany(
-            of(new SelectParams({
-              sort: { sortBy: 'description.startDate', sortOrder: 'DESC' },
-              query: FilterService.filtersToQuery(filters)
-            })));
-        })
+      tap(events => events.forEach(evt => evt.saved = true))
     );
   }
 

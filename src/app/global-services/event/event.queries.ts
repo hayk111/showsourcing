@@ -20,13 +20,24 @@ export class EventQueries implements GlobalQuery {
 		$descending: Boolean
 		) {
 		events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-			id,
-			name,
+			id
 			description {
-				id,
-				name,
-				startDate,
-				endDate,
+				name
+				description
+				startDate
+				endDate
+				supplierCount
+				logoImage {
+					fileName
+				}
+				primaryColor
+				secondaryColor
+				venue {
+					name
+					country
+					addressFull
+					city
+				}
 			}
 		}
 	}

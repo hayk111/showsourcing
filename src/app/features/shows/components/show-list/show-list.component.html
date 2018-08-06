@@ -11,20 +11,25 @@
       <div class="flexColumn showDesc">
         <h1>{{ show.description.name }}</h1>
         <small>
-          {{ show.description.startDate | date: 'd' }} {{ show.description.endDate | date: 'd MM' }}
-          -
-          {{ show.description.venue.addressFull }}, {{ show.description.venue.countryCode | const: 'country' }}
+          {{ show?.description?.startDate | date: 'd' }} {{ show?.description?.endDate | date: 'd MM' }}
+
+          <ng-container *ngIf="show.description.venue && (show.description.venue.addressFull || show.description.venue.country)">
+            -
+            <!-- {{ show?.description?.venue?.addressFull }}, {{ show?.description?.venue?.country | const: 'country' }} -->
+          </ng-container>
+
         </small>
         <p>
-          {{ show.description.description }}
+          {{ show?.description?.description }}
         </p>
-        <p>
-          <badge-app *ngIf="show.mine">Saved</badge-app>
-        </p>
+        <div class="flex">
+          <badge-app>{{ show?.description?.supplierCount }} suppliers</badge-app>
+          <badge-app type="accent" *ngIf="show.saved">Saved</badge-app>
+        </div>
       </div>
 
       <div class="showActions flexColumn flexCenter flexGrow">
-        <button class="z-1 mg-s">Add to my Shows</button>
+        <button class="z-1 mg-s" *ngIf="!show.saved">Add to my Shows</button>
         <button class="z-1 mg-s secondary" (click)="goToDetail(show)">Browse Show</button>
       </div>
     </div>

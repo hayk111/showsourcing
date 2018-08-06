@@ -38,6 +38,7 @@ p {
 	transition: opacity 0.4s;
 	align-items: flex-end;
 }
+
 .show {
 	background: white;
 	transition: background 0.4s;
@@ -52,4 +53,17 @@ p {
 
 button {
 	width: 130px;
+}
+
+p {
+	margin-bottom: var(--spacing-ms);
+}
+
+.saved {
+	background: var(--color-accent);
+	color: white;
+}
+
+.supplierCount {
+	background: var(--color-secondary);
 }
