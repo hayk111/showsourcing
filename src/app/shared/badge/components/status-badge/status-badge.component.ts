@@ -2,8 +2,8 @@ import {
 	AfterViewInit, AfterContentInit, ChangeDetectionStrategy,
 	Component, ElementRef, Input, Renderer2, ViewChild, OnInit
 } from '@angular/core';
-import { ProductStatusType, SupplierStatus } from '~models';
-import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
+import { ProductStatusType, SupplierStatusType } from '~models';
+import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
 	selector: 'status-badge-app',
@@ -14,7 +14,7 @@ import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() status: ProductStatusType | SupplierStatus;
+	@Input() status: ProductStatusType | SupplierStatusType;
 
 	constructor() {
 	}

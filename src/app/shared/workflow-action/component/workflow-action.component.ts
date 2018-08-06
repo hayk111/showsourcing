@@ -30,15 +30,10 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 		this.status$ = this.workflowSrv.getTableStatus(this.typeEntity);
 	}
 
-	updateStatusProd(status) {
+	updateStatus(status) {
 		if (status.id !== this.entity.statuses[0].status.id) { // we dont update if we click the same
 			const tempS = new ProductStatus({ status });
 			this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
 		}
 	}
-
-	updateStatusSup(status) {
-		this.workflowSrv.updateStatus({ id: this.entity.id, status }, this.typeEntity).subscribe();
-	}
-
 }

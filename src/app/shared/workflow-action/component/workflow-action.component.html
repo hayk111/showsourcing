@@ -1,38 +1,42 @@
-<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}" *ngIf="typeEntity.singular === 'product'">
+<ng-container *ngIf="entity?.statuses?.length > 0">
+	<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
 
-	<context-menu-trigger-app class="flex pointer {{selectSize}} bg-{{entity.statuses[0].status.color}}">
-		<span class="text ellipsis color-txt-{{entity.statuses[0].status.contrastColor}}">{{entity.statuses[0].status.step || ''}} {{entity.statuses[0].status.name}}</span>
-		<div *ngIf="selectSize != 's'" class="selector color-txt-{{entity.statuses[0].status.contrastColor}}"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-	</context-menu-trigger-app>
+		<context-menu-trigger-app class="flex pointer {{selectSize}}">
+			<span class="text ellipsis">{{entity.statuses[0].status.step || ''}} {{entity.statuses[0].status.name}}</span>
+			<div *ngIf="selectSize != 's'" class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+		</context-menu-trigger-app>
 
-	<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
-		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatusProd(stat)"></status-badge-app>
-	</context-menu-item-app>
+		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
+			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
+		</context-menu-item-app>
 
-	<context-menu-divider-app></context-menu-divider-app>
+		<context-menu-divider-app></context-menu-divider-app>
 
-	<context-menu-item-app class="remove-workflow">
-		<span>Remove from Workflow</span>
-	</context-menu-item-app>
+		<context-menu-item-app class="remove-workflow">
+			<span>Remove from Workflow</span>
+		</context-menu-item-app>
 
-</context-menu-app>
+	</context-menu-app>
+	<ng-content></ng-content>
+</ng-container>
+<!-- <ng-container *ngIf="entity?.statuses?.length > 0">
+	<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
 
-<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status" *ngIf="typeEntity.singular === 'supplier'">
+		<context-menu-trigger-app class="flex pointer {{selectSize}} bg-{{entity.statuses[0].status.color}}">
+			<span class="text ellipsis color-txt-{{entity.statuses[0].status.contrastColor}}">{{entity.statuses[0].status.step || ''}} {{entity.statuses[0].status.name}}</span>
+			<div *ngIf="selectSize != 's'" class="selector color-txt-{{entity.statuses[0].status.contrastColor}}"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+		</context-menu-trigger-app>
 
-	<context-menu-trigger-app class="flex pointer {{selectSize}} bg-{{entity.status.color}}">
-		<span class="text ellipsis color-txt-{{entity.status.contrastColor}}">{{entity.status.step || ''}} {{entity.status.name}}</span>
-		<div *ngIf="selectSize != 's'" class="selector color-txt-{{entity.status.contrastColor}}"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-	</context-menu-trigger-app>
+		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
+			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
+		</context-menu-item-app>
 
-	<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
-		<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatusSup(stat)"></status-badge-app>
-	</context-menu-item-app>
+		<context-menu-divider-app></context-menu-divider-app>
 
-	<context-menu-divider-app></context-menu-divider-app>
+		<context-menu-item-app class="remove-workflow">
+			<span>Remove from Workflow</span>
+		</context-menu-item-app>
 
-	<context-menu-item-app class="remove-workflow">
-		<span>Remove from Workflow</span>
-	</context-menu-item-app>
-
-</context-menu-app>
-<ng-content></ng-content>
+	</context-menu-app>
+	<ng-content></ng-content>
+</ng-container> -->

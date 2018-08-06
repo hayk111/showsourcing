@@ -6,6 +6,7 @@ export * from '~global-services/product-status-type/product-status-type.service'
 export * from '~global-services/project/project.service';
 export * from '~global-services/supplier/supplier.service';
 export * from '~global-services/supplier-status/supplier-status.service';
+export * from '~global-services/supplier-status-type/supplier-status-type.service';
 export * from '~global-services/supplier-type/supplier-type.service';
 export * from '~global-services/tag/tag.service';
 export * from '~global-services/team/team.service';
