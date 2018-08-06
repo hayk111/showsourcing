@@ -1,5 +1,4 @@
 export * from '~features/products/components/product-icons/product-icons.component';
-export * from '~features/products/components/product-selectable-card/product-selectable-card.component';
 export * from '~features/products/components/product-small-card/product-small-card.component';
 export * from '~features/products/components/product-sub-info/product-sub-info.component';
 export * from '~features/products/components/product-card-view/product-card-view.component';

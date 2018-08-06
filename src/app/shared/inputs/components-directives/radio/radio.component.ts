@@ -38,8 +38,8 @@ export class RadioComponent extends AbstractInput {
 	private _required: boolean;
 
 	constructor(protected cd: ChangeDetectorRef) {
-    super(cd);  
-  }
+		super(cd);
+	}
 
   /**
 	 * Event handler for checkbox input element.
@@ -61,10 +61,9 @@ export class RadioComponent extends AbstractInput {
 
 	getId(index) {
 		return this._id + '-' + index;
-  }
-  
-  writeValue(value: any): void {
-    super.writeValue(value);
-    console.log('>> writeValue = ', value);
-  }
+	}
+
+	writeValue(value: any): void {
+		super.writeValue(value);
+	}
 }

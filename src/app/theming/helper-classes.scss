@@ -105,7 +105,7 @@
 
 // pointer
 
-.pointer{
+.pointer {
 	user-select: none;
   cursor: pointer;
 }
@@ -119,6 +119,9 @@
 	user-select: none;
 }
 
+.noPointer {
+	cursor: default;
+}
 // colors
 
 .selected {

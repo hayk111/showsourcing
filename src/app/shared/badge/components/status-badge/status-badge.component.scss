@@ -1,3 +1,9 @@
 :host {
 	display: inline-block;
+	cursor: default;
+	user-select: none;
+}
+
+div.selector {
+	margin-left: 4px;
 }

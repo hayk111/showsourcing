@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
@@ -13,6 +13,8 @@ import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component
 export class OneProductActivityCardComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
+
+	typeEntity = ERM.PRODUCT;
 
 	constructor(
 		private router: Router,

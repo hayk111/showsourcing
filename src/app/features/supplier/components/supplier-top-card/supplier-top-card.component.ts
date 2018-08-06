@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Supplier } from '~models/supplier.model';
 import { Location } from '@angular/common';
+import { ERM } from '~models';
 
 @Component({
 	selector: 'supplier-top-card-app',
@@ -13,6 +14,8 @@ import { Location } from '@angular/common';
 })
 export class SupplierTopCardComponent implements OnInit {
 	@Input() supplier: Supplier;
+	typeEntity = ERM.SUPPLIER;
+
 	constructor(
 		private location: Location
 	) { }
