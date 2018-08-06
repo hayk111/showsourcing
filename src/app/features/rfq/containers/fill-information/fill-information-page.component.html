@@ -1,0 +1,54 @@
+<div class="step-container">
+	<div class="step">
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="1">
+		</stage-indicator-app>
+
+		<div class="flex description">
+			<div class="left">
+					<carousel-card-app
+						[hasFooter]="false"
+						[images]="product.images"></carousel-card-app>
+			</div>
+
+			<div class="right">
+					<card-app>
+						<div class="sectionTitle information"
+							i18n="div title|Product general information@@productGeneralInfo_general">
+							General Information
+						</div>
+						<ng-container *ngIf="descriptor$ | async as descriptor">
+							<dynamic-editable-form-app
+								[inlineLabel]="false"
+								[descriptor]="descriptor"
+								[colAmount]="2">
+							</dynamic-editable-form-app>
+						</ng-container>
+					</card-app>
+					
+					<card-app>
+						<div class="sectionTitle shipping"
+							i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
+							Shipping & Trading
+						</div>
+
+						<ng-container *ngIf="descriptor2$ | async as descriptor">
+							<dynamic-editable-form-app
+								[inlineLabel]="false"
+								[descriptor]="descriptor"
+								[colAmount]="2"
+								[elementsPerColAmount]="3">
+							</dynamic-editable-form-app>
+						</ng-container>
+					</card-app>
+			</div>
+	</div>
+
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn back" routerLink="../new-request">Back</button>
+			<button class="btn" routerLink="../review-send">Validate & Review</button>
+		</div>
+	</div>
+</div>

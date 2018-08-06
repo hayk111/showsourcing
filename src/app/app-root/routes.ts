@@ -15,8 +15,7 @@ import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import * as ClientGuards from '~shared/apollo/guards';
-import { TemplateComponent } from '~shared/template';
-import { GuestTemplateComponent } from '~shared/template/components/guest-template/guest-template.component';
+import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 
 export const routes: Array<Route> = [
 	{
@@ -42,6 +41,15 @@ export const routes: Array<Route> = [
 			{ path: 'create-a-team', component: CreateATeamPageComponent },
 			{ path: 'pick-a-team', component: PickATeamPageComponent, canActivate: [HasTeamGuard] },
 		]
+	},
+	{
+		path: 'rfq',
+		component: RfqTemplateComponent,
+		canActivateChild: [
+		],
+		children: [
+			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
+		],
 	},
 	{
 		path: '',

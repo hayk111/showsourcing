@@ -1,0 +1,57 @@
+<div class="step-container">
+	<div class="step">
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="2">
+		</stage-indicator-app>
+
+		<h1>Please review and validate your quotation</h1>
+
+		<h2>Send this quotation to</h2>
+
+		<div class="flexVAlign">
+			<div class="imgCtnr">
+				<div class="circle">
+					<img-app image="e35b11bf-d284-414c-8997-69cd2b2c2db5.jpg" type="user"></img-app>
+				</div>
+			</div>
+			<div class="flexColumn person">
+				<a class="name"><strong>Name</strong></a>
+				<span class="text">Wanlixing rubber S.A.S.</span>
+			</div>
+		</div>
+
+		<h2>Add a message</h2>
+
+		<div class="description">
+
+				<textarea rows="15" class="text">Hello Jerone,
+
+Please find attached the quotation.
+						
+Best,
+Janette Wong</textarea>
+
+		</div>
+
+		<h2>Product</h2>
+
+		<image-previewer-app
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
+
+		<h3>minh-0023-AC</h3>
+
+		<div class="text">Created on Monday 12 May 2018</div>
+		<div class="text">Canton Fair 2018 - Phase 2</div>
+	</div>
+
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn back" routerLink="../fill-information">Back</button>
+			<button class="btn" routerLink="../validation">Send Reply</button>
+		</div>
+	</div>
+</div>

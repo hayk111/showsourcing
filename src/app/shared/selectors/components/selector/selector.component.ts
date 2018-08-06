@@ -80,6 +80,7 @@ export class SelectorComponent extends AbstractInput {
 
 	/** Finds values that contains the term searched */
 	filter() {
+		console.log('>> this.choices = ', this.choices);
 		if (this.searchValue === '')
 			this.filteredChoices = [...this.choices];
 		else
@@ -106,6 +107,11 @@ export class SelectorComponent extends AbstractInput {
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
+	}
+
+	writeValue(value: any): void {
+		super.writeValue(value);
+		console.log('>> selector - value = ', value);
 	}
 
 }
