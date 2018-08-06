@@ -12,11 +12,13 @@ import { RatingCylinderComponent } from '~shared/rating/components/rating-cylind
 	],
 	declarations: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		RatingCylinderComponent
 	],
 	exports: [
 		ThumbButtonsComponent,
-		RatingHeartComponent
+		RatingHeartComponent,
+		RatingCylinderComponent
 	]
 })
 export class RatingModule { }
