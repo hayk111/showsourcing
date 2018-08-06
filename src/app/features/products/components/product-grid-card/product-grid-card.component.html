@@ -11,13 +11,17 @@
 			<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
 		</div>
 
-		<workflow-action-app
+		<!-- <workflow-action-app
 			[xPosition]="-2"
 			selectSize="s"
 			[typeEntity]="prodERM"
 			[entity]="product"
 			[ngStyle]="workflowStyle">
-		</workflow-action-app>
+		</workflow-action-app> -->
+		<status-badge-app
+			[status]="product.statuses[0].status"
+			[ngStyle]="badgeStyle">
+		</status-badge-app>
 
 		<checkbox-app
 			*ngIf="selected || showOptionsBar"

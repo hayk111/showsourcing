@@ -38,11 +38,13 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	get workflowStyle() {
+	get badgeStyle() {
 		return {
 			'position': 'absolute',
 			'top': '6px',
-			'left': '6px'
+			'left': '6px',
+			'min-width': '117px',
+			'text-transform': 'uppercase'
 		};
 	}
 
