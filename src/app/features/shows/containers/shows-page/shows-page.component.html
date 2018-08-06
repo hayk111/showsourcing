@@ -1,0 +1,26 @@
+
+
+<top-panel-app
+  title="Shows & Events"
+  [hasAction]="false">
+</top-panel-app>
+
+<div class="ctnr">
+  <sub-panel-app
+    [hasSwitch]="false"
+    [hasFilter]="false"
+    [buttonIcon]="false">
+
+    <div class="flexBetween">
+      <checkbox-app>
+        Only display my Shows
+      </checkbox-app>
+      <checkbox-app>
+        Show past Events
+      </checkbox-app>
+    </div>
+
+  </sub-panel-app>
+
+  <show-list-app></show-list-app>
+</div>

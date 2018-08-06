@@ -1,0 +1,32 @@
+<card-app>
+  <h2>Trade Shows</h2>
+
+  <div *ngFor="let event of items; let last = last" class="show flex">
+
+    <div class="flexCenter">
+      <img-app [style.background]="getGradient(event)" [image]="event.description.logoImage"></img-app>
+    </div>
+
+    <div class="flex flexGrow"  [ngClass]="{ 'border': !last }">
+      <div class="flexColumn showDesc">
+        <h1>{{ event.description.name }}</h1>
+        <small>
+          {{ event.description.startDate | date: 'd' }} {{ event.description.endDate | date: 'd MM' }}
+          -
+          {{ event.description.venue.addressFull }}, {{ event.description.venue.countryCode | const: 'country' }}
+        </small>
+        <p>
+          {{ event.description.description }}
+        </p>
+      </div>
+
+      <div class="showActions flexColumn flexCenter flexGrow">
+        <button class="z-1 mg-s">Add to my Shows</button>
+        <button class="z-1 mg-s secondary">Browse Show</button>
+      </div>
+    </div>
+
+
+  </div>
+
+</card-app>

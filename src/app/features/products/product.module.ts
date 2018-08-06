@@ -44,6 +44,7 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { IconsStatusComponent } from './components/icons-status/icons-status.component';
 
+import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 
 @NgModule({
 	imports: [
@@ -88,8 +89,7 @@ import { IconsStatusComponent } from './components/icons-status/icons-status.com
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,
-		ProductGridCardComponent,
-		IconsStatusComponent
+		TeamRatingCardComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
