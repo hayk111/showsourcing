@@ -1,13 +1,10 @@
-import { Observable, of, ReplaySubject, Subject, forkJoin } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, scan, switchMap, shareReplay, merge, tap, mergeMap, first } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { distinctUntilChanged, first, map, scan, switchMap } from 'rxjs/operators';
 import { isObject } from 'util';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
-import { ListParams } from '~global-services/_global/list-params';
-import { preserveWhitespacesDefault } from '../../../../node_modules/@angular/compiler';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
