@@ -162,7 +162,17 @@ export class ProductQueries implements GlobalQuery {
 				}
 			},
 			score,
-			minimumOrderQuantity
+			minimumOrderQuantity,
+			votes {
+				id,
+				user {
+					id
+				},
+				value
+			},
+			projects {
+				id
+			}
 		}
 	}`;
 
@@ -178,7 +188,7 @@ export class ProductQueries implements GlobalQuery {
 	update = gql`
 		mutation updateProduct($input: ProductInput!) {
 			updateProduct(input: $input) {
-				id, favorite
+				id
 			}
 		}
 	`;

@@ -97,7 +97,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProduct(product: any) {
-		return this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
+		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
 	openRfq() {

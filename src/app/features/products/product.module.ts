@@ -39,6 +39,11 @@ import { ProductPreviewComponent } from '~features/products/components/product-p
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
+import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { CustomDialogModule } from '~shared/custom-dialog';
+import { IconsStatusComponent } from './components/icons-status/icons-status.component';
+
 
 @NgModule({
 	imports: [
@@ -58,7 +63,9 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		TopPanelModule,
 		SearchAutocompleteModule,
 		WorkflowActionModule,
-		StageIndicatorModule
+		StageIndicatorModule,
+		ActionBarModule,
+		CustomDialogModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -80,7 +87,9 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 		ProductPreviewComponent,
 		ProductNavigationComponent,
 		RfqDialogComponent,
-		EmailListComponent
+		EmailListComponent,
+		ProductGridCardComponent,
+		IconsStatusComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

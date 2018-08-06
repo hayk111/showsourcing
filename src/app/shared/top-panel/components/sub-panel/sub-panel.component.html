@@ -25,9 +25,6 @@
 		</div>
 
 		<div class="right flexCenter">
-			<ng-content></ng-content>
-
-			<span class="marginSmall"></span>
 
 			<view-switcher-app
 				*ngIf="hasSwitch"
@@ -35,11 +32,7 @@
 				[view]="view">
 			</view-switcher-app>
 
-			<span class="marginSmall"></span>
-
 			<ng-content></ng-content>
-
-			<span class="marginSmall"></span>
 
 			<button *ngIf="hasCreate && buttonName"
 			        (click)="buttonClick.emit()">

@@ -51,7 +51,7 @@ nav {
 
 	search-bar-animated-app {
 		font-size: 20px;
-		margin-right: 20px;
+		margin-right: var(--spacing-ml);
 		cursor: pointer;
 		border-radius: var(--border-radius-s);
 		&.expanded {

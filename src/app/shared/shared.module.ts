@@ -17,6 +17,7 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { BadgeModule } from '~shared/badge';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [

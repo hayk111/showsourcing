@@ -43,27 +43,21 @@
 		</div>
 	</div>
 
-
-
 	<card-footer-app align="left">
 
-		<div class="flexBetween">
-			<div class="actions flex flexVAlign">
-				<rating-heart-app
-					[favorite]="product.favorite"
-					(favorited)="onFavorite()"
-					(unfavorited)="onUnfavorite()"></rating-heart-app>
-				<thumb-buttons-app
-					[votes]="product.votes"
-					[isSingle]="false"
-					(vote)="onVote($event)"></thumb-buttons-app>
+		<action-bar-app
+			buttonName="View Product"
+			[favorite]="product.favorite"
+			[votes]="product.votes"
+			(vote)="onVote($event)"
+			(onFavorite)="onFavorite()"
+			(onUnfavorite)="onUnFavorite()"
+			(buttonClick)="onViewProduct()">
 
-				<button class="light icon">
-					<icon-app fontSet="fa" name="folder" (click)="openAddToProject()"></icon-app>
-				</button>
-			</div>
-			<button (click)="onViewProduct()">View Product</button>
-		</div>
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+		</action-bar-app>
 
 	</card-footer-app>
 </card-app>

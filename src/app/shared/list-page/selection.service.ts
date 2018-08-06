@@ -15,16 +15,20 @@ export class SelectionService {
 	}
 
 	selectOne(item: { id: string }) {
+		// we do this so change detection, detects the change
+		this.selection = new Map(this.selection);
 		this.selection.set(item.id, item);
 		this.emit();
 	}
 
 	unselectOne(item: { id: string }) {
+		this.selection = new Map(this.selection);
 		this.selection.delete(item.id);
 		this.emit();
 	}
 
 	selectAll(items: { id: string }[]) {
+		this.selection = new Map(this.selection);
 		items.forEach(item => this.selection.set(item.id, item));
 		this.emit();
 	}

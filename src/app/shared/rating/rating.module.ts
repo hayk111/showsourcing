@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
-import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
+import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons/icons.module';
+import { RatingHeartComponent } from '~shared/rating/components/rating-heart/rating-heart.component';
+import { ThumbButtonsComponent } from '~shared/rating/components/thumb-buttons/thumb-buttons.component';
 
 @NgModule({
 	imports: [

@@ -3,3 +3,32 @@
   height: 100%;
 }
 
+action-bar-app button.icon {
+	margin-right: var(--spacing-ms);
+}
+
+context-menu-app {
+	margin-right: var(--spacing-s);
+
+	context-menu-trigger-app {
+		min-width: 121px;
+
+		button.sort-1, button.sort-2 {
+			font-weight: 600;
+			font-size: var(--font-size-m);
+		}
+
+		button.sort-1 div, button.sort-2 div{
+			color: var(color-txt-secondary);
+		}
+
+		button.sort-1:hover div, button.sort-1:hover div{
+			color: white;
+		}
+	}
+}
+
+icon-app[name=caret-down] {
+	margin-top: 1px;
+	margin-left: var(--spacing-ms);
+}

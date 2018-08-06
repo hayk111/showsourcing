@@ -7,10 +7,17 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 	styleUrls: ['./icon.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.flexCenter]': 'true'
+		'[class.flexCenter]': 'true',
+		'[class.fs-xxs]': 'size === \'xs\'',
+		'[class.fs-l]': 'size === \'s\'',
+		'[class.fs-xxl]': 'size === \'m\'',
+		'[class.fs-huge]': 'size === \'l\'',
+		'[style.font-size]': 'size+\'px\''
 	}
 })
 export class IconComponent {
+	// the size accepts any number and specific sizes as: xs, s, m and l.
+	@Input() size = 's';
 	@Input() name: string;
 	// type solid by default https://fontawesome.com/icons/heart?style=regular
 	@Input() type: 's' | 'r' | 'l' = 's';

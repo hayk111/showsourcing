@@ -5,7 +5,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-d
 	selector: 'checkbox-app',
 	templateUrl: './checkbox.component.html',
 	styleUrls: ['./checkbox.component.scss'],
-	providers: [makeAccessorProvider(CheckboxComponent)],
+	providers: [makeAccessorProvider(CheckboxComponent)]
 })
 export class CheckboxComponent extends AbstractInput {
 	protected static NEXT_UID = 0;
@@ -14,6 +14,7 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label') label: ElementRef;
 	disabled = super.disabled;
+	@Input() size = 's';
 	/** id of element, if not specified it will generate automtically */
 	@Input()
 	get id(): string { return this._id; }

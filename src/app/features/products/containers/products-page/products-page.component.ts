@@ -70,5 +70,4 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
-
 }

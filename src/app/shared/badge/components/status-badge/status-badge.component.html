@@ -1,3 +1,3 @@
 <badge-app #badge [size]="size">
-	{{ status?.name }}
+	{{status?.step !== undefined ? status?.step+'. ' : ''}}{{ status?.name }}
 </badge-app>

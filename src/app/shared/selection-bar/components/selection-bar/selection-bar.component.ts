@@ -12,6 +12,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy
 })
 export class SelectionBarComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
+	@Input() hasDelete = true;
 	@Output() close = new EventEmitter();
 	@Output() delete = new EventEmitter();
 

@@ -16,7 +16,8 @@
 	--color-txt-strong: #182844;
 	--color-divider:  #e6ebf5;
 
-  --color-bg: #fff;
+	--color-bg: #fff;
+	--color-bg-secondary: #f3f5f8;
 
 	--color-warn: #ec495d;
 	--color-warn-light: #f94259;
@@ -53,6 +54,10 @@
 
 .color-txt-light {
 	color: white;
+}
+
+.color-txt-secondary {
+	color: var(--color-secondary-dark);
 }
 
 /* Background */

@@ -40,7 +40,7 @@ search-bar-app {
 	font-size: 9px;
 	font-weight: 900;
 	color: #fff;
-	padding: 4px;
+	padding: var(--spacing-xs);
 	margin-left: 15px;
 	text-align: center;
 	width: 15px;
@@ -62,4 +62,12 @@ search-bar-app {
 
 divider-app {
 	margin: var(--spacing-xl) 0;
+}
+
+view-switcher-app {
+ 	margin-right: var(--spacing-m);
+}
+
+button {
+	margin-left: var(--spacing-m);
 }
