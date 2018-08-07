@@ -4,6 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ShowService } from '~global-services';
 import { Observable } from 'rxjs';
 import { Show } from '~models';
+import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 
 @Component({
   selector: 'app-show-details',
@@ -15,7 +16,7 @@ export class ShowDetailsComponent implements OnInit {
   show$: Observable<Show>;
   constructor(
     private route: ActivatedRoute,
-    private srv: ShowService
+    private srv: ShowFeatureService
   ) { }
 
   ngOnInit() {

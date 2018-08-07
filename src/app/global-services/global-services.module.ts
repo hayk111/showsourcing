@@ -19,6 +19,7 @@ import { ERMService } from '~global-services/_global/erm.service';
 import { UserService } from '~global-services/user/user.service';
 import { ShowService } from '~global-services/show/show.service';
 import { BoothService } from '~global-services/booth/booth.service';
+import { EventDescription } from '~models/event-description.model';
 
 
 
@@ -44,6 +45,7 @@ import { BoothService } from '~global-services/booth/booth.service';
 		UserService,
 		ShowService,
 		BoothService,
+		EventDescription,
 		// helper
 		ERMService,
 	]

@@ -7,8 +7,28 @@
   </div>
 
   <div class="flexBetween cell">
+    <div class="label">Venue</div>
+    <div>{{ show?.description?.venue?.name }}</div>
+  </div>
+
+  <div class="flexBetween cell">
+    <div class="label">City</div>
+    <div>{{ show?.description?.venue?.city }}</div>
+  </div>
+
+  <div class="flexBetween cell">
     <div class="label">Country</div>
     <div>{{ show?.description?.venue?.country | const: 'country' }}</div>
+  </div>
+
+  <div class="flexBetween cell">
+    <div class="label">Address</div>
+    <div>{{ show?.description?.venue?.addressFull }}</div>
+  </div>
+
+  <div class="flexBetween cell">
+    <div class="label">Industry</div>
+    <div>{{ show?.description?.industry?.name }}</div>
   </div>
 
 </card-app>

@@ -22,6 +22,9 @@ export class ShowQueries implements GlobalQuery {
 						id
 						fileName
 					}
+					industry {
+						name
+					}
 					primaryColor
 					secondaryColor
 					venue {

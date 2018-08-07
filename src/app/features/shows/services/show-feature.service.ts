@@ -24,7 +24,7 @@ export class ShowFeatureService extends ShowService {
     return super.selectOne(id).pipe(
       // we need to check if the team has saved this event on their realm
       switchMap(
-        show => this.eventSrv.selectOne(id),
+        (show) => this.eventSrv.selectOne(id),
         (show, event) => {
           if (event)
             show.saved = true;

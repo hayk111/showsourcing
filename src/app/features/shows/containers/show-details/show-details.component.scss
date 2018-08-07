@@ -1,9 +1,13 @@
-.left {
-	width: 796px;
-}
 
-.right {
-	width: 414px;
+.ctnr {
+	justify-content: center;
+	.left {
+		width: 796px;
+	}
+
+	.right {
+		width: 414px;
+	}
 }
 
 h1, .info, .tags {
