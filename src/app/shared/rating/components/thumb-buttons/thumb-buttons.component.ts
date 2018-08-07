@@ -62,7 +62,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		} else {
 			this.like = true;
 			if (!this.dislike) // if it was false already it means that we have to create a new vote
-				this.createEmitVote();
+				this.createEmitVote(true);
 			else {
 				this.dislike = false;
 				this.updateEmitVote();
@@ -77,7 +77,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		} else {
 			this.dislike = true;
 			if (!this.like) // if it was false already it means that we have to create a new vote
-				this.createEmitVote();
+				this.createEmitVote(false);
 			else {
 				this.like = false;
 				this.updateEmitVote();
@@ -85,9 +85,9 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	createEmitVote() {
+	createEmitVote(state: boolean = true) {
 		const vote = new ProductVote({
-			value: 100,
+			value: state ? 100 : 0,
 			user: { id: this.userSrv.userSync.id }
 		});
 		this.voteSrv.create(vote).subscribe(newVote => {

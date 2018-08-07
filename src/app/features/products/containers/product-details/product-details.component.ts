@@ -40,8 +40,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		// getting supplier
 		this.product$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(product => this.product = product),
-			tap(product => console.log('product = ', JSON.stringify(product, null, 2)))
+			tap(product => this.product = product)
 		);
 
 	}
