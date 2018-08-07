@@ -49,7 +49,7 @@ export class ProductQueries implements GlobalQuery {
 				id,
 				cancelled,
 				status {
-					id, name, color, contrastColor, step
+					id, name, category, step
 				}
 			},
 			tags {
@@ -158,7 +158,7 @@ export class ProductQueries implements GlobalQuery {
 				id,
 				cancelled,
 				status {
-					id, name, color, contrastColor, step, category, inWorkflow
+					id, name, step, category, inWorkflow
 				}
 			},
 			score,

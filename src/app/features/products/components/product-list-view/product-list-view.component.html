@@ -46,7 +46,7 @@ I added comment above each column to make it clearer -->
 				(mouseleave)="onTogglePreview(overview, false)">
 				<img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
 			</div>
-			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
+			<a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name || 'Undefined Name' }}</a>
 		</div>
 		<div class="preview">
 			<button (click)="previewClick.emit(row)" class="ugly">Preview</button>
@@ -137,14 +137,12 @@ I added comment above each column to make it clearer -->
 
 <!-- status -->
 <ng-template #status let-row="row">
-	<div class="pointer">
 		<workflow-action-app
 			[xPosition]="0"
 			[entity]="row"
 			[typeEntity]="prodErm"
-			[selectSize]="'s'">
+			selectSize="s">
 		</workflow-action-app>
-	</div>
 </ng-template>
 
 <!-- open btn -->

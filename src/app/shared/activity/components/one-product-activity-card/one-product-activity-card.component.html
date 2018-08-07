@@ -30,7 +30,8 @@
 		<div class="badges flexVAlign">
 			<status-badge-app
 				size="mini"
-			 [status]="product.statuses[0].status"></status-badge-app>
+				[typeEntity]="typeEntity"
+			 [status]="product?.statuses[0]?.status"></status-badge-app>
 			<badge-app
 				size="mini"
 				type="accent">{{ product.category.name }}

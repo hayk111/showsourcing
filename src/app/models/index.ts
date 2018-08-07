@@ -11,6 +11,7 @@ export * from '~models/product-vote.model';
 export * from '~models/product.model';
 export * from '~models/project.model';
 export * from '~models/supplier-status.model';
+export * from '~models/supplier-status-type.model';
 export * from '~models/supplier-type.model';
 export * from '~models/supplier.model';
 export * from '~models/tag.model';

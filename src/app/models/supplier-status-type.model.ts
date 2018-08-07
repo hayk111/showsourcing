@@ -1,5 +1,5 @@
 
-export interface ProductStatusType {
+export interface SupplierStatusType {
 	id: string;
 	name?: string;
 	inWorkflow?: boolean;

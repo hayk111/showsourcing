@@ -12,8 +12,6 @@ export class ProductStatusQueries implements GlobalQuery {
 				id,
 				name,
 				inWorkflow,
-				color,
-				contrastColor,
 				step,
 				category
 			}

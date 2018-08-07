@@ -24,7 +24,6 @@ import {
 	ProductCardViewComponent,
 	ProductIconsComponent,
 	ProductListViewComponent,
-	ProductSelectableCardComponent,
 	ProductSmallCardComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
@@ -75,7 +74,6 @@ import { TeamRatingCardComponent } from './components/team-rating-card/team-rati
 		ProductsPageComponent,
 		ProductListViewComponent,
 		ProductCardViewComponent,
-		ProductSelectableCardComponent,
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
@@ -89,7 +87,9 @@ import { TeamRatingCardComponent } from './components/team-rating-card/team-rati
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,
-		TeamRatingCardComponent
+		TeamRatingCardComponent,
+		ProductGridCardComponent,
+		IconsStatusComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

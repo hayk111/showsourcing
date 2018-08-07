@@ -2,8 +2,8 @@ import {
 	AfterViewInit, AfterContentInit, ChangeDetectionStrategy,
 	Component, ElementRef, Input, Renderer2, ViewChild, OnInit
 } from '@angular/core';
-import { ProductStatusType, SupplierStatus } from '~models';
-import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
+import { ProductStatusType, SupplierStatusType, EntityMetadata } from '~models';
+import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
 	selector: 'status-badge-app',
@@ -14,13 +14,40 @@ import { BadgeComponent } from '~shared/badge/components/badge/badge.component';
 export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() status: ProductStatusType | SupplierStatus;
+	@Input() status: ProductStatusType | SupplierStatusType;
+
+	// we need to pass this so when the
+	// status is null, because the product or supplier are new
+	@Input() typeEntity: EntityMetadata;
+	// if we display the caret down or not
+	@Input() hasArrow = false;
+
+	// by default is secondary since is the color for NEW elements
+	type = 'secondary';
 
 	constructor() {
 	}
 
 	ngOnInit() {
-		// switch (this.status.)
+		if (this.status) {
+			switch (this.status.category) {
+				case 'inProgress':
+					this.type = 'primary';
+					break;
+				case 'validated':
+					this.type = 'success';
+					break;
+				case 'refused':
+					this.type = 'warn';
+					break;
+				case 'inspiration':
+					this.type = 'secondary';
+					break;
+				default:
+					this.type = 'secondary';
+					break;
+			}
+		}
 	}
 
 
