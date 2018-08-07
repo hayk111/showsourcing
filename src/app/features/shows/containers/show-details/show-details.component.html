@@ -3,7 +3,7 @@
 <div class="flex ctnr">
   <div class="flexColumn left">
     <show-summary-app [show]="show$ | async"></show-summary-app>
-    <show-exhibitors-app></show-exhibitors-app>
+    <show-exhibitors-app [booths]="(show$ | async)?.booths"></show-exhibitors-app>
   </div>
   <show-about-app class="right" [show]="show$ | async"></show-about-app>
 </div>

@@ -14,6 +14,7 @@ import { ShowFeatureService } from '~features/shows/services/show-feature.servic
 })
 export class ShowDetailsComponent implements OnInit {
   show$: Observable<Show>;
+
   constructor(
     private route: ActivatedRoute,
     private srv: ShowFeatureService

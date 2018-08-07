@@ -1,0 +1,25 @@
+.name {
+	color: var(--color-txt-strong);
+	margin-bottom: var(--spacing-xs);
+	font-weight: 600;
+}
+
+.logo {
+	width: 32px;
+	height: 32px;
+	margin-right: var(--spacing-m);
+}
+
+.exhibitor {
+	padding: var(--spacing-ms);
+	&:hover {
+		background: var(--color-secondary-light);
+		.actions {
+			visibility: visible;
+		}
+	}
+}
+
+.actions {
+	visibility: hidden;
+}

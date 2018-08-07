@@ -11,6 +11,16 @@ export class ShowQueries implements GlobalQuery {
 		subscription show($query: String!) {
 			events(query: $query) {
 				id
+				booths {
+					boothName,
+					supplier {
+						id,
+						name,
+						type,
+						countryCode,
+						keywords
+					}
+				}
 				description {
 					id
 					name

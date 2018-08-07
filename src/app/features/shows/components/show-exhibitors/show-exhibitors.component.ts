@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Booth } from '~models/booth.model';
 
 @Component({
   selector: 'show-exhibitors-app',
@@ -7,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowExhibitorsComponent implements OnInit {
-
+  @Input() booths: Booth[];
   constructor() { }
 
   ngOnInit() {

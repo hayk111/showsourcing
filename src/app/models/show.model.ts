@@ -7,6 +7,6 @@ import { EventDescription } from '~models/event-description.model';
 export interface Show {
 	id: string;
 	description: EventDescription;
-	booth: Booth;
+	booths: Booth[];
 	saved: boolean;
 }
