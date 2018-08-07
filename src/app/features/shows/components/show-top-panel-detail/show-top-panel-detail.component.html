@@ -3,7 +3,7 @@
     <img-app [image]="show?.description?.logoImage" type="show"></img-app>
 
     <div>
-      <span class="info">
+      <div class="info">
         {{ show?.description?.startDate | date: 'd' }}
         -
         {{ show?.description?.endDate | date: 'd' }}
@@ -11,7 +11,7 @@
         -
         {{ show?.description?.venue?.addressFull }},
         {{ show?.description?.venue?.country | const:'country' }}
-      </span>
+      </div>
 
       <div class="flex tags">
         <badge-app size="mini" class="bg-secondary">
