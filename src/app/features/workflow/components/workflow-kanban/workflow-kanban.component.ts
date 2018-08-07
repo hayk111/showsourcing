@@ -2,6 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter, TemplateRef } from '@an
 
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
+import { ProductStatus } from '~models';
 
 /** Drag'n drop workflow */
 
@@ -46,4 +47,40 @@ export class WorkflowKanbanComponent {
 		this.kanbanSrv.itemLeft$.next({ namespace });
 	}
 
+	/**
+	 * Detect when an item is dropped and locally update ui (optimistic ui)
+	 * before the request completes
+	*/
+	onItemDropped({ target, droppedElement }) {
+		this.refreshStatusesInternally(target, droppedElement);
+		this.itemDropped.next({ target, droppedElement });
+	}
+
+	/** Simulate the optimistic cache to directly update the UI */
+	refreshStatusesInternally(target, droppedElement) {
+		const newStatus = new ProductStatus({ status: { id: target.id } });
+		const updatedProduct = { ...droppedElement, statuses: [ newStatus, ...droppedElement.statuses ] };
+
+		const currentStatusId = this.getCurrentStatusId(droppedElement);
+
+		// Remove for old status
+		const currentStatus = this.statuses.find(status => status.id === currentStatusId);
+		if (currentStatus) {
+			const products = currentStatus.products;
+			const productIndex = products.findIndex(p => p.id === droppedElement.id);
+			if (productIndex !== -1) {
+				products.splice(productIndex, 1);
+				currentStatus.products = products.slice();
+			}
+
+		}
+
+		// Add to new status
+		const targetStatus = this.statuses.find(status => status.id === target.id);
+		if (targetStatus) {
+			const products = targetStatus.products;
+			const productIndex = products.findIndex(p => p.id === droppedElement);
+			targetStatus.products = targetStatus.products.concat([ updatedProduct ]);
+		}
+	}
 }

@@ -22,7 +22,7 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 
 	@ContentChild(KanbanItemCardComponent) card: KanbanItemCardComponent;
 
-	dragDropEnabled: boolean;
+	dragDropEnabled = true;
 
 	constructor(private kanbanSrv: KanbanService, private el: ElementRef) {
 		super();

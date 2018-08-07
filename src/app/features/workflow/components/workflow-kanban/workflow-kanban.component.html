@@ -4,7 +4,7 @@
 
 		<kanban-col-app
 			[dropzoneApp]="status"
-			(itemDropped)="itemDropped.next($event)"
+			(itemDropped)="onItemDropped($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"
 			[label]="status.name"

@@ -24,6 +24,11 @@
 				color: var(--color-txt-primary);
 				display: block;
 			}
+
+
+			.check {
+				display: block;
+			}
 		}
 
 		.mainCell {
@@ -56,6 +61,7 @@
 				flex-direction: column;
 				/* justify-content: space-between; */
 				align-items: start;
+				max-width: 170px;
 
 				.titleCtnr {
 					display: flex;
@@ -143,6 +149,11 @@
 			position: absolute;
 			right: 3px;
 			top: 10px;
+			display: none;
+
+			&.checked {
+				display: block;
+			}
 		}
 	}
 }
