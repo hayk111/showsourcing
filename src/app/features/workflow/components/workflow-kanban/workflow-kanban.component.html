@@ -4,7 +4,7 @@
 
 		<kanban-col-app
 			[dropzoneApp]="status"
-			(itemDropped)="itemDropped.next($event)"
+			(itemDropped)="onItemDropped($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"
 			[label]="status.name"
@@ -21,10 +21,14 @@
 						[subtitle2]="product.category?.name"
 						[image]="product.images?.length > 0 ? (product | image:'m') : null"
 						[person]="product.createdBy"
-						[link]="'/product/details/' + product.id + '/general'">
+						[link]="'/product/details/' + product.id + '/general'"
+						[contextualMenu]="contextualMenu"
+						(select)="selectItem.emit(product)"
+						(unselect)="unselectItem.emit(product)">
 					</kanban-item-card-app>
 				</kanban-item-app>
 		</kanban-col-app>
 
 	</div>
+
 </ng-container>
