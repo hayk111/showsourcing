@@ -84,17 +84,9 @@ export class ApolloWrapper {
 	selectAll(options: SubscribeToManyOptions): Observable<any> {
 		const { gql } = options;
 		const queryName = this.getQueryName(options);
-		// we can use the query body for the cacheKey since there are no vars
-		const cacheKey = this.getQueryBody(options);
 		this.log('Selecting All', options, queryName);
-		if (!this.selectAllCache.has(cacheKey)) {
-			this.selectAllCache.set(cacheKey, this.selectAllPipe(gql, queryName));
-		}
-		return this.selectAllCache.get(cacheKey);
-	}
 
-	selectAllPipe(gql: any, queryName: string) {
-		return this.apollo.subscribe({ query: gql })
+		return this.apollo.watchQuery({ query: gql }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
