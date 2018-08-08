@@ -35,11 +35,11 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
 
   constructor(
     protected router: Router,
-    protected srv: ShowFeatureService,
+    protected featureSrv: ShowFeatureService,
     protected filterSrv: FilterService,
     protected userSrv: UserService
   ) {
-    super(router, srv, undefined, filterSrv);
+    super(router, featureSrv, undefined, filterSrv);
   }
 
   /** init */
@@ -90,6 +90,6 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
   }
 
   saveShow(show) {
-    this.srv.saveShow(show).subscribe(_ => show.saved = true);
+    this.featureSrv.saveShow(show).subscribe(_ => show.saved = true);
   }
 }
