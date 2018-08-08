@@ -1,6 +1,6 @@
 import { OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, ReplaySubject } from 'rxjs';
 import { takeUntil, tap, map, switchMap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -39,7 +39,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	previewed: T;
 
 	currentParams: SelectParams = new SelectParams();
-	private _selectParams$ = new BehaviorSubject<SelectParams>(this.currentParams);
+	private _selectParams$ = new ReplaySubject<SelectParams>(1);
 	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
 
@@ -51,9 +51,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected featureSrv: G,
 		protected selectionSrv: SelectionService,
 		protected filterSrv: FilterService,
-		protected searchSrv: SearchService,
-		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>,
+		protected searchSrv?: SearchService,
+		protected dlgSrv?: DialogService,
+		protected moduleRef?: NgModuleRef<any>,
 		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
@@ -62,10 +62,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** init */
 	ngOnInit() {
+		this.setFilters();
 		this.setItems();
 		this.setSelection();
-		this.setFilters();
-		// this.filterSrv.preventCreationUpdate();
 	}
 
 	protected setItems() {
@@ -95,6 +94,24 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.keys());
 	}
 
+	get selectionArrayItems() {
+		return Array.from(this.selectionSrv.selection.values());
+	}
+
+	selectionItems() {
+		return Array.from(this.selectionSrv.selection.values());
+	}
+
+
+	search(str: string) {
+		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
+		this.searchFilters(str);
+	}
+
+	smartSearch(str: string) {
+		this.smartSearchFilters(str);
+	}
+
 	/** Search within filters */
 	searchFilters(str: string) {
 		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
@@ -109,7 +126,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.filterSrv.addFilter({
 			type: element.type,
 			value: element.id,
-			raw: element
+			entity: element
 		});
 	}
 
@@ -117,7 +134,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.filterSrv.removeFilter({
 			type: element.type,
 			value: element.id,
-			raw: element
+			entity: element
 		});
 	}
 
@@ -133,21 +150,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.pending = false;
 	}
 
-	search(str: string) {
-		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
-		this.searchFilters(str);
-	}
-
-	smartSearch(str: string) {
-		this.smartSearchFilters(str);
-	}
-
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this._selectParams$.next(new SelectParams({
 			page: ++this.currentParams.page,
 			sort: this.currentParams.sort,
-			query: this.currentParams.query
+			query: this.currentParams.query,
+			take: this.currentParams.take
 		}));
 	}
 
@@ -155,7 +164,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this._selectParams$.next(new SelectParams({
 			page: ++this.currentParams.page,
 			sort: this.currentParams.sort,
-			query: this.currentParams.query
+			query: this.currentParams.query,
+			take: this.currentParams.take
 		}));
 	}
 
@@ -163,18 +173,38 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this._selectParams$.next(new SelectParams({
 			page: --this.currentParams.page,
 			sort: this.currentParams.sort,
-			query: this.currentParams.query
+			query: this.currentParams.query,
+			take: this.currentParams.take
+		}));
+	}
+
+	firstPage() {
+		this._selectParams$.next(new SelectParams({
+			page: 0,
+			sort: this.currentParams.sort,
+			query: this.currentParams.query,
+			take: this.currentParams.take
 		}));
 	}
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this._selectParams$.next(new SelectParams({ sort, query: this.currentParams.query }));
+		this._selectParams$.next(new SelectParams({
+			sort,
+			query: this.currentParams.query,
+			take: this.currentParams.take,
+			page: 0
+		}));
 	}
 
 	/** Filters items based  */
 	protected filter(query: string) {
-		this._selectParams$.next(new SelectParams({ query, sort: this.currentParams.sort }));
+		this._selectParams$.next(new SelectParams({
+			query,
+			sort: this.currentParams.sort,
+			take: this.currentParams.take,
+			page: 0
+		}));
 	}
 
 	/** opens the preview for an item */

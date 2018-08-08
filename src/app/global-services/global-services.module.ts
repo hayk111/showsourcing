@@ -17,7 +17,7 @@ import {
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
 import { ERMService } from '~global-services/_global/erm.service';
 import { UserService } from '~global-services/user/user.service';
-import { SearchService } from '~global-services/search/search.service';
+import { ShowService } from '~global-services/show/show.service';
 
 
 
@@ -41,8 +41,7 @@ import { SearchService } from '~global-services/search/search.service';
 		ImageUploadRequestService,
 		FileUploadRequestService,
 		UserService,
-		SearchService,
-
+		ShowService,
 		// helper
 		ERMService,
 	]

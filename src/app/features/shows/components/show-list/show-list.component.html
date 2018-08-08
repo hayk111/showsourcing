@@ -1,0 +1,40 @@
+<card-app>
+  <h2>Trade Shows</h2>
+
+  <div *ngFor="let show of items; let last = last" class="show flex">
+
+    <div class="flexCenter">
+      <img-show-app [show]="show"></img-show-app>
+    </div>
+
+    <div class="flex flexGrow"  [ngClass]="{ 'border': !last }">
+      <div class="flexColumn showDesc">
+        <h1>{{ show.description.name }}</h1>
+        <small>
+          {{ show?.description?.startDate | date: 'd' }} {{ show?.description?.endDate | date: 'd MM' }}
+
+          <ng-container *ngIf="show.description.venue && (show.description.venue.addressFull || show.description.venue.country)">
+            -
+            <!-- {{ show?.description?.venue?.addressFull }}, {{ show?.description?.venue?.country | const: 'country' }} -->
+          </ng-container>
+
+        </small>
+        <p>
+          {{ show?.description?.description }}
+        </p>
+        <div class="flex">
+          <badge-app *ngIf="show.description.supplierCount">{{ show?.description?.supplierCount }} suppliers</badge-app>
+          <badge-app type="accent" *ngIf="show.saved">Saved</badge-app>
+        </div>
+      </div>
+
+      <div class="showActions flexColumn flexCenter flexGrow">
+        <button class="z-1 mg-s" *ngIf="!show.saved">Add to my Shows</button>
+        <button class="z-1 mg-s secondary" (click)="goToDetail(show)">Browse Show</button>
+      </div>
+    </div>
+
+  </div>
+  <spinner-app *ngIf="pending"></spinner-app>
+  <em *ngIf="!pending && items && items.length === 0">No shows</em>
+</card-app>

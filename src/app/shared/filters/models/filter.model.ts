@@ -12,12 +12,13 @@ export enum FilterType {
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	SEARCH = 'search',
-	PREVENT_UPDATE = 'prevent_update'
 }
 
 export interface Filter {
-	type: FilterType;
-	value: any;
+	type?: FilterType | string;
+	comparator?: string;
+	value?: any;
+	entity?: any;
 	raw?: string;
 }
 // the key here is actually a FilterGroupName

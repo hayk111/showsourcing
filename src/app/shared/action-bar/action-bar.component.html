@@ -1,0 +1,20 @@
+	<div class="action-container flexBetween">
+		<div class="flex icons-container noselect">
+			<rating-heart-app
+			 size="m"
+			 [favorite]="favorite"
+			 (favorited)="onFavorite.emit()"
+			 (unfavorited)="onUnfavorite.emit()">
+			</rating-heart-app>
+			<thumb-buttons-app
+				size="m"
+				[products]="products"
+				[votes]="votes"
+				[single]="false"
+				(multipleVotes)="multipleVotes.emit($event)"
+				(vote)="vote.emit($event)">
+			</thumb-buttons-app>
+			<ng-content></ng-content>
+		</div>
+		<button *ngIf="buttonName" (click)="buttonClick.emit()">{{buttonName}}</button>
+	</div>

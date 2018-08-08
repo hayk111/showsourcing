@@ -1,8 +1,8 @@
 import {
 	AfterViewInit, AfterContentInit, ChangeDetectionStrategy,
-	Component, ElementRef, Input, Renderer2, ViewChild
+	Component, ElementRef, Input, Renderer2, ViewChild, OnInit
 } from '@angular/core';
-import { ProductStatusType, SupplierStatus } from '~models';
+import { ProductStatusType, SupplierStatusType, EntityMetadata } from '~models';
 import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
@@ -11,33 +11,44 @@ import { BadgeComponent } from '../badge/badge.component';
 	styleUrls: ['./status-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatusBadgeComponent implements AfterViewInit {
+export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
-	@Input() set status(status: ProductStatusType | SupplierStatus) {
-		this._status = status;
-		this.setStyle(status);
-	}
-	get status() {
-		return this._status;
-	}
-	private _status;
+	@Input() status: ProductStatusType | SupplierStatusType;
 
-	@ViewChild('badge', { read: ElementRef }) badge: ElementRef<BadgeComponent>;
+	// we need to pass this so when the
+	// status is null, because the product or supplier are new
+	@Input() typeEntity: EntityMetadata;
+	// if we display the caret down or not
+	@Input() hasArrow = false;
 
-	constructor(private renderer: Renderer2) {
-	}
+	// by default is secondary since is the color for NEW elements
+	type = 'secondary';
 
-
-	ngAfterViewInit() {
-		this.setStyle(this._status);
+	constructor() {
 	}
 
-	setStyle(status) {
-		if (!this.badge.nativeElement || !status)
-			return; // not defined before ngAfterViewInit
-		this.renderer.addClass(this.badge.nativeElement, 'bg-' + status.color);
-		this.renderer.addClass(this.badge.nativeElement, 'color-txt-' + this.status.contrastColor);
+	ngOnInit() {
+		if (this.status) {
+			switch (this.status.category) {
+				case 'inProgress':
+					this.type = 'primary';
+					break;
+				case 'validated':
+					this.type = 'success';
+					break;
+				case 'refused':
+					this.type = 'warn';
+					break;
+				case 'inspiration':
+					this.type = 'secondary';
+					break;
+				default:
+					this.type = 'secondary';
+					break;
+			}
+		}
 	}
+
 
 }

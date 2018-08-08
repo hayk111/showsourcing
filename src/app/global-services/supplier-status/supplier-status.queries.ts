@@ -6,7 +6,15 @@ export class SupplierStatusQueries implements GlobalQuery {
 	one: any = gql`
 	subscription supplierStatus($query: String!) {
 		supplierStatuses(query: $query) {
-			id, name
+			id,
+			cancelled,
+			status {
+				id,
+				name,
+				inWorkflow,
+				step,
+				category
+			}
 		}
 	}
 	`;
@@ -45,6 +53,6 @@ export class SupplierStatusQueries implements GlobalQuery {
 				${str}
 			}
 		}
-	`;
+	`
 
 }

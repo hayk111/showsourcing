@@ -1,4 +1,5 @@
-<div class="draggable" [movableApp]="data" [appMovableReset]="true"
+<div [ngClass]="{ draggable: dragDropEnabled }" [movableApp]="data" [appMovableReset]="true"
+    [disabled]="dragDropEnabled"
 		(dragStart)="onDragStart($event)"
 		(dragEnd)="onDragEnd($event)">
 	<ng-content></ng-content>

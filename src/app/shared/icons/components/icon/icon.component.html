@@ -1,20 +1,18 @@
 
-	<ng-container [ngSwitch]="fontSet">
+<ng-container [ngSwitch]="fontSet">
 
-		<ng-container *ngSwitchCase="'fa'">
-			<svg class="svg-inline--fa">
-				<use [attr.xlink:href]="'#' + name"></use>
-			</svg>
-		</ng-container>
-
-		<ng-container *ngSwitchCase="'svg'">
-			<img src="assets/icons/{{ name }}.svg"/>
-		</ng-container>
-
-		<!-- todo remove use of icomoon -->
-		<ng-container *ngSwitchDefault>
-			<i class="icon-{{ name }}"></i>
-		</ng-container>
-
-
+	<ng-container *ngSwitchCase="'fa'">
+		<svg class="svg-inline--fa">
+			<use [attr.xlink:href]="'#' + name"></use>
+		</svg>
 	</ng-container>
+
+	<ng-container *ngSwitchCase="'svg'">
+		<img src="assets/icons/{{ name }}.svg"/>
+	</ng-container>
+
+	<ng-container *ngSwitchDefault>
+		<i class="icon-{{ name }}"></i>
+	</ng-container>
+
+</ng-container>

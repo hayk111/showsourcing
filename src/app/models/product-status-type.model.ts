@@ -3,7 +3,6 @@ export interface ProductStatusType {
 	id: string;
 	name?: string;
 	inWorkflow?: boolean;
-	color?: string;
-	contrastColor?: string;
+	category?: string;
 	step?: number;
 }

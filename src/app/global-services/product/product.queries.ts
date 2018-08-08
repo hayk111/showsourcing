@@ -49,7 +49,7 @@ export class ProductQueries implements GlobalQuery {
 				id,
 				cancelled,
 				status {
-					id, name, color, contrastColor, step
+					id, name, category, step
 				}
 			},
 			tags {
@@ -109,7 +109,7 @@ export class ProductQueries implements GlobalQuery {
 	}
 	`;
 
-	list = gql`
+	many = gql`
 	subscription products(
 		$take: Int,
 		$skip: Int,
@@ -158,11 +158,21 @@ export class ProductQueries implements GlobalQuery {
 				id,
 				cancelled,
 				status {
-					id, name, color, contrastColor, step, category, inWorkflow
+					id, name, step, category, inWorkflow
 				}
 			},
 			score,
-			minimumOrderQuantity
+			minimumOrderQuantity,
+			votes {
+				id,
+				user {
+					id
+				},
+				value
+			},
+			projects {
+				id
+			}
 		}
 	}`;
 
@@ -178,7 +188,7 @@ export class ProductQueries implements GlobalQuery {
 	update = gql`
 		mutation updateProduct($input: ProductInput!) {
 			updateProduct(input: $input) {
-				id, favorite
+				id
 			}
 		}
 	`;

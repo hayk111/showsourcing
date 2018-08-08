@@ -19,7 +19,7 @@ export class InvitationQueries implements GlobalQuery {
 			}
 		}`;
 
-	list = gql`
+	many = gql`
 		subscription invitations(
 			$take: Int,
 			$skip: Int,

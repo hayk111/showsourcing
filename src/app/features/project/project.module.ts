@@ -9,18 +9,20 @@ import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { WorkflowModule } from '~features/workflow/workflow.module';
 
-import { ProjectsListViewComponent } from './components';
-import { ProjectNavComponent } from './components/project-nav/project-nav.component';
-import { ProjectsPageComponent, ProjectWorkflowComponent } from './containers';
-import { ProjectDetailsComponent } from './containers/project-details/project-details.component';
-import { ProjectProductsComponent } from './containers/project-products/project-products.component';
-import { ProjectSettingsComponent } from './containers/project-settings/project-settings.component';
+import { ProjectsListViewComponent } from '~features/project/components';
+import { ProjectNavComponent } from '~features/project/components/project-nav/project-nav.component';
+import { ProjectsPageComponent, ProjectWorkflowComponent } from '~features/project/containers';
+import { ProjectDetailsComponent } from '~features/project/containers/project-details/project-details.component';
+import { ProjectProductsComponent } from '~features/project/containers/project-products/project-products.component';
+import { ProjectSettingsComponent } from '~features/project/containers/project-settings/project-settings.component';
 import { RatingModule } from '~shared/rating';
 import { SidenavModule } from '~shared/sidenav/sidenav.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { ProjectProductListComponent } from '~features/project/components/project-product-list/project-product-list.component';
 import { FileModule } from '~shared/file';
 import { routes } from '~features/project/routes';
+import { CustomDialogModule } from '~shared/custom-dialog';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 @NgModule({
 	imports: [
@@ -35,7 +37,9 @@ import { routes } from '~features/project/routes';
 		SidenavModule,
 		BadgeModule,
 		FileModule,
-		WorkflowModule
+		WorkflowModule,
+		CustomDialogModule,
+		ActionBarModule
 	],
 	declarations: [
 		ProjectsPageComponent,

@@ -1,3 +1,6 @@
+:host {
+	display: flex;
+}
 .btn {
 	background: var(--color-button-dark);
 	// margin: var(--spacing-xs);
@@ -10,4 +13,8 @@
   margin-right: var(--spacing-xs);
   font-size:  var(--font-size-s);
   color: var(--color-white);
+}
+
+.first {
+	margin-right: 14px;
 }

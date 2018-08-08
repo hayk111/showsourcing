@@ -1,7 +1,8 @@
 	<div class="icon pointer flexCenter {{ hasContent ? 'mg-right' : '' }}">
 		<icon-app
 			class="color-primary"
-			fontSet="fa"
+			fontSet="svg"
+			[size]="size"
 			*ngIf="checked; else unchecked"
 			name="check-square" (click)="onClick()"></icon-app>
 		<ng-template #unchecked>

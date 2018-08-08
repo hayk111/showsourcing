@@ -6,6 +6,7 @@ export * from '~global-services/product-status-type/product-status-type.service'
 export * from '~global-services/project/project.service';
 export * from '~global-services/supplier/supplier.service';
 export * from '~global-services/supplier-status/supplier-status.service';
+export * from '~global-services/supplier-status-type/supplier-status-type.service';
 export * from '~global-services/supplier-type/supplier-type.service';
 export * from '~global-services/tag/tag.service';
 export * from '~global-services/team/team.service';
@@ -14,4 +15,5 @@ export * from '~global-services/image-upload-request/image-upload-request.servic
 export * from '~global-services/file-upload-request/file-upload-request.service';
 export * from '~global-services/invitation/invitation.service';
 export * from '~global-services/user/user.service';
-export * from '~global-services/search/search.service';
+export * from '~global-services/show/show.service';
+export * from '~global-services/external-request/external-request.service';

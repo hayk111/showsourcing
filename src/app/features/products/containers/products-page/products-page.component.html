@@ -10,15 +10,16 @@
 	</top-panel-app>
 
 	<sub-panel-app
-		[hasSwitch]="false"
+		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
 		[filters]="getFiltersNumber()"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)"
 		(search)="search($event)"
-		(smartSearch)="smartSearch($event)">
-			<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+		(smartSearch)="smartSearch($event)"
+		(viewChange)="onViewChange($event)">
+		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
 			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async)">
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
@@ -28,6 +29,25 @@
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
 		</search-autocomplete-app>
+
+		<context-menu-app xPosition="-54" yPosition="36">
+			<context-menu-trigger-app>
+				<button class="secondary flex sort-1">
+					<p>Sort By Supplier</p>
+					<div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+				</button>
+			</context-menu-trigger-app>
+		</context-menu-app>
+
+		<context-menu-app xPosition="-74" yPosition="36">
+			<context-menu-trigger-app>
+				<button class="secondary flex sort-2">
+					<p>Product Only</p>
+					<div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+				</button>
+			</context-menu-trigger-app>
+		</context-menu-app>
+
 	</sub-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->
@@ -41,8 +61,8 @@
 		(previous)="previousPage()"
 		(next)="nextPage()"
 		(previewClick)="openPreview($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
+		(select)="onSelectedItem($event)"
+		(unselect)="onUnselectedItem($event)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
 		(open)="goToDetails($event)"
@@ -61,8 +81,8 @@
 		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
+		(select)="onSelectedItem($event)"
+		(unselect)="onUnselectedItem($event)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(open)="goToDetails($event)"></product-card-view-app>
@@ -70,15 +90,38 @@
 	<selection-bar-app
 		*ngIf="(selected$ | async).size > 0"
 		[selection]="selected$ | async"
+		[hasDelete]="false"
 		(close)="resetSelection()"
 		(delete)="deleteSelected()">
 
-		<selection-actions
-			[selection]="selected$ | async"
-			(openAddToProjectDialog)="openAddToProjectDialog()"
-			(openExportDialog)="openExportDialog()"
-			(openRequestFeedbackDialog)="openRequestFeedbackDialog()">
-		</selection-actions>
+		<action-bar-app
+			[favorite]="allFavorited"
+			[products]="selectionArrayItems"
+			(onFavorite)="onFavoriteAll()"
+			(onUnfavorite)="onUnfavoriteAll()"
+			(multipleVotes)="multipleVotes($event)">
+
+			<button class="icon light" (click)="openAddToProjectDialog()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+			<context-menu-app xPosition="-171" yPosition="-101">
+				<context-menu-trigger-app>
+					<button class="icon light">
+						<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="openExportDialog()">
+					Export
+				</context-menu-item-app>
+				<context-menu-item-app (click)="openRequestFeedbackDialog()">
+					Request For Team Feedback
+				</context-menu-item-app>
+			</context-menu-app>
+
+			<button class="icon light" (click)="deleteSelected()">
+				<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+			</button>
+		</action-bar-app>
 	</selection-bar-app>
 
 	<filters-app

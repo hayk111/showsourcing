@@ -30,40 +30,34 @@
 		<div class="badges flexVAlign">
 			<status-badge-app
 				size="mini"
-			 [status]="product.statuses[0].status"></status-badge-app>
-			<smart-badge-app
+				[typeEntity]="typeEntity"
+			 [status]="product?.statuses[0]?.status"></status-badge-app>
+			<badge-app
 				size="mini"
-				type="category">{{ product.category.name }}
-			</smart-badge-app>
-			<smart-badge-app
+				type="accent">{{ product.category.name }}
+			</badge-app>
+			<badge-app
 				size="mini"
-				type="tag"
 				*ngFor="let tag of product.tags">{{ tag.name }}
-			</smart-badge-app>
+			</badge-app>
 		</div>
 	</div>
 
-
-
 	<card-footer-app align="left">
 
-		<div class="flexBetween">
-			<div class="actions flex flexVAlign">
-				<rating-heart-app
-					[favorite]="product.favorite"
-					(favorited)="onFavorite()"
-					(unfavorited)="onUnfavorite()"></rating-heart-app>
-				<thumb-buttons-app
-					[votes]="product.votes"
-					[isSingle]="false"
-					(vote)="onVote($event)"></thumb-buttons-app>
+		<action-bar-app
+			buttonName="View Product"
+			[favorite]="product.favorite"
+			[votes]="product.votes"
+			(vote)="onVote($event)"
+			(onFavorite)="onFavorite()"
+			(onUnfavorite)="onUnfavorite()"
+			(buttonClick)="onViewProduct()">
 
-				<button class="light icon">
-					<icon-app fontSet="fa" name="folder" (click)="openAddToProject()"></icon-app>
-				</button>
-			</div>
-			<button (click)="onViewProduct()">View Product</button>
-		</div>
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+		</action-bar-app>
 
 	</card-footer-app>
 </card-app>

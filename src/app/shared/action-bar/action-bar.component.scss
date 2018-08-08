@@ -1,0 +1,45 @@
+:host {
+	overflow: hidden;
+	background: white;
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.4s linear;
+	.action-container {
+		max-height: 0px;
+		transition: max-height 0.2s ease-out;
+	}
+	&.isVisible {
+		visibility: visible;
+		opacity: 1;
+		.action-container {
+			margin-bottom: var(--spacing-s);
+			max-height: 46px;
+			transition: max-height 0.1s ease-out;
+		}
+	}
+}
+
+.action-container {
+	margin-right: 6px;
+}
+
+.icons-container {
+	margin-left: 10px;
+}
+
+thumb-buttons-app, icon-app, rating-heart-app {
+	color: var(--color-secondary-dark);
+}
+rating-heart-app {
+	margin-right: 9px;
+}
+
+thumb-buttons-app {
+	margin-right: var(--spacing-ms);
+}
+
+button {
+	overflow: hidden;
+	min-width: 86px;
+}

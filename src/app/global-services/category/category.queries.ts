@@ -19,7 +19,7 @@ export class CategoryQueries implements GlobalQuery {
 		}
 	`;
 
-	list = gql`
+	many = gql`
 	subscription categories(
 		$take: Int,
 		$skip: Int,

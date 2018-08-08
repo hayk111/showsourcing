@@ -1,6 +1,26 @@
 :host {
 	box-sizing: border-box;
 	white-space: nowrap;
+	margin-right: var(--spacing-xs);
+	&.primary {
+		background: var(--color-primary);
+		color: white;
+	}
+	&.secondary {
+		background: var(--color-secondary);
+	}
+	&.accent {
+		background: var(--color-accent);
+		color: white;
+	}
+	&.warn {
+		background: var(--color-warn);
+		color: white;
+	}
+	&.success {
+		background: var(--color-success);
+		color: white;
+	}
 	&.mini {
 		font-family: 'Raleway';
 		font-size: var(--font-size-s);

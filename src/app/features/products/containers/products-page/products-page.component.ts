@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angula
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -26,6 +26,10 @@ import { StoreKey } from '~utils/store/store';
 	]
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+
+	// if all the selected items are favorite or not
+	allSelectedFavorite = true;
+
 	searchFilterElements$: Observable<any[]>;
 
 	constructor(
@@ -37,6 +41,40 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+	}
+
+	onSelectedItem(item: any) {
+		if (this.allSelectedFavorite)
+			this.allSelectedFavorite = item.favorite ? true : false;
+		this.onItemSelected(item);
+	}
+
+	onUnselectedItem(item: any) {
+		if (!this.allSelectedFavorite && !item.favorite)
+			this.allSelectedFavorite = !this.selectionItems().some(prod => prod.id !== item.id && !prod.favorite);
+		this.onItemUnselected(item);
+	}
+
+	onFavoriteAll() {
+		this.selectionItems().forEach(prod => {
+			if (!prod.favorite)
+				this.onItemFavorited(prod.id);
+		});
+		this.allSelectedFavorite = true;
+	}
+
+	onUnfavoriteAll() {
+		this.selectionItems().forEach(prod => {
+			if (prod.favorite)
+				this.onItemUnfavorited(prod.id);
+		});
+		this.allSelectedFavorite = false;
+	}
+
+	multipleVotes(votes: Map<string, ProductVote[]>) {
+		votes.forEach((v, k) => {
+			this.update({ id: k, votes: v });
+		});
 	}
 
 	/**
@@ -70,5 +108,4 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
-
 }

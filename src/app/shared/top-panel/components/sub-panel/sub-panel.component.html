@@ -1,4 +1,3 @@
-<div class="ctnr">
 	<div class="left">
 		<h2 *ngIf="title"> {{ title }} </h2>
 	</div>
@@ -25,9 +24,6 @@
 		</div>
 
 		<div class="right flexCenter">
-			<ng-content></ng-content>
-
-			<span class="marginSmall"></span>
 
 			<view-switcher-app
 				*ngIf="hasSwitch"
@@ -35,11 +31,7 @@
 				[view]="view">
 			</view-switcher-app>
 
-			<span class="marginSmall"></span>
-
 			<ng-content></ng-content>
-
-			<span class="marginSmall"></span>
 
 			<button *ngIf="hasCreate && buttonName"
 			        (click)="buttonClick.emit()">
@@ -48,4 +40,3 @@
 			</button>
 		</div>
 	</div>
-</div>

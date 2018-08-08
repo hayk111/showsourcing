@@ -10,7 +10,7 @@ import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-} from './component';
+} from '~shared/custom-dialog/component';
 
 @NgModule({
 	imports: [

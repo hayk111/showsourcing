@@ -1,0 +1,29 @@
+<dialog-app>
+
+		<dialog-header-app i18n="dialog header|Add products to project@@productAddToProject_addProject"> Refuse RFQ </dialog-header-app>
+	
+		<main class="scrollable">
+				<h2>Category to merge to</h2>
+
+				<div class="description">
+		
+						<textarea rows="7" class="text">Hello Jerone,
+		
+I think you got the wrong supplier, we don't produce this item. Would you be interested in
+some other products we have. Please let me know!</textarea>
+		
+				</div>
+		
+				<div class="text">Add a message to your answer so that Jerone knows why you couldn't answer
+					to this RFQ.
+				</div>
+		
+		</main>
+	
+		<dialog-footer-app class="fullWidth flexEnd" align="right">
+			<!-- span class="txt-secondary">{{ selectedProducts.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span-->
+			<button class="small cancel" (click)="cancel()" i18n="button|Adding product to projects@@productAddToProject_addNow">Cancel</button>
+			<button class="small danger" (click)="refuse()" i18n="button|Adding product to projects@@productAddToProject_addNow">Refuse RFQ</button>
+		</dialog-footer-app>
+	</dialog-app>
+	

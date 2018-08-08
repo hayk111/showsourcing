@@ -1,25 +1,20 @@
 
-<div *ngFor="let category of rows | groupBy: 'categoryId'; let first = first">
-    <!-- <div class="sectionTitle">{{ category?.key | entityName: 'category' | async }}
-      <div class="sectionTag">{{ category.value.length }} products</div>
-    </div> -->
-    <div  class="section" >
-      <ng-container *ngFor="let product of category.value; trackBy: trackByFn">
-				<product-selectable-card-app
-					[statuses]="statuses"
-          [selected]="selection.get(product.id)"
-          (productSelect)="select.emit($event)"
-          (productUnselect)="unselect.emit($event)"
-          (productFavorited)="favorited.emit($event)"
-          (productUnfavorited)="unfavorited.emit($event)"
-          (productDelete)="delete.emit($event)"
-          (productOpen)="open.emit($event)"
-          (addToProject)="addToProject.emit($event)"
-          (productVote)="productVote.emit($event)"
-					[product]="product"
-					(update)="update.emit($event)">
-				</product-selectable-card-app>
-      </ng-container>
-    </div>
-  </div>
+<div *ngFor="let category of rows | groupBy: 'category'; first as first; index as i">
+	<div class="sectionTitle">{{ category?.value[0].category.name }}
+		<div class="sectionTag">{{ category.value.length }} products</div>
+	</div>
+	<div class="section">
+		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
+			<product-grid-card-app
+				[product]="product"
+				[selection]="selection"
+				[favorite]="product?.favorite"
+				(productFavorite)="favorited.emit(product.id)"
+				(productUnfavorite)="unfavorited.emit(product.id)"
+				(productSelect)="select.emit(product)"
+				(productUnselect)="unselect.emit(product)">
+			</product-grid-card-app>
+		</ng-container>
+	</div>
+</div>
 

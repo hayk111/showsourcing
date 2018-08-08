@@ -1,14 +1,19 @@
-<!-- <ng-container *ngIf="isSingle; else double"> -->
-<button class="icon light">
+<ng-container *ngIf="single; else double">
+<button class="icon light" (click)="singleClick()">
 	<icon-app
+		[size]="size"
 		[@thumbAnimation]="state"
 		name="thumbs-up"
 		fontSet="fa">
 	</icon-app>
 </button>
-<!-- </ng-container> -->
+</ng-container>
 
-<!-- <ng-template #double>
-	<icon-app name="thumbs-up" class="{{ isVoteUp ? 'color-primary' : '' }}"></icon-app>
-	<icon-app name="thumbs-down" class="{{ isVoteDown ? 'color-warn' : '' }}"></icon-app>
-</ng-template> -->
+<ng-template #double>
+	<button class="icon light first" (click)="thumbUp()">
+		<icon-app name="thumbs-up{{ like ? '-primary' : ''}}" fontSet="svg" [size]="size" ></icon-app>
+	</button>
+	<button class="icon light second" (click)="thumbDown()">
+		<icon-app name="thumbs-down{{ dislike ? '-warn' : ''}}" fontSet="svg" [size]="size"></icon-app>
+	</button>
+</ng-template>

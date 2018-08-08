@@ -1,9 +1,11 @@
-<div class="kanban__item cell ng-star-inserted main">
+<div class="kanban__item cell ng-star-inserted main" (clickOutside)="onClickOutsideCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
       <div class="imgCtnr">
-        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image">
-        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'">
+        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
+             (dragstart)="preventDragImage($event)">
+        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+             (dragstart)="preventDragImage($event)">
       </div>
       <div class="description">
         <div class="titleCtnr">
@@ -16,4 +18,23 @@
     </div>
   </div>
   <div class="person" *ngIf="person">{{person?.firstName}} {{person?.lastName.toUpperCase().charAt(0)}}.</div>
+  <div class="check" [ngClass]="{ checked: checked }">
+    <checkbox-app (check)="onChecked()"
+                  (uncheck)="onUnchecked()"
+                  (mouseenter)="toggleDragDropEnable('checkbox', $event)"
+                  (mouseleave)="toggleDragDropEnable('checkbox', $event)">
+    </checkbox-app>
+  </div>
+  <div class="dotSeparator-wrapper" [ngClass]="{ opened: contextualMenuOpened }">
+    <div class="dotSeparator pointer"
+         (click)="onToggleContextualMenu($event)"
+         (mouseenter)="toggleDragDropEnable('menu', $event)"
+         (mouseleave)="toggleDragDropEnable('menu', $event)">
+    </div>
+  </div>
+  <div *ngIf="contextualMenuOpened" class="contextual-menu" (click)="onToggleContextualMenu($event)">
+    <ng-container
+      *ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+    </ng-container>
+  </div>
 </div>

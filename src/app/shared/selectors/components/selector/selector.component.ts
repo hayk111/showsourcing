@@ -108,4 +108,8 @@ export class SelectorComponent extends AbstractInput {
 		this.blur.emit();
 	}
 
+	writeValue(value: any): void {
+		super.writeValue(value);
+	}
+
 }

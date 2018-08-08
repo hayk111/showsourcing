@@ -44,17 +44,17 @@ export class SupplierQueries implements GlobalQuery {
 						id, fileName
 					}
 				},
-				status {
+				statuses {
 					id,
-					name,
-					color,
-					contrastColor,
-					step
-				}
+					cancelled,
+					status {
+						id, name, category, step, inWorkflow
+					}
+				},
 				categories {
 					id,
 					name
-				}
+				},
 				supplierType {
 					id,
 					name
@@ -71,7 +71,7 @@ export class SupplierQueries implements GlobalQuery {
 			}
 		}`;
 
-	list = gql`
+	many = gql`
 		subscription suppliers(
 			$take: Int,
 			$skip: Int,

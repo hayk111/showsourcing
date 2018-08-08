@@ -5,7 +5,7 @@ import { ProjectSettingsComponent } from '~features/project/containers/project-s
 
 import { ProjectsPageComponent } from '~features/project/containers/projects-page/projects-page.component';
 
-import { ProjectWorkflowComponent } from './containers/project-workflow/project-workflow.component';
+import { ProjectWorkflowComponent } from '~features/project/containers/project-workflow/project-workflow.component';
 
 export const routes: Array<Route> = [
 	{ path: '', redirectTo: 'all', pathMatch: 'full' },

@@ -1,5 +1,5 @@
 <div *ngIf="!contacts || contacts.length <= 0" class="empty-contacts">
-	<icon-app type="r" name="envelope" fontSet="svg"></icon-app>
+	<icon-app size="l" name="envelope" fontSet="svg"></icon-app>
 	<p>Please add the supplier email address to send the RFQ</p>
 </div>
 <ng-container *ngIf="contacts">
@@ -10,7 +10,7 @@
 		(uncheck)="onUnselectMail.emit(i)"
 		[checked]="selected.has(i)">
 		</checkbox-app>
-		<icon-app type="s" name="envelope" fontSet="svg"></icon-app>
+		<icon-app name="envelope" [size]="l" fontSet="svg"></icon-app>
 		<div class="contact-info">
 			<label-app>{{contact.email || 'No email'}}</label-app>
 			<p>{{contact.name ? contact.name + " - " : ''}}{{contact.jobTitle || 'Unknown'}} </p>
