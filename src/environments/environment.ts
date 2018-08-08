@@ -8,6 +8,6 @@ import { LogLevel } from '~utils/logger/log-level';
 export const environment = {
 	production: false,
 	graphqlUrl: 'ws://ros-dev3.showsourcing.com:9443/graphql',
-	signupUrl: 'https://ros-dev3.showsourcing.com/signup',
+	apiUrl: 'https://ros-dev3.showsourcing.com',
 	LOG_LEVEL: LogLevel.DEBUG
 };

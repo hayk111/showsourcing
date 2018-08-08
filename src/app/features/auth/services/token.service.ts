@@ -56,12 +56,8 @@ export class TokenService {
 
 	}
 
-	getGuestToken(token: string): Observable<RefreshTokenResponse> {
-		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`).pipe(
-			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken)),
-			tap((guestToken: ))
-			map((accessToken: AccessTokenState) => !!accessToken)
-		);
+	getGuestRefreshToken(token: string): Observable<RefreshTokenResponse> {
+		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`);
 	}
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
@@ -76,7 +72,7 @@ export class TokenService {
 		);
 	}
 
-	private fetchAccessToken(refreshToken): Observable<AccessTokenResponse> {
+	fetchAccessToken(refreshToken): Observable<AccessTokenResponse> {
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',

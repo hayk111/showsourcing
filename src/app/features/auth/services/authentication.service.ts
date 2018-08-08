@@ -67,7 +67,7 @@ export class AuthenticationService {
 	private tokenStateToAuthState(tokenState: AccessTokenState) {
 		return {
 			pending: false,
-			authenticated: !!tokenState.token && !tokenState.guest,
+			authenticated: !!tokenState.token,
 			tokenState: tokenState,
 			// for easy access
 			userId: (tokenState && tokenState.token_data ? tokenState.token_data.identity : null),
