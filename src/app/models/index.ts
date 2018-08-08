@@ -1,7 +1,7 @@
 export * from '~models/app-image.model';
 export * from '~models/category.model';
 export * from '~models/event.model';
-export * from '~models/event.model';
+export * from '~models/event-description.model';
 export * from '~models/packaging.model';
 export * from '~models/price-matrix.model';
 export * from '~models/price.model';
@@ -33,6 +33,6 @@ export * from '~models/export-request.model';
 export * from '~models/show.model';
 export * from '~models/external-request.model';
 export * from '~models/quote.model';
-
+export * from '~models/booth.model';
 
 

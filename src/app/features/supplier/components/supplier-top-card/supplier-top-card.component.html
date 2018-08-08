@@ -5,9 +5,9 @@
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 
 	<div class="flex tags">
-		<status-badge-app [status]="supplier.status" [typeEntity]="typeEntity" size="mini"></status-badge-app>
-		<badge-app type="accent" *ngFor="let category of supplier.categories" type="category">{{ category.name }}</badge-app>
-		<badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</badge-app>
+		<status-badge-app [status]="supplier.status" size="mini"></status-badge-app>
+		<badge-app type="accent" *ngFor="let category of supplier.categories">{{ category.name }}</badge-app>
+		<badge-app *ngFor="let tag of supplier.tags">{{ tag.name }}</badge-app>
 	</div>
 
 </top-panel-details-app>

@@ -29,7 +29,7 @@
       </div>
 
       <div class="showActions flexColumn flexCenter flexGrow">
-        <button class="z-1 mg-s" *ngIf="!show.saved">Add to my Shows</button>
+        <button class="z-1 mg-s" *ngIf="!show.saved" (click)="saveShow.emit(show)">Add to my Shows</button>
         <button class="z-1 mg-s secondary" (click)="goToDetail(show)">Browse Show</button>
       </div>
     </div>

@@ -1,7 +1,2 @@
-<div class="flexCenter">
-	<icon-app fontSet="svg" name="search" class="pointer"></icon-app>
-	<div class="input-wrapper">
-		<ng-content select="[inputApp]"></ng-content>
-	</div>
-
-</div>
+<icon-app fontSet="svg" name="search" class="pointer"></icon-app>
+<input #inp type="text" (blur)="onBlur()" (input)="onChange(inp.value)" [value]="value"/>

@@ -11,6 +11,8 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { DividerModule } from '~shared/divider/divider.module';
 import { UserPictureModule } from '~shared/user-picture';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
+import { InputsModule } from '~shared/inputs';
 
 @NgModule({
 	imports: [
@@ -24,8 +26,9 @@ import { UserPictureModule } from '~shared/user-picture';
 		IconsModule,
 		ContextMenuModule,
 		DividerModule,
-		UserPictureModule
-
+		UserPictureModule,
+		SearchBarModule,
+		InputsModule
 	],
 	declarations: [TestPageComponent],
 	exports: [TestPageComponent]

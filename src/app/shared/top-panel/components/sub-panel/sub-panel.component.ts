@@ -56,10 +56,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	private search$ = new Subject<string>();
 
-	searchbarFocus = false;
-
 	searchControl: FormControl;
-
 
 	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
 		super();
@@ -102,11 +99,9 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	onBlurSearch(event) {
-		this.searchbarFocus = false;
 	}
 
 	onFocusSearch(event) {
-		this.searchbarFocus = true;
 		if (this.searchAutocomplete) {
 			this.searchAutocomplete.unselectAll();
 		}
