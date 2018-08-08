@@ -244,9 +244,6 @@ export class ApolloWrapper {
 
 	/** logs events to the console */
 	private log(type: string, options: any, queryName: string, variables?: any) {
-		// check people don't use query
-		if (options.gql.definitions[0].operation === 'query')
-			log.error(`%c you are using a query, subscription should be used`);
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);

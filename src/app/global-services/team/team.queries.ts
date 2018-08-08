@@ -13,4 +13,5 @@ export class TeamQueries extends BaseQueries implements GlobalQuery {
 	manyDefaultSelection = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
 	createDefaultSelection = `name, realmPath, realmServerName, status`;
 	allDefaultSelection = `name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }`;
+
 }

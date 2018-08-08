@@ -93,7 +93,7 @@ export class TeamPickerService {
 
 	private selectAll() {
 		return this.wrapper.use(USER_CLIENT)
-			.selectAll({ gql: this.queries.all('') });
+			.selectAll({ gql: this.queries.all() });
 	}
 
 }

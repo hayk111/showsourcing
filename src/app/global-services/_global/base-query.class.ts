@@ -45,7 +45,7 @@ export class BaseQueries {
 		}`;
 
 	all = (str: string = this.allDefaultSelection) => gql`
-		subscription ${this.plural} {
+		query ${this.plural} {
 			${this.plural} {
 				id
 				${str}

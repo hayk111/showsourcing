@@ -41,7 +41,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * @param fields : string to specify the fields we want to query
 	 * defaults to id, name
 	*/
-	selectAll(fields): Observable<T[]> {
+	selectAll(fields?: string): Observable<T[]> {
 		if (!this.queries.all) {
 			throw Error('all query not implemented for this service');
 		}
@@ -124,7 +124,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		return forkJoin(entities.map(entity => this.update(entity, fields)));
 	}
 
-	create(entity: T, fields: string): Observable<any> {
+	create(entity: T, fields?: string): Observable<any> {
 		this.trim(entity);
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
