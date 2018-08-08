@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AutoUnsub } from '~utils';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ProductVote } from '~models';
+import { ProductVote, Product } from '~models';
 import { UserService } from '~global-services';
 import { ProductVoteService } from '~global-services/product-vote/product-vote.service';
 import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animation';
@@ -14,7 +14,6 @@ import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animatio
 	animations: thumbAnimation
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
-	@Output() vote = new EventEmitter<ProductVote[]>();
 	/** whether we display two thumbs or just one */
 	@Input() single = true;
 	/** list of all votes */
@@ -28,6 +27,11 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Input() size = 's';
 	// when we want the color of the thumb be the background isntead of the icon
 	@Input() reverse = false;
+	// we only use this if we want to update multiple products
+	@Input() products: Product[];
+	@Output() vote = new EventEmitter<ProductVote[]>();
+	// this is only used when selecting multiple products
+	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
 	like = false;
@@ -43,7 +47,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.userVote)
+		if (this.userVote && !this.products)
 			this.userVote.value === 100 ? this.like = true : this.dislike = true;
 	}
 
@@ -58,14 +62,23 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	thumbUp() {
 		if (this.like) { // if we click over the active like we have to delete the vote
 			this.like = false;
-			this.voteSrv.deleteOne(this.userVote.id).subscribe();
+			if (this.products)
+				this.deleteMultipleVotes();
+			else
+				this.voteSrv.deleteOne(this.userVote.id).subscribe();
 		} else {
 			this.like = true;
-			if (!this.dislike) // if it was false already it means that we have to create a new vote
-				this.createEmitVote(true);
-			else {
+			if (!this.dislike) { // if it was false already it means that we have to create a new vote
+				if (this.products)
+					this.createEmitMultipleVotes(true);
+				else
+					this.createEmitVote(true);
+			} else {
 				this.dislike = false;
-				this.updateEmitVote();
+				if (this.products)
+					this.updateEmiteMultipleVotes(true);
+				else
+					this.updateEmitVote();
 			}
 		}
 	}
@@ -73,14 +86,23 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	thumbDown() {
 		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
-			this.voteSrv.deleteOne(this.userVote.id).subscribe();
+			if (this.products)
+				this.deleteMultipleVotes();
+			else
+				this.voteSrv.deleteOne(this.userVote.id).subscribe();
 		} else {
 			this.dislike = true;
-			if (!this.like) // if it was false already it means that we have to create a new vote
-				this.createEmitVote(false);
-			else {
+			if (!this.like) {// if it was false already it means that we have to create a new vote
+				if (this.products)
+					this.createEmitMultipleVotes(false);
+				else
+					this.createEmitVote(false);
+			} else {
 				this.like = false;
-				this.updateEmitVote();
+				if (this.products)
+					this.updateEmiteMultipleVotes(false);
+				else
+					this.updateEmitVote();
 			}
 		}
 	}
@@ -100,6 +122,55 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.vote.emit(this._votes);
 	}
 
+	deleteMultipleVotes() {
+		const userIds = [];
+		this.products.forEach(prod => {
+			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (voteUser)
+				userIds.push(voteUser.id);
+		});
+		this.voteSrv.deleteMany(userIds).subscribe();
+	}
+
+	createEmitMultipleVotes(state: boolean = true) {
+		const mapVotes = new Map();
+		this.products.forEach(prod => {
+			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (voteUser) {// if the vote already exists set it to the current state value
+				voteUser.value = state ? 100 : 0;
+				mapVotes.set(prod.id, prod.votes);
+			} else { // else we create a new vote
+				voteUser = this.createVote(state);
+				mapVotes.set(prod.id, [...prod.votes, voteUser]);
+			}
+		});
+		this.multipleVotes.emit(mapVotes);
+	}
+
+	updateEmiteMultipleVotes(state: boolean) {
+		const mapVotes = new Map();
+		this.products.forEach(prod => {
+			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (voteUser) {
+				voteUser.value = voteUser.value === 100 ? 0 : 100;
+				mapVotes.set(prod.id, prod.votes);
+			} else { // we have to do this since we dont know when updating if the user has selected products with no votes
+				const tempVote = this.createVote(state);
+				mapVotes.set(prod.id, [...prod.votes, tempVote]);
+			}
+		});
+		this.multipleVotes.emit(mapVotes);
+	}
+
+	createVote(state: boolean) {
+		const tempVote = new ProductVote({
+			value: state ? 100 : 0,
+			user: { id: this.userSrv.userSync.id }
+		});
+		this.voteSrv.create(tempVote).subscribe();
+		return tempVote;
+	}
+
 	get state() {
 		let val: string;
 		if (!this.userVote)
@@ -108,5 +179,4 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			val = this.userVote.value === 100 ? 'up' : 'down';
 		return val;
 	}
-
 }

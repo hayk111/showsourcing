@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-import { ProductVote } from '~models';
+import { ProductVote, Product } from '~models';
 
 @Component({
 	selector: 'action-bar-app',
@@ -17,10 +17,14 @@ export class ActionBarComponent implements OnInit {
 	@Input() favorite = false;
 	@Input() votes: ProductVote[];
 	@Input() buttonName: string;
+	// we only use this one when we{} want to update multiple likes
+	@Input() products: Product[];
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
 	@Output() buttonClick = new EventEmitter<null>();
+	// this is only used when selecting multiple products
+	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 
 	constructor() { }
 
