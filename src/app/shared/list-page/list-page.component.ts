@@ -94,6 +94,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.keys());
 	}
 
+	get selectionArrayItems() {
+		return Array.from(this.selectionSrv.selection.values());
+	}
+
 	selectionItems() {
 		return Array.from(this.selectionSrv.selection.values());
 	}

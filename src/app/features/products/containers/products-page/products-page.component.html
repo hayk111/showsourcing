@@ -96,8 +96,10 @@
 
 		<action-bar-app
 			[favorite]="allFavorited"
+			[products]="selectionArrayItems"
 			(onFavorite)="onFavoriteAll()"
-			(onUnfavorite)="onUnfavoriteAll()">
+			(onUnfavorite)="onUnfavoriteAll()"
+			(multipleVotes)="multipleVotes($event)">
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
 			</button>

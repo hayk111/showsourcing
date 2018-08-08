@@ -8,8 +8,10 @@
 			</rating-heart-app>
 			<thumb-buttons-app
 				size="m"
+				[products]="products"
 				[votes]="votes"
 				[single]="false"
+				(multipleVotes)="multipleVotes.emit($event)"
 				(vote)="vote.emit($event)">
 			</thumb-buttons-app>
 			<ng-content></ng-content>

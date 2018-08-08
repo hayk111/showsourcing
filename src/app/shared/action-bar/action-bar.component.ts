@@ -23,6 +23,7 @@ export class ActionBarComponent implements OnInit {
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
 	@Output() buttonClick = new EventEmitter<null>();
+	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 
 	constructor() { }
 

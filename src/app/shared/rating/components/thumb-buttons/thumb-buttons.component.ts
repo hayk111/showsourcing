@@ -30,7 +30,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	// we only use this if we want to update multiple products
 	@Input() products: Product[];
 	@Output() vote = new EventEmitter<ProductVote[]>();
-	@Output() multipleVote = new EventEmitter<Map<string, ProductVote[]>>();
+	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
 	like = false;
@@ -106,16 +106,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	deleteMultipleVotes() {
-		const userIds = [];
-		this.products.forEach(prod => {
-			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (voteUser)
-				userIds.push(voteUser.id);
-		});
-		this.voteSrv.deleteMany(userIds);
-	}
-
 	createEmitVote(state: boolean = true) {
 		const vote = new ProductVote({
 			value: state ? 100 : 0,
@@ -131,22 +121,35 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.vote.emit(this._votes);
 	}
 
+	deleteMultipleVotes() {
+		const userIds = [];
+		this.products.forEach(prod => {
+			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (voteUser)
+				userIds.push(voteUser.id);
+		});
+		this.voteSrv.deleteMany(userIds).subscribe();
+	}
+
 	createEmitMultipleVotes(state: boolean = true) {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (voteUser) // if te vote already exists set it to the current state value
+			if (voteUser) {// if te vote already exists set it to the current state value
 				voteUser.value = state ? 100 : 0;
-			else { // we create a new vote
+				mapVotes.set(prod.id, prod.votes);
+			} else { // we create a new vote
 				voteUser = new ProductVote({
 					value: state ? 100 : 0,
 					user: { id: this.userSrv.userSync.id }
 				});
-				[...prod.votes, voteUser]
+				this.voteSrv.create(voteUser).subscribe(newVote => {
+					mapVotes.set(prod.id, [...prod.votes, newVote]);
+				});
+				mapVotes.set(prod.id, [...prod.votes, voteUser]);
 			}
-			mapVotes.set(voteUser.id, [...prod.votes, voteUser]);
 		});
-		this.multipleVote.emit(mapVotes);
+		this.multipleVotes.emit(mapVotes);
 	}
 
 	updateEmiteMultipleVotes() {
@@ -154,8 +157,9 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.products.forEach(prod => {
 			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 			voteUser.value = voteUser.value === 100 ? 0 : 100;
-			mapVotes.set(voteUser.id, voteUser);
+			mapVotes.set(prod.id, prod.votes);
 		});
+		this.multipleVotes.emit(mapVotes);
 	}
 
 	get state() {

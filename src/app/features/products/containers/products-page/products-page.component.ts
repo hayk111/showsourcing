@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angula
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { ERM, Product, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -69,6 +69,12 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 				this.onItemUnfavorited(prod.id);
 		});
 		this.allFavorited = false;
+	}
+
+	multipleVotes(votes: Map<string, ProductVote[]>) {
+		votes.forEach((v, k) => {
+			this.update({ id: k, votes: v });
+		});
 	}
 
 	/**
