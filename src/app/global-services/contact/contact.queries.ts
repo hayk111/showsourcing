@@ -1,81 +1,37 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ContactQueries implements GlobalQuery {
-	one = gql`
-	subscription contacts($query: String!) {
-		contacts(query: $query) {
+export class ContactQueries extends BaseQueries implements GlobalQuery {
+
+	constructor() {
+		super('contact', 'contacts')
+	}
+
+	oneDefaultSelection = `
+		name,
+		phoneNumber,
+		email,
+		jobTitle
+		businessCardImage {
+			id,
+			fileName
+		}
+	`;
+
+	manyDefaultSelection = `
+		name,
+		phoneNumber,
+		email,
+		jobTitle
+		businessCardImage {
+			id,
+			fileName
+		},
+		supplier {
 			id,
 			name,
-			phoneNumber,
-			email,
-			jobTitle
-			businessCardImage {
-				id,
-				fileName
-			},
-		}
-	}
-	`;
-	create = gql`
-	mutation createContact($input: ContactInput) {
-		# using update so we can add a contact without creating a new supplier,
-		# at the time of writing this it's not possible with the adaptator of realm
-		updateContact(input: $input) {
-			id
-		}
-	}
-	`;
-
-	update = gql`
-	mutation updateContact($input: ContactInput) {
-		# using update so we can add a contact without creating a new supplier,
-		# at the time of writing this it's not possible with the adaptator of realm
-		updateContact(input: $input) {
-			id
-		}
-	}`;
-
-	deleteOne = gql`
-	mutation deleteContact($id: String!) {
-		deleteContact(id: $id)
-	}
-	`;
-
-	deleteMany = gql`
-	mutation deleteContact($query: String!) {
-		deleteContacts(query: $query)
-	}
-	`;
-
-	many = gql`
-		subscription contacts($query: String!) {
-			contacts(query: $query) {
-				id,
-				name,
-				phoneNumber,
-				email,
-				jobTitle
-				businessCardImage {
-					id,
-					fileName
-				},
-				supplier {
-					id,
-					name,
-				}
-			}
 		}
 	`;
-
-	all = (str: string) => {
-		return gql`
-			subscription contacts {
-				contacts{
-					${str}
-				}
-			}
-		`;
-	}
 
 }

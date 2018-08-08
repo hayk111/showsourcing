@@ -1,106 +1,61 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class EventQueries implements GlobalQuery {
+export class EventQueries extends BaseQueries implements GlobalQuery {
 
-	one: any = gql`
-	subscription event($query: String!) {
-		events(query: $query) {
+	constructor() {
+		super('event', 'events');
+	}
+
+	oneDefaultSelection = `
+		id
+		description {
 			id
-			description {
+			name
+			description
+			startDate
+			endDate
+			supplierCount
+			logoImage {
+				id
+				fileName
+			}
+			primaryColor
+			secondaryColor
+			venue {
 				id
 				name
-				description
-				startDate
-				endDate
-				supplierCount
-				logoImage {
-					id
-					fileName
-				}
-				primaryColor
-				secondaryColor
-				venue {
-					id
-					name
-					country
-					addressFull
-					city
-				}
+				country
+				addressFull
+				city
 			}
 		}
-	}
 	`;
 
-	many = gql`
-	subscription events(
-		$take: Int,
-		$skip: Int,
-		$query: String!,
-		$sortBy: String,
-		$descending: Boolean
-		) {
-		events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+	manyDefaultSelection = `
+	description {
+		id
+		name
+		description
+		startDate
+		endDate
+		supplierCount
+		logoImage {
 			id
-			description {
-				id
-				name
-				description
-				startDate
-				endDate
-				supplierCount
-				logoImage {
-					id
-					fileName
-				}
-				primaryColor
-				secondaryColor
-				venue {
-					id
-					name
-					country
-					addressFull
-					city
-				}
-			}
+			fileName
 		}
-	}
-`;
-
-	create = gql`
-		mutation createEvent($input: EventInput!) {
-			updateEvent(input: $input) {
-				id
-			}
+		primaryColor
+		secondaryColor
+		venue {
+			id
+			name
+			country
+			addressFull
+			city
 		}
-	`;
+	}`;
 
-	update = gql`
-		mutation updateEvent($input: EventInput!) {
-			updateEvent(input: $input) {
-				id
-			}
-		}
-	`;
 
-	deleteOne = gql`
-		mutation deleteEvent($id: String!) {
-			deleteEvent(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-	mutation deleteEvent($query: String!) {
-		deleteEvents(query: $query)
-	}
-	`;
-
-	all = (str: string) => gql`
-		subscription events {
-			events {
-				${str}
-			}
-		}
-	`
 
 }

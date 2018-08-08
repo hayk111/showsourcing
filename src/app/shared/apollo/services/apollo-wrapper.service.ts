@@ -27,13 +27,13 @@ export class ApolloWrapper {
 	///////////////////////////////
 
 	/** select one entity given an id */
-	private selectOneCache = new Map<string, Subject<any>>();
+	private selectOneCache = new Map<string, Observable<any>>();
 
 	selectOne(options: SubribeToOneOptions) {
 		const queryName = this.getQueryName(options);
 		const variables = { query: `id == "${options.id}"` };
 		this.log('Selecting One', options, queryName, variables);
-
+		const cacheKey = options.id;
 		if (!this.selectOneCache.has(cacheKey)) {
 			this.selectOneCache.set(cacheKey, this.selectOnePipe(options, queryName, variables));
 		}
@@ -42,15 +42,15 @@ export class ApolloWrapper {
 
 	selectOnePipe(options: SubribeToOneOptions, queryName: string, variables: any) {
 		const subject = new ReplaySubject(1);
-		this.apollo.subscribe({ query: options.gql, variables })
+		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult('SelectOne', queryName, data)),
-				shareReplay(1),
-		);
+				shareReplay(1)
+			);
 	}
 
 
@@ -60,6 +60,22 @@ export class ApolloWrapper {
 
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
+		const { gql, ...variables } = options;
+		const queryName = this.getQueryName(options);
+		this.log('Selecting Many', options, queryName, variables);
+		return this.apollo.subscribe({ query: gql, variables })
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				map((r) => r.data[queryName]),
+				tap(data => this.logResult('Selecting Many', queryName, data)),
+				catchError(errors => of(log.table(errors))),
+		);
+	}
+
+
+	/** same as select many but it's a query instead of a subscription */
+	selectList(options: SubscribeToManyOptions): Observable<any> {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);

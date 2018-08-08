@@ -1,65 +1,31 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ImageUploadRequestQueries implements GlobalQuery {
-	one = gql`
-	subscription imageUploadRequests($query: String!) {
-		imageUploadRequests(query: $query) {
-			id,
-			status,
-			uploadUrl,
-			formData
-		}
+export class ImageUploadRequestQueries extends BaseQueries implements GlobalQuery {
+
+	constructor() {
+		super('imageUploadRequest', 'imageUploadRequests');
 	}
-	`;
-	create = gql`
-	mutation createImageUploadRequest($input: ImageUploadRequestInput) {
-		updateImageUploadRequest(input: $input) {
-			id,
-			status,
-			uploadUrl,
-			formData
-		}
-	}
+
+	oneDefaultSelection = `
+	id,
+	status,
+	uploadUrl,
+	formData
 	`;
 
-	update = gql`
-	mutation updateImageUploadRequest($input: ImageUploadRequestInput) {
-		updateImageUploadRequest(input: $input) {
-			id
-		}
-	}`;
-
-	deleteOne = gql`
-	mutation deleteImageUploadRequest($id: String!) {
-		deleteImageUploadRequest(id: $id)
-	}
+	manyDefaultSelection = `
+	id,
+	status,
+	uploadUrl,
+	formData
 	`;
 
-	deleteMany = gql`
-	mutation deleteImageUploadRequest($query: String!) {
-		deleteImageUploadRequests(query: $query)
-	}
+	createDefaultSelection = `
+	id,
+	status,
+	uploadUrl,
+	formData
 	`;
-
-	many = gql`
-		subscription imageUploadRequests($query: String!) {
-			imageUploadRequests(query: $query) {
-				id,
-				status,
-				uploadUrl,
-				formData
-			}
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-			subscription imageUploadRequests {
-				imageUploadRequests{
-					${str}
-				}
-			}
-		`;
-	}
 }

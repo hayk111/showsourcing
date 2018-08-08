@@ -1,64 +1,11 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ImageQueries implements GlobalQuery {
+export class ImageQueries extends BaseQueries implements GlobalQuery {
 
-	one: any = gql`
-	subscription image($query: String!) {
-		images(query: $query) {
-			id, name, orientation
-		}
+	constructor() {
+		super('image', 'images');
 	}
-	`;
 
-	list: any = gql`
-		subscription images(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean) {
-			images(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending){
-			  id, name
-			}
-		}
-	`;
-
-	create = gql`
-		mutation createImage($input: ImageInput!) {
-			updateImage(input: $input) {
-				id
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateImage($input: ImageInput!) {
-			updateImage(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteImage($id: String!) {
-			deleteImage(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation deleteImages($query: String!) {
-			deleteImages(query: $query)
-		}
-	`;
-
-
-
-	all = (str: string) => gql`
-		subscription images {
-			images {
-				${str}
-			}
-		}
-	`
 }

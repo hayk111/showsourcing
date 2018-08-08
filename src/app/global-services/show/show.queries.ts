@@ -2,123 +2,76 @@ import gql from 'graphql-tag';
 import {
 	GlobalQuery
 } from '~global-services/_global/global.query.interface';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
 
 
-export class ShowQueries implements GlobalQuery {
+export class ShowQueries extends BaseQueries implements GlobalQuery {
 
-	one = gql`
-		subscription show($query: String!) {
-			events(query: $query) {
-				id
-				booths {
-					boothName,
-					supplier {
-						id,
-						name,
-						type,
-						countryCode,
-						keywords
-					}
-				}
-				description {
-					id
-					name
-					description
-					startDate
-					endDate
-					supplierCount
-					logoImage {
-						id
-						fileName
-					}
-					industry {
-						name
-					}
-					primaryColor
-					secondaryColor
-					venue {
-						id
-						name
-						countryCode
-						addressFull
-						city
-					}
-				}
-			}
-		}`;
-
-	many = gql`
-		subscription shows(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-		) {
-			events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id
-				description {
-					id
-					name
-					description
-					startDate
-					endDate
-					logoImage {
-						id
-						fileName
-					}
-					primaryColor
-					secondaryColor
-					supplierCount
-					venue {
-						id
-						name
-						countryCode
-						addressFull
-						city
-					}
-				}
-			}
-		}`;
-
-	create = gql`
-		mutation addShow($input: ShowInput!) {
-			updateEvent(input: $input) {
-				id
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateShow($input: ShowInput!) {
-			updateEvent(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation show($id: String!) {
-			deleteEvent(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation shows($query: String!) {
-			deleteEvents(query: $query)
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-		subscription shows {
-			events {
-				${str}
-			}
-		}
-	`;
+	constructor() {
+		super('show', 'shows');
 	}
+
+	oneDefaultSelection = `
+		booths {
+			boothName,
+			supplier {
+				id,
+				name,
+				type,
+				countryCode,
+				keywords
+			}
+		}
+		description {
+			id
+			name
+			description
+			startDate
+			endDate
+			supplierCount
+			logoImage {
+				id
+				fileName
+			}
+			industry {
+				name
+			}
+			primaryColor
+			secondaryColor
+			venue {
+				id
+				name
+				countryCode
+				addressFull
+				city
+			}
+		}
+	`;
+
+	manyDefaultSelection = `
+	description {
+		id
+		name
+		description
+		startDate
+		endDate
+		logoImage {
+			id
+			fileName
+		}
+		primaryColor
+		secondaryColor
+		supplierCount
+		venue {
+			id
+			name
+			countryCode
+			addressFull
+			city
+		}
+	}
+	`;
 
 }
 

@@ -1,11 +1,15 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ProductQueries implements GlobalQuery {
-	one: any = gql`
-	subscription product($query: String!) {
-		products(query: $query) {
-			id,
+export class ProductQueries extends BaseQueries implements GlobalQuery {
+
+	constructor() {
+		super('product', 'products');
+	}
+
+
+	oneDefaultSelection = `
 			name,
 			supplier {
 				id,
@@ -105,26 +109,9 @@ export class ProductQueries implements GlobalQuery {
 				id, firstName, lastName
 			},
 			creationDate
-		}
-	}
-	`;
+		}`;
 
-	many = gql`
-	subscription products(
-		$take: Int,
-		$skip: Int,
-		$query: String!,
-		$sortBy: String,
-		$descending: Boolean) {
-
-		products(
-			take: $take,
-			skip: $skip,
-			query: $query,
-			sortBy: $sortBy,
-			descending: $descending) {
-
-			id,
+	manyDefault = `
 			name,
 			description,
 			creationDate,
@@ -173,45 +160,5 @@ export class ProductQueries implements GlobalQuery {
 			projects {
 				id
 			}
-		}
-	}`;
-
-	create = gql`
-		mutation createProduct($input: ProductInput!) {
-			updateProduct(input: $input) {
-				id, favorite
-			}
-		}
-	`;
-
-
-	update = gql`
-		mutation updateProduct($input: ProductInput!) {
-			updateProduct(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteProduct($id: String!) {
-			deleteProduct(id: $id)
-		}
-	`;
-
-
-	deleteMany = gql`
-	mutation deleteProducts($query: String!) {
-		deleteProducts(query: $query)
-	}
-	`;
-
-	all = (str: string) => gql`
-		subscription products {
-			products {
-				${str}
-			}
-		}
-	`
-
+		`;
 }

@@ -1,57 +1,16 @@
 import gql from 'graphql-tag';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
 
-export class TeamQueries implements GlobalQuery {
-	one = gql`
-		subscription teams($query: String!) {
-			teams(query: $query) {
-				id, name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status
-			}
-		}
-	`;
+export class TeamQueries extends BaseQueries implements GlobalQuery {
 
-	many = gql`
-		subscription teams($query: String!) {
-			teams(query: $query) {
-				id, name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status
-			}
-		}
-	`;
+	constructor() {
+		super('team', 'teams');
+	}
 
-	create = gql`
-		mutation createTeam($input: TeamInput!) {
-			updateTeam(input: $input) {
-				id, name, realmPath, realmServerName, status
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateTeam($input: TeamInput!) {
-			updateTeam(input: $input) {
-				id,
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteTeam($id: String!) {
-			deleteTeam(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation deleteTeams($query: String!) {
-			deleteTeams(query: $query)
-		}
-	`;
-
-	all = (str: string) => gql`
-			subscription teams {
-			teams {
-				id, name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }
-			}
-		}
-	`
+	oneDefaultSelection = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
+	manyDefaultSelection = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
+	createDefaultSelection = `name, realmPath, realmServerName, status`;
+	allDefaultSelection = `name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }`;
 }
