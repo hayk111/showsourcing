@@ -1,0 +1,17 @@
+:host {
+	display: flex;
+	background: white;
+	height: 32px;
+	border: 1px solid var(--color-secondary);
+	border-radius: var(--border-radius);
+	width: 378px;
+	padding-left: var(--spacing-s);
+	&.focus {
+		border: 1px solid #45adff;
+	}
+	input {
+		border: none;
+		outline: none;
+		background: transparent;
+	}
+}

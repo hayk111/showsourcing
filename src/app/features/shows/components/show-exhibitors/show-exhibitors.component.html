@@ -1,3 +1,23 @@
 <card-app>
   <h2>Exhibitors</h2>
+
+  <div *ngFor="let booth of booths" class="flex exhibitor">
+
+    <div class="flexCenter">
+      <img-app class="logo" [image]="booth.supplier.supplierImage" type="supplier"></img-app>
+    </div>
+
+    <div class="flexGrow">
+      <div class="name">{{ booth.supplier.name }}</div>
+      <div class="flex">
+        <badge-app>{{ booth.boothName }}</badge-app>
+      </div>
+    </div>
+
+    <div class="actions flexColumn">
+      <button class="secondary z-1 mg-s">View Supplier</button>
+      <button class="z-1 mg-s">Save Supplier</button>
+    </div>
+
+  </div>
 </card-app>

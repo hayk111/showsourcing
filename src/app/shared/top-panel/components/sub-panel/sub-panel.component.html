@@ -6,15 +6,12 @@
 
 			<ng-content select="search-autocomplete-app"></ng-content>
 
-			<search-bar-app class="mg-right" [ngClass]="{ focus: searchbarFocus }">
-				<input #inp inputApp type="text"
-						placeholder="Type to search	"
-						restrictSpecial [restrictUpDownArrows]="true"
-						[formControl]="searchControl"
-						(blur)="onBlurSearch($event)"
-						(focus)="onFocusSearch($event)"
-						(input)="triggerSmartSearch($event)"
-						(keydown.enter)="triggerSearch($event)" />
+			<search-bar-app
+				class="mg-right"
+				(blur)="onBlurSearch($event)"
+				(focus)="onFocusSearch($event)"
+				(input)="triggerSmartSearch($event)"
+				(keydown.enter)="triggerSearch($event)">
 			</search-bar-app>
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>

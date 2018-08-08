@@ -1,0 +1,22 @@
+.top {
+	height: 158px;
+	width: 756px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-image: url('/assets/img/event-background.png');
+	border-radius: var(--border-radius-s);
+	h2, h1 {
+		color: white;
+	}
+
+	h2 {
+		font-weight: normal;
+		font-size: var(--font-size-l);
+		margin-bottom: 0;
+	}
+}
+.ctnr {
+	padding: var(--spacing-ms) var(--spacing-l);
+}

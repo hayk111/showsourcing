@@ -5,12 +5,9 @@
   </top-panel-app>
 
   <div class="ctnr">
-    <sub-panel-app
-      [hasSwitch]="false"
-      [hasFilter]="false"
-      [buttonIcon]="false"
-      (search)="search($event)">
 
+    <div class="top flexBetween">
+      <search-bar-app (search)="search($event)"></search-bar-app>
       <div class="flexBetween">
         <checkbox-app [checked]="checkboxes.myShows" (update)="toggleMyEvents()">
           Only display my Shows
@@ -19,10 +16,11 @@
           Show past Events
         </checkbox-app>
       </div>
+    </div>
 
-    </sub-panel-app>
 
     <show-list-app
+      (saveShow)="saveShow($event)"
       *ngIf="!checkboxes.myShows"
       [pending]="pending"
       [items]="allShows$ | async"></show-list-app>
