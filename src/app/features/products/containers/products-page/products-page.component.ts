@@ -27,9 +27,9 @@ import { StoreKey } from '~utils/store/store';
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
 
-	allFavorited = true;
-	allDisliked = true;
-	allLiked = true;
+	// if all the selected items are favorite or not
+	allSelectedFavorite = true;
+
 	searchFilterElements$: Observable<any[]>;
 
 	constructor(
@@ -44,14 +44,14 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	}
 
 	onSelectedItem(item: any) {
-		if (this.allFavorited)
-			this.allFavorited = item.favorite ? true : false;
+		if (this.allSelectedFavorite)
+			this.allSelectedFavorite = item.favorite ? true : false;
 		this.onItemSelected(item);
 	}
 
 	onUnselectedItem(item: any) {
-		if (!this.allFavorited && !item.favorite)
-			this.allFavorited = !this.selectionItems().some(prod => prod.id !== item.id && !prod.favorite);
+		if (!this.allSelectedFavorite && !item.favorite)
+			this.allSelectedFavorite = !this.selectionItems().some(prod => prod.id !== item.id && !prod.favorite);
 		this.onItemUnselected(item);
 	}
 
@@ -60,7 +60,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 			if (!prod.favorite)
 				this.onItemFavorited(prod.id);
 		});
-		this.allFavorited = true;
+		this.allSelectedFavorite = true;
 	}
 
 	onUnfavoriteAll() {
@@ -68,7 +68,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 			if (prod.favorite)
 				this.onItemUnfavorited(prod.id);
 		});
-		this.allFavorited = false;
+		this.allSelectedFavorite = false;
 	}
 
 	multipleVotes(votes: Map<string, ProductVote[]>) {
