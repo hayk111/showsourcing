@@ -76,7 +76,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			} else {
 				this.dislike = false;
 				if (this.products)
-					this.updateEmiteMultipleVotes();
+					this.updateEmiteMultipleVotes(true);
 				else
 					this.updateEmitVote();
 			}
@@ -100,7 +100,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			} else {
 				this.like = false;
 				if (this.products)
-					this.updateEmiteMultipleVotes();
+					this.updateEmiteMultipleVotes(false);
 				else
 					this.updateEmitVote();
 			}
@@ -140,26 +140,35 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 				voteUser.value = state ? 100 : 0;
 				mapVotes.set(prod.id, prod.votes);
 			} else { // else we create a new vote
-				voteUser = new ProductVote({
-					value: state ? 100 : 0,
-					user: { id: this.userSrv.userSync.id }
-				});
-				this.voteSrv.create(voteUser).subscribe(newVote => {
-					mapVotes.set(prod.id, [...prod.votes, newVote]);
-				});
+				voteUser = this.createVote(state);
+				mapVotes.set(prod.id, [...prod.votes, voteUser]);
 			}
 		});
 		this.multipleVotes.emit(mapVotes);
 	}
 
-	updateEmiteMultipleVotes() {
+	updateEmiteMultipleVotes(state: boolean) {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
 			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			voteUser.value = voteUser.value === 100 ? 0 : 100;
-			mapVotes.set(prod.id, prod.votes);
+			if (voteUser) {
+				voteUser.value = voteUser.value === 100 ? 0 : 100;
+				mapVotes.set(prod.id, prod.votes);
+			} else { // we have to do this since we dont know when updating if the user has selected products with no votes
+				const tempVote = this.createVote(state);
+				mapVotes.set(prod.id, [...prod.votes, tempVote]);
+			}
 		});
 		this.multipleVotes.emit(mapVotes);
+	}
+
+	createVote(state: boolean) {
+		const tempVote = new ProductVote({
+			value: state ? 100 : 0,
+			user: { id: this.userSrv.userSync.id }
+		});
+		this.voteSrv.create(tempVote).subscribe();
+		return tempVote;
 	}
 
 	get state() {
