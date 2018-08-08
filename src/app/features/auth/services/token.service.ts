@@ -51,7 +51,7 @@ export class TokenService {
 		this.refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
 
 		if (this.refreshToken)
-			this.fetchAccessToken(this.refreshToken).subscribe();
+			this.generateAccessToken(this.refreshToken).subscribe();
 		else
 			this._accessToken$.next({ token: null, token_data: null });
 
