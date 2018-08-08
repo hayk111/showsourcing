@@ -30,7 +30,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	// we only use this if we want to update multiple products
 	@Input() products: Product[];
 	@Output() vote = new EventEmitter<ProductVote[]>();
-	// this is only used when selecting multiple products
+	// this is only used when selecting multiple products Map<Product.id, ProductVote[]>
 	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
@@ -59,22 +59,27 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			this.updateEmitVote();
 	}
 
+	/** When we click on thumbs up to like a product */
 	thumbUp() {
-		if (this.like) { // if we click over the active like we have to delete the vote
+		// if we are giving like and we already had a like, we had to delete the vote
+		if (this.like) {
 			this.like = false;
-			if (this.products)
+			if (this.products) // if we are doing it with multiple likes
 				this.deleteMultipleVotes();
 			else
 				this.voteSrv.deleteOne(this.userVote.id).subscribe();
-		} else {
+		} else { // this case is when we have no like and we want to create or update one
 			this.like = true;
-			if (!this.dislike) { // if it was false already it means that we have to create a new vote
+			// if the dislike is false that means we are creating a vote, since both buttons where false that means that we havent clicked
+			if (!this.dislike) {
+				// if we are doing it with multiple likes we have to create multiple
 				if (this.products)
 					this.createEmitMultipleVotes(true);
 				else
 					this.createEmitVote(true);
-			} else {
+			} else { // this case is when we are giving a like but we had a dislike, so we have to update the vote
 				this.dislike = false;
+				// if we are doing it with multiple likes we have to update multiple
 				if (this.products)
 					this.updateEmiteMultipleVotes(true);
 				else
@@ -83,6 +88,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	/** Same explanation as with thumbUp() just when we dislike */
 	thumbDown() {
 		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
@@ -122,16 +128,18 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.vote.emit(this._votes);
 	}
 
+	/** delete multiple votes given an array of products */
 	deleteMultipleVotes() {
-		const userIds = [];
+		const voteIds = [];
 		this.products.forEach(prod => {
 			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (voteUser)
-				userIds.push(voteUser.id);
+			if (voteUser) // if the votes exist we add it to the array for deletion
+				voteIds.push(voteUser.id);
 		});
-		this.voteSrv.deleteMany(userIds).subscribe();
+		this.voteSrv.deleteMany(voteIds).subscribe();
 	}
 
+	/** create multiple votes given an array of products */
 	createEmitMultipleVotes(state: boolean = true) {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
@@ -147,6 +155,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.multipleVotes.emit(mapVotes);
 	}
 
+	/** update multiple votes given an array of products */
 	updateEmiteMultipleVotes(state: boolean) {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
@@ -154,7 +163,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			if (voteUser) {
 				voteUser.value = voteUser.value === 100 ? 0 : 100;
 				mapVotes.set(prod.id, prod.votes);
-			} else { // we have to do this since we dont know when updating if the user has selected products with no votes
+			} else { // we have to do this since we dont know when updating if the user has selected more products with no votes
 				const tempVote = this.createVote(state);
 				mapVotes.set(prod.id, [...prod.votes, tempVote]);
 			}
@@ -162,6 +171,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.multipleVotes.emit(mapVotes);
 	}
 
+	/** create a vote given a status (like/dislike) and return it */
 	createVote(state: boolean) {
 		const tempVote = new ProductVote({
 			value: state ? 100 : 0,
