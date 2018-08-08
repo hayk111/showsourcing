@@ -9,7 +9,7 @@ import { BaseQueries } from '~global-services/_global/base-query.class';
 export class ShowQueries extends BaseQueries implements GlobalQuery {
 
 	constructor() {
-		super('show', 'shows');
+		super('event', 'events');
 	}
 
 	oneDefaultSelection = `
@@ -50,27 +50,27 @@ export class ShowQueries extends BaseQueries implements GlobalQuery {
 	`;
 
 	manyDefaultSelection = `
-	description {
-		id
-		name
-		description
-		startDate
-		endDate
-		logoImage {
-			id
-			fileName
-		}
-		primaryColor
-		secondaryColor
-		supplierCount
-		venue {
+		description {
 			id
 			name
-			countryCode
-			addressFull
-			city
+			description
+			startDate
+			endDate
+			logoImage {
+				id
+				fileName
+			}
+			primaryColor
+			secondaryColor
+			supplierCount
+			venue {
+				id
+				name
+				countryCode
+				addressFull
+				city
+			}
 		}
-	}
 	`;
 
 }

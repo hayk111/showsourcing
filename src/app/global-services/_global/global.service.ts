@@ -88,6 +88,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			// taking the first result of a selectMany
 			switchMap(
 				params => {
+					debugger;
 					return this.selectMany(of(params), fields).pipe(
 						first(),
 						map(result => ({ result, page: params.page }))

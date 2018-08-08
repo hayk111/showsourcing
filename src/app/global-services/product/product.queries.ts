@@ -109,7 +109,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				id, firstName, lastName
 			},
 			creationDate
-		}`;
+			`;
 
 	manyDefault = `
 			name,

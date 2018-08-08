@@ -60,6 +60,7 @@ export class ApolloWrapper {
 
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
+		console.trace()
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
