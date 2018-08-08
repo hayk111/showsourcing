@@ -30,6 +30,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	// we only use this if we want to update multiple products
 	@Input() products: Product[];
 	@Output() vote = new EventEmitter<ProductVote[]>();
+	// this is only used when selecting multiple products
 	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 	// we can have 2 status for each thumb when not single
 	// both status can be false at the same time, but they can't be true at the same time
@@ -135,10 +136,10 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (voteUser) {// if te vote already exists set it to the current state value
+			if (voteUser) {// if the vote already exists set it to the current state value
 				voteUser.value = state ? 100 : 0;
 				mapVotes.set(prod.id, prod.votes);
-			} else { // we create a new vote
+			} else { // else we create a new vote
 				voteUser = new ProductVote({
 					value: state ? 100 : 0,
 					user: { id: this.userSrv.userSync.id }
@@ -146,7 +147,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 				this.voteSrv.create(voteUser).subscribe(newVote => {
 					mapVotes.set(prod.id, [...prod.votes, newVote]);
 				});
-				mapVotes.set(prod.id, [...prod.votes, voteUser]);
 			}
 		});
 		this.multipleVotes.emit(mapVotes);
