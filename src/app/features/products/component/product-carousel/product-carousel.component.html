@@ -1,0 +1,42 @@
+
+<card-app (fileDrop)="add($event)">
+	<card-header-app>
+
+		<!-- images -->
+		<ng-container *ngIf="images.length > 0; else noImg">
+			<!-- carousel -->
+			<carousel-app
+				*ngIf="hasInlineCarousel"
+				[images]="images"
+				[selectedIndex]="selectedIndex"
+				(imgClick)="openModal($event)"
+				(deleted)="onDelete($event)">
+			</carousel-app>
+
+			<!-- previews under the carousel -->
+			<!-- <image-previewer-app
+				*ngIf="hasPreview"
+				(imageClick)="setSelectedIndex($event)"
+				(plusClick)="openFileBrowser()"
+				[images]="images"></image-previewer-app> -->
+
+		</ng-container>
+		<!-- no image -->
+		<ng-template #noImg>
+			<div class="flexColumn flexCenter empty">
+				<img [src]="defaultImg"/>
+				<span>No picture yet</span>
+			</div>
+		</ng-template>
+
+		<!-- modal carousel that can be seen when clicking on the normal carousel -->
+		<modal-carousel-app
+			*ngIf="hasModalCarousel && modalOpen"
+			[selectedIndex]=[selectedIndex]
+			[images]="images"
+			(close)="closeModal()"></modal-carousel-app>
+
+		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
+	</card-header-app>
+
+</card-app>

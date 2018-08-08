@@ -80,11 +80,12 @@ menu {
 }
 
 .counter {
+	font-size: 9px;
 	position: absolute;
 	bottom: var(--spacing-m);
 	right: var(--spacing-m);
 	border-radius: var(--border-radius);
-	padding: var(--spacing-xs);
+	padding: var(--spacing-xs) var(--spacing-s);
 	color: white;
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(93, 109, 139, 0.7);
 }

@@ -9,13 +9,11 @@
   <div class="flex content">
     <div class="left">
 
-			<carousel-card-app
-				[hasFooter]="false"
+			<product-carousel-app
 				[images]="product.images"
-				(imgUploaded)="onNewImages($event)"
 				[favorite]="product.favorite"
 				(favorited)="onFavorited()"
-				(unfavorited)="onUnfavorited()"></carousel-card-app>
+				(unfavorited)="onUnfavorited()"></product-carousel-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 
