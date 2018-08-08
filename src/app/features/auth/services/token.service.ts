@@ -57,19 +57,14 @@ export class TokenService {
 	}
 
 	getGuestRefreshToken(token: string): Observable<RefreshTokenResponse> {
-		throw Error('not implemented yet');
+		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`);
 	}
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
 		this.refreshToken = refreshToken;
 		return this.fetchAccessToken().pipe(
-			tap(accessToken => this._accessToken$.next({
-				pending: false,
-				token: accessToken.user_token.token,
-				token_data: accessToken.user_token.token_data,
-				guest: refreshToken.guest
-			})),
+			tap(accessToken => this.onNewAccessToken(accessToken)),
 			catchError(e => {
 				this._accessToken$.next({ token: null, token_data: null });
 				return throwError(e);
@@ -91,7 +86,8 @@ export class TokenService {
 		const accessTokenState = {
 			pending: false,
 			token: accessToken.user_token.token,
-			token_data: accessToken.user_token.token_data
+			token_data: accessToken.user_token.token_data,
+			guest: this.refreshToken.guest
 		};
 		this._accessToken$.next(accessTokenState);
 		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessTokenState);

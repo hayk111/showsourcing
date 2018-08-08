@@ -10,5 +10,5 @@ export interface AccessTokenState {
 	};
 	// guest can have a temporary access token to do some stuff
 	// but they can't enter the normal app
-	guest?: true;
+	guest?: boolean;
 }
