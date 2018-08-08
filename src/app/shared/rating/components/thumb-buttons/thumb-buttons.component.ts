@@ -170,5 +170,4 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			val = this.userVote.value === 100 ? 'up' : 'down';
 		return val;
 	}
-
 }
