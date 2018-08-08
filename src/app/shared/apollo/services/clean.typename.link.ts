@@ -10,6 +10,10 @@ export const cleanTypenameLink = new ApolloLink((operation, forward) => {
 });
 
 function omitDeep(obj: object, key: string | number): object {
+	if (!obj) {
+    return obj;
+  }
+
 	const keys: Array<any> = Object.keys(obj);
 	const newObj: any = {};
 	keys.forEach((i: any) => {
