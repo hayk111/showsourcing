@@ -61,8 +61,8 @@
 		(previous)="previousPage()"
 		(next)="nextPage()"
 		(previewClick)="openPreview($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
+		(select)="onSelectedItem($event)"
+		(unselect)="onUnselectedItem($event)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
 		(open)="goToDetails($event)"
@@ -81,8 +81,8 @@
 		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
+		(select)="onSelectedItem($event)"
+		(unselect)="onUnselectedItem($event)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(open)="goToDetails($event)"></product-card-view-app>
@@ -94,7 +94,10 @@
 		(close)="resetSelection()"
 		(delete)="deleteSelected()">
 
-		<action-bar-app>
+		<action-bar-app
+			[favorite]="allFavorited"
+			(onFavorite)="onFavoriteAll()"
+			(onUnfavorite)="onUnfavoriteAll()">
 			<button class="icon light" (click)="openAddToProjectDialog()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
 			</button>

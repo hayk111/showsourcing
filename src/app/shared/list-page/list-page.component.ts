@@ -94,6 +94,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.keys());
 	}
 
+	selectionItems() {
+		return Array.from(this.selectionSrv.selection.values());
+	}
+
 
 	search(str: string) {
 		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });

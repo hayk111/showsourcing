@@ -26,6 +26,10 @@ import { StoreKey } from '~utils/store/store';
 	]
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+
+	allFavorited = true;
+	allDisliked = true;
+	allLiked = true;
 	searchFilterElements$: Observable<any[]>;
 
 	constructor(
@@ -37,6 +41,34 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+	}
+
+	onSelectedItem(item: any) {
+		if (this.allFavorited)
+			this.allFavorited = item.favorite ? true : false;
+		this.onItemSelected(item);
+	}
+
+	onUnselectedItem(item: any) {
+		if (!this.allFavorited && !item.favorite)
+			this.allFavorited = !this.selectionItems().some(prod => prod.id !== item.id && !prod.favorite);
+		this.onItemUnselected(item);
+	}
+
+	onFavoriteAll() {
+		this.selectionItems().forEach(prod => {
+			if (!prod.favorite)
+				this.onItemFavorited(prod.id);
+		});
+		this.allFavorited = true;
+	}
+
+	onUnfavoriteAll() {
+		this.selectionItems().forEach(prod => {
+			if (prod.favorite)
+				this.onItemUnfavorited(prod.id);
+		});
+		this.allFavorited = false;
 	}
 
 	/**
