@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, filter, first, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, first } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { User } from '~models/user.model';
@@ -11,7 +11,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { log } from '~utils/log';
-import { from, of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractApolloInitializer {
@@ -30,7 +30,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	init() {
 		// when authenticated we start user client
 		return this.authSrv.authState$.pipe(
-			distinctUntilChanged((x, y) => x.userId === y.userId)
+			distinctUntilChanged((x, y) => x.userId === y.userId),
 		).subscribe(authState => {
 			if (authState.authenticated)
 				this.initUserClient(authState.userId);

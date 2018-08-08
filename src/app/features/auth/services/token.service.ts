@@ -56,10 +56,25 @@ export class TokenService {
 
 	}
 
+	getGuestRefreshToken(token: string): Observable<RefreshTokenResponse> {
+		throw Error('not implemented yet');
+	}
+
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
 		this.refreshToken = refreshToken;
-		return this.fetchAccessToken();
+		return this.fetchAccessToken().pipe(
+			tap(accessToken => this._accessToken$.next({
+				pending: false,
+				token: accessToken.user_token.token,
+				token_data: accessToken.user_token.token_data,
+				guest: refreshToken.guest
+			})),
+			catchError(e => {
+				this._accessToken$.next({ token: null, token_data: null });
+				return throwError(e);
+			})
+		);
 	}
 
 	private fetchAccessToken(): Observable<AccessTokenResponse> {
@@ -68,13 +83,7 @@ export class TokenService {
 			provider: 'realm',
 			data: this.refreshToken.refresh_token.token,
 		};
-		return this.http.post<AccessTokenResponse>('api/auth', accessObj).pipe(
-			tap(token => this.onNewAccessToken(token)),
-			catchError(e => {
-				this._accessToken$.next({ token: null, token_data: null });
-				return throwError(e);
-			})
-		);
+		return this.http.post<AccessTokenResponse>('api/auth', accessObj);
 	}
 
 	/** when a new access token arrives */

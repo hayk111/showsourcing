@@ -43,7 +43,7 @@ export const routes: Array<Route> = [
 		]
 	},
 	{
-		path: 'rfq',
+		path: 'rfq/:token',
 		component: RfqTemplateComponent,
 		canActivateChild: [
 		],
