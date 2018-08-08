@@ -1,10 +1,10 @@
 <show-top-panel-detail-app [show]="show$ | async"></show-top-panel-detail-app>
 
-<div class="flex">
-  <div class="flexColumn">
+<div class="flex flexCenter">
+  <div class="flexColumn left">
     <show-summary-app [show]="show$ | async"></show-summary-app>
     <show-exhibitors-app></show-exhibitors-app>
   </div>
-  <show-about-app></show-about-app>
+  <show-about-app class="right" [show]="show$ | async"></show-about-app>
 </div>
 

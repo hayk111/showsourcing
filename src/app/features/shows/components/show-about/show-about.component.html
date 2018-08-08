@@ -1,14 +1,14 @@
 <card-app>
   <h2>ABOUT THIS SHOW</h2>
 
-  <div class="flexBetween">
-    <label-app>Name</label-app>
-    <span>{{ show.description.name }}</span>
+  <div class="flexBetween cell">
+    <div class="label">Name</div>
+    <div>{{ show?.description?.name }}</div>
   </div>
 
-  <div class="flexBetween">
-    <label-app>Country</label-app>
-    <span>{{ show.description.venue.country | const: 'country' }}</span>
+  <div class="flexBetween cell">
+    <div class="label">Country</div>
+    <div>{{ show?.description?.venue?.country | const: 'country' }}</div>
   </div>
 
 </card-app>

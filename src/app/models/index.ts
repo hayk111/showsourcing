@@ -33,6 +33,6 @@ export * from '~models/export-request.model';
 export * from '~models/show.model';
 export * from '~models/external-request.model';
 export * from '~models/quote.model';
-
+export * from '~models/booth.model';
 
 

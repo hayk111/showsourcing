@@ -8,17 +8,20 @@ export class EventQueries implements GlobalQuery {
 		events(query: $query) {
 			id
 			description {
+				id
 				name
 				description
 				startDate
 				endDate
 				supplierCount
 				logoImage {
+					id
 					fileName
 				}
 				primaryColor
 				secondaryColor
 				venue {
+					id
 					name
 					country
 					addressFull
@@ -40,17 +43,20 @@ export class EventQueries implements GlobalQuery {
 		events(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 			id
 			description {
+				id
 				name
 				description
 				startDate
 				endDate
 				supplierCount
 				logoImage {
+					id
 					fileName
 				}
 				primaryColor
 				secondaryColor
 				venue {
+					id
 					name
 					country
 					addressFull

@@ -1,4 +1,4 @@
-card-header-app {
+.top {
 	height: 158px;
 	width: 756px;
 	display: flex;
@@ -6,6 +6,7 @@ card-header-app {
 	align-items: center;
 	justify-content: center;
 	background-image: url('/assets/img/event-background.png');
+	border-radius: var(--border-radius-s);
 	h2, h1 {
 		color: white;
 	}

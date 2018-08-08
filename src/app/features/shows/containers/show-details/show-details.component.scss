@@ -1,3 +1,11 @@
+.left {
+	width: 796px;
+}
+
+.right {
+	width: 414px;
+}
+
 h1, .info, .tags {
 	line-height: 1;
 }
@@ -13,3 +21,4 @@ h1 {
 .tags {
 	margin-top: var(--spacing-s);
 }
+

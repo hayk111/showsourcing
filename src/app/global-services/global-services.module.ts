@@ -18,6 +18,7 @@ import { FileUploadRequestService } from '~global-services/file-upload-request/f
 import { ERMService } from '~global-services/_global/erm.service';
 import { UserService } from '~global-services/user/user.service';
 import { ShowService } from '~global-services/show/show.service';
+import { BoothService } from '~global-services/booth/booth.service';
 
 
 
@@ -42,6 +43,7 @@ import { ShowService } from '~global-services/show/show.service';
 		FileUploadRequestService,
 		UserService,
 		ShowService,
+		BoothService,
 		// helper
 		ERMService,
 	]
