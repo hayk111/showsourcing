@@ -4,6 +4,24 @@ import { BaseQueries } from '~global-services/_global/base-query.class';
 
 export class CategoryQueries extends BaseQueries implements GlobalQuery {
 
+	oneDefaultSelection = `
+			name,
+			createdBy {
+				id,
+				firstName,
+				lastName
+			}
+	`;
+
+	manyDefaultSelection = `
+		name,
+		createdBy {
+			id,
+			firstName,
+			lastName
+		}
+	`;
+
 	constructor() {
 		super('category', 'categories')
 	}
