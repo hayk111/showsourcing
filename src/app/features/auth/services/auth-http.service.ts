@@ -26,6 +26,7 @@ export class AuthHttpService {
 				password: credentials.password
 			}
 		};
+		debugger;
 		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj);
 	}
 

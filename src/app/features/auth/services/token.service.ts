@@ -7,6 +7,7 @@ import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-re
 import { LocalStorageService } from '~shared/local-storage';
 import { AccessTokenState } from '~features/auth/interfaces';
 import { AuthModule } from '~features/auth/auth.module';
+import { environment } from 'environments/environment.prod';
 
 const ACCESS_TOKEN_NAME = 'accessToken';
 const REFRESH_TOKEN_NAME = 'refreshToken';
@@ -78,7 +79,7 @@ export class TokenService {
 			provider: 'realm',
 			data: refreshToken.refresh_token.token,
 		};
-		return this.http.post<AccessTokenResponse>('api/auth', accessObj);
+		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj);
 	}
 
 	/** when a new access token arrives */

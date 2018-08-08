@@ -43,7 +43,7 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 
 	protected createClient(name) {
 		const uri = `${environment.graphqlUrl}/${name}`;
-		super.createClient(uri);
+		super.createClient(uri, name);
 	}
 
 }
