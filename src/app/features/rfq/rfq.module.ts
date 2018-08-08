@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ExternalRequestFeatureService } from '~features/rfq/services/external-request-feature.service';
 import { CardModule } from '~shared/card/card.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
@@ -34,6 +35,8 @@ import { ValidationPageComponent } from './containers/validation/validation-page
 		ReviewSendPageComponent, ValidationPageComponent],
 	entryComponents: [RefuseDialogComponent],
 	exports: [],
-	providers: []
+	providers: [
+		ExternalRequestFeatureService
+	]
 })
 export class RfqModule { }

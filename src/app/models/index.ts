@@ -31,6 +31,8 @@ export * from '~models/invitation.model';
 export * from '~models/product-vote-request.model';
 export * from '~models/export-request.model';
 export * from '~models/show.model';
+export * from '~models/external-request.model';
+export * from '~models/quote.model';
 
 
 
