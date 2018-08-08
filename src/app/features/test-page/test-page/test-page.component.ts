@@ -13,5 +13,5 @@ import { CustomField, FormDescriptor } from '~shared/dynamic-forms/models';
 	styleUrls: ['./test-page.component.scss'],
 })
 export class TestPageComponent {
-
+	test = "lol";
 }

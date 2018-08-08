@@ -114,12 +114,14 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Search within filters */
 	searchFilters(str: string) {
-		this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+		if (this.searchSrv)
+			this.searchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
 	}
 
 	/** Search within filters */
 	smartSearchFilters(str: string) {
-		this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+		if (this.searchSrv)
+			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
 	}
 
 	onCheckSearchElement(element) {

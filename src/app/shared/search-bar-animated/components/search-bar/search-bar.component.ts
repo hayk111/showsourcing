@@ -1,9 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Filter, FilterGroup } from '~shared/filters/models';
-import { AutoUnsub } from '~utils';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 
 
 @Component({
@@ -11,7 +7,30 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './search-bar.component.html',
 	styleUrls: ['./search-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(SearchBarComponent)],
+	host: {
+		'(click)': 'onClick()'
+	}
 })
-export class SearchBarComponent {
+export class SearchBarComponent extends AbstractInput {
+	focussed = false;
+	@Output() search = new EventEmitter<string>();
 
+	constructor(protected cd: ChangeDetectorRef) {
+		super(cd);
+	}
+
+	onBlur() {
+		this.onTouchedFn();
+		this.focussed = false;
+	}
+
+	onChange(value: string) {
+		this.onChangeFn(value);
+		this.search.emit(value);
+	}
+
+	onClick() {
+		this.focussed = true;
+	}
 }
