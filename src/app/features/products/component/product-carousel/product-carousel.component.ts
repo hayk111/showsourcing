@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { AppImage } from '~models';
+import { AppImage, User } from '~models';
 import { PendingImage, AutoUnsub, DEFAULT_IMG } from '~utils';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageService } from '~global-services/image/image.service';
@@ -14,26 +14,14 @@ import { first } from 'rxjs/operators';
 })
 export class ProductCarouselComponent extends AutoUnsub {
 
+	@Input() product;
 	// whether the different elements are displayed
-	@Input() hasModalCarousel = true;
-	// whether the little clickable thumbnail of the images are displayed
-	@Input() hasPreview = true;
-	// whether the card displays a carousel at all
-	@Input() hasInlineCarousel = true;
-	// title of the card
-	@Input() title = '';
-	// whether the card has an heart at the top left to favorite an item
-	@Input() hasHeart = true;
-	// whether the heart is full or not
 	@Input() favorite: boolean;
 
-	@Input() set images(images: AppImage[]) {
-		this._images = images;
-	}
 	get images() {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
-	private _images: AppImage[] = [];
+	private _images = this.product.images ? this.product.images : [];
 	private _pendingImages: PendingImage[] = [];
 	/** index of the currently selected image */
 	selectedIndex = 0;

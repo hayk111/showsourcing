@@ -10,7 +10,7 @@
     <div class="left">
 
 			<product-carousel-app
-				[images]="product.images"
+				[product]="product"
 				[favorite]="product.favorite"
 				(favorited)="onFavorited()"
 				(unfavorited)="onUnfavorited()"></product-carousel-app>

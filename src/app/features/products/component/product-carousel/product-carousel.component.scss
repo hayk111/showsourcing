@@ -1,11 +1,14 @@
 :host {
-	width: 100%;
+	width: 380px;
+	height: 500px;
 	display: block;
-	position: relative;
 }
 
-card-header-app, image-previewer-app{
-	padding: var(--spacing-ms);
+card-app {
+	height: 100%;
+	width: 100%;
+	border-radius: var(--border-radius-s);
+	border: 4px solid white;
 }
 
 .empty {
@@ -16,20 +19,13 @@ card-header-app, image-previewer-app{
 	}
 }
 
-rating-heart-app {
-	position: absolute;
-	top: 24px;
-	left: 40px;
-	width: 40px;
-	height: 40px;
-	color: var(--color-txt);
-	background: rgba(255, 255, 255, 0.2);
-	border-radius: 50%;
-	z-index: 2;
-	font-size: 18px;
+action-bar-app {
+	margin-top: var(--spacing-m);
+	button {
+		margin-right: var(--spacing-ms);
+	}
 }
-
 carousel-app {
-	width: 552px;
-	height: 414px;
+	height: 371px;
+	border-radius: var(--border-radius-s);
 }

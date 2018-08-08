@@ -45,6 +45,7 @@ import { IconsStatusComponent } from './components/icons-status/icons-status.com
 
 import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 import { ProductCarouselComponent } from './component/product-carousel/product-carousel.component';
+import { ActivityUserComponent } from '~shared/activity/components/activity-user/activity-user.component';
 
 @NgModule({
 	imports: [
@@ -66,7 +67,8 @@ import { ProductCarouselComponent } from './component/product-carousel/product-c
 		WorkflowActionModule,
 		StageIndicatorModule,
 		ActionBarModule,
-		CustomDialogModule
+		CustomDialogModule,
+		ActivityUserComponent
 	],
 	declarations: [
 		ProductSmallCardComponent,

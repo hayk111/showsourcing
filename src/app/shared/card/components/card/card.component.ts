@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 	}
 })
 export class CardComponent {
-	@Input() padding: 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' = 'l';
+	@Input() padding: 'none' | 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' = 'l';
 	@ViewChild('ref') ctnrRef;
 
 	get style() {

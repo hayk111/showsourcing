@@ -1,7 +1,5 @@
 
-<card-app (fileDrop)="add($event)">
-	<card-header-app>
-
+<card-app padding="none"(fileDrop)="add($event)">
 		<!-- images -->
 		<ng-container *ngIf="images.length > 0; else noImg">
 			<!-- carousel -->
@@ -13,13 +11,6 @@
 				(deleted)="onDelete($event)">
 			</carousel-app>
 
-			<!-- previews under the carousel -->
-			<!-- <image-previewer-app
-				*ngIf="hasPreview"
-				(imageClick)="setSelectedIndex($event)"
-				(plusClick)="openFileBrowser()"
-				[images]="images"></image-previewer-app> -->
-
 		</ng-container>
 		<!-- no image -->
 		<ng-template #noImg>
@@ -29,6 +20,19 @@
 			</div>
 		</ng-template>
 
+		<action-bar-app>
+			<button class="icon light">
+				<icon-app fontSet="svg" name="poll-light-grey" size="m" ></icon-app>
+			</button>
+			<button class="secondary-light">Add Picture</button>
+			<button class="icon light dots">
+				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+			</button>
+		</action-bar-app>
+
+		<activity-user-app
+			[user]="product.createdBy"></activity-user-app>
+
 		<!-- modal carousel that can be seen when clicking on the normal carousel -->
 		<modal-carousel-app
 			*ngIf="hasModalCarousel && modalOpen"
@@ -37,6 +41,4 @@
 			(close)="closeModal()"></modal-carousel-app>
 
 		<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>
-	</card-header-app>
-
 </card-app>
