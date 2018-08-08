@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { Team } from '~models/team.model';
@@ -31,7 +31,8 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 			.pipe(
 				filter(t => !!t),
 				distinctUntilChanged((x, y) => x.id === y.id),
-		).subscribe(team => this.initTeamClient(team));
+				switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
+			).subscribe(uri => this.initTeamClient(uri));
 
 		// when authenticated we start user client
 		this.authSrv.authState$.pipe(
@@ -44,11 +45,9 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 
 
 	/** initialize apollo team client */
-	private async initTeamClient(team: Team) {
+	private async initTeamClient(uri: string) {
 		try {
-			const realm = await this.getRealm(team.realmServerName);
-			const uris = this.getUris(realm.httpsPort, realm.hostname, team.realmPath);
-			this.createClient(uris.httpUri, uris.wsUri);
+			this.createClient(uri);
 			this.apolloState.setTeamClientReady();
 		} catch (e) {
 			log.error(e);

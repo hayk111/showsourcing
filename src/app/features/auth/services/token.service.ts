@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, switchMap, map } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
@@ -50,20 +50,24 @@ export class TokenService {
 		this.refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
 
 		if (this.refreshToken)
-			this.fetchAccessToken().subscribe();
+			this.fetchAccessToken(this.refreshToken).subscribe();
 		else
 			this._accessToken$.next({ token: null, token_data: null });
 
 	}
 
-	getGuestRefreshToken(token: string): Observable<RefreshTokenResponse> {
-		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`);
+	getGuestToken(token: string): Observable<RefreshTokenResponse> {
+		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`).pipe(
+			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken)),
+			tap((guestToken: ))
+			map((accessToken: AccessTokenState) => !!accessToken)
+		);
 	}
 
 	generateAccessToken(refreshToken: RefreshTokenResponse) {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
 		this.refreshToken = refreshToken;
-		return this.fetchAccessToken().pipe(
+		return this.fetchAccessToken(refreshToken).pipe(
 			tap(accessToken => this.onNewAccessToken(accessToken)),
 			catchError(e => {
 				this._accessToken$.next({ token: null, token_data: null });
@@ -72,11 +76,11 @@ export class TokenService {
 		);
 	}
 
-	private fetchAccessToken(): Observable<AccessTokenResponse> {
+	private fetchAccessToken(refreshToken): Observable<AccessTokenResponse> {
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',
-			data: this.refreshToken.refresh_token.token,
+			data: refreshToken.refresh_token.token,
 		};
 		return this.http.post<AccessTokenResponse>('api/auth', accessObj);
 	}
@@ -87,7 +91,6 @@ export class TokenService {
 			pending: false,
 			token: accessToken.user_token.token,
 			token_data: accessToken.user_token.token_data,
-			guest: this.refreshToken.guest
 		};
 		this._accessToken$.next(accessTokenState);
 		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessTokenState);
@@ -100,7 +103,7 @@ export class TokenService {
 		const errorDelta = 5 * 60 * 1000;
 		const delta = (1000 * accessTokenState.token_data.expires) - Date.now();
 		this.timer = setTimeout(_ => {
-			this.fetchAccessToken();
+			this.fetchAccessToken(this.refreshToken);
 		}, (delta - errorDelta));
 	}
 
