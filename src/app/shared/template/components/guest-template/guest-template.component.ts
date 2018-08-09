@@ -1,4 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { TokenService } from '~features/auth';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
+import { GuestClientInitializer } from '~shared/apollo';
 
 @Component({
 	selector: 'guest-template-app',
@@ -6,11 +11,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./guest-template.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GuestTemplateComponent implements OnInit {
+export class GuestTemplateComponent {
 
-	constructor() { }
 
-	ngOnInit() {
-	}
 
 }

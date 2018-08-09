@@ -30,9 +30,10 @@ export class ApolloStateService {
 	guestClientReady$: Observable<ClientState> = this._guestClientReady$.asObservable();
 
 	constructor() {
-		this.globalClientsReady$.subscribe(d => this.log(`global client ready ? ${d}`));
-		this.userClientReady$.subscribe(d => this.log(`user client ready ? ${d}`));
-		this.teamClientReady$.subscribe(d => this.log(`team client ready ? ${d}`));
+		this.globalClientsReady$.subscribe(d => this.log(`global client ready ? ${d.ready}`));
+		this.userClientReady$.subscribe(d => this.log(`user client ready ? ${d.ready}`));
+		this.teamClientReady$.subscribe(d => this.log(`team client ready ? ${d.ready}`));
+		this.guestClientReady$.subscribe(d => this.log(`guest client ready ? ${d.ready}`));
 	}
 
 	private log(str: string) {

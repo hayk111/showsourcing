@@ -61,6 +61,7 @@ export class TokenService {
 	}
 
 	getGuestAccessToken(token: string): Observable<GuestAccessTokenState> {
+		debugger;
 		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
 			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken).pipe(
 				map(accessTokenResponse => ({
