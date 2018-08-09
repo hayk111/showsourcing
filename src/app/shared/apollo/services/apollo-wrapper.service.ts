@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult } from 'apollo-link';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
@@ -18,8 +18,6 @@ import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interfac
 	providedIn: 'root'
 })
 export class ApolloWrapper {
-	private selectOneCache = new Map();
-	private selectAllCache = new Map();
 
 	constructor(protected apollo: Apollo) { }
 
@@ -29,12 +27,13 @@ export class ApolloWrapper {
 	///////////////////////////////
 
 	/** select one entity given an id */
+	private selectOneCache = new Map<string, Observable<any>>();
+
 	selectOne(options: SubribeToOneOptions) {
 		const queryName = this.getQueryName(options);
-		const cacheKey = `${options.id}-${queryName}`;
 		const variables = { query: `id == "${options.id}"` };
 		this.log('Selecting One', options, queryName, variables);
-
+		const cacheKey = options.id;
 		if (!this.selectOneCache.has(cacheKey)) {
 			this.selectOneCache.set(cacheKey, this.selectOnePipe(options, queryName, variables));
 		}
@@ -42,6 +41,7 @@ export class ApolloWrapper {
 	}
 
 	selectOnePipe(options: SubribeToOneOptions, queryName: string, variables: any) {
+		const subject = new ReplaySubject(1);
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
@@ -58,16 +58,31 @@ export class ApolloWrapper {
 	//   SELECT MANY SECTION   //
 	/////////////////////////////
 
-	// we don't have a cache for this one as it changes all the time
-
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
+		console.trace()
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
 		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
-				filter((r) => this.checkError(r)),
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				map((r) => r.data[queryName]),
+				tap(data => this.logResult('Selecting Many', queryName, data)),
+				catchError(errors => of(log.table(errors))),
+		);
+	}
+
+
+	/** same as select many but it's a query instead of a subscription */
+	selectList(options: SubscribeToManyOptions): Observable<any> {
+		const { gql, ...variables } = options;
+		const queryName = this.getQueryName(options);
+		this.log('Selecting Many', options, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+			.pipe(
+				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				map((r) => r.data[queryName]),
 				tap(data => this.logResult('Selecting Many', queryName, data)),
@@ -84,17 +99,9 @@ export class ApolloWrapper {
 	selectAll(options: SubscribeToManyOptions): Observable<any> {
 		const { gql } = options;
 		const queryName = this.getQueryName(options);
-		// we can use the query body for the cacheKey since there are no vars
-		const cacheKey = this.getQueryBody(options);
 		this.log('Selecting All', options, queryName);
-		if (!this.selectAllCache.has(cacheKey)) {
-			this.selectAllCache.set(cacheKey, this.selectAllPipe(gql, queryName));
-		}
-		return this.selectAllCache.get(cacheKey);
-	}
 
-	selectAllPipe(gql: any, queryName: string) {
-		return this.apollo.subscribe({ query: gql })
+		return this.apollo.watchQuery({ query: gql }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
@@ -238,9 +245,6 @@ export class ApolloWrapper {
 
 	/** logs events to the console */
 	private log(type: string, options: any, queryName: string, variables?: any) {
-		// check people don't use query
-		if (options.gql.definitions[0].operation === 'query')
-			log.error(`%c you are using a query, subscription should be used`);
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);

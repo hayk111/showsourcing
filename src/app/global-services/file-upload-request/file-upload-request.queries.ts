@@ -1,65 +1,28 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class FileUploadRequestQueries implements GlobalQuery {
-	one = gql`
-	subscription fileUploadRequests($query: String!) {
-		fileUploadRequests(query: $query) {
-			id,
-			status,
-			uploadUrl,
-			formData
-		}
+export class FileUploadRequestQueries extends BaseQueries implements GlobalQuery {
+
+	constructor() {
+		super('fileUploadRequest', 'FileUploadRequests');
 	}
-	`;
-	create = gql`
-	mutation createFileUploadRequest($input: FileUploadRequestInput) {
-		updateFileUploadRequest(input: $input) {
-			id,
-			status,
-			uploadUrl,
-			formData
-		}
-	}
+
+	oneDefaultSelection = `
+	status,
+	uploadUrl,
+	formData
 	`;
 
-	update = gql`
-	mutation updateFileUploadRequest($input: FileUploadRequestInput) {
-		updateFileUploadRequest(input: $input) {
-			id
-		}
-	}`;
-
-	deleteOne = gql`
-	mutation deleteFileUploadRequest($id: String!) {
-		deleteFileUploadRequest(id: $id)
-	}
+	manyDefaultSelection = `
+	status,
+	uploadUrl,
+	formData
 	`;
 
-	deleteMany = gql`
-	mutation deleteFileUploadRequest($query: String!) {
-		deleteFileUploadRequests(query: $query)
-	}
+	createDefaultSelection = `
+	status,
+	uploadUrl,
+	formData
 	`;
-
-	many = gql`
-		subscription fileUploadRequests($query: String!) {
-			fileUploadRequests(query: $query) {
-				id,
-				status,
-				uploadUrl,
-				formData
-			}
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-			subscription fileUploadRequests {
-				fileUploadRequests{
-					${str}
-				}
-			}
-		`;
-	}
 }

@@ -1,50 +1,11 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class SupplierTypeQueries implements GlobalQuery {
-
-	one: any = gql`
-	subscription supplierType($query: String!) {
-		supplierTypes(query: $query) {
-			id, name
-		}
+export class SupplierTypeQueries extends BaseQueries implements GlobalQuery {
+	constructor() {
+		super('supplierType', 'supplierTypes');
 	}
-	`;
 
-	create = gql`
-		mutation createSupplierType($input: SupplierTypeInput!) {
-			updateSupplierType(input: $input) {
-				id, name
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateSupplierType($input: SupplierTypeInput!) {
-			updateSupplierType(input: $input) {
-				id, name
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteSupplierType($id: String!) {
-			deleteSupplierType(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation deleteSupplierTypes($query: String!) {
-			deleteSupplierTypes(query: $query)
-		}
-	`;
-
-	all = (str: string) => gql`
-		subscription supplierTypes {
-			supplierTypes {
-				${str}
-			}
-		}
-	`;
 
 }

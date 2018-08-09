@@ -1,56 +1,10 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ExportRequestQueries implements GlobalQuery {
-	one = gql`
-	subscription exportRequests($query: String!) {
-		exportRequests(query: $query) {
-			id
-		}
-	}
-	`;
-	create = gql`
-	mutation createExportRequest($input: ExportRequestInput) {
-		updateExportRequest(input: $input) {
-			id
-		}
-	}
-	`;
+export class ExportRequestQueries extends BaseQueries implements GlobalQuery {
 
-	update = gql`
-	mutation updateExportRequest($input: ExportRequestInput) {
-		updateExportRequest(input: $input) {
-			id
-		}
-	}`;
-
-	deleteOne = gql`
-	mutation deleteExportRequest($id: String!) {
-		deleteExportRequest(id: $id)
-	}
-	`;
-
-	deleteMany = gql`
-	mutation deleteExportRequest($query: String!) {
-		deleteExportRequests(query: $query)
-	}
-	`;
-
-	many = gql`
-		subscription exportRequests($query: String!) {
-			exportRequests(query: $query) {
-				id
-			}
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-			subscription exportRequests {
-				exportRequests{
-					${str}
-				}
-			}
-		`;
+	constructor() {
+		super('exportRequest', 'exportRequests');
 	}
 }

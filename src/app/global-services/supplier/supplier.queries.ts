@@ -2,148 +2,97 @@ import gql from 'graphql-tag';
 import {
 	GlobalQuery
 } from '~global-services/_global/global.query.interface';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
 
 
-export class SupplierQueries implements GlobalQuery {
-	// at the time of writing this:
-	// in order to subscribe to a supplier we need to
-	// subscribe to the list and pass a query with the correct id so we
-	// get a list of one element.
-	one = gql`
-		subscription supplier($query: String!) {
-			suppliers(query: $query) {
-				id,
-				name,
-				description,
-				website,
-				phoneNumber,
-				country,
-				address,
-				supplierType {
-					id, name
-				},
-				officeEmail,
-				officePhone,
-				incoTerm,
-				harbour,
-				favorite,
-				generalMOQ,
-				generalLeadTime,
-				productCount,
-				taskCount,
-				creationDate,
-				logoImage {
-					fileName
-				},
-				createdBy {
-					id,
-					lastName,
-					firstName,
-					avatar {
-						id, fileName
-					}
-				},
-				statuses {
-					id,
-					cancelled,
-					status {
-						id, name, category, step, inWorkflow
-					}
-				},
-				categories {
-					id,
-					name
-				},
-				supplierType {
-					id,
-					name
-				},
-				images {
-					id,
-					fileName,
-					orientation
-				},
-				tags {
-					id,
-					name
-				}
-			}
-		}`;
+export class SupplierQueries extends BaseQueries implements GlobalQuery {
 
-	many = gql`
-		subscription suppliers(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-		) {
-			suppliers(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id,
-				name,
-				description,
-				country,
-				favorite,
-				tags {
-					id,
-					name
-				},
-				images {
-					id, fileName, orientation
-				},
-				categories {
-					id,
-					name
-				},
-				creationDate,
-				createdBy {
-					id,
-					firstName,
-					lastName
-				}
-				productCount
-			}
-		}`;
-
-
-	create = gql`
-		mutation addSupplier($input: SupplierInput!) {
-			updateSupplier(input: $input) {
-				id
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateSupplier($input: SupplierInput!) {
-			updateSupplier(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation supplier($id: String!) {
-			deleteSupplier(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation suppliers($query: String!) {
-			deleteSuppliers(query: $query)
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-		subscription suppliers {
-			suppliers {
-				${str}
-			}
-		}
-	`;
+	constructor() {
+		super('supplier', 'suppliers');
 	}
+
+	oneDefaultSelection = `
+			name,
+			description,
+			website,
+			phoneNumber,
+			country,
+			address,
+			supplierType {
+				id, name
+			},
+			officeEmail,
+			officePhone,
+			incoTerm,
+			harbour,
+			favorite,
+			generalMOQ,
+			generalLeadTime,
+			productCount,
+			taskCount,
+			creationDate,
+			logoImage {
+				fileName
+			},
+			createdBy {
+				id,
+				lastName,
+				firstName,
+				avatar {
+					id, fileName
+				}
+			},
+			statuses {
+				id,
+				cancelled,
+				status {
+					id, name, category, step, inWorkflow
+				}
+			},
+			categories {
+				id,
+				name
+			},
+			supplierType {
+				id,
+				name
+			},
+			images {
+				id,
+				fileName,
+				orientation
+			},
+			tags {
+				id,
+				name
+			}
+		}`;
+
+	manyDefaultSelection = `
+		name,
+		description,
+		country,
+		favorite,
+		tags {
+			id,
+			name
+		},
+		images {
+			id, fileName, orientation
+		},
+		categories {
+			id,
+			name
+		},
+		creationDate,
+		createdBy {
+			id,
+			firstName,
+			lastName
+		}
+		productCount
+		`;
 
 }
 
