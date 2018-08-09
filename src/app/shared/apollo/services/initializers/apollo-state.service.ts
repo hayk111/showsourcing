@@ -78,6 +78,7 @@ export class ApolloStateService {
 	}
 
 	setGuestClientReady() {
+		debugger;
 		this._guestClientReady$.next({ ready: true, pending: false });
 	}
 

@@ -18,7 +18,6 @@ import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 import { GloabalClientsReadyGuardService, TeamClientReadyGuardService } from '~shared/apollo/guards';
 import { GuestClientReadyGuardService } from '~shared/apollo/guards/guest-client-ready.guard.service';
-import { GuestResolver } from '~shared/apollo/services/resolvers/guest.resolver';
 
 export const routes: Array<Route> = [
 	{
@@ -49,12 +48,12 @@ export const routes: Array<Route> = [
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
 		runGuardsAndResolvers: 'paramsChange',
-		resolve: GuestResolver,
 		canActivateChild: [
 			GloabalClientsReadyGuardService,
+			GuestClientReadyGuardService
 		],
 		children: [
-			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule', canActivate: [GuestClientReadyGuardService] },
+			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 		],
 	},
 	{

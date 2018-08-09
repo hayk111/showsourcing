@@ -61,7 +61,6 @@ export class TokenService {
 	}
 
 	getGuestAccessToken(token: string): Observable<GuestAccessTokenState> {
-		debugger;
 		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
 			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken).pipe(
 				map(accessTokenResponse => ({
@@ -70,7 +69,9 @@ export class TokenService {
 					realm: refreshToken.realm as any,
 				}))
 			)),
-			tap(guestToken => this._guestAccessToken$.next(guestToken))
+			tap(guestToken => {
+				this._guestAccessToken$.next(guestToken);
+			})
 		);
 	}
 

@@ -7,6 +7,7 @@ import { TokenService } from '~features/auth/services/token.service';
 import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,12 +18,12 @@ export class GuestClientInitializer extends AbstractApolloInitializer {
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
+		private route: ActivatedRoute
 	) {
 		super(apollo, link);
 	}
 
 	init() {
-
 		// when a guest access token is seen we create a guest client
 		this.tokenSrv.guestAccessToken$.pipe(
 			map(guestToken => ({
@@ -31,7 +32,7 @@ export class GuestClientInitializer extends AbstractApolloInitializer {
 				valid: !guestToken.invalidated
 			}))
 		).subscribe(opts => {
-			if (!opts.valid)
+			if (opts.valid)
 				this.initGuestClient(opts.uri, opts.token)
 			else
 				this.resetClient();
@@ -40,7 +41,7 @@ export class GuestClientInitializer extends AbstractApolloInitializer {
 
 
 	/** initialize apollo guest client */
-	private async initGuestClient(uri: string, token) {
+	private initGuestClient(uri: string, token) {
 		try {
 			this.createClient(uri, undefined, token);
 			this.apolloState.setGuestClientReady();
