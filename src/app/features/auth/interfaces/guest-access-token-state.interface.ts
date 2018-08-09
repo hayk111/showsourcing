@@ -2,7 +2,7 @@ import { AccessTokenState } from '~features/auth/interfaces/access-token-state.i
 
 
 export interface GuestAccessTokenState extends AccessTokenState {
-	realm: {
+	realm?: {
 		host: string;
 		httpsPort: number;
 		path: string;

@@ -4,10 +4,12 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { environment } from 'environments/environment';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
-import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from './client-names.const';
+import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils';
+
+
 
 
 @Injectable({ providedIn: 'root' })

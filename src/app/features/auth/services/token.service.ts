@@ -35,7 +35,7 @@ export class TokenService {
 	clearTokens(): void {
 		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
 		this.localStorageSrv.remove(ACCESS_TOKEN_NAME);
-		this._accessToken$.next({ token: null, token_data: null });
+		this._accessToken$.next({ invalidated: true });
 		this.stopTimer();
 	}
 
@@ -56,7 +56,7 @@ export class TokenService {
 		if (this.refreshToken)
 			this.generateAccessToken(this.refreshToken).subscribe();
 		else
-			this._accessToken$.next({ token: null, token_data: null });
+			this._accessToken$.next({ invalidated: true });
 
 	}
 
@@ -64,14 +64,17 @@ export class TokenService {
 		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
 			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken).pipe(
 				map(accessTokenResponse => ({
-					pending: false,
 					token: accessTokenResponse.user_token.token,
 					token_data: accessTokenResponse.user_token.token_data,
-					realm: refreshToken.realm
+					realm: refreshToken.realm as any,
 				}))
 			)),
 			tap(guestToken => this._guestAccessToken$.next(guestToken))
 		);
+	}
+
+	revokeGuestAccessToken() {
+		this._guestAccessToken$.next({ invalidated: true });
 	}
 
 	generateAccessToken(refreshToken: RefreshTokenResponse): Observable<AccessTokenResponse> {
@@ -80,7 +83,7 @@ export class TokenService {
 		return this.fetchAccessToken(refreshToken).pipe(
 			tap(accessToken => this.onNewAccessToken(accessToken)),
 			catchError(e => {
-				this._accessToken$.next({ token: null, token_data: null });
+				this._accessToken$.next({ invalidated: true });
 				return throwError(e);
 			})
 		);
@@ -98,7 +101,6 @@ export class TokenService {
 	/** when a new access token arrives */
 	private onNewAccessToken(accessToken: AccessTokenResponse) {
 		const accessTokenState = {
-			pending: false,
 			token: accessToken.user_token.token,
 			token_data: accessToken.user_token.token_data,
 		};

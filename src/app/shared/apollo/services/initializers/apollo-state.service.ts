@@ -26,6 +26,9 @@ export class ApolloStateService {
 	private _teamClientReady$ = new ReplaySubject<ClientState>(1);
 	teamClientReady$: Observable<ClientState> = this._teamClientReady$.asObservable();
 
+	private _guestClientReady$ = new ReplaySubject<ClientState>(1);
+	guestClientReady$: Observable<ClientState> = this._guestClientReady$.asObservable();
+
 	constructor() {
 		this.globalClientsReady$.subscribe(d => this.log(`global client ready ? ${d}`));
 		this.userClientReady$.subscribe(d => this.log(`user client ready ? ${d}`));
@@ -71,5 +74,17 @@ export class ApolloStateService {
 
 	resetGlobalClient() {
 		this._globalClientsReady$.next({ ready: undefined, pending: true });
+	}
+
+	setGuestClientReady() {
+		this._guestClientReady$.next({ ready: true, pending: false });
+	}
+
+	setGuestClientNotReady() {
+		this._guestClientReady$.next({ ready: false, pending: false });
+	}
+
+	resetGuestClient() {
+		this._guestClientReady$.next({ ready: undefined, pending: true });
 	}
 }

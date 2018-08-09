@@ -5,7 +5,7 @@ import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { Team } from '~models/team.model';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
@@ -40,11 +40,6 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 			filter(authenticated => !authenticated)
 		).subscribe(authenticated => this.resetClient());
 
-		// when a guest access token is seen we create a team client
-
-		this.tokenSrv.guestAccessToken$.pipe(
-			map(guestToken => ({ uri: this.getUri(guestToken.realm.httpsPort, guestToken.realm.host, guestToken.realm.path), token: guestToken.token }))
-		).subscribe(opts => this.initTeamClient(opts.uri, opts.token));
 	}
 
 

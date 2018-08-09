@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
-import { USER_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
+import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalService } from '~global-services/_global/global.service';
