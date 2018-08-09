@@ -28,37 +28,43 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
 
 	/** selects all entity
- 	* @param id : id of the entity selected
+	 * @param id : id of the entity selected
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectOne(id: string, fields?: string): Observable<T> {
+	selectOne(id: string, fields?: string, client?: string): Observable<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		return this.wrapper.selectOne({ gql: this.queries.one(fields), id });
+		return this.wrapper.use(client).selectOne({ gql: this.queries.one(fields), id });
 	}
 
 	/** selects all entity
 	 * @param fields : string to specify the fields we want to query
 	 * defaults to id, name
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectAll(fields?: string): Observable<T[]> {
+	selectAll(fields?: string, client?: string): Observable<T[]> {
 		if (!this.queries.all) {
 			throw Error('all query not implemented for this service');
 		}
-		return this.wrapper.selectAll({ gql: this.queries.all(fields) });
+		return this.wrapper.use(client).selectAll({ gql: this.queries.all(fields) });
 	}
 
 	/** selects slice of data that corresponds to parameters
- 	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
+	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectMany(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string): Observable<T[]> {
+	selectMany(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string): Observable<T[]> {
 		if (!this.queries.many) {
 			throw Error('many query not implemented for this service');
 		}
 		return params$.pipe(
 			map((params: SelectParams) => params.toWrapperOptions(this.queries.many(fields))),
 			distinctUntilChanged(),
-			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectMany(opts))
+			switchMap((opts: SubscribeToManyOptions) => this.wrapper.use(client).selectMany(opts))
 		);
 	}
 
@@ -107,67 +113,82 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	}
 
 	/** update an entity
- 	* @param entity : entity with an id and the fields we want to update
+	 * @param entity : entity with an id and the fields we want to update
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, fields?: string): Observable<any> {
-		this.trim(entity);
+	update(entity: T, fields?: string, client?: string): Observable<any> {
+		// this.trim(entity);
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
-		return this.wrapper.update({
+		return this.wrapper.use(client).update({
 			gql: this.queries.update(fields),
 			input: entity,
 			typename: this.typeName
 		});
 	}
 
-	updateMany(entities: T[], fields?: string): Observable<any> {
-		return forkJoin(entities.map(entity => this.update(entity, fields)));
+	/** update many entities
+	 * @param entities : Array of entities to update, each entity needs an id to be found in the db
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	updateMany(entities: T[], fields?: string, client?: string): Observable<any> {
+		return forkJoin(entities.map(entity => this.update(entity, fields, client)));
 	}
 
-	create(entity: T, fields?: string): Observable<any> {
-		this.trim(entity);
+	/** create an entity
+	 * @param entity : entity with an id and the fields we want to create
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	create(entity: T, fields?: string, client?: string): Observable<any> {
+		// this.trim(entity);
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		return this.wrapper.create({
+		return this.wrapper.use(client).create({
 			gql: this.queries.create(fields),
 			input: entity,
 			typename: this.typeName
 		});
 	}
 
-	deleteOne(id: string): Observable<any> {
+	deleteOne(id: string, client?: string): Observable<any> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
-		return this.wrapper.delete({
+		return this.wrapper.use(client).delete({
 			gql: this.queries.deleteOne,
 			id,
 			typename: this.typeName
 		});
 	}
 
-	deleteMany(ids: string[]): Observable<any> {
+	deleteMany(ids: string[], client?: string): Observable<any> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
-		return this.wrapper.deleteMany({
+		return this.wrapper.use(client).deleteMany({
 			gql: this.queries.deleteMany,
 			ids,
 			typename: this.typeName
 		});
 	}
 
+
+	// TODO: Michael this should be a middleware and not polute global service sorry but it's not this class's responsibility
+
 	/** Michael did this:
 	 *  This is used to eliminate spaces at the sides of the strings in the entity properties.
 	 *  CopyRight Michael Corp.
 	 */
-	private trim(entity: T) {
-		Object.entries(entity).forEach(([k, v]) => {
-			if (!isObject(v) && typeof v === 'string') entity[k] = v.trim();
-		});
-	}
+	// private trim(entity: T) {
+	// 	Object.entries(entity).forEach(([k, v]) => {
+	// 		if (!isObject(v) && typeof v === 'string') entity[k] = v.trim();
+	// 	});
+	// }
 }
 
 

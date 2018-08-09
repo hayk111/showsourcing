@@ -60,7 +60,6 @@ export class ApolloWrapper {
 
 	/** select many entities in accordance to the conditions supplied */
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
-		console.trace()
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
@@ -199,7 +198,10 @@ export class ApolloWrapper {
 
 	/** to use another named apollo client */
 	use(name: string) {
-		return new ApolloWrapper(this.apollo.use(name) as Apollo);
+		if (name)
+			return new ApolloWrapper(this.apollo.use(name) as Apollo);
+		else
+			return this;
 	}
 
 	/** create appollo mutationOptions from our updateOptions */

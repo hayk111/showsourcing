@@ -12,6 +12,7 @@ import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { log } from '~utils/log';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractApolloInitializer {
@@ -57,7 +58,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	}
 
 	/** gets user from all-users realm */
-	private getUser(id: string): Promise<User> {
+	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
 		return this.wrapper.use(ALL_USER_CLIENT).selectOne({
 			gql: ClientInitializerQueries.selectUser,
