@@ -5,6 +5,7 @@ import { AppImage } from '~models/app-image.model';
 export class EventDescription {
 	id: string;
 	name: string;
+	description: string;
 	website?: string;
 	startDate?: string;
 	endDate?: string;
@@ -15,6 +16,7 @@ export class EventDescription {
 	primaryColor?: string;
 	secondaryColor?: string;
 	venue?: Venue;
+	industry?: { id: string, name: string };
 
 	constructor(config: EventDescriptionConfig) {
 		this.id = uuid();
