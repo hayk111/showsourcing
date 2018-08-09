@@ -44,7 +44,7 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 import { IconsStatusComponent } from './components/icons-status/icons-status.component';
 
 import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
-import { ProductCarouselComponent } from './component/product-carousel/product-carousel.component';
+import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ActivityUserComponent } from '~shared/activity/components/activity-user/activity-user.component';
 
 @NgModule({
