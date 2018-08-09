@@ -1,80 +1,34 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class TeamUserQueries implements GlobalQuery {
+export class TeamUserQueries extends BaseQueries implements GlobalQuery {
 
-	list: any = gql`
-	subscription teamUsers(
-		$take: Int,
-		$skip: Int,
-		$query: String!,
-		$sortBy: String,
-		$descending: Boolean
-	) {
-		teamUsers(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-			id,
-			user {
-				id,
-				firstName,
-				lastName,
-				email
-			},
-			status,
-			accessType
-		}
+	constructor() {
+		super('teamUser', 'teamUsers');
 	}
-	`;
 
-	one: any = gql`
-	subscription teamUser($query: String!) {
-		teamUsers(query: $query) {
+	oneDefaultSelection = `
+		user {
 			id,
-			user {
-				id,
-				firstName,
-				lastName,
-				email
-			},
-			status,
-			accessType
-		}
-	}
+			firstName,
+			lastName,
+			email
+		},
+		status,
+		accessType`;
+
+	manyDefaultSelection = `
+		id,
+		user {
+			id,
+			firstName,
+			lastName,
+			email
+		},
+		status,
+		accessType
 	`;
 
-	create = gql`
-		mutation createTeamUser($input: TeamUserInput!) {
-			updateTeamUser(input: $input) {
-				id
-			}
-		}
-	`;
-
-	update = gql`
-		mutation updateTeamUser($input: TeamUserInput!) {
-			updateTeamUser(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteTeamUser($id: String!) {
-			deleteTeamUser(id: $id)
-		}
-	`;
-
-	deleteMany = gql`
-		mutation deleteTeamUsers($query: String!) {
-			deleteTeamUser(query: $query)
-		}
-	`;
-
-	all = (str: string) => gql`
-		subscription teamUsers {
-			teamUsers {
-				${str}
-			}
-		}
-	`
 
 }

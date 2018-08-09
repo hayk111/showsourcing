@@ -1,59 +1,10 @@
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class EventDescriptionQueries implements GlobalQuery {
-	one = gql`
-	subscription eventDescriptions($query: String!) {
-		eventDescriptions(query: $query) {
-			id,
-			name
-		}
-	}
-	`;
-	create = gql`
-	mutation createEventDescription($input: EventDescriptionInput) {
-		updateEventDescription(input: $input) {
-			id
-		}
-	}
-	`;
-
-	update = gql`
-	mutation updateEventDescription($input: EventDescriptionInput) {
-		updateEventDescription(input: $input) {
-			id
-		}
-	}`;
-
-	deleteOne = gql`
-	mutation deleteEventDescription($id: String!) {
-		deleteEventDescription(id: $id)
-	}
-	`;
-
-	deleteMany = gql`
-	mutation deleteEventDescription($query: String!) {
-		deleteEventDescriptions(query: $query)
-	}
-	`;
-
-	many = gql`
-		subscription eventDescriptions($query: String!) {
-			eventDescriptions(query: $query) {
-				id,
-				name
-			}
-		}
-	`;
-
-	all = (str: string) => {
-		return gql`
-			subscription eventDescriptions {
-				eventDescriptions{
-					${str}
-				}
-			}
-		`;
+export class EventDescriptionQueries extends BaseQueries implements GlobalQuery {
+	constructor() {
+		super('eventDescription', 'eventDescriptions');
 	}
 
 }

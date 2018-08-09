@@ -2,73 +2,22 @@ import gql from 'graphql-tag';
 import {
 	GlobalQuery
 } from '~global-services/_global/global.query.interface';
+import { BaseQueries } from '~global-services/_global/base-query.class';
 
 
 
-export class InvitationQueries implements GlobalQuery {
-	// at the time of writing this:
-	// in order to subscribe to a supplier we need to
-	// subscribe to the list and pass a query with the correct id so we
-	// get a list of one element.
+export class InvitationQueries extends BaseQueries implements GlobalQuery {
 
-	one = gql`
-		subscription invitation($query: String!) {
-			invitations(query: $query) {
-				id,
-                email
-			}
-		}`;
-
-	many = gql`
-		subscription invitations(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-		) {
-			invitations(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id,
-				email
-			}
-		}`;
-
-	create = gql`
-        mutation createInvitation($input: InvitationInput!) {
-            updateInvitation(input: $input) {
-                id
-            }
-        }
-    `;
-
-	update = gql`
-		mutation invitation($input: InvitationInput!) {
-			updateInvitation(input: $input) {
-				id
-			}
-		}
+	oneDefaultSelection = `
+		email
 	`;
 
-	deleteOne = gql`
-		mutation invitation($id: String!) {
-			deleteInvitation(id: $id)
-		}
+	manyDefaultSelection = `
+	email
 	`;
 
-	deleteMany = gql`
-		mutation invitations($query: String!) {
-			deleteInvitations(query: $query)
-		}
-    `;
-
-	all = (str: string) => {
-		return gql`
-		subscription invitations {
-			invitations {
-				${str}
-			}
-		}
-	`;
+	constructor() {
+		super('invitation', 'invitations');
 	}
 
 }
