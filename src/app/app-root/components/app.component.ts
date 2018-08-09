@@ -31,8 +31,5 @@ export class AppComponent implements OnInit {
 		this.teamPicker.init();
 		this.teamClient.init();
 		this.activitySrv.init();
-		this.router.events.subscribe(event => {
-			console.log(event)
-		})
 	}
 }
