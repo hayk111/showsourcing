@@ -7,7 +7,7 @@ card-app {
 
 	icon-app[name^="folder"] {
 		cursor: default;
-		margin-right: 22px;
+		margin-right: var(--spacing-ml);
 	}
 
 	icon-app[name="folder"] {

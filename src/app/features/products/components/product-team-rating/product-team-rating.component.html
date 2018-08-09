@@ -1,3 +1,16 @@
-<p>
-  product-team-rating works!
-</p>
+<card-app>
+		<h2 i18n="header 2|Product card@@teamRatingCard_product" class="flex">
+			<icon-app fontSet="svg" name="poll-light-blue" ></icon-app>
+			Team Rating
+		</h2>
+
+		<div>
+			<icon-app [name]="name" [ngStyle]="successStyle" [size]="size" fontSet="svg"></icon-app>
+			<rating-cylinder-app
+				[score]="getScore"
+				dislikeColor="warn">
+			</rating-cylinder-app>
+		</div>
+
+	<card-footer-app></card-footer-app>
+</card-app>

@@ -1,0 +1,12 @@
+:host {
+	display: block;
+}
+
+card-app {
+	width: 100%;
+
+	icon-app[name="poll-light-blue"] {
+		cursor: default;
+		margin-right: var(--spacing-ml);
+	}
+}

@@ -111,7 +111,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			creationDate
 			`;
 
-	manyDefault = `
+	manyDefaultSelection = `
 			name,
 			description,
 			creationDate,
