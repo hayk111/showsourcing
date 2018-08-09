@@ -20,5 +20,5 @@ export class ProjectCardComponent implements OnInit {
 	@Output() addProjectClick = new EventEmitter<null>();
 
 	constructor() { }
-	ngOnInit() { }
+	ngOnInit() { console.log(this.projects); }
 }

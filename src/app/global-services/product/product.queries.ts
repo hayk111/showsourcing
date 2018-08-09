@@ -34,7 +34,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				id, name
 			},
 			projects {
-				id, name, productCount
+				id, name, productCount, description
 			}
 			description,
 			event {

@@ -2,12 +2,29 @@
 	display: block;
 }
 
+icon-app[name^="folder"] {
+	margin-right: 22px;
+}
+
+icon-app[name="folder"] {
+	padding-bottom: 15px;
+}
+card-app {
+	width: 100%;
+}
+
+divider-app {
+	color: white;
+	background: white;
+}
+
 
 article {
 	padding: var(--spacing-s);
 	border-radius: var(--border-radius);
 	.minus {
 		display: none;
+		color: var(--color-warn);
 	}
 	&:hover .minus {
 		display: block;
@@ -33,9 +50,11 @@ article {
 	font-weight: 600;
 }
 
-.numProducts {
-	color: var(--color-txt-secondary);
-	font-weight: 600;
+.description {
+	margin-top: 5px;
+	height: 15px;
+	color: var(--color-txt-primary);
+	font-size: var(--font-size-s);
 }
 
 .hr {
@@ -44,4 +63,13 @@ article {
 
 .bottom {
 	text-align: right;
+}
+
+card-footer-app {
+	margin-left: 44px;
+	margin-top: 13px;
+}
+
+divider-app {
+	margin-top: 16px;
 }

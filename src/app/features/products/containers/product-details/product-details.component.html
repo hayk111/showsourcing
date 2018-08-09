@@ -17,14 +17,14 @@
 				(productUnfavorite)="onUnfavorited()"
 				(vote)="updateProduct($event)"></product-carousel-app>
 
-			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
+			<!-- <supplier-card-app [supplier]="product?.supplier"></supplier-card-app> -->
 
 			<project-card-app
 				(removeProject)="removeProject($event)"
 				(addProjectClick)="openAddProjectDlg()"
 				[projects]="product.projects"></project-card-app>
 
-			<files-card-app></files-card-app>
+			<!-- <files-card-app></files-card-app> -->
 
 		</div>
 

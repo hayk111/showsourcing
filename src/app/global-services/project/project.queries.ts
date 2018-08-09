@@ -8,6 +8,7 @@ export class ProjectQueries extends BaseQueries implements GlobalQuery {
 		super('project', 'projects');
 	}
 
+	// tslint:disable-next-line:max-line-length
 	oneDefaultSelection = `name, description, lastUpdatedDate, creationDate, createdBy { id, firstName, lastName }, logoImage { id, fileName }`;
 	manyDefaultSelection = `name, createdBy { id, firstName, lastName }, productCount, lastUpdatedDate, creationDate, description`;
 

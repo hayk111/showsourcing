@@ -7,9 +7,7 @@ import { ProductVoteRequestService } from '~global-services/product-vote-request
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ProductDialogService extends ProductService {
 
 	constructor(
