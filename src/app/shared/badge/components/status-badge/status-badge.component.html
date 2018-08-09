@@ -5,6 +5,6 @@
 
 <ng-template #noStatus>
 	<badge-app #badge [size]="size" [type]="type">
-		NEW {{ typeEntity.singular.toUpperCase() }}
+		NEW {{ typeEntity?.singular?.toUpperCase() }}
 	</badge-app>
 </ng-template>

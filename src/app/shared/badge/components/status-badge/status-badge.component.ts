@@ -23,7 +23,7 @@ export class StatusBadgeComponent implements OnInit {
 	@Input() hasArrow = false;
 
 	// by default is secondary since is the color for NEW elements
-	type = 'secondary';
+	@Input() type = 'secondary';
 
 	constructor() {
 	}

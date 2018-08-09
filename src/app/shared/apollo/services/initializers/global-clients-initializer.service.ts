@@ -4,10 +4,12 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { environment } from 'environments/environment';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
-import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-endpoints.const';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from './client-names.const';
+import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils';
+
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +22,7 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 		protected httpLink: HttpLink,
 		protected authSrv: AuthenticationService
 	) {
-		super(apollo, tokenSrv, httpLink, authSrv, false);
+		super(apollo, httpLink);
 	}
 
 	init() {
@@ -28,12 +30,12 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 	}
 
 	/** creates global and all-users clients */
-	private async initGlobalClients() {
+	private initGlobalClients() {
 		try {
 			// 1. creating all-users client and getting the user
-			this.createAllUserClient();
-			this.createGlobalConstantClient();
-			this.createGlobalDataClient();
+			this.createClient(ALL_USER_CLIENT);
+			this.createClient(GLOBAL_CONSTANT_CLIENT);
+			this.createClient(GLOBAL_DATA_CLIENT);
 			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
 			log.error(e);
@@ -41,27 +43,9 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 		}
 	}
 
-
-	/** creates the client that can access the user which gives the userRealmUri */
-	private createAllUserClient() {
-		const httpUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
-		const wsUri = new URL(`${environment.apiUrl}/graphql/${ALL_USER_CLIENT}`);
-		wsUri.protocol = 'wss';
-		super.createClient(httpUri.toString(), wsUri.toString(), ALL_USER_CLIENT);
-	}
-
-	private createGlobalConstantClient() {
-		const httpUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_CONSTANT_CLIENT}`);
-		const wsUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_CONSTANT_CLIENT}`);
-		wsUri.protocol = 'wss';
-		super.createClient(httpUri.toString(), wsUri.toString(), GLOBAL_CONSTANT_CLIENT);
-	}
-
-	private createGlobalDataClient() {
-		const httpUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_DATA_CLIENT}`);
-		const wsUri = new URL(`${environment.apiUrl}/graphql/${GLOBAL_DATA_CLIENT}`);
-		wsUri.protocol = 'wss';
-		super.createClient(httpUri.toString(), wsUri.toString(), GLOBAL_DATA_CLIENT);
+	protected createClient(name) {
+		const uri = `${environment.graphqlUrl}/${name}`;
+		super.createClient(uri, name);
 	}
 
 }

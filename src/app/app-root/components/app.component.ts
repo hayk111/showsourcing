@@ -5,6 +5,7 @@ import { UserClientInitializer } from '~shared/apollo/services/initializers/user
 import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 import { ActivityService } from '~shared/activity/services/activity.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { ActivityService } from '~shared/activity/services/activity.service';
 })
 export class AppComponent implements OnInit {
 	constructor(
+		private router: Router,
 		private authSrv: AuthenticationService,
 		private globalClients: GlobalClientsInitializer,
 		private userClient: UserClientInitializer,

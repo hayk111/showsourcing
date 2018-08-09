@@ -1,27 +1,22 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AppComponent } from '~app-root/components/app.component';
+import { routes } from '~app-root/routes';
 import { AuthModule } from '~features/auth';
-import { DataManagementModule } from '~features/data-management/data-management.module';
+import { EventModule } from '~features/event/event.module';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 import { TestPageModule } from '~features/test-page/test-page.module';
 import { UserModule } from '~features/user';
 import { AppApolloModule } from '~shared/apollo/apollo.module';
 import { CardModule } from '~shared/card';
 import { DialogModule } from '~shared/dialog';
-import { CustomDialogModule } from '~shared/custom-dialog';
 import { IconsModule } from '~shared/icons';
 import { LocalStorageModule } from '~shared/local-storage';
 import { NotificationsModule } from '~shared/notifications';
 import { TemplateModule } from '~shared/template';
-
-import { EventModule } from '~features/event/event.module';
-import { AppComponent } from '~app-root/components/app.component';
-import { routes } from '~app-root/routes';
-import { HttpApiRedirectorService } from '~app-root/services/http-api-redirector.service';
-import { WorkflowModule } from '~features/workflow';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -53,13 +48,7 @@ import { WorkflowModule } from '~features/workflow';
 			// { enableTracing: true }
 		),
 	],
-	providers: [
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: HttpApiRedirectorService,
-			multi: true
-		},
-	],
+	providers: [],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 })
