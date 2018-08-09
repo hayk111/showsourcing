@@ -46,6 +46,7 @@ import { IconsStatusComponent } from './components/icons-status/icons-status.com
 import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ActivityUserComponent } from '~shared/activity/components/activity-user/activity-user.component';
+import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 
 @NgModule({
 	imports: [
@@ -92,7 +93,8 @@ import { ActivityUserComponent } from '~shared/activity/components/activity-user
 		TeamRatingCardComponent,
 		ProductGridCardComponent,
 		IconsStatusComponent,
-		ProductCarouselComponent
+		ProductCarouselComponent,
+		ProductTeamRatingComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
