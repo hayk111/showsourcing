@@ -19,6 +19,8 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 export class TokenService {
 	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();
+	private _guestAccessToken$ = new ReplaySubject<AccessTokenState>(1);
+	guestAccessToken$ = this._guestAccessToken$.asObservable();
 	// having the token accessible synchronously makes things easier in other places
 	accessTokenSync: AccessTokenState;
 	// timeout variable. The timeout will refresh the access token.
@@ -57,11 +59,18 @@ export class TokenService {
 
 	}
 
-	getGuestRefreshToken(token: string): Observable<RefreshTokenResponse> {
-		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`);
+	getGuestAccessToken(token: string): Observable<AccessTokenResponse> {
+		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`).pipe(
+			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken)),
+			tap(accessTokenResponse => this._guestAccessToken$.next({
+				pending: false,
+				token: accessTokenResponse.user_token.token,
+				token_data: accessTokenResponse.user_token.token_data,
+			}))
+		);
 	}
 
-	generateAccessToken(refreshToken: RefreshTokenResponse) {
+	generateAccessToken(refreshToken: RefreshTokenResponse): Observable<AccessTokenResponse> {
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
 		this.refreshToken = refreshToken;
 		return this.fetchAccessToken(refreshToken).pipe(

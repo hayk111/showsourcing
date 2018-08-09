@@ -11,13 +11,12 @@ export class GuestTokenGuard implements CanActivate, CanActivateChild {
 	constructor(private tokenSrv: TokenService) { }
 
 	canActivate(route: ActivatedRouteSnapshot) {
-		return true;
-		// return route.params.pipe(
-		// 	switchMap((params: any) => this.tokenSrv.getGuestRefreshToken(params.token)),
-		// 	switchMap((refreshToken: any) => this.tokenSrv.fetchAccessToken(refreshToken)),
-		// 	switchMap(_ => this.tokenSrv.accessToken$),
-		// 	map((accessToken: AccessTokenState) => accessToken.guest)
-		// );
+		return route.params.pipe(
+			switchMap((params: any) => this.tokenSrv.getGuestRefreshToken(params.token)),
+			switchMap((refreshToken: any) => this.tokenSrv.fetchAccessToken(refreshToken)),
+			switchMap(_ => this.tokenSrv.accessToken$),
+			map((accessToken: AccessTokenState) => accessToken.guest)
+		);
 	}
 
 	canActivateChild(route: ActivatedRouteSnapshot) {

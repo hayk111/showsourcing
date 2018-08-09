@@ -37,10 +37,8 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 		// when authenticated we start user client
 		this.authSrv.authState$.pipe(
 			map(authState => authState.authenticated),
-		).subscribe(authenticated => {
-			if (!authenticated)
-				this.resetClient();
-		});
+			filter(authenticated => !authenticated)
+		).subscribe(authenticated => this.resetClient());
 	}
 
 
