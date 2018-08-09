@@ -22,8 +22,6 @@ export class PickATeamPageComponent implements OnInit {
 	}
 
 	selectTeam(team: Team) {
-		team.realmServerName = 'default';
-		team.realmPath = `team/${team.id}`;
 		this.teamPicker.pickTeam(team).subscribe(_ => {
 			this.router.navigate(['']);
 		});
