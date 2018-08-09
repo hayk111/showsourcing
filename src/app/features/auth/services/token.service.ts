@@ -8,6 +8,7 @@ import { LocalStorageService } from '~shared/local-storage';
 import { AccessTokenState } from '~features/auth/interfaces';
 import { AuthModule } from '~features/auth/auth.module';
 import { environment } from 'environments/environment.prod';
+import { GuestAccessTokenState } from '~features/auth/interfaces/guest-access-token-state.interface';
 
 const ACCESS_TOKEN_NAME = 'accessToken';
 const REFRESH_TOKEN_NAME = 'refreshToken';
@@ -19,7 +20,7 @@ const REFRESH_TOKEN_NAME = 'refreshToken';
 export class TokenService {
 	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
 	accessToken$ = this._accessToken$.asObservable();
-	private _guestAccessToken$ = new ReplaySubject<AccessTokenState>(1);
+	private _guestAccessToken$ = new ReplaySubject<GuestAccessTokenState>(1);
 	guestAccessToken$ = this._guestAccessToken$.asObservable();
 	// having the token accessible synchronously makes things easier in other places
 	accessTokenSync: AccessTokenState;
@@ -59,14 +60,17 @@ export class TokenService {
 
 	}
 
-	getGuestAccessToken(token: string): Observable<AccessTokenResponse> {
-		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/pouet`).pipe(
-			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken)),
-			tap(accessTokenResponse => this._guestAccessToken$.next({
-				pending: false,
-				token: accessTokenResponse.user_token.token,
-				token_data: accessTokenResponse.user_token.token_data,
-			}))
+	getGuestAccessToken(token: string): Observable<GuestAccessTokenState> {
+		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
+			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken).pipe(
+				map(accessTokenResponse => ({
+					pending: false,
+					token: accessTokenResponse.user_token.token,
+					token_data: accessTokenResponse.user_token.token_data,
+					realm: refreshToken.realm
+				}))
+			)),
+			tap(guestToken => this._guestAccessToken$.next(guestToken))
 		);
 	}
 

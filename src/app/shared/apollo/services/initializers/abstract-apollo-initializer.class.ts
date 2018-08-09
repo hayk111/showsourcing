@@ -19,10 +19,7 @@ export abstract class AbstractApolloInitializer {
 
 	constructor(
 		protected apollo: Apollo,
-		protected tokenSrv: TokenService,
 		protected httpLink: HttpLink,
-		protected authSrv: AuthenticationService,
-		protected clearOnLogout: boolean
 	) { }
 
 	/**
@@ -46,14 +43,7 @@ export abstract class AbstractApolloInitializer {
 		);
 	}
 
-	protected createClient(wsUri: string, name?: string) {
-		// Create an http link:
-		let token;
-
-		if (this.tokenSrv.accessTokenSync) {
-			token = this.tokenSrv.accessTokenSync.token;
-		}
-
+	protected createClient(wsUri: string, name?: string, token?: string) {
 
 		// Create a WebSocket link:
 		const connectionParams = (token ? { token } : undefined);

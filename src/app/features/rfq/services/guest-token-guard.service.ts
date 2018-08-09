@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AccessTokenState, TokenService } from '~features/auth';
 
 @Injectable({
@@ -11,11 +11,10 @@ export class GuestTokenGuard implements CanActivate, CanActivateChild {
 	constructor(private tokenSrv: TokenService) { }
 
 	canActivate(route: ActivatedRouteSnapshot) {
+		debugger;
 		return route.params.pipe(
-			switchMap((params: any) => this.tokenSrv.getGuestRefreshToken(params.token)),
-			switchMap((refreshToken: any) => this.tokenSrv.fetchAccessToken(refreshToken)),
-			switchMap(_ => this.tokenSrv.accessToken$),
-			map((accessToken: AccessTokenState) => accessToken.guest)
+			tap(params => { debugger; }),
+			switchMap((params: any) => this.tokenSrv.getGuestAccessToken(params.token))
 		);
 	}
 

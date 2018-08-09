@@ -18,13 +18,13 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 
 	constructor(
 		protected apollo: Apollo,
-		protected tokenSrv: TokenService,
 		protected link: HttpLink,
+		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
 		private wrapper: ApolloWrapper
 	) {
-		super(apollo, tokenSrv, link, authSrv, true);
+		super(apollo, link);
 	}
 
 	init() {
@@ -34,7 +34,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 			filter(authState => authState.authenticated),
 			switchMap(authState => this.getUser(authState.userId)),
 			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath))
-		).subscribe(uri => this.initUserClient(uri));
+		).subscribe(uri => this.initUserClient(uri, this.tokenSrv.accessTokenSync.token));
 
 
 		// when unauthenticated we reset user client
@@ -46,9 +46,9 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	}
 
 	/** create the user client  */
-	private initUserClient(uri: string) {
+	private initUserClient(uri: string, token: string) {
 		try {
-			super.createClient(uri, USER_CLIENT);
+			super.createClient(uri, USER_CLIENT, token);
 			this.apolloState.setUserClientReady();
 		} catch (e) {
 			log.error(e);

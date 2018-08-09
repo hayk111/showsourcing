@@ -16,36 +16,42 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 
 	constructor(
 		protected apollo: Apollo,
-		protected tokenSrv: TokenService,
 		protected link: HttpLink,
+		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
 		protected teamPicker: TeamPickerService
 	) {
-		super(apollo, tokenSrv, link, authSrv, true);
+		super(apollo, link);
 	}
 
 	init() {
-		// when the the user has selected a team we initialize the team client
+		// when the user has selected a team we initialize the team client
 		this.teamPicker.selectedTeam$
 			.pipe(
 				filter(t => !!t),
 				distinctUntilChanged((x, y) => x.id === y.id),
 				switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
-			).subscribe(uri => this.initTeamClient(uri));
+			).subscribe(uri => this.initTeamClient(uri, this.tokenSrv.accessTokenSync.token));
 
-		// when authenticated we start user client
+		// when authenticated we start team client
 		this.authSrv.authState$.pipe(
 			map(authState => authState.authenticated),
 			filter(authenticated => !authenticated)
 		).subscribe(authenticated => this.resetClient());
+
+		// when a guest access token is seen we create a team client
+
+		this.tokenSrv.guestAccessToken$.pipe(
+			map(guestToken => ({ uri: this.getUri(guestToken.realm.httpsPort, guestToken.realm.host, guestToken.realm.path), token: guestToken.token }))
+		).subscribe(opts => this.initTeamClient(opts.uri, opts.token));
 	}
 
 
 	/** initialize apollo team client */
-	private async initTeamClient(uri: string) {
+	private async initTeamClient(uri: string, token) {
 		try {
-			this.createClient(uri);
+			this.createClient(uri, undefined, token);
 			this.apolloState.setTeamClientReady();
 		} catch (e) {
 			log.error(e);

@@ -20,7 +20,7 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 		protected httpLink: HttpLink,
 		protected authSrv: AuthenticationService
 	) {
-		super(apollo, tokenSrv, httpLink, authSrv, false);
+		super(apollo, httpLink);
 	}
 
 	init() {
