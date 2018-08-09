@@ -3,6 +3,7 @@
 }
 
 icon-app[name^="folder"] {
+	cursor: default;
 	margin-right: 22px;
 }
 
@@ -13,11 +14,9 @@ card-app {
 	width: 100%;
 }
 
-divider-app {
-	color: white;
-	background: white;
+.border-white {
+	border-color: white;
 }
-
 
 article {
 	padding: var(--spacing-s);
@@ -67,7 +66,6 @@ article {
 
 card-footer-app {
 	margin-left: 44px;
-	margin-top: 13px;
 }
 
 divider-app {
