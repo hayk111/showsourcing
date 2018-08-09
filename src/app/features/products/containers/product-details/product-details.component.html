@@ -11,9 +11,11 @@
 
 			<product-carousel-app
 				[product]="product"
+				[images]="product?.images"
 				[favorite]="product.favorite"
-				(favorited)="onFavorited()"
-				(unfavorited)="onUnfavorited()"></product-carousel-app>
+				(productFavorite)="onFavorited()"
+				(productUnfavorite)="onUnfavorited()"
+				(vote)="updateProduct($event)"></product-carousel-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 

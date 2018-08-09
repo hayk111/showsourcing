@@ -18,10 +18,14 @@ export class ProductCarouselComponent extends AutoUnsub {
 	// whether the different elements are displayed
 	@Input() favorite: boolean;
 
+	@Input() set images(images: AppImage[]) {
+		this._images = images;
+	}
 	get images() {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
-	private _images = this.product.images ? this.product.images : [];
+
+	private _images: AppImage[] = [];
 	private _pendingImages: PendingImage[] = [];
 	/** index of the currently selected image */
 	selectedIndex = 0;
@@ -32,8 +36,9 @@ export class ProductCarouselComponent extends AutoUnsub {
 	/** when the user clicks on the heart it means he favorited / unfavorited
 	 * the item this carousel targets.
 	 */
-	@Output() favorited = new EventEmitter<undefined>();
-	@Output() unfavorited = new EventEmitter<undefined>();
+	@Output() productFavorite = new EventEmitter<null>();
+	@Output() productUnfavorite = new EventEmitter<null>();
+	@Output() vote = new EventEmitter<any>();
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
 	// when clicking an image we can open a modal carousel

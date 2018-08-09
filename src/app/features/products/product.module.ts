@@ -67,8 +67,7 @@ import { ActivityUserComponent } from '~shared/activity/components/activity-user
 		WorkflowActionModule,
 		StageIndicatorModule,
 		ActionBarModule,
-		CustomDialogModule,
-		ActivityUserComponent
+		CustomDialogModule
 	],
 	declarations: [
 		ProductSmallCardComponent,

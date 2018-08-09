@@ -4,7 +4,6 @@
 		<ng-container *ngIf="images.length > 0; else noImg">
 			<!-- carousel -->
 			<carousel-app
-				*ngIf="hasInlineCarousel"
 				[images]="images"
 				[selectedIndex]="selectedIndex"
 				(imgClick)="openModal($event)"
@@ -20,22 +19,32 @@
 			</div>
 		</ng-template>
 
-		<action-bar-app>
+		<action-bar-app
+			[favorite]="product.favorite"
+			[votes]="product.votes"
+			(onFavorite)="productFavorite.emit()"
+			(onUnfavorite)="productUnfavorite.emit()"
+			(vote)="vote.emit({votes: $event})">
 			<button class="icon light">
 				<icon-app fontSet="svg" name="poll-light-grey" size="m" ></icon-app>
 			</button>
-			<button class="secondary-light">Add Picture</button>
+			<button class="secondary-light" (click)="openFileBrowser()">Add Picture</button>
 			<button class="icon light dots">
 				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
 			</button>
 		</action-bar-app>
 
-		<activity-user-app
-			[user]="product.createdBy"></activity-user-app>
+		<div class="flex info-creation">
+			<user-picture-app [image]="user?.avatar" border="true"></user-picture-app>
+			<div class="text-creation">
+				<p>created by {{product?.createdBy?.firstName || ''}} {{product?.createdBy?.lastName || ''}}</p>
+				<span>{{ product.creationDate | timeAgo }}{{ product?.event?.name ? ', at'+product.event.name : ''}}</span>
+			</div>
+		</div>
 
 		<!-- modal carousel that can be seen when clicking on the normal carousel -->
 		<modal-carousel-app
-			*ngIf="hasModalCarousel && modalOpen"
+			*ngIf="modalOpen"
 			[selectedIndex]=[selectedIndex]
 			[images]="images"
 			(close)="closeModal()"></modal-carousel-app>

@@ -31,13 +31,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// getting the id of the supplier
 		const id$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
 			map(params => params.id),
 		);
 
-		// getting supplier
 		this.product$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
 			tap(product => this.product = product)
@@ -72,6 +70,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** item has been unfavorited */
 	onUnfavorited() {
 		this.featureSrv.update({ id: this.product.id, favorite: false }).subscribe();
+	}
+
+	/** update the product */
+	updateProduct(product: any) {
+		this.featureSrv.update({ id: this.product.id, ...product }).subscribe();
 	}
 
 	/** when a new image is uploaded we add it to the list of images of the product */
