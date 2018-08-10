@@ -45,7 +45,17 @@ card-app {
 			display: block;
 		}
 	}
-	card-footer-app {
+
+	.no-projects {
+		font-size: var( --font-size-xxxl);
+    color: var(--color-txt-strong);
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin: 31px 0px;
+	}
+
+	.custom-margin {
 		margin-left: 44px;
 	}
 }

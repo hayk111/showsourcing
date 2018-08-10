@@ -18,7 +18,11 @@
 		</div>
 	</article>
 
-	<card-footer-app>
+	<span class="no-projects" *ngIf="projects?.length === 0">
+		No Projects Added
+	</span>
+
+	<card-footer-app [class.custom-margin]="projects?.length > 0">
 		<button
 		(click)="addProjectClick.emit()"
 		i18n="button|Add project@@projectCard_addProject">Add to project</button>
