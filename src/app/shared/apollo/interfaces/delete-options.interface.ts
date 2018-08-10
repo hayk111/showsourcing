@@ -1,10 +1,12 @@
 import { DocumentNode } from 'graphql';
+import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 
 export interface DeleteOneOptions {
 	gql: DocumentNode;
 	id: string;
 	typename?: string;
 	preventOptimisticUi?: boolean;
+	refetchParams?: RefetchParams;
 }
 
 export interface DeleteManyOptions {
@@ -12,4 +14,5 @@ export interface DeleteManyOptions {
 	ids: string[];
 	typename?: string;
 	preventOptimisticUi?: boolean;
+	refetchParams?: RefetchParams;
 }

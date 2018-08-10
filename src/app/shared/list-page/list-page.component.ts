@@ -12,6 +12,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 
 /**
  * Class used by components that need to display a list
@@ -41,7 +42,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	previewed: T;
 
 	/** can be used on when deleting / creating an entity to refetch */
-	private queryObject: any;
+	private refecthParams: RefetchParams;
 	currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new ReplaySubject<SelectParams>(1);
 	protected selectParams$ = this._selectParams$.asObservable();
@@ -74,7 +75,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected setItems() {
 		const selectList = this.featureSrv.selectList(this.selectParams$);
 		this.items$ = selectList.items$.pipe(tap(_ => this.onLoaded()));;
-		this.queryObject = selectList.queryObject;
+		this.refecthParams = selectList.refecthParams;
 		// when param changes we are loading
 		this.selectParams$.pipe(
 			tap(params => this.currentParams = params),
@@ -278,7 +279,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		const items = Array.from(this.selectionSrv.selection.keys());
 		// callback for confirm dialog
 		const callback = () => {
-			this.featureSrv.deleteMany(items).subscribe(() => {
+			this.featureSrv.deleteMany(items, this.refecthParams).subscribe(() => {
 				this.resetSelection();
 			});
 		};

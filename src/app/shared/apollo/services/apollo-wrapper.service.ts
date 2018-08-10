@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { FetchResult } from 'apollo-link';
+import { FetchResult, DocumentNode } from 'apollo-link';
 import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
-import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
+import { SelectOneOptions, SelectManyOptions } from '~shared/apollo/interfaces/select-option.interface';
 import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
 import gql from 'graphql-tag';
+import { RefetchParams } from '~shared/apollo/services/refetch.interface';
+import { SelectParams } from '~global-services/_global/select-params';
 
 
 /**
@@ -28,21 +30,11 @@ export class ApolloWrapper {
 	///////////////////////////////
 
 	/** select one entity given an id */
-	private selectOneCache = new Map<string, Observable<any>>();
 
-	selectOne(options: SubribeToOneOptions) {
-		const queryName = this.getQueryName(options);
+	selectOne(gql: DocumentNode, id: string) {
+		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${options.id}"` };
 		this.log('Selecting One', options, queryName, variables);
-		const cacheKey = options.id;
-		if (!this.selectOneCache.has(cacheKey)) {
-			this.selectOneCache.set(cacheKey, this.selectOnePipe(options, queryName, variables));
-		}
-		return this.selectOneCache.get(cacheKey);
-	}
-
-	selectOnePipe(options: SubribeToOneOptions, queryName: string, variables: any) {
-		const subject = new ReplaySubject(1);
 		return this.apollo.subscribe({ query: options.gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
@@ -61,7 +53,7 @@ export class ApolloWrapper {
 
 	/** select many entities in accordance to the conditions supplied */
 
-	selectMany(options: SubscribeToManyOptions): Observable<any> {
+	selectMany(options: SelectManyOptions): Observable<any> {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
@@ -77,7 +69,7 @@ export class ApolloWrapper {
 
 
 	/** same as select many but it's a query instead of a subscription */
-	selectList(options: SubscribeToManyOptions): Observable<any[]> {
+	selectList(options: SelectManyOptions): Observable<any[]> {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting List', options, queryName, variables);
@@ -96,7 +88,7 @@ export class ApolloWrapper {
 	/////////////////////////////
 
 	/** select all entities given the query */
-	selectAll(options: SubscribeToManyOptions): Observable<any> {
+	selectAll(options: SelectManyOptions): Observable<any> {
 		const { gql } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting All', options, queryName);
@@ -149,15 +141,26 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(options: DeleteOneOptions, readAllQuery): Observable<FetchResult<T>> {
+	delete<T>(options: DeleteOneOptions): Observable<FetchResult<T>> {
+		options.refetchParams.params$.pipe(
+
+		)
 		const apolloOptions = {
 			mutation: options.gql,
-			variables: { id: options.id }
+			variables: { id: options.id },
+			refetchQueries: [
+
+
+			]
 		};
 		const queryName = this.getQueryName(options);
 		this.log('DeleteOne', options, queryName, apolloOptions.variables);
 
-		return this.apollo.mutate(apolloOptions).pipe(
+		// return of(options.refetchParams).pipe(
+		// 	switchMap(refParams => )
+		// )
+
+		this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -165,8 +168,14 @@ export class ApolloWrapper {
 		);
 	}
 
+	private refetchParamsToQuery(refParams: RefetchParams) {
+		refParams.params$.pipe(
+			map((params: SelectParams) => params.toWrapperOptions(gql))
+		);
+	}
+
 	/** delete many items given an array of id */
-	deleteMany<T>(options: DeleteManyOptions, readAllQuery): Observable<any> {
+	deleteMany<T>(options: DeleteManyOptions): Observable<any> {
 		let query = options.ids.reduce((acc, curr) => `${acc} OR id ="${curr}"`, '');
 		// removing the first ' OR '
 		query = query.substr(4);
@@ -214,9 +223,9 @@ export class ApolloWrapper {
 	}
 
 	/** gets the query name from a gql statement */
-	private getQueryName(options: any) {
+	private getQueryName(gql: DocumentNode) {
 		try {
-			return (options.gql.definitions[0]).selectionSet.selections[0].name.value;
+			return (gql.definitions[0] as any).selectionSet.selections[0].name.value;
 		} catch (e) {
 			throw Error('query name not found in apollo client');
 		}
