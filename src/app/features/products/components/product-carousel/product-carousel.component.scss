@@ -15,8 +15,13 @@ card-app {
 .empty {
 	font-style: italic;
 	color: var(--color-txt-secondary);
+	background: var(--color-secondary-light);
 	img {
 		margin-bottom: var(--spacing-s);
+	}
+	button.secondary {
+		margin-top: var(--spacing-s);
+		font-weight: 600;
 	}
 }
 
@@ -39,6 +44,7 @@ action-bar-app {
 		font-weight: 600;
 	}
 }
+
 carousel-app, .empty {
 	height: 371px;
 	border-radius: var(--border-radius-s);
