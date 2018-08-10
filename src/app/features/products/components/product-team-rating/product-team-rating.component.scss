@@ -9,4 +9,50 @@ card-app {
 		cursor: default;
 		margin-right: var(--spacing-ml);
 	}
+
+	.rating-info {
+		padding-top: 16px;
+
+		.thumb-info {
+			margin-left: 35%;
+
+			icon-app {
+				width: 34px;
+				height: 34px;
+				border-radius: 50%;
+			}
+			.score-info {
+				margin-left: 17px;
+
+				.number {
+					color: var(--color-txt-strong);
+					font-size: var( --font-size-xxxl);
+					font-weight: 600;
+				}
+			}
+		}
+	}
+	rating-cylinder-app {
+		margin-top: 15px;
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.no-vote {
+		font-size: var( --font-size-xxxl);
+    color: var(--color-txt-strong);
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin: 31px 0px;
+	}
+
+	card-footer-app {
+		display: flex;
+		justify-content: space-between;
+
+		button {
+			width: 160px;
+			font-weight: 600;
+		}
+	}
 }
