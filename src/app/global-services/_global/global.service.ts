@@ -78,12 +78,9 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		}
 
 		return params$.pipe(
-			tap(d => { debugger; }),
 			map((params: SelectParams) => params.toWrapperOptions(this.queries.many(fields))),
 			distinctUntilChanged(),
 			switchMap((opts: SubscribeToManyOptions) => this.wrapper.use(client).selectMany(opts)),
-			tap(d => { debugger; }),
-
 		);
 
 	}
@@ -105,7 +102,6 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			map((params: SelectParams) => params.toWrapperOptions(gql)),
 			distinctUntilChanged(),
 			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectList(opts)),
-			tap(d => { debugger; })
 		);
 		return {
 			queryObject: { params$, gql },

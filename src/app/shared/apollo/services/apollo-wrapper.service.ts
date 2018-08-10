@@ -180,7 +180,6 @@ export class ApolloWrapper {
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
-			tap(d => { debugger }),
 			map(({ data }) => data[queryName]),
 			tap(({ data }) => this.logResult('DeleteMany', queryName, data)),
 			catchError(errors => of(log.table(errors)))

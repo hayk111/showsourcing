@@ -72,9 +72,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	protected setItems() {
-		const { items$, queryObject } = this.featureSrv.selectList(this.selectParams$);
-		this.items$ = items$;
-		this.queryObject = queryObject;
+		const selectList = this.featureSrv.selectList(this.selectParams$);
+		this.items$ = selectList.items$.pipe(tap(_ => this.onLoaded()));;
+		this.queryObject = selectList.queryObject;
 		// when param changes we are loading
 		this.selectParams$.pipe(
 			tap(params => this.currentParams = params),
