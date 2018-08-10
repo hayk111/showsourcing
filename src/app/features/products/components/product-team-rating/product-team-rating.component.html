@@ -1,0 +1,41 @@
+<card-app paddingBottom="none">
+	<h2 i18n="header 2|Product card@@teamRatingCard_product" class="flex">
+		<icon-app fontSet="svg" name="poll-light-blue" ></icon-app>
+		Team Rating
+	</h2>
+
+	<ng-container  *ngIf="votes?.length > 0; else noVotes">
+		<div class="rating-info">
+				<div class="thumb-info flexVAlign">
+					<icon-app [name]="name" [ngStyle]="successStyle" size="m" fontSet="svg"></icon-app>
+					<div class="score-info flexColumn">
+						<span class="number">{{ score || '-' }} %</span>
+						<span>({{ votes?.length || '0'}} votes)</span>
+					</div>
+				</div>
+				<rating-cylinder-app
+					[score]="score"
+					dislikeColor="warn"
+					width="342">
+				</rating-cylinder-app>
+			</div>
+
+			<card-footer-app>
+				<button class="secondary-light">View Vote Details</button>
+				<button class="primary">Request Team Votes</button>
+			</card-footer-app>
+	</ng-container>
+
+	<ng-template #noVotes>
+		<span class="no-vote">No Votes Yet</span>
+		<rating-cylinder-app
+			dislikeColor="divider"
+			width="342">
+		</rating-cylinder-app>
+
+		<card-footer-app>
+			<button class="primary fullWidth">Request Team Votes</button>
+		</card-footer-app>
+	</ng-template>
+
+</card-app>

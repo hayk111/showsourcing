@@ -1,25 +1,31 @@
 
-<card-app>
-	<h2 i18n="header 2|Project card@@projectCard_projects">Projects</h2>
+<card-app paddingBottom="none">
+	<h2 i18n="header 2|Project card@@projectCard_projects" class="flex">
+		<icon-app fontSet="svg" name="folder-blue" ></icon-app>
+		Projects
+	</h2>
 
-	<article *ngFor="let project of projects" class="flex">
-		<div class="flexCenter logo">
-			<img [src]="project | logo:'project'"/>
-		</div>
+	<article *ngFor="let project of projects; last as last" class="flex" [class.last-item]="last">
+		<icon-app fontSet="svg" name="folder" ></icon-app>
 		<div class="flexColumn middle">
 			<span class="name capitalize bold">{{ project?.name }}</span>
-			<span class="numProducts" i18n="span|Project card@@projectCard_products">  {{ project?.productCount }} Products </span>
+			<span class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
+			<divider-app [class.border-white]="last"></divider-app>
 		</div>
 		<div class="flexCenter">
 			<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
 				(click)="removeProject.emit(project)" name="minus"></icon-app>
 		</div>
-
 	</article>
 
-	<card-footer-app>
+	<span class="no-projects" *ngIf="projects?.length === 0">
+		No Projects Added
+	</span>
+
+	<card-footer-app [class.custom-margin]="projects?.length > 0">
 		<button
-			(click)="addProjectClick.emit()"
-			i18n="button|Add project@@projectCard_addProject">add to a project</button>
+		(click)="addProjectClick.emit()"
+		i18n="button|Add project@@projectCard_addProject">Add to project</button>
 	</card-footer-app>
 </card-app>
+

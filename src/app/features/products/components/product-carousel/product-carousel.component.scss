@@ -1,0 +1,51 @@
+:host {
+	width: 380px;
+	height: 500px;
+	display: block;
+}
+
+card-app {
+	height: 100%;
+	width: 100%;
+	border-radius: var(--border-radius-s);
+	border: 4px solid white;
+	outline: 1px solid var(--color-secondary);
+}
+
+.empty {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	background: var(--color-secondary-light);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
+	button.secondary {
+		margin-top: var(--spacing-s);
+		font-weight: 600;
+	}
+}
+
+.info-creation {
+	margin-left: 20px;
+	margin-top: 17px;
+	.text-creation {
+		color: var(--color-txt-primary);
+		font-size: var(--font-size-s);
+		margin-left: 8px;
+	}
+}
+
+action-bar-app {
+	margin-top: var(--spacing-m);
+	button {
+		margin-right: var(--spacing-ms);
+	}
+	button.secondary-light {
+		font-weight: 600;
+	}
+}
+
+carousel-app, .empty {
+	height: 371px;
+	border-radius: var(--border-radius-s);
+}

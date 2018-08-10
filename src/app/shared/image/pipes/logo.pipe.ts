@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {
 	DEFAULT_EVENT_ICON, DEFAULT_SUPPLIER_ICON, DEFAULT_USER_ICON,
-	DEFAULT_IMG, DEFAULT_PROJECT_ICON
+	DEFAULT_IMG, DEFAULT_PROJECT_ICON, DEFAULT_SUPPLIER_PROD_ICON
 } from '~utils/constants';
 
 /** different than image pipe as it will display a logo based on the transformed value
@@ -16,7 +16,7 @@ export class LogoPipe implements PipeTransform {
 
 	transform(value: any, type?: string, size: 's' | 'm' | 'l' | 'xl' = 's'): any {
 		// TODO use entity Metadata
-		const hasLogo = ['supplier', 'event', 'user', 'project'];
+		const hasLogo = ['supplier', 'event', 'user', 'project', 'supplier-product'];
 		// the logoImage
 		let logoImage;
 		// if it's not one of those selectors that have an icon just return nothing so we can display nothing
@@ -52,8 +52,11 @@ export class LogoPipe implements PipeTransform {
 			case 'project':
 				return DEFAULT_PROJECT_ICON;
 			case 'category':
+				return '';
 			case 'supplierType':
 				return '';
+			case 'supplier-product':
+				return DEFAULT_SUPPLIER_PROD_ICON;
 			default:
 				return DEFAULT_IMG;
 		}

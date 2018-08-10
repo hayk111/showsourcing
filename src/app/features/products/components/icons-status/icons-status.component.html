@@ -1,5 +1,5 @@
 <div class="flex noselect small-icons">
-	<icon-app *ngIf="favorite" name="heart" [ngClass]="{'color-warn': favorite, 'color-txt-secondary': !favorite}"></icon-app>
+	<icon-app *ngIf="favorite" name="heart"></icon-app>
 	<icon-app [name]="name" [ngStyle]="successStyle" [size]="size" fontSet="svg"></icon-app>
 	<p class="numbers" [ngClass]="{'color-warn': dislike, 'color-success': like, 'color-txt-secondary fs-s': !(like || dislike)}">{{product?.score || '-'}}%</p>
 	<ng-container *ngIf="product?.projects?.length">

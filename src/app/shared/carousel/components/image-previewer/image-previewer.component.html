@@ -5,5 +5,5 @@
 	[ngClass]="{ 'pending': image.pending }"
 	*ngFor="let image of images; let i = index"
 	[image]="image"
-	[size]="'s'"
+	size="s"
 	(click)="imageClick.emit(i)"></img-app>

@@ -80,8 +80,8 @@
 		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
-		(select)="onSelectedItem($event)"
-		(unselect)="onUnselectedItem($event)"
+		(select)="onItemSelectedCheckFavorite($event)"
+		(unselect)="onItemUnselectedCheckFavorite($event)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(open)="goToDetails($event)"></product-card-view-app>
@@ -96,8 +96,8 @@
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
 			[products]="selectionArrayItems"
-			(onFavorite)="onFavoriteAll()"
-			(onUnfavorite)="onUnfavoriteAll()"
+			(onFavorite)="onFavoriteAllSelected()"
+			(onUnfavorite)="onUnfavoriteAllSelected()"
 			(multipleVotes)="multipleVotes($event)">
 
 			<button class="icon light" (click)="openAddToProjectDialog()">

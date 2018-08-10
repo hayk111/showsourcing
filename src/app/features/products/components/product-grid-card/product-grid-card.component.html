@@ -1,6 +1,10 @@
 <div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
-		<img class="noselect" [src]="product | image:'m'">
+		<img-app
+			class="noselect"
+			size="m"
+			[image]="product"
+			objectFit="fill"></img-app>
 
 		<div class="imgNumber flex flexCenter">
 			<span>{{product?.images?.length || '-'}}</span>

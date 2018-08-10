@@ -27,9 +27,6 @@ import { StoreKey } from '~utils/store/store';
 })
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
 
-	// if all the selected items are favorite or not
-	allSelectedFavorite = true;
-
 	searchFilterElements$: Observable<any[]>;
 
 	constructor(
@@ -43,38 +40,9 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
-	onSelectedItem(item: any) {
-		if (this.allSelectedFavorite)
-			this.allSelectedFavorite = item.favorite ? true : false;
-		this.onItemSelected(item);
-	}
-
-	onUnselectedItem(item: any) {
-		if (!this.allSelectedFavorite && !item.favorite)
-			this.allSelectedFavorite = !this.selectionItems().some(prod => prod.id !== item.id && !prod.favorite);
-		this.onItemUnselected(item);
-	}
-
-	onFavoriteAll() {
-		this.selectionItems().forEach(prod => {
-			if (!prod.favorite)
-				this.onItemFavorited(prod.id);
-		});
-		this.allSelectedFavorite = true;
-	}
-
-	onUnfavoriteAll() {
-		this.selectionItems().forEach(prod => {
-			if (prod.favorite)
-				this.onItemUnfavorited(prod.id);
-		});
-		this.allSelectedFavorite = false;
-	}
-
+	/** updates the products with the new value votes */
 	multipleVotes(votes: Map<string, ProductVote[]>) {
-		votes.forEach((v, k) => {
-			this.update({ id: k, votes: v });
-		});
+		votes.forEach((v, k) => this.update({ id: k, votes: v }));
 	}
 
 	/**

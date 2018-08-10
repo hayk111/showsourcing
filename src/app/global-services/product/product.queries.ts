@@ -16,7 +16,16 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				name,
 				address,
 				country,
+				favorite,
 				logoImage {
+					id,
+					fileName
+				},
+				categories {
+					id,
+					name
+				},
+				images {
 					id,
 					fileName
 				}
@@ -34,7 +43,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				id, name
 			},
 			projects {
-				id, name, productCount
+				id, name, productCount, description
 			}
 			description,
 			event {
@@ -111,7 +120,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			creationDate
 			`;
 
-	manyDefault = `
+	manyDefaultSelection = `
 			name,
 			description,
 			creationDate,

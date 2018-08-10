@@ -2,43 +2,65 @@
 	display: block;
 }
 
-img {
-	height: 48px;
-	width: 48px;
-	border-radius: 50%;
+icon-app[name="heart"] {
+	color: var(--color-warn);
+	margin-left: 10px;
 }
 
-h2 {
-	margin-bottom: var(--spacing-m);
-}
+card-app {
+	width: 100%;
 
-.right {
-	margin-left: var(--spacing-m);
-
-	& > * {
-		margin-bottom: 10px;
+	img {
+		height: 32px;
+		width: 32px;
+		border-radius: 50%;
+		cursor: default;
 	}
-	badge-app {
-		margin-bottom: 0;
-	}
-
 	.name {
 		font-size: var(--font-size-l);
 		color: var(--color-txt-strong);
 		font-weight: 600;
+		margin-left: var(--spacing-ms);
 	}
 
-	.from {
-		font-weight: 600;
+	.supplier-info {
+		margin-left: var(--spacing-ms);
+		margin-top: 28px;
+
+		.from {
+			color: var(--color-txt-strong);
+		}
+
+		.categories {
+			margin-top: 5px;
+			span {
+				color: var(--color-txt-primary);
+				margin-right: 10px;
+			}
+		}
 	}
 
-	badge-app {
-		color: var(--color-txt-secondary);
+	.no-supplier {
+		font-size: var( --font-size-xxxl);
+		color: var(--color-txt-strong);
 		font-weight: 600;
+		display: flex;
+		justify-content: center;
+		margin: 31px 0px;
 	}
 }
 
-.hr {
-	margin: var(--spacing-m) 0;
+button.secondary-light {
+	font-weight: 600;
+	min-width: 120px;
 }
 
+card-footer-app.empty {
+	display: flex;
+	justify-content: space-between;
+
+	button {
+		width: 160px;
+		font-weight: 600;
+	}
+}

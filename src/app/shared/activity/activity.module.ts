@@ -26,7 +26,8 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 	exports: [
 		OneProductActivityCardComponent,
 		MultipleProductsActivityCardComponent,
-		ActivityListComponent
+		ActivityListComponent,
+		ActivityUserComponent
 	]
 })
 export class ActivityModule { }
