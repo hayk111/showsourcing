@@ -31,6 +31,20 @@ export class BaseQueries {
 		}`);
 
 	many = (str: string = this.manyDefaultSelection) => gql(`
+		subscription ${this.plural}(
+			$take: Int,
+			$skip: Int,
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean
+			) {
+			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+				id,
+				${str}
+			}
+		}`);
+
+	list = (str: string = this.manyDefaultSelection) => gql(`
 		query ${this.plural}(
 			$take: Int,
 			$skip: Int,
@@ -49,13 +63,6 @@ export class BaseQueries {
 			${this.plural} {
 				id
 				${str}
-			}
-		}`);
-
-	allIds = gql(`
-		query ${this.plural} {
-			${this.plural} {
-				id
 			}
 		}`);
 

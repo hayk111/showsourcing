@@ -1,5 +1,5 @@
 import { forkJoin, Observable, of, Subject, ReplaySubject, Subscription, zip, BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, first, map, scan, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, first, map, scan, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { isObject } from 'util';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -7,9 +7,10 @@ import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-o
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { merge, combineLatest, } from 'rxjs';
 
-export interface GlobalServiceInterface<T> {
+export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
-	selectMany?: (params$?: Observable<SelectParams>, ...args) => Observable<T[]>;
+	selectMany(params$: Observable<SelectParams>, fields?: string, client?: string): Observable<T[]>;
+	selectList: (params$: Observable<SelectParams>) => { queryObject: { params$: Observable<SelectParams>, gql: any }, items$: Observable<T[]> };
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
 	updateMany: (entities: T[], ...args) => Observable<T[]>;
@@ -28,7 +29,8 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		protected queries: GlobalQuery,
 		protected typeName?: string) { }
 
-
+	// we use a cache so we can change things on update
+	private selectOneCache = new Map<string, { subj, obs, result }>();
 
 	/** selects all entity (subscription)
 	 * @param id : id of the entity selected
@@ -42,17 +44,14 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view
 		if (this.selectOneCache.has(id))
-			return this.selectOneCache.get(id).combined;
+			return this.selectOneCache.get(id).result;
 
 		const obs = this.wrapper.use(client).selectOne({ gql: this.queries.one(fields), id });
 		const subj = new BehaviorSubject({});
-		const combined = combineLatest(subj, obs, (newestChanges, latestChanges) => ({ ...latestChanges, ...newestChanges }));
-		this.selectOneCache.set(id, { subj, obs, combined });
-		return combined;
+		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
+		this.selectOneCache.set(id, { subj, obs, result });
+		return result;
 	}
-
-	// we use a cache so we can change things on update
-	private selectOneCache = new Map<string, { subj, obs, combined }>();
 
 	/** selects all entity (query)
 	 * @param fields : string to specify the fields we want to query
@@ -71,16 +70,22 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
+	 *
 	*/
 	selectMany(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string): Observable<T[]> {
 		if (!this.queries.many) {
 			throw Error('many query not implemented for this service');
 		}
+
 		return params$.pipe(
+			tap(d => { debugger; }),
 			map((params: SelectParams) => params.toWrapperOptions(this.queries.many(fields))),
 			distinctUntilChanged(),
-			switchMap((opts: SubscribeToManyOptions) => this.wrapper.use(client).selectMany(opts))
+			switchMap((opts: SubscribeToManyOptions) => this.wrapper.use(client).selectMany(opts)),
+			tap(d => { debugger; }),
+
 		);
+
 	}
 
 
@@ -89,32 +94,34 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * this uses a query under the hood and not a subscription
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
-	// selectList(params$: Observable<SelectParams> = of(new SelectParams())): Observable<T[]> {
-	// 	// if (!this.queries.list) {
-	// 	// 	throw Error('list query not implemented for this service');
-	// 	// }
-	// 	// return params$.pipe(
-	// 	// 	map((params: SelectParams) => params.toWrapperOptions(this.queries.many)),
-	// 	// 	distinctUntilChanged(),
-	// 	// 	switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectList(opts))
-	// 	// );
-	// }
+	selectList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
+		: { queryObject: { params$: Observable<SelectParams>, gql: any }, items$: Observable<T[]> } {
+
+		if (!this.queries.list) {
+			throw Error('list query not implemented for this service');
+		}
+		const gql = this.queries.list(fields);
+		const items$: Observable<T[]> = params$.pipe(
+			map((params: SelectParams) => params.toWrapperOptions(gql)),
+			distinctUntilChanged(),
+			switchMap((opts: SubscribeToManyOptions) => this.wrapper.selectList(opts)),
+			tap(d => { debugger; })
+		);
+		return {
+			queryObject: { params$, gql },
+			items$
+		};
+	}
+
 	/**
 	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying,
 	 * the difference with select many is that when the page change the result is added to the previous one
 	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
 	 */
-	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string): Observable<any> {
-		return params$.pipe(
-			// taking the first result of a selectMany
-			switchMap(
-				params => {
-					return this.selectMany(of(params), fields).pipe(
-						first(),
-						map(result => ({ result, page: params.page }))
-					)
-				}
-			),
+	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
+		: { queryObject: { params$: Observable<SelectParams>, gql: any }, items$: Observable<T[]> } {
+		let { items$, queryObject } = this.selectList(params$, fields, client);
+		items$ = items$.pipe(
 			// adding to the previous resultset
 			scan((prev, curr: { result, page }) => {
 				if (curr.page === 0) {
@@ -124,6 +131,8 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 				}
 			}, [])
 		);
+
+		return { items$, queryObject };
 	}
 
 	/** update an entity

@@ -8,7 +8,6 @@ export interface GlobalQuery {
 	deleteOne: any;
 	deleteMany: any;
 	all: (str?: string) => any;
-	allIds?: any;
 }
 
 

@@ -65,7 +65,7 @@ export class ApolloWrapper {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -77,20 +77,19 @@ export class ApolloWrapper {
 
 
 	/** same as select many but it's a query instead of a subscription */
-	selectList(options: SubscribeToManyOptions): Observable<any> {
+	selectList(options: SubscribeToManyOptions): Observable<any[]> {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
-		this.log('Selecting Many', options, queryName, variables);
+		this.log('Selecting List', options, queryName, variables);
 		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				map((r) => r.data[queryName]),
-				tap(data => this.logResult('Selecting Many', queryName, data)),
-				catchError(errors => of(log.table(errors))),
+				tap(data => this.logResult('Selecting List', queryName, data)),
+				catchError((errors) => of(log.table(errors))),
 		);
 	}
-
 
 	/////////////////////////////
 	//   SELECT ALL SECTION    //
@@ -140,10 +139,6 @@ export class ApolloWrapper {
 		const queryName = this.getQueryName(options);
 		this.log('Create', options, queryName, apolloOptions.variables);
 
-		if (this.checkOptimistic(options)) {
-			// TODO implement optimistic UI
-		}
-
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -157,26 +152,11 @@ export class ApolloWrapper {
 	delete<T>(options: DeleteOneOptions, readAllQuery): Observable<FetchResult<T>> {
 		const apolloOptions = {
 			mutation: options.gql,
-			variables: { id: options.id },
-			update: (proxy, { data: { submitComment } }) => {
-				// Read the data from our cache for this query.
-				const data = proxy.readQuery({ query: gql('Supplier:ee28a7f3-ca09-429b-bebf-f999cffcd219') });
-				// Add our comment from the mutation to the end.
-				debugger;
-				// data.comments.push(submitComment);
-				// // Write our data back to the cache.
-				// proxy.writeQuery({ query: CommentAppQuery, data });
-			},
-			context: {
-				returnPartialData: true
-			}
+			variables: { id: options.id }
 		};
 		const queryName = this.getQueryName(options);
 		this.log('DeleteOne', options, queryName, apolloOptions.variables);
 
-		if (this.checkOptimistic(options)) {
-			// TODO implement optimistic UI
-		}
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -192,28 +172,15 @@ export class ApolloWrapper {
 		query = query.substr(4);
 		const apolloOptions = {
 			mutation: options.gql,
-			variables: { query },
-			update: (proxy, { data }) => {
-				debugger;
-				// Read the data from our cache for this query.
-				const d = proxy.readQuery({ query: gql`query suppliers { suppliers { id }}` }, true);
-				// Add our comment from the mutation to the end.
-				// data.comments.push(submitComment);
-				// // Write our data back to the cache.
-				// proxy.writeQuery({ query: CommentAppQuery, data });
-			},
-			context: { returnPartialData: true }
+			variables: { query }
 		};
-		debugger;
 		const queryName = this.getQueryName(options);
 		this.log('DeleteMany', options, queryName, apolloOptions.variables);
 
-		if (this.checkOptimistic(options)) {
-			// TODO implement optimistic UI
-		}
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
+			tap(d => { debugger }),
 			map(({ data }) => data[queryName]),
 			tap(({ data }) => this.logResult('DeleteMany', queryName, data)),
 			catchError(errors => of(log.table(errors)))
@@ -264,9 +231,9 @@ export class ApolloWrapper {
 	/** check if optimistic update is disabled */
 	private checkOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
 		if (!options.preventOptimisticUi && options.typename) {
-			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
 			return true;
 		}
+		log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
 	}
 
 	/** logs events to the console */

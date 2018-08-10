@@ -40,6 +40,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** previewed item */
 	previewed: T;
 
+	/** can be used on when deleting / creating an entity to refetch */
+	private queryObject: any;
 	currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new ReplaySubject<SelectParams>(1);
 	protected selectParams$ = this._selectParams$.asObservable();
@@ -70,12 +72,14 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	protected setItems() {
-		this.items$ = this.selectParams$.pipe(
+		const { items$, queryObject } = this.featureSrv.selectList(this.selectParams$);
+		this.items$ = items$;
+		this.queryObject = queryObject;
+		// when param changes we are loading
+		this.selectParams$.pipe(
 			tap(params => this.currentParams = params),
 			takeUntil(this._destroy$),
 			tap(_ => this.onLoad()),
-			switchMap(param$ => this.featureSrv.selectMany(this.selectParams$)),
-			tap(() => this.onLoaded())
 		);
 	}
 
