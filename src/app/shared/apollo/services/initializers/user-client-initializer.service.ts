@@ -60,10 +60,10 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	/** gets user from all-users realm */
 	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
-		return this.wrapper.use(ALL_USER_CLIENT).selectOne({
-			gql: ClientInitializerQueries.selectUser,
+		return this.wrapper.use(ALL_USER_CLIENT).selectOne(
+			ClientInitializerQueries.selectUser,
 			id
-		}).pipe(
+		).pipe(
 			first()
 		);
 	}

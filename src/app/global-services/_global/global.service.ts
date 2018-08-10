@@ -185,7 +185,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		return this.wrapper.use(client).delete(gql, id, refetchParams);
 	}
 
-	deleteMany(ids: string[], refetchParams: RefetchParams, client?: string): Observable<any> {
+	deleteMany(ids: string[], refetchParams?: RefetchParams, client?: string): Observable<any> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
