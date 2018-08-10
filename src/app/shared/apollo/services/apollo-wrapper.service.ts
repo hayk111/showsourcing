@@ -33,9 +33,9 @@ export class ApolloWrapper {
 
 	selectOne(gql: DocumentNode, id: string) {
 		const queryName = this.getQueryName(gql);
-		const variables = { query: `id == "${options.id}"` };
-		this.log('Selecting One', options, queryName, variables);
-		return this.apollo.subscribe({ query: options.gql, variables })
+		const variables = { query: `id == "${id}"` };
+		this.log('Selecting One', gql, queryName, variables);
+		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -53,10 +53,10 @@ export class ApolloWrapper {
 
 	/** select many entities in accordance to the conditions supplied */
 
-	selectMany(options: SelectManyOptions): Observable<any> {
-		const { gql, ...variables } = options;
-		const queryName = this.getQueryName(options);
-		this.log('Selecting Many', options, queryName, variables);
+	selectMany(gql: DocumentNode, params: SelectParams): Observable<any> {
+		const variables = params.toApolloVariables();
+		const queryName = this.getQueryName(gql);
+		this.log('Selecting Many', gql, queryName, variables);
 		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
@@ -69,10 +69,10 @@ export class ApolloWrapper {
 
 
 	/** same as select many but it's a query instead of a subscription */
-	selectList(options: SelectManyOptions): Observable<any[]> {
-		const { gql, ...variables } = options;
-		const queryName = this.getQueryName(options);
-		this.log('Selecting List', options, queryName, variables);
+	selectList(gql: DocumentNode, params: SelectParams): Observable<any[]> {
+		const queryName = this.getQueryName(gql);
+		const variables = params.toApolloVariables();
+		this.log('Selecting List', gql, queryName, variables);
 		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
@@ -88,10 +88,9 @@ export class ApolloWrapper {
 	/////////////////////////////
 
 	/** select all entities given the query */
-	selectAll(options: SelectManyOptions): Observable<any> {
-		const { gql } = options;
-		const queryName = this.getQueryName(options);
-		this.log('Selecting All', options, queryName);
+	selectAll(gql: DocumentNode): Observable<any> {
+		const queryName = this.getQueryName(gql);
+		this.log('Selecting All', gql, queryName);
 
 		return this.apollo.watchQuery({ query: gql }).valueChanges
 			.pipe(
@@ -108,15 +107,15 @@ export class ApolloWrapper {
 	}
 
 	/** Update one existing entity */
-	update<T>(options: UpdateOptions): Observable<FetchResult<T>> {
-		let apolloOptions: any = this.createApolloMutationOptions(options);
-		const queryName = this.getQueryName(options);
-		this.log('Update', options, queryName, apolloOptions.variables);
+	update<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
+		const variables = { input };
+		const queryName = this.getQueryName(gql);
+		const options = { mutation: gql, variables };
+		this.log('Update', gql, queryName, variables);
 
-		if (this.checkOptimistic(options)) {
-			this.addOptimisticResponse(apolloOptions, options);
-		}
-		return this.apollo.mutate(apolloOptions).pipe(
+		this.addOptimisticResponse(options, gql, input, typename);
+
+		return this.apollo.mutate(options).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -126,12 +125,12 @@ export class ApolloWrapper {
 	}
 
 	/** Creates one entity */
-	create<T>(options: UpdateOptions): Observable<FetchResult<T>> {
-		const apolloOptions = this.createApolloMutationOptions(options);
-		const queryName = this.getQueryName(options);
-		this.log('Create', options, queryName, apolloOptions.variables);
+	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
+		const variables = { input };
+		const queryName = this.getQueryName(gql);
+		this.log('Create', gql, queryName, variables);
 
-		return this.apollo.mutate(apolloOptions).pipe(
+		return this.apollo.mutate({ mutation: gql, variables }).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -141,26 +140,17 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(options: DeleteOneOptions): Observable<FetchResult<T>> {
-		options.refetchParams.params$.pipe(
-
-		)
-		const apolloOptions = {
-			mutation: options.gql,
-			variables: { id: options.id },
+	delete<T>(gql: DocumentNode, id: string, refetchParams: RefetchParams): Observable<any> {
+		const options = {
+			mutation: gql,
+			variables: { id },
 			refetchQueries: [
-
-
 			]
 		};
-		const queryName = this.getQueryName(options);
-		this.log('DeleteOne', options, queryName, apolloOptions.variables);
+		const queryName = this.getQueryName(gql);
+		this.log('DeleteOne', gql, queryName, options.variables);
 
-		// return of(options.refetchParams).pipe(
-		// 	switchMap(refParams => )
-		// )
-
-		this.apollo.mutate(apolloOptions).pipe(
+		return this.apollo.mutate(options).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -175,16 +165,16 @@ export class ApolloWrapper {
 	}
 
 	/** delete many items given an array of id */
-	deleteMany<T>(options: DeleteManyOptions): Observable<any> {
-		let query = options.ids.reduce((acc, curr) => `${acc} OR id ="${curr}"`, '');
+	deleteMany<T>(gql: DocumentNode, ids: string[], refetchParams?: RefetchParams): Observable<any> {
+		let query = ids.map(id => `id = "${id}"`).join(' OR ');
 		// removing the first ' OR '
 		query = query.substr(4);
 		const apolloOptions = {
-			mutation: options.gql,
+			mutation: gql,
 			variables: { query }
 		};
-		const queryName = this.getQueryName(options);
-		this.log('DeleteMany', options, queryName, apolloOptions.variables);
+		const queryName = this.getQueryName(gql);
+		this.log('DeleteMany', gql, queryName, apolloOptions.variables);
 
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
@@ -204,22 +194,26 @@ export class ApolloWrapper {
 	}
 
 	/** create appollo mutationOptions from our updateOptions */
-	private createApolloMutationOptions(options: UpdateOptions) {
+	private createApolloMutationOptions(gql: DocumentNode, input: any) {
 		return {
-			mutation: options.gql,
-			variables: { input: options.input },
+			mutation: gql,
+			variables: { input },
 		};
 	}
 
 	/** creates an optimistic response the way apollo expects it */
-	private addOptimisticResponse(apolloOptions: any, options: UpdateOptions) {
-		apolloOptions.optimisticResponse = {
-			__typename: 'Mutation',
-			[this.getQueryName(options)]: {
-				...options.input,
-				__typename: options.typename
-			},
-		};
+	private addOptimisticResponse(options: any, gql: DocumentNode, input, typename: string) {
+		if (typename) {
+			options.optimisticResponse = {
+				__typename: 'Mutation',
+				[this.getQueryName(gql)]: {
+					...input,
+					__typename: typename
+				},
+			};
+		} else {
+			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(gql)}`);
+		}
 	}
 
 	/** gets the query name from a gql statement */
@@ -232,26 +226,19 @@ export class ApolloWrapper {
 
 	}
 
-	private getQueryBody(options): string {
-		return options.gql.loc.source.body;
+	private getQueryBody(gql: DocumentNode): string {
+		return gql.loc.source.body;
 	}
 
-	/** check if optimistic update is disabled */
-	private checkOptimistic(options: UpdateOptions | DeleteOneOptions | DeleteManyOptions) {
-		if (!options.preventOptimisticUi && options.typename) {
-			return true;
-		}
-		log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(options)}`);
-	}
 
 	/** logs events to the console */
-	private log(type: string, options: any, queryName: string, variables?: any) {
+	private log(type: string, gql: DocumentNode, queryName: string, variables?: any) {
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
-		log.debug(`%c ${this.getQueryBody(options)}`, 'color: #555555');
-		log.debug(options.gql);
+		log.debug(`%c ${this.getQueryBody(gql)}`, 'color: #555555');
+		log.debug(gql);
 		log.groupEnd();
 		if (variables) {
 			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');

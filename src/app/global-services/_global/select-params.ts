@@ -27,22 +27,18 @@ export class SelectParams {
 	}
 
 
-	toApolloOptions(gql) {
+	toApolloVariables() {
 		// the selectMany here is a subscription to some data on the server
 		// putting those in variables form
 		const sortBy = this.sort.sortBy;
 		const descending = this.sort.sortOrder === 'ASC';
-		const options = {
-			query: gql,
-			variables: {
-				query: this.query,
-				skip: this.page * this.take,
-				take: this.take,
-				sortBy,
-				descending,
-			}
+		return {
+			query: this.query,
+			skip: this.page * this.take,
+			take: this.take,
+			sortBy,
+			descending,
 		};
-		return options;
 	}
 }
 
