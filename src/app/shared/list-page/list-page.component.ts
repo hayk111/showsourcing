@@ -74,8 +74,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	protected setItems() {
 		const selectList = this.featureSrv.selectList(this.selectParams$);
-		this.items$ = selectList.items$.pipe(tap(_ => this.onLoaded()));;
-		this.refecthParams = selectList.refecthParams;
+		this.items$ = selectList.items$;
+		this.refecthParams = selectList.refetchParams;
+
+		this.items$.pipe(
+			tap(_ => this.onLoaded())
+		);
 		// when param changes we are loading
 		this.selectParams$.pipe(
 			tap(params => this.currentParams = params),

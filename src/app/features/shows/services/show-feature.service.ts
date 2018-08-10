@@ -37,7 +37,7 @@ export class ShowFeatureService extends ShowService {
   // we want to actually replace the show with an event on team realm if it's one from team realm
   // if they exist
   selectInfiniteListAllShows(params$: Observable<SelectParams>): Observable<Show[]> {
-    const { items$ } = super.selectInfiniteList(params$);
+    const { items$, refetchParams } = super.selectInfiniteList(params$)
     return items$.pipe(
       switchMap(
         shows => {
@@ -56,7 +56,7 @@ export class ShowFeatureService extends ShowService {
   // this gets the list of events of the team then with the id we receive query backs the global db
   selectInfiniteListMyShows(params$: Observable<SelectParams>): Observable<Show[]> {
     // we return the events from team realm directly
-    const { items$ } = super.selectInfiniteList(params$);
+    const { items$ } = super.selectInfiniteList(params$)
     return items$.pipe(
       tap(events => events = events.map(evt => ({ ...evt, saved: true })))
     );

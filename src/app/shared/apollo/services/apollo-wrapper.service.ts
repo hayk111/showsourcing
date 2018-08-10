@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult, DocumentNode } from 'apollo-link';
 import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { catchError, filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, tap, switchMap, take } from 'rxjs/operators';
 import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
 import { SelectOneOptions, SelectManyOptions } from '~shared/apollo/interfaces/select-option.interface';
 import { log, LogColor } from '~utils';
@@ -140,12 +140,13 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(gql: DocumentNode, id: string, refetchParams: RefetchParams): Observable<any> {
+	delete<T>(gql: DocumentNode, id: string, refetchParams: RefetchParams = {}): Observable<any> {
+
+		// first we gotta create the refetchQuery
+		// then we can actually delete, and the refetch query will be executed
 		const options = {
 			mutation: gql,
 			variables: { id },
-			refetchQueries: [
-			]
 		};
 		const queryName = this.getQueryName(gql);
 		this.log('DeleteOne', gql, queryName, options.variables);
@@ -158,14 +159,14 @@ export class ApolloWrapper {
 		);
 	}
 
-	private refetchParamsToQuery(refParams: RefetchParams) {
-		refParams.params$.pipe(
-			map((params: SelectParams) => params.toWrapperOptions(gql))
-		);
-	}
-
 	/** delete many items given an array of id */
 	deleteMany<T>(gql: DocumentNode, ids: string[], refetchParams?: RefetchParams): Observable<any> {
+		refetchParams.params$.pipe(
+			take(1),
+			switchMap(params => {
+				if (!params)
+			})
+		)
 		let query = ids.map(id => `id = "${id}"`).join(' OR ');
 		// removing the first ' OR '
 		query = query.substr(4);

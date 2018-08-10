@@ -6,17 +6,23 @@ import { SelectParams } from '~global-services/_global/select-params';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { merge, combineLatest, } from 'rxjs';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
+import { DocumentNode } from 'graphql';
 
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
 	selectMany(params$: Observable<SelectParams>, fields?: string, client?: string): Observable<T[]>;
-	selectList: (params$: Observable<SelectParams>) => { refecthParams: RefetchParams, items$: Observable<T[]> };
+	selectList: (params$: Observable<SelectParams>) => SelectListResponse<T>;
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
 	updateMany: (entities: T[], ...args) => Observable<T[]>;
 	create: (entity: T, ...args) => Observable<T>;
 	deleteOne: (id: string, ...args) => Observable<any>;
 	deleteMany: (ids: string[], ...args) => Observable<any>;
+}
+
+export interface SelectListResponse<T> {
+	items$: Observable<T[]>;
+	refetchParams: RefetchParams;
 }
 
 /**
@@ -95,20 +101,18 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
 	selectList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: { refecthParams: RefetchParams, items$: Observable<T[]> } {
+		: SelectListResponse<T> {
 
 		if (!this.queries.list) {
 			throw Error('list query not implemented for this service');
 		}
 		const gql = this.queries.list(fields);
-		const items$: Observable<T[]> = params$.pipe(
+		const items$ = params$.pipe(
 			distinctUntilChanged(),
-			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params)),
+			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params))
 		);
-		return {
-			refecthParams: { params$, gql },
-			items$
-		};
+
+		return { items$, refetchParams: { gql, params$ } };
 	}
 
 	/**
@@ -117,20 +121,29 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
 	 */
 	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: { refecthParams: RefetchParams, items$: Observable<T[]> } {
-		let { items$, refecthParams } = this.selectList(params$, fields, client);
-		items$ = items$.pipe(
-			// adding to the previous resultset
-			scan((prev, curr: { result, page }) => {
-				if (curr.page === 0) {
-					return curr.result;
-				} else {
-					return [...prev, ...curr.result];
-				}
-			}, [])
-		);
+		: SelectListResponse<T> {
 
-		return { items$, refecthParams };
+		const gql = this.queries.list(fields);
+
+		const items$ = params$.pipe(
+			distinctUntilChanged(),
+			switchMap(
+				(params: SelectParams) => this.wrapper.selectList(gql, params),
+				(params: SelectParams, items: T[]) => ({ page: params.page, items })
+			),
+			// adding to the previous resultset
+			scan((prev, curr: { items, params: SelectParams }) => {
+				if (curr.params.page === 0) {
+					return curr;
+				} else {
+					return {
+						...curr,
+						items: [...prev.items, ...curr.items]
+					}
+				}
+			}, { items: [] as T[] } as any),
+		);
+		return { items$, refetchParams: { gql, params$ } };
 	}
 
 	/** update an entity
