@@ -6,7 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { TeamService } from '~global-services';
 import { take, map, switchMap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
+import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 
 
 @Component({
@@ -27,6 +27,7 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) { }
 
 	ngOnInit() {
+		console.log('>> this.productDlgSrv = ', this.productDlgSrv);
 		this.teamMembers$ = this.productDlgSrv.selectTeamUsers();
 	}
 
