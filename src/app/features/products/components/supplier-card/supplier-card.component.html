@@ -1,30 +1,49 @@
-<card-app>
+<card-app paddingBottom="none">
 
-<h2 i18n="header 2|Supplier information on product page@@supplierCard_supplier">Supplier</h2>
-
-<div class="flexVAlign">
-	<div class="left flexCenter">
-		<img [src]="supplier | logo:'supplier'"/>
+	<div class="flexVAlign">
+		<img [src]="supplier | logo:'supplier-product'"/>
+		<span class="name">{{ supplier?.name || 'Supplier'}}</span>
+		<icon-app *ngIf="supplier?.favorite" name="heart" size="11"></icon-app>
 	</div>
 
-	<div class="right flexColumn">
-		<span class="name">{{ supplier?.name }}</span>
-		<span class="from" *ngIf="supplier?.country">
-			Manufacturer from {{ supplier?.country | const:'country' }}
-		</span>
-	</div>
+	<ng-container *ngIf="supplier; else noSupplier">
+		<div class="flexColumn supplier-info">
+			<span class="from" *ngIf="supplier?.country">
+				Manufacturer from {{ supplier?.country | const:'country' }}
+			</span>
+			<div class="flexVAlign categories">
+				<span *ngFor="let category of supplier?.categories; last as last">
+					{{ category.name }}{{ last ? '' : ','}}
+				</span>
+			</div>
+			<image-previewer-app
+				[hasAdd]="false"
+				[showOneLine]="true"
+				[images]="supplier?.images">
+			</image-previewer-app>
+		</div>
 
-</div>
+		<card-footer-app>
+			<button
+				(click)="goToSupplier()"
+				class="secondary-light"
+				i18n="button|View supplier information on product page@@supplierCard_viewSupplier">
+				View Supplier
+			</button>
+		</card-footer-app>
+	</ng-container>
 
-<card-footer-app>
-	<button
-		*ngIf="supplier"
-		(click)="goToSupplier()"
-		class="light"
-		i18n="button|View supplier information on product page@@supplierCard_viewSupplier">
-		View Supplier
-	</button>
-	<!-- <button i18n="button name|Supplier information when opening a product@@supplierCard_contactSupplier">contact supplier</button> -->
-</card-footer-app>
+	<ng-template #noSupplier>
+		<div class="flexVAlign">
+			<img [src]="supplier | logo:'supplier-product'"/>
+			<span class="name">Supplier</span>
+		</div>
+		<span class="no-supplier">No Supplier Yet</span>
+
+		<card-footer-app class="empty">
+			<button class="primary">Quote Supplier</button>
+			<button class="primary">Find Supplier</button>
+		</card-footer-app>
+	</ng-template>
 
 </card-app>

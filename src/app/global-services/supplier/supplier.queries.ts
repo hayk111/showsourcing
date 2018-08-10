@@ -67,7 +67,7 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 				id,
 				name
 			}
-		}`;
+		`;
 
 	manyDefaultSelection = `
 		name,

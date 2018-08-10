@@ -16,7 +16,16 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				name,
 				address,
 				country,
+				favorite,
 				logoImage {
+					id,
+					fileName
+				},
+				categories {
+					id,
+					name
+				},
+				images {
 					id,
 					fileName
 				}

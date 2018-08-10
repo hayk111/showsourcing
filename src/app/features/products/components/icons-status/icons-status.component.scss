@@ -3,6 +3,10 @@ icon-app {
 	cursor: default;
 }
 
+icon-app[name="heart"] {
+	color: var(--color-warn);
+}
+
 .numbers {
 	margin-right: 6px;
 	margin-top: 1px;
