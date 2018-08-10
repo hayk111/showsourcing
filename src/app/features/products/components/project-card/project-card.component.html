@@ -5,7 +5,7 @@
 		Projects
 	</h2>
 
-	<article *ngFor="let project of projects; last as last" class="flex">
+	<article *ngFor="let project of projects; last as last" class="flex" [class.last-item]="last">
 		<icon-app fontSet="svg" name="folder" ></icon-app>
 		<div class="flexColumn middle">
 			<span class="name capitalize bold">{{ project?.name }}</span>

@@ -46,6 +46,10 @@ card-app {
 		}
 	}
 
+	article.last-item {
+		padding-bottom: 0px;
+	}
+
 	.no-projects {
 		font-size: var( --font-size-xxxl);
     color: var(--color-txt-strong);
@@ -59,4 +63,5 @@ card-app {
 		margin-left: 44px;
 	}
 }
+
 
