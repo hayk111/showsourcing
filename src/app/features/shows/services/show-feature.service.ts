@@ -54,9 +54,9 @@ export class ShowFeatureService extends ShowService {
   }
 
   // this gets the list of events of the team then with the id we receive query backs the global db
-  selectInfiniteListMyShows(params$: Observable<SelectParams>): Observable<Show[]> {
+  selectInfiniteListMyShows(params$: Observable<SelectParams>): Observable<any[]> {
     // we return the events from team realm directly
-    const { items$ } = super.selectInfiniteList(params$)
+    const { items$ } = this.eventSrv.selectInfiniteList(params$)
     return items$.pipe(
       tap(events => events = events.map(evt => ({ ...evt, saved: true })))
     );

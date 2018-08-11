@@ -124,21 +124,18 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 
 		const items$ = params$.pipe(
 			distinctUntilChanged(),
-			switchMap(
+			mergeMap(
 				(params: SelectParams) => this.wrapper.selectList(gql, params),
 				(params: SelectParams, items: T[]) => ({ items, page: params.page })
 			),
 			// adding to the previous resultset
 			scan((prev, curr: { items, page: number }) => {
 				if (curr.page === 0) {
-					return curr;
+					return curr.items;
 				} else {
-					return {
-						...curr,
-						items: [...prev.items, ...curr.items]
-					}
+					return [...prev, ...curr.items];
 				}
-			}, { items: [] } as any),
+			}, []),
 		);
 
 		return { items$, refetchQuery: gql };
