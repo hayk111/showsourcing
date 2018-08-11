@@ -13,6 +13,7 @@ import { AutoUnsub } from '~utils';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
+import { DocumentNode } from 'graphql';
 
 /**
  * Class used by components that need to display a list
@@ -42,7 +43,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	previewed: T;
 
 	/** can be used on when deleting / creating an entity to refetch */
-	private refecthParams: RefetchParams;
+	private refetchQuery: DocumentNode;
 	currentParams: SelectParams = new SelectParams();
 	private _selectParams$ = new ReplaySubject<SelectParams>(1);
 	protected selectParams$ = this._selectParams$.asObservable();
@@ -72,21 +73,33 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.setSelection();
 	}
 
+
+
 	protected setItems() {
 		const selectList = this.featureSrv.selectList(this.selectParams$);
 		this.items$ = selectList.items$;
-		this.refecthParams = selectList.refetchParams;
+		this.refetchQuery = selectList.refetchQuery;
 
 		this.items$.pipe(
+			takeUntil(this._destroy$),
 			tap(_ => this.onLoaded())
-		);
+		).subscribe();
 		// when param changes we are loading
 		this.selectParams$.pipe(
 			tap(params => this.currentParams = params),
 			takeUntil(this._destroy$),
 			tap(_ => this.onLoad()),
-		);
+		).subscribe();
 	}
+
+	protected onLoad() {
+		this.pending = true;
+	}
+
+	protected onLoaded() {
+		this.pending = false;
+	}
+
 
 	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
@@ -146,14 +159,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	getFiltersNumber() {
 		return this.filterSrv.filtersNumber();
-	}
-
-	protected onLoad() {
-		this.pending = true;
-	}
-
-	protected onLoaded() {
-		this.pending = false;
 	}
 
 	/** Loads more items when we reach the bottom of the page */
@@ -281,9 +286,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
 		const items = Array.from(this.selectionSrv.selection.keys());
+		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
 		// callback for confirm dialog
 		const callback = () => {
-			this.featureSrv.deleteMany(items, this.refecthParams).subscribe(() => {
+			this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
 				this.resetSelection();
 			});
 		};
@@ -293,8 +299,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
+		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
 		const callback = () => {
-			this.featureSrv.deleteOne(itemId).subscribe();
+			this.featureSrv.deleteOne(itemId, refetchParams).subscribe();
 		};
 		const text = `Are you sure you want to delete this item?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });

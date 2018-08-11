@@ -37,7 +37,7 @@ export class ShowFeatureService extends ShowService {
   // we want to actually replace the show with an event on team realm if it's one from team realm
   // if they exist
   selectInfiniteListAllShows(params$: Observable<SelectParams>): Observable<Show[]> {
-    const { items$, refetchParams } = super.selectInfiniteList(params$)
+    const { items$ } = super.selectInfiniteList(params$)
     return items$.pipe(
       switchMap(
         shows => {

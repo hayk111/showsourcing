@@ -3,11 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { FetchResult, DocumentNode } from 'apollo-link';
 import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, tap, switchMap, take } from 'rxjs/operators';
-import { DeleteManyOptions, DeleteOneOptions } from '~shared/apollo/interfaces/delete-options.interface';
-import { SelectOneOptions, SelectManyOptions } from '~shared/apollo/interfaces/select-option.interface';
 import { log, LogColor } from '~utils';
 
-import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
 import gql from 'graphql-tag';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -69,11 +66,13 @@ export class ApolloWrapper {
 
 
 	/** same as select many but it's a query instead of a subscription */
-	selectList(gql: DocumentNode, params: SelectParams): Observable<any[]> {
+	selectList(gql: DocumentNode, params: SelectParams): Observable<any> {
 		const queryName = this.getQueryName(gql);
 		const variables = params.toApolloVariables();
+		const options = { query: gql, variables };
+
 		this.log('Selecting List', gql, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+		return this.apollo.watchQuery(options).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -125,12 +124,12 @@ export class ApolloWrapper {
 	}
 
 	/** Creates one entity */
-	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
+	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string, refetchQueries?: RefetchParams[]): Observable<FetchResult<T>> {
 		const variables = { input };
 		const queryName = this.getQueryName(gql);
 		this.log('Create', gql, queryName, variables);
 
-		return this.apollo.mutate({ mutation: gql, variables }).pipe(
+		return this.apollo.mutate({ mutation: gql, variables, refetchQueries }).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -140,13 +139,14 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(gql: DocumentNode, id: string, refetchParams: RefetchParams = {}): Observable<any> {
+	delete<T>(gql: DocumentNode, id: string, refetchQueries: RefetchParams[]): Observable<any> {
 
 		// first we gotta create the refetchQuery
 		// then we can actually delete, and the refetch query will be executed
 		const options = {
 			mutation: gql,
 			variables: { id },
+			refetchQueries
 		};
 		const queryName = this.getQueryName(gql);
 		this.log('DeleteOne', gql, queryName, options.variables);
@@ -160,19 +160,12 @@ export class ApolloWrapper {
 	}
 
 	/** delete many items given an array of id */
-	deleteMany<T>(gql: DocumentNode, ids: string[], refetchParams?: RefetchParams): Observable<any> {
-		refetchParams.params$.pipe(
-			take(1),
-			switchMap(params => {
-				if (!params)
-			})
-		)
+	deleteMany<T>(gql: DocumentNode, ids: string[], refetchQueries?: RefetchParams[]): Observable<any> {
 		let query = ids.map(id => `id = "${id}"`).join(' OR ');
-		// removing the first ' OR '
-		query = query.substr(4);
 		const apolloOptions = {
 			mutation: gql,
-			variables: { query }
+			variables: { query },
+			refetchQueries
 		};
 		const queryName = this.getQueryName(gql);
 		this.log('DeleteMany', gql, queryName, apolloOptions.variables);

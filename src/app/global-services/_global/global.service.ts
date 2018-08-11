@@ -11,7 +11,7 @@ import { DocumentNode } from 'graphql';
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
 	selectMany(params$: Observable<SelectParams>, fields?: string, client?: string): Observable<T[]>;
-	selectList: (params$: Observable<SelectParams>) => SelectListResponse<T>;
+	selectList: (params$: Observable<SelectParams>) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
 	updateMany: (entities: T[], ...args) => Observable<T[]>;
@@ -20,10 +20,6 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
 	deleteMany: (ids: string[], ...args) => Observable<any>;
 }
 
-export interface SelectListResponse<T> {
-	items$: Observable<T[]>;
-	refetchParams: RefetchParams;
-}
 
 /**
  * Global service that other entity service can extend to do stuff via graphql,
@@ -101,7 +97,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
 	selectList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: SelectListResponse<T> {
+		: { items$: Observable<T[]>, refetchQuery: DocumentNode } {
 
 		if (!this.queries.list) {
 			throw Error('list query not implemented for this service');
@@ -112,7 +108,8 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params))
 		);
 
-		return { items$, refetchParams: { gql, params$ } };
+		return { items$, refetchQuery: gql }
+
 	}
 
 	/**
@@ -121,7 +118,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
 	 */
 	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: SelectListResponse<T> {
+		: { items$: Observable<T[]>, refetchQuery: DocumentNode } {
 
 		const gql = this.queries.list(fields);
 
@@ -129,11 +126,11 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			distinctUntilChanged(),
 			switchMap(
 				(params: SelectParams) => this.wrapper.selectList(gql, params),
-				(params: SelectParams, items: T[]) => ({ page: params.page, items })
+				(params: SelectParams, items: T[]) => ({ items, page: params.page })
 			),
 			// adding to the previous resultset
-			scan((prev, curr: { items, params: SelectParams }) => {
-				if (curr.params.page === 0) {
+			scan((prev, curr: { items, page: number }) => {
+				if (curr.page === 0) {
 					return curr;
 				} else {
 					return {
@@ -141,9 +138,10 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 						items: [...prev.items, ...curr.items]
 					}
 				}
-			}, { items: [] as T[] } as any),
+			}, { items: [] } as any),
 		);
-		return { items$, refetchParams: { gql, params$ } };
+
+		return { items$, refetchQuery: gql };
 	}
 
 	/** update an entity
@@ -181,16 +179,16 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, refetchParams?: RefetchParams, client?: string): Observable<any> {
+	create(entity: T, refetchParams?: RefetchParams[], client?: string): Observable<any> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
 		const fields = Object.keys(entity).toString();
 		const gql = this.queries.create(fields);
-		return this.wrapper.use(client).create(gql, entity, this.typeName);
+		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
 
-	deleteOne(id: string, refetchParams?: RefetchParams, client?: string): Observable<any> {
+	deleteOne(id: string, refetchParams?: RefetchParams[], client?: string): Observable<any> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
@@ -198,7 +196,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		return this.wrapper.use(client).delete(gql, id, refetchParams);
 	}
 
-	deleteMany(ids: string[], refetchParams?: RefetchParams, client?: string): Observable<any> {
+	deleteMany(ids: string[], refetchParams?: RefetchParams[], client?: string): Observable<any> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}

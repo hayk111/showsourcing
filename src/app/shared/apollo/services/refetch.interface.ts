@@ -4,6 +4,6 @@ import { DocumentNode } from 'graphql';
 
 
 export interface RefetchParams {
-	gql?: DocumentNode;
-	params$?: Observable<SelectParams>;
+	query: DocumentNode;
+	variables?: any;
 }
