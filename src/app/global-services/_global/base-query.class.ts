@@ -22,16 +22,16 @@ export class BaseQueries {
 	* the query is named one because it's used in details page to select all
 	* entities that have a specific id (which will return only one result).
 	*/
-	one = (str: string = this.oneDefaultSelection) => gql`
-		subscription ${ this.sing}($query: String!) {
+	one = (str: string = this.oneDefaultSelection) => gql(`
+		subscription ${this.sing}($query: String!) {
 			${ this.plural}(query: $query) {
 				id
 				${ str}
 			}
-		}`;
+		}`);
 
-	many = (str: string = this.manyDefaultSelection) => gql`
-		subscription ${this.plural}(
+	many = (str: string = this.manyDefaultSelection) => gql(`
+		query ${this.plural}(
 			$take: Int,
 			$skip: Int,
 			$query: String!,
@@ -42,40 +42,48 @@ export class BaseQueries {
 				id,
 				${str}
 			}
-		}`;
+		}`);
 
-	all = (str: string = this.allDefaultSelection) => gql`
+	all = (str: string = this.allDefaultSelection) => gql(`
 		query ${this.plural} {
 			${this.plural} {
 				id
 				${str}
 			}
-		}`;
+		}`);
 
-	create = (str: string = this.createDefaultSelection) => gql`
+	allIds = gql(`
+		query ${this.plural} {
+			${this.plural} {
+				id
+			}
+		}`);
+
+	create = (str: string = this.createDefaultSelection) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
 				id,
 				${str}
 			}
-		}`;
+		}`);
 
-	update = (str: string = this.updateDefaultSelection) => gql`
+	update = (str: string = this.updateDefaultSelection) => gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
 				id
+				${str}
 			}
-		}`;
+		}`);
 
-	deleteOne = gql`
+	deleteOne = () => gql(`
 		mutation delete${this.capSing}($id: String!) {
 			delete${this.capSing}(id: $id)
-		}`;
+		}`);
 
-	deleteMany = gql`
+	deleteMany = () => gql(`
 		mutation delete${this.capPlural}($query: String!) {
 			delete${this.capPlural}(query: $query)
-		}`;
+		}`);
 
 
 	private capitalize(str: string): string {

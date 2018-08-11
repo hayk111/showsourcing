@@ -1,10 +1,11 @@
-import { forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, first, map, scan, switchMap } from 'rxjs/operators';
+import { forkJoin, Observable, of, Subject, ReplaySubject, Subscription, zip, BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, first, map, scan, switchMap, tap } from 'rxjs/operators';
 import { isObject } from 'util';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { SubscribeToManyOptions } from '~shared/apollo/interfaces/subscription-option.interface';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { merge, combineLatest, } from 'rxjs';
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -17,8 +18,10 @@ export interface GlobalServiceInterface<T> {
 	deleteMany: (ids: string[], ...args) => Observable<any>;
 }
 
-
-export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
+/**
+ * Global service that other entity service can extend to do stuff via graphql
+ */
+export abstract class GlobalService<T extends { id?: string }> implements GlobalServiceInterface<T> {
 
 	constructor(
 		protected wrapper: ApolloWrapper,
@@ -27,7 +30,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 
 
 
-	/** selects all entity
+	/** selects all entity (subscription)
 	 * @param id : id of the entity selected
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
@@ -36,10 +39,22 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		if (!this.queries.one) {
 			throw Error('one query not implemented for this service');
 		}
-		return this.wrapper.use(client).selectOne({ gql: this.queries.one(fields), id });
+		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
+		// Therefor we will create a subject where we can push new changes to see those in the view
+		if (this.selectOneCache.has(id))
+			return this.selectOneCache.get(id).combined;
+
+		const obs = this.wrapper.use(client).selectOne({ gql: this.queries.one(fields), id });
+		const subj = new BehaviorSubject({});
+		const combined = combineLatest(subj, obs, (newestChanges, latestChanges) => ({ ...latestChanges, ...newestChanges }));
+		this.selectOneCache.set(id, { subj, obs, combined });
+		return combined;
 	}
 
-	/** selects all entity
+	// we use a cache so we can change things on update
+	private selectOneCache = new Map<string, { subj, obs, combined }>();
+
+	/** selects all entity (query)
 	 * @param fields : string to specify the fields we want to query
 	 * defaults to id, name
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
@@ -52,7 +67,7 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 		return this.wrapper.use(client).selectAll({ gql: this.queries.all(fields) });
 	}
 
-	/** selects slice of data that corresponds to parameters
+	/** selects slice of data that corresponds to parameters (query)
 	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
@@ -94,7 +109,6 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			// taking the first result of a selectMany
 			switchMap(
 				params => {
-					debugger;
 					return this.selectMany(of(params), fields).pipe(
 						first(),
 						map(result => ({ result, page: params.page }))
@@ -117,13 +131,20 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, fields?: string, client?: string): Observable<any> {
-		// this.trim(entity);
+	update(entity: T, client?: string): Observable<any> {
+		const gql = this.queries.update(Object.keys(entity).toString());
+
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
 		}
+
+		// updating select one cache so changes are reflected when using selectOne(id)
+		if (this.selectOneCache.has(entity.id)) {
+			this.selectOneCache.get(entity.id).subj.next(entity);
+		}
+
 		return this.wrapper.use(client).update({
-			gql: this.queries.update(fields),
+			gql,
 			input: entity,
 			typename: this.typeName
 		});
@@ -134,8 +155,8 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: T[], fields?: string, client?: string): Observable<any> {
-		return forkJoin(entities.map(entity => this.update(entity, fields, client)));
+	updateMany(entities: T[], client?: string): Observable<any> {
+		return forkJoin(entities.map(entity => this.update(entity, client)));
 	}
 
 	/** create an entity
@@ -143,13 +164,12 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, fields?: string, client?: string): Observable<any> {
-		// this.trim(entity);
+	create(entity: T, client?: string): Observable<any> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
 		return this.wrapper.use(client).create({
-			gql: this.queries.create(fields),
+			gql: this.queries.create(Object.keys(entity).toString()),
 			input: entity,
 			typename: this.typeName
 		});
@@ -160,10 +180,10 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			throw Error('delete one query not implemented for this service');
 		}
 		return this.wrapper.use(client).delete({
-			gql: this.queries.deleteOne,
+			gql: this.queries.deleteOne(),
 			id,
 			typename: this.typeName
-		});
+		}, this.queries.all());
 	}
 
 	deleteMany(ids: string[], client?: string): Observable<any> {
@@ -171,24 +191,12 @@ export abstract class GlobalService<T> implements GlobalServiceInterface<T> {
 			throw Error('delete many query not implemented for this service');
 		}
 		return this.wrapper.use(client).deleteMany({
-			gql: this.queries.deleteMany,
+			gql: this.queries.deleteMany(),
 			ids,
 			typename: this.typeName
-		});
+		}, this.queries.many());
 	}
 
-
-	// TODO: Michael this should be a middleware and not polute global service sorry but it's not this class's responsibility
-
-	/** Michael did this:
-	 *  This is used to eliminate spaces at the sides of the strings in the entity properties.
-	 *  CopyRight Michael Corp.
-	 */
-	// private trim(entity: T) {
-	// 	Object.entries(entity).forEach(([k, v]) => {
-	// 		if (!isObject(v) && typeof v === 'string') entity[k] = v.trim();
-	// 	});
-	// }
 }
 
 

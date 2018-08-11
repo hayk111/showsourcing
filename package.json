@@ -34,7 +34,7 @@
     "@ng-select/ng-select": "^2.3.6",
     "apollo-angular": "^1.1.2",
     "apollo-angular-link-http": "^1.1.1",
-    "apollo-cache-inmemory": "^1.2.6",
+    "apollo-cache-inmemory": "^1.2.7",
     "apollo-client": "^2.3.7",
     "apollo-link-ws": "^1.0.8",
     "core-js": "^2.5.4",

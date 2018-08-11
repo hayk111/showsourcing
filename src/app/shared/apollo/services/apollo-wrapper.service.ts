@@ -8,6 +8,7 @@ import { SubribeToOneOptions, SubscribeToManyOptions } from '~shared/apollo/inte
 import { log, LogColor } from '~utils';
 
 import { UpdateOptions } from '~shared/apollo/interfaces/update-options.interface';
+import gql from 'graphql-tag';
 
 
 /**
@@ -59,11 +60,12 @@ export class ApolloWrapper {
 	/////////////////////////////
 
 	/** select many entities in accordance to the conditions supplied */
+
 	selectMany(options: SubscribeToManyOptions): Observable<any> {
 		const { gql, ...variables } = options;
 		const queryName = this.getQueryName(options);
 		this.log('Selecting Many', options, queryName, variables);
-		return this.apollo.subscribe({ query: gql, variables })
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -123,7 +125,6 @@ export class ApolloWrapper {
 		if (this.checkOptimistic(options)) {
 			this.addOptimisticResponse(apolloOptions, options);
 		}
-
 		return this.apollo.mutate(apolloOptions).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -153,10 +154,22 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(options: DeleteOneOptions): Observable<FetchResult<T>> {
+	delete<T>(options: DeleteOneOptions, readAllQuery): Observable<FetchResult<T>> {
 		const apolloOptions = {
 			mutation: options.gql,
 			variables: { id: options.id },
+			update: (proxy, { data: { submitComment } }) => {
+				// Read the data from our cache for this query.
+				const data = proxy.readQuery({ query: gql('Supplier:ee28a7f3-ca09-429b-bebf-f999cffcd219') });
+				// Add our comment from the mutation to the end.
+				debugger;
+				// data.comments.push(submitComment);
+				// // Write our data back to the cache.
+				// proxy.writeQuery({ query: CommentAppQuery, data });
+			},
+			context: {
+				returnPartialData: true
+			}
 		};
 		const queryName = this.getQueryName(options);
 		this.log('DeleteOne', options, queryName, apolloOptions.variables);
@@ -173,14 +186,25 @@ export class ApolloWrapper {
 	}
 
 	/** delete many items given an array of id */
-	deleteMany<T>(options: DeleteManyOptions): Observable<any> {
+	deleteMany<T>(options: DeleteManyOptions, readAllQuery): Observable<any> {
 		let query = options.ids.reduce((acc, curr) => `${acc} OR id ="${curr}"`, '');
 		// removing the first ' OR '
 		query = query.substr(4);
 		const apolloOptions = {
 			mutation: options.gql,
 			variables: { query },
+			update: (proxy, { data }) => {
+				debugger;
+				// Read the data from our cache for this query.
+				const d = proxy.readQuery({ query: gql`query suppliers { suppliers { id }}` }, true);
+				// Add our comment from the mutation to the end.
+				// data.comments.push(submitComment);
+				// // Write our data back to the cache.
+				// proxy.writeQuery({ query: CommentAppQuery, data });
+			},
+			context: { returnPartialData: true }
 		};
+		debugger;
 		const queryName = this.getQueryName(options);
 		this.log('DeleteMany', options, queryName, apolloOptions.variables);
 
