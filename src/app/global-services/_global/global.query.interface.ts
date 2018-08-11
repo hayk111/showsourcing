@@ -1,13 +1,13 @@
 
 export interface GlobalQuery {
-	one: any;
-	many?: any;
-	list?: any;
-	create: any;
-	update: any;
+	one: (str?: string) => any;
+	many: (str?: string) => any;
+	list?: (str?: string) => any;
+	create: (str?: string) => any;
+	update: (str?: string) => any;
 	deleteOne: any;
 	deleteMany: any;
-	all: (str: string) => any;
+	all: (str?: string) => any;
 }
 
 

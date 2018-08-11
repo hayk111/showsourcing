@@ -17,10 +17,6 @@ export class ImageService extends GlobalService<AppImage> {
 		super(wrapper, new ImageQueries(), 'Image');
 	}
 
-	selectMany(...args) {
-		return super.selectMany(...args);
-	}
-
 	selectAll(fields = 'id'): Observable<any> {
 		throw Error(`Don't select all images, you goof !`);
 	}

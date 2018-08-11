@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AccessTokenState, Credentials } from '~features/auth/interfaces';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { AuthState } from '~features/auth/interfaces';
 import { AuthHttpService } from '~features/auth/services/auth-http.service';

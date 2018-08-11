@@ -94,5 +94,10 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 		productCount
 		`;
 
+	updateDefaultSelection = `
+			id,
+			favorite
+		`;
+
 }
 
