@@ -24,7 +24,7 @@ export class ProductFeatureService extends ProductService {
 
 
 	getContacts(supplierId: string) {
-		return this.contactSrv.selectMany(
+		return this.contactSrv.selectList(
 			of(new SelectParams({ query: `supplier.id == "${supplierId}"` }))
 		);
 	}
