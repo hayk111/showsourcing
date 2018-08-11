@@ -36,7 +36,7 @@
 		</action-bar-app>
 
 		<div class="flex info-creation">
-			<user-picture-app [image]="user?.avatar" border="true"></user-picture-app>
+			<user-picture-app [image]="product.createdBy?.avatar" border="true"></user-picture-app>
 			<div class="text-creation">
 				<p>created by {{product?.createdBy?.firstName || ''}} {{product?.createdBy?.lastName || ''}}</p>
 				<span>{{ product.creationDate | timeAgo }}{{ product?.event?.name ? ', at'+product.event.name : ''}}</span>
