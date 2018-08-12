@@ -4,7 +4,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { Project, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { ProjectService, ProductService } from '~global-services';
-import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog-service';
+import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
 
 
 

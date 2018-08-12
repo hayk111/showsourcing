@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
+import { ProductDialogService } from '~shared/custom-dialog/services';
 
 import {
 	CreationDialogComponent,
@@ -40,6 +41,5 @@ import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.se
 		ProductDialogService,
 		CrudDialogService
 	]
-
 })
 export class CustomDialogModule { }
