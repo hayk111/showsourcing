@@ -108,7 +108,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params))
 		);
 
-		return { items$, refetchQuery: gql }
+		return { items$, refetchQuery: gql };
 
 	}
 
@@ -147,8 +147,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	update(entity: T, client?: string): Observable<any> {
-		const fields = Object.keys(entity).toString();
-		const gql = this.queries.update(fields);
+		const gql = this.queries.update();
 
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
@@ -180,8 +179,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		const fields = Object.keys(entity).toString();
-		const gql = this.queries.create(fields);
+		const gql = this.queries.create();
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
 
