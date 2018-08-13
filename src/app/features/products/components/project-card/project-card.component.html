@@ -1,23 +1,31 @@
 
 <card-app padding="ms">
-	<h2 i18n="header 2|Project card@@projectCard_projects" class="flex">
-		<icon-app fontSet="svg" name="folder-blue" ></icon-app>
-		Projects
-	</h2>
-
-	<article *ngFor="let project of projects; last as last" class="flex" [class.last-item]="last">
-		<icon-app fontSet="svg" name="folder" ></icon-app>
-		<div class="flexColumn middle">
-			<span class="name capitalize bold">{{ project?.name }}</span>
-			<span class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
-			<divider-app [class.border-white]="last"></divider-app>
+	<div class="title flex">
+		<div class="space-icon flexAround">
+			<icon-app fontSet="svg" name="folder-blue" ></icon-app>
 		</div>
-		<div class="flexCenter">
-			<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
+		<h2 i18n="header 2|Project card@@projectCard_projects">
+			Projects
+		</h2>
+	</div>
+	<div *ngFor="let project of projects; last as last">
+		<article class="flexBetween" [class.last-item]="last">
+			<div class="flex">
+				<div class="space-icon flexAround">
+					<icon-app fontSet="svg" name="folder" ></icon-app>
+				</div>
+				<div class="flexColumn middle" >
+					<span class="name capitalize">{{ project?.name }}</span>
+					<span *ngIf="project?.description" class="description" i18n="span|Project card@@projectCard_description">  {{ project?.description }}  </span>
+				</div>
+			</div>
+			<div class="flexCenter">
+				<icon-app  fontSet="fa" class="minus pointer fs-xl color-primary-light"
 				(click)="removeProject.emit(project)" name="minus"></icon-app>
-		</div>
-	</article>
-
+			</div>
+		</article>
+		<divider-app *ngIf="!last"></divider-app>
+	</div>
 	<span class="no-projects" *ngIf="projects?.length === 0">
 		No Projects Added
 	</span>

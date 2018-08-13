@@ -2,36 +2,47 @@
 	display: block;
 }
 
+$margin-bar: 54px;
+
+.space-icon {
+	height: 32px;
+	width: 32px;
+	margin-right: var(--spacing-ms);
+}
+
+.title {
+	margin-bottom: var(--spacing-ms);
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+}
+
+
 card-app {
 	width: 100%;
 
 	icon-app[name^="folder"] {
 		cursor: default;
-		margin-right: var(--spacing-ml);
-	}
-
-	icon-app[name="folder"] {
-		padding-bottom: 15px;
 	}
 
 	article {
-		padding: var(--spacing-s);
+		padding: var(--spacing-ms);
 		border-radius: var(--border-radius);
 
 		.middle {
-			flex-grow: 1;
+			margin-top: 4px;
+			justify-content: center;
 
 			.name {
-				font-weight: 600;
+				color: var(--color-txt-strong);
 			}
 			.description {
-				margin-top: 5px;
+				margin-top: 2px;
 				height: 15px;
 				color: var(--color-txt-primary);
 				font-size: var(--font-size-s);
-			}
-			.border-white {
-				border-color: white;
 			}
 			divider-app {
 				margin-top: 16px;
@@ -46,8 +57,13 @@ card-app {
 		}
 	}
 
-	article.last-item {
+	article {
 		padding-bottom: 0px;
+	}
+
+	divider-app {
+		margin-right: var(--spacing-ms);
+		margin-left: $margin-bar;
 	}
 
 	.no-projects {
@@ -60,12 +76,17 @@ card-app {
 	}
 
 	.custom-margin {
-		margin-left: 44px;
+		margin-left: $margin-bar;
 	}
 
 	card-footer-app {
 		margin-right: var(--spacing-ms);
 		margin-left: var(--spacing-ms);
+
+		button {
+			min-width: 120px;
+			font-weight: 600;
+		}
 	}
 }
 
