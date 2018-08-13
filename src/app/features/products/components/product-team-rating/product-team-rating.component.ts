@@ -22,7 +22,7 @@ export class ProductTeamRatingComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	get successStyle() {
+	get buttonStyle() {
 		let state = 'secondary-dark';
 		if (this.votes) {
 			state = this.score >= 50 ? 'success' : 'warn';

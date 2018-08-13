@@ -7,7 +7,7 @@
 	<ng-container  *ngIf="votes?.length > 0; else noVotes">
 		<div class="rating-info">
 				<div class="thumb-info flexVAlign">
-					<icon-app [name]="name" [ngStyle]="successStyle" size="m" fontSet="svg"></icon-app>
+					<icon-app [name]="name" [ngStyle]="buttonStyle" size="m" fontSet="svg"></icon-app>
 					<div class="score-info flexColumn">
 						<span class="number">{{ score || '-' }} %</span>
 						<span>({{ votes?.length || '0'}} votes)</span>
@@ -21,7 +21,14 @@
 			</div>
 
 			<card-footer-app>
-				<button class="secondary-light">View Vote Details</button>
+				<context-menu-app>
+					<context-menu-trigger-app>
+						<button class="secondary-light">View Vote Details</button>
+					</context-menu-trigger-app>
+					<context-menu-item-app *ngFor"let vote of votes">
+						{{ vote.user.firstName vote.user.lastName }}
+					</context-menu-item-app>
+				</context-menu-app>
 				<button class="primary">Request Team Votes</button>
 			</card-footer-app>
 	</ng-container>
