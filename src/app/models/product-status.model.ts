@@ -4,11 +4,10 @@ import { User } from '~models/user.model';
 
 export class ProductStatus extends BaseEntity<ProductStatusConfig> {
 	status?: ProductStatusType;
-	cancelled ?= false;
+	cancelled?= false;
 	comment?: Comment;
 	deletedBy?: User;
 	deletionDate?: string;
-	lastUpdatedBy?: string;
 }
 
 export interface ProductStatusConfig {

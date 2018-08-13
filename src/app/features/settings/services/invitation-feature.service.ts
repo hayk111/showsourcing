@@ -8,7 +8,11 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 @Injectable()
 export class InvitationFeatureService extends InvitationService {
 
-	constructor(protected apollo: ApolloWrapper, private invitationSrv: InvitationService, private userSrv: UserService) {
+	constructor(
+		protected apollo: ApolloWrapper,
+		private invitationSrv: InvitationService,
+		protected userSrv: UserService
+	) {
 		super(apollo);
 	}
 

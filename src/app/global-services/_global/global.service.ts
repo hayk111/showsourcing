@@ -7,6 +7,8 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { merge, combineLatest, } from 'rxjs';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 import { DocumentNode } from 'graphql';
+import { UserService } from '~global-services';
+import { User } from '~models';
 
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -26,15 +28,19 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
  * This service deals with transforming what it receives then passing it to
  * apolloWrapper, it also deals with the cache
  */
-export abstract class GlobalService<T extends { id?: string }> implements GlobalServiceInterface<T> {
+export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: User, createdBy?: User }> implements GlobalServiceInterface<T> {
 
 	constructor(
 		protected wrapper: ApolloWrapper,
 		protected queries: GlobalQuery,
-		protected typeName?: string) { }
+		protected typeName?: string,
+		protected hasAudit?: boolean,
+		protected userSrv?: UserService
+	) { }
 
 	// we use a cache so we can change things on update
 	private selectOneCache = new Map<string, { subj, obs, result }>();
+
 
 	/** selects all entity (subscription)
 	 * @param id : id of the entity selected
@@ -147,8 +153,12 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	update(entity: T, client?: string): Observable<any> {
-		const fields = this.getFields(entity);
-		const gql = this.queries.update(fields);
+		// adding user to lastUpdatedBy
+		if (this.hasAudit) {
+			entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
+		}
+
+		const gql = this.queries.update();
 
 		if (!this.queries.update) {
 			throw Error('update query not implemented for this service');
@@ -180,8 +190,11 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		const fields = this.getFields(entity);
-		const gql = this.queries.create(fields);
+		// adding user to createdBy
+		if (this.hasAudit) {
+			entity.createdBy = { id: this.userSrv.userSync.id };
+		}
+		const gql = this.queries.create();
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
 
@@ -199,25 +212,6 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		}
 		const gql = this.queries.deleteMany();
 		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
-	}
-
-	/**
-	 * Goes through each property of an entity and remove __typename if exist,
-	 * removes null and undefined values
-	 *
-	 * @param entity: entity that needs to be patched
-	 */
-	private getFields(entity: any) {
-		const keys = Object.keys(entity);
-		keys.map(k => this.getNestedField(k, entity));
-		const r = keys.toString();
-	}
-
-	private getNestedField(k, entity) {
-		if (typeof entity[k] === 'object' && entity[k]) {
-			return `k { ${this.getNestedField(k, entity[k])} }`
-		}
-		return k;
 	}
 
 }

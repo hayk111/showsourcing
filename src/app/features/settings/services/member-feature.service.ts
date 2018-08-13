@@ -15,7 +15,7 @@ export class MemberFeatureService extends TeamUserService {
 		protected apollo: ApolloWrapper,
 		private teamUserSrv: TeamUserService,
 		private teamSrv: TeamService,
-		private userSrv: UserService) {
+		protected userSrv: UserService) {
 		super(apollo);
 	}
 
