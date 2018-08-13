@@ -8,6 +8,7 @@ import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
 import { ActivatedRoute } from '@angular/router';
+import { GUEST_CLIENT } from './client-names.const';
 
 
 @Injectable({ providedIn: 'root' })
@@ -43,7 +44,7 @@ export class GuestClientInitializer extends AbstractApolloInitializer {
 	/** initialize apollo guest client */
 	private initGuestClient(uri: string, token) {
 		try {
-			this.createClient(uri, undefined, token);
+			this.createClient(uri, GUEST_CLIENT, token);
 			this.apolloState.setGuestClientReady();
 		} catch (e) {
 			log.error(e);

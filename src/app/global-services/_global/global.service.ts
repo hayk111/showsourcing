@@ -10,7 +10,7 @@ import { DocumentNode } from 'graphql';
 
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
-	selectMany(params$: Observable<SelectParams>, fields?: string, client?: string): Observable<T[]>;
+	selectMany: (params$: Observable<SelectParams>, fields?: string, client?: string) => Observable<T[]>;
 	selectList: (params$: Observable<SelectParams>) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
@@ -147,7 +147,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	update(entity: T, client?: string): Observable<any> {
-		const fields = Object.keys(entity).toString();
+		const fields = this.getFields(entity);
 		const gql = this.queries.update(fields);
 
 		if (!this.queries.update) {
@@ -180,7 +180,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		const fields = Object.keys(entity).toString();
+		const fields = this.getFields(entity);
 		const gql = this.queries.create(fields);
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
@@ -199,6 +199,25 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		}
 		const gql = this.queries.deleteMany();
 		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
+	}
+
+	/**
+	 * Goes through each property of an entity and remove __typename if exist,
+	 * removes null and undefined values
+	 *
+	 * @param entity: entity that needs to be patched
+	 */
+	private getFields(entity: any) {
+		const keys = Object.keys(entity);
+		keys.map(k => this.getNestedField(k, entity));
+		return keys.toString();
+	}
+
+	private getNestedField(k, entity) {
+		if (entity[k] === 'object') {
+			return `k { ${this.getNestedField(k, entity[k])} }`
+		}
+		return k;
 	}
 
 }

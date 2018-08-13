@@ -22,7 +22,7 @@ export class GuestClientReadyGuardService implements CanActivate, CanActivateChi
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return true;
+		return this.canActivateChild(route);
 	}
 
 
