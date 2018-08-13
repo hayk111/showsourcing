@@ -173,5 +173,10 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 
 	updateDefaultSelection = `
 		favorite
+		votes {
+			id
+			user { id }
+			value
+		}
 		`;
 }

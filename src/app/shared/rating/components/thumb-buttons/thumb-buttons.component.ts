@@ -18,12 +18,18 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	@Input() single = true;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
-		this.userVote = (votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+		this.userVoteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
+		if (~this.userVoteIndex)
+			this.userVote = votes[this.userVoteIndex];
 		this._votes = votes;
 	}
 	get votes() {
 		return this._votes;
 	}
+	userVoteIndex: number;
+
+
+
 	@Input() size = 's';
 	// when we want the color of the thumb be the background isntead of the icon
 	@Input() reverse = false;
@@ -124,7 +130,10 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateEmitVote() {
-		this.userVote.value = this.userVote.value === 100 ? 0 : 100;
+		const value = this.userVote.value === 100 ? 0 : 100;
+		this.userVote = { ...this.userVote, value };
+		this._votes = [...this._votes];
+		this._votes[this.userVoteIndex] = this.userVote;
 		this.vote.emit(this._votes);
 	}
 
