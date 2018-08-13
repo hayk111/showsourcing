@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="imgPrice flex flexCenter">
-			<span>{{product?.price?.value | currency: product.price.currency:'symbol':'1.2-2'}}</span>
+			<span>{{product?.price?.value | currency: product?.price?.currency:'symbol':'1.2-2'}}</span>
 		</div>
 
 		<status-badge-app
@@ -29,8 +29,8 @@
 
 		<div class="information">
 			<div class="text-bar">
-				<p class="bold-s">{{product.name}}</p>
-				<p class="fs-s">{{product.supplier.name}}</p>
+				<p class="bold-s">{{product?.name}}</p>
+				<p class="fs-s">{{product?.supplier?.name}}</p>
 			</div>
 			<icons-status-app
 				[product]="product"
