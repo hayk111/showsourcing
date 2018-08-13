@@ -210,11 +210,11 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	private getFields(entity: any) {
 		const keys = Object.keys(entity);
 		keys.map(k => this.getNestedField(k, entity));
-		return keys.toString();
+		const r = keys.toString();
 	}
 
 	private getNestedField(k, entity) {
-		if (entity[k] === 'object') {
+		if (typeof entity[k] === 'object' && entity[k]) {
 			return `k { ${this.getNestedField(k, entity[k])} }`
 		}
 		return k;
