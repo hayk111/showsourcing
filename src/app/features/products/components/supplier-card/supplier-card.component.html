@@ -13,7 +13,7 @@
 			</span>
 			<div class="flexVAlign categories">
 				<span *ngFor="let category of supplier?.categories; last as last">
-					{{ category.name }}{{ last ? '' : ','}}
+					{{ category?.name }}{{ last ? '' : ','}}
 				</span>
 			</div>
 			<image-previewer-app
@@ -34,10 +34,6 @@
 	</ng-container>
 
 	<ng-template #noSupplier>
-		<div class="flexVAlign">
-			<img [src]="supplier | logo:'supplier-product'"/>
-			<span class="name">Supplier</span>
-		</div>
 		<span class="no-supplier">No Supplier Yet</span>
 
 		<card-footer-app class="empty">

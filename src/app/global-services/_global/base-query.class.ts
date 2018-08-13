@@ -28,7 +28,7 @@ export class BaseQueries {
 				id
 				${ str}
 			}
-		}`);
+		}`)
 
 	many = (str: string = this.manyDefaultSelection) => gql(`
 		subscription ${this.plural}(
@@ -42,7 +42,7 @@ export class BaseQueries {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	list = (str: string = this.manyDefaultSelection) => gql(`
 		query ${this.plural}(
@@ -56,7 +56,7 @@ export class BaseQueries {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	all = (str: string = this.allDefaultSelection) => gql(`
 		query ${this.plural} {
@@ -64,7 +64,7 @@ export class BaseQueries {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	create = (str: string = this.createDefaultSelection) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
@@ -72,7 +72,7 @@ export class BaseQueries {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	update = (str: string = this.updateDefaultSelection) => gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
@@ -80,17 +80,17 @@ export class BaseQueries {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	deleteOne = () => gql(`
 		mutation delete${this.capSing}($id: String!) {
 			delete${this.capSing}(id: $id)
-		}`);
+		}`)
 
 	deleteMany = () => gql(`
 		mutation delete${this.capPlural}($query: String!) {
 			delete${this.capPlural}(query: $query)
-		}`);
+		}`)
 
 
 	private capitalize(str: string): string {

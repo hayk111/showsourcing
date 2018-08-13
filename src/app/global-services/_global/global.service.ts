@@ -108,7 +108,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params))
 		);
 
-		return { items$, refetchQuery: gql }
+		return { items$, refetchQuery: gql };
 
 	}
 
