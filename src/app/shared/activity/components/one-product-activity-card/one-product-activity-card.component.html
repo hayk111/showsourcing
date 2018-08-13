@@ -25,8 +25,8 @@
 	</div>
 
 	<div class="flexColumn prodInfo">
-		<span class="name">{{ product.name }}</span>
-		<span class="supplier">{{ product.supplier.name }}</span>
+		<span class="name">{{ product?.name }}</span>
+		<span class="supplier">{{ product?.supplier?.name }}</span>
 		<div class="badges flexVAlign">
 			<status-badge-app
 				size="mini"
@@ -34,11 +34,11 @@
 			 [status]="product?.statuses[0]?.status"></status-badge-app>
 			<badge-app
 				size="mini"
-				type="accent">{{ product.category.name }}
+				type="accent">{{ product?.category?.name }}
 			</badge-app>
 			<badge-app
 				size="mini"
-				*ngFor="let tag of product.tags">{{ tag.name }}
+				*ngFor="let tag of product.tags">{{ tag?.name }}
 			</badge-app>
 		</div>
 	</div>

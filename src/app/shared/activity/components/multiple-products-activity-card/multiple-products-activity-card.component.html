@@ -14,20 +14,20 @@
 				size="xl"
 				[image]="product"></img-app>
 			<div class="productName flexBetween">
-				<span>{{ product.name }}</span>
+				<span>{{ product?.name }}</span>
 				<div>
 					<icon-app class="fav" name="heart" fontSet="fa" *ngIf="product.favorite"></icon-app>
 				</div>
 			</div>
 			<span class="priceMoq">
 				<ng-container *ngIf="product.price && product.price.value">
-					{{ product.price.currency }} {{ product.price.value }}
+					{{ product?.price?.currency }} {{ product?.price?.value }}
 				</ng-container>
 				<ng-container *ngIf="product.price && product.price.value && product.minimumOrderQuantity">
 					-
 				</ng-container>
 				<ng-container *ngIf="product.minimumOrderQuantity">
-					{{ product.minimumOrderQuantity }} pcs
+					{{ product?.minimumOrderQuantity }} pcs
 				</ng-container>
 			</span>
 		</div>
