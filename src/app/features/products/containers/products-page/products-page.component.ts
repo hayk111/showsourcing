@@ -68,7 +68,6 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
 	openRequestFeedbackDialog(product: Product) {
-		console.log('>> openRequestFeedbackDialog');
 		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
 			selectedProducts: product ? [product] : this.getSelectedProducts()
 		});

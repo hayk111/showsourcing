@@ -49,6 +49,9 @@ card-app {
 	card-footer-app {
 		display: flex;
 		justify-content: space-between;
+		padding-bottom: 0px;
+		margin-left: var(--spacing-ms);
+    margin-right: var(--spacing-ms);
 
 		button {
 			width: 160px;

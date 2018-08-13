@@ -7,7 +7,7 @@ import { AppFile, Product, Project, AppImage, ProductStatus } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import {
-	ProductAddToProjectDlgComponent
+	ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent
 } from '~shared/custom-dialog';
 
 
@@ -46,6 +46,13 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** opens the dialog to add multiple project to product.projects */
 	openAddProjectDlg() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, { selectedProducts: [this.product] });
+	}
+
+	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
+	openRequestFeedbackDialog() {
+		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
+			selectedProducts: this.product
+		});
 	}
 
 	/** remove project from product.projects */

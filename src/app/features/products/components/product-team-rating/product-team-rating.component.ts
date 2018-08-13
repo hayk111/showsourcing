@@ -12,6 +12,7 @@ export class ProductTeamRatingComponent implements OnInit {
 	@Input() set product(product: Product) {
 		this.score = product.score;
 		this.votes = product.votes;
+		console.log('the votes >> ', this.votes);
 	}
 	score: number;
 	votes: ProductVote[];

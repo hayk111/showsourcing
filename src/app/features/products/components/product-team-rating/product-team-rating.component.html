@@ -1,4 +1,4 @@
-<card-app paddingBottom="none">
+<card-app padding="ms">
 	<h2 i18n="header 2|Product card@@teamRatingCard_product" class="flex">
 		<icon-app fontSet="svg" name="poll-light-blue" ></icon-app>
 		Team Rating
@@ -21,12 +21,12 @@
 			</div>
 
 			<card-footer-app>
-				<context-menu-app>
+				<context-menu-app xPosition="0" yPosition="34">
 					<context-menu-trigger-app>
 						<button class="secondary-light">View Vote Details</button>
 					</context-menu-trigger-app>
-					<context-menu-item-app *ngFor"let vote of votes">
-						{{ vote.user.firstName vote.user.lastName }}
+					<context-menu-item-app *ngFor="let vote of votes">
+						{{vote.user.firstName}} {{vote.user.lastName}}
 					</context-menu-item-app>
 				</context-menu-app>
 				<button class="primary">Request Team Votes</button>

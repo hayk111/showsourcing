@@ -63,4 +63,10 @@ card-footer-app.empty {
 		width: 160px;
 		font-weight: 600;
 	}
+
+}
+card-footer-app {
+	padding-bottom: 0px;
+	margin-left: var(--spacing-ms);
+	margin-right: var(--spacing-ms);
 }

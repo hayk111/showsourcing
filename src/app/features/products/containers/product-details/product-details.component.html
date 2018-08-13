@@ -15,10 +15,11 @@
 				[favorite]="product.favorite"
 				(productFavorite)="onFavorited()"
 				(productUnfavorite)="onUnfavorited()"
+				(requestFeedback)="openRequestFeedbackDialog()"
 				(vote)="updateProduct($event)"></product-carousel-app>
 
 			<!-- team rating here -->
-			<product-team-rating-app></product-team-rating-app>
+			<product-team-rating-app [product]="product"></product-team-rating-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 
