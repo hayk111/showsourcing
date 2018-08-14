@@ -23,6 +23,7 @@ export class InvitationFeatureService extends InvitationService {
 	createInvitation(email: string) {
 		return this.getInviter().pipe(
 			switchMap(inviter => {
+				inviter = { ...inviter };
 				delete inviter.realmServerName;
 				delete inviter.realmPath;
 				return this.invitationSrv.create(new Invitation({ email, inviter }));

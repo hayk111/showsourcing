@@ -32,8 +32,8 @@ export class UserService extends GlobalService<User> {
 		);
 	}
 
-	selectOne(id: string, fields?: string) {
-		return super.selectOne(id, fields, USER_CLIENT);
+	selectOne(id: string, fields?: string, client: string = USER_CLIENT) {
+		return super.selectOne(id, fields, client);
 	}
 }
 

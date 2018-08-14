@@ -24,11 +24,11 @@ export class Supplier extends BaseEntity<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	favorite ?= false;
+	favorite?= false;
 	globalDatabaseId?: string;
-	status?: SupplierStatus;
-	productCount ?= 0;
-	taskCount ?= 0;
+	statuses?: SupplierStatus[];
+	productCount?= 0;
+	taskCount?= 0;
 }
 
 export interface SupplierConfig {
