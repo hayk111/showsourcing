@@ -11,8 +11,8 @@
 		margin-bottom: 0px;
 	}
 	.space-icon {
-		height: 32px;
-		width: 32px;
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
 		margin-right: var(--spacing-ms);
 	}
 }
@@ -25,18 +25,19 @@ card-app {
 	}
 
 	.rating-info {
-		padding-top: 16px;
+		padding-top: var(--spacing-m);
 
 		.thumb-info {
-			margin-left: 35%;
+			margin-left: 127px;
 
 			icon-app {
-				width: 34px;
-				height: 34px;
+				width: var(--spacing-xl);
+				height: var(--spacing-xl);
 				border-radius: 50%;
+				cursor: default;
 			}
 			.score-info {
-				margin-left: 17px;
+				margin-left: var(--spacing-m);
 
 				.number {
 					color: var(--color-txt-strong);
@@ -47,7 +48,7 @@ card-app {
 		}
 	}
 	rating-cylinder-app {
-		margin-top: 15px;
+		margin-top: var(--spacing-m);
 		margin-bottom: var(--spacing-ms);
 	}
 
@@ -57,7 +58,7 @@ card-app {
     font-weight: 600;
     display: flex;
     justify-content: center;
-    margin: 31px 0px;
+    margin: var(--spacing-xl) 0px;
 	}
 
 	card-footer-app {

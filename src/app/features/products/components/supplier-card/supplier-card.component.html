@@ -6,6 +6,7 @@
 		<h2 i18n="header 2|Supplier card@@supplierCard_product" class="flex">
 				{{ supplier?.name || 'Supplier'}}
 		</h2>
+		<icon-app *ngIf="supplier?.statuses && supplier?.statuses[0].status === '_Validated'" name="check-square" fontSet="svg"></icon-app>
 		<icon-app *ngIf="supplier?.favorite" name="heart" size="11"></icon-app>
 	</div>
 
@@ -14,14 +15,15 @@
 			<span class="from" *ngIf="supplier?.country">
 				Manufacturer from {{ supplier?.country | const:'country' }}
 			</span>
-			<div class="flexVAlign categories">
-				<span *ngFor="let category of supplier?.categories; last as last">
+			<div class="flexWrap categories">
+				<div *ngFor="let category of supplier?.categories; last as last" class="single">
 					{{ category?.name }}{{ last ? '' : ','}}
-				</span>
+				</div>
 			</div>
 			<image-previewer-app
+				*ngIf="supplier?.images?.length > 0"
+				size="76"
 				[hasAdd]="false"
-				[showOneLine]="true"
 				[images]="supplier?.images">
 			</image-previewer-app>
 		</div>

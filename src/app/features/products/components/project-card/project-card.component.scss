@@ -5,8 +5,8 @@
 $margin-bar: 54px;
 
 .space-icon {
-	height: 32px;
-	width: 32px;
+	height: var(--spacing-xl);
+	width: var(--spacing-xl);
 	margin-right: var(--spacing-ms);
 }
 
@@ -32,7 +32,6 @@ card-app {
 		border-radius: var(--border-radius);
 
 		.middle {
-			margin-top: 4px;
 			justify-content: center;
 
 			.name {
@@ -40,12 +39,12 @@ card-app {
 			}
 			.description {
 				margin-top: 2px;
-				height: 15px;
+				height: var(--spacing-m);
 				color: var(--color-txt-primary);
 				font-size: var(--font-size-s);
 			}
 			divider-app {
-				margin-top: 16px;
+				margin-top: var(--spacing-m);
 			}
 		}
 		.minus {
@@ -57,7 +56,7 @@ card-app {
 		}
 	}
 
-	article {
+	article.last-item {
 		padding-bottom: 0px;
 	}
 
@@ -72,7 +71,7 @@ card-app {
     font-weight: 600;
     display: flex;
     justify-content: center;
-    margin: 31px 0px;
+    margin: var(--spacing-xl) 0px;
 	}
 
 	.custom-margin {

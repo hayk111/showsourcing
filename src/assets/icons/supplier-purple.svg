@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 28 30">
-    <g fill="none" fill-rule="evenodd" style="transform: translate(-42%, -35%);">
-        <rect width="40" height="40" fill="transparent" rx="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 25 27">
+    <g fill="none" fill-rule="evenodd" style="transform: translate(-46%, -40%);">
+        <rect width="39" height="39" rx="2"/>
         <g fill="#bd10e0" fill-rule="nonzero">
             <path d="M19.162 12h-6.469a.693.693 0 0 0-.693.693v1.617h7.855v-1.617a.693.693 0 0 0-.693-.693zM35.31 18.607a.693.693 0 0 0-.695.003l-6.858 4.01v-3.412a.693.693 0 0 0-1.043-.598l-6.859 4.01v-6.923H12v19.268c0 .383.31.693.693.693h22.272c.383 0 .693-.31.693-.693V19.208a.693.693 0 0 0-.348-.6zM22.628 30.783c0 .383-.31.693-.693.693h-2.773a.693.693 0 0 1-.693-.693v-2.772c0-.383.31-.693.693-.693h2.773c.382 0 .693.31.693.693v2.772zm7.901 0c0 .383-.31.693-.693.693h-2.772a.693.693 0 0 1-.694-.693v-2.772c0-.383.31-.693.694-.693h2.772c.383 0 .693.31.693.693v2.772z"/>
         </g>
