@@ -1,5 +1,4 @@
-<a
-	[ngClass]="{ selected: selected, flexCenter: !internalExpanded, flexStart: internalExpanded, expanded: internalExpanded }"
+<a [ngClass]="{ selected: selected, flexCenter: !internalExpanded, flexStart: internalExpanded, expanded: internalExpanded }"
 	(click)="onClickItem($event)">
     <ng-content></ng-content>
 </a>

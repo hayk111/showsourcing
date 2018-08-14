@@ -17,15 +17,15 @@
 
 	<ng-container *ngIf="selected$ | async as selected">
 
-		<projects-list-view-app
-			(select)="onItemSelected($event)"
-			(unselect)="onItemUnselected($event)"
-			(sort)="sort($event)"
-			(selectAll)="selectAll($event)"
-			(unselectAll)="resetSelection()"
-			[selection]="selected"
-			[rows]="projects"
-			[pending]="pending"></projects-list-view-app>
+	<projects-list-view-app
+		(select)="onItemSelected($event)"
+		(unselect)="onItemUnselected($event)"
+		(sort)="sort($event)"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="resetSelection()"
+		[selection]="selected"
+		[rows]="projects"
+		[pending]="pending"></projects-list-view-app>
 
 	</ng-container>
 

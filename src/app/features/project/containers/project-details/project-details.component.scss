@@ -1,10 +1,13 @@
+
 :host {
 	display: flex;
 	height: 100%;
 }
+
 .right {
 	flex-grow: 1;
 }
-.cog {
+
+icon-app {
 	font-size: 24px;
 }
