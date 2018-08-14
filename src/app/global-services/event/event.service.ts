@@ -6,15 +6,17 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalServiceInterface, GlobalService } from '~global-services/_global/global.service';
 import { EventQueries } from '~global-services/event/event.queries';
+import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
+import { UserService } from '~global-services/user/user.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class EventService extends GlobalService<Event> {
+export class EventService extends GlobalWithAuditService<Event> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new EventQueries(), 'Event');
+	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, new EventQueries(), 'Event', userSrv);
 	}
 
 	selectAll(fields: string = 'id, name, description {id, name, startDate, endDate}') {

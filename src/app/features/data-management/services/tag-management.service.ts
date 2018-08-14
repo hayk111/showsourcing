@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TagService } from '~global-services';
+import { TagService, UserService } from '~global-services';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 })
 export class TagManagememtService extends TagService {
 
-	constructor(protected wrapper: ApolloWrapper) {
-		super(wrapper);
+	constructor(protected wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, userSrv);
 	}
 }

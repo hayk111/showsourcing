@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { ContactQueries } from '~global-services/contact/contact.queries';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { Contact } from '~models';
+import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
+import { UserService } from '~global-services/user/user.service';
 
 
 @Injectable({ providedIn: 'root' })
-export class ContactService extends GlobalService<Contact> {
+export class ContactService extends GlobalWithAuditService<Contact> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new ContactQueries(), 'Contact');
+	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, new ContactQueries(), 'Contact', userSrv);
 	}
 
 }

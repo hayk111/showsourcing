@@ -6,15 +6,17 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { GlobalServiceInterface, GlobalService } from '~global-services/_global/global.service';
 
 import { TagQueries } from '~global-services/tag/tag.queries';
+import { UserService } from '~global-services/user/user.service';
+import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class TagService extends GlobalService<Tag> {
+export class TagService extends GlobalWithAuditService<Tag> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new TagQueries(), 'Tag');
+	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, new TagQueries(), 'Tag', userSrv);
 	}
 
 }

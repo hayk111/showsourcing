@@ -34,7 +34,7 @@ export class ConstPipe implements PipeTransform {
 			case 'incoTerms':
 				constMap = incoTermsMap;
 				break;
-			default: throw Error(`The target ${args[0]}for the const pipe is not a valid const`);
+			default: throw Error(`The target ${args[0]} for the const pipe is not a valid const`);
 		}
 		const constObject = constMap[value];
 

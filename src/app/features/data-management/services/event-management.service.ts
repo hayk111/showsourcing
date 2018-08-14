@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventService } from '~global-services';
+import { EventService, UserService } from '~global-services';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 })
 export class EventManagementService extends EventService {
 
-	constructor(protected wrapper: ApolloWrapper) {
-		super(wrapper);
+	constructor(protected wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, userSrv);
 	}
 }

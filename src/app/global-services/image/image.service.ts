@@ -6,15 +6,17 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { ImageQueries } from '~global-services/image/image.queries';
 import { Observable } from 'rxjs';
 import { ImageUrls } from '~utils';
+import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
+import { UserService } from '~global-services';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class ImageService extends GlobalService<AppImage> {
+export class ImageService extends GlobalWithAuditService<AppImage> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new ImageQueries(), 'Image');
+	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, new ImageQueries(), 'Image', userSrv);
 	}
 
 	selectAll(fields = 'id'): Observable<any> {

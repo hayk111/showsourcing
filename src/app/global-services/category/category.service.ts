@@ -4,15 +4,17 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { CategoryQueries } from '~global-services/category/category.queries';
+import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
+import { UserService } from '~global-services/user/user.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class CategoryService extends GlobalService<Category> {
+export class CategoryService extends GlobalWithAuditService<Category> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new CategoryQueries, 'Category');
+	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+		super(wrapper, new CategoryQueries, 'Category', userSrv);
 	}
 
 }

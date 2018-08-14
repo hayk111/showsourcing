@@ -17,9 +17,10 @@ export class SupplierFeatureService extends SupplierService {
 	constructor(
 		protected wrapper: ApolloWrapper,
 		protected productSrv: ProductService,
-		protected contactSrv: ContactService
+		protected contactSrv: ContactService,
+		protected userSrv: UserService
 	) {
-		super(wrapper);
+		super(wrapper, userSrv);
 	}
 
 

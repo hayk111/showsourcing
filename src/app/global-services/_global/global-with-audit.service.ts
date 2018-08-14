@@ -21,11 +21,16 @@ export class GlobalWithAuditService<T> extends GlobalService<T> {
 
 	update(entity: any, client?: string) {
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
+		entity.lastUpdatedDate = '' + new Date();
+
 		return super.update(entity, client);
 	}
 
 	create(entity: any, refetchParams?: RefetchParams[], client?: string) {
 		entity.createdBy = { id: this.userSrv.userSync.id };
+		entity.creationDate = '' + new Date();
+		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
+		entity.lastUpdatedDate = '' + new Date();
 		return super.create(entity, refetchParams, client);
 	}
 

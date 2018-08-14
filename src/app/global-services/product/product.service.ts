@@ -16,6 +16,5 @@ export class ProductService extends GlobalWithAuditService<Product> {
 		super(wrapper, new ProductQueries(), 'Product', userSrv);
 	}
 
-
 }
 
