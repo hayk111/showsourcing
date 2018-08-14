@@ -229,35 +229,27 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.previewOpen = false;
 	}
 
-	/** Selects a an entity */
-	onItemSelected(entity: any) {
+	/** Selects a an entity
+	*  checkFavorite is used when you select a entity with favorite field
+	*  and want to check if the selection bar should display a colorful heart or not */
+	onItemSelected(entity: any, checkFavorite = false) {
+		// we check only if the status is true since we only need to check if the next item will convert the select heart
+		// into false
+		if (checkFavorite && this.allSelectedFavorite)
+			this.allSelectedFavorite = entity.favorite ? true : false;
 		this.selectionSrv.selectOne(entity);
 	}
 
-	/** Unselects a entity */
-	onItemUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	/** This is used when you select a entity with favorite field
+	/** Unselects a entity
+	 *  checkFavorite is used when you unselect a entity with favorite field
 	 *  and want to check if the selection bar should display a colorful heart or not */
-	onItemSelectedCheckFavorite(entity: any) {
-		// we check only if the status is true since we only need to check if the next item will convert the select heart
-		// into false
-		if (this.allSelectedFavorite)
-			this.allSelectedFavorite = entity.favorite ? true : false;
-		this.onItemSelected(entity);
-	}
-
-	/** This is used when you unselect a entity with favorite field
-	 *  and want to check if the selection bar should display a colorful heart or not */
-	onItemUnselectedCheckFavorite(entity: any) {
+	onItemUnselected(entity: any, checkFavorite = false) {
 		// we only check when the current status of the heart is false and when the unselected item is false too
 		// this is because the only way it can be converted to true is by checking that the last item wasn't preventing
 		// the heart of being true
-		if (!this.allSelectedFavorite && !entity.favorite)
+		if (checkFavorite && (!this.allSelectedFavorite && !entity.favorite))
 			this.allSelectedFavorite = !this.selectionItems().some(item => item.id !== entity.id && !item.favorite);
-		this.onItemUnselected(entity);
+		this.selectionSrv.unselectOne(entity);
 	}
 
 	/** Select all entity */
