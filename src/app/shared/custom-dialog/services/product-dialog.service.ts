@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { Product, ProductVoteRequest, Project, User } from '~models';
-import { ProductService, ProjectService, TeamUserService } from '~global-services';
+import { ProductService, ProjectService, TeamUserService, UserService } from '~global-services';
 import { ApolloWrapper } from '~shared/apollo';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -14,9 +14,10 @@ export class ProductDialogService extends ProductService {
 		protected wrapper: ApolloWrapper,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
-		protected teamUserSrv: TeamUserService
+		protected teamUserSrv: TeamUserService,
+		protected userSrv: UserService
 	) {
-		super(wrapper);
+		super(wrapper, userSrv);
 	}
 
 	selectProjects(): Observable<Project[]> {

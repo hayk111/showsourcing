@@ -4,7 +4,7 @@ import { Contact, Product } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 
 import { SelectParams } from '~global-services/_global/select-params';
-import { ContactService, ProductService } from '~global-services';
+import { ContactService, ProductService, UserService } from '~global-services';
 import { SupplierService } from '~global-services/supplier/supplier.service';
 import { first } from 'rxjs/operators';
 
@@ -16,8 +16,8 @@ export class SupplierFeatureService extends SupplierService {
 
 	constructor(
 		protected wrapper: ApolloWrapper,
-		private productSrv: ProductService,
-		private contactSrv: ContactService
+		protected productSrv: ProductService,
+		protected contactSrv: ContactService
 	) {
 		super(wrapper);
 	}

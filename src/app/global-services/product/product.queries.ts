@@ -178,5 +178,6 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			user { id }
 			value
 		}
+		projects { id }
 		`;
 }

@@ -23,7 +23,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
-		private wrapper: ApolloWrapper
+		private wrapper: ApolloWrapper,
 	) {
 		super(apollo, link);
 	}

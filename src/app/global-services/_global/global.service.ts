@@ -1,14 +1,11 @@
-import { forkJoin, Observable, of, Subject, ReplaySubject, Subscription, zip, BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, first, map, scan, switchMap, tap, mergeMap } from 'rxjs/operators';
-import { isObject } from 'util';
+import { DocumentNode } from 'graphql';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { distinctUntilChanged, mergeMap, scan, switchMap } from 'rxjs/operators';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams } from '~global-services/_global/select-params';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-import { merge, combineLatest, } from 'rxjs';
-import { RefetchParams } from '~shared/apollo/services/refetch.interface';
-import { DocumentNode } from 'graphql';
-import { UserService } from '~global-services';
 import { User } from '~models';
+import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
@@ -30,13 +27,13 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
  */
 export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: User, createdBy?: User }> implements GlobalServiceInterface<T> {
 
+
 	constructor(
 		protected wrapper: ApolloWrapper,
 		protected queries: GlobalQuery,
-		protected typeName?: string,
-		protected hasAudit?: boolean,
-		protected userSrv?: UserService
-	) { }
+		protected typeName?: string
+	) {
+	}
 
 	// we use a cache so we can change things on update
 	private selectOneCache = new Map<string, { subj, obs, result }>();
@@ -58,7 +55,7 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		if (this.selectOneCache.has(id))
 			return this.selectOneCache.get(id).result;
 
-		const obs = this.wrapper.selectOne(gql, id);
+		const obs = this.wrapper.use(client).selectOne(gql, id);
 		const subj = new BehaviorSubject({});
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
 		this.selectOneCache.set(id, { subj, obs, result });
@@ -153,10 +150,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	update(entity: T, client?: string): Observable<any> {
-		// adding user to lastUpdatedBy
-		if (this.hasAudit) {
-			entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
-		}
 
 		const gql = this.queries.update();
 
@@ -190,10 +183,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
-		// adding user to createdBy
-		if (this.hasAudit) {
-			entity.createdBy = { id: this.userSrv.userSync.id };
-		}
 		const gql = this.queries.create();
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
@@ -213,6 +202,7 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		const gql = this.queries.deleteMany();
 		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
 	}
+
 
 }
 

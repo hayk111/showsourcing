@@ -6,6 +6,7 @@ import { TeamClientInitializer } from '~shared/apollo/services/initializers/team
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 import { ActivityService } from '~shared/activity/services/activity.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '~global-services';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamPicker: TeamPickerService,
-		private activitySrv: ActivityService
+		private activitySrv: ActivityService,
 	) { }
 
 	ngOnInit(): void {

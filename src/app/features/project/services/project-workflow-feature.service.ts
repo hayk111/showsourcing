@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductService, ProductStatusTypeService } from '~global-services';
+import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
 import { ApolloWrapper } from '~shared/apollo';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
@@ -14,9 +14,10 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	constructor(
 		protected wrapper: ApolloWrapper,
 		protected productSrv: ProductService,
-		protected productStatusTypeService: ProductStatusTypeService
+		protected productStatusTypeService: ProductStatusTypeService,
+		protected userSrv: UserService
 	) {
-		super(wrapper);
+		super(wrapper, userSrv);
 	}
 
 	getProjectProducts(project: Project) {
@@ -47,7 +48,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	}
 
 	updateProductStatus(product: Product, status: ProductStatus) {
-		 // we dont update if we click the same status as the current one of the product
+		// we dont update if we click the same status as the current one of the product
 		if (status.id !== product.statuses[0].status.id) {
 			const tempS = new ProductStatus({ status: { id: status.id } });
 			return this.update({ ...product, statuses: [tempS, ...product.statuses] });
