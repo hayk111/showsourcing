@@ -12,12 +12,12 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 		'[class.fs-l]': 'size === \'s\'',
 		'[class.fs-xxl]': 'size === \'m\'',
 		'[class.fs-huge]': 'size === \'l\'',
-		'[style.font-size]': 'size+\'px\''
+		'[style.font-size]': 'size + \'px\''
 	}
 })
 export class IconComponent {
 	// the size accepts any number and specific sizes as: xs, s, m and l.
-	@Input() size = 's';
+	@Input() size = 'inherit';
 	@Input() name: string;
 	// type solid by default https://fontawesome.com/icons/heart?style=regular
 	@Input() type: 's' | 'r' | 'l' = 's';
@@ -32,7 +32,6 @@ export class IconComponent {
 			elementRef.nativeElement.setAttribute('aria-hidden', 'true');
 		}
 	}
-
 
 
 }

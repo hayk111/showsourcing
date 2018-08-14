@@ -39,9 +39,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	) {
 		super();
 		router.events.pipe(takeUntil(this._destroy$))
-			.subscribe((val) => {
-				this.checkItemSelected();
-			});
+			.subscribe((val) => this.checkItemSelected());
 	}
 
 	ngOnInit() {

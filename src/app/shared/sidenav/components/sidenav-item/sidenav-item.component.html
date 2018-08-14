@@ -1,4 +1,7 @@
 <a [ngClass]="{ selected: selected, flexCenter: !internalExpanded, flexStart: internalExpanded, expanded: internalExpanded }"
 	(click)="onClickItem($event)">
+	<div class="iconCtnr">
+		<ng-content select="icon-app"></ng-content>
+	</div>
     <ng-content></ng-content>
 </a>

@@ -19,7 +19,8 @@ a:hover {
     align-items: center;
 }
 
-::ng-deep icon-app {
+.iconCtnr {
+    font-size: 24px;
     flex-basis: 72px;
     justify-content: center;
     align-items: center;

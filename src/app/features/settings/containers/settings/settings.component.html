@@ -1,31 +1,25 @@
 <div class="flex settings">
   <sidenav-app menuIcon="shape" menuTitle="Settings" (expanded)="onMenuExpanded($event)">
-        <sidenav-item-app link="/settings/profile">
-            <icon-app fontSet="svg" name="profile"></icon-app> <span sidenavLabelApp>Profile</span>
-        </sidenav-item-app>
-        <sidenav-item-app link="/settings/workflows">
-            <icon-app fontSet="svg" name="workflow"></icon-app> <span sidenavLabelApp>Workflows</span>
-        </sidenav-item-app>
-        <sidenav-item-app link="/settings/fields">
-            <icon-app fontSet="svg" name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
-        </sidenav-item-app>
-        <sidenav-item-app link="/settings/team/members">
-            <icon-app fontSet="svg" name="team"></icon-app> <span sidenavLabelApp>Team Members</span>
-        </sidenav-item-app>
-        <sidenav-item-app link="/settings/data">
-            <icon-app fontSet="svg" name="data-cleansing"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
-        </sidenav-item-app>
-        <!-- sidenav-item-app [hasChildren]="true">
-            <div><icon-app fontSet="svg" name="supplier"></icon-app> <span sidenavLabelApp>Data Cleansing</span></div>
-            <sidenav-item-group-app sidenavLabelApp>
-                <sidenav-item-app link="/settings/team/members">
-                    Pro Team1
-                </sidenav-item-app>
-            </sidenav-item-group-app>
-        </sidenav-item-app -->
+
+	<sidenav-item-app link="/settings/profile">
+			<icon-app fontSet="svg" name="user"></icon-app> <span sidenavLabelApp>Profile</span>
+		</sidenav-item-app>
+		<sidenav-item-app link="/settings/workflows">
+			<icon-app fontSet="svg" name="workflow"></icon-app> <span sidenavLabelApp>Workflows</span>
+		</sidenav-item-app>
+		<sidenav-item-app link="/settings/fields">
+			<icon-app fontSet="svg" name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
+		</sidenav-item-app>
+		<sidenav-item-app link="/settings/team/members">
+			<icon-app fontSet="svg" name="team"></icon-app> <span sidenavLabelApp>Team Members</span>
+		</sidenav-item-app>
+		<sidenav-item-app link="/settings/data">
+			<icon-app fontSet="svg" name="data-cleansing"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
+		</sidenav-item-app>
+
   </sidenav-app>
 
   <div class="settings-page">
-    <router-outlet></router-outlet>
+	<router-outlet></router-outlet>
   </div>
 </div>
