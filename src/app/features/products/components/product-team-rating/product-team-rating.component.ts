@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Product, ProductVote } from '~models';
 
 @Component({
@@ -13,6 +13,9 @@ export class ProductTeamRatingComponent implements OnInit {
 		this.score = product.score;
 		this.votes = product.votes;
 	}
+
+	@Output() requestTeamVotes = new EventEmitter<null>();
+
 	score: number;
 	votes: ProductVote[];
 	name = 'thumbs-up-white';
@@ -22,7 +25,7 @@ export class ProductTeamRatingComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	get successStyle() {
+	get buttonStyle() {
 		let state = 'secondary-dark';
 		if (this.votes) {
 			state = this.score >= 50 ? 'success' : 'warn';

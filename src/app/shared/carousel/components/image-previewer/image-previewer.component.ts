@@ -10,6 +10,8 @@ import { AppImage } from '~models';
 	}
 })
 export class ImagePreviewerComponent {
+	/** size of the image box */
+	@Input() size = '52';
 	// array of images displayed
 	@Input() images: Array<AppImage>;
 	// whether we display the add button or not
@@ -24,5 +26,12 @@ export class ImagePreviewerComponent {
 
 	getImg(i) {
 		return this.images[i];
+	}
+
+	get styleBox() {
+		return {
+			height: this.size + 'px',
+			width: this.size + 'px'
+		};
 	}
 }

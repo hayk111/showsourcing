@@ -38,6 +38,7 @@ export class ProductCarouselComponent extends AutoUnsub {
 	 */
 	@Output() productFavorite = new EventEmitter<null>();
 	@Output() productUnfavorite = new EventEmitter<null>();
+	@Output() requestFeedback = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;

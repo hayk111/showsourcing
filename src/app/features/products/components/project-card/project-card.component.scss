@@ -2,39 +2,49 @@
 	display: block;
 }
 
+$margin-bar: 54px;
+
+.space-icon {
+	height: var(--spacing-xl);
+	width: var(--spacing-xl);
+	margin-right: var(--spacing-ms);
+}
+
+.title {
+	margin-bottom: var(--spacing-ms);
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+}
+
+
 card-app {
 	width: 100%;
 
 	icon-app[name^="folder"] {
 		cursor: default;
-		margin-right: var(--spacing-ml);
-	}
-
-	icon-app[name="folder"] {
-		padding-bottom: 15px;
 	}
 
 	article {
-		padding: var(--spacing-s);
+		padding: var(--spacing-ms);
 		border-radius: var(--border-radius);
 
 		.middle {
-			flex-grow: 1;
+			justify-content: center;
 
 			.name {
-				font-weight: 600;
+				color: var(--color-txt-strong);
 			}
 			.description {
-				margin-top: 5px;
-				height: 15px;
+				margin-top: 2px;
+				height: var(--spacing-m);
 				color: var(--color-txt-primary);
 				font-size: var(--font-size-s);
 			}
-			.border-white {
-				border-color: white;
-			}
 			divider-app {
-				margin-top: 16px;
+				margin-top: var(--spacing-m);
 			}
 		}
 		.minus {
@@ -50,17 +60,32 @@ card-app {
 		padding-bottom: 0px;
 	}
 
+	divider-app {
+		margin-right: var(--spacing-ms);
+		margin-left: $margin-bar;
+	}
+
 	.no-projects {
 		font-size: var( --font-size-xxxl);
     color: var(--color-txt-strong);
     font-weight: 600;
     display: flex;
     justify-content: center;
-    margin: 31px 0px;
+    margin: var(--spacing-xl) 0px;
 	}
 
 	.custom-margin {
-		margin-left: 44px;
+		margin-left: $margin-bar;
+	}
+
+	card-footer-app {
+		margin-right: var(--spacing-ms);
+		margin-left: var(--spacing-ms);
+
+		button {
+			min-width: 120px;
+			font-weight: 600;
+		}
 	}
 }
 

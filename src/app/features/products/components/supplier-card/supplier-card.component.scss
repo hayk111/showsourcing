@@ -4,28 +4,46 @@
 
 icon-app[name="heart"] {
 	color: var(--color-warn);
-	margin-left: 10px;
 }
 
 card-app {
 	width: 100%;
 
-	img {
-		height: 32px;
-		width: 32px;
-		border-radius: 50%;
-		cursor: default;
-	}
-	.name {
-		font-size: var(--font-size-l);
-		color: var(--color-txt-strong);
-		font-weight: 600;
-		margin-left: var(--spacing-ms);
+	.title {
+		margin-bottom: var(--spacing-ms);
+		h2 {
+			align-items: center;
+			display: flex;
+			margin-bottom: 0px;
+			padding-top: 2px;
+			margin-right: var(--spacing-ms);
+		}
+		.space-icon {
+			height: var(--spacing-xl);
+			width: var(--spacing-xl);
+			margin-right: var(--spacing-ms);
+		}
+		img:not(.hasImg) {
+			height: var(--spacing-m);
+			width: var(--spacing-m);
+			cursor: default;
+		}
+		img.hasImg {
+			height: var(--spacing-xl);
+			width: var(--spacing-xl);
+			cursor: default;
+		}
 	}
 
 	.supplier-info {
 		margin-left: var(--spacing-ms);
 		margin-top: 28px;
+
+		image-previewer-app {
+			margin-top: 0px;
+			opacity: 0.2;
+			margin-bottom: var(--spacing-m);
+		}
 
 		.from {
 			color: var(--color-txt-strong);
@@ -33,9 +51,10 @@ card-app {
 
 		.categories {
 			margin-top: 5px;
-			span {
+			margin-bottom: var(--spacing-l);
+			.single {
 				color: var(--color-txt-primary);
-				margin-right: 10px;
+				margin-right: 6px;
 			}
 		}
 	}
@@ -46,7 +65,7 @@ card-app {
 		font-weight: 600;
 		display: flex;
 		justify-content: center;
-		margin: 31px 0px;
+		margin: var(--spacing-xl) 0px;
 	}
 }
 
@@ -63,4 +82,10 @@ card-footer-app.empty {
 		width: 160px;
 		font-weight: 600;
 	}
+
+}
+card-footer-app {
+	padding-bottom: 0px;
+	margin-left: var(--spacing-ms);
+	margin-right: var(--spacing-ms);
 }

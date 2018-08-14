@@ -2,27 +2,42 @@
 	display: block;
 }
 
+
+.title {
+	margin-bottom: var(--spacing-ms);
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+	}
+}
+
 card-app {
 	width: 100%;
 
-	icon-app[name="poll-light-blue"] {
+	icon-app[name="poll-light-blue"], icon-app[name^="thumbs-"] {
 		cursor: default;
-		margin-right: var(--spacing-ml);
 	}
 
 	.rating-info {
-		padding-top: 16px;
+		padding-top: var(--spacing-m);
 
 		.thumb-info {
-			margin-left: 35%;
+			margin-left: 127px;
 
 			icon-app {
-				width: 34px;
-				height: 34px;
+				width: var(--spacing-xl);
+				height: var(--spacing-xl);
 				border-radius: 50%;
+				cursor: default;
 			}
 			.score-info {
-				margin-left: 17px;
+				margin-left: var(--spacing-m);
 
 				.number {
 					color: var(--color-txt-strong);
@@ -33,7 +48,7 @@ card-app {
 		}
 	}
 	rating-cylinder-app {
-		margin-top: 15px;
+		margin-top: var(--spacing-m);
 		margin-bottom: var(--spacing-ms);
 	}
 
@@ -43,12 +58,15 @@ card-app {
     font-weight: 600;
     display: flex;
     justify-content: center;
-    margin: 31px 0px;
+    margin: var(--spacing-xl) 0px;
 	}
 
 	card-footer-app {
 		display: flex;
 		justify-content: space-between;
+		padding-bottom: 0px;
+		margin-left: var(--spacing-ms);
+    margin-right: var(--spacing-ms);
 
 		button {
 			width: 160px;

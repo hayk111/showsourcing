@@ -27,7 +27,6 @@ export class ProductRequestTeamFeedbackDlgComponent implements OnInit {
 	constructor(private dlgSrv: DialogService, private productDlgSrv: ProductDialogService) { }
 
 	ngOnInit() {
-		console.log('>> this.productDlgSrv = ', this.productDlgSrv);
 		this.teamMembers$ = this.productDlgSrv.selectTeamUsers();
 	}
 

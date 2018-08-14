@@ -26,7 +26,7 @@
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
 			(vote)="vote.emit({votes: $event})">
-			<button class="icon light">
+			<button class="icon light" (click)="requestFeedback.emit()">
 				<icon-app fontSet="svg" name="poll-light-grey" size="m" ></icon-app>
 			</button>
 			<button class="secondary-light" (click)="openFileBrowser()">Add Picture</button>
