@@ -19,7 +19,10 @@
 				(vote)="updateProduct($event)"></product-carousel-app>
 
 			<!-- team rating here -->
-			<product-team-rating-app [product]="product"></product-team-rating-app>
+			<product-team-rating-app
+				[product]="product"
+				(requestTeamVotes)="openRequestFeedbackDialog()">
+			</product-team-rating-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>
 
