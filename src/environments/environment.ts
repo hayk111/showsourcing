@@ -9,5 +9,7 @@ export const environment = {
 	production: false,
 	graphqlUrl: 'wss://ros-dev3.showsourcing.com:9443/graphql',
 	apiUrl: 'https://ros-dev3.showsourcing.com:9443',
+	signupUrl: 'https://ros-dev3.showsourcing.com/signup/user',
+
 	LOG_LEVEL: LogLevel.DEBUG
 };

@@ -30,7 +30,7 @@ export class AuthHttpService {
 	}
 
 	register(credentials: { email: string; password: string, firstName: string, lastName: string }): Observable<any> {
-		return this.http.post(`${environment.apiUrl}/signup/user`, credentials);
+		return this.http.post(`${environment.signupUrl}`, credentials);
 	}
 
 	resetPw(email: string): Observable<any> {

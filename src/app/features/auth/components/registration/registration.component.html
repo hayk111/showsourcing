@@ -6,7 +6,6 @@
 </div>
 
 <form [formGroup]="form" class="flexColumn" *ngIf="!(pending$ | async); else spinner">
-	{{ errors | json }}
 	<error-app *ngIf="error">{{ error }}</error-app>
 	<form-field-app>
 		<label-app>First Name</label-app>
