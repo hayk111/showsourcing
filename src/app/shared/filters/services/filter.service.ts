@@ -112,9 +112,7 @@ export class FilterService {
 			return '';
 
 		return filters.map(({ type, value, raw, comparator }) => {
-			// if there is a raw value for filter that's what we return
-			if (raw)
-				return raw;
+			// if there is a comparator we use the comparator to make the query
 			if (comparator)
 				return `${type} ${comparator} ${value}`;
 			// else we return the filter given the type
@@ -128,6 +126,8 @@ export class FilterService {
 				return `name CONTAINS[c] "${value}"`;
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
+				return `${type} == ${value}`;
+
 			case FilterType.ID:
 				return `${type} == "${value}"`;
 			default:

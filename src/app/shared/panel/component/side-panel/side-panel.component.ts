@@ -14,4 +14,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class SidePanelComponent {
 	@Input() align: 'left' | 'right' = 'right';
+	/** whether we display the top panel */
+	@Input() hasTop: boolean = true;
 }

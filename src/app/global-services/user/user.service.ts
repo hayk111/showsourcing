@@ -30,9 +30,7 @@ export class UserService extends GlobalService<User> {
 			distinctUntilChanged(),
 			switchMap(id => this.selectOne(id))
 		);
+
 	}
 
-	selectOne(id: string, fields?: string) {
-		return super.selectOne(id, fields, USER_CLIENT);
-	}
-}
+

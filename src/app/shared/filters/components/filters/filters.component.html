@@ -1,4 +1,4 @@
-<side-panel-app>
+<side-panel-app [hasTop]="false">
 	<ng-container *ngIf="filters$ | async as filters">
 		<ng-container *ngIf="byType$ | async as byType">
 
@@ -121,7 +121,7 @@
 			<checkbox-app [checked]="byType.get(filterType.FAVORITE).size > 0"
 				(check)="addFilter({ type: filterType.FAVORITE, value: true })"
 				(uncheck)="removeFilter({ type: filterType.FAVORITE, value: true })">
-				<div class="flex">
+				<div class="flex flexVAlign">
 					<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
 					<p i18n="paragraph|Only favorites checkbox title@@productFilters_showFavorites">Only Show Favorites</p>
 				</div>

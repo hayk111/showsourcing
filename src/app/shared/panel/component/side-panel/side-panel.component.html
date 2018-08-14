@@ -1,6 +1,6 @@
-<div class="top flexBetween">
+<div class="top flexBetween" *ngIf="hasTop">
 	<ng-content select="side-panel-title-app"></ng-content>
 	<ng-content select="side-panel-action-app"></ng-content>
 </div>
-<divider-app></divider-app>
+<divider-app *ngIf="hasTop"></divider-app>
 <ng-content></ng-content>

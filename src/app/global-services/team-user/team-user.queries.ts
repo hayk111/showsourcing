@@ -30,5 +30,7 @@ export class TeamUserQueries extends BaseQueries implements GlobalQuery {
 		accessType
 	`;
 
+	allDefaultSelection = this.manyDefaultSelection;
+
 
 }

@@ -83,7 +83,7 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 		if (type === 'event' && choice.description) {
 			return choice.description.name;
 		} else if (type === 'createdBy') {
-			return `${choice.lastName} ${choice.firstName}`;
+			return `${choice.user.lastName} ${choice.user.firstName}`;
 		} else {
 			return choice.name;
 		}
