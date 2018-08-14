@@ -41,7 +41,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 
 	getProductsWithStatus(status: ProductStatus, products: Product[]) {
 		return products.filter(product => {
-			const productCurrentStatus = product.statuses ? product.statuses[0].status : null;
+			const productCurrentStatus = (product.statuses && product.statuses.length) ? product.statuses[0].status : null;
 			return (productCurrentStatus && productCurrentStatus.id === status.id);
 		});
 	}
