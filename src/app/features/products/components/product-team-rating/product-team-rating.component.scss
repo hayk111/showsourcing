@@ -2,11 +2,6 @@
 	display: block;
 }
 
-.space-icon {
-	height: 32px;
-	width: 32px;
-	margin-right: var(--spacing-ms);
-}
 
 .title {
 	margin-bottom: var(--spacing-ms);
@@ -15,12 +10,17 @@
 		display: flex;
 		margin-bottom: 0px;
 	}
+	.space-icon {
+		height: 32px;
+		width: 32px;
+		margin-right: var(--spacing-ms);
+	}
 }
 
 card-app {
 	width: 100%;
 
-	icon-app[name="poll-light-blue"] {
+	icon-app[name="poll-light-blue"], icon-app[name^="thumbs-"] {
 		cursor: default;
 	}
 

@@ -1,8 +1,11 @@
 <card-app padding="ms">
-
-	<div class="flexVAlign">
-		<img [src]="supplier | logo:'supplier-product'"/>
-		<span class="name">{{ supplier?.name || 'Supplier'}}</span>
+	<div class="title flex">
+		<div class="space-icon flexAround">
+			<img [class.hasImg]="supplier?.logoImage" [src]="supplier | logo:'supplier-product'"/>
+		</div>
+		<h2 i18n="header 2|Supplier card@@supplierCard_product" class="flex">
+				{{ supplier?.name || 'Supplier'}}
+		</h2>
 		<icon-app *ngIf="supplier?.favorite" name="heart" size="11"></icon-app>
 	</div>
 

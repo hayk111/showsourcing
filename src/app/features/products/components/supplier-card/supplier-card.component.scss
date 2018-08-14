@@ -4,28 +4,45 @@
 
 icon-app[name="heart"] {
 	color: var(--color-warn);
-	margin-left: 10px;
 }
+
+
+
 
 card-app {
 	width: 100%;
 
-	img {
-		height: 32px;
-		width: 32px;
-		border-radius: 50%;
-		cursor: default;
-	}
-	.name {
-		font-size: var(--font-size-l);
-		color: var(--color-txt-strong);
-		font-weight: 600;
-		margin-left: var(--spacing-ms);
+	.title {
+		margin-bottom: var(--spacing-ms);
+		h2 {
+			align-items: center;
+			display: flex;
+			margin-bottom: 0px;
+		}
+		.space-icon {
+			height: 32px;
+			width: 32px;
+			margin-right: var(--spacing-ms);
+		}
+		img:not(.hasImg) {
+			height: 16px;
+			width: 16px;
+			cursor: default;
+		}
+		img.hasImg {
+			height: 32px;
+			width: 32px;
+			cursor: default;
+		}
 	}
 
 	.supplier-info {
 		margin-left: var(--spacing-ms);
 		margin-top: 28px;
+
+		image-previewer-app {
+			opacity: 0.2;
+		}
 
 		.from {
 			color: var(--color-txt-strong);
