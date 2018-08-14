@@ -31,5 +31,8 @@
 	(selectAll)="selectAll($event)"
 	(unselectAll)="resetSelection()"
 	(renameEntity)="openEditDlg($event)"
-	(removeEntity)="deleteOne($event)">
+	(removeEntity)="deleteOne($event)"
+	[currentPage]="currentParams.page"
+	(previous)="previousPage()"
+	(next)="nextPage()">
 </data-management-table-app>

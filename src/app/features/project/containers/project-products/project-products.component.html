@@ -30,6 +30,9 @@
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
+		[currentPage]="currentParams.page"
+		(previous)="previousPage()"
+		(next)="nextPage()"
 		(sort)="sort($event)"
 		(delete)="deleteSelected($event)">
 	</project-product-list-app>

@@ -11,7 +11,10 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	[pending]="pending">
+	[pending]="pending"
+	[currentPage]="currentPage"
+	(previous)="previousPage()"
+	(next)="nextPage()">
 </custom-table-app>
 
 <!-- contextual menu -->

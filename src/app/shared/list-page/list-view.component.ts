@@ -30,4 +30,12 @@ export class ListViewComponent<T> {
 
 	constructor() { }
 
+	previousPage() {
+		this.previous.emit();
+	}
+
+	nextPage() {
+		this.next.emit();
+	}
+
 }

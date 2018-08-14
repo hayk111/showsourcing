@@ -18,6 +18,9 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
+	(previous)="previousPage()"
+	[currentPage]="currentPage"
+	(next)="nextPage()"
 	(sort)="sort.emit($event)">
 
 	<!-- name -->
