@@ -11,7 +11,6 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 })
 export class CardComponent {
 	@Input() padding: 'none' | 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' = 'l';
-	@Input() paddingBottom: 'none' | 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' = this.padding;
 	@ViewChild('ref') ctnrRef;
 
 	get style() {
@@ -19,8 +18,7 @@ export class CardComponent {
 			return { padding: 0 };
 		else
 			return {
-				padding: `var(--spacing-${this.padding})`,
-				'padding-bottom': `var(--spacing-${this.paddingBottom})`
+				padding: `var(--spacing-${this.padding})`
 			};
 	}
 

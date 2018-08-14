@@ -75,7 +75,9 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 				id,
 				value,
 				user {
-					id
+					id,
+					firstName,
+					lastName
 				}
 			}
 			innerCarton {
