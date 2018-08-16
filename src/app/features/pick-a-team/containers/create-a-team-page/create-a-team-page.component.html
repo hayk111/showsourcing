@@ -15,7 +15,7 @@
 		</form-field-app>
 
 		<input type="submit" class="fullWidth" value="create team" [disabled]="!form.valid" />
-		<a class="button light fullWidth flexCenter">Select Team Instead</a>
+		<a class="button light fullWidth flexCenter" *ngIf="hasTeam() | async">Select Team Instead</a>
 	</form>
 
 </ng-container>

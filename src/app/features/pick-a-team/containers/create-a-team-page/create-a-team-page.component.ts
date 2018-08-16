@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -35,6 +36,10 @@ export class CreateATeamPageComponent {
 					this.error = 'We had an error creating your team. Please try again.';
 				}
 			);
+	}
+
+	hasTeam() {
+		return this.srv.selectAll().pipe(map(all => all.length > 0));
 	}
 
 }

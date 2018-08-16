@@ -12,7 +12,7 @@ import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { log } from '~utils/log';
 import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractApolloInitializer {
@@ -60,12 +60,20 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	/** gets user from all-users realm */
 	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
-		return this.wrapper.use(ALL_USER_CLIENT).selectOne(
-			ClientInitializerQueries.selectUser,
-			id
-		).pipe(
-			first()
-		);
+		// return this.wrapper.use(ALL_USER_CLIENT).selectOne(
+		// 	ClientInitializerQueries.selectUser,
+		// 	id
+		// ).pipe(
+		// 	first()
+		// );
+
+
+		// temporary fix
+		return of({
+			id: '6c0b95d4-5e77-4caa-b826-b471e700d1d7',
+			realmPath: 'user/6c0b95d4-5e77-4caa-b826-b471e700d1d7',
+			realmServerName: 'default'
+		});
 	}
 
 	private resetClient() {

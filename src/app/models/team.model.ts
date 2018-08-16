@@ -2,6 +2,7 @@ import { User } from '~models/user.model';
 import { BaseEntity } from '~models/_entity.model';
 import { TeamUser } from '~models/team-user.model';
 import { uuid } from '~utils';
+import { Company } from '~models/company.model';
 
 
 export class Team {
@@ -15,15 +16,16 @@ export class Team {
 	realmServerName = 'default';
 	realmPath: string;
 	status = 'pending';
+	company: Company;
 
 	constructor(config: TeamConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.realmPath = `team/${this.id}`;
+		this.company = new Company({ name: config.name });
 	}
 }
-
 
 export interface TeamConfig {
 	name: string;

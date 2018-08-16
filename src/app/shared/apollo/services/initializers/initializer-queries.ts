@@ -14,8 +14,8 @@ export class ClientInitializerQueries {
 	static selectUser = gql`
 		subscription users($query: String!) {
 			users(query: $query) {
-				id,
-				realmServerName,
+				id
+				realmServerName
 				realmPath
 			}
 		}
