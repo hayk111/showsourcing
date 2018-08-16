@@ -67,6 +67,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	/** When we click on thumbs up to like a product */
 	thumbUp() {
+		debugger;
+		console.log('>> like ', this.like, '>> dislike: ', this.dislike);
 		// if we are giving like and we already had a like, we had to delete the vote
 		if (this.like) {
 			this.like = false;
@@ -96,6 +98,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	/** Same explanation as with thumbUp() just when we dislike */
 	thumbDown() {
+		debugger;
+		console.log('>> like ', this.like, '>> dislike: ', this.dislike);
 		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
 			if (this.products)
