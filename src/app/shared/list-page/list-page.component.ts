@@ -317,19 +317,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** When we favorite all selected items, the items that are already favorited will stay the same */
 	onFavoriteAllSelected() {
-		this.selectionItems().forEach(item => {
-			if (!item.favorite)
-				this.onItemFavorited(item.id);
-		});
+		this.selectionItems().forEach(item => this.onItemFavorited(item.id));
 		this.allSelectedFavorite = true;
 	}
 
 	/** When we unfavorite all selected items, the items that are already unfavorited will stay the same */
 	onUnfavoriteAllSelected() {
-		this.selectionItems().forEach(item => {
-			if (item.favorite)
-				this.onItemUnfavorited(item.id);
-		});
+		this.selectionItems().forEach(item => this.onItemUnfavorited(item.id));
 		this.allSelectedFavorite = false;
 	}
 
