@@ -33,7 +33,6 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectOne(id: string, fields?: string, client: string = USER_CLIENT) {
-		debugger;
 		return super.selectOne(id, fields, client);
 	}
 }

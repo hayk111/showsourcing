@@ -3,7 +3,8 @@
 		<editable-text-app #editable1 (closed)="save()" (saved)="save()" (opened)="onOpen()">
 
 			<editable-label-app class="label txtBtn">
-				{{ value?.label  ? value.label : '-' }}
+				<ng-container *ngIf="value.label; else placeholder">{{ value.label }}</ng-container>
+				<ng-template #placeholder><span class="placeholder">Add price label</span></ng-template>
 			</editable-label-app>
 
 			<input

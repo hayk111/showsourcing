@@ -28,3 +28,12 @@ input {
 	top: 50px;
 	z-index: 4;
 }
+
+.placeholder {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	font-weight: normal;
+	&:hover {
+		color: var(--color-primary);
+	}
+}
