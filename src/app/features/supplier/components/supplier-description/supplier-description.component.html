@@ -35,7 +35,8 @@
 				<user-picture-app
 				[size]="23"
 				[image]="supplier?.createdBy?.avatar"
-				[border]="true"></user-picture-app>
+				[border]="true"
+				[user]="supplier?.createdBy"></user-picture-app>
 				<div class="flexColumn">
 					<span>created by {{ supplier?.createdBy?.firstName }} {{ supplier?.createdBy?.lastName }}</span>
 					<span>

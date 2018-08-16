@@ -5,6 +5,10 @@
 	margin-bottom: var(--spacing-ms);
 }
 
+user-picture-app {
+	font-size: var(--font-size-huge);
+}
+
 h2 {
   font-family: 'Raleway', sans-serif;
   font-size: var(--font-size-l);
@@ -53,5 +57,6 @@ checkbox-app {
 	margin: var(--spacing-ms);
 	user-picture-app {
 		margin-right: var(--spacing-xs);
+		font-size: 8px;
 	}
 }

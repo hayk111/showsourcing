@@ -86,7 +86,8 @@
 		<div class="flex flexCenter">
 			<user-picture-app
 				[size]="18"
-				[image]="row.createdBy?.avatar">
+				[image]="row.createdBy?.avatar"
+				[user]="row?.createdBy">
 			</user-picture-app>
 			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
 		</div>
