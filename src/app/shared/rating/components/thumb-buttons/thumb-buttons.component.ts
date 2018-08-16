@@ -67,8 +67,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	/** When we click on thumbs up to like a product */
 	thumbUp() {
-		debugger;
-		console.log('>> like ', this.like, '>> dislike: ', this.dislike);
 		// if we are giving like and we already had a like, we had to delete the vote
 		if (this.like) {
 			this.like = false;
@@ -98,8 +96,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	/** Same explanation as with thumbUp() just when we dislike */
 	thumbDown() {
-		debugger;
-		console.log('>> like ', this.like, '>> dislike: ', this.dislike);
 		if (this.dislike) { // if we click over the active dislike we have to delete the vote
 			this.dislike = false;
 			if (this.products)
@@ -146,7 +142,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		const voteIds = [];
 		this.products.forEach(prod => {
 			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			console.log('>>votes on delete ', voteUser);
 			if (voteUser) // if the votes exist we add it to the array for deletion
 				voteIds.push(voteUser.id);
 		});
@@ -158,7 +153,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			console.log('>> votes on create ', voteUser);
 			if (voteUser) {// if the vote already exists set it to the current state value
 				const value = this.state ? 100 : 0;
 				voteUser = { ...voteUser, value };
@@ -176,7 +170,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			console.log('>> votes on update ', voteUser);
 			if (voteUser) {
 				const value = voteUser.value === 100 ? 0 : 100;
 				voteUser = { ...voteUser, value };
