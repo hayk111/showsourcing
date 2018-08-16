@@ -41,9 +41,7 @@
                           (searchStateChanged)="onSearchBarStateChanged($event)">
     <input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
 	</search-bar-animated-app>
-	<div class="bell">
 		<notif-app></notif-app>
-	</div>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>
