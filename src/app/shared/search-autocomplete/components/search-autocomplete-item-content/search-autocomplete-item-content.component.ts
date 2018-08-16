@@ -3,6 +3,7 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductStatusType, SupplierStatusType } from '~models';
 
 @Component({
 	selector: 'search-autocomplete-item-content-app',
@@ -16,7 +17,7 @@ export class SearchAutocompleteItemContentComponent {
 	/** The sub title */
 	@Input() subtitle: string;
 	/** The status displayed into a tiny label */
-	@Input() status: string;
+	@Input() status: ProductStatusType | SupplierStatusType;
 	/** The image url */
 	@Input() image: string;
 	/** The icon name */
@@ -33,14 +34,14 @@ export class SearchAutocompleteItemContentComponent {
 	@Output() itemDisplayed = new EventEmitter<null>();
 
 
-	constructor(private router: Router) {}
+	constructor(private router: Router) { }
 
 	displayItem() {
 		if (this.selectable) {
 			this.toggleCheck();
 		} else if (this.link) {
 			this.itemDisplayed.emit();
-			this.router.navigate([ this.link ]);
+			this.router.navigate([this.link]);
 		}
 	}
 

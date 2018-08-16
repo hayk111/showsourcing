@@ -6,7 +6,7 @@ import { SearchBarAnimatedComponent } from '~shared/search-bar-animated/componen
 
 @NgModule({
 	imports: [
-		SharedModule,
+		SharedModule
 	],
 	declarations: [SearchBarAnimatedComponent, SearchBarComponent],
 	exports: [SearchBarAnimatedComponent, SearchBarComponent]

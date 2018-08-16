@@ -28,6 +28,15 @@
 		padding: var(--spacing-xs) var(--spacing-s);
 		border-radius: var(--border-radius-s);
 	}
+	&.xsmall {
+		font-size: var(--font-size-xs);
+		font-weight: bold;
+		padding: 2px  4px;
+		text-transform: uppercase;
+		// min-width: 72px;
+		border-radius: var(--border-radius-s);
+		font-weight: 600;
+	}
 	&.small {
 		font-size: var(--font-size-s);
 		font-weight: bold;

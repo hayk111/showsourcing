@@ -23,14 +23,14 @@
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'product'"
         [selectable]="false"
-        [status]="result?.statuses ? result.statuses[0]?.status?.name : null" [title]="result.name" [subtitle]="result.supplier?.name"
+        [status]="result?.statuses ? result.statuses[0]?.status : null" [title]="result.name" [subtitle]="result.supplier?.name"
         [image]="result.images?.length > 0 ? (result | image:'m') : null"
         [link]="'/product/details/' + result.id + '/general'">
       </search-autocomplete-item-content-app>
       <search-autocomplete-item-content-app
         *ngIf="result.type === 'supplier'"
         [selectable]="false"
-        [status]="result?.statuses ? result.statuses[0]?.status?.name : null" [title]="result.name" [subtitle]="supplierSubtitle(result)"
+        [status]="result?.statuses ? result.statuses[0]?.status : null" [title]="result.name" [subtitle]="supplierSubtitle(result)"
         image="/assets/icons/supplier.svg"
         [link]="'/supplier/details/' + result.id">
       </search-autocomplete-item-content-app>
