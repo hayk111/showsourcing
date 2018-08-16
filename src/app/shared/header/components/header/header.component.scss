@@ -37,21 +37,15 @@ nav {
 
 .right {
 	color: var(--color-txt-primary);
-	notif-app, search-bar-animated-app, user-panel-app {
+	.bell, search-bar-animated-app, user-panel-app {
 		&:hover {
 			background: #071327;
 		}
 	}
 
-	notif-app {
-		cursor: pointer;
-		padding: var(--spacing-xs) var(--spacing-s);
-		border-radius: var(--border-radius-s);
-	}
-
 	search-bar-animated-app {
-		font-size: 20px;
-		margin-right: var(--spacing-ml);
+		font-size: 24px;
+		margin-right: var(--spacing-ms);
 		cursor: pointer;
 		border-radius: var(--border-radius-s);
 		&.expanded {
@@ -63,9 +57,15 @@ nav {
 		}
 	}
 
-	notif-app {
-		margin-right: 16px;
-		font-size: 20px;
+	.bell {
+		height: 32px;
+		width: 32px;
+		margin-right: var(--spacing-ms);
+		notif-app {
+			cursor: pointer;
+			border-radius: var(--border-radius-s);
+			font-size: 24px;
+		}
 	}
 
 	.searchInput {
@@ -80,7 +80,3 @@ nav {
 	}
 
 }
-
-
-
-
