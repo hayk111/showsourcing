@@ -36,7 +36,8 @@ export class ProjectWorkflowFeatureService extends ProductService {
 			map(({ products, statuses }) => statuses.map(status => ({
 				...status,
 				products: this.getProductsWithStatus(status, products)
-			})))
+			}))),
+			map(statuses => statuses.sort((s1, s2) => (s2.step - s1.step)))
 		);
 	}
 
