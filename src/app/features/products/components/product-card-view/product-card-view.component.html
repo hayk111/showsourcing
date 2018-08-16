@@ -1,9 +1,9 @@
 
-<div *ngFor="let category of rows | groupBy: 'category'; first as first; index as i">
+<div *ngFor="let category of rows | groupBy: 'category'; first as first; index as i" class="category-section">
 	<div class="sectionTitle">{{ category?.value[0].category.name }}
 		<div class="sectionTag">{{ category.value.length }} products</div>
 	</div>
-	<div class="section">
+	<div class="products-section">
 		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
 			<product-grid-card-app
 				[product]="product"

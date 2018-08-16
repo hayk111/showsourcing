@@ -154,7 +154,8 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 			if (voteUser) {// if the vote already exists set it to the current state value
-				voteUser.value = state ? 100 : 0;
+				const value = this.state ? 100 : 0;
+				voteUser = { ...voteUser, value };
 				mapVotes.set(prod.id, prod.votes);
 			} else { // else we create a new vote
 				voteUser = this.createVote(state);
@@ -168,9 +169,10 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	updateEmiteMultipleVotes(state: boolean) {
 		const mapVotes = new Map();
 		this.products.forEach(prod => {
-			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 			if (voteUser) {
-				voteUser.value = voteUser.value === 100 ? 0 : 100;
+				const value = voteUser.value === 100 ? 0 : 100;
+				voteUser = { ...voteUser, value };
 				mapVotes.set(prod.id, prod.votes);
 			} else { // we have to do this since we dont know when updating if the user has selected more products with no votes
 				const tempVote = this.createVote(state);
