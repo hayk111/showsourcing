@@ -23,10 +23,10 @@ export class Team {
 		this.id = uuid();
 		this.creationDate = '' + new Date();
 		this.realmPath = `team/${this.id}`;
-		this.company = new Company({ name: config.name });
 	}
 }
 
 export interface TeamConfig {
 	name: string;
+	company: Company;
 }

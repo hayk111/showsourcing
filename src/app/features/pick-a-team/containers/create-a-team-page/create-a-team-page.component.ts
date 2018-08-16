@@ -3,7 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
+import { Company } from '~models/company.model';
+import { OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -11,20 +14,27 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./create-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateATeamPageComponent {
+export class CreateATeamPageComponent implements OnInit {
 	form: FormGroup;
 	pending = false;
 	error: string;
+	hasTeam$: Observable<boolean>;
 
-	constructor(private fb: FormBuilder, private srv: TeamService, private router: Router) {
+	constructor(
+		private fb: FormBuilder,
+		private srv: TeamService,
+		private router: Router) {
 		this.form = this.fb.group({
-			name: ['', Validators.required]
+			companyName: ['', Validators.required],
+			teamName: ['', Validators.required]
 		});
 	}
 
 	onSubmit() {
 		this.pending = true;
-		const team = new Team(this.form.value);
+		const formValue = this.form.value;
+		const company = new Company({ name: formValue.companyName });
+		const team = new Team({ name: formValue.teamName, company });
 		this.srv.create(team)
 			.subscribe(
 				_ => {
@@ -38,8 +48,13 @@ export class CreateATeamPageComponent {
 			);
 	}
 
-	hasTeam() {
-		return this.srv.selectAll().pipe(map(all => all.length > 0));
+	ngOnInit() {
+
+		this.hasTeam$ = this.srv.selectAll().pipe(
+			first(),
+			map(all => all.length > 0)
+		);
+
 	}
 
 }

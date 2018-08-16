@@ -9,13 +9,20 @@
 
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<error-app *ngIf="error">{{ error }}</error-app>
+
 		<form-field-app>
-			<label-app>Team name</label-app>
-			<input type="text" inputApp formControlName="name"/>
+			<label-app>Company Name</label-app>
+			<input type="text" inputApp formControlName="companyName"/>
 		</form-field-app>
 
-		<input type="submit" class="fullWidth" value="create team" [disabled]="!form.valid" />
-		<a class="button light fullWidth flexCenter" *ngIf="hasTeam() | async">Select Team Instead</a>
+		<form-field-app>
+			<label-app>Team name</label-app>
+			<input type="text" inputApp formControlName="teamName"/>
+		</form-field-app>
+
+
+		<input type="submit" class="fullWidth submitBtn" value="create team" [disabled]="!form.valid" />
+		<a class="button light fullWidth flexCenter" *ngIf="hasTeam$ | async">Select Team Instead</a>
 	</form>
 
 </ng-container>

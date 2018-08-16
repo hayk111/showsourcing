@@ -42,7 +42,6 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 
 	}
 
-
 	/** initialize apollo team client */
 	private async initTeamClient(uri: string, token) {
 		try {

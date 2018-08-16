@@ -60,24 +60,15 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	/** gets user from all-users realm */
 	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
-		// return this.wrapper.use(ALL_USER_CLIENT).selectOne(
-		// 	ClientInitializerQueries.selectUser,
-		// 	id
-		// ).pipe(
-		// 	first()
-		// );
-
-
-		// temporary fix
-		return of({
-			id: '6c0b95d4-5e77-4caa-b826-b471e700d1d7',
-			realmPath: 'user/6c0b95d4-5e77-4caa-b826-b471e700d1d7',
-			realmServerName: 'default'
-		});
+		return this.wrapper.use(ALL_USER_CLIENT).selectOne(
+			ClientInitializerQueries.selectUser,
+			id
+		).pipe(first());
 	}
 
 	private resetClient() {
 		super.clearClient(USER_CLIENT);
 		this.apolloState.resetUserClient();
 	}
+
 }
