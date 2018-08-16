@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { Team } from '~models/team.model';
@@ -29,8 +29,9 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 		// when the user has selected a team we initialize the team client
 		this.teamPicker.selectedTeam$
 			.pipe(
+				distinctUntilChanged((x, y) => undefined ? x.id === y.id : undefined),
+				// filter has to be after distinct because of the check above
 				filter(t => !!t),
-				distinctUntilChanged((x, y) => x.id === y.id),
 				switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
 			).subscribe(uri => this.initTeamClient(uri, this.tokenSrv.accessTokenSync.token));
 

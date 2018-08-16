@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap, first } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
@@ -25,7 +25,7 @@ export class UserService extends GlobalService<User> {
 	selectUser() {
 		return this.apolloState.userClientReady$.pipe(
 			filter(state => state.ready),
-			switchMap(_ => this.authSrv.authState$),
+			switchMap(_ => this.authSrv.authState$.pipe(first())),
 			map(authState => authState.userId),
 			distinctUntilChanged(),
 			switchMap(id => this.selectOne(id))

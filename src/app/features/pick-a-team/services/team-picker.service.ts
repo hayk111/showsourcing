@@ -8,6 +8,7 @@ import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { LocalStorageService } from '~shared/local-storage';
 import { TeamQueries } from '~global-services/team/team.queries';
+import { tap } from 'rxjs/internal/operators/tap';
 
 
 
@@ -24,7 +25,9 @@ export class TeamPickerService {
 	private queries = new TeamQueries();
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
-	selectedTeam$ = this._selectedTeam$.asObservable().pipe(shareReplay(1));
+	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
+		shareReplay(1),
+	);
 	teams$: Observable<Team[]>;
 
 	constructor(
