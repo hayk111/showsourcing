@@ -28,6 +28,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 
 	getStatuses(project: Project) {
 		return this.productStatusTypeService.selectAll().pipe(
+			map(statuses => statuses.filter(status => (status.category !== 'refused'))),
 			switchMap(statuses => {
 				return this.getProjectProducts(project).pipe(
 					map(products => ({ products, statuses }))
@@ -37,7 +38,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 				...status,
 				products: this.getProductsWithStatus(status, products)
 			}))),
-			map(statuses => statuses.sort((s1, s2) => (s2.step - s1.step)))
+			map(statuses => statuses.sort((s1, s2) => (s1.step - s2.step)))
 		);
 	}
 
