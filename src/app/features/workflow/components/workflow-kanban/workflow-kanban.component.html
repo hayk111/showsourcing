@@ -4,6 +4,7 @@
 
 		<kanban-col-app
 			[dropzoneApp]="status"
+			[disabled]="status.name === '_NoStatus'"
 			(itemDropped)="onItemDropped($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"

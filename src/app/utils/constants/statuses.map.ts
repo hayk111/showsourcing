@@ -1,4 +1,11 @@
 export const statusMap = {
+	'_NoStatus': {
+		locales: {
+			en: {
+				name: 'No Status'
+			}
+		}
+	},
 	'_GetQuotation': {
 		locales: {
 			en: {

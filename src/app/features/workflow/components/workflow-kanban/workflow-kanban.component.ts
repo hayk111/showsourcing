@@ -31,7 +31,7 @@ export class WorkflowKanbanComponent {
 
 	/** The current status id for a product */
 	getCurrentStatusId(product) {
-		if (product.statuses) {
+		if (product.statuses && product.statuses.length > 0) {
 			return product.statuses[0].status.id;
 		}
 		return null;
