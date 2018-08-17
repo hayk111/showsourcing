@@ -99,16 +99,24 @@ export class ActivityService {
    * Selects item in db and add those to feed
    */
 	private addData(results: GetStreamResult[]) {
+		const activityNames = results.map(res => res.activities.map(act => act.verb));
+		debugger;
 		results.forEach(res => {
 			res.obs = forkJoin(res.activities.map(act => this.addDataToActivity(act)));
 		});
 	}
 
 	private addDataToActivity(activity: GetStreamActivity) {
+
 		switch (activity.verb) {
 			case 'update_product':
+				break;
+			case 'create_comment':
+				break;
 			case 'create_product':
 				return this.productSrv.selectOne(activity.object).pipe(first());
+			default:
+				debugger;
 		}
 	}
 
