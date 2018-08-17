@@ -168,4 +168,14 @@ export class KanbanItemCardComponent implements OnInit {
 	enterCard() {
 		this.cardEntered = true;
 	}
+
+	leaveMenuTrigger() {
+		this.dragDropEnabled = true;
+		this.dragDropEnable.emit(this.dragDropEnabled);
+	}
+
+	enterMenuTrigger() {
+		this.dragDropEnabled = false;
+		this.dragDropEnable.emit(this.dragDropEnabled);
+	}
 }

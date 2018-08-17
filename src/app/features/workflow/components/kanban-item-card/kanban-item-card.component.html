@@ -26,7 +26,7 @@
                   (mouseleave)="toggleDragDropEnable('checkbox', $event)">
     </checkbox-app>
   </div>
-  <div class="contextual-menu" *ngIf="cardEntered">
+  <div class="contextual-menu" *ngIf="cardEntered" (mouseleave)="leaveMenuTrigger()" (mouseenter)="enterMenuTrigger()">
     <ng-container
       *ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
     </ng-container>
