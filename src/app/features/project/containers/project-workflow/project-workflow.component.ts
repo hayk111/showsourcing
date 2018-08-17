@@ -55,9 +55,9 @@ export class ProjectWorkflowComponent implements OnInit {
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		/* this.workflowService.updateProductStatus(droppedElement, target).subscribe(() => {
+		this.workflowService.updateProductStatus(droppedElement, target).subscribe(() => {
 			this.cdr.detectChanges();
-		}); */
+		});
 	}
 
 	/** Selects a an entity */

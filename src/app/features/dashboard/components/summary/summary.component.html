@@ -2,9 +2,7 @@
   <div class="top flexCenter flexColumn">
 
     <ng-container *ngIf="user$ | async as user">
-      <div class="circle">
-        <img-app [image]="user?.avatar" type="user"></img-app>
-      </div>
+			<user-picture-app [user]="user" size="68" [image]="user?.avatar"></user-picture-app>
       <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
       <h3>{{ user?.companyName }}</h3>
     </ng-container>

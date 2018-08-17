@@ -13,13 +13,14 @@ import { Component, OnInit, Input } from '@angular/core';
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
 		'[class.mini]': 'size === "mini"',
+		'[class.xsmall]': 'size === "xs"',
 		'[class.small]': 'size === "s" || size === "small"',
 		'[class.medium]': 'size === "m" || size === "medium"',
 		'[class.large]': 'size === "l" || size === "large"'
 	}
 })
 export class BadgeComponent implements OnInit {
-	@Input() size: 's' | 'm' | 'l' = 's';
+	@Input() size = 's';
 	/** type gives us the possibility to have predefined color set
 	 * for background and color. The none type is when we want to inherit
 	 */

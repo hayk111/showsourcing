@@ -1,11 +1,11 @@
-<context-menu-app xPosition="-40" yPosition="60">
+<context-menu-app xPosition="3" yPosition="60">
 	<context-menu-trigger-app class="flex flexVAlign">
-		<user-picture-app [image]="user?.avatar"></user-picture-app>
+		<user-picture-app [user]="user" [image]="user?.avatar"></user-picture-app>
 		<div class="flexColumn">
 			<span class="name">
 				{{ user?.firstName + ' ' + user?.lastName }}
 			</span>
-			<span>{{ team?.name }}</span>
+			<span class="team">{{ team?.name }}</span>
 		</div>
 	</context-menu-trigger-app>
 

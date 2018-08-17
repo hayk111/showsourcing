@@ -4,10 +4,11 @@
 
 		<kanban-col-app
 			[dropzoneApp]="status"
+			[disabled]="status.name === '_NoStatus'"
 			(itemDropped)="onItemDropped($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"
-			[label]="status.name"
+			[label]="status.name | const:'status':'name'"
 			borderColor="{{ status.id }}"
 			[namespace]="status.id"
 			*ngFor="let status of statuses; let i = index">

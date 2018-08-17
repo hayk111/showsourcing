@@ -13,8 +13,8 @@
 	overflow: hidden;
 	border: 4px solid white;
 	&:hover {
-		.information, action-bar-app, .imgNumber, .imgPrice, img-app {
-			transform: translateY(-37px);
+		.information, action-bar-app, .imgNumber, .imgPrice {
+			transform: translateY(-35px);
 		}
 	}
 
@@ -27,7 +27,7 @@
 		height: 395px;
 		position: relative;
 
-		.information, .imgNumber, .imgPrice, img-app {
+		.information, .imgNumber, .imgPrice {
 			transition: transform 0.2s linear;
 		}
 
@@ -68,10 +68,11 @@
 		}
 
 		.information {
-			max-height: 54px;
+			max-height: 55px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			background: white;
 
 			.text-bar {
 				margin-left: var(--spacing-xs);

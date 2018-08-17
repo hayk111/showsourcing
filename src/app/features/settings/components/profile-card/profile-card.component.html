@@ -3,7 +3,7 @@
 <label-app>Profile Picture</label-app>
 
 <div class="photoContainer flex">
-	<user-picture-app class="z-3 z-h pointer" [size]="48" [image]="user.avatar" (click)="openFileBrowser()"></user-picture-app>
+	<user-picture-app class="z-3 z-h pointer" [user]="user" [size]="48" [image]="user.avatar" (click)="openFileBrowser()"></user-picture-app>
 	<p class="color-primary pointer" (click)="openFileBrowser()">Select Image</p>
 </div>
 

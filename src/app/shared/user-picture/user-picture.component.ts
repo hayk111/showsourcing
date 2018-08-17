@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AppImage } from '~models';
+import { AppImage, User } from '~models';
 
 @Component({
 	selector: 'user-picture-app',
@@ -11,4 +11,13 @@ export class UserPictureComponent {
 	@Input() size = 32;
 	@Input() border = false;
 	@Input() image: AppImage;
+	@Input() user: User;
+
+	get commonStyle() {
+		return {
+			height: this.size + 'px',
+			width: this.size + 'px',
+			'border-radius': '50%'
+		};
+	}
 }

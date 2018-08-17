@@ -16,6 +16,7 @@ export class DropzoneDirective implements OnInit {
 
 	/** The value associated with the dropzone */
 	@Input('dropzoneApp') value: any;
+	@Input() disabled: any;
 	@Input() data: any;
 	/** The event when an element is dropped into the zone */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
@@ -50,7 +51,7 @@ export class DropzoneDirective implements OnInit {
 
 	/** The dragged element enters the dropzone */
 	private onPointerEnter(): void {
-		if (!this.activated) {
+		if (!this.activated || this.disabled) {
 			return;
 		}
 
@@ -60,7 +61,7 @@ export class DropzoneDirective implements OnInit {
 
 	/** The dragged element leaves the dropzone */
 	private onPointerLeave(): void {
-		if (!this.activated) {
+		if (!this.activated || this.disabled) {
 			return;
 		}
 
@@ -72,12 +73,14 @@ export class DropzoneDirective implements OnInit {
 	private onDragStart(): void {
 		this.clientRect = this.element.nativeElement.getBoundingClientRect();
 
-		this.activated = true;
+		if (!this.disabled) {
+			this.activated = true;
+		}
 	}
 
 	/** The drag'n drop ends */
 	private onDragEnd(event): void {
-		if (!this.activated) {
+		if (!this.activated || this.disabled) {
 			return;
 		}
 

@@ -10,13 +10,15 @@ import { UtilsModule } from '~shared/utils';
 import { SearchAutocompleteDividerComponent } from '~shared/search-autocomplete/components/search-autocomplete-divider/search-autocomplete-divider.component';
 import { DividerModule } from '~shared/divider/divider.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
+import { BadgeModule } from '~shared/badge';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		UtilsModule,
 		DividerModule,
-		InputsModule
+		InputsModule,
+		BadgeModule
 	],
 	declarations: [
 		SearchAutocompleteComponent, SearchAutocompleteTriggerComponent,

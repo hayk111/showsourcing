@@ -8,6 +8,7 @@
 
 			<search-bar-app
 				class="mg-right"
+				[inputFocus]="inputFocus"
 				(blur)="onBlurSearch($event)"
 				(focus)="onFocusSearch($event)"
 				(input)="triggerSmartSearch($event)"

@@ -18,7 +18,7 @@
 		(search)="search($event)"
 		(smartSearch)="smartSearch($event)"
 		(viewChange)="onViewChange($event)">
-		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="405">
+		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
 			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async)">
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
@@ -60,8 +60,8 @@
 		(previous)="previousPage()"
 		(next)="nextPage()"
 		(previewClick)="openPreview($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemSelected($event)"
+		(select)="onItemSelected($event, true)"
+		(unselect)="onItemUnselected($event, true)"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="resetSelection()"
 		(open)="goToDetails($event)"
@@ -80,8 +80,8 @@
 		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
-		(select)="onItemSelectedCheckFavorite($event)"
-		(unselect)="onItemUnselectedCheckFavorite($event)"
+		(select)="onItemSelected($event, true)"
+		(unselect)="onItemUnselected($event, true)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(open)="goToDetails($event)"></product-card-view-app>
