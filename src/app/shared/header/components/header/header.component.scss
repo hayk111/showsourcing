@@ -43,15 +43,9 @@ nav {
 		}
 	}
 
-	notif-app {
-		cursor: pointer;
-		padding: var(--spacing-xs) var(--spacing-s);
-		border-radius: var(--border-radius-s);
-	}
-
 	search-bar-animated-app {
-		font-size: 20px;
-		margin-right: var(--spacing-ml);
+		font-size: 24px;
+		margin-right: var(--spacing-ms);
 		cursor: pointer;
 		border-radius: var(--border-radius-s);
 		&.expanded {
@@ -59,14 +53,19 @@ nav {
 		}
 		input {
 			padding: 0;
-			padding-left: var(--spacing-ms);
+			padding-left: var(--spacing-s);
+			color: white;
 		}
 	}
 
-	notif-app {
-		margin-right: 16px;
-		font-size: 20px;
-	}
+		notif-app {
+			margin-right: var(--spacing-ms);
+			height: 32px;
+			width: 32px;
+			font-size: 24px;
+			cursor: pointer;
+			border-radius: var(--border-radius-s);
+		}
 
 	.searchInput {
 		background: transparent;
@@ -80,7 +79,3 @@ nav {
 	}
 
 }
-
-
-
-

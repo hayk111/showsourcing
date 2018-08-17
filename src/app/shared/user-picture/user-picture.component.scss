@@ -10,3 +10,16 @@ img-app {
 .border {
 	border: 2px solid var(--color-primary-light);
 }
+
+.initials {
+	color: var(--color-primary);
+	background-color: #def0fe;
+	border: 1px solid white;
+	box-sizing: border-box;
+	text-transform: uppercase;
+}
+
+.gradient-border {
+	background: linear-gradient(#7bd6ff, var(--color-primary));
+	padding: 1px;
+}
