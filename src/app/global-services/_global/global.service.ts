@@ -11,6 +11,7 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
 	selectMany: (params$: Observable<SelectParams>, fields?: string, client?: string) => Observable<T[]>;
 	selectList: (params$: Observable<SelectParams>) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
+	selectInfiniteList: (params$: Observable<SelectParams>, fields?: string, client?: string) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
 	selectAll: (fields: string, ...args) => Observable<T[]>;
 	update: (entity: T, ...args) => Observable<T>;
 	updateMany: (entities: T[], ...args) => Observable<T[]>;

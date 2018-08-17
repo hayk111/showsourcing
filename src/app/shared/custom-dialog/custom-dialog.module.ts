@@ -13,6 +13,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
+import { FindProductDialogComponent } from './component/find-product-dialog/find-product-dialog.component';
 
 @NgModule({
 	imports: [
@@ -26,7 +27,8 @@ import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.se
 		MergeDialogComponent,
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent
+		ProductExportDlgComponent,
+		FindProductDialogComponent
 	],
 	entryComponents: [
 		CreationDialogComponent,

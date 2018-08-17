@@ -76,7 +76,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 
 	protected setItems() {
-		const selectList = this.featureSrv.selectList(this.selectParams$);
+		const selectList = this.featureSrv.selectInfiniteList(this.selectParams$);
 		this.items$ = selectList.items$;
 		this.refetchQuery = selectList.refetchQuery;
 
@@ -99,7 +99,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected onLoaded() {
 		this.pending = false;
 	}
-
 
 	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
