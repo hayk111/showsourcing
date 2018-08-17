@@ -21,7 +21,11 @@ export class DashboardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.feeds$ = this.activitySrv.getDashboardActivity(this.page$);
+		this.feeds$ = this.activitySrv.getFeed({
+			page$: this.page$,
+			feedName: 'team'
+		});
+
 		this.page$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(page => this.page = page)

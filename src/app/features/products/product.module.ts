@@ -47,6 +47,8 @@ import { TeamRatingCardComponent } from './components/team-rating-card/team-rati
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 import { ActivityUserComponent } from '~shared/activity/components/activity-user/activity-user.component';
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
+import { ProductActivityComponent } from './components/product-activity/product-activity.component';
+import { ActivityModule } from '~shared/activity/activity.module';
 
 @NgModule({
 	imports: [
@@ -68,7 +70,8 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 		WorkflowActionModule,
 		StageIndicatorModule,
 		ActionBarModule,
-		CustomDialogModule
+		CustomDialogModule,
+		ActivityModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -94,7 +97,8 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 		ProductGridCardComponent,
 		IconsStatusComponent,
 		ProductCarouselComponent,
-		ProductTeamRatingComponent
+		ProductTeamRatingComponent,
+		ProductActivityComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

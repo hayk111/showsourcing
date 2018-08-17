@@ -13,7 +13,6 @@ export class SearchService {
 	}
 
 	search(search: string) {
-		console.error('move me outside global-service folder');
 		return zip(
 			this.productSrv.selectMany(
 				of(new SelectParams({ query: `name CONTAINS[c] "${search}"` }))

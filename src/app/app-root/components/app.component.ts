@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
 		private userClient: UserClientInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamPicker: TeamPickerService,
-		private activitySrv: ActivityService,
 	) { }
 
 	ngOnInit(): void {
@@ -31,6 +30,5 @@ export class AppComponent implements OnInit {
 		this.userClient.init();
 		this.teamPicker.init();
 		this.teamClient.init();
-		this.activitySrv.init();
 	}
 }

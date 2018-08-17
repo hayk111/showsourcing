@@ -19,6 +19,6 @@
 		[checked]="checked"
 		[attr.value]="value"
 		[disabled]="disabled">
-	<label class="label" #label [attr.for]="id" (click)="onClick()">
+	<label class="label" #label [attr.for]="id" (click)="onClick()" class="flexVAlign">
 		<ng-content></ng-content>
 	</label>

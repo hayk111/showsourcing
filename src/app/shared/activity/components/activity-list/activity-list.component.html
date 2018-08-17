@@ -2,7 +2,7 @@
 
   <ng-container [ngSwitch]="feed.verb">
     <!-- product -->
-    <ng-container *ngSwitchCase="'update_product'">
+    <ng-container *ngSwitchCase="'create_product'">
 
       <ng-container *ngIf="feed.activities.length > 1; else one">
         <ng-container *ngIf="feed.obs | async as products">
@@ -19,6 +19,16 @@
         </ng-container>
       </ng-template>
 
+    </ng-container>
+
+    <!-- comments -->
+
+    <ng-container *ngSwitchCase="'create_comment'">
+      <card-app>
+        NEW COMMENT CREATED:
+
+        {{ feed.obs | async | json }}
+      </card-app>
     </ng-container>
 
   </ng-container>

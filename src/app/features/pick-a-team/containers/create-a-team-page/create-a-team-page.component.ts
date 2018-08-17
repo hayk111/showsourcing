@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Team } from '~models';
-import { TeamService } from '~global-services';
+import { TeamService, UserService } from '~global-services';
 import { map, first } from 'rxjs/operators';
 import { Company } from '~models/company.model';
 import { OnInit } from '@angular/core';
@@ -23,7 +23,9 @@ export class CreateATeamPageComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
 		private srv: TeamService,
-		private router: Router) {
+		private router: Router,
+		private userSrv: UserService
+	) {
 		this.form = this.fb.group({
 			companyName: ['', Validators.required],
 			teamName: ['', Validators.required]
@@ -34,7 +36,7 @@ export class CreateATeamPageComponent implements OnInit {
 		this.pending = true;
 		const formValue = this.form.value;
 		const company = new Company({ name: formValue.companyName });
-		const team = new Team({ name: formValue.teamName, company });
+		const team = new Team({ name: formValue.teamName, company, ownerUser: this.userSrv.userSync });
 		this.srv.create(team)
 			.subscribe(
 				_ => {

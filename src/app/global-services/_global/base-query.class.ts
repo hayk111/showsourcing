@@ -80,7 +80,7 @@ export class BaseQueries {
 				id
 				${str}
 			}
-		}`)
+		}`);
 
 	deleteOne = () => gql(`
 		mutation delete${this.capSing}($id: String!) {

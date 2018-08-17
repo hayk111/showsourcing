@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { GetStreamResult } from '~shared/activity/services/activity.service';
+import { GetStreamResult, ActivityService } from '~shared/activity/services/activity.service';
 import { Product } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
@@ -12,8 +12,11 @@ import { ProductService } from '~global-services/product/product.service';
 })
 export class ActivityListComponent implements OnInit {
   @Input() feeds: GetStreamResult[];
+  @Input() feedName: string;
+
   constructor(
     private productSrv: ProductService,
+    private activitySrv: ActivityService,
     private router: Router
   ) { }
 

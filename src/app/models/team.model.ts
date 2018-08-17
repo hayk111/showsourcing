@@ -29,4 +29,5 @@ export class Team {
 export interface TeamConfig {
 	name: string;
 	company: Company;
+	ownerUser: User;
 }
