@@ -4,6 +4,8 @@ import * as stream from 'getstream';
 import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { first, map, scan, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~global-services';
+import { CommentService } from '~global-services/comment/comment.service';
+import { log } from '~utils';
 
 
 export interface GetStreamResponse {
@@ -36,6 +38,11 @@ export interface GetStreamActivity {
 }
 
 
+export interface GetFeedParams {
+	page$: Observable<number>;
+	feedName: string;
+}
+
 
 @Injectable({
 	providedIn: 'root'
@@ -47,29 +54,39 @@ export class ActivityService {
 
 	constructor(
 		private http: HttpClient,
-		private productSrv: ProductService
+		private productSrv: ProductService,
+		private commentSrv: CommentService
 	) {
 		this.client = stream.connect('7mxs7fsf47nu', null, '39385');
 		this.getToken();
 	}
 
 	/**
-   * Gets the dashboard activity
-   */
-	getDashboardActivity(page$: Observable<number>) {
+	 *
+	 * @param page$ : Observable, current page of the stream (used for pagination)
+	 * @param feedName : string, feed name we want to data from
+	 */
+	getFeed({ page$, feedName }: GetFeedParams) {
 		const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
 		// gets feed token
 		return this.token$.pipe(
 			// once we have the token we can get a feed
-			switchMap(({ token }: any) => this.getActivityStream(page$, this.client, teamId, token)),
+			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, teamId, token, feedName)),
 			tap((r: any) => this.addData(r.results)),
 			map(r => r.results),
 			scan((pre, curr) => ([...pre, ...curr]), [])
 		);
 	}
 
-	getProductDetailsActivity(page$: Observable<number>) {
 
+	private getFeedResult(page$, client, teamId, token, feedName) {
+		return page$.pipe(
+			switchMap((page: number) => {
+				const stream = client.feed(feedName, teamId, token);
+				// TODO : we use offset but it isn't recommended, we should use id_lt
+				return stream.get({ limit: 15, offset: page * 15 });
+			})
+		);
 	}
 
 	private getToken() {
@@ -78,15 +95,6 @@ export class ActivityService {
 			.subscribe(this.token$);
 	}
 
-	private getActivityStream(page$, client, teamId, token) {
-		return page$.pipe(
-			switchMap((page: number) => {
-				const teamStream = client.feed('team', teamId, token);
-				// TODO : we use offset but it isn't recommended, we should use id_lt
-				return teamStream.get({ limit: 15, offset: page * 15 });
-			})
-		);
-	}
 
 	// loadMore(feed: GetStreamResponse) {
 	// 	return this.http.get('https://api.stream-io-api.com' + feed.next).pipe(
@@ -100,7 +108,6 @@ export class ActivityService {
    */
 	private addData(results: GetStreamResult[]) {
 		const activityNames = results.map(res => res.activities.map(act => act.verb));
-		debugger;
 		results.forEach(res => {
 			res.obs = forkJoin(res.activities.map(act => this.addDataToActivity(act)));
 		});
@@ -112,11 +119,11 @@ export class ActivityService {
 			case 'update_product':
 				break;
 			case 'create_comment':
-				break;
+				return this.commentSrv.selectOne(activity.object).pipe(first());
 			case 'create_product':
 				return this.productSrv.selectOne(activity.object).pipe(first());
 			default:
-				debugger;
+				log.warn('unhandled activity feed verb, search this uuid for more info: c6f3ae2e-a222-11e8-98d0-529269fb1459');
 		}
 	}
 
