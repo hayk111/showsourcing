@@ -27,10 +27,6 @@ export class ContactQueries extends BaseQueries implements GlobalQuery {
 		businessCardImage {
 			id,
 			fileName
-		},
-		supplier {
-			id,
-			name,
 		}
 	`;
 

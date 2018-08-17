@@ -67,6 +67,16 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 				id,
 				name
 			}
+			contacts {
+				name,
+				phoneNumber,
+				email,
+				jobTitle
+				businessCardImage {
+					id,
+					fileName
+				}
+			}
 		`;
 
 	manyDefaultSelection = `
