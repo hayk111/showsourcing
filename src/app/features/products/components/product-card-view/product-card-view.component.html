@@ -1,6 +1,6 @@
 
 <div *ngFor="let category of rows | groupBy: 'category'; first as first; index as i" class="category-section">
-	<div class="sectionTitle">{{ category?.value[0].category.name }}
+	<div class="sectionTitle">{{ category?.value[0].category.name || 'Unnamed' }}
 		<div class="sectionTag">{{ category.value.length }} products</div>
 	</div>
 	<div class="products-section">

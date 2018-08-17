@@ -22,32 +22,36 @@ export class StatusBadgeComponent implements OnInit {
 	// if we display the caret down or not
 	@Input() hasArrow = false;
 
-	// by default is secondary since is the color for NEW elements
-	@Input() type = 'secondary';
-
 	constructor() {
 	}
 
 	ngOnInit() {
+
+	}
+
+	get getType() {
+		// by default is secondary since is the color for NEW elements
+		let type = 'secondary';
 		if (this.status) {
 			switch (this.status.category) {
 				case 'inProgress':
-					this.type = 'primary';
+					type = 'primary';
 					break;
 				case 'validated':
-					this.type = 'success';
+					type = 'success';
 					break;
 				case 'refused':
-					this.type = 'warn';
+					type = 'warn';
 					break;
 				case 'inspiration':
-					this.type = 'secondary';
+					type = 'secondary';
 					break;
 				default:
-					this.type = 'secondary';
+					type = 'secondary';
 					break;
 			}
 		}
+		return type;
 	}
 
 }
