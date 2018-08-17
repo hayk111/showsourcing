@@ -4,6 +4,8 @@ import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ActivityService, GetStreamResult } from '~shared/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
 import { TemplateService } from '~shared/template/services/template.service';
+import { TeamService } from '~global-services';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
 	selector: 'dashboard-app',
@@ -13,32 +15,17 @@ import { TemplateService } from '~shared/template/services/template.service';
 		class: 'flex'
 	}
 })
-export class DashboardComponent extends AutoUnsub implements OnInit {
-	feeds$: Observable<GetStreamResult[]>;
-	private page$ = new BehaviorSubject(0);
-	private page: number;
+export class DashboardComponent implements OnInit {
+	feedName$: Observable<string[]>;
 
-	constructor(
-		private activitySrv: ActivityService,
-		private templateSrv: TemplateService
-	) {
-		super();
+	constructor(private teamSrv: TeamService) {
+
 	}
 
 	ngOnInit() {
-		this.feeds$ = this.activitySrv.getFeed({
-			page$: this.page$,
-			feedName: 'team'
-		});
-
-		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
-
-		this.page$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(page => this.page = page)
-	}
-
-	loadMore() {
-		this.page$.next(++this.page);
+		this.feedName$ = this.teamSrv.selectTeam().pipe(
+			map(team => ['team', team.id])
+		);
 	}
 }
+
