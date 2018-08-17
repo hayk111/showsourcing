@@ -14,6 +14,10 @@
 		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 
 		<!-- activity -->
+
+		<ng-container *ngIf="feedName$ | async as feedName">
+			<activity-list-app [feedName]="feedName"></activity-list-app>
+		</ng-container>
 	</div>
 
 	<!-- right side -->
@@ -26,8 +30,7 @@
 
 		<!-- contacts -->
 		<supplier-contact-card-app
-			*ngIf="contacts$ | async as contacts"
-			[contacts]="contacts"
+			[contacts]="supplier.contacts"
 			(newContact)="openContactDlg()"
 			(openContact)="openContactDlg($event)"
 			(deleteContact)="deleteContact($event)">

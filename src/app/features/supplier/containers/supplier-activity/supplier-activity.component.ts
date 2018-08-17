@@ -20,11 +20,11 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 	}
 })
 export class SupplierActivityComponent extends AutoUnsub implements OnInit {
-	// currently displayed supplier
 	supplierId: string;
 	supplier$: Observable<Supplier>;
-	contacts$: Observable<Contact[]>;
 	products$: Observable<Product[]>;
+	/** Get stream feedName */
+	feedName$: Observable<string[]>;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -48,14 +48,13 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.selectOne(id))
 		);
 
-		// gettings his contacts
-		this.contacts$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectContacts(id))
-		);
-
 		// getting his products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
+		);
+
+		this.feedName$ = id$.pipe(
+			map(id => (['supplier_flat', id]))
 		);
 
 	}

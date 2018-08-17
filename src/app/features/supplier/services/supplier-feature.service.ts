@@ -33,12 +33,6 @@ export class SupplierFeatureService extends SupplierService {
 		);
 	}
 
-	selectContacts(supplierId: string): Observable<Contact[]> {
-		return this.contactSrv.selectMany(
-			of(new SelectParams({ query: `supplier.id == '${supplierId}'` }))
-		);
-	}
-
 	createContact(contact: Contact): Observable<Contact> {
 		return this.contactSrv.create(contact);
 	}
