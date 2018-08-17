@@ -3,6 +3,10 @@ import { GetStreamResult, ActivityService } from '~shared/activity/services/acti
 import { Product } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
+import { TemplateService } from '~shared/template/services/template.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
   selector: 'activity-list-app',
@@ -10,19 +14,39 @@ import { ProductService } from '~global-services/product/product.service';
   styleUrls: ['./activity-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActivityListComponent implements OnInit {
-  @Input() feeds: GetStreamResult[];
-  @Input() feedName: string;
+export class ActivityListComponent extends AutoUnsub implements OnInit {
+  @Input() feedName: string[];
+  feeds$: Observable<GetStreamResult[]>;
+  private page$ = new BehaviorSubject(0);
+  private page: number;
 
   constructor(
     private productSrv: ProductService,
     private activitySrv: ActivityService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
+    private router: Router,
+    private templateSrv: TemplateService
+  ) {
+    super();
   }
 
+  ngOnInit() {
+    // getting the feed
+    this.feeds$ = this.activitySrv.getFeed({
+      page$: this.page$,
+      feedName: this.feedName
+    });
+
+    // when we reach the bottom of the ** PAGE ** then we load more.
+    this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
+
+    this.page$.pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(page => this.page = page)
+  }
+
+  loadMore() {
+    this.page$.next(++this.page);
+  }
 
   updateProduct(product: Product) {
     this.productSrv.update(product).subscribe();

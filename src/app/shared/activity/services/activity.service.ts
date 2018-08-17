@@ -40,7 +40,7 @@ export interface GetStreamActivity {
 
 export interface GetFeedParams {
 	page$: Observable<number>;
-	feedName: string;
+	feedName: string[];
 }
 
 
@@ -67,11 +67,10 @@ export class ActivityService {
 	 * @param feedName : string, feed name we want to data from
 	 */
 	getFeed({ page$, feedName }: GetFeedParams) {
-		const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
 		// gets feed token
 		return this.token$.pipe(
 			// once we have the token we can get a feed
-			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, teamId, token, feedName)),
+			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, token, feedName)),
 			tap((r: any) => this.addData(r.results)),
 			map(r => r.results),
 			scan((pre, curr) => ([...pre, ...curr]), [])
@@ -79,10 +78,10 @@ export class ActivityService {
 	}
 
 
-	private getFeedResult(page$, client, teamId, token, feedName) {
+	private getFeedResult(page$, client, token, feedName) {
 		return page$.pipe(
 			switchMap((page: number) => {
-				const stream = client.feed(feedName, teamId, token);
+				const stream = client.feed(...feedName, token);
 				// TODO : we use offset but it isn't recommended, we should use id_lt
 				return stream.get({ limit: 15, offset: page * 15 });
 			})

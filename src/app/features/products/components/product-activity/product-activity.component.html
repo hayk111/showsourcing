@@ -1,8 +1,3 @@
 
-<ng-container *ngIf="feeds$ | async as feeds; else spinner">
-  <activity-list-app [feeds]="feeds"></activity-list-app>
-</ng-container>
+<activity-list-app [feedName]="feedName"></activity-list-app>
 
-<ng-template #spinner>
-  <spinner-app></spinner-app>
-</ng-template>

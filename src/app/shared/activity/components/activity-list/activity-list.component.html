@@ -1,37 +1,43 @@
-<ng-container *ngFor="let feed of feeds">
 
-  <ng-container [ngSwitch]="feed.verb">
-    <!-- product -->
-    <ng-container *ngSwitchCase="'create_product'">
+<ng-container *ngIf="feeds$ | async as feeds; else spinner">
+  <ng-container *ngFor="let feed of feeds">
 
-      <ng-container *ngIf="feed.activities.length > 1; else one">
-        <ng-container *ngIf="feed.obs | async as products">
-          <multiple-products-activity-card-app
-          [time]="feed.created_at"
-          [products]="feed.obs | async"></multiple-products-activity-card-app>
+    <ng-container [ngSwitch]="feed.verb">
+      <!-- product -->
+      <ng-container *ngSwitchCase="'create_product'">
+
+        <ng-container *ngIf="feed.activities.length > 1; else one">
+          <ng-container *ngIf="feed.obs | async as products">
+            <multiple-products-activity-card-app
+            [time]="feed.created_at"
+            [products]="feed.obs | async"></multiple-products-activity-card-app>
+          </ng-container>
         </ng-container>
+        <ng-template #one>
+          <ng-container *ngIf="(feed.obs | async) as products">
+            <one-product-activity-card-app
+            [product]="products[0]"
+            (update)="updateProduct($event)"></one-product-activity-card-app>
+          </ng-container>
+        </ng-template>
+
       </ng-container>
-      <ng-template #one>
-        <ng-container *ngIf="(feed.obs | async) as products">
-          <one-product-activity-card-app
-          [product]="products[0]"
-          (update)="updateProduct($event)"></one-product-activity-card-app>
-        </ng-container>
-      </ng-template>
 
-    </ng-container>
+      <!-- comments -->
 
-    <!-- comments -->
+      <ng-container *ngSwitchCase="'create_comment'">
+        <card-app>
+          NEW COMMENT CREATED:
 
-    <ng-container *ngSwitchCase="'create_comment'">
-      <card-app>
-        NEW COMMENT CREATED:
+          {{ feed.obs | async | json }}
+        </card-app>
+      </ng-container>
 
-        {{ feed.obs | async | json }}
-      </card-app>
     </ng-container>
 
   </ng-container>
-
 </ng-container>
 
+<ng-template #spinner>
+  <spinner-app></spinner-app>
+</ng-template>
