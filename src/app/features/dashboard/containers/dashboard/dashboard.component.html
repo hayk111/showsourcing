@@ -1,5 +1,5 @@
 
-<div class="ctnr" infiniScroll (bottomReached)="loadMore()">
+<div class="ctnr">
 	<div class="left">
 		<ng-container *ngIf="feeds$ | async as feeds; else spinner">
 			<activity-list-app [feeds]="feeds"></activity-list-app>

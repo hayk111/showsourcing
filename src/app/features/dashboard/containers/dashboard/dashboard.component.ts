@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ActivityService, GetStreamResult } from '~shared/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
+import { TemplateService } from '~shared/template/services/template.service';
 
 @Component({
 	selector: 'dashboard-app',
@@ -16,7 +17,11 @@ export class DashboardComponent extends AutoUnsub implements OnInit {
 	feeds$: Observable<GetStreamResult[]>;
 	private page$ = new BehaviorSubject(0);
 	private page: number;
-	constructor(private activitySrv: ActivityService) {
+
+	constructor(
+		private activitySrv: ActivityService,
+		private templateSrv: TemplateService
+	) {
 		super();
 	}
 
@@ -25,6 +30,8 @@ export class DashboardComponent extends AutoUnsub implements OnInit {
 			page$: this.page$,
 			feedName: 'team'
 		});
+
+		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
 
 		this.page$.pipe(
 			takeUntil(this._destroy$)

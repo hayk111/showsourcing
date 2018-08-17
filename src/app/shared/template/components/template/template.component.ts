@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerAnimation } from '~shared/template/components/animation';
+import { TemplateService } from '~shared/template/services/template.service';
 
 @Component({
 	selector: 'template-app',
@@ -12,7 +13,7 @@ import { routerAnimation } from '~shared/template/components/animation';
 })
 export class TemplateComponent implements OnInit {
 
-	constructor() { }
+	constructor(private templateSrv: TemplateService) { }
 
 	ngOnInit() {
 	}
@@ -23,7 +24,7 @@ export class TemplateComponent implements OnInit {
 	 * This is used in some pages to load content
 	 */
 	onBottomReached() {
-
+		this.templateSrv.bottomReached();
 	}
 
 }

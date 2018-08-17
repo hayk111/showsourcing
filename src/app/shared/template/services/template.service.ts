@@ -9,9 +9,7 @@ export class TemplateService {
   private _bottomReached$ = new Subject<any>();
   bottomReached$ = this._bottomReached$.asObservable();
 
-  constructor() { }
-
   bottomReached() {
-    this._bottomReached$.next()
+    this._bottomReached$.next();
   }
 }
