@@ -19,6 +19,7 @@
 						*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 					<kanban-item-card-app class="marginSmall" [title]="product.name"
 						[status]="product.status?.name" [subtitle1]="product.description ? product.description : 'No description'"
+						[category]="status.category"
 						[subtitle2]="product.category?.name"
 						[image]="product.images?.length > 0 ? (product | image:'m') : null"
 						[person]="product.createdBy"

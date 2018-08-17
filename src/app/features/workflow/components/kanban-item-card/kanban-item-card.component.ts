@@ -8,8 +8,15 @@ import {
 	Input,
 	OnInit,
 	Output,
-	TemplateRef
+	TemplateRef,
+	HostBinding
 } from '@angular/core';
+import {
+	DomSanitizer,
+	SafeHtml,
+	SafeUrl,
+	SafeStyle
+} from '@angular/platform-browser';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -17,7 +24,7 @@ import {
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent {
+export class KanbanItemCardComponent implements OnInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -25,6 +32,8 @@ export class KanbanItemCardComponent {
 	@Input() subtitle1: string;
 	/** The sub title */
 	@Input() subtitle2: string;
+	/** The category */
+	@Input() category: string;
 	/** The status displayed into a tiny label */
 	@Input() status: string;
 	/** The image url */
@@ -45,6 +54,8 @@ export class KanbanItemCardComponent {
 	/** Trigger the event when the element is unselected via the checkbox */
 	@Output() unselect = new EventEmitter<any>();
 
+	@HostBinding('style.border-left-color') borderLeftColor: any;
+
 	/** The drag'n drop enabled */
 	dragDropEnabled = true;
 	/** The contextual menu is opened */
@@ -55,6 +66,30 @@ export class KanbanItemCardComponent {
 	checked = false;
 	/** An interaction (check or uncheck) occured on the checkbox */
 	checkboxAction = false;
+
+	constructor(private sanitization: DomSanitizer) {
+
+	}
+
+	ngOnInit() {
+		switch (this.category) {
+			case 'inProgress':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-primary)');
+				break;
+			case 'validated':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-success)');
+				break;
+			case 'refused':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-warn)');
+				break;
+			case 'inspiration':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-secondary)');
+				break;
+			default:
+				this.borderLeftColor = '#45adff';
+				break;
+		}
+	}
 
 	/** Toggle the open menu state */
 	onToggleContextualMenu(event) {

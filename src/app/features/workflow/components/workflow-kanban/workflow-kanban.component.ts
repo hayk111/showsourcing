@@ -58,10 +58,16 @@ export class WorkflowKanbanComponent {
 
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
+		console.log('>> refreshStatusesInternally');
 		const newStatus = new ProductStatus({ status: { id: target.id } });
 		const updatedProduct = { ...droppedElement, statuses: [ newStatus, ...droppedElement.statuses ] };
 
-		const currentStatusId = this.getCurrentStatusId(droppedElement);
+		let currentStatusId = this.getCurrentStatusId(droppedElement);
+		console.log('  >> currentStatusId = ', currentStatusId);
+		console.log('  >> this.statuses = ', this.statuses);
+		if (!currentStatusId) {
+			currentStatusId = -1;
+		}
 
 		// Remove for old status
 		const currentStatus = this.statuses.find(status => status.id === currentStatusId);

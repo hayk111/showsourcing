@@ -44,20 +44,18 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		/** Don't register on drag'n drop if disabled */
-		if (this.disabled) {
-			return;
-		}
-
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(({ namespace }) => {
-			if (namespace) {
-				this.sourceArea = (namespace === this.namespace);
-				this.droppableArea = (namespace !== this.namespace);
-			}
+			this.sourceArea = (namespace === this.namespace);
+			this.droppableArea = (!this.disabled && namespace !== this.namespace);
 		});
+
+		/** Don't register on drag'n drop if disabled */
+		if (this.disabled) {
+			return;
+		}
 
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(
