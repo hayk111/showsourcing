@@ -9,7 +9,8 @@ import {
 	OnInit,
 	Output,
 	TemplateRef,
-	HostBinding
+	HostBinding,
+	ContentChild
 } from '@angular/core';
 import {
 	DomSanitizer,
@@ -17,6 +18,7 @@ import {
 	SafeUrl,
 	SafeStyle
 } from '@angular/platform-browser';
+import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -56,6 +58,8 @@ export class KanbanItemCardComponent implements OnInit {
 
 	@HostBinding('style.border-left-color') borderLeftColor: any;
 
+	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
+
 	/** The drag'n drop enabled */
 	dragDropEnabled = true;
 	/** The contextual menu is opened */
@@ -66,6 +70,8 @@ export class KanbanItemCardComponent implements OnInit {
 	checked = false;
 	/** An interaction (check or uncheck) occured on the checkbox */
 	checkboxAction = false;
+	/** The mouse is over the card */
+	cardEntered: boolean;
 
 	constructor(private sanitization: DomSanitizer) {
 
@@ -153,5 +159,13 @@ export class KanbanItemCardComponent implements OnInit {
 	preventDragImage(event) {
 		event.preventDefault();
 		return false;
+	}
+
+	leaveCard() {
+		this.cardEntered = false;
+	}
+
+	enterCard() {
+		this.cardEntered = true;
 	}
 }

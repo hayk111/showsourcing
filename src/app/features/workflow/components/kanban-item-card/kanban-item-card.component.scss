@@ -7,6 +7,7 @@
   box-shadow: 0 2px 4px 0 var(--pale-grey);
 	border: solid 1px var(--color-secondary);
 	border-left: solid 2px #45adff;
+	position: static;
 }
 
 .kanban {
@@ -20,13 +21,11 @@
 		height: 100%;
 
 		&:hover {
-			.dotSeparator-wrapper {
-				color: var(--color-txt-primary);
+			.check {
 				display: block;
 			}
 
-
-			.check {
+			.contextual-menu {
 				display: block;
 			}
 		}
@@ -108,40 +107,16 @@
 			color: var(--color-txt-secondary);
 		}
 
-		.dotSeparator-wrapper {
-			background-color: var(--color-bg);
-			width: 21px;
-			display: none;
-			position: absolute;
-			right: 5px;
-			bottom: 1px;
-			text-align: center;
-			padding-left: 5px;
-
-			&.opened {
-				display: block !important;
-			}
-
-			.dotSeparator {
-				background-color: var(--color-bg);
-				width: 10px;
-				overflow: hidden;
-
-				&:after {
-					content: '\2807';
-					font-size: 27px;
-					color: var(--color-txt-secondary);
-				}
-			}
-		}
-
 		.contextual-menu {
-			top: 170px;
-			left: 30px;
+			display: none;
+			top: 50px;
+			right: 5px;
+			position: absolute;
+			background-color: #fff;
+			z-index: 1000;
 
-			::ng-deep menu {
-				top: 85px;
-				right: 0;
+			::ng-deep button.light:hover {
+				background-color: #fff;
 			}
 		}
 

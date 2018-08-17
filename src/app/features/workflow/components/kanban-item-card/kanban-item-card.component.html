@@ -1,4 +1,5 @@
-<div class="kanban__item cell ng-star-inserted main" (clickOutside)="onClickOutsideCard()">
+<div class="kanban__item cell ng-star-inserted main" (clickOutside)="onClickOutsideCard()"
+     (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
       <div class="imgCtnr">
@@ -25,14 +26,7 @@
                   (mouseleave)="toggleDragDropEnable('checkbox', $event)">
     </checkbox-app>
   </div>
-  <div class="dotSeparator-wrapper" [ngClass]="{ opened: contextualMenuOpened }">
-    <div class="dotSeparator pointer"
-         (click)="onToggleContextualMenu($event)"
-         (mouseenter)="toggleDragDropEnable('menu', $event)"
-         (mouseleave)="toggleDragDropEnable('menu', $event)">
-    </div>
-  </div>
-  <div *ngIf="contextualMenuOpened" class="contextual-menu" (click)="onToggleContextualMenu($event)">
+  <div class="contextual-menu" *ngIf="cardEntered">
     <ng-container
       *ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
     </ng-container>
