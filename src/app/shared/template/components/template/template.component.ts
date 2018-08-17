@@ -17,4 +17,13 @@ export class TemplateComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	/**
+	 * Notifies the service we have reached the bottom of the page,
+	 *
+	 * This is used in some pages to load content
+	 */
+	onBottomReached() {
+
+	}
+
 }
