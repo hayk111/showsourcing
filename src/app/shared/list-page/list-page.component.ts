@@ -132,13 +132,17 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	smartSearch(str: string) {
+		console.log('>> smartSearch');
 		this.smartSearchFilters(str);
 	}
 
 	/** Search within filters */
 	smartSearchFilters(str: string) {
-		if (this.searchSrv)
+		console.log('>> smartSearch - this.searchSrv = ', this.searchSrv);
+		if (this.searchSrv) {
+			console.log('>> smartSearch1');
 			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+		}
 	}
 
 	onCheckSearchElement(element) {

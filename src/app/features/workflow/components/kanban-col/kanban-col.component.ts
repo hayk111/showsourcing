@@ -27,6 +27,8 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	/** The namespace associated with the column */
 	@Input() namespace: string;
 	@Input() borderColor: string;
+	/** Doesn't take part of drag'n drop */
+	@Input() disabled: boolean;
 	/** The item is dropped in the column */
 	@Output() itemDropped = new EventEmitter<any>();
 
@@ -42,6 +44,11 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		/** Don't register on drag'n drop if disabled */
+		if (this.disabled) {
+			return;
+		}
+
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)

@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import {
+	ChangeDetectionStrategy, Component, ChangeDetectorRef,
+	Input, Output, EventEmitter, ViewChild, ElementRef,
+	OnChanges
+} from '@angular/core';
 import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 
 
@@ -12,12 +16,27 @@ import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 		'(click)': 'onClick()'
 	}
 })
-export class SearchBarComponent extends AbstractInput {
+export class SearchBarComponent extends AbstractInput implements OnChanges {
 	focussed = false;
+	@Input() inputFocus: boolean;
 	@Output() search = new EventEmitter<string>();
+
+	@ViewChild('inp') inputRef: ElementRef;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
+	}
+
+	ngOnChanges(changes) {
+		if (changes.inputFocus && changes.inputFocus.currentValue != null &&
+				changes.inputFocus.currentValue !== undefined) {
+			const inputFocus = changes.inputFocus.currentValue;
+			if (inputFocus) {
+				this.inputRef.nativeElement.focus();
+			} else {
+				this.inputRef.nativeElement.blur();
+			}
+		}
 	}
 
 	onBlur() {
