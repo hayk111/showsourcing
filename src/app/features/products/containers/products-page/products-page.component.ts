@@ -78,8 +78,4 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
-	smartSearch(event) {
-		super.smartSearch(event);
-		this.cdr.detectChanges();
-	}
 }

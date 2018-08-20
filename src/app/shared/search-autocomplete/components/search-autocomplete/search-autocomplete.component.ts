@@ -46,7 +46,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 
 	_destroyItems$ = new Subject<void>();
 
-	constructor(private cdr: ChangeDetectorRef) {
+	constructor() {
 		super();
 	}
 
@@ -80,7 +80,6 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 	/** Closes the autocomplete when clicking outside. */
 	clickOutside() {
 		this.closeAutocomplete();
-		this.cdr.detectChanges();
 	}
 
 	/** Closes the autocomplete. */

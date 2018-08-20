@@ -18,6 +18,7 @@
 		(search)="search($event)"
 		(smartSearch)="smartSearch($event)"
 		(viewChange)="onViewChange($event)">
+
 		<search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
 			<search-autocomplete-item-app *ngFor="let element of (smartSearchFilterElements$ | async)">
 				<search-autocomplete-item-content-app

@@ -1,6 +1,7 @@
 :host {
 	position: relative;
 }
+
 .trigger {
 	display: inline-block;
 }
@@ -20,6 +21,7 @@
 .autocomplete-before {
 	right: var(--spacing-m);
 }
+
 .autocomplete-after {
 	left: var(--spacing-m);
 }
@@ -27,6 +29,7 @@
 .autocomplete-above {
 	top: -(var(--spacing-m));
 }
+
 .autocomplete-below {
 	bottom: -(var(--spacing-m));
 }

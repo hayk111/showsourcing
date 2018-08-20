@@ -30,16 +30,16 @@ export class SearchService {
 	searchFilterElementsWithAll(str: string, filterSrv: FilterService) {
 		return zip(
 			this.tagSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			this.categorySrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			this.supplierSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			this.eventSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			filterSrv.filters$.pipe(first())
 		).pipe(
@@ -60,15 +60,15 @@ export class SearchService {
 	searchFilterElementsWithTagAndCategory(str: string, filterSrv: FilterService) {
 		return zip(
 			this.tagSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			this.categorySrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS "${str}"` }))
+				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
 			).pipe(first()),
 			filterSrv.filters$.pipe(first())
 		).pipe(
 			map(results => {
-				const [ tags, categories, filters ] = results;
+				const [tags, categories, filters] = results;
 				const elements = [];
 				elements.push(...tags.map(tag => Object.assign({}, tag, { type: 'tags', checked: this.isFilter(filters, tag, 'tag') })));
 				elements.push(...categories.map(category => Object.assign(
