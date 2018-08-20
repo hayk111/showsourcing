@@ -1,5 +1,4 @@
 :host {
-	width: 712px;
 	display: block;
 }
 
@@ -8,11 +7,10 @@ activity-user-app {
 }
 
 .img1 {
-	width: 488px;
 	height: 320px;
 	margin-right: var(--spacing-xs);
-	&.big {
-		width: 660px;
+	.small {
+		margin-right: var(--spacing-xs);
 	}
 }
 
