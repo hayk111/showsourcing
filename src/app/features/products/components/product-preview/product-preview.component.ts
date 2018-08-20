@@ -82,7 +82,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		).subscribe(this.descriptor2$);
 		this.featureSrv.getContacts(this.product.supplier.id).pipe(
 			first()
-		).subscribe(m => this.contacts = m);
+		).subscribe(supp => this.contacts = supp.contacts);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -101,6 +101,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openRfq() {
+		// we add manually the supplier self email, since it is not on the contacts
+		if (this.contacts && this.product.supplier.officeEmail) {
+			this.contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+		} else if (!this.contacts && this.product.supplier.officeEmail) {
+			this.contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
+		}
 		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product, contacts: this.contacts });
 	}
 

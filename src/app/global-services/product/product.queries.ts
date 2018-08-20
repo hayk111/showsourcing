@@ -136,7 +136,14 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			},
 			supplier {
 				id,
-				name
+				name,
+				officeEmail,
+				contacts {
+					id,
+					name,
+					email,
+					jobTitle
+				}
 			},
 			category {
 				id,

@@ -40,6 +40,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 		this.emailGroup = this.fb.group({
 			email: ['', [Validators.required, Validators.email]]
 		});
+		if (!this.contacts) this.contacts = [];
 	}
 
 	ngAfterViewInit() {
@@ -75,6 +76,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	selectMail(index: Array<any>) {
+		// 0 is the position in the selection and 1 is the contact
 		this.selected.set(index[0], index[1]);
 	}
 
