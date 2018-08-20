@@ -21,9 +21,13 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	index = 0;
 	selected = new Map<number, Contact>();
 
-	@Input() contacts: Array<Contact>;
+	@Input() set contacts(contacts: Array<Contact>) {
+		this._contacts = contacts ? contacts : [];
+	}
 	@Input() product: Product;
 	@ViewChild(InputDirective) input: InputDirective;
+
+	private _contacts: Array<Contact>;
 
 	constructor(
 		private fb: FormBuilder,
@@ -40,7 +44,6 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 		this.emailGroup = this.fb.group({
 			email: ['', [Validators.required, Validators.email]]
 		});
-		if (!this.contacts) this.contacts = [];
 	}
 
 	ngAfterViewInit() {
@@ -56,10 +59,10 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 	}
 
 	addEmail() {
-		this.contacts.push({ name: null, email: this.emailGroup.value.email, jobTitle: null });
-		this.contacts = [...this.contacts]; // change detection
-		const len = this.contacts.length - 1;
-		this.selected.set(len, this.contacts[len]);
+		this._contacts.push({ name: null, email: this.emailGroup.value.email, jobTitle: null });
+		this._contacts = [...this._contacts]; // change detection
+		const len = this._contacts.length - 1;
+		this.selected.set(len, this._contacts[len]);
 		this.emailGroup.reset();
 	}
 
