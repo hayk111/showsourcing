@@ -19,7 +19,7 @@ export class ProductActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.feedName = ['product_flat', this.route.parent.snapshot.params.id];
+    this.feedName = ['product_aggregated', this.route.parent.snapshot.params.id];
   }
 
 }

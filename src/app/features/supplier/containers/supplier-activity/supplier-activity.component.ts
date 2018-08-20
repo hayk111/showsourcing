@@ -54,7 +54,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.feedName$ = id$.pipe(
-			map(id => (['supplier_flat', id]))
+			map(id => (['supplier_aggregated', id]))
 		);
 
 	}

@@ -50,7 +50,6 @@ export interface GetFeedParams {
 export class ActivityService {
 
 	private client: any;
-	private token$ = new ReplaySubject(1);
 
 	constructor(
 		private http: HttpClient,
@@ -58,7 +57,6 @@ export class ActivityService {
 		private commentSrv: CommentService
 	) {
 		this.client = stream.connect('7mxs7fsf47nu', null, '39385');
-		this.getToken();
 	}
 
 	/**
@@ -68,7 +66,7 @@ export class ActivityService {
 	 */
 	getFeed({ page$, feedName }: GetFeedParams) {
 		// gets feed token
-		return this.token$.pipe(
+		return this.getToken(feedName).pipe(
 			// once we have the token we can get a feed
 			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, token, feedName)),
 			tap((r: any) => this.addData(r.results)),
@@ -88,10 +86,10 @@ export class ActivityService {
 		);
 	}
 
-	private getToken() {
-		const teamId = '2a0ac87c-e1a8-4912-9c0d-2748a4aa9e46';
-		this.http.get<GetStreamResponse>(`https://murmuring-sierra-85015.herokuapp.com/${teamId}`)
-			.subscribe(this.token$);
+	private getToken(feedName: string[]) {
+		return this.http.get<GetStreamResponse>(
+			`https://murmuring-sierra-85015.herokuapp.com/token?feed=${feedName[0]}&id=${feedName[1]}`
+		);
 	}
 
 
