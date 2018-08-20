@@ -47,6 +47,7 @@ import { SupplierImagesComponent } from '~features/supplier/components/supplier-
 import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
 import { ImageModule } from '~shared/image/image.module';
 import { ActivityModule } from '~shared/activity/activity.module';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { ActivityModule } from '~shared/activity/activity.module';
 		BadgeModule,
 		PanelModule,
 		SearchAutocompleteModule,
-		ActivityModule
+		ActivityModule,
+		ActionBarModule
 	],
 	declarations: [
 		SupplierDetailsComponent,

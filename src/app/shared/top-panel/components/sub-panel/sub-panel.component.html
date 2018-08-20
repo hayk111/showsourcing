@@ -11,7 +11,6 @@
 				class="mg-right"
 				[formControl]="searchControl"
 				[inputFocus]="inputFocus"
-				(blur)="onBlurSearch($event)"
 				(focus)="onFocusSearch($event)"
 				(search)="triggerSearch($event)"
 				(keydown.enter)="triggerSmartSearch($event)">
