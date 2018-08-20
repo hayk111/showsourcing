@@ -82,6 +82,24 @@ export class ApolloWrapper {
 		);
 	}
 
+	selectInfinitList(gql: DocumentNode, params) {
+		// const query = this.apollo.watchQuery<any>({
+		//   query: feedQuery,
+		//   variables: {
+		//     type: this.type,
+		//     offset: 0,
+		//     limit: this.itemsPerPage,
+		//   },
+		//   forceFetch: true,
+		// });
+
+		// const obs$ = query
+		//   .valueChanges
+		//   .subscribe(({data}) => {
+		//     this.feed = data.feed;
+		//   });
+	}
+
 	/////////////////////////////
 	//   SELECT ALL SECTION    //
 	/////////////////////////////
