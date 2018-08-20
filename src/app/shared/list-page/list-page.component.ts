@@ -256,6 +256,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Select all entity */
 	selectAll(entities: any[], checkFavorite = false) {
+		// we check for each item if it has unfavorite, if it has we stop looking and update the icon to false
 		if (checkFavorite && this.allSelectedFavorite) {
 			entities.every(entity => {
 				if (entity.favorite)
