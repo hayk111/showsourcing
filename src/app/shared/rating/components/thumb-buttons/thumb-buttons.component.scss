@@ -1,13 +1,6 @@
 :host {
 	display: flex;
 }
-.btn {
-	background: var(--color-button-dark);
-	// margin: var(--spacing-xs);
-	padding: var(--spacing-xs) var(--spacing-s);
-	border-radius: 10px;
-  font-size:  11px;
-}
 
 .icon-thumb-up, .icon-thumb-down {
   margin-right: var(--spacing-xs);
@@ -16,5 +9,5 @@
 }
 
 .first {
-	margin-right: 14px;
+	margin-right: var(--spacing-ms);
 }
