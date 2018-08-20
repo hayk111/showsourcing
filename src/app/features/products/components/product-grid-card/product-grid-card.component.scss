@@ -76,6 +76,7 @@
 			justify-content: space-between;
 			align-items: center;
 			background: white;
+			margin-top: 2px;
 
 			.text-bar {
 				margin-left: var(--spacing-xs);
@@ -84,7 +85,8 @@
 				.name-product {
 					margin-bottom: var(--spacing-xs);
 					font-weight: 600;
-					color: var(--color-txt-strong)
+					letter-spacing: -0.3px;
+					color: var(--color-txt-strong);
 				}
 
 				.supplier-product {
