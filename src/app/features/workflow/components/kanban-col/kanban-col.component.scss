@@ -1,5 +1,6 @@
 :host {
 	display: block;
+	width: 364px;
 }
 
 .ctnr  {
@@ -8,11 +9,46 @@
 }
 
 header {
-	text-align: left;
+	text-align: center;
 	font-weight: 600;
 	color: var(--color-txt-strong);
-	font-size: 17px;
+	font-size: 16px;
 	padding: var(--spacing-m);
+	background-color: #fff;
+	border: solid 1px var(--color-divider);
+	margin-left: 5px;
+	margin-right: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	.number {
+		color: var(--color-txt-primary);
+	}
+
+	.separator {
+		margin-top: 5px;
+		border-top: solid 2px #45d8ff;
+		width: 53px;
+		height: 2px;
+
+		&.in-progress {
+			border-top-color: var(--color-primary);
+		}
+		
+		&.validated {
+			border-top-color: var(--color-success);
+		}
+		
+		&.refused {
+			border-top-color: var(--color-warn);
+		}
+		
+		&.inspiration {
+			border-top-color: var(--color-secondary);
+		}
+	}
 }
 
 main {
@@ -20,8 +56,10 @@ main {
 	padding-top: var(--spacing-m);
 	height: 100%;
 	min-height: 136px;
-	border: solid 1px transparent;
+	border: solid 1px var(--color-divider);
+	border-top: 0;
 	margin: 5px;
+	margin-top: 0;
 }
 
 .overlay {
@@ -51,6 +89,7 @@ main {
 .source-area-overlay {
 	background-color: var(--color-secondary-light);
 	margin: 5px;
+	margin-top: 0;
 	border: dashed 1px var(--color-secondary);
 }
 

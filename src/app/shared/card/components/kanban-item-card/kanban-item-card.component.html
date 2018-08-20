@@ -1,0 +1,36 @@
+<div class="kanban__item cell ng-star-inserted main flexBetween" (clickOutside)="onClickOutsideCard()"
+     (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
+  <div class="mainCellWrapper ellipsis ng-star-inserted">
+    <div class="mainCell">
+      <div class="imgCtnr">
+        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
+             (dragstart)="preventDrag($event)">
+        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+             (dragstart)="preventDrag($event)">
+        <div class="check" [ngClass]="{ checked: checked, selected: selected }">
+          <checkbox-app [checked]="checked"
+                        (check)="onChecked()"
+                        (uncheck)="onUnchecked()"
+                        (dragstart)="preventDrag($event)"
+                        (mouseenter)="toggleDragDropEnable('checkbox', $event)"
+                        (mouseleave)="toggleDragDropEnable('checkbox', $event)">
+          </checkbox-app>
+        </div>
+      </div>
+      <div class="description">
+        <div class="titleCtnr">
+          <a class="title">{{title}}</a>
+          <span class="tiny-label" *ngIf="status">{{status}}</span>
+        </div>
+        <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
+        <span class="descriptionText">{{description}}</span>
+        <span><badge-app type="secondary-light">test</badge-app> <!-- icons-status [product]="product"></icons-status --></span>
+      </div>
+    </div>
+  </div>
+  <div class="contextual-menu flex"  (mouseleave)="leaveMenuTrigger()" (mouseenter)="enterMenuTrigger()">
+    <ng-container
+      *ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+    </ng-container>
+  </div>
+</div>

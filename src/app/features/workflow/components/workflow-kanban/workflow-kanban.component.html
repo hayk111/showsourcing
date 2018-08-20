@@ -4,10 +4,13 @@
 
 		<kanban-col-app
 			[dropzoneApp]="status"
+			[data]="status"
 			[disabled]="status.name === '_NoStatus'"
+			[checked]="hasAllItemsSelected(selectedItems, status)"
 			(itemDropped)="onItemDropped($event)"
 			(itemEntered)="onItemEntered(status.id)"
 			(itemLeft)="onItemLeft(status.id)"
+			(checkChange)="onCheckItemsChange(status, $event)"
 			[label]="status.name | const:'status':'name'"
 			borderColor="{{ status.id }}"
 			[namespace]="status.id"
@@ -18,13 +21,17 @@
 						[data]="product"
 						*ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 					<kanban-item-card-app class="marginSmall" [title]="product.name"
-						[status]="product.status?.name" [subtitle1]="product.description ? product.description : 'No description'"
+						[status]="product.status?.name" [subtitle1]="'test'"
+						[product]="product"
+						[price]="product.price"
+						[minimumOrderQuantity]="product.minimumOrderQuantity"
 						[category]="status.category"
-						[subtitle2]="product.category?.name"
+						[description]="product.description ? product.description : 'No description'"
 						[image]="product.images?.length > 0 ? (product | image:'m') : null"
 						[person]="product.createdBy"
 						[link]="'/product/details/' + product.id + '/general'"
 						[contextualMenu]="contextualMenu"
+						[checked]="isSelected(selectedItems, product.id)"
 						(select)="selectItem.emit(product)"
 						(unselect)="unselectItem.emit(product)">
 					</kanban-item-card-app>

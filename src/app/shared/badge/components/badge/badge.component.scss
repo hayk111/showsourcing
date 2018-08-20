@@ -9,6 +9,9 @@
 	&.secondary {
 		background: var(--color-secondary);
 	}
+	&.secondary-light {
+		background: var(--color-secondary-light);
+	}
 	&.accent {
 		background: var(--color-accent);
 		color: white;

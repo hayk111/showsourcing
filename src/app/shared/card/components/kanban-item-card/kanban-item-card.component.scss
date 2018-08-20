@@ -1,6 +1,6 @@
 :host {
 	display: block;
-	height: 87px;
+	height: 115px;
 	background: var(--color-bg);
 	border-radius: 4px;
   box-shadow: 0 2px 4px 0 #e6ebf5;
@@ -17,11 +17,10 @@
     /* height: 48px; */
     display: flex;
 		align-items: center;
-		position: relative;
 		height: 100%;
 
 		&:hover {
-			.check {
+			.mainCell .imgCtnr .check {
 				display: block;
 			}
 
@@ -40,18 +39,34 @@
 
       .imgCtnr {
 				border-radius: var(--border-radius);
-    		width: 78px;
-				height: 78px;
+    		width: 107px;
+				height: 107px;
 				margin-right: 10px;
 				margin-left: 4px;
         overflow: hidden;
         display: flex;
         align-items: center;
 				justify-content: center;
+				position: relative;
 
 				.mini.image {
-					width: 80px;
-					height: 80px;
+					width: 107px;
+					height: 107px;
+				}
+
+				.check {
+					position: absolute;
+					left: 4px;
+					top: 4px;
+					display: none;
+		
+					&.selected {
+						display: block;
+					}
+
+					&.checked {
+						display: block;
+					}
 				}
 			}
 
@@ -71,7 +86,7 @@
 						font-family: 'Source Sans Pro', sans-serif;
 						font-size: 15px;
 						font-weight: 600;
-						color: var(--color-txt-primary);
+						color: var(--color-txt-strong);
 					}
 				}
 
@@ -88,46 +103,31 @@
 
 				.subtitle {
 					font-family: 'Source Sans Pro', sans-serif;
-					font-size: 13px;
-					color: var(--color-txt-primary);
+					font-size: 12px;
+					color: #45adff;
+					margin-bottom: 5px;
+				}
 
-					&.first{
-						margin-bottom: 5px;
-					}
+				.descriptionText {
+					font-family: 'Source Sans Pro', sans-serif;
+					font-size: 12px;
+					color: var(--color-txt-primary);
+					margin-bottom: 5px;
 				}
 			}
 		}
 
-		.person {
-			position: absolute;
-			bottom: 10px;
-			right: 10px;
-			font-family: 'Source Sans Pro', sans-serif;
-			font-size: 13px;
-			color: var(--color-txt-secondary);
-		}
-
 		.contextual-menu {
-			display: none;
-			top: 50px;
-			right: 5px;
-			position: absolute;
+			// display: none;
+			display: block;
+			/* top: 50px;
+			right: 5px; */
 			background-color: #fff;
 			z-index: 1000;
+			align-items: flex-end;
 
 			::ng-deep button.light:hover {
 				background-color: #fff;
-			}
-		}
-
-		.check {
-			position: absolute;
-			right: 3px;
-			top: 10px;
-			display: none;
-
-			&.checked {
-				display: block;
 			}
 		}
 	}
