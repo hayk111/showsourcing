@@ -1,7 +1,7 @@
 import { OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, ReplaySubject } from 'rxjs';
-import { takeUntil, tap, map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, ReplaySubject, combineLatest } from 'rxjs';
+import { takeUntil, tap, map, switchMap, first } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
@@ -28,7 +28,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Whether the items are pending */
 	pending = true;
 	/** keeps tracks of the current selection */
-	selected$: Observable<Map<string, boolean>>;
+	selected$: Observable<Map<string, any>>;
+	/** keeps tracks of the items selected on the current selection */
+	selectedItems$: Observable<T[]>;
 	/** current view */
 	view: 'list' | 'card' = 'list';
 	/** whether the filter panel is visible */
@@ -102,6 +104,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
+		this.selectedItems$ = combineLatest(this.selected$, this.items$,
+			(selected, items) => {
+				return items.filter(item => selected.has(item.id));
+			});
 	}
 
 	protected setFilters() {

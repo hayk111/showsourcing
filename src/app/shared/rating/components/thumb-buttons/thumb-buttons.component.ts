@@ -73,7 +73,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			if (this.products) // if we are doing it with multiple likes
 				this.deleteMultipleVotes();
 			else
-				this.voteSrv.deleteOne(this.userVote.id).subscribe();
+				this.deleteEmitVote();
 		} else { // this case is when we have no like and we want to create or update one
 			this.like = true;
 			// if the dislike is false that means we are creating a vote, since both buttons where false that means that we havent clicked
@@ -101,7 +101,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			if (this.products)
 				this.deleteMultipleVotes();
 			else
-				this.voteSrv.deleteOne(this.userVote.id).subscribe();
+				this.deleteEmitVote();
 		} else {
 			this.dislike = true;
 			if (!this.like) {// if it was false already it means that we have to create a new vote
@@ -137,15 +137,19 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.vote.emit(this._votes);
 	}
 
-	/** delete multiple votes given an array of products */
-	deleteMultipleVotes() {
-		const voteIds = [];
-		this.products.forEach(prod => {
-			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
-			if (voteUser) // if the votes exist we add it to the array for deletion
-				voteIds.push(voteUser.id);
+	deleteEmitVote() {
+		this.voteSrv.deleteOne(this.userVote.id).subscribe();
+		this.vote.emit([]); // we do this to activate chagne detection on the product
+	}
+
+	/** create a vote given a status (like/dislike) and return it */
+	createVote(state: boolean) {
+		const tempVote = new ProductVote({
+			value: state ? 100 : 0,
+			user: { id: this.userSrv.userSync.id }
 		});
-		this.voteSrv.deleteMany(voteIds).subscribe();
+		this.voteSrv.create(tempVote).subscribe();
+		return tempVote;
 	}
 
 	/** create multiple votes given an array of products */
@@ -154,9 +158,13 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 			if (voteUser) {// if the vote already exists set it to the current state value
-				const value = this.state ? 100 : 0;
+				// since we can't replace an item on the array of objects because its sealed we create a new one
+				// without the user vote that we are updating
+				const votesUser = prod.votes.filter(vote => vote.id !== voteUser.id);
+				const value = state ? 100 : 0;
 				voteUser = { ...voteUser, value };
-				mapVotes.set(prod.id, prod.votes);
+				votesUser.push(voteUser);
+				mapVotes.set(prod.id, votesUser);
 			} else { // else we create a new vote
 				voteUser = this.createVote(state);
 				mapVotes.set(prod.id, [...prod.votes, voteUser]);
@@ -171,25 +179,34 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 		this.products.forEach(prod => {
 			let voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 			if (voteUser) {
+				// since we can't replace an item on the array of objects because its sealed we create a new one
+				// without the user vote that we are updating
+				const votesUser = prod.votes.filter(vote => vote.id !== voteUser.id);
 				const value = voteUser.value === 100 ? 0 : 100;
 				voteUser = { ...voteUser, value };
-				mapVotes.set(prod.id, prod.votes);
+				votesUser.push(voteUser);
+				mapVotes.set(prod.id, votesUser);
 			} else { // we have to do this since we dont know when updating if the user has selected more products with no votes
-				const tempVote = this.createVote(state);
-				mapVotes.set(prod.id, [...prod.votes, tempVote]);
+				voteUser = this.createVote(state);
+				mapVotes.set(prod.id, [...prod.votes, voteUser]);
 			}
 		});
 		this.multipleVotes.emit(mapVotes);
 	}
 
-	/** create a vote given a status (like/dislike) and return it */
-	createVote(state: boolean) {
-		const tempVote = new ProductVote({
-			value: state ? 100 : 0,
-			user: { id: this.userSrv.userSync.id }
+	/** delete multiple votes given an array of products */
+	deleteMultipleVotes() {
+		const mapVotes = new Map();
+		const voteIds = [];
+		this.products.forEach(prod => {
+			const voteUser = (prod.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (voteUser) {// if the votes exist we add it to the array for deletion
+				mapVotes.set(prod.id, []);
+				voteIds.push(voteUser.id);
+			}
 		});
-		this.voteSrv.create(tempVote).subscribe();
-		return tempVote;
+		this.voteSrv.deleteMany(voteIds).subscribe();
+		this.multipleVotes.emit(mapVotes); // we do this to activate change detection on the product
 	}
 
 	get state() {

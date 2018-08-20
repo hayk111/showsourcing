@@ -95,7 +95,7 @@
 
 		<action-bar-app
 			[favorite]="allSelectedFavorite"
-			[products]="selectionArrayItems"
+			[products]="selectedItems$ | async"
 			(onFavorite)="onFavoriteAllSelected()"
 			(onUnfavorite)="onUnfavoriteAllSelected()"
 			(multipleVotes)="multipleVotes($event)">
