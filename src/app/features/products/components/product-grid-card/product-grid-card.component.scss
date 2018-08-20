@@ -8,10 +8,12 @@
 .card-container {
 	margin: 0px;
 	width: 330px;
-	height: 330px;
+	height: 340px;
 	background: white;
 	overflow: hidden;
 	border: 4px solid white;
+	box-shadow: 0px 0px 1px 1px var(--color-secondary);
+	border-radius: var(--border-radius-s);
 	&:hover {
 		.information, action-bar-app, .imgNumber, .imgPrice {
 			transform: translateY(-35px);
@@ -19,8 +21,7 @@
 	}
 
 	&.selectedCard {
-		outline: 2px solid var(--color-primary);
-		border-radius: 2px;
+		box-shadow: 0px 0px 0px 2px var(--color-primary);
 	}
 
 	.card-content {
@@ -33,7 +34,8 @@
 
 		img-app {
 			height: 285px;
-			padding-bottom: 2px;
+			margin-bottom: 2px;
+			border-radius: var(--border-radius-s);
 		}
 
 		.imgPrice {
@@ -73,14 +75,26 @@
 			justify-content: space-between;
 			align-items: center;
 			background: white;
+			margin-top: 2px;
 
 			.text-bar {
 				margin-left: var(--spacing-xs);
 				margin-top: var(--spacing-xs);
+
+				.name-product {
+					margin-bottom: var(--spacing-xs);
+					font-weight: 600;
+					letter-spacing: -0.3px;
+					color: var(--color-txt-strong);
+				}
+
+				.supplier-product {
+					font-size: var(--font-size-s);
+				}
 			}
 
 			icons-status-app {
-				padding-bottom: 14px;
+				padding-bottom: 18px;
 			}
 		}
 

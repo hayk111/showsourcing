@@ -4,7 +4,8 @@
 			class="noselect"
 			size="m"
 			[image]="product"
-			objectFit="fill"></img-app>
+			objectFit="fill">
+		</img-app>
 
 		<div class="imgNumber flex flexCenter">
 			<span>{{product?.images?.length || '-'}}</span>
@@ -29,8 +30,8 @@
 
 		<div class="information">
 			<div class="text-bar">
-				<p class="bold-s">{{product?.name}}</p>
-				<p class="fs-s">{{product?.supplier?.name}}</p>
+				<p class="name-product">{{product?.name}}</p>
+				<p class="supplier-product">{{product?.supplier?.name}}</p>
 			</div>
 			<icons-status-app
 				[product]="product"
