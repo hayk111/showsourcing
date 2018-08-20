@@ -229,6 +229,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** closes the preview */
 	closePreview() {
 		this.previewOpen = false;
+		this.allSelectedFavorite = true;
 	}
 
 	/** Selects a an entity
@@ -255,7 +256,17 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	/** Select all entity */
-	selectAll(entities: any[]) {
+	selectAll(entities: any[], checkFavorite = false) {
+		if (checkFavorite && this.allSelectedFavorite) {
+			entities.every(entity => {
+				if (entity.favorite)
+					return true;
+				else {
+					this.allSelectedFavorite = false;
+					return false;
+				}
+			});
+		}
 		this.selectionSrv.selectAll(entities);
 	}
 
