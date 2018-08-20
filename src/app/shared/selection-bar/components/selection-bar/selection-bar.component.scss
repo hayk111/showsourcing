@@ -23,9 +23,9 @@
 }
 
 .closeSection {
-    padding-left: 50px;
+    margin-left: var(--spacing-l);
     font-weight: 600;
-    font-size: 14px;
+    font-size: var(--font-size-m);
     color: var(--color-txt-secondary);
     display: flex;
     align-items: center;
