@@ -12,18 +12,20 @@ import { ProductVote, Product } from '~models';
 })
 export class ActionBarComponent implements OnInit {
 
-	// when we need the action bar to be hidden and then displayed when an event occurs
+	/** when we need the action bar to be hidden and then displayed when an event occurs */
 	@Input() isVisible = true;
 	@Input() favorite = false;
+	/** whether we display the like buttons or not */
+	@Input() hasLikes = true;
 	@Input() votes: ProductVote[];
 	@Input() buttonName: string;
-	// we only use this one when we{} want to update multiple likes
+	/** we only use this one when we want to update multiple likes */
 	@Input() products: Product[];
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
 	@Output() buttonClick = new EventEmitter<null>();
-	// this is only used when selecting multiple products
+	/** this is only used when selecting multiple products */
 	@Output() multipleVotes = new EventEmitter<Map<string, ProductVote[]>>();
 
 	constructor() { }

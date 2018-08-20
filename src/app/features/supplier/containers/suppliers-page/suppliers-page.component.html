@@ -47,23 +47,50 @@
 		(next)="nextPage()">
 	</supplier-list-view-app>
 
-	<ng-container *ngIf="selected$ | async as selected">
-		<selection-bar-app
-			(close)="resetSelection()"
-			(delete)="deleteSelected()"
-			*ngIf="selected.size > 0"
-			[selection]="selected"></selection-bar-app>
-	</ng-container>
+	<selection-bar-app
+		*ngIf="(selected$ | async).size > 0"
+		[selection]="(selected$ | async)"
+		[hasDelete]="false"
+		(close)="resetSelection()"
+		(delete)="deleteSelected()">
+
+		<action-bar-app
+			[favorite]="allSelectedFavorite"
+			[products]="selectedItems$ | async"
+			[hasLikes]="false"
+			(onFavorite)="onFavoriteAllSelected()"
+			(onUnfavorite)="onUnfavoriteAllSelected()">
+
+			<context-menu-app xPosition="-171" yPosition="-101">
+				<context-menu-trigger-app>
+					<button class="icon light">
+						<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<!-- <context-menu-item-app (click)="method1()">
+					Action 1
+				</context-menu-item-app>
+				<context-menu-item-app (click)="method2()">
+					Action 2
+				</context-menu-item-app> -->
+			</context-menu-app>
+
+			<button class="icon light" (click)="deleteSelected()">
+				<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+			</button>
+		</action-bar-app>
+
+	</selection-bar-app>
 
 	<filters-app
+		*ngIf="filterPanelOpen"
 		(clickOutside)="closeFilterPanel()"
-		(filter)="filter($event)"
-		*ngIf="filterPanelOpen">
+		(filter)="filter($event)">
 	</filters-app>
 
 	<supplier-preview-app
-		id="test"
 		*ngIf="previewOpen"
+		id="test"
 		[supplier]="previewed"
 		(close)="closePreview()"
 		(clickOutside)="closePreview()"></supplier-preview-app>

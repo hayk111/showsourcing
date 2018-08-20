@@ -131,10 +131,10 @@
 	</filters-app>
 
 	<product-preview-app
+		*ngIf="previewOpen"
 		[product]="previewed"
 		(close)="closePreview()"
-		(clickOutside)="closePreview()"
-		*ngIf="previewOpen">
+		(clickOutside)="closePreview()">
 
 	</product-preview-app>
 

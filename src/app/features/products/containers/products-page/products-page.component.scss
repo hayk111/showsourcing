@@ -8,10 +8,9 @@ action-bar-app {
 	context-menu-trigger-app {
 		width: 160px;
 	}
-}
-action-bar-app button.icon {
-	margin-right: var(--spacing-ms);
-
+	button.icon {
+		margin-right: var(--spacing-ms);
+	}
 }
 
 context-menu-app {

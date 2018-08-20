@@ -229,7 +229,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** closes the preview */
 	closePreview() {
 		this.previewOpen = false;
-		this.allSelectedFavorite = true;
 	}
 
 	/** Selects a an entity
@@ -273,6 +272,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Unselect all entity */
 	resetSelection() {
 		this.selectionSrv.unselectAll();
+		this.allSelectedFavorite = true;
 	}
 
 	/** Update entities */
