@@ -24,13 +24,13 @@
 
 		<div class="right flexCenter">
 
+			<ng-content></ng-content>
+
 			<view-switcher-app
 				*ngIf="hasSwitch"
 				(viewChange)="viewChange.emit($event)"
 				[view]="view">
 			</view-switcher-app>
-
-			<ng-content></ng-content>
 
 			<button *ngIf="hasCreate && buttonName"
 			        (click)="buttonClick.emit()">
