@@ -131,7 +131,7 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 	select(): void {
 		setTimeout(_ => {
 			this._elementRef.nativeElement.select();
-		})
+		});
 	}
 
 	ngOnChanges() {

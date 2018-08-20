@@ -13,19 +13,14 @@
 		visibility: visible;
 		opacity: 1;
 		.action-container {
-			margin-bottom: var(--spacing-s);
 			max-height: 46px;
 			transition: max-height 0.1s ease-out;
 		}
 	}
 }
 
-.action-container {
-	margin-right: 6px;
-}
-
 .icons-container {
-	margin-left: 10px;
+	margin-left: var(--spacing-s);
 }
 
 thumb-buttons-app, icon-app, rating-heart-app {
