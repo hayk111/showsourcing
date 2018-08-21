@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { FilterService } from '~shared/filters';
-import { StoreKey } from '~utils';
 import { Product } from '~models';
 import { ColumnDescriptor, TableDescriptor } from '~shared/table';
 import { ListViewComponent } from '~shared/list-page/list-view.component';

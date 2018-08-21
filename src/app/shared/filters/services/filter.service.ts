@@ -1,7 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, share, filter } from 'rxjs/operators';
-import { toStore } from '~utils/store/store';
 
 import { Filter, FilterType } from '~shared/filters/models';
 

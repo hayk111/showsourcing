@@ -9,7 +9,6 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'project-products-app',
@@ -18,7 +17,6 @@ import { StoreKey } from '~utils';
 	providers: [
 		SelectionService,
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT_PRODUCTS }
 	]
 })
 export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {

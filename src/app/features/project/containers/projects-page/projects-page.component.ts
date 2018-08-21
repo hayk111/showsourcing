@@ -6,7 +6,6 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 
 
 @Component({
@@ -16,7 +15,6 @@ import { StoreKey } from '~utils/store/store';
 	providers: [
 		SelectionService,
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT }
 	]
 })
 export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFeatureService> {

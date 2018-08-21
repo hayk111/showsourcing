@@ -6,7 +6,6 @@ import { ERM, Event } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -15,7 +14,6 @@ import { StoreKey } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_EVENT },
 		SelectionService]
 })
 export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {

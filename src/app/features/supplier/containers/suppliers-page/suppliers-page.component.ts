@@ -9,7 +9,6 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 import { CreationDialogComponent } from '~shared/custom-dialog';
 
 
@@ -19,7 +18,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_SUPPLIER },
 		SelectionService
 	]
 })

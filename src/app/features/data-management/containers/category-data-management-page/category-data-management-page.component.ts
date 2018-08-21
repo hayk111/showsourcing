@@ -6,7 +6,6 @@ import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -15,7 +14,6 @@ import { StoreKey } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_CATEGORY },
 		SelectionService
 	]
 })

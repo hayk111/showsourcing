@@ -12,16 +12,13 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 
 @Component({
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PRODUCT },
 		SelectionService
 	]
 })

@@ -84,7 +84,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded())
 		);
-		FilterList.valueChange()
+		FilterList.valueChange(query => this.onFilterChanges())
 	}
 
 	/** subscribe to filters and filter when filters have changed */

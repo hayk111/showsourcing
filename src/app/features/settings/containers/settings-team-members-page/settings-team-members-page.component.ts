@@ -10,7 +10,6 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 
 import { TeamService, UserService } from '~global-services';
 import { CreationDialogComponent } from '~shared/custom-dialog';
@@ -21,7 +20,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 	styleUrls: ['./settings-team-members-page.component.scss'],
 	providers: [
 		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_TEAM_USERS },
 		SelectionService
 	]
 })

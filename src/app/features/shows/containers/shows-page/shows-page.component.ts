@@ -7,7 +7,6 @@ import { Show } from '~models/show.model';
 import { Router } from '@angular/router';
 import { first, tap, takeUntil, switchMap, mergeMap } from 'rxjs/operators';
 import { FilterService } from '~shared/filters/services/filter.service';
-import { StoreKey } from '~utils/store/store';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Observable } from 'rxjs';
@@ -20,7 +19,6 @@ import { FilterType } from '~shared/filters/models/filter.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     FilterService,
-    { provide: 'storeKey', useValue: StoreKey.FILTER_SUPPLIER },
   ]
 })
 export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureService> implements OnInit {
