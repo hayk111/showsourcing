@@ -6,6 +6,9 @@ import { UserService } from '~global-services';
 	selector: 'icons-status-app',
 	templateUrl: './icons-status.component.html',
 	styleUrls: ['./icons-status.component.scss'],
+	host: {
+		'[class.spacing-ms]': 'fullInfo'
+	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconsStatusComponent implements OnInit {
@@ -18,6 +21,9 @@ export class IconsStatusComponent implements OnInit {
 		return this._product;
 	}
 	@Input() favorite = false;
+	/** whether we display the entire information or not */
+	@Input() fullInfo = false;
+	@Input() colorTxt = 'txt-secondary';
 
 	name = 'thumbs-up';
 	size = '9';
@@ -50,17 +56,24 @@ export class IconsStatusComponent implements OnInit {
 			style = {
 				background: `var(--color-${state})`,
 				'border-radius': '50%',
-				'width': '17px',
-				'height': '17px',
-				'margin-top': '2px',
+				'width': '16px',
+				'height': '16px',
+				'margin-top': '1px'
 			};
-		} else {
+		} else
 			this.size = '14';
-			style = {
-				'margin-top': '0px'
-			};
-		}
 		return style;
+	}
+
+	get successTxt() {
+		let color = 'color-' + this.colorTxt;
+		if (this.dislike && !this.fullInfo)
+			color = 'color-warn';
+		else if (this.like && !this.fullInfo)
+			color = 'color-success';
+		return {
+			color: `var(--${color})`
+		};
 	}
 
 }

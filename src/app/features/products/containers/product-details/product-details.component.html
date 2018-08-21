@@ -1,11 +1,31 @@
-<top-panel-app
+<!-- <top-panel-app
 	buttonName="create product"
 	title="My Products"
 	[hasAction]="false"
 	subtitle="['My Products', 'details']">
-</top-panel-app>
+</top-panel-app> -->
+
+<top-panel-details-app
+	[title]="(product$ | async).name">
+	<img-app [image]="(product$ | async).images" type="product" size="s"></img-app>
+	<icon-app *ngIf="(product$ | async).favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
+	<div class="flexColumn">
+		<div class="flex">
+			<icons-status-app
+				[product]="product$ | async"
+				[favorite]="false"
+				[fullInfo]="true"
+				colorTxt="txt-primary">
+			</icons-status-app>
+		</div>
+		<div class="flex">
+			decoration
+		</div>
+	</div>
+</top-panel-details-app>
 
 <ng-container *ngIf="product$ | async as product">
+
   <div class="flex content">
     <div class="left">
 
