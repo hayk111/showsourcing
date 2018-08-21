@@ -79,14 +79,7 @@
 	</div>
 </div>
 
-<!-- pagination -->
-<div class="flexBetween pagination" *ngIf="hasPagination">
-	<button *ngIf="currentPage !== 0; else spacer" (click)="previous.emit()" class="auto">previous</button>
-	<ng-template #spacer>
-		<span></span>
-	</ng-template>
-	<button *ngIf="rows && rows.length >= perPage" (click)="next.emit()" class="auto">next</button>
-</div>
+
 
 
 

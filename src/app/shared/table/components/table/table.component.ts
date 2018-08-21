@@ -38,10 +38,6 @@ export class TableComponent implements AfterContentInit {
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
-	// whether the table can be paginated
-	@Input() hasPagination = true;
-	@Input() currentPage = 0;
-	@Input() perPage = 30;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();

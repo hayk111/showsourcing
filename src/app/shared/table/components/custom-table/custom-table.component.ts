@@ -15,7 +15,6 @@ export class CustomTableComponent {
 	@Input() contextualMenu: TemplateRef<any>;
 	@Input() rows: Array<any> = [];
 	@Input() pending: boolean;
-	@Input() currentPage;
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
 	@Output() selectOne = new EventEmitter<string>();

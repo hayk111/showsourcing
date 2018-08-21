@@ -6,7 +6,7 @@ import { GlobalServiceInterface } from '~global-services/_global/global.service'
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, FilterType, SearchService } from '~shared/filters';
+import { FilterService, FilterType, SearchService, FilterList } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
@@ -29,10 +29,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
 	items: Array<T> = [];
-	/** params for the first query,
-	 * override this to change order by, query and such..
-	 */
-	private startParams: SelectParamsConfig = {};
 	/** can be used on when to fetch more etc. */
 	private listResult: SelectListResult<T>;
 	/** Whether the items are pending */
@@ -79,14 +75,16 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.setSelection();
 	}
 
-
-
 	/** subscribe to items and get the list result */
 	protected setItems() {
-		this.listResult = this.featureSrv.queryList(this.startParams);
+		this.listResult = this.featureSrv.queryList({
+			query: this.filterList.asQuery(),
+			sort: this.startSort
+		});
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded())
 		);
+		FilterList.valueChange()
 	}
 
 	/** subscribe to filters and filter when filters have changed */
@@ -94,7 +92,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		// since filter is a behavior subject it will trigger instantly
 		if (this.filterSrv) {
 			this.filterSrv.query$.pipe(
-				skip(1),
 				takeUntil(this._destroy$),
 			).subscribe(query => this.filter(query));
 		}
@@ -164,33 +161,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this.listResult.fetchMore(this.items.length);
-	}
-
-	nextPage() {
-		// this._selectParams$.next(new SelectParams({
-		// 	page: ++this.currentParams.page,
-		// 	sort: this.currentParams.sort,
-		// 	query: this.currentParams.query,
-		// 	take: this.currentParams.take
-		// }));
-	}
-
-	previousPage() {
-		// this._selectParams$.next(new SelectParams({
-		// 	page: --this.currentParams.page,
-		// 	sort: this.currentParams.sort,
-		// 	query: this.currentParams.query,
-		// 	take: this.currentParams.take
-		// }));
-	}
-
-	firstPage() {
-		// this._selectParams$.next(new SelectParams({
-		// 	page: 0,
-		// 	sort: this.currentParams.sort,
-		// 	query: this.currentParams.query,
-		// 	take: this.currentParams.take
-		// }));
 	}
 
 	/** Sorts items based on sort.sortBy */

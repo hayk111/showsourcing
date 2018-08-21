@@ -9,11 +9,10 @@ import { Filter, FilterType } from '~shared/filters/models';
 	providedIn: 'root'
 })
 export class FilterService {
+
 	/** All filters applied as an array */
 	private _filters$ = new BehaviorSubject<Filter[]>([]);
-	filters$: Observable<Filter[]> = this._filters$.asObservable().pipe(
-		toStore(this.storeKey)
-	);
+	filters$: Observable<Filter[]> = this._filters$.asObservable();
 	private currentFilters: Filter[] = [];
 	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
 	 * Allows us to check in constant time if a filter type has a filter of value x.
@@ -25,7 +24,6 @@ export class FilterService {
 	 */
 	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._filters$.asObservable().pipe(
 		map(filters => this.filtersToByType(filters)),
-		toStore(this.storeKey + '/byType'),
 		share()
 	);
 
@@ -34,24 +32,11 @@ export class FilterService {
 	 */
 	query$: Observable<string> = this._filters$.asObservable().pipe(
 		map(filters => this.filtersToQuery(filters)),
-		toStore(this.storeKey + '/query'),
 		share()
 	);
 
-	/** this is the start when the view is displayed. It will allow us to
- *  not query items that are created after the view is displayed.
- */
-	private startTime = new Date();
-
-	constructor(@Optional() @Inject('storeKey') private storeKey: string) {
+	constructor() {
 		this._filters$.subscribe(filters => this.currentFilters = filters);
-	}
-
-	/** prevent update when another user create a new item
-	 * the start time will be used and we won't query items created after this start time.
-	 */
-	preventCreationUpdate() {
-		// this.addFilter({ type: FilterType.PREVENT_UPDATE, value: true });
 	}
 
 	/** adds an array of filters at the end of current filters */

@@ -1,38 +1,26 @@
 import { Sort } from '~shared/table/components/sort.interface';
 
+/** utility class used to manage a selection of items
+ */
 export class SelectParams {
 	/** page used for pagination,
 	 * !!!! warning !!!!
 	 *
 	 * this should stay at 0 if we use infini scroll !
 	 */
-	page = 0;
+	private _page = 0;
 	/** query we use to find a specific item */
-	query = '';
+	private _query = '';
 	/** sorting used */
-	sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	private _sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
 	/** how much items we request */
-	take = 30;
+	private _take = 30;
+	/** filters to apply to the request */
+	private _filters = [];
 
 	constructor(config?: SelectParamsConfig) {
 		Object.assign(this, config);
 	}
-
-	// toWrapperOptions(gql: any) {
-	// 	// the selectMany here is a subscription to some data on the server
-	// 	// putting those in variables form
-	// 	const sortBy = this.sort.sortBy;
-	// 	const descending = this.sort.sortOrder === 'ASC';
-	// 	const options = {
-	// 		gql: gql,
-	// 		skip: this.page * this.take,
-	// 		take: this.take,
-	// 		sortBy,
-	// 		descending,
-	// 		query: this.query
-	// 	};
-	// 	return options;
-	// }
 
 
 	toApolloVariables() {

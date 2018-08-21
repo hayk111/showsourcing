@@ -31,8 +31,6 @@
 		[rows]="suppliers"
 		[selection]="selected$ | async"
 		[pending]="pending"
-		[currentPage]="currentParams.page"
-		[perPage]="currentParams.take"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
 		(select)="onItemSelected($event, true)"
@@ -43,9 +41,8 @@
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(previewClick)="openPreview($event)"
-		(previous)="previousPage()"
-		(next)="nextPage()"
-		(delete)="deleteOne($event)">
+		(delete)="deleteOne($event)"
+		(previewClick)="openPreview($event)">
 	</supplier-list-view-app>
 
 	<selection-bar-app
