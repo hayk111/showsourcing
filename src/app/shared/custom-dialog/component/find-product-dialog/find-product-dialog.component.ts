@@ -3,7 +3,7 @@ import { Observable } from 'apollo-link';
 import { Product } from '~models';
 
 @Component({
-  selector: 'app-find-product-dialog',
+  selector: 'find-product-dialog-app',
   templateUrl: './find-product-dialog.component.html',
   styleUrls: ['./find-product-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

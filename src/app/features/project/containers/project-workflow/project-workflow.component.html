@@ -1,9 +1,9 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-app
 		[title]="project.name"
-		[buttonName]="'Add Project'"
+		[buttonName]="'Add Product'"
 		[subtitles]="['Projects', project.name, 'Kanban View']"
-		[hasAction]="false">
+		(buttonClick)="openFindProductDlg()">
 	</top-panel-app>
 
 	<workflow-kanban-app

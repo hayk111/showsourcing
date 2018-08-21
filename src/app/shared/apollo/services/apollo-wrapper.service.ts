@@ -8,6 +8,9 @@ import { log, LogColor } from '~utils';
 import gql from 'graphql-tag';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 import { SelectParams } from '~global-services/_global/select-params';
+import { Sort } from '~shared/table/components/sort.interface';
+import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
+
 
 
 /**
@@ -49,7 +52,6 @@ export class ApolloWrapper {
 	/////////////////////////////
 
 	/** select many entities in accordance to the conditions supplied */
-
 	selectMany(gql: DocumentNode, params: SelectParams): Observable<any> {
 		const variables = params.toApolloVariables();
 		const queryName = this.getQueryName(gql);
@@ -65,39 +67,43 @@ export class ApolloWrapper {
 	}
 
 
-	/** same as select many but it's a query instead of a subscription */
-	selectList(gql: DocumentNode, params: SelectParams): Observable<any> {
+	/////////////////////////////
+	//        QUERY LIST       //
+	/////////////////////////////
+
+	/** select entities in accordance to the conditions supplied
+	 * what is returned is a SelectListResult that allows us to do
+	 * additional work after the query is done (like fetching more items for infini scroll)
+	*/
+	queryList<T>(gql: DocumentNode, params): SelectListResult<T> {
 		const queryName = this.getQueryName(gql);
-		const variables = params.toApolloVariables();
-		const options = { query: gql, variables };
 
-		this.log('Selecting List', gql, queryName, variables);
-		return this.apollo.watchQuery(options).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				map((r) => r.data[queryName]),
-				tap(data => this.logResult('Selecting List', queryName, data)),
-				catchError((errors) => of(log.table(errors))),
+		const queryRef = this.apollo.watchQuery<any>({
+			query: gql,
+			variables: { ...params },
+		});
+
+		const items$: Observable<T[]> = queryRef.valueChanges.pipe(
+			filter((r: any) => this.checkError(r)),
+			// extracting the result
+			map((r) => r.data[queryName]),
+			tap(data => this.logResult('Selecting List', queryName, data)),
+			catchError((errors) => of(log.table(errors)))
 		);
-	}
 
-	selectInfinitList(gql: DocumentNode, params) {
-		// const query = this.apollo.watchQuery<any>({
-		//   query: feedQuery,
-		//   variables: {
-		//     type: this.type,
-		//     offset: 0,
-		//     limit: this.itemsPerPage,
-		//   },
-		//   forceFetch: true,
-		// });
+		const fetchMore = (skip: number) => queryRef.fetchMore({
+			variables: { ...params, skip },
+			updateQuery: (prev, { fetchMoreResult }) => {
+				debugger;
+				if (!fetchMoreResult.data) { return prev; }
+				this.logResult('Selecting List Fetch More', queryName, fetchMoreResult.data)
+				return Object.assign({}, prev, {
+					feed: [...prev[queryName], ...fetchMoreResult[queryName]],
+				});
+			}
+		});
 
-		// const obs$ = query
-		//   .valueChanges
-		//   .subscribe(({data}) => {
-		//     this.feed = data.feed;
-		//   });
+		return { queryName, queryRef, items$, fetchMore };
 	}
 
 	/////////////////////////////
@@ -229,7 +235,7 @@ export class ApolloWrapper {
 	}
 
 	/** gets the query name from a gql statement */
-	private getQueryName(gql: DocumentNode) {
+	private getQueryName(gql: DocumentNode): string {
 		try {
 			return (gql.definitions[0] as any).selectionSet.selections[0].name.value;
 		} catch (e) {

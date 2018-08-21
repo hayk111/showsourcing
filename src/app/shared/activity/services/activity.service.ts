@@ -76,6 +76,7 @@ export class ActivityService {
 	}
 
 
+
 	private getFeedResult(page$, client, token, feedName) {
 		return page$.pipe(
 			switchMap((page: number) => {
@@ -111,10 +112,7 @@ export class ActivityService {
 	}
 
 	private addDataToActivity(activity: GetStreamActivity) {
-
 		switch (activity.verb) {
-			case 'update_product':
-				break;
 			case 'create_comment':
 				return this.commentSrv.selectOne(activity.object).pipe(first());
 			case 'create_product':

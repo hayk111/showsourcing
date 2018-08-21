@@ -44,7 +44,6 @@ export abstract class AbstractApolloInitializer {
 	}
 
 	protected createClient(wsUri: string, name?: string, token?: string) {
-
 		// Create a WebSocket link:
 		const connectionParams = (token ? { token } : undefined);
 		const ws = new WebSocketLink({

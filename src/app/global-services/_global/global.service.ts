@@ -83,17 +83,13 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 *
 	*/
-	selectMany(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string): Observable<T[]> {
+	selectMany(params: SelectParams = new SelectParams(), fields?: string, client?: string): Observable<T[]> {
 		if (!this.queries.many) {
 			throw Error('many query not implemented for this service');
 		}
 		const gql = this.queries.many(fields);
 
-		return params$.pipe(
-			distinctUntilChanged(),
-			switchMap((params: SelectParams) => this.wrapper.use(client).selectMany(gql, params)),
-		);
-
+		return this.wrapper.use(client).selectMany(gql, params);
 	}
 
 	/** selects slice of data that corresponds to parameters. The Difference with selectMany is that
@@ -114,35 +110,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 
 		return { items$, refetchQuery: gql };
 
-	}
-
-	/**
-	 * @param params$ : Observable<SelectParams> to specify what slice of data we are querying,
-	 * the difference with select many is that when the page change the result is added to the previous one
-	 * so we can have infinite scrolling. The drawback is that this won't give us real time modification of colleguas over websocket.
-	 */
-	selectInfiniteList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: { items$: Observable<T[]>, refetchQuery: DocumentNode } {
-
-		const gql = this.queries.list(fields);
-
-		const items$ = params$.pipe(
-			distinctUntilChanged(),
-			mergeMap(
-				(params: SelectParams) => this.wrapper.selectList(gql, params),
-				(params: SelectParams, items: T[]) => ({ items, page: params.page })
-			),
-			// adding to the previous resultset
-			scan((prev, curr: { items, page: number }) => {
-				if (curr.page === 0) {
-					return curr.items;
-				} else {
-					return [...prev, ...curr.items];
-				}
-			}, []),
-		);
-
-		return { items$, refetchQuery: gql };
 	}
 
 	/** update an entity
