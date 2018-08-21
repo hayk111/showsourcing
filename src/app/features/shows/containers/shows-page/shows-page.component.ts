@@ -69,7 +69,6 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
 
   toggleMyEvents() {
     this.checkboxes.myShows = !this.checkboxes.myShows;
-    this.firstPage();
   }
 
   togglePastEvents() {

@@ -184,7 +184,12 @@ export class ApolloWrapper {
 	}
 
 	/** delete many items given an array of id */
-	deleteMany<T>(gql: DocumentNode, ids: string[], refetchQueries?: RefetchParams[]): Observable<any> {
+	deleteMany<T>(gql: DocumentNode, ids: string[] = [], refetchQueries?: RefetchParams[]): Observable<any> {
+		if (ids.length === 0) {
+			log.warn('trying to delete many items with an empty array of ids, aborting');
+			return of(undefined);
+		}
+
 		let query = ids.map(id => `id = "${id}"`).join(' OR ');
 		const apolloOptions = {
 			mutation: gql,

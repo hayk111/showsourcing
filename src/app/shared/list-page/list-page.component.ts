@@ -18,6 +18,20 @@ import { SelectParamsConfig } from '~global-services/_global/list-params';
 import { QueryRef } from 'apollo-angular';
 import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 
+
+// TODO:
+// - list page & filtering
+// - re-add deletion methods in global service because it's needed for votes
+// - try to add query to selectOne and waitForChange
+
+// -- queryOne
+// -- queryMany
+// -- queryList
+// -- selectOne (with query)
+// -- selectMany
+// -- waitForOne
+
+
 /**
  * Class used by components that need to display a list
  */

@@ -8,15 +8,13 @@ export class SelectParams {
 	 *
 	 * this should stay at 0 if we use infini scroll !
 	 */
-	private _page = 0;
+	page = 0;
 	/** query we use to find a specific item */
-	private _query = '';
+	query = '';
 	/** sorting used */
-	private _sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
 	/** how much items we request */
-	private _take = 30;
-	/** filters to apply to the request */
-	private _filters = [];
+	take = 30;
 
 	constructor(config?: SelectParamsConfig) {
 		Object.assign(this, config);
