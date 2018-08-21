@@ -2,7 +2,7 @@ import {
 	Component, Input, Output,
 	EventEmitter, ContentChildren, QueryList,
 	ElementRef, Renderer2, OnChanges,
-	OnInit
+	OnInit, AfterContentInit
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,25 +11,33 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils';
 import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
+import { SidenavItemGroupComponent } from '../sidenav-item-group/sidenav-item-group.component';
 
 @Component({
 	selector: 'sidenav-item-app',
 	templateUrl: './sidenav-item.component.html',
 	styleUrls: ['./sidenav-item.component.scss']
 })
-export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit {
+export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit, AfterContentInit {
 	/** specify if the item has children */
 	@Input() hasChildren = false;
 	/** the link associated with the item */
 	@Input() link: string;
+	/** the link associated with the item */
+	@Input() subItem: boolean;
 	/** the expanded event for the item */
 	@Output() expanded = new EventEmitter<boolean>();
+	/** the expanded event for the item */
+	@Output() select = new EventEmitter<boolean>();
 	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
+	@ContentChildren(SidenavItemComponent) items: QueryList<SidenavItemComponent>;
 
 	/** the internal expanded state for the item */
 	internalExpanded = false;
 	/** the internal selected state for the item. Used to change the item background */
 	selected = false;
+	/** the internal selected state for the item. Used to change the item background */
+	subItemSelected = false;
 
 	constructor(
 		private renderer: Renderer2,
@@ -46,6 +54,25 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 		this.checkItemSelected();
 	}
 
+	ngAfterContentInit() {
+		if (this.items) {
+			this.items.toArray().slice(1).forEach(item => {
+				item.subItem = true;
+				item.expanded.subscribe(() => {
+					this.expanded.emit();
+				});
+				item.select.subscribe((selected) => {
+					if (selected) {
+						this.subItemSelected = true;
+						this.expanded.emit();
+					} else {
+						this.subItemSelected = false;
+					}
+				});
+			});
+		}
+	}
+
 	/** check if the item is selected based on path */
 	checkItemSelected() {
 		const path = this.location.path();
@@ -59,6 +86,8 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 		} else {
 			this.selected = false;
 		}
+
+		this.select.emit(this.selected);
 	}
 
 	/** trigger expanded state change */
@@ -71,18 +100,25 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	ngOnChanges(changes) {
 		if (changes.internalExpanded) {
 			const internalExpanded = changes.internalExpanded.currentValue;
+			if (this.items) {
+				this.items.forEach(item => {
+					item.internalExpanded = internalExpanded;
+				});
+			}
 			this.handleLabelDisplay(internalExpanded);
 		}
 	}
 
 	/** handle click on the item */
 	onClickItem(event) {
-		if (this.hasChildren && !this.internalExpanded) {
+		if (this.hasChildren) { // && !this.internalExpanded) {
 			this.internalExpanded = true;
+			this.selected = true;
 			this.handleLabelDisplay(this.internalExpanded);
 			this.expanded.emit(this.internalExpanded);
-		}
-		if (this.link) {
+			this.select.emit();
+		} else if (this.link) {
+			this.select.emit();
 			this.router.navigate([this.link], { relativeTo: this.route });
 		}
 		event.stopPropagation();

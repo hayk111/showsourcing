@@ -1,7 +1,14 @@
-<a [ngClass]="{ selected: selected, flexCenter: !internalExpanded, flexStart: internalExpanded, expanded: internalExpanded }"
+<a [ngClass]="{ selected: (selected || subItemSelected), flexCenter: (!internalExpanded && !subItem), flexStart: (internalExpanded || subItem), expanded: internalExpanded, 'has-children': hasChildren }"
 	(click)="onClickItem($event)">
 	<div class="iconCtnr">
 		<ng-content select="icon-app"></ng-content>
 	</div>
+	<ng-content></ng-content>
 </a>
-<ng-content></ng-content>
+<div *ngIf="internalExpanded && (selected || subItemSelected)"
+		 class="expanded"
+     [ngClass]="{ selected: (selected || subItemSelected), 'has-children': hasChildren }">
+	<sidenav-item-group-app>
+		<ng-content select="sidenav-item-app"></ng-content>
+	</sidenav-item-group-app>
+</div>
