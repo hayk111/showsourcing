@@ -4,27 +4,26 @@
 
 $margin-bar: 54px;
 
-.space-icon {
-	height: var(--spacing-xl);
-	width: var(--spacing-xl);
-	margin-right: var(--spacing-ms);
-}
-
-.title {
-	margin-bottom: var(--spacing-ms);
-	h2 {
-		align-items: center;
-		display: flex;
-		margin-bottom: 0px;
-	}
-}
-
-
 card-app {
 	width: 100%;
 
 	icon-app[name^="folder"] {
 		cursor: default;
+	}
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+	}
+
+	.title {
+		margin-bottom: var(--spacing-ms);
+		h2 {
+			align-items: center;
+			display: flex;
+			margin-bottom: 0px;
+		}
 	}
 
 	article {
