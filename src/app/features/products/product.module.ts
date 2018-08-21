@@ -71,7 +71,8 @@ import { StatusModule } from '~shared/status/status.module';
 		StageIndicatorModule,
 		ActionBarModule,
 		CustomDialogModule,
-		ActivityModule
+		ActivityModule,
+		StatusModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -97,8 +98,7 @@ import { StatusModule } from '~shared/status/status.module';
 		ProductGridCardComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
-		ProductActivityComponent,
-		StatusModule
+		ProductActivityComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
