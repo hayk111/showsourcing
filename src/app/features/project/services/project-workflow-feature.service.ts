@@ -42,6 +42,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 						products: this.getProductsWithStatus(status, products)
 					}))),
 					map((statuses: any[]) => statuses.concat([ {
+						id: -1,
 						name: '_NoStatus',
 						step: 0,
 						products: productsWithNoStatus

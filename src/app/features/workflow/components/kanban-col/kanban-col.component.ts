@@ -5,8 +5,14 @@ import {
 	Injectable,
 	Input,
 	OnInit,
-	Output,
+	Output
 } from '@angular/core';
+import {
+	DomSanitizer,
+	SafeHtml,
+	SafeUrl,
+	SafeStyle
+} from '@angular/platform-browser';
 import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -29,8 +35,11 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	@Input() borderColor: string;
 	/** Doesn't take part of drag'n drop */
 	@Input() disabled: boolean;
+	/** The checkbox is checked or not */
+	@Input() checked: boolean;
 	/** The item is dropped in the column */
 	@Output() itemDropped = new EventEmitter<any>();
+	@Output() checkChange = new EventEmitter<boolean>();
 
 	/** The column is a droppable area */
 	droppableArea = false;
@@ -38,26 +47,27 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	sourceArea = false;
 	/** The item entered into the column with the drag'n drop */
 	enteredArea = false;
+	/** The color of the separator */
+	separatorColor: any;
 
-	constructor(private kanbanSrv: KanbanService) {
+	constructor(private kanbanSrv: KanbanService, private sanitization: DomSanitizer) {
 		super();
 	}
 
 	ngOnInit() {
-		/** Don't register on drag'n drop if disabled */
-		if (this.disabled) {
-			return;
-		}
-
+		console.log('category = ', this.data.category);
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(({ namespace }) => {
-			if (namespace) {
-				this.sourceArea = (namespace === this.namespace);
-				this.droppableArea = (namespace !== this.namespace);
-			}
+			this.sourceArea = (namespace === this.namespace);
+			this.droppableArea = (!this.disabled && namespace !== this.namespace);
 		});
+
+		/** Don't register on drag'n drop if disabled */
+		if (this.disabled) {
+			return;
+		}
 
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(
@@ -86,5 +96,4 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 			}
 		});
 	}
-
 }

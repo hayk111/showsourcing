@@ -7,7 +7,7 @@ import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SharedModule } from '~shared/shared.module';
 import { DndModule } from '~shared/dnd/dnd.module';
 
-import { KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent, WorkflowKanbanComponent } from '~features/workflow/components';
+import { KanbanColComponent, KanbanItemComponent, WorkflowKanbanComponent } from '~features/workflow/components';
 import { KanbanService } from '~features/workflow/services/kanban.service';
 
 @NgModule({
@@ -19,8 +19,8 @@ import { KanbanService } from '~features/workflow/services/kanban.service';
 		IconsModule,
 		DndModule
 	],
-	declarations: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],
-	exports: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent, KanbanItemCardComponent],
+	declarations: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],
+	exports: [WorkflowKanbanComponent, KanbanColComponent, KanbanItemComponent],
 	providers: [KanbanService]
 })
 export class WorkflowModule { }

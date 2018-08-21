@@ -9,13 +9,16 @@
 	<workflow-kanban-app
 		[statuses]="statuses$ | async"
 		[contextualMenu]="contextualMenu"
+		[selectedItems]="selected$ | async"
 		(itemDropped)="onUpdateProductStatus($event)"
 		(selectItem)="onItemSelected($event)"
-		(unselectItem)="onItemUnselected($event)">
+		(unselectItem)="onItemUnselected($event)"
+		(selectAllItems)="onAllItemsSelected($event)"
+		(unselectAllItems)="onAllItemsUnselected($event)">
 	</workflow-kanban-app>
 
 	<ng-template #contextualMenu let-row="row">
-		<menu class="z-4">
+		<!-- menu class="z-4">
 			<menuitem class="pointer flexCenter" (click)="openAddToProjectDialog(row)" i18n="product menu | add to project">
 				<div class="border">Add to project</div>
 			</menuitem>
@@ -28,8 +31,27 @@
 			<menuitem class="pointer flexCenter" (click)="deleteSelected()" i18n="product menu | export">
 				<div class="border">Delete</div>
 			</menuitem>
-		</menu>
-	</ng-template>
+		</menu -->
+		<context-menu-app xPosition="-171" yPosition="20">
+			<context-menu-trigger-app>
+				<button class="icon light">
+					<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="openAddToProjectDialog(row)">
+				<div class="border">Add to project</div>
+			</context-menu-item-app>
+			<context-menu-item-app (click)="openRequestFeedbackDialog(row)">
+				<div class="border">Request feedback</div>
+			</context-menu-item-app>
+			<context-menu-item-app (click)="openExportDialog(row)">
+				<div class="border">Export</div>
+			</context-menu-item-app>
+			<context-menu-item-app (click)="deleteSelected(row)">
+				<div class="border">Delete</div>
+			</context-menu-item-app>
+		</context-menu-app>
+</ng-template>
 
 	<selection-bar-app
 		*ngIf="(selected$ | async).size > 0"
