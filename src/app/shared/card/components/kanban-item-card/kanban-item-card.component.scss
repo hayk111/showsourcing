@@ -7,20 +7,21 @@
   box-shadow: 0 2px 4px 0 var(--pale-grey);
 	border: solid 1px var(--color-secondary);
 	border-left: solid 2px #45adff;
-	position: static;
 }
 
 .kanban {
 	&__item {
-		/* padding: 0 var(--spacing-m);
-    border-bottom: 1px solid var(--color-secondary); */
-    /* height: 48px; */
     display: flex;
 		align-items: center;
 		height: 100%;
 
 		&:hover {
 			.mainCell .imgCtnr .check {
+				display: block;
+			}
+
+			.dotSeparator-wrapper {
+				color: var(--color-txt-primary);
 				display: block;
 			}
 
@@ -32,10 +33,6 @@
 		.mainCell {
 			display: flex;
 			align-items: center;
-
-      .checkboxCtnr {
-        /* margin-right: 5px; */
-      }
 
       .imgCtnr {
 				border-radius: var(--border-radius);
@@ -73,7 +70,6 @@
 			.description {
 				display: flex;
 				flex-direction: column;
-				/* justify-content: space-between; */
 				align-items: start;
 				max-width: 170px;
 
@@ -114,20 +110,6 @@
 					color: var(--color-txt-primary);
 					margin-bottom: 5px;
 				}
-			}
-		}
-
-		.contextual-menu {
-			// display: none;
-			display: block;
-			/* top: 50px;
-			right: 5px; */
-			background-color: #fff;
-			z-index: 1000;
-			align-items: flex-end;
-
-			::ng-deep button.light:hover {
-				background-color: #fff;
 			}
 		}
 	}

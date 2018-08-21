@@ -12,3 +12,12 @@ kanban-col-app {
 	margin-top: var(--spacing-m);
 }
 
+.card-container {
+	position: relative;
+}
+
+.contextual-menu {
+	position: absolute;
+	bottom: 2px;
+	right: 9px;
+}

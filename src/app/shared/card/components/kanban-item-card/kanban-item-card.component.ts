@@ -45,12 +45,12 @@ export class KanbanItemCardComponent {
 	@Input() link: string;
 	/** The person associated with the element */
 	@Input() person: any;
-	/** The reference to the contextual menu content */
-	@Input() contextualMenu: TemplateRef<any>;
 	/** The associated product */
+	@Input() checked: boolean;
+	/** The product */
 	@Input() product: Product;
 	/** The item is checked */
-	@Input() checked: boolean;
+	@Input() tags: any;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();

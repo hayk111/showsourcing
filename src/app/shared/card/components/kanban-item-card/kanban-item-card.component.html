@@ -7,7 +7,7 @@
              (dragstart)="preventDrag($event)">
         <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
              (dragstart)="preventDrag($event)">
-        <div class="check" [ngClass]="{ checked: checked, selected: selected }">
+        <div class="check" [ngClass]="{ checked: checked, selected: checked }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
                         (uncheck)="onUnchecked()"
@@ -24,13 +24,11 @@
         </div>
         <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
         <span class="descriptionText">{{description}}</span>
-        <span><badge-app type="secondary-light">test</badge-app> <!-- icons-status [product]="product"></icons-status --></span>
+        <span>
+          <badge-app type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
+          <icons-status-app [product]="product"></icons-status-app>
+        </span>
       </div>
     </div>
-  </div>
-  <div class="contextual-menu flex"  (mouseleave)="leaveMenuTrigger()" (mouseenter)="enterMenuTrigger()">
-    <ng-container
-      *ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
-    </ng-container>
   </div>
 </div>
