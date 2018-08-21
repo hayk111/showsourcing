@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	templateUrl: './badge.component.html',
 	styleUrls: ['./badge.component.scss'],
 	host: {
-		'[class.primary]': 'type === "primary"',
+		'[class.in-progress]': 'type === "in-progress"',
 		'[class.secondary]': 'type === "secondary"',
 		'[class.secondary-light]': 'type === "secondary-light"',
 		'[class.warn]': 'type === "warn"',
@@ -25,7 +25,7 @@ export class BadgeComponent implements OnInit {
 	/** type gives us the possibility to have predefined color set
 	 * for background and color. The none type is when we want to inherit
 	 */
-	@Input() type: 'primary' | 'secondary' | 'secondary-light' | 'accent' | 'success' | 'warn' | 'none' = 'secondary';
+	@Input() type: 'in-progress' | 'secondary' | 'secondary-light' | 'accent' | 'success' | 'warn' | 'none' = 'secondary';
 
 	constructor() { }
 

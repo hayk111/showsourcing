@@ -35,7 +35,7 @@ export class StatusBadgeComponent implements OnInit {
 		if (this.status) {
 			switch (this.status.category) {
 				case 'inProgress':
-					type = 'primary';
+					type = 'in-progress';
 					break;
 				case 'validated':
 					type = 'success';
