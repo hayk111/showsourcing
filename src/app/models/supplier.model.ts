@@ -1,4 +1,4 @@
-import { AppImage } from '~models';
+import { AppImage, Contact } from '~models';
 
 import { BaseEntity } from '~models/_entity.model';
 import { Category } from '~models/category.model';
@@ -24,11 +24,12 @@ export class Supplier extends BaseEntity<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	favorite?= false;
+	contacts?: Contact[];
+	favorite ?= false;
 	globalDatabaseId?: string;
 	statuses?: SupplierStatus[];
-	productCount?= 0;
-	taskCount?= 0;
+	productCount ?= 0;
+	taskCount ?= 0;
 }
 
 export interface SupplierConfig {
@@ -49,6 +50,7 @@ export interface SupplierConfig {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
+	contacts?: Contact[];
 	favorite?: boolean;
 	status?: SupplierStatus;
 }

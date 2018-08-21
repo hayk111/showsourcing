@@ -47,7 +47,7 @@
 			<button class="add-email" [disabled]="!emailGroup.valid" (click)="addEmail()" (keyup.enter)="addEmail()">Add</button>
 		</form>
 		<email-list-app
-			[contacts]="contacts"
+			[contacts]="_contacts"
 			[supplierId]="product.supplier.id"
 			[selected]="selected"
 			(onSelectMail)="selectMail($event)"
