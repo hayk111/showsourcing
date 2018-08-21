@@ -3,6 +3,7 @@ import { Product, ERM } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
+import { DEFAULT_IMG } from '~utils';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -14,6 +15,8 @@ export class OneProductActivityCardComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
+	/** default image displayed when no image  */
+	defaultImg = DEFAULT_IMG;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(

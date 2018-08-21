@@ -87,16 +87,16 @@ export class KanbanItemCardComponent implements OnInit {
 		console.log('>> this.category = ', this.category);
 		switch (this.category) {
 			case 'inProgress':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-primary)');
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-primary)');
 				break;
 			case 'validated':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-success)');
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-success)');
 				break;
 			case 'refused':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-warn)');
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-warn)');
 				break;
 			case 'inspiration':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-secondary)');
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-secondary)');
 				break;
 		}
 	}
