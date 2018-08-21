@@ -7,13 +7,15 @@ import { DividerModule } from '~shared/divider/divider.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { KanbanItemCardComponent } from '~shared/card/components/kanban-item-card/kanban-item-card.component';
+import { StatusModule } from '~shared/status/status.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		DividerModule,
 		InputsModule,
-		BadgeModule
+		BadgeModule,
+		StatusModule
 	],
 	declarations: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent],
 	exports: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent]

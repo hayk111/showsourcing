@@ -5,6 +5,7 @@ article{
 
 .ctnr {
 	padding-left: var(--spacing-m);
+	overflow: auto;
 }
 
 kanban-col-app {
@@ -12,3 +13,12 @@ kanban-col-app {
 	margin-top: var(--spacing-m);
 }
 
+.card-container {
+	position: relative;
+}
+
+.contextual-menu {
+	position: absolute;
+	bottom: 2px;
+	right: 9px;
+}

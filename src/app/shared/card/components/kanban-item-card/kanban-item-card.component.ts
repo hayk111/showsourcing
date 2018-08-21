@@ -12,6 +12,12 @@ import {
 	HostBinding,
 	ContentChild
 } from '@angular/core';
+import {
+	DomSanitizer,
+	SafeHtml,
+	SafeUrl,
+	SafeStyle
+} from '@angular/platform-browser';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product } from '~models';
 
@@ -21,7 +27,7 @@ import { Price, Product } from '~models';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent {
+export class KanbanItemCardComponent implements OnInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -45,12 +51,12 @@ export class KanbanItemCardComponent {
 	@Input() link: string;
 	/** The person associated with the element */
 	@Input() person: any;
-	/** The reference to the contextual menu content */
-	@Input() contextualMenu: TemplateRef<any>;
 	/** The associated product */
+	@Input() checked: boolean;
+	/** The product */
 	@Input() product: Product;
 	/** The item is checked */
-	@Input() checked: boolean;
+	@Input() tags: any;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -73,6 +79,27 @@ export class KanbanItemCardComponent {
 	checkboxAction = false;
 	/** The mouse is over the card */
 	cardEntered: boolean;
+
+	constructor(private sanitization: DomSanitizer) {
+	}
+
+	ngOnInit() {
+		console.log('>> this.category = ', this.category);
+		switch (this.category) {
+			case 'inProgress':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-primary)');
+				break;
+			case 'validated':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-success)');
+				break;
+			case 'refused':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-warn)');
+				break;
+			case 'inspiration':
+				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle(('var(--color-secondary)');
+				break;
+		}
+	}
 
 	/** Toggle the open menu state */
 	onToggleContextualMenu(event) {
