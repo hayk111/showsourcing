@@ -8,6 +8,7 @@ import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from './c
 import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils';
+import { filter, first, distinctUntilChanged } from 'rxjs/operators';
 
 
 
@@ -26,16 +27,19 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 	}
 
 	init() {
-		this.initGlobalClients();
+		this.authSrv.authState$.pipe(
+			filter(authState => authState.authenticated),
+			distinctUntilChanged((x, y) => x.authenticated === y.authenticated)
+		).subscribe(authState => this.initGlobalClients(authState.token));
 	}
 
 	/** creates global and all-users clients */
-	private initGlobalClients() {
+	private initGlobalClients(token) {
 		try {
 			// 1. creating all-users client and getting the user
-			this.createClient(ALL_USER_CLIENT);
-			this.createClient(GLOBAL_CONSTANT_CLIENT);
-			this.createClient(GLOBAL_DATA_CLIENT);
+			this.createClient(ALL_USER_CLIENT, token);
+			this.createClient(GLOBAL_CONSTANT_CLIENT, token);
+			this.createClient(GLOBAL_DATA_CLIENT, token);
 			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
 			log.error(e);
@@ -43,9 +47,9 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 		}
 	}
 
-	protected createClient(name) {
+	protected createClient(name, token) {
 		const uri = `${environment.graphqlUrl}/${name}`;
-		super.createClient(uri, name);
+		super.createClient(uri, name, token);
 	}
 
 }

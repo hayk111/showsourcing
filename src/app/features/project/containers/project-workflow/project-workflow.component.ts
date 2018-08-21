@@ -15,6 +15,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { FindProductDialogComponent } from '~shared/custom-dialog/component/find-product-dialog/find-product-dialog.component';
 
 
 @Component({
@@ -68,6 +69,12 @@ export class ProjectWorkflowComponent implements OnInit {
 	/** Unselects a entity */
 	onItemUnselected(entity: any) {
 		this.selectionSrv.unselectOne(entity);
+	}
+
+	openFindProductDlg() {
+		this.dlgSrv.openFromModule(FindProductDialogComponent, this.moduleRef, {
+			callback: () => { }
+		});
 	}
 
 	/**

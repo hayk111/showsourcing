@@ -14,12 +14,14 @@ import {
 } from '~shared/custom-dialog/component';
 import { CrudDialogService } from '~shared/custom-dialog/services/crud-dialog.service';
 import { FindProductDialogComponent } from './component/find-product-dialog/find-product-dialog.component';
+import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		DialogModule,
-		SharedModule
+		SharedModule,
+		SearchBarModule
 	],
 	declarations: [
 		CreationDialogComponent,
@@ -36,7 +38,8 @@ import { FindProductDialogComponent } from './component/find-product-dialog/find
 		MergeDialogComponent,
 		ProductAddToProjectDlgComponent,
 		ProductRequestTeamFeedbackDlgComponent,
-		ProductExportDlgComponent
+		ProductExportDlgComponent,
+		FindProductDialogComponent
 	],
 	providers: [
 		ProductDialogService,
