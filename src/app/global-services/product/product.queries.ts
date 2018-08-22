@@ -166,6 +166,9 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 					id, name, step, category, inWorkflow
 				}
 			},
+			tags {
+				id, name
+			},
 			score,
 			minimumOrderQuantity,
 			votes {

@@ -17,17 +17,22 @@
           </checkbox-app>
         </div>
       </div>
-      <div class="description">
-        <div class="titleCtnr">
-          <a class="title">{{title}}</a>
-          <span class="tiny-label" *ngIf="status">{{status}}</span>
+      <div class="description flexBetween">
+        <div class="descriptionTopCtnr">
+          <div class="titleCtnr">
+            <a class="title">{{title}}</a>
+            <icon-app *ngIf="favorite" name="heart"></icon-app>
+          </div>
+          <div class="descriptionCtnr">
+            <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
+            <span class="descriptionText" *ngIf="description"> - </span>
+            <span class="descriptionText">{{description}}</span>
+            <icons-status-app [product]="product"></icons-status-app>
+          </div>
         </div>
-        <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
-        <span class="descriptionText">{{description}}</span>
-        <span>
-          <badge-app type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
-          <icons-status-app [product]="product"></icons-status-app>
-        </span>
+        <div class="descriptionBottomCtnr">
+          <span class="badge"badge-app size="small" type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</span>
+        </div>
       </div>
     </div>
   </div>

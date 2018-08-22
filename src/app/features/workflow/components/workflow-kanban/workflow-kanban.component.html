@@ -21,8 +21,8 @@
 							[namespace]="getCurrentStatusId(product)"
 							[data]="product">
 						<kanban-item-card-app class="marginSmall" [title]="product.name"
-							[status]="product.status?.name" [subtitle1]="'test'"
-							[product]="product"
+							[status]="product.status?.name"
+							[favorite]="product.favorite"
 							[tags]="product.tags"
 							[price]="product.price"
 							[minimumOrderQuantity]="product.minimumOrderQuantity"
@@ -32,6 +32,7 @@
 							[person]="product.createdBy"
 							[link]="'/product/details/' + product.id + '/general'"
 							[checked]="isSelected(selectedItems, product.id)"
+							[product]="product"
 							(select)="selectItem.emit(product)"
 							(unselect)="unselectItem.emit(product)">
 						</kanban-item-card-app>

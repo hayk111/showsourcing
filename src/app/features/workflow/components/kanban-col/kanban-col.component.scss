@@ -18,44 +18,38 @@ header {
 	border: solid 1px var(--color-divider);
 	margin-left: 5px;
 	margin-right: 5px;
+	border-top-width: 2px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 
-	.number {
-		color: var(--color-txt-primary);
+	&.in-progress {
+		border-top-color: var(--color-primary);
+	}
+	
+	&.validated {
+		border-top-color: var(--color-success);
+	}
+	
+	&.refused {
+		border-top-color: var(--color-warn);
+	}
+	
+	&.inspiration {
+		border-top-color: var(--color-secondary);
 	}
 
-	.separator {
-		margin-top: 5px;
-		border-top: solid 2px #45d8ff;
-		width: 53px;
-		height: 2px;
-
-		&.in-progress {
-			border-top-color: var(--color-primary);
-		}
-		
-		&.validated {
-			border-top-color: var(--color-success);
-		}
-		
-		&.refused {
-			border-top-color: var(--color-warn);
-		}
-		
-		&.inspiration {
-			border-top-color: var(--color-secondary);
-		}
+	.number {
+		color: var(--color-txt-primary);
 	}
 }
 
 main {
 	background: var(--color-secondary-light);
 	padding-top: var(--spacing-s);
-	height: 100%;
-	min-height: 136px;
+	height: calc(100% - 53px);
+	min-height: calc(100% - 53px);
 	border: solid 1px var(--color-divider);
 	border-top: 0;
 	margin: 5px;

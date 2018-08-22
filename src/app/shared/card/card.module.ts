@@ -8,6 +8,7 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { KanbanItemCardComponent } from '~shared/card/components/kanban-item-card/kanban-item-card.component';
 import { StatusModule } from '~shared/status/status.module';
+import { IconsModule } from '~shared/icons/icons.module';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import { StatusModule } from '~shared/status/status.module';
 		DividerModule,
 		InputsModule,
 		BadgeModule,
-		StatusModule
+		StatusModule,
+		IconsModule
 	],
 	declarations: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent],
 	exports: [CardComponent, CardHeaderComponent, CardFooterComponent, KanbanItemCardComponent]
