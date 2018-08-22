@@ -8,12 +8,11 @@
 			<!-- multiple value label -->
 			<editable-label-app *ngIf="customField.multiple; else solo">
 				<ng-container	*ngIf="!isEmpty(value); else none">
-					<badge-app
+					<info-badge-app
 						*ngFor="let tag of value"
-						size="round"
-						[type]="customField.metadata.target === 'category' ? 'accent' : 'secondary'">
+						[type]="customField.metadata.target">
 						{{ tag.name }}
-					</badge-app>
+					</info-badge-app>
 				</ng-container>
 
 				<ng-template #none>

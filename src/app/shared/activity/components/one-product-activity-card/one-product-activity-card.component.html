@@ -41,11 +41,11 @@
 			 	[status]="product?.statuses[0]?.status"></status-badge-app>
 			<info-badge-app
 				*ngIf="product?.category?.name"
-				icon="category">
+				type="category">
 				{{ product?.category?.name }}
 			</info-badge-app>
 			<info-badge-app
-				icon="tag"
+				type="tag"
 				*ngFor="let tag of product.tags">{{ tag?.name }}
 			</info-badge-app>
 		</div>

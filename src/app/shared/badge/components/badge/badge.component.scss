@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 	white-space: nowrap;
 	margin-right: var(--spacing-xs);
+
 	&.in-progress {
 		background: var(--color-in-progress);
 		color: white;
@@ -24,18 +25,11 @@
 		background: var(--color-success);
 		color: white;
 	}
-	&.round {
-		font-family: 'Raleway';
-		font-size: var(--font-size-s);
-		font-weight: 600;
-		padding: var(--spacing-xs) var(--spacing-ms);
-		border-radius: 11px;
-	}
 	&.mini {
 		font-family: 'Raleway';
 		font-size: var(--font-size-s);
 		font-weight: 600;
-		padding: var(--spacing-xs) var(--spacing-s);
+		padding: var(--spacing-xs) var(--spacing-ms);
 		border-radius: var(--border-radius-s);
 	}
 	&.xsmall {
@@ -43,7 +37,6 @@
 		font-weight: bold;
 		padding: 2px var(--spacing-xs);
 		text-transform: uppercase;
-		// min-width: 72px;
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}
@@ -55,7 +48,6 @@
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}
-
 	&.medium {
 		height: 25px;
 		font-size: var(--font-size-m);
@@ -63,12 +55,14 @@
 		padding: var(--spacing-xs) var(--spacing-s);
 		font-weight: 600;
 	}
-
 	&.large {
 		height: 32px;
 		font-size: var(--font-size-m);
 		border-radius: var(--border-radius-s);
 		padding: var(--spacing-s) var(--spacing-ms);
 		font-weight: 600;
+	}
+	&.round {
+		border-radius: 500px;
 	}
 }

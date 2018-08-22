@@ -13,7 +13,7 @@ import { Component, OnInit, Input } from '@angular/core';
 		'[class.accent]': 'type === "accent"',
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
-		'[class.round]': 'size === "round"',
+		'[class.round]': 'round',
 		'[class.mini]': 'size === "mini"',
 		'[class.xsmall]': 'size === "xs"',
 		'[class.small]': 'size === "s" || size === "small"',
@@ -26,6 +26,7 @@ export class BadgeComponent implements OnInit {
 	/** type gives us the possibility to have predefined color set
 	 * for background and color. The none type is when we want to inherit
 	 */
+	@Input() round = true;
 	@Input() type: 'in-progress' | 'secondary' | 'secondary-light' | 'accent' | 'success' | 'warn' | 'none' = 'secondary';
 
 	constructor() { }

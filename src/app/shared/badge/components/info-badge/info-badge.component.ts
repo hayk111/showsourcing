@@ -8,23 +8,18 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class InfoBadgeComponent implements OnInit {
 
-	@Input() icon: 'category' | 'tag' | 'project' = 'category';
+	@Input() type: 'category' | 'tag' | 'project' = 'category';
+
+	@Input() size = 'mini';
 
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	get getType() {
-		let type = 'secondary';
-		if (this.icon === 'category')
-			type = 'accent';
-		return type;
-	}
-
 	get iconName() {
 		let name = '';
-		switch (this.icon) {
+		switch (this.type) {
 			case 'category':
 				name = 'badge-category';
 				break;

@@ -1,4 +1,4 @@
-<badge-app size="round" [type]="getType">
+<badge-app [size]="size" [type]="type === 'category' ? 'accent' : 'secondary'">
 	<icon-app [name]="iconName" fontSet="svg"></icon-app>
 	<ng-content></ng-content>
 </badge-app>
