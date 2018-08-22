@@ -12,7 +12,7 @@
 				[formControl]="searchControl"
 				[inputFocus]="inputFocus"
 				(focus)="onFocusSearch($event)"
-				(search)="triggerSearch($event)"
+				(search)="search.emit($event)"
 				(keydown.enter)="triggerSmartSearch($event)">
 			</search-bar-app>
 

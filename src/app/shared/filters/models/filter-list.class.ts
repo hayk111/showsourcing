@@ -9,7 +9,7 @@ import { tap } from 'rxjs/internal/operators/tap';
 export class FilterList {
 
 	/** to know when filters are changing */
-	private _valueChanges$ = new Subject();
+	private _valueChanges$ = new Subject<FilterList>();
 	valueChanges$ = this._valueChanges$.asObservable();
 
 	/** current filters sync */
@@ -18,7 +18,7 @@ export class FilterList {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
 		this._query = this.filtersToQuery(filters);
-		this._valueChanges$.next();
+		this._valueChanges$.next(this);
 	}
 	asFilters() { return this._filters; }
 

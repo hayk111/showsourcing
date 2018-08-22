@@ -8,7 +8,7 @@ import { EntityMetadata } from '~models';
 import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterList, FilterType, SearchService } from '~shared/filters';
+import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
@@ -125,9 +125,21 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.listResult.refetch(config)
 	}
 
+	/** Loads more items when we reach the bottom of the page */
+	loadMore() {
+		this.listResult.fetchMore(this.items.length);
+	}
+
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
 		this.refetch({ sort });
+	}
+
+	search(str: string) {
+		if (str)
+			this.filterList.upsertFilter({ type: FilterType.SEARCH, value: str });
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	get selectionArray() {
@@ -142,10 +154,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
-	search(str: string) {
-		this.filterList.upsertFilter({ type: FilterType.SEARCH, value: str });
-	}
-
 	/** Search within filters */
 	smartSearch(str: string) {
 		if (this.searchSrv) {
@@ -153,29 +161,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		}
 	}
 
-	onCheckSearchElement(element) {
-		this.filterList.addFilter({
-			type: element.type,
-			value: element.id,
-			entity: element
-		});
+	/** adds a filters to the list of filters */
+	addFilter(filter: Filter) {
+		this.filterList.addFilter(filter);
 	}
 
-	onUncheckSearchElement(element) {
-		this.filterList.removeFilter({
-			type: element.type,
-			value: element.id,
-			entity: element
-		});
-	}
-
-	getFiltersAmount() {
-		return this.filterList.asFilters().length;
-	}
-
-	/** Loads more items when we reach the bottom of the page */
-	loadMore() {
-		this.listResult.fetchMore(this.items.length);
+	removeFilter(filter: Filter) {
+		this.filterList.removeFilter(filter);
 	}
 
 	/** opens the preview for an item */

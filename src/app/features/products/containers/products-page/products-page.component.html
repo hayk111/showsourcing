@@ -13,7 +13,7 @@
 		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		[filtersAmount]="getFiltersAmount()"
+		[filtersAmount]="filterList.asFilters().length"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)"
 		(smartSearch)="smartSearch($event)"
@@ -24,8 +24,8 @@
 				<search-autocomplete-item-content-app
 					[selectable]="true" [title]="element.name" [subtitle]="element.type"
 					[checked]="element.checked" [icon]="element.type"
-					(check)="onCheckSearchElement(element)"
-					(uncheck)="onUncheckSearchElement(element)">
+					(check)="addFilter({ type: element.type, value: element.id, entity: element })"
+					(uncheck)="removeFilter({ type: element.type, value: element.id, entity: element })">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
 		</search-autocomplete-app>
@@ -123,6 +123,8 @@
 
 	<filters-app
 		(clickOutside)="closeFilterPanel()"
+		[filterList]="filterList"
+		[byType]="filterList.asByType()"
 		*ngIf="filterPanelOpen">
 	</filters-app>
 
