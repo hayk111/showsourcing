@@ -7,7 +7,7 @@
              (dragstart)="preventDrag($event)">
         <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
              (dragstart)="preventDrag($event)">
-        <div class="check" [ngClass]="{ checked: checked, selected: checked }">
+        <div class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
                         (uncheck)="onUnchecked()"

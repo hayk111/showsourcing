@@ -17,6 +17,10 @@
 		&:hover {
 			.mainCell .imgCtnr .check {
 				display: block;
+
+				&.drag-in-progress {
+					display: none;
+				}
 			}
 
 			.contextual-menu {
@@ -53,10 +57,18 @@
 		
 					&.selected {
 						display: block;
+
+						&.drag-in-progress {
+							display: none;
+						}
 					}
 
 					&.checked {
 						display: block;
+
+						&.drag-in-progress {
+							display: none;
+						}
 					}
 				}
 			}

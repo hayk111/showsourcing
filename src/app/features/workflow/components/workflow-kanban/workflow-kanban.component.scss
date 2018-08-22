@@ -21,6 +21,10 @@ kanban-col-app {
 
 	&:hover .contextual-menu {
 		display: block;
+
+		&.drag-in-progress {
+			display: none;
+		}
 	}
 }
 
@@ -29,4 +33,8 @@ kanban-col-app {
 	bottom: 13px;
 	right: 13px;
 	display: none;
+
+	&.drag-in-progress {
+		display: none;
+	}
 }
