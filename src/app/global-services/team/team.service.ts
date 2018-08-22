@@ -56,9 +56,7 @@ export class TeamService extends GlobalService<Team> {
 	/** waits for a team to go from pending to active */
 	private waitTeamValid(team: Team) {
 		return this.selectMany(
-			of(
-				new SelectParams({ query: `id == "${team.id}" AND status == "active"` })
-			)
+			{ query: `id == "${team.id}" AND status == "active"` }
 		).pipe(
 			map(teams => teams[0]),
 			filter(teamCreated => !!teamCreated)

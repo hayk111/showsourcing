@@ -27,7 +27,7 @@ export class SupplierFeatureService extends SupplierService {
 	/** gets the products of the supplier */
 	getProducts(supplierId: string): Observable<Product[]> {
 		return this.productSrv.selectMany(
-			of(new SelectParams({ query: `supplier.id == '${supplierId}'` }))
+			{ query: `supplier.id == '${supplierId}'` }
 		).pipe(
 			first()
 		);

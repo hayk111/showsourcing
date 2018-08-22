@@ -95,10 +95,10 @@ export class ApolloWrapper {
 			variables: { ...params, skip },
 			updateQuery: (prev, { fetchMoreResult }) => {
 				debugger;
-				if (!fetchMoreResult.data) { return prev; }
+				if (!fetchMoreResult[queryName]) { return prev; }
 				this.logResult('Selecting List Fetch More', queryName, fetchMoreResult.data)
 				return Object.assign({}, prev, {
-					feed: [...prev[queryName], ...fetchMoreResult[queryName]],
+					[queryName]: [...prev[queryName], ...fetchMoreResult[queryName]],
 				});
 			}
 		});

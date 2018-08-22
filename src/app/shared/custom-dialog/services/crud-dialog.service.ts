@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import { ERMService } from '~global-services/_global/erm.service';
 import { SelectParams } from '~global-services/_global/select-params';
 import { EntityMetadata, ERM } from '~models';
@@ -32,9 +32,10 @@ export class CrudDialogService {
 	checkExists(type: EntityMetadata, valueInput: string) {
 		const name = 'name';
 		return this.ermService.getGlobalService(type)
-			.selectMany(of(new SelectParams({ query: `${name} == "${valueInput.trim()}"` })))
+			.selectMany({ query: `${name} == "${valueInput.trim()}"` })
 			.pipe(
-				map(res => res.length > 0)
+				map(res => res.length > 0),
+				first()
 			);
 	}
 }

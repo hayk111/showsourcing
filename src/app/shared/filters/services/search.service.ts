@@ -29,18 +29,10 @@ export class SearchService {
 
 	searchFilterElementsWithAll(str: string, filterSrv: FilterService) {
 		return zip(
-			this.tagSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
-			this.categorySrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
-			this.supplierSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
-			this.eventSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
+			this.tagSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.categorySrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.supplierSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.eventSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
 			filterSrv.filters$.pipe(first())
 		).pipe(
 			map(results => {
@@ -59,12 +51,8 @@ export class SearchService {
 
 	searchFilterElementsWithTagAndCategory(str: string, filterSrv: FilterService) {
 		return zip(
-			this.tagSrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
-			this.categorySrv.selectMany(
-				of(new SelectParams({ query: `name CONTAINS[c] "${str}"` }))
-			).pipe(first()),
+			this.tagSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.categorySrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
 			filterSrv.filters$.pipe(first())
 		).pipe(
 			map(results => {

@@ -35,12 +35,12 @@ export class GlobalWithAuditService<T> extends GlobalService<T> {
 		return super.create(entity, refetchParams, client);
 	}
 
-	// deleteMany(ids: string[], client?: string) {
-	// 	return forkJoin(ids.map(id => this.deleteOne(id, client)));
-	// }
+	deleteMany(ids: string[], client?: string) {
+		return forkJoin(ids.map(id => this.deleteOne(id, client)));
+	}
 
-	// deleteOne(id: string, client?: string) {
-	// 	return this.update({ id, deleted: true }, client);
-	// }
+	deleteOne(id: string, client?: string) {
+		return this.update({ id, deleted: true }, client);
+	}
 
 }

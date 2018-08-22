@@ -2,22 +2,20 @@ import { DocumentNode } from 'graphql';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, mergeMap, scan, switchMap } from 'rxjs/operators';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
-import { SelectParams } from '~global-services/_global/select-params';
+import { SelectParams, SelectParamsConfig } from '~global-services/_global/select-params';
 import { User } from '~models';
 import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
+import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 
 export interface GlobalServiceInterface<T extends { id?: string }> {
 	selectOne: (id: string, ...args) => Observable<T>;
-	selectMany: (params$: Observable<SelectParams>, fields?: string, client?: string) => Observable<T[]>;
-	selectList: (params$: Observable<SelectParams>) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
-	selectInfiniteList: (params$: Observable<SelectParams>, fields?: string, client?: string) => { items$: Observable<T[]>, refetchQuery: DocumentNode };
+	selectMany: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => Observable<T[]>;
 	selectAll: (fields: string, ...args) => Observable<T[]>;
+	queryList: (paramsConfig: SelectParamsConfig) => SelectListResult<T>;
 	update: (entity: T, ...args) => Observable<T>;
 	updateMany: (entities: T[], ...args) => Observable<T[]>;
 	create: (entity: T, ...args) => Observable<T>;
-	deleteOne: (id: string, ...args) => Observable<any>;
-	deleteMany: (ids: string[], ...args) => Observable<any>;
 }
 
 
@@ -61,7 +59,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
 		this.selectOneCache.set(id, { subj, obs, result });
 		return result;
-
 	}
 
 	/** selects all entity (query)
@@ -83,11 +80,12 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 *
 	*/
-	selectMany(params: SelectParams = new SelectParams(), fields?: string, client?: string): Observable<T[]> {
+	selectMany(paramsConfig?: SelectParamsConfig, fields?: string, client?: string): Observable<T[]> {
 		if (!this.queries.many) {
 			throw Error('many query not implemented for this service');
 		}
 		const gql = this.queries.many(fields);
+		const params = new SelectParams(paramsConfig);
 
 		return this.wrapper.use(client).selectMany(gql, params);
 	}
@@ -96,19 +94,16 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * this uses a query under the hood and not a subscription
  	* @param params$ : Observable<SelectParams> to specify what slice of data we are querying
 	*/
-	selectList(params$: Observable<SelectParams> = of(new SelectParams()), fields?: string, client?: string)
-		: { items$: Observable<T[]>, refetchQuery: DocumentNode } {
+	queryList(paramsConfig?: SelectParamsConfig, fields?: string, client?: string)
+		: SelectListResult<T> {
 
 		if (!this.queries.list) {
 			throw Error('list query not implemented for this service');
 		}
-		const gql = this.queries.list(fields);
-		const items$ = params$.pipe(
-			distinctUntilChanged(),
-			switchMap((params: SelectParams) => this.wrapper.selectList(gql, params))
-		);
 
-		return { items$, refetchQuery: gql };
+		const params = new SelectParams(paramsConfig);
+		const gql = this.queries.list(fields);
+		return this.wrapper.queryList(gql, params);
 
 	}
 
@@ -154,23 +149,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		const gql = this.queries.create();
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
-
-	deleteOne(id: string, refetchParams?: RefetchParams[], client?: string): Observable<any> {
-		if (!this.queries.deleteOne) {
-			throw Error('delete one query not implemented for this service');
-		}
-		const gql = this.queries.deleteOne();
-		return this.wrapper.use(client).delete(gql, id, refetchParams);
-	}
-
-	deleteMany(ids: string[], refetchParams?: RefetchParams[], client?: string): Observable<any> {
-		if (!this.queries.deleteMany) {
-			throw Error('delete many query not implemented for this service');
-		}
-		const gql = this.queries.deleteMany();
-		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
-	}
-
 
 }
 

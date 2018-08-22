@@ -22,7 +22,7 @@ export class ProductDialogService extends ProductService {
 
 	selectProjects(): Observable<Project[]> {
 		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
-		return this.projectSrv.selectMany(of(new SelectParams({ sort })));
+		return this.projectSrv.selectMany({ sort });
 	}
 
 	/**

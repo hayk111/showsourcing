@@ -26,9 +26,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	private waitForRequestValid(request: ExportRequest) {
 		return this.selectMany(
-			of(
-				new SelectParams({ query: `id == "${request.id}" AND status == "active"` })
-			)
+			{ query: `id == "${request.id}" AND status == "active"` }
 		).pipe(
 			map(requests => requests[0]),
 			filter(req => !!req),

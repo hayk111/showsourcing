@@ -1,7 +1,7 @@
 import { OnInit, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, ReplaySubject, combineLatest } from 'rxjs';
-import { takeUntil, tap, map, switchMap, first } from 'rxjs/operators';
+import { takeUntil, tap, map, switchMap, first, skip } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
 import { SelectParams } from '~global-services/_global/select-params';
 import { ERM, EntityMetadata } from '~models';
@@ -14,6 +14,9 @@ import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 import { DocumentNode } from 'graphql';
+import { SelectParamsConfig } from '~global-services/_global/list-params';
+import { QueryRef } from 'apollo-angular';
+import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 
 /**
  * Class used by components that need to display a list
@@ -21,10 +24,17 @@ import { DocumentNode } from 'graphql';
 export abstract class ListPageComponent<T extends { id?: string }, G extends GlobalServiceInterface<T>>
 	extends AutoUnsub implements OnInit {
 
+
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
 	items: Array<T> = [];
+	/** params for the first query,
+	 * override this to change order by, query and such..
+	 */
+	private startParams: SelectParamsConfig = {};
+	/** can be used on when to fetch more etc. */
+	private listResult: SelectListResult<T>;
 	/** Whether the items are pending */
 	pending = true;
 	/** keeps tracks of the current selection */
@@ -43,12 +53,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	previewOpen: boolean;
 	/** previewed item */
 	previewed: T;
-
-	/** can be used on when deleting / creating an entity to refetch */
-	private refetchQuery: DocumentNode;
-	currentParams: SelectParams = new SelectParams();
-	private _selectParams$ = new ReplaySubject<SelectParams>(1);
-	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
 
 	searchFilterElements$: Observable<any[]>;
@@ -77,29 +81,23 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 
 
+	/** subscribe to items and get the list result */
 	protected setItems() {
-		const selectList = this.featureSrv.selectInfiniteList(this.selectParams$);
-		this.items$ = selectList.items$;
-		this.refetchQuery = selectList.refetchQuery;
-
-		this.items$.pipe(
-			takeUntil(this._destroy$),
+		this.listResult = this.featureSrv.queryList(this.startParams);
+		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded())
-		).subscribe();
-		// when param changes we are loading
-		this.selectParams$.pipe(
-			tap(params => this.currentParams = params),
-			takeUntil(this._destroy$),
-			tap(_ => this.onLoad()),
-		).subscribe();
+		);
 	}
 
-	protected onLoad() {
-		this.pending = true;
-	}
-
-	protected onLoaded() {
-		this.pending = false;
+	/** subscribe to filters and filter when filters have changed */
+	protected setFilters() {
+		// since filter is a behavior subject it will trigger instantly
+		if (this.filterSrv) {
+			this.filterSrv.query$.pipe(
+				skip(1),
+				takeUntil(this._destroy$),
+			).subscribe(query => this.filter(query));
+		}
 	}
 
 	protected setSelection() {
@@ -110,14 +108,14 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			});
 	}
 
-	protected setFilters() {
-		// since filter is a behavior subject it will trigger instantly
-		if (this.filterSrv) {
-			this.filterSrv.query$.pipe(
-				takeUntil(this._destroy$),
-			).subscribe(query => this.filter(query));
-		}
+	protected onLoad() {
+		this.pending = true;
 	}
+
+	protected onLoaded() {
+		this.pending = false;
+	}
+
 
 	get selectionArray() {
 		return Array.from(this.selectionSrv.selection.keys());
@@ -165,59 +163,44 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
-		this._selectParams$.next(new SelectParams({
-			page: ++this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
+		this.listResult.fetchMore(this.items.length);
 	}
 
 	nextPage() {
-		this._selectParams$.next(new SelectParams({
-			page: ++this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
+		// this._selectParams$.next(new SelectParams({
+		// 	page: ++this.currentParams.page,
+		// 	sort: this.currentParams.sort,
+		// 	query: this.currentParams.query,
+		// 	take: this.currentParams.take
+		// }));
 	}
 
 	previousPage() {
-		this._selectParams$.next(new SelectParams({
-			page: --this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
+		// this._selectParams$.next(new SelectParams({
+		// 	page: --this.currentParams.page,
+		// 	sort: this.currentParams.sort,
+		// 	query: this.currentParams.query,
+		// 	take: this.currentParams.take
+		// }));
 	}
 
 	firstPage() {
-		this._selectParams$.next(new SelectParams({
-			page: 0,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
+		// this._selectParams$.next(new SelectParams({
+		// 	page: 0,
+		// 	sort: this.currentParams.sort,
+		// 	query: this.currentParams.query,
+		// 	take: this.currentParams.take
+		// }));
 	}
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this._selectParams$.next(new SelectParams({
-			sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take,
-			page: 0
-		}));
+		this.listResult.queryRef.refetch({});
 	}
 
 	/** Filters items based  */
 	protected filter(query: string) {
-		this._selectParams$.next(new SelectParams({
-			query,
-			sort: this.currentParams.sort,
-			take: this.currentParams.take,
-			page: 0
-		}));
+		this.listResult.queryRef.refetch({ query });
 	}
 
 	/** opens the preview for an item */
@@ -291,26 +274,26 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
-		// callback for confirm dialog
-		const callback = () => {
-			this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		// const items = Array.from(this.selectionSrv.selection.keys());
+		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
+		// // callback for confirm dialog
+		// const callback = () => {
+		// 	this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
+		// 		this.resetSelection();
+		// 	});
+		// };
+		// const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		// this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
-		const callback = () => {
-			this.featureSrv.deleteOne(itemId, refetchParams).subscribe();
-		};
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
+		// const callback = () => {
+		// 	this.featureSrv.deleteOne(itemId, refetchParams).subscribe();
+		// };
+		// const text = `Are you sure you want to delete this item?`;
+		// this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Open details page of a product */
