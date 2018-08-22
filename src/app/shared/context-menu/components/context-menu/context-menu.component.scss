@@ -6,7 +6,6 @@
 }
 
 .menu {
-	z-index: 1000;
 	position: absolute;
 	background: white;
 	color: var(--color-txt-primary);
@@ -23,6 +22,7 @@
 .menu-before {
 	right: var(--spacing-m);
 }
+
 .menu-after {
 	left: var(--spacing-m);
 }
@@ -30,6 +30,7 @@
 .menu-above {
 	top: -(var(--spacing-m));
 }
+
 .menu-below {
 	bottom: -(var(--spacing-m));
 }

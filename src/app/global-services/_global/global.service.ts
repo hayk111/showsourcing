@@ -21,8 +21,7 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
 
 /**
  * Global service that other entity service can extend to do stuff via graphql,
- * This service deals with transforming what it receives then passing it to
- * apolloWrapper, it also deals with the cache
+ * This class wraps graphgq
  */
 export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: User, createdBy?: User }> implements GlobalServiceInterface<T> {
 
@@ -48,13 +47,26 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 			throw Error('one query not implemented for this service');
 		}
 		const gql = this.queries.one(fields);
+		const title = 'Selecting One ' + this.typeName;
+		const queryName = this.getQueryName(gql);
+		const variables = { query: `id == "${id}"` };
+		this.log(title, gql, queryName, variables);
+
 
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view
 		if (this.selectOneCache.has(id))
 			return this.selectOneCache.get(id).result;
 
-		const obs = this.wrapper.use(client).selectOne(gql, id);
+		const obs = this.getApolloClient(client).subscribe({ query: gql, variables })
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
 		const subj = new BehaviorSubject({});
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
 		this.selectOneCache.set(id, { subj, obs, result });

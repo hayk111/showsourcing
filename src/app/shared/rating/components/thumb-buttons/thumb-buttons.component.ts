@@ -124,9 +124,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			value: state ? 100 : 0,
 			user: { id: this.userSrv.userSync.id }
 		});
-		this.voteSrv.create(vote).subscribe(newVote => {
-			this.vote.emit([...this.votes, newVote]);
-		});
+		this.vote.emit([...this.votes, vote]);
 	}
 
 	updateEmitVote() {

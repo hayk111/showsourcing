@@ -16,7 +16,7 @@ import { SelectParamsConfig } from '~global-services/_global/list-params';
 
 /**
  * Wrapper around apollo real client.
- * This class is complicated but relieve other parts of the app from any complexity
+ * Enables CRUD operations and more on the back-end
  */
 @Injectable({
 	providedIn: 'root'
@@ -27,26 +27,77 @@ export class ApolloWrapper {
 
 
 	///////////////////////////////
-	//   SELECT ONE SECTION      //
+	//        SELECT ONE         //
 	///////////////////////////////
 
-	/** select one entity given an id */
+	/** select one entity given an id,
+	 * This is a subscription like all select
+	 */
 
-	selectOne(gql: DocumentNode, id: string) {
+	selectOne(gql: DocumentNode, id: string, type: string) {
+		const title = 'Selecting One';
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
-		this.log('Selecting One', gql, queryName, variables);
+		this.log(title, gql, queryName, variables);
 		return this.apollo.subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
 				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult('SelectOne', queryName, data)),
+				tap(data => this.logResult(title, queryName, data)),
 				shareReplay(1)
 			);
 	}
 
+
+	///////////////////////////////
+	//        QUERY ONE          //
+	///////////////////////////////
+
+	/**
+	 * Query one item by id
+	 */
+	queryOne(gql: DocumentNode, id: string) {
+		const queryName = this.getQueryName(gql);
+		const variables = { query: `id == "${id}"` };
+		this.log('Selecting One', gql, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult('QueryOne', queryName, data)),
+				shareReplay(1)
+			);
+	}
+
+	///////////////////////////////
+	//   SELECT ONE BY QUERY     //
+	///////////////////////////////
+
+	/** select one entity given an id,
+	 * This is a subscription like all select
+	 */
+
+	selectOneByQuery(gql: DocumentNode, query: string) {
+		const title = 'Selecting One By Query';
+		const queryName = this.getQueryName(gql);
+		const variables = { query };
+		this.log(title, gql, queryName, variables);
+		return this.apollo.subscribe({ query: gql, variables })
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
+	}
+
+	/** select one entity given an id */
 
 	/////////////////////////////
 	//   SELECT MANY SECTION   //
