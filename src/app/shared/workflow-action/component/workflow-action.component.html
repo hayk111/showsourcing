@@ -18,6 +18,7 @@
 
 	<ng-template #noStatus>
 		<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
+
 			<context-menu-trigger-app class="flex {{selectSize}}">
 				<status-badge-app [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
 			</context-menu-trigger-app>
@@ -25,6 +26,7 @@
 			<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
 				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
 			</context-menu-item-app>
+
 		</context-menu-app>
 	</ng-template>
 
