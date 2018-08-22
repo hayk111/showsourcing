@@ -100,7 +100,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			this.featureSrv.deleteOne(this.product.id).subscribe();
 			this.router.navigate(['product']);
 		};
-		const text = `Are you sure you want to delete this item?`;
+		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 }

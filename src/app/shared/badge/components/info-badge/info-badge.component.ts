@@ -32,7 +32,7 @@ export class InfoBadgeComponent implements OnInit {
 				name = 'badge-tag';
 				break;
 			case 'project':
-				name = 'folder';
+				name = 'badge-folder';
 				break;
 			default:
 				name = 'badge-tag';

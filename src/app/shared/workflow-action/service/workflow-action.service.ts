@@ -12,7 +12,7 @@ export class WorkflowActionService {
 	) { }
 
 	getTableStatus(typeEntity: EntityMetadata) {
-		return this.ermSrv.getStatusService(typeEntity).selectAll('id, name, category, step');
+		return this.ermSrv.getStatusService(typeEntity).selectAll('id, name, category, step, inWorkflow');
 	}
 
 	updateStatus(entity, typeEntity: EntityMetadata) {
