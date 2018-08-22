@@ -35,7 +35,6 @@ export class WorkflowKanbanComponent {
 	}
 
 	ngOnChanges(changes) {
-		console.log('>> WorkflowKanbanComponent - changes = ', changes);
 	}
 
 	trackByFn(index, product) {
