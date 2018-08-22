@@ -26,6 +26,8 @@
 
 	--color-success: #71e591;
 	--color-success-dark: #48d26f;
+
+	--color-in-progress: #45d8ff;
 }
 
 
@@ -33,6 +35,10 @@
 
 .color-success {
   color: var(--color-success);
+}
+
+.color-in-progress {
+	color: var(--color-in-progress);
 }
 
 .color-primary {

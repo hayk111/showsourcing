@@ -41,7 +41,6 @@ import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.mo
 import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
-import { IconsStatusComponent } from './components/icons-status/icons-status.component';
 
 import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -49,6 +48,7 @@ import { ActivityUserComponent } from '~shared/activity/components/activity-user
 import { ProductTeamRatingComponent } from './components/product-team-rating/product-team-rating.component';
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ActivityModule } from '~shared/activity/activity.module';
+import { StatusModule } from '~shared/status/status.module';
 
 @NgModule({
 	imports: [
@@ -71,7 +71,8 @@ import { ActivityModule } from '~shared/activity/activity.module';
 		StageIndicatorModule,
 		ActionBarModule,
 		CustomDialogModule,
-		ActivityModule
+		ActivityModule,
+		StatusModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -95,7 +96,6 @@ import { ActivityModule } from '~shared/activity/activity.module';
 		EmailListComponent,
 		TeamRatingCardComponent,
 		ProductGridCardComponent,
-		IconsStatusComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent

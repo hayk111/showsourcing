@@ -2,26 +2,27 @@
 	display: block;
 }
 
-
-.title {
-	margin-bottom: var(--spacing-ms);
-	h2 {
-		align-items: center;
-		display: flex;
-		margin-bottom: 0px;
-	}
-	.space-icon {
-		height: var(--spacing-xl);
-		width: var(--spacing-xl);
-		margin-right: var(--spacing-ms);
-	}
-}
-
 card-app {
 	width: 100%;
 
 	icon-app[name="poll-light-blue"], icon-app[name^="thumbs-"] {
 		cursor: default;
+	}
+
+	.title {
+		margin-bottom: var(--spacing-ms);
+
+		.space-icon {
+			height: var(--spacing-xl);
+			width: var(--spacing-xl);
+			margin-right: var(--spacing-ms);
+		}
+
+		h2 {
+			align-items: center;
+			display: flex;
+			margin-bottom: 0px;
+		}
 	}
 
 	.rating-info {

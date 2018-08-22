@@ -14,15 +14,28 @@ import { ProductStatus } from '~models';
 export class WorkflowKanbanComponent {
 	/** The list of statuses included associated products */
 	@Input() statuses;
+	/** A reference to the contextual menu template */
 	@Input() contextualMenu: TemplateRef<any>;
+	/** The selected items */
+	@Input() selectedItems: any[];
 	/** The dropped item event including data associated with the target and the element */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	/** Triggers when the item is selected */
 	@Output() selectItem = new EventEmitter<any>();
 	/** Triggers when the item is unselected */
 	@Output() unselectItem = new EventEmitter<any>();
+	/** Triggers when all items are selected for a status*/
+	@Output() selectAllItems = new EventEmitter<any[]>();
+	/** Triggers when all items are unselected for a status */
+	@Output() unselectAllItems = new EventEmitter<any[]>();
+
+	separatorColor: string;
 
 	constructor(private kanbanSrv: KanbanService) {
+	}
+
+	ngOnChanges(changes) {
+		console.log('>> WorkflowKanbanComponent - changes = ', changes);
 	}
 
 	trackByFn(index, product) {
@@ -61,7 +74,10 @@ export class WorkflowKanbanComponent {
 		const newStatus = new ProductStatus({ status: { id: target.id } });
 		const updatedProduct = { ...droppedElement, statuses: [ newStatus, ...droppedElement.statuses ] };
 
-		const currentStatusId = this.getCurrentStatusId(droppedElement);
+		let currentStatusId = this.getCurrentStatusId(droppedElement);
+		if (!currentStatusId) {
+			currentStatusId = -1;
+		}
 
 		// Remove for old status
 		const currentStatus = this.statuses.find(status => status.id === currentStatusId);
@@ -82,5 +98,29 @@ export class WorkflowKanbanComponent {
 			const productIndex = products.findIndex(p => p.id === droppedElement);
 			targetStatus.products = targetStatus.products.concat([ updatedProduct ]);
 		}
+	}
+
+	onCheckItemsChange(status: any, checked: boolean) {
+		if (checked) {
+			this.selectAllItems.emit(status.products);
+		}
+	}
+
+	isSelected(selectedItems, id) {
+		return selectedItems.has(id);
+	}
+
+	hasAllItemsSelected(selectedItems, status) {
+		if (!status || !status.products || status.products.length === 0) {
+			return false;
+		}
+
+		let allSelected = true;
+		status.products.forEach(product => {
+			if (!this.isSelected(selectedItems, product.id)) {
+				allSelected = false;
+			}
+		});
+		return allSelected;
 	}
 }

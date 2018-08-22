@@ -30,6 +30,10 @@ activity-user-app {
 			font-size: var(--font-size-s);
 		}
 
+		.productName, .priceMoq {
+			margin-left: var(--spacing-xs);
+		}
+
 		.fav {
 			font-size: 10px;
 			color: var(--color-warn);
@@ -52,9 +56,18 @@ activity-user-app {
 	line-height: 1;
 	font-weight: 600;
 	color: var(--color-txt-strong);
+	letter-spacing: -0.3px;
 }
 
 .supplierType {
 	font-size: var(--font-size-s);
 	color: var(--color-txt-secondary);
+	letter-spacing: -0.1px;
+}
+
+card-footer-app {
+	button {
+		min-width: 130px;
+		font-weight: 600;
+	}
 }

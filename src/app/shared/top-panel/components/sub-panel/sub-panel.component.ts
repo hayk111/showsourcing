@@ -65,11 +65,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		if (this.searchAutocomplete) {
-			this.searchAutocomplete.close.pipe(
-				takeUntil(this._destroy$)
-			).subscribe(() => {
-				this.searchControl.setValue('');
-			});
 
 			this.searchAutocomplete.itemSelected.pipe(
 				takeUntil(this._destroy$)
@@ -86,11 +81,9 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	}
 
 	triggerSmartSearch(event) {
-		console.log('>> triggerSmartSearch - this.searchAutocomplete = ', this.searchAutocomplete);
 		const search = this.searchControl.value;
 		this.smartSearch.emit(search);
 		if (this.searchAutocomplete) {
-			console.log('>> triggerSmartSearch - openAutocomplete');
 			this.searchAutocomplete.openAutocomplete();
 		}
 	}
@@ -98,9 +91,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	triggerSearch(event) {
 		const search = this.searchControl.value;
 		this.search.emit(search);
-	}
-
-	onBlurSearch(event) {
 	}
 
 	onFocusSearch(event) {

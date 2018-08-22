@@ -66,8 +66,9 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 			tags {
 				id,
 				name
-			}
+			},
 			contacts {
+				id,
 				name,
 				phoneNumber,
 				email,
@@ -101,7 +102,18 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 			firstName,
 			lastName
 		}
-		productCount
+		productCount,
+		contacts {
+			id,
+			name,
+			phoneNumber,
+			email,
+			jobTitle
+			businessCardImage {
+				id,
+				fileName
+			}
+		}
 		`;
 
 	updateDefaultSelection = `

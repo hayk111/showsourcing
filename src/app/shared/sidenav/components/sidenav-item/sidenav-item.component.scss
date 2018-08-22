@@ -5,6 +5,18 @@
 
 a {
     height: 51px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-txt-primary);
+
+    &.has-children.opened {
+        color: var(--color-txt-strong);
+    }
+
+    &.sub-item.selected {
+        color: #fff;
+        background-color: var(--color-secondary-dark);
+    }
 }
 
 a:hover {
@@ -13,6 +25,14 @@ a:hover {
 
 .selected {
     background-color: var(--color-secondary);
+
+    &.has-children.expanded {
+        border-left: solid 4px var(--color-txt-primary);
+    }
+}
+
+.flexStart {
+    align-items: center;
 }
 
 .expanded {

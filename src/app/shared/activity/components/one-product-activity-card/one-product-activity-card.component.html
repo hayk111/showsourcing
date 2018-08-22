@@ -8,6 +8,14 @@
 
 	<!-- preview  -->
 	<div class="previewCtnr flex flexGrow" (click)="onViewProduct()" *ngIf="product.images as images">
+
+		<ng-container *ngIf="images.length === 0">
+			<div class="empty flexCenter flexColumn">
+				<img [src]="defaultImg"/>
+				<span>No picture yet</span>
+			</div>
+		</ng-container>
+
 		<ng-container *ngIf="images[0]">
 			<img-app size="xl" class="img1 {{ hasThreeImages() ? 'small' : 'big' }}" [image]="images[0]"></img-app>
 		</ng-container>
@@ -21,7 +29,6 @@
 				<img-app class="img3" [image]="images[2]" size="xl"></img-app>
 			</ng-container>
 		</div>
-
 	</div>
 
 	<div class="flexColumn prodInfo">
@@ -33,6 +40,7 @@
 				[typeEntity]="typeEntity"
 			 	[status]="product?.statuses[0]?.status"></status-badge-app>
 			<badge-app
+				*ngIf="product?.category?.name"
 				size="mini"
 				type="accent">{{ product?.category?.name }}
 			</badge-app>
@@ -43,21 +51,22 @@
 		</div>
 	</div>
 
-	<card-footer-app align="left">
+	<card-footer-app align="left" class="flexBetween">
 
 		<action-bar-app
-			buttonName="View Product"
 			[favorite]="product.favorite"
 			[votes]="product.votes"
 			(vote)="onVote($event)"
 			(onFavorite)="onFavorite()"
-			(onUnfavorite)="onUnfavorite()"
-			(buttonClick)="onViewProduct()">
+			(onUnfavorite)="onUnfavorite()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
 				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
 			</button>
 		</action-bar-app>
 
+		<button class="primary" (click)="onViewProduct()">
+			View Product
+		</button>
 	</card-footer-app>
 </card-app>

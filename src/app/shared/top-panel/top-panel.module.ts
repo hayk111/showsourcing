@@ -14,6 +14,7 @@ import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	imports: [
@@ -26,7 +27,8 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		RouterModule.forChild([]),
 		CardModule,
 		DividerModule,
-		SearchAutocompleteModule
+		SearchAutocompleteModule,
+		FormsModule
 	],
 	declarations: [
 		TopPanelComponent,

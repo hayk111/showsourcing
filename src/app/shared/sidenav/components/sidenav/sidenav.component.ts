@@ -61,6 +61,7 @@ export class SidenavComponent implements AfterContentInit {
 				item.expanded.subscribe(expanded => {
 					if (expanded) {
 						this.internalExpanded = true;
+						this.triggerChangesToItems(this.internalExpanded);
 					}
 				});
 			});

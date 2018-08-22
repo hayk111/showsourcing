@@ -2,7 +2,7 @@ import {
 	Component, Input, Output,
 	EventEmitter, ContentChildren, QueryList,
 	ElementRef, Renderer2, OnChanges,
-	OnInit
+	AfterContentInit, ContentChild
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,25 +11,38 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AutoUnsub } from '~utils';
 import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
+import { SidenavItemGroupComponent } from '../sidenav-item-group/sidenav-item-group.component';
+import { IconComponent } from '~shared/icons/components/icon/icon.component';
 
 @Component({
 	selector: 'sidenav-item-app',
 	templateUrl: './sidenav-item.component.html',
 	styleUrls: ['./sidenav-item.component.scss']
 })
-export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit {
+export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterContentInit {
 	/** specify if the item has children */
 	@Input() hasChildren = false;
 	/** the link associated with the item */
 	@Input() link: string;
+	/** the link associated with the item */
+	@Input() subItem: boolean;
 	/** the expanded event for the item */
 	@Output() expanded = new EventEmitter<boolean>();
+	/** the expanded event for the item */
+	@Output() select = new EventEmitter<boolean>();
+	/** the label as a component */
 	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
+	/** the icon contained in the item component */
+	@ContentChild(IconComponent) icon: IconComponent;
+	/** the usb items if any */
+	@ContentChildren(SidenavItemComponent) items: QueryList<SidenavItemComponent>;
 
 	/** the internal expanded state for the item */
 	internalExpanded = false;
 	/** the internal selected state for the item. Used to change the item background */
 	selected = false;
+	/** the internal selected state for the item. Used to change the item background */
+	subItemSelected = false;
 
 	constructor(
 		private renderer: Renderer2,
@@ -42,7 +55,32 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 			.subscribe((val) => this.checkItemSelected());
 	}
 
-	ngOnInit() {
+	ngAfterContentInit() {
+		if (this.items) {
+			this.items.toArray().slice(1).forEach(item => {
+				item.subItem = true;
+				item.expanded.subscribe(() => {
+					this.expanded.emit(true);
+				});
+				item.select.subscribe((selected) => {
+					if (selected) {
+						this.subItemSelected = true;
+						this.expanded.emit(true);
+					} else {
+						this.subItemSelected = false;
+					}
+				});
+			});
+		}
+
+		this.items.toArray().slice(1).forEach(item => {
+			if (item.selected) {
+				this.subItemSelected = true;
+				this.internalExpanded = true;
+				setTimeout(() => this.expanded.emit(true));
+			}
+		});
+
 		this.checkItemSelected();
 	}
 
@@ -59,6 +97,32 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 		} else {
 			this.selected = false;
 		}
+
+		this.select.emit(this.selected);
+		if (this.icon && this.icon.name) {
+			const { name } = this.icon;
+			if (this.selected || this.subItemSelected) {
+				if (!name.endsWith('-dark')) {
+					this.icon.name = name + '-dark';
+					this.icon.ngOnChanges({
+						name: {
+							currentValue: name,
+							previousValue: this.icon.name
+						}
+					});
+				}
+			} else {
+				if (name.endsWith('-dark')) {
+					this.icon.name = name.replace('-dark', '');
+					this.icon.ngOnChanges({
+						name: {
+							currentValue: name,
+							previousValue: this.icon.name
+						}
+					});
+				}
+			}
+		}
 	}
 
 	/** trigger expanded state change */
@@ -71,18 +135,25 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	ngOnChanges(changes) {
 		if (changes.internalExpanded) {
 			const internalExpanded = changes.internalExpanded.currentValue;
+			if (this.items) {
+				this.items.forEach(item => {
+					item.internalExpanded = internalExpanded;
+				});
+			}
 			this.handleLabelDisplay(internalExpanded);
 		}
 	}
 
 	/** handle click on the item */
 	onClickItem(event) {
-		if (this.hasChildren && !this.internalExpanded) {
+		if (this.hasChildren) { // && !this.internalExpanded) {
 			this.internalExpanded = true;
+			this.selected = true;
 			this.handleLabelDisplay(this.internalExpanded);
 			this.expanded.emit(this.internalExpanded);
-		}
-		if (this.link) {
+			this.select.emit();
+		} else if (this.link) {
+			this.select.emit();
 			this.router.navigate([this.link], { relativeTo: this.route });
 		}
 		event.stopPropagation();

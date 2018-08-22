@@ -139,7 +139,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	deleteEmitVote() {
 		this.voteSrv.deleteOne(this.userVote.id).subscribe();
-		this.vote.emit([]); // we do this to activate chagne detection on the product
+		this.vote.emit(this._votes.filter(vote => vote.id !== this.userVote.id)); // we do this to activate chagne detection on the product
 	}
 
 	/** create a vote given a status (like/dislike) and return it */

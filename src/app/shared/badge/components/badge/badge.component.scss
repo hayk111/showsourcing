@@ -9,6 +9,9 @@
 	&.secondary {
 		background: var(--color-secondary);
 	}
+	&.secondary-light {
+		background: var(--color-secondary-light);
+	}
 	&.accent {
 		background: var(--color-accent);
 		color: white;
@@ -40,8 +43,8 @@
 	&.small {
 		font-size: var(--font-size-s);
 		font-weight: bold;
-		padding: 2px  var(--spacing-ms);
-		min-width: 72px;
+		padding: 2px  var(--spacing-s);
+		min-width: 110px;
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}

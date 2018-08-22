@@ -1,0 +1,34 @@
+<div class="kanban__item cell ng-star-inserted main flexBetween" (clickOutside)="onClickOutsideCard()"
+     (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
+  <div class="mainCellWrapper ellipsis ng-star-inserted">
+    <div class="mainCell">
+      <div class="imgCtnr">
+        <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
+             (dragstart)="preventDrag($event)">
+        <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
+             (dragstart)="preventDrag($event)">
+        <div class="check" [ngClass]="{ checked: checked, selected: checked }">
+          <checkbox-app [checked]="checked"
+                        (check)="onChecked()"
+                        (uncheck)="onUnchecked()"
+                        (dragstart)="preventDrag($event)"
+                        (mouseenter)="toggleDragDropEnable('checkbox', $event)"
+                        (mouseleave)="toggleDragDropEnable('checkbox', $event)">
+          </checkbox-app>
+        </div>
+      </div>
+      <div class="description">
+        <div class="titleCtnr">
+          <a class="title">{{title}}</a>
+          <span class="tiny-label" *ngIf="status">{{status}}</span>
+        </div>
+        <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
+        <span class="descriptionText">{{description}}</span>
+        <span>
+          <badge-app type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
+          <icons-status-app [product]="product"></icons-status-app>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

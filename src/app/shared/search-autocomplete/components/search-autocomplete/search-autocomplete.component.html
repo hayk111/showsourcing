@@ -2,6 +2,7 @@
 <div class="trigger" (click)="openAutocomplete()">
 	<ng-content select="context-autocomplete-trigger-app"></ng-content>
 </div>
+
 <!-- the autocomplete card -->
 <div class="autocomplete z-4 flexColumn" *ngIf="autocompleteOpen" (clickOutside)="clickOutside()"
 	[ngStyle]="{ 'left': xPosition + 'px', 'top': + yPosition + 'px', 'width': width ? width + 'px' : null }">

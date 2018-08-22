@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { KanbanService } from '~features/workflow/services/kanban.service';
-import { KanbanItemCardComponent } from '~features/workflow/components/kanban-item-card/kanban-item-card.component';
+import { KanbanItemCardComponent } from '~shared/card/components/kanban-item-card/kanban-item-card.component';
 import { AutoUnsub } from '~utils';
 
 @Component({

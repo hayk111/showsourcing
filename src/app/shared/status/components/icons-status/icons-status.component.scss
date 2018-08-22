@@ -1,14 +1,16 @@
 icon-app {
-	margin-right: 5px;
+	margin-right: var(--spacing-xs);
 	cursor: default;
 }
 
 icon-app[name="heart"] {
+	margin-right: var(--spacing-s);
 	color: var(--color-warn);
 }
 
 .numbers {
-	margin-right: 6px;
+	margin-right: var(--spacing-s);
 	margin-top: 1px;
 	white-space: nowrap;
+	font-size: var(--font-size-s);
 }

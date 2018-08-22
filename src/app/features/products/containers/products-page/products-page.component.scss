@@ -7,11 +7,13 @@ action-bar-app {
 	overflow: visible;
 	context-menu-trigger-app {
 		width: 160px;
+		button.icon {
+			margin-right: 0px;
+		}
 	}
-}
-action-bar-app button.icon {
-	margin-right: var(--spacing-ms);
-
+	button.icon {
+		margin-right: var(--spacing-ms);
+	}
 }
 
 context-menu-app {

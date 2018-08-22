@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="2" transform="translate(1 4)">
+        <rect width="20" height="3" x="1" y="1" rx="1.5"/>
+        <rect width="20" height="3" x="1" y="7" rx="1.5"/>
+        <rect width="20" height="3" x="1" y="13" rx="1.5"/>
+    </g>
+</svg>

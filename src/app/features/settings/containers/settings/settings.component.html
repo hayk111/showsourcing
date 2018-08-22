@@ -13,10 +13,12 @@
 		<sidenav-item-app link="/settings/team/members">
 			<icon-app fontSet="svg" name="team"></icon-app> <span sidenavLabelApp>Team Members</span>
 		</sidenav-item-app>
-		<sidenav-item-app link="/settings/data">
+		<sidenav-item-app [hasChildren]="true">
 			<icon-app fontSet="svg" name="data-cleansing"></icon-app> <span sidenavLabelApp>Data Cleansing</span>
+			<sidenav-item-app link="/settings/data/category">
+				<span sidenavLabelApp>Category</span>
+			</sidenav-item-app>
 		</sidenav-item-app>
-
   </sidenav-app>
 
   <div class="settings-page">

@@ -136,16 +136,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
 	}
 
-	smartSearch(str: string) {
-		console.log('>> smartSearch');
-		this.smartSearchFilters(str);
-	}
-
 	/** Search within filters */
-	smartSearchFilters(str: string) {
-		console.log('>> smartSearch - this.searchSrv = ', this.searchSrv);
+	smartSearch(str: string) {
 		if (this.searchSrv) {
-			console.log('>> smartSearch1');
 			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
 		}
 	}
@@ -262,13 +255,25 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	/** Select all entity */
-	selectAll(entities: any[]) {
+	selectAll(entities: any[], checkFavorite = false) {
+		// we check for each item if it has unfavorite, if it has we stop looking and update the icon to false
+		if (checkFavorite && this.allSelectedFavorite) {
+			entities.every(entity => {
+				if (entity.favorite)
+					return true;
+				else {
+					this.allSelectedFavorite = false;
+					return false;
+				}
+			});
+		}
 		this.selectionSrv.selectAll(entities);
 	}
 
 	/** Unselect all entity */
 	resetSelection() {
 		this.selectionSrv.unselectAll();
+		this.allSelectedFavorite = true;
 	}
 
 	/** Update entities */
