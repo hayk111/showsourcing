@@ -20,13 +20,15 @@ export class IconsStatusComponent implements OnInit {
 	get product() {
 		return this._product;
 	}
+	/** whether we display only the like icon or not*/
+	@Input() onlyLike = false;
 	@Input() favorite = false;
 	/** whether we display the entire information or not */
 	@Input() fullInfo = false;
 	@Input() colorTxt = 'txt-secondary';
 
 	name = 'thumbs-up';
-	size = '9';
+	size = '8';
 	like = false;
 	dislike = false;
 	private _product: Product;
@@ -52,13 +54,13 @@ export class IconsStatusComponent implements OnInit {
 		const state = this.like ? 'success' : this.dislike ? 'warn' : '';
 		let style = {};
 		if (state) {
-			this.size = '9';
+			this.size = '8';
 			style = {
 				background: `var(--color-${state})`,
 				'border-radius': '50%',
-				'width': '16px',
-				'height': '16px',
-				'margin-top': '1px'
+				'width': '14px',
+				'height': '14px',
+				'margin-top': '2px'
 			};
 		} else
 			this.size = '14';

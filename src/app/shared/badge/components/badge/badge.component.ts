@@ -13,6 +13,7 @@ import { Component, OnInit, Input } from '@angular/core';
 		'[class.accent]': 'type === "accent"',
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
+		'[class.round]': 'size === "round"',
 		'[class.mini]': 'size === "mini"',
 		'[class.xsmall]': 'size === "xs"',
 		'[class.small]': 'size === "s" || size === "small"',

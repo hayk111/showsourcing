@@ -10,7 +10,7 @@
 	<img-app [image]="(product$ | async).images" type="product" size="s"></img-app>
 	<icon-app *ngIf="(product$ | async).favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
 	<div class="flexColumn">
-		<div class="flex">
+		<div class="flex section-icon">
 			<icons-status-app
 				[product]="product$ | async"
 				[favorite]="false"
@@ -18,8 +18,9 @@
 				colorTxt="txt-primary">
 			</icons-status-app>
 		</div>
-		<div class="flex">
-			decoration
+		<div class="flex section-info">
+			<info-badge-app icon="category" *ngIf="(product$ | async)?.category?.name">{{ (product$ | async).category.name }}</info-badge-app>
+			<info-badge-app *ngFor="let tag of (product$ | async)?.tags" icon="tag">{{ tag.name }}</info-badge-app>
 		</div>
 	</div>
 </top-panel-details-app>

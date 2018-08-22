@@ -39,15 +39,15 @@
 				size="mini"
 				[typeEntity]="typeEntity"
 			 	[status]="product?.statuses[0]?.status"></status-badge-app>
-			<badge-app
+			<info-badge-app
 				*ngIf="product?.category?.name"
-				size="mini"
-				type="accent">{{ product?.category?.name }}
-			</badge-app>
-			<badge-app
-				size="mini"
+				icon="category">
+				{{ product?.category?.name }}
+			</info-badge-app>
+			<info-badge-app
+				icon="tag"
 				*ngFor="let tag of product.tags">{{ tag?.name }}
-			</badge-app>
+			</info-badge-app>
 		</div>
 	</div>
 

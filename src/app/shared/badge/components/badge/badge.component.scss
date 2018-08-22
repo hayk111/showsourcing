@@ -2,8 +2,8 @@
 	box-sizing: border-box;
 	white-space: nowrap;
 	margin-right: var(--spacing-xs);
-	&.primary {
-		background: var(--color-primary);
+	&.in-progress {
+		background: var(--color-in-progress);
 		color: white;
 	}
 	&.secondary {
@@ -24,6 +24,13 @@
 		background: var(--color-success);
 		color: white;
 	}
+	&.round {
+		font-family: 'Raleway';
+		font-size: var(--font-size-s);
+		font-weight: 600;
+		padding: var(--spacing-xs) var(--spacing-ms);
+		border-radius: 11px;
+	}
 	&.mini {
 		font-family: 'Raleway';
 		font-size: var(--font-size-s);
@@ -34,7 +41,7 @@
 	&.xsmall {
 		font-size: var(--font-size-xs);
 		font-weight: bold;
-		padding: 2px  4px;
+		padding: 2px var(--spacing-xs);
 		text-transform: uppercase;
 		// min-width: 72px;
 		border-radius: var(--border-radius-s);

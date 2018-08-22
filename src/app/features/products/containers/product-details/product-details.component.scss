@@ -1,31 +1,40 @@
-.left {
-	width: 410px;
-}
-icon-app {
-	cursor: default;
-}
+top-panel-details-app {
+	margin-bottom: var(--spacing-ms);
 
-.right {
-	width: 810px
+	icon-app {
+		cursor: default;
+	}
+
+	.section-info {
+		margin-top: var(--spacing-s);
+	}
 }
 
 .content {
 	margin-left: auto;
 	margin-right: auto;
 	width: calc(810px + 608px);
+
+	.left {
+		width: 410px;
+
+		project-card-app, product-team-rating-app, supplier-card-app {
+			width: 388px;
+			margin-top: var(--spacing-l);
+		}
+
+		product-carousel-app {
+			padding-bottom: 6px;
+		}
+	}
+
+	.right {
+		width: 810px
+	}
 }
 
 .selected {
   color: var(--color-primary);
-}
-
-project-card-app, product-team-rating-app, supplier-card-app {
-	width: 388px;
-	margin-top: 30px;
-}
-
-product-carousel-app {
-	padding-bottom: 8px;
 }
 
 

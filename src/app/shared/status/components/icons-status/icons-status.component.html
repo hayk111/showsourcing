@@ -1,19 +1,28 @@
-<div class="flex noselect small-icons">
-		<icon-app *ngIf="favorite" name="heart"></icon-app>
-		<ng-container *ngIf="fullInfo && product?.comments?.length">
-			<icon-app name="comment" fontSet="fa" class="color-secondary-dark"></icon-app>
-			<p class="numbers color-{{colorTxt}}"> {{ product.comments.length }} {{ product.comments.length === 1 ? 'Comment' : 'Comments'}}</p>
-		</ng-container>
-		<icon-app [name]="name" [ngStyle]="successStyle" [size]="size" fontSet="svg"></icon-app>
+<div *ngIf="!onlyLike;else one" class="flex noselect small-icons">
+	<icon-app *ngIf="favorite" name="heart"></icon-app>
+	<ng-container *ngIf="fullInfo && product?.comments?.length">
+		<icon-app name="comment" fontSet="fa" class="color-secondary-dark"></icon-app>
+		<p class="numbers color-{{colorTxt}}"> {{ product.comments.length }} {{ product.comments.length === 1 ? 'Comment' : 'Comments'}}</p>
+	</ng-container>
+	<icon-app [name]="name" [ngStyle]="successStyle" [size]="size" fontSet="svg"></icon-app>
+	<div class="numbers flex">
+		<p [ngStyle]="successTxt">{{product?.score || '-'}}%</p>
+		<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
+	</div>
+	<ng-container *ngIf="product?.projects?.length as numProjects">
+		<icon-app fontSet="svg" name="folder"></icon-app>
+		<p class="numbers color-{{colorTxt}}">{{ numProjects }} {{ fullInfo ? numProjects === 1 ? 'Project' : 'Projects' : ''}}</p>
+	</ng-container>
+</div>
+
+<ng-template #one>
+	<div class="flex noselect small-icons">
 		<div class="numbers flex">
 			<p [ngStyle]="successTxt">{{product?.score || '-'}}%</p>
 			<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
 		</div>
-		<ng-container *ngIf="product?.projects?.length as numProjects">
-			<icon-app fontSet="svg" name="folder"></icon-app>
-			<p class="numbers color-{{colorTxt}}">{{ numProjects }} {{ fullInfo ? numProjects === 1 ? 'Project' : 'Projects' : ''}}</p>
-		</ng-container>
 	</div>
+</ng-template>
 
 
 
