@@ -1,4 +1,4 @@
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 @Component({
@@ -15,7 +15,7 @@ import { FontSet } from '~shared/icons/components/font-set.enum';
 		'[style.font-size]': 'size + \'px\''
 	}
 })
-export class IconComponent {
+export class IconComponent implements OnChanges {
 	// the size accepts any number and specific sizes as: xs, s, m and l.
 	@Input() size = 'inherit';
 	@Input() name: string;
@@ -25,7 +25,7 @@ export class IconComponent {
 	// the fontset used, could be font awesome, svg or anything else added
 	@Input() fontSet: FontSet = FontSet.FA;
 
-	constructor(elementRef: ElementRef, @Attribute('aria-hidden') ariaHidden: string) {
+	constructor(elementRef: ElementRef, @Attribute('aria-hidden') ariaHidden: string, private cdr: ChangeDetectorRef) {
 		// If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
 		// the right thing to do for the majority of icon use-cases.
 		if (!ariaHidden) {
@@ -33,5 +33,9 @@ export class IconComponent {
 		}
 	}
 
-
+	ngOnChanges(changes) {
+		if (changes.name && changes.name.currentValue) {
+			this.cdr.detectChanges();
+		}
+	}
 }
