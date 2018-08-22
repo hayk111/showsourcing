@@ -23,7 +23,7 @@
 			</context-menu-trigger-app>
 
 			<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
-				<status-badge-app [status]="stat" [size]="selectSize"></status-badge-app>
+				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
 			</context-menu-item-app>
 		</context-menu-app>
 	</ng-template>

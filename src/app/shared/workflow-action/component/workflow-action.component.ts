@@ -37,4 +37,9 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 			this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
 		}
 	}
+
+	setStatus(status) {
+		const tempS = new ProductStatus({ status });
+		this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
+	}
 }
