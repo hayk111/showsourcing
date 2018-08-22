@@ -41,6 +41,10 @@ export class ContextMenuComponent {
 		this.menuOpen = false;
 	}
 
-
+	/** Disable defaut drag for element */
+	preventDrag(event) {
+		event.preventDefault();
+		return false;
+	}
 
 }
