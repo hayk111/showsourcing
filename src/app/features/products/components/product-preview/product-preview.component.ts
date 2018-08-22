@@ -11,6 +11,7 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 import { ProductModule } from '~features/products';
 import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
 
 @Component({
 	selector: 'product-preview-app',
@@ -66,7 +67,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private moduleRef: NgModuleRef<any>,
+		private module: NgModuleRef<any>,
 		private router: Router) {
 		super();
 	}
@@ -109,10 +110,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		} else if (!this.contacts && this.product.supplier.officeEmail) {
 			this.contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
 		}
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.moduleRef, { product: this.product, contacts: this.contacts });
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product, contacts: this.contacts });
 	}
 	onViewProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
+	}
+
+	openAddToProject() {
+		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
 	}
 
 }
