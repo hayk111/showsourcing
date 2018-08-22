@@ -19,9 +19,19 @@ carousel-app {
 }
 
 .actions {
+	text-align: center;
 	margin-top: var(--spacing-ms);
-	font-size: 20px;
-	color: var(--color-txt-secondary);
+	padding: var(--spacing-ms);
+	color: var(--color-txt-primary);
+	background: var(--color-secondary-light);
+	border: 1px solid var(--color-secondary);
+	button {
+		font-weight: 600;
+		margin-right: var(--spacing-xs);
+		margin-left: var(--spacing-xs);
+		margin-top: var(--spacing-s);
+		width: 100%;
+	}
 }
 
 divider-app {
@@ -49,8 +59,15 @@ thumb-buttons-app {
 	margin-right: 18px;
 }
 
-button.secondary {
-	// temporary styling until BD has real data
-	left: -8px;
-	top: 4px;
+workflow-action-app {
+	position: absolute;
+	top: 61px;
+	left: 21px;
+	min-width: 117px;
+	text-transform: uppercase;
+	overflow: unset;
+}
+
+action-bar-app {
+	margin-top: var(--spacing-ms);
 }
