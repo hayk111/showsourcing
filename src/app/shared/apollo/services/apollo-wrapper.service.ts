@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult, DocumentNode } from 'apollo-link';
-import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject, combineLatest } from 'rxjs';
+import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject, combineLatest, forkJoin } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, tap, switchMap, take } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 
@@ -16,6 +16,17 @@ interface WrapperInterface {
 	selectOne: any;
 	queryOne: any;
 	selectOneByQuery: any;
+	queryOneByQuery: any;
+	selectMany: any;
+	queryMany;
+	getListQuery;
+	waitForOne;
+	update;
+	updateMany;
+	create;
+	createMany;
+	delete;
+	deleteMany;
 }
 
 /**
@@ -39,6 +50,7 @@ export class ApolloWrapper implements WrapperInterface {
 
 	/** select one entity given an id,
 	 * This is a subscription like all select, so it will listen to changes from all users.
+	 * This is the only subscription that has Optimistic UI as it uses our own underlying cache.
 	 * (subscription, optimistic UI)
 	 */
 	selectOne(gql: DocumentNode, id: string) {
@@ -198,7 +210,7 @@ export class ApolloWrapper implements WrapperInterface {
 	 * what is returned is a SelectListResult that allows us to do
 	 * additional work after the query is done (like fetching more items for infini scroll)
 	*/
-	queryList<T>(gql: DocumentNode, paramsConfig: SelectParamsConfig): SelectListResult<T> {
+	getListQuery<T>(gql: DocumentNode, paramsConfig: SelectParamsConfig): SelectListResult<T> {
 		const queryName = this.getQueryName(gql);
 		const params = new SelectParams(paramsConfig);
 
@@ -241,7 +253,7 @@ export class ApolloWrapper implements WrapperInterface {
 	}
 
 	/////////////////////////////
-	//   SELECT ALL SECTION    //
+	//       SELECT ALL        //
 	/////////////////////////////
 
 	/** @deprecated
@@ -296,6 +308,37 @@ export class ApolloWrapper implements WrapperInterface {
 	}
 
 
+	/////////////////////////////
+	//      WAIT FOR ONE       //
+	/////////////////////////////
+
+	/**
+	 * waits for the first item to resolve
+	 */
+	waitForOne(gql: DocumentNode, query: string) {
+		const title = 'Wait For One';
+		const queryName = this.getQueryName(gql);
+		const variables = { query };
+		this.log(title, gql, queryName, variables);
+		return this.apollo.subscribe({ query: gql, variables })
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				// we are only interested when there is an item
+				filter(item => !!item),
+				first(),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
+	}
+
+
+	/////////////////////////////
+	//          UPDATE         //
+	/////////////////////////////
+
 	/** Update one existing entity */
 	update<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
 		const variables = { input };
@@ -319,6 +362,18 @@ export class ApolloWrapper implements WrapperInterface {
 		);
 	}
 
+	/////////////////////////////
+	//       UPDATE MANY       //
+	/////////////////////////////
+
+	updateMany<T>(gql: DocumentNode, inputs: { id?: string }[], typename?: string): Observable<FetchResult<T>[]> {
+		return forkJoin(inputs.map(input => this.update(gql, input, typename)));
+	}
+
+	/////////////////////////////
+	//         CREATE          //
+	/////////////////////////////
+
 	/** Creates one entity */
 	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
 		const variables = { input };
@@ -333,6 +388,18 @@ export class ApolloWrapper implements WrapperInterface {
 			catchError(errors => of(log.table(errors)))
 		);
 	}
+
+
+	/////////////////////////////
+	//       CREATE MANY       //
+	/////////////////////////////
+	createMany<T>(gql: DocumentNode, inputs: { id?: string }[], typename?: string): Observable<FetchResult<T>[]> {
+		return forkJoin(inputs.map(input => this.create(gql, input, typename)));
+	}
+
+	/////////////////////////////
+	//         DELETE          //
+	/////////////////////////////
 
 	/** Delete one item given an id */
 	delete<T>(gql: DocumentNode, id: string): Observable<any> {
@@ -351,6 +418,11 @@ export class ApolloWrapper implements WrapperInterface {
 			catchError(errors => of(log.table(errors)))
 		);
 	}
+
+
+	/////////////////////////////
+	//       DELETE MANY       //
+	/////////////////////////////
 
 	/** delete many items given an array of id */
 	deleteMany<T>(gql: DocumentNode, ids: string[] = []): Observable<any> {
@@ -375,6 +447,11 @@ export class ApolloWrapper implements WrapperInterface {
 			catchError(errors => of(log.table(errors)))
 		);
 	}
+
+
+	/////////////////////////////
+	//          UTILS          //
+	/////////////////////////////
 
 	/** to use another named apollo client */
 	use(name: string) {

@@ -22,7 +22,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 
 	/** Returns the products associated with a specific project */
 	getProjectProducts(project: Project) {
-		return this.selectMany({ query: `projects.id == "${project.id}"` });
+		return this.queryMany({ query: `projects.id == "${project.id}"` });
 	}
 
 	/**
