@@ -34,9 +34,6 @@ export class WorkflowKanbanComponent {
 	constructor(private kanbanSrv: KanbanService) {
 	}
 
-	ngOnChanges(changes) {
-	}
-
 	trackByFn(index, product) {
 		return product.id;
 	}
@@ -71,7 +68,7 @@ export class WorkflowKanbanComponent {
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
 		const newStatus = new ProductStatus({ status: { id: target.id } });
-		const updatedProduct = { ...droppedElement, statuses: [ newStatus, ...droppedElement.statuses ] };
+		const updatedProduct = { ...droppedElement, statuses: [newStatus, ...droppedElement.statuses] };
 
 		let currentStatusId = this.getCurrentStatusId(droppedElement);
 		if (!currentStatusId) {
@@ -95,7 +92,7 @@ export class WorkflowKanbanComponent {
 		if (targetStatus) {
 			const products = targetStatus.products;
 			const productIndex = products.findIndex(p => p.id === droppedElement);
-			targetStatus.products = targetStatus.products.concat([ updatedProduct ]);
+			targetStatus.products = targetStatus.products.concat([updatedProduct]);
 		}
 	}
 
