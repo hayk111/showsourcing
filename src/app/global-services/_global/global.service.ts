@@ -21,7 +21,8 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
 
 /**
  * Global service that other entity service can extend to do stuff via graphql,
- * This class wraps graphgq
+ * This service deals with transforming what it receives then passing it to
+ * apolloWrapper, it also deals with the cache
  */
 export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: User, createdBy?: User }> implements GlobalServiceInterface<T> {
 
@@ -32,9 +33,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		protected typeName?: string
 	) {
 	}
-
-	// we use a cache so we can change things on update
-	private selectOneCache = new Map<string, { subj, obs, result }>();
 
 
 	/** selects all entity (subscription)
@@ -47,30 +45,8 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 			throw Error('one query not implemented for this service');
 		}
 		const gql = this.queries.one(fields);
-		const title = 'Selecting One ' + this.typeName;
-		const queryName = this.getQueryName(gql);
-		const variables = { query: `id == "${id}"` };
-		this.log(title, gql, queryName, variables);
 
-
-		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
-		// Therefor we will create a subject where we can push new changes to see those in the view
-		if (this.selectOneCache.has(id))
-			return this.selectOneCache.get(id).result;
-
-		const obs = this.getApolloClient(client).subscribe({ query: gql, variables })
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult(title, queryName, data)),
-				shareReplay(1)
-			);
-		const subj = new BehaviorSubject({});
-		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
-		this.selectOneCache.set(id, { subj, obs, result });
-		return result;
+		return this.wrapper.use(client).selectOne(gql, id);
 	}
 
 	/** selects all entity (query)
@@ -130,11 +106,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 			throw Error('update query not implemented for this service');
 		}
 
-		// updating select one cache so changes are reflected when using selectOne(id)
-		if (this.selectOneCache.has(entity.id)) {
-			this.selectOneCache.get(entity.id).subj.next(entity);
-		}
-
 		return this.wrapper.use(client).update(gql, entity, this.typeName);
 	}
 
@@ -152,29 +123,29 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, refetchParams?: RefetchParams[], client?: string): Observable<any> {
+	create(entity: T, client?: string): Observable<any> {
 		if (!this.queries.create) {
 			throw Error('create query not implemented for this service');
 		}
 		const gql = this.queries.create();
-		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
+		return this.wrapper.use(client).create(gql, entity, this.typeName);
 	}
 
 
-	deleteOne(id: string, refetchParams?: RefetchParams[], client?: string): Observable<any> {
+	deleteOne(id: string, client?: string): Observable<any> {
 		if (!this.queries.deleteOne) {
 			throw Error('delete one query not implemented for this service');
 		}
 		const gql = this.queries.deleteOne();
-		return this.wrapper.use(client).delete(gql, id, refetchParams);
+		return this.wrapper.use(client).delete(gql, id);
 	}
 
-	deleteMany(ids: string[], refetchParams?: RefetchParams[], client?: string): Observable<any> {
+	deleteMany(ids: string[], client?: string): Observable<any> {
 		if (!this.queries.deleteMany) {
 			throw Error('delete many query not implemented for this service');
 		}
 		const gql = this.queries.deleteMany();
-		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
+		return this.wrapper.use(client).deleteMany(gql, ids);
 	}
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchResult, DocumentNode } from 'apollo-link';
-import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Observable, of, throwError, Subject, BehaviorSubject, ReplaySubject, combineLatest } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, tap, switchMap, take } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 
@@ -12,7 +12,11 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 import { SelectParamsConfig } from '~global-services/_global/list-params';
 
-
+interface WrapperInterface {
+	selectOne: any;
+	queryOne: any;
+	selectOneByQuery: any;
+}
 
 /**
  * Wrapper around apollo real client.
@@ -21,25 +25,63 @@ import { SelectParamsConfig } from '~global-services/_global/list-params';
 @Injectable({
 	providedIn: 'root'
 })
-export class ApolloWrapper {
+export class ApolloWrapper implements WrapperInterface {
 
 	constructor(protected apollo: Apollo) { }
-
 
 	///////////////////////////////
 	//        SELECT ONE         //
 	///////////////////////////////
 
-	/** select one entity given an id,
-	 * This is a subscription like all select
-	 */
+	// we use a cache so we can change things on update, without waiting for server response
+	// this is because apollo doesn't have optimistic UI on subscriptions
+	private selectOneCache = new Map<string, { subj, obs, result }>();
 
-	selectOne(gql: DocumentNode, id: string, type: string) {
+	/** select one entity given an id,
+	 * This is a subscription like all select, so it will listen to changes from all users.
+	 * (subscription, optimistic UI)
+	 */
+	selectOne(gql: DocumentNode, id: string) {
 		const title = 'Selecting One';
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
 		this.log(title, gql, queryName, variables);
-		return this.apollo.subscribe({ query: gql, variables })
+
+		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
+		// Therefor we will create a subject where we can push new changes to see those in the view in real time
+		// since uuid are used for ids, it can be used as cacheKey
+		if (this.selectOneCache.has(id))
+			return this.selectOneCache.get(id).result;
+
+		const obs = this.apollo.subscribe({ query: gql, variables })
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
+		const subj = new BehaviorSubject({});
+		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
+		this.selectOneCache.set(id, { subj, obs, result });
+		return result;
+	}
+
+
+	///////////////////////////////
+	//        QUERY ONE          //
+	///////////////////////////////
+
+	/**
+	 * Query one item by id, (query, optimistic UI)
+	 */
+	queryOne(gql: DocumentNode, id: string) {
+		const queryName = this.getQueryName(gql);
+		const variables = { query: `id == "${id}"` };
+		const title = 'Query one';
+		this.log(title, gql, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -50,37 +92,14 @@ export class ApolloWrapper {
 			);
 	}
 
-
-	///////////////////////////////
-	//        QUERY ONE          //
-	///////////////////////////////
-
-	/**
-	 * Query one item by id
-	 */
-	queryOne(gql: DocumentNode, id: string) {
-		const queryName = this.getQueryName(gql);
-		const variables = { query: `id == "${id}"` };
-		this.log('Selecting One', gql, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
-			.pipe(
-				filter((r: any) => this.checkError(r)),
-				// extracting the result
-				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName][0]),
-				tap(data => this.logResult('QueryOne', queryName, data)),
-				shareReplay(1)
-			);
-	}
-
 	///////////////////////////////
 	//   SELECT ONE BY QUERY     //
 	///////////////////////////////
 
-	/** select one entity given an id,
-	 * This is a subscription like all select
+	/** Select one entity given a query,
+	 * This is a subscription like all select, so it will listen to changes from all users.
+	 * (subscription, NO optimistic UI)
 	 */
-
 	selectOneByQuery(gql: DocumentNode, query: string) {
 		const title = 'Selecting One By Query';
 		const queryName = this.getQueryName(gql);
@@ -97,26 +116,77 @@ export class ApolloWrapper {
 			);
 	}
 
-	/** select one entity given an id */
+	///////////////////////////////
+	//   QUERY ONE BY QUERY     //
+	///////////////////////////////
+
+	/** Query one entity given a query,
+	 * (Query, Optimistic UI)
+	 */
+	queryOneByQuery(gql: DocumentNode, query: string) {
+		const title = 'Selecting One By Query';
+		const queryName = this.getQueryName(gql);
+		const variables = { query };
+		this.log(title, gql, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+			.pipe(
+				filter((r: any) => this.checkError(r)),
+				// extracting the result
+				// since we are getting an array back we only need the first one
+				map(({ data }) => data[queryName][0]),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
+	}
+
 
 	/////////////////////////////
-	//   SELECT MANY SECTION   //
+	//       SELECT MANY       //
 	/////////////////////////////
 
-	/** select many entities in accordance to the conditions supplied */
+	/** @deprecated
+	 * select many entities in accordance to the conditions supplied
+	 * (subscription, NO Optimistic UI)
+	*/
 	selectMany(gql: DocumentNode, paramsConfig: SelectParamsConfig): Observable<any> {
+		throw Error(`you probably don't want to use a subscription on many items (maybe queryMany, selectOne and waitForOne).
+		If you know what you are doing, go ahead, remove this error and uncomment the code`);
+		// const params = new SelectParams(paramsConfig);
+		// const variables = params.toApolloVariables();
+		// const queryName = this.getQueryName(gql);
+		// const title = 'Selecting Many';
+		// this.log(title, gql, queryName, variables);
+		// return this.apollo.subscribe({ query: gql, variables })
+		// 	.pipe(
+		// 		filter((r: any) => this.checkError(r)),
+		// 		// extracting the result
+		// 		map((r) => r.data[queryName]),
+		// 		tap(data => this.logResult(title, queryName, data)),
+		// 		catchError(errors => of(log.table(errors)))
+		// );
+	}
+
+	/////////////////////////////
+	//       QUERY MANY        //
+	/////////////////////////////
+
+	/** Query many entities given selection parameters,
+	 * (Query, Optimistic UI)
+	 */
+	queryMany(gql: DocumentNode, paramsConfig: SelectParamsConfig): Observable<any> {
 		const params = new SelectParams(paramsConfig);
 		const variables = params.toApolloVariables();
 		const queryName = this.getQueryName(gql);
-		this.log('Selecting Many', gql, queryName, variables);
-		return this.apollo.subscribe({ query: gql, variables })
+		const title = 'Query Many';
+		this.log(title, gql, queryName, variables);
+		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				map((r) => r.data[queryName]),
-				tap(data => this.logResult('Selecting Many', queryName, data)),
-				catchError(errors => of(log.table(errors))),
-		);
+				tap(data => this.logResult(title, queryName, data)),
+				catchError(errors => of(log.table(errors)))
+			);
 	}
 
 
@@ -124,18 +194,21 @@ export class ApolloWrapper {
 	//        QUERY LIST       //
 	/////////////////////////////
 
-	/** select entities in accordance to the conditions supplied
+	/** Query entities in accordance to the conditions supplied
 	 * what is returned is a SelectListResult that allows us to do
 	 * additional work after the query is done (like fetching more items for infini scroll)
 	*/
 	queryList<T>(gql: DocumentNode, paramsConfig: SelectParamsConfig): SelectListResult<T> {
 		const queryName = this.getQueryName(gql);
 		const params = new SelectParams(paramsConfig);
+
+		// add query ref in case we need it.
 		const queryRef = this.apollo.watchQuery<any>({
 			query: gql,
 			variables: { ...params.toApolloVariables() },
 		});
 
+		// add items$ wich are the actual items requested
 		const items$: Observable<T[]> = queryRef.valueChanges.pipe(
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -144,6 +217,8 @@ export class ApolloWrapper {
 			catchError((errors) => of(log.table(errors)))
 		);
 
+		// add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
+		// (will be reflected in items$)
 		const fetchMore = (skip: number) => queryRef.fetchMore({
 			variables: { ...params, skip },
 			updateQuery: (prev, { fetchMoreResult }) => {
@@ -155,6 +230,8 @@ export class ApolloWrapper {
 			}
 		});
 
+		// add refetch query so we can tell apollo to that the variables have changed
+		// (will be reflected in items$)
 		const refetch = (paramsConfig: SelectParamsConfig) => {
 			const params = new SelectParams(paramsConfig);
 			queryRef.refetch(params.toApolloVariables());
@@ -167,8 +244,40 @@ export class ApolloWrapper {
 	//   SELECT ALL SECTION    //
 	/////////////////////////////
 
-	/** select all entities given the query */
+	/** @deprecated
+	 * select all entities
+	 * (Subscription, NO optimistic UI)
+	*/
 	selectAll(gql: DocumentNode): Observable<any> {
+		throw Error(`You probably don't want to use a subscription on all items.
+		If you know what you are doing, go ahead, remove this error and uncomment the code below`);
+		// const queryName = this.getQueryName(gql);
+		// this.log('Selecting All', gql, queryName);
+
+		// return this.apollo.subscription({ query: gql })
+		// 	.pipe(
+		// 		// extracting the result
+		// 		map((r) => {
+		// 			if (!r.data)
+		// 				throwError(r.errors);
+		// 			return r.data[queryName];
+		// 		}),
+		// 		catchError(errors => of(log.table(errors))),
+		// 		tap(data => this.logResult('Selecting All', queryName, data)),
+		// 		shareReplay(1)
+		// 	);
+	}
+
+
+	/////////////////////////////
+	//        QUERY ALL        //
+	/////////////////////////////
+
+	/**
+	 * Query all entities
+	 * (Query, optimistic UI)
+	*/
+	queryAll(gql: DocumentNode): Observable<any> {
 		const queryName = this.getQueryName(gql);
 		this.log('Selecting All', gql, queryName);
 
@@ -186,6 +295,7 @@ export class ApolloWrapper {
 			);
 	}
 
+
 	/** Update one existing entity */
 	update<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
 		const variables = { input };
@@ -194,6 +304,11 @@ export class ApolloWrapper {
 		this.log('Update', gql, queryName, variables);
 
 		this.addOptimisticResponse(options, gql, input, typename);
+
+		// updating select one cache so changes are reflected when using selectOne(id)
+		if (this.selectOneCache.has(input.id)) {
+			this.selectOneCache.get(input.id).subj.next(input);
+		}
 
 		return this.apollo.mutate(options).pipe(
 			first(),
@@ -205,12 +320,12 @@ export class ApolloWrapper {
 	}
 
 	/** Creates one entity */
-	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string, refetchQueries?: RefetchParams[]): Observable<FetchResult<T>> {
+	create<T>(gql: DocumentNode, input: { id?: string }, typename?: string): Observable<FetchResult<T>> {
 		const variables = { input };
 		const queryName = this.getQueryName(gql);
 		this.log('Create', gql, queryName, variables);
 
-		return this.apollo.mutate({ mutation: gql, variables, refetchQueries }).pipe(
+		return this.apollo.mutate({ mutation: gql, variables }).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -220,14 +335,11 @@ export class ApolloWrapper {
 	}
 
 	/** Delete one item given an id */
-	delete<T>(gql: DocumentNode, id: string, refetchQueries: RefetchParams[]): Observable<any> {
+	delete<T>(gql: DocumentNode, id: string): Observable<any> {
 
-		// first we gotta create the refetchQuery
-		// then we can actually delete, and the refetch query will be executed
 		const options = {
 			mutation: gql,
-			variables: { id },
-			refetchQueries
+			variables: { id }
 		};
 		const queryName = this.getQueryName(gql);
 		this.log('DeleteOne', gql, queryName, options.variables);
@@ -241,7 +353,7 @@ export class ApolloWrapper {
 	}
 
 	/** delete many items given an array of id */
-	deleteMany<T>(gql: DocumentNode, ids: string[] = [], refetchQueries?: RefetchParams[]): Observable<any> {
+	deleteMany<T>(gql: DocumentNode, ids: string[] = []): Observable<any> {
 		if (ids.length === 0) {
 			log.warn('trying to delete many items with an empty array of ids, aborting');
 			return of(undefined);
@@ -251,7 +363,6 @@ export class ApolloWrapper {
 		const apolloOptions = {
 			mutation: gql,
 			variables: { query },
-			refetchQueries
 		};
 		const queryName = this.getQueryName(gql);
 		this.log('DeleteMany', gql, queryName, apolloOptions.variables);
@@ -303,13 +414,12 @@ export class ApolloWrapper {
 		} catch (e) {
 			throw Error('query name not found in apollo client');
 		}
-
 	}
 
+	/** gets the content of a graphql query */
 	private getQueryBody(gql: DocumentNode): string {
 		return gql.loc.source.body;
 	}
-
 
 	/** logs events to the console */
 	private log(type: string, gql: DocumentNode, queryName: string, variables?: any) {
@@ -328,12 +438,14 @@ export class ApolloWrapper {
 		log.groupEnd();
 	}
 
+	/** logs data received  */
 	private logResult(type: string, queryName: string, result) {
 		log.group(`%c ${type} ${queryName} -- Result`, 'color: pink; background: #555555; padding: 4px');
 		log.table(result);
 		log.groupEnd();
 	}
 
+	/** check if a graphql call has given any error */
 	private checkError(r: { data: any, errors: any[] }) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
