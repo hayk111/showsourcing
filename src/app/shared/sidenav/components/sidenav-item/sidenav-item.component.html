@@ -1,4 +1,4 @@
-<a [ngClass]="{ selected: (selected || subItemSelected), flexCenter: (!internalExpanded && !subItem), flexStart: (internalExpanded || subItem), expanded: internalExpanded, 'has-children': hasChildren }"
+<a [ngClass]="{ selected: (selected || subItemSelected), flexCenter: (!internalExpanded && !subItem), flexStart: (internalExpanded || subItem), expanded: internalExpanded, 'has-children': hasChildren, 'sub-item': subItem, opened: internalExpanded && (selected || subItemSelected) }"
 	(click)="onClickItem($event)">
 	<div class="iconCtnr">
 		<ng-content select="icon-app"></ng-content>

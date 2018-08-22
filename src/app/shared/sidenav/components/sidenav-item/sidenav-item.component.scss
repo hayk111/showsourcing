@@ -5,6 +5,18 @@
 
 a {
     height: 51px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-txt-primary);
+
+    &.has-children.opened {
+        color: var(--color-txt-strong);
+    }
+
+    &.sub-item.selected {
+        color: #fff;
+        background-color: var(--color-secondary-dark);
+    }
 }
 
 a:hover {

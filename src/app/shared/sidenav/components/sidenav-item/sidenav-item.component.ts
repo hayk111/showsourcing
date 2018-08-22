@@ -2,7 +2,7 @@ import {
 	Component, Input, Output,
 	EventEmitter, ContentChildren, QueryList,
 	ElementRef, Renderer2, OnChanges,
-	OnInit, AfterContentInit
+	AfterContentInit, ContentChild
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,13 +12,14 @@ import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
 import { SidenavItemGroupComponent } from '../sidenav-item-group/sidenav-item-group.component';
+import { IconComponent } from '~shared/icons/components/icon/icon.component';
 
 @Component({
 	selector: 'sidenav-item-app',
 	templateUrl: './sidenav-item.component.html',
 	styleUrls: ['./sidenav-item.component.scss']
 })
-export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit, AfterContentInit {
+export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterContentInit {
 	/** specify if the item has children */
 	@Input() hasChildren = false;
 	/** the link associated with the item */
@@ -29,7 +30,11 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 	@Output() expanded = new EventEmitter<boolean>();
 	/** the expanded event for the item */
 	@Output() select = new EventEmitter<boolean>();
+	/** the label as a component */
 	@ContentChildren(SidenavItemLabelDirective, { descendants: true, read: ElementRef }) labelRefs: QueryList<ElementRef>;
+	/** the icon contained in the item component */
+	@ContentChild(IconComponent) icon: IconComponent;
+	/** the usb items if any */
 	@ContentChildren(SidenavItemComponent) items: QueryList<SidenavItemComponent>;
 
 	/** the internal expanded state for the item */
@@ -50,27 +55,33 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 			.subscribe((val) => this.checkItemSelected());
 	}
 
-	ngOnInit() {
-		this.checkItemSelected();
-	}
-
 	ngAfterContentInit() {
 		if (this.items) {
 			this.items.toArray().slice(1).forEach(item => {
 				item.subItem = true;
 				item.expanded.subscribe(() => {
-					this.expanded.emit();
+					this.expanded.emit(true);
 				});
 				item.select.subscribe((selected) => {
 					if (selected) {
 						this.subItemSelected = true;
-						this.expanded.emit();
+						this.expanded.emit(true);
 					} else {
 						this.subItemSelected = false;
 					}
 				});
 			});
 		}
+
+		this.items.toArray().slice(1).forEach(item => {
+			if (item.selected) {
+				this.subItemSelected = true;
+				this.internalExpanded = true;
+				setTimeout(() => this.expanded.emit(true));
+			}
+		});
+
+		this.checkItemSelected();
 	}
 
 	/** check if the item is selected based on path */
@@ -88,6 +99,30 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, OnInit
 		}
 
 		this.select.emit(this.selected);
+		if (this.icon && this.icon.name) {
+			const { name } = this.icon;
+			if (this.selected || this.subItemSelected) {
+				if (!name.endsWith('-dark')) {
+					this.icon.name = name + '-dark';
+					this.icon.ngOnChanges({
+						name: {
+							currentValue: name,
+							previousValue: this.icon.name
+						}
+					});
+				}
+			} else {
+				if (name.endsWith('-dark')) {
+					this.icon.name = name.replace('-dark', '');
+					this.icon.ngOnChanges({
+						name: {
+							currentValue: name,
+							previousValue: this.icon.name
+						}
+					});
+				}
+			}
+		}
 	}
 
 	/** trigger expanded state change */
