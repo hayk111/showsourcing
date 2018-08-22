@@ -14,6 +14,7 @@ import { AutoUnsub } from '~utils';
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
+	/** In this case its always going to be a Product or Supplier */
 	@Input() entity: any;
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;

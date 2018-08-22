@@ -6,23 +6,31 @@
 </top-panel-app> -->
 
 <top-panel-details-app
-	[title]="(product$ | async).name">
-	<img-app [image]="(product$ | async).images" type="product" size="s"></img-app>
-	<icon-app *ngIf="(product$ | async).favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
+	[title]="(product$ | async)?.name"
+	[hasOptions]="true"
+	(delete)="deleteProduct()">
+	<img-app [image]="(product$ | async)?.images" type="product" size="s"></img-app>
+	<icon-app *ngIf="(product$ | async)?.favorite" fontSet="fa" name="heart" class="color-warn"></icon-app>
 	<div class="flexColumn">
-		<div class="flex section-icon">
-			<icons-status-app
-				[product]="product$ | async"
-				[favorite]="false"
-				[fullInfo]="true"
-				colorTxt="txt-primary">
-			</icons-status-app>
-		</div>
+		<icons-status-app
+			[product]="product$ | async"
+			[favorite]="false"
+			[fullInfo]="true"
+			colorTxt="txt-primary">
+		</icons-status-app>
 		<div class="flex section-info">
 			<info-badge-app icon="category" *ngIf="(product$ | async)?.category?.name">{{ (product$ | async).category.name }}</info-badge-app>
 			<info-badge-app *ngFor="let tag of (product$ | async)?.tags" icon="tag">{{ tag.name }}</info-badge-app>
+			<info-badge-app *ngFor="let project of (product$ | async)?.projects" icon="project">{{ project.name }}</info-badge-app>
 		</div>
 	</div>
+
+	<workflow-action-app
+		[typeEntity]="typeEntity"
+		[entity]="product$ | async"
+		selectSize="l"
+		xPosition="-61">
+	</workflow-action-app>
 </top-panel-details-app>
 
 <ng-container *ngIf="product$ | async as product">

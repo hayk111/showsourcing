@@ -10,6 +10,7 @@
 				<ng-container	*ngIf="!isEmpty(value); else none">
 					<badge-app
 						*ngFor="let tag of value"
+						size="round"
 						[type]="customField.metadata.target === 'category' ? 'accent' : 'secondary'">
 						{{ tag.name }}
 					</badge-app>

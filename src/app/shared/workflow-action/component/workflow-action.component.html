@@ -1,4 +1,4 @@
-	<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}" *ngIf="entity?.statuses?.length > 0; else noStatus">
+	<context-menu-app *ngIf="entity?.statuses?.length > 0; else noStatus" [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
 
 		<context-menu-trigger-app class="flex pointer {{selectSize}}">
 			<status-badge-app [hasArrow]="selectSize !== 's'" [ngStyle]="{'cursor': 'pointer'}" [status]="entity.statuses[0].status" [size]="selectSize"></status-badge-app>
