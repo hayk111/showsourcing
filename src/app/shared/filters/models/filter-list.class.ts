@@ -1,18 +1,27 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, share, filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, share, filter, skip } from 'rxjs/operators';
 
-import { Filter, FilterType } from '~shared/filters/models';
+import { Filter, FilterType } from '~shared/filters/models/filter.class';
+import { tap } from 'rxjs/internal/operators/tap';
 
-@Injectable({
-	providedIn: 'root'
-})
-export class FilterService {
 
-	/** All filters applied as an array */
-	private _filters$ = new BehaviorSubject<Filter[]>([]);
-	filters$: Observable<Filter[]> = this._filters$.asObservable();
-	private currentFilters: Filter[] = [];
+export class FilterList {
+
+	/** to know when filters are changing */
+	private _valueChanges$ = new Subject();
+	valueChanges$ = this._valueChanges$.asObservable();
+
+	/** current filters sync */
+	private _filters: Filter[] = [];
+	private setFilters(filters: Filter[]) {
+		this._filters = filters;
+		this._byType = this.filtersToByType(filters);
+		this._query = this.filtersToQuery(filters);
+		this._valueChanges$.next();
+	}
+	asFilters() { return this._filters; }
+
 	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
 	 * Allows us to check in constant time if a filter type has a filter of value x.
 	 *
@@ -21,58 +30,55 @@ export class FilterService {
 	 *
 	 * byType.get(FilterType.SUPPLIER).has(10)
 	 */
-	byType$: Observable<Map<FilterType, Map<any, Filter>>> = this._filters$.asObservable().pipe(
-		map(filters => this.filtersToByType(filters)),
-		share()
-	);
+	private _byType: Map<FilterType, Map<any, Filter>>;
+	asByType() { return this._byType }
 
 	/**
 	 * Returns the filters as a query usable by apollo client
 	 */
-	query$: Observable<string> = this._filters$.asObservable().pipe(
-		map(filters => this.filtersToQuery(filters)),
-		share()
-	);
+	private _query: string;
+	asQuery(): string { return this._query; }
 
-	constructor() {
-		this._filters$.subscribe(filters => this.currentFilters = filters);
+	constructor(startFilters: Filter[] = []) {
+		// adding the start filters
+		this.setFilters(startFilters);
 	}
 
 	/** adds an array of filters at the end of current filters */
 	addFilters(added: Filter[]) {
-		this._filters$.next([...this.currentFilters, ...added]);
+		this.setFilters([...this._filters, ...added]);
 	}
 
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
-		this._filters$.next([...this.currentFilters, added]);
+		this.setFilters([...this._filters, added]);
 	}
 
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		// removing to array of filters
-		this._filters$.next(this.currentFilters.filter(
+		this.setFilters(this._filters.filter(
 			filter => (filter.type !== removed.type || filter.value !== removed.value)
 		));
 	}
 
 	/** removes all filters */
 	clearAll() {
-		this._filters$.next([]);
+		this.setFilters([]);
 	}
 
 	/** remove all filters of a given type */
 	removeFilterType(type: FilterType | string) {
-		this._filters$.next(this.currentFilters.filter(f => f.type !== type));
+		this.setFilters(this._filters.filter(f => f.type !== type));
 
 	}
 
 	/** upsert filter, will delete previous filter with the same type */
 	upsertFilter(inserted: Filter) {
-		const newFilters = this.currentFilters
+		const newFilters = this._filters
 			.filter(f => f.type !== inserted.type);
 		newFilters.push(inserted);
-		this._filters$.next(newFilters);
+		this.setFilters(newFilters);
 	}
 
 	private getInitialMap() {
@@ -88,7 +94,7 @@ export class FilterService {
 	}
 
 	private filtersToQuery(filters: Filter[]): string {
-		return FilterService.filtersToQuery(filters);
+		return FilterList.filtersToQuery(filters);
 	}
 
 	static filtersToQuery(filters: Filter[]) {
@@ -100,7 +106,7 @@ export class FilterService {
 			if (comparator)
 				return `${type} ${comparator} ${value}`;
 			// else we return the filter given the type
-			return FilterService.getFieldCondition(type, value)
+			return FilterList.getFieldCondition(type, value)
 		}).join(' or ');
 	}
 
@@ -119,17 +125,9 @@ export class FilterService {
 		}
 	}
 
-	filtersNumber() {
-		return this.currentFilters.filter(
-			filter => (filter.type === FilterType.PROJECT ||
-				filter.type === FilterType.SUPPLIER ||
-				filter.type === FilterType.EVENT ||
-				filter.type === FilterType.CATEGORY ||
-				filter.type === FilterType.TAG ||
-				filter.type === FilterType.CREATED_BY ||
-				filter.type === FilterType.PRODUCT_STATUS_TYPE ||
-				filter.type === FilterType.FAVORITE ||
-				filter.type === FilterType.ARCHIVED)
-		).length;
+	// TODO for view products
+	static fromString() {
+		return new FilterList();
 	}
+
 }

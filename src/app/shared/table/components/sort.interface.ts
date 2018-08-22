@@ -1,6 +1,7 @@
 
 
-export interface Sort {
+export class Sort {
 	sortBy: string;
 	sortOrder: 'ASC' | 'DESC';
+
 }

@@ -4,7 +4,7 @@ import { ApolloWrapper, GLOBAL_DATA_CLIENT } from '~shared/apollo';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Observable, of } from 'rxjs';
 import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
-import { FilterService, Filter, FilterType } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters';
 import { ShowsModule } from '~features/shows/shows.module';
 import { Show } from '~models/show.model';
 

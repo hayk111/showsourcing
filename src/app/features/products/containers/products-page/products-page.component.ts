@@ -9,7 +9,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -18,7 +18,6 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		FilterService,
 		SelectionService
 	]
 })
@@ -31,11 +30,10 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		protected featureSrv: ProductFeatureService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	/** updates the products with the new value votes */

@@ -3,7 +3,7 @@ import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
-import { debug, log, LogColor } from '~utils';
+import { log, LogColor } from '~utils';
 
 @Injectable({
 	providedIn: 'root'

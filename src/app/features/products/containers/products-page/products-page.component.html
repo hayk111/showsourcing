@@ -13,7 +13,7 @@
 		[hasSwitch]="true"
 		[hasFilter]="true"
 		[buttonIcon]="false"
-		[filters]="getFiltersNumber()"
+		[filtersAmount]="getFiltersAmount()"
 		(showFilters)="openFilterPanel()"
 		(search)="search($event)"
 		(smartSearch)="smartSearch($event)"
@@ -57,8 +57,6 @@
 		[selection]="selected$ | async"
 		[rows]="products"
 		[pending]="pending"
-		(previous)="previousPage()"
-		(next)="nextPage()"
 		(previewClick)="openPreview($event)"
 		(select)="onItemSelected($event, true)"
 		(unselect)="onItemUnselected($event, true)"
@@ -125,7 +123,6 @@
 
 	<filters-app
 		(clickOutside)="closeFilterPanel()"
-		(filter)="filter($event)"
 		*ngIf="filterPanelOpen">
 	</filters-app>
 

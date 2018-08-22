@@ -4,7 +4,7 @@ import { AbstractDataManagementComponent } from '~features/data-management/conta
 import { EventManagementService } from '~features/data-management/services/event-management.service';
 import { ERM, Event } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 
 @Component({
@@ -13,8 +13,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	styleUrls: ['./event-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		FilterService,
-		SelectionService]
+		SelectionService
+	]
 })
 export class EventDataManagementPageComponent extends AbstractDataManagementComponent<Event, EventManagementService> {
 
@@ -22,11 +22,10 @@ export class EventDataManagementPageComponent extends AbstractDataManagementComp
 		protected router: Router,
 		protected featureSrv: EventManagementService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.EVENT);
 	}
 }

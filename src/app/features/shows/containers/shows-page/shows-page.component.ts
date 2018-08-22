@@ -6,11 +6,9 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { Show } from '~models/show.model';
 import { Router } from '@angular/router';
 import { first, tap, takeUntil, switchMap, mergeMap } from 'rxjs/operators';
-import { FilterService } from '~shared/filters/services/filter.service';
 import { realmDateFormat } from '~utils/realm-date-format.util';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 import { Observable } from 'rxjs';
-import { FilterType } from '~shared/filters/models/filter.model';
 
 @Component({
   selector: 'shows-page-app',
@@ -18,7 +16,6 @@ import { FilterType } from '~shared/filters/models/filter.model';
   styleUrls: ['./shows-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    FilterService,
   ]
 })
 export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureService> implements OnInit {
@@ -34,36 +31,35 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
   constructor(
     protected router: Router,
     protected featureSrv: ShowFeatureService,
-    protected filterSrv: FilterService,
     protected userSrv: UserService
   ) {
-    super(router, featureSrv, undefined, filterSrv);
+    super(router, featureSrv);
   }
 
   /** init */
   ngOnInit() {
     // overriding onInit to remove setSelection since we don't use any selection here
     this.togglePastEvents();
-    this.setFilters();
-    this.setItems();
+    // this.setFilters();
+    // this.setItems();
   }
 
   setItems() {
 
-    this.selectParams$.pipe(
-      takeUntil(this._destroy$),
-      tap(params => this.currentParams = params),
-    ).subscribe(_ => {
-      this.onLoad();
-    });
+    // this.selectParams$.pipe(
+    //   takeUntil(this._destroy$),
+    //   tap(params => this.currentParams = params),
+    // ).subscribe(_ => {
+    //   this.onLoad();
+    // });
 
-    this.allShows$ = this.featureSrv.selectInfiniteListAllShows(this.selectParams$).pipe(
-      tap(_ => this.onLoaded())
-    );
+    // this.allShows$ = this.featureSrv.selectInfiniteListAllShows(this.selectParams$).pipe(
+    //   tap(_ => this.onLoaded())
+    // );
 
-    this.myShows$ = this.featureSrv.selectInfiniteListMyShows(this.selectParams$).pipe(
-      tap(_ => this.onLoaded())
-    );
+    // this.myShows$ = this.featureSrv.selectInfiniteListMyShows(this.selectParams$).pipe(
+    //   tap(_ => this.onLoaded())
+    // );
   }
 
 
@@ -72,18 +68,18 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
   }
 
   togglePastEvents() {
-    const now = new Date();
-    this.checkboxes.futureShowOnly = !this.checkboxes.futureShowOnly;
-    if (this.checkboxes.futureShowOnly) {
-      this.filterSrv.upsertFilter({ type: 'description.endDate', comparator: '>', value: realmDateFormat(now) });
-    } else {
-      this.filterSrv.removeFilterType('description.endDate');
-    }
+    // const now = new Date();
+    // this.checkboxes.futureShowOnly = !this.checkboxes.futureShowOnly;
+    // if (this.checkboxes.futureShowOnly) {
+    //   this.filterSrv.upsertFilter({ type: 'description.endDate', comparator: '>', value: realmDateFormat(now) });
+    // } else {
+    //   this.filterSrv.removeFilterType('description.endDate');
+    // }
   }
 
 
   search(str: string) {
-    this.filterSrv.upsertFilter({ type: 'description.name', comparator: 'CONTAINS[c]', value: `"${str}"` });
+    // this.filterSrv.upsertFilter({ type: 'description.name', comparator: 'CONTAINS[c]', value: `"${str}"` });
   }
 
   saveShow(show) {

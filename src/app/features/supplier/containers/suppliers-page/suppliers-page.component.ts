@@ -6,7 +6,7 @@ import { NewSupplierDlgComponent } from '~features/supplier/containers/new-suppl
 import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { CreationDialogComponent } from '~shared/custom-dialog';
@@ -17,7 +17,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 	templateUrl: './suppliers-page.component.html',
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
-		FilterService,
 		SelectionService
 	]
 })
@@ -27,12 +26,11 @@ export class SuppliersPageComponent extends ListPageComponent<Supplier, Supplier
 		protected router: Router,
 		protected featureSrv: SupplierFeatureService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.SUPPLIER);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.SUPPLIER);
 	}
 
 }

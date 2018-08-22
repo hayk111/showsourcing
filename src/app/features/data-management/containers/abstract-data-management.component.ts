@@ -5,7 +5,7 @@ import { DialogService } from '~shared/dialog';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { MergeDialogComponent } from '~shared/custom-dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { NgModuleRef } from '@angular/core';
 
 export abstract class AbstractDataManagementComponent<T extends { id?: string },
@@ -15,13 +15,12 @@ export abstract class AbstractDataManagementComponent<T extends { id?: string },
 		protected router: Router,
 		protected featureSrv: G,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
 		public entityMetadata: EntityMetadata
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, entityMetadata);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, entityMetadata);
 	}
 
 	mergeSelected() {

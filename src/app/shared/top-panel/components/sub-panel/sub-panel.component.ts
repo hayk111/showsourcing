@@ -36,7 +36,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
 	/** number of filters set */
-	@Input() filters: number;
+	@Input() filtersAmount: number;
 
 	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();
@@ -58,7 +58,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	searchControl: FormControl;
 	inputFocus = false;
 
-	constructor(private element: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
+	constructor() {
 		super();
 		this.searchControl = new FormControl();
 	}

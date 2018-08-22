@@ -7,7 +7,7 @@ import { MemberFeatureService } from '~features/settings/services/member-feature
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -19,7 +19,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 	templateUrl: './settings-team-members-page.component.html',
 	styleUrls: ['./settings-team-members-page.component.scss'],
 	providers: [
-		FilterService,
 		SelectionService
 	]
 })
@@ -32,14 +31,13 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 		protected router: Router,
 		protected memberSrv: MemberFeatureService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected userService: UserService,
 		protected teamService: TeamService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, memberSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER);
+		super(router, memberSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TEAM_USER);
 	}
 
 	ngOnInit() {

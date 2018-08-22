@@ -6,7 +6,7 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService, FilterType } from '~shared/filters';
+import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -16,7 +16,6 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SelectionService,
-		FilterService,
 	]
 })
 export class ProjectProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
@@ -29,12 +28,11 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected srv: ProductService,
 		protected projectSrv: ProjectService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, NewProductDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, NewProductDialogComponent);
 	}
 
 	ngOnInit() {
@@ -52,10 +50,10 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 
 	/** Filters items based  */
 	protected filter(query: string) {
-		if (query)
-			super.filter(`projects.id == "${this.projectId}" AND (${query})`);
-		else
-			super.filter(`projects.id == "${this.projectId}"`);
+		// if (query)
+		// 	super.filter(`projects.id == "${this.projectId}" AND (${query})`);
+		// else
+		// 	super.filter(`projects.id == "${this.projectId}"`);
 	}
 
 }

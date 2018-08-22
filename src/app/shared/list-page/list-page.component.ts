@@ -1,22 +1,17 @@
-import { OnInit, NgModuleRef } from '@angular/core';
+import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, ReplaySubject, combineLatest } from 'rxjs';
-import { takeUntil, tap, map, switchMap, first, skip } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { SelectParams } from '~global-services/_global/select-params';
-import { ERM, EntityMetadata } from '~models';
+import { SelectParamsConfig } from '~global-services/_global/list-params';
+import { EntityMetadata } from '~models';
+import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
+import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterService, FilterType, SearchService, FilterList } from '~shared/filters';
+import { FilterList, FilterType, SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
-import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { RefetchParams } from '~shared/apollo/services/refetch.interface';
-import { DocumentNode } from 'graphql';
-import { SelectParamsConfig } from '~global-services/_global/list-params';
-import { QueryRef } from 'apollo-angular';
-import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 
 
 // TODO:
@@ -44,7 +39,12 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** non observable version of the above */
 	items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
-	private listResult: SelectListResult<T>;
+	protected listResult: SelectListResult<T>;
+	filterList = new FilterList([
+		// initial filters
+	]);
+	protected initialSort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+
 	/** Whether the items are pending */
 	pending = true;
 	/** keeps tracks of the current selection */
@@ -71,8 +71,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	constructor(
 		protected router: Router,
 		protected featureSrv: G,
-		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
+		protected selectionSrv?: SelectionService,
 		protected searchSrv?: SearchService,
 		protected dlgSrv?: DialogService,
 		protected moduleRef?: NgModuleRef<any>,
@@ -84,7 +83,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** init */
 	ngOnInit() {
-		this.setFilters();
 		this.setItems();
 		this.setSelection();
 	}
@@ -93,22 +91,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected setItems() {
 		this.listResult = this.featureSrv.queryList({
 			query: this.filterList.asQuery(),
-			sort: this.startSort
+			sort: this.initialSort
 		});
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded())
 		);
-		FilterList.valueChange(query => this.onFilterChanges())
-	}
 
-	/** subscribe to filters and filter when filters have changed */
-	protected setFilters() {
-		// since filter is a behavior subject it will trigger instantly
-		if (this.filterSrv) {
-			this.filterSrv.query$.pipe(
-				takeUntil(this._destroy$),
-			).subscribe(query => this.filter(query));
-		}
+		this.filterList
+			.valueChanges$
+			.subscribe(_ => {
+				// should detect changes since filterList isn't immutable yet
+				this.refetch({ query: this.filterList.asQuery() });
+			});
 	}
 
 	protected setSelection() {
@@ -127,6 +121,14 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.pending = false;
 	}
 
+	refetch(config: SelectParamsConfig) {
+		this.listResult.refetch(config)
+	}
+
+	/** Sorts items based on sort.sortBy */
+	sort(sort: Sort) {
+		this.refetch({ sort });
+	}
 
 	get selectionArray() {
 		return Array.from(this.selectionSrv.selection.keys());
@@ -140,20 +142,19 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
-
 	search(str: string) {
-		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
+		this.filterList.upsertFilter({ type: FilterType.SEARCH, value: str });
 	}
 
 	/** Search within filters */
 	smartSearch(str: string) {
 		if (this.searchSrv) {
-			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterList, this.entityMetadata);
 		}
 	}
 
 	onCheckSearchElement(element) {
-		this.filterSrv.addFilter({
+		this.filterList.addFilter({
 			type: element.type,
 			value: element.id,
 			entity: element
@@ -161,30 +162,20 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	onUncheckSearchElement(element) {
-		this.filterSrv.removeFilter({
+		this.filterList.removeFilter({
 			type: element.type,
 			value: element.id,
 			entity: element
 		});
 	}
 
-	getFiltersNumber() {
-		return this.filterSrv.filtersNumber();
+	getFiltersAmount() {
+		return this.filterList.asFilters().length;
 	}
 
 	/** Loads more items when we reach the bottom of the page */
 	loadMore() {
 		this.listResult.fetchMore(this.items.length);
-	}
-
-	/** Sorts items based on sort.sortBy */
-	sort(sort: Sort) {
-		this.listResult.queryRef.refetch({});
-	}
-
-	/** Filters items based  */
-	protected filter(query: string) {
-		this.listResult.queryRef.refetch({ query });
 	}
 
 	/** opens the preview for an item */

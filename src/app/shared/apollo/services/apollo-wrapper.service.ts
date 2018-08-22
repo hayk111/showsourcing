@@ -10,6 +10,7 @@ import { RefetchParams } from '~shared/apollo/services/refetch.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
+import { SelectParamsConfig } from '~global-services/_global/list-params';
 
 
 
@@ -52,7 +53,8 @@ export class ApolloWrapper {
 	/////////////////////////////
 
 	/** select many entities in accordance to the conditions supplied */
-	selectMany(gql: DocumentNode, params: SelectParams): Observable<any> {
+	selectMany(gql: DocumentNode, paramsConfig: SelectParamsConfig): Observable<any> {
+		const params = new SelectParams(paramsConfig);
 		const variables = params.toApolloVariables();
 		const queryName = this.getQueryName(gql);
 		this.log('Selecting Many', gql, queryName, variables);
@@ -75,12 +77,12 @@ export class ApolloWrapper {
 	 * what is returned is a SelectListResult that allows us to do
 	 * additional work after the query is done (like fetching more items for infini scroll)
 	*/
-	queryList<T>(gql: DocumentNode, params): SelectListResult<T> {
+	queryList<T>(gql: DocumentNode, paramsConfig: SelectParamsConfig): SelectListResult<T> {
 		const queryName = this.getQueryName(gql);
-
+		const params = new SelectParams(paramsConfig);
 		const queryRef = this.apollo.watchQuery<any>({
 			query: gql,
-			variables: { ...params },
+			variables: { ...params.toApolloVariables() },
 		});
 
 		const items$: Observable<T[]> = queryRef.valueChanges.pipe(
@@ -94,7 +96,6 @@ export class ApolloWrapper {
 		const fetchMore = (skip: number) => queryRef.fetchMore({
 			variables: { ...params, skip },
 			updateQuery: (prev, { fetchMoreResult }) => {
-				debugger;
 				if (!fetchMoreResult[queryName]) { return prev; }
 				this.logResult('Selecting List Fetch More', queryName, fetchMoreResult.data)
 				return Object.assign({}, prev, {
@@ -103,7 +104,12 @@ export class ApolloWrapper {
 			}
 		});
 
-		return { queryName, queryRef, items$, fetchMore };
+		const refetch = (paramsConfig: SelectParamsConfig) => {
+			const params = new SelectParams(paramsConfig);
+			queryRef.refetch(params.toApolloVariables());
+		}
+
+		return { queryName, queryRef, items$, fetchMore, refetch };
 	}
 
 	/////////////////////////////

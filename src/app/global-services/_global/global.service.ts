@@ -85,9 +85,8 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 			throw Error('many query not implemented for this service');
 		}
 		const gql = this.queries.many(fields);
-		const params = new SelectParams(paramsConfig);
 
-		return this.wrapper.use(client).selectMany(gql, params);
+		return this.wrapper.use(client).selectMany(gql, paramsConfig);
 	}
 
 	/** selects slice of data that corresponds to parameters. The Difference with selectMany is that
@@ -101,9 +100,8 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 			throw Error('list query not implemented for this service');
 		}
 
-		const params = new SelectParams(paramsConfig);
 		const gql = this.queries.list(fields);
-		return this.wrapper.queryList(gql, params);
+		return this.wrapper.queryList(gql, paramsConfig);
 
 	}
 
