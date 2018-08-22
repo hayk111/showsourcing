@@ -148,6 +148,23 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		return this.wrapper.use(client).create(gql, entity, this.typeName, refetchParams);
 	}
 
+
+	deleteOne(id: string, refetchParams?: RefetchParams[], client?: string): Observable<any> {
+		if (!this.queries.deleteOne) {
+			throw Error('delete one query not implemented for this service');
+		}
+		const gql = this.queries.deleteOne();
+		return this.wrapper.use(client).delete(gql, id, refetchParams);
+	}
+
+	deleteMany(ids: string[], refetchParams?: RefetchParams[], client?: string): Observable<any> {
+		if (!this.queries.deleteMany) {
+			throw Error('delete many query not implemented for this service');
+		}
+		const gql = this.queries.deleteMany();
+		return this.wrapper.use(client).deleteMany(gql, ids, refetchParams);
+	}
+
 }
 
 
