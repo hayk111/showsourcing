@@ -1,11 +1,11 @@
 	<context-menu-app *ngIf="entity?.statuses?.length > 0; else noStatus" [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
 
-		<context-menu-trigger-app class="flex pointer {{selectSize}}">
-			<status-badge-app [hasArrow]="selectSize !== 's'" [ngStyle]="{'cursor': 'pointer'}" [status]="entity.statuses[0].status" [size]="selectSize"></status-badge-app>
+		<context-menu-trigger-app class="flex {{selectSize}}">
+			<status-badge-app [hasArrow]="selectSize !== 's'" [status]="entity.statuses[0].status" [size]="selectSize"></status-badge-app>
 		</context-menu-trigger-app>
 
-		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}} pointer">
-			<status-badge-app [ngStyle]="{'cursor': 'pointer'}" [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
+		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
 		</context-menu-item-app>
 
 		<context-menu-divider-app></context-menu-divider-app>
@@ -17,7 +17,15 @@
 	</context-menu-app>
 
 	<ng-template #noStatus>
-		<status-badge-app [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
+		<context-menu-app [xPosition]="xPosition" [yPosition]="yPosition" class="menu-status {{selectSize}}">
+			<context-menu-trigger-app class="flex {{selectSize}}">
+				<status-badge-app [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
+			</context-menu-trigger-app>
+
+			<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
+			</context-menu-item-app>
+		</context-menu-app>
 	</ng-template>
 
 	<ng-content></ng-content>

@@ -5,8 +5,12 @@ top-panel-details-app {
 		cursor: default;
 	}
 
+	img-app {
+		border-radius: var(--border-radius);
+	}
+
 	.section-info {
-		margin-top: var(--spacing-s);
+		margin-top: var(--spacing-ms);
 	}
 }
 
