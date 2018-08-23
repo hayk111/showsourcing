@@ -93,12 +93,12 @@
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
-			<user-picture-app
+			<!-- <user-picture-app
 				[size]="18"
 				[image]="row.createdBy?.avatar"
 				[user]="row?.createdBy">
-			</user-picture-app>
-			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
+			</user-picture-app> -->
+			<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 		</div>
 	</ng-template>
 
