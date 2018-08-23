@@ -11,7 +11,7 @@ import { UserService } from '~global-services/user/user.service';
 @Injectable({ providedIn: 'root' })
 export class ContactService extends GlobalWithAuditService<Contact> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
+	constructor(protected apollo: Apollo, protected userSrv: UserService) {
 		super(apollo, new ContactQueries(), 'Contact', userSrv);
 	}
 

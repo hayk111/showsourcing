@@ -19,8 +19,4 @@ export class EventService extends GlobalWithAuditService<Event> {
 		super(apollo, new EventQueries(), 'Event', userSrv);
 	}
 
-	selectAll(fields: string = 'id, name, description {id, name, startDate, endDate}') {
-		return super.selectAll(fields);
-	}
-
 }

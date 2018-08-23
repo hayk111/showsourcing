@@ -44,7 +44,7 @@ export class SupplierFeatureService extends SupplierService {
 	}
 
 	deleteContact(contact: Contact) {
-		return this.contactSrv.deleteOne(contact.id);
+		return this.contactSrv.delete(contact.id);
 	}
 
 }

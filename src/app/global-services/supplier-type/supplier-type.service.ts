@@ -10,7 +10,7 @@ import { SupplierTypeQueries } from '~global-services/supplier-type/supplier-typ
 })
 export class SupplierTypeService extends GlobalService<SupplierType> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new SupplierTypeQueries(), 'SupplierType');
 	}
 

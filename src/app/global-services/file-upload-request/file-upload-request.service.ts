@@ -8,7 +8,7 @@ import { FileUploadRequestQueries } from '~global-services/file-upload-request/f
 @Injectable({ providedIn: 'root' })
 export class FileUploadRequestService extends GlobalService<FileUploadRequest> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new FileUploadRequestQueries());
 	}
 }

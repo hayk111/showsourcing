@@ -286,30 +286,30 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	//       SELECT ALL        //
 	/////////////////////////////
 
-	/** @deprecated
+	/**
 	 * select all entities
 	 * (Subscription, NO optimistic UI)
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	selectAll(fields?: string, client?: string): Observable<T[]> {
-		throw Error(`You probably don't want to use a subscription on all items.
-		If you know what you are doing, go ahead, remove this error and uncomment the code below`);
-		// const queryName = this.getQueryName(gql);
-		// this.log('Selecting All', gql, queryName);
+		const title = 'Select All ' + this.typeName;
+		const gql = this.queries.selectAll(fields);
+		const queryName = this.getQueryName(gql);
+		this.log(title, gql, queryName);
 
-		// return this.getClient(client).subscription({ query: gql })
-		// 	.pipe(
-		// 		// extracting the result
-		// 		map((r) => {
-		// 			if (!r.data)
-		// 				throwError(r.errors);
-		// 			return r.data[queryName];
-		// 		}),
-		// 		catchError(errors => of(log.table(errors))),
-		// 		tap(data => this.logResult('Selecting All', queryName, data)),
-		// 		shareReplay(1)
-		// 	);
+		return this.getClient(client).subscription({ query: gql })
+			.pipe(
+				// extracting the result
+				map((r: any) => {
+					if (!r.data)
+						throwError(r.errors);
+					return r.data[queryName];
+				}),
+				catchError(errors => of(log.table(errors))),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
 	}
 
 
@@ -534,9 +534,9 @@ Deleting everything.. so watchout. `);
 	/////////////////////////////
 
 	/** to use another named apollo client */
-	getClient(clientName: string) {
+	getClient(clientName: string): Apollo {
 		if (name)
-			return this.apollo.use(clientName);
+			return this.apollo.use(clientName) as Apollo;
 		else
 			return this.apollo;
 	}

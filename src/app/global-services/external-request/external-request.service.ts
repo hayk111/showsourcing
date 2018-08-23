@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ExternalRequest } from '~models';
-import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ExternalRequestQueries } from '~global-services/external-request/external-request.queries';
@@ -15,7 +14,7 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class ExternalRequestService extends GlobalWithAuditService<ExternalRequest> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
+	constructor(protected apollo: Apollo, protected userSrv: UserService) {
 		super(apollo, new ExternalRequestQueries(), 'ExternalRequest', userSrv);
 	}
 

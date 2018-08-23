@@ -11,11 +11,8 @@ import { TeamUserQueries } from '~global-services/team-user/team-user.queries';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new TeamUserQueries(), 'TeamUser');
 	}
 
-	selectAll(fields: string = 'id, user { id, firstName, lastName, email }') {
-		return super.selectAll(fields);
-	}
 }

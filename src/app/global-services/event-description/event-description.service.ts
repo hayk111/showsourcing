@@ -9,7 +9,7 @@ import { EventDescription } from '~models';
 @Injectable({ providedIn: 'root' })
 export class EventDescriptionService extends GlobalService<EventDescription> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new EventDescriptionQueries(), 'EventDescription');
 	}
 

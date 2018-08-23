@@ -39,7 +39,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 			// Filter products to get only products without status
 			map((products: Product[]) => products.filter(product => (!product.statuses || product.statuses.length === 0))),
 			switchMap(productsWithNoStatus => {
-				return this.productStatusTypeService.selectAll().pipe(
+				return this.productStatusTypeService.queryAll().pipe(
 					// Remove the status with category refused
 					map(statuses => statuses.filter(status => (status.category !== 'refused'))),
 					// Load products associated with the project

@@ -17,8 +17,8 @@ import { TeamPickerService } from '~features/pick-a-team/services/team-picker.se
 export class TeamFeatureService extends TeamService {
 
 	constructor(
-		private apollo: Apollo,
-		private apolloState: ApolloStateService,
+		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		private teamPickerSrv: TeamPickerService) {
 		super(apollo, apolloState, teamPickerSrv);
 	}

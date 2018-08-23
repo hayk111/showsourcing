@@ -22,7 +22,7 @@ import { Apollo } from 'apollo-angular';
 		HttpLinkModule,
 		ApolloIssuePageComponent
 	],
-	providers: [ApolloWrapper],
+	providers: [],
 	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {

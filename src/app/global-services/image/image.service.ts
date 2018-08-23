@@ -19,10 +19,6 @@ export class ImageService extends GlobalWithAuditService<AppImage> {
 		super(apollo, new ImageQueries(), 'Image', userSrv);
 	}
 
-	selectAll(fields = 'id'): Observable<any> {
-		throw Error(`Don't select all images, you goof !`);
-	}
-
 	download(img: AppImage) {
 		if (window)
 			window.open(ImageUrls.xl + '/' + img.fileName);

@@ -49,27 +49,27 @@ export class SelectorsService {
 	}
 
 	getSuppliers(): Observable<Supplier[]> {
-		return this.supplierSrv.selectAll();
+		return this.supplierSrv.queryAll();
 	}
 
 	getCategories(): Observable<Category[]> {
-		return this.categorySrv.selectAll();
+		return this.categorySrv.queryAll();
 	}
 
 	getEvents(): Observable<Event[]> {
-		return this.eventSrv.selectAll('id, name');
+		return this.eventSrv.queryAll('id, name');
 	}
 
 	getTags(): Observable<Tag[]> {
-		return this.tagSrv.selectAll();
+		return this.tagSrv.queryAll();
 	}
 
 	getSupplierTypes(): Observable<SupplierType[]> {
-		return this.supplierTypeSrv.selectAll();
+		return this.supplierTypeSrv.queryAll();
 	}
 
 	getUsers(): Observable<User[]> {
-		return this.teamUserSrv.selectAll().pipe(
+		return this.teamUserSrv.queryAll().pipe(
 			map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.user))
 		);
 	}

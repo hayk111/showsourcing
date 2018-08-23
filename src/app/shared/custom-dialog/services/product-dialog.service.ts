@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { Product, ProductVoteRequest, Project, User } from '~models';
 import { ProductService, ProjectService, TeamUserService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
+import { Apollo } from 'apollo-angular';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
@@ -29,7 +29,7 @@ export class ProductDialogService extends ProductService {
 	 * select users from current team
 	 */
 	selectTeamUsers() {
-		return this.teamUserSrv.selectAll();
+		return this.teamUserSrv.queryAll();
 	}
 
 

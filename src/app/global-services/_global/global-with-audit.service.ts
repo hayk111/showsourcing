@@ -1,10 +1,10 @@
 import { GlobalService } from "~global-services/_global/global.service";
 import { EntityMetadata } from "~models";
-import { ApolloWrapper } from "~shared/apollo";
 import { GlobalQuery } from "~global-services/_global/global.query.interface";
 import { UserService } from "~global-services";
 import { RefetchParams } from "~shared/apollo/services/refetch.interface";
 import { forkJoin } from "rxjs";
+import { Apollo } from "apollo-angular";
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)

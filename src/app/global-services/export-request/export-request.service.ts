@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ExportRequest } from '~models';
-import { ApolloWrapper } from '~shared/apollo';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ExportRequestQueries } from '~global-services/export-request/export-request.queries';
 import { of } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { switchMap, tap, map, filter } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
 
 
 @Injectable({

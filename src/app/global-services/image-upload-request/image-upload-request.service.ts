@@ -8,7 +8,7 @@ import { ImageUploadRequestQueries } from '~global-services/image-upload-request
 @Injectable({ providedIn: 'root' })
 export class ImageUploadRequestService extends GlobalService<ImageUploadRequest> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new ImageUploadRequestQueries());
 	}
 }

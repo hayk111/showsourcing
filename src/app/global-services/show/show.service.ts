@@ -9,8 +9,10 @@ import { GLOBAL_DATA_CLIENT } from '~shared/apollo';
 @Injectable({ providedIn: 'root' })
 export class ShowService extends GlobalService<Show> {
 
-	constructor(wrapper: ApolloWrapper) {
-		super(apollo.use(GLOBAL_DATA_CLIENT), new ShowQueries(), 'Show');
+	defaultClient = GLOBAL_DATA_CLIENT;
+
+	constructor(protected apollo: Apollo) {
+		super(apollo, new ShowQueries(), 'Show');
 	}
 
 }

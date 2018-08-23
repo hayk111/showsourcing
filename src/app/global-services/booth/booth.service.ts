@@ -11,7 +11,7 @@ import { BoothQueries } from '~global-services/booth/booth.queries';
 })
 export class BoothService extends GlobalService<Booth> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new BoothQueries, 'Booth');
 	}
 

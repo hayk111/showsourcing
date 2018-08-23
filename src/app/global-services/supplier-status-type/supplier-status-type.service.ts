@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GlobalService } from '~global-services/_global/global.service';
 import { SupplierStatusTypeQueries } from '~global-services/supplier-status-type/supplier-status-type.queries';
 import { SupplierStatusType } from '~models';
-import { ApolloWrapper } from '~shared/apollo';
+import { Apollo } from 'apollo-angular';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { ApolloWrapper } from '~shared/apollo';
 })
 export class SupplierStatusTypeService extends GlobalService<SupplierStatusType> {
 
-	constructor(wrapper: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new SupplierStatusTypeQueries(), 'SupplierStatusType');
 	}
 
