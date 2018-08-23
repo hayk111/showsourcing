@@ -36,7 +36,7 @@ I added comment above each column to make it clearer -->
 </menu> -->
 
 <ng-template #contextualMenu let-row="row">
-	<context-menu-app [menuOpen]="true">
+	<context-menu-app class="z-4" [menuOpen]="true" [xPosition]="-19" [yPosition]="27">
 		<context-menu-item-app class="pointer flexCenter" (click)="openAddToProjectDialog.emit(row)" i18n="product menu | add to project">
 			Add to project
 		</context-menu-item-app>
