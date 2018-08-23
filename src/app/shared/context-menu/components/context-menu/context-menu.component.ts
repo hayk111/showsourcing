@@ -22,7 +22,7 @@ export class ContextMenuComponent {
 	@Input() xPosition = 16;
 	/** Position of the menu in the Y axis. */
 	@Input() yPosition = 16;
-	menuOpen = false;
+	@Input() menuOpen = false;
 
 
 
