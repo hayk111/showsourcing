@@ -22,7 +22,7 @@ export class ShowsPageComponent extends ListPageComponent<Show, ShowFeatureServi
   allShows$: Observable<Show[]>;
   myShows$: Observable<Show[]>;
 
-  currentParams = new SelectParams({ take: 10, sort: { sortBy: 'description.startDate' } });
+  initialSortBy = 'description.startDate';
   checkboxes = {
     futureShowOnly: false,
     myShows: false
