@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
+import { UserService } from '~global-services';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -21,7 +22,7 @@ import { Price, Product, ProductVote } from '~models';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent {
+export class KanbanItemCardComponent implements OnInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -75,9 +76,33 @@ export class KanbanItemCardComponent {
 	checkboxAction = false;
 	/** The mouse is over the card */
 	cardEntered: boolean;
+	/** The user vote if any */
+	userVote: ProductVote;
+	like = false;
+	dislike = false;
+	thumbsName = 'thumbs-up-white';
 
-  ngOnChanges(changes) {
+	constructor(private userSrv: UserService) { }
+
+	ngOnChanges(changes) {
 		console.log('kanban ite - changes = ', changes);
+	}
+
+	ngOnInit() {
+		if (this.product) {
+			this.userVote = (this.product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (this.userVote) {
+				if (this.userVote.value === 100) {
+					this.like = true;
+					this.dislike = false;
+					this.thumbsName = 'thumbs-up-white';
+				} else {
+					this.dislike = true;
+					this.like = false;
+					this.thumbsName = 'thumbs-down-white';
+				}
+			}
+		}
 	}
 
 	/** Toggle the open menu state */

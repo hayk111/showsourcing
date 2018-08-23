@@ -52,17 +52,38 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 	) {
 		super();
 		router.events.pipe(takeUntil(this._destroy$))
-			.subscribe((val) => this.checkItemSelected());
+			.subscribe((val) => {
+				if (!this.hasChildren) {
+					// Trigger check if has no children
+					this.checkItemSelected();
+				} else if (this.items) {
+					// Check if there a sub item selected to trigger check
+					// Must wait for the sub item to detect changes and check
+					// selection
+					setTimeout(() => {
+						let hasSubItemSelected = false;
+						this.items.toArray().slice(1).forEach(item => {
+							if (item.selected) {
+								hasSubItemSelected = true;
+							}
+						});
+						if (!hasSubItemSelected) {
+							this.checkItemSelected();
+						}
+					});
+				}
+			});
 	}
 
 	ngAfterContentInit() {
 		if (this.items) {
+			// Check events (selection and expansion) on sub items
 			this.items.toArray().slice(1).forEach(item => {
 				item.subItem = true;
-				item.expanded.subscribe(() => {
+				item.expanded.pipe(takeUntil(this._destroy$)).subscribe(() => {
 					this.expanded.emit(true);
 				});
-				item.select.subscribe((selected) => {
+				item.select.pipe(takeUntil(this._destroy$)).subscribe((selected) => {
 					if (selected) {
 						this.subItemSelected = true;
 						this.expanded.emit(true);
@@ -73,6 +94,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 			});
 		}
 
+		// Initial check for sub items
 		this.items.toArray().slice(1).forEach(item => {
 			if (item.selected) {
 				this.subItemSelected = true;
@@ -86,6 +108,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 
 	/** check if the item is selected based on path */
 	checkItemSelected() {
+		// Check if the path corresponds to the configured link
 		const path = this.location.path();
 		if (this.link) {
 			if (this.link.startsWith('./') || this.link.startsWith('../')) {
@@ -99,6 +122,7 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 		}
 
 		this.select.emit(this.selected);
+		// Manage icon selection (bold)
 		if (this.icon && this.icon.name) {
 			const { name } = this.icon;
 			if (this.selected || this.subItemSelected) {
@@ -146,15 +170,28 @@ export class SidenavItemComponent extends AutoUnsub implements OnChanges, AfterC
 
 	/** handle click on the item */
 	onClickItem(event) {
-		if (this.hasChildren) { // && !this.internalExpanded) {
+		if (this.hasChildren) {
 			this.internalExpanded = true;
 			this.selected = true;
+			this.subItemSelected = true;
 			this.handleLabelDisplay(this.internalExpanded);
 			this.expanded.emit(this.internalExpanded);
 			this.select.emit();
+			const items = this.items ? this.items.toArray() : null;
+			// Display the first element of sub items if clicked
+			if (items && items.length > 0) {
+				const firstItem = items.slice(1)[0];
+				if (firstItem.link) {
+					setTimeout(() => {
+						this.router.navigate([firstItem.link], { relativeTo: this.route });
+					});
+				}
+			}
 		} else if (this.link) {
 			this.select.emit();
-			this.router.navigate([this.link], { relativeTo: this.route });
+			setTimeout(() => {
+				this.router.navigate([this.link], { relativeTo: this.route });
+			});
 		}
 		event.stopPropagation();
 	}

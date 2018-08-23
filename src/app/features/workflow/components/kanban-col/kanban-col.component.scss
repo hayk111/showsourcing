@@ -12,7 +12,7 @@ header {
 	text-align: center;
 	font-weight: 600;
 	color: var(--color-txt-strong);
-	font-size: 16px;
+	font-size: 14px;
 	padding: var(--spacing-m);
 	background-color: #fff;
 	border: solid 1px var(--color-divider);
@@ -23,6 +23,7 @@ header {
 	border-top-right-radius: 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	height: 28px;
 
 	&.in-progress {
 		border-top-color: var(--color-primary);
@@ -47,7 +48,7 @@ header {
 
 main {
 	background: var(--color-secondary-light);
-	padding-top: var(--spacing-s);
+	padding-top: 12px;
 	height: calc(100% - 53px);
 	min-height: calc(100% - 53px);
 	border: solid 1px var(--color-divider);
