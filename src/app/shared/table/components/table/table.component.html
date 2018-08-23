@@ -31,7 +31,7 @@
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<div class="dotSeparator pointer"
 					[ngClass]="{ hover: (i === hoverIndex) }"
-					[ngStyle]="{ display: ((i === hoverIndex) || isSelected(row, i)) ? 'block' : 'none' }"
+					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 					(click)="onToggleContextualMenu($event, i)"></div>
 				<div *ngIf="contextualMenuOpened[i]" (click)="onToggleContextualMenu($event, i, false)">
 					<ng-container
