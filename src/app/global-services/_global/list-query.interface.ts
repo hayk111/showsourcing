@@ -4,7 +4,7 @@ import { QueryRef } from "apollo-angular";
 import { SelectParamsConfig } from "~global-services/_global/select-params";
 
 
-export interface SelectListResult<T> {
+export interface ListQuery<T> {
 	queryName: string;
 	queryRef: QueryRef<any, any>;
 	items$: Observable<T[]>;

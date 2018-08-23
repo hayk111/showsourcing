@@ -125,9 +125,9 @@ export class FilterList {
 		}
 	}
 
-	// TODO for view products
+	// for view products
 	static fromString() {
-		return new FilterList();
+		throw Error('not implemented yet');
 	}
 
 }

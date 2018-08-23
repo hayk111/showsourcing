@@ -1,24 +1,32 @@
+import { Apollo } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
-import { distinctUntilChanged, mergeMap, scan, switchMap, filter, map, shareReplay, tap, catchError, first } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
 import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import { SelectParams, SelectParamsConfig } from '~global-services/_global/select-params';
-import { User } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
-import { RefetchParams } from '~shared/apollo/services/refetch.interface';
-import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
-import { LogColor, log } from '~utils';
-import { Apollo } from 'apollo-angular';
+import { log, LogColor } from '~utils';
+import { FetchResult } from 'apollo-link';
+import { ListQuery } from '~global-services/_global/list-query.interface';
 
-export interface GlobalServiceInterface<T extends { id?: string }> {
-	selectOne: (id: string, ...args) => Observable<T>;
+
+
+export interface GlobalServiceInterface<T> {
+	selectOne: (id: string, fields?: string, client?: string) => Observable<T>;
+	queryOne: (id: string, fields?: string, client?: string) => Observable<T>
+	selectOneByQuery: (predicate: string, fields?: string, client?: string) => Observable<T>;
+	queryOneByQuery: (predicate: string, fields?: string, client?: string) => Observable<T>;
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => Observable<T[]>;
-	selectAll: (fields: string, ...args) => Observable<T[]>;
-	queryList: (paramsConfig: SelectParamsConfig) => SelectListResult<T>;
-	update: (entity: T, ...args) => Observable<T>;
-	updateMany: (entities: T[], ...args) => Observable<T[]>;
-	create: (entity: T, ...args) => Observable<T>;
+	queryMany: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => Observable<T[]>;
+	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => ListQuery<T>
+	waitForOne: (predicate: string, fields?: string, client?: string) => Observable<T>;
+	update: (entity: { id?: string }, fields?: string, client?: string) => Observable<FetchResult<T>>;
+	updateMany: (entities: { id?: string }[], fields?: string, client?: string) => Observable<FetchResult<T>[]>;
+	create: (entity: T, fields?: string, client?: string) => Observable<FetchResult<T>>;
+	createMany: (entities: T[], fields?: string, client?: string) => Observable<FetchResult<T>[]>;
+	delete: (id: string, client?: string) => Observable<any>;
+	deleteMany: (ids: string[], client?: string) => Observable<any>;
 }
+
 
 
 /**
@@ -26,7 +34,7 @@ export interface GlobalServiceInterface<T extends { id?: string }> {
  * This service deals with transforming what it receives then passing it to
  * apolloWrapper, it also deals with the cache
  */
-export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: User, createdBy?: User }> implements GlobalServiceInterface<T> {
+export abstract class GlobalService<T extends { id?: string }> implements GlobalServiceInterface<T> {
 
 	defaultClient: string;
 
@@ -35,7 +43,6 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 		protected queries: GlobalQuery,
 		protected typeName?: string
 	) { }
-
 
 	///////////////////////////////
 	//        SELECT ONE         //
@@ -234,7 +241,7 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @returns ListQuery that items$ and also allows you to fetchMore and refetch
 	*/
-	getListQuery<T>(paramsConfig: SelectParamsConfig, fields?: string, client = this.defaultClient): ListQuery<T> {
+	getListQuery(paramsConfig: SelectParamsConfig, fields?: string, client = this.defaultClient): ListQuery<T> {
 		const gql = this.queries.queryMany(fields)
 		const queryName = this.getQueryName(gql);
 		const params = new SelectParams(paramsConfig);
@@ -370,61 +377,158 @@ export abstract class GlobalService<T extends { id?: string, lastUpdatedBy?: Use
 	}
 
 
+	/////////////////////////////
+	//          UPDATE         //
+	/////////////////////////////
 
-
-	/** update an entity
+	/** Update one existing entity
+	 *
 	 * @param entity : entity with an id and the fields we want to update
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: T, client?: string): Observable<any> {
+	update(entity: { id?: string }, fields?: string, client: string = this.defaultClient): Observable<FetchResult<T>> {
+		const title = 'Update ' + this.typeName;
+		const gql = this.queries.update(fields);
+		const variables = { input: entity };
+		const queryName = this.getQueryName(gql);
+		const options = { mutation: gql, variables };
+		this.log(title, gql, queryName, variables);
 
-		const gql = this.queries.update();
+		this.addOptimisticResponse(options, gql, entity, this.typeName);
 
-		if (!this.queries.update) {
-			throw Error('update query not implemented for this service');
+		// updating select one cache so changes are reflected when using selectOne(id)
+		if (this.selectOneCache.has(entity.id)) {
+			this.selectOneCache.get(entity.id).subj.next(entity);
 		}
 
-		return this.wrapper.use(client).update(gql, entity, this.typeName);
+		return this.apollo.mutate(options).pipe(
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
-	/** update many entities
-	 * @param entities : Array of entities to update, each entity needs an id to be found in the db
+	/////////////////////////////
+	//       UPDATE MANY       //
+	/////////////////////////////
+
+	/** Update many existing entities
+	 *
+	 * @param entities : array of entity with an id and the fields we want to update
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: T[], client?: string): Observable<any> {
-		return forkJoin(entities.map(entity => this.update(entity, client)));
+	updateMany(entities: { id?: string }[], fields?: string, client: string = this.defaultClient): Observable<FetchResult<T>[]> {
+		return forkJoin(entities.map(entity => this.update(entity, fields, client)));
 	}
 
-	/** create an entity
+
+	/////////////////////////////
+	//         CREATE          //
+	/////////////////////////////
+
+	/** create one entity
 	 * @param entity : entity with an id and the fields we want to create
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	create(entity: T, client?: string): Observable<any> {
-		if (!this.queries.create) {
-			throw Error('create query not implemented for this service');
-		}
-		const gql = this.queries.create();
-		return this.wrapper.use(client).create(gql, entity, this.typeName);
+	create(entity: T, fields?: string, client?: string = this.defaultClient): Observable<FetchResult<T>> {
+		const title = 'Create one ' + this.typeName;
+		const gql = this.queries.create(fields);
+		const variables = { input: entity };
+		const queryName = this.getQueryName(gql);
+		this.log('Create', gql, queryName, variables);
+
+		return this.apollo.mutate({ mutation: gql, variables }).pipe(
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult('Create', queryName, data)),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
 
-	deleteOne(id: string, client?: string): Observable<any> {
-		if (!this.queries.deleteOne) {
-			throw Error('delete one query not implemented for this service');
-		}
+	/////////////////////////////
+	//       CREATE MANY       //
+	/////////////////////////////
+	/** create many entities
+	 * @param entity : entity with an id and the fields we want to create
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	createMany(entities: T[], fields?: string, client?: string = this.defaultClient): Observable<FetchResult<T>[]> {
+		return forkJoin(entities.map(entity => this.create(entity, fields, client)));
+	}
+
+	/////////////////////////////
+	//         DELETE          //
+	/////////////////////////////
+
+	/** Delete one item given an id
+	 * @param id : id of the entity to delete
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	delete(id: string, client = this.defaultClient): Observable<any> {
+		const title = 'Delete one ' + this.typeName;
 		const gql = this.queries.deleteOne();
-		return this.wrapper.use(client).delete(gql, id);
+		const options = {
+			mutation: gql,
+			variables: { id }
+		};
+		const queryName = this.getQueryName(gql);
+		this.log(title, gql, queryName, options.variables);
+
+		return this.apollo.mutate(options).pipe(
+			first(),
+			filter((r: any) => this.checkError(r)),
+			map(({ data }) => data[queryName]),
+			catchError(errors => of(log.table(errors)))
+		);
 	}
 
-	deleteMany(ids: string[], client?: string): Observable<any> {
-		if (!this.queries.deleteMany) {
-			throw Error('delete many query not implemented for this service');
-		}
-		const gql = this.queries.deleteMany();
-		return this.wrapper.use(client).deleteMany(gql, ids);
+
+	/////////////////////////////
+	//       DELETE MANY       //
+	/////////////////////////////
+
+	/** Delete many items given an id
+	 * @param id : id of the entity to delete
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	deleteMany(ids: string[], client = this.defaultClient): Observable<any> {
+
+		throw Error(`There is no use case for delete many at the moment.
+If you know what you are doing you can remove this error and
+uncomment the code below. Delete many is dangerous, because there is a risk of
+Deleting everything.. so watchout. `);
+		// // checking we received ids, because if no query is specified
+		// // apollo will delete everything
+		// if (ids.length === 0) {
+		// 	log.warn('trying to delete many items with an empty array of ids, aborting');
+		// 	return of(undefined);
+		// }
+
+		// const title = 'Delete Many ' + this.typeName;
+		// const gql = this.queries.deleteMany();
+		// const query = ids.map(id => `id = "${id}"`).join(' OR ');
+		// const apolloOptions = {
+		// 	mutation: gql,
+		// 	variables: { query },
+		// };
+		// const queryName = this.getQueryName(gql);
+		// this.log('DeleteMany', gql, queryName, apolloOptions.variables);
+
+		// return this.apollo.mutate(apolloOptions).pipe(
+		// 	first(),
+		// 	filter((r: any) => this.checkError(r)),
+		// 	map(({ data }) => data[queryName]),
+		// 	tap(({ data }) => this.logResult('DeleteMany', queryName, data)),
+		// 	catchError(errors => of(log.table(errors)))
+		// );
 	}
 
 	/////////////////////////////
