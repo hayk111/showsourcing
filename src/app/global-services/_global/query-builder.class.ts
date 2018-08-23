@@ -2,6 +2,15 @@ import gql from 'graphql-tag';
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
+ * it will create queries given fields.
+ *
+ * For Example new QueryBuilder('product', 'products').queryOne('name') will give:
+		query product($id: String!) {
+			product(id: $id) {
+				id
+				name
+			}
+ *
  */
 export class QueryBuilder {
 
