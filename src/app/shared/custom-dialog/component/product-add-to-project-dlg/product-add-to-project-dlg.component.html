@@ -6,15 +6,15 @@
 
 	<main *ngIf="projects$ | async as projects" class="scrollable">
 		<list-app>
-			<list-item-app *ngFor="let project of projects">
-				<div class="flex">
+			<list-item-app *ngFor="let project of projects" (click)="checkbox.onClick()">
+				<div class="flex" (click)="checkbox.onClick()">
 					<checkbox-app
 						#checkbox
 						(check)="select(project.id, project)"
 						(uncheck)="unselect(project.id)"
 						[checked]="selected[project.id]">
 					</checkbox-app>
-					<div class="flexCenter flexBetween flexGrow" (click)="checkbox.toggle()">
+					<div class="flexCenter flexBetween flexGrow" (click)="checkbox.onClick()">
 						<span class="name">{{ project.name }}</span>
 						<div class="productNumber" >{{ project.productCount }}</div>
 					</div>
@@ -26,6 +26,6 @@
 
 	<dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">{{ selectedProducts.length }} product{{ selectedProducts?.length > 1 ? 's' : '' }} selected</span>
-		<button class="small" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow">Add Now</button>
+		<input [disabled]="!hasSelection" type="submit" value="Add Now" (click)="submit()" i18n="button|Adding product to projects@@productAddToProject_addNow"/>
 	</dialog-footer-app>
 </dialog-app>
