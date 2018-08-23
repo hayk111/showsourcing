@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { SelectParamsConfig } from '~global-services/_global/list-params';
 import { EntityMetadata } from '~models';
-import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
+import { ListQuery } from '~global-services/_global/list-query.interface';
+import { SelectParamsConfig } from '~global-services/_global/select-params';
 
 
 
@@ -27,7 +27,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** non observable version of the above */
 	items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
-	protected listResult: SelectListResult<T>;
+	protected listResult: ListQuery<T>;
 	filterList = new FilterList([
 		// initial filters
 	]);
@@ -77,7 +77,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** subscribe to items and get the list result */
 	protected setItems() {
-		this.listResult = this.featureSrv.queryList({
+		this.listResult = this.featureSrv.getListQuery({
 			query: this.filterList.asQuery(),
 			sort: this.initialSort
 		});

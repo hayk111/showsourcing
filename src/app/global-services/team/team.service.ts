@@ -9,7 +9,6 @@ import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { TeamQueries } from '~global-services/team/team.queries';
-import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
 import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
@@ -37,8 +36,8 @@ export class TeamService extends GlobalService<Team> {
 	constructor(
 		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
-		private storage: LocalStorageService,
-		private authSrv: AuthenticationService
+		protected storage: LocalStorageService,
+		protected authSrv: AuthenticationService
 	) {
 		super(apollo, new TeamQueries(), 'Team');
 		log.debug('team service constructor');

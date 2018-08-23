@@ -3,21 +3,21 @@ import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
+import { TeamService } from '~global-services';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 
-	constructor(private teamPicker: TeamPickerService, private router: Router) { }
+	constructor(private teamSrv: TeamService, private router: Router) { }
 
 	canActivateChild(): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate();
 	}
 
 	canActivate(): boolean | Observable<boolean> | Promise<boolean> {
-		return this.teamPicker.hasTeamSelected$.pipe(
+		return this.teamSrv.hasTeamSelected$.pipe(
 			tap(d => log.debug('%c hasTeamGuard selected', LogColor.GUARD, d)),
 			tap(hasTeam => this.redirect(hasTeam))
 		);
