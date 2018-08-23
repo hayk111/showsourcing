@@ -5,6 +5,7 @@ import { Project, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { ProjectService, ProductService } from '~global-services';
 import { ProductDialogService } from '~shared/custom-dialog/services/product-dialog.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 
@@ -17,12 +18,14 @@ import { ProductDialogService } from '~shared/custom-dialog/services/product-dia
 export class ProductAddToProjectDlgComponent implements OnInit {
 	projects$: Observable<Project[]>;
 	selected = {};
+	hasSelection = false;
 	@Input() selectedProducts: Product[];
 
 
 	constructor(
 		private dlgSrv: DialogService,
-		private productDlgSrv: ProductDialogService) { }
+		private productDlgSrv: ProductDialogService,
+		private notifSrv: NotificationService) { }
 
 	ngOnInit() {
 		this.projects$ = this.productDlgSrv.selectProjects();
@@ -30,10 +33,12 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 
 	select(id, value) {
 		this.selected[id] = value;
+		this.hasSelection = Object.values(this.selected).length > 0;
 	}
 
 	unselect(id) {
 		delete this.selected[id];
+		this.hasSelection = Object.values(this.selected).length > 0;
 	}
 
 	submit() {
@@ -42,6 +47,12 @@ export class ProductAddToProjectDlgComponent implements OnInit {
 		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.selectedProducts)
 			.subscribe(projects => {
 				this.dlgSrv.close();
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Projects Added',
+					message: 'Your projects were added to the product with success',
+					timeout: 3500
+				});
 			});
 	}
 
