@@ -26,7 +26,7 @@
           <div class="descriptionCtnr">
             <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
             <span class="descriptionText" *ngIf="description"> - </span>
-            <span class="descriptionText">{{description}}</span>
+            <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
             <icons-status-app [product]="product"></icons-status-app>
           </div>
         </div>

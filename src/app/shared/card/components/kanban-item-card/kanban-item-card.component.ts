@@ -76,6 +76,10 @@ export class KanbanItemCardComponent {
 	/** The mouse is over the card */
 	cardEntered: boolean;
 
+  ngOnChanges(changes) {
+		console.log('kanban ite - changes = ', changes);
+	}
+
 	/** Toggle the open menu state */
 	onToggleContextualMenu(event) {
 		this.contextualMenuOpened = !this.contextualMenuOpened;
