@@ -19,7 +19,9 @@
 					<kanban-item-app
 							class="item"
 							[namespace]="getCurrentStatusId(product)"
-							[data]="product">
+							[data]="product"
+							(dragStart)="dragStart()"
+							(dragEnd)="dragEnd()">
 						<kanban-item-card-app class="marginSmall" [title]="product.name"
 							[status]="product.status?.name"
 							[favorite]="product.favorite"
@@ -33,11 +35,12 @@
 							[link]="'/product/details/' + product.id + '/general'"
 							[checked]="isSelected(selectedItems, product.id)"
 							[product]="product"
+							[dragInProgress]="dragInProgress"
 							(select)="selectItem.emit(product)"
 							(unselect)="unselectItem.emit(product)">
 						</kanban-item-card-app>
 					</kanban-item-app>
-					<div class="contextual-menu">
+					<div class="contextual-menu" [ngClass]="{ 'drag-in-progress':	dragInProgress }">
 						<ng-container
 							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
 						</ng-container>

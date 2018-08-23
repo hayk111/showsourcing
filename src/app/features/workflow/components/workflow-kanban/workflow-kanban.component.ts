@@ -30,6 +30,7 @@ export class WorkflowKanbanComponent {
 	@Output() unselectAllItems = new EventEmitter<any[]>();
 
 	separatorColor: string;
+	dragInProgress = false;
 
 	constructor(private kanbanSrv: KanbanService) {
 	}
@@ -122,5 +123,13 @@ export class WorkflowKanbanComponent {
 			}
 		});
 		return allSelected;
+	}
+
+	dragStart() {
+		this.dragInProgress = true;
+	}
+
+	dragEnd() {
+		this.dragInProgress = false;
 	}
 }

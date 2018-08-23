@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injectable, Input, OnInit, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, ElementRef, Injectable, Input, OnInit, ContentChild, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
@@ -19,6 +19,10 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	@Input() index;
 	/** The namespace associated with the item */
 	@Input() namespace;
+	/** The drag'n drop started */
+	@Output() dragStart = new EventEmitter<any>();
+	/** The drag'n drop ended */
+	@Output() dragEnd = new EventEmitter<any>();
 
 	@ContentChild(KanbanItemCardComponent) card: KanbanItemCardComponent;
 
@@ -43,10 +47,12 @@ export class KanbanItemComponent extends AutoUnsub implements OnInit, AfterConte
 	/** Dispatch the dragStart event through the kanban service */
 	onDragStart(event) {
 		this.kanbanSrv.dragStart$.next({ namespace: this.namespace, data: this.data });
+		this.dragStart.emit();
 	}
 
 	/** Dispatch the dragEnd event through the kanban service */
 	onDragEnd(event) {
 		this.kanbanSrv.dragEnd$.next({ namespace: this.namespace, data: this.data });
+		this.dragEnd.emit();
 	}
 }

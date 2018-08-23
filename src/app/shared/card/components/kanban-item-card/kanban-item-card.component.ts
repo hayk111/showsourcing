@@ -53,6 +53,8 @@ export class KanbanItemCardComponent {
 	@Input() tags: any;
 	/** The associated product */
 	@Input() product: Product;
+	/** Some drag'n drop is in progress */
+	@Input() dragInProgress: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -73,6 +75,10 @@ export class KanbanItemCardComponent {
 	checkboxAction = false;
 	/** The mouse is over the card */
 	cardEntered: boolean;
+
+  ngOnChanges(changes) {
+		console.log('kanban ite - changes = ', changes);
+	}
 
 	/** Toggle the open menu state */
 	onToggleContextualMenu(event) {
