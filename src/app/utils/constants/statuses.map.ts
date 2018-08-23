@@ -33,5 +33,12 @@ export const statusMap = {
 				name: 'Validated'
 			}
 		}
+	},
+	'_Inspiration': {
+		locales: {
+			en: {
+				name: 'Inspiration'
+			}
+		}
 	}
 };
