@@ -25,7 +25,8 @@
 		(unselectAll)="resetSelection()"
 		[selection]="selected"
 		[rows]="projects"
-		[pending]="pending"></projects-list-view-app>
+		[pending]="pending"
+		(bottomReached)="loadMore()"></projects-list-view-app>
 
 	</ng-container>
 

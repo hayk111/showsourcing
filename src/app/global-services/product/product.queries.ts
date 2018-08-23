@@ -65,6 +65,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			favorite,
 			score,
 			minimumOrderQuantity,
+			lastUpdatedDate,
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
 			${ProductQueries.supplier},
@@ -80,11 +81,8 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly update = `
 		id
 		favorite
-		votes {
-			id
-			value
-		},
-		projects {
-			id
-		}`;
+		lastUpdatedDate
+		${ProductQueries.statuses}
+		${ProductQueries.votes}
+		${ProductQueries.projects}`;
 }

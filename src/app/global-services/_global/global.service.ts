@@ -260,8 +260,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const title = 'Query Many ' + this.typeName;
 		fields = this.getFields(fields, this.fields.many);
 		const gql = this.queryBuilder.queryMany(fields);
-		const params = new SelectParams(paramsConfig);
-		const variables = params.toApolloVariables();
+		const variables = new SelectParams(paramsConfig);
 		const queryName = this.getQueryName(gql);
 
 		this.log(title, gql, queryName, variables);
@@ -294,8 +293,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		fields = this.getFields(fields, this.fields.many);
 		const gql = this.queryBuilder.queryMany(fields)
 		const queryName = this.getQueryName(gql);
-		const params = new SelectParams(paramsConfig);
-		const variables = params.toApolloVariables();
+		const variables = new SelectParams(paramsConfig);
 
 		this.log(title, gql, queryName, variables);
 
@@ -321,7 +319,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
 			this.log(fetchMoreTitle, gql, queryName, { skip });
 			return queryRef.fetchMore({
-				variables: { ...params, skip },
+				variables: { skip },
 				updateQuery: (prev, { fetchMoreResult }) => {
 					if (!fetchMoreResult[queryName]) { return prev; }
 					this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data)
@@ -335,8 +333,9 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		// add refetch query so we can tell apollo to that the variables have changed
 		// (will be reflected in items$)
 		const refetch = (paramsConfig: SelectParamsConfig) => {
-			const params = new SelectParams(paramsConfig);
-			queryRef.refetch(params.toApolloVariables());
+			const refetchTitle = 'Selecting List Refetch' + this.typeName;
+			this.log(refetchTitle, gql, queryName, paramsConfig);
+			queryRef.refetch(paramsConfig);
 		}
 
 		return { queryName, queryRef, items$, fetchMore, refetch };
@@ -426,7 +425,6 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		this.log(title, gql, queryName, variables);
 
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
-
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(entity.id)) {
 			this.selectOneCache.get(entity.id).subj.next(entity);

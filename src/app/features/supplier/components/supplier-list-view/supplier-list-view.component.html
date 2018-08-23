@@ -7,7 +7,8 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenu let-row="row">

@@ -32,21 +32,21 @@ export class GlobalWithAuditService<T> extends GlobalService<T> implements Globa
 	/**
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
-	update(entity: any, client?: string) {
+	update(entity: any, fields?: string | string[], client?: string) {
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.update(entity, client);
+		return super.update(entity, fields, client);
 	}
 
 	/**
 	 * create on entity with an audit will add properties needed by the backend
 	 */
-	create(entity: any, client?: string) {
+	create(entity: any, fields?: string | string[], client?: string) {
 		entity.createdBy = { id: this.userSrv.userSync.id };
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.create(entity, client);
+		return super.create(entity, fields, client);
 	}
 
 	/**

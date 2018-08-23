@@ -40,7 +40,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 			map(params => params.id),
 			tap(id => this.projectId = id),
 		);
-		this.project$ = id$.pipe(switchMap(id => this.projectSrv.selectOne(id)));
+		this.project$ = id$.pipe(switchMap(id => this.projectSrv.queryOne(id)));
 		// we need to wait to have the id to call super.ngOnInit, because we want the filter
 		// method to be called when we actually have the id
 		id$.pipe(

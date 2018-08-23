@@ -110,7 +110,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		}
 		`;
 
-	updateDefaultSelection = `
+	static readonly update = `
 			id,
 			favorite
 		`;

@@ -31,7 +31,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	filterList = new FilterList([
 		// initial filters
 	]);
-	protected initialSort: Sort = { sortBy: 'creationDate' };
+	/** property we sort by on first query */
+	protected initialSortBy: string = 'creationDate';
 
 	/** Whether the items are pending */
 	pending = true;
@@ -79,7 +80,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected setItems() {
 		this.listResult = this.featureSrv.getListQuery({
 			query: this.filterList.asQuery(),
-			sort: this.initialSort
+			sortBy: this.initialSortBy
 		});
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded())
@@ -120,7 +121,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
-		this.refetch({ sort });
+		this.refetch({ ...sort });
 	}
 
 	search(str: string) {

@@ -35,7 +35,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 * also have to be display in the kanban.
 	 * */
 	getStatuses(project: Project) {
-		return this.productSrv.queryMany({ query: `projects.id == '${project.id}'` }).pipe(
+		return this.productSrv.queryMany({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' }).pipe(
 			// Filter products to get only products without status
 			map((products: Product[]) => products.filter(product => (!product.statuses || product.statuses.length === 0))),
 			switchMap(productsWithNoStatus => {
