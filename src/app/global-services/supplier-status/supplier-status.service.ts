@@ -12,7 +12,7 @@ import { SupplierStatusQueries } from '~global-services/supplier-status/supplier
 export class SupplierStatusService extends GlobalService<SupplierStatus> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new SupplierStatusQueries(), 'SupplierStatus');
+		super(apollo, SupplierStatusQueries, 'supplierStatus', 'supplierStatuses');
 	}
 
 }

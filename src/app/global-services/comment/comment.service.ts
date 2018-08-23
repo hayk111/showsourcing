@@ -12,7 +12,7 @@ import { UserService } from '~global-services/user/user.service';
 export class CommentService extends GlobalWithAuditService<AppComment> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new CommentQueries(), 'Comment', userSrv);
+		super(apollo, CommentQueries, 'comment', 'comments', userSrv);
 	}
 
 }

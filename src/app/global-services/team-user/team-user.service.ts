@@ -12,7 +12,7 @@ import { TeamUserQueries } from '~global-services/team-user/team-user.queries';
 export class TeamUserService extends GlobalService<TeamUser> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new TeamUserQueries(), 'TeamUser');
+		super(apollo, TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
 }

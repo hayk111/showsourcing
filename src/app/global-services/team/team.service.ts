@@ -39,7 +39,7 @@ export class TeamService extends GlobalService<Team> {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService
 	) {
-		super(apollo, new TeamQueries(), 'Team');
+		super(apollo, TeamQueries, 'team', 'teams');
 		log.debug('team service constructor');
 	}
 

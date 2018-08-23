@@ -16,7 +16,7 @@ import { UserService } from '~global-services';
 export class ImageService extends GlobalWithAuditService<AppImage> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new ImageQueries(), 'Image', userSrv);
+		super(apollo, ImageQueries, 'image', 'images', userSrv);
 	}
 
 	download(img: AppImage) {

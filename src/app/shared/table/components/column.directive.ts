@@ -17,7 +17,6 @@ export class ColumnDirective implements OnInit {
 	@Input() width;
 	// whether the column grows if the table hasn't reached full width
 	@Input() grows = true;
-	@Output() sort = new EventEmitter<Sort>();
 	@Input() sortOrder: 'NONE' | 'ASC' | 'DESC' = 'NONE';
 
 	constructor(public template: TemplateRef<any>) { }

@@ -9,7 +9,7 @@ import { InvitationQueries } from '~global-services/invitation/invitation.querie
 export class InvitationService extends GlobalService<Invitation> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new InvitationQueries(), 'Invitation');
+		super(apollo, InvitationQueries, 'invitation', 'invitations');
 	}
 
 }

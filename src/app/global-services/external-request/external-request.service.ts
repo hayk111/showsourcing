@@ -15,7 +15,7 @@ import { UserService } from '~global-services/user/user.service';
 export class ExternalRequestService extends GlobalWithAuditService<ExternalRequest> {
 
 	constructor(protected apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new ExternalRequestQueries(), 'ExternalRequest', userSrv);
+		super(apollo, ExternalRequestQueries, 'externalRequest', 'externalRequests', userSrv);
 	}
 
 

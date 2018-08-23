@@ -21,7 +21,7 @@ export class ProductDialogService extends ProductService {
 	}
 
 	selectProjects(): Observable<Project[]> {
-		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
+		const sort: Sort = { sortBy: 'name' };
 		return this.projectSrv.queryMany({ sort });
 	}
 

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ShowService, EventService, SupplierService } from '~global-services';
-import {  GLOBAL_DATA_CLIENT } from '~shared/apollo';
+import { GLOBAL_DATA_CLIENT } from '~shared/apollo';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Observable, of } from 'rxjs';
 import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
 import { Filter, FilterType } from '~shared/filters';
 import { ShowsModule } from '~features/shows/shows.module';
 import { Show } from '~models/show.model';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShowFeatureService extends ShowService {
   constructor(
-    apollo: Apollo,
+    protected apollo: Apollo,
     protected eventSrv: EventService,
     protected supplierSrv: SupplierService
   ) {

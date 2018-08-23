@@ -10,7 +10,7 @@ import { EventDescription } from '~models';
 export class EventDescriptionService extends GlobalService<EventDescription> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new EventDescriptionQueries(), 'EventDescription');
+		super(apollo, EventDescriptionQueries, 'eventDescription', 'eventDescriptions');
 	}
 
 }

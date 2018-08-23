@@ -1,12 +1,8 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
 
-export class ProductQueries extends BaseQueries implements GlobalQuery {
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-	constructor() {
-		super('product', 'products');
-	}
+export abstract class ProductQueries extends GlobalQueries {
 
 	// in a product there are many sub entities, those are utilities
 	// so when we query a product we can do things like selectOne(id, ProductQueries.images)
@@ -36,7 +32,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 
 	// This is the default selection when using selectOne or queryOne
-	oneDefaultSelection = `
+	static readonly one = `
 			name,
 			description
 			favorite,
@@ -62,7 +58,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			${ProductQueries.createdBy}
 			`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 			name,
 			description,
 			creationDate,
@@ -81,7 +77,7 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 			${ProductQueries.tags}
 		`;
 
-	updateDefaultSelection = `
+	static readonly update = `
 		id
 		favorite
 		votes {

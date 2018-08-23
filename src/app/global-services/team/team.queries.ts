@@ -1,17 +1,13 @@
 import gql from 'graphql-tag';
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
-export class TeamQueries extends BaseQueries implements GlobalQuery {
+export class TeamQueries extends GlobalQueries {
 
-	constructor() {
-		super('team', 'teams');
-	}
 
-	oneDefaultSelection = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
-	manyDefaultSelection = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
+	static readonly one = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
+	static readonly many = `name, realmPath, realmServerName, ownerUser { id, firstName, lastName }, status`;
 	createDefaultSelection = `name, realmPath, realmServerName, status`;
-	allDefaultSelection = `name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }`;
+	static readonly all = `name, realmPath, realmServerName, status, ownerUser { id, firstName, lastName }`;
 
 }

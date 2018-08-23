@@ -97,7 +97,7 @@ export class TableComponent {
 		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
 		this.sort.emit({
 			sortBy: column.sortBy,
-			sortOrder: (column.sortOrder as 'ASC' | 'DESC')
+			descending: column.sortOrder === 'DESC'
 		});
 		this.currentSortedColumn = column;
 	}

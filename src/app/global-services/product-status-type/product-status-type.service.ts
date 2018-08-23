@@ -11,7 +11,7 @@ import { Apollo } from 'apollo-angular';
 export class ProductStatusTypeService extends GlobalService<ProductStatusType> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new ProductStatusTypeQueries(), 'ProductStatusType');
+		super(apollo, ProductStatusTypeQueries, 'productStatusType', 'productStatusTypes');
 	}
 
 }

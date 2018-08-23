@@ -1,10 +1,6 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class EventDescriptionQueries extends BaseQueries implements GlobalQuery {
-	constructor() {
-		super('eventDescription', 'eventDescriptions');
-	}
+export abstract class EventDescriptionQueries extends GlobalQueries {
 
 }

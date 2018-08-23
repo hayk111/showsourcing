@@ -12,7 +12,7 @@ export class ShowService extends GlobalService<Show> {
 	defaultClient = GLOBAL_DATA_CLIENT;
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new ShowQueries(), 'Show');
+		super(apollo, ShowQueries, 'show', 'shows');
 	}
 
 }

@@ -13,7 +13,7 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 export class ProductService extends GlobalWithAuditService<Product> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new ProductQueries(), 'Product', userSrv);
+		super(apollo, ProductQueries, 'product', 'product', userSrv);
 	}
 
 }

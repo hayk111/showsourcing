@@ -14,6 +14,6 @@ import { UserService } from '~global-services';
 export class ProductStatusService extends GlobalWithAuditService<ProductStatus> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new ProductStatusQueries(), 'ProductStatus', userSrv);
+		super(apollo, ProductStatusQueries, 'productStatus', 'productStatuses', userSrv);
 	}
 }

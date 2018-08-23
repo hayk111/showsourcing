@@ -56,7 +56,7 @@ export class SettingsTeamMembersPageComponent extends ListPageComponent<TeamUser
 			this.teamOwner = true;
 		});
 
-		this.sort({ sortBy: 'user.firstName', sortOrder: 'DESC' });
+		this.sort({ sortBy: 'user.firstName' });
 	}
 
 	/** Opens the dialog for creating a new team */

@@ -9,6 +9,6 @@ import { FileUploadRequestQueries } from '~global-services/file-upload-request/f
 export class FileUploadRequestService extends GlobalService<FileUploadRequest> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new FileUploadRequestQueries());
+		super(apollo, FileUploadRequestQueries, 'fileUploadRequest', 'fileUploadRequests');
 	}
 }

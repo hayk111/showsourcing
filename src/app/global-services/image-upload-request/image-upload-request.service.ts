@@ -9,6 +9,6 @@ import { ImageUploadRequestQueries } from '~global-services/image-upload-request
 export class ImageUploadRequestService extends GlobalService<ImageUploadRequest> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new ImageUploadRequestQueries());
+		super(apollo, ImageUploadRequestQueries, 'imageUploadRequest', 'imageUploadRequests');
 	}
 }

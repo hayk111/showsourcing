@@ -1,14 +1,9 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class ContactQueries extends BaseQueries implements GlobalQuery {
+export abstract class ContactQueries extends GlobalQueries {
 
-	constructor() {
-		super('contact', 'contacts')
-	}
-
-	oneDefaultSelection = `
+	static readonly one = `
 		name,
 		phoneNumber,
 		email,
@@ -19,7 +14,7 @@ export class ContactQueries extends BaseQueries implements GlobalQuery {
 		}
 	`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 		name,
 		phoneNumber,
 		email,

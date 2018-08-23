@@ -15,11 +15,11 @@ import { Apollo } from 'apollo-angular';
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	constructor(protected apollo: Apollo) {
-		super(apollo, new ExportRequestQueries(), 'ExportRequest');
+		super(apollo, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
-	create(request: ExportRequest) {
-		return super.create(request).pipe(
+	create(request: ExportRequest, ...args) {
+		return super.create(request, ...args).pipe(
 			switchMap(_ => this.waitForOne(`id == "${request.id}" AND status == "active"`))
 		);
 	}

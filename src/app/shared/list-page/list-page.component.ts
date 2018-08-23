@@ -31,7 +31,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	filterList = new FilterList([
 		// initial filters
 	]);
-	protected initialSort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	protected initialSort: Sort = { sortBy: 'creationDate' };
 
 	/** Whether the items are pending */
 	pending = true;

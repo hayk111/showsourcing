@@ -16,7 +16,7 @@ import { UserService } from '~global-services/user/user.service';
 export class EventService extends GlobalWithAuditService<Event> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new EventQueries(), 'Event', userSrv);
+		super(apollo, EventQueries, 'event', 'events', userSrv);
 	}
 
 }

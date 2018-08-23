@@ -11,7 +11,7 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 export class SupplierService extends GlobalWithAuditService<Supplier> {
 
 	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new SupplierQueries(), 'Supplier', userSrv);
+		super(apollo, SupplierQueries, 'supplier', 'suppliers', userSrv);
 	}
 
 }

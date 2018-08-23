@@ -14,7 +14,7 @@ import { Apollo } from 'apollo-angular';
 export class ProductVoteRequestService extends GlobalWithAuditService<ProductVoteRequest> {
 
 	constructor(protected apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, new ProductVoteRequestQueries(), 'ProductVoteRequest', userSrv);
+		super(apollo, ProductVoteRequestQueries, 'productVoteRequest', 'productVoteRequests', userSrv);
 	}
 
 }

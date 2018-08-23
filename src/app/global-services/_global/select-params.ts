@@ -12,7 +12,7 @@ export class SelectParams {
 	/** query we use to find a specific item */
 	query = '';
 	/** sorting used */
-	sort: Sort = { sortBy: 'creationDate', sortOrder: 'DESC' };
+	sort: Sort = { sortBy: 'creationDate', descending: true };
 	/** how much items we request */
 	take = 30;
 
@@ -24,14 +24,11 @@ export class SelectParams {
 	toApolloVariables() {
 		// the selectMany here is a subscription to some data on the server
 		// putting those in variables form
-		const sortBy = this.sort.sortBy;
-		const descending = this.sort.sortOrder === 'ASC';
 		return {
 			query: this.query,
 			skip: this.page * this.take,
 			take: this.take,
-			sortBy,
-			descending,
+			...this.sort
 		};
 	}
 }

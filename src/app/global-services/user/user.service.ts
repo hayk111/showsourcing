@@ -20,7 +20,7 @@ export class UserService extends GlobalService<User> {
 		private authSrv: AuthenticationService,
 		private apolloState: ApolloStateService
 	) {
-		super(apollo, new UserQueries, 'User');
+		super(apollo, UserQueries, 'user', 'users');
 		this.selectUser().subscribe(user => this.userSync = user);
 	}
 
