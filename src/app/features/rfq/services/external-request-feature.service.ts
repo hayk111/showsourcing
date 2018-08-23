@@ -5,7 +5,7 @@ import { ApolloWrapper } from '~shared/apollo';
 @Injectable()
 export class ExternalRequestFeatureService extends ExternalRequestService {
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		protected userSrv: UserService
 	) {
 		super(wrapper, userSrv);

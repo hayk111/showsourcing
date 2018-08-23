@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Booth } from '~models/booth.model';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { BoothQueries } from '~global-services/booth/booth.queries';

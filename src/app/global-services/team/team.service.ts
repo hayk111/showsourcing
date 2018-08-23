@@ -5,7 +5,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
 import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
 import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { TeamQueries } from '~global-services/team/team.queries';

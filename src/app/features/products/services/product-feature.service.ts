@@ -13,7 +13,7 @@ import { Apollo } from 'apollo-angular';
 export class ProductFeatureService extends ProductService {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		private projectSrv: ProjectService,
 		private productVoteReqSrv: ProductVoteRequestService,
 		private teamUserSrv: TeamUserService,

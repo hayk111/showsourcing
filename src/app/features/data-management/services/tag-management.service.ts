@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TagService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TagManagememtService extends TagService {
 
-	constructor(protected wrapper: ApolloWrapper, protected userSrv: UserService) {
+	constructor(protected apollo: Apollo protected userSrv: UserService) {
 		super(wrapper, userSrv);
 	}
 }

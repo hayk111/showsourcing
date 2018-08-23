@@ -5,7 +5,7 @@ import { TeamUser } from '~models';
 import { TeamUserService, TeamService, UserService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { first, map } from 'rxjs/operators';
 
 @Injectable()

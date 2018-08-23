@@ -13,7 +13,7 @@ import { Show } from '~models/show.model';
 })
 export class ShowFeatureService extends ShowService {
   constructor(
-    wrapper: ApolloWrapper,
+    apollo: Apollo
     protected eventSrv: EventService,
     protected supplierSrv: SupplierService
   ) {

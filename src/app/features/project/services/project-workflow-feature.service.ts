@@ -12,7 +12,7 @@ import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 })
 export class ProjectWorkflowFeatureService extends ProductService {
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		protected productSrv: ProductService,
 		protected productStatusTypeService: ProductStatusTypeService,
 		protected userSrv: UserService

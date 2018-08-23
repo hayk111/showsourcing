@@ -7,7 +7,7 @@ import { TokenService } from '~features/auth/services/token.service';
 import { User } from '~models/user.model';
 import { ALL_USER_CLIENT, USER_CLIENT } from './client-names.const';
 import { ApolloStateService } from './apollo-state.service';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { log } from '~utils/log';

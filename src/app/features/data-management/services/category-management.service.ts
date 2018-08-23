@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CategoryService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
 	providedIn: 'root'
@@ -8,7 +8,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 export class CategoryManagementService extends CategoryService {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		protected userSrv: UserService
 	) {
 		super(wrapper, userSrv);

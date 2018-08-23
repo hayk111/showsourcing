@@ -11,7 +11,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 export class ProductDialogService extends ProductService {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected teamUserSrv: TeamUserService,

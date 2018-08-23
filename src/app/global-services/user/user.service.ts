@@ -14,7 +14,7 @@ export class UserService extends GlobalService<User> {
 	userSync: User;
 
 	constructor(
-		wrapper: ApolloWrapper,
+		apollo: Apollo
 		private authSrv: AuthenticationService,
 		private apolloState: ApolloStateService
 	) {

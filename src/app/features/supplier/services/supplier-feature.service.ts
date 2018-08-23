@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Contact, Product } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { SelectParams } from '~global-services/_global/select-params';
 import { ContactService, ProductService, UserService } from '~global-services';
@@ -16,7 +16,7 @@ import { ProductQueries } from '~global-services/product/product.queries';
 export class SupplierFeatureService extends SupplierService {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo
 		protected productSrv: ProductService,
 		protected contactSrv: ContactService,
 		protected userSrv: UserService

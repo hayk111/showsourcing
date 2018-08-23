@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppImage } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ImageQueries } from '~global-services/image/image.queries';
@@ -15,7 +15,7 @@ import { UserService } from '~global-services';
 })
 export class ImageService extends GlobalWithAuditService<AppImage> {
 
-	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+	constructor(apollo: Apollo protected userSrv: UserService) {
 		super(wrapper, new ImageQueries(), 'Image', userSrv);
 	}
 

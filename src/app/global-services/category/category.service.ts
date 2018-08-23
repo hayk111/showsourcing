@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { CategoryQueries } from '~global-services/category/category.queries';
@@ -13,7 +13,7 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class CategoryService extends GlobalWithAuditService<Category> {
 
-	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+	constructor(apollo: Apollo protected userSrv: UserService) {
 		super(wrapper, new CategoryQueries, 'Category', userSrv);
 	}
 

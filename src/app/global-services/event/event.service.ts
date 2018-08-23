@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Event } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 import { GlobalServiceInterface, GlobalService } from '~global-services/_global/global.service';
 import { EventQueries } from '~global-services/event/event.queries';
@@ -15,7 +15,7 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class EventService extends GlobalWithAuditService<Event> {
 
-	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
+	constructor(apollo: Apollo protected userSrv: UserService) {
 		super(wrapper, new EventQueries(), 'Event', userSrv);
 	}
 

@@ -5,7 +5,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { Team } from '~models';
 import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
 import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { LocalStorageService } from '~shared/local-storage';
 import { TeamQueries } from '~global-services/team/team.queries';
 import { tap } from 'rxjs/internal/operators/tap';
