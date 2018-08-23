@@ -2,6 +2,7 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
@@ -12,7 +13,15 @@
 	(previous)="previous.emit()"
 	(sort)="sort.emit($event)">
 
-
+	<!-- contextual menu -->
+	<ng-template #contextualMenu let-row="row">
+		<menu class="z-4">
+			<menuitem class="pointer flexCenter" (click)="delete.emit(row.id)" i18n="supplier menu | delete">
+				<div class="border">Delete</div>
+			</menuitem>
+		</menu>
+	</ng-template>
+	
 	<!-- supplier row -->
 	<ng-template
 		columnApp="Supplier"
