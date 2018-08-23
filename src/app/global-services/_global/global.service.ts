@@ -13,8 +13,8 @@ import { ListQuery } from '~global-services/_global/list-query.interface';
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, fields?: string, client?: string) => Observable<T>;
 	queryOne: (id: string, fields?: string, client?: string) => Observable<T>
-	selectOneByQuery: (predicate: string, fields?: string, client?: string) => Observable<T>;
-	queryOneByQuery: (predicate: string, fields?: string, client?: string) => Observable<T>;
+	selectOneByPredicate: (predicate: string, fields?: string, client?: string) => Observable<T>;
+	queryOneByPredicate: (predicate: string, fields?: string, client?: string) => Observable<T>;
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => Observable<T[]>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string, client?: string) => ListQuery<T>
@@ -116,7 +116,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	}
 
 	///////////////////////////////
-	//   SELECT ONE BY QUERY     //
+	//  SELECT ONE BY PREDICATE  //
 	///////////////////////////////
 
 	/** Select one entity given a query,
@@ -126,7 +126,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	selectOneByQuery(predicate: string, fields?: string, client: string = this.defaultClient): Observable<T> {
+	selectOneByPredicate(predicate: string, fields?: string, client: string = this.defaultClient): Observable<T> {
 		const title = 'Selecting One By Query ' + this.typeName;
 		const gql = this.queries.selectOne(fields);
 		const queryName = this.getQueryName(gql);
@@ -144,7 +144,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	}
 
 	///////////////////////////////
-	//   QUERY ONE BY QUERY     //
+	//   QUERY ONE BY PREDICATE  //
 	///////////////////////////////
 
 	/** Query one entity given a query,
@@ -153,7 +153,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
-	queryOneByQuery(predicate: string, fields?: string, client: string = this.defaultClient): Observable<T> {
+	queryOneByPredicate(predicate: string, fields?: string, client: string = this.defaultClient): Observable<T> {
 		const title = 'Selecting One By Query ' + this.typeName;
 		const gql = this.queries.queryOne(fields);
 		const queryName = this.getQueryName(gql);

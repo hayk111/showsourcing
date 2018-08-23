@@ -33,7 +33,7 @@ export class TeamService extends GlobalService<Team> {
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
 		return super.create(team).pipe(
-			switchMap(_ => this.waitTeamValid(team)),
+			switchMap(_ => this.waitForOne(`id == "${team.id}" AND status == "active"`)),
 			tap(_ => this.pickTeam(team))
 		);
 	}
@@ -52,16 +52,5 @@ export class TeamService extends GlobalService<Team> {
 	selectTeam() {
 		return this.teamPicker.selectedTeam$;
 	}
-
-	/** waits for a team to go from pending to active */
-	private waitTeamValid(team: Team) {
-		return this.selectMany(
-			{ query: `id == "${team.id}" AND status == "active"` }
-		).pipe(
-			map(teams => teams[0]),
-			filter(teamCreated => !!teamCreated)
-		);
-	}
-
 
 }

@@ -20,16 +20,7 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	create(request: ExportRequest) {
 		return super.create(request).pipe(
-			switchMap(_ => this.waitForRequestValid(request))
-		);
-	}
-
-	private waitForRequestValid(request: ExportRequest) {
-		return this.selectMany(
-			{ query: `id == "${request.id}" AND status == "active"` }
-		).pipe(
-			map(requests => requests[0]),
-			filter(req => !!req),
+			switchMap(_ => this.waitForOne(`id == "${request.id}" AND status == "active"`))
 		);
 	}
 

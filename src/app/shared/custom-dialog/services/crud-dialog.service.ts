@@ -32,11 +32,8 @@ export class CrudDialogService {
 	checkExists(type: EntityMetadata, valueInput: string) {
 		const name = 'name';
 		return this.ermService.getGlobalService(type)
-			.selectMany({ query: `${name} == "${valueInput.trim()}"` })
-			.pipe(
-				map(res => res.length > 0),
-				first()
-			);
+			.queryOneByPredicate(`${name} == "${valueInput.trim()}"`)
+			.pipe(first());
 	}
 }
 

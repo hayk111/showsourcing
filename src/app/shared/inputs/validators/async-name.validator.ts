@@ -9,7 +9,7 @@ export class ValidateNameNotEqual {
 	static equalValidator(ermService: ERMService, type: EntityMetadata) {
 		return (control: AbstractControl) => {
 			return ermService.getGlobalService(type)
-				.selectMany({ query: `name == "${control.value}"` })
+				.queryOneByPredicate(`name == "${control.value}"`)
 				.pipe(
 					first(),
 					map(result => ({ nameTaken: result.length > 0 }))

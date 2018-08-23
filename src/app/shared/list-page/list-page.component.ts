@@ -14,18 +14,6 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 
 
-// TODO:
-// - list page & filtering
-// - re-add deletion methods in global service because it's needed for votes
-// - try to add query to selectOne and waitForChange
-
-// -- queryOne
-// -- queryMany
-// -- queryList
-// -- selectOne (with query)
-// -- selectMany
-// -- waitForOne
-
 
 /**
  * Class used by components that need to display a list

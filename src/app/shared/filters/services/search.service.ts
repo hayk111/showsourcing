@@ -29,10 +29,10 @@ export class SearchService {
 
 	searchFilterElementsWithAll(str: string, filterList: FilterList) {
 		return zip(
-			this.tagSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
-			this.categorySrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
-			this.supplierSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
-			this.eventSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.tagSrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.categorySrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.supplierSrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.eventSrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
 		).pipe(
 			map(results => {
 				const [tags, categories, suppliers, events] = results;
@@ -50,8 +50,8 @@ export class SearchService {
 
 	searchFilterElementsWithTagAndCategory(str: string, filterList: FilterList) {
 		return zip(
-			this.tagSrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
-			this.categorySrv.selectMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.tagSrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
+			this.categorySrv.queryMany({ query: `name CONTAINS "${str}"` }).pipe(first()),
 		).pipe(
 			map(results => {
 				const [tags, categories] = results;

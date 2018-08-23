@@ -8,179 +8,77 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 		super('product', 'products');
 	}
 
+	// in a product there are many sub entities, those are utilities
+	// so when we query a product we can do things like selectOne(id, ProductQueries.images)
+	// to only get a response like this
+	// product { id, images { id, filename }}
+	// the ID of the product will be requested always.
 
+	// the goal is to use those utilities a bit everywhere even if they don't match exactly the data we need
+	// it makes the code easier to read. It means tho, that those sub queries must be quite exhaustive.
+	static readonly images = `images { id, fileName }`;
+	static readonly supplier = `supplier {
+		id, name, address, country, favorite, officeEmail,
+		logoImage { id, fileName }
+		categories { id, name }
+		images { id, fileName }
+	}`;
+	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
+	static readonly price = ` price { id, currency, value, baseCurrencyValue } `;
+	static readonly category = `category { id, name }`;
+	static readonly projects = `projects { id, name, productCount, description }`;
+	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
+	static readonly statuses = `statuses { id, cancelled, status { id, name, category, step, inWorkflow } }`;
+	static readonly tags = `tags { id, name }`;
+	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
+	static readonly createdBy = `createdBy { id, firstName, lastName }`;
+	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
+	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
+
+	// This is the default selection when using selectOne or queryOne
 	oneDefaultSelection = `
 			name,
-			supplier {
-				id,
-				name,
-				address,
-				country,
-				favorite,
-				logoImage {
-					id,
-					fileName
-				},
-				categories {
-					id,
-					name
-				},
-				images {
-					id,
-					fileName
-				}
-			},
-			images {
-				id, fileName, orientation
-			},
-			price {
-				id,
-				currency,
-				value,
-				baseCurrencyValue
-			},
-			category {
-				id, name
-			},
-			projects {
-				id, name, productCount, description
-			}
-			description,
-			event {
-				id,
-				name,
-				description {
-					id
-					logoImage {
-						id,
-						fileName
-					}
-				}
-			},
+			description
 			favorite,
-			statuses {
-				id,
-				cancelled,
-				status {
-					id, name, category, step
-				}
-			},
-			tags {
-				id, name
-			},
 			minimumOrderQuantity,
 			moqDescription,
 			score,
-			votes {
-				id,
-				value,
-				user {
-					id,
-					firstName,
-					lastName
-				}
-			}
-			innerCarton {
-				id,
-				height,
-				width,
-				length,
-				unit,
-				itemsQuantity,
-				weight,
-				weightUnit,
-			}
-			masterCarton {
-				id,
-				height,
-				width,
-				length,
-				unit,
-				itemsQuantity,
-				weight,
-				weightUnit,
-			}
-			priceMatrix {
-				id,
-				rows {
-					id,
-					label,
-					price {
-						id,
-						value,
-						currency
-					}
-				}
-			}
 			leadTimeValue,
 			leadTimeUnit,
 			sample,
 			samplePrice,
-			createdBy {
-				id, firstName, lastName
-			},
 			creationDate
+			${ProductQueries.supplier},
+			${ProductQueries.images},
+			${ProductQueries.price},
+			${ProductQueries.category},
+			${ProductQueries.projects},
+			${ProductQueries.event},
+			${ProductQueries.statuses},
+			${ProductQueries.votes},
+			${ProductQueries.packaging('innerCarton')}
+			${ProductQueries.packaging('masterCarton')}
+			${ProductQueries.priceMatrix}
+			${ProductQueries.createdBy}
 			`;
 
 	manyDefaultSelection = `
 			name,
 			description,
 			creationDate,
-			createdBy {
-				id,
-				lastName,
-				firstName
-			},
-			images {
-				id, fileName, orientation
-			},
-			supplier {
-				id,
-				name,
-				officeEmail,
-				contacts {
-					id,
-					name,
-					email,
-					jobTitle
-				}
-			},
-			category {
-				id,
-				name
-			},
-			price {
-				id,
-				value,
-				currency
-			},
-			images {
-				id,
-				fileName
-			},
 			favorite,
-			statuses {
-				id,
-				cancelled,
-				status {
-					id, name, step, category, inWorkflow
-				}
-			},
-			tags {
-				id, name
-			},
 			score,
 			minimumOrderQuantity,
-			votes {
-				id,
-				user {
-					id
-				},
-				value
-			},
-			projects {
-				id
-			}
+			${ProductQueries.createdBy},
+			${ProductQueries.images},
+			${ProductQueries.supplier},
+			${ProductQueries.contacts},
+			${ProductQueries.category},
+			${ProductQueries.price},
+			${ProductQueries.statuses},
+			${ProductQueries.votes},
+			${ProductQueries.projects},
+			${ProductQueries.tags}
 		`;
 
 	updateDefaultSelection = `
@@ -188,11 +86,9 @@ export class ProductQueries extends BaseQueries implements GlobalQuery {
 		favorite
 		votes {
 			id
-			user { id }
 			value
 		},
 		projects {
 			id
-		}
-		`;
+		}`;
 }

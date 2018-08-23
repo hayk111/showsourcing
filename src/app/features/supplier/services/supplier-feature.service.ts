@@ -7,6 +7,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 import { ContactService, ProductService, UserService } from '~global-services';
 import { SupplierService } from '~global-services/supplier/supplier.service';
 import { first } from 'rxjs/operators';
+import { ProductQueries } from '~global-services/product/product.queries';
 
 
 @Injectable({
@@ -26,8 +27,9 @@ export class SupplierFeatureService extends SupplierService {
 
 	/** gets the products of the supplier */
 	getProducts(supplierId: string): Observable<Product[]> {
-		return this.productSrv.selectMany(
-			{ query: `supplier.id == '${supplierId}'` }
+		return this.productSrv.queryMany(
+			{ query: `supplier.id == '${supplierId}'` },
+			ProductQueries.images
 		).pipe(
 			first()
 		);

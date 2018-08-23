@@ -14,8 +14,8 @@ export class SearchService {
 
 	search(search: string) {
 		return zip(
-			this.productSrv.selectMany({ query: `name CONTAINS[c] "${search}"` }).pipe(first()),
-			this.supplierSrv.selectMany({ query: `name CONTAINS[c] "${search}"` }).pipe(first()),
+			this.productSrv.queryMany({ query: `name CONTAINS[c] "${search}"` }).pipe(first()),
+			this.supplierSrv.queryMany({ query: `name CONTAINS[c] "${search}"` }).pipe(first()),
 		).pipe(
 			map(results => {
 				const [products, suppliers] = results;
