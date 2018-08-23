@@ -9,6 +9,7 @@
         <ng-container *ngIf="feed.activities.length > 1; else one">
           <ng-container *ngIf="feed.obs | async as products">
             <multiple-products-activity-card-app
+            *ngIf="products.lenght > 0"
             [time]="feed.created_at"
             [products]="feed.obs | async"></multiple-products-activity-card-app>
           </ng-container>
@@ -16,6 +17,7 @@
         <ng-template #one>
           <ng-container *ngIf="(feed.obs | async) as products">
             <one-product-activity-card-app
+            *ngIf="products[0]"
             [product]="products[0]"
             (update)="updateProduct($event)"></one-product-activity-card-app>
           </ng-container>

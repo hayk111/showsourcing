@@ -8,7 +8,7 @@ import { Team } from '~models/team.model';
 import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
-import { TeamService } from '~global-services';
+import { TeamService } from '~global-services/team/team.service';
 
 
 @Injectable({ providedIn: 'root' })

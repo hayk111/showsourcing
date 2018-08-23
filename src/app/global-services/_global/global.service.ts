@@ -115,7 +115,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryOne(fields);
 		const queryName = this.getQueryName(gql);
-		const variables = { query: `id == "${id}"` };
+		const variables = { id };
 		this.log(title, gql, queryName, variables);
 		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
@@ -270,6 +270,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
+				tap(d => { debugger; }),
 				map((r) => r.data[queryName]),
 				tap(data => this.logResult(title, queryName, data)),
 				catchError(errors => of(log.table(errors)))
@@ -289,7 +290,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @returns ListQuery that items$ and also allows you to fetchMore and refetch
 	*/
 	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): ListQuery<T> {
-		const title = 'Selecting List';
+		const title = 'Query List';
 		fields = this.getFields(fields, this.fields.many);
 		const gql = this.queryBuilder.queryMany(fields)
 		const queryName = this.getQueryName(gql);
@@ -351,7 +352,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	selectAll(fields?: string | string[], client?: string): Observable<T[]> {
+	selectAll(fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
 		const title = 'Select All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.selectAll(fields);
@@ -384,7 +385,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	queryAll(fields?: string | string[], client?: string): Observable<any> {
-		const title = 'Selecting All ' + this.typeName;
+		const title = 'Query All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.queryAll(fields);
 		const queryName = this.getQueryName(gql);
@@ -567,7 +568,7 @@ Deleting everything.. so watchout. `);
 
 	/** to use another named apollo client */
 	getClient(clientName: string) {
-		if (name)
+		if (clientName)
 			return this.apollo.use(clientName);
 		else
 			return this.apollo;

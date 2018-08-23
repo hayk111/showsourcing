@@ -114,9 +114,9 @@ export class ActivityService {
 	private addDataToActivity(activity: GetStreamActivity) {
 		switch (activity.verb) {
 			case 'create_comment':
-				return this.commentSrv.selectOne(activity.object).pipe(first());
+				return this.commentSrv.queryOne(activity.object).pipe(first());
 			case 'create_product':
-				return this.productSrv.selectOne(activity.object).pipe(first());
+				return this.productSrv.queryOne(activity.object).pipe(first());
 			default:
 				log.warn('unhandled activity feed verb, search this uuid for more info: c6f3ae2e-a222-11e8-98d0-529269fb1459');
 		}

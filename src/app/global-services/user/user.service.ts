@@ -4,8 +4,9 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { ApolloStateService, USER_CLIENT } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
 import { Apollo } from 'apollo-angular';
+import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
 
 @Injectable({
 	providedIn: 'root',
