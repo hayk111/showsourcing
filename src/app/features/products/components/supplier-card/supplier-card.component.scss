@@ -37,12 +37,25 @@ card-app {
 
 	.supplier-info {
 		margin-left: var(--spacing-ms);
-		margin-top: 28px;
+		margin-top: var(--spacing-l);
 
 		image-previewer-app {
 			margin-top: 0px;
 			opacity: 0.2;
 			margin-bottom: var(--spacing-m);
+		}
+		.empty {
+			font-style: italic;
+			color: var(--color-txt-secondary);
+			// background: var(--color-secondary-light); uncomment if background needed
+			width: 152px;
+			height: 100px;
+			// height: 124px;
+			// margin-bottom: var(--spacing-s);
+			margin-left: 92px;
+			img {
+				margin-bottom: var(--spacing-s);
+			}
 		}
 
 		.from {

@@ -15,17 +15,25 @@
 			<span class="from" *ngIf="supplier?.country">
 				Manufacturer from {{ supplier?.country | const:'country' }}
 			</span>
-			<div class="flexWrap categories">
+			<div *ngIf="supplier?.categories?.length > 0" class="flexWrap categories">
 				<div *ngFor="let category of supplier?.categories; last as last" class="single">
 					{{ category?.name }}{{ last ? '' : ','}}
 				</div>
 			</div>
+			<!-- image previewer -->
 			<image-previewer-app
-				*ngIf="supplier?.images?.length > 0"
+				*ngIf="supplier?.images?.length > 0; else noImg"
 				size="76"
 				[hasAdd]="false"
 				[images]="supplier?.images">
 			</image-previewer-app>
+				<!-- no image -->
+			<ng-template #noImg>
+				<div class="flexColumn flexCenter empty">
+					<img [src]="defaultImg"/>
+					<span>No pictures yet</span>
+				</div>
+			</ng-template>
 		</div>
 
 		<card-footer-app>
