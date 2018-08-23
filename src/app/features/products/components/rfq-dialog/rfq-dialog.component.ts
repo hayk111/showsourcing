@@ -55,6 +55,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 			++this.index;
 		else {
 			// Send information
+			this.closeDlg();
 		}
 	}
 

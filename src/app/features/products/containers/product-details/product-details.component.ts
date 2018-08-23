@@ -1,14 +1,15 @@
 import { Component, OnInit, NgModuleRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { AppFile, Product, Project, AppImage, ProductStatus } from '~models';
+import { AppFile, Product, Project, AppImage, ProductStatus, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import {
 	ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent
 } from '~shared/custom-dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	files: Array<AppFile>;
 	/** projects for this product */
 	product: Product;
+	typeEntity = ERM.PRODUCT;
 
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private moduleRef: NgModuleRef<any>) {
+		private moduleRef: NgModuleRef<any>,
+		private router: Router) {
 		super();
 	}
 
@@ -89,5 +92,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.featureSrv
 			.update({ id: this.product.id, images: [...this.product.images, ...imgs] })
 			.subscribe();
+	}
+
+	/** when deleting this product */
+	deleteProduct() {
+		const callback = () => {
+			this.featureSrv.deleteOne(this.product.id).subscribe();
+			this.router.navigate(['product']);
+		};
+		const text = `Are you sure you want to delete this product?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 }
