@@ -8,9 +8,9 @@ import { Apollo } from 'apollo-angular';
 export class CategoryManagementService extends CategoryService {
 
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 }

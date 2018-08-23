@@ -10,8 +10,8 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 @Injectable({ providedIn: 'root' })
 export class SupplierService extends GlobalWithAuditService<Supplier> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new SupplierQueries(), 'Supplier', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new SupplierQueries(), 'Supplier', userSrv);
 	}
 
 }

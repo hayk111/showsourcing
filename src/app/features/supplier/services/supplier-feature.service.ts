@@ -16,12 +16,12 @@ import { ProductQueries } from '~global-services/product/product.queries';
 export class SupplierFeatureService extends SupplierService {
 
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected productSrv: ProductService,
 		protected contactSrv: ContactService,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 

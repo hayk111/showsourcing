@@ -11,7 +11,7 @@ import { ApolloWrapper } from '~shared/apollo';
 export class ProductStatusTypeService extends GlobalService<ProductStatusType> {
 
 	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new ProductStatusTypeQueries(), 'ProductStatusType');
+		super(apollo, new ProductStatusTypeQueries(), 'ProductStatusType');
 	}
 
 }

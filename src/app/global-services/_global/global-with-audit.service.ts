@@ -12,12 +12,12 @@ import { forkJoin } from "rxjs";
 export class GlobalWithAuditService<T> extends GlobalService<T> {
 
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected queries: GlobalQuery,
 		protected typename: string,
 		protected userSrv: UserService
 	) {
-		super(wrapper, queries, typename);
+		super(apollo, queries, typename);
 	}
 
 	update(entity: any, client?: string) {

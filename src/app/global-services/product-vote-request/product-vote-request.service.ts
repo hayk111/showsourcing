@@ -13,7 +13,7 @@ import { UserService } from '~global-services';
 })
 export class ProductVoteRequestService extends GlobalWithAuditService<ProductVoteRequest> {
 
-	constructor(protected apollo: ApolloWrapper, protected userSrv: UserService) {
+	constructor(protected apollo: Apollo, protected userSrv: UserService) {
 		super(apollo, new ProductVoteRequestQueries(), 'ProductVoteRequest', userSrv);
 	}
 

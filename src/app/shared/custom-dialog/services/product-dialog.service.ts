@@ -11,13 +11,13 @@ import { SelectParams } from '~global-services/_global/select-params';
 export class ProductDialogService extends ProductService {
 
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected teamUserSrv: TeamUserService,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 	selectProjects(): Observable<Project[]> {

@@ -14,7 +14,7 @@ import { switchMap, tap, map, filter } from 'rxjs/operators';
 })
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
-	constructor(protected apollo: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new ExportRequestQueries(), 'ExportRequest');
 	}
 

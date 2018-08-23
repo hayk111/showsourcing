@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ExternalRequestService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
+import { Apollo } from 'apollo-angular';
 
 @Injectable()
 export class ExternalRequestFeatureService extends ExternalRequestService {
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 }

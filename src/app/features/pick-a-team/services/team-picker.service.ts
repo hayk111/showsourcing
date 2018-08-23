@@ -9,6 +9,7 @@ import { Apollo } from 'apollo-angular';
 import { LocalStorageService } from '~shared/local-storage';
 import { TeamQueries } from '~global-services/team/team.queries';
 import { tap } from 'rxjs/internal/operators/tap';
+import { UserService } from '~global-services';
 
 
 
@@ -31,11 +32,10 @@ export class TeamPickerService {
 	teams$: Observable<Team[]>;
 
 	constructor(
-		protected wrapperTemp: ApolloWrapper,
+		protected userSrv: UserService,
 		protected apolloState: ApolloStateService,
 		private storage: LocalStorageService,
-		private authSrv: AuthenticationService,
-		private wrapper: ApolloWrapper
+		private authSrv: AuthenticationService
 	) { }
 
 	init() {
@@ -95,8 +95,7 @@ export class TeamPickerService {
 	}
 
 	private selectAll() {
-		return this.wrapper.use(USER_CLIENT)
-			.selectAll(this.queries.all());
+		return this.userSrv.queryAll(this.queries.all());
 	}
 
 }

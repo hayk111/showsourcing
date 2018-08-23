@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProjectWorkflowFeatureService extends ProductService {
 	constructor(
-		protected apollo: Apollo
+		protected apollo: Apollo,
 		protected productSrv: ProductService,
 		protected productStatusTypeService: ProductStatusTypeService,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 	/** Returns the products associated with a specific project */

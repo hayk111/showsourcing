@@ -12,7 +12,7 @@ import { TeamUserQueries } from '~global-services/team-user/team-user.queries';
 export class TeamUserService extends GlobalService<TeamUser> {
 
 	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new TeamUserQueries(), 'TeamUser');
+		super(apollo, new TeamUserQueries(), 'TeamUser');
 	}
 
 	selectAll(fields: string = 'id, user { id, firstName, lastName, email }') {

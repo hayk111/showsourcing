@@ -15,8 +15,8 @@ import { UserService } from '~global-services';
 })
 export class ImageService extends GlobalWithAuditService<AppImage> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new ImageQueries(), 'Image', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new ImageQueries(), 'Image', userSrv);
 	}
 
 	selectAll(fields = 'id'): Observable<any> {

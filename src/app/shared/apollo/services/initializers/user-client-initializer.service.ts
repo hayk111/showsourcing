@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { distinctUntilChanged, first, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
@@ -13,6 +12,7 @@ import { ClientInitializerQueries } from '~shared/apollo/services/initializers/i
 import { log } from '~utils/log';
 import { filter } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { UserService } from '~global-services';
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractApolloInitializer {
@@ -23,7 +23,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
-		private wrapper: ApolloWrapper,
+		private userSrv: UserService
 	) {
 		super(apollo, link);
 	}
@@ -60,10 +60,7 @@ export class UserClientInitializer extends AbstractApolloInitializer {
 	/** gets user from all-users realm */
 	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
-		return this.wrapper.use(ALL_USER_CLIENT).selectOne(
-			ClientInitializerQueries.selectUser,
-			id
-		).pipe(first());
+		return this.userSrv.queryOne(id, ALL_USER_CLIENT);
 	}
 
 	private resetClient() {

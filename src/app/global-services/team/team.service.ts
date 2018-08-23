@@ -20,12 +20,14 @@ import { log } from '~utils';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
+	defaultClient = USER_CLIENT;
+
 	constructor(
-		protected wrapperTemp: ApolloWrapper,
+		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
 		private teamPicker: TeamPickerService
 	) {
-		super(wrapperTemp.use(USER_CLIENT), new TeamQueries(), 'Team');
+		super(apollo, new TeamQueries(), 'Team');
 		log.debug('team service constructor');
 	}
 

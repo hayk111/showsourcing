@@ -11,8 +11,8 @@ import { UserService } from '~global-services/user/user.service';
 @Injectable({ providedIn: 'root' })
 export class CommentService extends GlobalWithAuditService<AppComment> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new CommentQueries(), 'Comment', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new CommentQueries(), 'Comment', userSrv);
 	}
 
 }

@@ -13,8 +13,8 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class ProjectService extends GlobalWithAuditService<Project> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new ProjectQueries(), 'Project', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new ProjectQueries(), 'Project', userSrv);
 	}
 
 }

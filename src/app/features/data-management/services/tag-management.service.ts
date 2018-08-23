@@ -7,7 +7,7 @@ import { Apollo } from 'apollo-angular';
 })
 export class TagManagememtService extends TagService {
 
-	constructor(protected apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, userSrv);
+	constructor(protected apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, userSrv);
 	}
 }

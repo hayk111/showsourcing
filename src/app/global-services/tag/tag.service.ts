@@ -15,8 +15,8 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 })
 export class TagService extends GlobalWithAuditService<Tag> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new TagQueries(), 'Tag', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new TagQueries(), 'Tag', userSrv);
 	}
 
 }

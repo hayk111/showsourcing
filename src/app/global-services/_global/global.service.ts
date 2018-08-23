@@ -28,11 +28,9 @@ export interface GlobalServiceInterface<T> {
 }
 
 
-
 /**
- * Global service that other entity service can extend to do stuff via graphql,
- * This service deals with transforming what it receives then passing it to
- * apolloWrapper, it also deals with the cache
+ * Global service that other entity service can extend to do crud operations
+ * and more over graphql
  */
 export abstract class GlobalService<T extends { id?: string }> implements GlobalServiceInterface<T> {
 
@@ -73,7 +71,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		if (this.selectOneCache.has(id))
 			return this.selectOneCache.get(id).result;
 
-		const obs = this.apollo.subscribe({ query: gql, variables })
+		const obs = this.getClient(client).subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -104,7 +102,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
 		this.log(title, gql, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -132,7 +130,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 		this.log(title, gql, queryName, variables);
-		return this.apollo.subscribe({ query: gql, variables })
+		return this.getClient(client).subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -159,7 +157,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 		this.log(title, gql, queryName, variables);
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -190,7 +188,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		// const queryName = this.getQueryName(gql);
 		// const title = 'Selecting Many';
 		// this.log(title, gql, queryName, variables);
-		// return this.apollo.subscribe({ query: gql, variables })
+		// return this.getClient(client).subscribe({ query: gql, variables })
 		// 	.pipe(
 		// 		filter((r: any) => this.checkError(r)),
 		// 		// extracting the result
@@ -219,7 +217,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 
 		this.log(title, gql, queryName, variables);
 
-		return this.apollo.watchQuery({ query: gql, variables }).valueChanges
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -247,7 +245,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const params = new SelectParams(paramsConfig);
 
 		// add query ref in case we need it.
-		const queryRef = this.apollo.watchQuery<any>({
+		const queryRef = this.getClient(client).watchQuery<any>({
 			query: gql,
 			variables: { ...params.toApolloVariables() },
 		});
@@ -300,7 +298,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		// const queryName = this.getQueryName(gql);
 		// this.log('Selecting All', gql, queryName);
 
-		// return this.apollo.subscription({ query: gql })
+		// return this.getClient(client).subscription({ query: gql })
 		// 	.pipe(
 		// 		// extracting the result
 		// 		map((r) => {
@@ -331,7 +329,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		this.log(title, gql, queryName);
 
-		return this.apollo.watchQuery({ query: gql }).valueChanges
+		return this.getClient(client).watchQuery({ query: gql }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
@@ -362,7 +360,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 		this.log(title, gql, queryName, variables);
-		return this.apollo.subscribe({ query: gql, variables })
+		return this.getClient(client).subscribe({ query: gql, variables })
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
@@ -402,7 +400,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			this.selectOneCache.get(entity.id).subj.next(entity);
 		}
 
-		return this.apollo.mutate(options).pipe(
+		return this.getClient(client).mutate(options).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -442,7 +440,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		this.log('Create', gql, queryName, variables);
 
-		return this.apollo.mutate({ mutation: gql, variables }).pipe(
+		return this.getClient(client).mutate({ mutation: gql, variables }).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -482,7 +480,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 		const queryName = this.getQueryName(gql);
 		this.log(title, gql, queryName, options.variables);
 
-		return this.apollo.mutate(options).pipe(
+		return this.getClient(client).mutate(options).pipe(
 			first(),
 			filter((r: any) => this.checkError(r)),
 			map(({ data }) => data[queryName]),
@@ -522,7 +520,7 @@ Deleting everything.. so watchout. `);
 		// const queryName = this.getQueryName(gql);
 		// this.log('DeleteMany', gql, queryName, apolloOptions.variables);
 
-		// return this.apollo.mutate(apolloOptions).pipe(
+		// return this.getClient(client).mutate(apolloOptions).pipe(
 		// 	first(),
 		// 	filter((r: any) => this.checkError(r)),
 		// 	map(({ data }) => data[queryName]),
@@ -536,11 +534,11 @@ Deleting everything.. so watchout. `);
 	/////////////////////////////
 
 	/** to use another named apollo client */
-	use(name: string) {
+	getClient(clientName: string) {
 		if (name)
-			return new ApolloWrapper(this.apollo.use(name) as Apollo);
+			return this.apollo.use(clientName);
 		else
-			return this;
+			return this.apollo;
 	}
 
 	/** create appollo mutationOptions from our updateOptions */

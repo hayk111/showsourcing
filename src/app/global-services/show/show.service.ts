@@ -10,7 +10,7 @@ import { GLOBAL_DATA_CLIENT } from '~shared/apollo';
 export class ShowService extends GlobalService<Show> {
 
 	constructor(wrapper: ApolloWrapper) {
-		super(wrapper.use(GLOBAL_DATA_CLIENT), new ShowQueries(), 'Show');
+		super(apollo.use(GLOBAL_DATA_CLIENT), new ShowQueries(), 'Show');
 	}
 
 }

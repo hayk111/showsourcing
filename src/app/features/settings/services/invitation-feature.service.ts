@@ -9,7 +9,7 @@ import { Apollo } from 'apollo-angular';
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(
-		protected apollo: ApolloWrapper,
+		protected apollo: Apollo,
 		private invitationSrv: InvitationService,
 		protected userSrv: UserService
 	) {

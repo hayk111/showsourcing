@@ -12,7 +12,7 @@ import { first, map } from 'rxjs/operators';
 export class MemberFeatureService extends TeamUserService {
 
 	constructor(
-		protected apollo: ApolloWrapper,
+		protected apollo: Apollo,
 		private teamUserSrv: TeamUserService,
 		private teamSrv: TeamService,
 		protected userSrv: UserService) {

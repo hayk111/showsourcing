@@ -11,7 +11,7 @@ import { ProductVoteQueries } from '~global-services/product-vote/product-vote.q
 })
 export class ProductVoteService extends GlobalService<ProductVote> {
 
-	constructor(protected apollo: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new ProductVoteQueries(), 'ProductVote');
 	}
 

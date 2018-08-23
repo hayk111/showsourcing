@@ -15,8 +15,8 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class EventService extends GlobalWithAuditService<Event> {
 
-	constructor(apollo: Apollo protected userSrv: UserService) {
-		super(wrapper, new EventQueries(), 'Event', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, new EventQueries(), 'Event', userSrv);
 	}
 
 	selectAll(fields: string = 'id, name, description {id, name, startDate, endDate}') {

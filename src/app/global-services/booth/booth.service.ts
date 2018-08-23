@@ -12,7 +12,7 @@ import { BoothQueries } from '~global-services/booth/booth.queries';
 export class BoothService extends GlobalService<Booth> {
 
 	constructor(wrapper: ApolloWrapper) {
-		super(wrapper, new BoothQueries, 'Booth');
+		super(apollo, new BoothQueries, 'Booth');
 	}
 
 }

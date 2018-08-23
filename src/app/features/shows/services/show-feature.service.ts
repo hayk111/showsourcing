@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ShowService, EventService, SupplierService } from '~global-services';
-import { ApolloWrapper, GLOBAL_DATA_CLIENT } from '~shared/apollo';
+import {  GLOBAL_DATA_CLIENT } from '~shared/apollo';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Observable, of } from 'rxjs';
 import { combineLatest, switchMap, tap, map } from 'rxjs/operators';
@@ -13,11 +13,11 @@ import { Show } from '~models/show.model';
 })
 export class ShowFeatureService extends ShowService {
   constructor(
-    apollo: Apollo
+    apollo: Apollo,
     protected eventSrv: EventService,
     protected supplierSrv: SupplierService
   ) {
-    super(wrapper);
+    super(apollo);
   }
 
   selectOne(id: string) {

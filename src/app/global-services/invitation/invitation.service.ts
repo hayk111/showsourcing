@@ -8,7 +8,7 @@ import { InvitationQueries } from '~global-services/invitation/invitation.querie
 @Injectable({ providedIn: 'root' })
 export class InvitationService extends GlobalService<Invitation> {
 
-	constructor(protected apollo: ApolloWrapper) {
+	constructor(protected apollo: Apollo) {
 		super(apollo, new InvitationQueries(), 'Invitation');
 	}
 
