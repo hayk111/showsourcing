@@ -30,3 +30,8 @@ icon-app[name="heart"] {
 	color: var(--color-warn);
 }
 
+.one {
+	icon-app[name="heart"] {
+		margin-right: var(--spacing-m);
+	}
+}

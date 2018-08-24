@@ -6,12 +6,13 @@ nav {
 	overflow: hidden;
 }
 a {
+	font-size: var(--font-size-l);
 	height: 100%;
-	padding: 0 20px;
+	padding: 0 var(--spacing-l);
 	box-sizing: border-box;
-	font-weight: 600;
 }
 a.active {
+	font-weight: 600;
 	background: var(--color-secondary-light);
 	border-bottom: 4px solid var(--color-primary);
 }

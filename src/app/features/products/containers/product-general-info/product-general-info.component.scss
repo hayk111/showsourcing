@@ -2,6 +2,30 @@
   display: block;
 }
 
+.mainTitle {
+	font-size: var(--font-size-xxxl);
+	font-weight: 600;
+	color: var(--color-txt-strong);
+	margin-bottom: var(--spacing-ms);
+
+	icons-status-app {
+		margin-left: var(--spacing-ml);
+		font-size: var(--font-size-xxl);
+	}
+}
+.price {
+	margin-bottom: var(--spacing-l);
+	.amount {
+		color: var(--color-primary);
+		font-size: var(--font-size-xxxl);
+		font-weight: bold;
+	}
+	.moq {
+		margin-left: var(--spacing-ms);
+		color: var(--color-txt-secondary);
+	}
+}
+
 .sectionTitle {
 	font-size: var(--font-size-l);
 	color: var(--color-button-dark);

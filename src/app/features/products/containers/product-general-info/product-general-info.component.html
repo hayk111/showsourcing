@@ -1,10 +1,26 @@
 
 
 <card-app>
-	<div class="sectionTitle shipping"
+	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
-		General Information
+		{{ product.name || 'Unnamed Product' }}
+		<icons-status-app
+			class="flexCenter"
+			[product]="product"
+			[favorite]="product?.favorite"
+			[onlyLike]="true"
+			[hasPercent]="false">
+		</icons-status-app>
 	</div>
+	<div class="flex price">
+		<div class="amount">
+			{{ product.price.value }}
+		</div>
+		<div class="moq flexCenter">
+			({{ product?.minimumOrderQuantity + 'pcs' }} {{ product?.moqDescription }})
+		</div>
+	</div>
+	<div class="description"></div>
 	<ng-container *ngIf="descriptor$ | async as descriptor">
 		<dynamic-form-app
 			[inlineLabel]="false"
