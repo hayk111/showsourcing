@@ -14,7 +14,8 @@ import { UserService } from '~global-services';
 export class IconsStatusComponent implements OnInit {
 
 	@Input() set product(product: Product) {
-		this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+		if (product)
+			this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
 		this._product = product;
 	}
 	get product() {
