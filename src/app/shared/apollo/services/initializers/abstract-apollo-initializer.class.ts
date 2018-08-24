@@ -56,7 +56,7 @@ export abstract class AbstractApolloInitializer {
 
 
 		const link = from([
-			cleanTypenameLink,
+			// cleanTypenameLink,
 			ws
 		]);
 

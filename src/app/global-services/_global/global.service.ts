@@ -565,7 +565,7 @@ Deleting everything.. so watchout. `);
 	/////////////////////////////
 
 	/** to use another named apollo client */
-	getClient(clientName: string) {
+	private getClient(clientName: string) {
 		if (clientName)
 			return this.apollo.use(clientName);
 		else

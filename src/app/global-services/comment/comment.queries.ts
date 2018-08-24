@@ -16,3 +16,4 @@ export abstract class CommentQueries extends GlobalQueries {
 	`;
 
 }
+

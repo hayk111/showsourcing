@@ -83,7 +83,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			sortBy: this.initialSortBy
 		});
 		this.items$ = this.listResult.items$.pipe(
-			tap(_ => this.onLoaded())
+			tap(_ => this.onLoaded()),
+			tap(items => this.items = items)
 		);
 
 		this.filterList
