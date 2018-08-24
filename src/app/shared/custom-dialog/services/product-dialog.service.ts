@@ -41,8 +41,13 @@ export class ProductDialogService extends ProductService {
 	}
 
 	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
-		const projects: Project[] = product.projects.map(p => ({ id: p.id }));
-		projects.push(...addedProjects.map(p => ({ id: p.id })));
+		// mapping current projects to only have the ids
+		addedProjects = Array.from(addedProjects, project => ({ id: project.id }));
+		const projects: Project[] = Array.from(product.projects, project => ({ id: project.id }));
+		// removing duplicates
+		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
+
+		projects.push(...addedProjects);
 		return this.update({ id: product.id, projects });
 	}
 
