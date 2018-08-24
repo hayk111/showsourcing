@@ -103,4 +103,9 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
+
+	/** export product */
+	export() {
+		// TODO
+	}
 }

@@ -22,6 +22,8 @@ export class ContextMenuComponent {
 	@Input() xPosition = 16;
 	/** Position of the menu in the Y axis. */
 	@Input() yPosition = 16;
+	/** width of the menu */
+	@Input() width = 200;
 	@Input() menuOpen = false;
 
 

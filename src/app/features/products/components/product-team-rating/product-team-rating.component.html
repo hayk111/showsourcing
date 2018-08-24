@@ -9,7 +9,7 @@
 		</h2>
 	</div>
 
-	<ng-container  *ngIf="votes?.length > 0; else noVotes">
+	<ng-container *ngIf="votes?.length > 0; else noVotes">
 		<div class="rating-info">
 				<div class="thumb-info flexVAlign">
 					<icon-app [name]="name" [ngStyle]="buttonStyle" size="18" fontSet="svg"></icon-app>
@@ -26,15 +26,14 @@
 			</div>
 
 			<card-footer-app>
-				<context-menu-app xPosition="0" yPosition="34">
-					<context-menu-trigger-app>
-						<button class="secondary-light">View Vote Details</button>
-					</context-menu-trigger-app>
-					<context-menu-item-app *ngFor="let vote of votes">
-						{{vote.user.firstName}} {{vote.user.lastName}}
-					</context-menu-item-app>
-				</context-menu-app>
-				<button class="primary" (click)="requestTeamVotes.emit()">Request Team Votes</button>
+				<thumb-buttons-app
+					size="m"
+					[products]="products"
+					[votes]="votes"
+					[hasText]="true"
+					(vote)="vote.emit({votes: $event})">
+				</thumb-buttons-app>
+				<button class="secondary-light">View Vote Details</button>
 			</card-footer-app>
 	</ng-container>
 
@@ -46,6 +45,13 @@
 		</rating-cylinder-app>
 
 		<card-footer-app>
+			<thumb-buttons-app
+				size="m"
+				[products]="products"
+				[votes]="votes"
+				[hasText]="true"
+				(vote)="vote.emit({votes: $event})">
+			</thumb-buttons-app>
 			<button class="primary fullWidth" (click)="requestTeamVotes.emit()">Request Team Votes</button>
 		</card-footer-app>
 	</ng-template>

@@ -15,7 +15,9 @@ import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animatio
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	/** whether we display two thumbs or just one */
-	@Input() single = true;
+	@Input() single = false;
+	/** whether we display text besides the buttons or not */
+	@Input() hasText = false;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
 		this.userVoteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);

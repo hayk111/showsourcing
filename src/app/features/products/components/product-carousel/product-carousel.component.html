@@ -22,17 +22,26 @@
 
 		<action-bar-app
 			[favorite]="product.favorite"
-			[votes]="product.votes"
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
-			(vote)="vote.emit({votes: $event})">
+			[hasLikes]="false">
 			<button class="icon light" (click)="requestFeedback.emit()">
-				<icon-app fontSet="svg" name="poll-light-grey" size="m" ></icon-app>
+				<icon-app fontSet="svg" name="poll-light-grey"></icon-app>
+			</button>
+			<button class="icon light" (click)="openAddProject.emit()">
+				<icon-app fontSet="svg" name="folder"></icon-app>
 			</button>
 			<button class="secondary-light" (click)="openFileBrowser()">Add Picture</button>
-			<button class="icon light dots">
-				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
-			</button>
+			<context-menu-app [xPosition]="3" [yPosition]="35" [width]="140">
+				<context-menu-trigger-app>
+					<button class="icon light dots">
+						<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="export.emit()">
+					Export
+				</context-menu-item-app>
+			</context-menu-app>
 		</action-bar-app>
 
 		<div class="flex info-creation">
