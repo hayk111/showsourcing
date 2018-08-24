@@ -6,6 +6,7 @@
 }
 
 .menu {
+	z-index: 1000;
 	position: absolute;
 	background: white;
 	color: var(--color-txt-primary);
