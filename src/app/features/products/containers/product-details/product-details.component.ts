@@ -62,7 +62,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	removeProject(project: Project) {
 		// mapping project to their respective id, to not inadvertently change other props, then removing
 		// the project we need to from the array
-		const projects = this.product.projects.map(p => ({ id: p.id })).filter(p => p.id !== project.id);
+		const projects = Array.from(this.product.projects, p => ({ id: p.id })).filter(p => p.id !== project.id);
 		this.featureSrv.update({ id: this.product.id, projects }).subscribe();
 	}
 
