@@ -33,7 +33,7 @@
 					[hasText]="true"
 					(vote)="vote.emit({votes: $event})">
 				</thumb-buttons-app>
-				<button class="secondary-light">View Vote Details</button>
+				<button class="secondary-light" (click)="openVoteDetails.emit()">View Vote Details</button>
 			</card-footer-app>
 	</ng-container>
 

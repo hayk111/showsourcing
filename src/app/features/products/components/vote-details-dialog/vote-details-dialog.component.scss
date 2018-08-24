@@ -1,0 +1,25 @@
+dialog-app {
+	width: 470px;
+}
+
+.user-info {
+	margin-bottom: var(--spacing-s);
+}
+user-picture-app {
+	font-size: var(--font-size-s);
+}
+
+.name {
+	margin-left: var(--spacing-ms);
+}
+
+icon-app {
+	cursor: default;
+	font-size: var(--font-size-xxl);
+	margin-right: var(--spacing-ms);
+	margin-bottom: var(--spacing-xs);
+}
+
+.row {
+	border-bottom: 1px solid var(--color-secondary);
+}

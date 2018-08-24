@@ -46,7 +46,8 @@
 			<product-team-rating-app
 				[product]="product"
 				(requestTeamVotes)="openRequestFeedbackDialog()"
-				(vote)="updateProduct($event)">
+				(vote)="updateProduct($event)"
+				(openVoteDetails)="openVoteDetailsDialog()">
 			</product-team-rating-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>

@@ -10,6 +10,7 @@ import {
 	ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent
 } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 
 
 @Component({
@@ -107,5 +108,10 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** export product */
 	export() {
 		// TODO
+	}
+
+	/** Opens a dialog that let you see the list of people who have voted */
+	openVoteDetailsDialog() {
+		this.dlgSrv.openFromModule(VoteDetailsDialogComponent, this.moduleRef, { votes: this.product.votes });
 	}
 }
