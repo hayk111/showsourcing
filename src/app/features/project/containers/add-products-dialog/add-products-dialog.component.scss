@@ -1,0 +1,33 @@
+dialog-app {
+  width: 1103px;
+  height: 675px;
+}
+
+sub-panel-app {
+  padding-top: 10px;
+  padding-bottom: 0;
+  margin-top: 12px;
+}
+
+sub-panel-app ::ng-deep search-bar-app {
+  background-color: var(--color-secondary-light);
+}
+
+dialog-header-app {
+  padding-left: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: Raleway;
+  color: var(--color-txt-strong);
+}
+
+divider-app {
+  margin-right: 23px;
+  margin-left: 23px;
+}
+
+dialog-footer-app {
+  margin-top: 16px;
+  margin-right: 23px;
+  margin-left: 23px;
+}

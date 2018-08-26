@@ -9,6 +9,8 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { StoreKey } from '~utils';
+import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
 
 @Component({
 	selector: 'project-products-app',
@@ -32,7 +34,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, NewProductDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
 	}
 
 	ngOnInit() {

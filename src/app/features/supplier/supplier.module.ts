@@ -48,6 +48,7 @@ import { SupplierProductsComponent } from '~features/supplier/containers/supplie
 import { ImageModule } from '~shared/image/image.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { SupplierProductListComponent } from '~features/supplier/components/supplier-product-list/supplier-product-list.component';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		SupplierPublicProfileComponent,
 		SupplierImagesComponent,
 		SupplierProductsComponent,
+		SupplierProductListComponent
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,

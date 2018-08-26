@@ -1,0 +1,160 @@
+
+<custom-table-app
+class="list"
+[rows]="rows"
+[descriptor]="descriptor"
+[contextualMenu]="contextualMenuTemplate"
+[selected]="selection"
+(bottomReached)="bottomReached.emit($event)"
+(sort)="sort.emit($event)"
+(selectOne)="select.emit($event)"
+(unselectOne)="unselect.emit($event)"
+(selectAll)="selectAll.emit($event)"
+(unselectAll)="unselectAll.emit()"
+[pending]="pending"
+[currentPage]="currentPage"
+(previous)="previousPage()"
+(next)="nextPage()">
+</custom-table-app>
+
+<!-- contextual menu -->
+<ng-template #contextualMenu let-row="row">
+<menu class="z-4">
+  <menuitem class="pointer flexCenter"
+    (click)="delete.emit(row)"
+    i18n="product menu | export">
+    <div class="border">Delete</div>
+  </menuitem>
+</menu>
+</ng-template>
+
+<!-- product preview -->
+<ng-template #main let-row="row">
+<div class="mainCellWrapper ellipsis">
+  <div class="mainCell">
+    <div class="imgCtnr"
+      (mouseenter)="onTogglePreview(overview, true)"
+      (mouseleave)="onTogglePreview(overview, false)">
+      <img *ngIf="row.images?.length > 0" class="mini" [src]="row | image:'s'"/>
+    </div>
+    <a class="name" [routerLink]="['/product', 'details', row.id, 'general']">{{ row.name }}</a>
+  </div>
+  <div class="preview">
+    <button (click)="open.emit(row)" class="ugly">Preview</button>
+  </div>
+</div>
+<div class="imgOverViewCtnrWrapper" #overview
+  (mouseenter)="onTogglePreview(overview, true)"
+  (mouseleave)="onTogglePreview(overview, false)">
+  <div class="imgOverViewCtnr">
+    <img *ngIf="row.images?.length > 0" [src]="row | image:'m'"/>
+  </div>
+</div>
+</ng-template>
+
+<!-- name -->
+<ng-template #supplier let-row="row">
+<ng-container *ngIf="row.supplier">
+  {{ row?.supplier.name }}
+</ng-container>
+<ng-container *ngIf="!row.supplier">
+  -
+</ng-container>
+</ng-template>
+
+<!-- category -->
+<ng-template #category let-row="row">
+<ng-container *ngIf="row.category">
+  {{ row?.category?.name }}
+</ng-container>
+<ng-container *ngIf="!row.category">
+  -
+</ng-container>
+</ng-template>
+
+<!-- price -->
+<ng-template #price let-row="row">
+<price-app
+  [amount]="row?.price?.value"
+  [currency]="row?.price?.currency"
+  *ngIf="row?.price?.currency; else noPrice">
+</price-app>
+
+<ng-template #noPrice>
+  <div>-</div>
+</ng-template>
+
+</ng-template>
+
+<!-- moq -->
+<ng-template #moq let-row="row">
+<moq-app
+  [amount]="row?.minimumOrderQuantity"
+  *ngIf="row?.price?.currency; else noMoq">
+</moq-app>
+
+<ng-template #noMoq>
+  <div>-</div>
+</ng-template>
+
+</ng-template>
+
+<!-- feedback -->
+<ng-template #feedback let-row="row">
+{{ row?.score !== undefined ? row.score : '-' }} %
+</ng-template>
+
+<!-- creation date -->
+<ng-template #creationDate let-row="row">
+{{ row?.creationDate | date: 'dd MMMM y' }}
+</ng-template>
+
+<!-- favorite -->
+<ng-template #favorite let-row="row">
+<div>
+  <rating-heart-app
+    [favorite]="row?.favorite"
+    (favorited)="favorited.emit(row.id)"
+    (unfavorited)="unfavorited.emit(row.id)"></rating-heart-app>
+</div>
+</ng-template>
+
+<!-- projects -->
+<ng-template #projects let-row="row">
+<div class="flexCenter">
+  <span *ngFor="let project of row.projects">{{ project.name }}</span>
+</div>
+</ng-template>
+
+<!-- status -->
+<ng-template #status let-row="row">
+<div class="pointer">
+  <!-- <badge-app
+    [color]="row?.status?.color">
+    {{row?.status?.name}}
+  </badge-app> -->
+</div>
+</ng-template>
+
+<!-- open btn -->
+<ng-template #action let-row="row">
+<div class="pointer" (click)="open.emit(row.id)"
+  i18n="div product|Open and view product@@global_open"> Open </div>
+</ng-template>
+
+<!-- for some mindblowing reason if this is put last,
+the viewchild for default template is undefined -->
+<ng-template #default let-row="row" let-column="column">
+{{ row[column.propName] }}
+</ng-template>
+
+<!-- user -->
+<ng-template #user let-row="row">
+<div class="flexCenter userP">
+  {{ row?.createdBy | formatUserName }}
+</div>
+<ng-template>
+
+<!-- none -->
+<ng-template #none></ng-template>
+

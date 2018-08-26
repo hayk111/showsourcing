@@ -1,0 +1,18 @@
+<div class="card-container">
+  <div *ngFor="let product of rows"
+       class="item">
+    <kanban-item-card-app class="marginSmall" [title]="product.name"
+      [status]="product.status?.name"
+      [favorite]="product.favorite"
+      [tags]="product.tags"
+      [price]="product.price"
+      [minimumOrderQuantity]="product.minimumOrderQuantity"
+      [category]="'category'"
+      [description]="product.description ? product.description : 'No description'"
+      [image]="product.images?.length > 0 ? (product | image:'m') : null"
+      [person]="product.createdBy"
+      [link]="'/product/details/' + product.id + '/general'"
+      [product]="product">
+    </kanban-item-card-app>
+  </div>
+</div>

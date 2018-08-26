@@ -1,1 +1,33 @@
-works
+<div *ngIf="supplier$ | async as supplier">
+    <sub-panel-app
+      buttonName="Add Product"
+      [hasSwitch]="false"
+      [hasFilter]="false"
+      [buttonIcon]="false"
+      (buttonClick)="openCreateDlg()"
+      (search)="search($event)">
+    </sub-panel-app>
+  
+    <supplier-product-list-app
+      *ngIf="view === 'list'"
+      class="list-view"
+      [selection]="selected$ | async"
+      [rows]="items$ | async"
+      [pending]="pending"
+      (previewClick)="openPreview($event)"
+      (select)="onItemSelected($event)"
+      (unselect)="onItemUnselected($event)"
+      (selectAll)="selectAll($event)"
+      (unselectAll)="resetSelection()"
+      (open)="goToDetails($event)"
+      (favorited)="onItemFavorited($event)"
+      (unfavorited)="onItemUnfavorited($event)"
+      (bottomReached)="loadMore()"
+      [currentPage]="currentParams.page"
+      (previous)="previousPage()"
+      (next)="nextPage()"
+      (sort)="sort($event)"
+      (delete)="deleteSelected($event)">
+    </supplier-product-list-app>
+  </div>
+  
