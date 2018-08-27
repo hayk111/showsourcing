@@ -13,29 +13,10 @@ import { ListViewComponent } from '~shared/list-page/list-view.component';
 	templateUrl: './products-card-view.component.html',
 	styleUrls: ['./products-card-view.component.scss'],
 })
-export class ProductsCardViewComponent extends ListViewComponent<Product> implements OnInit {
+export class ProductsCardViewComponent extends ListViewComponent<Product> {
 
 	constructor(private fb: FormBuilder, private dlgSrv: DialogService, private productFeatureService: ProjectWorkflowFeatureService) {
 		super();
 	}
 
-	ngOnChanges(changes) {
-		console.log('>> changes = ', changes);
-	}
-
-	ngOnInit() {
-		// this.store.select(selectNewProductDlg).pipe(
-		// 	takeUntil(this._destroy$)
-    // ).subscribe((state: State) => this.pending = state.pending);
-	}
-
-
-	createProduct() {
-		// if (this.form.valid) {
-		// 	this.store.dispatch(productActions.create(new Product(this.form.value, this.userSrv.userId)));
-		// }
-	}
-
 }
-
-

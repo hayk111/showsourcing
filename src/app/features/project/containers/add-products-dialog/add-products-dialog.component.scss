@@ -26,8 +26,30 @@ divider-app {
   margin-left: 23px;
 }
 
-dialog-footer-app {
+.footer {
   margin-top: 16px;
   margin-right: 23px;
   margin-left: 23px;
+
+  dialog-footer-app {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+
+    .cancel {
+      margin-right: 10px;
+      background-color: transparent;
+      color: var(--color-txt-secondary);
+
+      &:hover {
+        background-color: transparent;
+        color: var(--color-txt-secondary);
+      }
+    }
+
+    .save {
+      background-color: #45adff;
+      color: #fff;
+    }
+  }
 }

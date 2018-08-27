@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
-import { ERM, Product, ProductVote } from '~models';
+import { ERM, Product, ProductVote, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -13,6 +14,8 @@ import { FilterService, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { StoreKey } from '~utils/store/store';
+import { NotificationService, NotificationType } from '~shared/notifications';
+
 
 @Component({
 	selector: 'add-products-dialog-app',
@@ -27,7 +30,9 @@ import { StoreKey } from '~utils/store/store';
 })
 export class AddProductsDialogComponent extends ListPageComponent<Product, ProjectWorkflowFeatureService> implements OnInit {
 
+	@Input() selectedProjects: Project[];
 	searchFilterElements$: Observable<any[]>;
+	selected: number;
 
 	constructor(
 		protected router: Router,
@@ -37,7 +42,8 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
-		protected moduleRef: NgModuleRef<any>) {
+		protected moduleRef: NgModuleRef<any>,
+		private notifSrv: NotificationService) {
 		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
@@ -53,7 +59,22 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 		this.dlgSrv.close();
 	}
 
-  createProducts() {
-    
-  }
+	createProducts() {
+
+	}
+
+	submit() {
+		// we add each project one by one to the store
+		const selectedProducts = <Product[]>Object.values(this.selected);
+		this.featureSrv.addProductsToProjects(selectedProducts, this.selectedProjects)
+			.subscribe(projects => {
+				this.dlgSrv.close();
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Added',
+					message: 'Your products were added to the project with success',
+					timeout: 3500
+				});
+			});
+	}
 }

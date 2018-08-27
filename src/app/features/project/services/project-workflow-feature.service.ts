@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
-import { of } from 'rxjs';
+import { of, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
@@ -95,5 +95,24 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		}
 		return of();
 	}
+
+		/**
+	 * Associate products to projects.
+	 */
+	addProductsToProjects(addedProducts: Product[], projects: Project[]): Observable<Product[]> {
+		return forkJoin(projects.map(proj => this.addProductsToOneProject(addedProducts, proj)));
+	}
+
+	private addProductsToOneProject(addedProducts: Product[], project: Project) {
+		// mapping current projects to only have the ids
+		addedProducts = Array.from(addedProducts, product => ({ id: product.id }));
+		const products: Product[] = Array.from(project.products, product => ({ id: product.id }));
+		// removing duplicates
+		addedProducts = addedProducts.filter(product => !products.some(p => p.id === product.id));
+
+		products.push(...addedProducts);
+		return this.update({ id: project.id, products });
+	}
+
 
 }

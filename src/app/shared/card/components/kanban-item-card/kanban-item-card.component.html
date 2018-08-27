@@ -1,4 +1,6 @@
-<div class="kanban__item cell ng-star-inserted main flexBetween " (clickOutside)="onClickOutsideCard()"
+<div class="kanban__item cell ng-star-inserted main flexBetween"
+     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked) }"
+     (clickOutside)="onClickOutsideCard()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">

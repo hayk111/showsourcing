@@ -12,7 +12,10 @@
       [image]="product.images?.length > 0 ? (product | image:'m') : null"
       [person]="product.createdBy"
       [link]="'/product/details/' + product.id + '/general'"
-      [product]="product">
+      [product]="product"
+      [highlightOnChecked]="true"
+      (select)="select.emit(product, false)"
+      (unselect)="unselect.emit(product, false)">
     </kanban-item-card-app>
   </div>
 </div>

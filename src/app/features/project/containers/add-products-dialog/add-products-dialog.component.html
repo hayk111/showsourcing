@@ -45,11 +45,20 @@
 
     <divider-app></divider-app>
 
-    <dialog-footer-app>
-      <button class="secondary" (click)="closeDlg()">Cancel</button>
-      <button (click)="createProducts()" [disabled]="!hasSelectedProducts()">Add Products</button>
-    </dialog-footer-app>
+    <div class="flexBetween footer">
+      <div class="left flexCenter">
+        <ng-container	*ngIf="(selected$ | async) as selected">
+          <div *ngIf="selected.size > 0" style="align-items: center">{{selected.size}} Product{{(selected.size > 1) ? 's' : ''}} Selected</div>
+        </ng-container>
+      </div>
+      <div class="right flexCenter">
+        <dialog-footer-app>
+          <button class="cancel" (click)="closeDlg()">Cancel</button>
+          <button class="save" (click)="submit()" [disabled]="!hasSelectedProducts()">Add Products</button>
+        </dialog-footer-app>
+      </div>
     </div>
+  </div>
 
   <ng-template #spinner>
     <spinner-app></spinner-app>
