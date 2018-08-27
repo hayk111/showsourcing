@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
 import { Filter, FilterGroup, FilterType } from '~shared/filters/models';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AutoUnsub } from '~utils';
 
 import { FilterDataService } from '~shared/filters/services/filter.data.service';
@@ -15,11 +15,9 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 	styleUrls: ['./filters.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersComponent extends AutoUnsub implements OnInit {
-	/** array version of filters */
-	filters$: Observable<Filter[]>;
-	/** map<type, Map<value, filter>> to be able to do byType.get(SUPPLIER).has(value) */
-	byType$: Observable<Map<FilterType, Map<any, Filter>>>;
+export class FiltersComponent extends AutoUnsub {
+	@Input() byType: Map<FilterType, Map<any, Filter>>;
+	@Input() filterList: FilterList;
 
 	/** Whether the different panel that are displayed when clicking on a button are shown */
 	btnPanelShown = true;
@@ -47,14 +45,8 @@ export class FiltersComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private filterDataSrv: FilterDataService,
-		private filterSrv: FilterService
 	) {
 		super();
-	}
-
-	ngOnInit() {
-		this.filters$ = this.filterSrv.filters$;
-		this.byType$ = this.filterSrv.byType$;
 	}
 
 	/** opens the panel to select an entity */
@@ -96,22 +88,22 @@ export class FiltersComponent extends AutoUnsub implements OnInit {
 
 	/** when an event wants to add a filter */
 	addFilter(filter: Filter): void {
-		this.filterSrv.addFilter(filter);
+		this.filterList.addFilter(filter);
 	}
 
 	/** when an event wants to remove a filter */
 	removeFilter(filter: Filter): void {
-		this.filterSrv.removeFilter(filter);
+		this.filterList.removeFilter(filter);
 	}
 
 	/** clears all */
 	onClear(): void {
-		this.filterSrv.clearAll();
+		this.filterList.clearAll();
 	}
 
 	/** clears a subset */
 	onClearType(type: FilterType): void {
-		this.filterSrv.removeFilterType(type);
+		this.filterList.removeFilterType(type);
 	}
 
 }

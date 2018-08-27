@@ -1,4 +1,4 @@
-<div class="kanban__item cell ng-star-inserted main flexBetween" (clickOutside)="onClickOutsideCard()"
+<div class="kanban__item cell ng-star-inserted main flexBetween " (clickOutside)="onClickOutsideCard()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
@@ -7,7 +7,7 @@
              (dragstart)="preventDrag($event)">
         <img class="mini icon ng-star-inserted" *ngIf="icon" [src]="'/assets/icons/' + icon + '-icon.svg'"
              (dragstart)="preventDrag($event)">
-        <div class="check" [ngClass]="{ checked: checked, selected: checked }">
+        <div class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
           <checkbox-app [checked]="checked"
                         (check)="onChecked()"
                         (uncheck)="onUnchecked()"
@@ -17,17 +17,27 @@
           </checkbox-app>
         </div>
       </div>
-      <div class="description">
-        <div class="titleCtnr">
-          <a class="title">{{title}}</a>
-          <span class="tiny-label" *ngIf="status">{{status}}</span>
+      <div class="description flexBetween">
+        <div class="descriptionTopCtnr">
+          <div class="titleCtnr">
+            <a class="title">{{title}}</a>
+            <icon-app *ngIf="favorite" name="heart"></icon-app>
+          </div>
+          <div class="descriptionCtnr">
+            <div class="descriptionCtnr-first">
+              <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
+              <span class="descriptionText" *ngIf="description"> - </span>
+              <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
+            </div>
+            <div class="descriptionCtnr-last flex">
+              <icon-app [name]="thumbsName" *ngIf="thumbsName" [ngClass]="{ like: like, dislike: dislike }" [size]="9" fontSet="svg"></icon-app>
+              <span *ngIf="product?.score" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
+            </div>
+          </div>
         </div>
-        <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
-        <span class="descriptionText">{{description}}</span>
-        <span>
-          <badge-app type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
-          <icons-status-app [product]="product"></icons-status-app>
-        </span>
+        <div class="descriptionBottomCtnr">
+          <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1">{{tag.name}}</badge-app>
+        </div>
       </div>
     </div>
   </div>

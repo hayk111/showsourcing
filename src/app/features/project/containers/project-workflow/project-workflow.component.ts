@@ -1,21 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef, NgModuleRef } from '@angular/core';
+import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Observable, of } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { ProjectService, ProductService } from '~global-services';
-import { ERMService } from '~global-services/_global/erm.service';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
-import { Project, Product, ERM } from '~models';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { DialogService } from '~shared/dialog';
+import { ProductService, ProjectService } from '~global-services';
+import { ERM, Product, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
+import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { FindProductDialogComponent } from '~shared/custom-dialog/component/find-product-dialog/find-product-dialog.component';
+import { SelectionService } from '~shared/list-page/selection.service';
 
 
 @Component({
@@ -85,6 +82,12 @@ export class ProjectWorkflowComponent implements OnInit {
 	/** Unselects a entity */
 	onAllItemsUnselected(entity: any) {
 		this.selectionSrv.unselectOne(entity);
+	}
+
+	openFindProductDlg() {
+		this.dlgSrv.openFromModule(FindProductDialogComponent, this.moduleRef, {
+			callback: () => { }
+		});
 	}
 
 	/**

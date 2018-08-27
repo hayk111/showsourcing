@@ -49,6 +49,7 @@ import { ProductTeamRatingComponent } from './components/product-team-rating/pro
 import { ProductActivityComponent } from './components/product-activity/product-activity.component';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { StatusModule } from '~shared/status/status.module';
+import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
 
 @NgModule({
 	imports: [
@@ -98,11 +99,13 @@ import { StatusModule } from '~shared/status/status.module';
 		ProductGridCardComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
-		ProductActivityComponent
+		ProductActivityComponent,
+		VoteDetailsDialogComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
-		RfqDialogComponent
+		RfqDialogComponent,
+		VoteDetailsDialogComponent
 	],
 	exports: [ProductSmallCardComponent],
 	providers: [ProductFeatureService]

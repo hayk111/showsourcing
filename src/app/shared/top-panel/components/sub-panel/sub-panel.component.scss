@@ -15,7 +15,7 @@ h2 {
 .filters {
 	border-radius: 50%;
 	background-color: #f3596c;
-	font-size: 9px;
+	font-size: var(--font-size-xs);
 	font-weight: 900;
 	color: #fff;
 	padding: var(--spacing-xs);

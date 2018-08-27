@@ -10,10 +10,12 @@
 </ng-container>
 
 <ng-template #double>
-	<button class="icon light first" (click)="thumbUp()">
+	<button class="icon light first flex" [ngClass]="{'total-width': hasText}" (click)="thumbUp()">
 		<icon-app name="thumbs-up{{ like ? '-primary' : ''}}" fontSet="svg" [size]="size" ></icon-app>
+		<p *ngIf="hasText">Like</p>
 	</button>
-	<button class="icon light second" (click)="thumbDown()">
+	<button class="icon light second flex" [ngClass]="{'total-width': hasText}" (click)="thumbDown()">
 		<icon-app name="thumbs-down{{ dislike ? '-warn' : ''}}" fontSet="svg" [size]="size"></icon-app>
+		<p *ngIf="hasText">Dislike</p>
 	</button>
 </ng-template>

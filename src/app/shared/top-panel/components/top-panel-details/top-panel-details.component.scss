@@ -2,27 +2,41 @@
 	display: block;
 	background: var(--color-bg);
 	box-sizing: border-box;
+	border-bottom: 1px solid var(--color-secondary);
 }
 
 .top {
 	padding-top: var(--spacing-l);
-	padding-bottom: var(--spacing-ms);
-	h1 {
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 20px;
-		font-weight: 600;
-		color: var(--color-txt-strong);
-		line-height: 1;
+	padding-bottom: var(--spacing-ml);
+	.title {
 		margin-bottom: var(--spacing-s);
+
+		h1 {
+			font-family: 'Source Sans Pro', sans-serif;
+			font-size: 20px;
+			font-weight: 600;
+			color: var(--color-txt-strong);
+			line-height: 1;
+			margin-right: var(--spacing-ms);
+		}
 	}
 }
 
-.top > * {
+.left > * {
 	margin-left: var(--spacing-l);
+}
+
+.right {
+	margin-right: var(--spacing-xl);
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
 }
 
 icon-app {
 	align-items: flex-start;
+	font-size: 20px;
 }
 
 :host nav {

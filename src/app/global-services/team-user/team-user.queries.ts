@@ -1,14 +1,10 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class TeamUserQueries extends BaseQueries implements GlobalQuery {
+export class TeamUserQueries extends GlobalQueries {
 
-	constructor() {
-		super('teamUser', 'teamUsers');
-	}
 
-	oneDefaultSelection = `
+	static readonly one = `
 		user {
 			id,
 			firstName,
@@ -18,7 +14,7 @@ export class TeamUserQueries extends BaseQueries implements GlobalQuery {
 		status,
 		accessType`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 		id,
 		user {
 			id,
@@ -30,7 +26,16 @@ export class TeamUserQueries extends BaseQueries implements GlobalQuery {
 		accessType
 	`;
 
-	allDefaultSelection = this.manyDefaultSelection;
-
+	static readonly all = `
+		id,
+		user {
+			id,
+			firstName,
+			lastName,
+			email
+		},
+		status,
+		accessType
+	`;
 
 }

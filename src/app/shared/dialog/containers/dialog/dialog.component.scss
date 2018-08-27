@@ -2,7 +2,7 @@
 :host{
 	background: var(--color-bg);
 	margin: auto;
-	z-index: 1000;
+	z-index: 100;
 	display: inline-block;
   border-radius: var(--border-radius);
 	padding: var(--spacing-l);
@@ -13,11 +13,22 @@
 .header {
   display: flex;
   flex-direction: row;
-  align-items: center;
+	align-items: start;
   justify-content: space-between;
-  font-size: 26px;
   color: var(--color-button-dark);
-  padding-bottom: var(--spacing-xl);
+	padding-bottom: var(--spacing-xl);
+
+	icon-app {
+		font-size: var(--font-size-m);
+	}
+}
+
+.spacer {
+	display: flex;
+  flex-direction: row;
+	align-items: start;
+	justify-content: space-between;
+	margin-top: var(--spacing-xs);
 }
 
 .content {

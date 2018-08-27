@@ -1,11 +1,9 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
+import { ProductQueries } from '~global-services/product/product.queries';
 
-export class ExternalRequestQueries implements GlobalQuery {
-	one: any = gql`
-	subscription externalRequest($query: String!) {
-		externalRequests(query: $query) {
-			id,
+export abstract class ExternalRequestQueries extends GlobalQueries {
+	static readonly one = `
 			name,
 			description,
 			companyName,
@@ -18,39 +16,9 @@ export class ExternalRequestQueries implements GlobalQuery {
 				description,
 				minimumOrderQuantity,
 				moqDescription,
-				innerCarton {
-					id,
-					height,
-					width,
-					length,
-					unit,
-					itemsQuantity,
-					weight,
-					weightUnit
-				},
-				masterCarton  {
-					id,
-					height,
-					width,
-					length,
-					unit,
-					itemsQuantity,
-					weight,
-					weightUnit
-				},
-				priceMatrix {
-					id,
-					rows {
-						id,
-						label,
-						price: {
-							id,
-							currency,
-							value,
-							baseCurrencyValue,
-						}
-					}
-				}
+				${ProductQueries.packaging('innerCarton')},
+				${ProductQueries.packaging('masterCarton')},
+				${ProductQueries.priceMatrix}
 				leadTimeValue,
 				leadTimeUnit,
 				sample,
@@ -74,22 +42,7 @@ export class ExternalRequestQueries implements GlobalQuery {
 	}
 	`;
 
-	many = gql`
-	subscription externalRequests(
-		$take: Int,
-		$skip: Int,
-		$query: String!,
-		$sortBy: String,
-		$descending: Boolean) {
-
-		externalRequests(
-			take: $take,
-			skip: $skip,
-			query: $query,
-			sortBy: $sortBy,
-			descending: $descending) {
-
-			id,
+	static readonly many = `
 			name,
 			description,
 			companyName,
@@ -102,39 +55,9 @@ export class ExternalRequestQueries implements GlobalQuery {
 				description,
 				minimumOrderQuantity,
 				moqDescription,
-				innerCarton {
-					id,
-					height,
-					width,
-					length,
-					unit,
-					itemsQuantity,
-					weight,
-					weightUnit
-				},
-				masterCarton  {
-					id,
-					height,
-					width,
-					length,
-					unit,
-					itemsQuantity,
-					weight,
-					weightUnit
-				},
-				priceMatrix {
-					id,
-					rows {
-						id,
-						label,
-						price: {
-							id,
-							currency,
-							value,
-							baseCurrencyValue,
-						}
-					}
-				}
+				${ProductQueries.packaging('innerCarton')},
+				${ProductQueries.packaging('masterCarton')},
+				${ProductQueries.priceMatrix}
 				leadTimeValue,
 				leadTimeUnit,
 				sample,
@@ -154,45 +77,7 @@ export class ExternalRequestQueries implements GlobalQuery {
 				}
 			},
 			recipients
-		}
-	}`;
-
-	create = gql`
-		mutation createExternalRequest($input: ExternalRequestInput!) {
-			updateExternalRequest(input: $input) {
-				id
-			}
-		}
 	`;
 
-
-	update = gql`
-		mutation updateExternalRequest($input: ExternalRequestInput!) {
-			updateExternalRequest(input: $input) {
-				id
-			}
-		}
-	`;
-
-	deleteOne = gql`
-		mutation deleteExternalRequest($id: String!) {
-			deletEexternalRequest(id: $id)
-		}
-	`;
-
-
-	deleteMany = gql`
-	mutation deleteExternalRequests($query: String!) {
-		deletEexternalRequests(query: $query)
-	}
-	`;
-
-	all = (str: string) => gql`
-		subscription externalRequests {
-			externalRequests {
-				${str}
-			}
-		}
-	`
 
 }

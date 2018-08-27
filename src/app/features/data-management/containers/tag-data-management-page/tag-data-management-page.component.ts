@@ -4,9 +4,8 @@ import { AbstractDataManagementComponent } from '~features/data-management/conta
 import { TagManagememtService } from '~features/data-management/services/tag-management.service';
 import { ERM, Tag } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'tag-data-management-page-app',
@@ -14,9 +13,8 @@ import { StoreKey } from '~utils';
 	styleUrls: ['./tag-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_TAG },
-		SelectionService]
+		SelectionService
+	]
 })
 export class TagDataManagementPageComponent extends AbstractDataManagementComponent<Tag, TagManagememtService> {
 
@@ -24,11 +22,10 @@ export class TagDataManagementPageComponent extends AbstractDataManagementCompon
 		protected router: Router,
 		protected featureSrv: TagManagememtService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.TAG);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TAG);
 	}
 }

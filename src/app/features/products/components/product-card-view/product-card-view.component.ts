@@ -5,6 +5,7 @@ import {
 	Input,
 	OnInit,
 	Output,
+	ChangeDetectorRef,
 } from '@angular/core';
 import { Product, ProductStatusType } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
@@ -21,5 +22,6 @@ export class ProductCardViewComponent extends ListViewComponent<Product> {
 	@Output() update = new EventEmitter<Product>();
 	@Input() statuses: Array<ProductStatusType>;
 	trackByFn = (index, item) => item.id;
+
 
 }

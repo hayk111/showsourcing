@@ -15,7 +15,9 @@ import { thumbAnimation } from '~shared/rating/components/thumb-buttons/animatio
 })
 export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	/** whether we display two thumbs or just one */
-	@Input() single = true;
+	@Input() single = false;
+	/** whether we display text besides the buttons or not */
+	@Input() hasText = false;
 	/** list of all votes */
 	@Input() set votes(votes: ProductVote[]) {
 		this.userVoteIndex = (votes || []).findIndex(v => v.user.id === this.userSrv.userSync.id);
@@ -124,9 +126,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			value: state ? 100 : 0,
 			user: { id: this.userSrv.userSync.id }
 		});
-		this.voteSrv.create(vote).subscribe(newVote => {
-			this.vote.emit([...this.votes, newVote]);
-		});
+		this.vote.emit([...this.votes, vote]);
 	}
 
 	updateEmitVote() {
@@ -138,7 +138,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	deleteEmitVote() {
-		this.voteSrv.deleteOne(this.userVote.id).subscribe();
+		this.voteSrv.delete(this.userVote.id).subscribe();
 		this.vote.emit(this._votes.filter(vote => vote.id !== this.userVote.id)); // we do this to activate chagne detection on the product
 	}
 

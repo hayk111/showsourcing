@@ -55,7 +55,6 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('category = ', this.data.category);
 		// Handle dragStart through the kanban service
 		this.kanbanSrv.dragStart$.pipe(
 			takeUntil(this._destroy$)

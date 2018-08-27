@@ -2,34 +2,33 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { Product, ProductVoteRequest, Project, User } from '~models';
 import { ProductService, ProjectService, TeamUserService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
+import { Apollo } from 'apollo-angular';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected teamUserSrv: TeamUserService,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 	selectProjects(): Observable<Project[]> {
-		const sort: Sort = { sortBy: 'name', sortOrder: 'DESC' };
-		return this.projectSrv.selectMany(of(new SelectParams({ sort })));
+		return this.projectSrv.queryMany({ sortBy: 'name' });
 	}
 
 	/**
 	 * select users from current team
 	 */
 	selectTeamUsers() {
-		return this.teamUserSrv.selectAll();
+		return this.teamUserSrv.queryAll();
 	}
 
 
@@ -41,8 +40,13 @@ export class ProductDialogService extends ProductService {
 	}
 
 	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
-		const projects: Project[] = product.projects.map(p => ({ id: p.id }));
-		projects.push(...addedProjects.map(p => ({ id: p.id })));
+		// mapping current projects to only have the ids
+		addedProjects = Array.from(addedProjects, project => ({ id: project.id }));
+		const projects: Project[] = Array.from(product.projects, project => ({ id: project.id }));
+		// removing duplicates
+		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
+
+		projects.push(...addedProjects);
 		return this.update({ id: product.id, projects });
 	}
 

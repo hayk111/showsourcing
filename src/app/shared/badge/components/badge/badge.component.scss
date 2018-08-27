@@ -2,8 +2,9 @@
 	box-sizing: border-box;
 	white-space: nowrap;
 	margin-right: var(--spacing-xs);
-	&.primary {
-		background: var(--color-primary);
+
+	&.in-progress {
+		background: var(--color-in-progress);
 		color: white;
 	}
 	&.secondary {
@@ -28,15 +29,16 @@
 		font-family: 'Raleway';
 		font-size: var(--font-size-s);
 		font-weight: 600;
-		padding: var(--spacing-xs) var(--spacing-s);
+		padding: var(--spacing-xs) var(--spacing-ms);
 		border-radius: var(--border-radius-s);
 	}
 	&.xsmall {
-		font-size: var(--font-size-xs);
+		/* font-size: var(--font-size-xs); */
+		font-size: 12px;
 		font-weight: bold;
-		padding: 2px  4px;
+		/* padding: 2px var(--spacing-xs); */
+		padding: 2px 8px 3px;
 		text-transform: uppercase;
-		// min-width: 72px;
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}
@@ -48,7 +50,6 @@
 		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}
-
 	&.medium {
 		height: 25px;
 		font-size: var(--font-size-m);
@@ -56,12 +57,14 @@
 		padding: var(--spacing-xs) var(--spacing-s);
 		font-weight: 600;
 	}
-
 	&.large {
-		height: 25px;
+		height: 32px;
 		font-size: var(--font-size-m);
-		border-radius: var(--border-radius);
-		padding: var(--spacing-xs) var(--spacing-s);
+		border-radius: var(--border-radius-s);
+		padding: var(--spacing-s) var(--spacing-ms);
 		font-weight: 600;
+	}
+	&.round {
+		border-radius: 500px;
 	}
 }

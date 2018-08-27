@@ -1,15 +1,34 @@
-<div class="flex top">
+<div class="flexBetween top">
+	<div class="flex left ">
+		<icon-app fontSet="svg" name="back-arrow" (click)="goBack()" class="flexStart"></icon-app>
+		<div class="logo">
+			<ng-content select="img-app"></ng-content>
+		</div>
 
-  <icon-app fontSet="svg" name="back-arrow" (click)="goBack()" class="flexStart"></icon-app>
-  <div class="logo">
-    <ng-content select="img-app"></ng-content>
-  </div>
+		<div>
+			<div class="flex title">
+				<h1>{{ title }}</h1>
+				<ng-content select="icon-app"></ng-content>
+			</div>
+			<ng-content></ng-content>
+		</div>
+	</div>
 
-	<div>
-		<h1>{{ title }}</h1>
-		<ng-content></ng-content>
+	<div class="flex right">
+		<ng-content select="workflow-action-app"></ng-content>
+		<context-menu-app *ngIf="hasOptions" xPosition="-157" yPosition="40">
+				<context-menu-trigger-app>
+					<button class="icon light">
+						<icon-app name="3-dots-vertical" fontSet="svg"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="delete.emit()" class="color-warn">
+					Delete
+				</context-menu-item-app>
+			</context-menu-app>
 	</div>
 </div>
+
 
 <nav class="flex">
 	<a *ngFor="let link of links" [routerLink]="'./' + link" routerLinkActive="active">{{ toDisplayString(link) }}</a>

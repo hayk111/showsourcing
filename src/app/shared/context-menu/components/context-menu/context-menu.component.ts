@@ -22,7 +22,9 @@ export class ContextMenuComponent {
 	@Input() xPosition = 16;
 	/** Position of the menu in the Y axis. */
 	@Input() yPosition = 16;
-	menuOpen = false;
+	/** width of the menu */
+	@Input() width = 200;
+	@Input() menuOpen = false;
 
 
 
@@ -41,6 +43,10 @@ export class ContextMenuComponent {
 		this.menuOpen = false;
 	}
 
-
+	/** Disable defaut drag for element */
+	preventDrag(event) {
+		event.preventDefault();
+		return false;
+	}
 
 }

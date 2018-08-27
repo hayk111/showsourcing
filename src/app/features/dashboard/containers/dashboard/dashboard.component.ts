@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.feedName$ = this.teamSrv.selectTeam().pipe(
+		this.feedName$ = this.teamSrv.selectedTeam$.pipe(
 			map(team => ['team', team.id])
 		);
 	}

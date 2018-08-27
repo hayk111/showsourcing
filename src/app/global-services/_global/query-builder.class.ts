@@ -1,11 +1,19 @@
 import gql from 'graphql-tag';
 
-export class BaseQueries {
-	oneDefaultSelection = 'name';
-	manyDefaultSelection = 'name';
-	allDefaultSelection = 'name';
-	updateDefaultSelection = '';
-	createDefaultSelection = '';
+/**
+ * Helper to create GraphQL queries that are valid for the realm GraphQL service
+ * it will create queries given fields.
+ *
+ * For Example new QueryBuilder('product', 'products').queryOne('name') will give:
+		query product($id: String!) {
+			product(id: $id) {
+				id
+				name
+			}
+ *
+ */
+export class QueryBuilder {
+
 	capSing: string;
 	capPlural: string;
 
@@ -17,34 +25,27 @@ export class BaseQueries {
 		this.capPlural = this.capitalize(plural);
 	}
 
-	/** generates a graphql query to select all entity of a given type that
-	* that correspond to the query.
-	* the query is named one because it's used in details page to select all
-	* entities that have a specific id (which will return only one result).
-	*/
-	one = (str: string = this.oneDefaultSelection) => gql(`
+	// select one actually select many entities that respond to a query.
+	// but we will take the first one in the global service
+	// at the time of writting this there is no way of subscribing to one
+	// via id
+	selectOne = (str: string) => gql(`
 		subscription ${this.sing}($query: String!) {
 			${ this.plural}(query: $query) {
 				id
 				${ str}
 			}
-		}`)
+		}`);
 
-	many = (str: string = this.manyDefaultSelection) => gql(`
-		subscription ${this.plural}(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-			) {
-			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				id,
-				${str}
+	queryOne = (str: string) => gql(`
+		query ${this.sing}($id: String!) {
+			${this.sing}(id: $id) {
+				id
+				${ str}
 			}
-		}`)
+		}`);
 
-	list = (str: string = this.manyDefaultSelection) => gql(`
+	selectMany = (str: string) => gql(`
 		query ${this.plural}(
 			$take: Int,
 			$skip: Int,
@@ -56,17 +57,39 @@ export class BaseQueries {
 				id,
 				${str}
 			}
-		}`)
+		}`);
 
-	all = (str: string = this.allDefaultSelection) => gql(`
+	queryMany = (str: string) => gql(`
+		query ${this.plural}(
+			$take: Int,
+			$skip: Int,
+			$query: String!,
+			$sortBy: String,
+			$descending: Boolean
+			) {
+			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+				id,
+				${str}
+			}
+		}`);
+
+	selectAll = (str: string) => gql(`
+		subscription ${this.plural} {
+			${this.plural} {
+				id
+				${str}
+			}
+		}`);
+
+	queryAll = (str: string) => gql(`
 		query ${this.plural} {
 			${this.plural} {
 				id
 				${str}
 			}
-		}`)
+		}`);
 
-	create = (str: string = this.createDefaultSelection) => gql(`
+	create = (str: string) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
 				id,
@@ -74,7 +97,7 @@ export class BaseQueries {
 			}
 		}`)
 
-	update = (str: string = this.updateDefaultSelection) => gql(`
+	update = (str: string) => gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
 				id

@@ -2,12 +2,22 @@
 	display: block;
 }
 
+icon-app {
+	cursor: default;
+	margin-top: 2px;
+	font-size: var(--font-size-s);
+}
+
 icon-app[name="heart"] {
 	color: var(--color-warn);
 }
 
 card-app {
 	width: 100%;
+
+	.title > * {
+		margin-right: var(--spacing-ms);
+	}
 
 	.title {
 		margin-bottom: var(--spacing-ms);
@@ -16,12 +26,11 @@ card-app {
 			display: flex;
 			margin-bottom: 0px;
 			padding-top: 2px;
-			margin-right: var(--spacing-ms);
 		}
 		.space-icon {
 			height: var(--spacing-xl);
 			width: var(--spacing-xl);
-			margin-right: var(--spacing-ms);
+			// margin-right: var(--spacing-ms);
 		}
 		img:not(.hasImg) {
 			height: var(--spacing-m);
@@ -37,12 +46,25 @@ card-app {
 
 	.supplier-info {
 		margin-left: var(--spacing-ms);
-		margin-top: 28px;
+		margin-top: var(--spacing-l);
 
 		image-previewer-app {
 			margin-top: 0px;
 			opacity: 0.2;
 			margin-bottom: var(--spacing-m);
+		}
+		.empty {
+			font-style: italic;
+			color: var(--color-txt-secondary);
+			// background: var(--color-secondary-light); uncomment if background needed
+			width: 152px;
+			height: 100px;
+			// height: 124px;
+			// margin-bottom: var(--spacing-s);
+			margin-left: 92px;
+			img {
+				margin-bottom: var(--spacing-s);
+			}
 		}
 
 		.from {

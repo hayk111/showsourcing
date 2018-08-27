@@ -23,6 +23,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	focussed = false;
 	@Input() inputFocus: boolean;
 	@Output() search = new EventEmitter<string>();
+	@Output() emptySearch = new EventEmitter();
 	private _searchSubject$ = new Subject();
 
 	@ViewChild('inp') inputRef: ElementRef;

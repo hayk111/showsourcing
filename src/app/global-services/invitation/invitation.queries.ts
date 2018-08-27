@@ -1,23 +1,16 @@
 import gql from 'graphql-tag';
-import {
-	GlobalQuery
-} from '~global-services/_global/global.query.interface';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
 
-export class InvitationQueries extends BaseQueries implements GlobalQuery {
+export class InvitationQueries extends GlobalQueries {
 
-	oneDefaultSelection = `
+	static readonly one = `
 		email
 	`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 	email
 	`;
-
-	constructor() {
-		super('invitation', 'invitations');
-	}
 
 }

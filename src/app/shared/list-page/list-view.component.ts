@@ -7,9 +7,6 @@ export class ListViewComponent<T> {
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */
 	@Input() rows: Array<T>;
-	/** current page for pagination */
-	@Input() currentPage: number;
-	@Input() perPage: number;
 	/** whether it's loading */
 	@Input() pending = true;
 	@Output() select = new EventEmitter<any>();

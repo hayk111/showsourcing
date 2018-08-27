@@ -1,15 +1,9 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class ProjectQueries extends BaseQueries implements GlobalQuery {
+export abstract class ProjectQueries extends GlobalQueries {
 
-	constructor() {
-		super('project', 'projects');
-	}
-
-	// tslint:disable-next-line:max-line-length
-	oneDefaultSelection = `name, description, lastUpdatedDate, creationDate, createdBy { id, firstName, lastName }, logoImage { id, fileName }`;
-	manyDefaultSelection = `name, createdBy { id, firstName, lastName }, productCount, lastUpdatedDate, creationDate, description`;
+	static readonly one = `name, description, lastUpdatedDate, creationDate, createdBy { id, firstName, lastName }, logoImage { id, fileName }`;
+	static readonly many = `name, createdBy { id, firstName, lastName }, productCount, lastUpdatedDate, creationDate, description`;
 
 }

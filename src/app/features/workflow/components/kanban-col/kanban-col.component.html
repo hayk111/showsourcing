@@ -1,11 +1,10 @@
-<header class="paddingDefault flexBetween">
+<header class="paddingDefault flexBetween" [ngClass]="{ 'in-progress': (data?.category === 'inProgress'), validated: (data?.category === 'validated'), refused: (data?.category === 'refused'), inspiration: (data?.category === 'inspiration') }">
 	<div><checkbox-app [checked]="checked"
 		                 (check)="checkChange.emit(true)"
 										 (uncheck)="checkChange.emit(false)">
 	</checkbox-app></div>
 	<div class="title flexColumn flexBetween">
 		<div>{{ label }}</div>
-		<div class="separator" [ngClass]="{ 'in-progress': (data?.category === 'inProgress'), validated: (data?.category === 'validated'), refused: (data?.category === 'refused'), inspiration: (data?.category === 'inspiration') }"></div>
 	</div>
 	<div class="number">{{data?.products?.length}}</div>
 </header>

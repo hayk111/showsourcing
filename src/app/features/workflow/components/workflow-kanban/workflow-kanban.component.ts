@@ -30,12 +30,9 @@ export class WorkflowKanbanComponent {
 	@Output() unselectAllItems = new EventEmitter<any[]>();
 
 	separatorColor: string;
+	dragInProgress = false;
 
 	constructor(private kanbanSrv: KanbanService) {
-	}
-
-	ngOnChanges(changes) {
-		console.log('>> WorkflowKanbanComponent - changes = ', changes);
 	}
 
 	trackByFn(index, product) {
@@ -72,7 +69,7 @@ export class WorkflowKanbanComponent {
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
 		const newStatus = new ProductStatus({ status: { id: target.id } });
-		const updatedProduct = { ...droppedElement, statuses: [ newStatus, ...droppedElement.statuses ] };
+		const updatedProduct = { ...droppedElement, statuses: [newStatus, ...droppedElement.statuses] };
 
 		let currentStatusId = this.getCurrentStatusId(droppedElement);
 		if (!currentStatusId) {
@@ -96,7 +93,7 @@ export class WorkflowKanbanComponent {
 		if (targetStatus) {
 			const products = targetStatus.products;
 			const productIndex = products.findIndex(p => p.id === droppedElement);
-			targetStatus.products = targetStatus.products.concat([ updatedProduct ]);
+			targetStatus.products = targetStatus.products.concat([updatedProduct]);
 		}
 	}
 
@@ -122,5 +119,13 @@ export class WorkflowKanbanComponent {
 			}
 		});
 		return allSelected;
+	}
+
+	dragStart() {
+		this.dragInProgress = true;
+	}
+
+	dragEnd() {
+		this.dragInProgress = false;
 	}
 }

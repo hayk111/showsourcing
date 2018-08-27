@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
-import { UserService } from '~global-services';
+import { UserService, TeamService } from '~global-services';
 import { Team } from '~models';
 import { User } from '~models/user.model';
 import {
@@ -32,14 +31,14 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private searchSrv: SearchService,
 		private userSrv: UserService,
-		private teamPickerSrv: TeamPickerService) {
+		private teamSrv: TeamService) {
 		super();
 		this.searchControl = new FormControl();
 	}
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();
-		this.team$ = this.teamPickerSrv.selectedTeam$;
+		this.team$ = this.teamSrv.selectedTeam$;
 	}
 
 	triggerSearch() {

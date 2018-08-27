@@ -44,31 +44,31 @@ export class FilterDataService {
 	}
 
 	private selectSuppliers(): Observable<Supplier[]> {
-		return this.supplierSrv.selectAll();
+		return this.supplierSrv.queryAll();
 	}
 
 	private selectEvents(): Observable<any[]> {
-		return this.eventSrv.selectAll();
+		return this.eventSrv.queryAll();
 	}
 
 	private selectCategories(): Observable<Category[]> {
-		return this.categorySrv.selectAll();
+		return this.categorySrv.queryAll();
 	}
 
 	private selectTags(): Observable<Tag[]> {
-		return this.tagSrv.selectAll();
+		return this.tagSrv.queryAll();
 	}
 
 	private selectProjects(): Observable<Project[]> {
-		return this.projectSrv.selectAll();
+		return this.projectSrv.queryAll();
 	}
 
 	private selectUsers(): Observable<TeamUser[]> {
-		return this.teamUserSrv.selectAll();
+		return this.teamUserSrv.queryAll();
 	}
 
 	private selectProductStatuses(): Observable<ProductStatus[]> {
-		return this.productStatusTypeService.selectAll();
+		return this.productStatusTypeService.queryAll();
 	}
 
 }

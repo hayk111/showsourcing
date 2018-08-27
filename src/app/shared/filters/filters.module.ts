@@ -15,7 +15,6 @@ import {
 } from '~shared/filters/components';
 import { FilterSelectionPanelComponent } from '~shared/filters/components/filter-selection-panel/filter-selection-panel.component';
 import { FilterBtnsPanelComponent } from '~shared/filters/components/filter-btns-panel/filter-btns-panel.component';
-import { FilterService } from '~shared/filters/services';
 import { FilterDataService } from '~shared/filters/services/filter.data.service';
 
 @NgModule({

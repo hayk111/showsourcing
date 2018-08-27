@@ -11,14 +11,30 @@ article{
 kanban-col-app {
 	min-width: 340px;
 	margin-top: var(--spacing-m);
+	min-height: calc(100vh - 197px);
 }
 
 .card-container {
 	position: relative;
+	height: 100%;
+  min-height: 100%;
+
+	&:hover .contextual-menu {
+		display: block;
+
+		&.drag-in-progress {
+			display: none;
+		}
+	}
 }
 
 .contextual-menu {
 	position: absolute;
-	bottom: 2px;
-	right: 9px;
+	bottom: 13px;
+	right: 13px;
+	display: none;
+
+	&.drag-in-progress {
+		display: none;
+	}
 }

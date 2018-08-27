@@ -8,9 +8,9 @@
 
 <sub-panel-app
   [hasSwitch]="false"
-	[hasFilter]="true"
+	[hasFilter]="false"
 	[buttonIcon]="false"
-	[filters]="getFiltersNumber()"
+	[filtersAmount]="filterList.asFilters().length"
 	(showFilters)="openFilterPanel()"
 	(search)="search($event)"
 	(smartSearch)="smartSearch($event)">
@@ -19,8 +19,8 @@
 			<search-autocomplete-item-content-app
 				[selectable]="true" [title]="element.name" [subtitle]="element.type"
 				[checked]="element.checked" [icon]="element.type"
-				(check)="onCheckSearchElement(element)"
-				(uncheck)="onUncheckSearchElement(element)">
+				(check)="addFilter({ type: element.type, value: element.id, entity: element })"
+				(uncheck)="removeFilter({ type: element.type, value: element.id, entity: element })">
 			</search-autocomplete-item-content-app>
 		</search-autocomplete-item-app>
 	</search-autocomplete-app>
@@ -31,8 +31,6 @@
 		[rows]="suppliers"
 		[selection]="selected$ | async"
 		[pending]="pending"
-		[currentPage]="currentParams.page"
-		[perPage]="currentParams.take"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
 		(select)="onItemSelected($event, true)"
@@ -43,8 +41,7 @@
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
 		(previewClick)="openPreview($event)"
-		(previous)="previousPage()"
-		(next)="nextPage()">
+		(delete)="deleteOne($event)">
 	</supplier-list-view-app>
 
 	<selection-bar-app
@@ -76,12 +73,6 @@
 		</action-bar-app>
 
 	</selection-bar-app>
-
-	<filters-app
-		*ngIf="filterPanelOpen"
-		(clickOutside)="closeFilterPanel()"
-		(filter)="filter($event)">
-	</filters-app>
 
 	<supplier-preview-app
 		*ngIf="previewOpen"

@@ -2,16 +2,22 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
-	[currentPage]="currentPage"
-	[perPage]="perPage"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
 
+	<!-- contextual menu -->
+	<ng-template #contextualMenu let-row="row">
+		<context-menu-app [menuOpen]="true" [xPosition]="-19" [yPosition]="27">
+			<context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row.id)" i18n="supplier menu | delete">
+				Delete
+			</context-menu-item-app>
+		</context-menu-app>
+	</ng-template>
 
 	<!-- supplier row -->
 	<ng-template
@@ -84,12 +90,12 @@
 		width="140"
 		[grows]="false">
 		<div class="flex flexCenter">
-			<user-picture-app
+			<!-- <user-picture-app
 				[size]="18"
 				[image]="row.createdBy?.avatar"
 				[user]="row?.createdBy">
-			</user-picture-app>
-			<span class="ellipsis">{{ row?.createdBy?.name }}</span>
+			</user-picture-app> -->
+			<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 		</div>
 	</ng-template>
 

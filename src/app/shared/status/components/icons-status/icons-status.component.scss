@@ -1,3 +1,25 @@
+:host {
+	.numbers {
+		white-space: nowrap;
+		margin-right: var(--spacing-s);
+		margin-top: 0px;
+		font-size: var(--font-size-m);
+	}
+
+	&.spacing-ms {
+		.numbers {
+			white-space: nowrap;
+			margin-right: var(--spacing-ms);
+			margin-top: 0px;
+			font-size: var(--font-size-m);
+		}
+	}
+}
+
+.ml-xs {
+	padding-left: var(--spacing-xs);
+}
+
 icon-app {
 	margin-right: var(--spacing-xs);
 	cursor: default;
@@ -8,9 +30,3 @@ icon-app[name="heart"] {
 	color: var(--color-warn);
 }
 
-.numbers {
-	margin-right: var(--spacing-s);
-	margin-top: 1px;
-	white-space: nowrap;
-	font-size: var(--font-size-s);
-}

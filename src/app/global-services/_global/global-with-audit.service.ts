@@ -1,38 +1,68 @@
-import { GlobalService } from "~global-services/_global/global.service";
-import { EntityMetadata } from "~models";
-import { ApolloWrapper } from "~shared/apollo";
-import { GlobalQuery } from "~global-services/_global/global.query.interface";
-import { UserService } from "~global-services";
-import { RefetchParams } from "~shared/apollo/services/refetch.interface";
-import { forkJoin } from "rxjs";
+import { Apollo } from 'apollo-angular';
+import { UserService } from '~global-services';
+import { GlobalService, GlobalServiceInterface } from '~global-services/_global/global.service';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
+import { forkJoin, Observable } from 'rxjs';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
  */
-export class GlobalWithAuditService<T> extends GlobalService<T> {
+export class GlobalWithAuditService<T> extends GlobalService<T> implements GlobalServiceInterface<T> {
 
 	constructor(
-		protected wrapper: ApolloWrapper,
-		protected queries: GlobalQuery,
-		protected typename: string,
+		protected apollo: Apollo,
+		protected fields: GlobalQueries,
+		protected sing: string,
+		protected plural: string,
 		protected userSrv: UserService
 	) {
-		super(wrapper, queries, typename);
+		super(apollo, fields, sing, plural);
 	}
 
-	update(entity: any, client?: string) {
+	// /**
+	//  *
+	//  * @param id
+	//  * @param fields
+	//  * @param client
+	//  */
+	// selectOne(id: string, fields?: string | string[], client?: string): Observable<T> {
+	// 	throw Error('not implemented yet')
+	// }
+
+	/**
+	 * Updates on entity with an audit will add properties needed by the backend
+	 */
+	update(entity: any, fields?: string | string[], client?: string) {
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-
-		return super.update(entity, client);
+		return super.update(entity, fields, client);
 	}
 
-	create(entity: any, refetchParams?: RefetchParams[], client?: string) {
+	/**
+	 * create on entity with an audit will add properties needed by the backend
+	 */
+	create(entity: any, fields?: string | string[], client?: string) {
 		entity.createdBy = { id: this.userSrv.userSync.id };
 		entity.creationDate = '' + new Date();
 		entity.lastUpdatedBy = { id: this.userSrv.userSync.id };
 		entity.lastUpdatedDate = '' + new Date();
-		return super.create(entity, refetchParams, client);
+		return super.create(entity, fields, client);
+	}
+
+	/**
+	 * Deletes on entity with an audit actually updates items with
+	 * a deleted flag set to true
+	 */
+	delete(id: string, client?: string) {
+		return this.update({ id, deleted: true }, client);
+	}
+
+	/**
+	 * Deletes on entity with an audit actually updates items with
+	 * a deleted flag set to true
+	 */
+	deleteMany(ids: string[], client?: string) {
+		return forkJoin(ids.map(id => this.delete(id, client)));
 	}
 
 	// deleteMany(ids: string[], client?: string) {

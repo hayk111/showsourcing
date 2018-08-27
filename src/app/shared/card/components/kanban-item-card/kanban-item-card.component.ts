@@ -12,14 +12,9 @@ import {
 	HostBinding,
 	ContentChild
 } from '@angular/core';
-import {
-	DomSanitizer,
-	SafeHtml,
-	SafeUrl,
-	SafeStyle
-} from '@angular/platform-browser';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { Price, Product } from '~models';
+import { Price, Product, ProductVote } from '~models';
+import { UserService } from '~global-services';
 
 @Component({
 	selector: 'kanban-item-card-app',
@@ -53,10 +48,14 @@ export class KanbanItemCardComponent implements OnInit {
 	@Input() person: any;
 	/** The associated product */
 	@Input() checked: boolean;
-	/** The product */
-	@Input() product: Product;
+	/** Is favorite */
+	@Input() favorite: boolean;
 	/** The item is checked */
 	@Input() tags: any;
+	/** The associated product */
+	@Input() product: Product;
+	/** Some drag'n drop is in progress */
+	@Input() dragInProgress: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -64,8 +63,6 @@ export class KanbanItemCardComponent implements OnInit {
 	@Output() select = new EventEmitter<any>();
 	/** Trigger the event when the element is unselected via the checkbox */
 	@Output() unselect = new EventEmitter<any>();
-
-	@HostBinding('style.border-left-color') borderLeftColor: any;
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 
@@ -79,25 +76,32 @@ export class KanbanItemCardComponent implements OnInit {
 	checkboxAction = false;
 	/** The mouse is over the card */
 	cardEntered: boolean;
+	/** The user vote if any */
+	userVote: ProductVote;
+	like = false;
+	dislike = false;
+	thumbsName = 'thumbs-up-white';
 
-	constructor(private sanitization: DomSanitizer) {
+	constructor(private userSrv: UserService) { }
+
+	ngOnChanges(changes) {
+		console.log('kanban ite - changes = ', changes);
 	}
 
 	ngOnInit() {
-		console.log('>> this.category = ', this.category);
-		switch (this.category) {
-			case 'inProgress':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-primary)');
-				break;
-			case 'validated':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-success)');
-				break;
-			case 'refused':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-warn)');
-				break;
-			case 'inspiration':
-				this.borderLeftColor = this.sanitization.bypassSecurityTrustStyle('var(--color-secondary)');
-				break;
+		if (this.product) {
+			this.userVote = (this.product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+			if (this.userVote) {
+				if (this.userVote.value === 100) {
+					this.like = true;
+					this.dislike = false;
+					this.thumbsName = 'thumbs-up-white';
+				} else {
+					this.dislike = true;
+					this.like = false;
+					this.thumbsName = 'thumbs-down-white';
+				}
+			}
 		}
 	}
 

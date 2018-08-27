@@ -5,14 +5,14 @@ import { TeamUser } from '~models';
 import { TeamUserService, TeamService, UserService } from '~global-services';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { first, map } from 'rxjs/operators';
 
 @Injectable()
 export class MemberFeatureService extends TeamUserService {
 
 	constructor(
-		protected apollo: ApolloWrapper,
+		protected apollo: Apollo,
 		private teamUserSrv: TeamUserService,
 		private teamSrv: TeamService,
 		protected userSrv: UserService) {
@@ -22,7 +22,7 @@ export class MemberFeatureService extends TeamUserService {
 	selectTeamOwner() {
 		return zip(
 			this.userSrv.selectUser(),
-			this.teamSrv.selectTeam()
+			this.teamSrv.selectedTeam$
 		).pipe(
 			map(values => {
 				const [user, team] = values;

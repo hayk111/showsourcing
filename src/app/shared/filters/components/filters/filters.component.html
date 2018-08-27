@@ -1,6 +1,4 @@
 <side-panel-app [hasTop]="false">
-	<ng-container *ngIf="filters$ | async as filters">
-		<ng-container *ngIf="byType$ | async as byType">
 
 		<!-- filter btn panel is a wrapper that displays a clear and close button at the top -->
 		<!-- inside it we put the filter btn that are gonna be displayed -->
@@ -14,6 +12,7 @@
 					<label>
 						{{ type }}
 					</label>
+
 
 					<div *ngIf="byType.get(type).size > 0">
 						<span class="edit pointer"
@@ -162,8 +161,5 @@
 			</filter-entity-panel-app>
 
 		</filter-selection-panel-app>
-
-		</ng-container>
-	</ng-container>
 
 </side-panel-app>

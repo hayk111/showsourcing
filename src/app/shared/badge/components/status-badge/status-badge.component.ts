@@ -44,7 +44,7 @@ export class StatusBadgeComponent implements OnInit {
 					type = 'warn';
 					break;
 				case 'inspiration':
-					type = 'secondary';
+					type = 'secondary-light';
 					break;
 				default:
 					type = 'secondary';

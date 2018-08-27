@@ -9,26 +9,41 @@
 
 	<ng-container *ngIf="product$ | async as product">
 		<carousel-app [images]="product.images"></carousel-app>
+
+		<workflow-action-app
+			[entity]="product"
+			selectSize="s"
+			[xPosition]="-3"
+			[typeEntity]="prodERM">
+		</workflow-action-app>
+
+		<action-bar-app
+			[votes]="product.votes"
+			[favorite]="product.favorite"
+			(onFavorite)="updateProduct({ favorite: true })"
+			(onUnfavorite)="updateProduct({ favorite: false })"
+			(vote)="updateProduct({ votes: $event })"
+			buttonName="Open"
+			(buttonClick)="onViewProduct()">
+
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+			</button>
+		</action-bar-app>
+
 		<!-- actions -->
-		<div class=" flexBetween">
-			<div class="flexVAlign actions">
-				<rating-heart-app class="icon"
-				(favorited)="updateProduct({ favorite: true })"
-				(unfavorited)="updateProduct({ favorite: false })"
-				[favorite]="product.favorite"></rating-heart-app>
-				<thumb-buttons-app class="icon"
-					[votes]="product.votes"
-					(vote)="updateProduct({ votes: $event })"></thumb-buttons-app>
-				<span>
-					{{ product.score !== null ? (product.score + '%') : '' }}
-				</span>
-			</div>
-			<button class="secondary" (click)="openRfq()">SEND RFQ</button>
-			<workflow-action-app
-				[xPosition]="-67"
-				[entity]="product"
-				[typeEntity]="prodERM">
-			</workflow-action-app>
+		<div class="flexColumn actions">
+			<ng-container *ngIf="product?.statuses[0]?.status; else sendWF">
+				Request RFQ to supplier?
+				<button class="primary" (click)="openRfq()">SEND RFQ</button>
+			</ng-container>
+			<ng-template #sendWF>
+				This product is still a new idea, what should we do next?
+				<div class="flexAround">
+					<button class="secondary">Keep as reference</button>
+					<button class="primary">Send to workflow</button>
+				</div>
+			</ng-template>
 		</div>
 		<divider-app></divider-app>
 

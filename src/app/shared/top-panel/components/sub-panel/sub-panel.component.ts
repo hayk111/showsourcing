@@ -36,7 +36,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
 	/** number of filters set */
-	@Input() filters: number;
+	@Input() filtersAmount: number;
 
 	// when said view changes
 	@Output() viewChange = new EventEmitter<string>();
@@ -48,6 +48,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterClick = new EventEmitter<null>();
 	// search event
 	@Output() search = new EventEmitter<string>();
+	// when user removed string from search input
+	@Output() emptySearch = new EventEmitter();
 	// smart search event
 	@Output() smartSearch = new EventEmitter<string>();
 
@@ -86,11 +88,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		if (this.searchAutocomplete) {
 			this.searchAutocomplete.openAutocomplete();
 		}
-	}
-
-	triggerSearch(event) {
-		const search = this.searchControl.value;
-		this.search.emit(search);
 	}
 
 	onFocusSearch(event) {

@@ -1,18 +1,12 @@
 import gql from 'graphql-tag';
-import {
-	GlobalQuery
-} from '~global-services/_global/global.query.interface';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
 
-export class ShowQueries extends BaseQueries implements GlobalQuery {
+export abstract class ShowQueries extends GlobalQueries {
 
-	constructor() {
-		super('event', 'events');
-	}
 
-	oneDefaultSelection = `
+	static readonly one = `
 		booths {
 			boothName,
 			supplier {
@@ -49,7 +43,7 @@ export class ShowQueries extends BaseQueries implements GlobalQuery {
 		}
 	`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 		description {
 			id
 			name

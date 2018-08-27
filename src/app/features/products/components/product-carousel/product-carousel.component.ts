@@ -40,6 +40,8 @@ export class ProductCarouselComponent extends AutoUnsub {
 	@Output() productUnfavorite = new EventEmitter<null>();
 	@Output() requestFeedback = new EventEmitter<null>();
 	@Output() vote = new EventEmitter<any>();
+	@Output() openAddProject = new EventEmitter<null>();
+	@Output() export = new EventEmitter<null>();
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
 	// when clicking an image we can open a modal carousel
