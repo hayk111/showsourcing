@@ -25,6 +25,16 @@
 		background: var(--color-success);
 		color: white;
 	}
+	&.tiny {
+		font-family: 'Raleway';
+		font-size: var(--font-size-tiny);
+		font-weight: 600;
+		text-transform: uppercase;
+		text-align: center;
+		padding: var(--spacing-xs) var(--spacing-ms);
+		border-radius: var(--border-radius-tiny);
+		padding: 1px 5px;
+	}
 	&.mini {
 		font-family: 'Raleway';
 		font-size: var(--font-size-s);
@@ -33,13 +43,13 @@
 		border-radius: var(--border-radius-s);
 	}
 	&.xsmall {
-		/* font-size: var(--font-size-xs); */
+		font-size: var(--font-size-xs);
 		font-size: 12px;
 		font-weight: bold;
-		/* padding: 2px var(--spacing-xs); */
+		padding: 2px var(--spacing-xs);
 		padding: 2px 8px 3px;
 		text-transform: uppercase;
-		border-radius: var(--border-radius-s);
+		border-radius: var(--border-radius-tiny);
 		font-weight: 600;
 	}
 	&.small {

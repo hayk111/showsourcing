@@ -16,7 +16,8 @@
       <div class="description">
         <div class="titleCtnr">
           <h2 class="title">{{title}}</h2>
-          <status-badge-app *ngIf="status" size="xs" [status]="status"></status-badge-app>
+          <status-badge-app *ngIf="status" size="tiny" [status]="status"></status-badge-app>
+          <!-- span *ngIf="status" class="status">{{status?.name}}</span -->
         </div>
         <span class="subtitle">{{subtitle}}</span>
       </div>
