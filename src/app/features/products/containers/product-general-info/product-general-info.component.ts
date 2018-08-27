@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
-import { Event } from '~models';
+import { Event, ERM } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
@@ -56,6 +56,8 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		{ name: 'sample', type: 'yesNo' },
 		{ name: 'samplePrice', type: 'number', label: 'Sample Price' },
 	];
+
+	typeEntity = ERM.PRODUCT;
 
 	constructor(private route: ActivatedRoute, private srv: ProductFeatureService) {
 		super();

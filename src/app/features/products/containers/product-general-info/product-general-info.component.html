@@ -1,9 +1,7 @@
-
-
 <card-app>
 	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
-		{{ product.name || 'Unnamed Product' }}
+		{{ product?.name || 'Unnamed Product' }}
 		<icons-status-app
 			class="flexCenter"
 			[product]="product"
@@ -14,14 +12,88 @@
 	</div>
 	<div class="flex price">
 		<div class="amount">
-			{{ product.price.value }}
+			{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}
 		</div>
 		<div class="moq flexCenter">
-			({{ product?.minimumOrderQuantity + 'pcs' }} {{ product?.moqDescription }})
+			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }} {{ product?.moqDescription }})
 		</div>
 	</div>
-	<div class="description"></div>
-	<ng-container *ngIf="descriptor$ | async as descriptor">
+	<div class="description">
+		<div class="field-title">Description</div>
+		<span class="field-description">{{ product?.description || '-'}}</span>
+	</div>
+
+	<div class="product-information">
+
+		<div class="title-information">Product Information</div>
+
+		<!-- center -->
+		<div class="flex">
+			<!-- left side -->
+			<div class="flexColumn left">
+				<div class="info-field">
+					<div class="field-title">Status</div>
+					<workflow-action-app
+						[entity]="product"
+						[typeEntity]="typeEntity"
+						selectSize="s">
+					</workflow-action-app>
+				</div>
+				<div class="info-field">
+					<div class="field-title">Supplier</div>
+					<div class="field-description">{{ product?.supplier?.name || '-' }}</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">Category</div>
+					<div class="field-description flex">
+						<info-badge-app *ngIf="product?.category; noCat" type="category"> {{ product.category.name }}</info-badge-app>
+						<ng-template #noCat> - </ng-template>
+					</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">Name</div>
+					<div class="field-description"> {{ product?.name || 'Unnamed Product' }}</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">Tags</div>
+					<div class="field-description flexWrap">
+						<ng-container *ngIf="product?.tags; else noTag">
+							<info-badge-app *ngFor="let tag of product.tags" type="tag"> {{ tag.name }} </info-badge-app>
+						</ng-container>
+						<ng-template #noTag> - </ng-template>
+					</div>
+				</div>
+			</div>
+			<!-- right side	-->
+			<div class="flexColumn right">
+				<div class="info-field">
+					<div class="field-title">Price</div>
+					<div class="field-description">{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">MOQ</div>
+					<div class="field-description">{{ product?.minimumOrderQuantity || '-'}}</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">MOQ Description</div>
+					<div class="field-description">{{ product?.moqDescription || '-'}}</div>
+				</div>
+				<div class="info-field">
+					<div class="field-title">Assigned to</div>
+					<div class="field-description"></div>
+				</div>
+			</div>
+		</div>
+		<!-- footer -->
+		<card-footer-app>
+			<button class="secondary-light">Edit</button>
+			<button>Send RFQ to Supplier</button>
+		</card-footer-app>
+		<!-- <div class="footer flexEnd"> -->
+		<!-- </div> -->
+
+	</div>
+	<!-- <ng-container *ngIf="descriptor$ | async as descriptor">
 		<dynamic-form-app
 			[inlineLabel]="false"
 			(formCreated)="onFormCreated($event)"
@@ -29,7 +101,7 @@
 			[editable]="true"
 			[colAmount]="2">
 		</dynamic-form-app>
-	</ng-container>
+	</ng-container> -->
 </card-app>
 
 <card-app>
