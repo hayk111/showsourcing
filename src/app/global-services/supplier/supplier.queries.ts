@@ -1,18 +1,12 @@
 import gql from 'graphql-tag';
-import {
-	GlobalQuery
-} from '~global-services/_global/global.query.interface';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
 
-export class SupplierQueries extends BaseQueries implements GlobalQuery {
+export abstract class SupplierQueries extends GlobalQueries {
 
-	constructor() {
-		super('supplier', 'suppliers');
-	}
 
-	oneDefaultSelection = `
+	static readonly one = `
 			name,
 			description,
 			website,
@@ -80,7 +74,7 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 			}
 		`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 		name,
 		description,
 		country,
@@ -116,7 +110,7 @@ export class SupplierQueries extends BaseQueries implements GlobalQuery {
 		}
 		`;
 
-	updateDefaultSelection = `
+	static readonly update = `
 			id,
 			favorite
 		`;

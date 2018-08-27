@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Tag } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { GlobalServiceInterface, GlobalService } from '~global-services/_global/global.service';
 
 import { TagQueries } from '~global-services/tag/tag.queries';
@@ -15,8 +15,8 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 })
 export class TagService extends GlobalWithAuditService<Tag> {
 
-	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
-		super(wrapper, new TagQueries(), 'Tag', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, TagQueries, 'tag', 'tags', userSrv);
 	}
 
 }

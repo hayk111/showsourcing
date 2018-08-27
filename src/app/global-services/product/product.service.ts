@@ -3,7 +3,7 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { UserService } from '~global-services/user/user.service';
 import { Product } from '~models';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 
 
@@ -12,8 +12,8 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 })
 export class ProductService extends GlobalWithAuditService<Product> {
 
-	constructor(wrapper: ApolloWrapper, protected userSrv: UserService) {
-		super(wrapper, new ProductQueries(), 'Product', userSrv);
+	constructor(apollo: Apollo, protected userSrv: UserService) {
+		super(apollo, ProductQueries, 'product', 'products', userSrv);
 	}
 
 }

@@ -8,7 +8,7 @@ import { Team } from '~models/team.model';
 import { ApolloStateService } from './apollo-state.service';
 import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
-import { TeamPickerService } from '~features/pick-a-team/services/team-picker.service';
+import { TeamService } from '~global-services/team/team.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -20,14 +20,14 @@ export class TeamClientInitializer extends AbstractApolloInitializer {
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected authSrv: AuthenticationService,
-		protected teamPicker: TeamPickerService
+		protected teamSrv: TeamService
 	) {
 		super(apollo, link);
 	}
 
 	init() {
 		// when the user has selected a team we initialize the team client
-		this.teamPicker.selectedTeam$
+		this.teamSrv.selectedTeam$
 			.pipe(
 				distinctUntilChanged((x, y) => undefined ? x.id === y.id : undefined),
 				// filter has to be after distinct because of the check above

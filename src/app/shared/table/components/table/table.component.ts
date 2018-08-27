@@ -23,25 +23,19 @@ import { nextTick } from 'q';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent implements AfterContentInit {
+export class TableComponent {
 	// display the dot option
 	@Input() dotsOption = true;
 	// whether the table is currently loading
 	@Input() pending = false;
 	// whether rows are selectable
 	@Input() hasSelection = true;
-	// whether the table will automatically do it's sorting or will rely on external sorting
-	@Input() autoSort = false;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	// so this is only useful when the table has selection enabled.
 	@Input() idName = 'id';
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
-	// whether the table can be paginated
-	@Input() hasPagination = true;
-	@Input() currentPage = 0;
-	@Input() perPage = 30;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -63,16 +57,7 @@ export class TableComponent implements AfterContentInit {
 
 
 	/** Different rows displayed */
-	@Input() set rows(value: Array<any>) {
-		this._rows = value;
-		if (this.autoSort)
-			this.doSort();
-	}
-	get rows() {
-		return this._sortedRows || this._rows;
-	}
-	protected _rows = [];
-	protected _sortedRows;
+	@Input() rows;
 	hoverIndex: number;
 
 	contextualMenuOpened = {};
@@ -85,11 +70,6 @@ export class TableComponent implements AfterContentInit {
 
 	// track by for column
 	columnTrackByFn = (index) => index;
-
-	ngAfterContentInit() {
-		// setting the sorting mechanism for each individual columns
-		this.columns.forEach(c => c.autoSort = this.autoSort);
-	}
 
 	onSelectOne(entity: any) {
 		this.selectOne.emit(entity);
@@ -117,20 +97,9 @@ export class TableComponent implements AfterContentInit {
 		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
 		this.sort.emit({
 			sortBy: column.sortBy,
-			sortOrder: (column.sortOrder as 'ASC' | 'DESC')
+			descending: column.sortOrder === 'DESC'
 		});
 		this.currentSortedColumn = column;
-		if (column.autoSort)
-			this.doSort();
-	}
-
-	private doSort() {
-		const column = this.currentSortedColumn;
-		if (!column || column.sortOrder === 'NONE') {
-			this._sortedRows = this._rows;
-		} else {
-			this._sortedRows = column.internalSort(this._rows);
-		}
 	}
 
 	isAllSelected(): boolean {

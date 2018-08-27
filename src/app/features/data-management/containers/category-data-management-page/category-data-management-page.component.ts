@@ -4,9 +4,8 @@ import { AbstractDataManagementComponent } from '~features/data-management/conta
 import { CategoryManagementService } from '~features/data-management/services/category-management.service';
 import { Category, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -14,8 +13,6 @@ import { StoreKey } from '~utils';
 	styleUrls: ['./category-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_CATEGORY },
 		SelectionService
 	]
 })
@@ -25,12 +22,11 @@ export class CategoryDataManagementPageComponent extends AbstractDataManagementC
 		protected router: Router,
 		protected featureSrv: CategoryManagementService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.CATEGORY);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.CATEGORY);
 	}
 
 }

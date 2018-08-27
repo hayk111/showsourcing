@@ -19,8 +19,8 @@ export class TeamCardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.members$ = this.teamUserSrv.selectAll();
-    this.team$ = this.teamSrv.selectTeam();
+    this.members$ = this.teamUserSrv.queryAll();
+    this.team$ = this.teamSrv.selectedTeam$;
   }
 
 }

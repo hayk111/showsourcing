@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
-import { ApolloWrapper } from '~shared/apollo';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProjectWorkflowFeatureService extends ProductService {
 	constructor(
-		protected wrapper: ApolloWrapper,
+		protected apollo: Apollo,
 		protected productSrv: ProductService,
 		protected productStatusTypeService: ProductStatusTypeService,
 		protected userSrv: UserService
 	) {
-		super(wrapper, userSrv);
+		super(apollo, userSrv);
 	}
 
 	/** Returns the products associated with a specific project */
 	getProjectProducts(project: Project) {
-		return this.selectMany(
-			of(new SelectParams({ query: `projects.id == "${project.id}"` }))
-		);
+		return this.queryMany({ query: `projects.id == "${project.id}"` });
 	}
 
 	/**
@@ -37,11 +35,11 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 * also have to be display in the kanban.
 	 * */
 	getStatuses(project: Project) {
-		return this.productSrv.selectMany(of(new SelectParams({ query: `projects.id == '${project.id}'` }))).pipe(
+		return this.productSrv.queryMany({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' }).pipe(
 			// Filter products to get only products without status
 			map((products: Product[]) => products.filter(product => (!product.statuses || product.statuses.length === 0))),
 			switchMap(productsWithNoStatus => {
-				return this.productStatusTypeService.selectAll().pipe(
+				return this.productStatusTypeService.queryAll().pipe(
 					// Remove the status with category refused
 					map(statuses => statuses.filter(status => (status.category !== 'refused'))),
 					// Load products associated with the project
@@ -56,12 +54,12 @@ export class ProjectWorkflowFeatureService extends ProductService {
 						products: this.getProductsWithStatus(status, products)
 					}))),
 					// Add fake status for products without status
-					map((statuses: any[]) => statuses.concat([ {
+					map((statuses: any[]) => statuses.concat([{
 						id: -1,
 						name: '_NoStatus',
 						step: 0,
 						products: productsWithNoStatus
-					} ])),
+					}])),
 					// Sort statuses per step
 					map(statuses => statuses.sort((s1, s2) => (s1.step - s2.step)))
 				);

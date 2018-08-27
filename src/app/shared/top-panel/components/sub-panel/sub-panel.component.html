@@ -12,13 +12,13 @@
 				[formControl]="searchControl"
 				[inputFocus]="inputFocus"
 				(focus)="onFocusSearch($event)"
-				(search)="triggerSearch($event)"
+				(search)="search.emit($event)"
 				(keydown.enter)="triggerSmartSearch($event)">
 			</search-bar-app>
 
 			<span *ngIf="hasFilter" class="showFilters pointer" (click)="showFilters.emit()">Show Filters</span>
 
-			<span *ngIf="hasFilter" class="filters">{{ filters }}</span>
+			<span *ngIf="hasFilter" class="filters">{{ filtersAmount }}</span>
 
 		</div>
 

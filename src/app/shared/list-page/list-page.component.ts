@@ -1,19 +1,19 @@
-import { OnInit, NgModuleRef } from '@angular/core';
+import { NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, ReplaySubject, combineLatest } from 'rxjs';
-import { takeUntil, tap, map, switchMap, first } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { SelectParams } from '~global-services/_global/select-params';
-import { ERM, EntityMetadata } from '~models';
+import { EntityMetadata } from '~models';
+import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterService, FilterType, SearchService } from '~shared/filters';
+import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
-import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { RefetchParams } from '~shared/apollo/services/refetch.interface';
-import { DocumentNode } from 'graphql';
+import { ListQuery } from '~global-services/_global/list-query.interface';
+import { SelectParamsConfig } from '~global-services/_global/select-params';
+
+
 
 /**
  * Class used by components that need to display a list
@@ -21,10 +21,19 @@ import { DocumentNode } from 'graphql';
 export abstract class ListPageComponent<T extends { id?: string }, G extends GlobalServiceInterface<T>>
 	extends AutoUnsub implements OnInit {
 
+
 	/** currently loaded items */
 	items$: Observable<Array<T>>;
 	/** non observable version of the above */
 	items: Array<T> = [];
+	/** can be used on when to fetch more etc. */
+	protected listResult: ListQuery<T>;
+	filterList = new FilterList([
+		// initial filters
+	]);
+	/** property we sort by on first query */
+	protected initialSortBy: string = 'creationDate';
+
 	/** Whether the items are pending */
 	pending = true;
 	/** keeps tracks of the current selection */
@@ -43,12 +52,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	previewOpen: boolean;
 	/** previewed item */
 	previewed: T;
-
-	/** can be used on when deleting / creating an entity to refetch */
-	private refetchQuery: DocumentNode;
-	currentParams: SelectParams = new SelectParams();
-	private _selectParams$ = new ReplaySubject<SelectParams>(1);
-	protected selectParams$ = this._selectParams$.asObservable();
 	protected editDlgComponent: new (...args: any[]) => any;
 
 	searchFilterElements$: Observable<any[]>;
@@ -57,8 +60,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	constructor(
 		protected router: Router,
 		protected featureSrv: G,
-		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
+		protected selectionSrv?: SelectionService,
 		protected searchSrv?: SearchService,
 		protected dlgSrv?: DialogService,
 		protected moduleRef?: NgModuleRef<any>,
@@ -70,36 +72,27 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** init */
 	ngOnInit() {
-		this.setFilters();
 		this.setItems();
 		this.setSelection();
 	}
 
-
-
+	/** subscribe to items and get the list result */
 	protected setItems() {
-		const selectList = this.featureSrv.selectInfiniteList(this.selectParams$);
-		this.items$ = selectList.items$;
-		this.refetchQuery = selectList.refetchQuery;
+		this.listResult = this.featureSrv.getListQuery({
+			query: this.filterList.asQuery(),
+			sortBy: this.initialSortBy
+		});
+		this.items$ = this.listResult.items$.pipe(
+			tap(_ => this.onLoaded()),
+			tap(items => this.items = items)
+		);
 
-		this.items$.pipe(
-			takeUntil(this._destroy$),
-			tap(_ => this.onLoaded())
-		).subscribe();
-		// when param changes we are loading
-		this.selectParams$.pipe(
-			tap(params => this.currentParams = params),
-			takeUntil(this._destroy$),
-			tap(_ => this.onLoad()),
-		).subscribe();
-	}
-
-	protected onLoad() {
-		this.pending = true;
-	}
-
-	protected onLoaded() {
-		this.pending = false;
+		this.filterList
+			.valueChanges$
+			.subscribe(_ => {
+				// should detect changes since filterList isn't immutable yet
+				this.refetch({ query: this.filterList.asQuery() });
+			});
 	}
 
 	protected setSelection() {
@@ -110,13 +103,33 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			});
 	}
 
-	protected setFilters() {
-		// since filter is a behavior subject it will trigger instantly
-		if (this.filterSrv) {
-			this.filterSrv.query$.pipe(
-				takeUntil(this._destroy$),
-			).subscribe(query => this.filter(query));
-		}
+	protected onLoad() {
+		this.pending = true;
+	}
+
+	protected onLoaded() {
+		this.pending = false;
+	}
+
+	refetch(config: SelectParamsConfig) {
+		this.listResult.refetch(config)
+	}
+
+	/** Loads more items when we reach the bottom of the page */
+	loadMore() {
+		this.listResult.fetchMore(this.items.length);
+	}
+
+	/** Sorts items based on sort.sortBy */
+	sort(sort: Sort) {
+		this.refetch({ ...sort });
+	}
+
+	search(str: string) {
+		if (str)
+			this.filterList.upsertFilter({ type: FilterType.SEARCH, value: str });
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	get selectionArray() {
@@ -131,93 +144,20 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
-
-	search(str: string) {
-		this.filterSrv.upsertFilter({ type: FilterType.SEARCH, value: str });
-	}
-
 	/** Search within filters */
 	smartSearch(str: string) {
 		if (this.searchSrv) {
-			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterSrv, this.entityMetadata);
+			this.smartSearchFilterElements$ = this.searchSrv.searchFilterElements(str, this.filterList, this.entityMetadata);
 		}
 	}
 
-	onCheckSearchElement(element) {
-		this.filterSrv.addFilter({
-			type: element.type,
-			value: element.id,
-			entity: element
-		});
+	/** adds a filters to the list of filters */
+	addFilter(filter: Filter) {
+		this.filterList.addFilter(filter);
 	}
 
-	onUncheckSearchElement(element) {
-		this.filterSrv.removeFilter({
-			type: element.type,
-			value: element.id,
-			entity: element
-		});
-	}
-
-	getFiltersNumber() {
-		return this.filterSrv.filtersNumber();
-	}
-
-	/** Loads more items when we reach the bottom of the page */
-	loadMore() {
-		this._selectParams$.next(new SelectParams({
-			page: ++this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
-	}
-
-	nextPage() {
-		this._selectParams$.next(new SelectParams({
-			page: ++this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
-	}
-
-	previousPage() {
-		this._selectParams$.next(new SelectParams({
-			page: --this.currentParams.page,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
-	}
-
-	firstPage() {
-		this._selectParams$.next(new SelectParams({
-			page: 0,
-			sort: this.currentParams.sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take
-		}));
-	}
-
-	/** Sorts items based on sort.sortBy */
-	sort(sort: Sort) {
-		this._selectParams$.next(new SelectParams({
-			sort,
-			query: this.currentParams.query,
-			take: this.currentParams.take,
-			page: 0
-		}));
-	}
-
-	/** Filters items based  */
-	protected filter(query: string) {
-		this._selectParams$.next(new SelectParams({
-			query,
-			sort: this.currentParams.sort,
-			take: this.currentParams.take,
-			page: 0
-		}));
+	removeFilter(filter: Filter) {
+		this.filterList.removeFilter(filter);
 	}
 
 	/** opens the preview for an item */
@@ -291,26 +231,26 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
-		// callback for confirm dialog
-		const callback = () => {
-			this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		// const items = Array.from(this.selectionSrv.selection.keys());
+		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
+		// // callback for confirm dialog
+		// const callback = () => {
+		// 	this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
+		// 		this.resetSelection();
+		// 	});
+		// };
+		// const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		// this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Deletes an specific item */
 	deleteOne(itemId: string) {
-		const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
-		const callback = () => {
-			this.featureSrv.deleteOne(itemId, refetchParams).subscribe();
-		};
-		const text = `Are you sure you want to delete this item?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
+		// const callback = () => {
+		// 	this.featureSrv.deleteOne(itemId, refetchParams).subscribe();
+		// };
+		// const text = `Are you sure you want to delete this item?`;
+		// this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Open details page of a product */

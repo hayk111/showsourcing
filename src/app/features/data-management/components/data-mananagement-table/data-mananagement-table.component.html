@@ -9,10 +9,7 @@
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
-	(hovered)="onHover($event)"
-	[currentPage]="currentPage"
-	(previous)="previousPage()"
-	(next)="nextPage()">
+	(hovered)="onHover($event)">
 
 	<!-- Name Category -->
 	<ng-template *ngIf="ermEvent !== entityMetadata"

@@ -70,7 +70,7 @@ export class CarouselComponent implements OnInit {
 			text: 'Are you sure you want to remove this image ?',
 			callback: () => {
 				this.deleted.emit();
-				this.imageSrv.deleteOne(img.id).subscribe();
+				this.imageSrv.delete(img.id).subscribe();
 			}
 		});
 	}

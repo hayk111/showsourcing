@@ -19,21 +19,18 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 
 	user$: Observable<User>;
 	userId: string;
-	// company$: Observable<Company>; // Uncomment when Company realm is out
 
 	constructor(
 		private profileSrv: SettingsProfileService,
 		private dlgSrv: DialogService,
 		private uploaderSrv: UploaderService,
 		private moduleRef: NgModuleRef<any>) {
-		// private company: CompanyService) { // Uncomment when Company realm is out
 		super();
 	}
 
 	ngOnInit() {
 		this.user$ = this.profileSrv.selectUser();
 		this.user$.pipe(first()).subscribe(m => this.userId = m.id); // This way we dont have to call the observable eachtime we need the id
-		// this.company$ = this.companySrv.selectAll(); // Uncomment when Company realm is out
 	}
 
 	updateUser(user: User) {

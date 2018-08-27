@@ -1,24 +1,22 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class ProductStatusTypeQueries extends BaseQueries implements GlobalQuery {
+export abstract class ProductStatusTypeQueries extends GlobalQueries {
 
-	constructor() { super('productStatusType', 'productStatusTypes'); }
 
-	oneDefaultSelection = `
+	static readonly one = `
 			name,
 			category,
 			step
 	`;
 
-	manyDefaultSelection = `
+	static readonly many = `
 			name,
 			category,
 			step
 	`;
 
-	allDefaultSelection = `
+	static readonly all = `
 			name,
 			category,
 			step

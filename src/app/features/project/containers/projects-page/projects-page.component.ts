@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ERM, Project } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 
 
 @Component({
@@ -15,8 +14,6 @@ import { StoreKey } from '~utils/store/store';
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
 		SelectionService,
-		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT }
 	]
 })
 export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFeatureService> {
@@ -25,12 +22,11 @@ export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFea
 		protected router: Router,
 		protected featureSrv: ProjectFeatureService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
 	) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PROJECT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PROJECT);
 	}
 
 }

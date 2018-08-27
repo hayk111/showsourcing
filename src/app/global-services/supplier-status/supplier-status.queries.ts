@@ -1,10 +1,9 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class SupplierStatusQueries extends BaseQueries implements GlobalQuery {
+export abstract class SupplierStatusQueries extends GlobalQueries {
 
-	oneDefaultSelection = `
+	static readonly one = `
 	cancelled,
 	status {
 		id,
@@ -15,7 +14,4 @@ export class SupplierStatusQueries extends BaseQueries implements GlobalQuery {
 	}
 	`;
 
-	constructor() {
-		super('supplierStatus', 'supplierStatuses')
-	}
 }

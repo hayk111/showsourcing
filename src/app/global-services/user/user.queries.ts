@@ -1,15 +1,10 @@
 import gql from 'graphql-tag';
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
 
-export class UserQueries extends BaseQueries implements GlobalQuery {
+export class UserQueries extends GlobalQueries {
 
-	constructor() {
-		super('user', 'users');
-	}
-
-	oneDefaultSelection = `
+	static readonly one = `
 		id,
 		firstName,
 		lastName,

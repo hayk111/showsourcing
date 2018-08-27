@@ -1,18 +1,13 @@
-import { GlobalQuery } from '~global-services/_global/global.query.interface';
 import gql from 'graphql-tag';
-import { BaseQueries } from '~global-services/_global/base-query.class';
+import { GlobalQueries } from '~global-services/_global/global-queries.class';
 
-export class CommentQueries extends BaseQueries implements GlobalQuery {
+export abstract class CommentQueries extends GlobalQueries {
 
-	constructor() {
-		super('comment', 'comments')
-	}
+	static readonly one = `text`;
 
-	oneDefaultSelection = ` text `;
+	static readonly many = `text`;
 
-	manyDefaultSelection = ` text `;
-
-	allDefaultSelection = `
+	static readonly all = `
 		tock tock;
 		Who is there ?
 		Jack!
@@ -21,3 +16,4 @@ export class CommentQueries extends BaseQueries implements GlobalQuery {
 	`;
 
 }
+

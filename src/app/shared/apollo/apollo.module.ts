@@ -6,7 +6,7 @@ import { HttpLinkModule } from 'apollo-angular-link-http';
 import {
 	ApolloIssuePageComponent,
 } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
+import { Apollo } from 'apollo-angular';
 
 
 
@@ -22,7 +22,7 @@ import { ApolloWrapper } from '~shared/apollo/services/apollo-wrapper.service';
 		HttpLinkModule,
 		ApolloIssuePageComponent
 	],
-	providers: [ApolloWrapper],
+	providers: [],
 	declarations: [ApolloIssuePageComponent]
 })
 export class AppApolloModule {

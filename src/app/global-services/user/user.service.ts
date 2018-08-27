@@ -4,7 +4,9 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { ApolloStateService, ApolloWrapper, USER_CLIENT } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
+import { Apollo } from 'apollo-angular';
+import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
 
 @Injectable({
 	providedIn: 'root',
@@ -12,13 +14,14 @@ import { ApolloStateService, ApolloWrapper, USER_CLIENT } from '~shared/apollo';
 export class UserService extends GlobalService<User> {
 
 	userSync: User;
+	defaultClient = USER_CLIENT;
 
 	constructor(
-		wrapper: ApolloWrapper,
+		protected apollo: Apollo,
 		private authSrv: AuthenticationService,
 		private apolloState: ApolloStateService
 	) {
-		super(wrapper, new UserQueries, 'User');
+		super(apollo, UserQueries, 'user', 'users');
 		this.selectUser().subscribe(user => this.userSync = user);
 	}
 
@@ -32,8 +35,5 @@ export class UserService extends GlobalService<User> {
 		);
 	}
 
-	selectOne(id: string, fields?: string, client: string = USER_CLIENT) {
-		return super.selectOne(id, fields, client);
-	}
 }
 

@@ -98,7 +98,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** when deleting this product */
 	deleteProduct() {
 		const callback = () => {
-			this.featureSrv.deleteOne(this.product.id).subscribe();
+			this.featureSrv.delete(this.product.id).subscribe();
 			this.router.navigate(['product']);
 		};
 		const text = `Are you sure you want to delete this product?`;

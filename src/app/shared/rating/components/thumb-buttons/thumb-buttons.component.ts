@@ -126,9 +126,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 			value: state ? 100 : 0,
 			user: { id: this.userSrv.userSync.id }
 		});
-		this.voteSrv.create(vote).subscribe(newVote => {
-			this.vote.emit([...this.votes, newVote]);
-		});
+		this.vote.emit([...this.votes, vote]);
 	}
 
 	updateEmitVote() {
@@ -140,7 +138,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 
 	deleteEmitVote() {
-		this.voteSrv.deleteOne(this.userVote.id).subscribe();
+		this.voteSrv.delete(this.userVote.id).subscribe();
 		this.vote.emit(this._votes.filter(vote => vote.id !== this.userVote.id)); // we do this to activate chagne detection on the product
 	}
 

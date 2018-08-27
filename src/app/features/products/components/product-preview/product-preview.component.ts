@@ -3,7 +3,7 @@ import { Product, ProductConfig, ERM, Contact } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
-import { AutoUnsub, debug } from '~utils';
+import { AutoUnsub } from '~utils';
 import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { DialogService } from '~shared/dialog';
