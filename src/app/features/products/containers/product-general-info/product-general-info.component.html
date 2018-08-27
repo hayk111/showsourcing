@@ -10,7 +10,7 @@
 			[hasPercent]="false">
 		</icons-status-app>
 	</div>
-	<div class="flex price">
+	<div *ngIf="product?.price?.value" class="flex price">
 		<div class="amount">
 			{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}
 		</div>
