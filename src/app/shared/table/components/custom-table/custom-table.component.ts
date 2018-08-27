@@ -9,6 +9,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomTableComponent {
+	@Input() currentSort: Sort;
 	@Output() bottomReached = new EventEmitter<any>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Input() descriptor: TableDescriptor = [];
