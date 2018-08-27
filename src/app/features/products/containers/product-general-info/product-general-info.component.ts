@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
+import { EditableTextComponent } from '~shared/editable-field';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -17,10 +18,15 @@ import { FormGroup } from '@angular/forms';
 	styleUrls: ['./product-general-info.component.scss'],
 })
 export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
+
 	product$: Observable<Product>;
 	product: Product;
 	descriptor$: Observable<FormDescriptor>;
 	descriptor2$: Observable<FormDescriptor>;
+
+	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
+	@ViewChild('txt') textarea: ElementRef;
+
 
 	// those are the custom fields for the first form section
 	// ultimately "sections" should be added to the form descriptor so we only have one array of custom fields
@@ -32,7 +38,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		},
 		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'price', type: 'price' },
-		{ name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
+		// { name: 'createdBy', type: 'selector', metadata: { target: 'user', type: 'entity', labelName: 'name' } },
 		{
 			name: 'createdBy', label: 'Assignee', type: 'selector',
 			metadata: { target: 'user', type: 'entity', labelName: 'name' }
@@ -44,7 +50,6 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 			metadata: { target: 'event', type: 'entity', labelName: 'name', canCreate: true }
 		},
 		{ name: 'tags', type: 'selector', metadata: { target: 'tag', type: 'entity', labelName: 'name', canCreate: true }, multiple: true },
-		{ name: 'description', type: 'textarea', label: 'description' },
 
 	];
 	// those are the custom field for the second form section
@@ -93,6 +98,18 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	updateProduct(product: Product) {
 		product.id = this.product.id;
 		this.srv.update(product).subscribe();
+	}
+
+	save(description: string) {
+		if (this.editable.isOpen) {
+			this.updateProduct({ description });
+			this.editable.close();
+		}
+	}
+
+	cancel() {
+		this.editable.close();
+		this.textarea.nativeElement.value = this.product.description;
 	}
 
 }
