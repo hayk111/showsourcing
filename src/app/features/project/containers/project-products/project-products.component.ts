@@ -9,7 +9,8 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
+import { ProjectWorkflowFeatureService } from '~features/project/services';
 
 @Component({
 	selector: 'project-products-app',
@@ -23,6 +24,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 
 	project$: Observable<Project>;
 	private projectId: string;
+	private project: Project;
 
 	constructor(
 		protected router: Router,
@@ -32,8 +34,9 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
-		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
+		protected moduleRef: NgModuleRef<any>,
+		protected featureSrv: ProjectWorkflowFeatureService) {
+			super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -45,8 +48,10 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 			takeUntil(this._destroy$),
 			switchMap(id => this.projectSrv.selectOne(id))
 		).subscribe(project => {
-			console.log('>> project$ = ', project);
-			this.setAdditionalDialogParams({ selectedProjects: project ? [project] : null });
+			this.project = project;
+			this.setAdditionalDialogParams({
+				submitCallback: this.associatedProductsWithProject.bind(this)
+			});
 		});
 		this.project$ = id$.pipe(switchMap(id => this.projectSrv.queryOne(id)));
 		// we need to wait to have the id to call super.ngOnInit, because we want the filter
@@ -62,6 +67,14 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		// 	super.filter(`projects.id == "${this.projectId}" AND (${query})`);
 		// else
 		// 	super.filter(`projects.id == "${this.projectId}"`);
+	}
+
+	/**
+	 * Associate the selected products from the current project. This method is
+	 * passed as callback for the "find products" dialog.
+	 */
+	associatedProductsWithProject(selectedProducts: Product[]) {
+		return this.featureSrv.addProjectsToProducts([ this.project ], selectedProducts);
 	}
 
 }

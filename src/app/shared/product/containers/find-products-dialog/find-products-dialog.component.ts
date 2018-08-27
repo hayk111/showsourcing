@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetector
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProjectWorkflowFeatureService } from '~features/project/services';
+import { ProductFeatureService } from '~shared/product/services/product-feature.service';
 import { ERM, Product, ProductVote, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
@@ -17,23 +17,24 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Component({
-	selector: 'add-products-dialog-app',
-	templateUrl: './add-products-dialog.component.html',
-	styleUrls: ['./add-products-dialog.component.scss'],
+	selector: 'find-products-dialog-app',
+	templateUrl: './find-products-dialog.component.html',
+	styleUrls: ['./find-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SelectionService
 	]
 })
-export class AddProductsDialogComponent extends ListPageComponent<Product, ProjectWorkflowFeatureService> implements OnInit {
+export class FindProductsDialogComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
 
 	@Input() selectedProjects: Project[];
+	@Input() submitCallback: Function;
 	searchFilterElements$: Observable<any[]>;
 	selected: number;
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: ProjectWorkflowFeatureService,
+		protected featureSrv: ProductFeatureService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
@@ -58,8 +59,9 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 	submit() {
 		// we add each project one by one to the store
 		const selectedProducts = this.getSelectedProducts();
-		this.featureSrv.addProjectsToProducts(this.selectedProjects, selectedProducts)
-			.subscribe(projects => {
+		this.submitCallback(selectedProducts)
+			.subscribe(() => {
+				console.log('2');
 				this.dlgSrv.close();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,

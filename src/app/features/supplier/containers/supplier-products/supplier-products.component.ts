@@ -9,7 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterList, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
 
 @Component({
 	selector: 'supplier-app',
@@ -34,7 +34,7 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
 		this.filterList = new FilterList([
 			{ type: 'supplier.id', comparator: '==' , value: route.snapshot.params.id }
 		]);
