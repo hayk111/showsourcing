@@ -269,7 +269,6 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 			.pipe(
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
-				tap(d => { debugger; }),
 				map((r) => r.data[queryName]),
 				tap(data => this.logResult(title, queryName, data)),
 				catchError(errors => of(log.table(errors)))

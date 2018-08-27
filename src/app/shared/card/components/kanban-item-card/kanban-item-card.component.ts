@@ -95,11 +95,11 @@ export class KanbanItemCardComponent implements OnInit {
 				if (this.userVote.value === 100) {
 					this.like = true;
 					this.dislike = false;
-					this.thumbsName = 'thumbs-up-white';
+					this.thumbsName = 'thumbs-up-background';
 				} else {
 					this.dislike = true;
 					this.like = false;
-					this.thumbsName = 'thumbs-down-white';
+					this.thumbsName = 'thumbs-down-background';
 				}
 			}
 		}
