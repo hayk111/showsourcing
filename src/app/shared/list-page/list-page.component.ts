@@ -117,7 +117,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	refetch(config: SelectParamsConfig) {
-		this.listResult.refetch(config)
+		this.listResult.refetch(config);
 	}
 
 	/** Loads more items when we reach the bottom of the page */

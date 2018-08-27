@@ -44,7 +44,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		);
 		this.project$ = id$.pipe(
 			switchMap(id => this.projectSrv.selectOne(id)),
-		  tap(project => {
+			tap(project => {
 				this.setAdditionalDialogParams({ selectedProjects: project ? [project] : null });
 			})
 		);
