@@ -6,10 +6,9 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductService, SupplierService } from '~global-services';
 import { ERM, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { /*FilterService,*/ SearchService, FilterType } from '~shared/filters';
+import { FilterList, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-// import { StoreKey } from '~utils'; 
 import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
 
 @Component({
@@ -17,9 +16,7 @@ import { AddProductsDialogComponent } from '~features/project/containers/add-pro
 	templateUrl: './supplier-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		SelectionService,
-		// FilterService,
-		// { provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT_PRODUCTS }
+		SelectionService
 	]
 })
 export class SupplierProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
@@ -38,6 +35,9 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
+		this.filterList = new FilterList([
+			{ type: 'supplier.id', comparator: '==' , value: route.snapshot.params.id }
+		]);
 	}
 
 	ngOnInit() {

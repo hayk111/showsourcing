@@ -57,9 +57,8 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 
 	submit() {
 		// we add each project one by one to the store
-    const selectedProducts = this.getSelectedProducts();
-    console.log('>> this.selectedProjects = ', this.selectedProjects);
-		this.featureSrv.addProductsToProjects(selectedProducts, this.selectedProjects)
+		const selectedProducts = this.getSelectedProducts();
+		this.featureSrv.addProjectsToProducts(this.selectedProjects, selectedProducts)
 			.subscribe(projects => {
 				this.dlgSrv.close();
 				this.notifSrv.add({

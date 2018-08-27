@@ -96,23 +96,22 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		return of();
 	}
 
-		/**
+	/**
 	 * Associate products to projects.
 	 */
-	addProductsToProjects(addedProducts: Product[], projects: Project[]): Observable<Product[]> {
-		return forkJoin(projects.map(proj => this.addProductsToOneProject(addedProducts, proj)));
+	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
+		return forkJoin(products.map(prod => this.addProjectsToOneProduct(addedProjects, prod)));
 	}
 
-	private addProductsToOneProject(addedProducts: Product[], project: Project) {
+	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
 		// mapping current projects to only have the ids
-		addedProducts = Array.from(addedProducts, product => ({ id: product.id }));
-		const products: Product[] = Array.from(project.products, product => ({ id: product.id }));
+		addedProjects = Array.from(addedProjects, project => ({ id: project.id }));
+		const projects: Project[] = Array.from(product.projects, project => ({ id: project.id }));
 		// removing duplicates
-		addedProducts = addedProducts.filter(product => !products.some(p => p.id === product.id));
+		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
 
-		products.push(...addedProducts);
-		return this.update({ id: project.id, products });
+		projects.push(...addedProjects);
+		return this.update({ id: product.id, projects });
 	}
-
 
 }
