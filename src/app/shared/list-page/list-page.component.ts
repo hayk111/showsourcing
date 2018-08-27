@@ -56,6 +56,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
+	additionalDialogParams: any;
 
 	constructor(
 		protected router: Router,
@@ -101,6 +102,10 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			(selected, items) => {
 				return items.filter(item => selected.has(item.id));
 			});
+	}
+
+	protected setAdditionalDialogParams(additionalDialogParams) {
+		this.additionalDialogParams = additionalDialogParams;
 	}
 
 	protected onLoad() {
@@ -298,7 +303,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** opens the create dialog, redirects you to entityMetadata.createUrl if its truem otherwise it will stay on the same page */
 	openCreateDlg(shouldRedirect: boolean = false) {
-		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, { type: this.entityMetadata, shouldRedirect: shouldRedirect });
+		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, this.additionalDialogParams ?
+			{ ...this.additionalDialogParams, type: this.entityMetadata, shouldRedirect: shouldRedirect } :
+			{ type: this.entityMetadata, shouldRedirect: shouldRedirect });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/

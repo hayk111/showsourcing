@@ -40,7 +40,13 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	ngOnInit() {
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
-			tap(id => this.projectId = id),
+			tap(id => this.projectId = id)
+		);
+		this.project$ = id$.pipe(
+			switchMap(id => this.projectSrv.selectOne(id)),
+		  tap(project => {
+				this.setAdditionalDialogParams({ selectedProjects: project ? [project] : null });
+			})
 		);
 		this.project$ = id$.pipe(switchMap(id => this.projectSrv.queryOne(id)));
 		// we need to wait to have the id to call super.ngOnInit, because we want the filter
