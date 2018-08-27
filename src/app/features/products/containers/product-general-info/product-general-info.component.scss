@@ -83,7 +83,7 @@ editable-label-app {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
 	color: #182844;
-	margin-bottom: 32px;
+	margin-bottom: var(--spacing-xl);
 }
 
 .subSectionTitle{
@@ -104,7 +104,13 @@ editable-label-app {
   }
 }
 
+card-footer-app {
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}
+
 
 user-picture-app {
-  padding-right: 8px;
+  padding-right: var(--spacing-s);
 }
