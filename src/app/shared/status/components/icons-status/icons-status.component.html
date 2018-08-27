@@ -18,7 +18,7 @@
 <ng-template #one>
 	<div class="flex noselect small-icons one">
 		<icon-app *ngIf="favorite" name="heart"></icon-app>
-		<icon-app [name]="name" fontSet="svg"></icon-app>
+		<icon-app *ngIf="name !== 'thumbs-up'" [name]="name" fontSet="svg"></icon-app>
 		<div *ngIf="hasPercent" class="numbers flex">
 			<p [ngStyle]="successTxt">{{product?.score || '-'}}%</p>
 			<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>

@@ -50,7 +50,6 @@ export class IconsStatusComponent implements OnInit {
 	constructor(private userSrv: UserService) { }
 
 	ngOnInit() {
-
 	}
 
 	get successTxt() {
