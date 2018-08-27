@@ -84,12 +84,6 @@ export class ProjectWorkflowComponent implements OnInit {
 		this.selectionSrv.unselectOne(entity);
 	}
 
-	openFindProductDlg() {
-		this.dlgSrv.openFromModule(FindProductDialogComponent, this.moduleRef, {
-			callback: () => { }
-		});
-	}
-
 	/**
 	 * Selection bar actions
 	 *
