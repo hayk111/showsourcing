@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, first, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, first, switchMap, map } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { User } from '~models/user.model';
@@ -11,6 +11,8 @@ import { filter } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { UserService } from '~global-services/user/user.service';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
+import { USER_CLIENT, ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+
 
 @Injectable({ providedIn: 'root' })
 export class UserClientInitializer extends AbstractApolloClient {
@@ -20,34 +22,35 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService,
 		private userSrv: UserService
 	) {
 		super(apollo, link);
 	}
 
-	init() {
-		// when authenticated we start user client
+	init(): void {
+		// when there is a refreshToken we start the client
 		this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(token => !!token),
 			// first we need to get an accessToken
-			switchMap(token => this.tokenSrv.fetchAccessToken(token)),
-			switchMap(authState => this.getUser(authState.userId)),
-			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath))
-		).subscribe(uri => this.initUserClient(uri, this.tokenSrv.accessTokenSync.token));
+			switchMap(token => this.tokenSrv.getAccessToken(token, USER_CLIENT)),
+			switchMap(accessToken => this.getUser(accessToken.token_data.identity).pipe(
+				switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
+				map(uri => ({ uri, token: accessToken.token }))
+			))
+		).subscribe(({ uri, token }) => this.initUserClient(uri, token));
 
 
-		// when unauthenticated we reset user client
-		this.authSrv.authState$.pipe(
-			distinctUntilChanged((x, y) => x.userId === y.userId),
-			filter(authState => !authState.authenticated),
-		).subscribe(user => this.resetClient());
+		// when the refreshToken is gone we close it
+		this.tokenSrv.refreshToken$.pipe(
+			distinctUntilChanged(),
+			filter(tokenState => !tokenState),
+		).subscribe(_ => this.resetClient());
 
 	}
 
 	/** create the user client  */
-	private initUserClient(uri: string, token: string) {
+	private initUserClient(uri: string, token: string): void {
 		try {
 			super.createClient(uri, USER_CLIENT, token);
 			this.apolloState.setUserClientReady();
@@ -63,7 +66,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		return this.userSrv.queryOne(id, 'realmServerName, realmPath', ALL_USER_CLIENT);
 	}
 
-	private resetClient() {
+	private resetClient(): void {
 		super.clearClient(USER_CLIENT);
 		this.apolloState.resetUserClient();
 	}

@@ -9,6 +9,7 @@ import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils/log';
 import { TeamService } from '~global-services/team/team.service';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
+import { combineLatest } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,26 +20,34 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService,
 		protected teamSrv: TeamService
 	) {
 		super(apollo, link);
 	}
 
 	init() {
-		// when the user has selected a team we initialize the team client
-		this.teamSrv.selectedTeam$
-			.pipe(
-				distinctUntilChanged((x, y) => undefined ? x.id === y.id : undefined),
-				// filter has to be after distinct because of the check above
-				filter(t => !!t),
-				switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
-			).subscribe(uri => this.initTeamClient(uri, this.tokenSrv.accessTokenSync.token));
+		// when there is a refreshToken and the user has selected a team we initialize the team client
+		const accessToken$ = this.tokenSrv.refreshToken$.pipe(
+			distinctUntilChanged(),
+			filter(token => !!token),
+			// first we need to get an accessToken
+			switchMap(token => this.tokenSrv.getAccessToken(token, 'TEAM'))
+		);
+
+		// get realm uri from the team selected.
+		const uri$ = this.teamSrv.selectedTeam$.pipe(
+			filter(team => !!team),
+			distinctUntilChanged((x, y) => x.id === y.id),
+			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
+		);
+
+		combineLatest(uri$, accessToken$)
+			.subscribe(([uri, tokenState]) => this.initTeamClient(uri, tokenState.token));
 
 		// when authenticated we start team client
-		this.authSrv.authState$.pipe(
-			map(authState => authState.authenticated),
-			filter(authenticated => !authenticated)
+		this.tokenSrv.refreshToken$.pipe(
+			distinctUntilChanged(),
+			filter(token => !token)
 		).subscribe(authenticated => this.resetClient());
 
 	}

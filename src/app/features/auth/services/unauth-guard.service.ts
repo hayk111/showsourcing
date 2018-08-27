@@ -22,7 +22,7 @@ export class UnauthGuardService implements CanActivate, CanActivateChild {
 			distinctUntilChanged(),
 			tap(authenticated => this.redirectOnAuthenticated(authenticated)),
 			tap(authenticated => log.debug('%c unauth guard: authenticated ?', LogColor.GUARD, authenticated)),
-			map(authenticated => !authenticated)
+			map(authenticated => !authenticated),
 		);
 	}
 

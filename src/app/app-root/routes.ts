@@ -24,7 +24,7 @@ export const routes: Array<Route> = [
 		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService, UnauthGuardService
+			UnauthGuardService
 		],
 		children: [
 			...authRoutes,

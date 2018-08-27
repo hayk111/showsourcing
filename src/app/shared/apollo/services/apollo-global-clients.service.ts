@@ -8,13 +8,12 @@ import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils';
 import { filter, first, distinctUntilChanged } from 'rxjs/operators';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
-import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo';
-
+import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 
 
 @Injectable({ providedIn: 'root' })
-export class GlobalClients extends AbstractApolloClient {
+export class GlobalClientsInitializer extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,

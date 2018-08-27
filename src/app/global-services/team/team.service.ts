@@ -3,8 +3,7 @@ import { Observable, of, ReplaySubject, combineLatest } from 'rxjs';
 import { map, switchMap, tap, filter, shareReplay, distinctUntilChanged } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
-import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
-import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
+
 import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
@@ -12,6 +11,8 @@ import { TeamQueries } from '~global-services/team/team.queries';
 import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 // name in local storage
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -28,7 +29,12 @@ export class TeamService extends GlobalService<Team> {
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
+		// we only need the team when it's not undefined
+		filter(team => !!team),
 		shareReplay(1),
+	);
+	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
+		map(team => !!team)
 	);
 	teams$: Observable<Team[]>;
 
@@ -84,12 +90,6 @@ export class TeamService extends GlobalService<Team> {
 		this.storage.setItem(SELECTED_TEAM_ID, team.id);
 		this._selectedTeamId$.next(team.id);
 		return this._selectedTeam$.pipe();
-	}
-
-	get hasTeamSelected$(): Observable<boolean> {
-		return this.selectedTeam$.pipe(
-			map(team => !!team)
-		);
 	}
 
 	/** restore from local storage   */

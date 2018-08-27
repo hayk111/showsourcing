@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { ShowQueries } from '~global-services/show/show.queries';
-import { GLOBAL_DATA_CLIENT } from '~shared/apollo';
+import { GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({ providedIn: 'root' })
 export class ShowService extends GlobalService<Show> {

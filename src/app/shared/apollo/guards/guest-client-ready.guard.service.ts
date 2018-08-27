@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap, map, filter } from 'rxjs/operators';
-import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
-import { GuestClientInitializer } from '~shared/apollo';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { TokenService } from '~features/auth';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { GuestClientInitializer } from '~shared/apollo';
 
 @Injectable({
 	providedIn: 'root'
@@ -29,7 +29,7 @@ export class GuestClientReadyGuardService implements CanActivate, CanActivateChi
 	canActivateChild(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		if (!this.initialized) {
 			this.guestInitializer.init();
-			this.tokenSrv.getGuestRefreshToken(route.params.token).pipe().subscribe();
+			this.tokenSrv.getGuestRefreshToken(route.params.token);
 			this.initialized = true;
 		}
 		return this.apolloState.guestClientReady$.pipe(

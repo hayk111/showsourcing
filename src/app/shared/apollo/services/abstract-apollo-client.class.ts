@@ -11,8 +11,8 @@ import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
-import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo';
 import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
+import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 export abstract class AbstractApolloClient {
 	protected clients = new Map();

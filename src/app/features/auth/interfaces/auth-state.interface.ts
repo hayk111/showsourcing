@@ -1,9 +1,9 @@
-import { AccessTokenState } from '~features/auth';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 
 export interface AuthState {
 	authenticated?: boolean;
-	tokenState?: AccessTokenState;
+	tokenState?: TokenState;
 	userId?: string;
 	token?: string;
 }

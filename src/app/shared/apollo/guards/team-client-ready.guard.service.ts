@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap, map, filter } from 'rxjs/operators';
-import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 import { log, LogColor } from '~utils';
 
 @Injectable({

@@ -6,9 +6,10 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { Credentials, RefreshTokenResponse } from '~features/auth/interfaces';
 
 import { AuthState } from '~features/auth/interfaces';
-import { AuthHttpService } from '~features/auth/services/auth-http.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { environment } from 'environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,27 +21,40 @@ export class AuthenticationService {
 	authState$ = this._authState$.asObservable();
 
 	constructor(
-		private authHttp: AuthHttpService,
 		private tokenSrv: TokenService,
-		private router: Router
+		private router: Router,
+		private http: HttpClient
 	) { }
 
 	init() {
-		// when there is an access token that means we are authenticated
+		// when there is a refresh token that means we are authenticated
 		this.tokenSrv.refreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
-		// since we subscribe to the access token in the constructor this will have as a side effect
+		// since we subscribe to the refresh token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
 		this.tokenSrv.restoreRefreshToken();
 	}
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
-		return this.authHttp.login(credentials).pipe(
+		const loginObj = this.getLoginObject(credentials);
+		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj).pipe(
 			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
 			tap(_ => this.router.navigate(['']))
 		);
+	}
+
+	private getLoginObject(credentials: Credentials) {
+		return {
+			app_id: '',
+			provider: 'password',
+			data: credentials.identifier,
+			user_info: {
+				register: false,
+				password: credentials.password
+			}
+		};
 	}
 
 	logout() {
@@ -50,17 +64,21 @@ export class AuthenticationService {
 	}
 
 	resetPw(email: string) {
+		// this.http.post(`${environment.apiUrl}/api/password/${email}/reset`, {})
 		throw Error('not implemented yet');
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
-		return this.authHttp.register(creds).pipe(
+		return this.http.post(`${environment.signupUrl}`, creds).pipe(
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);
 	}
 
 	private refreshTokenToAuthState(tokenState: TokenState) {
+		if (!tokenState) {
+			return { authenticated: false };
+		}
 		return {
 			pending: false,
 			authenticated: !!tokenState.token,
