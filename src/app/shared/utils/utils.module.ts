@@ -5,6 +5,8 @@ import { DateToTimeAgoPipe } from '~shared/utils/pipes/date-ago.pipe';
 import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 import { InfiniScrollDirective } from '~shared/utils/directives';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
+import { GroupByPipe } from '~shared/utils/pipes/groupby.pipe';
+
 @NgModule({
 	imports: [
 		CommonModule
@@ -13,6 +15,7 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 		ClickOutsideDirective,
 		DateToTimeAgoPipe,
 		UserNamePipe,
+		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
 	],
@@ -22,6 +25,7 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 		UserNamePipe,
 		InfiniScrollDirective,
 		ConstPipe,
+		GroupByPipe,
 	]
 })
 export class UtilsModule { }

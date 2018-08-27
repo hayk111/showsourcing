@@ -1,21 +1,20 @@
-<div class="card-container">
-  <div *ngFor="let product of rows"
-       class="item">
-    <kanban-item-card-app class="marginSmall" [title]="product.name"
-      [status]="product.status?.name"
-      [favorite]="product.favorite"
-      [tags]="product.tags"
-      [price]="product.price"
-      [minimumOrderQuantity]="product.minimumOrderQuantity"
-      [category]="'category'"
-      [description]="product.description ? product.description : 'No description'"
-      [image]="product.images?.length > 0 ? (product | image:'m') : null"
-      [person]="product.createdBy"
-      [link]="'/product/details/' + product.id + '/general'"
-      [product]="product"
-      [highlightOnChecked]="true"
-      (select)="select.emit(product, false)"
-      (unselect)="unselect.emit(product, false)">
-    </kanban-item-card-app>
-  </div>
+
+<div *ngFor="let category of rows | groupBy: 'category'; first as first; index as i; trackBy: trackByFn" class="category-section">
+	<div class="sectionTitle">{{ category?.value[0].category.name || 'Unnamed' }}
+		<div class="sectionTag">{{ category.value.length }} products</div>
+	</div>
+	<div class="products-section">
+		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
+			<product-grid-card-app
+				[product]="product"
+				[selection]="selection"
+				[favorite]="product?.favorite"
+				(productFavorite)="favorited.emit(product.id)"
+				(productUnfavorite)="unfavorited.emit(product.id)"
+				(productSelect)="select.emit(product)"
+				(productUnselect)="unselect.emit(product)">
+			</product-grid-card-app>
+		</ng-container>
+	</div>
 </div>
+

@@ -6,23 +6,16 @@
       (search)="search($event)">
     </sub-panel-app>
   
-    <supplier-product-list-app
-      *ngIf="view === 'list'"
-      class="list-view"
-      [selection]="selected$ | async"
-      [rows]="items$ | async"
-      [pending]="pending"
-      (previewClick)="openPreview($event)"
-      (select)="onItemSelected($event)"
-      (unselect)="onItemUnselected($event)"
-      (selectAll)="selectAll($event)"
-      (unselectAll)="resetSelection()"
-      (open)="goToDetails($event)"
-      (favorited)="onItemFavorited($event)"
-      (unfavorited)="onItemUnfavorited($event)"
-      (bottomReached)="loadMore()"
-      (sort)="sort($event)"
-      (delete)="deleteSelected($event)">
-    </supplier-product-list-app>
+    <products-card-view-app
+  		class="card-view"
+		  [rows]="items$ | async"
+		  [selection]="selected$ | async"
+		  (update)="update($event)"
+		  (select)="onItemSelected($event, true)"
+		  (unselect)="onItemUnselected($event, true)"
+		  (favorited)="onItemFavorited($event)"
+		  (unfavorited)="onItemUnfavorited($event)"
+		  (open)="goToDetails($event)"></products-card-view-app>
+
   </div>
   

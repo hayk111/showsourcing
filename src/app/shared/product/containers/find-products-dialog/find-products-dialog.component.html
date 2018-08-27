@@ -22,7 +22,7 @@
 
     </sub-panel-app>
 
-    <products-card-view-app
+    <products-card-view-dialog-app
       class="list-view"
       [selection]="selected$ | async"
       [rows]="products"
@@ -36,7 +36,7 @@
       (favorited)="onItemFavorited($event)"
       (unfavorited)="onItemUnfavorited($event)"
       (bottomReached)="loadMore()"
-      (sort)="sort($event)"></products-card-view-app>
+      (sort)="sort($event)"></products-card-view-dialog-app>
 
     <divider-app></divider-app>
 

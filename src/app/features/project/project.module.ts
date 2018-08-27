@@ -25,7 +25,7 @@ import { CustomDialogModule } from '~shared/custom-dialog';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
-import { ProductModule } from '~shared/product/product.module';
+import { ProductCommonModule } from '~shared/product/product.module';
 
 
 @NgModule({
@@ -46,7 +46,7 @@ import { ProductModule } from '~shared/product/product.module';
 		ActionBarModule,
 		DialogModule,
 		SearchAutocompleteModule,
-		ProductModule
+		ProductCommonModule
 	],
 	declarations: [
 		ProjectsPageComponent,

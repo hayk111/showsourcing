@@ -35,9 +35,9 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
-		this.filterList = new FilterList([
+		/* this.filterList = new FilterList([
 			{ type: 'supplier.id', comparator: '==' , value: route.snapshot.params.id }
-		]);
+		]); */
 	}
 
 	ngOnInit() {
