@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as stream from 'getstream';
+import * as getstream from 'getstream';
 import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { first, map, scan, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~global-services';
@@ -56,7 +56,7 @@ export class ActivityService {
 		private productSrv: ProductService,
 		private commentSrv: CommentService
 	) {
-		this.client = stream.connect('7mxs7fsf47nu', null, '39385');
+		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
 	}
 
 	/**

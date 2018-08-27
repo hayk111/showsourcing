@@ -5,14 +5,14 @@ import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { ApolloStateService } from './apollo-state.service';
-import { AbstractApolloInitializer } from '~shared/apollo/services/initializers/abstract-apollo-initializer.class';
 import { log } from '~utils/log';
 import { ActivatedRoute } from '@angular/router';
-import { GUEST_CLIENT } from './client-names.const';
+import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
+import { GUEST_CLIENT } from '~shared/apollo';
 
 
 @Injectable({ providedIn: 'root' })
-export class GuestClientInitializer extends AbstractApolloInitializer {
+export class GuestClient extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,
@@ -34,7 +34,7 @@ export class GuestClientInitializer extends AbstractApolloInitializer {
 			}))
 		).subscribe(opts => {
 			if (opts.valid)
-				this.initGuestClient(opts.uri, opts.token)
+				this.initGuestClient(opts.uri, opts.token);
 			else
 				this.resetClient();
 		});

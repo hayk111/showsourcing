@@ -9,12 +9,12 @@ import { getMainDefinition } from 'apollo-utilities';
 import { first, map } from 'rxjs/operators';
 import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { GLOBAL_CONSTANT_CLIENT } from './client-names.const';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
-import { ClientInitializerQueries } from '~shared/apollo/services/initializers/initializer-queries';
 import { environment } from 'environments/environment.prod';
+import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo';
+import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
 
-export abstract class AbstractApolloInitializer {
+export abstract class AbstractApolloClient {
 	protected clients = new Map();
 
 	constructor(

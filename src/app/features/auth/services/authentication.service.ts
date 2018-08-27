@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import gql from 'graphql-tag';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { AccessTokenState, Credentials } from '~features/auth/interfaces';
+import { Credentials, RefreshTokenResponse } from '~features/auth/interfaces';
 
 import { AuthState } from '~features/auth/interfaces';
 import { AuthHttpService } from '~features/auth/services/auth-http.service';
 import { TokenService } from '~features/auth/services/token.service';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -22,29 +23,25 @@ export class AuthenticationService {
 		private authHttp: AuthHttpService,
 		private tokenSrv: TokenService,
 		private router: Router
-	) {
-
-	}
+	) { }
 
 	init() {
 		// when there is an access token that means we are authenticated
-		this.tokenSrv.accessToken$.pipe(
-			map(tokenState => this.tokenStateToAuthState(tokenState))
+		this.tokenSrv.refreshToken$.pipe(
+			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
 		// since we subscribe to the access token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
-		this.tokenSrv.restoreAccessToken();
+		this.tokenSrv.restoreRefreshToken();
 	}
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
 		return this.authHttp.login(credentials).pipe(
-			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
-			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
+			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
 			tap(_ => this.router.navigate(['']))
 		);
 	}
-
 
 	logout() {
 		this.tokenSrv.clearTokens();
@@ -63,7 +60,7 @@ export class AuthenticationService {
 		);
 	}
 
-	private tokenStateToAuthState(tokenState: AccessTokenState) {
+	private refreshTokenToAuthState(tokenState: TokenState) {
 		return {
 			pending: false,
 			authenticated: !!tokenState.token,

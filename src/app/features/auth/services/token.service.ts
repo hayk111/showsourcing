@@ -1,133 +1,107 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError, of } from 'rxjs';
 import { tap, catchError, switchMap, map } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
-import { AccessTokenState } from '~features/auth/interfaces';
 import { AuthModule } from '~features/auth/auth.module';
 import { environment } from 'environments/environment.prod';
-import { GuestAccessTokenState } from '~features/auth/interfaces/guest-access-token-state.interface';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
-const ACCESS_TOKEN_NAME = 'accessToken';
+
 const REFRESH_TOKEN_NAME = 'refreshToken';
-
+const ACCESS_TOKEN_PRE = 'ACCESS_TOKEN-';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TokenService {
-	private _accessToken$ = new ReplaySubject<AccessTokenState>(1);
-	accessToken$ = this._accessToken$.asObservable();
-	private _guestAccessToken$ = new ReplaySubject<GuestAccessTokenState>(1);
-	guestAccessToken$ = this._guestAccessToken$.asObservable();
-	// having the token accessible synchronously makes things easier in other places
-	accessTokenSync: AccessTokenState;
-	// timeout variable. The timeout will refresh the access token.
-	private timer: any;
-	private refreshToken: RefreshTokenResponse;
 
-	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) {
-		this.accessToken$.subscribe(token => this.accessTokenSync = token);
-	}
+	/** token names we store */
+	private storedTokenNames = [];
+
+	// timeout variable. The timeout will refresh the access token.
+	private timers: any[] = [];
+	private _refreshToken$ = new ReplaySubject<TokenState>(1);
+	refreshToken$ = this._refreshToken$.asObservable();
+	private _guestRefreshToken$ = new ReplaySubject<TokenState>(1);
+	guestRefreshToken$ = this._guestRefreshToken$.asObservable();
+
+	constructor(private localStorageSrv: LocalStorageService, private http: HttpClient) { }
 
 	clearTokens(): void {
-		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
-		this.localStorageSrv.remove(ACCESS_TOKEN_NAME);
-		this._accessToken$.next({ invalidated: true });
-		this.stopTimer();
+		this.storedTokenNames.forEach(name => this.localStorageSrv.remove(name));
+		this.stopTimers();
 	}
 
 	/**
-	 * restore the tokens from the local storage. If only the refresh token is valid we ask
-	 * for a new access token
+	 * Restores the refresh token from the local storage,
+	 * so we don't have to relogin on every refresh
 	 */
-	restoreAccessToken(): void {
-		const accessToken: AccessTokenState = this.localStorageSrv.getItem(ACCESS_TOKEN_NAME);
-		if (accessToken && this.isValid(accessToken)) {
-			this._accessToken$.next(accessToken);
-			// nothing to do here anymore
-			return;
-		}
-		// if we don't have an access token we'll try to generate one
-		this.refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME);
-
-		if (this.refreshToken)
-			this.generateAccessToken(this.refreshToken).subscribe();
+	restoreRefreshToken(): void {
+		const refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME) as TokenState;
+		if (this.isValid(refreshToken))
+			this._refreshToken$.next(refreshToken);
 		else
-			this._accessToken$.next({ invalidated: true });
-
+			this._refreshToken$.next();
 	}
 
-	getGuestAccessToken(token: string): Observable<GuestAccessTokenState> {
-		return this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
-			switchMap((refreshToken: any) => this.fetchAccessToken(refreshToken).pipe(
-				map(accessTokenResponse => ({
-					token: accessTokenResponse.user_token.token,
-					token_data: accessTokenResponse.user_token.token_data,
-					realm: refreshToken.realm as any,
-				}))
-			)),
-			tap(guestToken => {
-				this._guestAccessToken$.next(guestToken);
-			})
-		);
+
+	/** stores the access token we get on login */
+	storeRefreshToken(resp: RefreshTokenResponse) {
+		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, resp.refresh_token);
 	}
 
-	revokeGuestAccessToken() {
-		this._guestAccessToken$.next({ invalidated: true });
+	/** gets a guest refresh token for when we are authenticated as guest */
+	getGuesRefreshToken(token: string): void {
+		this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
+			map(resp => resp.refresh_token)
+		).subscribe(refreshToken => this._guestRefreshToken$.next(refreshToken));
 	}
 
-	generateAccessToken(refreshToken: RefreshTokenResponse): Observable<AccessTokenResponse> {
-		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, refreshToken);
-		this.refreshToken = refreshToken;
-		return this.fetchAccessToken(refreshToken).pipe(
-			tap(accessToken => this.onNewAccessToken(accessToken)),
-			catchError(e => {
-				this._accessToken$.next({ invalidated: true });
-				return throwError(e);
-			})
-		);
+	/** revokes guest access */
+	revokeGuestRefreshToken() {
+		this._guestRefreshToken$.next();
 	}
 
-	fetchAccessToken(refreshToken): Observable<AccessTokenResponse> {
+	/** to get an access token from a request token */
+	getAccessToken(refreshToken: TokenState, name: string) {
+		// if we have a valid accessToken in the local storage that's the one we return
+		if (name) {
+			// if we have a valid accessToken in the local storage that's the one we return
+			const lastAccessToken: TokenState = this.localStorageSrv.getItem(ACCESS_TOKEN_PRE + name);
+			if (lastAccessToken && this.isValid(lastAccessToken)) {
+				return of(lastAccessToken);
+			}
+		}
+
+		return this.fetchAccessToken(refreshToken, name);
+	}
+
+	private fetchAccessToken(refreshToken: TokenState, name: string, shouldRefresh?: boolean): Observable<TokenState> {
 		const accessObj = {
 			app_id: '',
 			provider: 'realm',
-			data: refreshToken.refresh_token.token,
+			data: refreshToken.token,
 		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj);
+		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+			map(accessTokenResp => accessTokenResp.user_token),
+			tap(tokenState => this.storeAccessToken(tokenState, name))
+		);
 	}
 
-	/** when a new access token arrives */
-	private onNewAccessToken(accessToken: AccessTokenResponse) {
-		const accessTokenState = {
-			token: accessToken.user_token.token,
-			token_data: accessToken.user_token.token_data,
-		};
-		this._accessToken$.next(accessTokenState);
-		this.localStorageSrv.setItem(ACCESS_TOKEN_NAME, accessTokenState);
-		this.startTimer(accessTokenState);
-	}
-
-	/** will ask for a new accessToken soon before it is invalidated */
-	private startTimer(accessTokenState: AccessTokenState) {
-		// expirity is in second while setTimeout in ms
-		const errorDelta = 5 * 60 * 1000;
-		const delta = (1000 * accessTokenState.token_data.expires) - Date.now();
-		this.timer = setTimeout(_ => {
-			this.fetchAccessToken(this.refreshToken);
-		}, (delta - errorDelta));
+	private storeAccessToken(token: TokenState, name: string) {
+		this.localStorageSrv.setItem(ACCESS_TOKEN_PRE + name, token);
 	}
 
 	/** will destroy the timeout that was set to ask for a new AccessToken */
-	private stopTimer() {
-		window.clearTimeout(this.timer);
+	private stopTimers() {
+		this.timers.forEach(timer => window.clearTimeout(timer));
 	}
 
-	private isValid(accessToken: AccessTokenState) {
-		return accessToken.token_data.expires * 1000 > Date.now();
+	private isValid(token: TokenState) {
+		return token.token_data.expires * 1000 > Date.now();
 	}
 
 }

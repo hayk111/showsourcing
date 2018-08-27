@@ -29,7 +29,7 @@ export class GuestClientReadyGuardService implements CanActivate, CanActivateChi
 	canActivateChild(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		if (!this.initialized) {
 			this.guestInitializer.init();
-			this.tokenSrv.getGuestAccessToken(route.params.token).pipe().subscribe();
+			this.tokenSrv.getGuestRefreshToken(route.params.token).pipe().subscribe();
 			this.initialized = true;
 		}
 		return this.apolloState.guestClientReady$.pipe(
