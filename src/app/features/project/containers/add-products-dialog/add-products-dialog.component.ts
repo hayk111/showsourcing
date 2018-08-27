@@ -65,11 +65,8 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 
 	submit() {
 		// we add each project one by one to the store
-    console.log('>> selectedProjects = ', this.selectedProjects);
-    console.log('>> selectedProjects = ', this.getSelectedProducts());
-    console.log('>> selectedProjects = ', this.selected);
-    const selectedProducts = <Product[]>Object.values(this.selected);
-		/* this.featureSrv.addProductsToProjects(selectedProducts, this.selectedProjects)
+		const selectedProducts = this.getSelectedProducts();
+		this.featureSrv.addProductsToProjects(selectedProducts, this.selectedProjects)
 			.subscribe(projects => {
 				this.dlgSrv.close();
 				this.notifSrv.add({
@@ -78,6 +75,6 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 					message: 'Your products were added to the project with success',
 					timeout: 3500
 				});
-			}); */
+			});
 	}
 }
