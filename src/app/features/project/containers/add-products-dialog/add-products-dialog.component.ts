@@ -10,10 +10,9 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils/store/store';
 import { NotificationService, NotificationType } from '~shared/notifications';
 
 
@@ -23,8 +22,6 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 	styleUrls: ['./add-products-dialog.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PRODUCT },
 		SelectionService
 	]
 })
@@ -39,12 +36,11 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 		protected featureSrv: ProjectWorkflowFeatureService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected moduleRef: NgModuleRef<any>,
 		private notifSrv: NotificationService) {
-		super(router, featureSrv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	getSelectedProducts() {
@@ -59,13 +55,10 @@ export class AddProductsDialogComponent extends ListPageComponent<Product, Proje
 		this.dlgSrv.close();
 	}
 
-	createProducts() {
-
-	}
-
 	submit() {
 		// we add each project one by one to the store
-		const selectedProducts = this.getSelectedProducts();
+    const selectedProducts = this.getSelectedProducts();
+    console.log('>> this.selectedProjects = ', this.selectedProjects);
 		this.featureSrv.addProductsToProjects(selectedProducts, this.selectedProjects)
 			.subscribe(projects => {
 				this.dlgSrv.close();

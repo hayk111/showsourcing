@@ -1,10 +1,8 @@
 <div *ngIf="supplier$ | async as supplier">
     <sub-panel-app
-      buttonName="Add Product"
       [hasSwitch]="false"
       [hasFilter]="false"
       [buttonIcon]="false"
-      (buttonClick)="openCreateDlg()"
       (search)="search($event)">
     </sub-panel-app>
   
@@ -23,9 +21,6 @@
       (favorited)="onItemFavorited($event)"
       (unfavorited)="onItemUnfavorited($event)"
       (bottomReached)="loadMore()"
-      [currentPage]="currentParams.page"
-      (previous)="previousPage()"
-      (next)="nextPage()"
       (sort)="sort($event)"
       (delete)="deleteSelected($event)">
     </supplier-product-list-app>

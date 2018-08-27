@@ -6,10 +6,10 @@ import { NewProductDialogComponent } from '~features/products/components/new-pro
 import { ProductService, SupplierService } from '~global-services';
 import { ERM, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { FilterService, SearchService, FilterType } from '~shared/filters';
+import { /*FilterService,*/ SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
+// import { StoreKey } from '~utils'; 
 import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
 
 @Component({
@@ -18,8 +18,8 @@ import { AddProductsDialogComponent } from '~features/project/containers/add-pro
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SelectionService,
-		FilterService,
-		{ provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT_PRODUCTS }
+		// FilterService,
+		// { provide: 'storeKey', useValue: StoreKey.FILTER_PROJECT_PRODUCTS }
 	]
 })
 export class SupplierProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
@@ -32,12 +32,12 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected srv: ProductService,
 		protected supplierSrv: SupplierService,
 		protected selectionSrv: SelectionService,
-		protected filterSrv: FilterService,
+		// protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, srv, selectionSrv, filterSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, AddProductsDialogComponent);
 	}
 
 	ngOnInit() {
@@ -54,11 +54,11 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 	}
 
 	/** Filters items based  */
-	protected filter(query: string) {
+	/* protected filter(query: string) {
 		if (query)
 			super.filter(`supplier.id == "${this.supplierId}" AND (${query})`);
 		else
 			super.filter(`supplier.id == "${this.supplierId}"`);
-	}
+	} */
 
 }

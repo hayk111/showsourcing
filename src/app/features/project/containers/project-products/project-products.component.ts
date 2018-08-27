@@ -9,7 +9,6 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { StoreKey } from '~utils';
 import { AddProductsDialogComponent } from '~features/project/containers/add-products-dialog/add-products-dialog.component';
 
 @Component({
@@ -42,12 +41,13 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 			map(params => params.id),
 			tap(id => this.projectId = id)
 		);
-		this.project$ = id$.pipe(
-			switchMap(id => this.projectSrv.selectOne(id)),
-			tap(project => {
-				this.setAdditionalDialogParams({ selectedProjects: project ? [project] : null });
-			})
-		);
+		id$.pipe(
+			takeUntil(this._destroy$),
+			switchMap(id => this.projectSrv.selectOne(id))
+		).subscribe(project => {
+			console.log('>> project$ = ', project);
+			this.setAdditionalDialogParams({ selectedProjects: project ? [project] : null });
+		});
 		this.project$ = id$.pipe(switchMap(id => this.projectSrv.queryOne(id)));
 		// we need to wait to have the id to call super.ngOnInit, because we want the filter
 		// method to be called when we actually have the id
