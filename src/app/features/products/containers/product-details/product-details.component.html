@@ -38,12 +38,16 @@
 				(productFavorite)="onFavorited()"
 				(productUnfavorite)="onUnfavorited()"
 				(requestFeedback)="openRequestFeedbackDialog()"
-				(vote)="updateProduct($event)"></product-carousel-app>
+				(openAddProject)="openAddProjectDlg()"
+				(export)="export()">
+			</product-carousel-app>
 
 			<!-- team rating here -->
 			<product-team-rating-app
 				[product]="product"
-				(requestTeamVotes)="openRequestFeedbackDialog()">
+				(requestTeamVotes)="openRequestFeedbackDialog()"
+				(vote)="updateProduct($event)"
+				(openVoteDetails)="openVoteDetailsDialog()">
 			</product-team-rating-app>
 
 			<supplier-card-app [supplier]="product?.supplier"></supplier-card-app>

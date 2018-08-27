@@ -10,6 +10,7 @@ import {
 	ProductAddToProjectDlgComponent, ProductRequestTeamFeedbackDlgComponent
 } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 
 
 @Component({
@@ -102,5 +103,15 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		};
 		const text = `Are you sure you want to delete this product?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+	}
+
+	/** export product */
+	export() {
+		// TODO
+	}
+
+	/** Opens a dialog that let you see the list of people who have voted */
+	openVoteDetailsDialog() {
+		this.dlgSrv.openFromModule(VoteDetailsDialogComponent, this.moduleRef, { votes: this.product.votes });
 	}
 }

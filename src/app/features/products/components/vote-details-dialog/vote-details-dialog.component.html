@@ -1,0 +1,20 @@
+<dialog-app>
+	<dialog-header-app>Team Votes</dialog-header-app>
+
+	<ng-container *ngFor="let vote of votes">
+		<div class="flexBetween row">
+			<div class="flex user-info">
+				<user-picture-app [user]="vote.user" [image]="vote.user?.avatar" [size]="24"></user-picture-app>
+				<span class="name flexCenter">{{ vote.user?.firstName || '' }} {{ vote.user?.lastName || '' }}</span>
+			</div>
+			<!-- we explicitly check 100 or 0 since there can be null votes (with value 50) with no button  -->
+			<icon-app *ngIf="vote.value === 100 || vote.value === 0"
+						[name]="vote.value === 100 ? 'thumbs-up-primary' : 'thumbs-down-warn'"
+						fontSet="svg"></icon-app>
+		</div>
+	</ng-container>
+
+	<dialog-footer-app>
+		<button class="primary">Close</button>
+	</dialog-footer-app>
+</dialog-app>
