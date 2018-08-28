@@ -48,6 +48,7 @@ import { SupplierProductsComponent } from '~features/supplier/containers/supplie
 import { ImageModule } from '~shared/image/image.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { ProductCommonModule } from '~shared/product/product.module';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		PanelModule,
 		SearchAutocompleteModule,
 		ActivityModule,
-		ActionBarModule
+		ActionBarModule,
+		ProductCommonModule
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -91,7 +93,7 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		SupplierActivityComponent,
 		SupplierPublicProfileComponent,
 		SupplierImagesComponent,
-		SupplierProductsComponent,
+		SupplierProductsComponent
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,

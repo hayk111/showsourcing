@@ -10,7 +10,9 @@ import {
 	Output,
 	TemplateRef,
 	HostBinding,
-	ContentChild
+	ContentChild,
+	Renderer2,
+	ElementRef
 } from '@angular/core';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
@@ -56,6 +58,8 @@ export class KanbanItemCardComponent implements OnInit {
 	@Input() product: Product;
 	/** Some drag'n drop is in progress */
 	@Input() dragInProgress: boolean;
+	/** Highlight the card when checked */
+	@Input() highlightOnChecked: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -82,11 +86,7 @@ export class KanbanItemCardComponent implements OnInit {
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
-	constructor(private userSrv: UserService) { }
-
-	ngOnChanges(changes) {
-		console.log('kanban ite - changes = ', changes);
-	}
+	constructor(private userSrv: UserService, private elementRef: ElementRef, private renderer: Renderer2) { }
 
 	ngOnInit() {
 		if (this.product) {
@@ -95,11 +95,11 @@ export class KanbanItemCardComponent implements OnInit {
 				if (this.userVote.value === 100) {
 					this.like = true;
 					this.dislike = false;
-					this.thumbsName = 'thumbs-up-white';
+					this.thumbsName = 'thumbs-up-background';
 				} else {
 					this.dislike = true;
 					this.like = false;
-					this.thumbsName = 'thumbs-down-white';
+					this.thumbsName = 'thumbs-down-background';
 				}
 			}
 		}
@@ -153,14 +153,20 @@ export class KanbanItemCardComponent implements OnInit {
 		this.checked = true;
 		this.checkboxAction = true;
 		this.select.emit();
+		if (this.checked && this.highlightOnChecked) {
+			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
+		}
 	}
 
 	/** Handle checbkox uncheck event */
 	onUnchecked() {
 		this.dragDropEnabled = false;
-		this.checked = true;
+		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit();
+		if (!this.checked && this.highlightOnChecked) {
+			this.renderer.removeClass(this.elementRef.nativeElement, 'highlight-checked');
+		}
 	}
 
 	/** Disable defaut drag for element */

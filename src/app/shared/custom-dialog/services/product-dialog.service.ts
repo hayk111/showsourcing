@@ -47,7 +47,7 @@ export class ProductDialogService extends ProductService {
 		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
 
 		projects.push(...addedProjects);
-		return this.update({ id: product.id, projects });
+		return this.update({ id: product.id, projects }, ['projects { id }']);
 	}
 
 	/**

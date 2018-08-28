@@ -1,4 +1,6 @@
-<div class="kanban__item cell ng-star-inserted main flexBetween " (clickOutside)="onClickOutsideCard()"
+<div class="kanban__item cell ng-star-inserted main flexBetween"
+     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked) }"
+     (clickOutside)="onClickOutsideCard()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted">
     <div class="mainCell">
@@ -25,12 +27,12 @@
           </div>
           <div class="descriptionCtnr">
             <div class="descriptionCtnr-first">
-              <span class="subtitle">{{price.currency}} {{price.value}} - Min {{minimumOrderQuantity}} pcs</span>
+              <span class="subtitle">{{price?.currency}} {{price?.value}} - Min {{minimumOrderQuantity}} pcs</span>
               <span class="descriptionText" *ngIf="description"> - </span>
               <span class="descriptionText">{{product?.supplier?.name}} - {{product?.category?.name}}</span>
             </div>
             <div class="descriptionCtnr-last flex">
-              <icon-app [name]="thumbsName" *ngIf="thumbsName" [ngClass]="{ like: like, dislike: dislike }" [size]="9" fontSet="svg"></icon-app>
+              <icon-app [name]="thumbsName" *ngIf="thumbsName" fontSet="svg"></icon-app>
               <span *ngIf="product?.score" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
             </div>
           </div>

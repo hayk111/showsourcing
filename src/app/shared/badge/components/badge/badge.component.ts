@@ -14,6 +14,7 @@ import { Component, OnInit, Input } from '@angular/core';
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
 		'[class.round]': 'round',
+		'[class.tiny]': 'size === "tiny"',
 		'[class.mini]': 'size === "mini"',
 		'[class.xsmall]': 'size === "xs"',
 		'[class.small]': 'size === "s" || size === "small"',

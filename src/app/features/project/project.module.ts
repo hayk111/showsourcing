@@ -23,6 +23,10 @@ import { FileModule } from '~shared/file';
 import { routes } from '~features/project/routes';
 import { CustomDialogModule } from '~shared/custom-dialog';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { DialogModule } from '~shared/dialog/dialog.module';
+import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { ProductCommonModule } from '~shared/product/product.module';
+
 
 @NgModule({
 	imports: [
@@ -39,7 +43,10 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		FileModule,
 		WorkflowModule,
 		CustomDialogModule,
-		ActionBarModule
+		ActionBarModule,
+		DialogModule,
+		SearchAutocompleteModule,
+		ProductCommonModule
 	],
 	declarations: [
 		ProjectsPageComponent,
@@ -49,7 +56,7 @@ import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 		ProjectDetailsComponent,
 		ProjectProductsComponent,
 		ProjectSettingsComponent,
-		ProjectProductListComponent,
+		ProjectProductListComponent
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: [

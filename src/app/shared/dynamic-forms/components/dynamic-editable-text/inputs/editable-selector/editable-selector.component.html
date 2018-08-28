@@ -24,12 +24,19 @@
 			<ng-template #solo>
 				<editable-label-app class="flexCenter">
 					<img class="selectorIcon"
-						*ngIf="(value | logo:customField.metadata.target) && !inlineLabel"
+						*ngIf="(value | logo:customField.metadata.target) && !inlineLabel && customField.metadata.target !== 'user'"
 						[src]="value | logo:customField.metadata.target" />
-					<ng-container [ngSwitch]="customField.metadata.target">
-						<span *ngSwitchCase="'user'">
+						<ng-container [ngSwitch]="customField.metadata.target">
+							<div *ngSwitchCase="'user'" class="flexCenter">
+								<user-picture-app
+									class="user-icon"
+									size="20"
+									[user]="value"
+									[image]="value?.avatar">
+								</user-picture-app>
 							{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}
-						</span>
+						</div>
+						<info-badge-app *ngSwitchCase="'category'" type="category"> {{ value?.name }}</info-badge-app>
 						<span *ngSwitchDefault>
 							{{ value ? value[labelName] : '-' }}
 						</span>

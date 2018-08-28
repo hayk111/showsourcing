@@ -113,7 +113,7 @@
 	</sub-panel-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->
-	<product-list-view-app
+	<products-list-view-app
 		*ngIf="view === 'list'"
 		class="list-view"
 		[selection]="selected$ | async"
@@ -133,9 +133,9 @@
 		(openAddToProjectDialog)="openAddToProjectDialog($event)"
 		(openExportDialog)="openExportDialog($event)"
 		(openRequestFeedbackDialog)="openRequestFeedbackDialog($event)"
-		(delete)="deleteOne($event)"></product-list-view-app>
+		(delete)="deleteOne($event)"></products-list-view-app>
 
-	<product-card-view-app
+	<products-card-view-app
 		class="card-view"
 		*ngIf="view === 'card'"
 		[rows]="products"
@@ -145,7 +145,7 @@
 		(unselect)="onItemUnselected($event, true)"
 		(favorited)="onItemFavorited($event)"
 		(unfavorited)="onItemUnfavorited($event)"
-		(open)="goToDetails($event)"></product-card-view-app>
+		(open)="goToDetails($event)"></products-card-view-app>
 
 	<selection-bar-app
 		*ngIf="(selected$ | async).size > 0"

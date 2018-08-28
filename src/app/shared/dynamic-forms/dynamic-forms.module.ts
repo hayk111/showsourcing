@@ -39,6 +39,7 @@ import {
 import { ImageModule } from '~shared/image/image.module';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UserPictureModule } from '~shared/user-picture';
 
 @NgModule({
 	imports: [
@@ -53,7 +54,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		UtilsModule,
 		FileModule,
 		ImageModule,
-		NgSelectModule
+		NgSelectModule,
+		UserPictureModule
 	],
 	declarations: [
 		DynamicFormComponent,

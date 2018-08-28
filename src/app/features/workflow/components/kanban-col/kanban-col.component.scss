@@ -26,17 +26,17 @@ header {
 	height: 28px;
 
 	&.in-progress {
-		border-top-color: var(--color-primary);
+		border-top-color: var(--color-in-progress);
 	}
-	
+
 	&.validated {
 		border-top-color: var(--color-success);
 	}
-	
+
 	&.refused {
 		border-top-color: var(--color-warn);
 	}
-	
+
 	&.inspiration {
 		border-top-color: var(--color-secondary);
 	}
@@ -58,7 +58,7 @@ main {
 }
 
 .overlay {
-	border:  2px solid var(--color-primary);
+	border:  2px solid var(--color-in-progress);
 	margin: var(--spacing-s);
 	padding: var(--spacing-l);
 	height: 112px;

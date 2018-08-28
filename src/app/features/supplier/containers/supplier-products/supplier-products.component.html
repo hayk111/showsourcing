@@ -1,1 +1,21 @@
-works
+<div *ngIf="supplier$ | async as supplier">
+    <sub-panel-app
+      [hasSwitch]="false"
+      [hasFilter]="false"
+      [buttonIcon]="false"
+      (search)="search($event)">
+    </sub-panel-app>
+  
+    <products-card-view-app
+  		class="card-view"
+		  [rows]="items$ | async"
+		  [selection]="selected$ | async"
+		  (update)="update($event)"
+		  (select)="onItemSelected($event, true)"
+		  (unselect)="onItemUnselected($event, true)"
+		  (favorited)="onItemFavorited($event)"
+		  (unfavorited)="onItemUnfavorited($event)"
+		  (open)="goToDetails($event)"></products-card-view-app>
+
+  </div>
+  

@@ -16,6 +16,17 @@ export class IconsStatusComponent implements OnInit {
 	@Input() set product(product: Product) {
 		if (product)
 			this.userVote = (product.votes || []).find(v => v.user.id === this.userSrv.userSync.id);
+		if (this.userVote) {
+			if (this.userVote.value === 100) {
+				this.like = true;
+				this.dislike = false;
+				this.name = 'thumbs-up-background';
+			} else {
+				this.dislike = true;
+				this.like = false;
+				this.name = 'thumbs-down-background';
+			}
+		}
 		this._product = product;
 	}
 	get product() {
@@ -24,12 +35,13 @@ export class IconsStatusComponent implements OnInit {
 	/** whether we display only the like icon or not*/
 	@Input() onlyLike = false;
 	@Input() favorite = false;
+	/** if the % is displayed */
+	@Input() hasPercent = true;
 	/** whether we display the entire information or not */
 	@Input() fullInfo = false;
 	@Input() colorTxt = 'txt-secondary';
 
 	name = 'thumbs-up';
-	size = '8';
 	like = false;
 	dislike = false;
 	private _product: Product;
@@ -38,34 +50,6 @@ export class IconsStatusComponent implements OnInit {
 	constructor(private userSrv: UserService) { }
 
 	ngOnInit() {
-		if (this.userVote) {
-			if (this.userVote.value === 100) {
-				this.like = true;
-				this.dislike = false;
-				this.name = 'thumbs-up-white';
-			} else {
-				this.dislike = true;
-				this.like = false;
-				this.name = 'thumbs-down-white';
-			}
-		}
-	}
-
-	get successStyle() {
-		const state = this.like ? 'success' : this.dislike ? 'warn' : '';
-		let style = {};
-		if (state) {
-			this.size = '8';
-			style = {
-				background: `var(--color-${state})`,
-				'border-radius': '50%',
-				'width': '14px',
-				'height': '14px',
-				'margin-top': '2px'
-			};
-		} else
-			this.size = '14';
-		return style;
 	}
 
 	get successTxt() {

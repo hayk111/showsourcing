@@ -11,7 +11,7 @@
 			[fullInfo]="true"
 			colorTxt="txt-primary">
 		</icons-status-app>
-		<div class="flex section-info">
+		<div class="flex section-info flexWrap">
 			<info-badge-app type="category" *ngIf="(product$ | async)?.category?.name">{{ (product$ | async).category.name }}</info-badge-app>
 			<info-badge-app *ngFor="let tag of (product$ | async)?.tags" type="tag">{{ tag.name }}</info-badge-app>
 			<info-badge-app *ngFor="let project of (product$ | async)?.projects" type="project">{{ project.name }}</info-badge-app>
