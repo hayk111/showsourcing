@@ -38,7 +38,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	getStatuses(project: Project) {
 		return this.productSrv.queryMany({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' }).pipe(
 			// Filter products to get only products without status
-			map((products: Product[]) => products.filter(product => (!product.statuses || product.statuses.length === 0))),
+			map((products: Product[]) => products.filter(product => !product.status)),
 			switchMap(productsWithNoStatus => {
 				return this.productStatusTypeService.queryAll().pipe(
 					// Remove the status with category refused
@@ -74,7 +74,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 */
 	getProductsWithStatus(status: ProductStatus, products: Product[]) {
 		return products.filter(product => {
-			const productCurrentStatus = (product.statuses && product.statuses.length) ? product.statuses[0].status : null;
+			const productCurrentStatus = product.status ? product.status.status : null;
 			return (productCurrentStatus && productCurrentStatus.id === status.id);
 		});
 	}
@@ -84,14 +84,14 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 */
 	updateProductStatus(product: Product, status: ProductStatus) {
 		// we check if the product has a status
-		if (!product.statuses || product.statuses.length === 0) {
+		if (!product.status) {
 			const tempS = new ProductStatus({ status: { id: status.id } });
 			return this.update({ ...product, statuses: [tempS] });
 		} else {
 			// we dont update if we click the same status as the current one of the product
-			if (status.id !== product.statuses[0].status.id) {
+			if (status.id !== product.status.status.id) {
 				const tempS = new ProductStatus({ status: { id: status.id } });
-				return this.update({ ...product, statuses: [tempS, ...product.statuses] });
+				return this.update({ ...product, statuses: tempS });
 			}
 		}
 		return of();

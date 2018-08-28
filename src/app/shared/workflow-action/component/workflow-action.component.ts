@@ -32,14 +32,14 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateStatus(status) {
-		if (status.id !== this.entity.statuses[0].status.id) { // we dont update if we click the same
+		if (status.id !== this.entity.status.status.id) { // we dont update if we click the same
 			const tempS = new ProductStatus({ status });
-			this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
+			this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
 		}
 	}
 
 	setStatus(status) {
 		const tempS = new ProductStatus({ status });
-		this.workflowSrv.updateStatus({ id: this.entity.id, statuses: [tempS, ...this.entity.statuses] }, this.typeEntity).subscribe();
+		this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
 	}
 }

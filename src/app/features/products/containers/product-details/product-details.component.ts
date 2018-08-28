@@ -69,8 +69,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		const prodS = new ProductStatus({ status: { id: statusId } });
-		this.featureSrv.update({ id: this.product.id, statuses: [prodS, ...this.product.statuses] }).subscribe();
+		const status = new ProductStatus({ status: { id: statusId } });
+		this.featureSrv.update({ id: this.product.id, status }).subscribe();
 	}
 
 	/** item has been favorited */

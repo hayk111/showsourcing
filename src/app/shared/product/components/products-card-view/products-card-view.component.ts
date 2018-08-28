@@ -20,7 +20,6 @@ export class ProductsCardViewComponent extends ListViewComponent<Product> {
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
-	@Input() statuses: Array<ProductStatusType>;
 	trackByFn = (index, item) => item.id;
 
 

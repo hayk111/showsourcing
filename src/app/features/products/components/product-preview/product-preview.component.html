@@ -33,7 +33,7 @@
 
 		<!-- actions -->
 		<div class="flexColumn actions">
-			<ng-container *ngIf="product?.statuses[0]?.status; else sendWF">
+			<ng-container *ngIf="product?.status?.status; else sendWF">
 				Request RFQ to supplier?
 				<button class="primary" (click)="openRfq()">SEND RFQ</button>
 			</ng-container>

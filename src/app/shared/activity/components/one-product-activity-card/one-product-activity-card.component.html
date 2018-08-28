@@ -38,7 +38,7 @@
 			<status-badge-app
 				size="mini"
 				[typeEntity]="typeEntity"
-			 	[status]="product?.statuses[0]?.status"></status-badge-app>
+			 	[status]="product?.status?.status"></status-badge-app>
 			<info-badge-app
 				*ngIf="product?.category?.name"
 				type="category">

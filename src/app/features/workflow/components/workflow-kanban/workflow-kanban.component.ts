@@ -41,8 +41,8 @@ export class WorkflowKanbanComponent {
 
 	/** The current status id for a product */
 	getCurrentStatusId(product) {
-		if (product.statuses && product.statuses.length > 0) {
-			return product.statuses[0].status.id;
+		if (product.status) {
+			return product.status.status.id;
 		}
 		return null;
 	}
@@ -69,7 +69,7 @@ export class WorkflowKanbanComponent {
 	/** Simulate the optimistic cache to directly update the UI */
 	refreshStatusesInternally(target, droppedElement) {
 		const newStatus = new ProductStatus({ status: { id: target.id } });
-		const updatedProduct = { ...droppedElement, statuses: [newStatus, ...droppedElement.statuses] };
+		const updatedProduct = { ...droppedElement, status: newStatus };
 
 		let currentStatusId = this.getCurrentStatusId(droppedElement);
 		if (!currentStatusId) {

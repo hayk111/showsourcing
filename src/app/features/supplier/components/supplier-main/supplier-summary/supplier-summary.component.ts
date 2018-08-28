@@ -23,7 +23,7 @@ export class SupplierSummaryComponent implements OnInit {
 
 	onStatusChange(statusId: string) {
 		// when changing we status we put the new status at the beginning of the array.
-		this.update.emit({ statuses: [{ id: statusId }, ...this.supplier.statuses], id: this.supplier.id });
+		this.update.emit({ id: this.supplier.id, status: { id: statusId } });
 	}
 
 	onFavorited() {

@@ -27,7 +27,8 @@ export class Supplier extends BaseEntity<SupplierConfig> {
 	contacts?: Contact[];
 	favorite ?= false;
 	globalDatabaseId?: string;
-	statuses?: SupplierStatus[];
+	status?: SupplierStatus;
+	statusHistory?: SupplierStatus[];
 	productCount ?= 0;
 	taskCount ?= 0;
 }

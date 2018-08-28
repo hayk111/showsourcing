@@ -19,7 +19,8 @@ export class Product extends BaseEntity<ProductConfig> {
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	statuses?: ProductStatus[];
+	status?: ProductStatus;
+	statushistory?: ProductStatus[];
 	tags?: Tag[];
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
@@ -32,10 +33,10 @@ export class Product extends BaseEntity<ProductConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
-	archived ?= false;
+	archived?= false;
 	taskCount?: number;
 	productCount?: number;
-	projectCount ?= 0;
+	projectCount?= 0;
 	projects?: Project[];
 }
 
@@ -48,7 +49,8 @@ export interface ProductConfig {
 	description?: string;
 	event?: Event;
 	favorite?: boolean;
-	statuses?: ProductStatus[];
+	status?: ProductStatus[];
+	statushistory?: ProductStatus[];
 	tags?: Tag[];
 	minimumOrderQuantity?: number;
 	moqDescription?: string;

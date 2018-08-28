@@ -5,7 +5,7 @@
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 
 	<div class="flex tags">
-		<status-badge-app [status]="supplier.statuses[0]" [typeEntity]="typeEntity" size="mini"></status-badge-app>
+		<status-badge-app [status]="supplier?.status" [typeEntity]="typeEntity" size="mini"></status-badge-app>
 		<info-badge-app *ngFor="let category of supplier.categories" type="category">{{ category.name }}</info-badge-app>
 		<info-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</info-badge-app>
 	</div>

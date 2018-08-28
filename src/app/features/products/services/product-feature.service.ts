@@ -11,17 +11,17 @@ import { Apollo } from 'apollo-angular';
 @Injectable()
 export class ProductFeatureService extends ProductService {
 
-    constructor(
-        protected apollo: Apollo,
-        private supplierSrv: SupplierService,
-        protected userSrv: UserService
-    ) {
-        super(apollo, userSrv);
-    }
+	constructor(
+		protected apollo: Apollo,
+		private supplierSrv: SupplierService,
+		protected userSrv: UserService
+	) {
+		super(apollo, userSrv);
+	}
 
-    // TODO: this is getContacts, yet it gets a whole supplier.
-    getContacts(supplierId: string) {
-        return this.supplierSrv.queryOne(supplierId);
-    }
+	// TODO: this is getContacts, yet it gets a whole supplier.
+	getContacts(supplierId: string) {
+		return this.supplierSrv.queryOne(supplierId);
+	}
 
 }

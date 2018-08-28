@@ -37,7 +37,14 @@ export abstract class SupplierQueries extends GlobalQueries {
 					id, fileName
 				}
 			},
-			statuses {
+			status {
+				id,
+				cancelled,
+				status {
+					id, name, category, step, inWorkflow
+				}
+			},
+			statusHistory {
 				id,
 				cancelled,
 				status {
