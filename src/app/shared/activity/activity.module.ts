@@ -10,6 +10,7 @@ import { ActivityUserComponent } from './components/activity-user/activity-user.
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { LoadersModule } from '~shared/loaders';
+import { StatusModule } from '~shared/status/status.module';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,8 @@ import { LoadersModule } from '~shared/loaders';
 		SharedModule,
 		RatingModule,
 		ActionBarModule,
-		LoadersModule
+		LoadersModule,
+		StatusModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,

@@ -51,25 +51,26 @@
 
 	<div class="flexColumn prodInfo">
 		<span class="name">{{ product?.name }}</span>
-		<div class="flex status-info">
+		<div class="flex status-info flexWrap">
 			<span *ngIf="product?.price?.value" class="price">{{ product.price.value | currency: product?.price?.currency:'symbol':'1.2-2' }}</span>
+			<span *ngIf="product?.category?.name">{{ product.category.name }}</span>
 			<span class="supplier">{{ product?.supplier?.name }}</span>
-
+			<icons-status-app
+				*ngIf="product?.score !== null"
+				[onlyLike]="true"
+				[product]="product">
+			</icons-status-app>
+			<span *ngIf="product?.comments?.length > 0">{{ product.comments.length }} comment{{product.comments.length > 1 ? 's' : '' }}</span>
 		</div>
-		<div class="badges flexVAlign">
+		<div class="badges flex flexWrap">
 			<status-badge-app
 				size="mini"
 				[typeEntity]="typeEntity"
-			 	[status]="product?.status?.status"></status-badge-app>
-			<info-badge-app
-				*ngIf="product?.category?.name"
-				type="category">
-				{{ product?.category?.name }}
-			</info-badge-app>
-			<info-badge-app
-				type="tag"
-				*ngFor="let tag of product.tags">{{ tag?.name }}
-			</info-badge-app>
+				[status]="product?.status?.status">
+			</status-badge-app>
+			<info-badge-app *ngIf="product?.category?.name" type="category">{{ product.category.name }}</info-badge-app>
+			<info-badge-app *ngFor="let tag of product?.tags" type="tag">{{ tag.name }}</info-badge-app>
+			<info-badge-app *ngFor="let project of product?.projects" type="project">{{ project.name }}</info-badge-app>
 		</div>
 	</div>
 
