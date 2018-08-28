@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
+import { ProductQueries } from '~global-services/product/product.queries';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of, forkJoin } from 'rxjs';
@@ -111,7 +112,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
 
 		projects.push(...addedProjects);
-		return this.update({ id: product.id, projects });
+		return this.update({ id: product.id, projects }, ['projects { id }']);
 	}
 
 }
