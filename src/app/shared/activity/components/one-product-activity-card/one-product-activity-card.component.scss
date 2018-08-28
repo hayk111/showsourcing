@@ -57,6 +57,9 @@ img-app {
 
 .prodInfo {
 	margin-top: var(--spacing-ms);
+	& > * {
+		margin-bottom: 4px;
+	}
 
 	.name {
 		color: var(--color-txt-strong);
@@ -65,6 +68,17 @@ img-app {
 	.status-info {
 		font-size: var(--font-size-m);
 
+		& > * {
+			//for each children that is not the first one we add some spaces and bullet dots on the content
+			&:not(:first-child)::before {
+				content: "\00a0 \00a0 \2022 \00a0 \00a0";
+    		font-weight: bolder;
+			}
+		}
+		icons-status-app {
+			padding-bottom: 6px;
+			margin-right: -8px;
+		}
 		.price {
 			color: var(--color-primary);
 		}
