@@ -1,9 +1,10 @@
 nav {
 	height: 54px;
 	background: white;
-	border-radius: var(--border-radius);
+	border-radius: var(--border-radius-s);
 	margin: var(--spacing-m);
 	overflow: hidden;
+	border: 1px solid var(--color-secondary);
 }
 a {
 	font-size: var(--font-size-l);
