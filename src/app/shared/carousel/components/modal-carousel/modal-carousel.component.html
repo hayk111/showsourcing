@@ -1,6 +1,6 @@
 <div class="modal" (mousedown)="close.emit($event)">
 	<div class="img-ctnr">
-		<img-app [image]="getImg()" [size]="'xl'" class="loading"></img-app>
+		<img-app [image]="getImg()" [size]="'xl'" class="loading" objectFit="contain"></img-app>
 	</div>
 	<div class="move-btn back flexCenter pointer"
 		(mousedown)="back($event)" *ngIf="selectedIndex > 0"> &lt; </div>

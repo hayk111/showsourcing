@@ -15,8 +15,6 @@ export class OneProductActivityCardComponent implements OnInit {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 
-	/** default image displayed when no image  */
-	defaultImg = DEFAULT_IMG;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(

@@ -6,41 +6,8 @@ activity-user-app {
 	margin-bottom: var(--spacing-ms);
 }
 
-.previewCtnr {
-	width: 656px;
-	height: 490px;
-	border-radius: var(--border-radius-l);
-
-	.empty {
-		width: 100%;
-		font-style: italic;
-		color: var(--color-txt-secondary);
-		background: var(--color-secondary-light);
-		font-size: var(--font-size-xxl);
-	}
-	img {
-		width: 140px;
-    height: 140px;
-	}
-	span {
-		margin-top: var(--spacing-ms);
-	}
-}
-
-.img1 {
-	height: 320px;
-	.small {
-		margin-right: var(--spacing-xs);
-	}
-}
-
-.img2, .img3 {
-	width: 164px;
-	height: 158px;
-}
-
-img-app {
-	border-radius: var(--border-radius-s);
+one-product-carousel-app {
+	margin-bottom: var(--spacing-ms);
 }
 
 .action-section {
@@ -58,12 +25,14 @@ img-app {
 .prodInfo {
 	margin-top: var(--spacing-ms);
 	& > * {
-		margin-bottom: 4px;
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.name {
 		color: var(--color-txt-strong);
 		font-weight: 600;
+		font-size: var(--font-size-l);
+		letter-spacing: -0.4px;
 	}
 	.status-info {
 		font-size: var(--font-size-m);

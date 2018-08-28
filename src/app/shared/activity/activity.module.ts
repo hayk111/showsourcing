@@ -11,6 +11,8 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { LoadersModule } from '~shared/loaders';
 import { StatusModule } from '~shared/status/status.module';
+import { OneProductCarouselComponent } from './components/one-product-activity-card/one-product-carousel/one-product-carousel.component';
+import { CarouselModule } from '~shared/carousel';
 
 @NgModule({
 	imports: [
@@ -19,13 +21,15 @@ import { StatusModule } from '~shared/status/status.module';
 		RatingModule,
 		ActionBarModule,
 		LoadersModule,
-		StatusModule
+		StatusModule,
+		CarouselModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,
 		MultipleProductsActivityCardComponent,
 		ActivityUserComponent,
-		ActivityListComponent
+		ActivityListComponent,
+		OneProductCarouselComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,
