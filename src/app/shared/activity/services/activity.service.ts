@@ -7,6 +7,7 @@ import { ProductService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
 
+/** some doc on API in readme next to this file */
 
 export interface GetStreamResponse {
 	next: string;
