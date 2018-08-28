@@ -16,28 +16,26 @@ import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
-import { GloabalClientsReadyGuardService, TeamClientReadyGuardService } from '~shared/apollo/guards';
-import { GuestClientReadyGuardService } from '~shared/apollo/guards/guest-client-ready.guard.service';
+import { ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 export const routes: Array<Route> = [
 	{
-		path: 'guest',
+		path: 'join-us',
 		component: GuestTemplateComponent,
 		canActivateChild: [
 			UnauthGuardService
 		],
 		children: [
 			...authRoutes,
-			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
+	{ path: 'server-issue', component: ApolloIssuePageComponent },
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService,
 			AuthGuardService,
-			ClientGuards.UserClientReadyGuardService
+			{ provides: ClientReadyGuard, deps: [{ provides: 'clientName', useValue: ALL_USER_CLIENT }] },
 		],
 		children: [
 			{ path: 'create-a-team', component: CreateATeamPageComponent },
@@ -60,11 +58,11 @@ export const routes: Array<Route> = [
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService,
-			AuthGuardService,
-			ClientGuards.UserClientReadyGuardService,
-			HasTeamSelectedGuard,
-			ClientGuards.TeamClientReadyGuardService
+			// ClientGuards.GloabalClientsReadyGuardService,
+			// AuthGuardService,
+			// ClientGuards.UserClientReadyGuardService,
+			// HasTeamSelectedGuard,
+			// ClientGuards.TeamClientReadyGuardService
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },
