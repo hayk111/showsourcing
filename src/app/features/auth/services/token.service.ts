@@ -108,6 +108,8 @@ export class TokenService {
 	/** clear current tokens, called on logout */
 	clearTokens(): void {
 		this.localStorageSrv.remove(ACCESS_TOKEN_MAP);
+		this.localStorageSrv.remove(REFRESH_TOKEN_NAME);
+		this._refreshToken$.next();
 	}
 
 	/** check if a token has expired */

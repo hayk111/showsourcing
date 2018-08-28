@@ -13,6 +13,7 @@ import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
 import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
 import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { log, LogColor } from '~utils';
 
 export abstract class AbstractApolloClient {
 	protected clients = new Map();
@@ -44,6 +45,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	protected createClient(wsUri: string, name?: string, token?: string) {
+		log.debug(`%c creating client ${name || 'default'}`, LogColor.APOLLO_CLIENT_PRE);
 		// Create a WebSocket link:
 		const connectionParams = (token ? { token } : undefined);
 		const ws = new WebSocketLink({
@@ -73,6 +75,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	protected clearClient(clientName?: string) {
+		log.debug(`%c clearing client ${clientName || 'default'}`, LogColor.APOLLO_CLIENT_POST);
 		const base = this.apollo.use(clientName) || this.apollo;
 		if (!base)
 			return;
