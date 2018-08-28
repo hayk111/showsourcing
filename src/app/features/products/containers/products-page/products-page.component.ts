@@ -24,6 +24,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 export class ProductsPageComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
 
 	searchFilterElements$: Observable<any[]>;
+	currentSort = { sortBy: 'creationDate', descending: true };
 
 	constructor(
 		protected router: Router,
@@ -73,4 +74,17 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
+	sortFromMenu(fieldName) {
+		if (this.currentSort && this.currentSort.sortBy === fieldName) {
+			this.currentSort = { ...this.currentSort, descending: !this.currentSort.descending };
+		} else {
+			this.currentSort = { ...this.currentSort, sortBy: fieldName };
+		}
+		super.sort(this.currentSort);
+	}
+
+	sort(event) {
+		this.currentSort = event;
+		super.sort(event);
+	}
 }

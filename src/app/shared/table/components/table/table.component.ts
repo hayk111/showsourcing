@@ -9,6 +9,7 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
+	OnChanges
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -23,7 +24,7 @@ import { nextTick } from 'q';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent {
+export class TableComponent implements OnChanges {
 	// display the dot option
 	@Input() dotsOption = true;
 	// whether the table is currently loading
@@ -36,6 +37,8 @@ export class TableComponent {
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
 	@Input() contextualMenu: TemplateRef<any>;
+	// current sort
+	@Input() currentSort: Sort;
 	// event when we select all rows
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -70,6 +73,17 @@ export class TableComponent {
 
 	// track by for column
 	columnTrackByFn = (index) => index;
+
+	ngOnChanges(changes) {
+		if (changes.currentSort && changes.currentSort.currentValue) {
+			const currentSort = changes.currentSort.currentValue;
+			if (this.columns) {
+				this.columns.forEach(c => c.resetSort());
+				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
+				column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+			}
+		}
+	}
 
 	onSelectOne(entity: any) {
 		this.selectOne.emit(entity);
