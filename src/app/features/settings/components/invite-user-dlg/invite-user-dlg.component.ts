@@ -8,6 +8,7 @@ import { AutoUnsub } from '~utils';
 import { Invitation } from '~models';
 import { DialogService } from '~shared/dialog';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 
@@ -21,8 +22,11 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService, private invitationSrv: InvitationFeatureService,
-		private fb: FormBuilder) {
+	constructor(private dlgSrv: DialogService,
+		private invitationSrv: InvitationFeatureService,
+		private fb: FormBuilder,
+		private notifSrv: NotificationService
+	) {
 		super();
 		this.form = this.fb.group(
 			{
@@ -39,7 +43,13 @@ export class InviteUserDlgComponent extends AutoUnsub {
 				.subscribe(() => {
 		 			this.pending = false;
 		 			this.dlgSrv.close();
-				});
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Invitation Sent',
+						message: `Your invitation was sent to ${email}`,
+						timeout: 3500
+					});
+			});
 		}
 	}
 }
