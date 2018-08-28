@@ -13,7 +13,6 @@ import { DialogService } from '~shared/dialog';
 import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Component({
@@ -39,8 +38,7 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
-		protected moduleRef: NgModuleRef<any>,
-		private notifSrv: NotificationService) {
+		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
@@ -61,14 +59,7 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		const selectedProducts = this.getSelectedProducts();
 		this.submitCallback(selectedProducts)
 			.subscribe(() => {
-				console.log('2');
 				this.dlgSrv.close();
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
-					title: 'Products Added',
-					message: 'Your products were added to the project with success',
-					timeout: 3500
-				});
 			});
 	}
 }

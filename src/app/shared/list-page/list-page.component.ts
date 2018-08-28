@@ -303,7 +303,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** opens the create dialog, redirects you to entityMetadata.createUrl if its truem otherwise it will stay on the same page */
 	openCreateDlg(shouldRedirect: boolean = false) {
-		console.log('>> this.additionalDialogParams = ', this.additionalDialogParams);
 		this.dlgSrv.openFromModule(this.createDlgComponent, this.moduleRef, this.additionalDialogParams ?
 			{ ...this.additionalDialogParams, type: this.entityMetadata, shouldRedirect: shouldRedirect } :
 			{ type: this.entityMetadata, shouldRedirect: shouldRedirect });

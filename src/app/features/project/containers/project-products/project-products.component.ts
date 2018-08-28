@@ -11,6 +11,8 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
+import { NotificationService, NotificationType } from '~shared/notifications';
+
 
 @Component({
 	selector: 'project-products-app',
@@ -35,7 +37,8 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected dlgSrv: DialogService,
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: ProjectWorkflowFeatureService) {
+		protected featureSrv: ProjectWorkflowFeatureService,
+		private notifSrv: NotificationService) {
 			super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
 	}
 
@@ -74,7 +77,16 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	 * passed as callback for the "find products" dialog.
 	 */
 	associatedProductsWithProject(selectedProducts: Product[]) {
-		return this.featureSrv.addProjectsToProducts([ this.project ], selectedProducts);
+		return this.featureSrv.addProjectsToProducts([ this.project ], selectedProducts).pipe(
+			tap(() => {
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Added',
+					message: 'Your products were added to the project with success',
+					timeout: 3500
+				});
+			})
+		);
 	}
 
 }
