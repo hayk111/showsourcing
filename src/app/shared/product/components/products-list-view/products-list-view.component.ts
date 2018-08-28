@@ -16,14 +16,14 @@ import { Sort } from '~shared/table/components/sort.interface';
 
 
 @Component({
-	selector: 'product-list-view-app',
-	templateUrl: './product-list-view.component.html',
+	selector: 'products-list-view-app',
+	templateUrl: './products-list-view.component.html',
 	styleUrls: [
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListViewComponent extends ListViewComponent<Product> implements OnInit {
+export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
 	@Input() currentSort: Sort;
 	// TODO, I think we will have to rethink the descriptor / custom table thing
 	// because this won't really work with the type of descriptor Antoine is envisaging

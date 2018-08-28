@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommentModule } from '~features/comment';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
-import { GroupByPipe } from '~features/products/pipes/groupby';
 import { ProductFeatureService } from '~features/products/services';
 import { BadgeModule } from '~shared/badge/badge.module';
 import { CarouselModule } from '~shared/carousel';
@@ -18,12 +17,11 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
+import { ProductCommonModule } from '~shared/product/product.module';
 import { routes } from '~features/products/routes';
 
 import {
-	ProductCardViewComponent,
 	ProductIconsComponent,
-	ProductListViewComponent,
 	ProductSmallCardComponent,
 	ProductSubInfoComponent,
 	ProjectCardComponent,
@@ -38,9 +36,9 @@ import { ProductPreviewComponent } from '~features/products/components/product-p
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
-import { ProductGridCardComponent } from './components/product-grid-card/product-grid-card.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { CustomDialogModule } from '~shared/custom-dialog';
+import { UtilsModule } from '~shared/utils';
 
 import { TeamRatingCardComponent } from './components/team-rating-card/team-rating-card.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
@@ -73,15 +71,15 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ActionBarModule,
 		CustomDialogModule,
 		ActivityModule,
-		StatusModule
+		StatusModule,
+		ProductCommonModule,
+		UtilsModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
 		ProductIconsComponent,
 		ProductSubInfoComponent,
 		ProductsPageComponent,
-		ProductListViewComponent,
-		ProductCardViewComponent,
 		SelectionActionsComponent,
 		ProductDetailsComponent,
 		ProjectCardComponent,
@@ -90,13 +88,11 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		NewProductDialogComponent,
-		GroupByPipe,
 		ProductPreviewComponent,
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,
 		TeamRatingCardComponent,
-		ProductGridCardComponent,
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,

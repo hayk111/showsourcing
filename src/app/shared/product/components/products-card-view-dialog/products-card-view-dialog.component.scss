@@ -1,0 +1,17 @@
+.card-container {
+	overflow-y: auto;
+	margin: 24px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	padding-left: 7px;
+	padding-top: 15px;
+	padding-bottom: 8px;
+	background-color: var(--color-secondary-light);
+	border: solid 1px var(--color-divider);
+	height: 480px;
+}
+
+.item {
+	width: 33%;
+	display: inline-block;
+}
