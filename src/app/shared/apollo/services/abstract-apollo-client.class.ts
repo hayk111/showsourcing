@@ -34,14 +34,14 @@ export abstract class AbstractApolloClient {
 			this.apolloState.setClientReady(clientName);
 		} catch (e) {
 			log.error(e);
-			this.apolloState.setClientNotReady(clientName);
+			this.apolloState.setClientError(clientName);
 		}
 	}
 
 	/** resets a client */
 	protected resetClient(clientName: string) {
 		this.clearClient(clientName);
-		this.apolloState.setClientNotReady(clientName);
+		this.apolloState.resetClient(clientName);
 	}
 
 	/**

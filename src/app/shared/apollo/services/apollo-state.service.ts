@@ -4,12 +4,19 @@ import { filter, tap } from 'rxjs/operators';
 import { log } from '~utils';
 
 export interface AllClientState {
-	[key: string]: ClientState;
+	[key: string]: State;
 }
 
-export interface ClientState {
-	pending: boolean;
-	ready: boolean;
+export interface State {
+	clientState: ClientState;
+	error?: any;
+}
+
+export enum ClientState {
+	NOT_INITIALIZED = 'not initialized',
+	DESTROYED = 'destroyed, Brrrr BOOOM',
+	READY = 'ready',
+	ERROR = 'error'
 }
 
 /**
@@ -27,20 +34,23 @@ export class ApolloStateService {
 
 
 	setClientReady(name: string) {
-		this.clientReady[name] = { ready: true, pending: false };
-		this.log(name, true, false);
+		const state = { clientState: ClientState.READY };
+		this.clientReady[name] = state;
+		this.log(name, state);
 		this.emit();
 	}
 
-	setClientNotReady(name: string) {
-		this.clientReady[name] = { ready: false, pending: false };
-		this.log(name, false, false);
+	setClientError(name: string) {
+		const state = { clientState: ClientState.ERROR };
+		this.clientReady[name] = state;
+		this.log(name, state);
 		this.emit();
 	}
 
-	resetClient(name: string) {
-		this.clientReady[name] = { ready: false, pending: true };
-		this.log(name, false, true);
+	destroyClient(name: string) {
+		const state = { clientState: ClientState.DESTROYED };
+		this.clientReady[name] = state;
+		this.log(name, state);
 		this.emit();
 	}
 
@@ -48,8 +58,8 @@ export class ApolloStateService {
 		this._clientsReady$.next(this.clientReady);
 	}
 
-	private log(str: string, ready: boolean, pending: boolean) {
-		log.debug(`%c Apollo Client State: ${str} client, ready: ${ready}, pending: ${pending}`, 'color: tomato');
+	private log(str: string, state: State) {
+		log.debug(`%c Apollo Client State: ${str} client, state: ${state.clientState}, error: ${state.error || 'none'}`);
 	}
 
 }

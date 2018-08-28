@@ -10,9 +10,9 @@ import { log } from '~utils/log';
 import { TeamService } from '~global-services/team/team.service';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
 import { combineLatest } from 'rxjs';
+import { TEAM_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 
-const TEAM_CLIENT = 'TEAM';
 
 @Injectable({ providedIn: 'root' })
 export class TeamClientInitializer extends AbstractApolloClient {
@@ -24,7 +24,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected teamSrv: TeamService
 	) {
-		super(apollo, link);
+		super(apollo, link, apolloState);
 	}
 
 	init() {
@@ -44,13 +44,13 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		);
 
 		combineLatest(uri$, accessToken$)
-			.subscribe(([uri, tokenState]) => this.initTeamClient(uri, tokenState.token));
+			.subscribe(([uri, tokenState]) => this.initClient(uri, tokenState.token, TEAM_CLIENT));
 
 		// when authenticated we start team client
 		this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(token => !token)
-		).subscribe(authenticated => this.resetClient());
+		).subscribe(authenticated => this.resetClient(TEAM_CLIENT));
 
 	}
 

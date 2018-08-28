@@ -24,7 +24,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService
 	) {
-		super(apollo, link);
+		super(apollo, link, apolloState);
 	}
 
 	init(): void {
@@ -38,37 +38,21 @@ export class UserClientInitializer extends AbstractApolloClient {
 				switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 				map(uri => ({ uri, token: accessToken.token }))
 			))
-		).subscribe(({ uri, token }) => this.initUserClient(uri, token));
+		).subscribe(({ uri, token }) => this.initClient(uri, token, USER_CLIENT));
 
 
 		// when the refreshToken is gone we close it
 		this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(tokenState => !tokenState),
-		).subscribe(_ => this.resetClient());
+		).subscribe(_ => this.resetClient(USER_CLIENT));
 
 	}
 
-	/** create the user client  */
-	private initUserClient(uri: string, token: string): void {
-		try {
-			super.createClient(uri, USER_CLIENT, token);
-			this.apolloState.setClientReady(USER_CLIENT);
-		} catch (e) {
-			log.error(e);
-			this.apolloState.setClientNotReady(USER_CLIENT);
-		}
-	}
 
 	/** gets user from all-users realm */
 	private getUser(id: string): Observable<User> {
 		// we use a query here because we need to get the user once from all_user client
 		return this.userSrv.queryOne(id, 'realmServerName, realmPath', ALL_USER_CLIENT);
 	}
-
-	private resetClient(): void {
-		super.clearClient(USER_CLIENT);
-		this.apolloState.setClientNotReady(USER_CLIENT);
-	}
-
 }

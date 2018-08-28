@@ -21,7 +21,7 @@ export class GuestClientInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		private route: ActivatedRoute
 	) {
-		super(apollo, link);
+		super(apollo, link, apolloState);
 	}
 
 	init() {
@@ -31,30 +31,13 @@ export class GuestClientInitializer extends AbstractApolloClient {
 				uri: this.getUri(guestToken.realm.httpsPort, guestToken.realm.host, guestToken.realm.path),
 				token: guestToken.token,
 			}))
-		).subscribe(opts => this.initGuestClient(opts.uri, opts.token));
+		).subscribe(opts => this.initClient(opts.uri, opts.token, GUEST_CLIENT));
 
 		// when the refreshToken is gone we close it
 		this.tokenSrv.guestRefreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(tokenState => !tokenState),
-		).subscribe(_ => this.resetClient());
-	}
-
-
-	/** initialize apollo guest client */
-	private initGuestClient(uri: string, token) {
-		try {
-			this.createClient(uri, GUEST_CLIENT, token);
-			this.apolloState.setGuestClientReady();
-		} catch (e) {
-			log.error(e);
-			this.apolloState.setGuestClientNotReady();
-		}
-	}
-
-	private resetClient() {
-		super.clearClient();
-		this.apolloState.resetGuestClient();
+		).subscribe(_ => this.resetClient(GUEST_CLIENT));
 	}
 
 }
