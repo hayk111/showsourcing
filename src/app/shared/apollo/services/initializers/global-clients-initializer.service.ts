@@ -27,19 +27,16 @@ export class GlobalClientsInitializer extends AbstractApolloInitializer {
 	}
 
 	init() {
-		this.authSrv.authState$.pipe(
-			filter(authState => authState.authenticated),
-			distinctUntilChanged((x, y) => x.authenticated === y.authenticated)
-		).subscribe(authState => this.initGlobalClients(authState.token));
+		this.initGlobalClients();
 	}
 
 	/** creates global and all-users clients */
-	private initGlobalClients(token) {
+	private initGlobalClients() {
 		try {
 			// 1. creating all-users client and getting the user
-			this.createClient(ALL_USER_CLIENT, token);
-			this.createClient(GLOBAL_CONSTANT_CLIENT, token);
-			this.createClient(GLOBAL_DATA_CLIENT, token);
+			this.createClient(ALL_USER_CLIENT, undefined);
+			this.createClient(GLOBAL_CONSTANT_CLIENT, undefined);
+			this.createClient(GLOBAL_DATA_CLIENT, undefined);
 			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
 			log.error(e);
