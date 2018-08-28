@@ -27,12 +27,11 @@
 	}
 	&.tiny {
 		font-family: 'Raleway';
-		font-size: var(--font-size-tiny);
+		font-size: var(--font-size-xxs);
 		font-weight: 600;
 		text-transform: uppercase;
 		text-align: center;
-		padding: var(--spacing-xs) var(--spacing-ms);
-		border-radius: var(--border-radius-tiny);
+		border-radius: var(--border-radius-s);
 		padding: 1px 5px;
 	}
 	&.mini {
@@ -49,7 +48,7 @@
 		padding: 2px var(--spacing-xs);
 		padding: 2px 8px 3px;
 		text-transform: uppercase;
-		border-radius: var(--border-radius-tiny);
+		border-radius: var(--border-radius-s);
 		font-weight: 600;
 	}
 	&.small {
