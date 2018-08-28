@@ -28,9 +28,9 @@ import { ProductGridCardComponent } from '~shared/product/components/product-gri
 		TopPanelModule,
 		TableModule,
 		RatingModule,
-    WorkflowActionModule,
-    ActionBarModule,
-    StatusModule
+		WorkflowActionModule,
+		ActionBarModule,
+		StatusModule
 	],
 	declarations: [
 		FindProductsDialogComponent, ProductsCardViewDialogComponent, ProductsListViewComponent,
