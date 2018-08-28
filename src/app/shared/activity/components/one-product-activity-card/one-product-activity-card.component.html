@@ -54,7 +54,7 @@
 		<div class="flex status-info flexWrap">
 			<span *ngIf="product?.price?.value" class="price">{{ product.price.value | currency: product?.price?.currency:'symbol':'1.2-2' }}</span>
 			<span *ngIf="product?.category?.name">{{ product.category.name }}</span>
-			<span class="supplier">{{ product?.supplier?.name }}</span>
+			<span *ngIf="product?.supplier?.name" class="supplier">{{ product.supplier.name }}</span>
 			<icons-status-app
 				*ngIf="product?.score !== null"
 				[onlyLike]="true"
@@ -75,6 +75,7 @@
 	</div>
 
 	<card-footer-app align="left" class="flexBetween">
-
+		<!-- here the comment component with previosu commennts loaded -->
+		<input type="text" placeholder="Leave a comment"/>
 	</card-footer-app>
 </card-app>
