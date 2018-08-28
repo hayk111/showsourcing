@@ -100,6 +100,8 @@ export class WorkflowKanbanComponent {
 	onCheckItemsChange(status: any, checked: boolean) {
 		if (checked) {
 			this.selectAllItems.emit(status.products);
+		} else {
+			this.unselectAllItems.emit(status.products);
 		}
 	}
 

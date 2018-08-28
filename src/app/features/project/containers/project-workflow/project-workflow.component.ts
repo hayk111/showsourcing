@@ -75,7 +75,7 @@ export class ProjectWorkflowComponent implements OnInit {
 		});
 	}
 
-	/** Selects a an entity */
+	/** Selects an entity */
 	onAllItemsSelected(entity: any) {
 		this.selectionSrv.selectAll(entity);
 	}
