@@ -60,6 +60,8 @@ export class KanbanItemCardComponent implements OnInit {
 	@Input() dragInProgress: boolean;
 	/** Highlight the card when checked */
 	@Input() highlightOnChecked: boolean;
+	/** Select when clicking on the whole card */
+	@Input() selectFromCard: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -105,6 +107,13 @@ export class KanbanItemCardComponent implements OnInit {
 		}
 	}
 
+	/** Click the title bloc */
+	clickTitle() {
+		if (this.selectFromCard) {
+			this.toggleChecked();
+		}
+	}
+
 	/** Toggle the open menu state */
 	onToggleContextualMenu(event) {
 		this.contextualMenuOpened = !this.contextualMenuOpened;
@@ -144,6 +153,15 @@ export class KanbanItemCardComponent implements OnInit {
 			this.contextualMenuOpened = !this.contextualMenuOpened;
 			this.dragDropEnabled = true;
 			this.dragDropEnable.emit(this.dragDropEnabled);
+		}
+	}
+
+	/** Toggle checked */
+	toggleChecked() {
+		if (this.checked) {
+			this.onUnchecked();
+		} else {
+			this.onChecked();
 		}
 	}
 
