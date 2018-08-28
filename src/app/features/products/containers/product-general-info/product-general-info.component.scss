@@ -2,6 +2,79 @@
   display: block;
 }
 
+.title {
+	margin-bottom: var(--spacing-m);
+	margin-left: -12px;
+	margin-top: -12px;
+
+	.space-icon {
+		height: var(--spacing-xl);
+		width: var(--spacing-xl);
+		margin-right: var(--spacing-ms);
+	}
+
+	h2 {
+		align-items: center;
+		display: flex;
+		margin-bottom: 0px;
+	}
+}
+dynamic-form-app {
+	margin-left: var(--spacing-xs);
+}
+
+.mainTitle {
+	font-size: var(--font-size-xxxl);
+	font-weight: 600;
+	color: var(--color-txt-strong);
+	margin-bottom: var(--spacing-ms);
+
+	icons-status-app {
+		margin-left: var(--spacing-ml);
+		font-size: var(--font-size-xxl);
+	}
+}
+.price {
+	margin-bottom: var(--spacing-l);
+	.amount {
+		color: var(--color-primary);
+		font-size: var(--font-size-xxxl);
+		font-weight: bold;
+	}
+	.moq {
+		margin-left: var(--spacing-ms);
+		color: var(--color-txt-secondary);
+	}
+}
+
+textarea {
+	resize: none;
+}
+
+.description-title {
+	font-weight: 600;
+	color: var(--color-secondary-dark);
+}
+
+.title-information {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: var(--color-primary);
+	font-size: var(--font-size-l);
+	margin-top: var(--spacing-xl);
+}
+
+editable-label-app {
+	white-space: pre-line;
+	margin-top: var(--spacing-xs);
+	font-size: var(--font-size-l);
+	color: var(--color-txt-strong);
+	width: 100%;
+	max-height: 140px;
+	overflow-y: auto;
+}
+
+
 .sectionTitle {
 	font-size: var(--font-size-l);
 	color: var(--color-button-dark);
@@ -10,7 +83,7 @@
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
 	color: #182844;
-	margin-bottom: 32px;
+	margin-bottom: var(--spacing-xl);
 }
 
 .subSectionTitle{
@@ -31,6 +104,13 @@
   }
 }
 
+card-footer-app {
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}
+
+
 user-picture-app {
-  padding-right: 8px;
+  padding-right: var(--spacing-s);
 }

@@ -1,10 +1,41 @@
-
-
 <card-app>
-	<div class="sectionTitle shipping"
+	<div class="mainTitle shipping flex"
 		i18n="div title|Product general information@@productGeneralInfo_general">
-		General Information
+		{{ product?.name || 'Unnamed Product' }}
+		<icons-status-app
+			class="flexCenter"
+			[product]="product"
+			[favorite]="product?.favorite"
+			[onlyLike]="true"
+			[hasPercent]="false">
+		</icons-status-app>
 	</div>
+	<div *ngIf="product?.price?.value" class="flex price">
+		<div class="amount">
+			{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}
+		</div>
+		<div class="moq flexCenter">
+			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
+		</div>
+	</div>
+	<div class="description">
+		<div class="description-title">Description</div>
+		<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
+			<editable-label-app *ngIf="product?.description; else noDesc">
+				{{ product.description }}
+			</editable-label-app>
+			<ng-template #noDesc>
+				<editable-label-app class="noDesc"
+					i18n="label|Product with no description@@productDescription_noDescription">
+					No description yet
+				</editable-label-app>
+			</ng-template>
+			<textarea inputApp class="fullWidth" #txt [value]="product?.description || ''"></textarea>
+		</editable-text-app>
+	</div>
+
+	<div class="title-information">Product Information</div>
+
 	<ng-container *ngIf="descriptor$ | async as descriptor">
 		<dynamic-form-app
 			[inlineLabel]="false"
@@ -14,12 +45,27 @@
 			[colAmount]="2">
 		</dynamic-form-app>
 	</ng-container>
+
+	<card-footer-app *ngIf="!editable.isOpen; else closed">
+		<button class="secondary-light" (click)="editable.open()">Edit</button>
+		<button>Send RFQ to Supplier</button>
+	</card-footer-app>
+	<ng-template #closed>
+		<card-footer-app>
+			<button class="light" (click)="cancel()">Cancel</button>
+			<button (click)="save(txt.value)">Save</button>
+		</card-footer-app>
+	</ng-template>
 </card-app>
 
 <card-app>
-	<div class="sectionTitle shipping"
-		i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading">
-		Shipping & Trading
+	<div class="title flex">
+		<div class="space-icon flexAround">
+			<icon-app fontSet="svg" name="poll-light-blue" ></icon-app>
+		</div>
+		<h2 i18n="div title|Product shipping and tranding information@@productGeneralInfo_shippingTrading" class="flex">
+			Shipping & Trading
+		</h2>
 	</div>
 
 	<ng-container *ngIf="descriptor2$ | async as descriptor">
