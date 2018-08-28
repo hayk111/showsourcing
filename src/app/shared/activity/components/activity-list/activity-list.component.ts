@@ -17,7 +17,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 })
 export class ActivityListComponent extends AutoUnsub implements OnInit {
 	@Input() feedName: string[];
-	feeds$: Observable<GetStreamResult[]>;
+	@Input() feeds$: Observable<GetStreamResult[]>;
 	private page$ = new BehaviorSubject(0);
 	private page: number;
 
@@ -32,18 +32,13 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// getting the feed
-		this.feeds$ = this.activitySrv.getFeed({
-			page$: this.page$,
-			feedName: this.feedName
-		});
 
 		// when we reach the bottom of the ** PAGE ** then we load more.
-		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
+		// this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
 
-		this.page$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(page => this.page = page);
+		// this.page$.pipe(
+		// 	takeUntil(this._destroy$)
+		// ).subscribe(page => this.page = page);
 	}
 
 	loadMore() {

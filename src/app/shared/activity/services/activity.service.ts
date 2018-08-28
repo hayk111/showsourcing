@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
-import { combineLatest, Observable } from 'rxjs';
-import { map, scan, switchMap, tap } from 'rxjs/operators';
-import { ProductService } from '~global-services';
+import { forkJoin, Observable, ReplaySubject } from 'rxjs';
+import { first, map, scan, switchMap, tap } from 'rxjs/operators';
+import { ProductService, TeamService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
 
@@ -41,7 +41,8 @@ export interface GetStreamActivity {
 
 export interface GetFeedParams {
 	page$: Observable<number>;
-	feedName: string[];
+	feedName: string;
+	tokenUrl: string;
 }
 
 
@@ -54,10 +55,38 @@ export class ActivityService {
 
 	constructor(
 		private http: HttpClient,
+		private teamSrv: TeamService,
 		private productSrv: ProductService,
 		private commentSrv: CommentService
 	) {
 		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
+	}
+
+	getDashboardFeed(page$: Observable<number>) {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const tokenUrl = `/feed/token/team/${teamId}`;
+		const feedName = `team:${teamId}`;
+		return this.getToken(`/feed/token/team/${teamId}`).pipe(
+			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
+		);
+	}
+
+	getProductFeed(productId: string, page$: Observable<number>) {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const tokenUrl = `/feed/token/team/${teamId}/product/${productId}`;
+		const feedName = `product_flat:${productId}`;
+		return this.getToken(`/feed/token/team/${teamId}/product/${productId}`).pipe(
+			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
+		);
+	}
+
+	getSupplierFeed(supplierId: string, page$: Observable<number>) {
+		const teamId = this.teamSrv.selectedTeamSync.id;
+		const tokenUrl = `/feed/token/team/${teamId}/supplier/${supplierId}`;
+		const feedName = `supplier_flat:${supplierId}`;
+		return this.getToken(`/feed/token/team/${teamId}/supplier/${supplierId}`).pipe(
+			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
+		);
 	}
 
 	/**
@@ -65,9 +94,9 @@ export class ActivityService {
 	 * @param page$ : Observable, current page of the stream (used for pagination)
 	 * @param feedName : string, feed name we want to data from
 	 */
-	getFeed({ page$, feedName }: GetFeedParams) {
+	private getFeed({ page$, feedName, tokenUrl }: GetFeedParams) {
 		// gets feed token
-		return this.getToken(feedName).pipe(
+		return this.getToken(tokenUrl).pipe(
 			// once we have the token we can get a feed
 			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, token, feedName)),
 			tap((r: any) => this.addData(r.results)),
@@ -75,8 +104,6 @@ export class ActivityService {
 			scan((pre, curr) => ([...pre, ...curr]), [])
 		);
 	}
-
-
 
 	private getFeedResult(page$, client, token, feedName) {
 		return page$.pipe(
@@ -88,10 +115,8 @@ export class ActivityService {
 		);
 	}
 
-	private getToken(feedName: string[]) {
-		return this.http.get<GetStreamResponse>(
-			`https://murmuring-sierra-85015.herokuapp.com/token?feed=${feedName[0]}&id=${feedName[1]}`
-		);
+	private getToken(url) {
+		return this.http.get<GetStreamResponse>(url);
 	}
 
 

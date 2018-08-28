@@ -17,16 +17,14 @@ import { filter } from 'graphql-anywhere';
 	}
 })
 export class DashboardComponent implements OnInit {
-	feedName$: Observable<string[]>;
+	feed$: Observable<any>;
 
-	constructor(private teamSrv: TeamService) {
+	constructor(private activitySrv: ActivityService) {
 
 	}
 
 	ngOnInit() {
-		this.feedName$ = this.teamSrv.selectedTeam$.pipe(
-			map(team => ['team', team.id])
-		);
+		this.feed$ = this.activitySrv.getDashboardFeed(of(0));
 	}
 }
 
