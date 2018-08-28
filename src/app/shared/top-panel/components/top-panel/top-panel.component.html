@@ -1,12 +1,18 @@
-<div class="ctnr flexBetween">
-	<div class="left">
-		<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
+<div class="flexColumn ctnr" [ngClass]="{ 'has-nav': withNav }">
+	<div class="flexBetween">
+		<div class="left">
+			<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
+		</div>
+		<div class="right flexCenter" *ngIf="buttonName">
+
+			<button (click)="buttonClick.emit()" class="flex button auto small" *ngIf="hasAction">
+				<span class="spacing"> {{ buttonName }} </span>
+			</button>
+
+		</div>
+
 	</div>
-	<div class="right flexCenter" *ngIf="buttonName">
-
-		<button (click)="buttonClick.emit()" class="flex button auto small" *ngIf="hasAction">
-			<span class="spacing"> {{ buttonName }} </span>
-		</button>
-
+	<div class="navCtnr" [ngClass]="{ 'has-nav': withNav }">
+		<ng-content select="nav"></ng-content>
 	</div>
 </div>

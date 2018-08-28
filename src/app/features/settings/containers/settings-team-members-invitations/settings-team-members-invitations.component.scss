@@ -27,24 +27,3 @@ context-menu-item-app {
 		color: var(--color-warn);
 	}
 }
-
-nav {
-	margin-left: 156px;
-	> * {
-		width: 120px;
-		margin-right: var(--font-size-l);
-		font-size: var(--font-size-l);
-		display: block;
-		height: 28px;
-		border-bottom: 2px solid transparent;
-		box-sizing: border-box;
-		display: flex;
-		justify-content: center;
-		cursor: pointer;
-		&.active {
-			font-weight: bold;
-			color: var(--color-primary);
-			border-color: var(--color-primary);
-		}
-	}
-}

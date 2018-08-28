@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, QueryList, ContentChildren } from '@angular/core';
 
 @Component({
 	selector: 'top-panel-app',
@@ -19,5 +19,6 @@ export class TopPanelComponent {
 	@Input() subtitles: Array<string>;
 	/** whether the button on the right is displayed */
 	@Input() hasAction = true;
-
+	/** a nav is provided as ng-content */
+	@Input() withNav: boolean;
 }

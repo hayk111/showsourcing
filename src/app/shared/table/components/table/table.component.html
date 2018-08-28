@@ -11,15 +11,19 @@
 		<!-- selection column -->
 		<div class="col selectionCol" *ngIf="hasSelection">
 			<div class="header">
-				<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
+				<ng-container *ngIf="!selectionDisabled">
+					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
+				</ng-container>
 			</div>
 			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByFn"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-				<checkbox-app [checked]="selected.has(row[idName])"
-					*ngIf="isSelectable(row)"
-					(check)="onSelectOne(row)"
-					(uncheck)="onUnselectOne(row)"></checkbox-app>
+				<ng-container *ngIf="!selectionDisabled">
+					<checkbox-app [checked]="selected.has(row[idName])"
+						*ngIf="isSelectable(row)"
+						(check)="onSelectOne(row)"
+						(uncheck)="onUnselectOne(row)"></checkbox-app>
+				</ng-container>
 			</div>
 		</div>
 
@@ -30,6 +34,7 @@
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 				<div class="dotSeparator pointer"
+				  *ngIf="contextualMenu"
 					[ngClass]="{ hover: (i === hoverIndex) }"
 					[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 					(click)="onToggleContextualMenu($event, i)"></div>
