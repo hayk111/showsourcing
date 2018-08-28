@@ -1,7 +1,8 @@
 <table-app
 	[rows]="rows"
 	[selected]="selected"
-  [contextualMenu]="contextualMenu"
+	[contextualMenu]="contextualMenu"
+	[currentSort]="currentSort"
 	(bottomReached)="bottomReached.emit()"
 	(selectOne)="selectOne.emit($event)"
 	(unselectOne)="unselectOne.emit($event)"
