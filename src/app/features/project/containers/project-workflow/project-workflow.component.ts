@@ -13,6 +13,7 @@ import {
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { SelectionService } from '~shared/list-page/selection.service';
+import { FindProductDialogComponent } from '~shared/custom-dialog/component/find-product-dialog/find-product-dialog.component';
 
 
 @Component({
