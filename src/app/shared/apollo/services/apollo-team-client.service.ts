@@ -12,6 +12,8 @@ import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-cl
 import { combineLatest } from 'rxjs';
 
 
+const TEAM_CLIENT = 'TEAM';
+
 @Injectable({ providedIn: 'root' })
 export class TeamClientInitializer extends AbstractApolloClient {
 
@@ -31,7 +33,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			distinctUntilChanged(),
 			filter(token => !!token),
 			// first we need to get an accessToken
-			switchMap(token => this.tokenSrv.getAccessToken(token, 'TEAM'))
+			switchMap(token => this.tokenSrv.getAccessToken(token, TEAM_CLIENT))
 		);
 
 		// get realm uri from the team selected.
@@ -50,22 +52,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			filter(token => !token)
 		).subscribe(authenticated => this.resetClient());
 
-	}
-
-	/** initialize apollo team client */
-	private async initTeamClient(uri: string, token) {
-		try {
-			this.createClient(uri, undefined, token);
-			this.apolloState.setTeamClientReady();
-		} catch (e) {
-			log.error(e);
-			this.apolloState.setTeamClientNotReady();
-		}
-	}
-
-	private resetClient() {
-		super.clearClient();
-		this.apolloState.resetTeamClient();
 	}
 
 }

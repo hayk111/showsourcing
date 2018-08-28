@@ -3,6 +3,10 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { log } from '~utils';
 
+export interface AllClientState {
+	[key: string]: ClientState;
+}
+
 export interface ClientState {
 	pending: boolean;
 	ready: boolean;
@@ -17,75 +21,35 @@ export interface ClientState {
 })
 export class ApolloStateService {
 
-	private _globalClientsReady$ = new ReplaySubject<ClientState>(1);
-	globalClientsReady$ = this._globalClientsReady$.asObservable();
+	private clientReady: AllClientState = {};
+	private _clientsReady$ = new ReplaySubject<AllClientState>(1);
+	clientsReady$ = this._clientsReady$.asObservable();
 
-	private _userClientReady$ = new ReplaySubject<ClientState>(1);
-	userClientReady$: Observable<ClientState> = this._userClientReady$.asObservable();
 
-	private _teamClientReady$ = new ReplaySubject<ClientState>(1);
-	teamClientReady$: Observable<ClientState> = this._teamClientReady$.asObservable();
-
-	private _guestClientReady$ = new ReplaySubject<ClientState>(1);
-	guestClientReady$: Observable<ClientState> = this._guestClientReady$.asObservable();
-
-	constructor() {
-		this.globalClientsReady$.subscribe(d => this.log(`global client ready ? ${d.ready}`));
-		this.userClientReady$.subscribe(d => this.log(`user client ready ? ${d.ready}`));
-		this.teamClientReady$.subscribe(d => this.log(`team client ready ? ${d.ready}`));
-		this.guestClientReady$.subscribe(d => this.log(`guest client ready ? ${d.ready}`));
+	setClientReady(name: string) {
+		this.clientReady[name] = { ready: true, pending: false };
+		this.log(name, true, false);
+		this.emit();
 	}
 
-	private log(str: string) {
-		log.debug(`%c ApolloState: ${str}`, 'color: tomato');
+	setClientNotReady(name: string) {
+		this.clientReady[name] = { ready: false, pending: false };
+		this.log(name, false, false);
+		this.emit();
 	}
 
-
-	setUserClientReady() {
-		this._userClientReady$.next({ ready: true, pending: false });
+	resetClient(name: string) {
+		this.clientReady[name] = { ready: false, pending: true };
+		this.log(name, false, true);
+		this.emit();
 	}
 
-	setUserClientNotReady() {
-		this._userClientReady$.next({ ready: false, pending: false });
+	private emit() {
+		this._clientsReady$.next(this.clientReady);
 	}
 
-	resetUserClient() {
-		this._userClientReady$.next({ ready: undefined, pending: true });
+	private log(str: string, ready: boolean, pending: boolean) {
+		log.debug(`%c Apollo Client State: ${str} client, ready: ${ready}, pending: ${pending}`, 'color: tomato');
 	}
 
-	setTeamClientReady() {
-		this._teamClientReady$.next({ ready: true, pending: false });
-	}
-
-	setTeamClientNotReady() {
-		this._teamClientReady$.next({ ready: false, pending: false });
-	}
-
-	resetTeamClient() {
-		this._teamClientReady$.next({ ready: undefined, pending: true });
-	}
-
-	setGlobalClientsReady() {
-		this._globalClientsReady$.next({ ready: true, pending: false });
-	}
-
-	setGlobalClientsNotReady() {
-		this._globalClientsReady$.next({ ready: false, pending: false });
-	}
-
-	resetGlobalClient() {
-		this._globalClientsReady$.next({ ready: undefined, pending: true });
-	}
-
-	setGuestClientReady() {
-		this._guestClientReady$.next({ ready: true, pending: false });
-	}
-
-	setGuestClientNotReady() {
-		this._guestClientReady$.next({ ready: false, pending: false });
-	}
-
-	resetGuestClient() {
-		this._guestClientReady$.next({ ready: undefined, pending: true });
-	}
 }

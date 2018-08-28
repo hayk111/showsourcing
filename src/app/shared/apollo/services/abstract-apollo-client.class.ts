@@ -14,6 +14,7 @@ import { environment } from 'environments/environment.prod';
 import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
 import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 import { log, LogColor } from '~utils';
+import { ApolloStateService } from '~shared/apollo';
 
 export abstract class AbstractApolloClient {
 	protected clients = new Map();
@@ -21,7 +22,27 @@ export abstract class AbstractApolloClient {
 	constructor(
 		protected apollo: Apollo,
 		protected httpLink: HttpLink,
+		protected apolloState: ApolloStateService
 	) { }
+
+
+
+	/** initialize apollo team client */
+	protected async initClient(uri: string, token: string, clientName: string) {
+		try {
+			this.createClient(uri, clientName, token);
+			this.apolloState.setClientReady(clientName);
+		} catch (e) {
+			log.error(e);
+			this.apolloState.setClientNotReady(clientName);
+		}
+	}
+
+	/** resets a client */
+	protected resetClient(clientName: string) {
+		this.clearClient(clientName);
+		this.apolloState.setClientNotReady(clientName);
+	}
 
 	/**
  	* to create the uri we need to concatena every parts we got from different DB's.

@@ -53,10 +53,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 	private initUserClient(uri: string, token: string): void {
 		try {
 			super.createClient(uri, USER_CLIENT, token);
-			this.apolloState.setUserClientReady();
+			this.apolloState.setClientReady(USER_CLIENT);
 		} catch (e) {
 			log.error(e);
-			this.apolloState.setUserClientNotReady();
+			this.apolloState.setClientNotReady(USER_CLIENT);
 		}
 	}
 
@@ -68,7 +68,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 	private resetClient(): void {
 		super.clearClient(USER_CLIENT);
-		this.apolloState.resetUserClient();
+		this.apolloState.setClientNotReady(USER_CLIENT);
 	}
 
 }

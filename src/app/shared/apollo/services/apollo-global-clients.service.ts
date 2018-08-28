@@ -6,9 +6,10 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils';
-import { filter, first, distinctUntilChanged } from 'rxjs/operators';
+import { filter, first, distinctUntilChanged, switchMap, merge } from 'rxjs/operators';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
 import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 
 
@@ -17,46 +18,40 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,
-		private apolloState: ApolloStateService,
+		protected apolloState: ApolloStateService,
 		protected tokenSrv: TokenService,
 		protected httpLink: HttpLink,
 	) {
-		super(apollo, httpLink);
+		super(apollo, httpLink, apolloState);
 	}
 
 	init() {
-		this.authSrv.authState$.pipe(
-			filter(authState => authState.authenticated),
-			distinctUntilChanged((x, y) => x.authenticated === y.authenticated)
-		).subscribe(authState => this.initGlobalClients(authState.token));
-
-		// when there is a refreshToken and the user has selected a team we initialize the team client
-		const allUserToken$ = this.tokenSrv.refreshToken$.pipe(
+		// observable emitting when a new VALID refresh token has been emitted
+		const refreshToken$ = this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(token => !!token),
-			// first we need to get an accessToken
-			switchMap(token => this.tokenSrv.getAccessToken(token, 'TEAM'))
 		);
-	}
 
-	/** creates global and all-users clients */
-	private initGlobalClients() {
-		try {
-			// 1. creating all-users client and getting the user
-			this.createClient(ALL_USER_CLIENT, undefined);
-			this.createClient(GLOBAL_CONSTANT_CLIENT, undefined);
-			this.createClient(GLOBAL_DATA_CLIENT, undefined);
-			this.apolloState.setGlobalClientsReady();
-		} catch (e) {
-			log.error(e);
-			this.apolloState.setGlobalClientsNotReady();
-		}
-	}
+		// observable emitting when the refreshToken has been invalidated
+		const noRefreshToken$ = this.tokenSrv.refreshToken$.pipe(
+			distinctUntilChanged(),
+			filter(token => !token),
+		);
 
-	protected createClient(name, token) {
-		const uri = `${environment.graphqlUrl}/${name}`;
-		super.createClient(uri, name, token);
-	}
+		// when new refreshToken, get accessToken for each of those clients
+		refreshToken$.pipe(
+			merge(refreshToken => [
+				this.tokenSrv.getAccessToken(refreshToken, ALL_USER_CLIENT),
+				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_CONSTANT_CLIENT),
+				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_DATA_CLIENT)
+			])
+		).subscribe((accessTokens: TokenState[]) => {
+			debugger;
+			this.initClient(`${environment.graphqlUrl}/${ALL_USER_CLIENT}`, accessTokens[0].token, ALL_USER_CLIENT);
+			this.initClient(`${environment.graphqlUrl}/${GLOBAL_CONSTANT_CLIENT}`, accessTokens[1].token, GLOBAL_CONSTANT_CLIENT);
+			this.initClient(`${environment.graphqlUrl}/${GLOBAL_DATA_CLIENT}`, accessTokens[2].token, GLOBAL_DATA_CLIENT);
+		});
 
+	}
 }
 
