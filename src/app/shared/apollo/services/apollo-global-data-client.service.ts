@@ -31,7 +31,7 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		).subscribe(authState => this.initGlobalClients(authState.token));
 
 		// when there is a refreshToken and the user has selected a team we initialize the team client
-		const allUserToken$ = this.tokenSrv.refreshToken$.pipe(
+		const accessToken$ = this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(token => !!token),
 			// first we need to get an accessToken
@@ -40,12 +40,10 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 	}
 
 	/** creates global and all-users clients */
-	private initGlobalClients() {
+	private initClient(token) {
 		try {
 			// 1. creating all-users client and getting the user
-			this.createClient(ALL_USER_CLIENT, undefined);
-			this.createClient(GLOBAL_CONSTANT_CLIENT, undefined);
-			this.createClient(GLOBAL_DATA_CLIENT, undefined);
+			this.createClient(GLOBAL_DATA_CLIENT, token);
 			this.apolloState.setGlobalClientsReady();
 		} catch (e) {
 			log.error(e);
