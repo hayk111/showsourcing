@@ -21,19 +21,41 @@
 		</ng-container>
 
 		<div *ngIf="hasThreeImages()" class="flexColumn flexBetween">
-			<ng-container *ngIf="images[1]">
+			<ng-container *ngIf="images?.length > 1">
 				<img-app class="img2" [image]="images[1]" size="xl"></img-app>
 			</ng-container>
 
-			<ng-container *ngIf="images[2]">
+			<!-- <ng-container *ngIf="images[2]">
 				<img-app class="img3" [image]="images[2]" size="xl"></img-app>
-			</ng-container>
+			</ng-container> -->
+		</div>
+	</div>
+	<div class="action-section flexBetween">
+		<action-bar-app
+				[favorite]="product?.favorite"
+				[votes]="product?.votes"
+				(vote)="onVote($event)"
+				(onFavorite)="onFavorite()"
+				(onUnfavorite)="onUnfavorite()">
+				<button class="icon light" (click)="openAddToProject()">
+					<icon-app fontSet="svg" name="folder"></icon-app>
+				</button>
+		</action-bar-app>
+		<div class="right flex">
+			<button class="light" (click)="onViewProduct()">Open Product</button>
+			<button class="icon light">
+				<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
+			</button>
 		</div>
 	</div>
 
 	<div class="flexColumn prodInfo">
 		<span class="name">{{ product?.name }}</span>
-		<span class="supplier">{{ product?.supplier?.name }}</span>
+		<div class="flex status-info">
+			<span *ngIf="product?.price?.value" class="price">{{ product.price.value | currency: product?.price?.currency:'symbol':'1.2-2' }}</span>
+			<span class="supplier">{{ product?.supplier?.name }}</span>
+
+		</div>
 		<div class="badges flexVAlign">
 			<status-badge-app
 				size="mini"
@@ -53,20 +75,5 @@
 
 	<card-footer-app align="left" class="flexBetween">
 
-		<action-bar-app
-			[favorite]="product.favorite"
-			[votes]="product.votes"
-			(vote)="onVote($event)"
-			(onFavorite)="onFavorite()"
-			(onUnfavorite)="onUnfavorite()">
-
-			<button class="icon light folder" (click)="openAddToProject()">
-				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
-			</button>
-		</action-bar-app>
-
-		<button class="primary" (click)="onViewProduct()">
-			View Product
-		</button>
 	</card-footer-app>
 </card-app>

@@ -6,6 +6,27 @@ activity-user-app {
 	margin-bottom: var(--spacing-ms);
 }
 
+.previewCtnr {
+	width: 656px;
+	height: 490px;
+	border-radius: var(--border-radius-l);
+
+	.empty {
+		width: 100%;
+		font-style: italic;
+		color: var(--color-txt-secondary);
+		background: var(--color-secondary-light);
+		font-size: var(--font-size-xxl);
+	}
+	img {
+		width: 140px;
+    height: 140px;
+	}
+	span {
+		margin-top: var(--spacing-ms);
+	}
+}
+
 .img1 {
 	height: 320px;
 	.small {
@@ -22,8 +43,12 @@ img-app {
 	border-radius: var(--border-radius-s);
 }
 
+.action-section {
+	font-size: var(--font-size-xxl);
+}
+
 .actions {
-	font-size: 20px;
+	font-size: var(--font-size-xxl);
 	color: var(--color-txt-secondary);
 	& > * {
 		margin-right: var(--spacing-l);
@@ -32,10 +57,17 @@ img-app {
 
 .prodInfo {
 	margin-top: var(--spacing-ms);
+
 	.name {
 		color: var(--color-txt-strong);
-		font-size: var(--font-size-l);
 		font-weight: 600;
+	}
+	.status-info {
+		font-size: var(--font-size-m);
+
+		.price {
+			color: var(--color-primary);
+		}
 	}
 	.supplier {
 		margin-bottom: var(--spacing-s);
@@ -50,16 +82,6 @@ img-app {
 
 card-footer-app {
 	display: flex;
-
-	button.primary {
-		min-width: 163px;
-	}
 }
 
-.empty {
-	font-style: italic;
-	width: 160px;
-	height: 140px;
-	color: var(--color-txt-secondary);
-	background: var(--color-secondary-light);
-}
+
