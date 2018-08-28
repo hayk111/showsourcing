@@ -26,7 +26,7 @@ export class InvitationFeatureService extends InvitationService {
 				inviter = { ...inviter };
 				delete inviter.realmServerName;
 				delete inviter.realmPath;
-				return this.invitationSrv.create(new Invitation({ email, inviter }));
+				return this.invitationSrv.create(new Invitation({ email, inviter, accessType: 'FullAccess' }));
 			})
 		);
 	}

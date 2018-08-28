@@ -13,7 +13,7 @@ export class Invitation {
 		Object.assign(this, config);
 		this.id = uuid();
 		if (!this.accessType) {
-			this.accessType = 'READONLY';
+			this.accessType = 'ReadOnly';
 		}
 		if (!this.status) {
 			this.status = 'pending';
