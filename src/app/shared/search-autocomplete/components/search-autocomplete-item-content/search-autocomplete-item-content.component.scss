@@ -36,10 +36,12 @@
 					align-items: center;
 
 					.title {
+						margin-bottom: 0;
 						font-family: 'Source Sans Pro', sans-serif;
 						font-size: 14px;
 						font-weight: 600;
-						color: var(--color-txt-primary);
+						color: var(--color-txt-strong);
+						line-height: 0.9rem;
 					}
 				}
 
@@ -50,7 +52,8 @@
 				.subtitle {
 					font-family: 'Source Sans Pro', sans-serif;
 					font-size: 14px;
-					color: var(--color-txt-secondary);
+					color: var(--color-txt-primary);
+					line-height: 0.9rem;
 				}
 			}
 		}
