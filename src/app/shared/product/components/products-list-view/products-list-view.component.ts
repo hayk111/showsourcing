@@ -54,7 +54,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 		{ title: 'Price', type: 'price', sortBy: 'price.value', width: 50 },
 		{ title: 'MOQ', type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50 },
 		{ title: 'FAV', type: 'rating', sortBy: 'favorite', width: 15 },
-		{ title: 'Status', type: 'status', sortBy: 'status.name', width: 85 },
+		{ title: 'Status', type: 'status', sortBy: 'status.status.name', width: 85 },
 		{ title: 'Created on', type: 'creationDate', sortBy: 'creationDate', width: 120 }
 	];
 

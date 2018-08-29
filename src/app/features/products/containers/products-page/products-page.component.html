@@ -51,6 +51,9 @@
 						<p *ngIf="currentSort.sortBy === 'favorite'" class="flex">Sort By Favorite
 							<ng-container *ngTemplateOutlet="direction"></ng-container>
 						</p>
+						<p *ngIf="currentSort.sortBy === 'status.status.name'" class="flex">Sort By Status
+							<ng-container *ngTemplateOutlet="direction"></ng-container>
+						</p>
 						<p *ngIf="currentSort.sortBy === 'creationDate'" class="flex">Sort By Created On
 							<ng-container *ngTemplateOutlet="direction"></ng-container>
 						</p>
@@ -90,6 +93,12 @@
 			<context-menu-item-app (click)="sortFromMenu('favorite')" class="menu-item">
 				Favorite
 				<ng-container *ngIf="currentSort.sortBy === 'favorite'">
+					<ng-container *ngTemplateOutlet="direction"></ng-container>
+				</ng-container>
+			</context-menu-item-app>
+			<context-menu-item-app (click)="sortFromMenu('status.status.name')" class="menu-item">
+				Status
+				<ng-container *ngIf="currentSort.sortBy === 'status.status.name'">
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
 				</ng-container>
 			</context-menu-item-app>
