@@ -12,7 +12,8 @@ import {
 	HostBinding,
 	ContentChild,
 	Renderer2,
-	ElementRef
+	ElementRef,
+	AfterViewInit
 } from '@angular/core';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { Price, Product, ProductVote } from '~models';
@@ -24,7 +25,7 @@ import { UserService } from '~global-services';
 	styleUrls: ['./kanban-item-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KanbanItemCardComponent implements OnInit {
+export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 
 	/** The main title */
 	@Input() title: string;
@@ -104,6 +105,12 @@ export class KanbanItemCardComponent implements OnInit {
 					this.thumbsName = 'thumbs-down-background';
 				}
 			}
+		}
+	}
+
+	ngAfterViewInit() {
+		if (this.checked && this.highlightOnChecked) {
+			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
 		}
 	}
 

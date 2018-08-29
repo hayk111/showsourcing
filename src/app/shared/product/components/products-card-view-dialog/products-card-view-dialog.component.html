@@ -3,6 +3,7 @@
        class="item">
     <kanban-item-card-app class="marginSmall" [title]="product.name"
       [status]="product.status?.name"
+      [checked]="isSelected(product)"
       [favorite]="product.favorite"
       [tags]="product.tags"
       [price]="product.price"

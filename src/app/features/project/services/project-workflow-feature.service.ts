@@ -98,20 +98,59 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	}
 
 	/**
-	 * Associate products to projects.
+	 * Manage products to projects relationships.
+	 */
+	manageProjectsToProductsAssociations(projects: Project[], selectedProducts: Product[], unselectedProducts: Product[]) {
+		const requests = [];
+
+		if (selectedProducts && selectedProducts.length > 0) {
+			requests.push(this.addProjectsToProducts(projects, selectedProducts));
+		}
+		if (unselectedProducts && unselectedProducts.length > 0) {
+			requests.push(this.removeProjectsToProducts(projects, unselectedProducts));
+		}
+
+		return (requests.length > 0) ? forkJoin(requests) : of();
+	}
+
+	/**
+	 * Associate projects to products.
 	 */
 	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
 		return forkJoin(products.map(prod => this.addProjectsToOneProduct(addedProjects, prod)));
 	}
 
+	/**
+	 * Associate projects for one product.
+	 */
 	private addProjectsToOneProduct(addedProjects: Project[], product: Product) {
 		// mapping current projects to only have the ids
 		addedProjects = Array.from(addedProjects, project => ({ id: project.id }));
-		const projects: Project[] = Array.from(product.projects, project => ({ id: project.id }));
+		const projects: Project[] = Array.from(product.projects ? product.projects : [], project => ({ id: project.id }));
 		// removing duplicates
 		addedProjects = addedProjects.filter(project => !projects.some(p => p.id === project.id));
 
 		projects.push(...addedProjects);
+		return this.update({ id: product.id, projects }, ['projects { id }']);
+	}
+
+	/**
+	 * Deassociate projects to products.
+	 */
+	removeProjectsToProducts(removedProjects: Project[], products: Product[]): Observable<Product[]> {
+		return forkJoin(products.map(prod => this.removeProjectsToOneProduct(removedProjects, prod)));
+	}
+
+	/**
+	 * Deassociate projects for one product.
+	 */
+	private removeProjectsToOneProduct(removedProjects: Project[], product: Product) {
+		// mapping current projects to only have the ids
+		removedProjects = Array.from(removedProjects, project => ({ id: project.id }));
+		let projects: Project[] = Array.from(product.projects ? product.projects : [], project => ({ id: project.id }));
+		// removing
+		projects = projects.filter(project => !removedProjects.some(p => p.id === project.id));
+
 		return this.update({ id: product.id, projects }, ['projects { id }']);
 	}
 
