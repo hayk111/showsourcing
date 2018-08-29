@@ -16,10 +16,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityListComponent extends AutoUnsub implements OnInit {
-	@Input() feedName: string[];
-	@Input() feeds$: Observable<GetStreamResult[]>;
-	private page$ = new BehaviorSubject(0);
-	private page: number;
+	@Input() feedResult: GetStreamResult[];
 
 	constructor(
 		private productSrv: ProductService,
@@ -42,7 +39,7 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore() {
-		this.page$.next(++this.page);
+		// this.page$.next(++this.page);
 	}
 
 	updateProduct(product: Product) {
