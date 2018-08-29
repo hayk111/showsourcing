@@ -1,10 +1,10 @@
-<badge-app #badge [size]="size" [type]="getType" *ngIf="status; else noStatus">
+<badge-app #badge [size]="size" [type]="getType" *ngIf="status; else noStatus" [round]="round">
 	{{ status?.step !== null ? status?.step+'. ' : '' }}{{ status?.name | const: 'status':'name' }}
 	<div class="selector" *ngIf="hasArrow"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
 </badge-app>
 
 <ng-template #noStatus>
-	<badge-app #badge [size]="size" [type]="getType">
-		NEW {{ typeEntity?.singular?.toUpperCase() }}
+	<badge-app #badge class="no-status" [size]="size" [type]="getType" [round]="round">
+		New {{ typeEntity?.singular }}
 	</badge-app>
 </ng-template>

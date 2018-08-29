@@ -22,18 +22,11 @@
 			</div>
 			<!-- image previewer -->
 			<image-previewer-app
-				*ngIf="supplier?.images?.length > 0; else noImg"
+				*ngIf="supplier?.images?.length > 0"
 				size="76"
 				[hasAdd]="false"
 				[images]="supplier?.images">
 			</image-previewer-app>
-				<!-- no image -->
-			<ng-template #noImg>
-				<div class="flexColumn flexCenter empty">
-					<img [src]="defaultImg"/>
-					<span>No pictures yet</span>
-				</div>
-			</ng-template>
 		</div>
 
 		<card-footer-app>
