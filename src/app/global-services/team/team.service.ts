@@ -47,7 +47,6 @@ export class TeamService extends GlobalService<Team> {
 		protected authSrv: AuthenticationService
 	) {
 		super(apollo, TeamQueries, 'team', 'teams');
-		log.debug('team service constructor');
 	}
 
 	init() {

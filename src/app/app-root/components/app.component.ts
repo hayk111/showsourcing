@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
 		this.authSrv.init();
 		this.globalClients.init();
 		this.userClient.init();
-		// team srv needs to be initialized after the user client
 		this.teamSrv.init();
 		this.teamClient.init();
 	}

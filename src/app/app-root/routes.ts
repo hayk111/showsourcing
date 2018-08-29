@@ -16,8 +16,9 @@ import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
-import { ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { USER_CLIENT, TEAM_CLIENT, GUEST_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 import { ClientReadyGuard } from '~shared/apollo/guards';
+import { ApolloStateService } from '~shared/apollo';
 
 export const routes: Array<Route> = [
 	{
@@ -34,9 +35,10 @@ export const routes: Array<Route> = [
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
+		data: { neededClients: [USER_CLIENT] },
 		canActivateChild: [
 			AuthGuardService,
-			{ provides: ClientReadyGuard, deps: [{ provides: 'clientName', useValue: ALL_USER_CLIENT }] },
+			ClientReadyGuard
 		],
 		children: [
 			{ path: 'create-a-team', component: CreateATeamPageComponent },
@@ -46,8 +48,10 @@ export const routes: Array<Route> = [
 	{
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
-		runGuardsAndResolvers: 'paramsChange',
-		canActivateChild: [],
+		data: { neededClients: [GUEST_CLIENT] },
+		canActivateChild: [
+			ClientReadyGuard
+		],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 		],
@@ -55,11 +59,10 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
+		data: { neededClients: [TEAM_CLIENT] },
 		canActivateChild: [
-			// ClientGuards.GloabalClientsReadyGuardService,
 			AuthGuardService,
-			{ provides: ClientReadyGuard, deps: [{ provides: 'clientName', useValue: ALL_USER_CLIENT }] },
-
+			ClientReadyGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },

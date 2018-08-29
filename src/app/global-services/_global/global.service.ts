@@ -72,6 +72,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	selectOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+
 		const title = 'Selecting One ' + this.typeName;
 		// fields will either be the ones given by fields, or if none is supplied it will take the one
 		// from TypeQuery.one
@@ -113,7 +114,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
-		console.trace();
 		const title = 'Query one ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryOne(fields);

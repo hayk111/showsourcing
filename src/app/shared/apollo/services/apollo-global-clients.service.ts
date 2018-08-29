@@ -6,7 +6,7 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { TokenService } from '~features/auth/services/token.service';
 import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils';
-import { filter, first, distinctUntilChanged, switchMap, merge, concat, combineLatest } from 'rxjs/operators';
+import { filter, first, distinctUntilChanged, switchMap, merge, concat, combineLatest, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
 import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
@@ -46,15 +46,19 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 
 		// when new refreshToken, get accessToken for each of those clients
 		refreshToken$.pipe(
+			tap(_ => {
+				this.apolloState.setClientPending(ALL_USER_CLIENT);
+				this.apolloState.setClientPending(GLOBAL_CONSTANT_CLIENT);
+				this.apolloState.setClientPending(GLOBAL_DATA_CLIENT);
+			}),
 			switchMap(refreshToken => forkJoin([
 				this.tokenSrv.getAccessToken(refreshToken, ALL_USER_CLIENT),
 				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_CONSTANT_CLIENT),
 				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_DATA_CLIENT)
-			]))).subscribe(tokens => {
-				debugger;
-				// this.initClient(`${environment.graphqlUrl}/${ALL_USER_CLIENT}`, accessTokens[0].token, ALL_USER_CLIENT);
-				// this.initClient(`${environment.graphqlUrl}/${GLOBAL_CONSTANT_CLIENT}`, accessTokens[1].token, GLOBAL_CONSTANT_CLIENT);
-				// this.initClient(`${environment.graphqlUrl}/${GLOBAL_DATA_CLIENT}`, accessTokens[2].token, GLOBAL_DATA_CLIENT);
+			]))).subscribe((accessTokens: TokenState[]) => {
+				this.initClient(`${environment.graphqlUrl}/${ALL_USER_CLIENT}`, accessTokens[0].token, ALL_USER_CLIENT);
+				this.initClient(`${environment.graphqlUrl}/${GLOBAL_CONSTANT_CLIENT}`, accessTokens[1].token, GLOBAL_CONSTANT_CLIENT);
+				this.initClient(`${environment.graphqlUrl}/${GLOBAL_DATA_CLIENT}`, accessTokens[2].token, GLOBAL_DATA_CLIENT);
 			});
 
 	}

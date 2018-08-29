@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter, tap, map } from 'rxjs/operators';
-import { log } from '~utils';
+import { log, LogColor } from '~utils';
 
 export interface AllClientState {
 	[key: string]: State;
@@ -14,6 +14,7 @@ export interface State {
 
 export enum ClientStatus {
 	NOT_INITIALIZED = 'not initialized',
+	PENDING = 'pending',
 	DESTROYED = 'destroyed, Brrrr BOOOM',
 	READY = 'ready',
 	ERROR = 'error'
@@ -34,7 +35,7 @@ export class ApolloStateService {
 
 	getClientStatus(name: string): Observable<ClientStatus> {
 		return this.clientsReady$.pipe(
-			map(state => state[name].clientStatus)
+			map(state => state[name] ? state[name].clientStatus : ClientStatus.NOT_INITIALIZED)
 		);
 	}
 
@@ -52,6 +53,13 @@ export class ApolloStateService {
 		this.emit();
 	}
 
+	setClientPending(name: string) {
+		const state = { clientStatus: ClientStatus.PENDING };
+		this.clientReady[name] = state;
+		this.log(name, state);
+		this.emit();
+	}
+
 	destroyClient(name: string) {
 		const state = { clientStatus: ClientStatus.DESTROYED };
 		this.clientReady[name] = state;
@@ -59,12 +67,13 @@ export class ApolloStateService {
 		this.emit();
 	}
 
+
 	private emit() {
 		this._clientsReady$.next(this.clientReady);
 	}
 
 	private log(str: string, state: State) {
-		log.debug(`%c Apollo Client State: ${str} client, state: ${state.clientStatus}, error: ${state.error || 'none'}`);
+		log.debug(`%c Apollo Client State: ${str} client, state: ${state.clientStatus}, error: ${state.error || 'none'}`, 'color: tomato');
 	}
 
 }

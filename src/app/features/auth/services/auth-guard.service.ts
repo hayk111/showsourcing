@@ -26,7 +26,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 	}
 
 	redirectOnUnAuthenticated(status: AuthStatus) {
-		debugger;
 		switch (status) {
 			case AuthStatus.NOT_AUTHENTICATED:
 				this.router.navigate(['guest', 'login']);

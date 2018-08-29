@@ -27,7 +27,7 @@ export class UserService extends GlobalService<User> {
 
 	selectUser() {
 		return this.apolloState.getClientStatus(USER_CLIENT).pipe(
-			filter(status => status !== ClientStatus.READY),
+			filter(status => status === ClientStatus.READY),
 			switchMap(_ => this.authSrv.userId$.pipe(first())),
 			distinctUntilChanged(),
 			switchMap(id => this.selectOne(id))
