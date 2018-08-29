@@ -30,8 +30,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 	init(): void {
 		// when there is a refreshToken we start the client
 		this.tokenSrv.refreshToken$.pipe(
-			distinctUntilChanged(),
-			filter(token => !!token),
+			distinctUntilChanged(), filter(token => !!token),
+
 			tap(_ => this.apolloState.setClientPending(USER_CLIENT)),
 			// first we need to get an accessToken
 			switchMap(token => this.tokenSrv.getAccessToken(token, USER_CLIENT)),
@@ -65,7 +65,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		// then we can query the user, and with that user we can get the realm uri...
 		// (wasn't my choice)
 		return forkJoin([allUserClientReady$, globalConstClientReady$]).pipe(
-			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', ALL_USER_CLIENT)),
+			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', ALL_USER_CLIENT).pipe(first())),
 			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 		);
 	}

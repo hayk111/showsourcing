@@ -614,7 +614,8 @@ Deleting everything.. so watchout. `);
 	/** logs events to the console */
 	private log(type: string, gql: DocumentNode, queryName: string, client: string, variables?: any) {
 		// logging for each request
-		log.group(`%c ${type}, queryName: ${queryName}, on client: ${client}`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.debug(`%c client: ${client}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
 		log.debug(`%c ${this.getQueryBody(gql)}`, 'color: #555555');

@@ -13,11 +13,16 @@ export interface State {
 }
 
 export enum ClientStatus {
-	NOT_INITIALIZED = 'not initialized',
+	// at the start, when no action has been taken on it
+	NOT_INITIALIZED = 'not initialized, pending',
+	// we start the process of making it ready
 	PENDING = 'pending',
-	DESTROYED = 'destroyed, Brrrr BOOOM',
+	// it is ready
 	READY = 'ready',
-	ERROR = 'error'
+	// an error has been thrown during the connection process
+	ERROR = 'error',
+	// we destroyed the client
+	DESTROYED = 'destroyed, Brrrr BOOOM'
 }
 
 /**
