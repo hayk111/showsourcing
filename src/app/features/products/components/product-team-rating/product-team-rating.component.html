@@ -28,7 +28,6 @@
 			<card-footer-app>
 				<thumb-buttons-app
 					size="m"
-					[products]="products"
 					[votes]="votes"
 					[hasText]="true"
 					(vote)="vote.emit({votes: $event})">
@@ -47,7 +46,6 @@
 		<card-footer-app>
 			<thumb-buttons-app
 				size="m"
-				[products]="products"
 				[votes]="votes"
 				[hasText]="true"
 				(vote)="vote.emit({votes: $event})">

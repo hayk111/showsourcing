@@ -8,7 +8,6 @@
 			<product-grid-card-app
 				[product]="product"
 				[selection]="selection"
-				[favorite]="product?.favorite"
 				(productFavorite)="favorited.emit(product.id)"
 				(productUnfavorite)="unfavorited.emit(product.id)"
 				(productSelect)="select.emit(product)"

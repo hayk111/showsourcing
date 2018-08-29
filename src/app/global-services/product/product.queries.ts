@@ -27,8 +27,8 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
 	static readonly statushistory = `statushistory { id, cancelled, status { id, name, category, step, inWorkflow } }`;
 	static readonly tags = `tags { id, name }`;
-	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
-	static readonly createdBy = `createdBy { id, firstName, lastName }`;
+	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName } } }`;
+	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 
