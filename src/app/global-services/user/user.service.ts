@@ -5,7 +5,7 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
 import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({
@@ -26,10 +26,9 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectUser() {
-		return this.apolloState.clientsReady$.pipe(
-			filter(state => state.ready),
-			switchMap(_ => this.authSrv.authState$.pipe(first())),
-			map(authState => authState.userId),
+		return this.apolloState.getClientStatus(USER_CLIENT).pipe(
+			filter(status => status !== ClientStatus.READY),
+			switchMap(_ => this.authSrv.userId$.pipe(first())),
 			distinctUntilChanged(),
 			switchMap(id => this.selectOne(id))
 		);

@@ -11,8 +11,9 @@ import { TeamQueries } from '~global-services/team/team.queries';
 import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloStateService, ClientState } from '~shared/apollo/services/apollo-state.service';
+import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
 
 // name in local storage
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -54,8 +55,8 @@ export class TeamService extends GlobalService<Team> {
 		// when we created this service the user client could be undefined
 		// because the team service is injected in guards
 		// 1. when the user client is ready we get the user's teams
-		this.teams$ = this.apolloState.getClientState(USER_CLIENT).pipe(
-			filter(state => state === ClientState.READY),
+		this.teams$ = this.apolloState.getClientStatus(USER_CLIENT).pipe(
+			filter(state => state === ClientStatus.READY),
 			switchMap(_ => this.selectAll()),
 		);
 
@@ -67,8 +68,8 @@ export class TeamService extends GlobalService<Team> {
 		).subscribe(this._selectedTeam$);
 
 		// when logging out let's clear the current selected team
-		this.authSrv.authState$.subscribe(authState => {
-			if (!authState.authenticated)
+		this.authSrv.authStatus$.subscribe(status => {
+			if (status === AuthStatus.NOT_AUTHENTICATED)
 				this.resetSelectedTeam();
 		});
 	}

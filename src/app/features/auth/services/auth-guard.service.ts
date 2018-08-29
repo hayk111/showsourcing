@@ -5,7 +5,7 @@ import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 import { AuthModule } from '~features/auth/auth.module';
-import { AuthStatus } from '~features/auth';
+import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
 
 @Injectable({
 	providedIn: AuthModule
@@ -26,6 +26,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 	}
 
 	redirectOnUnAuthenticated(status: AuthStatus) {
+		debugger;
 		switch (status) {
 			case AuthStatus.NOT_AUTHENTICATED:
 				this.router.navigate(['guest', 'login']);

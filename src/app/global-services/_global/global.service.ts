@@ -9,6 +9,7 @@ import { ListQuery } from '~global-services/_global/list-query.interface';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
+import { TEAM_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 
 
@@ -39,7 +40,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
 	 */
-	protected defaultClient: string;
+	protected defaultClient: string = TEAM_CLIENT;
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 
@@ -112,6 +113,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+		console.trace();
 		const title = 'Query one ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
 		const gql = this.queryBuilder.queryOne(fields);

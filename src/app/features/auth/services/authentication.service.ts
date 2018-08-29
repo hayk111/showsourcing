@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import gql from 'graphql-tag';
 import { ReplaySubject, BehaviorSubject, of } from 'rxjs';
 import { map, switchMap, tap, catchError } from 'rxjs/operators';
-import { Credentials, RefreshTokenResponse, AuthStatus } from '~features/auth/interfaces';
+import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~features/auth/interfaces';
 
 import { TokenService } from '~features/auth/services/token.service';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
@@ -17,9 +17,9 @@ import { Observable } from 'rxjs';
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authStatus$ = new BehaviorSubject<AuthStatus>(AuthStatus.PENDING);
-	authStatus$ = this._authStatus$.asObservable();
-
+	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
+	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status));
+	userId$ = this._authState$.asObservable().pipe(map(state => state.userId));
 
 	constructor(
 		private tokenSrv: TokenService,
@@ -31,7 +31,7 @@ export class AuthenticationService {
 		// when there is a refresh token that means we are authenticated
 		this.tokenSrv.refreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
-		).subscribe(this._authStatus$);
+		).subscribe(this._authState$);
 		// since we subscribe to the refresh token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
 		this.tokenSrv.restoreRefreshToken();
@@ -44,7 +44,7 @@ export class AuthenticationService {
 			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
 			tap(_ => this.router.navigate([''])),
 			catchError(err => {
-				this._authStatus$.next(AuthStatus.NOT_AUTHENTICATED);
+				this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 				return of(err);
 			})
 		);
@@ -64,7 +64,7 @@ export class AuthenticationService {
 
 	logout() {
 		this.tokenSrv.clearTokens();
-		this._authStatus$.next(AuthStatus.NOT_AUTHENTICATED);
+		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 		this.router.navigate(['/guest', 'login']);
 	}
 
@@ -80,8 +80,16 @@ export class AuthenticationService {
 		);
 	}
 
-	private refreshTokenToAuthState(tokenState: TokenState): AuthStatus {
-		return tokenState ? AuthStatus.AUTHENTICATED : AuthStatus.NOT_AUTHENTICATED;
+	private refreshTokenToAuthState(tokenState: TokenState): AuthState {
+		if (tokenState) {
+			return {
+				status: AuthStatus.AUTHENTICATED,
+				userId: tokenState.token_data.identity
+			};
+		} else {
+			return {
+				status: AuthStatus.NOT_AUTHENTICATED
+			};
+		}
 	}
-
 }

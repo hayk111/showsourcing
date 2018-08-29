@@ -21,7 +21,7 @@ import { ClientReadyGuard } from '~shared/apollo/guards';
 
 export const routes: Array<Route> = [
 	{
-		path: 'join-us',
+		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [
 			UnauthGuardService
