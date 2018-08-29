@@ -87,4 +87,16 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		this.currentSort = event;
 		super.sort(event);
 	}
+
+	onViewChange(v: 'list' | 'card') {
+		super.onViewChange(v);
+		// Update sorting according to the selected view
+		if (this.view === 'list') {
+			this.currentSort = { sortBy: 'creationDate' , descending: false };
+		} else if (this.view === 'card') {
+			this.currentSort = { sortBy: 'category.name' , descending: false };
+		}
+		super.sort(this.currentSort);
+		this.cdr.detectChanges();
+	}
 }

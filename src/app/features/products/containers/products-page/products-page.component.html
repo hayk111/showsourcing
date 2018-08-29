@@ -78,25 +78,25 @@
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
 				</ng-container>
 			</context-menu-item-app>
-			<context-menu-item-app (click)="sortFromMenu('price.value')" class="menu-item">
+			<context-menu-item-app *ngIf="view === 'list'" (click)="sortFromMenu('price.value')" class="menu-item">
 				Price
 				<ng-container *ngIf="currentSort.sortBy === 'price.value'">
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
 				</ng-container>
 			</context-menu-item-app>
-			<context-menu-item-app (click)="sortFromMenu('minimumOrderQuantity')" class="menu-item">
+			<context-menu-item-app *ngIf="view === 'list'" (click)="sortFromMenu('minimumOrderQuantity')" class="menu-item">
 				MOQ
 				<ng-container *ngIf="currentSort.sortBy === 'minimumOrderQuantity'">
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
 				</ng-container>
 			</context-menu-item-app>
-			<context-menu-item-app (click)="sortFromMenu('favorite')" class="menu-item">
+			<context-menu-item-app *ngIf="view === 'list'" (click)="sortFromMenu('favorite')" class="menu-item">
 				Favorite
 				<ng-container *ngIf="currentSort.sortBy === 'favorite'">
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
 				</ng-container>
 			</context-menu-item-app>
-			<context-menu-item-app (click)="sortFromMenu('status.status.name')" class="menu-item">
+			<context-menu-item-app *ngIf="view === 'list'" (click)="sortFromMenu('status.status.name')" class="menu-item">
 				Status
 				<ng-container *ngIf="currentSort.sortBy === 'status.status.name'">
 					<ng-container *ngTemplateOutlet="direction"></ng-container>
@@ -147,6 +147,7 @@
 	<products-card-view-app
 		class="card-view"
 		*ngIf="view === 'card'"
+		[currentSort]="currentSort"
 		[rows]="products"
 		[selection]="selected$ | async"
 		(update)="update($event)"
