@@ -1,10 +1,19 @@
 import gql from 'graphql-tag';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
+import { Supplier } from '~models';
 
 
 
 export abstract class SupplierQueries extends GlobalQueries {
 
+	static readonly supplierType = `supplierType { id, name }`;
+	static readonly logoImage = `logoImage { fileName }`;
+	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName } }`;
+	static readonly statuses = `statuses { id, cancelled, status { id, name, category, step, inWorkflow } }`;
+	static readonly categories = `categories { id, name }`;
+	static readonly tags = ` tags { id, name }`;
+	static readonly images = `images { id, fileName, orientation }`;
+	static readonly contacts = `contacts { id, name, phoneNumber, email, jobTitle businessCardImage { id, fileName } }`;
 
 	static readonly one = `
 			name,
@@ -13,9 +22,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 			phoneNumber,
 			country,
 			address,
-			supplierType {
-				id, name
-			},
 			officeEmail,
 			officePhone,
 			incoTerm,
@@ -26,59 +32,14 @@ export abstract class SupplierQueries extends GlobalQueries {
 			productCount,
 			taskCount,
 			creationDate,
-			logoImage {
-				fileName
-			},
-			createdBy {
-				id,
-				lastName,
-				firstName,
-				avatar {
-					id, fileName
-				}
-			},
-			status {
-				id,
-				cancelled,
-				status {
-					id, name, category, step, inWorkflow
-				}
-			},
-			statusHistory {
-				id,
-				cancelled,
-				status {
-					id, name, category, step, inWorkflow
-				}
-			},
-			categories {
-				id,
-				name
-			},
-			supplierType {
-				id,
-				name
-			},
-			images {
-				id,
-				fileName,
-				orientation
-			},
-			tags {
-				id,
-				name
-			},
-			contacts {
-				id,
-				name,
-				phoneNumber,
-				email,
-				jobTitle
-				businessCardImage {
-					id,
-					fileName
-				}
-			}
+			${SupplierQueries.supplierType}
+			${SupplierQueries.logoImage}
+			${SupplierQueries.createdBy}
+			${SupplierQueries.statuses}
+			${SupplierQueries.categories}
+			${SupplierQueries.images}
+			${SupplierQueries.tags}
+			${SupplierQueries.contacts}
 		`;
 
 	static readonly many = `
@@ -86,41 +47,19 @@ export abstract class SupplierQueries extends GlobalQueries {
 		description,
 		country,
 		favorite,
-		tags {
-			id,
-			name
-		},
-		images {
-			id, fileName, orientation
-		},
-		categories {
-			id,
-			name
-		},
+		deleted,
 		creationDate,
-		createdBy {
-			id,
-			firstName,
-			lastName
-		}
-		productCount,
-		contacts {
-			id,
-			name,
-			phoneNumber,
-			email,
-			jobTitle
-			businessCardImage {
-				id,
-				fileName
-			}
-		}
+		productCount
+		${SupplierQueries.categories}
+		${SupplierQueries.images}
+		${SupplierQueries.tags}
+		${SupplierQueries.createdBy}
 		`;
 
 	static readonly update = `
-			id,
-			favorite
-		`;
+		id,
+		favorite
+	`;
 
 }
 

@@ -7,6 +7,7 @@ import { SelectParams } from '~global-services/_global/select-params';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Apollo } from 'apollo-angular';
+import { SupplierQueries } from '~global-services/supplier/supplier.queries';
 
 @Injectable()
 export class ProductFeatureService extends ProductService {
@@ -19,9 +20,8 @@ export class ProductFeatureService extends ProductService {
 		super(apollo, userSrv);
 	}
 
-	// TODO: this is getContacts, yet it gets a whole supplier.
 	getContacts(supplierId: string) {
-		return this.supplierSrv.queryOne(supplierId);
+		return this.supplierSrv.queryOne(supplierId, SupplierQueries.contacts);
 	}
 
 }

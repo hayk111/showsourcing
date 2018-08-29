@@ -3,10 +3,9 @@ import { User } from '~models/user.model';
 
 export interface Entity {
 	id?: string;
-	name?: string;
 }
 
-export class BaseEntity<G> implements Entity {
+export class EntityWithAudit<G> implements Entity {
 	id?: string;
 	creationDate?: string;
 	lastUpdatedDate?: string;

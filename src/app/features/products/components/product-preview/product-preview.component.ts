@@ -83,9 +83,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			map(product => new FormDescriptor(this.customFields2, product))
 		).subscribe(this.descriptor2$);
-		this.featureSrv.getContacts(this.product.supplier.id).pipe(
-			first()
-		).subscribe(supp => this.contacts = supp.contacts);
+		this.featureSrv.getContacts(this.product.supplier.id).subscribe(supp => this.contacts = supp.contacts);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and

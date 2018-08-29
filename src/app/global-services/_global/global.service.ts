@@ -8,17 +8,18 @@ import { FetchResult } from 'apollo-link';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { QueryBuilder } from '~global-services/_global/query-builder.class';
+import { Entity } from '~models';
 
 
 
 export interface GlobalServiceInterface<T> {
 	selectOne: (id: string, fields?: string | string[], client?: string) => Observable<T>;
-	queryOne: (id: string, fields?: string | string[], client?: string) => Observable<T>
+	queryOne: (id: string, fields?: string | string[], client?: string) => Observable<T>;
 	selectOneByPredicate: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
 	queryOneByPredicate: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => Observable<T[]>;
-	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => ListQuery<T>
+	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
 	update: (entity: { id?: string }, fields?: string | string[], client?: string) => Observable<T>;
 	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: string) => Observable<T[]>;
@@ -33,7 +34,7 @@ export interface GlobalServiceInterface<T> {
  * Global service that other entity service can extend to do crud operations
  * and more over graphql
  */
-export abstract class GlobalService<T extends { id?: string }> implements GlobalServiceInterface<T> {
+export abstract class GlobalService<T extends Entity> implements GlobalServiceInterface<T> {
 
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
@@ -290,7 +291,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], client = this.defaultClient): ListQuery<T> {
 		const title = 'Query List';
 		fields = this.getFields(fields, this.fields.many);
-		const gql = this.queryBuilder.queryMany(fields)
+		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = new SelectParams(paramsConfig);
 
@@ -321,21 +322,21 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 				variables: { skip },
 				updateQuery: (prev, { fetchMoreResult }) => {
 					if (!fetchMoreResult[queryName]) { return prev; }
-					this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data)
+					this.logResult(fetchMoreTitle, queryName, fetchMoreResult.data);
 					return Object.assign({}, prev, {
 						[queryName]: [...prev[queryName], ...fetchMoreResult[queryName]],
 					});
 				}
 			});
-		}
+		};
 
 		// add refetch query so we can tell apollo to that the variables have changed
 		// (will be reflected in items$)
-		const refetch = (paramsConfig: SelectParamsConfig) => {
+		const refetch = (config: SelectParamsConfig) => {
 			const refetchTitle = 'Selecting List Refetch' + this.typeName;
-			this.log(refetchTitle, gql, queryName, paramsConfig);
-			queryRef.refetch(paramsConfig);
-		}
+			this.log(refetchTitle, gql, queryName, config);
+			queryRef.refetch(config);
+		};
 
 		return { queryName, queryRef, items$, fetchMore, refetch };
 	}

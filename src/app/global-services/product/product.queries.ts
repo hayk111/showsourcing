@@ -68,6 +68,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			score,
 			minimumOrderQuantity,
 			lastUpdatedDate,
+			deleted
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
 			${ProductQueries.supplier},

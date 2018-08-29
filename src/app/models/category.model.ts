@@ -1,6 +1,6 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
-export class Category extends BaseEntity<CategoryConfig> implements CategoryConfig {
+export class Category extends EntityWithAudit<CategoryConfig> implements CategoryConfig {
 	name: string;
 }
 

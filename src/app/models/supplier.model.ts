@@ -1,12 +1,12 @@
 import { AppImage, Contact } from '~models';
 
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { Category } from '~models/category.model';
 import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
-export class Supplier extends BaseEntity<SupplierConfig> {
+export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
 	fullName?: string;
 	description?: string;

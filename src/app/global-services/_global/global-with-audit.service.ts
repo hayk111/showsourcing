@@ -3,11 +3,15 @@ import { UserService } from '~global-services';
 import { GlobalService, GlobalServiceInterface } from '~global-services/_global/global.service';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SelectParamsConfig } from '~global-services/_global/select-params';
+import { ListQuery } from '~global-services/_global/list-query.interface';
+import { EntityWithAudit } from '~models';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
  */
-export class GlobalWithAuditService<T> extends GlobalService<T> implements GlobalServiceInterface<T> {
+export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends GlobalService<T> implements GlobalServiceInterface<T> {
 
 	constructor(
 		protected apollo: Apollo,
@@ -19,17 +23,19 @@ export class GlobalWithAuditService<T> extends GlobalService<T> implements Globa
 		super(apollo, fields, sing, plural);
 	}
 
-	// /**
-	//  *
-	//  * @param id
-	//  * @param fields
-	//  * @param client
-	//  */
-	// selectOne(id: string, fields?: string | string[], client?: string): Observable<T> {
-	// 	throw Error('not implemented yet')
-	// }
-
 	/**
+	 * @inheritDoc
+	 * when using getList we want items that are not deleted
+	 */
+	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string): ListQuery<T> {
+		const result = super.getListQuery(paramsConfig, fields, client);
+		result.items$ = result.items$.pipe(
+			map(items => items.filter(item => !item.deleted))
+		);
+		return result;
+	}
+
+	/** @inheritDoc
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
 	update(entity: any, fields?: string | string[], client?: string) {
@@ -38,7 +44,7 @@ export class GlobalWithAuditService<T> extends GlobalService<T> implements Globa
 		return super.update(entity, fields, client);
 	}
 
-	/**
+	/** @inheritDoc
 	 * create on entity with an audit will add properties needed by the backend
 	 */
 	create(entity: any, fields?: string | string[], client?: string) {
@@ -49,28 +55,19 @@ export class GlobalWithAuditService<T> extends GlobalService<T> implements Globa
 		return super.create(entity, fields, client);
 	}
 
-	/**
+	/** @inheritDoc
 	 * Deletes on entity with an audit actually updates items with
 	 * a deleted flag set to true
 	 */
 	delete(id: string, client?: string) {
-		return this.update({ id, deleted: true }, client);
+		return this.update({ id, deleted: true }, 'deleted', client);
 	}
 
-	/**
+	/** @inheritDoc
 	 * Deletes on entity with an audit actually updates items with
 	 * a deleted flag set to true
 	 */
 	deleteMany(ids: string[], client?: string) {
 		return forkJoin(ids.map(id => this.delete(id, client)));
 	}
-
-	// deleteMany(ids: string[], client?: string) {
-	// 	return forkJoin(ids.map(id => this.deleteOne(id, client)));
-	// }
-
-	// deleteOne(id: string, client?: string) {
-	// 	return this.update({ id, deleted: true }, client);
-	// }
-
 }

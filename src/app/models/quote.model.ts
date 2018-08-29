@@ -1,9 +1,9 @@
 import { Price } from '~models/price.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
-export class Quote extends BaseEntity<QuoteConfig> {
+export class Quote extends EntityWithAudit<QuoteConfig> {
 	id: string;
 	status: string; // possible values: pending, done, declined
 	comment?: string;
