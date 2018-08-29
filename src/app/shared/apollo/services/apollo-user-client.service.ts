@@ -12,6 +12,7 @@ import { Observable, of, forkJoin } from 'rxjs';
 import { UserService } from '~global-services/user/user.service';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
 import { USER_CLIENT, ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { LogColor } from '~utils';
 
 
 @Injectable({ providedIn: 'root' })
@@ -30,9 +31,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 	init(): void {
 		// when there is a refreshToken we start the client
 		this.tokenSrv.refreshToken$.pipe(
-			distinctUntilChanged(), filter(token => !!token),
-
-			tap(_ => this.apolloState.setClientPending(USER_CLIENT)),
+			distinctUntilChanged(),
+			filter(token => !!token),
 			// first we need to get an accessToken
 			switchMap(token => this.tokenSrv.getAccessToken(token, USER_CLIENT)),
 			switchMap(
@@ -65,6 +65,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		// then we can query the user, and with that user we can get the realm uri...
 		// (wasn't my choice)
 		return forkJoin([allUserClientReady$, globalConstClientReady$]).pipe(
+			tap(_ => log.debug('%c Global Clients ready, starting user client', LogColor.APOLLO_CLIENT_PRE)),
 			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', ALL_USER_CLIENT).pipe(first())),
 			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 		);

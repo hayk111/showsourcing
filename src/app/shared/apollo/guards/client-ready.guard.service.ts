@@ -3,7 +3,7 @@ import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot } from '@
 import { Observable, forkJoin } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { ApolloStateService, State, ClientStatus } from '~shared/apollo';
+import { ApolloStateService, ClientStatus } from '~shared/apollo';
 import { Inject } from '@angular/core';
 import {
 	GLOBAL_CONSTANT_CLIENT, USER_CLIENT,
@@ -38,7 +38,7 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 
 	protected redirect(status: ClientStatus) {
 		switch (status) {
-			case ClientStatus.DESTROYED:
+			case ClientStatus.NOT_READY:
 				this.router.navigate(['guest', 'login']);
 				break;
 			case ClientStatus.ERROR:
@@ -113,7 +113,7 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 			case ClientStatus.ERROR:
 				this.router.navigate(['server-issue']);
 				break;
-			case ClientStatus.DESTROYED:
+			case ClientStatus.NOT_READY:
 				this.router.navigate(['user', 'pick-a-team']);
 		}
 	}

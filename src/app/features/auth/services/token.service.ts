@@ -106,7 +106,6 @@ export class TokenService {
 
 	/** gets the map of access token */
 	private getAccessTokenMap(): { [key: string]: TokenState } {
-		log.info(`%c getting access token map`, LogColor.SERVICES);
 		return this.localStorageSrv.getItem(ACCESS_TOKEN_MAP) || {};
 	}
 

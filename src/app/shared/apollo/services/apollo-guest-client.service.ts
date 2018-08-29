@@ -27,7 +27,6 @@ export class GuestClientInitializer extends AbstractApolloClient {
 	init() {
 		// when a guest access token is seen we create a guest client
 		this.tokenSrv.guestRefreshToken$.pipe(
-			tap(_ => this.apolloState.setClientPending(GUEST_CLIENT)),
 			map((guestToken: any) => ({
 				uri: this.getUri(guestToken.realm.httpsPort, guestToken.realm.host, guestToken.realm.path),
 				token: guestToken.token,

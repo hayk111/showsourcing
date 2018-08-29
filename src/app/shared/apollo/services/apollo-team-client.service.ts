@@ -33,7 +33,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			distinctUntilChanged(),
 			filter(token => !!token),
 			// first we need to get an accessToken
-			tap(_ => this.apolloState.setClientPending(TEAM_CLIENT)),
 			switchMap(token => this.tokenSrv.getAccessToken(token, TEAM_CLIENT))
 		);
 
@@ -56,7 +55,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		// when no team selected we also destroy the client
 		this.teamSrv.hasTeamSelected$.pipe(
 			filter(has => !has),
-		).subscribe(_ => this.destroyClient(TEAM_CLIENT));
+		).subscribe(_ => this.destroyClient(TEAM_CLIENT, 'no team selected'));
 
 	}
 

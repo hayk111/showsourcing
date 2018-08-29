@@ -5,7 +5,7 @@ import { environment } from 'environments/environment';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
 import { ApolloStateService } from './apollo-state.service';
-import { log } from '~utils';
+import { log, LogColor } from '~utils';
 import { filter, first, distinctUntilChanged, switchMap, merge, concat, combineLatest, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
 import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
@@ -32,6 +32,7 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		const refreshToken$ = this.tokenSrv.refreshToken$.pipe(
 			distinctUntilChanged(),
 			filter(token => !!token),
+			tap(_ => log.debug('%c refresh token received, starting global clients', LogColor.APOLLO_CLIENT_PRE))
 		);
 
 		// observable emitting when the refreshToken has been invalidated
@@ -46,11 +47,6 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 
 		// when new refreshToken, get accessToken for each of those clients
 		refreshToken$.pipe(
-			tap(_ => {
-				this.apolloState.setClientPending(ALL_USER_CLIENT);
-				this.apolloState.setClientPending(GLOBAL_CONSTANT_CLIENT);
-				this.apolloState.setClientPending(GLOBAL_DATA_CLIENT);
-			}),
 			switchMap(refreshToken => forkJoin([
 				this.tokenSrv.getAccessToken(refreshToken, ALL_USER_CLIENT),
 				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_CONSTANT_CLIENT),

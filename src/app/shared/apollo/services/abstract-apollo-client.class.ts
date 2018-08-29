@@ -36,8 +36,13 @@ export abstract class AbstractApolloClient {
 		}
 	}
 
+	protected onRefreshTokenReceived(name: string) {
+		this.apolloState.setClientPending(name);
+	}
+
 	/** resets a client */
-	protected destroyClient(clientName: string) {
+	protected destroyClient(clientName: string, reason = 'no refresh token') {
+		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
 		this.apolloState.destroyClient(clientName);
 		this.clearClient(clientName);
 	}
@@ -94,7 +99,6 @@ export abstract class AbstractApolloClient {
 	}
 
 	protected clearClient(clientName?: string) {
-		log.debug(`%c clearing client ${clientName || 'default'}`, LogColor.APOLLO_CLIENT_POST);
 		const base = this.apollo.use(clientName) || this.apollo;
 		if (!base)
 			return;
