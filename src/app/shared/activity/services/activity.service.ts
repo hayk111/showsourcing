@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
-import { forkJoin, Observable, ReplaySubject } from 'rxjs';
+import { forkJoin, Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { first, map, scan, switchMap, tap } from 'rxjs/operators';
 import { ProductService, TeamService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
+import { environment } from 'environments/environment.prod';
 
 /** some doc on API in readme next to this file */
 
@@ -39,12 +40,16 @@ export interface GetStreamActivity {
 }
 
 
-export interface GetFeedParams {
-	page$: Observable<number>;
+interface TokenResponse {
+	token: string;
 	feedName: string;
-	tokenUrl: string;
+	feedId: string;
 }
 
+export interface GetFeedResult {
+	feeds$: Observable<GetStreamResult[]>;
+	loadMore: any;
+}
 
 @Injectable({
 	providedIn: 'root'
@@ -62,31 +67,22 @@ export class ActivityService {
 		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
 	}
 
-	getDashboardFeed(page$: Observable<number>) {
+	getDashboardFeed(): GetFeedResult {
 		const teamId = this.teamSrv.selectedTeamSync.id;
-		const tokenUrl = `/feed/token/team/${teamId}`;
-		const feedName = `team:${teamId}`;
-		return this.getToken(`/feed/token/team/${teamId}`).pipe(
-			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
-		);
+		const tokenUrl = `${environment.apiUrl}/feed/token/team/${teamId}`;
+		return this.getFeed(tokenUrl);
 	}
 
-	getProductFeed(productId: string, page$: Observable<number>) {
+	getProductFeed(productId: string): GetFeedResult {
 		const teamId = this.teamSrv.selectedTeamSync.id;
 		const tokenUrl = `/feed/token/team/${teamId}/product/${productId}`;
-		const feedName = `product_flat:${productId}`;
-		return this.getToken(`/feed/token/team/${teamId}/product/${productId}`).pipe(
-			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
-		);
+		return this.getFeed(tokenUrl);
 	}
 
-	getSupplierFeed(supplierId: string, page$: Observable<number>) {
+	getSupplierFeed(supplierId: string): GetFeedResult {
 		const teamId = this.teamSrv.selectedTeamSync.id;
 		const tokenUrl = `/feed/token/team/${teamId}/supplier/${supplierId}`;
-		const feedName = `supplier_flat:${supplierId}`;
-		return this.getToken(`/feed/token/team/${teamId}/supplier/${supplierId}`).pipe(
-			switchMap(token => this.getFeed({ feedName, page$, tokenUrl }))
-		);
+		return this.getFeed(tokenUrl);
 	}
 
 	/**
@@ -94,29 +90,39 @@ export class ActivityService {
 	 * @param page$ : Observable, current page of the stream (used for pagination)
 	 * @param feedName : string, feed name we want to data from
 	 */
-	private getFeed({ page$, feedName, tokenUrl }: GetFeedParams) {
-		// gets feed token
-		return this.getToken(tokenUrl).pipe(
-			// once we have the token we can get a feed
-			switchMap(({ token }: any) => this.getFeedResult(page$, this.client, token, feedName)),
-			tap((r: any) => this.addData(r.results)),
-			map(r => r.results),
-			scan((pre, curr) => ([...pre, ...curr]), [])
+	private getFeed(tokenUrl: string): GetFeedResult {
+		const _loadMore$ = new BehaviorSubject<undefined>(undefined);
+		const loadMore = () => {
+			_loadMore$.next(undefined);
+		};
+
+		const feeds$ = _loadMore$.pipe(
+			// get back last result for infiniscroll
+			scan((pre, curr) => pre, []),
+			// get token
+			switchMap((lastResult: GetStreamResult[]) => this.getToken(tokenUrl).pipe(
+				// once we have the token we can get a feed
+				switchMap((resp: TokenResponse) => this.getFeedResult(lastResult, resp.token, resp.feedName)),
+				tap((r: any) => this.addData(r.results)),
+				map(r => r.results),
+				scan((pre, curr) => ([...pre, ...curr]), [])
+			))
 		);
+
+		return { feeds$, loadMore };
 	}
 
-	private getFeedResult(page$, client, token, feedName) {
-		return page$.pipe(
-			switchMap((page: number) => {
-				const stream = client.feed(...feedName, token);
-				// TODO : we use offset but it isn't recommended, we should use id_lt
-				return stream.get({ limit: 15, offset: page * 15 });
-			})
-		);
+	private getFeedResult(lastResult: GetStreamResult[], token: string, feedName: string): Observable<GetStreamResponse> {
+		// we have a feedname like team:id but we need to do client.feed('team', 'id');
+		const parts = feedName.split(':');
+		const stream = this.client.feed(...parts, token);
+		const id_lte = lastResult[lastResult.length - 1].id;
+		// TODO : we use offset but it isn't recommended, we should use id_lt
+		return stream.get({ limit: 15, offset: page * 15 });
 	}
 
-	private getToken(url) {
-		return this.http.get<GetStreamResponse>(url);
+	private getToken(url): Observable<TokenResponse> {
+		return this.http.get<TokenResponse>(url);
 	}
 
 

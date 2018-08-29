@@ -1,7 +1,7 @@
 
 <div class="ctnr">
 	<div class="left">
-		<activity-list-app [feedName]="feedName$ | async"></activity-list-app>
+		<activity-list-app [feeds$]="feeds$"></activity-list-app>
 		<ng-template #spinner>
 			<spinner-app></spinner-app>
 		</ng-template>

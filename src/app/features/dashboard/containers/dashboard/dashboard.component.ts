@@ -17,14 +17,14 @@ import { filter } from 'graphql-anywhere';
 	}
 })
 export class DashboardComponent implements OnInit {
-	feed$: Observable<any>;
+	feeds$: Observable<any>;
 
 	constructor(private activitySrv: ActivityService) {
 
 	}
 
 	ngOnInit() {
-		this.feed$ = this.activitySrv.getDashboardFeed(of(0));
+		this.feeds$ = this.activitySrv.getDashboardFeed(of(0));
 	}
 }
 
