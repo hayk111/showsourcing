@@ -60,6 +60,7 @@
 
 	<card-footer-app align="left" class="flexBetween">
 		<!-- here the comment component with previosu commennts loaded -->
-		<input type="text" placeholder="Leave a comment"/>
+		<input inputApp type="text" placeholder="Leave a comment"/>
+		<button *ngIf="input.focussed" class="secondary-light">Send</button>
 	</card-footer-app>
 </card-app>

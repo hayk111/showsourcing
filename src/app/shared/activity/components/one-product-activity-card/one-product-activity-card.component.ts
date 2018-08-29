@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef, ViewChild, ElementRef } from '@angular/core';
 import { Product, ERM } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
 import { DEFAULT_IMG } from '~utils';
+import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -12,6 +13,8 @@ import { DEFAULT_IMG } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OneProductActivityCardComponent implements OnInit {
+
+	@ViewChild(InputDirective) input: InputDirective;
 	@Input() product: Product;
 	@Output() update = new EventEmitter<Product>();
 

@@ -9,7 +9,7 @@
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
-	width: 656px;
+	min-width: 656px;
 	height: 490px;
 	border-radius: var(--border-radius-l);
 	background: var(--color-secondary-light);
@@ -63,5 +63,9 @@
 	}
 	.back {
 		left: 0%;
+	}
+
+	icon-app {
+		font-size: 42px;
 	}
 }
