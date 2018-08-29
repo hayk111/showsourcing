@@ -44,7 +44,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
 		);
 
-
 		combineLatest(uri$, accessToken$)
 			.subscribe(([uri, tokenState]) => this.initClient(uri, tokenState.token, TEAM_CLIENT));
 
@@ -56,7 +55,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 
 		// when no team selected we also destroy the client
 		this.teamSrv.hasTeamSelected$.pipe(
-			map(has => !has)
+			filter(has => !has),
 		).subscribe(_ => this.destroyClient(TEAM_CLIENT));
 
 	}

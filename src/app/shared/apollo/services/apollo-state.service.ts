@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { filter, tap, map } from 'rxjs/operators';
+import { filter, tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 
 export interface AllClientState {
@@ -35,7 +35,8 @@ export class ApolloStateService {
 
 	getClientStatus(name: string): Observable<ClientStatus> {
 		return this.clientsReady$.pipe(
-			map(state => state[name] ? state[name].clientStatus : ClientStatus.NOT_INITIALIZED)
+			map(state => state[name] ? state[name].clientStatus : ClientStatus.NOT_INITIALIZED),
+			distinctUntilChanged()
 		);
 	}
 

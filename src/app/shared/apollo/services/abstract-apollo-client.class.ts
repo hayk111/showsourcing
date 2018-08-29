@@ -38,6 +38,7 @@ export abstract class AbstractApolloClient {
 
 	/** resets a client */
 	protected destroyClient(clientName: string) {
+		this.apolloState.destroyClient(clientName);
 		this.clearClient(clientName);
 	}
 
@@ -52,7 +53,7 @@ export abstract class AbstractApolloClient {
 	 * gets a realm given a realm name
 	 */
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
-		return this.apollo.use(GLOBAL_CONSTANT_CLIENT).subscribe({
+		return this.apollo.use(GLOBAL_CONSTANT_CLIENT).query({
 			query: ClientInitializerQueries.selectRealmHostName,
 			variables: { query: `name == "${realmName}"` }
 		}).pipe(

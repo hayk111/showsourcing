@@ -11,15 +11,12 @@ import {
 } from '~shared/apollo/services/apollo-client-names.const';
 
 
-@Injectable({
-	providedIn: 'root'
-})
 export abstract class ClientReadyGuard implements CanActivate, CanActivateChild {
-	protected client: string;
 
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
+		protected client: string
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
@@ -32,8 +29,8 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 
 	protected checkReady(client: string): Observable<boolean> {
 		return this.apolloState.getClientStatus(client).pipe(
-			filter(status => status !== ClientStatus.PENDING),
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${client}, state: ${status}`, LogColor.GUARD)),
+			filter(status => status !== ClientStatus.PENDING),
 			tap(status => this.redirect(status)),
 			map(status => status === ClientStatus.READY)
 		);
@@ -52,24 +49,64 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 
 }
 
+@Injectable({
+	providedIn: 'root'
+})
 export class GlobalDataClientReadyGuard extends ClientReadyGuard {
-	client = GLOBAL_DATA_CLIENT;
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+	) {
+		super(router, apolloState, GLOBAL_DATA_CLIENT);
+	}
 }
 
+@Injectable({
+	providedIn: 'root'
+})
 export class GlobalConstClientReadyGuard extends ClientReadyGuard {
-	client = GLOBAL_CONSTANT_CLIENT;
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+	) {
+		super(router, apolloState, GLOBAL_CONSTANT_CLIENT);
+	}
 }
 
+@Injectable({
+	providedIn: 'root'
+})
 export class AllUserClientReadyGuard extends ClientReadyGuard {
-	client = ALL_USER_CLIENT;
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+	) {
+		super(router, apolloState, ALL_USER_CLIENT);
+	}
 }
 
+@Injectable({
+	providedIn: 'root'
+})
 export class UserClientReadyGuard extends ClientReadyGuard {
-	client = USER_CLIENT;
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+	) {
+		super(router, apolloState, USER_CLIENT);
+	}
 }
 
+@Injectable({
+	providedIn: 'root'
+})
 export class TeamClientReadyGuard extends ClientReadyGuard {
-	client = TEAM_CLIENT;
+	constructor(
+		protected router: Router,
+		protected apolloState: ApolloStateService,
+	) {
+		super(router, apolloState, TEAM_CLIENT);
+	}
 
 	redirect(status: ClientStatus) {
 		switch (status) {

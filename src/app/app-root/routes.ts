@@ -14,11 +14,10 @@ import { routes as supplierRoutes } from '~features/supplier/routes';
 import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 import { USER_CLIENT, TEAM_CLIENT, GUEST_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
-import { ClientReadyGuard, UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards';
 import { ApolloStateService } from '~shared/apollo';
+import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 
 export const routes: Array<Route> = [
 	{
