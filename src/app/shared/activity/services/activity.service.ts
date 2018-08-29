@@ -7,6 +7,7 @@ import { ProductService, TeamService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
 import { environment } from 'environments/environment.prod';
+import { TokenService } from '~features/auth';
 
 /** some doc on API in readme next to this file */
 
@@ -62,7 +63,8 @@ export class ActivityService {
 		private http: HttpClient,
 		private teamSrv: TeamService,
 		private productSrv: ProductService,
-		private commentSrv: CommentService
+		private commentSrv: CommentService,
+		private tokenSrv: TokenService
 	) {
 		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
 	}
@@ -116,21 +118,14 @@ export class ActivityService {
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
 		const parts = feedName.split(':');
 		const stream = this.client.feed(...parts, token);
-		const id_lte = lastResult[lastResult.length - 1].id;
-		// TODO : we use offset but it isn't recommended, we should use id_lt
-		return stream.get({ limit: 15, offset: page * 15 });
+		const id_lt = lastResult.length > 0 ? lastResult[lastResult.length - 1].id : undefined;
+		return stream.get({ limit: 15, id_lt });
 	}
 
 	private getToken(url): Observable<TokenResponse> {
 		return this.http.get<TokenResponse>(url);
 	}
 
-
-	// loadMore(feed: GetStreamResponse) {
-	// 	return this.http.get('https://api.stream-io-api.com' + feed.next).pipe(
-	// 		tap((r: any) => this.addData(r.results))
-	// 	);
-	// }
 
 	/**
    *

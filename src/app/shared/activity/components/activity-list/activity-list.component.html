@@ -1,5 +1,5 @@
 
-<ng-container *ngIf="feeds$ | async as feeds; else spinner">
+<ng-container *ngIf="feedResult.feeds$ | async as feeds; else spinner">
   <ng-container *ngFor="let feed of feeds">
 
     <ng-container [ngSwitch]="feed.verb">

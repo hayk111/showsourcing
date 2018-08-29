@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { GetStreamResult, ActivityService } from '~shared/activity/services/activity.service';
+import { GetStreamResult, ActivityService, GetFeedResult } from '~shared/activity/services/activity.service';
 import { Product, Comment } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
@@ -16,7 +16,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityListComponent extends AutoUnsub implements OnInit {
-	@Input() feedResult: GetStreamResult[];
+	@Input() feedResult: GetFeedResult;
 
 	constructor(
 		private productSrv: ProductService,
