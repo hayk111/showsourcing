@@ -5,6 +5,7 @@ import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 import { AuthModule } from '~features/auth/auth.module';
+import { AuthStatus } from '~features/auth';
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
@@ -17,17 +18,16 @@ export class UnauthGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.authSrv.authState$.pipe(
-			map(authState => authState.authenticated),
-			distinctUntilChanged(),
-			tap(authenticated => this.redirectOnAuthenticated(authenticated)),
-			tap(authenticated => log.debug('%c unauth guard: authenticated ?', LogColor.GUARD, authenticated)),
-			map(authenticated => !authenticated),
+		return this.authSrv.authStatus$.pipe(
+			filter(status => status !== AuthStatus.PENDING),
+			tap(status => this.redirectOnAuthenticated(status)),
+			tap(status => log.debug('%c unauth guard status :', LogColor.GUARD, status)),
+			map(status => status === AuthStatus.NOT_AUTHENTICATED),
 		);
 	}
 
-	redirectOnAuthenticated(authenticated: boolean) {
-		if (authenticated)
+	redirectOnAuthenticated(authStatus: AuthStatus) {
+		if (authStatus === AuthStatus.AUTHENTICATED)
 			this.router.navigate(['']);
 	}
 

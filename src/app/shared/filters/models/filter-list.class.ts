@@ -31,7 +31,7 @@ export class FilterList {
 	 * byType.get(FilterType.SUPPLIER).has(10)
 	 */
 	private _byType: Map<FilterType, Map<any, Filter>>;
-	asByType() { return this._byType }
+	asByType() { return this._byType; }
 
 	/**
 	 * Returns the filters as a query usable by apollo client

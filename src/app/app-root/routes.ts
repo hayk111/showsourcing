@@ -17,6 +17,7 @@ import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue
 import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
 import { ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { ClientReadyGuard } from '~shared/apollo/guards';
 
 export const routes: Array<Route> = [
 	{
@@ -46,10 +47,7 @@ export const routes: Array<Route> = [
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
 		runGuardsAndResolvers: 'paramsChange',
-		canActivateChild: [
-			GloabalClientsReadyGuardService,
-			GuestClientReadyGuardService
-		],
+		canActivateChild: [],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 		],
@@ -59,10 +57,9 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			// ClientGuards.GloabalClientsReadyGuardService,
-			// AuthGuardService,
-			// ClientGuards.UserClientReadyGuardService,
-			// HasTeamSelectedGuard,
-			// ClientGuards.TeamClientReadyGuardService
+			AuthGuardService,
+			{ provides: ClientReadyGuard, deps: [{ provides: 'clientName', useValue: ALL_USER_CLIENT }] },
+
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },

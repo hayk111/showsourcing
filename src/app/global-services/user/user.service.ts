@@ -26,7 +26,7 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectUser() {
-		return this.apolloState.userClientReady$.pipe(
+		return this.apolloState.clientsReady$.pipe(
 			filter(state => state.ready),
 			switchMap(_ => this.authSrv.authState$.pipe(first())),
 			map(authState => authState.userId),

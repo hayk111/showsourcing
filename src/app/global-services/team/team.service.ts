@@ -11,7 +11,7 @@ import { TeamQueries } from '~global-services/team/team.queries';
 import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
+import { ApolloStateService, ClientState } from '~shared/apollo/services/apollo-state.service';
 import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 
 // name in local storage
@@ -54,12 +54,8 @@ export class TeamService extends GlobalService<Team> {
 		// when we created this service the user client could be undefined
 		// because the team service is injected in guards
 		// 1. when the user client is ready we get the user's teams
-		this.teams$ = this.apolloState.userClientReady$.pipe(
-			filter(state => state.ready),
-			// we want to recheck only when the list of team change, not when one is mutated
-			// therefor we can check if ids in both teams are the same.
-			// usually the order won't change so this check should be enough
-			distinctUntilChanged(),
+		this.teams$ = this.apolloState.getClientState(USER_CLIENT).pipe(
+			filter(state => state === ClientState.READY),
 			switchMap(_ => this.selectAll()),
 		);
 

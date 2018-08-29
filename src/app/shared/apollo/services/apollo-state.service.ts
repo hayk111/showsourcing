@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, tap, map } from 'rxjs/operators';
 import { log } from '~utils';
 
 export interface AllClientState {
@@ -8,11 +8,11 @@ export interface AllClientState {
 }
 
 export interface State {
-	clientState: ClientState;
+	clientStatus: ClientStatus;
 	error?: any;
 }
 
-export enum ClientState {
+export enum ClientStatus {
 	NOT_INITIALIZED = 'not initialized',
 	DESTROYED = 'destroyed, Brrrr BOOOM',
 	READY = 'ready',
@@ -30,25 +30,30 @@ export class ApolloStateService {
 
 	private clientReady: AllClientState = {};
 	private _clientsReady$ = new ReplaySubject<AllClientState>(1);
-	clientsReady$ = this._clientsReady$.asObservable();
+	private clientsReady$ = this._clientsReady$.asObservable();
 
+	getClientStatus(name: string): Observable<ClientStatus> {
+		return this.clientsReady$.pipe(
+			map(state => state[name].clientStatus)
+		);
+	}
 
 	setClientReady(name: string) {
-		const state = { clientState: ClientState.READY };
+		const state = { clientStatus: ClientStatus.READY };
 		this.clientReady[name] = state;
 		this.log(name, state);
 		this.emit();
 	}
 
 	setClientError(name: string) {
-		const state = { clientState: ClientState.ERROR };
+		const state = { clientStatus: ClientStatus.ERROR };
 		this.clientReady[name] = state;
 		this.log(name, state);
 		this.emit();
 	}
 
 	destroyClient(name: string) {
-		const state = { clientState: ClientState.DESTROYED };
+		const state = { clientStatus: ClientStatus.DESTROYED };
 		this.clientReady[name] = state;
 		this.log(name, state);
 		this.emit();
@@ -59,7 +64,7 @@ export class ApolloStateService {
 	}
 
 	private log(str: string, state: State) {
-		log.debug(`%c Apollo Client State: ${str} client, state: ${state.clientState}, error: ${state.error || 'none'}`);
+		log.debug(`%c Apollo Client State: ${str} client, state: ${state.clientStatus}, error: ${state.error || 'none'}`);
 	}
 
 }
