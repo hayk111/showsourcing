@@ -8,10 +8,12 @@ import { ApolloStateService } from './apollo-state.service';
 import { log, LogColor } from '~utils';
 import { filter, first, distinctUntilChanged, switchMap, merge, concat, combineLatest, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
-import { ALL_USER_CLIENT, GLOBAL_CONSTANT_CLIENT, GLOBAL_DATA_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { mergeMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
+import { AuthStatus } from '~features/auth';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 
 
@@ -23,40 +25,40 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected tokenSrv: TokenService,
 		protected httpLink: HttpLink,
+		protected authSrv: AuthenticationService
 	) {
 		super(apollo, httpLink, apolloState);
 	}
 
 	init() {
-		// observable emitting when a new VALID refresh token has been emitted
-		const refreshToken$ = this.tokenSrv.refreshToken$.pipe(
-			distinctUntilChanged(),
-			filter(token => !!token),
-			tap(_ => log.debug('%c refresh token received, starting global clients', LogColor.APOLLO_CLIENT_PRE))
-		);
+		this.checkNotAlreadyInit();
 
-		// observable emitting when the refreshToken has been invalidated
-		const noRefreshToken$ = this.tokenSrv.refreshToken$.pipe(
+		const allUserUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.ALL_USER)}`;
+		const globalConstUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.GLOBAL_CONSTANT)}`;
+		const globalDataUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.GLOBAL_DATA)}`;
+
+		// when accessToken for each of those clients,
+		// will wait for user authentication..
+		this.tokenSrv.getAccessToken(Client.ALL_USER).pipe(
+			first()
+		).subscribe(token => this.initClient(allUserUri, Client.ALL_USER, token));
+		this.tokenSrv.getAccessToken(Client.GLOBAL_CONSTANT).pipe(
+			first()
+		).subscribe(token => this.initClient(globalConstUri, Client.GLOBAL_CONSTANT, token));
+		this.tokenSrv.getAccessToken(Client.GLOBAL_DATA).pipe(
+			first()
+		).subscribe(token => this.initClient(globalDataUri, Client.GLOBAL_DATA, token));
+
+
+		// destroy clients when unauthenticated
+		this.authSrv.authStatus$.pipe(
 			distinctUntilChanged(),
-			filter(token => !token),
+			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		).subscribe(_ => {
-			this.destroyClient(ALL_USER_CLIENT);
-			this.destroyClient(GLOBAL_CONSTANT_CLIENT);
-			this.destroyClient(GLOBAL_DATA_CLIENT);
+			this.destroyClient(Client.ALL_USER);
+			this.destroyClient(Client.GLOBAL_CONSTANT);
+			this.destroyClient(Client.GLOBAL_DATA);
 		});
-
-		// when new refreshToken, get accessToken for each of those clients
-		refreshToken$.pipe(
-			switchMap(refreshToken => forkJoin([
-				this.tokenSrv.getAccessToken(refreshToken, ALL_USER_CLIENT),
-				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_CONSTANT_CLIENT),
-				this.tokenSrv.getAccessToken(refreshToken, GLOBAL_DATA_CLIENT)
-			]))).subscribe((accessTokens: TokenState[]) => {
-				this.initClient(`${environment.graphqlUrl}/${ALL_USER_CLIENT}`, accessTokens[0].token, ALL_USER_CLIENT);
-				this.initClient(`${environment.graphqlUrl}/${GLOBAL_CONSTANT_CLIENT}`, accessTokens[1].token, GLOBAL_CONSTANT_CLIENT);
-				this.initClient(`${environment.graphqlUrl}/${GLOBAL_DATA_CLIENT}`, accessTokens[2].token, GLOBAL_DATA_CLIENT);
-			});
-
 	}
 }
 

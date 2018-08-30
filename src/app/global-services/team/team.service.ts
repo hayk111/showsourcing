@@ -12,8 +12,9 @@ import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
-import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
+import { Router } from '@angular/router';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 // name in local storage
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -25,17 +26,16 @@ const SELECTED_TEAM_ID = 'selected-team-id';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
-	defaultClient = USER_CLIENT;
+	defaultClient = Client.USER;
 
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
-		// we only need the team when it's not undefined
 		filter(team => !!team),
 		shareReplay(1),
 	);
-	hasTeamSelected$ = this._selectedTeam$.asObservable().pipe(
-		map(team => !!team)
+	hasTeamSelected$ = this._selectedTeamId$.asObservable().pipe(
+		map(team => !!team),
 	);
 	teams$: Observable<Team[]>;
 
@@ -54,7 +54,7 @@ export class TeamService extends GlobalService<Team> {
 		// when we created this service the user client could be undefined
 		// because the team service is injected in guards
 		// 1. when the user client is ready we get the user's teams
-		this.teams$ = this.apolloState.getClientStatus(USER_CLIENT).pipe(
+		this.teams$ = this.apolloState.getClientStatus(Client.USER).pipe(
 			filter(state => state === ClientStatus.READY),
 			switchMap(_ => this.selectAll()),
 		);
@@ -82,10 +82,9 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 	/** picks a team, puts the selection in local storage */
-	pickTeam(team: Team): Observable<Team> {
+	pickTeam(team: Team): void {
 		this.storage.setItem(SELECTED_TEAM_ID, team.id);
 		this._selectedTeamId$.next(team.id);
-		return this._selectedTeam$.pipe();
 	}
 
 	/** restore from local storage   */

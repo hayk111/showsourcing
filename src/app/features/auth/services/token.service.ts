@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject, ReplaySubject, throwError, of } from 'rxjs';
-import { tap, catchError, switchMap, map } from 'rxjs/operators';
+import { tap, catchError, switchMap, map, shareReplay, first } from 'rxjs/operators';
 import { AccessTokenResponse } from '~features/auth/interfaces/access-token-response.interface';
 import { RefreshTokenResponse } from '~features/auth/interfaces/refresh-token-response.interface';
 import { LocalStorageService } from '~shared/local-storage';
@@ -9,6 +9,7 @@ import { AuthModule } from '~features/auth/auth.module';
 import { environment } from 'environments/environment.prod';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { log, LogColor } from '~utils';
+import { filter } from 'rxjs/operators';
 
 
 const REFRESH_TOKEN_NAME = 'REFRESH_TOKEN';
@@ -22,9 +23,8 @@ export class TokenService {
 	// timeout variable. The timeout will refresh the access token.
 	private timers: any[] = [];
 	private _refreshToken$ = new ReplaySubject<TokenState>(1);
-	refreshToken$ = this._refreshToken$.asObservable();
+	refreshToken$ = this._refreshToken$.asObservable().pipe(shareReplay(1));
 	private _guestRefreshToken$ = new ReplaySubject<TokenState>(1);
-	guestRefreshToken$ = this._guestRefreshToken$.asObservable();
 
 	constructor(
 		private localStorageSrv: LocalStorageService,
@@ -69,30 +69,35 @@ export class TokenService {
 	}
 
 	/** to get an access token from a request token */
-	getAccessToken(refreshToken: TokenState, name: string): Observable<TokenState> {
-		log.info(`%c Getting access token for ${name}`, LogColor.SERVICES);
+	getAccessToken(realmPath: string): Observable<TokenState> {
+		log.info(`%c Getting access token for ${realmPath}`, LogColor.SERVICES);
 		// if we have a valid accessToken in the local storage that's the one we return
-		if (name) {
+		if (realmPath) {
 			// if we have a valid accessToken in the local storage that's the one we return
 			const accessTokenMap = this.getAccessTokenMap();
-			const lastAccessToken = accessTokenMap[name];
+			const lastAccessToken = accessTokenMap[realmPath];
 			if (lastAccessToken && this.isValid(lastAccessToken)) {
 				return of(lastAccessToken);
 			}
 		}
-		return this.fetchAccessToken(refreshToken, name);
+		return this.fetchAccessToken(realmPath);
 	}
 
 	/** gets an access token from a refresh token and stores it */
-	private fetchAccessToken(refreshToken: TokenState, name: string): Observable<TokenState> {
-		const accessObj = {
-			app_id: '',
-			provider: 'realm',
-			data: refreshToken.token,
-		};
-		return this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj).pipe(
+	private fetchAccessToken(realmPath: string): Observable<TokenState> {
+		// getting access token from the refresh token
+		return this.refreshToken$.pipe(
+			filter(refreshToken => !!refreshToken),
+			map(refreshToken => ({
+				app_id: '',
+				provider: 'realm',
+				data: refreshToken.token,
+				// path: realmPath
+			})
+			),
+			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj)),
 			map(accessTokenResp => accessTokenResp.user_token),
-			tap(tokenState => this.storeAccessToken(tokenState, name))
+			tap(tokenState => this.storeAccessToken(tokenState, realmPath))
 		);
 	}
 

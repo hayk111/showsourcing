@@ -6,7 +6,7 @@ import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
-import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,7 +14,7 @@ import { USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 export class UserService extends GlobalService<User> {
 
 	userSync: User;
-	defaultClient = USER_CLIENT;
+	defaultClient = Client.USER;
 
 	constructor(
 		protected apollo: Apollo,
@@ -26,7 +26,7 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectUser() {
-		return this.apolloState.getClientStatus(USER_CLIENT).pipe(
+		return this.apolloState.getClientStatus(Client.USER).pipe(
 			filter(status => status === ClientStatus.READY),
 			switchMap(_ => this.authSrv.userId$.pipe(first())),
 			distinctUntilChanged(),

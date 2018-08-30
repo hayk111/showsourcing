@@ -1,7 +1,11 @@
-export const ALL_USER_CLIENT = 'all-users';
-export const GLOBAL_DATA_CLIENT = '%2Fglobal%2Fglobal-data';
-export const GLOBAL_CONSTANT_CLIENT = '%2Fglobal%2Fglobal-constants';
-export const USER_CLIENT = 'user';
-export const GUEST_CLIENT = 'guest';
-export const TEAM_CLIENT = 'TEAM';
+import { environment } from 'environments/environment';
+
+export enum Client {
+	ALL_USER = '/all-users',
+	GLOBAL_DATA = '/global/global-data',
+	GLOBAL_CONSTANT = '/global/global-constants',
+	USER = '/user',
+	GUEST = 'guest',
+	TEAM = '/team',
+}
 

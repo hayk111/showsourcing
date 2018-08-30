@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter, tap, map, distinctUntilChanged } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
+import { Router } from '@angular/router';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 export interface AllClientState {
-	[key: string]: ClientStatus;
+	[client: string]: ClientStatus;
 }
 
 
@@ -34,46 +36,69 @@ export class ApolloStateService {
 	private _clientsReady$ = new ReplaySubject<AllClientState>(1);
 	private clientsReady$ = this._clientsReady$.asObservable();
 
-	getClientStatus(name: string): Observable<ClientStatus> {
+	constructor(protected router: Router) {
+		this.clientsReady$.subscribe(all => this.redirect(all));
+	}
+
+	getClientStatus(name: Client): Observable<ClientStatus> {
 		return this.clientsReady$.pipe(
 			map(state => state[name] ? state[name] : ClientStatus.PENDING),
 			distinctUntilChanged()
 		);
 	}
 
-	setClientStatus(name: string, status: ClientStatus) {
+	setClientStatus(name: Client, status: ClientStatus) {
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
 	}
 
 
-	setClientReady(name: string) {
+	setClientReady(name: Client) {
 		const status = ClientStatus.READY;
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
 	}
 
-	setClientError(name: string) {
+	setClientError(name: Client) {
 		const status = ClientStatus.ERROR;
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
 	}
 
-	setClientPending(name: string) {
+	setClientPending(name: Client) {
 		const status = ClientStatus.PENDING;
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
 	}
 
-	destroyClient(name: string) {
+	destroyClient(name: Client) {
 		const status = ClientStatus.NOT_READY;
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
+	}
+
+	private redirect(allState: AllClientState) {
+		// when any of those has error, we redirect to server issue
+		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
+		if (hasError) {
+			this.router.navigate(['server-issue']);
+			return;
+		}
+		// when teamClient is ready we redirect to dashboard
+		if (allState[Client.TEAM] === ClientStatus.READY) {
+			this.router.navigate(['']);
+			return;
+		}
+		// when team client is not ready we redirect to select a team
+		if (allState[Client.TEAM] === ClientStatus.NOT_READY) {
+			this.router.navigate(['user', 'pick-a-team']);
+			return;
+		}
 	}
 
 	private getCurrentStatus(clientName: string): ClientStatus {

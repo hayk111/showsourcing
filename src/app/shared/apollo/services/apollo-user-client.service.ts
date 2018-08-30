@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { distinctUntilChanged, first, switchMap, map, tap } from 'rxjs/operators';
+import { forkJoin, combineLatest } from 'rxjs';
+import { filter, first, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { AuthStatus } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
-import { User } from '~models/user.model';
-import { ApolloStateService, ClientStatus } from './apollo-state.service';
-import { Apollo } from 'apollo-angular';
-import { log } from '~utils/log';
-import { filter } from 'rxjs/operators';
-import { Observable, of, forkJoin } from 'rxjs';
 import { UserService } from '~global-services/user/user.service';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
-import { USER_CLIENT, ALL_USER_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
-import { LogColor } from '~utils';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
+
+import { ApolloStateService, ClientStatus } from './apollo-state.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,6 +20,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected apollo: Apollo,
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
+		protected authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService
 	) {
@@ -29,44 +28,56 @@ export class UserClientInitializer extends AbstractApolloClient {
 	}
 
 	init(): void {
-		// when there is a refreshToken we start the client
-		this.tokenSrv.refreshToken$.pipe(
-			distinctUntilChanged(),
-			filter(token => !!token),
-			// first we need to get an accessToken
-			switchMap(token => this.tokenSrv.getAccessToken(token, USER_CLIENT)),
-			switchMap(
-				accessToken => this.getUserRealmUri(accessToken.token_data.identity),
-				(accessToken, uri) => ({ uri, token: accessToken.token })
+		super.checkNotAlreadyInit();
+		const userId$ = this.authSrv.userId$.pipe(
+			filter(id => !!id),
+			shareReplay(1)
+		);
+
+		const accessToken$ = userId$.pipe(
+			// we need one access token per user id, ence the first()
+			switchMap(userId => this.tokenSrv.getAccessToken(`user/${userId}`)
+				.pipe(first())
 			)
-		).subscribe(({ uri, token }) => this.initClient(uri, token, USER_CLIENT));
+		);
+
+		const realmUri$ = this.requiredClientsReady().pipe(
+			switchMapTo(userId$),
+			switchMap(userId => this.getUserRealmUri(userId)),
+		);
+
+		combineLatest(realmUri$, accessToken$)
+			.subscribe(([uri, token]) => super.initClient(uri, Client.USER, token));
 
 
 		// when the refreshToken is gone we close it
-		this.tokenSrv.refreshToken$.pipe(
-			distinctUntilChanged(),
-			filter(tokenState => !tokenState),
-		).subscribe(_ => this.destroyClient(USER_CLIENT));
+		this.authSrv.authStatus$.pipe(
+			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
+		).subscribe(_ => this.destroyClient(Client.USER));
 
 	}
 
-	private getUserRealmUri(userId: string) {
+	/** will emit once when all user and global constant are ready */
+	private requiredClientsReady() {
 		// we need to wait for all user client and global const client to be ready
-		const allUserClientReady$ = this.apolloState.getClientStatus(ALL_USER_CLIENT).pipe(
-			filter(status => status === ClientStatus.READY),
-			first(),
-		);
+		const allUserClientReady$ = this.apolloState
+			.getClientStatus(Client.ALL_USER).pipe(
+				filter(status => status === ClientStatus.READY),
+				first()
+			);
 
-		const globalConstClientReady$ = this.apolloState.getClientStatus(ALL_USER_CLIENT).pipe(
-			filter(status => status === ClientStatus.READY),
-			first(),
-		);
+		const globalConstClientReady$ = this.apolloState
+			.getClientStatus(Client.GLOBAL_CONSTANT).pipe(
+				filter(status => status === ClientStatus.READY),
+				first()
+			);
+		return forkJoin([allUserClientReady$, globalConstClientReady$]);
+	}
 
+	private getUserRealmUri(userId: string) {
 		// then we can query the user, and with that user we can get the realm uri...
-		// (wasn't my choice)
-		return forkJoin([allUserClientReady$, globalConstClientReady$]).pipe(
-			tap(_ => log.debug('%c Global Clients ready, starting user client', LogColor.APOLLO_CLIENT_PRE)),
-			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', ALL_USER_CLIENT).pipe(first())),
+		return this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER).pipe(
+			first(),
 			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 		);
 	}

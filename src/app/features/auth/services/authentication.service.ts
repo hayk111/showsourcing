@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
 import { ReplaySubject, BehaviorSubject, of } from 'rxjs';
-import { map, switchMap, tap, catchError } from 'rxjs/operators';
+import { map, switchMap, tap, catchError, shareReplay } from 'rxjs/operators';
 import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~features/auth/interfaces';
 
 import { TokenService } from '~features/auth/services/token.service';
@@ -18,8 +18,10 @@ export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
 	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
-	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status));
-	userId$ = this._authState$.asObservable().pipe(map(state => state.userId));
+	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status), shareReplay(1));
+	userId$ = this._authState$.asObservable().pipe(map(state => state.userId), shareReplay(1));
+	urlToRedirectOnAuth: string;
+
 
 	constructor(
 		private tokenSrv: TokenService,
@@ -32,6 +34,7 @@ export class AuthenticationService {
 		this.tokenSrv.refreshToken$.pipe(
 			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
+
 		// since we subscribe to the refresh token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
 		this.tokenSrv.restoreRefreshToken();
@@ -42,7 +45,6 @@ export class AuthenticationService {
 		const loginObj = this.getLoginObject(credentials);
 		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj).pipe(
 			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
-			tap(_ => this.router.navigate([''])),
 			catchError(err => {
 				this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 				return of(err);

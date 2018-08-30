@@ -12,12 +12,13 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
 import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
-import { GLOBAL_CONSTANT_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
 import { log, LogColor } from '~utils';
 import { ApolloStateService } from '~shared/apollo';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 export abstract class AbstractApolloClient {
-	protected clients = new Map();
+	protected initialized = false;
 
 	constructor(
 		protected apollo: Apollo,
@@ -25,23 +26,27 @@ export abstract class AbstractApolloClient {
 		protected apolloState: ApolloStateService
 	) { }
 
+
+	protected checkNotAlreadyInit() {
+		if (this.initialized) {
+			throw Error('User client already initialized');
+		}
+		this.initialized = true;
+	}
+
 	/** initialize apollo team client */
-	protected async initClient(uri: string, token: string, clientName: string) {
+	protected async initClient(uri: string, name: Client, tokenState: TokenState) {
 		try {
-			this.createClient(uri, clientName, token);
-			this.apolloState.setClientReady(clientName);
+			this.createClient(uri, name, tokenState);
+			this.apolloState.setClientReady(name);
 		} catch (e) {
 			log.error(e);
-			this.apolloState.setClientError(clientName);
+			this.apolloState.setClientError(name);
 		}
 	}
 
-	protected onRefreshTokenReceived(name: string) {
-		this.apolloState.setClientPending(name);
-	}
-
 	/** resets a client */
-	protected destroyClient(clientName: string, reason = 'no refresh token') {
+	protected destroyClient(clientName: Client, reason = 'no refresh token') {
 		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
 		this.apolloState.destroyClient(clientName);
 		this.clearClient(clientName);
@@ -58,7 +63,7 @@ export abstract class AbstractApolloClient {
 	 * gets a realm given a realm name
 	 */
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
-		return this.apollo.use(GLOBAL_CONSTANT_CLIENT).query({
+		return this.apollo.use(Client.GLOBAL_CONSTANT).query({
 			query: ClientInitializerQueries.selectRealmHostName,
 			variables: { query: `name == "${realmName}"` }
 		}).pipe(
@@ -68,21 +73,21 @@ export abstract class AbstractApolloClient {
 		);
 	}
 
-	protected createClient(wsUri: string, name?: string, token?: string) {
-		log.debug(`%c creating client ${name || 'default'}`, LogColor.APOLLO_CLIENT_PRE);
+	/** we use the path as client name.. */
+	protected createClient(uri: string, name: Client, tokenState: TokenState) {
+		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 		// Create a WebSocket link:
-		const connectionParams = (token ? { token } : undefined);
+		const connectionParams = { token: tokenState.token };
 		const ws = new WebSocketLink({
-			uri: wsUri,
+			uri,
 			options: {
 				reconnect: true,
 				connectionParams
 			}
 		});
 
-
 		const link = from([
-			// cleanTypenameLink,
+			cleanTypenameLink,
 			ws
 		]);
 
@@ -93,9 +98,6 @@ export abstract class AbstractApolloClient {
 			queryDeduplication: true
 		}, name);
 
-		// saving the client so we can clear it when logging out
-		this.clients.set(name, this.apollo.use(name));
-
 	}
 
 	protected clearClient(clientName?: string) {
@@ -103,16 +105,15 @@ export abstract class AbstractApolloClient {
 		if (!base)
 			return;
 
-		const client = base.getClient();
-		if (client)
-			client.resetStore();
+		const apolloClient = base.getClient();
+		if (apolloClient)
+			apolloClient.resetStore();
 		// the way apollo works is that for default client it's put in _client
 		// the named clients are put in a map
 		if (clientName)
 			(this.apollo as any).map.delete(clientName);
 		else
 			delete (this.apollo as any)._client;
-
 	}
 }
 

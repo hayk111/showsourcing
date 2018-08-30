@@ -9,25 +9,25 @@ import { ListQuery } from '~global-services/_global/list-query.interface';
 import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
-import { TEAM_CLIENT } from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 
 
 export interface GlobalServiceInterface<T> {
-	selectOne: (id: string, fields?: string | string[], client?: string) => Observable<T>;
-	queryOne: (id: string, fields?: string | string[], client?: string) => Observable<T>;
-	selectOneByPredicate: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
-	queryOneByPredicate: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
-	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => Observable<T[]>;
-	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => Observable<T[]>;
-	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: string) => ListQuery<T>;
-	waitForOne: (predicate: string, fields?: string | string[], client?: string) => Observable<T>;
-	update: (entity: { id?: string }, fields?: string | string[], client?: string) => Observable<T>;
-	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: string) => Observable<T[]>;
-	create: (entity: T, fields?: string | string[], client?: string) => Observable<T>;
-	createMany: (entities: T[], fields?: string | string[], client?: string) => Observable<T[]>;
-	delete: (id: string, client?: string) => Observable<any>;
-	deleteMany: (ids: string[], client?: string) => Observable<any>;
+	selectOne: (id: string, fields?: string | string[], client?: Client) => Observable<T>;
+	queryOne: (id: string, fields?: string | string[], client?: Client) => Observable<T>;
+	selectOneByPredicate: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
+	queryOneByPredicate: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
+	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
+	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
+	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
+	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
+	update: (entity: { id?: string }, fields?: string | string[], client?: Client) => Observable<T>;
+	updateMany: (entities: { id?: string }[], fields?: string | string[], client?: Client) => Observable<T[]>;
+	create: (entity: T, fields?: string | string[], client?: Client) => Observable<T>;
+	createMany: (entities: T[], fields?: string | string[], client?: Client) => Observable<T[]>;
+	delete: (id: string, client?: Client) => Observable<any>;
+	deleteMany: (ids: string[], client?: Client) => Observable<any>;
 }
 
 
@@ -40,7 +40,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
 	 */
-	protected defaultClient: string = TEAM_CLIENT;
+	protected defaultClient = Client.TEAM;
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 
@@ -171,9 +171,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOneByPredicate(predicate: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
-		const title = 'Selecting One By Query ' + this.typeName;
+		const title = 'Querying One By Query ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
-		const gql = this.queryBuilder.queryOne(fields);
+		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 		this.log(title, gql, queryName, client, variables);
@@ -182,7 +182,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName]),
+				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult(title, queryName, data)),
 				shareReplay(1)
 			);
@@ -616,6 +616,9 @@ Deleting everything.. so watchout. `);
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.debug(`%c client: ${client}`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
+		log.trace();
+		log.groupEnd();
 		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
 		log.debug(`%c ${this.getQueryBody(gql)}`, 'color: #555555');

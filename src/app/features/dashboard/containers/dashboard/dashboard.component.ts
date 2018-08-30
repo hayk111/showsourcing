@@ -6,6 +6,7 @@ import { AutoUnsub } from '~utils';
 import { TemplateService } from '~shared/template/services/template.service';
 import { TeamService } from '~global-services';
 import { map } from 'rxjs/internal/operators/map';
+import { filter } from 'graphql-anywhere';
 
 @Component({
 	selector: 'dashboard-app',

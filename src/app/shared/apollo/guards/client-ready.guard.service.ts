@@ -5,10 +5,7 @@ import { filter, map, tap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 import { ApolloStateService, ClientStatus } from '~shared/apollo';
 import { Inject } from '@angular/core';
-import {
-	GLOBAL_CONSTANT_CLIENT, USER_CLIENT,
-	GLOBAL_DATA_CLIENT, ALL_USER_CLIENT, TEAM_CLIENT
-} from '~shared/apollo/services/apollo-client-names.const';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 
 export abstract class ClientReadyGuard implements CanActivate, CanActivateChild {
@@ -16,7 +13,7 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected client: string
+		protected client: Client
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
@@ -27,27 +24,15 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 		return this.canActivate(route.parent);
 	}
 
-	protected checkReady(client: string): Observable<boolean> {
+	protected checkReady(client: Client): Observable<boolean> {
 		return this.apolloState.getClientStatus(client).pipe(
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${client}, state: ${status}`, LogColor.GUARD)),
 			filter(status => status !== ClientStatus.PENDING),
-			tap(status => this.redirect(status)),
-			map(status => status === ClientStatus.READY)
+			map(status => status === ClientStatus.READY),
 		);
 	}
-
-	protected redirect(status: ClientStatus) {
-		switch (status) {
-			case ClientStatus.NOT_READY:
-				this.router.navigate(['guest', 'login']);
-				break;
-			case ClientStatus.ERROR:
-				this.router.navigate(['server-issues']);
-				break;
-		}
-	}
-
 }
+
 
 @Injectable({
 	providedIn: 'root'
@@ -57,7 +42,7 @@ export class GlobalDataClientReadyGuard extends ClientReadyGuard {
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, GLOBAL_DATA_CLIENT);
+		super(router, apolloState, Client.GLOBAL_DATA);
 	}
 }
 
@@ -69,7 +54,7 @@ export class GlobalConstClientReadyGuard extends ClientReadyGuard {
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, GLOBAL_CONSTANT_CLIENT);
+		super(router, apolloState, Client.GLOBAL_CONSTANT);
 	}
 }
 
@@ -81,7 +66,7 @@ export class AllUserClientReadyGuard extends ClientReadyGuard {
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, ALL_USER_CLIENT);
+		super(router, apolloState, Client.ALL_USER);
 	}
 }
 
@@ -93,7 +78,7 @@ export class UserClientReadyGuard extends ClientReadyGuard {
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, USER_CLIENT);
+		super(router, apolloState, Client.USER);
 	}
 }
 
@@ -105,18 +90,9 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 	) {
-		super(router, apolloState, TEAM_CLIENT);
+		super(router, apolloState, Client.TEAM);
 	}
 
-	redirect(status: ClientStatus) {
-		switch (status) {
-			case ClientStatus.ERROR:
-				this.router.navigate(['server-issue']);
-				break;
-			case ClientStatus.NOT_READY:
-				this.router.navigate(['user', 'pick-a-team']);
-		}
-	}
 }
 
 

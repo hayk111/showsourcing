@@ -8,12 +8,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./apollo-issue-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ApolloIssuePageComponent implements OnInit {
-
-	constructor() { }
-
-	ngOnInit() {
-	}
-
+export class ApolloIssuePageComponent {
 }
 
