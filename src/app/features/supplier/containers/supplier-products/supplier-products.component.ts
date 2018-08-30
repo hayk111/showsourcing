@@ -50,15 +50,12 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		// method to be called when we actually have the id
 		id$.pipe(
 			first()
-		).subscribe(_ => super.ngOnInit());
+		).subscribe(id => {
+			super.ngOnInit();
+			this.addFilter({
+				type: FilterType.SUPPLIER,
+				value: id
+			});
+		});
 	}
-
-	/** Filters items based  */
-	/* protected filter(query: string) {
-		if (query)
-			super.filter(`supplier.id == "${this.supplierId}" AND (${query})`);
-		else
-			super.filter(`supplier.id == "${this.supplierId}"`);
-	} */
-
 }
