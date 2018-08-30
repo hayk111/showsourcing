@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
-import { forkJoin, combineLatest } from 'rxjs';
-import { filter, first, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { forkJoin, combineLatest, zip } from 'rxjs';
+import { filter, first, shareReplay, switchMap, switchMapTo, tap, distinctUntilChanged } from 'rxjs/operators';
 import { AuthStatus } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { TokenService } from '~features/auth/services/token.service';
@@ -41,8 +41,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 			)
 		);
 
-		const realmUri$ = this.requiredClientsReady().pipe(
-			switchMapTo(userId$),
+		const realmUri$ = userId$.pipe(
 			switchMap(userId => this.getUserRealmUri(userId)),
 		);
 
@@ -60,24 +59,16 @@ export class UserClientInitializer extends AbstractApolloClient {
 	/** will emit once when all user and global constant are ready */
 	private requiredClientsReady() {
 		// we need to wait for all user client and global const client to be ready
-		const allUserClientReady$ = this.apolloState
+		return this.apolloState
 			.getClientStatus(Client.ALL_USER).pipe(
 				filter(status => status === ClientStatus.READY),
-				first()
-			);
-
-		const globalConstClientReady$ = this.apolloState
-			.getClientStatus(Client.GLOBAL_CONSTANT).pipe(
-				filter(status => status === ClientStatus.READY),
-				first()
-			);
-		return forkJoin([allUserClientReady$, globalConstClientReady$]);
+		);
 	}
 
 	private getUserRealmUri(userId: string) {
 		// then we can query the user, and with that user we can get the realm uri...
-		return this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER).pipe(
-			first(),
+		return this.requiredClientsReady().pipe(
+			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER).pipe(first())),
 			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 		);
 	}

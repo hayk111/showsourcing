@@ -568,10 +568,11 @@ Deleting everything.. so watchout. `);
 
 	/** to use another named apollo client */
 	private getClient(clientName: string) {
-		if (clientName)
-			return this.apollo.use(clientName);
-		else
-			return this.apollo;
+		const client = clientName ? this.apollo.use(clientName) : this.apollo;
+		if (!client) {
+			throw Error(`no client found for ${clientName}`);
+		}
+		return client;
 	}
 
 	/** create appollo mutationOptions from our updateOptions */

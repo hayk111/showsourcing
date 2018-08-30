@@ -4,23 +4,23 @@ import { TeamUser, Team } from '~models';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'team-card-app',
-  templateUrl: './team-card.component.html',
-  styleUrls: ['./team-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'team-card-app',
+	templateUrl: './team-card.component.html',
+	styleUrls: ['./team-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamCardComponent implements OnInit {
-  members$: Observable<TeamUser[]>;
-  team$: Observable<Team>;
+	members$: Observable<TeamUser[]>;
+	team$: Observable<Team>;
 
-  constructor(
-    private teamUserSrv: TeamUserService,
-    private teamSrv: TeamService
-  ) { }
+	constructor(
+		private teamUserSrv: TeamUserService,
+		private teamSrv: TeamService
+	) { }
 
-  ngOnInit() {
-    this.members$ = this.teamUserSrv.queryAll();
-    this.team$ = this.teamSrv.selectedTeam$;
-  }
+	ngOnInit() {
+		this.members$ = this.teamUserSrv.queryAll();
+		this.team$ = this.teamSrv.selectedTeam$;
+	}
 
 }

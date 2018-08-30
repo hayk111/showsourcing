@@ -33,10 +33,14 @@ export class TeamClientInitializer extends AbstractApolloClient {
 
 	init() {
 
-		// only a team is selected
-		const teamSelected$ = this.teamSrv.selectedTeam$
+		// when the team id that the user changes we select the team
+		// this prevent us from being notified on every change on the team.
+		// this is a bit tricky, we can't use distinctUntilChanged because
+		// the user might pick the same team twice upon reconnection
+		const teamSelected$ = this.teamSrv.selectedTeamId$
 			.pipe(
-				distinctUntilChanged((x, y) => x.id === y.id),
+				filter(id => !!id),
+				switchMap(id => this.teamSrv.selectedTeam$.pipe(first())),
 				shareReplay(1)
 			);
 
@@ -46,7 +50,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		);
 
 		const uri$ = teamSelected$.pipe(
-			distinctUntilChanged((x, y) => x.id === y.id),
 			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
 		);
 

@@ -6,16 +6,17 @@ import { from, split, ApolloLink } from 'apollo-link';
 import { Observable } from 'rxjs';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { first, map } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { TokenService } from '~features/auth';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { cleanTypenameLink } from '~shared/apollo/services/clean.typename.link';
 import { environment } from 'environments/environment.prod';
 import { ClientInitializerQueries } from '~shared/apollo/services/client-queries';
 import { log, LogColor } from '~utils';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { filter } from 'rxjs/operators';
 
 export abstract class AbstractApolloClient {
 	protected initialized = false;
@@ -63,10 +64,12 @@ export abstract class AbstractApolloClient {
 	 * gets a realm given a realm name
 	 */
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
-		return this.apollo.use(Client.GLOBAL_CONSTANT).query({
-			query: ClientInitializerQueries.selectRealmHostName,
-			variables: { query: `name == "${realmName}"` }
-		}).pipe(
+		return this.apolloState.getClientStatus(Client.GLOBAL_CONSTANT).pipe(
+			filter(status => status === ClientStatus.READY),
+			switchMap(_ => this.apollo.use(Client.GLOBAL_CONSTANT).query({
+				query: ClientInitializerQueries.selectRealmHostName,
+				variables: { query: `name == "${realmName}"` }
+			})),
 			first(),
 			map((r: any) => r.data.realmServers[0]),
 			map(r => this.getUri(r.httpsPort, r.hostname, path))
