@@ -21,12 +21,15 @@ import {
 	InviteUserDlgComponent,
 	SettingsProfileComponent,
 	TeamMembersListViewComponent,
+	InvitationsListViewComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsFieldsPageComponent,
-	SettingsWorkflowsPageComponent
+	SettingsWorkflowsPageComponent,
+	SettingsTeamMembersUsersComponent,
+	SettingsTeamMembersInvitationsComponent
 } from '~features/settings/containers';
 import { CompanyProfileCardComponent } from '~features/settings/components/company-profile-card/company-profile-card.component';
 import { ProfileCardComponent } from '~features/settings/components/profile-card/profile-card.component';
@@ -53,10 +56,12 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 	],
 	declarations: [
 		SettingsComponent, SettingsTeamMembersPageComponent,
+		SettingsTeamMembersUsersComponent, SettingsTeamMembersInvitationsComponent,
 		SettingsProfileComponent, TeamMembersListViewComponent,
 		SettingsFieldsPageComponent, SettingsWorkflowsPageComponent,
 		InviteUserDlgComponent, CompanyProfileCardComponent,
-		ProfileCardComponent, ChangePswdDlgComponent
+		ProfileCardComponent, ChangePswdDlgComponent,
+		InvitationsListViewComponent
 	],
 	entryComponents: [
 		InviteUserDlgComponent, ChangePswdDlgComponent

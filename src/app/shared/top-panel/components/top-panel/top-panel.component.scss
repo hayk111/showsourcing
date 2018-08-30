@@ -10,6 +10,10 @@
 	background-color: #fff;
 	border: solid 1px var(--color-secondary);
 	border-left: 0;
+
+	&.has-nav {
+		padding-bottom: 0;
+	}
 }
 
 .plusIc {
@@ -39,4 +43,8 @@ divider-app {
 .spacing {
 	margin-right: 10px;
     margin-left: 10px;
+}
+
+.navCtnr.has-nav {
+	padding-top: 30px;
 }

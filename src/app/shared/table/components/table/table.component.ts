@@ -31,6 +31,8 @@ export class TableComponent implements OnChanges {
 	@Input() pending = false;
 	// whether rows are selectable
 	@Input() hasSelection = true;
+	// whether selection is disabled
+	@Input() selectionDisabled = false;
 	// the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	// so this is only useful when the table has selection enabled.
 	@Input() idName = 'id';

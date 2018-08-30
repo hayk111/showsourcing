@@ -1,0 +1,63 @@
+<table-app
+  [rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[selectionDisabled]="true"
+	class="z-2"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)">
+
+	<!-- email -->
+	<ng-template
+		columnApp="Email"
+		sortBy="email"
+		let-row="row"
+		width="140"
+		[sortOrder]="'DESC'">
+		{{ row.email }}
+	</ng-template>
+
+	<!-- acccountType -->
+	<ng-template
+		class="capitalize"
+		columnApp="Account type"
+		let-row="row"
+		sortBy="accessType"
+		width="200">
+		<context-menu-app xPosition="after" yPosition="30" *ngIf="teamOwner && (row.user.id !== user.id)">
+			<context-menu-trigger-app class="flex pointer">
+				<div class="text" *ngIf="row.accessType === 'FullAccess'"> Team Member </div>
+				<div class="text" *ngIf="row.accessType === 'ReadOnly'"> Contributor </div>
+				<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'FullAccess' })">
+				Team Member
+			</context-menu-item-app>
+			<context-menu-item-app (click)="accessTypeUpdated.emit({ member: row, accessType: 'ReadOnly' })">
+				Contributor
+			</context-menu-item-app>
+			<context-menu-divider-app></context-menu-divider-app>
+			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
+				<span>Remove Invitation</span>
+			</context-menu-item-app>
+	   </context-menu-app>
+	   <span *ngIf="!teamOwner">
+				<ng-container *ngIf="row.accessType === 'FullAccess'"> Team Member </ng-container>
+				<ng-container *ngIf="row.accessType === 'ReadOnly'"> Contributor </ng-container>
+			</span>
+	</ng-template>
+
+	<!-- status -->
+	<ng-template
+		columnApp="Status"
+		let-row="row"
+		sortBy="status"
+		width="140">
+		{{ row.status }}
+	</ng-template>
+
+</table-app>

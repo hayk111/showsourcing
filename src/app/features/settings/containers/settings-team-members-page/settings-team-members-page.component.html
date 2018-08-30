@@ -4,63 +4,14 @@
 	[subtitles]="['Settings', 'Team Members']"
 	buttonName="Create New Team"
 	[buttonIcon]="false"
+	[withNav]="true"
 	(buttonClick)="openNewTeamDialog()">
+
+	<nav class="flex">
+		<span (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }">Team Members</span>
+		<span (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }">Invitations</span>
+	</nav>
 </top-panel-app>
 
-
-<sub-panel-app
-	title="Team Members"
-	buttonName="Invite Collaborator"
-	[hasSwitch]="false"
-	[hasFilter]="false"
-	[hasCreate]="teamOwner"
-	[buttonIcon]="false"
-	(buttonClick)="openInviteDialog()">
-
-	<context-menu-app xPosition="after" yPosition="45" *ngIf="teamOwner && hasSelected">
-		<context-menu-trigger-app class="button flex pointer">
-			<div class="text">Selection</div>
-			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-		</context-menu-trigger-app>
-		<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'FullAccess' })">
-			Team Member
-		</context-menu-item-app>
-		<context-menu-item-app (click)="accessTypeUpdated({ accessType: 'ReadOnly' })">
-			Contributor
-		</context-menu-item-app>
-		<context-menu-divider-app></context-menu-divider-app>
-		<context-menu-item-app class="remove-user" (click)="deleteSelected()">
-			<span>Remove User</span>
-		</context-menu-item-app>
-	</context-menu-app>
-
-</sub-panel-app>
-
-<ng-container *ngIf="items$ | async as members">
-	<team-members-list-view-app
-		[rows]="members"
-		[teamOwner]="teamOwner"
-		[user]="user"
-		[selection]="selected$ | async"
-		[pending]="pending"
-		(bottomReached)="loadMore()"
-		(sort)="sort($event)"
-		(select)="onItemSelected($event)"
-		(unselect)="onItemUnselected($event)"
-		(selectAll)="selectAll($event)"
-		(unselectAll)="resetSelection()"
-		(accessTypeUpdated)="accessTypeUpdated($event)"
-		(delete)="deleteOneMember($event)">
-	</team-members-list-view-app>
-
-	<!-- ng-container *ngIf="selected$ | async as selected">
-		<selection-bar-app
-			[ngClass]="{ 'collapsed-menu': !(menuCollapsed$ | async), 'expanded-menu': (menuCollapsed$ | async) }"
-			(close)="resetSelection()"
-			(delete)="deleteSelection()"
-			*ngIf="selected.size > 0"
-			[selection]="selected"></selection-bar-app>
-	</ng-container -->
-</ng-container>
-
-
+<settings-team-members-users-app *ngIf="selectedTab === 'team-members'"></settings-team-members-users-app>
+<settings-team-members-invitations-app *ngIf="selectedTab === 'invitations'"></settings-team-members-invitations-app>
