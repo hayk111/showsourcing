@@ -1,12 +1,14 @@
 <div class="previewCtnr flexCenter">
 	<div class="grid-section flexCenter">
 		<product-grid-card-app
-			[product]="products[selectedIndex]"
-			[hasActions]="false">
+		[product]="products[selectedIndex]"
+		[hasActions]="false"
+		(click)="onViewProduct.emit(products[selectedIndex])">
 		</product-grid-card-app>
 		<product-grid-card-app
 			[product]="products[selectedIndex + 1]"
-			[hasActions]="false">
+			[hasActions]="false"
+			(click)="onViewProduct.emit(products[selectedIndex + 1])">
 		</product-grid-card-app>
 	</div>
 

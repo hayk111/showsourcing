@@ -30,7 +30,7 @@
 
 		<div class="information">
 			<div class="text-bar">
-				<p class="name-product">{{product?.name}}</p>
+				<p class="name-product">{{product?.name || 'Unnamed Product'}}</p>
 				<p class="supplier-product">{{product?.supplier?.name}}</p>
 			</div>
 			<icons-status-app

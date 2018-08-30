@@ -13,24 +13,24 @@
 	</multiple-product-carousel-app>
 
 	<!-- supplier -->
-
-	<div class="flex supplier" *ngIf="products[0]?.supplier as supplier">
-		<img-app class="supplierImg" [image]="supplier?.logoImage" type="supplier"></img-app>
-
-		<div class="flexColumn">
-			<span class="supplierName">{{ supplier.name }}</span>
-			<span class="supplierType">
-				{{ supplier.supplierType || 'Supplier' }}
-				<ng-container *ngIf="supplier.country">
-					{{ supplier.country | const: 'country' }}
-				</ng-container>
-			</span>
-		</div>
-	</div>
-
-
 	<card-footer-app>
-		<button>View Products</button>
-	</card-footer-app>
+		<div class="flexBetween" *ngIf="products[0]?.supplier as supplier">
 
+			<div class="flex supplier">
+				<img-app class="supplierImg" [image]="supplier?.logoImage" type="supplier"></img-app>
+
+				<div class="flexColumn">
+					<span class="supplierName">{{ supplier.name }}</span>
+					<span class="supplierType flexStart">
+						{{ supplier.supplierType || 'Supplier' }}
+						<ng-container *ngIf="supplier.country">
+							{{ supplier.country | const: 'country' }}
+						</ng-container>
+					</span>
+				</div>
+			</div>
+
+			<button class="light">View Products</button>
+		</div>
+	</card-footer-app>
 </card-app>

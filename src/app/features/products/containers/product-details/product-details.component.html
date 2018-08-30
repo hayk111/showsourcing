@@ -1,5 +1,5 @@
 <top-panel-details-app
-	[title]="(product$ | async)?.name"
+	[title]="(product$ | async)?.name || 'Unnamed Product'"
 	[hasOptions]="true"
 	(delete)="deleteProduct()">
 	<img-app [image]="(product$ | async)?.images" type="product" size="s"></img-app>

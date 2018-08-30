@@ -10,10 +10,6 @@ activity-user-app {
 	padding-bottom: var(--spacing-ms);
 }
 
-// supplier
-.supplier {
-	margin-top: var(--spacing-ms);
-}
 
 .supplierImg {
 	height: 32px;
@@ -29,6 +25,7 @@ activity-user-app {
 }
 
 .supplierType {
+	margin-top: var(--spacing-xs);
 	font-size: var(--font-size-s);
 	color: var(--color-txt-secondary);
 	letter-spacing: -0.1px;
