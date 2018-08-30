@@ -6,9 +6,10 @@
 			(closed)="closed.emit()" [hasAction]="false" (opened)="opened.emit()">
 
 			<!-- multiple value label -->
-			<editable-label-app *ngIf="customField.multiple; else solo">
+			<editable-label-app *ngIf="customField.multiple; else solo" class="flex flexWrap mult-tags">
 				<ng-container	*ngIf="!isEmpty(value); else none">
 					<info-badge-app
+						class="tag"
 						*ngFor="let tag of value"
 						[type]="customField.metadata.target">
 						{{ tag.name }}

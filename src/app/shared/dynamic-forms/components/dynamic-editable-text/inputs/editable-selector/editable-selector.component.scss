@@ -11,6 +11,10 @@
 	margin-top: 2px;
 }
 
+.tag {
+	margin-top: var(--spacing-s);
+}
+
 selector-const-app, selector-entity-app {
 	min-width: 150px;
 }

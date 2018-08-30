@@ -1,4 +1,5 @@
 :host {
+	min-width: 680px;
 	display: block;
 }
 
@@ -6,24 +7,16 @@ activity-user-app {
 	margin-bottom: var(--spacing-ms);
 }
 
-.img1 {
-	height: 320px;
-	.small {
-		margin-right: var(--spacing-xs);
-	}
+one-product-carousel-app {
+	margin-bottom: var(--spacing-ms);
 }
 
-.img2, .img3 {
-	width: 164px;
-	height: 158px;
-}
-
-img-app {
-	border-radius: var(--border-radius-s);
+.action-section {
+	font-size: var(--font-size-xxl);
 }
 
 .actions {
-	font-size: 20px;
+	font-size: var(--font-size-xxl);
 	color: var(--color-txt-secondary);
 	& > * {
 		margin-right: var(--spacing-l);
@@ -31,11 +24,34 @@ img-app {
 }
 
 .prodInfo {
-	margin-top: var(--spacing-ms);
+	margin-top: var(--spacing-s);
+	& > * {
+		margin-bottom: var(--spacing-xs);
+	}
+
 	.name {
 		color: var(--color-txt-strong);
-		font-size: var(--font-size-l);
 		font-weight: 600;
+		font-size: var(--font-size-l);
+		letter-spacing: -0.4px;
+	}
+	.status-info {
+		font-size: var(--font-size-m);
+
+		& > * {
+			//for each children that is not the first one we add some spaces and bullet dots on the content
+			&:not(:first-child)::before {
+				content: "\00a0 \00a0 \2022 \00a0 \00a0";
+    		font-weight: bolder;
+			}
+		}
+		icons-status-app {
+			padding-bottom: 6px;
+			margin-right: -8px;
+		}
+		.price {
+			color: var(--color-primary);
+		}
 	}
 	.supplier {
 		margin-bottom: var(--spacing-s);
@@ -51,15 +67,20 @@ img-app {
 card-footer-app {
 	display: flex;
 
-	button.primary {
-		min-width: 163px;
+	input {
+		border: none;
+		background: none;
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
 	}
 }
 
-.empty {
-	font-style: italic;
-	width: 160px;
-	height: 140px;
-	color: var(--color-txt-secondary);
-	background: var(--color-secondary-light);
-}
+

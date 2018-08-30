@@ -13,6 +13,7 @@
 		<icon-app fontSet="svg" name="folder"></icon-app>
 		<p class="numbers color-{{colorTxt}}">{{ numProjects }} {{ fullInfo ? numProjects === 1 ? 'Project' : 'Projects' : ''}}</p>
 	</ng-container>
+	<ng-content></ng-content>
 </div>
 
 <ng-template #one>
@@ -23,6 +24,7 @@
 			<p [ngStyle]="successTxt">{{product?.score || '-'}}%</p>
 			<p *ngIf="fullInfo" class="color-txt-secondary ml-xs">({{ product?.votes?.length || 0}} {{ product?.votes?.length === 1 ? 'Vote' : 'Votes'}})</p>
 		</div>
+		<ng-content></ng-content>
 	</div>
 </ng-template>
 

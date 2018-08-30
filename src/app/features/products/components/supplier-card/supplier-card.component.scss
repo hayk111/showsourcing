@@ -49,22 +49,8 @@ card-app {
 		margin-top: var(--spacing-l);
 
 		image-previewer-app {
-			margin-top: 0px;
+			margin-top: var(--spacing-l);
 			opacity: 0.2;
-			margin-bottom: var(--spacing-m);
-		}
-		.empty {
-			font-style: italic;
-			color: var(--color-txt-secondary);
-			// background: var(--color-secondary-light); uncomment if background needed
-			width: 152px;
-			height: 100px;
-			// height: 124px;
-			// margin-bottom: var(--spacing-s);
-			margin-left: 92px;
-			img {
-				margin-bottom: var(--spacing-s);
-			}
 		}
 
 		.from {
@@ -72,8 +58,7 @@ card-app {
 		}
 
 		.categories {
-			margin-top: 5px;
-			margin-bottom: var(--spacing-l);
+			margin-top: var(--spacing-xs);
 			.single {
 				color: var(--color-txt-primary);
 				margin-right: 6px;
@@ -106,6 +91,11 @@ card-footer-app.empty {
 	}
 
 }
+
+card-footer-app:not(.empty) {
+	margin-top: var(--spacing-ml);
+}
+
 card-footer-app {
 	padding-bottom: 0px;
 	margin-left: var(--spacing-ms);

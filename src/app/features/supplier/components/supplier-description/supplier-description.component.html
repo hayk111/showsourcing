@@ -50,7 +50,7 @@
 			<div class="right flex">
 				<ng-container *ngIf="!editable.isOpen; else closed">
 					<button class="light auto fav flexVAlign" (click)="toggleFavorite()">
-						<icon-app name="heart" fontSet="fa" [ngClass]="{ 'color-warn': supplier.favorite }"></icon-app>
+						<icon-app name="heart" fontSet="fa" class="{{ supplier?.favorite ? 'color-warn' : 'color-secondary-dark' }}"></icon-app>
 						<span>Favorite</span>
 					</button>
 					<button (click)="edit()" class="auto">
