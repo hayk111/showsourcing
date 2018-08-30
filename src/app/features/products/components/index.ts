@@ -6,3 +6,4 @@ export * from '~features/products/components/supplier-card/supplier-card.compone
 export * from '~features/products/components/project-card/project-card.component';
 export * from '~features/products/components/rfq-dialog/rfq-dialog.component';
 export * from '~features/products/components/rfq-dialog/email-list/email-list.component';
+export * from '~features/products/components/product-sorting-menu/product-sorting-menu.component';

@@ -28,7 +28,8 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 	RfqDialogComponent,
-	EmailListComponent
+	EmailListComponent,
+	ProductSortingMenuComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
@@ -96,7 +97,8 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ProductCarouselComponent,
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
-		VoteDetailsDialogComponent
+		VoteDetailsDialogComponent,
+		ProductSortingMenuComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,
