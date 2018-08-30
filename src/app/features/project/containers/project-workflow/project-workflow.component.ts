@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ProjectWorkflowFeatureService } from '~features/project/services/project-workflow-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project } from '~models';
+import { ERM, Product, Project, ProductStatus } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -13,7 +13,9 @@ import {
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductDialogComponent } from '~shared/custom-dialog/component/find-product-dialog/find-product-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
 @Component({
@@ -21,10 +23,11 @@ import { FindProductDialogComponent } from '~shared/custom-dialog/component/find
 	templateUrl: './project-workflow.component.html',
 	styleUrls: ['./project-workflow.component.scss'],
 })
-export class ProjectWorkflowComponent implements OnInit {
+export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
-	statuses$: Observable<any>;
+	statuses$ = new Subject<ProductStatus[]>();
 	id: string;
+	project: Project;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 
@@ -36,19 +39,27 @@ export class ProjectWorkflowComponent implements OnInit {
 		private selectionSrv: SelectionService,
 		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>
-	) { }
+		protected moduleRef: NgModuleRef<any>,
+		protected featureSrv: ProjectWorkflowFeatureService,
+		private notifSrv: NotificationService
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
 			switchMap(id => this.projectSrv.selectOne(id)),
+			tap(project => this.project = project)
 		);
 
-		this.statuses$ = this.project$.pipe(
+		this.project$.pipe(
+			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
-		);
+		).subscribe(statuses => {
+			this.statuses$.next(statuses);
+		});
 
 		this.selected$ = this.selectionSrv.selection$;
 	}
@@ -69,10 +80,18 @@ export class ProjectWorkflowComponent implements OnInit {
 		this.selectionSrv.unselectOne(entity);
 	}
 
+	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.dlgSrv.openFromModule(FindProductDialogComponent, this.moduleRef, {
-			callback: () => { }
-		});
+		if (this.project) {
+			this.featureSrv.getProjectProducts(this.project).pipe(first()).subscribe(products => {
+				this.dlgSrv.openFromModule(FindProductsDialogComponent, this.moduleRef, {
+					type: ERM.PRODUCT,
+					shouldRedirect: false,
+					initialSelectedProducts: products,
+					submitCallback: this.associatedProductsWithProject.bind(this)
+				});
+			});
+		}
 	}
 
 	/** Selects an entity */
@@ -133,6 +152,31 @@ export class ProjectWorkflowComponent implements OnInit {
 
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
+	}
+
+		/**
+	 * Associate the selected products from the current project. This method is
+	 * passed as callback for the "find products" dialog.
+	 */
+	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
+		return this.featureSrv.manageProjectsToProductsAssociations([ this.project ], selectedProducts, unselectedProducts).pipe(
+			switchMap(() => {
+				return this.workflowService.getStatuses(this.project, true).pipe(
+					first(),
+					tap(statuses => {
+						this.statuses$.next(statuses);
+					})
+				);
+			}),
+			tap(() => {
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Products Updated',
+					message: 'The products were updated in the project with success',
+					timeout: 3500
+				});
+			})
+		);
 	}
 
 }

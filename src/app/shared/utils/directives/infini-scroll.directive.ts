@@ -43,7 +43,7 @@ export class InfiniScrollDirective implements OnInit {
 
 	ngOnInit() {
 		this.el = this.elRef.nativeElement;
-		this.renderer.setStyle(this.elRef.nativeElement, 'overflow', 'auto');
+		this.renderer.setStyle(this.elRef.nativeElement, 'overflow-y', 'auto');
 	}
 
 	@HostListener('scroll', ['$event'])
