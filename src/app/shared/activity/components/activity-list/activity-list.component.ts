@@ -1,12 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { GetStreamResult, ActivityService } from '~shared/activity/services/activity.service';
-import { Product } from '~models';
+import { Product, Comment } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
 import { TemplateService } from '~shared/template/services/template.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
+import { CommentService } from '~global-services/comment/comment.service';
 
 @Component({
 	selector: 'activity-list-app',
@@ -24,7 +25,8 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private activitySrv: ActivityService,
 		private router: Router,
-		private templateSrv: TemplateService
+		private templateSrv: TemplateService,
+		private commentSrv: CommentService
 	) {
 		super();
 	}
@@ -54,6 +56,12 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 
 	goToProduct(id: string) {
 		this.router.navigate(['product', 'details', id]);
+	}
+
+	createComment(items: any) {
+		const newComment = new Comment({ text: items.text });
+		this.commentSrv.create(newComment);
+		this.updateProduct({ id: items.product.id, comments: [...items.product.comments, newComment] });
 	}
 
 

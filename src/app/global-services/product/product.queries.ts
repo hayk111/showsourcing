@@ -20,6 +20,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		images { id, fileName }
 	}`;
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
+	static readonly comments = `comments { id, text }`;
 	static readonly price = ` price { id, currency, value, baseCurrencyValue } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, productCount, description }`;
@@ -45,6 +46,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			sample,
 			samplePrice,
 			creationDate
+			${ProductQueries.comments},
 			${ProductQueries.supplier},
 			${ProductQueries.images},
 			${ProductQueries.price},
@@ -68,7 +70,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			score,
 			minimumOrderQuantity,
 			lastUpdatedDate,
-			deleted
+			deleted,
+			${ProductQueries.comments},
 			${ProductQueries.createdBy},
 			${ProductQueries.images},
 			${ProductQueries.supplier},

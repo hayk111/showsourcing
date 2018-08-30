@@ -25,18 +25,18 @@ one-product-carousel-app {
 
 .prodInfo {
 	margin-top: var(--spacing-s);
-	& > * {
-		margin-bottom: var(--spacing-xs);
-	}
 
 	.name {
 		color: var(--color-txt-strong);
 		font-weight: 600;
 		font-size: var(--font-size-l);
 		letter-spacing: -0.4px;
+		margin-bottom: var(--spacing-xs);
 	}
 	.status-info {
+		margin-bottom: var(--spacing-s);
 		font-size: var(--font-size-m);
+		margin-bottom: var(--spacing-s);
 
 		& > * {
 			//for each children that is not the first one we add some spaces and bullet dots on the content
@@ -46,7 +46,6 @@ one-product-carousel-app {
 			}
 		}
 		icons-status-app {
-			padding-bottom: 6px;
 			margin-right: -8px;
 		}
 		.price {
@@ -54,7 +53,7 @@ one-product-carousel-app {
 		}
 	}
 	.supplier {
-		margin-bottom: var(--spacing-s);
+		// margin-bottom: var(--spacing-s);
 	}
 }
 
@@ -66,6 +65,10 @@ one-product-carousel-app {
 
 card-footer-app {
 	display: flex;
+
+	comment-list-app {
+		padding-left: 2px;
+	}
 
 	input {
 		border: none;

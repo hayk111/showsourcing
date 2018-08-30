@@ -17,6 +17,7 @@ import {
 	MultipleProductCarouselComponent
 } from './components/multiple-products-activity-card/multiple-product-carousel/multiple-product-carousel.component';
 import { ProductCommonModule } from '~shared/product/product.module';
+import { CommentModule } from '~shared/comment';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { ProductCommonModule } from '~shared/product/product.module';
 		LoadersModule,
 		StatusModule,
 		CarouselModule,
-		ProductCommonModule
+		ProductCommonModule,
+		CommentModule
 	],
 	declarations: [
 		OneProductActivityCardComponent,

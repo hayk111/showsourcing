@@ -1,12 +1,14 @@
 <user-picture-app
 	[user]="user"
-	[image]="user?.avatar">
+	[image]="user?.avatar"
+	[border]="true"
+	size="22">
 </user-picture-app>
 <div class="comment-content flexColumn">
 	<div class="title flex">
-		<span class="name"></span>
-		<span class="date"></span>
+		<span class="name">{{user?.firstName || 'Fake'}} {{user?.lastName || 'name'}}</span>
+		<span class="date flexCenter">1 year ago</span>
 	</div>
 	<!-- comment content -->
-	{{ comment.text }}
+	{{ comment?.text || 'me enfadoi'}}
 </div>

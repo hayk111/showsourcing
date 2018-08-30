@@ -59,9 +59,12 @@
 		</div>
 	</div>
 
-	<card-footer-app align="left" class="flexBetween">
+	<card-footer-app align="left" class="flexColumn">
 		<!-- here the comment component with previosu commennts loaded -->
-		<input inputApp type="text" placeholder="Leave a comment"/>
-		<button *ngIf="input.focussed" class="secondary-light">Send</button>
+		<comment-list-app [comments]="product?.comments"></comment-list-app>
+		<div class="flexBetween">
+			<input inputApp #inpComment type="text" placeholder="Leave a comment" (keyup.enter)="onSubmit()"/>
+			<button *ngIf="input.focussed" class="secondary-light" (click)="onSubmit()">Send</button>
+		</div>
 	</card-footer-app>
 </card-app>

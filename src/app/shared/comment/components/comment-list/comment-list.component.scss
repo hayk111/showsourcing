@@ -1,0 +1,13 @@
+:host {
+	display: block;
+}
+
+.show-previous {
+	cursor: pointer;
+	color: var(--color-primary);
+	letter-spacing: -0.3px;
+	margin-bottom: var(--spacing-s);
+}
+comment-app {
+	margin-bottom: var(--spacing-ms);
+}

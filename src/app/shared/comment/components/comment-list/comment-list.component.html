@@ -1,3 +1,6 @@
-<!-- <ng-container *ngIf="comments">
-	<div *ngIf="comment" class="show-previous"></div>
-</ng-container> -->
+<div *ngIf="comments" class="flexColumn">
+	<div *ngIf="comments?.length > indexShow" class="show-previous" (click)="showMore()">Show previous comments</div>
+	<ng-container *ngFor="let comment of comments; index as i">
+		<comment-app *ngIf="i < indexShow"[comment]="comment"></comment-app>
+	</ng-container>
+</div>
