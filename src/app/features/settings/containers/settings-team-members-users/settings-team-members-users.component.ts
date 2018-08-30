@@ -59,4 +59,8 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 		this.sort({ sortBy: 'user.firstName' });
 	}
 
+	openInviteDialog() {
+		// TODO
+	}
+
 }

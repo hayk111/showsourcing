@@ -9,9 +9,11 @@ import { ProductVote } from '~models/product-vote.model';
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
 import { Project } from '~models';
+import { Comment } from '~models/comment.model';
 
 export class Product extends BaseEntity<ProductConfig> {
 	name?: string;
+	comments?: Comment[];
 	supplier?: Supplier;
 	images?: AppImage[];
 	price?: Price;
@@ -33,10 +35,10 @@ export class Product extends BaseEntity<ProductConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
-	archived?= false;
+	archived ?= false;
 	taskCount?: number;
 	productCount?: number;
-	projectCount?= 0;
+	projectCount ?= 0;
 	projects?: Project[];
 }
 
@@ -44,6 +46,7 @@ export interface ProductConfig {
 	name: string;
 	supplier?: Supplier;
 	images?: AppImage[];
+	comments?: Comment[];
 	price?: Price;
 	category?: Category;
 	description?: string;
