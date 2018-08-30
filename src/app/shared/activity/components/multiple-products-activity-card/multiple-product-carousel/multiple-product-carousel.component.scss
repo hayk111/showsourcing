@@ -1,0 +1,49 @@
+.previewCtnr {
+	position: relative;
+	box-sizing: border-box;
+	// min-width: 676px;
+	min-height: 354px;
+	padding: var(--spacing-s);
+	border-radius: var(--border-radius-s);
+	background: var(--color-secondary-light);
+
+
+	product-grid-card-app {
+		margin-top: 0px;
+		margin-right: 0px;
+		&:first-child {
+			margin-right: var(--spacing-ms);
+		}
+	}
+}
+.action {
+	visibility: hidden;
+	transition: 0.2s;
+	opacity: 0.2;
+}
+
+.previewCtnr:hover > .action {
+	visibility: visible;
+	opacity: 1;
+}
+
+.move-btn {
+	position: absolute;
+	border-left: 1px solid #e6ebf5;
+	background: rgba(255, 255, 255, 0.8);
+	width: 40px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.next {
+	right: -2%;
+}
+.back {
+	left: -1.7%;
+}
+
+icon-app {
+	font-size: 36px;
+}

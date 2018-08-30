@@ -13,7 +13,9 @@ import { LoadersModule } from '~shared/loaders';
 import { StatusModule } from '~shared/status/status.module';
 import { OneProductCarouselComponent } from './components/one-product-activity-card/one-product-carousel/one-product-carousel.component';
 import { CarouselModule } from '~shared/carousel';
-import { MultipleProductCarouselComponent } from './components/multiple-products-activity-card/multiple-product-carousel/multiple-product-carousel.component';
+import {
+	MultipleProductCarouselComponent
+} from './components/multiple-products-activity-card/multiple-product-carousel/multiple-product-carousel.component';
 import { ProductCommonModule } from '~shared/product/product.module';
 
 @NgModule({

@@ -5,13 +5,11 @@
     <ng-container [ngSwitch]="feed.verb">
       <!-- product -->
       <ng-container *ngSwitchCase="'create_product'">
-
-        <ng-container *ngIf="feed.activities.length > 1; else one">
-          <ng-container *ngIf="feed.obs | async as products">
+				<ng-container *ngIf="feed.activities.length > 1; else one">
+          <ng-container *ngIf="(feed.obs | async) as products">
             <multiple-products-activity-card-app
-            *ngIf="products.lenght > 0"
             [time]="feed.created_at"
-            [products]="feed.obs | async"></multiple-products-activity-card-app>
+            [products]="products"></multiple-products-activity-card-app>
           </ng-container>
         </ng-container>
         <ng-template #one>

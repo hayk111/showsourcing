@@ -1,5 +1,24 @@
-<!-- <product-grid-card-app
-	*ngFor="let product of products"
-	[hasActions]="false">
+<div class="previewCtnr flexCenter">
+	<div class="grid-section flexCenter">
+		<product-grid-card-app
+			[product]="products[selectedIndex]"
+			[hasActions]="false">
+		</product-grid-card-app>
+		<product-grid-card-app
+			[product]="products[selectedIndex + 1]"
+			[hasActions]="false">
+		</product-grid-card-app>
+	</div>
 
-</product-grid-card-app> -->
+	<!-- move back -->
+	<div class="move-btn back flexCenter pointer action"
+		(mousedown)="back($event)" *ngIf="selectedIndex > 0  && products.length > 2">
+		<icon-app name="arrow-left-rectangle" fontSet="svg"></icon-app>
+	</div>
+
+	<!-- move next -->
+	<div class="move-btn next flexCenter pointer action"
+		(mousedown)="next($event)" *ngIf="selectedIndex < (products.length - 2)  && products.length > 2">
+		<icon-app name="arrow-right-rectangle" fontSet="svg"></icon-app>
+	</div>
+</div>

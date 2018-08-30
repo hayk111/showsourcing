@@ -4,8 +4,9 @@
 		<div class="sectionTag">{{ category.value.length }} products</div>
 	</div>
 	<div class="products-section">
-		<ng-container *ngFor="let product of category.value; trackBy: trackByFn">
+		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackByFn">
 			<product-grid-card-app
+				[class.mg-right]="(i+1)%4 === 0"
 				[product]="product"
 				[selection]="selection"
 				(productFavorite)="favorited.emit(product.id)"

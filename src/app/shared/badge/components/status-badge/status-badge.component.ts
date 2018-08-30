@@ -15,7 +15,7 @@ export class StatusBadgeComponent implements OnInit {
 	@Input() size = 's';
 
 	@Input() status: ProductStatusType | SupplierStatusType;
-	@Input() round = false;
+	@Input() round = true;
 
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
