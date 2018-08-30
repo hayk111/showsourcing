@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgModuleRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgModuleRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 	templateUrl: './product-general-info.component.html',
 	styleUrls: ['./product-general-info.component.scss'],
 })
-export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
+export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	product$: Observable<Product>;
 	product: Product;
@@ -88,6 +88,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
 		);
+	}
+
+	ngAfterViewInit() {
 		this.srv.getContacts(this.product.supplier.id).pipe(
 			first()
 		).subscribe(supp => this.contacts = supp.contacts);
