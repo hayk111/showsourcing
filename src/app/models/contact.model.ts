@@ -1,8 +1,8 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { AppImage } from '~models/app-image.model';
 import { Supplier } from '~models/supplier.model';
 
-export class Contact extends BaseEntity<ContactConfig> {
+export class Contact extends EntityWithAudit<ContactConfig> {
 	name: string;
 	phoneNumber?: string;
 	email?: string;

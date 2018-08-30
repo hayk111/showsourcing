@@ -2,7 +2,7 @@ import { Supplier } from '~models/supplier.model';
 import { AppImage } from '~models/app-image.model';
 import { Price } from '~models/price.model';
 import { Category } from '~models/category.model';
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { ProductStatus } from '~models/product-status.model';
 import { Tag } from '~models/tag.model';
 import { ProductVote } from '~models/product-vote.model';
@@ -11,7 +11,7 @@ import { PriceMatrix } from '~models/price-matrix.model';
 import { Project } from '~models';
 import { Comment } from '~models/comment.model';
 
-export class Product extends BaseEntity<ProductConfig> {
+export class Product extends EntityWithAudit<ProductConfig> {
 	name?: string;
 	comments?: Comment[];
 	supplier?: Supplier;

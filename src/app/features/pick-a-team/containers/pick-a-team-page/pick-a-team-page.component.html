@@ -5,7 +5,7 @@
 		<li class="flex pointer"
 			*ngFor="let team of teams$ | async; let last = last"
 			[ngClass]="{'border': !last}"
-			(click)="selectTeam(team)">
+			(click)="pickTeam(team)">
 			<icon-app name="group-4" fontSet="svg"></icon-app>
 			<span>{{ team.name }}</span>
 		</li>

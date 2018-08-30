@@ -5,6 +5,7 @@ import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 import { AuthModule } from '~features/auth/auth.module';
+import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
 
 @Injectable({
 	providedIn: AuthModule
@@ -16,17 +17,21 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.authSrv.authState$.pipe(
-			map(authState => authState.authenticated),
-			distinctUntilChanged(),
-			tap(authenticated => this.redirectOnUnAuthenticated(authenticated)),
-			tap(authenticated => log.debug('%c auth guard: authenticated ?', LogColor.GUARD, authenticated))
+		return this.authSrv.authStatus$.pipe(
+			filter(status => status !== AuthStatus.PENDING),
+			tap(status => this.redirectOnUnAuthenticated(status, route, state)),
+			tap(status => log.debug('%c auth guard: auth state ?', LogColor.GUARD, status)),
+			map(status => status === AuthStatus.AUTHENTICATED)
 		);
 	}
 
-	redirectOnUnAuthenticated(authenticated: boolean) {
-		if (!authenticated)
-			this.router.navigate(['guest', 'login']);
+	redirectOnUnAuthenticated(status: AuthStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		switch (status) {
+			case AuthStatus.NOT_AUTHENTICATED:
+				const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
+				this.router.navigate(['guest', 'login'], { queryParams: { returnUrl } });
+				break;
+		}
 	}
 
 	canActivateChild(

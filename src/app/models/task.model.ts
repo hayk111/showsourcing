@@ -1,6 +1,6 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
-export class Task extends BaseEntity<TaskConfig> { }
+export class Task extends EntityWithAudit<TaskConfig> { }
 
 export interface TaskConfig {
 

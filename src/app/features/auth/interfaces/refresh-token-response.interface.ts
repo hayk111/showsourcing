@@ -1,7 +1,6 @@
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 export interface RefreshTokenResponse {
-	refresh_token: {
-		token: string
-	};
+	refresh_token: TokenState;
 }
 

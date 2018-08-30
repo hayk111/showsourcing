@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
-import { ReplaySubject } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { AccessTokenState, Credentials } from '~features/auth/interfaces';
+import { ReplaySubject, BehaviorSubject, of } from 'rxjs';
+import { map, switchMap, tap, catchError, shareReplay } from 'rxjs/operators';
+import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~features/auth/interfaces';
 
-import { AuthState } from '~features/auth/interfaces';
-import { AuthHttpService } from '~features/auth/services/auth-http.service';
 import { TokenService } from '~features/auth/services/token.service';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+import { environment } from 'environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,63 +17,81 @@ import { TokenService } from '~features/auth/services/token.service';
 export class AuthenticationService {
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authState$ = new ReplaySubject<AuthState>(1);
-	authState$ = this._authState$.asObservable();
+	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
+	authStatus$ = this._authState$.asObservable().pipe(map(state => state.status), shareReplay(1));
+	userId$ = this._authState$.asObservable().pipe(map(state => state.userId), shareReplay(1));
+	urlToRedirectOnAuth: string;
+
 
 	constructor(
-		private authHttp: AuthHttpService,
 		private tokenSrv: TokenService,
-		private router: Router
-	) {
-
-	}
+		private router: Router,
+		private http: HttpClient
+	) { }
 
 	init() {
-		// when there is an access token that means we are authenticated
-		this.tokenSrv.accessToken$.pipe(
-			map(tokenState => this.tokenStateToAuthState(tokenState))
+		// when there is a refresh token that means we are authenticated
+		this.tokenSrv.refreshToken$.pipe(
+			map(tokenState => this.refreshTokenToAuthState(tokenState))
 		).subscribe(this._authState$);
-		// since we subscribe to the access token in the constructor this will have as a side effect
+
+		// since we subscribe to the refresh token in the constructor this will have as a side effect
 		// of telling if the user is connected or not.
-		this.tokenSrv.restoreAccessToken();
+		this.tokenSrv.restoreRefreshToken();
 	}
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
-		return this.authHttp.login(credentials).pipe(
-			// we receive a refresh token as a response we will pass it to the token service so it generates an access token
-			switchMap(refreshToken => this.tokenSrv.generateAccessToken(refreshToken)),
-			tap(_ => this.router.navigate(['']))
+		const loginObj = this.getLoginObject(credentials);
+		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj).pipe(
+			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
+			catchError(err => {
+				this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
+				return of(err);
+			})
 		);
 	}
 
+	private getLoginObject(credentials: Credentials) {
+		return {
+			app_id: '',
+			provider: 'password',
+			data: credentials.identifier,
+			user_info: {
+				register: false,
+				password: credentials.password
+			}
+		};
+	}
 
 	logout() {
 		this.tokenSrv.clearTokens();
-		this._authState$.next({ authenticated: false });
+		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 		this.router.navigate(['/guest', 'login']);
 	}
 
 	resetPw(email: string) {
+		// this.http.post(`${environment.apiUrl}/api/password/${email}/reset`, {})
 		throw Error('not implemented yet');
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
-		return this.authHttp.register(creds).pipe(
+		return this.http.post(`${environment.signupUrl}`, creds).pipe(
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);
 	}
 
-	private tokenStateToAuthState(tokenState: AccessTokenState) {
-		return {
-			pending: false,
-			authenticated: !!tokenState.token,
-			tokenState: tokenState,
-			// for easy access
-			userId: (tokenState && tokenState.token_data ? tokenState.token_data.identity : null),
-			token: tokenState.token,
-		};
+	private refreshTokenToAuthState(tokenState: TokenState): AuthState {
+		if (tokenState) {
+			return {
+				status: AuthStatus.AUTHENTICATED,
+				userId: tokenState.token_data.identity
+			};
+		} else {
+			return {
+				status: AuthStatus.NOT_AUTHENTICATED
+			};
+		}
 	}
-
 }

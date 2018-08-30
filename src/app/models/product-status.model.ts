@@ -1,8 +1,8 @@
 import { ProductStatusType } from '~models/product-status-type.model';
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { User } from '~models/user.model';
 
-export class ProductStatus extends BaseEntity<ProductStatusConfig> {
+export class ProductStatus extends EntityWithAudit<ProductStatusConfig> {
 	status?: ProductStatusType;
 	cancelled?= false;
 	comment?: Comment;

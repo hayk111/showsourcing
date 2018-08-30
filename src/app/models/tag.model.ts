@@ -1,7 +1,7 @@
 import { uuid } from '~utils';
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
-export class Tag extends BaseEntity<TagConfig> {
+export class Tag extends EntityWithAudit<TagConfig> {
 	name?: string;
 	deleted?: boolean;
 }

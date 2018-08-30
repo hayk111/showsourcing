@@ -1,7 +1,7 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
 
-export class AppComment extends BaseEntity<AppCommentConfig> implements AppCommentConfig {
+export class AppComment extends EntityWithAudit<AppCommentConfig> implements AppCommentConfig {
 	text: string;
 }
 

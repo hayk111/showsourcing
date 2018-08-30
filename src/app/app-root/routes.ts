@@ -14,30 +14,28 @@ import { routes as supplierRoutes } from '~features/supplier/routes';
 import { routes as taskRoutes } from '~features/tasks/router';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
-import * as ClientGuards from '~shared/apollo/guards';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
-import { GloabalClientsReadyGuardService, TeamClientReadyGuardService } from '~shared/apollo/guards';
-import { GuestClientReadyGuardService } from '~shared/apollo/guards/guest-client-ready.guard.service';
+import { ApolloStateService } from '~shared/apollo';
+import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 
 export const routes: Array<Route> = [
 	{
 		path: 'guest',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService, UnauthGuardService
+			UnauthGuardService
 		],
 		children: [
 			...authRoutes,
-			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
+	{ path: 'server-issue', component: ApolloIssuePageComponent },
 	{
 		path: 'user',
 		component: GuestTemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService,
 			AuthGuardService,
-			ClientGuards.UserClientReadyGuardService
+			UserClientReadyGuard
 		],
 		children: [
 			{ path: 'create-a-team', component: CreateATeamPageComponent },
@@ -47,10 +45,8 @@ export const routes: Array<Route> = [
 	{
 		path: 'rfq/:token',
 		component: RfqTemplateComponent,
-		runGuardsAndResolvers: 'paramsChange',
 		canActivateChild: [
-			GloabalClientsReadyGuardService,
-			GuestClientReadyGuardService
+
 		],
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
@@ -60,11 +56,8 @@ export const routes: Array<Route> = [
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
-			ClientGuards.GloabalClientsReadyGuardService,
 			AuthGuardService,
-			ClientGuards.UserClientReadyGuardService,
-			HasTeamSelectedGuard,
-			ClientGuards.TeamClientReadyGuardService
+			TeamClientReadyGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full', },

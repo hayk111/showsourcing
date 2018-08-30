@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { GlobalClientsInitializer } from '~shared/apollo/services/initializers/global-clients-initializer.service';
-import { UserClientInitializer } from '~shared/apollo/services/initializers/user-client-initializer.service';
-import { TeamClientInitializer } from '~shared/apollo/services/initializers/team-client-initializer.service';
 import { ActivityService } from '~shared/activity/services/activity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, TeamService } from '~global-services';
+import { TeamClientInitializer, UserClientInitializer, GlobalClientsInitializer } from '~shared/apollo/services';
 
 
 @Component({
@@ -27,7 +25,6 @@ export class AppComponent implements OnInit {
 		this.authSrv.init();
 		this.globalClients.init();
 		this.userClient.init();
-		// team srv needs to be initialized after the user client
 		this.teamSrv.init();
 		this.teamClient.init();
 	}

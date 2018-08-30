@@ -1,6 +1,6 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 
-export class AppFile extends BaseEntity<undefined> {
+export class AppFile extends EntityWithAudit<undefined> {
 	fileName: string;
 	deleted: boolean;
 	constructor(extension: string) {

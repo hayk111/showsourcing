@@ -4,9 +4,9 @@ import { AuthenticationService } from '~features/auth/services/authentication.se
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
 import { User } from '~models';
-import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
 import { Apollo } from 'apollo-angular';
-import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
+import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,7 +14,7 @@ import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.c
 export class UserService extends GlobalService<User> {
 
 	userSync: User;
-	defaultClient = USER_CLIENT;
+	defaultClient = Client.USER;
 
 	constructor(
 		protected apollo: Apollo,
@@ -26,10 +26,9 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectUser() {
-		return this.apolloState.userClientReady$.pipe(
-			filter(state => state.ready),
-			switchMap(_ => this.authSrv.authState$.pipe(first())),
-			map(authState => authState.userId),
+		return this.apolloState.getClientStatus(Client.USER).pipe(
+			filter(status => status === ClientStatus.READY),
+			switchMap(_ => this.authSrv.userId$.pipe(first())),
 			distinctUntilChanged(),
 			switchMap(id => this.selectOne(id))
 		);

@@ -1,8 +1,8 @@
 import { SupplierStatusType } from '~models/supplier-status-type.model';
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { User } from '~models/user.model';
 
-export class SupplierStatus extends BaseEntity<SupplierStatusConfig> {
+export class SupplierStatus extends EntityWithAudit<SupplierStatusConfig> {
 	status?: SupplierStatusType;
 	cancelled?= false;
 	comment?: Comment;

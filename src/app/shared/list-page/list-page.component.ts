@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GlobalServiceInterface } from '~global-services/_global/global.service';
-import { EntityMetadata } from '~models';
+import { EntityMetadata, ERM } from '~models';
 import { CreationDialogComponent, EditionDialogComponent } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType, SearchService, Filter } from '~shared/filters';
@@ -12,6 +12,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { AutoUnsub } from '~utils';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { SelectParamsConfig } from '~global-services/_global/select-params';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -32,7 +33,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		// initial filters
 	]);
 	/** property we sort by on first query */
-	protected initialSortBy: string = 'creationDate';
+	protected initialSortBy = 'creationDate';
 
 	/** Whether the items are pending */
 	pending = true;
@@ -231,16 +232,15 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** Will show a confirm dialog to delete items selected */
 	deleteSelected() {
-		// const items = Array.from(this.selectionSrv.selection.keys());
-		// const refetchParams = [{ query: this.refetchQuery, variables: this.currentParams.toApolloVariables() }];
-		// // callback for confirm dialog
-		// const callback = () => {
-		// 	this.featureSrv.deleteMany(items, refetchParams).subscribe(() => {
-		// 		this.resetSelection();
-		// 	});
-		// };
-		// const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
-		// this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
+		const items = Array.from(this.selectionSrv.selection.keys());
+		// callback for confirm dialog
+		const callback = () => {
+			this.featureSrv.deleteMany(items).subscribe(() => {
+				this.resetSelection();
+			});
+		};
+		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
 	/** Deletes an specific item */

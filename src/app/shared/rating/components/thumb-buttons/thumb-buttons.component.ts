@@ -69,6 +69,7 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 
 	/** When we click on thumbs up to like a product */
 	thumbUp() {
+
 		// if we are giving like and we already had a like, we had to delete the vote
 		if (this.like) {
 			this.like = false;

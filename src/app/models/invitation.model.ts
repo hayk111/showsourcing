@@ -1,4 +1,4 @@
-import { BaseEntity } from '~models/_entity.model';
+import { EntityWithAudit } from '~models/_entity.model';
 import { User } from '~models/user.model';
 import { uuid } from '~utils';
 

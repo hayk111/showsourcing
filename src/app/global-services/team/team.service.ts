@@ -3,8 +3,7 @@ import { Observable, of, ReplaySubject, combineLatest } from 'rxjs';
 import { map, switchMap, tap, filter, shareReplay, distinctUntilChanged } from 'rxjs/operators';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Team } from '~models';
-import { USER_CLIENT } from '~shared/apollo/services/initializers/client-names.const';
-import { ApolloStateService } from '~shared/apollo/services/initializers/apollo-state.service';
+
 import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
@@ -12,6 +11,10 @@ import { TeamQueries } from '~global-services/team/team.queries';
 import { log } from '~utils';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
+import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo-state.service';
+import { AuthStatus } from '~features/auth/interfaces/auth-state.interface';
+import { Router } from '@angular/router';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 // name in local storage
 const SELECTED_TEAM_ID = 'selected-team-id';
@@ -23,11 +26,16 @@ const SELECTED_TEAM_ID = 'selected-team-id';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
-	defaultClient = USER_CLIENT;
+	defaultClient = Client.USER;
 
 	private _selectedTeamId$ = new ReplaySubject<string>(1);
+	selectedTeamId$ = this._selectedTeamId$.asObservable();
+	hasTeamSelected$ = this._selectedTeamId$.asObservable().pipe(
+		map(team => !!team),
+	);
 	private _selectedTeam$ = new ReplaySubject<Team>(1);
 	selectedTeam$ = this._selectedTeam$.asObservable().pipe(
+		filter(team => !!team),
 		shareReplay(1),
 	);
 	teams$: Observable<Team[]>;
@@ -40,7 +48,6 @@ export class TeamService extends GlobalService<Team> {
 		protected authSrv: AuthenticationService
 	) {
 		super(apollo, TeamQueries, 'team', 'teams');
-		log.debug('team service constructor');
 	}
 
 	init() {
@@ -48,12 +55,8 @@ export class TeamService extends GlobalService<Team> {
 		// when we created this service the user client could be undefined
 		// because the team service is injected in guards
 		// 1. when the user client is ready we get the user's teams
-		this.teams$ = this.apolloState.userClientReady$.pipe(
-			filter(state => state.ready),
-			// we want to recheck only when the list of team change, not when one is mutated
-			// therefor we can check if ids in both teams are the same.
-			// usually the order won't change so this check should be enough
-			distinctUntilChanged(),
+		this.teams$ = this.apolloState.getClientStatus(Client.USER).pipe(
+			filter(state => state === ClientStatus.READY),
 			switchMap(_ => this.selectAll()),
 		);
 
@@ -65,8 +68,8 @@ export class TeamService extends GlobalService<Team> {
 		).subscribe(this._selectedTeam$);
 
 		// when logging out let's clear the current selected team
-		this.authSrv.authState$.subscribe(authState => {
-			if (!authState.authenticated)
+		this.authSrv.authStatus$.subscribe(status => {
+			if (status === AuthStatus.NOT_AUTHENTICATED)
 				this.resetSelectedTeam();
 		});
 	}
@@ -80,16 +83,9 @@ export class TeamService extends GlobalService<Team> {
 	}
 
 	/** picks a team, puts the selection in local storage */
-	pickTeam(team: Team): Observable<Team> {
+	pickTeam(team: Team): void {
 		this.storage.setItem(SELECTED_TEAM_ID, team.id);
 		this._selectedTeamId$.next(team.id);
-		return this._selectedTeam$.pipe();
-	}
-
-	get hasTeamSelected$(): Observable<boolean> {
-		return this.selectedTeam$.pipe(
-			map(team => !!team)
-		);
 	}
 
 	/** restore from local storage   */

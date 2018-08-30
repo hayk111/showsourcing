@@ -1,9 +1,16 @@
-import { AccessTokenState } from '~features/auth';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
+
+
+
+
+export enum AuthStatus {
+	PENDING = 'Pending',
+	AUTHENTICATED = 'Authenticated',
+	NOT_AUTHENTICATED = 'Not Authenticated',
+}
 
 
 export interface AuthState {
-	authenticated?: boolean;
-	tokenState?: AccessTokenState;
+	status: AuthStatus;
 	userId?: string;
-	token?: string;
 }
