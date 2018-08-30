@@ -35,7 +35,7 @@ import { ProductGridCardComponent } from '~shared/product/components/product-gri
 	declarations: [
 		FindProductsDialogComponent, ProductsCardViewDialogComponent, ProductsListViewComponent,
 		ProductsCardViewComponent, ProductGridCardComponent],
-	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent],
+	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent, ProductGridCardComponent],
 	entryComponents: [FindProductsDialogComponent],
 	providers: [ProductFeatureService]
 })

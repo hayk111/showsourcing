@@ -9,7 +9,7 @@
 	(search)="search($event)"
 	(buttonClick)="openInviteDialog()">
 
-	<context-menu-app xPosition="after" yPosition="45" *ngIf="teamOwner && hasSelected">
+	<context-menu-app xPosition="after" yPosition="45" *ngIf="hasSelected">
 		<context-menu-trigger-app class="button flex pointer">
 			<div class="text">Selection</div>
 			<div class="selector"><icon-app fontSet="fa" name="caret-down"></icon-app></div>

@@ -2,49 +2,14 @@
 	display: block;
 }
 
+card-app {
+	// overflow: hidden;
+}
+
 activity-user-app {
 	padding-bottom: var(--spacing-ms);
 }
-// previews
 
-.previewCtnr {
-	overflow-x: auto;
-	height: 174px;
-	.preview {
-		margin-right: var(--spacing-s);
-		width: 140px;
-		img-app {
-			width: 140px;
-			height: 140px;
-			border-radius: var(--border-radius-s);
-			margin-bottom: var(--spacing-xs);
-		}
-		.productName {
-			font-size: var(--font-size-s);
-			color: var(--color-txt-strong);
-			font-weight: 600;
-		}
-
-		.priceMoq {
-			color: var(--color-txt-secondary);
-			font-size: var(--font-size-s);
-		}
-
-		.productName, .priceMoq {
-			margin-left: var(--spacing-xs);
-		}
-
-		.fav {
-			font-size: 10px;
-			color: var(--color-warn);
-		}
-	}
-}
-
-// supplier
-.supplier {
-	margin-top: var(--spacing-ms);
-}
 
 .supplierImg {
 	height: 32px;
@@ -60,6 +25,7 @@ activity-user-app {
 }
 
 .supplierType {
+	margin-top: var(--spacing-xs);
 	font-size: var(--font-size-s);
 	color: var(--color-txt-secondary);
 	letter-spacing: -0.1px;

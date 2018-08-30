@@ -19,8 +19,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 	@Input() set selection(selection: Map<string, boolean>) {
 		this.selected = selection.has(this.product.id);
 	}
-	selected: boolean;
-	@Input() favorite: boolean;
+	@Input() hasActions = true;
 	@Output() productSelect = new EventEmitter<null>();
 	@Output() productUnselect = new EventEmitter<null>();
 	@Output() productFavorite = new EventEmitter<null>();
@@ -29,6 +28,7 @@ export class ProductGridCardComponent extends AutoUnsub implements OnInit {
 
 	prodERM = ERM.PRODUCT;
 	showOptionsBar = false;
+	selected: boolean;
 
 	constructor(
 		private featureSrv: ProductFeatureService,

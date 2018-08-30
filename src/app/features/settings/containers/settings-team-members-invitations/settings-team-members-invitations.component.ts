@@ -57,4 +57,8 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 		this.sort({ sortBy: 'email' });
 	}
 
+	openInviteDialog() {
+		// TODO
+	}
+
 }

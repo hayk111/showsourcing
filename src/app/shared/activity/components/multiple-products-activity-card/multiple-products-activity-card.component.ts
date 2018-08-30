@@ -21,8 +21,8 @@ export class MultipleProductsActivityCardComponent implements OnInit {
 		return this.products.slice(0, 4);
 	}
 
-	goToProduct(product: Product) {
-		this.router.navigate(['product', 'details', product.id ]);
+	viewProduct(product: Product) {
+		this.router.navigate(['product', 'details', product.id]);
 	}
 
 }

@@ -1,4 +1,4 @@
-<div class="card-container" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
+<div class="card-container" [ngClass]="{'selectedCard': selected, 'actions': hasActions}" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
 	<div class="card-content flexColumn">
 		<img-app
 			class="noselect"
@@ -21,7 +21,7 @@
 		</status-badge-app>
 
 		<checkbox-app
-			*ngIf="selected || showOptionsBar"
+			*ngIf="hasActions && (selected || showOptionsBar)"
 			[size]="20"
 			[checked]="selected"
 			(check)="productSelect.emit()"
@@ -30,19 +30,20 @@
 
 		<div class="information">
 			<div class="text-bar">
-				<p class="name-product">{{product?.name}}</p>
+				<p class="name-product">{{product?.name || 'Unnamed Product'}}</p>
 				<p class="supplier-product">{{product?.supplier?.name}}</p>
 			</div>
 			<icons-status-app
 				[product]="product"
-				[favorite]="favorite">
+				[favorite]="product?.favorite">
 			</icons-status-app>
 		</div>
 
 		<action-bar-app
+			*ngIf="hasActions"
 			[isVisible]="showOptionsBar"
-			[votes]="product.votes"
-			[favorite]="favorite"
+			[votes]="product?.votes"
+			[favorite]="product?.favorite"
 			(onFavorite)="productFavorite.emit()"
 			(onUnfavorite)="productUnfavorite.emit()"
 			(vote)="updateProduct({ votes: $event })"
@@ -50,10 +51,10 @@
 			(buttonClick)="onViewProduct()">
 
 			<button class="icon light folder" (click)="openAddToProject()">
-				<icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+				<icon-app fontSet="svg" name="folder"></icon-app>
 			</button>
 			<button class="icon light dots">
-				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+				<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
 			</button>
 
 		</action-bar-app>

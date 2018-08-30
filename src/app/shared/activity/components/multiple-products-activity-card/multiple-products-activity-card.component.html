@@ -2,56 +2,35 @@
 
 	<!-- user -->
 	<activity-user-app
-		[user]="products[0].createdBy"
+		[user]="products[0]?.createdBy"
 		[time]="time"
-		action="added {{ products.length }} products"></activity-user-app>
+		action="added {{ products?.length }} products"></activity-user-app>
 
 	<!-- previews -->
-	<div class="previewCtnr flex">
-		<div class="preview flexColumn" (click)="goToProduct(product)" *ngFor="let product of firstFour">
-			<img-app
-				class="pointer"
-				size="xl"
-				[image]="product"></img-app>
-			<div class="productName flexBetween">
-				<span>{{ product?.name }}</span>
-				<div>
-					<icon-app class="fav" name="heart" fontSet="fa" *ngIf="product.favorite"></icon-app>
+	<multiple-product-carousel-app
+		[products]="products"
+		(onViewProduct)="viewProduct($event)">
+	</multiple-product-carousel-app>
+
+	<!-- supplier -->
+	<card-footer-app>
+		<div class="flexBetween" *ngIf="products[0]?.supplier as supplier">
+
+			<div class="flex supplier">
+				<img-app class="supplierImg" [image]="supplier?.logoImage" type="supplier"></img-app>
+
+				<div class="flexColumn">
+					<span class="supplierName">{{ supplier.name }}</span>
+					<span class="supplierType flexStart">
+						{{ supplier.supplierType || 'Supplier' }}
+						<ng-container *ngIf="supplier.country">
+							{{ supplier.country | const: 'country' }}
+						</ng-container>
+					</span>
 				</div>
 			</div>
-			<span class="priceMoq">
-				<ng-container *ngIf="product.price && product.price.value">
-					{{ product?.price?.currency }} {{ product?.price?.value }}
-				</ng-container>
-				<ng-container *ngIf="product.price && product.price.value && product.minimumOrderQuantity">
-					-
-				</ng-container>
-				<ng-container *ngIf="product.minimumOrderQuantity">
-					{{ product?.minimumOrderQuantity }} pcs
-				</ng-container>
-			</span>
+
+			<button class="light">View Products</button>
 		</div>
-
-	</div>
-	<!-- supplier -->
-
-	<div class="flex supplier" *ngIf="products[0]?.supplier as supplier">
-		<img-app class="supplierImg" [image]="supplier.logoImage" type="supplier"></img-app>
-
-		<div class="flexColumn">
-			<span class="supplierName">{{ supplier.name }}</span>
-			<span class="supplierType">
-				{{ supplier.supplierType || 'Supplier' }}
-				<ng-container *ngIf="supplier.country">
-					{{ supplier.country | const: 'country' }}
-				</ng-container>
-			</span>
-		</div>
-	</div>
-
-
-	<card-footer-app>
-		<button>View Products</button>
 	</card-footer-app>
-
 </card-app>
