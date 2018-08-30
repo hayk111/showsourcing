@@ -168,9 +168,9 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOneByPredicate(predicate: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
-		const title = 'Selecting One By Query ' + this.typeName;
+		const title = 'Querying One By Query ' + this.typeName;
 		fields = this.getFields(fields, this.fields.one);
-		const gql = this.queryBuilder.queryOne(fields);
+		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 		this.log(title, gql, queryName, variables);
@@ -179,7 +179,7 @@ export abstract class GlobalService<T extends { id?: string }> implements Global
 				filter((r: any) => this.checkError(r)),
 				// extracting the result
 				// since we are getting an array back we only need the first one
-				map(({ data }) => data[queryName]),
+				map(({ data }) => data[queryName][0]),
 				tap(data => this.logResult(title, queryName, data)),
 				shareReplay(1)
 			);

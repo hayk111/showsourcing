@@ -13,6 +13,7 @@ export class SettingsTeamMembersPageComponent {
 
 	constructor(
 		protected dlgSrv: DialogService,
+		protected moduleRef: NgModuleRef<any>
 	) {
 	}
 
@@ -23,7 +24,7 @@ export class SettingsTeamMembersPageComponent {
 
 	/** Opens the dialog for creating a new team */
 	openNewTeamDialog() {
-		this.dlgSrv.open(CreationDialogComponent, { type: ERM.TEAM, shouldRedirect: false });
+		this.dlgSrv.openFromModule(CreationDialogComponent, this.moduleRef, { type: ERM.TEAM, shouldRedirect: false });
 	}
 
 }
