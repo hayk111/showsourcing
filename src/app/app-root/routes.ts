@@ -12,6 +12,7 @@ import { routes as projectRoutes } from '~features/project/routes';
 import { routes as settingsRoutes } from '~features/settings/routes';
 import { routes as supplierRoutes } from '~features/supplier/routes';
 import { routes as taskRoutes } from '~features/tasks/router';
+import { routes as invitationRoutes } from '~features/invitation/routes';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
@@ -27,6 +28,8 @@ export const routes: Array<Route> = [
 		],
 		children: [
 			...authRoutes,
+			...invitationRoutes,
+			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
 	{ path: 'server-issue', component: ApolloIssuePageComponent },

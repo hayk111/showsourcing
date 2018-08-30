@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
 import { AuthModule } from '~features/auth';
+import { InvitationModule } from '~features/invitation';
 import { EventModule } from '~features/event/event.module';
 import { PickATeamModule } from '~features/pick-a-team/pick-a-team.module';
 import { TestPageModule } from '~features/test-page/test-page.module';
@@ -28,6 +29,7 @@ import { TemplateModule } from '~shared/template';
 		BrowserModule,
 		BrowserAnimationsModule,
 		AuthModule,
+		InvitationModule,
 		// environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
 		HttpClientModule,
 		TemplateModule,
