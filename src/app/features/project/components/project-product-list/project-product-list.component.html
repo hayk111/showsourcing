@@ -125,12 +125,12 @@
 
 <!-- status -->
 <ng-template #status let-row="row">
-	<div class="pointer">
-		<!-- <badge-app
-			[color]="row?.status?.color">
-			{{row?.status?.name}}
-		</badge-app> -->
-	</div>
+	<workflow-action-app
+		[xPosition]="0"
+		[entity]="row"
+		[typeEntity]="prodErm"
+		selectSize="s">
+	</workflow-action-app>
 </ng-template>
 
 <!-- open btn -->
