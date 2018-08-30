@@ -84,8 +84,6 @@ export class UserClientReadyGuard extends ClientReadyGuard {
 	) {
 		super(router, apolloState, Client.USER);
 	}
-
-
 }
 
 @Injectable({
