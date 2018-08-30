@@ -36,12 +36,3 @@ context-menu-app {
 		}
 	}
 }
-
-.menu-item {
-	display: flex !important;
-}
-
-icon-app[name=caret-down] {
-	margin-top: 1px;
-	margin-left: var(--spacing-ms);
-}
