@@ -7,11 +7,11 @@
 	</top-panel-app>
 
 	<sub-panel-app
-		buttonName="Add Product"
+		buttonName="Update Products"
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[buttonIcon]="false"
-		(buttonClick)="openCreateDlg()"
+		(buttonClick)="openFindProductDlg()"
 		(search)="search($event)">
 	</sub-panel-app>
 
@@ -31,6 +31,6 @@
 		(unfavorited)="onItemUnfavorited($event)"
 		(bottomReached)="loadMore()"
 		(sort)="sort($event)"
-		(delete)="deleteSelected($event)">
+		(delete)="deassociateProduct($event)">
 	</project-product-list-app>
 </div>

@@ -19,4 +19,11 @@ export class ProductsCardViewDialogComponent extends ListViewComponent<Product> 
 		super();
 	}
 
+	isSelected(product) {
+		if (this.selection)
+			return this.selection.has(product.id);
+
+		throw Error(`Selection Input is undefnied`);
+	}
+
 }

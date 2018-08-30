@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetectorRef, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -24,12 +24,13 @@ import { SelectionService } from '~shared/list-page/selection.service';
 		SelectionService
 	]
 })
-export class FindProductsDialogComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+export class FindProductsDialogComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit, AfterViewInit {
 
-	@Input() selectedProjects: Project[];
+	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
 	searchFilterElements$: Observable<any[]>;
 	selected: number;
+	unselectedProducts: { [key: string]: Product } = {};
 
 	constructor(
 		protected router: Router,
@@ -42,12 +43,33 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
+	ngOnInit() {
+		super.ngOnInit();
+	}
+
+	ngAfterViewInit() {
+		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+			this.selectionSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
+		}
+	}
+
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
 	hasSelectedProducts() {
 		return (Array.from(this.selectionSrv.selection.values()).length > 0);
+	}
+
+	onItemSelected(entity: any, checkFavorite = false) {
+		delete this.unselectedProducts[entity.id];
+		super.onItemSelected(entity, checkFavorite);
+	}
+
+
+	onItemUnselected(entity: any, checkFavorite = false) {
+		this.unselectedProducts[entity.id] = entity;
+		super.onItemUnselected(entity, checkFavorite);
 	}
 
 	closeDlg() {
@@ -57,7 +79,8 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 	submit() {
 		// we add each project one by one to the store
 		const selectedProducts = this.getSelectedProducts();
-		this.submitCallback(selectedProducts)
+		const unselectedProducts = Object.keys(this.unselectedProducts).map(key => this.unselectedProducts[key]);
+		this.submitCallback({ selectedProducts, unselectedProducts })
 			.subscribe(() => {
 				this.dlgSrv.close();
 			});
