@@ -37,7 +37,6 @@ export class ApolloStateService {
 	private clientsReady$ = this._clientsReady$.asObservable();
 
 	constructor(protected router: Router) {
-		this.clientsReady$.subscribe(all => this.redirect(all));
 	}
 
 	getClientStatus(name: Client): Observable<ClientStatus> {
@@ -80,25 +79,6 @@ export class ApolloStateService {
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
-	}
-
-	private redirect(allState: AllClientState) {
-		// when any of those has error, we redirect to server issue
-		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
-		if (hasError) {
-			this.router.navigate(['server-issue']);
-			return;
-		}
-		// when teamClient is ready we redirect to dashboard
-		if (allState[Client.TEAM] === ClientStatus.READY) {
-			this.router.navigate(['']);
-			return;
-		}
-		// when team client is not ready we redirect to select a team
-		if (allState[Client.TEAM] === ClientStatus.NOT_READY) {
-			this.router.navigate(['user', 'pick-a-team']);
-			return;
-		}
 	}
 
 	private getCurrentStatus(clientName: string): ClientStatus {
