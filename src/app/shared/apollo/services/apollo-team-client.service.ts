@@ -44,11 +44,6 @@ export class TeamClientInitializer extends AbstractApolloClient {
 				shareReplay(1)
 			);
 
-		// only when user client is ready
-		const userClientReady$ = this.apolloState.getClientStatus(Client.USER).pipe(
-			filter(status => status === ClientStatus.READY)
-		);
-
 		const uri$ = teamSelected$.pipe(
 			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
 		);
