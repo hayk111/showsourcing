@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgModuleRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, map, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, distinctUntilChanged, first } from 'rxjs/operators';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
-import { Event, ERM } from '~models';
+import { Event, ERM, Contact } from '~models';
 import { Product } from '~models';
 import { Project, Tag } from '~models';
 import { AutoUnsub } from '~utils';
 import { ProductFeatureService } from '~features/products/services';
 import { FormGroup } from '@angular/forms';
 import { EditableTextComponent } from '~shared/editable-field';
+import { DialogService } from '~shared/dialog';
+import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
 
 @Component({
 	selector: 'product-general-info-app',
@@ -63,8 +65,13 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	];
 
 	typeEntity = ERM.PRODUCT;
+	contacts: Array<Contact>;
 
-	constructor(private route: ActivatedRoute, private srv: ProductFeatureService) {
+	constructor(
+		private route: ActivatedRoute,
+		private srv: ProductFeatureService,
+		private dlgSrv: DialogService,
+		private module: NgModuleRef<any>) {
 		super();
 	}
 
@@ -81,6 +88,9 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.descriptor2$ = this.product$.pipe(
 			map(product => new FormDescriptor(this.customFields2, product))
 		);
+		this.srv.getContacts(this.product.supplier.id).pipe(
+			first()
+		).subscribe(supp => this.contacts = supp.contacts);
 	}
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and
@@ -100,16 +110,23 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 		this.srv.update(product).subscribe();
 	}
 
-	save(description: string) {
-		if (this.editable.isOpen) {
-			this.updateProduct({ description });
-			this.editable.close();
-		}
+	saveDescription(description: string) {
+		this.updateProduct({ description });
 	}
 
 	cancel() {
 		this.editable.close();
 		this.textarea.nativeElement.value = this.product.description;
+	}
+
+	openRfq() {
+		// we add manually the supplier self email, since it is not on the contacts
+		if (this.contacts && this.product.supplier.officeEmail) {
+			this.contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+		} else if (!this.contacts && this.product.supplier.officeEmail) {
+			this.contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
+		}
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product, contacts: this.contacts });
 	}
 
 }
