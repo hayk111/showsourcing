@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { AppComment } from '~models';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { User } from '~models';
+
 @Component({
 	selector: 'comment-app',
 	templateUrl: './comment.component.html',
@@ -7,7 +8,10 @@ import { AppComment } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentComponent implements OnInit {
-	@Input() comment: AppComment;
+
+	@Input() user: User;
+	@Input() comment: Comment;
+
 	constructor() { }
 
 	ngOnInit() {

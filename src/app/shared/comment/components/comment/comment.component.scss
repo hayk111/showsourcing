@@ -1,0 +1,19 @@
+:host {
+	display: block;
+}
+
+.comment-content {
+	background: var(--color-secondary-light);
+	margin-bottom: var(--spacing-xs);
+
+	.title {
+		.name {
+			font-weight: 600;
+			color: var(--color-txt-strong);
+			letter-spacing: -0.3px;
+		}
+		.date {
+			font-size: var(--font-size-s);
+		}
+	}
+}

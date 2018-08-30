@@ -1,7 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommentModule } from '~features/comment';
 import { ProductSummaryComponent } from '~features/products/components/product-summary/product-summary.component';
 import { SelectableImageComponent } from '~features/products/components/selectable-image/selectable-image.component';
 import { ProductFeatureService } from '~features/products/services';
@@ -64,7 +63,6 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		FiltersModule, // used for filters
 		CarouselModule,
 		BadgeModule,
-		CommentModule,
 		TopPanelModule,
 		SearchAutocompleteModule,
 		WorkflowActionModule,
