@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
@@ -15,14 +15,17 @@ import { switchMap } from 'rxjs/operators';
 export class PickATeamPageComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	form: FormGroup;
+	private returnUrl: string;
 
-	constructor(private teamSrv: TeamService, private router: Router) { }
+	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.teams$ = this.teamSrv.teams$;
+		// get return url from route parameters or default to '/'
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 		// go home when team selected
 		this.teamSrv.selectedTeam$.pipe(
-			switchMap(team => this.router.navigate(['']))
+			switchMap(team => this.router.navigateByUrl(this.returnUrl))
 		);
 	}
 

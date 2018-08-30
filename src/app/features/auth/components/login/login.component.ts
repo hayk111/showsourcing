@@ -17,6 +17,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	form: FormGroup;
 	pending$ = new Subject<boolean>();
 	error: string;
+	private returnUrl: string;
 
 	constructor(
 		private srv: AuthenticationService,
@@ -32,7 +33,8 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-
+		// get return url from route parameters or default to '/'
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
 	onSubmit() {
@@ -43,7 +45,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 				take(1)
 			).subscribe(
 				r => {
-					this.router.navigate(['']);
+					this.router.navigateByUrl(this.returnUrl);
 				},
 				e => {
 					if (e.error && e.error.status === 401) {

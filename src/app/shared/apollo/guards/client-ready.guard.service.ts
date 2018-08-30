@@ -102,7 +102,9 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 			this.router.navigate(['server-issues']);
 		}
 		if (status === ClientStatus.NOT_READY) {
-			this.router.navigate(['user', 'pick-a-team']);
+			// we gotta check if there is a return url already,
+			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
+			this.router.navigate(['user', 'pick-a-team'], { queryParams: { returnUrl } });
 		}
 	}
 }

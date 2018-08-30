@@ -41,6 +41,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			).subscribe(
 				r => {
 					this.pending$.next(false);
+					// we navigate to dashboard for sure on registration end
 					this.router.navigate(['']);
 				},
 				e => {
