@@ -20,7 +20,7 @@
 				<img-app class="supplierImg" [image]="supplier?.logoImage" type="supplier"></img-app>
 
 				<div class="flexColumn">
-					<span class="supplierName">{{ supplier.name }}</span>
+					<span class="supplierName flexStart">{{ supplier.name }}</span>
 					<span class="supplierType flexStart">
 						{{ supplier.supplierType || 'Supplier' }}
 						<ng-container *ngIf="supplier.country">
