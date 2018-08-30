@@ -1,6 +1,6 @@
-import { BaseEntity } from '~models';
+import { EntityWithAudit } from '~models';
 
-export class Comment extends BaseEntity<CommentConfig> {
+export class Comment extends EntityWithAudit<CommentConfig> {
 	id: string;
 	text: string;
 
