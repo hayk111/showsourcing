@@ -10,17 +10,17 @@
 			[hasPercent]="false">
 		</icons-status-app>
 	</div>
-	<div *ngIf="product?.price?.value" class="flex price">
-		<div class="amount">
+	<div class="flex price">
+		<div *ngIf="product?.price?.value" class="amount">
 			{{ product?.price.value | currency: product?.price?.currency:'symbol':'1.2-2'}}
 		</div>
-		<div class="moq flexCenter">
+		<div *ngIf="product?.price?.value" class="moq flexCenter">
 			({{ 'Min ' + product?.minimumOrderQuantity + ' pcs' }}{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}})
 		</div>
 	</div>
 	<div class="description">
 		<div class="description-title">Description</div>
-		<editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
+		<editable-text-app #editable [closeOnOutsideClick]="false" (saved)="saveDescription(txt.value)">
 			<editable-label-app *ngIf="product?.description; else noDesc">
 				{{ product.description }}
 			</editable-label-app>
@@ -46,16 +46,13 @@
 		</dynamic-form-app>
 	</ng-container>
 
-	<card-footer-app *ngIf="!editable.isOpen; else closed">
-		<button class="secondary-light" (click)="editable.open()">Edit</button>
-		<button>Send RFQ to Supplier</button>
-	</card-footer-app>
-	<ng-template #closed>
-		<card-footer-app>
+	<card-footer-app>
+		<button *ngIf="!editable.isOpen; else closed" class="secondary-light" (click)="editable.open()">Edit</button>
+		<ng-template #closed>
 			<button class="light" (click)="cancel()">Cancel</button>
-			<button (click)="save(txt.value)">Save</button>
-		</card-footer-app>
-	</ng-template>
+		</ng-template>
+		<button (click)="openRfq()">Send RFQ to Supplier</button>
+	</card-footer-app>
 </card-app>
 
 <card-app>
