@@ -20,6 +20,7 @@ export interface Filter {
 	value?: any;
 	entity?: any;
 	raw?: string;
+	fields?: string[];
 }
 // the key here is actually a FilterGroupName
 export interface FilterGroup {

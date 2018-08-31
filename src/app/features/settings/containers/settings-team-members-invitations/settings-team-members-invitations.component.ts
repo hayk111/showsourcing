@@ -7,7 +7,7 @@ import { InvitationFeatureService } from '~features/settings/services/invitation
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, Invitation } from '~models';
 import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
+import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -55,6 +55,16 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 		}); */
 
 		this.sort({ sortBy: 'email' });
+	}
+
+	search(str: string) {
+		if (str)
+			this.filterList.upsertFilter({
+				type: FilterType.SEARCH, value: str,
+				fields: [ 'email' ]
+			});
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	openInviteDialog() {

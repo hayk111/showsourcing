@@ -101,19 +101,21 @@ export class FilterList {
 		if (filters.length === 0)
 			return '';
 
-		return filters.map(({ type, value, raw, comparator }) => {
+		return filters.map(({ type, value, raw, fields, comparator }) => {
 			// if there is a comparator we use the comparator to make the query
 			if (comparator)
 				return `${type} ${comparator} ${value}`;
 			// else we return the filter given the type
-			return FilterList.getFieldCondition(type, value)
+			return FilterList.getFieldCondition(type, value, fields);
 		}).join(' or ');
 	}
 
-	private static getFieldCondition(type, value) {
+	private static getFieldCondition(type, value, fields) {
 		switch (type) {
 			case FilterType.SEARCH:
-				return `name CONTAINS[c] "${value}"`;
+				return (fields && fields.length > 0) ?
+					fields.map(field => `${field} CONTAINS[c] "${value}"`).join(' OR ') :
+					`name CONTAINS[c] "${value}"`;
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 				return `${type} == ${value}`;
