@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ProductService, ProductStatusTypeService, UserService } from '~global-services';
+import { ProductStatusService } from '~global-services/product-status/product-status.service';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { Observable } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { of, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ListQuery } from '~global-services/_global/list-query.interface';
@@ -19,6 +20,7 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	constructor(
 		protected apollo: Apollo,
 		protected productSrv: ProductService,
+		protected productStatusSrv: ProductStatusService,
 		protected productStatusTypeService: ProductStatusTypeService,
 		protected userSrv: UserService
 	) {
@@ -67,13 +69,14 @@ export class ProjectWorkflowFeatureService extends ProductService {
 			switchMap(productsWithNoStatus => {
 				return this.productStatusTypeService.queryAll().pipe(
 					// Remove the status with category refused
-					map(statuses => statuses.filter(status => (status.category !== 'refused'))),
+					map(statuses => statuses.filter(status => (status.category !== 'refused' && status.category !== 'inspiration'))),
 					// Load products associated with the project
 					switchMap(statuses => {
 						return this.getProjectProducts(project).pipe(
 							map(products => ({ products, statuses }))
 						);
 					}),
+					tap(products => console.log('>> getStatues - products = ', products)),
 					// Add products to the status
 					map(({ products, statuses }) => statuses.map(status => ({
 						...status,
@@ -107,16 +110,21 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	/**
 	 * Update the status of the product with the specified one.
 	 */
-	updateProductStatus(product: Product, status: ProductStatus) {
+	updateProductStatus(product: Product, statusType: ProductStatusType) {
 		// we check if the product has a status
 		if (!product.status) {
-			const tempS = new ProductStatus({ status: { id: status.id } });
-			return this.update({ ...product, statuses: [tempS] });
+			const tempStatus = new ProductStatus({ status: { id: statusType.id } });
+			return this.productStatusSrv.create(tempStatus).pipe(
+				switchMap(newStatus => this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]))
+			);
 		} else {
 			// we dont update if we click the same status as the current one of the product
-			if (status.id !== product.status.status.id) {
-				const tempS = new ProductStatus({ status: { id: status.id } });
-				return this.update({ ...product, statuses: tempS });
+			const productStatusType = product.status.status;
+			if (statusType.id !== productStatusType.id) {
+				const tempStatus = new ProductStatus({ status: { id: statusType.id } });
+				return this.productStatusSrv.create(tempStatus).pipe(
+					switchMap(newStatus => this.update({ id: product.id, status: newStatus }, [ProductQueries.status]))
+				);
 			}
 		}
 		return of();

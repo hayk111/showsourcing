@@ -53,7 +53,7 @@ export class ConstPipe implements PipeTransform {
 		const constObject = constMap[value];
 
 		if (!constObject)
-			return '';
+			return value;
 
 		if (!propertyName)
 			return constMap[value].name;

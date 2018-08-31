@@ -4,7 +4,7 @@ import { User } from '~models/user.model';
 
 export class ProductStatus extends EntityWithAudit<ProductStatusConfig> {
 	status?: ProductStatusType;
-	cancelled?= false;
+	cancelled? = false;
 	comment?: Comment;
 	deletedBy?: User;
 	deletionDate?: string;
