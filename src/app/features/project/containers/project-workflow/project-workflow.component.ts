@@ -58,7 +58,6 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
 		).subscribe(statuses => {
-			console.log('>> statuses (2) = ', statuses);
 			this.statuses$.next(statuses);
 		});
 

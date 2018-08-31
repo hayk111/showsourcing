@@ -8,6 +8,7 @@ export class ProductStatus extends EntityWithAudit<ProductStatusConfig> {
 	comment?: Comment;
 	deletedBy?: User;
 	deletionDate?: string;
+	__typename = 'ProductStatus';
 }
 
 export interface ProductStatusConfig {

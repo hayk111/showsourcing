@@ -76,7 +76,6 @@ export class ProjectWorkflowFeatureService extends ProductService {
 							map(products => ({ products, statuses }))
 						);
 					}),
-					tap(products => console.log('>> getStatues - products = ', products)),
 					// Add products to the status
 					map(({ products, statuses }) => statuses.map(status => ({
 						...status,
@@ -114,20 +113,12 @@ export class ProjectWorkflowFeatureService extends ProductService {
 		// we check if the product has a status
 		if (!product.status) {
 			const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-			tempStatus.__typename = 'ProductStatus';
-			/* return this.productStatusSrv.create(tempStatus).pipe(
-				switchMap(newStatus => this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]))
-			); */
 			return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]);
 		} else {
 			// we dont update if we click the same status as the current one of the product
 			const productStatusType = product.status.status;
 			if (statusType.id !== productStatusType.id) {
 				const tempStatus = new ProductStatus({ status: { id: statusType.id } }) as any;
-				tempStatus.__typename = 'ProductStatus';
-				/* return this.productStatusSrv.create(tempStatus).pipe(
-					switchMap(newStatus => this.update({ id: product.id, status: newStatus }, [ProductQueries.status]))
-				); */
 				return this.update({ id: product.id, status: tempStatus }, [ProductQueries.status]);
 			}
 		}
