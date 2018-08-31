@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { filter, tap, map, distinctUntilChanged } from 'rxjs/operators';
+import { filter, tap, map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
@@ -34,7 +34,9 @@ export class ApolloStateService {
 
 	private clientReady: AllClientState = {};
 	private _clientsReady$ = new ReplaySubject<AllClientState>(1);
-	private clientsReady$ = this._clientsReady$.asObservable();
+	private clientsReady$ = this._clientsReady$.asObservable().pipe(
+		shareReplay(1)
+	);
 
 	constructor(protected router: Router) {
 		this.clientsReady$.subscribe(all => this.redirect(all));

@@ -14,6 +14,7 @@ import { mergeMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { AuthStatus } from '~features/auth';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
 
 
@@ -25,9 +26,10 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected tokenSrv: TokenService,
 		protected httpLink: HttpLink,
-		protected authSrv: AuthenticationService
+		protected authSrv: AuthenticationService,
+		protected realmServerSrv: RealmServerService
 	) {
-		super(apollo, httpLink, apolloState);
+		super(apollo, httpLink, apolloState, realmServerSrv);
 	}
 
 	init() {

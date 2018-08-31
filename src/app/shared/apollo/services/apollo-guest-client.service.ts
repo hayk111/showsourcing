@@ -8,6 +8,7 @@ import { ApolloStateService } from './apollo-state.service';
 import { log } from '~utils/log';
 import { ActivatedRoute } from '@angular/router';
 import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-client.class';
+import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -18,9 +19,11 @@ export class GuestClientInitializer extends AbstractApolloClient {
 		protected link: HttpLink,
 		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		protected realmServerSrv: RealmServerService
+
 	) {
-		super(apollo, link, apolloState);
+		super(apollo, link, apolloState, realmServerSrv);
 	}
 
 	init() {

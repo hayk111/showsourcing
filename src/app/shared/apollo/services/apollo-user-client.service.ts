@@ -11,6 +11,7 @@ import { AbstractApolloClient } from '~shared/apollo/services/abstract-apollo-cl
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 import { ApolloStateService, ClientStatus } from './apollo-state.service';
+import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,9 +23,11 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected tokenSrv: TokenService,
 		protected authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
-		private userSrv: UserService
+		protected userSrv: UserService,
+		protected realmServerSrv: RealmServerService
+
 	) {
-		super(apollo, link, apolloState);
+		super(apollo, link, apolloState, realmServerSrv);
 	}
 
 	init(): void {

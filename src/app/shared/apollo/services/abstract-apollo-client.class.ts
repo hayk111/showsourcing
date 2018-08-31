@@ -17,6 +17,7 @@ import { ApolloStateService, ClientStatus } from '~shared/apollo/services/apollo
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { filter } from 'rxjs/operators';
+import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
 export abstract class AbstractApolloClient {
 	protected initialized = false;
@@ -24,7 +25,8 @@ export abstract class AbstractApolloClient {
 	constructor(
 		protected apollo: Apollo,
 		protected httpLink: HttpLink,
-		protected apolloState: ApolloStateService
+		protected apolloState: ApolloStateService,
+		protected realmServerSrv: RealmServerService
 	) { }
 
 
@@ -66,6 +68,7 @@ export abstract class AbstractApolloClient {
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
 		return this.apolloState.getClientStatus(Client.GLOBAL_CONSTANT).pipe(
 			filter(status => status === ClientStatus.READY),
+			// TODO: replace this with realmServerSrv.queryOne..
 			switchMap(_ => this.apollo.use(Client.GLOBAL_CONSTANT).query({
 				query: ClientInitializerQueries.selectRealmHostName,
 				variables: { query: `name == "${realmName}"` }

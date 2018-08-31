@@ -34,5 +34,5 @@ export * from '~models/show.model';
 export * from '~models/external-request.model';
 export * from '~models/quote.model';
 export * from '~models/booth.model';
-
+export * from '~models/realm-server.model';
 

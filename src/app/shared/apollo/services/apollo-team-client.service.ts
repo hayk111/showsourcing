@@ -13,6 +13,7 @@ import { combineLatest, forkJoin, zip } from 'rxjs';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { Router } from '@angular/router';
 import { AuthStatus } from '~features/auth';
+import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
 
 
@@ -26,9 +27,10 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		private authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
 		protected teamSrv: TeamService,
-		protected router: Router
+		protected realmServerSrv: RealmServerService
+
 	) {
-		super(apollo, link, apolloState);
+		super(apollo, link, apolloState, realmServerSrv);
 	}
 
 	init() {
@@ -44,6 +46,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 				shareReplay(1)
 			);
 
+		// here the user client is ready if a team is selected
 		const uri$ = teamSelected$.pipe(
 			switchMap(team => this.getRealmUri(team.realmServerName, team.realmPath))
 		);
