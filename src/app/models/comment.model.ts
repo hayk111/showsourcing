@@ -1,4 +1,4 @@
-import { EntityWithAudit } from '~models';
+import { EntityWithAudit } from '~models/_entity.model';
 
 export class Comment extends EntityWithAudit<CommentConfig> {
 	id: string;

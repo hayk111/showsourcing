@@ -65,7 +65,6 @@ export class OneProductActivityCardComponent implements OnInit {
 
 	onSubmit() {
 		this.createComment.emit({ text: this.inpComment.nativeElement.value, product: this.product });
-		console.log(this.inpComment);
 		this.inpComment.nativeElement.value = '';
 		this.inpComment.nativeElement.blur();
 	}

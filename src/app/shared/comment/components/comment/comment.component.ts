@@ -17,4 +17,16 @@ export class CommentComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	urlify(text) {
+		const urlRegex = /^((http|https):\/\/|www.)[^\s]*/g;
+		const trimRegex = /^(((http|https):\/\/www\.)|(http|https):\/\/|www\.)/g;
+		return text.replace(urlRegex, url => {
+			// we add the '//' so it does not try to acces a relative path
+			// if it has https we don't need the double bars
+			const href = url.startsWith('http') ? url : '//' + url;
+			return '<a href="' + href + '" class="color-primary">' + url.replace(trimRegex, '') + '</a>';
+		});
+	}
+
+
 }

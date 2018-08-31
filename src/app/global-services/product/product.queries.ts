@@ -20,7 +20,6 @@ export abstract class ProductQueries extends GlobalQueries {
 		images { id, fileName }
 	}`;
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
-	static readonly comments = `comments { id, text }`;
 	static readonly price = ` price { id, currency, value, baseCurrencyValue } `;
 	static readonly category = `category { id, name }`;
 	static readonly projects = `projects { id, name, productCount, description }`;
@@ -30,6 +29,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly tags = `tags { id, name }`;
 	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName } } }`;
 	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
+	static readonly comments = `comments { id, text, ${ProductQueries.createdBy}, creationDate }`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 
@@ -91,5 +91,6 @@ export abstract class ProductQueries extends GlobalQueries {
 		lastUpdatedDate
 		${ProductQueries.status}
 		${ProductQueries.votes}
-		${ProductQueries.projects}`;
+		${ProductQueries.projects}
+		${ProductQueries.comments}`;
 }

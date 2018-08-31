@@ -6,9 +6,9 @@
 </user-picture-app>
 <div class="comment-content flexColumn">
 	<div class="title flex">
-		<span class="name">{{user?.firstName || 'Fake'}} {{user?.lastName || 'name'}}</span>
-		<span class="date flexCenter">1 year ago</span>
+		<span class="name">{{user?.firstName }} {{user?.lastName }}</span>
+		<span class="date flexCenter">{{ comment?.creationDate | timeAgo }}</span>
 	</div>
 	<!-- comment content -->
-	{{ comment?.text || 'me enfadoi'}}
+	<div [innerHtml]="urlify(comment?.text)"></div>
 </div>

@@ -70,7 +70,9 @@ card-footer-app {
 		padding-left: 2px;
 	}
 
-	input {
+	input, textarea {
+		height: 36px;
+		resize: none;
 		border: none;
 		background: none;
 

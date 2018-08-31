@@ -63,7 +63,7 @@
 		<!-- here the comment component with previosu commennts loaded -->
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 		<div class="flexBetween">
-			<input inputApp #inpComment type="text" placeholder="Leave a comment" (keyup.enter)="onSubmit()"/>
+			<textarea inputApp #inpComment type="text" placeholder="Leave a comment" (keydown.enter)="onSubmit()"></textarea>
 			<button *ngIf="input.focussed" class="secondary-light" (click)="onSubmit()">Send</button>
 		</div>
 	</card-footer-app>
