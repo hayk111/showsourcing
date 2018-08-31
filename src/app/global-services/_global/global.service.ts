@@ -593,6 +593,9 @@ Deleting everything.. so watchout. `);
 					__typename: typename
 				},
 			};
+			console.log('----');
+			console.log(typename, options.optimisticResponse);
+			console.log('----');
 		} else {
 			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(gql)}`);
 		}
