@@ -1,3 +1,11 @@
+:host {
+	display: block;
+  // width: 100%;
+  overflow-x: auto;
+	width: calc(100vw - 72px);
+	height: calc(100vh - 161px);
+}
+
 article{
 	overflow: hidden;
 	padding: 0;
@@ -5,13 +13,13 @@ article{
 
 .ctnr {
 	padding-left: var(--spacing-m);
-	overflow: auto;
+	// overflow: auto;
 }
 
 kanban-col-app {
 	min-width: 340px;
 	margin-top: var(--spacing-m);
-	min-height: calc(100vh - 197px);
+	min-height: calc(100vh - 212px);
 }
 
 .card-container {

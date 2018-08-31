@@ -7,11 +7,15 @@ import { of, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
+import { ListQuery } from '~global-services/_global/list-query.interface';
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProjectWorkflowFeatureService extends ProductService {
+	productsResult: ListQuery<Product>;
+
 	constructor(
 		protected apollo: Apollo,
 		protected productSrv: ProductService,
@@ -22,8 +26,19 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	}
 
 	/** Returns the products associated with a specific project */
-	getProjectProducts(project: Project) {
-		return this.queryMany({ query: `projects.id == "${project.id}"` });
+	getProjectProducts(project: Project, refresh = false) {
+		if (refresh && this.productsResult) {
+			this.productsResult.refetch({
+				query: `projects.id == '${project.id}'`,
+				sortBy: 'lastUpdatedDate'
+			});
+		}
+
+		if (!this.productsResult) {
+			this.productsResult = this.productSrv.getListQuery({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' });
+		}
+		return this.productsResult.items$;
+		// return this.queryMany({ query: `projects.id == "${project.id}"` });
 	}
 
 	/**
@@ -35,8 +50,18 @@ export class ProjectWorkflowFeatureService extends ProductService {
 	 * A fake status is added with the products with no status since they
 	 * also have to be display in the kanban.
 	 * */
-	getStatuses(project: Project) {
-		return this.productSrv.queryMany({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' }).pipe(
+	getStatuses(project: Project, refresh = false) {
+		if (refresh && this.productsResult) {
+			this.productsResult.refetch({
+				query: `projects.id == '${project.id}'`,
+				sortBy: 'lastUpdatedDate'
+			});
+		}
+
+		if (!this.productsResult) {
+			this.productsResult = this.productSrv.getListQuery({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' });
+		}
+		return this.productsResult.items$.pipe(
 			// Filter products to get only products without status
 			map((products: Product[]) => products.filter(product => !product.status)),
 			switchMap(productsWithNoStatus => {
