@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
 import { forkJoin, Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
@@ -8,6 +8,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
 import { environment } from 'environments/environment.prod';
 import { TokenService } from '~features/auth';
+import { TokenState } from '~features/auth/interfaces/token-state.interface';
 
 /** some doc on API in readme next to this file */
 
@@ -123,7 +124,12 @@ export class ActivityService {
 	}
 
 	private getToken(url): Observable<TokenResponse> {
-		return this.http.get<TokenResponse>(url);
+		return this.tokenSrv.refreshToken$.pipe(
+			switchMap((token: TokenState) => {
+				const headers = new HttpHeaders({ Authorization: token.token });
+				return this.http.get<TokenResponse>(url, { headers });
+			})
+		);
 	}
 
 
