@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
 import { TemplateService } from '~shared/template/services/template.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { CommentService } from '~global-services/comment/comment.service';
 
@@ -60,8 +60,9 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 
 	createComment(items: any) {
 		const newComment = new Comment({ text: items.text });
-		this.commentSrv.create(newComment);
-		this.updateProduct({ id: items.product.id, comments: [...items.product.comments, newComment] });
+		this.commentSrv.create(newComment).pipe(
+			switchMap(_ => this.productSrv.update({ id: items.product.id, comments: [...items.product.comments, newComment] }))
+		).subscribe();
 	}
 
 

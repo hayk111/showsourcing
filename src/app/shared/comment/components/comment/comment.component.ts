@@ -18,8 +18,8 @@ export class CommentComponent implements OnInit {
 	}
 
 	urlify(text) {
-		const urlRegex = /^((http|https):\/\/|www.)[^\s]*/g;
-		const trimRegex = /^(((http|https):\/\/www\.)|(http|https):\/\/|www\.)/g;
+		const urlRegex = /((http|https):\/\/|www.)[^\s]*/g;
+		const trimRegex = /(((http|https):\/\/www\.)|(http|https):\/\/|www\.)/g;
 		return text.replace(urlRegex, url => {
 			// we add the '//' so it does not try to acces a relative path
 			// if it has https we don't need the double bars
