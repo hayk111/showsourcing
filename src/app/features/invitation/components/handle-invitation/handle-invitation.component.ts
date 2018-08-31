@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
@@ -22,6 +23,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
+		private location: Location,
 		private userSrv: UserService,
 		private invitationSrv: InvitationFeatureService) {
 		super();
@@ -37,19 +39,23 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	}
 
+	getCurrentPath() {
+		return this.location.path();
+	}
+
 	joinTeam() {
-    const invitation = {
-			...this.invitation,
-			status: 'accepted'
-    }
 		this.invitationSrv.update({
-      id: this.invitation.id,
-      ...invitation
+			id: this.invitation.id,
+			status: 'accepted'
+		}).subscribe(() => {
+			this.router.navigateByUrl('/');
 		});
 	}
 
 	refuseInvitation() {
-		this.invitationSrv.delete(this.invitation.id);
+		this.invitationSrv.delete(this.invitation.id).subscribe(() => {
+			this.router.navigateByUrl('/');
+		});
 	}
 
 }

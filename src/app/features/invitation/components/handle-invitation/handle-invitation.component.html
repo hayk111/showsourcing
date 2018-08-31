@@ -3,8 +3,8 @@
   <div class="subtitle">You are invited to join ShowSourcing</div>
   <div class="subtitle">Do you have an account</div>
   <div class="flexColumn buttons">
-    <button class="secondary" routerLink="/guest/login">Yes - Let me log-in</button>
-    <button class="secondary" routerLink="/guest/register">No - Create an account</button>
+    <button class="secondary" [routerLink]="[ '/guest/login', { returnUrl: getCurrentPath() } ]">Yes - Let me log-in</button>
+    <button class="secondary" [routerLink]="[ '/guest/register', { returnUrl: getCurrentPath() } ]">No - Create an account</button>
   </div>
 </div>
 

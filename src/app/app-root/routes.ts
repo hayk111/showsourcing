@@ -16,7 +16,6 @@ import { routes as invitationRoutes } from '~features/invitation/routes';
 import { routes as testRoutes } from '~features/test-page/routes';
 import { ApolloIssuePageComponent } from '~shared/apollo/components/apollo-issue-page/apollo-issue-page.component';
 import { TemplateComponent, GuestTemplateComponent, RfqTemplateComponent } from '~shared/template';
-import { ApolloStateService } from '~shared/apollo';
 import { UserClientReadyGuard, TeamClientReadyGuard } from '~shared/apollo/guards/client-ready.guard.service';
 
 export const routes: Array<Route> = [
