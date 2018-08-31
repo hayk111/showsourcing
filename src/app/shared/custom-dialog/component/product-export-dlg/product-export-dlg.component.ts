@@ -1,24 +1,28 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { switchMap, tap } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog';
 import { ExportRequestService } from '~global-services/export-request/export-request.service';
-import { ExportRequest } from '~models';
+import { ExportRequest, Product } from '~models';
+import { saveAs } from 'file-saver/FileSaver';
 
 
 @Component({
 	selector: 'product-export-dlg-app',
 	templateUrl: './product-export-dlg.component.html',
 	styleUrls: ['./product-export-dlg.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductExportDlgComponent implements OnInit {
 	selectedExport: '' | 'pdf' | 'excel' = '';
 	// used to give props from the dialog container
-	selectedProducts: string[];
+	selectedProducts: { id: string }[];
 	get products() {
 		return this.selectedProducts;
 	}
+	pending: boolean;
 
-	constructor(private dlgSrv: DialogService, private exportSrv: ExportRequestService) { }
+	constructor(private dlgSrv: DialogService, private exportSrv: ExportRequestService,
+		private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
 	}
@@ -28,14 +32,23 @@ export class ProductExportDlgComponent implements OnInit {
 	}
 
 	export() {
+		this.pending = true;
 		const request = new ExportRequest({
 			type: 'product',
-			format: this.selectedExport
+			format: this.selectedExport,
+			query: JSON.stringify({
+				products: {
+					query: this.products.map(product => `id == '${product.id}'`).join(' or ')
+				}
+			})
 		});
-		this.exportSrv.create(request)
-			.subscribe(r => {
-				// do whatever we need to
-			});
+		this.exportSrv.create(request).pipe(
+			switchMap(r => this.exportSrv.retrieveFile(r))
+		).subscribe(file => {
+			this.pending = false;
+			this.cdr.detectChanges();
+			// this.dlgSrv.close();
+			saveAs(file, (request.format === 'pdf') ? 'product-sheet.pdf' : 'product-sheet.xls');
+		});
 	}
 }
-

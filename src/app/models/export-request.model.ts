@@ -6,7 +6,7 @@ export class ExportRequest implements ExportRequestConfig {
 	format: string;
 	type: string;
 	query: string;
-	status = 'pending';
+	status = 'created';
 	documentUrl: string;
 	errors: string[];
 	creationDate: string;
