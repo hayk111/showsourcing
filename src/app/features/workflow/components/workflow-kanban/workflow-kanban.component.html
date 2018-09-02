@@ -18,7 +18,7 @@
 				<div class="card-container" *ngFor="let product of status.products; let j = index; trackBy:trackByFn">
 					<kanban-item-app
 							class="item"
-							[namespace]="getCurrentStatusId(product)"
+							[namespace]="getCurrentStatusTypeId(product)"
 							[data]="product"
 							(dragStart)="dragStart()"
 							(dragEnd)="dragEnd()">

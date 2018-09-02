@@ -2,7 +2,7 @@ export const statusMap = {
 	'_NoStatus': {
 		locales: {
 			en: {
-				name: 'No Status'
+				name: 'New Product'
 			}
 		}
 	},
