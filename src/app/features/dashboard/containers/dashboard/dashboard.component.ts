@@ -7,7 +7,7 @@ import { TemplateService } from '~shared/template/services/template.service';
 import { TeamService } from '~global-services';
 import { map } from 'rxjs/internal/operators/map';
 import { filter } from 'graphql-anywhere';
-import { GroupListResult } from '~shared/activity/interfaces/client-feed.interfaces';
+import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 
 @Component({
 	selector: 'dashboard-app',
@@ -18,11 +18,9 @@ import { GroupListResult } from '~shared/activity/interfaces/client-feed.interfa
 	}
 })
 export class DashboardComponent implements OnInit {
-	feedResult: GroupListResult;
+	feedResult: GroupedActivityFeed;
 
-	constructor(private activitySrv: ActivityService) {
-
-	}
+	constructor(private activitySrv: ActivityService) { }
 
 	ngOnInit() {
 		this.feedResult = this.activitySrv.getDashboardFeed();

@@ -3,12 +3,12 @@ import { GetStreamActivity, GetStreamGroup } from '~shared/activity/interfaces/g
 
 
 export interface GroupedActivityFeed {
-	feed$: Observable<GetStreamActivity[]>;
+	feed$: Observable<GetStreamGroup[]>;
 	loadMore: any;
 }
 
 export interface ActivityFeed {
-	feed$: Observable<GetStreamGroup[]>;
+	feed$: Observable<GetStreamActivity[]>;
 	loadMore: any;
 }
 

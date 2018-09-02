@@ -2,55 +2,31 @@
 <ng-container *ngIf="feedResult.feed$ | async as feeds; else spinner">
   <ng-container *ngFor="let feed of feeds">
 
-    <ng-container [ngSwitch]="feed.title">
+    <ng-container [ngSwitch]="getGroupName(feed)">
 
       <!-- product activity -->
-      <ng-container *ngSwitchCase="'product_activity'">
-        <one-product-activity-card-app
-          [products]="feed.items$"
-          (update)="updateProduct($event)"></one-product-activity-card-app>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'product_one_created'">
-        <one-product-activity-card-app
-          [product]="feed.items$"
-          (update)="updateProduct($event)"></one-product-activity-card-app>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'product_many_created'">
-        <multiple-products-activity-card-app
-          [product]="feed.items$"
-          (update)="updateProduct($event)"></multiple-products-activity-card-app>
-      </ng-container>
-
-      <!-- supplier activity -->
-      <!-- TODO -->
-
-
-      <!-- product activity -->
-      <ng-container *ngIf="group.startsWith('product_activity')">
-        <one-product-activity-card-app
-          [feedGroup]="feedGroup"
-          (update)="updateProduct($event)"></one-product-activity-card-app>
-      </ng-container>
+      <one-product-activity-card-app
+        *ngSwitchCase="'product_activity'"
+        [groupFeed]="feed"
+        (update)="updateProduct($event)"></one-product-activity-card-app>
 
       <!-- product created -->
-      <ng-container *ngIf="group.startsWith('product_created')">
-        <one-product-activity-card-app
-          *ngIf="feedGroup.activities === 1"
-          [feedGroup]="feedGroup"
-          (update)="updateProduct($event)"></one-product-activity-card-app>
-        <multiple-products-activity-card-app
-          *ngIf="feedGroup.activities > 1"
-          [feedGroup]="feedGroup"
-          (update)="updateProduct($event)"></multiple-products-activity-card-app>
-      </ng-container>
+      <one-product-activity-card-app
+        *ngSwitchCase="'product_one_created'"
+        [groupFeed]="feed"
+        (update)="updateProduct($event)"></one-product-activity-card-app>
 
+      <multiple-products-activity-card-app
+        *ngSwitchCase="'product_many_created'"
+        [groupFeed]="feed"
+        (update)="updateProduct($event)"></multiple-products-activity-card-app>
 
+      <!-- supplier -->
+      <!-- TODO -->
 
     </ng-container>
-
   </ng-container>
+
 </ng-container>
 
 <ng-template #spinner>

@@ -6,8 +6,13 @@ import { Product, ERM, Comment } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
-import { DEFAULT_IMG } from '~utils';
+import { DEFAULT_IMG, AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
+import { Observable } from 'rxjs';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { takeUntil } from 'rxjs/operators';
+import { ProductService } from '~global-services';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'one-product-activity-card-app',
@@ -15,13 +20,15 @@ import { InputDirective } from '~shared/inputs';
 	styleUrls: ['./one-product-activity-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OneProductActivityCardComponent implements OnInit {
+export class OneProductActivityCardComponent extends AutoUnsub implements OnInit {
 
-	@ViewChild(InputDirective) input: InputDirective;
-	@ViewChild('inpComment') inpComment: ElementRef;
-	@Input() product: Product;
 	@Output() createComment = new EventEmitter<any>();
 	@Output() update = new EventEmitter<Product>();
+	@Input() groupFeed: GetStreamGroup;
+	product$: Observable<Product>;
+	product: Product;
+	// comment input
+	commentCtrl = new FormControl('');
 
 	typeEntity = ERM.PRODUCT;
 
@@ -29,19 +36,22 @@ export class OneProductActivityCardComponent implements OnInit {
 		private router: Router,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
-		private render: Renderer2) { }
+		private productSrv: ProductService) {
+		super();
+	}
 
 	ngOnInit() {
-		const group = this.feedResult.group;
+		const group = this.groupFeed.group;
 		// when an activity group starts with product_activity, what's following is the id
 		if (group.startsWith('product_activity')) {
 			const productId = group.replace('product_activity_', '');
 			this.product$ = this.productSrv.queryOne(productId);
 		}
-		// when it starts with product_created, we can get the product id by looking at the first activity
-		if (group.startsWith('product_created')) {
-			this.product$ = this.productSrv.queryOne(this.feedResult.activities[0].object);
+		// when it starts with create_product, we can get the product id by looking at the first activity
+		if (group.startsWith('create_product')) {
+			this.product$ = this.productSrv.queryOne(this.groupFeed.activities[0].object);
 		}
+		this.product$.pipe(takeUntil(this._destroy$)).subscribe(product => this.product = product);
 	}
 
 	hasThreeImages() {
@@ -74,9 +84,8 @@ export class OneProductActivityCardComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.inpComment.nativeElement.value, product: this.product });
-		this.inpComment.nativeElement.value = '';
-		this.inpComment.nativeElement.blur();
+		this.createComment.emit({ text: this.commentCtrl.value, product: this.product });
+		this.commentCtrl.reset();
 	}
 
 }

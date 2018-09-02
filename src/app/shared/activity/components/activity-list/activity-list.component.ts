@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { GetStreamResult, ActivityService, GetFeedResult } from '~shared/activity/services/activity.service';
+import { ActivityService } from '~shared/activity/services/activity.service';
 import { Product, Comment } from '~models';
 import { Router } from '@angular/router';
 import { ProductService } from '~global-services/product/product.service';
@@ -8,6 +8,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { CommentService } from '~global-services/comment/comment.service';
+import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
 
 @Component({
 	selector: 'activity-list-app',
@@ -16,7 +18,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityListComponent extends AutoUnsub implements OnInit {
-	@Input() feedResult: GroupListResult;
+	@Input() feedResult: GroupedActivityFeed;
 
 	constructor(
 		private productSrv: ProductService,
@@ -52,5 +54,18 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
+	getGroupName(feed: GetStreamGroup) {
+		const group = feed.group;
+		const manyActivities = feed.activities.length > 1;
+
+		if (group.startsWith('product_activity'))
+			return 'product_activity';
+		if (group.startsWith('supplier_activity'))
+			return 'supplier_activity';
+		if (group.startsWith('create_product'))
+			return manyActivities ? 'product_many_created' : 'product_one_created';
+		if (group.startsWith('create_supplier'))
+			return manyActivities ? 'supplier_many_created' : 'supplier_one_created';
+	}
 
 }
