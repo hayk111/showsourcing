@@ -7,7 +7,7 @@ import { MemberFeatureService } from '~features/settings/services/member-feature
 import { NewTaskDlgComponent } from '~features/tasks';
 import { ERM, TeamUser, User } from '~models';
 import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
+import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -52,11 +52,21 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 			takeUntil(this._destroy$)
 		).subscribe(({ user, teamOwner }) => {
 			this.teamOwner = teamOwner;
-			this.user = user;
+			this.user = <User>user;
 			this.teamOwner = true;
 		});
 
 		this.sort({ sortBy: 'user.firstName' });
+	}
+
+	search(str: string) {
+		if (str)
+			this.filterList.upsertFilter({
+				type: FilterType.SEARCH, value: str,
+				fields: [ 'user.lastName', 'user.firstName', 'user.email' ]
+			});
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	openInviteDialog() {
