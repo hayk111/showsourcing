@@ -1,5 +1,4 @@
 <card-app padding="ms">
-	{{ groupFeed | json }}
 	<ng-container *ngIf="product$ | async; else spinner">
 		<!-- user -->
 		<activity-user-app
@@ -69,7 +68,7 @@
 			<comment-list-app [comments]="product?.comments"></comment-list-app>
 			<div class="flexBetween">
 				<textarea inputApp [formControl]="commentCtrl" type="text"
-				placeholder="Leave a comment" (keydown.enter)="onSubmit()"></textarea>
+				placeholder="Leave a comment" (keydown.enter)="onEnter($event)"></textarea>
 				<button class="secondary-light" (click)="onSubmit()">Send</button>
 			</div>
 		</card-footer-app>

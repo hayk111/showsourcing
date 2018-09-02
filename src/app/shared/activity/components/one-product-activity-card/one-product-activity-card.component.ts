@@ -83,6 +83,11 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
 	}
 
+	onEnter(event) {
+		event.preventDefault();
+		this.onSubmit();
+	}
+
 	onSubmit() {
 		this.createComment.emit({ text: this.commentCtrl.value, product: this.product });
 		this.commentCtrl.reset();
