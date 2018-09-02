@@ -86,7 +86,6 @@ export abstract class ProductQueries extends GlobalQueries {
 		`;
 
 	static readonly update = `
-		id
 		favorite
 		lastUpdatedDate
 		${ProductQueries.status}

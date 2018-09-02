@@ -10,10 +10,13 @@ import { environment } from 'environments/environment.prod';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { log, LogColor } from '~utils';
 import { filter } from 'rxjs/operators';
+import { Credentials } from '~features/auth';
+import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
 
 
 const REFRESH_TOKEN_NAME = 'REFRESH_TOKEN';
 const ACCESS_TOKEN_MAP = 'ACCESS_TOKEN_MAP';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -39,15 +42,28 @@ export class TokenService {
 	restoreRefreshToken(): TokenService {
 		log.info(`%c Restoring refresh token`, LogColor.SERVICES);
 		const refreshToken = this.localStorageSrv.getItem(REFRESH_TOKEN_NAME) as TokenState;
-		if (refreshToken && this.isValid(refreshToken))
+		// the refresh token are long lived at the moment (10 years),
+		// let's make a check that the token is still valid for 1 month though
+		const validUntilMs = 1000 * 60 * 60 * 24 * 31;
+		if (refreshToken && this.isValid(refreshToken, validUntilMs))
 			this._refreshToken$.next(refreshToken);
 		else
 			this._refreshToken$.next();
 		return this;
 	}
 
+	getRefreshToken(refPostBody: RefreshTokenPostBody) {
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+			tap(refreshToken => this.storeRefreshToken(refreshToken)),
+			catchError(err => {
+				this._refreshToken$.next();
+				return of(err);
+			})
+		);
+	}
+
 	/** stores the access token we get on login */
-	storeRefreshToken(resp: RefreshTokenResponse): TokenService {
+	private storeRefreshToken(resp: RefreshTokenResponse): TokenService {
 		log.info(`%c Storring refresh token: ${resp.refresh_token}`, LogColor.SERVICES);
 		this.localStorageSrv.setItem(REFRESH_TOKEN_NAME, resp.refresh_token);
 		this._refreshToken$.next(resp.refresh_token);
@@ -95,7 +111,7 @@ export class TokenService {
 				// path: realmPath
 			})
 			),
-			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.apiUrl}/auth`, accessObj)),
+			switchMap(accessObj => this.http.post<AccessTokenResponse>(`${environment.realmUrl}/auth`, accessObj)),
 			map(accessTokenResp => accessTokenResp.user_token),
 			tap(tokenState => this.storeAccessToken(tokenState, realmPath))
 		);
@@ -124,8 +140,8 @@ export class TokenService {
 	}
 
 	/** check if a token has expired */
-	private isValid(token: TokenState) {
-		return token.token_data.expires * 1000 > Date.now();
+	private isValid(token: TokenState, validUntilMs = 0) {
+		return token.token_data.expires * 1000 > Date.now() + validUntilMs;
 	}
 
 }

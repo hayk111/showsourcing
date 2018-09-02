@@ -32,6 +32,16 @@ export class OneProductActivityCardComponent implements OnInit {
 		private render: Renderer2) { }
 
 	ngOnInit() {
+		const group = this.feedResult.group;
+		// when an activity group starts with product_activity, what's following is the id
+		if (group.startsWith('product_activity')) {
+			const productId = group.replace('product_activity_', '');
+			this.product$ = this.productSrv.queryOne(productId);
+		}
+		// when it starts with product_created, we can get the product id by looking at the first activity
+		if (group.startsWith('product_created')) {
+			this.product$ = this.productSrv.queryOne(this.feedResult.activities[0].object);
+		}
 	}
 
 	hasThreeImages() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivityService, GetStreamResult, GetFeedResult } from '~shared/activity/services/activity.service';
+import { ActivityService } from '~shared/activity/services/activity.service';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,14 +12,14 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ProductActivityComponent implements OnInit {
 
-	feedResult: GetFeedResult;
+	// feedResult: FeedListResult;
 
 	constructor(private route: ActivatedRoute, private activitySrv: ActivityService) {
 
 	}
 
 	ngOnInit() {
-		this.feedResult = this.activitySrv.getProductFeed(this.route.parent.snapshot.params.id);
+		// this.feedResult = this.activitySrv.getProductFeed(this.route.parent.snapshot.params.id);
 	}
 
 }

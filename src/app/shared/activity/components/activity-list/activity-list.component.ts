@@ -16,7 +16,7 @@ import { CommentService } from '~global-services/comment/comment.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityListComponent extends AutoUnsub implements OnInit {
-	@Input() feedResult: GetFeedResult;
+	@Input() feedResult: GroupListResult;
 
 	constructor(
 		private productSrv: ProductService,
@@ -29,17 +29,12 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-
 		// when we reach the bottom of the ** PAGE ** then we load more.
-		// this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
-
-		// this.page$.pipe(
-		// 	takeUntil(this._destroy$)
-		// ).subscribe(page => this.page = page);
+		this.templateSrv.bottomReached$.subscribe(_ => this.loadMore());
 	}
 
 	loadMore() {
-		// this.page$.next(++this.page);
+		this.feedResult.loadMore();
 	}
 
 	updateProduct(product: Product) {

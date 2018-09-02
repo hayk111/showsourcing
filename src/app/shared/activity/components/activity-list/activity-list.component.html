@@ -1,38 +1,52 @@
 
-<ng-container *ngIf="feedResult.feeds$ | async as feeds; else spinner">
+<ng-container *ngIf="feedResult.feed$ | async as feeds; else spinner">
   <ng-container *ngFor="let feed of feeds">
 
-    <ng-container [ngSwitch]="feed.verb">
-      <!-- product -->
-      <ng-container *ngSwitchCase="'create_product'">
-				<ng-container *ngIf="feed.activities.length > 1; else one">
-          <ng-container *ngIf="(feed.obs | async) as products">
-            <multiple-products-activity-card-app
-            [time]="feed.created_at"
-            [products]="products"></multiple-products-activity-card-app>
-          </ng-container>
-        </ng-container>
-        <ng-template #one>
-          <ng-container *ngIf="(feed.obs | async) as products">
-            <one-product-activity-card-app
-            *ngIf="products[0]"
-						[product]="products[0]"
-						(createComment)="createComment($event)"
-						(update)="updateProduct($event)">
-					</one-product-activity-card-app>
-          </ng-container>
-        </ng-template>
+    <ng-container [ngSwitch]="feed.title">
 
+      <!-- product activity -->
+      <ng-container *ngSwitchCase="'product_activity'">
+        <one-product-activity-card-app
+          [products]="feed.items$"
+          (update)="updateProduct($event)"></one-product-activity-card-app>
       </ng-container>
 
-      <!-- comments -->
-
-      <ng-container *ngSwitchCase="'create_comment'">
-        <card-app>
-          NEW COMMENT CREATED:
-          {{ feed.obs | async | json }}
-        </card-app>
+      <ng-container *ngSwitchCase="'product_one_created'">
+        <one-product-activity-card-app
+          [product]="feed.items$"
+          (update)="updateProduct($event)"></one-product-activity-card-app>
       </ng-container>
+
+      <ng-container *ngSwitchCase="'product_many_created'">
+        <multiple-products-activity-card-app
+          [product]="feed.items$"
+          (update)="updateProduct($event)"></multiple-products-activity-card-app>
+      </ng-container>
+
+      <!-- supplier activity -->
+      <!-- TODO -->
+
+
+      <!-- product activity -->
+      <ng-container *ngIf="group.startsWith('product_activity')">
+        <one-product-activity-card-app
+          [feedGroup]="feedGroup"
+          (update)="updateProduct($event)"></one-product-activity-card-app>
+      </ng-container>
+
+      <!-- product created -->
+      <ng-container *ngIf="group.startsWith('product_created')">
+        <one-product-activity-card-app
+          *ngIf="feedGroup.activities === 1"
+          [feedGroup]="feedGroup"
+          (update)="updateProduct($event)"></one-product-activity-card-app>
+        <multiple-products-activity-card-app
+          *ngIf="feedGroup.activities > 1"
+          [feedGroup]="feedGroup"
+          (update)="updateProduct($event)"></multiple-products-activity-card-app>
+      </ng-container>
+
+
 
     </ng-container>
 

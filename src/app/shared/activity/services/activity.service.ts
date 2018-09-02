@@ -1,91 +1,53 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
-import { forkJoin, Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
-import { first, map, scan, switchMap, tap } from 'rxjs/operators';
-import { ProductService, TeamService } from '~global-services';
+import { forkJoin, Observable, ReplaySubject, BehaviorSubject, combineLatest, from } from 'rxjs';
+import { first, map, scan, switchMap, tap, switchMapTo, mapTo, zip } from 'rxjs/operators';
+import { ProductService, TeamService, SupplierService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
 import { environment } from 'environments/environment.prod';
 import { TokenService } from '~features/auth';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
-
-/** some doc on API in readme next to this file */
-
-export interface GetStreamResponse {
-	next: string;
-	results: GetStreamResult[];
-}
-
-export interface GetStreamResult {
-	activities: GetStreamActivity[];
-	activity_count: number;
-	actor_count: number;
-	created_at: Date;
-	group: string;
-	id: string;
-	updated_at: Date;
-	verb: string;
-	// observable version of objects we need (added by us)
-	obs: Observable<any>;
-}
-
-export interface GetStreamActivity {
-	actor: string;
-	foreign_id: string;
-	id: string;
-	object: string;
-	origin: string;
-	target: string;
-	time: Date;
-	verb: string;
-}
+import { GetStreamResponse, GetStreamGroup, GetStreamActivity } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { GroupedActivityFeed, ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 
 
-interface TokenResponse {
-	token: string;
-	feedName: string;
-	feedId: string;
-}
-
-export interface GetFeedResult {
-	feeds$: Observable<GetStreamResult[]>;
-	loadMore: any;
-}
-
+/**
+ * The activity service gets a feed from getStream as a GetStreamResponse and
+ * transform it into a ActivityFeed or a GroupedActivityFeed.
+ */
 @Injectable({
 	providedIn: 'root'
 })
 export class ActivityService {
-
+	private readonly LIMIT = 15;
 	private client: any;
 
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
-		private productSrv: ProductService,
-		private commentSrv: CommentService,
 		private tokenSrv: TokenService
 	) {
 		this.client = getstream.connect('7mxs7fsf47nu', null, '39385');
 	}
 
-	getDashboardFeed(): GetFeedResult {
+	getDashboardFeed(): GroupedActivityFeed {
 		const teamId = this.teamSrv.selectedTeamSync.id;
 		const tokenUrl = `${environment.apiUrl}/feed/token/team/${teamId}`;
-		return this.getFeed(tokenUrl);
+		return this.getFeed(tokenUrl, 'team', teamId) as GroupedActivityFeed;
 	}
 
-	getProductFeed(productId: string): GetFeedResult {
+	getProductFeed(productId: string): ActivityFeed {
 		const teamId = this.teamSrv.selectedTeamSync.id;
-		const tokenUrl = `/feed/token/team/${teamId}/product/${productId}`;
-		return this.getFeed(tokenUrl);
+		const tokenUrl = `${environment.apiUrl}/feed/token/team/${teamId}/product/${productId}`;
+		return this.getFeed(tokenUrl, 'product_flat', productId) as ActivityFeed;
 	}
 
-	getSupplierFeed(supplierId: string): GetFeedResult {
+	getSupplierFeed(supplierId: string): ActivityFeed {
 		const teamId = this.teamSrv.selectedTeamSync.id;
-		const tokenUrl = `/feed/token/team/${teamId}/supplier/${supplierId}`;
-		return this.getFeed(tokenUrl);
+		const tokenUrl = `${environment.apiUrl}/feed/token/team/${teamId}/supplier/${supplierId}`;
+		return this.getFeed(tokenUrl, 'supplier_flat', supplierId) as ActivityFeed;
 	}
 
 	/**
@@ -93,71 +55,48 @@ export class ActivityService {
 	 * @param page$ : Observable, current page of the stream (used for pagination)
 	 * @param feedName : string, feed name we want to data from
 	 */
-	private getFeed(tokenUrl: string): GetFeedResult {
+	private getFeed(tokenUrl: string, feedName: string, feedId: string)
+		: GroupedActivityFeed | ActivityFeed {
+
+		const _previousResult$ = new BehaviorSubject<any[]>([]);
 		const _loadMore$ = new BehaviorSubject<undefined>(undefined);
 		const loadMore = () => {
 			_loadMore$.next(undefined);
 		};
+		const _token$ = this.getToken(tokenUrl).pipe(first());
 
-		const feeds$ = _loadMore$.pipe(
-			// get back last result for infiniscroll
-			scan((pre, curr) => pre, []),
-			// get token
-			switchMap((lastResult: GetStreamResult[]) => this.getToken(tokenUrl).pipe(
-				// once we have the token we can get a feed
-				switchMap((resp: TokenResponse) => this.getFeedResult(lastResult, resp.token, resp.feedName)),
-				tap((r: any) => this.addData(r.results)),
-				map(r => r.results),
-				scan((pre, curr) => ([...pre, ...curr]), [])
-			))
+		// the token emits once, when it has emitted we wait for load more,
+		// when we have one load more emitted we get the previous result,
+		// then we get the feed result after that previous result
+		const feed$ = combineLatest(_token$, _loadMore$).pipe(
+			switchMap(([token]) => _previousResult$.pipe(map(previous => [token, previous]))),
+			switchMap(([token, prev]: any) => this.getNextFeedResult(feedName, feedId, token, prev)),
+			scan((pre, curr) => ([...pre, ...curr]), [])
 		);
 
-		return { feeds$, loadMore };
+		return { feed$, loadMore };
 	}
 
-	private getFeedResult(lastResult: GetStreamResult[], token: string, feedName: string): Observable<GetStreamResponse> {
+	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[])
+		: Observable<GetStreamGroup[] | GetStreamActivity[]> {
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
-		const parts = feedName.split(':');
-		const stream = this.client.feed(...parts, token);
-		const id_lt = lastResult.length > 0 ? lastResult[lastResult.length - 1].id : undefined;
-		return stream.get({ limit: 15, id_lt });
+		const stream = this.client.feed(feedName, feedId, token);
+		return from(stream.get({ limit: this.LIMIT })).pipe(
+			map((res: GetStreamResponse) => res.results)
+		);
 	}
 
-	private getToken(url): Observable<TokenResponse> {
+	/** some doc on feed token API in readme next to this file */
+	private getToken(url): Observable<string> {
 		return this.tokenSrv.refreshToken$.pipe(
 			switchMap((token: TokenState) => {
 				const headers = new HttpHeaders({ Authorization: token.token });
 				return this.http.get<TokenResponse>(url, { headers });
-			})
+			}),
+			map((tokenState: TokenState) => tokenState.token),
+			first()
 		);
 	}
 
 
-	/**
-   *
-   * Selects item in db and add those to feed
-   */
-	private addData(results: GetStreamResult[]) {
-		const activityNames = results.map(res => res.activities.map(act => act.verb));
-		results.forEach(res => {
-			res.obs = combineLatest(res.activities.map(act => this.addDataToActivity(act)));
-		});
-	}
-
-	private addDataToActivity(activity: GetStreamActivity) {
-		switch (activity.verb) {
-			case 'create_comment':
-				return this.commentSrv.queryOne(activity.object);
-			case 'create_product':
-				return this.productSrv.queryOne(activity.object);
-			default:
-				log.warn('unhandled activity feed verb, search this uuid for more info: c6f3ae2e-a222-11e8-98d0-529269fb1459');
-		}
-	}
-
-	private getLastUuid(feeds: GetStreamResult[]) {
-		const lastIndex = feeds.length - 1;
-		const lastActivities = feeds[lastIndex].activities;
-		return lastActivities[lastActivities.length - 1].id;
-	}
 }

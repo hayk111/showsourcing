@@ -9,7 +9,7 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { DialogService } from '~shared/dialog';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
-import { GetFeedResult, ActivityService } from '~shared/activity/services/activity.service';
+import { ActivityService } from '~shared/activity/services/activity.service';
 
 @Component({
 	selector: 'supplier-activity-app',
@@ -24,7 +24,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	supplierId: string;
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
-	feedResult$: Observable<GetFeedResult>;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -53,10 +52,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// getting his products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
-		);
-
-		this.feedResult$ = id$.pipe(
-			map(id => this.activitySrv.getSupplierFeed(id))
 		);
 
 	}
