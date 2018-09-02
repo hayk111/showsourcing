@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as getstream from 'getstream';
-import { forkJoin, Observable, ReplaySubject } from 'rxjs';
-import { first, map, scan, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, scan, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from '~global-services';
 import { CommentService } from '~global-services/comment/comment.service';
 import { log } from '~utils';
@@ -107,16 +107,16 @@ export class ActivityService {
 	private addData(results: GetStreamResult[]) {
 		const activityNames = results.map(res => res.activities.map(act => act.verb));
 		results.forEach(res => {
-			res.obs = forkJoin(res.activities.map(act => this.addDataToActivity(act)));
+			res.obs = combineLatest(res.activities.map(act => this.addDataToActivity(act)));
 		});
 	}
 
 	private addDataToActivity(activity: GetStreamActivity) {
 		switch (activity.verb) {
 			case 'create_comment':
-				return this.commentSrv.queryOne(activity.object).pipe(first());
+				return this.commentSrv.queryOne(activity.object);
 			case 'create_product':
-				return this.productSrv.queryOne(activity.object).pipe(first());
+				return this.productSrv.queryOne(activity.object);
 			default:
 				log.warn('unhandled activity feed verb, search this uuid for more info: c6f3ae2e-a222-11e8-98d0-529269fb1459');
 		}

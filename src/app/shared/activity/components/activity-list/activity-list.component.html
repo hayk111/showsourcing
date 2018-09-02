@@ -16,8 +16,10 @@
           <ng-container *ngIf="(feed.obs | async) as products">
             <one-product-activity-card-app
             *ngIf="products[0]"
-            [product]="products[0]"
-            (update)="updateProduct($event)"></one-product-activity-card-app>
+						[product]="products[0]"
+						(createComment)="createComment($event)"
+						(update)="updateProduct($event)">
+					</one-product-activity-card-app>
           </ng-container>
         </ng-template>
 
@@ -28,7 +30,6 @@
       <ng-container *ngSwitchCase="'create_comment'">
         <card-app>
           NEW COMMENT CREATED:
-
           {{ feed.obs | async | json }}
         </card-app>
       </ng-container>

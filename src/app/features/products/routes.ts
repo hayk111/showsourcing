@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 
-import { CommentCtnrComponent } from '~features/comment/containers/comment-ctnr/comment-ctnr.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
 import { ProductActivityComponent } from '~features/products/components/product-activity/product-activity.component';
 

@@ -1,0 +1,9 @@
+<div *ngIf="comments" class="flexColumn">
+	<div *ngIf="indexShow > 0" class="show-previous" (click)="showMore()">Show previous comments</div>
+	<ng-container *ngFor="let comment of comments; index as i">
+		<!-- with this condition we ensure to display only the last items first -->
+		<comment-app *ngIf="i >= indexShow"
+			[comment]="comment"
+			[user]="comment?.createdBy"></comment-app>
+	</ng-container>
+</div>

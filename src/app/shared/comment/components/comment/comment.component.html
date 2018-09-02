@@ -1,0 +1,14 @@
+<user-picture-app
+	[user]="user"
+	[image]="user?.avatar"
+	[border]="true"
+	size="22">
+</user-picture-app>
+<div class="comment-content flexColumn">
+	<div class="title flex">
+		<span class="name">{{user?.firstName }} {{user?.lastName }}</span>
+		<span class="date flexCenter">{{ comment?.creationDate | timeAgo }}</span>
+	</div>
+	<!-- comment content -->
+	<div [innerHtml]="urlify(comment?.text)"></div>
+</div>

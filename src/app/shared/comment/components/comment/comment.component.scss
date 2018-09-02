@@ -1,0 +1,27 @@
+:host {
+	display: flex;
+}
+
+user-picture-app {
+	margin-top: var(--spacing-xs);
+}
+
+.comment-content {
+	background: var(--color-secondary-light);
+	margin-bottom: var(--spacing-xs);
+	margin-left: var(--spacing-s);
+	padding: var(--spacing-s);
+	border-radius: var(--border-radius-l);
+
+	.title {
+		.name {
+			font-weight: 600;
+			color: var(--color-txt-strong);
+			letter-spacing: -0.3px;
+		}
+		.date {
+			margin-left: var(--spacing-xs);
+			font-size: var(--font-size-s);
+		}
+	}
+}

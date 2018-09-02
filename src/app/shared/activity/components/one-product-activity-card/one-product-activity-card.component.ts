@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModuleRef, ViewChild, ElementRef } from '@angular/core';
-import { Product, ERM } from '~models';
+import {
+	Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter,
+	NgModuleRef, ViewChild, ElementRef, Renderer2
+} from '@angular/core';
+import { Product, ERM, Comment } from '~models';
 import { Router } from '@angular/router';
 import { DialogService } from '~shared/dialog';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog/component';
@@ -15,7 +18,9 @@ import { InputDirective } from '~shared/inputs';
 export class OneProductActivityCardComponent implements OnInit {
 
 	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild('inpComment') inpComment: ElementRef;
 	@Input() product: Product;
+	@Output() createComment = new EventEmitter<any>();
 	@Output() update = new EventEmitter<Product>();
 
 	typeEntity = ERM.PRODUCT;
@@ -23,8 +28,8 @@ export class OneProductActivityCardComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private dlgSrv: DialogService,
-		private module: NgModuleRef<any>
-	) { }
+		private module: NgModuleRef<any>,
+		private render: Renderer2) { }
 
 	ngOnInit() {
 	}
@@ -56,6 +61,12 @@ export class OneProductActivityCardComponent implements OnInit {
 
 	openAddToProject() {
 		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.module, { selectedProducts: [this.product] });
+	}
+
+	onSubmit() {
+		this.createComment.emit({ text: this.inpComment.nativeElement.value, product: this.product });
+		this.inpComment.nativeElement.value = '';
+		this.inpComment.nativeElement.blur();
 	}
 
 }
