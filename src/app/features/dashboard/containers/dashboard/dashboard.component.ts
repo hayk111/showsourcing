@@ -4,10 +4,12 @@ import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { ActivityService } from '~shared/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
 import { TemplateService } from '~shared/template/services/template.service';
-import { TeamService } from '~global-services';
+import { TeamService, UserService } from '~global-services';
 import { map } from 'rxjs/internal/operators/map';
 import { filter } from 'graphql-anywhere';
 import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { DashboardService, DashboardCounters } from '~features/dashboard/services/dashboard.service';
+import { User, Task } from '~models';
 
 @Component({
 	selector: 'dashboard-app',
@@ -19,11 +21,21 @@ import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.int
 })
 export class DashboardComponent implements OnInit {
 	feedResult: GroupedActivityFeed;
+	user$: Observable<User>;
+	counters$: Observable<DashboardCounters>;
+	tasks$: Observable<Task[]>;
 
-	constructor(private activitySrv: ActivityService) { }
+	constructor(
+		private activitySrv: ActivityService,
+		private dashboardSrv: DashboardService,
+		private userSrv: UserService
+	) { }
 
 	ngOnInit() {
 		this.feedResult = this.activitySrv.getDashboardFeed();
+		this.user$ = this.userSrv.selectUser();
+		this.counters$ = this.dashboardSrv.getCounters();
+		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
 	}
 }
 
