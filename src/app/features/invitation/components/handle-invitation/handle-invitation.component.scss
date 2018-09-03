@@ -1,0 +1,43 @@
+.invite {
+  width: 305px;
+  &.large {
+    width: 397px;
+
+    .subtitle {
+      margin-bottom: 44px;
+    }
+  }
+
+  .title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-txt-strong);
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    color: var(--color-txt-primary);
+    margin-bottom: 24px;
+
+    .name {
+      color: var(--color-txt-strong);
+    }
+  }
+
+  .buttons {
+    align-items: center;
+
+    & > button {
+      width: 231px;
+      margin-bottom: 12px;
+      margin-left: 27px;
+      margin-right: 27px;
+    }
+  }
+}

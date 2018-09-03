@@ -69,8 +69,9 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
+	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		// TODO
+		this.dlgSrv.openFromModule(InviteUserDlgComponent, this.moduleRef);
 	}
 
 }
