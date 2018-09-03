@@ -47,4 +47,9 @@ divider-app {
 
 .navCtnr.has-nav {
 	padding-top: 30px;
+
+	&.centered {
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
