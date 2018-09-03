@@ -7,13 +7,16 @@
       <!-- product activity -->
       <one-product-activity-card-app
         *ngSwitchCase="'product_activity'"
-        [groupFeed]="feed"
+				[groupFeed]="feed"
+				title="commented this product"
+				(createComment)="createComment($event)"
         (update)="updateProduct($event)"></one-product-activity-card-app>
 
       <!-- product created -->
       <one-product-activity-card-app
         *ngSwitchCase="'product_one_created'"
-        [groupFeed]="feed"
+				[groupFeed]="feed"
+				title="created a new product"
         (update)="updateProduct($event)"></one-product-activity-card-app>
 
       <multiple-products-activity-card-app

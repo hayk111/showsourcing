@@ -25,11 +25,13 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	@Output() createComment = new EventEmitter<any>();
 	@Output() update = new EventEmitter<Product>();
 	@Input() groupFeed: GetStreamGroup;
+	@Input() title: string;
 	product$: Observable<Product>;
 	product: Product;
 	// comment input
-	commentCtrl = new FormControl('');
-
+	// commentCtrl = new FormControl('');
+	@ViewChild(InputDirective) input: InputDirective;
+	@ViewChild('inpComment') inpComment: ElementRef;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(
@@ -84,13 +86,19 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	onEnter(event) {
+		// console.log(this.commentCtrl.value, ' 1');
 		event.preventDefault();
 		this.onSubmit();
 	}
 
 	onSubmit() {
-		this.createComment.emit({ text: this.commentCtrl.value, product: this.product });
-		this.commentCtrl.reset();
+		// console.log(this.commentCtrl.value, '2');
+		// this.createComment.emit({ text: this.commentCtrl.value, product: this.product });
+		// this.commentCtrl.reset();
+		console.log(this.inpComment.nativeElement.value);
+		this.createComment.emit({ text: this.inpComment.nativeElement.value, product: this.product });
+		this.inpComment.nativeElement.value = '';
+		this.inpComment.nativeElement.blur();
 	}
 
 }

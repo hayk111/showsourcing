@@ -6,3 +6,9 @@ icon-app[name=caret-down] {
 	margin-top: 1px;
 	margin-left: var(--spacing-ms);
 }
+
+context-menu-trigger-app {
+	button {
+		font-weight: 600;
+	}
+}
