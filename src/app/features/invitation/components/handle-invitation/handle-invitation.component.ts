@@ -35,7 +35,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.connected = !!this.userSrv.selectUser().pipe(
+		this.userSrv.selectUser().pipe(
 			takeUntil(this._destroy$),
 			tap(() => this.connected = true),
 			switchMap(() => {
