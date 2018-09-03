@@ -27,7 +27,6 @@ export const routes: Array<Route> = [
 		],
 		children: [
 			...authRoutes,
-			...invitationRoutes,
 			{ path: 'server-issue', component: ApolloIssuePageComponent }
 		]
 	},
@@ -53,6 +52,15 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: '', loadChildren: 'app/features/rfq/rfq.module#RfqModule' },
 		],
+	},
+	{
+		path: 'invitation',
+		component: GuestTemplateComponent,
+		canActivateChild: [
+		],
+		children: [
+			...invitationRoutes
+		]
 	},
 	{
 		path: '',

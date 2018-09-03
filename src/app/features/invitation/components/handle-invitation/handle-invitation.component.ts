@@ -1,14 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { take, takeUntil, catchError } from 'rxjs/operators';
+import { take, takeUntil, catchError, tap, switchMap } from 'rxjs/operators';
 import { AutoUnsub } from '~utils';
 import { environment } from 'environments/environment';
 import { UserService } from '~global-services';
 import { Invitation } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 
 @Component({
@@ -17,26 +18,39 @@ import { InvitationFeatureService } from '~features/invitation/services/invitati
 	styleUrls: ['./handle-invitation.component.scss'],
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
-	connected: boolean; // = true;
+	connected: boolean;
 	invitation: Invitation;
+	client: Client;
 
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
 		private userSrv: UserService,
-		private invitationSrv: InvitationFeatureService) {
+		private invitationSrv: InvitationFeatureService,
+		private cdr: ChangeDetectorRef) {
 		super();
-		this.connected = !!this.userSrv.userSync;
-
-		const invitationId = route.snapshot.params.id;
-		if (this.connected) {
-			this.invitationSrv.selectOne(invitationId).subscribe(invitation => this.invitation = invitation);
-		}
 	}
 
 	ngOnInit() {
-
+		this.connected = !!this.userSrv.selectUser().pipe(
+			takeUntil(this._destroy$),
+			tap(() => this.connected = true),
+			switchMap(() => {
+				const invitationId = this.route.snapshot.params.id;
+				return this.invitationSrv.getInvitation(invitationId);
+			})
+		).subscribe(({ invitation, client }) => {
+			if (invitation.id) {
+				// An invitation is found
+				this.invitation = invitation;
+				this.client = client;
+				this.cdr.detectChanges();
+			} else {
+				// If no invitation found, redirect to /
+				this.router.navigateByUrl('/');
+			}
+		});
 	}
 
 	getCurrentPath() {
@@ -44,16 +58,13 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	joinTeam() {
-		this.invitationSrv.update({
-			id: this.invitation.id,
-			status: 'accepted'
-		}).subscribe(() => {
+		this.invitationSrv.acceptInvitation(this.invitation.id, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
 		});
 	}
 
 	refuseInvitation() {
-		this.invitationSrv.delete(this.invitation.id).subscribe(() => {
+		this.invitationSrv.refuseInvitation(this.invitation.id, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
 		});
 	}

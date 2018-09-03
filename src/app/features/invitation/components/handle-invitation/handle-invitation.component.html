@@ -9,10 +9,17 @@
 </div>
 
 <div class="invite large" *ngIf="connected">
-  <h1 class="title">Congratulation!</h1>
-  <div class="subtitle"><span class="name">Leo Mazerro</span> invites you to join <span class="name">Lumby Trade ltd.</span></div>
-  <div class="flexColumn buttons">
-    <button (click)="joinTeam()">Yes - Join the team</button>
-    <button class="secondary" (click)="refuseInvitation()">No - I don't wish to join this team</button>
-  </div>
+  <ng-container *ngIf="invitation; else spinner">
+    <h1 class="title">Congratulation!</h1>
+    <div class="subtitle"><span class="name">{{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}</span> invites you to join <span class="name">{{invitation?.teamName}}.</span></div>
+    <div class="flexColumn buttons">
+      <button (click)="joinTeam()">Yes - Join the team</button>
+      <button class="secondary" (click)="refuseInvitation()">No - I don't wish to join this team</button>
+    </div>
+  </ng-container>
 </div>
+
+<ng-template #spinner>
+    <spinner-app></spinner-app>
+  </ng-template>
+  
