@@ -10,7 +10,7 @@ import { GlobalQueries } from '~global-services/_global/global-queries.class';
 import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
-
+import { ProductQueries } from '~global-services/product/product.queries';
 
 
 export interface GlobalServiceInterface<T> {
@@ -593,9 +593,6 @@ Deleting everything.. so watchout. `);
 					__typename: typename
 				},
 			};
-			console.log('----');
-			console.log(typename, options.optimisticResponse);
-			console.log('----');
 		} else {
 			log.warn(`Doing a mutation without optimistic ui: ${this.getQueryName(gql)}`);
 		}
@@ -615,7 +612,7 @@ Deleting everything.. so watchout. `);
 		return gql.loc.source.body;
 	}
 
-	/** logs events to the console */
+	/** logs request that is about to being made to the console */
 	private log(type: string, gql: DocumentNode, queryName: string, client: string, variables?: any) {
 		// logging for each request
 		log.group(`%c ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);

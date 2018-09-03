@@ -33,17 +33,17 @@ export class QueryBuilder {
 		subscription ${this.sing}($query: String!) {
 			${ this.plural}(query: $query) {
 				id
-				${ str}
+				${str}
 			}
-		}`);
+		}`)
 
 	queryOne = (str: string) => gql(`
 		query ${this.sing}($id: String!) {
 			${this.sing}(id: $id) {
 				id
-				${ str}
+				${str}
 			}
-		}`);
+		}`)
 
 	selectMany = (str: string) => gql(`
 		query ${this.plural}(
@@ -57,7 +57,7 @@ export class QueryBuilder {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	queryMany = (str: string) => gql(`
 		query ${this.plural}(
@@ -71,7 +71,7 @@ export class QueryBuilder {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	selectAll = (str: string) => gql(`
 		subscription ${this.plural} {
@@ -79,7 +79,7 @@ export class QueryBuilder {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	queryAll = (str: string) => gql(`
 		query ${this.plural} {
@@ -87,7 +87,7 @@ export class QueryBuilder {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	create = (str: string) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
@@ -103,7 +103,7 @@ export class QueryBuilder {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	deleteOne = () => gql(`
 		mutation delete${this.capSing}($id: String!) {

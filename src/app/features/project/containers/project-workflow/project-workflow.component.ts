@@ -65,18 +65,10 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		this.workflowService.updateProductStatus(droppedElement, target)/* .pipe(
-			switchMap(() => {
-				return this.workflowService.getStatuses(this.project, true).pipe(
-					first(),
-					tap(statuses => {
-						this.statuses$.next(statuses);
-					})
-				);
-			})
-		)*/.subscribe(() => {
-			this.cdr.detectChanges();
-		});
+		this.workflowService.updateProductStatus(droppedElement, target)
+			.subscribe(() => {
+				this.cdr.detectChanges();
+			});
 	}
 
 	/** Selects a an entity */
@@ -97,7 +89,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 					type: ERM.PRODUCT,
 					shouldRedirect: false,
 					initialSelectedProducts: products,
-					submitCallback: this.associatedProductsWithProject.bind(this)
+					submitCallback: this.associateProductsWithProject.bind(this)
 				});
 			});
 		}
@@ -163,12 +155,12 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 		return Array.from(this.selectionSrv.selection.values());
 	}
 
-		/**
+	/**
 	 * Associate the selected products from the current project. This method is
 	 * passed as callback for the "find products" dialog.
 	 */
-	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
-		return this.featureSrv.manageProjectsToProductsAssociations([ this.project ], selectedProducts, unselectedProducts).pipe(
+	associateProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
+		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			switchMap(() => {
 				return this.workflowService.getStatuses(this.project, true).pipe(
 					first(),

@@ -55,7 +55,6 @@ export class ApolloStateService {
 		this.emit();
 	}
 
-
 	setClientReady(name: Client) {
 		const status = ClientStatus.READY;
 		this.log(name, status, this.getCurrentStatus(name));
