@@ -20,6 +20,7 @@ export interface GlobalServiceInterface<T> {
 	queryOneByPredicate: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
+	queryCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	update: (entity: { id?: string }, fields?: string | string[], client?: Client) => Observable<T>;
@@ -418,12 +419,15 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const title = 'Query Count ' + this.typeName;
 		const gql = this.queryBuilder.queryCount();
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, client);
+		const variables = { query: predicate };
 
-		return this.getClient(client).watchQuery({ query: gql }).valueChanges
+		this.log(title, gql, queryName, client, variables);
+
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
+					debugger;
 					if (!r.data)
 						throwError(r.errors);
 					return r.data[queryName];

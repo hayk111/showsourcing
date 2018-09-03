@@ -90,7 +90,7 @@ export class QueryBuilder {
 		}`)
 
 	queryCount = () => gql(`
-		query ${this.plural}Count {
+		query ${this.plural}Count($query: String) {
 			${this.plural}Count(query: $query)
 		}`)
 
