@@ -21,4 +21,6 @@ export class TopPanelComponent {
 	@Input() hasAction = true;
 	/** a nav is provided as ng-content */
 	@Input() withNav: boolean;
+	/** whether the content of the top panel must be centered */
+	@Input() center: boolean;
 }

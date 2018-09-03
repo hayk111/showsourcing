@@ -1,0 +1,14 @@
+
+<top-panel-app
+	title="My Workspace"
+	[center]="true"
+	[withNav]="true">
+
+	<nav class="flex">
+		<span routerLink="/workspace/review" routerLinkActive="active" [ngClass]="{ active: (selectedTab === 'review') }">Products to Review</span>
+		<span routerLink="/workspace/my-products" routerLinkActive="active" [ngClass]="{ active: (selectedTab === 'my-products') }">My Products</span>
+		<span routerLink="/workspace/my-tasks" routerLinkActive="active" [ngClass]="{ active: (selectedTab === 'my-tasks') }">My Tasks</span>
+	</nav>
+</top-panel-app>
+
+<router-outlet></router-outlet>
