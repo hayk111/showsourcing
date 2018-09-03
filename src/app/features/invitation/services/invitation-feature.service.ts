@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Invitation } from '~models';
 
@@ -18,7 +18,7 @@ export class InvitationFeatureService extends InvitationService {
 		super(apollo);
 	}
 
-	getInvitation(id: string) {
+	getInvitation(id: string): Observable<{ invitation: Invitation; client: Client }> {
 		// try to find first the inviation into USER
 		return this.queryOne(id, null, Client.USER).pipe(
 			switchMap(invitation => {

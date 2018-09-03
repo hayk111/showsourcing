@@ -76,7 +76,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
-				title: 'Invitation efused',
+				title: 'Invitation Refused',
 				message: 'The invitation was refused',
 				timeout: 3500
 			});
