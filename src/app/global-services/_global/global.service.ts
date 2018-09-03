@@ -81,13 +81,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
+		const cacheKey = `${id}-${client}`;
 		this.log(title, gql, queryName, client, variables);
 
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view in real time
 		// since uuid are used for ids, it can be used as cacheKey
-		if (this.selectOneCache.has(id))
-			return this.selectOneCache.get(id).result;
+		if (this.selectOneCache.has(cacheKey))
+			return this.selectOneCache.get(cacheKey).result;
 
 		const obs = this.getClient(client).subscribe({ query: gql, variables })
 			.pipe(
@@ -100,7 +101,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			);
 		const subj = new BehaviorSubject({});
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
-		this.selectOneCache.set(id, { subj, obs, result });
+		this.selectOneCache.set(cacheKey, { subj, obs, result });
 		return result;
 	}
 
@@ -456,12 +457,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
+		const cacheKey = `${entity.id}-${client}`;
+
 		this.log(title, gql, queryName, client, variables);
 
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
-		if (this.selectOneCache.has(entity.id)) {
-			this.selectOneCache.get(entity.id).subj.next(entity);
+		if (this.selectOneCache.has(cacheKey)) {
+			this.selectOneCache.get(cacheKey).subj.next(entity);
 		}
 
 		return this.getClient(client).mutate(options).pipe(
