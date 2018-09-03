@@ -30,9 +30,7 @@ export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
 	onSubmit() {
 		if (this.form.valid) {
 			this.pending = true;
-			this.authSrv.login(this.form.value).pipe(
-				takeUntil(this._destroy$),
-				take(1),
+			this.authSrv.resetPassword(this.form.value).pipe(
 				catchError(error => this.error = error)
 			).subscribe(r => this.pending = false);
 		}

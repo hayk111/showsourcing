@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Product, Contact } from '~models';
-import { AutoUnsub } from '~utils';
 import { InputDirective } from '~shared/inputs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '~shared/dialog';
@@ -11,7 +10,7 @@ import { DialogService } from '~shared/dialog';
 	styleUrls: ['./rfq-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnInit {
+export class RfqDialogComponent implements AfterViewInit, OnInit {
 
 	detailGroup: FormGroup;
 	emailGroup: FormGroup;
@@ -31,9 +30,7 @@ export class RfqDialogComponent extends AutoUnsub implements AfterViewInit, OnIn
 
 	constructor(
 		private fb: FormBuilder,
-		private dlgSrv: DialogService) {
-		super();
-	}
+		private dlgSrv: DialogService) { }
 
 	ngOnInit() {
 		this.detailGroup = this.fb.group({

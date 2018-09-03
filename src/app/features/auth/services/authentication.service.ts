@@ -76,7 +76,7 @@ export class AuthenticationService {
 	}
 
 	changePassword(userId: string, password: string): Observable<boolean> {
-		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/signup/user/${userId}/password`, { password: password }).pipe(
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/signup/user/${userId}/password`, { password }).pipe(
 			map(_ => true),
 			catchError(_ => {
 				return of(false);
@@ -86,8 +86,7 @@ export class AuthenticationService {
 	}
 
 	resetPassword(email: string) {
-		// this.http.post(`${environment.apiUrl}/api/password/${email}/reset`, {})
-		throw Error('not implemented yet');
+		return this.http.post(`${environment.apiUrl}/signup/reset-password`, { email });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
