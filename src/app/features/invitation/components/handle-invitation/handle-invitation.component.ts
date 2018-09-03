@@ -10,6 +10,7 @@ import { UserService } from '~global-services';
 import { Invitation } from '~models';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private location: Location,
 		private userSrv: UserService,
 		private invitationSrv: InvitationFeatureService,
-		private cdr: ChangeDetectorRef) {
+		private cdr: ChangeDetectorRef,
+		private notifSrv: NotificationService) {
 		super();
 	}
 
@@ -60,13 +62,25 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	joinTeam() {
 		this.invitationSrv.acceptInvitation(this.invitation.id, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'Invitation Accepted',
+				message: 'The invitation was accepted',
+				timeout: 3500
+			});
 		});
 	}
 
 	refuseInvitation() {
 		this.invitationSrv.refuseInvitation(this.invitation.id, this.client).subscribe(() => {
 			this.router.navigateByUrl('/');
-		});
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'Invitation efused',
+				message: 'The invitation was refused',
+				timeout: 3500
+			});
+	});
 	}
 
 }

@@ -20,12 +20,12 @@ export class InvitationFeatureService extends InvitationService {
 
 	getInvitation(id: string) {
 		// try to find first the inviation into USER
-		return this.selectOne(id, null, Client.USER).pipe(
+		return this.queryOne(id, null, Client.USER).pipe(
 			switchMap(invitation => {
 				if (invitation && invitation.id) { // if an invitation is found, return it
 					return of({ invitation, client: Client.USER });
 				} else { // if no invitation found, try to find it into ALL_USER
-					return this.selectOne(id, null, Client.ALL_USER).pipe(
+					return this.queryOne(id, null, Client.ALL_USER).pipe(
 						map(invit => ({ invitation: invit, client: Client.ALL_USER }))
 					);
 				}
