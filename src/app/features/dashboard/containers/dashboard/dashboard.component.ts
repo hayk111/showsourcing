@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, tap, first, takeUntil } from 'rxjs/operators';
-import { ActivityService, GetStreamResult } from '~shared/activity/services/activity.service';
+import { ActivityService } from '~shared/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
 import { TemplateService } from '~shared/template/services/template.service';
 import { TeamService } from '~global-services';
 import { map } from 'rxjs/internal/operators/map';
 import { filter } from 'graphql-anywhere';
+import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 
 @Component({
 	selector: 'dashboard-app',
@@ -17,16 +18,12 @@ import { filter } from 'graphql-anywhere';
 	}
 })
 export class DashboardComponent implements OnInit {
-	feedName$: Observable<string[]>;
+	feedResult: GroupedActivityFeed;
 
-	constructor(private teamSrv: TeamService) {
-
-	}
+	constructor(private activitySrv: ActivityService) { }
 
 	ngOnInit() {
-		this.feedName$ = this.teamSrv.selectedTeam$.pipe(
-			map(team => ['team', team.id])
-		);
+		this.feedResult = this.activitySrv.getDashboardFeed();
 	}
 }
 

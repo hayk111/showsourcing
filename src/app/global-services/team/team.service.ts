@@ -38,6 +38,7 @@ export class TeamService extends GlobalService<Team> {
 		filter(team => !!team),
 		shareReplay(1),
 	);
+	selectedTeamSync;
 	teams$: Observable<Team[]>;
 
 
@@ -72,6 +73,9 @@ export class TeamService extends GlobalService<Team> {
 			if (status === AuthStatus.NOT_AUTHENTICATED)
 				this.resetSelectedTeam();
 		});
+
+		// putting a sync version of team
+		this.selectedTeam$.subscribe(team => this.selectedTeamSync = team);
 	}
 
 	/** creates a team and waits for it to be valid */

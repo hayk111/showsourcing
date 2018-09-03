@@ -10,6 +10,7 @@ import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -42,17 +43,11 @@ export class AuthenticationService {
 
 	// we really are authenticated when the tokenSrv generates the accessToken
 	login(credentials: Credentials) {
-		const loginObj = this.getLoginObject(credentials);
-		return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth`, loginObj).pipe(
-			tap(refreshToken => this.tokenSrv.storeRefreshToken(refreshToken)),
-			catchError(err => {
-				this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
-				return of(err);
-			})
-		);
+		const refPostObj = this.getRefreshTokenObject(credentials);
+		return this.tokenSrv.getRefreshToken(refPostObj);
 	}
 
-	private getLoginObject(credentials: Credentials) {
+	private getRefreshTokenObject(credentials: Credentials): RefreshTokenPostBody {
 		return {
 			app_id: '',
 			provider: 'password',
@@ -76,7 +71,7 @@ export class AuthenticationService {
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
-		return this.http.post(`${environment.signupUrl}`, creds).pipe(
+		return this.http.post(`${environment.apiUrl}/signup/user`, creds).pipe(
 			map(_ => ({ identifier: creds.email, password: creds.password })),
 			switchMap(loginCreds => this.login(loginCreds))
 		);

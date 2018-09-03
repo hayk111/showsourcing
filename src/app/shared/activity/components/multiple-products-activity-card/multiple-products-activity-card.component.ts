@@ -1,6 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '~models';
 import { Router } from '@angular/router';
+import { ProductService } from '~global-services';
+import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
+import { Observable } from 'rxjs';
+import { AutoUnsub } from '~utils';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'multiple-products-activity-card-app',
@@ -8,17 +13,22 @@ import { Router } from '@angular/router';
 	styleUrls: ['./multiple-products-activity-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultipleProductsActivityCardComponent implements OnInit {
-	@Input() products: Product[] = [];
-	@Input() time: Date;
-	constructor(private router: Router) { }
+export class MultipleProductsActivityCardComponent extends AutoUnsub implements OnInit {
+	@Input() groupFeed: GetStreamGroup;
+	time: Date;
+	products$: Observable<Product[]>;
 
-	ngOnInit() {
-
+	constructor(
+		private router: Router,
+		private productSrv: ProductService) {
+		super();
 	}
 
-	get firstFour() {
-		return this.products.slice(0, 4);
+	ngOnInit() {
+		const productIds = this.groupFeed.activities.map(activity => `id == "${activity.id}"`);
+		const query = productIds.join(' OR ');
+		this.products$ = this.productSrv.queryMany({ query });
+		this.time = this.groupFeed.updated_at;
 	}
 
 	viewProduct(product: Product) {

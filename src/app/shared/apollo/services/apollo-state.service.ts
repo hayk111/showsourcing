@@ -91,16 +91,6 @@ export class ApolloStateService {
 			this.router.navigate(['server-issue']);
 			return;
 		}
-		// when teamClient is ready we redirect to dashboard
-		if (allState[Client.TEAM] === ClientStatus.READY) {
-			this.router.navigate(['']);
-			return;
-		}
-		// when team client is not ready we redirect to select a team
-		if (allState[Client.TEAM] === ClientStatus.NOT_READY) {
-			this.router.navigate(['user', 'pick-a-team']);
-			return;
-		}
 	}
 
 	private getCurrentStatus(clientName: string): ClientStatus {

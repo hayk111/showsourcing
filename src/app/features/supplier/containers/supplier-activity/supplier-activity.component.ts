@@ -9,6 +9,7 @@ import { SupplierFeatureService } from '~features/supplier/services/supplier-fea
 import { DialogService } from '~shared/dialog';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
+import { ActivityService } from '~shared/activity/services/activity.service';
 
 @Component({
 	selector: 'supplier-activity-app',
@@ -23,14 +24,14 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 	supplierId: string;
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
-	/** Get stream feedName */
-	feedName$: Observable<string[]>;
 
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: SupplierFeatureService,
 		private dlgSrv: DialogService,
-		private moduleRef: NgModuleRef<any>) {
+		private moduleRef: NgModuleRef<any>,
+		private activitySrv: ActivityService
+	) {
 		super();
 	}
 
@@ -51,10 +52,6 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		// getting his products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
-		);
-
-		this.feedName$ = id$.pipe(
-			map(id => (['supplier_aggregated', id]))
 		);
 
 	}
