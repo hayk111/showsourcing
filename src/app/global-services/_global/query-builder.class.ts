@@ -89,6 +89,11 @@ export class QueryBuilder {
 			}
 		}`)
 
+	queryCount = () => gql(`
+		query ${this.plural}Count {
+			${this.plural}Count(query: $query)
+		}`)
+
 	create = (str: string) => gql(`
 		mutation create${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
@@ -114,7 +119,6 @@ export class QueryBuilder {
 		mutation delete${this.capPlural}($query: String!) {
 			delete${this.capPlural}(query: $query)
 		}`)
-
 
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
