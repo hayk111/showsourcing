@@ -65,7 +65,27 @@ export class AuthenticationService {
 		this.router.navigate(['/guest', 'login']);
 	}
 
-	resetPw(email: string) {
+	checkPassword(credentials: Credentials): Observable<boolean> {
+		const refPostBody = this.getRefreshTokenObject(credentials);
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+			map(_ => true),
+			catchError(_ => {
+				return of(false);
+			})
+		);
+	}
+
+	changePassword(userId: string, password: string): Observable<boolean> {
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/signup/user/${userId}/password`, { password: password }).pipe(
+			map(_ => true),
+			catchError(_ => {
+				return of(false);
+			})
+		);
+
+	}
+
+	resetPassword(email: string) {
 		// this.http.post(`${environment.apiUrl}/api/password/${email}/reset`, {})
 		throw Error('not implemented yet');
 	}
