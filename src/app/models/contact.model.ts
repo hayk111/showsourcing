@@ -10,6 +10,7 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	jobTitle?: string;
 	supplier?: Supplier;
 	deleted?: boolean;
+	__typename ?= 'Contact';
 
 	constructor(config: ContactConfig, supplierId: string) {
 		super(config);

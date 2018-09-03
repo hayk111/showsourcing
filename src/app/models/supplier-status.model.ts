@@ -4,10 +4,11 @@ import { User } from '~models/user.model';
 
 export class SupplierStatus extends EntityWithAudit<SupplierStatusConfig> {
 	status?: SupplierStatusType;
-	cancelled?= false;
+	cancelled ?= false;
 	comment?: Comment;
 	deletedBy?: User;
 	deletionDate?: string;
+	__typename ?= 'SupplierStatus';
 }
 
 export interface SupplierStatusConfig {

@@ -14,4 +14,5 @@ export class User {
 	realmServerName?: string;
 	realmPath?: string;
 	avatar?: AppImage;
+	__typename?= 'User';
 }

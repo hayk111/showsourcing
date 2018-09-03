@@ -12,6 +12,8 @@ export class ExternalRequest extends EntityWithAudit<ExternalRequestConfig> {
 	status: string; // possible values: pending, replied, busy, resent, declined, validated
 	supplier: Supplier;
 	recipients: string[];
+	__typename ?= 'ExternalRequest';
+
 }
 
 export interface ExternalRequestConfig {

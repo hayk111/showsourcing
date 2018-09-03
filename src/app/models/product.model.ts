@@ -40,6 +40,8 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	productCount?: number;
 	projectCount ?= 0;
 	projects?: Project[];
+	__typename ?= 'Product';
+
 }
 
 export interface ProductConfig {

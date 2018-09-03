@@ -5,6 +5,8 @@ export class ProductVote {
 	id: string;
 	user: User;
 	value: number;
+	__typename ?= 'ProductVote';
+
 	constructor(config: ProductVoteConfig) {
 		Object.assign(this, config);
 		this.id = uuid();

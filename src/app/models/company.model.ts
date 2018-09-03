@@ -1,9 +1,10 @@
-import { uuid } from "~utils";
+import { uuid } from '~utils';
 
 
 export class Company {
 	id: string;
 	name: string;
+	__typename ?= 'Company';
 
 	constructor(config: CompanyConfig) {
 		Object.assign(this, config);

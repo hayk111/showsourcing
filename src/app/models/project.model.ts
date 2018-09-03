@@ -10,6 +10,8 @@ export class Project extends EntityWithAudit<ProjectConfig> {
 	products?: Product[];
 	deleted?: boolean;
 	productCount?: number;
+	__typename ?= 'Project';
+
 }
 
 export interface ProjectConfig {

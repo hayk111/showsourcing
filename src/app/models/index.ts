@@ -22,7 +22,6 @@ export * from '~models/contact.model';
 export * from '~models/task.model';
 export * from '~models/currency.model';
 export * from '~models/app-file.model';
-export * from '~models/app-comment.model';
 export * from '~models/_erm.enum';
 export * from '~models/_entity.model';
 export * from '~models/image-upload-request.model';

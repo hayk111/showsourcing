@@ -3,9 +3,11 @@ import { uuid } from '~utils';
 
 export class Price {
 	id?: string;
-	currency ?= 'USD';
+	currency?= 'USD';
 	value?: number;
 	baseCurrencyValue?: number;
+	__typename?= 'Price';
+
 
 	constructor(config: PriceConfig) {
 		Object.assign(this, config);

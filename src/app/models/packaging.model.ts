@@ -10,6 +10,8 @@ export class Packaging {
 	itemsQuantity?: number;
 	weight?: number;
 	weightUnit?: string;
+	__typename ?= 'Packaging';
+
 	constructor(config?: PackagingConfig) {
 		this.id = uuid();
 		this.unit = 'cm';

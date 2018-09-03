@@ -20,6 +20,7 @@ export class Quote extends EntityWithAudit<QuoteConfig> {
 	leadTimeUnit?: string;
 	sample?: boolean;
 	samplePrice?: number;
+	__typename ?= 'Quote';
 }
 
 export interface QuoteConfig {

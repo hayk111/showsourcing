@@ -17,6 +17,7 @@ export class EventDescription {
 	secondaryColor?: string;
 	venue?: Venue;
 	industry?: { id: string, name: string };
+	__typename ?= 'EventDescription';
 
 	constructor(config: EventDescriptionConfig) {
 		this.id = uuid();

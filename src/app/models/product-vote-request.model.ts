@@ -6,6 +6,8 @@ export class ProductVoteRequest extends EntityWithAudit<ProductVoteRequestConfig
 	comment?: string;
 	product: Product;
 	users: User[];
+	__typename ?= 'ProductVoteRequest';
+
 	constructor(config: ProductVoteRequestConfig) {
 		super(config);
 	}

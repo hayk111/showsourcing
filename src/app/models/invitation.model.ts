@@ -8,6 +8,7 @@ export class Invitation {
 	inviter: User;
 	accessType: string;
 	status: string;
+	__typename?= 'Invitation';
 
 	constructor(config?: InvitationConfig) {
 		Object.assign(this, config);

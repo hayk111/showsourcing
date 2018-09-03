@@ -5,6 +5,7 @@ export class Event extends EntityWithAudit<EventConfig> {
 	rating?: number;
 	name?: string;
 	description?: EventDescription;
+	__typename ?= 'Event';
 
 	constructor(config: EventConfig) {
 		super(config);

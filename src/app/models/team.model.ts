@@ -17,6 +17,7 @@ export class Team {
 	realmPath: string;
 	status = 'pending';
 	company: Company;
+	__typename?= 'Team';
 
 	constructor(config: TeamConfig) {
 		Object.assign(this, config);
