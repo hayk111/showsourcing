@@ -17,14 +17,14 @@
 				<label-app> New Password</label-app>
 				<input [class.warn-border]="group.get('newPswd').touched  && group.hasError('nomatch')"
 					minlength="8"	inputApp type="password" formControlName="newPswd" placeholder="Introduce the new password"
-					autocomplete="new-password"/>
+					autocomplete="new-password" (blur)="checkCurrentPassword()"/>
 				<error-app *ngIf="group.get('newPswd').hasError('minlength')">Minimum 8 characters required</error-app>
 			</form-field-app>
 			<form-field-app>
 				<label-app> Confirm New Password </label-app>
 				<input [class.warn-border]="group.get('confirmPswd').touched && group.hasError('nomatch')"
 					minlength="8"	inputApp type="password" formControlName="confirmPswd" placeholder="Confirm the new password"
-					autocomplete="new-password"/>
+					autocomplete="new-password" (blur)="checkCurrentPassword()"/>
 					<p class="color-warn fs-s italic" *ngIf="group.get('newPswd').touched && group.get('confirmPswd').touched && group.hasError('nomatch')">
 						New passwords must match
 					</p>
@@ -32,8 +32,7 @@
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
-			<!-- update condition when the checkpassword is implemented (isCurrentPswd$ | async) -->
-			<input [disabled]="!group.valid || !(isCurrentPswd$ | async)" type="submit" value="change" (click)="onSubmit()"/>
+			<input [disabled]="!(group.valid && (isCurrentPswd$ | async))" type="submit" value="change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<spinner-app *ngIf="pending"></spinner-app>

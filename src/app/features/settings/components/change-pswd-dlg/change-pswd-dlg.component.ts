@@ -1,14 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { AutoUnsub } from '~utils';
-
-import { switchMap, takeUntil, first, catchError } from 'rxjs/operators';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'change-pswd-dlg-app',
@@ -39,7 +38,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 			newPswd: ['', Validators.required],
 			confirmPswd: ['', Validators.required],
 		}, { validator: PasswordValidator });
-		// Uncomment when the service is implemented
+
 		this.isCurrentPswd$ = this.onBlur$
 			.pipe(
 				takeUntil(this._destroy$),
@@ -48,7 +47,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	checkCurrentPassword() {
-		if (this.group.get('currentPswd').errors == null)   // Uncomment when the service is implemented
+		if (this.group.get('currentPswd').errors == null)
 			this.onBlur$.next(this.group.get('currentPswd').value);
 	}
 
