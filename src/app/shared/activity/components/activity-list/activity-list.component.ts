@@ -49,7 +49,6 @@ export class ActivityListComponent extends AutoUnsub implements OnInit {
 
 	createComment(items: any) {
 		const newComment = new Comment({ text: items.text });
-		console.log(newComment);
 		this.commentSrv.create(newComment).pipe(
 			switchMap(_ => this.productSrv.update({ id: items.product.id, comments: [...items.product.comments, newComment] }))
 		).subscribe();

@@ -63,16 +63,16 @@
 			</div>
 		</div>
 
-		<card-footer-app align="left" class="flexColumn">
-			<!-- here the comment component with previosu commennts loaded -->
-			<comment-list-app [comments]="product?.comments"></comment-list-app>
-			<div class="flexBetween">
-				<textarea #inpComment inputApp type="text"
-				placeholder="Leave a comment" (keydown.enter)="onSubmit()"></textarea>
-				<button class="secondary-light" (click)="onSubmit()">Send</button>
-			</div>
-		</card-footer-app>
 	</ng-container>
+	<card-footer-app *ngIf="product$ | async" align="left" class="flexColumn">
+		<!-- here the comment component with previosu commennts loaded -->
+		<comment-list-app [comments]="product?.comments"></comment-list-app>
+		<div class="flexBetween">
+			<textarea inputApp type="text" [formControl]="commentCtrl"
+			placeholder="Leave a comment" (keydown.enter)="onEnter($event)"></textarea>
+			<button class="secondary-light" (click)="onSubmit()">Send</button>
+		</div>
+	</card-footer-app>
 
 	<ng-template #spinner>
 		<spinner-app></spinner-app>
