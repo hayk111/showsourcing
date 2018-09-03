@@ -1,13 +1,12 @@
-
+<!-- top panel -->
+<top-panel-app
+	[title]="entityMetadata.plural"
+	[subtitles]="['Products', 'all']"
+	buttonName="Add {{entityMetadata.singular}}"
+	(buttonClick)="openCreateDlg(true)">
+</top-panel-app>
 
 <ng-container *ngIf="items$ | async as products; else spinner">
-	<!-- top panel -->
-	<top-panel-app
-		[title]="entityMetadata.plural"
-		[subtitles]="['Products', 'all']"
-		buttonName="Add {{entityMetadata.singular}}"
-		(buttonClick)="openCreateDlg(true)">
-	</top-panel-app>
 
 	<sub-panel-app
 		[hasSwitch]="true"
