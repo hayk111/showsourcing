@@ -32,8 +32,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 	init(): void {
 		super.checkNotAlreadyInit();
+		// we get the user id from the auth service
 		const userId$ = this.authSrv.userId$.pipe(
 			filter(id => !!id),
+			// we don't use distinctUntilChanged because an user can reconnect with the same account
 			shareReplay(1)
 		);
 
@@ -45,6 +47,8 @@ export class UserClientInitializer extends AbstractApolloClient {
 		);
 
 		const realmUri$ = userId$.pipe(
+			// realm uri won't change if the userId hasn't changed
+			distinctUntilChanged(),
 			switchMap(userId => this.getUserRealmUri(userId)),
 		);
 

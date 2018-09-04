@@ -17,3 +17,4 @@ export * from '~global-services/invitation/invitation.service';
 export * from '~global-services/user/user.service';
 export * from '~global-services/show/show.service';
 export * from '~global-services/external-request/external-request.service';
+export * from '~global-services/task/task.service';

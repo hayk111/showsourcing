@@ -7,7 +7,10 @@
 		</ng-template>
 	</div>
 	<div class="right">
-		<dashboard-summary-app></dashboard-summary-app>
+		<dashboard-summary-app
+			[user]="user$ | async"
+			[counters]="counters$ | async"
+			[tasks]="tasks$ | async"></dashboard-summary-app>
 		<team-card-app></team-card-app>
 		<events-card-app></events-card-app>
 	</div>

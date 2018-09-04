@@ -4,7 +4,7 @@
 <ng-template #default>
 	<div class="gradient-border flexCenter" [ngStyle]="commonStyle">
 		<div class="initials flexCenter" [ngStyle]="commonStyle">
-				{{user?.firstName ? user?.firstName[0] : ''}}{{user?.lastName ? user?.lastName[0] : '-'}}
+				{{ user?.firstName ? user?.firstName[0] : '' }} {{ user?.lastName ? user?.lastName[0] : '-' }}
 		</div>
 	</div>
 </ng-template>

@@ -14,6 +14,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, fileName, orientation }`;
 	static readonly contacts = `contacts { id, name, phoneNumber, email, jobTitle businessCardImage { id, fileName } }`;
+	static readonly productsCount = `productsCount:  _count(type: "Product", field: "supplier.id", query:"archived == false")`;
 
 	static readonly one = `
 			name,
@@ -29,8 +30,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 			favorite,
 			generalMOQ,
 			generalLeadTime,
-			productCount,
-			taskCount,
 			creationDate,
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
@@ -49,11 +48,11 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		deleted,
 		creationDate,
-		productCount
 		${SupplierQueries.categories}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.createdBy}
+		${SupplierQueries.productsCount}
 		`;
 
 	static readonly update = `

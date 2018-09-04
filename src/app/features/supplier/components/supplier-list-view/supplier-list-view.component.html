@@ -104,10 +104,10 @@
 		columnApp="Products"
 		class="capitalize"
 		let-row="row"
-		sortBy="productCount"
+		[sortable]="false"
 		width="140"
 		[grows]="false">
-		<b class="semi">{{ row.productCount }}</b>
+		<b class="semi">{{ row.productsCount }}</b>
 	</ng-template>
 
 	<!-- Action -->

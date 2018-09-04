@@ -20,6 +20,7 @@ export interface GlobalServiceInterface<T> {
 	queryOneByPredicate: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	selectMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
 	queryMany: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => Observable<T[]>;
+	queryCount: (predicate: string, client?: string) => Observable<number>;
 	getListQuery: (paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client) => ListQuery<T>;
 	waitForOne: (predicate: string, fields?: string | string[], client?: Client) => Observable<T>;
 	update: (entity: { id?: string }, fields?: string | string[], client?: Client) => Observable<T>;
@@ -80,13 +81,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
+		const cacheKey = `${id}-${client}`;
 		this.log(title, gql, queryName, client, variables);
 
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view in real time
 		// since uuid are used for ids, it can be used as cacheKey
-		if (this.selectOneCache.has(id))
-			return this.selectOneCache.get(id).result;
+		if (this.selectOneCache.has(cacheKey))
+			return this.selectOneCache.get(cacheKey).result;
 
 		const obs = this.getClient(client).subscribe({ query: gql, variables })
 			.pipe(
@@ -99,7 +101,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			);
 		const subj = new BehaviorSubject({});
 		const result = combineLatest(obs, subj, (latestChanges, newestChanges) => ({ ...latestChanges, ...newestChanges }));
-		this.selectOneCache.set(id, { subj, obs, result });
+		this.selectOneCache.set(cacheKey, { subj, obs, result });
 		return result;
 	}
 
@@ -385,7 +387,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	queryAll(fields?: string | string[], client: string = this.defaultClient): Observable<any> {
+	queryAll(fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
 		const title = 'Query All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.queryAll(fields);
@@ -393,6 +395,36 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		this.log(title, gql, queryName, client);
 
 		return this.getClient(client).watchQuery({ query: gql }).valueChanges
+			.pipe(
+				// extracting the result
+				map((r) => {
+					if (!r.data)
+						throwError(r.errors);
+					return r.data[queryName];
+				}),
+				catchError(errors => of(log.table(errors))),
+				tap(data => this.logResult(title, queryName, data)),
+				shareReplay(1)
+			);
+	}
+
+	/////////////////////////////
+	//       QUERY COUNT       //
+	/////////////////////////////
+	/**
+	 * waits for the first item to resolve
+	 * @param predicate : string  realm predicate / query to filter items
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	*/
+	queryCount(predicate: string, client: string = this.defaultClient): Observable<number> {
+		const title = 'Query Count ' + this.typeName;
+		const gql = this.queryBuilder.queryCount();
+		const queryName = this.getQueryName(gql);
+		const variables = { query: predicate };
+
+		this.log(title, gql, queryName, client, variables);
+
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
@@ -424,12 +456,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
 		const options = { mutation: gql, variables };
+		const cacheKey = `${entity.id}-${client}`;
+
 		this.log(title, gql, queryName, client, variables);
 
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
-		if (this.selectOneCache.has(entity.id)) {
-			this.selectOneCache.get(entity.id).subj.next(entity);
+		if (this.selectOneCache.has(cacheKey)) {
+			this.selectOneCache.get(cacheKey).subj.next(entity);
 		}
 
 		return this.getClient(client).mutate(options).pipe(

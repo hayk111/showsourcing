@@ -65,11 +65,11 @@
 		class="capitalize"
 		columnApp="Product Count"
 		let-row="row"
-		sortBy="productCount"
+		[sortable]="false"
 		[grows]="false"
 		width="200">
 		<span>
-			<b>{{ row.productCount }}</b>
+			<b>{{ row.productsCount }}</b>
 		</span>
 	</ng-template>
 

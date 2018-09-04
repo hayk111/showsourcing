@@ -1,7 +1,7 @@
 <card-app>
   <div class="top flexCenter flexColumn">
 
-    <ng-container *ngIf="user$ | async as user">
+    <ng-container *ngIf="user">
 			<user-picture-app [user]="user" size="68" [image]="user?.avatar" [border]="true"></user-picture-app>
       <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
       <h3>{{ user?.companyName }}</h3>
@@ -11,10 +11,10 @@
 
   <divider-app></divider-app>
 
-  <div class="secondBlock flexColumn">
+  <div class="secondBlock flexColumn" *ngIf="counters">
 
     <div class="flex">
-      <span class="amount">240</span>
+      <span class="amount">{{ counters?.productsNeedReview }}</span>
       <div class="flexColumn">
         <span class="taskType">Product Need review</span>
         <span><a>Review Products</a></span>
@@ -23,16 +23,18 @@
 
 
     <div class="flex">
-      <span class="amount">45</span>
+      <span class="amount">{{ counters?.productsInWorkflow }}</span>
       <div class="flexColumn">
         <span class="taskType">Products in progress</span>
-        <span><a>To my workspace</a></span>
+        <span>
+          <a>To my workspace</a>
+        </span>
       </div>
     </div>
 
 
     <div class="flex">
-      <span class="amount">54</span>
+      <span class="amount">{{ counters?.suppliersUnderAssessment }}</span>
       <div class="flexColumn desc">
         <span class="taskType">Supplier to assess</span>
         <span><a>To my workspace</a></span>
@@ -44,25 +46,17 @@
 
   <divider-app></divider-app>
 
-  <div class="taskTitle">34 / 54 Tasks</div>
+  <div class="taskTitle"> {{ counters?.tasksInProgress }} / {{ counters?.totalTasks }} Tasks</div>
 
-  <rating-cylinder-app [score]="70"></rating-cylinder-app>
+  <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
 
-  <checkbox-app>
-    <div class="flex flexVAlign">
-     <user-picture-app [size]="14"></user-picture-app> Validate RFQ with Suppliers
-    </div>
-  </checkbox-app>
-  <checkbox-app>
-    <div class="flex flexVAlign">
-      <user-picture-app [size]="14"></user-picture-app> Find 2 Alternate Suppliers for Table
-    </div>
-  </checkbox-app>
-  <checkbox-app>
-    <div class="flex flexVAlign">
-      <user-picture-app [size]="14"></user-picture-app> Debrief Canton Fair Phase 2 - 2018
-    </div>
-  </checkbox-app>
+  <ng-container *ngFor="let task of tasks">
+    <checkbox-app>
+      <div class="flex flexVAlign">
+      <user-picture-app [size]="14" [user]="task.createdBy"></user-picture-app> {{ task.description }}
+      </div>
+    </checkbox-app>
+  </ng-container>
 
   <card-footer-app paddingSide="l">
     <button>Open my workspace</button>

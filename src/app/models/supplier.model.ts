@@ -29,8 +29,6 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	statusHistory?: SupplierStatus[];
-	productCount ?= 0;
-	taskCount ?= 0;
 	__typename ?= 'Supplier';
 }
 
