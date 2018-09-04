@@ -17,4 +17,5 @@ export class SummaryComponent {
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];
 	constructor(private userSrv: UserService) { }
+	get taskScore() { return this.counters ? (this.counters.tasksInProgress / this.counters.totalTasks) : 0; }
 }

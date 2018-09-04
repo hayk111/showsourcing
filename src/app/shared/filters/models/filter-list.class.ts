@@ -58,7 +58,7 @@ export class FilterList {
 	removeFilter(removed: Filter) {
 		// removing to array of filters
 		this.setFilters(this._filters.filter(
-			filter => (filter.type !== removed.type || filter.value !== removed.value)
+			fltr => (fltr.type !== removed.type || fltr.value !== removed.value)
 		));
 	}
 
@@ -89,7 +89,7 @@ export class FilterList {
 
 	private filtersToByType(filters: Filter[]) {
 		const copy = this.getInitialMap();
-		filters.forEach(filter => copy.get(filter.type).set(filter.value, filter));
+		filters.forEach(fltr => copy.get(fltr.type).set(fltr.value, filter));
 		return copy;
 	}
 

@@ -428,7 +428,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			.pipe(
 				// extracting the result
 				map((r) => {
-					debugger;
 					if (!r.data)
 						throwError(r.errors);
 					return r.data[queryName];
