@@ -1,5 +1,5 @@
 <div class="flexColumn ctnr" [ngClass]="{ 'has-nav': withNav }">
-	<div [ngClass]="{ flexAround: center, flexBetween: center }">
+	<div [ngClass]="{ flexAround: center, flexBetween: !center }">
 		<div class="left">
 			<bread-crumb-app [title]="title" [subtitles]="subtitles"></bread-crumb-app>
 		</div>
