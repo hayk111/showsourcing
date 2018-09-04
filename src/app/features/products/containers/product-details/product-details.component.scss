@@ -17,13 +17,17 @@ top-panel-details-app {
 	}
 }
 
+$width-right: 810px;
+$width-left: 410px;
+
 .content {
 	margin-left: auto;
 	margin-right: auto;
-	width: calc(810px + 608px);
+	width: $width-right + $width-left;
 
+	// remember to
 	.left {
-		width: 410px;
+		width: $width-left;
 
 		project-card-app, product-team-rating-app, supplier-card-app {
 			width: 388px;
@@ -36,7 +40,7 @@ top-panel-details-app {
 	}
 
 	.right {
-		width: 810px
+		width: $width-right;
 	}
 }
 
