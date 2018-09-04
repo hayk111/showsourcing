@@ -10,13 +10,15 @@ import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { ApolloStateService } from '~shared/apollo';
+import { Sort } from '~shared/table/components/sort.interface';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class WorkspaceWorkflowFeatureService extends ProductService {
+export class WorkspaceFeatureService extends ProductService {
 	productsResult: ListQuery<Product>;
+	allProductsResult: ListQuery<Product>;
 
 	constructor(
 		protected apolloState: ApolloStateService,
@@ -68,6 +70,23 @@ export class WorkspaceWorkflowFeatureService extends ProductService {
 			// Sort statuses per step
 			map(statuses => statuses.sort((s1, s2) => (s1.step - s2.step)))
 		);
+	}
+
+	/** Get the list of products */
+	getProducts(sort: Sort, refresh = false) {
+		if (refresh && this.allProductsResult) {
+			this.allProductsResult.refetch({
+				sortBy: sort ? sort.sortBy : null
+			});
+		}
+
+		if (!this.allProductsResult) {
+			this.allProductsResult = this.productSrv.getListQuery({
+				sortBy: sort ? sort.sortBy : null
+			});
+		}
+
+		return this.allProductsResult.items$;
 	}
 
 	/**

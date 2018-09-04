@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
-import { WorkspaceWorkflowFeatureService } from '~features/workspace/services/workspace-workflow-feature.service';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project, ProductStatus } from '~models';
 import {
@@ -24,10 +24,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 
-	project$: Observable<Project>;
 	statuses$ = new Subject<ProductStatus[]>();
-	id: string;
-	project: Project;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 
@@ -35,32 +32,17 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private productSrv: ProductService,
-		private workflowService: WorkspaceWorkflowFeatureService,
+		private workflowService: WorkspaceFeatureService,
 		private selectionSrv: SelectionService,
 		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: WorkspaceWorkflowFeatureService,
 		private notifSrv: NotificationService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		/* this.project$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.id = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
-			tap(project => this.project = project)
-		);
-
-		this.project$.pipe(
-			takeUntil(this._destroy$),
-			switchMap(project => this.workflowService.getStatuses(project))
-		).subscribe(statuses => {
-			this.statuses$.next(statuses);
-		}); */
-
 		this.workflowService.getStatuses().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {

@@ -1,0 +1,35 @@
+.card-container {
+	overflow-y: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	padding-left: 7px;
+	padding-top: 15px;
+  padding-bottom: 8px;
+  width: 1047px;
+	/* background-color: var(--color-secondary-light);
+	border: solid 1px var(--color-divider); 
+	height: 480px; */
+}
+
+.item {
+	width: 33%;
+	display: inline-block;
+}
+
+.category-header {
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--color-txt-strong);
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #5d6d8b;
+  }
+}
