@@ -1,1 +1,52 @@
-My products
+<workflow-kanban-app
+  [statuses]="statuses$ | async"
+  [contextualMenu]="contextualMenu"
+  [selectedItems]="selected$ | async"
+  (itemDropped)="onUpdateProductStatus($event)"
+  (selectItem)="onItemSelected($event)"
+  (unselectItem)="onItemUnselected($event)"
+  (selectAllItems)="onAllItemsSelected($event)"
+  (unselectAllItems)="onAllItemsUnselected($event)">
+</workflow-kanban-app>
+
+<ng-template #contextualMenu let-row="row">
+  <context-menu-app xPosition="-171" yPosition="20">
+    <context-menu-trigger-app>
+      <button class="icon light">
+        <icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+      </button>
+    </context-menu-trigger-app>
+    <context-menu-item-app (click)="openAddToProjectDialog(row)">
+      <div class="border">Add to project</div>
+    </context-menu-item-app>
+    <context-menu-item-app (click)="openRequestFeedbackDialog(row)">
+      <div class="border">Request feedback</div>
+    </context-menu-item-app>
+    <context-menu-item-app (click)="openExportDialog(row)">
+      <div class="border">Export</div>
+    </context-menu-item-app>
+    <context-menu-item-app (click)="deleteSelected(row)">
+      <div class="border">Delete</div>
+    </context-menu-item-app>
+  </context-menu-app>
+</ng-template>
+
+<selection-bar-app
+  *ngIf="(selected$ | async).size > 0"
+  [selection]="selected$ | async"
+  [hasDelete]="false"
+  (close)="resetSelection()"
+  (delete)="deleteSelected()">
+
+  <action-bar-app>
+    <button class="icon light" (click)="openAddToProjectDialog()">
+      <icon-app fontSet="svg" name="folder" size="m" ></icon-app>
+    </button>
+    <button class="icon light">
+      <icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+    </button>
+    <button class="icon light" (click)="deleteSelected()">
+      <icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+    </button>
+  </action-bar-app>
+</selection-bar-app>
