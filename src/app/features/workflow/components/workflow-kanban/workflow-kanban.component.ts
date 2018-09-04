@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
@@ -11,15 +12,19 @@ import { ProductStatus } from '~models';
 	templateUrl: './workflow-kanban.component.html',
 	styleUrls: ['./workflow-kanban.component.scss']
 })
-export class WorkflowKanbanComponent {
+export class WorkflowKanbanComponent implements OnInit {
 	/** The list of statuses included associated products */
 	@Input() statuses;
 	/** A reference to the contextual menu template */
 	@Input() contextualMenu: TemplateRef<any>;
 	/** The selected items */
 	@Input() selectedItems: any[];
+	/** Whether a sidenav is displayed */
+	@Input() withoutSidenav: boolean;
 	/** Whether the kaban takes the full width */
 	@Input() @HostBinding('class.full-width') fullWidth: boolean;
+	/** The height of the header */
+	@Input() heightOffset = 0;
 	/** The dropped item event including data associated with the target and the element */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	/** Triggers when the item is selected */
@@ -31,12 +36,18 @@ export class WorkflowKanbanComponent {
 	/** Triggers when all items are unselected for a status */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
 
-
+	@HostBinding('style') style: SafeStyle;
 
 	separatorColor: string;
 	dragInProgress = false;
 
-	constructor(private kanbanSrv: KanbanService) {
+	constructor(private kanbanSrv: KanbanService, private sanitizer: DomSanitizer) {
+	}
+
+	ngOnInit() {
+		if (this.heightOffset) {
+			this.style = this.sanitizer.bypassSecurityTrustStyle(`height: calc(100vh - ${161 + this.heightOffset}px)`);
+		}
 	}
 
 	trackByFn(index, product) {

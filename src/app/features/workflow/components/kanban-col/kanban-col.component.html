@@ -9,7 +9,8 @@
 	<div class="number">{{data?.products?.length}}</div>
 </header>
 
-<main [ngClass]="{ 'source-area-overlay': sourceArea, 'droppable-area-overlay': droppableArea, 'entered-area-overlay': enteredArea }">
+<main [ngClass]="{ 'source-area-overlay': sourceArea, 'droppable-area-overlay': droppableArea, 'entered-area-overlay': enteredArea }"
+			[ngStyle]="{ 'overflow-x': dragnDropInProgress ? 'unset' : 'hidden', 'overflow-y': dragnDropInProgress ? 'unset' : 'auto' }">
 	<div [ngClass]="{ 'hide-items': (droppableArea) }">
 			<ng-content></ng-content>
 	</div>

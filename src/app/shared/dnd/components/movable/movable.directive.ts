@@ -22,6 +22,11 @@ export class MovableDirective extends DraggableDirective {
 			`translateX(${this.position.x}px) translateY(${this.position.y}px)`
 		);
 	}
+	@HostBinding('style.z-index') get zIndex(): SafeStyle {
+		return this.sanitizer.bypassSecurityTrustStyle(
+			this.dragnDropInProgress ? '1000' : '10'
+		);
+	}
 
 	@HostBinding('class.movable') movable = true;
 
@@ -30,6 +35,9 @@ export class MovableDirective extends DraggableDirective {
 
 	/** The start position of the element */
 	private startPosition: Position;
+
+	/** Whether a drag'n drop is in progress */
+	private dragnDropInProgress: boolean;
 
 	/** The data associated with the element */
 	@Input('movableApp') data: any;
@@ -47,6 +55,7 @@ export class MovableDirective extends DraggableDirective {
 			x: event.clientX - this.position.x,
 			y: event.clientY - this.position.y
 		};
+		this.dragnDropInProgress = true;
 		this.droppableService.onDragStart(event, this.data);
 	}
 
@@ -62,6 +71,7 @@ export class MovableDirective extends DraggableDirective {
 		if (this.reset) {
 			this.position = {x: 0, y: 0};
 		}
+		this.dragnDropInProgress = false;
 		this.droppableService.onDragEnd(event, this.data);
 	}
 }

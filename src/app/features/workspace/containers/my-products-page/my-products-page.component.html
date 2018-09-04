@@ -3,6 +3,8 @@
   [contextualMenu]="contextualMenu"
   [selectedItems]="selected$ | async"
   [fullWidth]="true"
+  [withoutSidenav]="true"
+  [heightOffset]="17"
   (itemDropped)="onUpdateProductStatus($event)"
   (selectItem)="onItemSelected($event)"
   (unselectItem)="onItemUnselected($event)"

@@ -1,11 +1,12 @@
 :host {
 	display: block;
   // width: 100%;
-  overflow-x: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
 	width: calc(100vw - 72px);
 	// TODO
-	// height: calc(100vh - 161px);
-	height: calc(100vh - 195px);
+	height: calc(100vh - 161px);
+	// height: calc(100vh - 178px);
 
 	&.full-width {
 		width: 100vw;
@@ -22,12 +23,20 @@ article{
 	// overflow: auto;
 	// TODO
 	height: calc(100vh - 190px);
+	// height: calc(100vh - 214px);
+
+	&.without-sidenav {
+		padding-left: 0;
+		justify-content: space-around;
+	}
 }
 
 kanban-col-app {
 	min-width: 340px;
 	margin-top: var(--spacing-m);
-	min-height: calc(100vh - 212px);
+	// TODO
+	// min-height: calc(100vh - 212px);
+	min-height: calc(100vh - 227px);
 }
 
 .card-container {
