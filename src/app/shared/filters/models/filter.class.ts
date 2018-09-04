@@ -1,4 +1,7 @@
 export enum FilterType {
+	// when searching with a raw filter filter.value : 'supplier.id == "x"'
+	RAW = 'raw',
+	SEARCH = 'search',
 	ID = 'id',
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
@@ -14,11 +17,11 @@ export enum FilterType {
 	PRODUCT_STATUS_TYPE = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
-	SEARCH = 'search',
 }
 
-export interface Filter {
-	type?: FilterType | string;
+export class Filter {
+	type: 'string' | 'value' | 'date' = 'string';
+	target: string;
 	comparator?: string;
 	value?: any;
 	entity?: any;
@@ -32,3 +35,19 @@ export interface FilterGroup {
 	byType: Map<FilterType, Map<any, Filter>>;
 }
 
+// export class Filter {
+// 	type: FilterType = FilterType.RAW;
+// 	value: any;
+// }
+
+// export class FilterSearch extends Filter {
+// 	type = FilterType.SEARCH;
+// 	fields = ['name'];
+// }
+
+// export class FilterNestedEntity {
+// 	type = FilterType.ENTITY;
+// 	isList = true;
+// 	filterOn = 'id';
+// 	entity: string;
+// }
