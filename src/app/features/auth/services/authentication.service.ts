@@ -83,7 +83,7 @@ export class AuthenticationService {
 			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
 			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
 			map(token => !!token),
-			catchError(e => {
+			catchError(_ => {
 				return of(false);
 			})
 		);

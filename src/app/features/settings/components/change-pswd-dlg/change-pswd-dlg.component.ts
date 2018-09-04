@@ -67,7 +67,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 					type: NotificationType.ERROR,
 					title: 'Password Uncghanged',
 					message: 'Your password could not be changed, server issues',
-					timeout: 4000
+					timeout: 4500
 				});
 			}
 			this.dlgSrv.close();
