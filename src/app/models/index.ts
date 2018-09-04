@@ -1,4 +1,5 @@
 export * from '~models/app-image.model';
+export * from '~models/attachment.model';
 export * from '~models/category.model';
 export * from '~models/event.model';
 export * from '~models/event-description.model';
@@ -21,7 +22,7 @@ export * from '~models/user.model';
 export * from '~models/contact.model';
 export * from '~models/task.model';
 export * from '~models/currency.model';
-export * from '~models/app-file.model';
+export * from '~models/attachment.model';
 export * from '~models/_erm.enum';
 export * from '~models/_entity.model';
 export * from '~models/image-upload-request.model';

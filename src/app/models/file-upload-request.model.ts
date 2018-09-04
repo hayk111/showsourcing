@@ -1,15 +1,15 @@
 import { uuid } from '~utils';
-import { AppFile } from '~models/app-file.model';
+import { Attachment } from '~models/attachment.model';
 
 
 export class FileUploadRequest {
 	id ?= uuid();
 	status ?= 'request';
-	file?: any;
+	attachment?: any;
 	__typename ?= 'FileUploadRequest';
 
 	constructor(extension: string) {
-		this.file = new AppFile(extension);
+		this.attachment = new Attachment(extension);
 	}
 
 }

@@ -5,7 +5,7 @@ import { delay, filter, first, map, mergeMap, retryWhen, take, tap, catchError }
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
-import { AppFile, AppImage, ImageUploadRequest } from '~models';
+import { Attachment, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ImageUrls, log, LogColor } from '~utils';
@@ -45,7 +45,7 @@ export class UploaderService {
 		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(extension);
 		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
-			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
+			(request as ImageUploadRequest).image : (request as FileUploadRequest).attachment;
 		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ => service.waitForOne(`id == "${request.id}" AND status == "upload-ready"`)),
@@ -93,7 +93,7 @@ export class UploaderService {
 		return formData;
 	}
 
-	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
+	private isFileProgress(event: HttpEvent<any>, appFile: Attachment) {
 		switch (event.type) {
 			case HttpEventType.UploadProgress:
 				// do smtg with progress events

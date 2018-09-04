@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
-import { AppFile, Product, Project, AppImage, ProductStatus, ERM } from '~models';
+import { Attachment, Product, Project, AppImage, ProductStatus, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import {
@@ -20,7 +20,7 @@ import { VoteDetailsDialogComponent } from '~features/products/components/vote-d
 })
 export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
-	files: Array<AppFile>;
+	files: Array<Attachment>;
 	/** projects for this product */
 	product: Product;
 	typeEntity = ERM.PRODUCT;
