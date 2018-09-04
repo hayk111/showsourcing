@@ -33,16 +33,23 @@ export class WorkspaceWorkflowFeatureService extends ProductService {
 	 * The status with the category refused is removed since we don't need
 	 * to display it.
 	 * */
-	getStatuses(refresh = false) {
+	getStatuses(refresh = false, search?: string) {
 		if (refresh && this.productsResult) {
 			this.productsResult.refetch({
-				query: `status.id != null`,
+				query: search ?
+					`status.id != null && name CONTAINS[c] "${search}"` :
+					`status.id != null`,
 				sortBy: 'lastUpdatedDate'
 			});
 		}
 
 		if (!this.productsResult) {
-			this.productsResult = this.productSrv.getListQuery({ query: `status.id != null`, sortBy: 'lastUpdatedDate' });
+			this.productsResult = this.productSrv.getListQuery({
+				query: search ?
+					`status.id != null && name CONTAINS[c] "${search}"` :
+					`status.id != null`,
+				sortBy: 'lastUpdatedDate'
+			});
 		}
 		return this.productsResult.items$.pipe(
 			switchMap(products => {

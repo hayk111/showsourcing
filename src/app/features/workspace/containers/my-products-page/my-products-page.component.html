@@ -1,16 +1,25 @@
+<sub-panel-app
+  [hasSwitch]="false"
+  [hasFilter]="false"
+  [buttonIcon]="false"
+  (search)="search($event)">
+</sub-panel-app>
+
+<div style="overflow-x: auto; width: 100vw">
 <workflow-kanban-app
   [statuses]="statuses$ | async"
   [contextualMenu]="contextualMenu"
   [selectedItems]="selected$ | async"
   [fullWidth]="true"
   [withoutSidenav]="true"
-  [heightOffset]="17"
+  [heightOffset]="97"
   (itemDropped)="onUpdateProductStatus($event)"
   (selectItem)="onItemSelected($event)"
   (unselectItem)="onItemUnselected($event)"
   (selectAllItems)="onAllItemsSelected($event)"
   (unselectAllItems)="onAllItemsUnselected($event)">
 </workflow-kanban-app>
+</div>
 
 <ng-template #contextualMenu let-row="row">
   <context-menu-app xPosition="-171" yPosition="20">

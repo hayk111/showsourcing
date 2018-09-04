@@ -70,6 +70,14 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 		this.selected$ = this.selectionSrv.selection$;
 	}
 
+	search(search: string) {
+		this.workflowService.getStatuses(true, search).pipe(
+			takeUntil(this._destroy$)
+		).subscribe(statuses => {
+			this.statuses$.next(statuses);
+		});
+	}
+
 	onUpdateProductStatus({ target, droppedElement }) {
 		this.workflowService.updateProductStatus(droppedElement, target)
 			.subscribe(() => {
