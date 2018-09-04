@@ -1,5 +1,25 @@
-<!-- <task-app *ngFor="let task of tasks" [tasks]="" [hasProduct]="hasProduct"></task-app> -->
+<h1 class="title">Task</h1>
+<!-- <div *ngFor="let task of tasks; first as first; last as last; trackBy: trackByFn" [tasks]="task" [ngClass]="{'border-top': first, 'no-border': last}">
+	<checkbox-app
+		[checked]="selection.has(task.id)"
+		(check)="taskSelect.emit(task)"
+		(uncheck)="taskUnselect.emit(task)">
+	</checkbox-app>
+	<task-app [task]="task"></task-app>
+</div>
+<divider-app></divider-app>
+<button class="light">+ Create a new task</button>
+-->
 
-<task-app></task-app>
-<task-app></task-app>
-<task-app></task-app>
+<div class="flex">
+	<checkbox-app></checkbox-app>
+	<task-app></task-app>
+</div>
+<div class="flex">
+	<checkbox-app></checkbox-app>
+	<task-app></task-app>
+</div>
+<div class="flex">
+	<checkbox-app></checkbox-app>
+	<task-app></task-app>
+</div>

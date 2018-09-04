@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '~models';
 
 @Component({
@@ -9,8 +9,12 @@ import { Task } from '~models';
 })
 export class TaskListComponent implements OnInit {
 
-	@Input() hasProduct = true;
 	@Input() tasks: Task[];
+	@Input() selection: Map<string, boolean>;
+	@Output() taskSelect = new EventEmitter<Task>();
+	@Output() taskUnselect = new EventEmitter<Task>();
+
+	trackByFn = (index, item) => item.id;
 
 	constructor() { }
 

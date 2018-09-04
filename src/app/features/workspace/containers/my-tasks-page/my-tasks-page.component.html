@@ -3,9 +3,14 @@
 	[hasSwitch]="false"
 	(search)="search($event)"
 	(smartSearch)="smartSearch($event)">
-	<button>rekt</button>
+	<div class="flex show-my-tasks">
+		<checkbox-app>
+		</checkbox-app>
+		Show my tasks only
+	</div>
 </sub-panel-app>
 
-<task-list-app>
-
+<task-list-app
+	(taskSelect)="select.emit($event)"
+	(taskUnselect)="unselect.emit($event)">
 </task-list-app>

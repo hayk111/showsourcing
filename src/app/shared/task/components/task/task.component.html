@@ -1,25 +1,33 @@
 <div class="flexBetween row">
 	<div class="flex task-name">
-		<checkbox-app>
-		</checkbox-app>
+		<!-- <icon-app [name]="task?.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg"></icon-app>
+		<div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div> -->
 		<icon-app name="check-green-round" fontSet="svg"></icon-app>
-		<!-- <div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}>{{ task?.name || 'Unnamed task' }}</div> -->
 		Some rando rambo name
 	</div>
-	<div *ngIf="hasProduct" class="flex task-product">
+	<!-- <div *ngIf="task?.product" class="flex task-product">
+		<img-app [size]="20" [image]="task?.product?.images"></img-app>
+		{{ task?.product?.name || 'Unnamed product'}}
+	</div> -->
+	<div *ngIf="false" class="flex task-product">
 		<img-app [size]="20" [image]="defaultImg"></img-app>
-		<!-- {{ task?.product?.name || 'Unnamed product'}} -->
 		I use to have name
 	</div>
-	<div class="flex task-user">
-		<!-- <user-picture-app [user]="task?.assignee" [size]="24" [border]="true"></user-picture-app> -->
-		<!-- {{ task?.assignee?.firstName || 'Unnamed' }} {{ task?.assignee?.lastName }} -->
-		<user-picture-app [user]="tempU" [size]="24" [border]="true"></user-picture-app>
-		<span class="name flexCenter">Hey now!</span>
-	</div>
-	<div class="flex task-status"
+	<!-- <div *ngIf="task?.supplier" class="flex task-supplier">
+		<img-app [size]="20" [image]="task?.supplier?.logoImage"></img-app>
+		{{ task?.supplier?.name || 'Unnamed suppler' }}
+	</div> -->
+	<!-- <div class="flex task-user"> DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE
+		<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
+		{{ task?.assignee?.firstName || 'Unnamed' }} {{ task?.assignee?.lastName }}
+	</div> -->
+	<div class="flex task-user-status">
+		<!-- <user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app> -->
+		<user-picture-app [user]="tempU" [size]="20" [border]="true"></user-picture-app>
+		<div class="flex task-status"
 		[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}">
-		<icon-app name="circle" fontSet="fa" color="red"></icon-app>
-		<p>{{ getStatus }}</p>
+			<icon-app name="circle" fontSet="fa" color="red"></icon-app>
+			<p>{{ getStatus }}</p>
+		</div>
 	</div>
 </div>
