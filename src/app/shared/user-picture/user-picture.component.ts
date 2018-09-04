@@ -16,8 +16,13 @@ export class UserPictureComponent {
 	/** user */
 	@Input() set user(user: User) {
 		this._user = user;
-		this._initials = `${user.firstName[0]} ${user.lastName[0]}`;
-		this._image = user.avatar;
+		if (user) {
+			if (user.firstName && user.lastName)
+				this._initials = `${user.firstName[0]} ${user.lastName[0]}`;
+
+			this._image = user.avatar;
+		}
+
 	}
 	private _user: User;
 
