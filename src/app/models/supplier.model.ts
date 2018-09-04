@@ -25,11 +25,11 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	tags?: Tag[];
 	categories?: Category[];
 	contacts?: Contact[];
-	favorite?= false;
+	favorite ?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	statusHistory?: SupplierStatus[];
-	__typename?= 'Supplier';
+	__typename ?= 'Supplier';
 }
 
 export interface SupplierConfig {
