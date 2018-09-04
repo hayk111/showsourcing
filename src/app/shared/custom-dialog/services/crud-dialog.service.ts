@@ -21,8 +21,8 @@ export class CrudDialogService {
 
 	edit(item: FormGroup, type: EntityMetadata, entity: any) {
 		// care with event name
-		entity.name = item.value.name;
-		return this.ermService.getGlobalService(type).update(entity);
+		const name = item.value.name;
+		return this.ermService.getGlobalService(type).update({ id: entity.id, name });
 	}
 
 	merge(item: FormGroup, type: EntityMetadata, entities: Array<any>): Observable<any> {

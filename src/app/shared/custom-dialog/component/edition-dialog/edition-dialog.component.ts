@@ -21,6 +21,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 	pending = false;
 	@Input() type: EntityMetadata;
 	@Input() entity: any;
+	@Input() callback: Function;
 	@ViewChild(InputDirective) input: InputDirective;
 	private typed$: Subject<string> = new Subject();
 	exists$: Observable<boolean>;
@@ -47,9 +48,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 
 	checkExists() {
 		this.typed$.next(this.group.get('name').value);
-
 	}
-
 
 	onSubmit() {
 		if (this.group.valid) {
@@ -59,6 +58,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 				.pipe(takeUntil(this._destroy$))
 				.subscribe(() => {
 					this.pending = false;
+					// this.callback(this.group.value.name); // delete all related to callbacks if not needed
 					this.dlgSrv.close();
 				});
 		}
