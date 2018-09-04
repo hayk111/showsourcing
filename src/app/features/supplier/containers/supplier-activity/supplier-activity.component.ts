@@ -21,7 +21,7 @@ import { ActivityService } from '~shared/activity/services/activity.service';
 	}
 })
 export class SupplierActivityComponent extends AutoUnsub implements OnInit {
-	supplierId: string;
+	supplier: Supplier;
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 
@@ -41,12 +41,12 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 		const id$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			map(params => params.id),
-			tap(id => this.supplierId = id)
 		);
 
 		// getting supplier
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id))
+			switchMap(id => this.featureSrv.selectOne(id)),
+			tap(supplier => this.supplier = supplier)
 		);
 
 		// getting his products
@@ -64,10 +64,10 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 
 	openContactDlg(contact?: Contact) {
 		if (contact)
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: false, contact, supplierId: this.supplierId });
+			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: false, contact, supplier: this.supplier });
 		// new contact dlg
 		else
-			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplierId: this.supplierId });
+			this.dlgSrv.openFromModule(NewContactDlgComponent, this.moduleRef, { isNewContact: true, supplier: this.supplier });
 	}
 
 	deleteContact(contact: Contact) {

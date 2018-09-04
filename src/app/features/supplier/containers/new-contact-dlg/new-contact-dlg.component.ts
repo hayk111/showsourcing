@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AppImage, Contact } from '~models';
+import { AppImage, Contact, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub, DEFAULT_IMG, RegexpApp, PendingImage } from '~utils';
-import { ContactService } from '~global-services';
+import { ContactService, SupplierService } from '~global-services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { first } from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	private uploadedImg;
 	defaultImg = DEFAULT_IMG;
 	// supplier for which we are creating the contact
-	@Input() supplierId: string;
+	@Input() supplier: Supplier;
 	/** whether the dialog is for a new contact or an existing one */
 	@Input() isNewContact = false;
 	@Input() contact: Contact = {
@@ -43,6 +43,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private cd: ChangeDetectorRef,
 		private contactSrv: ContactService,
+		private supplierSrv: SupplierService,
 		private dlgSrv: DialogService,
 		private uploader: UploaderService
 	) {
@@ -51,28 +52,33 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// creating the formGroup using the contact so if we are editing an existing contact it will be the values of said contact
+		// creating the formGroup
 		this.form = this.fb.group({
 			name: ['', Validators.required],
 			jobTitle: '',
 			email: ['', Validators.email],
 			phoneNumber: ['', Validators.pattern(RegexpApp.PHONE)]
 		});
+		// using the contact so if we are editing an existing contact it will be the values of said contact
 		this.form.patchValue(this.contact);
 	}
 
 	/** gives image url */
 	async onFilesAdded(files: File[]) {
+		// only one picture
 		const file = files[0];
+		// creating a pending image so we can see the image in the view instantly
 		const pending = new PendingImage(file);
 		this.pendingImg = await pending.createData();
 		this.cd.markForCheck();
+		// upload img
 		this.uploader.uploadImage(file).pipe(
 			first()
 		).subscribe(img => {
 			// removing pending image
 			this.pendingImg = undefined;
 			this.uploadedImg = img;
+			// updating contact if it's an existing one
 			if (!this.isNewContact) {
 				this.updateContact();
 			}
@@ -89,9 +95,14 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	createContact() {
 		if (this.isNewContact) {
-			const contact = new Contact(this.form.value, this.supplierId);
+			const contact = new Contact(this.form.value);
 			this.addImageToContact(contact);
-			this.contactSrv.create(contact).subscribe();
+			// updating the supplier with a new contact
+			debugger;
+			this.supplierSrv.update({
+				id: this.supplier.id,
+				contacts: [...this.supplier.contacts, contact]
+			}).subscribe();
 		}
 		this.isNewContact = false;
 		this.dlgSrv.close();

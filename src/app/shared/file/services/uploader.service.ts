@@ -43,13 +43,12 @@ export class UploaderService {
 		const isImage = type === 'image';
 		const extension = file.type.split('/').pop();
 		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(extension);
-		const service: any = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
+		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
 			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
 		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
-			mergeMap(_ => service.selectOne(request.id)),
-			filter((request: FileUploadRequest) => request.status === 'upload-ready'),
+			mergeMap(_ => service.waitForOne(`id == "${request.id}" AND status == "upload-ready"`)),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
