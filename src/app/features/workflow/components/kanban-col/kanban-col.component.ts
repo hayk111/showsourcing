@@ -49,6 +49,8 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 	enteredArea = false;
 	/** The color of the separator */
 	separatorColor: any;
+	/** A drag'n drop is in progress */
+	dragnDropInProgress: boolean;
 
 	constructor(private kanbanSrv: KanbanService, private sanitization: DomSanitizer) {
 		super();
@@ -68,6 +70,12 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 
+		this.kanbanSrv.dragStart$.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(({ data, namespace }) => {
+			this.dragnDropInProgress = true;
+		});
+
 		// Handle dragEnd through the kanban service
 		this.kanbanSrv.dragEnd$.pipe(
 			takeUntil(this._destroy$)
@@ -75,6 +83,7 @@ export class KanbanColComponent extends AutoUnsub implements OnInit {
 			this.sourceArea = false;
 			this.droppableArea = false;
 			this.enteredArea = false;
+			this.dragnDropInProgress = false;
 		});
 
 		// Handle itemEntered through the kanban service
