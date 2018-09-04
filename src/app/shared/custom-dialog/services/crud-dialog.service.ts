@@ -20,9 +20,8 @@ export class CrudDialogService {
 	}
 
 	edit(item: FormGroup, type: EntityMetadata, entity: any) {
-		// care with event name
 		const name = item.value.name;
-		return this.ermService.getGlobalService(type).update({ id: entity.id, name });
+		return this.ermService.getGlobalService(type).update({ id: entity.id, name }, 'name');
 	}
 
 	merge(item: FormGroup, type: EntityMetadata, entities: Array<any>): Observable<any> {
@@ -30,9 +29,8 @@ export class CrudDialogService {
 	}
 
 	checkExists(type: EntityMetadata, valueInput: string) {
-		const name = 'name';
 		return this.ermService.getGlobalService(type)
-			.queryOneByPredicate(`${name} == "${valueInput.trim()}"`)
+			.queryOneByPredicate(`name == "${valueInput.trim()}"`)
 			.pipe(first());
 	}
 }
