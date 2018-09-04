@@ -7,6 +7,9 @@ import { TaskComponent } from '~shared/task/components/task/task.component';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { IconsModule } from '~shared/icons';
+import { CreateTaskDialogComponent } from './components/create-task-dialog/create-task-dialog.component';
+import { DialogModule } from '~shared/dialog';
+import { SharedModule } from '~shared/shared.module';
 
 @NgModule({
 	imports: [
@@ -16,9 +19,11 @@ import { IconsModule } from '~shared/icons';
 		ImageModule,
 		InputsModule,
 		UserPictureModule,
-		IconsModule
+		IconsModule,
+		DialogModule,
+		SharedModule
 	],
-	declarations: [TaskListComponent, TaskComponent],
-	exports: [TaskListComponent, TaskComponent]
+	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent],
+	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent]
 })
 export class TaskModule { }

@@ -1,0 +1,30 @@
+<dialog-app>
+	<dialog-header-app *ngIf="!pending">
+		Create Task
+	</dialog-header-app>
+
+	<form *ngIf="!pending" [formGroup]="group">
+
+		<!-- thing 1 -->
+		<form-field-app>
+			<label-app></label-app>
+			<input type="text">
+		</form-field-app>
+		<!-- thing 2 -->
+		<form-field-app>
+			<label-app></label-app>
+			<input type="text">
+		</form-field-app>
+		<!-- thing 3 -->
+		<form-field-app>
+			<label-app></label-app>
+			<input type="text">
+		</form-field-app>
+	</form>
+
+	<dialog-footer-app *ngIf="!pending">
+		<input [disabled]="true" type="submit" value="Create" (click)="onSubmit()"/>
+	</dialog-footer-app>
+
+	<spinner-app *ngIf="pending"></spinner-app>
+</dialog-app>

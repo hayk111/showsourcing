@@ -6,6 +6,7 @@ import { SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { DialogService } from '~shared/dialog';
 import { Router } from '@angular/router';
+import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
@@ -22,6 +23,6 @@ export class MyTasksPageComponent extends ListPageComponent<Task, ProductFeature
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
-		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK);
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, CreateTaskDialogComponent);
 	}
 }
