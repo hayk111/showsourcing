@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of } from 'rxjs';
+import { switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
@@ -53,14 +53,23 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		this.pending = true;
-		this.profileSrv.changePassword(this.group.value.confirmPswd).subscribe(_ => {
+		this.profileSrv.changePassword(this.group.value.confirmPswd).subscribe(response => {
 			this.pending = false;
-			this.notificationSrv.add({
-				type: NotificationType.SUCCESS,
-				title: 'Password Changed',
-				message: 'Your password has been changed with success',
-				timeout: 3000
-			});
+			if (response) {
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Password Changed',
+					message: 'Your password has been changed with success',
+					timeout: 3500
+				});
+			} else {
+				this.notificationSrv.add({
+					type: NotificationType.ERROR,
+					title: 'Password Uncghanged',
+					message: 'Your password could not be changed, server issues',
+					timeout: 4000
+				});
+			}
 			this.dlgSrv.close();
 		});
 	}
