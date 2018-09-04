@@ -1,16 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Task } from '~models';
 
 @Component({
-		selector: 'app-task-list',
-		templateUrl: './task-list.component.html',
-		styleUrls: ['./task-list.component.scss'],
-		changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'task-list-app',
+	templateUrl: './task-list.component.html',
+	styleUrls: ['./task-list.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskListComponent implements OnInit {
 
-		constructor() { }
+	@Input() hasProduct = true;
+	@Input() tasks: Task[];
 
-		ngOnInit() {
-		}
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

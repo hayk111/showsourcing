@@ -1,3 +1,25 @@
-<p>
-  task works!
-</p>
+<div class="flexBetween row">
+	<div class="flex task-name">
+		<checkbox-app>
+		</checkbox-app>
+		<icon-app name="check-green-round" fontSet="svg"></icon-app>
+		<!-- <div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}>{{ task?.name || 'Unnamed task' }}</div> -->
+		Some rando rambo name
+	</div>
+	<div *ngIf="hasProduct" class="flex task-product">
+		<img-app [size]="20" [image]="defaultImg"></img-app>
+		<!-- {{ task?.product?.name || 'Unnamed product'}} -->
+		I use to have name
+	</div>
+	<div class="flex task-user">
+		<!-- <user-picture-app [user]="task?.assignee" [size]="24" [border]="true"></user-picture-app> -->
+		<!-- {{ task?.assignee?.firstName || 'Unnamed' }} {{ task?.assignee?.lastName }} -->
+		<user-picture-app [user]="tempU" [size]="24" [border]="true"></user-picture-app>
+		<span class="name flexCenter">Hey now!</span>
+	</div>
+	<div class="flex task-status"
+		[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}">
+		<icon-app name="circle" fontSet="fa" color="red"></icon-app>
+		<p>{{ getStatus }}</p>
+	</div>
+</div>
