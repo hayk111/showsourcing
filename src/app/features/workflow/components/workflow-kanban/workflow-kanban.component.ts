@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, TemplateRef, HostBinding } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { KanbanService } from '~features/workflow/services/kanban.service';
@@ -18,6 +18,8 @@ export class WorkflowKanbanComponent {
 	@Input() contextualMenu: TemplateRef<any>;
 	/** The selected items */
 	@Input() selectedItems: any[];
+	/** Whether the kaban takes the full width */
+	@Input() @HostBinding('class.full-width') fullWidth: boolean;
 	/** The dropped item event including data associated with the target and the element */
 	@Output() itemDropped = new EventEmitter<{ target: any, droppedElement: any }>();
 	/** Triggers when the item is selected */
@@ -28,6 +30,8 @@ export class WorkflowKanbanComponent {
 	@Output() selectAllItems = new EventEmitter<any[]>();
 	/** Triggers when all items are unselected for a status */
 	@Output() unselectAllItems = new EventEmitter<any[]>();
+
+
 
 	separatorColor: string;
 	dragInProgress = false;

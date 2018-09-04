@@ -3,7 +3,13 @@
   // width: 100%;
   overflow-x: auto;
 	width: calc(100vw - 72px);
-	height: calc(100vh - 161px);
+	// TODO
+	// height: calc(100vh - 161px);
+	height: calc(100vh - 195px);
+
+	&.full-width {
+		width: 100vw;
+	}
 }
 
 article{
@@ -14,6 +20,8 @@ article{
 .ctnr {
 	padding-left: var(--spacing-m);
 	// overflow: auto;
+	// TODO
+	height: calc(100vh - 190px);
 }
 
 kanban-col-app {
