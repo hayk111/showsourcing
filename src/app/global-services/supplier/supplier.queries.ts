@@ -48,7 +48,6 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		deleted,
 		creationDate,
-		productCount
 		${SupplierQueries.categories}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
