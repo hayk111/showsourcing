@@ -1,0 +1,34 @@
+
+
+<!-- BTN PANEL -->
+<side-panel-app *ngIf="view === 'BTNS'">
+  <side-panel-title-app>
+    Filters
+  </side-panel-title-app>
+  <side-panel-action-app class="clear" (click)="resetAll()">
+    Clear All Filters
+  </side-panel-action-app>
+
+  <product-filters-btns-app
+    (removeFilter)="removeFilter($event)"
+    (addFilter)="addFilter($event)"
+    (resetType)="resetType($event)"
+    (typeClicked)="openByTypePanel($event)"></product-filters-btns-app>
+
+</side-panel-app>
+
+
+
+<!-- SELECTION BY TYPE PANEL -->
+<side-panel-app *ngIf="view === 'BY_TYPE'">
+  <side-panel-title-app (click)="openBtnPanel()">
+    <icon-app fontSet="fa" name="angle-left"></icon-app>
+    BACK
+  </side-panel-title-app>
+  <side-panel-action-app class="clear" (click)="resetType()">
+    Clear All
+  </side-panel-action-app>
+
+  <product-filter-by-entity-app></product-filter-by-entity-app>
+
+</side-panel-app>

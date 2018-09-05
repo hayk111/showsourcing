@@ -16,6 +16,9 @@ import { ProductFeatureService } from '~shared/product/services/product-feature.
 import { ProductsListViewComponent } from '~shared/product/components/products-list-view/products-list-view.component';
 import { ProductsCardViewComponent } from '~shared/product/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product/components/product-grid-card/product-grid-card.component';
+import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
+import { ProductFiltersBtnsComponent } from './components/product-filters/product-filters-btns/product-filters-btns.component';
+import { ProductFilterByEntityComponent } from './components/product-filters/product-filter-by-entity/product-filter-by-entity.component';
 
 
 @NgModule({
@@ -34,7 +37,7 @@ import { ProductGridCardComponent } from '~shared/product/components/product-gri
 	],
 	declarations: [
 		FindProductsDialogComponent, ProductsCardViewDialogComponent, ProductsListViewComponent,
-		ProductsCardViewComponent, ProductGridCardComponent],
+		ProductsCardViewComponent, ProductGridCardComponent, ProductFiltersComponent, ProductFiltersBtnsComponent, ProductFilterByEntityComponent],
 	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent, ProductGridCardComponent],
 	entryComponents: [FindProductsDialogComponent],
 	providers: [ProductFeatureService]
