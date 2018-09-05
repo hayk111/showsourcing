@@ -35,9 +35,9 @@ export class GlobalClientsInitializer extends AbstractApolloClient {
 	init() {
 		this.checkNotAlreadyInit();
 
-		const allUserUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.ALL_USER)}`;
-		const globalConstUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.GLOBAL_CONSTANT)}`;
-		const globalDataUri = `${environment.graphqlUrl}/${encodeURIComponent(Client.GLOBAL_DATA)}`;
+		const allUserUri = `${environment.graphqlUrl}/${Client.ALL_USER}`;
+		const globalConstUri = `${environment.graphqlUrl}/${Client.GLOBAL_CONSTANT}`;
+		const globalDataUri = `${environment.graphqlUrl}/${Client.GLOBAL_DATA}`;
 
 		// when accessToken for each of those clients,
 		// will wait for user authentication..

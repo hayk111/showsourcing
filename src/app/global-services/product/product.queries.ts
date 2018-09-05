@@ -22,10 +22,10 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly contacts = `supplier { contacts { id, name, email, jobTitle } }`;
 	static readonly price = ` price { id, currency, value, baseCurrencyValue } `;
 	static readonly category = `category { id, name }`;
-	static readonly projects = `projects { id, name, productCount, description }`;
+	static readonly projects = `projects { id, name, description }`;
 	static readonly event = ` event { id, name, description { id logoImage { id, fileName } } }`;
 	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
-	static readonly statushistory = `statushistory { id, cancelled, status { id, name, category, step, inWorkflow } }`;
+	static readonly statusHistory = `statusHistory { id, cancelled, status { id, name, category, step, inWorkflow } }`;
 	static readonly tags = `tags { id, name }`;
 	static readonly votes = `votes { id, value, user { id, firstName, lastName, avatar { id, fileName } } }`;
 	static readonly createdBy = `createdBy { id, firstName, lastName, avatar { id, fileName } }`;
@@ -54,7 +54,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.projects},
 			${ProductQueries.event},
 			${ProductQueries.status},
-			${ProductQueries.statushistory},
+			${ProductQueries.statusHistory},
 			${ProductQueries.votes},
 			${ProductQueries.packaging('innerCarton')}
 			${ProductQueries.packaging('masterCarton')}
@@ -79,7 +79,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.category},
 			${ProductQueries.price},
 			${ProductQueries.status},
-			${ProductQueries.statushistory},
+			${ProductQueries.statusHistory},
 			${ProductQueries.votes},
 			${ProductQueries.projects},
 			${ProductQueries.tags}
