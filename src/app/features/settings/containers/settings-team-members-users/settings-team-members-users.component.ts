@@ -62,8 +62,9 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	search(str: string) {
 		if (str)
 			this.filterList.upsertFilter({
-				type: FilterType.SEARCH, value: str,
-				fields: [ 'user.lastName', 'user.firstName', 'user.email' ]
+				type: FilterType.SEARCH,
+				value: str,
+				fields: ['user.lastName', 'user.firstName', 'user.email']
 			});
 		else
 			this.filterList.removeFilterType(FilterType.SEARCH);
