@@ -8,8 +8,8 @@ export class FileUploadRequest {
 	attachment?: any;
 	__typename ?= 'FileUploadRequest';
 
-	constructor(extension: string) {
-		this.attachment = new Attachment(extension);
+	constructor(fileName: string) {
+		this.attachment = new Attachment(fileName);
 	}
 
 }

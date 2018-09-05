@@ -41,8 +41,8 @@ export class UploaderService {
 
 	uploadFile(file: File, type: 'file' | 'image' = 'file'): Observable<AppImage> {
 		const isImage = type === 'image';
-		const extension = file.type.split('/').pop();
-		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(extension);
+		const fileName = file.name;
+		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(fileName);
 		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
 			(request as ImageUploadRequest).image : (request as FileUploadRequest).attachment;

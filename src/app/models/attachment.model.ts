@@ -7,8 +7,7 @@ export class Attachment {
 	url: string;
 	__typename ?= 'File';
 
-	constructor(extension: string) {
+	constructor(fileName: string) {
 		this.id = uuid();
-		this.fileName = this.id + '.' + extension;
 	}
 }
