@@ -3,6 +3,7 @@
 	background: white;
 	padding: var(--spacing-l);
 	padding-left: var(--spacing-ms);
+	border-radius: var(--border-radius-s);
 }
 .title {
 	color: var(--color-txt-strong);
@@ -17,8 +18,14 @@
 
 .no-border {
 	border: none;
+	margin-bottom: var(--spacing-m);
 }
 
+button.light {
+	margin-top: var(--spacing-ms);
+	color: var(--color-txt-secondary);
+	font-style: italic;
+}
 
 task-app {
 	width: 100%;

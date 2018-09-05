@@ -13,6 +13,7 @@ export class TaskListComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
 	@Output() taskSelect = new EventEmitter<Task>();
 	@Output() taskUnselect = new EventEmitter<Task>();
+	@Output() openCreateDlg = new EventEmitter<null>();
 
 	trackByFn = (index, item) => item.id;
 

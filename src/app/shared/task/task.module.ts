@@ -24,6 +24,7 @@ import { SharedModule } from '~shared/shared.module';
 		SharedModule
 	],
 	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent],
-	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent]
+	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent],
+	entryComponents: [CreateTaskDialogComponent]
 })
 export class TaskModule { }
