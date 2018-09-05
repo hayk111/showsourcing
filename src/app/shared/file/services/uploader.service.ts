@@ -5,7 +5,7 @@ import { delay, filter, first, map, mergeMap, retryWhen, take, tap, catchError }
 import { ImageUploadRequestService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { FileUploadRequestService } from '~global-services/file-upload-request/file-upload-request.service';
-import { AppFile, AppImage, ImageUploadRequest } from '~models';
+import { Attachment, AppImage, ImageUploadRequest } from '~models';
 import { FileUploadRequest } from '~models/file-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ImageUrls, log, LogColor } from '~utils';
@@ -24,7 +24,7 @@ export class UploaderService {
 		return forkJoin(imgs.map(img => this.uploadFile(img, 'image')))
 			.pipe(
 				first(),
-				catchError(error => { console.log(error); return of(error); })
+				catchError(error => { log.error(error); return of(error); })
 			);
 	}
 
@@ -41,15 +41,14 @@ export class UploaderService {
 
 	uploadFile(file: File, type: 'file' | 'image' = 'file'): Observable<AppImage> {
 		const isImage = type === 'image';
-		const extension = file.type.split('/').pop();
-		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(extension);
-		const service: any = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
+		const fileName = file.name;
+		const request = isImage ? new ImageUploadRequest() : new FileUploadRequest(fileName);
+		const service: GlobalService<any> = isImage ? this.imageUploadRequestSrv : this.fileUploadRequestSrv;
 		const returned = isImage ?
-			(request as ImageUploadRequest).image : (request as FileUploadRequest).file;
+			(request as ImageUploadRequest).image : (request as FileUploadRequest).attachment;
 		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
-			mergeMap(_ => service.selectOne(request.id)),
-			filter((request: FileUploadRequest) => request.status === 'upload-ready'),
+			mergeMap(_ => service.waitForOne(`id == "${request.id}" AND status == "upload-ready"`)),
 			// when ready we make the upload
 			mergeMap(info => this.uploadFileToAws(info, file)),
 			// when the upload is done on amazon, the image will give a 403 for a few seconds
@@ -94,7 +93,7 @@ export class UploaderService {
 		return formData;
 	}
 
-	private isFileProgress(event: HttpEvent<any>, appFile: AppFile) {
+	private isFileProgress(event: HttpEvent<any>, appFile: Attachment) {
 		switch (event.type) {
 			case HttpEventType.UploadProgress:
 				// do smtg with progress events
@@ -110,7 +109,7 @@ export class UploaderService {
 			return this.queryImage(request).pipe(
 				retryWhen(errors => errors.pipe(
 					delay(500),
-					take(30)
+					take(20)
 				)),
 			);
 		} else {

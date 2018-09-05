@@ -1,7 +1,7 @@
 <div class="flex flexVAlign">
 
 	<!-- block without border -->
-	<user-picture-app [image]="contact.businessCardImage" class="pointer" (click)="edit.emit()"></user-picture-app>
+	<user-picture-app [image]="contact.businessCardImage" [initials]="initials" class="pointer" (click)="edit.emit()"></user-picture-app>
 	<!-- border block -->
 	<div class="right flexBetween flexGrow {{ border ? 'border' : '' }}">
 		<div class="flexColumn middle">

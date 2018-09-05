@@ -6,18 +6,19 @@ import { ProductVoteRequestService } from '~global-services/product-vote-request
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectParams } from '~global-services/_global/select-params';
 import { Apollo } from 'apollo-angular';
+import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected teamUserSrv: TeamUserService,
 		protected userSrv: UserService
 	) {
-		super(apollo, userSrv);
+		super(apolloState, userSrv);
 	}
 
 	selectProjects(): Observable<Project[]> {

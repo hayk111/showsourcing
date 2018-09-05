@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { AppFile } from '~models';
+import { Attachment } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -11,7 +11,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./files-page.component.scss'],
 })
 export class FilesPageComponent extends AutoUnsub implements OnInit {
-	files$: Observable<Array<AppFile>>;
+	files$: Observable<Array<Attachment>>;
 
 	constructor(private route: ActivatedRoute) {
 		super();
@@ -21,7 +21,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		// this.files$ = this.store.select(fromFile.selectArray);
 	}
 
-	deleteFile(file: AppFile) {
+	deleteFile(file: Attachment) {
 		// this.store.dispatch(fromFile.Actions.delete([file.id]));
 	}
 
@@ -30,7 +30,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		// this.store.dispatch(fromFile.Actions.add(appFiles));
 	}
 
-	download(file: AppFile) {
+	download(file: Attachment) {
 		// this.store.dispatch(fromFile.Actions.download(file.url || file.data));
 	}
 }

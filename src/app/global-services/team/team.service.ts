@@ -43,12 +43,11 @@ export class TeamService extends GlobalService<Team> {
 
 
 	constructor(
-		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService
 	) {
-		super(apollo, TeamQueries, 'team', 'teams');
+		super(apolloState, TeamQueries, 'team', 'teams');
 	}
 
 	init() {

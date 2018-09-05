@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AppFile } from '~models';
+import { Attachment } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';
@@ -13,7 +13,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilesCardComponent {
-	@Input() set files(files: Array<AppFile | PendingFile>) {
+	@Input() set files(files: Array<Attachment | PendingFile>) {
 		this._files = files;
 	}
 	get files() {
@@ -22,7 +22,7 @@ export class FilesCardComponent {
 	private _files = [];
 	private _pendingFiles = [];
 
-	@Output() fileRemove = new EventEmitter<AppFile>();
+	@Output() fileRemove = new EventEmitter<Attachment>();
 	defaultImg = DEFAULT_FILE_ICON;
 
 	constructor(
@@ -35,7 +35,7 @@ export class FilesCardComponent {
 		this.uploader.uploadFiles(files).subscribe(_ => this._pendingFiles = []);
 	}
 
-	onFileRemoved(file: AppFile) {
+	onFileRemoved(file: Attachment) {
 		this.dlgSrv.open(ConfirmDialogComponent, {
 			text: 'Remove 1 file ?',
 			callback: () => this.fileRemove.emit(file)

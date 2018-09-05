@@ -11,6 +11,7 @@ import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { ProductQueries } from '~global-services/product/product.queries';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 export interface GlobalServiceInterface<T> {
@@ -46,7 +47,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	protected typeName: string;
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected fields: any,
 		sing: string,
 		plural: string
@@ -449,7 +450,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	update(entity: { id?: string }, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+	update(entity: T, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
 		const title = 'Update ' + this.typeName;
 		fields = this.getFields(fields, this.fields.update);
 		const gql = this.queryBuilder.update(fields);
@@ -485,7 +486,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	updateMany(entities: { id?: string }[], fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
+	updateMany(entities: T[], fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
 		return forkJoin(entities.map(entity => this.update(entity, fields, client)));
 	}
 
@@ -602,7 +603,7 @@ Deleting everything.. so watchout. `);
 
 	/** to use another named apollo client */
 	private getClient(clientName: string) {
-		const client = clientName ? this.apollo.use(clientName) : this.apollo;
+		const client = clientName ? this.apolloState.apollo.use(clientName) : this.apolloState.apollo;
 		if (!client) {
 			throw Error(`no client found for ${clientName}`);
 		}

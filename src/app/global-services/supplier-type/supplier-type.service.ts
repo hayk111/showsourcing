@@ -3,6 +3,7 @@ import { SupplierType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { GlobalService } from '~global-services/_global/global.service';
 import { SupplierTypeQueries } from '~global-services/supplier-type/supplier-type.queries';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -10,8 +11,8 @@ import { SupplierTypeQueries } from '~global-services/supplier-type/supplier-typ
 })
 export class SupplierTypeService extends GlobalService<SupplierType> {
 
-	constructor(protected apollo: Apollo) {
-		super(apollo, SupplierTypeQueries, 'supplierType', 'supplierTypes');
+	constructor(protected apolloState: ApolloStateService) {
+		super(apolloState, SupplierTypeQueries, 'supplierType', 'supplierTypes');
 	}
 
 }

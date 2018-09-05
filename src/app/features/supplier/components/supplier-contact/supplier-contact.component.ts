@@ -22,4 +22,12 @@ export class SupplierContactComponent {
 	sanitize(url: string) {
 		return this.sanitizer.bypassSecurityTrustUrl(url);
 	}
+
+	get initials() {
+		return this.contact.name
+			.split(' ')
+			.map(namePart => namePart[0])
+			.join(' ')
+			.substr(0, 3);
+	}
 }

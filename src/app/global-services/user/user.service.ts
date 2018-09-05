@@ -17,11 +17,10 @@ export class UserService extends GlobalService<User> {
 	defaultClient = Client.USER;
 
 	constructor(
-		protected apollo: Apollo,
 		private authSrv: AuthenticationService,
-		private apolloState: ApolloStateService
+		protected apolloState: ApolloStateService
 	) {
-		super(apollo, UserQueries, 'user', 'users');
+		super(apolloState, UserQueries, 'user', 'users');
 		this.selectUser().subscribe(user => this.userSync = user);
 	}
 

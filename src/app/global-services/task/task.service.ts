@@ -6,6 +6,7 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 import { UserService } from '~global-services/user/user.service';
 import { TaskQueries } from '~global-services/task/task.queries';
 import { Task } from '~models';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -13,8 +14,8 @@ import { Task } from '~models';
 })
 export class TaskService extends GlobalWithAuditService<Task> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, TaskQueries, 'task', 'tasks', userSrv);
+	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apolloState, TaskQueries, 'task', 'tasks', userSrv);
 	}
 
 }

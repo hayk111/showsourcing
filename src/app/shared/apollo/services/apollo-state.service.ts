@@ -4,6 +4,7 @@ import { filter, tap, map, distinctUntilChanged, shareReplay } from 'rxjs/operat
 import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { Apollo } from 'apollo-angular';
 
 export interface AllClientState {
 	[client: string]: ClientStatus;
@@ -38,7 +39,7 @@ export class ApolloStateService {
 		shareReplay(1)
 	);
 
-	constructor(protected router: Router) {
+	constructor(protected router: Router, public apollo: Apollo) {
 		this.clientsReady$.subscribe(all => this.redirect(all));
 	}
 

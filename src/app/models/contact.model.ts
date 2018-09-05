@@ -12,9 +12,8 @@ export class Contact extends EntityWithAudit<ContactConfig> {
 	deleted?: boolean;
 	__typename ?= 'Contact';
 
-	constructor(config: ContactConfig, supplierId: string) {
+	constructor(config: ContactConfig) {
 		super(config);
-		this.supplier = { id: supplierId };
 		this.deleted = false;
 	}
 }
