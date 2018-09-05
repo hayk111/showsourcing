@@ -120,7 +120,7 @@ export abstract class GlobalQueries {
 
 When you do this
 
-````
+```
 export class Supplier extends GlobalQueries {
 	static one = 'name, description';
 }
