@@ -7,7 +7,6 @@ import {
 import { SharedModule } from '~shared/shared.module';
 import { RatingModule } from '~shared/rating';
 import { ActivityUserComponent } from './components/activity-user/activity-user.component';
-import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { LoadersModule } from '~shared/loaders';
 import { StatusModule } from '~shared/status/status.module';
@@ -18,6 +17,8 @@ import {
 } from './components/multiple-products-activity-card/multiple-product-carousel/multiple-product-carousel.component';
 import { ProductCommonModule } from '~shared/product/product.module';
 import { CommentModule } from '~shared/comment';
+import { GroupedFeedListComponent } from '~shared/activity/components/grouped-feed-list/grouped-feed-list.component';
+import { FlatFeedListComponent } from './components/flat-feed-list/flat-feed-list.component';
 
 @NgModule({
 	imports: [
@@ -35,14 +36,15 @@ import { CommentModule } from '~shared/comment';
 		OneProductActivityCardComponent,
 		MultipleProductsActivityCardComponent,
 		ActivityUserComponent,
-		ActivityListComponent,
+		GroupedFeedListComponent,
 		OneProductCarouselComponent,
-		MultipleProductCarouselComponent
+		MultipleProductCarouselComponent,
+		FlatFeedListComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,
 		MultipleProductsActivityCardComponent,
-		ActivityListComponent,
+		GroupedFeedListComponent,
 		ActivityUserComponent
 	]
 })
