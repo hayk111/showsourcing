@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { Product, ERM } from '~models';
-import { ProductFeatureService } from '~shared/product/services/product-feature.service';
+import { Task, ERM } from '~models';
 import { Router } from '@angular/router';
 import { SearchService } from '~shared/filters';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { DialogService } from '~shared/dialog';
 import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
+import { TaskService } from '~global-services';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -14,11 +14,11 @@ import { CreateTaskDialogComponent } from '~shared/task/components/create-task-d
 	styleUrls: ['./product-tasks.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductTasksComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit {
+export class ProductTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit {
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: ProductFeatureService,
+		protected featureSrv: TaskService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
