@@ -43,6 +43,7 @@ You can run every script with `npm run`, for example `npm run start`.
 ## File Structure & guidelines
 
 At the root of src we have
+
  ```
   - app-root: small folder containing only the root module and root component
   - features: folder containing feature modules (pages)
@@ -91,6 +92,7 @@ The query builder create graphQL queries.
 ```
 queryBuilder.queryOne(fields); // where fields are the fields we want to query
 ```
+
 The queryBuilder can be invoked as such : `new QueryBuilder('productVote', 'productVotes')` where the first parameter is the singular version of the entity and the second is the plural version.
 The content of the queryOne method in query builder is simple to understand, it will create a graphql query with the fields we specify as parameters.
 
@@ -108,7 +110,7 @@ The content of the queryOne method in query builder is simple to understand, it 
 
 The `GlobalQuery` class is really simple as it is supposed to be extended.
 
-````
+```
 export abstract class GlobalQueries {
 	static one = 'name';
 	static many = 'name';
@@ -125,6 +127,7 @@ export class Supplier extends GlobalQueries {
 	static one = 'name, description';
 }
 ```
+
 It will basically make the application request for a `name` and a `description` every time a query to *one* `Supplier` is made.
 
 
@@ -145,6 +148,7 @@ It will basically make the application request for a `name` and a `description` 
         // ...
     }
 ```
+
 The first line of the method `fields = this.getFields(fields, this.fields.one);` is more or less equivalent to `fields || this.fields.one`.
 `this.fields.one` is the `one` from the `GlobalQueries` explained above.
 
