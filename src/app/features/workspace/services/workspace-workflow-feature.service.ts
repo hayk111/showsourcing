@@ -9,6 +9,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { Project, Product, ProductStatus, ProductStatusType } from '~models';
 import { Apollo } from 'apollo-angular';
 import { ListQuery } from '~global-services/_global/list-query.interface';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -18,13 +19,13 @@ export class WorkspaceWorkflowFeatureService extends ProductService {
 	productsResult: ListQuery<Product>;
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
 		protected productStatusTypeService: ProductStatusTypeService,
 		protected userSrv: UserService
 	) {
-		super(apollo, userSrv);
+		super(apolloState, userSrv);
 	}
 
 	/**
