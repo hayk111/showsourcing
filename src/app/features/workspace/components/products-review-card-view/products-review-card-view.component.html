@@ -1,11 +1,29 @@
 <div class="card-container">
-  <div *ngFor="let category of getGroupedProducts(currentSort); first as first; index as i; trackBy: trackByFn" class="category-section">
-    <div class="category-header" *ngIf="getGroupedValue(category, currentSort) as value">
-      <h2>{{ value || 'Unnamed' }}</h2>
-      <h3></h3>
+  <div *ngFor="let category of groupedProducts; first as first; index as i; trackBy: trackByFn" class="category-section">
+    <div class="category-header flex" *ngIf="category.label as supplier">
+      <div class="imgCtnr">
+        <img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
+             (dragstart)="preventDrag($event)">
+        <checkbox-app [checked]="category.checked"
+          (check)="onChecked(category)"
+          (uncheck)="onUnchecked(category)"
+          (dragstart)="preventDrag($event)">
+        </checkbox-app>
+      </div>
+      <div class="description flexBetween" (click)="clickTitle()">
+        <div class="descriptionTopCtnr">
+          <div class="titleCtnr"><h2>{{ category.label || 'Unnamed' }}</h2></div>
+          <div class="descriptionCtnr">
+            <h3>
+              {{ supplier?.supplierType?.name || 'Supplier' }}
+              <ng-container *ngIf="supplier.country"> - {{ supplier.country | const:'country' }}</ng-container>
+            </h3>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="products-section">
-      <div *ngFor="let product of category.value; index as i; trackBy: trackByFn"
+    <div class="products-section flex">
+      <div *ngFor="let product of category.values; index as i; trackBy: trackByFn"
       class="item">
         <kanban-item-card-app class="marginSmall" [title]="product.name"
           [status]="product.status?.name"
@@ -22,8 +40,10 @@
           [product]="product"
           [highlightOnChecked]="true"
           [selectFromCard]="true"
+          [enabledHoverContent]="true"
           (select)="select.emit(product, false)"
           (unselect)="unselect.emit(product, false)">
+          <div>Test</div>
         </kanban-item-card-app>
       </div>
     </div>

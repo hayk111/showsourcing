@@ -4,19 +4,10 @@
   [buttonIcon]="false"
   (search)="search($event)">
 
-  <product-sorting-menu-app
+  <products-review-sorting-menu-app
     [currentSort]="currentSort"
     (sortFromMenu)="sortFromMenu($event)">
-  </product-sorting-menu-app>
-
-  <context-menu-app xPosition="-74" yPosition="36">
-    <context-menu-trigger-app>
-      <button class="secondary flex sort-2">
-        <p>Product Only</p>
-        <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
-      </button>
-    </context-menu-trigger-app>
-  </context-menu-app>
+  </products-review-sorting-menu-app>
 </sub-panel-app>
 
 <products-review-card-view-app
@@ -39,7 +30,12 @@
   (close)="resetSelection()"
   (delete)="deleteSelected()">
 
-  <action-bar-app>
+  <action-bar-app
+    [favorite]="allSelectedFavorite"
+    [products]="selectedItems$ | async"
+    (onFavorite)="onFavoriteAllSelected()"
+    (onUnfavorite)="onUnfavoriteAllSelected()"
+    (multipleVotes)="multipleVotes($event)">
     <button class="icon light" (click)="openAddToProjectDialog()">
       <icon-app fontSet="svg" name="folder" size="m" ></icon-app>
     </button>
@@ -51,3 +47,12 @@
     </button>
   </action-bar-app>
 </selection-bar-app>
+
+<!-- product-preview-app
+  *ngIf="previewOpen"
+  [product]="previewed"
+  (close)="closePreview()"
+  (clickOutside)="closePreview()">
+
+</product-preview-app -->
+

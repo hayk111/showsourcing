@@ -1,18 +1,38 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Product } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
+import { SelectionService } from '~shared/list-page/selection.service';
 
+
+interface Category {
+	key: string;
+	values: Product[];
+	label: any;
+	checked: boolean;
+}
 
 @Component({
 	selector: 'products-review-card-view-app',
 	templateUrl: './products-review-card-view.component.html',
 	styleUrls: ['./products-review-card-view.component.scss']
 })
-export class ProductsReviewCardViewComponent extends ListViewComponent<Product> {
+export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnChanges {
 
-	@Input() products: Product[];
 	@Input() currentSort: Sort;
+
+	groupedProducts: Category[];
+
+	constructor(private selectionSrv: SelectionService) {
+		super();
+	}
+
+	ngOnChanges(changes) {
+		if (changes.rows && changes.rows.currentValue) {
+			const rows = changes.rows.currentValue;
+			this.groupedProducts = this.getGroupedProducts(this.currentSort);
+		}
+	}
 
 	isSelected(product) {
 		if (this.selection)
@@ -21,18 +41,17 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		throw Error(`Selection Input is undefnied`);
 	}
 
-	getGroupedProducts(sort: Sort) {
+	getGroupedProducts(sort: Sort): Category[] {
 		const fieldSortyBy = sort.sortBy;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 
 		if (!this.rows) {
-			return this.rows;
+			return [];
 		}
 
 		const groupedObj = this.rows.reduce((prev, cur) => {
-      const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
-      // console.log('id = ', id);
+			const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
 			if (!prev[id]) {
 				prev[id] = [cur];
 			} else {
@@ -40,17 +59,41 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			}
 			return prev;
 		}, {});
-		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
+		return Object.keys(groupedObj).map(key => ({
+			key, values: groupedObj[key], label: this.getGroupedValue(groupedObj[key], sort),
+			checked: false
+		}));
 	}
 
-	getGroupedValue(group, sort: Sort) {
+	getGroupedValue(values, sort: Sort) {
 		const fieldSortyBy = sort.sortBy;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 
-		if (group && group.value.length > 0) {
-			return (group.value[0] && group.value[0][field]) ? group.value[0][field].name : null;
+		if (values && values.length > 0) {
+			return (values[0] && values[0][field]) ? values[0][field].name : null;
 		}
 		return null;
 	}
+
+	/** Disable defaut drag for element */
+	preventDrag(event) {
+		event.preventDefault();
+		return false;
+	}
+
+	onChecked(category: Category) {
+		if (category && category.values) {
+			this.selectionSrv.selectAll(category.values.map(value => ({ id: value.id })));
+		}
+	}
+
+	onUnchecked(category: Category) {
+		if (category && category.values) {
+			category.values.forEach(value => {
+				this.selectionSrv.unselectOne({ id: value.id });
+			});
+		}
+	}
+
 }

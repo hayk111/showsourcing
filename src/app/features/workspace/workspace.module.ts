@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/workspace/routes';
-import { ProductsReviewCardViewComponent } from '~features/workspace/components';
+import { ProductsReviewCardViewComponent, ProductsReviewSortingMenuComponent } from '~features/workspace/components';
 import { WorkspaceComponent, MyProductsPageComponent, MyTasksPageComponent, ReviewPageComponent } from '~features/workspace/containers';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
@@ -29,7 +29,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		MyProductsPageComponent,
 		MyTasksPageComponent,
 		ReviewPageComponent,
-		ProductsReviewCardViewComponent
+		ProductsReviewCardViewComponent,
+		ProductsReviewSortingMenuComponent
 	],
 	exports: [RouterModule],
 	providers: [

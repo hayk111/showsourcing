@@ -63,6 +63,8 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	@Input() highlightOnChecked: boolean;
 	/** Select when clicking on the whole card */
 	@Input() selectFromCard: boolean;
+	/** Whether a new content is displayed on hover */
+	@Input() enabledHoverContent: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();

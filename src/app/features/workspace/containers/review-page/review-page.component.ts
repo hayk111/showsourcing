@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
@@ -15,6 +15,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { SelectionService } from '~shared/list-page/selection.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SearchService } from '~shared/filters';
 
 
 @Component({
@@ -22,24 +24,27 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './review-page.component.html',
 	styleUrls: ['./review-page.component.scss']
 })
-export class ReviewPageComponent extends AutoUnsub implements OnInit {
+export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
 
 	products$ = new Subject<Product[]>();
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
-	currentSort = { sortBy: 'creationDate', descending: true };
+	currentSort = { sortBy: 'supplier.name', descending: true };
 
 	constructor(
-		private route: ActivatedRoute,
-		private productSrv: ProductService,
-		private workspaceSrv: WorkspaceFeatureService,
-		private selectionSrv: SelectionService,
-		private cdr: ChangeDetectorRef,
+		protected router: Router,
+		protected featureSrv: WorkspaceFeatureService,
+		protected searchSrv: SearchService,
+		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>,
-		private notifSrv: NotificationService
-	) {
-		super();
+		protected cdr: ChangeDetectorRef,
+		protected workspaceSrv: WorkspaceFeatureService,
+		protected moduleRef: NgModuleRef<any>) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
+	}
+
+	onItemFavorited(event) {
+		console.log('>> onItemFavorited - event = ', event);
 	}
 
 	ngOnInit() {
@@ -120,7 +125,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 		const items = Array.from(this.selectionSrv.selection.keys());
 		// callback for confirm dialog
 		const callback = () => {
-			this.productSrv.deleteMany(items).subscribe(() => {
+			this.workspaceSrv.deleteMany(items).subscribe(() => {
 				this.resetSelection();
 			});
 		};

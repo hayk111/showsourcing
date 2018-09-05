@@ -34,6 +34,21 @@
 			.contextual-menu {
 				display: block;
 			}
+
+			.card-hover.hover-content-enabled {
+				display: block;
+			}
+
+			.hover-content-enabled .description{
+				display: none;
+			}
+		}
+
+		.card-hover {
+			display: none;
+			max-width: 200px;
+			height: 107px;
+			align-items: flex-start;
 		}
 
 		.mainCell {
