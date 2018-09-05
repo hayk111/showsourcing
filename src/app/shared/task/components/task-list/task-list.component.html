@@ -8,7 +8,7 @@
 		(check)="taskSelect.emit(task)"
 		(uncheck)="taskUnselect.emit(task)">
 	</checkbox-app>
-	<task-app [task]="task"></task-app>
+	<task-app [task]="task" [fullUser]="fullUser"></task-app>
 </div>
 <divider-app></divider-app>
 <button class="light">+ Create a new task</button>
@@ -16,7 +16,7 @@
 
 <div class="flex">
 	<checkbox-app></checkbox-app>
-	<task-app></task-app>
+	<task-app [fullUser]="true"></task-app>
 </div>
 <div class="flex">
 	<checkbox-app></checkbox-app>

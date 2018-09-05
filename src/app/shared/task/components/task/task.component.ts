@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { DEFAULT_IMG } from '~utils';
 
 @Component({
@@ -9,6 +9,7 @@ import { DEFAULT_IMG } from '~utils';
 })
 export class TaskComponent implements OnInit {
 
+	@Input() fullUser = false;
 	defaultImg = DEFAULT_IMG;
 	tempU = { firstName: 'miau', lastName: 'wow' } as any;
 	constructor() { }

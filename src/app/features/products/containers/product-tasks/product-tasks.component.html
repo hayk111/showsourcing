@@ -15,6 +15,7 @@
 <task-list-app
 	[tasks]="items$ | async"
 	[selection]="selected$ | async"
+	[fullUser]="true"
 	(taskSelect)="select.emit($event)"
 	(taskUnselect)="unselect.emit($event)"
 	(openCreateDlg)="openCreateDlg()">

@@ -17,13 +17,13 @@
 		<img-app [size]="20" [image]="task?.supplier?.logoImage"></img-app>
 		{{ task?.supplier?.name || 'Unnamed suppler' }}
 	</div> -->
-	<!-- <div class="flex task-user"> DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE
+	<!-- <div *ngIf="fullUser" class="flex task-user"> DONT ERASE THIS IN CASE THE TASK MENU != TASK WORKSPACE
 		<user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
 		{{ task?.assignee?.firstName || 'Unnamed' }} {{ task?.assignee?.lastName }}
 	</div> -->
 	<div class="flex task-user-status">
-		<!-- <user-picture-app [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app> -->
-		<user-picture-app [user]="tempU" [size]="20" [border]="true"></user-picture-app>
+		<!-- <user-picture-app *ngIf="!fullUser" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app> -->
+		<user-picture-app *ngIf="!fullUser" [user]="tempU" [size]="20" [border]="true"></user-picture-app>
 		<div class="flex task-status"
 		[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}">
 			<icon-app name="circle" fontSet="fa" color="red"></icon-app>

@@ -21,6 +21,7 @@ export class CreateTaskDialogComponent implements OnInit {
 	ngOnInit() {
 		this.group = this.fb.group({
 			name: ['', Validators.required],
+			description: [''],
 			dueDate: ['', Validators.required],
 			assignee: ['', Validators.required],
 			type: ['', Validators.required],
