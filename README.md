@@ -7,23 +7,11 @@ The goal of this readme is to present the guidelines followed throughout the app
 
 ## Table of Content
 
- - Prerequisite
  - Running the app
  - Other Scripts
- - Devtools addon
- - Where to start
  - File structure
  - Style structure
- - General architecture principles
- - Entities
- - Components
-
-
-
-## Prerequisite
-
-Beside a decent knowledge of the angular framework you should be familiar with [Rxjs](https://www.learnrxjs.io/)  and the [redux pattern](http://redux.js.org/)
-as this app makes use of [ngrx](https://gist.github.com/btroncone/a6e4347326749f938510).
+ - Global Services
 
 
 ## Running the app
@@ -36,9 +24,6 @@ cd project
 npm i
 npm start
 ```
-
-The start script will start a webpack-dev-server instance with a proxy to the api. The proxy config can be found in proxy.config.json.
-
 
 ## Other Scripts
 
@@ -54,14 +39,19 @@ You can run every script with `npm run`, for example `npm run start`.
  - `npm run build:fr` Builds a production ready of the app in the dist directory with the french language configuration
  - `npm run translate:fr` Translates and generates `message.xlf` `messages.fr.xlf`, also merges the old source langauge file with the new one (see Translation section)
 
-## Devtools addon
-
-You can download the redux addon for chrome [here](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en). Once the app is started right click anywhere on the document and then redux to start using it.
-
 
 ## File Structure & guidelines
 
-The application is divided in modules. In the module directory there is 4 sub directories: app-root, features, shared. The shared modules are modules that are used by the entirety of the app. The feature modules are module that are self-contained and deal with only one feature of the app. App root is the root of the application.
+At the root of src we have
+ ```
+  - app-root: small folder containing only the root module and root component
+  - features: folder containing feature modules (pages)
+  - global-services: folder containing the main business logic of accessing the back-end.
+  - models: containing the models for the different entities used throughout the app
+  - shared: folder containing modules shared between feature-modules
+  - theming: contains the global styles
+  - utils: contains some utils used throughout the app
+ ```
 
 In each module the division of the file structure is with those folders (each one being optional).
 
@@ -78,12 +68,6 @@ In each module the division of the file structure is with those folders (each on
  README.md
 ```
 
-the store is for files related to `ngrx`.
-
-## Extensions
-
-Each file extension describe what the file does. EG: `my-builder.service.ts` or `my-cat.interface.ts`. This is useful in IDEs when many files with similar names are open.
-
 ## Style Structure
 
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs.
@@ -92,12 +76,82 @@ Spacing and palette use CSS4 variables and should be used throughout the applica
 
 Some scss files are based on google material design guidelinds. For instance `elevation.scss` is a somewhat simplified version of the file in angular material design.
 
-## Business logic standards
+## Global Services
 
-please read STANDARDS.md
+When accessing the db for an entity we use its global service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService` that is
+located in `src/global-services`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.
+
+There is 3 important classes to understand to get how this works.
 
 
-### AutoUnsub
+#### QueryBuilder
+
+The query builder create graphQL queries.
+
+```
+queryBuilder.queryOne(fields); // where fields are the fields we want to query
+```
+The queryBuilder can be invoked as such : `new QueryBuilder('productVote', 'productVotes')` where the first parameter is the singular version of the entity and the second is the plural version.
+The content of the queryOne method in query builder is simple to understand, it will create a graphql query with the fields we specify as parameters.
+
+```
+	queryOne = (str: string) => gql(`
+		query ${this.sing}($id: String!) {
+			${this.sing}(id: $id) {
+				id
+				${str}
+			}
+		}`)
+```
+
+#### GlobalQueries
+
+The `GlobalQuery` class is really simple as it is supposed to be extended.
+
+````
+export abstract class GlobalQueries {
+	static one = 'name';
+	static many = 'name';
+	static all = 'name';
+	static update = '';
+	static create = '';
+}
+```
+
+When you do this
+
+````
+export class Supplier extends GlobalQueries {
+	static one = 'name, description';
+}
+```
+It will basically make the application request for a `name` and a `description` every time a query to *one* `Supplier` is made.
+
+
+#### GlobalService
+
+`GlobalService` adds crud operations, and more to the services extending it. It will do heavy logging and do some other behind the scene work. To do the querying automatically it uses the `QueryBuilder`. It also uses
+
+```
+	/**
+	 * Query one item by id, (query, optimistic UI)
+	 * @param id : id of the entity selected
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	 */
+	queryOne(id: string, fields?: string | string[], client: string = this.defaultClient): Observable<T> {
+		fields = this.getFields(fields, this.fields.one); // == fields || this.fields.one
+		const gql = this.queryBuilder.queryOne(fields);
+        // ...
+    }
+```
+The first line of the method `fields = this.getFields(fields, this.fields.one);` is more or less equivalent to `fields || this.fields.one`.
+`this.fields.one` is the `one` from the `GlobalQueries` explained above.
+
+This second line will call `queryBuilder.queryOne(fields)` with the fields it got above.
+
+
+## AutoUnsub
 
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
