@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ImageUrls } from '~utils';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -15,8 +16,8 @@ import { UserService } from '~global-services';
 })
 export class ImageService extends GlobalWithAuditService<AppImage> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, ImageQueries, 'image', 'images', userSrv);
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, ImageQueries, 'image', 'images', userSrv);
 	}
 
 	download(img: AppImage) {

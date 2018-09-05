@@ -5,6 +5,7 @@ import { UserService } from '~global-services/user/user.service';
 import { Product } from '~models';
 import { Apollo } from 'apollo-angular';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -12,8 +13,8 @@ import { GlobalWithAuditService } from '~global-services/_global/global-with-aud
 })
 export class ProductService extends GlobalWithAuditService<Product> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, ProductQueries, 'product', 'products', userSrv);
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, ProductQueries, 'product', 'products', userSrv);
 	}
 
 }

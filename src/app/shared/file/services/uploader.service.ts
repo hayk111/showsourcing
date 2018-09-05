@@ -24,7 +24,7 @@ export class UploaderService {
 		return forkJoin(imgs.map(img => this.uploadFile(img, 'image')))
 			.pipe(
 				first(),
-				catchError(error => { console.log(error); return of(error); })
+				catchError(error => { log.error(error); return of(error); })
 			);
 	}
 
@@ -109,7 +109,7 @@ export class UploaderService {
 			return this.queryImage(request).pipe(
 				retryWhen(errors => errors.pipe(
 					delay(500),
-					take(30)
+					take(20)
 				)),
 			);
 		} else {

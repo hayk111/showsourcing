@@ -7,6 +7,7 @@ import { share, map, tap } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services/user/user.service';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -14,8 +15,8 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class ExternalRequestService extends GlobalWithAuditService<ExternalRequest> {
 
-	constructor(protected apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, ExternalRequestQueries, 'externalRequest', 'externalRequests', userSrv);
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, ExternalRequestQueries, 'externalRequest', 'externalRequests', userSrv);
 	}
 
 

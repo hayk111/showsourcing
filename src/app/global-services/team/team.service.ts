@@ -48,7 +48,7 @@ export class TeamService extends GlobalService<Team> {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService
 	) {
-		super(apollo, TeamQueries, 'team', 'teams');
+		super(apollo, apolloState, TeamQueries, 'team', 'teams');
 	}
 
 	init() {

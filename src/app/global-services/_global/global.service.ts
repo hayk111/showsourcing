@@ -11,6 +11,7 @@ import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { ProductQueries } from '~global-services/product/product.queries';
+import { ApolloStateService } from '~shared/apollo';
 
 
 export interface GlobalServiceInterface<T> {
@@ -47,6 +48,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 	constructor(
 		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected fields: any,
 		sing: string,
 		plural: string

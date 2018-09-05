@@ -7,6 +7,7 @@ import { RealmServerQueries } from '~global-services/realm-server/realm-server.q
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services/user/user.service';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -15,8 +16,8 @@ import { Client } from '~shared/apollo/services/apollo-client-names.const';
 export class RealmServerService extends GlobalService<RealmServer> {
 	defaultClient = Client.GLOBAL_CONSTANT;
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, RealmServerQueries, 'realmServer', 'realmServers');
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, RealmServerQueries, 'realmServer', 'realmServers');
 	}
 
 }

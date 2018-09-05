@@ -6,13 +6,14 @@ import { Apollo } from 'apollo-angular';
 import { Comment } from '~models';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services/user/user.service';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({ providedIn: 'root' })
 export class CommentService extends GlobalWithAuditService<Comment> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, CommentQueries, 'comment', 'comments', userSrv);
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, CommentQueries, 'comment', 'comments', userSrv);
 	}
 
 }

@@ -6,6 +6,7 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { ProjectQueries } from '~global-services/project/project.queries';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services/user/user.service';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -13,8 +14,8 @@ import { UserService } from '~global-services/user/user.service';
 })
 export class ProjectService extends GlobalWithAuditService<Project> {
 
-	constructor(apollo: Apollo, protected userSrv: UserService) {
-		super(apollo, ProjectQueries, 'project', 'projects', userSrv);
+	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apollo, apolloState, ProjectQueries, 'project', 'projects', userSrv);
 	}
 
 }
