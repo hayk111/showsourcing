@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { filter, tap, map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject, of } from 'rxjs';
+import { filter, tap, map, distinctUntilChanged, shareReplay, first, mapTo } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
@@ -82,6 +82,18 @@ export class ApolloStateService {
 		this.log(name, status, this.getCurrentStatus(name));
 		this.clientReady[name] = status;
 		this.emit();
+	}
+
+	getClientWhenReady(name: Client) {
+		return this.getClientStatus(name).pipe(
+			tap(status => {
+				if (status !== ClientStatus.READY)
+					log.debug(`About to use client ${name}, but it's not ready, so I'll wait`);
+			}),
+			filter(status => status === ClientStatus.READY),
+			first(),
+			mapTo(this.apollo.use(name))
+		);
 	}
 
 	private redirect(allState: AllClientState) {
