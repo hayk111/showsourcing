@@ -4,13 +4,20 @@ import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/workspace/routes';
 import { WorkspaceComponent, MyProductsPageComponent, MyTasksPageComponent, ReviewPageComponent } from '~features/workspace/containers';
+import { WorkspaceWorkflowFeatureService } from '~features/workspace/services/workspace-workflow-feature.service';
+import { SelectionBarModule } from '~shared/selection-bar';
+import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { WorkflowModule } from '~features/workflow/workflow.module';
 
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
-		TopPanelModule
+		TopPanelModule,
+		SelectionBarModule,
+		ActionBarModule,
+		WorkflowModule
 	],
 	declarations: [
 		WorkspaceComponent,
@@ -20,6 +27,7 @@ import { WorkspaceComponent, MyProductsPageComponent, MyTasksPageComponent, Revi
 	],
 	exports: [RouterModule],
 	providers: [
+		WorkspaceWorkflowFeatureService
 	]
 })
 export class WorkspaceModule {

@@ -39,6 +39,7 @@ export class DraggableDirective implements OnInit {
 	onPointerDown(event: PointerEvent): void {
 		if (this.disabled) {
 			this.pointerDown.next(event);
+			event.stopPropagation();
 		}
 	}
 
@@ -46,6 +47,7 @@ export class DraggableDirective implements OnInit {
 	onPointerMove(event: PointerEvent): void {
 		if (this.disabled) {
 			this.pointerMove.next(event);
+			event.stopPropagation();
 		}
 	}
 
@@ -53,6 +55,7 @@ export class DraggableDirective implements OnInit {
 	onPointerUp(event: PointerEvent): void {
 		if (this.disabled) {
 			this.pointerUp.next(event);
+			event.stopPropagation();
 		}
 	}
 
