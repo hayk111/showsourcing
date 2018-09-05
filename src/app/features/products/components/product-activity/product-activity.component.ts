@@ -3,6 +3,8 @@ import { ActivityService } from '~shared/activity/services/activity.service';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
+import { ERM } from '~models';
 
 @Component({
 	selector: 'product-activity-app',
@@ -12,14 +14,15 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ProductActivityComponent implements OnInit {
 
-	// feedResult: FeedListResult;
+	feedResult: ActivityFeed;
+	typeEntity = ERM.PRODUCT;
 
 	constructor(private route: ActivatedRoute, private activitySrv: ActivityService) {
 
 	}
 
 	ngOnInit() {
-		// this.feedResult = this.activitySrv.getProductFeed(this.route.parent.snapshot.params.id);
+		this.feedResult = this.activitySrv.getProductFeed(this.route.parent.snapshot.params.id);
 	}
 
 }
