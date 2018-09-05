@@ -303,10 +303,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
 	openEditDlg(entity: T) {
-		// const callback = name => {
-		// 	console.log(name);
-		// 	this.update({ id: entity.id, name } as any);
-		// };
 		this.dlgSrv.openFromModule(this.editDlgComponent, this.moduleRef, { type: this.entityMetadata, entity });
 	}
 
