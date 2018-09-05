@@ -47,9 +47,7 @@ export class EditionDialogComponent extends AutoUnsub implements AfterViewInit {
 
 	checkExists() {
 		this.typed$.next(this.group.get('name').value);
-
 	}
-
 
 	onSubmit() {
 		if (this.group.valid) {

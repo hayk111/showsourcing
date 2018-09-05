@@ -85,7 +85,7 @@ export class TokenService {
 	}
 
 	/** to get an access token from a request token */
-	getAccessToken(realmPath: string): Observable<TokenState> {
+	getAccessToken(realmPath?: string): Observable<TokenState> {
 		log.info(`%c Getting access token for ${realmPath}`, LogColor.SERVICES);
 		// if we have a valid accessToken in the local storage that's the one we return
 		if (realmPath) {

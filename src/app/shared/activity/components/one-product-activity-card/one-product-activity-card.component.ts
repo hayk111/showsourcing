@@ -26,6 +26,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	@Output() update = new EventEmitter<Product>();
 	@Input() groupFeed: GetStreamGroup;
 	@Input() title: string;
+	@ViewChild(InputDirective) inp: InputDirective;
 	product$: Observable<Product>;
 	product: Product;
 	commentCtrl = new FormControl('');
