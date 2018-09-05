@@ -9,5 +9,6 @@ export class Attachment {
 
 	constructor(fileName: string) {
 		this.id = uuid();
+		this.fileName = fileName;
 	}
 }
