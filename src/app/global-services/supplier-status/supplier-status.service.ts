@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { SupplierStatusQueries } from '~global-services/supplier-status/supplier-status.queries';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -12,8 +12,8 @@ import { ApolloStateService } from '~shared/apollo';
 })
 export class SupplierStatusService extends GlobalService<SupplierStatus> {
 
-	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService) {
-		super(apollo, apolloState, SupplierStatusQueries, 'supplierStatus', 'supplierStatuses');
+	constructor(protected apolloState: ApolloStateService) {
+		super(apolloState, SupplierStatusQueries, 'supplierStatus', 'supplierStatuses');
 	}
 
 }

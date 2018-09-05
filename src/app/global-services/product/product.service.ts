@@ -3,9 +3,8 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { ProductQueries } from '~global-services/product/product.queries';
 import { UserService } from '~global-services/user/user.service';
 import { Product } from '~models';
-import { Apollo } from 'apollo-angular';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -13,8 +12,8 @@ import { ApolloStateService } from '~shared/apollo';
 })
 export class ProductService extends GlobalWithAuditService<Product> {
 
-	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, protected userSrv: UserService) {
-		super(apollo, apolloState, ProductQueries, 'product', 'products', userSrv);
+	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apolloState, ProductQueries, 'product', 'products', userSrv);
 	}
 
 }

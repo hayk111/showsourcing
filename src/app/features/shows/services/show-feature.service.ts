@@ -7,17 +7,18 @@ import { Filter, FilterType } from '~shared/filters';
 import { ShowsModule } from '~features/shows/shows.module';
 import { Show } from '~models/show.model';
 import { Apollo } from 'apollo-angular';
+import { ApolloStateService } from '~shared/apollo';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ShowFeatureService extends ShowService {
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected eventSrv: EventService,
 		protected supplierSrv: SupplierService
 	) {
-		super(apollo);
+		super(apolloState);
 	}
 
 	selectOne(id: string) {

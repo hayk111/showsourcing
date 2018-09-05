@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 
 import { GlobalService } from '~global-services/_global/global.service';
 import { TeamUserQueries } from '~global-services/team-user/team-user.queries';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -12,8 +12,8 @@ import { ApolloStateService } from '~shared/apollo';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService) {
-		super(apollo, apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
+	constructor(protected apolloState: ApolloStateService) {
+		super(apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
 }

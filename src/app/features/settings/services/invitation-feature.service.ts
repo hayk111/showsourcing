@@ -4,16 +4,17 @@ import { Invitation } from '~models';
 
 import { InvitationService, UserService } from '~global-services';
 import { Apollo } from 'apollo-angular';
+import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		private invitationSrv: InvitationService,
 		protected userSrv: UserService
 	) {
-		super(apollo);
+		super(apolloState);
 	}
 
 	getInviter() {

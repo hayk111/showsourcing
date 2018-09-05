@@ -7,8 +7,7 @@ import { ExportRequestQueries } from '~global-services/export-request/export-req
 import { of } from 'rxjs';
 import { SelectParams } from '~global-services/_global/select-params';
 import { switchMap, tap, map, filter } from 'rxjs/operators';
-import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -16,8 +15,8 @@ import { ApolloStateService } from '~shared/apollo';
 })
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
-	constructor(protected apollo: Apollo, protected apolloState: ApolloStateService, private http: HttpClient) {
-		super(apollo, apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
+	constructor(protected apolloState: ApolloStateService, private http: HttpClient) {
+		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
 	create(request: ExportRequest, ...args) {

@@ -8,6 +8,7 @@ import { ContactService, ProductService, UserService } from '~global-services';
 import { SupplierService } from '~global-services/supplier/supplier.service';
 import { first } from 'rxjs/operators';
 import { ProductQueries } from '~global-services/product/product.queries';
+import { ApolloStateService } from '~shared/apollo';
 
 
 @Injectable({
@@ -16,12 +17,12 @@ import { ProductQueries } from '~global-services/product/product.queries';
 export class SupplierFeatureService extends SupplierService {
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		protected productSrv: ProductService,
 		protected contactSrv: ContactService,
 		protected userSrv: UserService
 	) {
-		super(apollo, userSrv);
+		super(apolloState, userSrv);
 	}
 
 

@@ -6,16 +6,17 @@ import { Invitation } from '~models';
 import { InvitationService, UserService } from '~global-services';
 import { Apollo } from 'apollo-angular';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
 export class InvitationFeatureService extends InvitationService {
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		private invitationSrv: InvitationService,
 		protected userSrv: UserService
 	) {
-		super(apollo);
+		super(apolloState);
 	}
 
 	getInvitation(id: string): Observable<{ invitation: Invitation; client: Client }> {
@@ -35,7 +36,7 @@ export class InvitationFeatureService extends InvitationService {
 
 	acceptInvitation(id: string, client: Client) {
 		return this.invitationSrv.update({
-			id,	status: 'accepted'
+			id, status: 'accepted'
 		}, null, client);
 	}
 

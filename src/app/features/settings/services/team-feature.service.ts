@@ -9,7 +9,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { Apollo } from 'apollo-angular';
 import { LocalStorageService } from '~shared/local-storage';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,12 +17,11 @@ import { ApolloStateService } from '~shared/apollo';
 export class TeamFeatureService extends TeamService {
 
 	constructor(
-		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService) {
 
-		super(apollo, apolloState, storage, authSrv);
+		super(apolloState, storage, authSrv);
 	}
 
 }

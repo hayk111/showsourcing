@@ -11,7 +11,7 @@ import { QueryBuilder } from '~global-services/_global/query-builder.class';
 import { Entity } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { ProductQueries } from '~global-services/product/product.queries';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 export interface GlobalServiceInterface<T> {
@@ -47,7 +47,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	protected typeName: string;
 
 	constructor(
-		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
 		protected fields: any,
 		sing: string,
@@ -604,7 +603,7 @@ Deleting everything.. so watchout. `);
 
 	/** to use another named apollo client */
 	private getClient(clientName: string) {
-		const client = clientName ? this.apollo.use(clientName) : this.apollo;
+		const client = clientName ? this.apolloState.apollo.use(clientName) : this.apolloState.apollo;
 		if (!client) {
 			throw Error(`no client found for ${clientName}`);
 		}

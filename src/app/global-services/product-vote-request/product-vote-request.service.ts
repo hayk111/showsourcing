@@ -5,8 +5,7 @@ import { GlobalService } from '~global-services/_global/global.service';
 import { ProductVoteRequestQueries } from '~global-services/product-vote-request/product-vote-request.queries';
 import { GlobalWithAuditService } from '~global-services/_global/global-with-audit.service';
 import { UserService } from '~global-services';
-import { Apollo } from 'apollo-angular';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 
 @Injectable({
@@ -14,8 +13,8 @@ import { ApolloStateService } from '~shared/apollo';
 })
 export class ProductVoteRequestService extends GlobalWithAuditService<ProductVoteRequest> {
 
-	constructor(protected apollo: Apollo, protected userSrv: UserService, protected apolloState: ApolloStateService) {
-		super(apollo, apolloState, ProductVoteRequestQueries, 'productVoteRequest', 'productVoteRequests', userSrv);
+	constructor(protected userSrv: UserService, protected apolloState: ApolloStateService) {
+		super(apolloState, ProductVoteRequestQueries, 'productVoteRequest', 'productVoteRequests', userSrv);
 	}
 
 }

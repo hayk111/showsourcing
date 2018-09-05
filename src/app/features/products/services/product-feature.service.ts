@@ -8,16 +8,17 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { ProductVoteRequestService } from '~global-services/product-vote-request/product-vote-request.service';
 import { Apollo } from 'apollo-angular';
 import { SupplierQueries } from '~global-services/supplier/supplier.queries';
+import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
 export class ProductFeatureService extends ProductService {
 
 	constructor(
-		protected apollo: Apollo,
+		protected apolloState: ApolloStateService,
 		private supplierSrv: SupplierService,
 		protected userSrv: UserService
 	) {
-		super(apollo, userSrv);
+		super(apolloState, userSrv);
 	}
 
 	getContacts(supplierId: string) {

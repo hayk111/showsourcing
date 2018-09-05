@@ -8,7 +8,7 @@ import { SelectParamsConfig } from '~global-services/_global/select-params';
 import { ListQuery } from '~global-services/_global/list-query.interface';
 import { EntityWithAudit } from '~models';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~shared/apollo';
+import { ApolloStateService } from '~shared/apollo/services/apollo-state.service';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
@@ -16,14 +16,13 @@ import { ApolloStateService } from '~shared/apollo';
 export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends GlobalService<T> implements GlobalServiceInterface<T> {
 
 	constructor(
-		protected apollo: Apollo,
 		protected apolloState: ApolloStateService,
 		protected fields: GlobalQueries,
 		protected sing: string,
 		protected plural: string,
 		protected userSrv: UserService
 	) {
-		super(apollo, apolloState, fields, sing, plural);
+		super(apolloState, fields, sing, plural);
 	}
 
 	/**
