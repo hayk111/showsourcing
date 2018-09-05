@@ -25,4 +25,8 @@ export class MyTasksPageComponent extends ListPageComponent<Task, ProductFeature
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, CreateTaskDialogComponent);
 	}
+
+	toggleFilter(show: boolean) {
+
+	}
 }

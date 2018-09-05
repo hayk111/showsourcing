@@ -15,11 +15,17 @@ export class TaskListComponent implements OnInit {
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() openCreateDlg = new EventEmitter<null>();
 
+	hoverIndex: number;
+
 	trackByFn = (index, item) => item.id;
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	hoverRow(index: number) {
+		this.hoverIndex = index;
 	}
 
 }

@@ -5,6 +5,11 @@
 	padding-left: var(--spacing-ms);
 	border-radius: var(--border-radius-s);
 }
+
+.hovered {
+	background-color: var(--color-secondary-light);
+}
+
 .title {
 	color: var(--color-txt-strong);
 	font-size: var(--font-size-xxxl);

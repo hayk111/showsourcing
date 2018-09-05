@@ -1,6 +1,9 @@
 <h1 class="title">Task</h1>
-<!-- <div *ngFor="let task of tasks; first as first; last as last; trackBy: trackByFn" [tasks]="task" [ngClass]="{'border-top': first, 'no-border': last}">
+<!-- <div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackByFn"
+	[tasks]="task" [ngClass]="{'border-top': first, 'no-border': last, 'hovered': hoverIndex === i}"
+	(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 	<checkbox-app
+		[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
 		[checked]="selection.has(task.id)"
 		(check)="taskSelect.emit(task)"
 		(uncheck)="taskUnselect.emit(task)">
