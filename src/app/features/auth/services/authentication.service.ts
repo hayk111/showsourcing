@@ -8,9 +8,10 @@ import { Credentials, RefreshTokenResponse, AuthStatus, AuthState } from '~featu
 import { TokenService } from '~features/auth/services/token.service';
 import { TokenState } from '~features/auth/interfaces/token-state.interface';
 import { environment } from 'environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RefreshTokenPostBody } from '~features/auth/interfaces/refresh-token-post-body.interface';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Injectable({
 	providedIn: 'root'
@@ -27,7 +28,8 @@ export class AuthenticationService {
 	constructor(
 		private tokenSrv: TokenService,
 		private router: Router,
-		private http: HttpClient
+		private http: HttpClient,
+		private notificationSrv: NotificationService
 	) { }
 
 	init() {
@@ -65,9 +67,30 @@ export class AuthenticationService {
 		this.router.navigate(['/guest', 'login']);
 	}
 
-	resetPw(email: string) {
-		// this.http.post(`${environment.apiUrl}/api/password/${email}/reset`, {})
-		throw Error('not implemented yet');
+	checkPassword(credentials: Credentials): Observable<boolean> {
+		const refPostBody = this.getRefreshTokenObject(credentials);
+		return this.http.post<RefreshTokenResponse>(`${environment.realmUrl}/auth`, refPostBody).pipe(
+			map(_ => true),
+			catchError(_ => {
+				return of(false);
+			})
+		);
+	}
+
+	changePassword(userId: string, password: string): Observable<boolean> {
+		const endpoint = `${environment.apiUrl}/signup/user/${userId}/password`;
+		return this.tokenSrv.getAccessToken().pipe(
+			map((tokenState: TokenState) => ({ headers: new HttpHeaders({ Authorization: tokenState.token }) })),
+			switchMap(opts => this.http.post<RefreshTokenResponse>(endpoint, { password }, opts)),
+			map(token => !!token),
+			catchError(_ => {
+				return of(false);
+			})
+		);
+	}
+
+	resetPassword(email: string) {
+		return this.http.post(`${environment.apiUrl}/signup/reset-password`, { email });
 	}
 
 	register(creds: { email: string, password: string, firstName: string, lastName: string }) {
