@@ -22,10 +22,13 @@ export class FilterDataService {
 
 	selectChoices(type: FilterType) {
 		switch (type) {
+			case FilterType.SUPPLIERS:
 			case FilterType.SUPPLIER:
-				return this.selectSuppliers();
+				return this.selectEvents();
+			case FilterType.EVENTS:
 			case FilterType.EVENT:
 				return this.selectEvents();
+			case FilterType.CATEGORIES:
 			case FilterType.CATEGORY:
 				return this.selectCategories();
 			case FilterType.TAGS:
@@ -36,7 +39,7 @@ export class FilterDataService {
 				return this.selectProjects();
 			case FilterType.CREATED_BY:
 				return this.selectUsers();
-			case FilterType.PRODUCT_STATUS_TYPE:
+			case FilterType.PRODUCT_STATUS:
 				return this.selectProductStatuses();
 			default: throw Error(`selection for type ${type}, not implemented yet`);
 		}

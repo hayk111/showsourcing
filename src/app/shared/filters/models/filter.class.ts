@@ -1,5 +1,18 @@
+
+/** Filters contain a type, a value and a displayName
+ * They represent the different filters that can be added from the
+ * filter panel
+*/
+export interface Filter {
+	type?: FilterType | string;
+	comparator?: string;
+	value?: any;
+	entity?: any;
+	raw?: string;
+	fields?: string[];
+}
+
 export enum FilterType {
-	ID = 'id',
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
 	EVENT = 'event',
@@ -11,23 +24,8 @@ export enum FilterType {
 	PROJECT = 'project',
 	PROJECTS = 'projects',
 	CREATED_BY = 'createdBy',
-	PRODUCT_STATUS_TYPE = 'status',
+	PRODUCT_STATUS = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	SEARCH = 'search',
-}
-
-export interface Filter {
-	type?: FilterType | string;
-	comparator?: string;
-	value?: any;
-	entity?: any;
-	raw?: string;
-	fields?: string[];
-}
-// the key here is actually a FilterGroupName
-export interface FilterGroup {
-	filters: Array<Filter>;
-	// so we can do group.byType.get('supplier').has('id-88');
-	byType: Map<FilterType, Map<any, Filter>>;
 }

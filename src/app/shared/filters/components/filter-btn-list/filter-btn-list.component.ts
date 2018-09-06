@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Input } from '@angular/core';
-import { Filter } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters/models';
 
 
 /**
@@ -14,18 +14,26 @@ import { Filter } from '~shared/filters';
 })
 export class FilterBtnListComponent {
 	/** btns displayed */
-	@Input() filterBtns: string[] = [];
+	@Input() filterBtns: FilterType[] = [];
 	/** for each buttons the filters applied */
-	@Input() filterMap: Map<string, Filter[]>;
+	@Input() filterMap: Map<FilterType, Filter[]>;
 	/** whether we display a checkbox for favorite */
 	@Input() hasFavoriteFilter = true;
 	/** whether we display a checkbox for archived */
 	@Input() hasArchivedFilter = true;
 	/** when the filter button is clicked */
-	@Output() btnClicked = new EventEmitter<string>();
+	@Output() editClicked = new EventEmitter<string>();
 	/** when we want to reset a certain filter type */
-	@Output() reset = new EventEmitter<string>();
-	/** remove filter */
-	@Output() addFilter = new EventEmitter<Filter>();
-	@Output() removeFilter = new EventEmitter<Filter>();
+	@Output() resetClicked = new EventEmitter<string>();
+
+	archivedType = FilterType.ARCHIVED;
+	favoriteType = FilterType.FAVORITE;
+
+	getFiltersFor(type: FilterType) {
+		return this.filterMap ? this.filterMap.get(type) : [];
+	}
+
+	addFilter(filter: Filter) { }
+
+	removeFilter(filter: Filter) { }
 }
