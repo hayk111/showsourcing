@@ -47,19 +47,14 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.project$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.id = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
-			tap(project => this.project = project)
-		);
+		const id = this.route.parent.snapshot.params.id;
+		this.project$ = this.projectSrv.queryOne(id);
+		this.project$.subscribe(project => this.project = project);
 
 		this.project$.pipe(
 			takeUntil(this._destroy$),
 			switchMap(project => this.workflowService.getStatuses(project))
-		).subscribe(statuses => {
-			this.statuses$.next(statuses);
-		});
+		).subscribe(statuses => this.statuses$.next(statuses));
 
 		this.selected$ = this.selectionSrv.selection$;
 	}

@@ -41,7 +41,6 @@ export class ProjectWorkflowFeatureService extends ProductService {
 			this.productsResult = this.productSrv.getListQuery({ query: `projects.id == '${project.id}'`, sortBy: 'lastUpdatedDate' });
 		}
 		return this.productsResult.items$;
-		// return this.queryMany({ query: `projects.id == "${project.id}"` });
 	}
 
 	/**

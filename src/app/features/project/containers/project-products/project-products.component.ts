@@ -39,44 +39,26 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		protected moduleRef: NgModuleRef<any>,
 		protected featureSrv: ProjectWorkflowFeatureService,
 		private notifSrv: NotificationService) {
-			super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
+		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.projectId = id)
-		);
-		id$.pipe(
-			takeUntil(this._destroy$),
-			switchMap(id => this.projectSrv.selectOne(id))
-		).subscribe((project) => {
-			this.project = project;
-		});
-		this.project$ = id$.pipe(switchMap(id => this.projectSrv.queryOne(id)));
-		// we need to wait to have the id to call super.ngOnInit, because we want the filter
-		// method to be called when we actually have the id
-		id$.pipe(
-			first()
-		).subscribe(_ => super.ngOnInit());
+		const id = this.route.parent.snapshot.params.id;
+		this.projectId = id;
+		this.project$ = this.projectSrv.queryOne(id);
+		this.project$.subscribe(proj => this.project = proj);
+		this.initialQuery = `project.id == "${id}"`;
+		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
+		// whne the id is there
+		super.ngOnInit();
 
-		// add filter for the project
-		id$.pipe(
-			takeUntil(this._destroy$),
-			first()
-		).subscribe(id => {
-			this.addFilter({
-				type: FilterType.PROJECTS,
-				value: id
-			});
-		});
 	}
 
 	/**
 	 * Deassociate the selected product from the current project
 	 */
 	deassociateProduct(product: Product) {
-		this.featureSrv.manageProjectsToProductsAssociations([ this.project ], [], [ product ]).pipe(
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
 			tap(() => {
 				this.refetch({ query: this.filterList.asQuery() });
 				this.notifSrv.add({
@@ -94,7 +76,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	 * passed as callback for the "find products" dialog.
 	 */
 	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
-		return this.featureSrv.manageProjectsToProductsAssociations([ this.project ], selectedProducts, unselectedProducts).pipe(
+		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			tap(() => {
 				this.refetch({ query: this.filterList.asQuery() });
 				this.notifSrv.add({

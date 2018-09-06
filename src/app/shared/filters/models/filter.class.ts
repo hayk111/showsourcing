@@ -1,8 +1,11 @@
 export enum FilterType {
 	ID = 'id',
 	SUPPLIER = 'supplier',
+	SUPPLIERS = 'suppliers',
 	EVENT = 'event',
+	EVENTS = 'events',
 	CATEGORY = 'category',
+	CATEGORIES = 'categories',
 	TAG = 'tag',
 	TAGS = 'tags',
 	PROJECT = 'project',

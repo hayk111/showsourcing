@@ -39,7 +39,7 @@ export class FilterList {
 	private _query: string;
 	asQuery(): string { return this._query; }
 
-	constructor(startFilters: Filter[] = []) {
+	constructor(startFilters: Filter[] = [], private initialQuery?: string) {
 		// adding the start filters
 		this.setFilters(startFilters);
 	}
@@ -94,7 +94,11 @@ export class FilterList {
 	}
 
 	private filtersToQuery(filters: Filter[]): string {
-		return FilterList.filtersToQuery(filters);
+		const query = FilterList.filtersToQuery(filters);
+		if (this.initialQuery)
+			return `${this.initialQuery} AND (${query})`;
+		else
+			return query;
 	}
 
 	static filtersToQuery(filters: Filter[]) {
