@@ -16,6 +16,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 
 @Component({
 	selector: 'project-products-app',
+	styleUrls: ['project-products.component.scss'],
 	templateUrl: './project-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
