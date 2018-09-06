@@ -3,13 +3,14 @@ import { ProductService, SupplierService, TaskService } from '~global-services';
 import { Observable, forkJoin } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { Task } from '~models';
+import { realmDateFormat } from '~utils/realm-date-format.util';
 
 export interface DashboardCounters {
 	productsNeedReview: number;
 	productsInWorkflow: number;
 	suppliersUnderAssessment: number;
 	totalTasks: number;
-	tasksInProgress: number;
+	tasksDone: number;
 }
 
 @Injectable({
@@ -29,14 +30,14 @@ export class DashboardService {
 			this.getCountProductsInWorkflow(),
 			this.getCountSupplierUnderAssessment(),
 			this.getCountTotalTasks(),
-			this.getCountTasksInProgress()
+			this.getCountTasksDone()
 		]).pipe(
 			map(([a, b, c, d, e]) => ({
 				productsNeedReview: a,
 				productsInWorkflow: b,
 				suppliersUnderAssessment: c,
 				totalTasks: d,
-				tasksInProgress: e
+				tasksDone: e
 			}))
 		);
 	}
@@ -55,14 +56,16 @@ export class DashboardService {
 	}
 
 	getCountTotalTasks(): Observable<number> {
-		return this.taskSrv.queryCount('archived != false && deleted == false').pipe(first());
+		const now = realmDateFormat(new Date());
+		return this.taskSrv.queryCount(`dueDate > ${now}`).pipe(first());
 	}
 
-	getCountTasksInProgress(): Observable<number> {
-		return this.taskSrv.queryCount('status.name == "_InProgress" && archived != false && deleted == false').pipe(first());
+	getCountTasksDone(): Observable<number> {
+		const now = realmDateFormat(new Date());
+		return this.taskSrv.queryCount(`dueDate > ${now} AND done == true`).pipe(first());
 	}
 
 	getFirstFewTasks(): Observable<Task[]> {
-		return this.taskSrv.queryMany({ take: 3 }).pipe(first());
+		return this.taskSrv.queryMany({ take: 3, query: 'deleted == false' }).pipe(first());
 	}
 }

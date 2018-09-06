@@ -11,6 +11,7 @@ import {
 } from '~shared/custom-dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
+import { ProductQueries } from '~global-services/product/product.queries';
 
 
 @Component({
@@ -70,17 +71,17 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	/** item status update */
 	updateStatus(statusId: string) {
 		const status = new ProductStatus({ status: { id: statusId } });
-		this.featureSrv.update({ id: this.product.id, status }).subscribe();
+		this.featureSrv.update({ id: this.product.id, status }, ProductQueries.status).subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		this.featureSrv.update({ id: this.product.id, favorite: true }).subscribe();
+		this.featureSrv.update({ id: this.product.id, favorite: true }, 'favorite').subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		this.featureSrv.update({ id: this.product.id, favorite: false }).subscribe();
+		this.featureSrv.update({ id: this.product.id, favorite: false }, 'favorite').subscribe();
 	}
 
 	/** update the product */
