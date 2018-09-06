@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Filter } from '~shared/filters';
 
 @Component({
-	selector: 'app-product-filters',
+	selector: 'product-filters-app',
 	templateUrl: './product-filters.component.html',
 	styleUrls: ['./product-filters.component.scss'],
 })

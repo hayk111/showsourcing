@@ -119,12 +119,10 @@
 		</action-bar-app>
 	</selection-bar-app>
 
-	<filters-app
+	<product-filters-app
 		(clickOutside)="closeFilterPanel()"
-		[filterList]="filterList"
-		[byType]="filterList.asByType()"
 		*ngIf="filterPanelOpen">
-	</filters-app>
+	</product-filters-app>
 
 	<product-preview-app
 		*ngIf="previewOpen"
