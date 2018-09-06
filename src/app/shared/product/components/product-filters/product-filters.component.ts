@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Filter } from '~shared/filters';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Filter, FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'product-filters-app',
@@ -8,6 +8,14 @@ import { Filter } from '~shared/filters';
 })
 export class ProductFiltersComponent {
 	view: 'BTNS' | 'BY_TYPE' = 'BTNS';
+	@Input() byType;
+	// filter displayed as button in the btns panel
+	filterBtns = [
+		FilterType.SUPPLIER,
+		FilterType.CATEGORY,
+		FilterType.TAG,
+		FilterType.PROJECTS
+	];
 
 	constructor() { }
 

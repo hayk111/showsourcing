@@ -17,9 +17,8 @@ export enum FilterType {
 	PRODUCT = 'product'
 }
 
-export class Filter {
-	type: 'string' | 'value' | 'date' = 'string';
-	target: string;
+export interface Filter {
+	type?: FilterType | string;
 	comparator?: string;
 	value?: any;
 	entity?: any;

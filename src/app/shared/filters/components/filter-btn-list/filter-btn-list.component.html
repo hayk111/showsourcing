@@ -37,10 +37,33 @@
 					*ngFor="let filter of filterMap.get(type)"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
-					{{ getDisplayName(filter, type) }}
+					<!-- {{ getDisplayName(filter, type) }} -->
 				</checkbox-app>
 			</div>
 
 		</ng-template>
 
+</ng-container>
+
+<ng-container *ngIf="hasFavoriteFilter">
+	<!-- favorite -->
+	<checkbox-app
+		[checked]="byType.get(filterType.FAVORITE).size > 0"
+		(check)="addFilter({ type: filterType.FAVORITE, value: true })"
+		(uncheck)="removeFilter({ type: filterType.FAVORITE, value: true })">
+			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
+			<span i18n="paragraph|Only favorites checkbox title@@productFilters_showFavorites">
+				Only Show Favorites
+			</span>
+	</checkbox-app>
+</ng-container>
+
+<ng-container *ngIf="hasArchivedFilter">
+	<checkbox-app
+		[checked]="byType.get(filterType.ARCHIVED).size > 0"
+		(check)="addFilter({ type: filterType.ARCHIVED, value: true })"
+		(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: false })"
+		i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
+		Show Archived Products
+	</checkbox-app>
 </ng-container>
