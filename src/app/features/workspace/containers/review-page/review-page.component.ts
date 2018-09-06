@@ -162,4 +162,8 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		});
 	}
 
+	onSentToWorkflow(product: Product) {
+		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
+	}
+
 }

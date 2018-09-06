@@ -43,13 +43,13 @@
           [enabledHoverContent]="true"
           (select)="select.emit(product, false)"
           (unselect)="unselect.emit(product, false)">
-          <div class="flexColumn" style="justify-content: space-between">
+          <div class="flexColumn card-hover-block">
             <!-- button class="button-action">Archive</button -->
-            <context-menu-app xPosition="-54" yPosition="36">
+            <context-menu-app xPosition="0" yPosition="42">
               <context-menu-trigger-app>
-                <button class="secondary flex sort-1 button-action"><!-- style="width: 250px;" -->
+                <button class="secondary flexBetween sort-1 button-action button-archive"><!-- style="width: 250px;" -->
                   Archive
-                  <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+                  <div class="button-icon"><icon-app fontSet="fa" name="caret-down"></icon-app></div>
                 </button>
               </context-menu-trigger-app>
               <context-menu-item-app (click)="archive.emit(product)" class="menu-item">
@@ -60,7 +60,18 @@
               </context-menu-item-app>
             </context-menu-app>
               
-            <!-- button class="button-action">Send to workflow</button -->
+            <button class="secondary flexBetween sort-1 button-action button-workflow"><!-- (click)="sentToWorkflow.emit(product)" -->
+              Send to workflow
+              <div class="button-icon">
+                <workflow-action-app
+                  [entity]="product"
+                  selectSize="s"
+                  [xPosition]="-3"
+                  [typeEntity]="prodERM"
+                  [isSendToWorkFlow]="true">
+                </workflow-action-app>
+              </div>
+            </button>
           </div>
         </kanban-item-card-app>
       </div>

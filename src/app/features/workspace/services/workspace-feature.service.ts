@@ -72,6 +72,22 @@ export class WorkspaceFeatureService extends ProductService {
 		);
 	}
 
+	getFirstStatus() {
+		return this.productStatusTypeService.queryAll().pipe(
+			map(statuses => statuses.slice().sort((s1, s2) => (s1.step - s2.step))),
+			map(statuses => statuses.length > 0 ? statuses[0] : null)
+		);
+	}
+
+	/** Set the first status of the workflow on the product */
+	sendProductToWorkflow(product: Product) {
+		return this.getFirstStatus().pipe(
+			switchMap(status => {
+				return this.updateProductStatus(product, status);
+			})
+		);
+	}
+
 	/** Get the list of products */
 	getProducts(sort: Sort, refresh = false) {
 		if (refresh && this.allProductsResult) {

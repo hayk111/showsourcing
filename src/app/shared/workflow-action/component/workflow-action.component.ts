@@ -19,6 +19,7 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;
 	@Input() selectSize = 'm';
+	@Input() isSendToWorkFlow = false;
 	status$: Observable<ProductStatusType[] | SupplierStatus[]>;
 
 	constructor(

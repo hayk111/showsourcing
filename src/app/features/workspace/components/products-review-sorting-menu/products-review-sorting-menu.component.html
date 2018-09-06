@@ -7,7 +7,10 @@
         <p *ngIf="currentSort?.sortBy === 'supplier.name'" class="flex">Sort By Supplier
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
-        <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+        <p *ngIf="currentSort?.sortBy === 'createdBy.lastName'" class="flex">Sort By Supplier
+            <ng-container *ngTemplateOutlet="direction"></ng-container>
+          </p>
+          <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
     </button>
   </context-menu-trigger-app>
   <context-menu-item-app (click)="sortFromMenu.emit('category.name')" class="menu-item">
@@ -22,7 +25,13 @@
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
-</context-menu-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('createdBy.lastName')" class="menu-item">
+      User
+      <ng-container *ngIf="currentSort?.sortBy === 'createdBy.lastName'">
+        <ng-container *ngTemplateOutlet="direction"></ng-container>
+      </ng-container>
+    </context-menu-item-app>
+  </context-menu-app>
 
 <ng-template #direction>
   <ng-container>

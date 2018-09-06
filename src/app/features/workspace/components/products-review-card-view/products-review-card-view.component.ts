@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Product } from '~models';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Product, ERM } from '~models';
 import { ListViewComponent } from '~shared/list-page/list-view.component';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SelectionService } from '~shared/list-page/selection.service';
@@ -20,8 +20,10 @@ interface Category {
 export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnChanges {
 
 	@Input() currentSort: Sort;
+	@Output() sentToWorkflow = new EventEmitter<Product>();
 
 	groupedProducts: Category[];
+	prodERM = ERM.PRODUCT;
 
 	constructor(private selectionSrv: SelectionService) {
 		super();
@@ -94,6 +96,12 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 				this.selectionSrv.unselectOne({ id: value.id });
 			});
 		}
+	}
+
+	openWorkflowSelector(event) {
+
+		event.stopPropagation();
+		return false;
 	}
 
 }

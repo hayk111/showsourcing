@@ -8,6 +8,7 @@ import { WorkspaceComponent, MyProductsPageComponent, MyTasksPageComponent, Revi
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { WorkflowModule } from '~features/workflow/workflow.module';
 import { TaskModule } from '~shared/task';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
@@ -22,7 +23,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		ActionBarModule,
 		WorkflowModule,
 		TaskModule,
-		ProductCommonModule
+		ProductCommonModule,
+		WorkflowActionModule
 	],
 	declarations: [
 		WorkspaceComponent,
