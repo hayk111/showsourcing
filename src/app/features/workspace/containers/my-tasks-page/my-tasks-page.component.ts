@@ -6,7 +6,8 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { DialogService } from '~shared/dialog';
 import { Router } from '@angular/router';
 import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
-import { TaskService } from '~global-services';
+import { TaskService, UserService } from '~global-services';
+import { map, filter, first } from 'rxjs/operators';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
@@ -20,6 +21,7 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 	@Output() select = new EventEmitter();
 
 	constructor(
+		private userSrv: UserService,
 		protected router: Router,
 		protected featureSrv: TaskService,
 		protected searchSrv: SearchService,
@@ -30,6 +32,12 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 	}
 
 	toggleFilter(show: boolean) {
+		if (show) {
+			this.items$.pipe(
+				first(),
+				map(m => m.filter(task => task.assignee != null && task.assignee.id === this.userSrv.userSync.id)),
+			).subscribe();
+		}
 		// implement filter to show only my tasks
 	}
 }

@@ -1,24 +1,27 @@
-<sub-panel-app
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	(search)="search($event)"
-	(smartSearch)="smartSearch($event)">
-	<div class="flex show-my-tasks">
-		<checkbox-app
-			(check)="toggleFilter(true)"
-			(uncheck)="toggleFilter(false)">
-		</checkbox-app>
-		Show my tasks only
-	</div>
-</sub-panel-app>
+<div class="container">
+	<sub-panel-app
+		[hasFilter]="false"
+		[hasSwitch]="false"
+		(search)="search($event)"
+		(smartSearch)="smartSearch($event)">
+		<div class="flex show-my-tasks">
+			<checkbox-app
+				(check)="toggleFilter(true)"
+				(uncheck)="toggleFilter(false)">
+			</checkbox-app>
+			Show my tasks only
+		</div>
+	</sub-panel-app>
 
-<task-list-app
-	[tasks]="items$ | async"
-	[selection]="selected$ | async"
-	(taskSelect)="select.emit($event)"
-	(taskUnselect)="unselect.emit($event)"
-	(openCreateDlg)="openCreateDlg()">
-</task-list-app>
+	<task-list-app
+		[tasks]="items$ | async"
+		[selection]="selected$ | async"
+		(taskSelect)="onItemSelected($event)"
+		(taskUnselect)="onItemUnselected($event)"
+		(openCreateDlg)="openCreateDlg()"
+		(bottomReached)="loadMore()">
+	</task-list-app>
+</div>
 
 <selection-bar-app
 	*ngIf="(selected$ | async).size > 0"
@@ -27,15 +30,18 @@
 	(close)="resetSelection()"
 	(delete)="deleteSelected()">
 
-	<context-menu-app xPosition="-171" yPosition="-101">
-		<context-menu-trigger-app>
-			<button class="icon light">
-				<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
-			</button>
-		</context-menu-trigger-app>
-	</context-menu-app>
+	<div class="flex">
+		<context-menu-app xPosition="-171" yPosition="-25">
+			<context-menu-trigger-app>
+				<button class="icon light">
+					<icon-app fontSet="svg" name="3-dots-vertical" size="m"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+		</context-menu-app>
 
-	<button class="icon light" (click)="deleteSelected()">
-		<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
-	</button>
+		<button class="icon light" (click)="deleteSelected()">
+			<icon-app fontSet="svg" name="trash-bin" size="m"></icon-app>
+		</button>
+	</div>
+
 </selection-bar-app>

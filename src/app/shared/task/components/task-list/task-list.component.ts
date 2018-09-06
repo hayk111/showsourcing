@@ -15,6 +15,7 @@ export class TaskListComponent implements OnInit {
 	@Output() taskSelect = new EventEmitter<Task>();
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() openCreateDlg = new EventEmitter<null>();
+	@Output() bottomReached = new EventEmitter<null>();
 
 	hoverIndex: number;
 
@@ -23,7 +24,6 @@ export class TaskListComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		console.log(this.tasks);
 	}
 
 	hoverRow(index: number) {
