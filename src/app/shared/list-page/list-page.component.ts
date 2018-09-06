@@ -123,7 +123,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/**
 	 * refetchs the query and will merge with existing config
 	 */
-	refetch(config: SelectParamsConfig) {
+	refetch(config?: SelectParamsConfig) {
 		this.listResult.refetch(config);
 	}
 
