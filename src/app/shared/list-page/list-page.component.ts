@@ -30,7 +30,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** can be used on when to fetch more etc. */
 	protected listResult: ListQuery<T>;
 	// query  that can be used at the start for filtering
-	protected initialQuery = '';
+	protected initialQuery = 'deleted == false';
 	filterList = new FilterList([
 		// initial filters
 	], this.initialQuery);
@@ -88,7 +88,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		});
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
-			tap(items => this.items = items)
+			tap(items => this.items = items),
 		);
 	}
 
