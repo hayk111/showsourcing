@@ -1,0 +1,46 @@
+
+<ng-container *ngFor="let type of filterBtns">
+
+	<ng-container *ngIf="filterMap.get(type).length === 0; else list">
+
+		<label>
+			{{ type }}
+		</label>
+
+		<button class="secondary-light fullWidth"
+			(click)="btnClicked.emit(type)">
+			Filter {{ type }}
+		</button>
+
+	</ng-container>
+
+		<!-- if there is a filter the button doesn't appear and we display a list of filters -->
+		<ng-template #list>
+			<div class="flexBetween">
+				<label>
+					{{ type }}
+				</label>
+				<span class="edit pointer"
+					(click)="btnClicked.emit(type)"
+					i18n="span|Edit filter selection@@global_edit">
+					Edit
+				</span>
+				<span class="clear pointer"
+					(click)="reset.emit(type)"
+					i18n="span|Clear filter selection@@global_clear">
+					Clear
+				</span>
+			</div>
+
+			<div class="flexColumn">
+				<checkbox-app
+					*ngFor="let filter of filterMap.get(type)"
+					[checked]="true"
+					(uncheck)="removeFilter(filter)">
+					{{ getDisplayName(filter, type) }}
+				</checkbox-app>
+			</div>
+
+		</ng-template>
+
+</ng-container>

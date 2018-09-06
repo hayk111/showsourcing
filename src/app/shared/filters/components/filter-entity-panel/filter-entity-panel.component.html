@@ -1,4 +1,4 @@
-	<label>Search {{ title }}</label>
+	<label>Search {{ type }}</label>
 
 	<div class="section">
 		<input type="text" placeholder="Search" (input)="search($event.target.value)"/>
@@ -28,7 +28,6 @@
 			(uncheck)="onItemRemoved(choice)">
 			<span>{{ formatDisplayName(type, choice) }}</span>
 		</checkbox-app>
-
 
 	</div>
 

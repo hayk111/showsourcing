@@ -2,6 +2,7 @@
 
 <!-- BTN PANEL -->
 <side-panel-app *ngIf="view === 'BTNS'">
+
   <side-panel-title-app>
     Filters
   </side-panel-title-app>
@@ -9,17 +10,17 @@
     Clear All Filters
   </side-panel-action-app>
 
-  <product-filters-btns-app
-    (removeFilter)="removeFilter($event)"
-    (addFilter)="addFilter($event)"
-    (resetType)="resetType($event)"
-    (typeClicked)="openByTypePanel($event)"></product-filters-btns-app>
+  <filter-btn-list-app></filter-btn-list-app>
+
+  <checkbox-app>Only favorites</checkbox-app>
+
+  <checkbox-app>Show archived</checkbox-app>
 
 </side-panel-app>
 
 
 
-<!-- SELECTION BY TYPE PANEL -->
+<!-- SELECT ENTITY PANEL -->
 <side-panel-app *ngIf="view === 'BY_TYPE'">
   <side-panel-title-app (click)="openBtnPanel()">
     <icon-app fontSet="fa" name="angle-left"></icon-app>
@@ -29,6 +30,6 @@
     Clear All
   </side-panel-action-app>
 
-  <product-filter-by-entity-app></product-filter-by-entity-app>
+  <filter-entity-selection-app></filter-entity-selection-app>
 
 </side-panel-app>
