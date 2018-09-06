@@ -1,4 +1,4 @@
-<div *ngIf="project$ | async as project">
+<ng-container *ngIf="project$ | async as project">
 	<top-panel-app
 		[title]="project.name"
 		[buttonName]="'Add Project'"
@@ -33,4 +33,4 @@
 		(sort)="sort($event)"
 		(delete)="deassociateProduct($event)">
 	</project-product-list-app>
-</div>
+</ng-container>

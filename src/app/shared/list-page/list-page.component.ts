@@ -29,9 +29,11 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
 	protected listResult: ListQuery<T>;
+	// query  that can be used at the start for filtering
+	protected initialQuery = 'deleted == false';
 	filterList = new FilterList([
 		// initial filters
-	]);
+	], this.initialQuery);
 	/** property we sort by on first query */
 	protected initialSortBy = 'creationDate';
 
@@ -75,6 +77,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	ngOnInit() {
 		this.setItems();
 		this.setSelection();
+		this.setFilters();
 	}
 
 	/** subscribe to items and get the list result */
@@ -85,9 +88,11 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		});
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
-			tap(items => this.items = items)
+			tap(items => this.items = items),
 		);
+	}
 
+	protected setFilters() {
 		this.filterList
 			.valueChanges$
 			.subscribe(_ => {

@@ -7,16 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 	styleUrls: ['./project-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailsComponent implements OnInit {
-
-	constructor() { }
-
-	ngOnInit() {
-
-	}
-
-	openCreateDlg() {
-
-	}
+export class ProjectDetailsComponent {
 
 }
