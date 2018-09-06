@@ -48,7 +48,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		this.projectId = id;
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(proj => this.project = proj);
-		this.initialQuery = `projects.id == "${id}" AND deleted == false`;
+		this.initialPredicate = `projects.id == "${id}" AND deleted == false`;
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		super.ngOnInit();
@@ -61,7 +61,6 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	deassociateProduct(product: Product) {
 		this.featureSrv.manageProjectsToProductsAssociations([this.project], [], [product]).pipe(
 			tap(() => {
-				this.refetch({ query: this.filterList.asQuery() });
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
@@ -79,7 +78,6 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 	associatedProductsWithProject({ selectedProducts, unselectedProducts }: { selectedProducts: Product[], unselectedProducts: Product[] }) {
 		return this.featureSrv.manageProjectsToProductsAssociations([this.project], selectedProducts, unselectedProducts).pipe(
 			tap(() => {
-				this.refetch({ query: this.filterList.asQuery() });
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: 'Products Updated',
