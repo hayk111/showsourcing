@@ -43,7 +43,13 @@ import { FiltersModule } from '~shared/filters';
 		ProductGridCardComponent,
 		ProductFiltersComponent
 	],
-	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent, ProductGridCardComponent],
+	exports: [
+		FindProductsDialogComponent,
+		ProductsListViewComponent,
+		ProductsCardViewComponent,
+		ProductGridCardComponent,
+		ProductFiltersComponent
+	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: [ProductFeatureService]
 })
