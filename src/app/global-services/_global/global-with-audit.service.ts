@@ -25,18 +25,6 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 		super(apolloState, fields, sing, plural);
 	}
 
-	/**
-	 * @inheritDoc
-	 * when using getList we want items that are not deleted
-	 */
-	getListQuery(paramsConfig: SelectParamsConfig, fields?: string | string[], client?: Client): ListQuery<T> {
-		const result = super.getListQuery(paramsConfig, fields, client);
-		result.items$ = result.items$.pipe(
-			map(items => items.filter(item => !item.deleted))
-		);
-		return result;
-	}
-
 	/** @inheritDoc
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
