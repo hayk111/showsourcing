@@ -7,6 +7,6 @@ export const realmDateFormat = (date: Date) => {
 	const minutes = addZero(date.getMinutes());
 	const secs = addZero(date.getSeconds());
 	return `${year}-${month}-${day}@${hour}:${minutes}:${secs}`;
-}
+};
 
 const addZero = number => number < 9 ? `0${number}` : number;

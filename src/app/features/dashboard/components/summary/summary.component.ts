@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Input } from '@angular/core';
 import { Task } from '~models';
 import { DashboardCounters } from '~features/dashboard/services/dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'dashboard-summary-app',
@@ -16,6 +17,14 @@ export class SummaryComponent {
 	@Input() user: User;
 	@Input() counters: DashboardCounters;
 	@Input() tasks: Task[] = [];
-	constructor(private userSrv: UserService) { }
-	get taskScore() { return this.counters ? (this.counters.tasksInProgress / this.counters.totalTasks) : 0; }
+
+	constructor(private router: Router) { }
+
+	goToWorkspace() {
+		this.router.navigate(['workspace', 'my-tasks']);
+	}
+
+	get taskScore() {
+		return this.counters ? (this.counters.tasksDone / this.counters.totalTasks) * 100 : 0;
+	}
 }
