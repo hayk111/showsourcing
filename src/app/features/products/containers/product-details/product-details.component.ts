@@ -37,7 +37,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			takeUntil(this._destroy$),
-			map(params => params.id),
+			map(params => params.id)
 		);
 
 		this.product$ = id$.pipe(

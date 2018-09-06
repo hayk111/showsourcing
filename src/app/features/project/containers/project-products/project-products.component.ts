@@ -48,7 +48,7 @@ export class ProjectProductsComponent extends ListPageComponent<Product, Product
 		this.projectId = id;
 		this.project$ = this.projectSrv.queryOne(id);
 		this.project$.subscribe(proj => this.project = proj);
-		this.initialQuery = `project.id == "${id}"`;
+		this.initialQuery = `projects.id == "${id}" AND deleted == false`;
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		super.ngOnInit();

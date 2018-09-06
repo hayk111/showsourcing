@@ -39,7 +39,7 @@ export class FilterList {
 	private _query: string;
 	asQuery(): string { return this._query; }
 
-	constructor(startFilters: Filter[] = [], private initialPredicate?: string) {
+	constructor(startFilters: Filter[] = []) {
 		// adding the start filters
 		this.setFilters(startFilters);
 	}
@@ -94,12 +94,7 @@ export class FilterList {
 	}
 
 	private filtersToQuery(filters: Filter[]): string {
-		const query = FilterList.filtersToQuery(filters);
-
-		if (this.initialPredicate && query)
-			return `${this.initialPredicate} AND (${query})`;
-		if (this.initialPredicate)
-			return this.initialPredicate || query;
+		return FilterList.filtersToQuery(filters);
 	}
 
 	static filtersToQuery(filters: Filter[]) {
