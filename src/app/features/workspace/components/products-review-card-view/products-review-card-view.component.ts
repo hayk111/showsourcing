@@ -73,7 +73,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		const field = fieldSortByTokens[0];
 
 		if (values && values.length > 0) {
-			return (values[0] && values[0][field]) ? values[0][field].name : null;
+			return (values[0] && values[0][field]) ? values[0][field] : null;
 		}
 		return null;
 	}
@@ -98,10 +98,13 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		}
 	}
 
-	openWorkflowSelector(event) {
-
-		event.stopPropagation();
-		return false;
+	closeContextualMenuIfOpened(archiveMenu, workActionMenu) {
+		if (archiveMenu && archiveMenu.menuOpen) {
+			archiveMenu.closeMenu();
+		}
+		if (workActionMenu && workActionMenu.menuOpen) {
+			workActionMenu.closeMenu();
+		}
 	}
 
 }

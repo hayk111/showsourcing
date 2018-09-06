@@ -72,6 +72,10 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	@Output() select = new EventEmitter<any>();
 	/** Trigger the event when the element is unselected via the checkbox */
 	@Output() unselect = new EventEmitter<any>();
+	/** Trigger the event when the mouse enters the card */
+	@Output() cardEnter = new EventEmitter<any>();
+	/** Trigger the event when the mouse enters the card */
+	@Output() cardLeave = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 
@@ -204,10 +208,12 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 
 	leaveCard() {
 		this.cardEntered = false;
+		this.cardLeave.emit();
 	}
 
 	enterCard() {
 		this.cardEntered = true;
+		this.cardEnter.emit();
 	}
 
 	leaveMenuTrigger() {

@@ -2,7 +2,7 @@
 
 		<context-menu-trigger-app class="flex {{selectSize}}">
 			<status-badge-app *ngIf="!isSendToWorkFlow" [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
-			<icon-app *ngIf="isSendToWorkFlow" fontSet="fa" name="caret-down"></icon-app>
+			<div class="caretCtnr"><icon-app *ngIf="isSendToWorkFlow" fontSet="fa" name="caret-down"></icon-app></div>
 		</context-menu-trigger-app>
 
 		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">

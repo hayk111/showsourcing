@@ -30,6 +30,10 @@
         display: none;
       }
 
+      user-picture-app {
+        display: none;
+      }
+
       checkbox-app {
         display: block;
       }
@@ -158,6 +162,7 @@ kanban-item-card-app {
     font-family: 'Source Sans Pro', sans-serif;
     color: var(--color-txt-strong);
     margin-bottom: 0;
+    text-align: left;
   }
 
   h3 {
@@ -166,6 +171,7 @@ kanban-item-card-app {
     font-family: 'Source Sans Pro', sans-serif;
     color: #5d6d8b;
     margin-bottom: 5px;
+    text-align: left;
   }
 }
 
@@ -185,8 +191,26 @@ kanban-item-card-app {
   font-size: 13px;
   font-weight: 600;
 
+  cursor: pointer;
+  height: 32px;
+  padding: 0px var(--spacing-ms);
+  border-radius: 2px;
+  font-size: var(--font-size-m);
+  border: none;
+  outline: none;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: nowrap;
+  text-align: center;
+  transition: background 0.3s;
+
   .button-icon {
-    border-left: solid 1px #000;
+    border-left: solid 0.5px rgba(255, 255, 255, 0.3);
+    /* padding-left: 10px;
+    display: flex;
+    align-items: center; */
+    height: 100%;
   }
 
   &.button-archive {
@@ -194,6 +218,12 @@ kanban-item-card-app {
     background-color: var(--color-secondary);
     margin-top: 10px;
 
+    .button-icon {
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+  
     icon-app {
       color: var(--color-secondary-dark);
     }

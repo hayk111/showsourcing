@@ -43,10 +43,6 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
-	onItemFavorited(event) {
-		console.log('>> onItemFavorited - event = ', event);
-	}
-
 	ngOnInit() {
 		this.workspaceSrv.getProducts(this.currentSort).pipe(
 			takeUntil(this._destroy$)

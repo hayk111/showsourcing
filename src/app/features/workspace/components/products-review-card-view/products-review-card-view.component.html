@@ -1,9 +1,12 @@
 <div class="card-container">
   <div *ngFor="let category of groupedProducts; first as first; index as i; trackBy: trackByFn" class="category-section">
-    <div class="category-header flex" *ngIf="category.label as supplier">
+    <div class="category-header flex" *ngIf="category.label as element">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
+             *ngIf="currentSort.sortBy === 'supplier.name'"
              (dragstart)="preventDrag($event)">
+        <user-picture-app [user]="category.label" *ngIf="currentSort.sortBy === 'createdBy.lastName'"
+             [image]="category.label?.avatar"></user-picture-app>
         <checkbox-app [checked]="category.checked"
           (check)="onChecked(category)"
           (uncheck)="onUnchecked(category)"
@@ -11,16 +14,28 @@
         </checkbox-app>
       </div>
       <div class="description flexBetween" (click)="clickTitle()">
-        <div class="descriptionTopCtnr">
-          <div class="titleCtnr"><h2>{{ category.label || 'Unnamed' }}</h2></div>
+        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
+          <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
           <div class="descriptionCtnr">
             <h3>
               {{ supplier?.supplierType?.name || 'Supplier' }}
-              <ng-container *ngIf="supplier.country"> - {{ supplier.country | const:'country' }}</ng-container>
+              <ng-container *ngIf="element.country"> - {{ element.country | const:'country' }}</ng-container>
             </h3>
           </div>
         </div>
-      </div>
+        <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'category.name'">
+            <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
+            <div class="descriptionCtnr">
+              <h3>{{ category.values.length }} products</h3>
+            </div>
+          </div>
+          <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'createdBy.lastName'">
+            <div class="titleCtnr"><h2>{{ category.label.firstName }} {{ category.label.lastName }}</h2></div>
+            <div class="descriptionCtnr">
+              <h3>{{ category.values.length }} products</h3>
+          </div>
+          </div>
+        </div>
     </div>
     <div class="products-section flex">
       <div *ngFor="let product of category.values; index as i; trackBy: trackByFn"
@@ -42,10 +57,10 @@
           [selectFromCard]="true"
           [enabledHoverContent]="true"
           (select)="select.emit(product, false)"
-          (unselect)="unselect.emit(product, false)">
+          (unselect)="unselect.emit(product, false)"
+          (cardLeave)="closeContextualMenuIfOpened(archiveMenu, workActionMenu)">
           <div class="flexColumn card-hover-block">
-            <!-- button class="button-action">Archive</button -->
-            <context-menu-app xPosition="0" yPosition="42">
+            <context-menu-app xPosition="0" yPosition="42" #archiveMenu>
               <context-menu-trigger-app>
                 <button class="secondary flexBetween sort-1 button-action button-archive"><!-- style="width: 250px;" -->
                   Archive
@@ -59,19 +74,21 @@
                 Delete Product
               </context-menu-item-app>
             </context-menu-app>
-              
-            <button class="secondary flexBetween sort-1 button-action button-workflow"><!-- (click)="sentToWorkflow.emit(product)" -->
+
+            <div class="secondary flexBetween sort-1 button-action button-workflow">
               Send to workflow
               <div class="button-icon">
                 <workflow-action-app
+                  #workActionMenu
                   [entity]="product"
                   selectSize="s"
-                  [xPosition]="-3"
+                  [xPosition]="-168"
+                  [yPosition]="25"
                   [typeEntity]="prodERM"
                   [isSendToWorkFlow]="true">
                 </workflow-action-app>
               </div>
-            </button>
+            </div>
           </div>
         </kanban-item-card-app>
       </div>
