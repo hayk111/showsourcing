@@ -29,14 +29,15 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	items: Array<T> = [];
 	/** can be used on when to fetch more etc. */
 	protected listResult: ListQuery<T>;
-	// query  that can be used at the start for filtering
-	protected initialQuery = 'deleted == false';
+	// predicate that can be used at the start for filtering
+	protected initialPredicate = 'deleted == false';
+	protected currentSearch = '';
+	/** property we sort by on first query */
+	protected initialSortBy = 'creationDate';
+	// filters coming from the filter panel if any.
 	filterList = new FilterList([
 		// initial filters
 	]);
-	/** property we sort by on first query */
-	protected initialSortBy = 'creationDate';
-
 	/** Whether the items are pending */
 	pending = true;
 	/** keeps tracks of the current selection */
@@ -47,16 +48,18 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	view: 'list' | 'card' = 'list';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
-	/** if all the selected items are favorite or not by default is true but */
-	allSelectedFavorite = true;
+	/** if all the selected items are favorite or not */
+	allSelectedFavorite = true; // true by default for convenience, doesn't affect end result
 	/** whether the preview panel is visible, the preview panel is the panel that opens
 	 * when clicking an item in the table
 	*/
 	previewOpen: boolean;
 	/** previewed item */
 	previewed: T;
-	protected editDlgComponent: new (...args: any[]) => any;
+	/** dialog to edit an item in the list.. */
+	protected editDlgComponent = EditionDialogComponent;
 
+	/** for the smart search feature... */
 	searchFilterElements$: Observable<any[]>;
 	smartSearchFilterElements$: Observable<any[]>;
 
@@ -70,7 +73,6 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		protected entityMetadata?: EntityMetadata,
 		protected createDlgComponent: new (...args: any[]) => any = CreationDialogComponent) {
 		super();
-		this.editDlgComponent = EditionDialogComponent;
 	}
 
 	/** init */
@@ -83,40 +85,44 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** subscribe to items and get the list result */
 	protected setItems() {
 		this.listResult = this.featureSrv.getListQuery({
-			query: this.initialQuery,
+			query: this.initialPredicate,
 			sortBy: this.initialSortBy
 		});
+
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
 			tap(items => this.items = items),
 		);
 	}
 
+	/** when the filter change we want to refetch the items with a new predicate */
 	protected setFilters() {
 		this.filterList
 			.valueChanges$
-			.subscribe(_ => {
-				// should detect changes since filterList isn't immutable yet
-				this.onNewFilter(this.filterList.asQuery());
-			});
+			.subscribe(_ => this.onPredicateChange());
 	}
 
+	/** gets the selection from the selection service */
 	protected setSelection() {
 		this.selected$ = this.selectionSrv.selection$;
 		this.selectedItems$ = combineLatest(this.selected$, this.items$,
-			(selected, items) => {
-				return items.filter(item => selected.has(item.id));
-			});
+			(selected, items) => items.filter(item => selected.has(item.id))
+		);
 	}
 
+	/** when the items are loading */
 	protected onLoad() {
 		this.pending = true;
 	}
 
+	/** when the items are loaded */
 	protected onLoaded() {
 		this.pending = false;
 	}
 
+	/**
+	 * refetchs the query and will merge with existing config
+	 */
 	refetch(config: SelectParamsConfig) {
 		this.listResult.refetch(config);
 	}
@@ -131,18 +137,19 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 		this.refetch({ ...sort });
 	}
 
-	onNewFilter(query: string) {
-		if (this.initialQuery && query)
-			this.refetch({ query: `${this.initialQuery} AND (${query})` });
-		else if (this.initialQuery)
-			this.refetch({ query: this.initialQuery || query });
+	search(str: string) {
+		this.currentSearch = str;
+		this.onPredicateChange();
 	}
 
-	search(str: string) {
-		if (str)
-			this.filterList.upsertFilter({ type: FilterType.SEARCH, value: str });
-		else
-			this.filterList.removeFilterType(FilterType.SEARCH);
+	onPredicateChange() {
+		const allFilters = [
+			this.initialPredicate,
+			this.currentSearch,
+			this.filterList.asPredicate()
+		].filter(p => !!p).join(' AND ');
+
+		this.refetch({ query: allFilters });
 	}
 
 	get selectionArray() {

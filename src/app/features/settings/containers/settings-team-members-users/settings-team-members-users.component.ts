@@ -60,14 +60,16 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	}
 
 	search(str: string) {
-		if (str)
-			this.filterList.upsertFilter({
-				type: FilterType.SEARCH,
-				value: str,
-				fields: ['user.lastName', 'user.firstName', 'user.email']
-			});
-		else
-			this.filterList.removeFilterType(FilterType.SEARCH);
+		// TODO: cedric put this back in
+
+		// if (str)
+		// 	this.filterList.upsertFilter({
+		// 		type: FilterType.SEARCH,
+		// 		value: str,
+		// 		fields: ['user.lastName', 'user.firstName', 'user.email']
+		// 	});
+		// else
+		// 	this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	/** Opens the dialog for inviting a new user */

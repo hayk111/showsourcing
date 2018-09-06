@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { takeUntil, tap, map } from 'rxjs/operators';
 import { Entity } from '~models';
-import { Filter, FilterGroup, FilterType } from '~shared/filters/models';
+import { Filter, FilterType } from '~shared/filters/models';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AutoUnsub } from '~utils';
 
