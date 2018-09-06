@@ -72,7 +72,7 @@ export class TokenService {
 
 	/** gets a guest refresh token for when we are authenticated as guest */
 	getGuestRefreshToken(token: string): TokenService {
-		this.http.get<RefreshTokenResponse>(`https://ros-dev3.showsourcing.com/token/${token}`).pipe(
+		this.http.get<RefreshTokenResponse>(`${environment.apiUrl}/token/${token}`).pipe(
 			map(resp => resp.refresh_token)
 		).subscribe(refreshToken => this._guestRefreshToken$.next(refreshToken));
 		return this;

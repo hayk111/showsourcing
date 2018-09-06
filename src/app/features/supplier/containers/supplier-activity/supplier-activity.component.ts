@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { NewContactDlgComponent } from '~features/supplier/containers/new-contact-dlg/new-contact-dlg.component';
 import { ActivityService } from '~shared/activity/services/activity.service';
+import { ActivityFeed } from '~shared/activity/interfaces/client-feed.interfaces';
 
 @Component({
 	selector: 'supplier-activity-app',
@@ -21,9 +22,11 @@ import { ActivityService } from '~shared/activity/services/activity.service';
 	}
 })
 export class SupplierActivityComponent extends AutoUnsub implements OnInit {
+
 	supplier: Supplier;
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
+	feedResult: ActivityFeed;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -54,6 +57,7 @@ export class SupplierActivityComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getProducts(id))
 		);
 
+		this.feedResult = this.activitySrv.getSupplierFeed(this.route.parent.snapshot.params.id);
 	}
 
 	/** updates supplier */

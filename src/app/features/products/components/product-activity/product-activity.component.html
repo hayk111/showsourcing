@@ -1,5 +1,5 @@
 <flat-feed-list-app
-	*ngFor="let feed of feedResult"
-	[activities]="feed"
+	[entity]="product$ | async"
+	[activities]="feedResult.feed$ | async"
 	[typeEntity]="typeEntity">
 </flat-feed-list-app>
