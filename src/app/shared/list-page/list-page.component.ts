@@ -33,7 +33,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	protected initialQuery = 'deleted == false';
 	filterList = new FilterList([
 		// initial filters
-	], this.initialQuery);
+	]);
 	/** property we sort by on first query */
 	protected initialSortBy = 'creationDate';
 
@@ -83,7 +83,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** subscribe to items and get the list result */
 	protected setItems() {
 		this.listResult = this.featureSrv.getListQuery({
-			query: this.filterList.asQuery(),
+			query: this.initialQuery,
 			sortBy: this.initialSortBy
 		});
 		this.items$ = this.listResult.items$.pipe(
@@ -97,7 +97,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 			.valueChanges$
 			.subscribe(_ => {
 				// should detect changes since filterList isn't immutable yet
-				this.refetch({ query: this.filterList.asQuery() });
+				this.onNewFilter(this.filterList.asQuery());
 			});
 	}
 
@@ -129,6 +129,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	/** Sorts items based on sort.sortBy */
 	sort(sort: Sort) {
 		this.refetch({ ...sort });
+	}
+
+	onNewFilter(query: string) {
+		if (this.initialQuery && query)
+			return `${this.initialQuery} AND (${query})`;
+		if (this.initialQuery)
+			return this.initialQuery || query;
 	}
 
 	search(str: string) {

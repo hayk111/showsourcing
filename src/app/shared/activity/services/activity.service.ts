@@ -69,19 +69,24 @@ export class ActivityService {
 		// when we have one load more emitted we get the previous result,
 		// then we get the feed result after that previous result
 		const feed$ = combineLatest(_token$, _loadMore$).pipe(
-			switchMap(([token]) => _previousResult$.pipe(map(previous => [token, previous]))),
+			switchMap(([token]) => _previousResult$.pipe(
+				first(),
+				map(previous => [token, previous]))
+			),
 			switchMap(([token, prev]: any) => this.getNextFeedResult(feedName, feedId, token, prev)),
+			tap(res => _previousResult$.next(res)),
 			scan((pre, curr) => ([...pre, ...curr]), [])
 		);
 
 		return { feed$, loadMore };
 	}
 
-	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[])
+	private getNextFeedResult(feedName: string, feedId: string, token: string, prev: GetStreamGroup[] | GetStreamActivity[] = [])
 		: Observable<GetStreamGroup[] | GetStreamActivity[]> {
 		// we have a feedname like team:id but we need to do client.feed('team', 'id');
 		const stream = this.client.feed(feedName, feedId, token);
-		return from(stream.get({ limit: this.LIMIT })).pipe(
+		const id_lt = prev.length > 0 ? prev[prev.length - 1].id : undefined;
+		return from(stream.get({ limit: this.LIMIT, id_lt })).pipe(
 			map((res: GetStreamResponse) => res.results)
 		);
 	}
