@@ -6,6 +6,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	name: string;
 	type: any;
 	code: string;
+	done: boolean;
 	dueDate: Date;
 	completionDate: Date;
 	assignee: User;

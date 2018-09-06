@@ -1,0 +1,53 @@
+<dialog-app>
+	<dialog-header-app *ngIf="!pending">
+		Create Task
+	</dialog-header-app>
+
+	<form *ngIf="!pending" [formGroup]="group">
+
+		<!-- name -->
+		<form-field-app>
+			<label-app> Name </label-app>
+			<input inputApp formControlName="name" type="text" placeholder="Type a name"/>
+		</form-field-app>
+		<!-- description -->
+		<form-field-app>
+			<label-app> description </label-app>
+			<textarea inputApp formControlName="description" type="text" placeholder="Description of the task"></textarea>
+		</form-field-app>
+		<!-- due date -->
+		<form-field-app>
+			<label-app> Due Date </label-app>
+			<input inputApp formControlName="dueDate" type="text" placeholder="Select a due date"/>
+		</form-field-app>
+		<!-- assignee -->
+		<form-field-app>
+			<label-app> Assignee </label-app>
+			<input inputApp formControlName="assignee" type="text" placeholder="Assign this task"/>
+		</form-field-app>
+		<!-- type -->
+		<form-field-app>
+			<label-app> Type </label-app>
+			<select inputApp formControlName="type" type="text" placeholder="Select a type">
+				<option *ngIf="group.get('type').pristine" value="">Select</option>
+				<option *ngFor="let option of options" [value]="option"> {{option}}</option>
+			</select>
+		</form-field-app>
+		<!-- product -->
+		<form-field-app *ngIf="group.get('type').value === 'product'">
+			<label-app> Product </label-app>
+			<input inputApp formControlName="product" type="text" placeholder="Select a product"/>
+		</form-field-app>
+		<!-- supplier -->
+		<form-field-app *ngIf="group.get('type').value === 'supplier'">
+			<label-app> Supplier </label-app>
+			<input inputApp formControlName="supplier" type="text" placeholder="Select a supplier"/>
+		</form-field-app>
+	</form>
+
+	<dialog-footer-app *ngIf="!pending">
+		<input [disabled]="!group.valid" type="submit" value="Create" (click)="onSubmit()"/>
+	</dialog-footer-app>
+
+	<spinner-app *ngIf="pending"></spinner-app>
+</dialog-app>

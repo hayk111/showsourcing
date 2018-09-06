@@ -15,13 +15,14 @@
 <task-list-app
 	[tasks]="items$ | async"
 	[selection]="selected$ | async"
+	[fullUser]="true"
 	(taskSelect)="select.emit($event)"
 	(taskUnselect)="unselect.emit($event)"
 	(openCreateDlg)="openCreateDlg()">
 </task-list-app>
 
 <selection-bar-app
-	*ngIf="(selected$ | async).size > 0"
+	*ngIf="(selected$ | async)?.size > 0"
 	[selection]="selected$ | async"
 	[hasDelete]="false"
 	(close)="resetSelection()"

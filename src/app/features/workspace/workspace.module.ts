@@ -8,6 +8,7 @@ import { WorkspaceWorkflowFeatureService } from '~features/workspace/services/wo
 import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { WorkflowModule } from '~features/workflow/workflow.module';
+import { TaskModule } from '~shared/task';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { WorkflowModule } from '~features/workflow/workflow.module';
 		TopPanelModule,
 		SelectionBarModule,
 		ActionBarModule,
-		WorkflowModule
+		WorkflowModule,
+		TaskModule
 	],
 	declarations: [
 		WorkspaceComponent,
