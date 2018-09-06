@@ -1,7 +1,7 @@
 <h1 class="title">Task</h1>
-<!-- <div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackByFn"
-	[tasks]="task" [ngClass]="{'border-top': first, 'no-border': last, 'hovered': hoverIndex === i}"
-	(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+<div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackByFn"
+	[ngClass]="{'border-top': first, 'no-border': last, 'hovered': hoverIndex === i}"
+	(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)" class="flex">
 	<checkbox-app
 		[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
 		[checked]="selection.has(task.id)"
@@ -10,22 +10,5 @@
 	</checkbox-app>
 	<task-app [task]="task" [fullUser]="fullUser"></task-app>
 </div>
-<divider-app></divider-app>
-<button class="light">+ Create a new task</button>
--->
-
-<div class="flex">
-	<checkbox-app></checkbox-app>
-	<task-app [fullUser]="true"></task-app>
-</div>
-<div class="flex">
-	<checkbox-app></checkbox-app>
-	<task-app></task-app>
-</div>
-<div class="flex">
-	<checkbox-app></checkbox-app>
-	<task-app></task-app>
-</div>
-
 <divider-app></divider-app>
 <button class="light" (click)="openCreateDlg.emit()">+ Create a new task</button>

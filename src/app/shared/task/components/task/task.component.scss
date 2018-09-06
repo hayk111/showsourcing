@@ -8,6 +8,7 @@
 	}
 
 	.task-name {
+		width: 420px;
 		color: var(--color-txt-strong);
 
 		icon-app {
@@ -15,9 +16,17 @@
 		}
 	}
 
-	.task-product {
-
+	.task-product, .task-supplier {
+		img-app {
+			height: 20px;
+    	width: 20px;
+		}
 	}
+
+	.task-supplier {
+		width: 260px;
+	}
+
 	.task-user-status {
 
 		user-picture-app {

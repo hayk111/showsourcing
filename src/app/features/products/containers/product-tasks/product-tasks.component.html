@@ -22,7 +22,7 @@
 </task-list-app>
 
 <selection-bar-app
-	*ngIf="(selected$ | async).size > 0"
+	*ngIf="(selected$ | async)?.size > 0"
 	[selection]="selected$ | async"
 	[hasDelete]="false"
 	(close)="resetSelection()"

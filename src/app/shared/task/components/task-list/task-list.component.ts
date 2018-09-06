@@ -23,6 +23,7 @@ export class TaskListComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+		console.log(this.tasks);
 	}
 
 	hoverRow(index: number) {
