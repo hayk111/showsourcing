@@ -18,7 +18,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
-	// map id, filter
 	@Input() selected = new Map<string, Filter>();
 	@Input() type: FilterType;
 	pending$ = new BehaviorSubject(true);

@@ -1,0 +1,7 @@
+.clear {
+	cursor: pointer;
+	&:hover{
+		text-decoration: underline;
+		color: var(--color-warn);
+	}
+}
