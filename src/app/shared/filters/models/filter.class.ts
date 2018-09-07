@@ -1,31 +1,35 @@
+import { ERM } from '~models';
 
-/** Filters contain a type, a value and a displayName
+/** Filters contain a type, a value and an optional entity
  * They represent the different filters that can be added from the
  * filter panel
 */
-export interface Filter {
-	type?: FilterType | string;
-	comparator?: string;
-	value?: any;
+export class Filter {
+	type: FilterType;
+	value: any;
 	entity?: any;
-	raw?: string;
-	fields?: string[];
+	constructor() { }
 }
 
-export enum FilterType {
-	SUPPLIER = 'supplier',
-	SUPPLIERS = 'suppliers',
-	EVENT = 'event',
-	EVENTS = 'events',
-	CATEGORY = 'category',
-	CATEGORIES = 'categories',
-	TAG = 'tag',
-	TAGS = 'tags',
-	PROJECT = 'project',
-	PROJECTS = 'projects',
-	CREATED_BY = 'createdBy',
-	PRODUCT_STATUS = 'status',
-	FAVORITE = 'favorite',
-	ARCHIVED = 'archived',
-	SEARCH = 'search',
+/** when a filter type is plural you can select many of them */
+export class FilterType {
+	static readonly SUPPLIER = 'supplier';
+	static readonly SUPPLIERS = 'suppliers';
+
+	static readonly EVENT = 'event';
+	static readonly EVENTS = 'events';
+
+	static readonly CATEGORY = 'category';
+	static readonly CATEGORIES = 'categories';
+
+	static readonly TAG = 'tag';
+	static readonly TAGS = 'tags';
+
+	static readonly PROJECT = 'project';
+	static readonly PROJECTS = 'projects';
+
+	static readonly CREATED_BY = 'createdBy';
+	static readonly PRODUCT_STATUS = 'status';
+	static readonly FAVORITE = 'favorite';
+	static readonly ARCHIVED = 'archived';
 }

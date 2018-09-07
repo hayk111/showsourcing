@@ -29,6 +29,7 @@ export class ERMService {
 		private eventService: EventService,
 		private teamService: TeamService) { }
 
+
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
 			case ERM.CATEGORY:

@@ -1,164 +1,38 @@
-<side-panel-app [hasTop]="false">
-
-		<!-- filter btn panel is a wrapper that displays a clear and close button at the top -->
-		<!-- inside it we put the filter btn that are gonna be displayed -->
-		<filter-btns-panel-app *ngIf="btnPanelShown" (reset)="onClear()">
-
-			<!-- (suppliers, events, etc) same display for basic entities  -->
-			<ng-container *ngFor="let type of basicFilterTypes">
-
-				<div class="editTitle flexBetween">
-					<label>
-						{{ type }}
-					</label>
 
 
-					<div *ngIf="byType.get(type).size > 0">
-						<span class="edit pointer"
-							(click)="toggleEntityPanel(type)"
-							i18n="span|Edit filter selection@@global_edit">
-							Edit
-						</span>
-						<span class="clear pointer"
-							(click)="onClearType(type)"
-							i18n="span|Clear filter selection@@global_clear">
-							Clear
-						</span>
-					</div>
-				</div>
+<!-- BTN PANEL -->
+<side-panel-app *ngIf="view === 'BTNS'">
+
+  <side-panel-title-app>
+    Filters
+  </side-panel-title-app>
+  <side-panel-action-app class="clear" (click)="resetAll()">
+    Clear All Filters
+  </side-panel-action-app>
+
+  <filter-btn-list-app
+    [filterBtns]="filterTypes"
+    (editClicked)="openEditPanel($event)"
+    (resetClicked)="resetType($event)">
+  </filter-btn-list-app>
 
 
-				<filter-btn-app
-					(click)="toggleEntityPanel(type)"
-					*ngIf="byType.get(type).size === 0">
-					<!-- TODO when i18n is updated update this line-->
-					Filter {{ type }}
-				</filter-btn-app>
-
-				<div class="flexColumn">
-					<checkbox-app
-						*ngFor="let filter of byType.get(type).values()"
-						[checked]="true"
-						(uncheck)="removeFilter(filter)">
-						{{ getDisplayName(filter, type) }}
-					</checkbox-app>
-				</div>
-			</ng-container>
-
-			<!-- (user) filter-tags have a little picture inside them -->
-			<ng-container *ngIf="filterType.CREATED_BY; let type">
-				<div class="editTitle flexBetween">
-					<label i18n="label|Created by filter title@@productFilters_created">
-						Created By
-					</label>
-
-					<div *ngIf="byType.get(type).size > 0">
-						<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|Edit filter selection@@global_edit">Edit</span>
-						<span class="clear pointer" (click)="onClearType(type)" i18n="span|Clear filter selection@@global_clear">Clear</span>
-					</div>
-				</div>
-
-				<filter-btn-app (click)="toggleEntityPanel(type)"
-					*ngIf="byType.get(type).size === 0"
-					i18n="button|Users filter button@@productFilters_users">
-					Filter users
-				</filter-btn-app>
-
-				<div class="flexWrap">
-					<filter-tag-app
-							(filterRemoved)="removeFilter(filter)"
-							*ngFor="let filter of byType.get(type).values()">
-							{{ filter.raw.lastName }} {{ filter.raw.firstName }}
-					</filter-tag-app>
-				</div>
-			</ng-container>
-
-
-			<!-- status -->
-			<ng-container *ngIf="filterType.PRODUCT_STATUS_TYPE; let type">
-				<div class="editTitle flexBetween">
-					<label i18n="label|Status filter title@@productFilters_status">
-						Status
-					</label>
-
-					<div *ngIf="byType.get(type).size > 0">
-						<span class="edit pointer" (click)="toggleEntityPanel(type)" i18n="span|Edit filter selection@@global_edit">Edit</span>
-						<span class="clear pointer" (click)="onClearType(type)" i18n="span|Clear filter selection@@global_clear">Clear</span>
-					</div>
-				</div>
-
-				<filter-btn-app (click)="toggleEntityPanel(type)"
-					*ngIf="byType.get(type).size === 0"
-					i18n="button|Status filter button@@productFilters_status">
-					Filter Status
-				</filter-btn-app>
-
-				<div class="flexColumn">
-					<checkbox-app
-						*ngFor="let filter of byType.get(type).values()"
-						[checked]="true"
-						(uncheck)="removeFilter(filter)">
-						<!-- we display the correct badge color -->
-						<div class="flex">
-							<span>{{ getDisplayName(filter, type) }}</span>
-						</div>
-
-					</checkbox-app>
-				</div>
-
-			</ng-container>
-
-
-			<!-- favorite -->
-			<div class="editTitle">
-				<label i18n="label|Favorite filter title@@productFilters_favorite">
-					Favorite
-				</label>
-			</div>
-
-			<checkbox-app [checked]="byType.get(filterType.FAVORITE).size > 0"
-				(check)="addFilter({ type: filterType.FAVORITE, value: true })"
-				(uncheck)="removeFilter({ type: filterType.FAVORITE, value: true })">
-				<div class="flex flexVAlign">
-					<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-					<p i18n="paragraph|Only favorites checkbox title@@productFilters_showFavorites">Only Show Favorites</p>
-				</div>
-			</checkbox-app>
+</side-panel-app>
 
 
 
-			<!-- archived -->
-			<div class="editTitle">
-				<label i18n="label|Archieved filter title@@productFilters_archived">
-					Archived
-				</label>
-			</div>
+<!-- SELECT ENTITY PANEL -->
+<side-panel-app *ngIf="view === 'BY_TYPE'">
+  <side-panel-title-app (click)="openBtnPanel()">
+    <icon-app fontSet="fa" name="angle-left"></icon-app>
+    BACK
+  </side-panel-title-app>
+  <side-panel-action-app class="clear" (click)="resetType()">
+    Clear All
+  </side-panel-action-app>
 
-			<checkbox-app
-				[checked]="byType.get(filterType.ARCHIVED).size > 0"
-				(check)="addFilter({ type: filterType.ARCHIVED, value: true })"
-				(uncheck)="removeFilter({ type: filterType.ARCHIVED, value: false })"
-				i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
-				Show Archived Products
-			</checkbox-app>
-
-		</filter-btns-panel-app>
-
-
-		<!-- filter selection panel displays a close / done button at the top -->
-		<filter-selection-panel-app *ngIf="!btnPanelShown" (close)="toggleEntityPanel()"
-																(clear)="onClear()">
-			<filter-entity-panel-app
-				[title]="typeSelected"
-				[type]="typeSelected"
-				*ngIf="entityPanelShown"
-				[choices]="choices$ | async"
-				[relevantChoices]="relevantChoices$ | async"
-				[selected]="byType.get(typeSelected)"
-				(filterAdded)="addFilter($event)"
-				(filterRemoved)="removeFilter($event)">
-			</filter-entity-panel-app>
-
-		</filter-selection-panel-app>
+  <filter-selection-entity-panel-app
+    []
+    *ngIf="view === 'SELECTION'"></filter-selection-entity-panel-app>
 
 </side-panel-app>

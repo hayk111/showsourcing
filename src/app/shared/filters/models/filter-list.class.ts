@@ -2,8 +2,22 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, share, filter, skip } from 'rxjs/operators';
 
-import { Filter, FilterType } from '~shared/filters/models/filter.class';
+import { Filter } from '~shared/filters/models/filter.class';
 import { tap } from 'rxjs/internal/operators/tap';
+import { EntityMetadata, ERM } from '~models';
+import { ID } from '~utils/id.utils';
+import { FilterType } from '~shared/filters';
+
+
+/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
+ * Allows us to check in constant time if a filter type has a filter of value x.
+ *
+ * For example we can answer the question: Does this product has a filter on supplier
+ * with id = 10 ?
+ *
+ * byType.get(ERM.SUPPLIER).has(id-10)
+ */
+export type FilterByType = Map<FilterType, Map<ID, Filter>>;
 
 
 export class FilterList {
@@ -22,15 +36,8 @@ export class FilterList {
 	}
 	asFilters() { return this._filters; }
 
-	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
-	 * Allows us to check in constant time if a filter type has a filter of value x.
-	 *
-	 * For example we can answer the question: Does this product has a filter on supplier
-	 * with id = 10 ?
-	 *
-	 * byType.get(FilterType.SUPPLIER).has(10)
-	 */
-	private _byType: Map<FilterType, Map<any, Filter>>;
+
+	private _byType: FilterByType;
 	asByType() { return this._byType; }
 
 	/**
@@ -65,13 +72,12 @@ export class FilterList {
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: FilterType | string) {
+	removeFilterType(type: ERM) {
 		this.setFilters(this._filters.filter(f => f.type !== type));
-
 	}
 
 	/** return a new map of <type, new Map()> */
-	private getInitialMap() {
+	private getInitialMap(): FilterByType {
 		const byTypeMap = new Map();
 		Object.values(FilterType)
 			.forEach(type => byTypeMap.set(type, new Map()));
@@ -79,9 +85,9 @@ export class FilterList {
 	}
 
 	/** returns a new map of <type, <filter.value, filter>> */
-	private filtersToByType(filters: Filter[]) {
+	private filtersToByType(filters: Filter[]): FilterByType {
 		const copy = this.getInitialMap();
-		filters.forEach(fltr => copy.get(fltr.type).set(fltr.value, filter));
+		filters.forEach(fltr => copy.get(fltr.type).set(fltr.value, fltr));
 		return copy;
 	}
 
