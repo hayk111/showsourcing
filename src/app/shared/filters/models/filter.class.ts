@@ -15,6 +15,8 @@ export enum FilterType {
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	SEARCH = 'search',
+	ASSIGNEE = 'assignee',
+	PRODUCT = 'product'
 }
 
 export interface Filter {

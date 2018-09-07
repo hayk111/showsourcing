@@ -7,4 +7,12 @@ context-menu-app {
 	.remove-workflow {
 		color: var(--color-warn);
 	}
+
+	.caretCtnr {
+		display: flex;
+    align-items: center;
+		height: 30px;
+    width: 100%;
+		padding-left: 10px;
+	}
 }

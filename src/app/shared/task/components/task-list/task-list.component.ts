@@ -13,9 +13,12 @@ export class TaskListComponent extends BaseComponent implements OnInit {
 	@Input() tasks: Task[];
 	@Input() selection: Map<string, boolean>;
 	@Input() fullUser = false;
+	@Input() hasSupplier = true;
+	@Input() hasProduct = false;
 	@Output() taskSelect = new EventEmitter<Task>();
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() openCreateDlg = new EventEmitter<null>();
+	@Output() bottomReached = new EventEmitter<null>();
 
 	hoverIndex: number;
 
@@ -26,7 +29,6 @@ export class TaskListComponent extends BaseComponent implements OnInit {
   }
 
 	ngOnInit() {
-		console.log(this.tasks);
 	}
 
 	hoverRow(index: number) {

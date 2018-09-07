@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus } from '~models';
 import { WorkflowActionService } from '~shared/workflow-action/service/workflow-action.service';
 import { AutoUnsub } from '~utils';
+import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 
 @Component({
 	selector: 'workflow-action-app',
 	templateUrl: './workflow-action.component.html',
 	styleUrls: ['./workflow-action.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [WorkflowActionService],
 })
 export class WorkflowActionComponent extends AutoUnsub implements OnInit {
@@ -19,6 +20,8 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	@Input() xPosition = 16;
 	@Input() yPosition = 30;
 	@Input() selectSize = 'm';
+	@Input() isSendToWorkFlow = false;
+	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	status$: Observable<ProductStatusType[] | SupplierStatus[]>;
 
 	constructor(
@@ -41,5 +44,12 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	setStatus(status) {
 		const tempS = new ProductStatus({ status });
 		this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+	}
+
+	closeMenu() {
+		if (this.menus && this.menus.length > 0) {
+			const contextualMenu = this.menus.first;
+			contextualMenu.closeMenu();
+		}
 	}
 }

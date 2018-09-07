@@ -3,22 +3,25 @@
 	[hasSwitch]="false"
 	(search)="search($event)"
 	(smartSearch)="smartSearch($event)">
-	<div class="flex show-my-tasks">
+	<!-- uncomment when new filter merged -->
+	<!-- <div class="flex show-my-tasks">
 		<checkbox-app
 			(check)="toggleFilter(true)"
 			(uncheck)="toggleFilter(false)">
 		</checkbox-app>
 		Show my tasks only
-	</div>
+	</div> -->
 </sub-panel-app>
 
 <task-list-app
 	[tasks]="items$ | async"
 	[selection]="selected$ | async"
 	[fullUser]="true"
-	(taskSelect)="select.emit($event)"
-	(taskUnselect)="unselect.emit($event)"
-	(openCreateDlg)="openCreateDlg()">
+	[hasSupplier]="false"
+	(taskSelect)="onItemSelected($event)"
+	(taskUnselect)="onItemUnselected($event)"
+	(openCreateDlg)="openCreateDlg()"
+	(bottomReached)="loadMore()">
 </task-list-app>
 
 <selection-bar-app

@@ -64,6 +64,8 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	@Input() highlightOnChecked: boolean;
 	/** Select when clicking on the whole card */
 	@Input() selectFromCard: boolean;
+	/** Whether a new content is displayed on hover */
+	@Input() enabledHoverContent: boolean;
 
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
@@ -71,6 +73,10 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	@Output() select = new EventEmitter<any>();
 	/** Trigger the event when the element is unselected via the checkbox */
 	@Output() unselect = new EventEmitter<any>();
+	/** Trigger the event when the mouse enters the card */
+	@Output() cardEnter = new EventEmitter<any>();
+	/** Trigger the event when the mouse enters the card */
+	@Output() cardLeave = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 
@@ -205,10 +211,12 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 
 	leaveCard() {
 		this.cardEntered = false;
+		this.cardLeave.emit();
 	}
 
 	enterCard() {
 		this.cardEntered = true;
+		this.cardEnter.emit();
 	}
 
 	leaveMenuTrigger() {

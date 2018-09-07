@@ -133,9 +133,9 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	onNewFilter(query: string) {
 		if (this.initialQuery && query)
-			return `${this.initialQuery} AND (${query})`;
-		if (this.initialQuery)
-			return this.initialQuery || query;
+			this.refetch({ query: `${this.initialQuery} AND (${query})` });
+		else if (this.initialQuery)
+			this.refetch({ query: this.initialQuery || query });
 	}
 
 	search(str: string) {

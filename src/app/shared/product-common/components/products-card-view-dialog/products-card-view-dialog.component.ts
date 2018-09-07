@@ -23,7 +23,7 @@ export class ProductsCardViewDialogComponent extends ListViewComponent<Product> 
 		if (this.selection)
 			return this.selection.has(product.id);
 
-		throw Error(`Selection Input is undefnied`);
+		throw Error(`Selection Input is undefined`);
 	}
 
 }

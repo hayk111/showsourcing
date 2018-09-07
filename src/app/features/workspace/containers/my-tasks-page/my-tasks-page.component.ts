@@ -1,12 +1,12 @@
-import { Component, OnInit, NgModuleRef, Output, EventEmitter } from '@angular/core';
-import { Task, ERM } from '~models';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { SearchService } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { DialogService } from '~shared/dialog';
+import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TaskService, UserService } from '~global-services';
+import { ERM, Task } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType, SearchService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
 import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
-import { TaskService } from '~global-services';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
@@ -16,10 +16,8 @@ import { TaskService } from '~global-services';
 // the service should be TaskService instead ofthis temporary one
 export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> implements OnInit {
 
-	@Output() unselect = new EventEmitter();
-	@Output() select = new EventEmitter();
-
 	constructor(
+		private userSrv: UserService,
 		protected router: Router,
 		protected featureSrv: TaskService,
 		protected searchSrv: SearchService,
@@ -30,6 +28,11 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 	}
 
 	toggleFilter(show: boolean) {
-		// implement filter to show only my tasks
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show) {
+			this.filterList.addFilter(filterAssignee);
+		} else {
+			this.filterList.removeFilter(filterAssignee);
+		}
 	}
 }

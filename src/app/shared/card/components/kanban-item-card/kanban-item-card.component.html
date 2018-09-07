@@ -2,7 +2,7 @@
      [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked) }"
      (clickOutside)="onClickOutsideCard()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
-  <div class="mainCellWrapper ellipsis ng-star-inserted">
+  <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" *ngIf="image" [src]="image"
@@ -44,6 +44,9 @@
         <div class="descriptionBottomCtnr">
           <badge-app size="xs" type="secondary-light" *ngFor="let tag of tags | slice:0:1;trackBy: trackByFn">{{tag.name}}</badge-app>
         </div>
+      </div>
+      <div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
+        <ng-content></ng-content>
       </div>
     </div>
   </div>

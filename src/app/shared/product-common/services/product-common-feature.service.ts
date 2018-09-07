@@ -10,7 +10,7 @@ import { Apollo } from 'apollo-angular';
 import { ApolloStateService } from '~shared/apollo';
 
 @Injectable()
-export class ProductFeatureService extends ProductService {
+export class ProductCommonFeatureService extends ProductService {
 
 	constructor(
 		protected apolloState: ApolloStateService,

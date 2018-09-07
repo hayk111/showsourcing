@@ -14,11 +14,10 @@ import { NewContactDlgComponent } from '~features/supplier/containers/new-contac
 	styleUrls: ['./supplier-details.component.scss']
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
-	// currently displayed supplier
+
 	supplier$: Observable<Supplier>;
-	contacts$: Observable<Contact[]>;
-	products$: Observable<Product[]>;
-	// tasks$: Observable<Task[]>;
+
+
 
 	constructor(
 		private route: ActivatedRoute,
