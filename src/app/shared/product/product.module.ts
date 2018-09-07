@@ -16,7 +16,6 @@ import { ProductFeatureService } from '~shared/product/services/product-feature.
 import { ProductsListViewComponent } from '~shared/product/components/products-list-view/products-list-view.component';
 import { ProductsCardViewComponent } from '~shared/product/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product/components/product-grid-card/product-grid-card.component';
-import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { FiltersModule } from '~shared/filters';
 
 
@@ -41,14 +40,12 @@ import { FiltersModule } from '~shared/filters';
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
-		ProductFiltersComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
-		ProductFiltersComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: [ProductFeatureService]

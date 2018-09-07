@@ -5,8 +5,8 @@ import { BadgeModule } from '~shared/badge/badge.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	FilterEntityPanelComponent,
-	FiltersComponent
+	FilterSelectionEntityPanelComponent,
+	FiltersComponent,
 } from '~shared/filters/components';
 import { FilterSelectionPanelComponent } from '~shared/filters/components/filter-selection-panel/filter-selection-panel.component';
 import { FilterDataService } from '~shared/filters/services/filter.data.service';
@@ -21,12 +21,14 @@ import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-li
 		BadgeModule
 	],
 	declarations: [
-		FilterEntityPanelComponent,
-		FilterBtnListComponent
+		FilterSelectionEntityPanelComponent,
+		FilterBtnListComponent,
+		FiltersComponent
 	],
 	exports: [
-		FilterEntityPanelComponent,
-		FilterBtnListComponent
+		FilterSelectionEntityPanelComponent,
+		FilterBtnListComponent,
+		FiltersComponent
 	],
 	providers: [
 	]

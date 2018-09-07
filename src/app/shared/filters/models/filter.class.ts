@@ -1,15 +1,14 @@
+import { ERM } from '~models';
 
-/** Filters contain a type, a value and a displayName
+/** Filters contain a type, a value and an optional entity
  * They represent the different filters that can be added from the
  * filter panel
 */
-export interface Filter {
-	type?: FilterType | string;
-	comparator?: string;
-	value?: any;
+export class Filter {
+	type: FilterType;
+	value: any;
 	entity?: any;
-	raw?: string;
-	fields?: string[];
+	constructor() { }
 }
 
 export enum FilterType {
