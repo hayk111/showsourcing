@@ -23,17 +23,22 @@
 			background-color: var(--color-secondary-light);
 		}
 
-		&.border-top {
-			border-top: 1px solid var(--color-secondary);
+		&.margin-bottom {
+			margin-bottom: var(--spacing-ms);
 		}
 
-		&.no-border {
-			border: none;
-			margin-bottom: var(--spacing-m);
-		}
 
 		task-app {
 			width: 100%;
+			border-bottom: 1px solid var(--color-secondary);
+
+			&.border-top {
+				border-top: 1px solid var(--color-secondary);
+			}
+
+			&.no-border {
+				border: none;
+			}
 		}
 	}
 
