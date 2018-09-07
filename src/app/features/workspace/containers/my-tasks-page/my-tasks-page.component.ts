@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModuleRef } from '@angular/core';
+import { Component, OnInit, NgModuleRef, Output, EventEmitter } from '@angular/core';
 import { Task, ERM } from '~models';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
@@ -15,6 +15,9 @@ import { TaskService } from '~global-services';
 })
 // the service should be TaskService instead ofthis temporary one
 export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> implements OnInit {
+
+	@Output() unselect = new EventEmitter();
+	@Output() select = new EventEmitter();
 
 	constructor(
 		protected router: Router,

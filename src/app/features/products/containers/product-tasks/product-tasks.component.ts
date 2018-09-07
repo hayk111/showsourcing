@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef, EventEmitter, Output } from '@angular/core';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { Task, ERM } from '~models';
 import { Router } from '@angular/router';
@@ -15,6 +15,9 @@ import { TaskService } from '~global-services';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit {
+
+	@Output() unselect = new EventEmitter();
+	@Output() select = new EventEmitter();
 
 	constructor(
 		protected router: Router,
