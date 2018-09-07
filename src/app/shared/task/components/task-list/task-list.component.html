@@ -1,7 +1,7 @@
 <h1 class="title">Task</h1>
 <div class="container" infiniScroll (bottomReached)="bottomReached.emit()">
 	<div *ngFor="let task of tasks; index as i; first as first; last as last; trackBy: trackByFn"
-		[ngClass]="{'margin-bottom': last, 'hovered': hoverIndex === i}" class="flex task-container"
+		[ngClass]="{'hovered': hoverIndex === i}" class="flex task-container"
 		(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 		<checkbox-app
 			[ngStyle]="{'visibility': (selection.has(task.id) || hoverIndex === i) ? 'visible' : 'hidden'}"
