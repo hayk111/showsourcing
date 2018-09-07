@@ -1,12 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, NgModuleRef, EventEmitter, Output } from '@angular/core';
-import { ListPageComponent } from '~shared/list-page/list-page.component';
-import { Task, ERM } from '~models';
-import { Router } from '@angular/router';
-import { SearchService } from '~shared/filters';
-import { SelectionService } from '~shared/list-page/selection.service';
-import { DialogService } from '~shared/dialog';
-import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
+import { AfterViewInit, ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '~global-services';
+import { ERM, Task } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType, SearchService } from '~shared/filters';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SelectionService } from '~shared/list-page/selection.service';
+import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
 	selector: 'product-tasks-app',
@@ -14,12 +14,10 @@ import { TaskService } from '~global-services';
 	styleUrls: ['./product-tasks.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit {
-
-	@Output() unselect = new EventEmitter();
-	@Output() select = new EventEmitter();
+export class ProductTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
 
 	constructor(
+		private route: ActivatedRoute,
 		protected router: Router,
 		protected featureSrv: TaskService,
 		protected searchSrv: SearchService,
@@ -28,11 +26,9 @@ export class ProductTasksComponent extends ListPageComponent<Task, TaskService> 
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, CreateTaskDialogComponent);
 	}
-	ngOnInit() {
-	}
 
-	toggleFilter(show: boolean) {
-		// implement filter to show only my tasks
+	ngAfterViewInit() {
+		this.filterList.addFilter({ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id });
 	}
 
 }

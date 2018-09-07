@@ -9,7 +9,12 @@
 			(check)="taskSelect.emit(task)"
 			(uncheck)="taskUnselect.emit(task)">
 		</checkbox-app>
-		<task-app [task]="task" [fullUser]="fullUser"></task-app>
+		<task-app
+			[hasProduct]="hasProduct"
+			[hasSupplier]="hasSupplier"
+			[task]="task"
+			[fullUser]="fullUser">
+		</task-app>
 	</div>
 	<divider-app></divider-app>
 </div>

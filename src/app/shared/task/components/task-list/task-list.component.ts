@@ -12,6 +12,8 @@ export class TaskListComponent implements OnInit {
 	@Input() tasks: Task[];
 	@Input() selection: Map<string, boolean>;
 	@Input() fullUser = false;
+	@Input() hasSupplier = true;
+	@Input() hasProduct = false;
 	@Output() taskSelect = new EventEmitter<Task>();
 	@Output() taskUnselect = new EventEmitter<Task>();
 	@Output() openCreateDlg = new EventEmitter<null>();

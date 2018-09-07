@@ -25,16 +25,18 @@
 	}
 
 	.task-supplier {
-		width: 30%;
+		width: 40%;
 	}
 
-	.task-user-status {
-		width: 30%;
-
+	.task-user-status, .task-user {
 		user-picture-app {
 			font-size: var(--font-size-xs);
 			margin-right: var(--spacing-s);
 		}
+	}
+
+	.task-user-status {
+		width: 35%;
 
 		.task-status {
 			padding-top: 2px;
