@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, NgModuleRef, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, NgModuleRef, OnInit, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TaskService, UserService } from '~global-services';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -9,12 +9,11 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
-	selector: 'product-tasks-app',
-	templateUrl: './product-tasks.component.html',
-	styleUrls: ['./product-tasks.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'supplier-tasks-app',
+	templateUrl: './supplier-tasks.component.html',
+	styleUrls: ['./supplier-tasks.component.scss']
 })
-export class ProductTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
+export class SupplierTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
 
 	constructor(
 		private userSrv: UserService,
@@ -29,7 +28,7 @@ export class ProductTasksComponent extends ListPageComponent<Task, TaskService> 
 	}
 
 	ngAfterViewInit() {
-		this.filterList.addFilter({ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id });
+		this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
 	}
 
 	toggleFilter(show: boolean) {
@@ -40,5 +39,4 @@ export class ProductTasksComponent extends ListPageComponent<Task, TaskService> 
 			this.filterList.removeFilter(filterAssignee);
 		}
 	}
-
 }

@@ -12,8 +12,10 @@ export class TaskComponent implements OnInit {
 
 	@Input() fullUser = false;
 	@Input() task: Task;
+	@Input() hasSupplier: boolean;
+	@Input() hasProduct: boolean;
+
 	defaultImg = DEFAULT_IMG;
-	tempU = { firstName: 'miau', lastName: 'wow' } as any;
 
 	constructor() { }
 

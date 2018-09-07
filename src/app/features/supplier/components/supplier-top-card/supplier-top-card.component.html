@@ -1,11 +1,12 @@
 <top-panel-details-app
 	[title]="supplier.name"
-	[links]="['activity', 'public-profile', 'products']">
+	[links]="['activity', 'public-profile', 'products', 'tasks']">
 
 	<img-app [image]="supplier.logoImage" type="supplier"></img-app>
 
 	<div class="flex tags">
-		<status-badge-app [status]="supplier?.status" [typeEntity]="typeEntity" size="mini"></status-badge-app>
+			<status-badge-app [status]="supplier?.status" [typeEntity]="typeEntity" size="mini"></status-badge-app>
+		<!-- <workflow-action-app [entity]="supplier" [typeEntity]="typeEntity" selectSize="mini"></workflow-action-app> -->
 		<info-badge-app *ngFor="let category of supplier.categories" type="category">{{ category.name }}</info-badge-app>
 		<info-badge-app *ngFor="let tag of supplier.tags" type="tag">{{ tag.name }}</info-badge-app>
 	</div>

@@ -49,7 +49,8 @@ import { ImageModule } from '~shared/image/image.module';
 import { ActivityModule } from '~shared/activity/activity.module';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
-
+import { SupplierTasksComponent } from './containers/supplier-tasks/supplier-tasks.component';
+import { TaskModule } from '~shared/task';
 
 @NgModule({
 	imports: [
@@ -72,7 +73,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		SearchAutocompleteModule,
 		ActivityModule,
 		ActionBarModule,
-		ProductCommonModule
+		ProductCommonModule,
+		TaskModule
 	],
 	declarations: [
 		SupplierDetailsComponent,
@@ -93,7 +95,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		SupplierActivityComponent,
 		SupplierPublicProfileComponent,
 		SupplierImagesComponent,
-		SupplierProductsComponent
+		SupplierProductsComponent,
+		SupplierTasksComponent
 	],
 	entryComponents: [
 		NewSupplierDlgComponent,
