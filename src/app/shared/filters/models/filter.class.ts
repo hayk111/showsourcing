@@ -22,7 +22,7 @@ export enum FilterType {
 	TAGS = 'tags',
 	PROJECT = 'project',
 	PROJECTS = 'projects',
-	CREATED_BY = 'createdBy',
+	CREATED_BY = 'created by',
 	PRODUCT_STATUS = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',

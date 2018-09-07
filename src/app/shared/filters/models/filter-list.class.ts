@@ -113,6 +113,8 @@ export class FilterList {
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 				return `${type} == ${value}`;
+			case FilterType.CREATED_BY:
+				return `createdBy == "${value}"`;
 			// most of the filters from the panel filter by id
 			default:
 				return `${type}.id == "${value}"`;

@@ -10,7 +10,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 })
 export class SettingsTeamMembersPageComponent {
 	selectedTab = 'team-members';
-
 	constructor(
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>
