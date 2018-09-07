@@ -142,7 +142,7 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 

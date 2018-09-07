@@ -22,17 +22,18 @@
 
 
 <!-- SELECT ENTITY PANEL -->
-<side-panel-app *ngIf="view === 'BY_TYPE'">
+<side-panel-app *ngIf="view === 'SELECTION'">
   <side-panel-title-app (click)="openBtnPanel()">
-    <icon-app fontSet="fa" name="angle-left"></icon-app>
-    BACK
+    <div class="flex pointer">
+      <icon-app fontSet="fa" name="angle-left"></icon-app>
+      <span>BACK</span>
+    </div>
   </side-panel-title-app>
   <side-panel-action-app class="clear" (click)="resetType()">
     Clear All
   </side-panel-action-app>
 
   <filter-selection-entity-panel-app
-    []
+    [type]="typeSelected"
     *ngIf="view === 'SELECTION'"></filter-selection-entity-panel-app>
-
 </side-panel-app>

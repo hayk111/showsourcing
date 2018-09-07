@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { Input } from '@angular/core';
-import { Filter, FilterType } from '~shared/filters/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Filter, FilterType } from '~shared/filters/models/filter.class';
 
 
 /**
