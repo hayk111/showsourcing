@@ -258,7 +258,7 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 

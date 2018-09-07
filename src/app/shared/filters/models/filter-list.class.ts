@@ -4,9 +4,8 @@ import { map, share, filter, skip } from 'rxjs/operators';
 
 import { Filter } from '~shared/filters/models/filter.class';
 import { tap } from 'rxjs/internal/operators/tap';
-import { EntityMetadata, ERM } from '~models';
 import { ID } from '~utils/id.utils';
-import { FilterType } from '~shared/filters';
+import { FilterType } from '~shared/filters/models/filter.class';
 
 
 /** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
@@ -72,7 +71,7 @@ export class FilterList {
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: ERM) {
+	removeFilterType(type: FilterType) {
 		this.setFilters(this._filters.filter(f => f.type !== type));
 	}
 

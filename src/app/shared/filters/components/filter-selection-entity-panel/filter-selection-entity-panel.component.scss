@@ -1,7 +1,14 @@
+:host {
+	display: block;
+	overflow: hidden;
+	height: calc(100% - 57px);
+}
+
 checkbox-app {
 	margin: var(--spacing-s);
 }
 
-.section {
-	margin-bottom: var(--spacing-m);
+
+.choiceCtnr {
+	height: calc(100% - 94px);
 }
