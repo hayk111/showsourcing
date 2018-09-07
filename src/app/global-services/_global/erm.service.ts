@@ -11,6 +11,7 @@ import { EventService } from '~global-services/event/event.service';
 import { SupplierStatusService } from '~global-services/supplier-status/supplier-status.service';
 import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
 import { TeamService } from '~global-services/team/team.service';
+import { SupplierStatusTypeService } from '~global-services';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -21,7 +22,7 @@ export class ERMService {
 		private categoryService: CategoryService,
 		private tagService: TagService,
 		private supplierService: SupplierService,
-		private supplierStatusService: SupplierStatusService,
+		private supplierStatusTypeService: SupplierStatusTypeService,
 		private productService: ProductService,
 		private productStatusTypeService: ProductStatusTypeService,
 		private projectService: ProjectService,
@@ -45,8 +46,8 @@ export class ERMService {
 				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
-			case ERM.SUPPLIER_STATUS:
-				return this.supplierStatusService;
+			case ERM.SUPPLIER_STATUS_TYPE:
+				return this.supplierStatusTypeService;
 			case ERM.PRODUCT_STATUS_TYPE:
 				return this.productStatusTypeService;
 			case ERM.TEAM:
@@ -61,7 +62,7 @@ export class ERMService {
 			case ERM.PRODUCT:
 				return this.productStatusTypeService;
 			case ERM.SUPPLIER:
-				return this.supplierStatusService;
+				return this.supplierStatusTypeService;
 			default:
 				throw Error(`This ERM has not an associated status service`);
 		}
