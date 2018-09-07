@@ -89,17 +89,21 @@ export class WorkspaceFeatureService extends ProductService {
 	}
 
 	/** Get the list of products */
-	getProducts(sort: Sort, refresh = false) {
+	getProducts(sort: Sort, search: string, refresh = false) {
+		const params = search ? {
+			query: `status.id == null && name CONTAINS[c] "${search}"`,
+			sortBy: sort ? sort.sortBy : null
+		} : {
+			query: `status.id == null`,
+			sortBy: sort ? sort.sortBy : null
+		};
+
 		if (refresh && this.allProductsResult) {
-			this.allProductsResult.refetch({
-				sortBy: sort ? sort.sortBy : null
-			});
+			this.allProductsResult.refetch(params);
 		}
 
 		if (!this.allProductsResult) {
-			this.allProductsResult = this.productSrv.getListQuery({
-				sortBy: sort ? sort.sortBy : null
-			});
+			this.allProductsResult = this.productSrv.getListQuery(params);
 		}
 
 		return this.allProductsResult.items$;

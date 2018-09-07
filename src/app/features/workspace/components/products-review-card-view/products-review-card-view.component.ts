@@ -34,6 +34,27 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 			const rows = changes.rows.currentValue;
 			this.groupedProducts = this.getGroupedProducts(this.currentSort);
 		}
+
+		if (changes.selection && changes.selection.currentValue) {
+			const currentSelection = changes.selection.currentValue;
+			const previousSelection = changes.selection.previousValue;
+			if (this.groupedProducts && (!previousSelection || currentSelection.size !== previousSelection.size)) {
+				this.groupedProducts = this.groupedProducts.map(category => ({
+					...category,
+					checked: this.hasAllProductsSelected(category, currentSelection)
+				}));
+			}
+		}
+	}
+
+	hasAllProductsSelected(category, currentSelection) {
+		let allSelected = true;
+		category.values.forEach(value => {
+			if (!currentSelection.has(value.id)) {
+				allSelected = false;
+			}
+		});
+		return allSelected;
 	}
 
 	isSelected(product) {

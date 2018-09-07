@@ -30,6 +30,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 	currentSort = { sortBy: 'supplier.name', descending: true };
+	currentSearch = null;
 
 	constructor(
 		protected router: Router,
@@ -39,12 +40,13 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		protected dlgSrv: DialogService,
 		protected cdr: ChangeDetectorRef,
 		protected workspaceSrv: WorkspaceFeatureService,
+		protected notificationSrv: NotificationService,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	ngOnInit() {
-		this.workspaceSrv.getProducts(this.currentSort).pipe(
+		this.workspaceSrv.getProducts(this.currentSort, null).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(products => {
 			this.products$.next(products);
@@ -54,7 +56,8 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	}
 
 	search(search: string) {
-		this.workspaceSrv.getProducts(this.currentSort/*, search*/).pipe(
+		this.currentSearch = search;
+		this.workspaceSrv.getProducts(this.currentSort, search, true).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(products => {
 			this.products$.next(products);
@@ -64,7 +67,13 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	onUpdateProductStatus({ target, droppedElement }) {
 		this.workspaceSrv.updateProductStatus(droppedElement, target)
 			.subscribe(() => {
-				this.cdr.detectChanges();
+				this.notificationSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'Product Status Updated',
+					message: 'The invitation was accepted',
+					timeout: 3500
+				});
+					this.cdr.detectChanges();
 			});
 	}
 
@@ -86,6 +95,11 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	/** Unselects a entity */
 	onAllItemsUnselected(entity: any) {
 		this.selectionSrv.unselectOne(entity);
+	}
+
+	/** Flag as archived */
+	onArchive(entity: any) {
+
 	}
 
 	/**
@@ -153,13 +167,15 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	}
 
 	doSort(sort) {
-		this.workspaceSrv.getProducts(sort, true).pipe(first()).subscribe(products => {
+		this.workspaceSrv.getProducts(sort, this.currentSearch, true).pipe(first()).subscribe(products => {
 			this.products$.next(products);
 		});
 	}
 
 	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
+		this.workspaceSrv.sendProductToWorkflow(product).subscribe(() => {
+
+		});
 	}
 
 }
