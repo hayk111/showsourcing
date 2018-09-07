@@ -6,7 +6,7 @@
   </ng-container>
   <divider-app></divider-app>
 
-  <div *ngFor="let member of members$ | async" class="flex member">
+  <div *ngFor="let member of (members$ | async);trackBy: trackByFn" class="flex member">
     <user-picture-app [user]="member?.user" [image]="member.user.avatar" [border]="true"></user-picture-app>
     <div class="flexColumn">
       <span class="name">

@@ -8,7 +8,7 @@
 			Projects
 		</h2>
 	</div>
-	<div *ngFor="let project of projects; last as last">
+	<div *ngFor="let project of projects; last as last;trackBy: trackByFn">
 		<article class="flexBetween" [class.last-item]="last">
 			<div class="flex">
 				<div class="space-icon flexAround">

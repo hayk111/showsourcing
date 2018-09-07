@@ -43,7 +43,7 @@
 		let-row="row"
 		sortBy="categories"
 		width="280">
-		<span *ngFor="let cat of row.categories; let last = last">
+		<span *ngFor="let cat of row.categories; let last = last;trackBy: trackByFn">
 			{{ cat.name }} {{ last ? '' : ', '}}
 		</span>
 	</ng-template>
@@ -68,7 +68,7 @@
 		let-row="row"
 		sortBy="tags"
 		width="280">
-		<span *ngFor="let tag of row.tags; let last = last">{{ tag.name }} {{ last ? '' : ', '}}</span>
+		<span *ngFor="let tag of row.tags; let last = last;trackBy: trackByFn">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
 
 	<!-- date -->

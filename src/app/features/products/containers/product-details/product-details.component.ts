@@ -12,6 +12,7 @@ import {
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { VoteDetailsDialogComponent } from '~features/products/components/vote-details-dialog/vote-details-dialog.component';
 import { ProductQueries } from '~global-services/product/product.queries';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 
 @Component({

@@ -14,6 +14,7 @@ import {
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { nextTick } from 'q';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'table-app',
@@ -24,7 +25,7 @@ import { nextTick } from 'q';
 		class: 'fullWidth'
 	}
 })
-export class TableComponent implements OnChanges {
+export class TableComponent extends BaseComponent implements OnChanges {
 	// display the dot option
 	@Input() dotsOption = true;
 	// whether the table is currently loading
@@ -75,6 +76,10 @@ export class TableComponent implements OnChanges {
 
 	// track by for column
 	columnTrackByFn = (index) => index;
+
+  constructor() {
+    super();
+  }
 
 	ngOnChanges(changes) {
 		if (changes.currentSort && changes.currentSort.currentValue) {

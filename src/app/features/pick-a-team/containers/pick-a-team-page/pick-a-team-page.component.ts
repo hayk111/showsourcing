@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
 import { switchMap } from 'rxjs/operators';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'pick-a-team-page-app',
@@ -12,12 +13,14 @@ import { switchMap } from 'rxjs/operators';
 	styleUrls: ['./pick-a-team-page.component.scss', '../../../auth/components/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PickATeamPageComponent implements OnInit {
+export class PickATeamPageComponent extends BaseComponent implements OnInit {
 	teams$: Observable<Team[]>;
 	form: FormGroup;
 	private returnUrl: string;
 
-	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) { }
+	constructor(private teamSrv: TeamService, private router: Router, private route: ActivatedRoute) {
+    super();
+  }
 
 	ngOnInit() {
 		this.teams$ = this.teamSrv.teams$;

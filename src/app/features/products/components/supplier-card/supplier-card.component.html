@@ -16,7 +16,7 @@
 				Manufacturer from {{ supplier?.country | const:'country' }}
 			</span>
 			<div *ngIf="supplier?.categories?.length > 0" class="flexWrap categories">
-				<div *ngFor="let category of supplier?.categories; last as last" class="single">
+				<div *ngFor="let category of supplier?.categories; last as last;trackBy: trackByFn" class="single">
 					{{ category?.name }}{{ last ? '' : ','}}
 				</div>
 			</div>

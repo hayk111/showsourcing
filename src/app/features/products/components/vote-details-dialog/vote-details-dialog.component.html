@@ -1,7 +1,7 @@
 <dialog-app>
 	<dialog-header-app>Team Votes</dialog-header-app>
 
-	<ng-container *ngFor="let vote of votes">
+	<ng-container *ngFor="let vote of votes;trackBy: trackByFn">
 		<div class="flexBetween row">
 			<div class="flex user-info">
 				<user-picture-app [user]="vote.user" [image]="vote?.user?.avatar" [size]="24" [border]="true"></user-picture-app>

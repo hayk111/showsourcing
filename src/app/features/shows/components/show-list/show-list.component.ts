@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Show } from '~models';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
   selector: 'show-list-app',
@@ -8,12 +9,14 @@ import { Show } from '~models';
   styleUrls: ['./show-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShowListComponent implements OnInit {
+export class ShowListComponent extends BaseComponent implements OnInit {
   @Input() items = [];
   @Input() pending: boolean = true;
   @Output() saveShow = new EventEmitter<Show>();
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute) {
+    super();
+  }
 
   ngOnInit() {
   }

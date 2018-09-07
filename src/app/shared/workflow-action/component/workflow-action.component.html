@@ -4,7 +4,7 @@
 			<status-badge-app [hasArrow]="selectSize !== 's'" [status]="entity.status.status" [size]="selectSize"></status-badge-app>
 		</context-menu-trigger-app>
 
-		<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+		<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
 			<status-badge-app [status]="stat" [size]="selectSize" (click)="updateStatus(stat)"></status-badge-app>
 		</context-menu-item-app>
 
@@ -23,7 +23,7 @@
 				<status-badge-app [hasArrow]="selectSize !== 's'" [size]="selectSize" [typeEntity]="typeEntity"></status-badge-app>
 			</context-menu-trigger-app>
 
-			<context-menu-item-app *ngFor="let stat of (status$ | async)" class="{{selectSize}}">
+			<context-menu-item-app *ngFor="let stat of (status$ | async);trackBy: trackByFn" class="{{selectSize}}">
 				<status-badge-app [status]="stat" [size]="selectSize" (click)="setStatus(stat)"></status-badge-app>
 			</context-menu-item-app>
 

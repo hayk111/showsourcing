@@ -21,3 +21,10 @@ export class ActivityUserComponent implements OnInit {
 	}
 
 }
+/*
+Using in :
+- flat-feed-card.component
+- multiple-products-activity-card
+- one-product-activity-card
+
+*/

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Product } from '~models';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 import { Observable } from 'rxjs';
 
@@ -9,10 +10,12 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./supplier-latest-products.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierLatestProductsComponent implements OnInit {
+export class SupplierLatestProductsComponent extends BaseComponent implements OnInit {
 	@Input() products: Array<Product>;
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() {
 	}

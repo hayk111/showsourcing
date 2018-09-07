@@ -4,7 +4,7 @@
   <divider-app></divider-app>
 
 
-  <div *ngFor="let event of events" class="event flex">
+  <div *ngFor="let event of events;trackBy: trackByFn" class="event flex">
     <div class="dateSquare flexColumn flexCenter">
       <span>{{ event.startAt | date:'d' }} - {{ event.endAt | date:'d' }}</span>
       <span class="month">{{ event.startAt | date:'MMM'}}</span>

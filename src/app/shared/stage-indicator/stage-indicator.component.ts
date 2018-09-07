@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { BaseComponent } from '~shared/base-component/base-component';
 
 @Component({
 	selector: 'stage-indicator-app',
@@ -6,12 +7,14 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	styleUrls: ['./stage-indicator.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StageIndicatorComponent implements OnInit {
+export class StageIndicatorComponent extends BaseComponent implements OnInit {
 
 	@Input() titles: Array<string>;
 	@Input() index: number;
 
-	constructor() { }
+	constructor() {
+    super();
+  }
 
 	ngOnInit() {
 	}

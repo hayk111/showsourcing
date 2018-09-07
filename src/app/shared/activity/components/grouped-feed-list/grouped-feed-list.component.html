@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="feedResult.feed$ | async as feeds; else spinner">
-  <ng-container *ngFor="let feed of feeds">
+  <ng-container *ngFor="let feed of feeds;trackBy: trackByFn">
 
     <ng-container [ngSwitch]="getGroupName(feed)">
 
