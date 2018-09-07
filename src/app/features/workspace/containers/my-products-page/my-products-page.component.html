@@ -6,18 +6,18 @@
 </sub-panel-app>
 
 <div style="overflow-x: auto; width: 100vw">
-<workflow-kanban-app
-  [statuses]="statuses$ | async"
-  [contextualMenu]="contextualMenu"
-  [selectedItems]="selected$ | async"
-  [fullWidth]="true"
-  [withoutSidenav]="true"
-  [heightOffset]="97"
-  (itemDropped)="onUpdateProductStatus($event)"
-  (selectItem)="onItemSelected($event)"
-  (unselectItem)="onItemUnselected($event)"
-  (selectAllItems)="onAllItemsSelected($event)"
-  (unselectAllItems)="onAllItemsUnselected($event)">
+  <workflow-kanban-app
+    [statuses]="statuses$ | async"
+    [contextualMenu]="contextualMenu"
+    [selectedItems]="selected$ | async"
+    [fullWidth]="true"
+    [withoutSidenav]="true"
+    [heightOffset]="122"
+    (itemDropped)="onUpdateProductStatus($event)"
+    (selectItem)="onItemSelected($event)"
+    (unselectItem)="onItemUnselected($event)"
+    (selectAllItems)="onAllItemsSelected($event)"
+    (unselectAllItems)="onAllItemsUnselected($event)">
 </workflow-kanban-app>
 </div>
 

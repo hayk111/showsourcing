@@ -12,7 +12,7 @@ export type MenuPositionY = 'above' | 'below';
 	selector: 'context-menu-app',
 	templateUrl: './context-menu.component.html',
 	styleUrls: ['./context-menu.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'aria-haspopup': 'true',
 	}

@@ -1,0 +1,44 @@
+<context-menu-app xPosition="-54" yPosition="36">
+  <context-menu-trigger-app>
+    <button class="secondary flex sort-1"><!-- style="width: 250px;" -->
+        <p *ngIf="currentSort?.sortBy === 'category.name'" class="flex">Sort By Category
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'supplier.name'" class="flex">Sort By Supplier
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'createdBy.lastName'" class="flex">Sort By Supplier
+            <ng-container *ngTemplateOutlet="direction"></ng-container>
+          </p>
+          <div><icon-app fontSet="fa" name="caret-down"></icon-app></div>
+    </button>
+  </context-menu-trigger-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('category.name')" class="menu-item">
+    Category
+    <ng-container *ngIf="currentSort?.sortBy === 'category.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('supplier.name')" class="menu-item">
+    Supplier
+    <ng-container *ngIf="currentSort?.sortBy === 'supplier.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('createdBy.lastName')" class="menu-item">
+      User
+      <ng-container *ngIf="currentSort?.sortBy === 'createdBy.lastName'">
+        <ng-container *ngTemplateOutlet="direction"></ng-container>
+      </ng-container>
+    </context-menu-item-app>
+  </context-menu-app>
+
+<ng-template #direction>
+  <ng-container>
+    <icon-app class="sortIcon fs-xs"  fontSet="fa" name="angle-down"
+      *ngIf="currentSort?.descending; else upArrow;"></icon-app>
+    <ng-template #upArrow>
+      <icon-app  class="sortIcon fs-xs" fontSet="fa" name="angle-up"></icon-app>
+    </ng-template>
+  </ng-container>
+</ng-template>

@@ -18,6 +18,7 @@ import { ProductCommonFeatureService } from '~shared/product-common/services/pro
 import { ProductsListViewComponent } from '~shared/product-common/components/products-list-view/products-list-view.component';
 import { ProductsCardViewComponent } from '~shared/product-common/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
+import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
 
 
 @NgModule({
@@ -36,8 +37,9 @@ import { ProductGridCardComponent } from '~shared/product-common/components/prod
 	],
 	declarations: [
 		FindProductsDialogComponent, ProductsCardViewDialogComponent, ProductsListViewComponent,
-		ProductsCardViewComponent, ProductGridCardComponent],
-	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent, ProductGridCardComponent],
+		ProductsCardViewComponent, ProductGridCardComponent, ProductSortingMenuComponent],
+	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent,
+		ProductGridCardComponent, ProductSortingMenuComponent],
 	entryComponents: [FindProductsDialogComponent],
 	providers: [ProductCommonFeatureService]
 })

@@ -27,8 +27,7 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 	RfqDialogComponent,
-	EmailListComponent,
-	ProductSortingMenuComponent
+	EmailListComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
@@ -99,7 +98,6 @@ import { TaskModule } from '~shared/task';
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
 		VoteDetailsDialogComponent,
-		ProductSortingMenuComponent,
 		ProductTasksComponent
 	],
 	entryComponents: [
