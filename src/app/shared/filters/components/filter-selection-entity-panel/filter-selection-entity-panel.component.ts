@@ -6,6 +6,7 @@ import { Filter, FilterType } from '~shared/filters/models';
 import { EntityMetadata, ERM } from '~models';
 import { ERMService } from '~global-services/_global/erm.service';
 import { SelectListResult } from '~shared/apollo/interfaces/select-list-result.interface';
+import { Client } from '~shared/apollo/services/apollo-client-names.const';
 
 // this is the entity panel that appears once a filter button has been clicked
 // a list of choices is displayed and the user can pick through those choices
@@ -39,6 +40,16 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			takeUntil(this._destroy$),
 			debounceTime(400)
 		).subscribe(str => this.filterChoices(str));
+
+		if (this.type === FilterType.CREATED_BY) {
+			this.loadUserChoices();
+		} else {
+			this.loadChoices();
+		}
+
+	}
+
+	loadChoices() {
 		// first we get the entity metadata of the filter
 		const erm = ERM.getEntityMetadata(this.type as string);
 		// we get the correct service
@@ -48,7 +59,19 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
 		);
+	}
 
+	loadUserChoices() {
+		// we get the correct service
+		const srv = this.ermSrv.getGlobalService(ERM.USER);
+		// we get the items, but we just need the id and the name
+		this.listResult = srv.getListQuery(
+			{ take: 40, sortBy: 'firstName' }, 'id, firstName, lastName ',
+			Client.TEAM
+		);
+		this.choices$ = this.listResult.items$.pipe(
+			tap(_ => this.pending$.next(false)),
+		);
 	}
 
 	/** filters the choices when the user types something in the search bar */
@@ -86,7 +109,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	formatDisplayName(type: string, choice) {
 		switch (type) {
 			case FilterType.CREATED_BY:
-				return `${choice.user.lastName} ${choice.user.firstName}`;
+				return `${choice.lastName} ${choice.firstName}`;
 			default:
 				return choice.name;
 		}

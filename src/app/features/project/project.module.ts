@@ -27,6 +27,7 @@ import { DialogModule } from '~shared/dialog/dialog.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
 import { ProductCommonModule } from '~shared/product/product.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
+import { FiltersModule } from '~shared/filters';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 		DialogModule,
 		SearchAutocompleteModule,
 		ProductCommonModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		FiltersModule
 	],
 	declarations: [
 		ProjectsPageComponent,

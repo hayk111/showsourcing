@@ -12,24 +12,26 @@ export class Filter {
 }
 
 /** when a filter type is plural you can select many of them */
-export class FilterType {
-	static readonly SUPPLIER = 'supplier';
-	static readonly SUPPLIERS = 'suppliers';
+export enum FilterType {
+	SUPPLIER = 'supplier',
+	SUPPLIERS = 'suppliers',
 
-	static readonly EVENT = 'event';
-	static readonly EVENTS = 'events';
+	EVENT = 'event',
+	EVENTS = 'events',
 
-	static readonly CATEGORY = 'category';
-	static readonly CATEGORIES = 'categories';
+	CATEGORY = 'category',
+	CATEGORIES = 'categories',
 
-	static readonly TAG = 'tag';
-	static readonly TAGS = 'tags';
+	TAG = 'tag',
+	TAGS = 'tags',
 
-	static readonly PROJECT = 'project';
-	static readonly PROJECTS = 'projects';
+	PROJECT = 'project',
+	PROJECTS = 'projects',
 
-	static readonly CREATED_BY = 'createdBy';
-	static readonly PRODUCT_STATUS = 'status';
-	static readonly FAVORITE = 'favorite';
-	static readonly ARCHIVED = 'archived';
+	CREATED_BY = 'createdBy',
+	PRODUCT_STATUS = 'status',
+	SUPPLIER_STATUS = 'status',
+
+	FAVORITE = 'favorite',
+	ARCHIVED = 'archived',
 }
