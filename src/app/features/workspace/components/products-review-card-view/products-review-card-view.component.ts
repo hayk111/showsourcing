@@ -21,6 +21,7 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 
 	@Input() currentSort: Sort;
 	@Output() sentToWorkflow = new EventEmitter<Product>();
+	@Output() previewClick = new EventEmitter<Product>();
 
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;

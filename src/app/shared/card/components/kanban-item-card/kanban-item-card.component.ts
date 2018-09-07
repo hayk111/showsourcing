@@ -76,6 +76,7 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 	@Output() cardEnter = new EventEmitter<any>();
 	/** Trigger the event when the mouse enters the card */
 	@Output() cardLeave = new EventEmitter<any>();
+	@Output() clickImage = new EventEmitter<any>();
 
 	@ContentChild(ContextMenuComponent) contextMenu: ContextMenuComponent;
 

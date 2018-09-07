@@ -30,6 +30,10 @@
         display: none;
       }
 
+      .imgSubCtnr {
+        display: none;
+      }
+
       user-picture-app {
         display: none;
       }
@@ -65,6 +69,24 @@ kanban-item-card-app {
       display: block;
       width: 32px;
       height: 32px;
+    }
+
+    .imgSubCtnr {
+      border-radius: 2px;
+      background-color: var(--color-accent);
+      margin: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      .mini.image.category {
+        display: block;
+        width: 16px;
+        height: 16px;
+        color: #fff;
+      }
     }
 
     checkbox-app {

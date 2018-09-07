@@ -31,7 +31,6 @@ import {
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
-import { ProductPreviewComponent } from '~features/products/components/product-preview/product-preview.component';
 import { ProductNavigationComponent } from '~features/products/components/product-navigation/product-navigation.component';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
@@ -89,7 +88,6 @@ import { TaskModule } from '~shared/task';
 		ProductSummaryComponent,
 		SelectableImageComponent,
 		NewProductDialogComponent,
-		ProductPreviewComponent,
 		ProductNavigationComponent,
 		RfqDialogComponent,
 		EmailListComponent,

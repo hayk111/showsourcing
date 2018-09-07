@@ -5,6 +5,10 @@
         <img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
              *ngIf="currentSort.sortBy === 'supplier.name'"
              (dragstart)="preventDrag($event)">
+        <div *ngIf="currentSort.sortBy === 'category.name'" class="imgSubCtnr">
+          <img class="mini image category ng-star-inserted" src="assets/icons/category-white.svg"
+             (dragstart)="preventDrag($event)">
+        </div>
         <user-picture-app [user]="category.label" *ngIf="currentSort.sortBy === 'createdBy.lastName'"
              [image]="category.label?.avatar"></user-picture-app>
         <checkbox-app [checked]="category.checked"
@@ -56,6 +60,7 @@
           [highlightOnChecked]="true"
           [selectFromCard]="true"
           [enabledHoverContent]="true"
+          (clickImage)="previewClick.emit(product)"
           (select)="select.emit(product, false)"
           (unselect)="unselect.emit(product, false)"
           (cardLeave)="closeContextualMenuIfOpened(archiveMenu, workActionMenu)">

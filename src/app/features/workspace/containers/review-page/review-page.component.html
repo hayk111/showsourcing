@@ -15,6 +15,7 @@
   [rows]="products$ | async"
   [currentSort]="currentSort"
   [selection]="selected$ | async"
+  (previewClick)="openPreview($event)"
   (update)="update($event)"
   (select)="onItemSelected($event, true)"
   (unselect)="onItemUnselected($event, true)"
@@ -51,11 +52,11 @@
   </action-bar-app>
 </selection-bar-app>
 
-<!-- product-preview-app
+<product-preview-app
   *ngIf="previewOpen"
   [product]="previewed"
   (close)="closePreview()"
   (clickOutside)="closePreview()">
 
-</product-preview-app -->
+</product-preview-app>
 
