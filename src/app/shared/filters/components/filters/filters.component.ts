@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Filter, FilterType } from '~shared/filters';
+import { Filter, FilterType, FilterList } from '~shared/filters/models';
 
 @Component({
 	selector: 'filters-app',
@@ -8,11 +8,9 @@ import { Filter, FilterType } from '~shared/filters';
 })
 export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
-	@Input() byType;
+	@Input() filterList: FilterList;
 	@Input() filterTypes = [];
 	typeSelected: FilterType;
-
-	constructor() { }
 
 
 	openEditPanel(type: FilterType) {
@@ -25,18 +23,18 @@ export class FiltersComponent {
 	}
 
 	addFilter(filter: Filter) {
-
+		this.filterList.addFilter(filter);
 	}
 
 	removeFilter(filter: Filter) {
-
+		this.filterList.removeFilter(filter);
 	}
 
 	resetAll() {
-
+		this.filterList.resetAll();
 	}
 
 	resetType(type: FilterType) {
-
+		// this.filterList.reset
 	}
 }

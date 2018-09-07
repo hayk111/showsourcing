@@ -66,7 +66,7 @@ export class FilterList {
 	}
 
 	/** removes all filters */
-	clearAll() {
+	resetAll() {
 		this.setFilters([]);
 	}
 

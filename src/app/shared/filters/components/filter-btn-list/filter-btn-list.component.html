@@ -1,7 +1,7 @@
 
 <ng-container *ngFor="let type of filterBtns">
 
-	<ng-container *ngIf="getFiltersFor(type).length === 0; else list">
+	<ng-container *ngIf="!hasFilterFor(type); else list">
 
 		<label>
 			{{ type }}
@@ -34,10 +34,10 @@
 
 			<div class="flexColumn">
 				<checkbox-app
-					*ngFor="let filter of filterMap.get(type)"
+					*ngFor="let filter of getFiltersFor(type)"
 					[checked]="true"
 					(uncheck)="removeFilter(filter)">
-					<!-- {{ getDisplayName(filter, type) }} -->
+					{{ getDisplayName(filter, type) }}
 				</checkbox-app>
 			</div>
 
@@ -46,9 +46,14 @@
 </ng-container>
 
 <ng-container *ngIf="hasFavoriteFilter">
+
 	<!-- favorite -->
+	<label>
+		Favorite
+	</label>
+
 	<checkbox-app
-		[checked]="getFiltersFor(favoriteType).length > 0"
+		[checked]="isFavorite()"
 		(check)="addFilter({ type: favoriteType, value: true })"
 		(uncheck)="removeFilter({ type: favoriteType, value: true })">
 			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
@@ -59,8 +64,12 @@
 </ng-container>
 
 <ng-container *ngIf="hasArchivedFilter">
+	<label>
+		Archived
+	</label>
+
 	<checkbox-app
-		[checked]="getFiltersFor(archivedType).length > 0"
+		[checked]="isArchived()"
 		(check)="addFilter({ type: archivedType, value: true })"
 		(uncheck)="removeFilter({ type: archivedType, value: false })"
 		i18n="checkbox|Archieved checkbox title@@productFilters_showArchived">
