@@ -11,7 +11,7 @@
   </side-panel-action-app>
 
   <filter-btn-list-app
-    [filterBtns]="filterTypes"
+    [filterTypes]="filterTypes"
     [filterMap]="filterList.asByType()"
     (filterAdded)="addFilter($event)"
     (filterRemoved)="removeFilter($event)"
@@ -32,12 +32,15 @@
       <span>BACK</span>
     </div>
   </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetType()">
+  <side-panel-action-app class="clear" (click)="resetType(typeSelected)">
     Clear All
   </side-panel-action-app>
 
   <filter-selection-entity-panel-app
     [type]="typeSelected"
     [selected]="filterList.asByType().get(typeSelected)"
-    *ngIf="view === 'SELECTION'"></filter-selection-entity-panel-app>
+    (filterAdded)="addFilter($event)"
+    (filterRemoved)="removeFilter($event)"
+    *ngIf="view === 'SELECTION'">
+  </filter-selection-entity-panel-app>
 </side-panel-app>

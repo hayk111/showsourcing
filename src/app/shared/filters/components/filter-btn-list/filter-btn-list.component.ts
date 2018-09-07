@@ -14,13 +14,19 @@ import { FilterByType } from '~shared/filters';
 })
 export class FilterBtnListComponent {
 	/** btns displayed */
-	@Input() filterBtns: FilterType[];
+	@Input() set filterTypes(types: FilterType[]) {
+		// favorite and archived aren't buttons but simple checkboxes
+		const favFilter = types.filter(type => type === FilterType.FAVORITE);
+		const archFilter = types.filter(type => type === FilterType.ARCHIVED);
+		if (favFilter.length > 0)
+			this.hasFavoriteFilter = true;
+		if (archFilter.length > 0)
+			this.hasArchivedFilter = true;
+		// we set the buttons with the others
+		this.filterBtns = types;
+	}
 	/** for each buttons the filters applied */
 	@Input() filterMap: FilterByType;
-	/** whether we display a checkbox for favorite */
-	@Input() hasFavoriteFilter = true;
-	/** whether we display a checkbox for archived */
-	@Input() hasArchivedFilter = true;
 	/** when the filter button is clicked */
 	@Output() editClicked = new EventEmitter<string>();
 	/** when we want to reset a certain filter type */
@@ -28,6 +34,11 @@ export class FilterBtnListComponent {
 	@Output() filterAdded = new EventEmitter<Filter>();
 	@Output() filterRemoved = new EventEmitter<Filter>();
 
+	/** whether we display a checkbox for favorite */
+	hasFavoriteFilter = true;
+	/** whether we display a checkbox for archived */
+	hasArchivedFilter = true;
+	filterBtns: FilterType[] = [];
 	archivedType = FilterType.ARCHIVED;
 	favoriteType = FilterType.FAVORITE;
 
@@ -57,7 +68,7 @@ export class FilterBtnListComponent {
 		return this.hasFilterFor(FilterType.FAVORITE);
 	}
 
-	getDisplayName(type: FilterType, filter: Filter) {
+	getDisplayName(filter: Filter, type: FilterType) {
 		switch (type) {
 			case FilterType.CREATED_BY:
 				return filter.entity.firstName + ' ' + filter.entity.lastName;

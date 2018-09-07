@@ -29,7 +29,7 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 	filterTypes = [
 		FilterType.SUPPLIER,
 		FilterType.CATEGORY,
-		FilterType.TAG,
+		FilterType.TAGS,
 		FilterType.PROJECTS,
 		FilterType.FAVORITE,
 		FilterType.ARCHIVED,
