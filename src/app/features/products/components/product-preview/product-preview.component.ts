@@ -106,12 +106,25 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	openRfq() {
 		// we add manually the supplier self email, since it is not on the contacts
 		if (this.contacts && this.product.supplier.officeEmail) {
-			this.contacts.push({ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null });
+			this.contacts.push({
+				name: this.product.supplier.name || 'Unnamed',
+				email: this.product.supplier.officeEmail,
+				jobTitle: null
+			});
 		} else if (!this.contacts && this.product.supplier.officeEmail) {
-			this.contacts = [{ name: this.product.supplier.name || 'Unnamed', email: this.product.supplier.officeEmail, jobTitle: null }];
+			this.contacts = [{
+				name: this.product.supplier.name || 'Unnamed',
+				email: this.product.supplier.officeEmail,
+				jobTitle: null
+			}];
 		}
-		this.dlgSrv.openFromModule(RfqDialogComponent, this.module, { product: this.product, contacts: this.contacts });
+		this.dlgSrv.openFromModule(RfqDialogComponent, this.module,
+			{
+				product: this.product,
+				contacts: this.contacts
+			});
 	}
+
 	onViewProduct() {
 		this.router.navigate(['product', 'details', this.product.id]);
 	}

@@ -35,6 +35,6 @@ export class FiltersComponent {
 	}
 
 	resetType(type: FilterType) {
-		// this.filterList.reset
+		this.filterList.removeFilterType(type);
 	}
 }

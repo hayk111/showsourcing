@@ -8,7 +8,6 @@ import {
 	FilterSelectionEntityPanelComponent,
 	FiltersComponent,
 } from '~shared/filters/components';
-import { FilterSelectionPanelComponent } from '~shared/filters/components/filter-selection-panel/filter-selection-panel.component';
 import { FilterDataService } from '~shared/filters/services/filter.data.service';
 import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-list/filter-btn-list.component';
 

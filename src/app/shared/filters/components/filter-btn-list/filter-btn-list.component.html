@@ -20,16 +20,18 @@
 				<label>
 					{{ type }}
 				</label>
-				<span class="edit pointer"
-					(click)="editClicked.emit(type)"
-					i18n="span|Edit filter selection@@global_edit">
-					Edit
-				</span>
-				<span class="clear pointer"
-					(click)="resetClicked.emit(type)"
-					i18n="span|Clear filter selection@@global_clear">
-					Clear
-				</span>
+				<div>
+					<span class="edit pointer"
+						(click)="editClicked.emit(type)"
+						i18n="span|Edit filter selection@@global_edit">
+						Edit
+					</span>
+					<span class="clear pointer"
+						(click)="resetClicked.emit(type)"
+						i18n="span|Clear filter selection@@global_clear">
+						Clear
+					</span>
+				</div>
 			</div>
 
 			<div class="flexColumn">
