@@ -9,7 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { SearchService, FilterType, Filter } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { ProjectWorkflowFeatureService } from '~features/project/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 

@@ -9,7 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterList, SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 
 @Component({
 	selector: 'supplier-app',

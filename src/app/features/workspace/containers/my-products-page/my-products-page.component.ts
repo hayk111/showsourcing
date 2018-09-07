@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, NgModuleRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
-import { WorkspaceWorkflowFeatureService } from '~features/workspace/services/workspace-workflow-feature.service';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
 import { ERM, Product, Project, ProductStatus } from '~models';
 import {
@@ -15,6 +15,8 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { SelectionService } from '~shared/list-page/selection.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { ListPageComponent } from '~shared/list-page/list-page.component';
+import { SearchService } from '~shared/filters';
 
 
 @Component({
@@ -22,46 +24,26 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './my-products-page.component.html',
 	styleUrls: ['./my-products-page.component.scss']
 })
-export class MyProductsPageComponent extends AutoUnsub implements OnInit {
+export class MyProductsPageComponent extends ListPageComponent<Product, WorkspaceFeatureService> implements OnInit {
 
-	project$: Observable<Project>;
 	statuses$ = new Subject<ProductStatus[]>();
-	id: string;
-	project: Project;
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
 
 	constructor(
-		private route: ActivatedRoute,
-		private projectSrv: ProjectService,
-		private productSrv: ProductService,
-		private workflowService: WorkspaceWorkflowFeatureService,
-		private selectionSrv: SelectionService,
-		private cdr: ChangeDetectorRef,
+		protected router: Router,
+		protected featureSrv: WorkspaceFeatureService,
+		protected searchSrv: SearchService,
+		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
-		protected moduleRef: NgModuleRef<any>,
-		protected featureSrv: WorkspaceWorkflowFeatureService,
-		private notifSrv: NotificationService
-	) {
-		super();
+		protected cdr: ChangeDetectorRef,
+		protected workspaceSrv: WorkspaceFeatureService,
+		protected moduleRef: NgModuleRef<any>) {
+		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	ngOnInit() {
-		/* this.project$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.id = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
-			tap(project => this.project = project)
-		);
-
-		this.project$.pipe(
-			takeUntil(this._destroy$),
-			switchMap(project => this.workflowService.getStatuses(project))
-		).subscribe(statuses => {
-			this.statuses$.next(statuses);
-		}); */
-
-		this.workflowService.getStatuses().pipe(
+		this.workspaceSrv.getStatuses().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
 			this.statuses$.next(statuses);
@@ -71,7 +53,7 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	search(search: string) {
-		this.workflowService.getStatuses(true, search).pipe(
+		this.workspaceSrv.getStatuses(true, search).pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
 			this.statuses$.next(statuses);
@@ -79,7 +61,7 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
-		this.workflowService.updateProductStatus(droppedElement, target)
+		this.workspaceSrv.updateProductStatus(droppedElement, target)
 			.subscribe(() => {
 				this.cdr.detectChanges();
 			});
@@ -138,7 +120,7 @@ export class MyProductsPageComponent extends AutoUnsub implements OnInit {
 		const items = Array.from(this.selectionSrv.selection.keys());
 		// callback for confirm dialog
 		const callback = () => {
-			this.productSrv.deleteMany(items).subscribe(() => {
+			this.workspaceSrv.deleteMany(items).subscribe(() => {
 				this.resetSelection();
 			});
 		};

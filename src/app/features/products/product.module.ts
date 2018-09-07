@@ -16,7 +16,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
-import { ProductCommonModule } from '~shared/product/product.module';
+import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { routes } from '~features/products/routes';
 
 import {
@@ -27,8 +27,7 @@ import {
 	SelectionActionsComponent,
 	SupplierCardComponent,
 	RfqDialogComponent,
-	EmailListComponent,
-	ProductSortingMenuComponent
+	EmailListComponent
 } from '~features/products/components';
 import { NewProductDialogComponent } from '~features/products/components/new-product-dialog/new-product-dialog.component';
 import { ProductDetailsComponent, ProductGeneralInfoComponent, ProductsPageComponent } from '~features/products/containers';
@@ -48,6 +47,8 @@ import { ProductActivityComponent } from './components/product-activity/product-
 import { ActivityModule } from '~shared/activity/activity.module';
 import { StatusModule } from '~shared/status/status.module';
 import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vote-details-dialog.component';
+import { ProductTasksComponent } from './containers/product-tasks/product-tasks.component';
+import { TaskModule } from '~shared/task';
 
 @NgModule({
 	imports: [
@@ -72,7 +73,8 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ActivityModule,
 		StatusModule,
 		ProductCommonModule,
-		UtilsModule
+		UtilsModule,
+		TaskModule
 	],
 	declarations: [
 		ProductSmallCardComponent,
@@ -96,7 +98,7 @@ import { VoteDetailsDialogComponent } from './components/vote-details-dialog/vot
 		ProductTeamRatingComponent,
 		ProductActivityComponent,
 		VoteDetailsDialogComponent,
-		ProductSortingMenuComponent
+		ProductTasksComponent
 	],
 	entryComponents: [
 		NewProductDialogComponent,

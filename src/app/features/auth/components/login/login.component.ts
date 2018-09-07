@@ -45,7 +45,12 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 				take(1)
 			).subscribe(
 				r => {
-					this.router.navigateByUrl(this.returnUrl);
+					if (r.status === 401) {
+						this.error = 'Incorrect credentials';
+						this.pending$.next(false);
+					} else {
+						this.router.navigateByUrl(this.returnUrl);
+					}
 				},
 				e => {
 					if (e.error && e.error.status === 401) {

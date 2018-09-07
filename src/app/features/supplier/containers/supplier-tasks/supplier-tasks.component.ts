@@ -1,5 +1,5 @@
-import { Component, NgModuleRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, NgModuleRef, OnInit, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TaskService, UserService } from '~global-services';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -9,15 +9,15 @@ import { SelectionService } from '~shared/list-page/selection.service';
 import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
-	selector: 'workspace-my-tasks-page-app',
-	templateUrl: './my-tasks-page.component.html',
-	styleUrls: ['./my-tasks-page.component.scss']
+	selector: 'supplier-tasks-app',
+	templateUrl: './supplier-tasks.component.html',
+	styleUrls: ['./supplier-tasks.component.scss']
 })
-// the service should be TaskService instead ofthis temporary one
-export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> implements OnInit {
+export class SupplierTasksComponent extends ListPageComponent<Task, TaskService> implements OnInit, AfterViewInit {
 
 	constructor(
 		private userSrv: UserService,
+		private route: ActivatedRoute,
 		protected router: Router,
 		protected featureSrv: TaskService,
 		protected searchSrv: SearchService,
@@ -25,6 +25,10 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 		protected dlgSrv: DialogService,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.TASK, CreateTaskDialogComponent);
+	}
+
+	ngAfterViewInit() {
+		this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
 	}
 
 	toggleFilter(show: boolean) {
