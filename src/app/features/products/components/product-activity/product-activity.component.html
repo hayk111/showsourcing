@@ -1,3 +1,5 @@
-
-<!-- <activity-list-app [feedResult]="feedResult"></activity-list-app> -->
-
+<flat-feed-list-app
+	[entity]="product$ | async"
+	[activities]="feedResult.feed$ | async"
+	[typeEntity]="typeEntity">
+</flat-feed-list-app>

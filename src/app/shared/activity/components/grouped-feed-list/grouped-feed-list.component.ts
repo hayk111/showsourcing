@@ -12,12 +12,12 @@ import { GroupedActivityFeed } from '~shared/activity/interfaces/client-feed.int
 import { GetStreamGroup } from '~shared/activity/interfaces/get-stream-feed.interfaces';
 
 @Component({
-	selector: 'activity-list-app',
-	templateUrl: './activity-list.component.html',
-	styleUrls: ['./activity-list.component.scss'],
+	selector: 'grouped-feed-list-app',
+	templateUrl: './grouped-feed-list.component.html',
+	styleUrls: ['./grouped-feed-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActivityListComponent extends AutoUnsub implements OnInit {
+export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	@Input() feedResult: GroupedActivityFeed;
 
 	constructor(

@@ -1,0 +1,17 @@
+<div class="flex container">
+	<div class="left flexColumn">
+		<div class="circle"></div>
+		<div class="border-middle"></div>
+		<div class="circle"></div>
+	</div>
+
+	<div class="right flexColumn">
+		<flat-feed-card-app
+			*ngFor="let activity of activities"
+			class="flex"
+			[activity]="activity"
+			[entity]="entity"
+			[typeEntity]="typeEntity">
+		</flat-feed-card-app>
+	</div>
+</div>

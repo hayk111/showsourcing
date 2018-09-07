@@ -9,7 +9,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly supplierType = `supplierType { id, name }`;
 	static readonly logoImage = `logoImage { fileName }`;
 	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName } }`;
-	static readonly statuses = `statuses { id, cancelled, status { id, name, category, step, inWorkflow } }`;
+	static readonly status = `status { id, cancelled, status {id, name, category, step, inWorkflow } }`;
+	static readonly statusHistory = `statusHistory { id, cancelled, status { id, name, category, step, inWorkflow } }`;
 	static readonly categories = `categories { id, name }`;
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, fileName, orientation }`;
@@ -34,7 +35,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
 			${SupplierQueries.createdBy}
-			${SupplierQueries.statuses}
+			${SupplierQueries.status}
+			${SupplierQueries.statusHistory}
 			${SupplierQueries.categories}
 			${SupplierQueries.images}
 			${SupplierQueries.tags}

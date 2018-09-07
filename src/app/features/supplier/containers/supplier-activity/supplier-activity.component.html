@@ -14,9 +14,13 @@
 		<supplier-images-app [supplier]="supplier" [products]="products$ | async"></supplier-images-app>
 
 		<!-- activity -->
-		<!-- <ng-container *ngIf="feedResult$ | async as feedResult">
-			<activity-list-app [feedName]="feedResult"></activity-list-app>
-		</ng-container> -->
+		<ng-container *ngIf="feedResult">
+				<flat-feed-list-app
+				[entity]="supplier"
+				[activities]="feedResult.feed$ | async"
+				[typeEntity]="typeEntity">
+			</flat-feed-list-app>
+		</ng-container>
 	</div>
 
 	<!-- right side -->
