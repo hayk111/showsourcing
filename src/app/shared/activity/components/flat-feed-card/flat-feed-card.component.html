@@ -5,7 +5,7 @@
 			[action]="title">
 		</activity-user-app>
 
-		<card-footer-app *ngIf="title === 'create_comment' && typeEntity?.singular === 'product'" align="left" class="flexColumn">
+		<card-footer-app *ngIf="activity?.verb === 'create_comment' && typeEntity?.singular === 'product'" align="left" class="flexColumn">
 			<comment-list-app [comments]="product?.comments"></comment-list-app>
 			<div class="flexBetween">
 				<textarea inputApp type="text" [formControl]="commentCtrl"
