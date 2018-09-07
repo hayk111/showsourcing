@@ -13,7 +13,7 @@ import {
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { FindProductsDialogComponent } from '~shared/product/containers/find-products-dialog/find-products-dialog.component';
+import { FindProductsDialogComponent } from '~shared/product-common/containers/find-products-dialog/find-products-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
