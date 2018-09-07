@@ -16,7 +16,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { SearchAutocompleteModule } from '~shared/search-autocomplete/search-autocomplete.module';
-import { ProductCommonModule } from '~shared/product/product.module';
+import { ProductCommonModule } from '~shared/product-common/product-common.module';
 import { routes } from '~features/products/routes';
 
 import {

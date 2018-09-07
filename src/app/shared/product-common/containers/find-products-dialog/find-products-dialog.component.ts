@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, NgModuleRef, OnInit, ChangeDetector
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ProductFeatureService } from '~shared/product/services/product-feature.service';
+import { ProductCommonFeatureService } from '~shared/product-common/services/product-common-feature.service';
 import { ERM, Product, ProductVote, Project } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
@@ -24,7 +24,7 @@ import { SelectionService } from '~shared/list-page/selection.service';
 		SelectionService
 	]
 })
-export class FindProductsDialogComponent extends ListPageComponent<Product, ProductFeatureService> implements OnInit, AfterViewInit {
+export class FindProductsDialogComponent extends ListPageComponent<Product, ProductCommonFeatureService> implements OnInit, AfterViewInit {
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() submitCallback: Function;
@@ -34,7 +34,7 @@ export class FindProductsDialogComponent extends ListPageComponent<Product, Prod
 
 	constructor(
 		protected router: Router,
-		protected featureSrv: ProductFeatureService,
+		protected featureSrv: ProductCommonFeatureService,
 		protected searchSrv: SearchService,
 		protected selectionSrv: SelectionService,
 		protected dlgSrv: DialogService,
