@@ -16,14 +16,10 @@ export class FilterBtnListComponent {
 	/** btns displayed */
 	@Input() set filterTypes(types: FilterType[]) {
 		// favorite and archived aren't buttons but simple checkboxes
-		const favFilter = types.filter(type => type === FilterType.FAVORITE);
-		const archFilter = types.filter(type => type === FilterType.ARCHIVED);
-		if (favFilter.length > 0)
-			this.hasFavoriteFilter = true;
-		if (archFilter.length > 0)
-			this.hasArchivedFilter = true;
+		this.hasFavoriteFilter = types.includes(FilterType.FAVORITE);
+		this.hasArchivedFilter = types.includes(FilterType.ARCHIVED);
 		// we set the buttons with the others
-		this.filterBtns = types;
+		this.filterBtns = types.filter(t => t !== FilterType.FAVORITE && t !== FilterType.ARCHIVED);
 	}
 	/** for each buttons the filters applied */
 	@Input() filterMap: FilterByType;

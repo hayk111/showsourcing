@@ -21,13 +21,12 @@ import { FindProductsDialogComponent } from '~shared/product-common/containers/f
 })
 export class SupplierProductsComponent extends ListPageComponent<Product, ProductService> implements OnInit {
 
-	supplier$: Observable<Supplier>;
-	private supplierId: string;
+	products$: Observable<Product[]>;
 
 	constructor(
 		protected router: Router,
 		protected srv: ProductService,
-		protected supplierSrv: SupplierService,
+		protected productSrv: ProductService,
 		protected selectionSrv: SelectionService,
 		// protected filterSrv: FilterService,
 		protected searchSrv: SearchService,
@@ -35,27 +34,12 @@ export class SupplierProductsComponent extends ListPageComponent<Product, Produc
 		protected route: ActivatedRoute,
 		protected moduleRef: NgModuleRef<any>) {
 		super(router, srv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT, FindProductsDialogComponent);
-		/* this.filterList = new FilterList([
-			{ type: 'supplier.id', comparator: '==' , value: route.snapshot.params.id }
-		]); */
+
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.supplierId = id),
-		);
-		this.supplier$ = id$.pipe(switchMap(id => this.supplierSrv.selectOne(id)));
-		// we need to wait to have the id to call super.ngOnInit, because we want the filter
-		// method to be called when we actually have the id
-		id$.pipe(
-			first()
-		).subscribe(id => {
-			super.ngOnInit();
-			this.addFilter({
-				type: FilterType.SUPPLIER,
-				value: id
-			});
-		});
+		const id = this.route.parent.snapshot.params.id;
+		this.initialPredicate = `supplier.id == "${id}"`;
+		super.ngOnInit();
 	}
 }

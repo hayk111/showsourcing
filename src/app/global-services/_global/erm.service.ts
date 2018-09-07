@@ -11,6 +11,7 @@ import { EventService } from '~global-services/event/event.service';
 import { SupplierStatusService } from '~global-services/supplier-status/supplier-status.service';
 import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
 import { TeamService } from '~global-services/team/team.service';
+import { TeamUserService, UserService } from '~global-services';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -27,7 +28,10 @@ export class ERMService {
 		private projectService: ProjectService,
 		private imageService: ImageService,
 		private eventService: EventService,
-		private teamService: TeamService) { }
+		private teamService: TeamService,
+		private teamUserSrv: TeamUserService,
+		private userSrv: UserService
+	) { }
 
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
@@ -52,6 +56,10 @@ export class ERMService {
 				return this.productStatusTypeService;
 			case ERM.TEAM:
 				return this.teamService;
+			case ERM.USER:
+				return this.userSrv;
+			case ERM.TEAM_USER:
+				return this.teamUserSrv;
 			default:
 				throw Error(`This ERM has not an associated service`);
 		}
