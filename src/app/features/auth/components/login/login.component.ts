@@ -53,7 +53,6 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 					}
 				},
 				e => {
-					console.log(e);
 					if (e.error && e.error.status === 401) {
 						this.error = 'Incorrect credentials';
 					} else {
