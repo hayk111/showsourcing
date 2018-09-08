@@ -22,8 +22,6 @@ export class TaskListComponent extends BaseComponent implements OnInit {
 
 	hoverIndex: number;
 
-	trackByFn = (index, item) => item.id;
-
 	constructor() {
     super();
   }

@@ -72,7 +72,7 @@ export class TableComponent extends BaseComponent implements OnChanges {
 	@Input() isSelectable = (item) => true;
 
 	// function used by the ng for, using an arrow to not lose this context
-	trackByFn = (index, item) => this.identify(index, item);
+	trackByIdentify = (index, item) => this.identify(index, item);
 
 	// track by for column
 	columnTrackByFn = (index) => index;

@@ -7,7 +7,7 @@
 	<div class="section">
 		<label>Relevant:</label>
 		<checkbox-app
-			*ngFor="let choice of relevantChoices; trackBy: trackByFn"
+			*ngFor="let choice of relevantChoices; trackBy: trackById"
 			[checked]="selected.has(choice.id)"
 			(check)="onItemAdded(choice)"
 			(uncheck)="onItemRemoved(choice)">

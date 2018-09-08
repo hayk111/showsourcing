@@ -48,8 +48,6 @@ export class FilterEntityPanelComponent extends AutoUnsub implements OnInit {
 	/** a search function to search through the choices. Default check if the name includes a string */
 	@Input() searchFn: Function = (choice, str) => str === '' ? true : choice.name.includes(str);
 
-	trackByFn = (index, item) => item.id;
-
 	ngOnInit(): void {
 		this.searchStr$.pipe(takeUntil(this._destroy$), debounceTime(400)).subscribe(str => this.filterChoices(str));
 	}
