@@ -10,6 +10,7 @@ import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq
 import { Task, Comment, Product } from '~models';
 import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { combineLatest, switchMap } from 'rxjs/operators';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
 
 @Component({
@@ -27,8 +28,16 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit {
 
   @Input('task')
   set task(value: Task) {
-    console.log(value);
       this._task = value;
+      // if (this._task.product) {
+      //   this.product$ = this.productService.selectOne(this._task.product.id);
+      //   this.product$.pipe(
+      //     takeUntil(this._destroy$),
+      //     map(product => {
+      //       console.log(product);
+      //     }
+      //   ));
+      // }
   }
   
 
