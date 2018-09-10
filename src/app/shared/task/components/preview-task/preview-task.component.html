@@ -1,4 +1,60 @@
 <side-panel-app>
-Test
+  <side-panel-title-app>
+    <div class="status-task">
+      <div class="status-task-icon icon-circle-checked"></div>
+      <div class="status-task-text">Mark as done</div>
+    </div>
+  </side-panel-title-app>
 
+  <side-panel-action-app>
+    <icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
+  </side-panel-action-app>
+
+  <ng-container>
+    <div class="task-name">
+      {{task?.name ? task?.name : 'Unnamed task'}}
+    </div>
+    <div class="descripton-container">
+      <div class="section-title">
+        Description
+      </div>
+
+      <div class="description-text">
+        {{task?.description}}
+      </div>
+    </div>
+
+    <div class="assigned-container">
+      <div class="section-title">
+        Assigned To
+      </div>
+
+      <div class="assigned-list">
+          <div *ngIf="task?.assignee" class="flex task-user ellipsis">
+              <user-picture-app [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
+              <div class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</div>
+            </div>
+      </div>
+    </div>
+
+    <div class="linked-product-container">
+      <div class="section-title">
+        Linked Product
+      </div>
+
+      <div class="linked-product-list">
+          
+        
+      </div>
+    </div>
+    <div class="comment-container">
+
+      <div class="show-previous-comment-link clickable">
+        Show previous comments
+      </div>
+      <div class="comment-list">
+        
+      </div>
+    </div>
+  </ng-container>
 </side-panel-app>

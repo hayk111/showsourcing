@@ -16,7 +16,7 @@
 	<task-list-app
 		[tasks]="items$ | async"
 		[selection]="selected$ | async"
-		(previewClicked)="openPreview(task)"
+		(previewClicked)="openPreview($event)"
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		(openCreateDlg)="openCreateDlg()"
