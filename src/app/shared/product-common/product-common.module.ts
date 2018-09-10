@@ -18,6 +18,7 @@ import { FiltersModule } from '~shared/filters';
 import { ProductsListViewComponent } from '~shared/product-common/components/products-list-view/products-list-view.component';
 import { ProductsCardViewComponent } from '~shared/product-common/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
+import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
 
 
 @NgModule({
@@ -41,12 +42,14 @@ import { ProductGridCardComponent } from '~shared/product-common/components/prod
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
+		ProductSortingMenuComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
 		ProductsListViewComponent,
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
+		ProductSortingMenuComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: []
