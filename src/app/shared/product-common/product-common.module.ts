@@ -23,6 +23,7 @@ import { ProductsCardViewComponent } from '~shared/product-common/components/pro
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
 import { ProductSortingMenuComponent } from '~shared/product-common/components/product-sorting-menu/product-sorting-menu.component';
 import { ProductPreviewComponent } from '~shared/product-common/containers/product-preview/product-preview.component';
+import { KanbanItemCardComponent } from '~shared/product-common/components/kanban-item-card/kanban-item-card.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ProductPreviewComponent } from '~shared/product-common/containers/produ
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
-		ProductPreviewComponent
+		ProductPreviewComponent,
+		KanbanItemCardComponent
 	],
 	exports: [
 		FindProductsDialogComponent,
@@ -58,7 +60,8 @@ import { ProductPreviewComponent } from '~shared/product-common/containers/produ
 		ProductsCardViewComponent,
 		ProductGridCardComponent,
 		ProductSortingMenuComponent,
-		ProductPreviewComponent
+		ProductPreviewComponent,
+		KanbanItemCardComponent
 	],
 	entryComponents: [FindProductsDialogComponent],
 	providers: []

@@ -40,7 +40,7 @@
             </div>
             <div class="descriptionCtnr-last flex">
               <icon-app [name]="thumbsName" *ngIf="thumbsName" fontSet="svg"></icon-app>
-              <span *ngIf="product?.score" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
+              <span *ngIf="product?.score !== undefined && product?.score != null" class="score" [ngClass]="{ 'like-txt': like, 'dislike-txt': dislike }">{{product?.score}}%</span>
             </div>
           </div>
         </div>

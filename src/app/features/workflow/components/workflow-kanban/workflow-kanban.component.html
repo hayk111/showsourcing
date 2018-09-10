@@ -2,10 +2,10 @@
 <ng-container *ngIf="statuses">
 	<div class="flex ctnr"
 		[ngClass]="{ 'without-sidenav': withoutSidenav }"
-		[ngStyle]="{ height: 'calc(100vh - ' + ((heightOffset ? heightOffset - 3 : 0) + 190) + 'px)' }">
+		[ngStyle]="{ height: 'calc(100vh - ' + kanbanHeightOffset + 'px)' }">
 
 		<kanban-col-app
-		  [ngStyle]="{ height: 'calc(100vh - ' + (heightOffset + 194) + 'px)' }"
+		  [ngStyle]="{ height: 'calc(100vh - ' + kanbanColumnHeightOffset + 'px)' }"
 			[dropzoneApp]="status"
 			[data]="status"
 			[disabled]="status.name === '_NoStatus'"

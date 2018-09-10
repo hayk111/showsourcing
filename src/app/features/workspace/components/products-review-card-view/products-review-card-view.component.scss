@@ -19,6 +19,7 @@
 
 .category-section {
   width: 1057px;
+  margin-bottom: 35px;
   &:hover {
     background-color: var(--color-bg-secondary);
     box-shadow: 0 2px 8px 0 rgba(93, 109, 139, 0.1);
@@ -46,7 +47,9 @@
 }
 
 kanban-item-card-app {
-  width: 332px;
+  width: 324px;
+  margin-left: 12px !important;
+  margin-right: 12px !important;
 }
 
 .category-header {
