@@ -3,6 +3,9 @@
 	<div class="flex task-name ellipsis">
 		<icon-app [name]="task?.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg"></icon-app>
 		<div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="preview">
+			<button (click)="previewClick.emit(row)" class="ugly">Preview</button>
+		</div>
 	</div>
 
 	<!-- if product -->
