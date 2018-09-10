@@ -60,8 +60,9 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 	search(str: string) {
 		if (str)
 			this.filterList.upsertFilter({
-				type: FilterType.SEARCH, value: str,
-				fields: [ 'email' ]
+				type: FilterType.SEARCH,
+				value: str,
+				fields: ['email']
 			});
 		else
 			this.filterList.removeFilterType(FilterType.SEARCH);
