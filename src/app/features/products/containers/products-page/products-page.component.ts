@@ -9,7 +9,7 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 } from '~shared/custom-dialog';
 import { DialogService } from '~shared/dialog';
-import { SearchService } from '~shared/filters';
+import { SearchService, FilterType } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -25,6 +25,15 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 
 	searchFilterElements$: Observable<any[]>;
 	currentSort = { sortBy: 'creationDate', descending: true };
+	// filter displayed as button in the filter panel
+	filterTypes = [
+		FilterType.SUPPLIER,
+		FilterType.CATEGORY,
+		FilterType.TAGS,
+		FilterType.PROJECTS,
+		FilterType.FAVORITE,
+		FilterType.ARCHIVED,
+	];
 
 	constructor(
 		protected router: Router,
@@ -92,9 +101,9 @@ export class ProductsPageComponent extends ListPageComponent<Product, ProductFea
 		super.onViewChange(v);
 		// Update sorting according to the selected view
 		if (this.view === 'list') {
-			this.currentSort = { sortBy: 'creationDate' , descending: false };
+			this.currentSort = { sortBy: 'creationDate', descending: false };
 		} else if (this.view === 'card') {
-			this.currentSort = { sortBy: 'category.name' , descending: false };
+			this.currentSort = { sortBy: 'category.name', descending: false };
 		}
 		super.sort(this.currentSort);
 		this.cdr.detectChanges();

@@ -10,9 +10,10 @@
 
 	<sub-panel-app
 		[hasSwitch]="false"
-		[hasFilter]="false"
+		[hasFilter]="true"
 		[buttonIcon]="false"
-		(search)="search($event)">
+		(search)="search($event)"
+		(showFilters)="openFilterPanel()">
 	</sub-panel-app>
 
 	<ng-container *ngIf="selected$ | async as selected">
@@ -31,6 +32,13 @@
 	</ng-container>
 
 </ng-container>
+
+<filters-app
+	[filterList]="filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="closeFilterPanel()"
+	*ngIf="filterPanelOpen">
+</filters-app>
 
 
 <ng-template #spinner>

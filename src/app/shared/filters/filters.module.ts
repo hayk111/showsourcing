@@ -5,17 +5,10 @@ import { BadgeModule } from '~shared/badge/badge.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	FilterBtnComponent,
-	FilterEntityPanelComponent,
-	FilterPricePanelComponent,
-	FilterRatingPanelComponent,
-	FilterSmartPanelComponent,
-	FilterTagComponent,
-	FiltersComponent
+	FilterSelectionEntityPanelComponent,
+	FiltersComponent,
 } from '~shared/filters/components';
-import { FilterSelectionPanelComponent } from '~shared/filters/components/filter-selection-panel/filter-selection-panel.component';
-import { FilterBtnsPanelComponent } from '~shared/filters/components/filter-btns-panel/filter-btns-panel.component';
-import { FilterDataService } from '~shared/filters/services/filter.data.service';
+import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-list/filter-btn-list.component';
 
 @NgModule({
 	imports: [
@@ -26,25 +19,13 @@ import { FilterDataService } from '~shared/filters/services/filter.data.service'
 		BadgeModule
 	],
 	declarations: [
-		FilterBtnComponent,
-		FilterBtnsPanelComponent,
-		FilterEntityPanelComponent,
-		FilterRatingPanelComponent,
-		FilterPricePanelComponent,
-		FilterTagComponent,
-		FilterSmartPanelComponent,
-		FilterSelectionPanelComponent,
+		FilterSelectionEntityPanelComponent,
+		FilterBtnListComponent,
 		FiltersComponent
 	],
 	exports: [
-		FilterBtnComponent,
-		FilterBtnsPanelComponent,
-		FilterEntityPanelComponent,
-		FilterRatingPanelComponent,
-		FilterPricePanelComponent,
-		FilterTagComponent,
-		FilterSmartPanelComponent,
-		FilterSelectionPanelComponent,
+		FilterSelectionEntityPanelComponent,
+		FilterBtnListComponent,
 		FiltersComponent
 	],
 	providers: [

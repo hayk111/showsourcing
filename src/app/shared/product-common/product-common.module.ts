@@ -14,7 +14,7 @@ import { RatingModule } from '~shared/rating/rating.module';
 import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
 import { StatusModule } from '~shared/status/status.module';
-import { ProductCommonFeatureService } from '~shared/product-common/services/product-common-feature.service';
+import { FiltersModule } from '~shared/filters';
 import { ProductsListViewComponent } from '~shared/product-common/components/products-list-view/products-list-view.component';
 import { ProductsCardViewComponent } from '~shared/product-common/components/products-card-view/products-card-view.component';
 import { ProductGridCardComponent } from '~shared/product-common/components/product-grid-card/product-grid-card.component';
@@ -33,14 +33,25 @@ import { ProductSortingMenuComponent } from '~shared/product-common/components/p
 		RatingModule,
 		WorkflowActionModule,
 		ActionBarModule,
-		StatusModule
+		StatusModule,
+		FiltersModule
 	],
 	declarations: [
-		FindProductsDialogComponent, ProductsCardViewDialogComponent, ProductsListViewComponent,
-		ProductsCardViewComponent, ProductGridCardComponent, ProductSortingMenuComponent],
-	exports: [FindProductsDialogComponent, ProductsListViewComponent, ProductsCardViewComponent,
-		ProductGridCardComponent, ProductSortingMenuComponent],
+		FindProductsDialogComponent,
+		ProductsCardViewDialogComponent,
+		ProductsListViewComponent,
+		ProductsCardViewComponent,
+		ProductGridCardComponent,
+		ProductSortingMenuComponent
+	],
+	exports: [
+		FindProductsDialogComponent,
+		ProductsListViewComponent,
+		ProductsCardViewComponent,
+		ProductGridCardComponent,
+		ProductSortingMenuComponent
+	],
 	entryComponents: [FindProductsDialogComponent],
-	providers: [ProductCommonFeatureService]
+	providers: []
 })
 export class ProductCommonModule { }

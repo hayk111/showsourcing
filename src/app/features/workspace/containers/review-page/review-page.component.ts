@@ -73,7 +73,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 					message: 'The invitation was accepted',
 					timeout: 3500
 				});
-					this.cdr.detectChanges();
+				this.cdr.detectChanges();
 			});
 	}
 
@@ -139,7 +139,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 

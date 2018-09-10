@@ -2,8 +2,21 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, share, filter, skip } from 'rxjs/operators';
 
-import { Filter, FilterType } from '~shared/filters/models/filter.class';
+import { Filter } from '~shared/filters/models/filter.class';
 import { tap } from 'rxjs/internal/operators/tap';
+import { ID } from '~utils/id.utils';
+import { FilterType } from '~shared/filters/models/filter.class';
+
+
+/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
+ * Allows us to check in constant time if a filter type has a filter of value x.
+ *
+ * For example we can answer the question: Does this product has a filter on supplier
+ * with id = 10 ?
+ *
+ * byType.get(ERM.SUPPLIER).has(id-10)
+ */
+export type FilterByType = Map<FilterType, Map<ID, Filter>>;
 
 
 export class FilterList {
@@ -17,36 +30,24 @@ export class FilterList {
 	private setFilters(filters: Filter[]) {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
-		this._query = this.filtersToQuery(filters);
+		this._query = this.filtersToPredicate(filters);
 		this._valueChanges$.next(this);
 	}
 	asFilters() { return this._filters; }
 
-	/** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
-	 * Allows us to check in constant time if a filter type has a filter of value x.
-	 *
-	 * For example we can answer the question: Does this product has a filter on supplier
-	 * with id = 10 ?
-	 *
-	 * byType.get(FilterType.SUPPLIER).has(10)
-	 */
-	private _byType: Map<FilterType, Map<any, Filter>>;
+
+	private _byType: FilterByType;
 	asByType() { return this._byType; }
 
 	/**
 	 * Returns the filters as a query usable by apollo client
 	 */
 	private _query: string;
-	asQuery(): string { return this._query; }
+	asPredicate(): string { return this._query; }
 
 	constructor(startFilters: Filter[] = []) {
 		// adding the start filters
 		this.setFilters(startFilters);
-	}
-
-	/** adds an array of filters at the end of current filters */
-	addFilters(added: Filter[]) {
-		this.setFilters([...this._filters, ...added]);
 	}
 
 	/** adds filter at the end of the array */
@@ -57,79 +58,67 @@ export class FilterList {
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		// removing to array of filters
-		this.setFilters(this._filters.filter(
-			fltr => (fltr.type !== removed.type || fltr.value !== removed.value)
-		));
+		this.setFilters(
+			this._filters.filter(
+				fltr => (fltr.type !== removed.type || fltr.value !== removed.value)
+			)
+		);
 	}
 
 	/** removes all filters */
-	clearAll() {
+	resetAll() {
 		this.setFilters([]);
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: FilterType | string) {
+	removeFilterType(type: FilterType) {
 		this.setFilters(this._filters.filter(f => f.type !== type));
-
 	}
 
-	/** upsert filter, will delete previous filter with the same type */
-	upsertFilter(inserted: Filter) {
-		const newFilters = this._filters
-			.filter(f => f.type !== inserted.type);
-		newFilters.push(inserted);
-		this.setFilters(newFilters);
-	}
-
-	private getInitialMap() {
+	/** return a new map of <type, new Map()> */
+	private getInitialMap(): FilterByType {
 		const byTypeMap = new Map();
-		Object.values(FilterType).forEach(type => byTypeMap.set(type, new Map()));
+		Object.values(FilterType)
+			.forEach(type => byTypeMap.set(type, new Map()));
 		return byTypeMap;
 	}
 
-	private filtersToByType(filters: Filter[]) {
+	/** returns a new map of <type, <filter.value, filter>> */
+	private filtersToByType(filters: Filter[]): FilterByType {
 		const copy = this.getInitialMap();
-		filters.forEach(fltr => copy.get(fltr.type).set(fltr.value, filter));
+		filters.forEach(fltr => copy.get(fltr.type).set(fltr.value, fltr));
 		return copy;
 	}
 
-	private filtersToQuery(filters: Filter[]): string {
-		return FilterList.filtersToQuery(filters);
+	/** transform filter into a predicate understandable by graphql */
+	private filtersToPredicate(filters: Filter[]): string {
+		return FilterList.filtersToPredicate(filters);
 	}
 
-	static filtersToQuery(filters: Filter[]) {
+	static filtersToPredicate(filters: Filter[]) {
 		if (filters.length === 0)
 			return '';
 
-		return filters.map(({ type, value, raw, fields, comparator }) => {
-			// if there is a comparator we use the comparator to make the query
-			if (comparator)
-				return `${type} ${comparator} ${value}`;
-			// else we return the filter given the type
-			return FilterList.getFieldCondition(type, value, fields);
+		return filters.map(({ type, value }) => {
+
+			return FilterList.getFieldCondition(type, value);
 		}).join(' or ');
 	}
 
-	private static getFieldCondition(type, value, fields) {
+	/** the way a Filter is translated into graphql changes with
+	 * its type. This method return the translated predicate
+	 */
+	private static getFieldCondition(type, value) {
 		switch (type) {
-			case FilterType.SEARCH:
-				return (fields && fields.length > 0) ?
-					fields.map(field => `${field} CONTAINS[c] "${value}"`).join(' OR ') :
-					`name CONTAINS[c] "${value}"`;
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
 				return `${type} == ${value}`;
-
-			case FilterType.ID:
-				return `${type} == "${value}"`;
+			case FilterType.CREATED_BY:
+				return `createdBy == "${value}"`;
+			// most of the filters from the panel filter by id
 			default:
 				return `${type}.id == "${value}"`;
 		}
-	}
-
-	// for view products
-	static fromString() {
-		throw Error('not implemented yet');
 	}
 
 }

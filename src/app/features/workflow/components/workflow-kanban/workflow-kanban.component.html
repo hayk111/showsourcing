@@ -1,6 +1,8 @@
 
 <ng-container *ngIf="statuses">
-	<div class="flex ctnr" [ngClass]="{ 'without-sidenav': withoutSidenav }" [ngStyle]="{ height: 'calc(100vh - ' + ((heightOffset ? heightOffset - 3 : 0) + 190) + 'px)' }">
+	<div class="flex ctnr"
+		[ngClass]="{ 'without-sidenav': withoutSidenav }"
+		[ngStyle]="{ height: 'calc(100vh - ' + ((heightOffset ? heightOffset - 3 : 0) + 190) + 'px)' }">
 
 		<kanban-col-app
 		  [ngStyle]="{ height: 'calc(100vh - ' + (heightOffset + 194) + 'px)' }"

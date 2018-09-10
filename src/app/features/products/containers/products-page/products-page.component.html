@@ -120,9 +120,9 @@
 	</selection-bar-app>
 
 	<filters-app
-		(clickOutside)="closeFilterPanel()"
 		[filterList]="filterList"
-		[byType]="filterList.asByType()"
+		[filterTypes]="filterTypes"
+		(clickOutside)="closeFilterPanel()"
 		*ngIf="filterPanelOpen">
 	</filters-app>
 
