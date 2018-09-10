@@ -10,12 +10,12 @@ import { shareReplay, share } from 'rxjs/operators';
 export class WorkflowActionService {
 
 	private productStatusTypes$: Observable<ProductStatusType[]> = this.ermSrv.getStatusService(ERM.PRODUCT)
-		.queryAll('id, name, category, step, inWorkflow').pipe(
+		.getListQuery({ query: 'id, name, category, step, inWorkflow', sortBy: 'step' }).items$.pipe(
 			shareReplay(1)
 		);
 	supplierStatusTypes$: Observable<SupplierStatusType[]> = this.ermSrv.getStatusService(ERM.SUPPLIER)
-		.queryAll('id, name, category, step, inWorkflow').pipe(
-			share()
+		.getListQuery({ query: 'id, name, category, step, inWorkflow', sortBy: 'step' }).items$.pipe(
+			shareReplay(1)
 		);
 
 	constructor(
