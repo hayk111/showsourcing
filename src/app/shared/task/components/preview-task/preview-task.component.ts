@@ -1,14 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule } from '@angular/core';
-import { Product, ProductConfig, ERM, Contact } from '~models';
 import { Observable, ReplaySubject } from 'rxjs';
 import { FormDescriptor, CustomField } from '~shared/dynamic-forms';
 import { FormGroup } from '@angular/forms';
 import { AutoUnsub } from '~utils';
 import { takeUntil, distinctUntilChanged, map, tap, first } from 'rxjs/operators';
-import { TaskService } from '~global-services';
+import { TaskService, ProductService } from '~global-services';
 import { DialogService } from '~shared/dialog';
 import { RfqDialogComponent } from '~features/products/components/rfq-dialog/rfq-dialog.component';
-import { Task, Comment } from '~models';
+import { Task, Comment, Product } from '~models';
 import { NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
@@ -20,13 +19,27 @@ import { ProductAddToProjectDlgComponent } from '~shared/custom-dialog';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewTaskComponent extends AutoUnsub implements OnInit {
-	@Input() task: Task;
+
+  private _task: Task;
+  get task(): Task {
+    return this._task;
+  }
+
+  @Input('task')
+  set task(value: Task) {
+    console.log(value);
+      this._task = value;
+  }
+  
+
   @Output() close = new EventEmitter<any>();
   
   comment$: Observable<Comment>;
+  product$: Observable<Product>;
 
 	constructor(
 		private featureSrv: TaskService,
+		private productService: ProductService,
 		private dlgSrv: DialogService,
 		private module: NgModuleRef<any>,
 		private router: Router) {
@@ -34,8 +47,6 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-    
-    console.log(this.task);
     
 	}
 

@@ -45,7 +45,20 @@
       </div>
 
       <div class="linked-product-list">
-          
+          <kanban-item-card-app class="marginSmall" 
+              [title]="task?.product.name"
+              [showCheckbox]="false"
+							[status]="task?.product.status?.name"
+							[favorite]="task?.product.favorite"
+							[tags]="task?.product.tags"
+							[price]="task?.product.price"
+							[minimumOrderQuantity]="task?.product.minimumOrderQuantity"
+							[description]="task?.product.description ? task?.product.description : 'No description'"
+							[image]="task?.product.images?.length > 0 ? (task?.product | image:'m') : null"
+							[person]="task?.product.createdBy"
+							[link]="'/product/details/' + task?.product.id + '/general'"
+							[product]="task?.product">
+						</kanban-item-card-app>
         
       </div>
     </div>

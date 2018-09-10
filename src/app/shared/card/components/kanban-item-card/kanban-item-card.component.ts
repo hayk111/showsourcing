@@ -67,6 +67,8 @@ export class KanbanItemCardComponent extends BaseComponent implements OnInit, Af
 	/** Whether a new content is displayed on hover */
 	@Input() enabledHoverContent: boolean;
 
+	@Input() showCheckbox? = true;
+
 	/** Trigger the event to enable / disable drag'n drop to the container element */
 	@Output() dragDropEnable = new EventEmitter<boolean>();
 	/** Trigger the event when the element is selected via the checkbox */

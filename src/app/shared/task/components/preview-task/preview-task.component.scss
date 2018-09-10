@@ -97,7 +97,17 @@
 
 .linked-product-container {
   .linked-product-list {
+    kanban-item-card-app {
+      border-radius: none;
+      box-shadow: none; 
+      border: none;
+      padding: 0px;
+      margin: 0px;
+    }
+  }
 
+  .imgCtnr {
+    margin-left: 0px; 
   }
 }
 
