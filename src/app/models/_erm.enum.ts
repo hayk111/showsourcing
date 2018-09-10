@@ -55,7 +55,7 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', Project);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
-	static readonly SUPPLIER_STATUS = new EntityMetadata('supplier status', 'supplier status', Supplier, 'supplier-status');
+	static readonly SUPPLIER_STATUS_TYPE = new EntityMetadata('supplier status type', 'supplier status type', Supplier, 'supplier-status-type');
 	static readonly SUPPLIER_TYPE = new EntityMetadata('supplier type', 'supplier types', Supplier, 'supplier-type');
 	static readonly SUPPLIER_TAG = new EntityMetadata('supplier tag', 'supplier tags', Tag, 'supplier-tag');
 	static readonly TAG = new EntityMetadata('tag', 'tags', Tag);

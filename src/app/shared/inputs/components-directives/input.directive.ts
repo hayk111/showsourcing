@@ -71,7 +71,7 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		// When using Angular inputs, developers are no longer able to set the properties on the native
 		// input element. To ensure that bindings for `type` work, we need to sync the setter
 		// with the native property. Textarea elements don't support the type property or attribute.
-		if (!this._isTextarea()) {
+		if (!this._isTextarea() && !this._isSelect()) {
 			this._elementRef.nativeElement.type = this._type;
 		}
 	}
@@ -111,6 +111,13 @@ export class InputDirective implements AppFormFieldControl, OnChanges {
 		const nativeElement = this._elementRef.nativeElement;
 		const nodeName = nativeElement.nodeName;
 		return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+	}
+
+	/** Determines if the component host is a select. If not recognizable it returns false. */
+	protected _isSelect() {
+		const nativeElement = this._elementRef.nativeElement;
+		const nodeName = nativeElement.nodeName;
+		return nodeName ? nodeName.toLowerCase() === 'select' : false;
 	}
 
 	/** Focuses the input and sets the carret at the end */

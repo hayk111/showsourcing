@@ -1,0 +1,39 @@
+:host {
+	display: block;
+}
+
+card-app {
+	// overflow: hidden;
+}
+
+activity-user-app {
+	padding-bottom: var(--spacing-ms);
+}
+
+
+.supplierImg {
+	height: 32px;
+	width: 32px;
+	margin-right: var(--spacing-ms);
+}
+
+.supplierName {
+	line-height: 1;
+	font-weight: 600;
+	color: var(--color-txt-strong);
+	letter-spacing: -0.3px;
+}
+
+.supplierType {
+	margin-top: var(--spacing-xs);
+	font-size: var(--font-size-s);
+	color: var(--color-txt-secondary);
+	letter-spacing: -0.1px;
+}
+
+card-footer-app {
+	button {
+		min-width: 130px;
+		font-weight: 600;
+	}
+}

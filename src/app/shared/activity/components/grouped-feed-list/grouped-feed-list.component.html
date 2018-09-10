@@ -1,0 +1,37 @@
+
+<ng-container *ngIf="feedResult.feed$ | async as feeds; else spinner">
+  <ng-container *ngFor="let feed of feeds">
+
+    <ng-container [ngSwitch]="getGroupName(feed)">
+
+      <!-- product activity -->
+      <one-product-activity-card-app
+        *ngSwitchCase="'product_activity'"
+				[groupFeed]="feed"
+				title="new comment"
+				(createComment)="createComment($event)"
+        (update)="updateProduct($event)"></one-product-activity-card-app>
+
+      <!-- product created -->
+      <one-product-activity-card-app
+        *ngSwitchCase="'product_one_created'"
+				[groupFeed]="feed"
+				title="created a new product"
+        (update)="updateProduct($event)"></one-product-activity-card-app>
+
+      <multiple-products-activity-card-app
+        *ngSwitchCase="'product_many_created'"
+        [groupFeed]="feed"
+        (update)="updateProduct($event)"></multiple-products-activity-card-app>
+
+      <!-- supplier -->
+      <!-- TODO -->
+
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #spinner>
+  <spinner-app></spinner-app>
+</ng-template>

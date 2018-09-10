@@ -3,11 +3,15 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 import { TopPanelModule } from '~shared/top-panel/top-panel.module';
 import { routes } from '~features/workspace/routes';
+import { ProductsReviewCardViewComponent, ProductsReviewSortingMenuComponent } from '~features/workspace/components';
 import { WorkspaceComponent, MyProductsPageComponent, MyTasksPageComponent, ReviewPageComponent } from '~features/workspace/containers';
-import { WorkspaceWorkflowFeatureService } from '~features/workspace/services/workspace-workflow-feature.service';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { SelectionBarModule } from '~shared/selection-bar';
 import { ActionBarModule } from '~shared/action-bar/action-bar.module';
+import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.module';
 import { WorkflowModule } from '~features/workflow/workflow.module';
+import { TaskModule } from '~shared/task';
+import { ProductCommonModule } from '~shared/product-common/product-common.module';
 
 
 @NgModule({
@@ -17,17 +21,22 @@ import { WorkflowModule } from '~features/workflow/workflow.module';
 		TopPanelModule,
 		SelectionBarModule,
 		ActionBarModule,
-		WorkflowModule
+		WorkflowModule,
+		TaskModule,
+		ProductCommonModule,
+		WorkflowActionModule
 	],
 	declarations: [
 		WorkspaceComponent,
 		MyProductsPageComponent,
 		MyTasksPageComponent,
-		ReviewPageComponent
+		ReviewPageComponent,
+		ProductsReviewCardViewComponent,
+		ProductsReviewSortingMenuComponent
 	],
 	exports: [RouterModule],
 	providers: [
-		WorkspaceWorkflowFeatureService
+		WorkspaceFeatureService
 	]
 })
 export class WorkspaceModule {

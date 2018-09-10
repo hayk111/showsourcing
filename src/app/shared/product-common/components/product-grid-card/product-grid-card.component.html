@@ -1,0 +1,63 @@
+<div class="card-container" [ngClass]="{'selectedCard': selected, 'actions': hasActions}" [class.selectedCard]="selected" (mouseenter)="setShowOptionsBar(true)" (mouseleave)="setShowOptionsBar(false)">
+	<div class="card-content flexColumn">
+		<img-app
+			class="noselect"
+			size="m"
+			[image]="product"
+			objectFit="fill">
+		</img-app>
+
+		<div class="imgNumber flex flexCenter">
+			<span>{{product?.images?.length || '-'}}</span>
+			<div class="icon-img"></div>
+		</div>
+
+		<div class="imgPrice flex flexCenter">
+			<span>{{product?.price?.value | currency: product?.price?.currency:'symbol':'1.2-2'}}</span>
+		</div>
+
+		<status-badge-app
+			[status]="product?.status?.status" [typeEntity]="prodERM">
+		</status-badge-app>
+
+		<checkbox-app
+			*ngIf="hasActions && (selected || showOptionsBar)"
+			[size]="20"
+			[checked]="selected"
+			(check)="productSelect.emit()"
+			(uncheck)="productUnselect.emit()">
+		</checkbox-app>
+
+		<div class="information">
+			<div class="text-bar">
+				<p class="name-product">{{product?.name || 'Unnamed Product'}}</p>
+				<p class="supplier-product">{{product?.supplier?.name}}</p>
+			</div>
+			<icons-status-app
+				[product]="product"
+				[favorite]="product?.favorite">
+			</icons-status-app>
+		</div>
+
+		<action-bar-app
+			*ngIf="hasActions"
+			[isVisible]="showOptionsBar"
+			[votes]="product?.votes"
+			[favorite]="product?.favorite"
+			(onFavorite)="productFavorite.emit()"
+			(onUnfavorite)="productUnfavorite.emit()"
+			(vote)="updateProduct({ votes: $event })"
+			buttonName="Open"
+			(buttonClick)="onViewProduct()">
+
+			<button class="icon light folder" (click)="openAddToProject()">
+				<icon-app fontSet="svg" name="folder"></icon-app>
+			</button>
+			<button class="icon light dots">
+				<icon-app fontSet="svg" name="3-dots-vertical"></icon-app>
+			</button>
+
+		</action-bar-app>
+
+	</div>
+</div>

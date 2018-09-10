@@ -47,6 +47,10 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		}
 	}
 
+	trackByFn(index, product) {
+		return product.id;
+	}
+
 	hasAllProductsSelected(category, currentSelection) {
 		let allSelected = true;
 		category.values.forEach(value => {

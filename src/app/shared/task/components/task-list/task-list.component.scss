@@ -1,0 +1,46 @@
+:host {
+	display: block;
+	background: white;
+	padding: var(--spacing-l);
+	padding-left: var(--spacing-ms);
+	border-radius: var(--border-radius-s);
+}
+
+.title {
+	color: var(--color-txt-strong);
+	font-size: var(--font-size-xxxl);
+	margin-bottom: var(--spacing-l);
+	margin-left: var(--spacing-ms);
+}
+
+.container {
+	max-height: 490px;
+
+	.task-container {
+
+		&.hovered {
+			cursor: pointer;
+			background-color: var(--color-secondary-light);
+		}
+
+		task-app {
+			width: 100%;
+			border-bottom: 1px solid var(--color-secondary);
+
+			&.border-top {
+				border-top: 1px solid var(--color-secondary);
+			}
+
+			&.no-border {
+				border: none;
+			}
+		}
+	}
+
+}
+
+button.light {
+	margin-top: var(--spacing-ms);
+	color: var(--color-txt-secondary);
+	font-style: italic;
+}
