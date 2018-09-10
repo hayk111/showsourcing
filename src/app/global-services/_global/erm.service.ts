@@ -1,16 +1,16 @@
-import { EntityMetadata, ERM } from '~models';
+import { Injectable } from '@angular/core';
+import { SupplierStatusTypeService, TeamUserService, UserService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { CategoryService } from '~global-services/category/category.service';
-import { TagService } from '~global-services/tag/tag.service';
-import { SupplierService } from '~global-services/supplier/supplier.service';
+import { EventService } from '~global-services/event/event.service';
+import { ImageService } from '~global-services/image/image.service';
+import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
 import { ProductService } from '~global-services/product/product.service';
 import { ProjectService } from '~global-services/project/project.service';
-import { ImageService } from '~global-services/image/image.service';
-import { Injectable } from '@angular/core';
-import { EventService } from '~global-services/event/event.service';
-import { SupplierStatusService } from '~global-services/supplier-status/supplier-status.service';
-import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
+import { SupplierService } from '~global-services/supplier/supplier.service';
+import { TagService } from '~global-services/tag/tag.service';
 import { TeamService } from '~global-services/team/team.service';
+import { EntityMetadata, ERM } from '~models';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -21,13 +21,17 @@ export class ERMService {
 		private categoryService: CategoryService,
 		private tagService: TagService,
 		private supplierService: SupplierService,
-		private supplierStatusService: SupplierStatusService,
+		private supplierStatusTypeService: SupplierStatusTypeService,
 		private productService: ProductService,
 		private productStatusTypeService: ProductStatusTypeService,
 		private projectService: ProjectService,
 		private imageService: ImageService,
 		private eventService: EventService,
-		private teamService: TeamService) { }
+		private teamService: TeamService,
+		private teamUserSrv: TeamUserService,
+		private userSrv: UserService
+	) { }
+
 
 	getGlobalService(erm: EntityMetadata): GlobalService<any> {
 		switch (erm) {
@@ -45,12 +49,16 @@ export class ERMService {
 				return this.tagService;
 			case ERM.EVENT:
 				return this.eventService;
-			case ERM.SUPPLIER_STATUS:
-				return this.supplierStatusService;
+			case ERM.SUPPLIER_STATUS_TYPE:
+				return this.supplierStatusTypeService;
 			case ERM.PRODUCT_STATUS_TYPE:
 				return this.productStatusTypeService;
 			case ERM.TEAM:
 				return this.teamService;
+			case ERM.USER:
+				return this.userSrv;
+			case ERM.TEAM_USER:
+				return this.teamUserSrv;
 			default:
 				throw Error(`This ERM has not an associated service`);
 		}
@@ -61,7 +69,7 @@ export class ERMService {
 			case ERM.PRODUCT:
 				return this.productStatusTypeService;
 			case ERM.SUPPLIER:
-				return this.supplierStatusService;
+				return this.supplierStatusTypeService;
 			default:
 				throw Error(`This ERM has not an associated status service`);
 		}

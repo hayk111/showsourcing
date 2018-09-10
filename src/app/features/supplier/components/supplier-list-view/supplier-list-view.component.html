@@ -41,7 +41,7 @@
 		class="capitalize"
 		columnApp="Categories"
 		let-row="row"
-		sortBy="categories"
+		[sortable]="false"
 		width="280">
 		<span *ngFor="let cat of row.categories; let last = last;trackBy: trackByFn">
 			{{ cat.name }} {{ last ? '' : ', '}}
@@ -66,7 +66,7 @@
 		class="capitalize"
 		columnApp="Tags"
 		let-row="row"
-		sortBy="tags"
+		[sortable]="false"
 		width="280">
 		<span *ngFor="let tag of row.tags; let last = last;trackBy: trackByFn">{{ tag.name }} {{ last ? '' : ', '}}</span>
 	</ng-template>
