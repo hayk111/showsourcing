@@ -17,6 +17,8 @@ export class WorkflowKanbanComponent implements OnInit {
 	@Input() statuses;
 	/** A reference to the contextual menu template */
 	@Input() contextualMenu: TemplateRef<any>;
+	/** A reference to the contextual menu template */
+	@Input() card: TemplateRef<any>;
 	/** The selected items */
 	@Input() selectedItems: any[];
 	/** Whether a sidenav is displayed */

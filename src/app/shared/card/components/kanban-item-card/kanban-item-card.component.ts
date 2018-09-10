@@ -140,7 +140,7 @@ export class KanbanItemCardComponent implements OnInit, AfterViewInit {
 		event.stopPropagation();
 	}
 
-	/** Toogle the drag'n drop enable state */
+	/** Toggle the drag'n drop enable state */
 	toggleDragDropEnable(from, event) {
 		if (from === 'checkbox') {
 			this.onToggleCheckbox(event);

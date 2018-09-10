@@ -9,6 +9,7 @@
 	<workflow-kanban-app
 		[statuses]="statuses$ | async"
 		[contextualMenu]="contextualMenu"
+		[card]="card"
 		[selectedItems]="selected$ | async"
 		[heightOffset]="12"
 		(itemDropped)="onUpdateProductStatus($event)"
@@ -17,6 +18,23 @@
 		(selectAllItems)="onAllItemsSelected($event)"
 		(unselectAllItems)="onAllItemsUnselected($event)">
 	</workflow-kanban-app>
+
+	<ng-template #card let-row="row" let-status="status" let-dragInProgress="dragInProgress">
+		<kanban-item-card-app class="marginSmall" [title]="row?.name"
+			[status]="row?.status?.name"
+			[favorite]="row?.favorite"
+			[tags]="row?.tags"
+			[price]="row?.price"
+			[minimumOrderQuantity]="row?.minimumOrderQuantity"
+			[category]="status?.category"
+			[description]="row?.description ? row.description : 'No description'"
+			[image]="row?.images?.length > 0 ? (row | image:'m') : null"
+			[person]="row?.createdBy"
+			[link]="'/product/details/' + row?.id + '/general'"
+			[product]="row"
+			[dragInProgress]="dragInProgress">
+		</kanban-item-card-app>
+  </ng-template>
 
 	<ng-template #contextualMenu let-row="row">
 		<context-menu-app xPosition="-171" yPosition="20">
