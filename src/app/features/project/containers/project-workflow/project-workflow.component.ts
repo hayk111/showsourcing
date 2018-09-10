@@ -61,9 +61,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	onUpdateProductStatus({ target, droppedElement }) {
 		this.workflowService.updateProductStatus(droppedElement, target)
-			.subscribe(() => {
-				this.cdr.detectChanges();
-			});
+			.subscribe(() => this.cdr.detectChanges());
 	}
 
 	/** Selects a an entity */

@@ -26,6 +26,7 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	initialPredicate = '';
 
 	constructor(
 		protected router: Router,

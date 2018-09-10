@@ -24,6 +24,7 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 })
 export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<Invitation, InvitationFeatureService> implements OnInit {
 	hasSelected = false;
+	initialPredicate = '';
 
 	constructor(
 		protected router: Router,

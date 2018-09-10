@@ -11,15 +11,20 @@ export class Filter {
 	constructor() { }
 }
 
+/** when a filter type is plural you can select many of them */
 export enum FilterType {
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
+
 	EVENT = 'event',
 	EVENTS = 'events',
+
 	CATEGORY = 'category',
 	CATEGORIES = 'categories',
+
 	TAG = 'tag',
 	TAGS = 'tags',
+
 	PROJECT = 'project',
 	PROJECTS = 'projects',
 	CREATED_BY = 'created by',

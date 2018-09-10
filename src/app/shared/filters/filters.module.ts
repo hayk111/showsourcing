@@ -5,8 +5,10 @@ import { BadgeModule } from '~shared/badge/badge.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
+	FilterSelectionEntityPanelComponent,
 	FiltersComponent,
 } from '~shared/filters/components';
+import { FilterBtnListComponent } from '~shared/filters/components/filter-btn-list/filter-btn-list.component';
 
 @NgModule({
 	imports: [
