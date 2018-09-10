@@ -6,13 +6,12 @@
   width: 136px;
   height: 32px;
   border-radius: 2px;
-  background-color: #71e591;
+  display: inline-block;
 
   .status-task-icon {
     display: inline-block;
-    color: #ffffff;
     font-size: 16px;
-    margin: 6px 10px ;
+    margin: 8px 10px ;
   }
   .status-task-text {
     display: inline-block;
@@ -25,9 +24,19 @@
     vertical-align: middle;
     letter-spacing: normal;
     text-align: center;
-    color: #ffffff;
+    height: 32px;
+    line-height: 24px;
   }
-  
+}
+
+.status-done {
+  background-color: #71e591;
+  color: #ffffff;
+}
+
+.status-pending {
+  background: var(--color-secondary);
+  color: #000000;
 }
 
 .task-name {
