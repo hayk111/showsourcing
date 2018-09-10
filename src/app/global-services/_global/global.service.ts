@@ -299,7 +299,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = new SelectParams(paramsConfig);
-
 		this.log(title, gql, queryName, client, variables);
 
 		// add query ref in case we need it.
@@ -388,14 +387,15 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
-	queryAll(fields?: string | string[], client: string = this.defaultClient): Observable<T[]> {
+	queryAll(fields?: string | string[], paramsConfig?: SelectParamsConfig, client: string = this.defaultClient): Observable<T[]> {
 		const title = 'Query All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.queryAll(fields);
 		const queryName = this.getQueryName(gql);
+		const variables = new SelectParams(paramsConfig);
 		this.log(title, gql, queryName, client);
 
-		return this.getClient(client).watchQuery({ query: gql }).valueChanges
+		return this.getClient(client).watchQuery({ query: gql, variables }).valueChanges
 			.pipe(
 				// extracting the result
 				map((r) => {
