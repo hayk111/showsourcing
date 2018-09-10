@@ -29,6 +29,7 @@ export enum FilterType {
 	PROJECTS = 'projects',
 	CREATED_BY = 'created by',
 	PRODUCT_STATUS = 'status',
+	SUPPLIER_STATUS = 'status',
 	FAVORITE = 'favorite',
 	ARCHIVED = 'archived',
 	ASSIGNEE = 'assignee',
