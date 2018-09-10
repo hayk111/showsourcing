@@ -12,6 +12,7 @@ import { WorkflowActionModule } from '~shared/workflow-action/workflow-action.mo
 import { WorkflowModule } from '~features/workflow/workflow.module';
 import { TaskModule } from '~shared/task';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
+import { CustomDialogModule } from '~shared/custom-dialog';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ProductCommonModule } from '~shared/product-common/product-common.modul
 		WorkflowModule,
 		TaskModule,
 		ProductCommonModule,
-		WorkflowActionModule
+		WorkflowActionModule,
+		CustomDialogModule
 	],
 	declarations: [
 		WorkspaceComponent,

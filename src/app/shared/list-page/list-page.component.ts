@@ -285,11 +285,13 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 
 	/** When a product heart is clicked to unfavorite it */
 	onItemUnfavorited(id: string) {
+		console.log('  >> onItemUnfavorited');
 		this.update({ id, favorite: false } as any);
 	}
 
 	/** When we favorite all selected items, the items that are already favorited will stay the same */
 	onFavoriteAllSelected() {
+		console.log('>> onFavoriteAllSelected');
 		this.selectionItems().forEach(item => this.onItemFavorited(item.id));
 		this.allSelectedFavorite = true;
 	}

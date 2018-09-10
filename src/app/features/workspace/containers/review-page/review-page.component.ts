@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -77,77 +77,6 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 			});
 	}
 
-	/** Selects a an entity */
-	onItemSelected(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	}
-
-	/** Unselects a entity */
-	onItemUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	/** Selects an entity */
-	onAllItemsSelected(entity: any) {
-		this.selectionSrv.selectAll(entity);
-	}
-
-	/** Unselects a entity */
-	onAllItemsUnselected(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	/** Flag as archived */
-	onArchive(entity: any) {
-
-	}
-
-	/**
-	 * Selection bar actions
-	 *
-	 * Each of the actions to open dialog below will open a dialog that is itself a container.
-	 */
-
-	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
-	}
-
-
-	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
-	}
-
-	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
-	openRequestFeedbackDialog(product: Product) {
-		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
-			selectedProducts: product ? [product] : this.getSelectedProducts()
-		});
-	}
-
-	/** Will show a confirm dialog to delete items selected */
-	deleteSelected() {
-		const items = Array.from(this.selectionSrv.selection.keys());
-		// callback for confirm dialog
-		const callback = () => {
-			this.workspaceSrv.deleteMany(items).subscribe(() => {
-				this.resetSelection();
-			});
-		};
-		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
-	}
-
-	/** Unselect all entity */
-	resetSelection() {
-		this.selectionSrv.unselectAll();
-	}
-
 	getSelectedProducts() {
 		return Array.from(this.selectionSrv.selection.values());
 	}
@@ -175,6 +104,32 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	onSentToWorkflow(product: Product) {
 		this.workspaceSrv.sendProductToWorkflow(product).subscribe(() => {
 
+		});
+	}
+
+	/** updates the products with the new value votes */
+	multipleVotes(votes: Map<string, ProductVote[]>) {
+		votes.forEach((v, k) => this.update({ id: k, votes: v }));
+	}
+
+  /** Opens a dialog that lets the user add different products to different projects (many to many) */
+  openAddToProjectDialog(product: Product) {
+    this.dlgSrv.openFromModule(ProductAddToProjectDlgComponent, this.moduleRef, {
+      selectedProducts: product ? [product] : this.getSelectedProducts()
+    });
+  }
+
+	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
+	openExportDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductExportDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.selectionItems()
+		});
+	}
+
+	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
+	openRequestFeedbackDialog(product: Product) {
+		this.dlgSrv.openFromModule(ProductRequestTeamFeedbackDlgComponent, this.moduleRef, {
+			selectedProducts: product ? [product] : this.selectionItems()
 		});
 	}
 
