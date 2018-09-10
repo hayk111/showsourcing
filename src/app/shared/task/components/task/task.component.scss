@@ -14,7 +14,15 @@
 			margin-right: var(--spacing-s);
     }
 
-    .preview {}
+    &:hover {
+      .task-preview {
+        opacity: 1;
+      }
+    }
+
+    .task-preview {
+      opacity: 0;
+    }
 	}
 
 	.task-product, .task-supplier {

@@ -29,8 +29,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	/** obs of the searched string */
 	private searchStr$ = new Subject<string>();
 
-	trackByFn = (index, item) => item.id;
-
 	constructor(private ermSrv: ERMService) {
 		super();
 	}
