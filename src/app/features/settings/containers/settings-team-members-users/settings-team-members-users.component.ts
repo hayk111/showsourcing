@@ -60,13 +60,10 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	}
 
 	search(str: string) {
-		if (str)
-			this.filterList.upsertFilter({
-				type: FilterType.SEARCH, value: str,
-				fields: [ 'user.lastName', 'user.firstName', 'user.email' ]
-			});
-		else
-			this.filterList.removeFilterType(FilterType.SEARCH);
+		this.currentSearch = `user.lastName CONTAINS[c] "${str}" ` +
+			`OR user.firstName CONTAINS[c] "${str}" ` +
+			`OR user.email CONTAINS[c] "${str}"`;
+		this.onPredicateChange();
 	}
 
 	/** Opens the dialog for inviting a new user */

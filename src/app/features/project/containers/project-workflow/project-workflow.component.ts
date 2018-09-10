@@ -137,7 +137,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? 'item' : 'items'} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 

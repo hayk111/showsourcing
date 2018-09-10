@@ -58,13 +58,8 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 	}
 
 	search(str: string) {
-		if (str)
-			this.filterList.upsertFilter({
-				type: FilterType.SEARCH, value: str,
-				fields: [ 'email' ]
-			});
-		else
-			this.filterList.removeFilterType(FilterType.SEARCH);
+		this.currentSearch = `email CONTAINS[c] "${str}"`;
+		this.onPredicateChange();
 	}
 
 	/** Opens the dialog for inviting a new user */
