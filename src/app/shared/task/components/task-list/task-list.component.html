@@ -10,6 +10,7 @@
 			(uncheck)="taskUnselect.emit(task)">
 		</checkbox-app>
 		<task-app
+			(previewClicked)="previewClicked.emit(task)"
 			[hasProduct]="hasProduct"
 			[hasSupplier]="hasSupplier"
 			[task]="task"

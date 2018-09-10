@@ -16,11 +16,20 @@
 	<task-list-app
 		[tasks]="items$ | async"
 		[selection]="selected$ | async"
+		(previewClicked)="openPreview(task)"
 		(taskSelect)="onItemSelected($event)"
 		(taskUnselect)="onItemUnselected($event)"
 		(openCreateDlg)="openCreateDlg()"
 		(bottomReached)="loadMore()">
 	</task-list-app>
+
+	<preview-task-app
+		*ngIf="previewOpen"
+		[task]="previewed"
+		(close)="closePreview()"
+		(clickOutside)="closePreview()">
+
+	</preview-task-app>
 </div>
 
 <selection-bar-app

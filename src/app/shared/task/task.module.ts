@@ -8,6 +8,7 @@ import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { IconsModule } from '~shared/icons';
 import { CreateTaskDialogComponent } from './components/create-task-dialog/create-task-dialog.component';
+import { PreviewTaskComponent } from '~shared/task/components/preview-task/preview-task.component';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 
@@ -23,8 +24,8 @@ import { SharedModule } from '~shared/shared.module';
 		DialogModule,
 		SharedModule
 	],
-	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent],
-	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent],
+	declarations: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
+	exports: [TaskListComponent, TaskComponent, CreateTaskDialogComponent, PreviewTaskComponent],
 	entryComponents: [CreateTaskDialogComponent]
 })
 export class TaskModule { }
