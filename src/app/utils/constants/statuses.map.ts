@@ -34,6 +34,13 @@ export const statusMap = {
 			}
 		}
 	},
+	'_UnderAssessment': {
+		locales: {
+			en: {
+				name: 'Under Assessment'
+			}
+		}
+	},
 	'_Inspiration': {
 		locales: {
 			en: {
