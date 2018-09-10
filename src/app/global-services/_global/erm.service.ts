@@ -1,18 +1,16 @@
-import { EntityMetadata, ERM } from '~models';
+import { Injectable } from '@angular/core';
+import { SupplierStatusTypeService, TeamUserService, UserService } from '~global-services';
 import { GlobalService } from '~global-services/_global/global.service';
 import { CategoryService } from '~global-services/category/category.service';
-import { TagService } from '~global-services/tag/tag.service';
-import { SupplierService } from '~global-services/supplier/supplier.service';
+import { EventService } from '~global-services/event/event.service';
+import { ImageService } from '~global-services/image/image.service';
+import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
 import { ProductService } from '~global-services/product/product.service';
 import { ProjectService } from '~global-services/project/project.service';
-import { ImageService } from '~global-services/image/image.service';
-import { Injectable } from '@angular/core';
-import { EventService } from '~global-services/event/event.service';
-import { SupplierStatusService } from '~global-services/supplier-status/supplier-status.service';
-import { ProductStatusTypeService } from '~global-services/product-status-type/product-status-type.service';
+import { SupplierService } from '~global-services/supplier/supplier.service';
+import { TagService } from '~global-services/tag/tag.service';
 import { TeamService } from '~global-services/team/team.service';
-import { SupplierStatusTypeService } from '~global-services';
-import { TeamUserService, UserService } from '~global-services';
+import { EntityMetadata, ERM } from '~models';
 
 @Injectable(
 	{ providedIn: 'root' }
