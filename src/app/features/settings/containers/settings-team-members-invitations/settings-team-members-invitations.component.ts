@@ -24,7 +24,6 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 })
 export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<Invitation, InvitationFeatureService> implements OnInit {
 	hasSelected = false;
-	initialPredicate = '';
 
 	constructor(
 		protected router: Router,
@@ -59,16 +58,13 @@ export class SettingsTeamMembersInvitationsComponent extends ListPageComponent<I
 	}
 
 	search(str: string) {
-		// TODO: cedric put this back in
-
-		// if (str)
-		// 	this.filterList.upsertFilter({
-		// 		type: FilterType.SEARCH,
-		// 		value: str,
-		// 		fields: ['email']
-		// 	});
-		// else
-		// 	this.filterList.removeFilterType(FilterType.SEARCH);
+		if (str)
+			this.filterList.upsertFilter({
+				type: FilterType.SEARCH, value: str,
+				fields: [ 'email' ]
+			});
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	/** Opens the dialog for inviting a new user */

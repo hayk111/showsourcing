@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ProjectFeatureService } from '~features/project/services/project-feature.service';
 import { ERM, Project } from '~models';
 import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 
@@ -17,9 +17,6 @@ import { SelectionService } from '~shared/list-page/selection.service';
 	]
 })
 export class ProjectsPageComponent extends ListPageComponent<Project, ProjectFeatureService> {
-	filterTypes = [
-		FilterType.CREATED_BY
-	];
 
 	constructor(
 		protected router: Router,

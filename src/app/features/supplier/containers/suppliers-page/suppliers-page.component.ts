@@ -6,7 +6,7 @@ import { NewSupplierDlgComponent } from '~features/supplier/containers/new-suppl
 import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
-import { SearchService, FilterType } from '~shared/filters';
+import { SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { CreationDialogComponent } from '~shared/custom-dialog';
@@ -21,14 +21,7 @@ import { CreationDialogComponent } from '~shared/custom-dialog';
 	]
 })
 export class SuppliersPageComponent extends ListPageComponent<Supplier, SupplierFeatureService> {
-	filterTypes = [
-		FilterType.CATEGORIES,
-		FilterType.TAGS,
-		FilterType.EVENT,
-		FilterType.SUPPLIER_STATUS,
-		FilterType.CREATED_BY,
-		FilterType.FAVORITE,
-	];
+
 	constructor(
 		protected router: Router,
 		protected featureSrv: SupplierFeatureService,

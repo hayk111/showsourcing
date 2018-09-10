@@ -8,7 +8,7 @@
 
 <sub-panel-app
   [hasSwitch]="false"
-	[hasFilter]="true"
+	[hasFilter]="false"
 	[buttonIcon]="false"
 	[filtersAmount]="filterList.asFilters().length"
 	(showFilters)="openFilterPanel()"
@@ -79,14 +79,6 @@
 		[supplier]="previewed"
 		(close)="closePreview()"
 		(clickOutside)="closePreview()"></supplier-preview-app>
-
-		<filters-app
-			[filterList]="filterList"
-			[filterTypes]="filterTypes"
-			(clickOutside)="closeFilterPanel()"
-			*ngIf="filterPanelOpen">
-		</filters-app>
-
 </ng-container>
 
 	<ng-template #spinner>

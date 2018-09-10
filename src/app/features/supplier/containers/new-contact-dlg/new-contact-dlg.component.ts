@@ -98,6 +98,7 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			const contact = new Contact(this.form.value);
 			this.addImageToContact(contact);
 			// updating the supplier with a new contact
+			debugger;
 			this.supplierSrv.update({
 				id: this.supplier.id,
 				contacts: [...this.supplier.contacts, contact]

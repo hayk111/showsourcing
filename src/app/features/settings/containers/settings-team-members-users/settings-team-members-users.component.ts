@@ -26,7 +26,6 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
-	initialPredicate = '';
 
 	constructor(
 		protected router: Router,
@@ -61,10 +60,13 @@ export class SettingsTeamMembersUsersComponent extends ListPageComponent<TeamUse
 	}
 
 	search(str: string) {
-		this.currentSearch = `user.firstName CONTAINS[c] "${str}" OR ` +
-			`user.lastName CONTAINS[c] "${str}" OR ` +
-			`user.email CONTAINS[c] "${str}"`;
-		this.onPredicateChange();
+		if (str)
+			this.filterList.upsertFilter({
+				type: FilterType.SEARCH, value: str,
+				fields: [ 'user.lastName', 'user.firstName', 'user.email' ]
+			});
+		else
+			this.filterList.removeFilterType(FilterType.SEARCH);
 	}
 
 	/** Opens the dialog for inviting a new user */

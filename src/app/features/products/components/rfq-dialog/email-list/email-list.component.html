@@ -12,10 +12,8 @@
 		</checkbox-app>
 		<icon-app name="envelope" [size]="l" fontSet="svg"></icon-app>
 		<div class="contact-info">
-			<label-app>{{ contact.email || 'No email' }}</label-app>
-			<p>
-				{{ contact.name || 'Unkown Name' }}
-				{{ contact.jobTitle ? ' - ' + contact.jobTitle : '' }} </p>
+			<label-app>{{contact.email || 'No email'}}</label-app>
+			<p>{{contact.name || 'Unkown Name'}}{{contact.jobTitle ? ' - ' + contact.jobTitle : ''}} </p>
 		</div>
 	</div>
 

@@ -124,7 +124,7 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? 'items' : 'item'} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 

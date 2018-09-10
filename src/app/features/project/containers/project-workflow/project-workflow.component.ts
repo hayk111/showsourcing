@@ -61,7 +61,9 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 
 	onUpdateProductStatus({ target, droppedElement }) {
 		this.workflowService.updateProductStatus(droppedElement, target)
-			.subscribe(() => this.cdr.detectChanges());
+			.subscribe(() => {
+				this.cdr.detectChanges();
+			});
 	}
 
 	/** Selects a an entity */
@@ -135,7 +137,7 @@ export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
 				this.resetSelection();
 			});
 		};
-		const text = `Delete ${items.length} ${items.length > 1 ? 'item' : 'items'} ?`;
+		const text = `Delete ${items.length} ${items.length > 1 ? ERM.ITEM.plural : ERM.ITEM.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text, callback });
 	}
 
