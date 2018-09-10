@@ -6,7 +6,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterType, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
+import { CreateTaskDialogComponent } from '~shared/task-common/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
 	selector: 'product-tasks-app',

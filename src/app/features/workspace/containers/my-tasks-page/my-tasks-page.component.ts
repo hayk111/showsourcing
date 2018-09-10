@@ -6,14 +6,13 @@ import { DialogService } from '~shared/dialog';
 import { FilterType, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
-import { CreateTaskDialogComponent } from '~shared/task/components/create-task-dialog/create-task-dialog.component';
+import { CreateTaskDialogComponent } from '~shared/task-common/components/create-task-dialog/create-task-dialog.component';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
 	templateUrl: './my-tasks-page.component.html',
 	styleUrls: ['./my-tasks-page.component.scss']
 })
-// the service should be TaskService instead ofthis temporary one
 export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> implements OnInit {
 
 	constructor(
