@@ -1,7 +1,7 @@
 <side-panel-app>
   <side-panel-title-app>
     <div class="status-task " [ngClass]="task?.done ? 'status-done' : 'status-pending'">
-      <div class="status-task-icon "> 
+      <div class="status-task-icon ">
         <icon-app  fontSet="fa" [name]="task?.done ? 'check' : 'circle'"></icon-app>
       </div>
       <div class="status-task-text">{{task?.done ? 'Mark as done' : 'Pending'}}</div>
@@ -24,7 +24,20 @@
       <div class="description-text">
         {{task?.description}}
       </div>
+
     </div>
+    <!-- <editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
+			<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
+				{{ supplier.description }}
+			</editable-label-app>
+			<ng-template #noDesc>
+				<editable-label-app class="noDesc"
+					i18n="label|Supplier with no description@@supplierDescription_noDescription">
+					No description yet
+				</editable-label-app>
+			</ng-template>
+			<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
+		</editable-text-app> -->
 
     <div class="assigned-container">
       <div class="section-title">
@@ -45,7 +58,7 @@
       </div>
 
       <div class="linked-product-list">
-          <kanban-item-card-app class="marginSmall" 
+          <kanban-item-card-app class="marginSmall"
               [title]="task?.product.name"
               [showCheckbox]="false"
 							[status]="task?.product.status?.name"
@@ -59,17 +72,17 @@
 							[link]="'/product/details/' + task?.product.id + '/general'"
 							[product]="task?.product">
 						</kanban-item-card-app>
-        
+
       </div>
     </div>
-    <div class="comment-container">
+    <!-- <div class="comment-container">
 
       <div class="show-previous-comment-link clickable">
         Show previous comments
       </div>
       <div class="comment-list">
-        
+
       </div>
-    </div>
+    </div> -->
   </ng-container>
 </side-panel-app>

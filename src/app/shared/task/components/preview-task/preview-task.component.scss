@@ -1,3 +1,5 @@
+@import 'variables';
+
 .close {
 	color: var(--color-txt-secondary);
 }
@@ -16,7 +18,7 @@
   .status-task-text {
     display: inline-block;
     height: 20px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: $ss-font-normal;
     font-size: 14px;
     font-weight: 600;
     font-style: normal;
@@ -41,7 +43,7 @@
 
 .task-name {
   height: 31px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: $ss-font-normal;
   font-size: 24px;
   font-weight: 600;
   padding: 5px 0px;
@@ -54,7 +56,7 @@
 
 .section-title {
   height: 18px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: $ss-font-normal;
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
@@ -65,9 +67,9 @@
   color: #a3afc6;
 }
 
-.descripton-container { 
+.descripton-container {
   .description-text {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: $ss-font-normal;
     font-size: 16px;
     font-weight: normal;
     font-style: normal;
@@ -78,12 +80,12 @@
   }
 }
 
-.assigned-container { 
+.assigned-container {
   .assigned-list {
     .user-name {
       height: 20px;
       margin: 5px 5px;
-      font-family: 'Source Sans Pro', sans-serif;
+      font-family: $ss-font-normal;
       font-size: 16px;
       font-weight: normal;
       font-style: normal;
@@ -99,7 +101,7 @@
   .linked-product-list {
     kanban-item-card-app {
       border-radius: none;
-      box-shadow: none; 
+      box-shadow: none;
       border: none;
       padding: 0px;
       margin: 0px;
@@ -107,7 +109,7 @@
   }
 
   .imgCtnr {
-    margin-left: 0px; 
+    margin-left: 0px;
   }
 }
 
@@ -118,7 +120,7 @@
     padding: 10px 0px;
     border-top: 1px solid #e6ebf5;
     height: 18px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: $ss-font-normal;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -127,7 +129,7 @@
     letter-spacing: -0.3px;
     color: #45adff;
   }
-  
+
   .comment-list {
 
   }
