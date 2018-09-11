@@ -22,6 +22,8 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 	@Input() currentSort: Sort;
 	@Output() sentToWorkflow = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
+	@Output() archive = new EventEmitter<Product>();
+	@Output() statusUpdated = new EventEmitter<any>();
 
 	groupedProducts: Category[];
 	prodERM = ERM.PRODUCT;
@@ -34,6 +36,11 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		if (changes.rows && changes.rows.currentValue) {
 			const rows = changes.rows.currentValue;
 			this.groupedProducts = this.getGroupedProducts(this.currentSort);
+		}
+
+		if (changes.currentSort && changes.currentSort.currentValue) {
+			const currentSort = changes.currentSort.currentValue;
+			this.groupedProducts = this.getGroupedProducts(currentSort);
 		}
 
 		if (changes.selection && changes.selection.currentValue) {
@@ -81,9 +88,9 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		const groupedObj = this.rows.reduce((prev, cur) => {
 			const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
 			if (!prev[id]) {
-				prev[id] = [cur];
+				prev[id] = [{ ...cur }];
 			} else {
-				prev[id].push(cur);
+				prev[id].push({ ...cur });
 			}
 			return prev;
 		}, {});
@@ -131,6 +138,10 @@ export class ProductsReviewCardViewComponent extends ListViewComponent<Product> 
 		if (workActionMenu && workActionMenu.menuOpen) {
 			workActionMenu.closeMenu();
 		}
+	}
+
+	onStatusUpdated(product, status) {
+		this.statusUpdated.emit({ product, status });
 	}
 
 }

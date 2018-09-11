@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EntityMetadata, ProductStatus, ProductStatusType, SupplierStatus } from '~models';
 import { WorkflowActionService } from '~shared/workflow-action/service/workflow-action.service';
@@ -21,6 +21,8 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	@Input() yPosition = 30;
 	@Input() selectSize = 'm';
 	@Input() isSendToWorkFlow = false;
+	@Input() internalUpdate = true;
+	@Output() statusUpdated = new EventEmitter<any>();
 	@ViewChildren(ContextMenuComponent) menus: QueryList<ContextMenuComponent>;
 	status$: Observable<ProductStatusType[] | SupplierStatus[]>;
 
@@ -37,13 +39,21 @@ export class WorkflowActionComponent extends AutoUnsub implements OnInit {
 	updateStatus(status) {
 		if (status.id !== this.entity.status.status.id) { // we dont update if we click the same
 			const tempS = new ProductStatus({ status });
-			this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+			if (this.internalUpdate) {
+				this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+			} else {
+				this.statusUpdated.emit(tempS);
+			}
 		}
 	}
 
 	setStatus(status) {
 		const tempS = new ProductStatus({ status });
-		this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+		if (this.internalUpdate) {
+			this.workflowSrv.updateStatus({ id: this.entity.id, status: tempS }, this.typeEntity).subscribe();
+		} else {
+			this.statusUpdated.emit(tempS);
+		}
 	}
 
 	closeMenu() {

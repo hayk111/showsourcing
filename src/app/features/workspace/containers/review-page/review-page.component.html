@@ -12,7 +12,8 @@
 
 <products-review-card-view-app
   class="card-view"
-  [rows]="products$ | async"
+  [rows]="items$ | async"
+  [pending]="pending"
   [currentSort]="currentSort"
   [selection]="selected$ | async"
   (previewClick)="openPreview($event)"
@@ -24,6 +25,7 @@
   (sentToWorkflow)="onSentToWorkflow($event)"
   (delete)="deleteOne($event)"
   (archive)="onArchive($event)"
+  (statusUpdated)="onStatusUpdated($event)"
   (open)="goToDetails($event)">
 </products-review-card-view-app>
 
@@ -36,7 +38,7 @@
 
   <action-bar-app
     [favorite]="allSelectedFavorite"
-    [products]="selectedItems$ | async"
+    [products]="selected$ | async"
     (onFavorite)="onFavoriteAllSelected()"
     (onUnfavorite)="onUnfavoriteAllSelected()"
     (multipleVotes)="multipleVotes($event)">

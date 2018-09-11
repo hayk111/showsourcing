@@ -1,5 +1,5 @@
-<div class="card-container">
-  <div *ngFor="let category of groupedProducts; first as first; index as i; trackBy: trackByFn" class="category-section">
+<div class="card-container" infiniScroll>
+  <div *ngFor="let category of groupedProducts; first as first; index as i" class="category-section">
     <div class="category-header flex" *ngIf="category.label as element">
       <div class="imgCtnr">
         <img class="mini image ng-star-inserted" src="assets/icons/supplier.svg"
@@ -17,7 +17,7 @@
           (dragstart)="preventDrag($event)">
         </checkbox-app>
       </div>
-      <div class="description flexBetween" (click)="clickTitle()">
+      <div class="description flexBetween">
         <div class="descriptionTopCtnr" *ngIf="currentSort.sortBy === 'supplier.name'">
           <div class="titleCtnr"><h2>{{ category.label.name || 'Unnamed' }}</h2></div>
           <div class="descriptionCtnr">
@@ -81,7 +81,7 @@
             </context-menu-app>
 
             <div class="secondary flexBetween sort-1 button-action button-workflow">
-              Send to workflow
+              <span (click)="sentToWorkflow.emit(product)">Send to workflow</span>
               <div class="button-icon">
                 <workflow-action-app
                   #workActionMenu
@@ -90,7 +90,9 @@
                   [xPosition]="-168"
                   [yPosition]="25"
                   [typeEntity]="prodERM"
-                  [isSendToWorkFlow]="true">
+                  [isSendToWorkFlow]="true"
+                  [internalUpdate]="false"
+                  (statusUpdated)="onStatusUpdated(product, $event)">
                 </workflow-action-app>
               </div>
             </div>
@@ -99,4 +101,10 @@
       </div>
     </div>
   </div>
+
+  <!-- pending -->
+  pending : {{pending}}
+	<div class="pendingCtnr flexCenter" *ngIf="pending">
+		<spinner-app></spinner-app>
+	</div>
 </div>

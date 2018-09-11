@@ -31,6 +31,7 @@ export class ActionBarComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+
 	}
 
 }

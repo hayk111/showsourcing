@@ -17,6 +17,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SearchService } from '~shared/filters';
+import { TemplateService } from '~shared/template/services/template.service';
 
 
 @Component({
@@ -41,27 +42,25 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		protected cdr: ChangeDetectorRef,
 		protected workspaceSrv: WorkspaceFeatureService,
 		protected notificationSrv: NotificationService,
-		protected moduleRef: NgModuleRef<any>) {
+		protected moduleRef: NgModuleRef<any>,
+		private templateSrv: TemplateService) {
 		super(router, featureSrv, selectionSrv, searchSrv, dlgSrv, moduleRef, ERM.PRODUCT);
 	}
 
 	ngOnInit() {
-		this.workspaceSrv.getProducts(this.currentSort, null).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(products => {
-			this.products$.next(products);
-		});
+		this.initialPredicate = `status.id == null AND deleted == false`;
+		this.initialSortBy = 'supplier.name';
+
+		super.ngOnInit();
 
 		this.selected$ = this.selectionSrv.selection$;
-	}
 
-	search(search: string) {
-		this.currentSearch = search;
-		this.workspaceSrv.getProducts(this.currentSort, search, true).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(products => {
-			this.products$.next(products);
+		this.templateSrv.bottomReached$.pipe(
+			takeUntil(super._destroy$)
+		).subscribe(() => {
+			this.loadMore();
 		});
+
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {
@@ -87,23 +86,23 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		} else {
 			this.currentSort = { ...this.currentSort, sortBy: fieldName };
 		}
-		this.doSort(this.currentSort);
-	}
-
-	sort(event) {
-		this.currentSort = event;
-		this.doSort(event);
-	}
-
-	doSort(sort) {
-		this.workspaceSrv.getProducts(sort, this.currentSearch, true).pipe(first()).subscribe(products => {
-			this.products$.next(products);
-		});
+		this.sort(this.currentSort);
 	}
 
 	onSentToWorkflow(product: Product) {
 		this.workspaceSrv.sendProductToWorkflow(product).subscribe(() => {
+			this.refetch();
+		});
+	}
 
+	onArchive(product: Product) {
+		const { id } = product;
+		this.update({ id, archived: true });
+	}
+
+	onStatusUpdated({ product, status }) {
+		this.workspaceSrv.updateProductStatus(product, status).subscribe(() => {
+			this.refetch();
 		});
 	}
 
