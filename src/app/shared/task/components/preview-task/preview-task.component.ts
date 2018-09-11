@@ -57,13 +57,12 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   }
 
   ngOnInit() {
+    this.product$ = this.productService.selectOne(this.task.product.id);
+    this.task$ = this.featureSrv.selectOne(this.task.id);
 
   }
 
   ngAfterViewInit() {
-    this.product$ = this.productService.selectOne(this.task.product.id);
-    // this.product$.subscribe(s => console.log(s));
-		this.task$ = this.featureSrv.selectOne(this.task.id);
   }
 
 	/** when we receive back the form from the dynamic form component we subscribe to changes to it and

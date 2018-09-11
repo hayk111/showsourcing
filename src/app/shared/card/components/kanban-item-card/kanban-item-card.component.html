@@ -1,6 +1,7 @@
 <div class="kanban__item cell ng-star-inserted main flexBetween"
-     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked) }"
+     [ngClass]="{ 'highlight-checked': (checked && highlightOnChecked), 'clickable' : clickable }"
      (clickOutside)="onClickOutsideCard()"
+     (click)="clickable && openProduct()"
      (mouseleave)="leaveCard()" (mouseenter)="enterCard()">
   <div class="mainCellWrapper ellipsis ng-star-inserted" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
     <div class="mainCell">

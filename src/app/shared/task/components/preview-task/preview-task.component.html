@@ -49,20 +49,21 @@
         Linked Product
       </div>
 
-      <div class="linked-product-list" >
+      <div class="linked-product-list" *ngIf="(product$ | async)" >
           <kanban-item-card-app class="marginSmall"
-              [title]="(product$ | async)?.name"
+              [title]="(product$ | async).name"
               [showCheckbox]="false"
-							[status]="(product$ | async)?.status?.name"
-							[favorite]="(product$ | async)?.favorite"
-							[tags]="(product$ | async)?.tags"
-							[price]="(product$ | async)?.price"
-							[minimumOrderQuantity]="(product$ | async)?.minimumOrderQuantity"
-							[description]="(product$ | async)?.description ? (product$ | async)?.description : 'No description'"
-							[image]="(product$ | async)?.images?.length > 0 ? ((product$ | async)? | image:'m') : null"
-							[person]="(product$ | async)?.createdBy"
-							[link]="'/product/details/' + (product$ | async)?.id + '/general'"
-							[product]="(product$ | async)?">
+              [clickable]="true"
+							[status]="(product$ | async).status?.name"
+							[favorite]="(product$ | async).favorite"
+							[tags]="(product$ | async).tags"
+							[price]="(product$ | async).price"
+							[minimumOrderQuantity]="(product$ | async).minimumOrderQuantity"
+							[description]="(product$ | async).description ? (product$ | async).description : 'No description'"
+							[image]="(product$ | async).images?.length > 0 ? ((product$ | async) | image:'m') : null"
+							[person]="(product$ | async).createdBy"
+							[link]="'/product/details/' + (product$ | async).id + '/general'"
+							[product]="(product$ | async)">
 						</kanban-item-card-app>
 
       </div>
