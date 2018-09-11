@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Team } from '~models';
 import { TeamService } from '~global-services';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'pick-a-team-page-app',
@@ -26,7 +26,7 @@ export class PickATeamPageComponent implements OnInit {
 		// go home when team selected
 		this.teamSrv.selectedTeam$.pipe(
 			switchMap(team => this.router.navigateByUrl(this.returnUrl))
-		);
+		).subscribe(team => this.router.navigateByUrl(this.returnUrl));
 	}
 
 	pickTeam(team: Team) {

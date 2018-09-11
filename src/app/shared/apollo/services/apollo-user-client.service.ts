@@ -35,6 +35,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		// we get the user id from the auth service
 		const userId$ = this.authSrv.userId$.pipe(
 			filter(id => !!id),
+			tap(_ => this.apolloState.setClientPending(Client.USER)),
 			// we don't use distinctUntilChanged because an user can reconnect with the same account
 			shareReplay(1)
 		);
@@ -49,7 +50,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		const realmUri$ = userId$.pipe(
 			// realm uri won't change if the userId hasn't changed
 			distinctUntilChanged(),
-			switchMap(userId => this.getUserRealmUri(userId)),
+			switchMap(userId => this.getUserRealmUri(userId))
 		);
 
 		combineLatest(realmUri$, accessToken$)
@@ -64,19 +65,13 @@ export class UserClientInitializer extends AbstractApolloClient {
 	}
 
 	/** will emit once when all user and global constant are ready */
-	private requiredClientsReady() {
-		// we need to wait for all user client and global const client to be ready
-		return this.apolloState
-			.getClientStatus(Client.ALL_USER).pipe(
-				filter(status => status === ClientStatus.READY),
-		);
-	}
 
 	private getUserRealmUri(userId: string) {
 		// then we can query the user, and with that user we can get the realm uri...
-		return this.requiredClientsReady().pipe(
-			switchMap(_ => this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER).pipe(first())),
-			switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
+		return this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER)
+			.pipe(
+				first(),
+				switchMap(user => super.getRealmUri(user.realmServerName, user.realmPath)),
 		);
 	}
 

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, of } from 'rxjs';
-import { filter, tap, map, distinctUntilChanged, shareReplay, first, mapTo } from 'rxjs/operators';
+import { filter, tap, map, distinctUntilChanged, shareReplay, first, mapTo, switchMap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
 import { Client } from '~shared/apollo/services/apollo-client-names.const';
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloBase } from 'apollo-angular';
 
 export interface AllClientState {
 	[client: string]: ClientStatus;
@@ -84,7 +84,7 @@ export class ApolloStateService {
 		this.emit();
 	}
 
-	getClientWhenReady(name: Client) {
+	getClientWhenReady(name: Client): Observable<ApolloBase> {
 		return this.getClientStatus(name).pipe(
 			tap(status => {
 				if (status !== ClientStatus.READY)
@@ -92,7 +92,7 @@ export class ApolloStateService {
 			}),
 			filter(status => status === ClientStatus.READY),
 			first(),
-			mapTo(this.apollo.use(name))
+			map(_ => this.apollo.use(name))
 		);
 	}
 
