@@ -19,8 +19,16 @@ import { Client } from '~shared/apollo/services/apollo-client-names.const';
 import { filter } from 'rxjs/operators';
 import { RealmServerService } from '~global-services/realm-server/realm-server.service';
 
+
+/**
+ * This is the abstract client containing utilities other client can use
+ *
+ * The client starting process is way more complicated than it should,
+ * but I didn't choose it.
+ */
 export abstract class AbstractApolloClient {
 	protected initialized = false;
+	private ws: WebSocketLink;
 
 	constructor(
 		protected apollo: Apollo,
@@ -38,7 +46,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** initialize apollo team client */
-	protected async initClient(uri: string, name: Client, tokenState: TokenState) {
+	protected initClient(uri: string, name: Client, tokenState: TokenState) {
 		try {
 			this.createClient(uri, name, tokenState);
 			this.apolloState.setClientReady(name);
@@ -49,7 +57,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	/** resets a client */
-	protected destroyClient(clientName: Client, reason = 'no refresh token') {
+	protected destroyClient(clientName: Client, reason: string) {
 		log.debug(`%c Destroying client ${clientName} if it exists, reason: ${reason}`, LogColor.APOLLO_CLIENT_POST);
 		this.apolloState.destroyClient(clientName);
 		this.clearClient(clientName);
@@ -66,15 +74,8 @@ export abstract class AbstractApolloClient {
 	 * gets a realm given a realm name
 	 */
 	protected getRealmUri(realmName: string, path?: string): Observable<string> {
-		return this.apolloState.getClientStatus(Client.GLOBAL_CONSTANT).pipe(
-			filter(status => status === ClientStatus.READY),
-			// TODO: replace this with realmServerSrv.queryOne..
-			switchMap(_ => this.apollo.use(Client.GLOBAL_CONSTANT).query({
-				query: ClientInitializerQueries.selectRealmHostName,
-				variables: { query: `name == "${realmName}"` }
-			})),
+		return this.realmServerSrv.queryOneByPredicate(`name == "${realmName}"`).pipe(
 			first(),
-			map((r: any) => r.data.realmServers[0]),
 			map(r => this.getUri(r.httpsPort, r.hostname, path))
 		);
 	}
@@ -84,7 +85,7 @@ export abstract class AbstractApolloClient {
 		log.debug(`%c creating client ${name}, uri: ${uri}`, LogColor.APOLLO_CLIENT_PRE);
 		// Create a WebSocket link:
 		const connectionParams = { token: tokenState.token };
-		const ws = new WebSocketLink({
+		this.ws = new WebSocketLink({
 			uri,
 			options: {
 				reconnect: true,
@@ -92,9 +93,10 @@ export abstract class AbstractApolloClient {
 			}
 		});
 
+
 		const link = from([
 			cleanTypenameLink,
-			ws
+			this.ws
 		]);
 
 		this.apollo.create({
@@ -103,23 +105,22 @@ export abstract class AbstractApolloClient {
 			cache: new InMemoryCache({}),
 			queryDeduplication: true
 		}, name);
+		// need to reset the store so it doesn't have previous data
+		// const cli = this.apollo.use(name).getClient().resetStore();
 
 	}
 
 	protected clearClient(clientName?: string) {
-		const base = this.apollo.use(clientName) || this.apollo;
-		if (!base)
-			return;
-
-		const apolloClient = base.getClient();
-		if (apolloClient)
-			apolloClient.resetStore();
 		// the way apollo works is that for default client it's put in _client
 		// the named clients are put in a map
 		if (clientName)
 			(this.apollo as any).map.delete(clientName);
 		else
 			delete (this.apollo as any)._client;
+
+		// closing the websocket (as any) because property is private..
+		if (this.ws && (this.ws as any).subscriptionClient)
+			(this.ws as any).subscriptionClient.close();
 	}
 }
 

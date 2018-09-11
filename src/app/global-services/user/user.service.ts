@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, filter, map, switchMap, tap, first } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap, first, shareReplay } from 'rxjs/operators';
 import { AuthenticationService } from '~features/auth/services/authentication.service';
 import { GlobalService } from '~global-services/_global/global.service';
 import { UserQueries } from '~global-services/user/user.queries';
@@ -13,6 +13,11 @@ import { Client } from '~shared/apollo/services/apollo-client-names.const';
 })
 export class UserService extends GlobalService<User> {
 
+	private user$ = this.authSrv.userId$.pipe(
+		distinctUntilChanged(),
+		switchMap(id => this.selectOne(id)),
+		shareReplay(1)
+	);
 	userSync: User;
 	defaultClient = Client.USER;
 
@@ -25,10 +30,7 @@ export class UserService extends GlobalService<User> {
 	}
 
 	selectUser() {
-		return this.authSrv.userId$.pipe(
-			distinctUntilChanged(),
-			switchMap(id => this.selectOne(id))
-		);
+		return this.user$;
 	}
 
 }

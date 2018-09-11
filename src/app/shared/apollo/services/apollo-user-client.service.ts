@@ -25,7 +25,6 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService
-
 	) {
 		super(apollo, link, apolloState, realmServerSrv);
 	}
@@ -49,23 +48,21 @@ export class UserClientInitializer extends AbstractApolloClient {
 
 		const realmUri$ = userId$.pipe(
 			// realm uri won't change if the userId hasn't changed
-			distinctUntilChanged(),
 			switchMap(userId => this.getUserRealmUri(userId))
 		);
 
-		combineLatest(realmUri$, accessToken$)
+		zip(realmUri$, accessToken$)
 			.subscribe(([uri, token]) => super.initClient(uri, Client.USER, token));
 
 
 		// when the refreshToken is gone we close it
 		this.authSrv.authStatus$.pipe(
 			filter(status => status === AuthStatus.NOT_AUTHENTICATED),
-		).subscribe(_ => this.destroyClient(Client.USER));
+		).subscribe(_ => this.destroyClient(Client.USER, 'not authenticated'));
 
 	}
 
 	/** will emit once when all user and global constant are ready */
-
 	private getUserRealmUri(userId: string) {
 		// then we can query the user, and with that user we can get the realm uri...
 		return this.userSrv.queryOne(userId, 'realmServerName, realmPath', Client.ALL_USER)

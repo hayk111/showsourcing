@@ -65,8 +65,9 @@ export class TeamService extends GlobalService<Team> {
 
 		// when logging out let's clear the current selected team
 		this.authSrv.authStatus$.subscribe(status => {
-			if (status === AuthStatus.NOT_AUTHENTICATED)
+			if (status === AuthStatus.NOT_AUTHENTICATED) {
 				this.resetSelectedTeam();
+			}
 		});
 
 		// putting a sync version of team

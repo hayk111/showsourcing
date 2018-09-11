@@ -84,7 +84,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { query: `id == "${id}"` };
 		const cacheKey = `${id}-${clientName}`;
-		this.log(title, gql, queryName, clientName, variables);
 
 		// this uses a subscription under the hood which doesn't have the benefit of listening for value changes.
 		// Therefor we will create a subject where we can push new changes to see those in the view in real time
@@ -93,6 +92,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			return this.selectOneCache.get(cacheKey).result;
 
 		const obs = this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -123,9 +123,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.queryOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { id };
-		this.log(title, gql, queryName, clientName, variables);
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -153,8 +153,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, clientName, variables);
+
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -181,8 +182,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.queryMany(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, clientName, variables);
+
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -209,8 +211,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.selectOne(fields);
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
-		this.log(title, gql, queryName, clientName, variables);
+
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -271,9 +274,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const variables = new SelectParams(paramsConfig);
 		const queryName = this.getQueryName(gql);
 
-		this.log(title, gql, queryName, clientName, variables);
-
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -303,9 +305,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = new SelectParams(paramsConfig);
 
-		this.log(title, gql, queryName, clientName, variables);
 
-		// add query ref in case we need it.
+		// get query ref
 		const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName).pipe(
 			map(client => client.watchQuery<any>({
 				query: gql,
@@ -317,6 +318,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 
 		// add items$ wich are the actual items requested
 		const items$: Observable<T[]> = queryRef$.pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
 			filter((r: any) => this.checkError(r)),
 			// extracting the result
@@ -371,9 +373,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		fields = this.getFields(fields, this.fields.all);
 		const gql = this.queryBuilder.selectAll(fields);
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, clientName);
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName)),
 			switchMap(client => client.subscribe({ query: gql })),
 			// extracting the result
 			map((r: any) => {
@@ -405,9 +407,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 
 		const variables = new SelectAllParams(paramsConfig);
-		this.log(title, gql, queryName, clientName, variables);
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql }).valueChanges),
 			// extracting the result
 			map((r) => {
@@ -435,9 +437,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const queryName = this.getQueryName(gql);
 		const variables = { query: predicate };
 
-		this.log(title, gql, queryName, clientName, variables);
-
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
 			// extracting the result
 			map((r) => {
@@ -471,8 +472,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const options = { mutation: gql, variables };
 		const cacheKey = `${entity.id}-${clientName}`;
 
-		this.log(title, gql, queryName, clientName, variables);
-
 		this.addOptimisticResponse(options, gql, entity, this.typeName);
 		// updating select one cache so changes are reflected when using selectOne(id)
 		if (this.selectOneCache.has(cacheKey)) {
@@ -480,6 +479,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		}
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -519,9 +519,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const gql = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, clientName, variables);
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate({ mutation: gql, variables })),
 			first(),
 			filter((r: any) => this.checkError(r)),
@@ -560,9 +560,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			variables: { id }
 		};
 		const queryName = this.getQueryName(gql);
-		this.log(title, gql, queryName, clientName, options.variables);
 
 		return this.getClient(clientName).pipe(
+			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
 			filter((r: any) => this.checkError(r)),
