@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, switchMap, tap, first, takeUntil } from 'rxjs/operators';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ProductService, ProjectService } from '~global-services';
-import { ERM, Product, Project, ProductStatus } from '~models';
+import { ERM, Product, Project, ProductStatus, ProductVote } from '~models';
 import {
 	ProductAddToProjectDlgComponent,
 	ProductExportDlgComponent,
@@ -43,6 +43,9 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 	}
 
 	ngOnInit() {
+		console.log('ngOnInit');
+		this.selectionSrv.unselectAll();
+
 		this.workspaceSrv.getStatuses().pipe(
 			takeUntil(this._destroy$)
 		).subscribe(statuses => {
@@ -58,6 +61,11 @@ export class MyProductsPageComponent extends ListPageComponent<Product, Workspac
 		).subscribe(statuses => {
 			this.statuses$.next(statuses);
 		});
+	}
+
+	/** updates the products with the new value votes */
+	multipleVotes(votes: Map<string, ProductVote[]>) {
+		votes.forEach((v, k) => this.update({ id: k, votes: v }));
 	}
 
 	onUpdateProductStatus({ target, droppedElement }) {

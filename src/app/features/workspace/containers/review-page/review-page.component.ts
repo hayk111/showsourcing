@@ -48,6 +48,8 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 	}
 
 	ngOnInit() {
+		this.selectionSrv.unselectAll();
+
 		this.initialPredicate = `status.id == null AND deleted == false`;
 		this.initialSortBy = 'supplier.name';
 
@@ -56,7 +58,7 @@ export class ReviewPageComponent extends ListPageComponent<Product, WorkspaceFea
 		this.selected$ = this.selectionSrv.selection$;
 
 		this.templateSrv.bottomReached$.pipe(
-			takeUntil(super._destroy$)
+			takeUntil(this._destroy$)
 		).subscribe(() => {
 			this.loadMore();
 		});
