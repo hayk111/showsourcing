@@ -21,23 +21,15 @@
         Description
       </div>
 
-      <div class="description-text">
-        {{task?.description}}
-      </div>
+      <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskDescription(txt.value)" [hasAction]="true">
+        <editable-label-app class="description-text" *ngIf="task?.description; else noDesc">
+          {{task?.description}}
+        </editable-label-app>
+        <textarea inputApp class="description-text" #txt [value]="task?.description || ''"></textarea>
+      </editable-text-app>
 
     </div>
-    <!-- <editable-text-app #editable [closeOnOutsideClick]="false" [hasAction]="false">
-			<editable-label-app class="desc" *ngIf="supplier.description; else noDesc">
-				{{ supplier.description }}
-			</editable-label-app>
-			<ng-template #noDesc>
-				<editable-label-app class="noDesc"
-					i18n="label|Supplier with no description@@supplierDescription_noDescription">
-					No description yet
-				</editable-label-app>
-			</ng-template>
-			<textarea inputApp class="fullWidth" #txt [value]="supplier.description || ''"></textarea>
-		</editable-text-app> -->
+
 
     <div class="assigned-container">
       <div class="section-title">
@@ -47,7 +39,7 @@
       <div class="assigned-list">
           <div *ngIf="task?.assignee" class="flex task-user ellipsis">
               <user-picture-app [user]="task?.assignee" [size]="30" [border]="true"></user-picture-app>
-              <div class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+task.assignee.lastName  : 'Unassigned' }}</div>
+              <div class="user-name">{{ task?.assignee ? task.assignee.firstName+' '+ task.assignee.lastName  : 'Unassigned' }}</div>
             </div>
       </div>
     </div>
@@ -57,20 +49,20 @@
         Linked Product
       </div>
 
-      <div class="linked-product-list">
+      <div class="linked-product-list" >
           <kanban-item-card-app class="marginSmall"
-              [title]="task?.product.name"
+              [title]="(product$ | async)?.name"
               [showCheckbox]="false"
-							[status]="task?.product.status?.name"
-							[favorite]="task?.product.favorite"
-							[tags]="task?.product.tags"
-							[price]="task?.product.price"
-							[minimumOrderQuantity]="task?.product.minimumOrderQuantity"
-							[description]="task?.product.description ? task?.product.description : 'No description'"
-							[image]="task?.product.images?.length > 0 ? (task?.product | image:'m') : null"
-							[person]="task?.product.createdBy"
-							[link]="'/product/details/' + task?.product.id + '/general'"
-							[product]="task?.product">
+							[status]="(product$ | async)?.status?.name"
+							[favorite]="(product$ | async)?.favorite"
+							[tags]="(product$ | async)?.tags"
+							[price]="(product$ | async)?.price"
+							[minimumOrderQuantity]="(product$ | async)?.minimumOrderQuantity"
+							[description]="(product$ | async)?.description ? (product$ | async)?.description : 'No description'"
+							[image]="(product$ | async)?.images?.length > 0 ? ((product$ | async)? | image:'m') : null"
+							[person]="(product$ | async)?.createdBy"
+							[link]="'/product/details/' + (product$ | async)?.id + '/general'"
+							[product]="(product$ | async)?">
 						</kanban-item-card-app>
 
       </div>
