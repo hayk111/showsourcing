@@ -1,6 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Task, Product, Supplier, ERM } from '~models';
 import { Router } from '@angular/router';
+import { InputDirective } from '~shared/inputs';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'task-list-app',
@@ -20,8 +22,10 @@ export class TaskListComponent implements OnInit {
 	@Output() openCreateDlg = new EventEmitter<null>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() updateTask = new EventEmitter<Task>();
+	@Output() createTask = new EventEmitter<any>(); // create task if not needed in the directive
 
-
+	@ViewChild(InputDirective) inp: InputDirective;
+	taskCtrl = new FormControl('');
 	hoverIndex: number;
 
 	trackByFn = (index, item) => item.id;
@@ -43,5 +47,14 @@ export class TaskListComponent implements OnInit {
 
 	openSupplier(id: string) {
 		this.router.navigate([ERM.SUPPLIER.singular, 'details', id]);
+	}
+
+	onEnter(event) {
+		event.preventDefault();
+		this.onSubmit();
+	}
+
+	onSubmit() {
+		this.createTask.emit({ name: this.taskCtrl.value });
 	}
 }
