@@ -22,7 +22,7 @@ export class TaskListComponent implements OnInit {
 	@Output() openCreateDlg = new EventEmitter<null>();
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() updateTask = new EventEmitter<Task>();
-	@Output() createTask = new EventEmitter<any>(); // create task if not needed in the directive
+	@Output() createTask = new EventEmitter<string>();
 
 	@ViewChild(InputDirective) inp: InputDirective;
 	taskCtrl = new FormControl('');
@@ -55,6 +55,6 @@ export class TaskListComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.createTask.emit({ name: this.taskCtrl.value });
+		this.createTask.emit(this.taskCtrl.value);
 	}
 }
