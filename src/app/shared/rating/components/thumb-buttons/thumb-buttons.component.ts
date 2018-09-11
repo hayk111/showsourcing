@@ -30,8 +30,6 @@ export class ThumbButtonsComponent extends AutoUnsub implements OnInit {
 	}
 	userVoteIndex: number;
 
-
-
 	@Input() size = 's';
 	// when we want the color of the thumb be the background isntead of the icon
 	@Input() reverse = false;

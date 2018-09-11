@@ -245,8 +245,8 @@ export abstract class ListPageComponent<T extends { id?: string }, G extends Glo
 	}
 
 	/** Update a entity */
-	update(entity: T) {
-		this.featureSrv.update(entity).subscribe();
+	update(entity: T, fields?: string | string[]) {
+		this.featureSrv.update(entity, fields).subscribe();
 	}
 
 	/** Will show a confirm dialog to delete items selected */

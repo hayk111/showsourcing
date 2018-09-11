@@ -2,10 +2,6 @@
 	padding: 6px 0px;
 	padding-right: var(--spacing-ms);
 
-	icon-app {
-		cursor: default;
-	}
-
 	.task-name {
 		width: 55%;
 		color: var(--color-txt-strong);
@@ -17,6 +13,7 @@
 	}
 
 	.task-product, .task-supplier {
+		width: 40%;
 		img-app {
 			margin-right: var(--spacing-s);
 			height: 20px;
@@ -24,15 +21,24 @@
 		}
 	}
 
-	.task-supplier {
-		width: 40%;
-	}
+	// .task-supplier {
+	// 	width: 40%;
+	// }
 
 	.task-user-status, .task-user {
 		width: 35%;
+
+		user-picture-app, selector-entity-app {
+			margin-right: var(--spacing-s);
+		}
 		user-picture-app {
 			font-size: var(--font-size-xs);
-			margin-right: var(--spacing-s);
+		}
+
+		selector-entity-app {
+			margin-top: -12px;
+			top: 7px;
+			position: relative;
 		}
 	}
 

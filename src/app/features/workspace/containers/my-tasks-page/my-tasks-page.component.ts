@@ -8,6 +8,7 @@ import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { CreateTaskDialogComponent } from '~shared/task-common/components/create-task-dialog/create-task-dialog.component';
 import { realmDateFormat } from '~utils/realm-date-format.util';
+import { TaskQueries } from '~global-services/task/task.queries';
 
 @Component({
 	selector: 'workspace-my-tasks-page-app',
@@ -29,6 +30,7 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 
 	ngAfterViewInit() {
 		this.filterList.addFilter({ type: FilterType.DUE_DATE, value: realmDateFormat(new Date()) });
+		// this.filterList.addFilter({ type: FilterType.DUE_DATE_NULL, value: null });
 		this.filterList.addFilter({ type: FilterType.DONE, value: false });
 	}
 
@@ -49,5 +51,9 @@ export class MyTasksPageComponent extends ListPageComponent<Task, TaskService> i
 			this.filterList.addFilter({ type: FilterType.DONE, value: false });
 		}
 		// this.filterList.removeFilter(filterDone);
+	}
+
+	updateTask(task: Task) {
+		this.update(task, TaskQueries.one);
 	}
 }

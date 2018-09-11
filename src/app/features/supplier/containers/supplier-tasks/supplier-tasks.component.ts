@@ -7,6 +7,7 @@ import { FilterType, SearchService } from '~shared/filters';
 import { ListPageComponent } from '~shared/list-page/list-page.component';
 import { SelectionService } from '~shared/list-page/selection.service';
 import { CreateTaskDialogComponent } from '~shared/task-common/components/create-task-dialog/create-task-dialog.component';
+import { TaskQueries } from '~global-services/task/task.queries';
 
 @Component({
 	selector: 'supplier-tasks-app',
@@ -47,5 +48,9 @@ export class SupplierTasksComponent extends ListPageComponent<Task, TaskService>
 		} else {
 			this.filterList.removeFilter(filterDone);
 		}
+	}
+
+	updateTask(task: Task) {
+		this.update(task, TaskQueries.one);
 	}
 }

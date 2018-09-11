@@ -1,20 +1,26 @@
 <div class="flexStart row">
 	<!-- name -->
 	<div class="flex task-name ellipsis">
-		<icon-app [name]="task?.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg"></icon-app>
-		<div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
+		<div class="flex" (click)="toggleDoneStatus()">
+			<icon-app [name]="task?.done ? 'check-green-round' : 'check-empty-round'" fontSet="svg"></icon-app>
+			<div [ngStyle]="{'text-decoration': task?.done ? 'line-through' : 'none'}">{{ task?.name || 'Unnamed task' }}</div>
+		</div>
 	</div>
 
 	<!-- if product -->
-	<div *ngIf="hasProduct && task?.product" class="flexStart task-product">
-		<img-app [size]="xs" [image]="task?.product?.images"></img-app>
-		{{ task?.product?.name || 'Unnamed product'}}
+	<div *ngIf="hasProduct && task?.product" class="flexStart task-product ellipsis">
+		<div class="flex" (click)="openProduct.emit(task?.product?.id || null)">
+			<img-app [size]="xs" [image]="task?.product?.images"></img-app>
+			{{ task?.product?.name || 'Unnamed product'}}
+		</div>
 	</div>
 
 	<!-- if supplier -->
 	<div *ngIf="hasSupplier && task?.supplier" class="flexStart task-supplier ellipsis">
-		<img-app [size]="xs" [image]="task?.supplier?.logoImage"></img-app>
-		{{ task?.supplier?.name || 'Unnamed suppler' }}
+		<div class="flex" (click)="openSupplier.emit(task?.product?.id || null)">
+			<img-app [size]="xs" [image]="task?.supplier?.logoImage"></img-app>
+			{{ task?.supplier?.name || 'Unnamed suppler' }}
+		</div>
 	</div>
 
 	<!-- user+name column -->
@@ -25,7 +31,8 @@
 
 	<!-- task status -->
 	<div class="flexEnd task-user-status">
-		<user-picture-app *ngIf="!fullUser" [user]="task?.assignee" [size]="20" [border]="true"></user-picture-app>
+		<selector-entity-app #selector *ngIf="selectorVisible" type="user" (clickOutside)="toggleSelector(false)" (change)="updateAssignee($event)"></selector-entity-app>
+		<user-picture-app *ngIf="!fullUser && !selectorVisible" [user]="task?.assignee" [size]="20" [border]="true" (click)="toggleSelector(true)"></user-picture-app>
 		<div class="flex task-status"
 		[ngClass]="{'task-done': getStatus === 'done', 'task-overdue': getStatus === 'overdue', 'task-pending': getStatus === 'pending'}">
 			<icon-app name="circle" fontSet="fa" color="red"></icon-app>

@@ -8,6 +8,7 @@ import { SelectorEntityComponent } from '~shared/selectors/components/selector-e
 import { SelectorComponent } from '~shared/selectors/components/selector/selector.component';
 import { UtilsModule } from '~shared/utils';
 import { ImageModule } from '~shared/image/image.module';
+import { UserPictureModule } from '~shared/user-picture';
 
 const components = [
 	SelectorComponent,
@@ -22,6 +23,7 @@ const components = [
 		FormsModule,
 		InputsModule,
 		ImageModule, // pipes are used
+		UserPictureModule
 	],
 	declarations: components,
 	exports: components

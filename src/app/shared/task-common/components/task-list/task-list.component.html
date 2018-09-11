@@ -14,7 +14,10 @@
 			[hasSupplier]="hasSupplier"
 			[task]="task"
 			[fullUser]="fullUser"
-			[ngClass]="{'border-top': first, 'no-border': last}">
+			[ngClass]="{'border-top': first, 'no-border': last}"
+			(openProduct)="openProduct($event)"
+			(openSupplier)="openSupplier($event)"
+			(updateTask)="updateTask.emit($event)">
 		</task-app>
 	</div>
 	<divider-app></divider-app>
