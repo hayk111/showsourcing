@@ -31,12 +31,21 @@ export class SupplierTasksComponent extends ListPageComponent<Task, TaskService>
 		this.filterList.addFilter({ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id });
 	}
 
-	toggleFilter(show: boolean) {
+	toggleMyTasks(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show) {
 			this.filterList.addFilter(filterAssignee);
 		} else {
 			this.filterList.removeFilter(filterAssignee);
+		}
+	}
+
+	toggleDoneTasks(show: boolean) {
+		const filterDone = { type: FilterType.DONE, value: true };
+		if (show) {
+			this.filterList.addFilter(filterDone);
+		} else {
+			this.filterList.removeFilter(filterDone);
 		}
 	}
 }

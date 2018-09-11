@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit {
 		let status = 'pending';
 		if (this.task.done)
 			status = 'done';
-		else if (this.task.dueDate && (Date.parse(this.task.dueDate.toString()) > new Date().getTime()))
+		else if (this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
 			status = 'overdue';
 		return status;
 	}
