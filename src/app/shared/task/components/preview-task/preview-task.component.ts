@@ -30,7 +30,8 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
 
   @Input('task')
   set task(value: Task) {
-    this._task = Object.assign(new Task(), value);
+    this._task = value;
+    // this._task = Object.assign(new Task(), value);
     // if (this._task.product) {
     //   this.product$ = this.productService.selectOne(this._task.product.id);
     //   this.product$.pipe(
@@ -83,17 +84,14 @@ export class PreviewTaskComponent extends AutoUnsub implements OnInit, AfterView
   }
 
   updateTaskDescription(description: string) {
-    this._task.description = description;
 		this.updateTaskServer({ description });
   }
 
 
   updateTaskName(name: string) {
-    this._task.name = name;
 		this.updateTaskServer({ name });
   }
   updateTaskDueDate(dueDate: Date) {
-    this._task.dueDate = dueDate;
 		this.updateTaskServer({ dueDate });
   }
   // openRfq() {

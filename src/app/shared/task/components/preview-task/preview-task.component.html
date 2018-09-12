@@ -12,7 +12,7 @@
     <icon-app class="close pointer" fontSet="fa" name="times" (click)="close.emit()"></icon-app>
   </side-panel-action-app>
 
-  <ng-container>
+  <ng-container *ngIf="task$ | async as task">
     <div class="task-name">
       <editable-text-app #editable [closeOnOutsideClick]="true"  (saved)="updateTaskName(txtName.value)" [hasAction]="true">
         <editable-label-app class="task-name">
