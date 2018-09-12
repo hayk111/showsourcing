@@ -8,17 +8,17 @@ import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { IconsModule } from '~shared/icons';
 import { CreateTaskDialogComponent } from './components/create-task-dialog/create-task-dialog.component';
-import { PreviewTaskComponent } from '~shared/task-common/components/preview-task/preview-task.component';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 import { DynamicFormsModule } from '~shared/dynamic-forms';
 import { ProductCommonModule } from '~shared/product-common/product-common.module';
+import { PreviewTaskComponent } from '~shared/task-common/components/preview-task/preview-task.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
-    UserPictureModule,
-    ProductCommonModule,
+		UserPictureModule,
+		ProductCommonModule,
 		DynamicFormsModule,
 		UtilsModule,
 		ImageModule,

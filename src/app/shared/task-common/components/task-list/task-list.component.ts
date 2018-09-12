@@ -24,16 +24,17 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() updateTask = new EventEmitter<Task>();
 	@Output() createTask = new EventEmitter<string>();
+	@Output() previewClicked = new EventEmitter<Task>();
 
 	@ViewChild(InputDirective) inp: InputDirective;
 	taskCtrl = new FormControl('');
-  hoverIndex: number;
+	hoverIndex: number;
 
 	constructor(
 		protected router: Router,
 	) {
-    super();
-  }
+		super();
+	}
 
 	ngOnInit() {
 	}
